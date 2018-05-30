@@ -22,5 +22,6 @@ object Play
          (11, (pCard.BlackJack(_), "ScalaFx BlackJack")),
          (12, (new Checkers(_), "Checkers")),         
          )
+    /** Change the number below to select a different application */     
     val curr: (CanvDisp => Unit, String) = theMap(1)
 }
