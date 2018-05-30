@@ -16,20 +16,16 @@ This will build and launch a ScalaFx window. It will rebuild and relaunch everyt
 
 Changing the number will also change the application for the Js build. that can be rebuilt in similar manner with the command:
 
-~ PlayJs/fastOptJS
-
-The file
+~ JsPlay/fastOptJS
 
 WebPages/fastPlay.html
 
 will display the results. Unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finsihed the rebuild. To get an optomised Javascript executable run:
 
-PlayJs/fullOptJS
-
-The result can be seen in 
+JsPlay/fullOptJS
 
 WebPages/fullPlay.html
 
-after the build has been completed.
+will display the results after the build has been completed.
 
 
