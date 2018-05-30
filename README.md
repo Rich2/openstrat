@@ -1,7 +1,7 @@
 # openstrat
 Cross platform scala 2d graphics, basic geometry, maps, earth maps, hex-tiling and strategy library. It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the Javascript version can be seen at richstrat.com.
 
-I've currently just included a build file for the ScalaFx version. My hope / intention is to create something accessable to complete beginners. Complete beginners in Scala certainly, but eventually even complete beginners to programming. Because of this I'm not sure whether to use sbt or Mill. S For the time being though, there will not be the documentation to support non scala developers, however if you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt.
+I've currently just included a build file for the ScalaFx version. My hope / intention is to create something accessable to complete beginners. Complete beginners in Scala certainly, but eventually even complete beginners to programming. Because of this I'm not sure whether to use sbt or Mill. For the time being though, there will not be the documentation to support non scala developers, however if you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt.
 
 I test on Linux and from time to time on Windows 7.
 
