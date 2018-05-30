@@ -7,3 +7,9 @@ I've tested the current build on Linux and Windows 7.
 
 Sbt current set to 1.1.4, due to problem with ~ in 1.1.5.
 Scala set to 2.12.6. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
+
+~ FxPlay/reStart
+
+~ PlayJs/fastOptJS
+
+

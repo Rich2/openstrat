@@ -2,8 +2,8 @@
 package rich
 package pSJs
 
-object DungeonJsApp// extends scala.scalajs.js.JSApp
+object DungeonJsApp
 {
-   def main(args: Array[String]): Unit = {new pDung.DungGui(CanvDispJs)}
+   def main(args: Array[String]): Unit = new pDung.DungGui(CanvDispJs)
 }
 

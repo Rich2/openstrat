@@ -2,7 +2,7 @@
 package rich
 package pSJs
 
-object ZugJsApp
+object JsPlay
 {
-   def main(args: Array[String]): Unit = new pZug.ZugGui(CanvDispJs)
+   def main(args: Array[String]): Unit = pPlay.Play.curr._1(CanvDispJs)
 }

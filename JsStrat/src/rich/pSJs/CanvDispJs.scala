@@ -51,13 +51,13 @@ object CanvDispJs extends CanvTopLeft with CanvBrowser
          mouseDownTopLeft(e.clientX - rect.left, e.clientY  -rect.top, getButton(e))
       }  
 
-// NOT SURE IF THIS WAs USEFUL WAS GIVING REFERERENCE ERROR      
-//   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) => e.deltaY match
-//      {
-//         case 0 => 
-//         case d if d < 0 => onScroll(true)
-//         case _ => onScroll(false)
-//      }
+// NOT SURE IF THIS USEFUL WAS GIVING REFERERENCE ERROR      
+   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) => e.deltaY match
+      {
+         case 0 => 
+         case d if d < 0 => onScroll(true)
+         case _ => onScroll(false)
+      }
       
    can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
    window.onresize = (e: UIEvent) =>

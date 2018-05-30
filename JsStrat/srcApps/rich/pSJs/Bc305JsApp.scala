@@ -2,7 +2,7 @@
 package rich
 package pSJs
 
-object Bc305JsApp// extends scala.scalajs.js.JSApp
+object Bc305JsApp
 {
    import p305._
    def main(args: Array[String]): Unit = BC305Gui(CanvDispJs, BC1)

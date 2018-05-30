@@ -1,10 +1,12 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pJsClient
 //import geom._
 //import pParse._
 //import org.scalajs.dom._
 //import Colour._
 
+/** Not sure if this needs deleting */
 object hexGen1
 {
   def apply() =

@@ -1,9 +1,10 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pSJs
 import org.scalajs.dom._
 import scala.scalajs.js.Any.fromString
 
-object WebGlApp //extends scala.scalajs.js.JSApp
+object WebGlApp
 {
    def main(args: Array[String]): Unit =  
    {

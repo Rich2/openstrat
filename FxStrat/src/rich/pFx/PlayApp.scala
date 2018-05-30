@@ -1,4 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pFx
 import scalafx.scene.canvas.{Canvas => CanvasFx} 
 import geom._
@@ -23,5 +24,5 @@ object PlayArgs
    val a12: (CanvasFx => Unit, String) = (cf => new Checkers(CanvDispFx(cf)), "Checkers")
 }
 
-import PlayArgs._
-object PlayApp extends RSApp(a1)
+import pPlay.Play._
+object PlayApp extends RSApp(cf => curr._1(CanvDispFx(cf)), curr._2)

@@ -1,19 +1,38 @@
+name := "OpenStrat"
 scalaVersion in ThisBuild := "2.12.6"
-organization in ThisBuild := "OpenStrat"
+organization in ThisBuild := "OpenStratOrg"
 
-def proj(name: String, versionStr: String): Project = Project(name, file(name)).settings(
-	scalaSource in Compile := baseDirectory.value / "src",
-	version := versionStr,
+val commonSett = Seq(	
     scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint", "-Yno-adapted-args"),
     libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value
 )
 
-val ante = proj("AnteCompono","0.0.1")
-val common = proj("Common", "0.0.1").dependsOn(ante)
+val anteSett = Seq(
+   scalaSource in Compile := (baseDirectory in ThisBuild).value / "AnteCompono/src",
+   version := "0.0.1",
+) ++ commonSett
 
-lazy val fxStrat = proj("FxStrat", "0.0.1").dependsOn(common).settings(          
-      libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",
-      mainClass in Compile := Some("rich.pFx.PlayApp"),      
-      artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "fx.jar" },
-      assemblyJarName in assembly := "Fx.jar"
-      )
+lazy val AnteJvm = project.settings(anteSett)
+lazy val AnteJs = project.settings(anteSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+
+val coreSett = Seq(
+   scalaSource in Compile := (baseDirectory in ThisBuild).value / "Core/src",
+   version := "0.0.1") ++ commonSett
+
+lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett)
+lazy val CoreJs = project.dependsOn(AnteJs).settings(coreSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+
+lazy val FxPlay = project.dependsOn(CoreJvm) .settings(commonSett).settings(
+  version := "0.0.1",
+  scalaSource in Compile := (baseDirectory in ThisBuild).value / "FxStrat/src",    
+  libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",
+  mainClass in Compile := Some("rich.pFx.PlayApp"),      
+  artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "fx.jar" },
+  assemblyJarName in assembly := "Fx.jar"
+)
+
+lazy val PlayJs = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
+  scalaSource in Compile := (baseDirectory in ThisBuild).value / "JsStrat/src",
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",
+  version := "0.0.1",
+)
