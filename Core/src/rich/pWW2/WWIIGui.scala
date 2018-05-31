@@ -8,7 +8,7 @@ import pStrat._
 
 case class WWIIGui(canv: CanvDisp, scen: WWIIScen) extends EarthAllGui
 {
- 
+   deb("Beginning WW2 Gui changed text")
    focusUp = true
    override def saveNamePrefix = "WW2"
    val fHex: ETileOfGrid[W2Tile] => Disp2 = etog =>
