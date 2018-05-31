@@ -23,5 +23,5 @@ object Play
          (12, (new Checkers(_), "Checkers")),         
          )
     /** Change the number below to select a different application */     
-    val curr: (CanvDisp => Unit, String) = theMap(8)
+    val curr: (CanvDisp => Unit, String) = theMap(4)
 }
