@@ -28,7 +28,7 @@ WebPages/fullPlay.html
 
 will display the results after the build has been completed.
 
-## The Code. There are 4 modules:
+## The Code currently has 4 modules:
 
 1. AnteCompono. This is only a seperate module at the moment because of the macros. just a a couple of simple macros so as I can track down the source location of my debug printlns. As well as some general utilities stuff. It includes my persistence framework and the array based int and Double product collection traits.
 
@@ -44,3 +44,4 @@ will display the results after the build has been completed.
 
 4. JsStrat An implementation for canvas using Scala.Js on to an Html canvas.
 
+The code is currently organised for my convenience. However if any of it ever gains significant traction with other developers, then I would be very happy to break it up and reorganise if necessary. The packages are structured for future break up, although the split between geom and pDisp packages is not complelty clear and I'm not entirely comfortable with it in its current form. So think of geom and pDisp as one sub-module.
