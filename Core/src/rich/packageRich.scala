@@ -1,20 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-/** This is just my Scala Utility package. Useful methods and classes that I want accessible at all times. I am publishing this,
- *   so as I can
-
-import Aliases.{Aliases => c}
-import scala.Left
-import scala.Right
-import scala.collection.Seq
-import scala.language.experimental.macros
-import scala.reflect.api.materializeTypeTag
-import scala.reflect.api.materializeWeakTypeTag
-methods and classes that I want accessible at all times. I am publishing this, so as I can
- *  use it in published code as is. My apologies that this in a very rough state, but it may be useful in understanding other packages / code
- *  that I choose to blog about.  
- */
-
-
+/** This is the root package for all code. The top of this package is persistence and general utilities. It is currently organised for my
+ *  own convenience both in terms of sub-project division and package division. Even for that limited purpose, I'm not entirely happy
+ *  with it and the structure of the sub-packages could do with some re-thinking. If I find  major collaborators, then packages and 
+ *  projects can be reorganised to better facilitate the needs of the team. */
 package object rich
 {
    /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
@@ -69,9 +57,7 @@ package object rich
    }
 
    implicit def traversableToRichImp[A](trav: Traversable[A]) = TraversableRichImp[A](trav)
-
    implicit def arrayToTraversableRichImp[A](arr: Array[A]) = TraversableRichImp[A](arr)
-
    implicit def stringTraverableToRichImp(strTrav: Traversable[String]): StringTraversable = StringTraversable(strTrav)   
    implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversable = StringTraversable(strArray) 
    implicit def EMonToImplicit[A](eMon: EMon[A]): EMonImplicit[A] = new EMonImplicit[A](eMon)
@@ -104,8 +90,7 @@ package object rich
          case Left(a) => a
          case Right(a) => a
       }
-   }
-   
+   }   
    
    implicit class CharRichClass(thisChar: Char)
    {
@@ -213,38 +198,5 @@ package object rich
 //       *  the same, however the function maintains the ordering. */
 //      def pairSeqSeqFlatten: (Seq[A], Seq[B]) = thisSeq.foldLeft[(Seq[A], Seq[B])]((Seq(), Seq()))((acc, el) => (acc._1 ++ el._1, acc._2 ++ el._2))
 //   } 
-   import language.experimental.macros
-   import reflect.macros.blackbox.Context
-   
-   def macroPosn(c: Context)(posn: c.Position): String =
-   {
-      val fileName = posn.source.toString
-      val lineNum: String = posn.line.toString
-      val column: String = posn.column.toString
-      fileName.dotAppend(lineNum, column)
-   }
-   
-   def deb(str: String): Unit = macro debImpl
-   
-   def debImpl(c: Context)(str: c.Expr[String]): c.Expr[Unit] = 
-   {
-      import c.universe._     
-      val pos: Position  = c.macroApplication.pos      
-      val s1 = macroPosn(c)(pos)
-      val Predef_println = typeOf[Predef.type].decl(TermName("println"))
-      c.Expr(q"""$Predef_println($s1 + ": " + $str)""")
-   }
-   
-   def debv(s: Any): Unit = macro debvImpl  
-   
-   def debvImpl(c: Context)(s: c.Expr[Any]): c.Expr[Unit] = {
-      import c.universe._      
-      val name = show(s.tree).reverse.takeWhile(_ != '.').reverse      
-      val pos: Position  = c.macroApplication.pos      
-      val s1: String = macroPosn(c)(pos)
-      val Predef_println: Symbol = typeOf[Predef.type].decl(TermName("println"))
-      c.Expr(q"""$Predef_println($s1 -- $name + ": " + $s)""")
-   }
-   
  
 }

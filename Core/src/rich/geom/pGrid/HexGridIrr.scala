@@ -77,13 +77,12 @@ abstract class HexGridIrr[TileT <: Tile](val rowBounds: Array[Int], xTileMin: In
    //   setRowStart(y, xStart)
       tiles.iForeach{(e, i) =>
          val x = xStart + i * 4
-         setTile(x, y, f(x, y, e))
-         
+         setTile(x, y, f(x, y, e))         
       }
    }
    
   // def fSetAll[A](f: (Int, Int, A) => TileT, tValue: A): Unit = this.tilesSetAll(f(_, _, tValue))
-   /** sets the inner sides of the grid */
+ //  /** sets the inner sides of the grid */
  //  def setDefaultSides(defaultSide: SideT): Unit = ???
 //   {
 //      //sets the even rows
