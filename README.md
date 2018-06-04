@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Cross platform scala 2d graphics, basic geometry, maps, earth maps, hex-tiling and strategy library. It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the Javascript version can be seen at (richstrat.com)[richstrat.com], documentation at (richstrat.com/api/rich/index.htlm)[richstrat.com/api/rich/index.htlm].
+Cross platform scala 2d graphics, basic geometry, maps, earth maps, hex-tiling and strategy library. It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the Javascript version can be seen at [richstrat.com](richstrat.com), documentation at [richstrat.com/api/rich/index.htlm](richstrat.com/api/rich/index.htlm).
 
 My hope / intention is to create something accessable to complete beginners. Complete beginners in Scala certainly, but eventually even complete beginners to programming. Because of this I'm not sure whether to use sbt or Mill. For the time being though, there will not be the documentation to support non scala developers, however if you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.
 
