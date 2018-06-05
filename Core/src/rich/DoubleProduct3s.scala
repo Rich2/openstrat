@@ -1,10 +1,11 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package rich
 
-abstract class DoubleProduct3s[A <: ProdD3](val length: Int) extends ValueProducts[A]
+trait DoubleProduct3s[A <: ProdD3] extends Any with ValueProducts[A]
 {
-   def arrLen = length * 3
-   val arr: Array[Double] = new Array[Double](arrLen)
+   def productSize = 3
+   def arr: Array[Double]
+   def arrLen = arr.length   
    def newElem(d1: Double, d2: Double, d3: Double): A
    def apply(index: Int): A = newElem(arr(3 * index), arr(3 * index + 1), arr(3 * index + 2))
    def setElem(index: Int, elem: A): Unit =

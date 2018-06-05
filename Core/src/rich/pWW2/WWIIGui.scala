@@ -9,6 +9,7 @@ import pStrat._
 
 case class WWIIGui(canv: CanvDisp, scen: WWIIScen) extends EarthAllGui
 {
+   deb( (-4.million).toString)
    deb("Beginning WW2 Gui changed text")
    focusUp = true
    override def saveNamePrefix = "WW2"

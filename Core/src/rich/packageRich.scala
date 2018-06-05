@@ -43,8 +43,13 @@ package object rich
    def eTry[A](res: => A): EMon[A] =
       try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
    def commaedObjs(objs: Any*) = objs.map(_.toString).commaFold
+   val two32: Long = 4294967296l
+   def twoIntsToDouble(i1: Int, i2: Int): Double ={
+      val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL)
+      java.lang.Double.longBitsToDouble(lg)   
+   }
    
-   implicit def AnyToImplicit[A](value: A): AnyImplicit[A] = new AnyImplicit[A](value)   
+   implicit def AnyToImplicit[A](value: A): AnyTImplicit[A] = new AnyTImplicit[A](value)   
    implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)
    implicit def intToRichImplicit(i: Int) = new IntImplicit(i)
    implicit def doubleToRichImp(d: Double) = new DoubleImplicit(d)

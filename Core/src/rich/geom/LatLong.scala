@@ -147,14 +147,14 @@ object LatLong
 
 trait LatlongOrVertNum
 
-class LatLongs(length: Int) extends DoubleProduct2s[LatLong](length)
+class LatLongs(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[LatLong]//(length)
 {
    override def newElem(d1: Double, d2: Double): LatLong = LatLong.apply(d1, d2)
 }
 
-object LatLongs extends Double2Maker[LatLong, LatLongs]
+object LatLongs extends Double2sMaker[LatLong, LatLongs]
 {
-   implicit val factory: Int => LatLongs = i => new LatLongs(i)
+   implicit val factory: Int => LatLongs = i => new LatLongs(new Array[Double](i * 2))
 }
 
 

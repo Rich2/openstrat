@@ -30,15 +30,19 @@ will display the results after the build has been completed.
 
 ## The Code currently has 4 modules:
 
-1. AnteCompono. This is only a seperate module at the moment because of the macros. just a a couple of simple macros so as I can track down the source location of my debug printlns. As well as some general utilities stuff. It includes my persistence framework and the array based int and Double product collection traits.
+1. AnteCompono. This is only a seperate module at the moment because of the macros. just a a couple of simple macros so as I can track down the source location of my debug printlns.
 
 2. Core. The bulk of the code including:
+   * General utilities.
+   * Persistence framework.
+   * Array based Int and Double product traits collection traits.
    * Basic  geometry.
-   * Abstract canvas and classes for placing objects on that abstract canvas
-   * classes for the manipulation and display of maps
+   * A number of implementation Value classes of the Int and Double product classes.
+   * Abstract canvas and classes for placing objects on that abstract canvas.
+   * classes for the manipulation and display of maps.
    * Square and hex tile grid geometry.
-   * Earth geometry and terrain
-   * A number of rudimentary games and applications using varing amounts of the above
+   * Earth geometry and terrain.
+   * A number of rudimentary games and applications using varing amounts of the above.
 
 3. FxStrat An implementation for Canvas using ScalaFx
 

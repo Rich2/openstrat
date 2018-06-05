@@ -4,17 +4,7 @@ package pSJs
 
 object PlanetsJsApp
 {
-   def main(args: Array[String]): Unit = geom.pSpace.Planets(CanvDispJs)  
+   def main(args: Array[String]): Unit = pSpace.Planets(CanvDispJs)  
 }
 
-//object Planets 
-//{
-//   //def requirements: HtmlDiv = CanvMapSt.htmlRequirements    
-//}
-//
-//object CanvMapSt
-//{
-//   //import pParse._
-//   //def htmlRequirements: HtmlDiv = HtmlDiv()(IdAtt("sjs"))
-//}
 

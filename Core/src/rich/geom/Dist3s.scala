@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
 package geom
 
-class Dist3s(length: Int) extends DoubleProduct3s[Dist3](length)
+class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]//(length)
 {
    override def newElem(d1: Double, d2: Double, d3: Double): Dist3 = new Dist3(d1, d2, d3)
    /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth).
@@ -52,5 +52,5 @@ class Dist3s(length: Int) extends DoubleProduct3s[Dist3](length)
 
 object Dist3s
 {
-   implicit val factory: Int => Dist3s = i => new Dist3s(i)
+   implicit val factory: Int => Dist3s = i => new Dist3s(new Array[Double](i * 3))
 }

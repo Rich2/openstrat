@@ -1,10 +1,11 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package rich
 
-abstract class IntProduct2s[A <: ProdI2](val length: Int) extends ValueProducts[A]
+trait IntProduct2s[A <: ProdI2] extends Any with ValueProducts[A]
 {
-   def arrLen = length * 2
-   val arr: Array[Int] = new Array[Int](arrLen)
+   def productSize: Int = 2
+   def arr: Array[Int]
+   def arrLen = arr.length
    def newElem(i1: Int, i2: Int): A
    def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
    def setElem(index: Int, elem: A): Unit =

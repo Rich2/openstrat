@@ -2,7 +2,7 @@
 package rich
 
 /** Implicit def from A <: Any to AnyImplicit[A] in the package object */
-class AnyImplicit[A](thisA: A)
+class AnyTImplicit[A](val thisA: A) extends AnyVal
 {
    //def rubbishMethod: String = "Rubbish"
    def -+[B >: A](operand: B): ::[B] = ::(thisA, operand :: Nil)

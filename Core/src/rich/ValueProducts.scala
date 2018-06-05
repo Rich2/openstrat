@@ -1,9 +1,11 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package rich
 
-trait ValueProducts[A]// extends TraversableOnce[A]
+trait ValueProducts[A] extends Any// extends TraversableOnce[A]
 {
-   val length: Int
+   def productSize: Int
+   def arrLen: Int
+   final def length: Int = arrLen / productSize
    def apply(index: Int): A
    def setElem(index: Int, elem: A): Unit
    def head: A = apply(0)

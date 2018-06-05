@@ -3,7 +3,7 @@ package geom
 import pDisp._
 
 /** A plain 2 dimension (mathematical) vector */
-class Vec2s(length: Int) extends DoubleProduct2s[Vec2](length) with Transable[Vec2s]
+class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] with Transable[Vec2s]
 {
    override def toString: String = "Vec2" - lMap(_.toString).commaParenth
    override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
@@ -69,7 +69,7 @@ class Vec2s(length: Int) extends DoubleProduct2s[Vec2](length) with Transable[Ve
   
    def closedPolygonToLine2s: Line2s =
    {
-      val res = new Line2s(length)
+      val res: Line2s = Line2s(length)
      // println(toString)
       for (i <- 0 until (length -1)) res.setElem(i, Line2(apply(i), apply(i + 1)))      
       res.setLast(Line2(last, head))
@@ -92,9 +92,9 @@ class Vec2s(length: Int) extends DoubleProduct2s[Vec2](length) with Transable[Ve
    
 }
 
-object Vec2s extends Double2Maker[Vec2, Vec2s]
+object Vec2s extends Double2sMaker[Vec2, Vec2s]
 {
-   implicit val factory: Int => Vec2s = i => new Vec2s(i)
+   implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
    @inline def xy(inp: Double *): Vec2s = doubles(inp: _*)
 }
 

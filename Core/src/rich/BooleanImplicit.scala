@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package rich
 
-class BooleanImplicit(thisBool : Boolean)// extends PersistSimple
+class BooleanImplicit(val thisBool : Boolean) extends AnyVal// extends PersistSimple
 {
    //def persistStr: String = if (thisBool) "True" else "False"
    /** Folds the Boolean, a safer and more functional alternative to using an if else statement */

@@ -1,10 +1,11 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package rich
 
-abstract class DoubleProduct2s[A <: ProdD2](val length: Int) extends ValueProducts[A]
+trait DoubleProduct2s[A <: ProdD2] extends Any with ValueProducts[A]
 {
-   def arrLen = length * 2
-   val arr: Array[Double] = new Array[Double](arrLen)
+   def productSize: Int = 2
+   def arr: Array[Double]
+   def arrLen = arr.length   
    def newElem(d1: Double, d2: Double): A
    def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
    def setElem(index: Int, elem: A): Unit =
@@ -36,9 +37,10 @@ abstract class DoubleProduct2s[A <: ProdD2](val length: Int) extends ValueProduc
    }   
 }
 
-abstract class Double2Maker[T <: ProdD2, ST <: DoubleProduct2s[T]]
+abstract class Double2sMaker[T <: ProdD2, ST <: DoubleProduct2s[T]]
 {
    val factory: Int => ST
+   def apply(length: Int): ST = factory(length)
    def apply(elems: T*): ST =
    { 
       val length = elems.length

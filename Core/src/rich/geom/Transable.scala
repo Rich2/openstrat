@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
 package geom
 
-trait Transable[T]
+trait Transable[T] extends Any
 {
    def fTrans(f: Vec2 => Vec2):  T 
   // def fTrans(f: ProdD2 => ProdD2): T

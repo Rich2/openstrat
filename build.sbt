@@ -19,7 +19,12 @@ val coreSett = Seq(
    scalaSource in Compile := (baseDirectory in ThisBuild).value / "Core/src",
    version := "0.0.1") ++ commonSett
 
-lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett)
+lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett),settings(
+  unmanagedSourceDirectories in Test += testFile("Core"), 
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.3" % "test",
+  testFrameworks += new TestFramework("utest.runner.Framework"),
+
+)
 lazy val CoreJs = project.dependsOn(AnteJs).settings(coreSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 lazy val FxPlay = project.dependsOn(CoreJvm) .settings(commonSett).settings(

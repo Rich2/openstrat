@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package rich
 
-class DoubleImplicit(thisDouble: Double)// extends PersistSimple[Double
+class DoubleImplicit(val thisDouble: Double) extends AnyVal// extends PersistSimple[Double
 {
    def %%(divisor: Double): Double =
    {
@@ -9,7 +9,7 @@ class DoubleImplicit(thisDouble: Double)// extends PersistSimple[Double
       ife(r < 0, divisor + r, r)
    }
    //override def persistStr: String = thisDouble.toString
-   val precision = 1e12
+   def precision = 1e12
    def =~ (other: Double): Boolean =  ((thisDouble - other).abs/(thisDouble.abs.max(other.abs).max(1))) * precision  < 1
    def squared: Double = thisDouble * thisDouble
    def cubed: Double = thisDouble * thisDouble * thisDouble
@@ -34,6 +34,10 @@ class DoubleImplicit(thisDouble: Double)// extends PersistSimple[Double
    @inline def radiansToDegrees: Double = thisDouble * 180.0 / Pi
    @inline def degreesToRadians: Double = thisDouble * Pi / 180.0   
    @inline def toWholeDegsStr: String = round(radiansToDegrees).toString
+   def to2Ints: (Int, Int) = {
+      val lg = java.lang.Double.doubleToRawLongBits(thisDouble)   
+      ((lg >>> 32).toInt, (lg & 0xFFFFFFFFL).toInt)
+   }
    
    def toDegsMins: (Int, Int) =
    {

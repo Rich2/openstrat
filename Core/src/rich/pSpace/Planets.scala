@@ -1,6 +1,7 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
-package geom
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pSpace
+import geom._
 import pDisp._
 import Colour._
 

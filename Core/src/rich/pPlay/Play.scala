@@ -5,6 +5,7 @@ import geom._
 import pDisp._
 import pEarth._
 import pStrat._
+
 object Play
 {   
    val theMap: Map[Int, (CanvDisp => Unit, String)] = Map(
@@ -12,7 +13,7 @@ object Play
          (1, (pWW2.WWIIGui(_, pWW2.WW1940), "World War II")),
          (2, (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
          (3, (FlagsGui(_), "ScalaFx Browser Test")),
-         (4, (geom.pSpace.Planets(_), "ScalaFx Planets")),
+         (4, (pSpace.Planets(_), "ScalaFx Planets")),
          (5, (new pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
          (6, (new pDung.DungGui(_), "ScalaFx Dungeon")),
          (7, (new EGridGui(_, EuropeWestGrid[TerrOnly](TerrOnly.tileMaker)), "ScalaFx Europe Grid")),
