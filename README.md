@@ -30,7 +30,7 @@ will display the results after the build has been completed.
 
 ## The Code currently has 4 modules:
 
-1. AnteCompono. This is only a seperate module at the moment because of the macros. just a couple of simple macros so as I can track down the source location of my debug printlns.
+1. AnteCompono. This is only a seperate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
 2. Core. The bulk of the code including:
    * General utilities.
