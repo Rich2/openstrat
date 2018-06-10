@@ -1,3 +1,4 @@
+<link href="readme.css" rel="stylesheet"></link>
 # openstrat
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -18,15 +19,11 @@ Changing the number will also change the application for the Js build. that can 
 
 ~ JsPlay/fastOptJS
 
-WebPages/fastPlay.html
-
-will display the results. Unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finsihed the rebuild. To get an optomised Javascript executable run:
+<span style="color:blue">WebPages/fastPlay.html</span> will display the results. Unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finsihed the rebuild. To get an optomised Javascript executable run:
 
 JsPlay/fullOptJS
 
-WebPages/fullPlay.html
-
-will display the results after the build has been completed.
+<span style="color:blue">WebPages/fullPlay.html</span> will display the results after the build has been completed.
 
 ## The Code currently has 4 modules:
 
