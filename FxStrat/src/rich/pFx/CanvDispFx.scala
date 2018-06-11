@@ -170,14 +170,16 @@ case class CanvDispFx(canvFx: canvas.Canvas) extends CanvTopLeft with CanvSaver
    }      
    override def gcSave(): Unit = gc.save()
    override def gcRestore(): Unit = gc.restore() 
-   val uDir = "/sdat/RSave" // System.getProperty("user.home")
+   val saveDirStr =  System.getProperty("user.home") / "OpenStrat/saves" // 
    def save(fileName: String, output: String): Unit =
    {
       import java.io._
-      val pw = new PrintWriter(new File(uDir / fileName))
+      val dir = new File(saveDirStr)
+      if (!dir.exists) dir.mkdirs
+      val pw = new PrintWriter(new File(saveDirStr / fileName))
       pw.write(output)
       pw.close
    }
-  def load(fileName: String): EMon[String] = eTry(io.Source.fromFile(uDir / fileName).mkString)
+  def load(fileName: String): EMon[String] = eTry(io.Source.fromFile(saveDirStr / fileName).mkString)
    
 }

@@ -1,0 +1,32 @@
+Seq[SqD]
+( SqD(2, 2; Wall); SqD(2, 4; Wall); SqD(2, 6; Wall); SqD(2, 8; Wall); SqD(2, 10; Wall); SqD(2, 12; Wall);
+  SqD(2, 14; Wall); SqD(2, 16; Wall); SqD(2, 18; Wall); SqD(2, 20; Wall); SqD(2, 22; Wall); SqD(2, 24; Wall);
+  SqD(4, 2; Wall); SqD(4, 4; Wall); SqD(4, 6; Wall); SqD(4, 8; Open); SqD(4, 10; Open); SqD(4, 12; Open);
+  SqD(4, 14; Open); SqD(4, 16; Open); SqD(4, 18; Open); SqD(4, 20; Open); SqD(4, 22; Wall); SqD(4, 24; Wall);
+  SqD(6, 2; Wall); SqD(6, 4; Wall); SqD(6, 6; Wall); SqD(6, 8; Open); SqD(6, 10; Wall); SqD(6, 12; Open);
+  SqD(6, 14; Wall); SqD(6, 16; Wall); SqD(6, 18; Wall); SqD(6, 20; Open); SqD(6, 22; Wall); SqD(6, 24; Wall);
+  SqD(8, 2; Wall); SqD(8, 4; Open); SqD(8, 6; Open); SqD(8, 8; Open); SqD(8, 10; Wall); SqD(8, 12; Open);
+  SqD(8, 14; Wall); SqD(8, 16; Wall); SqD(8, 18; Wall); SqD(8, 20; Open); SqD(8, 22; Wall); SqD(8, 24; Wall);
+  SqD(10, 2; Wall); SqD(10, 4; Open); SqD(10, 6; Wall); SqD(10, 8; Wall); SqD(10, 10; Wall); SqD(10, 12; Open);
+  SqD(10, 14; Wall); SqD(10, 16; Open); SqD(10, 18; Wall); SqD(10, 20; Open); SqD(10, 22; Wall); SqD(10, 24; Wall);
+  SqD(12, 2; Wall); SqD(12, 4; Open); SqD(12, 6; Open); SqD(12, 8; Open); SqD(12, 10; Open); SqD(12, 12; Open);
+  SqD(12, 14; Wall); SqD(12, 16; Open); SqD(12, 18; Wall); SqD(12, 20; Open); SqD(12, 22; Wall); SqD(12, 24; Wall);
+  SqD(14, 2; Wall); SqD(14, 4; Open); SqD(14, 6; Wall); SqD(14, 8; Wall); SqD(14, 10; Wall); SqD(14, 12; Wall);
+  SqD(14, 14; Wall); SqD(14, 16; Open); SqD(14, 18; Wall); SqD(14, 20; Open); SqD(14, 22; Wall); SqD(14, 24; Wall);
+  SqD(16, 2; Wall); SqD(16, 4; Open); SqD(16, 6; Wall); SqD(16, 8; Wall); SqD(16, 10; Wall); SqD(16, 12; Open);
+  SqD(16, 14; Wall); SqD(16, 16; Open); SqD(16, 18; Open); SqD(16, 20; Open); SqD(16, 22; Wall); SqD(16, 24; Wall);
+  SqD(18, 2; Wall); SqD(18, 4; Open); SqD(18, 6; Wall); SqD(18, 8; Wall); SqD(18, 10; Wall); SqD(18, 12; Open);
+  SqD(18, 14; Wall); SqD(18, 16; Open); SqD(18, 18; Wall); SqD(18, 20; Open); SqD(18, 22; Wall); SqD(18, 24; Wall);
+  SqD(20, 2; Wall); SqD(20, 4; Open); SqD(20, 6; Wall); SqD(20, 8; Wall); SqD(20, 10; Wall); SqD(20, 12; Open);
+  SqD(20, 14; Open); SqD(20, 16; Open); SqD(20, 18; Wall); SqD(20, 20; Open); SqD(20, 22; Wall); SqD(20, 24; Wall);
+  SqD(22, 2; Wall); SqD(22, 4; Open); SqD(22, 6; Wall); SqD(22, 8; Wall); SqD(22, 10; Wall); SqD(22, 12; Wall);
+  SqD(22, 14; Wall); SqD(22, 16; Wall); SqD(22, 18; Wall); SqD(22, 20; Open); SqD(22, 22; Wall); SqD(22, 24; Wall);
+  SqD(24, 2; Wall); SqD(24, 4; Open); SqD(24, 6; Wall); SqD(24, 8; Wall); SqD(24, 10; Wall); SqD(24, 12; Open);
+  SqD(24, 14; Open); SqD(24, 16; Open); SqD(24, 18; Open); SqD(24, 20; Open); SqD(24, 22; Wall); SqD(24, 24; Wall);
+  SqD(26, 2; Wall); SqD(26, 4; Open); SqD(26, 6; Open); SqD(26, 8; Open); SqD(26, 10; Wall); SqD(26, 12; Open);
+  SqD(26, 14; Wall); SqD(26, 16; Wall); SqD(26, 18; Wall); SqD(26, 20; Wall); SqD(26, 22; Wall); SqD(26, 24; Wall);
+  SqD(28, 2; Wall); SqD(28, 4; Wall); SqD(28, 6; Wall); SqD(28, 8; Open); SqD(28, 10; Wall); SqD(28, 12; Open);
+  SqD(28, 14; Open); SqD(28, 16; Open); SqD(28, 18; Open); SqD(28, 20; Open); SqD(28, 22; Open); SqD(28, 24; Wall);
+  SqD(30, 2; Wall); SqD(30, 4; Wall); SqD(30, 6; Wall); SqD(30, 8; Open); SqD(30, 10; Wall); SqD(30, 12; Wall);
+  SqD(30, 14; Wall); SqD(30, 16; Wall); SqD(30, 18; Wall); SqD(30, 20; Wall); SqD(30, 22; Wall); SqD(30, 24; Wall);
+)
