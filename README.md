@@ -15,7 +15,7 @@ sbt //From the root folder of Openstrat
 From within the sbt console run:
 
 ```sbt
-~ FxPlay/reStart//To launch a ScalaFx window. The most useful command for developmen
+~ FxPlay/reStart//To launch a ScalaFx window. The most useful command for development
 ~ JsPlay/fastOptJS //WebPages/the fastPlay.html will display the results in a browser
 JsPlay/fullOptJS //For optimimised Javascript. WebPages/fullPlay.html will display the results in a browser
 ```
