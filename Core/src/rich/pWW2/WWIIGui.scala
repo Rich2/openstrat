@@ -57,6 +57,7 @@ case class WWIIGui(canv: CanvDisp, scen: WWIIScen) extends EarthAllGui
          }      
       case _ => 
    }
+   scale = 1.08.km
    eTop()
    canvSaverDo(loadView)
    repaintMap

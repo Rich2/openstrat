@@ -170,7 +170,7 @@ case class CanvDispFx(canvFx: canvas.Canvas) extends CanvTopLeft with CanvSaver
    }      
    override def gcSave(): Unit = gc.save()
    override def gcRestore(): Unit = gc.restore() 
-   val saveDirStr =  System.getProperty("user.home") / "OpenStrat/saves" // 
+   val saveDirStr =  System.getProperty("user.home") / "AppData/Local/OpenStratData"
    def save(fileName: String, output: String): Unit =
    {
       import java.io._

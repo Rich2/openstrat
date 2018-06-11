@@ -30,7 +30,7 @@ JsPlay/fullOptJS
 
 2. Core. The bulk of the code including:
    * General utilities.
-   * Persistence framework.
+   * Persistence framework. Save files at ~/AppData/Local/OpenStratData.
    * Array based Int and Double product traits collection traits.
    * Basic  geometry.
    * A number of implementation Value classes of the Int and Double product classes.
