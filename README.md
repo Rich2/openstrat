@@ -20,7 +20,7 @@ From within the sbt console run:
 JsPlay/fullOptJS //For optimimised Javascript. WebPages/fullPlay.html will display the results in a browser
 ```
 
-The tilde **~** tells sbt to rerun the command everytime you modify and save a source file. The first coomand will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Change the number in Core:rich.pPlay.Play to change the application. All the examples on the richstrat.com website are available plus others. Changing the number will also change the application for the Js builds. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild. 
+The tilde **~** tells sbt to rerun the command everytime you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Change the number in Core:rich.pPlay.Play to change the application. All the examples on the richstrat.com website are available plus others. Changing the number will also change the application for the Js builds. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild. 
 
 ## The Code currently has 4 modules:
 
@@ -28,7 +28,7 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 
 2. Core. The bulk of the code including:
    * General utilities.
-   * Persistence framework. Save files at ~/AppData/Local/OpenStratData.
+   * Persistence framework. Save files at `~/AppData/Local/OpenStratData`.
    * Array based Int and Double product traits collection traits.
    * Basic  geometry.
    * A number of implementation Value classes of the Int and Double product classes.
