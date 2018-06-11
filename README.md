@@ -10,7 +10,7 @@ Sbt currently set to 1.1.6. Scala set to 2.12.6. I'm waiting for Scala-native to
 
 ```diff
 + sbt //From the root folder of Openstrat
-~ FxPlay/reStart//The most useful command to be run from within the sbt console
+- ~ FxPlay/reStart//The most useful command to be run from within the sbt console
 ```
 
 This will build and launch a ScalaFx window. It will rebuild and relaunch everytime you modify and save a source file. So you can immediatly see the effects of your changes. Change the number in Core:rich.pPlay.Play to change the application. All the examples on the richstrat.com website are available plus others.
