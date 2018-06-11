@@ -9,7 +9,7 @@ My hope / intention is to create something accessable to complete beginners. Com
 Sbt currently set to 1.1.6. Scala set to 2.12.6. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas. Run
 
 ```diff
-+sbt //From the root folder of Openstrat
++ sbt //From the root folder of Openstrat
 ~ FxPlay/reStart//The most useful command to be run from within the sbt console
 ```
 
