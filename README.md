@@ -8,23 +8,23 @@ My hope / intention is to create something accessable to complete beginners. Com
 
 Sbt currently set to 1.1.6. Scala set to 2.12.6. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas. Run
 
-```diff
-+ sbt //From the root folder of Openstrat
-- ~ FxPlay/reStart//The most useful command to be run from within the sbt console
+```
+sbt //From the root folder of Openstrat
+~ FxPlay/reStart//The most useful command to be run from within the sbt console
 ```
 
 This will build and launch a ScalaFx window. It will rebuild and relaunch everytime you modify and save a source file. So you can immediatly see the effects of your changes. Change the number in Core:rich.pPlay.Play to change the application. All the examples on the richstrat.com website are available plus others.
 
 Changing the number will also change the application for the Js build. that can be rebuilt in similar manner with the command: 
 
-```
+```sbt
 ~ JsPlay/fastOptJS
 WebPages/fastPlay.html //will display the results
 ```
 
 Unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild. To get an optomised Javascript executable run:
 
-```
+```sbt
 JsPlay/fullOptJS
 WebPages/fullPlay.html //will display the results
 ```
