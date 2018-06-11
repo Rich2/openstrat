@@ -8,21 +8,23 @@ My hope / intention is to create something accessable to complete beginners. Com
 
 Sbt currently set to 1.1.6. Scala set to 2.12.6. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
 
-Run sbt. The most useful command is:
-
-~ FxPlay/reStart
+Run sbt. The most useful command is: ```~ FxPlay/reStart```
 
 This will build and launch a ScalaFx window. It will rebuild and relaunch everytime you modify and save a source file. So you can immediatly see the effects of your changes. Change the number in Core:rich.pPlay.Play to change the application. All the examples on the richstrat.com website are available plus others.
 
-Changing the number will also change the application for the Js build. that can be rebuilt in similar manner with the command:
+Changing the number will also change the application for the Js build. that can be rebuilt in similar manner with the command: 
 
+```
 ~ JsPlay/fastOptJS
+WebPages/fastPlay.html //will display the results
+```
 
-<span style="color:blue">WebPages/fastPlay.html</span> will display the results. Unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finsihed the rebuild. To get an optomised Javascript executable run:
+Unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild. To get an optomised Javascript executable run:
 
+```
 JsPlay/fullOptJS
-
-<span style="color:blue">WebPages/fullPlay.html</span> will display the results after the build has been completed.
+WebPages/fullPlay.html //will display the result
+```
 
 ## The Code currently has 4 modules:
 
