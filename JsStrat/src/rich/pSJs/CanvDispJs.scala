@@ -1,10 +1,11 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pSJs
 import geom._
 import pDisp._
 import org.scalajs.dom._
 
-object CanvDispJs extends CanvTopLeft with CanvBrowser
+object CanvDispJs extends CanvTopLeft with CanvSaver//Browser
 {
    selfJs =>
    val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas] 
@@ -17,21 +18,21 @@ object CanvDispJs extends CanvTopLeft with CanvBrowser
    }
    setup
    
-   override def load(fileName: String, f: EMon[String] => Unit): Unit =
-   {
-      val client = new XMLHttpRequest
-      client.open("Get", "Saves/" - fileName)
-      client.onreadystatechange = (e: Event) =>
-         {
-            client.status match
-            {
-               case 200 => f(Good(client.responseText))
-               case c => f(bad1(FilePosn.fromServer(), c.toString))
-            }
-         }
-      client.send()
-      bad1(FilePosn(1, 1, "JavaScript"), "Load not implemented")
-   }
+//   override def load(fileName: String, f: EMon[String] => Unit): Unit =
+//   {
+//      val client = new XMLHttpRequest
+//      client.open("Get", "Saves/" - fileName)
+//      client.onreadystatechange = (e: Event) =>
+//         {
+//            client.status match
+//            {
+//               case 200 => f(Good(client.responseText))
+//               case c => f(bad1(FilePosn.fromServer(), c.toString))
+//            }
+//         }
+//      client.send()
+//      bad1(FilePosn(1, 1, "JavaScript"), "Load not implemented")
+//   }
    
    def getButton(e: MouseEvent): MouseButton = e.button match
    {
@@ -188,6 +189,11 @@ object CanvDispJs extends CanvTopLeft with CanvBrowser
       gc.closePath()
       gc.clip()
    }
+   override def gcRestore(): Unit = gc.restore() 
    override def gcSave(): Unit = gc.save()
-   override def gcRestore(): Unit = gc.restore()     
+   
+   def save(fileName: String, output: String): Unit = {}
+   
+   def load(fileName: String): EMon[String] = ???
+       
 }
