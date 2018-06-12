@@ -5,7 +5,7 @@ import pGrid._
 import pDisp._
 import Colour._
 
-class CivGui(canv: CanvDisp) extends HexGridGui[CTile, Civ1.type](canv, Civ1)
+class CivGui(canv: CanvasLike) extends HexGridGui[CTile, Civ1.type](canv, Civ1)
 {
    override def scaleMin = 10
    //override def eTop(): Unit = reTop(guButs)

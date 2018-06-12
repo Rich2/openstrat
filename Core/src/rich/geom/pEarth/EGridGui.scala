@@ -3,7 +3,7 @@ package geom
 package pEarth
 import pGrid._
 
-class EGridGui(canv: pDisp.CanvDisp, eg: EGrid[TerrOnly]) extends HexGridGui[TerrOnly, EGrid[TerrOnly]](canv, eg)
+class EGridGui(canv: pDisp.CanvasLike, eg: EGrid[TerrOnly]) extends HexGridGui[TerrOnly, EGrid[TerrOnly]](canv, eg)
 {
    override def eTop(): Unit = reTop(guButs :+ status)
    eTop

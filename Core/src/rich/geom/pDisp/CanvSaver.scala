@@ -3,13 +3,13 @@ package rich
 package geom
 package pDisp
 
-trait CanvSaver extends CanvDisp
+trait CanvSaver extends CanvasLike
 {   
    def save(fileName: String, output: String): Unit
    def load(fileName: String): EMon[String]
 }
 
-//trait CanvBrowser extends CanvDisp
+//trait CanvBrowser extends CanvasLike
 //{
 //   def load(fileName: String, f: EMon[String] => Unit): Unit
 //}

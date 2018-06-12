@@ -8,7 +8,7 @@ import pStrat._
 
 object Play
 {   
-   val theMap: Map[Int, (CanvDisp => Unit, String)] = Map(
+   val theMap: Map[Int, (CanvasLike => Unit, String)] = Map(
          (0, (new pCiv.CivGui(_), "ScalaFx Rise of Civs")),
          (1, (pWW2.WWIIGui(_, pWW2.WW1940), "World War II")),
          (2, (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
@@ -24,5 +24,5 @@ object Play
          (12, (new Checkers(_), "Checkers")),         
          )
     /** Change the number below to select a different application */     
-    val curr: (CanvDisp => Unit, String) = theMap(1)
+    val curr: (CanvasLike => Unit, String) = theMap(1)
 }

@@ -5,7 +5,7 @@ import pGrid._
 import pDisp._
 import Colour._
 
-class Checkers(canv: CanvDisp) extends SquareGridGui[CheckersSq, CheckersBoard.type](canv, CheckersBoard)
+class Checkers(canv: CanvasLike) extends SquareGridGui[CheckersSq, CheckersBoard.type](canv, CheckersBoard)
 {
    def fSquare: RegSquareOfGrid[CheckersSq, CheckersBoard.type] => Disp2 = tog =>
       {

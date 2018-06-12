@@ -3,7 +3,7 @@ package geom
 package pGrid
 
 /** A Gui for a single regular SquareGrid. Currently there are no irregular SquareGrids */
-abstract class SquareGridGui[TileT <: Tile, GridT <: SquareGrid[TileT]](val canv: pDisp.CanvDisp, val grid: GridT) extends
+abstract class SquareGridGui[TileT <: Tile, GridT <: SquareGrid[TileT]](val canv: pDisp.CanvasLike, val grid: GridT) extends
    TileGridGui[TileT, GridT]
 {
    /** A tile measures 2 coordinates in both x and y direction. */

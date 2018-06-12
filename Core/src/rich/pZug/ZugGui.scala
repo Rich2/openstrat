@@ -6,7 +6,7 @@ import Colour._
 import pGrid._
 import pStrat._ 
 
-class ZugGui(canv: CanvDisp) extends HexGridGui[ZugTile, ZugGrid](canv, Zug1)
+class ZugGui(canv: CanvasLike) extends HexGridGui[ZugTile, ZugGrid](canv, Zug1)
 {
    //deb(scaleMin.toString)
    override def scaleMin = 10

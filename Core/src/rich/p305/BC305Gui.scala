@@ -5,7 +5,7 @@ import pDisp._
 import pEarth._
 //import pGrid._
 
-case class BC305Gui(canv: CanvDisp, scen: BCScen) extends EarthGui
+case class BC305Gui(canv: CanvasLike, scen: BCScen) extends EarthGui
 {
    override def saveNamePrefix = "BC305"
    override def scaleMax: Dist = 14000.km / mapPanelDiameter

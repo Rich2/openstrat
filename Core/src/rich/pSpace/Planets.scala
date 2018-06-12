@@ -6,7 +6,7 @@ import pDisp._
 import Colour._
 
 /** Currently extending EuclidGui, I'm not sure if this is helpful, as the user can not move about in the map except change focus. */
-case class Planets(val canv: CanvDisp) extends EuclidGui
+case class Planets(val canv: CanvasLike) extends EuclidGui
 {
    val maxOrbit: Dist = 3700.millionMiles
    var years: Double = 0

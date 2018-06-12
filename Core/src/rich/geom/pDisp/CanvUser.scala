@@ -5,7 +5,7 @@ package pDisp
 
 trait CanvUser
 {   
-   val canv: CanvDisp
+   val canv: CanvasLike
    def paintObjs(movedObjs: Seq[CanvObj[_]], pan: PanelLike) = movedObjs.foreach(_ match
       {
          case ce: ClickEl[_] => pan.subjsAdd(ce.ptIn, ce.retObj)
@@ -27,7 +27,7 @@ trait CanvUser
          }
       })
     def refresh(): Unit
-    def fCanvType[A](fBasic: CanvDisp => A, fSaver: CanvSaver => A): A = canv match
+    def fCanvType[A](fBasic: CanvasLike => A, fSaver: CanvSaver => A): A = canv match
     {
        case cs: CanvSaver => fSaver(cs)
        case cd => fBasic(cd)

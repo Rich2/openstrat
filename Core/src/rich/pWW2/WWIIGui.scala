@@ -7,7 +7,7 @@ import pDisp._
 import pStrat._
 //import pGrid._
 
-case class WWIIGui(canv: CanvDisp, scen: WWIIScen) extends EarthAllGui
+case class WWIIGui(canv: CanvasLike, scen: WWIIScen) extends EarthAllGui
 {   
    deb("Beginning WWIIGui")
    focusUp = true
