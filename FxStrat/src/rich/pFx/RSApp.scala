@@ -3,27 +3,25 @@ package rich
 package pFx
 import scalafx.Includes._
 import scalafx.application.JFXApp
-import scalafx.scene.canvas.{Canvas => CanvasFx}    
-class RSApp(f: CanvasFx => Unit, str: String) extends JFXApp
+import scalafx.scene._   
+class RSApp(f: canvas.Canvas => Unit, str: String) extends JFXApp
 {   
    stage = new RStage(f, str)  
 }
 
-class RStage(fDisp: CanvasFx => Unit, tStr: String) extends JFXApp.PrimaryStage  
+class RStage(fDisp: scalafx.scene.canvas.Canvas => Unit, tStr: String) extends JFXApp.PrimaryStage  
 {
    x = 0//1920
    class GuiDispFx extends scalafx.scene.Scene
    {
       val bounds = javafx.stage.Screen.getPrimary.getVisualBounds  
-      val canvFx: CanvasFx = new CanvasFx(bounds.width - 8, bounds.height - 40)         
-      //val canv = new CanvDispFx(canvFx)
-      content = canvFx 
-      fDisp(canvFx)
+      val canvasCanvas: canvas.Canvas = new canvas.Canvas(bounds.width - 8, bounds.height - 40)      
+      content = canvasCanvas 
+      fDisp(canvasCanvas)
    }
    val scene1: GuiDispFx = new GuiDispFx         
    title = "ScalaFx" :- tStr
-   scene = scene1
-   
+   scene = scene1   
 }
    
    

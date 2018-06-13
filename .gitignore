@@ -1,8 +1,10 @@
-/project/project/
+
+/project/
+/sbtAll/project/project/
 target/
-/AnteJs/
-/AnteJvm/
-/CoreJs/
-/CoreJvm
-/JsPlay/
-/FxPlay/ 
+AnteJs/
+AnteJvm/
+CoreJs/
+CoreJvm
+JsPlay/
+FxPlay/ 
