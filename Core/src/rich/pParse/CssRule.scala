@@ -1,11 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pParse
-
-//import rich.CssDec
-//import rich.IndentCon.ImpIndentConSeq
-//import rich.Indenter
-//import rich.stringToRichImp
-//import rich.stringTraverableToRichImp
 
 object CssRule
 {

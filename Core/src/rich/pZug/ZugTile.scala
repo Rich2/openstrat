@@ -1,12 +1,12 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pZug
 import Colour._
 import geom.pGrid._
 
 trait ZugTerr
 {
-   def colour: Colour
-   
+   def colour: Colour   
 }
 
 object ZugTerr

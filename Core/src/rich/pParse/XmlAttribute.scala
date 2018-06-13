@@ -1,6 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich.pParse
-
-import rich.stringToRichImp
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
+package pParse
 
 /** Factory object for Xml Attribute. Case class not used to make it easy to inherit from */
 object XAtt

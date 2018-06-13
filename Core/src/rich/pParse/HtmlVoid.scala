@@ -1,4 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich.pParse
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
+package pParse
 
 sealed trait HtmlVoid extends HtmlEl with XmlVoid
 {

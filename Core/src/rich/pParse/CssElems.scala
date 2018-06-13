@@ -1,8 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich.pParse
-
-import rich.Colour
-import rich.IndentCon
-import rich.stringToRichImp
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
+package pParse
 
 trait CssCon extends IndentCon
 

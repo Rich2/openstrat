@@ -1,11 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pParse
-
-//import rich.HInput
-//import rich.HNotVoid
-//import rich.HtmlEl
-//import rich.XAtt
-//import rich.stringToRichImp
 
 class HForm(memsIn: Seq[HtmlEl], attsIn: Seq[XAtt]) extends HNotVoid
 {

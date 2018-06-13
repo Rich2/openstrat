@@ -1,8 +1,10 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich.pFx
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
+package pFx
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.scene._
-import rich._
+
 object TryCanvApp  extends JFXApp
 {
    stage = new JFXApp.PrimaryStage
