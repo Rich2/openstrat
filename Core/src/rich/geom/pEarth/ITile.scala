@@ -1,6 +1,7 @@
-///* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
-//package geom
-//package pEarth
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
+package geom
+package pEarth
 //import Terrain._
 //import pGrid._
 //

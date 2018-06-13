@@ -25,7 +25,7 @@ abstract class EarthGui extends pGrid.GridUserGui
    def saveNamePrefix: String = "EarthGui"
    def saveName = saveNamePrefix - ".save"
    
-   def loadView: Unit =
+   def loadView(): Unit =
    {      
       val mStr = canv.load(saveName)
       val res: EMon[Seq[Statement]] = mStr.flatMap(g=> ParseTree.fromString(g))
