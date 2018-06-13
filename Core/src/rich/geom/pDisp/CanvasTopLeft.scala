@@ -5,7 +5,7 @@ package pDisp
 import Colour.Black
 
 /** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used by graphical applications. */
-trait CanvTopLeft extends CanvasLike
+trait CanvasTopLeft extends CanvasLike
 {
    protected def tlx: Double = width / 2
    protected def tly: Double = height / 2

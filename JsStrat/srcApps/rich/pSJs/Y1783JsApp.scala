@@ -5,5 +5,5 @@ package pSJs
 object Y1783JsApp
 {
    import p1783._
-   def main(args: Array[String]): Unit = Y1783Gui(CanvDispJs, Nap1)   
+   def main(args: Array[String]): Unit = Y1783Gui(CanvasJs, Nap1)   
 } 

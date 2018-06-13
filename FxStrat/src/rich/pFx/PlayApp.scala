@@ -3,4 +3,4 @@ package rich
 package pFx
 
 import pPlay.Play._
-object PlayApp extends RSApp(cf => curr._1(CanvDispFx(cf)), curr._2)
+object PlayApp extends RSApp(cf => curr._1(CanvasFx(cf)), curr._2)

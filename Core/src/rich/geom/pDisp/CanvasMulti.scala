@@ -3,7 +3,7 @@ package rich
 package geom
 package pDisp
 
-trait CanvMulti extends CanvUser
+trait CanvasMulti extends CanvUser
 {   
    var panels: Seq[Panel] = Seq()
    def addPanel(clipPoly: Vec2s, simple: Boolean = false, cover: Boolean = true): Panel =

@@ -3,7 +3,7 @@ package rich
 package geom
 package pDisp
 
-trait CanvTopLeftStubs extends CanvTopLeft
+trait CanvasTopLeftStubs extends CanvasTopLeft
 {
    override def clip(pts: Vec2s): Unit = {}
    override def getTime: Double = 0

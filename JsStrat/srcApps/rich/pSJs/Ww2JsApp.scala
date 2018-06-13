@@ -5,5 +5,5 @@ import pWW2._
 
 object Ww2JsApp
 {
-   def main(args: Array[String]): Unit = WWIIGui(CanvDispJs, WW1940)   
+   def main(args: Array[String]): Unit = WWIIGui(CanvasJs, WW1940)   
 } 

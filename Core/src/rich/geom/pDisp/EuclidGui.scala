@@ -3,7 +3,7 @@ package rich
 package geom
 package pDisp
 
-trait EuclidGui extends CanvMap
+trait EuclidGui extends CanvasMap
 {
    /** The Distance represented by one pixel width / height on the screen */
    var scale: Dist
@@ -55,7 +55,7 @@ trait EuclidGui extends CanvMap
    }
    def adjFocus(adj: Dist2): Unit = reFocus(mapFocus + adj)
    var rotation: Angle = deg0
-   implicit class ImpVec2InCanvMap(thisVec2: Vec2)
+   implicit class ImpVec2InCanvasMap(thisVec2: Vec2)
    {
       def mapRotate: Vec2 = thisVec2.rotate(rotation)
       def antiMapRotate: Vec2 = thisVec2.rotate(- rotation)

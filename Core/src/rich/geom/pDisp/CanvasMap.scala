@@ -1,4 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package geom
 package pDisp
 import Colour._
@@ -6,7 +7,7 @@ import Colour._
 /** A CanvMap uses a CanvDisp2D and in addition translates between 2d game coordinates and 2d coordinates on the canvas. Allowing the canvas
  *  to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the y coordinate increases from
  *  bottom to top. */
-trait CanvMap extends CanvMulti
+trait CanvasMap extends CanvasMulti
 {   
    val barWidth = 30
    val topPan = addPanel(Rect.tL(canv.topLeft, canv.width, barWidth), true)

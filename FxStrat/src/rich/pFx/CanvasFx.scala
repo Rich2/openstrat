@@ -6,7 +6,7 @@ import pDisp._
 import scalafx.Includes._
 import scalafx.scene._
 
-case class CanvDispFx(canvFx: canvas.Canvas) extends CanvTopLeft with CanvSaver
+case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSaver
 {
    val gc: canvas.GraphicsContext = canvFx.graphicsContext2D
    override def width = canvFx.width.value.max(100)

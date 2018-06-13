@@ -4,6 +4,6 @@ package pSJs
 
 object BrowsertestJsApp
 {   
-   def main(args: Array[String]): Unit = pStrat.FlagsGui(CanvDispJs)
+   def main(args: Array[String]): Unit = pStrat.FlagsGui(CanvasJs)
 }
   

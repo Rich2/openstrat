@@ -5,5 +5,5 @@ package pSJs
 object CivJsApp
 {
    import pCiv._
-   def main(args: Array[String]): Unit = new CivGui(CanvDispJs)   
+   def main(args: Array[String]): Unit = new CivGui(CanvasJs)   
 } 

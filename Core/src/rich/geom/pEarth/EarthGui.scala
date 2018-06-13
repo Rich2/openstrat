@@ -25,9 +25,9 @@ abstract class EarthGui extends pGrid.GridUserGui
    def saveNamePrefix: String = "EarthGui"
    def saveName = saveNamePrefix - ".save"
    
-   def loadView(cs: CanvSaver): Unit =
+   def loadView: Unit =
    {      
-      val mStr = cs.load(saveName)
+      val mStr = canv.load(saveName)
       val res: EMon[Seq[Statement]] = mStr.flatMap(g=> ParseTree.fromString(g))
       val res1 = res.flatMap(_.findType[EarthView])
       res1.fold(errs => setStatus(errs.toString), newView =>  setView(newView) )                         
@@ -76,14 +76,11 @@ abstract class EarthGui extends pGrid.GridUserGui
    mapPanel.mouseUp = (a, b, s) => { statusText = s.headOption.fold("Nothing Clicked")(_.toString)
          eTop() }  
    
-   def eaButts: Seq[ShapeSubj] = canvSaverSeq(cs =>
-      {
-         def saveCmd = (mb: MouseButton) => { setStatus("Saved"); cs.save(saveName, view.persist) }
-         def loadCmd = (mb: MouseButton) => { loadView(cs); updateView() }            
-         val bSave = button3("save", saveCmd)
-         val bLoad = button3("load", loadCmd)
-         Seq(bSave, bLoad)
-      })     
+   def saveCmd = (mb: MouseButton) => { setStatus("Saved"); canv.save(saveName, view.persist) }
+   def loadCmd = (mb: MouseButton) => { loadView; updateView() }  
+   def bSave = button3("save", saveCmd)
+   def bLoad = button3("load", loadCmd)
+   def eaButts: Seq[ShapeSubj] =  List(bSave, bLoad)     
    def cmd00 = () => { focus = LatLong0; focusUp = true; updateView }
    def b00 = button1("00", cmd00) 
   override def eTop(): Unit = reTop(guButs ++ Seq(b00, bInv) ++ eaButts :+ status)   

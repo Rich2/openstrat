@@ -1,11 +1,12 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package pCard
 import geom._
 import Colour.Black
 import pDisp._
 
 
-case class BlackJack(canv: CanvasLike) extends CanvSimple
+case class BlackJack(canv: CanvasLike) extends CanvasSimple
 {      
    val (hand, deck) = Card.newShuffled.takeCards(5)
    hand.iMap((c, i) => FillText(Vec2(50 + 100 * i, 100), c.unicode.mkString, 100, c.suitColour))

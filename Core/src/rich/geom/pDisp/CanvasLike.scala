@@ -82,7 +82,9 @@ trait CanvasLike extends RectGeom
 
    def clear(colour: Colour = Colour.White): Unit   
    def gcSave(): Unit
-   def gcRestore(): Unit  
+   def gcRestore(): Unit 
+   def save(fileName: String, output: String): Unit
+   def load(fileName: String): EMon[String]   
     
    def rendElems(elems: Seq[CanvEl[_]]): Unit = elems.foreach(rendElem) 
    def rendElem(el: CanvEl[_]): Unit = el match

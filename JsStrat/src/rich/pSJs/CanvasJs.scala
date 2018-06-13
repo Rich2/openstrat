@@ -5,7 +5,7 @@ import geom._
 import pDisp._
 import org.scalajs.dom._
 
-object CanvDispJs extends CanvTopLeft with CanvSaver//Browser
+object CanvasJs extends CanvasTopLeft //with CanvSaver//Browser
 {
    selfJs =>
    val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas] 

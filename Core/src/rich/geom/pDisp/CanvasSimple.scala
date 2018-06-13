@@ -4,7 +4,7 @@ package geom
 package pDisp
 
 /** A simple use of the canvas with out splitting it up into Panels */
-trait CanvSimple extends PanelLike with CanvUser
+trait CanvasSimple extends PanelLike with CanvUser
 {      
    override def width = canv.width
    override def height = canv.height

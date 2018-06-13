@@ -27,16 +27,16 @@ trait CanvUser
          }
       })
     def refresh(): Unit
-    def fCanvType[A](fBasic: CanvasLike => A, fSaver: CanvSaver => A): A = canv match
-    {
-       case cs: CanvSaver => fSaver(cs)
-       case cd => fBasic(cd)
-    }
-   def canvSaverSeq[A](f: CanvSaver => Seq[A]): Seq[A] =  canv match
-   {
-      case cs: CanvSaver => f(cs)
-      case cd => Seq()
-   }
-   def canvSaverDo(f: CanvSaver => Unit): Unit = fCanvType[Unit](_ => {}, f)
+//    def fCanvType[A](fBasic: CanvasLike => A, fSaver: CanvasSaver => A): A = canv match
+//    {
+//       case cs: CanvasSaver => fSaver(cs)
+//       case cd => fBasic(cd)
+//    }
+//   def CanvasSaverSeq[A](f: CanvasSaver => Seq[A]): Seq[A] =  canv match
+//   {
+//      case cs: CanvasSaver => f(cs)
+//      case cd => Seq()
+//   }
+//   def CanvasSaverDo(f: CanvasSaver => Unit): Unit = fCanvType[Unit](_ => {}, f)
    canv.resize = () => refresh()
 }

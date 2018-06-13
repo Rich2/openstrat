@@ -4,5 +4,5 @@ package pSJs
 
 object JsPlay
 {
-   def main(args: Array[String]): Unit = pPlay.Play.curr._1(CanvDispJs)
+   def main(args: Array[String]): Unit = pPlay.Play.curr._1(CanvasJs)
 }

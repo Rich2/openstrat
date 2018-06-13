@@ -55,6 +55,6 @@ case class Y1783Gui(canv: CanvasLike, scen: NapScen) extends EarthAllGui
    
    
    eTop()
-   canvSaverDo(loadView)
+   loadView
    repaintMap   
 }
