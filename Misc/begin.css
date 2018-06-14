@@ -1,0 +1,31 @@
+body {
+	background-color: ivory;
+}
+p, ol {
+	margin-left: auto;
+    margin-right: auto;
+	max-width: 60em;
+}
+
+li {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.cmd{
+	color:darkcyan;
+}
+
+.mod{
+	color:red;
+}
+
+.file {
+	color: blue;
+}
+
+h1
+{
+	text-align: center;
+	font-size: 150%;
+}
