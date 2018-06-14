@@ -1,12 +1,2 @@
-Licensed under Apache Licence version
-
-This file is created purely for the purpose of practicing pull requests and testing git / github workflows, so you can edit it without worrying about damaging anything important.
-
-1 Just add / insert a message below the instructions in your clone of this repository.
-2 Save this file. Then from the root folder of the project
-3 git add Misc/GitPractice.txt
-4 git commit -m "Your name first commit"
-5 git push origin master
-
 Hi from Rich
 Trial from Geoff
