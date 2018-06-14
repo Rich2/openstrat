@@ -5,7 +5,7 @@ import geom._
 import pDisp._
 import org.scalajs.dom._
 
-object CanvasJs extends CanvasTopLeft //with CanvSaver//Browser
+object CanvasJs extends CanvasTopLeft
 {
    selfJs =>
    val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas] 
@@ -192,8 +192,6 @@ object CanvasJs extends CanvasTopLeft //with CanvSaver//Browser
    override def gcRestore(): Unit = gc.restore() 
    override def gcSave(): Unit = gc.save()
    
-   def save(fileName: String, output: String): Unit = {}
-   
-   def load(fileName: String): EMon[String] = ???
-       
+   def save(fileName: String, output: String): Unit = window.localStorage.setItem(fileName, output)     
+   def load(fileName: String): EMon[String] = eTry(window.localStorage.getItem(fileName))       
 }
