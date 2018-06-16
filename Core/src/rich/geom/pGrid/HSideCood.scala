@@ -3,7 +3,8 @@ package rich
 package geom
 package pGrid
 
-//case class HSideCood(val x: Int, val y: Int) extends TileSideCood with HexGridCood
+/** I've kept this file because some of the code may be useful */
+case class HSideCood(val x: Int, val y: Int)// extends TileSideCood with HexGridCood
 //{    
 //   def canEqual(a: Any) = a.isInstanceOf[HSideCood]
 //   override def equals(that: Any): Boolean = that match

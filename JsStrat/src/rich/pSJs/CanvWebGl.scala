@@ -7,7 +7,7 @@ package pSJs
 //import scala.scalajs._
 //import dom._
 //
-//class CanvWebGl extends CanvDispJs
+class CanvWebGl //extends CanvasJs
 //{   
 //   import raw.WebGLRenderingContext._
 //   var gl: raw.WebGLRenderingContext = can.getContext("webgl").asInstanceOf[raw.WebGLRenderingContext]

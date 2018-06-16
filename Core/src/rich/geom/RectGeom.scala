@@ -19,20 +19,22 @@ trait RectGeom
    def cenLeft = Vec2(left, 0)
    def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): PolyLineDraw =
       PolyLineDraw(Seq(Line2(left, 0, right, 0), Line2(0, top, 0, bottom)), lineWidth, lineColour)
+   /** Not sure why spacing has got a minus sign */   
    def gridLines(spacing: Double = 100, colour: Colour = Black, lineWidth: Double = 1.0): PolyLineDraw =
    {
-      val xl = (-spacing to left by - spacing) ++ (0.0 to right by spacing)
+      val xl = doubleFromTo(-spacing, left, - spacing) ::: 0.0.fromTo(right, spacing)
       val xlc = xl.map(x => Line2(x, bottom, x, top))
-      val yl = (-spacing to bottom by - spacing) ++ (0.0 to top by spacing)
+      val yl = doubleFromTo(-spacing, bottom, - spacing) ::: 0.0.fromTo(top, spacing)
       val ylc = yl.map(y => Line2(left, y, right, y))      
       PolyLineDraw(xlc ++ ylc, lineWidth, colour)
    }
-   def gridLines2(spacing: Double = 100, cenColour: Colour = Colour.DarkRed, otherColour: Colour = Black, lineWidth: Double = 1.0):
+   /** Badly named I think, not sure why spacing has got a minus sign */  
+   def gridLines2Colours(spacing: Double = 100, cenColour: Colour = Colour.DarkRed, otherColour: Colour = Black, lineWidth: Double = 1.0):
       Seq[PolyLineDraw] =
    {
-      val xl = (-spacing to left by - spacing) ++ (spacing to right by spacing)
+      val xl = doubleFromTo(-spacing, left, - spacing) ::: spacing.fromTo(right, spacing)
       val xlc = xl.map(x => Line2(x, bottom, x, top))
-      val yl = (-spacing to bottom by - spacing) ++ (spacing to top by spacing)
+      val yl = doubleFromTo(-spacing, bottom, - spacing) ::: spacing.fromTo(top, spacing)
       val ylc = yl.map(y => Line2(left, y, right, y))      
       Seq(PolyLineDraw(xlc ++ ylc, lineWidth, otherColour), crossHairs(1, cenColour))
    }

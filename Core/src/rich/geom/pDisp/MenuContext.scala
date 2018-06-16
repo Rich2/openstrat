@@ -3,7 +3,7 @@ package rich
 package geom
 package pDisp
 
-//abstract class MenuContextGraphic(seq: MenuSeq, x: Double, y: Double) extends GraphicMethods
+abstract class MenuContextGraphic(seq: MenuSeq, x: Double, y: Double)// extends GraphicMethods
 //{
 //   val backgroundColour = Colour.White
 //   val textColour = Colour.Black

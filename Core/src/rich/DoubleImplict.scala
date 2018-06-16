@@ -17,7 +17,30 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal// extends PersistSim
    def str2: String = f"$thisDouble%1.2f"
    def str3: String = f"$thisDouble%1.3f"
    def commaedStr1s(others: Double*): String = others.foldLeft(str1)(_ - ", " - _.str1)
-   def commaedStr2s(others: Double*): String = others.foldLeft(str2)(_ - ", " - _.str2) 
+   def commaedStr2s(others: Double*): String = others.foldLeft(str2)(_ - ", " - _.str2)
+   def fromTo(toValue: Double, step: Double): List[Double] = 
+   {
+      var count = thisDouble
+      var acc: List[Double] = Nil
+      while (count <= toValue)
+      {
+         acc ::= count
+         count += step
+      }
+      acc.reverse
+   }   
+   def fFromTo[A](toValue: Double, step: Double, f: Double => A): List[A] =
+   {
+      var count = thisDouble
+      var acc: List[A] = Nil
+      while (count <= toValue)
+      {
+         acc ::= f(count)
+         count += step
+      }
+      acc.reverse
+   }
+   
    def subMin(operand: Double, minValue: Double): Double = (thisDouble - operand).max(minValue)
    def ifNeg[A](vNeg: => A, vPos: => A): A = if (thisDouble < 0) vNeg else vPos
    //def fIfNeg[A](fIfNeg: Double => A, fElse: Double => A): A = if (thisDouble < 0) fIfNeg(-thisDouble) else fElse(thisDouble)

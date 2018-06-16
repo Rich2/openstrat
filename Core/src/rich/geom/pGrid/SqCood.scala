@@ -3,7 +3,8 @@ package rich
 package geom
 package pGrid
 
-//final class SqCood(val x: Int, val y: Int) extends TileCood
+/** I've kept this file because some code might be useful */
+final class SqCoodDep(val x: Int, val y: Int)// extends TileCood
 //{   
 //   override def verts: Vec2s =  Vec2.xy(x - 1, y + 1,   x + 1, y + 1,   x + 1, y - 1,   x - 1, y -1)
 //   def cenVerts: Vec2s =  Vec2.xy(0, 0, x - 1, y + 1,   x + 1, y + 1,   x + 1, y - 1,   x - 1, y -1)

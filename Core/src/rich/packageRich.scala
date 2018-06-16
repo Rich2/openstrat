@@ -20,6 +20,7 @@ package object rich
    def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
    def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
    def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
+   @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] = fromValue.fromTo(toValue, step)
    type RefTag[A] = AnyRef with reflect.ClassTag[A]// with AnyRef
    type LeftRight[A] = Either[A, A]
    type Trav[A] = Traversable[A]

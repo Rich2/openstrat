@@ -5,8 +5,8 @@ package pEarth
 //import Terrain._
 //import pGrid._
 //
-///** An irreguler tile */ 
-//abstract class ITile(val sym: Symbol, val cen: LatLong, val terr: ETile) extends GeographicSymbolKey
+/** An irregular tile. I've kept thisfile because code might be useful */ 
+abstract class ITile(val sym: Symbol, val cen: LatLong, val terr: ETile) extends GeographicSymbolKey
 //{
 //   override def toString = "ITile: " + sym.toString()
 //   def sidesIn: Seq[SideLike]
