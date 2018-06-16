@@ -1,4 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package geom
 
 class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]//(length)

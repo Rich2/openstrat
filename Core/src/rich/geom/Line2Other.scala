@@ -1,4 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package geom
 
 case class LineDist2(x1: Dist, y1: Dist, x2: Dist, y2: Dist)

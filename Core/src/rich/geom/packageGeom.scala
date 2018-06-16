@@ -1,5 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
-//import rich.geom.pGrid.HexCood
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
+
 package object geom
 {   
    import math._   

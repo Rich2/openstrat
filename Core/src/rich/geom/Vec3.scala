@@ -1,4 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package geom
 import math._
 /** A 3 dimensional vector, can be used to represent 3 dimensional points and translations of 3 dimensional points. Right-handed coordinate

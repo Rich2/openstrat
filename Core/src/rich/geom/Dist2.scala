@@ -1,4 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package geom
 
 class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
