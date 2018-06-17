@@ -13,7 +13,7 @@ class ZugGui(canv: CanvasLike) extends HexGridGui[ZugTile, ZugGrid](canv, Zug1)
    override def scaleMin = 10
    override def eTop(): Unit = reTop(guButs :+ status)
    mapPanel.backColour = Black
-   def fHex: RegHexOfGrid[ZugTile, ZugGrid] => Disp2 = tog =>
+   def fHex: OfHexReg[ZugTile, ZugGrid] => Disp2 = tog =>
       {
          val tile = tog.tile
          val colour: Colour = tile.colour

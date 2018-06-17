@@ -7,7 +7,7 @@ import Colour._
 /** A CanvMap uses a CanvDisp2D and in addition translates between 2d game coordinates and 2d coordinates on the canvas. Allowing the canvas
  *  to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the y coordinate increases from
  *  bottom to top. */
-trait CanvasMap extends CanvasMulti
+trait MapGui extends CanvasMulti
 {   
    val barWidth = 30
    val topPan = addPanel(Rect.tL(canv.topLeft, canv.width, barWidth), true)

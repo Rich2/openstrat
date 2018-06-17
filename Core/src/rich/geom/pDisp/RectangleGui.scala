@@ -3,7 +3,7 @@ package rich
 package geom
 package pDisp
 
-trait RectangleGui extends CanvasMap//EuclidGui
+trait RectangleGui extends MapGui//EuclidGui
 {
    def rectMap: RectMap
    //def scale: Double

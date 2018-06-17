@@ -3,7 +3,7 @@ package rich
 package geom
 package pDisp
 
-trait EuclidGui extends CanvasMap
+trait EuclidGui extends MapGui
 {
    /** The Distance represented by one pixel width / height on the screen */
    var scale: Dist

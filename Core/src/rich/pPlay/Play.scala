@@ -24,5 +24,5 @@ object Play
          (12, (new Checkers(_), "Checkers")),         
          )
     /** Change the number below to select a different application */     
-    val curr: (CanvasLike => Unit, String) = theMap(1)
+    val curr: (CanvasLike => Unit, String) = theMap(12)
 }

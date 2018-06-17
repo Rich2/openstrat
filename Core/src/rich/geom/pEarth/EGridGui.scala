@@ -10,7 +10,7 @@ class EGridGui(canv: pDisp.CanvasLike, eg: EGrid[TerrOnly]) extends HexGridGui[T
    eTop
    mapPanel.backColour = Colour.Black
    override def viewStr: String = "focus: " - focusStr2 -- ptScale.str1 -- ptScale.str1
-   def fHex: HexOfGrid[TerrOnly, EGrid[TerrOnly]] => Disp2 = tog => 
+   def fHex: OfHex[TerrOnly, EGrid[TerrOnly]] => Disp2 = tog => 
       {
          val tile = tog.tile
          val colour: Colour = tile.colour
@@ -27,6 +27,6 @@ class EGridGui(canv: pDisp.CanvasLike, eg: EGrid[TerrOnly]) extends HexGridGui[T
          Disp2(List(tv), sides ++ tText)         
       }
    
-   override def mapObjs: CanvObjs = ofTilesDisplayFold(fHex)(HexOfGrid.apply[TerrOnly, EGrid[TerrOnly]]).collapse//ofHexsDisplayFold(fHex).collapse
+   override def mapObjs: CanvObjs = ofTilesDisplayFold(fHex)(OfHex.apply[TerrOnly, EGrid[TerrOnly]]).collapse//ofHexsDisplayFold(fHex).collapse
    repaintMap
 }

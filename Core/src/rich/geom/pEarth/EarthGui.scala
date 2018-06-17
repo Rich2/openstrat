@@ -1,10 +1,11 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */package rich
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package rich
 package geom
 package pEarth
 import Colour.Black
 import pDisp._
 
-abstract class EarthGui extends pGrid.GridUserGui
+abstract class EarthGui extends UnfixedMapGui
 {   
    var focus: LatLong = LatLong.deg(50, 0)   
    /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */

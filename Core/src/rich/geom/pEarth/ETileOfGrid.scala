@@ -7,7 +7,7 @@ import pGrid._
 trait ETileOfGridBase
 
 class ETileOfGrid[TileT <: Tile](val eg: EarthGui, val eGrid: EGrid[TileT], val tile: TileT) extends
-   HexOfGrid[TileT, EGrid[TileT]]
+   OfHex[TileT, EGrid[TileT]]
 {
    /** eGrid need to be got rid of */
    override def grid: EGrid[TileT]= eGrid

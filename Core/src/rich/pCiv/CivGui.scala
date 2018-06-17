@@ -11,7 +11,7 @@ class CivGui(canv: CanvasLike) extends HexGridGui[CTile, Civ1.type](canv, Civ1)
    override def scaleMin = 10
    //override def eTop(): Unit = reTop(guButs)
    mapPanel.backColour = Colour.Black
-   def  fHex: RegHexOfGrid[CTile, Civ1.type] => Disp2 = tog =>
+   def  fHex: OfHexReg[CTile, Civ1.type] => Disp2 = tog =>
       {
          val tile = tog.tile
          val colour: Colour = tile.colour

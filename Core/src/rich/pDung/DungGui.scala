@@ -11,7 +11,7 @@ class DungGui(canv: CanvasLike) extends SquareGridGui[DTile, DungGrid](canv, Dun
    mapPanel.backColour = Black
    override def eTop(): Unit = reTop(guButs :+ status)
    
-   def fSquare: RegSquareOfGrid[DTile, DungGrid] => Disp2 = tog =>
+   def fSquare: OfSquareReg[DTile, DungGrid] => Disp2 = tog =>
       {
          val tile = tog.tile
          val colour: Colour = tile.colour

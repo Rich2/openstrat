@@ -3,7 +3,7 @@ package rich
 package geom
 package pGrid
 
-/** For the time being all square grids are presumbed to be regular grids */
+/** For the time being all square grids are presumed to be regular grids */
 abstract class SquareGrid[TileT <: Tile](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
    (implicit evTile: IsType[TileT]) extends  TileGrid[TileT](xTileMin, xTileMax, yTileMin, yTileMax)
 {
@@ -19,8 +19,7 @@ abstract class SquareGrid[TileT <: Tile](xTileMin: Int, xTileMax: Int, yTileMin:
    override def right: Double = xTileMax + 1.1
    def bottom: Double = yTileMin - 1.1
    def top: Double = yTileMax + 1.1 
-   override def xArrLen: Int = xTileMax - xTileMin + 2
-   
+   override def xArrLen: Int = xTileMax - xTileMin + 2   
    
    def tileXYForeach(f: (Int, Int) => Unit): Unit = for { y <- yTileMin to yTileMax by 2
       x <- xTileMin to xTileMax by 2      

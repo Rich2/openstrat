@@ -3,9 +3,10 @@ package rich
 package geom
 package pGrid
 import pDisp._
+//import rich.geom.pDisp.GridUserGui
 
 /** Gui for display of a single regular TileGrid */
-trait TileGridGui[TileT <: Tile, GridT <: TileGrid[TileT]] extends GridUserGui//RectangleGui
+trait TileGridGui[TileT <: Tile, GridT <: TileGrid[TileT]] extends UnfixedMapGui//RectangleGui
 {
    def grid: GridT//TileGrid[TileT]
    /** number of pixels per grid unit */
@@ -41,7 +42,7 @@ trait TileGridGui[TileT <: Tile, GridT <: TileGrid[TileT]] extends GridUserGui//
    def tilesForeach(f: TileT => Unit): Unit = grid.tilesForeach(f)
    def tilesFlatMap[R](f: TileT => Seq[R]): Seq[R] = grid.tilesFlatMap(f)
    
-   def ofTilesFold[OfT <: TileOfGrid[TileT, GridT], R](
+   def ofTilesFold[OfT <: OfTile[TileT, GridT], R](
          f: OfT => R, //TileOfGrid[TileT] => R,
          fSum: (R, R) => R,
          emptyVal: R)(
@@ -56,8 +57,8 @@ trait TileGridGui[TileT <: Tile, GridT <: TileGrid[TileT]] extends GridUserGui//
       acc
    }
    
-   def ofTilesDisplayFold[OfT <: TileOfGrid[TileT, GridT]](f: OfT => Disp2)(implicit
-         togFactory:  (TileT, GridT, TileGridGui[TileT, GridT]) => OfT): Disp2 = ofTilesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(togFactory)
+   def ofTilesDisplayFold[OfT <: OfTile[TileT, GridT]](f: OfT => Disp2)(implicit
+         togFactory: (TileT, GridT, TileGridGui[TileT, GridT]) => OfT): Disp2 = ofTilesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(togFactory)
 //   
 //   /** These are pretty horrible need looking at */
 //   def tilesVertFlatMap[R](f: (TileT, Seq[Vec2]) => Seq[R]): Seq[R] = 

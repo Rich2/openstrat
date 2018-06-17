@@ -3,7 +3,7 @@ package rich
 package geom
 package pGrid
 
-trait TileOfGrid[TileT <: Tile, GridT <: TileGrid[TileT]]
+trait OfTile[TileT <: Tile, GridT <: TileGrid[TileT]]
 {
    //def gGui: GridGui[TileT, SideT]
    def grid: GridT//ileGrid[TileT]
@@ -26,7 +26,7 @@ trait TileOfGrid[TileT <: Tile, GridT <: TileGrid[TileT]]
    def ownSideLines: List[Line2]
 }
 
-trait TileOfGridReg[TileT <: Tile, GridT <: TileGrid[TileT]] extends TileOfGrid[TileT, GridT]
+trait OfTileReg[TileT <: Tile, GridT <: TileGrid[TileT]] extends OfTile[TileT, GridT]
 {
    def gGui: TileGridGui[TileT, GridT]
    //@inline def coodToMapVec2(inp: Cood): Vec2 = grid.coodToVec2(inp)

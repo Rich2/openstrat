@@ -8,7 +8,7 @@ import Colour._
 
 class Checkers(canv: CanvasLike) extends SquareGridGui[CheckersSq, CheckersBoard.type](canv, CheckersBoard)
 {
-   def fSquare: RegSquareOfGrid[CheckersSq, CheckersBoard.type] => Disp2 = tog =>
+   def fSquare: OfSquareReg[CheckersSq, CheckersBoard.type] => Disp2 = tog =>
       {
          val tile = tog.tile
          
