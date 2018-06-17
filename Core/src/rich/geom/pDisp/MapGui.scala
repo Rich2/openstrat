@@ -4,7 +4,7 @@ package geom
 package pDisp
 import Colour._
 
-/** A CanvMap uses a CanvDisp2D and in addition translates between 2d game coordinates and 2d coordinates on the canvas. Allowing the canvas
+/** A MapGui uses a CanvLike and in addition translates between 2d game coordinates and 2d coordinates on the canvas. Allowing the canvas
  *  to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the y coordinate increases from
  *  bottom to top. */
 trait MapGui extends CanvasMulti

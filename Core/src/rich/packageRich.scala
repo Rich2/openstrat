@@ -32,6 +32,7 @@ package object rich
    type EMonSeq[B] = Either[Seq[ParseErr], Seq[B]]
    type TokensMon = EMon[Tokens]
    type Good[B] = Right[Seq[ParseErr], B]
+   /** The errors case of EMon[B] */
    type Bad[B] = Left[Seq[ParseErr], B]
    type ProdI2 = Product2[Int, Int]
    type ProdD2 = Product2[Double, Double]
