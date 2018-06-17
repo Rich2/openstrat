@@ -2,6 +2,7 @@
 package rich
 package geom
 
+/** The grid and grid-gui hierarchies lack clarity */
 package object pGrid
 {   
    val Cood00 = Cood(0, 0) 

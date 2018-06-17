@@ -38,12 +38,12 @@ object Circle// extends Shape
 //      val a = ArcSeg(Vec2(r, r), Vec2(r, 0), Vec2.zero)
 //      (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2) * i))).toSeq      
 //   }
-//   def fill(posn: Vec2, r: Double, colour: Colour): FillShape =
-//   {
-//      val a = ArcSeg(Vec2(r, r), Vec2(r, 0), Vec2.zero)
-//      val arcs: Seq[ShapeSeg] = (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2) * i).slate(posn))).toSeq
-//      FillShape(arcs, colour)
-//   }  
+   def fill(posn: Vec2, r: Double, colour: Colour): FillShape =
+   {
+      val fSegs = segs(r).slate(posn)
+            //val arcs: Seq[ShapeSeg] = (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2) * i).slate(posn))).toSeq
+      FillShape(fSegs, colour)
+   }  
 }
 
 object Hexagon

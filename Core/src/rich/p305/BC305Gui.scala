@@ -30,7 +30,7 @@ case class BC305Gui(canv: CanvasLike, scen: BCScen) extends EarthGui
 //   def upCmd: MouseButton => Unit = (mb: MouseButton) =>
 //      { lat = Latitude((lat.radians + distDelta(mb)).max(0)); updateView() } 
          
-   val fHex: ETileOfGrid[BCTile] => Disp2 = etog =>
+   val fHex: OfETile[BCTile] => Disp2 = etog =>
       {
          val tile = etog.tile
          val colour: Colour = tile.colour

@@ -16,5 +16,5 @@ case class OfSquareReg[TileT <: Tile, GridT <: SquareGrid[TileT]](tile: TileT, g
 object OfSquareReg
 {
    implicit def implicitBuilder[TileT <: Tile, GridT <: SquareGrid[TileT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, GridT]) =
-      apply(tile, grid, gGui)
+      apply(tile, grid, gGui)    
 }

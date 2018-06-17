@@ -12,7 +12,7 @@ case class Y1783Gui(canv: CanvasLike, scen: NapScen) extends EarthAllGui
    /** The distance per pixel. This will normally be much greater than than 1 */
    //scale = 2.71.km   
    //focus = 40.24 ll -5.66
-   val fHex: ETileOfGrid[NTile] => Disp2 = etog =>
+   val fHex: OfETile[NTile] => Disp2 = etog =>
       {
          val tile = etog.tile
          val colour: Colour = tile.colour

@@ -85,21 +85,21 @@ class EGrid[TileT <: Tile](bounds: Array[Int], val name: String, val cenLong: Lo
    
   // def vertLL(hv: HexVert): LatLong = vec2ToLL(hv.toVec2)
 
-   def ofETilesFold[R](eg: EarthGui, f: ETileOfGrid[TileT] => R, fSum: (R, R) => R)(emptyVal: R) =
+   def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT] => R, fSum: (R, R) => R)(emptyVal: R) =
    {
       var acc: R = emptyVal
       tileCoodForeach{ tileCood =>         
-         val newRes: R = f(new ETileOfGrid[TileT](eg, thisEGrid ,getTile(tileCood)))
+         val newRes: R = f(new OfETile[TileT](eg, thisEGrid ,getTile(tileCood)))
          acc = fSum(acc, newRes)
       }
       acc
    }   
    
-   def eDisp(eg: EarthGui, fDisp: (ETileOfGrid[TileT]) => Disp2): Disp2 = 
+   def eDisp(eg: EarthGui, fDisp: (OfETile[TileT]) => Disp2): Disp2 = 
    {
       var acc: Disp2 = Disp2.empty
       tileCoodForeach { tileCood =>
-         val tog = new ETileOfGrid[TileT](eg, thisEGrid, getTile(tileCood))
+         val tog = new OfETile[TileT](eg, thisEGrid, getTile(tileCood))
          val newRes: Disp2 = ife(tog.cenFacing, fDisp(tog), Disp2.empty) 
          acc = acc ++ newRes
       }

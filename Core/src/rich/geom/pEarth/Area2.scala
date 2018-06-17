@@ -18,8 +18,8 @@ abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) exten
          { 
             val v2s: Vec2s = d2s.pMap(eg.trans)// eg.transSeq(d2s)
             val cenXY: Vec2 = eg.latLongToXY(cen)
-            val vis1: CanvObjs = ife(fill, Seq(v2s.fillSubj(this, terr.colour)), Seq())
-            val vis2: CanvObjs = Seq(v2s.draw(2, terr.colour.redOrPink)).
+            val vis1: CanvObjs = ife(fill, List(v2s.fillSubj(this, terr.colour)), Nil)
+            val vis2: CanvObjs = List(v2s.draw(2, terr.colour.redOrPink)).
                ifAppendSeq(eg.scale < textScale && fill, FillText.lines(cenXY, aStrs, 10, terr.colourContrast))
             Disp2(vis1, vis2)
          }

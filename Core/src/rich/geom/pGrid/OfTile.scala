@@ -3,6 +3,7 @@ package rich
 package geom
 package pGrid
 
+/** I am happy with the fundamental concept behind the OfTile traits, documentation later */
 trait OfTile[TileT <: Tile, GridT <: TileGrid[TileT]]
 {
    //def gGui: GridGui[TileT, SideT]
@@ -15,10 +16,11 @@ trait OfTile[TileT <: Tile, GridT <: TileGrid[TileT]]
    def vertCoods: Coods = grid.tileVertCoods(cood)
    def vertVecs: Vec2s
    def cen: Vec2
-   /** The number of pixels grid unit. The number of pixels per X Cood */
-   def pScale: Double
+   /** The number of pixels grid unit. The number of pixels per X Cood. Called pSc so it doesn't class with pScale from another class when
+    *  the OfTile object's members are imported */
+   def psc: Double
    /** The number of pixels per tile, centre to centre */
-   def tScale: Double = pScale * grid.xStep
+   def tScale: Double = psc * grid.xStep
    def ifScaleCObjs(ifScale: Double, cObjs: => CanvObjs): CanvObjs = if (tScale > ifScale) cObjs else Nil
    def ifScaleCObj(ifScale: Double, cObj: CanvO *): CanvObjs = if (tScale > ifScale) cObj else Nil
    def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => CanvObjs): CanvObjs = if (tScale > ifScale && b) cObjs else Nil
@@ -38,5 +40,5 @@ trait OfTileReg[TileT <: Tile, GridT <: TileGrid[TileT]] extends OfTile[TileT, G
    def cenRelGrid: Vec2 = grid.coodToVec2(cood)
    /* Tile centre posn on display */
    def cen: Vec2 = fTrans(cenRelGrid)
-   def pScale = gGui.pScale
+   override def psc = gGui.pScale
 }

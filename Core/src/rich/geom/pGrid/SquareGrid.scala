@@ -3,7 +3,8 @@ package rich
 package geom
 package pGrid
 
-/** For the time being all square grids are presumed to be regular grids */
+/** This represents a non-Simple square frid where the tile sides can have their own values. So for square the classic example is walls. 
+ *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGrid[TileT <: Tile](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
    (implicit evTile: IsType[TileT]) extends  TileGrid[TileT](xTileMin, xTileMax, yTileMin, yTileMax)
 {

@@ -5,6 +5,7 @@ import geom._
 import pDisp._
 import pEarth._
 import pStrat._
+import pChess.Checkers
 
 object Play
 {   

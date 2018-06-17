@@ -12,21 +12,21 @@ case class WWIIGui(canv: CanvasLike, scen: WWIIScen) extends EarthAllGui
    deb("Beginning WWIIGui")
    focusUp = true
    override def saveNamePrefix = "WW2"
-   val fHex: ETileOfGrid[W2Tile] => Disp2 = etog =>
+   val fHex: OfETile[W2Tile] => Disp2 = etog =>
       {
-         val tile = etog.tile
+         import etog._         
          val colour: Colour = tile.colour
          val poly = etog.vertVecs.fillSubj(tile, colour)
-         val sides = etog.ifScaleCObjs(60, etog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-         val textOrUnit: CanvObjs = etog.ifScaleCObjs(68, tile.lunits match {
-            case ::(head, _) if etog.tScale > 68 => Seq(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(etog.cen))
+         val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         val textOrUnit: CanvObjs = ifScaleCObjs(68, tile.lunits match {
+            case ::(head, _) if tScale > 68 => Seq(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => 
             {
-              val ls: Seq[String] = List(etog.xyStr, etog.cenLL.toString)                   
-              FillText.lines(etog.cen, ls, 10, colour.contrastBW)                  
+              val ls: Seq[String] = List(xyStr, cenLL.toString)                   
+              FillText.lines(cen, ls, 10, colour.contrastBW)                  
             }
          })
-         Disp2(Seq(poly), sides ++ textOrUnit)
+         Disp2(List(poly), sides ++ textOrUnit)
       }
    def ls: CanvObjs = 
    {
