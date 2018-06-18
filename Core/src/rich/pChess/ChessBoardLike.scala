@@ -11,3 +11,5 @@ abstract class ChessBoardLike[TileT <: Tile](implicit evTile: IsType[TileT]) ext
 }
 
 sealed trait Player
+object Player1 extends Player
+object Player2 extends Player
