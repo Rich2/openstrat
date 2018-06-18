@@ -15,16 +15,17 @@ class ZugGui(canv: CanvasLike) extends HexGridGui[ZugTile, ZugGrid](canv, Zug1)
    mapPanel.backColour = Black
    def fHex: OfHexReg[ZugTile, ZugGrid] => Disp2 = tog =>
       {
+         import tog._
          val tile = tog.tile
          val colour: Colour = tile.colour
          val poly: Vec2s = tog.vertVecs
          val tv = poly.fillSubj(tile, colour)
-         val sides = tog.ifScaleCObjs(60, tog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-         val tText = tog.ifScaleCObj(60, FillText(tog.cen, tog.xyStr, 14, colour.contrastBW))
-         val lunit: CanvObjs = tile.lunits match
+         val sides = tog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         val tText = tog.ifScaleCObj(60, FillText(tog.cen, xyStr, 14, colour.contrastBW))
+         val lunit = tile.lunits match
          {
-            case ::(head, _) if tog.tScale > 68 => UnitCounters.infantry(30, head, head.colour,tile.colour).slate(tog.cen) :: Nil
-            case _ => Nil   
+            case ::(head, _) if tog.tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(tog.cen))
+            case _ => None   
          }         
          Disp2(List(tv), tText ++ lunit ++ sides)
       }
