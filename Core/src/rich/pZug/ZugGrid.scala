@@ -10,8 +10,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
    val fSquad: (ZugTile, Polity) => Unit = (tile, p: Polity) =>
       {
          tile.lunits = Squad(p, tile.cood) :: tile.lunits
-      }
-  
+      } 
 }
 
 object Zug1 extends ZugGrid(4, 48, 2, 14)
