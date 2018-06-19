@@ -51,10 +51,8 @@ case class Y1783Gui(canv: CanvasLike, scen: NapScen) extends EarthAllGui
          }
       case (RightButton, List(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)  
       case _ => 
-   }   
-   
-   
-   eTop()
-   loadView
+   }    
+   eTop()   
+   loadView   
    repaintMap   
 }

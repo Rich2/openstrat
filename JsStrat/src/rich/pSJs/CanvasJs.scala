@@ -193,5 +193,9 @@ object CanvasJs extends CanvasTopLeft
    override def gcSave(): Unit = gc.save()
    
    def save(fileName: String, output: String): Unit = window.localStorage.setItem(fileName, output)     
-   def load(fileName: String): EMon[String] = eTry(window.localStorage.getItem(fileName))       
+   def load(fileName: String): EMon[String] =
+   {
+      val nStr = window.localStorage.getItem(fileName)
+      if (nStr == null) bad1(FilePosn(1, 1, "Js Error"), "File not found") else Good(nStr)
+   }       
 }

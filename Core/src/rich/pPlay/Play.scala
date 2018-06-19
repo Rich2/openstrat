@@ -6,7 +6,6 @@ import pDisp._
 import pEarth._
 import pStrat._
 
-
 object Play
 {   
    val theMap: Map[Int, (CanvasLike => Unit, String)] = Map(
@@ -22,8 +21,8 @@ object Play
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.BC1), "BC 305")),
          (11, (pCard.BlackJack(_), "ScalaFx BlackJack")),
-         (12, (new pChess.Draughts(_), "Drauughts")),         
+         (12, (new pChess.DraughtsGui(_), "Draughts")),         
          )
     /** Change the number below to select a different application */     
-    val curr: (CanvasLike => Unit, String) = theMap(12)
+    val curr: (CanvasLike => Unit, String) = theMap(2)
 }

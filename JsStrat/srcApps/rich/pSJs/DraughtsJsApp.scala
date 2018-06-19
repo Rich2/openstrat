@@ -2,7 +2,7 @@
 package rich
 package pSJs
 
-object CivJsApp
+object DraughtsJsApp
 {  
-   def main(args: Array[String]): Unit = new pCiv.CivGui(CanvasJs)   
+   def main(args: Array[String]): Unit = new pChess.DraughtsGui(CanvasJs)   
 } 
