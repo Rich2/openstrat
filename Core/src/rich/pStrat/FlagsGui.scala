@@ -22,7 +22,9 @@ case class FlagsGui(canv: CanvasLike) extends pDisp.CanvasSimple
                japan.scale(200).slate(650, 200).rotate(10.degs),
 //               Rect.curvedSegs(340, 260, 50).slate(200, 0).fillDraw(Brown, 1).rotate(Angle(math.Pi / 7)),
                Square.curvedSegs(140, 40).slate(-250, 300).draw(1.0, Blue).rotate(Angle(math.Pi / 16)),
-               Rect.curvedSegs(340, 260, 40).slate(-500, 0).rotate(15.degs).fillDraw(Colour.BlanchedAlmond, 5)
+               Rect.curvedSegs(340, 260, 40).slate(-500, 0).rotate(15.degs).fillDraw(Colour.BlanchedAlmond, 5),
+               FillText.xy(-500, 0, "Passive curved Rectangle", 12).rotate(15.degs)
+               
 //               br.draw(2, Colour.Green),
 //               DrawArc(Arc(0, -200, -200, 0, 0, 0), 5, Colour.DarkRed).rotate(15.degs),
 //               DrawArc(Arc(0, -200, -200, 0, 0, 0), 5, Colour.Blue)

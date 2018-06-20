@@ -2,12 +2,10 @@
 package rich
 package geom
 
-case class ShapeSubj(cen: Vec2, shape: Seq[ShapeSeg], evObj: AnyRef, elems: Seq[CanvEl[_]]) extends CanvSubj[ShapeSubj]
+case class ShapeSubj(cen: Vec2, shape: Seq[ShapeSeg], evObj: AnyRef, elems: Seq[CanvEl[_]]) extends CanvSubj[ShapeSubj] with
+   ClickShapeTr
 {  
-   def fTrans(f: Vec2 => Vec2): ShapeSubj = ShapeSubj(f(cen), shape.fTrans(f), evObj, elems.fTrans(f))
-   def boundingRect: BoundingRect = shape.boundingRect
-   /** This is a temporary solution using the boundingRect */
-   override def poly: Vec2s = boundingRect.toVec2s
+   def fTrans(f: Vec2 => Vec2): ShapeSubj = ShapeSubj(f(cen), shape.fTrans(f), evObj, elems.fTrans(f))   
    override def addElems(newElems: Seq[CanvEl[_]]): ShapeSubj = ShapeSubj(cen, shape, evObj, elems ++ newElems)
    override def mutObj(newObj: AnyRef): ShapeSubj = ShapeSubj(cen, shape, newObj, elems)
 }

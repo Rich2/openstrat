@@ -16,7 +16,11 @@ class DraughtsGui(canv: CanvasLike) extends SquareGridGui[CheckersSq, CheckersBo
          val poly = vertVecs
          val tv = poly.fill(colour)
          val ch = tile match {
-            case DarkSq(_, _, Some(b)) => Some(Circle.fill(cen, psc, b.fold(Black, White)))
+            case DarkSq(_, _, Some(b)) =>
+               {
+                  def colour = b.fold(Black, White)
+                  Some(Circle.fillSubj(cen, psc, colour, colour))
+               }
             case _ => None
          }         
          Disp2(List(tv), ch.toList)
@@ -25,6 +29,16 @@ class DraughtsGui(canv: CanvasLike) extends SquareGridGui[CheckersSq, CheckersBo
    
    eTop()
    mapPanel.repaint(mapObjs)
+   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
+   {
+      case (LeftButton, _, _) =>
+         {
+            selected = clickList.fHead(Nil, (h , _) => List(h))
+            statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+            eTop()
+         }
+         case _ => //deb("Mouse other")
+   }    
 }
 
 
