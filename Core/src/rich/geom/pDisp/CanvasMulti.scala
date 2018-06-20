@@ -16,7 +16,7 @@ trait CanvasMulti extends CanvUser
       {         
          panels.find(_.clipPoly.ptInPolygon(v)).foreach(pan =>
             {               
-               val objs: List[AnyRef] = pan.subjs.flatMap(_(v)).reverse
+               val objs: List[AnyRef] = pan.subjs.ptInList(v)
                pan.simple match
                {
                   case true => objs match 
@@ -33,7 +33,7 @@ trait CanvasMulti extends CanvUser
       {
          panels.find(_.clipPoly.ptInPolygon(v)).foreach(pan =>
             {               
-               val objs: List[AnyRef] = pan.subjs.flatMap(_(v)).reverse
+               val objs: List[AnyRef] = pan.subjs.ptInList(v)
                pan.simple match
                {
                   case true => //objs match 
@@ -67,7 +67,7 @@ trait CanvasMulti extends CanvUser
       {         
          panels.find(_.clipPoly.ptInPolygon(v)).foreach(pan =>
             {               
-               val objs: Seq[Any] = pan.subjs.flatMap(_(v)).reverse
+               val objs: Seq[Any] = pan.subjs.ptInList(v)
                pan.simple match
                {
                   case true => objs match 

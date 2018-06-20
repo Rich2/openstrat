@@ -3,7 +3,7 @@ package rich
 package geom
 import pDisp._
 
-/** Not sure entirely whats going on with this class */
+/** Not sure entirely what's going on with this class */
 case class Shape(cen: Vec2, segs: Seq[ShapeSeg]) extends Transable[Shape]
 {
    /** This may need clarification */

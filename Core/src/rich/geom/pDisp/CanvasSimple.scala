@@ -9,11 +9,8 @@ trait CanvasSimple extends PanelLike with CanvUser
    override def width = canv.width
    override def height = canv.height
    
-   canv.mouseUp = (v, b) =>
-      { 
-         val s1 = subjs.flatMap(_.apply(v)).reverse         
-         mouseUp(v, b, s1 )
-      }
+   canv.mouseUp = (v, b) => mouseUp(v, b, subjs.ptInList(v))
+      
    def refresh(): Unit =
    {
       subjs = Nil

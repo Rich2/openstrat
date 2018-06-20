@@ -72,5 +72,16 @@ class SeqImplicit[A](thisSeq: Seq[A])
       }
       acc
    }
+   def pMap[B , C <: ValueProducts[B]](f: A => B)(implicit factory: Int => C): C =
+   {
+      val res = factory(thisSeq.length)
+      var count: Int = 0
+      thisSeq.foreach { orig => 
+         val newValue: B = f(orig)
+         res.setElem(count, newValue)
+         count += 1         
+      }
+      res
+   }
    
 }

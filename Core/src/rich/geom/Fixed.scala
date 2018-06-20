@@ -7,11 +7,10 @@ import Colour.Black
 trait FixedCanvObj[T <: FixedCanvObj[T]] extends CanvObj[T]
 
 /** Not sure what this is. Its not just a Shape though */
-case class FixedShape(posn: Vec2, shape: Seq[ShapeSeg], evObj: AnyRef, elems: Seq[CanvEl[_]]) extends FixedCanvObj[FixedShape]
+case class FixedShape(posn: Vec2, shape: Seq[ShapeSeg], evObj: AnyRef, elems: Seq[CanvEl[_]]) extends FixedCanvObj[FixedShape] with
+   ClickShapeTr
 {  
-   def fTrans(f: Vec2 => Vec2): FixedShape = FixedShape(f(posn), shape, evObj, elems)
-   def boundingRect: BoundingRect = shape.boundingRect
-   //override def ptIn: Vec2 => Boolean = shape.ptInShape
+   def fTrans(f: Vec2 => Vec2): FixedShape = FixedShape(f(posn), shape, evObj, elems)   
    def addElems(newElems: Seq[CanvEl[_]]): FixedShape = FixedShape(posn, shape, evObj, elems ++ newElems)
    def mutObj(newObj: AnyRef): FixedShape = FixedShape(posn, shape, newObj, elems)
 }

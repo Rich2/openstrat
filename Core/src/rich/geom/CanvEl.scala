@@ -4,6 +4,8 @@ package geom
 import Colour.Black
 import pDisp._
 
+trait CanvObj[T] extends Transable[T]
+
 trait CanvEl[T] extends CanvObj[T]
 case class FillPoly(verts: Vec2s, fillColour: Colour) extends CanvEl[FillPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillPoly(verts.fTrans(f), fillColour) }

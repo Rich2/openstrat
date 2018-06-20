@@ -3,6 +3,8 @@ package rich
 package geom
 import Colour.Black
 
+/** Currently for simplicity a ShapeSeg can only be a line segment or an arc segment. It takes its start point from the endPt of the
+ *   previous segment. Later it will be implemented for Bezier curves. Arcs may be approximated as bezier curves. */
 trait ShapeSeg extends Transable[ShapeSeg]
 {
    def endPt: Vec2   
@@ -71,6 +73,7 @@ object LineSeg
    def apply(toX: Double, toY: Double): LineSeg = LineSeg(Vec2(toX, toY))
 }
 
+/** Takes its start point from the previous segment */
 case class ArcSeg(endPt: Vec2, cenPt: Vec2) extends ShapeSeg
 {
    def fTrans(f: Vec2 => Vec2): ShapeSeg = ArcSeg(f(endPt), f(cenPt))

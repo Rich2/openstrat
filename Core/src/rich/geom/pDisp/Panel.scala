@@ -29,7 +29,8 @@ case class M3Cmd(cmd: MouseButton => Unit)
 
 trait PanelLike extends RectGeom
 {
-   var subjs: List[Vec2 => Option[AnyRef]] = Nil
+   /** These are currently stored in reverse. I think this would be better in an Array */
+   var subjs: List[ClickObj] = Nil
    var canvObjs: Seq[CanvObj[_]] = Seq()
    /** This method name is inconsistent with mouseup on the canvas class*/
    var mouseUp: (Vec2, MouseButton, List[AnyRef]) => Unit = (v, b, s) => {}
@@ -37,6 +38,6 @@ trait PanelLike extends RectGeom
    var mouseDown: (Vec2, MouseButton, List[AnyRef]) => Unit = (v, b, s) => {}
    var fMouseMoved: (Vec2, MouseButton, Seq[Any]) => Unit = (v, b, s) => {}
    var fMouseDragged: (Vec2, MouseButton, Seq[Any]) => Unit = (v, b, s) => {}
-   def subjsAdd(newSubj: Vec2 => Option[AnyRef]): Unit = subjs :+= newSubj
-   def subjsAdd(fInside: Vec2 => Boolean, retObj: AnyRef): Unit = { subjs =  subjs.:+((pt: Vec2) => ifSome(fInside(pt), retObj))}
+   //def subjsAdd(newSubj: ClickObj): Unit = subjs :+= newSubj
+   //def subjsAdd(poly: Vec2s, retObj: AnyRef): Unit = { subjs =  subjs.:+(ClickObj(poly, retObj))}
 }

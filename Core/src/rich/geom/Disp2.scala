@@ -2,8 +2,6 @@
 package rich
 package geom
 
-trait CanvObj[T] extends Transable[T]
-
 /** A pair of Seqs of display objects. Back objects are overlaid by front objects. The head of the back Seq is painted first. The last
  *  element of the front Seq is painted last */
 case class Disp2(backs: CanvObjs, fronts: CanvObjs)
@@ -34,21 +32,3 @@ object Disp2
       def flatMaptoDisp2(f: A => (CanvObjs, CanvObjs)): Disp2 = ???
    }
 }
-
-trait ClickEl[T] extends CanvObj[T]
-{
-   def retObj: AnyRef
-   def ptIn: Vec2 => Boolean
-}
-case class ClickPoly(verts: Vec2s, retObj: AnyRef) extends ClickEl[ClickPoly]
-{
-   override def ptIn: Vec2 => Boolean = verts.ptInPolygon
-   override def fTrans(f: Vec2 => Vec2) = ClickPoly(verts.fTrans(f), retObj)
-}
-
-case class ClickShape(shape: Seq[ShapeSeg], retObj: AnyRef) extends ClickEl[ClickShape]
-{
-   override def ptIn: Vec2 => Boolean = shape.ptInShape
-   override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), retObj)
-}
-
