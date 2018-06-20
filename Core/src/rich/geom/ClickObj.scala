@@ -28,12 +28,13 @@ object ClickObj
       /** Not the lack of reverse at the end */
       def ptInList(pt: Vec2): List[AnyRef] =
       {
-         var evObjs: List[AnyRef] = Nil
-         thisList.foreach {subj =>
+         var evObjs: List[AnyRef] = Nil         
+         thisList.foreach {subj =>            
             if (subj.boundingRect.ptInside(pt)) subj match
             {             
-               case cp: ClickPolyTr if cp.poly.ptInPolygon(pt) => evObjs ::= cp.evObj
-               case cs: ClickShapeTr if cs.innerPoly.ptInPolygon(pt) => evObjs ::= cs.evObj
+               case cp: ClickPolyTr if cp.poly.ptInPolygon(pt) => {deb("Click poly"); evObjs ::= cp.evObj }
+               case cs: ClickShapeTr if cs.innerPoly.ptInPolygon(pt) => {deb("ClickShape"); evObjs ::= cs.evObj}
+               case cs: ClickShapeTr => deb("ClickShape near")
                case _ =>   
             }
          }
@@ -59,17 +60,13 @@ trait ClickShapeTr extends ClickObj
 trait CanvSubj[T <: CanvSubj[T]] extends CanvObj[T] with ClickObj
 {
    def cen: Vec2
-   def elems: Seq[CanvEl[_]]
-   //def boundingRect: BoundingRect
+   def elems: Seq[CanvEl[_]]  
    def tL: T = slate(boundingRect.bR)
    def tR: T = slate(boundingRect.bL)
    def bL: T = slate(boundingRect.tR)
    def bR: T = slate(boundingRect.tL)
-   def width = boundingRect.width
-   //def evObj: AnyRef
-   def poly: Vec2s
-   //def clickObj: ClickObj = ClickObj(poly, evObj)
-   //def retObj: Vec2 => Option[AnyRef] = poly.ptInPolygon(_).toOption(evObj)
+   def width = boundingRect.width   
+   //def poly: Vec2s  
    def addElems(newElems: Seq[CanvEl[_]]): T
    def addElem(newElem: CanvEl[_]): T = addElems(Seq(newElem))
    def mutObj(newObj: AnyRef): T

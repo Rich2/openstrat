@@ -24,5 +24,5 @@ object Play
          (12, (new pChess.DraughtsGui(_), "Draughts")),         
          )
     /** Change the number below to select a different application */     
-    val curr: (CanvasLike => Unit, String) = theMap(12)
+    val curr: (CanvasLike => Unit, String) = theMap(5)
 }

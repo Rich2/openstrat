@@ -37,7 +37,5 @@ trait PanelLike extends RectGeom
    /** This method name is inconsistent with mousedown on the canvas class */
    var mouseDown: (Vec2, MouseButton, List[AnyRef]) => Unit = (v, b, s) => {}
    var fMouseMoved: (Vec2, MouseButton, Seq[Any]) => Unit = (v, b, s) => {}
-   var fMouseDragged: (Vec2, MouseButton, Seq[Any]) => Unit = (v, b, s) => {}
-   //def subjsAdd(newSubj: ClickObj): Unit = subjs :+= newSubj
-   //def subjsAdd(poly: Vec2s, retObj: AnyRef): Unit = { subjs =  subjs.:+(ClickObj(poly, retObj))}
+   var fMouseDragged: (Vec2, MouseButton, Seq[Any]) => Unit = (v, b, s) => {}  
 }

@@ -43,7 +43,8 @@ object Circle// extends Shape
       val fSegs = segs(r).slate(posn)
             //val arcs: Seq[ShapeSeg] = (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2) * i).slate(posn))).toSeq
       FillShape(fSegs, colour)
-   }  
+   }
+   def fillSubj(posn: Vec2, r: Double, evObj: AnyRef, colour: Colour): ShapeSubj = ShapeSubj.fill(posn, segs(r).slate(posn), evObj, colour)
 }
 
 object Hexagon
