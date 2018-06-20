@@ -4,7 +4,6 @@ package rich
 /** Implicit def from A <: Any to AnyImplicit[A] in the package object */
 class AnyTImplicit[A](val thisA: A) extends AnyVal
 {
-   //def rubbishMethod: String = "Rubbish"
    def -+[B >: A](operand: B): ::[B] = ::(thisA, operand :: Nil)
    def -+[B >: A](operand: List[B]): ::[B] = ::(thisA, operand)
    def -+[B >: A, That](that: scala.collection.GenTraversableOnce[B])(implicit bf: scala.collection.generic.CanBuildFrom[Seq[A], B, That]):
