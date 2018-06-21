@@ -3,17 +3,10 @@ package rich
 package geom
 
 case class ClickPoly(poly: Vec2s, evObj: AnyRef) extends CanvObj[ClickPoly] with ClickPolyTr
-{
-   //override def ptIn: Vec2 => Boolean = poly.ptInPolygon
-   override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj)
-   //def boundingRect: BoundingRect = poly.boundingRect
-}
+{ override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj) }
 
 case class ClickShape(shape: Seq[ShapeSeg], evObj: AnyRef) extends CanvObj[ClickShape] with ClickShapeTr
-{
-   //override def ptIn: Vec2 => Boolean = shape.ptInShape
-   override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj)   
-}
+{  override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }
 
 sealed trait ClickObj
 {
@@ -23,6 +16,7 @@ sealed trait ClickObj
 
 object ClickObj
 {
+   /** Temporary measure till we get proper collection class for ShapeSeg */
    implicit class ClickObjListImplicit(thisList: List[ClickObj])
    {
       /** Not the lack of reverse at the end */
@@ -32,7 +26,7 @@ object ClickObj
          thisList.foreach {subj =>            
             if (subj.boundingRect.ptInside(pt)) subj match
             {             
-               case cp: ClickPolyTr if cp.poly.ptInPolygon(pt) => {deb("Click poly"); evObjs ::= cp.evObj }
+               case cp: ClickPolyTr if cp.poly.ptInPolygon(pt) => evObjs ::= cp.evObj
                case cs: ClickShapeTr if cs.innerPoly.ptInPolygon(pt) => {deb("ClickShape"); evObjs ::= cs.evObj}
                case cs: ClickShapeTr => deb("ClickShape near")
                case _ =>   

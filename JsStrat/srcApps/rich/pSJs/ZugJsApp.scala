@@ -4,5 +4,5 @@ package pSJs
 
 object ZugJsApp
 {
-   def main(args: Array[String]): Unit = new pZug.ZugGui(CanvasJs)
+   def main(args: Array[String]): Unit = new pGames.pZug.ZugGui(CanvasJs)
 }

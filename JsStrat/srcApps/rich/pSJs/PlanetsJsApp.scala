@@ -4,7 +4,7 @@ package pSJs
 
 object PlanetsJsApp
 {
-   def main(args: Array[String]): Unit = pSpace.Planets(CanvasJs)  
+   def main(args: Array[String]): Unit = pGames.pSpace.Planets(CanvasJs)  
 }
 
 
