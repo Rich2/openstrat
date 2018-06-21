@@ -28,8 +28,8 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 
 2. Core. The bulk of the code this is organised into the following packages:
    - **rich** The root package. All other packages depend on this.
-     * general utilities
-     * and a persistence framework. Save files at `~/AppData/Local/OpenStratData`.
+     * General utilities
+     * A persistence framework. Succinct readalble object notation. Save files at `~/AppData/Local/OpenStratData`.
      * Array based Int and Double product traits collection traits.
    - **rich.geom**
      * Basic  geometry.
