@@ -28,17 +28,17 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 
 2. Core. The bulk of the code this is organised into the following packages:
    - **rich** The root package. All other packages depend on this.
-     * General utilities
+     * General utilities.
      * A persistence framework. Succinct readalble object notation. Save files at `~/AppData/Local/OpenStratData`.
      * Array based Int and Double product traits collection traits.
    - **rich.geom**
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in rich.
      * 2d graphical objects for an abstract canvas.     
-   - **rich.pDisp** depends on geom.
+   - **rich.pDisp** depends on geom
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
-     * Mouse and other abstract controls
+     * Mouse and other abstract controls.
    - **rich.pGrid** depends on geom and pDisp
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
@@ -46,7 +46,10 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
    - **rich.pEarth** depends on geom, pDisp and pGrid
      * Earth and sphere geometry.
      * Earth land outlines.
-     * Grids of Earth terrain
+     * Grids of Earth terrain.
+   - **rich.pStrat** depends on geom, pDisp and pGrid
+     * Flags.
+     * Odds and ends.
    - **rich.pGames** a number of rudimentary games and applications depending on some or all of the above packages.
 
 3. FxStrat An implementation for Canvas using ScalaFx
