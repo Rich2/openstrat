@@ -3,8 +3,8 @@ package rich
 package pSJs
 import scala.scalajs._
 import org.scalajs.dom._
-import geom._ 
 import pGrid._
+
 object webglStuff
 {
    def f(): Unit =
@@ -57,6 +57,5 @@ object webglStuff
       gl.enableVertexAttribArray(progDyn.position.asInstanceOf[Int])
       gl.vertexAttribPointer(progDyn.position.asInstanceOf[Int], 2, FLOAT, false, 0, 0)
       gl.drawArrays(TRIANGLE_FAN, 0, vertices.length / 2)     
-   }
-  
+   }  
 }

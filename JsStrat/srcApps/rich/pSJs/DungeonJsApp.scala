@@ -4,6 +4,6 @@ package pSJs
 
 object DungeonJsApp
 {
-   def main(args: Array[String]): Unit = new pDung.DungGui(CanvasJs)
+   def main(args: Array[String]): Unit = new pGames.pDung.DungGui(CanvasJs)
 }
 

@@ -4,5 +4,5 @@ package pSJs
 
 object BlackjackJsApp
 {
-   def main(args: Array[String]): Unit = pCard.BlackJack(CanvasJs)      
+   def main(args: Array[String]): Unit = pGames.pCard.BlackJack(CanvasJs)      
 }
