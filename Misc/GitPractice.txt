@@ -2,21 +2,26 @@
 git clone https://github.com/Richtype/openstrat
 cd openstrat
 
+
 # use this to grab the latest copy from github
 git pull origin master
 
-# made some changes and want to send off to the github master
+# the following commands assume you are in the root of openstrat
+# cd openstrat
+
+# made some changes and want to commit to the github master
 git add -A    //stageing
-git commit -m "fixed links"
+git commit -m "add your description of the commit here"
 git push origin master
 
 # shorthand version of the above BUT wont take into account any new files you may have created
 git commit -a -m "fixed links"  //stageing without adding new files
 git push origin master
 
-#git status!
+
+# to check the status of your copy of master
 git status
-#  >>typical output
+#  >>typical output<<
 #  >>>>On branch master
 #  >>>>Your branch is up-to-date with 'origin/master'.
 #  >>>>Nothing to commit, working directory clean
