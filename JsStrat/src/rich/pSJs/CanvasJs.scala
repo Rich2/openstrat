@@ -18,22 +18,6 @@ object CanvasJs extends CanvasTopLeft
    }
    setup
    
-//   override def load(fileName: String, f: EMon[String] => Unit): Unit =
-//   {
-//      val client = new XMLHttpRequest
-//      client.open("Get", "Saves/" - fileName)
-//      client.onreadystatechange = (e: Event) =>
-//         {
-//            client.status match
-//            {
-//               case 200 => f(Good(client.responseText))
-//               case c => f(bad1(FilePosn.fromServer(), c.toString))
-//            }
-//         }
-//      client.send()
-//      bad1(FilePosn(1, 1, "JavaScript"), "Load not implemented")
-//   }
-   
    def getButton(e: MouseEvent): MouseButton = e.button match
    {
       case 0 => LeftButton
