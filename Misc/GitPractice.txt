@@ -1,2 +1,11 @@
-Hi from Rich
-Trial from Geoff
+
+git clone https://github.com/Richtype/openstrat
+cd openstrat
+
+git pull origin master
+
+git add -A    //stageing
+git commit -m "fixed links"    // was git commit -a -m "fixed links"  //stageing without adding new files
+git push origin master
+
+git status
