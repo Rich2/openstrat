@@ -4,9 +4,13 @@ package geom
 import Colour.Black
 import pDisp._
 
+/** The base trait for all objects on a canvas / panel. The objects are recomposed for each frame. The Canvas objects must be recomposed
+ *  each time there is a change within the application state or the user view of that application state. */
 trait CanvObj[T] extends Transable[T]
 
+/* Base trait for all passive objects  on a canvas / panel */
 trait CanvEl[T] extends CanvObj[T]
+
 case class FillPoly(verts: Vec2s, fillColour: Colour) extends CanvEl[FillPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillPoly(verts.fTrans(f), fillColour) }
 

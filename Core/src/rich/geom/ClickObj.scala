@@ -2,40 +2,27 @@
 package rich
 package geom
 
-case class ClickPoly(poly: Vec2s, evObj: AnyRef) extends CanvObj[ClickPoly] with ClickPolyTr
+/** The base trait for all objects that can have mouse / touch pad interaction */
+trait ClickObj
 {
-   override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj)  
-}
-
-case class ClickShape(shape: Seq[ShapeSeg], evObj: AnyRef) extends CanvObj[ClickShape] with ClickShapeTr
-{
-   //override def ptIn: Vec2 => Boolean = shape.ptInShape
-   override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj)   
-}
-
-sealed trait ClickObj
-{
+   /** If the user clicks with the polygon or shape then the canvas will return this object. It is purely up to the application its
+    *  response if any to this object */
    def evObj: AnyRef
+   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polyon / shape */
    def boundingRect: BoundingRect
+   /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
+   def ptInside(pt: Vec2): Boolean
 }
 
 object ClickObj
 {
    implicit class ClickObjListImplicit(thisList: List[ClickObj])
    {
-      /** Not the lack of reverse at the end */
+      /** Note the lack of reverse at the end */
       def ptInList(pt: Vec2): List[AnyRef] =
       {
          var evObjs: List[AnyRef] = Nil         
-         thisList.foreach {subj =>            
-            if (subj.boundingRect.ptInside(pt)) subj match
-            {             
-               case cp: ClickPolyTr if cp.poly.ptInPolygon(pt) => {deb("Click poly"); evObjs ::= cp.evObj }
-               case cs: ClickShapeTr if cs.innerPoly.ptInPolygon(pt) => {deb("ClickShape"); evObjs ::= cs.evObj}
-               case cs: ClickShapeTr => deb("ClickShape near")
-               case _ =>   
-            }
-         }
+         thisList.foreach {subj =>  if (subj.boundingRect.ptInside(pt) & subj.ptInside(pt)) evObjs ::= subj.evObj }        
          evObjs
       }
    }
@@ -44,7 +31,8 @@ object ClickObj
 trait ClickPolyTr extends ClickObj
 {
    def poly: Vec2s
-   def boundingRect = poly.boundingRect
+   override def boundingRect = poly.boundingRect
+   override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
 }
 
 trait ClickShapeTr extends ClickObj
@@ -52,19 +40,13 @@ trait ClickShapeTr extends ClickObj
    def shape: Seq[ShapeSeg]
    def innerPoly: Vec2s = shape.pMap(_.endPt)
    def boundingRect = innerPoly.boundingRect
+   /** This method needs improving */
+   override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
 }
 
-/** Currently this trait combines 2 things */
-trait CanvSubj[T <: CanvSubj[T]] extends CanvObj[T] with ClickObj
-{
-   def cen: Vec2
-   def elems: Seq[CanvEl[_]]  
-   def tL: T = slate(boundingRect.bR)
-   def tR: T = slate(boundingRect.bL)
-   def bL: T = slate(boundingRect.tR)
-   def bR: T = slate(boundingRect.tL)
-   def width = boundingRect.width    
-   def addElems(newElems: Seq[CanvEl[_]]): T
-   def addElem(newElem: CanvEl[_]): T = addElems(Seq(newElem))
-   def mutObj(newObj: AnyRef): T
-}
+case class ClickPoly(poly: Vec2s, evObj: AnyRef) extends CanvObj[ClickPoly] with ClickPolyTr
+{ override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj) }
+
+case class ClickShape(shape: Seq[ShapeSeg], evObj: AnyRef) extends CanvObj[ClickShape] with ClickShapeTr
+{ override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }
+
