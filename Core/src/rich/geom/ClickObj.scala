@@ -4,9 +4,7 @@ package geom
 
 case class ClickPoly(poly: Vec2s, evObj: AnyRef) extends CanvObj[ClickPoly] with ClickPolyTr
 {
-   //override def ptIn: Vec2 => Boolean = poly.ptInPolygon
-   override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj)
-   //def boundingRect: BoundingRect = poly.boundingRect
+   override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj)  
 }
 
 case class ClickShape(shape: Seq[ShapeSeg], evObj: AnyRef) extends CanvObj[ClickShape] with ClickShapeTr
@@ -38,7 +36,7 @@ object ClickObj
                case _ =>   
             }
          }
-         evObjs//.reverse
+         evObjs
       }
    }
 }
@@ -65,8 +63,7 @@ trait CanvSubj[T <: CanvSubj[T]] extends CanvObj[T] with ClickObj
    def tR: T = slate(boundingRect.bL)
    def bL: T = slate(boundingRect.tR)
    def bR: T = slate(boundingRect.tL)
-   def width = boundingRect.width   
-   //def poly: Vec2s  
+   def width = boundingRect.width    
    def addElems(newElems: Seq[CanvEl[_]]): T
    def addElem(newElem: CanvEl[_]): T = addElems(Seq(newElem))
    def mutObj(newObj: AnyRef): T
