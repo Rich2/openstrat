@@ -1,27 +1,40 @@
-# to grab openstrat from github
+###################################################
+### TODO:                                       ###
+###################################################
+
+##clone
+# to grab your own copy of openstrat from github
 git clone https://github.com/Richtype/openstrat
 cd openstrat
-
-
-# use this to grab the latest copy from github
-git pull origin master
 
 # the following commands assume you are in the root of openstrat
 # cd openstrat
 
-# made some changes and want to commit to the github master
-git add -A    //stageing
+
+##pull
+# use this to grab the latest copy from github
+git pull origin master
+
+##push
+# made some changes and want to send them off to the github master
+git add -A
 git commit -m "add your description of the commit here"
 git push origin master
 
+##push alternative method
 # shorthand version of the above BUT wont take into account any new files you may have created
-git commit -a -m "fixed links"  //stageing without adding new files
+git commit -a -m "add your description of the commit here"
 git push origin master
 
-
+##status
 # to check the status of your copy of master
 git status
 #  >>typical output<<
 #  >>>>On branch master
 #  >>>>Your branch is up-to-date with 'origin/master'.
 #  >>>>Nothing to commit, working directory clean
+
+
+##cache user/pswd
+# store username/password for a set number of seconds, the next time you push
+git config --global credential.helper "cache --timeout=3600"
