@@ -2,7 +2,8 @@
 package rich
 package geom
 
-/** This is an active visual canvas object. Not sure about the name. not sure if the trait is useful. */
+/** This is an active visual canvas object. A pointable polyon / shape with visual. Not sure about the name. not sure if the trait is
+ *   useful. */
 trait CanvSubj[T <: CanvSubj[T]] extends CanvObj[T] with ClickObj
 {
    def cen: Vec2

@@ -28,6 +28,7 @@ object ClickObj
    }
 }
 
+/** A pointable polygon */
 trait ClickPolyTr extends ClickObj
 {
    def poly: Vec2s
@@ -35,6 +36,7 @@ trait ClickPolyTr extends ClickObj
    override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
 }
 
+/** A pointable shape */
 trait ClickShapeTr extends ClickObj
 {
    def shape: Seq[ShapeSeg]
@@ -44,9 +46,11 @@ trait ClickShapeTr extends ClickObj
    override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
 }
 
+/** A pointable polygon without visual */
 case class ClickPoly(poly: Vec2s, evObj: AnyRef) extends CanvObj[ClickPoly] with ClickPolyTr
 { override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj) }
 
+/** A pointable shape without visual */
 case class ClickShape(shape: Seq[ShapeSeg], evObj: AnyRef) extends CanvObj[ClickShape] with ClickShapeTr
 { override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }
 

@@ -2,12 +2,6 @@
 package rich
 package pStrat
 import geom._
-//import rich.Colour
-//import rich.geom.ShapeSeg.ImplicitShapeSegSeq
-//import rich.geom.Transable.ImplictTransableSeq
-//import rich.geom.Vec2.Vec2seqImplicit
-//import rich.traversableToRichImp
-//import scala.collection.Seq
 
 object Flags
 {
