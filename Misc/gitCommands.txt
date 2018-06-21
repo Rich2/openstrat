@@ -1,0 +1,36 @@
+###################################################
+### TODO:                                       ###
+###################################################
+
+##clone
+# to grab your own copy of openstrat from github
+git clone https://github.com/Richtype/openstrat
+cd openstrat
+
+##pull
+# use this to grab the latest copy from github
+git pull origin master
+
+##push
+# made some changes and want to send them off to the github master
+git add -A    //stageing
+git commit -m "fixed links"
+git push origin master
+
+##push alternative method
+# shorthand version of the above BUT wont take into account any new files you may have created
+git commit -a -m "fixed links"  //stageing without adding new files
+git push origin master
+
+##status
+# to check the status of your copy of master
+git status
+#  >>typical output<<
+#  >>>>On branch master
+#  >>>>Your branch is up-to-date with 'origin/master'.
+#  >>>>Nothing to commit, working directory clean
+
+
+##cache user/pswd
+# store username/password for a set number of seconds, the next time you push
+git config --global credential.helper "cache --timeout=3600"
