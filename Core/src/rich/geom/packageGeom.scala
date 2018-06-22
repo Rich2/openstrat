@@ -1,6 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package rich
 
+/** I chose the package name to not class with "geometry that may be use in other libraries This package contains Basic geometry. A number
+ *  of implementation Value classes of the Int and Double product classes defined in rich. 2d graphical objects for an abstract canvas.
+ *    2d graphical objects for an abstract canvas. */
 package object geom
 {   
    import math._   
