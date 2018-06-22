@@ -26,7 +26,7 @@ lazy val FxPlay = project.dependsOn(CoreJvm) .settings(commonSett).settings(
   version := "0.0.1",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",    
   libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",
-  Compile/mainClass := Some("rich.pFx.PlayApp"),  
+  Compile/mainClass := Some("ostrat.pFx.PlayApp"),  
 )
 
 lazy val JsPlay = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
