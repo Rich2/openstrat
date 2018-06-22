@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package rich
-package ostrat.pStrat
+package ostrat
+package pStrat
 
 object TerrS// extends CompNewTr[TerrS]
 {
