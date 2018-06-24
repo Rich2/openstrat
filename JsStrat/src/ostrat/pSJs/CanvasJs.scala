@@ -37,11 +37,15 @@ object CanvasJs extends CanvasTopLeft
       }  
 
 // NOT SURE IF THIS USEFUL WAS GIVING REFERERENCE ERROR      
-   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) => e.deltaY match
+   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) => 
       {
-         case 0 => 
-         case d if d < 0 => onScroll(true)
-         case _ => onScroll(false)
+         e.preventDefault()
+         e.deltaY match
+         {
+            case 0 => 
+            case d if d < 0 => onScroll(true)
+            case _ => onScroll(false)
+         }
       }
       
    can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
