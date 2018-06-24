@@ -20,7 +20,7 @@ class DraughtsGui(canv: CanvasLike) extends SquareGridGui[CheckersSq, CheckersBo
             case DarkSq(_, _, Some(b)) =>
                {
                   def colour = b.fold(Black, White)
-                  Some(Circle.fillSubj(cen, psc, colour, colour))
+                  Some(Circle.fillSubj(cen, psc, colour.toString, colour))
                }
             case _ => None
          }         
