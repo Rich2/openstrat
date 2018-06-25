@@ -36,7 +36,6 @@ object CanvasJs extends CanvasTopLeft
          mouseDownTopLeft(e.clientX - rect.left, e.clientY  -rect.top, getButton(e))
       }  
 
-// NOT SURE IF THIS USEFUL WAS GIVING REFERERENCE ERROR  
 //**RG  Reference error disappears when offending line in jsBothPlay.html is removed!   
    can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) => 
       {
