@@ -36,7 +36,6 @@ object CanvasJs extends CanvasTopLeft
          mouseDownTopLeft(e.clientX - rect.left, e.clientY  -rect.top, getButton(e))
       }  
 
-//**RG  Reference error disappears when offending line in jsBothPlay.html is removed!   
    can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) => 
       {
          e.deltaY match
@@ -45,7 +44,7 @@ object CanvasJs extends CanvasTopLeft
             case d if d < 0 => onScroll(true)
             case _ => onScroll(false)
          }
-         e.preventDefault()
+         e.preventDefault() //Stops the page scrolling when the mouse pointer is over the canvas
       }
       
    can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
