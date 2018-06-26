@@ -2,5 +2,5 @@
 package ostrat
 package pFx
 
-import pPlay.Play._
-object PlayApp extends RSApp(cf => curr._1(CanvasFx(cf)), curr._2)
+import pDev.Play._
+object DevApp extends RSApp(cf => curr._1(CanvasFx(cf)), curr._2)

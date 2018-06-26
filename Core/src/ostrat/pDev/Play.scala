@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pPlay
+package pDev
 import pDisp._
 import pEarth._
 import pStrat._

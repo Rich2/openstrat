@@ -22,11 +22,11 @@ lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett).settings(
 )
 lazy val CoreJs = project.dependsOn(AnteJs).settings(coreSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-lazy val FxPlay = project.dependsOn(CoreJvm) .settings(commonSett).settings(
+lazy val FxPlay = project.dependsOn(CoreJvm).settings(commonSett).settings(
   version := "0.0.1",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",    
   libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",
-  Compile/mainClass := Some("ostrat.pFx.PlayApp"),  
+  Compile/mainClass := Some("ostrat.pFx.DevApp"),  
 )
 
 lazy val JsPlay = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
