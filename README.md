@@ -51,6 +51,7 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
      * Flags.
      * Odds and ends.
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages.
+   - **ostrat.pWeb**
 
 3. FxStrat An implementation for Canvas using ScalaFx
 
