@@ -1,13 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pParse
-
-//import ostrat.IndentCon
-//import ostrat.IndentCon.ImpIndentConSeq
-//import ostrat.Indenter
-//import ostrat.XAtt
-//import ostrat.intToRichImplicit
-//import ostrat.stringToRichImp
+package pWeb
 
 /** Xml Content. This trait allows us to use ordinary strings and XMl elements as the default content of Xml elements. For stricter typing 
  *  every element should have its own type, but creating the content type for each element is time consuming. In a few cases like the HTML 

@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pParse
+package pWeb
 
 /** An Html Attribute. Every Html attribute is also an XML attribute */
 //class HAtt(name: String, value: String) extends XAtt(name, value)
