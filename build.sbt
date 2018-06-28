@@ -30,7 +30,7 @@ lazy val FxPlay = project.dependsOn(CoreJvm).settings(commonSett).settings(
 )
 
 lazy val JsPlay = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
-  scalaJSUseMainModuleInitializer := true,
+  //scalaJSUseMainModuleInitializer := true,
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/src",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",
