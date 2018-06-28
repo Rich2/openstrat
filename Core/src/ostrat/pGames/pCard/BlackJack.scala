@@ -7,7 +7,7 @@ import Colour.Black
 import pDisp._
 
 
-case class BlackJack(canv: CanvasLike) extends CanvasSimple
+case class BlackJack(canv: CanvasPlatform) extends CanvasSimple
 {      
    val (hand, deck) = Card.newShuffled.takeCards(5)
    hand.iMap((c, i) => FillText(Vec2(50 + 100 * i, 100), c.unicode.mkString, 100, c.suitColour))

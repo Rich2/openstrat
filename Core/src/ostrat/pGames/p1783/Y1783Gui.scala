@@ -7,7 +7,7 @@ import pEarth._
 import pDisp._
 import pStrat._
 
-case class Y1783Gui(canv: CanvasLike, scen: NapScen) extends EarthAllGui
+case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
 {
    override def saveNamePrefix = "Y1783"
    /** The distance per pixel. This will normally be much greater than than 1 */

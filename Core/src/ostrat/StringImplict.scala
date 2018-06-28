@@ -13,6 +13,9 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 //      case '\r' => accStr :+ '\\' :+ 'r'
 //      case c => accStr :+ c
 //         }).enqu
+   def findType[A: Persist]: EMon[A] = ParseTree.fromString(thisString).flatMap(_.findType[A])
+   def findTypeElse[A: Persist](elseValue: A): A = findType[A].getElse(elseValue)
+   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)  
    def - (other: String): String = thisString + other
    /** Concatenates a space and then the other String */
    def -- (other: String): String = thisString + " " + other

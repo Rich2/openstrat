@@ -7,10 +7,11 @@ import pStrat._
 import pGames._
 
 object Play
-{   
-   val theMap: Map[Int, (CanvasLike => Unit, String)] = Map(
+{
+   val ww2Pair: (CanvasPlatform => Unit, String) =  (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") 
+   val theMap: Map[Int, (CanvasPlatform => Unit, String)] = Map(
          (0, (new pCiv.CivGui(_), "ScalaFx Rise of Civs")),
-         (1, (pWW2.WWIIGui(_, pWW2.WW1940), "World War II")),
+         (1, ww2Pair),
          (2, (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
          (3, (FlagsGui(_), "ScalaFx Browser Test")),
          (4, (pSpace.Planets(_), "ScalaFx Planets")),
@@ -23,6 +24,7 @@ object Play
          (11, (pCard.BlackJack(_), "ScalaFx BlackJack")),
          (12, (new pChess.DraughtsGui(_), "Draughts")),         
          )
-    /** Change the number below to select a different application */     
-    val curr: (CanvasLike => Unit, String) = theMap(5)
+      
+        def curr(appNum: Int): (CanvasPlatform => Unit, String) = theMap(appNum)
+    
 }

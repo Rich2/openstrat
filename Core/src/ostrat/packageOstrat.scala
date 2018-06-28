@@ -53,18 +53,19 @@ package object ostrat
    
    implicit def AnyToImplicit[A](value: A): AnyTImplicit[A] = new AnyTImplicit[A](value)   
    implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)
-   implicit def intToRichImplicit(i: Int) = new IntImplicit(i)
+   implicit def intToImplicit(i: Int) = new IntImplicit(i)
    implicit def doubleToRichImp(d: Double) = new DoubleImplicit(d)
    implicit def stringToRichImp(s: String) = new StringImplicit(s)
    implicit def seqToRichImp[A](thisSeq: Seq[A]) = new SeqImplicit(thisSeq)
+   implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
    implicit class PeristImplicit[A](thisVal: A)(implicit ev: Persist[A])
    {
       def persist: String = ev.persist(thisVal)
       def persistComma: String = "unimplemented"
    }
 
-   implicit def traversableToRichImp[A](trav: Traversable[A]) = TraversableRichImp[A](trav)
-   implicit def arrayToTraversableRichImp[A](arr: Array[A]) = TraversableRichImp[A](arr)
+   implicit def traversableToImplicit[A](trav: Traversable[A]) = new TraversableImplicit[A](trav)
+   implicit def arrayToImplict[A](arr: Array[A]) = new ArrayImplicit[A](arr)
    implicit def stringTraverableToRichImp(strTrav: Traversable[String]): StringTraversable = StringTraversable(strTrav)   
    implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversable = StringTraversable(strArray) 
    implicit def EMonToImplicit[A](eMon: EMon[A]): EMonImplicit[A] = new EMonImplicit[A](eMon)
@@ -79,7 +80,14 @@ package object ostrat
          count += step
       }
       acc.reverse
-   } 
+   }
+   
+   implicit class EMonStringImplicit(thisEMon: EMon[String])
+   {
+      def findType[A: Persist]: EMon[A] = thisEMon.flatMap(g => ParseTree.fromString(g).flatMap(_.findType[A]))
+      def findTypeElse[A: Persist](elseValue: A): A = findType[A].getElse(elseValue)
+      def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
+   }
    
    implicit class OptionRichClass[A](thisOption: Option[A])
    { 
@@ -96,21 +104,7 @@ package object ostrat
          case None => bad1(fp, detail)
       }
    }
-   implicit class ImplicitLeftRight[A](thisLR: LeftRight[A])
-   {
-      /** A LeftRight map. A LeftRight[A] is an Either[A, A]. */ 
-      def lrMap[B](f: A => B): LeftRight[B] = thisLR match
-      {
-         case Left(a) => Left(f(a))
-         case Right(a) => Right(f(a))
-      }
-      def lrFold: A = thisLR match
-      {
-         case Left(a) => a
-         case Right(a) => a
-      }
-   }   
-   
+
    implicit class CharRichClass(thisChar: Char)
    {
       def isHexDigit: Boolean = thisChar match
@@ -122,19 +116,10 @@ package object ostrat
       }
    }
    
-   implicit class EitherRichClass[A, B](thisEither: Either[A, B])
-   {
-      def map[C](f: B => C): Either[A, C] = thisEither match
-      {
-         case Left(l) => Left[A, C](l)
-         case Right(r) => Right[A, C](f(r))
-      }
-      def flatMap[C](f: B => Either[A, C]): Either[A, C] = thisEither match
-      {
-         case Left(l) => Left[A, C](l)
-         case Right(r) => (f(r))
-      }      
-   }
+   /** Extension methods for Either. Possible should go in own file */
+   
+      
+
    
    implicit class ListRichImplicit[A](thisList: List[A])
    {
@@ -150,6 +135,7 @@ package object ostrat
       }     
    }
    
+   /** This needs to be removed */
    implicit class EitherPairRichImp[A, B, C](thisEither: Either[A, (B, C)])
    {
       def flat2Map[D](f: (B, C) => Either[A, D]): Either[A, D] = thisEither match
@@ -205,17 +191,11 @@ package object ostrat
 //         out.close
 //      }
 //   }   
-   
-   implicit class ArrayRichImp[A](arr: Array[A])
-   {     
-      def updateFrom(startElem: Int, newElems: A *): Unit = newElems.zipWithIndex.foreach(p => arr.update(startElem + p._2, p._1))
-   } 
-   
+     
 //   implicit class PairSeqSeqImplicit[A, B](thisSeq: Seq[(Seq[A], Seq[B])])
 //   {
 //      /** This takes a Seq of pairs of Sequences and appends the pairs while maintaining the pair of Sequences. Often type A and B will be 
 //       *  the same, however the function maintains the ordering. */
 //      def pairSeqSeqFlatten: (Seq[A], Seq[B]) = thisSeq.foldLeft[(Seq[A], Seq[B])]((Seq(), Seq()))((acc, el) => (acc._1 ++ el._1, acc._2 ++ el._2))
 //   } 
- 
 }

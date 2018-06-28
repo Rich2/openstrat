@@ -9,7 +9,8 @@ class RSApp(f: canvas.Canvas => Unit, str: String) extends JFXApp
    stage = new RStage(f, str)  
 }
 
-class RStage(fDisp: scalafx.scene.canvas.Canvas => Unit, tStr: String) extends JFXApp.PrimaryStage  
+/** possible needs tidying up */
+case class RStage(fDisp: canvas.Canvas => Unit, tStr: String) extends JFXApp.PrimaryStage  
 {
    x = 0//1920
    class GuiDispFx extends scalafx.scene.Scene

@@ -48,6 +48,7 @@ object Statement
             ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_)) 
             
       def findType[A](implicit ev: Persist[A]): EMon[A] = ev.fromStatementSeq(statementSeq)
+      def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
          
    }
    implicit class EmonStatementSeqImplict(eMon: EMon[Seq[Statement]])

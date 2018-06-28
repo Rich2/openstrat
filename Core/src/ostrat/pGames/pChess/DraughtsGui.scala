@@ -7,7 +7,7 @@ import pGrid._
 import pDisp._
 import Colour._
 
-class DraughtsGui(canv: CanvasLike) extends SquareGridGui[CheckersSq, CheckersBoard](canv, CheckersBoard())
+class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, CheckersBoard](canv, CheckersBoard())
 {
    var player = true
    def fSquare: OfSquareReg[CheckersSq, CheckersBoard] => Disp2 = tog =>

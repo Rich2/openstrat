@@ -7,7 +7,7 @@ import Colour.Black
 /** An abstract Canvas trait. A concrete implementation will utilise  canvas like an HTML canvas or a Scalafx canvas. This concrete implementation
  *  class must be mixed in with a a particular use trait like CanvSimple or CanvMulti .The default methods take the origin as the centre of the
  *  canvas. */
-trait CanvasLike extends RectGeom
+trait CanvasPlatform extends RectGeom
 {
    /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
    var mouseUp: (Vec2, MouseButton) => Unit = (v, b) => {}
@@ -84,7 +84,10 @@ trait CanvasLike extends RectGeom
    def gcSave(): Unit
    def gcRestore(): Unit 
    def save(fileName: String, output: String): Unit
-   def load(fileName: String): EMon[String]   
+   def load(fileName: String): EMon[String]
+   def fromFileFind[A: Persist](fileName: String): EMon[A] = load(fileName).findType
+   def fromFileFindElse[A: Persist](fileName: String, elseValue: => A): A = fromFileFind(fileName).getElse(elseValue)
+   def fromFileFindForeach[A: Persist](fileName: String, f: A => Unit): Unit = fromFileFind(fileName).foreach(f) 
     
    def rendElems(elems: Seq[CanvEl[_]]): Unit = elems.foreach(rendElem) 
    def rendElem(el: CanvEl[_]): Unit = el match

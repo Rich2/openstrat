@@ -4,7 +4,7 @@ package pStrat
 import geom._
 import pDisp._
 
-case class FlagsGui(canv: CanvasLike) extends pDisp.CanvasSimple
+case class FlagsGui(canv: CanvasPlatform) extends pDisp.CanvasSimple
 {      
    import Colour._
    import Flags._ 

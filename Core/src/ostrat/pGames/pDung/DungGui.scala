@@ -7,7 +7,7 @@ import pDisp._
 import Colour._
 import pGrid._
 
-class DungGui(canv: CanvasLike) extends SquareGridGui[DTile, DungGrid](canv, Dungeon1)
+class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, DungGrid](canv, Dungeon1)
 {  
    mapPanel.backColour = Black
    override def eTop(): Unit = reTop(guButs :+ status)

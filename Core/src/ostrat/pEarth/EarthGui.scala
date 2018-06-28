@@ -24,18 +24,10 @@ abstract class EarthGui extends UnfixedMapGui
    //def focusDown = ! focusUp
    def ifInvScale: Dist = ife(focusUp, scale, -scale)
    def saveNamePrefix: String = "EarthGui"
-   def saveName = saveNamePrefix - ".save"
-   
-   def loadView(): Unit =
-   {      
-      val mStr = canv.load(saveName)
-      val res: EMon[Seq[Statement]] = mStr.flatMap(g=> ParseTree.fromString(g))
-      val res1 = res.flatMap(_.findType[EarthView])
-      res1.fold(errs => setStatus(errs.toString), newView =>  setView(newView) )                         
-   }
-   
+   def saveName = saveNamePrefix - ".save"   
+   def loadView(): Unit = canv.fromFileFindForeach(saveName, newView => setView(newView))   
    @inline def polyToGlobedArea(latLongs: LatLongs): GlobedArea = focus.polyToGlobedArea(latLongs)
-   @inline def polyToDist2s(latLongs: LatLongs): Dist2s =  latLongs.pMap(focus.fromFocusDist2)//       focus.polyToDist2s(latLongs) 
+   @inline def polyToDist2s(latLongs: LatLongs): Dist2s =  latLongs.pMap(focus.fromFocusDist2)//focus.polyToDist2s(latLongs) 
    val trans: Dist2 => Vec2 = _ / ifInvScale
  //  val transSeq: Dist2s => Vec2s = _.map(trans)
    def latLongToXY(ll: LatLong): Vec2 = trans(focus.fromFocusDist2(ll))

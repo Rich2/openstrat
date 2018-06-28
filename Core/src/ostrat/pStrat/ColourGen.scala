@@ -4,7 +4,7 @@ package pStrat
 import geom._
 import pDisp._
 
-case class ColourGen(canv: CanvasLike) extends pDisp.CanvasSimple
+case class ColourGen(canv: CanvasPlatform) extends pDisp.CanvasSimple
 {
    var line = 0
    val n = 2

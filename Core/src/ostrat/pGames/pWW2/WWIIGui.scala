@@ -6,9 +6,8 @@ import geom._
 import pEarth._
 import pDisp._
 import pStrat._
-//import pGrid._
 
-case class WWIIGui(canv: CanvasLike, scen: WWIIScen) extends EarthAllGui
+case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
 {   
    deb("Beginning WWIIGui")
    focusUp = true
@@ -33,11 +32,6 @@ case class WWIIGui(canv: CanvasLike, scen: WWIIScen) extends EarthAllGui
    {
       val gs: Disp2 = scen.grids.displayFold(_.eDisp(this, fHex))
       val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )
-//      val b: CanvObjs = scen.sidesMap{s =>
-//          val cl = scen.sideCoodVertCoods(s.cood)
-//          val ln = cl.toLine2(cood => fTrans(grid.coodToVec2(cood)))          
-//          LineDraw(ln, 1, Colour.Black)
-//      }
       (as ++ gs).collapse// + b  
    }   
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match

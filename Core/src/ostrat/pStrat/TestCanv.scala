@@ -4,7 +4,7 @@ package pStrat
 import geom._
 import pDisp._
 import Colour._
-case class TestCanv(canv: CanvasLike) extends pDisp.CanvasSimple
+case class TestCanv(canv: CanvasPlatform) extends pDisp.CanvasSimple
 {
    val r1 = Rect(600, 400).fillDrawSubj("This is a Rect", Red, 1)
    val stuff = List(r1)

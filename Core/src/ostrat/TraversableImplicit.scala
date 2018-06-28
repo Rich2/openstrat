@@ -1,8 +1,13 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-case class TraversableRichImp[A](thisTrav: Traversable[A])
-{
+/** Extension methods for Traversable[A] */
+class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
+{   
+   /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the 
+     *  tail value */
+   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head)
+   def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.last)
    def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisTrav.isEmpty) vEmpty else vNonEmpty  
    def ifHead(f: A => Boolean) : Boolean = thisTrav.ifEmpty(false, f(thisTrav.head))
    //def headFold[B](vEmpty: => B, f: A => B): B = if (thisTrav.isEmpty) vEmpty else f(thisTrav.head)

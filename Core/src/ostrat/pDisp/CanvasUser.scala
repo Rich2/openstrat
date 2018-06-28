@@ -5,7 +5,7 @@ import geom._
 
 trait CanvUser
 {   
-   val canv: CanvasLike
+   val canv: CanvasPlatform
    def paintObjs(movedObjs: Seq[CanvObj[_]], pan: PanelLike) = movedObjs.foreach(_ match
       {
          //case ce: ClickEl[_] => pan.subjsAdd(ce.clickObj)
