@@ -3,11 +3,9 @@ package ostrat
 package pFx
 import scalafx.application.JFXApp
 
-/** Needs improvement */
+/** Name should possibly be DevAppFx */
 object DevApp  extends JFXApp
-{
-   val eNum: EMon[String] = eTry(io.Source.fromFile("../DevData/appNum.txt").mkString)   
-   //val eNum3 = eNum.findType[Int]
-   val pair = pDev.Play.curr(eNum.findTypeElse(1))
+{   
+   val pair = pDev.Play.curr(fromRsonFileFindElse(openStratDir / "AppNum.txt", 1))
    stage = new RStage(cf => pair._1(CanvasFx(cf)), pair._2)  
 }

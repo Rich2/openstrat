@@ -106,13 +106,6 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
             {
                case LineSeg(pt2) => gc.lineTo(pt2.x, pt2.y)
                case as: ArcSeg => as.fArcTo(p1, gc.arcTo)
-//                  {
-//                     val radius: Double = as.radius
-//                     val endPt = as.endPt                     
-//                     //gc.arcTo(ctlPt.x, ctlPt.y, endPt.x, endPt.y, radius)
-//                     //This is incorrect
-//                     gc.arcTo(p1.x, p1.y, endPt.x, endPt.y, radius)
-//                  }
             }
             p1 = s.endPt 
          })
@@ -170,17 +163,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.clip()
    }      
    override def gcSave(): Unit = gc.save()
-   override def gcRestore(): Unit = gc.restore() 
-   val saveDirStr =  System.getProperty("user.home") / "AppData/Local/OpenStratData"
-   def saveFile(fileName: String, output: String): Unit = saveRsonFile(saveDirStr, fileName, output: String)
-//   {
-//      import java.io._
-//      val dir = new File(saveDirStr)
-//      if (!dir.exists) dir.mkdirs
-//      val pw = new PrintWriter(new File(saveDirStr / fileName))
-//      pw.write(output)
-//      pw.close
-//   }
-  def loadFile(fileName: String): EMon[String] = loadRsonFile(saveDirStr / fileName)
-   
+   override def gcRestore(): Unit = gc.restore()  
+   def saveFile(fileName: String, output: String): Unit = saveRsonFile(openStratDir, fileName, output: String)
+   def loadFile(fileName: String): EMon[String] = loadRsonFile(openStratDir / fileName)   
 }
