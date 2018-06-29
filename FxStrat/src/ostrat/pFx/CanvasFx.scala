@@ -172,15 +172,15 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    override def gcSave(): Unit = gc.save()
    override def gcRestore(): Unit = gc.restore() 
    val saveDirStr =  System.getProperty("user.home") / "AppData/Local/OpenStratData"
-   def saveFile(fileName: String, output: String): Unit =
-   {
-      import java.io._
-      val dir = new File(saveDirStr)
-      if (!dir.exists) dir.mkdirs
-      val pw = new PrintWriter(new File(saveDirStr / fileName))
-      pw.write(output)
-      pw.close
-   }
-  def loadFile(fileName: String): EMon[String] = eTry(io.Source.fromFile(saveDirStr / fileName).mkString)
+   def saveFile(fileName: String, output: String): Unit = saveRsonFile(saveDirStr, fileName, output: String)
+//   {
+//      import java.io._
+//      val dir = new File(saveDirStr)
+//      if (!dir.exists) dir.mkdirs
+//      val pw = new PrintWriter(new File(saveDirStr / fileName))
+//      pw.write(output)
+//      pw.close
+//   }
+  def loadFile(fileName: String): EMon[String] = loadRsonFile(saveDirStr / fileName)
    
 }

@@ -7,7 +7,7 @@ import scalafx.application.JFXApp
 object DevApp  extends JFXApp
 {
    val eNum: EMon[String] = eTry(io.Source.fromFile("../DevData/appNum.txt").mkString)   
-   val eNum3 = eNum.findType[Int]
+   //val eNum3 = eNum.findType[Int]
    val pair = pDev.Play.curr(eNum.findTypeElse(1))
    stage = new RStage(cf => pair._1(CanvasFx(cf)), pair._2)  
 }
