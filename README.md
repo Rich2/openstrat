@@ -62,6 +62,6 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 
 4. JsStrat An implementation for canvas using Scala.Js on to an Html canvas.
 
-5. NativeStrat. This odesn't exist yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
+5. NativeStrat. This doesn't exist yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
 
 The code is currently organised for my own convenience. However if any of it ever gains significant traction with other developers, then I would be very happy to break it up and reorganise it, if necessary. The packages are structured with a view to future break up, although the division between geom and pDisp packages is not complelty clear and I'm not entirely comfortable with it in its current form. So think of geom and pDisp as one sub-module.
