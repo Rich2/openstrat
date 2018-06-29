@@ -6,7 +6,7 @@ Cross platform scala 2d graphics, basic geometry, maps, earth maps, hex-tiling, 
 
 My hope / intention is to create something accessable to complete beginners. Complete beginners in Scala certainly, but eventually even complete beginners to programming. Because of this I'm not sure whether to use sbt or Mill. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.
 
-Sbt currently set to 1.1.4. Scala set to 2.12.6. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas. Run:
+Sbt currently set to 1.1.6. Scala set to 2.12.6. Run:
 
 ```bash
 sbt //From project's root folder
@@ -61,5 +61,7 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 3. FxStrat An implementation for Canvas using ScalaFx
 
 4. JsStrat An implementation for canvas using Scala.Js on to an Html canvas.
+
+5. NativeStrat. This odesn't exist yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessable canvas for native on Windows or Linux. The abstract canvas api could be implmented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
 
 The code is currently organised for my own convenience. However if any of it ever gains significant traction with other developers, then I would be very happy to break it up and reorganise it, if necessary. The packages are structured with a view to future break up, although the division between geom and pDisp packages is not complelty clear and I'm not entirely comfortable with it in its current form. So think of geom and pDisp as one sub-module.
