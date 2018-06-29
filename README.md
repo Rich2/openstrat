@@ -51,7 +51,11 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
      * Flags.
      * Odds and ends.
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages.
-   - **ostrat.pWeb**
+   - **ostrat.pWeb** Code for the generation and manipulation of
+     * HTML
+     * Other XML
+     * CSS
+     * Simple Javascipt
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangable.  There will also be a command line interface. This will be the canonical interface, although it obivously won't be the normal user interface.
 
 3. FxStrat An implementation for Canvas using ScalaFx
