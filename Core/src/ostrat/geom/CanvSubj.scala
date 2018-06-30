@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** This is an active visual canvas object. A pointable polyon / shape with visual. Not sure about the name. not sure if the trait is
+/** This is an active visual canvas object. A pointable polygon / shape with visual. Not sure about the name. not sure if the trait is
  *   useful. */
 trait CanvSubj[T <: CanvSubj[T]] extends CanvObj[T] with ClickObj
 {

@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** The base trait for all objects that can have mouse / touch pad interaction */
+/** The base trait for all objects that can have mouse / touch pad interaction. */
 trait ClickObj
 {
    /** If the user clicks with the polygon or shape then the canvas will return this object. It is purely up to the application its

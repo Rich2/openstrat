@@ -38,11 +38,11 @@ object FillText
 {
    def xy(x: Double, y: Double, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen) =
       new FillText(Vec2(x, y), text, fontSize, colour, align)
-   def lines(posn: Vec2, strs: Seq[String], fontSize: Int, fontColour: Colour = Colour.Black, lineSpacing: Double = 1.0): Seq[FillText] =
+   def lines(posn: Vec2, strs: List[String], fontSize: Int, fontColour: Colour = Colour.Black, lineSpacing: Double = 1.0): List[FillText] =
    {
       val len = strs.length
       ife(len == 0,
-            Seq(),
+            Nil,
             strs.iMap((str, i) => FillText(posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), str, fontSize, fontColour, TextCen))
          )
    }

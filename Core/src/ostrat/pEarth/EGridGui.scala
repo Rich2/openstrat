@@ -19,8 +19,8 @@ class EGridGui(canv: pDisp.CanvasPlatform, eg: EGrid[TerrOnly]) extends HexGridG
          val sides = tog.ifScaleCObjs(60, tog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
          val tText = tog.ifScaleCObjs(68,
                {
-            val ls: Seq[String] = List(tog.yxStr, tog.grid.getLL(tog.cood).toString)//cenLL.toString)                   
-              FillText.lines(tog.cen, ls, 10, colour.contrastBW) 
+            val ls: List[String] = List(tog.yxStr, tog.grid.getLL(tog.cood).toString)//cenLL.toString)                   
+            FillText.lines(tog.cen, ls, 10, colour.contrastBW) 
             //FillText(tog.cen, tog.xyStr, 14, colour.contrastBW)
             
                })

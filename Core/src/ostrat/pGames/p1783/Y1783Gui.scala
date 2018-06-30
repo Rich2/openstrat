@@ -21,14 +21,14 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
          val sides = etog.ifScaleCObjs(60, etog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
          val textU: CanvObjs = etog.ifScaleCObjs(68, tile.lunits match
          {
-            case ::(head, _) if etog.tScale > 68 => Seq(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(etog.cen))               
+            case ::(head, _) if etog.tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(etog.cen))               
             case _ =>
             {
-            val ls: Seq[String] = Seq(etog.yxStr, etog.cenLL.toString)                   
+            val ls: List[String] = List(etog.yxStr, etog.cenLL.toString)                   
             FillText.lines(etog.cen, ls, 10, colour.contrastBW)
             }
          })         
-         Disp2(Seq(poly), sides ++ textU)// ++ lunit)
+         Disp2(List(poly), sides ++ textU)// ++ lunit)
       }
    def ls: CanvObjs =
    {

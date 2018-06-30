@@ -51,7 +51,7 @@ case class Planets(val canv: CanvasPlatform) extends EuclidGui
       override def move(elapsed: Double): Unit = {}
       override val size = 14
    }
-   val pls: Seq[Planet] = Seq(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto, Sun)
+   val pls: List[Planet] = List(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto, Sun)
    var planetFocus: Planet = earth
    override def eTop(): Unit = ???
    def fBut(planet: Planet) = buttonStd(planet.name, () => {planetFocus = planet; repaintMap}, planet.colour)

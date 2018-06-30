@@ -6,7 +6,7 @@ import geom._
 abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) extends GeographicSymbolKey
 {
    override def toString = name.commaAppend(terr.toString)
-   def aStrs = Seq(name)
+   def aStrs = List(name)
    def textScale: Dist = 15.km   
    def latLongs: LatLongs   
    
@@ -20,7 +20,7 @@ abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) exten
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val vis1: CanvObjs = ife(fill, List(v2s.fillSubj(this, terr.colour)), Nil)
             val vis2: CanvObjs = List(v2s.draw(2, terr.colour.redOrPink)).
-               ifAppendSeq(eg.scale < textScale && fill, FillText.lines(cenXY, aStrs, 10, terr.colourContrast))
+               ifAppendList(eg.scale < textScale && fill, FillText.lines(cenXY, aStrs, 10, terr.colourContrast))
             Disp2(vis1, vis2)
          }
          case GlobedSome(s) =>
@@ -30,8 +30,7 @@ abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) exten
          }
          case GlobedNone => Disp2.empty
       }
-   }
-   
+   }   
 }
 
 object Area2

@@ -5,7 +5,6 @@ class SeqImplicit[A](thisSeq: Seq[A])
 {
    /** This needs to be changed to by name parameters when by name varargs are allowed. I think this is coming in 12.3 */
    def ifAppend[B >: A](b: Boolean, elems: B*): Seq[B] = if (b) thisSeq ++ elems else thisSeq
-   def ifAppendSeq[B >: A](b: Boolean, elems: Seq[B]): Seq[B] = if (b) thisSeq ++ elems else thisSeq  
     /** This method and "headOnly" method on TraversableImplicit removes the need for headOption in the majority of case. Use head Only if
      *  you only interested in the head value */
    def fHead[B](ifEmpty: => B, fNonEmpty: (A, Seq[A]) => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.head, thisSeq.tail)
@@ -82,6 +81,5 @@ class SeqImplicit[A](thisSeq: Seq[A])
          count += 1         
       }
       res
-   }
-   
+   }   
 }

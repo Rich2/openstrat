@@ -19,7 +19,7 @@ package object geom
    val EarthAvRadius: Dist = EarthAvDiameter / 2
    type SSet[A] = scala.collection.SortedSet[A]
    //type Vec2s = Seq[Vec2]
-   type CanvObjs = Seq[CanvObj[_]]
+   type CanvObjs = List[CanvObj[_]]
    /** Hopefully this existential syntax baggage will be gone in dotty */
    type CanvO = CanvObj[_]
    implicit class IntGeomImplicit(thisInt: Int)

@@ -18,16 +18,16 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
    def semiFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold("; ", fToStr)
    
    /** maps over a traversable (collection / sequence) with a counter */
-   def iMap[B](f: (A, Int) => B, count: Int = 0): Seq[B] =
+   def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =
    {
       var i = count
-      var acc: Seq[B] = Seq()
+      var acc: List[B] = Nil
       thisTrav.foreach(el =>
          {
-            acc :+= f(el, i)
+            acc ::= f(el, i)
             i += 1
          })
-      acc
+      acc.reverse
    }
    
    /** flatMaps over a traversable (collection / sequence) with a counter */

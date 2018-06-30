@@ -38,10 +38,10 @@ case class BC305Gui(canv: CanvasPlatform, scen: BCScen) extends EarthGui
          val poly = etog.vertVecs.fillSubj(tile, colour)
          val tileText: CanvObjs = etog.ifScaleCObjs(68,
          {
-            val ls: Seq[String] = Seq(etog.yxStr, etog.cenLL.toString)                   
+            val ls: List[String] = List(etog.yxStr, etog.cenLL.toString)                   
             FillText.lines(etog.cen, ls, 10, colour.contrastBW)              
          })         
-         Disp2(Seq(poly), tileText)
+         Disp2(poly :: Nil, tileText)
       }      
          
    def ls: CanvObjs =

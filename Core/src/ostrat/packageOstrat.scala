@@ -54,8 +54,9 @@ package object ostrat
    implicit def AnyToImplicit[A](value: A): AnyTImplicit[A] = new AnyTImplicit[A](value)   
    implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)
    implicit def intToImplicit(i: Int) = new IntImplicit(i)
-   implicit def doubleToRichImp(d: Double) = new DoubleImplicit(d)
-   implicit def stringToRichImp(s: String) = new StringImplicit(s)
+   implicit def doubleToImplicit(d: Double) = new DoubleImplicit(d)
+   implicit def stringToImplicit(s: String) = new StringImplicit(s)
+   implicit def listToImplicit[A](thisList: List[A]) = new ListImplicit[A](thisList)
    implicit def seqToRichImp[A](thisSeq: Seq[A]) = new SeqImplicit(thisSeq)
    implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
    implicit class PeristImplicit[A](thisVal: A)(implicit ev: Persist[A])
@@ -114,25 +115,6 @@ package object ostrat
          case al if ((al <= 'e') && (al >= 'a')) => true
          case _ => false
       }
-   }
-   
-   /** Extension methods for Either. Possible should go in own file */
-   
-      
-
-   
-   implicit class ListRichImplicit[A](thisList: List[A])
-   {
-      def removeFirst(f: A => Boolean): List[A] =
-      {
-         def loop(rem: List[A], acc: List[A]): List[A] = rem match
-         {
-            case ::(h, tail) if f(h) => acc.reverse ::: tail
-            case ::(h, tail) => loop(tail, h :: acc)
-            case Nil => acc.reverse
-         }
-         loop(thisList, Nil)
-      }     
    }
    
    /** This needs to be removed */
