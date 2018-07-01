@@ -67,6 +67,7 @@ package object ostrat
 
    implicit def traversableToImplicit[A](trav: Traversable[A]) = new TraversableImplicit[A](trav)
    implicit def arrayToImplict[A](arr: Array[A]) = new ArrayImplicit[A](arr)
+   implicit def arrayDoubleToImplict(arr: Array[Double]) = new ArrayDoubleImplicit(arr)
    implicit def stringTraverableToRichImp(strTrav: Traversable[String]): StringTraversable = StringTraversable(strTrav)   
    implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversable = StringTraversable(strArray) 
    implicit def EMonToImplicit[A](eMon: EMon[A]): EMonImplicit[A] = new EMonImplicit[A](eMon)

@@ -12,8 +12,8 @@ case class PolySubj(cen: Vec2, poly: Vec2s, evObj: AnyRef, elems: Seq[CanvEl[_]]
 }
 
 object PolySubj
-{
-   def fill(cen: Vec2, poly: Vec2s, evObj: AnyRef, colour: Colour) = new PolySubj(cen, poly, evObj, Seq(FillPoly(poly, colour)))
+{ 
+   def fill(cen: Vec2, poly: Vec2s, evObj: AnyRef, colour: Colour) = new PolySubj(cen, poly, evObj, List(FillPoly(colour, poly)))
    
    /** Not sure if this is double filling the polygon */
    def fillDraw(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) =
@@ -23,7 +23,7 @@ object PolySubj
       new PolySubj(cen, poly, evObj, Seq(DrawPoly(poly, lineWidth, lineColour)))
    def fillText(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4,
          fontColour: Colour = Colour.Black, align: TextAlign = TextCen) =
-      new PolySubj(cen, poly, evObj, Seq(FillPoly(poly, fillColour), FillText(poly.polyCentre, str, fontSize, fontColour, align)))
+      new PolySubj(cen, poly, evObj, List(FillPoly(fillColour, poly), FillText(poly.polyCentre, str, fontSize, fontColour, align)))
    def fillContrastText(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4) =
       fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
 }

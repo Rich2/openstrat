@@ -6,7 +6,7 @@ import pDisp._
 /** A plain 2 dimension (mathematical) vector */
 class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] with Transable[Vec2s]
 {
-   override def toString: String = "Vec2" - lMap(_.toString).commaParenth
+   override def typeName: Symbol = 'Vec2s   
    override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
    def fTrans(f: Vec2 => Vec2): Vec2s = pMap(f)
   // def vec2Map(f: (Double, Double) => (Double, Double)) = xyMap[Vec2, Vec2s](f)(Vec2s.factory)
@@ -33,7 +33,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    def boundingHeight: Double = boundingRect.height   
    def polyCentre: Vec2 = boundingRect.cen
    import Colour.Black
-   def fill(colour: Colour): FillPoly = FillPoly(this, colour)
+   def fill(colour: Colour): FillPoly = FillPoly(colour, this)
    def draw(lineWidth: Double, lineColour: Colour = Black): DrawPoly = DrawPoly(this, lineWidth, lineColour)
    def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): FillDrawPoly =
       FillDrawPoly(this, fillColour, lineWidth, lineColour)

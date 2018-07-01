@@ -35,14 +35,15 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       }
    import paint.Color   
    def col(colour: Colour): Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
-   override def tlPolyFill(verts: Vec2s, colour: Colour): Unit =
+   override def tlFillPoly(fp: FillPoly): Unit =
    {
-      gc.fill = col(colour)
-      gc.fillPolygon(verts.elem1sArray, verts.elem2sArray, verts.length)
+      gc.fill = col(fp.colour)
+      gc.fillPolygon(fp.xVertsArr, fp.yVertsArr, fp.ptsLength)
    }
 
+   /** Needs mod */
    override def tlPolyDraw(verts: Vec2s, lineWidth: Double, lineColour: Colour): Unit =    
-  {      
+   {      
      gc.stroke = col(lineColour)
      gc.lineWidth = lineWidth
      gc.strokePolygon(verts.elem1sArray, verts.elem2sArray, verts.length)  

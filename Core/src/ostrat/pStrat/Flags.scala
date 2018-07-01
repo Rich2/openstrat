@@ -7,12 +7,12 @@ object Flags
 {
    /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
    def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rect.h1(ratio).subjSeq(evObj = retObj,
-         colours.iMap((c, i) => FillPoly(Rect.tL( -ratio / 2, + 0.5, ratio / colours.length, 1).slate(i * ratio / colours.length, 0), c)))   
+         colours.iMap((colour, i) => FillPoly(colour, Rect.tL( -ratio / 2, + 0.5, ratio / colours.length, 1).slate(i * ratio / colours.length, 0))))   
    
          
     /** Equal height horrisontal bands. width ratio should normally be greater than 1.0 */     
    def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubj = Rect.h1(ratio).subjSeq(retObj,   
-      colours.iMap((c, i) => FillPoly(Rect.tL( -ratio / 2, + 0.5, ratio, 1.0 / colours.length).slate(0, - i.toDouble / colours.length), c)))      
+      colours.iMap((colour, i) => FillPoly(colour, Rect.tL( -ratio / 2, + 0.5, ratio, 1.0 / colours.length).slate(0, - i.toDouble / colours.length))))      
    
    import Colour._
    val armenia = leftToRight("Armenia flag", 2, Red, Blue, Gold)     
@@ -36,11 +36,11 @@ object Flags
    val nazi: PolySubj =
    {
          val poly = Rect(5 / 3.0, 1)
-         val bar = FillPoly(Rect.bCen(0.1, 0.2), Black)
-         val arm = FillPoly(Rect.tL(-1.0 / 20, 0.25, 6.0 / 20, 0.1), Black)         
+         val bar = FillPoly(Black, Rect.bCen(0.1, 0.2))
+         val arm = FillPoly(Black, Rect.tL(-1.0 / 20, 0.25, 6.0 / 20, 0.1))         
          val cross = Seq(bar, arm).p45.flatRCross
          val s1: Seq[CanvEl[_]] = Seq(
-               FillPoly(poly, Red),
+               FillPoly(Red, poly),
                Circle.segs(6.0 /8).fill(White)) ++
                cross      
          poly.subjSeq("Swastika", s1)

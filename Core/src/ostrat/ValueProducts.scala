@@ -3,6 +3,8 @@ package ostrat
 
 trait ValueProducts[A] extends Any// extends TraversableOnce[A]
 {
+   def typeName: Symbol
+   override def toString: String = typeName.name - lMap(_.toString).commaParenth
    def productSize: Int
    def arrLen: Int
    final def length: Int = arrLen / productSize

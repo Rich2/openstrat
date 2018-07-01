@@ -1,5 +1,4 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-
 package ostrat.geom
 
 /** A pair of Seqs of display objects. Back objects are overlaid by front objects. The head of the back Seq is painted first. The last

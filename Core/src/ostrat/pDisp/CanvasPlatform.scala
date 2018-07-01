@@ -29,7 +29,8 @@ trait CanvasPlatform extends RectGeom
    /** A call back timer. Takes the delay in milliseconds */
    def timeOut(f: () => Unit, millis: Integer): Unit  
    var textMin: Int = 10
-   def polyFill(pts: Vec2s, colour: Colour): Unit
+   final def fillPoly(colour: Colour, pts: Vec2s): Unit = fillPolya(FillPoly(colour, pts))
+   def fillPolya(pf: FillPoly): Unit
    def polyDraw(pts: Vec2s, lineWidth: Double, linerColour: Colour = Black): Unit
    def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
    def polyFillDrawText(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int,
@@ -40,7 +41,7 @@ trait CanvasPlatform extends RectGeom
    }
    def polyFillText(pts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
-      polyFill(pts: Vec2s, fillColour)
+      fillPoly(fillColour, pts)//: Vec2s, fillColour)
       textFill(pts.polyCentre, str, fontSize, fontColour) 
    }
    
@@ -94,7 +95,7 @@ trait CanvasPlatform extends RectGeom
    def rendElems(elems: Seq[CanvEl[_]]): Unit = elems.foreach(rendElem) 
    def rendElem(el: CanvEl[_]): Unit = el match
    {
-      case FillPoly(verts, fillColour) => polyFill(verts, fillColour)
+      case fp: FillPoly => fillPolya(fp)//verts, fillColour)
       case DrawPoly(verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
       case FillDrawPoly(verts, fillColour, lineWidth, lineColour) => polyFillDraw(verts, fillColour, lineWidth, lineColour)
       case PolyLineDraw(lines, lineWidth, lineColour) => lineSegsDraw(lines, lineWidth, lineColour)

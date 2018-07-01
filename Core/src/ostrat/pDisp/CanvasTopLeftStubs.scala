@@ -3,11 +3,13 @@ package ostrat
 package pDisp
 import geom._
 
+/** This trait provides stub methods to allow development on a Canvas with incomplete functionality. Override the methods as desired but remove this
+ *  trait form the inheritance hierarchy once full functionality has been implemented */
 trait CanvasTopLeftStubs extends CanvasTopLeft
 {
    override def clip(pts: Vec2s): Unit = {}
    override def getTime: Double = 0
-   override protected def tlPolyFill(pts: Vec2s, colour: Colour): Unit = {}
+   override protected def tlFillPoly(fp: FillPoly): Unit = {}
    override protected def tlPolyDraw(pts: Vec2s, lineWidth: Double, lineColour: Colour): Unit = {}
    override protected def tlPolyFillDraw(pts: Vec2s, colour: Colour, lineWidth: Double, lineColour: Colour): Unit = {}
    override protected def tlLineSegsDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour): Unit = {}

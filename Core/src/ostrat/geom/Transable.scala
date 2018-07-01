@@ -4,9 +4,7 @@ package geom
 
 trait Transable[T] extends Any
 {
-   def fTrans(f: Vec2 => Vec2):  T 
-  // def fTrans(f: ProdD2 => ProdD2): T
-  // def fTrans(f: (Double, Double) => (Double, Double)): T //= fTrans(
+   def fTrans(f: Vec2 => Vec2):  T  
    def slate(offset: Vec2): T = fTrans(_ + offset)
    def slate(xOffset: Double, yOffset: Double): T = fTrans(_.addXY(xOffset, yOffset))
    def slateX(xOffset: Double): T = fTrans(_.addX(xOffset))

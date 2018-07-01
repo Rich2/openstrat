@@ -8,4 +8,14 @@ class ArrayImplicit[A](val thisArray: Array[A]) extends AnyVal
    def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
    //Not sure if this is useful
    //def updateFrom(startElem: Int, newElems: A *): Unit = newElems.zipWithIndex.foreach(p => arr.update(startElem + p._2, p._1))
+//   def foriToEnd(startIndex: Int, f: (i A => Unit): Unit =
+//   {
+//      val endIndex = thisArray.length
+//      var count = startIndex
+//      while(count < endIndex)
+//      {
+//         f(thisArray(count))
+//         count += 1
+//      }
+//   }      
 }
