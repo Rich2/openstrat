@@ -102,6 +102,7 @@ object FillPoly
 /** An efficient class to draw polygon based on Array[Double] */
 class DrawPoly(val arr: Array[Double]) extends AnyVal with Val2Vec2s[Double, Colour] with CanvEl[DrawPoly]
 {
+   override def toString = "DrawPoly" - arr.map(_.toString).commaFold.enParenth
    override def val1Func: Double => Double = d => d
    @inline def lineWidth: Double = val1
    override def val2Func: Double => Colour = d => Colour(d.toInt)

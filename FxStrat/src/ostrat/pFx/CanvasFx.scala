@@ -29,7 +29,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    
    canvFx.onScroll = (e: input.ScrollEvent) => e.deltaY match
       {
-         case 0 => println("scroll delta 0")
+         case 0 => //("scroll delta 0")
          case d if d > 0 => onScroll(true)
          case _ => onScroll(false)
       }
@@ -43,10 +43,10 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
 
    /** Needs mod */
    override def tlDrawPoly(dp: DrawPoly): Unit =    
-   {      
-     gc.stroke = col(dp.lineColour)
-     gc.lineWidth = dp.lineWidth
-     gc.strokePolygon(dp.xVertsArr, dp.yVertsArr, dp.ptsLength)  
+   {
+      gc.stroke = col(dp.lineColour)
+      gc.lineWidth = dp.lineWidth
+      gc.strokePolygon(dp.xVertsArr, dp.yVertsArr, dp.ptsLength)  
    }
  
    override def tlPolyFillDraw(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =    
@@ -136,8 +136,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    }
    
    override def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit =
-   {
-      println(arc)
+   {      
       gc.beginPath
       gc.moveTo(arc.startPt.x, arc.startPt.y)
       arc.fArcTo(gc.arcTo)

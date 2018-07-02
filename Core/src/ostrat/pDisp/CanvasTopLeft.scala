@@ -13,7 +13,7 @@ trait CanvasTopLeft extends CanvasPlatform
    def fTl(pts: Vec2s): Vec2s = pts.fTrans(tlCen)
    
    override def fillPoly(fp: FillPoly): Unit = tlFillPoly(fp.fTrans(tlCen))
-   override def drawPoly(dp: DrawPoly): Unit = tlDrawPoly(dp)   
+   override def drawPoly(dp: DrawPoly): Unit = tlDrawPoly(dp.fTrans(tlCen))   
    override def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
       tlPolyFillDraw(pts.fTrans(tlCen), fillColour, lineWidth, lineColour)
    override def lineSegsDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour): Unit =

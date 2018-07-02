@@ -7,6 +7,5 @@ object TestApp extends App
    import geom._
    val sPt = Vec2(0, -1)
    val endPt = Vec2(-1, 0)   
-   val a = ArcSeg(endPt, Vec2Z)   
-   println(a.controlPt(sPt))
+   val a = ArcSeg(endPt, Vec2Z)
 }
