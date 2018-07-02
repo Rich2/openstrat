@@ -20,7 +20,7 @@ case class FlagsGui(canv: CanvasPlatform) extends pDisp.CanvasSimple
                us.scale(150).slate(400, 350),               
                uk.scale(200).slate(300, -350).rotate(10.degs),
                japan.scale(200).slate(650, 200).rotate(10.degs),
-//               Rect.curvedSegs(340, 260, 50).slate(200, 0).fillDraw(Brown, 1).rotate(Angle(math.Pi / 7)),
+               Rect.curvedSegs(340, 260, 50).slate(200, 0).fillDraw(Brown, 1).rotate(Angle(math.Pi / 7)),
                Square.curvedSegs(140, 40).slate(-250, 300).draw(1.0, Blue).rotate(Angle(math.Pi / 16)),
                Rect.curvedSegs(340, 260, 40).slate(-500, 0).rotate(15.degs).fillDraw(Colour.BlanchedAlmond, 5),
                FillText.xy(-500, 0, "Passive curved Rectangle", 12).rotate(15.degs)

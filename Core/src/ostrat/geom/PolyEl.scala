@@ -33,7 +33,7 @@ trait ValsVec2s extends Any
    def yVertsArr: Array[Double] =
    {
       val yArr: Array[Double] = new Array[Double](ptsLength)
-      vertsIndexForeach{i => yArr(i) = yDouble(i) }      
+      vertsIndexForeach{i => yArr(i) = yDouble(i) } //think this is wrong     
       yArr
    }
    def arrVertsTrans(f: Vec2 => Vec2): Array[Double] =
