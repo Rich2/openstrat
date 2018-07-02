@@ -68,14 +68,14 @@ object CanvasJs extends CanvasTopLeft
       gc.fillStyle = fp.colour.str            
       gc.fill()               
    }
-   override def tlPolyDraw(verts: Vec2s, lineWidth: Double, lineColour: Colour): Unit =    
+   override def tlDrawPoly(dp: DrawPoly): Unit =    
    {      
       gc.beginPath()
-      gc.moveTo(verts.head1, verts.head2)
-      verts.foreachPairTail(gc.lineTo)
+      gc.moveTo(dp.xHead, dp.yHead)
+      dp.foreachVertPairTail(gc.lineTo)
       gc.closePath()      
-      gc.strokeStyle = lineColour.str
-      gc.lineWidth = lineWidth
+      gc.strokeStyle = dp.lineColour.str
+      gc.lineWidth = dp.lineWidth
       gc.stroke            
    }
    override def tlPolyFillDraw(verts: Vec2s, colour: Colour, lineWidth: Double, lineColour: Colour): Unit =    

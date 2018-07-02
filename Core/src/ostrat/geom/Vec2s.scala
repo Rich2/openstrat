@@ -34,7 +34,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    def polyCentre: Vec2 = boundingRect.cen
    import Colour.Black
    def fill(colour: Colour): FillPoly = FillPoly(colour, this)
-   def draw(lineWidth: Double, lineColour: Colour = Black): DrawPoly = DrawPoly(this, lineWidth, lineColour)
+   def draw(lineWidth: Double, lineColour: Colour = Black): DrawPoly = DrawPoly(lineWidth, lineColour, this)
    def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): FillDrawPoly =
       FillDrawPoly(this, fillColour, lineWidth, lineColour)
    def fillDrawText(fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black) = 

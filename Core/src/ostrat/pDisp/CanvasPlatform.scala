@@ -29,9 +29,10 @@ trait CanvasPlatform extends RectGeom
    /** A call back timer. Takes the delay in milliseconds */
    def timeOut(f: () => Unit, millis: Integer): Unit  
    var textMin: Int = 10
-   final def fillPoly(colour: Colour, pts: Vec2s): Unit = fillPolya(FillPoly(colour, pts))
-   def fillPolya(pf: FillPoly): Unit
-   def polyDraw(pts: Vec2s, lineWidth: Double, linerColour: Colour = Black): Unit
+   final def fillPoly(colour: Colour, pts: Vec2s): Unit = fillPoly(FillPoly(colour, pts))
+   def fillPoly(pf: FillPoly): Unit
+   final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = drawPoly(DrawPoly(lineWidth, lineColour, pts)) 
+   def drawPoly(dp: DrawPoly): Unit //
    def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
    def polyFillDrawText(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int,
          fontColour: Colour = Black): Unit =
@@ -47,7 +48,7 @@ trait CanvasPlatform extends RectGeom
    
    def polyDrawText(pts: Vec2s, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
-      polyDraw(pts: Vec2s, lineWidth, borderColour)
+      drawPoly(lineWidth, borderColour, pts: Vec2s)
       textFill(pts.polyCentre, str, fontSize, fontColour) 
    }
    
@@ -95,8 +96,8 @@ trait CanvasPlatform extends RectGeom
    def rendElems(elems: Seq[CanvEl[_]]): Unit = elems.foreach(rendElem) 
    def rendElem(el: CanvEl[_]): Unit = el match
    {
-      case fp: FillPoly => fillPolya(fp)//verts, fillColour)
-      case DrawPoly(verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
+      case fp: FillPoly => fillPoly(fp)//verts, fillColour)
+      case dp: DrawPoly => drawPoly(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
       case FillDrawPoly(verts, fillColour, lineWidth, lineColour) => polyFillDraw(verts, fillColour, lineWidth, lineColour)
       case PolyLineDraw(lines, lineWidth, lineColour) => lineSegsDraw(lines, lineWidth, lineColour)
       case LineDraw(line, lineWidth, lineColour) => lineSegsDraw(Seq(line), lineWidth, lineColour)

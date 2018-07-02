@@ -20,7 +20,7 @@ object PolySubj
       new PolySubj(cen, poly, evObj, Seq(FillDrawPoly(poly, fillColour, lineWidth, lineColour)))
    
    def draw(cen: Vec2, poly: Vec2s, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black) =
-      new PolySubj(cen, poly, evObj, Seq(DrawPoly(poly, lineWidth, lineColour)))
+      new PolySubj(cen, poly, evObj, List(DrawPoly(lineWidth, lineColour, poly)))
    def fillText(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4,
          fontColour: Colour = Colour.Black, align: TextAlign = TextCen) =
       new PolySubj(cen, poly, evObj, List(FillPoly(fillColour, poly), FillText(poly.polyCentre, str, fontSize, fontColour, align)))

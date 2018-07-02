@@ -42,11 +42,11 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    }
 
    /** Needs mod */
-   override def tlPolyDraw(verts: Vec2s, lineWidth: Double, lineColour: Colour): Unit =    
+   override def tlDrawPoly(dp: DrawPoly): Unit =    
    {      
-     gc.stroke = col(lineColour)
-     gc.lineWidth = lineWidth
-     gc.strokePolygon(verts.elem1sArray, verts.elem2sArray, verts.length)  
+     gc.stroke = col(dp.lineColour)
+     gc.lineWidth = dp.lineWidth
+     gc.strokePolygon(dp.xVertsArr, dp.yVertsArr, dp.ptsLength)  
    }
  
    override def tlPolyFillDraw(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =    

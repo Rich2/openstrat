@@ -10,7 +10,7 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
    override def clip(pts: Vec2s): Unit = {}
    override def getTime: Double = 0
    override protected def tlFillPoly(fp: FillPoly): Unit = {}
-   override protected def tlPolyDraw(pts: Vec2s, lineWidth: Double, lineColour: Colour): Unit = {}
+   override protected def tlDrawPoly(dp: DrawPoly): Unit = {}
    override protected def tlPolyFillDraw(pts: Vec2s, colour: Colour, lineWidth: Double, lineColour: Colour): Unit = {}
    override protected def tlLineSegsDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour): Unit = {}
 
