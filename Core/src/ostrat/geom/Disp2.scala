@@ -1,8 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat.geom
 
-/** A pair of Seqs of display objects. Back objects are overlaid by front objects. The head of the back Seq is painted first. The last
- *  element of the front Seq is painted last */
+/** A pair of Seqs of display objects. Back objects are overlaid by front objects. The head of the back Seq is painted first. The last element
+ *  of the front Seq is painted last. This class has proved useful as a temporary solution but I think it needs to be replaced with a solution 
+ *  where the front -back display property is stored within the individual canvas elements. */
 case class Disp2(backs: CanvObjs, fronts: CanvObjs)
 {
    def ++(other: Disp2): Disp2 = new Disp2(backs ++ other.backs, fronts ++ other.fronts)

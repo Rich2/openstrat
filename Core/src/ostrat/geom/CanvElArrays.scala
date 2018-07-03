@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Not sure how useful these classes are in the immediate as when used in a collection they will box, undermining the benefits of using an Array */
 trait ValsVec2s extends Any
 {
    def arr: Array[Double]
@@ -54,12 +55,12 @@ trait Val1Vec2s[Val1T] extends Any with ValsVec2s
 {
    def valsLength: Int = 1
    def val1Func: Double => Val1T
-   def val1: Val1T = val1Func(arr(0).toInt)   
+   def val1: Val1T = val1Func(arr(0))   
    
    def arrTrans(f: Vec2 => Vec2): Array[Double] =
    {
       val newArr: Array[Double] = arrVertsTrans(f)
-      newArr(0) = arr(0)//copies initial Int1 value      
+      newArr(0) = arr(0)//copies initial Val1 value      
       newArr
    }   
 }
@@ -68,14 +69,33 @@ trait Val2Vec2s[Val1T, Val2T] extends Any with ValsVec2s
 {
    override def valsLength: Int = 2
    def val1Func: Double => Val1T
-   def val1: Val1T = val1Func(arr(0).toInt)
+   def val1: Val1T = val1Func(arr(0))
    def val2Func: Double => Val2T
-   def val2: Val2T = val2Func(arr(1).toInt)
+   def val2: Val2T = val2Func(arr(1))
    override def arrTrans(f: Vec2 => Vec2): Array[Double] =
    {
       val newArr: Array[Double] = arrVertsTrans(f)//new Array[Double](arr.length)
-      newArr(0) = arr(0)//copies initial Int1 value      
-      newArr(1) = arr(1)//copies initial Int2 value 
+      newArr(0) = arr(0)//copies initial Val1 value      
+      newArr(1) = arr(1)//copies initial Val2 value 
+      newArr
+   }      
+}
+
+trait Val3Vec2s[Val1T, Val2T, Val3T] extends Any with ValsVec2s
+{
+   override def valsLength: Int = 3
+   def val1Func: Double => Val1T
+   def val1: Val1T = val1Func(arr(0))
+   def val2Func: Double => Val2T
+   def val2: Val2T = val2Func(arr(1))
+   def val3Func: Double => Val3T
+   def val3: Val3T = val3Func(arr(2))
+   override def arrTrans(f: Vec2 => Vec2): Array[Double] =
+   {
+      val newArr: Array[Double] = arrVertsTrans(f)//new Array[Double](arr.length)
+      newArr(0) = arr(0)//copies initial Val1 value      
+      newArr(1) = arr(1)//copies initial Val2 value
+      newArr(2) = arr(2)//copies initial Vat3 value
       newArr
    }      
 }

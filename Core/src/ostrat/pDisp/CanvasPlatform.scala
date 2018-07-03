@@ -5,8 +5,9 @@ import geom._
 import Colour.Black
 
 /** An abstract Canvas trait. A concrete implementation will utilise  canvas like an HTML canvas or a Scalafx canvas. This concrete implementation
- *  class must be mixed in with a a particular use trait like CanvSimple or CanvMulti .The default methods take the origin as the centre of the
- *  canvas. */
+ *  class must (can?) be mixed in with a a particular use trait like CanvSimple or CanvMulti .The default methods take the origin as the centre of the
+ *  canvas. Note the Canvas Platform merely passes bare pointer event data to delegate functions. It does not process them in relation to objects
+ *  painted on the Canvas. */
 trait CanvasPlatform extends RectGeom
 {
    /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
