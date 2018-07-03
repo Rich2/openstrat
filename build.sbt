@@ -16,7 +16,7 @@ val coreSett = List( Compile/scalaSource := (ThisBuild/baseDirectory).value / "C
 
 lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.3" % "test",
+  Test/libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.3" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
 )
