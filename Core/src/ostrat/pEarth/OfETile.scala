@@ -4,10 +4,11 @@ package pEarth
 import geom._
 import pGrid._
 
-class OfETile[TileT <: Tile](val eg: EarthGui, val eGrid: EGrid[TileT], val tile: TileT) extends OfHex[TileT, EGrid[TileT]]
+class OfETile[TileT <: Tile, SideT <: Side](val eg: EarthGui, val eGrid: EGrid[TileT, SideT], val tile: TileT) extends
+OfHex[TileT, SideT, EGrid[TileT, SideT]]
 {
    /** eGrid need to be got rid of */
-   override def grid: EGrid[TileT]= eGrid
+   override def grid: EGrid[TileT, SideT]= eGrid
    def gridScale: Dist = eGrid.scale
    def focus: LatLong = eg.focus
    def coodToDispVec2(inp: Cood): Vec2 = eg.latLongToXY(eGrid.getLL(inp))

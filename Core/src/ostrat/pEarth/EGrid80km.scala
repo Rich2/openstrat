@@ -5,9 +5,9 @@ import geom._
 import pGrid._
 
 /** 80km hexs. deltaX in HexCood 1 = 20km */   
-class EGrid80km[TileT <: Tile] (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
+class EGrid80km[TileT <: Tile, SideT <: Side] (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
       xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT]) extends
-   EGrid[TileT](bounds, name, cenLong, EGrid80km.scale, xOffset, 300, xTileMin, xTileMax, yTileMin, yTileMax)
+   EGrid[TileT, SideT](bounds, name, cenLong, EGrid80km.scale, xOffset, 300, xTileMin, xTileMax, yTileMin, yTileMax)
 
 object EGrid80km
 {
@@ -60,14 +60,14 @@ object EGrid80km
 
 object E80Empty extends EGridMaker 
 {
-   def apply[TileT <: Tile](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid80km[TileT] =
-      new EGrid80km[TileT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0)
+   def apply[TileT <: Tile, SideT <: Side](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid80km[TileT, SideT] =
+      new EGrid80km[TileT, SideT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0)
       
    //def rowDelta(y: Int): Double = ???  
 }
 
-class EGFarNorth[TileT <: Tile](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
-   (implicit evTile: IsType[TileT])extends EGrid80km[TileT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int,
+class EGFarNorth[TileT <: Tile, SideT <: Side](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
+   (implicit evTile: IsType[TileT])extends EGrid80km[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int,
          xTileMin: Int, xTileMax: Int, yTileMin = 446, yTileMax = 540)
 {
    tileRowsForeach{y => 
@@ -83,8 +83,8 @@ object EGFarNorth
       
  }
 
-class EGNorth[TileT <: Tile](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
-   (implicit evTile: IsType[TileT])extends EGrid80km[TileT] (bounds, name, cenLong, xOffset: Int,
+class EGNorth[TileT <: Tile, SideT <: Side](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
+   (implicit evTile: IsType[TileT])extends EGrid80km[TileT, SideT] (bounds, name, cenLong, xOffset: Int,
          xTileMin: Int, xTileMax: Int, yTileMin = 340, yTileMax = 444)
          
 object EGNearNorth

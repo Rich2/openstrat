@@ -5,7 +5,7 @@ package p305
 import pEarth._
 //import pGrid._
 
-class BCScen extends OldWorldMap[BCTile](BCTile.apply(_, _, _))
+class BCScen extends OldWorldMap[BCTile, BCSide](BCTile.apply(_, _, _))
 {
    val fLegion: (BCTile, Polity) => Unit = (tile, p: Polity) =>
       {

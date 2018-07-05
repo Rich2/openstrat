@@ -19,6 +19,8 @@ object NTile
    }
 }
 
+trait NSide extends Side
+
 class Corps(val polity: Polity, var cood: Cood)
 {
    val colour = polity.colour

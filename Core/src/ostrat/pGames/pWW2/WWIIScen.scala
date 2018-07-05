@@ -4,7 +4,7 @@ package pGames
 package pWW2
 import pEarth._
 
-class WWIIScen extends EarthAllMap[W2Tile](W2Tile.apply)
+class WWIIScen extends EarthAllMap[W2Tile, W2Side](W2Tile.apply)
 {
    val fArmy: (W2Tile, Polity) => Unit = (tile, p: Polity) =>
       {

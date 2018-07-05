@@ -5,7 +5,7 @@ import pDisp._
 import geom._
 
 /** Gui for display of a single regular TileGrid */
-trait TileGridGui[TileT <: Tile, GridT <: TileGrid[TileT]] extends UnfixedMapGui//RectangleGui
+trait TileGridGui[TileT <: Tile, SideT <: Side, GridT <: TileGrid[TileT, SideT]] extends UnfixedMapGui//RectangleGui
 {
    def grid: GridT//TileGrid[TileT]
    /** number of pixels per grid unit */
@@ -41,11 +41,11 @@ trait TileGridGui[TileT <: Tile, GridT <: TileGrid[TileT]] extends UnfixedMapGui
    def tilesForeach(f: TileT => Unit): Unit = grid.tilesForeach(f)
    def tilesFlatMap[R](f: TileT => Seq[R]): Seq[R] = grid.tilesFlatMap(f)
    
-   def ofTilesFold[OfT <: OfTile[TileT, GridT], R](
+   def ofTilesFold[OfT <: OfTile[TileT, SideT, GridT], R](
          f: OfT => R, //TileOfGrid[TileT] => R,
          fSum: (R, R) => R,
          emptyVal: R)(
-         implicit togFactory: (TileT, GridT, TileGridGui[TileT, GridT]) => OfT) =
+         implicit togFactory: (TileT, GridT, TileGridGui[TileT, SideT, GridT]) => OfT) =
    {
       var acc: R = emptyVal
       grid.tileCoodForeach{ tileCood =>
@@ -56,8 +56,8 @@ trait TileGridGui[TileT <: Tile, GridT <: TileGrid[TileT]] extends UnfixedMapGui
       acc
    }
    
-   def ofTilesDisplayFold[OfT <: OfTile[TileT, GridT]](f: OfT => Disp2)(implicit
-         togFactory: (TileT, GridT, TileGridGui[TileT, GridT]) => OfT): Disp2 = ofTilesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(togFactory)
+   def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => Disp2)(implicit
+         togFactory: (TileT, GridT, TileGridGui[TileT, SideT, GridT]) => OfT): Disp2 = ofTilesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(togFactory)
 //   
 //   /** These are pretty horrible need looking at */
 //   def tilesVertFlatMap[R](f: (TileT, Seq[Vec2]) => Seq[R]): Seq[R] = 

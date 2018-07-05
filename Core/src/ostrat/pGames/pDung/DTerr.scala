@@ -49,3 +49,5 @@ object DTile
 //      def persistSingletons: Seq[DTerr] = Seq(Open, Rock)
 //   }
 }
+
+trait DSide extends Side

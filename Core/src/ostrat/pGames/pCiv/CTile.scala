@@ -21,3 +21,5 @@ object CTile
       override def asType(obj: AnyRef): CTile = obj.asInstanceOf[CTile]
    }
 }
+
+trait CSide extends Side

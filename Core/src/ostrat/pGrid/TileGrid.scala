@@ -12,12 +12,12 @@ import geom._
  *  There are no breaks between the first tile of the row and the last tile of the row although a row can consist of a single tile. Every
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
-abstract class TileGrid[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
+abstract class TileGrid[TileT <: Tile, SideT <: Side](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
    (implicit evTile: IsType[TileT])
 {
    thisGrid => 
    /** Check Think this type is needed */   
-   type GridT <: TileGrid[TileT]
+   type GridT <: TileGrid[TileT, SideT]
    /** Not sure if this type is needed */
    //type TileOFGridT = TileOfGrid[TileT]
    
@@ -45,7 +45,7 @@ abstract class TileGrid[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val
    def coodToVec2(cood: Cood): Vec2
    
    def xArrLen: Int// = xSideMax / 2 - xSideMin / 2 + 1
-   val yArrLen = yTileMax - yTileMin + 2
+   val yArrLen = yTileMax - yTileMin + 2//+1 for zeroth tile, + 1 for upper side(s)
    lazy val arr: Array[AnyRef] = new Array[AnyRef](yArrLen * xArrLen)
    def xToInd(x: Int): Int// = x / 2 - xSideMin /2   
    def yToInd(y: Int) = (y  - yTileMin) * xArrLen

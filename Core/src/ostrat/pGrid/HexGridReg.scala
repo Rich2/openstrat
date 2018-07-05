@@ -2,8 +2,8 @@
 package ostrat
 package pGrid
 
-class HexGridReg[TileT <: Tile](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT]) extends
-   HexGrid[TileT](xTileMin, xTileMax, yTileMin, yTileMax)
+class HexGridReg[TileT <: Tile, SideT <: Side](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT]) extends
+   HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
 {  
    val row2Start = xTileMin.incrementTill(_ % 4 == 2)
    val row4Start = xTileMin.incrementTill(_ % 4 == 0)

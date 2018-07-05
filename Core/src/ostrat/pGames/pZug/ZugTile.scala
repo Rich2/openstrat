@@ -55,3 +55,5 @@ object Lake extends ZugTerr
 {
    override def colour = Blue
 }
+
+trait ZugSide extends Side

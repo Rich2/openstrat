@@ -2,8 +2,8 @@
 package ostrat
 package pGrid
 
-abstract class HexGridIrr[TileT <: Tile](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
-   (implicit evTile: IsType[TileT]) extends HexGrid[TileT](xTileMin, xTileMax, yTileMin, yTileMax)          
+abstract class HexGridIrr[TileT <: Tile, SideT <: Side](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
+   (implicit evTile: IsType[TileT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)          
 {   
    //lazy val rowBounds: Array[Int] = bounds// new Array[Int](yArrLen * 2)
    def rowStartInd(y: Int) = (y - yTileMin)  * 2

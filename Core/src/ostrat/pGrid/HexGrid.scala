@@ -4,16 +4,16 @@ package pGrid
 import geom._
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
-abstract class HexGrid[TileT <: Tile](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) (implicit evTile: IsType[TileT]) extends
-   TileGrid[TileT](xTileMin, xTileMax, yTileMin, yTileMax)   
+abstract class HexGrid[TileT <: Tile, SideT <: Side](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) (implicit evTile: IsType[TileT]) extends
+   TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)   
 {   
    override def tileVertCoods(cenCood: Cood): Coods = HexGrid.tileVertCoods(cenCood)
    //override def newCoodT(x: Int, y: Int): HexCood = HexCood.apply(x, y)
    override def xStep: Int = 4
    //override lazy val xSideMin: Int = xTileMin - 2
    //override lazy val xSideMax: Int = xTileMax + 2 
-   override def xToInd(x: Int): Int = (x - xTileMin) / 2
-   override def xArrLen: Int = (xTileMax - xTileMin) / 2 + 1
+   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
+   override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
    override lazy val yRatio: Double = HexGrid.yRatio
    def vertMargin = 0.7
    override def left: Double = xTileMin - 2.2

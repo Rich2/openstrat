@@ -14,9 +14,9 @@ object EuropeEast extends Area1('EuropeEast, 60 ll 60)
 
 object EuropeEastGrid extends EGridMaker
 {          
-   def apply[TileT <: Tile](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid80km[TileT] =
+   def apply[TileT <: Tile, SideT <: Side](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid80km[TileT, SideT] =
    {     
-      val grid = new EGFarNorth[TileT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}
+      val grid = new EGFarNorth[TileT, SideT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}
       grid.fTilesSetAll(Ocean)(fTile)
 //      val gs: (Int, Int, Multiple[Terrain]*) => Unit = grid.setRow[Terrain](fTile) _ 
       //gs(430, 518, hills * 3)

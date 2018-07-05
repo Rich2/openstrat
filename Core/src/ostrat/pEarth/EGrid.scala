@@ -8,17 +8,17 @@ import pGrid.{HexGrid => HG}
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
 {
-   def apply[TileT <: Tile](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid[TileT]
+   def apply[TileT <: Tile, SideT <: Side](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid[TileT, SideT]
 }
 
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
  *  follows lines of longitude. The y Axis at the cenLong moves along a line of longitude. */
-class EGrid[TileT <: Tile](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int, val yOffset: Int, 
-      xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT]) extends
-      HexGridIrr[TileT](bounds, xTileMin, xTileMax, yTileMin, yTileMax)
+class EGrid[TileT <: Tile, SideT <: Side](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int,
+  val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT]) extends
+      HexGridIrr[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax)
 {
    thisEGrid =>
-   type GridT <: EGrid[TileT]
+   type GridT <: EGrid[TileT, SideT]
    val vec2ToLL: Vec2 => LatLong = fVec2ToLatLongReg(cenLong, scale, xOffset, yOffset)   
    
 //   def edgeChain(x1: Int, y1: Int, up: Boolean, x2: Int, y2: Int, maxLen: Int = 100): HSideChain =
@@ -85,28 +85,28 @@ class EGrid[TileT <: Tile](bounds: Array[Int], val name: String, val cenLong: Lo
    
   // def vertLL(hv: HexVert): LatLong = vec2ToLL(hv.toVec2)
 
-   def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT] => R, fSum: (R, R) => R)(emptyVal: R) =
+   def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
    {
       var acc: R = emptyVal
       tileCoodForeach{ tileCood =>         
-         val newRes: R = f(new OfETile[TileT](eg, thisEGrid ,getTile(tileCood)))
+         val newRes: R = f(new OfETile[TileT, SideT](eg, thisEGrid ,getTile(tileCood)))
          acc = fSum(acc, newRes)
       }
       acc
    }   
    
-   def eDisp(eg: EarthGui, fDisp: (OfETile[TileT]) => Disp2): Disp2 = 
+   def eDisp(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => Disp2): Disp2 = 
    {
       var acc: Disp2 = Disp2.empty
       tileCoodForeach { tileCood =>
-         val tog = new OfETile[TileT](eg, thisEGrid, getTile(tileCood))
+         val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
          val newRes: Disp2 = ife(tog.cenFacing, fDisp(tog), Disp2.empty) 
          acc = acc ++ newRes
       }
       acc
    }      
       
-   def disp(eg: EarthGui, fDisp: (EGrid[TileT], Cood) => Disp2): Disp2 = tileCoodsDisplayFold(cood => fDisp(this, cood))
+   def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => Disp2): Disp2 = tileCoodsDisplayFold(cood => fDisp(this, cood))
 
 }
       

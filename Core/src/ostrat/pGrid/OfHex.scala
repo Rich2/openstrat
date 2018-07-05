@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._
 
-trait OfHex[TileT <: Tile, GridT <: HexGrid[TileT]] extends OfTile[TileT, GridT]
+trait OfHex[TileT <: Tile, SideT <: Side, GridT <: HexGrid[TileT, SideT]] extends OfTile[TileT, SideT, GridT]
 {
    def sideURLine: Line2 = CoodLine(cood.addXY(0, 1), cood.addXY(2, 1)).toLine2(cood => coodToDispVec2(cood))
    def sideRightLine: Line2 = CoodLine(cood.addXY(2, 1), cood.addXY(2, - 1)).toLine2(cood => coodToDispVec2(cood))
@@ -13,16 +13,16 @@ trait OfHex[TileT <: Tile, GridT <: HexGrid[TileT]] extends OfTile[TileT, GridT]
 
 object OfHex
 {
-   implicit def apply[TileT <: Tile, GridT <: HexGrid[TileT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, GridT]):
-      OfHex[TileT, GridT] = new OfHexReg[TileT, GridT](tile,grid, gGui)     
+   implicit def apply[TileT <: Tile, SideT <: Side, GridT <: HexGrid[TileT, SideT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]):
+      OfHex[TileT, SideT, GridT] = new OfHexReg[TileT, SideT, GridT](tile,grid, gGui)     
 }
 
-case class OfHexReg[TileT <: Tile, GridT <: HexGrid[TileT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, GridT]) extends
-   OfHex[TileT, GridT] with OfTileReg[TileT, GridT]
+case class OfHexReg[TileT <: Tile, SideT <: Side, GridT <: HexGrid[TileT, SideT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends
+   OfHex[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
 
 object OfHexReg
 {
-   implicit def implicitBuilder[TileT <: Tile, GridT <: HexGrid[TileT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, GridT]) =
-      apply(tile, grid, gGui)
+   implicit def implicitBuilder[TileT <: Tile, SideT <: Side, GridT <: HexGrid[TileT, SideT]](tile: TileT, grid: GridT,
+         gGui: TileGridGui[TileT, SideT, GridT]) = apply(tile, grid, gGui)
 }
 

@@ -2,12 +2,16 @@
 package ostrat
 package pGrid
 
-trait Tile extends AnyRef
+trait GridMem extends AnyRef
 {
    val x, y: Int   
    def cood: Cood = Cood(x, y)
 }
 
+trait Tile extends GridMem
+
 trait HexTile extends Tile
+
+trait Side extends GridMem
 
 
