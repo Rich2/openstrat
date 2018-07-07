@@ -28,7 +28,7 @@ object Wall extends DTerr
    val persistStr: String = "Wall"
 }
 
-case class DTile(x: Int, y: Int, terr: DTerr) extends Tile
+case class DTile(x: Int, y: Int, terr: DTerr) //extends Tile
 {
    var player: Boolean = false
    def colour = terr.colour
@@ -49,5 +49,3 @@ object DTile
 //      def persistSingletons: Seq[DTerr] = Seq(Open, Rock)
 //   }
 }
-
-trait DSide extends Side

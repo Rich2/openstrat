@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+ /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGames
 package p1783
@@ -18,8 +18,6 @@ object NTile
       override def asType(obj: AnyRef): NTile = obj.asInstanceOf[NTile]
    }
 }
-
-trait NSide extends Side
 
 class Corps(val polity: Polity, var cood: Cood)
 {

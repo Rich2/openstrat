@@ -8,12 +8,12 @@ import pGrid.{HexGrid => HG}
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
 {
-   def apply[TileT <: Tile, SideT <: Side](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid[TileT, SideT]
+   def apply[TileT <: GridElem, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid[TileT, SideT]
 }
 
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
  *  follows lines of longitude. The y Axis at the cenLong moves along a line of longitude. */
-class EGrid[TileT <: Tile, SideT <: Side](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int,
+class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int,
   val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT]) extends
       HexGridIrr[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax)
 {

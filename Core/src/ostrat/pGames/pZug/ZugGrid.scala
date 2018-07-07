@@ -4,7 +4,7 @@ package pGames
 package pZug
 import pGrid._
 
-class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[ZugTile, ZugSide](xTileMin, xTileMax, yTileMin, yTileMax)
+class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[ZugTile, SideBare](xTileMin, xTileMax, yTileMin, yTileMax)
 {
    //setSides(SideOnly.apply)
    val fSquad: (ZugTile, Polity) => Unit = (tile, p: Polity) =>

@@ -7,12 +7,12 @@ import pGrid._
 import pDisp._
 import Colour._
 
-class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, CSide, Civ1.type](canv, Civ1)
+class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv, Civ1)
 {
    override def scaleMin = 10
    //override def eTop(): Unit = reTop(guButs)
    mapPanel.backColour = Colour.Black
-   def  fHex: OfHexReg[CTile, CSide, Civ1.type] => Disp2 = tog =>
+   def  fHex: OfHexReg[CTile, SideBare, Civ1.type] => Disp2 = tog =>
       {
          val tile = tog.tile
          val colour: Colour = tile.colour

@@ -19,8 +19,6 @@ object BCTile
    }
 }
 
-trait BCSide extends Side
-
 class Legion(val polity: Polity, var cood: Cood)
 {
    val colour = polity.colour

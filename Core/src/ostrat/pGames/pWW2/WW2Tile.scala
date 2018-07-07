@@ -22,5 +22,3 @@ object W2Tile
    implicit object W2TilePersist extends Persist3[Int, Int, Terrain, W2Tile]('W2Tile, obj => (obj.x , obj.y, obj.terr), apply)
 }
 
-trait W2Side extends Side
-

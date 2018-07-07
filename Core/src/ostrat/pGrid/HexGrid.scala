@@ -4,7 +4,7 @@ package pGrid
 import geom._
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
-abstract class HexGrid[TileT <: Tile, SideT <: Side](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) (implicit evTile: IsType[TileT]) extends
+abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) (implicit evTile: IsType[TileT]) extends
    TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)   
 {   
    override def tileVertCoods(cenCood: Cood): Coods = HexGrid.tileVertCoods(cenCood)

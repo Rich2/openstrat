@@ -5,7 +5,7 @@ import geom._
 import pGrid._
 
 /** 80km hexs. deltaX in HexCood 1 = 20km */   
-class EGrid80km[TileT <: Tile, SideT <: Side] (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
+class EGrid80km[TileT <: AnyRef, SideT <: AnyRef] (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
       xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT]) extends
    EGrid[TileT, SideT](bounds, name, cenLong, EGrid80km.scale, xOffset, 300, xTileMin, xTileMax, yTileMin, yTileMax)
 
@@ -60,13 +60,13 @@ object EGrid80km
 
 object E80Empty extends EGridMaker 
 {
-   def apply[TileT <: Tile, SideT <: Side](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid80km[TileT, SideT] =
+   def apply[TileT <: AnyRef, SideT <: AnyRef](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT]): EGrid80km[TileT, SideT] =
       new EGrid80km[TileT, SideT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0)
       
    //def rowDelta(y: Int): Double = ???  
 }
 
-class EGFarNorth[TileT <: Tile, SideT <: Side](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
+class EGFarNorth[TileT <: AnyRef, SideT <: AnyRef](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
    (implicit evTile: IsType[TileT])extends EGrid80km[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int,
          xTileMin: Int, xTileMax: Int, yTileMin = 446, yTileMax = 540)
 {
@@ -83,7 +83,7 @@ object EGFarNorth
       
  }
 
-class EGNorth[TileT <: Tile, SideT <: Side](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
+class EGNorth[TileT <: AnyRef, SideT <: AnyRef](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
    (implicit evTile: IsType[TileT])extends EGrid80km[TileT, SideT] (bounds, name, cenLong, xOffset: Int,
          xTileMin: Int, xTileMax: Int, yTileMin = 340, yTileMax = 444)
          

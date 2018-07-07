@@ -22,7 +22,7 @@ object Play
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.BC1), "BC 305")),
          (11, (pCard.BlackJack(_), "ScalaFx BlackJack")),
-         //(12, (new pChess.DraughtsGui(_), "Draughts")),         
+         (12, (new pChess.DraughtsGui(_), "Draughts")),         
          )
       
         def curr(appNum: Int): (CanvasPlatform => Unit, String) = theMap(appNum)

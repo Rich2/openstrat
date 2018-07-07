@@ -4,7 +4,7 @@ package pEarth
 import geom._
 import pGrid._
 
-class OfETile[TileT <: Tile, SideT <: Side](val eg: EarthGui, val eGrid: EGrid[TileT, SideT], val tile: TileT) extends
+class OfETile[TileT <: AnyRef, SideT <: AnyRef](val eg: EarthGui, val eGrid: EGrid[TileT, SideT], val tile: TileT) extends
 OfHex[TileT, SideT, EGrid[TileT, SideT]]
 {
    /** eGrid need to be got rid of */

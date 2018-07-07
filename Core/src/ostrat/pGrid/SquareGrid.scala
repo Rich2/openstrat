@@ -5,7 +5,7 @@ import geom._
 
 /** This represents a non-Simple square frid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
-abstract class SquareGrid[TileT <: Tile, SideT <: Side](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
+abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
    (implicit evTile: IsType[TileT]) extends  TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
 {
    override def tileVertCoods(cenCood: Cood): Coods = SquareGrid.tileVertCoods(cenCood)

@@ -4,7 +4,7 @@ package pGrid
 import pDisp._
 
 /** Class for displaying a single hex grid */
-abstract class HexGridGui[TileT <: Tile, SideT <: Side, GridT <: HexGrid[TileT, SideT]](val canv: CanvasPlatform, val grid: GridT) extends
+abstract class HexGridGui[TileT <: AnyRef, SideT <: AnyRef, GridT <: HexGrid[TileT, SideT]](val canv: CanvasPlatform, val grid: GridT) extends
    TileGridGui[TileT, SideT, GridT]
 {
    override def ptScale = pScale / 4
