@@ -28,7 +28,7 @@ object Wall extends DTerr
    val persistStr: String = "Wall"
 }
 
-case class DTile(x: Int, y: Int, terr: DTerr) //extends Tile
+case class DTile(x: Int, y: Int, terr: DTerr) extends GridElem
 {
    var player: Boolean = false
    def colour = terr.colour

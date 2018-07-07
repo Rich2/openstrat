@@ -10,12 +10,11 @@ trait OfSquare[TileT <: GridElem, SideT <: GridElem, GridT <: SquareGrid[TileT, 
    override def ownSideLines: List[Line2] = List(sideUpLine, sideRightLine)
 }
 
-case class OfSquareReg[TileT <: GridElem, SideT <: GridElem, GridT <: SquareGrid[TileT, SideT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT])
-extends OfSquare[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
+case class OfSquareReg[TileT <: GridElem, SideT <: GridElem, GridT <: SquareGrid[TileT, SideT]](
+      tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends OfSquare[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
 
 object OfSquareReg
 {
    implicit def implicitBuilder[TileT <: GridElem, SideT <: GridElem, GridT <: SquareGrid[TileT, SideT]]
-   (tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) =
-      apply(tile, grid, gGui)    
+   (tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]): OfSquareReg[TileT, SideT, GridT] = apply(tile, grid, gGui)    
 }

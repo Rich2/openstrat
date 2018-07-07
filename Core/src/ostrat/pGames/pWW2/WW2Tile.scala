@@ -3,7 +3,6 @@ package ostrat
 package pGames
 package pWW2
 import pEarth._
-import pGrid._
 
 class W2Tile(val x: Int, val y: Int, val terr: Terrain) extends ETile
 {

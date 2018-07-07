@@ -7,9 +7,9 @@ import pGrid._
 
 class NapScen extends EarthAllMap[NTile, SideBare](NTile.apply(_, _, _))
 {
-   val fCorp: (NTile, Polity) => Unit = (cood, p: Polity) =>
+   val fCorp: (NTile, Polity) => Unit = (tile, p: Polity) =>
       {
-         tile.lunits = Corps(p, cood) :: tile.lunits
+         tile.lunits = Corps(p, tile.cood) :: tile.lunits
       }
 }
 

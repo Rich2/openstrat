@@ -56,6 +56,8 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    def fSetTile(x: Int, y: Int, fTile: (Int, Int) => TileT) = arr(xyToInd(x, y)) = fTile(x, y)
    def fSetTile(cood: Cood, fTile: Cood => TileT) = arr(xyToInd(cood.x, cood.y)) = fTile(cood)
    
+   def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {arr(xyToInd(x, y)) = f(x, y, value)}
+   
    def getTile(x: Int, y: Int): TileT = evTile. asType(arr(xyToInd(x, y)))   
    def getTile(tc: Cood): TileT = evTile. asType(arr(xyToInd(tc.x, tc.y)))
    def modTiles(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) }
@@ -77,7 +79,7 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
       // tileRowsForeach(y => tileCoodRowForeach(y, f))
    
    @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
-   //def sideXYForeach(f: (Int, Int) => Unit): Unit
+   @inline def sideXYForeach(f: (Int, Int) => Unit): Unit
    //def setSides(fValue: (Int, Int) => SideT): Unit = sideXYForeach{(x, y) => setSide(x, y, fValue(x, y))}
 //   def sidesMap[R](f: SideT => R): List[R] =
 //   { var acc: List[R] = Nil
@@ -143,9 +145,9 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
       tileCoodsFold[Disp2](f, (acc, pair) => acc ++ pair)(Disp2.empty)   
   
       
-   def fTilesSetAll[A](value: A)(implicit fA: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, fA(_, _, value)))
-   
+   def fTilesSetAll[A](value: A)(implicit fA: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, fA(_, _, value)))   
    def tilesSetAll[A](fValue: (Int, Int) => TileT): Unit = tileXYForeach((x, y) => setTile(x, y, fValue(x, y)))
+   def fSidesSetAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = sideXYForeach((x, y) => fSetSide(x, y, value))
    
    /** Not set Row starts with the y (row) parameter */
    final def setRow[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =

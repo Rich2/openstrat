@@ -26,7 +26,7 @@ class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, SideBa
          }         
          Disp2(List(tv), ch.toList)
       }
-   def mapObjs: CanvObjs = ofTilesDisplayFold(fSquare).collapse
+   def mapObjs: CanvObjs = ofSTilesDisplayFold(fSquare).collapse
    
    eTop()
    mapPanel.repaint(mapObjs)

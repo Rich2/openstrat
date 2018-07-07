@@ -4,15 +4,11 @@ package pGrid
 import geom._
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
-trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]]
+trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 {
-   //def gGui: GridGui[TileT, SideT]
-   def grid: GridT//ileGrid[TileT]
    def tile: TileT    
    final def cood: Cood = tile.cood
-   def coodToDispVec2(inp: Cood): Vec2
-   def xyStr = cood.xyStr
-   def yxStr = cood.yxStr
+   
    def vertCoods: Coods = grid.tileVertCoods(cood)
    def vertVecs: Vec2s
    def cen: Vec2
