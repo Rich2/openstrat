@@ -4,15 +4,11 @@ package pGrid
 import geom._
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
-trait OfTile[TileT <: Tile, GridT <: TileGrid[TileT]]
+trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 {
-   //def gGui: GridGui[TileT, SideT]
-   def grid: GridT//ileGrid[TileT]
    def tile: TileT    
-   def cood = tile.cood
-   def coodToDispVec2(inp: Cood): Vec2
-   def xyStr = cood.xyStr
-   def yxStr = cood.yxStr
+   final def cood: Cood = tile.cood
+   
    def vertCoods: Coods = grid.tileVertCoods(cood)
    def vertVecs: Vec2s
    def cen: Vec2
@@ -28,9 +24,9 @@ trait OfTile[TileT <: Tile, GridT <: TileGrid[TileT]]
    def ownSideLines: List[Line2]
 }
 
-trait OfTileReg[TileT <: Tile, GridT <: TileGrid[TileT]] extends OfTile[TileT, GridT]
+trait OfTileReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends OfTile[TileT, SideT, GridT]
 {
-   def gGui: TileGridGui[TileT, GridT]
+   def gGui: TileGridGui[TileT, SideT, GridT]
    //@inline def coodToMapVec2(inp: Cood): Vec2 = grid.coodToVec2(inp)
    @inline def coodToDispVec2(inp: Cood): Vec2 = fTrans(grid.coodToVec2(inp)) 
    /* Transforms from grid position to display position */

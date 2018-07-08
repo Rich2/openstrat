@@ -5,7 +5,7 @@ package pChess
 import Colour._
 import pGrid._
 
-sealed trait CheckersSq extends Tile
+sealed trait CheckersSq extends GridElem
 {
    def colour: Colour
 }

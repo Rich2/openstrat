@@ -17,7 +17,7 @@ object Play
          (4, (pSpace.Planets(_), "ScalaFx Planets")),
          (5, (new pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
          (6, (new pDung.DungGui(_), "ScalaFx Dungeon")),
-         (7, (new EGridGui(_, EuropeWestGrid[TerrOnly](TerrOnly.tileMaker)), "ScalaFx Europe Grid")),
+         (7, (new EGridGui(_, EuropeWestGrid[TerrOnly, SideOnly](TerrOnly.tileMaker)), "ScalaFx Europe Grid")),
          (8, (TestCanv(_), "ScalaFx Simple Test Canvas")),
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.BC1), "BC 305")),

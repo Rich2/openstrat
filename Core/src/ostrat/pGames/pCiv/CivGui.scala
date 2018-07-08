@@ -7,12 +7,12 @@ import pGrid._
 import pDisp._
 import Colour._
 
-class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, Civ1.type](canv, Civ1)
+class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv, Civ1)
 {
    override def scaleMin = 10
    //override def eTop(): Unit = reTop(guButs)
    mapPanel.backColour = Colour.Black
-   def  fHex: OfHexReg[CTile, Civ1.type] => Disp2 = tog =>
+   def  fHex: OfHexReg[CTile, SideBare, CivGrid] => Disp2 = tog =>
       {
          val tile = tog.tile
          val colour: Colour = tile.colour
@@ -36,7 +36,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, Civ1.type](canv, Ci
          }
          Disp2(List(tv), tText ++ sett ++ lunit ++ sides)
       }
-   def mapObjs: CanvObjs = ofTilesDisplayFold(fHex).collapse// ofHexsDisplayFold(fHex).collapse
+   def mapObjs: CanvObjs = ofHTilesDisplayFold(fHex).collapse// ofHexsDisplayFold(fHex).collapse
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
       case (LeftButton, _, _) =>

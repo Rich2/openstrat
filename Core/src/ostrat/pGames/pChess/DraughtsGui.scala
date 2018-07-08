@@ -7,10 +7,10 @@ import pGrid._
 import pDisp._
 import Colour._
 
-class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, CheckersBoard](canv, CheckersBoard())
+class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, SideBare, CheckersBoard](canv, CheckersBoard())
 {
    var player = true
-   def fSquare: OfSquareReg[CheckersSq, CheckersBoard] => Disp2 = tog =>
+   def fSquare: OfSquareReg[CheckersSq, SideBare, CheckersBoard] => Disp2 = tog =>
       {
          import tog._
          val colour: Colour = tile.colour
@@ -26,7 +26,7 @@ class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, Checke
          }         
          Disp2(List(tv), ch.toList)
       }
-   def mapObjs: CanvObjs = ofTilesDisplayFold(fSquare).collapse
+   def mapObjs: CanvObjs = ofSTilesDisplayFold(fSquare).collapse
    
    eTop()
    mapPanel.repaint(mapObjs)

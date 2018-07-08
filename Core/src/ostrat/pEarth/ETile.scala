@@ -4,7 +4,7 @@ package pEarth
 import pGrid._
 
 //sealed trait TerrMaker extends Any
-trait ETile extends Tile with WithColour// with TerrMaker// with PersistSingle// with AsType[ETile]
+trait ETile extends GridElem with WithColour// with TerrMaker// with PersistSingle// with AsType[ETile]
 {
    def terr: Terrain
    def colour: Colour = terr.colour

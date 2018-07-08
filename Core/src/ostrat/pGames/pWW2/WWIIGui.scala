@@ -6,13 +6,14 @@ import geom._
 import pEarth._
 import pDisp._
 import pStrat._
+import pGrid._
 
 case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
 {   
    deb("Beginning WWIIGui")
    focusUp = true
    override def saveNamePrefix = "WW2"
-   val fHex: OfETile[W2Tile] => Disp2 = etog =>
+   val fHex: OfETile[W2Tile, SideBare] => Disp2 = etog =>
       {
          import etog._         
          val colour: Colour = tile.colour

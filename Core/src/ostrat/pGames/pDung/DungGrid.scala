@@ -4,7 +4,7 @@ package pGames
 package pDung
 import pGrid._
 
-class DungGrid extends SquareGrid[DTile](2, 48, 2, 30)
+class DungGrid extends SquareGrid[DTile, SideBare](2, 48, 2, 30)
 {
    //setSides(SideOnly.apply)
 }

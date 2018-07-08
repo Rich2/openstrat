@@ -12,12 +12,12 @@ import geom._
  *  There are no breaks between the first tile of the row and the last tile of the row although a row can consist of a single tile. Every
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
-abstract class TileGrid[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
+abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
    (implicit evTile: IsType[TileT])
 {
    thisGrid => 
    /** Check Think this type is needed */   
-   type GridT <: TileGrid[TileT]
+   type GridT <: TileGrid[TileT, SideT]
    /** Not sure if this type is needed */
    //type TileOFGridT = TileOfGrid[TileT]
    
@@ -45,7 +45,7 @@ abstract class TileGrid[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val
    def coodToVec2(cood: Cood): Vec2
    
    def xArrLen: Int// = xSideMax / 2 - xSideMin / 2 + 1
-   val yArrLen = yTileMax - yTileMin + 2
+   val yArrLen = yTileMax - yTileMin + 2//+1 for zeroth tile, + 1 for upper side(s)
    lazy val arr: Array[AnyRef] = new Array[AnyRef](yArrLen * xArrLen)
    def xToInd(x: Int): Int// = x / 2 - xSideMin /2   
    def yToInd(y: Int) = (y  - yTileMin) * xArrLen
@@ -55,6 +55,8 @@ abstract class TileGrid[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val
    def setTile(tc: Cood, tile: TileT): Unit = arr(xyToInd(tc.x, tc.y)) = tile
    def fSetTile(x: Int, y: Int, fTile: (Int, Int) => TileT) = arr(xyToInd(x, y)) = fTile(x, y)
    def fSetTile(cood: Cood, fTile: Cood => TileT) = arr(xyToInd(cood.x, cood.y)) = fTile(cood)
+   
+   def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {arr(xyToInd(x, y)) = f(x, y, value)}
    
    def getTile(x: Int, y: Int): TileT = evTile. asType(arr(xyToInd(x, y)))   
    def getTile(tc: Cood): TileT = evTile. asType(arr(xyToInd(tc.x, tc.y)))
@@ -77,7 +79,7 @@ abstract class TileGrid[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val
       // tileRowsForeach(y => tileCoodRowForeach(y, f))
    
    @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
-   //def sideXYForeach(f: (Int, Int) => Unit): Unit
+   @inline def sideXYForeach(f: (Int, Int) => Unit): Unit
    //def setSides(fValue: (Int, Int) => SideT): Unit = sideXYForeach{(x, y) => setSide(x, y, fValue(x, y))}
 //   def sidesMap[R](f: SideT => R): List[R] =
 //   { var acc: List[R] = Nil
@@ -143,9 +145,9 @@ abstract class TileGrid[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val
       tileCoodsFold[Disp2](f, (acc, pair) => acc ++ pair)(Disp2.empty)   
   
       
-   def fTilesSetAll[A](value: A)(implicit fA: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, fA(_, _, value)))
-   
+   def fTilesSetAll[A](value: A)(implicit fA: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, fA(_, _, value)))   
    def tilesSetAll[A](fValue: (Int, Int) => TileT): Unit = tileXYForeach((x, y) => setTile(x, y, fValue(x, y)))
+   def fSidesSetAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = sideXYForeach((x, y) => fSetSide(x, y, value))
    
    /** Not set Row starts with the y (row) parameter */
    final def setRow[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
