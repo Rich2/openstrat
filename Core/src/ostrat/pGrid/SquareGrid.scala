@@ -6,7 +6,7 @@ import geom._
 /** This represents a non-Simple square frid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
-   (implicit evTile: IsType[TileT]) extends  TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
+   (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends  TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
 {
    override def tileVertCoods(cenCood: Cood): Coods = SquareGrid.tileVertCoods(cenCood)
    //override def tileVerts(cenCood: Cood): List[Cood] = Cood.vertCoods.map(_ -+ cenCood)
@@ -20,8 +20,18 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
    override def right: Double = xTileMax + 1.1
    def bottom: Double = yTileMin - 1.1
    def top: Double = yTileMax + 1.1 
-   override def xArrLen: Int = xTileMax - xTileMin + 2   
-   
+   override def xArrLen: Int = xTileMax - xTileMin + 2
+   override def coodIsTile(x: Int, y: Int): Unit = Unit match
+   {
+      case _ if x %% 2 == 0 & y %% 2 == 0 =>      
+      case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate") 
+   }
+   override def coodIsSide(x: Int, y: Int): Unit = Unit match
+   {
+      
+      case _ if x.isOdd & y.isOdd =>   
+      case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")   
+   }
    def tileXYForeach(f: (Int, Int) => Unit): Unit = for { y <- yTileMin to yTileMax by 2
       x <- xTileMin to xTileMax by 2      
    } f(x, y)
@@ -80,7 +90,7 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
          })
       cood
    }
-   override def sideXYVertCoods(x: Int, y: Int): CoodLine = SquareGrid.sideXYVertCoods(x, y)
+   override def sideVertCoods(x: Int, y: Int): CoodLine = SquareGrid.sideXYVertCoods(x, y)
 }
 
 object SquareGrid

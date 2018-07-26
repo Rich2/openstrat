@@ -95,6 +95,17 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
 
 object Vec2s extends Double2sMaker[Vec2, Vec2s]
 {
+//   def apply(inp: Vec2 *): Vec2s =
+//   {
+//      val arr = new Array[Double](inp.length * 2)
+//      var count = 0
+//      while (count < inp.length)
+//      {
+//         arr(count * 2) = inp(count).x
+//         arr(count * 2 + 1) = inp(count).y
+//      }
+//      new Vec2s(arr)
+//   }
    implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
    @inline def xy(inp: Double *): Vec2s = doubles(inp: _*)
 }

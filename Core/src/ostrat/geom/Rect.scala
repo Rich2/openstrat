@@ -50,6 +50,12 @@ object Rect
    def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * Rect.goldenRatio, height, radius)
    def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): FillDrawPoly =
       Rect.gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
+   def fromAxis(centreLine: Line2, height: Double): Vec2s =
+   {
+      val hAngle: Angle = centreLine.lineAngle
+      val offset: Vec2 = hAngle.toVec2 * height * 0.5
+      Vec2s(centreLine.pt1 + offset, centreLine.pt2 + offset, centreLine.pt2 - offset, centreLine.pt1 - offset)   
+   }
 }
 
 object Square

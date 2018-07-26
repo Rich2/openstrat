@@ -11,7 +11,8 @@ OfHex[TileT, SideT, EGrid[TileT, SideT]]
    override def grid: EGrid[TileT, SideT]= eGrid
    def gridScale: Dist = eGrid.scale
    def focus: LatLong = eg.focus
-   def coodToDispVec2(inp: Cood): Vec2 = eg.latLongToXY(eGrid.getLL(inp))
+   def coodToVec2(inp: Cood): Vec2 = eg.latLongToXY(eGrid.getLL(inp))
+   def coodToDispVec2(inp: Cood): Vec2= ???
    def cenLL: LatLong = eGrid.getLL(cood)
    def cen: Vec2 = eg.latLongToXY(cenLL)
    def cenFacing: Boolean = focus.latLongFacing(cenLL)

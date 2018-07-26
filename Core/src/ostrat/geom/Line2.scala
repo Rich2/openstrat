@@ -35,7 +35,8 @@ case class Line2(x1: Double, y1: Double, val x2: Double, y2: Double) extends Pro
             val lineX = x1 + (deltaX * ptDeltaY / deltaY)
             pt.x > lineX
          }
-      }      
+      }
+   def lineAngle: Angle = (pt2 - pt1).angle
 }
 
 object Line2

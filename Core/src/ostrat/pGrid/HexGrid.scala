@@ -4,8 +4,8 @@ package pGrid
 import geom._
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
-abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) (implicit evTile: IsType[TileT]) extends
-   TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)   
+abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
+(implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)   
 {   
    override def tileVertCoods(cenCood: Cood): Coods = HexGrid.tileVertCoods(cenCood)
    //override def newCoodT(x: Int, y: Int): HexCood = HexCood.apply(x, y)
@@ -30,7 +30,21 @@ abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTil
    override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
    //def evenRows: Range = yTileMin until yTileMax by 2
    //def tileNeibs
-   override def sideXYVertCoods(x: Int, y: Int): CoodLine = HexGrid.sideXYVertCoods(x, y)
+   override def sideVertCoods(x: Int, y: Int): CoodLine = HexGrid.sideVertCoods(x, y)
+   override def coodIsTile(x: Int, y: Int): Unit = Unit match
+   {
+      case _ if x %% 4 == 0 & y %% 4 == 0 =>
+      case _ if x %% 4 == 2 & y %% 4 == 2 =>
+      case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
+   }
+   override def coodIsSide(x: Int, y: Int): Unit = Unit match
+   {
+      case _ if x %% 4 == 0 & y %% 4 == 2 =>
+      case _ if x %% 4 == 2 & y %% 4 == 0 =>
+      case _ if x.isOdd & y.isOdd =>   
+      case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hexside tile coordinate")   
+   }
+   
 }
 
 object HexGrid
@@ -38,6 +52,7 @@ object HexGrid
    /** Verts start at Up and follow clockwise */
    val tile00VertCoods: Coods = Coods.xy(0,1,  2,1,  2,-1,  0 ,-1,  -2,-1,  -2,1)
    def tileVertCoods(inp: Cood): Coods = tile00VertCoods.pMap(inp + _)
+   //def sideVertCoods(inp: Cood): Coods = 
    val tile00Neighbs: List[Cood] = List(2 -> 2, 4 -> 0, 2 -> -2, -2 -> -2, -4 -> 0, -2 -> 2).map(p => Cood(p._1, p._2))
    def tileNeighbs(inp: Cood): List[Cood] = tile00Neighbs.map(inp + _)  
    
@@ -55,8 +70,16 @@ object HexGrid
       }
    }
    
-   def sideCoodVertCoods(cood: Cood): CoodLine = sideXYVertCoods(cood.x, cood.y)
-   def sideXYVertCoods(x: Int, y: Int): CoodLine = (x %% 4, y %% 4) match
+   @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = Unit match
+   {
+      case _ if (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3) => upRight
+      case _ if (y.isDivBy4 && x.div4Rem2) || (y.div4Rem2 && x.isDivBy4) => rightSide      
+      case _ if (y.div4Rem1 && x.div4Rem3) || (y.div4Rem3 && x.div4Rem1) => downRight
+      case _ => excep("invalid Hex Side coordinate: " - x.toString.commaAppend(y.toString))
+   }
+   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
+   def sideVertCoods(cood: Cood): CoodLine = sideVertCoods(cood.x, cood.y)
+   def sideVertCoods(x: Int, y: Int): CoodLine = (x %% 4, y %% 4) match
    {
       case (0, 2) | (2, 0) => CoodLine(x, y + 1, x, y - 1)
       case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(x - 1, y, x + 1, y)

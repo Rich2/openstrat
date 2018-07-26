@@ -22,8 +22,7 @@ case class ZugTile(x: Int, y: Int, terr: ZugTerr) extends GridElem
 }
 
 object ZugTile
-{
-   
+{   
    implicit object ZugTileIsType extends IsType[ZugTile]
    {
       override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[ZugTile]

@@ -13,7 +13,7 @@ import geom._
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
 abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
-   (implicit evTile: IsType[TileT])
+   (implicit evTile: IsType[TileT], evSide: IsType[SideT])
 {
    thisGrid => 
    /** Check Think this type is needed */   
@@ -51,22 +51,36 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    def yToInd(y: Int) = (y  - yTileMin) * xArrLen
    def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y)
    
-   def setTile(x: Int, y: Int, tile: TileT): Unit = arr(xyToInd(x, y)) = tile
-   def setTile(tc: Cood, tile: TileT): Unit = arr(xyToInd(tc.x, tc.y)) = tile
-   def fSetTile(x: Int, y: Int, fTile: (Int, Int) => TileT) = arr(xyToInd(x, y)) = fTile(x, y)
-   def fSetTile(cood: Cood, fTile: Cood => TileT) = arr(xyToInd(cood.x, cood.y)) = fTile(cood)
+   def setTile(x: Int, y: Int, tile: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
+   def setTile(tc: Cood, tile: TileT): Unit = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
+   def fSetTile(x: Int, y: Int, fTile: (Int, Int) => TileT) = { coodIsTile(x, y);  arr(xyToInd(x, y)) = fTile(x, y) }
+   def fSetTile(cood: Cood, fTile: Cood => TileT) = { coodIsTile(cood); arr(xyToInd(cood.x, cood.y)) = fTile(cood) }
    
-   def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {arr(xyToInd(x, y)) = f(x, y, value)}
+   def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {coodIsSide(x, y); arr(xyToInd(x, y)) = f(x, y, value)}
+   def fSetSides[A](value: A, xys: (Int, Int)*)(implicit f: (Int, Int, A) => SideT) = xys.foreach(p => fSetSide(p._1 , p._2, value))
    
-   def getTile(x: Int, y: Int): TileT = evTile. asType(arr(xyToInd(x, y)))   
-   def getTile(tc: Cood): TileT = evTile. asType(arr(xyToInd(tc.x, tc.y)))
+   /** Throws exception if Cood is not a valid Tile coordinate */
+   final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)
+   /** Throws exception if Cood is not a valid Tile coordinate */
+   def coodIsSide(x: Int, y: Int): Unit
+   /** Throws exception if Cood is not a valid Tile coordinate */
+   final def coodIsSide(cood: Cood): Unit = coodIsSide(cood.x, cood.y)
+   /** Throws exception if Cood is not a valid Tile coordinate */
+   def coodIsTile(x: Int, y: Int): Unit
+   
+   
+   def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
+   def getTile(tc: Cood): TileT = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) }
+   def getSide(x: Int, y: Int): SideT = evSide.asType(arr(xyToInd(x, y))) 
+   def getSide(tc: Cood): SideT = evSide.asType(arr(xyToInd(tc.x, tc.y)))
+   
    def modTiles(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) }
    
    //def setSide(x: Int, y: Int, side: SideT): Unit = arr(xyToInd(x, y)) = side
    //def getSide(x: Int, y: Int): SideT = evSide.asType(arr(xyToInd(x, y)))
    
-   def sideCoodVertCoods(cood: Cood): CoodLine = sideXYVertCoods(cood.x, cood.y)
-   def sideXYVertCoods(x: Int, y: Int): CoodLine
+   def sideVertCoods(cood: Cood): CoodLine = sideVertCoods(cood.x, cood.y)
+   def sideVertCoods(x: Int, y: Int): CoodLine
    
    /** The y loop could be abstracted, but this way no worries about inlining */
    def tileRowsForeach(f: Int => Unit): Unit =
@@ -76,6 +90,7 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    }
    /** needs change */
    @inline final def tileCoodForeach(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
+   @inline final def sideCoodForeach(f: Cood => Unit): Unit = sideXYForeach((x, y) => f(Cood(x, y)))
       // tileRowsForeach(y => tileCoodRowForeach(y, f))
    
    @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 

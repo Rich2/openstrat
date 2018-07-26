@@ -11,5 +11,13 @@ trait GridElem
 
 case class TileBare(x: Int, y: Int) extends GridElem
 case class SideBare(x: Int, y: Int) extends GridElem
+object SideBare
+{
+   implicit object SideBareIsType extends IsType[SideBare]
+   {
+      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[SideBare]
+      override def asType(obj: AnyRef): SideBare = obj.asInstanceOf[SideBare]   
+   }
+}
 
 

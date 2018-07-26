@@ -110,6 +110,7 @@ object Vec2
 {
    def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
    def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
+   def fromAngle(angle: Angle, scalar: Double = 1.0): Vec2 = angle.toVec2 * scalar
 //   def xy(inp: Double*): Vec2s =
 //   {      
 //

@@ -11,5 +11,11 @@ case class ZugSide(x: Int, y: Int, wall: Boolean) extends GridElem
 
 object ZugSide
 {
-   implicit val zugSideMakerImplicit: (Int, Int, Boolean) => ZugSide = ZugSide.apply 
+   implicit val zugSideMakerImplicit: (Int, Int, Boolean) => ZugSide = ZugSide.apply   
+   
+   implicit object ZugSideIsType extends IsType[ZugSide]
+   {
+      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[ZugSide]
+      override def asType(obj: AnyRef): ZugSide = obj.asInstanceOf[ZugSide]   
+   }
 }

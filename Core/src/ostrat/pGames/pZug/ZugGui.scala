@@ -14,23 +14,29 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
    override def scaleMin = 10
    override def eTop(): Unit = reTop(guButs :+ status)
    mapPanel.backColour = Black
-   def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => Disp2 = tog =>
+   def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofh =>
       {
-         import tog._
-         val tile = tog.tile
+         import ofh._         
          val colour: Colour = tile.colour
-         val poly: Vec2s = tog.vertVecs
+         val poly: Vec2s = vertVecs
          val tv = poly.fillSubj(tile, colour)
-         val sides = tog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-         val tText = tog.ifScaleCObj(60, FillText(tog.cen, xyStr, 14, colour.contrastBW))
+         val sides = ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         val tText = ifScaleCObj(60, FillText(cen, xyStr, 14, colour.contrastBW))
          val lunit = tile.lunits match
          {
-            case ::(head, _) if tog.tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(tog.cen))
+            case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => None   
          }         
          Disp2(List(tv), tText ++ lunit ++ sides)
       }
-   def mapObjs: CanvObjs = ofTilesDisplayFold(fHex).collapse//ofHexsDisplayFold(fHex).collapse
+   def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofs => {
+      import ofs._
+      val tText = ifScaleIfCObj(60, side.wall, FillText(sideCen, "wall", 14, Colour.Red))
+      Disp2(Nil, tText)
+   }
+   def dSides: Disp2 = ofSidesDisplayFold(fSide)(OfHexSideReg.implicitBuilder(_, _, _))
+     
+   def mapObjs: CanvObjs = (ofTilesDisplayFold(fHex) ++ dSides ).collapse//ofHexsDisplayFold(fHex).collapse
      
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {

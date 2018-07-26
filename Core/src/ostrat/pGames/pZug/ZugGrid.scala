@@ -17,6 +17,7 @@ object Zug1 extends ZugGrid(4, 48, 2, 14)
 {
    fTilesSetAll(Plain)
    fSidesSetAll(false)
+   fSetSides(true, 35 -> 11, 36 -> 10, 37 -> 9)
    import Zug1.{setRow => gs}
    gs(yRow = 12, xStart = 4, WheatField * 2)
    gs(10, 6, WheatField)
@@ -24,6 +25,6 @@ object Zug1 extends ZugGrid(4, 48, 2, 14)
    gs(6, 6, WheatField)
    gs(4, 4, WheatField * 2)
    gs(2, 6, WheatField)
-   fSetSide(30, 11, true)
+   //fSetSide(30, 11, true)
    fTiles[Polity](fSquad, (18, 6, Germany), (30, 6, Germany), (22, 10, Britain), (30, 10, Britain))
 }
