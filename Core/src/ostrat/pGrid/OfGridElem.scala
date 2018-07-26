@@ -34,5 +34,5 @@ trait OfGridElemReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[Tile
    /* Transforms from grid position to display position */
    @inline def fTrans(inp: Vec2): Vec2 = gGui.fTrans(inp)
    override def psc = gGui.pScale
-   override def coodToVec2(inp: Cood): Vec2 = ???
+   override def coodToVec2(inp: Cood): Vec2 = grid.coodToVec2(inp)
 }

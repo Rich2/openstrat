@@ -16,7 +16,7 @@ object ZugTerr
 }
 
 case class ZugTile(x: Int, y: Int, terr: ZugTerr) extends GridElem
-{
+{   
    def colour = terr.colour
    var lunits: List[Squad] = Nil   
 }

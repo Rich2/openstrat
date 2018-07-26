@@ -22,6 +22,5 @@ OfGridElemReg[TileT, SideT, GridT]
    /* Tile centre posn on Grid */
    def cenRelGrid: Vec2 = grid.coodToVec2(cood)
    /* Tile centre posn on display */
-   def cen: Vec2 = fTrans(cenRelGrid)
-   
+   def cen: Vec2 = fTrans(cenRelGrid)   
 }

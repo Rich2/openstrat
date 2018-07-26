@@ -31,8 +31,8 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
       }
    def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofs => {
       import ofs._
-      val tText = ifScaleIfCObj(60, side.wall, FillText(sideCen, "wall", 14, Colour.Red))
-      Disp2(Nil, tText)
+      val line = ifScaleIfCObj(60, side.wall, LineDraw(vertLine, 6, Colour.Gray))      
+      Disp2(Nil, line)
    }
    def dSides: Disp2 = ofSidesDisplayFold(fSide)(OfHexSideReg.implicitBuilder(_, _, _))
      

@@ -9,5 +9,5 @@ trait OfSide[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, Side
    final def cood: Cood = side.cood
    def sideCen: Vec2
    def coodsLine: CoodLine = grid.sideVertCoods(cood)
-   def vertLine: Line2 = coodsLine.toLine2(coodToVec2)
+   def vertLine: Line2 = coodsLine.toLine2(coodToDispVec2)
 }
