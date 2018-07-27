@@ -13,5 +13,6 @@ class ListImplicit[A](val thisList: List[A]) extends AnyVal
          case Nil => acc.reverse
       }
       loop(thisList, Nil)
-   }     
+   }
+   def gRet: Good[List[A]] = Good(thisList.reverse)
 }

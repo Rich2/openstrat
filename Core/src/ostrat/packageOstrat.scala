@@ -27,7 +27,7 @@ package object ostrat
    type Funit = Function0[Unit]
    type FStr = Function0[String]
    type FStrSeq = Seq[Function0[String]]
-   type Tokens = Seq[Token]
+   type Tokens = List[Token]
    type EMon[B] = Either[Seq[ParseErr], B]
    type EMonSeq[B] = Either[Seq[ParseErr], Seq[B]]
    type TokensMon = EMon[Tokens]
