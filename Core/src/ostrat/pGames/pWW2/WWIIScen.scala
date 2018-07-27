@@ -3,9 +3,8 @@ package ostrat
 package pGames
 package pWW2
 import pEarth._
-import pGrid._
 
-class WWIIScen extends EarthAllMap[W2Tile, SideBare](W2Tile.apply)
+class WWIIScen extends EarthAllMap[W2Tile, W2Side](W2Tile.apply, W2Side.apply)
 {
    val fArmy: (W2Tile, Polity) => Unit = (tile, p: Polity) =>
       {

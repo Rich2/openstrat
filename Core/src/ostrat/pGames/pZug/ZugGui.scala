@@ -34,7 +34,7 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
       val line = ifScaleIfCObj(60, side.wall, LineDraw(vertLine, 6, Colour.Gray))      
       Disp2(Nil, line)
    }
-   def dSides: Disp2 = ofSidesDisplayFold(fSide)(OfHexSideReg.implicitBuilder(_, _, _))
+   def dSides: Disp2 = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
      
    def mapObjs: CanvObjs = (ofTilesDisplayFold(fHex) ++ dSides ).collapse//ofHexsDisplayFold(fHex).collapse
      

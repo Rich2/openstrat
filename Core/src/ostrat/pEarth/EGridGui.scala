@@ -4,13 +4,13 @@ package pEarth
 import geom._
 import pGrid._
 
-class EGridGui(canv: pDisp.CanvasPlatform, eg: EGrid[TerrOnly, SideOnly]) extends HexGridGui[TerrOnly, SideOnly, EGrid[TerrOnly, SideOnly]](canv, eg)
+class EGridGui(canv: pDisp.CanvasPlatform, eg: EGrid[TerrOnly, ESideOnly]) extends HexGridGui[TerrOnly, ESideOnly, EGrid[TerrOnly, ESideOnly]](canv, eg)
 {
    override def eTop(): Unit = reTop(guButs :+ status)
    eTop
    mapPanel.backColour = Colour.Black
    override def viewStr: String = "focus: " - focusStr2 -- ptScale.str1 -- ptScale.str1
-   def fHex: OfHex[TerrOnly, SideOnly, EGrid[TerrOnly, SideOnly]] => Disp2 = tog => 
+   def fHex: OfHex[TerrOnly, ESideOnly, EGrid[TerrOnly, ESideOnly]] => Disp2 = tog => 
       {
          val tile = tog.tile
          val colour: Colour = tile.colour
@@ -27,6 +27,6 @@ class EGridGui(canv: pDisp.CanvasPlatform, eg: EGrid[TerrOnly, SideOnly]) extend
          Disp2(List(tv), sides ++ tText)         
       }
    
-   override def mapObjs: CanvObjs = ofTilesDisplayFold(fHex)(OfHex.apply[TerrOnly, SideOnly, EGrid[TerrOnly, SideOnly]]).collapse//ofHexsDisplayFold(fHex).collapse
+   override def mapObjs: CanvObjs = ofTilesDisplayFold(fHex)(OfHex.apply[TerrOnly, ESideOnly, EGrid[TerrOnly, ESideOnly]]).collapse//ofHexsDisplayFold(fHex).collapse
    repaintMap
 }

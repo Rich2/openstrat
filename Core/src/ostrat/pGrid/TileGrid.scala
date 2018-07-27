@@ -45,10 +45,10 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    def coodToVec2(cood: Cood): Vec2
    
    def xArrLen: Int// = xSideMax / 2 - xSideMin / 2 + 1
-   val yArrLen = yTileMax - yTileMin + 2//+1 for zeroth tile, + 1 for upper side(s)
+   val yArrLen = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
    lazy val arr: Array[AnyRef] = new Array[AnyRef](yArrLen * xArrLen)
    def xToInd(x: Int): Int// = x / 2 - xSideMin /2   
-   def yToInd(y: Int) = (y  - yTileMin) * xArrLen
+   def yToInd(y: Int) = (y  - yTileMin + 1) * xArrLen
    def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y)
    
    def setTile(x: Int, y: Int, tile: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }

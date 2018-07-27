@@ -16,12 +16,13 @@ object AfricaWest extends Area1('WAfrica, 20 ll 40)
 
 object AfricaWestGrid extends EGridMaker
 {          
-   def apply[TileT <: GridElem, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT], evSide: IsType[SideT]):
-   EGrid80km[TileT, SideT] =
+   def apply[TileT <: GridElem, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
+         implicit evTile: IsType[TileT], evSide: IsType[SideT]): EGrid80km[TileT, SideT] =
    {
      // import Terrain._
       val grid: EGNorth[TileT, SideT] = new EGNorth[TileT, SideT](new Array[Int](0), "AfricaWest", 0.east, xOffset = 200, 18, 300)
       grid.fTilesSetAll(Ocean)(fTile)
+      grid.fSidesSetAll(SideNone)(fSide)
 //      val gs: (Int, Int, Multiple[Terrain]*) => Unit = grid.setRow[Terrain](fTile) _
 //     // gs(444, 124, sea * 18, plain * 3, hills * 3, mtain * 3 ,plain * 5, sea * 2, hills * 4, plain)
 //      gs(442, 126, sea * 17, plain * 3, hills * 4, mtain * 5, hills * 2, sea * 3, hills * 5)

@@ -8,7 +8,7 @@ import pGrid.{HexGrid => HG}
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
 {
-   def apply[TileT <: GridElem, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT)(implicit evTile: IsType[TileT], evSide: IsType[SideT]):
+   def apply[TileT <: GridElem, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(implicit evTile: IsType[TileT], evSide: IsType[SideT]):
    EGrid[TileT, SideT]
 }
 
@@ -105,7 +105,26 @@ class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: 
          acc = acc ++ newRes
       }
       acc
-   }      
+   }
+   
+   def eDisp2(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => Disp2, sDisp: (OfESide[TileT, SideT]) => Disp2): Disp2 = 
+   {
+      var acc: Disp2 = Disp2.empty
+      tileCoodForeach { tileCood =>
+         val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
+         val newRes: Disp2 = ife(tog.cenFacing, fDisp(tog), Disp2.empty) 
+         acc = acc ++ newRes
+      }
+      var sideAcc: Disp2 = Disp2.empty
+      sideCoodForeach { sideCood =>
+         val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
+         val newRes: Disp2 = ife(true/*tog.cenFacing*/, sDisp(tog), Disp2.empty) 
+         sideAcc ++= newRes
+      }
+      deb(sideAcc.fronts.length.toString)
+      acc ++ sideAcc
+   }
+   
       
    def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => Disp2): Disp2 = tileCoodsDisplayFold(cood => fDisp(this, cood))
 

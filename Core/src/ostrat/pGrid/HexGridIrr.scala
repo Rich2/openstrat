@@ -21,7 +21,11 @@ abstract class HexGridIrr[TileT <: GridElem, SideT <: GridElem](val rowBounds: A
       while(y <= yTileMax) { f(y); y += 2 }
    }
    
-   def sideXYForeach(f: (Int, Int) => Unit): Unit = ???
+   def sideXYForeach(f: (Int, Int) => Unit): Unit = tileXYForeach{(x, y) =>
+      f(x + 1, y + 1)
+      f(x + 2, y)
+      f(x + 1, y - 1)
+      }
    
    @inline override def tileXYForeach(f: (Int, Int) => Unit): Unit = tileRowsForeach(y => tileXYRowForeach(y, f))
    

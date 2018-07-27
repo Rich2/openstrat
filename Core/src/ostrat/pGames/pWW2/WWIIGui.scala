@@ -6,14 +6,13 @@ import geom._
 import pEarth._
 import pDisp._
 import pStrat._
-import pGrid._
 
 case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
 {   
    deb("Beginning WWIIGui")
    focusUp = true
    override def saveNamePrefix = "WW2"
-   val fHex: OfETile[W2Tile, SideBare] => Disp2 = etog =>
+   val fHex: OfETile[W2Tile, W2Side] => Disp2 = etog =>
       {
          import etog._         
          val colour: Colour = tile.colour
@@ -29,9 +28,21 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
          })
          Disp2(List(poly), sides ++ textOrUnit)
       }
+   def fSide: OfESide[W2Tile, W2Side] => Disp2 = ofs => {
+      import ofs._
+      val line = ifScaleIfCObj(60, side.terr match
+            {
+         case SideNone => false
+         case Straits => true
+         }, LineDraw(vertLine, 6, Colour.Blue))      
+      Disp2(Nil, line)
+   } 
+   
+   //def dSides: Disp2 = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
+      
    def ls: CanvObjs = 
    {
-      val gs: Disp2 = scen.grids.displayFold(_.eDisp(this, fHex))
+      val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
       val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )
       (as ++ gs).collapse// + b  
    }   
