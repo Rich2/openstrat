@@ -84,7 +84,15 @@ abstract class HexGridIrr[TileT <: GridElem, SideT <: GridElem](val rowBounds: A
          setTile(x, y, f(x, y, e))         
       }
    }
-   
+   override def optTile(x: Int, y: Int): Option[TileT] = Unit match
+   {
+      case _ if y < yTileMin => None
+      case _ if y > yTileMax => None
+      case _ if x < rowStart(y) => None
+      case _ if x > rowEnd(y) => None   
+      case _ => Some(getTile(x, y))
+   }
+
   // def fSetAll[A](f: (Int, Int, A) => TileT, tValue: A): Unit = this.tilesSetAll(f(_, _, tValue))
  //  /** sets the inner sides of the grid */
  //  def setDefaultSides(defaultSide: SideT): Unit = ???

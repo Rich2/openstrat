@@ -17,7 +17,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
          import etog._         
          val colour: Colour = tile.colour
          val poly = etog.vertVecs.fillSubj(tile, colour)
-         val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
          val textOrUnit: CanvObjs = ifScaleCObjs(68, tile.lunits match {
             case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => 
@@ -26,15 +26,16 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
               FillText.lines(cen, ls, 10, colour.contrastBW)                  
             }
          })
-         Disp2(List(poly), sides ++ textOrUnit)
+         Disp2(List(poly), textOrUnit)
       }
    def fSide: OfESide[W2Tile, W2Side] => Disp2 = ofs => {
       import ofs._
-      val line = ifScaleIfCObj(60, side.terr match
+      val line = ifScaleCObjs(60, side.terr match
             {
-         case SideNone => false
-         case Straits => true
-         }, LineDraw(vertLine, 6, Colour.Blue))      
+         case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
+               (t1, _) => LineDraw(vertLine, 1, t1.colour.contrastBW))
+         case Straits => LineDraw(vertLine, 6, Colour.Blue) :: Nil
+         })      
       Disp2(Nil, line)
    } 
    

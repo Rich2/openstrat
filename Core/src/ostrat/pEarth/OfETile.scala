@@ -20,6 +20,9 @@ OfHex[TileT, SideT, EGrid[TileT, SideT]] with OfEElem[TileT, SideT]
 
 class OfESide[TileT <: GridElem, SideT <: GridElem](val eg: EarthGui, val eGrid: EGrid[TileT, SideT], val side: SideT) extends
 OfHexSide[TileT, SideT, EGrid[TileT, SideT]] with OfEElem[TileT, SideT]
+{
+   def sideCenFacing: Boolean = focus.latLongFacing(sideCenLL)
+}
 
 trait OfEElem[TileT <: GridElem, SideT <: GridElem] extends OfGridElem[TileT, SideT, EGrid[TileT, SideT]]
 {

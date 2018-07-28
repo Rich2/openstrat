@@ -3,7 +3,8 @@ package ostrat
 package pGrid
 
 class HexGridReg[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
-      implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
+      implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
+      TileGridReg[TileT, SideT]
 {  
    val row2Start = xTileMin.incrementTill(_ % 4 == 2)
    val row4Start = xTileMin.incrementTill(_ % 4 == 0)
@@ -35,5 +36,6 @@ class HexGridReg[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: 
      for {y <- (yTileMin + 1) to (yTileMax - 1) by 2
         x <- sideRowOddStart to sideRowOddEnd by 2
      } yield f(x, y)     
-   }    
+   }
+   
 }

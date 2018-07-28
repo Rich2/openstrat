@@ -20,18 +20,22 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
          val colour: Colour = tile.colour
          val poly: Vec2s = vertVecs
          val tv = poly.fillSubj(tile, colour)
-         val sides = ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+        // val sides = ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
          val tText = ifScaleCObj(60, FillText(cen, xyStr, 14, colour.contrastBW))
          val lunit = tile.lunits match
          {
             case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => None   
          }         
-         Disp2(List(tv), tText ++ lunit ++ sides)
+         Disp2(List(tv), tText ++ lunit)// ++ sides)
       }
    def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofs => {
       import ofs._
-      val line = ifScaleIfCObj(60, side.wall, LineDraw(vertLine, 6, Colour.Gray))      
+      val line: CanvObjs = ifScaleCObjs(60, side.wall match
+         {
+         case true => LineDraw(vertLine, 6, Colour.Gray) :: Nil
+         case _ => ifTiles(_.colour == _.colour, (t1, _) => LineDraw(vertLine, 1, t1.colour.contrastBW))
+      })
       Disp2(Nil, line)
    }
    def dSides: Disp2 = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))

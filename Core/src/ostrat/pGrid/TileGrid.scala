@@ -74,6 +74,16 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    def getSide(x: Int, y: Int): SideT = evSide.asType(arr(xyToInd(x, y))) 
    def getSide(tc: Cood): SideT = evSide.asType(arr(xyToInd(tc.x, tc.y)))
    
+   def optTile(x: Int, y: Int): Option[TileT]
+   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
+   def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
+   def optSidesTiles(x: Int, y: Int): (Option[TileT], Option[TileT]) =
+   {
+      val (c1, c2) = sidesTileCoods(x, y)
+      (optTile(c1), optTile(c2))
+   }
+   final def optSidesTiles(cood: Cood): (Option[TileT], Option[TileT]) = optSidesTiles(cood.x, cood.y)
+   
    def modTiles(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) }
    
    //def setSide(x: Int, y: Int, side: SideT): Unit = arr(xyToInd(x, y)) = side

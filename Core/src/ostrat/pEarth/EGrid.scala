@@ -118,10 +118,9 @@ class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: 
       var sideAcc: Disp2 = Disp2.empty
       sideCoodForeach { sideCood =>
          val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
-         val newRes: Disp2 = ife(true/*tog.cenFacing*/, sDisp(tog), Disp2.empty) 
+         val newRes: Disp2 = ife(tog.sideCenFacing, sDisp(tog), Disp2.empty) 
          sideAcc ++= newRes
-      }
-      deb(sideAcc.fronts.length.toString)
+      }      
       acc ++ sideAcc
    }
    

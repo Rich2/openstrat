@@ -21,11 +21,7 @@ abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTil
    def bottom: Double = (yTileMin - 2) * yRatio - vertMargin
    def top: Double = (yTileMax + 2) * yRatio + vertMargin
    def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(getTile(tr._1, tr._2), tr._3))      
-   def optTile(x: Int, y: Int): Option[TileT] =
-   {
-      val terr = getTile(x, y)
-      ife(terr == null, None, Some(terr))
-   }
+   
    def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null
    override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
    //def evenRows: Range = yTileMin until yTileMax by 2
@@ -43,6 +39,13 @@ abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTil
       case _ if x %% 4 == 2 & y %% 4 == 0 =>
       case _ if x.isOdd & y.isOdd =>   
       case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hexside tile coordinate")   
+   }
+   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match
+   {
+      case _ if (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0)  => (Cood(x -2, y), Cood(x + 2, y))
+      case _ if (x %% 4 == 1 & y %% 4 == 1) | (x %% 4 == 3 & y %% 4 == 3) =>  (Cood(x - 1, y - 1), Cood(x + 1, y + 1))
+      case _ if (x %% 4 == 1 & y %% 4 == 3) | (x %% 4 == 3 & y %% 4 == 1) => (Cood(x - 1, y + 1), Cood(x + 1, y - 1))
+      case _ => excep("Invalid Hex Side Coordinate".commaAppend(x.toString, y.toString))
    }
    
 }

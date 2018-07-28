@@ -6,7 +6,8 @@ import geom._
 /** This represents a non-Simple square frid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
-   (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends  TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
+   (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends  TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
+   TileGridReg[TileT, SideT]
 {
    override def tileVertCoods(cenCood: Cood): Coods = SquareGrid.tileVertCoods(cenCood)
    //override def tileVerts(cenCood: Cood): List[Cood] = Cood.vertCoods.map(_ -+ cenCood)
@@ -91,6 +92,12 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
       cood
    }
    override def sideVertCoods(x: Int, y: Int): CoodLine = SquareGrid.sideXYVertCoods(x, y)
+   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match
+   {
+      case _ if x.isOdd & y.isEven => (Cood(x - 1, y), Cood(x + 1, y))
+      case _ if x.isEven & y.isOdd => (Cood(x, y - 1), Cood(x, y + 1))
+      case _ => excep("Invalid Square Coordinate")
+   }
 }
 
 object SquareGrid
