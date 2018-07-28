@@ -19,7 +19,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
          val tile = etog.tile
          val colour: Colour = tile.colour
          val poly = etog.vertVecs.fillSubj(tile, colour)
-         val sides = etog.ifScaleCObjs(60, etog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+        // val sides = etog.ifScaleCObjs(60, etog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
          val textU: CanvObjs = etog.ifScaleCObjs(68, tile.lunits match
          {
             case ::(head, _) if etog.tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(etog.cen))               
@@ -29,11 +29,22 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
             FillText.lines(etog.cen, ls, 10, colour.contrastBW)
             }
          })         
-         Disp2(List(poly), sides ++ textU)// ++ lunit)
+         Disp2(List(poly),textU)
       }
+      def fSide: OfESide[NTile, ESideOnly] => Disp2 = ofs => {
+      import ofs._
+      val line = ifScaleCObjs(60, side.terr match
+            {
+         case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
+               (t1, _) => LineDraw(vertLine, 1, t1.colour.contrastBW))
+         case Straits => LineDraw(vertLine, 6, Colour.Blue) :: Nil
+         })      
+      Disp2(Nil, line)
+   } 
+      
    def ls: CanvObjs =
    {
-      val gs: Disp2 = scen.grids.displayFold(_.eDisp(this, fHex))
+      val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
       val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )
       (gs ++ as).collapse   
    }

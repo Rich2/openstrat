@@ -5,5 +5,5 @@ package pSJs
 object Bc305JsApp
 {
    import pGames.p305._
-   def main(args: Array[String]): Unit = BC305Gui(CanvasJs, BC1)
+   def main(args: Array[String]): Unit = BC305Gui(CanvasJs, Bc1)
 }

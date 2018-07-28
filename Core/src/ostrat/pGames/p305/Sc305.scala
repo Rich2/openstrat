@@ -5,15 +5,15 @@ package p305
 import pEarth._
 //import pGrid._
 
-class BCScen extends OldWorldMap[BCTile, ESideOnly](BCTile.apply(_, _, _), ESideOnly.apply)
+class BcScen extends OldWorldMap[BcTile, ESideOnly](BcTile.apply, ESideOnly.apply)
 {
-   val fLegion: (BCTile, Polity) => Unit = (tile, p: Polity) =>
+   val fLegion: (BcTile, Polity) => Unit = (tile, p: Polity) =>
       {
          tile.lunits = Legion(p, tile.cood) :: tile.lunits
       }
 }
 
-object BC1 extends BCScen
+object Bc1 extends BcScen
 {  
    fTiles[Polity](fLegion, (198, 466, Rome), (210, 458, Macedon))
 }

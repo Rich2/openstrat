@@ -5,17 +5,17 @@ package p305
 import pGrid._
 import pEarth._
 
-case class BCTile(x: Int, y: Int, terr: Terrain) extends ETile
+case class BcTile(x: Int, y: Int, terr: Terrain) extends ETile
 {
    var lunits: List[Legion] = Nil
 }
 
-object BCTile
+object BcTile
 {  
-   implicit object NTileIsType extends IsType[BCTile]
+   implicit object NTileIsType extends IsType[BcTile]
    {
-      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[BCTile]
-      override def asType(obj: AnyRef): BCTile = obj.asInstanceOf[BCTile]
+      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[BcTile]
+      override def asType(obj: AnyRef): BcTile = obj.asInstanceOf[BcTile]
    }
 }
 

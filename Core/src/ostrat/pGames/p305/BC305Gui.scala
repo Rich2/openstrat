@@ -6,7 +6,7 @@ import geom._
 import pDisp._
 import pEarth._
 
-case class BC305Gui(canv: CanvasPlatform, scen: BCScen) extends EarthGui
+case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui
 {
    override def saveNamePrefix = "BC305"
    override def scaleMax: Dist = 14000.km / mapPanelDiameter
@@ -30,7 +30,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BCScen) extends EarthGui
 //   def upCmd: MouseButton => Unit = (mb: MouseButton) =>
 //      { lat = Latitude((lat.radians + distDelta(mb)).max(0)); updateView() } 
          
-   val fHex: OfETile[BCTile, ESideOnly] => Disp2 = etog =>
+   val fHex: OfETile[BcTile, ESideOnly] => Disp2 = etog =>
       {
          val tile = etog.tile
          val colour: Colour = tile.colour
@@ -41,14 +41,25 @@ case class BC305Gui(canv: CanvasPlatform, scen: BCScen) extends EarthGui
             FillText.lines(etog.cen, ls, 10, colour.contrastBW)              
          })         
          Disp2(poly :: Nil, tileText)
-      }      
+      }
+   def fSide: OfESide[BcTile, ESideOnly] => Disp2 = ofs => {
+      import ofs._
+      val line = ifScaleCObjs(60, side.terr match
+            {
+         case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
+               (t1, _) => LineDraw(vertLine, 1, t1.colour.contrastBW))
+         case Straits => LineDraw(vertLine, 6, Colour.Blue) :: Nil
+         })      
+      Disp2(Nil, line)   
+   }   
          
    def ls: CanvObjs =
    {
-      val gs: Disp2 = scen.grids.displayFold(_.eDisp(this, fHex))
+      val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
       val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )
       (gs ++ as).collapse   
    }   
    eTop()
+   loadView 
    repaintMap
 }
