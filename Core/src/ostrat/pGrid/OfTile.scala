@@ -14,7 +14,7 @@ trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, Side
    def ownSideLines: List[Line2]
 }
 
-trait OfTileReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends OfTile[TileT, SideT, GridT] with
+trait OfTileReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends OfTile[TileT, SideT, GridT] with
 OfGridElemReg[TileT, SideT, GridT]
 {
    

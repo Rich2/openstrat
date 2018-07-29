@@ -23,7 +23,7 @@ abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTil
    def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(getTile(tr._1, tr._2), tr._3))      
    
    def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null
-   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+   
    //def evenRows: Range = yTileMin until yTileMax by 2
    //def tileNeibs
    override def sideVertCoods(x: Int, y: Int): CoodLine = HexGrid.sideVertCoods(x, y)

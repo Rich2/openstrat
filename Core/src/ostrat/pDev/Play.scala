@@ -2,7 +2,6 @@
 package ostrat
 package pDev
 import pDisp._
-import pEarth._
 import pStrat._
 import pGames._
 
@@ -17,7 +16,7 @@ object Play
          (4, (pSpace.Planets(_), "ScalaFx Planets")),
          (5, (new pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
          (6, (new pDung.DungGui(_), "ScalaFx Dungeon")),
-         (7, (new EGridGui(_, EuropeWestGrid[TerrOnly, ESideOnly](TerrOnly.tileMaker, ESideOnly.apply)), "ScalaFx Europe Grid")),
+       //  (7, (new EGridGui(_, EuropeWestGrid[TerrOnly, ESideOnly](TerrOnly.tileMaker, ESideOnly.apply)), "ScalaFx Europe Grid")),
          (8, (TestCanv(_), "ScalaFx Simple Test Canvas")),
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.Bc1), "BC 305")),

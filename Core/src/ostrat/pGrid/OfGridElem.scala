@@ -26,7 +26,7 @@ trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, 
    def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): CanvObjs = if (tScale > ifScale && b) cObjs.toList else Nil
 }
 
-trait OfGridElemReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
+trait OfGridElemReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 {
    def gGui: TileGridGui[TileT, SideT, GridT]
    //@inline def coodToMapVec2(inp: Cood): Vec2 = grid.coodToVec2(inp)

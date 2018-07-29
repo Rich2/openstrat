@@ -42,7 +42,7 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    def xCen = (left + right) / 2
    def yCen = (top + bottom) / 2
    def cen: Vec2 = Vec2(xCen, yCen)
-   def coodToVec2(cood: Cood): Vec2
+   
    
    def xArrLen: Int// = xSideMax / 2 - xSideMin / 2 + 1
    val yArrLen = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
@@ -66,8 +66,7 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    /** Throws exception if Cood is not a valid Tile coordinate */
    final def coodIsSide(cood: Cood): Unit = coodIsSide(cood.x, cood.y)
    /** Throws exception if Cood is not a valid Tile coordinate */
-   def coodIsTile(x: Int, y: Int): Unit
-   
+   def coodIsTile(x: Int, y: Int): Unit   
    
    def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
    def getTile(tc: Cood): TileT = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) }

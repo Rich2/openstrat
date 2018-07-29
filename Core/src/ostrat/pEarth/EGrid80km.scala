@@ -8,6 +8,20 @@ import pGrid._
 class EGrid80km[TileT <: GridElem, SideT <: GridElem] (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
       xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends
    EGrid[TileT, SideT](bounds, name, cenLong, EGrid80km.scale, xOffset, 300, xTileMin, xTileMax, yTileMin, yTileMax)
+{
+   tileRowsForeach{y => 
+      val pair = EGrid80km.tileRowMaxX(y, xOffset)
+      setRowStart(y, pair._1)
+      setRowEnd(y, pair._2)
+   }
+   
+   //val xLLLen = (xTileMax - xTileMin + 5) * 2
+  // val yLLLen = yTileMax - yTileMin + 3 
+ //  val llArr = new Array[Double](xLLLen * yLLLen)
+   //def xLLInd(x: Int): Int = (x - xTileMin + 2) * 2
+  // def yLLInd(y: Int): Int = y - yTileMin + 1
+  // def llInd(x: Int, y: Int): Int = yLLInd(y) * xLLLen + xLLInd(x)
+}
 
 object EGrid80km
 {
@@ -35,8 +49,8 @@ object EGrid80km
          newPt match
          {
             case r if r < margin => loop(xAcc + 4)
-            case r if overlapRatio < 0.2 => (-xAcc, xAcc + 4)
-            case r if overlapRatio < 0.7 => (-xAcc, xAcc)
+            //case r if overlapRatio < 0.2 => (-xAcc, xAcc + 4)
+            case r if overlapRatio < 0.5 => (-xAcc, xAcc)
             case r => (4 - xAcc, xAcc)
          }
       }
@@ -73,11 +87,7 @@ class EGFarNorth[TileT <: GridElem, SideT <: GridElem](name: String, cenLong: Lo
    EGrid80km[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int,
          xTileMin: Int, xTileMax: Int, yTileMin = 446, yTileMax = 540)
 {
-   tileRowsForeach{y => 
-      val pair = EGrid80km.tileRowMaxX(y, xOffset)
-      setRowStart(y, pair._1)
-      setRowEnd(y, pair._2)
-   }   
+   
 }
 
 object EGFarNorth

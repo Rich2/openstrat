@@ -54,13 +54,13 @@ class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: 
 //      val xy: Vec2 = HG.xyToVec2(x, y) + verts(ptNum)
 //      vec2ToLL(xy)
 //   }
-   /** Not sure what this is. Maybe redundant */
-   def llXLen =  (xTileMax - xTileMin + 5) * 2 
-   /** Not sure what this is. Maybe redundant  */
-   def llYLen = yTileMax - yTileMin + 5
+   /** name needs modifying */
+   //def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+   def llXLen =  (xTileMax - xTileMin + 5) * 2    
+   def llYLen = yTileMax - yTileMin + 3
    val vArr: Array[Double] = new Array[Double](llYLen * llXLen)
    def llXInd(x: Int): Int = (x - xTileMin + 2) * 2
-   def llYInd(y: Int): Int = (y - yTileMin + 2) * llXLen
+   def llYInd(y: Int): Int = (y - yTileMin + 1) * llXLen
    def llInd(x: Int, y: Int): Int = llYInd(y) + llXInd(x)
    def getLL(x: Int, y: Int): LatLong =
    {
@@ -80,8 +80,8 @@ class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: 
    //def coodToLL(cood: Cood): LatLong = vec2ToLL(coodToVec2(cood))
    
    tileCoodForeach{cood =>
-      setLL(cood, vec2ToLL(coodToVec2(cood)))
-      tileVertCoods(cood).foreach(vc => setLL(vc, vec2ToLL(coodToVec2(vc))))
+      setLL(cood, vec2ToLL(HexGrid.coodToVec2(cood)))
+      tileVertCoods(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
          }   
    
   // def vertLL(hv: HexVert): LatLong = vec2ToLL(hv.toVec2)

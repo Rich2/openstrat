@@ -1,11 +1,13 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
+import geom._
 
 class HexGridReg[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
       implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
       TileGridReg[TileT, SideT]
-{  
+{
+   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
    val row2Start = xTileMin.incrementTill(_ % 4 == 2)
    val row4Start = xTileMin.incrementTill(_ % 4 == 0)
    val row2End = xTileMax.decrementTill(_ % 4 == 2)
