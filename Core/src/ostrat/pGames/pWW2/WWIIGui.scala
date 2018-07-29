@@ -16,7 +16,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
       {
          import etog._         
          val colour: Colour = tile.colour
-         val poly = etog.vertVecs.fillSubj(tile, colour)
+         val poly = etog.vertDispVecs.fillSubj(tile, colour)
          //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
          val textOrUnit: CanvObjs = ifScaleCObjs(68, tile.lunits match {
             case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))

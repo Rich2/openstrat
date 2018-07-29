@@ -13,9 +13,8 @@ class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, SideBa
    def fSquare: OfSquareReg[CheckersSq, SideBare, CheckersBoard] => Disp2 = tog =>
       {
          import tog._
-         val colour: Colour = tile.colour
-         val poly = vertVecs
-         val tv = poly.fill(colour)
+         val colour: Colour = tile.colour        
+         val tv = vertDispVecs.fill(colour)
          val ch = tile match {
             case DarkSq(_, _, Some(b)) =>
                {

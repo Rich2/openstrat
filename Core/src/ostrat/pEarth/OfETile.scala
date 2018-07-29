@@ -12,10 +12,9 @@ OfHex[TileT, SideT, EGrid[TileT, SideT]] with OfEElem[TileT, SideT]
    def cenLL: LatLong = eGrid.getLL(cood)
    def cen: Vec2 = eg.latLongToXY(cenLL)
    def cenFacing: Boolean = focus.latLongFacing(cenLL)
-   def latLongs: LatLongs = vertCoods.pMap(eGrid.getLL)
-   def vertDists: Dist2s = eg.polyToDist2s(latLongs)
-   override def vertVecs: Vec2s = vertDists.pMap(eg.trans)
-   
+   def vertLLs: LatLongs = vertCoods.pMap(eGrid.getLL)
+   def vertDist2s: Dist2s = eg.polyToDist2s(vertLLs)
+   override def vertDispVecs: Vec2s = vertDist2s.pMap(eg.trans)   
 }
 
 class OfESide[TileT <: GridElem, SideT <: GridElem](val eg: EarthGui, val eGrid: EGrid[TileT, SideT], val side: SideT) extends

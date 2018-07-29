@@ -3,7 +3,7 @@ package ostrat
 package geom
 import math._
 
-/** longitude and latitude measured in radians for the earth */
+/** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD2 with LatlongOrVertNum// with PersistCompound
 {
    override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]

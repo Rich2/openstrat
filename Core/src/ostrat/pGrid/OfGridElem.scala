@@ -27,9 +27,9 @@ trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, 
 trait OfGridElemReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 {
    def gGui: TileGridGui[TileT, SideT, GridT]   
-   @inline final override def coodToDispVec2(inp: Cood): Vec2 = fTrans(grid.coodToVec2(inp)) 
+   @inline final override def coodToDispVec2(inp: Cood): Vec2 = gGui.fTrans(grid.coodToVec2(inp)) 
    /* Transforms from grid position to display position */
-   @inline def fTrans(inp: Vec2): Vec2 = gGui.fTrans(inp)
+   //@inline def fTrans(inp: Vec2): Vec2 = gGui.fTrans(inp)
    override def psc = gGui.pScale
    /** Should possibly be called CoodToMapVec2 */
    def coodToVec2(inp: Cood): Vec2 = grid.coodToVec2(inp)   

@@ -16,17 +16,16 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
    //focus = 40.24 ll -5.66
    val fHex: OfETile[NTile, ESideOnly] => Disp2 = etog =>
       {
-         val tile = etog.tile
+         import etog._         
          val colour: Colour = tile.colour
-         val poly = etog.vertVecs.fillSubj(tile, colour)
-        // val sides = etog.ifScaleCObjs(60, etog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         val poly = vertDispVecs.fillSubj(tile, colour)       
          val textU: CanvObjs = etog.ifScaleCObjs(68, tile.lunits match
          {
-            case ::(head, _) if etog.tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(etog.cen))               
+            case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))               
             case _ =>
             {
-            val ls: List[String] = List(etog.yxStr, etog.cenLL.toString)                   
-            FillText.lines(etog.cen, ls, 10, colour.contrastBW)
+            val ls: List[String] = List(yxStr, cenLL.toString)                   
+            FillText.lines(cen, ls, 10, colour.contrastBW)
             }
          })         
          Disp2(List(poly),textU)

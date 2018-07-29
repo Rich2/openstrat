@@ -9,7 +9,7 @@ trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, Side
    def tile: TileT    
    final def cood: Cood = tile.cood   
    def vertCoods: Coods = grid.tileVertCoods(cood)
-   def vertVecs: Vec2s
+   def vertDispVecs: Vec2s
    def cen: Vec2
    def ownSideLines: List[Line2]
 }
@@ -18,9 +18,9 @@ trait OfTileReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT
 OfGridElemReg[TileT, SideT, GridT]
 {
    
-   def vertVecs: Vec2s = vertCoods.pMap(coodToDispVec2)//.fTrans(gGui.fTrans)
-   /* Tile centre posn on Grid */
+   override def vertDispVecs: Vec2s = vertCoods.pMap(coodToDispVec2)//.fTrans(gGui.fTrans)
+   /** Tile centre posn on Grid */
    def cenRelGrid: Vec2 = grid.coodToVec2(cood)
-   /* Tile centre posn on display */
-   def cen: Vec2 = fTrans(cenRelGrid)   
+   /** Tile centre posn on display */
+   def cen: Vec2 = gGui.fTrans(cenRelGrid)   
 }

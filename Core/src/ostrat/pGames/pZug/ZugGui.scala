@@ -17,17 +17,15 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
    def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofh =>
       {
          import ofh._         
-         val colour: Colour = tile.colour
-         val poly: Vec2s = vertVecs
-         val tv = poly.fillSubj(tile, colour)
-        // val sides = ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         val colour: Colour = tile.colour         
+         val tv = vertDispVecs.fillSubj(tile, colour)        
          val tText = ifScaleCObj(60, FillText(cen, xyStr, 14, colour.contrastBW))
          val lunit = tile.lunits match
          {
             case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => None   
          }         
-         Disp2(List(tv), tText ++ lunit)// ++ sides)
+         Disp2(List(tv), tText ++ lunit)
       }
    def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofs => {
       import ofs._

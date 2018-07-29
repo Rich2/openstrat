@@ -14,20 +14,20 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
    mapPanel.backColour = Colour.Black
    def  fHex: OfHexReg[CTile, SideBare, CivGrid] => Disp2 = tog =>
       {
-         val tile = tog.tile
+         import tog._        
          val colour: Colour = tile.colour
-         val poly = tog.vertVecs
-         val tv = poly.fillSubj(tile, colour)
-         val sides = tog.ifScaleCObjs(60, tog.ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-         val tText = tog.ifScaleCObj(60, FillText(tog.cen, tog.xyStr, 14, colour.contrastBW))
-         val sett = tog.ifScaleIfCObj(40, tile.settlement, Circle(25).slate(tog.cen).fillFixed(None, Black))
+         //val poly = tog.vertDispVecs
+         val tv = vertDispVecs.fillSubj(tile, colour)
+         val sides = ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         val tText = ifScaleCObj(60, FillText(cen, xyStr, 14, colour.contrastBW))
+         val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
          val lunit: CanvObjs = tile.lunits match
          {
             case ::(head, _) if tog.tScale > 50 =>
                {
                   val maxOffset = tog.grid.coodToVec2(head.dirn.relCood)
-                  val gridPosn = tog.cenRelGrid + maxOffset * head.offsetMagnitude
-                  val posn = tog.fTrans(gridPosn)
+                  val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
+                  val posn = fTrans(gridPosn)
                   val col = head.faction.colour
                   val col2 = col.contrast
                Rect.curved(45, 30, 5, posn).allFixed(head, col, 2, col2, 16, head.movePts.toString) :: Nil

@@ -10,7 +10,7 @@ case class OfHexSideReg[TileT <: GridElem, SideT <: GridElem, GridT <: HexGridRe
       side: SideT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends OfSide[TileT, SideT, GridT] with OfGridElemReg[TileT, SideT, GridT]
 {
    def sideCenRelGrid: Vec2 = grid.coodToVec2(cood)
-   def sideCen: Vec2 = fTrans(sideCenRelGrid)
+   def sideCen: Vec2 = gGui.fTrans(sideCenRelGrid)
    //def vertLine: Line2 = vertCoods.toLine2()
 }
 
