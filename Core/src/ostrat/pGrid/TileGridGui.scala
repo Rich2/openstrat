@@ -5,7 +5,7 @@ import pDisp._
 import geom._
 
 /** Gui for display of a single regular TileGrid */
-trait TileGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends UnfixedMapGui//RectangleGui
+trait TileGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends UnfixedMapGui//RectangleGui
 {
    def grid: GridT//TileGrid[TileT]
    /** number of pixels per grid unit */

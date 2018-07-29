@@ -8,5 +8,17 @@ trait TileGridReg[TileT <: GridElem, SideT <: GridElem] extends TileGrid[TileT, 
 {
    override def optTile(x: Int, y: Int): Option[TileT] = if (x >= xTileMin & x <= xTileMax & y >= yTileMin & y <= yTileMax )
       Some(getTile(x, y)) else None
-   def coodToVec2(cood: Cood): Vec2    
+   def coodToVec2(cood: Cood): Vec2
+   def left: Double
+   def right: Double 
+   def bottom: Double 
+   def top: Double
+   def dimensionsStr(f: Double => String = _.str2): String =
+      List("left" -> left, "right" -> right, "bottom" -> bottom, "top" -> top).map(p => p._1 :- f(p._2)).mkString("; ")
+   def width = right -left
+   def height = top - bottom
+   lazy val diagLength = math.sqrt(width * width + height * height)
+   def xCen = (left + right) / 2
+   def yCen = (top + bottom) / 2
+   def cen: Vec2 = Vec2(xCen, yCen)
 }

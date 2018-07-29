@@ -8,7 +8,7 @@ import geom._
  *  representing a historical game like "Risk", has insufficient utility for the representations we want today. The grid consists of tiles
  *  and tile sides. Sides have gone!!!! Ignore - I have reluctantly introduced this serious complication to the foundational model.  
  *  
- *  It is stored in an underlying array. It consists of a sequence of contiguous rows of *  tiles. Each row of tiles is itself contiguous,
+ *  It is stored in an underlying array. It consists of a sequence of contiguous rows of tiles. Each row of tiles is itself contiguous,
  *  There are no breaks between the first tile of the row and the last tile of the row although a row can consist of a single tile. Every
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
@@ -17,32 +17,10 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
 {
    thisGrid => 
    /** Check Think this type is needed */   
-   type GridT <: TileGrid[TileT, SideT]
-   /** Not sure if this type is needed */
-   //type TileOFGridT = TileOfGrid[TileT]
-   
+   type GridT <: TileGrid[TileT, SideT]   
    def tileVertCoods(cenCood: Cood): Coods
-   //final def tileVertCoods(cenCood: Cood): List[VecCood]
-//   def xSideMin: Int 
-//   def xSideMax: Int 
-//   val ySideMin: Int = yTileMin + 1
-//   val ySideMax: Int = yTileMax + 1
    def xStep: Int
-   val yRatio: Double
-   
-   def left: Double
-   def right: Double 
-   def bottom: Double 
-   def top: Double
-   def dimensionsStr(f: Double => String = _.str2): String =
-      List("left" -> left, "right" -> right, "bottom" -> bottom, "top" -> top).map(p => p._1 :- f(p._2)).mkString("; ")
-   def width = right -left
-   def height = top - bottom
-   lazy val diagLength = math.sqrt(width * width + height * height)
-   def xCen = (left + right) / 2
-   def yCen = (top + bottom) / 2
-   def cen: Vec2 = Vec2(xCen, yCen)
-   
+   val yRatio: Double    
    
    def xArrLen: Int// = xSideMax / 2 - xSideMin / 2 + 1
    val yArrLen = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
@@ -143,9 +121,7 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
       acc
    }
    
-   def gridTileDispFold(f: (GridT, Cood) => Disp2): Disp2 = gridTileFold[Disp2](f, _ ++ _)(Disp2.empty)
-   //def gridTileCoodDispFold(f: Cood => Disp2) = ???
-   
+   def gridTileDispFold(f: (GridT, Cood) => Disp2): Disp2 = gridTileFold[Disp2](f, _ ++ _)(Disp2.empty)   
    
    final def tilesMap[R](f: TileT => R): List[R] =
    {

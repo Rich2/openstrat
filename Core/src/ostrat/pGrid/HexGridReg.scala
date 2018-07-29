@@ -8,6 +8,12 @@ class HexGridReg[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: 
       TileGridReg[TileT, SideT]
 {
    override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+   def vertMargin = 0.7
+   override def left: Double = xTileMin - 2.2
+   override def right: Double = xTileMax + 2.2
+   def bottom: Double = (yTileMin - 2) * yRatio - vertMargin
+   def top: Double = (yTileMax + 2) * yRatio + vertMargin
+   
    val row2Start = xTileMin.incrementTill(_ % 4 == 2)
    val row4Start = xTileMin.incrementTill(_ % 4 == 0)
    val row2End = xTileMax.decrementTill(_ % 4 == 2)
