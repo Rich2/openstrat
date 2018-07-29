@@ -8,7 +8,7 @@ trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, Side
 {
    def tile: TileT    
    final def cood: Cood = tile.cood   
-   def vertCoods: Coods = grid.tileVertCoods(cood)
+   def vertCoods: Coods = grid.vertCoodsOfTile(cood)
    def vertDispVecs: Vec2s
    def cen: Vec2
    def ownSideLines: List[Line2]

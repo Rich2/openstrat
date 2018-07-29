@@ -9,7 +9,7 @@ package object pEarth
    /** Returns a function for a specific EGrid to convert from gridVec to Latlong */
    def fVec2ToLatLongReg(refLong: Longitude, scale: Dist, xOffset: Int, yOffset: Int = 0): Vec2 => LatLong = inp =>
       {
-         val vOffset: Vec2 = xyToVec2(xOffset, yOffset)
+         val vOffset: Vec2 = coodToVec2(xOffset, yOffset)
          val d2: Dist2 = (inp - vOffset) * scale
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
@@ -18,7 +18,7 @@ package object pEarth
       
    def vec2ToLatLongReg(inp: Vec2, refLong: Longitude, scale: Dist, xOffset: Int, yOffset: Int = 0): LatLong =
       {
-         val vOffset: Vec2 = xyToVec2(xOffset, yOffset)
+         val vOffset: Vec2 = coodToVec2(xOffset, yOffset)
          val d2: Dist2 = (inp - vOffset) * scale
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
@@ -28,7 +28,7 @@ package object pEarth
    /** Not necessarily used */   
    def vec2ToLatLong0(inp: Vec2, refLong: Longitude, scale: Dist, yOffset: Int = 0): LatLong =
    {
-      val vOffset: Vec2 = xyToVec2(0, yOffset)
+      val vOffset: Vec2 = coodToVec2(0, yOffset)
       val d2: Dist2 = (inp - vOffset) * scale
       val lat: Double = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))

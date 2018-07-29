@@ -81,7 +81,7 @@ class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: 
    
    tileCoodForeach{cood =>
       setLL(cood, vec2ToLL(HexGrid.coodToVec2(cood)))
-      tileVertCoods(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
+      vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
          }   
    
   // def vertLL(hv: HexVert): LatLong = vec2ToLL(hv.toVec2)

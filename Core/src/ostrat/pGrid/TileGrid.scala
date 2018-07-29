@@ -18,7 +18,8 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    thisGrid => 
    /** Check Think this type is needed */   
    type GridT <: TileGrid[TileT, SideT]   
-   def tileVertCoods(cenCood: Cood): Coods
+   def vertCoodsOfTile(tileCood: Cood): Coods
+   def sideCoodsOfTile(tileCood: Cood): Coods
    def xStep: Int
    val yRatio: Double    
    

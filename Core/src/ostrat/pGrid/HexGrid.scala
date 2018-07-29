@@ -7,7 +7,8 @@ import geom._
 abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
 (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)   
 {   
-   override def tileVertCoods(cenCood: Cood): Coods = HexGrid.tileVertCoods(cenCood)
+   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
+   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)
    //override def newCoodT(x: Int, y: Int): HexCood = HexCood.apply(x, y)
    override def xStep: Int = 4
    //override lazy val xSideMin: Int = xTileMin - 2
@@ -49,14 +50,14 @@ abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTil
 object HexGrid
 {
    /** Verts start at Up and follow clockwise */
-   val tile00VertCoods: Coods = Coods.xy(0,1,  2,1,  2,-1,  0 ,-1,  -2,-1,  -2,1)
-   def tileVertCoods(inp: Cood): Coods = tile00VertCoods.pMap(inp + _)
-   //def sideVertCoods(inp: Cood): Coods = 
+   val vertCoodsOfTile00: Coods = Coods.xy(0,1,  2,1,  2,-1,  0 ,-1,  -2,-1,  -2,1)
+   def vertCoodsOfTile(inp: Cood): Coods = vertCoodsOfTile00.pMap(inp + _)
+   def sideCoodsOfTile(inp: Cood): Coods = ???
    val tile00Neighbs: List[Cood] = List(2 -> 2, 4 -> 0, 2 -> -2, -2 -> -2, -4 -> 0, -2 -> 2).map(p => Cood(p._1, p._2))
    def tileNeighbs(inp: Cood): List[Cood] = tile00Neighbs.map(inp + _)  
-   
-   def coodToVec2(cood: Cood): Vec2 = xyToVec2(cood.x, cood.y)
-   def xyToVec2(x: Int, y: Int): Vec2 =
+   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
+   def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
+   def coodToVec2(x: Int, y: Int): Vec2 =
    {
       def yAdj: Double = y * yRatio
       (x % 4, y % 4) match 

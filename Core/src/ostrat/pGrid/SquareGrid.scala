@@ -9,8 +9,8 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
    (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends  TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
    TileGridReg[TileT, SideT]
 {
-   override def tileVertCoods(cenCood: Cood): Coods = SquareGrid.tileVertCoods(cenCood)
-   //override def tileVerts(cenCood: Cood): List[Cood] = Cood.vertCoods.map(_ -+ cenCood)
+   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGrid.vertCoodsOfTile(tileCood)
+   override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGrid.sideCoodsOfTile(tileCood)   
    override def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
    override def xStep: Int = 2
    //override val xSideMin: Int = xTileMin - 2
@@ -102,8 +102,9 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
 
 object SquareGrid
 {
-   val tile00VertCoods: Coods = Coods.xy(1,1,  1,-1,  -1,-1, -1,1)
-   def tileVertCoods(inp: Cood): Coods = tile00VertCoods.pMap(inp + _)   
+   val vertCoodsOfTile00: Coods = Coods.xy(1,1,  1,-1,  -1,-1, -1,1)
+   def vertCoodsOfTile(inp: Cood): Coods = vertCoodsOfTile00.pMap(inp + _)
+   def sideCoodsOfTile(inp: Cood): Coods = ???
    
    sealed trait PathDirn
    object Rt extends PathDirn
