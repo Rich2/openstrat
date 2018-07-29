@@ -67,8 +67,8 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    //def setSide(x: Int, y: Int, side: SideT): Unit = arr(xyToInd(x, y)) = side
    //def getSide(x: Int, y: Int): SideT = evSide.asType(arr(xyToInd(x, y)))
    
-   def sideVertCoods(cood: Cood): CoodLine = sideVertCoods(cood.x, cood.y)
-   def sideVertCoods(x: Int, y: Int): CoodLine
+   def vertCoodLineOfSide(cood: Cood): CoodLine = vertCoodLineOfSide(cood.x, cood.y)
+   def vertCoodLineOfSide(x: Int, y: Int): CoodLine
    
    /** The y loop could be abstracted, but this way no worries about inlining */
    def tileRowsForeach(f: Int => Unit): Unit =

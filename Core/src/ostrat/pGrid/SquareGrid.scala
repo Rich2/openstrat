@@ -91,7 +91,7 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
          })
       cood
    }
-   override def sideVertCoods(x: Int, y: Int): CoodLine = SquareGrid.sideXYVertCoods(x, y)
+   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
    override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match
    {
       case _ if x.isOdd & y.isEven => (Cood(x - 1, y), Cood(x + 1, y))
@@ -112,8 +112,8 @@ object SquareGrid
    object Up extends PathDirn
    object Dn extends PathDirn
    
-   def sideCoodVertCoods(cood: Cood): CoodLine = sideXYVertCoods(cood.x, cood.y)
-   def sideXYVertCoods(x: Int, y: Int): CoodLine = (x %% 2, y %% 2) match
+   def vertCoodLineOfSide(sideCood: Cood): CoodLine = vertCoodLineOfSide(sideCood.x, sideCood.y)
+   def vertCoodLineOfSide(x: Int, y: Int): CoodLine = (x %% 2, y %% 2) match
    {
       case (1, 0) => CoodLine(x, y + 1, x, y - 1)
       case (0, 1)=> CoodLine(x - 1, y, x + 1, y)

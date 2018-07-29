@@ -47,7 +47,6 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
          }
       case (RightButton, List(warr : Warrior), List(newTile: CTile)) =>
          {
-            //deb("Move")
             val newCood = newTile.cood
             val oldCood = warr.cood
             

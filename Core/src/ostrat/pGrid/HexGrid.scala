@@ -8,22 +8,17 @@ abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTil
 (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)   
 {   
    override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
-   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)
-   //override def newCoodT(x: Int, y: Int): HexCood = HexCood.apply(x, y)
-   override def xStep: Int = 4
-   //override lazy val xSideMin: Int = xTileMin - 2
-   //override lazy val xSideMax: Int = xTileMax + 2 
+   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)   
+   override def xStep: Int = 4   
    override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
    override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
    override lazy val yRatio: Double = HexGrid.yRatio
    
    def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(getTile(tr._1, tr._2), tr._3))      
    
-   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null
+   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null   
    
-   //def evenRows: Range = yTileMin until yTileMax by 2
-   //def tileNeibs
-   override def sideVertCoods(x: Int, y: Int): CoodLine = HexGrid.sideVertCoods(x, y)
+   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
    override def coodIsTile(x: Int, y: Int): Unit = Unit match
    {
       case _ if x %% 4 == 0 & y %% 4 == 0 =>
@@ -43,18 +38,18 @@ abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTil
       case _ if (x %% 4 == 1 & y %% 4 == 1) | (x %% 4 == 3 & y %% 4 == 3) =>  (Cood(x - 1, y - 1), Cood(x + 1, y + 1))
       case _ if (x %% 4 == 1 & y %% 4 == 3) | (x %% 4 == 3 & y %% 4 == 1) => (Cood(x - 1, y + 1), Cood(x + 1, y - 1))
       case _ => excep("Invalid Hex Side Coordinate".commaAppend(x.toString, y.toString))
-   }
-   
+   }   
 }
 
 object HexGrid
 {
    /** Verts start at Up and follow clockwise */
    val vertCoodsOfTile00: Coods = Coods.xy(0,1,  2,1,  2,-1,  0 ,-1,  -2,-1,  -2,1)
-   def vertCoodsOfTile(inp: Cood): Coods = vertCoodsOfTile00.pMap(inp + _)
-   def sideCoodsOfTile(inp: Cood): Coods = ???
-   val tile00Neighbs: List[Cood] = List(2 -> 2, 4 -> 0, 2 -> -2, -2 -> -2, -4 -> 0, -2 -> 2).map(p => Cood(p._1, p._2))
-   def tileNeighbs(inp: Cood): List[Cood] = tile00Neighbs.map(inp + _)  
+   def vertCoodsOfTile(tileCood: Cood): Coods = vertCoodsOfTile00.pMap(_ + tileCood)
+   val sideCoodsOfTile00: Coods = Coods.xy(1,1, 2,0, 1,-1, -1,-1, -2,0, -1,1).pMap(p => Cood(p._1, p._2))
+   def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.pMap(tileCood + _)
+   val tile00Neighbs: Coods = sideCoodsOfTile00.pMap(_ * 2)
+   def tileNeighbs(inp: Cood): Coods = tile00Neighbs.pMap(inp + _)  
    /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
    def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
    def coodToVec2(x: Int, y: Int): Vec2 =
@@ -78,11 +73,11 @@ object HexGrid
       case _ => excep("invalid Hex Side coordinate: " - x.toString.commaAppend(y.toString))
    }
    def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
-   def sideVertCoods(cood: Cood): CoodLine = sideVertCoods(cood.x, cood.y)
-   def sideVertCoods(x: Int, y: Int): CoodLine = (x %% 4, y %% 4) match
+   def vertCoodsOfSide(sideCood: Cood): CoodLine = vertCoodsOfSide(sideCood.x, sideCood.y)
+   def vertCoodsOfSide(xSideCood: Int, ySideCood: Int): CoodLine = (xSideCood %% 4, ySideCood %% 4) match
    {
-      case (0, 2) | (2, 0) => CoodLine(x, y + 1, x, y - 1)
-      case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(x - 1, y, x + 1, y)
+      case (0, 2) | (2, 0) => CoodLine(xSideCood, ySideCood + 1, xSideCood, ySideCood - 1)
+      case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(xSideCood - 1, ySideCood, xSideCood + 1, ySideCood)
       case _ => excep("Invalid Hex Cood for a side")
    }
    

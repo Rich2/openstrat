@@ -8,7 +8,7 @@ trait OfSide[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, Side
    def side: SideT    
    final def cood: Cood = side.cood
    def sideCen: Vec2
-   def coodsLine: CoodLine = grid.sideVertCoods(cood)
+   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
    def vertLine: Line2 = coodsLine.toLine2(coodToDispVec2)
    def ifTiles[A](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A): List[A] = grid.optSidesTiles(cood) match
    {
