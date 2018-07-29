@@ -3,7 +3,6 @@ package ostrat
 package pEarth
 import geom._
 import pGrid._
-import pGrid.{HexGrid => HG}
 
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
@@ -76,11 +75,15 @@ class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: 
       vArr(index + 1) = llValue.long
    }
    def setLL(cood: Cood, llValue: LatLong): Unit = setLL(cood.x, cood.y, llValue)
-   def coodToLL(hc: Cood): LatLong = vec2ToLatLongReg(HG.coodToVec2(hc), cenLong, scale, xOffset, yOffset)
-   //def coodToLL(cood: Cood): LatLong = vec2ToLL(coodToVec2(cood))
+   final def setLongitude(cood: Cood, radians: Double): Unit = setLongitude(cood.x, cood.y, radians)
+   def setLongitude(x: Int, y: Int, radians: Double): Unit = vArr(llInd(x, y) + 1) = radians
+   /** These 2 methods may be redundant */
+   def coodToLL(cood: Cood): LatLong = coodToLL(cood.x, cood.y) //vec2ToLatLongReg(HG.coodToVec2(hc), cenLong, scale, xOffset, yOffset)
+   def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
    
    tileCoodForeach{cood =>
       setLL(cood, vec2ToLL(HexGrid.coodToVec2(cood)))
+      sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
       vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
          }   
    

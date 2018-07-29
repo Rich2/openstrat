@@ -33,8 +33,8 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
       val line = ifScaleCObjs(60, side.terr match
             {
          case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
-               (t1, _) => LineDraw(vertLine, 1, t1.colour.contrastBW))
-         case Straits => LineDraw(vertLine, 6, Colour.Blue) :: Nil
+               (t1, _) => LineDraw(vertDispLine, 1, t1.colour.contrastBW))
+         case Straits => LineDraw(vertDispLine, 6, Colour.Blue) :: Nil
          })      
       Disp2(Nil, line)
    } 

@@ -31,12 +31,12 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
       import ofs._
       val line: CanvObjs = ifScaleCObjs(60, side.wall match
          {
-         case true => LineDraw(vertLine, 6, Colour.Gray) :: Nil
-         case _ => ifTiles(_.colour == _.colour, (t1, _) => LineDraw(vertLine, 1, t1.colour.contrastBW))
+         case true => LineDraw(vertDispLine, 6, Colour.Gray) :: Nil
+         case _ => ifTiles(_.colour == _.colour, (t1, _) => LineDraw(vertDispLine, 1, t1.colour.contrastBW))
       })
       Disp2(Nil, line)
    }
-   def dSides: Disp2 = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
+   def dSides: Disp2 = ofSidesDisplayFold(fSide)
      
    def mapObjs: CanvObjs = (ofTilesDisplayFold(fHex) ++ dSides ).collapse//ofHexsDisplayFold(fHex).collapse
      
@@ -44,7 +44,6 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
    {
       case (LeftButton, _, _) =>
          {
-            //deb(v.toString)
             selected = clickList.fHead(Nil, (h , _) => List(h))
             statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
             eTop()            
@@ -53,7 +52,7 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
          {
             val newCood = newTile.cood
             val oldCood = squad.cood
-            if (HexGrid.tileNeighbs(oldCood).contains(newCood) && squad.canMove(newTile))
+            if (HexGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && squad.canMove(newTile))
             {
                val oldTile = grid.getTile(oldCood)
                oldTile.lunits = oldTile.lunits.removeFirst(_ == squad)

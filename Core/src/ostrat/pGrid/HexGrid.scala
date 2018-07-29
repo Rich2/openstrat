@@ -48,8 +48,15 @@ object HexGrid
    def vertCoodsOfTile(tileCood: Cood): Coods = vertCoodsOfTile00.pMap(_ + tileCood)
    val sideCoodsOfTile00: Coods = Coods.xy(1,1, 2,0, 1,-1, -1,-1, -2,0, -1,1).pMap(p => Cood(p._1, p._2))
    def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.pMap(tileCood + _)
-   val tile00Neighbs: Coods = sideCoodsOfTile00.pMap(_ * 2)
-   def tileNeighbs(inp: Cood): Coods = tile00Neighbs.pMap(inp + _)  
+   val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.pMap(_ * 2)
+   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
+   def vertCoodsOfSide(sideCood: Cood): CoodLine = vertCoodsOfSide(sideCood.x, sideCood.y)
+   def vertCoodsOfSide(xSideCood: Int, ySideCood: Int): CoodLine = (xSideCood %% 4, ySideCood %% 4) match
+   {
+      case (0, 2) | (2, 0) => CoodLine(xSideCood, ySideCood + 1, xSideCood, ySideCood - 1)
+      case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(xSideCood - 1, ySideCood, xSideCood + 1, ySideCood)
+      case _ => excep("Invalid Hex Cood for a side")
+   }
    /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
    def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
    def coodToVec2(x: Int, y: Int): Vec2 =
@@ -73,13 +80,7 @@ object HexGrid
       case _ => excep("invalid Hex Side coordinate: " - x.toString.commaAppend(y.toString))
    }
    def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
-   def vertCoodsOfSide(sideCood: Cood): CoodLine = vertCoodsOfSide(sideCood.x, sideCood.y)
-   def vertCoodsOfSide(xSideCood: Int, ySideCood: Int): CoodLine = (xSideCood %% 4, ySideCood %% 4) match
-   {
-      case (0, 2) | (2, 0) => CoodLine(xSideCood, ySideCood + 1, xSideCood, ySideCood - 1)
-      case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(xSideCood - 1, ySideCood, xSideCood + 1, ySideCood)
-      case _ => excep("Invalid Hex Cood for a side")
-   }
+   
    
    import math.sqrt
      

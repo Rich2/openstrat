@@ -14,6 +14,39 @@ class EGrid80km[TileT <: GridElem, SideT <: GridElem] (bounds: Array[Int], name:
       setRowStart(y, pair._1)
       setRowEnd(y, pair._2)
    }
+   (yTileMin to yTileMax by 2).foreach{ y =>
+      val tileMax: Int = rowEnd(y)
+      val tileMin: Int = rowStart(y)
+      val xSideMax = tileMax + 2
+      val xSideMin = tileMin - 2
+      
+      val rt1: Double = coodToLL(xSideMax, y + 1).long
+      val lt1: Double = coodToLL(xSideMin, y + 1).long
+      val rt1Adj: Double = lt1 + 30.degreesToRadians
+      val rt1New = (rt1 + rt1Adj) / 2
+      val lt1Adj = rt1 - 30.degreesToRadians
+      val lt1New = (lt1 + lt1Adj) / 2
+      setLongitude(xSideMax, y + 1, rt1New)
+      setLongitude(xSideMin, y + 1, lt1New)
+      
+      val rts: Double = coodToLL(xSideMax, y).long
+      val lts: Double = coodToLL(xSideMin, y).long
+      val rtsAdj: Double = lts + 30.degreesToRadians
+      val rtsNew = (rts + rtsAdj) / 2
+      val ltsAdj = rts - 30.degreesToRadians
+      val ltsNew = (lts + ltsAdj) / 2
+      setLongitude(xSideMax, y, rtsNew)
+      setLongitude(xSideMin, y, ltsNew)
+      
+      val rt2: Double = coodToLL(xSideMax, y - 1).long
+      val lt2: Double = coodToLL(xSideMin, y - 1).long
+      val rt2Adj: Double = lt2 + 30.degreesToRadians
+      val rt2New = (rt2 + rt2Adj) / 2
+      val lt2Adj = rt2 - 30.degreesToRadians
+      val lt2New = (lt2 + lt2Adj) / 2
+      setLongitude(xSideMax, y - 1, rt2New)
+      setLongitude(xSideMin, y - 1, lt2New)
+   }
    
    //val xLLLen = (xTileMax - xTileMin + 5) * 2
   // val yLLLen = yTileMax - yTileMin + 3 
