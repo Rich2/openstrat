@@ -31,7 +31,7 @@ trait OfEElem[TileT <: GridElem, SideT <: GridElem] extends OfGridElem[TileT, Si
    override def grid: EGrid[TileT, SideT]= eGrid
    def gridScale: Dist = eGrid.scale
    def focus: LatLong = eg.focus
-   def coodToVec2(inp: Cood): Vec2 = eg.latLongToXY(eGrid.getLL(inp))
+   //def coodToVec2(inp: Cood): Vec2 = eg.latLongToXY(eGrid.getLL(inp))
    /** Temp fix */
    def coodToDispVec2(inp: Cood): Vec2 = eg.trans(eg.latLongToDist2(eGrid.getLL(inp)))
    def egScale: Dist = eg.scale
