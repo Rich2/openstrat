@@ -129,7 +129,7 @@ class EGrid[TileT <: GridElem, SideT <: GridElem](bounds: Array[Int], val name: 
    
       
    def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => Disp2): Disp2 = tileCoodsDisplayFold(cood => fDisp(this, cood))
-
+   var rightGrid: Option[EGrid[TileT, SideT]] = None
 }
       
 //   val sideObjs: CanvObjs = sidesFlatMap((cood, st) =>

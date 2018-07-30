@@ -3,6 +3,7 @@ package ostrat
 package pEarth
 import geom._
 import pGrid._
+import Terrain._
 
 object EuropeEast extends Area1('EuropeEast, 60 ll 60)
 {
@@ -20,8 +21,8 @@ object EuropeEastGrid extends EGridMaker
       val grid = new EGFarNorth[TileT, SideT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}
       grid.fTilesSetAll(Ocean)(fTile)
       grid.fSidesSetAll(SideNone)(fSide)
-//      val gs: (Int, Int, Multiple[Terrain]*) => Unit = grid.setRow[Terrain](fTile) _ 
-      //gs(430, 518, hills * 3)
+      val gs: (Int, Int, Multiple[Terrain]*) => Unit = grid.fSetRow[Terrain](fTile) _ 
+      gs(446, 346, hills * 2, plain * 3)
       grid
    }
 }

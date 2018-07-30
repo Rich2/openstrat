@@ -45,7 +45,20 @@ class EGrid80km[TileT <: GridElem, SideT <: GridElem] (bounds: Array[Int], name:
       val lt2Adj = rt2 - 30.degreesToRadians
       val lt2New = (lt2 + lt2Adj) / 2
       setLongitude(xSideMax, y - 1, rt2New)
-      setLongitude(xSideMin, y - 1, lt2New)
+      setLongitude(xSideMin, y - 1, lt2New)      
+   }
+   
+   override def optTile(x: Int, y: Int): Option[TileT] = Unit match
+   {
+      case _ if y < yTileMin => None
+      case _ if y > yTileMax => None
+      case _ if x < rowStart(y) => None
+      case _ if x == rowEnd(y) + 4 => rightGrid.map{grid =>
+         val rs: Int = grid.rowStart(y)
+         grid.getTile(rs, y)         
+      }
+      case _ if x > rowEnd(y) => None   
+      case _ => Some(getTile(x, y))
    }
    
    //val xLLLen = (xTileMax - xTileMin + 5) * 2

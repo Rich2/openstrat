@@ -66,12 +66,8 @@ object EuropeWestGrid extends EGridMaker
       gs(452, 192, plain * 9, hills * 2, mtain * 6)// mtain, plain * 3)
       gs(450, 194, plain * 7, hills, mtain * 8)//mtain * 2, hills, plain * 2)      
       gs(448, 196, plain * 4, hills * 2, plain, mtain * 9)//, plain * 5)
-      gs(446, 198, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)//, hills * 2, plain * 2)
-//      val hc1 = pGrid.HexCood(188, 472)
-//      deb(grid.vec2ToLL(hc1.toVec2).toString)
-//      deb(grid.getLL(hc1).toString)
-//      grid.setLL(hc1, LatLong.deg(10, 10))
-//      deb(grid.getLL(hc1).toString)
+      gs(446, 198, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
+
       grid
    }
 }
