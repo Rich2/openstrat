@@ -33,7 +33,7 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
      * Array based Int and Double product traits collection traits.
    - **ostrat.geom**
      * Basic  geometry.
-     * A number of implementation Value classes of the Int and Double product classes defined in rich.
+     * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
      * 2d graphical objects for an abstract canvas.     
    - **ostrat.pDisp** depends on geom
      * Abstract canvas and classes for placing objects on that abstract canvas.
