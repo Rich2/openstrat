@@ -97,13 +97,14 @@ object EuropePts
    val nRusSW = nRusS * 44.east
    val caspianWLat = 44.53.north
    val asiaMinorNM = caspianWLat ll 38.09 
-   val caspianW = caspianWLat ll 46.65   
+   val caspianW = caspianWLat ll 46.65
+   val llich = 45.41 ll 36.76
    val rostov = deg(47.17, 39.29)   
    
    val koblev = deg (46.63, 31.18)     
    
    val eEurope = Area2('CEurope, deg(50, 24), plain, EuropeCentral.kaliningrad, noarootsi, stPetersburg,onezhsky, nRusSW,
-               caspianW, asiaMinorNM, rostov, Crimea.henichesk, Crimea.crimeaNW, koblev, Balkans.odessa)               
+               caspianW, asiaMinorNM, llich, rostov, Crimea.henichesk, Crimea.crimeaNW, koblev, Balkans.odessa)               
        
    val sinopeN = deg(42.09, 34.99)
    val bodrum = deg(37.06, 27.35)

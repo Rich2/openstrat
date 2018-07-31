@@ -7,8 +7,7 @@ import Terrain._
 
 object AsiaWestPts
 {
-   /** South West Turkey */       
-   
+   /** South West Turkey */   
    val salwa = 24.71 ll 50.77
    val nQatar = 26.15 ll 51.26
    val doha = 25.25 ll 51.61
@@ -38,7 +37,7 @@ object AsiaWestPts
    val caspianSE = deg(36.92, 54.03)
    val persiaCaspianN = persiaN ll 53.99 
    val persiaNE = persiaN * wAsiaE
-    val mianiHor = mianiLat * wAsiaE
+   val mianiHor = mianiLat * wAsiaE
    val seIran = deg(25.37, 61.67)
    val kuhmobarak = 25.80 ll 57.30
    val nHormuz = 27.17 ll 56.47

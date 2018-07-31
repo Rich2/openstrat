@@ -22,7 +22,10 @@ object EuropeEastGrid extends EGridMaker
       grid.fTilesSetAll(Ocean)(fTile)
       grid.fSidesSetAll(SideNone)(fSide)
       val gs: (Int, Int, Multiple[Terrain]*) => Unit = grid.fSetRow[Terrain](fTile) _ 
-      gs(446, 346, hills * 2, plain * 3)
+      gs(452, 348, mtain, plain * 6, hills, mtain * 2, hills * 3, plain * 15)
+      gs(450, 346, hills, plain * 5, hills * 3, mtain *2, hills * 3, plain * 7, sea, plain * 6)
+      gs(448, 348, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7)
+      gs(446, 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)
       grid
    }
 }
