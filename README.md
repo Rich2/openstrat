@@ -6,7 +6,7 @@ Cross platform scala 2d graphics, basic geometry, maps, earth maps, hex-tiling, 
 
 My hope / intention is to create something accessable to complete beginners. Complete beginners in Scala certainly, but eventually even complete beginners to programming. Because of this I'm not sure whether to use sbt or Mill. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.
 
-Sbt currently set to 1.1.6. Scala set to 2.12.6. Run:
+Sbt currently set to 1.2.1. Scala set to 2.12.6. Run:
 
 ```bash
 sbt //From project's root folder
