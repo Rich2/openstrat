@@ -4,6 +4,7 @@ package pEarth
 import geom._
 import Terrain._
 import pEuropeWest._
+import LatLong._
 
  object Balkans extends Area2('Balkans, 43.9 ll 22.1, plain)
 {
@@ -39,7 +40,7 @@ import pEuropeWest._
                 b1, zadar, matulji, pula, basanija, trieste)   
 }
 
-object Finlandia  extends Area2('Scandanavia, 65.56 ll 29.95, taiga)
+object Finlandia extends Area2('Scandanavia, 65.56 ll 29.95, taiga)
 {
    val helsinki = 60.15 ll 24.94
    val neGOfFinland = 60.64 ll 28.49
@@ -54,14 +55,24 @@ object Finlandia  extends Area2('Scandanavia, 65.56 ll 29.95, taiga)
    val tulomaMouth = 69.33 ll 33.56   
    val wMurmanask = 67.11 ll 41.28
    val sMurmansk = 66.07 ll 38.44   
-   val kandalasaksha = 67.13 ll 32.26
+   val kandalasaksha = 67.13 ll 32.26   
    
-   
-   val latLongs = LatLongs(EuropePts.stPetersburg, neGOfFinland, helsinki, swFinland, wVaasa, oulu, olhava, Scandanavia.haparanda,
-         Scandanavia.lakselv, svaerholt, vardo, karlebotn, tulomaMouth, wMurmanask, sMurmansk, kandalasaksha, EuropePts.onezhsky)
+   val latLongs = LatLongs(Baltland.stPetersburg, neGOfFinland, helsinki, swFinland, wVaasa, oulu, olhava, Scandanavia.haparanda,
+         Scandanavia.lakselv, svaerholt, vardo, karlebotn, tulomaMouth, wMurmanask, sMurmansk, kandalasaksha, Baltland.onezhsky)
 }
 
-object EuropeCentral extends Area2('CEurope, 50.07 ll 20.13, plain)
+object Gotland extends Area2('Gotland, 57.46 ll 18.47, plain)
+{
+   val southWest = 56.90 ll 18.12
+   val west = 57.26 ll 18.09
+   val tofta = 57.53 ll 18.10
+   val hallshuk = 57.92 ll 18.73
+   val east = 57.96 ll 19.35
+   
+   val latLongs = LatLongs(southWest, west, tofta, hallshuk, east)   
+}
+
+object EuropeCentral extends Area2('Poland, 50.07 ll 20.13, plain)
 {
    val mielno = 54.26 ll 16.06
    val jaroslawiec = 54.54 ll 16.53
@@ -69,7 +80,9 @@ object EuropeCentral extends Area2('CEurope, 50.07 ll 20.13, plain)
    val wladyslawowo = 54.79 ll 18.42
    val danzig = 54.39 ll 18.65
    val kaliningrad = 54.93 ll 21.26
-   val latLongs = LatLongs(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, kaliningrad, Balkans.odessa,
+   val cenEast = 52 ll 24
+   
+   val latLongs = LatLongs(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, kaliningrad, cenEast, Balkans.odessa,
          Alpsland.zagreb, Alpsland.vienna)
 }
 
@@ -83,29 +96,35 @@ object Crimea extends Area2('Crimea, 45.33 ll 34.15, plain)
    val latLongs = LatLongs(henichesk, kerch, crimeaS, crimeaW, crimeaNW)
 }
 
-object EuropePts
+object Baltland extends Area2('BaltLand, 56.46 ll 27.83, plain)
 {
-   import LatLong._
+   val klaipeda = 55.73 ll 21.08
+   val ziemupe = 56.83 ll 21.06
+   val noarootsi = 59.2 ll 23.5    
+   val stPetersburg = 59.91.north * 30.26.east          
+   val onezhsky = 63.79 ll 37.35
+   val north = 66.51 ll 42.25
+   val mezenMouth = 66.07 ll 44.10
+   val southEast = 52 ll 45   
    
-   val noarootsi = deg(59.2, 23.5)
-   val nRusS = 54.28.north   
-   
-   val cEuropeE = 30.26.east
-   val stPetersburg = 59.91.north * cEuropeE   
-          
-   val onezhsky = 63.79 ll 37.35 
-   val nRusSW = nRusS * 44.east
+   val latLongs = LatLongs(EuropeCentral.kaliningrad, klaipeda, ziemupe, noarootsi, stPetersburg, onezhsky, north, mezenMouth, southEast, EuropeCentral.cenEast)   
+}
+
+object Ukraine extends Area2('Ukraine, 50 ll 24, plain)
+{
    val caspianWLat = 44.53.north
    val asiaMinorNM = caspianWLat ll 38.09 
    val caspianW = caspianWLat ll 46.65
    val llich = 45.41 ll 36.76
-   val rostov = deg(47.17, 39.29)   
+   val rostov = 47.17 ll 39.29   
    
-   val koblev = deg (46.63, 31.18)     
+   val koblev = 46.63 ll 31.18   
    
-   val eEurope = Area2('CEurope, deg(50, 24), plain, EuropeCentral.kaliningrad, noarootsi, stPetersburg,onezhsky, nRusSW,
-               caspianW, asiaMinorNM, llich, rostov, Crimea.henichesk, Crimea.crimeaNW, koblev, Balkans.odessa)               
-       
+   val latLongs = LatLongs(Baltland.southEast, caspianW, asiaMinorNM, llich, rostov, Crimea.henichesk, Crimea.crimeaNW, koblev,
+         Balkans.odessa, EuropeCentral.cenEast)   
+}
+object EuropePts
+{       
    val sinopeN = deg(42.09, 34.99)
    val bodrum = deg(37.06, 27.35)
    val surmene = deg(40.91, 40.12)
@@ -125,6 +144,6 @@ object EuropePts
    val sangachal = deg(40.18, 49.47)
    val asiaMinorE = 50.03.east
    val caspianSW = 37.41.north * asiaMinorE  
-   val caucasus = Area2('Caucasus, 42.0 ll 45.0, hills, surmene, blackSeaE, asiaMinorNM, EuropePts.caspianW,
+   val caucasus = Area2('Caucasus, 42.0 ll 45.0, hills, surmene, blackSeaE, Ukraine.asiaMinorNM, Ukraine.caspianW,
          sumqayit, baku, sangachal, caspianSW, cizre)   
 }

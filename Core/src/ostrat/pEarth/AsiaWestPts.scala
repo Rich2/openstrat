@@ -5,6 +5,19 @@ import geom._
 import LatLong._
 import Terrain._
 
+object RusNorth extends Area2('NRus, 61 ll 54, taiga)
+{
+   val wAsiaE = 66.52.east 
+   val indiaE = 91.5.east
+   val amderma = 69.76 ll 61.68
+   val nRusNE = 75.64.north * indiaE  
+   val cAsiaNE = 55.north * indiaE
+   val cEuropeE = 51.36.east
+   //val nRusSW = 55.north * cEuropeE
+   val kazakNE = 55.north * wAsiaE  
+   val latLongs = LatLongs(amderma, nRusNE, cAsiaNE, kazakNE, Baltland.southEast, Baltland.mezenMouth)
+}
+
 object AsiaWestPts
 {
    /** South West Turkey */   
@@ -32,48 +45,42 @@ object AsiaWestPts
    val iraq = Area2('Iraq, 34.0 ll 44.5, desert, EuropePts.damascus, EuropePts.cizre, EuropePts.caspianSW, mahshahr, alFaw)
    
    val mianiLat: Latitude = 25.39.north
-   val wAsiaE = 66.52.east 
+   
    val persiaN = 38.86.north    
    val caspianSE = deg(36.92, 54.03)
    val persiaCaspianN = persiaN ll 53.99 
-   val persiaNE = persiaN * wAsiaE
-   val mianiHor = mianiLat * wAsiaE
+   val persiaNE = persiaN * RusNorth.wAsiaE
+   val mianiHor = mianiLat * RusNorth.wAsiaE
    val seIran = deg(25.37, 61.67)
    val kuhmobarak = 25.80 ll 57.30
    val nHormuz = 27.17 ll 56.47
    val nwHormuz = 26.49 ll 54.79
    val zeydan = 27.88 ll 51.50
    val persia = Area2('Persia, deg(32.4, 60), hills,
-         mahshahr, EuropePts.caspianSW, caspianSE, persiaCaspianN, persiaNE, mianiHor, seIran, kuhmobarak, nHormuz, nwHormuz, zeydan)                       
+         mahshahr, EuropePts.caspianSW, caspianSE, persiaCaspianN, persiaNE, mianiHor, seIran, kuhmobarak, nHormuz, nwHormuz, zeydan)   
    
-   val cAsiaN = 54.89.north
-   val kazakNE = cAsiaN * wAsiaE  
-   val cEuropeE = 51.36.east
+   
+   
     
-   val nRusSW = cAsiaN * cEuropeE
-   val caspianN = 47.05.north * cEuropeE   
+   
+   val caspianN = 47.05.north * RusNorth.cEuropeE   
    val caspianNE = deg(46.66, 53.03)
    val bautino = deg(44.53, 50.24)
    val kendirliBay = deg(42.73, 52.74)
    val mangystau = deg(45.48, 52.78)
    val volodarsky = deg(46.39, 49.03) 
    val kazak = Area2('Kazak, deg(47, 60), plain,
-         kazakNE, persiaNE, persiaCaspianN, kendirliBay, bautino, mangystau, caspianNE, caspianN, volodarsky, EuropePts.caspianW, EuropePts.nRusSW)         
+         RusNorth.kazakNE, persiaNE, persiaCaspianN, kendirliBay, bautino, mangystau, caspianNE, caspianN, volodarsky, Ukraine.caspianW, Baltland.southEast)         
    
-   val indiaE = 91.5.east
-   val amderma = 69.76 ll 61.68
-   val nRusNE = 75.64.north * indiaE  
-   val cAsiaNE = cAsiaN * indiaE
-   val nRus = Area2('NRus, deg(61, 54), taiga,
-         amderma, nRusNE, cAsiaNE, kazakNE, nRusSW, EuropePts.nRusSW, EuropePts.onezhsky)   
+   
+               
   
-   val caspianSea = Area2('CaspianSea, deg(42.10, 50.64), sea, caspianN, caspianNE, persiaCaspianN, caspianSE, EuropePts.caspianSW) 
-         
+   val caspianSea = Area2('CaspianSea, deg(42.10, 50.64), sea, caspianN, caspianNE, persiaCaspianN, caspianSE, EuropePts.caspianSW)         
     
-   val magdhara = 22.41.north * indiaE
+   val magdhara = 22.41.north * RusNorth.indiaE
        
    //val chinaSW = AsiaWestPts.mianiLat * indiaE
-   val indiaNE = AsiaWestPts.mianiLat * indiaE
+   val indiaNE = AsiaWestPts.mianiLat * RusNorth.indiaE
    val himilayasE = 83.75.east   
    //val himilayasSE = AsiaWestPts.mianiLat * himilayasE
    val balasore = deg(21.41, 86.97)
@@ -103,11 +110,11 @@ object AsiaWestPts
    val dondra = 5.92 ll 80.59
    val sriLanka = Area2('SriLanka, 7.47 ll 80.78, jungle, dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
    
-   val cAsiaSE = AsiaWestPts.persiaN * AsiaWestPts.indiaE            
+   val cAsiaSE = AsiaWestPts.persiaN * RusNorth.indiaE            
    val himalayas = Area2('Himalayas, deg(32, 75), mtain,
          cAsiaSE, AsiaWestPts.persiaNE, AsiaWestPts.mianiHor, AsiaWestPts.indiaNE)   
        
-    val centralAsia = Area2('CAsia, deg(47, 76), plain, cAsiaNE, kazakNE, persiaNE, cAsiaSE)
+    val centralAsia = Area2('CAsia, deg(47, 76), plain, RusNorth.cAsiaNE, RusNorth.kazakNE, persiaNE, cAsiaSE)
     
     
     val wSeverny = 71.81 ll 51.49

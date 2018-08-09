@@ -14,7 +14,7 @@ object EuropeWest extends Area1('EuropeWest, 20 ll 0)
    import pEuropeWest._
    override val a2Seq: List[Area2] = List(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen,
          Frankia, Iberia, Jutland, Zealand,  Germania,
-         Alpsland, Sardina, Italy, Corsica, EuropeCentral, eEurope, Scandanavia )
+         Alpsland, Sardina, Italy, Corsica, EuropeCentral, Baltland, Ukraine, Scandanavia )
    //override def iTiles: Seq[ITile] = Seq()//,CBritain, NBritain ,SBritain, Denmark, NSea, BalticSea)
    //override def iSides: Seq[ISide] = iTiles.flatMap(_.ownISides)
 }
@@ -46,10 +46,10 @@ object EuropeWestGrid extends EGridMaker
       gs(492, 216, taiga * 7)
       gs(490, 218, taiga * 3, sea, taiga *3)
       gs(488, 220, taiga * 2, sea * 2, taiga * 3)//, sea * 2)
-      gs(486, 186, hills * 2, sea * 10, plain * 3)// plain, sea * 2)
-      gs(484, 180, hills * 4, sea * 10, plain * 3)//, plain , sea * 2)
-      gs(482, 182, hills * 3, sea * 8, plain * 2, sea, plain * 3)//, sea * 3)
-      gs(480, 184, hills * 2, sea * 9, plain *2, sea, plain * 2)//, plain, sea * 3)
+      gs(486, 186, hills * 2, sea * 10, plain * 3)
+      gs(484, 180, hills * 4, sea * 10, plain * 3)
+      gs(482, 182, hills * 3, sea * 8, plain * 2, sea, plain * 3)
+      gs(480, 184, hills * 2, sea * 9, plain *2, sea, plain * 2)
       gs(478, 182, hills, plain * 3, sea * 7, plain * 2, sea, plain * 2, sea)
       gs(476, 176, plain * 2, sea, hills * 2, sea * 8, plain * 3, sea * 3)
       gs(474, 170, plain * 3, sea * 2, hills, plain, sea * 8, plain * 2, sea * 3)

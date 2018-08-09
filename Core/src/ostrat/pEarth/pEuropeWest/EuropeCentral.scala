@@ -13,8 +13,8 @@ object Germania extends Area2('Germania, 50.50 ll 11.11, plain)
    val neNetherlands = 53.24 ll 7.2
    
    val cuxhaven = 53.88 ll 8.66   
-   val swinoujscie = 53.92 ll 14.24  
-   
+   val swinoujscie = 53.92 ll 14.24
+      
    val latLongs = LatLongs(Frankia.belgianCoast, eBelgianCoast, wMiddleburg, eemshaven, neNetherlands, cuxhaven,
          Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna, Alpsland.steyr, Frankia.basel)
 }

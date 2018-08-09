@@ -38,14 +38,14 @@ object AsiaEastPts
                chittagong, AsiaWestPts.magdhara, AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE)  
    
      
-   val khabarovsk = AsiaWestPts.cAsiaN ll 134.73   
+   val khabarovsk = 55 ll 134.73   
    val chongpyong = deg(39.74, 127.46)
    val busan = deg(35.19, 129.19)
    val jindo = deg(34.39, 126.14)
    val ryongyon = deg(38.12, 124.78)
    val jinzhou = deg(40.93, 121.22)   
    val ceAsia = Area2('CEAsia, deg(47, 115), plain,
-         khabarovsk, chongpyong, busan, jindo, ryongyon, jinzhou, binhai, AsiaWestPts.cAsiaSE,  AsiaWestPts.cAsiaNE)      
+         khabarovsk, chongpyong, busan, jindo, ryongyon, jinzhou, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)      
    
    val krasnoyarsk = deg(77.43, 103.99)         
    val farAsiaW = 141.6.east
@@ -53,7 +53,7 @@ object AsiaEastPts
    val ustYansky = 72.81.north * farAsiaW
    val okhotsky = 58.73.north * farAsiaW   
    val neAsia = Area2('NEAsia, deg(64, 113), taiga,
-         krasnoyarsk, bukhta, ustYansky, okhotsky, khabarovsk, AsiaWestPts.cAsiaNE/*, AsiaWestPts.kazakNE*/, AsiaWestPts.nRusNE)
+         krasnoyarsk, bukhta, ustYansky, okhotsky, khabarovsk, RusNorth.cAsiaNE/*, AsiaWestPts.kazakNE*/, RusNorth.nRusNE)
    
    val sakha = deg(69.82, 159.7)
    val iultinsky = deg(67.38, -174.97)
