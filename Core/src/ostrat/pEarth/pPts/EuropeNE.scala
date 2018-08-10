@@ -21,9 +21,18 @@ object Polandia extends Area2('Polandia, 50.07 ll 20.13, plain)
 
 object Finlandia extends Area2('Scandanavia, 65.56 ll 29.95, taiga)
 {
+   val lisyNos = 60.01 ll 29.96
+   val laskovyy = 60.15 ll 29.92
+   val ozerki = 60.18 ll 29.01
+   val baltiyets = 60.61 ll 28.38
    val helsinki = 60.15 ll 24.94
-   val neGOfFinland = 60.64 ll 28.49
-   val swFinland = 60.30 ll 21.91
+   val hanko = 59.82 ll 22.94
+   val point1 = 59.92 ll 22.89
+   val kimitoonSE = 60.01 ll 22.76
+   val hyppeis = 60.22 ll 21.26
+   val lyperto = 60.61 ll 21.16
+   val pooskeri = 61.80 ll 21.43
+   val sidebySW = 61.99 ll 21.28
    val wVaasa = 63.11 ll 21.47
    val oulu = 65.00 ll 25.41
    val olhava = 65.46 ll 25.33
@@ -34,10 +43,17 @@ object Finlandia extends Area2('Scandanavia, 65.56 ll 29.95, taiga)
    val tulomaMouth = 69.33 ll 33.56   
    val wMurmanask = 67.11 ll 41.28
    val sMurmansk = 66.07 ll 38.44   
-   val kandalasaksha = 67.13 ll 32.26   
+   val kandalasaksha = 67.13 ll 32.26
    
-   val latLongs = LatLongs(Baltland.stPetersburg, neGOfFinland, helsinki, swFinland, wVaasa, oulu, olhava, Scandanavia.haparanda,
-         Scandanavia.lakselv, svaerholt, vardo, karlebotn, tulomaMouth, wMurmanask, sMurmansk, kandalasaksha, Baltland.onezhsky)
+   val pusunsaari = 61.55 ll 31.43
+   val ladogaNorth = 61.61 ll 30.92
+   val ladogaNW = 61.17 ll 29.98
+   val ladozhskiy = 60.02 ll 31.12
+   
+   val latLongs = LatLongs(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko, point1, kimitoonSE, hyppeis, lyperto,
+         pooskeri, sidebySW, wVaasa, oulu, olhava, Scandanavia.haparanda, Scandanavia.lakselv, svaerholt, vardo, karlebotn, tulomaMouth,
+         wMurmanask, sMurmansk, kandalasaksha,
+         Baltland.onezhsky, Baltland.ladogaEast, pusunsaari, ladogaNorth, ladogaNW, ladozhskiy, Baltland.nevaMouth)
 }
 
 object Gotland extends Area2('Gotland, 57.46 ll 18.47, plain)
@@ -65,14 +81,17 @@ object Baltland extends Area2('BaltLand, 56.46 ll 27.83, plain)
    val noarootsi = 59.2 ll 23.5
    val paldiski = 59.40 ll 24.04
    val udria = 59.40 ll 27.92
-   val stPetersburg = 59.91.north * 30.26.east          
+   val krasnoselsky = 59.86 ll 30.14
+   val piterland = 59.97 ll 30.21
+   val nevaMouth = 59.95 ll 31.04
+   val ladogaEast = 60.66 ll 32.96
    val onezhsky = 63.79 ll 37.35
    val north = 66.51 ll 42.25
    val mezenMouth = 66.07 ll 44.10
    val southEast = 52 ll 45   
    
    val latLongs = LatLongs(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, jurmala, saulkrasti, parnu, lao, virtsu,
-         noarootsi, paldiski, udria, stPetersburg,
+         noarootsi, paldiski, udria, krasnoselsky, piterland, nevaMouth, ladogaEast,
          onezhsky, north, mezenMouth, southEast, Polandia.cenEast)   
 }
 

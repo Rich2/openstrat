@@ -50,7 +50,10 @@ object Scandanavia extends Area2('Scandanavia, 62.75 ll 14.30, taiga)
    val ranea = 65.86 ll 22.36
    
    val eLappviken = 64.44 ll 21.60
+   val holick = 61.62 ll 17.48
    val gavie = 60.68 ll 17.21
+   val gardskarE = 60.63 ll 17.67
+   val klungstenN = 60.60 ll 17.99
    val stenskar = 60.36 ll 18.31
    val orskar = 60.53 ll 18.39   
    val kappelskar = 59.75 ll 19.08
@@ -101,8 +104,8 @@ object Scandanavia extends Area2('Scandanavia, 62.75 ll 14.30, taiga)
    val nordkapp = 71.16 ll 25.78
    val lakselv = 70.05 ll 25.00
    
-   val latLongs = LatLongs(haparanda, ranea, eLappviken, gavie, stenskar, orskar, kappelskar, herrhamra, hummelvik, torhamn, stenshamn,
-          pukavik, ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg, sTylosand, wHono,
+   val latLongs = LatLongs(haparanda, ranea, eLappviken, holick, gavie, gardskarE, klungstenN, stenskar, orskar, kappelskar, herrhamra, hummelvik,
+         torhamn, stenshamn, pukavik, ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg, sTylosand, wHono,
           oslo, nevlunghavn, flekkeroy, lindesnes,
           steinhodden, bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde,
           svelllingen, uthaug, bodo, nordskot, wBaoya, w1, andenes, gapoyholman,
