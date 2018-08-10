@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pAmericas
+package pPts
 import geom._
 import LatLong._
 import pEarth._
@@ -36,10 +36,8 @@ object AmericasSouth extends Area1('SAmericas, -6.52 ll -62.28)
    val nAmapa = deg(4.39, -51.51)
    val amazonMouthS = deg(-0.18, -49.3)
    val paraiba = deg(-7.15, -34.82)
-   val eSAmerica = Area2('ESAmerica, deg(-2.04, -70.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE, nwSAmericaES)   
-  
-   //type A2Type = Area2
-   //override val gridMaker = E80Empty
+   val eSAmerica = Area2('ESAmerica, deg(-2.04, -70.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE, nwSAmericaES)
+   
    override val a2Seq = List(fSAmerica, wSAmerica, eSAmerica)       
          
 }

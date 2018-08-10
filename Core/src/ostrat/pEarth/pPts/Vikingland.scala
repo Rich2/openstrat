@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pEuropeWest
+package pPts
 import geom._
 import Terrain._
 
@@ -41,9 +41,7 @@ object Zealand extends Area2('Zealand, 55.58 ll 11.90, plain)
    val zealandNW = 55.74 ll 10.87
    
    val latLongs = LatLongs(zealandN, helsingor, mikkelborg, copenhagen, gedser, nakskov, zealandNW)   
-} 
-
-
+}
 
 object Scandanavia extends Area2('Scandanavia, 62.75 ll 14.30, taiga)
 {
@@ -53,6 +51,8 @@ object Scandanavia extends Area2('Scandanavia, 62.75 ll 14.30, taiga)
    
    val eLappviken = 64.44 ll 21.60
    val gavie = 60.68 ll 17.21
+   val stenskar = 60.36 ll 18.31
+   val orskar = 60.53 ll 18.39   
    val kappelskar = 59.75 ll 19.08
    val herrhamra = 58.80 ll 17.84
    val hummelvik = 58.62 ll 17.01
@@ -101,7 +101,7 @@ object Scandanavia extends Area2('Scandanavia, 62.75 ll 14.30, taiga)
    val nordkapp = 71.16 ll 25.78
    val lakselv = 70.05 ll 25.00
    
-   val latLongs = LatLongs(haparanda, ranea, eLappviken, gavie, kappelskar, herrhamra, hummelvik, torhamn, stenshamn,
+   val latLongs = LatLongs(haparanda, ranea, eLappviken, gavie, stenskar, orskar, kappelskar, herrhamra, hummelvik, torhamn, stenshamn,
           pukavik, ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg, sTylosand, wHono,
           oslo, nevlunghavn, flekkeroy, lindesnes,
           steinhodden, bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde,
@@ -129,4 +129,3 @@ object JanMayen extends Area2('JanMayen, 71.02 ll -8.29, taiga)
    
    val latLongs = LatLongs(south, west, susabu, point1, northEast, southEast)
 }
-

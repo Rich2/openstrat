@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 import geom._
-import geom.LatLong._
+import LatLong._
 import Terrain._
 
 object PolarSouth extends Area1('PolarSouth, -89.9 ll 0)

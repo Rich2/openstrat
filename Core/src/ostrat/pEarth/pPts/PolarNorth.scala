@@ -1,14 +1,13 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
+package pPts
 import geom._
 import geom.LatLong._
 import Terrain._
-import pAmericas._
 
 object PolarNorth extends Area1('NPole, 89.5 ll 0)
-{
-   //type A2Type = Area2 
+{   
    override def fill: Boolean = false
    val sGreenland = deg(59.87, -43.95)
    val swGreenland = deg(60.82, -48.07)
@@ -54,4 +53,3 @@ object Nordauslandet extends Area2('Nordauslandet, 79.85 ll 23.71, ice)
    
    val latLongs = LatLongs(south, southWest, northWest, north1, north2, north3, northEast)
 }
-

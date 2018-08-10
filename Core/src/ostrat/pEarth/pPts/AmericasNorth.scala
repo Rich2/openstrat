@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pAmericas
+package pPts
 import geom._
 import LatLong._
 import Terrain._
@@ -41,8 +41,7 @@ object AmericasNorth extends Area1('AmericasNorth, 49 ll -100)
    val eCanada = new Area2('ECanada, deg(53.71, -94), taiga)
    {
       override val latLongs: LatLongs = (List(wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) :::
-            eCanadaCoast ::: List(maineE, h49th80, wCanadaES)).toProdD2
-         
+            eCanadaCoast ::: List(maineE, h49th80, wCanadaES)).toProdD2         
    }
          
    val cAmericaN =  22.8.north  
@@ -100,9 +99,8 @@ object AmericasNorth extends Area1('AmericasNorth, 49 ll -100)
    val surgidero = 22.68 ll -82.29
    val cuba = Area2('Cuba, 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
          
-   type A2Type = Area2
+   type A2Type = Area2   
    
-   //override val gridMaker = E80Empty 
    override val a2Seq = List(usa, wCanada, eCanada, baja, cAmerica, cuba) 
    
 }

@@ -7,10 +7,9 @@ import Terrain._
 
 object EuropeEast extends Area1('EuropeEast, 60 ll 60)
 {
-   override def fill = false
-   //override val gridMaker = E80Empty//EuropeEastGrid
-   import EuropePts._
-   override val a2Seq: List[Area2] = List(Balkans, Finlandia, Gotland, Crimea, asiaMinor, caucasus)
+   override def fill = false   
+   import pPts._
+   override val a2Seq: List[Area2] = List(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }
 
 object EuropeEastGrid extends EGridMaker
@@ -22,8 +21,12 @@ object EuropeEastGrid extends EGridMaker
       grid.fTilesSetAll(Ocean)(fTile)
       grid.fSidesSetAll(SideNone)(fSide)
       val gs: (Int, Int, Multiple[Terrain]*) => Unit = grid.fSetRow[Terrain](fTile) _
-      gs(486, 358, plain, sea * 3, plain * 10)
-      gs(484, 360, plain , sea * 3, plain * 18)
+      gs(494, 362, taiga)
+      gs(492, 364, taiga * 2)
+      gs(490, 362, taiga * 2, sea * 4, plain * 10)
+      gs(488, 360, taiga, sea * 4, plain * 16) 
+      gs(486, 358, plain, sea * 6, plain * 15)
+      gs(484, 360, plain , sea, plain, sea, plain, sea, plain * 16)
       gs(482, 358, plain, sea * 3, plain * 18)
       gs(480, 356, plain, sea * 4, plain * 18)
       gs(478, 358, sea * 4, plain * 19)

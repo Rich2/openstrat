@@ -35,7 +35,7 @@ trait EarthAreas[TileT <: ETile, SideT <: GridElem]
 
 object EarthAreas// extends AreaTop
 {
-   import pAmericas._
+   import pPts._
    val oldWorld: List[Area1] = List(EuropeWest, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
    val newWorld: List[Area1] = List(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
    val grids: List[EGridMaker] = List(EuropeWestGrid, EuropeEastGrid)
