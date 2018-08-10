@@ -19,54 +19,6 @@ object Polandia extends Area2('Polandia, 50.07 ll 20.13, plain)
          Alpsland.zagreb, Alpsland.vienna)
 }
 
-object Finlandia extends Area2('Scandanavia, 65.56 ll 29.95, taiga)
-{
-   val lisyNos = 60.01 ll 29.96
-   val laskovyy = 60.15 ll 29.92
-   val ozerki = 60.18 ll 29.01
-   val baltiyets = 60.61 ll 28.38
-   val helsinki = 60.15 ll 24.94
-   val hanko = 59.82 ll 22.94
-   val point1 = 59.92 ll 22.89
-   val kimitoonSE = 60.01 ll 22.76
-   val hyppeis = 60.22 ll 21.26
-   val lyperto = 60.61 ll 21.16
-   val pooskeri = 61.80 ll 21.43
-   val sidebySW = 61.99 ll 21.28
-   val wVaasa = 63.11 ll 21.47
-   val oulu = 65.00 ll 25.41
-   val olhava = 65.46 ll 25.33
-   
-   val svaerholt = 70.96 ll 26.67
-   val vardo = 70.36 ll 31.12
-   val karlebotn = 70.11 ll 28.57
-   val tulomaMouth = 69.33 ll 33.56   
-   val wMurmanask = 67.11 ll 41.28
-   val sMurmansk = 66.07 ll 38.44   
-   val kandalasaksha = 67.13 ll 32.26
-   
-   val pusunsaari = 61.55 ll 31.43
-   val ladogaNorth = 61.61 ll 30.92
-   val ladogaNW = 61.17 ll 29.98
-   val ladozhskiy = 60.02 ll 31.12
-   
-   val latLongs = LatLongs(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko, point1, kimitoonSE, hyppeis, lyperto,
-         pooskeri, sidebySW, wVaasa, oulu, olhava, Scandanavia.haparanda, Scandanavia.lakselv, svaerholt, vardo, karlebotn, tulomaMouth,
-         wMurmanask, sMurmansk, kandalasaksha,
-         Baltland.onezhsky, Baltland.ladogaEast, pusunsaari, ladogaNorth, ladogaNW, ladozhskiy, Baltland.nevaMouth)
-}
-
-object Gotland extends Area2('Gotland, 57.46 ll 18.47, plain)
-{
-   val southWest = 56.90 ll 18.12
-   val west = 57.26 ll 18.09
-   val tofta = 57.53 ll 18.10
-   val hallshuk = 57.92 ll 18.73
-   val east = 57.96 ll 19.35
-   
-   val latLongs = LatLongs(southWest, west, tofta, hallshuk, east)   
-}
-
 object Baltland extends Area2('BaltLand, 56.46 ll 27.83, plain)
 {
    val klaipeda = 55.73 ll 21.08
@@ -85,15 +37,46 @@ object Baltland extends Area2('BaltLand, 56.46 ll 27.83, plain)
    val piterland = 59.97 ll 30.21
    val nevaMouth = 59.95 ll 31.04
    val ladogaEast = 60.66 ll 32.96
+   val svirMouth = 61.01 ll 35.49
+   
+   val onegaSouth = 60.88 ll 35.67
+   val ustye = 61.19 ll 36.43
+   val onegaEast = 61.39 ll 36.47
+   val peschanoyeSouth = 62.04 ll 35.68   
+   val pudozhgorskiy = 62.32 ll 35.86
+   val chelmuzhiEast = 62.53 ll 35.75
+   
+   //North coast
    val onezhsky = 63.79 ll 37.35
-   val north = 66.51 ll 42.25
+   val onegaRiver = 63.93 ll 37.99
+   val pushlakhtaNorth = 64.92 ll 36.44
+   val letniyNavolok = 65.16 ll 37.04
+   val uyma = 64.55 ll 39.71
+   val niznyayaWest = 65.58 ll 39.79
+   val intsy = 65.98 ll 40.75
+   val koyda = 66.51 ll 42.25
+   val koydaEast = 66.41 ll 43.24
    val mezenMouth = 66.07 ll 44.10
    val southEast = 52 ll 45   
    
    val latLongs = LatLongs(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, jurmala, saulkrasti, parnu, lao, virtsu,
          noarootsi, paldiski, udria, krasnoselsky, piterland, nevaMouth, ladogaEast,
-         onezhsky, north, mezenMouth, southEast, Polandia.cenEast)   
+         svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,pudozhgorskiy, chelmuzhiEast,
+         /*North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,
+         southEast, Polandia.cenEast)   
 }
+
+object Gotland extends Area2('Gotland, 57.46 ll 18.47, plain)
+{
+   val southWest = 56.90 ll 18.12
+   val west = 57.26 ll 18.09
+   val tofta = 57.53 ll 18.10
+   val hallshuk = 57.92 ll 18.73
+   val east = 57.96 ll 19.35
+   
+   val latLongs = LatLongs(southWest, west, tofta, hallshuk, east)   
+}
+
 
 object Saaremaa extends Area2('Saaremaa, 58.43 ll 22.52, plain)
 {
@@ -118,5 +101,74 @@ object Hiiumaa extends Area2('Hiiumaa, 58.90 ll 22.63, plain)
    val southWest = 58.7 ll 22.49
    val latLongs = LatLongs(west, north, sarve, southEast, southWest)
 }
-      
+
+object Finlandia extends Area2('Scandanavia, 65.56 ll 29.95, taiga)
+{
+   val lisyNos = 60.01 ll 29.96
+   val laskovyy = 60.15 ll 29.92
+   val ozerki = 60.18 ll 29.01
+   val baltiyets = 60.61 ll 28.38
+   val helsinki = 60.15 ll 24.94
+   val hanko = 59.82 ll 22.94
+   
+   //East Baltic Coast
+   val point1 = 59.92 ll 22.89
+   val kimitoonSE = 60.01 ll 22.76
+   val hyppeis = 60.22 ll 21.26
+   val lyperto = 60.61 ll 21.16
+   val pooskeri = 61.80 ll 21.43
+   val sidebySW = 61.99 ll 21.28
+   val wVaasa = 63.11 ll 21.47
+   val vasankariWest = 64.34 ll 23.93
+   val oulu = 65.00 ll 25.41
+   val olhava = 65.46 ll 25.33
+   
+   //Barents Sea
+   val svaerholt = 70.96 ll 26.67
+   val vardo = 70.36 ll 31.12
+   val karlebotn = 70.11 ll 28.57
+   val tulomaMouth = 69.33 ll 33.56
+   val ostrov = 69.09 ll 36.27
+   val mayakGorodetsky = 67.70 ll 40.95
+   val ponoyNorth = 67.44 ll 41.07
+   val ponoyEast = 67.11 ll 41.36
+   
+   //White Sea North
+   val sosnovka = 66.53 ll 40.68
+   val mayakNikodimsky = 66.10 ll 39.11
+   val tetrino = 66.06 ll 38.24
+   val olenitsa = 66.42 ll 35.37
+   val umbaWest = 66.71 ll 33.52
+   val luvenga = 67.08 ll 32.75
+   val kandalasaksha = 67.13 ll 32.26
+   
+   // White Sea West
+   val kovdaEast = 66.66 ll 33.24
+   val keretEast = 66.22 ll 34.09
+   val kalgalakshaEast = 65.75 ll 35.02
+   val kuzemaEast = 65.32 ll 34.51
+   val vygMouth = 64.53 ll 34.78
+   val kohezmaNorth = 64.38 ll 35.61
+   
+   val pusunsaari = 61.55 ll 31.43
+   val ladogaNorth = 61.61 ll 30.92
+   val ladogaNW = 61.17 ll 29.98
+   val ladozhskiy = 60.02 ll 31.12
+   val medvezhyegorskNorth = 62.91 ll 34.49
+   val medvezhyegorskSouth = 62.89 ll 34.44
+   val onega11 = 62.27 ll 35.60
+   val onega13 = 61.89 ll 35.32
+   val onega15 = 62.02 ll 34.73
+   val petrozavodsk = 61.81 ll 34.55
+   val shcheleyki = 61.14 ll 35.70
+   
+   val latLongs = LatLongs(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko,
+         /* East Baltic */point1, kimitoonSE, hyppeis, lyperto, pooskeri, sidebySW, wVaasa, vasankariWest, oulu, olhava,
+         SwedenNorth.haparanda,
+         /*Barents Sea */ SwedenNorth.lakselv, svaerholt, vardo, karlebotn, tulomaMouth, ostrov, mayakGorodetsky, ponoyNorth, ponoyEast,
+         /* White Sea North */ sosnovka, mayakNikodimsky, tetrino, olenitsa, umbaWest, luvenga, kandalasaksha,
+         /* White Sea west */kovdaEast, keretEast, kalgalakshaEast, kuzemaEast, vygMouth, kohezmaNorth,        
+         Baltland.onezhsky, Baltland.chelmuzhiEast, medvezhyegorskNorth, medvezhyegorskSouth, onega11, onega13, onega15, petrozavodsk, shcheleyki,
+         Baltland.svirMouth, Baltland.ladogaEast, pusunsaari, ladogaNorth, ladogaNW, ladozhskiy, Baltland.nevaMouth)
+}   
       

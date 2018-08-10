@@ -4,6 +4,8 @@ package pEarth
 import geom._
 import LatLong._
 import Terrain._
+import ostrat.pEarth.pPts.RusNorth
+import ostrat.pEarth.pPts.AsiaWestPts
 
 object AsiaEastPts
 {

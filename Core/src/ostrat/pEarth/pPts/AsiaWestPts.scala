@@ -1,22 +1,38 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
+package pPts
 import geom._
 import LatLong._
 import Terrain._
-import pPts._
 
 object RusNorth extends Area2('NRus, 61 ll 54, taiga)
 {
    val wAsiaE = 66.52.east 
    val indiaE = 91.5.east
+   
+   //North Coast
+   val chizhaSouth = 66.90 ll 44.52
+   val chizhaWest = 67.19 ll 43.77
+   val shoynaNorth1 = 68.30 ll 44.21
+   val shoynaNorth2 = 68.66 ll 42.28
+   val shoynaNorth3 = 68.53 ll 44.07
+   val shoynaNorth4 = 68.47 ll 45.78
+   val shoynaEast1 = 68.11 ll 46.52 
+   val shoynaEast2 = 67.81 ll 46.65
+   val kiyaEast1 = 67.69 ll 45.32
+   val chizhaEast1 = 67.33 ll 44.90
+   val vizhas = 66.81 ll 45.96
    val amderma = 69.76 ll 61.68
-   val nRusNE = 75.64.north * indiaE  
+   val nRusNE = 75.64.north * indiaE
+   
    val cAsiaNE = 55.north * indiaE
    val cEuropeE = 51.36.east
    //val nRusSW = 55.north * cEuropeE
    val kazakNE = 55.north * wAsiaE  
-   val latLongs = LatLongs(amderma, nRusNE, cAsiaNE, kazakNE, Baltland.southEast, Baltland.mezenMouth)
+   val latLongs = LatLongs(Baltland.mezenMouth, chizhaSouth, chizhaWest, shoynaNorth1, shoynaNorth2, shoynaNorth3, shoynaNorth4, 
+         shoynaEast1, shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, nRusNE,
+         cAsiaNE, kazakNE, Baltland.southEast)
 }
 
 object AsiaWestPts
