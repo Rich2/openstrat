@@ -45,8 +45,8 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
      * OfTile clases for the display of tiles.
    - **ostrat.pEarth** depends on geom, pDisp and pGrid
      * Earth and sphere geometry.
-     * Earth land outlines.
      * Grids of Earth terrain.
+     **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
    - **ostrat.pStrat** depends on geom, pDisp and pGrid
      * Flags.
      * Odds and ends.
