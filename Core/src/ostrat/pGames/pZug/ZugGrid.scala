@@ -20,7 +20,7 @@ object Zug1 extends ZugGrid(4, 48, 2, 14)
    fSetSides(true, 35 -> 11, 36 -> 10, 37 -> 9)
    import Zug1.{setRow => gs}
    gs(yRow = 12, xStart = 4, WheatField * 2)
-   gs(10, 6, WheatField)
+   gs(10, 6, WheatField, Plain * 7, Wood)
    gs(8, 4, WheatField * 2, Stone * 2, WheatField * 2, Lake)
    gs(6, 6, WheatField, Plain * 4, Lake)
    gs(4, 4, WheatField * 2)

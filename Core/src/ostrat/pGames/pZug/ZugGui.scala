@@ -18,14 +18,18 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
       {
          import ofh._         
          val colour: Colour = tile.colour         
-         val tv = vertDispVecs.fillSubj(tile, colour)        
+         val tv = tile.terr match
+         {
+            case _ : Building => List(vertDispVecs.fillSubj(tile, Colour.LightGreen), Square.fill(pScale * 2.5, colour, cen))
+            case _ => vertDispVecs.fillSubj(tile, colour) :: Nil        
+         }
          val tText = ifScaleCObj(60, FillText(cen, xyStr, 14, colour.contrastBW))
          val lunit = tile.lunits match
          {
             case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => None   
          }         
-         Disp2(List(tv), tText ++ lunit)
+         Disp2(tv, tText ++ lunit)
       }
    def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofs => {
       import ofs._

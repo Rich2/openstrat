@@ -18,7 +18,7 @@ object Rect
          x - width / 2, y + height / 2,
          x + width / 2, y + height / 2,
          x + width / 2, y - height / 2,
-         x - width/2, y -height / 2)
+         x - width/2, y - height / 2)
          
     def bCen(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(
          x - width / 2, y + height ,
@@ -58,14 +58,7 @@ object Rect
    }
 }
 
-object Square
-{
-   def curvedSegs(width: Double, radius: Double): Seq[ShapeSeg] =
-   {
-      val w = width / 2
-      (0 to 3).flatMap(i => Seq( LineSeg(w - radius, w), ArcSeg(w, w - radius, w - radius, w -radius)).rotateRadians(-i * math.Pi / 2))
-   }
-}
+
 
 object Star5
 {

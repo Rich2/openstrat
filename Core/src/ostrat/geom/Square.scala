@@ -1,0 +1,23 @@
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package ostrat
+package geom
+
+object Square
+{
+   def apply(width: Double, cen: Vec2 =Vec2Z): Vec2s = xy(width, cen.x, cen.y)
+   
+   
+   def xy(width: Double, xCen: Double, yCen: Double): Vec2s = Vec2s.xy(
+         xCen - width / 2, yCen + width / 2,
+         xCen + width / 2, yCen + width / 2,
+         xCen + width / 2, yCen - width / 2,
+         xCen - width/2, yCen - width / 2)
+         
+   def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z) = apply(width, cen).fill(colour)      
+   
+   def curvedSegs(width: Double, radius: Double): Seq[ShapeSeg] =
+   {
+      val w = width / 2
+      (0 to 3).flatMap(i => Seq( LineSeg(w - radius, w), ArcSeg(w, w - radius, w - radius, w -radius)).rotateRadians(-i * math.Pi / 2))
+   }
+}

@@ -45,9 +45,16 @@ object Hill extends ZugTerr
    override def colour = Brown
 }
 
-object Stone extends ZugTerr
+trait Building extends ZugTerr
+
+object Stone extends Building
 {
    override def colour = Gray
+}
+
+object Wood extends Building
+{
+   override def colour = Brown
 }
 
 object Lake extends ZugTerr

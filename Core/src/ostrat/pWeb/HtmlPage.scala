@@ -21,6 +21,5 @@ trait HtmlPage
 {
    def head: HHead
    def body: HBody
-   def out: String = "<!DOCTYPE html>".nl - head.out(0).nl - body.out(0).nl - "</html>"
-      //"<!DOCTYPE html>\n<head>" - hMems.multiFold(0) -+ "</head>\n<body>" - bMems.multiFold(0) -+ "</body>\n</html>"  
+   def out: String = "<!DOCTYPE html>".nl - head.out(0).nl - body.out(0).nl - "</html>"      
 }
