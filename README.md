@@ -27,10 +27,11 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 1. AnteCompono. This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
 2. Core. The bulk of the code this is organised into the following packages:
-   - **ostrat** The root package. All other packages depend on this.
-     * General utilities.
+   - **ostrat** The root package. All other packages depend on this.     
+     * Colours.
      * A persistence framework. Succinct readalble object notation. Save files at `~/AppData/Local/OpenStratData`.
      * Array based Int and Double product traits collection traits.
+     * Other general utilities.
    - **ostrat.geom**
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
