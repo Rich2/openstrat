@@ -32,9 +32,8 @@ object Alpsland extends Area2('Alpsland, 45.93 ll 10.49, mtain)
    val imperia = 43.89 ll 8.06  
       
    val latLongs = LatLongs(Frankia.stRaphael, Frankia.orangeCrossing, Frankia.montelimar, Frankia.bourgeEnBresse, Frankia.basel,
-         steyr, vienna, zagreb, monfalcone, portoDiFalconera, Italy.venice, Italy.voltri,
-                 
-       petraLigure, imperia, 
+         steyr, vienna, zagreb, monfalcone, portoDiFalconera, Italy.venice, Italy.voltri,                 
+       petraLigure, imperia 
    )
 }
 

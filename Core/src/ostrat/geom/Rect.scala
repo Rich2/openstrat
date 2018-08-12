@@ -4,6 +4,14 @@ package geom
 
 object Rect
 {
+   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0 */
+   def apply(width: Double, height: Double = 1.0, cen: Vec2 = Vec2Z): Vec2s = xy(width, height, cen.x, cen.y)
+   def xy(width: Double, height: Double = 1.0, xCen: Double, yCen: Double): Vec2s = Vec2s.xy(
+         xCen - width / 2, yCen + height / 2,
+         xCen + width / 2, yCen + height / 2,
+         xCen + width / 2, yCen - height / 2,
+         xCen - width/2, yCen - height / 2)
+   
    def tL(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x, y,  x + width, y,  x + width, y - height,  x, y -height)
    def tL(tlVec: Vec2, width: Double, height: Double): Vec2s =
       Vec2s.xy(tlVec.x, tlVec.y,  tlVec.x + width, tlVec.y,  tlVec.x + width, tlVec.y - height,  tlVec.x, tlVec.y -height)
@@ -12,14 +20,7 @@ object Rect
    def bR(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x - width, y + height, x, y + height, x, y, x - width, y)
    def bL(v: Vec2, width: Double, height: Double): Vec2s = Vec2s.xy(v.x, v.y + height, v.x + width, v.y + height, v.x + width, v.y, v.x, v.y)
    def bL(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x, y + height, x + width, y + height, x + width, y, x, y)
-   def cen(cen: Vec2, width: Double, height: Double): Vec2s = Rect.cen(cen.x, cen.y, width, height)   
-   
-   def cen(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(
-         x - width / 2, y + height / 2,
-         x + width / 2, y + height / 2,
-         x + width / 2, y - height / 2,
-         x - width/2, y - height / 2)
-         
+           
     def bCen(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(
          x - width / 2, y + height ,
          x + width / 2, y + height ,
@@ -31,9 +32,9 @@ object Rect
          + width / 2, 0,
          - width / 2, 0)
          
-   def apply(width: Double, height: Double = 1.0): Vec2s = cen(0, 0, width, height)
-   def scale(scale: Double, width: Double): Vec2s = cen(0, 0, width * scale, scale)
-   def h1(width: Double): Vec2s = Rect.cen(0, 0, width, 1.0)
+   
+   def scale(scale: Double, width: Double): Vec2s = apply(width * scale)//, scale,0, 0)
+   //def h1(width: Double): Vec2s = Rect.apply(width, 1.0)//, 0, 0)
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
    def cross(width: Double, height: Double, barWidth: Double): Seq[Vec2s] = Seq(Rect(width, barWidth), Rect(barWidth, height))

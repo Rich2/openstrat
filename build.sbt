@@ -38,6 +38,8 @@ lazy val JsPlay = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).setting
 )
 
 lazy val NatPlay = project.enablePlugins(ScalaNativePlugin).settings(
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "AnteCompono/src",
+//Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src",		
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "NatStrat/src",
 scalaVersion := "2.11.12"
 )

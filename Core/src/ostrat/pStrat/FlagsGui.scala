@@ -9,7 +9,7 @@ case class FlagsGui(canv: CanvasPlatform) extends pDisp.CanvasSimple
    import Colour._
    import Flags._ 
    backColour = Gray
-   val r1 = Rect.apply(300, 200).draw(5.0, Blue)   
+   val r1 = Rect(300, 200).draw(5.0, Blue)   
    val br: Seq[ShapeSeg] = Rect.curvedSegs(480, 260, 40).slate(0, -150).rotateRadians(math.Pi / 8)        
    val stuff = Seq(         
          france.scale(100).tR.slate(canv.topRight),
