@@ -47,6 +47,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
          }
       case (RightButton, List(warr : Warrior), List(newTile: CTile)) =>
          {
+            deb("Rt")
             val newCood = newTile.cood
             val oldCood = warr.cood
             
@@ -76,8 +77,9 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
                warr.movePts = (warr.movePts - warr.terrCost(newTile)).max(0)
                canv.frameZero((el, st) => out(el, st), 15)               
             }            
-         }      
-      case _ => //deb("Mouse other")
+         }
+      case (RightButton, l, _) => deb(l.toString)   
+      case _ => deb("Mouse other")
    }   
    
 //   mapPanel.mouseUp = (a, b, s) =>

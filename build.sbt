@@ -36,3 +36,8 @@ lazy val JsPlay = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).setting
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",
   version := "0.0.1",
 )
+
+lazy val NatPlay = project.enablePlugins(ScalaNativePlugin).settings(
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "NatStrat/src",
+scalaVersion := "2.11.12"
+)
