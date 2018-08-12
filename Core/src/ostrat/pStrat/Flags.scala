@@ -6,11 +6,11 @@ import geom._
 object Flags
 {
    /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-   def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rect.h1(ratio).subjSeq(evObj = retObj,
+   def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rect(ratio).subjSeq(evObj = retObj,
          colours.iMap((colour, i) => FillPoly(colour, Rect.tL( -ratio / 2, + 0.5, ratio / colours.length, 1).slate(i * ratio / colours.length, 0))))   
          
     /** Equal height horrisontal bands. width ratio should normally be greater than 1.0 */     
-   def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubj = Rect.h1(ratio).subjSeq(retObj,   
+   def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubj = Rect(ratio).subjSeq(retObj,   
       colours.iMap((colour, i) => FillPoly(colour, Rect.tL( -ratio / 2, + 0.5, ratio, 1.0 / colours.length).slate(0, - i.toDouble / colours.length))))      
    
    import Colour._

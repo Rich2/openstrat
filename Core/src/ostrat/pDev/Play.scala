@@ -16,12 +16,12 @@ object Play
          (4, (pSpace.Planets(_), "ScalaFx Planets")),
          (5, (new pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
          (6, (new pDung.DungGui(_), "ScalaFx Dungeon")),
-       //  (7, (new EGridGui(_, EuropeWestGrid[TerrOnly, ESideOnly](TerrOnly.tileMaker, ESideOnly.apply)), "ScalaFx Europe Grid")),
+         (7, (pFormation.BattleGui(_), "ScalaFx Formation")),
          (8, (TestCanv(_), "ScalaFx Simple Test Canvas")),
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.Bc1), "BC 305")),
          (11, (pCard.BlackJack(_), "ScalaFx BlackJack")),
-         (12, (new pChess.DraughtsGui(_), "Draughts")),         
+         (12, (new pChess.DraughtsGui(_), "Draughts"))         
          )
       
         def curr(appNum: Int): (CanvasPlatform => Unit, String) = theMap(appNum)
