@@ -22,7 +22,7 @@ JsPlay/fullOptJS //For optimimised Javascript. WebPages/fullPlay.html will displ
 
 The tilde **~** tells sbt to rerun the command everytime you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy AppNum.txt from Misc/ to ~/AppData/Local/OpenStratData/ Change the integer to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild. 
 
-## The Code currently has 4 modules:
+## The Code currently has 5 modules:
 
 1. AnteCompono. This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
@@ -51,11 +51,24 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
    - **ostrat.pStrat** depends on geom, pDisp and pGrid
      * Flags.
      * Odds and ends.
+<<<<<<< HEAD
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages.
      * ostrat.pGames.pWW2 A grand strategy world War 2 Game using the hex tiled world terrain map. 
      * ostrat.pGames.p1783 A grand strategy game also using the world map set in 1783.
      * ostrat.pGames.p305 A grand Strategy Game set in 305BC, using part of the world map.
      * ostrat.pGames.pZug A 20th cntury squad based strategy game.
+=======
+   - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out ocmmon functionalty and classes.
+     * ostrat.pGames.pWW2 A grand strategy world War 2 Game using the hex tiled world terrain map. 
+     * ostrat.pGames.p1783 A grand strategy game also using the world map starting in 1783.
+     * ostrat.pGames.p305 A grand Strategy Game set in 305BC, using part of the world map.
+     * ostrat.pGames.pZug A 20th century squad based strategy game using hex tiles.
+     * ostrat.pGames.pCiv A Civilisational development game using hex tiles.
+     * ostrat.pGames.pDung A Square tile based dungeon game.
+     * ostrat.pGames.pFormation. Pre modern formation based battles, not using tiles.
+     * ostrat.pGames.pSpace A solar system app.
+     * ostrat.pGames.pChess. A search for an elgant implementation of Draughts and Chess.     
+>>>>>>> 72180359d6a0d019c6b8e22992d05276ee86c59d
    - **ostrat.pWeb** Code for the generation and manipulation of
      * HTML
      * Other XML
