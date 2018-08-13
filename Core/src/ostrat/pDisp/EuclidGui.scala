@@ -3,7 +3,7 @@ package ostrat
 package pDisp
 import geom._
 
-trait EuclidGui extends MapGui
+trait Dist2LikeGui extends MapGui
 {
    /** The Distance represented by one pixel width / height on the screen */
    var scale: Dist

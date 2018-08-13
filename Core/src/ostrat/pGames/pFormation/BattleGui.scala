@@ -9,8 +9,6 @@ import geom._
 case class BattleGui(canv: CanvasPlatform, scen: BScen) extends pDisp.CanvasSimple//UnfixedMapGui
 {
    val rs = scen.lunits.flatMap{c => 
-   
-   
    for { y <- 1 to c.ranks
       x <- 0 to c.rankLen
       }

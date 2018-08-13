@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
 object Rect
 {
    /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0 */
@@ -31,10 +32,7 @@ object Rect
          + width / 2, + height ,
          + width / 2, 0,
          - width / 2, 0)
-         
-   
-   def scale(scale: Double, width: Double): Vec2s = apply(width * scale)//, scale,0, 0)
-   //def h1(width: Double): Vec2s = Rect.apply(width, 1.0)//, 0, 0)
+ 
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
    def cross(width: Double, height: Double, barWidth: Double): Seq[Vec2s] = Seq(Rect(width, barWidth), Rect(barWidth, height))
@@ -58,8 +56,6 @@ object Rect
       Vec2s(centreLine.pt1 + offset, centreLine.pt2 + offset, centreLine.pt2 - offset, centreLine.pt1 - offset)   
    }
 }
-
-
 
 object Star5
 {

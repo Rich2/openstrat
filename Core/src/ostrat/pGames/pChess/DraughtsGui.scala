@@ -7,7 +7,7 @@ import pGrid._
 import pDisp._
 import Colour._
 
-class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, SideBare, CheckersBoard](canv, CheckersBoard())
+case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple// SquareGridGui[CheckersSq, SideBare, CheckersBoard](canv, CheckersBoard())
 {
    var player = true
    def fSquare: OfSquareReg[CheckersSq, SideBare, CheckersBoard] => Disp2 = tog =>
@@ -25,20 +25,20 @@ class DraughtsGui(canv: CanvasPlatform) extends SquareGridGui[CheckersSq, SideBa
          }         
          Disp2(List(tv), ch.toList)
       }
-   def mapObjs: CanvObjs = ofSTilesDisplayFold(fSquare).collapse
+   //def mapObjs: CanvObjs = ofSTilesDisplayFold(fSquare).collapse
    
-   eTop()
-   mapPanel.repaint(mapObjs)
-   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
-   {
-      case (LeftButton, _, _) =>
-         {
-            selected = clickList.fHead(Nil, (h , _) => List(h))
-            statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
-            eTop()
-         }
-         case _ => //deb("Mouse other")
-   }    
+   //eTop()
+   //mapPanel.repaint(mapObjs)
+   //mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
+//   {
+//      case (LeftButton, _, _) =>
+//         {
+//            selected = clickList.fHead(Nil, (h , _) => List(h))
+//            statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+//            eTop()
+//         }
+//         case _ => //deb("Mouse other")
+//   }    
 }
 
 
