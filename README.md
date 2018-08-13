@@ -22,7 +22,7 @@ JsPlay/fullOptJS //For optimimised Javascript. WebPages/fullPlay.html will displ
 
 The tilde **~** tells sbt to rerun the command everytime you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy AppNum.txt from Misc/ to ~/AppData/Local/OpenStratData/ Change the integer to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild. 
 
-## The Code currently has 4 modules:
+## The Code currently has 5 modules:
 
 1. AnteCompono. This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
