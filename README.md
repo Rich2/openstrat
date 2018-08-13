@@ -53,11 +53,11 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
      * Odds and ends.
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out ocmmon functionalty and classes.
      * ostrat.pGames.pWW2 A grand strategy world War 2 Game using the hex tiled world terrain map. 
-     * ostrat.pGames.p1783 A grand strategy game also using the world map set in 1783.
+     * ostrat.pGames.p1783 A grand strategy game also using the world map starting in 1783.
      * ostrat.pGames.p305 A grand Strategy Game set in 305BC, using part of the world map.
      * ostrat.pGames.pZug A 20th century squad based strategy game using hex tiles.
      * ostrat.pGames.pCiv A Civilisational development game using hex tiles.
-     * ostrat.pGames.pDung A Square tile based dungeopn game.
+     * ostrat.pGames.pDung A Square tile based dungeon game.
      * ostrat.pGames.pFormation. Pre modern formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elgant implementation of Draughts and Chess.     
