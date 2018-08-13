@@ -31,15 +31,10 @@ object Rect
          - width / 2, + height,
          + width / 2, + height ,
          + width / 2, 0,
-         - width / 2, 0)
-<<<<<<< HEAD
-         
+         - width / 2, 0)         
    
-   def scale(scale: Double, width: Double): Vec2s = apply(width * scale)//, scale,0, 0)
-   //def h1(width: Double): Vec2s = Rect.apply(width, 1.0)//, 0, 0)
-=======
+   def scale(scale: Double, width: Double): Vec2s = apply(width * scale)
  
->>>>>>> 72180359d6a0d019c6b8e22992d05276ee86c59d
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
    def cross(width: Double, height: Double, barWidth: Double): Seq[Vec2s] = Seq(Rect(width, barWidth), Rect(barWidth, height))
