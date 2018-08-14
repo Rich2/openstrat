@@ -10,18 +10,18 @@ import Colour._
 trait MapGui extends CanvasMulti
 {   
    val barWidth = 30
-   val topPan = addPanel(Rect.tL(canv.topLeft, canv.width, barWidth), true)
+   val topPan = addPanel(Rectangle.tL(canv.topLeft, canv.width, barWidth), true)
    topPan.backColour = Colour.Gray
-   def button1(str: String, cmd: AnyRef) = Rect.curved(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
-   def button3(str: String, cmd: MouseButton => Unit) = Rect.curved(str.length.max(2) * 17, 25, 5).subjAll(M3Cmd(cmd), White, 3, Black, 25, str)
+   def button1(str: String, cmd: AnyRef) = Rectangle.curved(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
+   def button3(str: String, cmd: MouseButton => Unit) = Rectangle.curved(str.length.max(2) * 17, 25, 5).subjAll(M3Cmd(cmd), White, 3, Black, 25, str)
    def buttonStd(str: String, cmd: AnyRef, backColour: Colour = Colour.White) =
-      Rect.curved(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
-   def textBox(str: String, cmd: AnyRef) = Rect(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
+      Rectangle.curved(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
+   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
    def reTop(commands: Seq[CanvSubj[_]]): Unit = topPan.repaint(DisplayRow(10, commands).fromLeft(topPan.cenLeft))
    //   var status: DTextLine = mainBar.addTextLine("Nothing Selected")
    var statusText = "Use middle and right mouse buttons for greater deltas"
    def status = textBox(statusText, Unit)
-   val mapPanel: Panel = addPanel(Rect.bL(canv.bottomLeft, canv.width, canv.height - barWidth))
+   val mapPanel: Panel = addPanel(Rectangle.bL(canv.bottomLeft, canv.width, canv.height - barWidth))
    def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
    def mapObjs: CanvObjs
    //def updateView(): Unit = {repaintMap; setStatus(viewStr) }

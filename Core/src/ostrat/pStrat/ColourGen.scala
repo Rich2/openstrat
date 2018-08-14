@@ -21,7 +21,7 @@ case class ColourGen(canv: CanvasPlatform) extends pDisp.CanvasSimple
       g1 = intMaker(g)
       b1 = intMaker(b)
       c1 = Colour.fromInts(r1, g1, b1)
-      c2 = Rect.colouredBordered(25, c1, 2).slate(left + 30, top - 20)
+      c2 = Rectangle.colouredBordered(25, c1, 2).slate(left + 30, top - 20)
       c3 = FillText(Vec2(left + 120, top - 20), commaedObjs(r1, g1, b1), 15)      
    } yield (c2, c3)
    

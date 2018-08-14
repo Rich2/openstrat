@@ -30,7 +30,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
                   val posn = fTrans(gridPosn)
                   val col = head.faction.colour
                   val col2 = col.contrast
-               Rect.curved(45, 30, 5, posn).allFixed(head, col, 2, col2, 16, head.movePts.toString) :: Nil
+               Rectangle.curved(45, 30, 5, posn).allFixed(head, col, 2, col2, 16, head.movePts.toString) :: Nil
                }
             case _ => Nil
          }

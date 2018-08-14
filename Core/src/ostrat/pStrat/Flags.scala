@@ -6,12 +6,12 @@ import geom._
 object Flags
 {
    /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-   def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rect(ratio).subjSeq(evObj = retObj,
-         colours.iMap((colour, i) => FillPoly(colour, Rect.tL( -ratio / 2, + 0.5, ratio / colours.length, 1).slate(i * ratio / colours.length, 0))))   
+   def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rectangle(ratio, 1).subjSeq(evObj = retObj,
+         colours.iMap((colour, i) => FillPoly(colour, Rectangle.tL( -ratio / 2, + 0.5, ratio / colours.length, 1).slate(i * ratio / colours.length, 0))))   
          
     /** Equal height horrisontal bands. width ratio should normally be greater than 1.0 */     
-   def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubj = Rect(ratio).subjSeq(retObj,   
-      colours.iMap((colour, i) => FillPoly(colour, Rect.tL( -ratio / 2, + 0.5, ratio, 1.0 / colours.length).slate(0, - i.toDouble / colours.length))))      
+   def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubj = Rectangle(ratio, 1).subjSeq(retObj,   
+      colours.iMap((colour, i) => FillPoly(colour, Rectangle.tL( -ratio / 2, + 0.5, ratio, 1.0 / colours.length).slate(0, - i.toDouble / colours.length))))      
    
    import Colour._
    val armenia = leftToRight("Armenia flag", 2, Red, Blue, Gold)     
@@ -20,23 +20,23 @@ object Flags
    val chad = leftToRight("Chad flag", 1.5, Blue, Yellow, Red)
    val chinaRepublic =
    {
-      val blueRect = Rect.tL(Vec2(- 0.75, 0.5), 0.75, 0.5).fill(DarkBlue)
-      Rect(1.5).fillSubj("China", Red).addElem(blueRect)
+      val blueRect = Rectangle.tL(Vec2(- 0.75, 0.5), 0.75, 0.5).fill(DarkBlue)
+      Rectangle(1.5, 1).fillSubj("China", Red).addElem(blueRect)
    }
    val englishRed = Colour.fromInts(204, 0, 0)
    val england =
    {
-      val redCross = Rect.cross(2, 1, 0.2).map(_.fill(englishRed))
-      Rect(2, 1).fillSubj(" flag", White).addElems(redCross)
+      val redCross = Rectangle.cross(2, 1, 0.2).map(_.fill(englishRed))
+      Rectangle(2, 1).fillSubj(" flag", White).addElems(redCross)
    }   
    val france = leftToRight("France flag", 1.5, Blue, White, Red)
    
    val germany = topToBottom("Germany flag", 5 / 3.0, Black, Red, Gold)
    val nazi: PolySubj =
    {
-         val poly = Rect(5 / 3.0, 1)
-         val bar = FillPoly(Black, Rect.bCen(0.1, 0.2))
-         val arm = FillPoly(Black, Rect.tL(-1.0 / 20, 0.25, 6.0 / 20, 0.1))         
+         val poly = Rectangle(5 / 3.0, 1)
+         val bar = FillPoly(Black, Rectangle.fromBottomCentre(0.1, 0.2))
+         val arm = FillPoly(Black, Rectangle.tL(-1.0 / 20, 0.25, 6.0 / 20, 0.1))         
          val cross = Seq(bar, arm).p45.flatRCross
          val s1: Seq[CanvEl[_]] = Seq(
                FillPoly(Red, poly),
@@ -49,7 +49,7 @@ object Flags
    val ireland = leftToRight("Ireland flag", 2, Green, White, Orange)   
    val japan =
    {
-      val poly = Rect(1.5, 1)
+      val poly = Rectangle(1.5, 1)
       val s1 = Seq(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0 ,45)))
       poly.subjSeq("Japan Flag", s1)         
    }   
@@ -57,7 +57,7 @@ object Flags
    val soviet =
    {
       val star = Star5.ptUpYCentred.scale(0.4).fill(Gold)
-      Rect(1.5, 1).fillSubj("Soviet flag simplified", Red).addElem(star)
+      Rectangle(1.5, 1).fillSubj("Soviet flag simplified", Red).addElem(star)
    }  
    
    val uk =
@@ -76,8 +76,8 @@ object Flags
    }
    val us =
    {
-      val blueRect = Rect.tL(Vec2(-0.95, 0.5), 0.76, 7.0/ 13).fill(DarkBlue)
-      Rect(1.9).fillSubj("United States Flag", Pink).addElem(blueRect)
+      val blueRect = Rectangle.tL(Vec2(-0.95, 0.5), 0.76, 7.0/ 13).fill(DarkBlue)
+      Rectangle(1.9, 1).fillSubj("United States Flag", Pink).addElem(blueRect)
    }
-   def white = Rect(1.5).fillSubj("White flag", White)
+   def white = Rectangle(1.5, 1).fillSubj("White flag", White)
 }

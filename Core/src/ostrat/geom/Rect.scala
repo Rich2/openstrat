@@ -3,11 +3,11 @@ package ostrat
 package geom
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
-object Rect
+object Rectangle
 {
    /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0 */
-   def apply(width: Double, height: Double = 1.0, cen: Vec2 = Vec2Z): Vec2s = xy(width, height, cen.x, cen.y)
-   def xy(width: Double, height: Double = 1.0, xCen: Double, yCen: Double): Vec2s = Vec2s.xy(
+   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Vec2s = apply(width, height, cen.x, cen.y)
+   def apply(width: Double, height: Double, xCen: Double, yCen: Double): Vec2s = Vec2s.xy(
          xCen - width / 2, yCen + height / 2,
          xCen + width / 2, yCen + height / 2,
          xCen + width / 2, yCen - height / 2,
@@ -22,22 +22,20 @@ object Rect
    def bL(v: Vec2, width: Double, height: Double): Vec2s = Vec2s.xy(v.x, v.y + height, v.x + width, v.y + height, v.x + width, v.y, v.x, v.y)
    def bL(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x, y + height, x + width, y + height, x + width, y, x, y)
            
-    def bCen(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(
+   def fromBottomCentre(width: Double, height: Double, x: Double, y: Double): Vec2s = Vec2s.xy(
          x - width / 2, y + height ,
          x + width / 2, y + height ,
          x + width / 2, y,
          x - width / 2, y)
-   def bCen(width: Double, height: Double): Vec2s = Vec2s.xy(
+   def fromBottomCentre(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): Vec2s = Vec2s.xy(
          - width / 2, + height,
          + width / 2, + height ,
          + width / 2, 0,
-         - width / 2, 0)         
-   
-   def scale(scale: Double, width: Double): Vec2s = apply(width * scale)
+         - width / 2, 0)   
  
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
-   def cross(width: Double, height: Double, barWidth: Double): Seq[Vec2s] = Seq(Rect(width, barWidth), Rect(barWidth, height))
+   def cross(width: Double, height: Double, barWidth: Double): Seq[Vec2s] = Seq(apply(width, barWidth), apply(barWidth, height))
    def curvedSegs(width: Double, height: Double, radius: Double): Seq[ShapeSeg] =
    {
       val w = width / 2
@@ -48,9 +46,9 @@ object Rect
             LineSeg(- w,        h - radius), ArcSeg(radius - w, h,         radius - w, h - radius))            
    }   
    def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape = Shape(posn, curvedSegs(width, height, radius))   
-   def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * Rect.goldenRatio, height, radius)
+   def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * goldenRatio, height, radius)
    def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): FillDrawPoly =
-      Rect.gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
+      gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
    def fromAxis(centreLine: Line2, height: Double): Vec2s =
    {
       val hAngle: Angle = centreLine.lineAngle

@@ -25,9 +25,23 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple// SquareGridGu
          }         
          Disp2(List(tv), ch.toList)
       }
-   //def mapObjs: CanvObjs = ofSTilesDisplayFold(fSquare).collapse
-   
-   //eTop()
+    val darkSquareColour = Brown
+    val lightSquareColour = Pink
+    
+    val rowSize = 8
+    val rowCen = (1.0 + rowSize) / 2.0
+    val margin = 15
+    val tileWidth = ((height.min(width) - margin * 2).max(100) / rowSize)
+    val coods = for { y <- 1 to rowSize; x <- 1 to rowSize } yield Cood(x, y)
+    implicit class AdjInt(i: Int){ def adj = i - rowCen}
+    val stuff = coods.map
+    {         
+       case Cood(x, y) if x.isOdd & y.isOdd | x.isEven & y.isEven =>
+          Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj)      
+       case Cood(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj)          
+    }
+    repaint(stuff)
+   //def mapObjs: CanvObjs = ofSTilesDisplayFold(fSquare).collapse   
    //mapPanel.repaint(mapObjs)
    //mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
 //   {

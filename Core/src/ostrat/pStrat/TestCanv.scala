@@ -6,7 +6,7 @@ import pDisp._
 import Colour._
 case class TestCanv(canv: CanvasPlatform) extends pDisp.CanvasSimple
 {
-   val r1 = Rect(600, 400).fillDrawSubj("This is a Rect", Red, 1)
+   val r1 = Rectangle(600, 400).fillDrawSubj("This is a Rectangle", Red, 1)
    val stuff = List(r1)
    mouseUp = (v, b, s) => {}//deb("clickList:" -- s.toString)}
    repaint(stuff)
