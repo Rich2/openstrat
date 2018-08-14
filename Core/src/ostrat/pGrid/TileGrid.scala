@@ -3,6 +3,14 @@ package ostrat
 package pGrid
 import geom._
 
+abstract class TileGridLike[TileT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
+{
+   def xArrLen: Int
+   def xToInd(x: Int): Int
+   def yToInd(y: Int): Int
+   def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y)
+}
+
 /** A tileGrid is a collection of tiles, either hexs or squares. This is a fundamental class. It is a specific case of a tiled area. I
  *  have reached the conclusion that the general case of completely irregular tiling, while interesting mathematically and useful for say
  *  representing a historical game like "Risk", has insufficient utility for the representations we want today. The grid consists of tiles
@@ -12,8 +20,8 @@ import geom._
  *  There are no breaks between the first tile of the row and the last tile of the row although a row can consist of a single tile. Every
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
-abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
-   (implicit evTile: IsType[TileT], evSide: IsType[SideT])
+abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
+   (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends TileGridLike[TileT](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
 {
    thisGrid => 
    /** Check Think this type is needed */   
@@ -23,12 +31,10 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](val xTileMin: Int,
    def xStep: Int
    val yRatio: Double    
    
-   def xArrLen: Int// = xSideMax / 2 - xSideMin / 2 + 1
    val yArrLen = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
-   lazy val arr: Array[AnyRef] = new Array[AnyRef](yArrLen * xArrLen)
-   def xToInd(x: Int): Int// = x / 2 - xSideMin /2   
-   def yToInd(y: Int) = (y  - yTileMin + 1) * xArrLen
-   def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y)
+   lazy val arr: Array[AnyRef] = new Array[AnyRef](yArrLen * xArrLen)   
+   def yToInd(y: Int): Int = (y  - yTileMin + 1) * xArrLen
+  
    
    def setTile(x: Int, y: Int, tile: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
    def setTile(tc: Cood, tile: TileT): Unit = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }

@@ -10,21 +10,21 @@ import Colour._
 case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple// SquareGridGui[CheckersSq, SideBare, CheckersBoard](canv, CheckersBoard())
 {
    var player = true
-   def fSquare: OfSquareReg[CheckersSq, SideBare, CheckersBoard] => Disp2 = tog =>
-      {
-         import tog._
-         val colour: Colour = tile.colour        
-         val tv = vertDispVecs.fill(colour)
-         val ch = tile match {
-            case DarkSq(_, _, Some(b)) =>
-               {
-                  def colour = b.fold(Black, White)
-                  Some(Circle.fillSubj(cen, psc, colour.toString, colour))
-               }
-            case _ => None
-         }         
-         Disp2(List(tv), ch.toList)
-      }
+//   def fSquare: OfSquareReg[CheckersSq, SideBare, CheckersBoard] => Disp2 = tog =>
+//      {
+//         import tog._
+//         val colour: Colour = tile.colour        
+//         val tv = vertDispVecs.fill(colour)
+//         val ch = tile match {
+//            case DarkSq(_, _, Some(b)) =>
+//               {
+//                  def colour = b.fold(Black, White)
+//                  Some(Circle.fillSubj(cen, psc, colour.toString, colour))
+//               }
+//            case _ => None
+//         }         
+//         Disp2(List(tv), ch.toList)
+//      }
     val darkSquareColour = Brown
     val lightSquareColour = Pink
     
