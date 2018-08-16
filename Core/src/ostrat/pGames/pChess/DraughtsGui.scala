@@ -44,7 +44,7 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple
     {
        case DarkSq(x, y, Some(b))  => List(             
              Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
-             Circle.fillSubj(Vec2(tileWidth * x.adj, tileWidth * y.adj), tileWidth / 1.6, "Hello", if (b) Black else White)) 
+             Circle.fillSubj(tileWidth / 1.6, "Hello", blackOrWhite(b), tileWidth * x.adj, tileWidth * y.adj)) 
        case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
        case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
     }

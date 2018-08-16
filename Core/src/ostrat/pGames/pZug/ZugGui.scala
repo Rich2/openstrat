@@ -10,7 +10,6 @@ import pStrat._
 
 class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv, Zug1)
 {
-   //deb(scaleMin.toString)
    override def scaleMin = 10
    override def eTop(): Unit = reTop(guButs :+ status)
    mapPanel.backColour = Black

@@ -27,24 +27,23 @@ case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]
 object Circle// extends Shape
 {
    
-   def apply(scale: Double = 1.0): Shape = Shape(Vec2Z, segs(scale)) 
+   def apply(scale: Double, cen: Vec2 = Vec2Z): Shape = Shape(cen, segs(scale).slate(cen))
+   def apply(scale: Double, xCen: Double, yCen: Double): Shape = apply(scale, Vec2(xCen, yCen)) 
    def segs(scale: Double = 1.0): List[ShapeSeg] = 
    {
       val a = ArcSeg(Vec2(0.5 * scale, 0), Vec2Z)
       (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i)))).toList      
    }
-//   def apply(r: Double): Seq[ShapeSeg] = 
-//   {
-//      val a = ArcSeg(Vec2(r, r), Vec2(r, 0), Vec2.zero)
-//      (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2) * i))).toSeq      
-//   }
-   def fill(posn: Vec2, r: Double, colour: Colour): FillShape =
+
+   def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): FillShape =
    {
-      val fSegs = segs(r).slate(posn)
-            //val arcs: Seq[ShapeSeg] = (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2) * i).slate(posn))).toSeq
+      val fSegs = segs(radius).slate(posn)            
       FillShape(fSegs, colour)
    }
-   def fillSubj(posn: Vec2, r: Double, evObj: AnyRef, colour: Colour): ShapeSubj = ShapeSubj.fill(posn, segs(r).slate(posn), evObj, colour)
+   
+   def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, xCen: Double, yCen: Double): ShapeSubj = fillSubj(radius, evObj, colour, Vec2(xCen, yCen)) 
+   def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, cen: Vec2 = Vec2Z): ShapeSubj = ShapeSubj.fill(cen, segs(radius).slate(cen), evObj, colour)
+   
 }
 
 object Hexagon
