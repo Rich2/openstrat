@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGames
-package pFormation
+package pCloseOrder
 import Colour._
 import geom._
 
@@ -20,7 +20,6 @@ case class French(var posn: Vec2)  extends Company
    val rankLen = 30
    val colour = Blue
 }
-
 
 case class British(var posn: Vec2) extends Company
 {

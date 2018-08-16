@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGames
-package pFormation
+package pCloseOrder
 import pDisp._
 import geom._
 

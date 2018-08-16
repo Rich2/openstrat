@@ -16,7 +16,7 @@ object Play
          (4, (pSpace.Planets(_), "ScalaFx Planets")),
          (5, (new pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
          (6, (new pDung.DungGui(_), "ScalaFx Dungeon")),
-         (7, (pFormation.BattleGui(_, pFormation.Nap1), "ScalaFx Formation")),
+         (7, (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "ScalaFx Formation")),
          (8, (TestCanv(_), "ScalaFx Simple Test Canvas")),
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.Bc1), "BC 305")),
