@@ -35,15 +35,15 @@ object Rectangle
  
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
-   def cross(width: Double, height: Double, barWidth: Double): Seq[Vec2s] = Seq(apply(width, barWidth), apply(barWidth, height))
-   def curvedSegs(width: Double, height: Double, radius: Double): Seq[ShapeSeg] =
+   def cross(width: Double, height: Double, barWidth: Double): List[Vec2s] = List(apply(width, barWidth), apply(barWidth, height))
+   def curvedSegs(width: Double, height: Double, radius: Double): List[ShapeSeg] =
    {
       val w = width / 2
       val h = height / 2
-      Seq(  LineSeg(w - radius,          h), ArcSeg(w,          h -radius, w - radius, h - radius),
-            LineSeg(w,          radius - h), ArcSeg(w - radius, -h,        w - radius, radius - h),
-            LineSeg(radius - w,         -h), ArcSeg(-w,         radius -h, radius - w, radius - h),
-            LineSeg(- w,        h - radius), ArcSeg(radius - w, h,         radius - w, h - radius))            
+      List(LineSeg(w - radius,          h), ArcSeg(w,          h -radius, w - radius, h - radius),
+           LineSeg(w,          radius - h), ArcSeg(w - radius, -h,        w - radius, radius - h),
+           LineSeg(radius - w,         -h), ArcSeg(-w,         radius -h, radius - w, radius - h),
+           LineSeg(- w,        h - radius), ArcSeg(radius - w, h,         radius - w, h - radius))            
    }   
    def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape = Shape(posn, curvedSegs(width, height, radius))   
    def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * goldenRatio, height, radius)

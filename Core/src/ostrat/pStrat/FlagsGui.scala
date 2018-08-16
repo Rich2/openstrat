@@ -10,8 +10,8 @@ case class FlagsGui(canv: CanvasPlatform) extends pDisp.CanvasSimple
    import Flags._ 
    backColour = Gray
    val r1 = Rectangle(300, 200).draw(5.0, Blue)   
-   val br: Seq[ShapeSeg] = Rectangle.curvedSegs(480, 260, 40).slate(0, -150).rotateRadians(math.Pi / 8)        
-   val stuff = Seq(         
+   val br: List[ShapeSeg] = Rectangle.curvedSegs(480, 260, 40).slate(0, -150).rotateRadians(math.Pi / 8)        
+   val stuff = List(         
          france.scale(100).tR.slate(canv.topRight),
          chad.scale(100).tL.slate(canv.topLeft),                  
          belgium.scale(100).bL.slate(canv.bottomLeft),                  

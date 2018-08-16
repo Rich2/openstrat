@@ -5,7 +5,7 @@ import geom._
 
 trait CanvasMulti extends CanvUser
 {   
-   var panels: Seq[Panel] = Seq()
+   var panels: List[Panel] = Nil
    def addPanel(clipPoly: Vec2s, simple: Boolean = false, cover: Boolean = true): Panel =
    {
       val newPanel = Panel(this, clipPoly, simple, cover)
@@ -14,37 +14,35 @@ trait CanvasMulti extends CanvUser
    }     
    canv.mouseUp = (v, b) =>
       {         
-         panels.find(_.clipPoly.ptInPolygon(v)).foreach(pan =>
-            {               
-               val objs: List[AnyRef] = pan.subjs.ptInList(v)
-               pan.simple match
+         panels.find(_.clipPoly.ptInPolygon(v)).foreach{pan =>
+            val objs: List[AnyRef] = pan.subjs.ptInList(v)
+            pan.simple match
+            {
+               case true => objs match 
                {
-                  case true => objs match 
-                  {
-                     case Seq(f: Function0[_]) => f()
-                     case Seq(cmd: M3Cmd) => cmd(b)
-                     case obj => println(obj.toString + " not recognised")
-                  }
-                  case _ => pan.mouseUp(v, b, objs)
+                  case Seq(f: Function0[_]) => f()
+                  case Seq(cmd: M3Cmd) => cmd(b)
+                  case obj => println(obj.toString + " not recognised")
                }
-            })
+               case _ => pan.mouseUp(v, b, objs)
+            }
+         }
       }
    canv.mouseDown = (v, b) =>
       {
-         panels.find(_.clipPoly.ptInPolygon(v)).foreach(pan =>
-            {               
-               val objs: List[AnyRef] = pan.subjs.ptInList(v)
-               pan.simple match
-               {
-                  case true => //objs match 
+         panels.find(_.clipPoly.ptInPolygon(v)).foreach{pan =>
+            val objs: List[AnyRef] = pan.subjs.ptInList(v)
+            pan.simple match
+            {
+               case true => //objs match 
 //                  {
 //                     case Seq(f: Function0[_]) => f()
 //                     case Seq(cmd: M3Cmd) => cmd(b)
 //                     case obj => println(obj.toString + " not recognised")
 //                  }
-                  case _ => pan.mouseDown(v, b, objs)
-               }
-            })
+               case _ => pan.mouseDown(v, b, objs)
+            }
+         }
       }
 //   canv.mouseMoved = (v, b) =>
 //      {         
@@ -90,7 +88,7 @@ trait CanvasMulti extends CanvUser
       canv.gcSave()
       canv.clip(clipPoly)
       canv.fillPoly(panel.backColour, clipPoly)
-      val movedObjs: Seq[CanvObj[_]] = panel.canvObjs.slate(panel.cen)
+      val movedObjs: List[CanvObj[_]] = panel.canvObjs.slate(panel.cen)
       paintObjs(movedObjs, panel)
       canv.gcRestore()
    }   

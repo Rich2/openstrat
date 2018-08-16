@@ -14,13 +14,13 @@ trait CanvEl[T] extends Any with CanvObj[T]
 case class FillDrawPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends CanvEl[FillDrawPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillDrawPoly(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
-case class FillShape(segs: Seq[ShapeSeg], fillColour: Colour) extends CanvEl[FillShape]
+case class FillShape(segs: List[ShapeSeg], fillColour: Colour) extends CanvEl[FillShape]
 { override def fTrans(f: Vec2 => Vec2) = FillShape(segs.fTrans(f), fillColour) }
 
-case class DrawShape(segs: Seq[ShapeSeg], lineWidth: Double, lineColour: Colour = Black) extends CanvEl[DrawShape]
+case class DrawShape(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour = Black) extends CanvEl[DrawShape]
 { override def fTrans(f: Vec2 => Vec2) = DrawShape(segs.fTrans(f), lineWidth, lineColour) }
 
-case class FillDrawShape(segs: Seq[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends CanvEl[FillDrawShape]
+case class FillDrawShape(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends CanvEl[FillDrawShape]
 { override def fTrans(f: Vec2 => Vec2) = FillDrawShape(segs.fTrans(f), fillColour, lineWidth, lineColour) }
 
 case class DrawArc(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends CanvEl[DrawArc]
@@ -58,5 +58,5 @@ case class DrawTextPoly(verts: Vec2s, lineWidth: Double, lineColour: Colour, str
 case class LineDraw(lineSeg: Line2, lineWidth: Double, linesColour: Colour = Black) extends CanvEl[LineDraw]
 { override def fTrans(f: Vec2 => Vec2) = LineDraw(lineSeg.fTrans(f), lineWidth, linesColour) }
 
-case class PolyLineDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour = Black) extends CanvEl[PolyLineDraw]
+case class PolyLineDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour = Black) extends CanvEl[PolyLineDraw]
 { override def fTrans(f: Vec2 => Vec2) = PolyLineDraw(lineSegs.fTrans(f), lineWidth, linesColour) }

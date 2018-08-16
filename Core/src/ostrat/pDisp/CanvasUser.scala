@@ -20,10 +20,11 @@ trait CanvUser
             canv.rendElems(cs.elems)
             pan.subjs :+= cs
          }
-         case fs: FixedShape => 
-         {
-            canv.rendElems(fs.elems.slate(fs.posn))
-            pan.subjs :+= fs
+         case nss: NoScaleShape => 
+         {             
+            canv.rendElems(nss.elems.slate(nss.referenceVec)/*.asInstanceOf[List[CanvEl[_]]]*/)
+            pan.subjs :+= nss
+            deb("Add Fixed Shape" -- pan.subjs.length.toString -- nss.shape.map(_.endPt).toString)
          }
       })
     def refresh(): Unit

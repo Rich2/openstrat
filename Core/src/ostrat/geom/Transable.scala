@@ -61,13 +61,13 @@ object Transable
 {
 //   import scala.collection.mutable.{ Builder }
 //   import scala.collection._
-   implicit class ImplictTransableSeq[TT <: Transable[_ ]](tSeq: Seq[TT]) extends Transable[Seq[TT]]
+   implicit class ImplictTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
    {
-      def fTrans(f: Vec2 => Vec2): Seq[TT] = tSeq.map(_.fTrans(f).asInstanceOf[TT])
+      def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])
       /** Produces a regular cross of a sequence of four rotated copies the elements rotated */
-      def flatRCross: Seq[TT] = tSeq.flatMap(_.rCross.asInstanceOf[Seq[TT]])
-      def flatMirror4: Seq[TT] = tSeq.flatMap(_.mirror4.asInstanceOf[Seq[TT]])
-      def flatWithNegate: Seq[TT] = tSeq.flatMap(_.withNegate.asInstanceOf[Seq[TT]])
+      def flatRCross: List[TT] = tList.flatMap(_.rCross.asInstanceOf[Seq[TT]])
+      def flatMirror4: List[TT] = tList.flatMap(_.mirror4.asInstanceOf[Seq[TT]])
+      def flatWithNegate: List[TT] = tList.flatMap(_.withNegate.asInstanceOf[Seq[TT]])
    }
    
 //   implicit class ImplicitTransableTrav[TransT <: Transable[TransT], Repr](travLike: TraversableLike[TransT, Repr])// extends Traversable[Repr]

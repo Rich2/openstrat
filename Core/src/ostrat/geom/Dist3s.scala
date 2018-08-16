@@ -34,7 +34,7 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]/
                case el => acc :+ el
             })
             
-            var acc: Seq[ShapeSegM] =Seq()
+            var acc: List[ShapeSegM] = Nil
             var last: Either[Dist2, Dist2] = els2.last
             els2.foreach(e =>
                {

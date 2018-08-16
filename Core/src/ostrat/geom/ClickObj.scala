@@ -19,12 +19,7 @@ object ClickObj
    implicit class ClickObjListImplicit(thisList: List[ClickObj])
    {
       /** Note the lack of reverse at the end */
-      def ptInList(pt: Vec2): List[AnyRef] =
-      {
-         var evObjs: List[AnyRef] = Nil         
-         thisList.foreach {subj =>  if (subj.boundingRect.ptInside(pt) & subj.ptInside(pt)) evObjs ::= subj.evObj }        
-         evObjs
-      }
+      def ptInList(pt: Vec2): List[AnyRef] = thisList.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)      
    }
 }
 
@@ -39,9 +34,9 @@ trait ClickPolyTr extends ClickObj
 /** A pointable shape */
 trait ClickShapeTr extends ClickObj
 {
-   def shape: Seq[ShapeSeg]
+   def shape: List[ShapeSeg]
    def innerPoly: Vec2s = shape.pMap(_.endPt)
-   def boundingRect = innerPoly.boundingRect
+   def boundingRect: BoundingRect = innerPoly.boundingRect
    /** This method needs improving */
    override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
 }
@@ -51,6 +46,6 @@ case class ClickPoly(poly: Vec2s, evObj: AnyRef) extends CanvObj[ClickPoly] with
 { override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj) }
 
 /** A pointable shape without visual */
-case class ClickShape(shape: Seq[ShapeSeg], evObj: AnyRef) extends CanvObj[ClickShape] with ClickShapeTr
+case class ClickShape(shape: List[ShapeSeg], evObj: AnyRef) extends CanvObj[ClickShape] with ClickShapeTr
 { override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }
 

@@ -28,9 +28,10 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
                   val maxOffset = tog.grid.coodToVec2(head.dirn.relCood)
                   val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
                   val posn = fTrans(gridPosn)
-                  val col = head.faction.colour
-                  val col2 = col.contrast
-               Rectangle.curved(45, 30, 5, posn).allFixed(head, col, 2, col2, 16, head.movePts.toString) :: Nil
+                  val fillColour = head.faction.colour
+                  //val lineColour = fillcol.contrast
+               //Rectangle.curved(90, 60, 10, posn).subjAll  allFixed(head, col, 2, col2, 16, head.movePts.toString) :: Nil   
+               Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
                }
             case _ => Nil
          }
@@ -40,7 +41,8 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
       case (LeftButton, _, _) =>
-         {            
+         {
+            deb(selected.toString)
             selected = clickList.fHead(Nil, (h , _) => List(h))
             statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
             eTop()
@@ -80,7 +82,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
          }
       case (RightButton, l, _) => deb(l.toString)   
       case _ => deb("Mouse other")
-   }   
+   }  
    
 //   mapPanel.mouseUp = (a, b, s) =>
 //      {

@@ -21,7 +21,7 @@ trait Dist2LikeGui extends MapGui
    
    val bZoomIn = button1("+", zoomInCmd)
    val bZoomOut = button1("-", zoomOutCmd)
-   val zoomable: Seq[ShapeSubj] = Seq(bZoomIn, bZoomOut) 
+   val zoomable: List[ShapeSubj] = List(bZoomIn, bZoomOut) 
 
    val bMapRotateClockwise = button1("\u21BB", () => { rotation += Angle.deg(-20); repaintMap() } )
    val bMapRotateAntiClockwise = button1("\u21BA", () => { rotation += Angle.deg(20); repaintMap() } )

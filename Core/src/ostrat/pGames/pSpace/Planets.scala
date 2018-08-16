@@ -57,7 +57,7 @@ case class Planets(val canv: CanvasPlatform) extends Dist2LikeGui
    def fBut(planet: Planet) = buttonStd(planet.name, () => {planetFocus = planet; repaintMap}, planet.colour)
    def pause = buttonStd(pausedStr, () => { println(pausedStr); paused = !paused; reTop(cmds)})
    
-   def cmds: Seq[ShapeSubj] = zoomable.:+(pause) ++ pls.map(fBut)   
+   def cmds: List[ShapeSubj] = zoomable.:+(pause) ++ pls.map(fBut)   
    reTop(cmds)
    canv.frameZero((el, st) => out(el, st))
    def mapObjs = pls.map(_.paint)

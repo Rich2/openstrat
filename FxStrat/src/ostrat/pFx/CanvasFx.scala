@@ -77,7 +77,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.fillText(str, x, y)
    }
    
-   protected def tlLineSegsDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour): Unit =
+   protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =
    {           
       gc.beginPath
       lineSegs.foreach(ls => { gc.moveTo(ls.x1, ls.y1);  gc.lineTo(ls.x2, ls.y2)})
@@ -96,7 +96,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.strokeText(str, x, y)      
    }
    
-   private def segsPath(segs: Seq[ShapeSeg]): Unit =
+   private def segsPath(segs: List[ShapeSeg]): Unit =
    {
       gc.beginPath      
       var p1 = segs.last.endPt
@@ -113,14 +113,14 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.closePath 
    }
    
-   override def tlShapeFill(segs: Seq[ShapeSeg], fillColour: Colour): Unit =
+   override def tlShapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.fill = col(fillColour)
       gc.fill()      
    }
    
-   override def tlShapeFillDraw(segs: Seq[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.fill = col(fillColour)
@@ -128,7 +128,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.stroke = col(lineColour)
       gc.stroke()
    }   
-   override def tlShapeDraw(segs: Seq[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.stroke = col(lineColour)

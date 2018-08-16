@@ -42,23 +42,22 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple
     implicit class AdjInt(i: Int){ def adj = i - rowCen}
     val stuff = tiles.flatMap
     {
-       case DarkSq(x, y, Some(b))  => List(
-             
+       case DarkSq(x, y, Some(b))  => List(             
              Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
              Circle.fillSubj(Vec2(tileWidth * x.adj, tileWidth * y.adj), tileWidth / 1.6, "Hello", if (b) Black else White)) 
        case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
        case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
     }
-    repaint(stuff)
+    repaint(stuff.toList)
    //def mapObjs: CanvObjs = ofSTilesDisplayFold(fSquare).collapse   
    //mapPanel.repaint(mapObjs)
-   //mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
+//   mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
 //   {
 //      case (LeftButton, _, _) =>
 //         {
 //            selected = clickList.fHead(Nil, (h , _) => List(h))
-//            statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
-//            eTop()
+//            //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+//            //eTop()
 //         }
 //         case _ => //deb("Mouse other")
 //   }    

@@ -29,5 +29,5 @@ case class ColourGen(canv: CanvasPlatform) extends pDisp.CanvasSimple
       val offset = - 35 * i
       Seq(pair._1.slateY(offset), pair._2.slateY(offset))
             }
-   repaint(cols2)
+   repaint(cols2.toList)
 }

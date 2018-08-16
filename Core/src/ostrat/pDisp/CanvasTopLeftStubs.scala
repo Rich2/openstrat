@@ -12,11 +12,11 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
    override protected def tlFillPoly(fp: FillPoly): Unit = {}
    override protected def tlDrawPoly(dp: DrawPoly): Unit = {}
    override protected def tlPolyFillDraw(pts: Vec2s, colour: Colour, lineWidth: Double, lineColour: Colour): Unit = {}
-   override protected def tlLineSegsDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour): Unit = {}
+   override protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit = {}
 
-   override protected def tlShapeFill(segs: Seq[ShapeSeg], colour: Colour): Unit = {}
-   override protected def tlShapeFillDraw(segs: Seq[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit = {}
-   override protected def tlShapeDraw(segs: Seq[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit = {}
+   override protected def tlShapeFill(segs: List[ShapeSeg], colour: Colour): Unit = {}
+   override protected def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit = {}
+   override protected def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit = {}
    override protected def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = {}
    
    override protected def tlTextFill(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit = {}

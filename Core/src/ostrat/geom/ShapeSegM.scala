@@ -24,7 +24,7 @@ case class ArcSegM(endPt: Dist2, cenPt: Dist2) extends ShapeSegM
  *  visible it returns a none, the polygon is over the horizon. If some are visbile inserts curves along horizon. */
 sealed trait GlobedArea
 case class GlobedAll(d2s: Dist2s) extends GlobedArea
-case class GlobedSome(segs: Seq[ShapeSegM]) extends GlobedArea
+case class GlobedSome(segs: List[ShapeSegM]) extends GlobedArea
 case object GlobedNone extends GlobedArea
 
 

@@ -21,5 +21,5 @@ abstract class UnfixedMapGui extends pDisp.MapGui
    val bDown = button3("v", downCmd)   
    val bUp = button3("^", upCmd)
    
-   val guButs = Seq(bIn, bOut, bLeft, bRight, bDown, bUp)
+   val guButs = List(bIn, bOut, bLeft, bRight, bDown, bUp)
 }

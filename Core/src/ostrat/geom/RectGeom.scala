@@ -3,6 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
+/** This trait may need new name and modification */
 trait RectGeom
 {   
    var backColour: Colour = Colour.White   
@@ -19,7 +20,7 @@ trait RectGeom
    def bottomLeft: Vec2 = Vec2(left, bottom)
    def cenLeft = Vec2(left, 0)
    def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): PolyLineDraw =
-      PolyLineDraw(Seq(Line2(left, 0, right, 0), Line2(0, top, 0, bottom)), lineWidth, lineColour)
+      PolyLineDraw(List(Line2(left, 0, right, 0), Line2(0, top, 0, bottom)), lineWidth, lineColour)
    /** Not sure why spacing has got a minus sign */   
    def gridLines(spacing: Double = 100, colour: Colour = Black, lineWidth: Double = 1.0): PolyLineDraw =
    {

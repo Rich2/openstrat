@@ -37,8 +37,8 @@ object Flags
          val poly = Rectangle(5 / 3.0, 1)
          val bar = FillPoly(Black, Rectangle.fromBottomCentre(0.1, 0.2))
          val arm = FillPoly(Black, Rectangle.tL(-1.0 / 20, 0.25, 6.0 / 20, 0.1))         
-         val cross = Seq(bar, arm).p45.flatRCross
-         val s1: Seq[CanvEl[_]] = Seq(
+         val cross = List(bar, arm).p45.flatRCross
+         val s1: List[CanvEl[_]] = List(
                FillPoly(Red, poly),
                Circle.segs(6.0 /8).fill(White)) ++
                cross      
@@ -50,7 +50,7 @@ object Flags
    val japan =
    {
       val poly = Rectangle(1.5, 1)
-      val s1 = Seq(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0 ,45)))
+      val s1 = List(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0 ,45)))
       poly.subjSeq("Japan Flag", s1)         
    }   
    val russia = topToBottom("Russia flag", 1.5, White, Blue, Red)   
@@ -70,8 +70,8 @@ object Flags
       val b2 = Vec2s.xy(xDiag + 3 * xd, ywc, 1, 0.5 - yd * 3 , 1, ywc)
       val r1: Vec2s = Vec2s.xy(-1, 0.5, - xDiag, ywc, -(xDiag + xd * 2), ywc, -1, 0.5 - (yd * 2))
       val r2: Vec2s = Vec2s.xy(xDiag - xd * 2, ywc,  1 - xd * 2,  0.5, 1, 0.5, xDiag, ywc)
-      val reds = Seq(r1, r2).map(_.fill(englishRed)).flatWithNegate
-      val blues = Seq(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102))).flatMirror4
+      val reds = List(r1, r2).map(_.fill(englishRed)).flatWithNegate
+      val blues = List(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102))).flatMirror4
       england.addElems(blues ++ reds).mutObj("United Kingdom flag")
    }
    val us =

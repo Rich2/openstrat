@@ -4,34 +4,34 @@ package geom
 import pDisp._
 
 /** Not sure entirely what's going on with this class */
-case class Shape(cen: Vec2, segs: Seq[ShapeSeg]) extends Transable[Shape]
+case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]
 {
    /** This may need clarification */
    override def fTrans(f: Vec2 => Vec2): Shape = Shape(f(cen), segs)//.fTrans(f))
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = TextCen): ShapeSubj =
-         ShapeSubj(cen, segs, evObj, Seq(FillDrawShape(segs, fillColour, lineWidth, lineColour),
+         ShapeSubj(cen, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour),
                FillText(Vec2Z, str, textSize, lineColour, textAlign)))
             
-   def fixed(evObj: AnyRef, elems: Seq[CanvEl[_]]): FixedShape = FixedShape(cen, segs, evObj, elems)
-   def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): FixedShape =
-      FixedShape(cen, segs, evObj, Seq(FillDrawShape(segs, fillColour, lineWidth, lineColour)))
+   def fixed(evObj: AnyRef, elems: List[CanvEl[_]]): NoScaleShape = NoScaleShape(cen, segs, evObj, elems)
+   def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): NoScaleShape =
+      NoScaleShape(cen, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
-         textSize: Int, str: String, textAlign: TextAlign = TextCen): FixedShape =
-      FixedShape(cen, segs, evObj, Seq(
+         textSize: Int, str: String, textAlign: TextAlign = TextCen): NoScaleShape =
+      NoScaleShape(cen, segs, evObj, List(
             FillDrawShape(segs, fillColour, lineWidth, lineColour),
             FillText(Vec2Z, str, textSize, lineColour, textAlign)))   
-   def fillFixed(evObj: AnyRef, fillColour: Colour): FixedShape = FixedShape(cen, segs, evObj, Seq(FillShape(segs, fillColour)))   
+   def fillFixed(evObj: AnyRef, fillColour: Colour): NoScaleShape = NoScaleShape(cen, segs, evObj, List(FillShape(segs, fillColour)))   
 }
 
 object Circle// extends Shape
 {
    
    def apply(scale: Double = 1.0): Shape = Shape(Vec2Z, segs(scale)) 
-   def segs(scale: Double = 1.0): Seq[ShapeSeg] = 
+   def segs(scale: Double = 1.0): List[ShapeSeg] = 
    {
       val a = ArcSeg(Vec2(0.5 * scale, 0), Vec2Z)
-      (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i)))).toSeq      
+      (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i)))).toList      
    }
 //   def apply(r: Double): Seq[ShapeSeg] = 
 //   {

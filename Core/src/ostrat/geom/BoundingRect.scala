@@ -14,4 +14,5 @@ case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double)
    def cen = Vec2((minX + maxX) / 2, (minY + maxY) /2)
    def toVec2s: Vec2s = Vec2s.xy(minX, minY, minX, maxY, maxX, maxY, maxX, maxY)
    def ptInside(pt: Vec2): Boolean = maxX > pt.x & pt.x > minX & maxY > pt.y & pt.y > minY
+   def toRectangle: Vec2s = Vec2s.xy(minX, maxY, maxX, maxY, maxX, minY, minX, minY)
 }

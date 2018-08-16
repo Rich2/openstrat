@@ -16,13 +16,13 @@ trait CanvasTopLeft extends CanvasPlatform
    override def drawPoly(dp: DrawPoly): Unit = tlDrawPoly(dp.fTrans(tlCen))   
    override def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
       tlPolyFillDraw(pts.fTrans(tlCen), fillColour, lineWidth, lineColour)
-   override def lineSegsDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour): Unit =
+   override def lineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =
       tlLineSegsDraw(lineSegs.fTrans(tlCen), lineWidth, linesColour): Unit
    
-   override def shapeFill(segs: Seq[ShapeSeg], colour: Colour): Unit = tlShapeFill(segs.fTrans(tlCen), colour)
-   override def shapeFillDraw(segs: Seq[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): Unit =
+   override def shapeFill(segs: List[ShapeSeg], colour: Colour): Unit = tlShapeFill(segs.fTrans(tlCen), colour)
+   override def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): Unit =
       tlShapeFillDraw(segs.fTrans(tlCen), fillColour, lineWidth, lineColour)
-   override def shapeDraw(segs: Seq[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
+   override def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
       tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)   
    
    override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = tlArcDraw(arc.fTrans(tlCen), lineWidth, lineColour)   
@@ -41,11 +41,11 @@ trait CanvasTopLeft extends CanvasPlatform
    protected def tlFillPoly(fp: FillPoly): Unit
    protected def tlDrawPoly(dp: DrawPoly): Unit
    protected def tlPolyFillDraw(pts: Vec2s, colour: Colour, lineWidth: Double, lineColour: Colour): Unit
-   protected def tlLineSegsDraw(lineSegs: Seq[Line2], lineWidth: Double, linesColour: Colour): Unit
+   protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit
 
-   protected def tlShapeFill(segs: Seq[ShapeSeg], colour: Colour): Unit
-   protected def tlShapeFillDraw(segs: Seq[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
-   protected def tlShapeDraw(segs: Seq[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit
+   protected def tlShapeFill(segs: List[ShapeSeg], colour: Colour): Unit
+   protected def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
+   protected def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit
    protected def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
    
    protected def tlTextFill(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit

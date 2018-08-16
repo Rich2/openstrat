@@ -17,6 +17,6 @@ trait CanvasSimple extends PanelLike with CanvUser
       canv.clear(backColour)
       paintObjs(canvObjs, this)  
    }
-   def repaints(els: CanvObj[_]*): Unit = { canvObjs = els; refresh() }   
-   def repaint(els: Seq[CanvObj[_]]): Unit = { canvObjs = els; refresh() }   
+   def repaints(els: CanvObj[_]*): Unit = { canvObjs = els.toList; refresh() }   
+   def repaint(els: List[CanvObj[_]]): Unit = { canvObjs = els; refresh() }   
 }
