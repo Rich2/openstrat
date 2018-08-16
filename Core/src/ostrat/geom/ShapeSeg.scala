@@ -56,12 +56,11 @@ object ShapeSeg
          if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
          BoundingRect(minX, maxX, minY, maxY)               
       }
-      def ptInShape: Vec2 => Boolean = ??? // _ => true
-//         {
-//            val vs: List[Vec2] = travLike.toList.map(_.endPt)
-//            val res = vs.toProdD2[Vec2, Vec2s].ptInPolygon(_)
-//            res
-//         }
+      def ptInShape: Vec2 => Boolean = pt =>
+         {
+            val vs: List[Vec2] = travLike.toList.map(_.endPt)
+            vs.toProdD2[Vec2, Vec2s].ptInPolygon(pt)            
+         }
    }   
 }
 

@@ -6,8 +6,9 @@ import pDisp._
 import Colour._
 case class TestCanv(canv: CanvasPlatform) extends pDisp.CanvasSimple
 {
-   val r1 = Circle.fillSubj(600, "This is a Circle", Red)
-   val stuff = List(r1)
+   val r1 = Circle.fillSubj(500, "This is a red Circle", Red)
+   val r2 = Circle.fillSubj(500, "This is pink circle", Pink, -500, 0)
+   val stuff = List(r1, r2)
    mouseUp = (v, b, s) => deb("clickList:" -- s.toString)
    repaint(stuff)
 }
