@@ -28,8 +28,8 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 
 2. Core. The bulk of the code this is organised into the following packages:
    - **ostrat** The root package. All other packages depend on this.     
-     * Colours.
-     * A persistence framework. Succinct readalble object notation. Save files at `~/AppData/Local/OpenStratData`.
+     * 32 bit Int based Colours.
+     * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
      * Array based Int and Double product traits collection traits.
      * Other general utilities.
    - **ostrat.geom**
