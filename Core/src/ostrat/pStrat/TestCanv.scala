@@ -2,9 +2,9 @@
 package ostrat
 package pStrat
 import geom._
-import pDisp._
+import pCanv._
 import Colour._
-case class TestCanv(canv: CanvasPlatform) extends pDisp.CanvasSimple
+case class TestCanv(canv: CanvasPlatform) extends pCanv.CanvasSimple
 {
    val r1 = Circle.fillSubj(500, "This is a red Circle", Red)
    val r2 = Circle.fillSubj(500, "This is pink circle", Pink, -500, 0)

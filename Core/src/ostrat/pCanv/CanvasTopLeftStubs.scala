@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pDisp
+package pCanv
 import geom._
 
 /** This trait provides stub methods to allow development on a Canvas with incomplete functionality. Override the methods as desired but remove this

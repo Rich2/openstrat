@@ -2,7 +2,7 @@
 package ostrat
 package pSJs
 import geom._
-import pDisp._
+import pCanv._
 import org.scalajs.dom._
 
 object CanvasJs extends CanvasTopLeft

@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pDisp
+package pCanv
 import geom._
 
 /** A simple use of the canvas with out splitting it up into Panels */

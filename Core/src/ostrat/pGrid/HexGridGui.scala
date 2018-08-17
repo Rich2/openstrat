@@ -2,7 +2,7 @@
 package ostrat
 package pGrid
 import geom._
-import pDisp._
+import pCanv._
 
 /** Class for displaying a single hex grid */
 abstract class HexGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: HexGridReg[TileT, SideT]](val canv: CanvasPlatform, val grid: GridT) extends

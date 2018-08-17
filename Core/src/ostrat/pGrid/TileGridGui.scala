@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import pDisp._
+import pCanv._
 import geom._
 
 /** Gui for display of a single regular TileGrid */

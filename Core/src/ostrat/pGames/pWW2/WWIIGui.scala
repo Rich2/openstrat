@@ -4,7 +4,7 @@ package pGames
 package pWW2
 import geom._
 import pEarth._
-import pDisp._
+import pCanv._
 import pStrat._
 
 case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui

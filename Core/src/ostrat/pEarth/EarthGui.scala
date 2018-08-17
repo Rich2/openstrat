@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import geom._
 import Colour.Black
-import pDisp._
+import pCanv._
 
 abstract class EarthGui extends UnfixedMapGui
 {   

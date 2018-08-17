@@ -2,7 +2,6 @@
 package ostrat
 package geom
 import Colour.Black
-import pDisp._
 
 case class PolySubj(cen: Vec2, poly: Vec2s, evObj: AnyRef, elems: List[CanvEl[_]]) extends CanvSubj[PolySubj] with ClickPolyTr
 {  

@@ -4,7 +4,7 @@ package pGames
 package pCiv
 import geom._
 import pGrid._
-import pDisp._
+import pCanv._
 import Colour._
 
 class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv, Civ1)

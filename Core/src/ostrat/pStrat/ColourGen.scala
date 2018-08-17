@@ -2,9 +2,9 @@
 package ostrat
 package pStrat
 import geom._
-import pDisp._
+import pCanv._
 
-case class ColourGen(canv: CanvasPlatform) extends pDisp.CanvasSimple
+case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasSimple
 {
    var line = 0
    val n = 2

@@ -2,7 +2,7 @@
 package ostrat
 package pFx
 import geom._
-import pDisp._
+import pCanv._
 import scalafx.Includes._
 import scalafx.scene._
 

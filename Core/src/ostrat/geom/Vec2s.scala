@@ -1,7 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import pDisp._
 
 /** A plain 2 dimension (mathematical) vector */
 class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] with Transable[Vec2s]

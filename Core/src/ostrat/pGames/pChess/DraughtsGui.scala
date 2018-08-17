@@ -4,7 +4,7 @@ package pGames
 package pChess
 import geom._
 import pGrid._
-import pDisp._
+import pCanv._
 import Colour._
 
 case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple

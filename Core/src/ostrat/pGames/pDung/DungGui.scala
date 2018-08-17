@@ -3,7 +3,7 @@ package ostrat
 package pGames
 package pDung
 import geom._
-import pDisp._
+import pCanv._
 import Colour._
 import pGrid._
 

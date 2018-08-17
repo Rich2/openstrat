@@ -4,7 +4,7 @@ package pGames
 package p1783
 import geom._
 import pEarth._
-import pDisp._
+import pCanv._
 import pStrat._
 //import pGrid._
 

@@ -2,7 +2,6 @@
 package ostrat
 package geom
 import Colour.Black
-import pDisp._
 
 /** The base trait for all objects on a canvas / panel. The objects are recomposed for each frame. The Canvas objects must be recomposed
  *  each time there is a change within the application state or the user view of that application state. */
@@ -60,3 +59,12 @@ case class LineDraw(lineSeg: Line2, lineWidth: Double, linesColour: Colour = Bla
 
 case class PolyLineDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour = Black) extends CanvEl[PolyLineDraw]
 { override def fTrans(f: Vec2 => Vec2) = PolyLineDraw(lineSegs.fTrans(f), lineWidth, linesColour) }
+
+sealed trait TextAlign
+{
+   def jsStr: String
+}
+case object TextCen extends TextAlign { def jsStr = "center" }
+case object TextLeft extends TextAlign { def jsStr = "left" }
+case object TextRight extends TextAlign { def jsStr = "right" }
+

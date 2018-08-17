@@ -1,7 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import pDisp._
 
 /** Not sure entirely what's going on with this class */
 case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]

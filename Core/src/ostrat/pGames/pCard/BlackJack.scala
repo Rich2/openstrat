@@ -4,7 +4,7 @@ package pGames
 package pCard
 import geom._
 import Colour.Black
-import pDisp._
+import pCanv._
 
 
 case class BlackJack(canv: CanvasPlatform) extends CanvasSimple
