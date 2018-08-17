@@ -2,7 +2,7 @@
 package ostrat
 
 /** So first off the demarcation between this package and ostrat.geom is unclear. The package attempts to encapsulate the various 
- *  abstract canvas traits while the actual objects that populate a canvas go in package geom */
+ *  abstract canvas traits while the actual objects that populate a canvas go in package geom. */
 package object pDisp
 {
   type MenuSeq = Seq[MenuNode]

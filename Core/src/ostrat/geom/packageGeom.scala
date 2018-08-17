@@ -1,9 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** I chose the package name to not class with "geometry that may be use in other libraries This package contains Basic geometry. A number
+/** I chose the package name to not clash with "geometry" that may be use in other libraries This package contains Basic geometry. A number
  *  of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for an abstract canvas.
- *    2d graphical objects for an abstract canvas. */
+ *  2d graphical objects for an abstract canvas. */
 package object geom
 {   
    import math._   
@@ -18,7 +18,6 @@ package object geom
    val EarthAvDiameter: Dist = 12742.km
    val EarthAvRadius: Dist = EarthAvDiameter / 2
    type SSet[A] = scala.collection.SortedSet[A]
-   //type Vec2s = Seq[Vec2]
    type CanvObjs = List[CanvObj[_]]
    /** Hopefully this existential syntax baggage will be gone in dotty */
    type CanvO = CanvObj[_]
@@ -37,8 +36,7 @@ package object geom
       def north = Latitude.deg(thisInt)
       def south = Latitude.deg(-thisInt)
    }  
-   
-       
+          
    implicit class DoubleGeomImplicit(thisDouble: Double)
    {
       def v(y: Double): Vec2 = Vec2(thisDouble, y)
@@ -57,18 +55,15 @@ package object geom
    }
    
    implicit class SeqGeomImplicit[A](thisSeq: Seq[A])
-   {
-      def displayFold(f: A => Disp2): Disp2 = thisSeq.map(f).displayFlatten
+   {  def displayFold(f: A => Disp2): Disp2 = thisSeq.map(f).displayFlatten
    }
    
    implicit class DistImplicit(thisDist: Dist)
-   {
-      def / (operand: Dist): Double = thisDist.metres / operand.metres
+   {  def / (operand: Dist): Double = thisDist.metres / operand.metres
    }
    
    implicit class OptionGeomImplicit[A](thisOption: Option[A])
-   {
-      def canvObjsPair(f: A => (Seq[CanvObj[_]], Seq[CanvObj[_]])): (Seq[CanvObj[_]], Seq[CanvObj[_]]) = thisOption match
+   {  def canvObjsPair(f: A => (Seq[CanvObj[_]], Seq[CanvObj[_]])): (Seq[CanvObj[_]], Seq[CanvObj[_]]) = thisOption match
       {
          case Some(a) => f(a)
          case None => (Seq(), Seq())
@@ -96,7 +91,5 @@ package object geom
    /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
    val deg150: Angle = Angle(5 * Pi / 6)
    /** 180 degrees or Pi radians */
-   def deg180: Angle = Angle(Pi) 
-   
-   
+   def deg180: Angle = Angle(Pi)   
 }

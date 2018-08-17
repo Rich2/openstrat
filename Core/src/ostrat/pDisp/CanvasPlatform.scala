@@ -33,7 +33,7 @@ trait CanvasPlatform extends RectGeom
    final def fillPoly(colour: Colour, pts: Vec2s): Unit = fillPoly(FillPoly(colour, pts))
    def fillPoly(pf: FillPoly): Unit
    final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = drawPoly(DrawPoly(lineWidth, lineColour, pts)) 
-   def drawPoly(dp: DrawPoly): Unit //
+   def drawPoly(dp: DrawPoly): Unit
    def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
    def polyFillDrawText(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int,
          fontColour: Colour = Black): Unit =
