@@ -100,7 +100,9 @@ trait Val3Vec2s[Val1T, Val2T, Val3T] extends Any with ValsVec2s
    }      
 }
 
-/** An efficient class to fill polygon based on Array[Double] */
+/** An attempt at an efficient class to fill polygon based on Array[Double]. These classes are currently implemented as Array[Double]s. But this is
+ *   completely pointless, as they will never be in collections such as List[FillPoly] or List[FillDraw], so they will always need to be boxed. The
+ *    lesson is don't try and make value classes out of indeterminate length objects. See #21 */
 class FillPoly(val arr: Array[Double]) extends AnyVal with Val1Vec2s[Colour] with CanvEl[FillPoly]
 { 
    override def val1Func: Double => Colour = d => Colour(d.toInt)
@@ -119,7 +121,9 @@ object FillPoly
    }
 }
 
-/** An efficient class to draw polygon based on Array[Double] */
+/** An attempt at an efficient class to fill polygon based on Array[Double]. These classes are currently implemented as Array[Double]s. But this is
+ *   completely pointless, as they will never be in collections such as List[FillPoly] or List[FillDraw], so they will always need to be boxed. The
+ *   lesson is don't try and make value classes out of indeterminate length objects. See #21 */
 class DrawPoly(val arr: Array[Double]) extends AnyVal with Val2Vec2s[Double, Colour] with CanvEl[DrawPoly]
 {
    override def toString = "DrawPoly" - arr.map(_.toString).commaFold.enParenth
