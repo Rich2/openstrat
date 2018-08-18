@@ -27,28 +27,18 @@ object CheckersSq
 }
 
 case class LightSq(x: Int, y: Int) extends CheckersSq { def colour = Cornsilk }
-case class DarkSq(x: Int, y: Int, piece: Option[Boolean]) extends CheckersSq { def colour = Green }
+case class DarkSq(x: Int, y: Int, piece: Option[DraughtsPiece]) extends CheckersSq { def colour = Green }
 
 object DarkSq
 {
-   def apply(piece: Option[Boolean]): (Int, Int) => DarkSq= DarkSq(_, _, piece)
+   def apply(piece: Option[DraughtsPiece]): (Int, Int) => DarkSq= DarkSq(_, _, piece)
 }
 
-/** Not happy with this obviously. But its a start. */
-class CheckersBoard extends ChessGrid[CheckersSq](8)
+sealed trait DraughtsPiece
 {
-//   tilesSetAll(LightSq.apply)   
-//   for (x <- 2 to 8 by 2) fSetSquare(x, 8, DarkSq(Some(false)))
-//   for (x <- 1 to 7 by 2) fSetSquare(x, 7, DarkSq(Some(false)))
-//   for (x <- 2 to 8 by 2) fSetSquare(x, 6, DarkSq(Some(false)))
-//   for (x <- 1 to 7 by 2) fSetSquare(x, 5, DarkSq(None))
-//   for (x <- 2 to 8 by 2) fSetSquare(x, 4, DarkSq(None))
-//   for (x <- 1 to 7 by 2) fSetSquare(x, 3, DarkSq(Some(true)))
-//   for (x <- 2 to 8 by 2) fSetSquare(x, 2, DarkSq(Some(true)))
-//   for (x <- 1 to 7 by 2) fSetSquare(x, 1, DarkSq(Some(true)))
+   def colour: Colour
 }
 
-object CheckersBoard
-{
-   def apply(): CheckersBoard = new CheckersBoard
-}
+object WhitePiece extends DraughtsPiece { override def colour = White }
+object BlackPiece extends DraughtsPiece { override def colour = Black }
+

@@ -18,19 +18,19 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple
     val rowCen = (1.0 + rowSize) / 2.0
     val margin = 15
     val tileWidth = ((height.min(width) - margin * 2).max(100) / rowSize)
-    val tiles = for { y <- 1 to rowSize; x <- 1 to rowSize } yield Cood(x, y) match
+    val tiles: Seq[CheckersSq] = for { y <- 1 to rowSize; x <- 1 to rowSize } yield Cood(x, y) match
     {
-       case c @ Cood(x, y) if c.oddsOrEvens & y <= 3 => DarkSq(x, y, Some(true))
-       case c @ Cood(x, y) if c.oddsOrEvens & y >= 6 => DarkSq(x, y, Some(false))
+       case c @ Cood(x, y) if c.oddsOrEvens & y <= 3 => DarkSq(x, y, Some(BlackPiece))
+       case c @ Cood(x, y) if c.oddsOrEvens & y >= 6 => DarkSq(x, y, Some(WhitePiece))
        case c @ Cood(x, y) if c.oddsOrEvens          => DarkSq(x, y, None)
        case c @ Cood(x, y)                           => LightSq(x, y)          
     }
     implicit class AdjInt(i: Int){ def adj = i - rowCen}
     val stuff = tiles.flatMap
     {
-       case DarkSq(x, y, Some(b))  => List(             
+       case DarkSq(x, y, Some(p))  => List(             
              Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
-             Circle.fillSubj(tileWidth / 1.6, Some(b), blackOrWhite(b), tileWidth * x.adj, tileWidth * y.adj)) 
+             Circle.fillSubj(tileWidth / 1.6, p, p.colour, tileWidth * x.adj, tileWidth * y.adj)) 
        case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
        case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
     }

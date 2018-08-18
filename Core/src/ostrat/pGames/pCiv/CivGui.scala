@@ -30,8 +30,8 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
                   val posn = fTrans(gridPosn)
                   val fillColour = head.faction.colour
                   //val lineColour = fillcol.contrast
-               //Rectangle.curved(90, 60, 10, posn).subjAll  allFixed(head, col, 2, col2, 16, head.movePts.toString) :: Nil   
-               Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
+               Rectangle.curved(90, 60, 10, posn).subjAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil   
+               //Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
                }
             case _ => Nil
          }
@@ -49,7 +49,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
          }
       case (RightButton, List(warr : Warrior), List(newTile: CTile)) =>
          {
-            deb("Rt")
+            deb("Rt") 
             val newCood = newTile.cood
             val oldCood = warr.cood
             

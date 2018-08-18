@@ -45,7 +45,7 @@ object Rectangle
            LineSeg(radius - w,         -h), ArcSeg(-w,         radius -h, radius - w, radius - h),
            LineSeg(- w,        h - radius), ArcSeg(radius - w, h,         radius - w, h - radius))            
    }   
-   def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape = Shape(posn, curvedSegs(width, height, radius))   
+   def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape = Shape(posn, curvedSegs(width, height, radius).slate(posn))   
    def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * goldenRatio, height, radius)
    def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): FillDrawPoly =
       gRatio(height).fillDraw(colour, lineWidth, colour.contrast)

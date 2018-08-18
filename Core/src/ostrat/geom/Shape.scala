@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Not sure entirely what's going on with this class */
+/** So there is a lack of clarity over whether the segs are relative to the cen, and if the cen is needed at all. */
 case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]
 {
    /** This may need clarification */
@@ -10,7 +10,7 @@ case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = TextCen): ShapeSubj =
          ShapeSubj(cen, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour),
-               FillText(Vec2Z, str, textSize, lineColour, textAlign)))
+               FillText(cen, str, textSize, lineColour, textAlign)))
             
    def fixed(evObj: AnyRef, elems: List[CanvEl[_]]): NoScaleShape = NoScaleShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): NoScaleShape =
