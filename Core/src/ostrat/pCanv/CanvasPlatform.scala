@@ -43,7 +43,7 @@ trait CanvasPlatform extends RectGeom
    }
    def polyFillText(pts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
-      fillPoly(fillColour, pts)//: Vec2s, fillColour)
+      fillPoly(fillColour, pts)
       textFill(pts.polyCentre, str, fontSize, fontColour) 
    }
    
@@ -59,9 +59,7 @@ trait CanvasPlatform extends RectGeom
    def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
    def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, borderColour: Colour = Colour.Black): Unit   
    def textFill(posn: Vec2, text: String, fontSize: Int, colour: Colour = Colour.Black, align: TextAlign = TextCen): Unit 
-   def textDraw(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit  
-//   def textFill(x: Double, y: Double, text: String,  fontSize: Int, colour: Colour): Unit
-//   def textDraw(x: Double, y: Double, text: String,  fontSize: Int, colour: Colour): Unit
+   def textDraw(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit
    
    def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
    

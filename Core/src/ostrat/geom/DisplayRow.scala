@@ -7,7 +7,7 @@ case class DisplayRow(margin: Double, subjs: List[CanvSubj[_]])
 {
    def fromLeft(leftPt: Vec2): List[CanvSubj[_]] =
    {      
-      def loop(rem: Seq[CanvSubj[_]], acc: List[CanvSubj[_]], x: Double): List[CanvSubj[_]] = rem.fHead(
+      def loop(rem: Seq[CanvSubj[_]], acc: List[CanvSubj[_]], x: Double): List[CanvSubj[_]] = rem.fMatch(
             acc,
             (head, tail) =>
                loop(tail,

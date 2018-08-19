@@ -65,7 +65,8 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    def subj(evObj: AnyRef, elems: CanvEl[_]*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toList)
    def subjSeq(evObj: AnyRef, elems: List[CanvEl[_]]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
-         PolySubj(this.polyCentre, this, evObj, List(FillDrawPoly(this, fillColour, lineWidth, lineColour), FillText(Vec2Z, str, textSize, lineColour)))
+         PolySubj(this.polyCentre, this, evObj, List(FillDrawPoly(this, fillColour, lineWidth, lineColour),
+               FillText(this.polyCentre, str, textSize, lineColour)))
   
    def closedPolygonToLine2s: Line2s =
    {

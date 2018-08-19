@@ -51,7 +51,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
    {
       case (LeftButton, _, _) =>
          {
-            selected = clickList.fHead(Nil, (h , _) => List(h))         
+            selected = clickList.fHead(Nil, List(_))         
             statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
             eTop()
          }

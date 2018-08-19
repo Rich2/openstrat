@@ -64,7 +64,7 @@ object TokensGet
       
          case c if c.isDigit =>
             {
-               def intLoop(rem: Seq[Char], str: String, intAcc: Int): TokensMon = rem.fHead(
+               def intLoop(rem: Seq[Char], str: String, intAcc: Int): TokensMon = rem.fMatch(
                      (IntToken(fp, str, intAcc) :: tokenAcc).gRet,
                      (h, tail) => h match
                      {
@@ -75,7 +75,7 @@ object TokensGet
                         case '.' => decimalLoop(tail, str - h.toString, intAcc, 10)
                         case _ => mainLoop(rem, fp.addStr(str),  IntToken(fp, str, intAcc) :: tokenAcc)
                      })
-               def longLoop(rem: Seq[Char], str: String, longAcc: Long): TokensMon = rem.fHead(
+               def longLoop(rem: Seq[Char], str: String, longAcc: Long): TokensMon = rem.fMatch(
                      (LongIntToken(fp, str, longAcc) :: tokenAcc).gRet,
                      (h, tail) => h match
                      {
@@ -87,7 +87,7 @@ object TokensGet
                         case _ => mainLoop(rem, fp.addStr(str),  LongIntToken(fp, str, longAcc) :: tokenAcc)
                      })      
                      
-               def decimalLoop(rem: Seq[Char], str: String, floatAcc: Double, divisor: Double): TokensMon = rem.fHead(
+               def decimalLoop(rem: Seq[Char], str: String, floatAcc: Double, divisor: Double): TokensMon = rem.fMatch(
                      (FloatToken(fp, str, floatAcc) :: tokenAcc).gRet,
                      (h, tail) => h match
                      {
@@ -108,7 +108,7 @@ object TokensGet
                {
                   case Seq() => bad1(fp, "Unclosed String")                  
                   case Seq('\"', tail2 @ _*) => mainLoop(tail2, fp.addChars(strAcc.length + 2),  StringToken(fp, strAcc.mkString) :: tokenAcc)
-                  case Seq('\\', tail2 @ _*) => tail2.fHead(
+                  case Seq('\\', tail2 @ _*) => tail2.fMatch(
                         bad1(fp, "Unclosed String ending with unclosed escape Sequence"),
                         (c2, tail3) => c2 match
                         {

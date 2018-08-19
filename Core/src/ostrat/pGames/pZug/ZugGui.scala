@@ -45,9 +45,10 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
      
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
-      case (LeftButton, _, _) =>
+      case (LeftButton, _, cl) =>
          {
-            selected = clickList.fHead(Nil, (h , _) => List(h))
+            debvar(clickList)
+            selected = clickList.fHead(Nil, List(_))
             statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
             eTop()            
          }

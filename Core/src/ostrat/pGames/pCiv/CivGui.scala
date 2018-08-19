@@ -9,8 +9,7 @@ import Colour._
 
 class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv, Civ1)
 {
-   override def scaleMin = 10
-   //override def eTop(): Unit = reTop(guButs)
+   override def scaleMin = 10   
    mapPanel.backColour = Colour.Black
    def  fHex: OfHexReg[CTile, SideBare, CivGrid] => Disp2 = tog =>
       {
@@ -28,10 +27,10 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
                   val maxOffset = tog.grid.coodToVec2(head.dirn.relCood)
                   val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
                   val posn = fTrans(gridPosn)
-                  val fillColour = head.faction.colour
-                  //val lineColour = fillcol.contrast
-               Rectangle.curved(90, 60, 10, posn).subjAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil   
-               //Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
+                  val fillColour = head.faction.colour                  
+                  Rectangle(90, 60, posn).subjAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil     
+                  //Rectangle.curved(90, 60, 10, posn).subjAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil   
+                  //Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
                }
             case _ => Nil
          }
@@ -43,7 +42,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       case (LeftButton, _, _) =>
          {
             deb(selected.toString)
-            selected = clickList.fHead(Nil, (h , _) => List(h))
+            selected = clickList.fHead(Nil, List(_))
             statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
             eTop()
          }
@@ -73,8 +72,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
                   {
                      repaintMap
                      canv.frame(out, startTime, 15)
-                  }
-                  
+                  }                  
                }
                warr.movePts = (warr.movePts - warr.terrCost(newTile)).max(0)
                canv.frameZero((el, st) => out(el, st), 15)               
@@ -82,14 +80,8 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
          }
       case (RightButton, l, _) => deb(l.toString)   
       case _ => deb("Mouse other")
-   }  
-   
-//   mapPanel.mouseUp = (a, b, s) =>
-//      {
-//         //selectedObj = None
-//         statusText = s.headOption.fold("Nothing Clicked")(_.toString)
-//         eTop()
-//      } 
+   }   
+
    def turnCmd: MouseButton => Unit = (mb: MouseButton) => {tilesForeach(_.lunits.foreach(_.movePts = 10)); repaintMap }
    val bTurn = button3("T", turnCmd)   
    override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)

@@ -19,7 +19,7 @@ class Squad(val polity: Polity, var x: Int, var y: Int) extends Lunit
    {
       case Plain => 4
       case WheatField => 6
-      case Stone => 10 
+      case StoneBuilding => 10 
       case Hill => 6
       case _ => 4
    }

@@ -30,29 +30,29 @@ object ZugTile
    }   
 }
 
-object Plain extends ZugTerr
+case object Plain extends ZugTerr
 {
    override def colour = LightGreen
 }
 
-object WheatField extends ZugTerr
+case object WheatField extends ZugTerr
 {
    override def colour = Wheat
 }
 
-object Hill extends ZugTerr
+case object Hill extends ZugTerr
 {
    override def colour = Brown
 }
 
 trait Building extends ZugTerr
 
-object Stone extends Building
+case object StoneBuilding extends Building
 {
    override def colour = Gray
 }
 
-object Wood extends Building
+object WoodBuilding extends Building
 {
    override def colour = Brown
 }

@@ -6,7 +6,7 @@ import Colour.Black
 case class PolySubj(cen: Vec2, poly: Vec2s, evObj: AnyRef, elems: List[CanvEl[_]]) extends CanvSubj[PolySubj] with ClickPolyTr
 {  
    def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.fTrans(f))   
-   override def addElems(newElems: List[CanvEl[_]]): PolySubj = new PolySubj(cen, poly, evObj, elems ++ newElems)
+   override def addElems(newElems: List[CanvEl[_]]): PolySubj = new PolySubj(cen, poly, evObj, elems ::: newElems)
    override def mutObj(newObj: AnyRef): PolySubj = new PolySubj(cen, poly, newObj, elems)
 }
 

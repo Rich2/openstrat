@@ -7,7 +7,8 @@ class SeqImplicit[A](thisSeq: Seq[A])
    def ifAppend[B >: A](b: Boolean, elems: B*): Seq[B] = if (b) thisSeq ++ elems else thisSeq
     /** This method and "headOnly" method on TraversableImplicit removes the need for headOption in the majority of case. Use head Only if
      *  you only interested in the head value */
-   def fHead[B](ifEmpty: => B, fNonEmpty: (A, Seq[A]) => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.head, thisSeq.tail)
+   def fHead[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.head)
+   def fMatch[B](ifEmpty: => B, fNonEmpty: (A, Seq[A]) => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.head, thisSeq.tail)
    def addOpt(optEl: Option[A]): Seq[A] = optEl match
    {
       case None => thisSeq
@@ -27,7 +28,7 @@ class SeqImplicit[A](thisSeq: Seq[A])
    }
    def eSeqs[B, C](f: A => Either[B, C]): (Seq[B], Seq[C]) =
    {
-      def loop(rem: Seq[A], accB: Seq[B], accC: Seq[C]): (Seq[B], Seq[C]) = rem.fHead((accB, accC), (h, tail1) => f(h) match
+      def loop(rem: Seq[A], accB: Seq[B], accC: Seq[C]): (Seq[B], Seq[C]) = rem.fMatch((accB, accC), (h, tail1) => f(h) match
       {
          case Left(b) => loop(tail1, accB :+ b, accC)
          case Right(c) => loop(tail1, accB, accC :+ c)

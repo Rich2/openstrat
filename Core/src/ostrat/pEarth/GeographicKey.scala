@@ -28,7 +28,7 @@ trait GeographicSymbolKey extends SymbolKey
          }
          p1 + p2
       }
-      def loop(rem: Seq[Char], acc: String, currWord: String): String = rem.fHead(concat(acc, currWord), (h, tail) => h match
+      def loop(rem: Seq[Char], acc: String, currWord: String): String = rem.fMatch(concat(acc, currWord), (h, tail) => h match
       {
          case c if c.isUpper => loop(tail, concat(acc, currWord), c.toString)
          case c => loop(tail, acc, currWord + c.toString)

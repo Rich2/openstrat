@@ -99,11 +99,11 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
    /** Folds over this traverable with a to Emon function, accumulating errors */      
    def eMonMap[B](f: A => EMon[B]): EMon[Seq[B]] =      
    {
-      def goodLoop(rem: Seq[A], goodAcc: Seq[B]): EMon[Seq[B]] = rem.fHead(
+      def goodLoop(rem: Seq[A], goodAcc: Seq[B]): EMon[Seq[B]] = rem.fMatch(
             Good(goodAcc),
             (h, tail) => f(h).fold(errs => badLoop(tail, errs), g => goodLoop(tail, goodAcc :+ g))
             )      
-      def badLoop(rem: Seq[A], errAcc: Seq[ParseErr]): EMon[Seq[B]] = rem.fHead(
+      def badLoop(rem: Seq[A], errAcc: Seq[ParseErr]): EMon[Seq[B]] = rem.fMatch(
             Bad(errAcc),
             (h, tail) => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
             )         

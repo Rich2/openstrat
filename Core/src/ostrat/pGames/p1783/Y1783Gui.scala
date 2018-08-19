@@ -50,7 +50,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
       case (LeftButton, _, _) =>{
-         selected = clickList.fHead(Nil, (h , _) => List(h))
+         selected = clickList.fHead(Nil, List(_))
          //deb("Sel" -- selected.head.getClass.toString)
          }
       case (RightButton, List(c : Corps), List(tile: NTile)) =>
