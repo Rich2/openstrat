@@ -19,7 +19,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
          import etog._         
          val colour: Colour = tile.colour
          val poly = vertDispVecs.fillSubj(tile, colour)       
-         val textU: CanvObjs = etog.ifScaleCObjs(68, tile.lunits match
+         val textU: CanvElems = etog.ifScaleCObjs(68, tile.lunits match
          {
             case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))               
             case _ =>
@@ -41,7 +41,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
       Disp2(Nil, line)
    } 
       
-   def ls: CanvObjs =
+   def ls: CanvElems =
    {
       val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
       val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )

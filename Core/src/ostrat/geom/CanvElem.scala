@@ -5,12 +5,12 @@ import Colour.Black
 
 /** The base trait for all objects on a canvas / panel. The objects are recomposed for each frame. The Canvas objects must be recomposed
  *  each time there is a change within the application state or the user view of that application state. */
-trait CanvObj[T] extends Any with Transable[T]
+trait CanvElem[T] extends Any with Transable[T]
 
 /* Base trait for all passive objects  on a canvas / panel */
-trait CanvEl[T] extends Any with CanvObj[T]
+trait PaintElem[T] extends Any with CanvElem[T]
 
-trait PolyElem[A] extends Any with CanvEl[A]
+trait PolyElem[A] extends Any with PaintElem[A]
 {
    def verts: Vec2s
    def xHead: Double = verts.head1
@@ -29,19 +29,19 @@ case class DrawPoly(verts: Vec2s, lineWidth: Double, lineColour: Colour = Black)
 case class FillDrawPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[FillDrawPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillDrawPoly(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
-case class FillShape(segs: List[ShapeSeg], fillColour: Colour) extends CanvEl[FillShape]
+case class FillShape(segs: List[ShapeSeg], fillColour: Colour) extends PaintElem[FillShape]
 { override def fTrans(f: Vec2 => Vec2) = FillShape(segs.fTrans(f), fillColour) }
 
-case class DrawShape(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour = Black) extends CanvEl[DrawShape]
+case class DrawShape(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour = Black) extends PaintElem[DrawShape]
 { override def fTrans(f: Vec2 => Vec2) = DrawShape(segs.fTrans(f), lineWidth, lineColour) }
 
-case class FillDrawShape(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends CanvEl[FillDrawShape]
+case class FillDrawShape(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[FillDrawShape]
 { override def fTrans(f: Vec2 => Vec2) = FillDrawShape(segs.fTrans(f), fillColour, lineWidth, lineColour) }
 
-case class DrawArc(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends CanvEl[DrawArc]
+case class DrawArc(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[DrawArc]
 { override def fTrans(f: Vec2 => Vec2) = DrawArc(arc.fTrans(f), lineWidth, lineColour) }
 
-case class FillText(posn: Vec2, str: String, fontSize: Int, fontColour: Colour = Colour.Black, align: TextAlign = TextCen) extends CanvEl[FillText]
+case class FillText(posn: Vec2, str: String, fontSize: Int, fontColour: Colour = Colour.Black, align: TextAlign = TextCen) extends PaintElem[FillText]
 { override def fTrans(f: Vec2 => Vec2) = FillText(f(posn), str, fontSize, fontColour, align) }
 object FillText
 {
@@ -57,23 +57,23 @@ object FillText
    }
 }
 case class FillTextRel(str: String, fontSize: Int, fontColour: Colour = Colour.Black, posn: Vec2 = Vec2Z, align: TextAlign = TextCen) extends
-   CanvEl[FillTextRel]{ override def fTrans(f: Vec2 => Vec2) = this }
+   PaintElem[FillTextRel]{ override def fTrans(f: Vec2 => Vec2) = this }
 
 case class FillDrawTextPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int,
-      fontColour: Colour) extends CanvEl[FillDrawTextPoly]
+      fontColour: Colour) extends PaintElem[FillDrawTextPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillDrawTextPoly(verts.fTrans(f), fillColour, lineWidth, lineColour, str, fontSize, fontColour) }
 
-case class FillTextPoly(verts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour) extends CanvEl[FillTextPoly]
+case class FillTextPoly(verts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour) extends PaintElem[FillTextPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillTextPoly(verts.fTrans(f), fillColour, str, fontSize, fontColour) }
 
 case class DrawTextPoly(verts: Vec2s, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int,
-      fontColour: Colour) extends CanvEl[DrawTextPoly]
+      fontColour: Colour) extends PaintElem[DrawTextPoly]
 { override def fTrans(f: Vec2 => Vec2) = DrawTextPoly(verts.fTrans(f), lineWidth, lineColour, str, fontSize, fontColour) }
 
-case class LineDraw(lineSeg: Line2, lineWidth: Double, linesColour: Colour = Black) extends CanvEl[LineDraw]
+case class LineDraw(lineSeg: Line2, lineWidth: Double, linesColour: Colour = Black) extends PaintElem[LineDraw]
 { override def fTrans(f: Vec2 => Vec2) = LineDraw(lineSeg.fTrans(f), lineWidth, linesColour) }
 
-case class PolyLineDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour = Black) extends CanvEl[PolyLineDraw]
+case class PolyLineDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour = Black) extends PaintElem[PolyLineDraw]
 { override def fTrans(f: Vec2 => Vec2) = PolyLineDraw(lineSegs.fTrans(f), lineWidth, linesColour) }
 
 sealed trait TextAlign

@@ -32,7 +32,7 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
       }
    def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofs => {
       import ofs._
-      val line: CanvObjs = ifScaleCObjs(60, side.wall match
+      val line: CanvElems = ifScaleCObjs(60, side.wall match
          {
          case true => LineDraw(vertDispLine, 6, Colour.Gray) :: Nil
          case _ => ifTiles(_.colour == _.colour, (t1, _) => LineDraw(vertDispLine, 1, t1.colour.contrastBW))
@@ -41,7 +41,7 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
    }
    def dSides: Disp2 = ofSidesDisplayFold(fSide)
      
-   def mapObjs: CanvObjs = (ofTilesDisplayFold(fHex) ++ dSides ).collapse//ofHexsDisplayFold(fHex).collapse
+   def mapObjs: CanvElems = (ofTilesDisplayFold(fHex) ++ dSides ).collapse//ofHexsDisplayFold(fHex).collapse
      
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {

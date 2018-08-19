@@ -12,7 +12,7 @@ case class BlackJack(canv: CanvasPlatform) extends CanvasSimple
    val (hand, deck) = Card.newShuffled.takeCards(5)
    hand.iMap((c, i) => FillText(Vec2(50 + 100 * i, 100), c.unicode.mkString, 100, c.suitColour))
    
-   def clubFill(): List[CanvEl[_]] = 
+   def clubFill(): List[PaintElem[_]] = 
    {
       val rad: Double = 0.55
       val circ3: Vec2s = Vec2s.doubles(0, rad, - rad * Sin60, - rad * Sin30, rad * Sin60, - rad * Sin30).scale(0.5)         

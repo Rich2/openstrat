@@ -62,8 +62,8 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    
    def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubj =
       fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
-   def subj(evObj: AnyRef, elems: CanvEl[_]*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toList)
-   def subjSeq(evObj: AnyRef, elems: List[CanvEl[_]]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
+   def subj(evObj: AnyRef, elems: PaintElem[_]*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toList)
+   def subjSeq(evObj: AnyRef, elems: List[PaintElem[_]]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
          PolySubj(this.polyCentre, this, evObj, List(FillDrawPoly(this, fillColour, lineWidth, lineColour),
                FillText(this.polyCentre, str, textSize, lineColour)))

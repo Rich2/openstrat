@@ -6,14 +6,14 @@ import geom._
 trait CanvUser
 {   
    val canv: CanvasPlatform
-   /** This reverses the order of the ClickObj List. Method paints objects to screen as side effect. */
-   def paintObjs(movedObjs: Seq[CanvObj[_]]): List[ClickObj] =
+   /** This reverses the order of the PointerElem List. Method paints objects to screen as side effect. */
+   def paintObjs(movedObjs: Seq[CanvElem[_]]): List[PointerElem] =
    {
-      var subjs: List[ClickObj] = Nil
+      var subjs: List[PointerElem] = Nil
       movedObjs.foreach(_ match
       {
          //case ce: ClickEl[_] => pan.subjsAdd(ce.clickObj)
-         case ce: CanvEl[_] => canv.rendElem(ce)
+         case ce: PaintElem[_] => canv.rendElem(ce)
          case cs: CanvSubj[_] =>
          {
             cs.elems.foreach(_ match
@@ -26,7 +26,7 @@ trait CanvUser
          }
          case nss: NoScaleShape => 
          {             
-            canv.rendElems(nss.elems.slate(nss.referenceVec)/*.asInstanceOf[List[CanvEl[_]]]*/)
+            canv.rendElems(nss.elems.slate(nss.referenceVec)/*.asInstanceOf[List[PaintElem[_]]]*/)
             subjs ::= nss
             deb("Add Fixed Shape" -- subjs.length.toString -- nss.shape.map(_.endPt).toString)
          }

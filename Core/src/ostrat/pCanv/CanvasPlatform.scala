@@ -94,8 +94,8 @@ trait CanvasPlatform extends RectGeom
     *  procedure (Unit returning function) with that object of type A */
    def fromFileFindForeach[A: Persist](fileName: String, f: A => Unit): Unit = fromFileFind(fileName).foreach(f) 
     
-   def rendElems(elems: List[CanvEl[_]]): Unit = elems.foreach(rendElem) 
-   def rendElem(el: CanvEl[_]): Unit = el match
+   def rendElems(elems: List[PaintElem[_]]): Unit = elems.foreach(rendElem) 
+   def rendElem(el: PaintElem[_]): Unit = el match
    {
       case fp: FillPoly => fillPoly(fp)//verts, fillColour)
       case dp: DrawPoly => drawPoly(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)

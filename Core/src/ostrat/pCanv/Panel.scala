@@ -15,7 +15,7 @@ case class Panel(private val outerCanv: CanvasMulti, clipPoly: Vec2s, simple: Bo
    val cen: Vec2 = clipPoly.polyCentre
    def width = clipPoly.boundingWidth
    def height = clipPoly.boundingHeight
-   def repaint(els: List[CanvObj[_]]): Unit =
+   def repaint(els: List[CanvElem[_]]): Unit =
    {
       canvObjs = els
       outerCanv.refreshPanel(this)
@@ -30,8 +30,8 @@ case class M3Cmd(cmd: MouseButton => Unit)
 trait PanelLike extends RectGeom
 {
    /** These are currently stored in reverse. I think this would be better in an Array */
-   var subjs: List[ClickObj] = Nil
-   var canvObjs: List[CanvObj[_]] = Nil
+   var subjs: List[PointerElem] = Nil
+   var canvObjs: List[CanvElem[_]] = Nil
    /** This method name is inconsistent with mouseup on the canvas class*/
    var mouseUp: (Vec2, MouseButton, List[AnyRef]) => Unit = (v, b, s) => {}
    /** This method name is inconsistent with mousedown on the canvas class */

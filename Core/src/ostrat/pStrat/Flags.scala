@@ -38,7 +38,7 @@ object Flags
          val bar = Rectangle.fromBottomCentre(0.1, 0.2).fill(Black)
          val arm = Rectangle.tL(-1.0 / 20, 0.25, 6.0 / 20, 0.1).fill(Black)         
          val cross = List(bar, arm).p45.flatRCross
-         val s1: List[CanvEl[_]] = List(
+         val s1: List[PaintElem[_]] = List(
                poly.fill(Red),
                Circle.segs(6.0 /8).fill(White)) ++
                cross      

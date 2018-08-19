@@ -23,7 +23,7 @@ trait MapGui extends CanvasMulti
    def status = textBox(statusText, Unit)
    val mapPanel: Panel = addPanel(Rectangle.bL(canv.bottomLeft, canv.width, canv.height - barWidth))
    def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
-   def mapObjs: CanvObjs
+   def mapObjs: CanvElems
    //def updateView(): Unit = {repaintMap; setStatus(viewStr) }
    def eTop(): Unit = {}
    def setStatus(str: String): Unit = 

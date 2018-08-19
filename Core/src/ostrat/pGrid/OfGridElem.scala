@@ -18,10 +18,10 @@ trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, 
    def psc: Double
    /** The number of pixels per tile, centre to centre */
    def tScale: Double = psc * grid.xStep
-   def ifScaleCObjs(ifScale: Double, cObjs: => CanvObjs): CanvObjs = if (tScale > ifScale) cObjs else Nil
-   def ifScaleCObj(ifScale: Double, cObj: CanvO *): CanvObjs = if (tScale > ifScale) cObj.toList else Nil
-   def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => CanvObjs): CanvObjs = if (tScale > ifScale && b) cObjs else Nil
-   def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): CanvObjs = if (tScale > ifScale && b) cObjs.toList else Nil
+   def ifScaleCObjs(ifScale: Double, cObjs: => CanvElems): CanvElems = if (tScale > ifScale) cObjs else Nil
+   def ifScaleCObj(ifScale: Double, cObj: CanvO *): CanvElems = if (tScale > ifScale) cObj.toList else Nil
+   def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => CanvElems): CanvElems = if (tScale > ifScale && b) cObjs else Nil
+   def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): CanvElems = if (tScale > ifScale && b) cObjs.toList else Nil
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */

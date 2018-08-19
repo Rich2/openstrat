@@ -17,7 +17,7 @@ object ShapeSeg
       def fill(colour: Colour): FillShape = FillShape(thisList, colour)
       def draw(lineWidth: Double, lineColour: Colour = Black) = DrawShape(thisList,lineWidth, lineColour)
       def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = FillDrawShape(thisList, fillColour, lineWidth, lineColour)
-      def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[CanvObj[_]] = List(
+      def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[CanvElem[_]] = List(
           FillDrawShape(thisList, fillColour, lineWidth, lineColour),
           ClickShape(thisList, evObj))
       def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): NoScaleShape =

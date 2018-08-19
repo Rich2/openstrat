@@ -2,11 +2,11 @@
 package ostrat
 package geom
 
-case class ShapeSubj(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, elems: List[CanvEl[_]]) extends CanvSubj[ShapeSubj] with
+case class ShapeSubj(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, elems: List[PaintElem[_]]) extends CanvSubj[ShapeSubj] with
    ClickShapeTr
 {  
    def fTrans(f: Vec2 => Vec2): ShapeSubj = ShapeSubj(f(cen), shape.fTrans(f), evObj, elems.fTrans(f))   
-   override def addElems(newElems: List[CanvEl[_]]): ShapeSubj = ShapeSubj(cen, shape, evObj, elems ++ newElems)
+   override def addElems(newElems: List[PaintElem[_]]): ShapeSubj = ShapeSubj(cen, shape, evObj, elems ++ newElems)
    override def mutObj(newObj: AnyRef): ShapeSubj = ShapeSubj(cen, shape, newObj, elems)
 }
 

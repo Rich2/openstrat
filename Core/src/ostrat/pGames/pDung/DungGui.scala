@@ -22,7 +22,7 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
          val player = ifScaleIfCObj(60, tile.player, Circle(50).slate(tog.cen).fillDrawFixed(None, Red, 1)    )
          Disp2(List(tv), tText ++ player ++ sides)
       }
-   def mapObjs: CanvObjs =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungGrid]](
+   def mapObjs: CanvElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungGrid]](
          fSquare
          //)((t: DTile, gr: DungGrid, gui: TileGridGui[DTile, SideBare, DungGrid]) => new OfSquareReg[DTile, SideBare, DungGrid](t, gr, gui)
                ).collapse//ofSquaresDisplayFold(fTile).collapse   

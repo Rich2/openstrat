@@ -103,7 +103,7 @@ trait Val3Vec2s[Val1T, Val2T, Val3T] extends Any with ValsVec2s
 /** An attempt at an efficient class to fill polygon based on Array[Double]. These classes are currently implemented as Array[Double]s. But this is
  *   completely pointless, as they will never be in collections such as List[FillPoly] or List[FillDraw], so they will always need to be boxed. The
  *    lesson is don't try and make value classes out of indeterminate length objects. See #21 */
-class FillPolyAlt(val arr: Array[Double]) extends AnyVal with Val1Vec2s[Colour] with CanvEl[FillPolyAlt]
+class FillPolyAlt(val arr: Array[Double]) extends AnyVal with Val1Vec2s[Colour] with PaintElem[FillPolyAlt]
 { 
    override def val1Func: Double => Colour = d => Colour(d.toInt)
    @inline def colour: Colour = val1
@@ -124,7 +124,7 @@ object FillPolyAlt
 /** An attempt at an efficient class to fill polygon based on Array[Double]. These classes are currently implemented as Array[Double]s. But this is
  *   completely pointless, as they will never be in collections such as List[FillPoly] or List[FillDraw], so they will always need to be boxed. The
  *   lesson is don't try and make value classes out of indeterminate length objects. See #21 */
-class DrawPolyAlt(val arr: Array[Double]) extends AnyVal with Val2Vec2s[Double, Colour] with CanvEl[DrawPolyAlt]
+class DrawPolyAlt(val arr: Array[Double]) extends AnyVal with Val2Vec2s[Double, Colour] with PaintElem[DrawPolyAlt]
 {
    override def toString = "DrawPoly" - arr.map(_.toString).commaFold.enParenth
    override def val1Func: Double => Double = d => d

@@ -12,7 +12,7 @@ case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]
          ShapeSubj(cen, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour),
                FillText(cen, str, textSize, lineColour, textAlign)))
             
-   def fixed(evObj: AnyRef, elems: List[CanvEl[_]]): NoScaleShape = NoScaleShape(cen, segs, evObj, elems)
+   def fixed(evObj: AnyRef, elems: List[PaintElem[_]]): NoScaleShape = NoScaleShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): NoScaleShape =
       NoScaleShape(cen, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
