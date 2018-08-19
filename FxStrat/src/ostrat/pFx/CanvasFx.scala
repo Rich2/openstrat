@@ -38,7 +38,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    override def tlFillPoly(fp: FillPoly): Unit =
    {
       gc.fill = col(fp.colour)
-      gc.fillPolygon(fp.xVertsArr, fp.yVertsArr, fp.ptsLength)
+      gc.fillPolygon(fp.xArray, fp.yArray, fp.verts.length)
    }
 
    /** Needs mod */
@@ -46,16 +46,16 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    {
       gc.stroke = col(dp.lineColour)
       gc.lineWidth = dp.lineWidth
-      gc.strokePolygon(dp.xVertsArr, dp.yVertsArr, dp.ptsLength)  
+      gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLength)  
    }
  
-   override def tlPolyFillDraw(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =    
+   override def tlPolyFillDraw(fdp: FillDrawPoly): Unit =    
    {      
-      gc.fill = col(fillColour)           
-      gc.fillPolygon(verts.elem1sArray, verts.elem2sArray, verts.length)
-      gc.stroke = col(lineColour)
-      gc.lineWidth = lineWidth
-      gc.strokePolygon(verts.elem1sArray, verts.elem2sArray, verts.length)  
+      gc.fill = col(fdp.fillColour)           
+      gc.fillPolygon(fdp.xArray, fdp.yArray, fdp.vertsLength)
+      gc.stroke = col(fdp.lineColour)
+      gc.lineWidth = fdp.lineWidth
+      gc.strokePolygon(fdp.xArray, fdp.yArray, fdp.vertsLength)  
    }
    
    def fxAlign(align: TextAlign) =

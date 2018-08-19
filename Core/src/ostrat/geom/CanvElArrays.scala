@@ -103,45 +103,45 @@ trait Val3Vec2s[Val1T, Val2T, Val3T] extends Any with ValsVec2s
 /** An attempt at an efficient class to fill polygon based on Array[Double]. These classes are currently implemented as Array[Double]s. But this is
  *   completely pointless, as they will never be in collections such as List[FillPoly] or List[FillDraw], so they will always need to be boxed. The
  *    lesson is don't try and make value classes out of indeterminate length objects. See #21 */
-class FillPoly(val arr: Array[Double]) extends AnyVal with Val1Vec2s[Colour] with CanvEl[FillPoly]
+class FillPolyAlt(val arr: Array[Double]) extends AnyVal with Val1Vec2s[Colour] with CanvEl[FillPolyAlt]
 { 
    override def val1Func: Double => Colour = d => Colour(d.toInt)
    @inline def colour: Colour = val1
-   override def fTrans(f: Vec2 => Vec2): FillPoly =  new FillPoly(arrTrans(f))
+   override def fTrans(f: Vec2 => Vec2): FillPolyAlt =  new FillPolyAlt(arrTrans(f))
 }
 
-object FillPoly
+object FillPolyAlt
 {
-   def apply(colour: Colour, verts: Vec2s): FillPoly =
+   def apply(colour: Colour, verts: Vec2s): FillPolyAlt =
    {
       val arr: Array[Double] = new Array[Double](1 + verts.arr.length)
       arr(0) = colour.argbValue//copies colour
       verts.arr.copyToRight(arr, 1)
-      new FillPoly(arr)
+      new FillPolyAlt(arr)
    }
 }
 
 /** An attempt at an efficient class to fill polygon based on Array[Double]. These classes are currently implemented as Array[Double]s. But this is
  *   completely pointless, as they will never be in collections such as List[FillPoly] or List[FillDraw], so they will always need to be boxed. The
  *   lesson is don't try and make value classes out of indeterminate length objects. See #21 */
-class DrawPoly(val arr: Array[Double]) extends AnyVal with Val2Vec2s[Double, Colour] with CanvEl[DrawPoly]
+class DrawPolyAlt(val arr: Array[Double]) extends AnyVal with Val2Vec2s[Double, Colour] with CanvEl[DrawPolyAlt]
 {
    override def toString = "DrawPoly" - arr.map(_.toString).commaFold.enParenth
    override def val1Func: Double => Double = d => d
    @inline def lineWidth: Double = val1
    override def val2Func: Double => Colour = d => Colour(d.toInt)
    @inline def lineColour: Colour = val2
-   override def fTrans(f: Vec2 => Vec2) = new DrawPoly(arrTrans(f))   
+   override def fTrans(f: Vec2 => Vec2) = new DrawPolyAlt(arrTrans(f))   
 }
 
-object DrawPoly
+object DrawPolyAlt
 {
-   def apply(lineWidth: Double, colour: Colour, verts: Vec2s): DrawPoly =
+   def apply(lineWidth: Double, colour: Colour, verts: Vec2s): DrawPolyAlt =
    {
       val arr: Array[Double] = new Array[Double](2 + verts.arr.length)
       arr(0) = lineWidth
       arr(1) = colour.argbValue//copies colour
       verts.arr.copyToRight(arr, 2)
-      new DrawPoly(arr)
+      new DrawPolyAlt(arr)
    }
 }

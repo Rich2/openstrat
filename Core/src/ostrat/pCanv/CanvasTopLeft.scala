@@ -14,13 +14,12 @@ trait CanvasTopLeft extends CanvasPlatform
    
    override def fillPoly(fp: FillPoly): Unit = tlFillPoly(fp.fTrans(tlCen))
    override def drawPoly(dp: DrawPoly): Unit = tlDrawPoly(dp.fTrans(tlCen))   
-   override def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
-      tlPolyFillDraw(pts.fTrans(tlCen), fillColour, lineWidth, lineColour)
+   override def polyFillDraw(fdp: FillDrawPoly): Unit = tlPolyFillDraw(fdp.fTrans(tlCen))
    override def lineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =
       tlLineSegsDraw(lineSegs.fTrans(tlCen), lineWidth, linesColour): Unit
    
    override def shapeFill(segs: List[ShapeSeg], colour: Colour): Unit = tlShapeFill(segs.fTrans(tlCen), colour)
-   override def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): Unit =
+   override def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
       tlShapeFillDraw(segs.fTrans(tlCen), fillColour, lineWidth, lineColour)
    override def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
       tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)   
@@ -28,19 +27,18 @@ trait CanvasTopLeft extends CanvasPlatform
    override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = tlArcDraw(arc.fTrans(tlCen), lineWidth, lineColour)   
    override def textFill(posn: Vec2, text: String,  fontSize: Int, colour: Colour, align: TextAlign): Unit =
       tlTextFill(tlx + posn.x, tly - posn.y, text, fontSize, colour, align)
-   override def textDraw(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit =
+   override def textDraw(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Black): Unit =
       tlTextDraw(tlx + posn.x, tly - posn.y, text, fontSize, colour)
     
 //   override def textFill(x: Double, y: Double, text: String,  fontSize: Int, colour: Colour): Unit =
 //      tlTextFill(tlx + x, tly - y, text, fontSize, colour)
 //   override def textDraw(x: Double, y: Double, text: String,  fontSize: Int, colour: Colour): Unit =
 //      tlTextDraw(tlx + x, tly - y, text, fontSize, colour)
-   override def clip(pts: Vec2s): Unit = tlClip(fTl(pts))
-   
+   override def clip(pts: Vec2s): Unit = tlClip(fTl(pts))   
    
    protected def tlFillPoly(fp: FillPoly): Unit
    protected def tlDrawPoly(dp: DrawPoly): Unit
-   protected def tlPolyFillDraw(pts: Vec2s, colour: Colour, lineWidth: Double, lineColour: Colour): Unit
+   protected def tlPolyFillDraw(fdp: FillDrawPoly): Unit
    protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit
 
    protected def tlShapeFill(segs: List[ShapeSeg], colour: Colour): Unit

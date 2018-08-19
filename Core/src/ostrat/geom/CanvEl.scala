@@ -10,7 +10,23 @@ trait CanvObj[T] extends Any with Transable[T]
 /* Base trait for all passive objects  on a canvas / panel */
 trait CanvEl[T] extends Any with CanvObj[T]
 
-case class FillDrawPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends CanvEl[FillDrawPoly]
+trait PolyElem[A] extends Any with CanvEl[A]
+{
+   def verts: Vec2s
+   def xHead: Double = verts.head1
+   def yHead: Double = verts.head2
+   def vertsLength: Int = verts.length
+   def xArray: Array[Double] = verts.elem1sArray
+   def yArray: Array[Double] = verts.elem2sArray
+}
+
+case class FillPoly(verts: Vec2s, colour: Colour) extends PolyElem[FillPoly]
+{ override def fTrans(f: Vec2 => Vec2): FillPoly = FillPoly(verts.fTrans(f), colour) }
+
+case class DrawPoly(verts: Vec2s, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[DrawPoly]
+{ override def fTrans(f: Vec2 => Vec2): DrawPoly = DrawPoly(verts.fTrans(f), lineWidth, lineColour) }
+
+case class FillDrawPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[FillDrawPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillDrawPoly(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
 case class FillShape(segs: List[ShapeSeg], fillColour: Colour) extends CanvEl[FillShape]

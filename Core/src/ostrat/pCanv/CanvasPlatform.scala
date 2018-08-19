@@ -30,11 +30,13 @@ trait CanvasPlatform extends RectGeom
    /** A call back timer. Takes the delay in milliseconds */
    def timeOut(f: () => Unit, millis: Integer): Unit  
    var textMin: Int = 10
-   final def fillPoly(colour: Colour, pts: Vec2s): Unit = fillPoly(FillPoly(colour, pts))
+   final def fillPoly(colour: Colour, pts: Vec2s): Unit = fillPoly(FillPoly(pts, colour))
    def fillPoly(pf: FillPoly): Unit
-   final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = drawPoly(DrawPoly(lineWidth, lineColour, pts)) 
+   final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = drawPoly(DrawPoly(pts, lineWidth, lineColour)) 
    def drawPoly(dp: DrawPoly): Unit
-   def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
+   final def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit = polyFillDraw(
+         FillDrawPoly(pts, fillColour, lineWidth, borderColour))
+   def polyFillDraw(fdp: FillDrawPoly): Unit
    def polyFillDrawText(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int,
          fontColour: Colour = Black): Unit =
    {

@@ -63,7 +63,7 @@ object CanvasJs extends CanvasTopLeft
    {      
       gc.beginPath()
       gc.moveTo(fp.xHead, fp.yHead)      
-      fp.foreachVertPairTail(gc.lineTo)
+      fp.verts.foreachPairTail(gc.lineTo)
       gc.closePath()
       gc.fillStyle = fp.colour.str            
       gc.fill()               
@@ -72,22 +72,22 @@ object CanvasJs extends CanvasTopLeft
    {      
       gc.beginPath()
       gc.moveTo(dp.xHead, dp.yHead)
-      dp.foreachVertPairTail(gc.lineTo)
+      dp.verts.foreachPairTail(gc.lineTo)
       gc.closePath()      
       gc.strokeStyle = dp.lineColour.str
       gc.lineWidth = dp.lineWidth
       gc.stroke            
    }
-   override def tlPolyFillDraw(verts: Vec2s, colour: Colour, lineWidth: Double, lineColour: Colour): Unit =    
+   override def tlPolyFillDraw(fdp: FillDrawPoly): Unit =    
    {      
       gc.beginPath()
-      gc.moveTo(verts.head1, verts.head2)
-      verts.foreachPairTail(gc.lineTo)
+      gc.moveTo(fdp.xHead, fdp.yHead)
+      fdp.verts.foreachPairTail(gc.lineTo)
       gc.closePath()
-      gc.fillStyle = colour.str            
+      gc.fillStyle = fdp.fillColour.str            
       gc.fill()
-      gc.strokeStyle = lineColour.str
-      gc.lineWidth = lineWidth
+      gc.strokeStyle = fdp.lineColour.str
+      gc.lineWidth = fdp.lineWidth
       gc.stroke            
    }
    protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =
