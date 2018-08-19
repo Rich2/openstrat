@@ -53,11 +53,6 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
    - **ostrat.pStrat** depends on geom, pDisp and pGrid
      * Flags.
      * Odds and ends.
-   - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages.
-     * ostrat.pGames.pWW2 A grand strategy world War 2 Game using the hex tiled world terrain map. 
-     * ostrat.pGames.p1783 A grand strategy game also using the world map set in 1783.
-     * ostrat.pGames.p305 A grand Strategy Game set in 305BC, using part of the world map.
-     * ostrat.pGames.pZug A 20th cntury squad based strategy game.
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common functionalty and classes.
      * ostrat.pGames.pWW2 A grand strategy world War 2 game, using the hex tiled world terrain map. 
      * ostrat.pGames.p1783 A grand strategy game, also using the world map starting in 1783.
