@@ -84,12 +84,12 @@ trait CanvasMulti extends CanvUser
    def refreshPanel(panel: Panel): Unit =
    {
       val clipPoly = panel.clipPoly
-      panel.subjs = Nil
+      //panel.subjs = Nil
       canv.gcSave()
       canv.clip(clipPoly)
       canv.fillPoly(panel.backColour, clipPoly)
       val movedObjs: List[CanvObj[_]] = panel.canvObjs.slate(panel.cen)
-      paintObjs(movedObjs, panel)
+      panel.subjs = paintObjs(movedObjs)
       canv.gcRestore()
    }   
 }

@@ -39,6 +39,6 @@ sealed trait DraughtsPiece
    def colour: Colour
 }
 
-object WhitePiece extends DraughtsPiece { override def colour = White }
-object BlackPiece extends DraughtsPiece { override def colour = Black }
+case object WhitePiece extends DraughtsPiece { override def colour = White }
+case object BlackPiece extends DraughtsPiece { override def colour = Black }
 
