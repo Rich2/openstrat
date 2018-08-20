@@ -63,6 +63,11 @@ case class LineDraw(lineSeg: Line2, lineWidth: Double, linesColour: Colour = Bla
 case class LinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour = Black) extends PaintElem[LinesDraw]
 { override def fTrans(f: Vec2 => Vec2) = LinesDraw(lineSegs.fTrans(f), lineWidth, linesColour) }
 
+object LinesDraw
+{
+   def apply(lineWidth: Double, linesColour: Colour, lineSegs: Line2 *): LinesDraw = LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, linesColour)     
+}
+
 sealed trait TextAlign
 {
    def jsStr: String

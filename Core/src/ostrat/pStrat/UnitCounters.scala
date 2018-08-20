@@ -12,7 +12,7 @@ object UnitCounters
       val line2 = Line2(rect(1), rect(3))
       val linesColour = fillColour.contrast2(backgroundColour)
       val subj = rect.fillDrawSubj(evObj, fillColour, 1, linesColour)
-      subj.addElems(List(LinesDraw(List(line1, line2), 1, linesColour)))
+      subj.addElems(List(LinesDraw(1, linesColour, line1, line2)))
    }
   
 }

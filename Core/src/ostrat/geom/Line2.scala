@@ -55,10 +55,17 @@ class Line2s(val arr: Array[Double]) extends AnyVal with DoubleProduct4s[Line2] 
    override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): Line2 = new Line2(d1, d2, d3, d4)
    override def fTrans(f: Vec2 => Vec2): Line2s = pMap(orig => Line2(f(orig.pt1), f(orig.pt2)))
    def ptInPolygon(pt: Vec2): Boolean =
-    {
+   {
       val num = foldLeft(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
       num.isOdd      
-    }
+   }
+   def ++ (operand: Line2s): Line2s =
+   {
+      val res = Line2s(length + operand.length)
+      this.iForeach((elem, i) => res.setElem(i, elem))
+      operand.iForeach((elem, i) => res.setElem(i + length, elem))
+      res
+   }
 }
 
 object Line2s extends Double4sMaker[Line2, Line2s]

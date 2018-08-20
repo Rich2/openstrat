@@ -82,5 +82,17 @@ class SeqImplicit[A](thisSeq: Seq[A])
          count += 1         
       }
       res
-   }   
+   }
+   def valueProducts[B <: ValueProducts[A]](implicit factory: Int => B): B =
+   {
+      val length = thisSeq.length
+      val valProds = factory(length)
+      var count = 0
+      while (count < length)
+      {
+         valProds.setElem(count, thisSeq(count))
+         count += 1
+      }
+      valProds
+   }
 }
