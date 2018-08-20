@@ -47,7 +47,7 @@ object Rectangle
    }   
    def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape = Shape(posn, curvedSegs(width, height, radius).slate(posn))   
    def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * goldenRatio, height, radius)
-   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): FillDrawPoly =
+   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolyFillDraw =
       gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
    def fromAxis(centreLine: Line2, height: Double): Vec2s =
    {

@@ -13,7 +13,7 @@ case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasSimple
       val fac = i.toDouble / n.toDouble
       (255 * fac).toInt
    }
-   val cols: Seq[(FillDrawPoly, FillText)] = for {
+   val cols: Seq[(PolyFillDraw, FillText)] = for {
       r <- 0 to n
       g <- 0 to n
       b <- 0 to n

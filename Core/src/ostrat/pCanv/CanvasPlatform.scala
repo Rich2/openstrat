@@ -34,15 +34,15 @@ trait CanvasPlatform extends RectGeom
    def fillPoly(pf: FillPoly): Unit
    final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = drawPoly(DrawPoly(pts, lineWidth, lineColour)) 
    def drawPoly(dp: DrawPoly): Unit
-   final def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit = polyFillDraw(
-         FillDrawPoly(pts, fillColour, lineWidth, borderColour))
-   def polyFillDraw(fdp: FillDrawPoly): Unit
-   def polyFillDrawText(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int,
-         fontColour: Colour = Black): Unit =
-   {
-      polyFillDraw(pts: Vec2s, fillColour, lineWidth, borderColour)
-      textFill(pts.polyCentre, str, fontSize, fontColour) 
-   }
+//   final def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit = polyFillDraw(
+//         PolyFillDraw(pts, fillColour, lineWidth, borderColour))
+   def polyFillDraw(pfd: PolyFillDraw): Unit
+//   def polyFillDrawText(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int,
+//         fontColour: Colour = Black): Unit =
+//   {
+//      polyFillDraw(pts: Vec2s, fillColour, lineWidth, borderColour)
+//      textFill(pts.polyCentre, str, fontSize, fontColour) 
+//   }
    def polyFillText(pts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
       fillPoly(fillColour, pts)
@@ -99,7 +99,7 @@ trait CanvasPlatform extends RectGeom
    {
       case fp: FillPoly => fillPoly(fp)//verts, fillColour)
       case dp: DrawPoly => drawPoly(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
-      case FillDrawPoly(verts, fillColour, lineWidth, lineColour) => polyFillDraw(verts, fillColour, lineWidth, lineColour)
+      case pfd: PolyFillDraw => polyFillDraw(pfd)
       case PolyLineDraw(lines, lineWidth, lineColour) => lineSegsDraw(lines, lineWidth, lineColour)
       case LineDraw(line, lineWidth, lineColour) => lineSegsDraw(List(line), lineWidth, lineColour)
       case FillShape(segs, fillColour) => shapeFill(segs, fillColour)
@@ -107,8 +107,8 @@ trait CanvasPlatform extends RectGeom
       case FillDrawShape(segs, fillColour, lineWidth, lineColour) => shapeFillDraw(segs, fillColour, lineWidth, lineColour) 
       case DrawArc(arc, lineWidth, lineColour) => arcDraw(arc, lineWidth, lineColour)
       case FillText(posn, text, fontSize, colour, align) => textFill(posn, text, fontSize, colour, align)
-      case FillDrawTextPoly(verts, fillColour, lineWidth, lineColour, str, fontSize, fontColour) =>
-         polyFillDrawText(verts, fillColour, lineWidth, lineColour, str, fontSize, fontColour)
+//      case FillDrawTextPoly(verts, fillColour, lineWidth, lineColour, str, fontSize, fontColour) =>
+//         polyFillDrawText(verts, fillColour, lineWidth, lineColour, str, fontSize, fontColour)
       case FillTextPoly(verts, fillColour, str, fontSize, fontColour) => polyFillText(verts, fillColour, str, fontSize, fontColour)   
       case DrawTextPoly(verts, lineWidth, lineColour, str, fontSize, fontColour) =>
          polyDrawText(verts, lineWidth, lineColour, str, fontSize, fontColour)   

@@ -16,7 +16,7 @@ object PolySubj
    
    /** Not sure if this is double filling the polygon */
    def fillDraw(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) =
-      new PolySubj(cen, poly, evObj, List(FillDrawPoly(poly, fillColour, lineWidth, lineColour)))
+      new PolySubj(cen, poly, evObj, List(PolyFillDraw(poly, fillColour, lineWidth, lineColour)))
    
    def draw(cen: Vec2, poly: Vec2s, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black) =
       new PolySubj(cen, poly, evObj, List(DrawPoly(poly, lineWidth, lineColour)))

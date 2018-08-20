@@ -16,7 +16,7 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    override def timeOut(f: () => Unit, millis: Integer): Unit = {}   
    override def fillPoly(pf: FillPoly): Unit = {}    
    override def drawPoly(dp: DrawPoly): Unit = {}
-   override def polyFillDraw(fdp: FillDrawPoly): Unit = {}
+   override def polyFillDraw(pfd: PolyFillDraw): Unit = {}
    override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = {}
    override def lineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit = {}
    override def shapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit = {}

@@ -78,16 +78,16 @@ object CanvasJs extends CanvasTopLeft
       gc.lineWidth = dp.lineWidth
       gc.stroke            
    }
-   override def tlPolyFillDraw(fdp: FillDrawPoly): Unit =    
+   override def tlPolyFillDraw(pfd: PolyFillDraw): Unit =    
    {      
       gc.beginPath()
-      gc.moveTo(fdp.xHead, fdp.yHead)
-      fdp.verts.foreachPairTail(gc.lineTo)
+      gc.moveTo(pfd.xHead, pfd.yHead)
+      pfd.verts.foreachPairTail(gc.lineTo)
       gc.closePath()
-      gc.fillStyle = fdp.fillColour.str            
+      gc.fillStyle = pfd.fillColour.str            
       gc.fill()
-      gc.strokeStyle = fdp.lineColour.str
-      gc.lineWidth = fdp.lineWidth
+      gc.strokeStyle = pfd.lineColour.str
+      gc.lineWidth = pfd.lineWidth
       gc.stroke            
    }
    protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =

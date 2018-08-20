@@ -26,8 +26,8 @@ case class FillPoly(verts: Vec2s, colour: Colour) extends PolyElem[FillPoly]
 case class DrawPoly(verts: Vec2s, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[DrawPoly]
 { override def fTrans(f: Vec2 => Vec2): DrawPoly = DrawPoly(verts.fTrans(f), lineWidth, lineColour) }
 
-case class FillDrawPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[FillDrawPoly]
-{ override def fTrans(f: Vec2 => Vec2) = FillDrawPoly(verts.fTrans(f), fillColour, lineWidth, lineColour) }
+case class PolyFillDraw(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[PolyFillDraw]
+{ override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
 case class FillShape(segs: List[ShapeSeg], fillColour: Colour) extends PaintElem[FillShape]
 { override def fTrans(f: Vec2 => Vec2) = FillShape(segs.fTrans(f), fillColour) }
@@ -59,9 +59,9 @@ object FillText
 case class FillTextRel(str: String, fontSize: Int, fontColour: Colour = Colour.Black, posn: Vec2 = Vec2Z, align: TextAlign = TextCen) extends
    PaintElem[FillTextRel]{ override def fTrans(f: Vec2 => Vec2) = this }
 
-case class FillDrawTextPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int,
-      fontColour: Colour) extends PaintElem[FillDrawTextPoly]
-{ override def fTrans(f: Vec2 => Vec2) = FillDrawTextPoly(verts.fTrans(f), fillColour, lineWidth, lineColour, str, fontSize, fontColour) }
+//case class FillDrawTextPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int,
+//      fontColour: Colour) extends PaintElem[FillDrawTextPoly]
+//{ override def fTrans(f: Vec2 => Vec2) = FillDrawTextPoly(verts.fTrans(f), fillColour, lineWidth, lineColour, str, fontSize, fontColour) }
 
 case class FillTextPoly(verts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour) extends PaintElem[FillTextPoly]
 { override def fTrans(f: Vec2 => Vec2) = FillTextPoly(verts.fTrans(f), fillColour, str, fontSize, fontColour) }

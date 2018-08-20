@@ -49,13 +49,13 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLength)  
    }
  
-   override def tlPolyFillDraw(fdp: FillDrawPoly): Unit =    
+   override def tlPolyFillDraw(pfd: PolyFillDraw): Unit =    
    {      
-      gc.fill = col(fdp.fillColour)           
-      gc.fillPolygon(fdp.xArray, fdp.yArray, fdp.vertsLength)
-      gc.stroke = col(fdp.lineColour)
-      gc.lineWidth = fdp.lineWidth
-      gc.strokePolygon(fdp.xArray, fdp.yArray, fdp.vertsLength)  
+      gc.fill = col(pfd.fillColour)           
+      gc.fillPolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)
+      gc.stroke = col(pfd.lineColour)
+      gc.lineWidth = pfd.lineWidth
+      gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)  
    }
    
    def fxAlign(align: TextAlign) =

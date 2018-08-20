@@ -14,7 +14,7 @@ trait CanvasTopLeft extends CanvasPlatform
    
    override def fillPoly(fp: FillPoly): Unit = tlFillPoly(fp.fTrans(tlCen))
    override def drawPoly(dp: DrawPoly): Unit = tlDrawPoly(dp.fTrans(tlCen))   
-   override def polyFillDraw(fdp: FillDrawPoly): Unit = tlPolyFillDraw(fdp.fTrans(tlCen))
+   override def polyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))
    override def lineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =
       tlLineSegsDraw(lineSegs.fTrans(tlCen), lineWidth, linesColour): Unit
    
@@ -38,7 +38,7 @@ trait CanvasTopLeft extends CanvasPlatform
    
    protected def tlFillPoly(fp: FillPoly): Unit
    protected def tlDrawPoly(dp: DrawPoly): Unit
-   protected def tlPolyFillDraw(fdp: FillDrawPoly): Unit
+   protected def tlPolyFillDraw(pfd: PolyFillDraw): Unit
    protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit
 
    protected def tlShapeFill(segs: List[ShapeSeg], colour: Colour): Unit

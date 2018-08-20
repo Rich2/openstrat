@@ -34,10 +34,10 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    import Colour.Black
    def fill(colour: Colour): FillPoly = FillPoly(this, colour)
    def draw(lineWidth: Double, lineColour: Colour = Black): DrawPoly = DrawPoly(this, lineWidth, lineColour)
-   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): FillDrawPoly =
-      FillDrawPoly(this, fillColour, lineWidth, lineColour)
-   def fillDrawText(fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black) = 
-      FillDrawTextPoly(this, fillColour, lineWidth, lineColour, str, fontSize, fontColour)
+   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
+      PolyFillDraw(this, fillColour, lineWidth, lineColour)
+//   def fillDrawText(fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black) = 
+//      FillDrawTextPoly(this, fillColour, lineWidth, lineColour, str, fontSize, fontColour)
       
    def fillText(fillColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black) =
       FillTextPoly(this, fillColour, str, fontSize, fontColour)
@@ -65,7 +65,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    def subj(evObj: AnyRef, elems: PaintElem[_]*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toList)
    def subjSeq(evObj: AnyRef, elems: List[PaintElem[_]]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
-         PolySubj(this.polyCentre, this, evObj, List(FillDrawPoly(this, fillColour, lineWidth, lineColour),
+         PolySubj(this.polyCentre, this, evObj, List(PolyFillDraw(this, fillColour, lineWidth, lineColour),
                FillText(this.polyCentre, str, textSize, lineColour)))
   
    def closedPolygonToLine2s: Line2s =
