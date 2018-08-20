@@ -12,11 +12,11 @@ case class ShapeSubj(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, elems: Lis
 
 object ShapeSubj
 {
-   def fill(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, colour: Colour) = ShapeSubj(cen, shape, evObj, List(FillShape(shape, colour)))
+   def fill(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, colour: Colour) = ShapeSubj(cen, shape, evObj, List(ShapeFill(shape, colour)))
    
    def fillDraw(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
-      ShapeSubj(cen, shape, evObj, List(FillDrawShape(shape, fillColour, lineWidth, lineColour)))
+      ShapeSubj(cen, shape, evObj, List(ShapeFillDraw(shape, fillColour, lineWidth, lineColour)))
    
    def draw(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, lineWidth: Double, lineColour: Colour = Colour.Black) =
-      ShapeSubj(cen, shape, evObj, List(DrawShape(shape, lineWidth, lineColour)))     
+      ShapeSubj(cen, shape, evObj, List(ShapeDraw(shape, lineWidth, lineColour)))     
 }

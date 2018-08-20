@@ -23,14 +23,14 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple
          Rectangle.curvedSegs(340, 260, 50).slate(200, 0).fillDraw(Brown, 1).rotate(Angle(math.Pi / 7)),
          Square.curvedSegs(140, 40).slate(-250, 300).draw(1.0, Blue).rotate(Angle(math.Pi / 16)),
          Rectangle.curvedSegs(340, 260, 40).slate(-500, 0).rotate(15.degs).fillDraw(Colour.BlanchedAlmond, 5),
-         FillText.xy(-500, 0, "Passive curved Rectangle", 12).rotate(15.degs),
+         TextGraphic.xy(-500, 0, "Passive curved Rectangle", 12).rotate(15.degs),
          
          br.draw(2, Colour.Green),
-         DrawArc(Arc(0, -200, -200, 0, 0, 0), 5, Colour.DarkRed).rotate(15.degs),
-         DrawArc(Arc(0, -200, -200, 0, 0, 0), 5, Colour.Blue),
+         ArcDraw(Arc(0, -200, -200, 0, 0, 0), 5, Colour.DarkRed).rotate(15.degs),
+         ArcDraw(Arc(0, -200, -200, 0, 0, 0), 5, Colour.Blue),
          r1
                )
-   def stuff2(obj: Any) = stuff :+  FillText.xy(0, 0, obj.toString, 20, Colour.Turquoise)            
+   def stuff2(obj: Any) = stuff :+  TextGraphic.xy(0, 0, obj.toString, 20, Colour.Turquoise)            
                
    mouseUp = (v, b, s) =>   { repaint(stuff2(s.headOrElse("No clickable object on canvas"))) }            
    repaint(stuff2("Click on canvas"))

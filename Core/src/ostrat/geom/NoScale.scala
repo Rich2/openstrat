@@ -20,7 +20,7 @@ case class NoScaleShape(referenceVec: Vec2, relShape: List[ShapeSeg], evObj: Any
 object NoScaleShape
 {
    def fillDraw(referenceVec: Vec2, segs: List[ShapeSeg], evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
-   NoScaleShape = NoScaleShape(referenceVec, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour)))
+   NoScaleShape = NoScaleShape(referenceVec, segs, evObj, List(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 
 //case class NoScalePoly

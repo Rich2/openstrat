@@ -14,16 +14,16 @@ object ShapeSeg
 {
    implicit class ImplicitShapeSegList(thisList: List[ShapeSeg])// extends Transable[List[ShapeSeg]]
    {
-      def fill(colour: Colour): FillShape = FillShape(thisList, colour)
-      def draw(lineWidth: Double, lineColour: Colour = Black) = DrawShape(thisList,lineWidth, lineColour)
-      def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = FillDrawShape(thisList, fillColour, lineWidth, lineColour)
+      def fill(colour: Colour): ShapeFill = ShapeFill(thisList, colour)
+      def draw(lineWidth: Double, lineColour: Colour = Black) = ShapeDraw(thisList,lineWidth, lineColour)
+      def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = ShapeFillDraw(thisList, fillColour, lineWidth, lineColour)
       def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[CanvElem[_]] = List(
-          FillDrawShape(thisList, fillColour, lineWidth, lineColour),
+          ShapeFillDraw(thisList, fillColour, lineWidth, lineColour),
           ClickShape(thisList, evObj))
       def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): NoScaleShape =
-         NoScaleShape(posn, thisList.toList, evObj, List(FillShape(thisList.toList, colour)))      
-      def fillScale(colour: Colour, factor: Double): FillShape = FillShape(thisList.scale(factor), colour)
-      def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): FillShape = FillShape(thisList.scale(factor).slate(offset), colour)
+         NoScaleShape(posn, thisList.toList, evObj, List(ShapeFill(thisList.toList, colour)))      
+      def fillScale(colour: Colour, factor: Double): ShapeFill = ShapeFill(thisList.scale(factor), colour)
+      def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): ShapeFill = ShapeFill(thisList.scale(factor).slate(offset), colour)
    }
    
    implicit class ImpVec2Traversible[Repr](travLike: collection.TraversableLike[ShapeSeg, Repr])

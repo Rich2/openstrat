@@ -23,7 +23,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
             case _ => 
             {
               val ls: List[String] = List(xyStr, cenLL.toString)                   
-              FillText.lines(cen, ls, 10, colour.contrastBW)                  
+              TextGraphic.lines(cen, ls, 10, colour.contrastBW)                  
             }
          })
          Disp2(List(poly), textOrUnit)

@@ -18,7 +18,7 @@ trait CanvUser
          {
             cs.elems.foreach(_ match
                   {
-               case FillTextRel(str, fontSize, fontColour, posn, align) => canv.rendElem(FillText(cs.cen + posn, str, fontSize, fontColour, align))
+               //case FillTextRel(str, fontSize, fontColour, posn, align) => canv.rendElem(FillText(cs.cen + posn, str, fontSize, fontColour, align))
                case el => canv.rendElem(el)
                   })
             canv.rendElems(cs.elems)

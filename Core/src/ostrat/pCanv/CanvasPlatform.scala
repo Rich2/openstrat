@@ -30,38 +30,26 @@ trait CanvasPlatform extends RectGeom
    /** A call back timer. Takes the delay in milliseconds */
    def timeOut(f: () => Unit, millis: Integer): Unit  
    var textMin: Int = 10
-   final def fillPoly(colour: Colour, pts: Vec2s): Unit = fillPoly(FillPoly(pts, colour))
-   def fillPoly(pf: FillPoly): Unit
-   final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = drawPoly(DrawPoly(pts, lineWidth, lineColour)) 
-   def drawPoly(dp: DrawPoly): Unit
-//   final def polyFillDraw(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit = polyFillDraw(
-//         PolyFillDraw(pts, fillColour, lineWidth, borderColour))
+   final def fillPoly(verts: Vec2s, colour: Colour): Unit = polyFill(PolyFill(verts, colour))
+   def polyFill(pf: PolyFill): Unit
+   final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = polyDraw(PolyDraw(pts, lineWidth, lineColour)) 
+   def polyDraw(dp: PolyDraw): Unit
+
    def polyFillDraw(pfd: PolyFillDraw): Unit
-//   def polyFillDrawText(pts: Vec2s, fillColour: Colour, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int,
-//         fontColour: Colour = Black): Unit =
-//   {
-//      polyFillDraw(pts: Vec2s, fillColour, lineWidth, borderColour)
-//      textFill(pts.polyCentre, str, fontSize, fontColour) 
-//   }
-   def polyFillText(pts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
-   {
-      fillPoly(fillColour, pts)
-      textFill(pts.polyCentre, str, fontSize, fontColour) 
-   }
    
    def polyDrawText(pts: Vec2s, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
       drawPoly(lineWidth, borderColour, pts: Vec2s)
-      textFill(pts.polyCentre, str, fontSize, fontColour) 
+      textGraphic(pts.polyCentre, str, fontSize, fontColour) 
    }
    
    def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
-   def lineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit
+   def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
    def shapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit
    def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
    def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, borderColour: Colour = Colour.Black): Unit   
-   def textFill(posn: Vec2, text: String, fontSize: Int, colour: Colour = Colour.Black, align: TextAlign = TextCen): Unit 
-   def textDraw(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit
+   def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Colour.Black, align: TextAlign = TextCen): Unit 
+   def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit
    
    def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
    
@@ -97,20 +85,16 @@ trait CanvasPlatform extends RectGeom
    def rendElems(elems: List[PaintElem[_]]): Unit = elems.foreach(rendElem) 
    def rendElem(el: PaintElem[_]): Unit = el match
    {
-      case fp: FillPoly => fillPoly(fp)//verts, fillColour)
-      case dp: DrawPoly => drawPoly(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
+      case fp: PolyFill => polyFill(fp)//verts, fillColour)
+      case dp: PolyDraw => polyDraw(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
       case pfd: PolyFillDraw => polyFillDraw(pfd)
-      case PolyLineDraw(lines, lineWidth, lineColour) => lineSegsDraw(lines, lineWidth, lineColour)
-      case LineDraw(line, lineWidth, lineColour) => lineSegsDraw(List(line), lineWidth, lineColour)
-      case FillShape(segs, fillColour) => shapeFill(segs, fillColour)
-      case DrawShape(segs, lineWidth, lineColour)  => shapeDraw(segs, lineWidth, lineColour)
-      case FillDrawShape(segs, fillColour, lineWidth, lineColour) => shapeFillDraw(segs, fillColour, lineWidth, lineColour) 
-      case DrawArc(arc, lineWidth, lineColour) => arcDraw(arc, lineWidth, lineColour)
-      case FillText(posn, text, fontSize, colour, align) => textFill(posn, text, fontSize, colour, align)
-//      case FillDrawTextPoly(verts, fillColour, lineWidth, lineColour, str, fontSize, fontColour) =>
-//         polyFillDrawText(verts, fillColour, lineWidth, lineColour, str, fontSize, fontColour)
-      case FillTextPoly(verts, fillColour, str, fontSize, fontColour) => polyFillText(verts, fillColour, str, fontSize, fontColour)   
-      case DrawTextPoly(verts, lineWidth, lineColour, str, fontSize, fontColour) =>
-         polyDrawText(verts, lineWidth, lineColour, str, fontSize, fontColour)   
+      case LinesDraw(lines, lineWidth, lineColour) => linesDraw(lines, lineWidth, lineColour)
+      //This might need reimplementing
+      case LineDraw(line, lineWidth, lineColour) => linesDraw(Line2s(line), lineWidth, lineColour)
+      case ShapeFill(segs, fillColour) => shapeFill(segs, fillColour)
+      case ShapeDraw(segs, lineWidth, lineColour)  => shapeDraw(segs, lineWidth, lineColour)
+      case ShapeFillDraw(segs, fillColour, lineWidth, lineColour) => shapeFillDraw(segs, fillColour, lineWidth, lineColour) 
+      case ArcDraw(arc, lineWidth, lineColour) => arcDraw(arc, lineWidth, lineColour)
+      case TextGraphic(posn, text, fontSize, colour, align) => textGraphic(posn, text, fontSize, colour, align)
    }    
 }

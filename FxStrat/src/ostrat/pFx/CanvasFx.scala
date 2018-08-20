@@ -35,14 +35,14 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       }
    import paint.Color   
    def col(colour: Colour): Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
-   override def tlFillPoly(fp: FillPoly): Unit =
+   override def tlPolyFill(fp: PolyFill): Unit =
    {
       gc.fill = col(fp.colour)
       gc.fillPolygon(fp.xArray, fp.yArray, fp.verts.length)
    }
 
    /** Needs mod */
-   override def tlDrawPoly(dp: DrawPoly): Unit =    
+   override def tlPolyDraw(dp: PolyDraw): Unit =    
    {
       gc.stroke = col(dp.lineColour)
       gc.lineWidth = dp.lineWidth
@@ -68,7 +68,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       case TextRight => TextAlignment.RIGHT
    }
    }
-   override def tlTextFill(x: Double, y: Double, str: String, fontSize: Int, textColour: Colour, align: TextAlign) = 
+   override def tlTextGraphic(x: Double, y: Double, str: String, fontSize: Int, textColour: Colour, align: TextAlign) = 
    {
       gc.setTextAlign(fxAlign(align))
       gc.setTextBaseline(javafx.geometry.VPos.CENTER)
@@ -77,7 +77,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.fillText(str, x, y)
    }
    
-   protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =
+   protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
    {           
       gc.beginPath
       lineSegs.foreach(ls => { gc.moveTo(ls.x1, ls.y1);  gc.lineTo(ls.x2, ls.y2)})

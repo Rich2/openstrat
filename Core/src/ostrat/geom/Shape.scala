@@ -9,18 +9,18 @@ case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]
    override def fTrans(f: Vec2 => Vec2): Shape = Shape(f(cen), segs)//.fTrans(f))
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = TextCen): ShapeSubj =
-         ShapeSubj(cen, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour),
-               FillText(cen, str, textSize, lineColour, textAlign)))
+         ShapeSubj(cen, segs, evObj, List(ShapeFillDraw(segs, fillColour, lineWidth, lineColour),
+               TextGraphic(cen, str, textSize, lineColour, textAlign)))
             
    def fixed(evObj: AnyRef, elems: List[PaintElem[_]]): NoScaleShape = NoScaleShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): NoScaleShape =
-      NoScaleShape(cen, segs, evObj, List(FillDrawShape(segs, fillColour, lineWidth, lineColour)))
+      NoScaleShape(cen, segs, evObj, List(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = TextCen): NoScaleShape =
       NoScaleShape(cen, segs, evObj, List(
-            FillDrawShape(segs, fillColour, lineWidth, lineColour),
-            FillText(Vec2Z, str, textSize, lineColour, textAlign)))   
-   def fillFixed(evObj: AnyRef, fillColour: Colour): NoScaleShape = NoScaleShape(cen, segs, evObj, List(FillShape(segs, fillColour)))   
+            ShapeFillDraw(segs, fillColour, lineWidth, lineColour),
+            TextGraphic(Vec2Z, str, textSize, lineColour, textAlign)))   
+   def fillFixed(evObj: AnyRef, fillColour: Colour): NoScaleShape = NoScaleShape(cen, segs, evObj, List(ShapeFill(segs, fillColour)))   
 }
 
 object Circle// extends Shape
@@ -34,10 +34,10 @@ object Circle// extends Shape
       (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i)))).toList      
    }
 
-   def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): FillShape =
+   def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): ShapeFill =
    {
       val fSegs = segs(radius).slate(posn)            
-      FillShape(fSegs, colour)
+      ShapeFill(fSegs, colour)
    }
    
    def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, xCen: Double, yCen: Double): ShapeSubj = fillSubj(radius, evObj, colour, Vec2(xCen, yCen)) 

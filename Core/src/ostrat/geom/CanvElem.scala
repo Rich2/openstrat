@@ -20,61 +20,48 @@ trait PolyElem[A] extends Any with PaintElem[A]
    def yArray: Array[Double] = verts.elem2sArray
 }
 
-case class FillPoly(verts: Vec2s, colour: Colour) extends PolyElem[FillPoly]
-{ override def fTrans(f: Vec2 => Vec2): FillPoly = FillPoly(verts.fTrans(f), colour) }
+case class PolyFill(verts: Vec2s, colour: Colour) extends PolyElem[PolyFill]
+{ override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour) }
 
-case class DrawPoly(verts: Vec2s, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[DrawPoly]
-{ override def fTrans(f: Vec2 => Vec2): DrawPoly = DrawPoly(verts.fTrans(f), lineWidth, lineColour) }
+case class PolyDraw(verts: Vec2s, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[PolyDraw]
+{ override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, lineColour) }
 
 case class PolyFillDraw(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[PolyFillDraw]
 { override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
-case class FillShape(segs: List[ShapeSeg], fillColour: Colour) extends PaintElem[FillShape]
-{ override def fTrans(f: Vec2 => Vec2) = FillShape(segs.fTrans(f), fillColour) }
+case class ShapeFill(segs: List[ShapeSeg], fillColour: Colour) extends PaintElem[ShapeFill]
+{ override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), fillColour) }
 
-case class DrawShape(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour = Black) extends PaintElem[DrawShape]
-{ override def fTrans(f: Vec2 => Vec2) = DrawShape(segs.fTrans(f), lineWidth, lineColour) }
+case class ShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeDraw]
+{ override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, lineColour) }
 
-case class FillDrawShape(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[FillDrawShape]
-{ override def fTrans(f: Vec2 => Vec2) = FillDrawShape(segs.fTrans(f), fillColour, lineWidth, lineColour) }
+case class ShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeFillDraw]
+{ override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour) }
 
-case class DrawArc(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[DrawArc]
-{ override def fTrans(f: Vec2 => Vec2) = DrawArc(arc.fTrans(f), lineWidth, lineColour) }
+case class ArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ArcDraw]
+{ override def fTrans(f: Vec2 => Vec2) = ArcDraw(arc.fTrans(f), lineWidth, lineColour) }
 
-case class FillText(posn: Vec2, str: String, fontSize: Int, fontColour: Colour = Colour.Black, align: TextAlign = TextCen) extends PaintElem[FillText]
-{ override def fTrans(f: Vec2 => Vec2) = FillText(f(posn), str, fontSize, fontColour, align) }
-object FillText
+case class TextGraphic(posn: Vec2, str: String, fontSize: Int, fontColour: Colour = Colour.Black, align: TextAlign = TextCen) extends PaintElem[TextGraphic]
+{ override def fTrans(f: Vec2 => Vec2) = TextGraphic(f(posn), str, fontSize, fontColour, align) }
+object TextGraphic
 {
    def xy(x: Double, y: Double, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen) =
-      new FillText(Vec2(x, y), text, fontSize, colour, align)
-   def lines(posn: Vec2, strs: List[String], fontSize: Int, fontColour: Colour = Colour.Black, lineSpacing: Double = 1.0): List[FillText] =
+      new TextGraphic(Vec2(x, y), text, fontSize, colour, align)
+   def lines(posn: Vec2, strs: List[String], fontSize: Int, fontColour: Colour = Colour.Black, lineSpacing: Double = 1.0): List[TextGraphic] =
    {
       val len = strs.length
       ife(len == 0,
             Nil,
-            strs.iMap((str, i) => FillText(posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), str, fontSize, fontColour, TextCen))
+            strs.iMap((str, i) => TextGraphic(posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), str, fontSize, fontColour, TextCen))
          )
    }
 }
-case class FillTextRel(str: String, fontSize: Int, fontColour: Colour = Colour.Black, posn: Vec2 = Vec2Z, align: TextAlign = TextCen) extends
-   PaintElem[FillTextRel]{ override def fTrans(f: Vec2 => Vec2) = this }
-
-//case class FillDrawTextPoly(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int,
-//      fontColour: Colour) extends PaintElem[FillDrawTextPoly]
-//{ override def fTrans(f: Vec2 => Vec2) = FillDrawTextPoly(verts.fTrans(f), fillColour, lineWidth, lineColour, str, fontSize, fontColour) }
-
-case class FillTextPoly(verts: Vec2s, fillColour: Colour, str: String, fontSize: Int, fontColour: Colour) extends PaintElem[FillTextPoly]
-{ override def fTrans(f: Vec2 => Vec2) = FillTextPoly(verts.fTrans(f), fillColour, str, fontSize, fontColour) }
-
-case class DrawTextPoly(verts: Vec2s, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int,
-      fontColour: Colour) extends PaintElem[DrawTextPoly]
-{ override def fTrans(f: Vec2 => Vec2) = DrawTextPoly(verts.fTrans(f), lineWidth, lineColour, str, fontSize, fontColour) }
 
 case class LineDraw(lineSeg: Line2, lineWidth: Double, linesColour: Colour = Black) extends PaintElem[LineDraw]
 { override def fTrans(f: Vec2 => Vec2) = LineDraw(lineSeg.fTrans(f), lineWidth, linesColour) }
 
-case class PolyLineDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour = Black) extends PaintElem[PolyLineDraw]
-{ override def fTrans(f: Vec2 => Vec2) = PolyLineDraw(lineSegs.fTrans(f), lineWidth, linesColour) }
+case class LinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour = Black) extends PaintElem[LinesDraw]
+{ override def fTrans(f: Vec2 => Vec2) = LinesDraw(lineSegs.fTrans(f), lineWidth, linesColour) }
 
 sealed trait TextAlign
 {

@@ -9,17 +9,17 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
 {
    override def clip(pts: Vec2s): Unit = {}
    override def getTime: Double = 0
-   override protected def tlFillPoly(fp: FillPoly): Unit = {}
-   override protected def tlDrawPoly(dp: DrawPoly): Unit = {}
+   override protected def tlPolyFill(fp: PolyFill): Unit = {}
+   override protected def tlPolyDraw(dp: PolyDraw): Unit = {}
    override protected def tlPolyFillDraw(fdp: PolyFillDraw): Unit = {}
-   override protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit = {}
+   override protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit = {}
 
    override protected def tlShapeFill(segs: List[ShapeSeg], colour: Colour): Unit = {}
    override protected def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit = {}
    override protected def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit = {}
    override protected def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = {}
    
-   override protected def tlTextFill(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit = {}
+   override protected def tlTextGraphic(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit = {}
    override protected def tlTextDraw(x: Double, y: Double, text: String, fontSize: Int, lineColour: Colour): Unit = {}
 //   override protected def tlCircleFill(x: Double, y: Double, radius: Double, colour: Colour): Unit = {}
    //override protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)

@@ -10,14 +10,14 @@ import pCanv._
 case class BlackJack(canv: CanvasPlatform) extends CanvasSimple
 {      
    val (hand, deck) = Card.newShuffled.takeCards(5)
-   hand.iMap((c, i) => FillText(Vec2(50 + 100 * i, 100), c.unicode.mkString, 100, c.suitColour))
+   hand.iMap((c, i) => TextGraphic(Vec2(50 + 100 * i, 100), c.unicode.mkString, 100, c.suitColour))
    
    def clubFill(): List[PaintElem[_]] = 
    {
       val rad: Double = 0.55
       val circ3: Vec2s = Vec2s.doubles(0, rad, - rad * Sin60, - rad * Sin30, rad * Sin60, - rad * Sin30).scale(0.5)         
       val c3 = circ3.slateY(0.06).lMap(cen => Circle.segs(2 * rad * 0.46).slate(cen).fill(Black))
-      val rect: FillPoly = FillPoly(TrapezoidIsosceles(0.35, 0.2, 0.5).slateY(- 0.28), Black)
+      val rect: PolyFill = PolyFill(TrapezoidIsosceles(0.35, 0.2, 0.5).slateY(- 0.28), Black)
       c3 :+ rect
    }      
    repaint(clubFill().scale(400) ++ canv.gridLines2Colours(200, Colour.Red, Colour.Blue))

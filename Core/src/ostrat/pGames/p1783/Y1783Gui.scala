@@ -25,7 +25,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
             case _ =>
             {
             val ls: List[String] = List(yxStr, cenLL.toString)                   
-            FillText.lines(cen, ls, 10, colour.contrastBW)
+            TextGraphic.lines(cen, ls, 10, colour.contrastBW)
             }
          })         
          Disp2(List(poly),textU)

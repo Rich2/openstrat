@@ -19,10 +19,10 @@ object PolySubj
       new PolySubj(cen, poly, evObj, List(PolyFillDraw(poly, fillColour, lineWidth, lineColour)))
    
    def draw(cen: Vec2, poly: Vec2s, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black) =
-      new PolySubj(cen, poly, evObj, List(DrawPoly(poly, lineWidth, lineColour)))
+      new PolySubj(cen, poly, evObj, List(PolyDraw(poly, lineWidth, lineColour)))
    def fillText(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4,
          fontColour: Colour = Colour.Black, align: TextAlign = TextCen) =
-      new PolySubj(cen, poly, evObj, List(poly.fill(fillColour), FillText(poly.polyCentre, str, fontSize, fontColour, align)))
+      new PolySubj(cen, poly, evObj, List(poly.fill(fillColour), TextGraphic(poly.polyCentre, str, fontSize, fontColour, align)))
    def fillContrastText(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4) =
       fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
 }

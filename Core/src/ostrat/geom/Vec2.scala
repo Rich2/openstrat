@@ -91,7 +91,7 @@ final class Vec2 (val x: Double, val y: Double) extends Product2[Double, Double]
    //def toSeq[A <: Double2
    //override def numOfPts = 1
    //override def seqOfPts: Vec2s = Vec2s.xy(x, y)
-   def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = FillText(this, str, fontSize, fontColour)
+   def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(this, str, fontSize, fontColour)
    def arcControlPoint(pt2: Vec2, arcCentre: Vec2): Vec2 =
    {
       val angle1 = (this - arcCentre).angle
@@ -102,8 +102,8 @@ final class Vec2 (val x: Double, val y: Double) extends Product2[Double, Double]
       arcCentre + resultAngle.toVec2 * radius / alphaAngle.cos
    }
    def linesCross(armLength: Double = 5): Seq[Line2] = Seq(Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength))
-   def drawCross(armLength: Double = 5, lineColour: Colour = Colour.Black, lineWidth: Double = 2): PolyLineDraw =
-      PolyLineDraw(List(Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength)), lineWidth)
+   def drawCross(armLength: Double = 5, lineColour: Colour = Colour.Black, lineWidth: Double = 2): LinesDraw =
+      LinesDraw(List(Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength)), lineWidth)
 }
 
 object Vec2

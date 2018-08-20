@@ -32,25 +32,11 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    def boundingHeight: Double = boundingRect.height   
    def polyCentre: Vec2 = boundingRect.cen
    import Colour.Black
-   def fill(colour: Colour): FillPoly = FillPoly(this, colour)
-   def draw(lineWidth: Double, lineColour: Colour = Black): DrawPoly = DrawPoly(this, lineWidth, lineColour)
+   def fill(colour: Colour): PolyFill = PolyFill(this, colour)
+   def draw(lineWidth: Double, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
    def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
       PolyFillDraw(this, fillColour, lineWidth, lineColour)
-//   def fillDrawText(fillColour: Colour, lineWidth: Double, lineColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black) = 
-//      FillDrawTextPoly(this, fillColour, lineWidth, lineColour, str, fontSize, fontColour)
-      
-   def fillText(fillColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black) =
-      FillTextPoly(this, fillColour, str, fontSize, fontColour)
-   def fillTextContrast(fillColour: Colour, str: String, fontSize: Int) =
-      FillTextPoly(this, fillColour, str, fontSize, fillColour.contrast)      
-     
-  def fillTextBWContrast(fillColour: Colour, str: String, fontSize: Int) =
-      FillTextPoly(this, fillColour, str, fontSize, fillColour.contrastBW)    
-//  def fillTextContrast(fillColour: Colour, str: String, fontSize: Int) =
-//      FillTextPoly(this, fillColour, str, fontSize, fillColour.contrast)    
-      
-   def drawText(lineWidth: Double, lineColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black) = 
-      DrawTextPoly(this, lineWidth, lineColour, str, fontSize, fontColour)   
+
    def fillSubj(evObj: AnyRef, fillColour: Colour): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour)
    def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
       PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
@@ -66,7 +52,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    def subjSeq(evObj: AnyRef, elems: List[PaintElem[_]]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
          PolySubj(this.polyCentre, this, evObj, List(PolyFillDraw(this, fillColour, lineWidth, lineColour),
-               FillText(this.polyCentre, str, textSize, lineColour)))
+               TextGraphic(this.polyCentre, str, textSize, lineColour)))
   
    def closedPolygonToLine2s: Line2s =
    {
@@ -87,7 +73,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
 
 //   implicit class ImplicitVec2SeqSeq(this: Seq[Seq[Vec2]])
 //   {
-//      def fill(colour: Colour): Seq[FillPoly] = this.map(s => FillPoly(s, colour))
+//      def fill(colour: Colour): Seq[PolyFill] = this.map(s => PolyFill(s, colour))
 //      //def fillSubj(evObj: AnyRef, colour: Colour): PolySubj = PolySubj.fill(vSeq, evObj, colour)
    //}
    

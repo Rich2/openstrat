@@ -59,7 +59,7 @@ object CanvasJs extends CanvasTopLeft
    
    val gc = can.getContext("2d").asInstanceOf[raw.CanvasRenderingContext2D]   
    
-   override def tlFillPoly(fp: FillPoly): Unit =    
+   override def tlPolyFill(fp: PolyFill): Unit =    
    {      
       gc.beginPath()
       gc.moveTo(fp.xHead, fp.yHead)      
@@ -68,7 +68,7 @@ object CanvasJs extends CanvasTopLeft
       gc.fillStyle = fp.colour.str            
       gc.fill()               
    }
-   override def tlDrawPoly(dp: DrawPoly): Unit =    
+   override def tlPolyDraw(dp: PolyDraw): Unit =    
    {      
       gc.beginPath()
       gc.moveTo(dp.xHead, dp.yHead)
@@ -90,7 +90,7 @@ object CanvasJs extends CanvasTopLeft
       gc.lineWidth = pfd.lineWidth
       gc.stroke            
    }
-   protected def tlLineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit =
+   protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
    {           
       gc.beginPath
       lineSegs.foreach(ls => { gc.moveTo(ls.x1, ls.y1);  gc.lineTo(ls.x2, ls.y2)})
@@ -145,7 +145,7 @@ object CanvasJs extends CanvasTopLeft
       arc.fArcTo(gc.arcTo)
    }
    
-   override def tlTextFill(x: Double, y: Double, str: String, fontSize: Int, colour: Colour, align: TextAlign): Unit = 
+   override def tlTextGraphic(x: Double, y: Double, str: String, fontSize: Int, colour: Colour, align: TextAlign): Unit = 
    {      
       gc.textAlign = align.jsStr
       gc.textBaseline = "middle"

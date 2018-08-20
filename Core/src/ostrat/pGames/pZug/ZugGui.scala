@@ -22,7 +22,7 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
             case _ : Building => List(vertDispVecs.fillSubj(tile, Colour.LightGreen), Square.fill(pScale * 2.5, colour, cen))
             case _ => vertDispVecs.fillSubj(tile, colour) :: Nil        
          }
-         val tText = ifScaleCObj(60, FillText(cen, xyStr, 14, colour.contrastBW))
+         val tText = ifScaleCObj(60, TextGraphic(cen, xyStr, 14, colour.contrastBW))
          val lunit = tile.lunits match
          {
             case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))

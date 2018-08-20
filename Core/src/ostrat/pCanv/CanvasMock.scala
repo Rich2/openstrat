@@ -14,16 +14,16 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
     *  The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
    
    override def timeOut(f: () => Unit, millis: Integer): Unit = {}   
-   override def fillPoly(pf: FillPoly): Unit = {}    
-   override def drawPoly(dp: DrawPoly): Unit = {}
+   override def polyFill(pf: PolyFill): Unit = {}    
+   override def polyDraw(dp: PolyDraw): Unit = {}
    override def polyFillDraw(pfd: PolyFillDraw): Unit = {}
    override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = {}
-   override def lineSegsDraw(lineSegs: List[Line2], lineWidth: Double, linesColour: Colour): Unit = {}
+   override def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit = {}
    override def shapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit = {}
    override def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit = {}
    override def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, borderColour: Colour = Colour.Black): Unit = {}
-   override def textFill(posn: Vec2, text: String, fontSize: Int, colour: Colour = Colour.Black, align: TextAlign = TextCen): Unit = {} 
-   override def textDraw(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit = {}  
+   override def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Colour.Black, align: TextAlign = TextCen): Unit = {} 
+   override def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit = {}  
    override def clear(colour: Colour = Colour.White): Unit = {}  
    override def gcSave(): Unit = {}
    override def gcRestore(): Unit = {} 
