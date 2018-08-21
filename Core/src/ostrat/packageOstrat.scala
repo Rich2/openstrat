@@ -1,8 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-/** This is the root package for all code. The top of this package is persistence and general utilities. It is currently organised for my
- *  own convenience both in terms of sub-project division and package division. Even for that limited purpose, I'm not entirely happy
- *  with it and the structure of the sub-packages could do with some re-thinking. If I find  major collaborators, then packages and 
- *  projects can be reorganised to better facilitate the needs of the team. */
+/** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
+ *  persistence framework, array based compound value collections, an errors framework and general utilities. */
 package object ostrat
 {
    /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
