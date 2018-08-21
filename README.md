@@ -42,15 +42,15 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
      * Mouse and other abstract controls.
-   - **ostrat.pGrid** depends on geom and pDisp
+   - **ostrat.pGrid** depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
      * OfTile clases for the display of tiles.
-   - **ostrat.pEarth** depends on geom, pDisp and pGrid
+   - **ostrat.pEarth** depends on geom, pCanv and pGrid
      * Earth and sphere geometry.
      * Grids of Earth terrain.
      **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
-   - **ostrat.pStrat** depends on geom, pDisp and pGrid
+   - **ostrat.pStrat** depends on geom, pCanv and pGrid
      * Flags.
      * Odds and ends.
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common functionalty and classes.
