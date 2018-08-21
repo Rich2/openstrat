@@ -1,9 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-
-/** I chose the package name to not clash with "geometry" that may be use in other libraries This package contains Basic geometry. A number
- *  of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for an abstract canvas.
- *  2d graphical objects for an abstract canvas. */
+/** I chose the package name to not clash with "geometry" that may be use in other libraries This package contains Basic geometry. A number of
+ *   implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of 
+ *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {   
    import math._   

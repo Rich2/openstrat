@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
- *  persistence framework, array based compound value collections, an errors framework and general utilities. */
+ *  persistence framework, array based compound value collections of same length elements, an Either based errors framework and general utilities. */
 package object ostrat
 {
    /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for

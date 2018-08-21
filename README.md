@@ -32,12 +32,13 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
-     * Array based Int and Double product traits collection traits.
+     * A functional Either based Errors framework.
+     * Array based compound value collections of same length elements.
      * Other general utilities.
    - **ostrat.geom**
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
-     * 2d graphical objects for an abstract canvas.     
+     * 2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing.     
    - **ostrat.pCanv** depends on geom
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
