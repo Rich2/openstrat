@@ -24,7 +24,9 @@ trait CanvasTopLeft extends CanvasPlatform
    override def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
       tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)   
    
-   override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = tlArcDraw(arc.fTrans(tlCen), lineWidth, lineColour)   
+   override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = tlArcDraw(arc.fTrans(tlCen), lineWidth, lineColour)
+   override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
+   
    override def textGraphic(posn: Vec2, text: String,  fontSize: Int, colour: Colour, align: TextAlign): Unit =
       tlTextGraphic(tlx + posn.x, tly - posn.y, text, fontSize, colour, align)
    override def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Black): Unit =
@@ -45,6 +47,7 @@ trait CanvasTopLeft extends CanvasPlatform
    protected def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
    protected def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit
    protected def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
+   protected def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    
    protected def tlTextGraphic(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit
    protected def tlTextDraw(x: Double, y: Double, text: String, fontSize: Int, lineColour: Colour): Unit

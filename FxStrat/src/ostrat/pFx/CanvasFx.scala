@@ -34,26 +34,26 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
          case _ => onScroll(false)
       }
    import paint.Color   
-   def col(colour: Colour): Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
+   def fxColor(colour: Colour): paint.Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
    override def tlPolyFill(fp: PolyFill): Unit =
    {
-      gc.fill = col(fp.colour)
+      gc.fill = fxColor(fp.colour)
       gc.fillPolygon(fp.xArray, fp.yArray, fp.verts.length)
    }
 
    /** Needs mod */
    override def tlPolyDraw(dp: PolyDraw): Unit =    
    {
-      gc.stroke = col(dp.lineColour)
+      gc.stroke = fxColor(dp.lineColour)
       gc.lineWidth = dp.lineWidth
       gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLength)  
    }
  
    override def tlPolyFillDraw(pfd: PolyFillDraw): Unit =    
    {      
-      gc.fill = col(pfd.fillColour)           
+      gc.fill = fxColor(pfd.fillColour)           
       gc.fillPolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)
-      gc.stroke = col(pfd.lineColour)
+      gc.stroke = fxColor(pfd.lineColour)
       gc.lineWidth = pfd.lineWidth
       gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)  
    }
@@ -62,18 +62,38 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    {
       import javafx.scene.text._
       align match
-   {
+     {
       case TextCen => TextAlignment.CENTER
       case TextLeft => TextAlignment.LEFT
       case TextRight => TextAlignment.RIGHT
+      }
    }
-   }
+   
+   protected def tlBezierDraw(bd: BezierDraw): Unit =
+   {
+      deb("Starting draw bezier")
+      
+     // gc.stroke = fxColor(Colour.Black)//bd.colour)
+      
+     // gc.lineWidth = 15//bd.lineWidth
+      gc.beginPath
+      gc.moveTo(75, 200)//(bd.xStart, bd.yStart)
+      gc.lineTo(400, 450)
+      gc.lineTo(300, 600)
+      //gc.bezierCurveTo(200, 50, 300, 50, 525, 200)//(bd.xC1, bd.yC1, bd.xC2, bd.yC2, bd.xEnd, bd.yEnd)
+     gc.closePath() 
+     gc.stroke = fxColor(Colour.Red)//bd.colour)
+      
+      gc.lineWidth = 2//bd.lineWidth
+      gc.stroke
+   }   
+   
    override def tlTextGraphic(x: Double, y: Double, str: String, fontSize: Int, textColour: Colour, align: TextAlign) = 
    {
       gc.setTextAlign(fxAlign(align))
       gc.setTextBaseline(javafx.geometry.VPos.CENTER)
       gc.setFont(new text.Font(fontSize))
-      gc.fill = col(textColour)      
+      gc.fill = fxColor(textColour)      
       gc.fillText(str, x, y)
    }
    
@@ -82,7 +102,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.beginPath
       lineSegs.foreach(ls => { gc.moveTo(ls.x1, ls.y1);  gc.lineTo(ls.x2, ls.y2)})
       gc.lineWidth = lineWidth
-      gc.stroke = col(linesColour)
+      gc.stroke = fxColor(linesColour)
       gc.stroke()      
    }
    
@@ -90,7 +110,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    {
       gc.setTextAlign(javafx.scene.text.TextAlignment.CENTER)
       gc.setTextBaseline(javafx.geometry.VPos.CENTER)
-      gc.stroke = col(lineColour)
+      gc.stroke = fxColor(lineColour)
       gc.lineWidth = 1
       gc.setFont(new text.Font(fontSize))      
       gc.strokeText(str, x, y)      
@@ -116,22 +136,22 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    override def tlShapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit =
    {
       segsPath(segs)  
-      gc.fill = col(fillColour)
+      gc.fill = fxColor(fillColour)
       gc.fill()      
    }
    
    override def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
-      gc.fill = col(fillColour)
+      gc.fill = fxColor(fillColour)
       gc.fill()
-      gc.stroke = col(lineColour)
+      gc.stroke = fxColor(lineColour)
       gc.stroke()
    }   
    override def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
-      gc.stroke = col(lineColour)
+      gc.stroke = fxColor(lineColour)
       gc.stroke()      
    }
    
@@ -140,13 +160,13 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.beginPath
       gc.moveTo(arc.startPt.x, arc.startPt.y)
       arc.fArcTo(gc.arcTo)
-      gc.stroke = col(lineColour)
+      gc.stroke = fxColor(lineColour)
       gc.stroke()
    }
    
    override def clear(colour: Colour): Unit =
    {
-      gc.fill = col(colour)
+      gc.fill = fxColor(colour)
       gc.fillRect(0, 0, width, height)
    }  
    def getTime: Double = System.currentTimeMillis

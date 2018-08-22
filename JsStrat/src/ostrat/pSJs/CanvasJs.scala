@@ -97,6 +97,7 @@ object CanvasJs extends CanvasTopLeft
       gc.strokeStyle = linesColour.str
       gc.stroke()      
    }
+   protected def tlBezierDraw(bd: BezierDraw): Unit = ???
    
    private def segsPath(segs: List[ShapeSeg]): Unit =
    {
