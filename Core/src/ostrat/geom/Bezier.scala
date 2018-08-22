@@ -3,7 +3,10 @@ package ostrat
 package geom
 
 /** Cubic bezier curve */
-class Bezier (x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double, x4: Double, y4: Double)
+class Bezier (xStart: Double, yStart: Double, xCtl1: Double, yCtl1: Double, xCtl2: Double, yCtl2: Double, xEnd: Double, yEnd: Double)
 {
-   
+   def start = Vec2(xStart, yStart)
+   def ctl1 = Vec2(xCtl1, yCtl1)
+   def ctl2 = Vec2(xCtl2, yCtl2)
+   def endPt = Vec2(xEnd, yEnd)
 }

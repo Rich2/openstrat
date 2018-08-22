@@ -44,6 +44,7 @@ trait CanvasPlatform extends RectGeom
    }
    
    def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
+   //def bezierDraw(bezier: Bezier, lineWidth, 
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
    def shapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit
    def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
