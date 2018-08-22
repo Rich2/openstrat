@@ -5,7 +5,7 @@ import pCanv._
 import pStrat._
 import pGames._
 
-object Play
+object Apps
 {
    val ww2Pair: (CanvasPlatform => Unit, String) =  (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") 
    val theMap: Map[Int, (CanvasPlatform => Unit, String)] = Map(
@@ -17,7 +17,7 @@ object Play
          (5, (new pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
          (6, (new pDung.DungGui(_), "ScalaFx Dungeon")),
          (7, (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "ScalaFx Formation")),
-         (8, (TestCanv(_), "ScalaFx Simple Test Canvas")),
+         (8, (DemoCanv(_), "ScalaFx Demonstration Canvas")),
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.Bc1), "BC 305")),
          (11, (pCard.BlackJack(_), "ScalaFx BlackJack")),

@@ -2,7 +2,7 @@
 package ostrat
 package pFx
 
-object TestApp extends App
+object ConsoleTestApp extends App
 {
    import geom._
    val sPt = Vec2(0, -1)

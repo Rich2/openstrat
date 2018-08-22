@@ -53,6 +53,7 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
      **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
    - **ostrat.pStrat** depends on geom, pCanv and pGrid
      * Flags.
+     * DemoCanvas for graphics elements.
      * Odds and ends.
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common functionalty and classes.
      * ostrat.pGames.pWW2 A grand strategy world War 2 game, using the hex tiled world terrain map. 

@@ -6,6 +6,6 @@ import scalafx.application.JFXApp
 /** Name should possibly be DevAppFx */
 object DevApp  extends JFXApp
 {   
-   val pair = pDev.Play.curr(fromRsonFileFindElse(openStratDir / "AppNum.txt", 1))
+   val pair = pDev.Apps.curr(fromRsonFileFindElse(openStratDir / "AppNum.txt", 1))
    stage = new RStage(cf => pair._1(CanvasFx(cf)), pair._2)  
 }
