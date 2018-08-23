@@ -86,7 +86,7 @@ final class Vec2 (val x: Double, val y: Double) extends Product2[Double, Double]
    def centreSquare(length: Double): Vec2s =
    {
       val r = length / 2.0
-      Vec2s.xy(-r, r, r, r, r, -r, -r, -r).addMap(x, y) 
+      Vec2s(-r vv r, r vv r, r vv -r, -r vv -r).addMap(x, y) 
    }
    //def toSeq[A <: Double2
    //override def numOfPts = 1

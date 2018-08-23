@@ -6,32 +6,46 @@ package geom
 object Rectangle
 {
    /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0 */
-   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Vec2s = apply(width, height, cen.x, cen.y)
-   def apply(width: Double, height: Double, xCen: Double, yCen: Double): Vec2s = Vec2s.xy(
-         xCen - width / 2, yCen + height / 2,
-         xCen + width / 2, yCen + height / 2,
-         xCen + width / 2, yCen - height / 2,
-         xCen - width/2, yCen - height / 2)
+   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Vec2s =
+   {
+      val x = cen.x; val y = cen.y
+      Vec2s(
+         x - width / 2 vv y + height / 2,
+         x + width / 2 vv y + height / 2,
+         x + width / 2 vv y - height / 2,
+         x - width / 2 vv y - height / 2)
+      }
+  
+  /** A rectangle measured from its top left */
+  def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): Vec2s = Vec2s(
+         tlVec.x         vv tlVec.y,
+         tlVec.x + width vv tlVec.y,
+         tlVec.x + width vv tlVec.y - height,
+         tlVec.x         vv tlVec.y -height)         
    
-   def tL(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x, y,  x + width, y,  x + width, y - height,  x, y -height)
-   def tL(tlVec: Vec2, width: Double, height: Double): Vec2s =
-      Vec2s.xy(tlVec.x, tlVec.y,  tlVec.x + width, tlVec.y,  tlVec.x + width, tlVec.y - height,  tlVec.x, tlVec.y -height)
-   def tL0(width: Double, height: Double): Vec2s = Vec2s.xy(0, 0,  width, 0,  width, - height,  0, -height)
-   def tR(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x - width, y, x, y, x, y - height, x - width, y -height)
-   def bR(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x - width, y + height, x, y + height, x, y, x - width, y)
-   def bL(v: Vec2, width: Double, height: Double): Vec2s = Vec2s.xy(v.x, v.y + height, v.x + width, v.y + height, v.x + width, v.y, v.x, v.y)
-   def bL(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x, y + height, x + width, y + height, x + width, y, x, y)
-           
-   def fromBottomCentre(width: Double, height: Double, x: Double, y: Double): Vec2s = Vec2s.xy(
-         x - width / 2, y + height ,
-         x + width / 2, y + height ,
-         x + width / 2, y,
-         x - width / 2, y)
-   def fromBottomCentre(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): Vec2s = Vec2s.xy(
-         - width / 2, + height,
-         + width / 2, + height ,
-         + width / 2, 0,
-         - width / 2, 0)   
+//   def tR(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x - width, y, x, y, x, y - height, x - width, y -height)
+//   def bR(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x - width, y + height, x, y + height, x, y, x - width, y)
+   def fromBL(width: Double, height: Double, v: Vec2): Vec2s = Vec2s(v.x vv v.y + height,
+         v.x + width vv v.y + height,
+         v.x + width vv v.y,
+         v.x vv v.y)
+//   def bL(x: Double, y: Double, width: Double, height: Double): Vec2s = Vec2s.xy(x, y + height, x + width, y + height, x + width, y, x, y)
+//
+   /** Measured from bottom centre */      
+   def fromBC(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): Vec2s =
+   {
+      val x = bottomCentre.x; val y = bottomCentre.y
+      Vec2s(
+         x - width / 2 vv y + height ,
+         x + width / 2 vv y + height ,
+         x + width / 2 vv y,
+         x - width / 2 vv y)
+   }
+//   def fromBottomCentre(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): Vec2s = Vec2s.xy(
+//         - width / 2, + height,
+//         + width / 2, + height ,
+//         + width / 2, 0,
+//         - width / 2, 0)   
  
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)

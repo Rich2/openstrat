@@ -22,7 +22,7 @@ package object geom
    type CanvO = CanvElem[_]
    implicit class IntGeomImplicit(thisInt: Int)
    {
-      def v(y: Double): Vec2 = Vec2(thisInt, y)
+      def vv(y: Double): Vec2 = Vec2(thisInt, y)
       def ° : Angle = Angle(thisInt.radiansToDegrees)
       def km: Dist = Dist(thisInt * 1000)
       def metre: Dist = Dist(thisInt)
@@ -38,7 +38,7 @@ package object geom
           
    implicit class DoubleGeomImplicit(thisDouble: Double)
    {
-      def v(y: Double): Vec2 = Vec2(thisDouble, y)
+      def vv(y: Double): Vec2 = Vec2(thisDouble, y)
       def km: Dist = Dist(thisDouble * 1000)
       def metre = Dist(thisDouble)
       def * (operator: Dist): Dist = Dist(thisDouble * operator.metres)

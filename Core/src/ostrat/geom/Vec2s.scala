@@ -93,6 +93,6 @@ object Vec2s extends Double2sMaker[Vec2, Vec2s]
 //      new Vec2s(arr)
 //   }
    implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
-   @inline def xy(inp: Double *): Vec2s = doubles(inp: _*)
+  // @inline def xy(inp: Double *): Vec2s = doubles(inp: _*)
 }
 

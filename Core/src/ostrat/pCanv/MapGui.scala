@@ -8,9 +8,9 @@ import Colour._
  *  to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the y coordinate increases from
  *  bottom to top. */
 trait MapGui extends CanvasMulti
-{   
+{
    val barWidth = 30
-   val topPan = addPanel(Rectangle.tL(canv.topLeft, canv.width, barWidth), true)
+   val topPan = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
    topPan.backColour = Colour.Gray
    def button1(str: String, cmd: AnyRef) = Rectangle.curved(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
    def button3(str: String, cmd: MouseButton => Unit) =
@@ -22,7 +22,7 @@ trait MapGui extends CanvasMulti
    //   var status: DTextLine = mainBar.addTextLine("Nothing Selected")
    var statusText = "Use middle and right mouse buttons for greater deltas"
    def status = textBox(statusText, Unit)
-   val mapPanel: Panel = addPanel(Rectangle.bL(canv.bottomLeft, canv.width, canv.height - barWidth))
+   val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
    def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
    def mapObjs: CanvElems
    //def updateView(): Unit = {repaintMap; setStatus(viewStr) }

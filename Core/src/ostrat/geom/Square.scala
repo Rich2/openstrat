@@ -5,11 +5,11 @@ package geom
 object Square
 {
    def apply(width: Double, cen: Vec2 = Vec2Z): Vec2s = apply(width, cen.x, cen.y)
-   def apply(width: Double, xCen: Double, yCen: Double): Vec2s = Vec2s.xy(
-         xCen - width / 2, yCen + width / 2,
-         xCen + width / 2, yCen + width / 2,
-         xCen + width / 2, yCen - width / 2,
-         xCen - width/2, yCen - width / 2)
+   def apply(width: Double, xCen: Double, yCen: Double): Vec2s = Vec2s(
+         xCen - width / 2 vv yCen + width / 2,
+         xCen + width / 2 vv yCen + width / 2,
+         xCen + width / 2 vv yCen - width / 2,
+         xCen - width/2   vv yCen - width / 2)
          
    def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z) = apply(width, cen.x, cen.y).fill(colour)
    def fill(width: Double, colour: Colour, xCen: Double, yCen: Double) = apply(width, xCen, yCen).fill(colour) 
