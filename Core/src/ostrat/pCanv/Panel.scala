@@ -22,7 +22,7 @@ case class Panel(private val outerCanv: CanvasMulti, clipPoly: Vec2s, simple: Bo
    }
 }
 
-case class M3Cmd(cmd: MouseButton => Unit)
+case class MButtonCmd(cmd: MouseButton => Unit)
 {
    @inline def apply(mb: MouseButton): Unit = cmd(mb)
 }

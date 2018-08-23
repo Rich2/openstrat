@@ -13,7 +13,7 @@ class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: 
 }
 
 class BezierDraw (xStart: Double, yStart: Double, xCtl1: Double, yCtl1: Double, xCtl2: Double, yCtl2: Double, xEnd: Double, yEnd: Double,
-      val lineWidth: Double, val colour: Colour) extends Bezier(xStart, yStart, xCtl1, yCtl1, xCtl2, yCtl2, xEnd, yEnd) with Transable[BezierDraw]
+      val lineWidth: Double, val colour: Colour) extends Bezier(xStart, yStart, xCtl1, yCtl1, xCtl2, yCtl2, xEnd, yEnd) with PaintElem[BezierDraw]
 {
    override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(start), f(c1),f(c2), f(endPt), lineWidth, colour)
 }

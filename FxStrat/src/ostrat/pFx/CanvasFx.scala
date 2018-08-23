@@ -46,7 +46,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    {
       gc.stroke = fxColor(dp.lineColour)
       gc.lineWidth = dp.lineWidth
-      gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLength)  
+      gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLength)
    }
  
    override def tlPolyFillDraw(pfd: PolyFillDraw): Unit =    
@@ -72,20 +72,13 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    protected def tlBezierDraw(bd: BezierDraw): Unit =
    {
       deb("Starting draw bezier")
-      
-     // gc.stroke = fxColor(Colour.Black)//bd.colour)
-      
-     // gc.lineWidth = 15//bd.lineWidth
+      gc.stroke = fxColor(bd.colour)      
+      gc.lineWidth = bd.lineWidth
       gc.beginPath
-      gc.moveTo(75, 200)//(bd.xStart, bd.yStart)
-      gc.lineTo(400, 450)
-      gc.lineTo(300, 600)
-      //gc.bezierCurveTo(200, 50, 300, 50, 525, 200)//(bd.xC1, bd.yC1, bd.xC2, bd.yC2, bd.xEnd, bd.yEnd)
-     gc.closePath() 
-     gc.stroke = fxColor(Colour.Red)//bd.colour)
-      
-      gc.lineWidth = 2//bd.lineWidth
-      gc.stroke
+      gc.moveTo(bd.xStart, bd.yStart)
+      gc.bezierCurveTo(200, 50, 300, 50, 525, 200)//(bd.xC1, bd.yC1, bd.xC2, bd.yC2, bd.xEnd, bd.yEnd)
+     //gc.closePath()     
+      gc.stroke()
    }   
    
    override def tlTextGraphic(x: Double, y: Double, str: String, fontSize: Int, textColour: Colour, align: TextAlign) = 
@@ -156,7 +149,8 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    }
    
    override def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit =
-   {      
+   {
+      deb("Arc draw")
       gc.beginPath
       gc.moveTo(arc.startPt.x, arc.startPt.y)
       arc.fArcTo(gc.arcTo)
