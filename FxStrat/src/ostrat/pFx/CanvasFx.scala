@@ -70,14 +70,12 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    }
    
    protected def tlBezierDraw(bd: BezierDraw): Unit =
-   {
-      deb("Starting draw bezier")
+   {     
       gc.stroke = fxColor(bd.colour)      
       gc.lineWidth = bd.lineWidth
       gc.beginPath
       gc.moveTo(bd.xStart, bd.yStart)
-      gc.bezierCurveTo(200, 50, 300, 50, 525, 200)//(bd.xC1, bd.yC1, bd.xC2, bd.yC2, bd.xEnd, bd.yEnd)
-     //gc.closePath()     
+      gc.bezierCurveTo(bd.xC1, bd.yC1, bd.xC2, bd.yC2, bd.xEnd, bd.yEnd)         
       gc.stroke()
    }   
    
@@ -150,7 +148,6 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    
    override def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit =
    {
-      deb("Arc draw")
       gc.beginPath
       gc.moveTo(arc.startPt.x, arc.startPt.y)
       arc.fArcTo(gc.arcTo)

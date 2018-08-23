@@ -30,7 +30,7 @@ case class MButtonCmd(cmd: MouseButton => Unit)
 trait PanelLike extends RectGeom
 {
    /** These are currently stored in reverse. I think this would be better in an Array */
-   var subjs: List[PointerElem] = Nil
+   var subjs: List[GraphicActive] = Nil
    var canvObjs: List[CanvElem[_]] = Nil
    /** This method name is inconsistent with mouseup on the canvas class*/
    var mouseUp: (Vec2, MouseButton, List[AnyRef]) => Unit = (v, b, s) => {}

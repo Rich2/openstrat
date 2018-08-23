@@ -18,7 +18,7 @@ trait MapGui extends CanvasMulti
    def buttonStd(str: String, cmd: AnyRef, backColour: Colour = Colour.White) =
       Rectangle.curved(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
    def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
-   def reTop(commands: List[CanvSubj[_]]): Unit = topPan.repaint(DisplayRow(10, commands).fromLeft(topPan.cenLeft))
+   def reTop(commands: List[GraphicSubject[_]]): Unit = topPan.repaint(DisplayRow(10, commands).fromLeft(topPan.cenLeft))
    //   var status: DTextLine = mainBar.addTextLine("Nothing Selected")
    var statusText = "Use middle and right mouse buttons for greater deltas"
    def status = textBox(statusText, Unit)

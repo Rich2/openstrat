@@ -3,11 +3,11 @@ package ostrat
 package geom
 
 /** This is not well documented */
-case class DisplayRow(margin: Double, subjs: List[CanvSubj[_]])
+case class DisplayRow(margin: Double, subjs: List[GraphicSubject[_]])
 {
-   def fromLeft(leftPt: Vec2): List[CanvSubj[_]] =
+   def fromLeft(leftPt: Vec2): List[GraphicSubject[_]] =
    {      
-      def loop(rem: Seq[CanvSubj[_]], acc: List[CanvSubj[_]], x: Double): List[CanvSubj[_]] = rem.fMatch(
+      def loop(rem: Seq[GraphicSubject[_]], acc: List[GraphicSubject[_]], x: Double): List[GraphicSubject[_]] = rem.fMatch(
             acc,
             (head, tail) =>
                loop(tail,
@@ -16,7 +16,7 @@ case class DisplayRow(margin: Double, subjs: List[CanvSubj[_]])
                            {
                               if (head == null) println("DiplayRow null " + rem.length)
                            x + head.width / 2}).
-                        asInstanceOf[CanvSubj[_]],
+                        asInstanceOf[GraphicSubject[_]],
                      x + head.width + margin)
             )
       loop(subjs, Nil, leftPt.x + margin)

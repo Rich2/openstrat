@@ -4,7 +4,7 @@ package geom
 
 /** This is an active visual canvas object. A pointable polygon / shape with visual. Not sure about the name. not sure if the trait is
  *   useful. */
-trait CanvSubj[T <: CanvSubj[T]] extends CanvElem[T] with PointerElem
+trait GraphicSubject[T <: GraphicSubject[T]] extends CanvElem[T] with GraphicActive
 {
    def cen: Vec2
    def elems: List[PaintElem[_]]  

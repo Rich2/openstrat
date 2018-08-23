@@ -6,15 +6,15 @@ import geom._
 trait CanvUser
 {   
    val canv: CanvasPlatform
-   /** This reverses the order of the PointerElem List. Method paints objects to screen as side effect. */
-   def paintObjs(movedObjs: Seq[CanvElem[_]]): List[PointerElem] =
+   /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */
+   def paintObjs(movedObjs: Seq[CanvElem[_]]): List[GraphicActive] =
    {
-      var subjs: List[PointerElem] = Nil
+      var subjs: List[GraphicActive] = Nil
       movedObjs.foreach(_ match
       {
          //case ce: ClickEl[_] => pan.subjsAdd(ce.clickObj)
          case ce: PaintElem[_] => canv.rendElem(ce)
-         case cs: CanvSubj[_] =>
+         case cs: GraphicSubject[_] =>
          {
             cs.elems.foreach(_ match
                   {

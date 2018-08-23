@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-case class PolySubj(cen: Vec2, poly: Vec2s, evObj: AnyRef, elems: List[PaintElem[_]]) extends CanvSubj[PolySubj] with ClickPolyTr
+case class PolySubj(cen: Vec2, poly: Vec2s, evObj: AnyRef, elems: List[PaintElem[_]]) extends GraphicSubject[PolySubj] with PolyActive
 {  
    def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.fTrans(f))   
    override def addElems(newElems: List[PaintElem[_]]): PolySubj = new PolySubj(cen, poly, evObj, elems ::: newElems)

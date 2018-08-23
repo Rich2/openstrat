@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
-trait PointerElem
+trait GraphicActive
 {
    /** If the user clicks with the polygon or shape then the canvas will return this object. It is purely up to the application its
     *  response if any to this object */
@@ -14,9 +14,9 @@ trait PointerElem
    def ptInside(pt: Vec2): Boolean
 }
 
-object PointerElem
+object GraphicActive
 {
-   implicit class PointerElemListImplicit(thisList: List[PointerElem])
+   implicit class GraphicActiveListImplicit(thisList: List[GraphicActive])
    {
       /** Note the lack of reverse at the end */
       def ptInList(pt: Vec2): List[AnyRef] = thisList.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)      
@@ -24,7 +24,7 @@ object PointerElem
 }
 
 /** A pointable polygon */
-trait ClickPolyTr extends PointerElem
+trait PolyActive extends GraphicActive
 {
    def poly: Vec2s
    override def boundingRect = poly.boundingRect
@@ -32,7 +32,7 @@ trait ClickPolyTr extends PointerElem
 }
 
 /** A pointable shape */
-trait ClickShapeTr extends PointerElem
+trait ClickShapeTr extends GraphicActive
 {
    def shape: List[ShapeSeg]
    def innerPoly: Vec2s = shape.pMap(_.endPt)
@@ -42,8 +42,8 @@ trait ClickShapeTr extends PointerElem
 }
 
 /** A pointable polygon without visual */
-case class ClickPoly(poly: Vec2s, evObj: AnyRef) extends CanvElem[ClickPoly] with ClickPolyTr
-{ override def fTrans(f: Vec2 => Vec2) = ClickPoly(poly.fTrans(f), evObj) }
+case class PolyActiveOnly(poly: Vec2s, evObj: AnyRef) extends CanvElem[PolyActiveOnly] with PolyActive
+{ override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj) }
 
 /** A pointable shape without visual */
 case class ClickShape(shape: List[ShapeSeg], evObj: AnyRef) extends CanvElem[ClickShape] with ClickShapeTr
