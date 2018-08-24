@@ -79,12 +79,12 @@ abstract class EarthGui extends UnfixedMapGui
    def b00 = button1("00", cmd00) 
   override def eTop(): Unit = reTop(guButs ++ Seq(b00, bInv) ++ eaButts :+ status)   
      
-   def ls: CanvElems 
+   def ls: GraphicElems 
    
    def hairs = mapPanel.crossHairs(1 , Colour.Red)   
    def blueCircle = Circle.segs(EarthAvDiameter / scale).fill(Colour.DarkBlue)
    def redCircle = Circle.segs(EarthAvDiameter / scale).draw(1, Colour.Red)
-   def mapObjs: CanvElems = ls //:+ hairs      
+   def mapObjs: GraphicElems = ls //:+ hairs      
    mapPanel.backColour = Black
    def repaintMap() = { mapPanel.repaint(mapObjs)}  
 }

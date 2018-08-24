@@ -2,14 +2,20 @@
 package ostrat
 package geom
 
-trait BezierLike
+trait BezierLike extends CurveLike
+{
+   def xC1: Double
+   def yC1: Double
+   final def pC1: Vec2 = Vec2(xC1, yC1)
+   def xC2: Double
+   def yC2: Double
+   final def pC2: Vec2 = Vec2(xC2, yC2)   
+}
 
 /** Cubic bezier curve */
 class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
-      val xEnd: Double, val yEnd: Double) extends Curve
-{  
-   def pC1 = Vec2(xC1, yC1)
-   def pC2 = Vec2(xC2, yC2)  
+      val xEnd: Double, val yEnd: Double) extends Curve with BezierLike
+{ 
 }
 
 class BezierDraw (xStart: Double, yStart: Double, xCtl1: Double, yCtl1: Double, xCtl2: Double, yCtl2: Double, xEnd: Double, yEnd: Double,
@@ -24,4 +30,12 @@ object BezierDraw
       new BezierDraw(start.x, start.y, pC1.x, pC1.y, pC2.x, pC2.y, endPt.x, endPt.y, lineWidth, colour)
 }
 
-case class BezierSeg(xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double, val xEnd: Double, val yEnd: Double)
+case class BezierSeg(xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double, val xEnd: Double, val yEnd: Double) extends CurveSeg with
+   BezierLike
+{
+   override def fTrans(f: Vec2 => Vec2) = BezierSeg(f(pC1), f(pC2), f(pEnd))
+}
+object BezierSeg
+{
+   def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): BezierSeg = new BezierSeg(pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
+}

@@ -17,9 +17,9 @@ package object geom
    val EarthAvDiameter: Dist = 12742.km
    val EarthAvRadius: Dist = EarthAvDiameter / 2
    type SSet[A] = scala.collection.SortedSet[A]
-   type CanvElems = List[CanvElem[_]]
+   type GraphicElems = List[GraphicElem[_]]
    /** Hopefully this existential syntax baggage will be gone in dotty */
-   type CanvO = CanvElem[_]
+   type CanvO = GraphicElem[_]
    implicit class IntGeomImplicit(thisInt: Int)
    {
       def vv(y: Double): Vec2 = Vec2(thisInt, y)
@@ -62,7 +62,7 @@ package object geom
    }
    
    implicit class OptionGeomImplicit[A](thisOption: Option[A])
-   {  def canvObjsPair(f: A => (Seq[CanvElem[_]], Seq[CanvElem[_]])): (Seq[CanvElem[_]], Seq[CanvElem[_]]) = thisOption match
+   {  def canvObjsPair(f: A => (Seq[GraphicElem[_]], Seq[GraphicElem[_]])): (Seq[GraphicElem[_]], Seq[GraphicElem[_]]) = thisOption match
       {
          case Some(a) => f(a)
          case None => (Seq(), Seq())

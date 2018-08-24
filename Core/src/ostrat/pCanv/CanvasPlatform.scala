@@ -2,7 +2,7 @@
 package ostrat
 package pCanv
 import geom._
-import Colour.Black
+import Colour._
 
 /** An abstract Canvas trait. A concrete implementation will utilise  canvas like an HTML canvas or a Scalafx canvas. This concrete implementation
  *  class must (can?) be mixed in with a a particular use trait like CanvSimple or CanvMulti .The default methods take the origin as the centre of the
@@ -33,25 +33,25 @@ trait CanvasPlatform extends RectGeom
    
    final def polyFill(verts: Vec2s, colour: Colour): Unit = polyFill(PolyFill(verts, colour))
    def polyFill(pf: PolyFill): Unit
-   final def drawPoly(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = polyDraw(PolyDraw(pts, lineWidth, lineColour)) 
+   final def polyDraw(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = polyDraw(PolyDraw(pts, lineWidth, lineColour)) 
    def polyDraw(dp: PolyDraw): Unit
-
-   def polyFillDraw(pfd: PolyFillDraw): Unit
-   
+   def polyFillDraw(pfd: PolyFillDraw): Unit   
    def polyDrawText(pts: Vec2s, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
-      drawPoly(lineWidth, borderColour, pts: Vec2s)
+      polyDraw(lineWidth, borderColour, pts: Vec2s)
       textGraphic(pts.polyCentre, str, fontSize, fontColour) 
    }
    
+   def lineDraw(ld: LineDraw): Unit   
    def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
-   def bezierDraw(bd: BezierDraw): Unit 
+   def bezierDraw(bd: BezierDraw): Unit
+      
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
    def shapeFill(segs: List[CurveSeg], fillColour: Colour): Unit
    def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
-   def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Colour.Black): Unit   
-   def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Colour.Black, align: TextAlign = TextCen): Unit 
-   def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit
+   def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Black): Unit   
+   def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit 
+   def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Black): Unit
    
    def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
    
@@ -73,7 +73,7 @@ trait CanvasPlatform extends RectGeom
       }
    }
 
-   def clear(colour: Colour = Colour.White): Unit   
+   def clear(colour: Colour = White): Unit   
    def gcSave(): Unit
    def gcRestore(): Unit 
    def saveFile(fileName: String, output: String): Unit
@@ -90,9 +90,8 @@ trait CanvasPlatform extends RectGeom
       case fp: PolyFill => polyFill(fp)//verts, fillColour)
       case dp: PolyDraw => polyDraw(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
       case pfd: PolyFillDraw => polyFillDraw(pfd)
-      case LinesDraw(lines, lineWidth, lineColour) => linesDraw(lines, lineWidth, lineColour)
-      //This might need reimplementing
-      case LineDraw(line, lineWidth, lineColour) => linesDraw(Line2s(line), lineWidth, lineColour)
+      case LinesDraw(lines, lineWidth, lineColour) => linesDraw(lines, lineWidth, lineColour)      
+      case ld: LineDraw => lineDraw(ld)
       case ShapeFill(segs, fillColour) => shapeFill(segs, fillColour)
       case ShapeDraw(segs, lineWidth, lineColour)  => shapeDraw(segs, lineWidth, lineColour)
       case ShapeFillDraw(segs, fillColour, lineWidth, lineColour) => shapeFillDraw(segs, fillColour, lineWidth, lineColour) 

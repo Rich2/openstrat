@@ -5,11 +5,9 @@ import Colour.Black
 
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the
  *   previous segment. Arcs may be approximated as bezier curves. */
-trait CurveSeg extends Transable[CurveSeg]
+trait CurveSeg extends Transable[CurveSeg] with CurveLike
 {
-   def xEnd: Double
-   def yEnd: Double
-   final def pEnd: Vec2 = Vec2(xEnd, yEnd)   
+   def silly: String = "Silly!"     
 }
 
 object CurveSeg
@@ -19,7 +17,7 @@ object CurveSeg
       def fill(colour: Colour): ShapeFill = ShapeFill(thisList, colour)
       def draw(lineWidth: Double, lineColour: Colour = Black) = ShapeDraw(thisList,lineWidth, lineColour)
       def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = ShapeFillDraw(thisList, fillColour, lineWidth, lineColour)
-      def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[CanvElem[_]] = List(
+      def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[GraphicElem[_]] = List(
           ShapeFillDraw(thisList, fillColour, lineWidth, lineColour),
           ClickShape(thisList, evObj))
       def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): NoScaleShape =

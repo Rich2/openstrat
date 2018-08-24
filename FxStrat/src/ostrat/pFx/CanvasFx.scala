@@ -58,6 +58,16 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)  
    }
    
+   override def tlLineDraw(ld: LineDraw): Unit =
+   {
+      gc.beginPath
+      gc.moveTo(ld.xStart, ld.yStart)
+      gc.lineTo(ld.xEnd, ld.yEnd)
+      gc.stroke = fxColor(ld.colour)
+      gc.lineWidth = ld.lineWidth
+      gc.stroke()
+   }   
+   
    def fxAlign(align: TextAlign) =
    {
       import javafx.scene.text._
@@ -118,6 +128,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
             {
                case LineSeg(xEnd, yEnd) => gc.lineTo(xEnd, yEnd)
                case as: ArcSeg => as.fArcTo(p1, gc.arcTo)
+               case BezierSeg(xC1, yC1, xC2, yC2, xEnd, yEnd) => gc.bezierCurveTo(xC1, yC1, xC2, yC2, xEnd, yEnd)
             }
             p1 = s.pEnd 
          })

@@ -42,10 +42,10 @@ trait ClickShapeTr extends GraphicActive
 }
 
 /** A pointable polygon without visual */
-case class PolyActiveOnly(poly: Vec2s, evObj: AnyRef) extends CanvElem[PolyActiveOnly] with PolyActive
+case class PolyActiveOnly(poly: Vec2s, evObj: AnyRef) extends GraphicElem[PolyActiveOnly] with PolyActive
 { override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj) }
 
 /** A pointable shape without visual */
-case class ClickShape(shape: List[CurveSeg], evObj: AnyRef) extends CanvElem[ClickShape] with ClickShapeTr
+case class ClickShape(shape: List[CurveSeg], evObj: AnyRef) extends GraphicElem[ClickShape] with ClickShapeTr
 { override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }
 

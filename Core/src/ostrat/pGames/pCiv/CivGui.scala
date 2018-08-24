@@ -17,10 +17,10 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
          val colour: Colour = tile.colour
          //val poly = tog.vertDispVecs
          val tv = vertDispVecs.fillSubj(tile, colour)
-         val sides = ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+         val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
          val tText = ifScaleCObj(60, TextGraphic(cen, xyStr, 14, colour.contrastBW))
          val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
-         val lunit: CanvElems = tile.lunits match
+         val lunit: GraphicElems = tile.lunits match
          {
             case ::(head, _) if tog.tScale > 50 =>
                {
@@ -35,7 +35,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
          }
          Disp2(List(tv), tText ++ sett ++ lunit ++ sides)
       }
-   def mapObjs: CanvElems = ofHTilesDisplayFold(fHex).collapse// ofHexsDisplayFold(fHex).collapse
+   def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex).collapse// ofHexsDisplayFold(fHex).collapse
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
       case (LeftButton, _, _) =>

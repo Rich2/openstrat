@@ -5,10 +5,10 @@ import Colour.Black
 
 /** This is a display object that has a fixed size and alignment. The object itself should not scale or rotate. Hence transformations are applied
  *  to its reference point. This is for objects on a map as opposed to objects that are part of the map. */
-trait NoScaleCanvElem[T <: NoScaleCanvElem[T]] extends CanvElem[T]
+trait NoScaleGraphicElem[T <: NoScaleGraphicElem[T]] extends GraphicElem[T]
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
-case class NoScaleShape(referenceVec: Vec2, relShape: List[CurveSeg], evObj: AnyRef, elems: List[PaintElem[_]]) extends NoScaleCanvElem[NoScaleShape] with
+case class NoScaleShape(referenceVec: Vec2, relShape: List[CurveSeg], evObj: AnyRef, elems: List[PaintElem[_]]) extends NoScaleGraphicElem[NoScaleShape] with
    ClickShapeTr
 {
    def shape: List[CurveSeg] = relShape.slate(referenceVec)

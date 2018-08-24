@@ -90,14 +90,32 @@ object CanvasJs extends CanvasTopLeft
       gc.lineWidth = pfd.lineWidth
       gc.stroke            
    }
-   protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
+   
+   override def tlLineDraw(ld: LineDraw): Unit =
+   {
+      gc.beginPath
+      gc.moveTo(ld.xStart, ld.yStart)
+      gc.lineTo(ld.xEnd, ld.yEnd)
+      gc.strokeStyle = ld.colour.str
+      gc.lineWidth = ld.lineWidth
+      gc.stroke()
+   }
+   
+   override protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
    {           
       gc.beginPath
       lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
       gc.strokeStyle = linesColour.str
       gc.stroke()      
    }
-   protected def tlBezierDraw(bd: BezierDraw): Unit = ???
+   protected def tlBezierDraw(bd: BezierDraw): Unit =
+   {
+      gc.beginPath()
+      gc.moveTo(bd.xStart, bd.yStart)
+      gc.strokeStyle = bd.colour.str
+      gc.lineWidth = bd.lineWidth
+      gc.stroke()
+   }
    
    private def segsPath(segs: List[CurveSeg]): Unit =
    {

@@ -7,7 +7,7 @@ trait CanvUser
 {   
    val canv: CanvasPlatform
    /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */
-   def paintObjs(movedObjs: Seq[CanvElem[_]]): List[GraphicActive] =
+   def paintObjs(movedObjs: Seq[GraphicElem[_]]): List[GraphicActive] =
    {
       var subjs: List[GraphicActive] = Nil
       movedObjs.foreach(_ match

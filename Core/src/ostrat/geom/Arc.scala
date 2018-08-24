@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
+import Colour.Black
 
 case class Arc(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, xCen: Double, yCen: Double) extends Curve// with DoublesTrCompound[Vec2]
 {
@@ -59,3 +60,6 @@ object ArcSeg
 {
    def apply(pEnd: Vec2, pCen: Vec2): ArcSeg = new ArcSeg(pEnd.x, pEnd.y, pCen.x, pCen.y)
 }
+case class ArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ArcDraw]
+{ override def fTrans(f: Vec2 => Vec2) = ArcDraw(arc.fTrans(f), lineWidth, lineColour) }
+//case class ArcDraw(

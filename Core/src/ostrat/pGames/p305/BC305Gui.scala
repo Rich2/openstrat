@@ -35,7 +35,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui
          import etog._         
          val colour: Colour = tile.colour
          val poly = vertDispVecs.fillSubj(tile, colour)
-         val tileText: CanvElems = ifScaleCObjs(68,
+         val tileText: GraphicElems = ifScaleCObjs(68,
          {
             val ls: List[String] = List(yxStr, cenLL.toString)                   
             TextGraphic.lines(cen, ls, 10, colour.contrastBW)              
@@ -47,13 +47,13 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui
       val line = ifScaleCObjs(60, side.terr match
             {
          case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
-               (t1, _) => LineDraw(vertDispLine, 1, t1.colour.contrastBW))
-         case Straits => LineDraw(vertDispLine, 6, Colour.Blue) :: Nil
+               (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
+         case Straits => vertDispLine.draw(6, Colour.Blue) :: Nil
          })      
       Disp2(Nil, line)   
    }   
          
-   def ls: CanvElems =
+   def ls: GraphicElems =
    {
       val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
       val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )

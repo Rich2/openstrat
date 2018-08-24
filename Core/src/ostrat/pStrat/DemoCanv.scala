@@ -10,7 +10,8 @@ case class DemoCanv(canv: CanvasPlatform) extends pCanv.CanvasSimple
    def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)
   
   
-   def stuff = List(         
+   def stuff = List(
+         
          ArcDraw(Arc(0, -200, -200, 0, 0, 0), 5, Colour.DarkRed).rotate(15.degs),
          ArcDraw(Arc(0, -400, -400, 0, 0, 0), 5, Colour.Blue),
          bd(-100 vv 200, 300 vv 400, Green),
