@@ -17,7 +17,7 @@ trait CanvasTopLeft extends CanvasPlatform
    override def polyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))   
    
    override def lineDraw(ld: LineDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
-   override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = tlArcDraw(arc.fTrans(tlCen), lineWidth, lineColour)
+   override def arcDraw(ad: ArcDraw): Unit = tlArcDraw(ad.fTrans(tlCen))
    override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
    override def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
       tlLinesDraw(lineSegs.fTrans(tlCen), lineWidth, linesColour): Unit
@@ -44,14 +44,15 @@ trait CanvasTopLeft extends CanvasPlatform
    protected def tlPolyDraw(dp: PolyDraw): Unit
    protected def tlPolyFillDraw(pfd: PolyFillDraw): Unit
    
-   def tlLineDraw(ld: LineDraw): Unit
+   protected def tlLineDraw(ld: LineDraw): Unit
+   protected def tlArcDraw(ad: ArcDraw): Unit
    
    protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
 
    protected def tlShapeFill(segs: List[CurveSeg], colour: Colour): Unit
    protected def tlShapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
    protected def tlShapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour): Unit
-   protected def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
+   
    protected def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    
    protected def tlTextGraphic(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit

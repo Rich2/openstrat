@@ -17,11 +17,12 @@ object Apps
          (5, (new pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
          (6, (new pDung.DungGui(_), "ScalaFx Dungeon")),
          (7, (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "ScalaFx Formation")),
-         (8, (DemoCanv(_), "ScalaFx Demonstration Canvas")),
+         (8, (Demo1Canv(_), "ScalaFx Demonstration Canvas 1")),
          (9, (ColourGen(_), "ScalaFx Some Colours")),
          (10, (p305.BC305Gui(_, p305.Bc1), "BC 305")),
          (11, (pCard.BlackJack(_), "ScalaFx BlackJack")),
-         (12, (new pChess.DraughtsGui(_), "Draughts"))         
+         (12, (new pChess.DraughtsGui(_), "Draughts")),
+         (13, (Demo2Canv(_), "ScalaFx Demonstration Canvas 2")),
          )
       
         def curr(appNum: Int): (CanvasPlatform => Unit, String) = theMap(appNum)

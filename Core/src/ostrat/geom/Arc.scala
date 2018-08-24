@@ -3,14 +3,16 @@ package ostrat
 package geom
 import Colour.Black
 
-case class Arc(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, xCen: Double, yCen: Double) extends Curve// with DoublesTrCompound[Vec2]
+trait ArcLike extends CurveLike
 {
+   def xCen: Double
+   def yCen: Double
    def pCen: Vec2 = Vec2(xCen, yCen)
-   //def doublesTrSeq = Seq(startPt, endPt, cenPt)
-   def persistName = "Arc"
-   override def toString = ???// namedStr2
-   def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pEnd), f(pCen))
    def radius: Double = (pEnd - pCen).magnitude
+}
+
+trait ArcLikeLike extends ArcLike with Curve
+{
    def startAngle: Angle = (pStart - pCen).angle
    def endAngle: Angle = (pEnd - pCen).angle
    def deltaAngle: Angle = startAngle.angleTo(endAngle)
@@ -27,6 +29,17 @@ case class Arc(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, xCen:
       val cp = controlPt
       f(cp.x, cp.y, xEnd, yEnd, radius)
    }
+}
+
+case class Arc(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, xCen: Double, yCen: Double) extends ArcLikeLike
+{   
+   def persistName = "Arc"
+   override def toString = ???// namedStr2
+   def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pEnd), f(pCen))
+   
+   
+   
+
 }
 
 object Arc
@@ -60,6 +73,16 @@ object ArcSeg
 {
    def apply(pEnd: Vec2, pCen: Vec2): ArcSeg = new ArcSeg(pEnd.x, pEnd.y, pCen.x, pCen.y)
 }
-case class ArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ArcDraw]
-{ override def fTrans(f: Vec2 => Vec2) = ArcDraw(arc.fTrans(f), lineWidth, lineColour) }
-//case class ArcDraw(
+
+case class ArcDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, xCen: Double, yCen: Double, lineWidth: Double,
+      colour: Colour) extends PaintElem[ArcDraw] with ArcLikeLike
+{
+   override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pEnd), f(pCen), lineWidth, colour)   
+}
+
+object ArcDraw
+{
+   def apply(pStart: Vec2, pEnd: Vec2, pCen: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): ArcDraw =
+      new ArcDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, pCen.x, pCen.y, lineWidth, colour)
+}
+

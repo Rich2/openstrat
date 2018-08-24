@@ -101,6 +101,13 @@ object CanvasJs extends CanvasTopLeft
       gc.stroke()
    }
    
+   override protected def tlArcDraw(ad: ArcDraw): Unit =
+   {
+      gc.beginPath
+      gc.moveTo(ad.xStart, ad.yStart)
+      ad.fArcTo(gc.arcTo)
+   }
+   
    override protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
    {           
       gc.beginPath
@@ -157,12 +164,7 @@ object CanvasJs extends CanvasTopLeft
       gc.lineWidth = lineWidth
       gc.stroke   
    }
-   override def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit =
-   {
-      gc.beginPath
-      gc.moveTo(arc.xStart, arc.yStart)
-      arc.fArcTo(gc.arcTo)
-   }
+ 
    
    override def tlTextGraphic(x: Double, y: Double, str: String, fontSize: Int, colour: Colour, align: TextAlign): Unit = 
    {      

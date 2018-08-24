@@ -42,13 +42,18 @@ trait CanvasPlatform extends RectGeom
       textGraphic(pts.polyCentre, str, fontSize, fontColour) 
    }
    
-   def lineDraw(ld: LineDraw): Unit   
-   def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
+   def lineDraw(ld: LineDraw): Unit
+   def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit = lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))
+   def arcDraw(ad: ArcDraw): Unit
+   def arcDraw(pStart: Vec2, pEnd: Vec2, pCen: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+      arcDraw(ArcDraw(pStart, pEnd, pCen, lineWidth, colour))
    def bezierDraw(bd: BezierDraw): Unit
+   def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+      bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
       
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
    def shapeFill(segs: List[CurveSeg], fillColour: Colour): Unit
-   def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
+   def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit
    def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Black): Unit   
    def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit 
    def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Black): Unit
@@ -95,7 +100,7 @@ trait CanvasPlatform extends RectGeom
       case ShapeFill(segs, fillColour) => shapeFill(segs, fillColour)
       case ShapeDraw(segs, lineWidth, lineColour)  => shapeDraw(segs, lineWidth, lineColour)
       case ShapeFillDraw(segs, fillColour, lineWidth, lineColour) => shapeFillDraw(segs, fillColour, lineWidth, lineColour) 
-      case ArcDraw(arc, lineWidth, lineColour) => arcDraw(arc, lineWidth, lineColour)
+      case ad: ArcDraw => arcDraw(ad)
       case bd: BezierDraw => bezierDraw(bd)
       case TextGraphic(posn, text, fontSize, colour, align) => textGraphic(posn, text, fontSize, colour, align)
    }    

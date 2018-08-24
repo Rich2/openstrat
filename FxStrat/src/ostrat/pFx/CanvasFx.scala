@@ -58,7 +58,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)  
    }
    
-   override def tlLineDraw(ld: LineDraw): Unit =
+   override protected def tlLineDraw(ld: LineDraw): Unit =
    {
       gc.beginPath
       gc.moveTo(ld.xStart, ld.yStart)
@@ -66,7 +66,16 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.stroke = fxColor(ld.colour)
       gc.lineWidth = ld.lineWidth
       gc.stroke()
-   }   
+   }
+   
+   override protected def tlArcDraw(ad: ArcDraw): Unit =
+   {
+      gc.beginPath
+      gc.moveTo(ad.xStart, ad.yStart)
+      ad.fArcTo(gc.arcTo)
+      gc.stroke = fxColor(ad.colour)
+      gc.stroke()
+   }
    
    def fxAlign(align: TextAlign) =
    {
@@ -155,15 +164,6 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       segsPath(segs)  
       gc.stroke = fxColor(lineColour)
       gc.stroke()      
-   }
-   
-   override def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit =
-   {
-      gc.beginPath
-      gc.moveTo(arc.xStart, arc.yStart)
-      arc.fArcTo(gc.arcTo)
-      gc.stroke = fxColor(lineColour)
-      gc.stroke()
    }
    
    override def clear(colour: Colour): Unit =

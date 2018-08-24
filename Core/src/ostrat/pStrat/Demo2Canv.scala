@@ -5,15 +5,14 @@ import geom._
 import pCanv._
 import Colour._
 
-case class DemoCanv(canv: CanvasPlatform) extends pCanv.CanvasSimple
+case class Demo2Canv(canv: CanvasPlatform) extends pCanv.CanvasSimple
 {
-   def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)
-  
+   def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)  
   
    def stuff = List(
          
-         ArcDraw(Arc(0, -200, -200, 0, 0, 0), 5, Colour.DarkRed).rotate(15.degs),
-         ArcDraw(Arc(0, -400, -400, 0, 0, 0), 5, Colour.Blue),
+         ArcDraw(0 vv -200, -200 vv 0, 0 vv 0, 5, Colour.DarkRed).rotate(15.degs),
+         ArcDraw(0 vv -400, -400 vv 0, 0 vv 0, 5, Colour.Blue),
          bd(-100 vv 200, 300 vv 400, Green),
          bd(-150 vv -50, 250 vv 350, Violet),
          bd(-250 vv 50, 200 vv 400, Orange),

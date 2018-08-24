@@ -18,8 +18,8 @@ class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: 
 { 
 }
 
-class BezierDraw (xStart: Double, yStart: Double, xCtl1: Double, yCtl1: Double, xCtl2: Double, yCtl2: Double, xEnd: Double, yEnd: Double,
-      val lineWidth: Double, val colour: Colour) extends Bezier(xStart, yStart, xCtl1, yCtl1, xCtl2, yCtl2, xEnd, yEnd) with PaintElem[BezierDraw]
+case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double,
+      val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierLike with Curve
 {
    override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
 }
