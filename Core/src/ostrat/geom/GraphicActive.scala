@@ -34,8 +34,8 @@ trait PolyActive extends GraphicActive
 /** A pointable shape */
 trait ClickShapeTr extends GraphicActive
 {
-   def shape: List[ShapeSeg]
-   def innerPoly: Vec2s = shape.pMap(_.endPt)
+   def shape: List[CurveSeg]
+   def innerPoly: Vec2s = shape.pMap(_.pEnd)
    def boundingRect: BoundingRect = innerPoly.boundingRect
    /** This method needs improving */
    override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
@@ -46,6 +46,6 @@ case class PolyActiveOnly(poly: Vec2s, evObj: AnyRef) extends CanvElem[PolyActiv
 { override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj) }
 
 /** A pointable shape without visual */
-case class ClickShape(shape: List[ShapeSeg], evObj: AnyRef) extends CanvElem[ClickShape] with ClickShapeTr
+case class ClickShape(shape: List[CurveSeg], evObj: AnyRef) extends CanvElem[ClickShape] with ClickShapeTr
 { override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }
 

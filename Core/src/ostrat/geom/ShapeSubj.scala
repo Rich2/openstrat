@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class ShapeSubj(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, elems: List[PaintElem[_]]) extends GraphicSubject[ShapeSubj] with
+case class ShapeSubj(cen: Vec2, shape: List[CurveSeg], evObj: AnyRef, elems: List[PaintElem[_]]) extends GraphicSubject[ShapeSubj] with
    ClickShapeTr
 {  
    def fTrans(f: Vec2 => Vec2): ShapeSubj = ShapeSubj(f(cen), shape.fTrans(f), evObj, elems.fTrans(f))   
@@ -12,11 +12,11 @@ case class ShapeSubj(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, elems: Lis
 
 object ShapeSubj
 {
-   def fill(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, colour: Colour) = ShapeSubj(cen, shape, evObj, List(ShapeFill(shape, colour)))
+   def fill(cen: Vec2, shape: List[CurveSeg], evObj: AnyRef, colour: Colour) = ShapeSubj(cen, shape, evObj, List(ShapeFill(shape, colour)))
    
-   def fillDraw(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
+   def fillDraw(cen: Vec2, shape: List[CurveSeg], evObj: AnyRef, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
       ShapeSubj(cen, shape, evObj, List(ShapeFillDraw(shape, fillColour, lineWidth, lineColour)))
    
-   def draw(cen: Vec2, shape: List[ShapeSeg], evObj: AnyRef, lineWidth: Double, lineColour: Colour = Colour.Black) =
+   def draw(cen: Vec2, shape: List[CurveSeg], evObj: AnyRef, lineWidth: Double, lineColour: Colour = Colour.Black) =
       ShapeSubj(cen, shape, evObj, List(ShapeDraw(shape, lineWidth, lineColour)))     
 }

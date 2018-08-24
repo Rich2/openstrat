@@ -18,10 +18,10 @@ trait CanvasTopLeft extends CanvasPlatform
    override def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
       tlLinesDraw(lineSegs.fTrans(tlCen), lineWidth, linesColour): Unit
    
-   override def shapeFill(segs: List[ShapeSeg], colour: Colour): Unit = tlShapeFill(segs.fTrans(tlCen), colour)
-   override def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
+   override def shapeFill(segs: List[CurveSeg], colour: Colour): Unit = tlShapeFill(segs.fTrans(tlCen), colour)
+   override def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
       tlShapeFillDraw(segs.fTrans(tlCen), fillColour, lineWidth, lineColour)
-   override def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
+   override def shapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour): Unit =
       tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)   
    
    override def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit = tlArcDraw(arc.fTrans(tlCen), lineWidth, lineColour)
@@ -43,9 +43,9 @@ trait CanvasTopLeft extends CanvasPlatform
    protected def tlPolyFillDraw(pfd: PolyFillDraw): Unit
    protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
 
-   protected def tlShapeFill(segs: List[ShapeSeg], colour: Colour): Unit
-   protected def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
-   protected def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit
+   protected def tlShapeFill(segs: List[CurveSeg], colour: Colour): Unit
+   protected def tlShapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
+   protected def tlShapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour): Unit
    protected def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
    protected def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    

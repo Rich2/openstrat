@@ -3,16 +3,18 @@ package ostrat
 package geom
 import Colour.Black
 
-/** Currently for simplicity a ShapeSeg can only be a line segment or an arc segment. It takes its start point from the endPt of the
- *   previous segment. Later it will be implemented for Bezier curves. Arcs may be approximated as bezier curves. */
-trait ShapeSeg extends Transable[ShapeSeg]
+/** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the
+ *   previous segment. Arcs may be approximated as bezier curves. */
+trait CurveSeg extends Transable[CurveSeg]
 {
-   def endPt: Vec2   
+   def xEnd: Double
+   def yEnd: Double
+   final def pEnd: Vec2 = Vec2(xEnd, yEnd)   
 }
 
-object ShapeSeg
+object CurveSeg
 {
-   implicit class ImplicitShapeSegList(thisList: List[ShapeSeg])// extends Transable[List[ShapeSeg]]
+   implicit class ImplicitCurveSegList(thisList: List[CurveSeg])// extends Transable[List[CurveSeg]]
    {
       def fill(colour: Colour): ShapeFill = ShapeFill(thisList, colour)
       def draw(lineWidth: Double, lineColour: Colour = Black) = ShapeDraw(thisList,lineWidth, lineColour)
@@ -26,7 +28,7 @@ object ShapeSeg
       def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): ShapeFill = ShapeFill(thisList.scale(factor).slate(offset), colour)
    }
    
-   implicit class ImpVec2Traversible[Repr](travLike: collection.TraversableLike[ShapeSeg, Repr])
+   implicit class ImpVec2Traversible[Repr](travLike: collection.TraversableLike[CurveSeg, Repr])
    {
       /** Not sure if this method should be a member of Transable */
       def boundingRect =
@@ -36,7 +38,7 @@ object ShapeSeg
          var i = 0
          for (ss <- travLike)
          {
-            val v = ss.endPt
+            val v = ss.pEnd
             if (i == 0)
             {
                minX = v.x
@@ -58,51 +60,17 @@ object ShapeSeg
       }
       def ptInShape: Vec2 => Boolean = pt =>
          {
-            val vs: List[Vec2] = travLike.toList.map(_.endPt)
+            val vs: List[Vec2] = travLike.toList.map(_.pEnd)
             vs.toProdD2[Vec2, Vec2s].ptInPolygon(pt)            
          }
    }   
 }
 
-case class LineSeg(endPt: Vec2) extends ShapeSeg
+case class LineSeg(xEnd: Double, yEnd: Double) extends CurveSeg
 {
-   override def fTrans(f: Vec2 => Vec2): ShapeSeg = LineSeg(f(endPt))
+   override def fTrans(f: Vec2 => Vec2): CurveSeg = LineSeg(f(pEnd))
 }
 object LineSeg
 {
-   def apply(toX: Double, toY: Double): LineSeg = LineSeg(Vec2(toX, toY))
+   def apply(pEnd: Vec2): LineSeg = new LineSeg(pEnd.x, pEnd.y)
 }
-
-/** Takes its start point from the previous segment */
-case class ArcSeg(endPt: Vec2, cenPt: Vec2) extends ShapeSeg
-{
-   def fTrans(f: Vec2 => Vec2): ShapeSeg = ArcSeg(f(endPt), f(cenPt))
-   def startAngle(startPt: Vec2): Angle = (startPt - cenPt).angle
-   def endAngle: Angle = (endPt - cenPt).angle
-   def radius: Double = (endPt - cenPt).magnitude
-   def controlPt(startPt: Vec2): Vec2 = 
-   {
-      val sAng: Angle = startAngle(startPt)      
-      val resultAngle = sAng.bisect(endAngle)
-      val alphaAngle =  sAng.angleTo(endAngle) / 2      
-      cenPt + resultAngle.toVec2 * radius / alphaAngle.cos
-   }
-   def fArcTo(startPt: Vec2, f: (Double, Double, Double, Double, Double) => Unit): Unit =
-   {
-      val cp = controlPt(startPt)
-      f(cp.x, cp.y, endPt.x, endPt.y, radius)
-   }
-}
-
-object ArcSeg
-{
-   def apply(endX: Double, endY: Double, cenX: Double, cenY: Double): ArcSeg =
-      new ArcSeg(Vec2(endX, endY), Vec2(cenX, cenY))
-}
-
-//case class Arc(startPt: Vec2, endPt: Vec2, cenPt: Vec2) extends Transable[Arc]
-//{
-//   def fTrans(f: Vec2 => Vec2): Arc = Arc(f(startPt), f(endPt), f(cenPt))
-//}
-
-

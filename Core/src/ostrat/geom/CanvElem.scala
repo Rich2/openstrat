@@ -29,13 +29,13 @@ case class PolyDraw(verts: Vec2s, lineWidth: Double, lineColour: Colour = Black)
 case class PolyFillDraw(verts: Vec2s, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[PolyFillDraw]
 { override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
-case class ShapeFill(segs: List[ShapeSeg], fillColour: Colour) extends PaintElem[ShapeFill]
+case class ShapeFill(segs: List[CurveSeg], fillColour: Colour) extends PaintElem[ShapeFill]
 { override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), fillColour) }
 
-case class ShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeDraw]
+case class ShapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeDraw]
 { override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, lineColour) }
 
-case class ShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeFillDraw]
+case class ShapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeFillDraw]
 { override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour) }
 
 case class ArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ArcDraw]

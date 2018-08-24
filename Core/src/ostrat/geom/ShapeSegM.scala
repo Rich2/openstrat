@@ -2,26 +2,27 @@
 package ostrat
 package geom
 
+/** Needs renaming */
 trait ShapeSegM
 {
    def endPt: Dist2
-   def toVec2s(f: Dist2 => Vec2): ShapeSeg
+   def toVec2s(f: Dist2 => Vec2): CurveSeg
 }
 
 case class LineSegM(endPt: Dist2) extends ShapeSegM
 {
-   override def toVec2s(f: Dist2 => Vec2): ShapeSeg = LineSeg(f(endPt))   
+   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
 }
 
 case class ArcSegM(endPt: Dist2, cenPt: Dist2) extends ShapeSegM
 {
-   def toVec2s(f: Dist2 => Vec2): ShapeSeg = ArcSeg(f(endPt), f(cenPt))
+   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(endPt), f(cenPt))
 }
 
 //case class Dist2Arc(cen: Dist2, radius: Dist, start: Angle, end: Angle) extends Dist2Seg)
 
-/** represents a polygon on a globe's (eg the Earth) surface. If all the points are visible returns a straght line polygon. If none are
- *  visible it returns a none, the polygon is over the horizon. If some are visbile inserts curves along horizon. */
+/** represents a polygon on a globe's (eg the Earth) surface. If all the points are visible returns a straight line polygon. If none are
+ *  visible it returns a none, the polygon is over the horizon. If some are visible inserts curves along horizon. */
 sealed trait GlobedArea
 case class GlobedAll(d2s: Dist2s) extends GlobedArea
 case class GlobedSome(segs: List[ShapeSegM]) extends GlobedArea

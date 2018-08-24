@@ -14,7 +14,7 @@ object Square
    def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z) = apply(width, cen.x, cen.y).fill(colour)
    def fill(width: Double, colour: Colour, xCen: Double, yCen: Double) = apply(width, xCen, yCen).fill(colour) 
    
-   def curvedSegs(width: Double, radius: Double): List[ShapeSeg] =
+   def curvedSegs(width: Double, radius: Double): List[CurveSeg] =
    {
       val w = width / 2
       (0 to 3).toList.flatMap(i => List( LineSeg(w - radius, w), ArcSeg(w, w - radius, w - radius, w -radius)).rotateRadians(-i * math.Pi / 2))

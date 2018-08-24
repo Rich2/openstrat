@@ -28,7 +28,7 @@ trait CanvUser
          {             
             canv.rendElems(nss.elems.slate(nss.referenceVec)/*.asInstanceOf[List[PaintElem[_]]]*/)
             subjs ::= nss
-            deb("Add Fixed Shape" -- subjs.length.toString -- nss.shape.map(_.endPt).toString)
+            deb("Add Fixed Shape" -- subjs.length.toString -- nss.shape.map(_.pEnd).toString)
          }
       })
       subjs

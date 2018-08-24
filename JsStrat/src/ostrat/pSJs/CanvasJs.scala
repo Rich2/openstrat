@@ -93,44 +93,44 @@ object CanvasJs extends CanvasTopLeft
    protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
    {           
       gc.beginPath
-      lineSegs.foreach(ls => { gc.moveTo(ls.x1, ls.y1);  gc.lineTo(ls.x2, ls.y2)})
+      lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
       gc.strokeStyle = linesColour.str
       gc.stroke()      
    }
    protected def tlBezierDraw(bd: BezierDraw): Unit = ???
    
-   private def segsPath(segs: List[ShapeSeg]): Unit =
+   private def segsPath(segs: List[CurveSeg]): Unit =
    {
       gc.beginPath()           
-      var p1 = segs.last.endPt
+      var p1 = segs.last.pEnd
       gc.moveTo(p1.x, p1.y)      
       segs.foreach(s =>
          {
             s match
             {
-               case LineSeg(pt2) => gc.lineTo(pt2.x, pt2.y)
+               case LineSeg(xEnd, yEnd) => gc.lineTo(xEnd, yEnd)
                case as: ArcSeg => as.fArcTo(p1, gc.arcTo) 
             }
-            p1 = s.endPt
+            p1 = s.pEnd
          })
          gc.closePath
    }
    
-   override def tlShapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit =
+   override def tlShapeFill(segs: List[CurveSeg], fillColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.fillStyle = fillColour.str
       gc.fill
    }   
    
-   override def tlShapeDraw(segs: List[ShapeSeg], lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)      
       gc.strokeStyle = lineColour.str
       gc.lineWidth = lineWidth
       gc.stroke   
    }     
-   override def tlShapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.fillStyle = fillColour.str
@@ -142,7 +142,7 @@ object CanvasJs extends CanvasTopLeft
    override def tlArcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit =
    {
       gc.beginPath
-      gc.moveTo(arc.startPt.x, arc.startPt.y)
+      gc.moveTo(arc.xStart, arc.yStart)
       arc.fArcTo(gc.arcTo)
    }
    

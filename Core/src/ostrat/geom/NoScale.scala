@@ -8,10 +8,10 @@ import Colour.Black
 trait NoScaleCanvElem[T <: NoScaleCanvElem[T]] extends CanvElem[T]
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
-case class NoScaleShape(referenceVec: Vec2, relShape: List[ShapeSeg], evObj: AnyRef, elems: List[PaintElem[_]]) extends NoScaleCanvElem[NoScaleShape] with
+case class NoScaleShape(referenceVec: Vec2, relShape: List[CurveSeg], evObj: AnyRef, elems: List[PaintElem[_]]) extends NoScaleCanvElem[NoScaleShape] with
    ClickShapeTr
 {
-   def shape: List[ShapeSeg] = relShape.slate(referenceVec)
+   def shape: List[CurveSeg] = relShape.slate(referenceVec)
    def fTrans(f: Vec2 => Vec2): NoScaleShape = NoScaleShape(f(referenceVec), relShape, evObj, elems)   
    def addElems(newElems: List[PaintElem[_]]): NoScaleShape = NoScaleShape(referenceVec, shape, evObj, elems ++ newElems)
    def mutObj(newObj: AnyRef): NoScaleShape = NoScaleShape(referenceVec, shape, newObj, elems)
@@ -19,7 +19,7 @@ case class NoScaleShape(referenceVec: Vec2, relShape: List[ShapeSeg], evObj: Any
 
 object NoScaleShape
 {
-   def fillDraw(referenceVec: Vec2, segs: List[ShapeSeg], evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
+   def fillDraw(referenceVec: Vec2, segs: List[CurveSeg], evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
    NoScaleShape = NoScaleShape(referenceVec, segs, evObj, List(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 

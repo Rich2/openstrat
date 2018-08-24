@@ -47,9 +47,9 @@ trait CanvasPlatform extends RectGeom
    def arcDraw(arc: Arc, lineWidth: Double, lineColour: Colour): Unit
    def bezierDraw(bd: BezierDraw): Unit 
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
-   def shapeFill(segs: List[ShapeSeg], fillColour: Colour): Unit
-   def shapeFillDraw(segs: List[ShapeSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
-   def shapeDraw(segs: List[ShapeSeg], lineWidth: Double, borderColour: Colour = Colour.Black): Unit   
+   def shapeFill(segs: List[CurveSeg], fillColour: Colour): Unit
+   def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Colour.Black): Unit
+   def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Colour.Black): Unit   
    def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Colour.Black, align: TextAlign = TextCen): Unit 
    def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Colour.Black): Unit
    

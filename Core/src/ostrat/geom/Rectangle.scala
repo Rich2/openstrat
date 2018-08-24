@@ -50,7 +50,7 @@ object Rectangle
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
    def cross(width: Double, height: Double, barWidth: Double): List[Vec2s] = List(apply(width, barWidth), apply(barWidth, height))
-   def curvedSegs(width: Double, height: Double, radius: Double): List[ShapeSeg] =
+   def curvedSegs(width: Double, height: Double, radius: Double): List[CurveSeg] =
    {
       val w = width / 2
       val h = height / 2
@@ -67,7 +67,7 @@ object Rectangle
    {
       val hAngle: Angle = centreLine.lineAngle
       val offset: Vec2 = hAngle.toVec2 * height * 0.5
-      Vec2s(centreLine.pt1 + offset, centreLine.pt2 + offset, centreLine.pt2 - offset, centreLine.pt1 - offset)   
+      Vec2s(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)   
    }
 }
 

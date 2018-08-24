@@ -2,58 +2,51 @@
 package ostrat
 package geom
 
-/** In geometry this is a line segment */
-case class Line2(x1: Double, y1: Double, val x2: Double, y2: Double) extends ProdD4 with Transable[Line2]// with LineOrPt
+/** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
+case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transable[Line2] with Curve
 {
    //override def canEqual(other: Any): Boolean = isInstanceOf[Line2]
-   override def _1 = x1
-   override def _2 = y1
-   override def _3 = x2
-   override def _4 = y2
-   def pt1: Vec2 = Vec2(x1, y1)
-   def pt2: Vec2 = Vec2(x2, y2)
-   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(x1, y1, x2, y2) 
-   def fTrans(f: Vec2 => Vec2): Line2 = Line2(f(pt1), f(pt2))
-   def shortArray: Array[Short] = Array(x1.toShort, y1.toShort,x2.toShort,y2.toShort)
-   def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pt1), f(pt2))
+   override def _1 = xStart
+   override def _2 = yStart
+   override def _3 = xEnd
+   override def _4 = yEnd   
+   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd) 
+   def fTrans(f: Vec2 => Vec2): Line2 = Line2(f(pStart), f(pEnd))
+   def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)
+   def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pStart), f(pEnd))
    
    def rayIntersection(pt: Vec2): Boolean = //Checks whether a forward horizontal ray crosses this polygon side, yes, yes I know this is horrible code.
       if ( 
           //Check if point is above or below the polygon side
-         ((pt.y > y1) && (pt.y > y2)) || //above pnt1 and pnt2
-         ((pt.y < y1) && (pt.y < y2)) //below pnt1 and pnt 2
+         ((pt.y > yStart) && (pt.y > yEnd)) || //above beg pt and end pt
+         ((pt.y < yStart) && (pt.y < yEnd)) //below beg pt and end pt
       ) false
       else 
       {
-         val deltaY = y2 - y1
+         val deltaY = yEnd - yStart
          if (0.000001 > deltaY.abs) false //if the polygon side is close to horizontal the
 // point is close enough to the perimeter of the polygon that the point can measured as outside
          else
          {
-            val ptDeltaY = pt.y - y1
-            val deltaX = x2 - x1
-            val lineX = x1 + (deltaX * ptDeltaY / deltaY)
+            val ptDeltaY: Double = pt.y - yStart
+            val deltaX: Double = xEnd - xStart //Not entirely sure what's going on here
+            val lineX: Double = xStart + (deltaX * ptDeltaY / deltaY)
             pt.x > lineX
          }
       }
-   def lineAngle: Angle = (pt2 - pt1).angle
+   def lineAngle: Angle = (pEnd - pStart).angle
 }
 
 object Line2
 {
-   def apply(c1: Vec2, c2: Vec2): Line2 = new Line2(c1.x, c1.y, c2.x, c2.y)
- 
-//   implicit class Line2SeqImplicit(thisSeq: Seq[Line2])
-//   {
-//      def polyLineDraw(lineWidth: Double, linesColour: Colour = Colour.Black) = PolyLineDraw(thisSeq, lineWidth, linesColour)
-//   }
+   def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
 }
 
 class Line2s(val arr: Array[Double]) extends AnyVal with DoubleProduct4s[Line2] with Transable[Line2s]
 {
    override def typeName: Symbol = 'Line2s
    override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): Line2 = new Line2(d1, d2, d3, d4)
-   override def fTrans(f: Vec2 => Vec2): Line2s = pMap(orig => Line2(f(orig.pt1), f(orig.pt2)))
+   override def fTrans(f: Vec2 => Vec2): Line2s = pMap(orig => Line2(f(orig.pStart), f(orig.pEnd)))
    def ptInPolygon(pt: Vec2): Boolean =
    {
       val num = foldLeft(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))

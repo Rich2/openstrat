@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** So there is a lack of clarity over whether the segs are relative to the cen, and if the cen is needed at all. */
-case class Shape(cen: Vec2, segs: List[ShapeSeg]) extends Transable[Shape]
+case class Shape(cen: Vec2, segs: List[CurveSeg]) extends Transable[Shape]
 {
    /** This may need clarification */
    override def fTrans(f: Vec2 => Vec2): Shape = Shape(f(cen), segs)//.fTrans(f))
@@ -28,7 +28,7 @@ object Circle// extends Shape
    
    def apply(scale: Double, cen: Vec2 = Vec2Z): Shape = Shape(cen, segs(scale).slate(cen))
    def apply(scale: Double, xCen: Double, yCen: Double): Shape = apply(scale, Vec2(xCen, yCen)) 
-   def segs(scale: Double = 1.0): List[ShapeSeg] = 
+   def segs(scale: Double = 1.0): List[CurveSeg] = 
    {
       val a = ArcSeg(Vec2(0.5 * scale, 0), Vec2Z)
       (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i)))).toList      

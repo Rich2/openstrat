@@ -2,18 +2,18 @@
 package ostrat
 package geom
 
-/** This is an active visual canvas object. A pointable polygon / shape with visual. Not sure about the name. not sure if the trait is
- *   useful. */
-trait GraphicSubject[T <: GraphicSubject[T]] extends CanvElem[T] with GraphicActive
+/** This is an active visual canvas object. A pointable polygon / shape with visual, that also knows how much dispaly space it needs and preferred 
+ *  margin space. Not sure about the name. not sure if the trait is useful. */
+trait GraphicSubject[A <: GraphicSubject[A]] extends CanvElem[A] with GraphicActive
 {
    def cen: Vec2
    def elems: List[PaintElem[_]]  
-   def tL: T = slate(boundingRect.bR)
-   def tR: T = slate(boundingRect.bL)
-   def bL: T = slate(boundingRect.tR)
-   def bR: T = slate(boundingRect.tL)
+   def tL: A = slate(boundingRect.bR)
+   def tR: A = slate(boundingRect.bL)
+   def bL: A = slate(boundingRect.tR)
+   def bR: A = slate(boundingRect.tL)
    def width = boundingRect.width    
-   def addElems(newElems: List[PaintElem[_]]): T
-   def addElem(newElem: PaintElem[_]): T = addElems(List(newElem))
-   def mutObj(newObj: AnyRef): T
+   def addElems(newElems: List[PaintElem[_]]): A
+   def addElem(newElem: PaintElem[_]): A = addElems(List(newElem))
+   def mutObj(newObj: AnyRef): A
 }
