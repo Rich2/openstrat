@@ -4,5 +4,5 @@ package pSJs
 
 object DraughtsJsApp
 {  
-   def main(args: Array[String]): Unit = ???// new pGames.pChess.DraughtsGui(CanvasJs)   
+   def main(args: Array[String]): Unit = new pGames.pChess.DraughtsGui(CanvasJs)   
 } 
