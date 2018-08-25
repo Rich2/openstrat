@@ -163,16 +163,15 @@ object CanvasJs extends CanvasTopLeft
       gc.strokeStyle = lineColour.str
       gc.lineWidth = lineWidth
       gc.stroke   
-   }
- 
+   } 
    
-   override def tlTextGraphic(x: Double, y: Double, str: String, fontSize: Int, colour: Colour, align: TextAlign): Unit = 
+   override def tlTextGraphic(tg: TextGraphic): Unit = 
    {      
-      gc.textAlign = align.jsStr
+      gc.textAlign = tg.align.jsStr
       gc.textBaseline = "middle"
-      gc.font = fontSize.toString + "px Arial"
-      gc.fillStyle = colour.str
-      gc.fillText(str, x, y)      
+      gc.font = tg.fontSize.toString + "px Arial"
+      gc.fillStyle = tg.colour.str
+      gc.fillText(tg.str, tg.posn.x, tg.posn.y)      
    }
    override def tlTextDraw(x: Double, y: Double, str: String, fontSize: Int, colour: Colour): Unit = 
    {

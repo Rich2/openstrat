@@ -86,7 +86,7 @@ trait CanvasMulti extends CanvUser
       //panel.subjs = Nil
       canv.gcSave()
       canv.clip(clipPoly)
-      canv.polyFill(clipPoly, panel.backColour)
+      canv.polyFill(clipPoly.fill(panel.backColour))
       val movedObjs: List[GraphicElem[_]] = panel.canvObjs.slate(panel.cen)
       panel.subjs = paintObjs(movedObjs)
       canv.gcRestore()

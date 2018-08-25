@@ -98,13 +98,13 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.stroke()
    }   
    
-   override def tlTextGraphic(x: Double, y: Double, str: String, fontSize: Int, textColour: Colour, align: TextAlign) = 
+   override def tlTextGraphic(tg: TextGraphic) = 
    {
-      gc.setTextAlign(fxAlign(align))
+      gc.setTextAlign(fxAlign(tg.align))
       gc.setTextBaseline(javafx.geometry.VPos.CENTER)
-      gc.setFont(new text.Font(fontSize))
-      gc.fill = fxColor(textColour)      
-      gc.fillText(str, x, y)
+      gc.setFont(new text.Font(tg.fontSize))
+      gc.fill = fxColor(tg.colour)      
+      gc.fillText(tg.str, tg.posn.x, tg.posn.y)
    }
    
    protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =

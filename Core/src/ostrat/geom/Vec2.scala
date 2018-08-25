@@ -163,6 +163,11 @@ object Vec2
    
    import scala.collection._   
    
+   implicit class Vec2SeqImplicit(thisSeq: Seq[Vec2])
+   {
+      def toVec2s: Vec2s = thisSeq.toProdD2
+   }
+   
    implicit class ImpVec2Traversible[Repr](travLike: TraversableLike[Vec2, Repr])
    {
       /** Translates each Vec2 member of collection equivalent to trav.map(_ + offset) */

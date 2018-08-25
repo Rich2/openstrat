@@ -19,7 +19,7 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
    override protected def tlShapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour): Unit = {}
    override protected def tlArcDraw(ad: ArcDraw): Unit = {}
    
-   override protected def tlTextGraphic(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit = {}
+   override protected def tlTextGraphic(tg: TextGraphic): Unit = {}
    override protected def tlTextDraw(x: Double, y: Double, text: String, fontSize: Int, lineColour: Colour): Unit = {}
 //   override protected def tlCircleFill(x: Double, y: Double, radius: Double, colour: Colour): Unit = {}
    //override protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)

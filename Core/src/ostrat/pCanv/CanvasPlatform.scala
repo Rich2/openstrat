@@ -31,14 +31,14 @@ trait CanvasPlatform extends RectGeom
    def timeOut(f: () => Unit, millis: Integer): Unit  
    var textMin: Int = 10
    
-   final def polyFill(verts: Vec2s, colour: Colour): Unit = polyFill(PolyFill(verts, colour))
+   final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toVec2s.fill(colour))
    def polyFill(pf: PolyFill): Unit
-   final def polyDraw(lineWidth: Double, lineColour: Colour, pts: Vec2s): Unit = polyDraw(PolyDraw(pts, lineWidth, lineColour)) 
+   final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toVec2s.draw(lineWidth, lineColour)) 
    def polyDraw(dp: PolyDraw): Unit
    def polyFillDraw(pfd: PolyFillDraw): Unit   
    def polyDrawText(pts: Vec2s, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
-      polyDraw(lineWidth, borderColour, pts: Vec2s)
+      //polyDraw(lineWidth, borderColour, pts: Vec2s)
       textGraphic(pts.polyCentre, str, fontSize, fontColour) 
    }
    
@@ -54,8 +54,10 @@ trait CanvasPlatform extends RectGeom
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
    def shapeFill(segs: List[CurveSeg], fillColour: Colour): Unit
    def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit
-   def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Black): Unit   
-   def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit 
+   def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Black): Unit
+   def textGraphic(tg: TextGraphic): Unit
+   final def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =
+      textGraphic(TextGraphic(posn, text, fontSize, colour))
    def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Black): Unit
    
    def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      

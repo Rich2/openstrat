@@ -15,4 +15,9 @@ case class Demo1Canv(canv: CanvasPlatform) extends pCanv.CanvasSimple
    canv.arcDraw(-200 vv 0, 0 vv 200, Vec2Z)
    canv.arcDraw(-220 vv 0, 0 vv 220, Vec2Z, 4, Pink)
    canv.bezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
+   
+   canv.polyFill(Orange, -300 vv 200, -300 vv 300, -250 vv 300)
+   canv.polyDraw(2, Blue, -250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200)
+   
+   canv.textGraphic(Vec2Z, "This text is centred on the centre of the canvas. The point from which postions are measured", 18, Turquoise)
 }

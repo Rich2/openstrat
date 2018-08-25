@@ -26,11 +26,9 @@ trait CanvasTopLeft extends CanvasPlatform
    override def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
       tlShapeFillDraw(segs.fTrans(tlCen), fillColour, lineWidth, lineColour)
    override def shapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour): Unit =
-      tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)  
+      tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)   
    
-   
-   override def textGraphic(posn: Vec2, text: String,  fontSize: Int, colour: Colour, align: TextAlign): Unit =
-      tlTextGraphic(tlx + posn.x, tly - posn.y, text, fontSize, colour, align)
+   override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    override def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Black): Unit =
       tlTextDraw(tlx + posn.x, tly - posn.y, text, fontSize, colour)
     
@@ -55,7 +53,7 @@ trait CanvasTopLeft extends CanvasPlatform
    
    protected def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    
-   protected def tlTextGraphic(x: Double, y: Double, text: String, fontSize: Int, textColour: Colour, align: TextAlign): Unit
+   protected def tlTextGraphic(tg: TextGraphic): Unit
    protected def tlTextDraw(x: Double, y: Double, text: String, fontSize: Int, lineColour: Colour): Unit
 //   protected def tlCircleFill(x: Double, y: Double, radius: Double, colour: Colour): Unit
    protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)
