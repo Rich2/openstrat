@@ -36,17 +36,16 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]/
             
             var acc: List[CurveSegDist] = Nil
             var last: Either[Dist2, Dist2] = els2.last
-            els2.foreach(e =>
+            els2.foreach {e =>
+               e match
                {
-                  e match
-                  {
-                     case Right(d2) => acc :+=  LineSegDist(d2)
-                     case Left(d2) if last.isLeft => acc :+= ArcSegDist(d2, Dist2Z)
-                     case Left(d2) => acc :+= LineSegDist(d2)
-                  }
-                  last = e
-               })               
-             GlobedSome(acc)                
+                  case Right(d2) => acc :+=  LineSegDist(d2)
+                  case Left(d2) if last.isLeft => acc :+= ArcSegDist(d2, Dist2Z)
+                  case Left(d2) => acc :+= LineSegDist(d2)
+               }
+               last = e
+            }               
+            GlobedSome(acc)                
          }
       }        
    }      
