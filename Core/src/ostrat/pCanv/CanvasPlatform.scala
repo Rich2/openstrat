@@ -53,13 +53,16 @@ trait CanvasPlatform extends RectGeom
       
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
    def shapeFill(segs: List[CurveSeg], fillColour: Colour): Unit
-   def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit
+   def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit   
    def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Black): Unit
+   
    def textGraphic(tg: TextGraphic): Unit
    final def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =
-      textGraphic(TextGraphic(posn, text, fontSize, colour))
-   def textOutline(posn: Vec2, text: String,  fontSize: Int, colour: Colour = Black): Unit
-   
+      textGraphic(TextGraphic(posn, text, fontSize, colour, align))
+   def textOutline(to: TextOutline): Unit
+   final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen): Unit =
+      textOutline(TextOutline(posn, text, fontSize, colour, lineWidth, align))
+      
    def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
    
    def animSeq(anims: Seq[DispPhase]): Unit = anims match

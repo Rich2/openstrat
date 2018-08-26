@@ -27,3 +27,7 @@ object TextGraphic
          )
    }
 }
+
+case class TextOutline(posn: Vec2, str: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen) extends
+PaintElem[TextOutline]
+{ override def fTrans(f: Vec2 => Vec2) = TextOutline(f(posn), str, fontSize, colour, lineWidth, align) }

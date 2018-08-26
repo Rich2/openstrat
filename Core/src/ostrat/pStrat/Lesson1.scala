@@ -5,7 +5,7 @@ import geom._
 import pCanv._
 import Colour._
 
-case class Demo1Canv(canv: CanvasPlatform) extends pCanv.CanvasSimple
+case class Lesson1(canv: CanvasPlatform) extends pCanv.CanvasSimple
 {   
    canv.lineDraw(Vec2Z, 100 vv 100)// 0 vv 0 is the same as Vec2Z
    canv.lineDraw(0 vv 50, 150 vv 200, 3)

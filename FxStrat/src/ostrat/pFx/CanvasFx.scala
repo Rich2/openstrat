@@ -116,14 +116,14 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.stroke()      
    }
    
-   override def tlTextDraw(x: Double, y: Double, str: String, fontSize: Int, lineColour: Colour) = 
+   override def tlTextOutline(to: TextOutline) = 
    {
       gc.setTextAlign(javafx.scene.text.TextAlignment.CENTER)
       gc.setTextBaseline(javafx.geometry.VPos.CENTER)
-      gc.stroke = fxColor(lineColour)
+      gc.stroke = fxColor(to.colour)
       gc.lineWidth = 1
-      gc.setFont(new text.Font(fontSize))      
-      gc.strokeText(str, x, y)      
+      gc.setFont(new text.Font(to.fontSize))      
+      gc.strokeText(to.str, to.posn.x, to.posn.y)      
    }
    
    private def segsPath(segs: List[CurveSeg]): Unit =
