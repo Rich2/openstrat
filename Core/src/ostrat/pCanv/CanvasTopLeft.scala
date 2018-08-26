@@ -6,12 +6,9 @@ import Colour.Black
 
 /** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used by graphical applications. */
 trait CanvasTopLeft extends CanvasPlatform
-{
-   protected def tlx: Double = width / 2
-   protected def tly: Double = height / 2
-   def tlCen: Vec2 =>  Vec2 = v => Vec2(tlx + v.x, tly - v.y)
-   def fTl(pts: Vec2s): Vec2s = pts.fTrans(tlCen)
-   
+{   
+   def tlCen: Vec2 =>  Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
+ 
    override def polyFill(fp: PolyFill): Unit = tlPolyFill(fp.fTrans(tlCen))
    override def polyDraw(dp: PolyDraw): Unit = tlPolyDraw(dp.fTrans(tlCen))   
    override def polyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))   
@@ -31,11 +28,7 @@ trait CanvasTopLeft extends CanvasPlatform
    override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
     
-//   override def textFill(x: Double, y: Double, text: String,  fontSize: Int, colour: Colour): Unit =
-//      tlTextFill(tlx + x, tly - y, text, fontSize, colour)
-//   override def textDraw(x: Double, y: Double, text: String,  fontSize: Int, colour: Colour): Unit =
-//      tlTextDraw(tlx + x, tly - y, text, fontSize, colour)
-   override def clip(pts: Vec2s): Unit = tlClip(fTl(pts))   
+   override def clip(pts: Vec2s): Unit = tlClip(pts.fTrans(tlCen))   
    
    protected def tlPolyFill(fp: PolyFill): Unit
    protected def tlPolyDraw(dp: PolyDraw): Unit
@@ -54,7 +47,7 @@ trait CanvasTopLeft extends CanvasPlatform
    
    protected def tlTextGraphic(tg: TextGraphic): Unit
    protected def tlTextOutline(tl: TextOutline): Unit
-//   protected def tlCircleFill(x: Double, y: Double, radius: Double, colour: Colour): Unit
+
    protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)
    protected def mouseDownTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDown(Vec2(x - width / 2, height / 2 - y), mb)
    protected def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Vec2(x - width / 2, height / 2 - y), mb)
