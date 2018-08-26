@@ -8,13 +8,8 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
    override def typeName: Symbol = 'Vec2s   
    override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
    def fTrans(f: Vec2 => Vec2): Vec2s = pMap(f)
-  // def vec2Map(f: (Double, Double) => (Double, Double)) = xyMap[Vec2, Vec2s](f)(Vec2s.factory)
    def addMap(xOperand: Double, yOperand: Double): Vec2s = pMap(_.addXY(xOperand, yOperand))
    
-   //  implicit class Vec2seqImplicit(this: Vec2s) extends Transable[Vec2s]
-
- //    def fTrans(f: Vec2 => Vec2): Vec2s = this.map(f)
-
    /** Creates a bounding rectangle for a collection of 2d points */
    def boundingRect: BoundingRect =
    {
@@ -56,43 +51,16 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] w
   
    def closedPolygonToLine2s: Line2s =
    {
-      val res: Line2s = Line2s(length)
-     // println(toString)
+      val res: Line2s = Line2s(length)   
       for (i <- 0 until (length -1)) res.setElem(i, Line2(apply(i), apply(i + 1)))      
-      res.setLast(Line2(last, head))
-     // res.foreach(println)
+      res.setLast(Line2(last, head))     
       res
    }
    
-   def ptInPolygon(pt: Vec2): Boolean = {closedPolygonToLine2s.ptInPolygon(pt) }
-//      {     
-//         val rayIntersections: List[Line2] = by2To1LMap(Line2(_, _)).filter(ls => 
-//         )        
-//         rayIntersections.length % 2 == 1 //For a convex polygon the ray can only cross one side if inside
-//      }
-
-//   implicit class ImplicitVec2SeqSeq(this: Seq[Seq[Vec2]])
-//   {
-//      def fill(colour: Colour): Seq[PolyFill] = this.map(s => PolyFill(s, colour))
-//      //def fillSubj(evObj: AnyRef, colour: Colour): PolySubj = PolySubj.fill(vSeq, evObj, colour)
-   //}
-   
+   def ptInPolygon(pt: Vec2): Boolean = {closedPolygonToLine2s.ptInPolygon(pt) }   
 }
 
 object Vec2s extends Double2sMaker[Vec2, Vec2s]
 {
-//   def apply(inp: Vec2 *): Vec2s =
-//   {
-//      val arr = new Array[Double](inp.length * 2)
-//      var count = 0
-//      while (count < inp.length)
-//      {
-//         arr(count * 2) = inp(count).x
-//         arr(count * 2 + 1) = inp(count).y
-//      }
-//      new Vec2s(arr)
-//   }
-   implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
-  // @inline def xy(inp: Double *): Vec2s = doubles(inp: _*)
+   implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))  
 }
-
