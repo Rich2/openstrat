@@ -15,8 +15,6 @@ trait BezierLike extends CurveLike
 /** Cubic bezier curve */
 class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
       val xEnd: Double, val yEnd: Double) extends Curve with BezierLike
-{ 
-}
 
 case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double,
       val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierLike with Curve
