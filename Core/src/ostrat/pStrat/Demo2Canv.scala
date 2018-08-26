@@ -7,7 +7,10 @@ import Colour._
 
 case class Demo2Canv(canv: CanvasPlatform) extends pCanv.CanvasSimple
 {
-   def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)  
+   def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)
+   def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
+  // val fun1 = fun(_, "Hi", _, true)
+   //val bd = BezierDraw.apply(Vec2Z, _, _, 500 vv 350, 3, _)
   
    def stuff = List(
          

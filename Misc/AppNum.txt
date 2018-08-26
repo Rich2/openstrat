@@ -1,4 +1,4 @@
-13
+8
 
 /* Change the  number to change the app on next run.
 (0, (new pCiv.CivGui(_), "ScalaFx Rise of Civs")),
