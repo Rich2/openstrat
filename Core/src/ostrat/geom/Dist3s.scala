@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]//(length)
+class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]
 {
    override def typeName: Symbol = 'Dist3s
    override def newElem(d1: Double, d2: Double, d3: Double): Dist3 = new Dist3(d1, d2, d3)
@@ -17,8 +17,7 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]/
          case n if n == length => GlobedAll(pMap(_.xy))
          case _ =>
          {
-            var els: List[Either[Dist2, Dist2]] = lMap(_ match
-            {
+            var els: List[Either[Dist2, Dist2]] = lMap{
                case el if el.z.pos => Right(el.xy)
                case el =>
                {
@@ -26,7 +25,7 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]/
                   val fac = xy.magnitude / EarthAvRadius
                   Left(xy / fac)
                }
-            })
+            }
             while (els.head.isLeft && els.last.isLeft && els.init.last.isLeft) els = els.init
             val els2 = els.drop(2).foldLeft(els.take(2))((acc, el) => el match
             {

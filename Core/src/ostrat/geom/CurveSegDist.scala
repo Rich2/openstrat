@@ -2,7 +2,6 @@
 package ostrat
 package geom
 
-/** CNeeds renaming */
 trait CurveSegDist
 {
    def endPt: Dist2
