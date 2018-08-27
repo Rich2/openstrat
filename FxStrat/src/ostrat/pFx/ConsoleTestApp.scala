@@ -7,5 +7,5 @@ object ConsoleTestApp extends App
    import geom._
    val sPt = Vec2(0, -1)
    val endPt = Vec2(-1, 0)   
-   val a = ArcSeg(endPt, Vec2Z)
+   val a = ArcSeg(Vec2Z, endPt)
 }

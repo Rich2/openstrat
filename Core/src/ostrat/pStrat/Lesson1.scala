@@ -11,8 +11,8 @@ case class Lesson1(canv: CanvasPlatform) extends pCanv.CanvasSimple
    canv.lineDraw(0 vv 50, 150 vv 200, 3)
    canv.lineDraw(50 vv -50, 200 vv -50, 2, Red)//Note if you don't include a Colour you get Black
    
-   canv.arcDraw(-200 vv 0, 0 vv 200, Vec2Z)
-   canv.arcDraw(-220 vv 0, 0 vv 220, Vec2Z, 4, Pink)
+   canv.arcDraw(-200 vv 0, Vec2Z, 0 vv 200)
+   canv.arcDraw(-220 vv 0, Vec2Z, 0 vv 220, 4, Pink)
    canv.bezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
    
    canv.polyFill(Orange, -300 vv 200, -300 vv 300, -250 vv 300)

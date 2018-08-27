@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait BezierLike extends CurveLike
+trait BezierSegLike extends CurveSegLike
 {
    def xC1: Double
    def yC1: Double
@@ -14,10 +14,10 @@ trait BezierLike extends CurveLike
 
 /** Cubic bezier curve */
 class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
-      val xEnd: Double, val yEnd: Double) extends Curve with BezierLike
+      val xEnd: Double, val yEnd: Double) extends CurveLike with BezierSegLike
 
 case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double,
-      val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierLike with Curve
+      val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierSegLike with CurveLike
 {
    override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
 }
@@ -29,7 +29,7 @@ object BezierDraw
 }
 
 case class BezierSeg(xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double, val xEnd: Double, val yEnd: Double) extends CurveSeg with
-   BezierLike
+   BezierSegLike
 {
    override def fTrans(f: Vec2 => Vec2) = BezierSeg(f(pC1), f(pC2), f(pEnd))
 }

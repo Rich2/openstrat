@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait CurveLike
+trait CurveSegLike
 {
    /** the x component of the end point */
    def xEnd: Double
@@ -12,7 +12,7 @@ trait CurveLike
    final def pEnd: Vec2 = Vec2(xEnd, yEnd)  
 }
 
-trait Curve extends CurveLike
+trait CurveLike extends CurveSegLike
 {
    /** the x component of the start point often called x1 */
    def xStart: Double

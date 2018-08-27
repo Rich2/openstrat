@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
-case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transable[Line2] with Curve
+case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transable[Line2] with CurveLike
 {
    //override def canEqual(other: Any): Boolean = isInstanceOf[Line2]
    override def _1 = xStart
@@ -45,7 +45,7 @@ object Line2
 }
 
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour) extends
-PaintElem[LineDraw] with Curve
+PaintElem[LineDraw] with CurveLike
 {
    override def fTrans(f: Vec2 => Vec2) = LineDraw(f(pStart), f(pEnd), lineWidth, colour)
    

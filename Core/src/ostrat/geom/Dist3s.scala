@@ -39,7 +39,7 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]
                e match
                {
                   case Right(d2) => acc :+=  LineSegDist(d2)
-                  case Left(d2) if last.isLeft => acc :+= ArcSegDist(d2, Dist2Z)
+                  case Left(d2) if last.isLeft => acc :+= ArcSegDistAlt(Dist2Z, d2)
                   case Left(d2) => acc :+= LineSegDist(d2)
                }
                last = e

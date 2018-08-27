@@ -13,9 +13,9 @@ case class LineSegDist(endPt: Dist2) extends CurveSegDist
    override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
 }
 
-case class ArcSegDist(endPt: Dist2, cenPt: Dist2) extends CurveSegDist
+case class ArcSegDistAlt(cenPt: Dist2, endPt: Dist2) extends CurveSegDist
 {
-   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(endPt), f(cenPt))
+   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
 }
 
 /** represents a polygon on a globe's (eg the Earth) surface. If all the points are visible returns a straight line polygon. If none are

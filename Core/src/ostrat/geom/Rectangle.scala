@@ -54,10 +54,10 @@ object Rectangle
    {
       val w = width / 2
       val h = height / 2
-      List(LineSeg(w - radius,          h), ArcSeg(w,          h -radius, w - radius, h - radius),
-           LineSeg(w,          radius - h), ArcSeg(w - radius, -h,        w - radius, radius - h),
-           LineSeg(radius - w,         -h), ArcSeg(-w,         radius -h, radius - w, radius - h),
-           LineSeg(- w,        h - radius), ArcSeg(radius - w, h,         radius - w, h - radius))            
+      List(LineSeg(w - radius,          h), ArcSeg(w - radius, h - radius, w,          h -radius),
+           LineSeg(w,          radius - h), ArcSeg(w - radius, radius - h,    w - radius, -h       ),
+           LineSeg(radius - w,         -h), ArcSeg(radius - w, radius - h,      -w,         radius -h),
+           LineSeg(- w,        h - radius), ArcSeg(radius - w, h - radius,   radius - w, h         ))            
    }   
    def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape = Shape(posn, curvedSegs(width, height, radius).slate(posn))   
    def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * goldenRatio, height, radius)

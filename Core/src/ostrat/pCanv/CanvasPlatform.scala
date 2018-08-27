@@ -45,8 +45,8 @@ trait CanvasPlatform extends RectGeom
    def lineDraw(ld: LineDraw): Unit
    def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit = lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))
    def arcDraw(ad: ArcDraw): Unit
-   def arcDraw(pStart: Vec2, pEnd: Vec2, pCen: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
-      arcDraw(ArcDraw(pStart, pEnd, pCen, lineWidth, colour))
+   def arcDraw(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+      arcDraw(ArcDraw(pStart, pCen, pEnd, lineWidth, colour))
    def bezierDraw(bd: BezierDraw): Unit
    def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
       bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))

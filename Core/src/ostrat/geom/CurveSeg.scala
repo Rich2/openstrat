@@ -4,9 +4,10 @@ package geom
 import Colour.Black
 
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the
- *   previous segment. Arcs may be approximated as bezier curves. */
-trait CurveSeg extends Transable[CurveSeg] with CurveLike
+ *   previous segment. */
+trait CurveSeg extends Transable[CurveSeg] with CurveSegLike
 {
+   /** Sometimes traits without methods cause problems */
    def silly: String = "Silly!"     
 }
 
