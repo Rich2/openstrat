@@ -135,7 +135,7 @@ object CanvasJs extends CanvasTopLeft
             {
                case LineSeg(xEnd, yEnd) => gc.lineTo(xEnd, yEnd)
                case as: ArcSeg => as.fControlEndRadius(startPt, gc.arcTo)
-
+               case BezierSeg(xC1, yC1, xC2, yC2, xEnd, yEnd) => gc.bezierCurveTo(xC1, yC1, xC2, yC2, xEnd, yEnd)
             }
             startPt = s.pEnd
          })
