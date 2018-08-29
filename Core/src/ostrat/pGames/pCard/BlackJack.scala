@@ -24,7 +24,6 @@ case class BlackJack(canv: CanvasPlatform) extends CanvasSimple
    //disp.repaint(Seq(Diamond().scale(400).fillDraw(Red, 4, Green)) ++ disp.gridLines2(200, Colour.Red, Colour.Blue))
 }
 
-
 trait BJack 
 {   
    val dollars: Int
