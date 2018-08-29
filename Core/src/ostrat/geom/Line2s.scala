@@ -12,13 +12,6 @@ class Line2s(val arr: Array[Double]) extends AnyVal with DoubleProduct4s[Line2] 
       val num = foldLeft(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
       num.isOdd      
    }
-//   def ++ (operand: Line2s): Line2s =
-//   {
-//      val res = Line2s(length + operand.length)
-//      this.iForeach((elem, i) => res.setElem(i, elem))
-//      operand.iForeach((elem, i) => res.setElem(i + length, elem))
-//      res
-//   }
 }
 
 object Line2s extends Double4sMaker[Line2, Line2s]
