@@ -20,10 +20,10 @@ object Apps
          (8, (ColourGen(_), "ScalaFx Some Colours")),
          (9, (p305.BC305Gui(_, p305.Bc1), "BC 305")),
          (10, (pCard.BlackJack(_), "ScalaFx BlackJack")),
-         (11, (new pChess.DraughtsGui(_), "Draughts")),
-         (21, (Lesson1(_), "ScalaFx Demonstration Canvas 1")),
-         (22, (Lesson2(_), "ScalaFx Demonstration Canvas 2")),
-         (23, (Lesson3(_), "ScalaFx Demonstration Canvas 3")),
+//         (11, (new pChess.DraughtsGui(_), "Draughts")),
+//         (21, (DLesson1(_), "ScalaFx Demonstration Canvas 1")),
+//         (22, (DLesson2(_), "ScalaFx Demonstration Canvas 2")),
+//         (23, (DLesson3(_), "ScalaFx Demonstration Canvas 3")),
          )
       
         def curr(appNum: Int): (CanvasPlatform => Unit, String) = theMap(appNum)

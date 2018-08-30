@@ -4,7 +4,11 @@ target/
 AnteJs/
 AnteJvm/
 CoreJs/
-CoreJvm
+CoreJvm/
 JsPlay/
 FxPlay/
 DevData/
+bin/
+LearnSbt/
+Learn.zip
+Learn.tar.gz

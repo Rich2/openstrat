@@ -1,11 +1,12 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pStrat
+package myPackage
 import geom._
 import pCanv._
 import Colour._
+import ostrat.Colour
 
-case class Lesson3(canv: CanvasPlatform) extends pCanv.CanvasSimple
+case class DLesson3(canv: CanvasPlatform) extends pCanv.CanvasSimple
 {
    def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)
    //This can be more elegantly expressed in dotty

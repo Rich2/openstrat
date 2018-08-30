@@ -3,7 +3,8 @@ package ostrat
 package pFx
 import scalafx.Includes._
 import scalafx.application.JFXApp
-import scalafx.scene._   
+import scalafx.scene._ 
+
 class RSApp(f: canvas.Canvas => Unit, str: String) extends JFXApp
 {   
    stage = new RStage(f, str)  
