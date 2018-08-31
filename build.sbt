@@ -13,11 +13,14 @@ val anteSett = List(Compile/scalaSource := (ThisBuild/baseDirectory).value / "An
 lazy val AnteJvm = project.settings(anteSett)
 lazy val AnteJs = project.settings(anteSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-val coreSett = List( Compile/scalaSource := (ThisBuild/baseDirectory).value / "Core/src") ::: commonSett
+val coreSett = List( Compile/scalaSource := (ThisBuild/baseDirectory).value / "Core/src",
+  
+) ::: commonSett
 
 lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
   Test/libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.3" % "test",
+  Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
   testFrameworks += new TestFramework("utest.runner.Framework"),
   // include the macro classes and resources in the main jar
   mappings in (Compile, packageBin) ++= mappings.in(AnteJvm, Compile, packageBin).value,
@@ -26,9 +29,9 @@ lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett).settings(
 )
 lazy val CoreJs = project.dependsOn(AnteJs).settings(coreSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-lazy val FxPlay = project.dependsOn(CoreJvm).settings(commonSett).settings(
-  version := "0.0.1",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",    
+lazy val FxPlay = project.dependsOn(CoreJvm).settings(commonSett).settings(  
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
+
   libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",
   Compile/mainClass := Some("ostrat.pFx.DevApp"),
   mappings in (Compile, packageBin) ++= mappings.in(AnteJvm, Compile, packageBin).value,
