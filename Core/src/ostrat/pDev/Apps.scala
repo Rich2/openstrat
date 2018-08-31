@@ -5,6 +5,10 @@ import pCanv._
 import pStrat._
 import pGames._
 
+/** This file is normally set by "git update-index --assume-unchanged Core/src/ostrat/pDev/Apps.scala" this is to allow developer local changes to
+ *  appNum without modifying the master project. If changes permanent are required run  "
+ *  git update-index --no-assume-unchanged Core/src/ostrat/pDev/Apps.scala". Stage and commit the changes and then run
+ *  "git update-index --assume-unchanged Core/src/ostrat/pDev/Apps.scala" before pushing or pull-requesting changes." */
 object Apps
 {
    val ww2Pair: (CanvasPlatform => Unit, String) =  (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") 
