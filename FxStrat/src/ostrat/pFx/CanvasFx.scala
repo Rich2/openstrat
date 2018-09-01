@@ -98,7 +98,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.stroke()
    }   
    
-   override def tlTextGraphic(tg: TextGraphic) = 
+   override def tlTextGraphic(tg: TextGraphic): Unit = 
    {
       gc.setTextAlign(fxAlign(tg.align))
       gc.setTextBaseline(javafx.geometry.VPos.CENTER)
@@ -116,7 +116,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.stroke()      
    }
    
-   override def tlTextOutline(to: TextOutline) = 
+   override def tlTextOutline(to: TextOutline): Unit = 
    {
       gc.setTextAlign(javafx.scene.text.TextAlignment.CENTER)
       gc.setTextBaseline(javafx.geometry.VPos.CENTER)
