@@ -17,9 +17,9 @@ sbt //From project's root folder
 From within the sbt console run:
 
 ```sbt
-~ FxPlay/reStart//To launch a ScalaFx window. The most useful command for development
-~ JsPlay/fastOptJS //WebPages/the fastPlay.html will display the results in a browser
-JsPlay/fullOptJS //For optimimised Javascript. WebPages/fullPlay.html will display the results in a browser
+~ FxStrat/reStart//To launch a ScalaFx window. The most useful command for development
+~ JsStrat/fastOptJS //WebPages/the fastPlay.html will display the results in a browser
+JsStrat/fullOptJS //For optimimised Javascript. WebPages/fullPlay.html will display the results in a browser
 ```
 
 The tilde **~** tells sbt to rerun the command everytime you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Change the appNum in Core/src/ostrat/pDev/Apps.scala to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild. 

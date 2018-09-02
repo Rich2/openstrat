@@ -29,32 +29,32 @@ lazy val CoreJvm = project.dependsOn(AnteJvm).settings(coreSett).settings(
 )
 lazy val CoreJs = project.dependsOn(AnteJs).settings(coreSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-lazy val FxPlay = project.dependsOn(CoreJvm).settings(commonSett).settings(  
+lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSett).settings(  
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
-
   libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",
   Compile/mainClass := Some("ostrat.pFx.DevApp"),
   mappings in (Compile, packageBin) ++= mappings.in(AnteJvm, Compile, packageBin).value,
   mappings in (Compile, packageBin) ++= mappings.in(CoreJvm, Compile, packageBin).value,
   mappings in (Compile, packageSrc) ++= mappings.in(AnteJvm, Compile, packageSrc).value,
-  mappings in (Compile, packageSrc) ++= mappings.in(CoreJvm, Compile, packageSrc).value
+  mappings in (Compile, packageSrc) ++= mappings.in(CoreJvm, Compile, packageSrc).value,
+  //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "ostrat" + artifact + ".jar" },
 )
 
-lazy val JsPlay = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
+lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
   //scalaJSUseMainModuleInitializer := true,
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/src",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",  
 )
 
-lazy val NatPlay = project.enablePlugins(ScalaNativePlugin).settings(
+lazy val NatStrat = project.enablePlugins(ScalaNativePlugin).settings(
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "AnteCompono/src",
 //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src",		
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "NatStrat/src",
 scalaVersion := "2.11.12"
 )
 
-lazy val LearnSbt = project.settings(
+lazy val LearnScala = project.settings(
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/src",
-Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/libs",
+//Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/libs",
 )
