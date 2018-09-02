@@ -5,7 +5,7 @@ import scalafx.application.JFXApp
 import scalafx.scene._
 import pFx._
 
-object MyFxApp extends scalafx.application.JFXApp 
+object MyApp extends scalafx.application.JFXApp 
 {
   stage = new JFXApp.PrimaryStage
   {

@@ -55,6 +55,6 @@ scalaVersion := "2.11.12"
 )
 
 lazy val LearnSbt = project.settings(
-Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Learn/src",
-Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Learn/libs",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/src",
+Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/libs",
 )
