@@ -2,9 +2,7 @@
 package ostrat
 package pGames
 package p305
-import geom._
-import pCanv._
-import pEarth._
+import geom._, pCanv._, pEarth._
 
 case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui
 {

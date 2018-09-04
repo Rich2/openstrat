@@ -2,8 +2,7 @@
 package ostrat
 package pGames
 package pCloseOrder
-import pCanv._
-import geom._
+import pCanv._, geom._
 
 case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasSimple//UnfixedMapGui
 {   

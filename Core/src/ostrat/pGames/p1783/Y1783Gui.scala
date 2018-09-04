@@ -2,11 +2,7 @@
 package ostrat
 package pGames
 package p1783
-import geom._
-import pEarth._
-import pCanv._
-import pStrat._
-//import pGrid._
+import geom._, pEarth._, pCanv._, pStrat._
 
 case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
 {

@@ -2,10 +2,7 @@
 package ostrat
 package pGames
 package pCiv
-import geom._
-import pGrid._
-import pCanv._
-import Colour._
+import geom._, pGrid._, pCanv._, Colour._
 
 class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv, Civ1)
 {

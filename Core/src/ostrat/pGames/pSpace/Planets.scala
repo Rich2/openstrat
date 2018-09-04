@@ -2,9 +2,7 @@
 package ostrat
 package pGames
 package pSpace
-import geom._
-import pCanv._
-import Colour._
+import geom._, pCanv._, Colour._
 
 /** Currently extending EuclidGui, I'm not sure if this is helpful, as the user can not move about in the map except change focus. */
 case class Planets(val canv: CanvasPlatform) extends Dist2LikeGui

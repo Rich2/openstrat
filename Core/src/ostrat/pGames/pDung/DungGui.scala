@@ -2,10 +2,7 @@
 package ostrat
 package pGames
 package pDung
-import geom._
-import pCanv._
-import Colour._
-import pGrid._
+import geom._, pCanv._, pGrid._, Colour._
 
 class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungGrid](canv, Dungeon1)
 {  
