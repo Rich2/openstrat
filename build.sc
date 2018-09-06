@@ -1,0 +1,26 @@
+// build.sc
+import mill._, scalalib._
+
+trait Common extends ScalaModule {
+  def scalaVersion = "2.12.6"
+  def scalacOptions = Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint", "-Yno-adapted-args")
+}  
+
+object Macros extends Common {  
+  def ivyDeps = Agg(
+  ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}"
+  )
+}
+
+object Core extends Common {  
+  def moduleDeps = Seq(Macros)
+}
+
+object FxStrat extends Common {
+  def ivyDeps = Agg(
+ // ivy"${org.scalafx()}:scalafx8.0.144-R12:${scalaVersion()}"
+ ivy"org.scalafx::scalafx:8.0.144-R12"
+  )
+  def moduleDeps = Seq(Core)
+  def mainClass = Some("ostrat.pFx.DevApp") 
+}
