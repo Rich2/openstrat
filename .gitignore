@@ -1,8 +1,8 @@
 
 project/project/
 target/
-AnteJs/
-AnteJvm/
+MacrosJs/
+MacrosJvm/
 CoreJs/
 CoreJvm/
 JsPlay/
