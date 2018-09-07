@@ -12,3 +12,4 @@ bin/
 LearnScala.zip
 LearnScala.tar.gz
 out/
+.idea*/
