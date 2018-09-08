@@ -1,13 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pStrat
-import geom._
-import pCanv._
+import geom._, pCanv._, Colour._, FlagsZ._ 
 
 case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple
-{      
-   import Colour._
-   import Flags._ 
+{   
    backColour = Gray
    
    val stuff = List(         

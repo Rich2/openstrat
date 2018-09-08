@@ -4,7 +4,7 @@ package pStrat
 import geom._
 import Colour._
 
-object Flags
+object FlagsZ
 {
    /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
    def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rectangle(ratio, 1).subjSeq(evObj = retObj,

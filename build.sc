@@ -20,7 +20,8 @@ object FxStrat extends Common
  {
   def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.144-R12")
   def moduleDeps = Seq(Core)
-  def mainClass = Some("ostrat.pFx.DevApp") 
+  def mainClass = Some("ostrat.pFx.DevApp")
+    
 }
 
 object JsStrat extends ScalaJSModule with Common {
