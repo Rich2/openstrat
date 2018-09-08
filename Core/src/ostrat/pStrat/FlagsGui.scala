@@ -1,20 +1,20 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pStrat
-import geom._
-import pCanv._
+import geom._, pCanv._, Colour._, pFlags._, FlagsZ._
 
 case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple
-{      
-   import Colour._
-   import Flags._ 
+{   
    backColour = Gray
    
-   val stuff = List(         
+  // val col = Armenia().scale(100l).tL.slate(canv.topLeft)
+   
+   val stuff = List( 
+         
          france.scale(100).tR.slate(canv.topRight),
          chad.scale(100).tL.slate(canv.topLeft),                  
-         belgium.scale(100).bL.slate(canv.bottomLeft),                  
-         armenia.scale(100).bR.slate(canv.bottomRight),
+        // belgium.scale(100).bL.slate(canv.bottomLeft),                  
+         
          belgium.scale(100).slate(500, -100).rotate(Angle(math.Pi / 7)),
          us.scale(150).slate(400, 350),               
          uk.scale(200).slate(300, -350).rotate(10.degs),
