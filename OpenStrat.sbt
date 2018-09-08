@@ -48,7 +48,7 @@ lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settin
 )
 
 lazy val NatStrat = project.enablePlugins(ScalaNativePlugin).settings(
-Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "AnteCompono/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src",
 //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src",		
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "NatStrat/src",
 scalaVersion := "2.11.12"
