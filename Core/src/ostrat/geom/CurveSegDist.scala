@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait CurveSegDist
+class CurveSegDist(xC1Metres: Double, xC2Metres: Double, xUsesMetres: Double, yUsesMetres: Double, xEndMetres: Double, yEndMetres: Double)
 {
    def endPt: Dist2
    def toVec2s(f: Dist2 => Vec2): CurveSeg

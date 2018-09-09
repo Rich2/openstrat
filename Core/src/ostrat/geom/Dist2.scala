@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
+import math._
 
 class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
 {
@@ -11,10 +12,27 @@ class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
    override def _2: Double = yMetres
    def + (op: Dist2): Dist2 = Dist2(x + op.x, y + op.y)
    def - (op: Dist2): Dist2 = Dist2(x - op.x, y - op.y)
+   def addXY (otherX: Dist, otherY: Dist): Dist2 = Dist2(x + otherX, y + otherY)
+   def subXY (otherX: Dist, otherY: Dist): Dist2 = Dist2(x - otherX, y - otherY)
+   def addX(adj: Dist): Dist2 = Dist2(x + adj, y)
+   def addY(adj: Dist): Dist2 = Dist2(x, y + adj)
+   def subX(adj: Dist): Dist2 = Dist2(x - adj, y)   
+   def subY(adj: Dist): Dist2 = Dist2(x, y - adj)
    def * (operator: Double): Dist2 = Dist2(x * operator, y * operator)
    def / (operator: Double): Dist2 = Dist2(x / operator, y / operator)
    def magnitude: Dist = Dist(math.sqrt(xMetres.squared + yMetres.squared))
    def rotate(a: Angle): Dist2 =  Dist2.metres(x.metres * a.cos - y.metres * a.sin, x.metres * a.sin + y.metres * a.cos)
+   def rotateRadians(r: Double): Dist2 =
+   {
+      val newX = xMetres * cos(r) - yMetres * sin(r)
+      val newY = {
+          val ya = xMetres * sin(r)         
+          val yb = yMetres * cos(r)          
+          ya + yb
+      }
+      Dist2.metres(newX, newY)   
+}
+   
    /** Currently not working for angles greater than Pi / 2 */
    def toLatLong: LatLong = LatLong(math.asin(y / EarthPolarRadius), math.asin(x / EarthEquatorialRadius))
    

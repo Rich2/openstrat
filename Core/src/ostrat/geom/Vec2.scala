@@ -76,12 +76,10 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2
    def rotate(a: Angle): Vec2 =  Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
    def rotateRadians(r: Double): Vec2 = Vec2(x * cos(r) - y * sin(r),
       {
-          val ya = x * sin(r)
-          println(ya)
-          val yb =y * cos(r)
-          println(yb)
+          val ya = x * sin(r)          
+          val yb =y * cos(r)          
           ya + yb
-         })
+      })
    
    def centreSquare(length: Double): Vec2s =
    {
