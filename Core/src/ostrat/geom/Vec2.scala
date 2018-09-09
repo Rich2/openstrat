@@ -8,8 +8,8 @@ import math._
 final class Vec2 (val x: Double, val y: Double) extends ProdD2
 {
    override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
-   def _1 = x
-   def _2 = y
+   @inline override def _1 = x
+   @inline override def _2 = y
    override def toString = Vec2.Vec2Persist.persist(this)
    def strMod(f: Double => String): String = "Vec2".appendParenth(f(x), f(y))  
    def str1: String = strMod(_.str1)

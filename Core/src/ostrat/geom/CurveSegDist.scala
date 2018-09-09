@@ -2,34 +2,42 @@
 package ostrat
 package geom
 
-class CurveSegDist(xC1Metres: Double, xC2Metres: Double, xUsesMetres: Double, yUsesMetres: Double, xEndMetres: Double, yEndMetres: Double)
+/** A base trait for CurveSegDist and CurveDist and their associated GraphicElemsDist (these haven't been implemented yet). */
+trait CurveEndingDist
+{
+   def xEndMetres: Double
+   def yEndMetres: Double
+   /** the x component of the end point */
+   def xEnd: Dist = Dist(xEndMetres)
+   /** the y component of the end point */
+   def yEnd: Dist = Dist(yEndMetres)
+   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
+   final def pEnd: Dist2 = Dist2(xEnd, yEnd)  
+}
+
+class CurveSegDist(xC1Metres: Double, yC1Metres: Double, xUsesMetres: Double, yUsesMetres: Double, xEndMetres: Double, yEndMetres: Double)
 extends ProdD6
-{
-   def endPt: Dist2
-   def toVec2s(f: Dist2 => Vec2): CurveSeg
+{   
+   def toCurveSeg(f: Dist2 => Vec2): CurveSeg = ???
+   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
+   @inline override def _1 = xC1Metres
+   @inline override def _2 = yC1Metres
+   @inline override def _3 = xUsesMetres
+   @inline override def _4 = yUsesMetres
+   @inline override def _5 = xEndMetres
+   @inline override def _6 = yEndMetres
 }
 
-//case class LineSegDist(endPt: Dist2) extends CurveSegDist
-//{
+object LineSegDist
+{
+   def apply(endPt: Dist2): CurveSegDist = ???
 //   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
-//}
-//
-//case class ArcSegDistAlt(cenPt: Dist2, endPt: Dist2) extends CurveSegDist
-//{
-//   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
-//}
-
-class CurveSegDists(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSegDist]
-{
-   
 }
 
-
-/** represents a polygon on a globe's (eg the Earth) surface. If all the points are visible returns a straight line polygon. If none are
- *  visible it returns a none, the polygon is over the horizon. If some are visible inserts curves along horizon. */
-sealed trait GlobedArea
-case class GlobedAll(d2s: Dist2s) extends GlobedArea
-case class GlobedSome(segs: CurveSegDists) extends GlobedArea
-case object GlobedNone extends GlobedArea
+object ArcSegDist
+{
+   def apply(cenPt: Dist2, endPt: Dist2): CurveSegDist = ???
+//   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
+}
 
 

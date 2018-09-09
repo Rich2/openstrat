@@ -26,8 +26,8 @@ abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) exten
          case GlobedSome(curveSegDists) =>
          {
             val cenXY: Vec2 = eg.latLongToXY(cen)
-            val temp = curveSegDists.map(_.toVec2s(eg.trans))
-            Disp2.vp(ShapeSubj.fill(cenXY, temp, this, terr.colour))()
+            val curveSegs: CurveSegs = curveSegDists.pMap(_.toCurveSeg(eg.trans))
+            Disp2.vp(ShapeSubj.fill(cenXY, curveSegs, this, terr.colour))()
          }
          case GlobedNone => Disp2.empty
       }

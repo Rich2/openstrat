@@ -11,11 +11,12 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]
     *   are z positive Z negative points are moved to the horizon */ 
    def earthZPositive: GlobedArea =
    {         
-      foldLeft(0)((acc, e) => acc + ife(e.z.pos, 1 , 0)) match
+      val posNum = foldLeft(0)((acc, e) => acc + ife(e.z.pos, 1 , 0))
+      posNum match
       {
          case 0 => GlobedNone
          case n if n == length => GlobedAll(pMap(_.xy))
-         case _ =>
+         case n =>
          {
             var els: List[Either[Dist2, Dist2]] = lMap{
                case el if el.z.pos => Right(el.xy)
@@ -33,14 +34,14 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]
                case el => acc :+ el
             })
             
-            var acc: List[CurveSegDist] = Nil
+            val acc: CurveSegDists = CurveSegDists.factory(els2.length)// List[CurveSegDist] = Nil
             var last: Either[Dist2, Dist2] = els2.last
-            els2.foreach {e =>
+            els2.iForeach {(e, i) =>
                e match
                {
-                  case Right(d2) => acc :+=  LineSegDist(d2)
-                  case Left(d2) if last.isLeft => acc :+= ArcSegDistAlt(Dist2Z, d2)
-                  case Left(d2) => acc :+= LineSegDist(d2)
+                  case Right(d2) => acc.setElem(i, LineSegDist(d2))
+                  case Left(d2) if last.isLeft => acc.setElem(i, ArcSegDist(Dist2Z, d2))
+                  case Left(d2) => acc.setElem(i, LineSegDist(d2))
                }
                last = e
             }               

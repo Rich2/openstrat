@@ -82,6 +82,8 @@ trait ValueProducts[A] extends Any// extends TraversableOnce[A]
       }
    }
    
+  // def map[B](f: A => B): 
+   
    def pMap[B , C <: ValueProducts[B]](f: A => B)(implicit factory: Int => C): C =
    {
       val res = factory(length)
@@ -102,6 +104,7 @@ trait ValueProducts[A] extends Any// extends TraversableOnce[A]
       res
    }
    
+   /** maps ValueProduct collection to List */
    def lMap[B <: AnyRef](f: A => B): List[B] =
    {
       var res: List[B] = Nil

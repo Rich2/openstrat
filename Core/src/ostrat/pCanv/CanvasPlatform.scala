@@ -52,9 +52,9 @@ trait CanvasPlatform extends RectGeom
       bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
       
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
-   def shapeFill(segs: List[CurveSeg], fillColour: Colour): Unit
-   def shapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit   
-   def shapeDraw(segs: List[CurveSeg], lineWidth: Double, borderColour: Colour = Black): Unit
+   def shapeFill(segs: CurveSegs, fillColour: Colour): Unit
+   def shapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit   
+   def shapeDraw(segs: CurveSegs, lineWidth: Double, borderColour: Colour = Black): Unit
    
    def textGraphic(tg: TextGraphic): Unit
    final def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =
