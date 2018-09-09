@@ -6,10 +6,11 @@ object Circle
 {   
    def apply(scale: Double, cen: Vec2 = Vec2Z): Shape = Shape(cen, segs(scale).slate(cen))
    def apply(scale: Double, xCen: Double, yCen: Double): Shape = apply(scale, Vec2(xCen, yCen)) 
-   def segs(scale: Double = 1.0): List[CurveSeg] = 
+   def segs(scale: Double = 1.0): CurveSegs = 
    {
       val a = ArcSeg(Vec2Z, Vec2(0.5 * scale, 0))
-      (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i)))).toList      
+      val sg1 = (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i))))
+      CurveSegs(sg1 :_*)      
    }
 
    def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): ShapeFill =

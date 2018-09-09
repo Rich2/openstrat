@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** So there is a lack of clarity over whether the segs are relative to the cen, and if the cen is needed at all. */
-case class Shape(cen: Vec2, segs: List[CurveSeg]) extends Transable[Shape]
+case class Shape(cen: Vec2, segs: CurveSegs) extends Transable[Shape]
 {
    /** This may need clarification */
    override def fTrans(f: Vec2 => Vec2): Shape = Shape(f(cen), segs)//.fTrans(f))

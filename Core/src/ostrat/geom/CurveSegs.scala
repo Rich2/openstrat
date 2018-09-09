@@ -2,8 +2,9 @@
 package ostrat
 package geom
 
-/** Array based collection for CurveSegs. Uses 6 Doubles for each CurveSeg.  */
-class CurveSegs(val arr: Array[Double]) extends AnyVal
+/** Array based collection for CurveSegs. Uses 6 Doubles for each CurveSeg. It doesn't inherit from DoubleProduct6s, because CurveSeg is not a 
+ *  DoubleProduct6 */
+class CurveSegs(val arr: Array[Double]) extends AnyVal with Transable[CurveSegs]
 {
    def length: Int = arr.length / 6
    def getSeg(index: Int): CurveSeg =
@@ -54,9 +55,12 @@ class CurveSegs(val arr: Array[Double]) extends AnyVal
    }
 }
 
-object CurveSegs
+object CurveSegs //extends Double6sMaker[CurveSeg, CurveSegs]
 {
-   def apply(inp: CurveSeg *): CurveSegs =
+   //implicit val factory: Int => CurveSegs = i => new CurveSegs(new Array[Double](i * 6))
+   
+   @inline def apply(inp: CurveSeg *): CurveSegs = make(inp)
+   def make(inp: Seq[CurveSeg]): CurveSegs =
    {
       val arr = new Array[Double](inp.length * 6)
       inp.iForeach{ (el, i) =>

@@ -36,6 +36,8 @@ package object ostrat
    type ProdD2 = Product2[Double, Double]
    type ProdD3 = Product3[Double, Double, Double]
    type ProdD4 = Product4[Double, Double, Double, Double]
+   type ProdD5 = Product5[Double, Double, Double, Double, Double]
+   type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
    
    def excep(str: String): Nothing = throw new Exception(str)  
    def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fp, detail)))
