@@ -44,6 +44,12 @@ object Line2
    def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
 }
 
+object LineSeg
+{
+   def apply(pEnd: Vec2): CurveSeg = ???// new LineSeg(pEnd.x, pEnd.y)
+   def apply(xEnd: Double, yEnd: Double): CurveSeg = ???
+}
+
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour) extends
 PaintElem[LineDraw] with CurveLike
 {

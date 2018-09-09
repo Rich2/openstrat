@@ -33,10 +33,15 @@ package object ostrat
    /** The errors case of EMon[B] */
    type Bad[B] = Left[Seq[ParseErr], B]
    type ProdI2 = Product2[Int, Int]
+   /** Product2[Double, Double]. These are used in DoubleProduct2s Array[Double] based collections. */
    type ProdD2 = Product2[Double, Double]
+   /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
    type ProdD3 = Product3[Double, Double, Double]
+   /** Product4[Double, Double, Double, Double]. These are used in DoubleProduct4s Array[Double] based collections. */
    type ProdD4 = Product4[Double, Double, Double, Double]
+   /** Product5[Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
    type ProdD5 = Product5[Double, Double, Double, Double, Double]
+   /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
    type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
    
    def excep(str: String): Nothing = throw new Exception(str)  

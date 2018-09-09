@@ -16,7 +16,7 @@ case class ShapeFill(segs: CurveSegs, fillColour: Colour) extends PaintElem[Shap
 case class ShapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeDraw]
 { override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, lineColour) }
 
-case class ShapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeFillDraw]
+case class ShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeFillDraw]
 { override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour) }
 
 

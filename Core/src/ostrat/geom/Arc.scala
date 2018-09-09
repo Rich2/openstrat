@@ -3,16 +3,18 @@ package ostrat
 package geom
 import Colour.Black
 
-trait ArcSegLike extends CurveSegLike
+//trait ArcSegLike extends CurveSegLike
+//{
+//   
+//}
+
+trait ArcLike extends CurveLike
 {
    def xCen: Double
    def yCen: Double
    def pCen: Vec2 = Vec2(xCen, yCen)
    def radius: Double = (pEnd - pCen).magnitude
-}
-
-trait ArcLike extends ArcSegLike with CurveLike
-{   
+   
    def startAngle: Angle = (pStart - pCen).angle
    def endAngle: Angle = (pEnd - pCen).angle
    def deltaAngle: Angle = startAngle.angleTo(endAngle)
@@ -31,46 +33,24 @@ trait ArcLike extends ArcSegLike with CurveLike
    }
 }
 
-case class ArcAlt(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveLike with ArcLike
+object ArcSeg
+{
+   def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = ???//apply(pCen.x, pCen.y
+   def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = ???      
+}
+
+case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveLike with ArcLike
 {   
    def persistName = "Arc"
    override def toString = ???// namedStr2
-   def fTrans(f: Vec2 => Vec2): ArcAlt = ArcAlt(f(pStart), f(pCen), f(pEnd))   
+   def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pCen), f(pEnd))   
 }
 
-object ArcAlt
+object Arc
 {
-   def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2): ArcAlt =  new ArcAlt(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y)
+   def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2): Arc =  new Arc(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y)
 }
 
-/** Takes its start point from the previous segment */
-case class ArcSeg(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveSeg
-{
-   def pCen: Vec2 = Vec2(xCen, yCen)
-   def fTrans(f: Vec2 => Vec2): CurveSeg = ArcSeg(f(pCen),f(pEnd))
-   def startAngle(pStart: Vec2): Angle = (pStart - pCen).angle
-   def endAngle: Angle = (pEnd - pCen).angle
-   def radius: Double = (pEnd - pCen).magnitude
-   def controlPt(startPt: Vec2): Vec2 = 
-   {
-      val sAng: Angle = startAngle(startPt)      
-      val resultAngle = sAng.bisect(endAngle)
-      val alphaAngle =  sAng.angleTo(endAngle) / 2      
-      pCen + resultAngle.toVec2 * radius / alphaAngle.cos
-   }
-   
-   /** Calculates ControlPt and then passes controlPt.x, controlPt.y, XENd, yEnd, radius to f */
-   def fControlEndRadius(startPt: Vec2, f: (Double, Double, Double, Double, Double) => Unit): Unit =
-   {
-      val cp = controlPt(startPt)
-      f(cp.x, cp.y, pEnd.x, pEnd.y, radius)
-}
-}
-
-object ArcSeg
-{
-   def apply(pCen: Vec2, pEnd: Vec2): ArcSeg = new ArcSeg(pCen.x, pCen.y, pEnd.x, pEnd.y)
-}
 
 case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double,
       colour: Colour) extends PaintElem[ArcDraw] with ArcLike
