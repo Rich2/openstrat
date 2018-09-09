@@ -20,6 +20,9 @@ extends ProdD6
 //}
 
 class CurveSegDists(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSegDist]
+{
+   
+}
 
 
 /** represents a polygon on a globe's (eg the Earth) surface. If all the points are visible returns a straight line polygon. If none are

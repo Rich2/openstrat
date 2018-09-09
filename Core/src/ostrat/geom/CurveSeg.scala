@@ -2,7 +2,8 @@
 package ostrat
 package geom
 
-trait CurveSegLike
+/** A trait supers CurveSegs and Curves */
+trait CurveEnding
 {
    /** the x component of the end point */
    def xEnd: Double
@@ -15,7 +16,7 @@ trait CurveSegLike
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the
  *   previous segment. */
 class CurveSeg(xC1: Double, xC2: Double, xUses: Double, yUses: Double, xEnd: Double, yEnd: Double) extends ProdD6 with Transable[CurveSeg]
-with CurveSegLike
+with CurveEnding
 {
    /** Sometimes traits without methods cause problems */
    def silly: String = "Silly!"     

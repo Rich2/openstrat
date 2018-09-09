@@ -23,10 +23,11 @@ abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) exten
                ifAppendList(eg.scale < textScale && fill, TextGraphic.lines(cenXY, aStrs, 10, terr.colourContrast))
             Disp2(vis1, vis2)
          }
-         case GlobedSome(s) =>
+         case GlobedSome(curveSegDists) =>
          {
             val cenXY: Vec2 = eg.latLongToXY(cen)
-            Disp2.vp(ShapeSubj.fill(cenXY, s.map(_.toVec2s(eg.trans)), this, terr.colour))()
+            val temp = curveSegDists.map(_.toVec2s(eg.trans))
+            Disp2.vp(ShapeSubj.fill(cenXY, temp, this, terr.colour))()
          }
          case GlobedNone => Disp2.empty
       }

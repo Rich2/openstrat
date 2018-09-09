@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait CurveLike extends CurveSegLike 
+trait CurveLike extends CurveEnding 
 {
    /** the x component of the start point often called x1 */
    def xStart: Double
