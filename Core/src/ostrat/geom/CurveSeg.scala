@@ -48,8 +48,12 @@ Transable[CurveSeg] with CurveEnding
       case d => fBezierSeg(xC1, yC1, xUses, yUses, xEnd, yEnd)
    }
    
-   def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =
-   
+   def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =  xC1 match
+   {
+      case d if d.isNaN => fLineSeg(this)
+      case d if d.isInfinity => fArcSeg(this)
+      case d => fBezierSeg(this)
+   }
    
    override def fTrans(f: Vec2 => Vec2): CurveSeg = xC1 match
    {

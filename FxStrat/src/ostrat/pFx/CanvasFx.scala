@@ -131,12 +131,12 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.beginPath      
       var startPt = segs.last.pEnd
       gc.moveTo(startPt.x, startPt.y)
-      segs.foreach(seg => seg gc.lineTo(ls.xEnd, ls.yEnd),
+      segs.foreach{seg =>
+         seg.segDo(ls =>  gc.lineTo(ls.xEnd, ls.yEnd),
               as => as.fControlEndRadius(startPt, gc.arcTo),
-              bs => gc.bezierCurveTo(bs.xC1, bs.yC1, bs.xUses, bs.yUses, bs.xEnd, bs.yEnd)
-            }
-            startPt = s.pEnd 
-         })
+              bs => gc.bezierCurveTo(bs.xC1, bs.yC1, bs.xUses, bs.yUses, bs.xEnd, bs.yEnd))
+         startPt = seg.pEnd 
+      }
       gc.closePath 
    }
    

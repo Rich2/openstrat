@@ -129,16 +129,12 @@ object CanvasJs extends CanvasTopLeft
       gc.beginPath()           
       var startPt = segs.last.pEnd
       gc.moveTo(startPt.x, startPt.y)      
-      segs.foreach(s =>
-         {
-            s match
-            {
-               case LineSeg(xEnd, yEnd) => gc.lineTo(xEnd, yEnd)
-               case as: ArcSeg => as.fControlEndRadius(startPt, gc.arcTo)
-               case BezierSeg(xC1, yC1, xC2, yC2, xEnd, yEnd) => gc.bezierCurveTo(xC1, yC1, xC2, yC2, xEnd, yEnd)
-            }
-            startPt = s.pEnd
-         })
+      segs.foreach{seg =>
+         seg.segDo(ls =>  gc.lineTo(ls.xEnd, ls.yEnd),
+               as => as.fControlEndRadius(startPt, gc.arcTo),
+            bs => gc.bezierCurveTo(bs.xC1, bs.yC1, bs.xUses, bs.yUses, bs.xEnd, bs.yEnd))           
+            startPt = seg.pEnd
+         }
          gc.closePath
    }
    

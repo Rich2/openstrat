@@ -69,37 +69,37 @@ class CurveSegs(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[Curv
    def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): ShapeFill = ShapeFill(this.scale(factor).slate(offset), colour)
    
    /** Not sure if this method should be a member of Transable */
-      def boundingRect =
-      {
-         //val t = Arc()
-         var minX, maxX, minY, maxY = 0.0
-         var i = 0
-         this.foreach {ss =>
-            val v = ss.pEnd
-            if (i == 0)
-            {
-               minX = v.x
-               maxX = v.x
-               minY = v.y
-               maxY = v.y
-            }
-            else
-            {
-               minX = minX.min(v.x)
-               maxX = maxX.max(v.x)
-               minY = minY.min(v.y)
-               maxY = maxY.max(v.y)
-            }
-            i += 1
+   def boundingRect =
+   {
+      //val t = Arc()
+      var minX, maxX, minY, maxY = 0.0
+      var i = 0
+      this.foreach {ss =>
+         val v = ss.pEnd
+         if (i == 0)
+         {
+            minX = v.x
+            maxX = v.x
+            minY = v.y
+            maxY = v.y
          }
-         if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
-         BoundingRect(minX, maxX, minY, maxY)               
+         else
+         {
+            minX = minX.min(v.x)
+            maxX = maxX.max(v.x)
+            minY = minY.min(v.y)
+            maxY = maxY.max(v.y)
+         }
+         i += 1
       }
-      def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, Vec2s](_.pEnd).ptInPolygon(pt) 
-      
-   def segForeach(fLineSeg: (Double, Double) => Unit,
-         fArcSeg: (Double, Double, Double, Double) => Unit,
-         fBezierSeg: (Double, Double, Double, Double, Double, Double) => Unit): Unit = foreach(_.fSeg[Unit](fLineSeg, fArcSeg, fBezierSeg))         
+      if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
+      BoundingRect(minX, maxX, minY, maxY)               
+   }
+   def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, Vec2s](_.pEnd).ptInPolygon(pt) 
+   
+   /** Not sure if this is useful */   
+   def segForeach(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =
+      foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))         
 }
 
 object CurveSegs extends Double6sMaker[CurveSeg, CurveSegs]
