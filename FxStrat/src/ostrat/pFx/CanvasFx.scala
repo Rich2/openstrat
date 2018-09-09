@@ -126,32 +126,28 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.strokeText(to.str, to.posn.x, to.posn.y)      
    }
    
-   private def segsPath(segs: List[CurveSeg]): Unit =
+   private def segsPath(segs: CurveSegs): Unit =
    {
       gc.beginPath      
       var startPt = segs.last.pEnd
       gc.moveTo(startPt.x, startPt.y)
-      segs.foreach(s =>
-         {
-            s match
-            {
-               case LineSeg(xEnd, yEnd) => gc.lineTo(xEnd, yEnd)
-               case as: ArcSeg => as.fControlEndRadius(startPt, gc.arcTo)
-               case BezierSeg(xC1, yC1, xC2, yC2, xEnd, yEnd) => gc.bezierCurveTo(xC1, yC1, xC2, yC2, xEnd, yEnd)
+      segs.foreach(seg => seg gc.lineTo(ls.xEnd, ls.yEnd),
+              as => as.fControlEndRadius(startPt, gc.arcTo),
+              bs => gc.bezierCurveTo(bs.xC1, bs.yC1, bs.xUses, bs.yUses, bs.xEnd, bs.yEnd)
             }
             startPt = s.pEnd 
          })
       gc.closePath 
    }
    
-   override def tlShapeFill(segs: List[CurveSeg], fillColour: Colour): Unit =
+   override def tlShapeFill(segs: CurveSegs, fillColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.fill = fxColor(fillColour)
       gc.fill()      
    }
    
-   override def tlShapeFillDraw(segs: List[CurveSeg], fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.fill = fxColor(fillColour)
@@ -159,7 +155,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.stroke = fxColor(lineColour)
       gc.stroke()
    }   
-   override def tlShapeDraw(segs: List[CurveSeg], lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.stroke = fxColor(lineColour)

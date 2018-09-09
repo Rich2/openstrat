@@ -39,6 +39,18 @@ Transable[CurveSeg] with CurveEnding
       case d => fBezierSeg(pC1, pUses, pEnd)
    }
    
+   def fSeg[A](fLineSeg: (Double, Double) => A,
+         fArcSeg: (Double, Double, Double, Double) => A,
+         fBezierSeg: (Double, Double, Double, Double, Double, Double) => A): A = xC1 match
+   {
+      case d if d.isNaN => fLineSeg(xEnd, yEnd)
+      case d if d.isInfinity => fArcSeg(xUses, yUses, xEnd, yEnd)
+      case d => fBezierSeg(xC1, yC1, xUses, yUses, xEnd, yEnd)
+   }
+   
+   def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =
+   
+   
    override def fTrans(f: Vec2 => Vec2): CurveSeg = xC1 match
    {
       case d if d.isNaN => { val newPEnd: Vec2 = f(pEnd); new CurveSeg(d, 0, 0, 0, newPEnd.x, newPEnd.y) }
@@ -56,58 +68,41 @@ Transable[CurveSeg] with CurveEnding
             new CurveSeg(newPC1.x, newPC1.y, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
          }
    }
-   
+   /** Assuming this is Arc Segment */
+   def arcCen: Vec2 = Vec2(xUses, yUses)
+   /** Assuming this is Arc Segment */
+   def arcStartAngle(pStart: Vec2): Angle = (pStart - arcCen).angle
+   /** Assuming this is Arc Segment */
+   def arcEndAngle: Angle = (pEnd - arcCen).angle   
+   /** Assuming this is Arc Segment */
+   def arcRadius: Double = (pEnd - arcCen).magnitude
+   /** Assuming this is Arc Segment */
+   def arcControlPt(startPt: Vec2): Vec2 = 
+   {
+      val sAng: Angle = arcStartAngle(startPt)      
+      val resultAngle = sAng.bisect(arcEndAngle)
+      val alphaAngle =  sAng.angleTo(arcEndAngle) / 2      
+      arcCen + resultAngle.toVec2 * arcRadius / alphaAngle.cos
+   }   
+   /** Assuming this is ArcSeg, calculates ControlPt and then passes controlPt.x, controlPt.y, XENd, yEnd, radius to f */
+   def fControlEndRadius(startPt: Vec2, f: (Double, Double, Double, Double, Double) => Unit): Unit =
+   {
+      val cp = arcControlPt(startPt)
+      f(cp.x, cp.y, pEnd.x, pEnd.y, arcRadius)
+   }   
 }
 
 object CurveSeg
 {
-   
-   
-//   implicit class CurveSegSeqImplicit(thisSeq: Seq[CurveSeg])
-//   {
-//      def curveSegs: CurveSegs = CurveSegs.make(thisSeq)
-//   }
-   
-   
-      
+        
 }
 
-//case class BezierSeg(xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double, val xEnd: Double, val yEnd: Double) extends CurveSeg with
-//   BezierSegLike
-//{
-//   override def fTrans(f: Vec2 => Vec2) = BezierSeg(f(pC1), f(pC2), f(pEnd))
-//}
 //object BezierSeg
 //{
 //   def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): BezierSeg = new BezierSeg(pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
 //}
 //
-///** Takes its start point from the previous segment */
-//case class ArcSeg(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveSeg
-//{
-//   def pCen: Vec2 = Vec2(xCen, yCen)
-//   def fTrans(f: Vec2 => Vec2): CurveSeg = ArcSeg(f(pCen),f(pEnd))
-//   def startAngle(pStart: Vec2): Angle = (pStart - pCen).angle
-//   def endAngle: Angle = (pEnd - pCen).angle
-//   def radius: Double = (pEnd - pCen).magnitude
-//   def controlPt(startPt: Vec2): Vec2 = 
-//   {
-//      val sAng: Angle = startAngle(startPt)      
-//      val resultAngle = sAng.bisect(endAngle)
-//      val alphaAngle =  sAng.angleTo(endAngle) / 2      
-//      pCen + resultAngle.toVec2 * radius / alphaAngle.cos
-//   }
-//   
-//   /** Calculates ControlPt and then passes controlPt.x, controlPt.y, XENd, yEnd, radius to f */
-//   def fControlEndRadius(startPt: Vec2, f: (Double, Double, Double, Double, Double) => Unit): Unit =
-//   {
-//      val cp = controlPt(startPt)
-//      f(cp.x, cp.y, pEnd.x, pEnd.y, radius)
-//   }
-//}
 
-//case class LineSeg(xEnd: Double, yEnd: Double) extends CurveSeg
-//{
-//   override def fTrans(f: Vec2 => Vec2): CurveSeg = LineSeg(f(pEnd))
-//}
+
+
 

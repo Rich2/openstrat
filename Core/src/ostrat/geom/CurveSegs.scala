@@ -7,7 +7,8 @@ import Colour.Black
  *  DoubleProduct6 */
 class CurveSegs(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSeg] with Transable[CurveSegs]
 {
-   def length: Int = arr.length / 6
+   override def typeName: Symbol = 'CurvedSeg
+   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg = new CurveSeg(d1, d2, d3, d4, d5, d6)
 //   def fSeg[A](index: Int, fLine((Vec2): A =
 //   {
 //      val offset = index * 6
@@ -94,7 +95,11 @@ class CurveSegs(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[Curv
          if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
          BoundingRect(minX, maxX, minY, maxY)               
       }
-      def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, Vec2s](_.pEnd).ptInPolygon(pt)      
+      def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, Vec2s](_.pEnd).ptInPolygon(pt) 
+      
+   def segForeach(fLineSeg: (Double, Double) => Unit,
+         fArcSeg: (Double, Double, Double, Double) => Unit,
+         fBezierSeg: (Double, Double, Double, Double, Double, Double) => Unit): Unit = foreach(_.fSeg[Unit](fLineSeg, fArcSeg, fBezierSeg))         
 }
 
 object CurveSegs extends Double6sMaker[CurveSeg, CurveSegs]
