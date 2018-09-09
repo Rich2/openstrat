@@ -41,7 +41,7 @@ package object ostrat
    type ProdD4 = Product4[Double, Double, Double, Double]
    /** Product5[Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
    type ProdD5 = Product5[Double, Double, Double, Double, Double]
-   /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
+   /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct6s Array[Double] based collections. */
    type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
    
    def excep(str: String): Nothing = throw new Exception(str)  

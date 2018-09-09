@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A plain 2 dimension (mathematical) vector */
-class Vec2s(val arr: Array[Double]) extends AnyVal with  DoubleProduct2s[Vec2] with Transable[Vec2s]
+class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Vec2s]
 {
    override def typeName: Symbol = 'Vec2s   
    override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)

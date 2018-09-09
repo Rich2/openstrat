@@ -50,11 +50,11 @@ object Rectangle
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
    def cross(width: Double, height: Double, barWidth: Double): List[Vec2s] = List(apply(width, barWidth), apply(barWidth, height))
-   def curvedSegs(width: Double, height: Double, radius: Double): List[CurveSeg] =
+   def curvedSegs(width: Double, height: Double, radius: Double): CurveSegs =
    {
       val w = width / 2
       val h = height / 2
-      List(LineSeg(w - radius,          h), ArcSeg(w - radius, h - radius, w,          h -radius),
+      CurveSegs(LineSeg(w - radius,          h), ArcSeg(w - radius, h - radius, w,          h -radius),
            LineSeg(w,          radius - h), ArcSeg(w - radius, radius - h,    w - radius, -h       ),
            LineSeg(radius - w,         -h), ArcSeg(radius - w, radius - h,      -w,         radius -h),
            LineSeg(- w,        h - radius), ArcSeg(radius - w, h - radius,   radius - w, h         ))            

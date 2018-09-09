@@ -2,9 +2,20 @@
 package ostrat
 package geom
 
+trait CurveSegLike
+{
+   /** the x component of the end point */
+   def xEnd: Double
+   /** the y component of the end point */
+   def yEnd: Double
+   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
+   final def pEnd: Vec2 = Vec2(xEnd, yEnd)  
+}
+
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the
  *   previous segment. */
-class CurveSeg(xC1: Double, xC2: Double, xUses: Double, yUses: Double, xEnd: Double, yEnd: Double) extends ProdD6 with Transable[CurveSeg]// with CurveSegLike
+class CurveSeg(xC1: Double, xC2: Double, xUses: Double, yUses: Double, xEnd: Double, yEnd: Double) extends ProdD6 with Transable[CurveSeg]
+with CurveSegLike
 {
    /** Sometimes traits without methods cause problems */
    def silly: String = "Silly!"     
@@ -14,47 +25,13 @@ object CurveSeg
 {
    
    
-   implicit class CurveSegSeqImplicit(thisSeq: Seq[CurveSeg])
-   {
-      def curveSegs: CurveSegs = CurveSegs.make(thisSeq)
-   }
+//   implicit class CurveSegSeqImplicit(thisSeq: Seq[CurveSeg])
+//   {
+//      def curveSegs: CurveSegs = CurveSegs.make(thisSeq)
+//   }
    
-   implicit class ImpVec2Traversible[Repr](travLike: collection.TraversableLike[CurveSeg, Repr])
-   {
-      /** Not sure if this method should be a member of Transable */
-      def boundingRect =
-      {
-         //val t = Arc()
-         var minX, maxX, minY, maxY = 0.0
-         var i = 0
-         for (ss <- travLike)
-         {
-            val v = ss.pEnd
-            if (i == 0)
-            {
-               minX = v.x
-               maxX = v.x
-               minY = v.y
-               maxY = v.y
-            }
-            else
-            {
-               minX = minX.min(v.x)
-               maxX = maxX.max(v.x)
-               minY = minY.min(v.y)
-               maxY = maxY.max(v.y)
-            }
-            i += 1
-         }
-         if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
-         BoundingRect(minX, maxX, minY, maxY)               
-      }
-      def ptInShape: Vec2 => Boolean = pt =>
-         {
-            val vs: List[Vec2] = travLike.toList.map(_.pEnd)
-            vs.toProdD2[Vec2, Vec2s].ptInPolygon(pt)            
-         }
-   }   
+   
+      
 }
 
 //case class BezierSeg(xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double, val xEnd: Double, val yEnd: Double) extends CurveSeg with

@@ -5,7 +5,7 @@ import Colour.Black
 
 /** Array based collection for CurveSegs. Uses 6 Doubles for each CurveSeg. It doesn't inherit from DoubleProduct6s, because CurveSeg is not a 
  *  DoubleProduct6 */
-class CurveSegs(val arr: Array[Double]) extends AnyVal with Transable[CurveSegs]
+class CurveSegs(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSeg] with Transable[CurveSegs]
 {
    def length: Int = arr.length / 6
 //   def fSeg[A](index: Int, fLine((Vec2): A =
@@ -65,7 +65,36 @@ class CurveSegs(val arr: Array[Double]) extends AnyVal with Transable[CurveSegs]
    def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): NoScaleShape =
       NoScaleShape(posn, this, evObj, List(ShapeFill(this, colour)))      
    def fillScale(colour: Colour, factor: Double): ShapeFill = ShapeFill(this.scale(factor), colour)
-   def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): ShapeFill = ShapeFill(this.scale(factor).slate(offset), colour)   
+   def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): ShapeFill = ShapeFill(this.scale(factor).slate(offset), colour)
+   
+   /** Not sure if this method should be a member of Transable */
+      def boundingRect =
+      {
+         //val t = Arc()
+         var minX, maxX, minY, maxY = 0.0
+         var i = 0
+         this.foreach {ss =>
+            val v = ss.pEnd
+            if (i == 0)
+            {
+               minX = v.x
+               maxX = v.x
+               minY = v.y
+               maxY = v.y
+            }
+            else
+            {
+               minX = minX.min(v.x)
+               maxX = maxX.max(v.x)
+               minY = minY.min(v.y)
+               maxY = maxY.max(v.y)
+            }
+            i += 1
+         }
+         if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
+         BoundingRect(minX, maxX, minY, maxY)               
+      }
+      def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, Vec2s](_.pEnd).ptInPolygon(pt)      
 }
 
 object CurveSegs extends Double6sMaker[CurveSeg, CurveSegs]

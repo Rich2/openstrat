@@ -3,11 +3,6 @@ package ostrat
 package geom
 import Colour.Black
 
-//trait ArcSegLike extends CurveSegLike
-//{
-//   
-//}
-
 trait ArcLike extends CurveLike
 {
    def xCen: Double
