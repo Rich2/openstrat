@@ -30,13 +30,14 @@ extends ProdD6
 
 object LineSegDist
 {
-   def apply(endPt: Dist2): CurveSegDist = ???
+   def apply(endPt: Dist2): CurveSegDist = new CurveSegDist(Double.NaN, 0, 0, 0, endPt.xMetres, endPt.yMetres)
 //   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
 }
 
 object ArcSegDist
 {
-   def apply(cenPt: Dist2, endPt: Dist2): CurveSegDist = ???
+   def apply(cenPt: Dist2, endPt: Dist2): CurveSegDist =
+      new CurveSegDist(Double.PositiveInfinity, 0, cenPt.xMetres, cenPt.yMetres, endPt.xMetres, endPt.yMetres)
 //   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
 }
 

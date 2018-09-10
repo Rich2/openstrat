@@ -46,8 +46,8 @@ object Line2
 
 object LineSeg
 {
-   def apply(pEnd: Vec2): CurveSeg = ???// new LineSeg(pEnd.x, pEnd.y)
-   def apply(xEnd: Double, yEnd: Double): CurveSeg = ???
+   def apply(pEnd: Vec2): CurveSeg =  new CurveSeg(Double.NaN, 0, 0, 0, pEnd.x, pEnd.y)
+   def apply(xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(Double.NaN, 0, 0, 0, xEnd, yEnd)
 }
 
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour) extends

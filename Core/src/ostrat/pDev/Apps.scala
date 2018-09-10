@@ -29,7 +29,7 @@ object Apps
 //         (22, (DLesson2(_), "ScalaFx Demonstration Canvas 2")),
 //         (23, (DLesson3(_), "ScalaFx Demonstration Canvas 3")),
          )
-      val appNum: Int = 3
+      val appNum: Int = 1
       def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
     
 }
