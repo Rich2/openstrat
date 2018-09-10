@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package myPackage
+package pLearn
 import geom._
 import pCanv._
 import Colour._

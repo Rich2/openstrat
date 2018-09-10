@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pDev
-import pCanv._
-import pStrat._
-import pGames._
+import pCanv._, pStrat._, pGames._, pLearn._
 
 /** This file is normally set by "git update-index --assume-unchanged Core/src/ostrat/pDev/Apps.scala" this is to allow the developer to make local
  *  changes to appNum without modifying the master project. If permanent changes are required run:
@@ -24,12 +22,12 @@ object Apps
          (8, (ColourGen(_), "ScalaFx Some Colours")),
          (9, (p305.BC305Gui(_, p305.Bc1), "BC 305")),
          (10, (pCard.BlackJack(_), "ScalaFx BlackJack")),
-//         (11, (new pChess.DraughtsGui(_), "Draughts")),
-//         (21, (DLesson1(_), "ScalaFx Demonstration Canvas 1")),
-//         (22, (DLesson2(_), "ScalaFx Demonstration Canvas 2")),
-//         (23, (DLesson3(_), "ScalaFx Demonstration Canvas 3")),
+         (11, (new pChess.DraughtsGui(_), "Draughts")),
+         (21, (Lesson1(_), "ScalaFx Demonstration Canvas 1")),
+         (22, (Lesson2(_), "ScalaFx Demonstration Canvas 2")),
+         (23, (Lesson3(_), "ScalaFx Demonstration Canvas 3")),
          )
-      val appNum: Int = 1
+      val appNum: Int = 11
       def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
     
 }

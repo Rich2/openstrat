@@ -1,5 +1,5 @@
 package ostrat
-package myPackage
+package pLearn
 
 import geom._
 import pCanv._

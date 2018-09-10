@@ -101,12 +101,8 @@ object CurveSeg
         
 }
 
-//object BezierSeg
-//{
-//   def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): BezierSeg = new BezierSeg(pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
-//}
-//
-
-
-
-
+object BezierSeg
+{
+   def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
+   
+}
