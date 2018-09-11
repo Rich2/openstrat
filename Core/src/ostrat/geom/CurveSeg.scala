@@ -110,11 +110,11 @@ object LineSeg
 object ArcSeg
 {
    def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(PosInf, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
-   def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)      
+   //def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)      
 }
 
 object BezierSeg
 {
    def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
-   
+   //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)
 }

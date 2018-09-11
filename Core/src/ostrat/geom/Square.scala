@@ -17,6 +17,6 @@ object Square
    def curvedSegs(width: Double, radius: Double): List[CurveSeg] =
    {
       val w = width / 2
-      (0 to 3).toList.flatMap(i => List( LineSeg(w - radius, w), ArcSeg(w - radius, w -radius, w, w - radius)).rotateRadians(-i * math.Pi / 2))
+      (0 to 3).toList.flatMap(i => List( LineSeg(w - radius, w), ArcSeg(w - radius vv w -radius, w vv w - radius)).rotateRadians(-i * math.Pi / 2))
    }
 }
