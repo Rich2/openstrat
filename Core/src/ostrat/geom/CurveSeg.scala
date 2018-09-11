@@ -43,9 +43,9 @@ Transable[CurveSeg] with CurveEnding
          fArcSeg: (Double, Double, Double, Double) => A,
          fBezierSeg: (Double, Double, Double, Double, Double, Double) => A): A = xC1 match
    {
-      case d if d.isNaN => fLineSeg(xEnd, yEnd)
-      case d if d.isInfinity => fArcSeg(xUses, yUses, xEnd, yEnd)
-      case d => fBezierSeg(xC1, yC1, xUses, yUses, xEnd, yEnd)
+      case NegInf => fLineSeg(xEnd, yEnd)
+      case PosInf => fArcSeg(xUses, yUses, xEnd, yEnd)
+      case _ => fBezierSeg(xC1, yC1, xUses, yUses, xEnd, yEnd)
    }
    
    def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =  xC1 match
