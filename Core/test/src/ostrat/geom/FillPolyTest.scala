@@ -3,7 +3,8 @@ package ostrat
 package geom
 import utest._, Colour._
 /** I wrote this test to solve a couple a of bugs, but actually found them by the use of printlns */
-object FillPolyTestAlt  extends TestSuite{
+object FillPolyTestAlt  extends TestSuite
+{
    val v = Rectangle(4, 2)  
    val fp = FillPolyAlt(Red, v)   
    val fp2 = fp.fTrans(_ * 2)   

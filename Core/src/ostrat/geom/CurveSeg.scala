@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-
+import Double.{NegativeInfinity => NegInf, PositiveInfinity => PosInf} 
 /** The base trait for CurveSeg and Curve and their associated GraphicElems */
 trait CurveEnding
 {
@@ -15,7 +15,7 @@ trait CurveEnding
 
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the
  *   previous segment. */
-class CurveSeg(val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends ProdD6 with
+case class CurveSeg(val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends ProdD6 with
 Transable[CurveSeg] with CurveEnding 
 {
    override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
@@ -34,8 +34,8 @@ Transable[CurveSeg] with CurveEnding
       
    def fSeg[A](fLineSeg: Vec2 => A, fArcSeg: (Vec2, Vec2) => A, fBezierSeg: (Vec2, Vec2, Vec2) => A): A = xC1 match
    {
-      case d if d.isNaN => fLineSeg(pEnd)
-      case d if d.isInfinity => fArcSeg(pUses, pEnd)
+      case NegInf => fLineSeg(pEnd)
+      case PosInf => fArcSeg(pUses, pEnd)
       case d => fBezierSeg(pC1, pUses, pEnd)
    }
    
@@ -50,19 +50,19 @@ Transable[CurveSeg] with CurveEnding
    
    def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =  xC1 match
    {
-      case d if d.isNaN => fLineSeg(this)
-      case d if d.isInfinity => fArcSeg(this)
+      case NegInf => fLineSeg(this)
+      case PosInf => fArcSeg(this)
       case d => fBezierSeg(this)
    }
    
    override def fTrans(f: Vec2 => Vec2): CurveSeg = xC1 match
    {
-      case d if d.isNaN => { val newPEnd: Vec2 = f(pEnd); new CurveSeg(d, 0, 0, 0, newPEnd.x, newPEnd.y) }
-      case d if d.isInfinity =>
+      case NegInf => { val newPEnd: Vec2 = f(pEnd); new CurveSeg(NegInf, 0, 0, 0, newPEnd.x, newPEnd.y) }
+      case PosInf =>
          {
             val newPCen: Vec2 = f(pUses)
             val newPEnd: Vec2 = f(pEnd)
-            new CurveSeg(d, 0, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
+            new CurveSeg(PosInf, 0, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
          }
       case _ =>
          {
@@ -99,6 +99,18 @@ Transable[CurveSeg] with CurveEnding
 object CurveSeg
 {
         
+}
+
+object LineSeg
+{
+   def apply(pEnd: Vec2): CurveSeg =  new CurveSeg(Double.NegativeInfinity, 0, 0, 0, pEnd.x, pEnd.y)
+   def apply(xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(Double.NegativeInfinity, 0, 0, 0, xEnd, yEnd)
+}
+
+object ArcSeg
+{
+   def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(PosInf, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
+   def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)      
 }
 
 object BezierSeg

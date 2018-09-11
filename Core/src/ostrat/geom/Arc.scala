@@ -28,12 +28,6 @@ trait ArcLike extends CurveLike
    }
 }
 
-object ArcSeg
-{
-   def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(Double.PositiveInfinity, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
-   def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(Double.PositiveInfinity, 0, xCen, yCen, xEnd, yEnd)      
-}
-
 case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveLike with ArcLike
 {   
    def persistName = "Arc"
