@@ -1,10 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFx
-import geom._
-import pCanv._
-import scalafx.Includes._
-import scalafx.scene._
+import geom._, pCanv._, scalafx.Includes._, scalafx.scene._
 
 case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSaver
 {
