@@ -2,7 +2,6 @@
 package ostrat
 package pCanv
 import geom._
-import Colour.Black
 
 /** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used by graphical applications. */
 trait CanvasTopLeft extends CanvasPlatform
@@ -19,8 +18,8 @@ trait CanvasTopLeft extends CanvasPlatform
    override def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
       tlLinesDraw(lineSegs.fTrans(tlCen), lineWidth, linesColour): Unit
    
-   override def shapeFill(segs: CurveSegs, colour: Colour): Unit = tlShapeFill(segs.fTrans(tlCen), colour)
-   override def shapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): Unit =
+   override def shapeFill(sf: ShapeFill): Unit = tlShapeFill(sf.fTrans(tlCen))  
+   override def shapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
       tlShapeFillDraw(segs.fTrans(tlCen), fillColour, lineWidth, lineColour)
    override def shapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour): Unit =
       tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)   
@@ -39,7 +38,7 @@ trait CanvasTopLeft extends CanvasPlatform
    
    protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
 
-   protected def tlShapeFill(segs: CurveSegs, colour: Colour): Unit
+   protected def tlShapeFill(sf: ShapeFill): Unit
    protected def tlShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
    protected def tlShapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour): Unit
    

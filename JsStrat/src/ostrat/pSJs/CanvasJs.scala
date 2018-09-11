@@ -136,10 +136,10 @@ object CanvasJs extends CanvasTopLeft
          gc.closePath
    }
    
-   override def tlShapeFill(segs: CurveSegs, fillColour: Colour): Unit =
+   override def tlShapeFill(sf: ShapeFill): Unit =
    {
-      segsPath(segs)  
-      gc.fillStyle = fillColour.str
+      segsPath(sf.segs)  
+      gc.fillStyle = sf.fillColour.str
       gc.fill
    }   
    

@@ -118,10 +118,10 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    
    private def segsPath(segs: CurveSegs): Unit =
    { gc.beginPath
-     var startPt = segs.last.pEnd
+     var startPt = segs.last.pEnd     
      gc.moveTo(startPt.x, startPt.y)
      segs.foreach{seg =>
-       seg.segDo(ls =>  gc.lineTo(ls.xEnd, ls.yEnd),
+       seg.segDo(ls => gc.lineTo(ls.xEnd, ls.yEnd),
            as => as.fControlEndRadius(startPt, gc.arcTo),
            bs => gc.bezierCurveTo(bs.xC1, bs.yC1, bs.xUses, bs.yUses, bs.xEnd, bs.yEnd)         
         )
@@ -130,9 +130,9 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.closePath 
    }
    
-   override def tlShapeFill(segs: CurveSegs, fillColour: Colour): Unit =
-   { segsPath(segs)  
-     gc.fill = toFxColor(fillColour)
+   override def tlShapeFill(sf: ShapeFill): Unit =
+   { segsPath(sf.segs)     
+     gc.fill = toFxColor(sf.fillColour)
      gc.fill()      
    }
    

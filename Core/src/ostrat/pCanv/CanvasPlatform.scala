@@ -52,7 +52,10 @@ trait CanvasPlatform extends RectGeom
       bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
       
    def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
-   def shapeFill(segs: CurveSegs, fillColour: Colour): Unit
+   
+   def shapeFill(sf: ShapeFill): Unit
+   final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(CurveSegs(segs: _*), fillColour)) 
+   
    def shapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit   
    def shapeDraw(segs: CurveSegs, lineWidth: Double, borderColour: Colour = Black): Unit
    
@@ -102,7 +105,7 @@ trait CanvasPlatform extends RectGeom
       case pfd: PolyFillDraw => polyFillDraw(pfd)
       case LinesDraw(lines, lineWidth, lineColour) => linesDraw(lines, lineWidth, lineColour)      
       case ld: LineDraw => lineDraw(ld)
-      case ShapeFill(segs, fillColour) => shapeFill(segs, fillColour)
+      case sf: ShapeFill => shapeFill(sf)
       case ShapeDraw(segs, lineWidth, lineColour)  => shapeDraw(segs, lineWidth, lineColour)
       case ShapeFillDraw(segs, fillColour, lineWidth, lineColour) => shapeFillDraw(segs, fillColour, lineWidth, lineColour) 
       case ad: ArcDraw => arcDraw(ad)

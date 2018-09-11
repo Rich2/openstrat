@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import Colour.Black
+import Colour.Black, Double.{NegativeInfinity => NegInf, PositiveInfinity => PosInf}
 
 /** Array based collection for CurveSegs. Uses 6 Doubles for each CurveSeg. It doesn't inherit from DoubleProduct6s, because CurveSeg is not a 
  *  DoubleProduct6 */
@@ -9,16 +9,6 @@ class CurveSegs(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[Curv
 {
    override def typeName: Symbol = 'CurvedSeg
    override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg = new CurveSeg(d1, d2, d3, d4, d5, d6)
-//   def fSeg[A](index: Int, fLine((Vec2): A =
-//   {
-//      val offset = index * 6
-//      arr(offset) match
-//      {
-//         case d if d.isNaN => LineSeg(arr(offset + 4), arr(offset + 5))
-//         case d if d.isInfinity => ArcSeg(arr(offset + 2), arr(offset + 3), arr(offset + 4), arr(offset + 5))
-//         case d => BezierSeg(d, arr(offset + 1), arr(offset + 2), arr(offset + 3), arr(offset + 4), arr(offset + 5))
-//      }
-//   }   
    
    def fTrans(f: Vec2 => Vec2): CurveSegs =
    {       
@@ -41,8 +31,8 @@ class CurveSegs(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[Curv
          val offset = index * 6
          arr(offset) match
          {
-            case d if d.isNaN => setEnd(offset)
-            case d if d.isInfinity => { setMiddle(offset); setEnd(offset) }   
+           case NegInf => { newArr(offset) = NegInf; setEnd(offset) }
+           case PosInf => { newArr(offset) = PosInf; setMiddle(offset); setEnd(offset) }   
             case d =>
             {
                val newControl1: Vec2 = f(arr(offset) vv arr(offset + 1)) 
@@ -106,40 +96,4 @@ object CurveSegs extends Double6sMaker[CurveSeg, CurveSegs]
 {
    implicit val factory: Int => CurveSegs = i => new CurveSegs(new Array[Double](i * 6))
    
-   //@inline def apply(inp: CurveSeg *): CurveSegs = make(inp)
-//   def make(inp: Seq[CurveSeg]): CurveSegs =
-//   {
-//      val arr = new Array[Double](inp.length * 6)
-//      inp.iForeach{ (el, i) =>
-//         val offset = i * 6      
-//         el match      
-//         {
-//         case ls: LineSeg =>
-//            {
-//               arr(offset) = Double.NaN
-//               arr(offset + 4) = ls.xEnd
-//               arr(offset + 5) = ls.yEnd
-//            }
-//         case as: ArcSeg =>
-//            {
-//              arr(offset) = Double.PositiveInfinity
-//              arr(offset + 2) = as.xCen
-//              arr(offset + 3) = as.yCen
-//              arr(offset + 4) = as.xEnd
-//              arr(offset + 5) = as.yEnd
-//         
-//            }
-//         case bs: BezierSeg =>
-//            {
-//              arr(offset) = bs.xC1
-//              arr(offset + 1) = bs.yC1 
-//              arr(offset + 2) = bs.xC2
-//              arr(offset + 3) = bs.yC2
-//              arr(offset + 4) = bs.xEnd
-//              arr(offset + 5) = bs.yEnd
-//            }
-//         }            
-//      }
-//      new CurveSegs(arr)
-//   }
 }

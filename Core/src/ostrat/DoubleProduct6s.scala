@@ -40,8 +40,8 @@ abstract class Double6sMaker[T <: ProdD6, ST <: DoubleProduct6s[T]]
          res.arr(count * 6 + 1) = elems(count)._2
          res.arr(count * 6 + 2) = elems(count)._3
          res.arr(count * 6 + 3) = elems(count)._4
-         res.arr(count * 6 + 3) = elems(count)._4
-         res.arr(count * 6 + 3) = elems(count)._4
+         res.arr(count * 6 + 4) = elems(count)._5
+         res.arr(count * 6 + 5) = elems(count)._6
          count += 1
       }
       res
