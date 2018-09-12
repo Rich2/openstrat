@@ -16,7 +16,7 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
 
    override protected def tlShapeFill(sf: ShapeFill): Unit = {}
    override protected def tlShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit = {}
-   override protected def tlShapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour): Unit = {}
+   override protected def tlShapeDraw(sd: ShapeDraw): Unit = {}
    override protected def tlArcDraw(ad: ArcDraw): Unit = {}
    
    override protected def tlTextGraphic(tg: TextGraphic): Unit = {}

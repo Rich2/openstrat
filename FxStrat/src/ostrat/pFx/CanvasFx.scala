@@ -140,13 +140,15 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    { segsPath(segs)  
      gc.fill = toFxColor(fillColour)
      gc.fill()
+     gc.lineWidth = lineWidth
      gc.stroke = toFxColor(lineColour)
      gc.stroke()
    }   
-   override def tlShapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeDraw(sd: ShapeDraw): Unit =
    {
-      segsPath(segs)  
-      gc.stroke = toFxColor(lineColour)
+      segsPath(sd.segs)
+      gc.lineWidth = sd.lineWidth
+      gc.stroke = toFxColor(sd.lineColour)
       gc.stroke()      
    }
    

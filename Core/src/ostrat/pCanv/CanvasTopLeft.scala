@@ -21,8 +21,7 @@ trait CanvasTopLeft extends CanvasPlatform
    override def shapeFill(sf: ShapeFill): Unit = tlShapeFill(sf.fTrans(tlCen))  
    override def shapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
       tlShapeFillDraw(segs.fTrans(tlCen), fillColour, lineWidth, lineColour)
-   override def shapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour): Unit =
-      tlShapeDraw(segs.fTrans(tlCen), lineWidth, lineColour)   
+   override def shapeDraw(sd: ShapeDraw): Unit = tlShapeDraw(sd.fTrans(tlCen))   
    
    override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
@@ -40,7 +39,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
    protected def tlShapeFill(sf: ShapeFill): Unit
    protected def tlShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit
-   protected def tlShapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour): Unit
+   protected def tlShapeDraw(sd: ShapeDraw): Unit
    
    protected def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    
