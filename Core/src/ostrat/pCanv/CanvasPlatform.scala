@@ -51,7 +51,7 @@ trait CanvasPlatform extends RectGeom
    def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
       bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
       
-   def linesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit
+   def linesDraw(lines: Line2s, lineWidth: Double, linesColour: Colour): Unit
    
    def shapeFill(sf: ShapeFill): Unit
    final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(CurveSegs(segs: _*), fillColour)) 
