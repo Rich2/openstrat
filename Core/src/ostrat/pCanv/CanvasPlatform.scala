@@ -44,14 +44,17 @@ trait CanvasPlatform extends RectGeom
    
    def lineDraw(ld: LineDraw): Unit
    def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit = lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))
+   
    def arcDraw(ad: ArcDraw): Unit
    def arcDraw(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
       arcDraw(ArcDraw(pStart, pCen, pEnd, lineWidth, colour))
+   
    def bezierDraw(bd: BezierDraw): Unit
    def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
       bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
-      
-   def linesDraw(lines: Line2s, lineWidth: Double, linesColour: Colour): Unit
+
+   def linesDraw(lsd: LinesDraw): Unit
+   final def linesDraw(lineWidth: Double, linesColour: Colour, lines: Line2 *): Unit = linesDraw(LinesDraw(Line2s(lines: _*), lineWidth, linesColour))
    
    def shapeFill(sf: ShapeFill): Unit
    final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(CurveSegs(segs: _*), fillColour)) 
@@ -106,7 +109,7 @@ trait CanvasPlatform extends RectGeom
       case fp: PolyFill => polyFill(fp)//verts, fillColour)
       case dp: PolyDraw => polyDraw(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
       case pfd: PolyFillDraw => polyFillDraw(pfd)
-      case LinesDraw(lines, lineWidth, lineColour) => linesDraw(lines, lineWidth, lineColour)      
+      case lsd: LinesDraw => linesDraw(lsd)
       case ld: LineDraw => lineDraw(ld)
       case sf: ShapeFill => shapeFill(sf)
       case sd: ShapeDraw => shapeDraw(sd)

@@ -10,14 +10,29 @@ trait GraphicElem[A] extends Any with Transable[A]
 /* Base trait for all passive objects  on a canvas / panel */
 trait PaintElem[A] extends Any with GraphicElem[A]
 
-case class ShapeFill(segs: CurveSegs, fillColour: Colour) extends PaintElem[ShapeFill]
-{ override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), fillColour) }
+case class ShapeFill(segs: CurveSegs, colour: Colour) extends PaintElem[ShapeFill]
+{ override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), colour) }
 
-case class ShapeDraw(segs: CurveSegs, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeDraw]
-{ override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, lineColour) }
+case class ShapeDraw(segs: CurveSegs, lineWidth: Double, colour: Colour = Black) extends PaintElem[ShapeDraw]
+{ override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, colour) }
 
 case class ShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PaintElem[ShapeFillDraw]
 { override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour) }
 
+case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour) extends
+  PaintElem[LineDraw] with CurveLike
+{ override def fTrans(f: Vec2 => Vec2) = LineDraw(f(pStart), f(pEnd), lineWidth, colour) }
+object LineDraw
+{
+  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, colour: Colour = Black): LineDraw =
+    new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour)
+}
 
+case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintElem[LinesDraw]
+{ override def fTrans(f: Vec2 => Vec2) = LinesDraw(lineSegs.fTrans(f), lineWidth, colour) }
+
+object LinesDraw
+{
+  def apply(lineWidth: Double, colour: Colour, lineSegs: Line2 *): LinesDraw = LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour)
+}
 

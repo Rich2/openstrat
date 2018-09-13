@@ -72,7 +72,7 @@ object CanvasJs extends CanvasTopLeft
       gc.moveTo(dp.xHead, dp.yHead)
       dp.verts.foreachPairTail(gc.lineTo)
       gc.closePath()      
-      gc.strokeStyle = dp.lineColour.str
+      gc.strokeStyle = dp.colour.str
       gc.lineWidth = dp.lineWidth
       gc.stroke            
    }
@@ -106,11 +106,12 @@ object CanvasJs extends CanvasTopLeft
       ad.fControlEndRadius(gc.arcTo)
    }
    
-   override protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
+   override protected def tlLinesDraw(lsd: LinesDraw): Unit =
    {           
       gc.beginPath
-      lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
-      gc.strokeStyle = linesColour.str
+      lsd.lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
+      gc.lineWidth = lsd.lineWidth
+      gc.strokeStyle = lsd.colour.str
       gc.stroke()      
    }
    protected def tlBezierDraw(bd: BezierDraw): Unit =
@@ -139,14 +140,14 @@ object CanvasJs extends CanvasTopLeft
    override def tlShapeFill(sf: ShapeFill): Unit =
    {
       segsPath(sf.segs)  
-      gc.fillStyle = sf.fillColour.str
+      gc.fillStyle = sf.colour.str
       gc.fill
    }   
    
    override def tlShapeDraw(sd: ShapeDraw): Unit =
    {
       segsPath(sd.segs)      
-      gc.strokeStyle = sd.lineColour.str
+      gc.strokeStyle = sd.colour.str
       gc.lineWidth = sd.lineWidth
       gc.stroke   
    }     

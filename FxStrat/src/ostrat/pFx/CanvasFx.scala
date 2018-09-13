@@ -37,7 +37,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    /** Needs mod */
    override def tlPolyDraw(dp: PolyDraw): Unit =    
    {
-      gc.stroke = toFxColor(dp.lineColour)
+      gc.stroke = toFxColor(dp.colour)
       gc.lineWidth = dp.lineWidth
       gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLength)
    }
@@ -99,11 +99,11 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.fillText(tg.str, tg.posn.x, tg.posn.y)
    }
    
-   protected def tlLinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour): Unit =
+   protected def tlLinesDraw(lsd: LinesDraw): Unit =
    {  gc.beginPath
-      lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
-      gc.lineWidth = lineWidth
-      gc.stroke = toFxColor(linesColour)
+      lsd.lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
+      gc.lineWidth = lsd.lineWidth
+      gc.stroke = toFxColor(lsd.colour)
       gc.stroke()      
    }
    
@@ -132,7 +132,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    
    override def tlShapeFill(sf: ShapeFill): Unit =
    { segsPath(sf.segs)     
-     gc.fill = toFxColor(sf.fillColour)
+     gc.fill = toFxColor(sf.colour)
      gc.fill()      
    }
    
@@ -148,7 +148,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    {
       segsPath(sd.segs)
       gc.lineWidth = sd.lineWidth
-      gc.stroke = toFxColor(sd.lineColour)
+      gc.stroke = toFxColor(sd.colour)
       gc.stroke()      
    }
    

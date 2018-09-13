@@ -44,24 +44,5 @@ object Line2
    def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
 }
 
-case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour) extends
-PaintElem[LineDraw] with CurveLike
-{
-   override def fTrans(f: Vec2 => Vec2) = LineDraw(f(pStart), f(pEnd), lineWidth, colour)
-   
-}
 
-object LineDraw
-{
-   def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, colour: Colour = Black): LineDraw =
-      new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour)
-}
-
-case class LinesDraw(lineSegs: Line2s, lineWidth: Double, linesColour: Colour = Black) extends PaintElem[LinesDraw]
-{ override def fTrans(f: Vec2 => Vec2) = LinesDraw(lineSegs.fTrans(f), lineWidth, linesColour) }
-
-object LinesDraw
-{
-   def apply(lineWidth: Double, linesColour: Colour, lineSegs: Line2 *): LinesDraw = LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, linesColour)     
-}
 
