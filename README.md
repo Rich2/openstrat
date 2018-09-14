@@ -73,6 +73,7 @@ mill mill.scalalib.GenIdea/idea //To create an Inteiij Idea project.
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
+   - **ostrat.pLearn** A series of lessons for beginners to Scala, complete beginners to programmming and beginners in geometry, using the graphical API. These will be repackaged and published as a seperate project.
    - **ostrat.pWeb** Code for the generation and manipulation of
      * HTML
      * Other XML
