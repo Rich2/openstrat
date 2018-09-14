@@ -3,8 +3,8 @@ package ostrat
 package geom
 import Colour.Black, Double.{NegativeInfinity => NegInf, PositiveInfinity => PosInf}
 
-/** Array based collection for CurveSegs. Uses 6 Doubles for each CurveSeg. It doesn't inherit from DoubleProduct6s, because CurveSeg is not a 
- *  DoubleProduct6 */
+/** Array based collection for CurveSegs. Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg 
+ *  positive infinity for an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
 class CurveSegs(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSeg] with Transable[CurveSegs]
 {
    override def typeName: Symbol = 'CurvedSeg
