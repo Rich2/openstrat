@@ -13,6 +13,7 @@ case class Lesson3 (canv: CanvasPlatform) extends CanvasSimple
   val ctrl1 = 150 vv -125
   val ctrl2 = -175 vv -250
   val pt5 = -200 vv -200
+  //A shape is just a closed sequence of curve segments */
   canv.shapeFill(Pink,
       LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5))
   canv.textGraphic(pt1, "pt1", 16)

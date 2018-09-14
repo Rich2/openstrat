@@ -123,7 +123,7 @@ object CanvasJs extends CanvasTopLeft
       gc.stroke()
    }
    
-   private def segsPath(segs: CurveSegs): Unit =
+   private def segsPath(segs: Shape): Unit =
    {
       gc.beginPath()           
       var startPt = segs.last.pEnd
@@ -151,7 +151,7 @@ object CanvasJs extends CanvasTopLeft
       gc.lineWidth = sd.lineWidth
       gc.stroke   
    }     
-   override def tlShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
    {
       segsPath(segs)  
       gc.fillStyle = fillColour.str

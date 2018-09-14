@@ -116,7 +116,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.strokeText(to.str, to.posn.x, to.posn.y)      
    }
    
-   private def segsPath(segs: CurveSegs): Unit =
+   private def segsPath(segs: Shape): Unit =
    { gc.beginPath
      var startPt = segs.last.pEnd     
      gc.moveTo(startPt.x, startPt.y)
@@ -136,7 +136,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
      gc.fill()      
    }
    
-   override def tlShapeFillDraw(segs: CurveSegs, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
+   override def tlShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
    { segsPath(segs)  
      gc.fill = toFxColor(fillColour)
      gc.fill()

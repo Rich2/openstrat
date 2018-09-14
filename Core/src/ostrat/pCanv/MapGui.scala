@@ -12,11 +12,11 @@ trait MapGui extends CanvasMulti
    val barWidth = 30
    val topPan = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
    topPan.backColour = Colour.Gray
-   def button1(str: String, cmd: AnyRef) = Rectangle.curved(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
+   def button1(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
    def button3(str: String, cmd: MouseButton => Unit) =
-      Rectangle.curved(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), White, 3, Black, 25, str)
+      Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), White, 3, Black, 25, str)
    def buttonStd(str: String, cmd: AnyRef, backColour: Colour = Colour.White) =
-      Rectangle.curved(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
+      Rectangle.curvedCornersCentred(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
    def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
    def reTop(commands: List[GraphicSubject[_]]): Unit = topPan.repaint(DisplayRow(10, commands).fromLeft(topPan.cenLeft))
    //   var status: DTextLine = mainBar.addTextLine("Nothing Selected")

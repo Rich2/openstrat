@@ -19,7 +19,7 @@ object CurveTest extends TestSuite
    't4 { assert(ls2 == CurveSeg(NegInf, 0, 0, 0, -5, -8)) }
    val ls3 = ls2.slate(50, -50)
   't5 { assert(ls3 == CurveSeg(NegInf, 0, 0, 0, 45, -58)) }
-   val css = CurveSegs(ls1, ls2, ls3)
+   val css = Shape(ls1, ls2, ls3)
    't6 { assert(css(0) == ls1) }
    }
 }

@@ -50,18 +50,25 @@ object Rectangle
    val goldenRatio: Double = 1.6180339887498948482
    def gRatio(height: Double): Vec2s = apply(goldenRatio * height, height)
    def cross(width: Double, height: Double, barWidth: Double): List[Vec2s] = List(apply(width, barWidth), apply(barWidth, height))
-   def curvedSegs(width: Double, height: Double, radius: Double): CurveSegs =
+   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): Shape =
    {
       val w = width / 2
       val h = height / 2
-      CurveSegs(
+      val s1 = Shape(
            LineSeg(w - radius,          h), ArcSeg(w - radius vv h - radius, w vv h -radius),
            LineSeg(w,          radius - h), ArcSeg(w - radius vv radius - h, w - radius vv -h),
            LineSeg(radius - w,         -h), ArcSeg(radius - w vv radius - h, -w vv radius -h),
-           LineSeg(- w,        h - radius), ArcSeg(radius - w vv h - radius, radius - w vv h))            
+           LineSeg(- w,        h - radius), ArcSeg(radius - w vv h - radius, radius - w vv h))
+      s1.slate(cen)     
    }   
-   def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape = Shape(posn, curvedSegs(width, height, radius).slate(posn))   
-   def curvedgGoldenRatio(height: Double, radius: Double): Shape = curved(height * goldenRatio, height, radius)
+//   def curved(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape =
+//     Shape(posn, curvedSegs(width, height, radius).slate(posn))
+   def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): ShapeCentred =
+     ShapeCentred(posn, curvedCorners(width, height, radius).slate(posn))
+   def curvedGoldenRatio(height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape =
+     curvedCorners(height * goldenRatio, height, radius, posn)  
+   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): ShapeCentred =
+     curvedCornersCentred(height * goldenRatio, height, radius, posn)
    def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolyFillDraw =
       gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
    def fromAxis(centreLine: Line2, height: Double): Vec2s =
