@@ -16,7 +16,7 @@ object Core extends Common
   def moduleDeps = Seq(Macros)
   object test extends Tests
   {
-    def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.3")
+    def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.5")
     def testFrameworks = Seq("utest.runner.Framework")
   }
 }

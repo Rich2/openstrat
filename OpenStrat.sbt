@@ -19,7 +19,7 @@ val coreSett = List( Compile/scalaSource := (ThisBuild/baseDirectory).value / "C
 
 lazy val CoreJvm = project.dependsOn(MacrosJvm).settings(coreSett).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
-  Test/libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.3" % "test",
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.5" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
   testFrameworks += new TestFramework("utest.runner.Framework"),
   // include the macro classes and resources in the main jar
