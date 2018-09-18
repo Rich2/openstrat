@@ -15,7 +15,9 @@ case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) ext
    def fTrans(f: Vec2 => Vec2): Line2 = Line2(f(pStart), f(pEnd))
    def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)
    def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pStart), f(pEnd))
-   
+   def isHorizontal: Boolean = yStart == yEnd
+   def isVertical: Boolean = xStart == xEnd 
+     
    def rayIntersection(pt: Vec2): Boolean = //Checks whether a forward horizontal ray crosses this polygon side, yes, yes I know this is horrible code.
       if ( 
           //Check if point is above or below the polygon side
@@ -40,9 +42,15 @@ case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) ext
 }
 
 object Line2
-{
-   def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
+{ /** Factory apply method for Line2. If using Doubles "Line2(x1 vv y1, x2 vv y2)" is the preferred syntax, rather than calling the constructor
+* directly. */
+  @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
 }
-
-
-
+object HLine
+{ /** Creates a horizontal Line2 */
+  @inline def apply(y: Double, xStart: Double, yEnd: Double): Line2 = new Line2(xStart, y, xStart, y)
+}
+object VLine
+{ /** Creates a vertical Line2 */
+  @inline def apply(x: Double, yStart: Double, yEnd: Double): Line2 = new Line2(x, yStart, x, yEnd)
+}

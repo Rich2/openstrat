@@ -29,7 +29,7 @@ So I'm experimenting with Mill from the project root folder run:
 ```
 mill -w FxStrat.run //To launch a ScalaFx window. The most useful command for development
 mill -w Core.test //To run tests
-mill mill.scalalib.GenIdea/idea //To create an Inteiij Idea project.
+mill mill.scalalib.GenIdea/idea //To create an IntelliJ Idea project.
 ```
 
 ## The Code currently has 5 modules:
