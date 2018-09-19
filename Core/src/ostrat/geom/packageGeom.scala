@@ -21,8 +21,9 @@ package object geom
    /** Hopefully this existential syntax baggage will be gone in dotty */
    type CanvO = GraphicElem[_]
    implicit class IntGeomImplicit(thisInt: Int)
-   {
-      def vv(y: Double): Vec2 = Vec2(thisInt, y)
+   { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
+         operators. */
+     @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
       def ° : Angle = Angle(thisInt.radiansToDegrees)
       def km: Dist = Dist(thisInt * 1000)
       def metre: Dist = Dist(thisInt)
@@ -37,10 +38,11 @@ package object geom
    }  
           
    implicit class DoubleGeomImplicit(thisDouble: Double)
-   {
-      def vv(y: Double): Vec2 = Vec2(thisDouble, y)
+   { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
+         operators. */
+      @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
       def km: Dist = Dist(thisDouble * 1000)
-      def metre = Dist(thisDouble)
+      def metre: Dist = Dist(thisDouble)
       def * (operator: Dist): Dist = Dist(thisDouble * operator.metres)
       @inline def miles: Dist = Dist(thisDouble * 1609.344)
       @inline def millionMiles: Dist = thisDouble.miles * 1000000
