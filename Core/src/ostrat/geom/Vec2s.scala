@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** A plain 2 dimension (mathematical) vector */
+/** A sequence of plain 2 dimension (mathematical) vectors */
 class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Vec2s]
 {
    override def typeName: Symbol = 'Vec2s   
