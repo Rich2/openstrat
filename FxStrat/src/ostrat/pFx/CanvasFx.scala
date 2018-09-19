@@ -51,6 +51,15 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
       gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)  
    }
    
+   override def tlPolyOpenDraw(pod: PolyOpenDraw): Unit =
+   { gc.beginPath
+     gc.moveTo(pod.xStart, pod.yStart)
+     pod.foreachEnd(gc.moveTo)
+     gc.stroke = toFxColor(pod.colour)
+     gc.lineWidth = pod.lineWidth
+     gc.strokePath()
+   }
+   
    override protected def tlLineDraw(ld: LineDraw): Unit =
    {
       gc.beginPath

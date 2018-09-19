@@ -35,12 +35,14 @@ trait CanvasPlatform extends RectGeom
    def polyFill(pf: PolyFill): Unit
    final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toVec2s.draw(lineWidth, lineColour)) 
    def polyDraw(dp: PolyDraw): Unit
-   def polyFillDraw(pfd: PolyFillDraw): Unit   
+   def polyFillDraw(pfd: PolyFillDraw): Unit
    def polyDrawText(pts: Vec2s, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
       //polyDraw(lineWidth, borderColour, pts: Vec2s)
       textGraphic(pts.polyCentre, str, fontSize, fontColour) 
    }
+   def polyOpenDraw(pod: PolyOpenDraw): Unit
+   def polyOpenDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit = ???
    
    def lineDraw(ld: LineDraw): Unit
    def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit = lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))

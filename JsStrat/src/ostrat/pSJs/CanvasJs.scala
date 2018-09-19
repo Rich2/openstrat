@@ -88,7 +88,14 @@ object CanvasJs extends CanvasTopLeft
       gc.lineWidth = pfd.lineWidth
       gc.stroke            
    }
-   
+   override def tlPolyOpenDraw(pod: PolyOpenDraw): Unit =
+   { gc.beginPath
+     gc.moveTo(pod.xStart, pod.yStart)
+     pod.foreachEnd(gc.moveTo)
+     gc.strokeStyle = pod.colour.str
+     gc.lineWidth = pod.lineWidth
+     gc.stroke
+   }
    override def tlLineDraw(ld: LineDraw): Unit =
    {
       gc.beginPath

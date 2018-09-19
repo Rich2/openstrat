@@ -23,4 +23,9 @@ case class PolyFillDraw(verts: Vec2s, fillColour: Colour, lineWidth: Double, lin
 { override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
 case class PolyOpenDraw(polyOpen: PolyOpen, lineWidth: Double, colour: Colour = Black) extends PaintElem[PolyOpenDraw]
-{ override def fTrans(f: Vec2 => Vec2): PolyOpenDraw = PolyOpenDraw(polyOpen.fTrans(f), lineWidth, colour) }
+{
+  def xStart = polyOpen.xStart
+  def yStart = polyOpen.yStart
+  override def fTrans(f: Vec2 => Vec2): PolyOpenDraw = PolyOpenDraw(polyOpen.fTrans(f), lineWidth, colour) 
+  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = polyOpen.foreachEnd(f)
+}
