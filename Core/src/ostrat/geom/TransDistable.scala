@@ -2,6 +2,8 @@
 package ostrat
 package geom
 
+/** The object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Dist2 => Dist2):  T The related
+ *   trait Transable  does the same for fTrans(f: Vec2 => Vec2): T. */
 trait TransDistable[T] extends Any
 {
    def fTrans(f: Dist2 => Dist2):  T  

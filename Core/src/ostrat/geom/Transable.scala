@@ -2,9 +2,12 @@
 package ostrat
 package geom
 
+/** This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2):
+ *  T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T. */
 trait Transable[T] extends Any
 {
-   def fTrans(f: Vec2 => Vec2):  T  
+   def fTrans(f: Vec2 => Vec2):  T
+   /** Translate in 2 dimensional space */
    def slate(offset: Vec2): T = fTrans(_ + offset)
    def slate(xOffset: Double, yOffset: Double): T = fTrans(_.addXY(xOffset, yOffset))
    def slateX(xOffset: Double): T = fTrans(_.addX(xOffset))
@@ -64,8 +67,7 @@ object Transable
    implicit class ImplictTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
    {
       def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])      
-      def flatMirror4: List[TT] = tList.flatMap(_.mirror4.asInstanceOf[Seq[TT]])
-      /** No idea what this does */
+      def flatMirror4: List[TT] = tList.flatMap(_.mirror4.asInstanceOf[Seq[TT]])      
       //def flatWithNegate: List[TT] = tList.flatMap(_.withNegate.asInstanceOf[Seq[TT]])
    }
    

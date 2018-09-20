@@ -3,6 +3,7 @@ package ostrat
 package geom
 import math._
 
+/** Two dimensional vector using metres as units rather than pure numbers */
 class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
 {
    override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]

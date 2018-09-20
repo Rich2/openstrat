@@ -3,21 +3,22 @@ ThisBuild/scalaVersion := "2.12.6"
 ThisBuild/organization := "OpenStratOrg"
 ThisBuild/version := "0.0.1"
 
-val commonSett = List(	
+val commonSettings = List(	
     scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint", "-Yno-adapted-args"),
     libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value
 )
 
-val macrosSett = List(Compile/scalaSource := (ThisBuild/baseDirectory).value / "Macros/src") ::: commonSett
+val macrosSettings = List(Compile/scalaSource := (ThisBuild/baseDirectory).value / "Macros/src") ::: commonSettings
 
-lazy val MacrosJvm = project.settings(macrosSett)
-lazy val MacrosJs = project.settings(macrosSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+lazy val MacrosJvm = project.settings(macrosSettings)
+lazy val MacrosJs = project.settings(macrosSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-val coreSett = List( Compile/scalaSource := (ThisBuild/baseDirectory).value / "Core/src",
-  
-) ::: commonSett
+val coreSettings = List(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src", 
+  Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Core/resources"
+) ::: commonSettings
 
-lazy val CoreJvm = project.dependsOn(MacrosJvm).settings(coreSett).settings(
+lazy val CoreJvm = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.5" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
@@ -27,9 +28,9 @@ lazy val CoreJvm = project.dependsOn(MacrosJvm).settings(coreSett).settings(
   // include the macro sources in the main source jar
   mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
 )
-lazy val CoreJs = project.dependsOn(MacrosJs).settings(coreSett).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+lazy val CoreJs = project.dependsOn(MacrosJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSett).settings(  
+lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSettings).settings(  
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
   libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",
   Compile/mainClass := Some("ostrat.pFx.DevApp"),
@@ -40,7 +41,7 @@ lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSett).settings(
   //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "ostrat" + artifact + ".jar" },
 )
 
-lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
+lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
   //scalaJSUseMainModuleInitializer := true,
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/src",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",
@@ -54,7 +55,12 @@ Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "NatStra
 scalaVersion := "2.11.12"
 )
 
-lazy val LearnScala = project.settings(
+lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
+  libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
+)
+
+lazy val LearnScala = project.settings(coreSettings).settings(
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/src",
 //Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/libs",
 )

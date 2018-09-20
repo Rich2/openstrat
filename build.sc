@@ -39,7 +39,7 @@ object CoreJs extends CommonJs
 }
 
 object FxStrat extends Common
- {
+{
   def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.144-R12")
   def moduleDeps = Seq(Core)
   def mainClass = Some("ostrat.pFx.DevApp")    
@@ -51,4 +51,11 @@ object JsStrat extends CommonJs
   def moduleDeps = Seq(CoreJs)
   def sources = T.sources( millSourcePath / 'src, millSourcePath / 'srcPlay )
   def artifactName = "play"
+}
+
+object DocProj extends Common
+{
+    def moduleDeps = Seq(Macros)
+    def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.144-R12")
+	def sources = T.sources( Core.millSourcePath / 'src, FxStrat.millSourcePath / 'src, FxStrat.millSourcePath / 'srcPlay)	
 }

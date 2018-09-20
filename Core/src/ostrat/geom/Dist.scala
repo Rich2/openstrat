@@ -3,6 +3,7 @@ package ostrat
 package geom
 import math._
 
+/** Distance in metres */
 final class Dist(val metres: Double) extends AnyVal with Ordered[Dist]
 {
    def +(operand: Dist) = Dist(metres + operand.metres)
