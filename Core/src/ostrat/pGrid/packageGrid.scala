@@ -14,4 +14,9 @@ package object pGrid
 	            if (x % 4 == y % 4))
 	         yield Cood(x + 2, y + 2)).toSet
    
+  implicit class IntGridImplicit(thisInt: Int)
+  {
+     def cc (y: Int): Cood = Cood(thisInt, y)
+     
+  }
 }

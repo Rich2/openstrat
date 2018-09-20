@@ -30,7 +30,7 @@ object Wall extends DTerr
 
 case class DTile(x: Int, y: Int, terr: DTerr) extends GridElem
 {
-   var player: Boolean = false
+   var charac: Option[Character] = None
    def colour = terr.colour
 }
 

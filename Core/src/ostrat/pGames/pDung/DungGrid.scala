@@ -13,8 +13,11 @@ object Dungeon1 extends DungGrid
 {
    fTilesSetAll(Wall)
    import SquareGrid._
-   setTerrPath(Open, 4, 6, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)
-   this.setColumn(22, 8,  Open * 2)
-   getTile(22, 8).player = true   
-   getTile(18, 12).player = true
+   setTerrPath(Open, 4 cc 6, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)
+   setColumn(22, 8,  Open * 2)
+   setRectangle(16 cc 18, 36 cc 26, Open)
+   getTile(22, 8).charac = Some(CharacA)
+   getTile(18, 24).charac = Some(CharacB)
+   getTile(22, 24).charac = Some(CharacY)
+   getTile(18, 12).charac = Some(CharacZ)
 }

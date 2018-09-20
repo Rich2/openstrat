@@ -22,6 +22,12 @@ trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, 
    def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElems = if (tScale > ifScale) cObj.toList else Nil
    def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale && b) cObjs else Nil
    def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElems = if (tScale > ifScale && b) cObjs.toList else Nil
+   def ifScaleOptObj[A](ifScale: Double, optA: Option[A])(f: A => CanvO): GraphicElems = optA match
+   {
+     case _ if tScale < ifScale => Nil
+     case None => Nil
+     case Some(a) => List(f(a)) 
+   }
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */

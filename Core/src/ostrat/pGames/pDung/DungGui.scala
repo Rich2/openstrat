@@ -16,7 +16,7 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
          val tv = vertDispVecs.fill(colour)
          val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
          val tText = ifScaleCObj(60, TextGraphic(cen, xyStr, 14, colour.contrastBW))
-         val player = ifScaleIfCObj(60, tile.player, Circle(50).slate(tog.cen).fillDrawFixed(None, Red, 1)    )
+         val player = ifScaleOptObj(60, tile.charac)(charac => Circle(50).slate(tog.cen).fillDrawFixed(None, charac.colour, 1)    )
          Disp2(List(tv), tText ++ player ++ sides)
       }
    def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungGrid]](

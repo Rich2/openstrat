@@ -47,6 +47,13 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
       } f(x, y)
    }
    
+   /** Sets a rectangle of tiles to the same terrain type. */
+   final def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileMaker: A)(implicit f: (Int, Int, A) => TileT): Unit = for {
+     y <- bottomLeft.y to topRight.y by 2
+     x <- bottomLeft.x to topRight.x by 2
+   } setTile(x, y, f(x, y, tileMaker))
+   
+   
    final def setColumn[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
    {
       val tiles = tileMakers.flatMap(_.toSeq)      
@@ -78,9 +85,9 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
       tiles.iForeach((e, i) => setTile(xTileMin + i * 2, y, f(e)))
    }
    
-   def setTerrPath[A](value: A, xStart: Int, yStart: Int, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Unit =
+   def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Unit =
    {
-      var cood = Cood(xStart, yStart)
+      var cood = Cood(startCood.x, startCood.y)
       import SquareGrid._
       dirns.foreach(_ match
          {
