@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** A sequence of plain 2 dimension (mathematical) vectors */
+/** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
 class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Vec2s]
 {
    override def typeName: Symbol = 'Vec2s   
@@ -57,7 +57,16 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] wi
       res
    }
    
-   def ptInPolygon(pt: Vec2): Boolean = {closedPolygonToLine2s.ptInPolygon(pt) }   
+   def ptInPolygon(pt: Vec2): Boolean = {closedPolygonToLine2s.ptInPolygon(pt) } 
+   
+   /** Insert vertice */
+   def insVert(insertionPoint: Int, newVec: Vec2): Vec2s =
+   { val res = Vec2s.factory(length + 1)
+     (0 until insertionPoint).foreach(i => res.setElem(i, apply(i)))
+     res.setElem(insertionPoint, newVec)
+     (insertionPoint until length).foreach(i => res.setElem(i + 1, apply(i)))
+     res
+   }
 }
 
 object Vec2s extends Double2sMaker[Vec2, Vec2s]

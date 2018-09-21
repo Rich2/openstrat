@@ -5,8 +5,8 @@ package geom
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
 object Rectangle
 {
-   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0 */
-   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Vec2s =
+   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
+   def apply(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): Vec2s =
    {
       val x = cen.x; val y = cen.y
       Vec2s(
@@ -15,6 +15,8 @@ object Rectangle
          x + width / 2 vv y - height / 2,
          x - width / 2 vv y - height / 2)
       }
+   
+   def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): Vec2s = apply(widthOverHeightRatio * scale, scale, cen)
   
   /** A rectangle measured from its top left */
   def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): Vec2s = Vec2s(
