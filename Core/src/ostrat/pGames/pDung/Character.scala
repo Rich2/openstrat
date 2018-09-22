@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 package pDung
-import pGrid.pSq._, Colour._
+import pGrid._, pSq._, Colour._
 
 sealed trait Faction extends PersistSingle { def colour: Colour }
 object Fac1 extends Faction
@@ -14,7 +14,7 @@ object Fac2 extends Faction
   val str = "Fac2"
 }
 
-class Character(val iden: Char, val faction: Faction) extends PersistSingle 
+class Character(val iden: Char, val faction: Faction) extends CoodMover with PersistSingle 
 { def colour = faction.colour
   var facing: Facing = FaceUp
   val str: String = "Character" -- iden.toString

@@ -3,12 +3,13 @@ package ostrat
 package pStrat
 import pGrid._
 
-trait Lunit
-{  var x: Int
-   var y: Int
-   def cood: Cood = Cood(x, y)
-   def cood_= (newValue: Cood): Unit = { x = newValue.x; y = newValue.y }
-   def setCood(xI: Int, yI: Int): Unit = { x = xI; y = yI }
+trait Lunit extends CoodMover
+{  
+//  var x: Int
+//   var y: Int
+//   def cood: Cood = Cood(x, y)
+//   def cood_= (newValue: Cood): Unit = { x = newValue.x; y = newValue.y }
+//   def setCood(xI: Int, yI: Int): Unit = { x = xI; y = yI }
    var dirn: HexDirn = HCen
    var offsetMagnitude: Double = 0
 }

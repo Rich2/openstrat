@@ -38,16 +38,15 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
     }
     case (RightButton, List(ch: Character), List(newTile: DTile)) =>
     {
-//      val newCood = newTile.cood
-//      val oldCood = squad.cood
-//      if (HexGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && squad.canMove(newTile))
-//      {
-//        val oldTile = grid.getTile(oldCood)
-//        oldTile.lunits = oldTile.lunits.removeFirst(_ == squad)
-//        squad.cood = newCood
-//        newTile.lunits ::= squad
-//        repaintMap
-//      }
+      val newCood = newTile.cood
+      val oldCood = ch.cood
+      if (true)//SquareGrid. .adjTileCoodsOfTile(oldCood).contains(newCood))// && squad.canMove(newTile))
+      {
+        grid.getTile(oldCood).charac = None
+        ch.cood = newCood
+        newTile.charac = Some(ch)
+        repaintMap
+      }
     }
     case _ =>
   }

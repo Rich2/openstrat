@@ -54,7 +54,6 @@ object CoodLine
    def apply(c1: Cood, c2: Cood): CoodLine = CoodLine(c1.x, c1.y, c2.x, c2.y)
 }
 
-
 trait GridBuilder
 {
    val xRatio: Double
