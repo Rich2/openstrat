@@ -64,3 +64,7 @@ lazy val LearnScala = project.settings(coreSettings).settings(
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/src",
 //Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/libs",
 )
+
+val root = (project in file(".")).
+  settings(commonSettings).
+  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, CoreJvm, FxStrat, MacrosJs, CoreJs, JsStrat)
