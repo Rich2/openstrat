@@ -8,6 +8,7 @@ class DungGrid extends SquareGrid[DTile, SideBare](2, 48, 2, 30)
 {
    def posn(charac: Character, x: Int, y: Int, facing: Facing): Unit =
    { getTile(x, y).charac = Some(charac)
+     charac.setCood(x, y)
      charac.facing = facing
    }
 }
