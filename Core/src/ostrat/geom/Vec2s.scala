@@ -31,15 +31,15 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] wi
    def draw(lineWidth: Double, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
    def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
       PolyFillDraw(this, fillColour, lineWidth, lineColour)
-
+   
    def fillSubj(evObj: AnyRef, fillColour: Colour): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour)
    def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
       PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
     def drawSubj(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
-      PolySubj.draw(this.polyCentre, this, evObj, lineWidth, lineColour)  
-   
+      PolySubj.draw(this.polyCentre, this, evObj, lineWidth, lineColour)   
    def fillTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = TextCen):
       PolySubj = PolySubj.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)
+    
    
    def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubj =
       fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
@@ -65,6 +65,15 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] wi
      (0 until insertionPoint).foreach(i => res.setElem(i, apply(i)))
      res.setElem(insertionPoint, newVec)
      (insertionPoint until length).foreach(i => res.setElem(i + 1, apply(i)))
+     res
+   }
+   
+   /** Insert vertices */
+   def insVerts(insertionPoint: Int, newVecs: Vec2 *): Vec2s =
+   { val res = Vec2s.factory(length + newVecs.length)
+     (0 until insertionPoint).foreach(i => res.setElem(i, apply(i)))
+     newVecs.iForeach((elem, i) => res.setElem(insertionPoint + i, elem))     
+     (insertionPoint until length).foreach(i => res.setElem(i + newVecs.length, apply(i)))
      res
    }
 }

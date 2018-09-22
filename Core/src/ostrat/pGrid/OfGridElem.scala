@@ -28,6 +28,13 @@ trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, 
      case None => Nil
      case Some(a) => List(f(a)) 
    }
+   def ifScaleOptObjs[A](ifScale: Double, optA: Option[A])(f: A => GraphicElems): GraphicElems = optA match
+   {
+     case _ if tScale < ifScale => Nil
+     case None => Nil
+     case Some(a) => f(a) 
+   }
+   
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
