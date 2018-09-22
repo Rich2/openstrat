@@ -2,14 +2,22 @@
 package ostrat
 package pGames
 package pDung
-import Colour._
+import pGrid.pSq._, Colour._
 
-sealed trait Faction { def colour: Colour }
-object Fac1 extends Faction { val colour = Orange }
-object Fac2 extends Faction { val colour = Green }
+sealed trait Faction extends PersistSingle { def colour: Colour }
+object Fac1 extends Faction
+{ val colour = Orange 
+  val str = "Fac1"
+}
+object Fac2 extends Faction
+{ val colour = Green 
+  val str = "Fac2"
+}
 
-case class Character(iden: Char, faction: Faction)
-{ def colour = faction.colour 
+class Character(val iden: Char, val faction: Faction) extends PersistSingle 
+{ def colour = faction.colour
+  var facing: Facing = FaceUp
+  val str: String = "Character" -- iden.toString
 }
 
 object CharacA extends Character('A', Fac1)

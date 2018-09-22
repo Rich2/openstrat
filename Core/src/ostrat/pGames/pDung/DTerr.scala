@@ -5,33 +5,23 @@ package pDung
 import Colour._
 import pGrid._
 
-sealed trait DTerr extends AnyRef//extends PersistSingle
-{
-   def colour: Colour   
-   //override def toString = persistStr
+sealed trait DTerr extends AnyRef with PersistSingle { def colour: Colour }
+
+object DTerr { implicit val toDTile: (Int, Int, DTerr) => DTile = DTile.apply }
+
+object Open extends DTerr// with PersistSingle
+{ override def colour: Colour = Violet
+  val str = "Open"
 }
 
-object DTerr
-{
-   implicit val toDTile: (Int, Int, DTerr) => DTile = DTile.apply
-}
-
-
-object Open extends DTerr
-{
-   override def colour: Colour = Violet
-   val persistStr: String = "Open"
-}
 object Wall extends DTerr
-{
-   override def colour: Colour = fromInts(80, 80, 80)
-   val persistStr: String = "Wall"
+{ override def colour: Colour = fromInts(80, 80, 80)
+  val str: String = "Wall"
 }
 
 case class DTile(x: Int, y: Int, terr: DTerr) extends GridElem
-{
-   var charac: Option[Character] = None
-   def colour = terr.colour
+{ var charac: Option[Character] = None
+  def colour = terr.colour
 }
 
 object DTile
