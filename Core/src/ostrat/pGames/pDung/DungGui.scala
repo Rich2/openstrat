@@ -11,7 +11,7 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
   def fSquare: OfSquareReg[DTile, SideBare, DungGrid] => Disp2 = tog =>
   { import tog._
     val colour: Colour = tile.colour
-    val tv = vertDispVecs.fill(colour)
+    val tv = vertDispVecs.fillSubj(tile, colour)//vertDispVecs.fill(colour)
     val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
     val tText = ifScaleCObj(60, TextGraphic(cen, xyStr, 14, colour.contrastBW))
     val player = ifScaleOptObjs(60, tile.charac){charac =>
