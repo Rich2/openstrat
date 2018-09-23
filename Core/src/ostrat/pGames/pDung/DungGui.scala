@@ -40,9 +40,8 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
     {
       val newCood = newTile.cood
       val oldCood = ch.cood
-      if (true)//SquareGrid. .adjTileCoodsOfTile(oldCood).contains(newCood))// && squad.canMove(newTile))
-      {
-        grid.getTile(oldCood).charac = None
+      if (SquareGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && ch.canMove(newTile))
+      { grid.getTile(oldCood).charac = None
         ch.cood = newCood
         newTile.charac = Some(ch)
         repaintMap
