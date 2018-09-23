@@ -31,22 +31,22 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { debvar(clickList)
-      selected = clickList.fHead(Nil, List(_))
+    { selected = clickList.fHead(Nil, List(_))
       statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
       eTop()
     }
-    case (RightButton, List(ch: Character), List(newTile: DTile)) =>
-    {
-      val newCood = newTile.cood
-      val oldCood = ch.cood
-      if (SquareGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && ch.canMove(newTile))
-      { grid.getTile(oldCood).charac = None
-        ch.cood = newCood
-        newTile.charac = Some(ch)
-        repaintMap
-      }
+    case (RightButton, List(ch: Character), List(newTile: DTile)) if
+      SquareGrid.adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
+    { grid.getTile(ch.cood).charac = None
+      ch.cood = newTile.cood
+      newTile.charac = Some(ch)
+      repaintMap      
     }
+    case (MiddleButton, List(ch: Character), List(newTile: DTile)) if (SquareGrid.adjTileCoodsOfTile(ch.cood).contains(newTile.cood))=>
+    { ch.facing = pSq.FaceDn        
+      repaintMap      
+    }
+    case (MiddleButton, _, _) => deb("Middle Button other")
     case _ =>
   }
   eTop()
