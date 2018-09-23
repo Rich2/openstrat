@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 package pDung
-import pGrid._, pSq._
+import pGrid._, SqCode._
 
 class DungGrid extends SquareGrid[DTile, SideBare](2, 48, 2, 30)
 {

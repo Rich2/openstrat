@@ -105,6 +105,8 @@ abstract class SquareGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, x
       case _ if x.isEven & y.isOdd => (Cood(x, y - 1), Cood(x, y + 1))
       case _ => excep("Invalid Square Coordinate")
    }
+   /** Warning needs Modification */
+   override def adjTileCoodsOfTile(tileCood: Cood): Coods = SquareGrid.adjTileCoodsOfTile(tileCood)
 }
 
 object SquareGrid

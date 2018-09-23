@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 package pDung
-import geom._, pCanv._, pGrid._, Colour._
+import geom._, pCanv._, pGrid._, SqCode._, Colour._
 
 class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungGrid](canv, Dungeon1)
 { mapPanel.backColour = Black
@@ -36,17 +36,17 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
       eTop()
     }
     case (RightButton, List(ch: Character), List(newTile: DTile)) if
-      SquareGrid.adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
+      adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
     { grid.getTile(ch.cood).charac = None
       ch.cood = newTile.cood
       newTile.charac = Some(ch)
       repaintMap      
     }
-    case (MiddleButton, List(ch: Character), List(newTile: DTile)) if (SquareGrid.adjTileCoodsOfTile(ch.cood).contains(newTile.cood))=>
-    { ch.facing = pSq.FaceDn        
-      repaintMap      
+    case (MiddleButton, List(ch: Character), List(newTile: DTile)) => optFace(ch.cood, newTile.cood) match
+    {
+      case Some(face) => { ch.facing = face; repaintMap }      
+      case _ => deb("Middle Button other")
     }
-    case (MiddleButton, _, _) => deb("Middle Button other")
     case _ =>
   }
   eTop()

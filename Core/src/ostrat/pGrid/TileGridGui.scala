@@ -69,7 +69,9 @@ trait TileGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[Til
          oftFactory: (TileT, GridT, TileGridGui[TileT, SideT, GridT]) => OfT): Disp2 = ofTilesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(oftFactory)
          
    def ofSidesDisplayFold[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => Disp2)(implicit
-         ofsFactory: (SideT, GridT, TileGridGui[TileT, SideT, GridT]) => OfT): Disp2 = ofSidesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(ofsFactory)      
+         ofsFactory: (SideT, GridT, TileGridGui[TileT, SideT, GridT]) => OfT): Disp2 = ofSidesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(ofsFactory)
+         
+      
 //   
 //   /** These are pretty horrible need looking at */
 //   def tilesVertFlatMap[R](f: (TileT, Seq[Vec2]) => Seq[R]): Seq[R] = 
@@ -85,5 +87,5 @@ trait TileGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[Til
  //  override def rectMap: RectMap = grid
    //val gridScale: Dist = grid.scale
 //   val yRatio: Double
-
+   @inline def adjTileCoodsOfTile(tileCood: Cood): Coods = grid.adjTileCoodsOfTile(tileCood)
 }

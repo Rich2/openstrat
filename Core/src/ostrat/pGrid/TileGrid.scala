@@ -181,4 +181,6 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTi
    }
    final def setRowBack[A](cood: Cood, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
       setRowBack(cood.y, cood.x, tileMakers: _*)(f)
+   /** Warning implementations need modification. */   
+   def adjTileCoodsOfTile(tileCood: Cood): Coods
 }
