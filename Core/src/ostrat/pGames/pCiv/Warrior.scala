@@ -2,9 +2,8 @@
 package ostrat
 package pGames
 package pCiv
-import pGrid._
-import pStrat._
-import pEarth._
+import pGrid._, pStrat._, pEarth._
+
 class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Lunit
 { 
    override def equals(other: Any): Boolean = other match
