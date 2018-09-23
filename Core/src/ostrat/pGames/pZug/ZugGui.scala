@@ -45,27 +45,24 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
      
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
-      case (LeftButton, _, cl) =>
-         {
-            debvar(clickList)
-            selected = clickList.fHead(Nil, List(_))
-            statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
-            eTop()            
+     case (LeftButton, _, cl) =>
+       { selected = clickList.fHead(Nil, List(_))
+         statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+         eTop()            
+       }
+     case (RightButton, List(squad : Squad), List(newTile: ZugTile)) =>
+       { val newCood = newTile.cood
+         val oldCood = squad.cood
+         if (HexGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && squad.canMove(newTile))
+         { val oldTile = grid.getTile(oldCood)
+           oldTile.lunits = oldTile.lunits.removeFirst(_ == squad)
+           squad.cood = newCood
+           newTile.lunits ::= squad             
+           repaintMap
          }
-      case (RightButton, List(squad : Squad), List(newTile: ZugTile)) =>
-         {
-            val newCood = newTile.cood
-            val oldCood = squad.cood
-            if (HexGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && squad.canMove(newTile))
-            {
-               val oldTile = grid.getTile(oldCood)
-               oldTile.lunits = oldTile.lunits.removeFirst(_ == squad)
-               squad.cood = newCood
-               newTile.lunits ::= squad             
-               repaintMap
-            }            
-         }      
-      case _ => 
+         else deb("No Move" -- oldCood.toString -- newCood.toString)
+       }      
+     case _ => deb("Other" -- clickList.toString)
    }   
    eTop()
    mapPanel.repaint(mapObjs)

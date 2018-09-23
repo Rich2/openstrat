@@ -3,8 +3,8 @@ package ostrat
 package pGrid
 
 trait CoodMover
-{ var xCood: Int = 0
-  var yCood: Int = 0
+{ var xCood: Int
+  var yCood: Int
   def cood: Cood = Cood(xCood, yCood) 
   def cood_= (newCood: Cood): Unit = { xCood = newCood.x; yCood = newCood.y }
   def setCood(newX: Int, newY: Int): Unit = { xCood = newX; yCood = newY }

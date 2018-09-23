@@ -5,7 +5,7 @@ package pZug
 import pGrid._
 import pStrat._
 
-class Squad(val polity: Polity, var x: Int, var y: Int) extends Lunit
+class Squad(val polity: Polity, var xCood: Int, var yCood: Int) extends Lunit
 {
    val colour = polity.colour
    override def toString = "Squad" - (polity.toString).enParenth
@@ -27,5 +27,6 @@ class Squad(val polity: Polity, var x: Int, var y: Int) extends Lunit
 
 object Squad
 {
-   def apply(polity: Polity, cood: Cood = Cood00): Squad = new Squad(polity, cood.x, cood.y) 
+   def apply(polity: Polity, cood: Cood): Squad = new Squad(polity, cood.x, cood.y)
+   def apply(polity: Polity, x: Int, y: Int): Squad = new Squad(polity, x, y)   
 }

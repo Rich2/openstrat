@@ -6,7 +6,13 @@ import pGrid._
 
 class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[ZugTile, ZugSide](xTileMin, xTileMax, yTileMin, yTileMax)
 {   
-   val fSquad: (ZugTile, Polity) => Unit = (tile, p: Polity) => tile.lunits = Squad(p, tile.cood) :: tile.lunits
+   def placeSquads(triples: (Polity, Int, Int) *): Unit = triples.foreach {tr =>
+     val x = tr._2
+     val y = tr._3
+     val sd = Squad(tr._1, x, y)     
+     val tile = getTile(x, y)
+     tile.lunits ::=  sd //:: tile.lunits
+   }
 }
 
 object Zug1 extends ZugGrid(4, 48, 2, 14)
@@ -22,5 +28,5 @@ object Zug1 extends ZugGrid(4, 48, 2, 14)
    gs(4, 4, WheatField * 2)
    gs(2, 6, WheatField)    
    //fSetSide(30, 11, true)
-   fTiles[Polity](fSquad, (18, 6, Germany), (30, 6, Germany), (22, 10, Britain), (30, 10, Britain))
+   placeSquads((Germany,18, 6), (Germany, 30, 6), (Britain, 22, 10), (Britain, 30, 10))
 }

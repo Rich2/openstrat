@@ -5,7 +5,7 @@ package pCiv
 import pGrid._
 import pStrat._
 import pEarth._
-class Warrior(val faction: Faction, var x: Int, var y: Int) extends Lunit
+class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Lunit
 { 
    override def equals(other: Any): Boolean = other match
    {
