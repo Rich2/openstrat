@@ -11,7 +11,9 @@ class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Luni
       case that: Warrior => faction == that.faction
       case _ => false
    }
-   var movePts: Int = 10
+   def turnMovePts = 10
+   var movePts: Int = turnMovePts
+   def resetMovePts(): Unit = movePts = turnMovePts
    def terrCost(tile: CTile): Int = tile.terr match
    {
       case Mountains(_) => 10

@@ -4,11 +4,11 @@ package pGames
 package pDung
 import geom._, pCanv._, pGrid._, SqCode._, Colour._
 
-class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungGrid](canv, Dungeon1)
+class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungeonGrid](canv, Dungeon1)
 { mapPanel.backColour = Black
   override def eTop(): Unit = reTop(guButs :+ status)
    
-  def fSquare: OfSquareReg[DTile, SideBare, DungGrid] => Disp2 = tog =>
+  def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => Disp2 = tog =>
   { import tog._
     val colour: Colour = tile.colour
     val tv = vertDispVecs.fillSubj(tile, colour)
@@ -21,7 +21,7 @@ class DungGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungG
     }
     Disp2(List(tv), tText ++ player ++ sides)
   }
-  def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungGrid]](fSquare).collapse
+  def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare).collapse
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

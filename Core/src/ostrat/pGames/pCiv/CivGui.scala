@@ -53,7 +53,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
                warr.dirn = HexDirn.fromNeighbTileCood(newCood - oldCood)
                def out(elapsed: Double, startTime: Double): Unit =
                {
-                  warr.offsetMagnitude = elapsed / 200
+                  warr.offsetMagnitude = elapsed / 600
                   if (warr.offsetMagnitude > 2)
                   {
                      warr.offsetMagnitude = 0
@@ -78,7 +78,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       case _ => deb("Mouse other")
    }   
 
-   def turnCmd: MouseButton => Unit = (mb: MouseButton) => {tilesForeach(_.lunits.foreach(_.movePts = 10)); repaintMap }
+   def turnCmd: MouseButton => Unit = (mb: MouseButton) => {tilesForeach(_.lunits.foreach(_.resetMovePts())); repaintMap }
    val bTurn = button3("T", turnCmd)   
    override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)
    eTop()

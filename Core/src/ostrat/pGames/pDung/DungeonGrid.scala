@@ -4,7 +4,7 @@ package pGames
 package pDung
 import pGrid._, SqCode._
 
-class DungGrid extends SquareGrid[DTile, SideBare](2, 48, 2, 30)
+class DungeonGrid extends SquareGrid[DTile, SideBare](2, 48, 2, 30)
 {
    def posn(charac: Character, x: Int, y: Int, facing: Facing): Unit =
    { getTile(x, y).charac = Some(charac)
@@ -13,7 +13,7 @@ class DungGrid extends SquareGrid[DTile, SideBare](2, 48, 2, 30)
    }
 }
 
-object Dungeon1 extends DungGrid 
+object Dungeon1 extends DungeonGrid 
 {
    fTilesSetAll(Wall)
    import SquareGrid._
