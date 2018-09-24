@@ -28,7 +28,7 @@ The tilde **~** tells sbt to rerun the command everytime you modify and save a s
 So I'm experimenting with Mill from the project root folder run:
 
 ```
-mill -w FxStrat.run //To launch a ScalaFx window. The most useful command for development
+mill -w FxStrat.runBackground //To launch a ScalaFx window. The most useful command for development
 mill -w Core.test //To run tests
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
 ```
