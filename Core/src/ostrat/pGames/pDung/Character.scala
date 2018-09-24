@@ -4,7 +4,6 @@ package pGames
 package pDung
 import pGrid._, SqCode._, Colour._
 
-
 sealed trait Faction extends PersistSingle { def colour: Colour }
 object Fac1 extends Faction
 { val colour = Orange 
