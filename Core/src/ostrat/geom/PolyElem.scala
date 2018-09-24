@@ -22,10 +22,10 @@ case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black) e
 case class PolyFillDraw(verts: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem[PolyFillDraw]
 { override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour) }
 
-case class PolyOpenDraw(polyOpen: PolyOpen, lineWidth: Double, colour: Colour = Black) extends PaintElem[PolyOpenDraw]
+case class Vec2sDraw(vec2s: Vec2s, lineWidth: Double, colour: Colour = Black) extends PaintElem[Vec2sDraw]
 {
-  def xStart = polyOpen.xStart
-  def yStart = polyOpen.yStart
-  override def fTrans(f: Vec2 => Vec2): PolyOpenDraw = PolyOpenDraw(polyOpen.fTrans(f), lineWidth, colour) 
-  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = polyOpen.foreachEnd(f)
+  def xStart = vec2s.xStart
+  def yStart = vec2s.yStart
+  override def fTrans(f: Vec2 => Vec2): Vec2sDraw = Vec2sDraw(vec2s.fTrans(f), lineWidth, colour) 
+  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = vec2s.foreachEnd(f)
 }

@@ -85,7 +85,7 @@ final class Vec2 (val x: Double, val y: Double) extends PersisterD2
    def centreSquare(length: Double): Polygon =
    {
       val r = length / 2.0
-      Polygon(-r vv r, r vv r, r vv -r, -r vv -r).addMap(x, y) 
+      Polygon(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y) 
    }
    
    def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(this, str, fontSize, fontColour)

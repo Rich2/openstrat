@@ -88,7 +88,7 @@ object CanvasJs extends CanvasTopLeft
       gc.lineWidth = pfd.lineWidth
       gc.stroke            
    }
-   override def tlPolyOpenDraw(pod: PolyOpenDraw): Unit =
+   override def tlVec2sDraw(pod: Vec2sDraw): Unit =
    { gc.beginPath
      gc.moveTo(pod.xStart, pod.yStart)
      pod.foreachEnd(gc.moveTo)

@@ -11,7 +11,7 @@ trait CanvasTopLeft extends CanvasPlatform
    override def polyFill(fp: PolyFill): Unit = tlPolyFill(fp.fTrans(tlCen))
    override def polyDraw(dp: PolyDraw): Unit = tlPolyDraw(dp.fTrans(tlCen))   
    override def polyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))   
-   override def polyOpenDraw(pod: PolyOpenDraw): Unit = tlPolyOpenDraw(pod.fTrans(tlCen))
+   override def vec2sDraw(pod: Vec2sDraw): Unit = tlVec2sDraw(pod.fTrans(tlCen))
    override def lineDraw(ld: LineDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
    override def arcDraw(ad: ArcDraw): Unit = tlArcDraw(ad.fTrans(tlCen))
    override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
@@ -30,7 +30,7 @@ trait CanvasTopLeft extends CanvasPlatform
    protected def tlPolyFill(fp: PolyFill): Unit
    protected def tlPolyDraw(dp: PolyDraw): Unit
    protected def tlPolyFillDraw(pfd: PolyFillDraw): Unit
-   protected def tlPolyOpenDraw(pod: PolyOpenDraw): Unit
+   protected def tlVec2sDraw(pod: Vec2sDraw): Unit
    
    protected def tlLineDraw(ld: LineDraw): Unit
    protected def tlArcDraw(ad: ArcDraw): Unit

@@ -3,12 +3,11 @@ package ostrat
 package geom
 
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
-class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Polygon]
+class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Polygon] with Vec2sLike
 {
    override def typeName: Symbol = 'Polygon   
    override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-   def fTrans(f: Vec2 => Vec2): Polygon = pMap(f)
-   def addMap(xOperand: Double, yOperand: Double): Polygon = pMap(_.addXY(xOperand, yOperand))
+   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  
    
    /** Creates a bounding rectangle for a collection of 2d points */
    def boundingRect: BoundingRect =
