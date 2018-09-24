@@ -9,10 +9,9 @@ import Colour._
  *  canvas. Note the Canvas Platform merely passes bare pointer event data to delegate functions. It does not process them in relation to objects
  *  painted on the Canvas. */
 trait CanvasPlatform extends RectGeom
-{
-   /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
-   var mouseUp: (Vec2, MouseButton) => Unit = (v, b) => {}
-   /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command */
+{ /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
+  var mouseUp: (Vec2, MouseButton) => Unit = (v, b) => {}
+  /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command */
    var mouseDown: (Vec2, MouseButton) => Unit = (v, b) => {}
    var mouseMoved: (Vec2, MouseButton) => Unit = (v, b) => {}
    var mouseDragged: (Vec2, MouseButton) => Unit = (v, b) => {}
@@ -63,8 +62,7 @@ trait CanvasPlatform extends RectGeom
    def shapeDraw(sd: ShapeDraw): Unit
    final def shapeDraw(lineWidth: Double, borderColour: Colour, segs: CurveSeg *): Unit = 
      shapeDraw(ShapeDraw(Shape(segs: _*), lineWidth, borderColour))
-   def shapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit   
-   
+   def shapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit
    
    def textGraphic(tg: TextGraphic): Unit
    final def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =

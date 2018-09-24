@@ -13,8 +13,7 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
    override def scaleMin = 10
    override def eTop(): Unit = reTop(guButs :+ status)
    mapPanel.backColour = Black
-   def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofh =>
-      {
+   def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => Disp2 = ofh =>  {
          import ofh._         
          val colour: Colour = tile.colour         
          val tv = tile.terr match
@@ -25,7 +24,7 @@ class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid]
          val tText = ifScaleCObj(60, TextGraphic(cen, xyStr, 14, colour.contrastBW))
          val lunit = tile.lunits match
          {
-            case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
+            case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour, tile.colour).slate(cen))
             case _ => None   
          }         
          Disp2(tv, tText ++ lunit)

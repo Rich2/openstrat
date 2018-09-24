@@ -33,6 +33,8 @@ mill -w Core.test //To run tests
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
 ```
 
+In IntellliJ, go File => Editor => General -> Other -> tick "Show quick documentation on mouse move". I don't know why this option is not set by default. 
+
 ## The Code currently has 5 modules:
 
 1. Macros. This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
