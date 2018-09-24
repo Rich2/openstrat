@@ -18,7 +18,7 @@ trait CanvasPlatform extends RectGeom
    var mouseDragged: (Vec2, MouseButton) => Unit = (v, b) => {}
    var onScroll: Boolean => Unit = b => {}
    var resize: () => Unit = () => {}
-   def clip(pts: Vec2s): Unit
+   def clip(pts: Polygon): Unit
    /** Returns the time in milliseconds */
    def getTime: Double
    /** A callback timer with an elapsed time from a given start point. The function is of form:
@@ -31,14 +31,14 @@ trait CanvasPlatform extends RectGeom
    def timeOut(f: () => Unit, millis: Integer): Unit  
    var textMin: Int = 10
    
-   final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toVec2s.fill(colour))
+   final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))
    def polyFill(pf: PolyFill): Unit
-   final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toVec2s.draw(lineWidth, lineColour)) 
+   final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour)) 
    def polyDraw(dp: PolyDraw): Unit
    def polyFillDraw(pfd: PolyFillDraw): Unit
-   def polyDrawText(pts: Vec2s, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
+   def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
    {
-      //polyDraw(lineWidth, borderColour, pts: Vec2s)
+      //polyDraw(lineWidth, borderColour, pts: Polygon)
       textGraphic(pts.polyCentre, str, fontSize, fontColour) 
    }
    def polyOpenDraw(pod: PolyOpenDraw): Unit

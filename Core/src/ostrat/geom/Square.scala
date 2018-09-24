@@ -4,8 +4,8 @@ package geom
 
 object Square
 {
-   def apply(width: Double, cen: Vec2 = Vec2Z): Vec2s = apply(width, cen.x, cen.y)
-   def apply(width: Double, xCen: Double, yCen: Double): Vec2s = Vec2s(
+   def apply(width: Double, cen: Vec2 = Vec2Z): Polygon = apply(width, cen.x, cen.y)
+   def apply(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
          xCen - width / 2 vv yCen + width / 2,
          xCen + width / 2 vv yCen + width / 2,
          xCen + width / 2 vv yCen - width / 2,

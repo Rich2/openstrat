@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-case class PolySubj(cen: Vec2, poly: Vec2s, evObj: AnyRef, elems: List[PaintElem[_]]) extends GraphicSubject[PolySubj] with PolyActive
+case class PolySubj(cen: Vec2, poly: Polygon, evObj: AnyRef, elems: List[PaintElem[_]]) extends GraphicSubject[PolySubj] with PolyActive
 {  
    def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.fTrans(f))   
    override def addElems(newElems: List[PaintElem[_]]): PolySubj = new PolySubj(cen, poly, evObj, elems ::: newElems)
@@ -12,18 +12,18 @@ case class PolySubj(cen: Vec2, poly: Vec2s, evObj: AnyRef, elems: List[PaintElem
 
 object PolySubj
 { 
-   def fill(cen: Vec2, poly: Vec2s, evObj: AnyRef, colour: Colour) = new PolySubj(cen, poly, evObj, List(poly.fill(colour)))
+   def fill(cen: Vec2, poly: Polygon, evObj: AnyRef, colour: Colour) = new PolySubj(cen, poly, evObj, List(poly.fill(colour)))
    
    /** Not sure if this is double filling the polygon */
-   def fillDraw(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) =
+   def fillDraw(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) =
       new PolySubj(cen, poly, evObj, List(PolyFillDraw(poly, fillColour, lineWidth, lineColour)))
    
-   def draw(cen: Vec2, poly: Vec2s, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black) =
+   def draw(cen: Vec2, poly: Polygon, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black) =
       new PolySubj(cen, poly, evObj, List(PolyDraw(poly, lineWidth, lineColour)))
-   def fillText(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4,
+   def fillText(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4,
          fontColour: Colour = Colour.Black, align: TextAlign = TextCen) =
       new PolySubj(cen, poly, evObj, List(poly.fill(fillColour), TextGraphic(poly.polyCentre, str, fontSize, fontColour, align)))
-   def fillContrastText(cen: Vec2, poly: Vec2s, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4) =
+   def fillContrastText(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4) =
       fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
 }
 

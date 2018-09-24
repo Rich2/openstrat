@@ -36,7 +36,7 @@ trait Dist2LikeGui extends MapGui
    /** Translates a point from Canvas Display position back to Map position */
    def invCanv(canvPoint: Vec2): Vec2 = ???//(canvPoint / scale).rotate(-rotation) + mapFocus   
    /** Translates an array of map points to an array of Canvas Display positions */
-   def arrCanv(inp: Dist2s): Vec2s = inp.pMap(toCanv(_))
+   def arrCanv(inp: Dist2s): Polygon = inp.pMap(toCanv(_))
    final def repaintMap(): Unit =
    {
       val o2 = mapObjs      

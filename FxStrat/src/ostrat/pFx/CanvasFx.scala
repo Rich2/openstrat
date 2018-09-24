@@ -171,7 +171,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
    override def timeOut(f: () => Unit, millis: Integer): Unit = new Timeline(new KeyFrame(javafx.util.Duration.millis(millis.doubleValue()),
          (ae: scalafx.event.ActionEvent) => f())).play
    
-   override def tlClip(pts: Vec2s): Unit =
+   override def tlClip(pts: Polygon): Unit =
    {
       gc.beginPath      
       gc.moveTo(pts.head1, pts.head2)

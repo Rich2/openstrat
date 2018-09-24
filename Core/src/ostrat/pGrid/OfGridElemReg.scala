@@ -15,7 +15,7 @@ trait OfGridElemReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[T
 trait OfTileReg[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends OfTile[TileT, SideT, GridT] with
 OfGridElemReg[TileT, SideT, GridT]
 {   
-   override def vertDispVecs: Vec2s = vertCoods.pMap(coodToDispVec2)//.fTrans(gGui.fTrans)
+   override def vertDispVecs: Polygon = vertCoods.pMap(coodToDispVec2)//.fTrans(gGui.fTrans)
    /** Tile centre posn on Grid */
    def cenRelGrid: Vec2 = grid.coodToVec2(cood)
    /** Tile centre posn on display */

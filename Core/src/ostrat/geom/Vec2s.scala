@@ -3,12 +3,12 @@ package ostrat
 package geom
 
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
-class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Vec2s]
+class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Polygon]
 {
-   override def typeName: Symbol = 'Vec2s   
+   override def typeName: Symbol = 'Polygon   
    override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-   def fTrans(f: Vec2 => Vec2): Vec2s = pMap(f)
-   def addMap(xOperand: Double, yOperand: Double): Vec2s = pMap(_.addXY(xOperand, yOperand))
+   def fTrans(f: Vec2 => Vec2): Polygon = pMap(f)
+   def addMap(xOperand: Double, yOperand: Double): Polygon = pMap(_.addXY(xOperand, yOperand))
    
    /** Creates a bounding rectangle for a collection of 2d points */
    def boundingRect: BoundingRect =
@@ -60,8 +60,8 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] wi
    def ptInPolygon(pt: Vec2): Boolean = {closedPolygonToLine2s.ptInPolygon(pt) } 
    
    /** Insert vertice */
-   def insVert(insertionPoint: Int, newVec: Vec2): Vec2s =
-   { val res = Vec2s.factory(length + 1)
+   def insVert(insertionPoint: Int, newVec: Vec2): Polygon =
+   { val res = Polygon.factory(length + 1)
      (0 until insertionPoint).foreach(i => res.setElem(i, apply(i)))
      res.setElem(insertionPoint, newVec)
      (insertionPoint until length).foreach(i => res.setElem(i + 1, apply(i)))
@@ -69,8 +69,8 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] wi
    }
    
    /** Insert vertices */
-   def insVerts(insertionPoint: Int, newVecs: Vec2 *): Vec2s =
-   { val res = Vec2s.factory(length + newVecs.length)
+   def insVerts(insertionPoint: Int, newVecs: Vec2 *): Polygon =
+   { val res = Polygon.factory(length + newVecs.length)
      (0 until insertionPoint).foreach(i => res.setElem(i, apply(i)))
      newVecs.iForeach((elem, i) => res.setElem(insertionPoint + i, elem))     
      (insertionPoint until length).foreach(i => res.setElem(i + newVecs.length, apply(i)))
@@ -78,7 +78,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] wi
    }
 }
 
-object Vec2s extends Double2sMaker[Vec2, Vec2s]
+object Polygon extends Double2sMaker[Vec2, Polygon]
 {
-   implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))  
+   implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))  
 }

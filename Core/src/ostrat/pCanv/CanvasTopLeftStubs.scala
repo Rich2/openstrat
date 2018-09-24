@@ -7,7 +7,7 @@ import geom._
  *  trait form the inheritance hierarchy once full functionality has been implemented */
 trait CanvasTopLeftStubs extends CanvasTopLeft
 {
-   override def clip(pts: Vec2s): Unit = {}
+   override def clip(pts: Polygon): Unit = {}
    override def getTime: Double = 0
    override protected def tlPolyFill(fp: PolyFill): Unit = {}
    override protected def tlPolyDraw(dp: PolyDraw): Unit = {}
@@ -24,7 +24,7 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
 //   override protected def tlCircleFill(x: Double, y: Double, radius: Double, colour: Colour): Unit = {}
    //override protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)
    
-   override protected def tlClip(pts: Vec2s): Unit = {}
+   override protected def tlClip(pts: Polygon): Unit = {}
    def clear(colour: Colour = Colour.White): Unit = {} 
    def gcSave(): Unit = {} 
    def gcRestore(): Unit = {}

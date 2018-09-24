@@ -82,10 +82,10 @@ final class Vec2 (val x: Double, val y: Double) extends PersisterD2
           ya + yb
       })
    
-   def centreSquare(length: Double): Vec2s =
+   def centreSquare(length: Double): Polygon =
    {
       val r = length / 2.0
-      Vec2s(-r vv r, r vv r, r vv -r, -r vv -r).addMap(x, y) 
+      Polygon(-r vv r, r vv r, r vv -r, -r vv -r).addMap(x, y) 
    }
    
    def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(this, str, fontSize, fontColour)
@@ -118,7 +118,7 @@ object Vec2
    
    implicit class Vec2SeqImplicit(thisSeq: Seq[Vec2])
    {
-      def toVec2s: Vec2s = thisSeq.toProdD2
+      def toPolygon: Polygon = thisSeq.toProdD2
    }
 
   implicit object Vec2Persist extends PersistD2[Vec2]('Vec2, v => (v.x, v.y), apply)

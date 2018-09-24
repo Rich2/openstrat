@@ -6,7 +6,7 @@ import geom._
 trait CanvasMulti extends CanvUser
 {   
    var panels: List[Panel] = Nil
-   def addPanel(clipPoly: Vec2s, simple: Boolean = false, cover: Boolean = true): Panel =
+   def addPanel(clipPoly: Polygon, simple: Boolean = false, cover: Boolean = true): Panel =
    {
       val newPanel = Panel(this, clipPoly, simple, cover)
       panels :+= newPanel

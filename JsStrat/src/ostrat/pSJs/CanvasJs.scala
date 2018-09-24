@@ -191,7 +191,7 @@ object CanvasJs extends CanvasTopLeft
       gc.fillStyle = colour.str
       gc.fillRect(0, 0, width, height)
    }
-   override def tlClip(pts: Vec2s): Unit =
+   override def tlClip(pts: Polygon): Unit =
    {
       gc.beginPath     
       gc.moveTo(pts.head1, pts.head2)

@@ -26,7 +26,7 @@ object GraphicActive
 /** A pointable polygon */
 trait PolyActive extends GraphicActive
 {
-   def poly: Vec2s
+   def poly: Polygon
    override def boundingRect = poly.boundingRect
    override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
 }
@@ -35,14 +35,14 @@ trait PolyActive extends GraphicActive
 trait ClickShapeTr extends GraphicActive
 {
    def shape: Shape
-   def innerPoly: Vec2s = shape.pMap(_.pEnd)
+   def innerPoly: Polygon = shape.pMap(_.pEnd)
    def boundingRect: BoundingRect = innerPoly.boundingRect
    /** This method needs improving */
    override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
 }
 
 /** A pointable polygon without visual */
-case class PolyActiveOnly(poly: Vec2s, evObj: AnyRef) extends GraphicElem[PolyActiveOnly] with PolyActive
+case class PolyActiveOnly(poly: Polygon, evObj: AnyRef) extends GraphicElem[PolyActiveOnly] with PolyActive
 { override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj) }
 
 /** A pointable shape without visual */

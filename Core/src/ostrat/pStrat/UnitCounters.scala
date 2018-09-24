@@ -7,7 +7,7 @@ object UnitCounters
 {
    def infantry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolySubj =
    {
-      val rect: Vec2s = Rectangle(1.5 * scale, scale)
+      val rect: Polygon = Rectangle(1.5 * scale, scale)
       val line1 = Line2(rect(0), rect(2))
       val line2 = Line2(rect(1), rect(3))
       val linesColour = fillColour.contrast2(backgroundColour)

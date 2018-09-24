@@ -6,7 +6,7 @@ import geom._
 /** A class for testing mouse pointer functionality. */
 case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
 {
-   override def clip(pts: Vec2s): Unit = {}
+   override def clip(pts: Polygon): Unit = {}
    
    override def getTime: Double = ???
    /** A callback timer with an elapsed time from a given start point. The function is of form:
