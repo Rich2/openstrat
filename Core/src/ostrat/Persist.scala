@@ -48,7 +48,6 @@ abstract class Persist[T](val typeSym: Symbol)
          case s3 => bad1(s.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
       }
    }
-   
 }
 
 object Persist

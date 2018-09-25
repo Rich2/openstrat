@@ -3,9 +3,9 @@ package ostrat
 package pGrid
 import geom._
 
-/** A Cood represents an integer coordinate within a tile grid system. This has current been implemented for Hexs and Squares, while
- *  triangles is the third possible regular tile system. A SqCood represents either a tile centre, a tile side or a tile vertex. This system
- *  allows river and naval units to move along the tile sides. */
+/** A Cood represents an integer coordinate within a tile grid system. This has current been implemented for Hexs and Squares, while triangles is the
+  * third possible regular tile system. A SqCood represents either a tile centre, a tile side or a tile vertex. This system allows river and naval
+  * units to move along the tile sides. */
 final case class Cood(val x: Int, val y: Int) extends ProdI2
 {
    def _1 =x

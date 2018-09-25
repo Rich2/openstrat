@@ -12,35 +12,34 @@ trait CanvasPlatform extends RectGeom
 { /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
   var mouseUp: (Vec2, MouseButton) => Unit = (v, b) => {}
   /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command */
-   var mouseDown: (Vec2, MouseButton) => Unit = (v, b) => {}
-   var mouseMoved: (Vec2, MouseButton) => Unit = (v, b) => {}
-   var mouseDragged: (Vec2, MouseButton) => Unit = (v, b) => {}
-   var onScroll: Boolean => Unit = b => {}
-   var resize: () => Unit = () => {}
-   def clip(pts: Polygon): Unit
-   /** Returns the time in milliseconds */
-   def getTime: Double
-   /** A callback timer with an elapsed time from a given start point. The function is of form:
-    *  (elapsedTime(in milliseconds), Startime(in millseconds) => Unit.
-    *  The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
-   def frame(f: (Double, Double) => Unit, startTime: Double, frameLength: Integer = 15): Unit =
-      timeOut(() => f(getTime - startTime, startTime), frameLength)   
-   def frameZero(f: (Double, Double) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime)
-   /** A call back timer. Takes the delay in milliseconds */
-   def timeOut(f: () => Unit, millis: Integer): Unit  
-   var textMin: Int = 10
+  var mouseDown: (Vec2, MouseButton) => Unit = (v, b) => {}
+  var mouseMoved: (Vec2, MouseButton) => Unit = (v, b) => {}
+  var mouseDragged: (Vec2, MouseButton) => Unit = (v, b) => {}
+  var onScroll: Boolean => Unit = b => {}
+  var resize: () => Unit = () => {}
+  def clip(pts: Polygon): Unit
+  /** Returns the time in milliseconds */
+  def getTime: Double
+  /** A callback timer with an elapsed time from a given start point. The function is of form: (elapsedTime(in milliseconds), Startime(in millseconds)
+    *  => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
+  def frame(f: (Double, Double) => Unit, startTime: Double, frameLength: Integer = 15): Unit =
+    timeOut(() => f(getTime - startTime, startTime), frameLength)
+  def frameZero(f: (Double, Double) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime)
+  /** A call back timer. Takes the delay in milliseconds */
+  def timeOut(f: () => Unit, millis: Integer): Unit
+  var textMin: Int = 10
    
-   final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))
-   def polyFill(pf: PolyFill): Unit
-   final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour)) 
-   def polyDraw(dp: PolyDraw): Unit
-   def polyFillDraw(pfd: PolyFillDraw): Unit
-   def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
-     textGraphic(pts.polyCentre, str, fontSize, fontColour) 
+  final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))
+  def polyFill(pf: PolyFill): Unit
+  final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))
+  def polyDraw(dp: PolyDraw): Unit
+  def polyFillDraw(pfd: PolyFillDraw): Unit
+  def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
+    textGraphic(pts.polyCentre, str, fontSize, fontColour)
    
-   def vec2sDraw(pod: Vec2sDraw): Unit
-   def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
-     vec2sDraw(Vec2sDraw(LineSegs(pStart, pEnds :_*), lineWidth, colour))   
+  def vec2sDraw(pod: Vec2sDraw): Unit
+  def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
+    vec2sDraw(Vec2sDraw(LineSegs(pStart, pEnds :_*), lineWidth, colour))
    
    def lineDraw(ld: LineDraw): Unit
    def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit = lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))

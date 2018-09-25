@@ -9,6 +9,14 @@ trait Faction extends PersisterSingleton
   def colour: Colour
 }
 
+object Faction
+{
+  implicit object FactionPersistImplicit extends PersisterSingletontons[Faction]('Faction)
+  {
+    override def singletonList = List(Uruk, Eridu)
+  }
+}
+
 object Uruk extends Faction
 { def str = "Uruk"
   val colour = Red
