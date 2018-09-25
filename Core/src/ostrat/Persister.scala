@@ -3,8 +3,7 @@ package ostrat
 
 /** Persistence trait for traits / class that you control */
 trait Persister extends Any
-{
-  def typeSym: Symbol
+{ def typeSym: Symbol
   def typeStr: String = typeSym.name
   def persist: String
   final override def toString = persist
