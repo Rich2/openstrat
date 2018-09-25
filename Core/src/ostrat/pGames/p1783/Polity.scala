@@ -4,9 +4,10 @@ package pGames
 package p1783
 import Colour._
 
-trait Polity extends PersistSingle
+trait Polity extends PersisterSingleton
 {
    def colour: Colour
+   def typeSym = 'Polity
 }
 
 object Britain extends Polity

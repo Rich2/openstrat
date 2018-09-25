@@ -3,9 +3,9 @@ package ostrat
 package pGames
 package pZug
 
-trait Polity extends PersistSingle
-{
-   def colour: Colour
+trait Polity extends PersisterSingleton
+{ def typeSym = 'Polity
+  def colour: Colour
 }
 
 object Germany extends Polity

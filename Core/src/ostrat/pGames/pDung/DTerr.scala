@@ -5,11 +5,14 @@ package pDung
 import Colour._
 import pGrid._
 
-sealed trait DTerr extends AnyRef with PersistSingle { def colour: Colour }
+sealed trait DTerr extends AnyRef with PersisterSingleton
+{ def typeSym = 'DTerr
+  def colour: Colour
+}
 
 object DTerr { implicit val toDTile: (Int, Int, DTerr) => DTile = DTile.apply }
 
-object Open extends DTerr// with PersistSingle
+object Open extends DTerr// with PersisterSingleton
 { override def colour: Colour = Violet
   val str = "Open"
 }
