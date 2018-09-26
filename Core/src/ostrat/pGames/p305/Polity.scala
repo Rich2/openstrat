@@ -4,7 +4,7 @@ package pGames
 package p305
 import Colour._
 
-trait Polity extends PersisterSingleton
+trait Polity extends StringerSingleton
 {
    def colour: Colour
    def typeSym: Symbol = 'Polity

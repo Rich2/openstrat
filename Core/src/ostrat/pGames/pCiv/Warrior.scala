@@ -4,9 +4,9 @@ package pGames
 package pCiv
 import pGrid._, pStrat._, pEarth._
 
-class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Lunit with Persister
+class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Lunit with Stringer
 { def typeSym = 'Warrior
-  override def persist: String = persist2(faction, cood)
+  override def str: String = persist2(faction, cood)
    override def equals(other: Any): Boolean = other match
    { case that: Warrior => faction == that.faction
      case _ => false

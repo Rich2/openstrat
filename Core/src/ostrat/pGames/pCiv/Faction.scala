@@ -4,7 +4,7 @@ package pGames
 package pCiv
 import Colour._
 
-trait Faction extends PersisterSingleton
+trait Faction extends StringerSingleton
 { def typeSym = 'Faction
   def colour: Colour
 }

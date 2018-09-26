@@ -3,7 +3,7 @@ package ostrat
 package pGames
 package pZug
 
-trait Polity extends PersisterSingleton
+trait Polity extends StringerSingleton
 { def typeSym = 'Polity
   def colour: Colour
 }

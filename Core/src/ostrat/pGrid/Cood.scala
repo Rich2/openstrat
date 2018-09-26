@@ -6,14 +6,13 @@ import geom._
 /** A Cood represents an integer coordinate within a tile grid system. This has current been implemented for Hexs and Squares, while triangles is the
   * third possible regular tile system. A SqCood represents either a tile centre, a tile side or a tile vertex. This system allows river and naval
   * units to move along the tile sides. */
-final case class Cood(val x: Int, val y: Int) extends ProdI2
-{
-   def _1 =x
-   def _2 = y
+final case class Cood(val x: Int, val y: Int) extends StringerI2
+{ def typeSym = 'Cood
+  def _1 =x
+  def _2 = y
    def xyStr: String = x.toString - ", " - y.toString
    def yxStr: String = y.toString - ", " -x.toString
    //def xyStr: String = x.commas(y)
-   override def toString = "cood" -- xyStr
    def fXY[A](f: (Int, Int) => A): A = f(x, y)
    def canEqual(a: Any) = a.isInstanceOf[Cood]
    def eqXY(x: Int, y: Int): Boolean = this == Cood(x, y)

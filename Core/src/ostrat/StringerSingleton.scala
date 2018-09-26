@@ -3,12 +3,9 @@ package ostrat
 
 /** all the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of
   * the object, but sometimes, it mmay be a lengthened or shortened version of the singleton object name. */
-trait PersisterSingleton extends Persister
-{ def str: String
-  override def persist: String = str
-}
+trait StringerSingleton extends Stringer
 
-abstract class PersisterSingletontons[A <: PersisterSingleton](typeSym: Symbol) extends PersistSimple[A](typeSym)
+abstract class PersisterSingletontons[A <: StringerSingleton](typeSym: Symbol) extends PersistSimple[A](typeSym)
 { def singletonList: List[A]
   override def persist(obj: A): String = obj.str
   def fromExpr(expr: Expr): EMon[A] = expr match

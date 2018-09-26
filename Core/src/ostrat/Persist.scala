@@ -1,7 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** The essential persistence type class. Builds objects of the type from CRON syntax. */
+/** The essential persistence type class. it implemnts both a Show style type class intreface, the production of a String representation of the value
+  * but also produces a value T from a String. It Persists and builds objects of type T from CRON syntax. So for example the IntImplicit object in the
+  * Persist companion object persists Integers and constructs Integers from Strings. */
 abstract class Persist[T](val typeSym: Symbol)
 {
    //def str: String// = persistFull.strFold("\n")  
@@ -52,7 +54,7 @@ abstract class Persist[T](val typeSym: Symbol)
 
 object Persist
 {
-   implicit object IntPersist extends PersistSimple[Int]('Int)
+   implicit object IntPersistImplicit extends PersistSimple[Int]('Int)
    {      
       def persist(obj: Int): String = obj.toString
       override def fromExpr(expr: Expr): EMon[Int] = expr match      

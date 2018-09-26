@@ -4,7 +4,7 @@ package pGames
 package pDung
 import pGrid._, SqCode._, Colour._
 
-sealed trait Faction extends PersisterSingleton
+sealed trait Faction extends StringerSingleton
 { def typeSym = 'Faction
   def colour: Colour
 }
@@ -17,7 +17,7 @@ object Fac2 extends Faction
   val str = "Fac2"
 }
 
-class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yCood: Int = 0) extends CoodMover with PersisterSingleton 
+class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yCood: Int = 0) extends CoodMover with StringerSingleton
 { def typeSym = 'Character
   def colour = faction.colour
   var facing: Facing = FaceUp
