@@ -5,14 +5,12 @@ package pCard
 import Colour._
 
 object Card
-{
-   type Cards = Seq[Card]
-   def apply(rankNum: Int, suit: Suit): Option[Card] = rankNum match
-   {
-      case r if r < 1 => None
-      case r if r > 13 => None
-      case r => Some(new Card(Rank(rankNum), suit))
-   }
+{ type Cards = Seq[Card]
+  def apply(rankNum: Int, suit: Suit): Option[Card] = rankNum match
+  { case r if r < 1 => None
+    case r if r > 13 => None
+    case r => Some(new Card(Rank(rankNum), suit))
+  }
    def noCards: Cards = Seq[Card]()
    val suits: Seq[Suit] = Seq(Spade, Heart, Diamond, Club)
    def newSeq(pairs: (Int, Suit) *): Seq[Card] = pairs.map(e => Card(e._1, e._2)).flatten
