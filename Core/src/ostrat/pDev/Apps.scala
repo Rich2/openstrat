@@ -22,13 +22,13 @@ object Apps
       (9, (pGames.p305.BC305Gui(_, pGames.p305.Bc1), "BC 305")),
       (10, (pGames.pCard.BlackJack(_), "ScalaFx BlackJack")),
       (11, (new pGames.pChess.DraughtsGui(_), "Draughts")),
-      (21, (pLearn.Lesson1(_), "ScalaFx Demonstration Canvas 1")),
-      (22, (pLearn.Lesson2(_), "ScalaFx Demonstration Canvas 2")),
-      (23, (pLearn.Lesson3(_), "ScalaFx Demonstration Canvas 3")),
-      (24, (pLearn.Lesson4(_), "ScalaFx Demonstration Canvas 4")),         
+      (21, (learn.Lesson1(_), "ScalaFx Demonstration Canvas 1")),
+      (22, (learn.Lesson2(_), "ScalaFx Demonstration Canvas 2")),
+      (23, (learn.Lesson3(_), "ScalaFx Demonstration Canvas 3")),
+      (24, (learn.Lesson4(_), "ScalaFx Demonstration Canvas 4")),
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 0
+  val appNum: Int = 1
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

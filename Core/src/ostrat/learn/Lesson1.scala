@@ -1,5 +1,5 @@
 package ostrat
-package pLearn
+package learn
 import geom._, pCanv._, Colour._
 
 /* These lessons are intended to be accessible to people who haven't programmed before and have poor or no geometry knowledge. This is a comment. It
