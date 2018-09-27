@@ -48,21 +48,9 @@ lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settin
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",  
 )
 
-lazy val NatStrat = project.enablePlugins(ScalaNativePlugin).settings(
-Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src",
-//Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src",		
-Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "NatStrat/src",
-scalaVersion := "2.11.12"
-)
-
 lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
-)
-
-lazy val LearnScala = project.settings(coreSettings).settings(
-Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/src",
-//Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "LearnScala/libs",
 )
 
 val root = (project in file(".")).
