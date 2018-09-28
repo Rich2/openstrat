@@ -2,7 +2,7 @@
 import mill._, scalalib._, scalajslib._
 
 trait Common extends ScalaModule {
-  def scalaVersion = "2.12.6"
+  def scalaVersion = "2.12.7"
   def scalacOptions = Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint", "-Yno-adapted-args")
 }
 
@@ -39,10 +39,11 @@ object CoreJs extends CommonJs
 }
 
 object FxStrat extends Common
-{
-  def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.144-R12")
+{ def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.144-R12")
   def moduleDeps = Seq(Core)
-  def mainClass = Some("ostrat.pFx.DevApp")    
+  def mainClass = Some("ostrat.pFx.DevApp") 
+  import mill.modules.Assembly._
+  def scalaLibraryIvyDeps = T { Agg.empty }   
 }
 
 object JsStrat extends CommonJs
