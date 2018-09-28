@@ -8,7 +8,7 @@ This project is intended to be accessable and welcoming to programmers of all le
 
 However at the other end, I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorites of elegance, succintness, readability, run-time performance, compile time performance and accessability for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal language to explore these questions.
 
-Sbt currently set to 1.2.1. Scala set to 2.12.6. Run:
+Sbt currently set to 1.2.3. Scala set to 2.12.7. Run:
 
 ```bash
 sbt //From project's root folder

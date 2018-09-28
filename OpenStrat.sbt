@@ -1,5 +1,5 @@
 name := "OpenStrat"
-ThisBuild/scalaVersion := "2.12.6"
+ThisBuild/scalaVersion := "2.12.7"
 ThisBuild/organization := "OpenStratOrg"
 ThisBuild/version := "0.0.1"
 

@@ -3,7 +3,7 @@ package ostrat
 package geom
 import math.Pi
 
-class Latitude private(val radians: Double) extends AnyVal with AngleBase
+class Latitude private(val radians: Double) extends AnyVal with AngleLike
 {   
    def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
    {
@@ -26,7 +26,7 @@ object Latitude
    }
    def deg(degVal: Double) = Latitude(degVal.degreesToRadians)
 }
-case class Longitude(val radians: Double) extends AnyVal with AngleBase
+case class Longitude(val radians: Double) extends AnyVal with AngleLike
 {
    def addWithin(deltaAngle: Angle, maxLong: Longitude, minLong: Longitude): Longitude = (radians + deltaAngle.radians) match
    {
