@@ -3,12 +3,11 @@ package ostrat
 package geom
 
 /** Sub traits include Line, LineDraw, Arc, ArcDraw, Bezier, BezierDraw */
-trait CurveLike extends CurveSegLike
+trait CurveLike extends CurveSegLike with Stringer
 { /** the x component of the start point often called x1 */
   def xStart: Double
   /** the y component of the start point often called y1 */
   def yStart: Double
   /** Start point often called p1 */
   final def pStart: Vec2 = Vec2(xStart, yStart)
-   
 }
