@@ -78,10 +78,9 @@ object Persist
    
    //implicit def seqToPerister[A](implicit ev: Persist[A]) = new SeqPersist[A](ev)
    
-//   class SeqPersist[A](ev: Persist[A]) extends Persist[Seq[A]]//()//((sa: Seq[A]) => persisttraversableToRichImp[A](sa)(ev))
-//   {
-//      override def persistType = 'Seq// 
-//      override def typeStr = persistType.name - ev.typeStr.enSquare
+  implicit class SeqPersistImplicit[A](ev: Persist[A]) extends Persist[Seq[A]]('Seq)
+  { override def typeStr = "Seq" + ev.typeStr.enSquare
+    override def syntaxDepth = ev.syntaxDepth + 1
 //      override def memStrs: Seq[A] => Seq[String] = _.map(ev.persistObj(_))
 //      override def isType(obj: Any): Boolean = obj match
 //      {
@@ -102,7 +101,7 @@ object Persist
 //         case ClausedStatement(clauses, _) => fromClauses(clauses)
 //         case es @ EmptyStatement(_) => es.asError         
 //      }
-//   }
+  }
    
   implicit object FloatPersist extends PersistSimple[Float]('SFlt)
   { def persist(obj: Float): String = obj.toString
