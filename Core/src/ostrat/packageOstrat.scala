@@ -2,20 +2,19 @@
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  persistence framework, array based compound value collections of same length elements, an Either based errors framework and general utilities. */
 package object ostrat
-{
-   /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
-    *  everyone's utility file. */
-   implicit class any2stringadd[A](a: A) {}   
-   val Tan30 = 0.577350269f;
-   val Cos30 = 0.866025404f;
-   val Cos60 = 0.5
-   val Sin30 = 0.5
-   val Sin60 = 0.866025404f;
-   val Pi2 = math.Pi * 2
-   val PiH = math.Pi / 2
-   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
-   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
-   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
+{ /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
+   *  everyone's utility file. */
+  implicit class any2stringadd[A](a: A) {}
+  val Tan30 = 0.577350269f;
+  val Cos30 = 0.866025404f;
+  val Cos60 = 0.5
+  val Sin30 = 0.5
+  val Sin60 = 0.866025404f;
+  val Pi2 = math.Pi * 2
+  val PiH = math.Pi / 2
+  def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
+  @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
+  def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
    def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
    def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
    

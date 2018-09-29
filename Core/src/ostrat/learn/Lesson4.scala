@@ -1,10 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package learn
-import geom._, pCanv._, Colour._
+package ostrat.learn
+import ostrat._, geom._, pCanv._, Colour._
 
-case class Lesson4(canv: CanvasPlatform) extends CanvasSimple
-{
+case class Lesson4(canv: CanvasPlatform) extends Lesson
+{ val title = "lesson 4"
   val pt1 = -200 vv 200
   val arcCentre = 0 vv 200
   val pt2 = 0 vv 400

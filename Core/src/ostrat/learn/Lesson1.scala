@@ -1,6 +1,5 @@
-package ostrat
-package learn
-import geom._, pCanv._, Colour._
+package ostrat.learn
+import ostrat._, geom._, pCanv._, Colour._
 
 /* These lessons are intended to be accessible to people who haven't programmed before and have poor or no geometry knowledge. This is a comment. It
  *  doesn't do anything. Everything between the forward-slash star at the beginning of the comment and the star forward-slash at the end is a comment.
@@ -10,8 +9,8 @@ import geom._, pCanv._, Colour._
 // Assuming you are running the mill "-w name.runBack" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen. */
  
-case class Lesson1(canv: CanvasPlatform) extends CanvasSimple
-{
+case class Lesson1(canv: CanvasPlatform) extends Lesson
+{ val title = "Lesson 1"
   canv.lineDraw(0 vv 0, 100 vv 100)
   canv.lineDraw(0 vv 50, 150 vv 200, 3)
   canv.lineDraw(50 vv -50, 200 vv -50, 2, Red)//Note if you don't include a Colour you get Black
