@@ -2,15 +2,14 @@
 package ostrat
 package geom
 
-/** I think this trait is useful but I'm not sure */
+/** Super trait for Bezier and BezierDraw */
 trait BezierLike extends CurveLike
-{
-   def xC1: Double
-   def yC1: Double
-   final def pC1: Vec2 = Vec2(xC1, yC1)
-   def xC2: Double
-   def yC2: Double
-   final def pC2: Vec2 = Vec2(xC2, yC2)   
+{ def xC1: Double
+  def yC1: Double
+  final def pC1: Vec2 = Vec2(xC1, yC1)
+  def xC2: Double
+  def yC2: Double
+  final def pC2: Vec2 = Vec2(xC2, yC2)   
 }
 
 /** Cubic bezier curve */
@@ -19,9 +18,8 @@ class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: 
       
 
 case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double,
-      val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierLike
-{
-   override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
+    val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierLike
+{ override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
 }
 
 object BezierDraw
