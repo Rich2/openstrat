@@ -8,7 +8,7 @@ case class MyD2(a: Double, b: Double) extends Stringer
   override def str: String = persistD2(a, b)
 }
 
-object PersistTest  extends TestSuite
+object PersistGeomTest  extends TestSuite
 { val m1 = MyD2(56.1, -45.2)
   val tests = Tests
   { 'test1 { assert(m1.str == "MyD2(56.1, -45.2)") }

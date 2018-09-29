@@ -2,15 +2,13 @@
 package ostrat
 
 case class Multiple[+A](value: A, num: Int)
-{
-   def * (operand: Int): Multiple[A] = Multiple(value, num * operand)
-   def toSeq: Seq[A] = (0 until num).map(_ => value)
-   def map[B](f: A => B): Multiple[B] = Multiple[B](f(value), num)
-   def flatMap[B](f: A => Multiple[B]) =
-   {
-      val res = f(value)
-      Multiple[B](res.value, res.num * num)
-   }
+{ def * (operand: Int): Multiple[A] = Multiple(value, num * operand)
+  def toSeq: Seq[A] = (0 until num).map(_ => value)
+  def map[B](f: A => B): Multiple[B] = Multiple[B](f(value), num)
+  def flatMap[B](f: A => Multiple[B]) =
+  { val res = f(value)
+     Multiple[B](res.value, res.num * num)
+  }
 }
 
 object Multiple
