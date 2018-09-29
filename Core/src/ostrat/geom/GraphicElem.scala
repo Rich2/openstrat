@@ -21,7 +21,10 @@ case class ShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lin
 
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour) extends
   PaintElem[LineDraw] with CurveLike
-{ override def fTrans(f: Vec2 => Vec2) = LineDraw(f(pStart), f(pEnd), lineWidth, colour) }
+{ def typeSym = 'LineDraw
+  def str = persist4(xStart, xEnd, lineWidth, colour)
+  override def fTrans(f: Vec2 => Vec2) = LineDraw(f(pStart), f(pEnd), lineWidth, colour)  
+}
 object LineDraw
 {
   def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, colour: Colour = Black): LineDraw =

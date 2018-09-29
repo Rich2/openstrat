@@ -15,11 +15,16 @@ trait BezierLike extends CurveLike
 /** Cubic bezier curve */
 class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
       val xEnd: Double, val yEnd: Double) extends BezierLike
+{ def typeSym = 'Bezier
+  def str = persist4(pStart, pC1, pC2, pEnd)
+}
       
 
 case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double,
     val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierLike
-{ override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
+{ def typeSym = 'BezierDraw
+  def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 
+  override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
 }
 
 object BezierDraw

@@ -69,7 +69,11 @@ trait WithColour extends AnyRef
 
 object Colour
 {
-  implicit object ColourPersistImplicit extends Persist[Colour]('Colour)
+  implicit object ColourPersistImplicit extends PersistSimple[Colour]('Colour)
+  {
+    def fromExpr(expr: Expr): EMon[Colour] = Good(Red)
+    def persist(obj: Colour): String = obj.str
+  }
   
    /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
    def apply(argbValue: Int) = new Colour(argbValue)   

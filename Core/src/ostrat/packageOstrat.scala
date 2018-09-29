@@ -90,9 +90,9 @@ package object ostrat
    
    implicit class EMonStringImplicit(thisEMon: EMon[String])
    {
-      def findType[A: Persist]: EMon[A] = thisEMon.flatMap(g => ParseTree.fromString(g).flatMap(_.findType[A]))
-      def findTypeElse[A: Persist](elseValue: A): A = findType[A].getElse(elseValue)
-      def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
+      def eFindType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(g => ParseTree.fromString(g).flatMap(_.findType[A]))
+      def eFindTypeElse[A: Persist](elseValue: A): A = eFindType[A].getElse(elseValue)
+      def eFindTypeForeach[A: Persist](f: A => Unit): Unit = eFindType[A].foreach(f)
    }
    
    implicit class OptionRichClass[A](thisOption: Option[A])
