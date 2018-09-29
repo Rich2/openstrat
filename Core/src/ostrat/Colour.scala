@@ -12,60 +12,53 @@ class Colour(val argbValue: Int) extends AnyVal with Stringer
   def blue: Int = (argbValue >> 0) & 0xFF //(argbValue % 256) % 256
   def alpha: Int = (argbValue >> 24) & 0xFF
   def hexStr = red.hexStr2 - green.hexStr2 - blue.hexStr2 - alpha.hexStr2
-   
-   def redGl: Float = (red / 256.toFloat)
-   def greenGl:Float = (green / 256.toFloat)
-   def blueGl: Float = (blue / 256.toFloat)
-   def setAlpha(newAlpha: Int): Colour = Colour((argbValue & 0xFFFFFF) | (newAlpha << 24))
-   def contrastBW: Colour = ife((red + green + blue) > 128 * 3, Colour.Black, Colour.White)
-   def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
-   def contrast: Colour =
-   {
-      def getCol(el: Int): Int = el match
-      {
-         case el if el < 128 => 255
-         case _ => 0
+  def redGl: Float = (red / 256.toFloat)
+  def greenGl:Float = (green / 256.toFloat)
+  def blueGl: Float = (blue / 256.toFloat)
+  def setAlpha(newAlpha: Int): Colour = Colour((argbValue & 0xFFFFFF) | (newAlpha << 24))
+  def contrastBW: Colour = ife((red + green + blue) > 128 * 3, Colour.Black, Colour.White)
+  def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
+  def contrast: Colour =
+  {
+    def getCol(el: Int): Int = el match
+    { case el if el < 128 => 255
+      case _ => 0
+    }
+    Colour.fromInts(getCol(red), getCol(green), getCol(blue), alpha)
+  }
+  def contrast2(other: Colour): Colour =
+  {
+    def f(i1: Int, i2: Int): Int = 
+    { val av = (i1 + i2) / 2
+      val avd = av.diff(i1).min(av.diff(i2))
+      val ld = 0.diff(i1).min(0.diff(i2))
+      val hd = 255.diff(i1).min(255.diff(i2))
+      Unit match
+      { case _ if hd > avd && hd > ld => 255
+        case _ if avd > ld => av
+        case _ => 0
       }
-      Colour.fromInts(getCol(red), getCol(green), getCol(blue), alpha)
-   }
-   def contrast2(other: Colour): Colour =
-   {
-      def f(i1: Int, i2: Int): Int = 
-      {
-         val av = (i1 + i2) / 2
-         val avd = av.diff(i1).min(av.diff(i2))
-         val ld = 0.diff(i1).min(0.diff(i2))
-         val hd = 255.diff(i1).min(255.diff(i2))
-         Unit match
-         {
-            case _ if hd > avd && hd > ld => 255
-            case _ if avd > ld => av
-            case _ => 0
-         }
-      }
-      Colour.fromInts(f(red, other.red), f(green, other.green), f(blue, other.blue), 255)
-   }
+    }
+    Colour.fromInts(f(red, other.red), f(green, other.green), f(blue, other.blue), 255)
+  }
    
-   def darken(factor: Double = 2): Colour =
-   {
-      def f(primary: Int): Int = (primary / factor).toInt.min(255)
-      Colour.fromInts(f(red), f(green), f(blue), alpha)
-   }
-   def lighten(factor: Double = 2): Colour =
-   {
-      def f(primary: Int): Int = 256 - ((256 - primary) / factor).toInt.min(255).max(1)
-      Colour.fromInts(f(red), f(green), f(blue), alpha)
-   }
-   def modAlpha(newAlpha: Int) = Colour.fromInts(red, green, blue, newAlpha)
-   //def glCommaed(alpha: Double = 1.0): String = Seq(redGl, greenGl, blueGl, alpha.toString).commaParenth
-   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
+  def darken(factor: Double = 2): Colour =
+  { def f(primary: Int): Int = (primary / factor).toInt.min(255)
+    Colour.fromInts(f(red), f(green), f(blue), alpha)
+  }
+  def lighten(factor: Double = 2): Colour =
+  { def f(primary: Int): Int = 256 - ((256 - primary) / factor).toInt.min(255).max(1)
+    Colour.fromInts(f(red), f(green), f(blue), alpha)
+  }
+  def modAlpha(newAlpha: Int) = Colour.fromInts(red, green, blue, newAlpha)
+  //def glCommaed(alpha: Double = 1.0): String = Seq(redGl, greenGl, blueGl, alpha.toString).commaParenth
+  //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
 }
 
 trait WithColour extends AnyRef
-{
-   def colour: Colour
-   def colourContrast: Colour = colour.contrast
-   def colourContrast2(other: Colour): Colour = colour.contrast2(other)
+{ def colour: Colour
+  def colourContrast: Colour = colour.contrast
+  def colourContrast2(other: Colour): Colour = colour.contrast2(other)
 }
 
 object Colour
@@ -238,7 +231,7 @@ object Colour
 ("DeepSkyBlue", DeepSkyBlue), ("DimGray", DimGray), ("DodgerBlue", DodgerBlue), ("FireBrick", FireBrick),
 ("FloralWhite", FloralWhite), ("ForestGreen", ForestGreen), ("Fuchsia", Fuchsia), ("Gainsboro", Gainsboro),
 ("GhostWhite", GhostWhite), ("Gold", Gold), ("GoldenRod", GoldenRod), ("Gray", Gray), ("Green", Green),
-("GreenYellow", GreenYellow), ("HoneyDew", HoneyDew), ("HotPink", HotPink), ("IndianRed", IndianRed), ("Indigo", Indigo),
+("GreenYellow", GreenYellow), ("HoneyDew", HoneyDew), ("HotPk", HotPink), ("IndianRed", IndianRed), ("Indigo", Indigo),
 ("Ivory", Ivory), ("Khaki", Khaki), ("Lavender", Lavender), ("LavenderBlush", LavenderBlush),
 ("LawnGreen", LawnGreen), ("LemonChiffon", LemonChiffon), ("LemonLime", LemonLime), ("LightBlue", LightBlue),
 ("LightCoral", LightCoral), ("LightCyan", LightCyan), ("LightGoldenRodYellow", LightGoldenRodYellow),
