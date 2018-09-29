@@ -13,8 +13,8 @@ trait CurveSegLike
   final def pEnd: Vec2 = Vec2(xEnd, yEnd)
 }
 
-/** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the
- *   previous segment. */
+/** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the previous segment. There is
+  * no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory object apply methods. */
 case class CurveSeg(val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends ProdD6 with
 Transable[CurveSeg] with CurveSegLike
 { override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
@@ -87,11 +87,6 @@ Transable[CurveSeg] with CurveSegLike
   { val cp = arcControlPt(startPt)
     f(cp.x, cp.y, pEnd.x, pEnd.y, arcRadius)
   }
-}
-
-object CurveSeg
-{
-        
 }
 
 object LineSeg

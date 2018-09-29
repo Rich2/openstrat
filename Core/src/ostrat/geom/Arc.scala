@@ -24,9 +24,8 @@ trait ArcLike extends CurveLike
 }
 
 case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveLike with ArcLike
-{   
-   def persistName = "Arc"
-   override def toString = ???// namedStr2
+{ def typeSym = 'Arc
+   override def str = persist3(pStart, pCen, pEnd)
    def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pCen), f(pEnd))   
 }
 
@@ -37,7 +36,8 @@ object Arc
 
 case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double,
       colour: Colour) extends PaintElem[ArcDraw] with ArcLike
-{
+{ def typeSym = 'ArcDraw
+  def str = persist5(pStart, pCen, pEnd, lineWidth, colour)
    override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour)   
 }
 
