@@ -9,6 +9,7 @@ case class Multiple[+A](value: A, num: Int)
   { val res = f(value)
      Multiple[B](res.value, res.num * num)
   }
+  override def toString = "Multiple" + (value.toString + "; " + num.toString).enParenth
 }
 
 object Multiple
