@@ -51,7 +51,7 @@ object CanvasJs extends CanvasTopLeft
     gc.moveTo(fp.xHead, fp.yHead)
     fp.verts.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.fillStyle = fp.colour.str
+    gc.fillStyle = fp.colour.webStr
     gc.fill()
   }
 
@@ -60,7 +60,7 @@ object CanvasJs extends CanvasTopLeft
     gc.moveTo(dp.xHead, dp.yHead)
     dp.verts.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.strokeStyle = dp.colour.str
+    gc.strokeStyle = dp.colour.webStr
     gc.lineWidth = dp.lineWidth
     gc.stroke
   }
@@ -70,9 +70,9 @@ object CanvasJs extends CanvasTopLeft
     gc.moveTo(pfd.xHead, pfd.yHead)
     pfd.verts.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.fillStyle = pfd.fillColour.str
+    gc.fillStyle = pfd.fillColour.webStr
     gc.fill()
-    gc.strokeStyle = pfd.lineColour.str
+    gc.strokeStyle = pfd.lineColour.webStr
     gc.lineWidth = pfd.lineWidth
     gc.stroke
   }
@@ -81,7 +81,7 @@ object CanvasJs extends CanvasTopLeft
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.moveTo)
-    gc.strokeStyle = pod.colour.str
+    gc.strokeStyle = pod.colour.webStr
     gc.lineWidth = pod.lineWidth
     gc.stroke
   }
@@ -90,7 +90,7 @@ object CanvasJs extends CanvasTopLeft
   { gc.beginPath
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
-    gc.strokeStyle = ld.colour.str
+    gc.strokeStyle = ld.colour.webStr
     gc.lineWidth = ld.lineWidth
     gc.stroke()
   }
@@ -105,14 +105,14 @@ object CanvasJs extends CanvasTopLeft
   { gc.beginPath
     lsd.lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
     gc.lineWidth = lsd.lineWidth
-    gc.strokeStyle = lsd.colour.str
+    gc.strokeStyle = lsd.colour.webStr
     gc.stroke()
   }
 
   protected def tlBezierDraw(bd: BezierDraw): Unit =
   { gc.beginPath()
     gc.moveTo(bd.xStart, bd.yStart)
-    gc.strokeStyle = bd.colour.str
+    gc.strokeStyle = bd.colour.webStr
     gc.lineWidth = bd.lineWidth
     gc.stroke()
   }
@@ -132,20 +132,20 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath
   }
    
-  override def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.segs);  gc.fillStyle = sf.colour.str; gc.fill }
+  override def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.segs);  gc.fillStyle = sf.colour.webStr; gc.fill }
    
   override def tlShapeDraw(sd: ShapeDraw): Unit =
   { segsPath(sd.segs)
-    gc.strokeStyle = sd.colour.str
+    gc.strokeStyle = sd.colour.webStr
     gc.lineWidth = sd.lineWidth
     gc.stroke
   }
 
   override def tlShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour): Unit =
   { segsPath(segs)
-    gc.fillStyle = fillColour.str
+    gc.fillStyle = fillColour.webStr
     gc.fill
-    gc.strokeStyle = lineColour.str
+    gc.strokeStyle = lineColour.webStr
     gc.lineWidth = lineWidth
     gc.stroke
   }
@@ -154,12 +154,12 @@ object CanvasJs extends CanvasTopLeft
   { gc.textAlign = tg.align.jsStr
     gc.textBaseline = "middle"
     gc.font = tg.fontSize.toString + "px Arial"
-    gc.fillStyle = tg.colour.str
+    gc.fillStyle = tg.colour.webStr
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
   }
 
   override def tlTextOutline(to: TextOutline): Unit =
-  { gc.strokeStyle = to.colour.str
+  { gc.strokeStyle = to.colour.webStr
     gc.lineWidth = to.lineWidth
     gc.textAlign = to.align.jsStr
     gc.textBaseline = "middle"
@@ -167,7 +167,7 @@ object CanvasJs extends CanvasTopLeft
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }
 
-  override def clear(colour: Colour): Unit = { gc.fillStyle = colour.str; gc.fillRect(0, 0, width, height) }
+  override def clear(colour: Colour): Unit = { gc.fillStyle = colour.webStr; gc.fillRect(0, 0, width, height) }
 
   override def tlClip(pts: Polygon): Unit =
   { gc.beginPath

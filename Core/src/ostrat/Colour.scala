@@ -2,15 +2,16 @@
 package ostrat
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal 
-{ 
-   def str: String = "#" - hexStr
-   def canEqual(a: Any) = a.isInstanceOf[Colour]
-   def red: Int = (argbValue >> 16) & 0xFF // / (256 * 256)
-   def green: Int = (argbValue >> 8)  & 0xFF //(argbValue /256) % 256
-   def blue: Int = (argbValue >> 0) & 0xFF //(argbValue % 256) % 256
-   def alpha: Int = (argbValue >> 24) & 0xFF
-   def hexStr = red.hexStr2 - green.hexStr2 - blue.hexStr2 - alpha.hexStr2
+class Colour(val argbValue: Int) extends AnyVal with Stringer 
+{ def typeSym = 'Colour
+  def str = typeStr + hexStr.enParenth
+  def webStr: String = "#" - hexStr
+  def canEqual(a: Any) = a.isInstanceOf[Colour]
+  def red: Int = (argbValue >> 16) & 0xFF // / (256 * 256)
+  def green: Int = (argbValue >> 8)  & 0xFF //(argbValue /256) % 256
+  def blue: Int = (argbValue >> 0) & 0xFF //(argbValue % 256) % 256
+  def alpha: Int = (argbValue >> 24) & 0xFF
+  def hexStr = red.hexStr2 - green.hexStr2 - blue.hexStr2 - alpha.hexStr2
    
    def redGl: Float = (red / 256.toFloat)
    def greenGl:Float = (green / 256.toFloat)
@@ -72,7 +73,7 @@ object Colour
   implicit object ColourPersistImplicit extends PersistSimple[Colour]('Colour)
   {
     def fromExpr(expr: Expr): EMon[Colour] = Good(Red)
-    def persist(obj: Colour): String = obj.str
+    def persist(obj: Colour): String = obj.hexStr
   }
   
    /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
