@@ -37,7 +37,7 @@ object Arc
 case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double,
       colour: Colour) extends PaintElem[ArcDraw] with ArcLike
 { def typeSym = 'ArcDraw
-  def str = persist5(pStart, pCen, pEnd, lineWidth, colour)
+  def str: String = persist5(pStart, pCen, pEnd, lineWidth, colour)
    override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour)   
 }
 
