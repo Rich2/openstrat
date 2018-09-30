@@ -24,4 +24,8 @@ case class Lesson4(canv: CanvasPlatform) extends Lesson
   canv.shapeDraw(sf3)
   val sf4 = sf3.slate(-250, 200)
   canv.shapeDraw(sf4)
+  val sf5 = sf4.slateX(-100).copy(colour = Green)
+  canv.shapeDraw(sf5)
+  val rect = Rectangle(200, 100, -400 vv 100).fill(Orange)
+  canv.polyFill(rect)
 }

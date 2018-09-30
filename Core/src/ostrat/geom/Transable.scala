@@ -5,18 +5,17 @@ package geom
 /** This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2):
  *  T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T. */
 trait Transable[T] extends Any
-{
-   def fTrans(f: Vec2 => Vec2):  T
-   /** Translate in 2 dimensional space */
-   def slate(offset: Vec2): T = fTrans(_ + offset)
-   def slate(xOffset: Double, yOffset: Double): T = fTrans(_.addXY(xOffset, yOffset))
-   def slateX(xOffset: Double): T = fTrans(_.addX(xOffset))
-   def slateY(yOffset: Double): T = fTrans(_.addY(yOffset))
-   def scale(factor: Double): T = fTrans(_ * factor)
+{ def fTrans(f: Vec2 => Vec2):  T
+  /** Translate in 2 dimensional space */
+  def slate(offset: Vec2): T = fTrans(_ + offset)
+  def slate(xOffset: Double, yOffset: Double): T = fTrans(_.addXY(xOffset, yOffset))
+  def slateX(xOffset: Double): T = fTrans(_.addX(xOffset))
+  def slateY(yOffset: Double): T = fTrans(_.addY(yOffset))
+  def scale(factor: Double): T = fTrans(_ * factor)
 
-   def rotate(angle: Angle): T = fTrans(_.rotate(angle))
-   def rotateRadians(r: Double): T = fTrans(_.rotateRadians(r))
-   def scaleY(factor: Double): T = fTrans(_.scaleY(factor))
+  def rotate(angle: Angle): T = fTrans(_.rotate(angle))
+  def rotateRadians(r: Double): T = fTrans(_.rotateRadians(r))
+  def scaleY(factor: Double): T = fTrans(_.scaleY(factor))
    /** this.asInstanceOf[T] */  
    def identity: T = this.asInstanceOf[T]   
    def mirrorX: T = fTrans(_.mirrorX)
@@ -24,7 +23,9 @@ trait Transable[T] extends Any
    def mirror4: List[T] = List(fTrans(v => v), fTrans(_.mirrorX), fTrans(_.mirrorY), fTrans(- _))
    def withNegate: Seq[T] = Seq(identity, fTrans(- _))
    def inverseY: T = fTrans(v => Vec2(v.x, -v.y))
-   
+
+
+
    import math.Pi
    /** Rotates 30 degrees anti-clockwise or + Pi/3 */
    def anti30: T = rotate(Angle(Pi / 6))
