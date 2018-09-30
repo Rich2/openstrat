@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** A Persist class described by a single value */
+/** A Persist class described by a single value. */
 abstract class PersistSimple[A](typeSym: Symbol) extends Persist[A](typeSym)
 { final override def syntaxDepth: Int = 1
    /** A PersistSimple can be parsed from the expression within a Clause, but it can't be parsed from a ClausedStatement */

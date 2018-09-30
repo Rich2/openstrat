@@ -6,9 +6,18 @@ package ostrat
   * Persist companion object persists Integers and constructs Integers from Strings. */
 abstract class Persist[T](val typeSym: Symbol)
 { def syntaxDepth: Int
-  def typeStr: String = typeSym.name   
+  def typeStr: String = typeSym.name
+
+  /** Provides the standard string representation for the object */
   def persist(obj: T): String
+  
+  /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
+   *  happen if the syntax depth is less than 2. if it is 2 or greater return the full typed data. */
   def persistComma(obj: T): String
+  
+  /** Return the defining member values of the type as a series of semicolon seperated values without enclosing type information, note this will only
+   *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. This method is not commonly needed but is useful
+   *  for case classes with a single member. */
   def persistSemi(obj: T): String
   // def persistTyped(obj: T): String   
    
@@ -74,20 +83,19 @@ object Persist
       case PreOpExpr(op, LongIntToken(_, _, li)) if op.str == "-" => Good(-li)
       case  _ => expr.exprParseErr[Long]
     }
-  }
-   
+  }   
    //implicit def seqToPerister[A](implicit ev: Persist[A]) = new SeqPersist[A](ev)
    
-  implicit class SeqPersistImplicit[A](ev: Persist[A]) extends Persist[Seq[A]]('Seq)
+  implicit class SeqPersistImplicit[A](ev: Persist[A]) extends PersistCompound[Seq[A]]('Seq)
   { override def typeStr = "Seq" + ev.typeStr.enSquare
     override def syntaxDepth = ev.syntaxDepth + 1
-//      override def memStrs: Seq[A] => Seq[String] = _.map(ev.persistObj(_))
+    override def memStrs(obj: Seq[A]): List[String] = obj.toList.map(ev.persist(_))
 //      override def isType(obj: Any): Boolean = obj match
 //      {
 //         case s @ Seq(mems) => s.forall(el => ev.isType(el)) 
 //         case _ => false   
 //      }
-//      override def fromExpr(expr: Expr): EMon[Seq[A]] = expr match
+    override def fromExpr(expr: Expr): EMon[Seq[A]] = ??? //expr match
 //      {
 //         case SemicolonToken(_) => Good(Seq[A]())
 //         //For Some reason the compile is not finding the implicit
@@ -101,6 +109,8 @@ object Persist
 //         case ClausedStatement(clauses, _) => fromClauses(clauses)
 //         case es @ EmptyStatement(_) => es.asError         
 //      }
+    override def fromParameterStatements(sts: Seq[Statement]): EMon[Seq[A]] = ???
+    override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = ???
   }
    
   implicit object FloatPersist extends PersistSimple[Float]('SFlt)
