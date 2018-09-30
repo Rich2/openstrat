@@ -6,6 +6,7 @@ case class Lesson2(canv: CanvasPlatform) extends Lesson
 { val title = "Lesson 2"
   //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
   val ptStart: Vec2 = -100 vv 50
+  //Lets create another value and call it ptEnd. This is another Vec2, the compiler infers this, although we didn't state it directly.
   val ptEnd = 500 vv 300
   
   //However if you uncomment the line below you will get a compile error. You have told the compiler you are expecting a Vec2 but given it a number.
