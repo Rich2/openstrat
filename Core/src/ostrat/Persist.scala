@@ -19,8 +19,11 @@ abstract class Persist[T](val typeSym: Symbol)
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. This method is not commonly needed but is useful
    *  for case classes with a single member. */
   def persistSemi(obj: T): String
-  // def persistTyped(obj: T): String   
-   
+
+  /** For most objects persistTyped wil return the same value as persist(obj: T), for PeristValues the value will be type enclosed. 4.persistTyped
+    * will return Int(4) */
+  def persistTyped(obj: T): String
+
   def fromExpr(expr: Expr): EMon[T]
   def fromClauses(clauses: Seq[Clause]): EMon[T]
   def fromClauses2[A1, A2, B](f: (A1, A2) => B, clauses: Seq[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = clauses match
@@ -113,7 +116,7 @@ object Persist
     override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = ???
   }
    
-  implicit object FloatPersist extends PersistSimple[Float]('SFlt)
+  implicit object FloatPersist extends PersistSimple[Float]('SFloat)
   { def persist(obj: Float): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Float] = expr match      
     { case IntToken(_, _, i) => Good(i.toFloat)
@@ -126,7 +129,7 @@ object Persist
     }
   }
   
-  implicit object DoublePersist extends PersistSimple[Double]('Flt)
+  implicit object DoublePersist extends PersistSimple[Double]('DFloat)
   { def persist(obj: Double): String = obj.toString      
     override def fromExpr(expr: Expr): EMon[Double] = expr match      
     { case IntToken(_, _, i) => Good(i.toDouble)

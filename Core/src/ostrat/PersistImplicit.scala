@@ -12,4 +12,8 @@ class PersistImplicit[A](ev: Persist[A], thisVal: A)
     *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. This method is not commonly needed but is useful
     *  for case classes with a single member. */
   def persistSemi: String = ev.persistSemi(thisVal)
+
+  /** For most objects persistTyped wil return the same value as persist, for PeristValues the value will be type enclosed. 4.persistTyped
+    * will return Int(4) */
+  def persistTyped: String = ev.persistTyped(thisVal)
 }

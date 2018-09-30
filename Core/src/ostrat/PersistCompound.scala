@@ -4,7 +4,8 @@ package ostrat
 abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
 {   
    def memStrs(obj: R): List[String]
-   
+
+   @inline override def persistTyped(obj: R): String = persist(obj)
    override def persistComma(obj: R): String = syntaxDepth match
    {
       case 2 => memStrs(obj).commaFold

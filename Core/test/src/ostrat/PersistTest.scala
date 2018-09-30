@@ -5,10 +5,15 @@ import utest._
 object PersistTest extends TestSuite
 { val tests = Tests
   {
-    'test1 -
+    'persistNums -
     { assert(5.persist == "5") 
       assert((-86).persist == "-86")
       assert((-86).persistComma == "-86")
+      assert((-86).persistTyped == "Int(-86)")
+      assert(23.4.persist == "23.4")
+      assert((-6.00).persist == "-6.0")
+      val d: Double = 8
+      assert(d.persistTyped == "DFloat(8.0)")
     }
      val c1 = Colour.Black    
     'test11 - { assert(c1.toString == "Colour(000000FF)") }
