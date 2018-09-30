@@ -26,8 +26,8 @@ case class Lesson1(canv: CanvasPlatform) extends Lesson
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
   * screen. Congratulations! you are now a programmer. But, but, you respond, there's loads of magic going on here that I don't understand. All
-  * programmers rely on magic, and of course the first thing we should know about magic is it doesn't always work. i will try and explain how some of
-  * the magic works, but in programmming there's always more magic to decode.
+  * programmers rely on magic, and of course the first thing we should know about magic is it doesn't always work. I will try and explain how some of
+  * the magic works, but in programming there's always more magic to decode.
   *
   * The second type is text. Programmers refer to text as Strings, for some reason. I shall use the term string from now on. Strings start with a "
   * quotation mark and end with a quotation mark. Change the text in on one of the strings, save the file and you should see the text change on the
