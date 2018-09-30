@@ -14,12 +14,12 @@ object DTerr { implicit val toDTile: (Int, Int, DTerr) => DTile = DTile.apply }
 
 object Open extends DTerr// with PersisterSingleton
 { override def colour: Colour = Violet
-  val str = "Open"
+  val sym = 'Open
 }
 
 object Wall extends DTerr
 { override def colour: Colour = fromInts(80, 80, 80)
-  val str: String = "Wall"
+  val sym = 'Wall
 }
 
 case class DTile(x: Int, y: Int, terr: DTerr) extends GridElem

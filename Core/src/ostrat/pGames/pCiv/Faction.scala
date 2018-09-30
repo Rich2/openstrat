@@ -11,18 +11,18 @@ trait Faction extends StringerSingleton
 
 object Faction
 {
-  implicit object FactionPersistImplicit extends PersisterSingletontons[Faction]('Faction)
+  implicit object FactionPersistImplicit extends PersistSingletons[Faction]('Faction)
   {
     override def singletonList = List(Uruk, Eridu)
   }
 }
 
 object Uruk extends Faction
-{ def str = "Uruk"
+{ def sym = 'Uruk
   val colour = Red
 }
 
 object Eridu extends Faction
-{ def str = "Eridu"
+{ def sym = 'Eridu
   val colour = Blue
 }

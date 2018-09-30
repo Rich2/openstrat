@@ -12,12 +12,12 @@ trait Polity extends StringerSingleton
 
 object Britain extends Polity
 {
-   def str: String = "Britain"
+   def sym = 'Britain
    def colour = Red
 }
 
  object France extends Polity
 {
-   def str: String = "France"
+   def sym = 'France
    def colour = Blue
 }
