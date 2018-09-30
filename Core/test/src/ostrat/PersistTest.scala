@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import utest._
+
 class TestClass(val sym: Symbol) extends StringerSingleton
 {
   def typeSym = 'TestClass
@@ -8,8 +9,7 @@ class TestClass(val sym: Symbol) extends StringerSingleton
 object TestClass
 {
   implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]('TestClass)
-  { override val singletonList = List(TestObjA)
-    
+  { override val singletonList = List(TestObjA)    
   }
 }
 
@@ -30,12 +30,13 @@ object PersistTest extends TestSuite
       val d: Double = 8
       assert(d.persistTyped == "DFloat(8.0)")
     }
-     val c1 = Colour.Black
-     val aa: TestClass = TestObjA
+    val c1 = Colour.Black
+    val aa: TestClass = TestObjA
     'persistOther -
-      { assert(aa.persist == "TestObjA")
-       assert(aa.persistTyped == "TestClass(TestObjA)")
-        assert(c1.toString == "Colour(000000FF)") }
+    { assert(aa.persist == "TestObjA")
+      assert(aa.persistTyped == "TestClass(TestObjA)")
+      assert(c1.toString == "Colour(000000FF)")      
+    }
     val cm: Multiple[Colour] = (Colour.Red * 5)
     
     'test12 - { assert(cm.toString == "Multiple(Colour(FF0000FF); 5)") }

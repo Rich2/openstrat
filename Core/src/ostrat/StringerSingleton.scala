@@ -2,7 +2,7 @@
 package ostrat
 
 /** all the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of
-  * the object, but sometimes, it mmay be a lengthened or shortened version of the singleton object name. */
+  * the object, but sometimes, it may be a lengthened or shortened version of the singleton object name. */
 trait StringerSingleton extends Stringer
 { def sym: Symbol
   override def str: String = sym.name

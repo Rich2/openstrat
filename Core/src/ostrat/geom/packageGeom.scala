@@ -4,38 +4,38 @@ package ostrat
  *   implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of 
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
-{   
-   import math._   
-     
-   val Vec2Z = Vec2(0, 0)
-   val Dist2Z = Dist2(0.km, 0.km)
-   val LongD = 2.0 / Cos30   
-   val cos30: Double = cos(Pi / 6)
-   val LatLong0 = LatLong(0, 0)
-   val EarthPolarRadius: Dist = 6356.7523.km
-   val EarthEquatorialRadius: Dist = 6378.137.km
-   val EarthAvDiameter: Dist = 12742.km
-   val EarthAvRadius: Dist = EarthAvDiameter / 2
-   type SSet[A] = scala.collection.SortedSet[A]
-   type GraphicElems = List[GraphicElem[_]]
-   /** Hopefully this existential syntax baggage will be gone in dotty */
-   type CanvO = GraphicElem[_]
-   implicit class IntGeomImplicit(thisInt: Int)
-   { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
-         operators. */
-     @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
-      def ° : Angle = Angle(thisInt.radiansToDegrees)
-      def km: Dist = Dist(thisInt * 1000)
-      def metre: Dist = Dist(thisInt)
-      @inline def miles: Dist = Dist(thisInt * 1609.344)
-      @inline def millionMiles: Dist = thisInt.miles * 1000000
-      def * (operator: Dist): Dist = Dist(thisInt * operator.metres)
-      def ll (longDegs: Double): LatLong = LatLong(thisInt.degreesToRadians, longDegs.degreesToRadians)
-      def east = Longitude.deg(thisInt)
-      def west = Longitude.deg(-thisInt)
-      def north = Latitude.deg(thisInt)
-      def south = Latitude.deg(-thisInt)
-   }  
+{ import math._
+  /** Vec2(x = 0, y = 0) constant */
+  val Vec2Z = Vec2(0, 0)
+  /** Dist2(0.km, 0.km) constant */
+  val Dist2Z = Dist2(0.km, 0.km)
+  val LongD = 2.0 / Cos30
+  val cos30: Double = cos(Pi / 6)
+  val LatLong0 = LatLong(0, 0)
+  val EarthPolarRadius: Dist = 6356.7523.km
+  val EarthEquatorialRadius: Dist = 6378.137.km
+  val EarthAvDiameter: Dist = 12742.km
+  val EarthAvRadius: Dist = EarthAvDiameter / 2
+  type SSet[A] = scala.collection.SortedSet[A]
+  type GraphicElems = List[GraphicElem[_]]
+  /** Hopefully this existential syntax baggage will be gone in dotty */
+  type CanvO = GraphicElem[_]
+  implicit class IntGeomImplicit(thisInt: Int)
+  { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
+        operators. */
+    @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
+     def ° : Angle = Angle(thisInt.radiansToDegrees)
+     def km: Dist = Dist(thisInt * 1000)
+     def metre: Dist = Dist(thisInt)
+     @inline def miles: Dist = Dist(thisInt * 1609.344)
+     @inline def millionMiles: Dist = thisInt.miles * 1000000
+     def * (operator: Dist): Dist = Dist(thisInt * operator.metres)
+     def ll (longDegs: Double): LatLong = LatLong(thisInt.degreesToRadians, longDegs.degreesToRadians)
+     def east = Longitude.deg(thisInt)
+     def west = Longitude.deg(-thisInt)
+     def north = Latitude.deg(thisInt)
+     def south = Latitude.deg(-thisInt)
+  }
           
    implicit class DoubleGeomImplicit(thisDouble: Double)
    { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
