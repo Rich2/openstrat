@@ -15,40 +15,41 @@ package object ostrat
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
-   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
-   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
+  def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
+  def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
    
-   type RefTag[A] = AnyRef with reflect.ClassTag[A]// with AnyRef
-   type LeftRight[A] = Either[A, A]
-   type Trav[A] = Traversable[A]
-   type Funit = Function0[Unit]
-   type FStr = Function0[String]
-   type FStrSeq = Seq[Function0[String]]
-   type Tokens = List[Token]
-   type EMon[B] = Either[Seq[ParseErr], B]
-   type EMonSeq[B] = Either[Seq[ParseErr], Seq[B]]
-   type TokensMon = EMon[Tokens]
-   type Good[B] = Right[Seq[ParseErr], B]
-   /** The errors case of EMon[B] */
-   type Bad[B] = Left[Seq[ParseErr], B]
-   type ProdI2 = Product2[Int, Int]
-   /** Product2[Double, Double]. These are used in DoubleProduct2s Array[Double] based collections. */
-   type ProdD2 = Product2[Double, Double]
-   /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
-   type ProdD3 = Product3[Double, Double, Double]
-   /** Product4[Double, Double, Double, Double]. These are used in DoubleProduct4s Array[Double] based collections. */
-   type ProdD4 = Product4[Double, Double, Double, Double]
-   /** Product5[Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
-   type ProdD5 = Product5[Double, Double, Double, Double, Double]
-   /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct6s Array[Double] based collections. */
-   type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
+  type RefTag[A] = AnyRef with reflect.ClassTag[A]// with AnyRef
+  type LeftRight[A] = Either[A, A]
+  type Trav[A] = Traversable[A]
+  type Funit = Function0[Unit]
+  type FStr = Function0[String]
+  type FStrSeq = Seq[Function0[String]]
+  type Tokens = List[Token]
+  type EMon[B] = Either[Seq[ParseErr], B]
+  type EMonSeq[B] = Either[Seq[ParseErr], Seq[B]]
+  type TokensMon = EMon[Tokens]
+  type Good[B] = Right[Seq[ParseErr], B]
+  /** The errors case of EMon[B] */
+  type Bad[B] = Left[Seq[ParseErr], B]
+  type ProdI2 = Product2[Int, Int]
+  /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
+  type ProdD2 = Product2[Double, Double] with Stringer
+  /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
+  type ProdD3 = Product3[Double, Double, Double]
+  /** Product4[Double, Double, Double, Double]. These are used in DoubleProduct4s Array[Double] based collections. */
+  type ProdD4 = Product4[Double, Double, Double, Double]
+  /** Product5[Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
+  type ProdD5 = Product5[Double, Double, Double, Double, Double]
+  /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct6s Array[Double] based collections. */
+  type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
    
-   def excep(str: String): Nothing = throw new Exception(str)  
-   def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fp, detail)))
-   def bad1[B](fs: FileSpan, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fs.startPosn, detail)))
-   def eTry[A](res: => A): EMon[A] =
-      try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
-   def commaedObjs(objs: Any*) = objs.map(_.toString).commaFold
+  def excep(str: String): Nothing = throw new Exception(str)
+  def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fp, detail)))
+  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fs.startPosn, detail)))
+  def eTry[A](res: => A): EMon[A] =
+    try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
+  //def commaedObjs(objs: Any*) = objs.map(_.toString).commaFold
+
    val two32: Long = 4294967296l
    def twoIntsToDouble(i1: Int, i2: Int): Double ={
       val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL)

@@ -3,15 +3,12 @@ package ostrat
 package geom
 import utest._
 
-case class MyD2(a: Double, b: Double) extends Stringer
-{ override def typeSym = 'MyD2
-  override def str: String = persistD2(a, b)
-}
-
 object PersistGeomTest  extends TestSuite
-{ val m1 = MyD2(56.1, -45.2)
-  val tests = Tests
-  { 'test1 { assert(m1.str == "MyD2(56.1, -45.2)") }
-    'test2 { assert("hi" == "hi") }
+{ val v1 = 56.1 vv -45.2
+  val tests = Tests {
+    'Vec2Test {
+      assert(v1.str == "Vec2(56.1; -45.2)")
+
+    }
   }
 }

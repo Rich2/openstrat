@@ -5,16 +5,16 @@ import math._
 
 /** A 2 dimensional vector, can be used to represent 2 dimensional points and translations of 2 dimensional points. Thanks to Rene Descarte this
  *  was a great idea. */
-final class Vec2 (val x: Double, val y: Double) extends StringerD2
-{
-  override def typeSym = 'Vec2
-   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
-   @inline override def _1 = x
-   @inline override def _2 = y   
+final class Vec2 (val x: Double, val y: Double) extends ProdD2 //with Stringer
+{ override def typeSym = 'Vec2
+  override def str: String = persistD2(x, y)
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
+  @inline override def _1 = x
+  @inline override def _2 = y
    
-   def strMod(f: Double => String): String = "Vec2".appendParenth(f(x), f(y))  
-   def str1: String = strMod(_.str1)
-   def str2: String = strMod(_.str2)
+  def strMod(f: Double => String): String = "Vec2".appendParenth(f(x), f(y))
+  def str1: String = strMod(_.str1)
+  def str2: String = strMod(_.str2)
    def str3: String = strMod(_.str3)
    override def equals(other: Any): Boolean = other match
    {
