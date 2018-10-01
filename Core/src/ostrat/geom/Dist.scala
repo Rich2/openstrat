@@ -26,5 +26,5 @@ final class Dist(val metres: Double) extends AnyVal with Ordered[Dist] with Stri
 
 object Dist
 { def apply(metres: Double): Dist = new Dist(metres)
-  //implicit object DistPersist extends Persist
+  implicit object DistPersist extends PersistD1[Dist]('Dist, _.metres, new Dist(_))
 }

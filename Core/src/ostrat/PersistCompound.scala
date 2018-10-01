@@ -17,7 +17,11 @@ abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
       case _ => persist(obj)
    }
    
-   override def persist(obj: R): String = typeStr - memStrs(obj).strFold("; ").enParenth 
+   override def persist(obj: R): String = syntaxDepth match
+   {
+     case sd if sd < 2 => excep("PeristCompound should not have persistDepth of " + sd.toString)
+     case 2 1typeStr - memStrs(obj).strFold("; ").enParenth 
+   }
    //def memStrs: R => Seq[String]
    override def fromExpr(expr: Expr): EMon[R] =  expr match
    {

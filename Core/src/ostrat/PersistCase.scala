@@ -18,6 +18,9 @@ class Persist1[A1, R](typeSym: Symbol, val fParam: R => A1, val newT: A1 => R)(i
    override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
 }
 
+class PersistD1[R](typeSym: Symbol, fParam: R => Double, newT: Double => R) extends
+   Persist1[Double, R](typeSym, fParam, newT)
+
 class Persist2[A1, A2, R](typeSym: Symbol, val fParam: R => (A1, A2), val newT: (A1, A2) => R)
    (implicit ev1: Persist[A1], ev2: Persist[A2])
    extends PersistCase[R](typeSym)
