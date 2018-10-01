@@ -78,7 +78,7 @@ class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD
    
   def fromFocusDist3(ll: LatLong): Dist3 = ll.subLong(long).toDist3.xRotation(-lat)
   def fromFocusLineDist3(inp: LatLongLine): LineDist3 = LineDist3(
-    inp.latLong1.subLong(long).toDist3.xRotation(-lat),
+    inp.llStart.subLong(long).toDist3.xRotation(-lat),
     inp.latLong2.subLong(long).toDist3.xRotation(-lat))
          
   def fromFocusDist2(ll: LatLong): Dist2 = fromFocusDist3(ll).xy

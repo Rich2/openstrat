@@ -4,37 +4,37 @@ package geom
 import math._
 /** A 3 dimensional vector, can be used to represent 3 dimensional points and translations of 3 dimensional points. Right-handed coordinate
  *  system is the default */
-final class Vec3 (val x: Double, val y: Double, val z: Double)// extends PersistCompound
-{
-   override def equals(other: Any): Boolean = other match
-   {
-      case Vec3(px, py, pz) => (x =~ px) && (y =~ py) && (z =~ pz)
-      case _ => false
-   }
-   override def toString = "x: " - x.toString.commaAppend("y: " - y.toString, "z: " - z.toString) 
-   def str1: String = "x: " - x.str1 - ", y: " - y.str1 - ", z: " - z.str1
-   def toTriple: (Double, Double, Double) = (x, y, z)   
-   def +(other: Vec3): Vec3 = Vec3(x + other.x, y + other.y, z + other.z)
-   def addXYZ (otherX: Double, otherY: Double, otherZ: Double): Vec3 = Vec3(x + otherX, y + otherY, z + otherZ)
-   def toXY: Vec2 = Vec2(x, y)
-   def toXYIfZPositive: Option[Vec2] = ife(z > 0, Some(Vec2(x, y)), None)
-   def xRotation(rotation: Double): Vec3 =
-   {
-      val scalar = sqrt(y * y + z * z)
-      val ang0 = Unit match
-      { 
-         //As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
-         case _ if z < 0 && y < 0 =>  - Pi  + atan(y / z)
-         
-         //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
-         case _ if z < 0 => Pi + atan(y / z)
-         //This operates on the standard atan range -Pi/2 to pi/2
-         case _ => atan(y / z)
-      }
+final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdD3 with Stringer
+{ def typeSym = 'Vec3
+  def str = persistD3(x, y, z)
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec3]
+  def _1 = x
+  def _2 = y
+  def _3 = z
+  override def equals(other: Any): Boolean = other match
+  { case Vec3(px, py, pz) => (x =~ px) && (y =~ py) && (z =~ pz)
+    case _ => false
+  }   
+  def str1: String = "x: " - x.str1 - ", y: " - y.str1 - ", z: " - z.str1
+  def toTriple: (Double, Double, Double) = (x, y, z)   
+  def +(other: Vec3): Vec3 = Vec3(x + other.x, y + other.y, z + other.z)
+  def addXYZ (otherX: Double, otherY: Double, otherZ: Double): Vec3 = Vec3(x + otherX, y + otherY, z + otherZ)
+  def toXY: Vec2 = Vec2(x, y)
+  def toXYIfZPositive: Option[Vec2] = ife(z > 0, Some(Vec2(x, y)), None)
+  def xRotation(rotation: Double): Vec3 =
+  { val scalar = sqrt(y * y + z * z)
+    val ang0 = Unit match
+    { //As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
+      case _ if z < 0 && y < 0 =>  - Pi  + atan(y / z)
+      //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
+      case _ if z < 0 => Pi + atan(y / z)
+      //This operates on the standard atan range -Pi/2 to pi/2
+      case _ => atan(y / z)
+    }
       
-      val ang1 = ang0 + rotation
-      Vec3(x, sin(ang1) * scalar, cos(ang1) * scalar)      
-   }   
+    val ang1 = ang0 + rotation
+    Vec3(x, sin(ang1) * scalar, cos(ang1) * scalar)      
+  }   
    
 //   def subXY (otherX: Double, otherY: Double): Vec2 = Vec3(x - otherX, y - otherY)
 //   def -(other: Vec2): Vec2 = Vec2(x - other.x, y - other.y)
@@ -97,10 +97,10 @@ final class Vec3 (val x: Double, val y: Double, val z: Double)// extends Persist
 
 
 object Vec3
-{
-   def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
-   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
-   
+{ def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
+  def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
+  
+  implicit object Vec3Persist extends PersistD3[Vec3]('Vec3, v => (v.x, v.y, v.z), apply)
 //   implicit class Vec3SeqImplicit(thisSeq: Seq[Vec3])
 //   {
 //      /** Returns Some z positive points if 3 or more */ 
@@ -114,6 +114,5 @@ object Vec3
 //      val res: Seq[Vec2] = loop(thisSeq, Seq())
 //      ifSome(res.length > 2, res)   
 //      }
-//   }
- 
+//   } 
 }

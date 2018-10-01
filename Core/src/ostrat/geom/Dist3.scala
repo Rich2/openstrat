@@ -3,8 +3,9 @@ package ostrat
 package geom
 import math._
 
-final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdD3
+final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdD3 with Stringer
 { def typeSym = 'Dist3
+  def str = persistD3(xMetres, yMetres, zMetres)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist3]
   def _1 = xMetres
   def _2 = yMetres
@@ -37,7 +38,9 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
 }
 
 object Dist3
-{ var counter = 0
+{ 
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): Dist3 = new Dist3(xMetres, yMetres, zMetres)
   def apply(x: Dist, y: Dist, z: Dist): Dist3 = new Dist3(x.metres, y.metres, z.metres)
+  implicit object Dist3Persist extends Persist3[Dist, Dist, Dist, Dist3]('Dist3, v => (v.x, v.y, v.z), apply)
+  var counter = 0
 }

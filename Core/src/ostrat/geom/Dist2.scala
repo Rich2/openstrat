@@ -3,9 +3,10 @@ package ostrat
 package geom
 import math._
 
-/** Two dimensional vector using metres as units rather than pure numbers */
-class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
+/** Two dimensional vector using metres as units rather than pure numbers. */
+class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2 with Stringer
 { def typeSym = 'Dist2
+  def str = persistD2(xMetres, yMetres)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
   def x: Dist = Dist(xMetres)
   val y: Dist = Dist(yMetres)

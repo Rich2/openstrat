@@ -61,6 +61,9 @@ abstract class Persist3[A1, A2, A3, R](typeSym: Symbol, val fParam: R => (A1, A2
    override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
 }
 
+abstract class PersistD3[R](typeSym: Symbol, fParam: R => (Double, Double, Double), newT: (Double, Double, Double) => R) extends
+   Persist3[Double, Double, Double, R](typeSym, fParam, newT)
+
 abstract class Persist4[A1, A2, A3, A4, R](typeSym: Symbol, val newT: (A1, A2, A3, A4) => R,
       val fParam: R => (A1, A2, A3, A4))(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], 
       ev4: Persist[A4]) extends PersistCase[R](typeSym)
