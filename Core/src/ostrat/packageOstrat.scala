@@ -31,9 +31,7 @@ package object ostrat
   type Good[B] = Right[Seq[ParseErr], B]
   /** The errors case of EMon[B] */
   type Bad[B] = Left[Seq[ParseErr], B]
-  type ProdI2 = Product2[Int, Int]
-  /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
-  type ProdD2 = Product2[Double, Double] with Stringer
+
   /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
   type ProdD3 = Product3[Double, Double, Double]
   /** Product4[Double, Double, Double, Double]. These are used in DoubleProduct4s Array[Double] based collections. */
@@ -48,13 +46,10 @@ package object ostrat
   def bad1[B](fs: FileSpan, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fs.startPosn, detail)))
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
-  //def commaedObjs(objs: Any*) = objs.map(_.toString).commaFold
+  def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
 
    val two32: Long = 4294967296l
-   def twoIntsToDouble(i1: Int, i2: Int): Double ={
-      val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL)
-      java.lang.Double.longBitsToDouble(lg)   
-   }
+   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
    
    implicit def AnyToImplicit[A](value: A): AnyTImplicit[A] = new AnyTImplicit[A](value)   
    implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)

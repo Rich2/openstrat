@@ -9,7 +9,7 @@ trait Stringer extends Any
   def typeStr: String = typeSym.name
   def str: String
   final override def toString = str
-  def persistD2(d1: Double, d2: Double): String = typeStr + (d1.toString + "; " + d2.toString).enParenth
+  //def persistD2(d1: Double, d2: Double): String = typeStr + (d1.toString + "; " + d2.toString).enParenth
   def persist1[T1](v1: T1)(implicit ev1: Persist[T1]): String = typeStr + ev1.persist(v1).enParenth
   def persist2[T1, T2](v1: T1, v2: T2)(implicit ev1: Persist[T1], ev2: Persist[T2]): String =
     typeStr + ev1.persist(v1).semicolonAppend(ev2.persist(v2)).enParenth
@@ -29,5 +29,7 @@ trait Stringer extends Any
     
 }
 
-//trait StringerD2 extends Any with ProdD2 with Stringer { final override def str = typeStr + ostrat.commaedObjs(_1, _2).enParenth }
-//trait StringerI2 extends Any with ProdI2 with Stringer { final override def str = typeStr + ostrat.commaedObjs(_1, _2).enParenth }
+/** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
+trait ProdD2 extends Any with Product2[Double, Double] with Stringer { final override def str = typeStr + (_1.toString + "; " + _2.toString).enParenth }
+/** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
+trait ProdI2 extends Any with Product2[Int, Int] with Stringer { final override def str = typeStr + (_1.toString + "; " + _2.toString).enParenth}

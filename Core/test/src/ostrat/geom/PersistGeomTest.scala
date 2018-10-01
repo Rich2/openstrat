@@ -8,7 +8,10 @@ object PersistGeomTest  extends TestSuite
   val tests = Tests {
     'Vec2Test {
       assert(v1.str == "Vec2(56.1; -45.2)")
-
+      assert(v1.persist == "Vec2(56.1; -45.2)")
+      assert(v1.persistTyped == "Vec2(56.1; -45.2)")
+      assert(v1.persistSemi == "56.1; -45.2")
+      assert(v1.persistComma == "56.1, -45.2")
     }
   }
 }

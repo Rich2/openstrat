@@ -22,7 +22,7 @@ case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasSimple
       b1 = intMaker(b)
       c1 = Colour.fromInts(r1, g1, b1)
       c2 = Rectangle.colouredBordered(25, c1, 2).slate(left + 30, top - 20)
-      c3 = TextGraphic(Vec2(left + 120, top - 20), commaedObjs(r1, g1, b1), 15)      
+      c3 = TextGraphic(Vec2(left + 120, top - 20), commaedInts(r1, g1, b1), 15)
    } yield (c2, c3)
    
    val cols2 = cols.iFlatMap[CanvO]{(pair , i) =>
