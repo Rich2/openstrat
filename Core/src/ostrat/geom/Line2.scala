@@ -6,45 +6,39 @@ import Colour.Black
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
 case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transable[Line2] with CurveLike
 { def typeSym = 'Line2
-   def str = persist2(pStart, pEnd)
-   override def _1 = xStart
-   override def _2 = yStart
-   override def _3 = xEnd
-   override def _4 = yEnd   
-   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd) 
-   def fTrans(f: Vec2 => Vec2): Line2 = Line2(f(pStart), f(pEnd))
-   def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)
-   def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pStart), f(pEnd))
-   def isHorizontal: Boolean = yStart == yEnd
-   def isVertical: Boolean = xStart == xEnd 
-     
-   def rayIntersection(pt: Vec2): Boolean = //Checks whether a forward horizontal ray crosses this polygon side, yes, yes I know this is horrible code.
-      if ( 
-          //Check if point is above or below the polygon side
-         ((pt.y > yStart) && (pt.y > yEnd)) || //above beg pt and end pt
-         ((pt.y < yStart) && (pt.y < yEnd)) //below beg pt and end pt
-      ) false
-      else 
-      {
-         val deltaY = yEnd - yStart
-         if (0.000001 > deltaY.abs) false //if the polygon side is close to horizontal the
-// point is close enough to the perimeter of the polygon that the point can measured as outside
-         else
-         {
-            val ptDeltaY: Double = pt.y - yStart
-            val deltaX: Double = xEnd - xStart //Not entirely sure what's going on here
-            val lineX: Double = xStart + (deltaX * ptDeltaY / deltaY)
-            pt.x > lineX
-         }
-      }
-   def lineAngle: Angle = (pEnd - pStart).angle
-   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
+  override def _1 = xStart
+  override def _2 = yStart
+  override def _3 = xEnd
+  override def _4 = yEnd
+  def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd)
+  def fTrans(f: Vec2 => Vec2): Line2 = Line2(f(pStart), f(pEnd))
+  def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)
+  def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pStart), f(pEnd))
+  def isHorizontal: Boolean = yStart == yEnd
+  def isVertical: Boolean = xStart == xEnd
+  /**Checks whether a forward horizontal ray crosses this polygon side. */
+  def rayIntersection(pt: Vec2): Boolean = Unit match
+  { case _ if pt.y > yStart & pt.y > yEnd => false //Check if point is above the polygon side, above beg pt and end pt
+    case _ if pt.y < yStart & pt.y < yEnd => false //Check if point is  below the polygon side, below beg pt and end pt
+    case _ if 0.000001 > (yEnd - yStart).abs => false /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
+     of the polygon that the point can measured as outside */
+    case _ =>
+    { val ptDeltaY: Double = pt.y - yStart
+      val deltaX: Double = xEnd - xStart //Not entirely sure what's going on here
+      val lineX: Double = xStart + (deltaX * ptDeltaY / (yEnd - yStart)) //
+      pt.x > lineX
+    }
+  }
+
+  def lineAngle: Angle = (pEnd - pStart).angle
+  def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 }
 
 object Line2
 { /** Factory apply method for Line2. If using Doubles "Line2(x1 vv y1, x2 vv y2)" is the preferred syntax, rather than calling the constructor
 * directly. */
   @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
+  implicit object Line2Persist extends Persist2[Vec2, Vec2, Line2]('Line2, l => (l.pStart, l.pEnd), Line2(_, _))
 }
 object HLine
 { /** Creates a horizontal Line2 */

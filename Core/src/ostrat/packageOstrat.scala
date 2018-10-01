@@ -32,15 +32,8 @@ package object ostrat
   /** The errors case of EMon[B] */
   type Bad[B] = Left[Seq[ParseErr], B]
 
-  /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
-  type ProdD3 = Product3[Double, Double, Double]
-  /** Product4[Double, Double, Double, Double]. These are used in DoubleProduct4s Array[Double] based collections. */
-  type ProdD4 = Product4[Double, Double, Double, Double]
-  /** Product5[Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
-  type ProdD5 = Product5[Double, Double, Double, Double, Double]
-  /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct6s Array[Double] based collections. */
-  type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
-   
+
+
   def excep(str: String): Nothing = throw new Exception(str)
   def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fp, detail)))
   def bad1[B](fs: FileSpan, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fs.startPosn, detail)))

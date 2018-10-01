@@ -32,4 +32,15 @@ trait Stringer extends Any
 /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
 trait ProdD2 extends Any with Product2[Double, Double] with Stringer { final override def str = typeStr + (_1.toString + "; " + _2.toString).enParenth }
 /** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
-trait ProdI2 extends Any with Product2[Int, Int] with Stringer { final override def str = typeStr + (_1.toString + "; " + _2.toString).enParenth}
+trait ProdI2 extends Any with Product2[Int, Int] with Stringer { final override def str =
+  typeStr + (_1.toString + "; " + _2.toString).enParenth}
+/** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
+trait ProdD3 extends Any with Product3[Double, Double, Double] with Stringer { final override def str =
+  typeStr + (_1.toString + "; " + _2.toString).enParenth}
+/** Product4[Double, Double, Double, Double]. These are used in DoubleProduct4s Array[Double] based collections. */
+trait ProdD4 extends Any with Product4[Double, Double, Double, Double] with Stringer { final override def str =
+  typeStr + (_1.toString + "; " + _2.toString).enParenth}
+/** Product5[Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
+trait ProdD5 extends Any with Product5[Double, Double, Double, Double, Double] with Stringer { final override def str = ??? }
+/** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct6s Array[Double] based collections. */
+trait ProdD6 extends Any with Product6[Double, Double, Double, Double, Double, Double] with Stringer { final override def str = ??? }

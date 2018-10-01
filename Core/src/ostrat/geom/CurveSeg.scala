@@ -17,7 +17,8 @@ trait CurveSegLike
   * no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory object apply methods. */
 case class CurveSeg(val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends ProdD6 with
 Transable[CurveSeg] with CurveSegLike
-{ override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
+{ def typeSym: Symbol = 'CurveSeg
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
   @inline override def _1 = xC1
   @inline override def _2 = yC1
   @inline override def _3 = xUses
