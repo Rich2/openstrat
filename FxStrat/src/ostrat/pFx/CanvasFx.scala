@@ -4,8 +4,7 @@ package pFx
 import geom._, pCanv._, scalafx.Includes._, scalafx.scene._
 
 case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSaver
-{
-  val gc: canvas.GraphicsContext = canvFx.graphicsContext2D
+{ val gc: canvas.GraphicsContext = canvFx.graphicsContext2D
   override def width = canvFx.width.value.max(100)
   override def height = canvFx.height.value.max(100)
   def getButton(e: input.MouseEvent): MouseButton = 
