@@ -49,11 +49,18 @@ object PersistTest extends TestSuite
     
     val cm: Multiple[Colour] = (Colour.Red * 5)
     val l1 = Seq(-1, -2, -30)
-  //  val l2: List[Int] = List(4, 5, 6)
+    val l1Comma: String = "-1, -2, -30"
+    val l2: List[Int] = List(4, 5, 6)
+    val l2Comma: String = "4, 5, 6"
+    //val ss: Seq[Seq[Int]] = Seq(l1, l2)
     
     'Seq -
-    { assert(l1.persist == "Seq[Int](-1; -2; -30)") 
-      
+    { assert(l1.persist == "Seq[Int](-1; -2; -30)")
+      assert(l1.persistSemi == "-1; -2; -30")
+      assert(l1.persistComma == l1Comma)
+      assert(l1.persistTyped == "Seq[Int](-1; -2; -30)")
+      assert(l2.persistComma == l2Comma)
+      //assert(ss.persist == "Seq[Seq[Int]]")
     }
   }
 }

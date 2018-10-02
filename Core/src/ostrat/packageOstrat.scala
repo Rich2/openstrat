@@ -63,7 +63,8 @@ package object ostrat
    implicit def seqToRichImp[A](thisSeq: Seq[A]) = new SeqImplicit(thisSeq)
    implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
    implicit def AnyAToPeristImplicit[A](thisVal: A)(implicit ev: Persist[A])= new PersistImplicit(ev, thisVal)
-   implicit def seqToPerist[A](thisSeq: Seq[A])(implicit ev: Persist[A]) = new PersistSeqImplicit[A](thisSeq, ev)
+   //implicit def seqToPerist[A](implicit ev: Persist[A]): Persist[Seq[A]] = new PersistSeqImplicit[A](ev)
+   implicit def seqToPeristDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]) = new PersistSeqDirect[A](thisSeq, ev)
 
    implicit def traversableToImplicit[A](trav: Traversable[A]) = new TraversableImplicit[A](trav)
    implicit def arrayToImplict[A](arr: Array[A]) = new ArrayImplicit[A](arr)

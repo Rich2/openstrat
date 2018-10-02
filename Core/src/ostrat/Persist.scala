@@ -122,7 +122,8 @@ object Persist
       case AlphaToken(_, str) if str == 'false => Good(false)
        case _ => expr.exprParseErr[Boolean]
      }
-  } 
-   
+  }
+  
+ 
  
 }
