@@ -40,10 +40,4 @@ abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
    }
 }
 
-//class PersistSeqImplicit[A](thisSeq: Seq[A])(implicit ev: Persist[A]) extends PersistCompound[Seq[A]]
-//{
-//   override def syntaxDepth: Int = ev.syntaxDepth + 1
-//   override def persistName = "Seq" + ev.typeStr.enSquare
-//   override def persistMems = thisSeq.map(ev.persistObj(_)).toSeq
-//}
 

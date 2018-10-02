@@ -49,10 +49,10 @@ object PersistTest extends TestSuite
     
     val cm: Multiple[Colour] = (Colour.Red * 5)
     val l1 = Seq(-1, -2, -30)
-    val l2: List[Int] = List(4, 5, 6)
+  //  val l2: List[Int] = List(4, 5, 6)
     
     'Seq -
-    { //assert(l1.persist == "Seq[Int](-1; -2; -30)") 
+    { assert(l1.persist == "Seq[Int](-1; -2; -30)") 
       
     }
   }
