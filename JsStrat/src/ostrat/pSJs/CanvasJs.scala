@@ -132,7 +132,7 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath
   }
    
-  override def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.segs);  gc.fillStyle = sf.colour.webStr; gc.fill }
+  override def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.shape);  gc.fillStyle = sf.colour.webStr; gc.fill }
    
   override def tlShapeDraw(sd: ShapeDraw): Unit =
   { segsPath(sd.segs)

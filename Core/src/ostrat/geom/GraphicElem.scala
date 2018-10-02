@@ -10,8 +10,11 @@ trait GraphicElem[A] extends Any with Transable[A]
 /* Base trait for all passive objects  on a canvas / panel */
 trait PaintElem[A] extends Any with GraphicElem[A]
 
-case class ShapeFill(segs: Shape, colour: Colour) extends PaintElem[ShapeFill]
-{ override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), colour) }
+case class ShapeFill(shape: Shape, colour: Colour) extends PaintElem[ShapeFill]// with Stringer
+{ def typeSym = 'ShapeFill
+  //def str = persist2(shape, colour)
+  override def fTrans(f: Vec2 => Vec2) = ShapeFill(shape.fTrans(f), colour)  
+}
 
 case class ShapeDraw(segs: Shape, lineWidth: Double, colour: Colour = Black) extends PaintElem[ShapeDraw]
 { override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, colour) }
