@@ -1,27 +1,29 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+/** Not sure how useful this class is. It is diffcult to abstract over the general case. Its sub classes are the Persist case instances and
+ *  the various persist collection classes */
 abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
-{   
-   def memStrs(obj: R): List[String]
-
-   @inline override def persistTyped(obj: R): String = persist(obj)
-   override def persistComma(obj: R): String = syntaxDepth match
-   {
-      case 2 => memStrs(obj).commaFold
-      case _ => persist(obj)
-   }
-   override def persistSemi(obj: R): String = syntaxDepth match
-   {
-      case 2 | 3 => memStrs(obj).semicolonFold
-      case _ => persist(obj)
-   }
+{ override def persist(obj: R): String = typeStr + persistSemi(obj).enParenth 
+  @inline override def persistTyped(obj: R): String = persist(obj)
+  
+//  override def persistComma(obj: R): String = syntaxDepth match
+//  { case 2 => memStrs(obj).commaFold
+//    case _ => persist(obj)
+//  }
+//   
+//  override def persistSemi(obj: R): String = syntaxDepth match
+//  { case 2 | 3 => memStrs(obj).semicolonFold
+//    case _ => persist(obj)
+//  }
+//   
+//   override def persist(obj: R): String =  syntaxDepth match
+//  {
+//     case sd if sd < 2 => excep("PeristCompound should not have persistDepth of " + sd.toString)
+//     case 2 => typeStr - memStrs(obj).strFold("; ").enParenth
+//     case _ => typeStr - memStrs(obj).strFold("; ").enParenth
+//  }
    
-   override def persist(obj: R): String = syntaxDepth match
-   {
-     case sd if sd < 2 => excep("PeristCompound should not have persistDepth of " + sd.toString)
-     case 2 1typeStr - memStrs(obj).strFold("; ").enParenth 
-   }
    //def memStrs: R => Seq[String]
    override def fromExpr(expr: Expr): EMon[R] =  expr match
    {

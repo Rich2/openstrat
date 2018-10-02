@@ -92,7 +92,10 @@ object Persist
   implicit class SeqPersistImplicit[A](ev: Persist[A]) extends PersistCompound[Seq[A]]('Seq)
   { override def typeStr = "Seq" + ev.typeStr.enSquare
     override def syntaxDepth = ev.syntaxDepth + 1
-    override def memStrs(obj: Seq[A]): List[String] = obj.toList.map(ev.persist(_))
+    //override def memStrs(obj: Seq[A]): List[String] = obj.toList.map(ev.persist(_))
+    override def persist(thisSeq: Seq[A]): String = typeStr + persistSemi(thisSeq).enParenth    
+    override def persistSemi(thisSeq: Seq[A]): String = thisSeq.map(ev.persistComma(_)).semicolonFold
+    override def persistComma(thisSeq: Seq[A]): String = thisSeq.map(ev.persist(_)).commaFold
 //      override def isType(obj: Any): Boolean = obj match
 //      {
 //         case s @ Seq(mems) => s.forall(el => ev.isType(el)) 
