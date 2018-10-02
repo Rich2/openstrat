@@ -1,8 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** The essential persistence type class. it implemnts both a Show style type class intreface, the production of a String representation of the value
-  * but also produces a value T from a String. It Persists and builds objects of type T from CRON syntax. So for example the IntImplicit object in the
+/** The essential persistence type class. it implements both a Show style type class interface, the production of a String representation of the value
+  * but also produces an EMon[T] from a String. It Persists and builds objects of type T from CRON syntax. So for example the IntImplicit object in the
   * Persist companion object persists Integers and constructs Integers from Strings. */
 abstract class Persist[T](val typeSym: Symbol)
 { def syntaxDepth: Int

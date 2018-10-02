@@ -19,7 +19,7 @@ object PersistTest extends TestSuite
 { val aa: TestClass = TestObjA
   deb(aa.persistTyped)
   val tests = Tests
-  {
+  { 
     'persistNums -
     { assert(5.persist == "5") 
       assert((-86).persist == "-86")
@@ -32,13 +32,28 @@ object PersistTest extends TestSuite
     }
     val c1 = Colour.Black
     val aa: TestClass = TestObjA
+    val str1: String = "I am a String"
+    val str1Std: String = "\"I am a String\""
+    deb(str1.persistTyped)
+    
     'persistOther -
     { assert(aa.persist == "TestObjA")
       assert(aa.persistTyped == "TestClass(TestObjA)")
-      assert(c1.toString == "Colour(000000FF)")      
+      assert(c1.toString == "Colour(000000FF)")
+      assert(cm.toString == "Multiple(Colour(FF0000FF); 5)")
+      assert(str1.persist == str1Std)
+      assert(str1.persistSemi == str1Std)
+      assert(str1.persistComma == str1Std)
+      assert(str1.persistTyped == "Str(" + str1Std + ")")
     }
-    val cm: Multiple[Colour] = (Colour.Red * 5)
     
-    'test12 - { assert(cm.toString == "Multiple(Colour(FF0000FF); 5)") }
+    val cm: Multiple[Colour] = (Colour.Red * 5)
+    val l1 = Seq(-1, -2, -30)
+    val l2: List[Int] = List(4, 5, 6)
+    
+    'Seq -
+    { //assert(l1.persist == "Seq[Int](-1; -2; -30)") 
+      
+    }
   }
 }

@@ -73,26 +73,3 @@ abstract class Persist4[A1, A2, A3, A4, R](typeSym: Symbol, val newT: (A1, A2, A
   override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses4(newT, clauses)
   override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)
 }
-
-/** This trait persists an object. An object can persist this directly through inheritance or through an implicit conversion. Not the PBUild class is
- *  needed to persist the type of an object in a sequence for example. As not all persistable classes directly implement this trait an implicit conversion
- *  of type T => Persist, if its an individual object of type T must be passed as a parameter or PBuild[T] in the case of type T. */
-
-/** A trait that persists a single Token, a short simple string */
-//trait PersistStr[A] extends Any with Persist[A]
-//{
-//   def persistStr: String
-//   final override def persist = persistStr 
-//   final override def persistComma = Seq(persistStr)
-//   final override def persistFull = Seq(persistStr)
-//      
-//}
-//
-//object Persist
-//{
-//   val maxLen = 120
-//   implicit class PersistIntMethodClass(i: Int)
-//   {
-//      def isShort: Boolean = i <= maxLen
-//   }   
-//}
