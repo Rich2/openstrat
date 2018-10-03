@@ -3,70 +3,54 @@ package ostrat
 
 /** Extension methods for Traversable[A] */
 class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
-{   
-   /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the 
-     *  tail value */
-   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head)
-   def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.last)
-   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisTrav.isEmpty) vEmpty else vNonEmpty  
-   def ifHead(f: A => Boolean) : Boolean = thisTrav.ifEmpty(false, f(thisTrav.head))
-   //def headFold[B](vEmpty: => B, f: A => B): B = if (thisTrav.isEmpty) vEmpty else f(thisTrav.head)
-   def headOrElse(vEmpty: A): A = if (thisTrav.isEmpty) vEmpty else thisTrav.head
-   def toStrFold(seperator: String = "", f: A => String = _.toString): String =
-      thisTrav.ifEmpty("", thisTrav.tail.foldLeft(f(thisTrav.head))(_ - seperator - f(_)))   
-   def commaFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold(", ", fToStr)
-   def semiFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold("; ", fToStr)
+{ /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the tail value */
+  def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head)
+  def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.last)
+  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisTrav.isEmpty) vEmpty else vNonEmpty  
+  def ifHead(f: A => Boolean) : Boolean = thisTrav.ifEmpty(false, f(thisTrav.head))
+  //def headFold[B](vEmpty: => B, f: A => B): B = if (thisTrav.isEmpty) vEmpty else f(thisTrav.head)
+  def headOrElse(vEmpty: A): A = if (thisTrav.isEmpty) vEmpty else thisTrav.head
+  def toStrFold(seperator: String = "", f: A => String = _.toString): String =
+    thisTrav.ifEmpty("", thisTrav.tail.foldLeft(f(thisTrav.head))(_ - seperator - f(_)))   
+  def commaFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold(", ", fToStr)
+  def semiFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold("; ", fToStr)
    
-   /** maps over a traversable (collection / sequence) with a counter */
-   def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =
-   {
-      var i = count
-      var acc: List[B] = Nil
-      thisTrav.foreach(el =>
-         {
-            acc ::= f(el, i)
-            i += 1
-         })
-      acc.reverse
-   }
+  /** maps over a traversable (collection / sequence) with a counter */
+  def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =
+  { var i = count
+    var acc: List[B] = Nil
+    thisTrav.foreach{el => acc ::= f(el, i); i += 1 }
+    acc.reverse
+  }
    
-   /** flatMaps over a traversable (collection / sequence) with a counter */
-   def iFlatMap[B](f: (A, Int) => Seq[B], count: Int = 0): Seq[B] =
-   {
-      var i = count
-      var acc: Seq[B] = Seq()
-      thisTrav.foreach(el =>
-         {
-            acc ++= f(el, i)
-            i += 1
-         })
-      acc
-   }
+  /** flatMaps over a traversable (collection / sequence) with a counter */
+  def iFlatMap[B](f: (A, Int) => Seq[B], count: Int = 0): Seq[B] =
+  { var i = count
+    var acc: Seq[B] = Seq()
+    thisTrav.foreach{el => acc ++= f(el, i); i += 1 }
+    acc
+  }
    
-   /** foreach loop with counter */
-   def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit =
-   {
-      var counter = count
-      var rem = thisTrav
-      while(rem.nonEmpty)
-      {
-         f(rem.head, counter)
-         counter += 1
-         rem = rem.tail
-      }      
-   }
+  /** foreach loop with counter */
+  def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit =
+  { var counter = count
+    var rem = thisTrav
+    while(rem.nonEmpty)
+    { f(rem.head, counter)
+      counter += 1
+      rem = rem.tail
+    }      
+  }
    
-   def mapVar1[B, C](initialVar: B, f: (A, B) => (B, C)): Seq[C] =
-   {
-      var varB: B = initialVar
-      var acc: Seq[C] = Seq()
-      thisTrav.foreach(el =>
-         {
-            val pair: (B, C) = f(el, varB)
-            varB = pair._1
-            acc :+= pair._2
-         })
-         acc
+  def mapVar1[B, C](initialVar: B, f: (A, B) => (B, C)): Seq[C] =
+  { var varB: B = initialVar
+    var acc: Seq[C] = Seq()
+    thisTrav.foreach{el =>
+      val pair: (B, C) = f(el, varB)
+      varB = pair._1
+      acc :+= pair._2
+    }
+    acc
    }
    
    def flatMapVar1[B, C](initialVar: B, initialAcc: C)(f: (A, B, C) => (B, C)): C =
