@@ -54,8 +54,9 @@ package object ostrat
 
   val two32: Long = 4294967296l
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
-   
-  //implicit def AnyToImplicit[A](value: A): AnyTImplicit[A] = new AnyTImplicit[A](value)   
+  
+  implicit def arrayDoubleToImplicit(arr: Array[Double]) = new ArrayDoubleImplicit(arr)
+  implicit def arrayToImplict[A](arr: Array[A]) = new ArrayImplicit[A](arr)
   implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)
   implicit def intToImplicit(i: Int) = new IntImplicit(i)
   implicit def doubleToImplicit(d: Double) = new DoubleImplicit(d)
@@ -64,12 +65,8 @@ package object ostrat
   implicit def seqToImplicit[A](thisSeq: Seq[A]) = new SeqImplicit(thisSeq)
   implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
   implicit def AnyAToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]) = new StringerImplicit(ev, thisVal)
-  //implicit def seqToPerist[A](implicit ev: Persist[A]): Persist[Seq[A]]= new PersistSeqImplicit[A](ev)
   implicit def seqToStringerDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]) = new StringerSeqDirect[A](thisSeq, ev)
-
-  implicit def traversableToImplicit[A](trav: Traversable[A]) = new TraversableImplicit[A](trav)
-  implicit def arrayToImplict[A](arr: Array[A]) = new ArrayImplicit[A](arr)
-  implicit def arrayDoubleToImplict(arr: Array[Double]) = new ArrayDoubleImplicit(arr)
+  implicit def traversableToImplicit[A](trav: Traversable[A]) = new TraversableImplicit[A](trav)  
   implicit def stringTraverableToRichImp(strTrav: Traversable[String]): StringTraversable = StringTraversable(strTrav)   
   implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversable = StringTraversable(strArray) 
   implicit def EMonToImplicit[A](eMon: EMon[A]): EMonImplicit[A] = new EMonImplicit[A](eMon)

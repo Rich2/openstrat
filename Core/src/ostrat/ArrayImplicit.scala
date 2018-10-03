@@ -1,6 +1,17 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+/** Extension methods for Array[Double] class. Brought into scope by the arrayDoubleToImplicit method in package object. */
+class ArrayDoubleImplicit(val thisArray:Array[Double]) extends AnyVal
+{ /** Foreach with iterator. */ 
+  def iForeach(f: (Int, Double) => Unit, indexStart: Int = 0): Unit =
+  { var index = indexStart
+    thisArray.foreach{d => f(index, d); index += 1 }
+  }
+  
+  def str: String = thisArray.foldLeft("Array(")(_ + _.toString - ",")
+}
+
 /** Extension methods for Array[A] class */
 class ArrayImplicit[A](val thisArray: Array[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the 
@@ -16,17 +27,5 @@ class ArrayImplicit[A](val thisArray: Array[A]) extends AnyVal
       count += 1
     }
     valProds
-  }
-   //Not sure if this is useful
-   //def updateFrom(startElem: Int, newElems: A *): Unit = newElems.zipWithIndex.foreach(p => arr.update(startElem + p._2, p._1))
-//   def foriToEnd(startIndex: Int, f: (i A => Unit): Unit =
-//   {
-//      val endIndex = thisArray.length
-//      var count = startIndex
-//      while(count < endIndex)
-//      {
-//         f(thisArray(count))
-//         count += 1
-//      }
-//   }      
+  }  
 }
