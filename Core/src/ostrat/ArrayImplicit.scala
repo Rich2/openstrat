@@ -13,8 +13,9 @@ class ArrayDoubleImplicit(val thisArray:Array[Double]) extends AnyVal
 }
 
 /** Extension methods for Array[A] class */
-class ArrayImplicit[A](val thisArray: Array[A]) extends AnyVal
-{ /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the 
+class ArrayImplicit[A <: AnyRef](val thisArray: Array[A]) extends AnyVal
+{ //s def str: String = "Array
+  /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the 
   *  tail value */
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
    

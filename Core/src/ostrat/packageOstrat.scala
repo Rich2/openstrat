@@ -56,7 +56,7 @@ package object ostrat
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
   
   implicit def arrayDoubleToImplicit(arr: Array[Double]) = new ArrayDoubleImplicit(arr)
-  implicit def arrayToImplict[A](arr: Array[A]) = new ArrayImplicit[A](arr)
+  implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]) = new ArrayImplicit[A](arr)
   implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)
   implicit def intToImplicit(i: Int) = new IntImplicit(i)
   implicit def doubleToImplicit(d: Double) = new DoubleImplicit(d)

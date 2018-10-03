@@ -1,10 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** Not sure how useful this class is. It is diffcult to abstract over the general case. Its sub classes are the Persist case instances and
- *  the various persist collection classes */
+/** Persistence base trait for PersistCase and PerististSeqLike. Some methods probably need to be moved down into sub classes. */
 abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
-{ override def persist(obj: R): String = typeStr + persistSemi(obj).enParenth 
+{ final override def persist(obj: R): String = typeStr + persistSemi(obj).enParenth 
   @inline override def persistTyped(obj: R): String = persist(obj)
 
   override def fromExpr(expr: Expr): EMon[R] =  expr match
@@ -18,8 +17,7 @@ abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
   { case MonoStatement(expr, _) => fromExpr(expr)
     case ClausedStatement(cls, _) => bad1(cls.head.startPosn, "Claused Statement")
     case es @ EmptyStatement(st) => es.asError
-  }
- 
+  } 
 //      def multiLine(rem: Seq[Persist[_]], acc: Seq[String]): Seq[String] = rem.fHead(
 //            Seq(persistName) ++ acc,
 //            (h, tail) => h.persistComma match
@@ -55,6 +53,12 @@ abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
 //      }
 //   }
 //   def persistStatements: String = "#" - persistName - persistMems.foldLeft("")(_.nl - _.persistFull.strFold("\n")) 
+}
+
+abstract class PersistSeqLike[A, R](typeSym: Symbol, val ev: Persist[A]) extends PersistCompound[R](typeSym)
+{
+  override def typeStr = "Seq" + ev.typeStr.enSquare
+  override def syntaxDepth = ev.syntaxDepth + 1    
 }
 
 

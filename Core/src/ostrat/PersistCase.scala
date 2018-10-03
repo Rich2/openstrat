@@ -10,12 +10,11 @@ abstract class PersistCase[R](typeSym: Symbol) extends PersistCompound[R](typeSy
 /** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */
 class Persist1[A1, R](typeSym: Symbol, val fParam: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1]) extends
    PersistCase[R](typeSym)
-{ def persistMems = List(ev1)
-  override def persist(obj: R): String = typeStr + ev1.persistSemi(fParam(obj)).enParenth
-  override def persistSemi(obj: R): String = ev1.persistComma(fParam(obj))
-  override def persistComma(obj: R): String = ev1.persist(fParam(obj))  
-  override def fromClauses(clauses: Seq[Clause]): EMon[R] = ???// fromClauses1(newT, clauses)
-  override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
+{ def persistMems = List(ev1)  
+  def persistSemi(obj: R): String = ev1.persistComma(fParam(obj))
+  def persistComma(obj: R): String = ev1.persist(fParam(obj))  
+  def fromClauses(clauses: Seq[Clause]): EMon[R] = ???// fromClauses1(newT, clauses)
+  def fromParameterStatements(sts: Seq[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
 }
 
 /** Persistence class for case classes taking a single Double parameter. Not sure about this class. It is currently being used for Double based value
