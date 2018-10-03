@@ -18,12 +18,12 @@ object PersistGeomTest  extends TestSuite
     'Vec2Test
     { assert(vec2a.toString == vec2aStd)
       assert(vec2a.str == vec2aStd)
-      assert(vec2a.persist == vec2aStd)
-      assert(vec2a.persistTyped == vec2aStd)
-      assert(vec2a.persistSemi == vec2aSemi)
-      assert(vec2b.persist == vec2bStd)      
-      assert(vec2b.persistSemi == vec2bSemi)
-      assert(vec2b.persistComma == vec2bComma)
+      assert(vec2a.str == vec2aStd)
+      assert(vec2a.strTyped == vec2aStd)
+      assert(vec2a.strSemi == vec2aSemi)
+      assert(vec2b.str == vec2bStd)      
+      assert(vec2b.strSemi == vec2bSemi)
+      assert(vec2b.strComma == vec2bComma)
     }  
     
     val l1 = Line2(vec2a, vec2b)
@@ -32,14 +32,14 @@ object PersistGeomTest  extends TestSuite
     'Line2Test
     { assert(l1.toString == lineStd)      
       assert(l1.str == lineStd)
-      assert(l1.persist == lineStd)
-      assert(l1.persistTyped == lineStd)
-      assert(l1.persistSemi == vec2aComma + "; " + vec2bComma)
-      assert(l1.persistComma == vec2aStd + ", " + vec2bStd)
+      assert(l1.str == lineStd)
+      assert(l1.strTyped == lineStd)
+      assert(l1.strSemi == vec2aComma + "; " + vec2bComma)
+      assert(l1.strComma == vec2aStd + ", " + vec2bStd)
     }
     
     'OtherTest
-    { assert (Vec3(3.1, -4, 5).persist == "Vec3(3.1; -4.0; 5.0)")
+    { assert (Vec3(3.1, -4, 5).str == "Vec3(3.1; -4.0; 5.0)")
     }
   }
 }

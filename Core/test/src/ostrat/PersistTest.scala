@@ -15,36 +15,43 @@ object TestClass
 
 object TestObjA extends TestClass('TestObjA)
 
+case class MyClass(ints: Seq[Int], myStr: String)
+object MyClass
+{
+  implicit object MyClassPersist extends Persist2[Seq[Int], String, MyClass](
+      'MyClass, m => (m.ints, m.myStr), apply)
+}
+
 object PersistTest extends TestSuite
 { val aa: TestClass = TestObjA
-  deb(aa.persistTyped)
+  deb(aa.strTyped)
   val tests = Tests
   { 
     'persistNums -
-    { assert(5.persist == "5") 
-      assert((-86).persist == "-86")
-      assert((-86).persistComma == "-86")
-      assert((-86).persistTyped == "Int(-86)")
-      assert(23.4.persist == "23.4")
-      assert((-6.00).persist == "-6.0")
+    { assert(5.str == "5") 
+      assert((-86).str == "-86")
+      assert((-86).strComma == "-86")
+      assert((-86).strTyped == "Int(-86)")
+      assert(23.4.str == "23.4")
+      assert((-6.00).str == "-6.0")
       val d: Double = 8
-      assert(d.persistTyped == "DFloat(8.0)")
+      assert(d.strTyped == "DFloat(8.0)")
     }
     val c1 = Colour.Black
     val aa: TestClass = TestObjA
     val str1: String = "I am a String"
     val str1Std: String = "\"I am a String\""
-    deb(str1.persistTyped)
+    deb(str1.strTyped)
     
     'persistOther -
-    { assert(aa.persist == "TestObjA")
-      assert(aa.persistTyped == "TestClass(TestObjA)")
+    { assert(aa.str == "TestObjA")
+      assert(aa.strTyped == "TestClass(TestObjA)")
       assert(c1.toString == "Colour(000000FF)")
       assert(cm.toString == "Multiple(Colour(FF0000FF); 5)")
-      assert(str1.persist == str1Std)
-      assert(str1.persistSemi == str1Std)
-      assert(str1.persistComma == str1Std)
-      assert(str1.persistTyped == "Str(" + str1Std + ")")
+      assert(str1.str == str1Std)
+      assert(str1.strSemi == str1Std)
+      assert(str1.strComma == str1Std)
+      assert(str1.strTyped == "Str(" + str1Std + ")")
     }
     
     val cm: Multiple[Colour] = (Colour.Red * 5)
@@ -52,15 +59,17 @@ object PersistTest extends TestSuite
     val l1Comma: String = "-1, -2, -30"
     val l2: List[Int] = List(4, 5, 6)
     val l2Comma: String = "4, 5, 6"
-    //val ss: Seq[Seq[Int]] = Seq(l1, l2)
+    val ss: Seq[Seq[Int]] = Seq(l1, l2)
+    val mc = MyClass(List(7, 8, 9), "hi")
     
     'Seq -
-    { assert(l1.persist == "Seq[Int](-1; -2; -30)")
-      assert(l1.persistSemi == "-1; -2; -30")
-      assert(l1.persistComma == l1Comma)
-      assert(l1.persistTyped == "Seq[Int](-1; -2; -30)")
-      assert(l2.persistComma == l2Comma)
-      //assert(ss.persist == "Seq[Seq[Int]]")
+    { assert(l1.str == "Seq[Int](-1; -2; -30)")
+      assert(l1.strSemi == "-1; -2; -30")
+      assert(l1.strComma == l1Comma)
+      assert(l1.strTyped == "Seq[Int](-1; -2; -30)")
+      assert(l2.strComma == l2Comma)
+      assert(ss.str == "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")")
+      assert(mc.str == "MyClass(7, 8, 9; \"hi\")")
     }
   }
 }
