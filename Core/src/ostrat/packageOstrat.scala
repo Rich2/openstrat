@@ -55,7 +55,7 @@ package object ostrat
   val two32: Long = 4294967296l
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
    
-  implicit def AnyToImplicit[A](value: A): AnyTImplicit[A] = new AnyTImplicit[A](value)   
+  //implicit def AnyToImplicit[A](value: A): AnyTImplicit[A] = new AnyTImplicit[A](value)   
   implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)
   implicit def intToImplicit(i: Int) = new IntImplicit(i)
   implicit def doubleToImplicit(d: Double) = new DoubleImplicit(d)
@@ -82,6 +82,12 @@ package object ostrat
       count += step
     }
     acc.reverse
+  }
+  
+  /** Extension methods for Any */
+  implicit class AnyRefImplicit[T <: Any](thisT: T)
+  {
+    def *(operand: Int): Multiple[T] = Multiple(thisT, operand) 
   }
    
   implicit class EMonStringImplicit(thisEMon: EMon[String])
