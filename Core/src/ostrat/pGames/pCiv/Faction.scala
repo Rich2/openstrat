@@ -18,11 +18,11 @@ object Faction
 }
 
 object Uruk extends Faction
-{ def sym = 'Uruk
+{ def objSym = 'Uruk
   val colour = Red
 }
 
 object Eridu extends Faction
-{ def sym = 'Eridu
+{ def objSym = 'Eridu
   val colour = Blue
 }

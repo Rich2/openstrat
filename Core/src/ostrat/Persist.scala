@@ -55,6 +55,7 @@ abstract class Persist[T](val typeSym: Symbol)
   }
 }
 
+/** Companion object for the persistence type class. Contains the implicit instances for Scala standard library types. */
 object Persist
 {
   implicit object IntPersistImplicit extends PersistSimple[Int]('Int)
@@ -123,6 +124,7 @@ object Persist
      }
   }
   
+  /** Implicit method for creating Seq[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def seqToPersist [T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
  
   class PersistSeqImplicit[A](val ev: Persist[A]) extends PersistCompound[Seq[A]]('Seq)
@@ -138,22 +140,21 @@ object Persist
 //         case s @ Seq(mems) => s.forall(el => ev.isType(el)) 
 //         case _ => false   
 //      }
-    override def fromExpr(expr: Expr): EMon[Seq[A]] = ??? //expr match
-//      {
-//         case SemicolonToken(_) => Good(Seq[A]())
+  override def fromExpr(expr: Expr): EMon[Seq[A]] = expr match
+  { case SemicolonToken(_) => Good(Seq[A]())
 //         //For Some reason the compile is not finding the implicit
-//         case AlphaBracketExpr(AlphaToken(_, "Seq"), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => sts.eMonMap[A](_.errGet[A](ev))
-//         case e => bad1(expr, "Unknown Exoression for Seq")
-//      }
+    case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => sts.eMonMap[A](_.errGet[A](ev))
+    case e => bad1(expr, "Unknown Exoression for Seq")
+  }
 //      override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = clauses.eMonMap (cl => ev.fromExpr(cl.expr))
 //      override def fromStatement(st: Statement): EMon[Seq[A]] = st match
 //      {
 //         case MonoStatement(expr, _) => fromExpr(expr)
 //         case ClausedStatement(clauses, _) => fromClauses(clauses)
 //         case es @ EmptyStatement(_) => es.asError         
-//      }
-    override def fromParameterStatements(sts: Seq[Statement]): EMon[Seq[A]] = ???
-    override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = ???
+//  }
+  override def fromParameterStatements(sts: Seq[Statement]): EMon[Seq[A]] = ???
+  override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = ???
   }
  
 }

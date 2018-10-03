@@ -24,7 +24,8 @@ trait ExprToken extends Expr with ExprMemberToken
 /** The Dot or Stop Token */
 case class DotToken(startPosn: FilePosn) extends ExprMemberToken { def str = "." }
 
-/** An Alphanumeric Token */
+/** An Alphanumeric Token. It contains a symbol rather than a String to represent the AlphaNumeric token as commonly used Symbols have better 
+ *  better performance than the equivalent Strings. */
 case class AlphaToken(startPosn: FilePosn, sym: Symbol) extends ExprToken
 {
    override def exprName: String = "AlphaTokenExpr"

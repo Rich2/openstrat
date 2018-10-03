@@ -12,12 +12,12 @@ trait Polity extends StringerSingleton
 
 object Rome extends Polity
 {
-   def sym = 'Rome
+   def objSym = 'Rome
    def colour = Red
 }
 
  object Macedon extends Polity
 {
-   def sym = 'Macedon
+   def objSym = 'Macedon
    def colour = Blue
 }

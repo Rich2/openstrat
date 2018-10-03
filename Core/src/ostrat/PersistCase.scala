@@ -1,14 +1,13 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+/** The base trait for the persistence of Case classes, aka Product types */
 abstract class PersistCase[R](typeSym: Symbol) extends PersistCompound[R](typeSym)
 { def persistMems: List[Persist[_]]
-  final override def syntaxDepth: Int = persistMems.map(_.syntaxDepth).max + 1
-  //def memStr(obj: R): String
-  //override def persist(obj: R): String = typeStr + memStr(obj).enParenth  
+  final override def syntaxDepth: Int = persistMems.map(_.syntaxDepth).max + 1  
 }
 
-/** 2 Methods not implemented */
+/** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */
 class Persist1[A1, R](typeSym: Symbol, val fParam: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1]) extends
    PersistCase[R](typeSym)
 { def persistMems = List(ev1)
@@ -19,8 +18,11 @@ class Persist1[A1, R](typeSym: Symbol, val fParam: R => A1, val newT: A1 => R)(i
   override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
 }
 
+/** Persistence class for case classes taking a single Double parameter. Not sure about this class. It is currently being used for Double based value
+ *  classes. I think this is wrong and that they need their own trait class. */
 class PersistD1[R](typeSym: Symbol, fParam: R => Double, newT: Double => R) extends Persist1[Double, R](typeSym, fParam, newT)
 
+/** Persistence class for 2 parameter case classes. */ 
 class Persist2[A1, A2, R](typeSym: Symbol, val fParam: R => (A1, A2), val newT: (A1, A2) => R)(implicit ev1: Persist[A1], ev2: Persist[A2])
    extends PersistCase[R](typeSym)
 { def persistMems = List(ev1, ev2)
@@ -39,9 +41,11 @@ class Persist2[A1, A2, R](typeSym: Symbol, val fParam: R => (A1, A2), val newT: 
   override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = sts.errFun2(newT)(ev1, ev2)   
 }
 
+/** Persistence class for case classes consisting of 2 Double parameters. */
 abstract class PersistD2[R](typeSym: Symbol, fParam: R => (Double, Double), newT: (Double, Double) => R) extends
    Persist2[Double, Double, R](typeSym, fParam, newT)
 
+/** Persistence class for 3 parameter case classes. */   
 abstract class Persist3[A1, A2, A3, R](typeSym: Symbol, val fParam: R => (A1, A2, A3), val newT: (A1, A2, A3) => R)(
     implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends PersistCase[R](typeSym)
 { def persistMems = List(ev1, ev2, ev3)
@@ -60,9 +64,11 @@ abstract class Persist3[A1, A2, A3, R](typeSym: Symbol, val fParam: R => (A1, A2
   override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
 }
 
+/** Persistence class for case classes consisting of 3 Double parameters. */
 abstract class PersistD3[R](typeSym: Symbol, fParam: R => (Double, Double, Double), newT: (Double, Double, Double) => R) extends
    Persist3[Double, Double, Double, R](typeSym, fParam, newT)
 
+/** Persistence class for 4 parameter case classes. */   
 abstract class Persist4[A1, A2, A3, A4, R](typeSym: Symbol, val newT: (A1, A2, A3, A4) => R, val fParam: R => (A1, A2, A3, A4))(
     implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends PersistCase[R](typeSym)
 { def persistMems = List(ev1, ev2, ev3, ev4)

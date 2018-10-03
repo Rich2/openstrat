@@ -10,18 +10,18 @@ trait Polity extends StringerSingleton
 
 object Germany extends Polity
 {
-   def sym = 'Germany
+   def objSym = 'Germany
    def colour = Colour.fromInts(128, 177, 179)//CadetBlue 60% shade
 }
 
 object Britain extends Polity
 {
-   def sym = 'Britain
+   def objSym = 'Britain
    def colour = Colour.fromInts(255, 232, 184)
 }
 
 object France extends Polity
 {
-   def sym = 'France
+   def objSym = 'France
    def colour = Colour.fromInts(125, 255, 255)
 }

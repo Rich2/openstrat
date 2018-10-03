@@ -39,7 +39,8 @@ object PersistGeomTest  extends TestSuite
     }
     
     'OtherTest
-    { assert (Vec3(3.1, -4, 5).str == "Vec3(3.1; -4.0; 5.0)")
+    { assert(Vec3(3.1, -4, 5).str == "Vec3(3.1; -4.0; 5.0)")
+      //assert(Polygon.apply(vec2a, vec2b).str = "")
     }
   }
 }

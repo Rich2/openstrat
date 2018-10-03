@@ -1,5 +1,6 @@
 package ostrat
 
+/** The stringer implicit class gives extension methods for persist methods from the implicit Persist object for the type */
 class StringerImplicit[A](ev: Persist[A], thisVal: A)
 { /** Provides the standard string representation for the object */
   def str: String = ev.persist(thisVal)
@@ -13,7 +14,7 @@ class StringerImplicit[A](ev: Persist[A], thisVal: A)
     *  for case classes with a single member. */
   def strSemi: String = ev.persistSemi(thisVal)
 
-  /** For most objects persistTyped wil return the same value as persist, for PeristValues the value will be type enclosed. 4.persistTyped
+  /** For most objects persistTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.persistTyped
     * will return Int(4) */
   def strTyped: String = ev.persistTyped(thisVal)
 }

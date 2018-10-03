@@ -4,7 +4,7 @@ package pGames
 package pDung
 import pGrid._, SqCode._, Colour._
 
-sealed class Faction(val sym: Symbol, val colour: Colour) extends StringerSingleton
+sealed class Faction(val objSym: Symbol, val colour: Colour) extends StringerSingleton
 { def typeSym = 'Faction  
 }
 
@@ -15,7 +15,7 @@ class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yC
 { def typeSym = 'Character
   def colour = faction.colour
   var facing: Facing = FaceUp
-  val sym: Symbol = Symbol("Character" -- iden.toString)
+  val objSym: Symbol = Symbol("Character" -- iden.toString)
   def canMove(tile: DTile): Boolean = tile.terr != Wall
   def turnMovePts = 10
   var movePts: Int = turnMovePts
