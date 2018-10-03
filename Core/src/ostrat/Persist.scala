@@ -75,6 +75,16 @@ object Persist
       case  _ => expr.exprParseErr[String]
     }
   }
+  //   override def persistStr: String = thisString.foldLeft("")((accStr, head) => head match
+//         {
+//      case '\"' | '\'' | '\\' => accStr :+ '\\' :+ head
+//      case '\n' =>  accStr :+ '\\' :+ 'n'
+//      case '\b' => accStr :+ '\\' :+ 'b'
+//      case '\t' => accStr :+ '\\' :+ 't'
+//      case '\f' => accStr :+ '\\' :+ 'f'
+//      case '\r' => accStr :+ '\\' :+ 'r'
+//      case c => accStr :+ c
+//         }).enqu
    
   implicit object LongPersist extends PersistSimple[Long]('Long)
   { def persist(obj: Long): String = obj.toString

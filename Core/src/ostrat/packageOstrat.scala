@@ -61,7 +61,7 @@ package object ostrat
   implicit def doubleToImplicit(d: Double) = new DoubleImplicit(d)
   implicit def stringToImplicit(s: String) = new StringImplicit(s)
   implicit def listToImplicit[A](thisList: List[A]) = new ListImplicit[A](thisList)
-  implicit def seqToRichImp[A](thisSeq: Seq[A]) = new SeqImplicit(thisSeq)
+  implicit def seqToImplicit[A](thisSeq: Seq[A]) = new SeqImplicit(thisSeq)
   implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
   implicit def AnyAToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]) = new StringerImplicit(ev, thisVal)
   //implicit def seqToPerist[A](implicit ev: Persist[A]): Persist[Seq[A]]= new PersistSeqImplicit[A](ev)

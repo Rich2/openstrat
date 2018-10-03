@@ -51,100 +51,70 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
       acc :+= pair._2
     }
     acc
-   }
+  }
    
-   def flatMapVar1[B, C](initialVar: B, initialAcc: C)(f: (A, B, C) => (B, C)): C =
-   {
-      var varB: B = initialVar
-      var acc: C = initialAcc
-      thisTrav.foreach(el =>
-         {
-            val pair: (B, C) = f(el, varB, acc)
-            varB = pair._1
-            acc = pair._2
-         })
-         acc
-   } 
+  def flatMapVar1[B, C](initialVar: B, initialAcc: C)(f: (A, B, C) => (B, C)): C =
+  { var varB: B = initialVar
+    var acc: C = initialAcc
+    thisTrav.foreach{el =>
+      val pair: (B, C) = f(el, varB, acc)
+      varB = pair._1
+      acc = pair._2
+    }
+    acc
+  } 
    
-   def toStrFold2[B](secondAcc: B)(f: (B, A) => (String, B)): String =
-   {
-      var acc: String = ""
-      var acc2: B = secondAcc
-      thisTrav.foreach(el =>
-         {
-            val pair = f(acc2, el)
-            acc += pair._1
-            acc2 = pair._2               
-         })
-      acc
-   }
-   def travHead[B](ifEmpty: => B, fNonEmpty: (A, Traversable[A]) => B): B =
-         if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head, thisTrav.tail)
-   /** Folds over this traverable with a to Emon function, accumulating errors */      
-   def eMonMap[B](f: A => EMon[B]): EMon[Seq[B]] =      
-   {
-      def goodLoop(rem: Seq[A], goodAcc: Seq[B]): EMon[Seq[B]] = rem.fMatch(
-            Good(goodAcc),
-            (h, tail) => f(h).fold(errs => badLoop(tail, errs), g => goodLoop(tail, goodAcc :+ g))
-            )      
-      def badLoop(rem: Seq[A], errAcc: Seq[ParseErr]): EMon[Seq[B]] = rem.fMatch(
-            Bad(errAcc),
-            (h, tail) => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
-            )         
-      goodLoop(thisTrav.toSeq, Seq())      
-   }
+  def toStrFold2[B](secondAcc: B)(f: (B, A) => (String, B)): String =
+  { var acc: String = ""
+    var acc2: B = secondAcc
+    thisTrav.foreach{ el =>
+      val pair = f(acc2, el)
+      acc += pair._1
+      acc2 = pair._2               
+    }
+    acc
+  }
    
-   /** Not sure what this method does */
-   def typedSpan[B <: A](typeCheckFunction: A => Boolean): (Seq[B], Seq[A]) =
-   {
-      def loop(rem: Seq[A], acc: Seq[B]): (Seq[B], Seq[A]) = rem match
-      {         
-         case Seq(h, tail @ _*) if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
-         case s => (acc, s)
-      }
-      loop(thisTrav.toSeq, Nil)
-   }   
+  def travHead[B](ifEmpty: => B, fNonEmpty: (A, Traversable[A]) => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head, thisTrav.tail)
+  
+  /** Folds over this traverable with a to Emon function, accumulating errors */      
+  def eMonMap[B](f: A => EMon[B]): EMon[Seq[B]] =      
+  {
+    def goodLoop(rem: Seq[A], goodAcc: Seq[B]): EMon[Seq[B]] = rem.fMatch(
+        Good(goodAcc),
+        (h, tail) => f(h).fold(errs => badLoop(tail, errs), g => goodLoop(tail, goodAcc :+ g))
+      )      
+    def badLoop(rem: Seq[A], errAcc: Seq[ParseErr]): EMon[Seq[B]] = rem.fMatch(
+        Bad(errAcc),
+        (h, tail) => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
+        )       
+    goodLoop(thisTrav.toSeq, Seq())      
+  }
    
-//   def travProd2Arr[B, C <: ProdD2, D <: Double2s[C]](secondTrav: Traversable[B], f: (A, B) => (Double, Double))
-//      (implicit factory: Int => D): D =
-//   {
-//      val elemNum = thisTrav.size * secondTrav.size
-//      val res = factory(elemNum)
-//      var count = 0
-//      thisTrav.foreach {a =>
-//         secondTrav.foreach{ b =>
-//            val (d1, d2) = f(a, b)
-//            res.arr(count) = d1
-//            count += 1
-//            res.arr(count) = d2
-//            count += 1
-//         }
-//      }
-//      res
-//      }
-   def trav2ProdD2[B, C <: ProdD2, D <: DoubleProduct2s[C]](secondTrav: Traversable[B], f: (A, B) => C)
-      (implicit factory: Int => D): D =
-   {
-      val elemNum = thisTrav.size * secondTrav.size
-      val res = factory(elemNum)
-      var count = 0
-      thisTrav.foreach {a =>
-         secondTrav.foreach{ b => 
-            res.setElem(count, f(a, b))
-            count += 1
-         }
-      }
-      res
-   }
+  /** Not sure what this method does */
+  def typedSpan[B <: A](typeCheckFunction: A => Boolean): (Seq[B], Seq[A]) =
+  {
+    def loop(rem: Seq[A], acc: Seq[B]): (Seq[B], Seq[A]) = rem match
+    { case Seq(h, tail @ _*) if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
+      case s => (acc, s)
+    }
+    loop(thisTrav.toSeq, Nil)
+  }   
    
-   def toProdD2[A1 >: A <: ProdD2, B <: DoubleProduct2s[A1]](implicit factory: Int => B): B =
-   {
-      val res = factory(thisTrav.size)
-      var count = 0
-      thisTrav.foreach{ el =>
-         res.setElem(count, el)
-         count += 1
-      }
-      res
-   }
+  def trav2ProdD2[B, C <: ProdD2, D <: DoubleProduct2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
+  { val elemNum = thisTrav.size * secondTrav.size
+    val res = factory(elemNum)
+    var count = 0
+    thisTrav.foreach {a =>
+      secondTrav.foreach{ b => res.setElem(count, f(a, b)); count += 1 }
+    }
+    res
+  }
+   
+  def toProdD2[A1 >: A <: ProdD2, B <: DoubleProduct2s[A1]](implicit factory: Int => B): B =
+  { val res = factory(thisTrav.size)
+    var count = 0
+    thisTrav.foreach{ el => res.setElem(count, el); count += 1 }
+    res
+  }
 }
