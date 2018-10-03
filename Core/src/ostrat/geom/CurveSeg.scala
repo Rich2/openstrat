@@ -1,7 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import Double.{NegativeInfinity => NegInf, PositiveInfinity => PosInf} 
 
 /** The base trait for CurveSeg and Curve and their associated GraphicElems */
 trait CurveSegLike
@@ -15,16 +14,17 @@ trait CurveSegLike
 
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the previous segment. There is
   * no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory object apply methods. */
-case class CurveSeg(val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends ProdD6 with
-Transable[CurveSeg] with CurveSegLike
+case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends
+ProdD7 with Transable[CurveSeg] with CurveSegLike
 { def typeSym: Symbol = 'CurveSeg
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
-  @inline override def _1 = xC1
-  @inline override def _2 = yC1
-  @inline override def _3 = xUses
-  @inline override def _4 = yUses
-  @inline override def _5 = xEnd
-  @inline override def _6 = yEnd
+  @inline override def _1 = iMatch
+  @inline override def _2 = xC1
+  @inline override def _3 = yC1
+  @inline override def _4 = xUses
+  @inline override def _5 = yUses
+  @inline override def _6 = xEnd
+  @inline override def _7 = yEnd
    
   /** This is control point 2 in a Bezier segment, the centre point in an arc segment and unused in a straight Line Segment */
   def pUses: Vec2 = Vec2(xUses, yUses)
@@ -32,41 +32,46 @@ Transable[CurveSeg] with CurveSegLike
    *  but the first Double is set to Infinity */
   def pC1: Vec2 = Vec2(xC1, yC1)
       
-  def fSeg[A](fLineSeg: Vec2 => A, fArcSeg: (Vec2, Vec2) => A, fBezierSeg: (Vec2, Vec2, Vec2) => A): A = xC1 match
-  { case NegInf => fLineSeg(pEnd)
-    case PosInf => fArcSeg(pUses, pEnd)
-    case d => fBezierSeg(pC1, pUses, pEnd)
+  def fSeg[A](fLineSeg: Vec2 => A, fArcSeg: (Vec2, Vec2) => A, fBezierSeg: (Vec2, Vec2, Vec2) => A): A = iMatch match
+  { case 10 => fLineSeg(pEnd)
+    case 11 => fArcSeg(pUses, pEnd)
+    case 12 => fBezierSeg(pC1, pUses, pEnd)
+    case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
   }
    
-  def fSeg[A](
-               fLineSeg: (Double, Double) => A,
-               fArcSeg: (Double, Double, Double, Double) => A,
-               fBezierSeg: (Double, Double, Double, Double, Double, Double) => A
-             ): A = xC1 match
-   { case NegInf => fLineSeg(xEnd, yEnd)
-     case PosInf => fArcSeg(xUses, yUses, xEnd, yEnd)
-     case _ => fBezierSeg(xC1, yC1, xUses, yUses, xEnd, yEnd)
+  def fSeg[A](fLineSeg: (Double, Double) => A, fArcSeg: (Double, Double, Double, Double) => A,
+      fBezierSeg: (Double, Double, Double, Double, Double, Double) => A): A = iMatch match
+   { case 10 => fLineSeg(xEnd, yEnd)
+     case 11 => fArcSeg(xUses, yUses, xEnd, yEnd)
+     case 12 => fBezierSeg(xC1, yC1, xUses, yUses, xEnd, yEnd)
+     case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
    }
    
-  def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =  xC1 match
-  { case NegInf => fLineSeg(this)
-    case PosInf => fArcSeg(this)
-    case d => fBezierSeg(this)
+  def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =  iMatch match
+  { case 10 => fLineSeg(this)
+    case 11 => fArcSeg(this)
+    case 12 => fBezierSeg(this)
+    case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
   }
    
-  override def fTrans(f: Vec2 => Vec2): CurveSeg = xC1 match
-  { case NegInf => { val newPEnd: Vec2 = f(pEnd); new CurveSeg(NegInf, 0, 0, 0, newPEnd.x, newPEnd.y) }
-    case PosInf =>
+  override def fTrans(f: Vec2 => Vec2): CurveSeg = iMatch match
+  {
+    case 10 => { val newPEnd: Vec2 = f(pEnd); new CurveSeg(10, 0, 0, 0, 0, newPEnd.x, newPEnd.y) }
+    
+    case 11 =>
     { val newPCen: Vec2 = f(pUses)
       val newPEnd: Vec2 = f(pEnd)
-      new CurveSeg(PosInf, 0, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
+      new CurveSeg(11, 0, 0, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
     }
-    case _ =>
+    
+    case 12 =>
     { val newPC1: Vec2 = f(pC1)
       val newPCen: Vec2 = f(pUses)
       val newPEnd: Vec2 = f(pEnd)
-      new CurveSeg(newPC1.x, newPC1.y, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
+      new CurveSeg(12, newPC1.x, newPC1.y, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
     }
+    
+    case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
   }
   /** Assuming this is Arc Segment */
   def arcCen: Vec2 = Vec2(xUses, yUses)
@@ -91,16 +96,16 @@ Transable[CurveSeg] with CurveSegLike
 }
 
 object LineSeg
-{ def apply(pEnd: Vec2): CurveSeg =  new CurveSeg(Double.NegativeInfinity, 0, 0, 0, pEnd.x, pEnd.y)
-  def apply(xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(Double.NegativeInfinity, 0, 0, 0, xEnd, yEnd)
+{ def apply(pEnd: Vec2): CurveSeg =  new CurveSeg(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
+  def apply(xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(10, 0, 0, 0, 0, xEnd, yEnd)
 }
 
 object ArcSeg
-{ def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(PosInf, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
+{ def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
   //def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)
 }
 
 object BezierSeg
-{ def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
+{ def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
   //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)
 }

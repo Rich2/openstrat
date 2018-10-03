@@ -44,6 +44,8 @@ package object ostrat
   type ProdD5 = Product5[Double, Double, Double, Double, Double]
   /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct6s Array[Double] based collections. */
   type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
+  /** Product7[Double, Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct7s Array[Double] based collections. */
+  type ProdD7 = Product7[Double, Double, Double, Double, Double, Double, Double]
   
   def excep(str: String): Nothing = throw new Exception(str)
   def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fp, detail)))

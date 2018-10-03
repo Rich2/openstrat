@@ -2,13 +2,13 @@
 package ostrat
 package geom
 
-class CurveSegDists(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSegDist]
+class CurveSegDists(val arr: Array[Double]) extends AnyVal with DoubleProduct7s[CurveSegDist]
 {
    override def typeName: Symbol = 'CurvedSegDists
-   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSegDist = new CurveSegDist(d1, d2, d3, d4, d5, d6)
+   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSegDist =
+     new CurveSegDist(iMatch, d1, d2, d3, d4, d5, d6)
 }
 
-object CurveSegDists extends Double6sMaker[CurveSegDist, CurveSegDists]
-{
-   implicit val factory: Int => CurveSegDists = i => new CurveSegDists(new Array[Double](i * 6))
+object CurveSegDists extends Double7sMaker[CurveSegDist, CurveSegDists]
+{ implicit val factory: Int => CurveSegDists = i => new CurveSegDists(new Array[Double](i * 7))
 }

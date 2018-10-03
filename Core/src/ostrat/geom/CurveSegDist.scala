@@ -31,43 +31,48 @@ trait CurveEndingDist
   final def pEnd: Dist2 = Dist2(xEnd, yEnd)
 }
 
-class CurveSegDist(val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double, 
-      val xEndMetres: Double, val yEndMetres: Double) extends ProdD6 with CurveEndingDist
+class CurveSegDist(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double, 
+      val xEndMetres: Double, val yEndMetres: Double) extends ProdD7 with CurveEndingDist
 { def typeSym = 'CurveSegDist
+  
   def toCurveSeg(f: Dist2 => Vec2): CurveSeg = xC1Metres match
-  { case n if n.isNaN =>
+  {
+    case 10 =>
     { val endVec = f(pEnd)
-      new CurveSeg(Double.NaN, 0, 0, 0, endVec.x, endVec.y)
+      new CurveSeg(10, 0, 0, 0, 0, endVec.x, endVec.y)
     }
-    case Double.PositiveInfinity =>
+    
+    case 11 =>
     { val cenVec = f(pUses)
       val endVec = f(pEnd)
-      new CurveSeg(Double.NaN, 0, cenVec.x, cenVec.y, endVec.x, endVec.y)
+      new CurveSeg(11, 0, 0, cenVec.x, cenVec.y, endVec.x, endVec.y)
     }
+    
     case _ =>
     { val c1Vec = f(pC1)
       val cenVec = f(pUses)
       val endVec = f(pEnd)
-      new CurveSeg(c1Vec.x, c1Vec.y, cenVec.x, cenVec.y, endVec.x, endVec.y)
+      new CurveSeg(12, c1Vec.x, c1Vec.y, cenVec.x, cenVec.y, endVec.x, endVec.y)
     }
   }
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
-  @inline override def _1 = xC1Metres
-  @inline override def _2 = yC1Metres
-  @inline override def _3 = xUsesMetres
-  @inline override def _4 = yUsesMetres
-  @inline override def _5 = xEndMetres
-  @inline override def _6 = yEndMetres
+  @inline override def _1 = iMatch
+  @inline override def _2 = xC1Metres
+  @inline override def _3 = yC1Metres
+  @inline override def _4 = xUsesMetres
+  @inline override def _5 = yUsesMetres
+  @inline override def _6 = xEndMetres
+  @inline override def _7 = yEndMetres
 }
 
 object LineSegDist
-{ def apply(endPt: Dist2): CurveSegDist = new CurveSegDist(Double.NaN, 0, 0, 0, endPt.xMetres, endPt.yMetres)
+{ def apply(endPt: Dist2): CurveSegDist = new CurveSegDist(10, 0, 0, 0, 0, endPt.xMetres, endPt.yMetres)
 //   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
 }
 
 object ArcSegDist
 {
    def apply(cenPt: Dist2, endPt: Dist2): CurveSegDist =
-      new CurveSegDist(Double.PositiveInfinity, 0, cenPt.xMetres, cenPt.yMetres, endPt.xMetres, endPt.yMetres)
+      new CurveSegDist(11, 0, 0, cenPt.xMetres, cenPt.yMetres, endPt.xMetres, endPt.yMetres)
 //   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
 }

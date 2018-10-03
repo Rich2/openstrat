@@ -1,43 +1,57 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import Colour.Black, Double.{NegativeInfinity => NegInf, PositiveInfinity => PosInf}
+import Colour.Black
 
 /** Shape is an Array[Double] based collection for a sequence of CurveSegs, similar to a Polygon which is an Array[Double based collection of just
  *   LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg positive infinity for
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
-class Shape(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSeg] with Transable[Shape] //with Stringer
+class Shape(val arr: Array[Double]) extends AnyVal with DoubleProduct7s[CurveSeg] with Transable[Shape] //with Stringer
 { def typeSym = 'Shape
   //def str: String = persistD3
   override def typeName: Symbol = 'CurvedSeg
-  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg = new CurveSeg(d1, d2, d3, d4, d5, d6)
+  override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg =
+    new CurveSeg(iMatch, d1, d2, d3, d4, d5, d6)
    
   def fTrans(f: Vec2 => Vec2): Shape =
-  { val newArr = new Array[Double](length * 6)
+  { val newArr = new Array[Double](length * 7)
     def setMiddle(offset: Int): Unit =
-    { val newMiddle: Vec2 = f(arr(offset + 2) vv arr(offset + 3))
-      newArr(offset + 2) = newMiddle.x
-      newArr(offset + 3) = newMiddle.y
+    { val newMiddle: Vec2 = f(arr(offset + 3) vv arr(offset + 4))
+      newArr(offset + 3) = newMiddle.x
+      newArr(offset + 4) = newMiddle.y
     }
       
     def setEnd(offset: Int): Unit =
-    { val newEnd: Vec2 = f(arr(offset + 4) vv arr(offset + 5))
-      newArr(offset + 4) = newEnd.x
-      newArr(offset + 5) = newEnd.y
+    { val newEnd: Vec2 = f(arr(offset + 5) vv arr(offset + 6))
+      newArr(offset + 5) = newEnd.x
+      newArr(offset + 6) = newEnd.y
     }      
       
     (0 until length).foreach{index =>
-      val offset = index * 6
+      val offset = index * 7
       arr(offset) match
-      { case NegInf => { newArr(offset) = NegInf; setEnd(offset) }
-        case PosInf => { newArr(offset) = PosInf; setMiddle(offset); setEnd(offset) }   
-        case d =>
-        { val newControl1: Vec2 = f(arr(offset) vv arr(offset + 1)) 
-          newArr(offset) = newControl1.x
-          newArr(offset + 1) = newControl1.y
+      { 
+        case 10 =>
+        { newArr(offset) = 10
+          setEnd(offset)
+        }
+        
+        case 11 =>
+        { newArr(offset) = 11
+          setMiddle(offset)
+          setEnd(offset)
+        }   
+        
+        case 12 =>
+        { newArr(offset) = 12
+          val newControl1: Vec2 = f(arr(offset + 1) vv arr(offset + 2)) 
+          newArr(offset + 1) = newControl1.x
+          newArr(offset + 2) = newControl1.y
           setMiddle(offset)
           setEnd(offset)
         }
+        
+        case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
       }
     }
     new Shape(newArr)
@@ -84,7 +98,7 @@ class Shape(val arr: Array[Double]) extends AnyVal with DoubleProduct6s[CurveSeg
     foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))         
 }
 
-object Shape extends Double6sMaker[CurveSeg, Shape]
+object Shape extends Double7sMaker[CurveSeg, Shape]
 {
-   implicit val factory: Int => Shape = i => new Shape(new Array[Double](i * 6))   
+   implicit val factory: Int => Shape = i => new Shape(new Array[Double](i * 7))   
 }
