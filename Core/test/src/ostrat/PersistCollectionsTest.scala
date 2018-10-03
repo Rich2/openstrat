@@ -23,10 +23,11 @@ object PersistCollectionsTest  extends TestSuite
     
     val a1: Array[String] = Array("3", "4")
     deb(a1.str)
+    val a1Res ="Seq[Str](\"3\"; \"4\")"
     
     'Array -
     {
-      assert(a1.str == "Hi")
+      assert(a1.str == a1Res)
     }
   }
 }
