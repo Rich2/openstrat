@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
- *  persistence framework, array based compound value collections of same length elements, an Either based errors framework and general utilities. */
+ *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
+ *   elements, an Either based errors framework and general utilities. */
 package object ostrat
 { /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
    *  everyone's utility file. */
@@ -146,24 +147,4 @@ package object ostrat
   { def bimap[C, D](f1: A => C, f2: B => D): Tuple2[C, D] = (f1(thisTuple._1), f2(thisTuple._2))
     def tupleFold[C](f: (A, B) => C): C = f(thisTuple._1, thisTuple._2)
   }
-   
-//   implicit class ImpSocketClass(socket: java.net.Socket)
-//   {
-//      import java.io._
-//      def utfOut(str: String): Unit = 
-//      {
-//         var out: java.io.OutputStream = socket.getOutputStream
-//         var out2: OutputStreamWriter = new OutputStreamWriter(out, "UTF-8")
-//         out2.write(str)
-//         out2.close
-//         out.close
-//      }
-//   }   
-     
-//   implicit class PairSeqSeqImplicit[A, B](thisSeq: Seq[(Seq[A], Seq[B])])
-//   {
-//      /** This takes a Seq of pairs of Sequences and appends the pairs while maintaining the pair of Sequences. Often type A and B will be 
-//       *  the same, however the function maintains the ordering. */
-//      def pairSeqSeqFlatten: (Seq[A], Seq[B]) = thisSeq.foldLeft[(Seq[A], Seq[B])]((Seq(), Seq()))((acc, el) => (acc._1 ++ el._1, acc._2 ++ el._2))
-//   } 
 }

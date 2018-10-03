@@ -6,25 +6,7 @@ package ostrat
 abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
 { override def persist(obj: R): String = typeStr + persistSemi(obj).enParenth 
   @inline override def persistTyped(obj: R): String = persist(obj)
-  
-//  override def persistComma(obj: R): String = syntaxDepth match
-//  { case 2 => memStrs(obj).commaFold
-//    case _ => persist(obj)
-//  }
-//   
-//  override def persistSemi(obj: R): String = syntaxDepth match
-//  { case 2 | 3 => memStrs(obj).semicolonFold
-//    case _ => persist(obj)
-//  }
-//   
-//   override def persist(obj: R): String =  syntaxDepth match
-//  {
-//     case sd if sd < 2 => excep("PeristCompound should not have persistDepth of " + sd.toString)
-//     case 2 => typeStr - memStrs(obj).strFold("; ").enParenth
-//     case _ => typeStr - memStrs(obj).strFold("; ").enParenth
-//  }
-   
-   //def memStrs: R => Seq[String]
+
   override def fromExpr(expr: Expr): EMon[R] =  expr match
   {
     case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeSym == typeName => fromParameterStatements(sts)
@@ -37,6 +19,42 @@ abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
     case ClausedStatement(cls, _) => bad1(cls.head.startPosn, "Claused Statement")
     case es @ EmptyStatement(st) => es.asError
   }
+ 
+//      def multiLine(rem: Seq[Persist[_]], acc: Seq[String]): Seq[String] = rem.fHead(
+//            Seq(persistName) ++ acc,
+//            (h, tail) => h.persistComma match
+//            {
+//               case Seq(h) => contLine(rem, acc, h.ind2 - ";")
+//               case s => multiLine(tail, acc ++ s.map(_.ind2 - ";"))
+//            }
+//         )
+//      
+//      persistMems match
+//      {
+//         case Seq() => Seq(persistName + "()")
+//         case mems if mems.forall(_.persistComma.length == 1) && (mems.map(_.persistComma.head.length).sum <= maxLen) => mems.last.persistComma.head match
+//         {
+//            case "" =>
+//               {
+//                  val persistedMems: Seq[String] = mems.map(_.persistComma.head - ";")
+//                  val persistedMemsStr: String = persistedMems.strFold(" ")
+//                  Seq(persistName - persistedMemsStr.enParenth)
+//               }
+//            case lastStr =>
+//               {
+//                  val persistedMems: Seq[String] = mems.init.map(_.persistComma.head - ";").:+(lastStr)
+//                  val persistedMemsStr: String = persistedMems.strFold(" ")
+//                  Seq(persistName - persistedMemsStr.enParenth) 
+//               }
+//         }
+//         case Seq(mem1, tail @ _*) => mem1.persistComma match
+//         {            
+//            case Seq(line1) => contLine(tail, Nil, line1 - ";")
+//            case mem1Lines => multiLine(tail, mem1Lines.init.map(_.ind2).:+(mem1Lines.last.ind2 - ";"))
+//         }
+//      }
+//   }
+//   def persistStatements: String = "#" - persistName - persistMems.foldLeft("")(_.nl - _.persistFull.strFold("\n")) 
 }
 
 

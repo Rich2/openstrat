@@ -11,7 +11,5 @@ class AnyTImplicit[A](val thisA: A) extends AnyVal
   def ifMod(ifFunc: A => Boolean, fMod: A => A): A = if (ifFunc(thisA)) fMod(thisA) else thisA
   def ifNotMod(b: Boolean, fMod: A => A): A = if (b) thisA else fMod(thisA)
   def ifNotMod(ifNotFunc: A => Boolean, fMod: A => A): A = if (ifNotFunc(thisA))thisA else fMod(thisA)
-  //def commasToString(others: Any*): String = others.foldLeft(thisA.toString)(_ - ", " - _.toString)
-  def *(operand: Int): Multiple[A] = Multiple(thisA, operand)
-   
+  def *(operand: Int): Multiple[A] = Multiple(thisA, operand)   
 }
