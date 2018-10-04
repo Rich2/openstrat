@@ -7,41 +7,56 @@ import geom._
 abstract class HexGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
 (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends TileGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)   
 {   
-   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
-   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)   
-   override def xStep: Int = 4   
-   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
-   override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
-   override lazy val yRatio: Double = HexGrid.yRatio
+  override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
+  override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)   
+  override def xStep: Int = 4   
+  override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
+  override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
+  override lazy val yRatio: Double = HexGrid.yRatio
    
-   //def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(getTile(tr._1, tr._2), tr._3))      
+  //def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(getTile(tr._1, tr._2), tr._3))      
    
-   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null   
+  def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null   
    
-   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
-   override def coodIsTile(x: Int, y: Int): Unit = Unit match
-   {
-      case _ if x %% 4 == 0 & y %% 4 == 0 =>
-      case _ if x %% 4 == 2 & y %% 4 == 2 =>
-      case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
-   }
-   override def coodIsSide(x: Int, y: Int): Unit = Unit match
-   {
-      case _ if x %% 4 == 0 & y %% 4 == 2 =>
-      case _ if x %% 4 == 2 & y %% 4 == 0 =>
-      case _ if x.isOdd & y.isOdd =>   
-      case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hexside tile coordinate")   
-   }
-   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match
-   {
-      case _ if (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0)  => (Cood(x -2, y), Cood(x + 2, y))
-      case _ if (x %% 4 == 1 & y %% 4 == 1) | (x %% 4 == 3 & y %% 4 == 3) =>  (Cood(x - 1, y - 1), Cood(x + 1, y + 1))
-      case _ if (x %% 4 == 1 & y %% 4 == 3) | (x %% 4 == 3 & y %% 4 == 1) => (Cood(x - 1, y + 1), Cood(x + 1, y - 1))
-      case _ => excep("Invalid Hex Side Coordinate".commaAppend(x.toString, y.toString))
-   }
+  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
+  
+  override def coodIsTile(x: Int, y: Int): Unit = Unit match
+  { case _ if x %% 4 == 0 & y %% 4 == 0 =>
+     case _ if x %% 4 == 2 & y %% 4 == 2 =>
+     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
+  }
+  
+  override def coodIsSide(x: Int, y: Int): Unit = Unit match
+  { case _ if x %% 4 == 0 & y %% 4 == 2 =>
+    case _ if x %% 4 == 2 & y %% 4 == 0 =>
+    case _ if x.isOdd & y.isOdd =>   
+    case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hexside tile coordinate")   
+  }
+  
+  override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match
+  { case _ if (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0)  => (Cood(x -2, y), Cood(x + 2, y))
+    case _ if (x %% 4 == 1 & y %% 4 == 1) | (x %% 4 == 3 & y %% 4 == 3) =>  (Cood(x - 1, y - 1), Cood(x + 1, y + 1))
+    case _ if (x %% 4 == 1 & y %% 4 == 3) | (x %% 4 == 3 & y %% 4 == 1) => (Cood(x - 1, y + 1), Cood(x + 1, y - 1))
+    case _ => excep("Invalid Hex Side Coordinate".commaAppend(x.toString, y.toString))
+  }
    
-   /** Warning needs modification. */
-   override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGrid.adjTileCoodsOfTile(tileCood)
+  /** Warning needs modification. */
+  override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGrid.adjTileCoodsOfTile(tileCood)
+   
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of 
+   *  departure and the tile of arrival. */
+  def getHCost(startCood: Cood, endCood: Cood): Int =
+  { val diff = endCood - startCood
+    val x: Int = diff.x.abs
+    val y: Int = diff.y.abs
+     
+    y - x match
+    { case 0 => x 
+      case n if n > 0 => y 
+      case n if n %% 4 == 0 => y - n / 2 //Subtract because n is negative, y being greater than x
+      case n => y - n / 2 + 2
+    }
+  }
 }
 
 object HexGrid

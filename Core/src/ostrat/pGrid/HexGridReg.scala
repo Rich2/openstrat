@@ -46,4 +46,7 @@ class HexGridReg[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: 
      } yield f(x, y)     
    }
    
+   def tileNeighbours(cood: Cood): Coods =
+     HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
+   
 }
