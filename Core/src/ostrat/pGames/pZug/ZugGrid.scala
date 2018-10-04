@@ -28,7 +28,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
      {
        val curr: Node = open.minBy(_.fCost)
        if (curr.cood == endCood) found = true
-       //val neighbs = this.
+       val neighbs = this.tileNeighbours(curr.cood)
      }
      None
    }
