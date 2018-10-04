@@ -3,7 +3,7 @@ package ostrat
 package geom
 import math.{Pi}
 
-/** Base trait for Angle, Latitude and Longitude */
+/** Base trait for Angle, Latitude and Longitude. Not sure if this is a good idea. */
 trait AngleLike extends Any
 { def radians: Double
   @inline def sin: Double = math.sin(radians)
@@ -13,6 +13,7 @@ trait AngleLike extends Any
   def arcDistance (radiusDist: Dist): Dist = radians * radiusDist
 }
 
+/* Angle value class */
 final class Angle private(val radians: Double) extends AnyVal with AngleLike
 { override def toString = degStr2
   def degStr2: String = degs.str2 -"\u00B0"
@@ -35,14 +36,18 @@ final class Angle private(val radians: Double) extends AnyVal with AngleLike
   def bisect(operand: Angle) = Angle(radians + angleTo(operand).radians / 2)
 }
 
+/** Angle Companion class */
 object Angle
 { /** Use of recursion is rubbish */
   @inline def apply(radians: Double): Angle = new Angle(reset(radians))
+  
+  /** Resets radians to between + and - Pi */
   @inline def reset(radians: Double): Double =  radians %% Pi2 match
   { case r if r <= -Pi => Pi2 + r
     case r if r > Pi => r - Pi2
     case r => r
   }
-   
+  
+  /** Factory method for Angle from number of degrees */
   def deg(degrees: Double): Angle = Angle(degrees * Pi / 180)
 }

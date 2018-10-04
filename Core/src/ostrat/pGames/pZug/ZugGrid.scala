@@ -19,18 +19,21 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
      tile.lunits ::=  sd //:: tile.lunits
    }
    
+   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of 
+    *  departure and the tile of arrival. */
    def getHCost(startCood: Cood, endCood: Cood): Int =
    { val diff = endCood - startCood
      val x: Int = diff.x.abs
      val y: Int = diff.y.abs
+     
      y - x match
-     {
-       case 0 => x / 2
-       case n if n > 0 => y / 2
-       case n if n %% 4 == 0 => y / 2 - n / 4
-       case n => y / 2 - n /4 + 1
+     { case 0 => x 
+       case n if n > 0 => y 
+       case n if n %% 4 == 0 => y - n / 2// we subtract because n is negative, y being greater than x
+       case n => y - n / 2 + 2
      }
    }
+   
    def findPath(startCood: Cood, endCood: Cood): Option[List[Cood]] =
    {
      
