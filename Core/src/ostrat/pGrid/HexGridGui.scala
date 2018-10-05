@@ -5,7 +5,7 @@ import geom._
 import pCanv._
 
 /** Class for displaying a single hex grid */
-abstract class HexGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: HexGridReg[TileT, SideT]](val canv: CanvasPlatform, val grid: GridT) extends
+abstract class HexGridGui[TileT <: Tile, SideT <: GridElem, GridT <: HexGridReg[TileT, SideT]](val canv: CanvasPlatform, val grid: GridT) extends
    TileGridGui[TileT, SideT, GridT]
 {
    override def ptScale = pScale / 4

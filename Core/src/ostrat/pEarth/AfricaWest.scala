@@ -16,7 +16,7 @@ object AfricaWest extends Area1('WAfrica, 20 ll 40)
 
 object AfricaWestGrid extends EGridMaker
 {          
-   def apply[TileT <: GridElem, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
+   def apply[TileT <: Tile, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
          implicit evTile: IsType[TileT], evSide: IsType[SideT]): EGrid80km[TileT, SideT] =
    {
      // import Terrain._

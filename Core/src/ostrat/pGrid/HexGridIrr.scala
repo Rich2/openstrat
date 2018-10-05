@@ -2,7 +2,7 @@
 package ostrat
 package pGrid
 
-abstract class HexGridIrr[TileT <: GridElem, SideT <: GridElem](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
+abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
    (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)          
 {   
    //lazy val rowBounds: Array[Int] = bounds// new Array[Int](yArrLen * 2)

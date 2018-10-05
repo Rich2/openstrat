@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._
 
-class HexGridReg[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
+class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
       implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
       TileGridReg[TileT, SideT]
 {
@@ -46,7 +46,8 @@ class HexGridReg[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: 
      } yield f(x, y)     
    }
    
-   def tileNeighbours(cood: Cood): Coods =
+   def tileNeighboursCoods(cood: Cood): Coods =
      HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
+   def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)  
    
 }

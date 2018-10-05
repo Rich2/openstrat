@@ -3,14 +3,14 @@ package ostrat
 package pEarth
 import pGrid._
 
-class EarthAllMap[TileT <: GridElem, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
+class EarthAllMap[TileT <: Tile, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
       implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 {
    override val tops: List[Area1] = EarthAreas.allTops
    def topsMap[A](f :Area1 => A): Seq[A] = tops.map(f)
 }
 
-class OldWorldMap[TileT <: GridElem, SideT <: GridElem](val fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
+class OldWorldMap[TileT <: Tile, SideT <: GridElem](val fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
       implicit evTile: IsType[TileT], evSide: IsType[SideT])
 {
    def tile(x: Int, y: Int): TileT = grids(0).getTile(x, y)

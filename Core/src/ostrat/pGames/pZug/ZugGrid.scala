@@ -4,31 +4,52 @@ package pGames
 package pZug
 import pGrid._
 
-case class Node(cood: Cood, gCost: Int, hCost: Int, parent: Cood)
-{
-  def fCost = gCost + hCost
-}
+
 
 class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[ZugTile, ZugSide](xTileMin, xTileMax, yTileMin, yTileMax)
-{   
-   def placeSquads(triples: (Polity, Int, Int) *): Unit = triples.foreach {tr =>
-     val x = tr._2
-     val y = tr._3
-     val sd = Squad(tr._1, x, y)     
-     val tile = getTile(x, y)
-     tile.lunits ::=  sd //:: tile.lunits
-   }   
+{
+  def placeSquads(triples: (Polity, Int, Int) *): Unit = triples.foreach {tr =>
+    val x = tr._2
+    val y = tr._3
+    val sd = Squad(tr._1, x, y)     
+    val tile = getTile(x, y)
+    tile.lunits ::=  sd //:: tile.lunits
+  }
    
-   def findPath(startCood: Cood, endCood: Cood): Option[List[Cood]] =
+  case class Node(val tile: ZugTile, var gCost: Int, var hCost: Int, var parent: Option[Node])
+  { def fCost = gCost + hCost
+  }
+  
+  //object Node {def apply(tile: ZugTile, gCost: Int, hCost: Int, parent: Cood): Node  = new Node(tile, gCost, hCost, parent) }
+   
+   def findPath(startTile: ZugTile, endCood: Cood): Option[List[Cood]] =
    {     
-     var open: List[Node] = Node(startCood, 0, getHCost(startCood, endCood), startCood) :: Nil
+     var open: List[Node] = Node(startTile, 0, getHCost(startTile.cood, endCood), None) :: Nil
      var closed: List[Node] = Nil
      var found = false
      while (open.nonEmpty & found == false)
      {
        val curr: Node = open.minBy(_.fCost)
-       if (curr.cood == endCood) found = true
-       val neighbs = this.tileNeighbours(curr.cood)
+       if (curr.tile.cood == endCood) found = true
+       open = open.filterNot(_ == curr)
+       closed ::= curr
+       val neighbs = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+       neighbs.foreach
+       {
+         case ZugTile(_, _, Lake) =>
+         case zt if closed.exists(_.tile == zt) =>
+         case zt =>
+         { val newGCost = 1 + 1 + curr.gCost
+           open.find(_.tile == zt) match
+           {
+             case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = Some(curr) }
+             case Some(node) =>
+             case None => open ::= Node(zt, newGCost, getHCost(zt.cood, endCood), Some(curr))
+           }
+         }
+       }
+       
+       
      }
      None
    }

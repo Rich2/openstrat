@@ -5,7 +5,7 @@ package pCiv
 import pEarth._
 import pGrid._
 
-case class CTile(x: Int, y: Int, terr: Terrain) extends GridElem
+case class CTile(x: Int, y: Int, terr: Terrain) extends Tile
 {
    def colour = terr.colour
    var settlement: Boolean = false

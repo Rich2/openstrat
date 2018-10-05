@@ -9,7 +9,16 @@ trait GridElem
    def cood: Cood = Cood(x, y)
 }
 
-case class TileBare(x: Int, y: Int) extends GridElem
+trait Tile extends GridElem
+{ def canEqual(a: Any) = a.isInstanceOf[Tile]
+  override def hashCode: Int = (x, y).##
+  override def equals(that: Any): Boolean = that match
+  { case that: Tile => that.canEqual(this) & cood == that.cood
+    case _ => false
+  }
+}
+
+case class TileBare(x: Int, y: Int) extends Tile
 case class SideBare(x: Int, y: Int) extends GridElem
 object SideBare
 {
