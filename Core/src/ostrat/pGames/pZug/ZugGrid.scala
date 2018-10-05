@@ -16,21 +16,21 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
     tile.lunits ::=  sd //:: tile.lunits
   }
    
-  case class Node(val tile: ZugTile, var gCost: Int, var hCost: Int, var parent: Option[Node])
+  case class Node(val tile: ZugTile, var gCost: Int, var hCost: Int, var parent: Node)
   { def fCost = gCost + hCost
   }
   
   //object Node {def apply(tile: ZugTile, gCost: Int, hCost: Int, parent: Cood): Node  = new Node(tile, gCost, hCost, parent) }
    
-   def findPath(startTile: ZugTile, endCood: Cood): Option[List[Cood]] =
+   def findPath(startCood: Cood, endCood: Cood): Option[List[Cood]] =
    {     
-     var open: List[Node] = Node(startTile, 0, getHCost(startTile.cood, endCood), None) :: Nil
+     var open: List[Node] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), null) :: Nil
      var closed: List[Node] = Nil
-     var found = false
-     while (open.nonEmpty & found == false)
+     var found: Option[Node] = None
+     while (open.nonEmpty & found == None)
      {
        val curr: Node = open.minBy(_.fCost)
-       if (curr.tile.cood == endCood) found = true
+       //if (curr.tile.cood == endCood) found = true
        open = open.filterNot(_ == curr)
        closed ::= curr
        val neighbs = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
@@ -40,18 +40,27 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
          case zt if closed.exists(_.tile == zt) =>
          case zt =>
          { val newGCost = 1 + 1 + curr.gCost
+           
            open.find(_.tile == zt) match
            {
-             case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = Some(curr) }
+             case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = curr }
              case Some(node) =>
-             case None => open ::= Node(zt, newGCost, getHCost(zt.cood, endCood), Some(curr))
+             case None => 
+             {
+               val newNode  = Node(zt, newGCost, getHCost(zt.cood, endCood), curr)
+               open ::= newNode
+               if (zt.cood == endCood) found = Some(newNode)
+             }
            }
          }
-       }
-       
-       
+       }       
      }
-     None
+     found.map{endNode =>
+       var acc: List[Cood] = Nil
+       var curr: Node = endNode
+       while (curr.parent != null) { acc ::= curr.tile.cood; curr = curr.parent  }
+       acc
+     }
    }
 }
 
