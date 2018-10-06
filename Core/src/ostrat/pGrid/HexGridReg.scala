@@ -48,6 +48,53 @@ class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int,
    
    def tileNeighboursCoods(cood: Cood): Coods =
      HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
-   def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)  
+   def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)
+   
+  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => Option[Int]): Option[List[Cood]] =
+   {     
+     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), null) :: Nil
+     var closed: List[Node[TileT]] = Nil
+     var found: Option[Node[TileT]] = None
+     while (open.nonEmpty & found == None)
+     {
+       val curr: Node[TileT] = open.minBy(_.fCost)
+       //if (curr.tile.cood == endCood) found = true
+       open = open.filterNot(_ == curr)
+       closed ::= curr
+       val neighbs: List[TileT] = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+       neighbs.foreach { tile =>
+         fTerrCost(curr.tile, tile) match
+         {  
+           case None =>
+           case Some(nc) if closed.exists(_.tile == tile) =>
+           case Some(nc) =>
+           { val newGCost = nc + curr.gCost
+           
+           open.find(_.tile == tile) match
+           {
+             case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = curr }
+             case Some(node) =>
+             case None => 
+             {
+               val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), curr)
+               open ::= newNode
+               if (tile.cood == endCood) found = Some(newNode)
+             }
+           }
+         }
+         }
+       }       
+     }
+     found.map{endNode =>
+       var acc: List[Cood] = Nil
+       var curr: Node[TileT] = endNode
+       while (curr.parent != null) { acc ::= curr.tile.cood; curr = curr.parent  }
+       acc
+     }
+   }
    
 }
+
+case class Node[TileT <: Tile](val tile: TileT, var gCost: Int, var hCost: Int, var parent: Node[TileT])
+  { def fCost = gCost + hCost
+  }
