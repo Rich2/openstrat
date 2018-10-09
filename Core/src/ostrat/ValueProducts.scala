@@ -104,10 +104,18 @@ trait ValueProducts[A] extends Any// extends TraversableOnce[A]
     while (res == false & count < length){ if (elem == apply(count)) res = true; count += 1 }
     res
   }
+  
   def ++ [ST <: ValueProducts[A]](operand: ST)(implicit factory: Int => ST): ST =
   { val res = factory(length + operand.length)
     iForeach((elem, i) => res.setElem(i, elem))
     operand.iForeach((elem, i) => res.setElem(i + length, elem))
     res
-  }   
+  }
+  
+  /** Counts the number of elements that fullfill the condition A => Boolean */
+  def filterCount(f: A => Boolean): Int =
+  { var count = 0
+    foreach(el => if (f(el)) count += 1)
+    count
+  }
 }
