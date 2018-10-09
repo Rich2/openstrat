@@ -2,15 +2,10 @@
 package ostrat
 
 trait Opt[A] extends Any
-{
-  def fold[B](fNull: => B, fSome: A => B): B
+{ def fold[B](fNull: => B, fSome: A => B): B
 }
 
-object Opt
-{
-  def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value) 
-  def none[A <: AnyRef] = new OptRef[A](null.asInstanceOf[A])
-}
+object Opt { def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value) }
 
 class OptRef[A <: AnyRef](val ref: A) extends AnyVal with Opt[A]
 {

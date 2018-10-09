@@ -35,7 +35,7 @@ object ParseTree
    def statementLoop(rem: Seq[BlockMember], acc: Seq[Statement], subAcc: Seq[StatementMember]): EMon[Seq[Statement]] = rem match
    {
       case Seq() if subAcc.isEmpty => Good(acc)
-      case Seq () => getStatement(subAcc, Opt.none).map(acc :+ _)      
+      case Seq () => getStatement(subAcc, nullRef).map(acc :+ _)      
       case Seq(h, tail @ _*) => h match
       {
          case st: SemicolonToken if subAcc.isEmpty => statementLoop(tail, acc :+ EmptyStatement(st), Nil) 
@@ -51,10 +51,10 @@ object ParseTree
       {
          case Seq() if acc.isEmpty => getExpr(subAcc).map(g => MonoStatement(g, optSemi))
          case Seq() if subAcc.isEmpty => Good(ClausedStatement(acc, optSemi))
-         case Seq() => getExpr(subAcc).map(g => ClausedStatement(acc :+ Clause(g , None), optSemi))      
+         case Seq() => getExpr(subAcc).map(g => ClausedStatement(acc :+ Clause(g, nullRef), optSemi))      
          
          case Seq(ct: CommaToken, tail @ _*) if subAcc.isEmpty=> loop(tail, acc :+ EmptyClause(ct), Nil)
-         case Seq(ct: CommaToken, tail @ _*) => getExpr(subAcc).flatMap(g => loop(tail, acc :+ Clause(g , Some(ct)), Nil))
+         case Seq(ct: CommaToken, tail @ _*) => getExpr(subAcc).flatMap(g => loop(tail, acc :+ Clause(g , Opt(ct)), Nil))
          case Seq(em: ExprMember, tail @ _*) => loop(tail, acc, subAcc :+ em)
       }
       loop(statement, Seq(), Seq())

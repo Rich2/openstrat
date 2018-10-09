@@ -7,7 +7,7 @@ import pGrid._, SqCode._
 class DungeonGrid extends SquareGrid[DTile, SideBare](2, 48, 2, 30)
 {
    def posn(charac: Character, x: Int, y: Int, facing: Facing): Unit =
-   { getTile(x, y).charac = Some(charac)
+   { getTile(x, y).charac = Opt(charac)
      charac.setCood(x, y)
      charac.facing = facing
    }

@@ -2,7 +2,7 @@
 package ostrat
 
 /** This is the base trait for the DoubleProduct and IntProduct classes */
-trait ValueProducts[A] extends Any// extends TraversableOnce[A]
+trait ValueProducts[A] extends Any
 { def typeName: Symbol
   override def toString: String = typeName.name - lMap(_.toString).commaParenth
   def productSize: Int

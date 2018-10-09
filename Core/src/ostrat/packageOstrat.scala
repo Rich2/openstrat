@@ -72,7 +72,9 @@ package object ostrat
   implicit def stringTraverableToRichImp(strTrav: Traversable[String]): StringTraversable = StringTraversable(strTrav)   
   implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversable = StringTraversable(strArray) 
   implicit def EMonToImplicit[A](eMon: EMon[A]): EMonImplicit[A] = new EMonImplicit[A](eMon)
-   
+  
+  def nullRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
+  
   @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] =
   { var count = fromValue
     var acc: List[Double] = Nil
