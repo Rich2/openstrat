@@ -50,9 +50,9 @@ class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int,
      HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
    def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)
    
-  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => Option[Int]): Option[List[Cood]] =
+  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
    {     
-     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), null) :: Nil
+     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), Opt.none[Node[TileT]]) :: Nil
      var closed: List[Node[TileT]] = Nil
      var found: Option[Node[TileT]] = None
      while (open.nonEmpty & found == None)
@@ -65,36 +65,35 @@ class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int,
        neighbs.foreach { tile =>
          fTerrCost(curr.tile, tile) match
          {  
-           case None =>
-           case Some(nc) if closed.exists(_.tile == tile) =>
-           case Some(nc) =>
+           case NoInt =>
+           case SomeInt(nc) if closed.exists(_.tile == tile) =>
+           case SomeInt(nc) =>
            { val newGCost = nc + curr.gCost
            
            open.find(_.tile == tile) match
            {
-             case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = curr }
+             case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = Opt(curr) }
              case Some(node) =>
              case None => 
              {
-               val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), curr)
+               val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), Opt(curr))
                open ::= newNode
                if (tile.cood == endCood) found = Some(newNode)
              }
            }
          }
-         }
-       }       
-     }
-     found.map{endNode =>
-       var acc: List[Cood] = Nil
-       var curr: Node[TileT] = endNode
-       while (curr.parent != null) { acc ::= curr.tile.cood; curr = curr.parent  }
-       acc
-     }
+       }
+     }       
+   }
+     
+   def loop(acc: List[Cood], curr: Node[TileT]): List[Cood] = curr.parent.fold(acc, loop(curr.tile.cood :: acc, _))
+   
+   found.map(endNode =>  loop(Nil, endNode))
    }
    
 }
 
-case class Node[TileT <: Tile](val tile: TileT, var gCost: Int, var hCost: Int, var parent: Node[TileT])
-  { def fCost = gCost + hCost
-  }
+case class Node[TileT <: Tile](val tile: TileT, var gCost: Int, var hCost: Int, var parent: Opt[Node[TileT]])
+{
+  def fCost = gCost + hCost
+}

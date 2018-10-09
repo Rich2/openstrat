@@ -13,7 +13,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
     val tile = getTile(x, y)
     tile.lunits ::=  sd //:: tile.lunits
   }
-  val fTerrCost: (ZugTile, ZugTile) => Option[Int] = (a, b) => for ( v1 <- a.terr.cost; v2 <- b.terr.cost) yield (v1 + v2)
+  val fTerrCost: (ZugTile, ZugTile) => OptInt = _.terr.cost + _.terr.cost// (a, b) => for ( v1 <- a.terr.cost; v2 <- b.terr.cost) yield (v1 + v2)
 //    (_, _) match
 //  {
 //    case (_, zt) if zt.terr == Lake => None

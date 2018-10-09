@@ -35,17 +35,17 @@ object ParseTree
    def statementLoop(rem: Seq[BlockMember], acc: Seq[Statement], subAcc: Seq[StatementMember]): EMon[Seq[Statement]] = rem match
    {
       case Seq() if subAcc.isEmpty => Good(acc)
-      case Seq () => getStatement(subAcc, None).map(acc :+ _)      
+      case Seq () => getStatement(subAcc, Opt.none).map(acc :+ _)      
       case Seq(h, tail @ _*) => h match
       {
          case st: SemicolonToken if subAcc.isEmpty => statementLoop(tail, acc :+ EmptyStatement(st), Nil) 
-         case st: SemicolonToken => getStatement(subAcc, Some(st)).flatMap(g => statementLoop(tail, acc :+ g, Seq()))         
+         case st: SemicolonToken => getStatement(subAcc, Opt(st)).flatMap(g => statementLoop(tail, acc :+ g, Seq()))         
          case sm: StatementMember => statementLoop(tail, acc, subAcc :+ sm)
          case u => excep("Statement Loop, impossible case")
       }
    }
    
-   def getStatement(statement: Seq[StatementMember], optSemi: Option[SemicolonToken]): EMon[Statement] =
+   def getStatement(statement: Seq[StatementMember], optSemi: Opt[SemicolonToken]): EMon[Statement] =
    {
       def loop(rem: Seq[StatementMember], acc: Seq[Clause], subAcc: Seq[ExprMember]): EMon[Statement] = rem match
       {
