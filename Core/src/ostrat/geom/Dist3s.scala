@@ -13,36 +13,36 @@ class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]
     filterCount(_.z.pos) match
     { case 0 => GlobedNone
       case n if n == length => GlobedAll(pMap(_.xy))
-      case n =>
-      {
-        var els: List[Either[Dist2, Dist2]] = lMap {
-          case el if el.z.pos => Right(el.xy)
-          case el =>
-          { val xy = el.xy
-            val fac = xy.magnitude / EarthAvRadius
-            Left(xy / fac)
-          }
-        }
-        while (els.head.isLeft && els.last.isLeft && els.init.last.isLeft) els = els.init
-      
-        val els2: List[Either[Dist2, Dist2]] = els.drop(2).foldLeft(els.take(2))((acc, el) => el match
-          {
-            case Left(v) if acc.last.isLeft && acc.init.last.isLeft => acc.init :+ el
-            case el => acc :+ el
-          })
-            
-        val acc: CurveSegDists = CurveSegDists.factory(els2.length)// List[CurveSegDist] = Nil
-        var last: Either[Dist2, Dist2] = els2.last
-        els2.iForeach {(e, i) =>
-          e match
-          { case Right(d2) => acc.setElem(i, LineSegDist(d2))
-            case Left(d2) if last.isLeft => acc.setElem(i, ArcSegDist(Dist2Z, d2))
-            case Left(d2) => acc.setElem(i, LineSegDist(d2))
-          }
-          last = e
-        }               
-        GlobedSome(acc)                
-      }
+      case n => GlobedNone
+//      {
+//        var els: List[Either[Dist2, Dist2]] = lMap {
+//          case el if el.z.pos => Right(el.xy)
+//          case el =>
+//          { val xy = el.xy
+//            val fac = xy.magnitude / EarthAvRadius
+//            Left(xy / fac)
+//          }
+//        }
+//        while (els.head.isLeft && els.last.isLeft && els.init.last.isLeft) els = els.init
+//      
+//        val els2: List[Either[Dist2, Dist2]] = els.drop(2).foldLeft(els.take(2))((acc, el) => el match
+//          {
+//            case Left(v) if acc.last.isLeft && acc.init.last.isLeft => acc.init :+ el
+//            case el => acc :+ el
+//          })
+//            
+//        val acc: CurveSegDists = CurveSegDists.factory(els2.length)// List[CurveSegDist] = Nil
+//        var last: Either[Dist2, Dist2] = els2.last
+//        els2.iForeach {(e, i) =>
+//          e match
+//          { case Right(d2) => acc.setElem(i, LineSegDist(d2))
+//            case Left(d2) if last.isLeft => acc.setElem(i, ArcSegDist(Dist2Z, d2))
+//            case Left(d2) => acc.setElem(i, LineSegDist(d2))
+//          }
+//          last = e
+//        }               
+//        GlobedSome(acc)                
+//      }
     }        
   }      
  } 
