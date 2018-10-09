@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import Colour.Black
-import pCanv._
+import geom._, pCanv._, Colour.Black
 
 abstract class EarthGui extends UnfixedMapGui
 {

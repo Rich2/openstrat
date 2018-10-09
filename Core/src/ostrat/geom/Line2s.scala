@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Array[Double based collection class for Line2s */
 class Line2s(val arr: Array[Double]) extends AnyVal with DoubleProduct4s[Line2] with Transable[Line2s]
 {
    override def typeName: Symbol = 'Line2s
@@ -14,6 +15,7 @@ class Line2s(val arr: Array[Double]) extends AnyVal with DoubleProduct4s[Line2] 
    }
 }
 
+/** Companion object for the Lines class */
 object Line2s extends Double4sMaker[Line2, Line2s]
 {
    implicit val factory: Int => Line2s = i => new Line2s(new Array[Double](i * 4))

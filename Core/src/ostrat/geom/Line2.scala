@@ -35,6 +35,7 @@ case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) ext
   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 }
 
+/** Companion object for the Line2 class */
 object Line2
 { /** Factory apply method for Line2. If using Doubles "Line2(x1 vv y1, x2 vv y2)" is the preferred syntax, rather than calling the constructor
 * directly. */

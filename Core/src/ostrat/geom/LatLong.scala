@@ -42,31 +42,6 @@ class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Vec2 = Vec2(sin(long) * cos(lat), sin(lat))
    
-   
-//   def eitherXY(focus: LatLong): LeftRight[Vec2] = 
-//   {
-//      val ll2: LatLong = addLong(-focus.long)
-//      val long2 = ll2.long
-//      val lat2 = ll2.lat
-//      val x = sin(long2) * cos(lat2)
-//      val y2 = sin(lat2)
-//      val yRot: Double = asin(y2 / cos(asin(x)))
-//      val pseudoLatLong = LatLong(yRot, long2)
-//      val pseudoLatLong2 = pseudoLatLong.subLat(focus.lat)
-//      val xy = Vec2(x, /*  y2 */ sin( pseudoLatLong2.lat ) * cos(asin(x)) )
-//      pseudoLatLong2.long match
-//      {
-//         case l if l <> PiH => Right(xy)
-//         case _ => Left(xy)
-//      }
-//   }
- 
-//   def toOptVec2S(inp: Seq[LatLong]): Option[Vec2S] = 
-//   {
-//      val (hidden, facing) = inp.eSeqs(_.eitherXY(this))      
-//      ifSome(facing.length > 2, facing)   
-//   } 
-   
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
   def polyToDist2s(inp: LatLongs): Dist2s = inp.pMap(fromFocusDist2)
    

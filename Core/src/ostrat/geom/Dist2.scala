@@ -3,7 +3,7 @@ package ostrat
 package geom
 import math._
 
-/** Two dimensional vector using metres as units rather than pure numbers. */
+/** 2 dimensional vector using metres as units rather than pure numbers. */
 class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2 with Stringer
 { def typeSym = 'Dist2
   def str = persistD2(xMetres, yMetres)
@@ -60,5 +60,3 @@ class Dist2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Dist2]/
 object Dist2s extends Double2sMaker[Dist2, Dist2s]
 { implicit val factory: Int => Dist2s = i => new Dist2s(new Array[Double](i * 2))
 }
-
-

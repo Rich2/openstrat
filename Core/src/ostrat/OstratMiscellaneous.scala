@@ -2,8 +2,7 @@
 package ostrat
 
 trait IsType[A <: AnyRef]
-{
-  def isType(obj: AnyRef): Boolean
+{ def isType(obj: AnyRef): Boolean
   def asType(obj: AnyRef): A
   def optType(obj: AnyRef): Option[A] = ifSome(isType(obj), asType(obj))
 }
@@ -11,8 +10,7 @@ trait IsType[A <: AnyRef]
 object IsType
 {
   implicit object AnyRefIsType extends IsType[AnyRef]
-  {
-    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[AnyRef]
+  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[AnyRef]
     override def asType(obj: AnyRef): AnyRef = obj.asInstanceOf[AnyRef]
   }
 }

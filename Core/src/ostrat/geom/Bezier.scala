@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Super trait for Bezier and BezierDraw */
+/** Super trait for a (cubic) Bezier and BezierDraw */
 trait BezierLike extends CurveLike
 { def xC1: Double
   def yC1: Double
@@ -19,7 +19,7 @@ class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: 
   def str = persist4(pStart, pC1, pC2, pEnd)
 }
       
-
+/** Functional class for Drawing a cubic Bezier curve. */
 case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double,
     val lineWidth: Double, val colour: Colour) extends PaintElem[BezierDraw] with BezierLike
 { def typeSym = 'BezierDraw
@@ -27,6 +27,7 @@ case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double,
   override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
 }
 
+/** Companion object for the BezierDraw class. */
 object BezierDraw
 {
    def apply (start: Vec2, pC1: Vec2, pC2: Vec2, endPt: Vec2, lineWidth: Double, colour: Colour): BezierDraw =

@@ -23,6 +23,7 @@ trait ArcLike extends CurveLike
   { val cp = controlPt; f(cp.x, cp.y, xEnd, yEnd, radius) }
 }
 
+/** Currently the Arc class doesn't define direction of the Arc. I think this needs modification. */
 case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveLike with ArcLike
 { def typeSym = 'Arc
    override def str = persist3(pStart, pCen, pEnd)
@@ -34,6 +35,7 @@ object Arc
    def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2): Arc =  new Arc(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y)
 }
 
+/** A funtional paint element to Draw an Arc */
 case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double,
       colour: Colour) extends PaintElem[ArcDraw] with ArcLike
 { def typeSym = 'ArcDraw
@@ -41,6 +43,7 @@ case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x
    override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour)   
 }
 
+/** The companion object for the ArcDraw class */
 object ArcDraw
 {
    def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): ArcDraw =

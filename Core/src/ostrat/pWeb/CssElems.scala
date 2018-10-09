@@ -6,30 +6,27 @@ trait CssCon extends IndentCon
 
 object CssDec
 {
-   def apply(propIn: String, valStrIn: String): CssDec = new CssDec
-   {
-      val prop = propIn
-      val valStr = valStrIn
-   }
+  def apply(propIn: String, valStrIn: String): CssDec = new CssDec
+  { val prop = propIn
+    val valStr = valStrIn
+  }
 }
+
 trait CssDec extends CssCon
-{
-   def prop: String
-   def valStr: String
-   def out(indent: Int): String = prop :- valStr +";"
-   //def multiLine: Boolean = false
+{ def prop: String
+  def valStr: String
+  def out(indent: Int): String = prop :- valStr +";"
+  //def multiLine: Boolean = false
 }
 
 trait CssPercent extends CssDec
-{
-   def percents: Int
-   def valStr: String = percents.toString + "%"
+{ def percents: Int
+  def valStr: String = percents.toString + "%"
 }
 
 trait CssEm extends CssDec
-{
-   def ems: Double
-   def valStr: String = ems.toString + "em"
+{ def ems: Double
+  def valStr: String = ems.toString + "em"
 }
 
 case class CssFill(valStr: String) extends CssDec { def prop = "fill" }
@@ -39,42 +36,43 @@ case class CssFontEm(ems: Double) extends CssFontSize with CssEm// { def valStr 
 case class CssFontCent(percents: Int) extends CssFontSize with CssPercent //{ def valStr = cents.toString - "%" }
 
 case class CssColour(colour: Colour) extends CssDec
-{
-   def prop = "color"
-   override val valStr: String = colour.hexStr 
+{ def prop = "color"
+  override val valStr: String = colour.hexStr 
 }
+
 case class CssStroke(valStr: String) extends CssDec { def prop = "stroke" }
+
 case class CssStrokeWidth(value: Int) extends CssDec
-{
-   def prop = "stroke"
-   def valStr = value.toString   
+{ def prop = "stroke"
+  def valStr = value.toString   
 }
+
 object CssMaxWidth
-{
-   def apply(valStrIn: String): CssMaxWidth = new CssMaxWidth { val valStr = valStrIn }
+{ def apply(valStrIn: String): CssMaxWidth = new CssMaxWidth { val valStr = valStrIn }
 }
 
 trait CssMaxWidth extends CssDec { def prop = "max-width" }
 case class CssMaxWidthEm(ems: Double) extends CssDec with CssEm { def prop = "max-width" }
 case class CssMaxHeight(valStr: String) extends CssDec { def prop = "max-height" }
+
 case class CssMaxHeightVH(valInt: Integer) extends CssDec
-{
-   def prop = "max-height"
-   def valStr: String = valInt.toString + "vh"
+{ def prop = "max-height"
+  def valStr: String = valInt.toString + "vh"
 }
 
 case class CssFlex (valStr: String) extends CssDec { def prop = "flex" }
 case class CssWidth(valStr: String) extends CssDec{ def prop = "width" }
+
 case class CssWidthCent(valInt: Int)extends CssDec
-{
-   def prop = "width"
-   def valStr = valInt.toString + "%"
-   } 
-case class CssBackColour(colour: Colour) extends CssDec
-{
-   def prop = "background-color"
-   def valStr = colour.hexStr
+{ def prop = "width"
+  def valStr = valInt.toString + "%"
 }
+
+case class CssBackColour(colour: Colour) extends CssDec
+{ def prop = "background-color"
+  def valStr = colour.hexStr
+}
+
 trait CssTextAlign extends CssDec { def prop = "text-align" }
 object CssTextAlignCentre extends CssTextAlign { def valStr = "center" }
 object CssMargin

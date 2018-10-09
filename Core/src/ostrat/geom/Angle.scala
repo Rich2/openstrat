@@ -13,7 +13,7 @@ trait AngleLike extends Any
   def arcDistance (radiusDist: Dist): Dist = radians * radiusDist
 }
 
-/* Angle value class */
+/** Angle value class. Its particularly important not to use this class to represent Latitudes as they are between +- 180 degrees. */
 final class Angle private(val radians: Double) extends AnyVal with AngleLike
 { override def toString = degStr2
   def degStr2: String = degs.str2 -"\u00B0"
@@ -36,7 +36,7 @@ final class Angle private(val radians: Double) extends AnyVal with AngleLike
   def bisect(operand: Angle) = Angle(radians + angleTo(operand).radians / 2)
 }
 
-/** Angle Companion class */
+/** Angle Companion object. */
 object Angle
 { /** Use of recursion is rubbish */
   @inline def apply(radians: Double): Angle = new Angle(reset(radians))

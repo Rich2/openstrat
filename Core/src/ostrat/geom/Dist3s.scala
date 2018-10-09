@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Collection class for Dist3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */
 class Dist3s(val arr: Array[Double]) extends AnyVal with DoubleProduct3s[Dist3]
 { override def typeName: Symbol = 'Dist3s
   override def newElem(d1: Double, d2: Double, d3: Double): Dist3 = new Dist3(d1, d2, d3)
