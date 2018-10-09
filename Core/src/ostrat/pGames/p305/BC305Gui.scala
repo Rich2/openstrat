@@ -55,7 +55,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui
    {
       val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
       val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )
-      (gs ++ as).collapse   
+      as.collapse//(gs ++ as).collapse   
    }   
    eTop()
    loadView 
