@@ -8,7 +8,7 @@ import Colour._
 import pGrid._
 import pStrat._ 
 
-class ZugGui(canv: CanvasPlatform) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv, Zug1)
+class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv, scen)
 { override def scaleMin = 10
   override def eTop(): Unit = reTop(guButs :+ status)
   mapPanel.backColour = Black

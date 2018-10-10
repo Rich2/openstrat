@@ -15,7 +15,7 @@ object Apps
       (2, (pGames.p1783.Y1783Gui(_, pGames.p1783.Nap1), "1783")),
       (3, (FlagsGui(_), "ScalaFx Flags")),
       (4, (pGames.pSpace.Planets(_), "ScalaFx Planets")),
-      (5, (new pGames.pZug.ZugGui(_), "ScalaFx Zugfuhrer")),
+      (5, (new pGames.pZug.ZugGui(_, pGames.pZug.Zug1), "ScalaFx Zugfuhrer")),//Alt Zug1 or Zug2
       (6, (new pGames.pDung.DungeonGui(_), "ScalaFx Dungeon")),
       (7, (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),         
       (8, (ColourGen(_), "ScalaFx Some Colours")),
@@ -29,6 +29,6 @@ object Apps
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 5
+  val appNum: Int = 3
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

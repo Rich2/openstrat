@@ -42,7 +42,7 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTi
    def fSetTile(cood: Cood, fTile: Cood => TileT) = { coodIsTile(cood); arr(xyToInd(cood.x, cood.y)) = fTile(cood) }
    
    def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {coodIsSide(x, y); arr(xyToInd(x, y)) = f(x, y, value)}
-   def fSetSides[A](value: A, xys: (Int, Int)*)(implicit f: (Int, Int, A) => SideT) = xys.foreach(p => fSetSide(p._1 , p._2, value))
+   def fSetSides[A](value: A, xys: Coods)(implicit f: (Int, Int, A) => SideT) = xys.foreach(p => fSetSide(p.x, p.y, value))
    
    /** Throws exception if Cood is not a valid Tile coordinate */
    final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)

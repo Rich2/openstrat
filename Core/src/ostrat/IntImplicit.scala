@@ -47,6 +47,9 @@ class IntImplicit(val thisInt: Int) extends AnyVal //extends PersistStr
   { case i if f(i) => i
     case i => (i + 1).incrementTill(f)
   }
+  
+  def roundUpToOdd = thisInt.ifEven(thisInt + 1, thisInt)
+  def roundDownToOdd = thisInt.ifEven(thisInt - 1, thisInt)    
    
   /** Decreases the value of an integer while that integer does not match condition */
   def decrementTill(f : Int => Boolean): Int = thisInt match

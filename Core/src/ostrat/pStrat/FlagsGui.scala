@@ -7,10 +7,10 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple
 {
   backColour = Gray
    
-   //val col = Armenia().scale(100l).t topLeft.slate(canv.topLeft)
+   val arm = Armenia().scale(100l)//.slate(canv.topLeft)
    
-   val stuff = List(
-
+   val stuff = arm ++ List(
+     
      france.scale(100).tR.slate(canv.topRight),
      chad.scale(100).tL.slate(canv.topLeft),
      // belgium.scale(100).bL.slate(canv.bottomLeft),
@@ -22,6 +22,5 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple
    )
                
    mouseUp = (v, b, s) =>   { repaint(stuff)}//(s.headOrElse("No clickable object on canvas"))) }            
-   repaint(stuff)      
- 
+   repaint(stuff)  
 }  
