@@ -4,10 +4,6 @@ package pGames
 package pZug
 import pGrid._
 
-case class ZGame(scen: ZugGrid)
-{
-  var turns: List[ZTurn] = Nil
-}
 
 case class ZMove(squad: Squad, coods: Coods)
 

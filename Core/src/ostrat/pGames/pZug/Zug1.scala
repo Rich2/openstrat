@@ -15,4 +15,6 @@ object Zug1 extends ZugGrid(4, 48, 2, 14)
   gs(4, 4, WheatField * 2)
   gs(2, 6, WheatField)  
   placeSquads((Germany, 18, 6), (Germany, 30, 6), (Britain, 22, 10), (Britain, 30, 10))
+  val g1 = placeSquad(Germany, 38, 6)
+  g1.move = List(40 cc 8, 42 cc 10) 
 }

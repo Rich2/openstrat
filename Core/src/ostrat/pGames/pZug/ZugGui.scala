@@ -23,9 +23,16 @@ class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, Zu
     
     val tText = ifScaleCObj(60, TextGraphic(cen, xyStr, 14, colour.contrastBW))
     
-    val lunit = tile.lunits match
-    { case ::(head, _) if tScale > 68 => Some(UnitCounters.infantry(30, head, head.colour, tile.colour).slate(cen))
-      case _ => None   
+    val lunit: GraphicElems = tile.lunits match
+    { case ::(head, _) if tScale > 68 =>
+      {
+        val moveLines: GraphicElems = head.move.foldWithPrevious[GraphicElems](head.cood, Nil)((acc,prev, newCood) => 
+          acc :+ pGrid.CoodLine(prev, newCood).toLine2(ofh.coodToDispVec2).draw(2, scen.getTile(prev).colour.contrast))
+          
+        val counter = UnitCounters.infantry(30, head, head.colour, tile.colour).slate(cen)
+        moveLines :+ counter
+      }
+      case _ => Nil   
     }
     
     Disp2(tv, tText ++ lunit)
@@ -54,17 +61,20 @@ class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, Zu
       eTop()            
     }
     
-    case (RightButton, List(squad : Squad), List(newTile: ZugTile)) if
-    (HexGrid.adjTileCoodsOfTile(squad.cood).contains(squad.cood) && squad.canMove(newTile)) =>
-      {
-        val newCood = newTile.cood
-        val oldCood = squad.cood
-        val oldTile = grid.getTile(oldCood)
-        oldTile.lunits = oldTile.lunits.removeFirst(_ == squad)
-        squad.cood = newCood
-        newTile.lunits ::= squad             
-        repaintMap
-      }
+    case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
+      squad.move = l
+      repaintMap
+    }
+//    (HexGrid.adjTileCoodsOfTile(squad.cood).contains(squad.cood) && squad.canMove(newTile)) =>
+//      {
+//        val newCood = newTile.cood
+//        val oldCood = squad.cood
+//        val oldTile = grid.getTile(oldCood)
+//        oldTile.lunits = oldTile.lunits.removeFirst(_ == squad)
+//        squad.cood = newCood
+//        newTile.lunits ::= squad             
+//        repaintMap
+//      }
       
     case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
     case _ => deb("Other" -- clickList.toString)

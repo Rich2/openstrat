@@ -117,4 +117,14 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     thisTrav.foreach{ el => res.setElem(count, el); count += 1 }
     res
   }
+  
+  def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
+  { var acc: B = initAcc
+    var prev: A = initPrevious
+    thisTrav.foreach { newA =>
+      acc = f(acc, prev, newA)
+      prev = newA
+    }
+    acc
+  }
 }
