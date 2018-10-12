@@ -19,16 +19,12 @@ git push origin master
 
 ##push alternative method
 # shorthand version of the above BUT wont take into account any new files you may have created
-git commit -a -m "fixed links"  //stageing without adding new files
+git commit -a -m "fixed links"  //staging without adding new files
 git push origin master
 
 ##status
 # to check the status of your copy of master
 git status
-#  >>typical output<<
-#  >>>>On branch master
-#  >>>>Your branch is up-to-date with 'origin/master'.
-#  >>>>Nothing to commit, working directory clean
 
 
 ##cache user/pswd
