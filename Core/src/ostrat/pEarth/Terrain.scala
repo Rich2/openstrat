@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import Colour._
 
-trait Terrain extends WithColour
+trait Terrain extends Coloured
 {   
    def str: String
 }

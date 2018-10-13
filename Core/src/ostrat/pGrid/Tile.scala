@@ -18,6 +18,8 @@ trait Tile extends GridElem
   }
 }
 
+trait TileColoured extends Tile with Coloured
+
 case class TileBare(x: Int, y: Int) extends Tile
 case class SideBare(x: Int, y: Int) extends GridElem
 object SideBare

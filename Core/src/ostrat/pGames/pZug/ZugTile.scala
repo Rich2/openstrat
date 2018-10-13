@@ -16,7 +16,7 @@ object ZugTerr
    implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply 
 }
 
-case class ZugTile(x: Int, y: Int, terr: ZugTerr) extends Tile
+case class ZugTile(x: Int, y: Int, terr: ZugTerr) extends TileColoured
 {   
    def colour = terr.colour
    var lunits: List[Squad] = Nil   

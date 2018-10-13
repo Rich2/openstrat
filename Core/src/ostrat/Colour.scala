@@ -7,10 +7,11 @@ class Colour(val argbValue: Int) extends AnyVal with Stringer
   def str = typeStr + hexStr.enParenth
   def webStr: String = "#" - hexStr
   def canEqual(a: Any) = a.isInstanceOf[Colour]
+  def alpha: Int = (argbValue >> 24) & 0xFF
   def red: Int = (argbValue >> 16) & 0xFF // / (256 * 256)
   def green: Int = (argbValue >> 8)  & 0xFF //(argbValue /256) % 256
   def blue: Int = (argbValue >> 0) & 0xFF //(argbValue % 256) % 256
-  def alpha: Int = (argbValue >> 24) & 0xFF
+  
   def hexStr = red.hexStr2 - green.hexStr2 - blue.hexStr2 - alpha.hexStr2
   def redGl: Float = (red / 256.toFloat)
   def greenGl:Float = (green / 256.toFloat)
@@ -55,11 +56,7 @@ class Colour(val argbValue: Int) extends AnyVal with Stringer
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
 }
 
-trait WithColour extends AnyRef
-{ def colour: Colour
-  def colourContrast: Colour = colour.contrast
-  def colourContrast2(other: Colour): Colour = colour.contrast2(other)
-}
+
 
 object Colour
 {

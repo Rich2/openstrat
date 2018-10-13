@@ -18,6 +18,7 @@ final case class Cood(val x: Int, val y: Int) extends ProdI2
   def +(operand: Cood): Cood = Cood(x + operand.x, y + operand.y)
   def -(operand: Cood): Cood = Cood(x - operand.x, y - operand.y)
   def *(operand: Int): Cood = Cood(x * operand, y * operand)
+  def /(operand: Int): Cood = Cood(x / operand, y / operand)
    
   def addXY(xOff: Int, yOff: Int): Cood = Cood(x + xOff, y + yOff)
   def subXY(xOff: Int, yOff: Int): Cood = Cood(x - xOff, y - yOff)

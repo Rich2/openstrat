@@ -10,11 +10,11 @@ object Zug1 extends ZugGrid(4, 48, 2, 14)
   import Zug1.{setRow => gs}
   gs(yRow = 12, xStart = 4, WheatField * 2)
   gs(10, 6, WheatField, Plain * 7, WoodBuilding)
-  gs(8, 4, WheatField * 2, StoneBuilding * 2, WheatField * 2, Lake)
+  gs(8, 4, WheatField * 1, StoneBuilding * 3, WheatField * 2, Lake)
   gs(6, 6, WheatField, Plain * 4, Lake)
   gs(4, 4, WheatField * 2)
   gs(2, 6, WheatField)  
-  placeSquads((Germany, 18, 6), (Germany, 30, 6), (Britain, 22, 10), (Britain, 30, 10))
+  placeSquads((Germany, 18, 6), (Germany, 30, 6), (Britain, 10, 10), (Britain, 22, 10), (Britain, 30, 10))
   val g1 = placeSquad(Germany, 38, 6)
   g1.move = List(40 cc 8, 42 cc 10) 
 }
