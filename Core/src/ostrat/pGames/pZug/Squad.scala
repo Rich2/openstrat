@@ -8,6 +8,7 @@ import pStrat._
 class Squad(val polity: Polity, var xCood: Int, var yCood: Int) extends Lunit
 {
   var move: List[Cood] = Nil
+  def setMove(newMove: Cood *): Unit = move = newMove.toList 
    val colour = polity.colour
    override def toString = "Squad" - (polity.toString).enParenth
    override def equals(other: Any): Boolean = other match
