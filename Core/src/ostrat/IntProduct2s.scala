@@ -38,4 +38,22 @@ abstract class Int2Maker[T <: ProdI2, ST <: IntProduct2s[T]]
     while (count < arrLen) { res.arr(count) = elems(count); count += 1 }
     res
   }
+  
+  def fromList(list: List[T]): ST = 
+   {
+      val arrLen: Int = list.length * 2
+      val res = factory(list.length)
+      var count: Int = 0
+      var rem = list
+      while (count < arrLen)
+      {
+         res.arr(count) = rem.head._1
+         count += 1
+         res.arr(count) = rem.head._2
+         count += 1
+         rem = rem.tail
+      }
+      res
+   }
+  
 }

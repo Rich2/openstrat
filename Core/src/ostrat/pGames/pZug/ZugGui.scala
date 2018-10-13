@@ -23,21 +23,29 @@ class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, Zu
     
     val tText = ifScaleCObj(60, TextGraphicCen(cen, xyStr, 14, colour.contrastBW, 2))
     
+    def action(squad: Squad): GraphicElems = squad.action match
+    {
+      case Move(coods) =>      
+      {
+        coods.foldWithPrevious[GraphicElems](squad.cood, Nil){(acc, prevCood, nextCood) =>
+          val sideCood = (prevCood + nextCood) / 2
+          val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast, 3)
+          val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast, 3)
+          acc :+ l1 :+ l2
+        }
+      }
+      case Fire(target) => List(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red, 3))
+      case _ => Nil
+    }
+    
     val lunit: GraphicElems = tile.lunits match
     {
       case ::(head, _) if tScale > 68 =>
-      {
-        val moveLines: GraphicElems = head.move.foldWithPrevious[GraphicElems](head.cood, Nil){(acc, prevCood, nextCood) =>
-        val sideCood = (prevCood + nextCood) / 2
-        val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast, 3)
-        val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast, 3)
-        acc :+ l1 :+ l2          
-       }          
-       val counter = UnitCounters.infantry(30, head, head.colour, tile.colour, 4).slate(cen)
-       moveLines :+ counter
-     }
-      
-     case _ => Nil   
+        {
+          val counter = UnitCounters.infantry(30, head, head.colour, tile.colour, 4).slate(cen)
+          counter :: action(head)
+        }
+      case _ => Nil   
    }    
    tv ::: tText ::: lunit
  }
@@ -63,9 +71,11 @@ class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, Zu
     }
     
     case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
-      squad.move = l
+      squad.action = Move(l)
       repaintMap
     }
+    
+    case (MiddleButton, List(squad : Squad), List(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
 //    (HexGrid.adjTileCoodsOfTile(squad.cood).contains(squad.cood) && squad.canMove(newTile)) =>
 //      {
 //        val newCood = newTile.cood
