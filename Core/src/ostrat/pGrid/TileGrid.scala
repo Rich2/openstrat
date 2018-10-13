@@ -128,7 +128,7 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTi
       acc
    }
    
-   def gridTileDispFold(f: (GridT, Cood) => Disp2): Disp2 = gridTileFold[Disp2](f, _ ++ _)(Disp2.empty)   
+   def gridTileDispFold(f: (GridT, Cood) => GraphicElems): GraphicElems = gridTileFold[GraphicElems](f, _ ++ _)(Nil)   
    
    final def tilesMap[R](f: TileT => R): List[R] =
    {
@@ -145,11 +145,11 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTi
       
    def tilesFlatMap[R](f: TileT => Seq[R]): List[R] = tilesMap(f).flatten
    
-   /** Fundamental method for producing Disp2 from the Grid */
-   def tileAndCoodsDisplayFold(f: (TileT, Cood) => Disp2): Disp2 =
-      tileAndCoodsFold[Disp2](f, (acc, pair) => acc ++ pair)(Disp2.empty)
-    def tileCoodsDisplayFold(f: Cood => Disp2): Disp2 =
-      tileCoodsFold[Disp2](f, (acc, pair) => acc ++ pair)(Disp2.empty)   
+   /** Fundamental method for producing GraphicElems from the Grid */
+   def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems =
+      tileAndCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
+    def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems =
+      tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
   
       
    def fTilesSetAll[A](value: A)(implicit fA: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, fA(_, _, value)))   

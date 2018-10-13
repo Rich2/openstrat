@@ -65,11 +65,11 @@ trait TileGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[Til
       acc
    }
    
-   def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => Disp2)(implicit
-         oftFactory: (TileT, GridT, TileGridGui[TileT, SideT, GridT]) => OfT): Disp2 = ofTilesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(oftFactory)
+   def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElems)(implicit oftFactory: (TileT, GridT,
+       TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofTilesFold[OfT, GraphicElems](f, _ ++ _, Nil)(oftFactory)
          
-   def ofSidesDisplayFold[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => Disp2)(implicit
-         ofsFactory: (SideT, GridT, TileGridGui[TileT, SideT, GridT]) => OfT): Disp2 = ofSidesFold[OfT, Disp2](f, _ ++ _, Disp2.empty)(ofsFactory)
+   def ofSidesDisplayFold[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => GraphicElems)(implicit ofsFactory: (SideT, GridT,
+       TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofSidesFold[OfT, GraphicElems](f, _ ++ _, Nil)(ofsFactory)
          
       
 //   

@@ -25,15 +25,18 @@ class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] 
   def boundingHeight: Double = boundingRect.height   
   def polyCentre: Vec2 = boundingRect.cen
    
-  def fill(colour: Colour): PolyFill = PolyFill(this, colour)
+  def fill(colour: Colour, layer: Int = 0): PolyFill = PolyFill(this, colour, layer)
   def draw(lineWidth: Double, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
     PolyFillDraw(this, fillColour, lineWidth, lineColour)   
-  def fillSubj(evObj: AnyRef, fillColour: Colour): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour)
-  def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
-    PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
+  def fillSubj(evObj: AnyRef, fillColour: Colour, layer: Int = 0): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour, layer)
+  
+  def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black, layer: Int = 0): PolySubj =
+    PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour, layer)
+  
   def drawSubj(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
     PolySubj.draw(this.polyCentre, this, evObj, lineWidth, lineColour)   
+  
   def fillTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = TextCen):
     PolySubj = PolySubj.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)    
    

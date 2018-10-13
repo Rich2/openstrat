@@ -8,7 +8,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
 { mapPanel.backColour = Black
   override def eTop(): Unit = reTop(guButs :+ status)
    
-  def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => Disp2 = tog =>
+  def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => GraphicElems = tog =>
   { import tog._
     val colour: Colour = tile.colour
     val tv = vertDispVecs.fillSubj(tile, colour)
@@ -19,9 +19,10 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
       val poly2 = poly1.scale(tog.tScale / 2.5).rotate(charac.facing.angle).slate(tog.cen)      
       List(poly2.fillDrawSubj(charac, charac.colour, 1), TextGraphic(cen, charac.iden.toString, 16, charac.colour.contrast))
     }
-    Disp2(List(tv), tText ++ player ++ sides)
+    List(tv) ++ tText ++ player ++ sides
   }
-  def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare).collapse
+  
+  def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

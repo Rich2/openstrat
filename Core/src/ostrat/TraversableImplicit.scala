@@ -7,8 +7,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head)
   def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.last)
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisTrav.isEmpty) vEmpty else vNonEmpty  
-  def ifHead(f: A => Boolean) : Boolean = thisTrav.ifEmpty(false, f(thisTrav.head))
-  //def headFold[B](vEmpty: => B, f: A => B): B = if (thisTrav.isEmpty) vEmpty else f(thisTrav.head)
+  def ifHead(f: A => Boolean) : Boolean = thisTrav.ifEmpty(false, f(thisTrav.head))  
   def headOrElse(vEmpty: A): A = if (thisTrav.isEmpty) vEmpty else thisTrav.head
   def toStrFold(seperator: String = "", f: A => String = _.toString): String =
     thisTrav.ifEmpty("", thisTrav.tail.foldLeft(f(thisTrav.head))(_ - seperator - f(_)))   

@@ -24,7 +24,7 @@ trait ArcLike extends CurveLike
 }
 
 /** Currently the Arc class doesn't define direction of the Arc. I think this needs modification. */
-case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends CurveLike with ArcLike
+case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, layer: Int = 0) extends CurveLike with ArcLike
 { def typeSym = 'Arc
    override def str = persist3(pStart, pCen, pEnd)
    def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pCen), f(pEnd))   
@@ -36,17 +36,17 @@ object Arc
 }
 
 /** A funtional paint element to Draw an Arc */
-case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double,
-      colour: Colour) extends PaintElem[ArcDraw] with ArcLike
+case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour,
+    layer: Int) extends PaintElem[ArcDraw] with ArcLike
 { def typeSym = 'ArcDraw
-  def str: String = persist5(pStart, pCen, pEnd, lineWidth, colour)
-   override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour)   
+  def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, layer)
+   override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour, layer)   
 }
 
 /** The companion object for the ArcDraw class */
 object ArcDraw
 {
-   def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): ArcDraw =
-      new ArcDraw(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y, lineWidth, colour)
+   def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black, layer: Int = 0): ArcDraw =
+      new ArcDraw(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y, lineWidth, colour, layer)
 }
 

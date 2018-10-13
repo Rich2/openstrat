@@ -38,82 +38,87 @@ trait CanvasPlatform extends RectGeom
     textGraphic(pts.polyCentre, str, fontSize, fontColour)
    
   def vec2sDraw(pod: Vec2sDraw): Unit
-  def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
+  final def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
     vec2sDraw(Vec2sDraw(LineSegs(pStart, pEnds :_*), lineWidth, colour))
    
-   def lineDraw(ld: LineDraw): Unit
-   def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit = lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))
+  def lineDraw(ld: LineDraw): Unit
+  final def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =
+    lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))
    
-   def arcDraw(ad: ArcDraw): Unit
-   def arcDraw(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
-      arcDraw(ArcDraw(pStart, pCen, pEnd, lineWidth, colour))
+  def arcDraw(ad: ArcDraw): Unit
+  final def arcDraw(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+    arcDraw(ArcDraw(pStart, pCen, pEnd, lineWidth, colour))
    
-   def bezierDraw(bd: BezierDraw): Unit
-   def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
-      bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
+  def bezierDraw(bd: BezierDraw): Unit
+  final def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+    bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
 
-   def linesDraw(lsd: LinesDraw): Unit
-   final def linesDraw(lineWidth: Double, linesColour: Colour, lines: Line2 *): Unit = linesDraw(LinesDraw(Line2s(lines: _*), lineWidth, linesColour))
+  def linesDraw(lsd: LinesDraw): Unit
+  final def linesDraw(lineWidth: Double, linesColour: Colour, lines: Line2 *): Unit = linesDraw(LinesDraw(Line2s(lines: _*), lineWidth, linesColour))
    
-   def shapeFill(sf: ShapeFill): Unit
-   final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(Shape(segs: _*), fillColour)) 
+  def shapeFill(sf: ShapeFill): Unit
+  final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(Shape(segs: _*), fillColour)) 
    
-   def shapeDraw(sd: ShapeDraw): Unit
-   final def shapeDraw(lineWidth: Double, borderColour: Colour, segs: CurveSeg *): Unit = 
-     shapeDraw(ShapeDraw(Shape(segs: _*), lineWidth, borderColour))
-   def shapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, borderColour: Colour = Black): Unit
+  def shapeDraw(sd: ShapeDraw): Unit
+  final def shapeDraw(lineWidth: Double, borderColour: Colour, segs: CurveSeg *): Unit =
+    shapeDraw(ShapeDraw(Shape(segs: _*), lineWidth, borderColour))
    
-   def textGraphic(tg: TextGraphic): Unit
-   final def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =
-      textGraphic(TextGraphic(posn, text, fontSize, colour, align))
-   def textOutline(to: TextOutline): Unit
-   final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen): Unit =
-      textOutline(TextOutline(posn, text, fontSize, colour, lineWidth, align))
+  def shapeFillDraw(sfd: ShapeFillDraw): Unit
+  final def shapeFillDraw(fillColour: Colour, lineWidth: Double, borderColour: Colour, segs: CurveSeg*): Unit =
+    shapeFillDraw(ShapeFillDraw(Shape(segs: _*), fillColour, lineWidth, borderColour, 1))
+   
+  def textGraphic(tg: TextGraphic): Unit
+  final def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =
+    textGraphic(TextGraphic(posn, text, fontSize, colour, align))
+   
+  def textOutline(to: TextOutline): Unit
+  final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen): Unit =
+    textOutline(TextOutline(posn, text, fontSize, colour, lineWidth, align))
       
-   def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
+  def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
    
-   def animSeq(anims: Seq[DispPhase]): Unit = anims match
-   {
-      case Seq() => 
-      case Seq(DispStill(f), _*) => f()   
-      case Seq(DispAnim(fAnim, secs), tail @ _*) =>
-      {
-         val start = getTime
-         def func(): Unit =  
-         {            
-            val curr = getTime
-            val elapsed = (curr - start) / 1000
-            fAnim(elapsed)
-            if (elapsed < secs) timeOut(() => func(), 30) else animSeq(tail)
-         }         
-         timeOut(() => func(), 30)
-      }
-   }
-
-   def clear(colour: Colour = White): Unit   
-   def gcSave(): Unit
-   def gcRestore(): Unit 
-   def saveFile(fileName: String, output: String): Unit
-   def loadFile(fileName: String): EMon[String]
-   def fromFileFind[A](fileName: String)(implicit ev: Persist[A]): EMon[A] = loadFile(fileName).eFindType(ev)
-   def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Persist[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
-   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
-    *  procedure (Unit returning function) with that object of type A */
-   def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Persist[A]): Unit = fromFileFind(fileName)(ev).foreach(f) 
+  def animSeq(anims: Seq[DispPhase]): Unit = anims match
+  {
+    case Seq() =>     
+    case Seq(DispStill(f), _*) => f()   
     
-   def rendElems(elems: List[PaintElem[_]]): Unit = elems.foreach(rendElem) 
-   def rendElem(el: PaintElem[_]): Unit = el match
-   {
-      case fp: PolyFill => polyFill(fp)//verts, fillColour)
-      case dp: PolyDraw => polyDraw(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
-      case pfd: PolyFillDraw => polyFillDraw(pfd)
-      case lsd: LinesDraw => linesDraw(lsd)
-      case ld: LineDraw => lineDraw(ld)
-      case sf: ShapeFill => shapeFill(sf)
-      case sd: ShapeDraw => shapeDraw(sd)
-      case ShapeFillDraw(segs, fillColour, lineWidth, lineColour) => shapeFillDraw(segs, fillColour, lineWidth, lineColour) 
-      case ad: ArcDraw => arcDraw(ad)
-      case bd: BezierDraw => bezierDraw(bd)
-      case TextGraphic(posn, text, fontSize, colour, align) => textGraphic(posn, text, fontSize, colour, align)
-   }    
+    case Seq(DispAnim(fAnim, secs), tail @ _*) =>
+    { val start = getTime
+      def func(): Unit =  
+      { val curr = getTime
+        val elapsed = (curr - start) / 1000
+        fAnim(elapsed)
+        if (elapsed < secs) timeOut(() => func(), 30) else animSeq(tail)
+      }         
+      timeOut(() => func(), 30)
+    }
+  }
+
+  def clear(colour: Colour = White): Unit   
+  def gcSave(): Unit
+  def gcRestore(): Unit 
+  def saveFile(fileName: String, output: String): Unit
+  def loadFile(fileName: String): EMon[String]
+  def fromFileFind[A](fileName: String)(implicit ev: Persist[A]): EMon[A] = loadFile(fileName).eFindType(ev)
+  def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Persist[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
+  /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
+   *  procedure (Unit returning function) with that object of type A */
+  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Persist[A]): Unit = fromFileFind(fileName)(ev).foreach(f) 
+    
+  def rendElems(elems: List[PaintElem[_]]): Unit = elems.foreach(rendElem) 
+  
+  def rendElem(el: PaintElem[_]): Unit = el match
+  {
+    case fp: PolyFill => polyFill(fp)//verts, fillColour)
+    case dp: PolyDraw => polyDraw(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
+    case pfd: PolyFillDraw => polyFillDraw(pfd)
+    case lsd: LinesDraw => linesDraw(lsd)
+    case ld: LineDraw => lineDraw(ld)
+    case sf: ShapeFill => shapeFill(sf)
+    case sd: ShapeDraw => shapeDraw(sd)
+    case sfd: ShapeFillDraw => shapeFillDraw(sfd) 
+    case ad: ArcDraw => arcDraw(ad)
+    case bd: BezierDraw => bezierDraw(bd)
+    case tg: TextGraphic => textGraphic(tg)
+  }    
 }

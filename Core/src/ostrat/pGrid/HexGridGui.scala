@@ -21,7 +21,7 @@ abstract class HexGridGui[TileT <: Tile, SideT <: GridElem, GridT <: HexGridReg[
       acc
    }
    
-   def ofHTilesDisplayFold(f: OfHexReg[TileT, SideT, GridT] => Disp2): Disp2 = ofHTilesFold[Disp2](f, _ ++ _, Disp2.empty)
+   def ofHTilesDisplayFold(f: OfHexReg[TileT, SideT, GridT] => GraphicElems): GraphicElems = ofHTilesFold[GraphicElems](f, _ ++ _, Nil)
 //   def ofHexsFold[R](f: RegHexOfGrid[TileT] => R, fSum: (R, R) => R, emptyVal: R) =
 //   {
 //      var acc: R = emptyVal

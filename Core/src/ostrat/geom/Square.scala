@@ -11,7 +11,7 @@ object Square
          xCen + width / 2 vv yCen - width / 2,
          xCen - width/2   vv yCen - width / 2)
          
-   def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z) = apply(width, cen.x, cen.y).fill(colour)
+   def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z, layer: Int = 0) = apply(width, cen.x, cen.y).fill(colour, layer)
    def fill(width: Double, colour: Colour, xCen: Double, yCen: Double) = apply(width, xCen, yCen).fill(colour) 
    
    def curvedSegs(width: Double, radius: Double): List[CurveSeg] =

@@ -99,36 +99,36 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
       acc
    }   
    
-   def eDisp(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => Disp2): Disp2 = 
+   def eDisp(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems): GraphicElems = 
    {
-      var acc: Disp2 = Disp2.empty
+      var acc: GraphicElems = Nil
       tileCoodForeach { tileCood =>
          val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-         val newRes: Disp2 = ife(tog.cenFacing, fDisp(tog), Disp2.empty) 
+         val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Nil) 
          acc = acc ++ newRes
       }
       acc
    }
    
-   def eDisp2(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => Disp2, sDisp: (OfESide[TileT, SideT]) => Disp2): Disp2 = 
+   def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems = 
    {
-      var acc: Disp2 = Disp2.empty
+      var acc: GraphicElems = Nil
       tileCoodForeach { tileCood =>
          val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-         val newRes: Disp2 = ife(tog.cenFacing, fDisp(tog), Disp2.empty) 
+         val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Nil) 
          acc = acc ++ newRes
       }
-      var sideAcc: Disp2 = Disp2.empty
+      var sideAcc: GraphicElems = Nil
       sideCoodForeach { sideCood =>
          val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
-         val newRes: Disp2 = ife(tog.sideCenFacing, sDisp(tog), Disp2.empty) 
+         val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Nil) 
          sideAcc ++= newRes
       }      
       acc ++ sideAcc
    }
    
       
-   def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => Disp2): Disp2 = tileCoodsDisplayFold(cood => fDisp(this, cood))
+   def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => GraphicElems): GraphicElems = tileCoodsDisplayFold(cood => fDisp(this, cood))
    var rightGrid: Option[EGrid[TileT, SideT]] = None
 }
       

@@ -8,6 +8,6 @@ abstract class Area1(val sym: Symbol, val cen: LatLong) extends GeographicSymbol
    def neighbs: List[Area1] = Nil
    def a2Seq: List[Area2]   
    def fill: Boolean = true         
-   //def a2r(eg: EarthGui): Disp2 = a2Seq.displayFold(_.display(eg, fill))  
-   def disp2(eg: EarthGui): Disp2 = a2Seq.displayFold(_.display(eg, fill))          
+   //def a2r(eg: EarthGui): GraphicElems = a2Seq.mdisplayFold(_.display(eg, fill))  
+   def disp2(eg: EarthGui): GraphicElems = a2Seq.flatMap(_.display(eg, fill))          
 }

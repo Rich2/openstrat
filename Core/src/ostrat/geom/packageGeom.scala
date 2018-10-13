@@ -55,9 +55,9 @@ package object geom
       def south = Latitude.deg(-thisDouble)
    }
    
-   implicit class SeqGeomImplicit[A](thisSeq: Seq[A])
-   {  def displayFold(f: A => Disp2): Disp2 = thisSeq.map(f).displayFlatten
-   }
+//   implicit class SeqGeomImplicit[A](thisSeq: Seq[A])
+//   {  def displayFold(f: A => GraphicElems): GraphicElems = thisSeq.map(f).displayFlatten
+//   }
    
    implicit class DistImplicit(thisDist: Dist)
    {  def / (operand: Dist): Double = thisDist.metres / operand.metres

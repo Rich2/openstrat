@@ -10,7 +10,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
    /** The distance per pixel. This will normally be much greater than than 1 */
    scale = 5.12.km   
    focus = 59.17 ll 0.0
-   val fHex: OfETile[NTile, ESideOnly] => Disp2 = etog =>
+   val fHex: OfETile[NTile, ESideOnly] => GraphicElems = etog =>
       {
          import etog._         
          val colour: Colour = tile.colour
@@ -24,9 +24,9 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
             TextGraphic.lines(cen, ls, 10, colour.contrastBW)
             }
          })         
-         Disp2(List(poly),textU)
+         poly :: textU
       }
-      def fSide: OfESide[NTile, ESideOnly] => Disp2 = ofs => {
+      def fSide: OfESide[NTile, ESideOnly] => GraphicElems = ofs => {
       import ofs._
       val line = ifScaleCObjs(60, side.terr match
             {
@@ -34,14 +34,14 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui
                (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
          case Straits => vertDispLine.draw(6, Colour.Blue) :: Nil
          })      
-      Disp2(Nil, line)
+      line
    } 
       
    def ls: GraphicElems =
    {
-      val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
-      val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )
-      (gs ++ as).collapse   
+      val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+      val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this) )
+      gs ::: as   
    }
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {

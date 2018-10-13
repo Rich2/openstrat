@@ -91,8 +91,10 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2 with Stringer
   }
   
   def linesCross(armLength: Double = 5): Seq[Line2] = Seq(Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength))
-  def drawCross(armLength: Double = 5, lineColour: Colour = Colour.Black, lineWidth: Double = 2): LinesDraw =
-    LinesDraw(lineWidth, lineColour, Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength))
+  
+  /** Not sure about this method */
+  def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double, layer: Int = 0): LinesDraw =
+    LinesDraw(lineWidth, lineColour, layer, Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength))
 }
 
 object Vec2

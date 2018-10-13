@@ -19,8 +19,8 @@ trait RectGeom
    def bottomRight: Vec2 = Vec2(right, bottom)
    def bottomLeft: Vec2 = Vec2(left, bottom)
    def cenLeft = Vec2(left, 0)
-   def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw =
-      LinesDraw(lineWidth, lineColour, Line2(left, 0, right, 0), Line2(0, top, 0, bottom))
+   def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black, layer: Int = 0): LinesDraw =
+      LinesDraw(lineWidth, lineColour, layer, Line2(left, 0, right, 0), Line2(0, top, 0, bottom))
    /** Not sure why spacing has got a minus sign */   
    def gridLines(spacing: Double = 100, colour: Colour = Black, lineWidth: Double = 1.0): LinesDraw =
    {

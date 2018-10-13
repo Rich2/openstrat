@@ -5,17 +5,19 @@ package pWW2
 import geom._, pEarth._, pCanv._, pStrat._
 
 case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
-{   
-   deb("Beginning WWIIGui")
-   focusUp = true
-   override def saveNamePrefix = "WW2"
-   val fHex: OfETile[W2Tile, W2Side] => Disp2 = etog =>
-      {
-         import etog._         
-         val colour: Colour = tile.colour
-         val poly = etog.vertDispVecs.fillSubj(tile, colour)
-         //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-         val textOrUnit: GraphicElems = ifScaleCObjs(68, tile.lunits match {
+{
+  deb("Beginning WWIIGui")
+  focusUp = true
+  override def saveNamePrefix = "WW2"
+  
+  val fHex: OfETile[W2Tile, W2Side] => GraphicElems = etog =>
+    {
+      import etog._         
+      val colour: Colour = tile.colour
+      val poly = etog.vertDispVecs.fillSubj(tile, colour)
+      //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
+      val textOrUnit: GraphicElems = ifScaleCObjs(68, tile.lunits match
+          {
             case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => 
             {
@@ -23,26 +25,26 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
               TextGraphic.lines(cen, ls, 10, colour.contrastBW)                  
             }
          })
-         Disp2(List(poly), textOrUnit)
+         poly :: textOrUnit
       }
-   def fSide: OfESide[W2Tile, W2Side] => Disp2 = ofs => {
-      import ofs._
-      val line = ifScaleCObjs(60, side.terr match
-            {
-         case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
-               (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-         case Straits => vertDispLine.draw(6, Colour.Blue) :: Nil
+    
+   def fSide: OfESide[W2Tile, W2Side] => GraphicElems = ofs =>
+     {
+       import ofs._
+       ifScaleCObjs(60, side.terr match
+         {
+           case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
+           case Straits => vertDispLine.draw(6, Colour.Blue) :: Nil
          })      
-      Disp2(Nil, line)
    } 
    
-   //def dSides: Disp2 = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
+   //def dSides: GraphicElems = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
       
    def ls: GraphicElems = 
    {
-      val gs: Disp2 = scen.grids.displayFold(_.eDisp2(this, fHex, fSide))
-      val as: Disp2 = scen.tops.displayFold(a => a.disp2(this) )
-      (as ++ gs).collapse// + b  
+      val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+      val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this) )
+      as ::: gs// + b  
    }   
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
