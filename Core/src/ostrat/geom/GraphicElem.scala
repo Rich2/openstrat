@@ -32,22 +32,41 @@ case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, 
 {
   def typeSym = 'LineDraw
   def str = persist4(xStart, xEnd, lineWidth, colour)
-  override def fTrans(f: Vec2 => Vec2) = LineDraw(f(pStart), f(pEnd), lineWidth, colour, layer)  
+  override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour, layer)
+  def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, lineWidth, dashLength, gapLength, colour, layer)
 }
 
 object LineDraw
 {
   def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, colour: Colour = Black, layer: Int = 0): LineDraw =
     new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, layer)
+  
 }
 
 case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black, layer: Int = 0) extends PaintElem[LinesDraw]
-{ override def fTrans(f: Vec2 => Vec2) = LinesDraw(lineSegs.fTrans(f), lineWidth, colour, layer)
+{ override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lineSegs.fTrans(f), lineWidth, colour, layer)
 }
 
 object LinesDraw
 {
   def apply(lineWidth: Double, colour: Colour, layer: Int, lineSegs: Line2 *): LinesDraw =
     LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour, layer)
+}
+
+case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double],
+    layer: Int) extends PaintElem[DashedLineDraw] with CurveLike
+{
+  def typeSym = 'DashedLineDraw
+  def str = persist4(xStart, xEnd, lineWidth, colour)
+  override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour, layer)  
+}
+
+object DashedLineDraw
+{
+  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black, layer: Int = 0):
+    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, Array[Double](dashLength, gapLength), layer)
+  
+  def array(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black, layer: Int = 0):
+    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, dashArr, layer)
 }
 

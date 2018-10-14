@@ -27,7 +27,9 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    override def shapeFillDraw(sfd: ShapeFillDraw): Unit = {}
    override def shapeDraw(sd: ShapeDraw): Unit = {}
    override def textGraphic(tg: TextGraphic) = {} 
-   override def textOutline(to: TextOutline): Unit = {}  
+   override def textOutline(to: TextOutline): Unit = {}
+   override def dashedLineDraw(dld: DashedLineDraw): Unit = {}
+   
    override def clear(colour: Colour = Colour.White): Unit = {}  
    override def gcSave(): Unit = {}
    override def gcRestore(): Unit = {} 

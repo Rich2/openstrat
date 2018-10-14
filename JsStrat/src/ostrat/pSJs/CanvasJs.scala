@@ -94,6 +94,16 @@ object CanvasJs extends CanvasTopLeft
     gc.lineWidth = ld.lineWidth
     gc.stroke()
   }
+  
+  override def tlDashedLineDraw(dld: DashedLineDraw): Unit =
+  { gc.beginPath
+    gc.moveTo(dld.xStart, dld.yStart)
+    gc.lineTo(dld.xEnd, dld.yEnd)
+    gc.strokeStyle = dld.colour.webStr
+    gc.lineWidth = dld.lineWidth
+    //gc. setLineDash(dld.dashArr)
+    gc.stroke()
+  }
    
   override protected def tlArcDraw(ad: ArcDraw): Unit =
   { gc.beginPath

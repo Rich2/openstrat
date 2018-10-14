@@ -8,23 +8,25 @@ import pStrat._
 class Squad(val polity: Polity, var xCood: Int, var yCood: Int) extends Lunit
 {
   var action: Action = NoAction
-  def setMove(newMove: Cood *): Unit = action = Move(newMove.toList)
-   val colour = polity.colour
-   override def toString = "Squad" - (polity.toString).enParenth
-   override def equals(other: Any): Boolean = other match
-   {
-      case that: Squad => polity == that.polity
-      case _ => false
-   }
-   def canMove(tile: ZugTile): Boolean = tile.terr != Lake
-   def terrCost(tile: ZugTile): Int = tile.terr match
-   {
-      case Plain => 4
-      case WheatField => 6
-      case StoneBuilding => 10 
-      case Hill => 6
-      case _ => 4
-   }
+  def move(newMove: Cood *): Unit = action = Move(newMove.toList)
+  def fire(x: Int, y: Int): Unit = action = Fire(x cc y)
+  val colour = polity.colour
+  override def toString = "Squad" - (polity.toString).enParenth
+  
+  override def equals(other: Any): Boolean = other match
+  { case that: Squad => polity == that.polity
+    case _ => false
+  }
+  
+  def canMove(tile: ZugTile): Boolean = tile.terr != Lake
+   
+  def terrCost(tile: ZugTile): Int = tile.terr match
+  { case Plain => 4
+    case WheatField => 6
+    case StoneBuilding => 10 
+    case Hill => 6
+    case _ => 4
+  }
 }
 
 object Squad

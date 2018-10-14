@@ -74,6 +74,17 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.stroke = toFxColor(ad.colour)
     gc.stroke()
   }
+  
+  protected def tlDashedLineDraw(dld: DashedLineDraw): Unit =
+  { gc.beginPath
+    gc.moveTo(dld.xStart, dld.yStart)
+    gc.lineTo(dld.xEnd, dld.yEnd)
+    gc.stroke = toFxColor(dld.colour)
+    gc.lineWidth = dld.lineWidth
+    gc.setLineDashes(dld.dashArr :_*)
+    gc.stroke()
+    gc.setLineDashes()
+  }  
    
   def fxAlign(align: TextAlign) =
   { import javafx.scene.text._

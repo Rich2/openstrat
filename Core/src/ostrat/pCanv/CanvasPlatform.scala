@@ -74,6 +74,8 @@ trait CanvasPlatform extends RectGeom
   def textOutline(to: TextOutline): Unit
   final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen): Unit =
     textOutline(TextOutline(posn, text, fontSize, colour, lineWidth, align))
+    
+  def dashedLineDraw(dld: DashedLineDraw): Unit   
       
   def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
    
@@ -114,6 +116,7 @@ trait CanvasPlatform extends RectGeom
     case pfd: PolyFillDraw => polyFillDraw(pfd)
     case lsd: LinesDraw => linesDraw(lsd)
     case ld: LineDraw => lineDraw(ld)
+    case dld: DashedLineDraw => dashedLineDraw(dld)
     case sf: ShapeFill => shapeFill(sf)
     case sd: ShapeDraw => shapeDraw(sd)
     case sfd: ShapeFillDraw => shapeFillDraw(sfd) 

@@ -4,8 +4,7 @@ package geom
 
 /** A 2 dimensional line segment measured in metres. A straight line between two points on a 2 dimensional flat surface. */
 class LineDist2(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double)
-{
-  def xStart: Dist = Dist(xStartMetres)
+{ def xStart: Dist = Dist(xStartMetres)
   def yStart: Dist = Dist(yStartMetres)
   def xEnd: Dist = Dist(xEndMetres)
   def yEnd: Dist = Dist(yEndMetres)
@@ -21,11 +20,11 @@ object LineDist2
 
 case class LatLongLine(latStart: Double, longStart: Double, lat2: Double, long2: Double)
 {
-   def llStart = LatLong(latStart, longStart)
-   def latLong2 = LatLong(lat2, long2)
+  def llStart = LatLong(latStart, longStart)
+  def latLong2 = LatLong(lat2, long2)
 }
 
 object LatLongLine
 {
-   def apply(llStart: LatLong, ll2: LatLong): LatLongLine = new LatLongLine(llStart.lat, llStart.long, ll2.lat, ll2.long)
+  def apply(llStart: LatLong, ll2: LatLong): LatLongLine = new LatLongLine(llStart.lat, llStart.long, ll2.lat, ll2.long)
 }

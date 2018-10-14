@@ -34,7 +34,7 @@ class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, Zu
           acc :+ l1 :+ l2
         }
       }
-      case Fire(target) => List(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red, 3))
+      case Fire(target) => List(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red, 3).dashed(20, 20))
       case _ => Nil
     }
     
