@@ -101,8 +101,9 @@ object CanvasJs extends CanvasTopLeft
     gc.lineTo(dld.xEnd, dld.yEnd)
     gc.strokeStyle = dld.colour.webStr
     gc.lineWidth = dld.lineWidth
-    //gc. setLineDash(dld.dashArr)
+    gc.setLineDash(scalajs.js.Array.apply(dld.dashArr: _ *))    
     gc.stroke()
+    gc.setLineDash(scalajs.js.Array.apply())
   }
    
   override protected def tlArcDraw(ad: ArcDraw): Unit =
