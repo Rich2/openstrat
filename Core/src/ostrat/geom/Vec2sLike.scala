@@ -20,6 +20,8 @@ trait Vec2sLike extends Any
   }
 }
 
+/** Array[Double] based collection class for Vec2s which doesn't reperesent a closed Polygon. Conversion to and form the Polygon class should not
+ *  entail a runtime cost. */
 class Vec2s(val arr: Array[Double]) extends AnyVal with Transable[Vec2s] with Vec2sLike
 {
   @inline def lengthFull: Int = arr.length / 2
@@ -41,6 +43,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with Transable[Vec2s] with Ve
   def draw(lineWidth: Double, colour: Colour = Colour.Black): Vec2sDraw = Vec2sDraw(this, lineWidth, colour)
 }
 
+/** Companion object for the Vec2s collection class. */
 object LineSegs
 {
   def apply(pStart: Vec2, pEnds: Vec2 *): Vec2s =

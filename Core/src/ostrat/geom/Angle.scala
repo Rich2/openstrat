@@ -13,20 +13,22 @@ trait AngleLike extends Any
   def arcDistance (radiusDist: Dist): Dist = radians * radiusDist
 }
 
-/** Angle value class. Its particularly important not to use this class to represent Latitudes as they are between +- 180 degrees. */
+/** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
+ *  while Latitudes have a normal range +- 90 degrees. */
 final class Angle private(val radians: Double) extends AnyVal with AngleLike
 { override def toString = degStr2
   def degStr2: String = degs.str2 -"\u00B0"
   def toVec2: Vec2 = Vec2(math.cos(radians), math.sin(radians))
   def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
   def +(other: Angle) = Angle(radians + other.radians)
+  
   /** returns an angle between -Pi and Pi */
   def angleTo(other: Angle): Angle = other.radians -radians match
   { case r if r > Pi => Angle(r - Pi2)
     case r if r < -Pi => Angle(Pi2 + r)
     case r => Angle(r)
   }
-   
+  
   def addRadians(other: Double) = Angle(radians + other)
   def subRadians(other: Double) = Angle(radians - other)
   def * (factor: Double): Angle = Angle(radians * factor)

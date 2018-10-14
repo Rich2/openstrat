@@ -16,112 +16,54 @@ trait Transable[T] extends Any
   def rotate(angle: Angle): T = fTrans(_.rotate(angle))
   def rotateRadians(r: Double): T = fTrans(_.rotateRadians(r))
   def scaleY(factor: Double): T = fTrans(_.scaleY(factor))
-   /** this.asInstanceOf[T] */  
-   def identity: T = this.asInstanceOf[T]   
-   def mirrorX: T = fTrans(_.mirrorX)
-   def mirrorY: T = fTrans(_.mirrorY)
-   def mirror4: List[T] = List(fTrans(v => v), fTrans(_.mirrorX), fTrans(_.mirrorY), fTrans(- _))
-   def withNegate: Seq[T] = Seq(identity, fTrans(- _))
-   def inverseY: T = fTrans(v => Vec2(v.x, -v.y))
+  /** this.asInstanceOf[T] */  
+  def identity: T = this.asInstanceOf[T]   
+  def mirrorX: T = fTrans(_.mirrorX)
+  def mirrorY: T = fTrans(_.mirrorY)
+  def mirror4: List[T] = List(fTrans(v => v), fTrans(_.mirrorX), fTrans(_.mirrorY), fTrans(- _))
+  def withNegate: Seq[T] = Seq(identity, fTrans(- _))
+  def inverseY: T = fTrans(v => Vec2(v.x, -v.y))
 
-
-
-   import math.Pi
-   /** Rotates 30 degrees anti-clockwise or + Pi/3 */
-   def anti30: T = rotate(Angle(Pi / 6))
-   /** Rotates 45 degrees anti-clockwise or + Pi/4 */
-   def anti45: T = rotate(Angle(Pi / 4))
-   /** Rotates 60 degrees anti-clockwise or + Pi/3 */
-   def anti60: T  = rotate(Angle(Pi / 3))  
-   /** Rotates 90 degrees anti-clockwise or + Pi/2 */
-   def anti90: T = rotate(Angle(Pi / 2))  
-   /** Rotates 120 degrees anti-clockwise or + 2 * Pi/3 */
-   def anti120: T = rotate(Angle(2 * Pi / 3))
-   /** Rotates 135 degrees anti-clockwise or + 3 * Pi/4 */
-   def anti135: T = rotate(Angle(3 * Pi / 4))
-   /** Rotates 150 degrees anti-clockwise or + 5 * Pi/6 */
-   def anti150: T = rotate(Angle(5 * Pi / 6))
+  import math.Pi
+  /** Rotates 30 degrees anti-clockwise or + Pi/3 */
+  def anti30: T = rotate(Angle(Pi / 6))
+  /** Rotates 45 degrees anti-clockwise or + Pi/4 */
+  def anti45: T = rotate(Angle(Pi / 4))
+  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
+  def anti60: T  = rotate(Angle(Pi / 3))  
+  /** Rotates 90 degrees anti-clockwise or + Pi/2 */
+  def anti90: T = rotate(Angle(Pi / 2))  
+  /** Rotates 120 degrees anti-clockwise or + 2 * Pi/3 */
+  def anti120: T = rotate(Angle(2 * Pi / 3))
+  /** Rotates 135 degrees anti-clockwise or + 3 * Pi/4 */
+  def anti135: T = rotate(Angle(3 * Pi / 4))
+  /** Rotates 150 degrees anti-clockwise or + 5 * Pi/6 */
+  def anti150: T = rotate(Angle(5 * Pi / 6))
    
-   /** Rotates 30 degrees clockwise or - Pi/3 */
-   def clk30: T = rotate(Angle(-Pi / 6))
-   /** Rotates 45 degrees clockwise or - Pi/4 */
-   def clk45: T = rotate(Angle(-Pi / 4))
-   /** Rotates 60 degrees clockwise or - Pi/3 */
-   def clk60: T  = rotate(Angle(-Pi / 3))  
-   /** Rotates 90 degrees clockwise or - Pi / 2 */
-   def clk90: T = rotate(Angle(-Pi / 2))  
-   /** Rotates 120 degrees clockwise or - 2 * Pi/3 */
-   def clk120: T = rotate(Angle(-2 * Pi / 3))
-   /** Rotates 135 degrees clockwise or - 3 * Pi/ 4 */
-   def clk135: T = rotate(Angle(-3 * Pi / 4))
-   /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
-   def clk150: T = rotate(Angle(-5 * Pi / 6))
+  /** Rotates 30 degrees clockwise or - Pi/3 */
+  def clk30: T = rotate(Angle(-Pi / 6))
+  /** Rotates 45 degrees clockwise or - Pi/4 */
+  def clk45: T = rotate(Angle(-Pi / 4))
+  /** Rotates 60 degrees clockwise or - Pi/3 */
+  def clk60: T  = rotate(Angle(-Pi / 3))  
+  /** Rotates 90 degrees clockwise or - Pi / 2 */
+  def clk90: T = rotate(Angle(-Pi / 2))  
+  /** Rotates 120 degrees clockwise or - 2 * Pi/3 */
+  def clk120: T = rotate(Angle(-2 * Pi / 3))
+  /** Rotates 135 degrees clockwise or - 3 * Pi/ 4 */
+  def clk135: T = rotate(Angle(-3 * Pi / 4))
+  /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
+  def clk150: T = rotate(Angle(-5 * Pi / 6))
    
-   /** Produces a regular cross of a sequence of four of the elements rotated */
-   def rCross: Seq[T] = (1 to 4).map(i => rotate(deg90 * i))
+  /** Produces a regular cross of a sequence of four of the elements rotated */
+  def rCross: Seq[T] = (1 to 4).map(i => rotate(deg90 * i))
 }
 
 object Transable
 {
-//   import scala.collection.mutable.{ Builder }
-//   import scala.collection._
-   implicit class ImplictTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
-   {
-      def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])      
-      def flatMirror4: List[TT] = tList.flatMap(_.mirror4.asInstanceOf[Seq[TT]])      
-      //def flatWithNegate: List[TT] = tList.flatMap(_.withNegate.asInstanceOf[Seq[TT]])
-   }
-   
-//   implicit class ImplicitTransableTrav[TransT <: Transable[TransT], Repr](travLike: TraversableLike[TransT, Repr])// extends Traversable[Repr]
-//   {
-//      
-//      def fTrans(f: Vec2 => Vec2)(implicit bf: generic.CanBuildFrom[Repr, TransT, Repr]): Repr =
-//      {
-//         def builder: Builder[TransT,Repr] =
-//         { // extracted to keep method size under 35 bytes, so that it can be JIT-inlined
-//            val b = bf(travLike.repr)
-//            b.sizeHint(travLike)
-//            b
-//         }
-//         val b = builder
-//         for (transable <- travLike) b += transable.fTrans(f)
-//         b.result
-//      }
-//      def slate (offset: Vec2)(implicit bf: generic.CanBuildFrom[Repr, TransT, Repr]): Repr =
-//      {
-//         def builder: Builder[TransT, Repr] =
-//         { // extracted to keep method size under 35 bytes, so that it can be JIT-inlined
-//            val b = bf(travLike.repr)
-//            b.sizeHint(travLike)
-//            b
-//         }
-//         val b = builder
-//         for (transable <- travLike) b += transable.slate(offset)
-//         b.result
-//      }
-//      def slate(xOff: Double, yOff: Double)(implicit bf: generic.CanBuildFrom[Repr, TransT, Repr]): Repr =
-//      {
-//         def builder =
-//         { // extracted to keep method size under 35 bytes, so that it can be JIT-inlined
-//            val b = bf(travLike.repr)
-//            b.sizeHint(travLike)
-//            b
-//         }
-//         val b = builder
-//         for (transable <- travLike) b += transable.slate(xOff, yOff)
-//         b.result
-//      }
-//      def scale(factor: Double)(implicit bf: generic.CanBuildFrom[Repr, TransT, Repr]): Repr =
-//      {
-//         def builder =
-//         { // extracted to keep method size under 35 bytes, so that it can be JIT-inlined
-//            val b = bf(travLike.repr)
-//            b.sizeHint(travLike)
-//            b
-//         }
-//         val b = builder
-//         for (transable <- travLike) b += transable.scale(factor)
-//         b.result
-//      }
-//   }
+  implicit class ImplictTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
+  {
+    def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])      
+    def flatMirror4: List[TT] = tList.flatMap(_.mirror4.asInstanceOf[Seq[TT]])     
+  }
 }

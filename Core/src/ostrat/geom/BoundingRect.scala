@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** An intermediate class for describing the bounding rectangle for a Polygon or Shape. */
+/** An intermediate class for describing the vertical / horisontal bounding rectangle for a Polygon or Shape. Defined by 4 Double values. */
 case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double)
 { def topLeft = Vec2(minX, maxY)
   def topRight = Vec2(maxX, maxY)

@@ -20,8 +20,8 @@ trait CanvasPlatform extends RectGeom
   def clip(pts: Polygon): Unit
   /** Returns the time in milliseconds */
   def getTime: Double
-  /** A callback timer with an elapsed time from a given start point. The function is of form: (elapsedTime(in milliseconds), Startime(in millseconds)
-    *  => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
+  /** A callback timer with an elapsed time from a given start point. The function is of form: (elapsedTime(in milliseconds), Startime (in
+   *   milliseconds) => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
   def frame(f: (Double, Double) => Unit, startTime: Double, frameLength: Integer = 15): Unit =
     timeOut(() => f(getTime - startTime, startTime), frameLength)
   def frameZero(f: (Double, Double) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime)

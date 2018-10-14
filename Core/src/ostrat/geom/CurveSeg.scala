@@ -95,16 +95,19 @@ ProdD7 with Transable[CurveSeg] with CurveSegLike
   }
 }
 
+/** This provides factory methods to create a LineSeg. There is no independent LineSeg class. This is one of 3 factory objects to CurveSeg. */
 object LineSeg
 { def apply(pEnd: Vec2): CurveSeg =  new CurveSeg(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
   def apply(xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(10, 0, 0, 0, 0, xEnd, yEnd)
 }
 
+/** This provides factory methods to create an ArcSeg. There is no independent ArcSeg class. This is one of 3 factory objects to CurveSeg. */
 object ArcSeg
 { def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
   //def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)
 }
 
+/** This provides factory methods to create a BezierSeg. There is no independent BezierSeg class. This is one of 3 factory objects to CurveSeg. */
 object BezierSeg
 { def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
   //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)

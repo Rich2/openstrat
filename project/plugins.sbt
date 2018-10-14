@@ -1,6 +1,6 @@
 //addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.1")
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.25") 
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.6")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.8")
 addSbtPlugin("io.spray" % "sbt-revolver" % "0.9.1")
 addSbtPlugin("com.eed3si9n" % "sbt-unidoc" % "0.4.1")
 addSbtPlugin("org.scala-native" % "sbt-scala-native" % "0.3.8")

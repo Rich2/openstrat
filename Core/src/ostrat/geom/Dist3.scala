@@ -38,6 +38,7 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   }
 }
 
+/** Companion object for the Dist3 class. */
 object Dist3
 { 
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): Dist3 = new Dist3(xMetres, yMetres, zMetres)

@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-/** Super trait to Arc and ArcDraw */
+/** Super trait to Arc and ArcDraw and Arc fill which has not been implemented yet. */
 trait ArcLike extends CurveLike
 { def xCen: Double
   def yCen: Double
@@ -30,12 +30,13 @@ case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd:
    def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pCen), f(pEnd))   
 }
 
+/** The companion object for the Arc class. */
 object Arc
 {
    def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2): Arc =  new Arc(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y)
 }
 
-/** A funtional paint element to Draw an Arc */
+/** A functional paint element to Draw an Arc. Defined by the arc, the line width, the colour and the layer. */
 case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour,
     layer: Int) extends PaintElem[ArcDraw] with ArcLike
 { def typeSym = 'ArcDraw
@@ -49,4 +50,3 @@ object ArcDraw
    def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black, layer: Int = 0): ArcDraw =
       new ArcDraw(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y, lineWidth, colour, layer)
 }
-
