@@ -6,67 +6,67 @@ import Colour.Black
 /** The base trait for all objects on a canvas / panel. The objects are recomposed for each frame. The Canvas objects must be recomposed
  *  each time there is a change within the application state or the user view of that application state. */
 trait GraphicElem[A] extends Any with Transable[A]
-{ def layer: Int
+{ def zOrder: Int
 }
 
 /* Base trait for all passive objects  on a canvas / panel */
 trait PaintElem[A] extends Any with GraphicElem[A]
 
-case class ShapeFill(shape: Shape, colour: Colour, layer: Int = 0) extends PaintElem[ShapeFill]// with Stringer
+case class ShapeFill(shape: Shape, colour: Colour, zOrder: Int = 0) extends PaintElem[ShapeFill]// with Stringer
 { def typeSym = 'ShapeFill
   //def str = persist2(shape, colour)
-  override def fTrans(f: Vec2 => Vec2) = ShapeFill(shape.fTrans(f), colour, layer)  
+  override def fTrans(f: Vec2 => Vec2) = ShapeFill(shape.fTrans(f), colour, zOrder)  
 }
 
-case class ShapeDraw(segs: Shape, lineWidth: Double, colour: Colour = Black, layer: Int = 0) extends PaintElem[ShapeDraw]
-{ override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, colour, layer) }
+case class ShapeDraw(segs: Shape, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[ShapeDraw]
+{ override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, colour, zOrder) }
 
-case class ShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, layer: Int = 0) extends
+case class ShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) extends
 PaintElem[ShapeFillDraw]
 {
-  override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour, layer)
+  override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
 }
 
-case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, layer: Int) extends
+case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, zOrder: Int) extends
   PaintElem[LineDraw] with CurveLike
 {
   def typeSym = 'LineDraw
   def str = persist4(xStart, xEnd, lineWidth, colour)
-  override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour, layer)
-  def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, lineWidth, dashLength, gapLength, colour, layer)
+  override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour, zOrder)
+  def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, lineWidth, dashLength, gapLength, colour, zOrder)
 }
 
 object LineDraw
 {
-  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, colour: Colour = Black, layer: Int = 0): LineDraw =
-    new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, layer)
+  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0): LineDraw =
+    new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, zOrder)
   
 }
 
-case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black, layer: Int = 0) extends PaintElem[LinesDraw]
-{ override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lineSegs.fTrans(f), lineWidth, colour, layer)
+case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[LinesDraw]
+{ override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lineSegs.fTrans(f), lineWidth, colour, zOrder)
 }
 
 object LinesDraw
 {
-  def apply(lineWidth: Double, colour: Colour, layer: Int, lineSegs: Line2 *): LinesDraw =
-    LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour, layer)
+  def apply(lineWidth: Double, colour: Colour, zOrder: Int, lineSegs: Line2 *): LinesDraw =
+    LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour, zOrder)
 }
 
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double],
-    layer: Int) extends PaintElem[DashedLineDraw] with CurveLike
+    zOrder: Int) extends PaintElem[DashedLineDraw] with CurveLike
 {
   def typeSym = 'DashedLineDraw
   def str = persist4(xStart, xEnd, lineWidth, colour)
-  override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour, layer)  
+  override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour, zOrder)  
 }
 
 object DashedLineDraw
 {
-  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black, layer: Int = 0):
-    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, Array[Double](dashLength, gapLength), layer)
+  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black, zOrder: Int = 0):
+    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, Array[Double](dashLength, gapLength), zOrder)
   
-  def array(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black, layer: Int = 0):
-    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, dashArr, layer)
+  def array(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black, zOrder: Int = 0):
+    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, dashArr, zOrder)
 }
 

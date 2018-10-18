@@ -3,21 +3,22 @@ package ostrat
 package geom
 import Colour.Black
 
-case class PolySubj(cen: Vec2, poly: Polygon, evObj: AnyRef, elems: List[PaintElem[_]], layer: Int = 0) extends GraphicSubject[PolySubj] with
+case class PolySubj(cen: Vec2, poly: Polygon, evObj: AnyRef, elems: List[PaintElem[_]], zOrder: Int = 0) extends GraphicSubject[PolySubj] with
 PolyActive
 {  
-   def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.fTrans(f), layer)   
-   override def addElems(newElems: List[PaintElem[_]]): PolySubj = new PolySubj(cen, poly, evObj, elems ::: newElems, layer)
-   override def mutObj(newObj: AnyRef): PolySubj = new PolySubj(cen, poly, newObj, elems, layer)
+   def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.fTrans(f), zOrder)   
+   override def addElems(newElems: List[PaintElem[_]]): PolySubj = new PolySubj(cen, poly, evObj, elems ::: newElems, zOrder)
+   override def mutObj(newObj: AnyRef): PolySubj = new PolySubj(cen, poly, newObj, elems, zOrder)
 }
 
 object PolySubj
 {
-  def fill(cen: Vec2, poly: Polygon, evObj: AnyRef, colour: Colour, layer: Int = 0) = new PolySubj(cen, poly, evObj, List(poly.fill(colour)), layer)
+  def fill(cen: Vec2, poly: Polygon, evObj: AnyRef, colour: Colour, zOrder: Int = 0) = new PolySubj(cen, poly, evObj, List(poly.fill(colour)),
+      zOrder)
    
   /** Not sure if this is double filling the polygon */
-  def fillDraw(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, layer: Int = 0) =
-    new PolySubj(cen, poly, evObj, List(PolyFillDraw(poly, fillColour, lineWidth, lineColour, layer)), layer)
+  def fillDraw(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) =
+    new PolySubj(cen, poly, evObj, List(PolyFillDraw(poly, fillColour, lineWidth, lineColour, zOrder)), zOrder)
    
   def draw(cen: Vec2, poly: Polygon, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black) =
       new PolySubj(cen, poly, evObj, List(PolyDraw(poly, lineWidth, lineColour)))

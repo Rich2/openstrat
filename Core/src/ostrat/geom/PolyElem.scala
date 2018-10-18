@@ -13,26 +13,26 @@ trait PolyElem[A] extends Any with PaintElem[A]
    def yArray: Array[Double] = verts.elem2sArray
 }
 
-case class PolyFill(verts: Polygon, colour: Colour, layer: Int = 0) extends PolyElem[PolyFill]
+case class PolyFill(verts: Polygon, colour: Colour, zOrder: Int = 0) extends PolyElem[PolyFill]
 {
-  override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour, layer)
+  override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour, zOrder)
 }
 
-case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black, layer: Int = 0) extends PolyElem[PolyDraw]
+case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PolyElem[PolyDraw]
 { 
-  override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour, layer) 
+  override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour, zOrder) 
 }
 
-case class PolyFillDraw(verts: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, layer: Int = 0) extends
+case class PolyFillDraw(verts: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) extends
 PolyElem[PolyFillDraw]
 {
-  override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour, layer)
+  override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
 }
 
-case class Vec2sDraw(vec2s: Vec2s, lineWidth: Double, colour: Colour = Black, layer: Int = 0) extends PaintElem[Vec2sDraw]
+case class Vec2sDraw(vec2s: Vec2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[Vec2sDraw]
 {
   def xStart = vec2s.xStart
   def yStart = vec2s.yStart
-  override def fTrans(f: Vec2 => Vec2): Vec2sDraw = Vec2sDraw(vec2s.fTrans(f), lineWidth, colour, layer) 
+  override def fTrans(f: Vec2 => Vec2): Vec2sDraw = Vec2sDraw(vec2s.fTrans(f), lineWidth, colour, zOrder) 
   @inline def foreachEnd(f: (Double, Double) => Unit): Unit = vec2s.foreachEnd(f)
 }

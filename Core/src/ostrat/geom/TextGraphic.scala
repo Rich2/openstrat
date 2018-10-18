@@ -11,16 +11,16 @@ case object TextCen extends TextAlign { def jsStr = "center" }
 case object TextLeft extends TextAlign { def jsStr = "left" }
 case object TextRight extends TextAlign { def jsStr = "right" }
  
-case class TextGraphic(posn: Vec2, str: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen, layer: Int = 0) extends 
+case class TextGraphic(posn: Vec2, str: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen, zOrder: Int = 0) extends 
 PaintElem[TextGraphic]
 {
-  override def fTrans(f: Vec2 => Vec2) = TextGraphic(f(posn), str, fontSize, colour, align, layer)
+  override def fTrans(f: Vec2 => Vec2) = TextGraphic(f(posn), str, fontSize, colour, align, zOrder)
 }
 
 object TextGraphicCen
 {
-  def apply(posn: Vec2, str: String, fontSize: Int, colour: Colour = Black, layer: Int = 0): TextGraphic =
-    new TextGraphic(posn, str, fontSize, colour, TextCen, layer)
+  def apply(posn: Vec2, str: String, fontSize: Int, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
+    new TextGraphic(posn, str, fontSize, colour, TextCen, zOrder)
 }
 
 object TextGraphic
@@ -36,7 +36,7 @@ object TextGraphic
 }
 
 case class TextOutline(posn: Vec2, str: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen,
-    layer: Int = 0) extends PaintElem[TextOutline]
+    zOrder: Int = 0) extends PaintElem[TextOutline]
 {
   override def fTrans(f: Vec2 => Vec2) = TextOutline(f(posn), str, fontSize, colour, lineWidth, align)  
 }

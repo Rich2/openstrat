@@ -38,11 +38,11 @@ trait ClickShapeTr extends GraphicActive
 }
 
 /** A pointable polygon without visual */
-case class PolyActiveOnly(poly: Polygon, evObj: AnyRef, layer: Int = 0) extends GraphicElem[PolyActiveOnly] with PolyActive
+case class PolyActiveOnly(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActiveOnly] with PolyActive
 {
-  override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj, layer)
+  override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj, zOrder)
 }
 
 /** A pointable shape without visual */
-case class ClickShape(shape: Shape, evObj: AnyRef, layer: Int = 0) extends GraphicElem[ClickShape] with ClickShapeTr
+case class ClickShape(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[ClickShape] with ClickShapeTr
 { override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }

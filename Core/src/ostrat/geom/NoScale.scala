@@ -8,7 +8,7 @@ import Colour.Black
 trait NoScaleGraphicElem[T <: NoScaleGraphicElem[T]] extends GraphicElem[T]
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
-case class NoScaleShape(referenceVec: Vec2, relShape: Shape, evObj: AnyRef, elems: List[PaintElem[_]], layer: Int = 0) extends
+case class NoScaleShape(referenceVec: Vec2, relShape: Shape, evObj: AnyRef, elems: List[PaintElem[_]], zOrder: Int = 0) extends
 NoScaleGraphicElem[NoScaleShape] with ClickShapeTr
 {
    def shape: Shape = relShape.slate(referenceVec)
