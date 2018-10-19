@@ -39,3 +39,5 @@ sealed trait Action
 case class Move(coods: List[Cood]) extends Action
 case class Fire(cood: Cood) extends Action
 object NoAction extends Action
+
+case class SquadTurn(id: Int, action: Action)

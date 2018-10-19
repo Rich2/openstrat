@@ -30,6 +30,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
   fSidesSetAll(false)
   
   def minCopy: ZugGrid = new ZugGrid(xTileMin, xTileMax, yTileMin, yTileMax)
+  def squads(player: Polity, actions: List[SquadTurn]): Unit = {}
   
 }
 

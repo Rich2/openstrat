@@ -20,7 +20,7 @@ class ZGame(scenInit: ZugGrid, val players: List[ZPlayer])
     scen.sideCoodForeach{cood => newScen.setSide(cood, scen.getSide(cood)) }
     newScen
   }
-  def makeMove(id: Int, coods: Coods): ZugGrid = ???
+  def makeMove(id: Int, coods: Coods): ZugGrid = scen
 }
 
 object ZGame1 extends ZGame(Zug1, List(PlayBritain, PlayGermany))
