@@ -41,6 +41,8 @@ abstract class TileGrid[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTi
    def fSetTile(x: Int, y: Int, fTile: (Int, Int) => TileT) = { coodIsTile(x, y);  arr(xyToInd(x, y)) = fTile(x, y) }
    def fSetTile(cood: Cood, fTile: Cood => TileT) = { coodIsTile(cood); arr(xyToInd(cood.x, cood.y)) = fTile(cood) }
    
+   def setSide(x: Int, y: Int, side: SideT): Unit = { coodIsSide(x, y); arr(xyToInd(x, y)) = side }
+   def setSide(sc: Cood, side: SideT): Unit = { coodIsSide(sc); arr(xyToInd(sc.x, sc.y)) = side }
    def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {coodIsSide(x, y); arr(xyToInd(x, y)) = f(x, y, value)}
    def fSetSides[A](value: A, xys: Coods)(implicit f: (Int, Int, A) => SideT) = xys.foreach(p => fSetSide(p.x, p.y, value))
    

@@ -9,17 +9,18 @@ trait ZugTerr
 {
    def colour: Colour
    def cost: OptInt = SomeInt(1)
+   def conceal: Boolean = false
 }
 
 object ZugTerr
 {
-   implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply 
+   implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply(_, _, _, Nil)
 }
 
-case class ZugTile(x: Int, y: Int, terr: ZugTerr) extends TileColoured
+case class ZugTile(x: Int, y: Int, terr: ZugTerr, lunits: List[Squad] = Nil) extends TileColoured
 {   
    def colour = terr.colour
-   var lunits: List[Squad] = Nil   
+      
 }
 
 object ZugTile
@@ -46,7 +47,7 @@ case object Hill extends ZugTerr
    override def colour = Brown
 }
 
-trait Building extends ZugTerr
+trait Building extends ZugTerr { override def conceal = true }
 
 case object StoneBuilding extends Building
 {

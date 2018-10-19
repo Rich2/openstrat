@@ -10,7 +10,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
   def placeSquad(polity: Polity, x: Int, y: Int): Squad =
   { val sd = Squad(polity, x, y)     
     val tile = getTile(x, y)
-    tile.lunits ::=  sd
+    setTile(x, y,tile.copy(lunits = sd :: tile.lunits))
     sd
   }
   
@@ -19,13 +19,15 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
     val y = tr._3
     val sd = Squad(tr._1, x, y)     
     val tile = getTile(x, y)
-    tile.lunits ::=  sd 
+    setTile(x, y,tile.copy(lunits = sd :: tile.lunits))
   }
   
   val fTerrCost: (ZugTile, ZugTile) => OptInt = _.terr.cost + _.terr.cost
   def zPath(startCood: Cood, endCood: Cood): Option[List[Cood]] = findPath(startCood, endCood, fTerrCost)   
   fTilesSetAll(Plain)
   fSidesSetAll(false)
+  
+  def minCopy: ZugGrid = new ZugGrid(xTileMin, xTileMax, yTileMin, yTileMax)
   
 }
 

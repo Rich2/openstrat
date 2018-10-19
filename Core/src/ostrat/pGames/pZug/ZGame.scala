@@ -7,7 +7,19 @@ import pGrid._
 class ZGame(scenInit: ZugGrid, val players: List[ZPlayer])
 {
   private [this] var scen: ZugGrid = scenInit
-  def getScen(player: ZPlayer): ZugGrid = scen
+  def getScen(player: ZPlayer): ZugGrid =
+  {
+    val newScen = scen.minCopy
+    scen.tileCoodForeach{cood =>
+      val oldTile = scen.getTile(cood)
+      val newUnits = oldTile.lunits.filter(oldUnit => player.polities.contains(oldUnit.polity) | !oldTile.terr.conceal)
+      val newTile = oldTile.copy(lunits = newUnits)
+      newScen.setTile(cood, newTile)
+      
+    }
+    scen.sideCoodForeach{cood => newScen.setSide(cood, scen.getSide(cood)) }
+    newScen
+  }
 }
 
 object ZGame1 extends ZGame(Zug1, List(PlayBritain, PlayGermany))

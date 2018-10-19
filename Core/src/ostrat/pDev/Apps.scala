@@ -27,11 +27,12 @@ object Apps
       (23, (learn.Lesson3(_), "ScalaFx Demonstration Canvas 3")),
       (24, (learn.Lesson4(_), "ScalaFx Demonstration Canvas 4")),
       
-      (30, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer")),
-      (31, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer")),
+      (30, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
+      (31, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
+      (32, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame2, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 30
+  val appNum: Int = 32
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }
