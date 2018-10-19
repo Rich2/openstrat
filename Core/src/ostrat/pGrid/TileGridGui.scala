@@ -7,15 +7,15 @@ import geom._
 /** Gui for display of a single regular TileGrid */
 trait TileGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends UnfixedMapGui//RectangleGui
 {
-   def grid: GridT//TileGrid[TileT]
-   /** number of pixels per grid unit */
-   def scaleMin: Double = mapPanelDiameter / grid.diagLength
-   def scaleMax: Double = 1000
-   def scaleAlignMin: Double = mapPanel.width / grid.width min mapPanel.height / grid.height
-   /** The number of pixels per x-grid unit. There are 2 x-grid units between square tiles and 4 between hex tiles. */
-   var pScale: Double = scaleAlignMin
-   var focus: Vec2 = grid.cen
-   def viewStr: String = focus.str2 -- pScale.str1
+  var grid: GridT//TileGrid[TileT]
+  /** number of pixels per grid unit */
+  def scaleMin: Double = mapPanelDiameter / grid.diagLength
+  def scaleMax: Double = 1000
+  def scaleAlignMin: Double = mapPanel.width / grid.width min mapPanel.height / grid.height
+  /** The number of pixels per x-grid unit. There are 2 x-grid units between square tiles and 4 between hex tiles. */
+  var pScale: Double //= scaleAlignMin
+  var focus: Vec2 //= grid.cen
+  def viewStr: String = focus.str2 -- pScale.str1
    def updateView(): Unit = {repaintMap; setStatus(viewStr) }
    override def eTop(): Unit = reTop(guButs :+ status)
    def focusStr2 = grid.cen.str2

@@ -4,6 +4,7 @@ package pGames
 package pZug
 import pGrid._
 
+case class ZGame(val scen: ZugGrid)
 
 case class ZMove(squad: Squad, coods: Coods)
 

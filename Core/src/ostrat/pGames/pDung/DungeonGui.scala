@@ -5,7 +5,10 @@ package pDung
 import geom._, pCanv._, pGrid._, SqCode._, Colour._
 
 class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungeonGrid](canv, Dungeon1)
-{ mapPanel.backColour = Black
+{ 
+  mapPanel.backColour = Black
+  var pScale: Double = scaleAlignMin
+  var focus: Vec2 = grid.cen
   override def eTop(): Unit = reTop(guButs :+ status)
    
   def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => GraphicElems = tog =>
