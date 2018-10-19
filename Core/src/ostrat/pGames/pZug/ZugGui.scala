@@ -8,8 +8,9 @@ import Colour._
 import pGrid._
 import pStrat._ 
 
-class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv)
+class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv)
 {
+  val scen = game.getScen(player)
   override var grid: ZugGrid = scen
   override def scaleMin = 10
   override var pScale: Double = scaleAlignMin
@@ -45,14 +46,14 @@ class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, Zu
     val lunit: GraphicElems = tile.lunits match
     {
       case ::(head, _) if tScale > 68 =>
-        {
-          val counter = UnitCounters.infantry(30, head, head.colour, tile.colour, 4).slate(cen)
-          counter :: action(head)
-        }
+      {
+        val counter = UnitCounters.infantry(30, head, head.colour, tile.colour, 4).slate(cen)
+        counter :: action(head)
+      }
       case _ => Nil   
-   }    
-   tv ::: tText ::: lunit
- }
+    }    
+    tv ::: tText ::: lunit
+  }
     
   def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElems = ofs =>
   { import ofs._    
@@ -80,18 +81,9 @@ class ZugGui(canv: CanvasPlatform, scen: ZugGrid) extends HexGridGui[ZugTile, Zu
     }
     
     case (MiddleButton, List(squad : Squad), List(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
-//    (HexGrid.adjTileCoodsOfTile(squad.cood).contains(squad.cood) && squad.canMove(newTile)) =>
-//      {
-//        val newCood = newTile.cood
-//        val oldCood = squad.cood
-//        val oldTile = grid.getTile(oldCood)
-//        oldTile.lunits = oldTile.lunits.removeFirst(_ == squad)
-//        squad.cood = newCood
-//        newTile.lunits ::= squad             
-//        repaintMap
-//      }
-      
+    
     case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
+    
     case _ => deb("Other" -- clickList.toString)
   }   
    
