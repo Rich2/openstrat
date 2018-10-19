@@ -15,7 +15,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   override def scaleMin = 10
   override var pScale: Double = scaleAlignMin
   override var focus: Vec2 = grid.cen
-  override def eTop(): Unit = reTop(guButs :+ status)
+  //override def eTop(): Unit = reTop(guButs :+ status)
   mapPanel.backColour = Black
   def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => GraphicElems = ofh =>
   { import ofh._         
@@ -86,7 +86,9 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     
     case _ => deb("Other" -- clickList.toString)
   }   
-   
+  def turnCmd: MouseButton => Unit = (mb: MouseButton) => {}//{tilesForeach(_.lunits.foreach(_.resetMovePts())); repaintMap }
+  val bTurn = button3("T", turnCmd)   
+  override def eTop(): Unit = reTop(guButs :+ bTurn :+ status) 
   eTop()
   mapPanel.repaint(mapObjs)
 }

@@ -5,7 +5,7 @@ package pZug
 import pGrid._
 import pStrat._
 
-class Squad(val polity: Polity, var xCood: Int, var yCood: Int) extends Lunit
+class Squad(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) extends Lunit
 {
   var action: Action = NoAction
   def move(newMove: Cood *): Unit = action = Move(newMove.toList)
@@ -31,8 +31,8 @@ class Squad(val polity: Polity, var xCood: Int, var yCood: Int) extends Lunit
 
 object Squad
 {
-   def apply(polity: Polity, cood: Cood): Squad = new Squad(polity, cood.x, cood.y)
-   def apply(polity: Polity, x: Int, y: Int): Squad = new Squad(polity, x, y)   
+   def apply(polity: Polity, cood: Cood, id: Int): Squad = new Squad(polity, cood.x, cood.y, id)
+   def apply(polity: Polity, x: Int, y: Int, id: Int): Squad = new Squad(polity, x, y, id)   
 }
 
 sealed trait Action

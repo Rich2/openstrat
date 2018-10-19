@@ -6,9 +6,11 @@ import pGrid._
 
 class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[ZugTile, ZugSide](xTileMin, xTileMax, yTileMin, yTileMax)
 {
+  protected[this] var idCounter: Int = 100
+  def getID: Int = {idCounter += 1; idCounter }
  //var urn: List[ZTurn] = Nil
   def placeSquad(polity: Polity, x: Int, y: Int): Squad =
-  { val sd = Squad(polity, x, y)     
+  { val sd = Squad(polity, x, y, getID)     
     val tile = getTile(x, y)
     setTile(x, y,tile.copy(lunits = sd :: tile.lunits))
     sd
@@ -17,7 +19,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
   def placeSquads(triples: (Polity, Int, Int) *): Unit = triples.foreach {tr =>
     val x = tr._2
     val y = tr._3
-    val sd = Squad(tr._1, x, y)     
+    val sd = Squad(tr._1, x, y, getID)     
     val tile = getTile(x, y)
     setTile(x, y,tile.copy(lunits = sd :: tile.lunits))
   }
