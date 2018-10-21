@@ -30,6 +30,7 @@ case class ZPlayer(polities: List[Polity])
 
 object PlayBritain extends ZPlayer (List(Britain))
 object PlayGermany extends ZPlayer (List(Germany))
+object PlayGermanyBritain extends ZPlayer (List(Germany, Britain))
 object PlayGermanyFrance extends ZPlayer (List(Germany, France))
 
 

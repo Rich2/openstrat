@@ -29,7 +29,8 @@ object Apps
       
       (30, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
       (31, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
-      (32, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame2, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
+      (32, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
+      (33, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame2, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
   )
   
   /** Change appNum to change the loaded application. */

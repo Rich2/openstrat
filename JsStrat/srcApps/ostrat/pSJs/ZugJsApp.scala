@@ -5,5 +5,5 @@ import pGames.pZug._
 
 object ZugJsApp
 {
-   def main(args: Array[String]): Unit = new ZugGui(CanvasJs, ZGame1, PlayBritain)
+   def main(args: Array[String]): Unit = new ZugGui(CanvasJs, ZGame1, PlayGermanyBritain)
 }
