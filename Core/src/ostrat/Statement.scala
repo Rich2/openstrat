@@ -15,20 +15,20 @@ object Statement
   { private def ifEmptyFilePosn: FilePosn = FilePosn(0, 0 , "Empty Statement Seq")
     def startPosn = statementSeq.ifEmpty(ifEmptyFilePosn, statementSeq.head.startPosn)
     def endPosn = statementSeq.ifEmpty(ifEmptyFilePosn, statementSeq.last.endPosn)
+    
     def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementSeq match
-    {
-       case Seq(h1) => h1.errGet[A1](ev1)
-       case s => bad1(s, s.length.toString -- "statements not 1")
+    { case Seq(h1) => h1.errGet[A1](ev1)
+      case s => bad1(s, s.length.toString -- "statements not 1")
     }
+  
     def errGet2[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[(A1, A2)] = statementSeq match
-    {
-       case Seq(h1, h2) => h1.errGet[A1](ev1).map2(h2.errGet[A2](ev2), (g1, g2: A2) => (g1, g2))
-       case s => bad1(s, s.length.toString -- "statements not 2")
+    { case Seq(h1, h2) => h1.errGet[A1](ev1).map2(h2.errGet[A2](ev2), (g1, g2: A2) => (g1, g2))
+      case s => bad1(s, s.length.toString -- "statements not 2")
     }
+    
     def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] = statementSeq match
-    {
-       case Seq(h1, h2, h3) => h1.errGet[A1](ev1)map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
-       case s => bad1(s, s.length.toString -- "statements not 3")
+    { case Seq(h1, h2, h3) => h1.errGet[A1](ev1)map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
+      case s => bad1(s, s.length.toString -- "statements not 3")
     }
     def errGet4[A1, A2, A3, A4](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
        EMon[(A1, A2, A3, A4)] = statementSeq match
@@ -52,7 +52,7 @@ object Statement
 
   implicit class EmonStatementSeqImplict(eMon: EMon[Seq[Statement]])
   {
-     def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = eMon.flatMap(_.errGet1[A1])
+    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = eMon.flatMap(_.errGet1[A1])
   }
 }
 
@@ -60,23 +60,22 @@ object Statement
  *  closing comma. */
 case class ClausedStatement(clauses: Seq[Clause], optSemi: Opt[SemicolonToken]) extends Statement with FileSpanMems
 {
-   def startMem: FileSpan = clauses.head
-   def endMem: FileSpan = optSemi.fold[FileSpan](clauses.last, st => st)
-   override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
+  def startMem: FileSpan = clauses.head
+  def endMem: FileSpan = optSemi.fold[FileSpan](clauses.last, st => st)
+  override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
 }
 
 /** An unclaused Statement has a single expression. */
-
 sealed trait UnClausedStatement extends Statement
-{
-   def expr: Expr
-   def optSemi: Opt[SemicolonToken]
-   override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
+{ def expr: Expr
+  def optSemi: Opt[SemicolonToken]
+  override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
 }
+
 case class MonoStatement(expr: Expr, optSemi: Opt[SemicolonToken]) extends UnClausedStatement with FileSpanMems
 {
-   def startMem: FileSpan = expr
-   def endMem: FileSpan = optSemi.fold(expr, sc => sc)   
+  def startMem: FileSpan = expr
+  def endMem: FileSpan = optSemi.fold(expr, sc => sc)   
 }
 
 /* The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */

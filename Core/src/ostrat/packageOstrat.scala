@@ -27,7 +27,7 @@ package object ostrat
   type FStrSeq = Seq[Function0[String]]
   type Tokens = List[Token]
   type EMon[B] = Either[Seq[ParseErr], B]
-  type EMonSeq[B] = Either[Seq[ParseErr], Seq[B]]
+  type EMonList[B] = Either[Seq[ParseErr], List[B]]
   type TokensMon = EMon[Tokens]
   type Good[B] = Right[Seq[ParseErr], B]
   /** The errors case of EMon[B] */

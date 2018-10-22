@@ -41,8 +41,8 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     val (s2a, s2b) = s2.drop(1).span(_ != '.')
     s1 + "." + s2a
   }
-  def parseTree: EMonSeq[Statement] = ParseTree.fromString(thisString)
-  def strToTokens: EMonSeq[Token] = TokensGet.fromString(thisString)
+  def parseTree: EMonList[Statement] = ParseTree.fromString(thisString)
+  def strToTokens: EMonList[Token] = TokensGet.fromString(thisString)
   /** Appends strings with a comma and space seperator */
   def commaAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
   def semicolonAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ - "; " - _)

@@ -5,14 +5,14 @@ object ParseTree
 {
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist will
    *  be returned as errors.*/
-  def fromFile(input: String, fileName: String): EMonSeq[Statement] = TokensGet(input, fileName).flatMap(fromTokens(_))
+  def fromFile(input: String, fileName: String): EMonList[Statement] = TokensGet(input, fileName).flatMap(fromTokens(_))
   /** Returns an EMon of a sequence of Statements from a String. */
-  def fromString(input: String): EMonSeq[Statement] = TokensGet.fromString(input).flatMap(fromTokens(_))
-  def fromTokens(tokens: Seq[Token]): EMonSeq[Statement] = fileLoop(tokens, Nil)
+  def fromString(input: String): EMonList[Statement] = TokensGet.fromString(input).flatMap(fromTokens(_))
+  def fromTokens(tokens: Seq[Token]): EMonList[Statement] = fileLoop(tokens, Nil)
    
   /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the intervening
    *  tokens with a Bracket Block. */
-  def fileLoop(rem: Seq[Token], acc: Seq[BlockMember]): EMonSeq[Statement] = rem match
+  def fileLoop(rem: Seq[Token], acc: List[BlockMember]): EMonList[Statement] = rem match
   { case Seq() => statementLoop(acc, Nil, Nil)
     case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flat2Map((bracketBlock, remTokens) => fileLoop(remTokens, acc :+ bracketBlock))               
     case Seq(bc: BracketClose, _*) => bad1(bc, "Unexpected Closing Brace at top syntax level")
@@ -34,7 +34,7 @@ object ParseTree
     case Seq(nbt: BlockMember, tail @ _*) => bracketLoop(tail, acc :+ nbt, open)               
   }      
    
-  def statementLoop(rem: Seq[BlockMember], acc: Seq[Statement], subAcc: Seq[StatementMember]): EMon[Seq[Statement]] = rem match
+  def statementLoop(rem: Seq[BlockMember], acc: List[Statement], subAcc: Seq[StatementMember]): EMonList[Statement] = rem match
   {
     case Seq() if subAcc.isEmpty => Good(acc)
     case Seq () => getStatement(subAcc, nullRef).map(acc :+ _)      
@@ -62,7 +62,7 @@ object ParseTree
     loop(statement, Seq(), Seq())
   }
    
-  def getExpr(seg: Seq[ExprMember]): EMon[Expr] = sortBlocks(seg ,Nil).flatMap{
+  def getExpr(seg: Seq[ExprMember]): EMon[Expr] = sortBlocks(seg ,Nil).flatMap {
     case Seq(e: Expr) => Good(e)      
     case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString) 
   }
