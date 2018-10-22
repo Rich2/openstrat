@@ -6,10 +6,11 @@ object ParseTest  extends TestSuite
 { 
   val tests = Tests
   {
-    deb("a 4".parseTree.toString)    
+    deb("4 + 4".parseTree.toString)    
     'Test1
     {
       assert("4".findType[Int] == Good(4))
+      assert("-4".findType[Int] == Good(-4))
     }
   }
 }

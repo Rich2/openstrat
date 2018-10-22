@@ -11,32 +11,32 @@ trait BlockMemberToken extends BlockMember with Token
 trait EmptyExprToken extends BlockMemberToken with Expr
 
 case class SemicolonToken(startPosn: FilePosn) extends EmptyExprToken
-{
-   def str = ";"
-   override def exprName: String = "EmptyStatementExpr"
-} 
-case class CommaToken(startPosn: FilePosn) extends EmptyExprToken with StatementMember
-{
-   def str = ","
-   override def exprName: String = "EmptyClauseExpr"
+{ def str = ";"
+  override def exprName: String = "EmptyStatementExpr"
 }
+
+case class CommaToken(startPosn: FilePosn) extends EmptyExprToken with StatementMember
+{ def str = ","
+  override def exprName: String = "EmptyClauseExpr"
+}
+
 trait ExprToken extends Expr with ExprMemberToken
-/** The Dot or Stop Token */
+
+/** The Dot or Stop Token. */
 case class DotToken(startPosn: FilePosn) extends ExprMemberToken { def str = "." }
 
 /** An Alphanumeric Token. It contains a symbol rather than a String to represent the AlphaNumeric token as commonly used Symbols have better 
  *  better performance than the equivalent Strings. */
 case class AlphaToken(startPosn: FilePosn, sym: Symbol) extends ExprToken
-{
-   override def exprName: String = "AlphaTokenExpr"
-   override def str: String = sym.name
+{ override def exprName: String = "AlphaTokenExpr"
+  override def str: String = sym.name
 }
 
 case class StringToken(startPosn: FilePosn, stringStr: String) extends ExprToken
-{
-   def exprName = "StringTokenExpr"
-   def str = stringStr.enqu
+{ def exprName = "StringTokenExpr"
+  def str = stringStr.enqu
 }
+
 /** A token that can yield a Double Float value */
 
 /** A 32 bit integer token */
@@ -51,12 +51,13 @@ case class LongIntToken(startPosn: FilePosn, str: String, longValue: Long) exten
 }
 
 
-/** An Double Floating point token */
+/** A Double Floating point token. */
 case class FloatToken(startPosn: FilePosn, str: String, floatValue: Double) extends ExprToken
 {
    override def exprName: String = "FloatTokenExpr"
 }
-/** An Operator token */
+
+/** An Operator token. */
 trait OperatorToken extends ExprMemberToken
 case class OtherOperatorToken(startPosn: FilePosn, str: String) extends OperatorToken
 /** A + or - infix Operator token */
