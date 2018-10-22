@@ -67,7 +67,7 @@ object ParseTree
     case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString) 
   }
    
-  def sortBlocks(rem: Seq[ExprMember], acc: Seq[ExprTran]): EMon[Seq[ExprTran]] = rem match
+  def sortBlocks(rem: Seq[ExprMember], acc: Seq[TokenOrBlock]): EMon[Seq[TokenOrBlock]] = rem match
   {
     case Seq() => prefixPlus(acc, Nil)
     case Seq(at: AlphaToken, bb: BracketBlock, _*) =>
@@ -78,7 +78,7 @@ object ParseTree
     case Seq(h, tail @ _*) => sortBlocks(tail, acc :+ h)
   }
       
-  def prefixPlus(rem: Seq[ExprTran], acc: Seq[ExprTran]): EMon[Seq[ExprTran]] = rem match
+  def prefixPlus(rem: Seq[TokenOrBlock], acc: Seq[TokenOrBlock]): EMon[Seq[TokenOrBlock]] = rem match
   {
     case Seq() => Good(acc)
     case Seq(pp: PlusPreToken, right: Expr, tail @ _*) => prefixPlus(tail, acc :+ PreOpExpr(pp, right))
