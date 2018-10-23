@@ -3,14 +3,13 @@ package ostrat
 
 /** Extension methods for the Seq[A] class. These are bought into scope by the seqToImplicit method in the package object. */
 class SeqImplicit[A](thisSeq: Seq[A])
-{ /** This needs to be changed to by name parameters when by name varargs are allowed. I think this is coming in 12.3 */
+{
+  /** This needs to be changed to by name parameters when by name varargs are allowed. I think this is coming in 12.3 */
   def ifAppend[B >: A](b: Boolean, elems: B*): Seq[B] = if (b) thisSeq ++ elems else thisSeq
+  
   /** This method and "headOnly" method on TraversableImplicit removes the need for headOption in the majority of case. Use head Only if you are only
    *  interested in the head value */
   def fHead[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.head)
-  
-  /** I think this extension method needs to removed and replaced by straightforward match statements */
-  def fMatch[B](ifEmpty: => B, fNonEmpty: (A, Seq[A]) => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.head, thisSeq.tail)
   
   def addOpt(optEl: Option[A]): Seq[A] = optEl match
   { case None => thisSeq
@@ -28,15 +27,6 @@ class SeqImplicit[A](thisSeq: Seq[A])
     val prevIndex  = ife(currIndex == 0, thisSeq.length - 1, currIndex - 1)
     thisSeq(prevIndex)
   }
-  
-  def eSeqs[B, C](f: A => Either[B, C]): (Seq[B], Seq[C]) =
-  {
-    def loop(rem: Seq[A], accB: Seq[B], accC: Seq[C]): (Seq[B], Seq[C]) = rem.fMatch((accB, accC), (h, tail1) => f(h) match
-        { case Left(b) => loop(tail1, accB :+ b, accC)
-          case Right(c) => loop(tail1, accB, accC :+ c)
-        })
-    loop(thisSeq, Seq(), Seq())
-  }    
    
   def foldMin[B](f: A => B)(implicit cmp: Ordering[B]): B = thisSeq.tail.foldLeft(f(thisSeq.head))((acc, el) => cmp.min(acc, f(el)))
   def foldMax[B](f: A => B)(implicit cmp: Ordering[B]): B = thisSeq.tail.foldLeft(f(thisSeq.head))((acc, el) => cmp.max(acc, f(el)))

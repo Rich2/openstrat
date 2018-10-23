@@ -34,7 +34,7 @@ object ParseTree
     case Seq(nbt: BlockMember, tail @ _*) => bracketLoop(tail, acc :+ nbt, open)               
   }      
    
-  def statementLoop(rem: Seq[BlockMember], acc: List[Statement], subAcc: Seq[StatementMember]): EMonList[Statement] = rem match
+  def statementLoop(rem: Seq[BlockMember], acc: List[Statement], subAcc: List[StatementMember]): EMonList[Statement] = rem match
   {
     case Seq() if subAcc.isEmpty => Good(acc)
     case Seq () => getStatement(subAcc, nullRef).map(acc :+ _)      
@@ -42,47 +42,47 @@ object ParseTree
     case Seq(h, tail @ _*) => h match
     {
       case st: SemicolonToken if subAcc.isEmpty => statementLoop(tail, acc :+ EmptyStatement(st), Nil) 
-      case st: SemicolonToken => getStatement(subAcc, Opt(st)).flatMap(g => statementLoop(tail, acc :+ g, Seq()))         
+      case st: SemicolonToken => getStatement(subAcc, Opt(st)).flatMap(g => statementLoop(tail, acc :+ g, Nil))         
       case sm: StatementMember => statementLoop(tail, acc, subAcc :+ sm)
       case u => excep("Statement Loop, impossible case")
     }
   }
    
-  def getStatement(statement: Seq[StatementMember], optSemi: Opt[SemicolonToken]): EMon[Statement] =
+  def getStatement(statement: List[StatementMember], optSemi: Opt[SemicolonToken]): EMon[Statement] =
   {
-    def loop(rem: Seq[StatementMember], acc: Seq[Clause], subAcc: Seq[ExprMember]): EMon[Statement] = rem match
+    def loop(rem: List[StatementMember], acc: List[Clause], subAcc: List[ExprMember]): EMon[Statement] = rem match
     {
-      case Seq() if acc.isEmpty => getExpr(subAcc).map(g => MonoStatement(g, optSemi))
-      case Seq() if subAcc.isEmpty => Good(ClausedStatement(acc, optSemi))
-      case Seq() => getExpr(subAcc).map(g => ClausedStatement(acc :+ Clause(g, nullRef), optSemi))        
-      case Seq(ct: CommaToken, tail @ _*) if subAcc.isEmpty=> loop(tail, acc :+ EmptyClause(ct), Nil)
-      case Seq(ct: CommaToken, tail @ _*) => getExpr(subAcc).flatMap(g => loop(tail, acc :+ Clause(g , Opt(ct)), Nil))
-      case Seq(em: ExprMember, tail @ _*) => loop(tail, acc, subAcc :+ em)
+      case Nil if acc.isEmpty => getExpr(subAcc).map(g => MonoStatement(g, optSemi))
+      case Nil if subAcc.isEmpty => Good(ClausedStatement(acc, optSemi))
+      case Nil => getExpr(subAcc).map(g => ClausedStatement(acc :+ Clause(g, nullRef), optSemi))        
+      case (ct: CommaToken) :: tail if subAcc.isEmpty=> loop(tail, acc :+ EmptyClause(ct), Nil)
+      case (ct: CommaToken) :: tail => getExpr(subAcc).flatMap(g => loop(tail, acc :+ Clause(g , Opt(ct)), Nil))
+      case (em: ExprMember) :: tail => loop(tail, acc, subAcc :+ em)
     }
-    loop(statement, Seq(), Seq())
+    loop(statement, Nil, Nil)
   }
    
-  def getExpr(seg: Seq[ExprMember]): EMon[Expr] = sortBlocks(seg ,Nil).flatMap {
+  def getExpr(seg: List[ExprMember]): EMon[Expr] = sortBlocks(seg, Nil).flatMap {
     case Seq(e: Expr) => Good(e)      
     case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString) 
   }
    
-  def sortBlocks(rem: Seq[ExprMember], acc: Seq[TokenOrBlock]): EMon[Seq[TokenOrBlock]] = rem match
+  def sortBlocks(rem: List[ExprMember], acc: List[TokenOrBlock]): EMon[List[TokenOrBlock]] = rem match
   {
-    case Seq() => prefixPlus(acc, Nil)
-    case Seq(at: AlphaToken, bb: BracketBlock, _*) =>
+    case Nil => prefixPlus(acc, Nil)
+    case (at: AlphaToken) :: (bb: BracketBlock) :: t2 =>
     {//typedSpan needs removal */
       val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
       sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks))               
     }
-    case Seq(h, tail @ _*) => sortBlocks(tail, acc :+ h)
+    case h :: tail => sortBlocks(tail, acc :+ h)
   }
       
-  def prefixPlus(rem: Seq[TokenOrBlock], acc: Seq[TokenOrBlock]): EMon[Seq[TokenOrBlock]] = rem match
+  def prefixPlus(rem: List[TokenOrBlock], acc: List[TokenOrBlock]): EMon[List[TokenOrBlock]] = rem match
   {
-    case Seq() => Good(acc)
-    case Seq(pp: PlusPreToken, right: Expr, tail @ _*) => prefixPlus(tail, acc :+ PreOpExpr(pp, right))
-    case Seq(pp: PlusPreToken, _*) => bad1(pp, "Prefix operator not fillowed by expression")
-    case Seq(h, tail @ _*) => prefixPlus(tail, acc :+ h)
+    case Nil => Good(acc)
+    case (pp: PlusPreToken) :: (right: Expr) :: tail => prefixPlus(tail, acc :+ PreOpExpr(pp, right))
+    case (pp: PlusPreToken) :: _ => bad1(pp, "Prefix operator not fillowed by expression")
+    case h :: tail => prefixPlus(tail, acc :+ h)
   }
 }

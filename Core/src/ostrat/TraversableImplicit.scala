@@ -79,25 +79,29 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   /** Folds over this traverable with a to Emon function, accumulating errors */      
   def eMonMap[B](f: A => EMon[B]): EMon[Seq[B]] =      
   {
-    def goodLoop(rem: Seq[A], goodAcc: Seq[B]): EMon[Seq[B]] = rem.fMatch(
-        Good(goodAcc),
-        (h, tail) => f(h).fold(errs => badLoop(tail, errs), g => goodLoop(tail, goodAcc :+ g))
-      )      
-    def badLoop(rem: Seq[A], errAcc: Seq[ParseErr]): EMon[Seq[B]] = rem.fMatch(
-        Bad(errAcc),
-        (h, tail) => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
-        )       
-    goodLoop(thisTrav.toSeq, Seq())      
+    def goodLoop(rem: List[A], goodAcc: Seq[B]): EMon[Seq[B]] = rem match
+    {
+      case Nil => Good(goodAcc)
+      case h :: tail => f(h).fold(errs => badLoop(tail, errs), g => goodLoop(tail, goodAcc :+ g))
+    }
+    
+    
+    def badLoop(rem: List[A], errAcc: Seq[ParseErr]): EMon[Seq[B]] = rem match
+    {
+      case Nil => Bad(errAcc)
+      case h :: tail => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
+    }       
+    goodLoop(thisTrav.toList, Nil)      
   }
    
   /** Not sure what this method does */
-  def typedSpan[B <: A](typeCheckFunction: A => Boolean): (Seq[B], Seq[A]) =
+  def typedSpan[B <: A](typeCheckFunction: A => Boolean): (List[B], List[A]) =
   {
-    def loop(rem: Seq[A], acc: Seq[B]): (Seq[B], Seq[A]) = rem match
-    { case Seq(h, tail @ _*) if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
+    def loop(rem: List[A], acc: List[B]): (List[B], List[A]) = rem match
+    { case h :: tail if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
       case s => (acc, s)
     }
-    loop(thisTrav.toSeq, Nil)
+    loop(thisTrav.toList, Nil)
   }   
    
   def trav2ProdD2[B, C <: ProdD2, D <: DoubleProduct2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =

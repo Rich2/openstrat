@@ -11,7 +11,7 @@ class RSApp(f: canvas.Canvas => Unit, str: String) extends JFXApp
 /** N needs tidying up. the x value needs to be a developer setting. */
 case class RStage(fDisp: canvas.Canvas => Unit, tStr: String) extends JFXApp.PrimaryStage  
 { 
-  x = 1920
+  x = 0//1920
   class GuiDispFx extends scalafx.scene.Scene
   {
     val bounds = javafx.stage.Screen.getPrimary.getVisualBounds  
