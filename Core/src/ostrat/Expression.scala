@@ -27,6 +27,12 @@ case class PreOpExpr(op: OperatorToken, right: Expr) extends MemsExpr
   def opStr = op.str
 }
 
+case class AsignExpr(asToken: AsignToken, left: Expr, right : Expr) extends MemsExpr
+{ override def startMem = left
+  override def endMem = right
+  override def exprName: String = "AsignExpr"  
+}
+
 //case class SpacedSeq(seq: Seq[Expr0]) extends Expr10
 //{
 //   override def startPosn: FilePosn = seq.head.startPosn

@@ -62,7 +62,28 @@ object ParseTree
     loop(statement, Nil, Nil)
   }
    
-  def getExpr(seg: List[ExprMember]): EMon[Expr] = sortBlocks(seg, Nil).flatMap {
+  def getExpr(seg: List[ExprMember]): EMon[Expr] = assignments(seg, Nil)// sortBlocks(seg, Nil).flatMap {
+  
+  def assignments(rem: List[ExprMember], acc: List[ExprMember]): EMon[Expr] = rem match
+  {
+    case Nil => getBlocks(acc)
+    case (at: AsignToken) :: tail =>
+    {
+      val eLs = getBlocks(acc)
+      val eRs = assignments(tail, Nil)
+      eLs.map2[Expr, Expr](eRs, (ls, rs) => AsignExpr(at, ls, rs))
+    }
+    case h :: tail => assignments(tail, acc :+ h)
+  }
+  
+  
+  def getBlocks(seg: List[ExprMember]): EMon[Expr] = sortBlocks(seg, Nil).flatMap {
+    case Seq(e: Expr) => Good(e)      
+    case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString) 
+  }
+  
+  
+  def getExprSeq(seg: List[ExprMember]): EMon[Expr] = sortBlocks(seg, Nil).flatMap {
     case Seq(e: Expr) => Good(e)      
     case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString) 
   }

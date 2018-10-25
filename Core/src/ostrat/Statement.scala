@@ -48,6 +48,7 @@ object Statement
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.fromStatementSeq(statementSeq)
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
+    def findSetting[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementSeq(statementSeq, settingSym)
   }
 
   implicit class EmonStatementSeqImplict(eMon: EMon[Seq[Statement]])
@@ -72,13 +73,14 @@ sealed trait UnClausedStatement extends Statement
   override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
 }
 
+/** An un-claused Statement that is not the empty statement. */
 case class MonoStatement(expr: Expr, optSemi: Opt[SemicolonToken]) extends UnClausedStatement with FileSpanMems
 {
   def startMem: FileSpan = expr
-  def endMem: FileSpan = optSemi.fold(expr, sc => sc)   
+  def endMem: FileSpan = optSemi.fold(expr, sc => sc)
 }
 
-/* The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
+/** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with FileSpanMems
 {
    override def expr = st
@@ -89,6 +91,5 @@ case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with Fi
 }
 object EmptyStatement
 {
-   def apply(st: SemicolonToken): EmptyStatement = new EmptyStatement(st)
-   
+   def apply(st: SemicolonToken): EmptyStatement = new EmptyStatement(st)   
 }

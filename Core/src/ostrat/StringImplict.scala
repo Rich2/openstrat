@@ -5,7 +5,8 @@ package ostrat
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 { def findType[A: Persist]: EMon[A] = ParseTree.fromString(thisString).flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: A): A = findType[A].getElse(elseValue)
-  def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)  
+  def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
+  def findSetting[A: Persist](settingSym: Symbol) = ParseTree.fromString(thisString).flatMap(_.findSetting[A](settingSym))
   def - (other: String): String = thisString + other
   /** Concatenates a space and then the other String */
   def -- (other: String): String = thisString + " " + other

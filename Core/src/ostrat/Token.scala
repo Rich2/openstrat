@@ -64,3 +64,5 @@ case class OtherOperatorToken(startPosn: FilePosn, str: String) extends Operator
 case class PlusInToken(startPosn: FilePosn, str: String) extends OperatorToken
 /** A + or - Prefix Operator token */
 case class PlusPreToken(startPosn: FilePosn, str: String) extends OperatorToken
+case class AsignToken(startPosn: FilePosn) extends ExprMemberToken { def str = "=" }
+

@@ -9,9 +9,8 @@ object Opt { def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value) }
 
 class OptRef[A <: AnyRef](val ref: A) extends AnyVal with Opt[A]
 {
-  override def fold[B](fNull: => B, fSome: A => B): B = if (ref == null)
-    fNull
-  else fSome(ref)
+  override def fold[B](fNull: => B, fSome: A => B): B = if (ref == null) fNull else fSome(ref)
+  override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
 }
 
 sealed trait OptInt extends Opt[Int]

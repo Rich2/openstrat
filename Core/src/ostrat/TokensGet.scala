@@ -118,20 +118,18 @@ object TokensGet
      }
      
      case c if isOperator(c) =>
-     {
+     {      
        val (opChars, finalTail) = rem.span(isOperator)
        val opStr = opChars.mkString
-       val ot = finalTail match
-       {
-         case Nil => OtherOperatorToken(fp, opStr)
-         case h :: tail => opChars.last match
-         {
-           case '+' | '-' => ife(h.isWhitespace, PlusInToken(fp, opStr), PlusPreToken(fp, opStr))
-           case _ => OtherOperatorToken(fp, opStr)
-         }
+       
+       val ot =  opChars.last match
+       { case '+' | '-' => ife(h.isWhitespace, PlusInToken(fp, opStr), PlusPreToken(fp, opStr))
+         case '=' => AsignToken(fp)
+         case _ => OtherOperatorToken(fp, opStr)         
        }
        mainLoop(finalTail, fp.addChars(opChars),  ot :: tokenAcc)            
      }
+     
      case h if h.isWhitespace => mainLoop(tail, fp.nextChar, tokenAcc)
      case c => throw new Exception("Unimplemented character in main loop: " + c.toString)
    }
@@ -139,7 +137,7 @@ object TokensGet
    
   def isOperator(char: Char): Boolean = char match
   {
-    case '+' | '-' | '*' | '/' => true
+    case '+' | '-' | '*' | '/' | '=' => true
     case _ => false
   } 
 }

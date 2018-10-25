@@ -53,6 +53,22 @@ abstract class Persist[T](val typeSym: Symbol)
       case s3 => bad1(s.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
     }
   }
+  
+  def settingFromStatement(settingSym: Symbol, st: Statement): EMon[T] = st match
+  {
+    case MonoStatement(AsignExpr(_, AlphaToken(_, sym), rightExpr), _) if sym == settingSym => fromExpr(rightExpr)
+    case _ => bad1(st.startPosn, typeStr -- "not found.")
+  }
+  
+  def settingFromStatementSeq(s: Seq[Statement], settingSym: Symbol): EMon[T] = s match
+  { case Seq() => FilePosn.emptyError("No Statements")
+    case Seq(e1) => settingFromStatement(settingSym, e1)
+    case s2 => s.map(settingFromStatement(settingSym, _)).collect{ case g: Good[T] => g } match
+    { case Seq(t) => t
+      case Seq() => bad1(s.startPosn, typeStr -- "not found.")
+      case s3 => bad1(s.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
+    }
+  }
 }
 
 /** Companion object for the persistence type class. Contains the implicit instances for Scala standard library types. */
