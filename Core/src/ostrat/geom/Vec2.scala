@@ -33,7 +33,9 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2 with Stringer
   def subX(adj: Double): Vec2 = Vec2(x - adj, y)
   def subY(adj: Double): Vec2 = Vec2(x, y - adj)
   def scaleY(factor: Double): Vec2 = Vec2(x, y * factor)
-  def mirrorX: Vec2 = Vec2(-x, y)
+  def scaleX(factor: Double): Vec2 = Vec2(x * factor, y)
+  /** Mirrors along the Y axis by negating X. */
+  def negX: Vec2 = Vec2(-x, y)
   def mirrorY: Vec2 = Vec2(x, -y)
   /** Where xnd y is a map on the surface ofa sphere. Currently not working for angles greater than Pi / 2 */
   def toLatLong(radius: Double): LatLong = LatLong(math.acos(y / radius), math.acos(x / radius))
