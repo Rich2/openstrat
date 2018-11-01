@@ -1,7 +1,7 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-/* These lessons are intended to be accessible to people who haven't programmed before and have poor or no geometry knowledge. This is a comment. It
+/* These lessons are intended to be accessible to people who haven't programmed before and have limited geometry knowledge. This is a comment. It
  *  doesn't do anything. Everything between the forward-slash star at the beginning of the comment and the star forward-slash at the end is a comment.
  *  Hopefully in you editor or IDE (integrated Developer Environment) the comments will appear in a different colour. */
 

@@ -81,7 +81,11 @@ object FlagsZ
             xDiag vv ywc)
       val reds1 = List(r1, r2).map(_.fill(englishRed))      
       val reds = reds1.flatMap(e => List(e, e.fTrans(- _)))//.flatWithNegate
-      val blues = List(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102))).flatMirror4
+      val blues =
+      {
+        val l1 = List(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
+        l1.flatMap(_.mirror4)
+      }
       england.addElems(blues ++ reds).mutObj("United Kingdom flag")
    }
    val us =

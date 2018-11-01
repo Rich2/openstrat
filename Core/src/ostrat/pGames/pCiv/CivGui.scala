@@ -46,6 +46,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       eTop()
     }
     
+    //If a Warrior is selected and a tile adjacent to the Warrior is right clicked =>
     case (RightButton, List(warr : Warrior), List(newTile: CTile)) =>
       {
         deb("Rt") 
@@ -75,7 +76,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
           }
           
           warr.movePts = (warr.movePts - warr.terrCost(newTile)).max(0)
-          canv.frameZero((el, st) => out(el, st), 15)               
+          canv.startFrame((el, st) => out(el, st), 15)               
        }            
     }
     case (RightButton, l, _) => deb(l.toString)   

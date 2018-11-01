@@ -18,13 +18,16 @@ trait CanvasPlatform extends RectGeom
   var onScroll: Boolean => Unit = b => {}
   var resize: () => Unit = () => {}
   def clip(pts: Polygon): Unit
-  /** Returns the time in milliseconds */
+  /** Returns the system (Unix) time in milliseconds. */
   def getTime: Double
-  /** A callback timer with an elapsed time from a given start point. The function is of form: (elapsedTime(in milliseconds), Startime (in
-   *   milliseconds) => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
+  /** A callback timer with an elapsed time from a given start point. Although are in a general purpose form, the most common usage is for animations
+   *   where things move dependent on how much time has passed. The function is of form: (elapsedTime(in milliseconds), Startime (in
+   *   milliseconds) => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed. */
   def frame(f: (Double, Double) => Unit, startTime: Double, frameLength: Integer = 15): Unit =
     timeOut(() => f(getTime - startTime, startTime), frameLength)
-  def frameZero(f: (Double, Double) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime)
+  /** The initial frame although are in a general purpose form, the most common usage is for animations where things move dependent on how much time
+   *   has passed. */
+  def startFrame(f: (Double, Double) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime)
   /** A call back timer. Takes the delay in milliseconds */
   def timeOut(f: () => Unit, millis: Integer): Unit
   var textMin: Int = 10

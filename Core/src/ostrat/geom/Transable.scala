@@ -6,22 +6,27 @@ package geom
  *  T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T. */
 trait Transable[T] extends Any
 { def fTrans(f: Vec2 => Vec2):  T
-  /** Translate in 2 dimensional space */
+  /** Translate in 2 dimensional space. */
   def slate(offset: Vec2): T = fTrans(_ + offset)
+  /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): T = fTrans(_.addXY(xOffset, yOffset))
+  /** Translate 2 dimensional vectors along the X axis */
   def slateX(xOffset: Double): T = fTrans(_.addX(xOffset))
+  /** Translate 2 dimensional vectors along the Y axis */
   def slateY(yOffset: Double): T = fTrans(_.addY(yOffset))
+  /** The scale transformation on 2 dimensional vectors. */
   def scale(factor: Double): T = fTrans(_ * factor)
 
   def rotate(angle: Angle): T = fTrans(_.rotate(angle))
   def rotateRadians(r: Double): T = fTrans(_.rotateRadians(r))
   def scaleY(factor: Double): T = fTrans(_.scaleY(factor))
+  def scaleX(factor: Double): T = fTrans(_.scaleX(factor))
   /** this.asInstanceOf[T] */  
   def identity: T = this.asInstanceOf[T]   
-  def mirrorX: T = fTrans(_.mirrorX)
+  def mirrorX: T = fTrans(_.negX)
   def mirrorY: T = fTrans(_.mirrorY)
-  def mirror4: List[T] = List(fTrans(v => v), fTrans(_.mirrorX), fTrans(_.mirrorY), fTrans(- _))
-  def withNegate: Seq[T] = Seq(identity, fTrans(- _))
+  /** takes list of points and mirrors in X, Y & XY */
+  def mirror4: List[T] = List(fTrans(v => v), fTrans(_.negX), fTrans(_.mirrorY), fTrans(- _))  
   def inverseY: T = fTrans(v => Vec2(v.x, -v.y))
 
   import math.Pi
@@ -63,7 +68,6 @@ object Transable
 {
   implicit class ImplictTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
   {
-    def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])      
-    def flatMirror4: List[TT] = tList.flatMap(_.mirror4.asInstanceOf[Seq[TT]])     
+    def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])         
   }
 }
