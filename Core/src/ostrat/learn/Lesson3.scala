@@ -3,7 +3,8 @@ package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
 case class Lesson3(canv: CanvasPlatform) extends Lesson
-{ val title = "Lesson 3"
+{  
+  val title = "Lesson 3"
   val pt1 = -200 vv 200
   val arcCentre = 0 vv 200
   val pt2 = 0 vv 400
