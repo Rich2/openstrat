@@ -14,4 +14,4 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
   ptStart = rndX vv rndY  
  canv.textGraphic(ptStart, title, 18, LightBlue)
   
-}
+} //hi
