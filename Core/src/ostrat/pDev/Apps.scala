@@ -33,7 +33,7 @@ object Apps
       (32, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
       (33, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame2, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
  
-      (66, (new pGames.pRodTest.RodGUI(_), "nothing to say so far..")),
+      (66, (new pGames.pRodHello.RodGUI(_), "nothing to say so far..")),
   )
   /** Change appNum to change the loaded application. */
   val appNum: Int = 66
