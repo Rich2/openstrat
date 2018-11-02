@@ -10,9 +10,7 @@ class RSApp(f: canvas.Canvas => Unit, str: String) extends JFXApp
 
 /** N needs tidying up. the x value needs to be a developer setting. */
 case class RStage(fDisp: canvas.Canvas => Unit, tStr: String) extends JFXApp.PrimaryStage  
-{
-  val r = loadRsonFile("Dev/GeneralDevSettings.rson")
-  deb(r.toString)
+{  
   x = settingFromFileElse('xOffset, "Dev/GeneralDevSettings.rson", 0)//Sets default x value
   //y = 400// settingFromFileElse('yOffset, "Dev/GeneralDevSettings.rson", -200)//Sets default y value
   class GuiDispFx extends scalafx.scene.Scene

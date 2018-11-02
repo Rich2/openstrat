@@ -36,7 +36,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2 with Stringer
   def scaleX(factor: Double): Vec2 = Vec2(x * factor, y)
   /** Mirrors along the Y axis by negating X. */
   def negX: Vec2 = Vec2(-x, y)
-  def mirrorY: Vec2 = Vec2(x, -y)
+  /** Mirrors along the X axis by negating Y. */
+  def negY: Vec2 = Vec2(x, -y)
   /** Where xnd y is a map on the surface ofa sphere. Currently not working for angles greater than Pi / 2 */
   def toLatLong(radius: Double): LatLong = LatLong(math.acos(y / radius), math.acos(x / radius))
   /** Reverses the y coordinate. Useful for translating between canvases where the y axis measures down and coordinate systems where y is up */

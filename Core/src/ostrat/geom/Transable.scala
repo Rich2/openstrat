@@ -22,12 +22,13 @@ trait Transable[T] extends Any
   def scaleY(factor: Double): T = fTrans(_.scaleY(factor))
   def scaleX(factor: Double): T = fTrans(_.scaleX(factor))
   /** this.asInstanceOf[T] */  
-  def identity: T = this.asInstanceOf[T]   
-  def mirrorX: T = fTrans(_.negX)
-  def mirrorY: T = fTrans(_.mirrorY)
-  /** takes list of points and mirrors in X, Y & XY */
-  def mirror4: List[T] = List(fTrans(v => v), fTrans(_.negX), fTrans(_.mirrorY), fTrans(- _))  
-  def inverseY: T = fTrans(v => Vec2(v.x, -v.y))
+  def identity: T = this.asInstanceOf[T]
+  /** Mirrors along the Y axis by negating X. */
+  def negX: T = fTrans(_.negX)
+  /** Mirrors along the X axis by negating Y. */
+  def negY: T = fTrans(_.negY)
+  /** Negates x and y values */
+  def negXY: T = fTrans(- _)
 
   import math.Pi
   /** Rotates 30 degrees anti-clockwise or + Pi/3 */

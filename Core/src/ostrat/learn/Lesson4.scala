@@ -28,6 +28,6 @@ case class Lesson4(canv: CanvasPlatform) extends Lesson
   canv.shapeDraw(sf5)
   val rect = Rectangle(200, 100, -400 vv 100).fill(Orange)
   canv.polyFill(rect)
-  val sf6 = sf5.inverseY.copy(colour = Red)
+  val sf6 = sf5.negY.copy(colour = Red)
   canv.shapeDraw(sf6)
 }
