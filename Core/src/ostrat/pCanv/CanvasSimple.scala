@@ -19,3 +19,5 @@ trait CanvasSimple extends PanelLike with CanvUser
    def repaints(els: GraphicElem[_]*): Unit = { canvObjs = els.toList; refresh() }   
    def repaint(els: List[GraphicElem[_]]): Unit = { canvObjs = els; refresh() }   
 }
+
+abstract class CanvasTitled(val title: String) extends CanvasSimple

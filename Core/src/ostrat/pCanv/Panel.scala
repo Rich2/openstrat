@@ -27,6 +27,7 @@ case class MButtonCmd(cmd: MouseButton => Unit)
    @inline def apply(mb: MouseButton): Unit = cmd(mb)
 }
 
+/** The purpose of this trait is to give common methods for Panels and Simple Canvases. A SimpleCanvas is like a Panel but not a Panel.*/ 
 trait PanelLike extends RectGeom
 {
    /** These are currently stored in reverse. I think this would be better in an Array */
