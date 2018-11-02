@@ -20,7 +20,7 @@ object Core extends Common
 }
 
 object FxStrat extends Common
-{ def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.144-R12")
+{ def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.181-R13")
   def moduleDeps = Seq(Core)
   def mainClass = Some("ostrat.pFx.DevApp") 
   import mill.modules.Assembly._
