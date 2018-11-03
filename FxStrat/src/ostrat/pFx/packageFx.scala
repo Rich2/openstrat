@@ -24,8 +24,8 @@ package object pFx
     settingFromFile[A](settingSym, fileName).getElse(elseValue)
     
    
-  implicit class ImpScalaFxColour(colour: Colour)
-  { import scalafx.scene._
-    def fx: paint.Color = paint.Color.rgb(colour.red, colour.green, colour.blue, colour.alpha/ 255.0)
-  }
+//  implicit class ImpScalaFxColour(colour: Colour)
+//  { import scalafx.scene._
+//    def fx: paint.Color = paint.Color.rgb(colour.red, colour.green, colour.blue, colour.alpha/ 255.0)
+//  }
 }

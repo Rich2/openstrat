@@ -20,15 +20,14 @@ object Core extends Common
 }
 
 object FxStrat extends Common
-{ def ivyDeps = Agg(ivy"org.scalafx::scalafx:8.0.181-R13")
-  def moduleDeps = Seq(Core)
+{ def moduleDeps = Seq(Core)
   def mainClass = Some("ostrat.pFx.DevApp") 
   import mill.modules.Assembly._
   def scalaLibraryIvyDeps = T { Agg.empty }   
 }
 
 object JsStrat extends ScalaJSModule with Common
-{  def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
+{ def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
   def moduleDeps = Seq(Core)
   def sources = T.sources( millSourcePath / 'src, millSourcePath / 'srcPlay )
   def artifactName = "play"
