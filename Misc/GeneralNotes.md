@@ -7,4 +7,4 @@ can scala.collection.generic.CanBuildFrom.
 
 The Opt class certainly works for the A* pathfinding algorithm where it doesn't into the user interface.
 
-On Kubuntu 18.10 the java command on the path, is at /usr/bin/java. It is a link to /etc/alternatives/java.
+On Kubuntu 18.10 the java command on the path, is at /usr/bin/java. It is a link to /etc/alternatives/java. This is also a link.
