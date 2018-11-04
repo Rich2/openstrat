@@ -6,3 +6,5 @@ scala.Either[+A, +B] with a lower head Error Monad replacement. However this cre
 can scala.collection.generic.CanBuildFrom.
 
 The Opt class certainly works for the A* pathfinding algorithm where it doesn't into the user interface.
+
+On Kubuntu 18.10 the java command on the path, is at /usr/bin/java. It is a link to /etc/alternatives/java.
