@@ -9,6 +9,6 @@ object JsDevApp
    @JSExport
    def main(appNum: Int = 1): Unit =
    {      
-      pDev.Apps.curr/*(appNum)*/._1(CanvasJs)      
+      pDev.Apps.curr._1(CanvasJs)      
    }
 }

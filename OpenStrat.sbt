@@ -5,7 +5,8 @@ ThisBuild/version := "0.0.1"
 
 val commonSettings = List(	
     scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint", "-Yno-adapted-args"),
-    libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value
+    libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
+    watchSources += (ThisBuild/baseDirectory).value / "DevSettings"
 )
 
 val macrosSettings = List(Compile/scalaSource := (ThisBuild/baseDirectory).value / "Macros/src") ::: commonSettings

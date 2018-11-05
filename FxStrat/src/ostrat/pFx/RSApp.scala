@@ -14,7 +14,8 @@ class AppStart extends Application
     primaryStage.setX(settingFromFileElse('xOffset, "Dev/GeneralDevSettings.rson", 0))//Sets default x value
     primaryStage.setY(400)//settingFromFileElse('xOffset, "Dev/GeneralDevSettings.rson", 200))
     val jScene = new Scene(root, bounds.getWidth - 8, bounds.getHeight - 40)
-    val pair = pDev.Apps.curr//(fromRsonFileFindElse(openStratDir / "Dev/AppNum.txt", 1))
+    //val sett = fromRsonFileFind[Int](openStratDir / "Dev/AppNum.txt")    
+    val pair = pDev.Apps.curr
     val newAlt = CanvasFx(canvasCanvas)
     pair._1(newAlt)
     primaryStage.setTitle(pair._2)

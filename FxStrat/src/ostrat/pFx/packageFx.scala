@@ -12,7 +12,7 @@ package object pFx
     pw.close
   }
    
-  def loadRsonFile(pathFileName: String): EMon[String] = eTry(io.Source.fromFile(openStratDir / pathFileName).mkString)
+  def loadRsonFile(pathFileName: String): EMon[String] = eTry(io.Source.fromFile(pathFileName).mkString)
   def fromRsonFileFind[A: Persist](fileName: String): EMon[A] = loadRsonFile(fileName).eFindType[A]
   def fromRsonFileFindElse[A: Persist](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
