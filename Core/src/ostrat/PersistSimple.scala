@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import pParse._
 
 /** A Persist class described by a single value. */
 abstract class PersistSimple[A](typeSym: Symbol) extends Persist[A](typeSym)

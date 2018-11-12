@@ -62,7 +62,7 @@ object Colour
 {
   implicit object ColourPersistImplicit extends PersistSimple[Colour]('Colour)
   {
-    def fromExpr(expr: Expr): EMon[Colour] = Good(Red)
+    def fromExpr(expr: ParseExpr): EMon[Colour] = Good(Red)
     def persist(obj: Colour): String = obj.hexStr
   }
   

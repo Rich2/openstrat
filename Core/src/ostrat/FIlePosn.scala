@@ -9,8 +9,7 @@ case class FilePosn(lineNum :Int, linePosn: Int, fileName: String)
 }
 
 object FilePosn
-{ def fromString(linePosn: Int = 1, lineNum: Int = 1): FilePosn = FilePosn(lineNum, linePosn, "From string")
-  def fromServer(linePosn: Int = 1, lineNum: Int = 1): FilePosn = FilePosn(lineNum, linePosn, "Server error")
+{ def fromServer(linePosn: Int = 1, lineNum: Int = 1): FilePosn = FilePosn(lineNum, linePosn, "Server error")
   def empty: FilePosn = FilePosn(0, 0, "Empty object")
   def emptyError[A](errStr: String): Bad[A] = bad1(empty, errStr)
 

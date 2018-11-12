@@ -18,17 +18,16 @@ package object ostrat
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
-   
+  
+  type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]// with AnyRef
   type LeftRight[A] = Either[A, A]
   type Trav[A] = Traversable[A]
   type Funit = Function0[Unit]
   type FStr = Function0[String]
-  type FStrSeq = Seq[Function0[String]]
-  type Tokens = List[Token]
+  type FStrSeq = Seq[Function0[String]]  
   type EMon[B] = Either[Seq[ParseErr], B]
-  type EMonList[B] = Either[Seq[ParseErr], List[B]]
-  type TokensMon = EMon[Tokens]
+  type EMonList[B] = Either[Seq[ParseErr], List[B]]  
   type Good[B] = Right[Seq[ParseErr], B]
   /** The errors case of EMon[B] */
   type Bad[B] = Left[Seq[ParseErr], B]
@@ -92,11 +91,11 @@ package object ostrat
   }
    
   implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def eFindType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(g => ParseTree.fromString(g).flatMap(_.findType[A]))
+  { def eFindType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
     def eFindTypeElse[A: Persist](elseValue: A): A = eFindType[A].getElse(elseValue)
     def eFindTypeForeach[A: Persist](f: A => Unit): Unit = eFindType[A].foreach(f)
     def eFindSetting[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] =
-      thisEMon.flatMap(g => ParseTree.fromString(g).flatMap(_.findSetting[A](settingSym)))
+      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSetting[A](settingSym)))
     def eFindSettingElse[A: Persist](settingSym: Symbol, elseValue: A): A = eFindSetting[A](settingSym).getElse(elseValue) 
   }
    

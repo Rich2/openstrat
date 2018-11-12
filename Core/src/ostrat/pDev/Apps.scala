@@ -36,6 +36,6 @@ object Apps
       (66, (new pGames.pRodHello.RodGUI(_), "nothing to say so far..")),
   )
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 1
+  val appNum: Int = 32
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

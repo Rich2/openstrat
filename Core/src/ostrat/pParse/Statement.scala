@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+package pParse
 
 /** The top level compositional unit of Syntax in CRON: Compact Readable Object Notation. A statement can be claused consisting of comma separated
   * clauses containing a single expression. An empty statement is a special case of the UnClausedStatement where the semicolon character is the

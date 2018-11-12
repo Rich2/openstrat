@@ -19,7 +19,7 @@ object Terrain
     implicit object TerrainPersist extends PersistSimple[Terrain]('Terrain)
    {
       def persist(obj: Terrain): String = "Terrain Persist stand in"
-      def fromExpr(expr: Expr): EMon[Terrain] = ???
+      def fromExpr(expr: ParseExpr): EMon[Terrain] = ???
  }
    
 

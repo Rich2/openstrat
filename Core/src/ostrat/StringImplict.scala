@@ -3,10 +3,10 @@ package ostrat
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
-{ def findType[A: Persist]: EMon[A] = ParseTree.fromString(thisString).flatMap(_.findType[A])
+{ def findType[A: Persist]: EMon[A] = pParse.stringToStatements(thisString).flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: A): A = findType[A].getElse(elseValue)
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
-  def findSetting[A: Persist](settingSym: Symbol) = ParseTree.fromString(thisString).flatMap(_.findSetting[A](settingSym))
+  def findSetting[A: Persist](settingSym: Symbol) = pParse.stringToStatements(thisString).flatMap(_.findSetting[A](settingSym))
   def - (other: String): String = thisString + other
   /** Concatenates a space and then the other String */
   def -- (other: String): String = thisString + " " + other
@@ -42,12 +42,11 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     val (s2a, s2b) = s2.drop(1).span(_ != '.')
     s1 + "." + s2a
   }
-  def parseTree: EMonList[Statement] = ParseTree.fromString(thisString)
-  def strToTokens: EMonList[Token] = TokensGet.fromString(thisString)
+  
+  def toTokens: EMonList[pParse.Token] = pParse.stringToTokens(thisString)
   /** Appends strings with a comma and space seperator */
   def commaAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
   def semicolonAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ - "; " - _)
-  def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)
-  //def prependMinus: String = "-" - thisString
+  def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
   def appendParenth(innerStrs: String*): String = thisString - innerStrs.semicolonFold.enParenth  
 }

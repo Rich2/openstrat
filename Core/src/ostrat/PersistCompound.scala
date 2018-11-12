@@ -1,12 +1,13 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import pParse._
 
 /** Persistence base trait for PersistCase and PerististSeqLike. Some methods probably need to be moved down into sub classes. */
 abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
 { final override def persist(obj: R): String = typeStr + persistSemi(obj).enParenth 
   @inline override def persistTyped(obj: R): String = persist(obj)
 
-  override def fromExpr(expr: Expr): EMon[R] =  expr match
+  override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
     case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeSym == typeName => fromParameterStatements(sts)
     case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName.name -- "does not equal" -- typeStr)

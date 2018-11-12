@@ -4,7 +4,7 @@ ThisBuild/organization := "OpenStratOrg"
 ThisBuild/version := "0.0.1"
 
 val commonSettings = List(	
-    scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint", "-Yno-adapted-args"),
+    scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint"),
     libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
     watchSources += (ThisBuild/baseDirectory).value / "DevSettings"
 )

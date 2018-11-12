@@ -1,14 +1,15 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+package pParse
 
 /** not sure about comment tokens */
 object TokensGet
-{ /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def apply(srcStr: String, fileName: String): TokensMon = mainLoop(srcStr.toList, FilePosn(1, 1, fileName), Nil)
+{
+  type TokensMon = EMon[List[Token]]
   /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def fromString(srcStr: String): TokensMon = mainLoop(srcStr.toList, FilePosn.fromString(1), Nil)
+  def apply(srcStr: String, fileName: String): TokensMon = mainLoop(srcStr.toList, FilePosn(1, 1, fileName), Nil)  
      
-  def mainLoop(rem: List[Char], fp: FilePosn, tokenAcc: Tokens): TokensMon = rem match
+  private def mainLoop(rem: List[Char], fp: FilePosn, tokenAcc: List[Token]): TokensMon = rem match
   { 
     case Nil => tokenAcc.gRet      
     
@@ -135,7 +136,7 @@ object TokensGet
    }
   }
    
-  def isOperator(char: Char): Boolean = char match
+  private def isOperator(char: Char): Boolean = char match
   {
     case '+' | '-' | '*' | '/' | '=' => true
     case _ => false

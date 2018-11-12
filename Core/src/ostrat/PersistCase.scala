@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import pParse._
 
 /** The base trait for the persistence of Case classes, aka Product types */
 abstract class PersistCase[R](typeSym: Symbol) extends PersistCompound[R](typeSym)
