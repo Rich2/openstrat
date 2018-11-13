@@ -22,7 +22,7 @@ object Wall extends DTerr
   val objSym = 'Wall
 }
 
-case class DTile(x: Int, y: Int, terr: DTerr) extends GridElem
+case class DTile(x: Int, y: Int, terr: DTerr) extends ColouredTile//GridElem
 { var charac: Opt[Character] = nullRef
   def colour = terr.colour
 }

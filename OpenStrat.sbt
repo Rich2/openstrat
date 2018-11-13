@@ -32,8 +32,7 @@ lazy val CoreJvm = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
 lazy val CoreJs = project.dependsOn(MacrosJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSettings).settings(  
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
-  //libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.181-R13",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",  
   Compile/mainClass := Some("ostrat.pFx.DevApp"),
   mappings in (Compile, packageBin) ++= mappings.in(MacrosJvm, Compile, packageBin).value,
   mappings in (Compile, packageBin) ++= mappings.in(CoreJvm, Compile, packageBin).value,

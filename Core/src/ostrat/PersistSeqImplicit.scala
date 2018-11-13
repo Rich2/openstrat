@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-class StringerSeqDirect[A](thisSeq: Seq[A], ev: Persist[A])
+class PersistSeqDirect[A](thisSeq: Seq[A], ev: Persist[A])
 { import ostrat.Persist.{PersistSeqImplicit => PSI }
   /** Provides the standard string representation for the object */
   def str: String = new PSI(ev).persist(thisSeq)
@@ -15,7 +15,7 @@ class StringerSeqDirect[A](thisSeq: Seq[A], ev: Persist[A])
     *  for case classes with a single member. */
   def strSemi: String = new PSI(ev).persistSemi(thisSeq)
 
-  /** For most objects persistTyped wil return the same value as persist, for PeristValues the value will be type enclosed. 4.persistTyped
+  /** For most objects persistTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.persistTyped
     * will return Int(4) */
   def strTyped: String = new PSI(ev).persistTyped(thisSeq)
 }

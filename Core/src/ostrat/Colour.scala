@@ -56,7 +56,12 @@ class Colour(val argbValue: Int) extends AnyVal with Stringer
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
 }
 
-
+trait Coloured extends AnyRef
+{ def colour: Colour
+  def contrast: Colour = colour.contrast
+  def colourContrast2(other: Colour): Colour = colour.contrast2(other)
+  def contrastBW = colour.contrastBW
+}
 
 object Colour
 {

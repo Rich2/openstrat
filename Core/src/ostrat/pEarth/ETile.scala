@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import pGrid._
 
-trait ETile extends TileColoured
+trait ETile extends ColouredTile
 { def terr: Terrain
   def colour: Colour = terr.colour
   def str: String = terr.str
