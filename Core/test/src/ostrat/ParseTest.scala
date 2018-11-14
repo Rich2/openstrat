@@ -6,7 +6,7 @@ object ParseTest  extends TestSuite
 { 
   val tests = Tests
   {
-    val settingStr = "x = -5; y = 7" 
+    val settingStr = "x = -5; y = 7; true"
     
     'Test1
     {
@@ -14,6 +14,7 @@ object ParseTest  extends TestSuite
       assert("-4".findType[Int] == Good(-4))
       assert(settingStr.findSetting[Int]('x) == Good(-5))
       assert(settingStr.findSetting[Int]('y) == Good(7))
+      assert(settingStr.findType[Boolean] == Good(true))
     }
   }
 }
