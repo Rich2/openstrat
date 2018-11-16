@@ -19,6 +19,7 @@ class Colour(val argbValue: Int) extends AnyVal with Stringer
   def setAlpha(newAlpha: Int): Colour = Colour((argbValue & 0xFFFFFF) | (newAlpha << 24))
   def contrastBW: Colour = ife((red + green + blue) > 128 * 3, Colour.Black, Colour.White)
   def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
+  
   def contrast: Colour =
   {
     def getCol(el: Int): Int = el match
@@ -27,7 +28,8 @@ class Colour(val argbValue: Int) extends AnyVal with Stringer
     }
     Colour.fromInts(getCol(red), getCol(green), getCol(blue), alpha)
   }
-  def contrast2(other: Colour): Colour =
+  
+def contrast2(other: Colour): Colour =
   {
     def f(i1: Int, i2: Int): Int = 
     { val av = (i1 + i2) / 2

@@ -20,7 +20,6 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
   val t1 = TextGraphic(ptStart, title, 18, LightBlue)
   ptStart = rndX vv new scala.util.Random().nextInt(300)  
   val t2 = TextGraphic(ptStart, canv.getTime.toString, 18, LightBlue)
-  
   val t3 = TextGraphic(ptStart + Vec2.apply(100, 100), canv.getTime.toString, 18, LightBlue) //dont need the new Vec2(100,100) as has factory method which Vec2.apply(100,100) == Vec()
   //val t3 = TextGraphic(ptStart.addXY(100, 100), canv.getTime.toString, 18, LightBlue)
   val t4 = TextGraphic(Vec2(new scala.util.Random().nextInt(300), new scala.util.Random().nextInt(300)), canv.getTime.toString, 18, LightBlue)
