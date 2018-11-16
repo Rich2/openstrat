@@ -3,8 +3,8 @@ package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
 case class Lesson4(canv: CanvasPlatform) extends Lesson
-{ val title = "lesson 4"
-  //Lets copy the values across form the previous lesson.
+{  
+  val title = "Lesson 4"
   val pt1 = -200 vv 200
   val arcCentre = 0 vv 200
   val pt2 = 0 vv 400
@@ -13,21 +13,15 @@ case class Lesson4(canv: CanvasPlatform) extends Lesson
   val ctrl1 = 150 vv -125
   val ctrl2 = -175 vv -250
   val pt5 = -200 vv -200
-
-  //But this time we are going to create an intermediate shape.
-  val shape1: Shape = Shape(LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5))
-  val sf1 = ShapeFill(shape1.slate(400 vv 100), Violet)
-  canv.shapeFill(sf1)
-  val sf2 = ShapeDraw(shape1.clk45, 2)
-  canv.shapeDraw(sf2)
-  val sf3 = sf2.scale(0.5)
-  canv.shapeDraw(sf3)
-  val sf4 = sf3.slate(-250, 200)
-  canv.shapeDraw(sf4)
-  val sf5 = sf4.slateX(-100).copy(colour = Green)
-  canv.shapeDraw(sf5)
-  val rect = Rectangle(200, 100, -400 vv 100).fill(Orange)
-  canv.polyFill(rect)
-  val sf6 = sf5.negY.copy(colour = Red)
-  canv.shapeDraw(sf6)
+  //A shape is just a closed sequence of curve segments */
+  canv.shapeFill(Pink,
+      LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5))
+  canv.textGraphic(pt1, "pt1", 16)
+  canv.textGraphic(arcCentre, "arcCentre", 16)
+  canv.textGraphic(pt2, "pt2", 16)
+  canv.textGraphic(pt3, "pt3", 16)
+  canv.textGraphic(pt4, "pt4", 16)
+  canv.textGraphic(ctrl1, "ctrl1", 16)
+  canv.textGraphic(ctrl2, "ctrl2", 16)
+  canv.textGraphic(pt5, "pt5", 16)
 }
