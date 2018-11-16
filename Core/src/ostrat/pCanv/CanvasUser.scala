@@ -3,7 +3,7 @@ package ostrat
 package pCanv
 import geom._
 
-trait CanvUser
+abstract class CanvasUser(val title: String)
 {   
    val canv: CanvasPlatform
    /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */

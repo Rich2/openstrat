@@ -10,8 +10,8 @@ import ostrat._, geom._, pCanv._, Colour._
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
  
-case class Lesson2(canv: CanvasPlatform) extends Lesson
-{ val title = "Lesson 2"
+case class Lesson2(canv: CanvasPlatform) extends CanvasSimple("Lesson 2")
+{
   canv.lineDraw(0 vv 0, 160 vv 100)//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
   canv.lineDraw(0 vv 50, 150 vv 200, 3)
   canv.lineDraw(50 vv -50, 200 vv -50, 2, Red)//Note if you don't include a Colour you get Black

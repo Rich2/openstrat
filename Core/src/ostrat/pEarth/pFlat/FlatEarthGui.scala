@@ -4,8 +4,8 @@ package pEarth
 package pFlat
 import geom._, pCanv._
 
-case class FlatEarthGui(canv: CanvasPlatform) extends MapGui
-{
+case class FlatEarthGui(canv: CanvasPlatform) extends MapGui("Flat Earth")
+{ 
   override def mapObjs: GraphicElems = Nil
   override def eTop = reTop(List(status))
   eTop()

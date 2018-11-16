@@ -4,7 +4,7 @@ package pGames
 package pCiv
 import geom._, pGrid._, pCanv._, Colour._
 
-class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv)
+class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv, "Civs")
 {
   override var grid: CivGrid = Civ1
   override def scaleMin = 10 

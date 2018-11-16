@@ -10,8 +10,8 @@ package pGames.pRodHello
 
 import geom._, pCanv._, Colour._
 
-case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
-  val title = "now you see it.."
+case class RodGUI (canv: CanvasPlatform) extends CanvasSimple("now you see it..")
+{
   val rndY = new scala.util.Random().nextInt(300) 
   val arr = Array.apply(4,5,6,7)
   deb(arr.apply(3).toString)

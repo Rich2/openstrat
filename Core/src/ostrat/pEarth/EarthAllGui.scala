@@ -3,9 +3,9 @@ package ostrat
 package pEarth
 
 /** Not sure if this class is necessary */
-abstract class EarthAllGui extends EarthGui
+abstract class EarthAllGui(title: String) extends EarthGui(title)
 {
-   val useless: Boolean = true   
+  val useless: Boolean = true   
   
   mapPanel.mouseUp = (v, b, s) => selected = s.headOption.fold[List[AnyRef]](Nil)(h => List((h, v)))
  // mapPanel.fMouseDragged = (v, b, s) => { selectedObj.foreach(_ => println("Drag"))}

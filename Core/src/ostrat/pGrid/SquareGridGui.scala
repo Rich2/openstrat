@@ -3,8 +3,8 @@ package ostrat
 package pGrid
 import geom._
 /** A Gui for a single regular SquareGrid. Currently there are no irregular SquareGrids */
-abstract class SquareGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: SquareGrid[TileT, SideT]](
-      val canv: pCanv.CanvasPlatform, var grid: GridT) extends TileGridGui[TileT, SideT, GridT]
+abstract class SquareGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: SquareGrid[TileT, SideT]](val canv: pCanv.CanvasPlatform,
+    var grid: GridT, title: String) extends TileGridGui[TileT, SideT, GridT](title)
 {
    /** A tile measures 2 coordinates in both x and y direction. */
    override def ptScale = pScale / 2

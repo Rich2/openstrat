@@ -4,7 +4,7 @@ package pGames
 package pDung
 import geom._, pCanv._, pGrid._, SqCode._, Colour._
 
-class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungeonGrid](canv, Dungeon1)
+class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungeonGrid](canv, Dungeon1, "Dungeon")
 { 
   mapPanel.backColour = Black
   var pScale: Double = scaleAlignMin

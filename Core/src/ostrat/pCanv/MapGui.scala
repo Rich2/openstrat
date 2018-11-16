@@ -7,7 +7,7 @@ import Colour._
 /** A MapGui uses a CanvLike and in addition translates between 2d game coordinates and 2d coordinates on the canvas. Allowing the canvas
  *  to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the y coordinate increases from
  *  bottom to top. */
-trait MapGui extends CanvasMulti
+abstract class MapGui(title: String) extends CanvasMulti(title)
 {
    val barWidth = 30
    val topPan = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)

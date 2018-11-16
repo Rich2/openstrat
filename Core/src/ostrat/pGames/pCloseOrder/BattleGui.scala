@@ -4,7 +4,7 @@ package pGames
 package pCloseOrder
 import pCanv._, geom._
 
-case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasSimple//UnfixedMapGui
+case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasSimple("BattleGui")//UnfixedMapGui
 {   
    val rs = scen.lunits.flatMap{c =>
       for { y <- 1 to c.ranks

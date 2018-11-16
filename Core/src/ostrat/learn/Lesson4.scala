@@ -2,9 +2,8 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class Lesson4(canv: CanvasPlatform) extends Lesson
-{  
-  val title = "Lesson 4"
+case class Lesson4(canv: CanvasPlatform) extends CanvasSimple("Lesson 4")
+{
   val pt1 = -200 vv 200
   val arcCentre = 0 vv 200
   val pt2 = 0 vv 400

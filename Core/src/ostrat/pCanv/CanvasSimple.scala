@@ -4,7 +4,7 @@ package pCanv
 import geom._
 
 /** A simple use of the canvas with out splitting it up into Panels */
-trait CanvasSimple extends PanelLike with CanvUser
+abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelLike 
 {      
    override def width = canv.width
    override def height = canv.height
@@ -20,4 +20,4 @@ trait CanvasSimple extends PanelLike with CanvUser
    def repaint(els: List[GraphicElem[_]]): Unit = { canvObjs = els; refresh() }   
 }
 
-abstract class CanvasTitled(val title: String) extends CanvasSimple
+//abstract class CanvasTitled(val title: String) extends CanvasSimple

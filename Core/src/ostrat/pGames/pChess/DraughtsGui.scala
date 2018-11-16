@@ -4,7 +4,7 @@ package pGames
 package pChess
 import geom._, pGrid._, pCanv._, Colour._
 
-case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple
+case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
 {
   var player = true
 

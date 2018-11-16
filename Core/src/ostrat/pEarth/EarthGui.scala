@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import geom._, pCanv._, Colour.Black
 
-abstract class EarthGui extends UnfixedMapGui
+abstract class EarthGui(title: String) extends UnfixedMapGui(title)
 {
   var focus: LatLong = LatLong.deg(50, 0)   
   /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */

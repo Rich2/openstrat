@@ -2,8 +2,8 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class Lesson3(canv: CanvasPlatform) extends Lesson
-{ val title = "Lesson 3"
+case class Lesson3(canv: CanvasPlatform) extends CanvasSimple("Lesson 3")
+{
   //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
   val ptStart: Vec2 = -100 vv 50
   //Lets create another value and call it ptEnd. This is another Vec2, the compiler infers this, although we didn't state it directly.

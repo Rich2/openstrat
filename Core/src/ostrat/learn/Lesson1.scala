@@ -10,8 +10,8 @@ import ostrat._, geom._, pCanv._, Colour._
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
  
-case class Lesson1(canv: CanvasPlatform) extends Lesson
-{ val title = "Lesson 1"
+case class Lesson1(canv: CanvasPlatform) extends CanvasSimple("Lesson 1")
+{
   canv.textGraphic(100 vv 200, "Hi, there!", 28, Red)//This test is centred 300 pixels up and 100 pixels to the right of centre  
   canv.textGraphic(0 vv 0, "This text is centred on the centre of the canvas. The point from which postions are measured.", 18, Blue)
   canv.textGraphic(100 vv -100, "Text centred at 100, -100", 25)

@@ -8,7 +8,7 @@ import Colour._
 import pGrid._
 import pStrat._ 
 
-class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv)
+class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv, "ZugFuhrer")
 {
   val scen = game.getScen(player)
   override var grid: ZugGrid = scen

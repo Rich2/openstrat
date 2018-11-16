@@ -15,8 +15,6 @@ object IsType
   }
 }
 
-trait Titled { def title: String}
-
 trait SymbolKey
 {
   def sym: Symbol

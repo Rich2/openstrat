@@ -4,7 +4,7 @@ package pGames
 package pWW2
 import geom._, pEarth._, pCanv._, pStrat._
 
-case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui
+case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("World War II")
 {
   deb("Beginning WWIIGui")
   focusUp = true

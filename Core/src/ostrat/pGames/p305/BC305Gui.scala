@@ -4,18 +4,18 @@ package pGames
 package p305
 import geom._, pCanv._, pEarth._
 
-case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui
+case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305")
 {
-   override def saveNamePrefix = "BC305"
-   override def scaleMax: Dist = 14000.km / mapPanelDiameter
-   scale = scaleMax
-   var lat: Latitude = 20.north
-   var long: Longitude = 20.east
-   val maxLat = 70.north
-   val minLat = 0.north
-   //def focus: LatLong = lat * long
+  override def saveNamePrefix = "BC305"
+  override def scaleMax: Dist = 14000.km / mapPanelDiameter
+  scale = scaleMax
+  var lat: Latitude = 20.north
+  var long: Longitude = 20.east
+  val maxLat = 70.north
+  val minLat = 0.north
+  //def focus: LatLong = lat * long
 
-   val tops: Seq[Area1] = EarthAreas.oldWorld
+  val tops: Seq[Area1] = EarthAreas.oldWorld
 //   override def eTop(): Unit = reTop(Seq(bIn, bOut, bLeft, bRight,
 //         bDown, bUp, bInv, status))
 //   /** 4 methods below are incorrect */
@@ -28,17 +28,16 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui
 //   def upCmd: MouseButton => Unit = (mb: MouseButton) =>
 //      { lat = Latitude((lat.radians + distDelta(mb)).max(0)); updateView() } 
          
-   val fHex: OfETile[BcTile, ESideOnly] => GraphicElems = etog =>
-      {
-         import etog._         
-         val colour: Colour = tile.colour
-         val poly = vertDispVecs.fillSubj(tile, colour)
-         val tileText: GraphicElems = ifScaleCObjs(68,
-         {
-            val ls: List[String] = List(yxStr, cenLL.toString)                   
+  val fHex: OfETile[BcTile, ESideOnly] => GraphicElems = etog =>
+    { import etog._         
+      val colour: Colour = tile.colour
+      val poly = vertDispVecs.fillSubj(tile, colour)
+      
+      val tileText: GraphicElems = ifScaleCObjs(68,
+          { val ls: List[String] = List(yxStr, cenLL.toString)        
             TextGraphic.lines(cen, ls, 10, colour.contrastBW)              
-         })         
-         poly :: tileText
+          })         
+          poly :: tileText
       }
    def fSide: OfESide[BcTile, ESideOnly] => GraphicElems = ofs => {
       import ofs._
