@@ -1,10 +1,4 @@
 /* Copyright 2018 w0d. Licensed under Apache Licence version 2.0 */
-
-/*inital possibles
- * cards
- * atoms
- * LED array/screen
- */
 package ostrat
 package pGames.pRodHello
 
@@ -13,34 +7,63 @@ import geom._, pCanv._, Colour._
 case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
   deb("Console Debugging On..")
   val title = "reactor.."
-  var myList = List[PolyFill]()
-  var myGrid = new Array[Int](80)
-  for (r <- 0 to 7) {
-    for (c <- 0 to 9) {
-//  for( r <- 0 to 7; c <- 0 to 9){
-/*    canv.polyFill(Rectangle(39, 39, 40*c vv 40*r).fill(Orange))
-*/
-//    myGrid(c)(r) = c+9*r
-    myGrid(c+9*r) = c+9*r   
-    myList = Rectangle(39, 39, 40*c vv 40*r).fill(Orange) :: myList
-  }
-    }
-//  }
-  repaint(myList)
-  deb("myList.length = " + myList.length)
-  deb("myGrid.length = " + myGrid.length)
-  for ( i <- 0 to (myGrid.length - 1) ) {
-    deb("myGrid(" + i + ") = " + myGrid(i))
+  val size = 40
+  val rows = 8
+  val cols = 10
+  
+  var cellCounts = new Array[Int](rows*cols)
+  var cellColors = new Array[Colour](rows*cols)
+//  var cellNeighbours = new Array[Array[Int]](rows*cols)
+
+  canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
+
+  for( r <- 0 to rows-1; c <- 0 to cols-1){
+    val index = c+cols*r
+    cellCounts(index) = 0
+    cellColors(index) = Black
+
+//    cellNeighbours(index) = new Array[Int](4)
+
+    canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(Black))
+
+    // if (c>0) cellNeighbours(index)(cellNeighbours(index).length) = index-1
+    // if (r>0) cellNeighbours(index)(cellNeighbours(index).length) = index-cols
+    // if (c<(cols-1)) cellNeighbours(index)(cellNeighbours(index).length) = index+1
+    // if (r<(rows-1)) cellNeighbours(index)(cellNeighbours(index).length) = index+cols
+
   }
   
-  mouseUp = (v, b, s) =>
+  mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
+    {
+      case (v, LeftButton, cl) =>
+      {
+        if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)){
+          val r = (v._2/size).toInt
+          val c = (v._1/size).toInt
+          canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(Green))
+          cellCounts(c+cols*r) += 1
+        }
+        //selected = clickList.fHead(Nil, (h , _) => List(h))
+        //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+      }
+      case _ => deb("Mouse other")
+    }   
+}
+
+//  var renderings = List[PolyFill]()
+//  renderings = Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(Orange) :: renderings
+//  repaint(renderings)
+//  deb("renderings.length = " + renderings.length)
+  // deb("myGrid.length = " + myGrid.length)
+  // for ( i <- 0 to (myGrid.length - 1) ) {
+  //   deb("myGrid(" + i + ") = " + myGrid(i))
+  // } 
+/*  mouseUp = (v, b, s) =>
   { // mouseLoc, whichBtn, HitList
     deb(v.toString -- b.toString -- s.length.toString)
     if (s.length>0) deb(s(0).toString)
   } 
-
-
-}
+*/
  //  val rndY = new scala.util.Random().nextInt(300) 
  //  val arr = Array.apply(4,5,6,7)
  //  deb(arr.apply(3).toString)
@@ -128,27 +151,3 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
 // }
 
 
-
-/*
-git push origin master
-mill -w FxStrat.runBackground
-git add -A
-git commit -m "Tidying."
-git push orgin master
-git pull origin master
-mill -w FxStrat.runBackground
-git config user.name "w0d"
-git config --global user.email "35996314+w0d@users.noreply.github.com"
-git config --global user.name "w0d"
-git add -a git commit -m "added RodTest"
-git -A 
-git add -A
-git commit -m "added RodTest"
-git push origin master
-
-git add -A
-git commit -m "minor change RodTest"
-git push origin master
-mill -w FxStrat.runBackground
-
-*/
