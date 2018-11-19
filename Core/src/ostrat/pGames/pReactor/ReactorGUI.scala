@@ -5,7 +5,7 @@ package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
-case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
+case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple {
   deb("Console Debugging On..")
   val title = "reactor.."
   val size = 40
