@@ -1,64 +1,80 @@
 /* Copyright 2018 w0d. Licensed under Apache Licence version 2.0 */
-
 package ostrat
 package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple {
-  deb("Console Debugging On..")
+  deb("ReactorGUI On..")
   val title = "reactor.."
   val size = 40
   val rows = 8
   val cols = 10
   var players = Array(Red, Green, Yellow, Blue)
-  var playersTurnIndex = 0
-
-  //Array.fill[Byte](5)(0)
+  var currentPlayer = Red
   var cellCounts = Array.fill[Int](rows*cols)(0)
   var cellColors = Array.fill[Colour](rows*cols)(Black)
   var cellNeighbours = new Array[Array[Int]](80)
 
   canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
-
   for( r <- 0 to rows-1; c <- 0 to cols-1){
     val index = c+cols*r
     cellNeighbours(index) = Array[Int]()
-
     canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(cellColors(index)))
-
     if (c>0) cellNeighbours(index) = (index-1) +: cellNeighbours(index)
     if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
     if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
     if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
   }
+  canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
   
-  canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(players(playersTurnIndex)))
-
+  def addBall(index:Int) : Unit = {
+    val ro = (index / cols).toInt
+    val co = (index % cols).toInt
+    cellColors(index) = currentPlayer
+    cellCounts(index) += 1
+    if (cellCounts(index) >= cellNeighbours(index).length) {
+      cellCounts(index) = cellCounts(index) - cellNeighbours(index).length
+      canv.polyFill(Rectangle.fromBL(size-1, size-1, size*co vv size*ro).fill(Black))
+      if (cellCounts(index)>0) canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
+      else cellColors(index) = Black
+      cellNeighbours(index).foreach(c => addBall(c))
+    } else {
+      if (cellCounts(index)>0) canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
+      else cellColors(index) = Black
+    }
+  }
+  
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
+  {
+    case (v, LeftButton, cl) =>
+    {
+      if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)){
+        val index = (v._1/size).toInt+cols*((v._2/size).toInt)
+        if (currentPlayer == cellColors(index) || Black  == cellColors(index)) {
+          addBall(index)
+          var currentPlayerIndex = players.indexOf(currentPlayer)+1
+          if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
+          currentPlayer = players(currentPlayerIndex)
+          canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
+        } 
+      }
+    }
+  }   
+}
+//          val r = (v._2/size).toInt
+//          val c = (v._1/size).toInt
+/*
+match
     {
       case (v, LeftButton, cl) =>
       {
-        if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)){
-          val r = (v._2/size).toInt
-          val c = (v._1/size).toInt
-          val index = c+cols*r
-          if (players(playersTurnIndex) == cellColors(index) || Black  == cellColors(index)) {
-            canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(players(playersTurnIndex)))
-            cellColors(index) = players(playersTurnIndex)
-            cellCounts(index) += 1
-            playersTurnIndex = playersTurnIndex + 1
-            if (playersTurnIndex >= players.length) playersTurnIndex = 0
-            canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(players(playersTurnIndex)))
-            deb("cellCounts(index) "+cellCounts(index).toString)
-            canv.textGraphic((size*c+size/2) vv (size*r+size/2), cellCounts(index).toString, 12, players(playersTurnIndex))
-          }
-        }
-     }
-      case _ => deb("Mouse other")
+      }
+    case _ => deb("Mouse other")
+      {
+      }
     }   
-}
-
+*/
 //  var renderings = List[PolyFill]()
 //  renderings = Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(Orange) :: renderings
 //  repaint(renderings)
