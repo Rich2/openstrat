@@ -24,6 +24,7 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
   var cellNeighbours = new Array[Array[Int]](80)
 
   var players = Array(Red, Green, Yellow, Blue)
+  var whosTurn = 0
 
   canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
 
@@ -31,7 +32,6 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
     val index = c+cols*r
     cellCounts(index) = 0
     cellColors(index) = Black
-
     cellNeighbours(index) = Array[Int]()
 
     canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(Black))
@@ -40,9 +40,6 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
     if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
     if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
     if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
-
-deb("cellNeighbours(index)(0)="+cellNeighbours(index).length)
-
   }
   
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
@@ -52,8 +49,14 @@ deb("cellNeighbours(index)(0)="+cellNeighbours(index).length)
         if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)){
           val r = (v._2/size).toInt
           val c = (v._1/size).toInt
-          canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(Green))
-          cellCounts(c+cols*r) += 1
+          val index = c+cols*r
+          if (players(whosTurn) == cellColors(index) || Black  == cellColors(index)) {
+            canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(players(whosTurn)))
+            cellColors(index) = players(whosTurn)
+            cellCounts(index) += 1
+            whosTurn = whosTurn + 1
+            if (whosTurn >= players.length) whosTurn = 0
+          }
         }
         //selected = clickList.fHead(Nil, (h , _) => List(h))
         //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
