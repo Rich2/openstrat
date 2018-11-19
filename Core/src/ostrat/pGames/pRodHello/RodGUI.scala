@@ -1,4 +1,10 @@
 /* Copyright 2018 w0d. Licensed under Apache Licence version 2.0 */
+
+/*inital possibles
+ * cards
+ * atoms
+ * LED array/screen
+ */
 package ostrat
 package pGames.pRodHello
 
@@ -14,6 +20,10 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
   var cellCounts = new Array[Int](rows*cols)
   var cellColors = new Array[Colour](rows*cols)
 //  var cellNeighbours = new Array[Array[Int]](rows*cols)
+//  var cellNeighbours = Array.ofDim[Int](80,4)
+  var cellNeighbours = new Array[Array[Int]](80)
+
+  var players = Array(Red, Green, Yellow, Blue)
 
   canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
 
@@ -22,14 +32,16 @@ case class RodGUI (canv: CanvasPlatform) extends CanvasSimple {
     cellCounts(index) = 0
     cellColors(index) = Black
 
-//    cellNeighbours(index) = new Array[Int](4)
+    cellNeighbours(index) = Array[Int]()
 
     canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(Black))
 
-    // if (c>0) cellNeighbours(index)(cellNeighbours(index).length) = index-1
-    // if (r>0) cellNeighbours(index)(cellNeighbours(index).length) = index-cols
-    // if (c<(cols-1)) cellNeighbours(index)(cellNeighbours(index).length) = index+1
-    // if (r<(rows-1)) cellNeighbours(index)(cellNeighbours(index).length) = index+cols
+    if (c>0) cellNeighbours(index) = (index-1) +: cellNeighbours(index)
+    if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
+    if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
+    if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
+
+deb("cellNeighbours(index)(0)="+cellNeighbours(index).length)
 
   }
   
