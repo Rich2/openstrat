@@ -4,9 +4,8 @@ package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
-case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple {
+case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor.."){
   deb("ReactorGUI On..")
-  val title = "reactor.."
   val size = 40
   val rows = 8
   val cols = 10
@@ -43,7 +42,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple {
       if (cellCounts(index)>0) canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
       else cellColors(index) = Black
     }
-    players = players.filter
+    //players = players.filter
   }
   
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
