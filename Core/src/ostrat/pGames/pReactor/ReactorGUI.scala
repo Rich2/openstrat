@@ -48,18 +48,17 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
   
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
   {
-    case (v, LeftButton, cl) =>
+    case (v, LeftButton, cl) if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
     {
-      if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)){
-        val index = (v._1/size).toInt+cols*((v._2/size).toInt)
-        if (currentPlayer == cellColors(index) || Black  == cellColors(index)) {
-          addBall(index)
-          var currentPlayerIndex = players.indexOf(currentPlayer)+1
-          if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
-          currentPlayer = players(currentPlayerIndex)
-          canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
-        } 
-      }
+      val index = (v._1/size).toInt+cols*((v._2/size).toInt)
+      if (currentPlayer == cellColors(index) || Black  == cellColors(index))
+      {
+        addBall(index)
+        var currentPlayerIndex = players.indexOf(currentPlayer)+1
+        if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
+        currentPlayer = players(currentPlayerIndex)
+        canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
+      } 
     }
     case _ => deb("Mouse other")
   }   
