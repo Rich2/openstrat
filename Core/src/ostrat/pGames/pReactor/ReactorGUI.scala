@@ -10,14 +10,16 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
   val size = 40
   val rows = 8
   val cols = 10
+  var turn = 0
   var players = Array(Red, Green, Yellow, Blue)
   var currentPlayer = Red
   var cellCounts = Array.fill[Int](rows*cols)(0)
   var cellColors = Array.fill[Colour](rows*cols)(Black)
-  var cellNeighbours = new Array[Array[Int]](80)
+  val cellNeighbours = new Array[Array[Int]](80)
 
   canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
-  for( r <- 0 to rows-1; c <- 0 to cols-1){
+  for( r <- 0 to rows-1; c <- 0 to cols-1)
+  {
     val index = c+cols*r
     cellNeighbours(index) = Array[Int]()
     canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(cellColors(index)))
@@ -28,7 +30,15 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
   }
   canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
   
-  def addBall(index:Int) : Unit = {
+  def drawBalls(loc:Vec2, color:Colour, count:Int) : Unit =
+  {
+    if (count==2||count==3) canv.shapeFill(Circle.fill(size/4, color, loc+((size/4) vv (size/4))))
+    if (count==1||count==3) canv.shapeFill(Circle.fill(size/4, color, loc+((size/2) vv (size/2))))
+    if (count==2||count==3) canv.shapeFill(Circle.fill(size/4, color, loc+((3*size/4) vv (3*size/4))))
+  }
+
+  def addBall(index:Int) : Unit = 
+  {
     val ro = (index / cols).toInt
     val co = (index % cols).toInt
     cellColors(index) = currentPlayer
@@ -36,16 +46,17 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
     canv.polyFill(Rectangle.fromBL(size-1, size-1, size*co vv size*ro).fill(Black))
     if (cellCounts(index) >= cellNeighbours(index).length) {
       cellCounts(index) = cellCounts(index) - cellNeighbours(index).length
-      if (cellCounts(index)>0) canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
+      if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))//canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
       else cellColors(index) = Black
       cellNeighbours(index).foreach(c => addBall(c))
     } else {
-      if (cellCounts(index)>0) canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
+      if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))//canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
       else cellColors(index) = Black
     }
-    //players = players.filter
+    if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
+    if (players.length < 2) canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
   }
-  
+
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
   {
     case (v, LeftButton, cl) if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
@@ -53,6 +64,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
       val index = (v._1/size).toInt+cols*((v._2/size).toInt)
       if (currentPlayer == cellColors(index) || Black  == cellColors(index))
       {
+        turn += 1
         addBall(index)
         var currentPlayerIndex = players.indexOf(currentPlayer)+1
         if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
@@ -60,9 +72,16 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
         canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
       } 
     }
-    case _ => deb("Mouse other")
+    case _ => deb("Mouse other + clickList.length="+clickList.length.toString)
   }   
 }
+//  var currentPlayer = p1
+//  sealed class player(colour:Colour) Extends Colour(colour)
+//  object p1 extends player(Red)
+//  object p2 extends player(Green)
+//  object p3 extends player(Yellow)
+//  object p4 extends player(Blue)
+
 //          val r = (v._2/size).toInt
 //          val c = (v._1/size).toInt
 /*
