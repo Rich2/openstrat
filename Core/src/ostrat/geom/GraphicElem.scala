@@ -38,7 +38,7 @@ case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, 
 
 object LineDraw
 {
-  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0): LineDraw =
+  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black, zOrder: Int = 0): LineDraw =
     new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, zOrder)
   
 }

@@ -8,6 +8,7 @@ import math._
 final class Vec2 (val x: Double, val y: Double) extends ProdD2 with Stringer
 { override def typeSym = 'Vec2
   def str = persistD2(x, y)
+  def commaStr = x.toString + ", " + y.toString
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y   

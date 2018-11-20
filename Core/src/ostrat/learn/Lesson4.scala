@@ -11,16 +11,18 @@ case class Lesson4(canv: CanvasPlatform) extends CanvasSimple("Lesson 4")
   val pt4 = 200 vv -200
   val ctrl1 = 150 vv -125
   val ctrl2 = -175 vv -250
-  val pt5 = -200 vv -200
-  //A shape is just a closed sequence of curve segments */
-  canv.shapeFill(Pink,
-      LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5))
-  canv.textGraphic(pt1, "pt1", 16)
-  canv.textGraphic(arcCentre, "arcCentre", 16)
-  canv.textGraphic(pt2, "pt2", 16)
-  canv.textGraphic(pt3, "pt3", 16)
-  canv.textGraphic(pt4, "pt4", 16)
-  canv.textGraphic(ctrl1, "ctrl1", 16)
-  canv.textGraphic(ctrl2, "ctrl2", 16)
-  canv.textGraphic(pt5, "pt5", 16)
+  val pt5 = -200 vv -200  
+  
+  repaints(
+      //A shape is just a closed sequence of curve segments */
+      Shape(LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5)).fill(Pink),
+      TextGraphic(pt1, "pt1", 16),
+      TextGraphic(arcCentre, "arcCentre", 16),
+      TextGraphic(pt2, "pt2", 16),
+      TextGraphic(pt3, "pt3", 16),
+      TextGraphic(pt4, "pt4", 16),
+      TextGraphic(ctrl1, "ctrl1", 16),
+      TextGraphic(ctrl2, "ctrl2", 16),
+      TextGraphic(pt5, "pt5", 16),
+      )   
 }
