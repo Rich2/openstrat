@@ -2,19 +2,22 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-sealed class ARect(val cen: Vec2)
+/** We will use this helper class for Lesson A4 and A5 */
+case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 100) extends WithColour
 {
   var colour = Red
+  def graphic = Rectangle(width, height, cen).fillSubj(this, colour)
+  def sGraphic = Rectangle(width, height, cen).fillDrawSubj(this, colour, 2, contrast)
 }
-object R1 extends ARect(-300 vv 300)
-object R2 extends ARect(300 vv 300)
-object R3 extends ARect(300 vv -300)
-object R4 extends ARect(-300 vv -300)
 
 case class LessonA4(canv: CanvasPlatform) extends CanvasSimple("Lesson A4")
-{  
-  val rList = List(R1, R2, R3, R4)
-  def gList = rList.map(r => Rectangle(200, 100, r.cen).fillSubj(r, r.colour))
+{
+  val r1 = ARect(-300 vv 300)
+  val r2  = ARect(300 vv 300)
+  val r3 = ARect(300 vv -300)
+  val r4 = ARect(-300 vv -300)
+  val rList = List(r1, r2, r3, r4)
+  def gList = rList.map(_.graphic)
   val textPosn = 0 vv 0
   val startText = TextGraphic(textPosn, "Click on the rectangles to cycle the colour.", 28)
   repaint(gList :+ startText)

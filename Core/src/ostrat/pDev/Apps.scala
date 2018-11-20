@@ -38,12 +38,13 @@ object Apps
       (42, (learn.LessonA2(_), "ScalaFx Demonstration Canvas Active 2")),
       (43, (learn.LessonA3(_), "ScalaFx Demonstration Canvas Active 3")),
       (44, (learn.LessonA4(_), "ScalaFx Demonstration Canvas Active 4")),
+      (45, (learn.LessonA5(_), "ScalaFx Demonstration Canvas Active 5")),
       
       (66, (new pGames.pReactor.ReactorGUI(_), "reactor")),
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 44
+  val appNum: Int = 45
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }
