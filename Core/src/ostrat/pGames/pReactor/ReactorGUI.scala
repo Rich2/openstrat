@@ -4,9 +4,9 @@ package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
-case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple {
-  deb("ReactorGUI On..")
-  val title = "reactor.."
+case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
+{
+  deb("ReactorGUI On..")  
   val size = 40
   val rows = 8
   val cols = 10
