@@ -58,12 +58,14 @@ def contrast2(other: Colour): Colour =
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
 }
 
-trait Coloured extends AnyRef
+trait WithColour extends AnyRef
 { def colour: Colour
   def contrast: Colour = colour.contrast
   def colourContrast2(other: Colour): Colour = colour.contrast2(other)
   def contrastBW = colour.contrastBW
 }
+
+class Coloured(val colour: Colour) extends WithColour 
 
 object Colour
 {
