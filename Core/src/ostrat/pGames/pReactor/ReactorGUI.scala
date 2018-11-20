@@ -4,9 +4,9 @@ package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
-case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
-{
-  deb("ReactorGUI On..")  
+case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple {
+  deb("ReactorGUI On..")
+  val title = "reactor.."
   val size = 40
   val rows = 8
   val cols = 10
@@ -33,9 +33,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
     val co = (index % cols).toInt
     cellColors(index) = currentPlayer
     cellCounts(index) += 1
+    canv.polyFill(Rectangle.fromBL(size-1, size-1, size*co vv size*ro).fill(Black))
     if (cellCounts(index) >= cellNeighbours(index).length) {
       cellCounts(index) = cellCounts(index) - cellNeighbours(index).length
-      canv.polyFill(Rectangle.fromBL(size-1, size-1, size*co vv size*ro).fill(Black))
       if (cellCounts(index)>0) canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
       else cellColors(index) = Black
       cellNeighbours(index).foreach(c => addBall(c))
@@ -43,6 +43,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
       if (cellCounts(index)>0) canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
       else cellColors(index) = Black
     }
+    players = players.filter
   }
   
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
@@ -60,6 +61,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
         } 
       }
     }
+    case _ => deb("Mouse other")
   }   
 }
 //          val r = (v._2/size).toInt
