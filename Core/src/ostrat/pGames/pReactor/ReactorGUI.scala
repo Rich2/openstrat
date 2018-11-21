@@ -39,24 +39,27 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
 
   def addBall(index:Int) : Unit = 
   {
-    val ro = (index / cols).toInt
-    val co = (index % cols).toInt
-    cellColors(index) = currentPlayer
-    cellCounts(index) += 1
-    canv.polyFill(Rectangle.fromBL(size-1, size-1, size*co vv size*ro).fill(Black))
-    if (cellCounts(index) >= cellNeighbours(index).length) {
-      cellCounts(index) = cellCounts(index) - cellNeighbours(index).length
-      if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))//canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
-      else cellColors(index) = Black
-      cellNeighbours(index).foreach(c => addBall(c))
-    } else {
-      if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))//canv.textGraphic((size*co+size/2) vv (size*ro+size/2), cellCounts(index).toString, 16, currentPlayer)
-      else cellColors(index) = Black
+    if (players.length > 1) 
+    {
+      val ro = (index / cols).toInt
+      val co = (index % cols).toInt
+      cellColors(index) = currentPlayer
+      cellCounts(index) += 1
+      canv.polyFill(Rectangle.fromBL(size-1, size-1, size*co vv size*ro).fill(Black))
+      if (cellCounts(index) >= cellNeighbours(index).length) {
+        cellCounts(index) = cellCounts(index) - cellNeighbours(index).length
+        if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))
+        else cellColors(index) = Black
+        cellNeighbours(index).foreach(c => addBall(c))
+      } else {
+        if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))
+        else cellColors(index) = Black
+      }
+      if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
+      if (players.length < 2) canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
     }
-    if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
-    if (players.length < 2) canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
   }
-
+//canv.timeOut(timesUp, 30000)
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
   {
     case (v, LeftButton, cl) if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
