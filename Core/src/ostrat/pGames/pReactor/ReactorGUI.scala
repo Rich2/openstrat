@@ -4,7 +4,7 @@ package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
-case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
+case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor..")
 {
   deb("ReactorGUI On..")
   val size = 40
@@ -16,6 +16,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
   var cellCounts = Array.fill[Int](rows*cols)(0)
   var cellColors = Array.fill[Colour](rows*cols)(Black)
   val cellNeighbours = new Array[Array[Int]](80)
+  var addBallQueue = Array[Int]()
 
   canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
   for( r <- 0 to rows-1; c <- 0 to cols-1)
@@ -23,6 +24,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
     val index = c+cols*r
     cellNeighbours(index) = Array[Int]()
     canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(cellColors(index)))
+    cellCounts(index) = 1
+    cellColors(index) = players(new scala.util.Random().nextInt(4))
+    drawBalls(size*c vv size*r, cellColors(index), cellCounts(index))
     if (c>0) cellNeighbours(index) = (index-1) +: cellNeighbours(index)
     if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
     if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
@@ -37,6 +41,27 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
     if (count==2||count==3) canv.shapeFill(Circle.fill(size/4, color, loc+((3*size/4) vv (3*size/4))))
   }
 
+  def processQueue() : Unit = 
+  {
+       deb("queue="+addBallQueue.length.toString)
+    if (addBallQueue.length > 0)
+    {
+      val thisOne = addBallQueue(0)
+      addBallQueue = addBallQueue.tail
+      addBall(thisOne)
+      canv.timeOut(processQueue, 100)
+    }
+    else
+    {
+      var currentPlayerIndex = players.indexOf(currentPlayer) + 1
+      if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
+      currentPlayer = players(currentPlayerIndex)
+      canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
+      canv.textGraphic(-3*size/4 vv -3*size/4, turn.toString, 11, Black)
+    }
+    if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
+    if (players.length < 2) canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
+  }
   def addBall(index:Int) : Unit = 
   {
     if (players.length > 1) 
@@ -50,16 +75,16 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
         cellCounts(index) = cellCounts(index) - cellNeighbours(index).length
         if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))
         else cellColors(index) = Black
-        cellNeighbours(index).foreach(c => addBall(c))
+        addBallQueue = addBallQueue ++ cellNeighbours(index)
+        //cellNeighbours(index).foreach(c => addBallQueue = c +: addBallQueue)
       } else {
         if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))
         else cellColors(index) = Black
       }
-      if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
-      if (players.length < 2) canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
+      canv.timeOut(processQueue, 100)
     }
   }
-//canv.timeOut(timesUp, 30000)
+
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
   {
     case (v, LeftButton, cl) if(v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
@@ -69,11 +94,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
       {
         turn += 1
         addBall(index)
-        var currentPlayerIndex = players.indexOf(currentPlayer)+1
-        if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
-        currentPlayer = players(currentPlayerIndex)
-        canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
-        canv.textGraphic(-3*size/4 vv -3*size/4, turn.toString, 11, Black)
+        deb("Mouse other + clickList.length="+clickList.length.toString)
       }
     }
     case _ => deb("Mouse other + clickList.length="+clickList.length.toString)
