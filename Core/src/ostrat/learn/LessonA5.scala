@@ -2,7 +2,7 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class Lesson5(canv: CanvasPlatform) extends CanvasSimple("lesson 5")
+case class LessonA5(canv: CanvasPlatform) extends CanvasSimple("lesson A5")
 {
   //Lets copy the values across form the previous lesson.
   val pt1 = -200 vv 200

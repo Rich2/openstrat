@@ -2,7 +2,7 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class Lesson6(canv: CanvasPlatform) extends CanvasSimple("Lesson 6")
+case class LessonA6(canv: CanvasPlatform) extends CanvasSimple("Lesson A6")
 {
   def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)
   //This can be more elegantly expressed in dotty

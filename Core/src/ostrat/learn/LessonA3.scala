@@ -2,7 +2,7 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class Lesson3(canv: CanvasPlatform) extends CanvasSimple("Lesson 3")
+case class LessonA3(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")
 {
   //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
   val ptStart: Vec2 = -100 vv 50

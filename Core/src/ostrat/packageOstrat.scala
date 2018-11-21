@@ -84,6 +84,15 @@ package object ostrat
     acc.reverse
   }
   
+  implicit class AnyTImplicit[T](thisT: T)
+  {
+    def nextFromList(list: List[T]): T =
+    {
+      val i: Int = list.indexOf[T](thisT)
+      if (i >= list.length - 1) list(0) else list(i + 1)
+    }
+  }
+  
   /** Extension methods for Any */
   implicit class AnyRefImplicit[T <: Any](thisT: T)
   {

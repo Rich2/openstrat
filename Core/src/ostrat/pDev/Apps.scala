@@ -23,30 +23,34 @@ object Apps
       (10, (pGames.pCard.BlackJack(_), "ScalaFx BlackJack")),
       (11, (new pGames.pChess.DraughtsGui(_), "Draughts")),
       
-      (21, (learn.Lesson1(_), "ScalaFx Demonstration Canvas 1")),
-      (22, (learn.Lesson2(_), "ScalaFx Demonstration Canvas 2")),
-      (23, (learn.Lesson3(_), "ScalaFx Demonstration Canvas 3")),
-      (24, (learn.Lesson4(_), "ScalaFx Demonstration Canvas 4")),
-      (25, (learn.Lesson5(_), "ScalaFx Demonstration Canvas 5")),
-      (26, (learn.Lesson6(_), "ScalaFx Demonstration Canvas 6")),
-      (27, (learn.Lesson7(_), "ScalaFx Demonstration Canvas 7")),
+      (20, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
+      (21, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
+      (22, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
+      (23, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame2, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
+      (26, (new pGames.pReactor.ReactorGUI(_), "reactor")),
       
-      (30, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
-      (31, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
-      (32, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
-      (33, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame2, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
+      (31, (learn.LessonA1(_), "ScalaFx Demonstration Canvas 1")),
+      (32, (learn.LessonA2(_), "ScalaFx Demonstration Canvas 2")),
+      (33, (learn.LessonA3(_), "ScalaFx Demonstration Canvas 3")),
+      (34, (learn.LessonA4(_), "ScalaFx Demonstration Canvas 4")),
+      (35, (learn.LessonA5(_), "ScalaFx Demonstration Canvas 5")),
+      (36, (learn.LessonA6(_), "ScalaFx Demonstration Canvas 6")),
+      (37, (learn.LessonA7(_), "ScalaFx Demonstration Canvas 7")),
       
-      (41, (learn.LessonC1(_), "ScalaFx Demonstration Interactive Canvas 1")),
-      (42, (learn.LessonC2(_), "ScalaFx Demonstration Interactive Canvas 2")),
-      (43, (learn.LessonC3(_), "ScalaFx Demonstration Interactive Canvas 3")),
-      (44, (learn.LessonC4(_), "ScalaFx Demonstration Interactive Canvas 4")),
-      (45, (learn.LessonC5(_), "ScalaFx Demonstration Interactive Canvas 5")),      
+      (41, (learn.LessonB1(_), "ScalaFx Demonstration Animated Canvas 1")),
       
-      (66, (new pGames.pReactor.ReactorGUI(_), "reactor")),
+      
+      (51, (learn.LessonC1(_), "ScalaFx Demonstration Interactive Canvas 1")),
+      (52, (learn.LessonC2(_), "ScalaFx Demonstration Interactive Canvas 2")),
+      (53, (learn.LessonC3(_), "ScalaFx Demonstration Interactive Canvas 3")),
+      (54, (learn.LessonC4(_), "ScalaFx Demonstration Interactive Canvas 4")),
+      (55, (learn.LessonC5(_), "ScalaFx Demonstration Interactive Canvas 5")),      
+      
+      
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 45
+  val appNum: Int = 55
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

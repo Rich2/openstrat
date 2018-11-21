@@ -30,6 +30,8 @@ trait CanvasPlatform extends RectGeom
   def startFrame(f: (Double, Double) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime)
   /** A call back timer. Takes the delay in milliseconds */
   def timeOut(f: () => Unit, millis: Integer): Unit
+  
+  def startFrame2(f: Double => Unit, millis: Integer): Unit = ???
   var textMin: Int = 10
    
   final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))

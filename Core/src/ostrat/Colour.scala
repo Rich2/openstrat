@@ -79,6 +79,7 @@ object Colour
    def apply(argbValue: Int) = new Colour(argbValue)   
    def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
    def blackOrWhite(b: Boolean): Colour = if (b) Black else White
+   def rainbow: List[Colour] = List(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
       
    val AntiqueWhite: Colour = new Colour(0xFFFAEBD7)
    val Aqua: Colour = new Colour(0xFF00FFFF)
