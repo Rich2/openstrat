@@ -73,12 +73,13 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("reactor..")
         if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
         currentPlayer = players(currentPlayerIndex)
         canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
-      } 
+        canv.textGraphic(-3*size/4 vv -3*size/4, turn.toString, 11, Black)
+      }
     }
     case _ => deb("Mouse other + clickList.length="+clickList.length.toString)
   }   
 }
-//  var currentPlayer = p1
+//  var currentPlayer = p1 //
 //  sealed class player(colour:Colour) Extends Colour(colour)
 //  object p1 extends player(Red)
 //  object p2 extends player(Green)
