@@ -21,6 +21,7 @@ final class Angle private(val radians: Double) extends AnyVal with AngleLike
   def toVec2: Vec2 = Vec2(math.cos(radians), math.sin(radians))
   def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
   def +(other: Angle) = Angle(radians + other.radians)
+  def -(other: Angle) = Angle(radians - other.radians)
   
   /** returns an angle between -Pi and Pi */
   def angleTo(other: Angle): Angle = other.radians -radians match

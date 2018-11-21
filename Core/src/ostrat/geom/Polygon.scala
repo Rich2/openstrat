@@ -25,8 +25,9 @@ class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] 
   def boundingHeight: Double = boundingRect.height   
   def polyCentre: Vec2 = boundingRect.cen
    
-  def fill(colour: Colour, layer: Int = 0): PolyFill = PolyFill(this, colour, layer)
-  def draw(lineWidth: Double, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
+  def fill(fillColour: Colour, layer: Int = 0): PolyFill = PolyFill(this, fillColour, layer)
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
+  def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolyDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
     PolyFillDraw(this, fillColour, lineWidth, lineColour)   
   def fillSubj(evObj: AnyRef, fillColour: Colour, layer: Int = 0): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour, layer)

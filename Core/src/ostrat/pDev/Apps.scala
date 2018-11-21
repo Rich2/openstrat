@@ -28,6 +28,7 @@ object Apps
       (24, (learn.Lesson4(_), "ScalaFx Demonstration Canvas 4")),
       (25, (learn.Lesson5(_), "ScalaFx Demonstration Canvas 5")),
       (26, (learn.Lesson6(_), "ScalaFx Demonstration Canvas 6")),
+      (27, (learn.Lesson7(_), "ScalaFx Demonstration Canvas 7")),
       
       (30, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
       (31, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
@@ -40,11 +41,12 @@ object Apps
       (44, (learn.LessonA4(_), "ScalaFx Demonstration Canvas Active 4")),
       (45, (learn.LessonA5(_), "ScalaFx Demonstration Canvas Active 5")),
       
+      
       (66, (new pGames.pReactor.ReactorGUI(_), "reactor")),
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 45
+  val appNum: Int = 27
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

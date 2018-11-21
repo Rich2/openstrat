@@ -18,9 +18,5 @@ case class Lesson6(canv: CanvasPlatform) extends CanvasSimple("Lesson 6")
          ShapeFill(sh1, Yellow), 
          TextGraphic(pt1, pt1.toString, 12),
          )
-//   def stuff2(obj: Any) = stuff :+  TextGraphic.xy(0, 0, obj.toString, 20, Colour.Turquoise)
-//   mouseUp = (v, b, s) =>   { repaint(stuff2(s.headOrElse("No clickable object on canvas"))); canv.bezierDraw(bd) }
-   
-   repaint(stuff)//2("Begin"))
-   
+   repaint(stuff)   
 }
