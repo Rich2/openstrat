@@ -2,8 +2,8 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-/** LessonA1 where A is for active. Your canvas will actually respond to user input. */
-case class LessonA1(canv: CanvasPlatform) extends CanvasSimple("Lesson A1")
+/** LessonI1 where I is for interactive. Your canvas will actually respond to user input. */
+case class LessonC1(canv: CanvasPlatform) extends CanvasSimple("Lesson C1")
 {  
   repaints(TextGraphic(0 vv 200, "Please click on the screen a few times.", 28, Green))
   var counter = 0

@@ -2,7 +2,7 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-/** We will use this helper class for Lesson A4 and A5 */
+/** We will use this helper class for Lesson C4 and C5 */
 case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 100) extends WithColour
 {
   var colour = Red
@@ -10,7 +10,7 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
   def sGraphic = Rectangle(width, height, cen).fillDrawSubj(this, colour, 2, contrast)
 }
 
-case class LessonA4(canv: CanvasPlatform) extends CanvasSimple("Lesson A4")
+case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
 {
   val r1 = ARect(-300 vv 300)
   val r2  = ARect(300 vv 300)

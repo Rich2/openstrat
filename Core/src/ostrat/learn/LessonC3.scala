@@ -2,7 +2,7 @@
 package ostrat.learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA3(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")
+case class LessonC3(canv: CanvasPlatform) extends CanvasSimple("Lesson C3")
 {
   val r = Rectangle(200, 100).fillSubj(None, Yellow)
   val r1 = r.slate(-300, 300)
