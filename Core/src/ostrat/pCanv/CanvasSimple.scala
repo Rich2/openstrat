@@ -18,6 +18,13 @@ abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelL
    }
    def repaints(els: GraphicElem[_]*): Unit = { canvObjs = els.toList; refresh() }   
    def repaint(els: List[GraphicElem[_]]): Unit = { canvObjs = els; refresh() }
+   
+   def timedRepaint(f: Integer => List[GraphicElem[_]]): Unit =
+   {
+     val combinedF: Integer => Unit = elapsed => repaint(f(elapsed))
+     canv.startFramePermanent(combinedF)
+   }
+   
    def timedRepaint1(f: Integer => GraphicElem[_]): Unit =
    {
      val combinedF: Integer => Unit = elapsed => repaint(List(f(elapsed)))
