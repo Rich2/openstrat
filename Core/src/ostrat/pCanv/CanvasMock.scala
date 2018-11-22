@@ -8,7 +8,7 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
 {
    override def clip(pts: Polygon): Unit = {}
    
-   override def getTime: Double = ???
+   override def getTime: Long = ???
    /** A callback timer with an elapsed time from a given start point. The function is of form:
     *  (elapsedTime(in milliseconds), Startime(in millseconds) => Unit.
     *  The startTime is to be used to call the next frame at then end of the function, if another frame is needed */

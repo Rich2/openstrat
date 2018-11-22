@@ -172,7 +172,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.fillRect(0, 0, width, height)
   }
 
-  def getTime: Double = System.currentTimeMillis
+  def getTime: Long = System.currentTimeMillis
   import animation._
   override def timeOut(f: () => Unit, millis: Integer): Unit = new Timeline(new KeyFrame(util.Duration.millis(millis.doubleValue()),
     (ae: event.ActionEvent) => f())).play

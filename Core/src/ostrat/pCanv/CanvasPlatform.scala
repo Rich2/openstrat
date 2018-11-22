@@ -19,19 +19,24 @@ trait CanvasPlatform extends RectGeom
   var resize: () => Unit = () => {}
   def clip(pts: Polygon): Unit
   /** Returns the system (Unix) time in milliseconds. */
-  def getTime: Double
+  def getTime: Long
   /** A callback timer with an elapsed time from a given start point. Although are in a general purpose form, the most common usage is for animations
    *   where things move dependent on how much time has passed. The function is of form: (elapsedTime(in milliseconds), Startime (in
    *   milliseconds) => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed. */
-  def frame(f: (Double, Double) => Unit, startTime: Double, frameLength: Integer = 15): Unit =
-    timeOut(() => f(getTime - startTime, startTime), frameLength)
+  def frame(f: (Integer, Integer) => Unit, startTime: Integer, frameLength: Integer = 15): Unit =
+    timeOut(() => f(getTime.toInt - startTime, startTime), frameLength)
   /** The initial frame although are in a general purpose form, the most common usage is for animations where things move dependent on how much time
    *   has passed. */
-  def startFrame(f: (Double, Double) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime)
+  def startFrame(f: (Integer, Integer) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime.toInt)
   /** A call back timer. Takes the delay in milliseconds */
   def timeOut(f: () => Unit, millis: Integer): Unit
   
-  def startFrame2(f: Double => Unit, millis: Integer): Unit = ???
+  def startFramePermanent(f: Integer => Unit, millis: Integer = 15): Unit =
+  {
+    def combinedF(elapsed: Integer, startTime: Integer): Unit = { f(elapsed); frame(combinedF, startTime, millis)}
+    startFrame(combinedF, millis)
+  }
+  
   var textMin: Int = 10
    
   final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))

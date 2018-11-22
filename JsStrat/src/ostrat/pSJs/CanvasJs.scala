@@ -41,7 +41,7 @@ object CanvasJs extends CanvasTopLeft
   can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
   window.onresize = (e: UIEvent) => { setup; resize() }
      
-  override def getTime: Double = new scala.scalajs.js.Date().getTime()
+  override def getTime: Long = new scala.scalajs.js.Date().getTime().toLong
   override def timeOut(f: () => Unit, millis: Integer): Unit = window.setTimeout(f, millis.toDouble)
    
   val gc = can.getContext("2d").asInstanceOf[raw.CanvasRenderingContext2D]

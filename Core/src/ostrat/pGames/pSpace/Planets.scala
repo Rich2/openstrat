@@ -28,7 +28,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
     var posn: Dist2 = Dist2(dist, 0.metre)
     //Gets the angle and the multiplies by the scala. (* dist) at end
     
-    def move(elapsed: Double): Unit =
+    def move(elapsed: Integer): Unit =
     { val auRatio = dist / earthDist        
       posn = Vec2.circlePtClockwise(elapsed * 0.001 / math.sqrt(auRatio.cubed)) *  dist
     }
@@ -50,7 +50,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   
   object Sun extends Planet(0.millionMiles, Yellow, "Sun")
   {
-    override def move(elapsed: Double): Unit = {}
+    override def move(elapsed: Integer): Unit = {}
     override val size = 14
   }
   
@@ -65,7 +65,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   canv.startFrame((el, st) => out(el, st))
   def mapObjs = pls.map(_.paint)
   
-  def out(elapsed: Double, startTime: Double): Unit =
+  def out(elapsed: Integer, startTime: Integer): Unit =
   { pls.foreach(_.move(elapsed))
     mapFocus = planetFocus.posn
     repaintMap()

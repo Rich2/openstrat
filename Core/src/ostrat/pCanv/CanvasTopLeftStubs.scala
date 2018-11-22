@@ -8,7 +8,7 @@ import geom._
 trait CanvasTopLeftStubs extends CanvasTopLeft
 {
    override def clip(pts: Polygon): Unit = {}
-   override def getTime: Double = 0
+   override def getTime: Long = 0
    override protected def tlPolyFill(fp: PolyFill): Unit = {}
    override protected def tlPolyDraw(dp: PolyDraw): Unit = {}
    override protected def tlPolyFillDraw(fdp: PolyFillDraw): Unit = {}

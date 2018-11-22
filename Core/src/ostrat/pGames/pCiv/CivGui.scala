@@ -56,7 +56,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
         if (HexGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && warr.movePts > 0)
         {
           warr.dirn = HexDirn.fromNeighbTileCood(newCood - oldCood)
-          def out(elapsed: Double, startTime: Double): Unit =
+          def out(elapsed: Integer, startTime: Integer): Unit =
           {
             warr.offsetMagnitude = elapsed / 600
             if (warr.offsetMagnitude > 2)
