@@ -18,22 +18,30 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
   val cellNeighbours = new Array[Array[Int]](80)
   var addBallQueue = Array[Int]()
 
-  canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
-  for( r <- 0 to rows-1; c <- 0 to cols-1)
+  init()
+  def init() : Unit =
   {
-    val index = c+cols*r
-    cellNeighbours(index) = Array[Int]()
-    canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(cellColors(index)))
-    cellCounts(index) = 1
-    cellColors(index) = players(new scala.util.Random().nextInt(4))
-    drawBalls(size*c vv size*r, cellColors(index), cellCounts(index))
-    if (c>0) cellNeighbours(index) = (index-1) +: cellNeighbours(index)
-    if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
-    if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
-    if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
+    canv.polyFill(Rectangle(width, height, 0 vv 0).fill(Colour(0xFF161616)))
+    turn = 0
+    players = Array(Red, Green, Yellow, Blue)
+    currentPlayer = Red
+    for( r <- 0 to rows-1; c <- 0 to cols-1)
+    {
+      val index = c+cols*r
+      cellNeighbours(index) = Array[Int]()
+      canv.polyFill(Rectangle.fromBL(size-1, size-1, size*c vv size*r).fill(cellColors(index)))
+      cellCounts(index) = 0
+      cellColors(index) = Black  //players(new scala.util.Random().nextInt(4))
+      drawBalls(size*c vv size*r, cellColors(index), cellCounts(index))
+      if (c>0) cellNeighbours(index) = (index-1) +: cellNeighbours(index)
+      if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
+      if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
+      if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
+    }
+    canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
+ 
   }
-  canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
-  
+
   def drawBalls(loc:Vec2, color:Colour, count:Int) : Unit =
   {
     if (count==2||count==3) canv.shapeFill(Circle.fill(size/4, color, loc+((size/4) vv (size/4))))
@@ -49,18 +57,25 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
       val thisOne = addBallQueue(0)
       addBallQueue = addBallQueue.tail
       addBall(thisOne)
-      canv.timeOut(processQueue, 100)
+//      canv.timeOut(() => ReactorGUI.this.processQueue(), 100)
+      if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
+      if (players.length < 2) 
+        {
+          canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
+          addBallQueue.drop(addBallQueue.length)
+        }
+
     }
     else
     {
-      var currentPlayerIndex = players.indexOf(currentPlayer) + 1
+      if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
+      if (players.length < 2) canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
+     var currentPlayerIndex = players.indexOf(currentPlayer) + 1
       if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
       currentPlayer = players(currentPlayerIndex)
       canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
       canv.textGraphic(-3*size/4 vv -3*size/4, turn.toString, 11, Black)
     }
-    if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
-    if (players.length < 2) canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
   }
   def addBall(index:Int) : Unit = 
   {
@@ -76,12 +91,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
         if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))
         else cellColors(index) = Black
         addBallQueue = addBallQueue ++ cellNeighbours(index)
-        //cellNeighbours(index).foreach(c => addBallQueue = c +: addBallQueue)
       } else {
         if (cellCounts(index)>0) drawBalls(size*co vv size*ro, currentPlayer, cellCounts(index))
         else cellColors(index) = Black
       }
-      canv.timeOut(processQueue, 100)
+      canv.timeOut(() => ReactorGUI.this.processQueue(), 100)
     }
   }
 
@@ -94,12 +108,15 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
       {
         turn += 1
         addBall(index)
-        deb("Mouse other + clickList.length="+clickList.length.toString)
       }
     }
     case _ => deb("Mouse other + clickList.length="+clickList.length.toString)
   }   
 }
+  //   def button3(str: String, cmd: MouseButton => Unit) =
+  //     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), White, 3, Black, 25, str)
+  //     def saveCmd = (mb: MouseButton) => { setStatus("Saved"); canv.saveFile(saveName, view.str) }
+  // def bSave = button3("save", saveCmd)
 //  var currentPlayer = p1 //
 //  sealed class player(colour:Colour) Extends Colour(colour)
 //  object p1 extends player(Red)
