@@ -26,8 +26,10 @@ object CanvasJs extends CanvasTopLeft
 
   can.onmousedown = (e: MouseEvent) =>
   { val rect = can.getBoundingClientRect()
-    mouseDownTopLeft(e.clientX - rect.left, e.clientY  -rect.top, getButton(e))
+    mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
+  
+  can.onkeyup = (e: raw.KeyboardEvent) => keyReleased()
 
   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) =>
   { e.deltaY match
