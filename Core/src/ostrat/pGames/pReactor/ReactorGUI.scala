@@ -49,6 +49,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
     if (count==2||count==4||count==5) canv.shapeFill(Circle.fill(size/4, color, loc+((3*size/4) vv (3*size/4))))
     if (count==3||count==4||count==5) canv.shapeFill(Circle.fill(size/4, color, loc+((3*size/4) vv (size/4))))
     if (count==3||count==4||count==5) canv.shapeFill(Circle.fill(size/4, color, loc+((size/4) vv (3*size/4))))
+    if (count>5) canv.polyFill(Rectangle.fromBL(size-1, size-1, loc).fill(Pink))
   }
 
   def processQueue() : Unit = 
