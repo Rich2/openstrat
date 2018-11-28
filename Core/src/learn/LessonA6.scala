@@ -4,19 +4,25 @@ import ostrat._, geom._, pCanv._, Colour._
 
 case class LessonA6(canv: CanvasPlatform) extends CanvasSimple("Lesson A6")
 {
-  def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)
-  //This can be more elegantly expressed in dotty
-  def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
-  val pt1 = 500 vv - 400
-  val sh1 = Shape(LineSeg(Vec2Z), LineSeg(200 vv 0), BezierSeg(300 vv 300, 350 vv 100, pt1), LineSeg(100 vv -200)) 
+  val pt1 = -200 vv 200
+  val arcCentre = 0 vv 200
+  val pt2 = 0 vv 400
+  val pt3 = 200 vv 200
+  val pt4 = 200 vv -200
+  val ctrl1 = 150 vv -125
+  val ctrl2 = -175 vv -250
+  val pt5 = -200 vv -200  
   
-  def stuff = List(        
-         bd(-100 vv 200, 300 vv 400, Green),
-         bd(-150 vv -50, 250 vv 350, Violet),
-         bd(-250 vv 50, 200 vv 400, Orange),
-         bd(-300 vv 100, 200 vv 0, Pink),
-         ShapeFill(sh1, Yellow), 
-         TextGraphic(pt1, pt1.toString, 12),
-         )
-   repaint(stuff)   
+  repaints(
+      //A shape is just a closed sequence of curve segments */
+      Shape(LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5)).fill(Pink),
+      TextGraphic("pt1", pt1, 16),
+      TextGraphic("arcCentre", arcCentre, 16),
+      TextGraphic("pt2", pt2, 16),
+      TextGraphic("pt3", pt3, 16),
+      TextGraphic("pt4", pt4, 16),
+      TextGraphic("ctrl1", ctrl1, 16),
+      TextGraphic("ctrl2", ctrl2, 16),
+      TextGraphic("pt5", pt5, 16),
+      )   
 }

@@ -46,7 +46,7 @@ trait CanvasPlatform extends RectGeom
   def polyDraw(dp: PolyDraw): Unit
   def polyFillDraw(pfd: PolyFillDraw): Unit
   def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
-    textGraphic(pts.polyCentre, str, fontSize, fontColour)
+    textGraphic(str, pts.polyCentre, fontSize, fontColour)
    
   def vec2sDraw(pod: Vec2sDraw): Unit
   final def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
@@ -79,8 +79,8 @@ trait CanvasPlatform extends RectGeom
     shapeFillDraw(ShapeFillDraw(Shape(segs: _*), fillColour, lineWidth, borderColour, 1))
    
   def textGraphic(tg: TextGraphic): Unit
-  final def textGraphic(posn: Vec2, text: String, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =
-    textGraphic(TextGraphic(posn, text, fontSize, colour, align))
+  final def textGraphic(str: String, posn: Vec2, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen): Unit =
+    textGraphic(TextGraphic(str, posn, fontSize, colour, align))
    
   def textOutline(to: TextOutline): Unit
   final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen): Unit =

@@ -8,5 +8,5 @@ case class LessonB1(canv: CanvasPlatform) extends CanvasSimple("Lesson B1")
 {
   /*This is the simplest time helper method. You merly need to provide a single object that changes over time. Note each time we create a new
   differenet object. rather than modifying the original. */
-  timedRepaint1(e => TextGraphic(Vec2Z, (e /1000).toString + " Seconds have elapsed", 45))    
+  timedRepaint1(e => TextGraphic((e /1000).toString + " Seconds have elapsed", Vec2Z, 45))    
 }

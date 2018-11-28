@@ -36,6 +36,8 @@ object Apps
       (35, (learn.LessonA5(_), "ScalaFx Demonstration Canvas 5")),
       (36, (learn.LessonA6(_), "ScalaFx Demonstration Canvas 6")),
       (37, (learn.LessonA7(_), "ScalaFx Demonstration Canvas 7")),
+      (38, (learn.LessonA8(_), "ScalaFx Demonstration Canvas 8")),
+      (39, (learn.LessonA9(_), "ScalaFx Demonstration Canvas 9")),
       
       (41, (learn.LessonB1(_), "ScalaFx Demonstration Animated Canvas 1")),
       (42, (learn.LessonB2(_), "ScalaFx Demonstration Animated Canvas 2")),
@@ -50,7 +52,7 @@ object Apps
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 1
+  val appNum: Int = 31
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

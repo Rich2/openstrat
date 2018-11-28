@@ -18,7 +18,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       //val poly = tog.vertDispVecs
       val tv = vertDispVecs.fillSubj(tile, colour, -2)
       val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
-      val tText = ifScaleCObj(60, TextGraphic(cen, xyStr, 14, colour.contrastBW))
+      val tText = ifScaleCObj(60, TextGraphic(xyStr, cen, 14, colour.contrastBW))
       val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
       val lunit: GraphicElems = tile.lunits match
       {

@@ -2,27 +2,28 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA5(canv: CanvasPlatform) extends CanvasSimple("lesson A5")
+case class LessonA5(canv: CanvasPlatform) extends CanvasSimple("Lesson A5")
 {
-  //Lets copy the values across form the previous lesson.
-  val pt1 = -200 vv 200
-  val arcCentre = 0 vv 200
-  val pt2 = 0 vv 400
-  val pt3 = 200 vv 200
-  val pt4 = 200 vv -200
-  val ctrl1 = 150 vv -125
-  val ctrl2 = -175 vv -250
-  val pt5 = -200 vv -200
-
-  //But this time we are going to create an intermediate shape.
-  val shape1: Shape = Shape(LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5))
-  val sf1 = ShapeFill(shape1.slate(400 vv 100), Violet)  
-  val sf2 = ShapeDraw(shape1.clk45, 2)  
-  val sf3 = sf2.scale(0.5)  
-  val sf4 = sf3.slate(-250, 200)  
-  val sf5 = sf4.slateX(-100).copy(colour = Green)  
-  val rect = Rectangle(200, 100, -400 vv 100).fill(Orange)
-  canv.polyFill(rect)
-  val sf6 = sf5.negY.copy(colour = Red)
-  repaints(sf1, sf2, sf3, sf4, sf5, sf6)
+  //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
+  val ptStart: Vec2 = -100 vv 50
+  //Lets create another value and call it ptEnd. This is another Vec2, the compiler infers this, although we didn't state it directly.
+  val ptEnd = 500 vv 300
+  
+  //However if you uncomment the line below you will get a compile error. You have told the compiler you are expecting a Vec2 but given it a number.
+  //val badPoint: Vec2 = 100
+  
+  repaints(//So lets use those values above
+      BezierDraw(ptStart, 200 vv 350, 0 vv 70, ptEnd, 2, Blue),
+      BezierDraw(ptStart, 200 vv 350, 100 vv 270, ptEnd, 2, Gray),
+      BezierDraw(ptStart, 100 vv 350, 100 vv 270, ptEnd, 2, Violet),
+      BezierDraw(ptStart, 0 vv 350, 100 vv 270, ptEnd, 2, DarkRed),
+  
+      //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
+      TextOutline(Vec2Z, "Text in outline at centre screen", 40, Orange, 1),
+      TextOutline(0 vv -200, "More text in outline, at x is 0, y is - 200", 60, Red, 2),
+  
+      // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
+      Polygon(-300 vv 200, -300 vv 300, -250 vv 300).fill(Orange),
+      Polygon(-250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200).draw(2, Blue), 
+      )  
 }

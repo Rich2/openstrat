@@ -94,5 +94,5 @@ package object geom
    /** 180 degrees or Pi radians */
    def deg180: Angle = Angle(Pi)
    
-   def helloWorld: TextGraphic = TextGraphic(0 vv 0, "Hello World!", 30, Colour.Black)
+   def helloWorld(posn: Vec2 = 0 vv 0): TextGraphic = TextGraphic("Hello World!", posn, 30, Colour.Black)
 }

@@ -77,7 +77,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
     if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
     if (players.length < 2) 
     {
-      canv.textGraphic(10 vv (-3*size/4), " Wins!", 16, currentPlayer)
+      canv.textGraphic(" Wins!", 10 vv (-3*size/4), 16, currentPlayer)
       reactionQueue.drop(reactionQueue.length)
     }
   }
@@ -88,7 +88,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
     if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
     currentPlayer = players(currentPlayerIndex)
     canv.polyFill(Rectangle.fromBL(size/2, size/2, -size vv -size).fill(currentPlayer))
-    canv.textGraphic(-3*size/4 vv -3*size/4, turn.toString, 11, Black)
+    canv.textGraphic(turn.toString, -3*size/4 vv -3*size/4, 11, Black)
   }
   def addBall(index:Int) : Unit = 
   {

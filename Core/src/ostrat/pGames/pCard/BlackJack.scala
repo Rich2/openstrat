@@ -10,7 +10,7 @@ import pCanv._
 case class BlackJack(canv: CanvasPlatform) extends CanvasSimple("BlackJack")
 {      
    val (hand, deck) = Card.newShuffled.takeCards(5)
-   hand.iMap((c, i) => TextGraphic(Vec2(50 + 100 * i, 100), c.unicode.mkString, 100, c.suitColour))
+   hand.iMap((c, i) => TextGraphic(c.unicode.mkString, 50 + 100 * i vv 100, 100, c.suitColour))
    
    def clubFill(): List[PaintElem[_]] = 
    {

@@ -11,7 +11,7 @@ case class LessonC5(canv: CanvasPlatform) extends CanvasSimple("Lesson C5")
   val r5 = ARect(Vec2Z, 100, 500)
   var rList = List(r1, r2, r3, r4, r5)
   def gList = rList.map(_.sGraphic)  
-  val startText = TextGraphic(0 vv 400, "Click on the rectangles. All rectangles under the point will cycle their colour.", 28)
+  val startText = TextGraphic("Click on the rectangles. All rectangles under the point will cycle their colour.", 0 vv 400, 28)
   repaint(gList :+ startText)  
   
   mouseUp = (v, b, s) => 

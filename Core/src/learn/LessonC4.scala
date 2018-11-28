@@ -19,7 +19,7 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   var rList = List(r1, r2, r3, r4)
   def gList = rList.map(_.graphic)
   val textPosn = 0 vv 0
-  val startText = TextGraphic(textPosn, "Click on the rectangles to cycle the colour.", 28)
+  val startText = TextGraphic("Click on the rectangles to cycle the colour.", textPosn, 28)
   repaint(gList :+ startText)
   
   mouseUp = (v, b, s) => s match

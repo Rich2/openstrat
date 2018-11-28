@@ -27,7 +27,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       case _ => vertDispVecs.fillSubj(tile, colour, -1) :: Nil        
     }
     
-    val tText = ifScaleCObj(60, TextGraphicCen(cen, xyStr, 14, colour.contrastBW, 2))
+    val tText = ifScaleCObj(60, TextGraphicCen(xyStr, cen, 14, colour.contrastBW, 2))
     
     def action(squad: Squad): GraphicElems = squad.action match
     {

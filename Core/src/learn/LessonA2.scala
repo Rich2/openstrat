@@ -12,16 +12,16 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LessonA2(canv: CanvasPlatform) extends CanvasSimple("Lesson A2")
 {
-  val stuff = List(
-      LineDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
-      LineDraw(0 vv 50, 150 vv 200, 3),
-      LineDraw(50 vv -50, 200 vv -50, 2, Red),//Note if you don't include a Colour you get Black
-   
-      ArcDraw(-200 vv 0, 0 vv 0, 0 vv 200),
-      ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
-      BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
-      )
-  repaint(stuff)
+  repaints(
+      //Below we create a Text Graphic Object, the first number is number of pixels left or right of the screen centre
+      TextGraphic("Hi, there!", 100 vv 200, 28, Red), //This test is centred 300 pixels up and 100 pixels to the right of centre  
+      
+      //Here we create another the second number is the number of pixels up or down
+      TextGraphic("This text is centred on the centre of the canvas. The point from which postions are measured.", 0 vv 0, 18, Blue),
+      
+      TextGraphic("Text centred at 100 pixels right of centre and 100 pixels below centre", 100 vv -100, 25),
+      //TextGraphic(100 vv -200, "This text can't be seen till you uncomment it and rebuild the programme.", 18, Violet)
+      )  
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
@@ -33,7 +33,7 @@ case class LessonA2(canv: CanvasPlatform) extends CanvasSimple("Lesson A2")
   * quotation mark and end with a quotation mark. Change the text in on one of the strings, save the file and you should see the text change on the
   * screen. If you try replacing a string with a number or replacing a number with a String, the compiler will complain and you will get an error
   * message. The third type is Colour. Note Colours must have the correct capital letters. You can just try guessing the colours or you can google /
-  * duckduck web colours to see what is available. Again put a Colour where a number or a string is expected or vice versa and the compiler will
+  * duckduck web colours to see what is available. So try putting a Colour where a number or a string is expected or vice versa and the compiler will
   * complain. */
 
 
