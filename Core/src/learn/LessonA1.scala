@@ -13,9 +13,13 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LessonA1(canv: CanvasPlatform) extends CanvasSimple("Lesson A1")
 {
   repaints(
+      //Below we create a Text Graphic Object, the first number is number of pixels left or right of the screen centre
       TextGraphic(100 vv 200, "Hi, there!", 28, Red), //This test is centred 300 pixels up and 100 pixels to the right of centre  
+      
+      //Here we create another the second number is the number of pixels up or down
       TextGraphic(0 vv 0, "This text is centred on the centre of the canvas. The point from which postions are measured.", 18, Blue),
-      TextGraphic(100 vv -100, "Text centred at 100, -100", 25),
+      
+      TextGraphic(100 vv -100, "Text centred at 100 pixels right of centre and 100 pixels below centre", 25),
       //TextGraphic(100 vv -200, "This text can't be seen till you uncomment it and rebuild the programme.", 18, Violet)
       )  
 }
@@ -29,7 +33,7 @@ case class LessonA1(canv: CanvasPlatform) extends CanvasSimple("Lesson A1")
   * quotation mark and end with a quotation mark. Change the text in on one of the strings, save the file and you should see the text change on the
   * screen. If you try replacing a string with a number or replacing a number with a String, the compiler will complain and you will get an error
   * message. The third type is Colour. Note Colours must have the correct capital letters. You can just try guessing the colours or you can google /
-  * duckduck web colours to see what is available. Again put a Colour where a number or a string is expected or vice versa and the compiler will
+  * duckduck web colours to see what is available. So try putting a Colour where a number or a string is expected or vice versa and the compiler will
   * complain. */
 
 
