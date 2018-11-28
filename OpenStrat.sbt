@@ -1,7 +1,7 @@
+ThisBuild/version := "0.0.2snap"
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.12.7"
 ThisBuild/organization := "OpenStratOrg"
-ThisBuild/version := "0.0.1"
 
 val commonSettings = List(	
     scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint"),

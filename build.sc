@@ -2,7 +2,9 @@
 import mill._, scalalib._, scalajslib._
 
 trait Common extends ScalaModule
-{ def scalaVersion = "2.12.7"
+{
+  def version = "0.0.2snap"
+  def scalaVersion = "2.12.7"
   def scalacOptions = Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint")
 }
 
