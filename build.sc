@@ -10,6 +10,8 @@ object Macros extends Common
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
 }
 
+//object MacrosJs extends ScalaJSModule with Common
+
 object Core extends Common
 { def moduleDeps = Seq(Macros)
   object test extends Tests

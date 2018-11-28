@@ -1,5 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat.learn
+package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 case class LessonA3(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")

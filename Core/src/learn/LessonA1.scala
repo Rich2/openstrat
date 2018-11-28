@@ -1,4 +1,4 @@
-package ostrat.learn
+package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 /* These lessons are intended to be accessible to people who haven't programmed before and have limited geometry knowledge. This is a comment. It
@@ -10,18 +10,14 @@ import ostrat._, geom._, pCanv._, Colour._
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
  
-case class LessonA2(canv: CanvasPlatform) extends CanvasSimple("Lesson A2")
+case class LessonA1(canv: CanvasPlatform) extends CanvasSimple("Lesson A1")
 {
-  val stuff = List(
-      LineDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
-      LineDraw(0 vv 50, 150 vv 200, 3),
-      LineDraw(50 vv -50, 200 vv -50, 2, Red),//Note if you don't include a Colour you get Black
-   
-      ArcDraw(-200 vv 0, 0 vv 0, 0 vv 200),
-      ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
-      BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
-      )
-  repaint(stuff)
+  repaints(
+      TextGraphic(100 vv 200, "Hi, there!", 28, Red), //This test is centred 300 pixels up and 100 pixels to the right of centre  
+      TextGraphic(0 vv 0, "This text is centred on the centre of the canvas. The point from which postions are measured.", 18, Blue),
+      TextGraphic(100 vv -100, "Text centred at 100, -100", 25),
+      //TextGraphic(100 vv -200, "This text can't be seen till you uncomment it and rebuild the programme.", 18, Violet)
+      )  
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
