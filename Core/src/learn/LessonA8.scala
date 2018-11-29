@@ -16,7 +16,7 @@ case class LessonA8(canv: CanvasPlatform) extends CanvasSimple("Lesson A8")
          bd(-250 vv 50, 200 vv 400, Orange),
          bd(-300 vv 100, 200 vv 0, Pink),
          ShapeFill(sh1, Yellow), 
-         TextGraphic(pt1.toString, pt1, 12),
+         TextGraphic(pt1.toString, 12, pt1),
          )
    repaint(stuff)   
 }

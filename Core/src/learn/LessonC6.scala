@@ -5,9 +5,9 @@ import ostrat._, geom._, pCanv._, Colour._
 
 case class LessonC6(canv: CanvasPlatform) extends CanvasSimple("Lesson C6")
 {    
-  val startText = TextGraphic("Press a key.", 0 vv 400, 28)
+  val startText = TextGraphic("Press a key.", 28, 0 vv 400)
   repaints(startText)  
   
-  canv.keyReleased = () => {deb("key"); repaints(TextGraphic("You pressed a key.", 0 vv 0, 28, Green)) }          
+  canv.keyReleased = () => {deb("key"); repaints(TextGraphic("You pressed a key.", 28, 0 vv 0, Green)) }          
 //  }
 }

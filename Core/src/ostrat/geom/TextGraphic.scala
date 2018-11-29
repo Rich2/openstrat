@@ -11,28 +11,25 @@ case object TextCen extends TextAlign { def jsStr = "center" }
 case object TextLeft extends TextAlign { def jsStr = "left" }
 case object TextRight extends TextAlign { def jsStr = "right" }
  
-case class TextGraphic(str: String, posn: Vec2, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen, zOrder: Int = 0) extends 
+case class TextGraphic(str: String, fontSize: Int, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = TextCen, zOrder: Int = 0) extends 
 PaintElem[TextGraphic]
 {
-  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, f(posn), fontSize, colour, align, zOrder)
+  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, zOrder)
 }
 
 /** Not sure if this is a good object to have */
 object TextGraphicCen
 {
-  def apply(str: String, posn: Vec2, fontSize: Int, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
-    new TextGraphic(str, posn, fontSize, colour, TextCen, zOrder)
+  def apply(str: String, fontSize: Int, posn: Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
+    new TextGraphic(str, fontSize, posn, colour, TextCen, zOrder)
 }
 
 object TextGraphic
-{
-  def xy(str: String, x: Double, y: Double, fontSize: Int, colour: Colour = Black, align: TextAlign = TextCen) =
-      new TextGraphic(str, Vec2(x, y), fontSize, colour, align)
-  
+{ 
   def lines(posn: Vec2, strs: List[String], fontSize: Int, fontColour: Colour = Black, lineSpacing: Double = 1.0): List[TextGraphic] =  
   { val len = strs.length
     if(len == 0) Nil
-      else strs.iMap((str, i) => TextGraphic(str, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontSize, fontColour, TextCen))        
+      else strs.iMap((str, i) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, TextCen))        
   }
 }
 

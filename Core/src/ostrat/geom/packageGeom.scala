@@ -92,7 +92,5 @@ package object geom
    /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
    val deg150: Angle = Angle(5 * Pi / 6)
    /** 180 degrees or Pi radians */
-   def deg180: Angle = Angle(Pi)
-   
-   def helloWorld(posn: Vec2 = 0 vv 0): TextGraphic = TextGraphic("Hello World!", posn, 30, Colour.Black)
+   def deg180: Angle = Angle(Pi)   
 }

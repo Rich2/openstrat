@@ -87,7 +87,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2 with Stringer
     Polygon(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y) 
   }
    
-  def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(str, this, fontSize, fontColour)
+  def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(str, fontSize, this, fontColour)
   def arcControlPoint(pt2: Vec2, arcCentre: Vec2): Vec2 =
   { val angle1 = (this - arcCentre).angle
     val angle2 = (pt2 - arcCentre).angle

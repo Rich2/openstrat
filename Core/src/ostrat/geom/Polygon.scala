@@ -47,7 +47,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] 
   def subjSeq(evObj: AnyRef, elems: List[PaintElem[_]]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
   def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
     PolySubj(this.polyCentre, this, evObj, List(PolyFillDraw(this, fillColour, lineWidth, lineColour),
-        TextGraphic(str, this.polyCentre, textSize, lineColour)))
+        TextGraphic(str, textSize, this.polyCentre, lineColour)))
   
   def closedPolygonToLine2s: Line2s =
   { val res: Line2s = Line2s(length)   

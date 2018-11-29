@@ -10,7 +10,7 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transable[ShapeCentred]
    def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = TextCen): ShapeSubj =
          ShapeSubj(cen, segs, evObj, List(ShapeFillDraw(segs, fillColour, lineWidth, lineColour),
-               TextGraphic(str, cen, textSize, lineColour, textAlign)))
+               TextGraphic(str, textSize, cen, lineColour, textAlign)))
             
    def fixed(evObj: AnyRef, elems: List[PaintElem[_]]): NoScaleShape = NoScaleShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): NoScaleShape =
@@ -19,6 +19,6 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transable[ShapeCentred]
          textSize: Int, str: String, textAlign: TextAlign = TextCen): NoScaleShape =
       NoScaleShape(cen, segs, evObj, List(
             ShapeFillDraw(segs, fillColour, lineWidth, lineColour),
-            TextGraphic(str, Vec2Z, textSize, lineColour, textAlign)))   
+            TextGraphic(str, textSize, Vec2Z, lineColour, textAlign)))   
    def fillFixed(evObj: AnyRef, fillColour: Colour): NoScaleShape = NoScaleShape(cen, segs, evObj, List(ShapeFill(segs, fillColour)))   
 }
