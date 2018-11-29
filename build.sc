@@ -35,5 +35,5 @@ object JsStrat extends ScalaJSModule with Common
   def moduleDeps = Seq(Core)
   def sources = T.sources( millSourcePath / 'src, millSourcePath / 'srcPlay)
   def artifactName = "play"
-  def scalaJSVersion = "0.6.25"
+  def scalaJSVersion = "0.6.26"
 }
