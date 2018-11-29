@@ -19,7 +19,7 @@ val graphicSettings = List(
   Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/resources"
 ) ::: commonSettings
 
-lazy val graphicJvm = project.dependsOn(MacrosJvm).settings(graphicSettings).settings(
+lazy val GraphicJvm = project.dependsOn(MacrosJvm).settings(graphicSettings).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/test/src/", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
@@ -29,14 +29,14 @@ lazy val graphicJvm = project.dependsOn(MacrosJvm).settings(graphicSettings).set
   // include the macro sources in the main source jar
   mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
 )
-lazy val graphicJs = project.dependsOn(MacrosJs).settings(graphicSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+lazy val GraphicJs = project.dependsOn(MacrosJs).settings(graphicSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 val coreSettings = List(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src", 
   Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Core/resources"
 ) ::: commonSettings
 
-lazy val CoreJvm = project.dependsOn(graphicJvm).settings(coreSettings).settings(
+lazy val CoreJvm = project.dependsOn(GraphicJvm).settings(coreSettings).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
@@ -46,7 +46,7 @@ lazy val CoreJvm = project.dependsOn(graphicJvm).settings(coreSettings).settings
   // include the macro sources in the main source jar
   mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
 )
-lazy val CoreJs = project.dependsOn(graphicJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+lazy val CoreJs = project.dependsOn(GraphicJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSettings).settings(  
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",  

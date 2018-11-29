@@ -2,6 +2,8 @@ project/project/
 target/
 MacrosJs/
 MacrosJvm/
+GraphicJvm/
+GraphicJs/
 CoreJs/
 CoreJvm/
 JsPlay/
