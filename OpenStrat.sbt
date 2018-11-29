@@ -14,12 +14,29 @@ val macrosSettings = List(Compile/scalaSource := (ThisBuild/baseDirectory).value
 lazy val MacrosJvm = project.settings(macrosSettings)
 lazy val MacrosJs = project.settings(macrosSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
+val graphicSettings = List(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/src", 
+  Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/resources"
+) ::: commonSettings
+
+lazy val graphicJvm = project.dependsOn(MacrosJvm).settings(graphicSettings).settings(
+  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/test/src/", 
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
+  Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
+  testFrameworks += new TestFramework("utest.runner.Framework"),
+  // include the macro classes and resources in the main jar
+  mappings in (Compile, packageBin) ++= mappings.in(MacrosJvm, Compile, packageBin).value,
+  // include the macro sources in the main source jar
+  mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
+)
+lazy val graphicJs = project.dependsOn(MacrosJs).settings(graphicSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+
 val coreSettings = List(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src", 
   Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Core/resources"
 ) ::: commonSettings
 
-lazy val CoreJvm = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
+lazy val CoreJvm = project.dependsOn(graphicJvm).settings(coreSettings).settings(
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
@@ -29,7 +46,7 @@ lazy val CoreJvm = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   // include the macro sources in the main source jar
   mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
 )
-lazy val CoreJs = project.dependsOn(MacrosJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+lazy val CoreJs = project.dependsOn(graphicJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSettings).settings(  
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",  
