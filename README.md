@@ -40,7 +40,7 @@ For IntellliJ useful options:
 
 1. Macros. This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
-2. Core. The bulk of the code this is organised into the following packages:
+2. Graphic.
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
@@ -54,7 +54,16 @@ For IntellliJ useful options:
    - **ostrat.pCanv** depends on geom
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
-     * Mouse and other abstract controls.
+     * Mouse and other abstract controls.   - 
+   - **ostrat.pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These will be repackaged and published as a separate project.
+   - **ostrat.pWeb** Code for the generation and manipulation of
+     * HTML
+     * Other XML
+     * CSS
+     * Simple Javascipt
+   - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
+
+ 3. Core. The bulk of the code this is organised into the following packages:   
    - **ostrat.pGrid** depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
@@ -78,17 +87,11 @@ For IntellliJ useful options:
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
    - **ostrat.pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These will be repackaged and published as a separate project.
-   - **ostrat.pWeb** Code for the generation and manipulation of
-     * HTML
-     * Other XML
-     * CSS
-     * Simple Javascipt
-   - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
+   
+4. FxStrat An implementation for Canvas using ScalaFx
 
-3. FxStrat An implementation for Canvas using ScalaFx
+5. JsStrat An implementation for canvas using Scala.Js on to an Html canvas.
 
-4. JsStrat An implementation for canvas using Scala.Js on to an Html canvas.
-
-5. NatStrat. This is currently just a hello world stub. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
+6. NatStrat. This is currently just a hello world stub. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
 
 The code is currently organised for my own convenience. However if any of it ever gains significant traction with other developers, then I would be very happy to break it up and reorganise it. The packages are structured with a view to future break up.
