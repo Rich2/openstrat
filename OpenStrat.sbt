@@ -15,11 +15,12 @@ lazy val MacrosJvm = project.settings(macrosSettings)
 lazy val MacrosJs = project.settings(macrosSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 val graphicSettings = List(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/src", 
+   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/src",
   Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/resources"
 ) ::: commonSettings
 
 lazy val GraphicJvm = project.dependsOn(MacrosJvm).settings(graphicSettings).settings(
+	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/srcJvm",
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/test/src/", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 

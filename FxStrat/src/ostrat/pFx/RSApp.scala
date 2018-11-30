@@ -1,7 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFx
-import javafx.application.Application, javafx.scene.Scene, javafx.stage.Stage
+import javafx.application.Application
+import javafx.scene.Scene
+import javafx.stage.Stage
 
 class AppStart extends Application
 {

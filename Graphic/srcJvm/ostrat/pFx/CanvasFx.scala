@@ -1,7 +1,12 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFx
-import geom._, pCanv._, javafx._, scene._
+import geom._
+import pCanv._
+import javafx._
+import scene._
+import ostrat.Colour
+import ostrat.stringToImplicit
 
 /** An alternative version of CanvasFx to experiment with removing the ScalaFx dependency and just use JavaFx directly. */
 case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSaver
