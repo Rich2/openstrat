@@ -17,7 +17,7 @@ sbt //From project's root folder
 From within the sbt console run:
 
 ```sbt
-~ FxStrat/reStart //To launch a ScalaFx window. The most useful command for development
+~ Core/reStart //To launch a ScalaFx window. The most useful command for development
 ~ JsStrat/fastOptJS //WebPages/the fastPlay.html will display the results in a browser
 JsStrat/fullOptJS //For optimised Javascript. WebPages/fullPlay.html will display the results in a browser
 DocProj/doc //Will produce docs for the Core and FxStrat projects. They can be found in DocProj/target/scala-2.12/api
@@ -28,7 +28,7 @@ The tilde **~** tells sbt to rerun the command every time you modify and save a 
 So I'm experimenting with Mill from the project root folder run:
 
 ```
-mill -w FxStrat.runBackground //To launch a ScalaFx window. The most useful command for development
+mill -w Core.runBackground //To launch a ScalaFx window. The most useful command for development
 mill -w Core.test //To run tests
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
 ```
@@ -54,8 +54,8 @@ For IntellliJ useful options:
    - **ostrat.pCanv** depends on geom
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
-     * Mouse and other abstract controls.   - 
-   - **ostrat.pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These will be repackaged and published as a separate project.
+     * Mouse and other abstract controls.
+     * An implementation for Canvas using Java. 
    - **ostrat.pWeb** Code for the generation and manipulation of
      * HTML
      * Other XML
@@ -86,9 +86,9 @@ For IntellliJ useful options:
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
-   - **ostrat.pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These will be repackaged and published as a separate project.
+   - **learn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These will be repackaged and published as a separate project.
    
-4. FxStrat An implementation for Canvas using ScalaFx
+
 
 5. JsStrat An implementation for canvas using Scala.Js on to an Html canvas.
 

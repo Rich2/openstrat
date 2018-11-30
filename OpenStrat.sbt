@@ -33,11 +33,12 @@ lazy val GraphicJvm = project.dependsOn(MacrosJvm).settings(graphicSettings).set
 lazy val GraphicJs = project.dependsOn(MacrosJs).settings(graphicSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 val coreSettings = List(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src", 
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src",  
   Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Core/resources"
 ) ::: commonSettings
 
 lazy val CoreJvm = project.dependsOn(GraphicJvm).settings(coreSettings).settings(
+	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/srcJvm", 
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
@@ -49,15 +50,15 @@ lazy val CoreJvm = project.dependsOn(GraphicJvm).settings(coreSettings).settings
 )
 lazy val CoreJs = project.dependsOn(GraphicJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSettings).settings(  
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",  
-  Compile/mainClass := Some("ostrat.pFx.DevApp"),
-  mappings in (Compile, packageBin) ++= mappings.in(MacrosJvm, Compile, packageBin).value,
-  mappings in (Compile, packageBin) ++= mappings.in(CoreJvm, Compile, packageBin).value,
-  mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value,
-  mappings in (Compile, packageSrc) ++= mappings.in(CoreJvm, Compile, packageSrc).value,
+//lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSettings).settings(  
+  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",  
+ // Compile/mainClass := Some("ostrat.pFx.DevApp"),
+ // mappings in (Compile, packageBin) ++= mappings.in(MacrosJvm, Compile, packageBin).value,
+ // mappings in (Compile, packageBin) ++= mappings.in(CoreJvm, Compile, packageBin).value,
+  //mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value,
+  //mappings in (Compile, packageSrc) ++= mappings.in(CoreJvm, Compile, packageSrc).value,
   //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "ostrat" + artifact + ".jar" },
-)
+//)
 
 lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
   //scalaJSUseMainModuleInitializer := true,
@@ -66,11 +67,11 @@ lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settin
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",  
 )
 
-lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
+//lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   //libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
-)
+//  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
+//)
 
 val root = (project in file(".")).
   settings(commonSettings).
-  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, CoreJvm, FxStrat, MacrosJs, CoreJs, JsStrat)
+  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, CoreJvm, MacrosJs, CoreJs, JsStrat)
