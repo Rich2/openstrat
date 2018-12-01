@@ -2,6 +2,7 @@
 package ostrat
 package pSJs
 
+
 object BrowsertestJsApp
 {   
    def main(args: Array[String]): Unit = pStrat.FlagsGui(CanvasJs)

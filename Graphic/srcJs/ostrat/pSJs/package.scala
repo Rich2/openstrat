@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import scala.scalajs.js.Any.fromFunction1
 package object pSJs
 {
    import org.scalajs.dom._   

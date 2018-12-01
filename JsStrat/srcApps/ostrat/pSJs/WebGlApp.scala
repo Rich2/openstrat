@@ -2,7 +2,7 @@
 package ostrat
 package pSJs
 import org.scalajs.dom._
-import scala.scalajs.js.Any.fromString
+//import scala.scalajs.js.Any.fromString
 
 object WebGlApp
 {
@@ -23,7 +23,7 @@ object WebGlApp
        dec.borderWidth = "2"
        can.style = dec
        
-       can.dyn.style = "border:2px solid black;"      
+ //      can.dyn.style = "border:2px solid black;"      
   //     can.rectFillBL(20, 20, 400, 200, Colour.burlywood)
 //      canv .rectFillBL(220, 220, 400, 200, Colour.red)
       //triangles(
