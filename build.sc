@@ -19,7 +19,10 @@ trait PlatformsModule extends ScalaModule with Common
   	def scalaVersion = "2.12.7"
 	  def scalaJSVersion = "0.6.26" 
 	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
-	  def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = outer.ivyDeps() ++ ivyJs()
+	  
+	  def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] =
+	   outer.ivyDeps() ++ ivyJs() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
+	  
 	  def ivyJs: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg[mill.scalalib.Dep]()
   }
 
@@ -46,7 +49,13 @@ object Graphic extends PlatformsModule
   object test extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
     def testFrameworks = Seq("utest.runner.Framework")    
-  }  
+  }
+  object Js extends InnerJs
+  {
+    def moduleDeps =Seq(Macros.Js)
+    //def ivyJs = Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
+  }
+  object Nat extends InnerNative
 }
 
 object Core extends PlatformsModule
@@ -61,5 +70,5 @@ object Core extends PlatformsModule
 }
 
 def run() = Core.runBackground()
-def test() = Core.test
+def test = Core.test
 
