@@ -2,8 +2,8 @@
 package ostrat
 package pEarth
 import geom._
-import ostrat.pEarth.pPts.RusNorth
-import ostrat.pEarth.pPts.AsiaWestPts
+import pEarth.pPts.RusNorth
+import pEarth.pPts.AsiaWestPts
 
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object AsiaWest  extends Area1('AsiaWest, 20.18 ll -0.65)

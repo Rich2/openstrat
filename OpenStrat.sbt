@@ -48,21 +48,9 @@ lazy val CoreJvm = project.dependsOn(GraphicJvm).settings(coreSettings).settings
   // include the macro sources in the main source jar
   mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
 )
-lazy val CoreJs = project.dependsOn(GraphicJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
-
-//lazy val FxStrat = project.dependsOn(CoreJvm).settings(commonSettings).settings(  
-  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",  
- // Compile/mainClass := Some("ostrat.pFx.DevApp"),
- // mappings in (Compile, packageBin) ++= mappings.in(MacrosJvm, Compile, packageBin).value,
- // mappings in (Compile, packageBin) ++= mappings.in(CoreJvm, Compile, packageBin).value,
-  //mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value,
-  //mappings in (Compile, packageSrc) ++= mappings.in(CoreJvm, Compile, packageSrc).value,
-  //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "ostrat" + artifact + ".jar" },
-//)
-
-lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
+lazy val CoreJs = project.dependsOn(GraphicJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6").settings(
   //scalaJSUseMainModuleInitializer := true,
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/src",
+  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/src",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",  
 )
@@ -74,4 +62,4 @@ lazy val JsStrat = project.dependsOn(CoreJs).enablePlugins(ScalaJSPlugin).settin
 
 val root = (project in file(".")).
   settings(commonSettings).
-  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, CoreJvm, MacrosJs, CoreJs, JsStrat)
+  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, CoreJvm, MacrosJs, CoreJs)
