@@ -18,8 +18,6 @@ From within the sbt console run:
 
 ```sbt
 ~ Core/reStart //To launch a ScalaFx window. The most useful command for development
-~ JsStrat/fastOptJS //WebPages/the fastPlay.html will display the results in a browser
-JsStrat/fullOptJS //For optimised Javascript. WebPages/fullPlay.html will display the results in a browser
 DocProj/doc //Will produce docs for the Core and FxStrat projects. They can be found in DocProj/target/scala-2.12/api
 ```
 
@@ -28,8 +26,10 @@ The tilde **~** tells sbt to rerun the command every time you modify and save a 
 So I'm experimenting with Mill from the project root folder run:
 
 ```
-mill -w Core.runBackground //To launch a ScalaFx window. The most useful command for development
-mill -w Core.test //To run tests
+mill run //To launch a ScalaFx window.
+mill -w run //As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful command for development
+mill test //To run tests
+mill -w /To recompile and rerun the tests on source code changes.
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
 ```
 For IntellliJ useful options:

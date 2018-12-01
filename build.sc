@@ -1,5 +1,5 @@
 // build.sc
-import mill._, scalalib._, scalajslib._
+import mill._, scalalib._, scalajslib._, scalanativelib._
 
 trait Common extends ScalaModule
 {
@@ -7,33 +7,37 @@ trait Common extends ScalaModule
   def scalacOptions = Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint")
 }
 
-trait CommonJvm extends Common
-{
-	def scalaVersion = "2.12.7"
-}
-
-trait CommonJs extends ScalaJSModule with Common
-{	
-	def scalaVersion = "2.12.7"
-	def scalaJSVersion = "0.6.26"
-}
-
-trait PlatformsModule extends ScalaModule with CommonJvm
+trait PlatformsModule extends ScalaModule with Common
 {
   outer =>
   
+  def scalaVersion = "2.12.7"
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm)
 
-  trait InnerJs extends ScalaJSModule with CommonJs
-  {	  
+  trait InnerJs extends ScalaJSModule with Common
+  { 
+  	def scalaVersion = "2.12.7"
+	  def scalaJSVersion = "0.6.26" 
 	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
+	  def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = outer.ivyDeps() ++ ivyJs()
+	  def ivyJs: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg[mill.scalalib.Dep]()
+  }
+
+  trait InnerNative extends ScalaNativeModule with Common
+  {
+    def scalaVersion = "2.11.12"
+    def scalaNativeVersion = "0.3.8"  
+	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
+	  def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = outer.ivyDeps() ++ ivyNat()
+	  def ivyNat: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg[mill.scalalib.Dep]()
   }
 }
 
 object Macros extends PlatformsModule
-{ def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+{ def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+  object Js extends InnerJs
+  object Nat extends InnerNative  
 }
-
 
 object Graphic extends PlatformsModule
 { 
@@ -51,20 +55,11 @@ object Core extends PlatformsModule
   
   object test extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
-    def testFrameworks = Seq("utest.runner.Framework")    
+    def testFrameworks = Seq("utest.runner.Framework")
+    //def moduleDeps = Seq(Graphic.test, Core)   
   }  
 }
 
-object FxStrat extends CommonJvm
-{ def moduleDeps = Seq(Core)
-  def mainClass = Some("ostrat.pFx.DevApp") 
-  import mill.modules.Assembly._
-  def scalaLibraryIvyDeps = T { Agg.empty }   
-}
+def run() = Core.runBackground()
+def test() = Core.test
 
-object JsStrat extends ScalaJSModule with CommonJs
-{ def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
-  def moduleDeps = Seq(Core)
-  def sources = T.sources( millSourcePath / 'src, millSourcePath / 'srcPlay)
-  def artifactName = "play"  
-}
