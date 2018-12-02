@@ -38,7 +38,7 @@ For IntellliJ useful options:
 * File => Editor => General -> Other -> tick "Show quick documentation on mouse move".
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
 * Project-Pane => Options -> "Flatten packages"
-## The Code currently has 5 modules:
+## The Code currently has 4 modules:
 
 **1. Macros** This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
