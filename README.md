@@ -40,9 +40,9 @@ For IntellliJ useful options:
 * Project-Pane => Options -> "Flatten packages"
 ## The Code currently has 5 modules:
 
-1. Macros. This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
+**1. Macros.** This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
-2. Graphic.
+**2. Graphic.**
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
