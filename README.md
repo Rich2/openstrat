@@ -36,11 +36,12 @@ For IntellliJ useful options:
 * File => Editor => General -> Other -> tick "Show quick documentation on mouse move".
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
 * Project-Pane => Options -> "Flatten packages"
+
 ## The Code currently has 4 modules. Each module can be built for Jvm and JavaFx and for the Javascript platoform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
-**1. Macros** This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
+**1. Macros** This is only a separate module at the moment because of the macros. Just a couple of simple macros so as one can track down the source location of one's debug printlns.
 
-**2. Util**
+**2. Util** depends on Macros organised into the following packages.
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
@@ -57,12 +58,12 @@ For IntellliJ useful options:
      * CSS
      * Simple Javascipt
 
-**3. Graphic**   
-   - **ostrat.geom**
+**3. Graphic** depends on Macros and Util, organised into the following packages.  
+   - **ostrat.geom** A pure or near pure functional package.
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
      * 2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing.     
-   - **ostrat.pCanv** depends on geom
+   - **ostrat.pCanv** depends on geom. This could be made into a seperate modul, but I don't see any great adavantage.
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
      * Mouse and other abstract controls.
@@ -71,7 +72,7 @@ For IntellliJ useful options:
      * There is no implementation for Native yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
 
-**4. Strat** The bulk of the code this is organised into the following packages:   
+**4. Strat** The code for specific applications, organised into the following packages:   
    - **ostrat.pGrid** depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
