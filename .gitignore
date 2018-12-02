@@ -1,11 +1,14 @@
 project/project/
 target/
+SbtWork/
 MacrosJs/
 MacrosJvm/
 GraphicJvm/
 GraphicJs/
 CoreJs/
 CoreJvm/
+StratJvm/
+StratJs/
 JsPlay/
 FxPlay/
 DocProj/
