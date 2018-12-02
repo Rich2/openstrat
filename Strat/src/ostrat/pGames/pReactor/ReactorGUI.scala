@@ -6,7 +6,6 @@ import geom._, pCanv._, Colour._
 
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor..")
 {
-  deb("ReactorGUI On..")
   val size = 40  //cell size in pixels
   val rows = 8
   val cols = 10
@@ -22,7 +21,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
   init()
   
   def init() : Unit =
-  {  deb("init")
+  { 
     repaint(List(
       Rectangle(width, height, 0 vv 0).fill(Colour(0xFF181818)), 
       gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })
@@ -111,10 +110,38 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
         canv.timeOut(() => ReactorGUI.this.processQueue(), 100)
       }
     }
-    case (v, LeftButton, cl) if (clickList.length>0) => init()
-    case (v, MiddleButton, cl) if (clickList.length>0) => deb("Load="+canv.loadFile("test"))
-    case (v, RightButton, cl) if (clickList.length>0) => deb("Saved");canv.saveFile("test", cellCounts.toString)
-  }   
+    case (v, LeftButton, cl) if (clickList.length>0) => init
+    case (v, MiddleButton, cl) if (clickList.length>0) => loadGame
+    case (v, RightButton, cl) if (clickList.length>0) => saveGame
+  }
+  def saveGame() : Unit = 
+  {
+    var saveData = ""
+    saveData += turn.toString + "\n"
+    //saveData += turn.toString + "\n"
+
+    // deb(players.mkString("[", ",", "]"))
+    // deb(cellCounts.mkString("[", ",", "]"))
+    // deb(cellColors.mkString("[", ",", "]"))
+    // deb(currentPlayer.toString)
+    deb("Saved")
+    canv.saveFile("test", saveData)
+/*  val rows = 8
+  val cols = 10
+  var turn = 0
+  var players = Array(Red, Green, Yellow, Blue)
+  var currentPlayer = players(0)
+  var cellCounts = Array.fill[Int](rows*cols)(0)
+  var cellColors = Array.fill[Colour](rows*cols)(Black)
+*/
+  }
+  def loadGame() : Unit = 
+  {
+    val arr = canv.loadFile("test")
+    deb(arr.right)
+    //turn = arr.right.split("\n")(0).toInt
+    //canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
+  }
 }
   //   def button3(str: String, cmd: MouseButton => Unit) =
   //     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), White, 3, Black, 25, str)
