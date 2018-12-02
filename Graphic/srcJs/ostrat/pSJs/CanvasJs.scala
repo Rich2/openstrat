@@ -189,8 +189,9 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath()
     gc.clip()
   }
-
+  /** Restore GraphicContext usually used for the Clip Frame. Nothing to do with file loading. */
   override def gcRestore(): Unit = gc.restore()
+  /** Save GraphicContext state usually used for the Clip Frame. Nothing to do with file saving. */  
   override def gcSave(): Unit = gc.save()
   override def saveFile(fileName: String, output: String): Unit = window.localStorage.setItem(fileName, output)
   override def loadFile(fileName: String): EMon[String] =
