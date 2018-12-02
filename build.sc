@@ -57,7 +57,7 @@ object Graphic extends PlatformsModule
   object Nat extends InnerNative
 }
 
-object Core extends PlatformsModule
+object Strat extends PlatformsModule
 {
    def moduleDeps = Seq(Graphic)
   
@@ -73,8 +73,8 @@ object Core extends PlatformsModule
   object Nat extends InnerNative
 }
 
-def run() = Core.runBackground()
-def test = Core.test
-def jsfast = Core.Js.fastOpt
-def jsfull = Core.Js.fullOpt
+def run() = Strat.runBackground()
+def test = Strat.test
+def jsfast = Strat.Js.fastOpt
+def jsfull = Strat.Js.fullOpt
 

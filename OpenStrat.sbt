@@ -32,14 +32,14 @@ lazy val GraphicJvm = project.dependsOn(MacrosJvm).settings(graphicSettings).set
 )
 lazy val GraphicJs = project.dependsOn(MacrosJs).settings(graphicSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-val coreSettings = List(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/src",  
-  Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Core/resources"
+val stratSettings = List(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/src",  
+  Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / "Strat/resources"
 ) ::: commonSettings
 
-lazy val CoreJvm = project.dependsOn(GraphicJvm).settings(coreSettings).settings(
-	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/srcJvm", 
-  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Core/test/src/", 
+lazy val StratJvm = project.dependsOn(GraphicJvm).settings(stratSettings).settings(
+	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/srcJvm", 
+  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/test/src/", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile, 
   testFrameworks += new TestFramework("utest.runner.Framework"),
@@ -48,10 +48,10 @@ lazy val CoreJvm = project.dependsOn(GraphicJvm).settings(coreSettings).settings
   // include the macro sources in the main source jar
   mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
 )
-lazy val CoreJs = project.dependsOn(GraphicJs).settings(coreSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6").settings(
+lazy val StratJs = project.dependsOn(GraphicJs).settings(stratSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6").settings(
   //scalaJSUseMainModuleInitializer := true,
   //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/src",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",
+  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",  
 )
 
@@ -62,4 +62,4 @@ lazy val CoreJs = project.dependsOn(GraphicJs).settings(coreSettings).enablePlug
 
 val root = (project in file(".")).
   settings(commonSettings).
-  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, CoreJvm, MacrosJs, CoreJs)
+  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, StratJvm, MacrosJs, StratJs)
