@@ -15,7 +15,8 @@ sbt //In bash from project's root folder
 ```
 From within the sbt console run:
 ```
-~ Strat/reStart //To launch a ScalaFx window. The most useful command for development
+~ StratJvm/reStart //To launch a ScalaFx window. The most useful command for development
+~ StratJs/fastOptJS //Not functioning yet.
 DocProj/doc //Will produce docs for the Core and FxStrat projects. They can be found in DocProj/target/scala-2.12/api
 ```
 
