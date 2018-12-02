@@ -29,7 +29,9 @@ So I'm experimenting with Mill from the project root folder run:
 mill run //To launch a ScalaFx window.
 mill -w run //As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful command for development
 mill test //To run tests
-mill -w /To recompile and rerun the tests on source code changes.
+mill -w //To recompile and rerun the tests on source code changes.
+mill -w jsfast //To rebuild the fast optomised Js file. Use with WebPages/millFast.html
+mill -w jsfull //To rebuild the fully optomised Js file. Use with WebPages/millFull.html
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
 ```
 For IntellliJ useful options:

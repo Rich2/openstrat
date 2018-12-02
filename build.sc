@@ -52,8 +52,7 @@ object Graphic extends PlatformsModule
   }
   object Js extends InnerJs
   {
-    def moduleDeps =Seq(Macros.Js)
-    //def ivyJs = Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
+    def moduleDeps = Seq(Macros.Js)    
   }
   object Nat extends InnerNative
 }
@@ -66,9 +65,16 @@ object Core extends PlatformsModule
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
     def testFrameworks = Seq("utest.runner.Framework")
     //def moduleDeps = Seq(Graphic.test, Core)   
-  }  
+  }
+   object Js extends InnerJs
+  {
+    def moduleDeps = Seq(Graphic.Js)    
+  }
+  object Nat extends InnerNative
 }
 
 def run() = Core.runBackground()
 def test = Core.test
+def jsfast = Core.Js.fastOpt
+def jsfull = Core.Js.fullOpt
 
