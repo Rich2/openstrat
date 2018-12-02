@@ -65,7 +65,7 @@ For IntellliJ useful options:
      * Simple Javascipt
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
 
- 3. Strat. The bulk of the code this is organised into the following packages:   
+3. Strat. The bulk of the code this is organised into the following packages:   
    - **ostrat.pGrid** depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
