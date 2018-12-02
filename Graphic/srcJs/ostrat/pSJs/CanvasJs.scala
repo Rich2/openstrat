@@ -29,7 +29,7 @@ object CanvasJs extends CanvasTopLeft
     mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
   
-  can.onkeyup = (e: raw.KeyboardEvent) => keyReleased()
+  can.onkeyup = (e: raw.KeyboardEvent) => {deb("Key up"); keyReleased() }
 
   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) =>
   { e.deltaY match

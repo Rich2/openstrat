@@ -4,7 +4,8 @@ package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 case class LessonC6(canv: CanvasPlatform) extends CanvasSimple("Lesson C6")
-{    
+{
+  deb("L6")
   val startText = TextGraphic("Press a key.", 28, 0 vv 400)
   repaints(startText)  
   
