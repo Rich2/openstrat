@@ -42,7 +42,7 @@ object Macros extends PlatformsModule
   object Nat extends InnerNative  
 }
 
-object Graphic extends PlatformsModule
+object Util extends PlatformsModule
 { 
   def moduleDeps = Seq(Macros)
   
@@ -53,6 +53,21 @@ object Graphic extends PlatformsModule
   object Js extends InnerJs
   {
     def moduleDeps = Seq(Macros.Js)    
+  }
+  object Nat extends InnerNative
+}
+
+object Graphic extends PlatformsModule
+{ 
+  def moduleDeps = Seq(Util)
+  
+  object test extends Tests
+  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
+    def testFrameworks = Seq("utest.runner.Framework")    
+  }
+  object Js extends InnerJs
+  {
+    def moduleDeps = Seq(Util.Js)    
   }
   object Nat extends InnerNative
 }

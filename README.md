@@ -36,17 +36,28 @@ For IntellliJ useful options:
 * File => Editor => General -> Other -> tick "Show quick documentation on mouse move".
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
 * Project-Pane => Options -> "Flatten packages"
-## The Code currently has 4 modules:
+## The Code currently has 4 modules. Each module can be built for Jvm and JavaFx and for the Javascript platoform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
 **1. Macros** This is only a separate module at the moment because of the macros. Just a couple of simple macros so as I can track down the source location of my debug printlns.
 
-**2. Graphic**
+**2. Util**
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
      * A functional Either based Errors framework.
      * Array based compound value collections of same length elements.
      * Other general utilities.
+   - **ostrat.parse**
+     * Basic  geometry.
+     * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
+     * 2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing.   
+   - **ostrat.pWeb** Code for the generation and manipulation of
+     * HTML
+     * Other XML
+     * CSS
+     * Simple Javascipt
+
+**3. Graphic**   
    - **ostrat.geom**
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
@@ -55,15 +66,12 @@ For IntellliJ useful options:
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
      * Mouse and other abstract controls.
-     * An implementation for Canvas using Java. 
-   - **ostrat.pWeb** Code for the generation and manipulation of
-     * HTML
-     * Other XML
-     * CSS
-     * Simple Javascipt
+     * An implementation of Canvas for Jvm using JavaFx.
+     * An implementation of Canvas for Html Canvas using JavaScript.
+     * There is no implementation for Native yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
 
-**3. Strat** The bulk of the code this is organised into the following packages:   
+**4. Strat** The bulk of the code this is organised into the following packages:   
    - **ostrat.pGrid** depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
@@ -86,8 +94,7 @@ For IntellliJ useful options:
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
-   - **learn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These will be repackaged and published as a separate project.
+   - **learn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published seperatly as the LearnScala project.
    
-**4. NatStrat** This is currently just a hello world stub. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
 
-The code is currently organised for my own convenience. However if any of it ever gains significant traction with other developers, then I would be very happy to break it up and reorganise it. The packages are structured with a view to future break up.
+The code is organised so if it gains significant traction with other developers, then it can be broken up into seperate repositories.
