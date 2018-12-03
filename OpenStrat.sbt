@@ -51,7 +51,10 @@ lazy val GraphicJvm = proj("GraphicJvm").dependsOn(UtilJvm).settings(graphicSett
   mappings in (Compile, packageSrc) ++= mappings.in(MacrosJvm, Compile, packageSrc).value
 )
 
-lazy val GraphicJs = proj("GraphicJs").dependsOn(UtilJs).settings(graphicSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+lazy val GraphicJs = proj("GraphicJs").dependsOn(UtilJs).settings(graphicSettings).enablePlugins(ScalaJSPlugin).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/srcJs",
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6"
+)
 
 val stratSettings = List(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/src",  
@@ -71,7 +74,7 @@ lazy val StratJvm = proj("StratJvm").dependsOn(GraphicJvm).settings(stratSetting
 )
 lazy val StratJs = proj("StratJs").dependsOn(GraphicJs).settings(stratSettings).enablePlugins(ScalaJSPlugin).settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6").settings(
   //scalaJSUseMainModuleInitializer := true,
-  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/src",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/srcJs",
   //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6",  
 )
