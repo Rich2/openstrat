@@ -5,8 +5,8 @@ import geom._
 import pCanv._
 import javafx._
 import scene._
-import ostrat.Colour
-import ostrat.stringToImplicit
+//import ostrat.Colour
+//import ostrat.stringToImplicit
 
 /** An alternative version of CanvasFx to experiment with removing the ScalaFx dependency and just use JavaFx directly. */
 case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSaver

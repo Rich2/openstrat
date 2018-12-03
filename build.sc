@@ -34,6 +34,12 @@ trait PlatformsModule extends ScalaModule with Common
 	  def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = outer.ivyDeps() ++ ivyNat()
 	  def ivyNat: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg[mill.scalalib.Dep]()
   }
+
+  trait InnerTests extends Tests
+  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
+    def testFrameworks = Seq("utest.runner.Framework") 
+     def sources = T.sources(outer.millSourcePath / 'srcTest)  
+  }
 }
 
 object Macros extends PlatformsModule
@@ -44,16 +50,9 @@ object Macros extends PlatformsModule
 
 object Util extends PlatformsModule
 { 
-  def moduleDeps = Seq(Macros)
-  
-  object test extends Tests
-  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
-    def testFrameworks = Seq("utest.runner.Framework")    
-  }
-  object Js extends InnerJs
-  {
-    def moduleDeps = Seq(Macros.Js)    
-  }
+  def moduleDeps = Seq(Macros)  
+  object test extends InnerTests  
+  object Js extends InnerJs {  def moduleDeps = Seq(Macros.Js)  }
   object Nat extends InnerNative
 }
 
@@ -61,14 +60,8 @@ object Graphic extends PlatformsModule
 { 
   def moduleDeps = Seq(Util)
   
-  object test extends Tests
-  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
-    def testFrameworks = Seq("utest.runner.Framework")    
-  }
-  object Js extends InnerJs
-  {
-    def moduleDeps = Seq(Util.Js)    
-  }
+  object test extends InnerTests 
+  object Js extends InnerJs {  def moduleDeps = Seq(Util.Js)  }
   object Nat extends InnerNative
 }
 
@@ -76,15 +69,11 @@ object Strat extends PlatformsModule
 {
    def moduleDeps = Seq(Graphic)
   
-  object test extends Tests
-  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
-    def testFrameworks = Seq("utest.runner.Framework")
-    //def moduleDeps = Seq(Graphic.test, Core)   
+  object test extends InnerTests
+  {  //def moduleDeps = Seq(Graphic.test, Core)   
   }
-   object Js extends InnerJs
-  {
-    def moduleDeps = Seq(Graphic.Js)    
-  }
+  
+  object Js extends InnerJs { def moduleDeps = Seq(Graphic.Js) }
   object Nat extends InnerNative
 }
 
