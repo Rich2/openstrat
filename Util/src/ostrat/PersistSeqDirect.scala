@@ -1,8 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import pParse.{ PersistSeqImplicit => PSI }
 
 class PersistSeqDirect[A](thisSeq: Seq[A], ev: Persist[A])
-{ import ostrat.Persist.{PersistSeqImplicit => PSI }
+{ 
   /** Provides the standard string representation for the object */
   def str: String = new PSI(ev).persist(thisSeq)
 

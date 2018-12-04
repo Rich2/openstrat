@@ -56,10 +56,6 @@ abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
 //   def persistStatements: String = "#" - persistName - persistMems.foldLeft("")(_.nl - _.persistFull.strFold("\n")) 
 }
 
-abstract class PersistSeqLike[A, R](typeSym: Symbol, val ev: Persist[A]) extends PersistCompound[R](typeSym)
-{
-  override def typeStr = "Seq" + ev.typeStr.enSquare
-  override def syntaxDepth = ev.syntaxDepth + 1    
-}
+
 
 

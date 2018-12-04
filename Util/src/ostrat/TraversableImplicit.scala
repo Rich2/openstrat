@@ -77,16 +77,16 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def travHead[B](ifEmpty: => B, fNonEmpty: (A, Traversable[A]) => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head, thisTrav.tail)
   
   /** Folds over this traverable with a to Emon function, accumulating errors */      
-  def eMonMap[B](f: A => EMon[B]): EMon[Seq[B]] =      
+  def eMonMap[B](f: A => EMon[B]): EMon[List[B]] =      
   {
-    def goodLoop(rem: List[A], goodAcc: Seq[B]): EMon[Seq[B]] = rem match
+    def goodLoop(rem: List[A], goodAcc: List[B]): EMon[List[B]] = rem match
     {
       case Nil => Good(goodAcc)
       case h :: tail => f(h).fold(errs => badLoop(tail, errs), g => goodLoop(tail, goodAcc :+ g))
     }
     
     
-    def badLoop(rem: List[A], errAcc: Seq[ParseErr]): EMon[Seq[B]] = rem match
+    def badLoop(rem: List[A], errAcc: Seq[ParseErr]): EMon[List[B]] = rem match
     {
       case Nil => Bad(errAcc)
       case h :: tail => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))

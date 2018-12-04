@@ -48,7 +48,7 @@ object Statement
     def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
           ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
 
-    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.fromStatementList(statementList)
+    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementList)
     def findTypeFirst[A](implicit ev: Persist[A]): EMon[A] = ev.firstFromStatementList(statementList)
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
     {

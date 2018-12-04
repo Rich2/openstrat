@@ -44,16 +44,17 @@ abstract class Persist[T](val typeSym: Symbol)
   
   /** Trys to build an object of type T from the statement */
   def fromStatement(st: Statement): EMon[T]
-  /** Tries to find first statement that can build an object of type T and returns object */
-  def fromStatementList(list: List[Statement]): EMon[T] = list match
-  { case Seq() => FilePosn.emptyError("No Statements")
-    case Seq(e1) => fromStatement(e1)
-    case s2 => list.map(fromStatement(_)).collect{ case g: Good[T] => g } match
-    { case Seq(t) => t
-      case Seq() => bad1(list.startPosn, typeStr -- "not found.")
-      case s3 => bad1(list.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
-    }
-  }
+  
+//  /** Tries to find first statement that can build an object of type T and returns object */
+//  def fromStatementList(list: List[Statement]): EMon[T] = list match
+//  { case Seq() => FilePosn.emptyError("No Statements")
+//    case Seq(e1) => fromStatement(e1)
+//    case s2 => list.map(fromStatement(_)).collect{ case g: Good[T] => g } match
+//    { case Seq(t) => t
+//      case Seq() => bad1(list.startPosn, typeStr -- "not found.")
+//      case s3 => bad1(list.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
+//    }
+//  }
   
   def firstFromStatementList(l: List[Statement]):EMon[T] =
     l.map(fromStatement(_)).collectFirst{ case Right(value) => value }.toEMon1(FileSpan .empty, typeStr -- "Not Found.")
@@ -85,46 +86,22 @@ abstract class Persist[T](val typeSym: Symbol)
 /** Companion object for the persistence type class. Contains the implicit instances for Scala standard library types. */
 object Persist
 {
-   /** Implicit method for creating Seq[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  /** Implicit method for creating List[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def listToPersist [T](implicit ev: Persist[T]): Persist[List[T]] = new PersistListImplicit[T](ev)  
+  /** Implicit method for creating Seq[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def seqToPersist [T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
- 
-  class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('Seq, ev)
-  {     
-    override def persistSemi(thisSeq: Seq[A]): String = thisSeq.map(ev.persistComma(_)).semicolonFold
-    override def persistComma(thisSeq: Seq[A]): String = thisSeq.map(ev.persist(_)).commaFold
- 
-//} 
-//      override def isType(obj: Any): Boolean = obj match
-//      {
-//         case s @ Seq(mems) => s.forall(el => ev.isType(el)) 
-//         case _ => false   
-//      }
-  override def fromExpr(expr: Expr): EMon[Seq[A]] = expr match
-  { case SemicolonToken(_) => Good(Seq[A]())
-//         //For Some reason the compile is not finding the implicit
-    case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => sts.eMonMap[A](_.errGet[A](ev))
-    case e => bad1(expr, "Unknown Exoression for Seq")
-  }
-//      override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = clauses.eMonMap (cl => ev.fromExpr(cl.expr))
-//      override def fromStatement(st: Statement): EMon[Seq[A]] = st match
-//      {
-//         case MonoStatement(expr, _) => fromExpr(expr)
-//         case ClausedStatement(clauses, _) => fromClauses(clauses)
-//         case es @ EmptyStatement(_) => es.asError         
-//  }
-  override def fromParameterStatements(sts: List[Statement]): EMon[Seq[A]] = ???
-  override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = ???
-  }
+  /** Implicit method for creating Vector[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def vectorToPersist [T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)  
   
-   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)
+  /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)  
   
-  class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]]('Array, ev)
+  implicit object arrayIntToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersistImplicit)
   {       
-    override def persistSemi(thisArray: Array[A]): String = thisArray.map(ev.persistComma(_)).semicolonFold
-    override def persistComma(thisArray: Array[A]): String = thisArray.map(ev.persist(_)).commaFold
-    override def fromParameterStatements(sts: List[Statement]): EMon[Array[A]] = ???
-    override def fromClauses(clauses: Seq[Clause]): EMon[Array[A]] = ???
+  override def persistSemi(thisArray: Array[Int]): String = thisArray.map(ev.persistComma(_)).semicolonFold
+  override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.persist(_)).commaFold
+  override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = ???
+  override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
   }
   
   implicit object IntPersistImplicit extends PersistSimple[Int]('Int)
