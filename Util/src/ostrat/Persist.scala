@@ -45,14 +45,24 @@ abstract class Persist[T](val typeSym: Symbol)
   /** Trys to build an object of type T from the statement */
   def fromStatement(st: Statement): EMon[T]
   /** Tries to find first statement that can build an object of type T and returns object */
-  def fromStatementSeq(s: Seq[Statement]): EMon[T] = s match
+  def fromStatementList(list: List[Statement]): EMon[T] = list match
   { case Seq() => FilePosn.emptyError("No Statements")
     case Seq(e1) => fromStatement(e1)
-    case s2 => s.map(fromStatement(_)).collect{ case g: Good[T] => g } match
+    case s2 => list.map(fromStatement(_)).collect{ case g: Good[T] => g } match
     { case Seq(t) => t
-      case Seq() => bad1(s.startPosn, typeStr -- "not found.")
-      case s3 => bad1(s.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
+      case Seq() => bad1(list.startPosn, typeStr -- "not found.")
+      case s3 => bad1(list.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
     }
+  }
+  
+  def firstFromStatementList(l: List[Statement]):EMon[T] =
+    l.map(fromStatement(_)).collectFirst{ case Right(value) => value }.toEMon1(FileSpan .empty, typeStr -- "Not Found.")
+  def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Right(value) => value }
+  def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
+  {
+    case Nil => FilePosn.emptyError("No values of type found")
+    case h :: Nil => Good(h)
+    case s3 => bad1(l.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.") 
   }
   
   def settingFromStatement(settingSym: Symbol, st: Statement): EMon[T] = st match
@@ -61,13 +71,13 @@ abstract class Persist[T](val typeSym: Symbol)
     case _ => bad1(st.startPosn, typeStr -- "not found.")
   }
   
-  def settingFromStatementSeq(s: Seq[Statement], settingSym: Symbol): EMon[T] = s match
+  def settingFromStatementList(list: List[Statement], settingSym: Symbol): EMon[T] = list match
   { case Seq() => FilePosn.emptyError("No Statements")
     case Seq(e1) => settingFromStatement(settingSym, e1)
-    case s2 => s.map(settingFromStatement(settingSym, _)).collect{ case g: Good[T] => g } match
+    case s2 => list.map(settingFromStatement(settingSym, _)).collect{ case g: Good[T] => g } match
     { case Seq(t) => t
-      case Seq() => bad1(s.startPosn, typeStr -- "not found.")
-      case s3 => bad1(s.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
+      case Nil => bad1(list.startPosn, typeStr -- "not found.")
+      case s3 => bad1(list.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
     }
   }
 }
@@ -102,7 +112,7 @@ object Persist
 //         case ClausedStatement(clauses, _) => fromClauses(clauses)
 //         case es @ EmptyStatement(_) => es.asError         
 //  }
-  override def fromParameterStatements(sts: Seq[Statement]): EMon[Seq[A]] = ???
+  override def fromParameterStatements(sts: List[Statement]): EMon[Seq[A]] = ???
   override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = ???
   }
   
@@ -113,7 +123,7 @@ object Persist
   {       
     override def persistSemi(thisArray: Array[A]): String = thisArray.map(ev.persistComma(_)).semicolonFold
     override def persistComma(thisArray: Array[A]): String = thisArray.map(ev.persist(_)).commaFold
-    override def fromParameterStatements(sts: Seq[Statement]): EMon[Array[A]] = ???
+    override def fromParameterStatements(sts: List[Statement]): EMon[Array[A]] = ???
     override def fromClauses(clauses: Seq[Clause]): EMon[Array[A]] = ???
   }
   

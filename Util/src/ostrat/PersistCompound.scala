@@ -13,7 +13,7 @@ abstract class PersistCompound[R](typeSym: Symbol) extends Persist[R](typeSym)
     case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName.name -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }  
-  def fromParameterStatements(sts: Seq[Statement]): EMon[R]
+  def fromParameterStatements(sts: List[Statement]): EMon[R]
   override def fromStatement(st: Statement): EMon[R] = st match
   { case MonoStatement(expr, _) => fromExpr(expr)
     case ClausedStatement(cls, _) => bad1(cls.head.startPosn, "Claused Statement")

@@ -12,27 +12,28 @@ sealed trait Statement extends FileSpan
 
 object Statement
 {
-  implicit class StatementSeqImplicit(statementSeq: Seq[Statement]) extends FileSpan
+  implicit class StatementListImplicit(statementList: List[Statement]) extends FileSpan
   { private def ifEmptyFilePosn: FilePosn = FilePosn(0, 0 , "Empty Statement Seq")
-    def startPosn = statementSeq.ifEmpty(ifEmptyFilePosn, statementSeq.head.startPosn)
-    def endPosn = statementSeq.ifEmpty(ifEmptyFilePosn, statementSeq.last.endPosn)
+    def startPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.head.startPosn)
+    def endPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.last.endPosn)
     
-    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementSeq match
+    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementList match
     { case Seq(h1) => h1.errGet[A1](ev1)
       case s => bad1(s, s.length.toString -- "statements not 1")
     }
   
-    def errGet2[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[(A1, A2)] = statementSeq match
+    def errGet2[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[(A1, A2)] = statementList match
     { case Seq(h1, h2) => h1.errGet[A1](ev1).map2(h2.errGet[A2](ev2), (g1, g2: A2) => (g1, g2))
       case s => bad1(s, s.length.toString -- "statements not 2")
     }
     
-    def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] = statementSeq match
+    def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] =
+      statementList match
     { case Seq(h1, h2, h3) => h1.errGet[A1](ev1)map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
       case s => bad1(s, s.length.toString -- "statements not 3")
     }
     def errGet4[A1, A2, A3, A4](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
-       EMon[(A1, A2, A3, A4)] = statementSeq match
+       EMon[(A1, A2, A3, A4)] = statementList match
     {
        case Seq(h1, h2, h3, h4) => h1.errGet[A1](ev1)map4(h2.errGet[A2](ev2), h3.errGet[A3](ev3), h4.errGet[A4],
              (g1: A1, g2: A2, g3: A3, g4: A4) => (g1, g2, g3, g4))
@@ -47,12 +48,13 @@ object Statement
     def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
           ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
 
-    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.fromStatementSeq(statementSeq)
+    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.fromStatementList(statementList)
+    def findTypeFirst[A](implicit ev: Persist[A]): EMon[A] = ev.firstFromStatementList(statementList)
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
-    def findSetting[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementSeq(statementSeq, settingSym)
+    def findSetting[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingSym)
   }
 
-  implicit class EmonStatementSeqImplict(eMon: EMon[Seq[Statement]])
+  implicit class EmonStatementListImplict(eMon: EMon[List[Statement]])
   {
     def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = eMon.flatMap(_.errGet1[A1])
   }

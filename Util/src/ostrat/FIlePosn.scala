@@ -19,6 +19,10 @@ trait FileSpan
 { def startPosn: FilePosn
   def endPosn: FilePosn
 }
+ object FileSpan
+ {
+   def empty = new FileSpan{def startPosn = FilePosn.empty; def endPosn = FilePosn.empty }
+ }
 
 trait FileSpanMems extends FileSpan
 { def startMem: FileSpan

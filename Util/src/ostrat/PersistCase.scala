@@ -15,7 +15,7 @@ class Persist1[A1, R](typeSym: Symbol, val fParam: R => A1, val newT: A1 => R)(i
   def persistSemi(obj: R): String = ev1.persistComma(fParam(obj))
   def persistComma(obj: R): String = ev1.persist(fParam(obj))  
   def fromClauses(clauses: Seq[Clause]): EMon[R] = ???// fromClauses1(newT, clauses)
-  def fromParameterStatements(sts: Seq[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
+  def fromParameterStatements(sts: List[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
 }
 
 /** Persistence class for case classes taking a single Double parameter. Not sure about this class. It is currently being used for Double based value
@@ -38,7 +38,7 @@ class Persist2[A1, A2, R](typeSym: Symbol, val fParam: R => (A1, A2), val newT: 
   }
    
   override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses2(newT, clauses)
-  override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = sts.errFun2(newT)(ev1, ev2)   
+  override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun2(newT)(ev1, ev2)   
 }
 
 /** Persistence class for case classes consisting of 2 Double parameters. */
@@ -61,7 +61,7 @@ abstract class Persist3[A1, A2, A3, R](typeSym: Symbol, val fParam: R => (A1, A2
   }
 
   override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses3(newT, clauses)
-  override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
+  override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
 }
 
 /** Persistence class for case classes consisting of 3 Double parameters. */
@@ -77,5 +77,5 @@ abstract class Persist4[A1, A2, A3, A4, R](typeSym: Symbol, val newT: (A1, A2, A
     ev1.persist(p1).semicolonAppend(ev2.persist(p2), ev3.persist(p3), ev4.persist(p4))
   }
   override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses4(newT, clauses)
-  override def fromParameterStatements(sts: Seq[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)
+  override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)
 }
