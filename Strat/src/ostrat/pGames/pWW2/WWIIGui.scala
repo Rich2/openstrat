@@ -21,8 +21,8 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
             case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
             case _ => 
             {
-              val ls: List[String] = List(xyStr, cenLL.toString)                   
-              TextGraphic.lines(cen, ls, 10, colour.contrastBW)                  
+              val strs: List[String] = List(xyStr, cenLL.toString)                   
+              TextGraphic.lines(strs, 10, cen, colour.contrastBW)                  
             }
          })
          poly :: textOrUnit

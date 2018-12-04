@@ -11,8 +11,8 @@ case object TextCen extends TextAlign { def jsStr = "center" }
 case object TextLeft extends TextAlign { def jsStr = "left" }
 case object TextRight extends TextAlign { def jsStr = "right" }
  
-case class TextGraphic(str: String, fontSize: Int, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = TextCen, zOrder: Int = 0) extends 
-PaintElem[TextGraphic]
+case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = TextCen,
+    zOrder: Int = 0) extends PaintElem[TextGraphic]
 {
   override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, zOrder)
 }
@@ -26,7 +26,7 @@ object TextGraphicCen
 
 object TextGraphic
 { 
-  def lines(posn: Vec2, strs: List[String], fontSize: Int, fontColour: Colour = Black, lineSpacing: Double = 1.0): List[TextGraphic] =  
+  def lines(strs: List[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1.0): List[TextGraphic] =  
   { val len = strs.length
     if(len == 0) Nil
       else strs.iMap((str, i) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, TextCen))        

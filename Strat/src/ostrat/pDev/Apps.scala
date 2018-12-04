@@ -49,10 +49,12 @@ object Apps
       (54, (learn.LessonC4(_), "ScalaFx Demonstration Interactive Canvas 4")),
       (55, (learn.LessonC5(_), "ScalaFx Demonstration Interactive Canvas 5")),
       (56, (learn.LessonC6(_), "ScalaFx Demonstration Interactive Canvas 6")),
+      
+      (51, (learn.LessonD1(_), "ScalaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 1
+  val appNum: Int = 51
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }
