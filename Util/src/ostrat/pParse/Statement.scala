@@ -50,6 +50,12 @@ object Statement
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.fromStatementList(statementList)
     def findTypeFirst[A](implicit ev: Persist[A]): EMon[A] = ev.firstFromStatementList(statementList)
+    def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
+    {
+      val list = ev.listFromStatementList(statementList)
+      if (list.length >= index) bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found") else Good(list(index))
+    }
+    
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
     def findSetting[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingSym)
   }
