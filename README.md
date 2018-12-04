@@ -40,7 +40,7 @@ For IntellliJ useful options:
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
 * Project-Pane => Options -> "Flatten packages"
 
-## The Code currently has 4 modules. Each module can be built for Jvm and JavaFx and for the Javascript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
+**The Code currently has 4 modules.** Each module can be built for Jvm and JavaFx and for the Javascript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
 **1. Macros** This is only a separate module at the moment because of the macros. Just a couple of simple macros so as one can track down the source location of one's debug printlns.
 
