@@ -16,8 +16,8 @@ sbt //In bash from project's root folder
 From within the sbt console run:
 ```
 ~ Strat/reStart //To launch a ScalaFx window. The most useful command for development
-~ StratJs/fastOptJS //To rebuild a fast optomised JavaScript file. Use with WebPages/sbtFast.html
-StratJs/fullOptJS //To build a full optomised JavaScript file. Use with WebPages/sbtFull.html
+~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/sbtFast.html
+StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/sbtFull.html
 ~ Util/test //Rerun tests on module Util
 DocProj/doc //Will produce docs for the Core and FxStrat projects. They can be found in DocProj/target/scala-2.12/api
 ```
@@ -31,8 +31,8 @@ mill run //To launch a ScalaFx window.
 mill -w run //As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful command for development
 mill test //To run tests
 mill -w //To recompile and rerun the tests on source code changes.
-mill -w jsfast //To rebuild the fast optomised Js file. Use with WebPages/millFast.html
-mill jsfull //To build the fully optomised Js file. Use with WebPages/millFull.html
+mill -w jsfast //To rebuild the fast optimised Js file. Use with WebPages/millFast.html
+mill jsfull //To build the fully optimised Js file. Use with WebPages/millFull.html
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
 ```
 For IntellliJ useful options:
@@ -40,7 +40,7 @@ For IntellliJ useful options:
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
 * Project-Pane => Options -> "Flatten packages"
 
-## The Code currently has 4 modules. Each module can be built for Jvm and JavaFx and for the Javascript platoform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
+## The Code currently has 4 modules. Each module can be built for Jvm and JavaFx and for the Javascript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
 **1. Macros** This is only a separate module at the moment because of the macros. Just a couple of simple macros so as one can track down the source location of one's debug printlns.
 
@@ -66,7 +66,7 @@ For IntellliJ useful options:
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
      * 2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing.     
-   - **ostrat.pCanv** depends on geom. This could be made into a seperate modul, but I don't see any great adavantage.
+   - **ostrat.pCanv** depends on geom. This could be made into a separate module, but I don't see any great advantage.
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
      * Mouse and other abstract controls.
@@ -98,7 +98,7 @@ For IntellliJ useful options:
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
-   - **learn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published seperatly as the LearnScala project.
+   - **learn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
    
 
-The code is organised so if it gains significant traction with other developers, then it can be broken up into seperate repositories.
+The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
