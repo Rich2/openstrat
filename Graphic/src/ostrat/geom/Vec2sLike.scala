@@ -20,7 +20,7 @@ trait Vec2sLike extends Any
   }
 }
 
-/** Array[Double] based collection class for Vec2s which doesn't reperesent a closed Polygon. Conversion to and form the Polygon class should not
+/** Array[Double] based collection class for Vec2s which doesn't represent a closed Polygon. Conversion to and from the Polygon class should not
  *  entail a runtime cost. */
 class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2]  with Transable[Vec2s] with Vec2sLike
 {
