@@ -5,7 +5,11 @@ import ostrat._, geom._, pCanv._
 /** D Series lessons deal with persistence */
 case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
 {
-  val str = """2.0; "Hello"; 7; Vec2(2.3; 3.2); "Goodbye" """
+  val str = """2.0;
+     "Hello";
+      7;
+      Vec2(2.3; 3.2);
+      "Goodbye" """
   val r1 = str.findInt
   val r2 = str.findType[Int]//Does the same as r1
   val r3 = str.findType[String]
@@ -13,7 +17,8 @@ case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
   val r5 = str.findTypeIndex[String](1)
   val r6 = str.findTypeIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
   val r7 = str.findType[Vec2]
-  val strs = List(r1, r2, r3, r4, r5, r6, r7).map(_.toString)
+  val r8 = str.findDouble //This fails because 7 can be both an Int and a Double.
+  val strs = List(r1, r2, r3, r4, r5, r6, r7, r8).map(_.toString)
   repaint(TextGraphic.lines(strs))
   
 }
