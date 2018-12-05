@@ -28,5 +28,10 @@ class ArrayImplicit[A <: AnyRef](val thisArray: Array[A]) extends AnyVal
       count += 1
     }
     valProds
-  }  
+  }
+//  def toStrFold(seperator: String = "", f: A => String = _.toString): String =
+//    thisArray.ifEmpty("", thisArray.tail.foldLeft(f(thisArray.head))(_ - seperator - f(_)))   
+//  def commaFold(fToStr: A => String = _.toString): String = thisArray.toStrFold(", ", fToStr)
+//  def semiFold(fToStr: A => String = _.toString): String = thisArray.toStrFold("; ", fToStr)
+//  def toStringAlt: String = "Array" + thisArray.semiFold
 }

@@ -96,12 +96,20 @@ object Persist
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)  
   
-  implicit object arrayIntToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersistImplicit)
+  implicit object ArrayIntToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersistImplicit)
   {       
   override def persistSemi(thisArray: Array[Int]): String = thisArray.map(ev.persistComma(_)).semicolonFold
   override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.persist(_)).commaFold
-  override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = ???
+  override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
   override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
+  
+  override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
+  { case SemicolonToken(_) => Good(Array[Int]())
+//         //For Some reason the compile is not finding the implicit
+    case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
+      sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArray)
+    case e => bad1(expr, "Unknown Exoression for Seq")
+  }
   }
   
   implicit object IntPersistImplicit extends PersistSimple[Int]('Int)
