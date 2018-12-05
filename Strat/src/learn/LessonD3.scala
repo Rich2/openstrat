@@ -5,16 +5,17 @@ import ostrat._, geom._, pCanv._
 /** D Series lessons deal with persistence */
 case class LessonD3(canv: CanvasPlatform) extends CanvasSimple("Lesson D3")
 {
-  val r1 = 5.str
-  val r2 = 5.strTyped.toString
-  val str = """Seq[Int](4; 5; 6)"""
-  val r3 = str.findType[Seq[Int]].toString//The default constructor for a Seq is List
-  val r4 = str.findType[List[Int]].toString
-  val r5 = str.findType[Vector[Int]].toString
-  val a6 = str.findType[Array[Int]]
-  val r6 = a6.toString//toString method on Array not very helpful
+  val arr = Array(4, 5, 6)
+  val str = arr.str
+  val r1 = str.findType[Seq[Int]]//The default constructor for a Seq is List
+  val r2 = str.findType[List[Int]]
+  val r3 = str.findType[Vector[Int]]
+  val a4 = str.findType[Array[Int]]
+  val r4 = a4//toString method on Array not very helpful
+  val r5 = a4.map(_(1))
+  val r6: EMon[Int] = a4.map[Int](arr => arr(2))//This is the long explicit result.
   
-  val strs = List(r1, r2, r3, r4, r5, r6).map(_.toString)
-  repaint(TextGraphic.lines(strs))
+  val strs = List(r1, r2, r3, r4, r5)map(_.toString)
+  repaint(TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv 0, align = TextLeft))
   
 }

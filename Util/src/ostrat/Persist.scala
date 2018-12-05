@@ -56,15 +56,8 @@ abstract class Persist[T](val typeSym: Symbol)
 //    }
 //  }
    
-  def listFromStatementList(l: List[Statement]): List[T] =
-  {
-    deb(l.length.toString)
-    val r1 = l.map(fromStatement(_))
-    deb(r1.toString)
-    val r2 = r1.collect{ case Right(value) => value }
-    deb(r2.length.toString)
-    r2
-  }
+  def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Right(value) => value }   
+ 
   def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
   {
     case Nil => FilePosn.emptyError("No values of type found")

@@ -14,6 +14,6 @@ case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
   val r6 = str.findTypeIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
   val r7 = str.findType[Vec2]
   val strs = List(r1, r2, r3, r4, r5, r6, r7).map(_.toString)
-  repaint(TextGraphic.lines(strs))
+  repaint(TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv 0, align = TextLeft))
   
 }
