@@ -22,7 +22,7 @@ case class LessonD1(canv: CanvasPlatform) extends CanvasSimple("Lesson D1")
   val v4 = v1.subX(300)
   val v5 = 4.4 vv 5.5
   val v6 = v5.addY(100)
-  //So in this longer example, the semicolons and commas become more useful. You can't do this with 
+  //So in this longer example, the semicolons and commas become more useful. You can't do this with toString
   val r6 = List(v1, v2, v3, v4, v5, v6).str
   
   val strs = List(r1, r2, r3, r4, r5, r6)

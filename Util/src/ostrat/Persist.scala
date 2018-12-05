@@ -55,8 +55,8 @@ abstract class Persist[T](val typeSym: Symbol)
 //      case s3 => bad1(list.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
 //    }
 //  }
-   
-  def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Right(value) => value }   
+
+  def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Right(value) => value }
  
   def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
   {
@@ -95,7 +95,7 @@ object Persist
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)  
   
-  implicit object ArrayIntToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersistImplicit)
+  implicit object ArrayIntToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
   override def persistSemi(thisArray: Array[Int]): String = thisArray.map(ev.persistComma(_)).semicolonFold
   override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.persist(_)).commaFold
@@ -111,7 +111,7 @@ object Persist
   }
   }
   
-  implicit object IntPersistImplicit extends PersistSimple[Int]('Int)
+  implicit object IntPersist extends PersistSimple[Int]('Int)
   { def persist(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
     { case IntToken(_, _, i) => Good(i)

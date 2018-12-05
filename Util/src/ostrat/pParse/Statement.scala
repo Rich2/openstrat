@@ -49,7 +49,8 @@ object Statement
           ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementList)
-    def findInt: EMon[Int] = Persist.IntPersistImplicit.findFromStatementList(statementList)
+    def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementList)
+    def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementList)
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
     {
       val list = ev.listFromStatementList(statementList)
