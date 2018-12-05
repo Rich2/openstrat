@@ -4,7 +4,7 @@ package ostrat
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 { def findType[A: Persist]: EMon[A] = pParse.stringToStatements(thisString).flatMap(_.findType[A])
-  def findTypeFirst[A: Persist]: EMon[A] = pParse.stringToStatements(thisString).flatMap(_.findTypeFirst[A])
+  def findInt: EMon[Int] = pParse.stringToStatements(thisString).flatMap(_.findInt)
   def findTypeIndex[A: Persist](index: Int): EMon[A] = pParse.stringToStatements(thisString).flatMap(_.findTypeIndex[A](index))
   def findTypeElse[A: Persist](elseValue: A): A = findType[A].getElse(elseValue)
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)

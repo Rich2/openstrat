@@ -49,11 +49,12 @@ object Statement
           ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementList)
-    def findTypeFirst[A](implicit ev: Persist[A]): EMon[A] = ev.firstFromStatementList(statementList)
+    def findInt: EMon[Int] = Persist.IntPersistImplicit.findFromStatementList(statementList)
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
     {
       val list = ev.listFromStatementList(statementList)
-      if (list.length >= index) bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found") else Good(list(index))
+      if (list.length > index) Good(list(index))
+        else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")       
     }
     
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
