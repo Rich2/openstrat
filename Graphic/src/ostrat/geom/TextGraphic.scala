@@ -26,10 +26,11 @@ object TextGraphicCen
 
 object TextGraphic
 { 
-  def lines(strs: List[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1.0): List[TextGraphic] =  
+  def lines(strs: List[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1.0,
+      align: TextAlign = TextCen): List[TextGraphic] =  
   { val len = strs.length
     if(len == 0) Nil
-      else strs.iMap((str, i) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, TextCen))        
+      else strs.iMap((str, i) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align))        
   }
 }
 

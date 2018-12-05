@@ -4,16 +4,20 @@ import ostrat._, geom._, pCanv._
 
 /** D Series lessons deal with persistence */
 case class LessonD1(canv: CanvasPlatform) extends CanvasSimple("Lesson D1")
-{
-  val str = """2.0; "Hello"; 7; Vec2(2.3; 3.2); "Goodbye" """
-  val r1 = str.findInt
-  val r2 = str.findType[Int]//Does the same as r1
-  val r3 = str.findType[String]
-  val r4 = str.findTypeIndex[String](0)//Indexs start at 0
-  val r5 = str.findTypeIndex[String](1)
-  val r6 = str.findTypeIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
-  val r7 = str.findType[Vec2]
-  val strs = List(r1, r2, r3, r4, r5, r6, r7).map(_.toString)
-  repaint(TextGraphic.lines(strs))
-  
+{  
+  val r1 = 5.str
+  val r2 = 2.2.str
+  val r3 = true.str//OK you're probably not noticing much advantage over toString yet except its shorter
+  val v1 = Vec2(2.3, -9.8)
+  val r4 = v1.str
+  val v2: Vec2 = 4.6 vv 78.4
+  val l1 = Line2(v1, v2)
+  val r5 = l1.str//So note how there is a semicolon between the two points but a comma between the x and y values of each point.
+  val v3 = v1.addX(50)
+  val v4 = v1.subX(300)
+  val v5 = 4.4 vv 5.5
+  val v6 = v5.addY(100)
+  //val vs = Vec2s(v1, v2, v3, v4, v5, v6).str
+  val strs = List(r1, r2, r3, r4, r5).map(_.toString)
+  repaint(TextGraphic.lines(strs, align = TextLeft))  
 }
