@@ -1,6 +1,6 @@
 ThisBuild/version := "0.0.2snap"
 name := "OpenStrat"
-ThisBuild/scalaVersion := "2.12.7"
+ThisBuild/scalaVersion := "2.12.8"
 ThisBuild/organization := "OpenStratOrg"
 
 val commonSettings = List(	

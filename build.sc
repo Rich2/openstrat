@@ -11,12 +11,12 @@ trait PlatformsModule extends ScalaModule with Common
 {
   outer =>
   
-  def scalaVersion = "2.12.7"
+  def scalaVersion = "2.12.8"
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm)
 
   trait InnerJs extends ScalaJSModule with Common
   { 
-  	def scalaVersion = "2.12.7"
+  	def scalaVersion = "2.12.8"
 	  def scalaJSVersion = "0.6.26" 
 	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
 	  
