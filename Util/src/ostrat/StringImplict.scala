@@ -3,14 +3,24 @@ package ostrat
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
-{ def findType[A: Persist]: EMon[A] = pParse.stringToStatements(thisString).flatMap(_.findType[A])
+{
+  import pParse.{stringToStatements => stss }
+  def findType[A: Persist]: EMon[A] = stss(thisString).flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getOrElse(elseValue)
-  def findInt: EMon[Int] = pParse.stringToStatements(thisString).flatMap(_.findInt)
-  def findDouble: EMon[Double] = pParse.stringToStatements(thisString).flatMap(_.findDouble)
-  def findBoolean: EMon[Boolean] = pParse.stringToStatements(thisString).flatMap(_.findBoolean)
-  def findTypeIndex[A: Persist](index: Int): EMon[A] = pParse.stringToStatements(thisString).flatMap(_.findTypeIndex[A](index))  
+  def findInt: EMon[Int] = stss(thisString).flatMap(_.findInt)
+  def findDouble: EMon[Double] = stss(thisString).flatMap(_.findDouble)
+  def findBoolean: EMon[Boolean] = stss(thisString).flatMap(_.findBoolean)
+  def findTypeIndex[A: Persist](index: Int): EMon[A] = stss(thisString).flatMap(_.findTypeIndex[A](index))  
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
-  def findSetting[A: Persist](settingSym: Symbol) = pParse.stringToStatements(thisString).flatMap(_.findSetting[A](settingSym))
+  def findSett[A: Persist](settingSym: Symbol): EMon[A] = stss(thisString).flatMap(_.findSett[A](settingSym))
+  def findSettElse[A: Persist](settingSym: Symbol, elseValue: A): A = findSett[A](settingSym).getOrElse(elseValue)
+  def findIntSett(settingSym: Symbol): EMon[Int] = stss(thisString).flatMap(_.findIntSett(settingSym))
+  def findIntSettElse(settingSym: Symbol, elseValue: Int): Int = findIntSett(settingSym).getOrElse(elseValue)  
+  def findDoubleSett(settingSym: Symbol): EMon[Double] = stss(thisString).flatMap(_.findDoubleSett(settingSym))
+  def findDoubleSettElse(settingSym: Symbol, elseValue: Double): Double = findDoubleSett(settingSym).getOrElse(elseValue)
+  def findBooleanSett(settingSym: Symbol): EMon[Boolean] = stss(thisString).flatMap(_.findBooleanSett(settingSym))
+  def findBooleanSettElse(settingSym: Symbol, elseValue: Boolean): Boolean = findBooleanSett(settingSym).getOrElse(elseValue)
+  
   def - (other: String): String = thisString + other
   /** Concatenates a space and then the other String */
   def -- (other: String): String = thisString + " " + other

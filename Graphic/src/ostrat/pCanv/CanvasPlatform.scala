@@ -120,7 +120,7 @@ trait CanvasPlatform extends RectGeom
   def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Persist[A]): Unit = fromFileFind(fileName)(ev).foreach(f)
   
   def fromFileFindSetting[A](settingSym: Symbol, fileName: String)(implicit ev: Persist[A]): EMon[A] = 
-    loadFile(fileName).eFindSetting(settingSym)(ev)
+    loadFile(fileName).eFindSett(settingSym)(ev)
     
   def fromFileFindSettingElse[A](settingSym: Symbol, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingSym, fileName)(ev).getOrElse(elseValue)

@@ -12,8 +12,9 @@ object ParseTest  extends TestSuite
     {
       assert("4".findType[Int] == Good(4))
       assert("-4".findType[Int] == Good(-4))
-      assert(settingStr.findSetting[Int]('x) == Good(-5))
-      assert(settingStr.findSetting[Int]('y) == Good(7))
+      assert(settingStr.findSett[Int]('x) == Good(-5))
+      assert(settingStr.findSett[Int]('y) == Good(7))
+      assert(settingStr.findIntSett('y) == Good(7))
       assert(settingStr.findType[Boolean] == Good(true))
     }
   }

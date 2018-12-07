@@ -19,10 +19,10 @@ package object pFx
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
    *  procedure (Unit returning function) with that object of type A */
   def fromRsonFileFindForeach[A: Persist](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).foreach(f)
-  def settingFromFile[A: Persist](settingSym: Symbol, fileName: String): EMon[A] =
-    loadRsonFile(fileName).eFindSetting[A](settingSym)
-  def settingFromFileElse[A: Persist](settingSym: Symbol, fileName: String, elseValue: A): A =
-    settingFromFile[A](settingSym, fileName).getOrElse(elseValue)
+  def settFromFile[A: Persist](settingSym: Symbol, fileName: String): EMon[A] =
+    loadRsonFile(fileName).eFindSett[A](settingSym)
+  def settFromFileElse[A: Persist](settingSym: Symbol, fileName: String, elseValue: A): A =
+    settFromFile[A](settingSym, fileName).getOrElse(elseValue)
     
    
 //  implicit class ImpScalaFxColour(colour: Colour)

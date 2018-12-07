@@ -24,9 +24,11 @@ package object geom
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
  
   implicit class StringImplictGeom(thisString: String)
-  {
-    def findVec2: EMon[Vec2] = pParse.stringToStatements(thisString).flatMap(_.findType[Vec2])
+  { import pParse.{ stringToStatements => stss}
+    def findVec2: EMon[Vec2] = stss(thisString).flatMap(_.findType[Vec2])
     def findVec2Else(elseValue: => Vec2) = findVec2.getOrElse(elseValue)
+    def findVec2Sett(settingSym: Symbol): EMon[Vec2] = stss(thisString).flatMap(_.findSett[Vec2](settingSym))
+    def findVec2SettElse(settingSym: Symbol, elseValue: Vec2): Vec2 = findVec2Sett(settingSym).getOrElse(elseValue)
   }
    
   implicit class DistImplicit(thisDist: Dist)

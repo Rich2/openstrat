@@ -103,9 +103,9 @@ package object ostrat
   { def eFindType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
     def eFindTypeElse[A: Persist](elseValue: A): A = eFindType[A].getOrElse(elseValue)
     def eFindTypeForeach[A: Persist](f: A => Unit): Unit = eFindType[A].foreach(f)
-    def eFindSetting[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] =
-      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSetting[A](settingSym)))
-    def eFindSettingElse[A: Persist](settingSym: Symbol, elseValue: A): A = eFindSetting[A](settingSym).getOrElse(elseValue) 
+    def eFindSett[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] =
+      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingSym)))
+    def eFindSettingElse[A: Persist](settingSym: Symbol, elseValue: A): A = eFindSett[A](settingSym).getOrElse(elseValue) 
   }
    
   implicit class OptionRichClass[A](thisOption: Option[A])

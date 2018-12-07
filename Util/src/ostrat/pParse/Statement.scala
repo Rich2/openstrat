@@ -58,9 +58,15 @@ object Statement
       if (list.length > index) Good(list(index))
         else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")       
     }
-    
+    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
+     *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getOrElse(elseValue)
-    def findSetting[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingSym)
+    /** Find setting from RSON statement */
+    def findSett[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingSym)
+    def findSettElse[A](settingSym: Symbol, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingSym).getOrElse(elseValue)
+    def findIntSett(settingSym: Symbol): EMon[Int] = Persist.IntPersist.settingFromStatementList(statementList, settingSym)
+    def findDoubleSett(settingSym: Symbol): EMon[Double] = Persist.DoublePersist.settingFromStatementList(statementList, settingSym)
+    def findBooleanSett(settingSym: Symbol): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementList, settingSym)
   }
 
   implicit class EmonStatementListImplict(eMon: EMon[List[Statement]])

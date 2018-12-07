@@ -13,7 +13,7 @@ class AppStart extends Application
     val canvasCanvas: javafx.scene.canvas.Canvas = new javafx.scene.canvas.Canvas(bounds.getWidth - 8, bounds.getHeight - 40) 
     val root = new javafx.scene.Group()
     root.getChildren.add(canvasCanvas)        
-    primaryStage.setX(settingFromFileElse('xOffset, "Dev/GeneralDevSettings.rson", 0))//Sets default x value
+    primaryStage.setX(settFromFileElse('xOffset, "Dev/GeneralDevSettings.rson", 0))//Sets default x value
     primaryStage.setY(400)//settingFromFileElse('xOffset, "Dev/GeneralDevSettings.rson", 200))
     val jScene = new Scene(root, bounds.getWidth - 8, bounds.getHeight - 40)
     //val sett = fromRsonFileFind[Int](openStratDir / "Dev/AppNum.txt")    
