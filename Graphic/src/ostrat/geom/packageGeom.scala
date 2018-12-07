@@ -20,77 +20,47 @@ package object geom
   type GraphicElems = List[GraphicElem[_]]
   /** Hopefully this existential syntax baggage will be gone in dotty */
   type CanvO = GraphicElem[_]
-  implicit class IntGeomImplicit(thisInt: Int)
-  { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
-        operators. */
-    @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
-     def ° : Angle = Angle(thisInt.radiansToDegrees)
-     def km: Dist = Dist(thisInt * 1000)
-     def metre: Dist = Dist(thisInt)
-     @inline def miles: Dist = Dist(thisInt * 1609.344)
-     @inline def millionMiles: Dist = thisInt.miles * 1000000
-     def * (operator: Dist): Dist = Dist(thisInt * operator.metres)
-     def ll (longDegs: Double): LatLong = LatLong(thisInt.degreesToRadians, longDegs.degreesToRadians)
-     def east = Longitude.deg(thisInt)
-     def west = Longitude.deg(-thisInt)
-     def north = Latitude.deg(thisInt)
-     def south = Latitude.deg(-thisInt)
+  implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
+  implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
+ 
+  implicit class StringImplictGeom(thisString: String)
+  {
+    def findVec2: EMon[Vec2] = pParse.stringToStatements(thisString).flatMap(_.findType[Vec2])
+    def findVec2Else(elseValue: => Vec2) = findVec2.getOrElse(elseValue)
   }
-          
-   implicit class DoubleGeomImplicit(thisDouble: Double)
-   { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
-         operators. */
-      @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
-      def km: Dist = Dist(thisDouble * 1000)
-      def metre: Dist = Dist(thisDouble)
-      def * (operator: Dist): Dist = Dist(thisDouble * operator.metres)
-      @inline def miles: Dist = Dist(thisDouble * 1609.344)
-      @inline def millionMiles: Dist = thisDouble.miles * 1000000
-      def radians: Angle = Angle(thisDouble)
-      def degs: Angle = Angle(thisDouble.degreesToRadians)
-      def ll (longDegs: Double): LatLong = LatLong(thisDouble.degreesToRadians, longDegs.degreesToRadians)
-      def east = Longitude.deg(thisDouble)
-      def west = Longitude.deg(-thisDouble)
-      def north = Latitude.deg(thisDouble)
-      def south = Latitude.deg(-thisDouble)
-   }
    
-//   implicit class SeqGeomImplicit[A](thisSeq: Seq[A])
-//   {  def displayFold(f: A => GraphicElems): GraphicElems = thisSeq.map(f).displayFlatten
-//   }
+  implicit class DistImplicit(thisDist: Dist)
+  {  def / (operand: Dist): Double = thisDist.metres / operand.metres
+  }
    
-   implicit class DistImplicit(thisDist: Dist)
-   {  def / (operand: Dist): Double = thisDist.metres / operand.metres
-   }
+  implicit class OptionGeomImplicit[A](thisOption: Option[A])
+  {  def canvObjsPair(f: A => (Seq[GraphicElem[_]], Seq[GraphicElem[_]])): (Seq[GraphicElem[_]], Seq[GraphicElem[_]]) = thisOption match
+     {
+        case Some(a) => f(a)
+        case None => (Seq(), Seq())
+     }
+  }
    
-   implicit class OptionGeomImplicit[A](thisOption: Option[A])
-   {  def canvObjsPair(f: A => (Seq[GraphicElem[_]], Seq[GraphicElem[_]])): (Seq[GraphicElem[_]], Seq[GraphicElem[_]]) = thisOption match
-      {
-         case Some(a) => f(a)
-         case None => (Seq(), Seq())
-      }
-   }
-   
-   /** 0 degrees or 0 radians */
-   def deg0: Angle = Angle(0)
-   /** 30 degrees anti-clockwise or + Pi/6 radians */
-   val deg30: Angle = Angle(Pi / 6)
-   /** 36 degrees anti-clockwise or + Pi/5 radians */
-   val deg36: Angle = Angle(Pi / 5)
-   /** 45 degrees anti-clockwise or + Pi/4 radians */
-   val deg45: Angle = Angle(Pi / 4)
-   /** 60 degrees anti-clockwise or + Pi/3 radians */
-   val deg60: Angle  = Angle(Pi / 3)  
-   /** 72 degrees anti-clockwise or + Pi2/5 radians */
-   val deg72: Angle = Angle(Pi2 / 5)
-   /** 90 degrees anti-clockwise or + Pi/2 radians */
-   val deg90: Angle = Angle(Pi / 2)  
-   /** 120 degrees anti-clockwise or + 2 * Pi/3 radians */
-   val deg120: Angle = Angle(2 * Pi / 3)
-   /** 135 degrees anti-clockwise or + 3 * Pi/4 radians */
-   val deg135: Angle = Angle(3 * Pi / 4)
-   /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
-   val deg150: Angle = Angle(5 * Pi / 6)
-   /** 180 degrees or Pi radians */
-   def deg180: Angle = Angle(Pi)   
+  /** 0 degrees or 0 radians */
+  def deg0: Angle = Angle(0)
+  /** 30 degrees anti-clockwise or + Pi/6 radians */
+  val deg30: Angle = Angle(Pi / 6)
+  /** 36 degrees anti-clockwise or + Pi/5 radians */
+  val deg36: Angle = Angle(Pi / 5)
+  /** 45 degrees anti-clockwise or + Pi/4 radians */
+  val deg45: Angle = Angle(Pi / 4)
+  /** 60 degrees anti-clockwise or + Pi/3 radians */
+  val deg60: Angle  = Angle(Pi / 3)  
+  /** 72 degrees anti-clockwise or + Pi2/5 radians */
+  val deg72: Angle = Angle(Pi2 / 5)
+  /** 90 degrees anti-clockwise or + Pi/2 radians */
+  val deg90: Angle = Angle(Pi / 2)  
+  /** 120 degrees anti-clockwise or + 2 * Pi/3 radians */
+  val deg120: Angle = Angle(2 * Pi / 3)
+  /** 135 degrees anti-clockwise or + 3 * Pi/4 radians */
+  val deg135: Angle = Angle(3 * Pi / 4)
+  /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
+  val deg150: Angle = Angle(5 * Pi / 6)
+  /** 180 degrees or Pi radians */
+  def deg180: Angle = Angle(Pi)   
 }

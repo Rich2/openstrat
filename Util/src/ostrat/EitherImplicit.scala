@@ -1,14 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** Extendsion methods for Either */
+/** Extension methods for Either. This class can possible be eliminated. */
 class EitherImplicit[A, B](val thisEither : Either[A, B]) extends AnyVal
 {
-   def getElse(elseValue: => B) = thisEither match
-   {
-      case Left(l) => elseValue
-      case Right(r) => r
-   }
    def filterElse[B1 >: B](p: (B) ⇒ Boolean, or:  ⇒ B): B1 = thisEither match
    {
       case Right(r) if p(r) => r
