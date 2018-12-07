@@ -83,8 +83,8 @@ For IntellliJ useful options:
    - **ostrat.pEarth** depends on geom, pCanv and pGrid
      * Earth and sphere geometry.
      * Grids of Earth terrain.
-   = **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
-   = **ostrat.pStrat** depends on geom, pCanv and pGrid
+   - **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
+   - **ostrat.pStrat** depends on geom, pCanv and pGrid
      * Flags.
      * DemoCanvas for graphics elements.
      * Odds and ends.
