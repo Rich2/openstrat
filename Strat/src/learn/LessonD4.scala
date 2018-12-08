@@ -4,27 +4,26 @@ import ostrat._, geom._, pCanv._
 
 /** Lesson D4 Settings. */
 case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
-{  
-  val r1 = Rval(5) - 2.1 - false - "Hello World!" - (2.3 vv -43.8) - Array(4, 5, 6)
-  val s1 = r1.str
-  val s2 = Sett('Age, 5).ap('Average, -2.1).ap('Open, false).ap('Greeting, "Hello World!"). ap('Posn, 2.3 vv -43.8).str
+{
+  val t1 = 5.str  
+  val t2 = 2.2.str  
+  val t3 = true.str//OK you're probably not noticing much advantage over toString yet except its shorter
   
-  val c0 = s2.findBoolean
-  val c1 = s2.findSett[Boolean]('Open)
-  val c2 = s2.findBooleanSett('Guilty)//Just a convenince method for the general one above
-  val c3 = s2.findIntSett('Posn)
-  val c4 = s2.findVec2Sett('Posn)//Again as Vec2 is such a commonly used type, special methods have been created for your convenience
-  val c5 = s2.findVec2SettElse('MyPosn, 45 vv 1.2)
-  val c6 = s2.findVec2SettElse('Posn, 45 vv 1.2)//Gives the result from the string, but has guard if setting not found.
+  val v1 = Vec2(2.3, -9.8)
+  val t4 = v1.str
   
-  val cc = TextGraphic.lines(List(c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 vv -150, align = TextLeft)
+  val v2: Vec2 = 4.6 vv 78.4
   
-   
-  repaint(LText(300 , s1) :: LText(100, s2) :: cc)
+  val v3 = v1.addX(50)
+  val v4 = v1.subX(300)
+  val v5 = 4.4 vv 5.5
+  val v6 = v5.addY(100)
+  //So in this longer example, the semicolons and commas become more useful. You can't do this with toString
+  val r6 = List(v1, v2, v3, v4, v5, v6).str
+  
+  repaints(SText(200, r6))
   
 }
 
-object LText
-{
-  def apply(y: Double, str: String)  = TextGraphic(str, 24, -250 vv y, align = TextLeft)
-}
+
+

@@ -5,19 +5,34 @@ import ostrat._, geom._, pCanv._
 /** D Series lessons deal with persistence */
 case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
 {
-  val str = """2.0;
+  val tStr = """2.0;
      "Hello";
       7;
       Vec2(2.3; 3.2);
       "Goodbye" """
-  val r1 = str.findInt
-  val r2 = str.findType[Int]//Does the same as r1
-  val r3 = str.findType[String]
-  val r4 = str.findTypeIndex[String](0)//Indexs start at 0
-  val r5 = str.findTypeIndex[String](1)
-  val r6 = str.findTypeIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
-  val r7 = str.findType[Vec2]
-  val r8 = str.findDouble //This fails because 7 can be both an Int and a Double.
-  val strs = List(r1, r2, r3, r4, r5, r6, r7, r8).map(_.toString)
-  repaint(TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv 0, align = TextLeft))
+  val t1 = tStr.findInt
+  val t2 = tStr.findType[Int]//Does the same as r1
+  val t3 = tStr.findType[String]
+  val t4 = tStr.findTypeIndex[String](0)//Indexs start at 0
+  val t5 = tStr.findTypeIndex[String](1)
+  val t6 = tStr.findTypeIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
+  val t7 = tStr.findType[Vec2]
+  val t8 = tStr.findDouble //This fails because 7 can be both an Int and a Double.
+  val topStrs = List(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
+  val topBlock = MText(200, topStrs)
+  
+  val arr = Array(4, 5, 6)
+  val as = arr.str
+  val r1 = as.findType[Seq[Int]]//The default constructor for a Seq is List
+  val r2 = as.findType[List[Int]]
+  val r3 = as.findType[Vector[Int]]
+  val a4 = as.findType[Array[Int]]
+  val r4 = a4//toString method on Array not very helpful
+  val r5 = a4.map(_(1))
+  val r6: EMon[Int] = a4.map[Int](arr => arr(2))//This is the long explicit result.
+  
+  val strs = List(r1, r2, r3, r4, r5)map(_.toString)
+  val bottomBlock  = MText(-100, strs)
+  
+  repaint(topBlock ::: bottomBlock)
 }

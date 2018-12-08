@@ -14,6 +14,6 @@ case class LessonD5(canv: CanvasPlatform) extends CanvasSimple("Lesson D5")
   val cc = TextGraphic.lines(List(c1).map(_.toString), lineSpacing = 1.5, posn = -250 vv -150, align = TextLeft)
   
   
-  repaint(LText(200, ss) :: cc)
+  repaint(SText(200, ss) :: cc)
   
 }
