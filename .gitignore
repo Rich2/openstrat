@@ -19,3 +19,5 @@ LearnScala.tar.gz
 out/
 .idea*/
 HomeLink/
+.metals/
+.bloop/
