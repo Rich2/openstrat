@@ -12,6 +12,9 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findBoolean: EMon[Boolean] = stss(thisString).flatMap(_.findBoolean)
   def findTypeIndex[A: Persist](index: Int): EMon[A] = stss(thisString).flatMap(_.findTypeIndex[A](index))  
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
+  
+  def findIntArray: EMon[Array[Int]] = stss(thisString).flatMap(_.findIntArray)
+  
   def findSett[A: Persist](settingSym: Symbol): EMon[A] = stss(thisString).flatMap(_.findSett[A](settingSym))
   def findSettElse[A: Persist](settingSym: Symbol, elseValue: A): A = findSett[A](settingSym).getOrElse(elseValue)
   def findIntSett(settingSym: Symbol): EMon[Int] = stss(thisString).flatMap(_.findIntSett(settingSym))

@@ -49,18 +49,21 @@ object Statement
           ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementList)
-    def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementList)
-    def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementList)
-    def findBoolean: EMon[Boolean] = Persist.BooleanPersist.findFromStatementList(statementList)
+    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
+     *  use elseValue. */
+    def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getOrElse(elseValue)
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
     {
       val list = ev.listFromStatementList(statementList)
       if (list.length > index) Good(list(index))
         else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")       
     }
-    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
-     *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getOrElse(elseValue)
+    def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementList)
+    def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementList)
+    def findBoolean: EMon[Boolean] = Persist.BooleanPersist.findFromStatementList(statementList)
+    def findIntArray: EMon[Array[Int]] = Persist.IntArrayToPersist.findFromStatementList(statementList)   
+    
+    
     /** Find setting from RSON statement */
     def findSett[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingSym)
     def findSettElse[A](settingSym: Symbol, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingSym).getOrElse(elseValue)
