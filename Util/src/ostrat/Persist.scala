@@ -44,20 +44,8 @@ abstract class Persist[T](val typeSym: Symbol)
   
   /** Trys to build an object of type T from the statement */
   def fromStatement(st: Statement): EMon[T]
-  
-//  /** Tries to find first statement that can build an object of type T and returns object */
-//  def fromStatementList(list: List[Statement]): EMon[T] = list match
-//  { case Seq() => FilePosn.emptyError("No Statements")
-//    case Seq(e1) => fromStatement(e1)
-//    case s2 => list.map(fromStatement(_)).collect{ case g: Good[T] => g } match
-//    { case Seq(t) => t
-//      case Seq() => bad1(list.startPosn, typeStr -- "not found.")
-//      case s3 => bad1(list.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
-//    }
-//  }
-
   def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Right(value) => value }
- 
+  
   def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
   {
     case Nil => FilePosn.emptyError("No values of type found")
@@ -97,18 +85,17 @@ object Persist
   
   implicit object IntArrayToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
-  override def persistSemi(thisArray: Array[Int]): String = thisArray.map(ev.persistComma(_)).semicolonFold
-  override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.persist(_)).commaFold
-  override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
-  override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
+    override def persistSemi(thisArray: Array[Int]): String = thisArray.map(ev.persistComma(_)).semicolonFold
+    override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.persist(_)).commaFold
+    override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
+    override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
   
-  override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
-  { case SemicolonToken(_) => Good(Array[Int]())
-//         //For Some reason the compile is not finding the implicit
-    case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
-      sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArray)
-    case e => bad1(expr, "Unknown Exoression for Seq")
-  }
+    override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
+    { case SemicolonToken(_) => Good(Array[Int]())
+      case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
+        sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArray)
+      case e => bad1(expr, "Unknown Exoression for Seq")
+    }
   }
   
   implicit object IntPersist extends PersistSimple[Int]('Int)
@@ -128,16 +115,6 @@ object Persist
       case  _ => expr.exprParseErr[String]
     }
   }
-  //   override def persistStr: String = thisString.foldLeft("")((accStr, head) => head match
-//         {
-//      case '\"' | '\'' | '\\' => accStr :+ '\\' :+ head
-//      case '\n' =>  accStr :+ '\\' :+ 'n'
-//      case '\b' => accStr :+ '\\' :+ 'b'
-//      case '\t' => accStr :+ '\\' :+ 't'
-//      case '\f' => accStr :+ '\\' :+ 'f'
-//      case '\r' => accStr :+ '\\' :+ 'r'
-//      case c => accStr :+ c
-//         }).enqu
    
   implicit object LongPersist extends PersistSimple[Long]('Long)
   { def persist(obj: Long): String = obj.toString
