@@ -8,6 +8,7 @@ trait DoubleProduct2s[A <: ProdD2] extends Any with ValueProducts[A]
    def arrLen = arr.length   
    def newElem(d1: Double, d2: Double): A
    def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
+   def getPair(index: Int): (Double, Double) = (arr(2 * index), arr(2 * index + 1))
    def setElem(index: Int, elem: A): Unit =
    { arr(2 * index) = elem._1
      arr(2 * index + 1) = elem._2
@@ -34,7 +35,17 @@ trait DoubleProduct2s[A <: ProdD2] extends Any with ValueProducts[A]
       var count = 0
       while(count < length){ res(count) = arr(count * 2 + 1); count += 1 }
       res
-   }   
+   }
+   def mapPairs[B](f: (Double, Double) => B)(implicit m: scala.reflect.ClassTag[B]): Array[B] = {
+     val newArr = new Array[B](length)
+     var count = 0
+     while (count < length) 
+     {
+       newArr(count) = f(arr(count * 2), arr(count * 2 + 1))
+       count += 1
+     }
+     newArr
+   }
 }
 
 abstract class Double2sMaker[T <: ProdD2, ST <: DoubleProduct2s[T]]
@@ -84,4 +95,16 @@ abstract class Double2sMaker[T <: ProdD2, ST <: DoubleProduct2s[T]]
       }
       res
    }
+}
+
+abstract class PersistDoubleProduct2s[R <: DoubleProduct2s[_]](typeSym: Symbol) extends PersistCompound[R](typeSym)
+{
+  import pParse._
+  override def typeStr = typeSym.name
+  override def syntaxDepth = 2
+  override def persistSemi(thisColl: R): String = thisColl.mapPairs(_ + ", " + _ ).mkString("; ")
+  override def persistComma(thisColl: R): String = persist(thisColl)
+  //override def persist(thisColl: R): String = typeStr - persistSemi(thisColl).enParenth
+  override def fromParameterStatements(sts: List[Statement]): EMon[R] = ???
+  override def fromClauses(clauses: Seq[Clause]): EMon[R] = ???
 }

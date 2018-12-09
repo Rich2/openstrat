@@ -58,7 +58,7 @@ object Apps
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 53
+  val appNum: Int = 54
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

@@ -98,7 +98,7 @@ trait ValueProducts[A] extends Any
       acc.reverse
   }
   
-  def  contains[A1 >: A](elem: A1): Boolean =
+  def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
     while (res == false & count < length){ if (elem == apply(count)) res = true; count += 1 }

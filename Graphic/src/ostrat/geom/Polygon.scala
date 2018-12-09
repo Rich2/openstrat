@@ -78,5 +78,6 @@ class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] 
 }
 
 object Polygon extends Double2sMaker[Vec2, Polygon]
-{ implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))  
+{ implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
+  implicit object PolygonPersist extends PersistDoubleProduct2s[Polygon]('Polygon)
 }
