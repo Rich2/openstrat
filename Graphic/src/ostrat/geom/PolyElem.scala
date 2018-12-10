@@ -18,6 +18,11 @@ case class PolyFill(verts: Polygon, colour: Colour, zOrder: Int = 0) extends Pol
   override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour, zOrder)
 }
 
+object PolyFill
+{
+  
+}
+
 case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PolyElem[PolyDraw]
 { 
   override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour, zOrder) 

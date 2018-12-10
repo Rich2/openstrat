@@ -1,14 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
-import ostrat._, geom._, pCanv._
+import ostrat._, geom._, pCanv._, Colour._
 
 /** Lesson D4 Settings. */
 case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
-{
-  val t1 = 5.str  
-  val t2 = 2.2.str  
-  val t3 = true.str//OK you're probably not noticing much advantage over toString yet except its shorter
-  
+{  
   val v1 = Vec2(2.3, -9.8)
   val t4 = v1.str
   
@@ -19,10 +15,13 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
   val v5 = 4.4 vv 5.5
   val v6 = v5.addY(100)
   //So in this longer example, the semicolons and commas become more useful. You can't do this with toString
-  val tl1 = Polygon(v1, v2, v3, v4, v5, v6).str
-  val tl2 = Vec2s(v1, v2, v3, v4, v5, v6).str
+  val t1 = Polygon(v1, v2, v3, v4, v5, v6)
+  val t2 = Vec2s(v1, v2, v3, v4, v5, v6)
+  val c1 = Colour.Azure  
+  val t3 = t1.fill(c1)
+  val tl1 = Rval(t1) - t2 - c1 - c1.altString//-t3
   
-  repaint(MText(200, List(tl1, tl2)))
+  repaints(SText(200, tl1.str))
   
 }
 

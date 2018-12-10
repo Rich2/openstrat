@@ -56,6 +56,8 @@ def contrast2(other: Colour): Colour =
   def modAlpha(newAlpha: Int) = Colour.fromInts(red, green, blue, newAlpha)
   //def glCommaed(alpha: Double = 1.0): String = Seq(redGl, greenGl, blueGl, alpha.toString).commaParenth
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
+  
+  def altString: String = Colour.constantMap.find(p => p._2 == this).fold(hexStr)(_._1)
 }
 
 trait WithColour extends AnyRef
