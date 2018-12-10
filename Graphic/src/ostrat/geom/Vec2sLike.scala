@@ -47,6 +47,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2]  w
 
 object Vec2s extends Double2sMaker[Vec2, Vec2s]
 { implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
+  implicit object Vec2sPersist extends PersistDoubleProduct2s[Vec2s]('Vec2s)
 }
 
 /** Companion object for the Vec2s collection class. */

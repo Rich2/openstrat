@@ -19,9 +19,10 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
   val v5 = 4.4 vv 5.5
   val v6 = v5.addY(100)
   //So in this longer example, the semicolons and commas become more useful. You can't do this with toString
-  val r6 = Polygon(v1, v2, v3, v4, v5, v6).str
+  val tl1 = Polygon(v1, v2, v3, v4, v5, v6).str
+  val tl2 = Vec2s(v1, v2, v3, v4, v5, v6).str
   
-  repaints(SText(200, r6))
+  repaint(MText(200, List(tl1, tl2)))
   
 }
 

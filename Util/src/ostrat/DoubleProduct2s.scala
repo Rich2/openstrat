@@ -101,7 +101,7 @@ abstract class PersistDoubleProduct2s[R <: DoubleProduct2s[_]](typeSym: Symbol) 
 {
   import pParse._
   override def typeStr = typeSym.name
-  override def syntaxDepth = 2
+  override def syntaxDepth = 3
   override def persistSemi(thisColl: R): String = thisColl.mapPairs(_ + ", " + _ ).mkString("; ")
   override def persistComma(thisColl: R): String = persist(thisColl)
   //override def persist(thisColl: R): String = typeStr - persistSemi(thisColl).enParenth
