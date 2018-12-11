@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+package pImplicit
 
 /** Extension methods for Traversable[A] */
 class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal

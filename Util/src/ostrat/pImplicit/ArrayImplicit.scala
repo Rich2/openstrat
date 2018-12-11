@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+package pImplicit
 
 /** Extension methods for Array[Double] class. Brought into scope by the arrayDoubleToImplicit method in package object. */
 class ArrayDoubleImplicit(val thisArray:Array[Double]) extends AnyVal

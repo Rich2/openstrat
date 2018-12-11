@@ -1,7 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+package pImplicit
 
-case class StringTraversable(trav: Traversable[String])
+case class StringTraversableImplicit(trav: Traversable[String])
 {   
    def strFold(seperatorString: String = ""): String = trav.ifEmpty("", trav.tail.foldLeft(trav.head)(_ + seperatorString + _))
    def strFold2[A](initialAcc2: A, initialString: String = "")(f: (String, A) => (String, A)) =

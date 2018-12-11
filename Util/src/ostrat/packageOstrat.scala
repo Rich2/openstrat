@@ -56,21 +56,22 @@ package object ostrat
   val two32: Long = 4294967296l
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
   
-  implicit def arrayDoubleToImplicit(arr: Array[Double]) = new ArrayDoubleImplicit(arr)
-  implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]) = new ArrayImplicit[A](arr)
-  implicit def booleanToRichImp(b: Boolean) = new BooleanImplicit(b)
-  implicit def intToImplicit(i: Int) = new IntImplicit(i)
-  implicit def doubleToImplicit(d: Double) = new DoubleImplicit(d)
-  implicit def stringToImplicit(s: String) = new StringImplicit(s)
-  implicit def listToImplicit[A](thisList: List[A]) = new ListImplicit[A](thisList)
-  implicit def seqToImplicit[A](thisSeq: Seq[A]) = new SeqImplicit(thisSeq)
-  implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
+  implicit def arrayDoubleToImplicit(arr: Array[Double]) = new pImplicit.ArrayDoubleImplicit(arr)
+  implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]): pImplicit.ArrayImplicit[A] = new pImplicit.ArrayImplicit[A](arr)
+  implicit def booleanToRichImp(b: Boolean) = new pImplicit.BooleanImplicit(b)
+  implicit def intToImplicit(i: Int) = new pImplicit.IntImplicit(i)
+  implicit def longToImplicit(i: Long) = new pImplicit.LongImplicit(i)
+  implicit def doubleToImplicit(d: Double) = new pImplicit.DoubleImplicit(d)
+  implicit def stringToImplicit(s: String) = new pImplicit.StringImplicit(s)
+  implicit def listToImplicit[A](thisList: List[A]) = new pImplicit.ListImplicit[A](thisList)
+  implicit def seqToImplicit[A](thisSeq: Seq[A]) = new pImplicit.SeqImplicit(thisSeq)
+  //implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
   implicit def AnyAToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]) = new StringerImplicit(ev, thisVal)
   implicit def seqToPersistDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]) = new PersistSeqDirect[A](thisSeq, ev)
-  implicit def traversableToImplicit[A](trav: Traversable[A]) = new TraversableImplicit[A](trav)  
-  implicit def stringTraverableToRichImp(strTrav: Traversable[String]): StringTraversable = StringTraversable(strTrav)   
-  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversable = StringTraversable(strArray) 
-  implicit def EMonToImplicit[A](eMon: EMon[A]): EMonImplicit[A] = new EMonImplicit[A](eMon)
+  implicit def traversableToImplicit[A](trav: Traversable[A]) = new pImplicit.TraversableImplicit[A](trav)  
+  implicit def stringTraverableToImplict(strTrav: Traversable[String]) = pImplicit.StringTraversableImplicit(strTrav)   
+  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]) = pImplicit.StringTraversableImplicit(strArray) 
+  implicit def EMonToImplicit[A](eMon: EMon[A]): pImplicit.EMonImplicit[A] = new pImplicit.EMonImplicit[A](eMon)
   
   def nullRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
   
@@ -83,6 +84,16 @@ package object ostrat
     }
     acc.reverse
   }
+  
+  /** Extension methods for Either. This class can possible be eliminated. */
+ implicit class EitherImplicit[A, B](val thisEither : Either[A, B]) extends AnyVal
+{
+   def filterElse[B1 >: B](p: (B) ⇒ Boolean, or:  ⇒ B): B1 = thisEither match
+   {
+      case Right(r) if p(r) => r
+      case _ => or
+   }  
+}
   
   implicit class AnyTImplicit[T](thisT: T)
   {

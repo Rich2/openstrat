@@ -1,9 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** A variation on the Show trait for traits, classes and objects that you control. Named after the popular "The Wire" character. You will still need to
-  * create an implicit Persist object in the companion object of your type, but this trait does allow you to automatically delegate toString to the
-  * String / Persist implementation. */
+/** A variation on the Show trait for traits, classes and objects that you control. Named after the popular "The Wire" character. You will still need
+ *  to create an implicit Persist object in the companion object of your type, but this trait does allow you to automatically delegate toString to
+ *  the String / Persist implementation. */
 trait Stringer extends Any
 { def typeSym: Symbol
   def typeStr: String = typeSym.name

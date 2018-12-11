@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+package pImplicit
 
 /** Extension methods for EMon, the error Monad */
 class EMonImplicit[A](val eMon: EMon[A]) extends AnyVal

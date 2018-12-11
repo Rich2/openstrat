@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+package pImplicit
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
