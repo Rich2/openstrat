@@ -38,13 +38,23 @@ case class StringToken(startPosn: FilePosn, stringStr: String) extends ExprToken
   def str = stringStr.enqu
 }
 
-/** A token that can yield a Double Float value */
+trait IntLikeToken extends ExprToken
+{
+  def intValue: Int
+}
 
 /** A 32 bit integer token */
-case class IntToken(startPosn: FilePosn, str: String, intValue: Int) extends ExprToken
+case class IntToken(startPosn: FilePosn, str: String, intValue: Int) extends IntLikeToken
 {
    override def exprName: String = "IntTokenExpr"
 }
+
+case class HexIntToken(startPosn: FilePosn, str: String, intValue: Int) extends IntLikeToken
+{
+   override def exprName: String = "HexIntIntTokenExpr"
+}
+
+
 /** A 64bit signed integer token */
 case class LongIntToken(startPosn: FilePosn, str: String, longValue: Long) extends ExprToken
 {

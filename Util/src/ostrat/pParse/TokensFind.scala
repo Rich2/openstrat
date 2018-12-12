@@ -3,11 +3,12 @@ package ostrat
 package pParse
 
 /** not sure about comment tokens */
-object TokensGet
+object TokensFind
 {
   type TokensMon = EMon[List[Token]]
   /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def apply(srcStr: String, fileName: String): TokensMon = mainLoop(srcStr.toList, FilePosn(1, 1, fileName), Nil)  
+  def apply(srcStr: String, fileName: String): TokensMon = mainLoop(srcStr.toList, FilePosn(1, 1, fileName), Nil)
+  def fromString(srcStr: String): TokensMon = apply(srcStr, "FromString")
      
   private def mainLoop(rem: List[Char], fp: FilePosn, tokenAcc: List[Token]): TokensMon = rem match
   { 
@@ -32,9 +33,9 @@ object TokensGet
         {
           case d if d.isHexDigit && (strAcc.length == 9) && tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)                  
           case d if d.isDigit => hexIntLoop(tail, strAcc - d.toString, (intAcc * 16) + d - '0')
-          case al if (al <= 'E') && (al >= 'A') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'A' + 10)
-          case al if (al <= 'e') && (al >= 'a') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'a' + 10)
-          case _ => mainLoop(rem, fp.addStr(strAcc), IntToken(fp, strAcc, intAcc) :: tokenAcc)
+          case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'A' + 10)
+          case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'a' + 10)
+          case _ => {deb("ml") ;mainLoop(rem, fp.addStr(strAcc), IntToken(fp, strAcc, intAcc) :: tokenAcc) }
         }
       }            
       def hexLongLoop(rem: List[Char], strAcc: String, longAcc: Long): TokensMon = rem match
@@ -42,8 +43,8 @@ object TokensGet
         case Nil => (LongIntToken(fp, strAcc, longAcc) :: tokenAcc).gRet
         case d :: tail if d.isHexDigit && strAcc.length == 18 && tail.ifHead(_.isDigit) => bad1(fp, "Integer too big for 64 bit value")                  
         case d :: tail if d.isDigit => hexLongLoop(tail, strAcc - d.toString, (longAcc * 16) + d - '0')
-        case al :: tail if (al <= 'E') && (al >= 'A') => hexLongLoop(tail, strAcc - al.toString, (longAcc * 16) + al - 'A' + 10)
-        case al :: tail if (al <= 'e') && (al >= 'a') => hexLongLoop(tail, strAcc - al.toString, (longAcc * 16) + al - 'a' + 10)
+        case al :: tail if (al <= 'F') && (al >= 'A') => hexLongLoop(tail, strAcc - al.toString, (longAcc * 16) + al - 'A' + 10)
+        case al :: tail if (al <= 'f') && (al >= 'a') => hexLongLoop(tail, strAcc - al.toString, (longAcc * 16) + al - 'a' + 10)
         case _ :: tail => mainLoop(rem, fp.addStr(strAcc), LongIntToken(fp, strAcc, longAcc) :: tokenAcc)        
       }            
       hexIntLoop(tail, "0x", 0)

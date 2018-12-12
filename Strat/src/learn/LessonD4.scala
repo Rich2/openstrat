@@ -19,10 +19,13 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
   val t2 = Vec2s(v1, v2, v3, v4, v5, v6)
   val c1 = Colour.Azure  
   val t3 = t1.fill(c1)
-  val c3 = "0xFFFFFFFF".findType[Colour]
+  val s3 = "0xFFFFFFFF"
+  val c3 = s3.findTokens
+  deb(c3.toString)
+  val c4 = s3.findType[Colour]
   val tl1 = Rval(t1) - t2 - c1 //-t3
   
-  repaint(SText(200, tl1.str) :: MText(0, List(c1.altString, c3.toString)))
+  repaint(SText(200, tl1.str) :: MText(0, List(c1.altString, c3.toString, c4.toString)))
   
 }
 

@@ -4,10 +4,10 @@ import pParse._
 
 /** all the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of
   * the object, but sometimes, it may be a lengthened or shortened version of the singleton object name. */
-trait StringerSingleton extends Stringer
+trait StringerSingleton //extends Stringer
 { /** The symbol for the leaf object. This will normally be different from the typeSym. */
   def objSym: Symbol
-  override def str: String = objSym.name
+  def str: String = objSym.name
 }
 
 abstract class PersistSingletons[A <: StringerSingleton](typeSym: Symbol) extends PersistSimple[A](typeSym)

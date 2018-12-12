@@ -6,6 +6,7 @@ package pImplicit
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
   import pParse.{stringToStatements => stss }
+  def findTokens: EMon[List[pParse.Token]] = pParse.TokensFind.fromString(thisString)
   def findType[A: Persist]: EMon[A] = stss(thisString).flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getOrElse(elseValue)
   def findInt: EMon[Int] = stss(thisString).flatMap(_.findInt)
