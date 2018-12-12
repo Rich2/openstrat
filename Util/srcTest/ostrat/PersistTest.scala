@@ -38,8 +38,7 @@ object PersistTest extends TestSuite
       assert(d.strTyped == "DFloat(8.0)")
       assert("7".findType[Int] == Good(7))
       assert("7".findType[Double] == Good(7))
-    }
-    val c1 = Colour.Black
+    }    
 
     val aa: TestClass = TestObjA
     val aaStr: String = "TestObjA"
@@ -51,16 +50,12 @@ object PersistTest extends TestSuite
     { assert(aa.str == aaStr)
       assert(aaStr.findType[TestClass] == Good(TestObjA))
       assert(aa.strTyped == "TestClass(TestObjA)")
-      assert(abSeq.str.findType[Seq[TestClass]] == Good(Seq(TestObjA, TestObjB)))
-      assert(c1.toString == "Colour(000000FF)")
-      assert(cm.toString == "Multiple(Colour(FF0000FF); 5)")
+      assert(abSeq.str.findType[Seq[TestClass]] == Good(Seq(TestObjA, TestObjB)))      
       assert(str1.str == str1Std)
       assert(str1.strSemi == str1Std)
       assert(str1.strComma == str1Std)
       assert(str1.strTyped == "Str(" + str1Std + ")")
-    }
-    
-    val cm: Multiple[Colour] = (Colour.Red * 5)
+    }    
     
     val mc = MyClass(List(7, 8, 9), "hi")
     

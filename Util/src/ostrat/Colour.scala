@@ -74,8 +74,13 @@ object Colour
 {
   implicit object ColourPersistImplicit extends PersistSimple[Colour]('Colour)
   {
-    def fromExpr(expr: ParseExpr): EMon[Colour] = Good(Red)
-    def persist(obj: Colour): String = obj.hexStr
+    import pParse._
+    def fromExpr(expr: ParseExpr): EMon[Colour] = expr match
+    {
+      case AlphaBracketExpr(AlphaToken(_, typeName), ParenthBlock(st :: Nil, _, _) :: Nil) if typeSym == typeName => expr.exprParseErr[Colour](this)
+      case _ => expr.exprParseErr[Colour](this)
+    }
+    def persist(obj: Colour): String = "Colour" + ("0x" + obj.hexStr).enParenth
   }
   
    /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */

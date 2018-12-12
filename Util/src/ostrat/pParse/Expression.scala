@@ -14,7 +14,7 @@ case class UnimplementedExpr(bMems: Seq[BlockMember]) extends MemsExpr// with Fi
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
 }
-case class AlphaBracketExpr(name: AlphaToken, blocks: Seq[BracketBlock]) extends MemsExpr// with FileSpanMems
+case class AlphaBracketExpr(name: AlphaToken, blocks: List[BracketBlock]) extends MemsExpr// with FileSpanMems
 { def startMem = name
   def endMem = blocks.last
   override def exprName: String = "AlphaBracketExpr"

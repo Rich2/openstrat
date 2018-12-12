@@ -28,7 +28,7 @@ object TokensFind
     {
       def hexIntLoop(rem: List[Char], strAcc: String, intAcc: Int): TokensMon = rem match
       {
-        case Nil => (IntToken(fp, strAcc, intAcc) :: tokenAcc).gRet
+        case Nil => (HexIntToken(fp, strAcc, intAcc) :: tokenAcc).gRet
         case h :: tail => h match
         {
           case d if d.isHexDigit && (strAcc.length == 9) && tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)                  
