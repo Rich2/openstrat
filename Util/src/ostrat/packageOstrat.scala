@@ -19,6 +19,7 @@ package object ostrat
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
   
+  
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]// with AnyRef
   type LeftRight[A] = Either[A, A]
@@ -26,11 +27,11 @@ package object ostrat
   type Funit = Function0[Unit]
   type FStr = Function0[String]
   type FStrSeq = Seq[Function0[String]]  
-  type EMon[B] = Either[Seq[ParseErr], B]
-  type EMonList[B] = Either[Seq[ParseErr], List[B]]  
-  type Good[B] = Right[Seq[ParseErr], B]
+  type EMon[B] = Either[List[ParseErr], B]
+  type EMonList[B] = Either[List[ParseErr], List[B]]  
+  type Good[B] = Right[List[ParseErr], B]
   /** The errors case of EMon[B] */
-  type Bad[B] = Left[Seq[ParseErr], B]
+  type Bad[B] = Left[List[ParseErr], B]
   /** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
   type ProdI2 = Product2[Int, Int]
   /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
@@ -47,8 +48,8 @@ package object ostrat
   type ProdD7 = Product7[Double, Double, Double, Double, Double, Double, Double]
   
   def excep(str: String): Nothing = throw new Exception(str)
-  def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fp, detail)))
-  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Left[Seq[ParseErr], B](Seq(ParseErr(fs.startPosn, detail)))
+  def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[List[ParseErr], B](List(ParseErr(fp, detail)))
+  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Left[List[ParseErr], B](List(ParseErr(fs.startPosn, detail)))
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
@@ -121,7 +122,7 @@ package object ostrat
    
   implicit class OptionRichClass[A](thisOption: Option[A])
   { def map2[B, C](ob: Option[B], f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
-    def toEMon(errs: Seq[ParseErr]): EMon[A] = thisOption match
+    def toEMon(errs: List[ParseErr]): EMon[A] = thisOption match
     { case Some(a) => Good(a)
       case None => Bad(errs)
     }

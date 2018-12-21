@@ -4,7 +4,7 @@ package ostrat
 case class ParseErr(fp: FilePosn, detail: String)
 
 object Good
-{ def apply[B](res: B): Good[B] = Right[Seq[ParseErr], B](res)
+{ def apply[B](res: B): Good[B] = Right[List[ParseErr], B](res)
    
   def unapply[A](eMon: EMon[A]): Option[A] = eMon match
   { case Right(a) => Some(a)
@@ -14,9 +14,9 @@ object Good
 
 object Bad
 {
-   def apply[B](errs: Seq[ParseErr]): Bad[B] = Left[Seq[ParseErr], B](errs)
+   def apply[B](errs: List[ParseErr]): Bad[B] = Left[List[ParseErr], B](errs)
    
-   def unapply[A](eMon: EMon[A]): Option[Seq[ParseErr]] = eMon match
+   def unapply[A](eMon: EMon[A]): Option[List[ParseErr]] = eMon match
    { case Left(errs) => Some(errs)
      case _ => None
    }
