@@ -5,7 +5,11 @@ trait Opt[A] extends Any
 { def fold[B](fNull: => B, fSome: A => B): B
 }
 
-object Opt { def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value) }
+object Opt
+{
+  def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value)
+  
+}
 
 class OptRef[A <: AnyRef](val ref: A) extends AnyVal with Opt[A]
 {

@@ -1,7 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-case class FilePosn(lineNum :Int, linePosn: Int, fileName: String)
+sealed trait TextOrigin
+
+case class FilePosn(lineNum :Int, linePosn: Int, fileName: String) extends TextOrigin
 { def nextChar : FilePosn = FilePosn(lineNum, linePosn + 1, fileName)
   def addChars(chars: Seq[Char]): FilePosn = FilePosn(lineNum, linePosn + chars.length, fileName)
   def addStr(str: String): FilePosn = FilePosn(lineNum, linePosn + str.length, fileName)
@@ -12,7 +14,6 @@ object FilePosn
 { def fromServer(linePosn: Int = 1, lineNum: Int = 1): FilePosn = FilePosn(lineNum, linePosn, "Server error")
   def empty: FilePosn = FilePosn(0, 0, "Empty object")
   def emptyError[A](errStr: String): Bad[A] = bad1(empty, errStr)
-
 }
 
 trait FileSpan
