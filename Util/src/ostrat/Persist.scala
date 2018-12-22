@@ -18,8 +18,8 @@ abstract class Persist[T](val typeSym: Symbol) extends Show[T]
    *  for case classes with a single member. */
   def persistSemi(obj: T): String
 
-  /** For most objects persistTyped wil return the same value as persist(obj: T), for PeristValues the value will be type enclosed. 4.persistTyped
-    * will return Int(4) */
+  /** For most objects persistTyped will return the same value as persist(obj: T), for PeristValues the value will be type enclosed. 4.persistTyped
+   * will return Int(4) */
   def persistTyped(obj: T): String
 
   def fromExpr(expr: Expr): EMon[T]

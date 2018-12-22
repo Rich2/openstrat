@@ -5,7 +5,9 @@ package ostrat
  *  multilevel bracket hierarchy syntax familiar from C, C++, Java and JavaScript. Its main innovations over JSON and XML are allowing statements to
  *  be partitioned into comma delineated clauses, the empty statement, the empty clause and type inference. It uses a context free operator
  *  precedence hierarchy, with the exception of allowing the 4 ( - + ~ !) operator to be used as prefix operators. Beyond this it generally follows
- *  Scala syntax where this doesn't conflict with the preceding rules.
+ *  Scala syntax where this doesn't conflict with the preceding rules. Unlike Scala statements must finish with a semicolon unless it is the last
+ *  statement of a file or a bracket block. Aloowing statements to end with a newline introduces horrendous ambiguities unless one is willing to go
+ *  completely down the significant whitespace route and I'm not sure if that could work even work for such a general purpose basic syntax.  
  *  
  *  The above allows it to combine a high level of human readability, succinctness, non-programmer / non-expert write-ability, programmer flexibility
  *  and composability and fast-parsing. The initial motivating use case was strategy games, which require huge amounts of modable date files. XML and
@@ -15,7 +17,7 @@ package ostrat
 package object pParse
 {
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
-   *   will be returned as errors.*/
+   *   will be returned as errors. */
   def getStatements(input: String, inputSourceName: String): EMonList[Statement] = TokensFind(input, inputSourceName).flatMap(GetStatements(_))
   /** Returns an EMon of a sequence of Statements from a String. */
   def stringToStatements(input: String): EMonList[Statement] = stringToTokens(input).flatMap(GetStatements(_))

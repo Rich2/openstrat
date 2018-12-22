@@ -20,10 +20,9 @@ package object ostrat
   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None  
   
   type ParseExpr = pParse.Expr
-  type RefTag[A] = AnyRef with reflect.ClassTag[A]// with AnyRef
-  type LeftRight[A] = Either[A, A]
-  type Trav[A] = Traversable[A]
-  //type Funit = Function0[Unit]
+  type RefTag[A] = AnyRef with reflect.ClassTag[A]
+  //type LeftRight[A] = Either[A, A]
+  type Trav[A] = Traversable[A]  
   type FStr = Function0[String]
   type FStrSeq = Seq[Function0[String]]  
   type EMonList[A] = EMon[List[A]]
