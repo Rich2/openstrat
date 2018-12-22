@@ -87,7 +87,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     }
     
     
-    def badLoop(rem: List[A], errAcc: List[ParseErr]): EMon[List[B]] = rem match
+    def badLoop(rem: List[A], errAcc: StrList): EMon[List[B]] = rem match
     {
       case Nil => Bad(errAcc)
       case h :: tail => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))

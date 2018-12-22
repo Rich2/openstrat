@@ -44,7 +44,7 @@ abstract class Persist[T](val typeSym: Symbol)
   
   /** Trys to build an object of type T from the statement */
   def fromStatement(st: Statement): EMon[T]
-  def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Right(value) => value }
+  def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
   
   def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
   {

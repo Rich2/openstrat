@@ -9,8 +9,13 @@ object GetStatements
   /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the 
    *  intervening tokens with a Bracket Block. */
   private def fileLoop(rem: Seq[Token], acc: List[BlockMember]): EMonList[Statement] = rem match
-  { case Seq() => statementLoop(acc, Nil, Nil)
-    case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flat2Map((bracketBlock, remTokens) => fileLoop(remTokens, acc :+ bracketBlock))               
+  {
+    case Seq() => statementLoop(acc, Nil, Nil)
+    case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flatMap{pair =>
+      val (bracketBlock, remTokens) = pair
+      fileLoop(remTokens, acc :+ bracketBlock)               
+    }
+    
     case Seq(bc: BracketClose, _*) => bad1(bc, "Unexpected Closing Brace at top syntax level")
     case Seq(bm: BlockMember, tail @ _*) => fileLoop(tail, acc :+ bm)
   }  
@@ -19,8 +24,10 @@ object GetStatements
   private def bracketLoop(rem: Seq[Token], acc: Seq[BlockMember], open: BracketOpen): EMon[(BracketBlock, Seq[Token])] = rem match
   {
     case Seq() => bad1(open, "Unclosed Brace")
-    case Seq(bo: BracketOpen, tail @ _*) =>
-      bracketLoop(tail, Nil, bo).flat2Map((bracketBlock, remTokens) => bracketLoop(remTokens, acc :+ bracketBlock, open))
+    case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flatMap{pair =>
+      val (bracketBlock, remTokens) = pair
+      bracketLoop(remTokens, acc :+ bracketBlock, open)
+    }
     
     case Seq(bc: BracketClose, tail @ _*) => open.matchingBracket(bc) match
     { case false => bad1(bc, "Unexpected Closing Parenthesis")

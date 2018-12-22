@@ -29,13 +29,13 @@ class MenuBranchDynamic(text: String, val getSubMenu: () => Seq[MenuNode]) exten
 object MenuLeaf
 {
    def apply(text: String): MenuLeaf = new MenuLeaf(text, () => {})   
-   def apply(text: String, params: Funit*): MenuLeaf = new MenuLeaf(text, params.fold(() => {})(_ + _)) 
+   def apply(text: String, params: () => Unit *): MenuLeaf = new MenuLeaf(text, params.fold(() => {})(_ + _)) 
 }
 
-class MenuLeaf(text: String, val action: Funit) extends MenuNode(text)
+class MenuLeaf(text: String, val action: () => Unit) extends MenuNode(text)
 {
-	def doAfter(action: Funit): MenuLeaf = MenuLeaf(text, action, action)
-	def +(operand: Funit): MenuLeaf = MenuLeaf(text, action + operand)
+	def doAfter(action: () => Unit): MenuLeaf = MenuLeaf(text, action, action)
+	def +(operand: () => Unit): MenuLeaf = MenuLeaf(text, action + operand)
 }
 
 object MenuSub

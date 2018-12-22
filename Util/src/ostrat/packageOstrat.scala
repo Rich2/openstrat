@@ -17,21 +17,18 @@ package object ostrat
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
-  def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
-  
+  def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None  
   
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]// with AnyRef
   type LeftRight[A] = Either[A, A]
   type Trav[A] = Traversable[A]
-  type Funit = Function0[Unit]
+  //type Funit = Function0[Unit]
   type FStr = Function0[String]
   type FStrSeq = Seq[Function0[String]]  
-  type EMon[B] = Either[List[ParseErr], B]
-  type EMonList[B] = Either[List[ParseErr], List[B]]  
-  type Good[B] = Right[List[ParseErr], B]
-  /** The errors case of EMon[B] */
-  type Bad[B] = Left[List[ParseErr], B]
+  type EMonList[A] = EMon[List[A]]
+  type StrList = List[String]
+  
   /** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
   type ProdI2 = Product2[Int, Int]
   /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
@@ -48,8 +45,8 @@ package object ostrat
   type ProdD7 = Product7[Double, Double, Double, Double, Double, Double, Double]
   
   def excep(str: String): Nothing = throw new Exception(str)
-  def bad1[B](fp: FilePosn, detail: String): Bad[B] = Left[List[ParseErr], B](List(ParseErr(fp, detail)))
-  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Left[List[ParseErr], B](List(ParseErr(fs.startPosn, detail)))
+  def bad1[B](fp: FilePosn, detail: String): Bad[B] = Bad[B](List(ParseErr(fp, detail)))
+  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Bad[B](List(ParseErr(fs.startPosn, detail)))
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
@@ -57,22 +54,7 @@ package object ostrat
   val two32: Long = 4294967296l
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
   
-  implicit def arrayDoubleToImplicit(arr: Array[Double]) = new pImplicit.ArrayDoubleImplicit(arr)
-  implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]): pImplicit.ArrayImplicit[A] = new pImplicit.ArrayImplicit[A](arr)
-  implicit def booleanToRichImp(b: Boolean) = new pImplicit.BooleanImplicit(b)
-  implicit def intToImplicit(i: Int) = new pImplicit.IntImplicit(i)
-  implicit def longToImplicit(i: Long) = new pImplicit.LongImplicit(i)
-  implicit def doubleToImplicit(d: Double) = new pImplicit.DoubleImplicit(d)
-  implicit def stringToImplicit(s: String) = new pImplicit.StringImplicit(s)
-  implicit def listToImplicit[A](thisList: List[A]) = new pImplicit.ListImplicit[A](thisList)
-  implicit def seqToImplicit[A](thisSeq: Seq[A]) = new pImplicit.SeqImplicit(thisSeq)
-  //implicit def EitherToImplicit[A, B](thisEither: Either[A, B]) = new EitherImplicit[A, B](thisEither)
-  implicit def AnyAToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]) = new StringerImplicit(ev, thisVal)
-  implicit def seqToPersistDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]) = new PersistSeqDirect[A](thisSeq, ev)
-  implicit def traversableToImplicit[A](trav: Traversable[A]) = new pImplicit.TraversableImplicit[A](trav)  
-  implicit def stringTraverableToImplict(strTrav: Traversable[String]) = pImplicit.StringTraversableImplicit(strTrav)   
-  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]) = pImplicit.StringTraversableImplicit(strArray) 
-  implicit def EMonToImplicit[A](eMon: EMon[A]): pImplicit.EMonImplicit[A] = new pImplicit.EMonImplicit[A](eMon)
+  
   
   def nullRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
   
@@ -113,16 +95,16 @@ package object ostrat
    
   implicit class EMonStringImplicit(thisEMon: EMon[String])
   { def eFindType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
-    def eFindTypeElse[A: Persist](elseValue: A): A = eFindType[A].getOrElse(elseValue)
+    def eFindTypeElse[A: Persist](elseValue: A): A = eFindType[A].getElse(elseValue)
     def eFindTypeForeach[A: Persist](f: A => Unit): Unit = eFindType[A].foreach(f)
     def eFindSett[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] =
       thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingSym)))
-    def eFindSettingElse[A: Persist](settingSym: Symbol, elseValue: A): A = eFindSett[A](settingSym).getOrElse(elseValue) 
+    def eFindSettingElse[A: Persist](settingSym: Symbol, elseValue: A): A = eFindSett[A](settingSym).getElse(elseValue) 
   }
    
   implicit class OptionRichClass[A](thisOption: Option[A])
   { def map2[B, C](ob: Option[B], f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
-    def toEMon(errs: List[ParseErr]): EMon[A] = thisOption match
+    def toEMon(errs: StrList): EMon[A] = thisOption match
     { case Some(a) => Good(a)
       case None => Bad(errs)
     }
@@ -142,19 +124,8 @@ package object ostrat
     }
   }
    
-  /** This needs to be removed */
-  implicit class EitherPairRichImp[A, B, C](thisEither: Either[A, (B, C)])
-  { def flat2Map[D](f: (B, C) => Either[A, D]): Either[A, D] = thisEither match
-    { case Left(l) => Left[A, D](l)
-      case Right(r) =>
-      { val (r1, r2) = r
-        f(r1, r2)
-      }
-    }
-  }
-     
-  implicit class FunitRichImp(fu: Funit)
-  { def +(operand: Funit) : Funit = () => {fu() ; operand()} 
+  implicit class FunitRichImp(fu: () => Unit)
+  { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()} 
   } 
    
   object OpEqualsRef
@@ -177,4 +148,19 @@ package object ostrat
   { def bimap[C, D](f1: A => C, f2: B => D): Tuple2[C, D] = (f1(thisTuple._1), f2(thisTuple._2))
     def tupleFold[C](f: (A, B) => C): C = f(thisTuple._1, thisTuple._2)
   }
+  import pImplicit._
+  implicit def arrayDoubleToImplicit(arr: Array[Double]): ArrayDoubleImplicit = new ArrayDoubleImplicit(arr)
+  implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]): ArrayImplicit[A] = new pImplicit.ArrayImplicit[A](arr)
+  implicit def booleanToRichImp(b: Boolean): BooleanImplicit = new BooleanImplicit(b)
+  implicit def intToImplicit(i: Int): IntImplicit = new IntImplicit(i)
+  implicit def longToImplicit(i: Long): LongImplicit = new LongImplicit(i)
+  implicit def doubleToImplicit(d: Double): DoubleImplicit = new DoubleImplicit(d)
+  implicit def stringToImplicit(s: String): StringImplicit = new StringImplicit(s)
+  implicit def listToImplicit[A](thisList: List[A]): ListImplicit[A] = new ListImplicit[A](thisList)
+  implicit def seqToImplicit[A](thisSeq: Seq[A]): SeqImplicit[A] = new SeqImplicit(thisSeq)  
+  implicit def AnyAToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): StringerImplicit[A] = new StringerImplicit[A](ev, thisVal)
+  implicit def seqToPersistDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]): PersistSeqDirect[A] = new PersistSeqDirect[A](thisSeq, ev)
+  implicit def traversableToImplicit[A](trav: Traversable[A]): TraversableImplicit[A] = new TraversableImplicit[A](trav)  
+  implicit def stringTraverableToImplict(strTrav: Traversable[String]): StringTraversableImplicit = StringTraversableImplicit(strTrav)   
+  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversableImplicit = StringTraversableImplicit(strArray)  
 }

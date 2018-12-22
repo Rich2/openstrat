@@ -113,7 +113,7 @@ trait CanvasPlatform extends RectGeom
   def saveFile(fileName: String, output: String): Unit
   def loadFile(fileName: String): EMon[String]
   def fromFileFind[A](fileName: String)(implicit ev: Persist[A]): EMon[A] = loadFile(fileName).eFindType(ev)
-  def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Persist[A]): A = fromFileFind(fileName)(ev).getOrElse(elseValue)
+  def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Persist[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
   
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
    *  procedure (Unit returning function) with that object of type A */
@@ -123,7 +123,7 @@ trait CanvasPlatform extends RectGeom
     loadFile(fileName).eFindSett(settingSym)(ev)
     
   def fromFileFindSettingElse[A](settingSym: Symbol, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
-    fromFileFindSetting(settingSym, fileName)(ev).getOrElse(elseValue)
+    fromFileFindSetting(settingSym, fileName)(ev).getElse(elseValue)
     
   def rendElems(elems: List[PaintElem[_]]): Unit = elems.foreach(rendElem) 
   

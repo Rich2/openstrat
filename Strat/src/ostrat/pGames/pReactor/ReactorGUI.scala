@@ -138,7 +138,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
   def loadGame() : Unit = 
   {
     val arr = canv.loadFile("test")
-    deb(arr.right.toString)
+    deb(arr.toString)
     //turn = arr.right.split("\n")(0).toInt
     //canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }

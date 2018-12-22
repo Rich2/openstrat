@@ -9,7 +9,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findTokens: EMon[List[pParse.Token]] = pParse.TokensFind.fromString(thisString)
   def findStatements: EMon[List[pParse.Statement]] = findTokens.flatMap(pParse.GetStatements(_))
   def findType[A: Persist]: EMon[A] = stss(thisString).flatMap(_.findType[A])
-  def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getOrElse(elseValue)
+  def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
   def findInt: EMon[Int] = stss(thisString).flatMap(_.findInt)
   def findDouble: EMon[Double] = stss(thisString).flatMap(_.findDouble)
   def findBoolean: EMon[Boolean] = stss(thisString).flatMap(_.findBoolean)
@@ -19,13 +19,13 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findIntArray: EMon[Array[Int]] = stss(thisString).flatMap(_.findIntArray)
   
   def findSett[A: Persist](settingSym: Symbol): EMon[A] = stss(thisString).flatMap(_.findSett[A](settingSym))
-  def findSettElse[A: Persist](settingSym: Symbol, elseValue: A): A = findSett[A](settingSym).getOrElse(elseValue)
+  def findSettElse[A: Persist](settingSym: Symbol, elseValue: A): A = findSett[A](settingSym).getElse(elseValue)
   def findIntSett(settingSym: Symbol): EMon[Int] = stss(thisString).flatMap(_.findIntSett(settingSym))
-  def findIntSettElse(settingSym: Symbol, elseValue: Int): Int = findIntSett(settingSym).getOrElse(elseValue)  
+  def findIntSettElse(settingSym: Symbol, elseValue: Int): Int = findIntSett(settingSym).getElse(elseValue)  
   def findDoubleSett(settingSym: Symbol): EMon[Double] = stss(thisString).flatMap(_.findDoubleSett(settingSym))
-  def findDoubleSettElse(settingSym: Symbol, elseValue: Double): Double = findDoubleSett(settingSym).getOrElse(elseValue)
+  def findDoubleSettElse(settingSym: Symbol, elseValue: Double): Double = findDoubleSett(settingSym).getElse(elseValue)
   def findBooleanSett(settingSym: Symbol): EMon[Boolean] = stss(thisString).flatMap(_.findBooleanSett(settingSym))
-  def findBooleanSettElse(settingSym: Symbol, elseValue: Boolean): Boolean = findBooleanSett(settingSym).getOrElse(elseValue)
+  def findBooleanSettElse(settingSym: Symbol, elseValue: Boolean): Boolean = findBooleanSett(settingSym).getElse(elseValue)
   
   def - (other: String): String = thisString + other
   /** Concatenates a space and then the other String */
