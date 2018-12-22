@@ -5,12 +5,9 @@ import pParse._
 /** The essential persistence type class. it implements both a Show style type class interface, the production of a String representation of the value
   * but also produces an EMon[T] from a String. It Persists and builds objects of type T from CRON syntax. So for example the IntImplicit object in the
   * Persist companion object persists Integers and constructs Integers from Strings. */
-abstract class Persist[T](val typeSym: Symbol)
+abstract class Persist[T](val typeSym: Symbol) extends Show[T]
 { def syntaxDepth: Int
-  def typeStr: String = typeSym.name
-
-  /** Provides the standard string representation for the object */
-  def persist(obj: T): String
+  def typeStr: String = typeSym.name  
   
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 2. if it is 2 or greater return the full typed data. */

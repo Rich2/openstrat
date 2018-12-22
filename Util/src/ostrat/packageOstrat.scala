@@ -44,9 +44,11 @@ package object ostrat
   /** Product7[Double, Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct7s Array[Double] based collections. */
   type ProdD7 = Product7[Double, Double, Double, Double, Double, Double, Double]
   
-  def excep(str: String): Nothing = throw new Exception(str)
-  def bad1[B](fp: FilePosn, detail: String): Bad[B] = Bad[B](List(ParseErr(fp, detail)))
-  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Bad[B](List(ParseErr(fs.startPosn, detail)))
+  def excep(str: String): Nothing = throw new Exception(str)  
+  /** Not sure about this method. */
+  def parseErr(fp: FilePosn, detail: String): String = fp.toString + detail
+  def bad1[B](fp: FilePosn, detail: String): Bad[B] = Bad[B](parseErr(fp, detail) :: Nil)
+  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Bad[B](parseErr(fs.startPosn, detail) :: Nil)
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
