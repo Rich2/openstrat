@@ -1,7 +1,6 @@
 # openstrat
 
 **My username changed from Richtype => richtype on 22/12/2018.**
-Modified on my desktop and laptop from new clone.
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
