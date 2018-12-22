@@ -53,9 +53,7 @@ package object ostrat
 
   val two32: Long = 4294967296l
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
-  
-  
-  
+    
   def nullRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
   
   @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] =
@@ -67,16 +65,6 @@ package object ostrat
     }
     acc.reverse
   }
-  
-  /** Extension methods for Either. This class can possible be eliminated. */
- implicit class EitherImplicit[A, B](val thisEither : Either[A, B]) extends AnyVal
-{
-   def filterElse[B1 >: B](p: (B) ⇒ Boolean, or:  ⇒ B): B1 = thisEither match
-   {
-      case Right(r) if p(r) => r
-      case _ => or
-   }  
-}
   
   implicit class AnyTImplicit[T](thisT: T)
   {
@@ -126,28 +114,13 @@ package object ostrat
    
   implicit class FunitRichImp(fu: () => Unit)
   { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()} 
-  } 
-   
-  object OpEqualsRef
-  { def apply[A](leftOp: Option[A], rightOp: AnyRef): Boolean = leftOp.fold(false)(_ == rightOp)
   }   
-  
-  implicit class OptionTraversable[A](trav: Traversable[Option[A]])
-  { /** Folds across a Traversable of options returning None if any of the members are None. This the Sequence operation on the Option monad. */
-    def optionFold[B](startValue: B)(f: (B, A) => B): Option[B] =
-    {
-      def loop(rem: Traversable[Option[A]], acc: B): Option[B] = rem.ifEmpty(Some(acc), rem.head match
-          { case None => None
-            case Some(a) => loop(rem.tail, f(acc, a))
-          })
-      loop(trav, startValue)
-    }
-  }
    
   implicit class Tuple2Implicit[A, B](thisTuple: Tuple2[A, B])
   { def bimap[C, D](f1: A => C, f2: B => D): Tuple2[C, D] = (f1(thisTuple._1), f2(thisTuple._2))
     def tupleFold[C](f: (A, B) => C): C = f(thisTuple._1, thisTuple._2)
   }
+  
   import pImplicit._
   implicit def arrayDoubleToImplicit(arr: Array[Double]): ArrayDoubleImplicit = new ArrayDoubleImplicit(arr)
   implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]): ArrayImplicit[A] = new pImplicit.ArrayImplicit[A](arr)
