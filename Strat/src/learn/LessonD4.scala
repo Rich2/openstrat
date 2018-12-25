@@ -19,7 +19,7 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
   val t2 = Vec2s(v1, v2, v3, v4, v5, v6)
   val c1 = Colour.Azure  
   val t3 = t1.fill(c1)
-  val s3 = "0xFFFFFFFF"
+  val s3 = "0xFFFFFFFF";
   val c3 = s3.findTokens
   val c4 = s3.findStatements match
   {
