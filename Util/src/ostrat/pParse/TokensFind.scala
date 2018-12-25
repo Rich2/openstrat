@@ -7,7 +7,7 @@ object TokensFind
 {
   type TokensMon = EMon[List[Token]]
   /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def apply(srcStr: String, fileName: String): TokensMon = mainLoop(srcStr.toList, FilePosn(1, 1, fileName), Nil)
+  def apply(srcStr: String, fileName: String): TokensMon = mainLoop(srcStr.toList, new FilePosn(fileName, 1, 1), Nil)
   def fromString(srcStr: String): TokensMon = apply(srcStr, "FromString")
      
   private def mainLoop(rem: List[Char], fp: FilePosn, tokenAcc: List[Token]): TokensMon = rem match
@@ -21,7 +21,7 @@ object TokensFind
         case '*' :: '/' :: rem => mainLoop(rem, fp, tokenAcc)
         case _ :: rem => loop(rem, fp.nextChar) 
       }      
-      loop(rem, fp.addChars(2))
+      loop(rem, fp.addLinePosn(2))
     }
     
     case '0' :: 'x' :: tail  =>
@@ -52,7 +52,7 @@ object TokensFind
     
     case h :: tail => h match
     {
-      case '\n' => mainLoop(tail, FilePosn(fp.lineNum + 1, 1, fp.fileName), tokenAcc)
+      case '\n' => mainLoop(tail, fp.newLine, tokenAcc)
       case ';' => mainLoop(tail, fp.nextChar,  SemicolonToken(fp) :: tokenAcc)
       case ',' => mainLoop(tail, fp.nextChar,  CommaToken(fp) :: tokenAcc)
       case '(' => mainLoop(tail, fp.nextChar,  ParenthOpen(fp) :: tokenAcc)
@@ -104,7 +104,7 @@ object TokensFind
        def loop(rem: List[Char], strAcc: List[Char]): TokensMon = rem match
        {
          case Nil => bad1(fp, "Unclosed String")                  
-         case '\"' :: tail2 => mainLoop(tail2, fp.addChars(strAcc.length + 2),  StringToken(fp, strAcc.mkString) :: tokenAcc)
+         case '\"' :: tail2 => mainLoop(tail2, fp.addLinePosn(strAcc.length + 2),  StringToken(fp, strAcc.mkString) :: tokenAcc)
          case '\\' :: tail2 => tail2 match
          {
            case Nil =>  bad1(fp, "Unclosed String ending with unclosed escape Sequence")

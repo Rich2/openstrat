@@ -5,7 +5,7 @@ package pParse
 trait Token extends FileSpan
 {
    def str: String
-   override def endPosn: FilePosn = FilePosn(startPosn.lineNum, startPosn.linePosn + str.length - 1, startPosn.fileName)
+   override def endPosn: FilePosn = startPosn.addLinePosn(str.length - 1)
 }
 
 trait BlockMemberToken extends BlockMember with Token

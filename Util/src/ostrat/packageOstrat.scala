@@ -49,7 +49,7 @@ package object ostrat
   def bad1[B](fp: FilePosn, detail: String): Bad[B] = Bad[B](parseErr(fp, detail) :: Nil)
   def bad1[B](fs: FileSpan, detail: String): Bad[B] = Bad[B](parseErr(fs.startPosn, detail) :: Nil)
   def eTry[A](res: => A): EMon[A] =
-    try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn(1, 1, "Java Exception"), e.getMessage) }
+    try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn("Java Exception", 1, 1), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
 
   val two32: Long = 4294967296l

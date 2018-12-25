@@ -2,18 +2,28 @@
 package ostrat
 
 sealed trait TextOrigin
+{
+}
 
-case class FilePosn(lineNum :Int, linePosn: Int, fileName: String) extends TextOrigin
-{ def nextChar : FilePosn = FilePosn(lineNum, linePosn + 1, fileName)
-  def addChars(chars: Seq[Char]): FilePosn = FilePosn(lineNum, linePosn + chars.length, fileName)
-  def addStr(str: String): FilePosn = FilePosn(lineNum, linePosn + str.length, fileName)
-  def addChars(offset: Int): FilePosn = FilePosn(lineNum, linePosn + offset, fileName)
+case class StrPosn(lineNum :Int, linePosn: Int) extends TextOrigin
+
+case class FilePosn(fileName: String, lineNum :Int, linePosn: Int) extends TextOrigin
+{ def nextChar: FilePosn = FilePosn(fileName, lineNum, linePosn + 1)
+  def addChars(chars: Seq[Char]): FilePosn = FilePosn(fileName, lineNum, linePosn + chars.length)
+  def addStr(str: String): FilePosn = FilePosn(fileName, lineNum, linePosn + str.length)
+  def addLinePosn(offset: Int): FilePosn = FilePosn(fileName,  lineNum, linePosn + offset)
+  def newLine: FilePosn = FilePosn(fileName, lineNum + 1, 1)
 }
 
 object FilePosn
-{ def fromServer(linePosn: Int = 1, lineNum: Int = 1): FilePosn = FilePosn(lineNum, linePosn, "Server error")
-  def empty: FilePosn = FilePosn(0, 0, "Empty object")
+{ def fromServer(linePosn: Int = 1, lineNum: Int = 1): FilePosn = new FilePosn("Server error", lineNum, linePosn)
+  def empty: FilePosn = new FilePosn("Empty object", 0, 0)
   def emptyError[A](errStr: String): Bad[A] = bad1(empty, errStr)
+  
+  implicit object FilePosnShow extends Show[FilePosn]
+  {
+    def persist(obj: FilePosn): String = obj.fileName.toString -- obj.lineNum.toString -- obj.linePosn.toString 
+  }
 }
 
 trait FileSpan

@@ -13,7 +13,7 @@ sealed trait Statement extends FileSpan
 object Statement
 {
   implicit class StatementListImplicit(statementList: List[Statement]) extends FileSpan
-  { private def ifEmptyFilePosn: FilePosn = FilePosn(0, 0 , "Empty Statement Seq")
+  { private def ifEmptyFilePosn: FilePosn = FilePosn("Empty Statement Seq", 0, 0)
     def startPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.head.startPosn)
     def endPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.last.endPosn)
     
