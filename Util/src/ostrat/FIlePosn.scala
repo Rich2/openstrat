@@ -1,13 +1,16 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-sealed trait TextOrigin
+sealed trait TextPosn
 {
+  def lineNum: Int
+  def linePosn: Int
+  def addLinePosn(offset: Int): TextPosn
 }
 
-case class StrPosn(lineNum :Int, linePosn: Int) extends TextOrigin
+case class StrPosn(lineNum: Int, linePosn: Int) extends TextPosn
 
-case class FilePosn(fileName: String, lineNum :Int, linePosn: Int) extends TextOrigin
+case class FilePosn(fileName: String, lineNum :Int, linePosn: Int) extends TextPosn
 { def nextChar: FilePosn = FilePosn(fileName, lineNum, linePosn + 1)
   def addChars(chars: Seq[Char]): FilePosn = FilePosn(fileName, lineNum, linePosn + chars.length)
   def addStr(str: String): FilePosn = FilePosn(fileName, lineNum, linePosn + str.length)
