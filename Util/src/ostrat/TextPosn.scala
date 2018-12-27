@@ -5,17 +5,28 @@ sealed trait TextPosn
 {
   def lineNum: Int
   def linePosn: Int
+  def nextChar: TextPosn
   def addLinePosn(offset: Int): TextPosn
+  def addChars(chars: Seq[Char]): TextPosn
+  def addStr(str: String): TextPosn
+  def newLine: TextPosn
 }
 
 case class StrPosn(lineNum: Int, linePosn: Int) extends TextPosn
+{
+  def nextChar: TextPosn = StrPosn(lineNum, linePosn + 1)
+  def addChars(chars: Seq[Char]): TextPosn = StrPosn(lineNum, linePosn + chars.length)
+  def addStr(str: String): TextPosn = StrPosn(lineNum, linePosn + str.length)
+  def addLinePosn(offset: Int): TextPosn = StrPosn(lineNum, linePosn + offset)
+  def newLine: TextPosn = StrPosn(lineNum + 1, 1)
+}
 
 case class FilePosn(fileName: String, lineNum :Int, linePosn: Int) extends TextPosn
-{ def nextChar: FilePosn = FilePosn(fileName, lineNum, linePosn + 1)
-  def addChars(chars: Seq[Char]): FilePosn = FilePosn(fileName, lineNum, linePosn + chars.length)
-  def addStr(str: String): FilePosn = FilePosn(fileName, lineNum, linePosn + str.length)
-  def addLinePosn(offset: Int): FilePosn = FilePosn(fileName,  lineNum, linePosn + offset)
-  def newLine: FilePosn = FilePosn(fileName, lineNum + 1, 1)
+{ def nextChar: TextPosn = FilePosn(fileName, lineNum, linePosn + 1)
+  def addChars(chars: Seq[Char]): TextPosn = FilePosn(fileName, lineNum, linePosn + chars.length)
+  def addStr(str: String): TextPosn = FilePosn(fileName, lineNum, linePosn + str.length)
+  def addLinePosn(offset: Int): TextPosn = FilePosn(fileName, lineNum, linePosn + offset)
+  def newLine: TextPosn = FilePosn(fileName, lineNum + 1, 1)
 }
 
 object FilePosn
@@ -30,8 +41,8 @@ object FilePosn
 }
 
 trait FileSpan
-{ def startPosn: FilePosn
-  def endPosn: FilePosn
+{ def startPosn: TextPosn
+  def endPosn: TextPosn
 }
  object FileSpan
  {

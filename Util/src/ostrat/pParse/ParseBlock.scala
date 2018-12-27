@@ -21,36 +21,36 @@ sealed trait BracketOpen extends BracketToken
 }
 sealed trait BracketClose extends BracketToken
 
-case class ParenthOpen(startPosn: FilePosn) extends BracketOpen  
+case class ParenthOpen(startPosn: TextPosn) extends BracketOpen  
 { def str = "("
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[ParenthClose]
   override def newBracketBlock(cb: BracketClose, statements: List[Statement]): BracketBlock = (ParenthBlock(statements, this, cb))
 }
 
-case class ParenthClose(startPosn: FilePosn) extends BracketClose { def str = ")" }
+case class ParenthClose(startPosn: TextPosn) extends BracketClose { def str = ")" }
 
-case class SquareOpen(startPosn: FilePosn) extends BracketOpen
+case class SquareOpen(startPosn: TextPosn) extends BracketOpen
 { def str = "["
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[SquareClose]
   override def newBracketBlock(cb: BracketClose, statements: List[Statement]): BracketBlock = (SquareBlock(statements, this, cb))   
 }
 
-case class SquareClose(startPosn: FilePosn) extends BracketClose  { def str = "]" }
+case class SquareClose(startPosn: TextPosn) extends BracketClose  { def str = "]" }
 
-case class CurlyOpen(startPosn: FilePosn) extends BracketOpen
+case class CurlyOpen(startPosn: TextPosn) extends BracketOpen
 { def str = "{"  
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[CurlyClose]
   override def newBracketBlock(cb: BracketClose, statements: List[Statement]): BracketBlock = (CurlyBlock(statements, this, cb))
 }
-case class CurlyClose(startPosn: FilePosn) extends BracketClose { def str = "}" }
+case class CurlyClose(startPosn: TextPosn) extends BracketClose { def str = "}" }
 
 sealed trait BracketBlock extends ExprMember
 {
    def startBracket: BracketOpen
    def endBracket: BracketClose
    def statements: List[Statement]
-   def startPosn: FilePosn = startBracket.startPosn
-   def endPosn: FilePosn = endBracket.endPosn
+   def startPosn: TextPosn = startBracket.startPosn
+   def endPosn: TextPosn = endBracket.endPosn
 }
 
 case class ParenthBlock(statements: List[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
