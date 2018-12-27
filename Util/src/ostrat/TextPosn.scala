@@ -40,26 +40,26 @@ object FilePosn
   }
 }
 
-trait FileSpan
+trait TextSpan
 { def startPosn: TextPosn
   def endPosn: TextPosn
 }
- object FileSpan
+ object TextSpan
  {
-   def empty = new FileSpan{def startPosn = FilePosn.empty; def endPosn = FilePosn.empty }
+   def empty = new TextSpan{def startPosn = FilePosn.empty; def endPosn = FilePosn.empty }
  }
 
-trait FileSpanMems extends FileSpan
-{ def startMem: FileSpan
-  def endMem: FileSpan
+trait TextSpanMems extends TextSpan
+{ def startMem: TextSpan
+  def endMem: TextSpan
   override def startPosn = startMem.startPosn
   override def endPosn = endMem.endPosn
 }
 
-object FileSpanMems
+object TextSpanMems
 {
   /** needs adjusting for empty Seq */
-  implicit class FilePosnSeqImplicit(thisSeq: Seq[FileSpan]) extends FileSpanMems
+  implicit class FilePosnSeqImplicit(thisSeq: Seq[TextSpan]) extends TextSpanMems
   { override def startMem = thisSeq.head
     override def endMem = thisSeq.last
   }

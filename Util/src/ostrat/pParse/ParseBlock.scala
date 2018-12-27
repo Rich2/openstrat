@@ -5,7 +5,7 @@ package pParse
  *  statements in the file or the statements with in a bracket block. Conceptually the source file is considered a special case of bracket block where 
  *  the beginning of substitutes for the opening bracket and the end of file substitutes for the closing bracket. BlockMember has only two sub traits
  *  StatementMember and SemiToken. So a sequence of TokenOrBlocks is simply a series of tokens which has been parsed into Blocks. */
-trait TokenOrBlock extends FileSpan
+trait TokenOrBlock extends TextSpan
 
 trait BlockMember extends TokenOrBlock
 trait StatementMember extends BlockMember

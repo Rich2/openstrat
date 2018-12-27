@@ -7,14 +7,14 @@ trait Expr extends TokenOrBlock
   def exprName: String
 }
 
-trait MemsExpr extends Expr with FileSpanMems
+trait MemsExpr extends Expr with TextSpanMems
 
-case class UnimplementedExpr(bMems: Seq[BlockMember]) extends MemsExpr// with FileSpanMems
+case class UnimplementedExpr(bMems: Seq[BlockMember]) extends MemsExpr// with TextSpanMems
 { def startMem = bMems.head
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
 }
-case class AlphaBracketExpr(name: AlphaToken, blocks: List[BracketBlock]) extends MemsExpr// with FileSpanMems
+case class AlphaBracketExpr(name: AlphaToken, blocks: List[BracketBlock]) extends MemsExpr// with TextSpanMems
 { def startMem = name
   def endMem = blocks.last
   override def exprName: String = "AlphaBracketExpr"
@@ -33,11 +33,3 @@ case class AsignExpr(asToken: AsignToken, left: Expr, right : Expr) extends Mems
   override def endMem = right
   override def exprName: String = "AsignExpr"  
 }
-
-//case class SpacedSeq(seq: Seq[Expr0]) extends Expr10
-//{
-//   override def startPosn: FilePosn = seq.head.startPosn
-//   override def endPosn: FilePosn = seq.last.endPosn   
-//}
-
-

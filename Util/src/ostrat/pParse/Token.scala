@@ -2,7 +2,7 @@
 package ostrat
 package pParse
 
-trait Token extends FileSpan
+trait Token extends TextSpan
 {
    def str: String
    override def endPosn: TextPosn = startPosn.addLinePosn(str.length - 1)

@@ -3,13 +3,13 @@ package ostrat
 package pParse
 /** Statements in RCON can be unclaused or multi comma separated. The empty Clause just contains a comma. The comma at the end of the last Clause of a
  *  Statement is optional. */
-case class Clause(expr: Expr, optComma: Opt[CommaToken]) extends FileSpan
+case class Clause(expr: Expr, optComma: Opt[CommaToken]) extends TextSpan
 { def startPosn = expr.startPosn
   def endPosn = optComma.fold(expr.endPosn, _.endPosn)
 }
 
 /** Empty Clause class, rperesentated by just a comma. */
-class EmptyClause(ct: CommaToken) extends Clause(ct, Opt(ct)) with FileSpanMems
+class EmptyClause(ct: CommaToken) extends Clause(ct, Opt(ct)) with TextSpanMems
 { override def startMem = ct
   override def endMem = ct
 }

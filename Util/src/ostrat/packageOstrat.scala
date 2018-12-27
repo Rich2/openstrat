@@ -47,7 +47,7 @@ package object ostrat
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.toString + detail
   def bad1[B](fp: TextPosn, detail: String): Bad[B] = Bad[B](parseErr(fp, detail) :: Nil)
-  def bad1[B](fs: FileSpan, detail: String): Bad[B] = Bad[B](parseErr(fs.startPosn, detail) :: Nil)
+  def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](parseErr(fs.startPosn, detail) :: Nil)
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn("Java Exception", 1, 1), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
@@ -97,7 +97,7 @@ package object ostrat
     { case Some(a) => Good(a)
       case None => Bad(errs)
     }
-    def toEMon1(fp: FileSpan, detail: String): EMon[A] = thisOption match
+    def toEMon1(fp: TextSpan, detail: String): EMon[A] = thisOption match
     { case Some(a) => Good(a)
       case None => bad1(fp, detail)
     }

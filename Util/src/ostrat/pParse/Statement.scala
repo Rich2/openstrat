@@ -1,3 +1,5 @@
+
+
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pParse
@@ -5,14 +7,14 @@ package pParse
 /** The top level compositional unit of Syntax in CRON: Compact Readable Object Notation. A statement can be claused consisting of comma separated
   * clauses containing a single expression. An empty statement is a special case of the UnClausedStatement where the semicolon character is the
   * expression. */
-sealed trait Statement extends FileSpan
+sealed trait Statement extends TextSpan
 { def optSemi: Opt[SemicolonToken]
   def errGet[A](implicit ev: Persist[A]): EMon[A]
 }
 
 object Statement
 {
-  implicit class StatementListImplicit(statementList: List[Statement]) extends FileSpan
+  implicit class StatementListImplicit(statementList: List[Statement]) extends TextSpan
   { private def ifEmptyFilePosn: FilePosn = FilePosn("Empty Statement Seq", 0, 0)
     def startPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.head.startPosn)
     def endPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.last.endPosn)
@@ -80,10 +82,10 @@ object Statement
 
 /** This statement has 1 or more comma separated clauses. The first clause must be terminated by a comma. Subsequent clauses have an optional
  *  closing comma. */
-case class ClausedStatement(clauses: Seq[Clause], optSemi: Opt[SemicolonToken]) extends Statement with FileSpanMems
+case class ClausedStatement(clauses: Seq[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanMems
 {
-  def startMem: FileSpan = clauses.head
-  def endMem: FileSpan = optSemi.fold[FileSpan](clauses.last, st => st)
+  def startMem: TextSpan = clauses.head
+  def endMem: TextSpan = optSemi.fold[TextSpan](clauses.last, st => st)
   override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
 }
 
@@ -95,19 +97,19 @@ sealed trait UnClausedStatement extends Statement
 }
 
 /** An un-claused Statement that is not the empty statement. */
-case class MonoStatement(expr: Expr, optSemi: Opt[SemicolonToken]) extends UnClausedStatement with FileSpanMems
+case class MonoStatement(expr: Expr, optSemi: Opt[SemicolonToken]) extends UnClausedStatement with TextSpanMems
 {
-  def startMem: FileSpan = expr
-  def endMem: FileSpan = optSemi.fold(expr, sc => sc)
+  def startMem: TextSpan = expr
+  def endMem: TextSpan = optSemi.fold(expr, sc => sc)
 }
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
-case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with FileSpanMems
+case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with TextSpanMems
 {
    override def expr = st
    override def optSemi: Opt[SemicolonToken] = Opt(st)
-   override def startMem: FileSpan = st
-   override def endMem: FileSpan = st
+   override def startMem: TextSpan = st
+   override def endMem: TextSpan = st
    def asError[A]: Bad[A] = bad1(st.startPosn, "Empty Statement")
 }
 object EmptyStatement
