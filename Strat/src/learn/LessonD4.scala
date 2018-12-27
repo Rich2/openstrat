@@ -21,15 +21,11 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
   val t3 = t1.fill(c1)
   val s3 = "0xFFFFFFFF";
   val c3 = s3.findTokens
-  val c4 = s3.findStatements match
-  {
-    case Good(l) => l.head
-    case Bad(errs) => errs
-  }
+  val c4 = s3.findStatements
   val c5 = s3.findType[Colour]
   val tl1 = Rval(t1) - t2 - c1
   
-  repaint(SText(200, tl1.str) :: MText(0, List(c1.altString, c3.toString, c4.toString, c5.toString)))  
+  repaint(SText(200, tl1.str) :: MText(0, List(c1.toString, c3.toString, c4.toString, c5.toString)))  
 }
 
 
