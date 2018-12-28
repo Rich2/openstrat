@@ -2,6 +2,7 @@
 package ostrat
 package pParse
 
+/** Not quite sure why this extends TokenOrBlock. That doesn't seem right. */
 trait Expr extends TokenOrBlock
 { def exprParseErr[A](implicit ev: Persist[A]): EMon[A] = bad1(startPosn, ev.typeStr -- "is not available from" -- exprName)
   def exprName: String

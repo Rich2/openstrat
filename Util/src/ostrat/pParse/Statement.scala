@@ -1,5 +1,3 @@
-
-
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pParse
@@ -84,6 +82,7 @@ object Statement
  *  closing comma. */
 case class ClausedStatement(clauses: Seq[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanMems
 {
+  def expr: Expr = ???
   def startMem: TextSpan = clauses.head
   def endMem: TextSpan = optSemi.fold[TextSpan](clauses.last, st => st)
   override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
