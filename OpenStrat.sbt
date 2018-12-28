@@ -1,4 +1,4 @@
-ThisBuild/version := "0.0.2snap"
+ThisBuild/version := "0.0.3snap"
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.12.8"
 ThisBuild/organization := "OpenStratOrg"
@@ -26,10 +26,8 @@ def projJs(name: String): Project = proj(name).enablePlugins(ScalaJSPlugin).sett
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6"
 )
 
-
-lazy val Macros = projJvm("Macros")//.settings(macrosSettings)
-lazy val MacrosJs = projJs("MacrosJs")
-	
+lazy val Macros = projJvm("Macros")
+lazy val MacrosJs = projJs("MacrosJs")	
 
 lazy val Util = projJvm("Util").dependsOn(Macros).settings(	
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile,  
@@ -68,5 +66,5 @@ lazy val StratJs = projJs("StratJs").dependsOn(GraphicJs).settings(
 //  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
 //)
 
-val root = proj("root").aggregate(Strat)//ect in file(".")).settings(commonSettings).
+val root = proj("root").settings(commonSettings).enablePlugins(ScalaUnidocPlugin)
 //  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, StratJvm, MacrosJs, StratJs)
