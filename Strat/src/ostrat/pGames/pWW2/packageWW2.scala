@@ -2,9 +2,8 @@
 package ostrat
 package pGames
 
-/** This might actually be the easiest game to get started with */
+/** This package is the beginnings of a WWII grand strategy game. */
 package object pWW2
-{
-   
+{   
   
 }

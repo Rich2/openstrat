@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** The grid and grid-gui hierarchies lack clarity */
+/** This package covers hex and Square tile grids. The grid and grid-gui hierarchies currently lack clarity. */
 package object pGrid
 {
   val Cood00 = Cood(0, 0)
