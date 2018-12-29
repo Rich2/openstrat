@@ -9,7 +9,7 @@ trait Token extends TextSpan
 }
 
 trait BlockMemberToken extends BlockMember with Token
-trait EmptyExprToken extends BlockMemberToken with Expr
+trait EmptyExprToken extends BlockMemberToken with ExprToken
 
 case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken
 { def str = ";"
@@ -21,7 +21,7 @@ case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with Statement
   override def exprName: String = "EmptyClauseExpr"
 }
 
-trait ExprToken extends Expr with ExprMemberToken
+
 
 /** The Dot or Stop Token. */
 case class DotToken(startPosn: TextPosn) extends ExprMemberToken { def str = "." }
