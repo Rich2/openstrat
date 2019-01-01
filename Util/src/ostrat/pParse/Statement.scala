@@ -8,6 +8,7 @@ package pParse
 sealed trait Statement extends TextSpan
 { def optSemi: Opt[SemicolonToken]
   def errGet[A](implicit ev: Persist[A]): EMon[A]
+  def expr: Expr
 }
 
 object Statement
@@ -80,9 +81,9 @@ object Statement
 
 /** This statement has 1 or more comma separated clauses. The first clause must be terminated by a comma. Subsequent clauses have an optional
  *  closing comma. */
-case class ClausedStatement(clauses: Seq[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanMems
+case class ClausedStatement(clauses: List[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanMems
 {
-  def expr: Expr = ???
+  def expr: Expr = ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head
   def endMem: TextSpan = optSemi.fold[TextSpan](clauses.last, st => st)
   override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)

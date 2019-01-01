@@ -14,6 +14,12 @@ trait CompoundExpr extends Expr with TextSpanMems
 
 trait ExprToken extends Expr with ExprMemberToken
 
+case class ClausesExpr(exprs: List[Expr]) extends CompoundExpr
+{  def startMem = exprs.head
+  def endMem = exprs.last
+  override def exprName: String = "Claused Expr"
+}
+
 case class UnimplementedExpr(bMems: Seq[BlockMember]) extends CompoundExpr
 { def startMem = bMems.head
   def endMem = bMems.last
