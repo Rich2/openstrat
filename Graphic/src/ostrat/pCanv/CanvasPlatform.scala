@@ -112,7 +112,7 @@ trait CanvasPlatform extends RectGeom
   def gcRestore(): Unit 
   def saveFile(fileName: String, output: String): Unit
   def loadFile(fileName: String): EMon[String]
-  def fromFileFind[A](fileName: String)(implicit ev: Persist[A]): EMon[A] = loadFile(fileName).eFindType(ev)
+  def fromFileFind[A](fileName: String)(implicit ev: Persist[A]): EMon[A] = loadFile(fileName).findType(ev)
   def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: Persist[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
   
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
@@ -120,7 +120,7 @@ trait CanvasPlatform extends RectGeom
   def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Persist[A]): Unit = fromFileFind(fileName)(ev).foreach(f)
   
   def fromFileFindSetting[A](settingSym: Symbol, fileName: String)(implicit ev: Persist[A]): EMon[A] = 
-    loadFile(fileName).eFindSett(settingSym)(ev)
+    loadFile(fileName).findSett(settingSym)(ev)
     
   def fromFileFindSettingElse[A](settingSym: Symbol, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingSym, fileName)(ev).getElse(elseValue)

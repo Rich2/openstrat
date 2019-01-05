@@ -80,16 +80,7 @@ package object ostrat
   implicit class AnyRefImplicit[T <: Any](thisT: T)
   {
     def *(operand: Int): Multiple[T] = Multiple(thisT, operand) 
-  }
-   
-  implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def eFindType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
-    def eFindTypeElse[A: Persist](elseValue: A): A = eFindType[A].getElse(elseValue)
-    def eFindTypeForeach[A: Persist](f: A => Unit): Unit = eFindType[A].foreach(f)
-    def eFindSett[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] =
-      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingSym)))
-    def eFindSettingElse[A: Persist](settingSym: Symbol, elseValue: A): A = eFindSett[A](settingSym).getElse(elseValue) 
-  }
+  }  
    
   implicit class OptionRichClass[A](thisOption: Option[A])
   { def map2[B, C](ob: Option[B], f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))

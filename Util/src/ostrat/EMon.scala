@@ -26,6 +26,18 @@ sealed trait EMon[+A]
   def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B]
 }
 
+object EMon
+{
+  implicit class EMonStringImplicit(thisEMon: EMon[String])
+  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
+    def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
+    def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
+    def findSett[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] =
+      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingSym)))
+    def findSettingElse[A: Persist](settingSym: Symbol, elseValue: => A): A = findSett[A](settingSym).getElse(elseValue) 
+  }
+}
+
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based 
  *  Right[List[String], +A]. */
 case class Good[+A](val value: A) extends EMon[A] 
