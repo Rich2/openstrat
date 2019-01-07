@@ -17,9 +17,9 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
   val tileWidth = ((height.min(width) - margin * 2).max(100) / rowSize)
   
   val tiles: Seq[CheckersSq] = for { y <- 1 to rowSize; x <- 1 to rowSize } yield Cood(x, y) match
-  { case c @ Cood(x, y) if c.oddsOrEvens & y <= 3 => DarkSq(x, y, Some(BlackPiece))
-    case c @ Cood(x, y) if c.oddsOrEvens & y >= 6 => DarkSq(x, y, Some(WhitePiece))
-    case c @ Cood(x, y) if c.oddsOrEvens          => DarkSq(x, y, None)
+  { case c @ Cood(x, y) if c.evenSum & y <= 3 => DarkSq(x, y, Some(BlackPiece))
+    case c @ Cood(x, y) if c.evenSum & y >= 6 => DarkSq(x, y, Some(WhitePiece))
+    case c @ Cood(x, y) if c.evenSum          => DarkSq(x, y, None)
     case c @ Cood(x, y)                           => LightSq(x, y)          
   }
   

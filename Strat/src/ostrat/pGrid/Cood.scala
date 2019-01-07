@@ -28,7 +28,9 @@ final case class Cood(val x: Int, val y: Int) extends ProdI2
   def subY(operand: Int): Cood = Cood(x, y - operand)
   def toSqVec2: Vec2 = Vec2(x, y)
   /** x.isOdd & y.isOdd | x.isEven & y.isEven */
-  def oddsOrEvens: Boolean = x.isOdd & y.isOdd | x.isEven & y.isEven
+  def evenSum: Boolean = x.isOdd & y.isOdd | x.isEven & y.isEven
+  /** x.isOdd & y.isEven | x.isEven & y.isOdd */
+  def oddSum: Boolean = x.isOdd & y.isEven | x.isEven & y.isOdd
 }
 
 object Cood

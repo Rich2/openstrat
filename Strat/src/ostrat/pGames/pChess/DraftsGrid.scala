@@ -5,6 +5,38 @@ package pChess
 import Colour._
 import pGrid._
 
+//trait CGrid[T](val arr: Array[T]) extends AnyVal
+//{
+//  
+//}
+
+//object CGrid
+//{  
+//  def start[T <: GridElem](implicit m: reflect.ClassTag[T]): CGrid[T] = 
+//  {
+//    val arr = new Array[T](64)
+//    new CGrid[T](arr)
+//  }
+//}
+
+sealed trait Draught extends AnyRef
+object NoD extends Draught
+object WhiteD extends Draught
+object BlackD extends Draught
+
+class DGrid(val arr: Array[Draught]) extends AnyVal
+{
+  def get(row: Int, col: Int): Draught = arr((row - 1) * 8 + col - 1)
+  def set(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = value
+  def copy: DGrid = 
+  {
+    val newArr = new Array[Draught](64)
+    var count = 0
+    while( count < 64){ newArr(count) = arr(count); count += 1 }
+    new DGrid(newArr)
+  }
+}
+
 class ChessGrid[TileT <: GridElem](length: Int) extends TileGridLike[TileT](1, length, 1, length)
 {
    override def xArrLen: Int = length
