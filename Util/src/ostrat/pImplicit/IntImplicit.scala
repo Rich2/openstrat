@@ -18,6 +18,8 @@ class IntImplicit(val thisInt: Int) extends AnyVal //extends PersistStr
   def ifEven[A](vEven: => A, vOdd: => A): A = if (thisInt % 2 == 0) vEven else vOdd
   def pos: Boolean = thisInt >= 0
   def neg: Boolean = thisInt < 0
+  def ifSumEven[A](evenVal: => A, oddVal: => A, operand: Int): A = if((thisInt + operand).isEven) evenVal else oddVal
+  def ifSumOdd[A](oddVal: => A, evenVal: => A, operand: Int): A = if((thisInt + operand).isOdd) oddVal else evenVal
   //def ifinc(b: Boolean): Int = if (b) thisInt + 1 else thisInt
   //def ifdec(b: Boolean): Int = if (b) thisInt - 1 else thisInt
   def diff(operand: Int): Int = (thisInt - operand).abs

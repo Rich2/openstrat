@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 package pChess
-import geom._, pGrid._, pCanv._, Colour._
+import pGrid._, pCanv._, Colour._
 
 case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
 {
@@ -25,14 +25,24 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
   
   implicit class AdjInt(i: Int){ def adj = i - rowCen}
   
-  val stuff = tiles.flatMap
-  {
-    case DarkSq(x, y, Some(p))  => List(
-        Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
-        Circle.fillSubj(tileWidth / 1.6, p, p.colour, tileWidth * x.adj, tileWidth * y.adj)) 
-    case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
-    case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
-  }
+  val stuff = DGrid.start.squares(tileWidth)
+//  start.flatMap
+//  {
+//    case DarkSq(x, y, Some(p))  => List(
+//        Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
+//        Circle.fillSubj(tileWidth / 1.6, p, p.colour, tileWidth * x.adj, tileWidth * y.adj)) 
+//    case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
+//    case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
+//  }
+  
+//  val stuff = DGrid.start.flatMap
+//  {
+//    case DarkSq(x, y, Some(p))  => List(
+//        Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
+//        Circle.fillSubj(tileWidth / 1.6, p, p.colour, tileWidth * x.adj, tileWidth * y.adj)) 
+//    case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
+//    case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
+//  }
   
   repaint(stuff.toList)   
   

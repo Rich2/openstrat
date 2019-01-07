@@ -2,9 +2,7 @@
 package ostrat
 package pGames
 package pChess
-import Colour._
-import pGrid._
-
+import Colour._, pGrid._, geom._
 //trait CGrid[T](val arr: Array[T]) extends AnyVal
 //{
 //  
@@ -20,20 +18,46 @@ import pGrid._
 //}
 
 sealed trait Draught extends AnyRef
-object NoD extends Draught
+//object NoD extends Draught
 object WhiteD extends Draught
 object BlackD extends Draught
 
 class DGrid(val arr: Array[Draught]) extends AnyVal
 {
-  def get(row: Int, col: Int): Draught = arr((row - 1) * 8 + col - 1)
-  def set(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = value
+  def get(row: Int, col: Int): Opt[Draught] = Opt(arr((row - 1) * 8 + col - 1))
+  def set(row: Int, col: Int, value: OptRef[Draught]): Unit = arr((row - 1) * 8 + col - 1) = value.ref
+  def setSome(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = value
   def copy: DGrid = 
   {
     val newArr = new Array[Draught](64)
     var count = 0
     while( count < 64){ newArr(count) = arr(count); count += 1 }
     new DGrid(newArr)
+  }
+  def squares(tileWidth: Double): List[PolyFill] =
+  {
+    val seq = for {
+    x <- 1 to 8
+    y <- 1 to 8
+  } yield Square.fill(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth)
+     seq.toList
+  }
+  //def flatMap[A](f: Draught => List[A]): List[A] 
+}
+
+object DGrid
+{
+  def start: DGrid =
+  {
+    val dg = new DGrid(new Array[Draught](64))
+    val ser = 0 to 6 by 2
+    ser.foreach(i => dg.setSome(1, i + 1, BlackD))
+    ser.foreach(i => dg.setSome(2, i + 2, BlackD))
+    ser.foreach(i => dg.setSome(3, i + 2, BlackD))
+    ser.foreach(i => dg.setSome(6, i + 2, WhiteD))
+    ser.foreach(i => dg.setSome(7, i + 1, WhiteD))
+    ser.foreach(i => dg.setSome(8, i + 2, WhiteD))
+    dg
   }
 }
 
