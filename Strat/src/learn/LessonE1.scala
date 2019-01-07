@@ -9,4 +9,12 @@ case class LessonE1(canv: CanvasPlatform) extends CanvasSimple("Lesson E1")
   repaints(TextGraphic("Start of a game", 28))  
 }
 
-case class ScenE(posn: Vec2)
+case class ScenE1(posn: Vec2)
+{
+  def move(toPosn: Vec2): ScenE1 =
+  {
+    val len = (toPosn  - posn).magnitude 
+    val newPosn = ife(len > 100, posn, toPosn)
+    ScenE1(newPosn)
+  }
+}
