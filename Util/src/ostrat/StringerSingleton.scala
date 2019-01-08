@@ -8,6 +8,7 @@ trait StringerSingleton //extends Stringer
 { /** The symbol for the leaf object. This will normally be different from the typeSym. */
   def objSym: Symbol
   def str: String = objSym.name
+  override def toString: String = objSym.name
 }
 
 abstract class PersistSingletons[A <: StringerSingleton](typeSym: Symbol) extends PersistSimple[A](typeSym)

@@ -50,17 +50,17 @@ object Apps
       (55, (learn.LessonC5(_), "ScalaFx Demonstration Interactive Canvas 5")),
       (56, (learn.LessonC6(_), "ScalaFx Demonstration Interactive Canvas 6")),
       
-      (51, (learn.LessonD1(_), "ScalaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
-      (52, (learn.LessonD2(_), "ScalaFx Demonstration Persistence 2")),
-      (53, (learn.LessonD3(_), "ScalaFx Demonstration Persistence 3")),
-      (54, (learn.LessonD4(_), "ScalaFx Demonstration Persistence 4")),
-      (55, (learn.LessonD5(_), "ScalaFx Demonstration Persistence 5")),
+      (61, (learn.LessonD1(_), "ScalaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
+      (62, (learn.LessonD2(_), "ScalaFx Demonstration Persistence 2")),
+      (63, (learn.LessonD3(_), "ScalaFx Demonstration Persistence 3")),
+      (64, (learn.LessonD4(_), "ScalaFx Demonstration Persistence 4")),
+      (65, (learn.LessonD5(_), "ScalaFx Demonstration Persistence 5")),
       
-      (61, (learn.LessonE1(_), "ScalaFx Demonstration Games 1")), //Building turn based games.
+      (71, (learn.LessonE1(_), "ScalaFx Demonstration Games 1")), //Building turn based games.
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 61
+  val appNum: Int = 1
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

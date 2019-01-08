@@ -8,6 +8,14 @@ trait Polity extends StringerSingleton
   def colour: Colour
 }
 
+object Polity
+{
+  object PolityPersist extends PersistSingletons[Polity]('Polity)
+  {
+    override val singletonList = List(Germany, Britain, France)
+  }
+}
+
 object Germany extends Polity
 {
    def objSym = 'Germany

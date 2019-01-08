@@ -9,7 +9,7 @@ abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelL
    override def width = canv.width
    override def height = canv.height
    
-   canv.mouseUp = (v, b) => mouseUp(v, b, subjs.ptInList(v))
+   canv.mouseUp = (posn, button) => mouseUp(posn, button, subjs.ptInList(posn))
       
    def refresh(): Unit =
    {

@@ -12,24 +12,11 @@ abstract class CanvasUser(val title: String)
       var subjs: List[GraphicActive] = Nil
       movedObjs.foreach(_ match
       {
-         //case ce: ClickEl[_] => pan.subjsAdd(ce.clickObj)
          case ce: PaintElem[_] => canv.rendElem(ce)
-         case cs: GraphicSubject[_] =>
-         {
-            cs.elems.foreach(_ match
-                  {
-               //case FillTextRel(str, fontSize, fontColour, posn, align) => canv.rendElem(FillText(cs.cen + posn, str, fontSize, fontColour, align))
-               case el => canv.rendElem(el)
-                  })
-            canv.rendElems(cs.elems)
-            subjs ::= cs
-         }
-         case nss: NoScaleShape => 
-         {             
-            canv.rendElems(nss.elems.slate(nss.referenceVec)/*.asInstanceOf[List[PaintElem[_]]]*/)
-            subjs ::= nss
-            //deb("Add Fixed Shape" -- subjs.length.toString -- nss.shape.map(_.pEnd).toString)
-         }
+         
+         case cs: GraphicSubject[_] => { canv.rendElems(cs.elems); subjs ::= cs }
+         
+         case nss: NoScaleShape => { canv.rendElems(nss.elems.slate(nss.referenceVec)); subjs ::= nss }
       })
       subjs
    }
