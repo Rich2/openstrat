@@ -44,8 +44,7 @@ case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, 
 object LineDraw
 {
   def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black, zOrder: Int = 0): LineDraw =
-    new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, zOrder)
-  
+    new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, zOrder)  
 }
 
 case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[LinesDraw]
@@ -74,4 +73,3 @@ object DashedLineDraw
   def array(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black, zOrder: Int = 0):
     DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, dashArr, zOrder)
 }
-
