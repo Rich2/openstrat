@@ -59,12 +59,16 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
   }
 
   override def tlVec2sDraw(pod: Vec2sDraw): Unit =
-  { gc.beginPath
-    gc.moveTo(pod.xStart, pod.yStart)
-    pod.foreachEnd(gc.moveTo)
-    gc.setStroke(toFxColor(pod.colour))
-    gc.setLineWidth(pod.lineWidth)
-    gc.stroke()//Think this is right but not sure.
+  {
+    if (pod.length > 0)
+    {
+      gc.beginPath
+      gc.moveTo(pod.xStart, pod.yStart)
+      pod.foreachEnd(gc.moveTo)
+      gc.setStroke(toFxColor(pod.colour))
+      gc.setLineWidth(pod.lineWidth)
+      gc.stroke()//Think this is right but not sure.
+    }
   }
    
   override protected def tlLineDraw(ld: LineDraw): Unit =

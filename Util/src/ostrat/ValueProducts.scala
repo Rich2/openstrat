@@ -112,6 +112,14 @@ trait ValueProducts[A] extends Any
     res
   }
   
+  def :+ [ST <: ValueProducts[A]](operand: A)(implicit factory: Int => ST): ST =
+  { val res = factory(length + 1)
+    iForeach((elem, i) => res.setElem(i, elem))
+    res.setElem(length, operand)
+    res
+  } 
+  
+  
   /** Counts the number of elements that fullfill the condition A => Boolean */
   def filterCount(f: A => Boolean): Int =
   { var count = 0

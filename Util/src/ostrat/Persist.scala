@@ -10,11 +10,11 @@ abstract class Persist[T](val typeSym: Symbol) extends Show[T]
   def typeStr: String = typeSym.name  
   
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 2. if it is 2 or greater return the full typed data. */
+   *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
   def persistComma(obj: T): String
   
   /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. This method is not commonly needed but is useful
+   *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
    *  for case classes with a single member. */
   def persistSemi(obj: T): String
 

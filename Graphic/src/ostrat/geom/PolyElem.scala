@@ -36,6 +36,7 @@ PolyElem[PolyFillDraw]
 
 case class Vec2sDraw(vec2s: Vec2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[Vec2sDraw]
 {
+  def length = vec2s.length - 1
   def xStart = vec2s.xStart
   def yStart = vec2s.yStart
   override def fTrans(f: Vec2 => Vec2): Vec2sDraw = Vec2sDraw(vec2s.fTrans(f), lineWidth, colour, zOrder) 

@@ -134,6 +134,7 @@ trait CanvasPlatform extends RectGeom
     case pfd: PolyFillDraw => polyFillDraw(pfd)
     case lsd: LinesDraw => linesDraw(lsd)
     case ld: LineDraw => lineDraw(ld)
+    case v2sd: Vec2sDraw => vec2sDraw(v2sd)
     case dld: DashedLineDraw => dashedLineDraw(dld)
     case sf: ShapeFill => shapeFill(sf)
     case sd: ShapeDraw => shapeDraw(sd)

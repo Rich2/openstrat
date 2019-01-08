@@ -80,12 +80,16 @@ object CanvasJs extends CanvasTopLeft
   }
 
   override def tlVec2sDraw(pod: Vec2sDraw): Unit =
-  { gc.beginPath
-    gc.moveTo(pod.xStart, pod.yStart)
-    pod.foreachEnd(gc.moveTo)
-    gc.strokeStyle = pod.colour.webStr
-    gc.lineWidth = pod.lineWidth
-    gc.stroke
+  {
+    if (pod.length > 0)
+    {
+      gc.beginPath
+      gc.moveTo(pod.xStart, pod.yStart)
+      pod.foreachEnd(gc.moveTo)
+      gc.strokeStyle = pod.colour.webStr
+      gc.lineWidth = pod.lineWidth
+      gc.stroke
+    }
   }
 
   override def tlLineDraw(ld: LineDraw): Unit =
