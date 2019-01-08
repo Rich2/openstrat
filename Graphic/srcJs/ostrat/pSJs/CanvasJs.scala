@@ -80,16 +80,12 @@ object CanvasJs extends CanvasTopLeft
   }
 
   override def tlVec2sDraw(pod: Vec2sDraw): Unit =
-  {
-    if (pod.length > 0)
-    {
-      gc.beginPath
-      gc.moveTo(pod.xStart, pod.yStart)
-      pod.foreachEnd(gc.moveTo)
-      gc.strokeStyle = pod.colour.webStr
-      gc.lineWidth = pod.lineWidth
-      gc.stroke
-    }
+  { gc.beginPath
+    gc.moveTo(pod.xStart, pod.yStart)
+    pod.foreachEnd(gc.moveTo)
+    gc.strokeStyle = pod.colour.webStr
+    gc.lineWidth = pod.lineWidth
+    gc.stroke    
   }
 
   override def tlLineDraw(ld: LineDraw): Unit =
@@ -149,7 +145,7 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath
   }
    
-  override def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.shape);  gc.fillStyle = sf.colour.webStr; gc.fill }
+  override def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.segs);  gc.fillStyle = sf.colour.webStr; gc.fill }
    
   override def tlShapeDraw(sd: ShapeDraw): Unit =
   { segsPath(sd.segs)

@@ -47,28 +47,24 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
   override def tlPolyDraw(dp: PolyDraw): Unit =
   { gc.setStroke(toFxColor(dp.colour))
     gc.setLineWidth(dp.lineWidth)
-    gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLength)
+    gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLen)
   }
  
   override def tlPolyFillDraw(pfd: PolyFillDraw): Unit =
   { gc.setFill(toFxColor(pfd.fillColour))
-    gc.fillPolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)
+    gc.fillPolygon(pfd.xArray, pfd.yArray, pfd.vertsLen)
     gc.setStroke(toFxColor(pfd.lineColour))
     gc.setLineWidth(pfd.lineWidth)
-    gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLength)
+    gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLen)
   }
 
   override def tlVec2sDraw(pod: Vec2sDraw): Unit =
-  {
-    if (pod.length > 0)
-    {
-      gc.beginPath
-      gc.moveTo(pod.xStart, pod.yStart)
-      pod.foreachEnd(gc.moveTo)
-      gc.setStroke(toFxColor(pod.colour))
-      gc.setLineWidth(pod.lineWidth)
-      gc.stroke()//Think this is right but not sure.
-    }
+  { gc.beginPath
+    gc.moveTo(pod.xStart, pod.yStart)
+    pod.foreachEnd(gc.moveTo)
+    gc.setStroke(toFxColor(pod.colour))
+    gc.setLineWidth(pod.lineWidth)
+    gc.stroke()//Think this is right but not sure.    
   }
    
   override protected def tlLineDraw(ld: LineDraw): Unit =
@@ -157,7 +153,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
   }
    
   override def tlShapeFill(sf: ShapeFill): Unit =
-  { segsPath(sf.shape)
+  { segsPath(sf.segs)
     gc.setFill(toFxColor(sf.colour))
     gc.fill()
   }

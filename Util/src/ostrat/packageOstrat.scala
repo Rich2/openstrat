@@ -14,6 +14,7 @@ package object ostrat
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
+  @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()

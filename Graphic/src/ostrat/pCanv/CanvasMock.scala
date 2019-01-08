@@ -14,18 +14,18 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
     *  The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
    
    override def timeOut(f: () => Unit, millis: Integer): Unit = {}   
-   override def polyFill(pf: PolyFill): Unit = {}    
-   override def polyDraw(dp: PolyDraw): Unit = {}
-   override def polyFillDraw(pfd: PolyFillDraw): Unit = {}
-   override def vec2sDraw(pod: Vec2sDraw): Unit = {}
+   override def pPolyFill(pf: PolyFill): Unit = {}    
+   override def pPolyDraw(dp: PolyDraw): Unit = {}
+   override def pPolyFillDraw(pfd: PolyFillDraw): Unit = {}
+   override def pVec2sDraw(pod: Vec2sDraw): Unit = {}
    
    override def lineDraw(ld: LineDraw): Unit = {}
    override def arcDraw(ad: ArcDraw): Unit = {}
    override def bezierDraw(bd: BezierDraw): Unit = {}
    override def linesDraw(lsd: LinesDraw): Unit = {}
-   override def shapeFill(sf: ShapeFill): Unit = {}
-   override def shapeFillDraw(sfd: ShapeFillDraw): Unit = {}
-   override def shapeDraw(sd: ShapeDraw): Unit = {}
+   override def pShapeFill(sf: ShapeFill): Unit = {}
+   override def pShapeFillDraw(sfd: ShapeFillDraw): Unit = {}
+   override def pShapeDraw(sd: ShapeDraw): Unit = {}
    override def textGraphic(tg: TextGraphic) = {} 
    override def textOutline(to: TextOutline): Unit = {}
    override def dashedLineDraw(dld: DashedLineDraw): Unit = {}

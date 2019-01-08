@@ -12,17 +12,22 @@ trait GraphicElem[A] extends Any with Transable[A]
 /* Base trait for all passive objects  on a canvas / panel */
 trait PaintElem[A] extends Any with GraphicElem[A]
 
-case class ShapeFill(shape: Shape, colour: Colour, zOrder: Int = 0) extends PaintElem[ShapeFill]// with Stringer
-{ def typeSym = 'ShapeFill
-  //def str = persist2(shape, colour)
-  override def fTrans(f: Vec2 => Vec2) = ShapeFill(shape.fTrans(f), colour, zOrder)  
+trait ShapeElem[A] extends Any with PaintElem[A]
+{
+  def segs: Shape
+  def segsLen: Int = segs.length
 }
 
-case class ShapeDraw(segs: Shape, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[ShapeDraw]
+case class ShapeFill(segs: Shape, colour: Colour, zOrder: Int = 0) extends ShapeElem[ShapeFill]
+{ def typeSym = 'ShapeFill  
+  override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), colour, zOrder)  
+}
+
+case class ShapeDraw(segs: Shape, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends ShapeElem[ShapeDraw]
 { override def fTrans(f: Vec2 => Vec2) = ShapeDraw(segs.fTrans(f), lineWidth, colour, zOrder) }
 
 case class ShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) extends
-PaintElem[ShapeFillDraw]
+ShapeElem[ShapeFillDraw]
 {
   override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
 }

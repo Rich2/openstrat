@@ -39,18 +39,28 @@ trait CanvasPlatform extends RectGeom
   }
   
   var textMin: Int = 10
+  
+  final def polyFill(pf: PolyFill): Unit = oif(pf.ifv3, pPolyFill(pf))
+  final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))  
+  def pPolyFill(pf: PolyFill): Unit
+  
+  final def polyDraw(dp: PolyDraw): Unit = oif(dp.ifv2, pPolyDraw(dp))
+  final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))  
+  def pPolyDraw(dp: PolyDraw): Unit
+  
+  final def polyFillDraw(pfd: PolyFillDraw): Unit = pfd.vertsLen match
+  { case 0 | 1 =>
+    case 2 => polyDraw(pfd.noFill)
+    case _ => pPolyFillDraw(pfd)
+  }
+  def pPolyFillDraw(pfd: PolyFillDraw): Unit
+//  def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
+//    textGraphic(str, fontSize, pts.polyCentre, fontColour)
    
-  final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))
-  def polyFill(pf: PolyFill): Unit
-  final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))
-  def polyDraw(dp: PolyDraw): Unit
-  def polyFillDraw(pfd: PolyFillDraw): Unit
-  def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
-    textGraphic(str, fontSize, pts.polyCentre, fontColour)
-   
-  def vec2sDraw(pod: Vec2sDraw): Unit
+  def vec2sDraw(pod: Vec2sDraw): Unit = oif(pod.vec2s.length >= 2, pVec2sDraw(pod))
   final def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
     vec2sDraw(Vec2sDraw(LineSegs(pStart, pEnds :_*), lineWidth, colour))
+  def pVec2sDraw(pod: Vec2sDraw): Unit  
    
   def lineDraw(ld: LineDraw): Unit
   final def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =
@@ -67,16 +77,19 @@ trait CanvasPlatform extends RectGeom
   def linesDraw(lsd: LinesDraw): Unit
   final def linesDraw(lineWidth: Double, linesColour: Colour, lines: Line2 *): Unit = linesDraw(LinesDraw(Line2s(lines: _*), lineWidth, linesColour))
    
-  def shapeFill(sf: ShapeFill): Unit
-  final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(Shape(segs: _*), fillColour)) 
+  final def shapeFill(sf: ShapeFill): Unit = oif(sf.segsLen > 0, pShapeFill(sf))
+  final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(Shape(segs: _*), fillColour))
+  def pShapeFill(sf: ShapeFill): Unit
    
-  def shapeDraw(sd: ShapeDraw): Unit
+  final def shapeDraw(sd: ShapeDraw): Unit = oif(sd.segsLen > 0, pShapeDraw(sd))
   final def shapeDraw(lineWidth: Double, borderColour: Colour, segs: CurveSeg *): Unit =
     shapeDraw(ShapeDraw(Shape(segs: _*), lineWidth, borderColour))
+  def pShapeDraw(sd: ShapeDraw): Unit  
    
-  def shapeFillDraw(sfd: ShapeFillDraw): Unit
+  final def shapeFillDraw(sfd: ShapeFillDraw): Unit = oif(sfd.segsLen > 0, pShapeFillDraw(sfd))
   final def shapeFillDraw(fillColour: Colour, lineWidth: Double, borderColour: Colour, segs: CurveSeg*): Unit =
     shapeFillDraw(ShapeFillDraw(Shape(segs: _*), fillColour, lineWidth, borderColour, 1))
+  def pShapeFillDraw(sfd: ShapeFillDraw): Unit  
    
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = TextCen): Unit =
