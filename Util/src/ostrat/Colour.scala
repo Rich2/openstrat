@@ -20,6 +20,13 @@ class Colour(val argbValue: Int) extends AnyVal //with Stringer
   def setAlpha(newAlpha: Int): Colour = Colour((argbValue & 0xFFFFFF) | (newAlpha << 24))
   def contrastBW: Colour = ife((red + green + blue) > 128 * 3, Colour.Black, Colour.White)
   def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
+  def nextFrom(seq: Colours): Colour = seq.findIndex(this) match
+  {
+    case NoInt => seq(0)
+    case SomeInt(i) if i >= seq.length - 1 => seq(0)
+    case SomeInt(i) => seq(i + 1)
+  }
+  def nextFromRainbow: Colour = nextFrom(Colour.rainbow)
   
   def contrast: Colour =
   {
@@ -86,7 +93,7 @@ object Colour
    def apply(argbValue: Int) = new Colour(argbValue)   
    def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
    def blackOrWhite(b: Boolean): Colour = if (b) Black else White
-   def rainbow: List[Colour] = List(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
+   def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
       
    val AntiqueWhite: Colour = new Colour(0xFFFAEBD7)
    val Aqua: Colour = new Colour(0xFF00FFFF)

@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
-import ostrat._, geom._, pCanv._, Colour._
+import ostrat._, geom._, pCanv._
 
 case class LessonC5(canv: CanvasPlatform) extends CanvasSimple("Lesson C5")
 {
@@ -18,7 +18,7 @@ case class LessonC5(canv: CanvasPlatform) extends CanvasSimple("Lesson C5")
   {
     s.foreach{ obj =>
       val r = obj.asInstanceOf[ARect] 
-      rList = rList.replace(r, r.mutateColour(r.colour.nextFromList(rainbow)))
+      rList = rList.replace(r, r.mutateColour(r.colour.nextFromRainbow))
     }    
     repaint(gList :+ startText)          
   }
