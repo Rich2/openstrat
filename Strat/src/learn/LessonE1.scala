@@ -7,16 +7,23 @@ case class LessonE1(canv: CanvasPlatform) extends CanvasSimple("Lesson E1")
 {  
   var state = ScenE1(0 vv 0, Vec2s())
   def disp = List(Rectangle.curvedCorners(80, 50, 15, state.posn).fill(Red), state.dropSeq.draw(2, Green))
-  repaint(disp)  
+  repaint(disp)
+  
+  mouseUp = (v, b, s) => b match 
+  {
+    case LeftButton => {state = state.move(v); repaint(disp) }
+    case MiddleButton => { state = state.drop; repaint(disp); deb("Repainted") }
+    case _ =>
+  }
 }
 
 case class ScenE1(posn: Vec2, dropSeq: Vec2s)
 {
-  /** Move to a new posn if no greater than 100 pixel distant */
+  /** Move to a new posn if no greater than 150 pixel distant */
   def move(toPosn: Vec2): ScenE1 =
   {
     val len = (toPosn  - posn).magnitude 
-    val newPosn = ife(len > 100, posn, toPosn)
+    val newPosn = ife(len > 150, posn, toPosn)
     ScenE1(newPosn, dropSeq)
   }
   

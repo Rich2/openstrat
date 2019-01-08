@@ -120,7 +120,7 @@ trait ValueProducts[A] extends Any
   } 
   
   
-  /** Counts the number of elements that fullfill the condition A => Boolean */
+  /** Counts the number of elements that fulfil the condition A => Boolean */
   def filterCount(f: A => Boolean): Int =
   { var count = 0
     foreach(el => if (f(el)) count += 1)

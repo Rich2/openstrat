@@ -13,7 +13,7 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
 case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
 {
   val r1 = ARect(-300 vv 300)
-  val r2  = ARect(300 vv 300)
+  val r2 = ARect(300 vv 300)
   val r3 = ARect(300 vv -300)
   val r4 = ARect(-300 vv -300)
   var rList = List(r1, r2, r3, r4)
@@ -22,7 +22,9 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
   repaint(gList :+ startText)
   
-  mouseUp = (v, b, s) => s match
+  /** Note you can use what names you like. Here I put the types explicitly for clarity. When you are familiar with an anonymous function, you will
+   *  probably want to use a short parameter list like (v, b, s).  */
+  mouseUp = (posn: Vec2, button: MouseButton, selected: List[AnyRef]) => selected match
   {
     case (r: ARect) :: tail =>
       {
