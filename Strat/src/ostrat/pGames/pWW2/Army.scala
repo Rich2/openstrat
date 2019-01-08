@@ -17,5 +17,6 @@ class Army(val polity: Polity, var cood: Cood)
 
 object Army
 {
-   def apply(polity: Polity, cood: Cood = Cood00): Army = new Army(polity, cood) 
+   def apply(polity: Polity, cood: Cood = Cood00): Army = new Army(polity, cood)
+   
 }
