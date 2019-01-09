@@ -11,15 +11,13 @@ case class DispStill(fDisp: () => Unit) extends DispPhase
 /** A virtual panel created from the Canvas implemented using the clip function */
 case class Panel(private val outerCanv: CanvasMulti, clipPoly: Polygon, simple: Boolean = false, cover: Boolean = true) extends PanelLike
 {
-   override def toString: String = "Panel:" -- clipPoly.toString
-   val cen: Vec2 = clipPoly.polyCentre
-   def width = clipPoly.boundingWidth
-   def height = clipPoly.boundingHeight
-   def repaint(els: List[GraphicElem[_]]): Unit =
-   {
-      canvObjs = els
-      outerCanv.refreshPanel(this)
-   }
+  override def toString: String = "Panel:" -- clipPoly.toString
+  val cen: Vec2 = clipPoly.polyCentre
+  def width = clipPoly.boundingWidth
+  def height = clipPoly.boundingHeight
+   
+  def repaint(els: List[GraphicElem[_]]): Unit = { canvObjs = els; outerCanv.refreshPanel(this) }
+  def repaints(els: GraphicElem[_]*): Unit = repaint(els.toList)   
 }
 
 case class MButtonCmd(cmd: MouseButton => Unit)

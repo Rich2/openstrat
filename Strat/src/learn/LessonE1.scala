@@ -7,8 +7,8 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
 {
   import e1._
   var state = Scen(0 vv 0, Red)
-  var cmd: Option[TurnCmd] = null
-  var statusText = "Left click to move. Middle or right click to cycle colour."  
+  var cmd: Option[TurnCmd] = None
+  var statusText = "Left click to set action to Move. Middle or right click to set action to CycleColour."  
   def rect = Rectangle.curvedCorners(80, 50, 15, state.posn)
   
   def cmdDisp = cmd match
@@ -17,7 +17,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
     case Some(CycleColour) => rect.draw(4, state.nextColour) :: Nil
     case _ => Nil
   }
-  topPan.repaint(status :: Nil)
+  reTop(List(StdButton.turn, status))
   def disp() = mainPanel.repaint(List(rect.fill(state.colour)) ::: cmdDisp)
   disp()
   

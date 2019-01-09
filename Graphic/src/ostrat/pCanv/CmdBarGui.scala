@@ -12,4 +12,15 @@ abstract class CmdBarGui(title: String) extends CanvasMulti(title)
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
   def status = textBox(statusText, Unit)
   val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
+  /**  repaints the top command bar */
+   def reTop(commands: List[GraphicSubject[_]]): Unit = topPan.repaint(DisplayRow(10, commands).fromLeft(topPan.cenLeft))
 }
+
+object StdButton
+{
+  def apply(str: String, cmd: AnyRef) =
+      Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
+  def turn = apply("Turn", Turn)    
+}
+
+object Turn
