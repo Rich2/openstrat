@@ -4,29 +4,50 @@ import ostrat._, geom._, pCanv._, Colour._
 
 /** E Series lessons deal with games. */
 case class LessonE1(canv: CanvasPlatform) extends CanvasSimple("Lesson E1")
-{  
-  var state = ScenE1(0 vv 0, Red)
+{
+  import e1._
+  var state = Scen(0 vv 0, Red)
+  var cmd: Option[TurnCmd] = null
   val tg = TextGraphic("Left click within 200 pixels to move. Middle or right click to cycle colour.", 24, 0 vv 300)
-  def disp() = repaint(List(tg, Rectangle.curvedCorners(80, 50, 15, state.posn).fill(state.colour)))
+  def rect = Rectangle.curvedCorners(80, 50, 15, state.posn)
+  def cmdDisp = cmd match
+  {
+    case Some(Move(v)) => Arrow.draw(state.posn, v, zOrder = -1) :: Nil
+    case Some(CycleColour) => rect.draw(4, state.nextColour) :: Nil
+    case _ => Nil
+  }
+  def disp() = repaint(List(tg, rect.fill(state.colour)) ::: cmdDisp)
   disp()
   
   mouseUp = (v, b, s) => b match 
   {
-    case LeftButton => {state = state.move(v); disp() }
-    case _ => { state = state.cycleColour; disp() }   
+    case LeftButton => {cmd = Some(Move(v)); disp() }
+    case _ => { cmd = Some(CycleColour); disp() }   
   }
 }
-
-case class ScenE1(posn: Vec2, colour: Colour)
+package e1
 {
-  /** Move to a new posn if no greater than 150 pixel distant */
-  def move(toPosn: Vec2): ScenE1 =
+  case class Scen(posn: Vec2, colour: Colour)
   {
-    val len = (toPosn  - posn).magnitude 
-    val newPosn = ife(len > 150, posn, toPosn)
-    ScenE1(newPosn, colour)
+    /** Move to a new posn if no greater than 150 pixel distant */
+    def turn(cmd: TurnCmd): Scen = cmd match
+    {
+      case Move(toPosn) =>
+      {
+        val len = (toPosn  - posn).magnitude 
+        val newPosn = ife(len > 150, posn, toPosn)
+        Scen(newPosn, colour)
+      }   
+      case CycleColour => Scen(posn, nextColour)
+    
+    }
+    def nextColour: Colour = colour.nextFromRainbow
   }
   
-  def cycleColour: ScenE1 = ScenE1(posn, colour.nextFromRainbow)
+  sealed trait TurnCmd
+  case object CycleColour extends TurnCmd
+  case class Move(toPosn: Vec2) extends TurnCmd
 }
+
+
 

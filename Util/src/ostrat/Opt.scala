@@ -17,6 +17,7 @@ class OptRef[A <: AnyRef](val ref: A) extends AnyVal with Opt[A]
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
 }
 
+
 sealed trait OptInt extends Opt[Int]
 {
   def + (operand: OptInt): OptInt = combine(operand, _ + _)

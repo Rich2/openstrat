@@ -5,14 +5,14 @@ package geom
 object Arrow
 {
   def draw(startPt: Vec2, endPt: Vec2, headAngle: Angle = 30.degs, hypLength: Double = 20, lineWidth: Double = 2,
-      lineColour: Colour = Colour.Black): LinesDraw =
+      lineColour: Colour = Colour.Black, zOrder: Int = 0): LinesDraw =
   {
     val mainLine = Line2(startPt, endPt)
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)    
     val leftLine: Line2 = Line2(endPt, leftVert)    
     val rightLine: Line2 = Line2(endPt, rightVert)
     val segs: Line2s = Line2s(mainLine, leftLine, rightLine)    
-    LinesDraw(segs, lineWidth, lineColour)  
+    LinesDraw(segs, lineWidth, lineColour, zOrder)  
   }
   
   def headVerts(startPt: Vec2, endPt: Vec2, headAngle: Angle = 30.degs, hypLength: Double = 20): (Vec2, Vec2) =
