@@ -1,8 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pCanv
-import geom._
-import Colour._
+import geom._, Colour._
 
 /** A MapGui uses a CanvLike and in addition translates between 2d game coordinates and 2d coordinates on the canvas. Allowing the canvas
  *  to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the y coordinate increases from
@@ -27,7 +26,7 @@ abstract class MapGui(title: String) extends CanvasMulti(title)
    def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
    def mapObjs: GraphicElems
    //def updateView(): Unit = {repaintMap; setStatus(viewStr) }
-   def eTop(): Unit //= {}
+   def eTop(): Unit
    def setStatus(str: String): Unit = 
    {
       println(str)
