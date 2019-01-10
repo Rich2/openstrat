@@ -21,6 +21,8 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   def disp() = mainPanel.repaint(List(rect.fill(state.colour)) ::: cmdDisp)
   disp()
   
+  topBar.mouseUp = (v, b , s) =>{}
+  
   mainPanel.mouseUp = (v, b, s) => b match 
   {
     case LeftButton => {cmd = Some(Move(v)); disp() }

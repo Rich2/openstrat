@@ -6,14 +6,14 @@ import geom._, Colour._
 abstract class CmdBarGui(title: String) extends CanvasMulti(title)
 {
   val barWidth = 30
-  val topPan = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
-  topPan.backColour = Gray
+  val topBar = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
+  topBar.backColour = Gray
   var statusText: String
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
   def status = textBox(statusText, Unit)
   val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   /**  repaints the top command bar */
-   def reTop(commands: List[GraphicSubject[_]]): Unit = topPan.repaint(DisplayRow(10, commands).fromLeft(topPan.cenLeft))
+   def reTop(commands: List[GraphicSubject[_]]): Unit = topBar.repaint(DisplayRow(10, commands).fromLeft(topBar.cenLeft))
 }
 
 object StdButton
