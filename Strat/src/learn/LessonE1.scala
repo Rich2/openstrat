@@ -6,7 +6,7 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
 {
   import e1._
-  var state = Scen(0 vv 0, Red)
+  var state: Scen = Scen.start
   var cmd: Option[TurnCmd] = None
   var statusText = "Left click to set action to Move. Middle or right click to set action to CycleColour."  
   def rect = Rectangle.curvedCorners(80, 50, 15, state.posn)
@@ -29,7 +29,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
 }
 package e1
 {
-  case class Scen(posn: Vec2, colour: Colour)
+  case class Scen(turnNum: Int, posn: Vec2, colour: Colour)
   {
     /** Move to a new posn if no greater than 150 pixel distant */
     def turn(cmd: TurnCmd): Scen = cmd match
@@ -39,12 +39,17 @@ package e1
         val len = diff.magnitude
         val max = 150
         val newPosn = ife(len > max, posn + toPosn * max / len, toPosn)
-        Scen(newPosn, colour)
+        Scen(turnNum + 1, newPosn, colour)
       }   
-      case CycleColour => Scen(posn, nextColour)
+      case CycleColour => Scen(turnNum + 1, posn, nextColour)
     
     }
     def nextColour: Colour = colour.nextFromRainbow
+  }
+  
+  object Scen
+  {
+    def start = Scen(0, 0 vv 0, Red)
   }
   
   sealed trait TurnCmd
