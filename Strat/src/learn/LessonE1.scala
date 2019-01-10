@@ -21,7 +21,11 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   def disp() = mainPanel.repaint(List(rect.fill(state.colour)) ::: cmdDisp)
   disp()
   
-  topBar.mouseUp = (v, b , s) =>{}
+  topBar.mouseUp = (v, b , s) => s match
+  {
+    case h :: Nil => deb("Hit")
+    case _ => deb("Miss")
+  }
   
   mainPanel.mouseUp = (v, b, s) => b match 
   {
@@ -58,6 +62,3 @@ package e1
   case object CycleColour extends TurnCmd
   case class Move(toPosn: Vec2) extends TurnCmd
 }
-
-
-

@@ -23,7 +23,7 @@ abstract class CanvasMulti(title: String) extends CanvasUser(title)
           {
             case Seq(f: Function0[_]) => f()
             case Seq(cmd: MButtonCmd) => cmd(b)
-            case obj => println(obj.toString + " not recognised")
+            case obj => deb(obj.toString + " not recognised")
           }
         case _ => pan.mouseUp(v, b, objs)
       }
