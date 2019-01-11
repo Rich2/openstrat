@@ -3,8 +3,15 @@ package ostrat
 
 /** mostly you will want to use Persist which not only igves the Show methods to String represntation, but the methods to parse Strings back to 
  *  objects of the type T. However it may often be useful to start with Show and upgrade it later to Persist[T]. */
-abstract class Show[T]
+trait Show[T]
 {
   /** Provides the standard string representation for the object */
   def persist(obj: T): String
 }
+
+abstract class ShowSingleton[T](objSym: Symbol)
+{
+  def str: String = objSym.name
+  override def toString: String = objSym.name
+}
+

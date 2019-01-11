@@ -20,7 +20,7 @@ object StdButton
 {
   def apply(str: String, cmd: AnyRef) =
       Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
-  def turn = apply("Turn", Turn)    
+  def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 
-object Turn
+object Turn extends ShowSingleton('Turn)

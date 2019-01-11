@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-class TestClass(val objSym: Symbol) extends StringerSingleton
+class TestClass(val objSym: Symbol) extends SingletonLeaf
 {
   def typeSym = 'TestClass
 }

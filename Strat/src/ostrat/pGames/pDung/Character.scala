@@ -4,14 +4,14 @@ package pGames
 package pDung
 import pGrid._, SqCode._, Colour._
 
-sealed class Faction(val objSym: Symbol, val colour: Colour) extends StringerSingleton
+sealed class Faction(val objSym: Symbol, val colour: Colour) extends SingletonLeaf
 { def typeSym = 'Faction  
 }
 
 object Fac1 extends Faction('Fac1, Orange)
 object Fac2 extends Faction('Fac2, Green)
 
-class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yCood: Int = 0) extends CoodMover with StringerSingleton
+class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yCood: Int = 0) extends CoodMover with SingletonLeaf
 { def typeSym = 'Character
   def colour = faction.colour
   var facing: Facing = FaceUp

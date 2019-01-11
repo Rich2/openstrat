@@ -3,7 +3,7 @@ package ostrat
 package pGames
 package pWW2
 
-trait Polity extends StringerSingleton
+trait Polity extends SingletonLeaf
 { def typeSym = 'Polity
   def colour: Colour
 }

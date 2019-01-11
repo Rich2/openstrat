@@ -4,7 +4,7 @@ package pGames
 package p1783
 import Colour._
 
-trait Polity extends StringerSingleton
+trait Polity extends SingletonLeaf
 {
    def colour: Colour
    def typeSym = 'Polity

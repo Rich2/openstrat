@@ -5,7 +5,7 @@ package pDung
 import Colour._
 import pGrid._
 
-sealed trait DTerr extends AnyRef with StringerSingleton
+sealed trait DTerr extends AnyRef with SingletonLeaf
 { def typeSym = 'DTerr
   def colour: Colour
 }

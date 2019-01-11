@@ -17,14 +17,18 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
     case Some(CycleColour) => rect.draw(4, state.nextColour) :: Nil
     case _ => Nil
   }
-  reTop(List(StdButton.turn, status))
-  def disp() = mainPanel.repaint(List(rect.fill(state.colour)) ::: cmdDisp)
+  
+  def disp() =
+  { reTop(List(StdButton.turn(state.turnNum + 1), status))
+    mainPanel.repaint(List(rect.fill(state.colour)) ::: cmdDisp)
+  }
+  
   disp()
   
   topBar.mouseUp = (v, b , s) => s match
   {
-    case h :: Nil => deb("Hit")
-    case _ => deb("Miss")
+    case Turn :: Nil => { state = state.turn(cmd); cmd = None; disp() }
+    case _ => 
   }
   
   mainPanel.mouseUp = (v, b, s) => b match 
@@ -38,17 +42,17 @@ package e1
   case class Scen(turnNum: Int, posn: Vec2, colour: Colour)
   {
     /** Move to a new posn if no greater than 150 pixel distant */
-    def turn(cmd: TurnCmd): Scen = cmd match
+    def turn(cmd: Option[TurnCmd]): Scen = cmd match
     {
-      case Move(toPosn) =>
+      case Some(Move(toPosn)) =>
       { val diff = toPosn  - posn
         val len = diff.magnitude
         val max = 150
         val newPosn = ife(len > max, posn + toPosn * max / len, toPosn)
         Scen(turnNum + 1, newPosn, colour)
       }   
-      case CycleColour => Scen(turnNum + 1, posn, nextColour)
-    
+      case Some(CycleColour) => Scen(turnNum + 1, posn, nextColour)
+      case _ => copy(turnNum + 1)
     }
     def nextColour: Colour = colour.nextFromRainbow
   }
