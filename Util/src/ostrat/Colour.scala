@@ -2,10 +2,9 @@
 package ostrat
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal //with Stringer 
-{ //def typeSym = 'Colour
-  //def str = typeStr + hexStr.enParenth
-  override def toString = Colour.ColourPersistImplicit.persist(this)
+class Colour(val argbValue: Int) extends AnyVal 
+{ 
+  override def toString: String = Colour.ColourPersistImplicit.persist(this)
   def webStr: String = "#" - hexStr
   def canEqual(a: Any) = a.isInstanceOf[Colour]
   def alpha: Int = (argbValue >> 24) & 0xFF
