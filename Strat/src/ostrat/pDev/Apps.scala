@@ -57,10 +57,11 @@ object Apps
       (65, (learn.LessonD5(_), "ScalaFx Demonstration Persistence 5")),
       
       (71, (learn.LessonE1(_), "ScalaFx Demonstration Games 1")), //Building turn based games.
+      (72, (learn.LessonE2(_), "ScalaFx Demonstration Games 2")),
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 71
+  val appNum: Int = 72
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

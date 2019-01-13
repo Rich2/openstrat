@@ -10,7 +10,6 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   var cmd: Option[TurnCmd] = None
   var statusText = "Left click to set action to Move. Middle or right click to set action to CycleColour."  
   
-  
   def cmdDisp = cmd match
   {
     case Some(Move(v)) => Arrow.draw(state.posn, v, zOrder = -1) :: Nil
