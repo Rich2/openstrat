@@ -50,7 +50,8 @@ lazy val Graphic = projJvm("Graphic").dependsOn(Util).settings(
 
 lazy val GraphicJs = projJs("GraphicJs").dependsOn(UtilJs)
 
-lazy val Strat = projJvm("Strat").dependsOn(Graphic % "test->test;compile->compile").settings(	
+lazy val Strat = projJvm("Strat").dependsOn(Graphic % "test->test;compile->compile").settings(
+  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   // include the macro classes and resources in the main jar
   mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,
   // include the macro sources in the main source jar

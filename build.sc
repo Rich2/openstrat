@@ -68,6 +68,7 @@ object Graphic extends PlatformsModule
 object Strat extends PlatformsModule
 {
    def moduleDeps = Seq(Graphic)
+   def mainClass = Some("ostrat.pFx.DevApp")
   
   object test extends InnerTests
   {  //def moduleDeps = Seq(Graphic.test, Core)   
