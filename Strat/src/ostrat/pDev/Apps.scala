@@ -20,7 +20,7 @@ object Apps
       (7, (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),         
       (8, (ColourGen(_), "ScalaFx Some Colours")),
       (9, (pGames.p305.BC305Gui(_, pGames.p305.Bc1), "BC 305")),
-      (10, (pGames.pCard.BlackJack(_), "ScalaFx BlackJack")),
+      (10, (pGames.pCard.BlackJackGui(_), "ScalaFx BlackJack")),
       (11, (new pGames.pChess.DraughtsGui(_), "Draughts")),
       
       (20, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
@@ -61,7 +61,7 @@ object Apps
   )
   
   /** Change appNum to change the loaded application. */
-  val appNum: Int = 71
+  val appNum: Int = 11
 
   def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
 }

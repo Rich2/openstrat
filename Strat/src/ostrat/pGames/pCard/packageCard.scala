@@ -6,5 +6,4 @@ package pGames
 package object pCard
 {
    type Cards = Seq[Card]
-  //type Els = Seq[pDisp.CanvEl]
 }

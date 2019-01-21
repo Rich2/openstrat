@@ -25,7 +25,8 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
   
   implicit class AdjInt(i: Int){ def adj = i - rowCen}
   
-  val stuff = DGrid.start.squares(tileWidth)
+  val grid = DGrid.start
+  val stuff = grid.squares(tileWidth)// ::: grid.
 //  start.flatMap
 //  {
 //    case DarkSq(x, y, Some(p))  => List(

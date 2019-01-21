@@ -36,12 +36,13 @@ class DGrid(val arr: Array[Draught]) extends AnyVal
   }
   def squares(tileWidth: Double): List[PolyFill] =
   {
-    val seq = for {
-    x <- 1 to 8
-    y <- 1 to 8
-  } yield Square.fill(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth)
+    val seq = for
+    { x <- 1 to 8
+      y <- 1 to 8
+     }  yield Square.fill(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth)
      seq.toList
   }
+  def pieces(tileWidth: Double): List[PolyFill] = ???
   //def flatMap[A](f: Draught => List[A]): List[A] 
 }
 

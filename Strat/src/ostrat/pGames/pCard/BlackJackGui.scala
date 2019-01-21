@@ -7,7 +7,7 @@ import Colour.Black
 import pCanv._
 
 
-case class BlackJack(canv: CanvasPlatform) extends CanvasSimple("BlackJack")
+case class BlackJackGui(canv: CanvasPlatform) extends CanvasSimple("BlackJack")
 {      
    val (hand, deck) = Card.newShuffled.takeCards(5)
    hand.iMap((c, i) => TextGraphic(c.unicode.mkString, 100, 50 + 100 * i vv 100, c.suitColour))
