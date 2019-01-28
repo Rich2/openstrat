@@ -22,9 +22,9 @@ trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, 
   def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale && b) cObjs else Nil
   def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElems = if (tScale > ifScale && b) cObjs.toList else Nil
   
-  def ifScaleOptObj[A](ifScale: Double, optA: Opt[A])(f: A => CanvO): GraphicElems = if (tScale < ifScale) Nil else optA.fold(Nil, a => List(f(a)))
+  def ifScaleOptObj[A <: AnyRef](ifScale: Double, optA: Opt[A])(f: A => CanvO): GraphicElems = if (tScale < ifScale) Nil else optA.fold(Nil, a => List(f(a)))
     
-  def ifScaleOptObjs[A](ifScale: Double, optA: Opt[A])(f: A => GraphicElems): GraphicElems =
+  def ifScaleOptObjs[A <: AnyRef](ifScale: Double, optA: Opt[A])(f: A => GraphicElems): GraphicElems =
     if (tScale < ifScale) Nil else optA.fold(Nil, f(_))
 }
 

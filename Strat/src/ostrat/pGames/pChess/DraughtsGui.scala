@@ -2,39 +2,28 @@
 package ostrat
 package pGames
 package pChess
-import pGrid._, pCanv._, Colour._
+import pCanv._, Colour._
 
 case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
 {
   var player = true
 
   val darkSquareColour = Brown
-  val lightSquareColour = Pink
-    
-  val rowSize = 8
-  val rowCen = (1.0 + rowSize) / 2.0
-  val margin = 15
-  val tileWidth = ((height.min(width) - margin * 2).max(100) / rowSize)
+  val lightSquareColour = Pink  
   
-  val tiles: Seq[CheckersSq] = for { y <- 1 to rowSize; x <- 1 to rowSize } yield Cood(x, y) match
-  { case c @ Cood(x, y) if c.evenSum & y <= 3 => DarkSq(x, y, Some(BlackPiece))
-    case c @ Cood(x, y) if c.evenSum & y >= 6 => DarkSq(x, y, Some(WhitePiece))
-    case c @ Cood(x, y) if c.evenSum          => DarkSq(x, y, None)
-    case c @ Cood(x, y)                           => LightSq(x, y)          
-  }
-  
-  implicit class AdjInt(i: Int){ def adj = i - rowCen}
+//  val tiles: Seq[CheckersSq] = for { y <- 1 to rowSize; x <- 1 to rowSize } yield Cood(x, y) match
+//  { case c @ Cood(x, y) if c.evenSum & y <= 3 => DarkSq(x, y, Some(BlackPiece))
+//    case c @ Cood(x, y) if c.evenSum & y >= 6 => DarkSq(x, y, Some(WhitePiece))
+//    case c @ Cood(x, y) if c.evenSum          => DarkSq(x, y, None)
+//    case c @ Cood(x, y)                           => LightSq(x, y)          
+//  }  
   
   val grid = DGrid.start
-  val stuff = grid.squares(tileWidth)// ::: grid.
-//  start.flatMap
-//  {
-//    case DarkSq(x, y, Some(p))  => List(
-//        Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
-//        Circle.fillSubj(tileWidth / 1.6, p, p.colour, tileWidth * x.adj, tileWidth * y.adj)) 
-//    case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
-//    case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
-//  }
+  
+  val margin = 15
+  val tileWidth = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
+  
+  val stuff = grid.squares(tileWidth)// ::: grid. 
   
 //  val stuff = DGrid.start.flatMap
 //  {

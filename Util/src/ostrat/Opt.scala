@@ -1,25 +1,26 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait Opt[A] extends Any
-{ def fold[B](fNull: => B, fSome: A => B): B
-}
+//trait Opt[A] extends Any
+//{ def fold[B](fNull: => B, fSome: A => B): B
+//}
 
 object Opt
 {
-  def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value)
-  
+  //def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value)
+  def apply[A <: AnyRef](value: A): Opt[A] = new Opt(value)
 }
 
-class OptRef[A <: AnyRef](val ref: A) extends AnyVal with Opt[A]
+class Opt[A <: AnyRef](val ref: A) extends AnyVal// with Opt[A]
 {
-  override def fold[B](fNull: => B, fSome: A => B): B = if (ref == null) fNull else fSome(ref)
+  def fold[B](fNull: => B, fSome: A => B): B = if (ref == null) fNull else fSome(ref)
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
 }
 
 
-sealed trait OptInt extends Opt[Int]
+sealed trait OptInt //extends Opt[Int]
 {
+  def fold[B](fNull: => B, fSome: Int => B): B
   def + (operand: OptInt): OptInt = combine(operand, _ + _)
   def combine[B](operand: OptInt, f: (Int, Int) => Int) = this match
   { 
@@ -38,5 +39,6 @@ case class SomeInt(value: Int) extends OptInt
 }
 
 case object NoInt extends OptInt
-{ override def fold[B](fNull: => B, fSome: Int => B): B = fNull
+{ 
+  def fold[B](fNull: => B, fSome: Int => B): B = fNull
 }

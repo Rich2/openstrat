@@ -22,10 +22,10 @@ class Colours(val arr: Array[Int]) extends AnyVal
     }
     acc
   }
-  def findIndex(colour: Colour): Opt[Int] =
+  def findIndex(colour: Colour): OptInt =
   {
     var count = 0
-    var acc: Opt[Int] = NoInt
+    var acc: OptInt = NoInt
     var continue = true
     while (continue == true & count < length)
     {

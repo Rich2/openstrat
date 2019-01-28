@@ -82,4 +82,3 @@ def run() = Strat.runBackground()
 def test = Strat.test
 def jsfast = Strat.Js.fastOpt
 def jsfull = Strat.Js.fullOpt
-
