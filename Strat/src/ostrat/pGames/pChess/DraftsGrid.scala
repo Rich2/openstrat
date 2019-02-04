@@ -17,6 +17,12 @@ import Colour._, pGrid._, geom._
 //  }
 //}
 
+case class DTile(x: Int, y: Int) extends ColouredTile
+{
+  def darkTile: Boolean = (x + y).isEven
+  def colour: Colour = ife(darkTile, Red, White)
+}
+
 sealed class Draught(val colour: Colour) extends AnyRef
 object WhiteD extends Draught(White)
 object BlackD extends Draught(Black)

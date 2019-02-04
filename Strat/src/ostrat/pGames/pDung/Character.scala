@@ -16,7 +16,7 @@ class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yC
   def colour = faction.colour
   var facing: Facing = FaceUp
   val objSym: Symbol = Symbol("Character" -- iden.toString)
-  def canMove(tile: DTile): Boolean = tile.terr != Wall
+  def canMove(tile: DungTile): Boolean = tile.terr != Wall
   def turnMovePts = 10
   var movePts: Int = turnMovePts
   def resetMovePts(): Unit = movePts = turnMovePts

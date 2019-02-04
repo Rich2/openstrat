@@ -4,14 +4,14 @@ package pGames
 package pDung
 import geom._, pCanv._, pGrid._, SqCode._, Colour._
 
-class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungeonGrid](canv, Dungeon1, "Dungeon")
+class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DungTile, SideBare, DungeonGrid](canv, Dungeon1, "Dungeon")
 { 
   mapPanel.backColour = Black
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
   override def eTop(): Unit = reTop(guButs :+ status)
    
-  def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => GraphicElems = tog =>
+  def fSquare: OfSquareReg[DungTile, SideBare, DungeonGrid] => GraphicElems = tog =>
   { import tog._
     val colour: Colour = tile.colour
     val tv = vertDispVecs.fillSubj(tile, colour)
@@ -25,7 +25,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     List(tv) ++ tText ++ player ++ sides
   }
   
-  def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)
+  def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DungTile, SideBare, DungeonGrid]](fSquare)
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
@@ -34,14 +34,14 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
       statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
       eTop()
     }
-    case (RightButton, List(ch: Character), List(newTile: DTile)) if
+    case (RightButton, List(ch: Character), List(newTile: DungTile)) if
       adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
     { grid.getTile(ch.cood).charac = nullRef
       ch.cood = newTile.cood
       newTile.charac = Opt(ch)
       repaintMap      
     }
-    case (MiddleButton, List(ch: Character), List(newTile: DTile)) => optFace(ch.cood, newTile.cood) match
+    case (MiddleButton, List(ch: Character), List(newTile: DungTile)) => optFace(ch.cood, newTile.cood) match
     { case Some(face) => { ch.facing = face; repaintMap }      
       case _ => deb("Middle Button other")
     }
