@@ -1,12 +1,20 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
 
-abstract class SquareGridSimple[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
-   (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends  SquareGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
+/** A regular square grid containing only values for the tiles not for the boundaries between the tiles. */
+abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
+   (implicit val evTile: IsType[TileT]) extends SquareGrid[TileT] with TileGridReg[TileT]
 {
   override def xStep: Int = 1
+  //These need changing
+  def left: Double = xTileMin - 1.1
+  def right: Double = xTileMax + 1.1
+  def bottom: Double = yTileMin - 1.1
+  def top: Double = yTileMax + 1.1
+  
+  def getTile(x: Int, y: Int): TileT = evTile.asType(arr(xyToInd(x, y)))    
+  def getTile(tc: Cood): TileT = evTile.asType(arr(xyToInd(tc.x, tc.y)))
 }
 
 object SquareGridSimple

@@ -6,7 +6,7 @@ import geom._
 /** Although including the cood could be considered to break the principle of encapsulation, A tile should not need to know where it is in a grid. I
  *   think it is necessary. Although the cood is determined by its position in the array there is just no good way for this data to be recovered by
  *    the Grid for random access. I think also it might be better to change to a var */
-trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]]
+trait OfGridElem[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplex[TileT, SideT]]
 { def grid: GridT
   def cood: Cood   
   def coodToDispVec2(inp: Cood): Vec2
@@ -29,7 +29,7 @@ trait OfGridElem[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, 
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
-trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
+trait OfTile[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplex[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 { def tile: TileT    
   final def cood: Cood = tile.cood   
   def vertCoods: Coods = grid.vertCoodsOfTile(cood)
@@ -38,7 +38,7 @@ trait OfTile[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, Side
   def ownSideLines: List[Line2]
 }
 
-trait OfSide[TileT <: GridElem, SideT <: GridElem, GridT <: TileGrid[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
+trait OfSide[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplex[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 { def side: SideT    
   final def cood: Cood = side.cood   
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)

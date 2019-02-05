@@ -5,7 +5,8 @@ import pCanv._
 import geom._
 
 /** Gui for display of a single regular TileGrid */
-abstract class TileGridGui[TileT <: GridElem, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]](title: String) extends UnfixedMapGui(title)
+abstract class TileGridGui[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplexReg[TileT, SideT]](title: String) extends
+  UnfixedMapGui(title)
 {
   var grid: GridT//TileGrid[TileT]
   /** number of pixels per grid unit */

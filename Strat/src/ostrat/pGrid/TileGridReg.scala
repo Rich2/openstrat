@@ -4,8 +4,8 @@ package pGrid
 import geom._
 
 /** A regular tile grid, covering a flat Euclidean 2s surface as opposed to an earth based tile grid or other grid that is not mapping a flat 2d
- *  surface */
-trait TileGridReg[TileT <: GridElem, SideT <: GridElem] extends TileGrid[TileT, SideT]
+ *  surface. */
+trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
 {
   override def optTile(x: Int, y: Int): Option[TileT] = if (x >= xTileMin & x <= xTileMax & y >= yTileMin & y <= yTileMax )
     Some(getTile(x, y)) else None
@@ -25,3 +25,5 @@ trait TileGridReg[TileT <: GridElem, SideT <: GridElem] extends TileGrid[TileT, 
   def yCen = (top + bottom) / 2
   def cen: Vec2 = Vec2(xCen, yCen)
 }
+
+trait TileGridComplexReg[TileT <: Tile, SideT <: GridElem] extends TileGridComplex[TileT, SideT] with TileGridReg[TileT]

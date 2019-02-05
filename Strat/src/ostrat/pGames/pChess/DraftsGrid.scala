@@ -21,6 +21,7 @@ case class DTile(x: Int, y: Int) extends ColouredTile
 {
   def darkTile: Boolean = (x + y).isEven
   def colour: Colour = ife(darkTile, Red, White)
+  var piece: Option[Draught] = None
 }
 
 sealed class Draught(val colour: Colour) extends AnyRef
@@ -83,7 +84,7 @@ object DGrid
   }
 }
 
-class ChessGrid[TileT <: GridElem](length: Int) extends TileGridLike[TileT](1, length, 1, length)
+class ChessGrid[TileT <: Tile](length: Int)(implicit evTile: IsType[TileT]) extends SquareGridSimple[TileT](1, length, 1, length)
 {
    override def xArrLen: Int = length
    val arr = new Array[AnyRef](length *length)

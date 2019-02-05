@@ -5,7 +5,7 @@ import geom._
 
 class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
       implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
-      TileGridReg[TileT, SideT]
+      TileGridComplexReg[TileT, SideT]
 {
    override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
    def vertMargin = 0.7

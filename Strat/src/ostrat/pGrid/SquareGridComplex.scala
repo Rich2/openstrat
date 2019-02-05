@@ -1,22 +1,21 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
 
 /** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
-abstract class SquareGridComplex[TileT <: GridElem, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
-   (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends  SquareGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)
+abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
+  (implicit val evTile: IsType[TileT], val evSide: IsType[SideT]) extends TileGridComplexReg[TileT, SideT] with SquareGrid[TileT]
 {
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.sideCoodsOfTile(tileCood)   
-  override def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
+  
   override def xStep: Int = 2
   //override val xSideMin: Int = xTileMin - 2
   //override val xSideMax: Int = xTileMax + 2
    
-  override def left: Double = xTileMin - 1.1
-  override def right: Double = xTileMax + 1.1
+  def left: Double = xTileMin - 1.1
+  def right: Double = xTileMax + 1.1
   def bottom: Double = yTileMin - 1.1
   def top: Double = yTileMax + 1.1 
   override def xArrLen: Int = xTileMax - xTileMin + 2
