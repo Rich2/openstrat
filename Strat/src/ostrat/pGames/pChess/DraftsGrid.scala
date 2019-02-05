@@ -6,8 +6,6 @@ import Colour._, pGrid._, geom._
 
 class DGrid extends SquareGridSimple[DTile](1, 8, 1, 8)// extends AnyVal
 {  
- 
-  
   //def get(row: Int, col: Int): Option[Draught] = arr((row - 1) * 8 + col - 1)
   //def set(row: Int, col: Int, value: Option[Draught]): Unit = arr((row - 1) * 8 + col - 1) = value
   def setSome(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = Some(value)
