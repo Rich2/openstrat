@@ -18,9 +18,11 @@ trait TileGrid[TileT <: Tile]
   def xTileMax: Int
   def yTileMin: Int
   def yTileMax: Int
-  val arr: Array[AnyRef]
+  //val arr: Array[AnyRef]
   def evTile: IsType[TileT]
   def xArrLen: Int
+  def yArrLen: Int
+  lazy val arr: Array[AnyRef] = new Array[AnyRef](yArrLen * xArrLen)
   def xToInd(x: Int): Int
   def yToInd(y: Int): Int
   def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y)
