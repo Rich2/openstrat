@@ -6,12 +6,14 @@ import geom._
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
 abstract class HexGrid[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
 (implicit val evTile: IsType[TileT], val evSide: IsType[SideT]) extends TileGridComplex[TileT, SideT]//(xTileMin, xTileMax, yTileMin, yTileMax)   
-{   
+{
+  override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
+  override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)   
   override def xStep: Int = 4   
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
-  override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
+  
   override lazy val yRatio: Double = HexGrid.yRatio
    
   //def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(getTile(tr._1, tr._2), tr._3))      

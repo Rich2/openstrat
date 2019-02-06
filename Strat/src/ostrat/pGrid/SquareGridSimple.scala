@@ -6,15 +6,16 @@ package pGrid
 abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
    (implicit val evTile: IsType[TileT]) extends SquareGrid[TileT] with TileGridReg[TileT]
 {
+  override val yArrLen: Int = yTileMax - yTileMin + 1
+  override def xArrLen: Int = xTileMax - xTileMin + 1
+  override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def xStep: Int = 1
   //These need changing
   def left: Double = xTileMin - 1.1
   def right: Double = xTileMax + 1.1
   def bottom: Double = yTileMin - 1.1
-  def top: Double = yTileMax + 1.1
+  def top: Double = yTileMax + 1.1 
   
-  override val yArrLen: Int = yTileMax - yTileMin + 1
-  override def xArrLen: Int = xTileMax - xTileMin + 1
   def yToInd(y: Int): Int = (y  - yTileMin + 1) * xArrLen
   
   def getTile(x: Int, y: Int): TileT = evTile.asType(arr(xyToInd(x, y)))    

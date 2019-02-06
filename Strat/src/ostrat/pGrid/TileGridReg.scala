@@ -20,7 +20,7 @@ trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
    
   def width = right -left
   def height = top - bottom
-  lazy val diagLength = math.sqrt(width * width + height * height)
+  def diagLength = math.sqrt(width * width + height * height)
   def xCen = (left + right) / 2
   def yCen = (top + bottom) / 2
   def cen: Vec2 = Vec2(xCen, yCen)

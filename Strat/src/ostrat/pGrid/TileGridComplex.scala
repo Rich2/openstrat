@@ -9,7 +9,8 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
 {
    thisGrid => 
    /** Check Think this type is needed */   
-   type GridT <: TileGridComplex[TileT, SideT]
+   type GridT <: TileGridComplex[TileT, SideT]   
+   
    def evSide: IsType[SideT]
    def vertCoodsOfTile(tileCood: Cood): Coods
    def sideCoodsOfTile(tileCood: Cood): Coods
@@ -21,11 +22,8 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
    def coodIsTile(x: Int, y: Int): Unit   
    /** Throws exception if Cood is not a valid Tile coordinate */
    final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)   
-   
-   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
-      
-   def yToInd(y: Int): Int = (y  - yTileMin + 1) * xArrLen
-  
+   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)      
+   def yToInd(y: Int): Int = (y  - yTileMin + 1) * xArrLen  
    
    def setTile(x: Int, y: Int, tile: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
    def setTile(tc: Cood, tile: TileT): Unit = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
@@ -35,18 +33,15 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
    def setSide(x: Int, y: Int, side: SideT): Unit = { coodIsSide(x, y); arr(xyToInd(x, y)) = side }
    def setSide(sc: Cood, side: SideT): Unit = { coodIsSide(sc); arr(xyToInd(sc.x, sc.y)) = side }
    def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {coodIsSide(x, y); arr(xyToInd(x, y)) = f(x, y, value)}
-   def fSetSides[A](value: A, xys: Coods)(implicit f: (Int, Int, A) => SideT) = xys.foreach(p => fSetSide(p.x, p.y, value))
-   
+   def fSetSides[A](value: A, xys: Coods)(implicit f: (Int, Int, A) => SideT) = xys.foreach(p => fSetSide(p.x, p.y, value))   
    
    /** Throws exception if Cood is not a valid Tile coordinate */
    def coodIsSide(x: Int, y: Int): Unit
    /** Throws exception if Cood is not a valid Tile coordinate */
-   final def coodIsSide(cood: Cood): Unit = coodIsSide(cood.x, cood.y)  
-   
+   final def coodIsSide(cood: Cood): Unit = coodIsSide(cood.x, cood.y)   
   
    def getSide(x: Int, y: Int): SideT = evSide.asType(arr(xyToInd(x, y))) 
-   def getSide(tc: Cood): SideT = evSide.asType(arr(xyToInd(tc.x, tc.y)))
-   
+   def getSide(tc: Cood): SideT = evSide.asType(arr(xyToInd(tc.x, tc.y)))   
   
    def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
    def optSidesTiles(x: Int, y: Int): (Option[TileT], Option[TileT]) =

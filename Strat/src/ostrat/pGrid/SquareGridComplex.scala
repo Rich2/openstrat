@@ -7,18 +7,18 @@ package pGrid
 abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
   (implicit val evTile: IsType[TileT], val evSide: IsType[SideT]) extends TileGridComplexReg[TileT, SideT] with SquareGrid[TileT]
 {
+  override def xArrLen: Int = xTileMax - xTileMin + 2
+  override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.sideCoodsOfTile(tileCood)   
   
   override def xStep: Int = 2
-  //override val xSideMin: Int = xTileMin - 2
-  //override val xSideMax: Int = xTileMax + 2
    
   def left: Double = xTileMin - 1.1
   def right: Double = xTileMax + 1.1
   def bottom: Double = yTileMin - 1.1
   def top: Double = yTileMax + 1.1 
-  override def xArrLen: Int = xTileMax - xTileMin + 2
+ 
   
   override def coodIsTile(x: Int, y: Int): Unit = Unit match
   { case _ if x %% 2 == 0 & y %% 2 == 0 =>      

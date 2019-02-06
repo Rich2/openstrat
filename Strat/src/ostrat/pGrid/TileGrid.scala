@@ -14,6 +14,7 @@ package pGrid
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
 trait TileGrid[TileT <: Tile]
 {
+  val arr: Array[AnyRef]
   def xTileMin: Int
   def xTileMax: Int
   def yTileMin: Int
@@ -22,7 +23,8 @@ trait TileGrid[TileT <: Tile]
   def evTile: IsType[TileT]
   def xArrLen: Int
   def yArrLen: Int
-  lazy val arr: Array[AnyRef] = new Array[AnyRef](yArrLen * xArrLen)
+  final def arrLen = yArrLen * xArrLen
+  
   def xToInd(x: Int): Int
   def yToInd(y: Int): Int
   def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y)
