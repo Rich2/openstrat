@@ -27,12 +27,14 @@ trait TileGrid[TileT <: Tile]
   
   def xToInd(x: Int): Int
   def yToInd(y: Int): Int
-  def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y)
+  def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y) * xArrLen
   val yRatio: Double
   def xStep: Int
   
   def getTile(x: Int, y: Int): TileT// = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
   def getTile(tc: Cood): TileT// = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) }
+  def setTile(x: Int, y: Int, tile: TileT): Unit// = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
+  def setTile(tc: Cood, tile: TileT): Unit// = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
    
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)

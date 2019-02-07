@@ -6,8 +6,11 @@ package pGrid
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
   (implicit val evTile: IsType[TileT], val evSide: IsType[SideT]) extends TileGridComplexReg[TileT, SideT] with SquareGrid[TileT]
-{
-  override def xArrLen: Int = xTileMax - xTileMin + 2
+{  
+  override def xToInd(x: Int): Int = (x - xTileMin + 1)
+  override def yToInd(y: Int): Int = (y  - yTileMin + 1)
+  override def xArrLen: Int = xTileMax - xTileMin + 3
+  override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.sideCoodsOfTile(tileCood)   

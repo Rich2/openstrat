@@ -49,7 +49,7 @@ object DGrid
   {
     val dg = new DGrid
     val ser = 0 to 6 by 2
-    ser.foreach(i => dg.setSome(1, i + 1, BlackD))
+    ser.foreach(i => dg.setTile(1, i + 1, DTile(1, i + 1)))
     ser.foreach(i => dg.setSome(2, i + 2, BlackD))
     ser.foreach(i => dg.setSome(3, i + 2, BlackD))
     ser.foreach(i => dg.setSome(6, i + 2, WhiteD))
@@ -61,8 +61,6 @@ object DGrid
 
 class ChessGrid[TileT <: Tile](length: Int)(implicit evTile: IsType[TileT]) extends SquareGridSimple[TileT](1, length, 1, length)
 {
-   override def xArrLen: Int = length
-   //val arr = new Array[AnyRef](length *length)
-   override def xToInd(x: Int): Int = (x - xTileMin)
-   override def yToInd(y: Int): Int = (y  - yTileMin) * xArrLen
+   
+   
 }

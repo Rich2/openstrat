@@ -10,13 +10,16 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   override def xArrLen: Int = xTileMax - xTileMin + 1
   override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def xStep: Int = 1
+  def setTile(x: Int, y: Int, tile: TileT): Unit = arr(xyToInd(x, y)) = tile
+  def setTile(tc: Cood, tile: TileT): Unit = arr(xyToInd(tc.x, tc.y)) = tile
   //These need changing
   def left: Double = xTileMin - 1.1
   def right: Double = xTileMax + 1.1
   def bottom: Double = yTileMin - 1.1
   def top: Double = yTileMax + 1.1 
   
-  def yToInd(y: Int): Int = (y  - yTileMin + 1) * xArrLen
+  def yToInd(y: Int): Int = (y  - yTileMin + 1)
+  override def xToInd(x: Int): Int = (x - xTileMin)
   
   def getTile(x: Int, y: Int): TileT = evTile.asType(arr(xyToInd(x, y)))    
   def getTile(tc: Cood): TileT = evTile.asType(arr(xyToInd(tc.x, tc.y)))

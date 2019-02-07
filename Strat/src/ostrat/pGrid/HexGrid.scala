@@ -8,11 +8,13 @@ abstract class HexGrid[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val 
 (implicit val evTile: IsType[TileT], val evSide: IsType[SideT]) extends TileGridComplex[TileT, SideT]//(xTileMin, xTileMax, yTileMin, yTileMax)   
 {
   override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
+  override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)   
   override def xStep: Int = 4   
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
+  override def yToInd(y: Int): Int = (y  - yTileMin + 1)
   
   override lazy val yRatio: Double = HexGrid.yRatio
    

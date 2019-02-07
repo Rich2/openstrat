@@ -8,6 +8,6 @@ import geom._
 trait SquareGrid[TileT <: Tile] extends TileGrid[TileT] with TileGridReg[TileT]   
 {
   override val yRatio = 1
-  override def xToInd(x: Int): Int = (x - xTileMin)
+  
   def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
 }

@@ -21,9 +21,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
     /** Throws exception if Cood is not a valid Tile coordinate */
    def coodIsTile(x: Int, y: Int): Unit   
    /** Throws exception if Cood is not a valid Tile coordinate */
-   final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)   
-   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)      
-   def yToInd(y: Int): Int = (y  - yTileMin + 1) * xArrLen  
+   final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)  
    
    def setTile(x: Int, y: Int, tile: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
    def setTile(tc: Cood, tile: TileT): Unit = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
