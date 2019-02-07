@@ -72,6 +72,7 @@ trait WithColour extends AnyRef
   def contrastBW = colour.contrastBW
 }
 
+/** Not sure the purpose of this class */
 class Coloured(val colour: Colour) extends WithColour 
 
 object Colour

@@ -49,14 +49,14 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
          selected = clickList.fHead(Nil, List(_))
          //deb("Sel" -- selected.head.getClass.toString)
          }
-      case (RightButton, List(c : Corps), List(tile: NTile)) =>
-         { 
-           // deb("move")
-             scen.tile(c.cood).lunits = scen.tile(c.cood).lunits.removeFirst(_ == c)
-              tile.lunits = c :: tile.lunits
-              c.cood = tile.cood
-             repaintMap  
-         }
+      case (RightButton, List(c : Corps), List(newTile: NTile)) =>
+        {
+          c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
+          val newCorps = c.copy(newTile) 
+          newTile.lunits ::= newCorps
+          selected = List(newCorps)
+          repaintMap  
+        }
       case (RightButton, List(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)  
       case _ => 
    }    
