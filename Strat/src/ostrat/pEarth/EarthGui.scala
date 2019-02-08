@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._, pCanv._, Colour.Black
+import geom._, pCanv._
 
 abstract class EarthGui(title: String) extends UnfixedMapGui(title)
 {
@@ -84,6 +84,6 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
   def blueCircle = Circle.segs(EarthAvDiameter / scale).fill(Colour.DarkBlue)
   def redCircle = Circle.segs(EarthAvDiameter / scale).draw(1, Colour.Red)
   def mapObjs: GraphicElems = ls //:+ hairs      
-  mapPanel.backColour = Black
+  mapPanel.backColour = Colour.Black
   def repaintMap() = { mapPanel.repaint(mapObjs)}  
 }

@@ -16,10 +16,10 @@ abstract class UnfixedMapGui(title: String) extends MapGui(title)
    
   val bIn = button3("+", inCmd)   
   val bOut = button3("-", outCmd)   
-  val bLeft = button3("<", leftCmd)   
-  val bRight = button3(">", rightCmd)   
-  val bDown = button3("v", downCmd)   
-  val bUp = button3("^", upCmd)
+  val bLeft = button3("\u2B05", leftCmd)   
+  val bRight = button3("\u2B06", rightCmd)   
+  val bDown = button3("\u2B07", downCmd)   
+  val bUp = button3("\u27A1", upCmd)
    
   val guButs = List(bIn, bOut, bLeft, bRight, bDown, bUp)
 }
