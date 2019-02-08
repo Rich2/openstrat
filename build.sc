@@ -20,10 +20,9 @@ trait PlatformsModule extends ScalaModule with Common
 	  def scalaJSVersion = "0.6.26" 
 	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
 	  
-	  def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] =
-	   outer.ivyDeps() ++ ivyJs() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
+	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
 	  
-	  def ivyJs: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg[mill.scalalib.Dep]()
+	  //def ivyJs = Agg()
   }
 
   trait InnerNative extends ScalaNativeModule with Common
@@ -31,8 +30,8 @@ trait PlatformsModule extends ScalaModule with Common
     def scalaVersion = "2.11.12"
     def scalaNativeVersion = "0.3.8"  
 	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
-	  def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = outer.ivyDeps() ++ ivyNat()
-	  def ivyNat: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg[mill.scalalib.Dep]()
+	  def ivyDeps = outer.ivyDeps() //++ ivyNat()
+	  //def ivyNat = Agg()
   }
 
   trait InnerTests extends Tests
@@ -43,7 +42,7 @@ trait PlatformsModule extends ScalaModule with Common
 }
 
 object Macros extends PlatformsModule
-{ def ivyDeps: mill.define.Target[mill.util.Loose.Agg[mill.scalalib.Dep]] = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+{ def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
   object Js extends InnerJs
   object Nat extends InnerNative  
 }
