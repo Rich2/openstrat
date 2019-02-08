@@ -6,14 +6,14 @@ import geom._, pEarth._, pCanv._, pStrat._
 
 case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("1783")
 {
-   override def saveNamePrefix = "Y1783"
-   /** The distance per pixel. This will normally be much greater than than 1 */
-   scale = 5.12.km   
-   focus = 59.17 ll 0.0
-   val fHex: OfETile[NTile, ESideOnly] => GraphicElems = etog =>
-      {
-         import etog._         
-         val colour: Colour = tile.colour
+  override def saveNamePrefix = "Y1783"
+  /** The distance per pixel. This will normally be much greater than than 1 */
+  scale = 5.12.km   
+  focus = 59.17 ll 0.0
+  val fHex: OfETile[NTile, ESideOnly] => GraphicElems = etog =>
+    {
+     import etog._         
+     val colour: Colour = tile.colour
          val poly = vertDispVecs.fillSubj(tile, colour)       
          val textU: GraphicElems = etog.ifScaleCObjs(68, tile.lunits match
          {
@@ -45,20 +45,19 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
    }
    mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
    {
-      case (LeftButton, _, _) =>{
-         selected = clickList.fHead(Nil, List(_))
-         //deb("Sel" -- selected.head.getClass.toString)
-         }
-      case (RightButton, List(c : Corps), List(newTile: NTile)) =>
-        {
-          c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
-          val newCorps = c.copy(newTile) 
-          newTile.lunits ::= newCorps
-          selected = List(newCorps)
-          repaintMap  
-        }
-      case (RightButton, List(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)  
-      case _ => 
+     case (LeftButton, _, _) => selected = clickList.fHead(Nil, List(_))
+        
+     case (RightButton, List(c : Corps), List(newTile: NTile)) =>
+     {
+       c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
+       val newCorps = c.copy(newTile) 
+       newTile.lunits ::= newCorps
+       selected = List(newCorps)
+       repaintMap  
+     }
+    
+     case (RightButton, List(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)  
+     case _ => 
    }    
    eTop()   
    loadView   
