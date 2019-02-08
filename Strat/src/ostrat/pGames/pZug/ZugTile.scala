@@ -19,8 +19,7 @@ object ZugTerr
 
 case class ZugTile(x: Int, y: Int, terr: ZugTerr, lunits: List[Squad] = Nil) extends ColouredTile
 {   
-   def colour = terr.colour
-      
+   def colour = terr.colour     
 }
 
 object ZugTile
