@@ -19,7 +19,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
    
   mapPanel.backColour = Black
   mapPanel.mouseUp = (a, b, s) => deb(s.toString)
-  
+  canv.onScroll = b => { scale = ife(b, (scale * 1.2).min(scaleMax), (scale / 1.2).max(scaleMin)) }
   case class Planet(dist: Dist, colour: Colour, name: String)
   {
     var posn: Dist2 = Dist2(dist, 0.metre)
