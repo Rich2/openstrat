@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 
-/** Not sure if this class is necessary */
+/** Not sure if this class is necessary. A class for whole earth maps as opposed to for example, Old World maps.*/
 abstract class EarthAllGui(title: String) extends EarthGui(title)
 {
   val useless: Boolean = true   
