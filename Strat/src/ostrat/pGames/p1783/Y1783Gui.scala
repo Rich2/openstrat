@@ -12,54 +12,57 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
   focus = 59.17 ll 0.0
   val fHex: OfETile[NTile, ESideOnly] => GraphicElems = etog =>
     {
-     import etog._         
-     val colour: Colour = tile.colour
-         val poly = vertDispVecs.fillSubj(tile, colour)       
-         val textU: GraphicElems = etog.ifScaleCObjs(68, tile.lunits match
-         {
-            case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))               
-            case _ =>
-            {
+      import etog._         
+      val colour: Colour = tile.colour
+      val poly = vertDispVecs.fillSubj(tile, colour)       
+      val textU: GraphicElems = etog.ifScaleCObjs(68, tile.lunits match
+        {
+          case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))               
+          case _ =>
+          {
             val strs: List[String] = List(yxStr, cenLL.toString)                   
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)
-            }
-         })         
-         poly :: textU
-      }
-      def fSide: OfESide[NTile, ESideOnly] => GraphicElems = ofs => {
-      import ofs._
-      val line = ifScaleCObjs(60, side.terr match
-            {
-         case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
-               (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-         case Straits => vertDispLine.draw(6, Colour.Blue) :: Nil
-         })      
-      line
-   } 
-      
-   def ls: GraphicElems =
-   {
-      val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-      val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this) )
-      gs ::: as   
-   }
-   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
-   {
-     case (LeftButton, _, _) => selected = clickList.fHead(Nil, List(_))
-        
-     case (RightButton, List(c : Corps), List(newTile: NTile)) =>
-     {
-       c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
-       val newCorps = c.copy(newTile) 
-       newTile.lunits ::= newCorps
-       selected = List(newCorps)
-       repaintMap  
+          }
+        })         
+        poly :: textU
      }
+   
+   def fSide: OfESide[NTile, ESideOnly] => GraphicElems = ofs =>
+     {
+       import ofs._
+       val line = ifScaleCObjs(60, side.terr match
+         {
+           case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
+           case Straits => vertDispLine.draw(6, Colour.Blue) :: Nil
+         })      
+       line
+     } 
+      
+  def ls: GraphicElems =
+  {
+    val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+    val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this) )
+    gs ::: as   
+  }
+ 
+  mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
+  {
+    case (LeftButton, _, _) => selected = clickList.fHead(Nil, List(_))
+        
+    case (RightButton, List(c : Corps), List(newTile: NTile)) =>
+    {
+      c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
+      val newCorps = c.copy(newTile) 
+      newTile.lunits ::= newCorps
+      selected = List(newCorps)
+      repaintMap  
+    }
     
-     case (RightButton, List(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)  
-     case _ => 
-   }    
-   eTop()   
-   loadView   
-   repaintMap   
+    case (RightButton, List(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)  
+    case _ => 
+  }
+  
+  eTop()   
+  loadView   
+  repaintMap   
 }
