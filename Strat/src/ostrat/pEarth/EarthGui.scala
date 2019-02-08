@@ -58,24 +58,24 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
      repaintMap()
   }
   
-  def leftCmd: MouseButton => Unit = (mb: MouseButton) => setFocus(focus.subLong(distDelta(mb))) 
-  def rightCmd: MouseButton => Unit = (mb: MouseButton) => { focus = focus.addLong(distDelta(mb)); updateView() }   
-  def downCmd: MouseButton => Unit = (mb: MouseButton) => { addLat(-distDelta(mb)); updateView }   
-  def upCmd: MouseButton => Unit = (mb: MouseButton) => { addLat(distDelta(mb)); updateView }   
-  def invCmd = () => {focusUp = !focusUp; repaintMap() }    
+  def leftCmd: MB0 = mb => setFocus(focus.subLong(distDelta(mb))) 
+  def rightCmd: MB0 = mb => { focus = focus.addLong(distDelta(mb)); updateView() }   
+  def downCmd: MB0 = mb => { addLat(-distDelta(mb)); updateView }   
+  def upCmd: MB0 = mb => { addLat(distDelta(mb)); updateView }   
+  def invCmd: MB0 = mb => {focusUp = !focusUp; repaintMap() }    
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); updateView() }  
       
-  val bInv = button1("inv", invCmd)      
+  val bInv = clickButton("inv", invCmd)      
    
   mapPanel.mouseUp = (a, b, s) => { statusText = s.headOption.fold("Nothing Clicked")(_.toString); eTop() }  
    
   def saveCmd = (mb: MouseButton) => { setStatus("Saved"); canv.saveFile(saveName, view.str) }
   def loadCmd = (mb: MouseButton) => { loadView; updateView() }  
-  def bSave = button3("save", saveCmd)
-  def bLoad = button3("load", loadCmd)
+  def bSave = clickButton("save", saveCmd)
+  def bLoad = clickButton("load", loadCmd)
   def eaButts: Seq[ShapeSubj] =  List(bSave, bLoad)     
-  def cmd00 = () => { focus = LatLong0; focusUp = true; updateView }
-  def b00 = button1("00", cmd00) 
+  def cmd00: MB0 = mb => { focus = LatLong0; focusUp = true; updateView }
+  def b00 = clickButton("00", cmd00) 
   override def eTop(): Unit = reTop(guButs ++ Seq(b00, bInv) ++ eaButts :+ status)   
      
   def ls: GraphicElems 

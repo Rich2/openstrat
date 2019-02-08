@@ -20,16 +20,16 @@ trait Dist2Gui extends MapGui
    def scaleAlignedMin: Dist = ???//mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
    def scaleRotatedMin: Dist = ???//(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
    
-   val bZoomIn = button1("+", zoomInCmd)
-   val bZoomOut = button1("-", zoomOutCmd)
+   val bZoomIn = clickButton("+", zoomInCmd)
+   val bZoomOut = clickButton("-", zoomOutCmd)
    val zoomable: List[ShapeSubj] = List(bZoomIn, bZoomOut) 
 
-   val bMapRotateClockwise = button1("\u21BB", () => { rotation += Angle.deg(-20); repaintMap() } )
-   val bMapRotateAntiClockwise = button1("\u21BA", () => { rotation += Angle.deg(20); repaintMap() } )
+   val bMapRotateClockwise = clickButton("\u21BB", MouseButton => { rotation += Angle.deg(-20); repaintMap() } )
+   val bMapRotateAntiClockwise = clickButton("\u21BA", Mousebutton => { rotation += Angle.deg(20); repaintMap() } )
   // val focusAdjust = Seq(bFocusLeft, bFocusRight, bFocusUp, bFocusDown, bMapRotateClockwise, bMapRotateAntiClockwise)
    val adjustZoom: Seq[ShapeSubj] = zoomable //++ focusAdjust
-   def zoomInCmd = () => { scale = (scale / 1.5).max(scaleMin); repaintMap }
-   def zoomOutCmd = () => { scale = (scale * 1.5).min(scaleMax); repaintMap }
+   def zoomInCmd: MouseButton => Unit = mb =>  { scale = (scale / 1.5).max(scaleMin); repaintMap }
+   def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap }
    //def moveInc = 40 /scale
    /** Translates a point from map position to Canvas Display position */   
    def toCanv(mapPoint: Dist2): Vec2 = (mapPoint - mapFocus).rotate(rotation) / scale     

@@ -9,14 +9,19 @@ import geom._, Colour._
 abstract class MapGui(title: String) extends CanvasMulti(title)
 {
   val barWidth = 30
-  val topPan = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
+  val topPan: Panel = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
   topPan.backColour = Colour.Gray
-  def button1(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
+  topPan.mouseUp = 
+  {
+    case (v, b, List(MButtonCmd(cmd))) => cmd(b)
+    case t => deb(t.toString)
+  }
+  def cmdButton(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
   
-  def button3(str: String, cmd: MouseButton => Unit) =
-    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), White, 3, Black, 25, str)
+  def clickButton(str: String, cmd: MB0, backColour: Colour = Colour.White) =
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
    
-  def buttonStd(str: String, cmd: AnyRef, backColour: Colour = Colour.White) =
+  def buttonStd(str: String, cmd: MB0, backColour: Colour = Colour.White) =
     Rectangle.curvedCornersCentred(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
    
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)

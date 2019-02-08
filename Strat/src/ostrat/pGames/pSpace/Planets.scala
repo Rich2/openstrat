@@ -10,9 +10,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   val maxOrbit: Dist = 3700.millionMiles
   var years: Double = 0
   var paused: Boolean = false
-  def pausedStr = paused.fold("Restart", "Pause")
-  // override var mapLeft, mapBottom = -maxOrbit   
-  // override var mapRight, mapTop = maxOrbit
+  def pausedStr: String = paused.fold("Restart", "Pause")  
   override var scale = 0.5.millionMiles   
   override val scaleMax: Dist = 10.millionMiles
   override val scaleMin: Dist = 100000.miles
@@ -20,8 +18,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   /** Years per second */
    
   mapPanel.backColour = Black
-
-  mapPanel.mouseUp = (a, b, s) => println(s)
+  mapPanel.mouseUp = (a, b, s) => deb(s.toString)
   
   case class Planet(dist: Dist, colour: Colour, name: String)
   {
@@ -57,11 +54,12 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   val pls: List[Planet] = List(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto, Sun)
   var planetFocus: Planet = earth
   override def eTop(): Unit = ???
-  def fBut(planet: Planet) = buttonStd(planet.name, () => {planetFocus = planet; repaintMap}, planet.colour)
-  def pause = buttonStd(pausedStr, () => { println(pausedStr); paused = !paused; reTop(cmds)})
+  def fBut(planet: Planet) = clickButton(planet.name, mb => {planetFocus = planet; repaintMap}, planet.colour)
+  def pause = buttonStd(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
   def cmds: List[ShapeSubj] = zoomable.:+(pause) ++ pls.map(fBut)   
   reTop(cmds)
+  
   canv.startFrame((el, st) => out(el, st))
   def mapObjs = pls.map(_.paint)
   

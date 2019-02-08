@@ -5,4 +5,5 @@ package ostrat
 package object pCanv 
 {
   type MenuSeq = Seq[MenuNode]
+  type MB0 = MouseButton => Unit
 }

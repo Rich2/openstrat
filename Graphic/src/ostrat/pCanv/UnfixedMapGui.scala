@@ -14,12 +14,12 @@ abstract class UnfixedMapGui(title: String) extends MapGui(title)
   def downCmd: MouseButton => Unit    
   def upCmd: MouseButton => Unit 
    
-  val bIn = button3("+", inCmd)   
-  val bOut = button3("-", outCmd)   
-  val bLeft = button3("\u2B05", leftCmd)   
-  val bRight = button3("\u2B06", rightCmd)   
-  val bDown = button3("\u2B07", downCmd)   
-  val bUp = button3("\u27A1", upCmd)
+  val bIn = clickButton("+", inCmd)   
+  val bOut = clickButton("-", outCmd)   
+  val bLeft = clickButton("\u2B05", leftCmd)   
+  val bUp = clickButton("\u2B06", upCmd)   
+  val bDown = clickButton("\u2B07", downCmd)   
+  val bRight = clickButton("\u27A1", rightCmd)
    
   val guButs = List(bIn, bOut, bLeft, bRight, bDown, bUp)
 }
