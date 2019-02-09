@@ -34,11 +34,6 @@ abstract class MapGui(title: String) extends CanvasMulti(title)
   def mapObjs: GraphicElems  
   def eTop(): Unit
   
-  def setStatus(str: String): Unit = 
-  {
-    deb(str)
-    statusText = str
-    eTop()
-  }
+  def setStatus(str: String): Unit = { statusText = str; eTop() }
 }
 
