@@ -16,7 +16,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: GridElem, GridT <: TileGridCo
   /** The number of pixels per x-grid unit. There are 2 x-grid units between square tiles and 4 between hex tiles. */
   var pScale: Double //= scaleAlignMin
   var focus: Vec2 //= grid.cen
-  statusText = "Use middle and right mouse buttons for greater deltas"
+  statusText = "Use middle and right mouse buttons on view buttons for greater deltas."
   def viewStr: String = focus.str2 -- pScale.str1
   def updateView(): Unit = {repaintMap; setStatus(viewStr) }
   override def eTop(): Unit = reTop(guButs :+ status)

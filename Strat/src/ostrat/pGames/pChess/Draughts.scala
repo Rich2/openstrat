@@ -12,15 +12,28 @@ case class Draughts(turn: Int, ltMen: List[Cood], ltKings: List[Cood], dkMen: Li
   private[this] def inner(ltMen: List[Cood], ltKings: List[Cood], dkMen: List[Cood], dkKings: List[Cood]) =
     Some(Draughts(turn + 1, ltMen: List[Cood], ltKings, dkMen, dkKings))
   
-  def wtTurn(inp: List[Cood]): Option[Draughts] =
+  def ltTurn(inp: List[Cood]): Option[Draughts] =
   {    
     inp match
     {
       case _ if inp.length < 2 => None
-      case List(s, e) if ltMen.contains(s) & !pieces.contains(e) & e.y == s.y + 1  => inner(ltMen.replace(s, e), ltKings, dkMen, dkKings)
+      case List(s, e) if ltMen.contains(s) & !pieces.contains(e) & e.y == s.y + 1 & eqOf(e.x - s.x, -1, 1) =>
+        inner(ltMen.replace(s, e), ltKings, dkMen, dkKings)
       case _ => None
     }
   }
+  
+  def dkTurn(inp: List[Cood]): Option[Draughts] =
+  {    
+    inp match
+    {
+      case _ if inp.length < 2 => None
+      case List(s, e) if dkMen.contains(s) & !pieces.contains(e) & e.y == s.y - 1 & eqOf(e.x - s.x, -1, 1) =>
+        inner(ltMen, ltKings, dkMen.replace(s, e), dkKings)
+      case _ => None
+    }
+  }
+  
 }
 
 object Draughts

@@ -19,6 +19,7 @@ package object ostrat
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None  
+  def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
   
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]

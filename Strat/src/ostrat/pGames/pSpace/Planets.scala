@@ -7,6 +7,7 @@ import geom._, pCanv._, Colour._
 /** Currently extending EuclidGui, I'm not sure if this is helpful, as the user can not move about in the map except change focus. */
 case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with EuclidGui
 {
+  statusText = "Choose centreing body."
   val maxOrbit: Dist = 3700.millionMiles
   var years: Double = 0
   var paused: Boolean = false

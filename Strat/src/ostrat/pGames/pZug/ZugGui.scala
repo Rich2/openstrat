@@ -10,6 +10,7 @@ import pStrat._
 
 class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv, "ZugFuhrer")
 {
+  statusText --= "Left click to select, middle to set to fire, right to set to Move."
   val scen = game.getScen(player)
   override var grid: ZugGrid = scen
   override def scaleMin = 10
