@@ -58,10 +58,7 @@ lazy val Strat = projJvm("Strat").dependsOn(Graphic % "test->test;compile->compi
   mappings in (Compile, packageSrc) ++= mappings.in(Macros, Compile, packageSrc).value
 )
 
-lazy val StratJs = projJs("StratJs").dependsOn(GraphicJs).settings(
-  //scalaJSUseMainModuleInitializer := true,  
-  //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "JsStrat/srcPlay",  
-)
+lazy val StratJs = projJs("StratJs").dependsOn(GraphicJs)
 
 //lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   //libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  
