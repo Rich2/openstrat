@@ -10,7 +10,7 @@ This project is intended to be accessible and welcoming to programmers of all le
 
 However at the other end, I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal language to explore these questions.
 
-Scala currently set to 2.12.8, except for Scala-native build set to 2.11.12. Sbt currently set to 1.2.8. Update your Mill to 0.3.5. Run:
+Scala currently set to 2.12.8, except for Scala-native build set to 2.11.12. Sbt currently set to 1.2.8. Update your Mill to 0.3.6. Run:
 
 ```
 sbt //In bash from project's root folder
@@ -18,8 +18,8 @@ sbt //In bash from project's root folder
 From within the sbt console run:
 ```
 ~ Strat/reStart //To launch a ScalaFx window. The most useful command for development
-~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/sbtFast.html
-StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/sbtFull.html
+~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/sbtFastDev.html
+StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/sbtFullDev.html
 ~ Util/test //Rerun tests on module Util
 DocProj/doc //Will produce docs for the Core and FxStrat projects. They can be found in DocProj/target/scala-2.12/api
 ```
