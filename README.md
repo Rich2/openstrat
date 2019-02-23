@@ -18,8 +18,8 @@ sbt //In bash from project's root folder
 From within the sbt console run:
 ```
 ~ Strat/reStart //To launch a ScalaFx window. The most useful command for development
-~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/sbtFastDev.html
-StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/sbtFullDev.html
+~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
+StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
 ~ Util/test //Rerun tests on module Util
 DocProj/doc //Will produce docs for the Core and FxStrat projects. They can be found in DocProj/target/scala-2.12/api
 ```
@@ -33,8 +33,8 @@ mill run //To launch a ScalaFx window.
 mill -w run //As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful command for development
 mill test //To run tests
 mill -w //To recompile and rerun the tests on source code changes.
-mill -w jsfast //To rebuild the fast optimised Js file. Use with WebPages/millFast.html
-mill jsfull //To build the fully optimised Js file. Use with WebPages/millFull.html
+mill -w jsfast //To rebuild the fast optimised Js file. Use with WebPages/MillFastDev.html
+mill jsfull //To build the fully optimised Js file. Use with WebPages/MillFullDev.html
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
 ```
 For IntellliJ useful options:
