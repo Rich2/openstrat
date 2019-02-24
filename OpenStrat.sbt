@@ -63,7 +63,7 @@ lazy val StratJs = projJs("Strat").dependsOn(GraphicJs)
 
 def appFile(name: String): String = "Strat/srcJsApps/ostrat/pSJs/" + name.take(1).toUpperCase + name.drop(1) + "JsApp.scala"
 
-def jsApp(name: String, versionStr: String): Project = Project(name + "Js", file("target/" + name + "Js")).enablePlugins(ScalaJSPlugin).dependsOn(StratJs).settings(jsSettings).settings(
+def jsApp(name: String, versionStr: String): Project = Project(name, file("target/" + name)).enablePlugins(ScalaJSPlugin).dependsOn(StratJs).settings(jsSettings).settings(
 	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value  / appFile(name),
 )
 
