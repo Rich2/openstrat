@@ -61,6 +61,8 @@ lazy val StratJvm = projJvm("Strat").dependsOn(GraphicJvm % "test->test;compile-
 
 lazy val StratJs = projJs("Strat").dependsOn(GraphicJs)
 
+lazy val LearnJvm = projJvm("Learn").dependsOn(StratJvm)
+
 def appFile(name: String): String = "Strat/srcJsApps/ostrat/pSJs/" + name.take(1).toUpperCase + name.drop(1) + "JsApp.scala"
 
 def jsApp(name: String, versionStr: String): Project = Project(name, file("target/" + name)).enablePlugins(ScalaJSPlugin).dependsOn(StratJs).settings(jsSettings).settings(

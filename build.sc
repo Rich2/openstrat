@@ -77,6 +77,11 @@ object Strat extends PlatformsModule
   object Nat extends InnerNative
 }
 
+object Learn extends PlatformsModule
+{
+  def moduleDeps = Seq(Strat)
+}
+
 def run() = Strat.runBackground()
 def test = Strat.test
 def jsfast = Strat.Js.fastOpt
