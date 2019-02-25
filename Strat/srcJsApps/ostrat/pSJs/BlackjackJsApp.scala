@@ -1,9 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pSJs
+import scalajs.js.annotation._
 
-@scalajs.js.annotation.JSExportTopLevel("BlackJackJsApp")
+@JSExportTopLevel("BlackJackJsApp")
 object BlackjackJsApp
 {
-   def main(args: Array[String]): Unit = ???//pGames.pCard.BlackJack(CanvasJs)      
+   @JSExport def main(args: Array[String]): Unit = ???//pGames.pCard.BlackJack(CanvasJs)      
 }

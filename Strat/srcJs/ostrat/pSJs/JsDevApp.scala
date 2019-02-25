@@ -6,9 +6,5 @@ import scala.scalajs.js.annotation._
 @JSExportTopLevel("JsDevApp")
 object JsDevApp
 {
-   @JSExport
-   def main(appNum: Int = 1): Unit =
-   {      
-      pDev.Apps.curr._1(CanvasJs)      
-   }
+   @JSExport def main(appNum: Int = 1): Unit = pDev.Apps.curr._1(CanvasJs)
 }
