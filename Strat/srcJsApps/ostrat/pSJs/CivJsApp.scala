@@ -2,6 +2,7 @@
 package ostrat
 package pSJs
 
+@scalajs.js.annotation.JSExportTopLevel("CivJsApp")
 object CivJsApp
 {  
    def main(args: Array[String]): Unit = new pGames.pCiv.CivGui(CanvasJs)   

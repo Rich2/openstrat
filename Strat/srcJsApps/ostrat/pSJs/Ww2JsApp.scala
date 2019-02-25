@@ -2,6 +2,7 @@
 package ostrat
 package pSJs
 
+@scalajs.js.annotation.JSExportTopLevel("Ww2JsApp")
 object Ww2JsApp
 {
    import pGames.pWW2._

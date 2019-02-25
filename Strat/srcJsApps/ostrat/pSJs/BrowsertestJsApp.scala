@@ -2,7 +2,7 @@
 package ostrat
 package pSJs
 
-
+@scalajs.js.annotation.JSExportTopLevel("BrowsertestJsApp")
 object BrowsertestJsApp
 {   
    def main(args: Array[String]): Unit = pStrat.FlagsGui(CanvasJs)

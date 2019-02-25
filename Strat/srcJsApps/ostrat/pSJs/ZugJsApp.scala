@@ -3,6 +3,7 @@ package ostrat
 package pSJs
 import pGames.pZug._
 
+@scalajs.js.annotation.JSExportTopLevel("ZugJsApp")
 object ZugJsApp
 {
    def main(args: Array[String]): Unit = new ZugGui(CanvasJs, ZGame1, PlayGermanyBritain)

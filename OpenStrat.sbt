@@ -79,7 +79,8 @@ lazy val zug = jsApp("zug", "0.0.1")
 lazy val civ = jsApp("civ", "0.0.1")
 lazy val draughts = jsApp("draughts", "0.0.1")
 
-lazy val jsps = project.aggregate(ww2, y1783, bc305, dungeon, planets, browsertest, zug, civ, draughts)
+lazy val js1 = project.aggregate(ww2, y1783, bc305, dungeon)
+lazy val js2 = project.aggregate(browsertest, zug, civ, draughts)
 
 //lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   //libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  

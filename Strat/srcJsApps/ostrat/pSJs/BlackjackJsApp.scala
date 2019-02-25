@@ -2,7 +2,8 @@
 package ostrat
 package pSJs
 
+@scalajs.js.annotation.JSExportTopLevel("BlackJackJsApp")
 object BlackjackJsApp
 {
-   def main(args: Array[String]): Unit = pGames.pCard.BlackJack(CanvasJs)      
+   def main(args: Array[String]): Unit = ???//pGames.pCard.BlackJack(CanvasJs)      
 }

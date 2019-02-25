@@ -2,6 +2,7 @@
 package ostrat
 package pSJs
 
+@scalajs.js.annotation.JSExportTopLevel("DraughtsJsApp")
 object DraughtsJsApp
 {  
    def main(args: Array[String]): Unit = new pGames.pChess.DraughtsGui(CanvasJs)   

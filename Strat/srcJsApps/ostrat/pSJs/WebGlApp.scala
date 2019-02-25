@@ -4,6 +4,7 @@ package pSJs
 import org.scalajs.dom._
 //import scala.scalajs.js.Any.fromString
 
+@scalajs.js.annotation.JSExportTopLevel("WebGlApp")
 object WebGlApp
 {
    def main(args: Array[String]): Unit =  

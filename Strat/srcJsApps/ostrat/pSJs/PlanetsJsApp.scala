@@ -2,6 +2,7 @@
 package ostrat
 package pSJs
 
+@scalajs.js.annotation.JSExportTopLevel("PlanetsJsApp")
 object PlanetsJsApp
 {
    def main(args: Array[String]): Unit = pGames.pSpace.Planets(CanvasJs)  

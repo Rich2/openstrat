@@ -2,6 +2,7 @@
 package ostrat
 package pSJs
 
+@scalajs.js.annotation.JSExportTopLevel("BC305JsApp")
 object Bc305JsApp
 {
    import pGames.p305._
