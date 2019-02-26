@@ -16,7 +16,7 @@ class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yC
   def colour = faction.colour
   var facing: Facing = FaceUp
   val objSym: Symbol = Symbol("Character" -- iden.toString)
-  def canMove(tile: DungTile): Boolean = tile.terr != Wall
+  def canMove(tile: DTile): Boolean = tile.terr != Wall
   def turnMovePts = 10
   var movePts: Int = turnMovePts
   def resetMovePts(): Unit = movePts = turnMovePts
@@ -27,3 +27,9 @@ object CharacB extends Character('B', Fac1)
 
 object CharacY extends Character('Y', Fac2)
 object CharacZ extends Character('Z', Fac2)
+
+sealed trait Action
+sealed trait Turn extends Action
+object RtTurn extends Turn
+object LtTurn extends Turn
+object MoveFwd extends Action

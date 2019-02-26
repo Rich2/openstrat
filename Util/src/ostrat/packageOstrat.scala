@@ -13,6 +13,7 @@ package object ostrat
   val Sin60 = 0.866025404f;
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
+  def silly = "silly"
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse

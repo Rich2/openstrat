@@ -4,7 +4,7 @@ package pGames
 package pDung
 import pGrid._, SqCode._
 
-class DungeonGrid extends SquareGridComplex[DungTile, SideBare](2, 48, 2, 30)
+class DungeonGrid extends SquareGridComplex[DTile, SideBare](2, 48, 2, 30)
 {
    def posn(charac: Character, x: Int, y: Int, facing: Facing): Unit =
    { getTile(x, y).charac = Opt(charac)
