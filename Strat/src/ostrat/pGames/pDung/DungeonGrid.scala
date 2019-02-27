@@ -4,6 +4,7 @@ package pGames
 package pDung
 import pGrid._
 
+/** Tile is 0.5m square. */
 class DungeonGrid extends SquareGridComplex[DTile, SideBare](2, 48, 2, 30)
 {
    def posn(charac: Character, x: Int, y: Int, facing: SFace): Unit =

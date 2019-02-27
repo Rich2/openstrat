@@ -15,17 +15,6 @@ object SFaceUL extends SFace(7, 45.degs, -1, 1)
 
 object SFace
 {
-//  sealed class Facing(val angle: Angle, val xTile: Int, yTile: Int)
-//
-//  object FaceUp extends Facing(0.degs, 0, 2)
-//  object FaceUR extends Facing(-45.degs, 1, 1)
-//  object FaceRt extends Facing(-90.degs, 2, 0)
-//  object FaceDR extends Facing(-135.degs, 1, -1)
-//  object FaceDn extends Facing(180.degs, 0, -2)
-//  object FaceDL extends Facing(135.degs, -1, -1)
-//  object FaceLt extends Facing(90.degs, -2, 0)
-//  object FaceUL extends Facing(45.degs, -1, 1)
-//
   /** Needs to be renamed. */
   def optFace(orig: Cood, dirn: Cood): Option[SFace] = dirn - orig match
   { case Cood(0, 2) => Some(SFaceUp)
