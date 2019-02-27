@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 package pDung
-import pGrid._, SqCode._, Colour._
+import pGrid._, Colour._
 
 sealed class Faction(val objSym: Symbol, val colour: Colour) extends SingletonLeaf
 { def typeSym = 'Faction  
@@ -14,7 +14,7 @@ object Fac2 extends Faction('Fac2, Green)
 class Character(val iden: Char, val faction: Faction, var xCood: Int = 0, var yCood: Int = 0) extends CoodMover with SingletonLeaf
 { def typeSym = 'Character
   def colour = faction.colour
-  var facing: Facing = FaceUp
+  var facing: SFace = SFaceUp
   val objSym: Symbol = Symbol("Character" -- iden.toString)
   def canMove(tile: DTile): Boolean = tile.terr != Wall
   def turnMovePts = 10
