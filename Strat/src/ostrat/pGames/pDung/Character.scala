@@ -33,3 +33,5 @@ sealed trait Turn extends Action
 object RtTurn extends Turn
 object LtTurn extends Turn
 object MoveFwd extends Action
+
+case class ActionSeq(charac: Character, actions: List[Action])
