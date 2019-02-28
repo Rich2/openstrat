@@ -4,13 +4,14 @@ package pGrid
 import geom._
 
 class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
-      implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
+      implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
       TileGridComplexReg[TileT, SideT]
 {
    override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
    def vertMargin = 0.7
-   override def left: Double = xTileMin - 2.2
-   override def right: Double = xTileMax + 2.2
+   def horrMargin = 2.2
+   override def left: Double = xTileMin - horrMargin
+   override def right: Double = xTileMax + horrMargin
    def bottom: Double = (yTileMin - 2) * yRatio - vertMargin
    def top: Double = (yTileMax + 2) * yRatio + vertMargin
    

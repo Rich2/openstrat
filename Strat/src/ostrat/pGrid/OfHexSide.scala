@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._
 
-trait OfHexSide[TileT <: Tile, SideT <: GridElem, GridT <: HexGrid[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
+trait OfHexSide[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComplex[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
 
 case class OfHexSideReg[TileT <: Tile, SideT <: GridElem, GridT <: HexGridReg[TileT, SideT]](
       side: SideT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends OfSide[TileT, SideT, GridT] with OfGridElemReg[TileT, SideT, GridT]
