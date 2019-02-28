@@ -2,6 +2,9 @@
 package ostrat
 package pGrid
 
+/** In a simple Grid the only GridElems are Tiles. In a complex grid, there are values for tiles and tile sides. For programmatic purposes it is
+ *  vital that GridElem contains its grid coordinates, although at a logical level a tile does not need to know its position within the tile grid.
+ *  It needs this information so it can communicate with its grid. */
 trait GridElem
 {
    def x: Int
