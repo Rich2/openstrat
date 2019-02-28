@@ -5,7 +5,7 @@ import geom._
 
 /** A square regular tile grid. Square grids can be simple with just tile values or complex with tile and side values, such as a wall which 
  *  corresponds to the boundary between two tiles rather to a tile. */
-trait HexGrid[TileT <: Tile] extends TileGrid[TileT]   
+trait HexGrid[TileT <: Tile] extends TileGrid[TileT]  
 {
   override val yRatio: Double = HexGrid.yRatio
   
