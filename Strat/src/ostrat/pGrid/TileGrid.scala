@@ -31,10 +31,21 @@ trait TileGrid[TileT <: Tile]
   val yRatio: Double
   def xStep: Int
   
-  def getTile(x: Int, y: Int): TileT// = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
-  def getTile(tc: Cood): TileT// = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) }
-  def setTile(x: Int, y: Int, tile: TileT): Unit// = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
-  def setTile(tc: Cood, tile: TileT): Unit// = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
+  /** Throws exception if Cood is not a valid Tile coordinate */
+  def coodIsTile(x: Int, y: Int): Unit   
+  /** Throws exception if Cood is not a valid Tile coordinate */
+  final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)  
+  def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
+   def getTile(tc: Cood): TileT = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) } 
+ // def getTile(x: Int, y: Int): TileT// = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
+ // def getTile(tc: Cood): TileT// = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) }
+//  def setTile(x: Int, y: Int, tile: TileT): Unit// = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
+//  def setTile(tc: Cood, tile: TileT): Unit// = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
+  
+  def setTile(x: Int, y: Int, tile: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
+  def setTile(tc: Cood, tile: TileT): Unit = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
+  def fSetTile(x: Int, y: Int, fTile: (Int, Int) => TileT) = { coodIsTile(x, y);  arr(xyToInd(x, y)) = fTile(x, y) }
+  def fSetTile(cood: Cood, fTile: Cood => TileT) = { coodIsTile(cood); arr(xyToInd(cood.x, cood.y)) = fTile(cood) }
    
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)

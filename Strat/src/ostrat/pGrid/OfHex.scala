@@ -17,7 +17,7 @@ object OfHex
     //  OfHex[TileT, SideT, GridT] = new OfHex[TileT, SideT, GridT](tile,grid, gGui)     
 }
 
-case class OfHexReg[TileT <: Tile, SideT <: GridElem, GridT <: HexGridReg[TileT, SideT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends
+case class OfHexReg[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComplexReg[TileT, SideT]](tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends
    OfHex[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
 {
    
@@ -25,7 +25,7 @@ case class OfHexReg[TileT <: Tile, SideT <: GridElem, GridT <: HexGridReg[TileT,
 
 object OfHexReg
 {
-   implicit def implicitBuilder[TileT <: Tile, SideT <: GridElem, GridT <: HexGridReg[TileT, SideT]](tile: TileT, grid: GridT,
+   implicit def implicitBuilder[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComplexReg[TileT, SideT]](tile: TileT, grid: GridT,
          gGui: TileGridGui[TileT, SideT, GridT]) = apply(tile, grid, gGui)
 }
 

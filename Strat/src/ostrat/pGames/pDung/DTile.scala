@@ -29,11 +29,11 @@ case class DTile(x: Int, y: Int, terr: DTerr) extends ColouredTile//GridElem
 
 object DTile
 {
-   implicit object DTerrIsType extends IsType[DTile]
-   {
-      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTile]
-      override def asType(obj: AnyRef): DTile = obj.asInstanceOf[DTile]   
-   }
+  implicit object DTerrIsType extends IsType[DTile]
+  {
+    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTile]
+    override def asType(obj: AnyRef): DTile = obj.asInstanceOf[DTile]   
+  }
    
  // SqDBuilder extends PBuilderSingletons[DTerr]
 //   {

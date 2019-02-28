@@ -4,7 +4,8 @@ package pGames
 package pZug
 import pGrid._
 
-class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[ZugTile, ZugSide](xTileMin, xTileMax, yTileMin, yTileMax)
+class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends
+  HexGridComplexReg[ZugTile, ZugSide](xTileMin, xTileMax, yTileMin, yTileMax)
 {
   protected[this] var idCounter: Int = 100
   def getID: Int = {idCounter += 1; idCounter }

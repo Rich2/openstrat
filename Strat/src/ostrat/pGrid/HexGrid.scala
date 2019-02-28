@@ -8,7 +8,11 @@ import geom._
 trait HexGrid[TileT <: Tile] extends TileGrid[TileT]  
 {
   override val yRatio: Double = HexGrid.yRatio
-  
+  def coodIsTile(x: Int, y: Int): Unit = Unit match
+  { case _ if x.isEven & y.isEven =>
+    case _ if x.isOdd & y.isOdd =>
+    case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
+  }
   
   //def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
 }
