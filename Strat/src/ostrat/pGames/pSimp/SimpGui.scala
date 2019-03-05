@@ -7,3 +7,5 @@ class SimpGui(canv: CanvasPlatform, grid: SimpGrid)
 {
   
 }
+
+class SimpSetGui //extends TileGridGui

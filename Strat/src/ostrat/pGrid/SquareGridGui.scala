@@ -4,7 +4,7 @@ package pGrid
 import geom._
 /** A Gui for a single regular SquareGridComplex. Currently there are no irregular SquareGrids */
 abstract class SquareGridGui[TileT <: Tile, SideT <: GridElem, GridT <: SquareGridComplex[TileT, SideT]](val canv: pCanv.CanvasPlatform,
-    var grid: GridT, title: String) extends TileGridGui[TileT, SideT, GridT](title)
+    var grid: GridT, title: String) extends TileGridComplexGui[TileT, SideT, GridT](title)
 {
    /** A tile measures 2 coordinates in both x and y direction. */
    override def ptScale = pScale / 2

@@ -3,7 +3,7 @@ package ostrat
 package pCanv
 
 /** So currently this is a turn based class allowing the selection of objects within the map. That is not the case for the Planet App 
- *  where the planets move too quickly for selection. Why it is called "Unfixed" I have no idea. */
+ *  where the planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
 abstract class UnfixedMapGui(title: String) extends MapGui(title)
 {
   var selected: List[AnyRef] = Nil

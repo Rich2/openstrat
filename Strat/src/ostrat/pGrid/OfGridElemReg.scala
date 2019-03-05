@@ -5,7 +5,7 @@ import geom._
 
 trait OfGridElemReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplexReg[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 {
-   def gGui: TileGridGui[TileT, SideT, GridT]   
+   def gGui: TileGridComplexGui[TileT, SideT, GridT]   
    @inline final override def coodToDispVec2(inp: Cood): Vec2 = gGui.fTrans(grid.coodToVec2(inp))   
    override def psc = gGui.pScale
    /** Should possibly be called CoodToMapVec2 */

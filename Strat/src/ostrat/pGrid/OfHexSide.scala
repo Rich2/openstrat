@@ -5,8 +5,8 @@ import geom._
 
 trait OfHexSide[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComplex[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
 
-case class OfHexSideReg[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComplexReg[TileT, SideT]](
-      side: SideT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends OfSide[TileT, SideT, GridT] with OfGridElemReg[TileT, SideT, GridT]
+case class OfHexSideReg[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComplexReg[TileT, SideT]](side: SideT, grid: GridT,
+    gGui: TileGridComplexGui[TileT, SideT, GridT]) extends OfSide[TileT, SideT, GridT] with OfGridElemReg[TileT, SideT, GridT]
 {
    def sideCenRelGrid: Vec2 = grid.coodToVec2(cood)
    def sideCen: Vec2 = gGui.fTrans(sideCenRelGrid)
@@ -16,5 +16,5 @@ case class OfHexSideReg[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComple
 object OfHexSideReg
 {
    implicit def implicitBuilder[TileT <: Tile, SideT <: GridElem, GridT <: HexGridComplexReg[TileT, SideT]](side: SideT, grid: GridT,
-         gGui: TileGridGui[TileT, SideT, GridT]) = apply(side, grid, gGui)
+         gGui: TileGridComplexGui[TileT, SideT, GridT]) = apply(side, grid, gGui)
 }
