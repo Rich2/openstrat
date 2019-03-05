@@ -37,8 +37,7 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
       while(x <= xEnd){ f(x, y); x += 4 }
    }   
    
-   def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowStart(y) to rowEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))      
-   
+   def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowStart(y) to rowEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))   
    
   // def sideRowMap[R](y: Int, f: (Cood, SideT) => R): Seq[R] = {deb("stop") ; ??? } 
 //   {
@@ -69,21 +68,9 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
         fSum(acc, res)
      }
       
-   }
-   
-  // def sidesMap[R](f: HexCood => R): Seq[R] = cenRows.flatMap(
+   }  
    
    
-   def fSetRow[A](y: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Unit =
-   {
-      val tiles = tileMakers.flatMap(_.toSeq)
-    //  setRowEnd(y, xStart + (tiles.length - 1) * 4)      
-   //   setRowStart(y, xStart)
-      tiles.iForeach{(e, i) =>
-         val x = xStart + i * 4
-         fSetTile(x, y, e)         
-      }
-   }
    override def optTile(x: Int, y: Int): Option[TileT] = Unit match
    {
       case _ if y < yTileMin => None

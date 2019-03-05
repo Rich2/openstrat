@@ -21,7 +21,7 @@ object EuropeEastGrid extends EGridMaker
       val grid = new EGFarNorth[TileT, SideT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}
       grid.setAllTiles(Ocean)(fTile)
       grid.fSidesSetAll(SideNone)(fSide)      
-      import grid.{fSetRow => gs}
+      import grid.{setRow => gs}
       gs(526, 386, taiga * 4) 
       gs(524, 376, sea, taiga * 5)
       gs(522, 374, sea, taiga * 8)

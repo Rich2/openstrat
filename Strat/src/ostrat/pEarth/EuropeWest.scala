@@ -26,7 +26,7 @@ object EuropeWestGrid extends EGridMaker
       grid.fSidesSetAll(SideNone)(fSide)
       grid.fSetSide(181, 477, Straits)(fSide)
       grid.fSetSide(205, 463, Straits)(fSide)      
-      import grid.{fSetRow => gs}
+      import grid.{setRow => gs}
       gs(518, 230, taiga)
       gs(516, 232, taiga)
       gs(514, 230, taiga) 
