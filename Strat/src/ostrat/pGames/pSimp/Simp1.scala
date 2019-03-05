@@ -12,7 +12,7 @@ object Simp1
   def start: SimpGrid =
   {
     val newGrid = new SimpGrid(2,10, 2, 10)
-    //newGrid.s
+    
     newGrid
   }
 }

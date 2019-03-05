@@ -7,8 +7,8 @@ package pGrid
  *  It needs this information so it can communicate with its grid. */
 trait GridElem
 {
-   def x: Int
-   def y: Int
+   def x: Int  
+   def y: Int 
    def cood: Cood = Cood(x, y)
 }
 

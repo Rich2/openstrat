@@ -48,10 +48,10 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
   }
    
   /** Sets a rectangle of tiles to the same terrain type. */
-  final def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileMaker: A)(implicit f: (Int, Int, A) => TileT): Unit = for {
+  final def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = for {
     y <- bottomLeft.y to topRight.y by 2
     x <- bottomLeft.x to topRight.x by 2
-  } setTile(x, y, f(x, y, tileMaker))
+  } fSetTile(x, y, tileValue)
    
    
   final def setColumn[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
@@ -59,13 +59,13 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
     val tiles = tileMakers.flatMap(_.toSeq)      
     tiles.iForeach{(e, i) =>
       val y = yStart + i * 2
-      setTile(x, y, f(x, y , e))      
+      fSetTile(x, y, e)      
     }
     Cood(x, yStart + (tiles.length - 1) * 2)
   }
   
-  final def setColumn[A](cood: Cood, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setColumn(cood.x, cood.y, tileMakers: _*)(f)
+  final def setColumn[A](cood: Cood, multis: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+    setColumn(cood.x, cood.y, multis: _*)(f)
    
   final def setColumnDown[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
   {
@@ -73,18 +73,18 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
       
     tiles.iForeach{(e, i) =>
       val y = yStart - i * 2
-      setTile(x, y, f(x, y, e))               
+      fSetTile(x, y, e)//f(x, y, e))               
     }
     Cood(x, yStart - (tiles.length - 1) * 2)
   }
   
-  final def setColumnDown[A](cood: Cood, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
-    setColumnDown(cood.x, cood.y, tileMakers: _*)(f)
+  final def setColumnDown[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+    setColumnDown(cood.x, cood.y, tileValues: _*)(f)
    
-  def fSetRow[A](f: A => TileT, y: Int, tileMakers: Multiple[A]*): Unit =
+  def fSetRow[A](y: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Unit =
   {
     val tiles = tileMakers.flatMap(_.toSeq)     
-    tiles.iForeach((e, i) => setTile(xTileMin + i * 2, y, f(e)))
+    tiles.iForeach((e, i) => fSetTile(xTileMin + i * 2, y, e))
   }
    
   def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGridComplex.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Unit =

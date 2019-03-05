@@ -4,20 +4,21 @@ package pGames
 package pChess
 import Colour._, pGrid._
 
-case class DTile(x: Int, y: Int) extends ColouredTile
+case class DTile(x: Int, y: Int, var piece: Option[Draught] = None) extends ColouredTile
 {
   def darkTile: Boolean = (x + y).isEven
   def colour: Colour = ife(darkTile, Red, White)
-  var piece: Option[Draught] = None
+  
 }
 
 object DTile
 {
-   implicit object DTerrIsType extends IsType[DTile]
-   {
-      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTile]
-      override def asType(obj: AnyRef): DTile = obj.asInstanceOf[DTile]   
-   }
+  implicit val DTileAdj: (DTile, Int, Int) => DTile = (t, x, y) => DTile(x, y, t.piece)
+  implicit object DTerrIsType extends IsType[DTile]
+  {
+    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTile]
+    override def asType(obj: AnyRef): DTile = obj.asInstanceOf[DTile]   
+  }
 }
 
 sealed class Draught(val colour: Colour) extends AnyRef

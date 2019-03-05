@@ -7,7 +7,8 @@ import pGrid._
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
 {
-   def apply[TileT <: Tile, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(implicit evTile: IsType[TileT], evSide: IsType[SideT]):
+   def apply[TileT <: Tile, SideT <: GridElem](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT,
+       evTile: IsType[TileT], evSide: IsType[SideT]):
    EGrid[TileT, SideT]
 }
 

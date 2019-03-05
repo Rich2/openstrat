@@ -14,13 +14,14 @@ object EuropeEast extends Area1('EuropeEast, 60 ll 60)
 
 object EuropeEastGrid extends EGridMaker
 {          
-   def apply[TileT <: Tile, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(implicit evTile: IsType[TileT], evSide: IsType[SideT]):
+   def apply[TileT <: Tile, SideT <: GridElem](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT, 
+       evTile: IsType[TileT], evSide: IsType[SideT]):
    EGrid80km[TileT, SideT] =
    {     
       val grid = new EGFarNorth[TileT, SideT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}
-      grid.fTilesSetAll(Ocean)(fTile)
-      grid.fSidesSetAll(SideNone)(fSide)
-      val gs: (Int, Int, Multiple[Terrain]*) => Unit = grid.fSetRow[Terrain](fTile) _
+      grid.setAllTiles(Ocean)(fTile)
+      grid.fSidesSetAll(SideNone)(fSide)      
+      import grid.{fSetRow => gs}
       gs(526, 386, taiga * 4) 
       gs(524, 376, sea, taiga * 5)
       gs(522, 374, sea, taiga * 8)

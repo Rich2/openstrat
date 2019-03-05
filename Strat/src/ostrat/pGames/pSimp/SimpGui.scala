@@ -3,7 +3,7 @@ package ostrat
 package pGames.pSimp
 import pCanv._
 
-class SimpGui(canv: CanvasPlatform)
+class SimpGui(canv: CanvasPlatform, grid: SimpGrid)
 {
   
 }

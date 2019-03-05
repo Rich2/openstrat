@@ -117,25 +117,23 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
    def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems =
       tileAndCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
     def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems =
-      tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
-  
+      tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)  
       
-   def fTilesSetAll[A](value: A)(implicit fA: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, fA(_, _, value)))   
-   def tilesSetAll[A](fValue: (Int, Int) => TileT): Unit = tileXYForeach((x, y) => setTile(x, y, fValue(x, y)))
+   def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, value)(fTile))    
    def fSidesSetAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = sideXYForeach((x, y) => fSetSide(x, y, value))
    
    /** Not set Row starts with the y (row) parameter */
-   final def setRow[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+   final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
    {
-      val tiles = tileMakers.flatMap(_.toSeq)      
+      val tiles = tileValues.flatMap(_.toSeq)      
       tiles.iForeach{(e, i) =>
          
             val x = xStart + i * xStep
-            setTile(x, yRow, f(x, yRow, e))
+            fSetTile(x, yRow, e)
          }
       Cood(xStart + (tiles.length - 1) * xStep, yRow)
    }
-   final def setRow[A](cood: Cood, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileMakers: _*)(f)
+   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
    
    /** Note set RowBack starts with the y (row) parameter */
    final def setRowBack[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
@@ -143,12 +141,12 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
       val tiles = tileMakers.flatMap(_.toSeq)      
       tiles.iForeach{(e, i) =>
          val x = xStart - i * xStep
-         setTile(x, yRow, f(x, yRow, e))
+         fSetTile(x, yRow, e)
       }
       Cood(xStart - (tiles.length - 1) * xStep, yRow)
    }
-   final def setRowBack[A](cood: Cood, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-      setRowBack(cood.y, cood.x, tileMakers: _*)(f)
+   final def setRowBack[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+      setRowBack(cood.y, cood.x, tileValues: _*)(f)
    /** Warning implementations need modification. */   
    def adjTileCoodsOfTile(tileCood: Cood): Coods
 }

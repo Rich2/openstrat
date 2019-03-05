@@ -74,14 +74,14 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
   // def sidesMap[R](f: HexCood => R): Seq[R] = cenRows.flatMap(
    
    
-   def fSetRow[A](f: (Int, Int, A) => TileT)(y: Int, xStart: Int, tileMakers: Multiple[A]*): Unit =
+   def fSetRow[A](y: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Unit =
    {
       val tiles = tileMakers.flatMap(_.toSeq)
     //  setRowEnd(y, xStart + (tiles.length - 1) * 4)      
    //   setRowStart(y, xStart)
       tiles.iForeach{(e, i) =>
          val x = xStart + i * 4
-         setTile(x, y, f(x, y, e))         
+         fSetTile(x, y, e)         
       }
    }
    override def optTile(x: Int, y: Int): Option[TileT] = Unit match

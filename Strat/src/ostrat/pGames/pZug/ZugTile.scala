@@ -7,28 +7,30 @@ import pGrid._
 
 trait ZugTerr
 {
-   def colour: Colour
-   def cost: OptInt = SomeInt(1)
-   def conceal: Boolean = false
+  def colour: Colour
+  def cost: OptInt = SomeInt(1)
+  def conceal: Boolean = false
 }
 
 object ZugTerr
 {
-   implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply(_, _, _, Nil)
+  //implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply(_, _, _, Nil)
 }
 
 case class ZugTile(x: Int, y: Int, terr: ZugTerr, lunits: List[Squad] = Nil) extends ColouredTile
 {   
-   def colour = terr.colour     
+  def colour = terr.colour     
 }
 
 object ZugTile
-{   
-   implicit object ZugTileIsType extends IsType[ZugTile]
-   {
-      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[ZugTile]
-      override def asType(obj: AnyRef): ZugTile = obj.asInstanceOf[ZugTile]   
-   }   
+{
+  implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = apply(_, _, _)//???//ZugTile.apply(_, _, _, Nil)
+  implicit val tileMove: (Int, Int, ZugTile) => ZugTile = (x, y, t) => t.copy(x, y)//apply(_, _, _.// = ZugTile( 
+  implicit object ZugTileIsType extends IsType[ZugTile]
+  {
+    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[ZugTile]
+    override def asType(obj: AnyRef): ZugTile = obj.asInstanceOf[ZugTile]   
+  }   
 }
 
 case object Plain extends ZugTerr

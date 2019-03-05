@@ -13,7 +13,7 @@ package pGrid
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
 trait TileGrid[TileT <: Tile]
-{
+{  
   val arr: Array[AnyRef]
   def xTileMin: Int
   def xTileMax: Int
@@ -36,16 +36,23 @@ trait TileGrid[TileT <: Tile]
   /** Throws exception if Cood is not a valid Tile coordinate */
   final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)  
   def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
-   def getTile(tc: Cood): TileT = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) } 
- // def getTile(x: Int, y: Int): TileT// = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
- // def getTile(tc: Cood): TileT// = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) }
-//  def setTile(x: Int, y: Int, tile: TileT): Unit// = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
-//  def setTile(tc: Cood, tile: TileT): Unit// = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
+  def getTile(tc: Cood): TileT = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) } 
+ 
+  def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y)
+    arr(xyToInd(x, y)) = value  }
   
-  def setTile(x: Int, y: Int, tile: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = tile }
-  def setTile(tc: Cood, tile: TileT): Unit = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) = tile }
-  def fSetTile(x: Int, y: Int, fTile: (Int, Int) => TileT) = { coodIsTile(x, y);  arr(xyToInd(x, y)) = fTile(x, y) }
-  def fSetTile(cood: Cood, fTile: Cood => TileT) = { coodIsTile(cood); arr(xyToInd(cood.x, cood.y)) = fTile(cood) }
+  def setTile(cood: Cood, value: TileT): Unit = setTile(cood.x, cood.y, value)
+  
+  def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =
+  { coodIsTile(x, y)
+    arr(xyToInd(x, y)) = fTile(x, y, value)
+  }
+  
+  def fsetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.x, cood.y, value)(fTile)
+  
+  
+  
+  //{ coodIsTile(cood); arr(xyToInd(cood.x, cood.y)) = fTile(cood) }
    
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
