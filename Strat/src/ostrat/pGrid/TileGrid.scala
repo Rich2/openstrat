@@ -50,6 +50,25 @@ trait TileGrid[TileT <: Tile]
   
   def fsetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.x, cood.y, value)(fTile)
   
+  @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
+  /** needs change */
+   @inline final def tileCoodForeach(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
+  
+  final def tilesMap[R](f: TileT => R): List[R] =
+   {
+      var acc: List[R] = Nil
+      tileCoodForeach{ tileCood =>
+         val tile = getTile(tileCood)
+         val newRes: R = f(tile)
+         acc = newRes :: acc
+      }
+      acc.reverse
+   }
+   
+   final def tilesForeach[R](f: TileT => Unit): Unit =  tileCoodForeach{ tileCood => f(getTile(tileCood)) }  
+      
+   def tilesFlatMap[R](f: TileT => Seq[R]): List[R] = tilesMap(f).flatten
+  
   /** Note set Row starts with the y (row) parameter. */ 
   final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {

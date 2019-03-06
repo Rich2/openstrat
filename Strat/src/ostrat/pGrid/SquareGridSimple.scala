@@ -11,6 +11,8 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def xStep: Int = 1
   override def coodIsTile(x: Int, y: Int): Unit = {}
+  
+  override def tileXYForeach(f: (Int, Int) => Unit): Unit = ???
  // def setTile(x: Int, y: Int, tile: TileT): Unit = arr(xyToInd(x, y)) = tile
  // def setTile(tc: Cood, tile: TileT): Unit = arr(xyToInd(tc.x, tc.y)) = tile
   //These need changing

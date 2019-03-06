@@ -50,12 +50,11 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
       var y: Int = yTileMin
       while(y <= yTileMax) { f(y); y += 2 }
    }
-   /** needs change */
-   @inline final def tileCoodForeach(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
+   
    @inline final def sideCoodForeach(f: Cood => Unit): Unit = sideXYForeach((x, y) => f(Cood(x, y)))
       // tileRowsForeach(y => tileCoodRowForeach(y, f))
    
-   @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
+   
    @inline def sideXYForeach(f: (Int, Int) => Unit): Unit
    //def setSides(fValue: (Int, Int) => SideT): Unit = sideXYForeach{(x, y) => setSide(x, y, fValue(x, y))}
 //   def sidesMap[R](f: SideT => R): List[R] =
@@ -98,20 +97,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
    
    def gridTileDispFold(f: (GridT, Cood) => GraphicElems): GraphicElems = gridTileFold[GraphicElems](f, _ ++ _)(Nil)   
    
-   final def tilesMap[R](f: TileT => R): List[R] =
-   {
-      var acc: List[R] = Nil
-      tileCoodForeach{ tileCood =>
-         val tile = getTile(tileCood)
-         val newRes: R = f(tile)
-         acc = newRes :: acc
-      }
-      acc.reverse
-   }
    
-   final def tilesForeach[R](f: TileT => Unit): Unit =  tileCoodForeach{ tileCood => f(getTile(tileCood)) }  
-      
-   def tilesFlatMap[R](f: TileT => Seq[R]): List[R] = tilesMap(f).flatten
    
    /** Fundamental method for producing GraphicElems from the Grid */
    def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems =

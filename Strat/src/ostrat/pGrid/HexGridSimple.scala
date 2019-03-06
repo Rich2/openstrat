@@ -20,5 +20,6 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
   override def yToInd(y: Int): Int = (y  - yTileMin + 1)
+  override def tileXYForeach(f: (Int, Int) => Unit): Unit = ???
 }
 
