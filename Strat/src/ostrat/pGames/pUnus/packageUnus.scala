@@ -11,7 +11,7 @@ package pGames
  *  networks. However the purpose of this project is isolate the problems of game management from the complexities of turn resolution and turn
  *  resolution display. And to give the simplest example to help beginners build their own simultaneous turn games, reinforcing the mantra that "A
  *  complex system that works is invariably found to have evolved from a simple system that worked." */
-package object pSimp
+package object pUnus
 {
   
 }

@@ -5,10 +5,7 @@ import geom._
 /** A Gui for a single regular SquareGridComplex. Currently there are no irregular SquareGrids */
 abstract class SquareGridGui[TileT <: Tile, SideT <: GridElem, GridT <: SquareGridComplex[TileT, SideT]](val canv: pCanv.CanvasPlatform,
     var grid: GridT, title: String) extends TileGridComplexGui[TileT, SideT, GridT](title)
-{
-   /** A tile measures 2 coordinates in both x and y direction. */
-   override def ptScale = pScale / 2
-   
+{  
    def ofSTilesFold[R](f: OfSquareReg[TileT, SideT, GridT] => R, fSum: (R, R) => R, emptyVal: R) =
    {
       var acc: R = emptyVal
