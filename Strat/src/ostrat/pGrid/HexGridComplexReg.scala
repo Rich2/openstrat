@@ -92,7 +92,8 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   def loop(acc: List[Cood], curr: Node[TileT]): List[Cood] = curr.parent.fold(acc, loop(curr.tile.cood :: acc, _))
    
   found.map(endNode =>  loop(Nil, endNode))
-  }   
+  }
+  def sideCoods: Coods = ???
 }
 
 case class Node[TileT <: Tile](val tile: TileT, var gCost: Int, var hCost: Int, var parent: Opt[Node[TileT]])

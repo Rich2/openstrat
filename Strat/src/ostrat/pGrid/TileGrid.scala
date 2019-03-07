@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
+import reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A tileGrid is a collection of tiles, either hexs or squares. This is a fundamental trait. It is a specific case of a tiled area. I
  *  have reached the conclusion that the general case of completely irregular tiling, while interesting mathematically and useful for say
@@ -38,37 +39,43 @@ trait TileGrid[TileT <: Tile]
   def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
   def getTile(tc: Cood): TileT = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) } 
  
-  def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y)
-    arr(xyToInd(x, y)) = value  }
-  
+  def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }  
   def setTile(cood: Cood, value: TileT): Unit = setTile(cood.x, cood.y, value)
   
+  def fsetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.x, cood.y, value)(fTile)
   def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =
   { coodIsTile(x, y)
     arr(xyToInd(x, y)) = fTile(x, y, value)
-  }
-  
-  def fsetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.x, cood.y, value)(fTile)
+  }  
   
   @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
   /** needs change */
-   @inline final def tileCoodForeach(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
+  @inline final def tileCoodForeach(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
   
-  final def tilesMap[R](f: TileT => R): List[R] =
-   {
-      var acc: List[R] = Nil
-      tileCoodForeach{ tileCood =>
-         val tile = getTile(tileCood)
-         val newRes: R = f(tile)
-         acc = newRes :: acc
-      }
-      acc.reverse
-   }
+  final def tilesForeach[R](f: TileT => Unit): Unit =  tileCoodForeach{ tileCood => f(getTile(tileCood)) }      
+  def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
+  {
+    val acc: ArrayBuffer[R] = new ArrayBuffer(0)
+    tileCoodForeach{ tileCood =>
+      val tile = getTile(tileCood)
+      val newRes: Array[R] = f(tile)
+      acc ++= newRes
+    }
+    acc.toArray
+  }     
    
-   final def tilesForeach[R](f: TileT => Unit): Unit =  tileCoodForeach{ tileCood => f(getTile(tileCood)) }  
-      
-   def tilesFlatMap[R](f: TileT => Seq[R]): List[R] = tilesMap(f).flatten
+  final def tilesMap[R: ClassTag](f: TileT => R): Array[R] =
+  {
+    val acc: ArrayBuffer[R] = new ArrayBuffer(0)
+    tileCoodForeach{ tileCood =>
+      val tile = getTile(tileCood)
+      val newRes: R = f(tile)
+      acc += newRes
+    }
+    acc.toArray
+  }   
   
+  final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 
   final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
@@ -78,10 +85,11 @@ trait TileGrid[TileT <: Tile]
       fSetTile(x, yRow, e)         
     }
     Cood(xStart + (tiles.length - 1) * xStep, yRow)   
-  }
-  
-  final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
+  }  
     
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
+  
+  
+  
 }

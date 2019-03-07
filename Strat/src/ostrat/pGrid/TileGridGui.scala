@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import pCanv._, geom._
+import pCanv._, geom._, reflect.ClassTag
 
 /** Base class for displaying single tile grid. */
 abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: String) extends UnfixedMapGui(title)
@@ -27,9 +27,9 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)
    
   
-  def tilesMap[R](f: TileT => R): List[R] = grid.tilesMap[R](f)
+  def tilesMapj[R: ClassTag](f: TileT => R): Array[R] = grid.tilesMap[R](f)
   def tilesForeach(f: TileT => Unit): Unit = grid.tilesForeach(f)
-  def tilesFlatMap[R](f: TileT => List[R]): List[R] = grid.tilesFlatMap(f)
+  def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.tilesFlatMap(f)
   
    
   def inCmd = (mb: MouseButton) => { pScale = (pScale * scaleDelta(mb)).min(scaleMax); updateView }   

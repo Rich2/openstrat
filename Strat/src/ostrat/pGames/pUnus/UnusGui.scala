@@ -12,8 +12,7 @@ class UnusSetGui(val canv: CanvasPlatform, var grid: UnusGrid) extends TileGridG
 {
   //Required members
   var pScale: Double = 10
-  var focus: Vec2 = grid.cen
-  def tileScale = 10
+  var focus: Vec2 = grid.cen 
   def mapObjs = Nil
   
   //optional members

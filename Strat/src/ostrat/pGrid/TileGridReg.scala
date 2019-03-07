@@ -3,8 +3,8 @@ package ostrat
 package pGrid
 import geom._
 
-/** A regular tile grid, covering a flat Euclidean 2s surface as opposed to an earth based tile grid or other grid that is not mapping a flat 2d
- *  surface. */
+/** A regular rectangular tile grid, covering a flat Euclidean 2s surface as opposed to an earth based tile grid or other grid that is not mapping a
+ *  flat 2d surface. */
 trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
 {
   override def optTile(x: Int, y: Int): Option[TileT] = if (x >= xTileMin & x <= xTileMax & y >= yTileMin & y <= yTileMax )
@@ -24,6 +24,9 @@ trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
   def xCen = (left + right) / 2
   def yCen = (top + bottom) / 2
   def cen: Vec2 = Vec2(xCen, yCen)
+  
+  /** This could probably go in TileGrid but putting it here for now. */
+  def sideCoods: Coods
 }
 
 trait TileGridComplexReg[TileT <: Tile, SideT <: GridElem] extends TileGridComplex[TileT, SideT] with TileGridReg[TileT]

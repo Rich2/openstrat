@@ -112,6 +112,8 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
  
   /** Warning needs Modification */
   override def adjTileCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.adjTileCoodsOfTile(tileCood)
+  
+  def sideCoods: Coods = ???
 }
 
 object SquareGridComplex

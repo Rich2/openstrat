@@ -26,6 +26,7 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   
   //def getTile(x: Int, y: Int): TileT = evTile.asType(arr(xyToInd(x, y)))    
  // def getTile(tc: Cood): TileT = evTile.asType(arr(xyToInd(tc.x, tc.y)))
+  def sideCoods: Coods = ???
 }
 
 object SquareGridSimple
