@@ -8,7 +8,7 @@ class UnusGui(canv: CanvasPlatform, grid: UnusGrid)
   new UnusSetGui(canv, grid)
 }
 
-class UnusSetGui(val canv: CanvasPlatform, var grid: UnusGrid) extends TileGridGui[UTile, UnusGrid]("Unus Game")
+class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridGui[UTile, UnusGrid]("Unus Game")
 {
   //Required members
   var pScale: Double = 10

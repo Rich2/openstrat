@@ -6,7 +6,7 @@ import pCanv._, geom._, reflect.ClassTag
 /** Base class for displaying single tile grid. */
 abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: String) extends UnfixedMapGui(title)
 {
-  var grid: GridT
+  val grid: GridT
   /** number of pixels per grid unit */
   def scaleMin: Double = mapPanelDiameter / grid.diagLength
   def scaleMax: Double = 1000

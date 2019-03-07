@@ -4,7 +4,7 @@ package pGrid
 import geom._
 /** A Gui for a single regular SquareGridComplex. Currently there are no irregular SquareGrids */
 abstract class SquareGridGui[TileT <: Tile, SideT <: GridElem, GridT <: SquareGridComplex[TileT, SideT]](val canv: pCanv.CanvasPlatform,
-    var grid: GridT, title: String) extends TileGridComplexGui[TileT, SideT, GridT](title)
+    val grid: GridT, title: String) extends TileGridComplexGui[TileT, SideT, GridT](title)
 {  
    def ofSTilesFold[R](f: OfSquareReg[TileT, SideT, GridT] => R, fSum: (R, R) => R, emptyVal: R) =
    {

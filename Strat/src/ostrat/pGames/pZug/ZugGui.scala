@@ -12,7 +12,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
 {
   statusText --= "Left click to select, middle to set to fire, right to set to Move."
   val scen = game.getScen(player)
-  override var grid: ZugGrid = scen
+  override val grid: ZugGrid = scen
   override def scaleMin = 10
   override var pScale: Double = scaleAlignMin
   override var focus: Vec2 = grid.cen
