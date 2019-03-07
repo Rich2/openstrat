@@ -16,6 +16,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   def mapObjs = Nil
   
   //optional members
+  def stuff: List[Cood] = grid.tileCoodMap{c => c}
   mapPanel.backColour = Colour.Wheat
   eTop()
   mapPanel.repaint(Nil)

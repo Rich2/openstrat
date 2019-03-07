@@ -28,16 +28,8 @@ object HexGridSimple
 {
   def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
   def coodToVec2(x: Int, y: Int): Vec2 =
-   {
-      def yAdj: Double = y * HexGrid.yRatio
-      (x.isEven, y.isEven) match 
-      {
-         case (true, true) => Vec2(x, yAdj)
-         case (_, true) => throw new Exception("HexCood, y is even but x is odd. This is an invalid HexCood")
-         case (false, false) => Vec2(x, yAdj)      
-        // case (0, 1) | (2, 3)  =>  Vec2(x, yAdj + yDist /2)
-         //case (xr, yr) => Vec2(x, yAdj - yDist / 2)
-      }
-   }
+    if(x.isEven & y.isEven | x.isOdd & y.isOdd) Vec2(x, y * HexGrid.yRatio)
+    else throw new Exception("This is an invalid HexCood")        
+  
 }
 
