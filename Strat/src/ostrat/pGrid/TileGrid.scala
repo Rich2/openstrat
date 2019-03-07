@@ -46,11 +46,24 @@ trait TileGrid[TileT <: Tile]
   def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =
   { coodIsTile(x, y)
     arr(xyToInd(x, y)) = fTile(x, y, value)
-  }  
+  }
   
-  @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
   /** needs change */
   @inline final def tileCoodForeach(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
+  @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
+  
+  def tileCoodMap[A](f: Cood => A): List[A] =
+  {
+    var acc: List[A] = Nil
+    tileCoodForeach{c => acc ::= f(c) }
+    acc.reverse    
+  }  
+  def tileXYMap[A](f: (Int, Int) => A): List[A] =
+  {
+    var acc: List[A] = Nil
+    tileXYForeach{(x, y) => acc ::= f(x, y) }
+    acc.reverse    
+  }
   
   final def tilesForeach[R](f: TileT => Unit): Unit =  tileCoodForeach{ tileCood => f(getTile(tileCood)) }      
   def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
@@ -89,6 +102,8 @@ trait TileGrid[TileT <: Tile]
     
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
+  
+  //def sideCoodsOfTileCood: Coods
   
   
   

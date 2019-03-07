@@ -32,9 +32,9 @@ object webglStuff
       gl.linkProgram(program)     
      
       val tempVertices: js.Array[Float] = js.Array[Float]()
-      HexGrid.triangleFan.foreach(v => tempVertices.push(v.x.toFloat / 5, v.y.toFloat / 5))
+      HexGridComplex.triangleFan.foreach(v => tempVertices.push(v.x.toFloat / 5, v.y.toFloat / 5))
       
-      HexGrid.triangleFan.foreach(v => println(""))//v.str1))
+      HexGridComplex.triangleFan.foreach(v => println(""))//v.str1))
       tempVertices.push(0.0f, 0.0f, -0.3f,-0.3f,  0.3f,-0.3f, 0.4f, 0.0f)//,  0.2f,0.2f,  0.6f, 0.6f)     
       import js.typedarray.Float32Array
       //var vertices: Float32Array = new Float32Array(tempVertices)

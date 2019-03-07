@@ -1,8 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import pGrid._
+import geom._, pGrid._
 
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
@@ -83,9 +82,9 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
    def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
    
    tileCoodForeach{cood =>
-      setLL(cood, vec2ToLL(HexGrid.coodToVec2(cood)))
-      sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
-      vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
+      setLL(cood, vec2ToLL(HexGridComplex.coodToVec2(cood)))
+      sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridComplex.coodToVec2(vc))))
+      vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridComplex.coodToVec2(vc))))
          }   
    
   // def vertLL(hv: HexVert): LatLong = vec2ToLL(hv.toVec2)

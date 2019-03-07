@@ -27,6 +27,7 @@ trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
   
   /** This could probably go in TileGrid but putting it here for now. */
   def sideCoods: Coods
+  //def sideLines: 
 }
 
 trait TileGridComplexReg[TileT <: Tile, SideT <: GridElem] extends TileGridComplex[TileT, SideT] with TileGridReg[TileT]

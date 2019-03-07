@@ -7,7 +7,7 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
       implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
       TileGridComplexReg[TileT, SideT]
 {
-  override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+  override def coodToVec2(cood: Cood): Vec2 = HexGridComplex.coodToVec2(cood)
   def vertMargin = 0.7
   def horrMargin = 2.2
   override def left: Double = xTileMin - horrMargin
@@ -49,7 +49,7 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   }
    
   def tileNeighboursCoods(cood: Cood): Coods =
-    HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
+    HexGridComplex.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
   def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)
    
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =

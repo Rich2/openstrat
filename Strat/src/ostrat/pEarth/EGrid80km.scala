@@ -75,7 +75,7 @@ object EGrid80km
    import pGrid._
    def  coodToLatLong0(inp: Cood): LatLong =
    {
-      val adj: Vec2 = HexGrid.coodToVec2(inp.subXY(0, 300))      
+      val adj: Vec2 = HexGridComplex.coodToVec2(inp.subXY(0, 300))      
       val d2: Dist2 = adj * scale
       val lat: Double = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))

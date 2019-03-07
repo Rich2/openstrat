@@ -6,7 +6,7 @@ import geom._
 class HexDirn(x: Int, y: Int)
 {
    val relCood: Cood = Cood(x, y)
-   val vec: Vec2 = HexGrid.coodToVec2(relCood) 
+   val vec: Vec2 = HexGridComplex.coodToVec2(relCood) 
 }
 
 object HCen extends HexDirn(0, 0) 

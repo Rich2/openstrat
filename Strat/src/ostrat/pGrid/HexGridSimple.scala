@@ -7,7 +7,7 @@ import geom._
 abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
    (implicit val evTile: IsType[TileT]) extends TileGridReg[TileT] with HexGrid[TileT]
 {
-  override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+  override def coodToVec2(cood: Cood): Vec2 = HexGridSimple.coodToVec2(cood)
   def vertMargin = 0.7
   def horrMargin = 2.2
   override def left: Double = xTileMin - horrMargin
@@ -21,6 +21,23 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
   override def yToInd(y: Int): Int = (y  - yTileMin + 1)
   override def tileXYForeach(f: (Int, Int) => Unit): Unit = ???
-  def sideCoods: Coods = ??? 
+  def sideCoods: Coods = ???// tilesMap( 
+}
+
+object HexGridSimple
+{
+  def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
+  def coodToVec2(x: Int, y: Int): Vec2 =
+   {
+      def yAdj: Double = y * HexGrid.yRatio
+      (x.isEven, y.isEven) match 
+      {
+         case (true, true) => Vec2(x, yAdj)
+         case (_, true) => throw new Exception("HexCood, y is even but x is odd. This is an invalid HexCood")
+         case (false, false) => Vec2(x, yAdj)      
+        // case (0, 1) | (2, 3)  =>  Vec2(x, yAdj + yDist /2)
+         //case (xr, yr) => Vec2(x, yAdj - yDist / 2)
+      }
+   }
 }
 
