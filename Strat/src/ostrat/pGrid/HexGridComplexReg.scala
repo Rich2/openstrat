@@ -26,7 +26,7 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   val sideRowOddStart = (row2Start + row4Start) / 2
   val sideRowOddEnd = (row2End + row4End) / 2
    
-  /** rows 2, 6,10 ... -2, -6, -10 ... */
+  /** rows 2, 6, 10 ... -2, -6, -10 ... */
   def row2sForeach(f: Int => Unit): Unit =
     for { y <- yTileMin.incrementTill(_ % 4 == 2) to yTileMax.decrementTill(_ % 4 == 2) by 4 } yield f(y)
       

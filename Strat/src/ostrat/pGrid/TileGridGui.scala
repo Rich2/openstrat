@@ -10,7 +10,7 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   /** number of pixels per grid unit */
   def scaleMin: Double = mapPanelDiameter / grid.diagLength
   def scaleMax: Double = 1000
-  def scaleAlignMin: Double = mapPanel.width / grid.width min mapPanel.height / grid.height
+  def scaleAlignMin: Double = (mapPanel.width / grid.width).min(mapPanel.height / grid.height)
   /** The number of pixels per x-grid unit. There are 2 x-grid units between complex square tiles and 4 between complex hex tiles. */
   var pScale: Double
   //The number of pixels per tile, from tile centre to tile centre

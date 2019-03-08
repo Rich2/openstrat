@@ -8,19 +8,34 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
    (implicit val evTile: IsType[TileT]) extends TileGridReg[TileT] with HexGrid[TileT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGridSimple.coodToVec2(cood)
-  def vertMargin = 0.7
-  def horrMargin = 2.2
+  def vertMargin = 0.6
+  def horrMargin = 0.6
   override def left: Double = xTileMin - horrMargin
   override def right: Double = xTileMax + horrMargin
-  def bottom: Double = (yTileMin - 2) * yRatio - vertMargin
-  def top: Double = (yTileMax + 2) * yRatio + vertMargin
+  def bottom: Double = (yTileMin) * yRatio - vertMargin
+  def top: Double = (yTileMax) * yRatio + vertMargin
   override def xStep: Int = 2
   override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
   override val yArrLen: Int = yTileMax - yTileMin + 1//for zeroth tile, + 1 for upper side(s)
   override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
   override def yToInd(y: Int): Int = (y  - yTileMin + 1)
-  override def tileXYForeach(f: (Int, Int) => Unit): Unit = ???
+  
+  val row2Start = xTileMin.incrementTill(_.isOdd)
+  val row4Start = xTileMin.incrementTill(_.isEven)
+  val row2End = xTileMax.decrementTill(_.isOdd)
+  val row4End = xTileMax.decrementTill(_.isEven)
+  /** rows 1, 3, 5 ... -1, -3, -5 ... */
+  def row1sForeach(f: Int => Unit): Unit =
+    for { y <- yTileMin.incrementTill(_.isOdd) to yTileMax.decrementTill(_.isOdd) by 2 } yield f(y)
+      
+  /** rows 2, 4, 6 ... 0, -2, -4, -6 ... */
+  def row2sForeach(f: Int => Unit): Unit =
+    for { y <- yTileMin.incrementTill(_.isEven) to yTileMax.decrementTill(_.isEven) by 2 } yield f(y)
+  override def tileXYForeach(f: (Int, Int) => Unit): Unit = 
+  { row1sForeach(y => for { x <- row2Start to row2End by 2} yield f(x, y))
+    row2sForeach(y => for { x <- row4Start to row4End by 2} yield f(x, y))
+  }
   def sideCoods: Coods = ???// tilesMap( 
 }
 
