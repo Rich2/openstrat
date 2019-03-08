@@ -67,8 +67,16 @@ trait Transable[T] extends Any
 
 object Transable
 {
-  implicit class ImplictTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
+  implicit class ImplicitTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
   {
     def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])         
+  }
+  
+  import scala.reflect.ClassTag  
+  implicit def toTransArray[TT <: Transable[_ ]](arr: Array[TT])(ev: ClassTag[TT]) = new ImplicitTransableArray[TT](arr, ev)
+  
+  class ImplicitTransableArray[TT <: Transable[_ ]](val arr: Array[TT], implicit val ev: ClassTag[TT]) extends Transable[Array[TT]]
+  {
+    def fTrans(f: Vec2 => Vec2): Array[TT] = arr.map(_.fTrans(f).asInstanceOf[TT])         
   }
 }
