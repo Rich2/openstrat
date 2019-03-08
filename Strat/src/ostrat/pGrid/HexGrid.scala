@@ -13,17 +13,11 @@ trait HexGrid[TileT <: Tile] extends TileGrid[TileT]
     case _ if x.isOdd & y.isOdd =>
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
   }
-  
-  //def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
 }
 
 object HexGrid
 {
-  //val yDist =  2 / sqrt(3) 
-  // val yDist2 =  4 / sqrt(3)
   val yRatio = sqrt(3)
-   
-  
 }
 
 
