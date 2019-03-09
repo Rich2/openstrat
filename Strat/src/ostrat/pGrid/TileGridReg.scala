@@ -18,16 +18,18 @@ trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
   def dimensionsStr(f: Double => String = _.str2): String =
     List("left" -> left, "right" -> right, "bottom" -> bottom, "top" -> top).map(p => p._1 :- f(p._2)).mkString("; ")
    
-  def width = right -left
+  def width = right - left
   def height = top - bottom
   def diagLength = math.sqrt(width * width + height * height)
   def xCen = (left + right) / 2
   def yCen = (top + bottom) / 2
   def cen: Vec2 = Vec2(xCen, yCen)
   
-  /** This could probably go in TileGrid but putting it here for now. */
-  def sideCoods: Coods
-  //def sideLines: 
+  def sideLines: Line2s
 }
 
 trait TileGridComplexReg[TileT <: Tile, SideT <: GridElem] extends TileGridComplex[TileT, SideT] with TileGridReg[TileT]
+{
+  /** This could possibly go in TileGridComplex but putting it here for now. */
+  def sideCoods: Coods
+}

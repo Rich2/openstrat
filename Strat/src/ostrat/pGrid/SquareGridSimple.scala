@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
+import geom._
 
 /** A regular square grid containing only values for the tiles not for the boundaries between the tiles. */
 abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
@@ -10,23 +11,13 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   override def xArrLen: Int = xTileMax - xTileMin + 1
   override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
   override def xStep: Int = 1
-  override def coodIsTile(x: Int, y: Int): Unit = {}
-  
-  override def tileXYForeach(f: (Int, Int) => Unit): Unit = ???
- // def setTile(x: Int, y: Int, tile: TileT): Unit = arr(xyToInd(x, y)) = tile
- // def setTile(tc: Cood, tile: TileT): Unit = arr(xyToInd(tc.x, tc.y)) = tile
-  //These need changing
-  def left: Double = xTileMin - 1.1
-  def right: Double = xTileMax + 1.1
-  def bottom: Double = yTileMin - 1.1
-  def top: Double = yTileMax + 1.1 
-  
+  override def coodIsTile(x: Int, y: Int): Unit = {}  
+  override def tileXYForeach(f: (Int, Int) => Unit): Unit = ??? 
+  override def margin: Double = 0.6 
   def yToInd(y: Int): Int = (y  - yTileMin + 1)
   override def xToInd(x: Int): Int = (x - xTileMin)
   
-  //def getTile(x: Int, y: Int): TileT = evTile.asType(arr(xyToInd(x, y)))    
- // def getTile(tc: Cood): TileT = evTile.asType(arr(xyToInd(tc.x, tc.y)))
-  def sideCoods: Coods = ???
+  def sideLines: Line2s = ???
 }
 
 object SquareGridSimple
