@@ -19,10 +19,21 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
   override def yToInd(y: Int): Int = (y  - yTileMin + 1)
   
-  val row1Start = xTileMin.incrementTill(_.isOdd)
-  val row2Start = xTileMin.incrementTill(_.isEven)
-  val row1End = xTileMax.decrementTill(_.isOdd)
-  val row2End = xTileMax.decrementTill(_.isEven)
+  def row1Start = xTileMin.incrementTill(_.isOdd)
+  def row2Start = xTileMin.incrementTill(_.isEven)
+  def row1End = xTileMax.decrementTill(_.isOdd)
+  def row2End = xTileMax.decrementTill(_.isEven)
+  
+  def tileRow1Length: Int = (row1End - row1Start) match
+  { case l if l < 0 => 0
+    case l => l.incrementTill(_.isOdd) /2
+  }
+  
+  def tileRow2Length: Int = (row2End - row2Start) match
+  { case l if l < 0 => 0
+    case l => l.incrementTill(_.isOdd) /2
+  }
+  
   /** rows 1, 3, 5 ... -1, -3, -5 ... */
   def row1sForeach(f: Int => Unit): Unit =
     for { y <- yTileMin.incrementTill(_.isOdd) to yTileMax.decrementTill(_.isOdd) by 2 } yield f(y)
@@ -34,7 +45,8 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   { row1sForeach(y => for { x <- row1Start to row1End by 2} yield f(x, y))
     row2sForeach(y => for { x <- row2Start to row2End by 2} yield f(x, y))
   }
-    
+  def tileCoods: Coods = ???  
+  def sidePseudoCoods: Coods = ???  
   def sideLines: Line2s = ???  
 }
 
