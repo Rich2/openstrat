@@ -1,15 +1,15 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
+import geom._, reflect.ClassTag
 
 /** A regular square grid containing only values for the tiles not for the boundaries between the tiles. */
 abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
-   (implicit val evTile: IsType[TileT]) extends SquareGrid[TileT] with TileGridReg[TileT]
+   (implicit val evTile: ClassTag[TileT]) extends SquareGrid[TileT] with TileGridReg[TileT]
 {
   override val yArrLen: Int = yTileMax - yTileMin + 1
   override def xArrLen: Int = xTileMax - xTileMin + 1
-  override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
+  override val arr: Array[TileT] = new Array[TileT](arrLen)
   override def xStep: Int = 1
   override def coodIsTile(x: Int, y: Int): Unit = {}  
   override def tileXYForeach(f: (Int, Int) => Unit): Unit = ??? 

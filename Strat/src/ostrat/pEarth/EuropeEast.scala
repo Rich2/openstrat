@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import pGrid._
-import Terrain._
+import geom._, pGrid._, Terrain._, reflect.ClassTag
 
 object EuropeEast extends Area1('EuropeEast, 60 ll 60)
 {
@@ -15,7 +13,7 @@ object EuropeEast extends Area1('EuropeEast, 60 ll 60)
 object EuropeEastGrid extends EGridMaker
 {          
    def apply[TileT <: Tile, SideT <: GridElem](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT, 
-       evTile: IsType[TileT], evSide: IsType[SideT]):
+       evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
    EGrid80km[TileT, SideT] =
    {     
       val grid = new EGFarNorth[TileT, SideT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}

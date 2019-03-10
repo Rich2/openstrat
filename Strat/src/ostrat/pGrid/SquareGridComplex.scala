@@ -1,22 +1,27 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
+import geom._, reflect.ClassTag
 
 /** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
-  (implicit val evTile: IsType[TileT], val evSide: IsType[SideT]) extends TileGridComplexReg[TileT, SideT] with SquareGrid[TileT]
+  (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridComplexReg[TileT, SideT] with SquareGrid[TileT]
 {  
   override def xToInd(x: Int): Int = (x - xTileMin + 1)
   override def yToInd(y: Int): Int = (y  - yTileMin + 1)
   override def xArrLen: Int = xTileMax - xTileMin + 3
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
-  override val arr: Array[AnyRef] = new Array[AnyRef](arrLen)
+  override val arr: Array[TileT] = new Array[TileT](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.sideCoodsOfTile(tileCood)  
   override def xStep: Int = 2   
-  override def margin = 1.1 
+  override def margin = 1.1
+  def xSideToInd(x: Int): Int = ???
+  def ySideToInd(y: Int): Int = ???
+  def xSideArrLen: Int = ???
+  def ySideArrLen: Int = ???
+  val sideArr: Array[SideT] = ???
   
   override def coodIsTile(x: Int, y: Int): Unit = Unit match
   { case _ if x %% 2 == 0 & y %% 2 == 0 =>      

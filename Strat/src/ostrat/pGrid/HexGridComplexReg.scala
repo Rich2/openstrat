@@ -23,6 +23,11 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   def sideRowOddStart = (xRow2Start + xRow4Start) / 2
   def sideRowOddEnd = (xRow2End + xRow4End) / 2
   override def tileNum: Int = ???
+  def xSideToInd(x: Int): Int = ???
+  def ySideToInd(y: Int): Int = ???
+  def xSideArrLen: Int = ???
+  def ySideArrLen: Int = ???
+  val sideArr: Array[SideT] = ???
   
   /** rows 2, 6, 10 ... -2, -6, -10 ... */
   def row2sForeach(f: Int => Unit): Unit =

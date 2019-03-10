@@ -1,20 +1,20 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._, pGrid._
+import geom._, pGrid._, reflect.ClassTag
 
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
 {
    def apply[TileT <: Tile, SideT <: GridElem](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-       evTile: IsType[TileT], evSide: IsType[SideT]):
+       evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
    EGrid[TileT, SideT]
 }
 
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
  *  follows lines of longitude. The y Axis at the cenLong moves along a line of longitude. */
 class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int,
-  val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends
+  val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
       HexGridIrr[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax)
 {
    thisEGrid =>

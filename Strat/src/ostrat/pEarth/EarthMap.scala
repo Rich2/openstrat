@@ -1,17 +1,17 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import pGrid._
+import pGrid._, reflect.ClassTag
 
 class EarthAllMap[TileT <: Tile, SideT <: GridElem](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
-      implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
+      implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 {
    override val tops: List[Area1] = EarthAreas.allTops
    def topsMap[A](f :Area1 => A): Seq[A] = tops.map(f)
 }
 
 class OldWorldMap[TileT <: Tile, SideT <: GridElem](val fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
-      implicit evTile: IsType[TileT], evSide: IsType[SideT])
+      implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
 {
    def tile(x: Int, y: Int): TileT = grids(0).getTile(x, y)
    def tile(cood: Cood): TileT = tile(cood.x, cood.y)

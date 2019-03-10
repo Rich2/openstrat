@@ -2,13 +2,13 @@
 package ostrat
 package pGames
 package pChess
-import Colour._, pGrid._, geom._
+import Colour._, pGrid._, geom._, reflect.ClassTag
 
 class DGrid extends SquareGridSimple[DTile](1, 8, 1, 8)// extends AnyVal
 {  
   //def get(row: Int, col: Int): Option[Draught] = arr((row - 1) * 8 + col - 1)
   //def set(row: Int, col: Int, value: Option[Draught]): Unit = arr((row - 1) * 8 + col - 1) = value
-  def setSome(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = Some(value)
+  def setSome(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = ???//value//Some(value)
 //  def copy: DGrid = 
 //  {
 //    val newArr = new Array[Option[Draught]](64)
@@ -59,7 +59,7 @@ object DGrid
   }
 }
 
-class ChessGrid[TileT <: Tile](length: Int)(implicit evTile: IsType[TileT]) extends SquareGridSimple[TileT](1, length, 1, length)
+class ChessGrid[TileT <: Tile](length: Int)(implicit evTile: ClassTag[TileT]) extends SquareGridSimple[TileT](1, length, 1, length)
 {
    
    

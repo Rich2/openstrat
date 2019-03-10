@@ -1,19 +1,26 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
+import reflect.ClassTag
 
 abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
-   (implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)          
+   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)          
 {   
-   //lazy val rowBounds: Array[Int] = bounds// new Array[Int](yArrLen * 2)
-   def rowStartInd(y: Int) = (y - yTileMin)  * 2
-   def rowStart(y: Int) = rowBounds(rowStartInd(y))
-   def setRowStart(y: Int, value: Int): Unit = rowBounds(rowStartInd(y)) = value
-   def rowEndInd(y: Int) = rowStartInd(y) + 1
-   def rowEnd(y: Int): Int = rowBounds(rowEndInd(y))
-   def setRowEnd(y: Int, value: Int): Unit = rowBounds(rowEndInd(y)) = value
-   override def tileNum: Int =
-   {
+  //lazy val rowBounds: Array[Int] = bounds// new Array[Int](yArrLen * 2)
+  def rowStartInd(y: Int) = (y - yTileMin)  * 2
+  def rowStart(y: Int) = rowBounds(rowStartInd(y))
+  def setRowStart(y: Int, value: Int): Unit = rowBounds(rowStartInd(y)) = value
+  def rowEndInd(y: Int) = rowStartInd(y) + 1
+  def rowEnd(y: Int): Int = rowBounds(rowEndInd(y))
+  def setRowEnd(y: Int, value: Int): Unit = rowBounds(rowEndInd(y)) = value
+  def xSideToInd(x: Int): Int = ???
+  def ySideToInd(y: Int): Int = ???
+  def xSideArrLen: Int = ???
+  def ySideArrLen: Int = ???
+  val sideArr: Array[SideT] = ???
+   
+  override def tileNum: Int =
+  {
      var acc: Int = 0
      tileRowsForeach{y => 
        val delta = (rowEnd(y) - rowStart(y)) / 4 + 1
