@@ -31,6 +31,7 @@ trait TileGrid[TileT <: Tile]
   def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y) * xArrLen
   val yRatio: Double
   def xStep: Int
+  def tileNum: Int
   
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit   

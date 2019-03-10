@@ -12,7 +12,15 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
    def rowEndInd(y: Int) = rowStartInd(y) + 1
    def rowEnd(y: Int): Int = rowBounds(rowEndInd(y))
    def setRowEnd(y: Int, value: Int): Unit = rowBounds(rowEndInd(y)) = value
-   
+   override def tileNum: Int =
+   {
+     var acc: Int = 0
+     tileRowsForeach{y => 
+       val delta = (rowEnd(y) - rowStart(y)) / 4 + 1
+       acc += delta
+     }
+     acc
+   }
   // tileCoodRowsForeach{y => setRowStart(y, 4); setRowEnd(y, 0) }
    
    override def tileRowsForeach(f: Int => Unit): Unit = 
