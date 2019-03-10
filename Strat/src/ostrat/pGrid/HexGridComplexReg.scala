@@ -5,23 +5,25 @@ import geom._
 
 class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
       implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
-      HexGridReg[TileT] with TileGridComplexReg[TileT, SideT]
+      HexGridRegular[TileT] with TileGridComplexReg[TileT, SideT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGridComplex.coodToVec2(cood)
   def vertMargin = 2.8
   def horrMargin = 2.2  
    
-  val row2Start = xTileMin.incrementTill(_ % 4 == 2)
-  val row4Start = xTileMin.incrementTill(_ % 4 == 0)
-  val row2End = xTileMax.decrementTill(_ % 4 == 2)
-  val row4End = xTileMax.decrementTill(_ % 4 == 0)
-  val sideRow2Start = row2Start + 2
-  val sideRow4Start = row4Start + 2
-  val sideRow2End = row2End - 2
-  val sideRow4End = row4End - 2
-  val sideRowOddStart = (row2Start + row4Start) / 2
-  val sideRowOddEnd = (row2End + row4End) / 2
-   
+  def xRow2Start = xTileMin.incrementTill(_ % 4 == 2)
+  def xRow4Start = xTileMin.incrementTill(_ % 4 == 0)
+  def xRow2End = xTileMax.decrementTill(_ % 4 == 2)
+  def xRow4End = xTileMax.decrementTill(_ % 4 == 0)
+  /** Not sure about the following 4 values */
+  def sideRow2Start = xRow2Start + 2
+  def sideRow4Start = xRow4Start + 2
+  def sideRow2End = xRow2End - 2
+  def sideRow4End = xRow4End - 2
+  def sideRowOddStart = (xRow2Start + xRow4Start) / 2
+  def sideRowOddEnd = (xRow2End + xRow4End) / 2
+  override def tileNum: Int = ???
+  
   /** rows 2, 6, 10 ... -2, -6, -10 ... */
   def row2sForeach(f: Int => Unit): Unit =
     for { y <- yTileMin.incrementTill(_ % 4 == 2) to yTileMax.decrementTill(_ % 4 == 2) by 4 } yield f(y)
@@ -31,8 +33,8 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
     for { y <- yTileMin.incrementTill(_ % 4 == 0) to yTileMax.decrementTill(_ % 4 == 0) by 4 } yield f(y)
       
   override def tileXYForeach(f: (Int, Int) => Unit): Unit = 
-  { row2sForeach(y => for { x <- row2Start to row2End by 4} yield f(x, y))
-    row4sForeach(y => for { x <- row4Start to row4End by 4} yield f(x, y))
+  { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
+    row4sForeach(y => for { x <- xRow4Start to xRow4End by 4} yield f(x, y))
   }
      
   def sideXYForeach(f: (Int, Int) => Unit): Unit =

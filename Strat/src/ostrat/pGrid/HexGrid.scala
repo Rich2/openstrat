@@ -19,15 +19,3 @@ object HexGrid
 {
   val yRatio = sqrt(3)
 }
-
-trait HexGridReg[TileT <: Tile] extends HexGrid[TileT] with TileGridReg[TileT]
-{
-  def horrMargin: Double
-  def vertMargin: Double
-  final def left: Double = xTileMin - horrMargin
-  final def right: Double = xTileMax + horrMargin
-  final def bottom: Double = yTileMin  * yRatio - vertMargin
-  final def top: Double = yTileMax * yRatio + vertMargin
-}
-
-

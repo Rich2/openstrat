@@ -5,10 +5,10 @@ import geom._
 
 /** A regular HexGrid containing only values for the tiles not for the boundaries between the tiles. */
 abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
-   (implicit val evTile: IsType[TileT]) extends HexGridReg[TileT]// with HexGrid[TileT]
+   (implicit val evTile: IsType[TileT]) extends HexGridRegular[TileT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGridSimple.coodToVec2(cood)
-  //Y coordinate multiplied by sqrt(3) to get Vec2
+  //Y coordinate multiplied by sqrt(3) to get Vec2. And the upper and lower hex vertices have a greater than 1 cood.y delta. 
   def vertMargin = 1.2
   def horrMargin = 0.6
 
@@ -19,31 +19,37 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
   override def yToInd(y: Int): Int = (y  - yTileMin + 1)
   
-  def row1Start = xTileMin.incrementTill(_.isOdd)
-  def row2Start = xTileMin.incrementTill(_.isEven)
-  def row1End = xTileMax.decrementTill(_.isOdd)
-  def row2End = xTileMax.decrementTill(_.isEven)
+  override def tileNum: Int = xRow1Length * yRow1Length + xRow2Length * yRow2Length
+  def xRow1Start: Int = xTileMin.incrementTill(_.isOdd)
+  def xRow2Start: Int = xTileMin.incrementTill(_.isEven)
+  def xRow1End: Int = xTileMax.decrementTill(_.isOdd)
+  def xRow2End: Int = xTileMax.decrementTill(_.isEven)
   
-  def tileRow1Length: Int = (row1End - row1Start) match
+  def xRow1Length: Int = (xRow1End - xRow1Start) match
   { case l if l < 0 => 0
     case l => l.incrementTill(_.isOdd) /2
   }
   
-  def tileRow2Length: Int = (row2End - row2Start) match
+  def xRow2Length: Int = (xRow2End - xRow2Start) match
   { case l if l < 0 => 0
     case l => l.incrementTill(_.isOdd) /2
   }
+  
+  def yRow1Start: Int = yTileMin.incrementTill(_.isOdd)
+  def yRow2Start: Int = yTileMin.incrementTill(_.isEven)
+  def yRow1End: Int = yTileMax.decrementTill(_.isOdd)
+  def yRow2End: Int = yTileMax.decrementTill(_.isEven)
+  def yRow1Length: Int = (yRow1End - yRow1Start).min(0)
+  def yRow2Length: Int = (yRow2End - yRow2Start).min(0)
   
   /** rows 1, 3, 5 ... -1, -3, -5 ... */
-  def row1sForeach(f: Int => Unit): Unit =
-    for { y <- yTileMin.incrementTill(_.isOdd) to yTileMax.decrementTill(_.isOdd) by 2 } yield f(y)
-      
+  def row1sForeach(f: Int => Unit): Unit = for { y <- yRow1Start to yRow1End by 2 } yield f(y)      
   /** rows 2, 4, 6 ... 0, -2, -4, -6 ... */
-  def row2sForeach(f: Int => Unit): Unit =
-    for { y <- yTileMin.incrementTill(_.isEven) to yTileMax.decrementTill(_.isEven) by 2 } yield f(y)
+  def row2sForeach(f: Int => Unit): Unit =  for { y <- yRow2Start to yRow2End by 2 } yield f(y)
+  
   override def tileXYForeach(f: (Int, Int) => Unit): Unit = 
-  { row1sForeach(y => for { x <- row1Start to row1End by 2} yield f(x, y))
-    row2sForeach(y => for { x <- row2Start to row2End by 2} yield f(x, y))
+  { row1sForeach(y => for { x <- xRow1Start to xRow1End by 2} yield f(x, y))
+    row2sForeach(y => for { x <- xRow2Start to xRow2End by 2} yield f(x, y))
   }
   def tileCoods: Coods = ???  
   def sidePseudoCoods: Coods = ???  
