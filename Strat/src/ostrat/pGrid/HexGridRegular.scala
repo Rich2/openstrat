@@ -9,7 +9,5 @@ trait HexGridRegular[TileT <: Tile] extends HexGrid[TileT] with TileGridReg[Tile
   final def left: Double = xTileMin - horrMargin
   final def right: Double = xTileMax + horrMargin
   final def bottom: Double = yTileMin  * yRatio - vertMargin
-  final def top: Double = yTileMax * yRatio + vertMargin
-  
-  def tileNum: Int
+  final def top: Double = yTileMax * yRatio + vertMargin  
 } 

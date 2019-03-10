@@ -110,6 +110,7 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
   
   def sideLines: Line2s = ???
   def sideCoods: Coods = ???
+  override def tileNum: Int = ???
 }
 
 object SquareGridComplex

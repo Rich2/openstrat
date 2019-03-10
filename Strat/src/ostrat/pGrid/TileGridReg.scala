@@ -24,8 +24,10 @@ trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
   def xCen = (left + right) / 2
   def yCen = (top + bottom) / 2
   def cen: Vec2 = Vec2(xCen, yCen)
+  def tileNum: Int
   
   def sideLines: Line2s
+  
 }
 
 trait TileGridComplexReg[TileT <: Tile, SideT <: GridElem] extends TileGridComplex[TileT, SideT] with TileGridReg[TileT]

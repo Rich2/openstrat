@@ -17,6 +17,7 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   def yToInd(y: Int): Int = (y  - yTileMin + 1)
   override def xToInd(x: Int): Int = (x - xTileMin)
   
+  override def tileNum: Int = ???
   def sideLines: Line2s = ???
 }
 
