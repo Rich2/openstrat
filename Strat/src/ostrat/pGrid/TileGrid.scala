@@ -15,13 +15,13 @@ import reflect.ClassTag, collection.mutable.ArrayBuffer
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
 trait TileGrid[TileT <: Tile]
 {  
-  val arr: Array[AnyRef]
+  val arr: Array[TileT]
   def xTileMin: Int
   def xTileMax: Int
   def yTileMin: Int
   def yTileMax: Int
   
-  def evTile: IsType[TileT]
+  def evTile: ClassTag[TileT]
   def xArrLen: Int
   def yArrLen: Int
   final def arrLen = yArrLen * xArrLen
@@ -37,8 +37,8 @@ trait TileGrid[TileT <: Tile]
   def coodIsTile(x: Int, y: Int): Unit   
   /** Throws exception if Cood is not a valid Tile coordinate */
   final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)  
-  def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); evTile.asType(arr(xyToInd(x, y))) }   
-  def getTile(tc: Cood): TileT = { coodIsTile(tc); evTile.asType(arr(xyToInd(tc.x, tc.y))) } 
+  def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); arr(xyToInd(x, y)) }   
+  def getTile(tc: Cood): TileT = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) } 
  
   def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }  
   def setTile(cood: Cood, value: TileT): Unit = setTile(cood.x, cood.y, value)

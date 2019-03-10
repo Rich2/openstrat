@@ -1,10 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
+import geom._, reflect.ClassTag
 
 class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
-      implicit evTile: IsType[TileT], evSide: IsType[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
+      implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
       HexGridRegular[TileT] with TileGridComplexReg[TileT, SideT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGridComplex.coodToVec2(cood)
