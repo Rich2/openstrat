@@ -27,7 +27,7 @@ trait TileGrid[TileT <: Tile]
   final def arrLen = yArrLen * xArrLen
   
   def xToInd(x: Int): Int
-  def yToInd(y: Int): Int
+  final def yToInd(y: Int): Int = y  - yTileMin
   def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y) * xArrLen
   val yRatio: Double
   def xStep: Int

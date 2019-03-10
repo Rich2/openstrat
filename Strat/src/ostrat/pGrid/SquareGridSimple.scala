@@ -13,8 +13,7 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   override def xStep: Int = 1
   override def coodIsTile(x: Int, y: Int): Unit = {}  
   override def tileXYForeach(f: (Int, Int) => Unit): Unit = ??? 
-  override def margin: Double = 0.6 
-  def yToInd(y: Int): Int = (y  - yTileMin + 1)
+  override def margin: Double = 0.6  
   override def xToInd(x: Int): Int = (x - xTileMin)
   
   override def tileNum: Int = ???

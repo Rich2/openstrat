@@ -12,11 +12,8 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
   def setRowStart(y: Int, value: Int): Unit = rowBounds(rowStartInd(y)) = value
   def rowEndInd(y: Int) = rowStartInd(y) + 1
   def rowEnd(y: Int): Int = rowBounds(rowEndInd(y))
-  def setRowEnd(y: Int, value: Int): Unit = rowBounds(rowEndInd(y)) = value
-  def xSideToInd(x: Int): Int = ???
-  def ySideToInd(y: Int): Int = ???
-  def xSideArrLen: Int = ???
-  def ySideArrLen: Int = ???
+  def setRowEnd(y: Int, value: Int): Unit = rowBounds(rowEndInd(y)) = value 
+  
   val sideArr: Array[SideT] = ???
    
   override def tileNum: Int =

@@ -8,20 +8,18 @@ import geom._, reflect.ClassTag
 abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
   (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridComplexReg[TileT, SideT] with SquareGrid[TileT]
 {  
-  override def xToInd(x: Int): Int = (x - xTileMin + 1)
-  override def yToInd(y: Int): Int = (y  - yTileMin + 1)
+  override def xToInd(x: Int): Int = (x - xTileMin) / 2  
   override def xArrLen: Int = xTileMax - xTileMin + 3
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.sideCoodsOfTile(tileCood)  
   override def xStep: Int = 2   
-  override def margin = 1.1
-  def xSideToInd(x: Int): Int = ???
-  def ySideToInd(y: Int): Int = ???
-  def xSideArrLen: Int = ???
-  def ySideArrLen: Int = ???
-  val sideArr: Array[SideT] = ???
+  override def margin = 1.1  
+  
+  val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
+  override def xSideMin: Int = xTileMin - 1
+  override def xSideMax: Int = xTileMax + 1  
   
   override def coodIsTile(x: Int, y: Int): Unit = Unit match
   { case _ if x %% 2 == 0 & y %% 2 == 0 =>      

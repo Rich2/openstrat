@@ -11,14 +11,18 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   /** Check Think this type is needed */   
   type GridT <: TileGridComplex[TileT, SideT]
   def evSide: ClassTag[SideT]
-  val sideArr: Array[SideT]
-  def xSideArrLen: Int
-  def ySideArrLen: Int
-  final def sideArrLen = ySideArrLen * xSideArrLen 
-  def xSideToInd(x: Int): Int
-  def ySideToInd(y: Int): Int
-  def xySideToInd(x: Int, y: Int) = xSideToInd(x) + ySideToInd(y) * xSideArrLen   
- 
+  val sideArr: Array[SideT]  
+  final def sideArrLen = ySideArrLen * xSideArrLen  
+  final def xSideToInd(x: Int): Int = (x - xSideMin) / 2
+  final def ySideToInd(y: Int): Int = y - ySideMin  
+  def xySideToInd(x: Int, y: Int) = xSideToInd(x) + ySideToInd(y) * xSideArrLen
+  def xSideMin: Int
+  def xSideMax: Int
+  final def ySideMin: Int = yTileMin - 1
+  final def ySideMax: Int = yTileMax + 1
+  final def xSideArrLen: Int = (xSideMax - xSideMin) / 2 + 1
+  final def ySideArrLen: Int = ySideMax - ySideMin + 1
+   
   def vertCoodsOfTile(tileCood: Cood): Coods
   def sideCoodsOfTile(tileCood: Cood): Coods     
    

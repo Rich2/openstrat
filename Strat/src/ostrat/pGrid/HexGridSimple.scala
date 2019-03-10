@@ -16,8 +16,7 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
   override val yArrLen: Int = yTileMax - yTileMin + 1//for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)
-  override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
-  override def yToInd(y: Int): Int = (y  - yTileMin + 1)
+  override def xToInd(x: Int): Int = x / 2 - xTileMin / 2  
   
   override def tileNum: Int = xRow1Length * yRow1Length + xRow2Length * yRow2Length
   def xRow1Start: Int = xTileMin.incrementTill(_.isOdd)

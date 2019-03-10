@@ -7,16 +7,15 @@ import geom._, math.sqrt, HexGrid.yRatio, reflect.ClassTag
 abstract class HexGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
 (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridComplex[TileT, SideT] with HexGrid[TileT]   
 {
-  override def xArrLen: Int = xTileMax / 2 - xTileMin / 2 + 2 //+1 for zeroth tile, +1 for right side
+  override def xArrLen: Int = (xTileMax - xTileMin) / 4 + 1 //+1 for zeroth tile
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGridComplex.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGridComplex.sideCoodsOfTile(tileCood)   
   override def xStep: Int = 4   
-  override def xToInd(x: Int): Int = x / 2 - xTileMin / 2
-  override def yToInd(y: Int): Int = (y  - yTileMin + 1)
-     
-  //def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(getTile(tr._1, tr._2), tr._3))      
+  override def xToInd(x: Int): Int = (x - xTileMin) / 4  
+  override def xSideMin: Int = xTileMin - 2
+  override def xSideMax: Int = xTileMax + 2
    
   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null   
    
