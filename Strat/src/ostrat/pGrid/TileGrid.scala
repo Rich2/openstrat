@@ -20,7 +20,7 @@ trait TileGrid[TileT <: Tile]
   def xTileMax: Int
   def yTileMin: Int
   def yTileMax: Int
-  //val arr: Array[AnyRef]
+  
   def evTile: IsType[TileT]
   def xArrLen: Int
   def yArrLen: Int
