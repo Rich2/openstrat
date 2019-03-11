@@ -16,7 +16,30 @@ abstract class HexGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: In
   override def xToInd(x: Int): Int = (x - xTileMin) / 4  
   override def xSideMin: Int = xTileMin - 2
   override def xSideMax: Int = xTileMax + 2
+  
+  def rowXYForeachTile(y: Int, f: (Int, Int) => Unit): Unit = (rowTileXStart(y) to rowTileXEnd(y) by 4).foreach(x => f(x, y))  
    
+  def sideXYForeach(f: (Int, Int) => Unit): Unit =
+  {
+    rowXYForeachTile(yTileMin, (x, y) => { f(x - 1, y - 1);  f(x + 1, y - 1)  })
+      
+    (yTileMin to (yTileMax - 2) by 2).foreach{y =>
+      val xStart = (rowTileXStart(y) + rowTileXStart(y + 2)) / 2
+      val xEnd = (rowTileXEnd(y) + rowTileXEnd(y + 2)) / 2
+      (xStart to xEnd by 2).foreach(x => f(x, y + 1))
+    }
+      
+    (rowTileXStart(yTileMax) to rowTileXEnd(yTileMax) by 4).foreach{ x =>
+    f(x - 1, yTileMin + 1)
+    f(x + 1, yTileMin + 1) 
+    }
+      
+    tileRowsForeach{y =>
+      rowXYForeachTile(y, (x, y) => f(x - 2, y))
+      f(rowTileXEnd(y) + 2, y)
+    }
+  }
+  
   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null   
    
   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGridComplex.vertCoodsOfSide(x, y)

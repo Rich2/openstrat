@@ -18,6 +18,10 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   override val arr: Array[TileT] = new Array[TileT](arrLen)
   override def xToInd(x: Int): Int = x / 2 - xTileMin / 2  
   
+  override def rowTileXStart(y: Int): Int = ife(y.isEven, xRow2Start, xRow1Start)
+  override def rowTileXEnd(y: Int): Int = ife(y.isEven, xRow2End, xRow1End)
+  override def rowXYForeachTile(y: Int, f: (Int, Int) => Unit): Unit = (rowTileXStart(y) to rowTileXEnd(y) by 2).foreach(x => f(x, y))
+  
   override def tileNum: Int = xRow1Length * yRow1Length + xRow2Length * yRow2Length
   def xRow1Start: Int = xTileMin.incrementTill(_.isOdd)
   def xRow2Start: Int = xTileMin.incrementTill(_.isEven)

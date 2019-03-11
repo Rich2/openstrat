@@ -12,7 +12,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   type GridT <: TileGridComplex[TileT, SideT]
   def evSide: ClassTag[SideT]
   val sideArr: Array[SideT]  
-  final def sideArrLen = ySideArrLen * xSideArrLen  
+  final def sideArrLen = ySideArrLen * xSideArrLen
   final def xSideToInd(x: Int): Int = (x - xSideMin) / 2
   final def ySideToInd(y: Int): Int = y - ySideMin  
   def xySideToInd(x: Int, y: Int) = xSideToInd(x) + ySideToInd(y) * xSideArrLen

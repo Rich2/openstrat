@@ -5,105 +5,53 @@ import reflect.ClassTag
 
 abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
    (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridComplex[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)          
-{   
-  //lazy val rowBounds: Array[Int] = bounds// new Array[Int](yArrLen * 2)
+{ 
   def rowStartInd(y: Int) = (y - yTileMin)  * 2
-  def rowStart(y: Int) = rowBounds(rowStartInd(y))
+  def rowTileXStart(y: Int) = rowBounds(rowStartInd(y))
   def setRowStart(y: Int, value: Int): Unit = rowBounds(rowStartInd(y)) = value
   def rowEndInd(y: Int) = rowStartInd(y) + 1
-  def rowEnd(y: Int): Int = rowBounds(rowEndInd(y))
+  def rowTileXEnd(y: Int): Int = rowBounds(rowEndInd(y))
   def setRowEnd(y: Int, value: Int): Unit = rowBounds(rowEndInd(y)) = value 
   
-  val sideArr: Array[SideT] = ???
+  val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
    
   override def tileNum: Int =
   {
-     var acc: Int = 0
-     tileRowsForeach{y => 
-       val delta = (rowEnd(y) - rowStart(y)) / 4 + 1
-       acc += delta
-     }
-     acc
-   }
-  // tileCoodRowsForeach{y => setRowStart(y, 4); setRowEnd(y, 0) }
+    var acc: Int = 0
+    tileRowsForeach{y =>
+      val delta = (rowTileXEnd(y) - rowTileXStart(y)) / 4 + 1
+      acc += delta
+    }
+    acc
+  }  
    
-   override def tileRowsForeach(f: Int => Unit): Unit = 
-   {
-      var y: Int = yTileMin
-      while(y <= yTileMax) { f(y); y += 2 }
-   }
+  override def tileRowsForeach(f: Int => Unit): Unit = 
+  { var y: Int = yTileMin
+    while(y <= yTileMax) { f(y); y += 2 }
+  }
    
-   def sideXYForeach(f: (Int, Int) => Unit): Unit = tileXYForeach{(x, y) =>
-      f(x + 1, y + 1)
-      f(x + 2, y)
-      f(x + 1, y - 1)
-      }
+  @inline override def tileXYForeach(f: (Int, Int) => Unit): Unit = tileRowsForeach{y => tileXYRowForeach(y, f)}   
    
-   @inline override def tileXYForeach(f: (Int, Int) => Unit): Unit = tileRowsForeach(y => tileXYRowForeach(y, f))
+  def tileXYRowForeach(y: Int, f: (Int, Int) => Unit): Unit =
+  { var x: Int = rowTileXStart(y)
+    val xEnd = rowTileXEnd(y)
+    while(x <= xEnd){ f(x, y); x += 4 }
+  }   
    
-   /** Needs removal */
-   def tileXYRowForeach(y: Int, f: (Int, Int) => Unit): Unit =
-   {
-      var x: Int = rowStart(y)
-      val xEnd = rowEnd(y)
-      while(x <= xEnd){ f(x, y); x += 4 }
-   }   
-   
-   def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowStart(y) to rowEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))   
-   
-  // def sideRowMap[R](y: Int, f: (Cood, SideT) => R): Seq[R] = {deb("stop") ; ??? } 
-//   {
-//      val len = rowLen(y)
-//      val xLow = rowStart(y)
-//      y % 4 match
-//      {
-//         case _ if len == 0 => Seq()
-//         case 0 => (xLow.incrementTill(_ % 4 == 2) to (xLow + len).decrementTill(_ % 4 == 2) by 4).map(x => f(HexCood(x, y), getSide(x, y)))
-//         case 2 => (xLow.incrementTill(_ % 4 == 0) to (xLow + len).decrementTill(_ % 4 == 0) by 4).map(x => f(HexCood(x, y), getSide(x, y)))   
-//         case _ => (xLow.incrementTill(_.isOdd) to (xLow + len).decrementTill(_.isOdd) by 2).map(x => f(HexCood(x, y), getSide(x, y)))        
-//      }
-//   }   
-   
-   //override def tilesMap[R](f: (TileT, TileCood) => R): Seq[R] = (yTileMin to yTileMax by 2).flatMap(y => tileRowMap(y, f))
-   
-//   def tilesFold[R](f: (TileT, TileCood) => R, fSum: (R, R) => R)(emptyVal: R): R =
-//      (yTileMin to yTileMax by 2).foldLeft(emptyVal){(acc, y) =>
-//         val rowRes: R = tileRowFold(y, f, fSum)(emptyVal)
-//         fSum(acc, rowRes)
-//         }
-   
-   def tileRowFold[R](y: Int, f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R = 
-   {
-      
-     (rowStart(y) to rowEnd(y) by 4).foldLeft(emptyVal){(acc, x) =>
-        val res = f(getTile(x, y), Cood(x, y))
-        fSum(acc, res)
-     }
-      
-   }  
-   
-   
-   override def optTile(x: Int, y: Int): Option[TileT] = Unit match
-   {
-      case _ if y < yTileMin => None
-      case _ if y > yTileMax => None
-      case _ if x < rowStart(y) => None
-      case _ if x > rowEnd(y) => None   
-      case _ => Some(getTile(x, y))
-   }
+  def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowTileXStart(y) to rowTileXEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))
 
-  // def fSetAll[A](f: (Int, Int, A) => TileT, tValue: A): Unit = this.tilesSetAll(f(_, _, tValue))
- //  /** sets the inner sides of the grid */
- //  def setDefaultSides(defaultSide: SideT): Unit = ???
-//   {
-//      //sets the even rows
-//      for
-//      { y <- evenRows
-//         x <- (rowStart(y) + 2) to (rowStart(y) + rowLen(y) -2)         
-//      } setSide(x, y, defaultSide)
-//      (yTileMin + 1 to yTileMax - 1).foreach(y =>
-//         {
-//            
-//         })      
-//   }
+  def tileRowFold[R](y: Int, f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
+    (rowTileXStart(y) to rowTileXEnd(y) by 4).foldLeft(emptyVal){(acc, x) =>
+      val res = f(getTile(x, y), Cood(x, y))
+      fSum(acc, res)     
+   }     
+   
+  override def optTile(x: Int, y: Int): Option[TileT] = Unit match
+  {
+    case _ if y < yTileMin => None
+    case _ if y > yTileMax => None
+    case _ if x < rowTileXStart(y) => None
+    case _ if x > rowTileXEnd(y) => None   
+    case _ => Some(getTile(x, y))
+  } 
 }

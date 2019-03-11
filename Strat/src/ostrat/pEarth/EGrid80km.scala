@@ -14,8 +14,8 @@ class EGrid80km[TileT <: Tile, SideT <: GridElem] (bounds: Array[Int], name: Str
       setRowEnd(y, pair._2)
    }
    (yTileMin to yTileMax by 2).foreach{ y =>
-      val tileMax: Int = rowEnd(y)
-      val tileMin: Int = rowStart(y)
+      val tileMax: Int = rowTileXEnd(y)
+      val tileMin: Int = rowTileXStart(y)
       val xSideMax = tileMax + 2
       val xSideMin = tileMin - 2
       
@@ -51,12 +51,12 @@ class EGrid80km[TileT <: Tile, SideT <: GridElem] (bounds: Array[Int], name: Str
    {
       case _ if y < yTileMin => None
       case _ if y > yTileMax => None
-      case _ if x < rowStart(y) => None
-      case _ if x == rowEnd(y) + 4 => rightGrid.map{grid =>
-         val rs: Int = grid.rowStart(y)
+      case _ if x < rowTileXStart(y) => None
+      case _ if x == rowTileXEnd(y) + 4 => rightGrid.map{grid =>
+         val rs: Int = grid.rowTileXStart(y)
          grid.getTile(rs, y)         
       }
-      case _ if x > rowEnd(y) => None   
+      case _ if x > rowTileXEnd(y) => None   
       case _ => Some(getTile(x, y))
    }
    

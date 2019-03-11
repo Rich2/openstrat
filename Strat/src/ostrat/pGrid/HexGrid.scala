@@ -13,6 +13,10 @@ trait HexGrid[TileT <: Tile] extends TileGrid[TileT]
     case _ if x.isOdd & y.isOdd =>
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
   }
+  
+  def rowTileXStart(y: Int): Int
+  def rowTileXEnd(y: Int): Int
+  def rowXYForeachTile(y: Int, f: (Int, Int) => Unit): Unit
 }
 
 object HexGrid

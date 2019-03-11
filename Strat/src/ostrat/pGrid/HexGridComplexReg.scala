@@ -10,7 +10,9 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   override def coodToVec2(cood: Cood): Vec2 = HexGridComplex.coodToVec2(cood)
   def vertMargin = 2.8
   def horrMargin = 2.2  
-   
+  
+  override def rowTileXStart(y: Int): Int = ife(y %% 4 == 0, xRow4Start, xRow2Start)
+  override def rowTileXEnd(y: Int): Int = ife(y %% 4 == 0, xRow4End, xRow2End)
   def xRow2Start = xTileMin.incrementTill(_ % 4 == 2)
   def xRow4Start = xTileMin.incrementTill(_ % 4 == 0)
   def xRow2End = xTileMax.decrementTill(_ % 4 == 2)
@@ -24,7 +26,7 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   def sideRowOddEnd = (xRow2End + xRow4End) / 2
   override def tileNum: Int = ???  
   
-  val sideArr: Array[SideT] = new Array[SideT](100)
+  val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
   
   /** rows 2, 6, 10 ... -2, -6, -10 ... */
   def row2sForeach(f: Int => Unit): Unit =
@@ -38,16 +40,6 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
     row4sForeach(y => for { x <- xRow4Start to xRow4End by 4} yield f(x, y))
   }
-  
-  /** Needs loking at */  
-  def sideXYForeach(f: (Int, Int) => Unit): Unit = ???//{}
-//  { row2sForeach(y => for { x <- sideRow2Start to sideRow2End by 4} yield f(x, y))
-//    row4sForeach(y => for { x <- sideRow4Start to sideRow4End by 4} yield f(x, y))
-//    for
-//    { y <- (yTileMin + 1) to (yTileMax - 1) by 2
-//      x <- sideRowOddStart to sideRowOddEnd by 2
-//    } yield f(x, y)     
-//  }
    
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGridComplex.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
