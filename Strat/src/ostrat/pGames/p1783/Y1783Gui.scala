@@ -8,8 +8,8 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
 {
   override def saveNamePrefix = "Y1783"
   /** The distance per pixel. This will normally be much greater than than 1 */
-  scale = 5.12.km   
-  focus = 59.17 ll 0.0
+  scale = 0.99.km   
+  focus = 53.17 ll 0.0
   val fHex: OfETile[NTile, ESideOnly] => GraphicElems = etog =>
     {
       import etog._         

@@ -81,7 +81,7 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
    def coodToLL(cood: Cood): LatLong = coodToLL(cood.x, cood.y) //vec2ToLatLongReg(HG.coodToVec2(hc), cenLong, scale, xOffset, yOffset)
    def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
    
-   tileCoodForeach{cood =>
+   foreachTileCood{cood =>
       setLL(cood, vec2ToLL(HexGridComplex.coodToVec2(cood)))
       sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridComplex.coodToVec2(vc))))
       vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridComplex.coodToVec2(vc))))
@@ -92,7 +92,7 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
    def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
    {
       var acc: R = emptyVal
-      tileCoodForeach{ tileCood =>         
+      foreachTileCood{ tileCood =>         
          val newRes: R = f(new OfETile[TileT, SideT](eg, thisEGrid ,getTile(tileCood)))
          acc = fSum(acc, newRes)
       }
@@ -102,7 +102,7 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
    def eDisp(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems): GraphicElems = 
    {
       var acc: GraphicElems = Nil
-      tileCoodForeach { tileCood =>
+      foreachTileCood { tileCood =>
          val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
          val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Nil) 
          acc = acc ++ newRes
@@ -113,7 +113,7 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
    def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems = 
    {
       var acc: GraphicElems = Nil
-      tileCoodForeach { tileCood =>
+      foreachTileCood { tileCood =>
          val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
          val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Nil) 
          acc = acc ++ newRes

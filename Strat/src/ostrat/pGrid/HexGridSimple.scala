@@ -20,7 +20,7 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   
   override def rowTileXStart(y: Int): Int = ife(y.isEven, xRow2Start, xRow1Start)
   override def rowTileXEnd(y: Int): Int = ife(y.isEven, xRow2End, xRow1End)
-  override def rowXYForeachTile(y: Int, f: (Int, Int) => Unit): Unit = (rowTileXStart(y) to rowTileXEnd(y) by 2).foreach(x => f(x, y))
+  override def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit = (rowTileXStart(y) to rowTileXEnd(y) by 2).foreach(x => f(x, y))
   
   override def tileNum: Int = xRow1Length * yRow1Length + xRow2Length * yRow2Length
   def xRow1Start: Int = xTileMin.incrementTill(_.isOdd)

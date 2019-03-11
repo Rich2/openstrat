@@ -49,14 +49,14 @@ trait TileGrid[TileT <: Tile]
     arr(xyToInd(x, y)) = fTile(x, y, value)
   }
   
-  /** needs change */
-  @inline final def tileCoodForeach(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
+  /** Foreach Tile call side effecting function on Tiles Cood. */
+  @inline final def foreachTileCood(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
   @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
   
   def tileCoodMap[A](f: Cood => A): List[A] =
   {
     var acc: List[A] = Nil
-    tileCoodForeach{c => acc ::= f(c) }
+    foreachTileCood{c => acc ::= f(c) }
     acc.reverse    
   }  
   def tileXYMap[A](f: (Int, Int) => A): List[A] =
@@ -66,11 +66,11 @@ trait TileGrid[TileT <: Tile]
     acc.reverse    
   }
   
-  final def tilesForeach[R](f: TileT => Unit): Unit =  tileCoodForeach{ tileCood => f(getTile(tileCood)) }      
+  final def tilesForeach[R](f: TileT => Unit): Unit =  foreachTileCood{ tileCood => f(getTile(tileCood)) }      
   def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
-    tileCoodForeach{ tileCood =>
+    foreachTileCood{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: Array[R] = f(tile)
       acc ++= newRes
@@ -81,7 +81,7 @@ trait TileGrid[TileT <: Tile]
   final def tilesMap[R: ClassTag](f: TileT => R): Array[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
-    tileCoodForeach{ tileCood =>
+    foreachTileCood{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: R = f(tile)
       acc += newRes

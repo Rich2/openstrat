@@ -16,7 +16,7 @@ trait HexGrid[TileT <: Tile] extends TileGrid[TileT]
   
   def rowTileXStart(y: Int): Int
   def rowTileXEnd(y: Int): Int
-  def rowXYForeachTile(y: Int, f: (Int, Int) => Unit): Unit
+  def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
 }
 
 object HexGrid

@@ -82,7 +82,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   final def tileAndCoodsFold[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
   {
     var acc: R = emptyVal
-    tileCoodForeach{ tileCood =>
+    foreachTileCood{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: R = f(tile, tileCood)
       acc = fSum(acc, newRes)
@@ -92,14 +92,14 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
    
   def tileCoodsFold[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
   { var acc: R = emptyVal
-    tileCoodForeach { tileCood => acc = fSum(acc, f(tileCood)) }
+    foreachTileCood { tileCood => acc = fSum(acc, f(tileCood)) }
     acc
   }  
    
   def gridTileFold[R](f: (GridT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
   {
     var acc: R = emptyVal
-    tileCoodForeach{ tileCood =>
+    foreachTileCood{ tileCood =>
       val newRes: R = f(this.asInstanceOf[GridT], tileCood)
       acc = fSum(acc, newRes)
     }

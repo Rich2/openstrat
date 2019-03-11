@@ -10,7 +10,7 @@ class ZGame(scenInit: ZugGrid, val players: List[ZPlayer])
   def getScen(player: ZPlayer): ZugGrid =
   {
     val newScen = scen.minCopy
-    scen.tileCoodForeach{cood =>
+    scen.foreachTileCood{cood =>
       val oldTile = scen.getTile(cood)
       val newUnits = oldTile.lunits.filter(oldUnit => player.polities.contains(oldUnit.polity) | !oldTile.terr.conceal)
       val newTile = oldTile.copy(lunits = newUnits)

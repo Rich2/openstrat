@@ -9,7 +9,7 @@ abstract class SquareGridGui[TileT <: Tile, SideT <: GridElem, GridT <: SquareGr
    def ofSTilesFold[R](f: OfSquareReg[TileT, SideT, GridT] => R, fSum: (R, R) => R, emptyVal: R) =
    {
       var acc: R = emptyVal
-      grid.tileCoodForeach{ tileCood =>
+      foreachTileCood{ tileCood =>
          val newTog = OfSquareReg(grid.getTile(tileCood), grid, this)
          val newRes: R = f(newTog)
          acc = fSum(acc, newRes)

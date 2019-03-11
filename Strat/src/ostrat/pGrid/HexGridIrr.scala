@@ -30,15 +30,9 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
     while(y <= yTileMax) { f(y); y += 2 }
   }
    
-  @inline override def tileXYForeach(f: (Int, Int) => Unit): Unit = tileRowsForeach{y => tileXYRowForeach(y, f)}   
-   
-  def tileXYRowForeach(y: Int, f: (Int, Int) => Unit): Unit =
-  { var x: Int = rowTileXStart(y)
-    val xEnd = rowTileXEnd(y)
-    while(x <= xEnd){ f(x, y); x += 4 }
-  }   
-   
-  def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowTileXStart(y) to rowTileXEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))
+  @inline override def tileXYForeach(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) }
+  
+ // def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowTileXStart(y) to rowTileXEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))
 
   def tileRowFold[R](y: Int, f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
     (rowTileXStart(y) to rowTileXEnd(y) by 4).foldLeft(emptyVal){(acc, x) =>

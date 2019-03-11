@@ -26,7 +26,7 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)
    
-  
+  @inline final def foreachTileCood(f: Cood => Unit): Unit = grid.foreachTileCood(f)
   def tilesMap[R: ClassTag](f: TileT => R): Array[R] = grid.tilesMap[R](f)
   def tilesForeach(f: TileT => Unit): Unit = grid.tilesForeach(f)
   def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.tilesFlatMap(f)
