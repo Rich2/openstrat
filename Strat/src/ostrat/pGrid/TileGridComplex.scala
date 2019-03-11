@@ -112,7 +112,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems = tileAndCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
   def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)  
       
-  def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = tileXYForeach((x, y) => fSetTile(x, y, value)(fTile))    
+  def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = foreachTileXY((x, y) => fSetTile(x, y, value)(fTile))    
   def fSidesSetAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = sideXYForeach((x, y) => fSetSide(x, y, value))   
    
   /** Note set RowBack starts with the y (row) parameter */

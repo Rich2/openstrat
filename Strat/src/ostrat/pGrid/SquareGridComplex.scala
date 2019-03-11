@@ -31,11 +31,11 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")   
   }
   
-  def tileXYForeach(f: (Int, Int) => Unit): Unit = for { y <- yTileMin to yTileMax by 2
+  override def foreachTileXY(f: (Int, Int) => Unit): Unit = for { y <- yTileMin to yTileMax by 2
     x <- xTileMin to xTileMax by 2      
   } f(x, y)
    
-  def sideXYForeach(f: (Int, Int) => Unit): Unit =
+  override def sideXYForeach(f: (Int, Int) => Unit): Unit =
   {
     for {y <- yTileMin to yTileMax by 2
       x <- xTileMin.plus1 to xTileMax.minus1 by 2

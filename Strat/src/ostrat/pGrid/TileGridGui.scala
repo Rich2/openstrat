@@ -25,12 +25,24 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)
-   
+  
+  /** For all Tiles call side effecting function on the Tile's Cood. */ 
   @inline final def foreachTileCood(f: Cood => Unit): Unit = grid.foreachTileCood(f)
-  def tilesMap[R: ClassTag](f: TileT => R): Array[R] = grid.tilesMap[R](f)
+  
+  /** For all Tiles call side effecting function on the Tile's XY Cood. */
+  @inline final def foreachTileXY(f: (Int, Int) => Unit): Unit = grid.foreachTileXY(f)  
+  
+  /** For all Tiles call side effecting function on the Tile. */
   def tilesForeach(f: TileT => Unit): Unit = grid.tilesForeach(f)
+  
+  /** Map all Tiles to Array with function. */
+  def tilesMap[R: ClassTag](f: TileT => R): Array[R] = grid.tilesMap[R](f)
+  
+  /** Map all Tiles to an Array with function and flatten into Single Array. */
   def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.tilesFlatMap(f)
   
+  /** Map all tiles Cood to List. */
+  @inline final def tileCoodLMap[A](f: Cood => A): List[A] = grid.tileCoodLMap(f)  
    
   def inCmd = (mb: MouseButton) => { pScale = (pScale * scaleDelta(mb)).min(scaleMax); updateView }   
   def outCmd = (mb: MouseButton) => { pScale = (pScale / scaleDelta(mb)).max(scaleMin); updateView } 

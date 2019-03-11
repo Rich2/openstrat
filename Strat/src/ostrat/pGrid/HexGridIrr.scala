@@ -30,7 +30,7 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
     while(y <= yTileMax) { f(y); y += 2 }
   }
    
-  @inline override def tileXYForeach(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) }
+  @inline override def foreachTileXY(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) }
   
  // def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowTileXStart(y) to rowTileXEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))
 

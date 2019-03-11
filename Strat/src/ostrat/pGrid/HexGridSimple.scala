@@ -50,7 +50,7 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   /** rows 2, 4, 6 ... 0, -2, -4, -6 ... */
   def row2sForeach(f: Int => Unit): Unit =  for { y <- yRow2Start to yRow2End by 2 } yield f(y)
   
-  override def tileXYForeach(f: (Int, Int) => Unit): Unit = 
+  final override def foreachTileXY(f: (Int, Int) => Unit): Unit = 
   { row1sForeach(y => for { x <- xRow1Start to xRow1End by 2} yield f(x, y))
     row2sForeach(y => for { x <- xRow2Start to xRow2End by 2} yield f(x, y))
   }

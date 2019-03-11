@@ -49,24 +49,28 @@ trait TileGrid[TileT <: Tile]
     arr(xyToInd(x, y)) = fTile(x, y, value)
   }
   
-  /** Foreach Tile call side effecting function on Tiles Cood. */
-  @inline final def foreachTileCood(f: Cood => Unit): Unit = tileXYForeach((x, y) => f(Cood(x, y)))
-  @inline def tileXYForeach(f: (Int, Int) => Unit): Unit 
+  /** For all Tiles call side effecting function on the Tile's XY Cood. */
+  @inline def foreachTileXY(f: (Int, Int) => Unit): Unit  
   
-  def tileCoodMap[A](f: Cood => A): List[A] =
+  /** For all Tiles call side effecting function on the Tile's Cood. */
+  @inline final def foreachTileCood(f: Cood => Unit): Unit = foreachTileXY((x, y) => f(Cood(x, y)))
+  
+  /** For all Tiles call side effecting function on the Tile. */
+  @inline final def tilesForeach[R](f: TileT => Unit): Unit =  foreachTileCood{ tileCood => f(getTile(tileCood)) }
+  
+  /** Map all Tiles to Array with function. */
+  final def tilesMap[A: ClassTag](f: TileT => A): Array[A] =
   {
-    var acc: List[A] = Nil
-    foreachTileCood{c => acc ::= f(c) }
-    acc.reverse    
-  }  
-  def tileXYMap[A](f: (Int, Int) => A): List[A] =
-  {
-    var acc: List[A] = Nil
-    tileXYForeach{(x, y) => acc ::= f(x, y) }
-    acc.reverse    
+    val acc: ArrayBuffer[A] = new ArrayBuffer(0)
+    foreachTileCood{ tileCood =>
+      val tile = getTile(tileCood)
+      val newRes: A = f(tile)
+      acc += newRes
+    }
+    acc.toArray
   }
   
-  final def tilesForeach[R](f: TileT => Unit): Unit =  foreachTileCood{ tileCood => f(getTile(tileCood)) }      
+  /** Map all Tiles to an Array with function and flatten into Single Array. */
   def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
@@ -76,18 +80,21 @@ trait TileGrid[TileT <: Tile]
       acc ++= newRes
     }
     acc.toArray
-  }     
-   
-  final def tilesMap[R: ClassTag](f: TileT => R): Array[R] =
-  {
-    val acc: ArrayBuffer[R] = new ArrayBuffer(0)
-    foreachTileCood{ tileCood =>
-      val tile = getTile(tileCood)
-      val newRes: R = f(tile)
-      acc += newRes
-    }
-    acc.toArray
-  }   
+  }  
+  
+  /** Map all tiles Cood to List. */
+  final def tileCoodLMap[A](f: Cood => A): List[A] =
+  { var acc: List[A] = Nil
+    foreachTileCood{c => acc ::= f(c) }
+    acc.reverse    
+  }
+  
+  /** Map all tiles XY Cood to List. */
+  final def tilesXYLMap[A](f: (Int, Int) => A): List[A] =
+  { var acc: List[A] = Nil
+    foreachTileXY{(x, y) => acc ::= f(x, y) }
+    acc.reverse    
+  }
   
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 
