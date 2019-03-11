@@ -73,10 +73,17 @@ object Transable
   }
   
   import scala.reflect.ClassTag  
-  implicit def toTransArray[TT <: Transable[_ ]](arr: Array[TT])(ev: ClassTag[TT]) = new ImplicitTransableArray[TT](arr, ev)
   
+  implicit def toTransArray[TT <: Transable[_ ]](arr: Array[TT])(ev: ClassTag[TT]) = new ImplicitTransableArray[TT](arr, ev)  
   class ImplicitTransableArray[TT <: Transable[_ ]](val arr: Array[TT], implicit val ev: ClassTag[TT]) extends Transable[Array[TT]]
   {
     def fTrans(f: Vec2 => Vec2): Array[TT] = arr.map(_.fTrans(f).asInstanceOf[TT])         
   }
+  
+  implicit def toTransArr[A <: Transable[_]](arr: Arr[A])(ev: ClassTag[A], ev2: Array[A] => Arr[A]) = new ImplicitTransableArr[A](arr, ev, ev2)
+  class ImplicitTransableArr[A <: Transable[_]](val arr: Arr[A], implicit val ev: ClassTag[A], implicit val ev2: Array[A] => Arr[A]) extends
+  Transable[Arr[A]]
+  {
+    def fTrans(f: Vec2 => Vec2): Arr[A] = arr.map[A](_.fTrans(f).asInstanceOf[A])         
+  }  
 }

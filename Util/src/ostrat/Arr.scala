@@ -1,61 +1,61 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-
+import scala.reflect.ClassTag
 trait Arr[+A] extends Any
 {
   def length: Int
   def apply(index: Int): A
-  def setUnsafe(index: Int, value: Any): Unit
+  
   
   def foreach[U](f: (A) ⇒ U): Unit =
   { var count = 0
     while (count < length){f(apply(count)); count += 1 }
   }
   
-  final def map[B](f: A => B)(implicit ev: Int => Arr[B]): Arr[B] =
+  final def map[B](f: A => B)(implicit ct: ClassTag[B], ev: Array[B] => Arr[B]): Arr[B] =
   {
-    val newArr = ev(length)
+    val newArr = new Array[B](length)
     var count = 0
-    while (count < 0)
-    {  newArr.setUnsafe(count, f(apply(count)))
+    while (count < length)
+    {  newArr(count) = f(apply(count))
        count += 1
     }
-    newArr
+    ev(newArr)
   }
-}
-
-trait ArrBuilder[A]
-{
-  def apply(length: Int): Arr[A]
+  
+  final def flatMap[B](f: A => Array[B])(implicit ct: ClassTag[B], ev: Array[B] => Arr[B]): Arr[B] =
+  {
+    val acc = new collection.mutable.ArrayBuffer[B]
+    var longCount: Int = 0
+    var count: Int = 0
+    while (count < length)
+    {
+      f(apply(count)).foreach{b => acc(longCount) = b; longCount += 1 }
+      count += 1
+    }
+    ev(acc.toArray)
+  }  
 }
 
 object Arr
 {
-  def apply[A <: AnyRef](arr: Array[A]): Arr[A] = new ArrRef(arr.asInstanceOf[Array[AnyRef]])
-  implicit def refBuildImplicit[A <: AnyRef](length: Int) = new ArrRef(new Array[AnyRef](length))
-  
-  def apply(arr: Array[Double]): Arr[Double] = new ArrDouble(arr)
-  implicit def DoubleBuildImplicit(length: Int) = new ArrDouble(new Array[Double](length))
+  implicit def apply[A <: AnyRef](arr: Array[A]): Arr[A] = new ArrRef(arr.asInstanceOf[Array[AnyRef]])  
+  implicit def apply(arr: Array[Int]): Arr[Int] = new ArrInt(arr)
+  implicit def apply(arr: Array[Double]): Arr[Double] = new ArrDouble(arr)
 }
 
 class ArrRef[+A](val arr: Array[AnyRef]) extends AnyVal with Arr[A]
-{
-  override def length: Int = arr.length
-  override def apply(index: Int): A = arr(index).asInstanceOf[A]
-  override def setUnsafe(index: Int, value: Any): Unit = arr(index) = value.asInstanceOf[AnyRef]  
+{ override def length: Int = arr.length
+  override def apply(index: Int): A = arr(index).asInstanceOf[A]  
 }
 
 class ArrInt(val arr: Array[Int]) extends AnyVal with Arr[Int]
-{
-  override def length: Int = arr.length
-  override def apply(index: Int): Int = arr(index)
-  override def setUnsafe(index: Int, value: Any): Unit = arr(index) = value.asInstanceOf[Int]  
+{ override def length: Int = arr.length
+  override def apply(index: Int): Int = arr(index)  
 }
 
 class ArrDouble(val arr: Array[Double]) extends AnyVal with Arr[Double]
-{
-  override def length: Int = arr.length
-  override def apply(index: Int): Double = arr(index)
-  override def setUnsafe(index: Int, value: Any): Unit = arr(index) = value.asInstanceOf[Double]  
+{ override def length: Int = arr.length
+  override def apply(index: Int): Double = arr(index)  
 }
 
