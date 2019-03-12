@@ -30,16 +30,8 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
     while(y <= yTileMax) { f(y); y += 2 }
   }
    
-  @inline override def foreachTileXY(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) }
-  
- // def tileRowMap[R](y: Int, f: (TileT, Cood) => R): Seq[R] = (rowTileXStart(y) to rowTileXEnd(y) by 4).map(x => f(getTile(x, y), Cood(x, y)))
+  @inline override def foreachTileXY(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) } 
 
-  def tileRowFold[R](y: Int, f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
-    (rowTileXStart(y) to rowTileXEnd(y) by 4).foldLeft(emptyVal){(acc, x) =>
-      val res = f(getTile(x, y), Cood(x, y))
-      fSum(acc, res)     
-   }     
-   
   override def optTile(x: Int, y: Int): Option[TileT] = Unit match
   {
     case _ if y < yTileMin => None
@@ -48,4 +40,6 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
     case _ if x > rowTileXEnd(y) => None   
     case _ => Some(getTile(x, y))
   } 
+  
+  final override def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }

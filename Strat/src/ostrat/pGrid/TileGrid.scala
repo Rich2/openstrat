@@ -111,6 +111,8 @@ trait TileGrid[TileT <: Tile]
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
   
+  def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
+  
   //def sideCoodsOfTileCood: Coods
   
   

@@ -18,6 +18,12 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   
   override def tileNum: Int = ???
   def sideLines: Line2s = ???
+  
+  /** Sets a rectangle of tiles to the same tile value. */
+  final override def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = for {
+    y <- bottomLeft.y to topRight.y
+    x <- bottomLeft.x to topRight.x
+  } fSetTile(x, y, tileValue)
 }
 
 object SquareGridSimple
