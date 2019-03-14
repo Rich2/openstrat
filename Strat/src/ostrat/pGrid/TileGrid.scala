@@ -56,7 +56,7 @@ trait TileGrid[TileT <: Tile]
   @inline final def forallTilesCood(f: Cood => Unit): Unit = forallTilesXY((x, y) => f(Cood(x, y)))
   
   /** For all Tiles call side effecting function on the Tile. */
-  @inline final def tilesForeach[R](f: TileT => Unit): Unit =  forallTilesCood{ tileCood => f(getTile(tileCood)) }
+  @inline final def forallTiles(f: TileT => Unit): Unit =  forallTilesCood{ tileCood => f(getTile(tileCood)) }
   
   /** Map all Tiles to Array[B] with function. */
   final def allTilesMap[B: ClassTag](f: TileT => B): Array[B] =
@@ -71,7 +71,7 @@ trait TileGrid[TileT <: Tile]
   }
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
+  def allTilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
     forallTilesCood{ tileCood =>
@@ -94,15 +94,13 @@ trait TileGrid[TileT <: Tile]
   { var acc: List[B] = Nil
     forallTilesXY{(x, y) => acc ::= f(x, y) }
     acc.reverse    
-  }
-  
-  //final def
-  
+  }  
+    
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 
   final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
-    val tiles: Seq[A] = tileValues.toSingles      
+    val tiles: List[A] = tileValues.toSingles      
     tiles.iForeach{(e, i) =>
       val x = xStart + i * xStep
       fSetTile(x, yRow, e)         
@@ -113,5 +111,5 @@ trait TileGrid[TileT <: Tile]
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
   
-  def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit  
+  def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit  
 }

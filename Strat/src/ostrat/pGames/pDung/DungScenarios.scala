@@ -9,7 +9,7 @@ object Dungeon1 extends DungeonGrid(2, 48, 2, 30)
   allWall
   setTerrPath(Open, 4 cc 6, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)
   setColumn(22, 8,  Open * 2)
-  setRectangle(16 cc 18, 36 cc 26, Open)
+  setTilesRectangle(16 cc 18, 36 cc 26, Open)
   posn(CharacA, 22, 8, SFaceUp)
   posn(CharacB, 18, 24, SFaceRt)
   posn(CharacY, 22, 24, SFaceUR)

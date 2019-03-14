@@ -34,13 +34,13 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   @inline final def forallTilesXY(f: (Int, Int) => Unit): Unit = grid.forallTilesXY(f)  
   
   /** For all Tiles call side effecting function on the Tile. */
-  def tilesForAll(f: TileT => Unit): Unit = grid.tilesForeach(f)
+  def forallTiles(f: TileT => Unit): Unit = grid.forallTiles(f)
   
   /** Map all Tiles to Array with function. */
   def allTilesMap[B: ClassTag](f: TileT => B): Array[B] = grid.allTilesMap[B](f)
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.tilesFlatMap(f)
+  def allTilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.allTilesFlatMap(f)
   
   /** Map all tiles Cood to a List. */
   @inline final def allTilesCoodMapList[A](f: Cood => A): List[A] = grid.allTilesCoodMapList(f)  

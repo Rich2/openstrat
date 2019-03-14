@@ -42,5 +42,5 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
     case _ => Some(getTile(x, y))
   } 
   
-  final override def setRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
+  final override def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }

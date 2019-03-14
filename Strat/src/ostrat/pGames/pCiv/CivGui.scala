@@ -84,7 +84,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
     case _ => deb("Mouse other")
   }   
 
-  def turnCmd: MB0 = mb => {tilesForAll(_.lunits.foreach(_.resetMovePts())); repaintMap }
+  def turnCmd: MB0 = mb => { forallTiles(_.lunits.foreach(_.resetMovePts())); repaintMap }
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)
   eTop()
