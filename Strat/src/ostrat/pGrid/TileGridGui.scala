@@ -37,13 +37,13 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   def tilesForeach(f: TileT => Unit): Unit = grid.tilesForeach(f)
   
   /** Map all Tiles to Array with function. */
-  def tilesMap[R: ClassTag](f: TileT => R): Array[R] = grid.tilesMap[R](f)
+  def allTilesMap[B: ClassTag](f: TileT => B): Array[B] = grid.allTilesMap[B](f)
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
   def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.tilesFlatMap(f)
   
-  /** Map all tiles Cood to List. */
-  @inline final def tileCoodLMap[A](f: Cood => A): List[A] = grid.tileCoodLMap(f)  
+  /** Map all tiles Cood to a List. */
+  @inline final def allTilesCoodMapList[A](f: Cood => A): List[A] = grid.allTilesCoodMapList(f)  
    
   def inCmd = (mb: MouseButton) => { pScale = (pScale * scaleDelta(mb)).min(scaleMax); updateView }   
   def outCmd = (mb: MouseButton) => { pScale = (pScale / scaleDelta(mb)).max(scaleMin); updateView } 
