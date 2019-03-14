@@ -31,7 +31,7 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   @inline final def foreachTileCood(f: Cood => Unit): Unit = grid.foreachTileCood(f)
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline final def foreachTileXY(f: (Int, Int) => Unit): Unit = grid.foreachTileXY(f)  
+  @inline final def foreachTileXY(f: (Int, Int) => Unit): Unit = grid.forAllTilesXY(f)  
   
   /** For all Tiles call side effecting function on the Tile. */
   def tilesForAll(f: TileT => Unit): Unit = grid.tilesForeach(f)

@@ -31,7 +31,7 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")   
   }
   
-  override def foreachTileXY(f: (Int, Int) => Unit): Unit = for { y <- yTileMin to yTileMax by 2
+  override def forAllTilesXY(f: (Int, Int) => Unit): Unit = for { y <- yTileMin to yTileMax by 2
     x <- xTileMin to xTileMax by 2      
   } f(x, y)
    

@@ -37,7 +37,7 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   def row4sForeach(f: Int => Unit): Unit =
     for { y <- yTileMin.incrementTill(_ % 4 == 0) to yTileMax.decrementTill(_ % 4 == 0) by 4 } yield f(y)
       
-  override def foreachTileXY(f: (Int, Int) => Unit): Unit = 
+  override def forAllTilesXY(f: (Int, Int) => Unit): Unit = 
   { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
     row4sForeach(y => for { x <- xRow4Start to xRow4End by 4} yield f(x, y))
   }

@@ -50,10 +50,10 @@ trait TileGrid[TileT <: Tile]
   }
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline def foreachTileXY(f: (Int, Int) => Unit): Unit  
+  @inline def forAllTilesXY(f: (Int, Int) => Unit): Unit  
   
   /** For all Tiles call side effecting function on the Tile's Cood. */
-  @inline final def foreachTileCood(f: Cood => Unit): Unit = foreachTileXY((x, y) => f(Cood(x, y)))
+  @inline final def foreachTileCood(f: Cood => Unit): Unit = forAllTilesXY((x, y) => f(Cood(x, y)))
   
   /** For all Tiles call side effecting function on the Tile. */
   @inline final def tilesForeach[R](f: TileT => Unit): Unit =  foreachTileCood{ tileCood => f(getTile(tileCood)) }
@@ -92,7 +92,7 @@ trait TileGrid[TileT <: Tile]
   /** Map all tiles' XY Cood to List. */
   final def allTilesXYMapList[B](f: (Int, Int) => B): List[B] =
   { var acc: List[B] = Nil
-    foreachTileXY{(x, y) => acc ::= f(x, y) }
+    forAllTilesXY{(x, y) => acc ::= f(x, y) }
     acc.reverse    
   }
   
