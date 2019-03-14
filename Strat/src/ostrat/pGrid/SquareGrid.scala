@@ -15,5 +15,7 @@ trait SquareGrid[TileT <: Tile] extends TileGrid[TileT] with TileGridReg[TileT]
   final def left: Double = xTileMin - margin
   final def right: Double = xTileMax + margin
   final def bottom: Double = yTileMin - margin
-  final def top: Double = yTileMax + margin 
+  final def top: Double = yTileMax + margin
+  def tileRowLen: Int
+  def tileColumnLen: Int
 }

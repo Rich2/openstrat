@@ -18,6 +18,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   def xySideToInd(x: Int, y: Int) = xSideToInd(x) + ySideToInd(y) * xSideArrLen
   def xSideMin: Int
   def xSideMax: Int
+  def sideNum: Int
   final def ySideMin: Int = yTileMin - 1
   final def ySideMax: Int = yTileMax + 1
   final def xSideArrLen: Int = (xSideMax - xSideMin) / 2 + 1

@@ -113,7 +113,13 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
   
   def sideLines: Line2s = ???
   def sideCoods: Coods = ???
-  override def tileNum: Int = ???
+  
+  override def tileRowLen: Int = ((xTileMax - xTileMin) / 2  + 1).min(0)
+  def tileColumnLen: Int = tileRowLen * ((yTileMax - yTileMin) / 2 + 1).min(0)
+  override def tileNum: Int = tileRowLen * tileColumnLen
+  def sideRowLen: Int = ife(tileRowLen == 0, tileRowLen + 1, 0)
+  def sideColumnLen: Int = ife(tileColumnLen == 0, tileColumnLen + 1, 0)
+  override def sideNum: Int = sideRowLen  * sideColumnLen
 }
 
 object SquareGridComplex

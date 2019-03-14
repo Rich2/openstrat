@@ -16,7 +16,9 @@ abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: 
   override def margin: Double = 0.6  
   override def xToInd(x: Int): Int = (x - xTileMin)
   
-  override def tileNum: Int = ???
+  override def tileRowLen = (xTileMax - xTileMin + 1).min(0)
+  override def tileColumnLen = (yTileMax - yTileMin + 1).min(0)
+  override def tileNum: Int =  tileRowLen * tileColumnLen
   def sideLines: Line2s = ???
   
   /** Sets a rectangle of tiles to the same tile value. */

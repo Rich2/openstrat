@@ -12,6 +12,7 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
   def rowEndInd(y: Int) = rowStartInd(y) + 1
   def rowTileXEnd(y: Int): Int = rowBounds(rowEndInd(y))
   def setRowEnd(y: Int, value: Int): Unit = rowBounds(rowEndInd(y)) = value 
+  override def sideNum: Int = ???
   
   val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
    
