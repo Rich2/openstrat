@@ -83,7 +83,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   final def tileAndCoodsFold[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
   {
     var acc: R = emptyVal
-    foreachTileCood{ tileCood =>
+    forallTilesCood{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: R = f(tile, tileCood)
       acc = fSum(acc, newRes)
@@ -93,14 +93,14 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
    
   def tileCoodsFold[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
   { var acc: R = emptyVal
-    foreachTileCood { tileCood => acc = fSum(acc, f(tileCood)) }
+    forallTilesCood { tileCood => acc = fSum(acc, f(tileCood)) }
     acc
   }  
    
   def gridTileFold[R](f: (GridT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
   {
     var acc: R = emptyVal
-    foreachTileCood{ tileCood =>
+    forallTilesCood{ tileCood =>
       val newRes: R = f(this.asInstanceOf[GridT], tileCood)
       acc = fSum(acc, newRes)
     }
@@ -113,7 +113,7 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems = tileAndCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
   def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)  
       
-  def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forAllTilesXY((x, y) => fSetTile(x, y, value)(fTile))    
+  def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forallTilesXY((x, y) => fSetTile(x, y, value)(fTile))    
   def fSidesSetAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = sideXYForeach((x, y) => fSetSide(x, y, value))   
    
   /** Note set RowBack starts with the y (row) parameter */

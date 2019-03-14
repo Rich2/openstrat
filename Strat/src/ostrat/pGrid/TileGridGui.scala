@@ -28,10 +28,10 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)
   
   /** For all Tiles call side effecting function on the Tile's Cood. */ 
-  @inline final def foreachTileCood(f: Cood => Unit): Unit = grid.foreachTileCood(f)
+  @inline final def foreachTileCood(f: Cood => Unit): Unit = grid.forallTilesCood(f)
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline final def foreachTileXY(f: (Int, Int) => Unit): Unit = grid.forAllTilesXY(f)  
+  @inline final def forallTilesXY(f: (Int, Int) => Unit): Unit = grid.forallTilesXY(f)  
   
   /** For all Tiles call side effecting function on the Tile. */
   def tilesForAll(f: TileT => Unit): Unit = grid.tilesForeach(f)

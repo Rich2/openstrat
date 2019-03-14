@@ -50,19 +50,19 @@ trait TileGrid[TileT <: Tile]
   }
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline def forAllTilesXY(f: (Int, Int) => Unit): Unit  
+  @inline def forallTilesXY(f: (Int, Int) => Unit): Unit  
   
   /** For all Tiles call side effecting function on the Tile's Cood. */
-  @inline final def foreachTileCood(f: Cood => Unit): Unit = forAllTilesXY((x, y) => f(Cood(x, y)))
+  @inline final def forallTilesCood(f: Cood => Unit): Unit = forallTilesXY((x, y) => f(Cood(x, y)))
   
   /** For all Tiles call side effecting function on the Tile. */
-  @inline final def tilesForeach[R](f: TileT => Unit): Unit =  foreachTileCood{ tileCood => f(getTile(tileCood)) }
+  @inline final def tilesForeach[R](f: TileT => Unit): Unit =  forallTilesCood{ tileCood => f(getTile(tileCood)) }
   
   /** Map all Tiles to Array[B] with function. */
   final def allTilesMap[B: ClassTag](f: TileT => B): Array[B] =
   {
     val acc: ArrayBuffer[B] = new ArrayBuffer(0)
-    foreachTileCood{ tileCood =>
+    forallTilesCood{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: B = f(tile)
       acc += newRes
@@ -74,7 +74,7 @@ trait TileGrid[TileT <: Tile]
   def tilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
-    foreachTileCood{ tileCood =>
+    forallTilesCood{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: Array[R] = f(tile)
       acc ++= newRes
@@ -85,14 +85,14 @@ trait TileGrid[TileT <: Tile]
   /** Map all tiles' Cood to a List[B]. */
   final def allTilesCoodMapList[B](f: Cood => B): List[B] =
   { var acc: List[B] = Nil
-    foreachTileCood{c => acc ::= f(c) }
+    forallTilesCood{c => acc ::= f(c) }
     acc.reverse    
   }
   
   /** Map all tiles' XY Cood to List. */
   final def allTilesXYMapList[B](f: (Int, Int) => B): List[B] =
   { var acc: List[B] = Nil
-    forAllTilesXY{(x, y) => acc ::= f(x, y) }
+    forallTilesXY{(x, y) => acc ::= f(x, y) }
     acc.reverse    
   }
   
