@@ -34,7 +34,7 @@ abstract class TileGridGui[TileT <: Tile, GridT <: TileGridReg[TileT]](title: St
   @inline final def foreachTileXY(f: (Int, Int) => Unit): Unit = grid.foreachTileXY(f)  
   
   /** For all Tiles call side effecting function on the Tile. */
-  def tilesForeach(f: TileT => Unit): Unit = grid.tilesForeach(f)
+  def tilesForAll(f: TileT => Unit): Unit = grid.tilesForeach(f)
   
   /** Map all Tiles to Array with function. */
   def allTilesMap[B: ClassTag](f: TileT => B): Array[B] = grid.allTilesMap[B](f)
