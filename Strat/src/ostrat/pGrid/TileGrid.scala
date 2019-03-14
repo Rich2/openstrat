@@ -95,7 +95,8 @@ trait TileGrid[TileT <: Tile]
     forallTilesXY{(x, y) => acc ::= f(x, y) }
     acc.reverse    
   }  
-    
+  
+  /** Set tile row from the Cood. */
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 
   final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
