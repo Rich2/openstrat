@@ -41,12 +41,13 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
     row4sForeach(y => for { x <- xRow4Start to xRow4End by 4} yield f(x, y))
   }
+  override def forallSidesXY(f: (Int, Int) => Unit): Unit = ???  
    
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGridComplex.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
   def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)
   
-  def sideLines: Line2s = ???
+  override def allSideLines: Line2s = ???
    
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
@@ -89,7 +90,7 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
    
   found.map(endNode =>  loop(Nil, endNode))
   }
-  def sideCoods: Coods = ???
+  override def sideCoods: Coods = ???
   final override def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 

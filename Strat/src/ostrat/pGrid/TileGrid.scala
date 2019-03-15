@@ -6,7 +6,7 @@ import reflect.ClassTag, collection.mutable.ArrayBuffer
 /** A tileGrid is a collection of tiles, either hexs or squares. This is a fundamental trait. It is a specific case of a tiled area. I
  *  have reached the conclusion that the general case of completely irregular tiling, while interesting mathematically and useful for say
  *  representing a historical game like "Risk", has insufficient utility for the representations we want today. Tile rids can however be fully regular
- *  or partly irregular such as the grids for covering the Earth's surface. Grids can be simple just comsisting of values for the tiles or complex
+ *  or partly irregular such as the grids for covering the Earth's surface. Grids can be simple just consisting of values for the tiles or complex
  *  containing values for the tiles and the tile sides. Rivers, straits, walls, ditches are examples of values commonly assigned to tile sides.  
  *  
  *  It is stored in an underlying array. It consists of a sequence of contiguous rows of tiles. Each row of tiles is itself contiguous,
@@ -48,6 +48,7 @@ trait TileGrid[TileT <: Tile]
   { coodIsTile(x, y)
     arr(xyToInd(x, y)) = fTile(x, y, value)
   }
+  final def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forallTilesXY((x, y) => fSetTile(x, y, value)(fTile))
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
   @inline def forallTilesXY(f: (Int, Int) => Unit): Unit  
@@ -94,7 +95,25 @@ trait TileGrid[TileT <: Tile]
   { var acc: List[B] = Nil
     forallTilesXY{(x, y) => acc ::= f(x, y) }
     acc.reverse    
-  }  
+  }
+  
+  final def tileCoodsFold[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
+  { var acc: R = emptyVal
+    forallTilesCood { tileCood => acc = fSum(acc, f(tileCood)) }
+    acc
+  } 
+  
+  /** Not sure how useful this method is. */
+  final def tileAndCoodsFold[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
+  {
+    var acc: R = emptyVal
+    forallTilesCood{ tileCood =>
+      val tile = getTile(tileCood)
+      val newRes: R = f(tile, tileCood)
+      acc = fSum(acc, newRes)
+    }
+    acc   
+  }
   
   /** Set tile row from the Cood. */
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)

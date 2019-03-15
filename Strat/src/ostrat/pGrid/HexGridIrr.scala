@@ -26,12 +26,8 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
     acc
   }  
    
-  override def tileRowsForeach(f: Int => Unit): Unit = 
-  { var y: Int = yTileMin
-    while(y <= yTileMax) { f(y); y += 2 }
-  }
-   
-  @inline override def forallTilesXY(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) } 
+  @inline override def forallTilesXY(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) }
+  @inline override def forallSidesXY(f: (Int, Int) => Unit): Unit = ???
 
   override def optTile(x: Int, y: Int): Option[TileT] = Unit match
   {

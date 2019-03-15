@@ -23,15 +23,21 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   final def ySideMax: Int = yTileMax + 1
   final def xSideArrLen: Int = (xSideMax - xSideMin) / 2 + 1
   final def ySideArrLen: Int = ySideMax - ySideMin + 1
-   
+  
+  /** For all Sides call side effecting function on the Tile side's XY Cood. */
+  @inline def forallSidesXY(f: (Int, Int) => Unit): Unit 
+  @inline final def sideCoodForeach(f: Cood => Unit): Unit = forallSidesXY((x, y) => f(Cood(x, y))) 
+  
   def vertCoodsOfTile(tileCood: Cood): Coods
   def sideCoodsOfTile(tileCood: Cood): Coods     
    
   def setSide(x: Int, y: Int, side: SideT): Unit = { coodIsSide(x, y); sideArr(xySideToInd(x, y)) = side }
   def setSide(sc: Cood, side: SideT): Unit = { coodIsSide(sc); sideArr(xySideToInd(sc.x, sc.y)) = side }
   def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {coodIsSide(x, y); sideArr(xySideToInd(x, y)) = f(x, y, value)}
-  def fSetSides[A](value: A, xys: Coods)(implicit f: (Int, Int, A) => SideT) = xys.foreach(p => fSetSide(p.x, p.y, value))   
-   
+  /** Sets a Coods collection of Side Cood to the same value. */
+  final def setSideCollection[A](coods: Coods, value: A)(implicit f: (Int, Int, A) => SideT) = coods.foreach(p => fSetSide(p.x, p.y, value))   
+  final def setAllSides[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = forallSidesXY((x, y) => fSetSide(x, y, value))   
+  
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsSide(x: Int, y: Int): Unit
   /** Throws exception if Cood is not a valid Tile coordinate */
@@ -54,31 +60,10 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine
    
   /** The y loop could be abstracted, but this way no worries about inlining. Think this note belongs here. */  
-  def tileRowsForeach(f: Int => Unit): Unit =
+  final def tileRowsForeach(f: Int => Unit): Unit =
   { var y: Int = yTileMin
     while(y <= yTileMax) { f(y); y += 2 }
-  }
-   
-  @inline final def sideCoodForeach(f: Cood => Unit): Unit = sideXYForeach((x, y) => f(Cood(x, y)))       
-  @inline def sideXYForeach(f: (Int, Int) => Unit): Unit
-   
-  /** Not sure how useful this method is. */
-  final def tileAndCoodsFold[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
-  {
-    var acc: R = emptyVal
-    forallTilesCood{ tileCood =>
-      val tile = getTile(tileCood)
-      val newRes: R = f(tile, tileCood)
-      acc = fSum(acc, newRes)
-    }
-    acc   
-  }
-   
-  def tileCoodsFold[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
-  { var acc: R = emptyVal
-    forallTilesCood { tileCood => acc = fSum(acc, f(tileCood)) }
-    acc
-  }  
+  }    
    
   def gridTileFold[R](f: (GridT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
   {
@@ -94,10 +79,8 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
      
   /** Fundamental method for producing GraphicElems from the Grid */
   def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems = tileAndCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
-  def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)  
-      
-  def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forallTilesXY((x, y) => fSetTile(x, y, value)(fTile))    
-  def fSidesSetAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = sideXYForeach((x, y) => fSetSide(x, y, value))   
+  def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)    
+   
    
   /** Note set RowBack starts with the y (row) parameter */
   final def setRowBack[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =

@@ -34,8 +34,8 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
   override def forallTilesXY(f: (Int, Int) => Unit): Unit = for { y <- yTileMin to yTileMax by 2
     x <- xTileMin to xTileMax by 2      
   } f(x, y)
-   
-  override def sideXYForeach(f: (Int, Int) => Unit): Unit =
+  
+  override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
   {
     for {y <- yTileMin to yTileMax by 2
       x <- xTileMin.plus1 to xTileMax.minus1 by 2
@@ -111,8 +111,8 @@ abstract class SquareGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin:
   /** Warning needs Modification */
   override def adjTileCoodsOfTile(tileCood: Cood): Coods = SquareGridComplex.adjTileCoodsOfTile(tileCood)
   
-  def sideLines: Line2s = ???
-  def sideCoods: Coods = ???
+  override def allSideLines: Line2s = ???
+  override def sideCoods: Coods = ???
   
   override def tileRowLen: Int = ((xTileMax - xTileMin) / 2  + 1).min(0)
   def tileColumnLen: Int = tileRowLen * ((yTileMax - yTileMin) / 2 + 1).min(0)
