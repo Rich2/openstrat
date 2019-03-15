@@ -49,35 +49,18 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   
   final def optSidesTiles(cood: Cood): (Option[TileT], Option[TileT]) = optSidesTiles(cood.x, cood.y)
    
-  def modTiles(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) }
-   
-  //def setSide(x: Int, y: Int, side: SideT): Unit = arr(xyToInd(x, y)) = side
-  //def getSide(x: Int, y: Int): SideT = evSide.asType(arr(xyToInd(x, y)))
-   
+  def modTiles(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) } 
   def vertCoodLineOfSide(cood: Cood): CoodLine = vertCoodLineOfSide(cood.x, cood.y)
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine
    
-  /** The y loop could be abstracted, but this way no worries about inlining */
-  
+  /** The y loop could be abstracted, but this way no worries about inlining. Think this note belongs here. */  
   def tileRowsForeach(f: Int => Unit): Unit =
   { var y: Int = yTileMin
     while(y <= yTileMax) { f(y); y += 2 }
   }
    
-  @inline final def sideCoodForeach(f: Cood => Unit): Unit = sideXYForeach((x, y) => f(Cood(x, y)))
-     // tileRowsForeach(y => tileCoodRowForeach(y, f))
-   
-   
+  @inline final def sideCoodForeach(f: Cood => Unit): Unit = sideXYForeach((x, y) => f(Cood(x, y)))       
   @inline def sideXYForeach(f: (Int, Int) => Unit): Unit
-   //def setSides(fValue: (Int, Int) => SideT): Unit = sideXYForeach{(x, y) => setSide(x, y, fValue(x, y))}
-//   def sidesMap[R](f: SideT => R): List[R] =
-//   { var acc: List[R] = Nil
-//      sideXYForeach{ (x, y) =>
-//         val s = getSide(x, y)
-//         acc ::= f(s)
-//      }
-//      acc.reverse
-//   }
    
   /** Not sure how useful this method is. */
   final def tileAndCoodsFold[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
