@@ -17,7 +17,7 @@ sbt //In bash from project's root folder
 ```
 From within the sbt console run:
 ```
-~ Strat/reStart //To launch a ScalaFx window. The most useful command for development
+~ StratJvm/reStart //To launch a ScalaFx window. The most useful command for development
 ~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
 StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
 ~ Util/test //Rerun tests on module Util
