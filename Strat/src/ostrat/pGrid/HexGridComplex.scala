@@ -34,7 +34,7 @@ abstract class HexGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: In
     f(x + 1, yTileMin + 1) 
     }
       
-    tileRowsForeach{y =>
+    forallTileRows {y =>
       rowForeachTileXY(y, (x, y) => f(x - 2, y))
       f(rowTileXEnd(y) + 2, y)
     }

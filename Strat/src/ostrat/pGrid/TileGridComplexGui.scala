@@ -23,7 +23,7 @@ abstract class TileGridComplexGui[TileT <: Tile, SideT <: GridElem, GridT <: Til
       TileGridComplexGui[TileT, SideT, GridT]) => OfS) =
   {
     var acc: R = emptyVal
-    grid.sideCoodForeach{ tileCood =>
+    grid.forallSidesCood{ tileCood =>
       val newOfs = ofsFactory(grid.getSide(tileCood), grid, this)
       val newRes: R = f(newOfs)
       acc = fSum(acc, newRes)

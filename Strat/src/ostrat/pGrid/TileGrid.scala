@@ -126,10 +126,30 @@ trait TileGrid[TileT <: Tile]
       fSetTile(x, yRow, e)         
     }
     Cood(xStart + (tiles.length - 1) * xStep, yRow)   
-  }  
+  }
+  
+  /** Note set RowBack starts with the y (row) parameter */
+  final def setRowBack[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+  {
+    val tiles = tileMakers.toSingles      
+    tiles.iForeach{(e, i) =>
+      val x = xStart - i * xStep
+      fSetTile(x, yRow, e)
+    }
+    Cood(xStart - (tiles.length - 1) * xStep, yRow)
+  }
+   
+  final def setRowBack[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+    setRowBack(cood.y, cood.x, tileValues: _*)(f)
     
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
   
-  def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit  
+  def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit 
+  
+  /** The y loop could be abstracted, but this way no worries about inlining. Think this note belongs here. */  
+  final def forallTileRows(f: Int => Unit): Unit =
+  { var y: Int = yTileMin
+    while(y <= yTileMax) { f(y); y += 2 }
+  }
 }

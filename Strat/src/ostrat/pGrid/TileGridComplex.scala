@@ -25,8 +25,9 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
   final def ySideArrLen: Int = ySideMax - ySideMin + 1
   
   /** For all Sides call side effecting function on the Tile side's XY Cood. */
-  @inline def forallSidesXY(f: (Int, Int) => Unit): Unit 
-  @inline final def sideCoodForeach(f: Cood => Unit): Unit = forallSidesXY((x, y) => f(Cood(x, y))) 
+  @inline def forallSidesXY(f: (Int, Int) => Unit): Unit
+  /** For all Sides call side effecting function on the Tile side's Cood. */
+  @inline final def forallSidesCood(f: Cood => Unit): Unit = forallSidesXY((x, y) => f(Cood(x, y))) 
   
   def vertCoodsOfTile(tileCood: Cood): Coods
   def sideCoodsOfTile(tileCood: Cood): Coods     
@@ -57,44 +58,12 @@ trait TileGridComplex[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT]
    
   def modTiles(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) } 
   def vertCoodLineOfSide(cood: Cood): CoodLine = vertCoodLineOfSide(cood.x, cood.y)
-  def vertCoodLineOfSide(x: Int, y: Int): CoodLine
-   
-  /** The y loop could be abstracted, but this way no worries about inlining. Think this note belongs here. */  
-  final def tileRowsForeach(f: Int => Unit): Unit =
-  { var y: Int = yTileMin
-    while(y <= yTileMax) { f(y); y += 2 }
-  }    
-   
-  def gridTileFold[R](f: (GridT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
-  {
-    var acc: R = emptyVal
-    forallTilesCood{ tileCood =>
-      val newRes: R = f(this.asInstanceOf[GridT], tileCood)
-      acc = fSum(acc, newRes)
-    }
-    acc
-  }
-   
-  def gridTileDispFold(f: (GridT, Cood) => GraphicElems): GraphicElems = gridTileFold[GraphicElems](f, _ ++ _)(Nil)   
+  def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
      
   /** Fundamental method for producing GraphicElems from the Grid */
   def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems = tileAndCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
-  def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)    
-   
-   
-  /** Note set RowBack starts with the y (row) parameter */
-  final def setRowBack[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-  {
-    val tiles = tileMakers.toSingles      
-    tiles.iForeach{(e, i) =>
-      val x = xStart - i * xStep
-      fSetTile(x, yRow, e)
-    }
-    Cood(xStart - (tiles.length - 1) * xStep, yRow)
-  }
-   
-  final def setRowBack[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setRowBack(cood.y, cood.x, tileValues: _*)(f)
+  def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
+  
   /** Warning implementations need modification. */   
   def adjTileCoodsOfTile(tileCood: Cood): Coods
 }

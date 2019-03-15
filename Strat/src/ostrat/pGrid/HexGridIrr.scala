@@ -19,14 +19,14 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
   override def tileNum: Int =
   {
     var acc: Int = 0
-    tileRowsForeach{y =>
+    forallTileRows {y =>
       val delta = (rowTileXEnd(y) - rowTileXStart(y)) / 4 + 1
       acc += delta
     }
     acc
   }  
    
-  @inline override def forallTilesXY(f: (Int, Int) => Unit): Unit = tileRowsForeach{ y => rowForeachTileXY(y, f) }
+  @inline override def forallTilesXY(f: (Int, Int) => Unit): Unit = forallTileRows{ y => rowForeachTileXY(y, f) }
   @inline override def forallSidesXY(f: (Int, Int) => Unit): Unit = ???
 
   override def optTile(x: Int, y: Int): Option[TileT] = Unit match

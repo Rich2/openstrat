@@ -8,7 +8,7 @@ class EGrid80km[TileT <: Tile, SideT <: GridElem] (bounds: Array[Int], name: Str
       xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
    EGrid[TileT, SideT](bounds, name, cenLong, EGrid80km.scale, xOffset, 300, xTileMin, xTileMax, yTileMin, yTileMax)
 {
-   tileRowsForeach{y => 
+   forallTileRows{y => 
       val pair = EGrid80km.tileRowMaxX(y, xOffset)
       setRowStart(y, pair._1)
       setRowEnd(y, pair._2)

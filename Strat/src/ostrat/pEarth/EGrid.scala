@@ -119,7 +119,7 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
          acc = acc ++ newRes
       }
       var sideAcc: GraphicElems = Nil
-      sideCoodForeach { sideCood =>
+      forallSidesCood { sideCood =>
          val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
          val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Nil) 
          sideAcc ++= newRes

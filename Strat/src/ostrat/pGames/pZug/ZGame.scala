@@ -17,7 +17,7 @@ class ZGame(scenInit: ZugGrid, val players: List[ZPlayer])
       newScen.setTile(cood, newTile)
       
     }
-    scen.sideCoodForeach{cood => newScen.setSide(cood, scen.getSide(cood)) }
+    scen.forallSidesCood {cood => newScen.setSide(cood, scen.getSide(cood)) }
     newScen
   }
   def makeMove(id: Int, coods: Coods): ZugGrid = scen
