@@ -56,7 +56,10 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   }
   //override def tileCoods: Coods = ???  
   def sidePseudoCoods: Coods = ???  
-  override def allSideLines: Line2s = ???
+  override def allSideLines: Line2s =
+  {
+
+  } ???
   final override def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 
@@ -65,7 +68,6 @@ object HexGridSimple
   def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
   def coodToVec2(x: Int, y: Int): Vec2 =
     if(x.isEven & y.isEven | x.isOdd & y.isOdd) Vec2(x, y * HexGrid.yRatio)
-    else throw new Exception("This is an invalid HexCood")        
-  
+    else throw new Exception("This is an invalid HexCood")
 }
 

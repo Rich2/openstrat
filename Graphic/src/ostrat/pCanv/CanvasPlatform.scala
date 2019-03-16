@@ -1,8 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pCanv
-import geom._
-import Colour._
+import geom._, Colour._
 
 /** An abstract Canvas trait. A concrete implementation will utilise canvas like an HTML canvas or a Scalafx canvas. This concrete implementation
  *  class must (can?) be mixed in with a a particular use trait like CanvSimple or CanvMulti. The default methods take the origin as the centre of the
