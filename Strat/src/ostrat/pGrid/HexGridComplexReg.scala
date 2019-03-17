@@ -44,17 +44,19 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
       
   /** rows 4, 8 12 ... 0, -4, -8 ... */
   def row4sForeach(f: Int => Unit): Unit =
-    for { y <- yRow4Start to yRow4End by 4 } yield f(y)
-      
-//  override def forallTilesXY(f: (Int, Int) => Unit): Unit = 
-//  { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
-//    row4sForeach(y => for { x <- xRow4Start to xRow4End by 4} yield f(x, y))
-//  }
-  override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
+    for { y <- yRow4Start to yRow4End by 4 } yield f(y)      
+  
+  /** Needs more work. */
+  final override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
   {
     if (tileNum == 0) return
-    //(rowTileXStart
-      
+    rowForeachTileXY(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
+    for { y <- (yTileMin + 1) to (yTileMax - 1) by 2
+      x <- sideRowOddStart to sideRowOddEnd by 2
+    } f(x, y)
+    
+    rowForeachTileXY(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })
+    deb("s")
   }
    
   def tileNeighboursCoods(cood: Cood): Coods =

@@ -5,7 +5,7 @@ import reflect.macros.blackbox.Context
 
 object deb
 {
-  /** Simple macro, prints out string preceded by source code position */
+  /** Simple macro, prints out string preceded by source code position. */
   def apply(str: String): Unit = macro debImpl
    
   def debImpl(c: Context)(str: c.Expr[String]): c.Expr[Unit] = 
@@ -26,6 +26,7 @@ object deb
 
 object debvar
 {
+  /** An expression debug macro. Prints out source code position followed by expression name, followed by expression value. */
   def apply(inputExpr: Any): Unit = macro debvarImpl  
    
   /** Simple macro, prints out source code position, variable name, variable value */

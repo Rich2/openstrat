@@ -16,28 +16,33 @@ import reflect.ClassTag, collection.mutable.ArrayBuffer
 trait TileGrid[TileT <: Tile]
 {  
   val arr: Array[TileT]
+  def evTile: ClassTag[TileT]
   def xTileMin: Int
   def xTileMax: Int
   def yTileMin: Int
-  def yTileMax: Int
-  
-  def evTile: ClassTag[TileT]
+  def yTileMax: Int  
   def xArrLen: Int
   def yArrLen: Int
-  final def arrLen = yArrLen * xArrLen
-  
   def xToInd(x: Int): Int
-  final def yToInd(y: Int): Int = y  - yTileMin
-  def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y) * xArrLen
   val yRatio: Double
   def xStep: Int
   def yStep: Int
   def tileNum: Int
+  def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
+  def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit  
+  /** Throws exception if Cood is not a valid Tile coordinate */
+  def coodIsTile(x: Int, y: Int): Unit 
   
+  final def arrLen = yArrLen * xArrLen  
+  final def yToInd(y: Int): Int = y  - yTileMin
+  def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y) * xArrLen
+  
+  def optTile(x: Int, y: Int): Option[TileT]
+  final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
+    
   /** Throws exception if Cood is not a valid Tile coordinate */
-  def coodIsTile(x: Int, y: Int): Unit   
-  /** Throws exception if Cood is not a valid Tile coordinate */
-  final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)  
+  final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)
+  
   def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); arr(xyToInd(x, y)) }   
   def getTile(tc: Cood): TileT = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) } 
  
@@ -58,9 +63,7 @@ trait TileGrid[TileT <: Tile]
   @inline final def forallTilesCood(f: Cood => Unit): Unit = forallTilesXY((x, y) => f(Cood(x, y)))
   
   /** For all Tiles call side effecting function on the Tile. */
-  @inline final def forallTiles(f: TileT => Unit): Unit =  forallTilesCood{ tileCood => f(getTile(tileCood)) }
-  
-  def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
+  @inline final def forallTiles(f: TileT => Unit): Unit =  forallTilesCood{ tileCood => f(getTile(tileCood)) }  
   
   final def forallTileRows(f: Int => Unit): Unit =
   { var y: Int = yTileMin
@@ -148,12 +151,5 @@ trait TileGrid[TileT <: Tile]
   }
    
   final def setRowBack[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setRowBack(cood.y, cood.x, tileValues: _*)(f)
-    
-  def optTile(x: Int, y: Int): Option[TileT]
-  final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
-  
-  def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit 
-  
-  
+    setRowBack(cood.y, cood.x, tileValues: _*)(f)  
 }
