@@ -17,8 +17,8 @@ abstract class HexGridComplex[TileT <: Tile, SideT <: GridElem](val xTileMin: In
   override def xSideMin: Int = xTileMin - 2
   override def xSideMax: Int = xTileMax + 2
   
-  override def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit = (rowTileXStart(y) to rowTileXEnd(y) by 4).foreach(x => f(x, y))  
-   
+  override def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit = (rowTileXStart(y) to rowTileXEnd(y) by 4).foreach(x => f(x, y))   
+  
   def sideXYForeach(f: (Int, Int) => Unit): Unit =
   {
     rowForeachTileXY(yTileMin, (x, y) => { f(x - 1, y - 1);  f(x + 1, y - 1)  })

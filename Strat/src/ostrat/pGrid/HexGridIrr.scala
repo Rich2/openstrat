@@ -24,10 +24,24 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
       acc += delta
     }
     acc
-  }  
+  }
    
-  //@inline override def forallTilesXY(f: (Int, Int) => Unit): Unit = forallTileRows{ y => rowForeachTileXY(y, f) }
-  @inline override def forallSidesXY(f: (Int, Int) => Unit): Unit = ???
+  /** Needs more work. */
+  final override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
+  {   
+    if (tileNum == 0) return    
+    rowForeachTileXY(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
+    
+    ((yTileMin + 1) to (yTileMax - 1) by 2).foreach{ y =>
+      val xStart = rowTileXStart(y - 1).min(rowTileXStart(y + 1)) + 1
+      val xEnd = rowTileXEnd(y - 1).max(rowTileXEnd(y + 1)) + 1    
+      (xStart to xEnd by 2).foreach(x => f(x, y))
+    }
+    
+    forallTilesXY{ (x, y) => f(x + 2, y)}
+    rowForeachTileXY(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
+  }
+  
 
   override def optTile(x: Int, y: Int): Option[TileT] = Unit match
   {

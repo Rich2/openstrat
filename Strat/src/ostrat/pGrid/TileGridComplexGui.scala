@@ -21,7 +21,7 @@ abstract class TileGridComplexGui[TileT <: Tile, SideT <: GridElem, GridT <: Til
    
   def ofSidesFold[OfS <: OfSide[TileT, SideT, GridT], R](f: OfS => R, fSum: (R, R) => R, emptyVal: R)(implicit ofsFactory: (SideT, GridT,
       TileGridComplexGui[TileT, SideT, GridT]) => OfS) =
-  {
+  {    
     var acc: R = emptyVal
     grid.forallSidesCood{ tileCood =>
       val newOfs = ofsFactory(grid.getSide(tileCood), grid, this)

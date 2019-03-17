@@ -17,14 +17,14 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   def xRow4Start: Int = xTileMin.incrementTill(_ % 4 == 0)
   def xRow2End: Int = xTileMax.decrementTill(_ % 4 == 2)
   def xRow4End: Int = xTileMax.decrementTill(_ % 4 == 0)
-  def xRow2Len: Int = ((xRow2End - xRow2Start) / 2 + 1).min(0)
-  def xRow4Len: Int = ((xRow4End - xRow4Start) / 2 + 1).min(0)
+  def xRow2Len: Int = ((xRow2End - xRow2Start) / 2 + 1).max(0)
+  def xRow4Len: Int = ((xRow4End - xRow4Start) / 2 + 1).max(0)
   def yRow2Start: Int = yTileMin.incrementTill(_ % 4 == 2)
   def yRow4Start: Int = yTileMin.incrementTill(_ % 4 == 0)
   def yRow2End: Int = yTileMax.decrementTill(_ % 4 == 2)
   def yRow4End: Int = yTileMax.decrementTill(_ % 4 == 0)
-  def yRow2Len: Int = ((yRow2End - yRow2Start) / 2 + 1).min(0)
-  def yRow4Len: Int = ((yRow2End - yRow2Start) / 2 + 1).min(0)
+  def yRow2Len: Int = ((yRow2End - yRow2Start) / 2 + 1).max(0)
+  def yRow4Len: Int = ((yRow2End - yRow2Start) / 2 + 1).max(0)
   
   /** Not sure about the following 4 values */
   def sideRow2Start = xRow2Start - 2
@@ -48,15 +48,14 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   
   /** Needs more work. */
   final override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
-  {
-    if (tileNum == 0) return
+  {   
+    if (tileNum == 0) return    
     rowForeachTileXY(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
     for { y <- (yTileMin + 1) to (yTileMax - 1) by 2
       x <- sideRowOddStart to sideRowOddEnd by 2
     } f(x, y)
-    
-    rowForeachTileXY(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })
-    deb("s")
+    forallTilesXY{ (x, y) => f(x + 2, y)}
+    rowForeachTileXY(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
   }
    
   def tileNeighboursCoods(cood: Cood): Coods =

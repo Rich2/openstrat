@@ -24,6 +24,19 @@ object deb
   }   
 }
 
+object debb
+{
+  def apply(): Unit = macro debImpl
+  
+  def debImpl(c: Context)(): c.Expr[Unit] = 
+  { import c.universe._     
+    val pos: Position  = c.macroApplication.pos      
+    val s1 = deb.macroPosn(c)(pos)
+    val Predef_println = typeOf[Predef.type].decl(TermName("println"))
+    c.Expr(q"""$Predef_println($s1)""")
+  }  
+}
+
 object debvar
 {
   /** An expression debug macro. Prints out source code position followed by expression name, followed by expression value. */
