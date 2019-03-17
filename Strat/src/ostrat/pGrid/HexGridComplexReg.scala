@@ -25,6 +25,7 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   def yRow4End: Int = yTileMax.decrementTill(_ % 4 == 0)
   def yRow2Len: Int = ((yRow2End - yRow2Start) / 2 + 1).min(0)
   def yRow4Len: Int = ((yRow2End - yRow2Start) / 2 + 1).min(0)
+  
   /** Not sure about the following 4 values */
   def sideRow2Start = xRow2Start - 2
   def sideRow4Start = xRow4Start - 2
@@ -45,15 +46,21 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   def row4sForeach(f: Int => Unit): Unit =
     for { y <- yRow4Start to yRow4End by 4 } yield f(y)
       
-  override def forallTilesXY(f: (Int, Int) => Unit): Unit = 
-  { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
-    row4sForeach(y => for { x <- xRow4Start to xRow4End by 4} yield f(x, y))
+//  override def forallTilesXY(f: (Int, Int) => Unit): Unit = 
+//  { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
+//    row4sForeach(y => for { x <- xRow4Start to xRow4End by 4} yield f(x, y))
+//  }
+  override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
+  {
+    if (tileNum == 0) return
+    //(rowTileXStart
+      
   }
-  override def forallSidesXY(f: (Int, Int) => Unit): Unit = ???  
    
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGridComplex.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
   def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)
+  
   
   override def allSideLines: Line2s = ???
    

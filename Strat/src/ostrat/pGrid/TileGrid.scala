@@ -31,6 +31,7 @@ trait TileGrid[TileT <: Tile]
   def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y) * xArrLen
   val yRatio: Double
   def xStep: Int
+  def yStep: Int
   def tileNum: Int
   
   /** Throws exception if Cood is not a valid Tile coordinate */
@@ -51,13 +52,20 @@ trait TileGrid[TileT <: Tile]
   final def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forallTilesXY((x, y) => fSetTile(x, y, value)(fTile))
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline def forallTilesXY(f: (Int, Int) => Unit): Unit  
+  @inline final def forallTilesXY(f: (Int, Int) => Unit): Unit = forallTileRows(y => rowForeachTileXY(y, f))  
   
   /** For all Tiles call side effecting function on the Tile's Cood. */
   @inline final def forallTilesCood(f: Cood => Unit): Unit = forallTilesXY((x, y) => f(Cood(x, y)))
   
   /** For all Tiles call side effecting function on the Tile. */
   @inline final def forallTiles(f: TileT => Unit): Unit =  forallTilesCood{ tileCood => f(getTile(tileCood)) }
+  
+  def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
+  
+  final def forallTileRows(f: Int => Unit): Unit =
+  { var y: Int = yTileMin
+    while(y <= yTileMax) { f(y); y += yStep }
+  }
   
   /** Map all Tiles to Array[B] with function. */
   final def allTilesMap[B: ClassTag](f: TileT => B): Array[B] =
@@ -147,9 +155,5 @@ trait TileGrid[TileT <: Tile]
   
   def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit 
   
-  /** The y loop could be abstracted, but this way no worries about inlining. Think this note belongs here. */  
-  final def forallTileRows(f: Int => Unit): Unit =
-  { var y: Int = yTileMin
-    while(y <= yTileMax) { f(y); y += 2 }
-  }
+  
 }

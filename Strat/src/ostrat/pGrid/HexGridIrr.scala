@@ -26,7 +26,7 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: GridElem](val rowBounds: Array
     acc
   }  
    
-  @inline override def forallTilesXY(f: (Int, Int) => Unit): Unit = forallTileRows{ y => rowForeachTileXY(y, f) }
+  //@inline override def forallTilesXY(f: (Int, Int) => Unit): Unit = forallTileRows{ y => rowForeachTileXY(y, f) }
   @inline override def forallSidesXY(f: (Int, Int) => Unit): Unit = ???
 
   override def optTile(x: Int, y: Int): Option[TileT] = Unit match

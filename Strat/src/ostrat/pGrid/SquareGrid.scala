@@ -18,4 +18,6 @@ trait SquareGrid[TileT <: Tile] extends TileGrid[TileT] with TileGridReg[TileT]
   final def top: Double = yTileMax + margin
   def tileRowLen: Int
   def tileColumnLen: Int
+  
+  final override def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit = for {x <- xTileMin to xTileMax by xStep} f(x, y)
 }

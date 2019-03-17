@@ -5,7 +5,7 @@ import geom._, reflect.ClassTag
 
 /** A regular HexGrid containing only values for the tiles not for the boundaries between the tiles. */
 abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
-   (implicit val evTile: ClassTag[TileT]) extends HexGridRegular[TileT]
+   (implicit val evTile: ClassTag[TileT]) extends HexGridRegular[TileT] with TileGridSimple[TileT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGridSimple.coodToVec2(cood)
   //Y coordinate multiplied by sqrt(3) to get Vec2. And the upper and lower hex vertices have a greater than 1 cood.y delta. 
@@ -50,10 +50,12 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   /** rows 2, 4, 6 ... 0, -2, -4, -6 ... */
   def row2sForeach(f: Int => Unit): Unit =  for { y <- yRow2Start to yRow2End by 2 } yield f(y)
   
-  final override def forallTilesXY(f: (Int, Int) => Unit): Unit = 
-  { row1sForeach(y => for { x <- xRow1Start to xRow1End by 2} yield f(x, y))
-    row2sForeach(y => for { x <- xRow2Start to xRow2End by 2} yield f(x, y))
-  }
+  
+  
+//  final override def forallTilesXY(f: (Int, Int) => Unit): Unit = 
+//  { row1sForeach(y => for { x <- xRow1Start to xRow1End by 2} yield f(x, y))
+//    row2sForeach(y => for { x <- xRow2Start to xRow2End by 2} yield f(x, y))
+//  }
   //override def tileCoods: Coods = ???  
   def sidePseudoCoods: Coods = ???  
   override def allSideLines: Line2s =

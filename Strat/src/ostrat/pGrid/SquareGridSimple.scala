@@ -5,14 +5,14 @@ import geom._, reflect.ClassTag
 
 /** A regular square grid containing only values for the tiles not for the boundaries between the tiles. */
 abstract class SquareGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
-   (implicit val evTile: ClassTag[TileT]) extends SquareGrid[TileT] with TileGridReg[TileT]
+   (implicit val evTile: ClassTag[TileT]) extends SquareGrid[TileT] with TileGridSimple[TileT]
 {
   override val yArrLen: Int = yTileMax - yTileMin + 1
   override def xArrLen: Int = xTileMax - xTileMin + 1
   override val arr: Array[TileT] = new Array[TileT](arrLen)
   override def xStep: Int = 1
   override def coodIsTile(x: Int, y: Int): Unit = {}  
-  override def forallTilesXY(f: (Int, Int) => Unit): Unit = ??? 
+  //override def forallTilesXY(f: (Int, Int) => Unit): Unit = ??? 
   override def margin: Double = 0.6  
   override def xToInd(x: Int): Int = (x - xTileMin)
   
