@@ -58,8 +58,8 @@ abstract class HexGridSimple[TileT <: Tile](val xTileMin: Int, val xTileMax: Int
   def sidePseudoCoods: Coods = ???  
   override def allSideLines: Line2s =
   {
-
-  } ???
+    ???
+  } 
   final override def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 

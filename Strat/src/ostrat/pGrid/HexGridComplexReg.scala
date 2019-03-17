@@ -13,29 +13,37 @@ class HexGridComplexReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMa
   
   override def rowTileXStart(y: Int): Int = ife(y %% 4 == 0, xRow4Start, xRow2Start)
   override def rowTileXEnd(y: Int): Int = ife(y %% 4 == 0, xRow4End, xRow2End)
-  def xRow2Start = xTileMin.incrementTill(_ % 4 == 2)
-  def xRow4Start = xTileMin.incrementTill(_ % 4 == 0)
-  def xRow2End = xTileMax.decrementTill(_ % 4 == 2)
-  def xRow4End = xTileMax.decrementTill(_ % 4 == 0)
+  def xRow2Start: Int = xTileMin.incrementTill(_ % 4 == 2)
+  def xRow4Start: Int = xTileMin.incrementTill(_ % 4 == 0)
+  def xRow2End: Int = xTileMax.decrementTill(_ % 4 == 2)
+  def xRow4End: Int = xTileMax.decrementTill(_ % 4 == 0)
+  def xRow2Len: Int = ((xRow2End - xRow2Start) / 2 + 1).min(0)
+  def xRow4Len: Int = ((xRow4End - xRow4Start) / 2 + 1).min(0)
+  def yRow2Start: Int = yTileMin.incrementTill(_ % 4 == 2)
+  def yRow4Start: Int = yTileMin.incrementTill(_ % 4 == 0)
+  def yRow2End: Int = yTileMax.decrementTill(_ % 4 == 2)
+  def yRow4End: Int = yTileMax.decrementTill(_ % 4 == 0)
+  def yRow2Len: Int = ((yRow2End - yRow2Start) / 2 + 1).min(0)
+  def yRow4Len: Int = ((yRow2End - yRow2Start) / 2 + 1).min(0)
   /** Not sure about the following 4 values */
-  def sideRow2Start = xRow2Start + 2
-  def sideRow4Start = xRow4Start + 2
-  def sideRow2End = xRow2End - 2
-  def sideRow4End = xRow4End - 2
-  def sideRowOddStart = (xRow2Start + xRow4Start) / 2
-  def sideRowOddEnd = (xRow2End + xRow4End) / 2
-  override def tileNum: Int = ???
+  def sideRow2Start = xRow2Start - 2
+  def sideRow4Start = xRow4Start - 2
+  def sideRow2End = xRow2End + 2
+  def sideRow4End = xRow4End + 2
+  def sideRowOddStart = xRow2Start.max(xRow4Start) - 1 
+  def sideRowOddEnd = xRow2End.max(xRow4End) + 1
+  def sideRowOddLen: Int = (sideRowOddEnd - sideRowOddStart) / 2
+  override def tileNum: Int = xRow2Len * yRow2Len + xRow4Len * yRow4Len
   override def sideNum: Int = ???
   
   val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
   
   /** rows 2, 6, 10 ... -2, -6, -10 ... */
-  def row2sForeach(f: Int => Unit): Unit =
-    for { y <- yTileMin.incrementTill(_ % 4 == 2) to yTileMax.decrementTill(_ % 4 == 2) by 4 } yield f(y)
+  def row2sForeach(f: Int => Unit): Unit = for { y <- yRow2Start to yRow2End by 4 } yield f(y)
       
   /** rows 4, 8 12 ... 0, -4, -8 ... */
   def row4sForeach(f: Int => Unit): Unit =
-    for { y <- yTileMin.incrementTill(_ % 4 == 0) to yTileMax.decrementTill(_ % 4 == 0) by 4 } yield f(y)
+    for { y <- yRow4Start to yRow4End by 4 } yield f(y)
       
   override def forallTilesXY(f: (Int, Int) => Unit): Unit = 
   { row2sForeach(y => for { x <- xRow2Start to xRow2End by 4} yield f(x, y))
