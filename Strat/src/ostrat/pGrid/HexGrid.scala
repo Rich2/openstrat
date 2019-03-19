@@ -1,23 +1,15 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._, math.sqrt, HexGrid.yRatio, reflect.ClassTag
+import geom._, math.sqrt, reflect.ClassTag
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
 abstract class HexGrid[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
 (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGrid[TileT, SideT]// with HexGrid[TileT]   
 {
-  override val yRatio: Double = HexGrid.yRatio
-//  def coodIsTile(x: Int, y: Int): Unit = Unit match
-//  { case _ if x.isEven & y.isEven =>
-//    case _ if x.isOdd & y.isOdd =>
-//    case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
-//  }
-  
+  override val yRatio: Double = HexGrid.yRatio  
   def rowTileXStart(y: Int): Int
-  def rowTileXEnd(y: Int): Int
-  //def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
-  
+  def rowTileXEnd(y: Int): Int  
   
   override def xArrLen: Int = (xTileMax - xTileMin) / 4 + 1 //+1 for zeroth tile
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)

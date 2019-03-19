@@ -6,7 +6,7 @@ import pCanv._
 
 /** Class for displaying a single hex grid */
 abstract class HexGridGui[TileT <: Tile, SideT <: GridElem, GridT <: HexGridReg[TileT, SideT]](val canv: CanvasPlatform, title: String) extends
-   TileGridComplexGui[TileT, SideT, GridT](title)
+   TileGridGui[TileT, SideT, GridT](title)
 {   
    def ofHTilesFold[R](f: OfHexReg[TileT, SideT, GridT] => R, fSum: (R, R) => R, emptyVal: R) =
    {
