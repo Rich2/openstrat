@@ -3,9 +3,8 @@ package ostrat
 package pGrid
 import pCanv._, geom._, reflect.ClassTag
 
-/** Gui for display of a single regular complex TileGrid */
-abstract class TileGridGui[TileT <: Tile, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]](title: String) extends
-  UnfixedMapGui(title)//TileGridGui[TileT, SideT, GridT](title)
+/** Gui for display of a single regular TileGrid */
+abstract class TileGridGui[TileT <: Tile, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]](title: String) extends UnfixedMapGui(title)
 {
   val grid: GridT
   /** number of pixels per grid unit */
@@ -56,9 +55,6 @@ abstract class TileGridGui[TileT <: Tile, SideT <: GridElem, GridT <: TileGridRe
   canv.onScroll = b => { pScale = ife(b, (pScale * 1.2).min(scaleMax), (pScale / 1.2).max(scaleMin)); updateView() }
   
   def repaintMap() = { mapPanel.repaint(mapObjs) }  
-  
-  
-  
   
   def ofTilesFold[OfT <: OfTile[TileT, SideT, GridT], R](f: OfT => R, fSum: (R, R) => R, emptyVal: R)(implicit oftFactory: (TileT, GridT,
       TileGridGui[TileT, SideT, GridT]) => OfT) =

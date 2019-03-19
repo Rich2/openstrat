@@ -25,8 +25,9 @@ trait TileGridReg[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT, Side
   def yCen = (top + bottom) / 2
   def cen: Vec2 = Vec2(xCen, yCen)
   /** All the grids sides expressed as Line2s. */
-  def allSideLines: Line2s
+  final def allSideLines: Line2s = ???
   /** This could possibly go in TileGrid but putting it here for now. */
   def sideCoods: Coods
+  //override def allSideLines: Line2s = ???
 }
 

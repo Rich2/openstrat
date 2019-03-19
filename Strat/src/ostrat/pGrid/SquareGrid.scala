@@ -115,7 +115,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, v
   /** Warning needs Modification */
   override def adjTileCoodsOfTile(tileCood: Cood): Coods = SquareGrid.adjTileCoodsOfTile(tileCood)
   
-  override def allSideLines: Line2s = ???
+  //override def allSideLines: Line2s = ???
   override def sideCoods: Coods = ???
   
   def tileRowLen: Int = ((xTileMax - xTileMin) / 2  + 1).min(0)

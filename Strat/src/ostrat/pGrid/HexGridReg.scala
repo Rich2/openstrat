@@ -3,9 +3,8 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag
 
-class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(
-      implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with
-      TileGridReg[TileT, SideT]
+class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)(implicit evTile: ClassTag[TileT],
+    evSide: ClassTag[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax) with TileGridReg[TileT, SideT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def vertMargin = 2.8
@@ -14,7 +13,6 @@ class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int,
   final def right: Double = xTileMax + horrMargin
   final def bottom: Double = yTileMin  * yRatio - vertMargin
   final def top: Double = yTileMax * yRatio + vertMargin  
-  
   
   override def rowTileXStart(y: Int): Int = ife(y %% 4 == 0, xRow4Start, xRow2Start)
   override def rowTileXEnd(y: Int): Int = ife(y %% 4 == 0, xRow4End, xRow2End)
@@ -65,10 +63,9 @@ class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int,
    
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
-  def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)
+  def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)  
   
-  
-  override def allSideLines: Line2s = ???
+  //override def allSideLines: Line2s = ???
    
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
