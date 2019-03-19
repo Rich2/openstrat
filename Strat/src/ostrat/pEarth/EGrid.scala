@@ -82,9 +82,9 @@ class EGrid[TileT <: Tile, SideT <: GridElem](bounds: Array[Int], val name: Stri
    def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
    
    forallTilesCood{cood =>
-      setLL(cood, vec2ToLL(HexGridComplex.coodToVec2(cood)))
-      sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridComplex.coodToVec2(vc))))
-      vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridComplex.coodToVec2(vc))))
+      setLL(cood, vec2ToLL(HexGrid.coodToVec2(cood)))
+      sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
+      vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
          }   
    
   // def vertLL(hv: HexVert): LatLong = vec2ToLL(hv.toVec2)

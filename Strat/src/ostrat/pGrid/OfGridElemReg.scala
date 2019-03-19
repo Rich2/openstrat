@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._
 
-trait OfGridElemReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplexReg[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
+trait OfGridElemReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 {
    def gGui: TileGridComplexGui[TileT, SideT, GridT]   
    @inline final override def coodToDispVec2(inp: Cood): Vec2 = gGui.fTrans(grid.coodToVec2(inp))   
@@ -12,7 +12,7 @@ trait OfGridElemReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplexRe
    def coodToVec2(inp: Cood): Vec2 = grid.coodToVec2(inp)   
 }
 
-trait OfTileReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplexReg[TileT, SideT]] extends OfTile[TileT, SideT, GridT] with
+trait OfTileReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends OfTile[TileT, SideT, GridT] with
 OfGridElemReg[TileT, SideT, GridT]
 {   
    override def vertDispVecs: Polygon = vertCoods.pMap(coodToDispVec2)//.fTrans(gGui.fTrans)
@@ -22,7 +22,7 @@ OfGridElemReg[TileT, SideT, GridT]
    def cen: Vec2 = gGui.fTrans(cenRelGrid)   
 }
 
-trait OfSideReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplexReg[TileT, SideT]] extends OfSide[TileT, SideT, GridT] with
+trait OfSideReg[TileT <: Tile, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]] extends OfSide[TileT, SideT, GridT] with
 OfGridElemReg[TileT, SideT, GridT]
 {
    def sideCen: Vec2

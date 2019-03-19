@@ -5,7 +5,7 @@ import geom._
 
 /** A regular rectangular tile grid, covering a flat Euclidean 2s surface as opposed to an earth based tile grid or other grid that is not mapping a
  *  flat 2d surface. */
-trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
+trait TileGridReg[TileT <: Tile, SideT <: GridElem] extends TileGrid[TileT, SideT]
 {
   override def optTile(x: Int, y: Int): Option[TileT] = if (x >= xTileMin & x <= xTileMax & y >= yTileMin & y <= yTileMax )
     Some(getTile(x, y)) else None
@@ -26,11 +26,7 @@ trait TileGridReg[TileT <: Tile] extends TileGrid[TileT]
   def cen: Vec2 = Vec2(xCen, yCen)
   /** All the grids sides expressed as Line2s. */
   def allSideLines: Line2s
-  
-}
-
-trait TileGridComplexReg[TileT <: Tile, SideT <: GridElem] extends TileGridComplex[TileT, SideT] with TileGridReg[TileT]
-{
-  /** This could possibly go in TileGridComplex but putting it here for now. */
+  /** This could possibly go in TileGrid but putting it here for now. */
   def sideCoods: Coods
 }
+

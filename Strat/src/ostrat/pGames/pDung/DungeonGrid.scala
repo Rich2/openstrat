@@ -4,8 +4,8 @@ package pGames.pDung
 import pGrid._
 
 /** Tile is 0.5m square. */
-class DungeonGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends
-  SquareGridComplex[DTile, SideBare](xTileMin, xTileMax, yTileMin, yTileMax)
+class DungeonGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends SquareGrid[DTile, SideBare](xTileMin, xTileMax,
+    yTileMin, yTileMax)
 {
    def posn(charac: Character, x: Int, y: Int, facing: SFace): Unit =
    { getTile(x, y).charac = Opt(charac)

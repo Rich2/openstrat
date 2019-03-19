@@ -17,7 +17,8 @@ object UTile
   }
 }
 
-class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridSimple[UTile](xTileMin, xTileMax, yTileMin, yTileMax)
+class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
+    yTileMin, yTileMax)
 {
   
 }

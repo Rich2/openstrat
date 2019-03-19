@@ -4,8 +4,8 @@ package pGrid
 import geom._
 
 /** Gui for display of a single regular complex TileGrid */
-abstract class TileGridComplexGui[TileT <: Tile, SideT <: GridElem, GridT <: TileGridComplexReg[TileT, SideT]](title: String) extends
-  TileGridGui[TileT, GridT](title)
+abstract class TileGridComplexGui[TileT <: Tile, SideT <: GridElem, GridT <: TileGridReg[TileT, SideT]](title: String) extends
+  TileGridGui[TileT, SideT, GridT](title)
 {  
   def ofTilesFold[OfT <: OfTile[TileT, SideT, GridT], R](f: OfT => R, fSum: (R, R) => R, emptyVal: R)(implicit oftFactory: (TileT, GridT,
       TileGridComplexGui[TileT, SideT, GridT]) => OfT) =
