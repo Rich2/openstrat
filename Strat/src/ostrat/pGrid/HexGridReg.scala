@@ -64,9 +64,7 @@ class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int,
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
   def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)  
-  
-  //override def allSideLines: Line2s = ???
-   
+     
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), nullRef[Node[TileT]]) :: Nil
@@ -108,7 +106,9 @@ class HexGridReg[TileT <: Tile, SideT <: GridElem](xTileMin: Int, xTileMax: Int,
    
   found.map(endNode =>  loop(Nil, endNode))
   }
-  override def sideCoods: Coods = ???
+  
+  /* ****************************** SideStuff ****************************************/
+  //override def allSideCoods: Coods = ???
   final override def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 

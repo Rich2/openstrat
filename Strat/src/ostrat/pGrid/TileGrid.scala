@@ -178,7 +178,9 @@ trait TileGrid[TileT <: Tile, SideT <: GridElem]
   /** For all Sides call side effecting function on the Tile side's XY Cood. */
   @inline def forallSidesXY(f: (Int, Int) => Unit): Unit
   /** For all Sides call side effecting function on the Tile side's Cood. */
-  @inline final def forallSidesCood(f: Cood => Unit): Unit = forallSidesXY((x, y) => f(Cood(x, y))) 
+  @inline final def forallSidesCood(f: Cood => Unit): Unit = forallSidesXY((x, y) => f(Cood(x, y)))
+  @inline final def allSideCoods: Coods = ???
+  def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
   
   def vertCoodsOfTile(tileCood: Cood): Coods
   def sideCoodsOfTile(tileCood: Cood): Coods     
@@ -196,9 +198,7 @@ trait TileGrid[TileT <: Tile, SideT <: GridElem]
   final def coodIsSide(cood: Cood): Unit = coodIsSide(cood.x, cood.y)   
   
   def getSide(x: Int, y: Int): SideT = sideArr(xySideToInd(x, y)) 
-  def getSide(tc: Cood): SideT = sideArr(xySideToInd(tc.x, tc.y))   
-  
-  def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
+  def getSide(tc: Cood): SideT = sideArr(xySideToInd(tc.x, tc.y))  
   
   def optSidesTiles(x: Int, y: Int): (Option[TileT], Option[TileT]) =
   { val (c1, c2) = sidesTileCoods(x, y)
