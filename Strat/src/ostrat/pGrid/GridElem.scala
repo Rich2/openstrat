@@ -21,10 +21,19 @@ trait Tile extends GridElem
   }
 }
 
+trait TileSide extends GridElem
+{ def canEqual(a: Any) = a.isInstanceOf[TileSide]
+  override def hashCode: Int = (x, y).##
+  override def equals(that: Any): Boolean = that match
+  { case that: TileSide => that.canEqual(this) & cood == that.cood
+    case _ => false
+  }
+}
+
 trait ColouredTile extends Tile with WithColour
 
 case class TileBare(x: Int, y: Int) extends Tile
-case class SideBare(x: Int, y: Int) extends GridElem
+case class SideBare(x: Int, y: Int) extends TileSide
 object SideBare
 {
    implicit object SideBareIsType extends IsType[SideBare]

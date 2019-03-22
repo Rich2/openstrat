@@ -5,7 +5,7 @@ import geom._, reflect.ClassTag
 
 /** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
-abstract class SquareGrid[TileT <: Tile, SideT <: GridElem](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
+abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int)
   (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridReg[TileT, SideT]// with SquareGrid[TileT]
 {  
   override val yRatio = 1  

@@ -12,7 +12,7 @@ object EuropeEast extends Area1('EuropeEast, 60 ll 60)
 
 object EuropeEastGrid extends EGridMaker
 {          
-   def apply[TileT <: Tile, SideT <: GridElem](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT, 
+   def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT, 
        evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
    EGrid80km[TileT, SideT] =
    {     

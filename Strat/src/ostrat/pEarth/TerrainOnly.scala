@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
+import geom._, pGrid._
 
 case class TerrOnly(x: Int, y: Int, terr: Terrain) extends ETile
 object TerrOnly
@@ -14,7 +14,7 @@ object TerrOnly
    }
 }
 
-case class SideOnly(x: Int, y: Int) extends pGrid.GridElem
+case class SideOnly(x: Int, y: Int) extends TileSide
 
 object SideOnly
 {

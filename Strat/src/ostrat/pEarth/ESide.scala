@@ -4,7 +4,7 @@ package pEarth
 import pGrid._
 
 /** Not sure if this trait needs to exist anymore */
-trait ESide extends GridElem
+trait ESide extends TileSide
 {
    def terr: SideTerr
 }

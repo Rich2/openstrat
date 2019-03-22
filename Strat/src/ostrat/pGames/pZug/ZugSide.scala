@@ -4,7 +4,7 @@ package pGames
 package pZug
 import pGrid._
 
-case class ZugSide(x: Int, y: Int, wall: Boolean) extends GridElem
+case class ZugSide(x: Int, y: Int, wall: Boolean) extends TileSide
 {
   
 }
