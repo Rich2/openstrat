@@ -3,6 +3,7 @@ package ostrat
 package pGames.pUnus
 import geom._, pCanv._, pGrid._
 
+/** Main application for Unus Game */
 class UnusGui(canv: CanvasPlatform, grid: UnusGrid)
 {
   new UnusSetGui(canv, grid)
