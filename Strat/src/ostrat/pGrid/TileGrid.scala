@@ -36,7 +36,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
   
-  final def tileDestinguishColour(cood: Cood): Colour = tileDestinguish(cood, Red, Blue, Green, Orange)
+  final def tileDestinguishColour(tileCood: Cood): Colour = tileDestinguish(tileCood, Red, Blue, Green, Orange)
   def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A
   
   final def arrLen = yArrLen * xArrLen  

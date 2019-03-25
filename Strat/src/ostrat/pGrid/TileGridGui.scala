@@ -92,4 +92,6 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   @inline def adjTileCoodsOfTile(tileCood: Cood): Coods = grid.adjTileCoodsOfTile(tileCood)
   def vertCoodsOfTile(tileCood: Cood): Coods = grid.vertCoodsOfTile(tileCood)
   def dispVertsOfTile(tileCood: Cood): Polygon = vertCoodsOfTile(tileCood).pMap(coodToDisp)
+  final def tileDestinguishColour(tileCood: Cood): Colour = grid.tileDestinguishColour(tileCood)
+  final def tileFill(tileCood: Cood, colour: Colour): PolyFill = dispVertsOfTile(tileCood).fill(colour)
 }
