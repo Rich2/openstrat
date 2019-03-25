@@ -18,8 +18,7 @@ object OfHex
 }
 
 case class OfHexReg[TileT <: Tile, SideT <: TileSide, GridT <: HexGridReg[TileT, SideT]](tile: TileT, grid: GridT,
-    gGui: TileGridGui[TileT, SideT, GridT]) extends
-   OfHex[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
+    gGui: TileGridGui[TileT, SideT, GridT]) extends OfHex[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
 {
    
 }

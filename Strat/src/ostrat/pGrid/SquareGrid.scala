@@ -103,6 +103,13 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
     cood
   }
   
+  override def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A = cood match
+  { case Cood(x, y) if x %% 4 == 0 & y.isEven => v1
+    case Cood(x, y) if x %% 4 == 2 & y.isEven => v2
+    case Cood(x, y) if x %% 4 == 0 => v3
+    case _ => v4
+  }
+  
   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
   
   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match

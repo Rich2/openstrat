@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer
+import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
 
 /** A Tile grid that contains both values for the tiles and the tile boundaries or sides. Rivers, straits, walls, doors, windows ditches and
  *  fortifications are examples of values commonly assigned to tile sides.
@@ -34,7 +34,10 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
   def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit  
   /** Throws exception if Cood is not a valid Tile coordinate */
-  def coodIsTile(x: Int, y: Int): Unit 
+  def coodIsTile(x: Int, y: Int): Unit
+  
+  final def tileDestinguishColour(cood: Cood): Colour = tileDestinguish(cood, Red, Blue, Green, Orange)
+  def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A
   
   final def arrLen = yArrLen * xArrLen  
   final def yToInd(y: Int): Int = y  - yTileMin
@@ -104,6 +107,13 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     acc.reverse    
   }
   
+  /** FlatMap all tiles' Cood to a List[B]. */
+  final def allTilesCoodFlatMapList[B](f: Cood => List[B]): List[B] =
+  { var acc: List[B] = Nil
+    forallTilesCood{c => acc = f(c).reverse ::: acc }
+    acc.reverse    
+  }
+  
   /** Map all tiles' XY Cood to List. */
   final def allTilesXYMapList[B](f: (Int, Int) => B): List[B] =
   { var acc: List[B] = Nil
@@ -156,10 +166,8 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   final def setRowBack[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
     setRowBack(cood.y, cood.x, tileValues: _*)(f)
     
-    /* *********************************************** Side stuff *************************************************************/
-    
-    /** Check Think this type is needed */   
-  type GridT <: TileGrid[TileT, SideT]
+  /* *********************************************** Side stuff *************************************************************/
+  
   def evSide: ClassTag[SideT]
   val sideArr: Array[SideT]
   //final override def yStep: Int = 2
@@ -216,6 +224,5 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
   
   /** Warning implementations need modification. */   
-  def adjTileCoodsOfTile(tileCood: Cood): Coods
-    
+  def adjTileCoodsOfTile(tileCood: Cood): Coods    
 }

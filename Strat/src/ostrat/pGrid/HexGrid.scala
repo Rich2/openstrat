@@ -66,6 +66,13 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
     case _ if (x %% 4 == 1 & y %% 4 == 1) | (x %% 4 == 3 & y %% 4 == 3) =>  (Cood(x - 1, y - 1), Cood(x + 1, y + 1))
     case _ if (x %% 4 == 1 & y %% 4 == 3) | (x %% 4 == 3 & y %% 4 == 1) => (Cood(x - 1, y + 1), Cood(x + 1, y - 1))
     case _ => excep("Invalid Hex Side Coordinate".commaAppend(x.toString, y.toString))
+  }  
+    
+  override def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A =  cood match
+  { case Cood(x, y) if x %% 8 == 0 & y %% 4 == 0 => v1
+    case Cood(x, y) if x %% 8 == 4 & y %% 4 == 0 => v2
+    case Cood(x, y) if x %% 8 == 2 => v3
+    case Cood(x, y) if x %% 8 == 6 => v4    
   }
    
   /** Warning needs modification. */

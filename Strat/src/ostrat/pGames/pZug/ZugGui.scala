@@ -2,11 +2,7 @@
 package ostrat
 package pGames
 package pZug
-import geom._
-import pCanv._
-import Colour._
-import pGrid._
-import pStrat._ 
+import geom._, pCanv._, Colour._, pGrid._, pStrat._ 
 
 class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv, "ZugFuhrer")
 {  

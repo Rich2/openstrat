@@ -11,7 +11,7 @@ object Unus1
   
   def start: UnusGrid =
   {
-    val newGrid = new UnusGrid(2,10, 2, 10)
+    val newGrid = new UnusGrid(2, 16, 2, 8)
     
     newGrid
   }

@@ -22,6 +22,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   override def eTop(): Unit = reTop(guButs :+ status)
   def focusStr2 = grid.cen.str2
   val fTrans: Vec2 => Vec2 = v => (v - focus) * pScale
+  /** Transforms a Cood to Display Vec2 */
   def coodToDisp(cood: Cood): Vec2 = fTrans(grid.coodToVec2(cood))
   
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
@@ -43,7 +44,9 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   def allTilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.allTilesFlatMap(f)
   
   /** Map all tiles Cood to a List. */
-  @inline final def allTilesCoodMapList[A](f: Cood => A): List[A] = grid.allTilesCoodMapList(f)  
+  @inline final def allTilesCoodMapList[A](f: Cood => A): List[A] = grid.allTilesCoodMapList(f)
+  /** FlatMap all tiles Cood to a List. */
+  @inline final def allTilesCoodFlatMapList[A](f: Cood => List[A]): List[A] = grid.allTilesCoodFlatMapList(f)
    
   def inCmd = (mb: MouseButton) => { pScale = (pScale * scaleDelta(mb)).min(scaleMax); updateView }   
   def outCmd = (mb: MouseButton) => { pScale = (pScale / scaleDelta(mb)).max(scaleMin); updateView } 
@@ -87,4 +90,6 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
       TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofSidesFold[OfT, GraphicElems](f, _ ++ _, Nil)(ofsFactory)
  
   @inline def adjTileCoodsOfTile(tileCood: Cood): Coods = grid.adjTileCoodsOfTile(tileCood)
+  def vertCoodsOfTile(tileCood: Cood): Coods = grid.vertCoodsOfTile(tileCood)
+  def dispVertsOfTile(tileCood: Cood): Polygon = vertCoodsOfTile(tileCood).pMap(coodToDisp)
 }
