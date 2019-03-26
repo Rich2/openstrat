@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait DoubleProduct6s[A <: ProdD6] extends Any with ValueProducts[A]
+trait DoubleProduct6s[A <: ProdD6] extends Any with ProductValues[A]
 { def productSize: Int = 6
   def arr: Array[Double]
   def arrLen: Int = arr.length

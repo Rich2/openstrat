@@ -63,8 +63,8 @@ class SeqImplicit[A](thisSeq: Seq[A])
     acc
   }
   
-  /** product map method maps from a sequence to an Array[Double] based ValueProducts class. */
-  def pMap[B , C <: ValueProducts[B]](f: A => B)(implicit factory: Int => C): C =
+  /** product map method maps from a sequence to an Array[Double] based ProductValues class. */
+  def pMap[B , C <: ProductValues[B]](f: A => B)(implicit factory: Int => C): C =
   { val res = factory(thisSeq.length)
     var count: Int = 0
     thisSeq.foreach { orig =>
@@ -75,7 +75,7 @@ class SeqImplicit[A](thisSeq: Seq[A])
     res
   }
   
-  def valueProducts[B <: ValueProducts[A]](implicit factory: Int => B): B =
+  def valueProducts[B <: ProductValues[A]](implicit factory: Int => B): B =
   { val length = thisSeq.length
     val valProds = factory(length)
     var count = 0

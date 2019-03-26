@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait DoubleProduct3s[A <: ProdD3] extends Any with ValueProducts[A]
+trait DoubleProduct3s[A <: ProdD3] extends Any with ProductValues[A]
 { def productSize = 3
   def arr: Array[Double]
   def arrLen = arr.length   

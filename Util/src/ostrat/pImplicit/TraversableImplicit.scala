@@ -132,8 +132,8 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     acc
   }
     
-  /** product map method maps from a sequence to an Array[Double] based ValueProducts class. */
-  def pMap[B , C <: ValueProducts[B]](f: A => B)(implicit factory: Int => C): C =
+  /** product map method maps from a sequence to an Array[Double] based ProductValues class. */
+  def pMap[B , C <: ProductValues[B]](f: A => B)(implicit factory: Int => C): C =
   { val res = factory(thisTrav.size)
     var count: Int = 0
     thisTrav.foreach { orig =>

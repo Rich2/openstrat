@@ -2,7 +2,7 @@
 package ostrat
 
 /** This is the base trait for the DoubleProduct and IntProduct classes */
-trait ValueProducts[A] extends Any
+trait ProductValues[A] extends Any
 { def typeName: Symbol
   override def toString: String = typeName.name - lMap(_.toString).commaParenth
   def productSize: Int
@@ -54,7 +54,7 @@ trait ValueProducts[A] extends Any
     while(count > 0) { count -= 1; f(apply(count), count) }
   }
      
-  def pMap[B , C <: ValueProducts[B]](f: A => B)(implicit factory: Int => C): C =
+  def pMap[B , C <: ProductValues[B]](f: A => B)(implicit factory: Int => C): C =
   { val res = factory(length)
     var count: Int = 0
     while (count < length)
@@ -79,7 +79,7 @@ trait ValueProducts[A] extends Any
   }
    
   /** map 2 values of A to 1 element of B in List */
-  def by2PMap[B , C <: ValueProducts[B]](f: (A, A) => B)(implicit factory: Int => C): C =
+  def by2PMap[B , C <: ProductValues[B]](f: (A, A) => B)(implicit factory: Int => C): C =
   { val res = factory(length / 2)
     var count: Int = 0
     while (count < length)
@@ -105,14 +105,14 @@ trait ValueProducts[A] extends Any
     res
   }
   
-  def ++ [ST <: ValueProducts[A]](operand: ST)(implicit factory: Int => ST): ST =
+  def ++ [ST <: ProductValues[A]](operand: ST)(implicit factory: Int => ST): ST =
   { val res = factory(length + operand.length)
     iForeach((elem, i) => res.setElem(i, elem))
     operand.iForeach((elem, i) => res.setElem(i + length, elem))
     res
   }
   
-  def :+ [ST <: ValueProducts[A]](operand: A)(implicit factory: Int => ST): ST =
+  def :+ [ST <: ProductValues[A]](operand: A)(implicit factory: Int => ST): ST =
   { val res = factory(length + 1)
     iForeach((elem, i) => res.setElem(i, elem))
     res.setElem(length, operand)
