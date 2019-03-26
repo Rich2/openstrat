@@ -22,7 +22,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   override def eTop(): Unit = reTop(guButs :+ status)
   def focusStr2 = grid.cen.str2
   val fTrans: Vec2 => Vec2 = v => (v - focus) * pScale
-  /** Transforms a Cood to Display Vec2 */
+  /** Transforms a Cood to Display Vec2. */
   def coodToDisp(cood: Cood): Vec2 = fTrans(grid.coodToVec2(cood))
   
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
