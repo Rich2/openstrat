@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
-class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] with Transable[Polygon] with Vec2sLike
+class Polygon(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Vec2] with Transable[Polygon] with Vec2sLike
 { override def typeName: Symbol = 'Polygon
   override def toString: String = Polygon.PolygonPersist.persist(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
@@ -81,5 +81,5 @@ class Polygon(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2] 
 
 object Polygon extends Double2sMaker[Vec2, Polygon]
 { implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
-  implicit object PolygonPersist extends PersistDoubleProduct2s[Polygon]('Polygon)
+  implicit object PolygonPersist extends PersistProductDouble2s[Polygon]('Polygon)
 }

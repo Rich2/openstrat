@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait DoubleProduct2s[A <: ProdD2] extends Any with ProductValues[A]
+trait ProductDouble2s[A <: ProdD2] extends Any with ProductValues[A]
 {
    def productSize: Int = 2
    def arr: Array[Double]
@@ -48,7 +48,7 @@ trait DoubleProduct2s[A <: ProdD2] extends Any with ProductValues[A]
    }
 }
 
-abstract class Double2sMaker[T <: ProdD2, ST <: DoubleProduct2s[T]]
+abstract class Double2sMaker[T <: ProdD2, ST <: ProductDouble2s[T]]
 {
    val factory: Int => ST
    def apply(length: Int): ST = factory(length)
@@ -97,7 +97,7 @@ abstract class Double2sMaker[T <: ProdD2, ST <: DoubleProduct2s[T]]
    }
 }
 
-abstract class PersistDoubleProduct2s[R <: DoubleProduct2s[_]](typeSym: Symbol) extends PersistCompound[R](typeSym)
+abstract class PersistProductDouble2s[R <: ProductDouble2s[_]](typeSym: Symbol) extends PersistCompound[R](typeSym)
 {
   import pParse._
   override def typeStr = typeSym.name

@@ -105,7 +105,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     loop(thisTrav.toList, Nil)
   }   
    
-  def trav2ProdD2[B, C <: ProdD2, D <: DoubleProduct2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
+  def trav2ProdD2[B, C <: ProdD2, D <: ProductDouble2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
   { val elemNum = thisTrav.size * secondTrav.size
     val res = factory(elemNum)
     var count = 0
@@ -115,7 +115,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     res
   }
    
-  def toProdD2[A1 >: A <: ProdD2, B <: DoubleProduct2s[A1]](implicit factory: Int => B): B =
+  def toProdD2[A1 >: A <: ProdD2, B <: ProductDouble2s[A1]](implicit factory: Int => B): B =
   { val res = factory(thisTrav.size)
     var count = 0
     thisTrav.foreach{ el => res.setElem(count, el); count += 1 }

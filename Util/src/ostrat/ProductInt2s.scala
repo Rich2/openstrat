@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait IntProduct2s[A <: ProdI2] extends Any with ProductValues[A]
+trait ProductInt2s[A <: ProdI2] extends Any with ProductValues[A]
 { def productSize: Int = 2
   def arr: Array[Int]
   def arrLen = arr.length
@@ -14,7 +14,7 @@ trait IntProduct2s[A <: ProdI2] extends Any with ProductValues[A]
   def head2: Int = arr(1)
 }
 
-abstract class Int2Maker[T <: ProdI2, ST <: IntProduct2s[T]]
+abstract class Int2Maker[T <: ProdI2, ST <: ProductInt2s[T]]
 { val factory: Int => ST
 
   def apply(elems: T*): ST =

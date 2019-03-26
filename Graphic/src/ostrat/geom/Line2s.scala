@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Array[Double based collection class for Line2s */
-class Line2s(val arr: Array[Double]) extends AnyVal with DoubleProduct4s[Line2] with Transable[Line2s]
+class Line2s(val arr: Array[Double]) extends AnyVal with ProductDouble4s[Line2] with Transable[Line2s]
 {
    override def typeName: Symbol = 'Line2s
    override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): Line2 = new Line2(d1, d2, d3, d4)

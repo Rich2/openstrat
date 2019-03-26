@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-class CurveSegDists(val arr: Array[Double]) extends AnyVal with DoubleProduct7s[CurveSegDist]
+class CurveSegDists(val arr: Array[Double]) extends AnyVal with ProductDouble7s[CurveSegDist]
 {
    override def typeName: Symbol = 'CurvedSegDists
    override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSegDist =

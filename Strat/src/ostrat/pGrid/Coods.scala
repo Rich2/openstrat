@@ -2,7 +2,7 @@
 package ostrat
 package pGrid
 
-class Coods(val arr: Array[Int]) extends AnyVal with IntProduct2s[Cood]//(length) 
+class Coods(val arr: Array[Int]) extends AnyVal with ProductInt2s[Cood]//(length) 
 { override def typeName: Symbol = 'Coods
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
    

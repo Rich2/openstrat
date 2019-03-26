@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait DoubleProduct3s[A <: ProdD3] extends Any with ProductValues[A]
+trait ProductDouble3s[A <: ProdD3] extends Any with ProductValues[A]
 { def productSize = 3
   def arr: Array[Double]
   def arrLen = arr.length   
@@ -14,7 +14,7 @@ trait DoubleProduct3s[A <: ProdD3] extends Any with ProductValues[A]
   def head1: Double = arr(0); def head2: Double = arr(1); def head3: Double = arr(2)   
 }
 
-abstract class Double3sMaker[T <: ProdD3, ST <: DoubleProduct3s[T]]
+abstract class Double3sMaker[T <: ProdD3, ST <: ProductDouble3s[T]]
 { val factory: Int => ST
   def apply(length: Int): ST = factory(length)
  

@@ -52,7 +52,7 @@ object Dist2
   }
 }
 
-class Dist2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Dist2]//(length)
+class Dist2s(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Dist2]//(length)
 { override def typeName: Symbol = 'Dist2s
   override def newElem(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }

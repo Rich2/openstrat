@@ -22,7 +22,7 @@ trait Vec2sLike extends Any
 
 /** Array[Double] based collection class for Vec2s which doesn't represent a closed Polygon. Conversion to and from the Polygon class should not
  *  entail a runtime cost. */
-class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2]  with Transable[Vec2s] with Vec2sLike
+class Vec2s(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Vec2]  with Transable[Vec2s] with Vec2sLike
 {
   override def typeName: Symbol = 'Vec2s
   override def toString: String = Vec2s.Vec2sPersist.persist(this)
@@ -48,7 +48,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with DoubleProduct2s[Vec2]  w
 
 object Vec2s extends Double2sMaker[Vec2, Vec2s]
 { implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
-  implicit object Vec2sPersist extends PersistDoubleProduct2s[Vec2s]('Vec2s)
+  implicit object Vec2sPersist extends PersistProductDouble2s[Vec2s]('Vec2s)
 }
 
 /** Companion object for the Vec2s collection class. */
