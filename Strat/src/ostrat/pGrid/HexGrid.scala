@@ -19,13 +19,19 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
   override def xStep: Int = 4   
   override def xToInd(x: Int): Int = (x - xTileMin) / 4  
   override def xSideMin: Int = xTileMin - 2
-  override def xSideMax: Int = xTileMax + 2
+  override def xSideMax: Int = xTileMax + 2  
   
-  override def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit = (rowTileXStart(y) to rowTileXEnd(y) by 4).foreach(x => f(x, y))   
+  final override def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit =
+  {
+    val xPt: Int = ife(y %% 4 == 0, 0, 2)
+    val xFinalStart = rowTileXStart(y).max(xStart).incrementTill(_ %% 4 == xPt)
+    val xFinalEnd = rowTileXEnd(y).min(xEnd).decrementTill(_ %% 4 == xPt)
+    (xFinalStart to xFinalEnd by 4).foreach(x => f(x, y))
+  }
   
   def sideXYForeach(f: (Int, Int) => Unit): Unit =
   {
-    rowForeachTileXY(yTileMin, (x, y) => { f(x - 1, y - 1);  f(x + 1, y - 1)  })
+    rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1);  f(x + 1, y - 1)  })
       
     (yTileMin to (yTileMax - 2) by 2).foreach{y =>
       val xStart = (rowTileXStart(y) + rowTileXStart(y + 2)) / 2
@@ -38,8 +44,8 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
     f(x + 1, yTileMin + 1) 
     }
       
-    forallTileRows {y =>
-      rowForeachTileXY(y, (x, y) => f(x - 2, y))
+    foreachTileRowAll {y =>
+      rowForeachTilesXYAll(y, (x, y) => f(x - 2, y))
       f(rowTileXEnd(y) + 2, y)
     }
   }

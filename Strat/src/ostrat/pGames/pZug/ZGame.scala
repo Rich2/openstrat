@@ -10,14 +10,14 @@ class ZGame(scenInit: ZugGrid, val players: List[ZPlayer])
   def getScen(player: ZPlayer): ZugGrid =
   {
     val newScen = scen.minCopy
-    scen.forallTilesCood{cood =>
+    scen.foreachTilesCoodAll{cood =>
       val oldTile = scen.getTile(cood)
       val newUnits = oldTile.lunits.filter(oldUnit => player.polities.contains(oldUnit.polity) | !oldTile.terr.conceal)
       val newTile = oldTile.copy(lunits = newUnits)
       newScen.setTile(cood, newTile)
       
     }
-    scen.forallSidesCood {cood => newScen.setSide(cood, scen.getSide(cood)) }
+    scen.foreachSidesCoodAll {cood => newScen.setSide(cood, scen.getSide(cood)) }
     newScen
   }
   def makeMove(id: Int, coods: Coods): ZugGrid = scen

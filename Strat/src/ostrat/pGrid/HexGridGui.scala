@@ -10,7 +10,7 @@ abstract class HexGridGui[TileT <: Tile, SideT <: TileSide, GridT <: HexGridReg[
    def ofHTilesFold[R](f: OfHexReg[TileT, SideT, GridT] => R, fSum: (R, R) => R, emptyVal: R) =
    {
       var acc: R = emptyVal
-      forallTilesCood{ tileCood =>
+      foreachTilesCoodAll{ tileCood =>
          val newTog = OfHexReg(grid.getTile(tileCood), grid, this)
          val newRes: R = f(newTog)
          acc = fSum(acc, newRes)

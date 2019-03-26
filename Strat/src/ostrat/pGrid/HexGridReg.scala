@@ -50,15 +50,15 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
     for { y <- yRow4Start to yRow4End by 4 } yield f(y)      
   
   /** Needs more work. */
-  final override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
+  final override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 
   {   
     if (tileNum == 0) return    
-    rowForeachTileXY(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
+    rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
     for { y <- (yTileMin + 1) to (yTileMax - 1) by 2
       x <- sideRowOddStart to sideRowOddEnd by 2
     } f(x, y)
-    forallTilesXY{ (x, y) => f(x + 2, y)}
-    rowForeachTileXY(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
+    foreachTilesXYAll{ (x, y) => f(x + 2, y)}
+    rowForeachTilesXYAll(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
   }
    
   def tileNeighboursCoods(cood: Cood): Coods =

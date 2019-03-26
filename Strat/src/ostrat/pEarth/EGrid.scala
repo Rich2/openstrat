@@ -81,7 +81,7 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
    def coodToLL(cood: Cood): LatLong = coodToLL(cood.x, cood.y) //vec2ToLatLongReg(HG.coodToVec2(hc), cenLong, scale, xOffset, yOffset)
    def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
    
-   forallTilesCood{cood =>
+   foreachTilesCoodAll{cood =>
       setLL(cood, vec2ToLL(HexGrid.coodToVec2(cood)))
       sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
       vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
@@ -92,7 +92,7 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
    def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
    {
       var acc: R = emptyVal
-      forallTilesCood{ tileCood =>         
+      foreachTilesCoodAll{ tileCood =>         
          val newRes: R = f(new OfETile[TileT, SideT](eg, thisEGrid ,getTile(tileCood)))
          acc = fSum(acc, newRes)
       }
@@ -102,7 +102,7 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
    def eDisp(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems): GraphicElems = 
    {
       var acc: GraphicElems = Nil
-      forallTilesCood { tileCood =>
+      foreachTilesCoodAll { tileCood =>
          val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
          val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Nil) 
          acc = acc ++ newRes
@@ -113,22 +113,21 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
    def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems = 
    {
       var acc: GraphicElems = Nil
-      forallTilesCood { tileCood =>
+      foreachTilesCoodAll { tileCood =>
          val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
          val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Nil) 
          acc = acc ++ newRes
       }
       var sideAcc: GraphicElems = Nil
-      forallSidesCood { sideCood =>
+      foreachSidesCoodAll { sideCood =>
          val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
          val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Nil) 
          sideAcc ++= newRes
       }      
       acc ++ sideAcc
-   }
-   
+   }   
       
-   def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => GraphicElems): GraphicElems = tileCoodsDisplayFold(cood => fDisp(this, cood))
+   def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => GraphicElems): GraphicElems = tileCoodsDisplayFoldAll(cood => fDisp(this, cood))
    var rightGrid: Option[EGrid[TileT, SideT]] = None
 }
       

@@ -13,8 +13,11 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   final def left: Double = xTileMin - margin
   final def right: Double = xTileMax + margin
   final def bottom: Double = yTileMin - margin
-  final def top: Double = yTileMax + margin 
-  final override def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit = for {x <- xTileMin to xTileMax by xStep} f(x, y)
+  final def top: Double = yTileMax + margin
+  
+  //final override def rowForeachTilesXYAll(y: Int, f: (Int, Int) => Unit): Unit = for {x <- xTileMin to xTileMax by xStep} f(x, y)
+  final override def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit = for 
+  {x <- xTileMin.max(xStart).incrementTill(_.isEven) to xTileMax.min(xEnd).decrementTill(_.isEven) by xStep} f(x, y)
   
   override def xToInd(x: Int): Int = (x - xTileMin) / 2  
   override def xArrLen: Int = xTileMax - xTileMin + 3
@@ -39,7 +42,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")   
   }
   
-  override def forallSidesXY(f: (Int, Int) => Unit): Unit = 
+  override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 
   {
     for {y <- yTileMin to yTileMax by 2
       x <- xTileMin.plus1 to xTileMax.minus1 by 2

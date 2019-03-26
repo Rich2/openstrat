@@ -28,10 +28,10 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def yArrLen: Int
   def xToInd(x: Int): Int
   val yRatio: Double
-  def xStep: Int
-  //def yStep: Int
+  def xStep: Int 
   def tileNum: Int
-  def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
+  def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit
+  final def rowForeachTilesXYAll(y: Int, f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, xTileMin, xTileMax, f)
   final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
     setTiles(bottomLeft.x, topRight.y, bottomLeft.y, topRight.y, tileValue)(f)
   def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
@@ -62,27 +62,27 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   { coodIsTile(x, y)
     arr(xyToInd(x, y)) = fTile(x, y, value)
   }
-  final def setTilesAll[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forallTilesXY((x, y) => fSetTile(x, y, value)(fTile))
+  final def setTilesAll[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = foreachTilesXYAll((x, y) => fSetTile(x, y, value)(fTile))
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline final def forallTilesXY(f: (Int, Int) => Unit): Unit = forallTileRows(y => rowForeachTileXY(y, f))  
+  @inline final def foreachTilesXYAll(f: (Int, Int) => Unit): Unit = foreachTileRowAll(y => rowForeachTilesXYAll(y, f))  
   
   /** For all Tiles call side effecting function on the Tile's Cood. */
-  @inline final def forallTilesCood(f: Cood => Unit): Unit = forallTilesXY((x, y) => f(Cood(x, y)))
+  @inline final def foreachTilesCoodAll(f: Cood => Unit): Unit = foreachTilesXYAll((x, y) => f(Cood(x, y)))
   
   /** For all Tiles call side effecting function on the Tile. */
-  @inline final def forallTiles(f: TileT => Unit): Unit =  forallTilesCood{ tileCood => f(getTile(tileCood)) }  
+  @inline final def forallTiles(f: TileT => Unit): Unit =  foreachTilesCoodAll{ tileCood => f(getTile(tileCood)) }  
   
-  final def forallTileRows(f: Int => Unit): Unit =
+  final def foreachTileRowAll(f: Int => Unit): Unit =
   { var y: Int = yTileMin
     while(y <= yTileMax) { f(y); y += 2 }
   }
   
   /** Map all Tiles to Array[B] with function. */
-  final def allTilesMap[B: ClassTag](f: TileT => B): Array[B] =
+  final def tilesMapAll[B: ClassTag](f: TileT => B): Array[B] =
   {
     val acc: ArrayBuffer[B] = new ArrayBuffer(0)
-    forallTilesCood{ tileCood =>
+    foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: B = f(tile)
       acc += newRes
@@ -91,10 +91,10 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   }
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def allTilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] =
+  def tilesFlatMapAll[R: ClassTag](f: TileT => Array[R]): Array[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
-    forallTilesCood{ tileCood =>
+    foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: Array[R] = f(tile)
       acc ++= newRes
@@ -103,37 +103,37 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   }  
   
   /** Map all tiles' Cood to a List[B]. */
-  final def allTilesCoodMapList[B](f: Cood => B): List[B] =
+  final def tilesCoodMapListAll[B](f: Cood => B): List[B] =
   { var acc: List[B] = Nil
-    forallTilesCood{c => acc ::= f(c) }
+    foreachTilesCoodAll{c => acc ::= f(c) }
     acc.reverse    
   }
   
   /** FlatMap all tiles' Cood to a List[B]. */
-  final def allTilesCoodFlatMapList[B](f: Cood => List[B]): List[B] =
+  final def tilesCoodFlatMapListAll[B](f: Cood => List[B]): List[B] =
   { var acc: List[B] = Nil
-    forallTilesCood{c => acc = f(c).reverse ::: acc }
+    foreachTilesCoodAll{c => acc = f(c).reverse ::: acc }
     acc.reverse    
   }
   
   /** Map all tiles' XY Cood to List. */
-  final def allTilesXYMapList[B](f: (Int, Int) => B): List[B] =
+  final def tilesXYMapListAll[B](f: (Int, Int) => B): List[B] =
   { var acc: List[B] = Nil
-    forallTilesXY{(x, y) => acc ::= f(x, y) }
+    foreachTilesXYAll{(x, y) => acc ::= f(x, y) }
     acc.reverse    
   }
   
-  final def tileCoodsFold[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
+  final def tileCoodsFoldAll[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
   { var acc: R = emptyVal
-    forallTilesCood { tileCood => acc = fSum(acc, f(tileCood)) }
+    foreachTilesCoodAll { tileCood => acc = fSum(acc, f(tileCood)) }
     acc
   } 
   
   /** Not sure how useful this method is. */
-  final def tileAndCoodsFold[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
+  final def tileAndCoodsFoldAll[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
   {
     var acc: R = emptyVal
-    forallTilesCood{ tileCood =>
+    foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: R = f(tile, tileCood)
       acc = fSum(acc, newRes)
@@ -186,10 +186,10 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   final def ySideArrLen: Int = ySideMax - ySideMin + 1
   
   /** For all Sides call side effecting function on the Tile side's XY Cood. */
-  @inline def forallSidesXY(f: (Int, Int) => Unit): Unit
+  @inline def foreachSidesXYAll(f: (Int, Int) => Unit): Unit
   /** For all Sides call side effecting function on the Tile side's Cood. */
-  @inline final def forallSidesCood(f: Cood => Unit): Unit = forallSidesXY((x, y) => f(Cood(x, y)))
-  @inline final def allSideCoods: Coods = ???
+  @inline final def foreachSidesCoodAll(f: Cood => Unit): Unit = foreachSidesXYAll((x, y) => f(Cood(x, y)))
+  @inline final def sideCoodsAll: Coods = ???
   def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
   
   def vertCoodsOfTile(tileCood: Cood): Coods
@@ -200,7 +200,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {coodIsSide(x, y); sideArr(xySideToInd(x, y)) = f(x, y, value)}
   /** Sets a Coods collection of Side Cood to the same value. */
   final def setSideCollection[A](coods: Coods, value: A)(implicit f: (Int, Int, A) => SideT) = coods.foreach(p => fSetSide(p.x, p.y, value))   
-  final def setAllSides[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = forallSidesXY((x, y) => fSetSide(x, y, value))   
+  final def setSidesAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = foreachSidesXYAll((x, y) => fSetSide(x, y, value))   
   
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsSide(x: Int, y: Int): Unit
@@ -222,8 +222,8 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
      
   /** Fundamental method for producing GraphicElems from the Grid */
-  def tileAndCoodsDisplayFold(f: (TileT, Cood) => GraphicElems): GraphicElems = tileAndCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
-  def tileCoodsDisplayFold(f: Cood => GraphicElems): GraphicElems = tileCoodsFold[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
+  def tileAndCoodsDisplayFoldAll(f: (TileT, Cood) => GraphicElems): GraphicElems = tileAndCoodsFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
+  def tileCoodsDisplayFoldAll(f: Cood => GraphicElems): GraphicElems = tileCoodsFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
   
   /** Warning implementations need modification. */   
   def adjTileCoodsOfTile(tileCood: Cood): Coods    

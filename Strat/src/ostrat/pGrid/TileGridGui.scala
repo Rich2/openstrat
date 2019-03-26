@@ -29,24 +29,24 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)
   
   /** For all Tiles call side effecting function on the Tile's Cood. */ 
-  @inline final def forallTilesCood(f: Cood => Unit): Unit = grid.forallTilesCood(f)
+  @inline final def foreachTilesCoodAll(f: Cood => Unit): Unit = grid.foreachTilesCoodAll(f)
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline final def forallTilesXY(f: (Int, Int) => Unit): Unit = grid.forallTilesXY(f)  
+  @inline final def foreachTilesXYAll(f: (Int, Int) => Unit): Unit = grid.foreachTilesXYAll(f)  
   
   /** For all Tiles call side effecting function on the Tile. */
   def forallTiles(f: TileT => Unit): Unit = grid.forallTiles(f)
   
   /** Map all Tiles to Array with function. */
-  def allTilesMap[B: ClassTag](f: TileT => B): Array[B] = grid.allTilesMap[B](f)
+  def tilesMapAll[B: ClassTag](f: TileT => B): Array[B] = grid.tilesMapAll[B](f)
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def allTilesFlatMap[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.allTilesFlatMap(f)
+  def tilesFlatMapAll[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.tilesFlatMapAll(f)
   
   /** Map all tiles Cood to a List. */
-  @inline final def allTilesCoodMapList[A](f: Cood => A): List[A] = grid.allTilesCoodMapList(f)
+  @inline final def tilesCoodMapListAll[A](f: Cood => A): List[A] = grid.tilesCoodMapListAll(f)
   /** FlatMap all tiles Cood to a List. */
-  @inline final def allTilesCoodFlatMapList[A](f: Cood => List[A]): List[A] = grid.allTilesCoodFlatMapList(f)
+  @inline final def tilesCoodFlatMapListAll[A](f: Cood => List[A]): List[A] = grid.tilesCoodFlatMapListAll(f)
    
   def inCmd = (mb: MouseButton) => { pScale = (pScale * scaleDelta(mb)).min(scaleMax); updateView }   
   def outCmd = (mb: MouseButton) => { pScale = (pScale / scaleDelta(mb)).max(scaleMin); updateView } 
@@ -63,7 +63,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
       TileGridGui[TileT, SideT, GridT]) => OfT) =
   {
     var acc: R = emptyVal
-    forallTilesCood{ tileCood =>
+    foreachTilesCoodAll{ tileCood =>
       val newOft = oftFactory(grid.getTile(tileCood), grid, this)
       val newRes: R = f(newOft)
       acc = fSum(acc, newRes)
@@ -75,7 +75,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
       TileGridGui[TileT, SideT, GridT]) => OfS) =
   {    
     var acc: R = emptyVal
-    grid.forallSidesCood{ tileCood =>
+    grid.foreachSidesCoodAll{ tileCood =>
       val newOfs = ofsFactory(grid.getSide(tileCood), grid, this)
       val newRes: R = f(newOfs)
       acc = fSum(acc, newRes)
