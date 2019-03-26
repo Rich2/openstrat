@@ -15,7 +15,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def commaFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold(", ", fToStr)
   def semiFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold("; ", fToStr)
    
-  /** maps over a traversable (collection / sequence) with a counter */
+  /** Maps over a Traversable (collection / sequence) with a counter. */
   def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =
   { var i = count
     var acc: List[B] = Nil
@@ -104,7 +104,8 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     }
     loop(thisTrav.toList, Nil)
   }   
-   
+  
+  /** This needs to be renamed. */
   def trav2ProdD2[B, C <: ProdD2, D <: ProductDouble2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
   { val elemNum = thisTrav.size * secondTrav.size
     val res = factory(elemNum)
@@ -115,13 +116,6 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     res
   }
    
-  def toProdD2[A1 >: A <: ProdD2, B <: ProductDouble2s[A1]](implicit factory: Int => B): B =
-  { val res = factory(thisTrav.size)
-    var count = 0
-    thisTrav.foreach{ el => res.setElem(count, el); count += 1 }
-    res
-  }
-  
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc
     var prev: A = initPrevious
@@ -132,7 +126,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     acc
   }
     
-  /** product map method maps from a sequence to an Array[Double] based ProductValues class. */
+  /** product map method maps from a Traversable to an Array based ProductValues class. */
   def pMap[B , C <: ProductValues[B]](f: A => B)(implicit factory: Int => C): C =
   { val res = factory(thisTrav.size)
     var count: Int = 0
@@ -143,5 +137,16 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     }
     res
   }
+  
+  /** Copies from a Traversable to an Array based ProductValues class. */
+  def toPValues[B <: ProductValues[A]](implicit factory: Int => B): B =
+  { val res = factory(thisTrav.size)
+    var count: Int = 0
+    thisTrav.foreach { orig =>      
+      res.setElem(count, orig)
+      count += 1         
+    }
+    res
+  }  
   
 }

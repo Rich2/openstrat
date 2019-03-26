@@ -39,7 +39,7 @@ object AmericasNorth extends Area1('AmericasNorth, 49 ll -100)
    val eCanada = new Area2('ECanada, deg(53.71, -94), taiga)
    {
       override val latLongs: LatLongs = (List(wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) :::
-            eCanadaCoast ::: List(maineE, h49th80, wCanadaES)).toProdD2         
+            eCanadaCoast ::: List(maineE, h49th80, wCanadaES)).toPValues         
    }
          
    val cAmericaN =  22.8.north  
