@@ -7,7 +7,7 @@ import pCanv._, geom._, reflect.ClassTag
 abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridReg[TileT, SideT]](title: String) extends UnfixedMapGui(title)
 {
   val grid: GridT
-  /** number of pixels per grid unit */
+  /** Number of pixels per grid unit. */
   def scaleMin: Double = mapPanelDiameter / grid.diagLength
   def scaleMax: Double = 1000
   def scaleAlignMin: Double = (mapPanel.width / grid.width).min(mapPanel.height / grid.height)
@@ -35,7 +35,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   @inline final def foreachTilesXYAll(f: (Int, Int) => Unit): Unit = grid.foreachTilesXYAll(f)  
   
   /** For all Tiles call side effecting function on the Tile. */
-  def forallTiles(f: TileT => Unit): Unit = grid.forallTiles(f)
+  def foreachTileAll(f: TileT => Unit): Unit = grid.foreachTileAll(f)
   
   /** Map all Tiles to Array with function. */
   def tilesMapAll[B: ClassTag](f: TileT => B): Array[B] = grid.tilesMapAll[B](f)

@@ -71,7 +71,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   @inline final def foreachTilesCoodAll(f: Cood => Unit): Unit = foreachTilesXYAll((x, y) => f(Cood(x, y)))
   
   /** For all Tiles call side effecting function on the Tile. */
-  @inline final def forallTiles(f: TileT => Unit): Unit =  foreachTilesCoodAll{ tileCood => f(getTile(tileCood)) }  
+  @inline final def foreachTileAll(f: TileT => Unit): Unit =  foreachTilesCoodAll{ tileCood => f(getTile(tileCood)) }  
   
   final def foreachTileRowAll(f: Int => Unit): Unit =
   { var y: Int = yTileMin
@@ -217,7 +217,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   
   final def optSidesTiles(cood: Cood): (Option[TileT], Option[TileT]) = optSidesTiles(cood.x, cood.y)
    
-  def modTiles(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) } 
+  def modTilesAll(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) } 
   def vertCoodLineOfSide(cood: Cood): CoodLine = vertCoodLineOfSide(cood.x, cood.y)
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
      
