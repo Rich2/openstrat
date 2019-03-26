@@ -32,7 +32,9 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   //def yStep: Int
   def tileNum: Int
   def rowForeachTileXY(y: Int, f: (Int, Int) => Unit): Unit
-  def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit  
+  final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
+    setTiles(bottomLeft.x, topRight.y, bottomLeft.y, topRight.y, tileValue)(f)
+  def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
   
@@ -60,7 +62,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   { coodIsTile(x, y)
     arr(xyToInd(x, y)) = fTile(x, y, value)
   }
-  final def setAllTiles[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forallTilesXY((x, y) => fSetTile(x, y, value)(fTile))
+  final def setTilesAll[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = forallTilesXY((x, y) => fSetTile(x, y, value)(fTile))
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
   @inline final def forallTilesXY(f: (Int, Int) => Unit): Unit = forallTileRows(y => rowForeachTileXY(y, f))  

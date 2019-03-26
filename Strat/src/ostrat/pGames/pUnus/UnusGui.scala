@@ -3,7 +3,7 @@ package ostrat
 package pGames.pUnus
 import geom._, pCanv._, pGrid._
 
-/** Main application for Unus Game */
+/** Main application for Unus Game. */
 class UnusGui(canv: CanvasPlatform, grid: UnusGrid)
 {
   new UnusSetGui(canv, grid)
@@ -18,8 +18,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   override def mapObjs = allTilesCoodFlatMapList{c =>
     val col = tileDestinguishColour(c)
     val text = TextGraphic(c.xyStr, 12, coodToDisp(c), col.contrastBW)    
-    List(tileFill(c, col), text)
-    }// ++ lines
+    List(tileFill(c, col), text)    
+  } //++ lines
   
   //optional members
   mapPanel.backColour = Colour.Wheat

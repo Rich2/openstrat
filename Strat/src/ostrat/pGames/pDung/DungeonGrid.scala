@@ -25,7 +25,7 @@ class DungeonGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) ex
      this
    }
    
-   def allWall() = setAllTiles(Wall)
-   def allOpen() = setAllTiles(Open)
+   def allWall() = setTilesAll(Wall)
+   def allOpen() = setTilesAll(Open)
 }
 

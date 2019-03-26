@@ -23,7 +23,7 @@ trait TileGridReg[TileT <: Tile, SideT <: TileSide] extends TileGrid[TileT, Side
   def diagLength = math.sqrt(width * width + height * height)
   def xCen = (left + right) / 2
   def yCen = (top + bottom) / 2
-  def cen: Vec2 = Vec2(xCen, yCen)
+  def cen: Vec2 = Vec2(xCen, yCen)  
   /** All the grids sides expressed as Line2s. */
   final def sideLinesAll: Line2s = ???//this.forallSidesCood(c => this.sid)  
 }

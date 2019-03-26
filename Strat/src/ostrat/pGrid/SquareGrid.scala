@@ -50,9 +50,9 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   }
    
   /** Sets a rectangle of tiles to the same terrain type. */
-  final override def setTilesRectangle[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = for {
-    y <- bottomLeft.y to topRight.y by 2
-    x <- bottomLeft.x to topRight.x by 2
+  final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = for {
+    y <- yFrom.max(yTileMin) to yTo.min(yTileMax) by 2
+    x <- xFrom.max(xTileMin) to xTo.min(xTileMax) by 2
   } fSetTile(x, y, tileValue)
    
    

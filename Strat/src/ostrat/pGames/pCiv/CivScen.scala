@@ -13,7 +13,7 @@ class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
 object Civ1 extends CivGrid(4, 40, 4, 16)
 {
   import Terrain._
-  setAllTiles(plain)
+  setTilesAll(plain)
   import Civ1.{setRow => gs}
  
   gs(yRow = 12, xStart = 20, hills, mtain * 2)
