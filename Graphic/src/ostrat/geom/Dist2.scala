@@ -59,4 +59,5 @@ class Dist2s(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Dist2]/
 
 object Dist2s extends Double2sMaker[Dist2, Dist2s]
 { implicit val factory: Int => Dist2s = i => new Dist2s(new Array[Double](i * 2))
+  override def fromArray(value: Array[Double]): Dist2s = new Dist2s(value)
 }

@@ -48,6 +48,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Vec2]  w
 
 object Vec2s extends Double2sMaker[Vec2, Vec2s]
 { implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
+  override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
   implicit object Vec2sPersist extends PersistProductDouble2s[Vec2s]('Vec2s)
 }
 
