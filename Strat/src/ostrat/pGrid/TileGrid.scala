@@ -190,6 +190,17 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   /** For all Sides call side effecting function on the Tile side's Cood. */
   @inline final def foreachSidesCoodAll(f: Cood => Unit): Unit = foreachSidesXYAll((x, y) => f(Cood(x, y)))
   
+  def foreachSideCoodPDMapAll[A <: ProdD2, B <: ProductDoubles[A]](f: Cood => A)(implicit newB: Array[Double] => B): B =
+  {
+    val acc: ArrayBuffer[Double] = new ArrayBuffer(0)
+    this.foreachSidesCoodAll{c =>
+      val p: A = f(c)
+      acc += p._1
+      acc += p._2
+    }
+    newB(acc.toArray)    
+  }
+  
   //final def SidesCoodPMap
   //@inline final def sideCoodsAll: Coods = ???
   def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
