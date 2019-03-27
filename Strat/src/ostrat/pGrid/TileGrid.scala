@@ -198,7 +198,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   }
   
   //final def SidesCoodPMap
-  //@inline final def sideCoodsAll: Coods = ???
+  //@inline final def sideCoodsAll: Vec2s = foreachSideCoodPDMapAll(c => Vec2(c.x, c.y))
   def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
   
   def vertCoodsOfTile(tileCood: Cood): Coods
