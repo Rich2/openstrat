@@ -1,19 +1,19 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductDouble4s[A <: ProdD4] extends Any with ProductValues[A]
+trait ProductDouble4s[A <: ProdD4] extends Any with ProductDoubles[A]
 {
-   def productSize: Int = 4
-   def arr: Array[Double]
-   def arrLen: Int = arr.length
+   def productSize: Int = 4   
    def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
    def apply(index: Int): A = newElem(arr(4 * index), arr(4 * index + 1), arr(4 * index + 2), arr(4 * index + 3))
+   
    def setElem(index: Int, elem: A): Unit =
    { arr(4 * index) = elem._1
      arr(4 * index + 1) = elem._2
      arr(4 * index + 2) = elem._3
      arr(4 * index + 3) = elem._4
    }
+   
    def head1: Double = arr(0)
    def head2: Double = arr(1)
    def head3: Double = arr(2)

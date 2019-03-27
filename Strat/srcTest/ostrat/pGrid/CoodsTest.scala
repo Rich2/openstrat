@@ -5,7 +5,7 @@ import utest._
 
 object CoodsTest  extends TestSuite
 {
-   val cs = Coods.xy(5,4, 3,2, 7,8, -5,-42)
+   val cs = Coods.ints(5,4, 3,2, 7,8, -5,-42)
    val tests = Tests
    {
       'test1 - {assert(!cs.contains(Cood(4, 5))) }

@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** This is the base trait for the DoubleProduct and IntProduct classes */
+/** This is the base trait for the ProductDoubles and ProductInts classes */
 trait ProductValues[A] extends Any
 { def typeName: Symbol
   override def toString: String = typeName.name - lMap(_.toString).commaParenth

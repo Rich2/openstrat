@@ -57,7 +57,7 @@ class Dist2s(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Dist2]/
   override def newElem(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }
 
-object Dist2s extends Double2sMaker[Dist2, Dist2s]
+object Dist2s extends ProductDouble2sCompanion[Dist2, Dist2s]
 { implicit val factory: Int => Dist2s = i => new Dist2s(new Array[Double](i * 2))
-  override def fromArray(value: Array[Double]): Dist2s = new Dist2s(value)
+  //override def fromArray(value: Array[Double]): Dist2s = new Dist2s(value)
 }

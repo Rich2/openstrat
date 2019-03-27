@@ -26,8 +26,7 @@ class Coods(val arr: Array[Int]) extends AnyVal with ProductInt2s[Cood]//(length
   }
 }
 
-object Coods extends Int2Maker[Cood, Coods]
+object Coods extends Int2Companion[Cood, Coods]
 { implicit val factory: Int => Coods = i => new Coods(new Array[Int](i * 2))
-  /** This method should maybe be removed */
-  @inline def xy(inp: Int*): Coods = ints(inp:_ *)
+  
 }

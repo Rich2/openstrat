@@ -119,8 +119,8 @@ class LatLongs(val arr: Array[Double]) extends AnyVal with ProductDouble2s[LatLo
   override def newElem(d1: Double, d2: Double): LatLong = LatLong.apply(d1, d2)
 }
 
-object LatLongs extends Double2sMaker[LatLong, LatLongs]
+object LatLongs extends ProductDouble2sCompanion[LatLong, LatLongs]
 {
   implicit val factory: Int => LatLongs = i => new LatLongs(new Array[Double](i * 2))
-  override def fromArray(value: Array[Double]): LatLongs = new LatLongs(value)
+  //override def fromArray(value: Array[Double]): LatLongs = new LatLongs(value)
 }

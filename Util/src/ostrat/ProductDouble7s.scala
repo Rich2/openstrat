@@ -1,10 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductDouble7s[A <: ProdD7] extends Any with ProductValues[A]
-{ def productSize: Int = 7
-  def arr: Array[Double]
-  def arrLen: Int = arr.length
+trait ProductDouble7s[A <: ProdD7] extends Any with ProductDoubles[A]
+{ def productSize: Int = 7  
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
   
   def apply(index: Int): A =

@@ -46,10 +46,14 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Vec2]  w
   def draw(lineWidth: Double, colour: Colour = Colour.Black): Vec2sDraw = Vec2sDraw(this, lineWidth, colour)
 }
 
-object Vec2s extends Double2sMaker[Vec2, Vec2s]
-{ implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
-  override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
-  implicit object Vec2sPersist extends PersistProductDouble2s[Vec2s]('Vec2s)
+object Vec2s extends ProductDouble2sCompanion[Vec2, Vec2s]
+{
+  implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
+  
+  implicit object Vec2sPersist extends PersistProductDouble2s[Vec2, Vec2s]('Vec2s)
+  {
+    override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
+  }
 }
 
 /** Companion object for the Vec2s collection class. */
