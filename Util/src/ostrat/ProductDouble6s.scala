@@ -20,7 +20,7 @@ trait ProductDouble6s[A <: ProdD6] extends Any with ProductDoubles[A]
   def head6: Double = arr(5)
 }
 
-abstract class Double6sMaker[T <: ProdD6, ST <: ProductDouble6s[T]]
+abstract class ProductDouble6sCompanion[T <: ProdD6, ST <: ProductDouble6s[T]]
 { val factory: Int => ST
   def apply(length: Int): ST = factory(length)
   

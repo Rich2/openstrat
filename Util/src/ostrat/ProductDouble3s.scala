@@ -10,7 +10,7 @@ trait ProductDouble3s[A <: ProdD3] extends Any with ProductDoubles[A]
   def head1: Double = arr(0); def head2: Double = arr(1); def head3: Double = arr(2)   
 }
 
-abstract class Double3sMaker[T <: ProdD3, ST <: ProductDouble3s[T]]
+abstract class Double3sCompanion[T <: ProdD3, ST <: ProductDouble3s[T]]
 { val factory: Int => ST
   def apply(length: Int): ST = factory(length)
  

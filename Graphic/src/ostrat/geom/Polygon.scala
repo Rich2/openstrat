@@ -82,7 +82,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Vec2] 
 object Polygon extends ProductDouble2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
   
-  implicit object PolygonPersist extends PersistProductDouble2s[Vec2, Polygon]('Polygon)
+  implicit object PolygonPersist extends ProductDouble2sBuilder[Vec2, Polygon]('Polygon)
   {
     override def fromArray(value: Array[Double]): Polygon = new Polygon(value)
   }

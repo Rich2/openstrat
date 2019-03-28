@@ -14,25 +14,26 @@ trait ProductInts[A] extends Any with ProductValues[A]
   def arrLen = arr.length 
 }
 
-trait ValuesMaker[A, B]
+trait ProductValuesBuilder[A, M]
 {
+  /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: ArrayBuffer[VT], value: A): Unit
-  def fromArray(value: Array[VT]): B 
-  def fromBuffer(buf: ArrayBuffer[VT]): B
+  def fromArray(value: Array[VT]): M 
+  def fromBuffer(buf: ArrayBuffer[VT]): M
   def newBuffer: ArrayBuffer[VT]
 }
 
-trait DoublesMaker[A, B <: ProductDoubles[A]] extends ValuesMaker[A, B]
+trait ProductDoublesBuilder[A, M <: ProductDoubles[A]] extends ProductValuesBuilder[A, M]
 {
   type VT = Double
-  override def fromBuffer(buf: ArrayBuffer[Double]): B = fromArray(buf.toArray)
+  override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
 }
 
-trait IntsMaker[A, B <: ProductInts[A]] extends ValuesMaker[A, B]
+trait ProductIntsBuilder[A, M <: ProductInts[A]] extends ProductValuesBuilder[A, M]
 {
   type VT = Int
-  override def fromBuffer(buf: ArrayBuffer[Int]): B = fromArray(buf.toArray)
+  override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Int] = new ArrayBuffer[Int](0)
 }

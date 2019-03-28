@@ -34,7 +34,7 @@ trait ProductDouble2s[A <: ProdD2] extends Any with ProductDoubles[A]
     res
   }
   
-  def mapPairs[B](f: (Double, Double) => B)(implicit m: scala.reflect.ClassTag[B]): Array[B] =
+  def mapBy2[B](f: (Double, Double) => B)(implicit m: scala.reflect.ClassTag[B]): Array[B] =
   {
     val newArr = new Array[B](length)
     var count = 0

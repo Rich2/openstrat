@@ -16,7 +16,7 @@ class Line2s(val arr: Array[Double]) extends AnyVal with ProductDouble4s[Line2] 
 }
 
 /** Companion object for the Lines class */
-object Line2s extends Double4sMaker[Line2, Line2s]
+object Line2s extends ProductDouble4sCompanion[Line2, Line2s]
 {
    implicit val factory: Int => Line2s = i => new Line2s(new Array[Double](i * 4))
 }

@@ -27,8 +27,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductDouble2s[Vec2]  w
   override def typeName: Symbol = 'Vec2s
   override def toString: String = Vec2s.Vec2sPersist.persist(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-  @inline def lengthFull: Int = arr.length / 2
-  //@inline def length: Int = lengthFull - 1
+  @inline def lengthFull: Int = arr.length / 2  
   @inline def xStart: Double = arr(0)
   @inline def yStart: Double = arr(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
@@ -50,7 +49,7 @@ object Vec2s extends ProductDouble2sCompanion[Vec2, Vec2s]
 {
   implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
   
-  implicit object Vec2sPersist extends PersistProductDouble2s[Vec2, Vec2s]('Vec2s)
+  implicit object Vec2sPersist extends ProductDouble2sBuilder[Vec2, Vec2s]('Vec2s)
   {
     override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
   }

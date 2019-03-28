@@ -9,6 +9,6 @@ class CurveSegDists(val arr: Array[Double]) extends AnyVal with ProductDouble7s[
      new CurveSegDist(iMatch, d1, d2, d3, d4, d5, d6)
 }
 
-object CurveSegDists extends Double7sMaker[CurveSegDist, CurveSegDists]
+object CurveSegDists extends ProductDouble7sCompanion[CurveSegDist, CurveSegDists]
 { implicit val factory: Int => CurveSegDists = i => new CurveSegDists(new Array[Double](i * 7))
 }
