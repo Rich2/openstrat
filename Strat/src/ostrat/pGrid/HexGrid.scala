@@ -29,7 +29,7 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
     (xFinalStart to xFinalEnd by 4).foreach(x => f(x, y))
   }
   
-  def sideXYForeach(f: (Int, Int) => Unit): Unit =
+  def foreachSidesXYAll(f: (Int, Int) => Unit): Unit =
   {
     rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1);  f(x + 1, y - 1)  })
       

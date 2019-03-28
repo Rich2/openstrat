@@ -24,6 +24,9 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   val fTrans: Vec2 => Vec2 = v => (v - focus) * pScale
   /** Transforms a Cood to Display Vec2. */
   def coodToDisp(cood: Cood): Vec2 = fTrans(grid.coodToVec2(cood))
+  def coodXYDisp(cood: Cood) = TextGraphic(cood.xyStr, 12, coodToDisp(cood))
+  final def sideLinesDispAll: Line2s = grid.sideLinesAll.fTrans(fTrans)
+  final def sidesDrawAll(lineWidth: Double = 2, colour: Colour = Colour.Black): GraphicElems = sideLinesDispAll.lMap(_.draw(lineWidth, colour))
   
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)

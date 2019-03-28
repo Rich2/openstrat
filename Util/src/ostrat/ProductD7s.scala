@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductDouble7s[A <: ProdD7] extends Any with ProductDoubles[A]
+trait ProductD7s[A <: ProdD7] extends Any with ProductDoubles[A]
 { def productSize: Int = 7  
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
   
@@ -20,10 +20,10 @@ trait ProductDouble7s[A <: ProdD7] extends Any with ProductDoubles[A]
   def head6: Double = arr(5); def head7: Double = arr(6)
 }
 
-abstract class ProductDouble7sCompanion[T <: ProdD7, ST <: ProductDouble7s[T]]
-{ val factory: Int => ST
-  def apply(length: Int): ST = factory(length)
-  def apply(elems: T*): ST =
+abstract class ProductD7sCompanion[A <: ProdD7, M <: ProductD7s[A]]
+{ val factory: Int => M
+  def apply(length: Int): M = factory(length)
+  def apply(elems: A*): M =
   { val length = elems.length
     val res = factory(length)
     var count: Int = 0
@@ -38,7 +38,7 @@ abstract class ProductDouble7sCompanion[T <: ProdD7, ST <: ProductDouble7s[T]]
     res
   }
    
-  def doubles(elems: Double*): ST =
+  def doubles(elems: Double*): M =
   { val arrLen: Int = elems.length
     val res = factory(elems.length / 7)
     var count: Int = 0
@@ -46,7 +46,7 @@ abstract class ProductDouble7sCompanion[T <: ProdD7, ST <: ProductDouble7s[T]]
     res
   }
    
-   def fromList(list: List[T]): ST = 
+   def fromList(list: List[A]): M = 
    { val res = factory(list.length)
      var count: Int = 0
      var rem = list

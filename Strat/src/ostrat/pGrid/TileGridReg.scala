@@ -11,6 +11,7 @@ trait TileGridReg[TileT <: Tile, SideT <: TileSide] extends TileGrid[TileT, Side
     Some(getTile(x, y)) else None
   
   def coodToVec2(cood: Cood): Vec2
+  final def coodToLine2(cood: Cood): Line2 = vertCoodLineOfSide(cood).toLine2(coodToVec2)
   def left: Double
   def right: Double 
   def bottom: Double 
@@ -23,8 +24,9 @@ trait TileGridReg[TileT <: Tile, SideT <: TileSide] extends TileGrid[TileT, Side
   def diagLength = math.sqrt(width * width + height * height)
   def xCen = (left + right) / 2
   def yCen = (top + bottom) / 2
-  def cen: Vec2 = Vec2(xCen, yCen)  
-  /** All the grids sides expressed as Line2s. */
-  final def sideLinesAll: Line2s = ???//this.foreachSidesCoodAll(c => this.sid)  
+  def cen: Vec2 = Vec2(xCen, yCen)
+  
+  /** All the grids sides represented as Line2s. */  
+  final def sideLinesAll: Line2s = foreachSideCoodPDMapAll[Line2, Line2s](coodToLine2(_))
 }
 

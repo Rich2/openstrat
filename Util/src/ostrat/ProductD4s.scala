@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductDouble4s[A <: ProdD4] extends Any with ProductDoubles[A]
+trait ProductD4s[A <: ProdD4] extends Any with ProductDoubles[A]
 {
    def productSize: Int = 4   
    def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
@@ -20,11 +20,11 @@ trait ProductDouble4s[A <: ProdD4] extends Any with ProductDoubles[A]
    def head4: Double = arr(3)
 }
 
-abstract class ProductDouble4sCompanion[T <: ProdD4, ST <: ProductDouble4s[T]]
+abstract class ProductD4sCompanion[A <: ProdD4, M <: ProductD4s[A]]
 {
-   val factory: Int => ST
-   def apply(length: Int): ST = factory(length)
-   def apply(elems: T*): ST =
+   val factory: Int => M
+   def apply(length: Int): M = factory(length)
+   def apply(elems: A*): M =
    { 
       val length = elems.length
       val res = factory(length)
@@ -40,7 +40,7 @@ abstract class ProductDouble4sCompanion[T <: ProdD4, ST <: ProductDouble4s[T]]
       res
    }
    
-   def doubles(elems: Double*): ST =
+   def doubles(elems: Double*): M =
    {
       val arrLen: Int = elems.length
       val res = factory(elems.length / 4)
@@ -53,7 +53,7 @@ abstract class ProductDouble4sCompanion[T <: ProdD4, ST <: ProductDouble4s[T]]
       res
    }
    
-   def fromList(list: List[T]): ST = 
+   def fromList(list: List[A]): M = 
    {
       val arrLen: Int = list.length * 4
       val res = factory(list.length)

@@ -2,7 +2,7 @@
 package ostrat
 
 trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
-{ def productSize: Int = 2  
+{ override def productSize: Int = 2  
   def newElem(i1: Int, i2: Int): A
   def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
 
@@ -20,14 +20,13 @@ trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
       count += 1
     }
     newArr
-   }
-  
+   }  
 }
 
-abstract class ProductI2sCompanion[T <: ProdI2, ST <: ProductI2s[T]]
-{ val factory: Int => ST
+abstract class ProductI2sCompanion[A <: ProdI2, M <: ProductI2s[A]]
+{ val factory: Int => M
 
-  def apply(elems: T*): ST =
+  def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 2
     val res = factory(elems.length)
     var count: Int = 0
@@ -41,7 +40,7 @@ abstract class ProductI2sCompanion[T <: ProdI2, ST <: ProductI2s[T]]
     res
   }
    
-  def ints(elems: Int*): ST =
+  def ints(elems: Int*): M =
   { val arrLen: Int = elems.length
     val res = factory(elems.length / 2)
     var count: Int = 0
@@ -49,7 +48,7 @@ abstract class ProductI2sCompanion[T <: ProdI2, ST <: ProductI2s[T]]
     res
   }
   
-  def fromList(list: List[T]): ST = 
+  def fromList(list: List[A]): M = 
    {
       val arrLen: Int = list.length * 2
       val res = factory(list.length)
@@ -64,8 +63,5 @@ abstract class ProductI2sCompanion[T <: ProdI2, ST <: ProductI2s[T]]
          rem = rem.tail
       }
       res
-   }
-  
-  
-  
+   }  
 }

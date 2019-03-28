@@ -199,6 +199,9 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   
   //final def SidesCoodPMap
   @inline final def sideCoodsAll: Coods = foreachSideCoodPDMapAll[Cood, Coods](c => c)
+  final def sideCoodLinesAll: CoodLines = foreachSideCoodPDMapAll[CoodLine, CoodLines](vertCoodLineOfSide(_))
+  
+  /** Returns the 2 Coods for the Tile centres adjacent to the side. */
   def sidesTileCoods(x: Int, y: Int): (Cood, Cood)
   
   def vertCoodsOfTile(tileCood: Cood): Coods

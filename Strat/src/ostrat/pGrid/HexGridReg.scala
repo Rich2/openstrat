@@ -57,6 +57,7 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
     for { y <- (yTileMin + 1) to (yTileMax - 1) by 2
       x <- sideRowOddStart to sideRowOddEnd by 2
     } f(x, y)
+    
     foreachTilesXYAll{ (x, y) => f(x + 2, y)}
     rowForeachTilesXYAll(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
   }

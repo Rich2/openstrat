@@ -13,13 +13,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
 {
   //Required members
   var pScale: Double = scaleAlignMin
-  var focus: Vec2 = grid.cen
-  def lines = grid.sideLinesAll.lMap(l => l.fTrans(fTrans).draw(2, Colour.Red))
-  override def mapObjs = tilesCoodFlatMapListAll{c =>
-    val col = tileDestinguishColour(c)
-    val text = TextGraphic(c.xyStr, 12, coodToDisp(c), col.contrastBW)    
-    List(tileFill(c, col), text)    
-  } //++ lines
+  var focus: Vec2 = grid.cen  
+  override def mapObjs = tilesCoodFlatMapListAll{c => List(coodXYDisp(c)) } ++ sidesDrawAll()
   
   //optional members
   mapPanel.backColour = Colour.Wheat
