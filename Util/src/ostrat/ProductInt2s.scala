@@ -10,6 +10,18 @@ trait ProductInt2s[A <: ProdI2] extends Any with ProductInts[A]
 
   def head1: Int = arr(0)
   def head2: Int = arr(1)
+  
+  def mapBy2[B](f: (Int, Int) => B)(implicit m: scala.reflect.ClassTag[B]): Array[B] =
+  {
+    val newArr = new Array[B](length)
+    var count = 0
+    while (count < length) 
+    { newArr(count) = f(arr(count * 2), arr(count * 2 + 1))
+      count += 1
+    }
+    newArr
+   }
+  
 }
 
 abstract class Int2Companion[T <: ProdI2, ST <: ProductInt2s[T]]
@@ -53,5 +65,7 @@ abstract class Int2Companion[T <: ProdI2, ST <: ProductInt2s[T]]
       }
       res
    }
+  
+  
   
 }

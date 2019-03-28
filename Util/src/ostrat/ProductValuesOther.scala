@@ -14,24 +14,25 @@ trait ProductInts[A] extends Any with ProductValues[A]
   def arrLen = arr.length 
 }
 
-trait ProductValuesBuilder[A, M]
+abstract class ProductValuesBuilder[A, M](typeSym: Symbol) extends PersistCompound[M](typeSym)
 {
   /** Atomic Value type normally Double or Int. */
   type VT
+  override def typeStr = typeSym.name
   def appendtoBuffer(buf: ArrayBuffer[VT], value: A): Unit
   def fromArray(value: Array[VT]): M 
   def fromBuffer(buf: ArrayBuffer[VT]): M
   def newBuffer: ArrayBuffer[VT]
 }
 
-trait ProductDoublesBuilder[A, M <: ProductDoubles[A]] extends ProductValuesBuilder[A, M]
+abstract class ProductDoublesBuilder[A, M <: ProductDoubles[A]](typeSym: Symbol) extends ProductValuesBuilder[A, M](typeSym)
 {
   type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
 }
 
-trait ProductIntsBuilder[A, M <: ProductInts[A]] extends ProductValuesBuilder[A, M]
+abstract class ProductIntsBuilder[A, M <: ProductInts[A]](typeSym: Symbol) extends ProductValuesBuilder[A, M](typeSym)
 {
   type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)

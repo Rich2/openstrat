@@ -2,10 +2,9 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** Both Persists and Builds. */
-abstract class ProductDouble2sBuilder[A <: ProdD2, M <: ProductDouble2s[A]](typeSym: Symbol) extends ProductDoublesBuilder[A, M](typeSym)  
+abstract class ProductInt2sBuilder[A <: ProdI2, M <: ProductInt2s[A]](typeSym: Symbol) extends ProductIntsBuilder[A, M](typeSym)  
 {
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
+  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value._1
     buf += value._2
   }
@@ -18,4 +17,4 @@ abstract class ProductDouble2sBuilder[A <: ProdD2, M <: ProductDouble2s[A]](type
   //override def persist(thisColl: R): String = typeStr - persistSemi(thisColl).enParenth
   override def fromParameterStatements(sts: List[Statement]): EMon[M] = ???
   override def fromClauses(clauses: Seq[Clause]): EMon[M] = ???
-}
+} 
