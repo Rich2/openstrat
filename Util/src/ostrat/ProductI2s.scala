@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductInt2s[A <: ProdI2] extends Any with ProductInts[A]
+trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
 { def productSize: Int = 2  
   def newElem(i1: Int, i2: Int): A
   def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
@@ -24,7 +24,7 @@ trait ProductInt2s[A <: ProdI2] extends Any with ProductInts[A]
   
 }
 
-abstract class Int2Companion[T <: ProdI2, ST <: ProductInt2s[T]]
+abstract class ProductI2sCompanion[T <: ProdI2, ST <: ProductI2s[T]]
 { val factory: Int => ST
 
   def apply(elems: T*): ST =

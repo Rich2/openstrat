@@ -106,7 +106,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   }   
   
   /** This needs to be renamed. */
-  def trav2ProdD2[B, C <: ProdD2, D <: ProductDouble2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
+  def trav2ProdD2[B, C <: ProdD2, D <: ProductD2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
   { val elemNum = thisTrav.size * secondTrav.size
     val res = factory(elemNum)
     var count = 0

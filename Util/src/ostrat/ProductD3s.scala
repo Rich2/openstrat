@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductDouble3s[A <: ProdD3] extends Any with ProductDoubles[A]
+trait ProductD3s[A <: ProdD3] extends Any with ProductDoubles[A]
 { 
   def productSize = 3    
   def newElem(d1: Double, d2: Double, d3: Double): A  
@@ -10,11 +10,11 @@ trait ProductDouble3s[A <: ProdD3] extends Any with ProductDoubles[A]
   def head1: Double = arr(0); def head2: Double = arr(1); def head3: Double = arr(2)   
 }
 
-abstract class Double3sCompanion[T <: ProdD3, ST <: ProductDouble3s[T]]
-{ val factory: Int => ST
-  def apply(length: Int): ST = factory(length)
+abstract class ProductD3sCompanion[A <: ProdD3, M <: ProductD3s[A]]
+{ val factory: Int => M
+  def apply(length: Int): M = factory(length)
  
-  def apply(elems: T*): ST =
+  def apply(elems: A*): M =
   { val length = elems.length
     val res = factory(length)
     var count: Int = 0

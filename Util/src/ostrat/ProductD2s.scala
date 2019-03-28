@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductDouble2s[A <: ProdD2] extends Any with ProductDoubles[A]
+trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
 {
   def productSize: Int = 2
   def newElem(d1: Double, d2: Double): A

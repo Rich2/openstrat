@@ -8,7 +8,7 @@ import geom._
   * units to move along the tile sides. */
 final case class Cood(val x: Int, val y: Int) extends ProdI2
 { def typeSym = 'Cood
-  def _1 =x
+  def _1 = x
   def _2 = y
   def xyStr: String = x.toString - ", " - y.toString
   def yxStr: String = y.toString - ", " -x.toString
@@ -38,20 +38,6 @@ object Cood
   def unapply(tc: Cood): Option[(Int, Int)] = Some((tc.x, tc.y))
   def list(inp: (Int, Int)*): List[Cood] = inp.toList.map(p => Cood(p._1, p._2))
   implicit object CoodPersist extends Persist2[Int, Int, Cood]('Cood, c => (c.x, c.y), apply)
-}
-
-case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int)
-{   
-   def toLine2(f: Cood => Vec2): Line2 =
-   {  val v1 = f(Cood(x1, y1))
-      val v2 = f(Cood(x2, y2))
-      Line2(v1, v2)
-   }
-}
-
-object CoodLine
-{
-   def apply(c1: Cood, c2: Cood): CoodLine = CoodLine(c1.x, c1.y, c2.x, c2.y)
 }
 
 trait GridBuilder

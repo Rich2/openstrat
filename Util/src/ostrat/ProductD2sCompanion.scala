@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductDouble2sCompanion[T <: ProdD2, ST <: ProductDouble2s[T]] 
+trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]] 
 {
   val factory: Int => ST
   def apply(length: Int): ST = factory(length)

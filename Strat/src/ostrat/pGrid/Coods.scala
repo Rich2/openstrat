@@ -2,7 +2,7 @@
 package ostrat
 package pGrid
 
-class Coods(val arr: Array[Int]) extends AnyVal with ProductInt2s[Cood]//(length) 
+class Coods(val arr: Array[Int]) extends AnyVal with ProductI2s[Cood] 
 { override def typeName: Symbol = 'Coods
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
    
@@ -26,11 +26,11 @@ class Coods(val arr: Array[Int]) extends AnyVal with ProductInt2s[Cood]//(length
   }
 }
 
-object Coods extends Int2Companion[Cood, Coods]
+object Coods extends ProductI2sCompanion[Cood, Coods]
 { 
   implicit val factory: Int => Coods = i => new Coods(new Array[Int](i * 2))
   
-  implicit object CoodsPersistImplicit extends ProductInt2sBuilder[Cood, Coods]('Coods)
+  implicit object CoodsPersistImplicit extends ProductI2sBuilder[Cood, Coods]('Coods)
   {
     override def fromArray(value: Array[Int]): Coods = new Coods(value)
   }

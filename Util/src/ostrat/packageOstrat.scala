@@ -33,6 +33,8 @@ package object ostrat
   
   /** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
   type ProdI2 = Product2[Int, Int]
+  /** Product2[Int, Int, Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
+  type ProdI4 = Product4[Int, Int, Int, Int]
   /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
   type ProdD2 = Product2[Double, Double]  
   /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
