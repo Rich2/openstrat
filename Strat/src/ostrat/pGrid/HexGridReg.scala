@@ -34,7 +34,7 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
   def sideRow4Start = xRow4Start - 2
   def sideRow2End = xRow2End + 2
   def sideRow4End = xRow4End + 2
-  def sideRowOddStart = xRow2Start.max(xRow4Start) - 1 
+  def sideRowOddStart = xRow2Start.min(xRow4Start) - 1 
   def sideRowOddEnd = xRow2End.max(xRow4End) + 1
   def sideRowOddLen: Int = (sideRowOddEnd - sideRowOddStart) / 2
   override def tileNum: Int = xRow2Len * yRow2Len + xRow4Len * yRow4Len
@@ -53,8 +53,10 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
   final override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 
   {   
     if (tileNum == 0) return
-    //All horrisontal rows except top. Incorrect.
-    rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
+    //Bottom horrisontal row.
+    rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) }) 
+    
+    //All middle horrisontal rows
     for { y <- (yTileMin + 1) to (yTileMax - 1) by 2
       x <- sideRowOddStart to sideRowOddEnd by 2
     } f(x, y)
