@@ -52,13 +52,19 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
   /** Needs more work. */
   final override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 
   {   
-    if (tileNum == 0) return    
+    if (tileNum == 0) return
+    //All horrisontal rows except top. Incorrect.
     rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
     for { y <- (yTileMin + 1) to (yTileMax - 1) by 2
       x <- sideRowOddStart to sideRowOddEnd by 2
     } f(x, y)
     
-    foreachTilesXYAll{ (x, y) => f(x + 2, y)}
+    //Vertical sides
+    foreachTileRowAll {y =>
+      rowForeachTilesXYAll(y, (x, y) => f(x - 2, y))
+      f(rowTileXEnd(y) + 2, y)
+    }
+    //Top Row 
     rowForeachTilesXYAll(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
   }
    

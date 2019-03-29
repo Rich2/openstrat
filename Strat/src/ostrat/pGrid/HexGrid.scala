@@ -31,6 +31,7 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
   
   def foreachSidesXYAll(f: (Int, Int) => Unit): Unit =
   {
+    //bottom row
     rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1);  f(x + 1, y - 1)  })
       
     (yTileMin to (yTileMax - 2) by 2).foreach{y =>
@@ -43,7 +44,7 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
     f(x - 1, yTileMin + 1)
     f(x + 1, yTileMin + 1) 
     }
-      
+    //Vertical Sides  
     foreachTileRowAll {y =>
       rowForeachTilesXYAll(y, (x, y) => f(x - 2, y))
       f(rowTileXEnd(y) + 2, y)
