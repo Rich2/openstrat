@@ -13,9 +13,10 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
 {
   //Required members
   var pScale: Double = scaleAlignMin
+  deb(pScale.toString)
   var focus: Vec2 = grid.cen  
   override def mapObjs = tilesCoodFlatMapListAll{c => List(coodXYDisp(c)) } :::
-  grid.tilesOptionDispAll(t => t.mem.map(p => Rectangle(150, 100).fill(p.colour)))  :::  sidesDrawAll()
+  grid.tilesOptionDispAll(t => t.mem.map(p => Rectangle(120, 80, coodToDisp(t.cood)).fillDraw(p.colour, 2)))  :::  sidesDrawAll()
   
   //optional members
   mapPanel.backColour = Colour.Wheat
