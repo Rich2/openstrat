@@ -10,6 +10,7 @@ case class UTile(x: Int, y: Int, mem: Option[Player]) extends Tile
 
 object UTile
 {
+  implicit def make: (Int, Int, Option[Player]) => UTile = UTile.apply
   implicit object SimpTileIsType extends IsType[UTile]
   {
     override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[UTile]

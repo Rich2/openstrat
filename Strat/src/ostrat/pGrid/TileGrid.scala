@@ -123,6 +123,13 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     acc.reverse    
   }
   
+  final def tilesMapListAll[A](f: TileT => A): List[A] =
+  {
+    var acc: List[A] = Nil
+    foreachTileAll(acc ::= f(_))
+    acc.reverse
+  }
+  
   final def tileCoodsFoldAll[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
   { var acc: R = emptyVal
     foreachTilesCoodAll { tileCood => acc = fSum(acc, f(tileCood)) }
@@ -141,6 +148,16 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     acc   
   }
   
+  final def tilesOptionDispAll(f: TileT => Option[GraphicElem[_]]): GraphicElems = 
+  {
+    var acc: GraphicElems = Nil
+    foreachTileAll(t => f(t) match
+      {
+      case None => acc
+      case Some(g) => acc ::= g
+      })    
+    acc.reverse
+  }
   /** Set tile row from the Cood. */
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 

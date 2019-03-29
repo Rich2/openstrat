@@ -12,7 +12,8 @@ object Unus1
   def start: UnusGrid =
   {
     val newGrid = new UnusGrid(2, 16, 2, 8)
-    
+    newGrid.setTilesAll(None)
+    newGrid.fSetTile(4, 4, Some(PlayerA))
     newGrid
   }
 }
