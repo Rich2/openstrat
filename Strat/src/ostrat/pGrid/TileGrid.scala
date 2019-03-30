@@ -56,6 +56,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
  
   def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }  
   def setTile(cood: Cood, value: TileT): Unit = setTile(cood.x, cood.y, value)
+  def copyTile(oldGrid: TileGrid[TileT, _], cood: Cood): Unit = setTile(cood, oldGrid.getTile(cood))
   
   def fSetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.x, cood.y, value)(fTile)
   def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =

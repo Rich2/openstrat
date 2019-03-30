@@ -7,7 +7,7 @@ import pGrid._
 class Player(val char: Char, val colour: Colour) extends WithColour
 class PossiblePlayer(val char: Char, val colour: Colour)
 
-case class UTile(x: Int, y: Int, mem: Option[Player]) extends Tile
+case class UTile(x: Int, y: Int, oPlayer: Option[Player]) extends Tile
 
 object UTile
 {
@@ -19,7 +19,10 @@ object UTile
   }
 }
 
-case class Move(player: Cood, dirn: HexDirn)
+case class Move(start: Cood, dirn: HexDirn, player: Player)
+{
+  def destination: Cood = start + dirn.relCood
+}
 
 class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
     yTileMin, yTileMax)
@@ -27,11 +30,15 @@ class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) exten
   def resolveTurn(moves: List[Move]): UnusGrid =
   {
     val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax)
-    newGrid.foreachTileAll(tile => tile.mem.foreach(p => moves.find(_.player == tile.cood) match
-        {
-      case None => newGrid.fSetTile(tile.cood, getTile(tile.cood).mem)
-      case Some(move) =>  
-        }))
+    newGrid.foreachTileAll(tile => tile.oPlayer.foreach(player => moves.find(_.player == player) match
+      {
+        case None => newGrid.fSetTile(tile.cood, Some(player))
+     
+        case Some(myMove) if moves.exists(m => player != m.player & (myMove.destination == m.start | myMove.destination == m.destination)) => 
+          newGrid.fSetTile(tile.cood, Some(player))
+      
+        case Some(myMove) => newGrid.fSetTile(myMove.destination, Some(player))  
+      }))
     newGrid
   }
 }
