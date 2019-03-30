@@ -2,11 +2,12 @@
 package ostrat
 
 trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
-{ override def productSize: Int = 2  
+{ 
+  override def productSize: Int = 2  
   def newElem(i1: Int, i2: Int): A
-  def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
+  final override def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
 
-  def setElem(index: Int, elem: A): Unit = { arr(2 * index) = elem._1; arr(2 * index + 1) = elem._2 }
+  final def setElem(index: Int, elem: A): Unit = { arr(2 * index) = elem._1; arr(2 * index + 1) = elem._2 }
 
   def head1: Int = arr(0)
   def head2: Int = arr(1)
