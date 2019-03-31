@@ -4,7 +4,7 @@ package ostrat
 /** This is the base trait for the ProductDoubles and ProductInts classes. */
 trait ProductValues[A] extends Any
 { def typeName: Symbol
-  override def toString: String = typeName.name - lMap(_.toString).commaParenth
+  override def toString: String = typeName.name - MapList(_.toString).commaParenth
   def productSize: Int
   def arrLen: Int
   final def length: Int = arrLen / productSize
@@ -73,7 +73,7 @@ trait ProductValues[A] extends Any
   }
    
   /** maps ValueProduct collection to List */
-  def lMap[B <: AnyRef](f: A => B): List[B] =
+  def MapList[B <: AnyRef](f: A => B): List[B] =
   { var res: List[B] = Nil
     foreachReverse(res ::= f(_))
     res

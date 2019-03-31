@@ -72,7 +72,7 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
    
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
-  def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).lMap(getTile)  
+  def tileNeighbours(tile: TileT): List[TileT] = tileNeighboursCoods(tile.cood).MapList(getTile)  
      
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {

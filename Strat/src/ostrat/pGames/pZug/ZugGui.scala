@@ -13,7 +13,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   override var pScale: Double = scaleAlignMin
   override var focus: Vec2 = grid.cen
   mapPanel.backColour = Black
-  //def squads: List[Squad] = ???
+  
   def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => GraphicElems = ofh =>
   { import ofh._         
     val colour: Colour = tile.colour         

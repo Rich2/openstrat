@@ -25,7 +25,7 @@ trait TileGridReg[TileT <: Tile, SideT <: TileSide] extends TileGrid[TileT, Side
   def xCen = (left + right) / 2
   def yCen = (top + bottom) / 2
   def cen: Vec2 = Vec2(xCen, yCen)
-  
+  def polygonOfTile(tileCood: Cood): Polygon = vertCoodsOfTile(tileCood: Cood).pMap(coodToVec2)
   /** All the grids sides represented as Line2s. */  
   final def sideLinesAll: Line2s = foreachSideCoodPDMapAll[Line2, Line2s](coodToLine2(_))
 }
