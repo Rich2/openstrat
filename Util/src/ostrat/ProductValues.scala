@@ -121,13 +121,22 @@ trait ProductValues[A] extends Any
     iForeach((elem, i) => res.setElem(i, elem))
     res.setElem(length, operand)
     res
-  } 
-  
+  }  
   
   /** Counts the number of elements that fulfil the condition A => Boolean */
   def filterCount(f: A => Boolean): Int =
   { var count = 0
     foreach(el => if (f(el)) count += 1)
     count
+  }
+  
+  def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
+  { var acc: B = initAcc
+    var prev: A = initPrevious
+    foreach { newA =>
+      acc = f(acc, prev, newA)
+      prev = newA
+    }
+    acc
   }
 }

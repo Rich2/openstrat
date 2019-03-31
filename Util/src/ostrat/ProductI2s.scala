@@ -49,7 +49,7 @@ abstract class ProductI2sCompanion[A <: ProdI2, M <: ProductI2s[A]]
     res
   }
   
-  def fromList(list: List[A]): M = 
+  def fromSeq(list: Seq[A]): M = 
    {
       val arrLen: Int = list.length * 2
       val res = factory(list.length)

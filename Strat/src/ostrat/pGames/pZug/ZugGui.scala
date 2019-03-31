@@ -73,7 +73,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     }
     
     case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
-      squad.action = Move(l)
+      squad.action = Move(Coods.fromSeq(l))
       repaintMap
     }
     

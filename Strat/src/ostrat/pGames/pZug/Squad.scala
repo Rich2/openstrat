@@ -8,7 +8,7 @@ import pStrat._
 class Squad(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) extends Lunit
 {
   var action: Action = NoAction
-  def move(newMove: Cood *): Unit = action = Move(newMove.toList)
+  def move(newMove: Cood *): Unit = action = Move(Coods.fromSeq(newMove) )
   def fire(x: Int, y: Int): Unit = action = Fire(x cc y)
   val colour = polity.colour
   override def toString = "Squad" - (polity.toString).enParenth
@@ -36,7 +36,7 @@ object Squad
 }
 
 sealed trait Action
-case class Move(coods: List[Cood]) extends Action
+case class Move(coods: Coods) extends Action
 case class Fire(cood: Cood) extends Action
 object NoAction extends Action
 
