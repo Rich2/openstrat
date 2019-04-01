@@ -14,7 +14,11 @@ abstract class CanvasUser(val title: String)
     movedObjs.foreach
     { case ce: PaintElem[_] => canv.rendElem(ce)         
       case cs: GraphicSubject[_] => { canv.rendElems(cs.elems); subjs ::= cs }         
-      case nss: NoScaleShape => { canv.rendElems(nss.elems.slate(nss.referenceVec)); subjs ::= nss }
+      case nss: NoScaleShape =>
+        { canv.rendElems(nss.elems.slate(nss.referenceVec));
+        subjs ::= nss
+        }
+      case ga: GraphicActive => subjs ::= ga  
     }
     subjs
   }

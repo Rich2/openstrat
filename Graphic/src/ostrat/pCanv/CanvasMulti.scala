@@ -17,53 +17,10 @@ abstract class CanvasMulti(title: String) extends CanvasUser(title)
     {
       panels.find(_.clipPoly.ptInPolygon(v)).foreach{ pan =>
         val objs: List[AnyRef] = pan.subjs.ptInList(v)
-//        pan.simple match
-//        {
-//          case true => objs match 
-//          {
-//            case Seq(f: Function0[_]) => f()
-//            case Seq(cmd: MButtonCmd) => cmd(b)
-//            case obj => deb(obj.toString + " not recognised")
-//          }
-//        case _ =>
-          pan.mouseUp(v, b, objs)
-      
+        pan.mouseUp(v, b, objs)     
     }
   }
-  
-//  canv.mouseDown = (v, b) =>
-//    {
-//      panels.find(_.clipPoly.ptInPolygon(v)).foreach{ pan =>
-//        val objs: List[AnyRef] = pan.subjs.ptInList(v)
-//        pan.simple match
-//        {
-//          case true => //objs match 
-////                  {
-////                     case Seq(f: Function0[_]) => f()
-////                     case Seq(cmd: MButtonCmd) => cmd(b)
-////                     case obj => println(obj.toString + " not recognised")
-////                  }
-//          case _ => pan.mouseDown(v, b, objs)
-//        }
-//      }
-//    }
-//   canv.mouseMoved = (v, b) =>
-//      {         
-//         panels.find(_.clipPoly.ptInPolygon(v)).foreach(pan =>
-//            {               
-//               val objs: Seq[Any] = pan.subjs.flatMap(_(v)).reverse
- //pan.fMouseMoved(v, b, objs)
-//               
-//            })
-//      }
-//    canv.mouseDragged = (v, b) =>
-//      {         
-//         panels.find(_.clipPoly.ptInPolygon(v)).foreach{ pan =>
-//            val objs: Seq[Any] = pan.subjs.ptInList(v)
-//            pan.fMouseDragged(v, b, objs)            
-//         }
-//      }  
-      
+    
   def refresh(): Unit = panels.foreach(refreshPanel)   
    
   def refreshPanel(panel: Panel): Unit =
