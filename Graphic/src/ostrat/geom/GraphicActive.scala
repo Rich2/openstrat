@@ -22,7 +22,7 @@ object GraphicActive
 }
 
 /** An active transparent pointable polygon */
-trait PolyActive extends GraphicActive
+trait PolyActiveTr extends GraphicActive
 { def poly: Polygon
   override def boundingRect = poly.boundingRect
   override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
@@ -38,11 +38,11 @@ trait ClickShapeTr extends GraphicActive
 }
 
 /** A pointable polygon without visual */
-case class PolyActiveOnly(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActiveOnly] with PolyActive
+case class PolyActiveOnly(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActiveOnly] with PolyActiveTr
 {
   override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj, zOrder)
 }
 
 /** A pointable shape without visual */
-case class ClickShape(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[ClickShape] with ClickShapeTr
-{ override def fTrans(f: Vec2 => Vec2) = ClickShape(shape.fTrans(f), evObj) }
+case class ShapeActiveOnly(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[ShapeActiveOnly] with ClickShapeTr
+{ override def fTrans(f: Vec2 => Vec2) = ShapeActiveOnly(shape.fTrans(f), evObj) }

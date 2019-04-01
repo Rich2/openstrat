@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 case class PolySubj(cen: Vec2, poly: Polygon, evObj: AnyRef, elems: List[PaintElem[_]], zOrder: Int = 0) extends GraphicSubject[PolySubj] with
-PolyActive
+PolyActiveTr
 {  
    def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.fTrans(f), zOrder)   
    override def addElems(newElems: List[PaintElem[_]]): PolySubj = new PolySubj(cen, poly, evObj, elems ::: newElems, zOrder)
