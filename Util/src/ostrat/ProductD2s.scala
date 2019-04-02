@@ -1,7 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
+/** Base trait for Array[Double] base collections of Products of 2 Doubles. */
+trait ProductD2s[A <: ProdD2] extends Any with ProductDs[A]
 {
   def productSize: Int = 2
   def newElem(d1: Double, d2: Double): A

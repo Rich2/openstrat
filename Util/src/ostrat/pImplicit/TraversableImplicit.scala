@@ -127,7 +127,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   }
     
   /** product map method maps from a Traversable to an Array based ProductValues class. */
-  def pMap[B , C <: ProductValues[B]](f: A => B)(implicit factory: Int => C): C =
+  def pMap[B , C <: ProductVals[B]](f: A => B)(implicit factory: Int => C): C =
   { val res = factory(thisTrav.size)
     var count: Int = 0
     thisTrav.foreach { orig =>
@@ -139,7 +139,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   }
   
   /** Copies from a Traversable to an Array based ProductValues class. */
-  def toPValues[B <: ProductValues[A]](implicit factory: Int => B): B =
+  def toPValues[B <: ProductVals[A]](implicit factory: Int => B): B =
   { val res = factory(thisTrav.size)
     var count: Int = 0
     thisTrav.foreach { orig =>      

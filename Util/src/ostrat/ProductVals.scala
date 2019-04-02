@@ -2,7 +2,7 @@
 package ostrat
 
 /** This is the base trait for the ProductDoubles and ProductInts classes. */
-trait ProductValues[A] extends Any
+trait ProductVals[A] extends Any
 { def typeName: Symbol
   override def toString: String = typeName.name - MapList(_.toString).commaParenth
   def productSize: Int
@@ -54,7 +54,7 @@ trait ProductValues[A] extends Any
     while(count > 0) { count -= 1; f(apply(count), count) }
   }
      
-  def pMap[B , N <: ProductValues[B]](f: A => B)(implicit factory: Int => N): N =
+  def pMap[B , N <: ProductVals[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(length)
     var count: Int = 0
     while (count < length)
@@ -80,7 +80,7 @@ trait ProductValues[A] extends Any
   }
    
   /** map every 2 elements of type A from this ProductValue Collection A to 1 element of B Product Value collection N[B]. */
-  def by2PMap[B , N <: ProductValues[B]](f: (A, A) => B)(implicit factory: Int => N): N =
+  def by2PMap[B , N <: ProductVals[B]](f: (A, A) => B)(implicit factory: Int => N): N =
   { val res = factory(length / 2)
     var count: Int = 0
     while (count < length)
@@ -108,7 +108,7 @@ trait ProductValues[A] extends Any
   
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    *  type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++ [N <: ProductValues[A]](operand: N)(implicit factory: Int => N): N =
+  def ++ [N <: ProductVals[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(length + operand.length)
     iForeach((elem, i) => res.setElem(i, elem))
     operand.iForeach((elem, i) => res.setElem(i + length, elem))
@@ -116,7 +116,7 @@ trait ProductValues[A] extends Any
   }
   
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+ [N <: ProductValues[A]](operand: A)(implicit factory: Int => N): N =
+  def :+ [N <: ProductVals[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(length + 1)
     iForeach((elem, i) => res.setElem(i, elem))
     res.setElem(length, operand)

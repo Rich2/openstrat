@@ -2,19 +2,20 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait ProductDoubles[A] extends Any with ProductValues[A]
+/** Base trait for Array[Double] based collections of Products of Doubles. */
+trait ProductDs[A] extends Any with ProductVals[A]
 {
   def arr: Array[Double]
   def arrLen = arr.length 
 }
 
-trait ProductInts[A] extends Any with ProductValues[A]
+trait ProductInts[A] extends Any with ProductVals[A]
 {
   def arr: Array[Int]
   def arrLen = arr.length 
 }
 
-abstract class ProductValuesBuilder[A, M](typeSym: Symbol) extends PersistCompound[M](typeSym)
+abstract class ProductValsBuilder[A, M](typeSym: Symbol) extends PersistCompound[M](typeSym)
 {
   /** Atomic Value type normally Double or Int. */
   type VT
@@ -25,14 +26,14 @@ abstract class ProductValuesBuilder[A, M](typeSym: Symbol) extends PersistCompou
   def newBuffer: ArrayBuffer[VT]
 }
 
-abstract class ProductDoublesBuilder[A, M <: ProductDoubles[A]](typeSym: Symbol) extends ProductValuesBuilder[A, M](typeSym)
+abstract class ProductDsBuilder[A, M <: ProductDs[A]](typeSym: Symbol) extends ProductValsBuilder[A, M](typeSym)
 {
   type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
 }
 
-abstract class ProductIntsBuilder[A, M <: ProductInts[A]](typeSym: Symbol) extends ProductValuesBuilder[A, M](typeSym)
+abstract class ProductIntsBuilder[A, M <: ProductInts[A]](typeSym: Symbol) extends ProductValsBuilder[A, M](typeSym)
 {
   type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
