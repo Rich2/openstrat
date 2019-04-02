@@ -19,7 +19,6 @@ case class ShapeDraw(segs: Shape, lineWidth: Double, colour: Colour = Black, zOr
 
 case class ShapeFillDraw(segs: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) extends
 ShapeElem[ShapeFillDraw]
-{
-  override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
+{ override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(segs.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
 }
  

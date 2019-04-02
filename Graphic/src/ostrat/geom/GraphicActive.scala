@@ -29,7 +29,7 @@ trait PolyActiveTr extends GraphicActive
 }
 
 /** A pointable shape */
-trait ClickShapeTr extends GraphicActive
+trait ShapeActiveTr extends GraphicActive
 { def shape: Shape
   def innerPoly: Polygon = shape.pMap(_.pEnd)
   def boundingRect: BoundingRect = innerPoly.boundingRect
@@ -38,11 +38,11 @@ trait ClickShapeTr extends GraphicActive
 }
 
 /** A pointable polygon without visual */
-case class PolyActiveOnly(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActiveOnly] with PolyActiveTr
+case class PolyActive(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActive] with PolyActiveTr
 {
-  override def fTrans(f: Vec2 => Vec2) = PolyActiveOnly(poly.fTrans(f), evObj, zOrder)
+  override def fTrans(f: Vec2 => Vec2) = PolyActive(poly.fTrans(f), evObj, zOrder)
 }
 
 /** A pointable shape without visual */
-case class ShapeActiveOnly(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[ShapeActiveOnly] with ClickShapeTr
-{ override def fTrans(f: Vec2 => Vec2) = ShapeActiveOnly(shape.fTrans(f), evObj) }
+case class ShapeActive(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[ShapeActive] with ShapeActiveTr
+{ override def fTrans(f: Vec2 => Vec2) = ShapeActive(shape.fTrans(f), evObj) }

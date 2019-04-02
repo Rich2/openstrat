@@ -61,7 +61,7 @@ class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] wit
   def draw(lineWidth: Double, lineColour: Colour = Black) = ShapeDraw(this,lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = ShapeFillDraw(this, fillColour, lineWidth, lineColour)
   def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[GraphicElem[_]] =
-    List(ShapeFillDraw(this, fillColour, lineWidth, lineColour), ShapeActiveOnly(this, evObj))
+    List(ShapeFillDraw(this, fillColour, lineWidth, lineColour), ShapeActive(this, evObj))
        
   def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): NoScaleShape = NoScaleShape(posn, this, evObj, List(ShapeFill(this, colour)))      
   def fillScale(colour: Colour, factor: Double): ShapeFill = ShapeFill(this.scale(factor), colour)

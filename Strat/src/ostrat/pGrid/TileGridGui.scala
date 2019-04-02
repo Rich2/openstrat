@@ -99,5 +99,5 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   def polyOfTileDisp(tileCood: Cood): Polygon = vertCoodsOfTile(tileCood).pMap(coodToDisp)
   final def tileDestinguishColour(tileCood: Cood): Colour = grid.tileDestinguishColour(tileCood)
   final def tileFill(tileCood: Cood, colour: Colour): PolyFill = polyOfTileDisp(tileCood).fill(colour)
-  final def tileActiveOnly(tileCood: Cood, refObj: AnyRef): PolyActiveOnly = PolyActiveOnly(polyOfTileDisp(tileCood), refObj)
+  final def tileActiveOnly(tileCood: Cood, refObj: AnyRef): PolyActive = PolyActive(polyOfTileDisp(tileCood), refObj)
 }
