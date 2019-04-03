@@ -17,7 +17,7 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    override def pPolyFill(pf: PolyFill): Unit = {}    
    override def pPolyDraw(dp: PolyDraw): Unit = {}
    override def pPolyFillDraw(pfd: PolyFillDraw): Unit = {}
-   override def pVec2sDraw(pod: Vec2sDraw): Unit = {}
+   override def pLinePathDraw(pod: LinePathDraw): Unit = {}
    
    override def lineDraw(ld: LineDraw): Unit = {}
    override def arcDraw(ad: ArcDraw): Unit = {}

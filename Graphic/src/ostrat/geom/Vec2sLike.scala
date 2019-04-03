@@ -42,7 +42,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with T
     }
   }
   
-  def draw(lineWidth: Double, colour: Colour = Colour.Black): Vec2sDraw = Vec2sDraw(this, lineWidth, colour)
+  def draw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
 }
 
 object Vec2s extends ProductD2sCompanion[Vec2, Vec2s]

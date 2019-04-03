@@ -37,6 +37,15 @@ object LinesDraw
     LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour, zOrder)
 }
 
+case class LinePathDraw(vec2s: Vec2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[LinePathDraw]
+{
+  def length = vec2s.length - 1
+  def xStart = vec2s.xStart
+  def yStart = vec2s.yStart
+  override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(vec2s.fTrans(f), lineWidth, colour, zOrder) 
+  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = vec2s.foreachEnd(f)
+}
+
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double],
     zOrder: Int) extends PaintElem[DashedLineDraw] with CurveLike
 {

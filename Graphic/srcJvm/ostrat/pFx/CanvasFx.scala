@@ -58,7 +58,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLen)
   }
 
-  override def tlVec2sDraw(pod: Vec2sDraw): Unit =
+  override def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.moveTo)

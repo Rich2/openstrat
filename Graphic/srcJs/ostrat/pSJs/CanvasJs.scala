@@ -79,7 +79,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke
   }
 
-  override def tlVec2sDraw(pod: Vec2sDraw): Unit =
+  override def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.moveTo)
