@@ -37,7 +37,7 @@ object LinesDraw
     LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour, zOrder)
 }
 
-case class LinePathDraw(vec2s: Vec2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[LinePathDraw]
+case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[LinePathDraw]
 {
   def length = vec2s.length - 1
   def xStart = vec2s.xStart

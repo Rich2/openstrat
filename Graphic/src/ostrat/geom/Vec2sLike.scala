@@ -20,8 +20,8 @@ trait Vec2sLike extends Any
   }
 }
 
-/** Array[Double] based collection class for Vec2s which doesn't represent a closed Polygon. Conversion to and from the Polygon class should not
- *  entail a runtime cost. */
+/** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
+ *  LinePath class should not entail a runtime cost. */
 class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with Transable[Vec2s] with Vec2sLike
 {
   override def typeName: Symbol = 'Vec2s
@@ -42,7 +42,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with T
     }
   }
   
-  def draw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
+  //def draw(lineWidth: Double, colour: Colour = Colour.Black): Vec2sDraw = LinePathDraw(this, lineWidth, colour)
 }
 
 object Vec2s extends ProductD2sCompanion[Vec2, Vec2s]
@@ -55,19 +55,3 @@ object Vec2s extends ProductD2sCompanion[Vec2, Vec2s]
   }
 }
 
-/** Companion object for the Vec2s collection class. */
-object LineSegs
-{
-  def apply(pStart: Vec2, pEnds: Vec2 *): Vec2s =
-  { val arr = new Array[Double](pEnds.length * 2 + 2)
-    arr(0) = pStart.x
-    arr(1) = pStart.y
-    var count = 0
-    while (count < pEnds.length)
-    { arr(count * 2 + 2) = pEnds(count).x
-      arr(count * 2 + 3) = pEnds(count).y
-      count += 1
-    }
-    new Vec2s(arr)
-  }
-}

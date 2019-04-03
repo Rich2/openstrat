@@ -22,7 +22,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
     }         
     BoundingRect(minX, maxX, minY, maxY)               
   }
-  def toVec2s: Vec2s = new Vec2s(arr)
+ // def toVec2s: Vec2s = new Vec2s(arr)
   def boundingWidth: Double = boundingRect.width
   def boundingHeight: Double = boundingRect.height   
   def polyCentre: Vec2 = boundingRect.cen

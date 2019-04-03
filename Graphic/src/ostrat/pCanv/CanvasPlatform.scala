@@ -58,7 +58,7 @@ trait CanvasPlatform extends RectGeom
    
   def vec2sDraw(pod: LinePathDraw): Unit = ife(pod.vec2s.length >= 2, pLinePathDraw(pod), deb(pod.vec2s.length.toString))
   final def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
-    vec2sDraw(LinePathDraw(LineSegs(pStart, pEnds :_*), lineWidth, colour))
+    vec2sDraw(LinePathDraw(LinePath(pStart, pEnds :_*), lineWidth, colour))
   def pLinePathDraw(pod: LinePathDraw): Unit  
    
   def lineDraw(ld: LineDraw): Unit
