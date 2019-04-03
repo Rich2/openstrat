@@ -31,8 +31,10 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolyDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
-    PolyFillDraw(this, fillColour, lineWidth, lineColour)   
-  def fillSubj(evObj: AnyRef, fillColour: Colour, layer: Int = 0): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour, layer)
+    PolyFillDraw(this, fillColour, lineWidth, lineColour)
+    
+  def fillActive(fillColour: Colour, evObj: AnyRef, layer: Int = 0): GraphicElems =
+    List(PolyFill(this, fillColour, layer), PolyActive(this, evObj, layer))
   
   def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black, layer: Int = 0): PolySubj =
     PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour, layer)
@@ -77,6 +79,8 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
     (insertionPoint until length).foreach(i => res.setElem(i + newVecs.length, apply(i)))
     res
   }
+  
+  def fillSubj(evObj: AnyRef, fillColour: Colour, layer: Int = 0): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour, layer)
 }
 
 object Polygon extends ProductD2sCompanion[Vec2, Polygon]

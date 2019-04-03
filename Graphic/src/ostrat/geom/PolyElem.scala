@@ -19,20 +19,10 @@ trait PolyElem[A] extends Any with PaintElem[A]
 }
 
 case class PolyFill(verts: Polygon, colour: Colour, zOrder: Int = 0) extends PolyElem[PolyFill]
-{
-  override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour, zOrder)
-  
-}
-
-object PolyFill
-{
-  
-}
+{ override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour, zOrder) }
 
 case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PolyElem[PolyDraw]
-{ 
-  override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour, zOrder) 
-}
+{ override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour, zOrder) }
 
 case class PolyFillDraw(verts: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) extends
 PolyElem[PolyFillDraw]
@@ -40,3 +30,10 @@ PolyElem[PolyFillDraw]
   override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
   def noFill: PolyDraw = PolyDraw(verts, lineWidth, lineColour, zOrder)
 }
+
+/** A pointable polygon without visual */
+case class PolyActive(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActive] with PolyActiveTr
+{ override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj, zOrder) }
+
+//case class PolyFillActive(poly: Polygon, colour: Colour, evObj: AnyRef, zOrder: Int = 0) extends PaintElem[PolyFillActive] with PolyActiveTr
+//{ override def fTrans(f: Vec2 => Vec2): PolyFillActive = PolyFillActive(poly.fTrans(f), colour, evObj, zOrder) }

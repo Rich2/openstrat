@@ -154,6 +154,7 @@ trait CanvasPlatform extends RectGeom
     case ad: ArcDraw => arcDraw(ad)
     case bd: BezierDraw => bezierDraw(bd)
     case tg: TextGraphic => textGraphic(tg)
-    case to: TextOutline => textOutline(to)
+    case to: TextOutline => textOutline(to)    
+    case el => deb(el.toString -- "Not implemented")
   }    
 }

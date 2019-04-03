@@ -31,13 +31,13 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
   val fHex: OfETile[BcTile, ESideOnly] => GraphicElems = etog =>
     { import etog._         
       val colour: Colour = tile.colour
-      val poly = vertDispVecs.fillSubj(tile, colour)
+      val poly = vertDispVecs.fillActive(colour, tile)
       
       val tileText: GraphicElems = ifScaleCObjs(68,
           { val strs: List[String] = List(yxStr, cenLL.toString)        
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)              
           })         
-          poly :: tileText
+          poly ::: tileText
       }
    def fSide: OfESide[BcTile, ESideOnly] => GraphicElems = ofs => {
       import ofs._

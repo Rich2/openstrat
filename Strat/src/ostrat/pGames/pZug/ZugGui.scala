@@ -19,8 +19,8 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     val colour: Colour = tile.colour         
     
     val tv = tile.terr match
-    { case _ : Building => List(vertDispVecs.fillSubj(tile, LightGreen), Square.fill(pScale * 2.5, colour, cen, 1))
-      case _ => vertDispVecs.fillSubj(tile, colour, -1) :: Nil        
+    { case _ : Building => vertDispVecs.fillActive(LightGreen, tile) :+ Square.fill(pScale * 2.5, colour, cen, 1)
+      case _ => vertDispVecs.fillActive(colour, tile, -1)        
     }
     
     val tText = ifScaleCObj(60, TextGraphicCen(xyStr, 14, cen, colour.contrastBW, 2))

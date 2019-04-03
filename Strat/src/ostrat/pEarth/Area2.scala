@@ -18,7 +18,7 @@ abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) exten
          { 
             val v2s: Polygon = d2s.pMap(eg.trans)// eg.transSeq(d2s)
             val cenXY: Vec2 = eg.latLongToXY(cen)
-            val vis1: GraphicElems = ife(fill, List(v2s.fillSubj(this, terr.colour)), Nil)
+            val vis1: GraphicElems = ife(fill, v2s.fillActive(terr.colour, this), Nil)
             val vis2: GraphicElems = List(v2s.draw(2.0, terr.colour.redOrPink)).
                ifAppendList(eg.scale < textScale && fill, TextGraphic.lines(aStrs, 10, cenXY, terr.contrast))
             vis1 ::: vis2

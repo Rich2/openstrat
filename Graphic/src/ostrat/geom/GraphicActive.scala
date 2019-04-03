@@ -37,12 +37,6 @@ trait ShapeActiveTr extends GraphicActive
   override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
 }
 
-/** A pointable polygon without visual */
-case class PolyActive(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActive] with PolyActiveTr
-{
-  override def fTrans(f: Vec2 => Vec2) = PolyActive(poly.fTrans(f), evObj, zOrder)
-}
-
 /** A pointable shape without visual */
 case class ShapeActive(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[ShapeActive] with ShapeActiveTr
 { override def fTrans(f: Vec2 => Vec2) = ShapeActive(shape.fTrans(f), evObj) }

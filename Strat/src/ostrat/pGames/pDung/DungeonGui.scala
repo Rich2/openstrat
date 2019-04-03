@@ -14,7 +14,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
   def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => GraphicElems = tog =>
   { import tog._
     val colour: Colour = tile.colour
-    val tv = vertDispVecs.fillSubj(tile, colour)
+    val tv = vertDispVecs.fillActive(colour, tile)
     val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
     val tText = ifScaleCObj(60, TextGraphic(xyStr, 14, cen, colour.contrastBW))
     val player = ifScaleOptObjs(60, tile.charac){charac =>
@@ -22,7 +22,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
       val poly2 = poly1.scale(tog.tScale / 2.5).rotate(charac.facing.angle).slate(tog.cen)      
       List(poly2.fillDrawSubj(charac, charac.colour, 1), TextGraphic(charac.iden.toString, 16, cen, charac.colour.contrast))
     }
-    List(tv) ++ tText ++ player ++ sides
+    tv ++ tText ++ player ++ sides
   }
   
   def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)
