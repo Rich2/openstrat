@@ -39,6 +39,7 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
   def sideRowOddLen: Int = (sideRowOddEnd - sideRowOddStart) / 2
   override def tileNum: Int = xRow2Len * yRow2Len + xRow4Len * yRow4Len
   override def sideNum: Int = ???
+  override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGrid.adjTileCoodsOfTile(tileCood)
   
   val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
   

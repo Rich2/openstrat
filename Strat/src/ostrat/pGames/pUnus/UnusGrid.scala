@@ -4,8 +4,11 @@ package pGames.pUnus
 import pGrid._ 
 
 /** A Player has a very simple token with a letter and colour for recognition." */
-class Player(val char: Char, val colour: Colour) extends WithColour
+abstract class Player(val char: Char, val colour: Colour) extends WithColour
 {
+  def x: Int
+  def y: Int
+  def cood: Cood = Cood(x, y)
   override def toString = "Player " + char
 }
 class PossiblePlayer(val char: Char, val colour: Colour)

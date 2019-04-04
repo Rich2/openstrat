@@ -54,7 +54,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
         val newCood = newTile.cood
         val oldCood = warr.cood
         
-        if (HexGrid.adjTileCoodsOfTile(oldCood).contains(newCood) && warr.movePts > 0)
+        if (grid.isTileCoodAdjTileCood(oldCood, newCood) && warr.movePts > 0)
         {
           warr.dirn = HexDirn.fromNeighbTileCood(newCood - oldCood)
           def out(elapsed: Integer, startTime: Integer): Unit =
