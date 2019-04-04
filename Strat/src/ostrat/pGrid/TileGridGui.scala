@@ -48,6 +48,9 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   /** Map all Tiles to an Array with function and flatten into Single Array. */
   def tilesFlatMapAll[R: ClassTag](f: TileT => Array[R]): Array[R] = grid.tilesFlatMapAll(f)
   
+  /** Map all Tiles to a List with function and flatten into Single List. */
+  def tilesFlatMapListAll[R: ClassTag](f: TileT => List[R]): List[R] = grid.tilesFlatMapListAll(f)
+  
   /** Map all tiles Cood to a List. */
   @inline final def tilesCoodMapListAll[A](f: Cood => A): List[A] = grid.tilesCoodMapListAll(f)
   /** FlatMap all tiles Cood to a List. */

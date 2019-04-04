@@ -34,7 +34,8 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
     PolyFillDraw(this, fillColour, lineWidth, lineColour)
     
   def fillActive(fillColour: Colour, evObj: AnyRef, layer: Int = 0): GraphicElems =
-    List(PolyFill(this, fillColour, layer), PolyActive(this, evObj, layer))
+    List(PolyFill(this, fillColour, layer), PolyActive(this, evObj, layer))   
+    
     
   def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0): GraphicElems =
     List(PolyFillDraw(this, fillColour,lineWidth, lineColour, zOrder), PolyActive(this, evObj, zOrder))  

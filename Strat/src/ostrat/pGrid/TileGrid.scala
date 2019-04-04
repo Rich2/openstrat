@@ -101,7 +101,20 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
       acc ++= newRes
     }
     acc.toArray
-  }  
+  }
+  
+  /** Map all Tiles to an List with function and flatten into Single List. */
+  def tilesFlatMapListAll[R: ClassTag](f: TileT => List[R]): List[R] =
+  {
+    var acc: List[R] = Nil
+    foreachTilesCoodAll{ tileCood =>
+      val tile = getTile(tileCood)
+      val newRes: List[R] = f(tile)
+      acc :::= newRes
+    }
+    acc.reverse
+  }
+  
   
   /** Map all tiles' Cood to a List[B]. */
   final def tilesCoodMapListAll[B](f: Cood => B): List[B] =
@@ -159,6 +172,18 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
       })    
     acc.reverse
   }
+  
+  final def tilesOptionFlattenDispAll(f: TileT => Option[GraphicElems]): GraphicElems = 
+  {
+    var acc: GraphicElems = Nil
+    foreachTileAll(t => f(t) match
+      {
+      case None => acc
+      case Some(newList) => acc :::= newList
+      })    
+    acc.reverse
+  }
+  
   /** Set tile row from the Cood. */
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 

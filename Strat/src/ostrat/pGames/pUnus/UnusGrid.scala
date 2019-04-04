@@ -5,6 +5,9 @@ import pGrid._
 
 /** A Player has a very simple token with a letter and colour for recognition." */
 class Player(val char: Char, val colour: Colour) extends WithColour
+{
+  override def toString = "Player " + char
+}
 class PossiblePlayer(val char: Char, val colour: Colour)
 
 case class UTile(x: Int, y: Int, oPlayer: Option[Player]) extends Tile
