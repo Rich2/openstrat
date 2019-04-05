@@ -47,7 +47,7 @@ class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) exten
         case Some(myMove) if moves.exists(m => player != m.player & (myMove.destination == m.start | myMove.destination == m.destination)) => 
           newGrid.fSetTile(tile.cood, Some(player))
       
-        case Some(myMove) => newGrid.fSetTile(myMove.destination, Some(player))  
+        case Some(myMove) => {player.oDirn = None; newGrid.fSetTile(myMove.destination, Some(player)) }  
       }))
     newGrid
   }

@@ -26,8 +26,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
     tiles ::: units ::: sidesDrawAll()
   }
   
-  //optional members
-  
+  //optional members  
   
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
