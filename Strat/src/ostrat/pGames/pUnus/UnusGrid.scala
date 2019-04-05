@@ -4,7 +4,7 @@ package pGames.pUnus
 import pGrid._ 
 
 /** A Player has a very simple token with a letter and colour for recognition." */
-abstract class Player(val char: Char, val colour: Colour) extends WithColour
+abstract class Player(val char: Char, val colour: Colour, var oDirn: Option[HexDirn] = None) extends WithColour
 {
   def x: Int
   def y: Int
@@ -13,6 +13,7 @@ abstract class Player(val char: Char, val colour: Colour) extends WithColour
 }
 class PossiblePlayer(val char: Char, val colour: Colour)
 
+/** A very Simple Tile for UnusGame. */
 case class UTile(x: Int, y: Int, oPlayer: Option[Player]) extends Tile
 
 object UTile

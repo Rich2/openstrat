@@ -20,6 +20,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   def viewStr: String = focus.str2 -- pScale.str1
   def updateView(): Unit = {repaintMap; setStatus(viewStr) }
   override def eTop(): Unit = reTop(guButs :+ status)
+  def rePanels(): Unit = {repaintMap; eTop }
   def focusStr2 = grid.cen.str2
   val fTrans: Vec2 => Vec2 = v => (v - focus) * pScale
   //def vertCoodsOfTile(tileCood: Cood): Coods = grid.vertCoodsOfTile(tileCood)

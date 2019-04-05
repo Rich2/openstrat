@@ -9,6 +9,7 @@ class UnusGui(canv: CanvasPlatform, grid: UnusGrid)
   new UnusSetGui(canv, grid)
 }
 
+/** This needs tidying up. */
 class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridGui[UTile, SideBare, UnusGrid]("Unus Game")
 {
   //Required members
@@ -16,9 +17,14 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   deb(pScale.toString)
   var focus: Vec2 = grid.cen  
   override def mapObjs =
-    tilesFlatMapListAll{t => List(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) } :::
-    grid.tilesOptionFlattenDispAll(t => t.oPlayer.map(p =>
-      Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)))  ::: sidesDrawAll()
+  { val tiles = tilesFlatMapListAll{t => List(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) } 
+    val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
+      val rect = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
+      val arr = p.oDirn.map(dirn => CoodLine(t.cood, t.cood + dirn.relCood2).toLine2(coodToDisp).draw(2, p.colour, -1))
+      arr.toList ::: rect
+    }
+    tiles ::: units ::: sidesDrawAll()
+  }
   
   //optional members
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
@@ -32,7 +38,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
     case (RightButton, List(p : Player), List(moveTile: UTile)) if grid.isTileCoodAdjTileCood(p.cood, moveTile.cood) =>
       {        
         statusText = p.toString -- "move to" -- moveTile.cood.str
-        eTop()
+        p.oDirn = HexDirn.optFromNeighbTileCood(p.cood, moveTile.cood)
+        rePanels
       }
     case (RightButton, List(p : Player), List(moveTile: UTile)) =>
       {        
@@ -52,6 +59,5 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   }   
     
   mapPanel.backColour = Colour.Wheat
-  eTop()
-  repaintMap
+  rePanels
 }

@@ -6,7 +6,9 @@ import geom._
 class HexDirn(x: Int, y: Int)
 {
    val relCood: Cood = Cood(x, y)
-   val vec: Vec2 = HexGrid.coodToVec2(relCood) 
+   def relCood2: Cood = Cood(x * 2, y * 2)
+   
+   def vec: Vec2 = HexGrid.coodToVec2(relCood) 
 }
 
 object HCen extends HexDirn(0, 0) 
@@ -29,6 +31,17 @@ object HexDirn
       case (-4, 0) => HLeft
       case (-2, 2) => HUpLeft
       case _ => throw excep("HexDirn")
+   }
+   
+   def optFromNeighbTileCood(cood1: Cood, cood2: Cood): Option[HexDirn] = (cood2 -cood1) match
+   {
+      case Cood(2, 2) => Some(HUpRight)
+      case Cood(4, 0) => Some(HRight)
+      case Cood(2, -2) => Some(HDownRight)
+      case Cood(-2, -2) => Some(HDownLeft)
+      case Cood(-4, 0) => Some(HLeft)
+      case Cood(-2, 2) => Some(HUpLeft)
+      case _ => None
    }
    
 }

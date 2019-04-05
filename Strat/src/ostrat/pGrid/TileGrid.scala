@@ -173,13 +173,13 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     acc.reverse
   }
   
-  final def tilesOptionFlattenDispAll(f: TileT => Option[GraphicElems]): GraphicElems = 
+  final def tilesOptionFlattenDispAll[A](f1: TileT => Option[A])(f2: (TileT, A) => GraphicElems): GraphicElems = 
   {
     var acc: GraphicElems = Nil
-    foreachTileAll(t => f(t) match
+    foreachTileAll(t => f1(t) match
       {
       case None => acc
-      case Some(newList) => acc :::= newList
+      case Some(a) => acc :::= f2(t, a)
       })    
     acc.reverse
   }

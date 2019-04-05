@@ -29,6 +29,6 @@ trait TileGridReg[TileT <: Tile, SideT <: TileSide] extends TileGrid[TileT, Side
   /** All the grids sides represented as Line2s. */  
   final def sideLinesAll: Line2s = foreachSideCoodPDMapAll[Line2, Line2s](coodToLine2(_))
   def adjTileCoodsOfTile(tileCood: Cood): Coods
-  def isTileCoodAdjTileCood(tileCood1: Cood, tileCood2: Cood): Boolean = adjTileCoodsOfTile(tileCood1).contains(tileCood2)
+  def isTileCoodAdjTileCood(tileCood1: Cood, tileCood2: Cood): Boolean = adjTileCoodsOfTile(tileCood1).contains(tileCood2)  
 }
 

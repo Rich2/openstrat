@@ -84,6 +84,7 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
    
   /** Warning needs modification. */
   override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGrid.adjTileCoodsOfTile(tileCood)
+  
    
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of 
    *  departure and the tile of arrival. */
@@ -142,9 +143,6 @@ object HexGrid
    }
    def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
    
-   
-   
-     
    val yDist =  2 / sqrt(3) 
    val yDist2 =  4 / sqrt(3)
    //val yRatio = sqrt(3)
