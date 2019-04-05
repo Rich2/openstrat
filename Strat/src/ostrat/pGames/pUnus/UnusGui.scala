@@ -17,8 +17,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   var focus: Vec2 = grid.cen  
   override def mapObjs =
     tilesFlatMapListAll{t => List(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) } :::
-    grid.tilesOptionFlattenDispAll(t => t.oPlayer.map(p => Rectangle(120, 80, coodToDisp(t.cood)).fillDrawActive(p.colour, p, 2)))  :::
-    sidesDrawAll()
+    grid.tilesOptionFlattenDispAll(t => t.oPlayer.map(p =>
+      Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)))  ::: sidesDrawAll()
   
   //optional members
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match

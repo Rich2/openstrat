@@ -18,6 +18,7 @@ trait PolyElem[A] extends Any with PaintElem[A]
    def yArray: Array[Double] = verts.elem2sArray
 }
 
+/** Immutable Graphic element that defines, fills and draws a Polygon */ 
 case class PolyFill(verts: Polygon, colour: Colour, zOrder: Int = 0) extends PolyElem[PolyFill]
 { override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour, zOrder) }
 
