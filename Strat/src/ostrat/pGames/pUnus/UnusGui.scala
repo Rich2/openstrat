@@ -25,7 +25,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   {
     case (LeftButton, _, cl) =>
     { selected = clickList.fHead(Nil, List(_))
-      statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+      statusText = selected.headOption.fold("Nothing Selected")(_.toString)
       eTop()            
     }
     

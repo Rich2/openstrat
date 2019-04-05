@@ -15,6 +15,7 @@ object Unus1
     newGrid.setTilesAll(None)
     newGrid.fSetTile(4, 4, Some(PlayerA(4, 4)))
     newGrid.fSetTile(8, 4, Some(PlayerB(8, 4)))
+    newGrid.fSetTile(10, 6, Some(PlayerC(10, 6)))
     newGrid
   }
 }
