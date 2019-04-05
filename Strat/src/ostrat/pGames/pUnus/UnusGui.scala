@@ -29,8 +29,16 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
       eTop()            
     }
     
-    case (RightButton, List(p : Player), List(newTile: UTile)) if grid.isTileCoodAdjTileCood(p.cood, newTile.cood) => deb("Move")
-    case (RightButton, List(p : Player), l) => deb("PlayerMove" -- l.toString)
+    case (RightButton, List(p : Player), List(moveTile: UTile)) if grid.isTileCoodAdjTileCood(p.cood, moveTile.cood) =>
+      {        
+        statusText = p.toString -- "move to" -- moveTile.cood.str
+        eTop()
+      }
+    case (RightButton, List(p : Player), List(moveTile: UTile)) =>
+      {        
+        statusText = p.toString -- "can not move to" -- moveTile.cood.str
+        eTop()
+      }
 //      scen.zPath(squad.cood, newTile.cood).foreach{l =>
 //      squad.action = Move(Coods.fromSeq(l))
 //      repaintMap
