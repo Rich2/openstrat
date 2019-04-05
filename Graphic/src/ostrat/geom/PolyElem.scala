@@ -35,5 +35,11 @@ PolyElem[PolyFillDraw]
 case class PolyActive(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActive] with PolyActiveTr
 { override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj, zOrder) }
 
-//case class PolyFillActive(poly: Polygon, colour: Colour, evObj: AnyRef, zOrder: Int = 0) extends PaintElem[PolyFillActive] with PolyActiveTr
-//{ override def fTrans(f: Vec2 => Vec2): PolyFillActive = PolyFillActive(poly.fTrans(f), colour, evObj, zOrder) }
+case class PolyFillDrawText(verts: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black,
+    zOrder: Int = 0) extends PolyElem[PolyFillDrawText]
+{
+  override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(verts.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour, zOrder)
+  def drawOnly: PolyDraw = PolyDraw(verts, lineWidth, lineColour, zOrder)
+  def textGraphicOnly: TextGraphic = TextGraphic(str, fontSize, verts.boundingRect.cen, Black, TextCen, zOrder)
+  def fillDrawOnly: PolyFillDraw = PolyFillDraw(verts, fillColour, lineWidth, lineColour, zOrder)
+}
