@@ -34,10 +34,13 @@ case class Move(start: Cood, dirn: HexDirn, player: Player)
 class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
     yTileMin, yTileMax)
 {
+  def getMoves: List[Move] = this.tilesMapOptionListAll(t => t.oPlayer.flatMap(p => p.oDirn.map(d => Move(t.cood, d, p))))
+  
   def resolveTurn(moves: List[Move]): UnusGrid =
   {
     val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax)
-    newGrid.foreachTileAll(tile => tile.oPlayer.foreach(player => moves.find(_.player == player) match
+    newGrid.setTilesAll(None)
+    this.foreachTileAll(tile => tile.oPlayer.foreach(player => moves.find(_.player == player) match
       {
         case None => newGrid.fSetTile(tile.cood, Some(player))
      

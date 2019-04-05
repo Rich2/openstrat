@@ -20,13 +20,15 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   { val tiles = tilesFlatMapListAll{t => List(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) } 
     val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
       val rect = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
-      val arr = p.oDirn.map(dirn => CoodLine(t.cood, t.cood + dirn.relCood2).toLine2(coodToDisp).draw(2, p.colour, -1))
+      val arr = p.oDirn.map(dirn => CoodLine(t.cood, t.cood + dirn.relCood).toLine2(coodToDisp).draw(2, p.colour, -1))
       arr.toList ::: rect
     }
     tiles ::: units ::: sidesDrawAll()
   }
   
   //optional members
+  
+  
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
@@ -57,7 +59,13 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
     
     case _ => deb("Other" -- clickList.toString)
   }   
-    
+  def turnCmd: MB0 = mb =>
+    {
+      val newGrid = grid.resolveTurn(grid.getMoves)
+      new UnusSetGui(canv, newGrid)
+    }
+  val bTurn = clickButton("T", turnCmd)   
+  override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)   
   mapPanel.backColour = Colour.Wheat
   rePanels
 }

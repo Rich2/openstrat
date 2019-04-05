@@ -25,7 +25,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       {
         case ::(head, _) if tog.tScale > 50 =>
         {
-          val maxOffset = tog.grid.coodToVec2(head.dirn.relCood)
+          val maxOffset = tog.grid.coodToVec2(head.dirn.halfRelCood)
           val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
           val posn = fTrans(gridPosn)
           val fillColour = head.faction.colour                      

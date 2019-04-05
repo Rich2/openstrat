@@ -83,7 +83,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     
     case _ => deb("Other" -- clickList.toString)
   }   
-  def turnCmd: MB0 = mb => ???//learn.LessonA1(canv)
+  def turnCmd: MB0 = mb => {}
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs :+ bTurn :+ status) 
   eTop()

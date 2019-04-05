@@ -144,19 +144,26 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     acc.reverse
   }
   
+  final def tilesMapOptionListAll[A](f: TileT => Option[A]): List[A] =
+  {
+    var acc: List[A] = Nil
+    foreachTileAll(t => acc = f(t).fold(acc)(a => a :: acc))
+    acc.reverse
+  }
+  
   final def tileCoodsFoldAll[R](f: Cood => R, fSum: (R, R) => R)(emptyVal: R): R =
   { var acc: R = emptyVal
     foreachTilesCoodAll { tileCood => acc = fSum(acc, f(tileCood)) }
     acc
   } 
   
-  /** Not sure how useful this method is. */
-  final def tileAndCoodsFoldAll[R](f: (TileT, Cood) => R, fSum: (R, R) => R)(emptyVal: R): R =
+  /** Folds All tiles. */
+  final def tilesFoldAll[R](f: TileT => R, fSum: (R, R) => R)(emptyVal: R): R =
   {
     var acc: R = emptyVal
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
-      val newRes: R = f(tile, tileCood)
+      val newRes: R = f(tile)
       acc = fSum(acc, newRes)
     }
     acc   
@@ -277,7 +284,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
      
   /** Fundamental method for producing GraphicElems from the Grid */
-  def tileAndCoodsDisplayFoldAll(f: (TileT, Cood) => GraphicElems): GraphicElems = tileAndCoodsFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
+  def tilesDisplayFoldAll(f: TileT => GraphicElems): GraphicElems = tilesFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
   def tileCoodsDisplayFoldAll(f: Cood => GraphicElems): GraphicElems = tileCoodsFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
   
   /** Warning implementations need modification. */   
