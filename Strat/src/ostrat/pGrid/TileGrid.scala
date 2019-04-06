@@ -18,15 +18,20 @@ import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
 trait TileGrid[TileT <: Tile, SideT <: TileSide]
 {  
-  val arr: Array[TileT]
-  def evTile: ClassTag[TileT]
   def xTileMin: Int
   def xTileMax: Int
   def yTileMin: Int
-  def yTileMax: Int  
+  def yTileMax: Int
+  
   def xArrLen: Int
   def yArrLen: Int
+  final def arrLen = yArrLen * xArrLen
+  def evTile: ClassTag[TileT]
+  val arr: Array[TileT]
   def xToInd(x: Int): Int
+  final def yToInd(y: Int): Int = y  - yTileMin
+  def xyToInd(x: Int, y: Int): Int = xToInd(x) + yToInd(y) * xArrLen
+  final def coodToInd(cood: Cood): Int = xyToInd(cood.x, cood.y)
   val yRatio: Double
   def xStep: Int 
   def tileNum: Int
@@ -39,11 +44,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def coodIsTile(x: Int, y: Int): Unit
   
   final def tileDestinguishColour(tileCood: Cood): Colour = tileDestinguish(tileCood, Red, Blue, Green, Orange)
-  def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A
-  
-  final def arrLen = yArrLen * xArrLen  
-  final def yToInd(y: Int): Int = y  - yTileMin
-  def xyToInd(x: Int, y: Int) = xToInd(x) + yToInd(y) * xArrLen
+  def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A  
   
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)

@@ -4,7 +4,7 @@ package pGames.pUnus
 import pGrid._ 
 
 /** A Player has a very simple token with a letter and colour for recognition." */
-abstract class Player(val char: Char, val colour: Colour, var oDirn: Option[HexDirn] = None) extends WithColour
+abstract class Player(val char: Char, val colour: Colour, var move: Option[Cood] = None) extends WithColour
 {
   def x: Int
   def y: Int
@@ -26,30 +26,41 @@ object UTile
   }
 }
 
-case class Move(start: Cood, dirn: HexDirn, player: Player)
-{
-  def destination: Cood = start + dirn.relCood
-}
+case class UTileInter(x: Int, y: Int, oPlayer: Option[Player], var potentialPlayer: Boolean = false)
+
+case class Move(player: Player, cood: Cood)
+
 
 class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
     yTileMin, yTileMax)
 {
-  def getMoves: List[Move] = this.tilesMapOptionListAll(t => t.oPlayer.flatMap(p => p.oDirn.map(d => Move(t.cood, d, p))))
+  def getMoves: List[Move] = this.tilesMapOptionListAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
   
-  def resolveTurn(moves: List[Move]): UnusGrid =
+  def resolveTurn(moves: List[Move]): UnusGrid = 
   {
+    val medGrid = new Array[UTileInter](arrLen)
+    this.foreachTilesXYAll{(x, y) =>
+      val t = getTile(x, y)
+      medGrid(xyToInd(x, y)) = new UTileInter(t.x, t.y, t.oPlayer)
+    }
+    moves.foreach{ m =>
+      if (this.isTileCoodAdjTileCood(m.player.cood, m.cood)) medGrid(coodToInd(m.cood)).potentialPlayer = true
+    }
     val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax)
     newGrid.setTilesAll(None)
     this.foreachTileAll(tile => tile.oPlayer.foreach(player => moves.find(_.player == player) match
       {
         case None => newGrid.fSetTile(tile.cood, Some(player))
      
-        case Some(myMove) if moves.exists(m => player != m.player & (myMove.destination == m.start | myMove.destination == m.destination)) => 
-          newGrid.fSetTile(tile.cood, Some(player))
-      
-        case Some(myMove) => {player.oDirn = None; newGrid.fSetTile(myMove.destination, Some(player)) }  
+        case Some(myMove) =>
+        {
+          val targ = medGrid(coodToInd(myMove.cood))
+          if (targ.oPlayer.nonEmpty | targ.potentialPlayer)        
+            newGrid.fSetTile(tile.cood, Some(player))
+          else  {player.move = None; newGrid.fSetTile(myMove.cood, Some(player)) } 
+        }
       }))
-    newGrid
+    newGrid    
   }
 }
 

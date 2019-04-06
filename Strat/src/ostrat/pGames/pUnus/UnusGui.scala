@@ -20,7 +20,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   { val tiles = tilesFlatMapListAll{t => List(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) } 
     val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
       val rect = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
-      val arr = p.oDirn.map(dirn => CoodLine(t.cood, t.cood + dirn.relCood).toLine2(coodToDisp).draw(2, p.colour, -1))
+      val arr = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
       arr.toList ::: rect
     }
     tiles ::: units ::: sidesDrawAll()
@@ -39,7 +39,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
     case (RightButton, List(p : Player), List(moveTile: UTile)) if grid.isTileCoodAdjTileCood(p.cood, moveTile.cood) =>
       {        
         statusText = p.toString -- "move to" -- moveTile.cood.str
-        p.oDirn = HexDirn.optFromNeighbTileCood(p.cood, moveTile.cood)
+        p.move = Some(moveTile.cood)
         rePanels
       }
     case (RightButton, List(p : Player), List(moveTile: UTile)) =>
