@@ -39,7 +39,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
     case (RightButton, List(mp : MPlayer), List(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
       {        
         statusText = mp.toString -- "move to" -- moveTile.cood.str
-        mp.move = Some(moveTile.cood)
+        //mp.move = Some(moveTile.cood)
         rePanels
       }
     case (RightButton, List(mp : MPlayer), List(moveTile: UTile)) =>

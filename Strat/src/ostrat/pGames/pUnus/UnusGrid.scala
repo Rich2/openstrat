@@ -4,7 +4,7 @@ package pGames.pUnus
 import pGrid._ 
 
 /** A Player has a very simple token with a letter and colour for recognition." */
-case class MPlayer(player: Player, x: Int, y: Int, var move: Option[Cood] = None) extends WithColour
+case class MPlayer(player: Player, x: Int, y: Int, move: Option[Cood] = None) extends WithColour
 {  
   def cood: Cood = Cood(x, y)
   override def toString = player.toString
@@ -53,16 +53,15 @@ class UnusGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) exten
     }
     val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax)
     newGrid.setTilesAll(None)
-    this.foreachTileAll(tile => tile.oPlayer.foreach(player => moves.find(_.mPlayer == player) match
+    this.foreachTileAll(tile => tile.oPlayer.foreach(mp => moves.find(_.mPlayer == mp) match
       {
-        case None => newGrid.fSetTile(tile.cood, Some(player))
+        case None => newGrid.fSetTile(tile.cood, Some(mp))
      
         case Some(myMove) =>
         {
           val targ = medGrid(coodToInd(myMove.cood))
-          if (targ.oPlayer.nonEmpty | targ.potentialPlayer)        
-            newGrid.fSetTile(tile.cood, Some(player))
-          else  {player.move = None; newGrid.fSetTile(myMove.cood, Some(player)) } 
+          if (targ.oPlayer.nonEmpty | targ.potentialPlayer) newGrid.fSetTile(tile.cood, Some(mp))
+          else newGrid.fSetTile(myMove.cood, Some(MPlayer(mp.player, myMove.cood.x, myMove.cood.y))) 
         }
       }))
     newGrid    
