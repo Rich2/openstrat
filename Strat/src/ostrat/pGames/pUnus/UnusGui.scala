@@ -6,11 +6,12 @@ import geom._, pCanv._, pGrid._
 /** Main application for Unus Game. */
 class UnusGui(canv: CanvasPlatform, grid: UnusGrid)
 {
-  new UnusSetGui(canv, grid)
+  val game = new UnusGame(grid)
+  new UnusSetGui(canv, grid, game)
 }
 
 /** This needs tidying up. */
-class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridGui[UTile, SideBare, UnusGrid]("Unus Game")
+class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGame) extends TileGridGui[UTile, SideBare, UnusGrid]("Unus Game")
 {
   //Required members
   var pScale: Double = scaleAlignMin
@@ -60,8 +61,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid) extends TileGridG
   }   
   def turnCmd: MB0 = mb =>
     {
-      val newGrid = grid.resolveTurn(grid.getMoves)
-      new UnusSetGui(canv, newGrid)
+      val newGrid = game.newTurn(grid.getMoves)
+      new UnusSetGui(canv, newGrid, game)
     }
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)   
