@@ -40,7 +40,9 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
     case (RightButton, List(mp : MPlayer), List(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
       {        
         statusText = mp.toString -- "move to" -- moveTile.cood.str
-        //mp.move = Some(moveTile.cood)
+        val stCood = mp.cood
+        val newMP = mp.copy(move = Some(moveTile.cood))
+        grid.fSetTile(stCood, Some(newMP))
         rePanels
       }
     case (RightButton, List(mp : MPlayer), List(moveTile: UTile)) =>
