@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGames.pUnus
-import Colour._
+import pGrid._, Colour._
 
 object Unus1
 {
@@ -13,9 +13,9 @@ object Unus1
   {
     val newGrid = new UnusGrid(2, 18, 2, 8)
     newGrid.setTilesAll(None)
-    newGrid.fSetTile(4, 4, Some(MPlayer(PlayerA, 4, 4)))
-    newGrid.fSetTile(8, 4, Some(MPlayer(PlayerB, 8, 4)))
-    newGrid.fSetTile(10, 6, Some(MPlayer(PlayerC, 10, 6)))
+    newGrid.fSetTile(4, 4, Some(MPlayer(PlayerA, 4 cc 4)))
+    newGrid.fSetTile(8, 4, Some(MPlayer(PlayerB, 8 cc 4)))
+    newGrid.fSetTile(10, 6, Some(MPlayer(PlayerC, 10 cc 6)))
     newGrid
   }
 }

@@ -26,9 +26,10 @@ object deb
 
 object debb
 {
-  def apply(): Unit = macro debImpl
+  def apply(): Unit = macro debbImpl
   
-  def debImpl(c: Context)(): c.Expr[Unit] = 
+  /** Simplest Macro shows source code position. Must include parenthesis debb(). Without the parenthesis the macro will not print. */
+  def debbImpl(c: Context)(): c.Expr[Unit] = 
   { import c.universe._     
     val pos: Position  = c.macroApplication.pos      
     val s1 = deb.macroPosn(c)(pos)

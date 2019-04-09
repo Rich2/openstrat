@@ -14,8 +14,7 @@ class UnusGui(canv: CanvasPlatform, grid: UnusGrid)
 class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGame) extends TileGridGui[UTile, SideBare, UnusGrid]("Unus Game")
 {
   //Required members
-  var pScale: Double = scaleAlignMin
-  deb(pScale.toString)
+  var pScale: Double = scaleAlignMin  
   var focus: Vec2 = grid.cen  
   override def mapObjs =
   { val tiles = tilesFlatMapListAll{t => List(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) } 
