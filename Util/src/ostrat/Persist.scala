@@ -104,6 +104,14 @@ object Persist
       case  _ => expr.exprParseErr[Int]
     }
   }
+  
+  implicit object CharPersist extends PersistSimple[Char]('Char)
+  { def persist(obj: Char): String = obj.toString.enqu1
+    override def fromExpr(expr: Expr): EMon[Char] = expr match      
+    { case CharToken(_, char) => Good(char)        
+      case  _ => expr.exprParseErr[Char]
+    }
+  }
    
   implicit object StringPersist extends PersistSimple[String]('Str)
   { def persist(obj: String): String = obj.enqu

@@ -79,4 +79,3 @@ case class PlusInToken(startPosn: TextPosn, str: String) extends OperatorToken
 /** A + or - Prefix Operator token */
 case class PlusPreToken(startPosn: TextPosn, str: String) extends OperatorToken
 case class AsignToken(startPosn: TextPosn) extends ExprMemberToken { def str = "=" }
-

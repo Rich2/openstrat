@@ -5,7 +5,8 @@ sealed trait TextPosn
 {
   def lineNum: Int
   def linePosn: Int
-  def nextChar: TextPosn
+  def right(num: Int): TextPosn
+  def nextChar: TextPosn = right(1)  
   def addLinePosn(offset: Int): TextPosn
   def addChars(chars: Seq[Char]): TextPosn
   def addStr(str: String): TextPosn
@@ -14,19 +15,21 @@ sealed trait TextPosn
 
 case class StrPosn(lineNum: Int, linePosn: Int) extends TextPosn
 {
-  def nextChar: TextPosn = StrPosn(lineNum, linePosn + 1)
-  def addChars(chars: Seq[Char]): TextPosn = StrPosn(lineNum, linePosn + chars.length)
-  def addStr(str: String): TextPosn = StrPosn(lineNum, linePosn + str.length)
-  def addLinePosn(offset: Int): TextPosn = StrPosn(lineNum, linePosn + offset)
-  def newLine: TextPosn = StrPosn(lineNum + 1, 1)
+  override def right(num: Int): TextPosn = StrPosn(lineNum, linePosn + num)
+  
+  override def addChars(chars: Seq[Char]): TextPosn = StrPosn(lineNum, linePosn + chars.length)
+  override def addStr(str: String): TextPosn = StrPosn(lineNum, linePosn + str.length)
+  override def addLinePosn(offset: Int): TextPosn = StrPosn(lineNum, linePosn + offset)
+  override def newLine: TextPosn = StrPosn(lineNum + 1, 1)
 }
 
 case class FilePosn(fileName: String, lineNum :Int, linePosn: Int) extends TextPosn
-{ def nextChar: TextPosn = FilePosn(fileName, lineNum, linePosn + 1)
-  def addChars(chars: Seq[Char]): TextPosn = FilePosn(fileName, lineNum, linePosn + chars.length)
-  def addStr(str: String): TextPosn = FilePosn(fileName, lineNum, linePosn + str.length)
-  def addLinePosn(offset: Int): TextPosn = FilePosn(fileName, lineNum, linePosn + offset)
-  def newLine: TextPosn = FilePosn(fileName, lineNum + 1, 1)
+{ 
+  override def right(num: Int): TextPosn = FilePosn(fileName, lineNum, linePosn + num)
+  override def addChars(chars: Seq[Char]): TextPosn = FilePosn(fileName, lineNum, linePosn + chars.length)
+  override def addStr(str: String): TextPosn = FilePosn(fileName, lineNum, linePosn + str.length)
+  override def addLinePosn(offset: Int): TextPosn = FilePosn(fileName, lineNum, linePosn + offset)
+  override def newLine: TextPosn = FilePosn(fileName, lineNum + 1, 1)
 }
 
 object FilePosn

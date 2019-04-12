@@ -99,7 +99,14 @@ object TokensFind
        mainLoop(finalTail, tp.addChars(alphaStr),  AlphaToken(tp, Symbol(alphaStr.mkString)) :: tokenAcc)            
      }
      
-     case '\'' => ???
+     case '\'' => rem match
+     {
+       case '\\' :: '\\' :: tail2 => mainLoop(tail2, tp.right(4), CharToken(tp, '\\') :: tokenAcc)
+       case '\\' :: '\"' :: tail2 => mainLoop(tail2, tp.right(4), CharToken(tp, '\"') :: tokenAcc)
+       case '\\' :: '\'' :: tail2 => mainLoop(tail2, tp.right(4), CharToken(tp, '\'') :: tokenAcc)
+       case c1 :: '\'' :: tail2 => mainLoop(tail2, tp.right(3), CharToken(tp, c1) :: tokenAcc)       
+       case _ => bad1(tp, "Unclosed Character literal.")
+     }
      
      case '\"' =>
      {

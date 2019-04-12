@@ -17,6 +17,6 @@ case class Player(val char: Char, val colour: Colour)
 
 object Player
 {
-  //implicit object Player extends Persist2[Char, Colour, Player]('Player, p => (p.char, p.colour), apply)
+  implicit object Player extends Persist2[Char, Colour, Player]('Player, p => (p.char, p.colour), apply)
 }
 
