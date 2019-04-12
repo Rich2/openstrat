@@ -99,6 +99,8 @@ object TokensFind
        mainLoop(finalTail, tp.addChars(alphaStr),  AlphaToken(tp, Symbol(alphaStr.mkString)) :: tokenAcc)            
      }
      
+     case '\'' => ???
+     
      case '\"' =>
      {
        def loop(rem: List[Char], strAcc: List[Char]): TokensMon = rem match

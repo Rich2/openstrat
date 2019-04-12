@@ -21,8 +21,6 @@ case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with Statement
   override def exprName: String = "EmptyClauseExpr"
 }
 
-
-
 /** The Dot or Stop Token. */
 case class DotToken(startPosn: TextPosn) extends ExprMemberToken { def str = "." }
 
@@ -31,6 +29,11 @@ case class DotToken(startPosn: TextPosn) extends ExprMemberToken { def str = "."
 case class AlphaToken(startPosn: TextPosn, sym: Symbol) extends ExprToken
 { override def exprName: String = "AlphaTokenExpr"
   override def str: String = sym.name
+}
+
+case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken
+{ def exprName = "CharTokenExpr"
+  def str = char.toString.enqu1
 }
 
 case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken

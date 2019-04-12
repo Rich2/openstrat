@@ -9,9 +9,9 @@ object Unus1
   object PlayerB extends Player('B', Orange)
   object PlayerC extends Player('C', Green)
   
-  def start: UnusGrid =
+  def apply(): UnusGrid =
   {
-    val newGrid = new UnusGrid(2, 18, 2, 8)
+    val newGrid = UnusGrid.start(2, 10, 2, 6)
     newGrid.setTilesAll(None)
     newGrid.fSetTile(4, 4, Some(MPlayer(PlayerA, 4 cc 4)))
     newGrid.fSetTile(8, 4, Some(MPlayer(PlayerB, 8 cc 4)))
