@@ -17,7 +17,7 @@ def crossSettings(name: String) = commonSettings ::: List(
 
 def projJvm(name: String): Project = Project(name+ "Jvm", file("target/" + name + "Jvm")).settings(crossSettings(name)).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "srcJvm",
-  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name /"srcTest", 
+  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name /"test/src", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"),
 )
@@ -80,8 +80,8 @@ lazy val zug = jsApp("zug", "0.0.1")
 lazy val civ = jsApp("civ", "0.0.1")
 lazy val draughts = jsApp("draughts", "0.0.1")
 
-lazy val js1 = project.aggregate(ww2, y1783, bc305, dungeon)
-lazy val js2 = project.aggregate(browsertest, zug, civ, draughts)
+lazy val js1 = Project("js1", file("target/" + "js1")).aggregate(ww2, y1783, bc305, dungeon)
+lazy val js2 = Project("js2", file("target/" + "js2")).aggregate(browsertest, zug, civ, draughts)
 
 //lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   //libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  
