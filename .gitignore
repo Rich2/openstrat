@@ -1,21 +1,9 @@
 project/project/
 target/
 SbtWork/
-MacrosJs/
-MacrosJvm/
-GraphicJvm/
-GraphicJs/
-CoreJs/
-CoreJvm/
-StratJvm/
-StratJs/
-JsPlay/
-FxPlay/
 DocProj/
 DevData/
 bin/
-js1/
-js2/
 
 LearnScala.zip
 LearnScala.tar.gz
