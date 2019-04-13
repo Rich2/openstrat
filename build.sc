@@ -18,7 +18,7 @@ trait PlatformsModule extends ScalaModule with Common
   { 
   	def scalaVersion = "2.12.8"
 	  def scalaJSVersion = "0.6.27" 
-	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
+	  def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
 	  
 	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
 	  
@@ -37,7 +37,7 @@ trait PlatformsModule extends ScalaModule with Common
   trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.6")
     def testFrameworks = Seq("utest.runner.Framework") 
-     def sources = T.sources(millSourcePath / 'src)  
+    def sources = T.sources(millSourcePath / 'src)  
   }
 }
 
@@ -45,13 +45,13 @@ object Util extends PlatformsModule
 { 
   def moduleDeps = Seq(Macros)  
   object test extends InnerTests  
-  object Js extends InnerJs {  def moduleDeps = Seq(Macros.Js)  }
+  object js extends InnerJs {  def moduleDeps = Seq(Macros.js)  }
   object Nat extends InnerNative
 
   object Macros extends PlatformsModule
   {
     def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-    object Js extends InnerJs
+    object js extends InnerJs
     object Nat extends InnerNative  
   }
 }
@@ -61,7 +61,7 @@ object Graphic extends PlatformsModule
   def moduleDeps = Seq(Util)
   
   object test extends InnerTests 
-  object Js extends InnerJs {  def moduleDeps = Seq(Util.Js)  }
+  object js extends InnerJs {  def moduleDeps = Seq(Util.js)  }
   object Nat extends InnerNative
 }
 
@@ -74,7 +74,7 @@ object Strat extends PlatformsModule
   {  //def moduleDeps = Seq(Graphic.test, Core)   
   }
   
-  object Js extends InnerJs { def moduleDeps = Seq(Graphic.Js) }
+  object js extends InnerJs { def moduleDeps = Seq(Graphic.js) }
   object Nat extends InnerNative
 }
 
@@ -85,5 +85,5 @@ object Learn extends PlatformsModule
 
 def run() = Strat.runBackground()
 def test = Strat.test
-def jsfast = Strat.Js.fastOpt
-def jsfull = Strat.Js.fullOpt
+def jsfast = Strat.js.fastOpt
+def jsfull = Strat.js.fullOpt

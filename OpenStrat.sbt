@@ -27,7 +27,7 @@ def projJvm(name: String): Project = proj(name + "Jvm").settings(crossSettings(n
 def jsSettings = List(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
 def projJs(name: String): Project = proj(name + "Js").settings(crossSettings(name) ::: jsSettings).enablePlugins(ScalaJSPlugin).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "srcJs",  
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "js/src",  
 )
 
 def macroSettings = commonSettings ::: List(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/Macros/src")
@@ -66,7 +66,7 @@ lazy val StratJs = projJs("Strat").dependsOn(GraphicJs)
 
 lazy val LearnJvm = projJvm("Learn").dependsOn(StratJvm)
 
-def appFile(name: String): String = "Strat/srcJsApps/ostrat/pSJs/" + name.take(1).toUpperCase + name.drop(1) + "JsApp.scala"
+def appFile(name: String): String = "Strat/js/srcApps/ostrat/pSJs/" + name.take(1).toUpperCase + name.drop(1) + "JsApp.scala"
 
 def jsApp(name: String): Project = proj(name).enablePlugins(ScalaJSPlugin).dependsOn(StratJs).settings(jsSettings).settings(
 	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value  / appFile(name),
