@@ -3,7 +3,7 @@ package ostrat
 
 /** This corresponds, but is not functionally equivalent to an Either[StrList, A] or Either[List[String], +A]. There are advantages to having a
  *  separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the methods biMap, to Either,
- *  eitherMap and eitherFlatMap when interoperability with Either is required. */
+ *  eitherMap and eitherFlatMap when interoperability with Either is required. Have forgotten the reason I chose a separate class over using Either.*/
 sealed trait EMon[+A]
 {
   @inline def fold[B](fBad: StrList => B, fGood: A => B): B = this match
@@ -24,6 +24,8 @@ sealed trait EMon[+A]
   def map2[A2, B](eMon2: EMon[A2], f: (A, A2) => B): EMon[B]
   def map3[A2, A3, B](eMon2: EMon[A2], eMon3: EMon[A3], f: (A, A2, A3) => B): EMon[B]
   def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B]
+  def isGood: Boolean
+  def isBad: Boolean
 }
 
 object EMon
@@ -51,7 +53,11 @@ case class Good[+A](val value: A) extends EMon[A]
   override def toEither: Either[StrList, A] = Right(value)
   override def eitherMap[D](f: A => D): Either[StrList, D] = Right(f(value))
   override def eitherFlatMap[D](f: A => Either[StrList, D]): Either[StrList, D] = f(value)
+  override def isGood: Boolean = true
+  override def isBad: Boolean = false
+  
   override def map2[A2, B](eMon2: EMon[A2], f: (A, A2) => B): EMon[B] = eMon2.map(a2 => f(value, a2))
+  
   
   override def map3[A2, A3, B](eMon2: EMon[A2], eMon3: EMon[A3], f: (A, A2, A3) => B): EMon[B] = eMon2 match
   {
@@ -81,6 +87,8 @@ case class Bad[+A](errs: StrList) extends EMon[A]
   override def toEither: Either[StrList, A] = Left(errs)
   override def eitherMap[D](f: A => D): Either[StrList, D] = Left(errs)
   override def eitherFlatMap[D](f: A => Either[StrList, D]): Either[StrList, D] = (Left(errs))
+  override def isGood: Boolean = false
+  override def isBad: Boolean = true
   override def map2[A2, B](eMon2: EMon[A2], f: (A, A2) => B): EMon[B] = Bad[B](errs ::: eMon2.errs)   
   override def map3[A2, A3, B](eMon2: EMon[A2], eMon3: EMon[A3], f: (A, A2, A3) => B): EMon[B] = Bad[B](errs ::: eMon2.errs ::: eMon3.errs) 
   

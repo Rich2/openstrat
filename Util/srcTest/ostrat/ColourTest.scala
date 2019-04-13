@@ -11,13 +11,9 @@ object ColourTest extends TestSuite
     
     'test1 - 
     {
-      assert(bl.toString == "Colour(0x000000FF)")
-      assert(bl.str == "Colour(0x000000FF)")
-      assert(bStr.findTokens match 
-        {
-        case Good(_) => true
-        case _ => false
-        })
+      assert(bl.toString == "Black")
+      assert(bl.str == "Black")
+      assert(bStr.findTokens.isGood)
     }
   }
 }
