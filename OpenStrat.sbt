@@ -15,7 +15,9 @@ def crossSettings(name: String) = commonSettings ::: List(
   Compile/unmanagedResourceDirectories += (ThisBuild/baseDirectory).value / name / "res"
 )
 
-def projJvm(name: String): Project = Project(name+ "Jvm", file("target/" + name + "Jvm")).settings(crossSettings(name)).settings(
+def proj(name: String): Project = Project(name , file("target/" + name))
+
+def projJvm(name: String): Project = proj(name + "Jvm").settings(crossSettings(name)).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "srcJvm",
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name /"test/src", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
@@ -24,7 +26,7 @@ def projJvm(name: String): Project = Project(name+ "Jvm", file("target/" + name 
 
 def jsSettings = List(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 
-def projJs(name: String): Project = Project(name+ "Js", file("target/" + name + "Js")).settings(crossSettings(name) ::: jsSettings).enablePlugins(ScalaJSPlugin).settings(
+def projJs(name: String): Project = proj(name + "Js").settings(crossSettings(name) ::: jsSettings).enablePlugins(ScalaJSPlugin).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "srcJs",  
 )
 
@@ -66,22 +68,22 @@ lazy val LearnJvm = projJvm("Learn").dependsOn(StratJvm)
 
 def appFile(name: String): String = "Strat/srcJsApps/ostrat/pSJs/" + name.take(1).toUpperCase + name.drop(1) + "JsApp.scala"
 
-def jsApp(name: String, versionStr: String): Project = Project(name, file("target/" + name)).enablePlugins(ScalaJSPlugin).dependsOn(StratJs).settings(jsSettings).settings(
+def jsApp(name: String): Project = proj(name).enablePlugins(ScalaJSPlugin).dependsOn(StratJs).settings(jsSettings).settings(
 	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value  / appFile(name),
 )
 
-lazy val ww2 = jsApp("ww2", "0.0.1")
-lazy val y1783 = jsApp("y1783", "0.0.1")
-lazy val bc305 = jsApp("bc305", "0.0.1")
-lazy val dungeon = jsApp("dungeon", "0.0.1")
-lazy val planets = jsApp("planets", "0.0.1")
-lazy val browsertest = jsApp("browsertest", "0.0.1")
-lazy val zug = jsApp("zug", "0.0.1")
-lazy val civ = jsApp("civ", "0.0.1")
-lazy val draughts = jsApp("draughts", "0.0.1")
+lazy val ww2 = jsApp("ww2")
+lazy val y1783 = jsApp("y1783")
+lazy val bc305 = jsApp("bc305")
+lazy val dungeon = jsApp("dungeon")
+lazy val planets = jsApp("planets")
+lazy val browsertest = jsApp("browsertest")
+lazy val zug = jsApp("zug")
+lazy val civ = jsApp("civ")
+lazy val draughts = jsApp("draughts")
 
-lazy val js1 = Project("js1", file("target/" + "js1")).aggregate(ww2, y1783, bc305, dungeon)
-lazy val js2 = Project("js2", file("target/" + "js2")).aggregate(browsertest, zug, civ, draughts)
+lazy val js1 = proj("js1").aggregate(ww2, y1783, bc305, dungeon)
+lazy val js2 = proj("js2").aggregate(browsertest, zug, civ, draughts)
 
 //lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
   //libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  

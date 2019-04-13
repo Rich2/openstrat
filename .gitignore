@@ -1,12 +1,7 @@
 project/project/
 target/
-SbtWork/
 DocProj/
 DevData/
 bin/
-
-LearnScala.zip
-LearnScala.tar.gz
 out/
-HomeLink/
 .*/
