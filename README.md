@@ -46,7 +46,7 @@ For IntellliJ useful options:
 
 
 **1. Util** No module dependancies. Organised into the following folders and packages.
-   - **Macros/src/ostrat** Macros within their own folder. They are a seperate unit of compilation for sbt /mill. Just a couple of simple macros so as one can track down the source location of one's debug printlns.
+   - **Macros/src/ostrat** Macros within their own folder. They are a separate unit of compilation for sbt /mill. Just a couple of simple macros so as one can track down the source location of one's debug printlns.
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
