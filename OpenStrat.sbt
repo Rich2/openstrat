@@ -18,7 +18,7 @@ def crossSettings(name: String) = commonSettings ::: List(
 def proj(name: String): Project = Project(name , file("target/" + name))
 
 def projJvm(name: String): Project = proj(name + "Jvm").settings(crossSettings(name)).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "srcJvm",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "jvm/src",
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name /"test/src", 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.6" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"),

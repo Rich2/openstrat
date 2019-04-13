@@ -12,26 +12,23 @@ trait PlatformsModule extends ScalaModule with Common
   outer =>
   
   def scalaVersion = "2.12.8"
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src)
 
   trait InnerJs extends ScalaJSModule with Common
   { 
   	def scalaVersion = "2.12.8"
-	  def scalaJSVersion = "0.6.27" 
-	  def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
+	def scalaJSVersion = "0.6.27" 
+	def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
 	  
-	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
-	  
-	  //def ivyJs = Agg()
+	def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
   }
 
   trait InnerNative extends ScalaNativeModule with Common
   {
     def scalaVersion = "2.11.12"
     def scalaNativeVersion = "0.3.8"  
-	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
-	  def ivyDeps = outer.ivyDeps() //++ ivyNat()
-	  //def ivyNat = Agg()
+	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)	  def ivyDeps = outer.ivyDeps() //++ ivyNat()
+	 
   }
 
   trait InnerTests extends Tests
