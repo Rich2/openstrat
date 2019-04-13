@@ -28,8 +28,9 @@ def projJs(name: String): Project = Project(name+ "Js", file("target/" + name + 
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "srcJs",  
 )
 
-lazy val MacrosJvm = projJvm("Macros")
-lazy val MacrosJs = projJs("Macros")	
+def macroSettings = commonSettings ::: List(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/Macros/src")
+lazy val MacrosJvm = Project("MacrosJvm", file("target/" + "MacrosJvm")).settings(macroSettings)
+lazy val MacrosJs = Project("MacrosJs", file("target/" + "MacrosJs")).settings(macroSettings).settings(jsSettings).enablePlugins(ScalaJSPlugin)
 
 lazy val UtilJvm = projJvm("Util").dependsOn(MacrosJvm).settings(	
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile,  

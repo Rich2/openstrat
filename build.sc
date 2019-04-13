@@ -41,18 +41,19 @@ trait PlatformsModule extends ScalaModule with Common
   }
 }
 
-object Macros extends PlatformsModule
-{ def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  object Js extends InnerJs
-  object Nat extends InnerNative  
-}
-
 object Util extends PlatformsModule
 { 
   def moduleDeps = Seq(Macros)  
   object test extends InnerTests  
   object Js extends InnerJs {  def moduleDeps = Seq(Macros.Js)  }
   object Nat extends InnerNative
+
+  object Macros extends PlatformsModule
+  {
+    def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+    object Js extends InnerJs
+    object Nat extends InnerNative  
+  }
 }
 
 object Graphic extends PlatformsModule
