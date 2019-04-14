@@ -7,18 +7,26 @@ class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, val 
     yTileMin, yTileMax)
 {
   def getMoves: List[Move] = this.tilesMapOptionListAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
+  def baseCopy: UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turn)
+  
+  def copy: UnusGrid =
+  {
+    val ng = baseCopy
+    foreachTilesXYAll{(x, y) => ng.setTile(x, y, getTile(x, y))}
+    ng
+  }
   
   def resolveTurn(moves: List[Move]): UnusGrid = 
   {    
     val medGrid = new Array[UTileInter](arrLen)
-    this.foreachTilesXYAll{(x, y) =>
+    foreachTilesXYAll{(x, y) =>
       val t = getTile(x, y)
       medGrid(xyToInd(x, y)) = new UTileInter(t.x, t.y, t.oPlayer)
     }
     moves.foreach{ m =>
       if (this.isTileCoodAdjTileCood(m.sCood, m.cood)) medGrid(coodToInd(m.cood)).potentialPlayers ::= m.mPlayer.player
     }
-    val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turn)
+    val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turn + 1)
     newGrid.setTilesAll(None)    
     this.foreachTileAll(tile => tile.oPlayer.foreach(mp => moves.find(_.mPlayer == mp) match
       {

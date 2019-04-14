@@ -9,6 +9,6 @@ class UnusGame(startScen: UnusGrid)
   {   
     val newGrid: UnusGrid = currState.resolveTurn(moves)    
     currState = newGrid
-    newGrid
+    currState.copy
   }
 }
