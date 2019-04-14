@@ -17,7 +17,8 @@ import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
 trait TileGrid[TileT <: Tile, SideT <: TileSide]
-{  
+{
+  def turnNum: Int
   def xTileMin: Int
   def xTileMax: Int
   def yTileMin: Int

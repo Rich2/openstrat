@@ -4,8 +4,8 @@ package pGames
 package pZug
 import pGrid._
 
-class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[ZugTile, ZugSide](xTileMin, xTileMax,
-    yTileMin, yTileMax)
+class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[ZugTile, ZugSide](xTileMin, xTileMax,
+    yTileMin, yTileMax, turnNum)
 {
   protected[this] var idCounter: Int = 100
   def getID: Int = {idCounter += 1; idCounter }
@@ -30,7 +30,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extend
   setTilesAll(Plain)
   setSidesAll(false)
   
-  def minCopy: ZugGrid = new ZugGrid(xTileMin, xTileMax, yTileMin, yTileMax)
+  def minCopy: ZugGrid = new ZugGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
   def squads(player: Polity, actions: List[SquadTurn]): Unit = {}
   
 }

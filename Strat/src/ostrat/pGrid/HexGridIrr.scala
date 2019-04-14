@@ -3,8 +3,9 @@ package ostrat
 package pGrid
 import reflect.ClassTag
 
-abstract class HexGridIrr[TileT <: Tile, SideT <: TileSide](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int)
-   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax)          
+abstract class HexGridIrr[TileT <: Tile, SideT <: TileSide](val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int,
+    turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGrid[TileT, SideT](
+        xTileMin, xTileMax, yTileMin, yTileMax, turnNum)          
 { 
   def rowStartInd(y: Int) = (y - yTileMin)  * 2
   def rowTileXStart(y: Int) = rowBounds(rowStartInd(y))

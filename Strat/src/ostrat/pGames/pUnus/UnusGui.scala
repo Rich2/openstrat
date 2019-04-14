@@ -65,7 +65,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
       val newGrid = game.newTurn(grid.getMoves)
       new UnusSetGui(canv, newGrid, game)
     }
-  val bTurn = clickButton("T" -- grid.turn.toString, turnCmd)   
+  val bTurn = clickButton("T" -- grid.turnNum.str, turnCmd)   
   override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)   
   mapPanel.backColour = Colour.Wheat
   rePanels

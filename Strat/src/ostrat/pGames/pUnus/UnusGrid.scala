@@ -3,11 +3,11 @@ package ostrat
 package pGames.pUnus
 import pGrid._ 
 
-class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, val turn: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
-    yTileMin, yTileMax)
+class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
+    yTileMin, yTileMax, turnNum)
 {
   def getMoves: List[Move] = this.tilesMapOptionListAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
-  def baseCopy: UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turn)
+  def baseCopy: UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
   
   def copy: UnusGrid =
   {
@@ -26,7 +26,7 @@ class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, val 
     moves.foreach{ m =>
       if (this.isTileCoodAdjTileCood(m.sCood, m.cood)) medGrid(coodToInd(m.cood)).potentialPlayers ::= m.mPlayer.player
     }
-    val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turn + 1)
+    val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum + 1)
     newGrid.setTilesAll(None)    
     this.foreachTileAll(tile => tile.oPlayer.foreach(mp => moves.find(_.mPlayer == mp) match
       {

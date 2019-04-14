@@ -26,6 +26,6 @@ object SideOnly
 }
 
 class EGridOnly(name: String, cenLong: Longitude, scale: Dist, xOffset: Int, yOffset: Int,  xTileMin: Int, xTileMax: Int,
-      yTileMin: Int, yTileMax: Int) extends EGrid[TerrOnly, SideOnly](new Array[Int](0), name, cenLong, scale, xOffset, yOffset, xTileMin, xTileMax,
-      yTileMin, yTileMax: Int)
+    yTileMin: Int, yTileMax: Int, turnNum: Int) extends EGrid[TerrOnly, SideOnly](new Array[Int](0), name, cenLong, scale, xOffset, yOffset,
+    xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
           

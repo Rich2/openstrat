@@ -3,7 +3,7 @@ package ostrat
 package pGames.pDung
 import pGrid._
 
-object Dungeon1 extends DungeonGrid(2, 48, 2, 30) 
+object Dungeon1 extends DungeonGrid(2, 48, 2, 30, 0) 
 {
   import SquareGrid._
   allWall
@@ -16,7 +16,7 @@ object Dungeon1 extends DungeonGrid(2, 48, 2, 30)
   posn(CharacZ, 18, 12, SFaceLt)
 }
 
-object Dungeon2 extends DungeonGrid(2, 10, 2, 10)
+object Dungeon2 extends DungeonGrid(2, 10, 2, 10, 0)
 {
   allOpen
 }

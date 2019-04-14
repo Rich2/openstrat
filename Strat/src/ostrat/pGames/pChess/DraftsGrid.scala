@@ -4,7 +4,7 @@ package pGames
 package pChess
 import Colour._, pGrid._, geom._, reflect.ClassTag
 
-class DGrid extends SquareGrid[DTile, SideBare](1, 8, 1, 8)// extends AnyVal
+class DGrid extends SquareGrid[DTile, SideBare](1, 8, 1, 8, 0)// extends AnyVal
 {  
   //def get(row: Int, col: Int): Option[Draught] = arr((row - 1) * 8 + col - 1)
   //def set(row: Int, col: Int, value: Option[Draught]): Unit = arr((row - 1) * 8 + col - 1) = value
@@ -59,7 +59,8 @@ object DGrid
   }
 }
 
-class ChessGrid[TileT <: Tile](length: Int)(implicit evTile: ClassTag[TileT]) extends SquareGrid[TileT, SideBare](1, length, 1, length)
+class ChessGrid[TileT <: Tile](length: Int, turnNum: Int)(implicit evTile: ClassTag[TileT]) extends SquareGrid[TileT, SideBare](1, length, 1, length,
+    turnNum)
 {
    
    

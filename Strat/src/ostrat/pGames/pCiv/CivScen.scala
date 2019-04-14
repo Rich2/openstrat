@@ -5,12 +5,13 @@ package pCiv
 import pEarth._
 import pGrid._
 
-class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGridReg[CTile, SideBare](xTileMin, xTileMax, yTileMin, yTileMax)
+class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[CTile, SideBare](xTileMin,
+    xTileMax, yTileMin, yTileMax, turnNum)
 {
   
 }
 
-object Civ1 extends CivGrid(4, 40, 4, 16)
+object Civ1 extends CivGrid(4, 40, 4, 16, 0)
 {
   import Terrain._
   setTilesAll(plain)
