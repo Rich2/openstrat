@@ -23,7 +23,7 @@ class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turn
       val t = getTile(x, y)
       medGrid(xyToInd(x, y)) = new UTileInter(t.x, t.y, t.oPlayer)
     }
-    moves.foreach{ m =>
+    moves.foreach { m =>
       if (this.isTileCoodAdjTileCood(m.sCood, m.cood)) medGrid(coodToInd(m.cood)).potentialPlayers ::= m.mPlayer.player
     }
     val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum + 1)
@@ -46,5 +46,9 @@ class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turn
 object UnusGrid
 {
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
+  implicit object UnusGridShow extends Show[UnusGrid]
+  {
+    def persist(obj: UnusGrid) = ???  
+  }
 }
 
