@@ -54,17 +54,17 @@ lazy val GraphicJvm = projJvm("Graphic").dependsOn(UtilJvm).settings(
 
 lazy val GraphicJs = projJs("Graphic").dependsOn(UtilJs)
 
-lazy val StratJvm = projJvm("Strat").dependsOn(GraphicJvm % "test->test;compile->compile").settings(
+lazy val StratJvm = projJvm("Strat").dependsOn(GraphicJvm % "test->test;compile->compile")
+
+lazy val StratJs = projJs("Strat").dependsOn(GraphicJs)
+
+lazy val DevJvm = projJvm("DevModule").dependsOn(StratJvm).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   // include the macro classes and resources in the main jar
   //mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,
   // include the macro sources in the main source jar
   //mappings in (Compile, packageSrc) ++= mappings.in(Macros, Compile, packageSrc).value
 )
-
-lazy val StratJs = projJs("Strat").dependsOn(GraphicJs)
-
-lazy val LearnJvm = projJvm("Learn").dependsOn(StratJvm)
 
 def appFile(name: String): String = "Strat/js/srcApps/ostrat/pSJs/" + name.take(1).toUpperCase + name.drop(1) + "JsApp.scala"
 

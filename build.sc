@@ -64,8 +64,7 @@ object Graphic extends PlatformsModule
 
 object Strat extends PlatformsModule
 {
-   def moduleDeps = Seq(Graphic)
-   def mainClass = Some("ostrat.pFx.DevApp")
+   def moduleDeps = Seq(Graphic)   
   
   object test extends InnerTests
   {  //def moduleDeps = Seq(Graphic.test, Core)   
@@ -75,12 +74,13 @@ object Strat extends PlatformsModule
   object Nat extends InnerNative
 }
 
-object Learn extends PlatformsModule
+object DevModule extends PlatformsModule
 {
   def moduleDeps = Seq(Strat)
+  def mainClass = Some("ostrat.pFx.DevApp")
 }
 
-def run() = Strat.runBackground()
+def run() = DevModule.runBackground()
 def test = Strat.test
 def jsfast = Strat.js.fastOpt
 def jsfull = Strat.js.fullOpt
