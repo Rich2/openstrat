@@ -100,7 +100,9 @@ For IntellliJ useful options:
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
-   - **learn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
+
+  **4. DevModule
+    -**pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
    
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
