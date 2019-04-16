@@ -6,7 +6,5 @@ package pFx
 object DevApp
 {
   def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart], args: _*)
-   
- //val pair = pDev.Apps.curr//(fromRsonFileFindElse(openStratDir / "Dev/AppNum.txt", 1)) 
 }
 
