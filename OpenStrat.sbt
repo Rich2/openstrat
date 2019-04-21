@@ -30,11 +30,11 @@ def projJs(name: String): Project = proj(name + "Js").settings(crossSettings(nam
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / name / "js/src",  
 )
 
-def macroSettings = commonSettings ::: List(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/Macros/src")
-lazy val MacrosJvm = Project("MacrosJvm", file("target/" + "MacrosJvm")).settings(macroSettings)
-lazy val MacrosJs = Project("MacrosJs", file("target/" + "MacrosJs")).settings(macroSettings).settings(jsSettings).enablePlugins(ScalaJSPlugin)
+def utilMacroSettings = commonSettings ::: List(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "UtilMacros/src")
+lazy val UtilMacrosJvm = projJvm("UtilMacros").settings(utilMacroSettings)
+lazy val UtilMacrosJs = projJs("UtilMacros").settings(utilMacroSettings).settings(jsSettings).enablePlugins(ScalaJSPlugin)
 
-lazy val UtilJvm = projJvm("Util").dependsOn(MacrosJvm).settings(	
+lazy val UtilJvm = projJvm("Util").dependsOn(UtilMacrosJvm).settings(	
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile,  
   // include the macro classes and resources in the main jar
   //mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,
@@ -42,7 +42,7 @@ lazy val UtilJvm = projJvm("Util").dependsOn(MacrosJvm).settings(
   //mappings in (Compile, packageSrc) ++= mappings.in(Macros, Compile, packageSrc).value
 )
 
-lazy val UtilJs = projJs("Util").dependsOn(MacrosJs)
+lazy val UtilJs = projJs("Util").dependsOn(UtilMacrosJs)
 
 lazy val GraphicJvm = projJvm("Graphic").dependsOn(UtilJvm).settings(	
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile,  
@@ -59,6 +59,7 @@ lazy val StratJvm = projJvm("Strat").dependsOn(GraphicJvm % "test->test;compile-
 lazy val StratJs = projJs("Strat").dependsOn(GraphicJs)
 
 lazy val DevJvm = projJvm("DevModule").dependsOn(StratJvm).settings(
+	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/srcLearn",
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   // include the macro classes and resources in the main jar
   //mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,
