@@ -5,23 +5,8 @@ import pParse._
 /** The essential persistence type class. it implements both a Show style type class interface, the production of a String representation of the value
   * but also produces an EMon[T] from a String. It Persists and builds objects of type T from CRON syntax. So for example the IntImplicit object in the
   * Persist companion object persists Integers and constructs Integers from Strings. */
-abstract class Persist[T](val typeSym: Symbol) extends Show[T]
-{ def syntaxDepth: Int
-  def typeStr: String = typeSym.name  
-  
-  /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
-  def persistComma(obj: T): String
-  
-  /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
-   *  for case classes with a single member. */
-  def persistSemi(obj: T): String
-
-  /** For most objects persistTyped will return the same value as persist(obj: T), for PeristValues the value will be type enclosed. 4.persistTyped
-   * will return Int(4) */
-  def persistTyped(obj: T): String
-
+trait Persist[T] extends Show[T]
+{  
   def fromExpr(expr: Expr): EMon[T]
   def fromClauses(clauses: Seq[Clause]): EMon[T]
   def fromClauses2[A1, A2, B](f: (A1, A2) => B, clauses: Seq[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = clauses match

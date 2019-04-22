@@ -14,9 +14,9 @@ class StringerImplicit[A](ev: Persist[A], thisVal: A)
     *  for case classes with a single member. */
   def strSemi: String = ev.persistSemi(thisVal)
 
-  /** For most objects persistTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.persistTyped
+  /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
     * will return Int(4) */
-  def strTyped: String = ev.persistTyped(thisVal)
+  def strTyped: String = ev.showTyped(thisVal)
 }
 
 

@@ -16,7 +16,7 @@ class PersistSeqDirect[A](thisSeq: Seq[A], ev: Persist[A])
     *  for case classes with a single member. */
   def strSemi: String = new PSI(ev).persistSemi(thisSeq)
 
-  /** For most objects persistTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.persistTyped
+  /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
     * will return Int(4) */
-  def strTyped: String = new PSI(ev).persistTyped(thisSeq)
+  def strTyped: String = new PSI(ev).showTyped(thisSeq)
 }
