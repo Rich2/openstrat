@@ -48,7 +48,7 @@ object UnusGrid
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
   implicit object UnusGridShow extends Show[UnusGrid]
   {
-    def persist(obj: UnusGrid) = ???  
+    override def show(obj: UnusGrid) = ???  
   }
 }
 

@@ -6,7 +6,7 @@ package ostrat
 trait Show[T]
 {
   /** Provides the standard string representation for the object */
-  def persist(obj: T): String
+  def show(obj: T): String
 }
 
 abstract class ShowSingleton[T](objSym: Symbol)

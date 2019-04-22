@@ -25,7 +25,7 @@ trait Vec2sLike extends Any
 class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with Transable[Vec2s] with Vec2sLike
 {
   override def typeName: Symbol = 'Vec2s
-  override def toString: String = Vec2s.Vec2sPersist.persist(this)
+  override def toString: String = Vec2s.Vec2sPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   @inline def lengthFull: Int = arr.length / 2  
   @inline def xStart: Double = arr(0)

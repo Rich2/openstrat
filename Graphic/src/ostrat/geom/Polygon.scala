@@ -6,7 +6,7 @@ import Colour.Black
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
 class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transable[Polygon] with Vec2sLike
 { override def typeName: Symbol = 'Polygon
-  override def toString: String = Polygon.PolygonPersist.persist(this)
+  override def toString: String = Polygon.PolygonPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  
    

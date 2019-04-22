@@ -3,7 +3,7 @@ package ostrat
 /** The stringer implicit class gives extension methods for persist methods from the implicit Persist object for the type */
 class StringerImplicit[A](ev: Persist[A], thisVal: A)
 { /** Provides the standard string representation for the object */
-  def str: String = ev.persist(thisVal)
+  def str: String = ev.show(thisVal)
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
     *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */

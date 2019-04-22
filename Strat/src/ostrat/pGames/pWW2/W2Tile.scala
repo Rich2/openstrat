@@ -7,7 +7,7 @@ import pEarth._
 class W2Tile(val x: Int, val y: Int, val terr: Terrain) extends ETile
 {
    var lunits: List[Army] = Nil
-   override def toString: String = W2Tile.W2TilePersist.persist(this)
+   override def toString: String = W2Tile.W2TilePersist.show(this)
 
 }
 

@@ -13,7 +13,7 @@ class Persist1[A1, R](typeSym: Symbol, val fParam: R => A1, val newT: A1 => R)(i
    PersistCase[R](typeSym)
 { def persistMems = List(ev1)  
   def persistSemi(obj: R): String = ev1.persistComma(fParam(obj))
-  def persistComma(obj: R): String = ev1.persist(fParam(obj))  
+  def persistComma(obj: R): String = ev1.show(fParam(obj))  
   def fromClauses(clauses: Seq[Clause]): EMon[R] = ???// fromClauses1(newT, clauses)
   def fromParameterStatements(sts: List[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
 }
@@ -34,7 +34,7 @@ class Persist2[A1, A2, R](typeSym: Symbol, val fParam: R => (A1, A2), val newT: 
   
   override def persistComma(obj: R): String =
   { val (a1, a2) = fParam(obj)
-    ev1.persist(a1) + ", " + ev2.persist(a2)
+    ev1.show(a1) + ", " + ev2.show(a2)
   }
    
   override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses2(newT, clauses)
@@ -52,12 +52,12 @@ abstract class Persist3[A1, A2, A3, R](typeSym: Symbol, val fParam: R => (A1, A2
   
   override def persistSemi(obj: R): String =
   { val (p1, p2, p3) = fParam(obj)
-    ev1.persist(p1).semicolonAppend(ev2.persistComma(p2), ev3.persistComma(p3))
+    ev1.show(p1).semicolonAppend(ev2.persistComma(p2), ev3.persistComma(p3))
   }
 
   override def persistComma(obj: R): String =
   { val (p1, p2, p3) = fParam(obj)
-    ev1.persist(p1).commaAppend(ev2.persist(p2), ev3.persist(p3))
+    ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3))
   }
 
   override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses3(newT, clauses)
@@ -74,7 +74,7 @@ abstract class Persist4[A1, A2, A3, A4, R](typeSym: Symbol, val newT: (A1, A2, A
 { def persistMems = List(ev1, ev2, ev3, ev4)
   override def persistSemi(obj: R): String =
   { val (p1, p2, p3, p4) = fParam(obj)
-    ev1.persist(p1).semicolonAppend(ev2.persist(p2), ev3.persist(p3), ev4.persist(p4))
+    ev1.show(p1).semicolonAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4))
   }
   override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses4(newT, clauses)
   override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)

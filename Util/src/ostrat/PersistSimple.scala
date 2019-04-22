@@ -12,9 +12,9 @@ abstract class PersistSimple[A](typeSym: Symbol) extends Persist[A](typeSym)
     case ClausedStatement(clauses, _) => fromClauses(clauses)
     case es: EmptyStatement => es.asError
   }
-  override def persistComma(obj: A): String = persist(obj)
-  override def persistSemi(obj: A): String = persist(obj)
-  def persistTyped(obj: A): String = typeStr - persist(obj).enParenth
+  override def persistComma(obj: A): String = show(obj)
+  override def persistSemi(obj: A): String = show(obj)
+  def persistTyped(obj: A): String = typeStr - show(obj).enParenth
    //override def fromStatement(st: Statement): EMon[A] = 
 }
 

@@ -13,8 +13,8 @@ abstract class ProductI2sBuilder[A <: ProdI2, M <: ProductI2s[A]](typeSym: Symbo
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
   override def persistSemi(thisColl: M): String = thisColl.mapBy2(_ + ", " + _ ).mkString("; ")
-  override def persistComma(thisColl: M): String = persist(thisColl)
-  //override def persist(thisColl: R): String = typeStr - persistSemi(thisColl).enParenth
+  override def persistComma(thisColl: M): String = show(thisColl)
+  //override def show(thisColl: R): String = typeStr - persistSemi(thisColl).enParenth
   override def fromParameterStatements(sts: List[Statement]): EMon[M] = ???
   override def fromClauses(clauses: Seq[Clause]): EMon[M] = ???
 } 

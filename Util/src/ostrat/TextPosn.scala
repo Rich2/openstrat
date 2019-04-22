@@ -39,7 +39,7 @@ object FilePosn
   
   implicit object FilePosnShow extends Show[FilePosn]
   {
-    def persist(obj: FilePosn): String = obj.fileName.toString -- obj.lineNum.toString -- obj.linePosn.toString 
+    def show(obj: FilePosn): String = obj.fileName.toString -- obj.lineNum.toString -- obj.linePosn.toString 
   }
 }
 

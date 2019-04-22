@@ -13,7 +13,7 @@ trait SingletonLeaf //extends Stringer
 
 abstract class PersistSingletons[A <: SingletonLeaf](typeSym: Symbol) extends PersistSimple[A](typeSym)
 { def singletonList: List[A]
-  @inline override def persist(obj: A): String = obj.str
+  @inline override def show(obj: A): String = obj.str
   def fromExpr(expr: ParseExpr): EMon[A] = expr match
   { case AlphaToken(_, sym) => singletonList.find(_.objSym == sym).toEMon1(expr, typeStr -- "not parsed from this Expression")
     case e => bad1(e, typeStr -- "not parsed from this Expression")

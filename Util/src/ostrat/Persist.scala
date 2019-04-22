@@ -83,7 +83,7 @@ object Persist
   implicit object IntArrayToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
     override def persistSemi(thisArray: Array[Int]): String = thisArray.map(ev.persistComma(_)).semicolonFold
-    override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.persist(_)).commaFold
+    override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
   
@@ -96,7 +96,7 @@ object Persist
   }
   
   implicit object IntPersist extends PersistSimple[Int]('Int)
-  { def persist(obj: Int): String = obj.toString
+  { def show(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
     { case IntToken(_, _, i) => Good(i)
       case PreOpExpr(op, IntToken(_, _, i)) if op.str == "+" => Good(i)
@@ -106,7 +106,7 @@ object Persist
   }
   
   implicit object CharPersist extends PersistSimple[Char]('Char)
-  { def persist(obj: Char): String = obj.toString.enqu1
+  { def show(obj: Char): String = obj.toString.enqu1
     override def fromExpr(expr: Expr): EMon[Char] = expr match      
     { case CharToken(_, char) => Good(char)        
       case  _ => expr.exprParseErr[Char]
@@ -114,7 +114,7 @@ object Persist
   }
    
   implicit object StringPersist extends PersistSimple[String]('Str)
-  { def persist(obj: String): String = obj.enqu
+  { def show(obj: String): String = obj.enqu
     override def fromExpr(expr: Expr): EMon[String] = expr match      
     { case StringToken(_, stringStr) => Good(stringStr)        
       case  _ => expr.exprParseErr[String]
@@ -122,7 +122,7 @@ object Persist
   }
    
   implicit object LongPersist extends PersistSimple[Long]('Long)
-  { def persist(obj: Long): String = obj.toString
+  { def show(obj: Long): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Long] = expr match      
     { case IntToken(_, _, i) => Good(i.toLong)
       case PreOpExpr(op, IntToken(_, _, i)) if op.str == "+" => Good(i.toLong)
@@ -135,7 +135,7 @@ object Persist
   }   
    
   implicit object FloatPersist extends PersistSimple[Float]('SFloat)
-  { def persist(obj: Float): String = obj.toString
+  { def show(obj: Float): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Float] = expr match      
     { case IntToken(_, _, i) => Good(i.toFloat)
       case PreOpExpr(op, IntToken(_, _, i)) if op.str == "+" => Good(i.toFloat)
@@ -148,7 +148,7 @@ object Persist
   }
   
   implicit object DoublePersist extends PersistSimple[Double]('DFloat)
-  { def persist(obj: Double): String = obj.toString      
+  { def show(obj: Double): String = obj.toString      
     override def fromExpr(expr: Expr): EMon[Double] = expr match      
     { case IntToken(_, _, i) => Good(i.toDouble)
       case PreOpExpr(op, IntToken(_, _, i)) if op.str == "+" => Good(i.toDouble)
@@ -161,7 +161,7 @@ object Persist
   }   
    
   implicit object BooleanPersist extends PersistSimple[Boolean]('Bool)
-  { override def persist(obj: Boolean): String = obj.toString  
+  { override def show(obj: Boolean): String = obj.toString  
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case AlphaToken(_, str) if str == 'true => Good(true)
       case AlphaToken(_, str) if str == 'false => Good(false)

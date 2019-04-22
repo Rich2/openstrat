@@ -4,7 +4,7 @@ package ostrat
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with ProdI1
 { 
-  override def toString: String = Colour.ColourPersistImplicit.persist(this)
+  override def toString: String = Colour.ColourPersistImplicit.show(this)
   @inline final override def intValue: Int = argbValue 
   def webStr: String = "#" - hexStr
   def canEqual(a: Any) = a.isInstanceOf[Colour]
@@ -87,7 +87,7 @@ object Colour
       case AlphaBracketExpr(AlphaToken(_, 'Colour), ParenthBlock(st :: Nil, _, _) :: Nil) => expr.exprParseErr[Colour](this)
       case _ => expr.exprParseErr[Colour](this)
     }
-    def persist(obj: Colour): String = Colour.valueToSym.get(obj).fold(obj.hexStr)(_.name)
+    def show(obj: Colour): String = Colour.valueToSym.get(obj).fold(obj.hexStr)(_.name)
   }
   
    /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */

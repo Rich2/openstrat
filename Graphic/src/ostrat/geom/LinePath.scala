@@ -7,7 +7,7 @@ package geom
 class LinePath(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with Transable[LinePath] with Vec2sLike
 {
   override def typeName: Symbol = 'LinePath
-  override def toString: String = LinePath.LinePathPersist.persist(this)
+  override def toString: String = LinePath.LinePathPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   @inline def lengthFull: Int = arr.length / 2  
   @inline def xStart: Double = arr(0)

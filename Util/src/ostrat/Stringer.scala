@@ -10,7 +10,7 @@ trait Stringer extends Any
   def str: String
   final override def toString = str
   
-  def persist1[T1](v1: T1)(implicit ev1: Persist[T1]): String = typeStr + ev1.persist(v1).enParenth
+  def persist1[T1](v1: T1)(implicit ev1: Persist[T1]): String = typeStr + ev1.show(v1).enParenth
   def persistD1(d1: Double): String = typeStr + (d1.toString).enParenth
   
   def persist2[T1, T2](v1: T1, v2: T2)(implicit ev1: Persist[T1], ev2: Persist[T2]): String =
