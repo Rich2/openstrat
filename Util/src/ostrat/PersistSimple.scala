@@ -12,8 +12,8 @@ abstract class PersistSimple[A](typeSym: Symbol) extends ShowSimple[A](typeSym) 
     case ClausedStatement(clauses, _) => fromClauses(clauses)
     case es: EmptyStatement => es.asError
   }
-  override def persistComma(obj: A): String = show(obj)
-  override def persistSemi(obj: A): String = show(obj)
+  override def showComma(obj: A): String = show(obj)
+  override def showSemi(obj: A): String = show(obj)
   override def showTyped(obj: A): String = typeStr - show(obj).enParenth
 }
 

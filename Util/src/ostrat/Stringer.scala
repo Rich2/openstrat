@@ -14,28 +14,28 @@ trait Stringer extends Any
   def persistD1(d1: Double): String = typeStr + (d1.toString).enParenth
   
   def persist2[T1, T2](v1: T1, v2: T2)(implicit ev1: Persist[T1], ev2: Persist[T2]): String =
-    typeStr + ev1.persistComma(v1).semicolonAppend(ev2.persistComma(v2)).enParenth
+    typeStr + ev1.showComma(v1).semicolonAppend(ev2.showComma(v2)).enParenth
   
   def persistD2(d1: Double, d2: Double): String = typeStr + (d1.toString + "; " + d2.toString).enParenth
   
   def persist3[T1, T2, T3](v1: T1, v2: T2, v3: T3)(implicit ev1: Persist[T1], ev2: Persist[T2], ev3: Persist[T3]): String =
-    typeStr + ev1.persistComma(v1).semicolonAppend(ev2.persistComma(v2), ev3.persistComma(v3)).enParenth
+    typeStr + ev1.showComma(v1).semicolonAppend(ev2.showComma(v2), ev3.showComma(v3)).enParenth
   
   def persistD3(d1: Double, d2: Double, d3: Double): String = typeStr + List(d1, d2, d3).map(_.toString).semicolonFold.enParenth
   
   def persist4[T1, T2, T3, T4](v1: T1, v2: T2, v3: T3, v4: T4)(implicit ev1: Persist[T1], ev2: Persist[T2], ev3: Persist[T3], ev4: Persist[T4]):
-  String = typeStr + ev1.persistComma(v1).semicolonAppend(ev2.persistComma(v2), ev3.persistComma(v3), ev4.persistComma(v4)).enParenth
+  String = typeStr + ev1.showComma(v1).semicolonAppend(ev2.showComma(v2), ev3.showComma(v3), ev4.showComma(v4)).enParenth
   
   def persist5[T1, T2, T3, T4, T5](v1: T1, v2: T2, v3: T3, v4: T4, v5: T5)(implicit ev1: Persist[T1], ev2: Persist[T2], ev3: Persist[T3],
       ev4: Persist[T4], ev5: Persist[T5]): String =
-  { val mems: List[String] = List(ev1.persistComma(v1), ev2.persistComma(v2), ev3.persistComma(v3), ev4.persistComma(v4), ev5.persistComma(v5)) 
+  { val mems: List[String] = List(ev1.showComma(v1), ev2.showComma(v2), ev3.showComma(v3), ev4.showComma(v4), ev5.showComma(v5)) 
     typeStr + mems.semicolonFold.enParenth
   }
   def persist6[T1, T2, T3, T4, T5, T6](v1: T1, v2: T2, v3: T3, v4: T4, v5: T5, v6: T6)(implicit ev1: Persist[T1], ev2: Persist[T2], ev3: Persist[T3],
       ev4: Persist[T4], ev5: Persist[T5], ev6: Persist[T6]): String =
   {
-    val mems: List[String] = List(ev1.persistComma(v1), ev2.persistComma(v2), ev3.persistComma(v3), ev4.persistComma(v4), ev5.persistComma(v5),
-        ev6.persistComma(v6))     
+    val mems: List[String] = List(ev1.showComma(v1), ev2.showComma(v2), ev3.showComma(v3), ev4.showComma(v4), ev5.showComma(v5),
+        ev6.showComma(v6))     
     typeStr + mems.semicolonFold.enParenth   
   }
 }

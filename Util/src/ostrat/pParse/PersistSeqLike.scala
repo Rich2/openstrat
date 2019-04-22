@@ -10,8 +10,8 @@ abstract class PersistSeqLike[A, R](typeSym: Symbol, val ev: Persist[A]) extends
 
 class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]]('List, ev)
 {
-  override def persistSemi(thisSeq: List[A]): String = thisSeq.map(ev.persistComma(_)).semicolonFold
-  override def persistComma(thisSeq: List[A]): String = thisSeq.map(ev.show(_)).commaFold
+  override def showSemi(thisSeq: List[A]): String = thisSeq.map(ev.showComma(_)).semicolonFold
+  override def showComma(thisSeq: List[A]): String = thisSeq.map(ev.show(_)).commaFold
  
   override def fromExpr(expr: Expr): EMon[List[A]] = expr match
   { case SemicolonToken(_) => Good(List[A]())
@@ -32,8 +32,8 @@ class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]](
 
 class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('Seq, ev)
   {     
-    override def persistSemi(thisSeq: Seq[A]): String = thisSeq.map(ev.persistComma(_)).semicolonFold
-    override def persistComma(thisSeq: Seq[A]): String = thisSeq.map(ev.show(_)).commaFold
+    override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(ev.showComma(_)).semicolonFold
+    override def showComma(thisSeq: Seq[A]): String = thisSeq.map(ev.show(_)).commaFold
  
    override def fromExpr(expr: Expr): EMon[Seq[A]] = expr match
    { case SemicolonToken(_) => Good(Seq[A]())
@@ -54,8 +54,8 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('S
 
 class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[A]]('Vector, ev)
 {
-  override def persistSemi(thisSeq: Vector[A]): String = thisSeq.map(ev.persistComma(_)).semicolonFold
-  override def persistComma(thisSeq: Vector[A]): String = thisSeq.map(ev.show(_)).commaFold
+  override def showSemi(thisSeq: Vector[A]): String = thisSeq.map(ev.showComma(_)).semicolonFold
+  override def showComma(thisSeq: Vector[A]): String = thisSeq.map(ev.show(_)).commaFold
  
   override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match
   { case SemicolonToken(_) => Good(Vector[A]())

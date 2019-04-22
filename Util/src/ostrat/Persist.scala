@@ -63,12 +63,14 @@ object Persist
   implicit def vectorToPersist [T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)  
   
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)  
+  implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev) 
+  
+  //class OptionSimplePersist[A](val ev: PersistSimple[A]) extends Persist[Option[A]]
   
   implicit object IntArrayToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
-    override def persistSemi(thisArray: Array[Int]): String = thisArray.map(ev.persistComma(_)).semicolonFold
-    override def persistComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
+    override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semicolonFold
+    override def showComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
   

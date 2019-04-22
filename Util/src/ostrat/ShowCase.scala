@@ -13,12 +13,12 @@ abstract class Show3[A1, A2, A3, R](typeSym: Symbol, val fParam: R => (A1, A2, A
 {
   final override def persistMems = List(ev1, ev2, ev3)
   
-  final override def persistSemi(obj: R): String =
+  final override def showSemi(obj: R): String =
   { val (p1, p2, p3) = fParam(obj)
-    ev1.show(p1).semicolonAppend(ev2.persistComma(p2), ev3.persistComma(p3))
+    ev1.show(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3))
   }
 
-  final override def persistComma(obj: R): String =
+  final override def showComma(obj: R): String =
   { val (p1, p2, p3) = fParam(obj)
     ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3))
   }

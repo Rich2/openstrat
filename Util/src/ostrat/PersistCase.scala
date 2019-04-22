@@ -12,8 +12,8 @@ abstract class PersistCase[R](typeSym: Symbol) extends PersistCompound[R](typeSy
 class Persist1[A1, R](typeSym: Symbol, val fParam: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1]) extends
    PersistCase[R](typeSym)
 { def persistMems = List(ev1)  
-  def persistSemi(obj: R): String = ev1.persistComma(fParam(obj))
-  def persistComma(obj: R): String = ev1.show(fParam(obj))  
+  def showSemi(obj: R): String = ev1.showComma(fParam(obj))
+  def showComma(obj: R): String = ev1.show(fParam(obj))  
   def fromClauses(clauses: Seq[Clause]): EMon[R] = ???// fromClauses1(newT, clauses)
   def fromParameterStatements(sts: List[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
 }
@@ -27,12 +27,12 @@ class Persist2[A1, A2, R](typeSym: Symbol, val fParam: R => (A1, A2), val newT: 
    extends PersistCase[R](typeSym)
 { def persistMems = List(ev1, ev2)
    
-  override def persistSemi(obj: R): String =
+  override def showSemi(obj: R): String =
   { val (a1, a2) = fParam(obj)
-    ev1.persistComma(a1) + "; " + ev2.persistComma(a2)
+    ev1.showComma(a1) + "; " + ev2.showComma(a2)
   }
   
-  override def persistComma(obj: R): String =
+  override def showComma(obj: R): String =
   { val (a1, a2) = fParam(obj)
     ev1.show(a1) + ", " + ev2.show(a2)
   }
@@ -50,12 +50,12 @@ abstract class Persist3[A1, A2, A3, R](typeSym: Symbol, val fParam: R => (A1, A2
     implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends PersistCase[R](typeSym)
 { def persistMems = List(ev1, ev2, ev3)
   
-  override def persistSemi(obj: R): String =
+  override def showSemi(obj: R): String =
   { val (p1, p2, p3) = fParam(obj)
-    ev1.show(p1).semicolonAppend(ev2.persistComma(p2), ev3.persistComma(p3))
+    ev1.show(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3))
   }
 
-  override def persistComma(obj: R): String =
+  override def showComma(obj: R): String =
   { val (p1, p2, p3) = fParam(obj)
     ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3))
   }
@@ -72,7 +72,7 @@ abstract class PersistD3[R](typeSym: Symbol, fParam: R => (Double, Double, Doubl
 abstract class Persist4[A1, A2, A3, A4, R](typeSym: Symbol, val newT: (A1, A2, A3, A4) => R, val fParam: R => (A1, A2, A3, A4))(
     implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends PersistCase[R](typeSym)
 { def persistMems = List(ev1, ev2, ev3, ev4)
-  override def persistSemi(obj: R): String =
+  override def showSemi(obj: R): String =
   { val (p1, p2, p3, p4) = fParam(obj)
     ev1.show(p1).semicolonAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4))
   }
