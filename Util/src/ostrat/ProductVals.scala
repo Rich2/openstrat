@@ -3,8 +3,8 @@ package ostrat
 
 /** This is the base trait for the ProductDoubles and ProductInts classes. */
 trait ProductVals[A] extends Any
-{ def typeName: Symbol
-  override def toString: String = typeName.name - MapList(_.toString).commaParenth
+{ def typeStr: String
+  override def toString: String = typeStr - MapList(_.toString).commaParenth
   def productSize: Int
   def arrLen: Int
   final def length: Int = arrLen / productSize

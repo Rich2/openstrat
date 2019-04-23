@@ -6,7 +6,7 @@ package geom
  *  cost. */
 class LinePath(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with Transable[LinePath] with Vec2sLike
 {
-  override def typeName: Symbol = 'LinePath
+  override def typeStr: String = "LinePath"
   override def toString: String = LinePath.LinePathPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   @inline def lengthFull: Int = arr.length / 2  
@@ -31,7 +31,7 @@ object LinePath extends ProductD2sCompanion[Vec2, LinePath]
 {
   implicit val factory: Int => LinePath = i => new LinePath(new Array[Double](i * 2))
   
-  implicit object LinePathPersist extends ProductD2sBuilder[Vec2, LinePath]('LinePath)
+  implicit object LinePathPersist extends ProductD2sBuilder[Vec2, LinePath]("LinePath")
   {
     override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
   }

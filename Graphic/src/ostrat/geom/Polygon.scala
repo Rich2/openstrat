@@ -5,7 +5,8 @@ import Colour.Black
 
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
 class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transable[Polygon] with Vec2sLike
-{ override def typeName: Symbol = 'Polygon
+{
+  override def typeStr: String = "Polygon"
   override def toString: String = Polygon.PolygonPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  
@@ -94,7 +95,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
 object Polygon extends ProductD2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
   
-  implicit object PolygonPersist extends ProductD2sBuilder[Vec2, Polygon]('Polygon)
+  implicit object PolygonPersist extends ProductD2sBuilder[Vec2, Polygon]("Polygon")
   {
     override def fromArray(value: Array[Double]): Polygon = new Polygon(value)
   }

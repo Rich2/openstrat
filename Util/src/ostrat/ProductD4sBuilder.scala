@@ -4,7 +4,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Both Persists and Builds ProductD4s Collection classes. */
-abstract class ProductD4sBuilder[A <: ProdD4, M <: ProductD4s[A]](typeSym: Symbol) extends ProductDsBuilder[A, M](typeSym)  
+abstract class ProductD4sBuilder[A <: ProdD4, M <: ProductD4s[A]](typeStr: String) extends ProductDsBuilder[A, M](typeStr)  
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1

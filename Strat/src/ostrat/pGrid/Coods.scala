@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 
 class Coods(val arr: Array[Int]) extends AnyVal with ProductI2s[Cood] 
-{ override def typeName: Symbol = 'Coods
+{ override def typeStr: String = "Coods"
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
    
   def filter(f: Cood => Boolean): Coods =
@@ -30,7 +30,7 @@ object Coods extends ProductI2sCompanion[Cood, Coods]
 { 
   implicit val factory: Int => Coods = i => new Coods(new Array[Int](i * 2))
   
-  implicit object CoodsPersistImplicit extends ProductI2sBuilder[Cood, Coods]('Coods)
+  implicit object CoodsPersistImplicit extends ProductI2sBuilder[Cood, Coods]("Coods")
   {
     override def fromArray(value: Array[Int]): Coods = new Coods(value)
   }

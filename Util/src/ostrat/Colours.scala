@@ -4,7 +4,7 @@ import Colour._
 
 class Colours(val arr: Array[Int]) extends AnyVal with ProductI1s[Colour]
 {
-  override def typeName: Symbol = 'Colours  
+  override def typeStr: String = "Colours"  
   final override def newElem(intValue: Int): Colour = Colour(intValue)  
 }
 

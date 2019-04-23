@@ -3,7 +3,7 @@ package ostrat
 
 import collection.mutable.ArrayBuffer
 
-abstract class ProductI4sBuilder[A <: ProdI4, M <: ProductI4s[A]](typeSym: Symbol) extends ProductIntsBuilder[A, M](typeSym)  
+abstract class ProductI4sBuilder[A <: ProdI4, M <: ProductI4s[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)  
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value._1

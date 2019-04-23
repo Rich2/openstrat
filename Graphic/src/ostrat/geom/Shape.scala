@@ -7,9 +7,9 @@ import Colour.Black
  *   LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg positive infinity for
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
 class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] with Transable[Shape]
-{ def typeSym = 'Shape
+{ //def typeSym = 'Shape
   //def str: String = persistD3
-  override def typeName: Symbol = 'CurvedSeg
+  override def typeStr: String = "CurvedSeg"
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg =
     new CurveSeg(iMatch, d1, d2, d3, d4, d5, d6)
    

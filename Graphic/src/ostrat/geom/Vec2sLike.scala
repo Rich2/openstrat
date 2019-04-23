@@ -24,7 +24,7 @@ trait Vec2sLike extends Any
  *  LinePath class should not entail a runtime cost. */
 class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with Transable[Vec2s] with Vec2sLike
 {
-  override def typeName: Symbol = 'Vec2s
+  override def typeStr: String = "Vec2"
   override def toString: String = Vec2s.Vec2sPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   @inline def lengthFull: Int = arr.length / 2  
@@ -49,7 +49,7 @@ object Vec2s extends ProductD2sCompanion[Vec2, Vec2s]
 {
   implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
   
-  implicit object Vec2sPersist extends ProductD2sBuilder[Vec2, Vec2s]('Vec2s)
+  implicit object Vec2sPersist extends ProductD2sBuilder[Vec2, Vec2s]("Vec2s")
   {
     override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
   }
