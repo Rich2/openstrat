@@ -65,7 +65,15 @@ object Persist
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev) 
   
-  //class OptionSimplePersist[A](val ev: PersistSimple[A]) extends Show[Option[A]]
+  class OptionSimplePersist[A](val ev: PersistSimple[A]) extends Show[Option[A]]
+  {    
+    override def typeStr: String = "Option" + ev.typeStr.enSquare
+    override def syntaxDepth: Int = ev.syntaxDepth
+    override def show(obj: Option[A]) = obj.fold("")(ev.show(_))
+    def showComma(obj: Option[A]): String = ???
+    def showSemi(obj: Option[A]): String = ???
+    override def showTyped(obj: Option[A]): String = obj.fold("None")(typeStr + ev.show(_).enParenth)
+  }
   
   implicit object IntArrayToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
