@@ -15,7 +15,7 @@ trait ProductInts[A] extends Any with ProductVals[A]
   def arrLen = arr.length 
 }
 
-abstract class ProductValsBuilder[A, M](typeSym: Symbol) extends PersistCompound[M](typeSym)
+abstract class ProductValsBuilder[A, M](val typeSym: Symbol) extends ShowCompound[M] with PersistCompound[M]
 {
   /** Atomic Value type normally Double or Int. */
   type VT

@@ -3,9 +3,10 @@ package ostrat
 import pParse._
 
 /** The base trait for the persistence of Case classes, aka Product types */
-abstract class PersistCase[R](typeSym: Symbol) extends PersistCompound[R](typeSym)
-{ def persistMems: List[Persist[_]]
-  final override def syntaxDepth: Int = persistMems.map(_.syntaxDepth).max + 1  
+abstract class PersistCase[R](typeSym: Symbol) extends ShowCase[R](typeSym) with PersistCompound[R]
+{  
+  def persistMems: List[Persist[_]]
+  //final override def syntaxDepth: Int = persistMems.map(_.syntaxDepth).max + 1  
 }
 
 /** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */

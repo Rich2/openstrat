@@ -2,7 +2,7 @@
 package ostrat
 package pParse
 
-abstract class PersistSeqLike[A, R](typeSym: Symbol, val ev: Persist[A]) extends PersistCompound[R](typeSym)
+abstract class PersistSeqLike[A, R](val typeSym: Symbol, val ev: Persist[A]) extends ShowCompound[R] with PersistCompound[R]
 {
   override def typeStr = "Seq" + ev.typeStr.enSquare
   override def syntaxDepth = ev.syntaxDepth + 1    

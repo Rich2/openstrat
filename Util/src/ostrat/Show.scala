@@ -1,11 +1,12 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** mostly you will want to use Persist which not only igves the Show methods to String represntation, but the methods to parse Strings back to 
- *  objects of the type T. However it may often be useful to start with Show and upgrade it later to Persist[T]. */
-abstract class Show[T](val typeSym: Symbol)
+/** The classic Show type class. A functional version of toString .Mostly you will want to use Persist which not only gives the Show methods
+ *   to String representation, but the methods to parse Strings back to objects of the type T. However it may often be useful to start with Show
+ *   type class and upgrade it later to Persist[T]. */
+abstract class Show[T]
 {
-  def typeStr: String = typeSym.name
+  def typeStr: String
   /** Provides the standard string representation for the object */
   def show(obj: T): String
   def syntaxDepth: Int  
@@ -20,17 +21,15 @@ abstract class Show[T](val typeSym: Symbol)
   /** For most objects showTyped will return the same value as show(obj: T), for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */
   def showTyped(obj: T): String
-
 }
 
-abstract class ShowCompound[R](typeSym: Symbol) extends Show[R](typeSym)
+trait ShowCompound[R] extends Show[R]
 {
   final override def show(obj: R): String = typeStr + showSemi(obj).enParenth 
   @inline override def showTyped(obj: R): String = show(obj)
 }
 
-
-abstract class ShowSimple[A](typeSym: Symbol) extends Show[A](typeSym)
+abstract class ShowSimple[A](val typeSym: Symbol) extends Show[A]
 {
    final override def syntaxDepth: Int = 1
 }

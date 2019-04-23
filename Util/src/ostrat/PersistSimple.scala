@@ -5,6 +5,7 @@ import pParse._
 /** A Persist class described by a single value. */
 abstract class PersistSimple[A](typeSym: Symbol) extends ShowSimple[A](typeSym) with Persist[A]
 {
+  override def typeStr: String = typeSym.name
   /** A PersistSimple can be parsed from the expression within a Clause, but it can't be parsed from a ClausedStatement */
   override def fromClauses(clauses: Seq[Clause]): EMon[A] = bad1(clauses.head, typeStr -- "can not be parsed from Claused Statement")
   def fromStatement(st: Statement): EMon[A] = st match

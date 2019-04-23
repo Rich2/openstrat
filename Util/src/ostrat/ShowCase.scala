@@ -2,8 +2,10 @@
 package ostrat
 
 /** The base trait for the persistence of Case classes, aka Product types */
-abstract class ShowCase[R](typeSym: Symbol) extends ShowCompound[R](typeSym)
-{ def persistMems: List[Persist[_]]
+abstract class ShowCase[R](val typeSym: Symbol) extends ShowCompound[R]
+{
+  override def typeStr: String = typeSym.name
+  def persistMems: List[Persist[_]]
   final override def syntaxDepth: Int = persistMems.map(_.syntaxDepth).max + 1  
 }
 

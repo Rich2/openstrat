@@ -3,11 +3,11 @@ package ostrat
 import pParse._
 
 /** Persistence base trait for PersistCase and PerististSeqLike. Some methods probably need to be moved down into sub classes. */
-abstract class PersistCompound[R](typeSym: Symbol) extends ShowCompound[R](typeSym) with Persist[R]
+trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
 { 
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
-    case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeSym == typeName => fromParameterStatements(sts)
+    case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if Symbol(typeStr) == typeName => fromParameterStatements(sts)
     case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName.name -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }
