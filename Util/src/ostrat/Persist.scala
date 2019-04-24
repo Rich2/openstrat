@@ -55,24 +55,33 @@ trait Persist[T] extends Show[T]
 /** Companion object for the persistence type class. Contains the implicit instances for Scala standard library types. */
 object Persist
 {
-  /** Implicit method for creating List[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def listToPersist [T](implicit ev: Persist[T]): Persist[List[T]] = new PersistListImplicit[T](ev)  
-  /** Implicit method for creating Seq[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def seqToPersist [T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
-  /** Implicit method for creating Vector[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def vectorToPersist [T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)  
+  /** Implicit method for creating List[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def listToPersist[A](implicit ev: Persist[A]): Persist[List[A]] = new PersistListImplicit[A](ev)  
+  /** Implicit method for creating Seq[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def seqToPersist[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
+  /** Implicit method for creating Vector[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def vectorToPersist[T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)  
   
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrayRefToPersist [A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev) 
+  implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev) 
   
-  class OptionSimplePersist[A](val ev: PersistSimple[A]) extends Show[Option[A]]
+  implicit def seqToPersistDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]): PersistSeqDirect[A] = new PersistSeqDirect[A](thisSeq, ev)
+  
+  implicit def optionToPersist[A](implicit ev: Persist[A]): Persist[Option[A]] = new OptionPersist[A](ev)
+  //implicit def someToPersist[A](implicit ev: Persist[A]): Persist[Option[A]] = new OptionPersist[A](ev)
+  
+  class OptionPersist[A](val ev: Persist[A]) extends Persist[Option[A]]  
   {    
     override def typeStr: String = "Option" + ev.typeStr.enSquare
     override def syntaxDepth: Int = ev.syntaxDepth
     override def show(obj: Option[A]) = obj.fold("")(ev.show(_))
-    def showComma(obj: Option[A]): String = ???
-    def showSemi(obj: Option[A]): String = ???
+    def showComma(obj: Option[A]): String = show(obj)
+    def showSemi(obj: Option[A]): String = show(obj)
     override def showTyped(obj: Option[A]): String = obj.fold("None")(typeStr + ev.show(_).enParenth)
+    
+    override def fromClauses(clauses: Seq[ostrat.pParse.Clause]): ostrat.EMon[Option[A]] = ???
+    override def fromExpr(expr: ostrat.pParse.Expr): ostrat.EMon[Option[A]] = ???
+    override def fromStatement(st: ostrat.pParse.Statement): ostrat.EMon[Option[A]] = ???
   }
   
   implicit object IntArrayToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)

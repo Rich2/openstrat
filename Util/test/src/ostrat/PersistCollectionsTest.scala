@@ -10,7 +10,7 @@ object PersistCollectionsTest  extends TestSuite
     val l1Comma: String = "-1, -2, -30"
     val l2: List[Int] = List(4, 5, 6)
     val l2Comma: String = "4, 5, 6"
-    val ss: Seq[Seq[Int]] = Seq(l1, l2)
+    val ss: Seq[Seq[Int]] = Seq(l1, l2)    
     
     'Seq -
     { assert(l1.str == "Seq[Int](-1; -2; -30)")
@@ -18,11 +18,11 @@ object PersistCollectionsTest  extends TestSuite
       assert(l1.strComma == l1Comma)
       assert(l1.strTyped == "Seq[Int](-1; -2; -30)")
       assert(l2.strComma == l2Comma)
-      assert(ss.str == "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")")      
+      assert(ss.str == "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")")
+      //assert(::(4, Nil).str == "Seq(4)")
     }
     
-    val a1: Array[String] = Array("3", "4")
-    deb(a1.str)
+    val a1: Array[String] = Array("3", "4")    
     val a1Res ="Seq[Str](\"3\"; \"4\")"
     
     'Array -

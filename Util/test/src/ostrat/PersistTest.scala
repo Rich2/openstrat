@@ -16,6 +16,7 @@ object TestClass
 object TestObjA extends TestClass('TestObjA)
 object TestObjB extends TestClass('TestObjB)
 
+
 case class MyClass(ints: Seq[Int], myStr: String)
 object MyClass
 {
