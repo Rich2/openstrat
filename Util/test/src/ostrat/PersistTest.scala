@@ -20,8 +20,7 @@ object TestObjB extends TestClass('TestObjB)
 case class MyClass(ints: Seq[Int], myStr: String)
 object MyClass
 {
-  implicit object MyClassPersist extends Persist2[Seq[Int], String, MyClass](
-      'MyClass, m => (m.ints, m.myStr), apply)
+  implicit object MyClassPersist extends Persist2[Seq[Int], String, MyClass]("MyClass", m => (m.ints, m.myStr), apply)
 }
 
 object PersistTest extends TestSuite

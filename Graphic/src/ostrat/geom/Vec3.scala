@@ -101,7 +101,7 @@ object Vec3
 { def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
   
-  implicit object Vec3Persist extends PersistD3[Vec3]('Vec3, v => (v.x, v.y, v.z), apply)
+  implicit object Vec3Persist extends PersistD3[Vec3]("Vec3", v => (v.x, v.y, v.z), apply)
 //   implicit class Vec3SeqImplicit(thisSeq: Seq[Vec3])
 //   {
 //      /** Returns Some z positive points if 3 or more */ 

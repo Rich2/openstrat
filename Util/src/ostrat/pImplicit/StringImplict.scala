@@ -66,7 +66,15 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def toTokens: EMonList[pParse.Token] = pParse.stringToTokens(thisString)
   /** Appends strings with a comma and space seperator */
   def commaAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
-  def semicolonAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ - "; " - _)
+  def semicolonAppend(extraStrings: String*): String =
+  {
+    val v1 = extraStrings.foldLeft(thisString)(_ - "; " - _)
+    extraStrings.length match
+    {
+      case 0 => ife(thisString == "", v1 + ";", v1)
+      case _ => ife(extraStrings.last == "", v1 + ";", v1)
+    }
+  }
   def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
   def appendParenth(innerStrs: String*): String = thisString - innerStrs.semicolonFold.enParenth  
 }

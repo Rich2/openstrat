@@ -35,7 +35,7 @@ object TokensFind
           case d if d.isDigit => hexIntLoop(tail, strAcc - d.toString, (intAcc * 16) + d - '0')
           case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'A' + 10)
           case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'a' + 10)
-          case _ => {deb("ml") ;mainLoop(rem, tp.addStr(strAcc), IntToken(tp, strAcc, intAcc) :: tokenAcc) }
+          case _ => mainLoop(rem, tp.addStr(strAcc), IntToken(tp, strAcc, intAcc) :: tokenAcc)
         }
       }            
       def hexLongLoop(rem: List[Char], strAcc: String, longAcc: Long): TokensMon = rem match

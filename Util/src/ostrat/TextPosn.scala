@@ -37,20 +37,18 @@ object FilePosn
   def empty: FilePosn = new FilePosn("Empty object", 0, 0)
   def emptyError[A](errStr: String): Bad[A] = bad1(empty, errStr)
   
-  implicit object FilePosnShow extends Show3[String, Int, Int, FilePosn]('FilePosn, fp => (fp.fileName, fp.lineNum, fp.linePosn))
-  {
-    //def show(obj: FilePosn): String = obj.fileName.toString -- obj.lineNum.toString -- obj.linePosn.toString 
-  }
+  implicit object FilePosnShow extends Show3[String, Int, Int, FilePosn]("FilePosn", fp => (fp.fileName, fp.lineNum, fp.linePosn))  
 }
 
 trait TextSpan
 { def startPosn: TextPosn
   def endPosn: TextPosn
 }
- object TextSpan
- {
-   def empty = new TextSpan{def startPosn = FilePosn.empty; def endPosn = FilePosn.empty }
- }
+
+object TextSpan
+{
+  def empty = new TextSpan{def startPosn = FilePosn.empty; def endPosn = FilePosn.empty }
+}
 
 trait TextSpanMems extends TextSpan
 { def startMem: TextSpan
