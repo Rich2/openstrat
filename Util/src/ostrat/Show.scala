@@ -23,19 +23,18 @@ abstract class Show[T]
   def showTyped(obj: T): String
 }
 
-trait ShowCompound[R] extends Show[R]
+object Show
 {
-  final override def show(obj: R): String = typeStr + showSemi(obj).enParenth 
-  @inline override def showTyped(obj: R): String = show(obj)
-}
-
-abstract class ShowSimple[A](val typeSym: Symbol) extends Show[A]
-{
-   final override def syntaxDepth: Int = 1
-}
-
-abstract class ShowSingleton[T](objSym: Symbol)
-{
-  def str: String = objSym.name
-  override def toString: String = objSym.name
+  implicit def someToPersist[A](implicit ev: Persist[A]): Show[Some[A]] = new SomeShowImplicit[A](ev)
+  
+  class SomeShowImplicit[A](val ev: Persist[A]) extends Show[Some[A]]
+  {
+    override def typeStr: String = "Some" + ev.typeStr.enSquare
+    override def syntaxDepth: Int = ev.syntaxDepth
+    override def show(obj: Some[A]) = ev.show(obj.value)
+    def showComma(obj: Some[A]): String = show(obj)
+    def showSemi(obj: Some[A]): String = show(obj)
+    override def showTyped(obj: Some[A]): String = typeStr + ev.show(obj.value).enParenth
+  }
+  
 }
