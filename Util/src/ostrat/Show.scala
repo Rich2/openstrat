@@ -4,7 +4,7 @@ package ostrat
 /** The classic Show type class. A functional version of toString .Mostly you will want to use Persist which not only gives the Show methods
  *   to String representation, but the methods to parse Strings back to objects of the type T. However it may often be useful to start with Show
  *   type class and upgrade it later to Persist[T]. */
-abstract class Show[T]
+trait Show[T]
 {
   def typeStr: String
   /** Provides the standard string representation for the object */
@@ -23,12 +23,12 @@ abstract class Show[T]
   def showTyped(obj: T): String
 }
 
+trait ShowOnly[T] extends Show[T]
+
 object Show
 {
-  implicit def someToPersist[A](implicit ev: Persist[A]): Show[Some[A]] = new SomeShowImplicit[A](ev)
-  
-  class SomeShowImplicit[A](val ev: Persist[A]) extends Show[Some[A]]
-  {
+  implicit def someToShowOnly[A](implicit ev: Persist[A]): ShowOnly[Some[A]] = new ShowOnly[Some[A]]
+  {     
     override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepth: Int = ev.syntaxDepth
     override def show(obj: Some[A]) = ev.show(obj.value)
@@ -36,5 +36,7 @@ object Show
     def showSemi(obj: Some[A]): String = show(obj)
     override def showTyped(obj: Some[A]): String = typeStr + ev.show(obj.value).enParenth
   }
+  
+  
   
 }
