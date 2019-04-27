@@ -7,10 +7,8 @@ import pParse._
   * Persist companion object persists Integers and constructs Integers from Strings. */
 trait Persist[T] extends Show[T]
 { 
-  def typeStr: String
-  
-  def fromExpr(expr: Expr): EMon[T]
-  
+  def typeStr: String  
+  def fromExpr(expr: Expr): EMon[T]  
   def fromClauses(clauses: Seq[Clause]): EMon[T]
   def fromClauses2[A1, A2, B](f: (A1, A2) => B, clauses: Seq[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = clauses match
   { case Seq(c1, c2) => ev1.fromExpr(c1.expr).map2(ev2.fromExpr(c2.expr), f)
