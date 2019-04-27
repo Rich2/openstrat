@@ -78,7 +78,7 @@ class Coloured(val colour: Colour) extends WithColour
 
 object Colour
 {
-  implicit object ColourPersistImplicit extends PersistSimple[Colour]('Colour)
+  implicit object ColourPersistImplicit extends PersistSimple[Colour]("Colour")
   {
     import pParse._
     def fromExpr(expr: ParseExpr): EMon[Colour] = expr match

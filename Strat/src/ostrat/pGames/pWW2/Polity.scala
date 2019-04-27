@@ -10,7 +10,7 @@ trait Polity extends SingletonLeaf
 
 object Polity
 {
-  object PolityPersist extends PersistSingletons[Polity]('Polity)
+  object PolityPersist extends PersistSingletons[Polity]("Polity")
   {
     override val singletonList = List(Germany, Britain, France)
   }

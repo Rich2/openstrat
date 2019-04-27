@@ -8,7 +8,7 @@ class TestClass(val objSym: Symbol) extends SingletonLeaf
 }
 object TestClass
 {
-  implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]('TestClass)
+  implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]("TestClass")
   { override val singletonList = List(TestObjA, TestObjB)    
   }
 }

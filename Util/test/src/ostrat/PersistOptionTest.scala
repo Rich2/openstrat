@@ -26,6 +26,7 @@ object PersistOptionTest extends TestSuite
     {
       assert(oa.str == "5")
       assert(Some(-5).str == "-5")
+      assert(None.str == "")
       assert(t1.str == "Test1(5; 4; 2.0)")
       assert(t2.str == "Test1(; 7; ;)")
     }

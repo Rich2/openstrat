@@ -27,16 +27,16 @@ trait ShowOnly[T] extends Show[T]
 
 object Show
 {
-  implicit def someToShowOnly[A](implicit ev: Persist[A]): ShowOnly[Some[A]] = new ShowOnly[Some[A]]
+  implicit def someToShowOnly[A](implicit ev: Persist[A]): ShowOnly[Some[A]] = new ShowOnly[Some[A]] with ShowSimple[Some[A]]
   {     
-    override def typeStr: String = "Some" + ev.typeStr.enSquare
-    override def syntaxDepth: Int = ev.syntaxDepth
-    override def show(obj: Some[A]) = ev.show(obj.value)
-    def showComma(obj: Some[A]): String = show(obj)
-    def showSemi(obj: Some[A]): String = show(obj)
-    override def showTyped(obj: Some[A]): String = typeStr + ev.show(obj.value).enParenth
+    override def typeStr: String = "Some" + ev.typeStr.enSquare    
+    override def show(obj: Some[A]) = ev.show(obj.value)   
   }
   
-  
+  implicit object NoneShowOnly extends ShowSimple[None.type]with ShowOnly[None.type]
+  {
+    override val typeStr: String = "None" 
+    override def show(obj: None.type) = ""    
+  }
   
 }

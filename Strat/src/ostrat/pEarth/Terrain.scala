@@ -16,7 +16,7 @@ object Terrain
     override def asType(obj: AnyRef): Terrain = obj.asInstanceOf[Terrain]      
   }
    
-  implicit object TerrainPersist extends PersistSimple[Terrain]('Terrain)
+  implicit object TerrainPersist extends PersistSimple[Terrain]("Terrain")
   {
     def show(obj: Terrain): String = obj.str
     def fromExpr(expr: ParseExpr): EMon[Terrain] = ???

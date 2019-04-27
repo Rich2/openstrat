@@ -11,7 +11,7 @@ trait Faction extends SingletonLeaf
 
 object Faction
 {
-  implicit object FactionPersistImplicit extends PersistSingletons[Faction]('Faction)
+  implicit object FactionPersistImplicit extends PersistSingletons[Faction]("Faction")
   {
     override def singletonList = List(Uruk, Eridu)
   }

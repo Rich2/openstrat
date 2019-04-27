@@ -11,7 +11,7 @@ trait SingletonLeaf //extends Stringer
   override def toString: String = objSym.name
 }
 
-abstract class PersistSingletons[A <: SingletonLeaf](typeSym: Symbol) extends PersistSimple[A](typeSym)
+abstract class PersistSingletons[A <: SingletonLeaf](typeStr: String) extends PersistSimple[A](typeStr)
 { def singletonList: List[A]
   @inline override def show(obj: A): String = obj.str
   def fromExpr(expr: ParseExpr): EMon[A] = expr match
