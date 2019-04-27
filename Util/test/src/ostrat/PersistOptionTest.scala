@@ -12,6 +12,7 @@ object PersistOptionTest extends TestSuite
     implicit object Test1Persist extends Persist3[Option[Int], Int, Option[Double], Test1]("Test1", r => (r.a, r.b, r.c), apply)
   }
   val t1 = Test1(Some(5), 4, Some(2.0))
+  val t1Str = "Test1(5; 4; 2.0)"
   val t2 = Test1(None, 7, None)
   case class Test2(t1: Test1, t2: Test1)
   object Test2
@@ -27,7 +28,7 @@ object PersistOptionTest extends TestSuite
       assert(oa.str == "5")
       assert(Some(-5).str == "-5")
       assert(None.str == "")
-      assert(t1.str == "Test1(5; 4; 2.0)")
+      assert(t1.str == t1Str)
       assert(t2.str == "Test1(; 7; ;)")
     }
   }

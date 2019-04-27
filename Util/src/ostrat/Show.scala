@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import pParse._
 
 /** The classic Show type class. A functional version of toString .Mostly you will want to use Persist which not only gives the Show methods
  *   to String representation, but the methods to parse Strings back to objects of the type T. However it may often be useful to start with Show
@@ -33,10 +34,13 @@ object Show
     override def show(obj: Some[A]) = ev.show(obj.value)   
   }
   
-  implicit object NoneShowOnly extends ShowSimple[None.type]with ShowOnly[None.type]
+  implicit object NoneShowOnly extends ShowSimple[None.type]with Persist[None.type]
   {
     override val typeStr: String = "None" 
-    override def show(obj: None.type) = ""    
+    override def show(obj: None.type) = ""
+    def fromClauses(clauses: Seq[Clause]): EMon[None.type] = bad1(clauses.head, typeStr -- "None can not be parsed from Claused Statement.")
+    def fromStatement(st: Statement): EMon[None.type] = ???
+    def fromExpr(expr: Expr): EMon[None.type] = ???
   }
   
 }
