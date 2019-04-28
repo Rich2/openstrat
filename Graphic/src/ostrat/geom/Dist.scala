@@ -4,9 +4,9 @@ package geom
 import math._
 
 /** Distance in metres */
-final class Dist(val metres: Double) extends AnyVal with Ordered[Dist] with Stringer
+final class Dist(val metres: Double) extends AnyVal with Ordered[Dist]// with Stringer
 { def typeStr: String = "Dist"
-  def str = persistD1(metres)
+  //def str = persistD1(metres)
   def +(operand: Dist) = Dist(metres + operand.metres)
   def -(operand: Dist) = Dist(metres - operand.metres)
   def unary_- : Dist = Dist(-metres)

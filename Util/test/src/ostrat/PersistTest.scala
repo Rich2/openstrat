@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-class TestClass(val objSym: Symbol) extends SingletonLeaf
+class TestClass(val str: String) extends PersistSingleton
 {
   def typeSym = 'TestClass
 }
@@ -13,8 +13,8 @@ object TestClass
   }
 }
 
-object TestObjA extends TestClass('TestObjA)
-object TestObjB extends TestClass('TestObjB)
+object TestObjA extends TestClass("TestObjA")
+object TestObjB extends TestClass("TestObjB")
 
 
 case class MyClass(ints: Seq[Int], myStr: String)

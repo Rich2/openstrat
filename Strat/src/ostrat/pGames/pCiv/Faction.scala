@@ -4,7 +4,7 @@ package pGames
 package pCiv
 import Colour._
 
-trait Faction extends SingletonLeaf
+trait Faction extends PersistSingleton
 { def typeSym = 'Faction
   def colour: Colour
 }
@@ -18,11 +18,11 @@ object Faction
 }
 
 object Uruk extends Faction
-{ def objSym = 'Uruk
+{ def str: String = "Uruk"
   val colour = Red
 }
 
 object Eridu extends Faction
-{ def objSym = 'Eridu
+{ def str: String = "Eridu"
   val colour = Blue
 }

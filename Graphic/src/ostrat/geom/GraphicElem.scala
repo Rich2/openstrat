@@ -16,7 +16,7 @@ case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, 
   PaintElem[LineDraw] with CurveLike
 {
   def typeStr: String = "LineDraw"
-  def str = persist4(xStart, xEnd, lineWidth, colour)
+  //def str = persist4(xStart, xEnd, lineWidth, colour)
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour, zOrder)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, lineWidth, dashLength, gapLength, colour, zOrder)
 }
@@ -50,7 +50,7 @@ case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Do
     zOrder: Int) extends PaintElem[DashedLineDraw] with CurveLike
 {
   def typeStr: String = "DashedLineDraw"
-  def str = persist4(xStart, xEnd, lineWidth, colour)
+  //def str = persist4(xStart, xEnd, lineWidth, colour)
   override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour, zOrder)  
 }
 

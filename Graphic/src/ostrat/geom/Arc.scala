@@ -24,9 +24,9 @@ trait ArcLike extends CurveLike
 }
 
 /** Currently the Arc class doesn't define direction of the Arc. I think this needs modification. */
-case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, zOrder: Int = 0) extends CurveLike with ArcLike
+case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, zOrder: Int = 0) extends ArcLike
 { def typeStr: String = "Arc"
-   override def str = persist3(pStart, pCen, pEnd)
+   //override def str = persist3(pStart, pCen, pEnd)
    def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pCen), f(pEnd))   
 }
 
@@ -40,7 +40,7 @@ object Arc
 case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour,
     zOrder: Int) extends PaintElem[ArcDraw] with ArcLike
 { def typeStr: String = "ArcDraw"
-  def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)
+  //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)
    override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour, zOrder)   
 }
 

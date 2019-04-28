@@ -4,7 +4,7 @@ package pGames
 package p305
 import Colour._
 
-trait Polity extends SingletonLeaf
+trait Polity extends PersistSingleton
 {
    def colour: Colour
    def typeSym: Symbol = 'Polity
@@ -12,12 +12,12 @@ trait Polity extends SingletonLeaf
 
 object Rome extends Polity
 {
-   def objSym = 'Rome
+   def str: String = "Rome"
    def colour = Red
 }
 
  object Macedon extends Polity
 {
-   def objSym = 'Macedon
+   def str: String = "Macedon"
    def colour = Blue
 }

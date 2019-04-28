@@ -23,4 +23,7 @@ object StdButton
   def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 
-object Turn extends ShowSingleton('Turn)
+object Turn extends PersistSingleton
+{
+  def str: String = "Turn"
+}
