@@ -96,7 +96,7 @@ object TokensFind
       
      case a if a.isLetter =>
      { val (alphaStr, finalTail) = rem.span(a => a.isLetterOrDigit | a == '.')      
-       mainLoop(finalTail, tp.addChars(alphaStr),  AlphaToken(tp, Symbol(alphaStr.mkString)) :: tokenAcc)            
+       mainLoop(finalTail, tp.addChars(alphaStr),  AlphaToken(tp, alphaStr.mkString) :: tokenAcc)            
      }
      
      case '\'' => rem match

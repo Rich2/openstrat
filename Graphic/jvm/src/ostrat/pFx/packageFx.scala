@@ -6,7 +6,7 @@ package object pFx
   val openStratDir: String = userHomeDir / "AppData/Local/OpenStratData"
   val openStratDevDir: String = openStratDir / "Dev"
   lazy val generalDevSettings: EMon[String] = loadRsonFile(openStratDevDir / "GeneralDevSettings.rson")
-  def findDevSettingElse[A: Persist](settingSym: Symbol, elseValue: => A): A = generalDevSettings.findSettingElse(settingSym, elseValue)
+  def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = generalDevSettings.findSettingElse(settingStr, elseValue)
   def saveRsonFile(path: String, fileName: String, output: String): Unit =
   { import java.io._
     val dir = new File(path)
@@ -22,6 +22,6 @@ package object pFx
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
    *  procedure (Unit returning function) with that object of type A */
   def fromRsonFileFindForeach[A: Persist](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).foreach(f)
-  def settFromFile[A: Persist](settingSym: Symbol, fileName: String): EMon[A] = loadRsonFile(fileName).findSett[A](settingSym)
-  def settFromFileElse[A: Persist](settingSym: Symbol, fileName: String, elseValue: A): A = settFromFile[A](settingSym, fileName).getElse(elseValue)
+  def settFromFile[A: Persist](settingStr: String, fileName: String): EMon[A] = loadRsonFile(fileName).findSett[A](settingStr)
+  def settFromFileElse[A: Persist](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 }

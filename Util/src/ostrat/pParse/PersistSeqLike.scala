@@ -16,7 +16,7 @@ class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]](
   override def fromExpr(expr: Expr): EMon[List[A]] = expr match
   { case SemicolonToken(_) => Good(List[A]())
 //         //For Some reason the compile is not finding the implicit
-    case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => sts.eMonMap[A](_.errGet[A](ev))
+    case AlphaBracketExpr(AlphaToken(_, "Seq"), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => sts.eMonMap[A](_.errGet[A](ev))
     case e => bad1(expr, "Unknown Exoression for Seq")
   }
 //      override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = clauses.eMonMap (cl => ev.fromExpr(cl.expr))
@@ -38,7 +38,7 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('S
    override def fromExpr(expr: Expr): EMon[Seq[A]] = expr match
    { case SemicolonToken(_) => Good(Seq[A]())
 //         //For Some reason the compile is not finding the implicit
-    case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => sts.eMonMap[A](_.errGet[A](ev))
+    case AlphaBracketExpr(AlphaToken(_, "Seq"), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => sts.eMonMap[A](_.errGet[A](ev))
     case e => bad1(expr, "Unknown Exoression for Seq")
   }
 //      override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = clauses.eMonMap (cl => ev.fromExpr(cl.expr))
@@ -60,7 +60,7 @@ class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[
   override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match
   { case SemicolonToken(_) => Good(Vector[A]())
 //         //For Some reason the compile is not finding the implicit
-    case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
+    case AlphaBracketExpr(AlphaToken(_, "Seq"), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
       sts.eMonMap[A](_.errGet[A](ev)).map(_.toVector)
     case e => bad1(expr, "Unknown Exoression for Seq")
   }

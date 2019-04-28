@@ -36,16 +36,16 @@ trait Persist[T] extends Show[T]
     case s3 => bad1(l.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.") 
   }
   
-  def settingFromStatement(settingSym: Symbol, st: Statement): EMon[T] = st match
+  def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
   {
-    case MonoStatement(AsignExpr(_, AlphaToken(_, sym), rightExpr), _) if sym == settingSym => fromExpr(rightExpr)
+    case MonoStatement(AsignExpr(_, AlphaToken(_, sym), rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => bad1(st.startPosn, typeStr -- "not found.")
   }
   
-  def settingFromStatementList(list: List[Statement], settingSym: Symbol): EMon[T] = list match
+  def settingFromStatementList(list: List[Statement], settingStr: String): EMon[T] = list match
   { case Seq() => FilePosn.emptyError("No Statements")
-    case Seq(e1) => settingFromStatement(settingSym, e1)
-    case s2 => list.map(settingFromStatement(settingSym, _)).collect{ case g: Good[T] => g } match
+    case Seq(e1) => settingFromStatement(settingStr, e1)
+    case s2 => list.map(settingFromStatement(settingStr, _)).collect{ case g: Good[T] => g } match
     { case Seq(t) => t
       case Nil => bad1(list.startPosn, typeStr -- "not found.")
       case s3 => bad1(list.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.")
@@ -84,6 +84,16 @@ object Persist
     override def fromStatement(st: ostrat.pParse.Statement): ostrat.EMon[Option[A]] = ???
   }
   
+  implicit object NonePersist extends PersistSimple[None.type]("None")
+  {   
+    override def show(obj: None.type) = ""   
+    def fromExpr(expr: Expr): EMon[None.type] = expr match
+    {
+      case eet : EmptyExprToken => Good(None)
+      case e => bad1(e, "None not found")
+    }
+  }
+  
   implicit object IntArrayToPersist extends PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semicolonFold
@@ -93,7 +103,7 @@ object Persist
   
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(AlphaToken(_, 'Seq), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
+      case AlphaBracketExpr(AlphaToken(_, "Seq"), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
         sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArray)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
@@ -167,8 +177,8 @@ object Persist
   implicit object BooleanPersist extends PersistSimple[Boolean]("Bool")
   { override def show(obj: Boolean): String = obj.toString  
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
-    { case AlphaToken(_, str) if str == 'true => Good(true)
-      case AlphaToken(_, str) if str == 'false => Good(false)
+    { case AlphaToken(_, str) if str == "true" => Good(true)
+      case AlphaToken(_, str) if str == "false" => Good(false)
        case _ => expr.exprParseErr[Boolean]
      }
   }

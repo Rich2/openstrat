@@ -13,14 +13,14 @@ object Rval
 
 class Sett(val str: String) extends AnyVal
 {
-  def ap[A](settSym: Symbol, value: A)(implicit ev: Persist[A]): Sett =
+  def ap[A](setting: String, value: A)(implicit ev: Persist[A]): Sett =
   {
-    new Sett(str + "\n" + settSym.name + " = " + ev.show(value) + ";")
+    new Sett(str + "\n" + setting + " = " + ev.show(value) + ";")
   }
 }
 
 object Sett
 {
-  def apply[A](settSym: Symbol, value: A)(implicit ev: Persist[A]): Sett = new Sett(settSym.name + " = " + ev.show(value) + ";")
+  def apply[A](setting: String, value: A)(implicit ev: Persist[A]): Sett = new Sett(setting + " = " + ev.show(value) + ";")
 }
 

@@ -66,11 +66,11 @@ object Statement
     
     
     /** Find setting from RSON statement */
-    def findSett[A](settingSym: Symbol)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingSym)
-    def findSettElse[A](settingSym: Symbol, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingSym).getElse(elseValue)
-    def findIntSett(settingSym: Symbol): EMon[Int] = Persist.IntPersist.settingFromStatementList(statementList, settingSym)
-    def findDoubleSett(settingSym: Symbol): EMon[Double] = Persist.DoublePersist.settingFromStatementList(statementList, settingSym)
-    def findBooleanSett(settingSym: Symbol): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementList, settingSym)
+    def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingStr)
+    def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
+    def findIntSett(settingStr: String): EMon[Int] = Persist.IntPersist.settingFromStatementList(statementList, settingStr)
+    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoublePersist.settingFromStatementList(statementList, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementList, settingStr)
   }
 
   implicit class EmonStatementListImplict(eMon: EMon[List[Statement]])

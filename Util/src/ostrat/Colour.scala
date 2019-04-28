@@ -83,8 +83,8 @@ object Colour
     import pParse._
     def fromExpr(expr: ParseExpr): EMon[Colour] = expr match
     {
-      case AlphaToken(_, typeName) if Colour.symToValue.nonEmpty => Good(Colour.symToValue(typeName)) 
-      case AlphaBracketExpr(AlphaToken(_, 'Colour), ParenthBlock(st :: Nil, _, _) :: Nil) => expr.exprParseErr[Colour](this)
+      case AlphaToken(_, typeName) if Colour.symToValue.nonEmpty => Good(Colour.symToValue(Symbol(typeName))) 
+      case AlphaBracketExpr(AlphaToken(_, "Colour"), ParenthBlock(st :: Nil, _, _) :: Nil) => expr.exprParseErr[Colour](this)
       case _ => expr.exprParseErr[Colour](this)
     }
     def show(obj: Colour): String = Colour.valueToSym.get(obj).fold(obj.hexStr)(_.name)
@@ -239,7 +239,8 @@ object Colour
    val WhiteSmoke: Colour = new Colour(0xFFF5F5F5)
    val Yellow: Colour = new Colour(0xFFFFFF00)
    val YellowGreen: Colour = new Colour(0xFF9ACD32)
-    
+   
+   //def strToValue
    val symToValue: Map[Symbol, Colour] = Map(
 ('AntiqueWhite, AntiqueWhite), ('Aqua, Aqua), ('Aquamarine, Aquamarine), ('Azure, Azure), ('Beige, Beige), ('Bisque, Bisque), ('Black, Black),
 ('BlanchedAlmond, BlanchedAlmond), ('Blue, Blue), ('BlueViolet, BlueViolet), ('BrightSkyBlue, BrightSkyBlue), ('Brown, Brown),

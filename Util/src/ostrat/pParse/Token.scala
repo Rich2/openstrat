@@ -26,9 +26,9 @@ case class DotToken(startPosn: TextPosn) extends ExprMemberToken { def str = "."
 
 /** An Alphanumeric Token. It contains a symbol rather than a String to represent the AlphaNumeric token as commonly used Symbols have better 
  *  better performance than the equivalent Strings. */
-case class AlphaToken(startPosn: TextPosn, sym: Symbol) extends ExprToken
+case class AlphaToken(startPosn: TextPosn, str: String) extends ExprToken
 { override def exprName: String = "AlphaTokenExpr"
-  override def str: String = sym.name
+  //override def  = sym.name
 }
 
 case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken

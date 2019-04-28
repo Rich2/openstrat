@@ -18,14 +18,14 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   
   def findIntArray: EMon[Array[Int]] = stss(thisString).flatMap(_.findIntArray)
   
-  def findSett[A: Persist](settingSym: Symbol): EMon[A] = stss(thisString).flatMap(_.findSett[A](settingSym))
-  def findSettElse[A: Persist](settingSym: Symbol, elseValue: A): A = findSett[A](settingSym).getElse(elseValue)
-  def findIntSett(settingSym: Symbol): EMon[Int] = stss(thisString).flatMap(_.findIntSett(settingSym))
-  def findIntSettElse(settingSym: Symbol, elseValue: Int): Int = findIntSett(settingSym).getElse(elseValue)  
-  def findDoubleSett(settingSym: Symbol): EMon[Double] = stss(thisString).flatMap(_.findDoubleSett(settingSym))
-  def findDoubleSettElse(settingSym: Symbol, elseValue: Double): Double = findDoubleSett(settingSym).getElse(elseValue)
-  def findBooleanSett(settingSym: Symbol): EMon[Boolean] = stss(thisString).flatMap(_.findBooleanSett(settingSym))
-  def findBooleanSettElse(settingSym: Symbol, elseValue: Boolean): Boolean = findBooleanSett(settingSym).getElse(elseValue)
+  def findSett[A: Persist](settingStr: String): EMon[A] = stss(thisString).flatMap(_.findSett[A](settingStr))
+  def findSettElse[A: Persist](settingStr: String, elseValue: A): A = findSett[A](settingStr).getElse(elseValue)
+  def findIntSett(settingStr: String): EMon[Int] = stss(thisString).flatMap(_.findIntSett(settingStr))
+  def findIntSettElse(settingStr: String, elseValue: Int): Int = findIntSett(settingStr).getElse(elseValue)  
+  def findDoubleSett(settingStr: String): EMon[Double] = stss(thisString).flatMap(_.findDoubleSett(settingStr))
+  def findDoubleSettElse(settingStr: String, elseValue: Double): Double = findDoubleSett(settingStr).getElse(elseValue)
+  def findBooleanSett(settingStr: String): EMon[Boolean] = stss(thisString).flatMap(_.findBooleanSett(settingStr))
+  def findBooleanSettElse(settingStr: String, elseValue: Boolean): Boolean = findBooleanSett(settingStr).getElse(elseValue)
   
   def - (other: String): String = thisString + other
   /** Concatenates a space and then the other String */

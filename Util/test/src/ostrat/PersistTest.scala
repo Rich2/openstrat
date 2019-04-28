@@ -3,9 +3,8 @@ package ostrat
 import utest._
 
 class TestClass(val str: String) extends PersistSingleton
-{
-  def typeSym = 'TestClass
-}
+
+
 object TestClass
 {
   implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]("TestClass")
