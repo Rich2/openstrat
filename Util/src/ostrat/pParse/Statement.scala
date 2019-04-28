@@ -106,7 +106,7 @@ case class MonoStatement(expr: Expr, optSemi: Opt[SemicolonToken]) extends UnCla
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with TextSpanMems
 {
-   override def expr = st
+   override def expr: Expr = st
    override def optSemi: Opt[SemicolonToken] = Opt(st)
    override def startMem: TextSpan = st
    override def endMem: TextSpan = st

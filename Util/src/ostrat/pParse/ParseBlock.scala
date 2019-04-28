@@ -12,7 +12,6 @@ trait StatementMember extends BlockMember
 trait ExprMember extends StatementMember
 trait ExprMemberToken extends BlockMemberToken with ExprMember
 
-
 sealed trait BracketToken extends Token
 sealed trait BracketOpen extends BracketToken
 {

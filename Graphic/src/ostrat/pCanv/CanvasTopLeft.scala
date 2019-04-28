@@ -27,31 +27,31 @@ trait CanvasTopLeft extends CanvasPlatform
     
    override def clip(pts: Polygon): Unit = tlClip(pts.fTrans(tlCen))   
    
-   protected def tlPolyFill(fp: PolyFill): Unit
-   protected def tlPolyDraw(dp: PolyDraw): Unit
-   protected def tlPolyFillDraw(pfd: PolyFillDraw): Unit
-   protected def tlLinePathDraw(pod: LinePathDraw): Unit
+   protected[this] def tlPolyFill(fp: PolyFill): Unit
+   protected[this] def tlPolyDraw(dp: PolyDraw): Unit
+   protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit
+   protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
    
-   protected def tlLineDraw(ld: LineDraw): Unit
-   protected def tlArcDraw(ad: ArcDraw): Unit
+   protected[this] def tlLineDraw(ld: LineDraw): Unit
+   protected[this] def tlArcDraw(ad: ArcDraw): Unit
    
-   protected def tlLinesDraw(lsd: LinesDraw): Unit
-   protected def tlDashedLineDraw(dld: DashedLineDraw): Unit
+   protected[this] def tlLinesDraw(lsd: LinesDraw): Unit
+   protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
-   protected def tlShapeFill(sf: ShapeFill): Unit
-   protected def tlShapeFillDraw(sfd: ShapeFillDraw): Unit
-   protected def tlShapeDraw(sd: ShapeDraw): Unit
+   protected[this] def tlShapeFill(sf: ShapeFill): Unit
+   protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit
+   protected[this] def tlShapeDraw(sd: ShapeDraw): Unit
    
-   protected def tlBezierDraw(bezierDraw: BezierDraw): Unit 
+   protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    
-   protected def tlTextGraphic(tg: TextGraphic): Unit
-   protected def tlTextOutline(tl: TextOutline): Unit
+   protected[this] def tlTextGraphic(tg: TextGraphic): Unit
+   protected[this] def tlTextOutline(tl: TextOutline): Unit
 
-   protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)
-   protected def mouseDownTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDown(Vec2(x - width / 2, height / 2 - y), mb)
-   protected def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Vec2(x - width / 2, height / 2 - y), mb)
-   protected def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Vec2(x - width / 2, height / 2 - y), mb)
+   protected[this] def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)
+   protected[this] def mouseDownTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDown(Vec2(x - width / 2, height / 2 - y), mb)
+   protected[this] def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Vec2(x - width / 2, height / 2 - y), mb)
+   protected[this] def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Vec2(x - width / 2, height / 2 - y), mb)
    
-   protected def tlClip(pts: Polygon): Unit
+   protected[this] def tlClip(pts: Polygon): Unit
    
 }

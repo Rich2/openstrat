@@ -48,7 +48,7 @@ object CanvasJs extends CanvasTopLeft
    
   val gc = can.getContext("2d").asInstanceOf[raw.CanvasRenderingContext2D]
    
-  override def tlPolyFill(fp: PolyFill): Unit =
+  override protected[this] def tlPolyFill(fp: PolyFill): Unit =
   { gc.beginPath()
     gc.moveTo(fp.xHead, fp.yHead)
     fp.verts.foreachPairTail(gc.lineTo)
@@ -67,7 +67,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke
   }
 
-  override def tlPolyFillDraw(pfd: PolyFillDraw): Unit =
+  override protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit =
   { gc.beginPath()
     gc.moveTo(pfd.xHead, pfd.yHead)
     pfd.verts.foreachPairTail(gc.lineTo)
@@ -79,7 +79,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke
   }
 
-  override def tlLinePathDraw(pod: LinePathDraw): Unit =
+  override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.moveTo)
@@ -88,7 +88,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke    
   }
 
-  override def tlLineDraw(ld: LineDraw): Unit =
+  override protected[this] def tlLineDraw(ld: LineDraw): Unit =
   { gc.beginPath
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
@@ -97,7 +97,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
   
-  override def tlDashedLineDraw(dld: DashedLineDraw): Unit =
+  override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath
     gc.moveTo(dld.xStart, dld.yStart)
     gc.lineTo(dld.xEnd, dld.yEnd)
@@ -108,13 +108,13 @@ object CanvasJs extends CanvasTopLeft
     gc.setLineDash(scalajs.js.Array.apply())
   }
    
-  override protected def tlArcDraw(ad: ArcDraw): Unit =
+  override protected[this] def tlArcDraw(ad: ArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     ad.fControlEndRadius(gc.arcTo)
   }
    
-  override protected def tlLinesDraw(lsd: LinesDraw): Unit =
+  override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
     lsd.lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
     gc.lineWidth = lsd.lineWidth
@@ -122,7 +122,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  protected def tlBezierDraw(bd: BezierDraw): Unit =
+  override protected[this] def tlBezierDraw(bd: BezierDraw): Unit =
   { gc.beginPath()
     gc.moveTo(bd.xStart, bd.yStart)
     gc.strokeStyle = bd.colour.webStr
@@ -130,7 +130,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
    
-  private def segsPath(segs: Shape): Unit =
+  private[this] def segsPath(segs: Shape): Unit =
   { gc.beginPath()
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -145,16 +145,16 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath
   }
    
-  override def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.segs);  gc.fillStyle = sf.colour.webStr; gc.fill }
+  override protected[this] def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.segs);  gc.fillStyle = sf.colour.webStr; gc.fill }
    
-  override def tlShapeDraw(sd: ShapeDraw): Unit =
+  override protected[this] def tlShapeDraw(sd: ShapeDraw): Unit =
   { segsPath(sd.segs)
     gc.strokeStyle = sd.colour.webStr
     gc.lineWidth = sd.lineWidth
     gc.stroke
   }
 
-  override def tlShapeFillDraw(sfd: ShapeFillDraw): Unit =
+  override protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit =
   { segsPath(sfd.segs)
     gc.fillStyle = sfd.fillColour.webStr
     gc.fill
@@ -163,7 +163,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke
   }
    
-  override def tlTextGraphic(tg: TextGraphic): Unit =
+  override protected[this] def tlTextGraphic(tg: TextGraphic): Unit =
   { gc.textAlign = tg.align.jsStr
     gc.textBaseline = "middle"
     gc.font = tg.fontSize.toString + "px Arial"
@@ -171,7 +171,7 @@ object CanvasJs extends CanvasTopLeft
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
   }
 
-  override def tlTextOutline(to: TextOutline): Unit =
+  override protected[this] def tlTextOutline(to: TextOutline): Unit =
   { gc.strokeStyle = to.colour.webStr
     gc.lineWidth = to.lineWidth
     gc.textAlign = to.align.jsStr
@@ -182,7 +182,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def clear(colour: Colour): Unit = { gc.fillStyle = colour.webStr; gc.fillRect(0, 0, width, height) }
 
-  override def tlClip(pts: Polygon): Unit =
+  override protected[this] def tlClip(pts: Polygon): Unit =
   { gc.beginPath
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)

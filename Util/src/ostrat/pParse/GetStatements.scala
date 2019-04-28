@@ -2,8 +2,10 @@
 package ostrat
 package pParse
 
+/** Just a holding object for methods to get Statements from Token. */
 object GetStatements
-{  
+{
+  /** Gets Statements from Tokens. All other methods in this object are private. */
   def apply(tokens: Seq[Token]): EMonList[Statement] = fileLoop(tokens, Nil)
    
   /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the 
@@ -65,20 +67,21 @@ object GetStatements
     loop(statement, Nil, Nil)
   }
    
-  private def getExpr(seg: List[ExprMember]): EMon[Expr] = assignments(seg, Nil)// sortBlocks(seg, Nil).flatMap {
-  
-  private def assignments(rem: List[ExprMember], acc: List[ExprMember]): EMon[Expr] = rem match
+  private def getExpr(seg: List[ExprMember]): EMon[Expr] = 
   {
-    case Nil => getBlocks(acc)
-    case (at: AsignToken) :: tail =>
+    def loop(rem: List[ExprMember], acc: List[ExprMember]): EMon[Expr] = rem match
     {
-      val eLs = getBlocks(acc)
-      val eRs = assignments(tail, Nil)
-      eLs.map2[Expr, Expr](eRs, (ls, rs) => AsignExpr(at, ls, rs))
+      case Nil => getBlocks(acc)
+      case (at: AsignToken) :: tail =>
+      {
+        val eLs = getBlocks(acc)
+        val eRs = loop(tail, Nil)
+        eLs.map2[Expr, Expr](eRs, (ls, rs) => AsignExpr(at, ls, rs))
+      }
+      case h :: tail => loop(tail, acc :+ h)
     }
-    case h :: tail => assignments(tail, acc :+ h)
+    loop(seg, Nil)
   }
-  
   
   private def getBlocks(seg: List[ExprMember]): EMon[Expr] = sortBlocks(seg, Nil).flatMap {
     case Seq(e: Expr) => Good(e)      

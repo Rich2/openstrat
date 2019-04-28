@@ -44,13 +44,13 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
   }
 
   /** Needs mod */
-  override def tlPolyDraw(dp: PolyDraw): Unit =
+  override protected[this] def tlPolyDraw(dp: PolyDraw): Unit =
   { gc.setStroke(toFxColor(dp.colour))
     gc.setLineWidth(dp.lineWidth)
     gc.strokePolygon(dp.xArray, dp.yArray, dp.vertsLen)
   }
  
-  override def tlPolyFillDraw(pfd: PolyFillDraw): Unit =
+  override protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit =
   { gc.setFill(toFxColor(pfd.fillColour))
     gc.fillPolygon(pfd.xArray, pfd.yArray, pfd.vertsLen)
     gc.setStroke(toFxColor(pfd.lineColour))
@@ -58,7 +58,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.strokePolygon(pfd.xArray, pfd.yArray, pfd.vertsLen)
   }
 
-  override def tlLinePathDraw(pod: LinePathDraw): Unit =
+  override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.moveTo)
@@ -67,7 +67,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.stroke()//Think this is right but not sure.    
   }
    
-  override protected def tlLineDraw(ld: LineDraw): Unit =
+  override protected[this] def tlLineDraw(ld: LineDraw): Unit =
   { gc.beginPath
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
@@ -76,7 +76,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.stroke()
   }
    
-  override protected def tlArcDraw(ad: ArcDraw): Unit =
+  override protected[this] def tlArcDraw(ad: ArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     ad.fControlEndRadius(gc.arcTo)
@@ -84,7 +84,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.stroke()
   }
   
-  protected def tlDashedLineDraw(dld: DashedLineDraw): Unit =
+  override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath
     gc.moveTo(dld.xStart, dld.yStart)
     gc.lineTo(dld.xEnd, dld.yEnd)
@@ -104,7 +104,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     }
   }
    
-  protected def tlBezierDraw(bd: BezierDraw): Unit =
+  override protected[this] def tlBezierDraw(bd: BezierDraw): Unit =
   { gc.setStroke(toFxColor(bd.colour))
     gc.setLineWidth(bd.lineWidth)
     gc.beginPath
@@ -113,7 +113,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.stroke()
   }
    
-  override def tlTextGraphic(tg: TextGraphic): Unit =
+  override protected[this] def tlTextGraphic(tg: TextGraphic): Unit =
   { gc.setTextAlign(fxAlign(tg.align))
     gc.setTextBaseline(geometry.VPos.CENTER)
     gc.setFont(new text.Font(tg.fontSize))
@@ -121,7 +121,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
   }
    
-  protected def tlLinesDraw(lsd: LinesDraw): Unit =
+  protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
     lsd.lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
     gc.setLineWidth(lsd.lineWidth)
@@ -129,7 +129,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.stroke()
   }
    
-  override def tlTextOutline(to: TextOutline): Unit =
+  override protected[this] def tlTextOutline(to: TextOutline): Unit =
   { gc.setTextAlign(text.TextAlignment.CENTER)
     gc.setTextBaseline(geometry.VPos.CENTER)
     gc.setStroke(toFxColor(to.colour))
@@ -138,7 +138,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }
    
-  private def segsPath(segs: Shape): Unit =
+  private[this] def segsPath(segs: Shape): Unit =
   { gc.beginPath
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -152,13 +152,13 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
     gc.closePath
   }
    
-  override def tlShapeFill(sf: ShapeFill): Unit =
+  override protected[this] def tlShapeFill(sf: ShapeFill): Unit =
   { segsPath(sf.segs)
     gc.setFill(toFxColor(sf.colour))
     gc.fill()
   }
    
-  override def tlShapeFillDraw(sfd: ShapeFillDraw): Unit =
+  override protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit =
   { segsPath(sfd.segs)
     gc.setFill(toFxColor(sfd.fillColour))
     gc.fill()
@@ -184,7 +184,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
   override def timeOut(f: () => Unit, millis: Integer): Unit = new Timeline(new KeyFrame(util.Duration.millis(millis.doubleValue()),
     (ae: event.ActionEvent) => f())).play
    
-  override def tlClip(pts: Polygon): Unit =
+  override protected[this] def tlClip(pts: Polygon): Unit =
   { gc.beginPath
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)
