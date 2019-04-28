@@ -2,6 +2,15 @@
 package ostrat
 import pParse._
 
+abstract class PersistSingletons[A <: SingletonLeaf](typeStr: String) extends PersistSimple[A](typeStr)
+{ def singletonList: List[A]
+  @inline override def show(obj: A): String = obj.str
+  def fromExpr(expr: ParseExpr): EMon[A] = expr match
+  { case AlphaToken(_, sym) => singletonList.find(_.objSym == sym).toEMon1(expr, typeStr -- "not parsed from this Expression")
+    case e => bad1(e, typeStr -- "not parsed from this Expression")
+  }
+}
+
 /** all the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of
   * the object, but sometimes, it may be a lengthened or shortened version of the singleton object name. */
 trait SingletonLeaf //extends Stringer
@@ -11,11 +20,9 @@ trait SingletonLeaf //extends Stringer
   override def toString: String = objSym.name
 }
 
-abstract class PersistSingletons[A <: SingletonLeaf](typeStr: String) extends PersistSimple[A](typeStr)
-{ def singletonList: List[A]
-  @inline override def show(obj: A): String = obj.str
-  def fromExpr(expr: ParseExpr): EMon[A] = expr match
-  { case AlphaToken(_, sym) => singletonList.find(_.objSym == sym).toEMon1(expr, typeStr -- "not parsed from this Expression")
-    case e => bad1(e, typeStr -- "not parsed from this Expression")
-  }
+
+abstract class ShowSingleton[T](objSym: Symbol)
+{
+  def str: String = objSym.name
+  override def toString: String = objSym.name
 }

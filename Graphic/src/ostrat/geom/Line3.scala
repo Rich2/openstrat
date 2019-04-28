@@ -4,7 +4,7 @@ package geom
 
 /** In geometry this is a 3 dimensional line segment. A straight line between two points. */
 case class Line3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends ProdD6 with Stringer
-{ def typeSym = 'Line3
+{ def typeStr: String = "Line3"
   def str = persist2(pStart, pEnd)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Line3]
   override def _1 = xStart

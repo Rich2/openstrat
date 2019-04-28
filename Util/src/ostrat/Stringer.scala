@@ -5,8 +5,8 @@ package ostrat
  *  to create an implicit Persist object in the companion object of your type, but this trait does allow you to automatically delegate toString to
  *  the String / Persist implementation. */
 trait Stringer extends Any
-{ def typeSym: Symbol
-  def typeStr: String = typeSym.name
+{ 
+  def typeStr: String 
   def str: String
   final override def toString = str
   

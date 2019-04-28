@@ -19,7 +19,15 @@ trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
     case ClausedStatement(cls, _) => bad1(cls.head.startPosn, "Claused Statement")
     case es @ EmptyStatement(st) => es.asError
   } 
-} 
+}
+
+trait ShowCompound[R] extends Show[R]
+{
+  final override def show(obj: R): String = typeStr + showSemi(obj).enParenth 
+  @inline override def showTyped(obj: R): String = show(obj)
+}
+
+
 
 
 

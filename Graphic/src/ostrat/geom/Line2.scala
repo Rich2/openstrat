@@ -5,7 +5,7 @@ import Colour.Black
 
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
 case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Stringer with Transable[Line2] with CurveLike
-{ def typeSym = 'Line2
+{ def typeStr: String = "Line2"
   def str = persist2(pStart, pEnd)
   override def _1 = xStart
   override def _2 = yStart
