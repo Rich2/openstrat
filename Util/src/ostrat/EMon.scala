@@ -95,3 +95,11 @@ case class Bad[+A](errs: StrList) extends EMon[A]
   override def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B] = 
     Bad[B](errs ::: eMon2.errs ::: eMon3.errs ::: eMon4.errs)    
 }
+
+object Bad
+{
+//  implicit class BadShowImplicit[A] extends Show[Bad[A]]
+//  {
+//    
+//  }
+}

@@ -81,7 +81,7 @@ package object ostrat
     }
   }
   
-  /** Extension methods for Any */
+  /** Extension methods for AnyRef */
   implicit class AnyRefImplicit[T <: Any](thisT: T)
   {
     def *(operand: Int): Multiple[T] = Multiple(thisT, operand) 
@@ -128,9 +128,11 @@ package object ostrat
   implicit def stringToImplicit(s: String): StringImplicit = new StringImplicit(s)
   implicit def listToImplicit[A](thisList: List[A]): ListImplicit[A] = new ListImplicit[A](thisList)
   implicit def seqToImplicit[A](thisSeq: Seq[A]): SeqImplicit[A] = new SeqImplicit(thisSeq)  
-  implicit def persistTToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): StringerImplicit[A] = new StringerImplicit[A](ev, thisVal) 
-  implicit def showTToStringerImplicit[A](thisVal: A)(implicit ev: ShowOnly[A]): StringerImplicit[A] = new StringerImplicit[A](ev, thisVal) 
+  implicit def persistTToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): ShowerImplicit[A] = new ShowerImplicit[A](ev, thisVal) 
+  implicit def showTToStringerImplicit[A](thisVal: A)(implicit ev: ShowOnly[A]): ShowerImplicit[A] = new ShowerImplicit[A](ev, thisVal) 
   implicit def traversableToImplicit[A](trav: Traversable[A]): TraversableImplicit[A] = new TraversableImplicit[A](trav)  
   implicit def stringTraverableToImplict(strTrav: Traversable[String]): StringTraversableImplicit = StringTraversableImplicit(strTrav)   
-  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversableImplicit = StringTraversableImplicit(strArray)  
+  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversableImplicit = StringTraversableImplicit(strArray) 
+ 
+  
 }

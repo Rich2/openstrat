@@ -62,8 +62,7 @@ object Statement
     def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementList)
     def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementList)
     def findBoolean: EMon[Boolean] = Persist.BooleanPersist.findFromStatementList(statementList)
-    def findIntArray: EMon[Array[Int]] = Persist.IntArrayToPersist.findFromStatementList(statementList)   
-    
+    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntPersistImplicit.findFromStatementList(statementList)    
     
     /** Find setting from RSON statement */
     def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingStr)

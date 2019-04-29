@@ -5,26 +5,27 @@ package pImplicit
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
-  import pParse.{stringToStatements => stss }
+  
+  def parseToStatements: EMon[List[pParse.Statement]] = pParse.stringToStatements(thisString)
   def findTokens: EMon[List[pParse.Token]] = pParse.TokensFind.fromString(thisString)
   def findStatements: EMon[List[pParse.Statement]] = findTokens.flatMap(pParse.GetStatements(_))
-  def findType[A: Persist]: EMon[A] = stss(thisString).flatMap(_.findType[A])
+  def findType[A: Persist]: EMon[A] = thisString.parseToStatements.flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
-  def findInt: EMon[Int] = stss(thisString).flatMap(_.findInt)
-  def findDouble: EMon[Double] = stss(thisString).flatMap(_.findDouble)
-  def findBoolean: EMon[Boolean] = stss(thisString).flatMap(_.findBoolean)
-  def findTypeIndex[A: Persist](index: Int): EMon[A] = stss(thisString).flatMap(_.findTypeIndex[A](index))  
+  def findInt: EMon[Int] = thisString.parseToStatements.flatMap(_.findInt)
+  def findDouble: EMon[Double] = thisString.parseToStatements.flatMap(_.findDouble)
+  def findBoolean: EMon[Boolean] = thisString.parseToStatements.flatMap(_.findBoolean)
+  def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseToStatements.flatMap(_.findTypeIndex[A](index))  
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
   
-  def findIntArray: EMon[Array[Int]] = stss(thisString).flatMap(_.findIntArray)
+  def findIntArray: EMon[Array[Int]] = thisString.parseToStatements.flatMap(_.findIntArray)
   
-  def findSett[A: Persist](settingStr: String): EMon[A] = stss(thisString).flatMap(_.findSett[A](settingStr))
+  def findSett[A: Persist](settingStr: String): EMon[A] = thisString.parseToStatements.flatMap(_.findSett[A](settingStr))
   def findSettElse[A: Persist](settingStr: String, elseValue: A): A = findSett[A](settingStr).getElse(elseValue)
-  def findIntSett(settingStr: String): EMon[Int] = stss(thisString).flatMap(_.findIntSett(settingStr))
+  def findIntSett(settingStr: String): EMon[Int] = thisString.parseToStatements.flatMap(_.findIntSett(settingStr))
   def findIntSettElse(settingStr: String, elseValue: Int): Int = findIntSett(settingStr).getElse(elseValue)  
-  def findDoubleSett(settingStr: String): EMon[Double] = stss(thisString).flatMap(_.findDoubleSett(settingStr))
+  def findDoubleSett(settingStr: String): EMon[Double] = thisString.parseToStatements.flatMap(_.findDoubleSett(settingStr))
   def findDoubleSettElse(settingStr: String, elseValue: Double): Double = findDoubleSett(settingStr).getElse(elseValue)
-  def findBooleanSett(settingStr: String): EMon[Boolean] = stss(thisString).flatMap(_.findBooleanSett(settingStr))
+  def findBooleanSett(settingStr: String): EMon[Boolean] = thisString.parseToStatements.flatMap(_.findBooleanSett(settingStr))
   def findBooleanSettElse(settingStr: String, elseValue: Boolean): Boolean = findBooleanSett(settingStr).getElse(elseValue)
   
   def - (other: String): String = thisString + other
