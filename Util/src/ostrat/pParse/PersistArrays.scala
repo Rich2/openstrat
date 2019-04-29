@@ -4,7 +4,7 @@ package pParse
 
 class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]]('Array, ev)
 {       
-  override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semicolonFold
+  override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
   override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
   override def fromParameterStatements(sts: List[Statement]): EMon[Array[A]] = ???
   override def fromClauses(clauses: Seq[Clause]): EMon[Array[A]] = ???

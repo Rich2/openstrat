@@ -10,10 +10,10 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisTrav.isEmpty) vEmpty else vNonEmpty  
   def ifHead(f: A => Boolean) : Boolean = thisTrav.ifEmpty(false, f(thisTrav.head))  
   def headOrElse(vEmpty: A): A = if (thisTrav.isEmpty) vEmpty else thisTrav.head
-  def toStrFold(seperator: String = "", f: A => String = _.toString): String =
+  def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
     thisTrav.ifEmpty("", thisTrav.tail.foldLeft(f(thisTrav.head))(_ - seperator - f(_)))   
-  def commaFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold(", ", fToStr)
-  def semiFold(fToStr: A => String = _.toString): String = thisTrav.toStrFold("; ", fToStr)
+  def toStrsCommaFold(fToStr: A => String = _.toString): String = thisTrav.toStrsFold(", ", fToStr)
+  def toStrsSemiFold(fToStr: A => String = _.toString): String = thisTrav.toStrsFold("; ", fToStr)
    
   /** Maps over a Traversable (collection / sequence) with a counter. */
   def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =

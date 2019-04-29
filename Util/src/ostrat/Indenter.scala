@@ -16,7 +16,7 @@ object IndentCon
     def encOut(indent: Int, begStr: String, endStr: String) = thisSeq match
     { case Seq() => begStr + endStr
       case Seq(head) if !head.multiLine => begStr + head.out(indent + 2) + endStr
-      case _ => thisSeq.toStrFold("\n" + indent.toSpaces, _.out(indent + 2)) + endStr
+      case _ => thisSeq.toStrsFold("\n" + indent.toSpaces, _.out(indent + 2)) + endStr
     }
 
     def curlyedOut(indent: Int) = thisSeq.encOut(indent, "{", "}")

@@ -15,7 +15,8 @@ case class StringTraversableImplicit(trav: Traversable[String])
       loop(trav, initialString, initialAcc2)   
    }
    def commaFold: String = strFold(", ")
-   def semicolonFold: String = strFold("; ")
+   def semiFold: String = strFold("; ")
+   def semiParenth: String = semiFold.enParenth
    def commaParenth: String = commaFold.enParenth
    def insertSpaces: String = strFold(" ")
    def insertSlashes: String = strFold(" / ")   

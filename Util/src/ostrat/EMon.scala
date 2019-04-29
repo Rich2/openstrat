@@ -98,8 +98,11 @@ case class Bad[+A](errs: StrList) extends EMon[A]
 
 object Bad
 {
-//  implicit class BadShowImplicit[A] extends Show[Bad[A]]
-//  {
-//    
-//  }
+  implicit def BadShowImplicit[A](implicit ev: Show[A]): ShowOnly[Bad[A]] = new ShowOnly[Bad[A]] with ShowCompound[Bad[A]]
+  {
+    override def syntaxDepth: Int = 2
+    override def typeStr: String = "Bad" + ev.typeStr.enSquare
+    override def showSemi(obj: Bad[A]): String = obj.errs.mkString("; ")
+    override def showComma(obj: Bad[A]): String = obj.errs.semiFold// semiColonFold //.mkString(", ")
+  }
 }

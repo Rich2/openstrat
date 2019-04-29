@@ -77,5 +77,5 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     }
   }
   def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
-  def appendParenth(innerStrs: String*): String = thisString - innerStrs.semicolonFold.enParenth  
+  def appendParenth(innerStrs: String*): String = thisString - innerStrs.semiParenth  
 }

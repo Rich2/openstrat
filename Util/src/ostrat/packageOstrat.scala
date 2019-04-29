@@ -133,6 +133,4 @@ package object ostrat
   implicit def traversableToImplicit[A](trav: Traversable[A]): TraversableImplicit[A] = new TraversableImplicit[A](trav)  
   implicit def stringTraverableToImplict(strTrav: Traversable[String]): StringTraversableImplicit = StringTraversableImplicit(strTrav)   
   implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversableImplicit = StringTraversableImplicit(strArray) 
- 
-  
 }

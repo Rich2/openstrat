@@ -96,7 +96,7 @@ object Persist
   
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
-    override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semicolonFold
+    override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
