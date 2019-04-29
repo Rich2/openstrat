@@ -76,6 +76,17 @@ case class Good[+A](val value: A) extends EMon[A]
   }  
 }
 
+object Good
+{
+  implicit def GoodShowImplicit[A](implicit ev: Show[A]): ShowOnly[Good[A]] = new ShowOnly[Good[A]] with ShowCompound[Good[A]]
+  {
+    override def syntaxDepth: Int = ev.syntaxDepth + 1
+    override def typeStr: String = "Good" + ev.typeStr.enSquare
+    override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
+    override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
+  }
+}
+
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: StrList) extends EMon[A]
 {
