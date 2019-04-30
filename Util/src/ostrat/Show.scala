@@ -35,8 +35,5 @@ object Show
   {     
     override def typeStr: String = "Some" + ev.typeStr.enSquare    
     override def show(obj: Some[A]) = ev.show(obj.value)   
-  }
-  
-  
-  
+  }  
 }
