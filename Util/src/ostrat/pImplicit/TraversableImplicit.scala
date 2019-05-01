@@ -148,5 +148,4 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     }
     res
   }  
-  
 }

@@ -32,11 +32,17 @@ class ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val typeStr: String)(
   }  
 }
 
-class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](typeStr: String)(implicit ev1: Show[A1], ct1: ClassTag[A1], ev2: Show[A2],
+class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](typeStr: String)(implicit ev1: Persist[A1], ct1: ClassTag[A1], ev2: Persist[A2],
     ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2](typeStr) with Persist[ST]
 {
-  override def fromExpr(expr: Expr): EMon[ST] = ???
-  override def fromClauses(clauses: Seq[Clause]): EMon[ST] = ???
-  
+  def pList: List[Persist[ST]] = List(ev1, ev2).asInstanceOf[List[Persist[ST]]]
+  override def fromExpr(expr: Expr): EMon[ST] = pList.mapFirstGood(_.fromExpr(expr), bad1(expr.startPosn, "No value of" -- typeStr -- "found"))
+    
+  override def fromClauses(clauses: Seq[Clause]): EMon[ST] = ???  
   def fromStatement(st: Statement): EMon[ST] = ???
 }
+
+trait MyA[+T]
+trait MyB[-T]
+trait MyC[T] extends MyA[T] with MyB[T]
+  

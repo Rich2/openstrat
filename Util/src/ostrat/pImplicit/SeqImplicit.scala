@@ -82,4 +82,18 @@ class SeqImplicit[A](thisSeq: Seq[A])
     while (count < length){ valProds.setElem(count, thisSeq(count)); count += 1 }
     valProds
   }
+  
+  def mapFirstGood[B](f: A => EMon[B], errs: => Bad[B]): EMon[B] =
+  {
+    def loop(rem: List[A]): EMon[B] = rem match
+    {
+      case Nil => errs
+      case ::(h, tail) => f(h) match
+      {
+        case gd: Good[A] => gd
+        case _ => loop(tail)
+      }
+    }
+    loop(thisSeq.toList)
+  }
 }
