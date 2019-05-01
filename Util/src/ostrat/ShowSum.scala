@@ -2,9 +2,13 @@
 package ostrat
 import reflect.ClassTag, pParse._
 
-class ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val typeStr: String)(
-    implicit ev1: Show[A1], ct1: ClassTag[A1], ev2: Show[A2], ct2: ClassTag[A2]) extends Show[ST]
+trait ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST] extends Show[ST]
 {
+  def ev1: Show[A1]  
+  def ev2: Show[A2]
+  implicit def ct1: ClassTag[A1]
+  implicit def ct2: ClassTag[A2]
+
   override def show(obj: ST): String = obj match
   {
     case a1: A1 => ev1.show(a1)
@@ -32,17 +36,20 @@ class ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val typeStr: String)(
   }  
 }
 
-class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](typeStr: String)(implicit ev1: Persist[A1], ct1: ClassTag[A1], ev2: Persist[A2],
-    ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2](typeStr) with Persist[ST]
+trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends UnShow[ST]
 {
-  def pList: List[Persist[ST]] = List(ev1, ev2).asInstanceOf[List[Persist[ST]]]
-  override def fromExpr(expr: Expr): EMon[ST] = pList.mapFirstGood(_.fromExpr(expr), bad1(expr.startPosn, "No value of" -- typeStr -- "found"))
+  def ev1: UnShow[A1]  
+  def ev2: UnShow[A2] 
+  
+  def pList: List[UnShow[ST]] = List(ev1, ev2)
+  override def fromExpr(expr: Expr): EMon[ST] = pList.mapFirstGood(_.fromExpr(expr), bad1(expr.startPosn, "No value of" -- typeStr -- "found."))
     
   override def fromClauses(clauses: Seq[Clause]): EMon[ST] = ???  
   def fromStatement(st: Statement): EMon[ST] = ???
 }
 
-trait MyA[+T]
-trait MyB[-T]
-trait MyC[T] extends MyA[T] with MyB[T]
-  
+class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val typeStr: String)(implicit val ev1: Persist[A1], val ct1: ClassTag[A1], val ev2: Persist[A2],
+    val ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2] with UnShowSum2[ST, A1, A2]
+{
+
+}

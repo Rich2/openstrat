@@ -15,7 +15,7 @@ abstract class PersistSimple[A](val typeStr: String) extends ShowSimple[A] with 
   
 }
 
-trait ShowSimple[A] extends Show[A]
+trait ShowSimple[-A] extends Show[A]
 {
   final override def syntaxDepth: Int = 1
   override def showComma(obj: A): String = show(obj)

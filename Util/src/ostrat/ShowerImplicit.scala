@@ -1,7 +1,7 @@
 package ostrat
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-class ShowerImplicit[A](ev: Show[A], thisVal: A)
+class ShowerImplicit[-A](ev: Show[A], thisVal: A)
 { /** Provides the standard string representation for the object. */
   def str: String = ev.show(thisVal)
 

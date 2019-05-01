@@ -4,7 +4,7 @@ package ostrat
 /** The classic Show type class. A functional version of toString .Mostly you will want to use Persist which not only gives the Show methods
  *   to String representation, but the methods to parse Strings back to objects of the type T. However it may often be useful to start with Show
  *   type class and upgrade it later to Persist[T]. */
-trait Show[T]
+trait Show[-T]
 {
   def typeStr: String
   /** Provides the standard string representation for the object */
