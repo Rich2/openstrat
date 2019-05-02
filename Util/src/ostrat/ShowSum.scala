@@ -54,7 +54,3 @@ class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val typeStr: String)(implic
 
 }
 
-trait MyA[+T]{ def myDef: MyA[T] }
-trait MyB[-T]{ def myDef: MyB[T] }
-case class MyC[T](myDef: MyC[T]) extends MyA[T] with MyB[T]
-
