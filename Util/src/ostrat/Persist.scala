@@ -9,7 +9,7 @@ trait Persist[T] extends Show[T] with UnShow[T]
 
 /** Companion object for the persistence type class. Contains the implicit instances for Scala standard library types. */
 object Persist
-{
+{  
   /** Implicit method for creating List[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def listToPersist[A](implicit ev: Persist[A]): Persist[List[A]] = new PersistListImplicit[A](ev)  
   /** Implicit method for creating Seq[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
