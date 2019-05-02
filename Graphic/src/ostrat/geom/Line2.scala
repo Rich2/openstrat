@@ -5,8 +5,8 @@ import Colour.Black
 
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
 case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transable[Line2] with CurveLike
-{ //def typeStr: String = "Line2"
-  //def str = persist2(pStart, pEnd)
+{ 
+  override def toString: String = Line2.PersistImplicit.show(this)
   override def _1 = xStart
   override def _2 = yStart
   override def _3 = xEnd
@@ -40,7 +40,7 @@ object Line2
 { /** Factory apply method for Line2. If using Doubles "Line2(x1 vv y1, x2 vv y2)" is the preferred syntax, rather than calling the constructor
 * directly. */
   @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
-  implicit object Line2Persist extends Persist2[Vec2, Vec2, Line2]("Line2", l => (l.pStart, l.pEnd), Line2(_, _))
+  implicit object PersistImplicit extends Persist2[Vec2, Vec2, Line2]("Line2", l => (l.pStart, l.pEnd), Line2(_, _))
 }
 object HLine
 { /** Creates a horizontal Line2 */

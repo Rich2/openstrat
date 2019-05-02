@@ -44,7 +44,7 @@ lazy val UtilJvm = projJvm("Util").dependsOn(UtilMacrosJvm).settings(
 
 lazy val UtilJs = projJs("Util").dependsOn(UtilMacrosJs)
 
-lazy val GraphicJvm = projJvm("Graphic").dependsOn(UtilJvm).settings(	
+lazy val GraphicJvm = projJvm("Graphic").dependsOn(UtilJvm % "test->test;compile->compile").settings(	
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile,  
   // include the macro classes and resources in the main jar
   //mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,

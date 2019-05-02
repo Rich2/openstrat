@@ -59,7 +59,8 @@ object Graphic extends PlatformsModule
 { 
   def moduleDeps = Seq(Util)
   
-  object test extends InnerTests 
+  object test extends InnerTests
+  
   object js extends InnerJs {  def moduleDeps = Seq(Util.js)  }
   object Nat extends InnerNative
 }
