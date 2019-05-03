@@ -4,10 +4,9 @@ package geom
 import math._
 
 /** 2 dimensional vector using metres as units rather than pure numbers. */
-class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2// with Stringer
+class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
 {
- // def typeStr: String = "Dist2"
-  //def str = persistD2(xMetres, yMetres)
+  override def toString: String = Dist2.PersistImplicit.show(this) 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
   def x: Dist = Dist(xMetres)
   val y: Dist = Dist(yMetres)
@@ -44,7 +43,6 @@ class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2// with Stri
   def yNeg: Boolean = y.neg
 }
 
-
 object Dist2
 { def metres(xMetres: Double, yMetres: Double): Dist2 = new Dist2(xMetres, yMetres)
   def apply(x: Dist, y: Dist): Dist2 = new Dist2(x.metres, y.metres)
@@ -52,6 +50,8 @@ object Dist2
   implicit class Dist2Implicit(thisDist2: Dist2)
   { def / (operator: Dist): Vec2 = Vec2(thisDist2.x/ operator, thisDist2.y / operator)
   }
+
+  implicit val PersistImplicit: Persist[Dist2] = new PersistD2[Dist2]("Dist2", d2 => (d2.xMetres, d2.yMetres), new Dist2(_, _))
 }
 
 class Dist2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]

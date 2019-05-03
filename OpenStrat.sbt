@@ -67,6 +67,8 @@ lazy val DevJvm = projJvm("DevModule").dependsOn(StratJvm).settings(
   //mappings in (Compile, packageSrc) ++= mappings.in(Macros, Compile, packageSrc).value
 )
 
+lazy val all3 = proj("all3").aggregate(UtilJvm, GraphicJvm, StratJvm)
+
 def appFile(name: String): String = "Strat/js/srcApps/ostrat/pSJs/" + name.take(1).toUpperCase + name.drop(1) + "JsApp.scala"
 
 def jsApp(name: String): Project = proj(name).enablePlugins(ScalaJSPlugin).dependsOn(StratJs).settings(jsSettings).settings(

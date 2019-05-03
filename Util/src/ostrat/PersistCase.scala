@@ -43,7 +43,7 @@ class Persist2[A1, A2, R](typeStr: String, val fParam: R => (A1, A2), val newT: 
 }
 
 /** Persistence class for case classes consisting of 2 Double parameters. */
-abstract class PersistD2[R](typeStr: String, fParam: R => (Double, Double), newT: (Double, Double) => R) extends
+class PersistD2[R](typeStr: String, fParam: R => (Double, Double), newT: (Double, Double) => R) extends
    Persist2[Double, Double, R](typeStr, fParam, newT)
 
 /** Persistence class for 3 parameter case classes. */   
