@@ -16,6 +16,6 @@ case class InputSubmit(str: String, otherAttribs: Seq[XAtt] = Seq()) extends HIn
 }
 
 object FormPost extends XAtt("method","post")
-case class FormValue(label: String) extends XAtt("value", label.enqu)
-case class FormAction(actionName: String) extends XAtt("action", actionName.enqu)
-case class FormName(nameStr: String) extends XAtt("name", nameStr.enqu)
+case class FormValue(label: String) extends XAtt("value", label.enquote)
+case class FormAction(actionName: String) extends XAtt("action", actionName.enquote)
+case class FormName(nameStr: String) extends XAtt("name", nameStr.enquote)

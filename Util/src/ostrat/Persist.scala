@@ -74,7 +74,7 @@ object Persist
   }
   
   implicit val CharPersist: Persist[Char] = new PersistSimple[Char]("Char")
-  { def show(obj: Char): String = obj.toString.enqu1
+  { def show(obj: Char): String = obj.toString.enquote1
     override def fromExpr(expr: Expr): EMon[Char] = expr match      
     { case CharToken(_, char) => Good(char)        
       case  _ => expr.exprParseErr[Char]
@@ -82,7 +82,7 @@ object Persist
   }
    
   implicit val StringPersist: Persist[String] = new PersistSimple[String]("Str")
-  { def show(obj: String): String = obj.enqu
+  { def show(obj: String): String = obj.enquote
     override def fromExpr(expr: Expr): EMon[String] = expr match      
     { case StringToken(_, stringStr) => Good(stringStr)        
       case  _ => expr.exprParseErr[String]

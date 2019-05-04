@@ -33,12 +33,12 @@ case class AlphaToken(startPosn: TextPosn, str: String) extends ExprToken
 
 case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken
 { def exprName = "CharTokenExpr"
-  def str = char.toString.enqu1
+  def str = char.toString.enquote1
 }
 
 case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
 { def exprName = "StringTokenExpr"
-  def str = stringStr.enqu
+  def str = stringStr.enquote
 }
 
 trait IntLikeToken extends ExprToken

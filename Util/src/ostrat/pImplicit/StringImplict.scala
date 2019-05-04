@@ -47,9 +47,9 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def / (other: String): String = thisString + "/" + other
   def :- (other: String): String = thisString + ": " + other 
   def optAppend (optionOther: Option[String]): String = optionOther.fold(thisString)(string2 => thisString + " " + string2)
-  def enqu: String = "\"" + thisString + "\""
-  def enqu1: String = "'" + thisString + "'"
-  def addEnqu(s2: String): String = thisString + s2.enqu
+  def enquote: String = "\"" + thisString + "\""
+  def enquote1: String = "'" + thisString + "'"
+  def addEnqu(s2: String): String = thisString + s2.enquote
   /** encloses string in parentheses */
   def enParenth: String = "(" + thisString + ")"
   /** encloses string in Square brackets */

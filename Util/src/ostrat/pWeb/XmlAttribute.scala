@@ -11,6 +11,6 @@ object XAtt
 /** Xml Attribute. Html and Svg elements do not have their own attribute traits and use Xml Attributes for the default case.   */
 class XAtt (name: String, value: String) 
 {
-   def out(indent: Int): String = name + "=" + value.enqu1
+   def out(indent: Int): String = name + "=" + value.enquote1
    def multiLine: Boolean = false
 }

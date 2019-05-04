@@ -9,11 +9,11 @@ object PersistGeomTest  extends TestSuite
   { val vec2a: Vec2 = 56.1 vv -45.2
     val vec2aSemi = "56.1; -45.2"
     val vec2aComma = "56.1, -45.2"
-    val vec2aStd = "Vec2(" + vec2aSemi + ")"
+    val vec2aStd = "Vec2" + vec2aSemi.enParenth
     val vec2b: Vec2 = -0.01 vv 0.02
     val vec2bSemi = "-0.01; 0.02"
     val vec2bComma = "-0.01, 0.02"
-    val vec2bStd: String = "Vec2(" + vec2bSemi + ")"
+    val vec2bStd: String = "Vec2" + vec2bSemi.enParenth
     
     'Vec2Test
     { assert(vec2a.toString == vec2aStd)
@@ -39,8 +39,7 @@ object PersistGeomTest  extends TestSuite
     }
     
     'OtherTest
-    { assert(Vec3(3.1, -4, 5).str == "Vec3(3.1; -4.0; 5.0)")
-      //assert(Polygon.apply(vec2a, vec2b).str = "")
+    { assert(Vec3(3.1, -4, 5).str == "Vec3(3.1; -4.0; 5.0)")      
     }
   }
 }
