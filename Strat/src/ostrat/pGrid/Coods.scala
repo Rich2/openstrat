@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 
 class Coods(val arr: Array[Int]) extends AnyVal with ProductI2s[Cood] 
-{ override def typeStr: String = "Coods"
+{ //override def typeStr: String = "Coods"
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
    
   def filter(f: Cood => Boolean): Coods =

@@ -4,8 +4,9 @@ package geom
 import math._
 
 /** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD2 with LatlongOrVertNum
-{ def typeSym = 'LatLong
+class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD2
+{
+  override def toString: String = LatLong.PersistImplict.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = lat
   def _2 = long
@@ -81,7 +82,7 @@ object LatLong
     new LatLong(lat, long)
   }
    
-  implicit object LatLongPersist extends PersistD2[LatLong]("LatLong", ll => (ll.lat, ll.long), apply)
+  implicit object PersistImplict extends PersistD2[LatLong]("LatLong", ll => (ll.lat, ll.long), apply)
    
   //def apply(latAngle: Latitude, longAngle: Longitude): LatLong = new LatLong(latAngle.radians, longAngle.radians)
    //def ll(lat: Latitude, long: Longitude) = new LatLong(lat.radians, long.radians)
@@ -112,10 +113,8 @@ object LatLong
 //   }
 }
 
-trait LatlongOrVertNum
-
 class LatLongs(val arr: Array[Double]) extends AnyVal with ProductD2s[LatLong]
-{ override def typeStr: String = "LatLongs"
+{ //override def typeStr: String = "LatLongs"
   override def newElem(d1: Double, d2: Double): LatLong = LatLong.apply(d1, d2)
 }
 

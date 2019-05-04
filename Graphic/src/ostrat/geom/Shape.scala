@@ -9,7 +9,7 @@ import Colour.Black
 class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] with Transable[Shape]
 { //def typeSym = 'Shape
   //def str: String = persistD3
-  override def typeStr: String = "CurvedSeg"
+  //override def typeStr: String = "CurvedSeg"
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg =
     new CurveSeg(iMatch, d1, d2, d3, d4, d5, d6)
    

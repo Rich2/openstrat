@@ -5,9 +5,9 @@ import math._
 
 /** A 3 dimensional vector, can be used to represent 3 dimensional points and translations of 3 dimensional points. Right-handed coordinate
  *  system is the default */
-final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdD3// with Stringer
-{ def typeStr: String = "Vec3"
-  //def str = persistD3(x, y, z)
+final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdD3
+{ 
+  override def toString: String = Vec3.PersistImplicit.show(this) 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec3]
   def _1 = x
   def _2 = y
@@ -101,7 +101,7 @@ object Vec3
 { def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
   
-  implicit object Vec3Persist extends PersistD3[Vec3]("Vec3", v => (v.x, v.y, v.z), apply)
+  implicit object PersistImplicit extends PersistD3[Vec3]("Vec3", v => (v.x, v.y, v.z), apply)
 //   implicit class Vec3SeqImplicit(thisSeq: Seq[Vec3])
 //   {
 //      /** Returns Some z positive points if 3 or more */ 
