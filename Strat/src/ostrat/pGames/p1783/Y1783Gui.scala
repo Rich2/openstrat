@@ -20,7 +20,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
           case ::(head, _) if tScale > 68 => List(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))               
           case _ =>
           {
-            val strs: List[String] = List(yxStr, cenLL.toString)                   
+            val strs: List[String] = List(yxStr, cenLL.degStr)                   
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)
           }
         })         

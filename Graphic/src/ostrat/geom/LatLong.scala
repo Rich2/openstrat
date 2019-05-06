@@ -11,7 +11,7 @@ class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD
   def _1 = lat
   def _2 = long
   def persistName = "LatLong"
-  def persistMems = Seq(lat, long)
+  def persistMems = Seq(lat, long)  
   def polarRadius: Dist = EarthPolarRadius
   def equatorialRadius: Dist = EarthEquatorialRadius
   def +(other: LatLong): LatLong = addLong(other.long).addLat(other.lat)
