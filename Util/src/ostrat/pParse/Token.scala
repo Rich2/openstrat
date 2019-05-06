@@ -41,6 +41,13 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
   def str = stringStr.enquote
 }
 
+/** The purpose of this token is for use at the beginning of a file, to make the the rest of the Statements, sub-statements. As if they were the
+ *  statements inside parenthesis. */
+case class HashAlphaToken(startPosn: TextPosn, str: String) extends ExprToken
+{
+  override def exprName: String = "HashAlphaTokenExpr"
+}
+
 trait IntLikeToken extends ExprToken
 {
   def intValue: Int
