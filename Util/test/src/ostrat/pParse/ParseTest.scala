@@ -11,12 +11,12 @@ object ParseTest extends TestSuite
     
     'Test1
     {
-      assert("4".findType[Int] == Good(4))
-      assert("-4".findType[Int] == Good(-4))
-      assert(settingStr.findSett[Int]("x") == Good(-5))
-      assert(settingStr.findSett[Int]("y") == Good(7))
-      assert(settingStr.findIntSett("y") == Good(7))
-      assert(settingStr.findType[Boolean] == Good(true))
+      "4".findType[Int] ==> Good(4)
+      "-4".findType[Int] ==> Good(-4)
+      settingStr.findSett[Int]("x") ==> Good(-5)
+      settingStr.findSett[Int]("y") ==> Good(7)
+      settingStr.findIntSett("y") ==> Good(7)
+      settingStr.findType[Boolean] ==> Good(true)
     }
   }
 }
