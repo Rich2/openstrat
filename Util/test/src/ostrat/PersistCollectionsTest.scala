@@ -13,12 +13,12 @@ object PersistCollectionsTest  extends TestSuite
     val ss: Seq[Seq[Int]] = Seq(l1, l2)    
     
     'Seq -
-    { assert(l1.str == "Seq[Int](-1; -2; -30)")
-      assert(l1.strSemi == "-1; -2; -30")
-      assert(l1.strComma == l1Comma)
-      assert(l1.strTyped == "Seq[Int](-1; -2; -30)")
-      assert(l2.strComma == l2Comma)
-      assert(ss.str == "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")")
+    { l1.str ==> "Seq[Int](-1; -2; -30)"
+      l1.strSemi ==> "-1; -2; -30"
+      l1.strComma ==> l1Comma
+      l1.strTyped ==> "Seq[Int](-1; -2; -30)"
+      l2.strComma ==> l2Comma
+      ss.str ==> "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")"
       //assert(::(4, Nil).str == "Seq(4)")
     }
     
@@ -27,7 +27,7 @@ object PersistCollectionsTest  extends TestSuite
     
     'Array -
     {
-      assert(a1.str == a1Res)
+      a1.str ==> a1Res
     }
   }
 }

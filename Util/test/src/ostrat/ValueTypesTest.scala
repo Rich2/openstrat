@@ -2,6 +2,7 @@
 package ostrat
 import utest._
 
+/** Not quite sure the logic of this test code. */
 object ValueTypesTest extends TestSuite
 {
   val tests = Tests
@@ -11,11 +12,11 @@ object ValueTypesTest extends TestSuite
       val p:(Int, Int) = d.to2Ints         
       assert ((i1,i2) == p)
     }
-    'test1 - { t(-5, 4) }
-    'test2 - {t(23457, -2147483647) }
-    'test3 - {t( -4875, 2147483646) }
-    'test4 - {t( -40875, 21474) }
-    'test5 - {t( -40875, -21474) }
-    'test6 - {t( 410875, -21001474) }
+    * - { t(-5, 4) }
+    * - {t(23457, -2147483647) }
+    * - {t( -4875, 2147483646) }
+    * - {t( -40875, 21474) }
+    * - {t( -40875, -21474) }
+    * - {t( 410875, -21001474) }
   }
 }

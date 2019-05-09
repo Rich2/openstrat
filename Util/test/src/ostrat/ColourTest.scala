@@ -7,13 +7,13 @@ object ColourTest extends TestSuite
   val tests = Tests
   {
     val bl = Black
-    //val bStr = "Colour(0x000000FF)"
+    val bStr = "Colour(0x000000FF)"
     
     'test1 - 
     {
       bl.toString ==> "Black"
       bl.str ==> "Black"      
-      //bStr.findType[Colour] ==> Good(Black)
+      assertMatch(bStr.findTokens){case Good(_) =>}
     }
   }
 }
