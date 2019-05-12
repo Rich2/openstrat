@@ -15,8 +15,7 @@ trait PaintElem[A] extends Any with GraphicElem[A]
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, zOrder: Int) extends
   PaintElem[LineDraw] with CurveLike
 {
-  def typeStr: String = "LineDraw"
-  //def str = persist4(xStart, xEnd, lineWidth, colour)
+  def typeStr: String = "LineDraw"  
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour, zOrder)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, lineWidth, dashLength, gapLength, colour, zOrder)
 }
