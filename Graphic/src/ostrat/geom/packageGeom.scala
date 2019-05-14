@@ -4,7 +4,8 @@ package ostrat
  *   implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of 
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
-{ import math._
+{  
+  import math._
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
   /** Dist2(0.km, 0.km) constant */
