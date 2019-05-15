@@ -2,10 +2,7 @@
 package ostrat
 package pGames
 package pCard
-import geom._
-import Colour.Black
-import pCanv._
-
+import geom._, pCanv._, Colour.Black
 
 case class BlackJackGui(canv: CanvasPlatform) extends CanvasSimple("BlackJack")
 {      

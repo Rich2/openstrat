@@ -1,12 +1,13 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import math._
+
 /** I chose the package name to not clash with "geometry" that may be use in other libraries This package contains Basic geometry. A number of
  *   implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of 
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {
-  implicit def TransToExtension[T](value: T)(implicit ev: Trans[T]) = new TransExtension[T](value, ev)
-  import math._
+  implicit def TransToExtension[T](value: T)(implicit ev: Trans[T]) = new TransExtension[T](value, ev)  
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
   /** Dist2(0.km, 0.km) constant */

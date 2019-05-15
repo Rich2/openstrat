@@ -120,5 +120,5 @@ object Vec2
   { def toPolygon: Polygon = thisSeq.toPValues
   }
 
-  implicit object PersistImplicit extends PersistD2[Vec2]("Vec2", v => (v.x, v.y), apply)
+  implicit val PersistImplicit: Persist[Vec2] = new PersistD2[Vec2]("Vec2", v => (v.x, v.y), apply)
 }
