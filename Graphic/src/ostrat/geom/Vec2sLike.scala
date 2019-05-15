@@ -22,9 +22,8 @@ trait Vec2sLike extends Any
 
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
  *  LinePath class should not entail a runtime cost. */
-class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with Transable[Vec2s] with Vec2sLike
-{
-  //override def typeStr: String = "Vec2"
+class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with Transer with Vec2sLike
+{  
   override def toString: String = Vec2s.Vec2sPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   @inline def lengthFull: Int = arr.length / 2  

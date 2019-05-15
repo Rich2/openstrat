@@ -38,7 +38,7 @@ object FlagsZ
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)         
     val cross = List(bar, arm).anti45.flatMap(_.rCross)//  flatRCross
-    val s1: List[PaintElem[_]] = List(
+    val s1: List[PaintElem] = List(
         poly.fill(Red),
         Circle.segs(6.0 /8).fill(White)) ++ cross      
         poly.subjSeq("Swastika", s1)

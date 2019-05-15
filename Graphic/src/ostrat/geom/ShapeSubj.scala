@@ -2,11 +2,10 @@
 package ostrat
 package geom
 
-case class ShapeSubj(cen: Vec2, shape: Shape, evObj: AnyRef, elems: List[PaintElem[_]], zOrder: Int = 0) extends GraphicSubject[ShapeSubj] with
-   ShapeActiveTr
+case class ShapeSubj(cen: Vec2, shape: Shape, evObj: AnyRef, elems: List[PaintElem], zOrder: Int = 0) extends GraphicSubject with ShapeActiveTr
 {  
-   def fTrans(f: Vec2 => Vec2): ShapeSubj = ShapeSubj(f(cen), shape.fTrans(f), evObj, elems.fTrans(f))   
-   override def addElems(newElems: List[PaintElem[_]]): ShapeSubj = ShapeSubj(cen, shape, evObj, elems ++ newElems)
+   def fTrans(f: Vec2 => Vec2): ShapeSubj = ShapeSubj(f(cen), shape.fTrans(f), evObj, elems.trans(f))   
+   override def addElems(newElems: List[PaintElem]): ShapeSubj = ShapeSubj(cen, shape, evObj, elems ++ newElems)
    override def mutObj(newObj: AnyRef): ShapeSubj = ShapeSubj(cen, shape, newObj, elems)
 }
 

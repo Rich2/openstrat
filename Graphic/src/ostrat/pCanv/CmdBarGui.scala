@@ -13,7 +13,7 @@ abstract class CmdBarGui(title: String) extends CanvasMulti(title)
   def status = textBox(statusText, Unit)
   val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   /**  repaints the top command bar */
-   def reTop(commands: List[GraphicSubject[_]]): Unit = topBar.repaint(DisplayRow(10, commands).fromLeft(topBar.cenLeft))
+   def reTop(commands: List[GraphicSubject]): Unit = topBar.repaint(DisplayRow(10, commands).fromLeft(topBar.cenLeft))
 }
 
 object StdButton

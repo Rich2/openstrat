@@ -38,7 +38,7 @@ object Arc
 
 /** A functional paint element to Draw an Arc. Defined by the arc, the line width, the colour and the zOrder. */
 case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour,
-    zOrder: Int) extends PaintElem[ArcDraw] with ArcLike
+    zOrder: Int) extends PaintElem with ArcLike
 { def typeStr: String = "ArcDraw"
   //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)
    override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour, zOrder)   

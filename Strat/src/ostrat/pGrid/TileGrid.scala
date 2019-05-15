@@ -171,7 +171,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     acc   
   }
   
-  final def tilesOptionDispAll(f: TileT => Option[GraphicElem[_]]): GraphicElems = 
+  final def tilesOptionDispAll(f: TileT => Option[GraphicElem]): GraphicElems = 
   {
     var acc: GraphicElems = Nil
     foreachTileAll(t => f(t) match

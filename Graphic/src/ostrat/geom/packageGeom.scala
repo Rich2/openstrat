@@ -4,7 +4,8 @@ package ostrat
  *   implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of 
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
-{  
+{
+  implicit def TransToExtension[T](value: T)(implicit ev: Trans[T]) = new TransExtension[T](value, ev)
   import math._
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
@@ -18,9 +19,9 @@ package object geom
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type SSet[A] = scala.collection.SortedSet[A]
-  type GraphicElems = List[GraphicElem[_]]
+  type GraphicElems = List[GraphicElem]
   /** Hopefully this existential syntax baggage will be gone in dotty */
-  type CanvO = GraphicElem[_]
+  type CanvO = GraphicElem
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
  
@@ -37,7 +38,7 @@ package object geom
   }
    
   implicit class OptionGeomImplicit[A](thisOption: Option[A])
-  {  def canvObjsPair(f: A => (Seq[GraphicElem[_]], Seq[GraphicElem[_]])): (Seq[GraphicElem[_]], Seq[GraphicElem[_]]) = thisOption match
+  {  def canvObjsPair(f: A => (Seq[GraphicElem], Seq[GraphicElem])): (Seq[GraphicElem], Seq[GraphicElem]) = thisOption match
      {
         case Some(a) => f(a)
         case None => (Seq(), Seq())

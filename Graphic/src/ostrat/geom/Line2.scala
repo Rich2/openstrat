@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
-case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transable[Line2] with CurveLike
+case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transer with CurveLike
 { 
   override def toString: String = Line2.PersistImplicit.show(this)
   override def _1 = xStart

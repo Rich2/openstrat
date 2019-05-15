@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-trait PolyElem[A] extends Any with PaintElem[A]
+trait PolyElem extends Any with PaintElem
 {
    def verts: Polygon
    def xHead: Double = verts.head1
@@ -19,25 +19,25 @@ trait PolyElem[A] extends Any with PaintElem[A]
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon */ 
-case class PolyFill(verts: Polygon, colour: Colour, zOrder: Int = 0) extends PolyElem[PolyFill]
+case class PolyFill(verts: Polygon, colour: Colour, zOrder: Int = 0) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(verts.fTrans(f), colour, zOrder) }
 
-case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PolyElem[PolyDraw]
+case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour, zOrder) }
 
 case class PolyFillDraw(verts: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) extends
-PolyElem[PolyFillDraw]
+PolyElem
 {
   override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
   def noFill: PolyDraw = PolyDraw(verts, lineWidth, lineColour, zOrder)
 }
 
 /** A pointable polygon without visual */
-case class PolyActive(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[PolyActive] with PolyActiveTr
+case class PolyActive(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem with PolyActiveTr
 { override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj, zOrder) }
 
 case class PolyFillDrawText(verts: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black,
-    zOrder: Int = 0) extends PolyElem[PolyFillDrawText]
+    zOrder: Int = 0) extends PolyElem
 {
   override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(verts.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour, zOrder)
   def drawOnly: PolyDraw = PolyDraw(verts, lineWidth, lineColour, zOrder)

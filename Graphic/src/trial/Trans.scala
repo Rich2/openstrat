@@ -1,7 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package trial
 
-trait Trans[T]{ def trans(obj: T, f: Int => Int): T }
+trait Trans[T]
+{ def trans(obj: T, f: Int => Int): T
+}
 
 object Trans
 { implicit def ListTrans[A](implicit ev: Trans[A]): Trans[List[A]] =

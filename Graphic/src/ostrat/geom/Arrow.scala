@@ -27,7 +27,7 @@ object Arrow
   }
   
   def apply(startPt: Vec2, endPt: Vec2, headAngle: Angle = 20.degs, hypLength: Double = 25, lineWidth: Double = 2,
-      lineColour: Colour = Colour.Black): List[GraphicElem[_]] =
+      lineColour: Colour = Colour.Black): List[GraphicElem] =
   {    
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
     val shaft = LineDraw(startPt, endPt, lineWidth, lineColour)

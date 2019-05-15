@@ -3,16 +3,16 @@ package ostrat
 package geom
 
 /** This is not well documented. */
-case class DisplayRow(margin: Double, subjs: List[GraphicSubject[_]])
+case class DisplayRow(margin: Double, subjs: List[GraphicSubject])
 { /** Horrible code. Needs rewriting. */
-  def fromLeft(leftPt: Vec2): List[GraphicSubject[_]] =
+  def fromLeft(leftPt: Vec2): List[GraphicSubject] =
   {      
-    def loop(rem: Seq[GraphicSubject[_]], acc: List[GraphicSubject[_]], x: Double): List[GraphicSubject[_]] =  rem match
+    def loop(rem: Seq[GraphicSubject], acc: List[GraphicSubject], x: Double): List[GraphicSubject] =  rem match
     {
       case Nil => acc
       case head :: tail => loop(
           tail,
-          acc :+ head.slateX(x + head.width / 2).asInstanceOf[GraphicSubject[_]],
+          acc :+ head.slateX(x + head.width / 2).asInstanceOf[GraphicSubject],
           x + head.width + margin
        )
     }

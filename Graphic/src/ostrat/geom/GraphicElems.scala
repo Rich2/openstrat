@@ -5,15 +5,15 @@ import Colour.Black
 
 /** The base trait for all objects on a canvas / panel. The objects are recomposed for each frame. The Canvas objects must be recomposed
  *  each time there is a change within the application state or the user view of that application state. */
-trait GraphicElem[A] extends Any with Transable[A]
+trait GraphicElem extends Any with Transer
 { def zOrder: Int
 }
 
 /* Base trait for all passive objects  on a canvas / panel */
-trait PaintElem[A] extends Any with GraphicElem[A]
+trait PaintElem extends Any with GraphicElem
 
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, zOrder: Int) extends
-  PaintElem[LineDraw] with CurveLike
+  PaintElem with CurveLike
 {
   def typeStr: String = "LineDraw"  
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour, zOrder)
@@ -26,7 +26,7 @@ object LineDraw
     new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, zOrder)  
 }
 
-case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[LinesDraw]
+case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem
 { override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lineSegs.fTrans(f), lineWidth, colour, zOrder)
 }
 
@@ -36,7 +36,7 @@ object LinesDraw
     LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour, zOrder)
 }
 
-case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem[LinePathDraw]
+case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem
 {
   def length = vec2s.length - 1
   def xStart = vec2s.xStart
@@ -46,7 +46,7 @@ case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Bla
 }
 
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double],
-    zOrder: Int) extends PaintElem[DashedLineDraw] with CurveLike
+    zOrder: Int) extends PaintElem with CurveLike
 {
   def typeStr: String = "DashedLineDraw"
   //def str = persist4(xStart, xEnd, lineWidth, colour)

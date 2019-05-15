@@ -38,5 +38,5 @@ trait ShapeActiveTr extends GraphicActive
 }
 
 /** A pointable shape without visual */
-case class ShapeActive(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem[ShapeActive] with ShapeActiveTr
+case class ShapeActive(shape: Shape, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem with ShapeActiveTr
 { override def fTrans(f: Vec2 => Vec2) = ShapeActive(shape.fTrans(f), evObj) }

@@ -6,7 +6,7 @@ import Colour.Black
 /** Shape is an Array[Double] based collection for a sequence of CurveSegs, similar to a Polygon which is an Array[Double based collection of just
  *   LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg positive infinity for
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
-class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] with Transable[Shape]
+class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] with Transer
 { //def typeSym = 'Shape
   //def str: String = persistD3
   //override def typeStr: String = "CurvedSeg"
@@ -60,7 +60,7 @@ class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] wit
   def fill(colour: Colour): ShapeFill = ShapeFill(this, colour)
   def draw(lineWidth: Double, lineColour: Colour = Black) = ShapeDraw(this,lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = ShapeFillDraw(this, fillColour, lineWidth, lineColour)
-  def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[GraphicElem[_]] =
+  def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[GraphicElem] =
     List(ShapeFillDraw(this, fillColour, lineWidth, lineColour), ShapeActive(this, evObj))
        
   def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): NoScaleShape = NoScaleShape(posn, this, evObj, List(ShapeFill(this, colour)))      

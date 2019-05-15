@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
-class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transable[Polygon] with Vec2sLike
+class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transer with Vec2sLike
 {
   //override def typeStr: String = "Polygon"
   override def toString: String = Polygon.PolygonPersist.show(this)
@@ -56,8 +56,8 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
    
   def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubj =
     fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
-  def subj(evObj: AnyRef, elems: PaintElem[_]*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toList)
-  def subjSeq(evObj: AnyRef, elems: List[PaintElem[_]]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
+  def subj(evObj: AnyRef, elems: PaintElem*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toList)
+  def subjSeq(evObj: AnyRef, elems: List[PaintElem]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
   def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
     PolySubj(this.polyCentre, this, evObj, List(PolyFillDraw(this, fillColour, lineWidth, lineColour),
         TextGraphic(str, textSize, this.polyCentre, lineColour)))

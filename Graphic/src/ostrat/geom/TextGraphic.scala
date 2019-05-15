@@ -12,7 +12,7 @@ case object TextLeft extends TextAlign { def jsStr = "left" }
 case object TextRight extends TextAlign { def jsStr = "right" }
  
 case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = TextCen,
-    zOrder: Int = 0) extends PaintElem[TextGraphic]
+    zOrder: Int = 0) extends PaintElem
 {
   override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, zOrder)
 }
@@ -35,7 +35,7 @@ object TextGraphic
 }
 
 case class TextOutline(posn: Vec2, str: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen,
-    zOrder: Int = 0) extends PaintElem[TextOutline]
+    zOrder: Int = 0) extends PaintElem
 {
   override def fTrans(f: Vec2 => Vec2) = TextOutline(f(posn), str, fontSize, colour, lineWidth, align)  
 }

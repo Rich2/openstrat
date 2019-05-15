@@ -4,31 +4,31 @@ package geom
 
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2):
  *  T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T. */
-trait Transable[T] extends Any
-{ def fTrans(f: Vec2 => Vec2):  T
+class TransExtension[T](value: T, ev: Trans[T])// extends Any
+{ def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)
   /** Translate in 2 dimensional space. */
-  def slate(offset: Vec2): T = fTrans(_ + offset)
+  def slate(offset: Vec2): T = trans(_ + offset)
   /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): T = fTrans(_.addXY(xOffset, yOffset))
+  def slate(xOffset: Double, yOffset: Double): T = trans(_.addXY(xOffset, yOffset))
   /** Translate 2 dimensional vectors along the X axis */
-  def slateX(xOffset: Double): T = fTrans(_.addX(xOffset))
+  def slateX(xOffset: Double): T = trans(_.addX(xOffset))
   /** Translate 2 dimensional vectors along the Y axis */
-  def slateY(yOffset: Double): T = fTrans(_.addY(yOffset))
+  def slateY(yOffset: Double): T = trans(_.addY(yOffset))
   /** The scale transformation on 2 dimensional vectors. */
-  def scale(factor: Double): T = fTrans(_ * factor)
+  def scale(factor: Double): T = trans(_ * factor)
 
-  def rotate(angle: Angle): T = fTrans(_.rotate(angle))
-  def rotateRadians(r: Double): T = fTrans(_.rotateRadians(r))
-  def scaleY(factor: Double): T = fTrans(_.scaleY(factor))
-  def scaleX(factor: Double): T = fTrans(_.scaleX(factor))
+  def rotate(angle: Angle): T = trans(_.rotate(angle))
+  def rotateRadians(r: Double): T = trans(_.rotateRadians(r))
+  def scaleY(factor: Double): T = trans(_.scaleY(factor))
+  def scaleX(factor: Double): T = trans(_.scaleX(factor))
   /** this.asInstanceOf[T] */  
   def identity: T = this.asInstanceOf[T]
   /** Mirrors along the Y axis by negating X. */
-  def negX: T = fTrans(_.negX)
+  def negX: T = trans(_.negX)
   /** Mirrors along the X axis by negating Y. */
-  def negY: T = fTrans(_.negY)
+  def negY: T = trans(_.negY)
   /** Negates x and y values */
-  def negXY: T = fTrans(- _)
+  def negXY: T = trans(- _)
 
   import math.Pi
   /** Rotates 30 degrees anti-clockwise or + Pi/3 */
@@ -63,27 +63,4 @@ trait Transable[T] extends Any
    
   /** Produces a regular cross of a sequence of four of the elements rotated */
   def rCross: Seq[T] = (1 to 4).map(i => rotate(deg90 * i))
-}
-
-object Transable
-{
-  implicit class ImplicitTransableList[TT <: Transable[_ ]](tList: List[TT]) extends Transable[List[TT]]
-  {
-    def fTrans(f: Vec2 => Vec2): List[TT] = tList.map(_.fTrans(f).asInstanceOf[TT])         
-  }
-  
-  import scala.reflect.ClassTag  
-  
-  implicit def toTransArray[TT <: Transable[_ ]](arr: Array[TT])(ev: ClassTag[TT]) = new ImplicitTransableArray[TT](arr, ev)  
-  class ImplicitTransableArray[TT <: Transable[_ ]](val arr: Array[TT], implicit val ev: ClassTag[TT]) extends Transable[Array[TT]]
-  {
-    def fTrans(f: Vec2 => Vec2): Array[TT] = arr.map(_.fTrans(f).asInstanceOf[TT])         
-  }
-  
-  implicit def toTransArr[A <: Transable[_]](arr: Arr[A])(ev: ClassTag[A], ev2: Array[A] => Arr[A]) = new ImplicitTransableArr[A](arr, ev, ev2)
-  class ImplicitTransableArr[A <: Transable[_]](val arr: Arr[A], implicit val ev: ClassTag[A], implicit val ev2: Array[A] => Arr[A]) extends
-  Transable[Arr[A]]
-  {
-    def fTrans(f: Vec2 => Vec2): Arr[A] = arr.map[A](_.fTrans(f).asInstanceOf[A])         
-  }  
 }

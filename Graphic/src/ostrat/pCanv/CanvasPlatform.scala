@@ -137,9 +137,9 @@ trait CanvasPlatform extends RectGeom
   def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
     
-  def rendElems(elems: List[PaintElem[_]]): Unit = elems.foreach(rendElem) 
+  def rendElems(elems: List[PaintElem]): Unit = elems.foreach(rendElem) 
   
-  def rendElem(el: PaintElem[_]): Unit = el match
+  def rendElem(el: PaintElem): Unit = el match
   {
     case fp: PolyFill => polyFill(fp)//verts, fillColour)
     case dp: PolyDraw => polyDraw(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
