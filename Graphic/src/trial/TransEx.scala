@@ -3,9 +3,10 @@ package trial
 
 object TransEx
 {
-  val a1 = Transer1()
+  val a1: Transer1 = Transer1()
   val a2 = Transer2()
-  val r1: Transer1 = a1.vAdd(3)
+  val r1 = a1.vAdd(3)
+  val l1a: List[Transer1] = List(a1, a1).vAdd(8)
   val l1 = List(a1, a2).vAdd(2)
   val oa: Option[Transer1] = Some(a1)
   val ob: Option[Transer2] = Some(a2)

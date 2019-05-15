@@ -1,17 +1,12 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package trial
 
-class TransBase[T](value: T, ev: Trans[T]) {  
-  def trans(f: Int => Int): T = ev.trans(value, f)
-  def vAdd(op: Int): T = trans(_ + op)
-}
-
 trait Transer { def fTrans(f: Int => Int): Transer }
 
 object Transer
 {
-  implicit def TransFromTranserImplicit: Trans[Transer] = new Trans[Transer] {
-    override def trans(obj: Transer, f: Int => Int): Transer = obj.fTrans(f)
+  implicit def TransFromTranserImplicit[T <: Transer]: Trans[T] = new Trans[T] {
+    override def trans(obj: T, f: Int => Int): T = obj.fTrans(f).asInstanceOf[T]
   }
 }
 
