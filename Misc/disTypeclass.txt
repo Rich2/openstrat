@@ -1,7 +1,0 @@
- Type classes and non sealed sum types.
-
- So this is part question about my own particular problem, but in part some general points about the handling of type-classes going forward. So looking round for documentation, there doesn't seem to much in the way of detailed and comprehensive documentation on type classes in Scala. Most seem to be very simplistic implementations of Show[T].
-
-In particular if Scala is going to give better support for type classes it might be helpful to categorise the different use cases. To ensure that all needs are being addressed. So I currently have a Show[T], UnShow[T] and a Persist[T] type class that combines Show[T] and UnShow[T], which require different infrastructure.
-
-However currently I have Transer trait for any object that can be transformed in 2 dimensions. It has one abstract method f: Vec2 => Vec2. From this for free you can get the methods for translation, scaling, rotation, rotating by a specific angle, mirroring etc. Currently I'm implementing it using F-Bound polymorphism and I've got a hack to make it work with Sequences of ```T <: Transer[T]```. So this might seem an obvious case for a type-class.
