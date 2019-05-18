@@ -36,9 +36,9 @@ object TransDist
     (obj, f) => obj.map(el => ev.trans(el, f))
 }
 
-/** The object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Dist2 => Dist2):  T The related
- *   trait Transable  does the same for fTrans(f: Vec2 => Vec2): T. */
-trait TransDistExtension[T] extends Any
+/** The object can be transformed in 2 dimensional Distance space. Leaf classes must implement the single method fTrans(f: Dist2 => Dist2):  T The related
+ *   trait TranExtension  does the same for trans(f: Vec2 => Vec2): T. */
+trait TransDistExtension[T] extends Any with TransGenExtension[T]
 {
   def trans(f: Dist2 => Dist2):  T  
   def slate(offset: Dist2): T = trans(_ + offset)
@@ -47,8 +47,8 @@ trait TransDistExtension[T] extends Any
   def slateY(yOffset: Dist): T = trans(_.addY(yOffset))
   def scale(factor: Double): T = trans(_ * factor)
 
-  def rotate(angle: Angle): T = trans(_.rotate(angle))
-  def rotateRadians(r: Double): T = trans(_.rotateRadians(r))
+  override def rotate(angle: Angle): T = trans(_.rotate(angle))
+  override def rotateRadians(r: Double): T = trans(_.rotateRadians(r))
   
   /** this.asInstanceOf[T] */  
   def identity: T = this.asInstanceOf[T]   
