@@ -2,8 +2,10 @@
 package ostrat
 package geom
 
-/** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2):
- *  T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T. */
+/** Extension methods for an object that can transform itself in 2d geometry via the function f: Vec2 => Vec2. There is an implicit conversion of
+ *  any object that has a Trans instance. Trans instances are founded on objects that inherit the Transer trait. Eg Polygon inherits from Transer.
+ *  There is a Trans[Polygon]instance and a Trans[List[Polygon]] instance. The TransDistExtension class provides similar extension methods for
+ *  objects that can perform the Dist2 => Dist2 transformation. */
 class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
 { def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)
   /** Translate in 2 dimensional space. */
