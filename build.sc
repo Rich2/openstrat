@@ -50,9 +50,7 @@ object Util extends PlatformsModule
   def moduleDeps = Seq(UtilMacros)  
   object test extends InnerTests  
   object js extends InnerJs {  def moduleDeps = Seq(UtilMacros.js)  }
-  object Nat extends InnerNative
-
-  
+  object Nat extends InnerNative  
 }
 
 object Graphic extends PlatformsModule
@@ -85,6 +83,6 @@ object DevModule extends PlatformsModule
 }
 
 def run() = DevModule.runBackground()
-def test = Strat.test
+def test = Util.test
 def jsfast = Strat.js.fastOpt
 def jsfull = Strat.js.fullOpt

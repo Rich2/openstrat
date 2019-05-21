@@ -30,6 +30,7 @@ object PersistOptionTest extends TestSuite
       oa.str ==> "5"
       Some(-5).str ==> "-5"
       None.str ==> ""
+      "".findType[None.type] ==> Good(None)  
       t1.str ==> t1Str
       //assert(t1Str.findType[Test1].isGood)
       t2.str ==> "Test1(; 7; ;)"
