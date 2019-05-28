@@ -17,7 +17,7 @@ trait PlatformsModule extends ScalaModule with Common
   trait InnerJs extends ScalaJSModule with Common
   { 
   	def scalaVersion = "2.12.8"
-	  def scalaJSVersion = "0.6.27" 
+	  def scalaJSVersion = "0.6.28" 
 	  def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
 	  
 	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")

@@ -44,7 +44,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2
   /** Reverses the y coordinate. Useful for translating between canvases where the y axis measures down and coordinate systems where y is up */
   def inverseY: Vec2 = Vec2(x, -y)
   def toTuple: Tuple2[Double, Double] = (x, y)
-  def v(z: Double): Vec3 = Vec3(x, y, z)
+  def vv(z: Double): Vec3 = Vec3(x, y, z)
   def magnitude = math.sqrt(x * x + y * y)
   def angle: Angle =
   { def at = atan(y / x)
