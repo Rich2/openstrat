@@ -9,7 +9,7 @@ case class Clause(expr: Expr, optComma: Opt[CommaToken]) extends TextSpan
 }
 
 /** Empty Clause class, rperesentated by just a comma. */
-class EmptyClause(ct: CommaToken) extends Clause(ct, Opt(ct)) with TextSpanMems
+class EmptyClause(ct: CommaToken) extends Clause(ct, Opt(ct)) with TextSpanCompound
 { override def startMem = ct
   override def endMem = ct
 }

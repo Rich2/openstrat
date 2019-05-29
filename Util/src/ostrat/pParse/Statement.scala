@@ -80,7 +80,7 @@ object Statement
 
 /** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
  *  on the last Clauses is optional. */
-case class ClausedStatement(clauses: List[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanMems
+case class ClausedStatement(clauses: List[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanCompound
 {
   def expr: Expr = ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head
@@ -96,14 +96,14 @@ sealed trait UnClausedStatement extends Statement
 }
 
 /** An un-claused Statement that is not the empty statement. */
-case class MonoStatement(expr: Expr, optSemi: Opt[SemicolonToken]) extends UnClausedStatement with TextSpanMems
+case class MonoStatement(expr: Expr, optSemi: Opt[SemicolonToken]) extends UnClausedStatement with TextSpanCompound
 {
   def startMem: TextSpan = expr
   def endMem: TextSpan = optSemi.fold(expr, sc => sc)
 }
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
-case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with TextSpanMems
+case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with TextSpanCompound
 {
    override def expr: Expr = st
    override def optSemi: Opt[SemicolonToken] = Opt(st)

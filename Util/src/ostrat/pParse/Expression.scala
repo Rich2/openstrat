@@ -9,37 +9,37 @@ sealed trait Expr extends TokenOrBlock
   def exprName: String
 }
 
-/** I'm renaming this a CompoundExpr from MemsExpr. I think this is not an Expression Sequence Expression. */
-trait CompoundExpr extends Expr with TextSpanMems
+/** A compound expression. Its sole purpose is to give the start and end text positions from its first and last components. */
+trait ExprCompound extends Expr with TextSpanCompound
 
 trait ExprToken extends Expr with ExprMemberToken
 
-case class ClausesExpr(exprs: List[Expr]) extends CompoundExpr
+case class ClausesExpr(exprs: List[Expr]) extends ExprCompound
 {  def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"
 }
 
-case class UnimplementedExpr(bMems: Seq[BlockMember]) extends CompoundExpr
+case class UnimplementedExpr(bMems: Seq[BlockMember]) extends ExprCompound
 { def startMem = bMems.head
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
 }
-case class AlphaBracketExpr(name: AlphaToken, blocks: List[BracketBlock]) extends CompoundExpr
+case class AlphaBracketExpr(name: AlphaToken, blocks: List[BracketBlock]) extends ExprCompound
 { def startMem = name
   def endMem = blocks.last
   override def exprName: String = "AlphaBracketExpr"
   //def errGet[A](implicit ev: PBuilder[A]): EMon[A] =
 }
 
-case class PreOpExpr(op: OperatorToken, right: Expr) extends CompoundExpr
+case class PreOpExpr(op: OperatorToken, right: Expr) extends ExprCompound
 { override def startMem = op
   override def endMem = right
   override def exprName: String = "PreOpExpr"
   def opStr = op.str
 }
 
-case class AsignExpr(asToken: AsignToken, left: Expr, right : Expr) extends CompoundExpr
+case class AsignExpr(asToken: AsignToken, left: Expr, right : Expr) extends ExprCompound
 { override def startMem = left
   override def endMem = right
   override def exprName: String = "AsignExpr"  
