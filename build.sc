@@ -39,11 +39,11 @@ trait PlatformsModule extends ScalaModule with Common
 }
 
 object UtilMacros extends PlatformsModule
-  {
-    def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-    object js extends InnerJs
-    object Nat extends InnerNative  
-  }
+{
+def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+object js extends InnerJs
+object Nat extends InnerNative  
+}
 
 object Util extends PlatformsModule
 { 
