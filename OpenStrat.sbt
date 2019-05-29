@@ -88,10 +88,15 @@ lazy val draughts = jsApp("draughts")
 lazy val js1 = proj("js1").aggregate(ww2, y1783, bc305, dungeon)
 lazy val js2 = proj("js2").aggregate(browsertest, zug, civ, draughts)
 
-//lazy val DocProj = project.dependsOn(MacrosJvm).settings(coreSettings).settings(
-  //libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.144-R12",  
-//  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "FxStrat/src",
-//)
+lazy val DocProj = proj("DocProj").dependsOn(UtilMacrosJvm).settings(commonSettings).enablePlugins(ScalaUnidocPlugin).settings(
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphic/jvm/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/jvm/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/jvm/src",
+Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/srcLearn",
+)
 
-//val root = proj("root").settings(commonSettings).enablePlugins(ScalaUnidocPlugin)
-//  enablePlugins(ScalaUnidocPlugin).settings(name := "Agg").settings(scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none").aggregate(MacrosJvm, StratJvm, MacrosJs, StratJs)
+
