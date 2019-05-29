@@ -11,8 +11,8 @@ object VecsTest extends TestSuite
   {
     val v1s: LinePath = LinePath(2.1 vv 0, 5.4 vv 0)
     't1 { assert(v1s.str == "LinePath(2.1, 0.0; 5.4, 0.0)") }
-    val v44: Vec2 = 4 vv 4
-    val v31: Vec3 = -2.4 vv 54.6 vv 34.7
+    val v44 = 4 vv 4
+    val v31 = -2.4 vv 54.6 vv 34.7
     val v32 = 4 vv -5 vv 0
     val v2s: LinePath = v1s :+ v44
     't2
