@@ -12,7 +12,7 @@ object CoodsTest  extends TestSuite
     'test1 -
     {
       c1 ==> Cood(5, -96)
-      assert(!cs.contains(Cood(4, 5))) 
+      cs.contains(Cood(4, 5)) ==> false 
       assert(cs.contains(Cood(7, 8))) 
       assert(cs.contains(Cood(-5, -42)))
     }
