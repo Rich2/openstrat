@@ -9,6 +9,9 @@ trait TokenOrBlock extends TextSpan
 
 trait BlockMember extends TokenOrBlock
 trait StatementMember extends BlockMember
+
+/** I think its helpful to have an expression member trait for syntax that is not expressions. So I don't think it would be helpful if say an opening brace was an
+ *  expression. All Expressions are Expression members. */
 trait ExprMember extends StatementMember
 trait ExprMemberToken extends BlockMemberToken with ExprMember
 
@@ -43,16 +46,20 @@ case class CurlyOpen(startPosn: TextPosn) extends BracketOpen
 }
 case class CurlyClose(startPosn: TextPosn) extends BracketClose { def str = "}" }
 
-sealed trait BracketBlock extends ExprMember
+sealed trait BracketBlock extends StatementSeqLike
 {
    def startBracket: BracketOpen
-   def endBracket: BracketClose
-   def statements: List[Statement]
+   def endBracket: BracketClose   
    def startPosn: TextPosn = startBracket.startPosn
    def endPosn: TextPosn = endBracket.endPosn
 }
 
 case class ParenthBlock(statements: List[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
+{ override def exprName: String = "ParenthBlock" }
+
 case class SquareBlock(statements: List[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
+{ override def exprName: String = "SquareBlock" }
+
 case class CurlyBlock(statements: List[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
+{ override def exprName: String = "CurlyBlock" }
 

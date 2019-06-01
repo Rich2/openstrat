@@ -36,20 +36,12 @@ lazy val UtilMacrosJs = projJs("UtilMacros").settings(utilMacroSettings).setting
 
 lazy val UtilJvm = projJvm("Util").dependsOn(UtilMacrosJvm).settings(	
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile,  
-  // include the macro classes and resources in the main jar
-  //mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,
-  // include the macro sources in the main source jar
-  //mappings in (Compile, packageSrc) ++= mappings.in(Macros, Compile, packageSrc).value
 )
 
 lazy val UtilJs = projJs("Util").dependsOn(UtilMacrosJs)
 
 lazy val GraphicJvm = projJvm("Graphic").dependsOn(UtilJvm % "test->test;compile->compile").settings(	
   Compile/unmanagedResourceDirectories += file("~/AppData/Local/OpenStratData/Dev").getAbsoluteFile,  
-  // include the macro classes and resources in the main jar
-  //mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,
-  // include the macro sources in the main source jar
-  //mappings in (Compile, packageSrc) ++= mappings.in(Macros, Compile, packageSrc).value
 )
 
 lazy val GraphicJs = projJs("Graphic").dependsOn(UtilJs)
@@ -60,11 +52,7 @@ lazy val StratJs = projJs("Strat").dependsOn(GraphicJs)
 
 lazy val DevJvm = projJvm("DevModule").dependsOn(StratJvm).settings(
 	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/srcLearn",
-  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
-  // include the macro classes and resources in the main jar
-  //mappings in (Compile, packageBin) ++= mappings.in(Macros, Compile, packageBin).value,
-  // include the macro sources in the main source jar
-  //mappings in (Compile, packageSrc) ++= mappings.in(Macros, Compile, packageSrc).value
+  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),  
 )
 
 lazy val all3 = proj("all3").aggregate(UtilJvm, GraphicJvm, StratJvm)
@@ -97,6 +85,7 @@ Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Strat/j
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/src",
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/jvm/src",
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/srcLearn",
+apiURL := Some(url("https://richstrat.com/api/"))
 )
 
 

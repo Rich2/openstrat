@@ -3,8 +3,8 @@ package ostrat
 package pParse
 
 /** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
- *  clauses that contain each contain an expression. Not quite sure why this extends TokenOrBlock. That doesn't seem right. */
-sealed trait Expr extends TokenOrBlock
+ *  clauses that contain each contain an expression. */
+sealed trait Expr extends TokenOrBlock with ExprMember
 { def exprParseErr[A](implicit ev: Persist[A]): EMon[A] = bad1(startPosn, ev.typeStr -- "is not available from" -- exprName)
   def exprName: String
 }
@@ -13,6 +13,8 @@ sealed trait Expr extends TokenOrBlock
 trait ExprCompound extends Expr with TextSpanCompound
 
 trait ExprToken extends Expr with ExprMemberToken
+
+trait StatementSeqLike extends Expr { def statements: List[Statement] }
 
 case class ClausesExpr(exprs: List[Expr]) extends ExprCompound
 {  def startMem = exprs.head
