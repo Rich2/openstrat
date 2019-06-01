@@ -1,8 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import language.experimental.macros
-import reflect.macros.blackbox.Context
+import language.experimental.macros, reflect.macros.blackbox.Context
 
+/** Macro function object, prints out string preceded by source code position. */
 object deb
 {
   /** Simple macro, prints out string preceded by source code position. */
@@ -24,11 +24,13 @@ object deb
   }   
 }
 
+/** Macro function object, prints source code position. */
 object debb
 {
+  /** Simplest Macro shows source code position. Must include parenthesis debb(). Without the parenthesis the macro will not print. */
   def apply(): Unit = macro debbImpl
   
-  /** Simplest Macro shows source code position. Must include parenthesis debb(). Without the parenthesis the macro will not print. */
+  
   def debbImpl(c: Context)(): c.Expr[Unit] = 
   { import c.universe._     
     val pos: Position  = c.macroApplication.pos      
@@ -38,6 +40,7 @@ object debb
   }  
 }
 
+/** Macro function object, Prints out source code position followed by expression name, followed by expression value. */
 object debvar
 {
   /** An expression debug macro. Prints out source code position followed by expression name, followed by expression value. */
