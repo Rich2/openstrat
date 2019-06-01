@@ -19,7 +19,9 @@ From within the sbt console run:
 ~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
 StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
 ~ all3/test //Rerun tests on modules UtilJvm, GraphicJvm and StratJvm
-DocProj/doc //Will produce docs for the Core and FxStrat projects. They can be found in DocProj/target/scala-2.12/api
+DocProj/doc //Will produce docs for the UtilJvm GraphicJvm and StratJvm modules.
+  They can be found in target/DocProj/target/scala-2.12/api/.
+  Local link PathToProject/openstrat/target/DocProj/target/scala-2.12/api/index.html
 ```
 
 The tilde **~** tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Change the appNum on line 32 of Core/src/ostrat/pDev/Apps.scala to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.
