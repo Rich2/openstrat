@@ -2,7 +2,7 @@
 package ostrat
 package pWeb
 
-case class IndText(str: String) extends Indenter with XCon with CLikeCon with JCon with CssCon
+case class IndText(str: String) extends Indenter with XCon with JCon with CssCon
 { 
    override def out(indent: Int) = str   
 }

@@ -3,7 +3,8 @@
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
-{ /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
+{
+  /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
    *  everyone's utility file. */
   implicit class any2stringadd[A](a: A) {}
   val Tan30 = 0.577350269f;
@@ -13,7 +14,6 @@ package object ostrat
   val Sin60 = 0.866025404f;
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
-  def silly = "silly"
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
@@ -73,21 +73,17 @@ package object ostrat
     acc.reverse
   }
   
+  /** Extension methods for AnyT */
   implicit class AnyTImplicit[T](thisT: T)
   {
-    def nextFromList(list: List[T]): T =
-    {
-      val i: Int = list.indexOf[T](thisT)
-      if (i >= list.length - 1) list(0) else list(i + 1)
-    }
-  }
-  
-  /** Extension methods for AnyRef */
-  implicit class AnyRefImplicit[T <: Any](thisT: T)
-  {
     def *(operand: Int): Multiple[T] = Multiple(thisT, operand) 
+    
+    def nextFromList(list: List[T]): T =
+    { val i: Int = list.indexOf[T](thisT)
+      ife(i >= list.length - 1, list(0), list(i + 1))
+    }
   }  
-   
+
   implicit class OptionRichClass[A](thisOption: Option[A])
   { def map2[B, C](ob: Option[B], f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
     def toEMon(errs: StrList): EMon[A] = thisOption match

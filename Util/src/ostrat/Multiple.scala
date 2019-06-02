@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+/** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
 { def * (operand: Int): Multiple[A] = Multiple(value, num * operand)
   def toSeq: Seq[A] = (0 until num).map(_ => value)
@@ -13,6 +14,7 @@ case class Multiple[+A](value: A, num: Int)
   override def toString = "Multiple" + (value.toString + "; " + num.toString).enParenth
 }
 
+/** Companion object for the Multiple[+A] type class. */
 object Multiple
 {
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
