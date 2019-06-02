@@ -33,9 +33,10 @@ object Persist
     def showSemi(obj: Option[A]): String = show(obj)
     override def showTyped(obj: Option[A]): String = obj.fold("None")(typeStr + ev.show(_).enParenth)
     
-    override def fromClauses(clauses: Seq[Clause]): EMon[Option[A]] = ???
-    override def fromExpr(expr: ostrat.pParse.Expr): EMon[Option[A]] = ???
+    override def fromClauses(clauses: List[Clause]): EMon[Option[A]] = ???
+    override def fromExpr(expr: pParse.Expr): EMon[Option[A]] = ???
    // override def fromStatement(st: Statement): ostrat.EMon[Option[A]] = ???
+    override def fromStatements(sts: List[Statement]): EMon[Option[A]] = ???
   }
   
   implicit val NonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
@@ -43,9 +44,12 @@ object Persist
     override def show(obj: None.type) = ""   
     def fromExpr(expr: Expr): EMon[None.type] = expr match
     {
+      case AlphaToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }
+    
+    override def fromStatements(sts: List[Statement]): EMon[None.type] = ife(sts.isEmpty, Good(None), bad1(sts.startPosn, "None not found."))
   }
   
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
@@ -53,7 +57,7 @@ object Persist
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
-    override def fromClauses(clauses: Seq[Clause]): EMon[Array[Int]] = ???
+    override def fromClauses(clauses: List[Clause]): EMon[Array[Int]] = ???
   
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())

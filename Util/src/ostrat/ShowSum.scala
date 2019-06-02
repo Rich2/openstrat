@@ -44,8 +44,9 @@ trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends UnShow[ST]
   def pList: List[UnShow[ST]] = List(ev1, ev2)
   override def fromExpr(expr: Expr): EMon[ST] = pList.mapFirstGood(_.fromExpr(expr), bad1(expr.startPosn, "No value of" -- typeStr -- "found."))
     
-  override def fromClauses(clauses: Seq[Clause]): EMon[ST] = ???  
-  //def fromStatement(st: Statement): EMon[ST] = ???
+  override def fromClauses(clauses: List[Clause]): EMon[ST] =
+    pList.mapFirstGood(_.fromClauses(clauses), bad1(clauses(0).startPosn, "No value of" -- typeStr -- "found."))
+  override def fromStatements(sts: List[Statement]): EMon[ST] = pList.mapFirstGood(_.fromStatements(sts), bad1(sts.startPosn, "No value of" -- typeStr -- "found."))  
 }
 
 class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val typeStr: String)(implicit val ev1: Persist[A1], val ct1: ClassTag[A1], val ev2: Persist[A2],

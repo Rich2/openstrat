@@ -27,7 +27,7 @@ class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]](
 //         case es @ EmptyStatement(_) => es.asError         
 //  }
   override def fromParameterStatements(sts: List[Statement]): EMon[List[A]] = ???
-  override def fromClauses(clauses: Seq[Clause]): EMon[List[A]] = ???
+  override def fromClauses(clauses: List[Clause]): EMon[List[A]] = ???
 }
 
 class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('Seq, ev)
@@ -49,7 +49,7 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('S
 //         case es @ EmptyStatement(_) => es.asError         
 //  }
   override def fromParameterStatements(sts: List[Statement]): EMon[Seq[A]] = ???
-  override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = ???
+  override def fromClauses(clauses: List[Clause]): EMon[Seq[A]] = ???
   }
 
 class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[A]]('Vector, ev)
@@ -72,5 +72,5 @@ class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[
 //         case es @ EmptyStatement(_) => es.asError         
 //  }
   override def fromParameterStatements(sts: List[Statement]): EMon[Vector[A]] = ???
-  override def fromClauses(clauses: Seq[Clause]): EMon[Vector[A]] = ???
+  override def fromClauses(clauses: List[Clause]): EMon[Vector[A]] = ???
 }

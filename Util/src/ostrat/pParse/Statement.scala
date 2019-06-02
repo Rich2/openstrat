@@ -7,6 +7,8 @@ package pParse
   * expression. */
 sealed trait Statement extends TextSpan
 { def optSemi: Opt[SemicolonToken]
+  def hasSemi: Boolean = optSemi.nonEmpty
+  def noSemi: Boolean = optSemi.empty
   def errGet[A](implicit ev: Persist[A]): EMon[A]
   def expr: Expr
 }

@@ -15,7 +15,7 @@ class Persist1[A1, R](typeStr: String, val fParam: R => A1, val newT: A1 => R)(i
 { def persistMems = List(ev1)  
   def showSemi(obj: R): String = ev1.showComma(fParam(obj))
   def showComma(obj: R): String = ev1.show(fParam(obj))  
-  def fromClauses(clauses: Seq[Clause]): EMon[R] = ???// fromClauses1(newT, clauses)
+  def fromClauses(clauses: List[Clause]): EMon[R] = fromClauses1(newT, clauses)
   def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun1(newT)(ev1)   
 }
 
@@ -38,7 +38,7 @@ class Persist2[A1, A2, R](typeStr: String, val fParam: R => (A1, A2), val newT: 
     ev1.show(a1) + ", " + ev2.show(a2)
   }
    
-  override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses2(newT, clauses)
+  override def fromClauses(clauses: List[Clause]): EMon[R] = fromClauses2(newT, clauses)
   override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun2(newT)(ev1, ev2)   
 }
 
@@ -61,7 +61,7 @@ abstract class Persist3[A1, A2, A3, R](typeStr: String, val fParam: R => (A1, A2
     ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3))
   }
 
-  override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses3(newT, clauses)
+  override def fromClauses(clauses: List[Clause]): EMon[R] = fromClauses3(newT, clauses)
   override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
 }
 
@@ -77,6 +77,6 @@ abstract class Persist4[A1, A2, A3, A4, R](typeStr: String, val newT: (A1, A2, A
   { val (p1, p2, p3, p4) = fParam(obj)
     ev1.show(p1).semicolonAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4))
   }
-  override def fromClauses(clauses: Seq[Clause]): EMon[R] = fromClauses4(newT, clauses)
+  override def fromClauses(clauses: List[Clause]): EMon[R] = fromClauses4(newT, clauses)
   override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)
 }

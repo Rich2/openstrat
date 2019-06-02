@@ -1,22 +1,18 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-//trait Opt[A] extends Any
-//{ def fold[B](fNull: => B, fSome: A => B): B
-//}
-
 object Opt
-{
-  //def apply[A <: AnyRef](value: A): Opt[A] = new OptRef(value)
+{  
   def apply[A <: AnyRef](value: A): Opt[A] = new Opt(value)
 }
 
 class Opt[A <: AnyRef](val ref: A) extends AnyVal// with Opt[A]
 {
-  def fold[B](fNull: => B, fSome: A => B): B = if (ref == null) fNull else fSome(ref)
+  def fold[B](fNull: => B, fSome: A => B): B = ife(ref == null, fNull, fSome(ref))
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
+  def empty: Boolean = ref == null
+  def nonEmpty: Boolean = ref != null
 }
-
 
 sealed trait OptInt //extends Opt[Int]
 {

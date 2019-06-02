@@ -12,8 +12,10 @@ trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
     case _ => expr.exprParseErr[R](this)
   }
 
-  /** Not sure avout this method */
+  /** Not sure about this method */
   def fromParameterStatements(sts: List[Statement]): EMon[R]
+  
+  override def fromStatements(sts: List[Statement]): EMon[R] = fromParameterStatements(sts)
 //  override def fromStatement(st: Statement): EMon[R] = st match
 //  { case MonoStatement(expr, _) => fromExpr(expr)
 //    case ClausedStatement(cls, _) => bad1(cls.head.startPosn, "Claused Statement")

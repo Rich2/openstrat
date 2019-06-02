@@ -14,6 +14,8 @@ object PersistOptionTest extends TestSuite
   val t1 = Test1(Some(5), 4, Some(2.0))
   val t1Str = "Test1(5; 4; 2.0)"
   val t2 = Test1(None, 7, None)
+  val noneSts = "".parseToStatements
+  deb(noneSts.toString)
   
   case class Test2(t1: Test1, t2: Test1)
   
@@ -24,15 +26,15 @@ object PersistOptionTest extends TestSuite
     
   val tests = Tests
   { 
-    'persistNums -
+    'Option -
     {
       oa.str ==> "5"
       Some(-5).str ==> "-5"
       None.str ==> ""
       "None".findType[None.type] ==> Good(None)  
-      "".findType[None.type] ==> Good(None)  
+      "".asType[None.type] ==> Good(None)  
       t1.str ==> t1Str
-      //assert(t1Str.findType[Test1].isGood)
+      assert(t1Str.findType[Test1].isGood)
       t2.str ==> "Test1(; 7; ;)"
     }
   }
