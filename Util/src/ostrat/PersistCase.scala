@@ -16,7 +16,7 @@ class Persist1[A1, R](typeStr: String, val fParam: R => A1, val newT: A1 => R)(i
   def showSemi(obj: R): String = ev1.showComma(fParam(obj))
   def showComma(obj: R): String = ev1.show(fParam(obj))  
   def fromClauses(clauses: Seq[Clause]): EMon[R] = ???// fromClauses1(newT, clauses)
-  def fromParameterStatements(sts: List[Statement]): EMon[R] = ???// sts.errFun1(newT)(ev1)   
+  def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun1(newT)(ev1)   
 }
 
 /** Persistence class for case classes taking a single Double parameter. Not sure about this class. It is currently being used for Double based value

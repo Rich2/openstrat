@@ -40,7 +40,8 @@ object Statement
              (g1: A1, g2: A2, g3: A3, g4: A4) => (g1, g2, g3, g4))
        case s => bad1(s, s.length.toString -- "statements not 4")
     }
-
+    def errFun1[A1, A2, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = errGet1[A1].map(f1(_))
+    
     def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = errGet2[A1, A2].map(f2.tupled(_))
 
     def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =

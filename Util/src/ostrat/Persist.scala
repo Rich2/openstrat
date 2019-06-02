@@ -33,9 +33,9 @@ object Persist
     def showSemi(obj: Option[A]): String = show(obj)
     override def showTyped(obj: Option[A]): String = obj.fold("None")(typeStr + ev.show(_).enParenth)
     
-    override def fromClauses(clauses: Seq[ostrat.pParse.Clause]): ostrat.EMon[Option[A]] = ???
-    override def fromExpr(expr: ostrat.pParse.Expr): ostrat.EMon[Option[A]] = ???
-    override def fromStatement(st: ostrat.pParse.Statement): ostrat.EMon[Option[A]] = ???
+    override def fromClauses(clauses: Seq[Clause]): EMon[Option[A]] = ???
+    override def fromExpr(expr: ostrat.pParse.Expr): EMon[Option[A]] = ???
+   // override def fromStatement(st: Statement): ostrat.EMon[Option[A]] = ???
   }
   
   implicit val NonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
@@ -43,7 +43,7 @@ object Persist
     override def show(obj: None.type) = ""   
     def fromExpr(expr: Expr): EMon[None.type] = expr match
     {
-      case eet : EmptyExprToken => Good(None)
+      case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }
   }

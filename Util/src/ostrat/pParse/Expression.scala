@@ -9,12 +9,27 @@ sealed trait Expr extends TokenOrBlock with ExprMember
   def exprName: String
 }
 
-/** A compound expression. Its sole purpose is to give the start and end text positions from its first and last components. */
+/** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait ExprCompound extends Expr with TextSpanCompound
 
+/** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ExprToken extends Expr with ExprMemberToken
 
-trait StatementSeqLike extends Expr { def statements: List[Statement] }
+trait StatementSeq extends Expr { def statements: List[Statement] }
+
+case class FileStatements(statements: List[Statement]) extends StatementSeq
+{
+  def exprName: String = "FileStatements"
+  def startPosn: TextPosn = statements.head.startPosn
+  def endPosn: TextPosn = statements.last.endPosn
+}
+
+case class StringStatements(statements: List[Statement]) extends StatementSeq
+{
+  def exprName: String = "StringStatements"
+  def startPosn: TextPosn = statements.head.startPosn
+  def endPosn: TextPosn = statements.last.endPosn
+}
 
 case class ClausesExpr(exprs: List[Expr]) extends ExprCompound
 {  def startMem = exprs.head

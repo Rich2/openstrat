@@ -21,8 +21,7 @@ object PersistOptionTest extends TestSuite
   {
     //implicit object Test2Persist extends Persist2[Test1, Test1, Test2]
   }
-  deb(t2.str)
-  
+    
   val tests = Tests
   { 
     'persistNums -
@@ -30,6 +29,7 @@ object PersistOptionTest extends TestSuite
       oa.str ==> "5"
       Some(-5).str ==> "-5"
       None.str ==> ""
+      "None".findType[None.type] ==> Good(None)  
       "".findType[None.type] ==> Good(None)  
       t1.str ==> t1Str
       //assert(t1Str.findType[Test1].isGood)

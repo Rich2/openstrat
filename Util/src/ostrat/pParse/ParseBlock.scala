@@ -46,7 +46,7 @@ case class CurlyOpen(startPosn: TextPosn) extends BracketOpen
 }
 case class CurlyClose(startPosn: TextPosn) extends BracketClose { def str = "}" }
 
-sealed trait BracketBlock extends StatementSeqLike
+sealed trait BracketBlock extends StatementSeq
 {
    def startBracket: BracketOpen
    def endBracket: BracketClose   

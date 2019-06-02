@@ -7,11 +7,11 @@ abstract class PersistSimple[A](val typeStr: String) extends ShowSimple[A] with 
 {  
   /** A PersistSimple can be parsed from the expression within a Clause, but it can't be parsed from a ClausedStatement */
   override def fromClauses(clauses: Seq[Clause]): EMon[A] = bad1(clauses.head, typeStr -- "can not be parsed from Claused Statement")
-  def fromStatement(st: Statement): EMon[A] = st match
-  { case MonoStatement(expr, _) => fromExpr(expr)
-    case ClausedStatement(clauses, _) => fromClauses(clauses)
-    case es: EmptyStatement => es.asError
-  }
+//  def fromStatement(st: Statement): EMon[A] = st match
+//  { case MonoStatement(expr, _) => fromExpr(expr)
+//    case ClausedStatement(clauses, _) => fromClauses(clauses)
+//    case es: EmptyStatement => es.asError
+//  }
   
 }
 
