@@ -21,24 +21,19 @@ object Persist
   implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev) 
   
   implicit def seqToPersistDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]): PersistSeqDirect[A] = new PersistSeqDirect[A](thisSeq, ev)
-  
-  implicit def optionToPersist[A](implicit ev: Persist[A]): Persist[Option[A]] = new OptionPersist[A](ev)  
-  
-  class OptionPersist[A](val ev: Persist[A]) extends Persist[Option[A]]  
-  {    
-    override def typeStr: String = "Option" + ev.typeStr.enSquare
-    override def syntaxDepth: Int = ev.syntaxDepth
-    override def show(obj: Option[A]) = obj.fold("")(ev.show(_))
-    def showComma(obj: Option[A]): String = show(obj)
-    def showSemi(obj: Option[A]): String = show(obj)
-    override def showTyped(obj: Option[A]): String = obj.fold("None")(typeStr + ev.show(_).enParenth)
     
-    override def fromClauses(clauses: List[Clause]): EMon[Option[A]] = ???
-    override def fromExpr(expr: pParse.Expr): EMon[Option[A]] = ???
-   // override def fromStatement(st: Statement): ostrat.EMon[Option[A]] = ???
-    override def fromStatements(sts: List[Statement]): EMon[Option[A]] = ???
-  }
-  
+  implicit def someToShowOnly[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
+  {     
+    override def typeStr: String = "Some" + ev.typeStr.enSquare
+    override def syntaxDepth: Int = ev.syntaxDepth
+    override def show(obj: Some[A]) = ev.show(obj.value)
+    override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
+    override def showComma(obj: Some[A]) = ev.showComma(obj.value)
+    override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
+    override def fromClauses(clauses: List[Clause]): EMon[Some[A]] = ???
+    override def fromExpr(expr: Expr): EMon[Some[A]] = ev.fromExpr(expr).map(Some(_))
+    override def fromStatements(sts: List[Statement]): EMon[Some[A]] = ???
+  }  
   implicit val NonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
   {   
     override def show(obj: None.type) = ""   
@@ -51,6 +46,23 @@ object Persist
     
     override def fromStatements(sts: List[Statement]): EMon[None.type] = ife(sts.isEmpty, Good(None), bad1(sts.startPosn, "None not found."))
   }
+  
+  implicit def optionToPersist[A](implicit ev: Persist[A]): Persist[Option[A]] = new OptionPersist[A](ev)  
+  
+  class OptionPersist[A](val ev: Persist[A]) extends Persist[Option[A]]//Sum2[Option[A], Some[A], None.type]//("Option" + ev  
+  {    
+    override def typeStr: String = "Option" + ev.typeStr.enSquare
+    override def syntaxDepth: Int = ev.syntaxDepth
+    override def show(obj: Option[A]) = obj.fold("")(ev.show(_))
+    def showComma(obj: Option[A]): String = show(obj)
+    def showSemi(obj: Option[A]): String = show(obj)
+    override def showTyped(obj: Option[A]): String = obj.fold("None")(typeStr + ev.show(_).enParenth)
+    
+    override def fromClauses(clauses: List[Clause]): EMon[Option[A]] = ???
+    override def fromExpr(expr: pParse.Expr): EMon[Option[A]] = ???
+    override def fromStatements(sts: List[Statement]): EMon[Option[A]] = ???
+  }
+  
   
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
   {       
