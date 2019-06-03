@@ -2,13 +2,11 @@
 package ostrat
 import reflect.ClassTag, pParse._
 
-trait ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST] extends Show[ST]
+abstract class ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends Show[ST]
 {
-  def ev1: Show[A1]  
+  def ev1: Show[A1]
   def ev2: Show[A2]
-  implicit def ct1: ClassTag[A1]
-  implicit def ct2: ClassTag[A2]
-
+  
   override def show(obj: ST): String = obj match
   {
     case a1: A1 => ev1.show(a1)
@@ -46,11 +44,12 @@ trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends UnShow[ST]
     
   override def fromClauses(clauses: List[Clause]): EMon[ST] =
     pList.mapFirstGood(_.fromClauses(clauses), bad1(clauses(0).startPosn, "No value of" -- typeStr -- "found."))
-  override def fromStatements(sts: List[Statement]): EMon[ST] = pList.mapFirstGood(_.fromStatements(sts), bad1(sts.startPosn, "No value of" -- typeStr -- "found."))  
+  override def fromStatements(sts: List[Statement]): EMon[ST] =
+    pList.mapFirstGood(_.fromStatements(sts), bad1(sts.startPosn, "No value of" -- typeStr -- "found."))  
 }
 
-abstract class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](implicit val ev1: Persist[A1], val ct1: ClassTag[A1], val ev2: Persist[A2],
-    val ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2] with UnShowSum2[ST, A1, A2]
+abstract class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val ev1: Persist[A1], val ev2: Persist[A2])(implicit ct1: ClassTag[A1],
+    ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2] with UnShowSum2[ST, A1, A2] with Persist[ST]
 {
 
 }
