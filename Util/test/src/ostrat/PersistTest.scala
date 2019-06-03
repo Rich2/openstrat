@@ -22,10 +22,7 @@ object PersistTest extends TestSuite
   { implicit object My2Persist extends Persist2[Seq[Int], String, My2]("My2", m => (m.ints, m.myStr), apply)
   }
   
-  case class My3(s1: String, i1: Int, d1: Double)
-  object My3
-  { implicit object My3Persist extends Persist3[String, Int, Double, My3]("My3", m => (m.s1, m.i1, m.d1), apply)
-  }
+  
   
   val tests = Tests
   {    
@@ -48,6 +45,7 @@ object PersistTest extends TestSuite
     val str1: String = "I am a String"
     val str1Std: String = "\"I am a String\""
     val abSeq = Seq(TestObjA, TestObjB)    
+    val mc = My2(List(7, 8, 9), "hi")
     
     'persistOther -
     {
@@ -59,13 +57,7 @@ object PersistTest extends TestSuite
       str1.strSemi ==> str1Std
       str1.strComma ==> str1Std
       str1.strTyped ==> "Str(" + str1Std + ")"
-    }    
-    
-    val mc = My2(List(7, 8, 9), "hi")
-    
-    'More -
-    {      
       mc.str ==> "My2(7, 8, 9; \"hi\")"
-    }
+    }    
   }
 }

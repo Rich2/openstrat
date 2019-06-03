@@ -6,17 +6,10 @@ import utest._
 object TokenTest extends TestSuite
 { 
   val tests = Tests
-  {
- //   val r1 = "+".findTokens
+  { 
     'Test1
     {
-//      assert(r1 match 
-//        {
-//          case Good(List(PlusInToken(_, "+"))) => true
-//          case _ => false
-//        })
-      assert("#".findTokens.isBad)
-      
+      assert("#".findTokens.isBad)      
     }
   }
 }

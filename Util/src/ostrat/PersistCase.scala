@@ -5,8 +5,7 @@ import pParse._
 /** The base trait for the persistence of Case classes, aka Product types */
 abstract class PersistCase[R](typeStr: String) extends ShowCase[R](typeStr) with PersistCompound[R]
 {  
-  def persistMems: List[Persist[_]]
-  //final override def syntaxDepth: Int = persistMems.map(_.syntaxDepth).max + 1  
+  def persistMems: List[Persist[_]]   
 }
 
 /** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */

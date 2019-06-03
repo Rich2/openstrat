@@ -10,10 +10,7 @@ object PersistOptionTest extends TestSuite
     implicit object Test1Persist extends Persist3[Option[Int], Int, Option[Double], Test1]("Test1", r => (r.a, r.b, r.c), apply)
   }
   val t1 = Test1(Some(5), 4, Some(2.0))
-  val t1Str = "Test1(5; 4; 2.0)"
-  val t1s = t1Str.parseToStatements
-  deb(t1s.toString)
-  deb(t1Str.findType[Test1].toString)
+  val t1Str = "Test1(5; 4; 2.0)"  
   val t2 = Test1(None, 7, None) 
   
   case class Test2(t1: Test1, t2: Test1)
@@ -38,7 +35,7 @@ object PersistOptionTest extends TestSuite
       oa.str ==> "5"        
       t1.str ==> t1Str
       "27".findType[Some[Int]] ==> Good(Some(27))
-      //assert(t1Str.findType[Test1].isGood)
+      assert(t1Str.findType[Test1].isGood)
       t2.str ==> "Test1(; 7; ;)"
     }
   }
