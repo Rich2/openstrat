@@ -137,7 +137,7 @@ object Persist
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case AlphaToken(_, str) if str == "true" => Good(true)
       case AlphaToken(_, str) if str == "false" => Good(false)
-       case _ => expr.exprParseErr[Boolean]
-     }
+      case _ => expr.exprParseErr[Boolean]
+    }
   }
 }

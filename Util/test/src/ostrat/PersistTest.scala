@@ -2,41 +2,45 @@
 package ostrat
 import utest._
 
-class TestClass(val str: String) extends PersistSingleton
-
-
-object TestClass
-{
-  implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]("TestClass")
-  { override val singletonList = List(TestObjA, TestObjB)    
-  }
-}
-
-object TestObjA extends TestClass("TestObjA")
-object TestObjB extends TestClass("TestObjB")
-
-
-case class MyClass(ints: Seq[Int], myStr: String)
-object MyClass
-{
-  implicit object MyClassPersist extends Persist2[Seq[Int], String, MyClass]("MyClass", m => (m.ints, m.myStr), apply)
-}
-
 object PersistTest extends TestSuite
-{ 
+{
+  class TestClass(val str: String) extends PersistSingleton
+
+  object TestClass
+  {
+    implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]("TestClass")
+    { override val singletonList = List(TestObjA, TestObjB)    
+    }
+  }
+
+  object TestObjA extends TestClass("TestObjA")
+  object TestObjB extends TestClass("TestObjB")
+  
+  case class My2(ints: Seq[Int], myStr: String)
+ 
+  object My2
+  { implicit object My2Persist extends Persist2[Seq[Int], String, My2]("My2", m => (m.ints, m.myStr), apply)
+  }
+  
+  case class My3(s1: String, i1: Int, d1: Double)
+  object My3
+  { implicit object My3Persist extends Persist3[String, Int, Double, My3]("My3", m => (m.s1, m.i1, m.d1), apply)
+  }
+  
   val tests = Tests
-  { 
+  {    
     'persistNums -
-    { assert(5.str == "5") 
-      assert((-86).str == "-86")
-      assert((-86).strComma == "-86")
-      assert((-86).strTyped == "Int(-86)")
-      assert(23.4.str == "23.4")
-      assert((-6.00).str == "-6.0")
+    {
+      5.str ==> "5" 
+      (-86).str ==> "-86"
+      (-86).strComma ==> "-86"
+      (-86).strTyped ==> "Int(-86)"
+      23.4.str ==> "23.4"
+      (-6.00).str ==> "-6.0"
       val d: Double = 8
-      assert(d.strTyped == "DFloat(8.0)")
-      assert("7".findType[Int] == Good(7))
-      assert("7".findType[Double] == Good(7))
+      d.strTyped ==> "DFloat(8.0)"
+      "7".findType[Int] ==> Good(7)
+      "7".findType[Double] ==> Good(7)
     }    
 
     val aa: TestClass = TestObjA
@@ -46,21 +50,22 @@ object PersistTest extends TestSuite
     val abSeq = Seq(TestObjA, TestObjB)    
     
     'persistOther -
-    { assert(aa.str == aaStr)
-      assert(aaStr.findType[TestClass] == Good(TestObjA))
-      assert(aa.strTyped == "TestClass(TestObjA)")
-      assert(abSeq.str.findType[Seq[TestClass]] == Good(Seq(TestObjA, TestObjB)))      
-      assert(str1.str == str1Std)
-      assert(str1.strSemi == str1Std)
-      assert(str1.strComma == str1Std)
-      assert(str1.strTyped == "Str(" + str1Std + ")")
+    {
+      aa.str ==> aaStr
+      aaStr.findType[TestClass] ==> Good(TestObjA)
+      aa.strTyped ==> "TestClass(TestObjA)"
+      abSeq.str.findType[Seq[TestClass]] ==> Good(Seq(TestObjA, TestObjB))      
+      str1.str ==> str1Std
+      str1.strSemi ==> str1Std
+      str1.strComma ==> str1Std
+      str1.strTyped ==> "Str(" + str1Std + ")"
     }    
     
-    val mc = MyClass(List(7, 8, 9), "hi")
+    val mc = My2(List(7, 8, 9), "hi")
     
     'More -
     {      
-      assert(mc.str == "MyClass(7, 8, 9; \"hi\")")
+      mc.str ==> "My2(7, 8, 9; \"hi\")"
     }
   }
 }
