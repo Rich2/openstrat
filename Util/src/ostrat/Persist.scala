@@ -18,7 +18,21 @@ object Persist
   implicit def vectorToPersist[T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)  
   
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev) 
+  implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)
+  class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]]('Array, ev)
+{       
+  override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
+  override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
+  override def fromParameterStatements(sts: List[Statement]): EMon[Array[A]] = ???
+  override def fromClauses(clauses: List[Clause]): EMon[Array[A]] = ???
+  
+  override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
+  {
+    case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeStr == typeName => ???// fromParameterStatements(sts)
+    case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName -- "does not equal" -- typeStr)
+    case _ => ???// expr.exprParseErr[A](this)
+  }
+}
   
   implicit def seqToPersistDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]): PersistSeqDirect[A] = new PersistSeqDirect[A](thisSeq, ev)
     
@@ -68,7 +82,7 @@ object Persist
   
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(AlphaToken(_, "Seq"), Seq(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
+      case AlphaBracketExpr(AlphaToken(_, "Seq"), SquareBlock(ts, _, _) :: ParenthBlock(sts, _, _) :: Nil) =>
         sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArray)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }

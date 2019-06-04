@@ -5,7 +5,13 @@ import pParse._
 /** The base trait for the persistence of Case classes, aka Product types */
 abstract class PersistCase[R](typeStr: String) extends ShowCase[R](typeStr) with PersistCompound[R]
 {  
-  def persistMems: List[Persist[_]]   
+  def persistMems: List[Persist[_]] 
+  override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
+  {
+    case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
+    case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName -- "does not equal" -- typeStr)
+    case _ => expr.exprParseErr[R](this)
+  }
 }
 
 /** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */
