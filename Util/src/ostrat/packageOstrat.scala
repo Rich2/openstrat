@@ -127,7 +127,7 @@ package object ostrat
   implicit def seqToImplicit[A](thisSeq: Seq[A]): SeqImplicit[A] = new SeqImplicit(thisSeq)  
   implicit def persistTToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): ShowerImplicit[A] = new ShowerImplicit[A](ev, thisVal) 
   implicit def showTToStringerImplicit[A](thisVal: A)(implicit ev: ShowOnly[A]): ShowerImplicit[A] = new ShowerImplicit[A](ev, thisVal) 
-  implicit def traversableToImplicit[A](trav: Traversable[A]): TraversableImplicit[A] = new TraversableImplicit[A](trav)  
-  implicit def stringTraverableToImplict(strTrav: Traversable[String]): StringTraversableImplicit = StringTraversableImplicit(strTrav)   
-  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringTraversableImplicit = StringTraversableImplicit(strArray) 
+  implicit def traversableToImplicit[A](iter: Iterable[A]): IterableImplicit[A] = new IterableImplicit[A](iter)  
+  implicit def stringTraverableToImplict(strIter: Iterable[String]): StringIterableImplicit = StringIterableImplicit(strIter)   
+  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringIterableImplicit = StringIterableImplicit(strArray) 
 }

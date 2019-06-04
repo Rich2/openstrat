@@ -3,23 +3,23 @@ package ostrat
 package pImplicit
 
 /** Extension methods for Traversable[A] */
-class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
+class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the tail value */
-  def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head)
-  def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.last)
-  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisTrav.isEmpty) vEmpty else vNonEmpty  
-  def ifHead(f: A => Boolean) : Boolean = thisTrav.ifEmpty(false, f(thisTrav.head))  
-  def headOrElse(vEmpty: A): A = if (thisTrav.isEmpty) vEmpty else thisTrav.head
+  def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head)
+  def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.last)
+  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisIter.isEmpty) vEmpty else vNonEmpty  
+  def ifHead(f: A => Boolean) : Boolean = thisIter.ifEmpty(false, f(thisIter.head))  
+  def headOrElse(vEmpty: A): A = if (thisIter.isEmpty) vEmpty else thisIter.head
   def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
-    thisTrav.ifEmpty("", thisTrav.tail.foldLeft(f(thisTrav.head))(_ - seperator - f(_)))   
-  def toStrsCommaFold(fToStr: A => String = _.toString): String = thisTrav.toStrsFold(", ", fToStr)
-  def toStrsSemiFold(fToStr: A => String = _.toString): String = thisTrav.toStrsFold("; ", fToStr)
+    thisIter.ifEmpty("", thisIter.tail.foldLeft(f(thisIter.head))(_ - seperator - f(_)))   
+  def toStrsCommaFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold(", ", fToStr)
+  def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
    
   /** Maps over a Traversable (collection / sequence) with a counter. */
   def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =
   { var i = count
     var acc: List[B] = Nil
-    thisTrav.foreach{el => acc ::= f(el, i); i += 1 }
+    thisIter.foreach{el => acc ::= f(el, i); i += 1 }
     acc.reverse
   }
    
@@ -27,14 +27,14 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def iFlatMap[B](f: (A, Int) => Seq[B], count: Int = 0): Seq[B] =
   { var i = count
     var acc: Seq[B] = Seq()
-    thisTrav.foreach{el => acc ++= f(el, i); i += 1 }
+    thisIter.foreach{el => acc ++= f(el, i); i += 1 }
     acc
   }
    
   /** foreach loop with counter */
   def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit =
   { var counter = count
-    var rem = thisTrav
+    var rem = thisIter
     while(rem.nonEmpty)
     { f(rem.head, counter)
       counter += 1
@@ -45,7 +45,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def mapVar1[B, C](initialVar: B, f: (A, B) => (B, C)): Seq[C] =
   { var varB: B = initialVar
     var acc: Seq[C] = Seq()
-    thisTrav.foreach{el =>
+    thisIter.foreach{el =>
       val pair: (B, C) = f(el, varB)
       varB = pair._1
       acc :+= pair._2
@@ -56,7 +56,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def flatMapVar1[B, C](initialVar: B, initialAcc: C)(f: (A, B, C) => (B, C)): C =
   { var varB: B = initialVar
     var acc: C = initialAcc
-    thisTrav.foreach{el =>
+    thisIter.foreach{el =>
       val pair: (B, C) = f(el, varB, acc)
       varB = pair._1
       acc = pair._2
@@ -67,7 +67,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def toStrFold2[B](secondAcc: B)(f: (B, A) => (String, B)): String =
   { var acc: String = ""
     var acc2: B = secondAcc
-    thisTrav.foreach{ el =>
+    thisIter.foreach{ el =>
       val pair = f(acc2, el)
       acc += pair._1
       acc2 = pair._2               
@@ -75,7 +75,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     acc
   }
    
-  def travHead[B](ifEmpty: => B, fNonEmpty: (A, Traversable[A]) => B): B = if (thisTrav.isEmpty) ifEmpty else fNonEmpty(thisTrav.head, thisTrav.tail)
+  def travHead[B](ifEmpty: => B, fNonEmpty: (A, Traversable[A]) => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head, thisIter.tail)
   
   /** Folds over this traverable with a to Emon function, accumulating errors */      
   def eMonMap[B](f: A => EMon[B]): EMon[List[B]] =      
@@ -91,7 +91,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
       case Nil => Bad(errAcc)
       case h :: tail => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
     }
-    goodLoop(thisTrav.toList, Nil)      
+    goodLoop(thisIter.toList, Nil)      
   }
    
   /** Not sure what this method does */
@@ -101,15 +101,15 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     { case h :: tail if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
       case s => (acc, s)
     }
-    loop(thisTrav.toList, Nil)
+    loop(thisIter.toList, Nil)
   }   
   
   /** This needs to be renamed. */
   def trav2ProdD2[B, C <: ProdD2, D <: ProductD2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
-  { val elemNum = thisTrav.size * secondTrav.size
+  { val elemNum = thisIter.size * secondTrav.size
     val res = factory(elemNum)
     var count = 0
-    thisTrav.foreach {a =>
+    thisIter.foreach {a =>
       secondTrav.foreach{ b => res.setElem(count, f(a, b)); count += 1 }
     }
     res
@@ -118,7 +118,7 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc
     var prev: A = initPrevious
-    thisTrav.foreach { newA =>
+    thisIter.foreach { newA =>
       acc = f(acc, prev, newA)
       prev = newA
     }
@@ -127,9 +127,9 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
     
   /** product map method maps from a Traversable to an Array based ProductValues class. */
   def pMap[B , C <: ProductVals[B]](f: A => B)(implicit factory: Int => C): C =
-  { val res = factory(thisTrav.size)
+  { val res = factory(thisIter.size)
     var count: Int = 0
-    thisTrav.foreach { orig =>
+    thisIter.foreach { orig =>
       val newValue: B = f(orig)
       res.setElem(count, newValue)
       count += 1         
@@ -139,9 +139,9 @@ class TraversableImplicit[A](val thisTrav: Traversable[A]) extends AnyVal
   
   /** Copies from a Traversable to an Array based ProductValues class. */
   def toPValues[B <: ProductVals[A]](implicit factory: Int => B): B =
-  { val res = factory(thisTrav.size)
+  { val res = factory(thisIter.size)
     var count: Int = 0
-    thisTrav.foreach { orig =>      
+    thisIter.foreach { orig =>      
       res.setElem(count, orig)
       count += 1         
     }

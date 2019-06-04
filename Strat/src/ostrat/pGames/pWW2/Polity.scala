@@ -4,7 +4,7 @@ package pGames
 package pWW2
 
 trait Polity extends PersistSingleton
-{ def typeSym = 'Polity
+{// def typeSym = 'Polity
   def colour: Colour
 }
 

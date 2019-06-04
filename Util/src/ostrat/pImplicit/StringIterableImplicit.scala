@@ -2,17 +2,17 @@
 package ostrat
 package pImplicit
 
-case class StringTraversableImplicit(trav: Traversable[String])
+case class StringIterableImplicit(iter: Iterable[String])
 {   
-   def strFold(seperatorString: String = ""): String = trav.ifEmpty("", trav.tail.foldLeft(trav.head)(_ + seperatorString + _))
+   def strFold(seperatorString: String = ""): String = iter.ifEmpty("", iter.tail.foldLeft(iter.head)(_ + seperatorString + _))
    def strFold2[A](initialAcc2: A, initialString: String = "")(f: (String, A) => (String, A)) =
    {
-      def loop(rem: Traversable[String], strAcc: String, acc2: A): String = rem.ifEmpty(strAcc,
+      def loop(rem: Iterable[String], strAcc: String, acc2: A): String = rem.ifEmpty(strAcc,
          {
          val (newStrAcc, newAcc2) = f(rem.head, acc2)
          loop(rem.tail, strAcc - newStrAcc, newAcc2)
          })
-      loop(trav, initialString, initialAcc2)   
+      loop(iter, initialString, initialAcc2)   
    }
    def commaFold: String = strFold(", ")
    def semiFold: String = strFold("; ")
