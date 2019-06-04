@@ -27,6 +27,10 @@ object PersistOptionTest extends TestSuite
     'Some
     {
       Some(-5).str ==> "-5"
+      "-78.2".findType[Some[Double]] ==> Good(Some(-78.2))
+      "-78.2".findType[Option[Double]] ==> Good(Some(-78.2))
+      "Some(-78.2)".findType[Some[Double]] ==> Good(Some(-78.2))
+      "Some(-78.2)".findType[Option[Double]] ==> Good(Some(-78.2))
     }
     
     'Option -
@@ -35,8 +39,9 @@ object PersistOptionTest extends TestSuite
       oa.str ==> "5"        
       t1.str ==> t1Str
       "27".findType[Some[Int]] ==> Good(Some(27))
-      assert(t1Str.findType[Test1].isGood)
+      t1Str.findType[Test1] ==> Good(Test1(Some(5), 4, Some(2.0)))
       t2.str ==> "Test1(; 7; ;)"
+      "Test1(; 7; ;)".findType[Test1] ==> Good(Test1(None, 7, None))  
     }
   }
 }

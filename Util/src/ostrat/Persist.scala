@@ -31,7 +31,11 @@ object Persist
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
     override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
     override def fromClauses(clauses: List[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
-    override def fromExpr(expr: Expr): EMon[Some[A]] = ev.fromExpr(expr).map(Some(_))
+    override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
+    {
+      case AlphaBracketExpr(AlphaToken(_, "Some"), ParenthBlock(hs:: Nil, _, _) :: Nil) => ev.fromExpr(hs.expr).map(Some(_))
+      case expr => ev.fromExpr(expr).map(Some(_))
+    }
     override def fromStatements(sts: List[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
   } 
   
