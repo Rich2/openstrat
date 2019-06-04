@@ -52,7 +52,8 @@ def contrast2(other: Colour): Colour =
     }
     Colour.fromInts(f(red, other.red), f(green, other.green), f(blue, other.blue), 255)
   }
-   
+  
+  /** Darkens a colour by a defualt value of 2. */
   def darken(factor: Double = 2): Colour =
   { def f(primary: Int): Int = (primary / factor).toInt.min(255)
     Colour.fromInts(f(red), f(green), f(blue), alpha)
