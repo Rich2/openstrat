@@ -1,11 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import geom.LatLong._
-import Terrain._
+import geom._, geom.LatLong._, Terrain._
 
-object Australasia extends Area1('Australasia, -23 ll 130)
+object Australasia extends Area1("Australasia", -23 ll 130)
 {
    //type A2Type = Area2
    
@@ -14,7 +12,7 @@ object Australasia extends Area1('Australasia, -23 ll 130)
    val eSumatra = -3.22 ll 106.09
    val seSumatra = -5.90 ll 105.71
    val hutan = -5.94 ll 104.58
-   val sumatra = Area2('Sumatra, -0.02 ll 101.63, jungle, nSumatra, neSumatra, eSumatra, seSumatra, hutan)
+   val sumatra = Area2("Sumatra", -0.02 ll 101.63, jungle, nSumatra, neSumatra, eSumatra, seSumatra, hutan)
    
    val capeLeeuwin = deg(-34.36, 115.13)
    val wAustralia = deg(-22.58, 113.95)
@@ -52,8 +50,8 @@ object Australasia extends Area1('Australasia, -23 ll 130)
    val nuytsland1 = deg(-32.96, 124.33)
    val nuytsland2 = deg(-33.86, 123.63)
    val windyHarbour = deg(-34.84, 116)
-   import Terrain._
-   val australia = Area2('Australia, deg(-24.45, 134.47), desert,
+   
+   val australia = Area2("Australia", deg(-24.45, 134.47), desert,
          capeLeeuwin, wAustralia, eightyMile, couloumbPoint, drysdaleRiver, victoriaMouth, thamarrurr, coxPeninsular, nAustralia,
          eastArnhem, limmen, karumba, nQueensland,
          nKennedy, capeMelville, coolbie, harveyBay, brisbane, byronBay, seAustralia,
@@ -69,7 +67,7 @@ object Australasia extends Area1('Australasia, -23 ll 130)
    val makara = -41.29 ll 174.62
    val himtangi = -40.36 ll 175.22
    val capeEgmont = -39.28 ll 173.75
-   val newZealandNIsland = Area2('NewZealandNIsland, -38.66 ll 176, plain,
+   val newZealandNIsland = Area2("NewZealandNIsland", -38.66 ll 176, plain,
          capeReinga, teHapua, aukland, eCape, capePalliser, makara, himtangi, capeEgmont)
          
    val swNewZealand = -45.98 ll 166.47
@@ -77,13 +75,13 @@ object Australasia extends Area1('Australasia, -23 ll 130)
    val capeCambell = -41.73 ll 174.27
    val slopePoint = -46.67 ll 169.00
    
-   val newZealandSIsland = Area2('NewZealandSIsland, -43.68 ll 171.00, plain, swNewZealand, puponga, capeCambell, slopePoint)
+   val newZealandSIsland = Area2("NewZealandSIsland", -43.68 ll 171.00, plain, swNewZealand, puponga, capeCambell, slopePoint)
          
    val nBorneo = 6.99 ll 117.12
    val seBorneo = -4.03 ll 116.09
    val swBorneo = -2.96 ll 110.29
    val nwSarawak = 2.08 ll 109.64      
-   val borneo = Area2('Borneo, 0.63 ll 114.132, jungle, nBorneo,seBorneo, swBorneo, nwSarawak)  
+   val borneo = Area2("Borneo", 0.63 ll 114.132, jungle, nBorneo,seBorneo, swBorneo, nwSarawak)  
    
    val seSulawesi = -5.41 ll 119.38
    val nwSulawesi = 0.72 ll 120.06
@@ -93,14 +91,14 @@ object Australasia extends Area1('Australasia, -23 ll 130)
    val teku = -0.76 ll 123.45
    val swSulawesi = -5.66 ll 122.78
    val nGulfBoni = -2.61 ll 120.81
-   val sulawesi = Area2('Sulawesi, -2.16 ll 120.58, jungle,
+   val sulawesi = Area2("Sulawesi", -2.16 ll 120.58, jungle,
          seSulawesi, nwSulawesi, neSulawesi,ambesia, poso, teku, swSulawesi, nGulfBoni)
    
    val swJava = -6.83 ll 105.24
    val nwJava = -5.88 ll 106.04
    val ePulauMadura = -6.96 ll 114.11
    val seJava = -8.75 ll 114.58
-   val javaIsland = Area2('Java, -7.39 ll 110.03, jungle, swJava, nwJava, ePulauMadura, seJava)
+   val javaIsland = Area2("Java", -7.39 ll 110.03, jungle, swJava, nwJava, ePulauMadura, seJava)
    
    val wNewGuinea = -0.82 ll 130.45
    val manokwari = -0.73 ll 133.98
@@ -111,7 +109,7 @@ object Australasia extends Area1('Australasia, -23 ll 130)
    val morigo = -7.83 ll 143.98
    val saibai = -9.32 ll 142.63
    val aindua = -4.46 ll 135.21
-   val newGuinea = Area2('NewGuinea, -5.19 ll 141.03, jungle,
+   val newGuinea = Area2("NewGuinea", -5.19 ll 141.03, jungle,
          wNewGuinea, manokwari, sCenderawasih, tebe, madang, eNewGuinea, morigo, saibai, aindua)  
    
 //   import HexE._

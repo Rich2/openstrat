@@ -33,12 +33,12 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   override def xSideMin: Int = xTileMin - 1
   override def xSideMax: Int = xTileMax + 1  
   
-  override def coodIsTile(x: Int, y: Int): Unit = Unit match
+  override def coodIsTile(x: Int, y: Int): Unit = () match
   { case _ if x %% 2 == 0 & y %% 2 == 0 =>      
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate") 
   }
   
-  override def coodIsSide(x: Int, y: Int): Unit = Unit match
+  override def coodIsSide(x: Int, y: Int): Unit = () match
   { case _ if x.isOdd & y.isOdd =>   
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")   
   }
@@ -116,7 +116,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   
   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
   
-  override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match
+  override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = () match
   {
     case _ if x.isOdd & y.isEven => (Cood(x - 1, y), Cood(x + 1, y))
     case _ if x.isEven & y.isOdd => (Cood(x, y - 1), Cood(x, y + 1))

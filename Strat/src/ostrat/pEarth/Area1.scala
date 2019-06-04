@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import geom._
 
-abstract class Area1(val sym: Symbol, val cen: LatLong) extends GeographicSymbolKey
+abstract class Area1(val symName: String, val cen: LatLong) extends GeographicSymbolKey
 {   
    def neighbs: List[Area1] = Nil
    def a2Seq: List[Area2]   

@@ -5,7 +5,7 @@ ThisBuild/organization := "OpenStratOrg"
 ThisBuild/autoAPIMappings := true
 
 val commonSettings = List(	
-    scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint"),
+    scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
     libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
     watchSources += (ThisBuild/baseDirectory).value / "DevSettings"
 )
@@ -87,5 +87,3 @@ Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModu
 Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/srcLearn",
 apiURL := Some(url("https://richstrat.com/api/"))
 )
-
-

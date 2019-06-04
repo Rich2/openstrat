@@ -32,7 +32,7 @@ object PersistCollectionsTest  extends TestSuite
       s1.findType[List[Int]] ==> Good(List(1, 2, 3))
       s1.findType[List[Int]] ==> Good(Seq(1, 2, 3))
       s1.findType[List[Int]] ==> Good(Vector(1, 2, 3))
-    //  "Seq()".findType[Nil.type] ==> Good(Nil)
+      //"Seq()".findType[Nil.type] ==> Good(Nil)
     }
     
     val a1: Array[String] = Array("3", "4")    

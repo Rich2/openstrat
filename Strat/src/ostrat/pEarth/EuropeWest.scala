@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import geom._, Terrain._, pGrid._, reflect.ClassTag
 
-object EuropeWest extends Area1('EuropeWest, 20 ll 0)  
+object EuropeWest extends Area1("EuropeWest", 20 ll 0)  
 {   
    override def fill = false
    import pPts._

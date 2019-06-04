@@ -24,7 +24,7 @@ final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdD3
   def toXYIfZPositive: Option[Vec2] = ife(z > 0, Some(Vec2(x, y)), None)
   def xRotation(rotation: Double): Vec3 =
   { val scalar = sqrt(y * y + z * z)
-    val ang0 = Unit match
+    val ang0 = () match
     { //As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
       case _ if z < 0 && y < 0 =>  - Pi  + atan(y / z)
       //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi

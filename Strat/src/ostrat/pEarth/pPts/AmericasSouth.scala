@@ -2,12 +2,9 @@
 package ostrat
 package pEarth
 package pPts
-import geom._
-import LatLong._
-import pEarth._
-import Terrain._
+import geom._, LatLong._, pEarth._, Terrain._
 
-object AmericasSouth extends Area1('SAmericas, -6.52 ll -62.28)
+object AmericasSouth extends Area1("SAmericas", -6.52 ll -62.28)
 {      
    val swArgentine = -54.28 ll -65.06
    val sChile = -55.26 ll -69.48
@@ -20,7 +17,7 @@ object AmericasSouth extends Area1('SAmericas, -6.52 ll -62.28)
    val puntaDelEste = deg(-35, -54)
    val buenosAires = deg(-34, -59)
    val sBuenos = deg(-36, -57)
-   val fSAmerica = Area2('FSAmerica, deg(-33.51, -65.36), plain, sChile, sSAmericaNW, nwSAmericaES, sSAmericaNE, 
+   val fSAmerica = Area2("FSAmerica", deg(-33.51, -65.36), plain, sChile, sSAmericaNW, nwSAmericaES, sSAmericaNE, 
          saoPaulo, puntaDelEste, buenosAires, sBuenos, swArgentine)         
      
    val nChile = deg(-18, -70)   
@@ -30,13 +27,13 @@ object AmericasSouth extends Area1('SAmericas, -6.52 ll -62.28)
    val caracas = deg(11, -71)
    val nwSAmericaEN = 6.77.north * nwAmericaE
    
-   val wSAmerica = Area2('WSAmerica, deg(-10.42, -47.78), jungle,
+   val wSAmerica = Area2("WSAmerica", deg(-10.42, -47.78), jungle,
          sSAmericaNW,nChile, nPeru, AmericasNorth.sePanama, AmericasNorth.nePanama, nColumbia, caracas, nwSAmericaEN, nwSAmericaES)   
    
    val nAmapa = deg(4.39, -51.51)
    val amazonMouthS = deg(-0.18, -49.3)
    val paraiba = deg(-7.15, -34.82)
-   val eSAmerica = Area2('ESAmerica, deg(-2.04, -70.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE, nwSAmericaES)
+   val eSAmerica = Area2("ESAmerica", deg(-2.04, -70.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE, nwSAmericaES)
    
    override val a2Seq = List(fSAmerica, wSAmerica, eSAmerica)       
          

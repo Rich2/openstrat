@@ -3,7 +3,8 @@ package ostrat
 package pEarth
 import geom._
 
-abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) extends GeographicSymbolKey
+/** A second level area */
+abstract class Area2(val symName: String, val cen: LatLong, val terr: Terrain) extends GeographicSymbolKey
 {
    override def toString = name.commaAppend(terr.toString)
    def aStrs = List(name)
@@ -36,7 +37,7 @@ abstract class Area2(val sym: Symbol, val cen: LatLong, val terr: Terrain) exten
 
 object Area2
 {
-   def apply(sym: Symbol, cen: LatLong, terr: Terrain, latLongArgs: LatLong*) = new Area2(sym, cen, terr)
+   def apply(symName: String, cen: LatLong, terr: Terrain, latLongArgs: LatLong*) = new Area2(symName, cen, terr)
    {      
       val latLongs = LatLongs(latLongArgs: _*)
    }  

@@ -51,7 +51,7 @@ object MenuSub
       { //Checks for Menu Items with the same heading
          val v1: Map[String, Seq[MenuSub]] = seq.groupBy(_.text.toLowerCase)
          val v2: Seq[Seq[MenuSub]] = v1.values.toSeq
-         v2.map[MenuSub, Seq[MenuSub]](i => i match
+         v2.map/*[MenuSub, Seq[MenuSub]]*/(i => i match
          {
             case Seq(l) => l //There is only Menu Node for this heading
             case s => if (s.exists(j => j.isInstanceOf[MenuBranchDynamic]))
@@ -84,7 +84,7 @@ object MenuNode
    {
       val v1: Map[String, Seq[MenuNode]] = seq.groupBy(_.text.toLowerCase)
       val v2: Seq[Seq[MenuNode]] = v1.values.toSeq
-      v2.map[MenuNode, Seq[MenuNode]](i => i match
+      v2.map/*[MenuNode, Seq[MenuNode]]*/(i => i match
       {
          case Seq(l) => l
          case s => s match

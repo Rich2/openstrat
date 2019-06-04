@@ -4,14 +4,14 @@ import mill._, scalalib._, scalajslib._, scalanativelib._
 trait Common extends ScalaModule
 {
   def version = "0.0.4snap"  
-  def scalacOptions = Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xfuture", "-Xlint")
+  def scalacOptions = Seq("-feature", "-language:implicitConversions", "-deprecation", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
 trait PlatformsModule extends ScalaModule with Common
 {
   outer =>
   
-  def scalaVersion = "2.12.8"
+  def scalaVersion = "2.13.0-RC3"
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src)
 
   trait InnerJs extends ScalaJSModule with Common

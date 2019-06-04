@@ -2,10 +2,9 @@
 package ostrat
 package pEarth
 package pPts
-import geom._
-import Terrain._
+import geom._, Terrain._
 
-object Frankia extends Area2('Frankia, 47.28 ll 1.93, plain)
+object Frankia extends Area2("Frankia", 47.28 ll 1.93, plain)
 {
    val swFrance = 43 ll -2    
    
@@ -64,7 +63,7 @@ object Frankia extends Area2('Frankia, 47.28 ll 1.93, plain)
                 stRaphael, frejus,laBastideBlanche, capBenat, laSeyneSurMer,  fosSurMer, laGrandeMotte, narbonne, seFrance)
 }
 
-object Iberia extends Area2('Iberia, 41 ll -3.5, hills)
+object Iberia extends Area2("Iberia", 41 ll -3.5, hills)
 {
    val southWest = 40 ll -8.91
    val espinho = 41.02 ll -8.64

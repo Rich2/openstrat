@@ -47,7 +47,7 @@ class EGrid80km[TileT <: Tile, SideT <: TileSide] (bounds: Array[Int], name: Str
       setLongitude(xSideMin, y - 1, lt2New)      
    }
    
-   override def optTile(x: Int, y: Int): Option[TileT] = Unit match
+   override def optTile(x: Int, y: Int): Option[TileT] = () match
    {
       case _ if y < yTileMin => None
       case _ if y > yTileMax => None

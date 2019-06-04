@@ -2,10 +2,9 @@
 package ostrat
 package pEarth
 package pPts
-import geom._
-import Terrain._
+import geom._, Terrain._
 
- object Balkans extends Area2('Balkans, 43.9 ll 22.1, plain)
+ object Balkans extends Area2("Balkans", 43.9 ll 22.1, plain)
 {
    val odessa = 46.48 ll 30.74
    val burgas = 42.51 ll 27.58
@@ -39,7 +38,7 @@ import Terrain._
                 b1, zadar, matulji, pula, basanija, trieste)   
 }
 
-object Crimea extends Area2('Crimea, 45.33 ll 34.15, plain)
+object Crimea extends Area2("Crimea", 45.33 ll 34.15, plain)
 {
    val henichesk = 46.17 ll 34.82
    val kerch = 45.39 ll 36.63
@@ -49,7 +48,7 @@ object Crimea extends Area2('Crimea, 45.33 ll 34.15, plain)
    val latLongs = LatLongs(henichesk, kerch, crimeaS, crimeaW, crimeaNW)
 }
 
-object Ukraine extends Area2('Ukraine, 50 ll 24, plain)
+object Ukraine extends Area2("Ukraine", 50 ll 24, plain)
 {
    val caspianWLat = 44.53.north
    val asiaMinorNM = caspianWLat ll 38.09 
@@ -63,7 +62,7 @@ object Ukraine extends Area2('Ukraine, 50 ll 24, plain)
          Balkans.odessa, Polandia.cenEast)   
 }
 
-object Anatolia extends Area2('AsiaMinor, 39.46 ll 33.07, hills)
+object Anatolia extends Area2("AsiaMinor", 39.46 ll 33.07, hills)
 {       
    val sinopeN = 42.09 ll 34.99
    val bodrum = 37.06 ll 27.35
@@ -79,7 +78,7 @@ object Anatolia extends Area2('AsiaMinor, 39.46 ll 33.07, hills)
          eilat, sSinai, SaharaEast.suez, SaharaEast.portSaid, eGaza, yukanbumaz, bodrum, Balkans.seddElBahr)
 }
 
-object Caucasus extends Area2('Caucasus, 42.0 ll 45.0, hills) 
+object Caucasus extends Area2("Caucasus", 42.0 ll 45.0, hills) 
 {   
    val blackSeaE = 41.84 ll 41.77
    val sumqayit = 40.64 ll 49.55

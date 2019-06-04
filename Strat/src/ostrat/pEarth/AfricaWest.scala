@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import geom._, pGrid._, reflect.ClassTag
 
-object AfricaWest extends Area1('WAfrica, 20 ll 40)
+object AfricaWest extends Area1("WAfrica", 20 ll 40)
 {
   type A2Type = Area2
   override def fill = false   

@@ -18,7 +18,7 @@ case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) ext
   def isHorizontal: Boolean = yStart == yEnd
   def isVertical: Boolean = xStart == xEnd
   /**Checks whether a forward horizontal ray crosses this polygon side. */
-  def rayIntersection(pt: Vec2): Boolean = Unit match
+  def rayIntersection(pt: Vec2): Boolean = () match
   { case _ if pt.y > yStart & pt.y > yEnd => false //Check if point is above the polygon side, above beg pt and end pt
     case _ if pt.y < yStart & pt.y < yEnd => false //Check if point is  below the polygon side, below beg pt and end pt
     case _ if 0.000001 > (yEnd - yStart).abs => false /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter

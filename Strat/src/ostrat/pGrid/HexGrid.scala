@@ -55,20 +55,20 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
    
   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
   
-  override def coodIsTile(x: Int, y: Int): Unit = Unit match
+  override def coodIsTile(x: Int, y: Int): Unit = () match
   { case _ if x %% 4 == 0 & y %% 4 == 0 =>
     case _ if x %% 4 == 2 & y %% 4 == 2 =>
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")   
   }
   
-  override def coodIsSide(x: Int, y: Int): Unit = Unit match
+  override def coodIsSide(x: Int, y: Int): Unit = () match
   { case _ if x %% 4 == 0 & y %% 4 == 2 =>
     case _ if x %% 4 == 2 & y %% 4 == 0 =>
     case _ if x.isOdd & y.isOdd =>   
     case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Hexside tile coordinate")   
   }
   
-  override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = Unit match
+  override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = () match
   { case _ if (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0)  => (Cood(x -2, y), Cood(x + 2, y))
     case _ if (x %% 4 == 1 & y %% 4 == 1) | (x %% 4 == 3 & y %% 4 == 3) =>  (Cood(x - 1, y - 1), Cood(x + 1, y + 1))
     case _ if (x %% 4 == 1 & y %% 4 == 3) | (x %% 4 == 3 & y %% 4 == 1) => (Cood(x - 1, y + 1), Cood(x + 1, y - 1))
@@ -134,7 +134,7 @@ object HexGrid
       }
    }
    
-   @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = Unit match
+   @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = () match
    {
       case _ if (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3) => upRight
       case _ if (y.isDivBy4 && x.div4Rem2) || (y.div4Rem2 && x.isDivBy4) => rightSide      

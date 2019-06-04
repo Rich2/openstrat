@@ -1,10 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import Terrain._
+import geom._, Terrain._
 
-object Majorca extends Area2('Majorca, 39.59 ll 3.01, plain)
+object Majorca extends Area2("Majorca", 39.59 ll 3.01, plain)
 {
    val south = 39.26 ll 3.05
    val palma = 39.56 ll 2.63
@@ -16,7 +15,7 @@ object Majorca extends Area2('Majorca, 39.59 ll 3.01, plain)
    val latLongs = LatLongs(south, palma, portalsVells, santElm, capFormentor, east)
 }
 
-object Sicily extends Area2('Sicily, cen = 37.58 ll 14.27, plain)
+object Sicily extends Area2("Sicily", cen = 37.58 ll 14.27, plain)
 {   
    val sSicily = 36.66 ll 15.08
    val kartibubbo = 37.56 ll 12.67
@@ -33,7 +32,7 @@ object Sicily extends Area2('Sicily, cen = 37.58 ll 14.27, plain)
 }
 
 
-object Canarias extends Area2('Canarias, 27.96 ll -15.60, plain)
+object Canarias extends Area2("Canarias", 27.96 ll -15.60, plain)
 {   
    val elHierro = 27.72 ll -18.15
    val laPalma = 28.85 ll -17.92
@@ -44,7 +43,7 @@ object Canarias extends Area2('Canarias, 27.96 ll -15.60, plain)
    val latLongs = LatLongs(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
 }
 
-object SaharaWest extends Area2('NWAfrica, 25 ll 1, desert)
+object SaharaWest extends Area2("NWAfrica", 25 ll 1, desert)
 {
    val southLine = 17.north
    val eastLine = 16.75.east
@@ -72,7 +71,7 @@ object SaharaWest extends Area2('NWAfrica, 25 ll 1, desert)
          tangierW, ceuta, alHoceima, tunis, neTunis, sTunis, misrata, northEast, southEast)  
 }
 
-object AfricaMidWest extends Area2('WAfrica, 11 ll 0, plain)
+object AfricaMidWest extends Area2("WAfrica", 11 ll 0, plain)
 {
    //val wAfricaE = 16.75.east 
    val cAfricaN = 4.53.north

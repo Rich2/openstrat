@@ -2,8 +2,7 @@
 package ostrat
 package pEarth
 import geom._
-//import Terrain._
-//import pGrid._
+//import Terrain._, pGrid._
 //
 /** An irregular tile. I've kept thisfile because code might be useful */ 
 abstract class ITile(val sym: Symbol, val cen: LatLong, val terr: ETile) extends GeographicSymbolKey

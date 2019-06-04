@@ -1,11 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import LatLong._
-import Terrain._
+import geom._, LatLong._, Terrain._
 
-object AfricaSouthern extends Area1('AfricaSouthern, -16.14 ll 24.36)
+object AfricaSouthern extends Area1("AfricaSouthern", -16.14 ll 24.36)
 {
   type A2Type = Area2
   override def fill = true//false
@@ -26,7 +24,7 @@ object AfricaSouthernPts
   val lakeVictoriaSW = -2.64 ll 31.76
   val sAfricaN = 17.south
   val cAfricaSE = sAfricaN * 31.east
-  val cAfrica =  Area2('CAfrica, -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, AfricaMidWest.cAfricaNW,
+  val cAfrica =  Area2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, AfricaMidWest.cAfricaNW,
     AfricaMidWest.southEast, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
    
   val lakeVictoriaSE = -2.23 ll 33.84
@@ -36,7 +34,7 @@ object AfricaSouthernPts
   val mombassa = -4.03 ll 39.28
   val seNacala = -14.4 ll 40.3
   val sAfricaNE = -17 ll 39.06
-  val sEAfrica = Area2('SEAfrica, -2.17 ll 36.64, plain, cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN, katongaMouth,
+  val sEAfrica = Area2("SEAfrica", -2.17 ll 36.64, plain, cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN, katongaMouth,
     AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa, seNacala, sAfricaNE)
    
   val agulhas = deg(-34.83, 20.00)
@@ -48,7 +46,7 @@ object AfricaSouthernPts
   val richardsBay = deg(-29, 32)
   val portLiz = deg(-34, 26)
          
-  val sAfrica = Area2('SAfrica, -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane, maputo,
+  val sAfrica = Area2("SAfrica", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane, maputo,
     richardsBay, portLiz)
          
   val madagascarN = deg(-11.95, 49.26)
@@ -56,5 +54,5 @@ object AfricaSouthernPts
   val madagascarSE = deg(-25.03, 46.99)
   val madagascarS = deg(-25.60, 45.16)
   val tambohorano = deg(-17.51, 43.93)
-  val madagascar = Area2('Madagascar, deg(-19.42, 46.57), plain, madagascarN, madagascarE, madagascarSE, madagascarS, tambohorano)
+  val madagascar = Area2("Madagascar", deg(-19.42, 46.57), plain, madagascarN, madagascarE, madagascarSE, madagascarS, tambohorano)
 }

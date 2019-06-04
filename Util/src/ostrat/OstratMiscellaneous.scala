@@ -15,16 +15,16 @@ object IsType
   }
 }
 
-trait SymbolKey
-{
-  def sym: Symbol
-}
+// trait SymbolKey
+// {
+//   def sym: Symbol
+// }
 
-object SymbolKey
-{
-  implicit class SymbolKeySeqImp[A <: SymbolKey](thisSeq: Seq[A])
-  {
-    def symFind(sym: Symbol): Option[A] = thisSeq.find(_.sym == sym)
-    def symGet(sym: Symbol): A = symFind(sym).get
-  }
-}
+// object SymbolKey
+// {
+//   implicit class SymbolKeySeqImp[A <: SymbolKey](thisSeq: Seq[A])
+//   {
+//     def symFind(sym: Symbol): Option[A] = thisSeq.find(_.sym == sym)
+//     def symGet(sym: Symbol): A = symFind(sym).get
+//   }
+// }

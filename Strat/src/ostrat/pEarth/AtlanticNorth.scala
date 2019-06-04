@@ -1,16 +1,15 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import Terrain._
+import geom._, Terrain._
 
-object AtlanticNorth extends Area1('NAtlantic, 60 ll -30)
+object AtlanticNorth extends Area1("NAtlantic", 60 ll -30)
 { 
   // override val gridMaker = E80Empty   
    override val a2Seq: List[Area2] = List(Iceland)
 }
 
-object Iceland extends Area2('Iceland, 64.78 ll -18.07, taiga)
+object Iceland extends Area2("Iceland", 64.78 ll -18.07, taiga)
 {   
    val reykjavik = 64.17 ll -21.75
    val w1 = 64.75 ll -22.30

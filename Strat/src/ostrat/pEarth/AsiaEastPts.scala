@@ -1,11 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._
-import LatLong._
-import Terrain._
-import pEarth.pPts.RusNorth
-import pEarth.pPts.AsiaWestPts
+import geom._, LatLong._, Terrain._, pPts.RusNorth, pPts.AsiaWestPts
 
 object AsiaEastPts
 {
@@ -34,11 +30,11 @@ object AsiaEastPts
     
    val chittagong = deg(22.74, 91.54)
    val seAsiaNE = AsiaWestPts.mianiLat * neVietnamLong   
-   val seAsia = Area2('SEAsia, deg(20.0, 104.0), plain,
+   val seAsia = Area2("SEAsia", deg(20.0, 104.0), plain,
          binhai, rongcheng, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth,
                neVietnam, dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein,
-               chittagong, AsiaWestPts.magdhara, AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE)  
-   
+               chittagong, AsiaWestPts.magdhara, AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE) 
+                  
      
    val khabarovsk = 55 ll 134.73   
    val chongpyong = deg(39.74, 127.46)
@@ -46,7 +42,7 @@ object AsiaEastPts
    val jindo = deg(34.39, 126.14)
    val ryongyon = deg(38.12, 124.78)
    val jinzhou = deg(40.93, 121.22)   
-   val ceAsia = Area2('CEAsia, deg(47, 115), plain,
+   val ceAsia = Area2("CEAsia", deg(47, 115), plain,
          khabarovsk, chongpyong, busan, jindo, ryongyon, jinzhou, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)      
    
    val krasnoyarsk = deg(77.43, 103.99)         
@@ -54,7 +50,7 @@ object AsiaEastPts
    val bukhta = deg(70.70, 131.07)
    val ustYansky = 72.81.north * farAsiaW
    val okhotsky = 58.73.north * farAsiaW   
-   val neAsia = Area2('NEAsia, deg(64, 113), taiga,
+   val neAsia = Area2("NEAsia", deg(64, 113), taiga,
          krasnoyarsk, bukhta, ustYansky, okhotsky, khabarovsk, RusNorth.cAsiaNE/*, AsiaWestPts.kazakNE*/, RusNorth.nRusNE)
    
    val sakha = deg(69.82, 159.7)
@@ -65,7 +61,7 @@ object AsiaEastPts
    val wKamchatka = deg(55.97, 155.67)
    val penzhinsky = deg(62.76, 164.60)
    val okhotsky2 = deg(59.42, 142.17)
-   val feAsia = Area2('FEAsia, deg(66.22,159.68), taiga,
+   val feAsia = Area2("FEAsia", deg(66.22,159.68), taiga,
          ustYansky, sakha, iultinsky, eSiberia, seProvidensky, sKamchatka, wKamchatka, penzhinsky, okhotsky2, okhotsky)      
   
    val sKyshu = deg(31.08, 130.75)
@@ -74,5 +70,5 @@ object AsiaEastPts
    val nHokaido = deg(45.5, 141.93)
    val eHokaido = deg(43.36, 145.74)   
    val choshi = deg(35.71, 140.85)
-   val japan = Area2('Japan, deg(36.28, 138.71), plain, sKyshu, neKyushu, kashiwazaki, nHokaido, eHokaido, choshi)         
+   val japan = Area2("Japan", deg(36.28, 138.71), plain, sKyshu, neKyushu, kashiwazaki, nHokaido, eHokaido, choshi)         
 }

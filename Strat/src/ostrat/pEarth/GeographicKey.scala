@@ -3,8 +3,9 @@ package ostrat
 package pEarth
 
 /** Not sure about this trait. */
-trait GeographicSymbolKey extends SymbolKey
+trait GeographicSymbolKey// extends SymbolKey
 {
+  def symName: String
   def name: String =
   {
     def concat(str1: String, str2: String): String =
@@ -35,8 +36,8 @@ trait GeographicSymbolKey extends SymbolKey
       case c :: tail => loop(tail, acc, currWord + c.toString)
     }
       
-    val l = sym.name.toList
-    loop(l.tail, "", l.head.toString())
+    val list = symName.toList
+    loop(list.tail, "", list.head.toString())
   }         
 }
 

@@ -10,7 +10,7 @@ abstract class CmdBarGui(title: String) extends CanvasMulti(title)
   topBar.backColour = Gray
   var statusText: String
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
-  def status = textBox(statusText, Unit)
+  def status = textBox(statusText, None)
   val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   /**  repaints the top command bar */
    def reTop(commands: List[GraphicSubject]): Unit = topBar.repaint(DisplayRow(10, commands).fromLeft(topBar.cenLeft))
