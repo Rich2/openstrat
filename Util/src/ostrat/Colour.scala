@@ -28,6 +28,7 @@ class Colour(val argbValue: Int) extends AnyVal with ProdI1
   }
   def nextFromRainbow: Colour = nextFrom(Colour.rainbow)
   
+  /** Returns the colour with the greatest contrast */
   def contrast: Colour =
   {
     def getCol(el: Int): Int = el match
@@ -36,7 +37,8 @@ class Colour(val argbValue: Int) extends AnyVal with ProdI1
     }
     Colour.fromInts(getCol(red), getCol(green), getCol(blue), alpha)
   }
-  
+
+/** Returns the colour that most contrasts with the 2 colours. This is useful for text that is displayed across 2 background colours. */  
 def contrast2(other: Colour): Colour =
   {
     def f(i1: Int, i2: Int): Int = 
@@ -58,24 +60,26 @@ def contrast2(other: Colour): Colour =
   { def f(primary: Int): Int = (primary / factor).toInt.min(255)
     Colour.fromInts(f(red), f(green), f(blue), alpha)
   }
+
+  /** Lightens a colour by a default value of 2 */
   def lighten(factor: Double = 2): Colour =
   { def f(primary: Int): Int = 256 - ((256 - primary) / factor).toInt.min(255).max(1)
     Colour.fromInts(f(red), f(green), f(blue), alpha)
   }
+
+  /** Modifies the alpha value of the rgba Int */
   def modAlpha(newAlpha: Int) = Colour.fromInts(red, green, blue, newAlpha)
   //def glCommaed(alpha: Double = 1.0): String = Seq(redGl, greenGl, blueGl, alpha.toString).commaParenth
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)  
 }
 
+/** This trait provides a few handy methods for classes with the colour member */
 trait WithColour extends AnyRef
 { def colour: Colour
   def contrast: Colour = colour.contrast
   def colourContrast2(other: Colour): Colour = colour.contrast2(other)
   def contrastBW = colour.contrastBW
 }
-
-/** Not sure the purpose of this class */
-class Coloured(val colour: Colour) extends WithColour 
 
 object Colour
 {
