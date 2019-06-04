@@ -45,8 +45,7 @@ case class UnimplementedExpr(bMems: Seq[BlockMember]) extends ExprCompound
 case class AlphaBracketExpr(name: AlphaToken, blocks: List[BracketBlock]) extends ExprCompound
 { def startMem = name
   def endMem = blocks.last
-  override def exprName: String = "AlphaBracketExpr"
-  //def errGet[A](implicit ev: PBuilder[A]): EMon[A] =
+  override def exprName: String = "AlphaBracketExpr"  
 }
 
 case class PreOpExpr(op: OperatorToken, right: Expr) extends ExprCompound
