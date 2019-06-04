@@ -58,6 +58,21 @@ class PersistConsImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, ::[A]]('C
   override def fromClauses(clauses: List[Clause]): EMon[::[A]] = ???
 }
 
+ 
+class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type]('Nil, ev)
+{
+  override def showSemi(thisSeq: Nil.type): String = thisSeq.map(ev.showComma(_)).semiFold
+  override def showComma(thisSeq: Nil.type): String = thisSeq.map(ev.show(_)).commaFold
+ 
+  override def fromExpr(expr: Expr): EMon[Nil.type] = fromExprLike(expr).flatMap
+  {
+    case h :: tail => bad1(TextSpan.empty, "Non empty List can not be parsed into Nil.")
+    case Nil => Good(Nil) 
+  }
+  override def fromParameterStatements(sts: List[Statement]): EMon[Nil.type] = ???
+  override def fromClauses(clauses: List[Clause]): EMon[Nil.type] = ???
+}
+
 class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('Seq, ev)
 {
   override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(ev.showComma(_)).semiFold

@@ -11,7 +11,6 @@ object PersistCollectionsTest  extends TestSuite
     val l2: List[Int] = List(4, 5, 6)
     val l2Comma: String = "4, 5, 6"
     val ss: Seq[Seq[Int]] = Seq(l1, l2)
-    deb(::(4, Nil).str)
     
     'Seq -
     { l1.str ==> "Seq[Int](-1; -2; -30)"
@@ -26,12 +25,14 @@ object PersistCollectionsTest  extends TestSuite
     
     'List -
     {
+      ::(4, Nil).str ==> "Seq[Int](4)"
       "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
       s1.findType[List[Int]] ==> Good(List(1, 2, 3))
       s1.findType[List[Double]] ==> Good(List(1.0, 2, 3))
       s1.findType[List[Int]] ==> Good(List(1, 2, 3))
       s1.findType[List[Int]] ==> Good(Seq(1, 2, 3))
       s1.findType[List[Int]] ==> Good(Vector(1, 2, 3))
+    //  "Seq()".findType[Nil.type] ==> Good(Nil)
     }
     
     val a1: Array[String] = Array("3", "4")    
