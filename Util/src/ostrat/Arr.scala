@@ -7,7 +7,7 @@ trait Arr[+A] extends Any
   def apply(index: Int): A
   
   
-  def foreach[U](f: (A) ⇒ U): Unit =
+  def foreach[U](f: (A) => U): Unit =
   { var count = 0
     while (count < length){f(apply(count)); count += 1 }
   }

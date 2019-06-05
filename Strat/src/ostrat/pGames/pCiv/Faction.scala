@@ -5,7 +5,7 @@ package pCiv
 import Colour._
 
 trait Faction extends PersistSingleton
-{ def typeSym = 'Faction
+{ //def typeSym = 'Faction
   def colour: Colour
 }
 

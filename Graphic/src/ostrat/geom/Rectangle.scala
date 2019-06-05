@@ -78,7 +78,7 @@ object Star5
   def apply(): Polygon =
   {
     val l2: List[Vec2] = List(Vec2(0, 1), Vec2(0, 0.5).rotate(-deg36))
-    (0 to 4).trav2ProdD2[Vec2, Vec2, Polygon](l2, (i, l) => l.rotate(-deg72 * i))
+    (0 to 4).iter2ProdD2[Vec2, Vec2, Polygon](l2, (i, l) => l.rotate(-deg72 * i))
   }
   def ptUpYCentred = apply.slateY(deg36.cos / 2 - 0.5)
 }

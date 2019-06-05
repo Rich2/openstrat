@@ -7,7 +7,7 @@ import Colour._
 trait Polity extends PersistSingleton
 {
    def colour: Colour
-   def typeSym: Symbol = 'Polity
+  // def typeSym: Symbol = 'Polity
 }
 
 object Rome extends Polity

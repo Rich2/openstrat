@@ -2,12 +2,6 @@
 package ostrat
 package pStrat
 
-object TerrS// extends CompNewTr[TerrS]
-{
-	//def apply(): TerrS = TerrSNone
-	def objList = List(TerrSNone, TerrSRiver, TerrSCoast)
-	
-}
 abstract sealed class TerrS
 {
 	def mch[T](fNone: () => T, fRiver: TerrSRiver => T, fCoast: TerrSCoast => T) = this match

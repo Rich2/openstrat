@@ -75,7 +75,7 @@ class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
     acc
   }
    
-  def travHead[B](ifEmpty: => B, fNonEmpty: (A, Traversable[A]) => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head, thisIter.tail)
+  def iterHead[B](ifEmpty: => B, fNonEmpty: (A, Iterable[A]) => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head, thisIter.tail)
   
   /** Folds over this traverable with a to Emon function, accumulating errors */      
   def eMonMap[B](f: A => EMon[B]): EMon[List[B]] =      
@@ -105,12 +105,12 @@ class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
   }   
   
   /** This needs to be renamed. */
-  def trav2ProdD2[B, C <: ProdD2, D <: ProductD2s[C]](secondTrav: Traversable[B], f: (A, B) => C)(implicit factory: Int => D): D =
-  { val elemNum = thisIter.size * secondTrav.size
+  def iter2ProdD2[B, C <: ProdD2, D <: ProductD2s[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =
+  { val elemNum = thisIter.size * secondIter.size
     val res = factory(elemNum)
     var count = 0
     thisIter.foreach {a =>
-      secondTrav.foreach{ b => res.setElem(count, f(a, b)); count += 1 }
+      secondIter.foreach{ b => res.setElem(count, f(a, b)); count += 1 }
     }
     res
   }

@@ -7,7 +7,7 @@ import geom._
   * third possible regular tile system. A SqCood represents either a tile centre, a tile side or a tile vertex. This system allows river and naval
   * units to move along the tile sides. */
 final case class Cood(val x: Int, val y: Int) extends ProdI2
-{ def typeSym = 'Cood
+{ //def typeSym = 'Cood
   def _1 = x
   def _2 = y
   def xyStr: String = x.toString - ", " - y.toString

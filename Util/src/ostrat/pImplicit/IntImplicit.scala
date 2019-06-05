@@ -3,7 +3,7 @@ package ostrat
 package pImplicit
 import math.Pi
  
-class IntImplicit(val thisInt: Int) extends AnyVal //extends PersistStr
+class IntImplicit(val thisInt: Int) extends AnyVal
 {
   /** modulus */
   def %%(divisor: Int): Int =
@@ -26,9 +26,9 @@ class IntImplicit(val thisInt: Int) extends AnyVal //extends PersistStr
   def div2RoundUp: Int = thisInt / 2 + thisInt % 2
   def div2RoundDown: Int = thisInt / 2 - thisInt % 2
   def million: Int = thisInt *             1000000
-  def billion: Long = thisInt.toLong *     1000000000l
-  def trillion: Long = thisInt.toLong *    1000000000000l
-  def quadrillion: Long = thisInt.toLong * 1000000000000000l
+  def billion: Long = thisInt.toLong *     1000000000L
+  def trillion: Long = thisInt.toLong *    1000000000000L
+  def quadrillion: Long = thisInt.toLong * 1000000000000000L
   //@inline def x2 = thisInt * 2
   @inline def degreesToRadians: Double = thisInt * Pi / 180
   @inline def radiansToDegrees: Double = thisInt * 180.0 / Pi

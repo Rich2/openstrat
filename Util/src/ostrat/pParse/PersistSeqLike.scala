@@ -20,7 +20,7 @@ object AlphaParenth
   }
 }
 
-abstract class PersistSeqLike[A, R](val typeSym: Symbol, val ev: Persist[A]) extends ShowCompound[R] with PersistCompound[R]
+abstract class PersistSeqLike[A, R](val ev: Persist[A]) extends ShowCompound[R] with PersistCompound[R]
 {
   override def typeStr = "Seq" + ev.typeStr.enSquare
   override def syntaxDepth = ev.syntaxDepth + 1
@@ -34,7 +34,7 @@ abstract class PersistSeqLike[A, R](val typeSym: Symbol, val ev: Persist[A]) ext
   }
 }
 
-class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]]('List, ev)
+class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]](ev)
 {
   override def showSemi(thisSeq: List[A]): String = thisSeq.map(ev.showComma(_)).semiFold
   override def showComma(thisSeq: List[A]): String = thisSeq.map(ev.show(_)).commaFold
@@ -44,7 +44,7 @@ class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]](
   override def fromClauses(clauses: List[Clause]): EMon[List[A]] = ???
 }
 
-class PersistConsImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, ::[A]]('Cons, ev)
+class PersistConsImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, ::[A]](ev)
 {
   override def showSemi(thisSeq: ::[A]): String = thisSeq.map(ev.showComma(_)).semiFold
   override def showComma(thisSeq: ::[A]): String = thisSeq.map(ev.show(_)).commaFold
@@ -59,7 +59,7 @@ class PersistConsImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, ::[A]]('C
 }
 
  
-class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type]('Nil, ev)
+class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](ev)
 {
   override def showSemi(thisSeq: Nil.type): String = thisSeq.map(ev.showComma(_)).semiFold
   override def showComma(thisSeq: Nil.type): String = thisSeq.map(ev.show(_)).commaFold
@@ -73,7 +73,7 @@ class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](
   override def fromClauses(clauses: List[Clause]): EMon[Nil.type] = ???
 }
 
-class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('Seq, ev)
+class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]](ev)
 {
   override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(ev.showComma(_)).semiFold
   override def showComma(thisSeq: Seq[A]): String = thisSeq.map(ev.show(_)).commaFold
@@ -82,7 +82,7 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]]('S
   override def fromClauses(clauses: List[Clause]): EMon[Seq[A]] = ???
 }
 
-class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[A]]('Vector, ev)
+class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[A]](ev)
 {
   override def showSemi(thisSeq: Vector[A]): String = thisSeq.map(ev.showComma(_)).semiFold
   override def showComma(thisSeq: Vector[A]): String = thisSeq.map(ev.show(_)).commaFold

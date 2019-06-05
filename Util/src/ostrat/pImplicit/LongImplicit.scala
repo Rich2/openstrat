@@ -4,6 +4,6 @@ package pImplicit
 
 class LongImplicit (val thisLong: Long) extends AnyVal
 {
-   def million: Long = thisLong * 1000000l
-   def billion: Long = thisLong * 1000000000l
+   def million: Long = thisLong * 1000000L
+   def billion: Long = thisLong * 1000000000L
 }

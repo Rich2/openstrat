@@ -24,7 +24,7 @@ object Persist
   
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)
-  class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]]('Array, ev)
+  class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
 {       
   override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
   override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
@@ -78,7 +78,7 @@ object Persist
   }
   
   
-  implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]]('Seq, Persist.IntPersist)
+  implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Persist.IntPersist)
   {       
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold

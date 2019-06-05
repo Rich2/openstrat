@@ -7,7 +7,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple("Flags Gui")
 {
   backColour = Gray
    
-  val arm = Armenia().scale(100l)//.slate(canv.topLeft)
+  val arm = Armenia().scale(100)//.slate(canv.topLeft)
    
   val stuff = arm ++ List(
       france.scale(100).tR.slate(canv.topRight),

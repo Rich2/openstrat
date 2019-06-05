@@ -25,7 +25,7 @@ package object ostrat
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
   //type LeftRight[A] = Either[A, A]
-  type Trav[A] = Traversable[A]  
+  //type Trav[A] = Traversable[A]  
   type FStr = Function0[String]
   type FStrSeq = Seq[Function0[String]]  
   type EMonList[A] = EMon[List[A]]
@@ -58,7 +58,7 @@ package object ostrat
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn("Java Exception", 1, 1), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
 
-  val two32: Long = 4294967296l
+  val two32: Long = 4294967296L
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
     
   def nullRef[A <: AnyRef]: Opt[A] = new Opt[A](null.asInstanceOf[A])

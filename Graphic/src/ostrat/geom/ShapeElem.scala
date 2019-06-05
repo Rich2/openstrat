@@ -10,8 +10,7 @@ trait ShapeElem extends Any with PaintElem
 }
 
 case class ShapeFill(segs: Shape, colour: Colour, zOrder: Int = 0) extends ShapeElem
-{ def typeSym = 'ShapeFill  
-  override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), colour, zOrder)  
+{ override def fTrans(f: Vec2 => Vec2) = ShapeFill(segs.fTrans(f), colour, zOrder)  
 }
 
 case class ShapeDraw(segs: Shape, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends ShapeElem
