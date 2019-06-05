@@ -52,7 +52,7 @@ case class DispCard(unicode: Seq[Char], colour: Colour)// extends CanvObj
  //  def elems: Seq[CanvEl] = Seq()
 }
 
-object CardBack extends DispCard(java.lang.Character.toChars(0x1F0A0), Green)
+//object CardBack extends DispCard( ??? )
 
 case class Card(rank: Rank, suit: Suit)
 {    

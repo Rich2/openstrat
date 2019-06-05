@@ -47,7 +47,7 @@ case class Good[+A](val value: A) extends EMon[A]
   def errs: StrList = Nil
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))   
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
-  override def foreach(f: A => Unit): Unit = f(_)
+  override def foreach(f: A => Unit): Unit = a => f(a)
   override def getElse[A1 >: A](elseValue: => A1): A1 = value
   override def biMap[L2, R2](fLeft: StrList => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
   override def toEither: Either[StrList, A] = Right(value)
@@ -55,9 +55,7 @@ case class Good[+A](val value: A) extends EMon[A]
   override def eitherFlatMap[D](f: A => Either[StrList, D]): Either[StrList, D] = f(value)
   override def isGood: Boolean = true
   override def isBad: Boolean = false
-  
   override def map2[A2, B](eMon2: EMon[A2], f: (A, A2) => B): EMon[B] = eMon2.map(a2 => f(value, a2))
-  
   
   override def map3[A2, A3, B](eMon2: EMon[A2], eMon3: EMon[A3], f: (A, A2, A3) => B): EMon[B] = eMon2 match
   {

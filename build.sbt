@@ -34,7 +34,7 @@ lazy val GraphicJvm = projJvm("Graphic").dependsOn(UtilJvm).settings(
 
 lazy val StratJvm = projJvm("Strat").dependsOn(GraphicJvm)
 
-lazy val DevJvm = projJvm("DevModule").dependsOn(StratJvm).settings(
+lazy val DevJvm = projJvm("Dev").dependsOn(StratJvm).settings(
 	Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "DevModule/srcLearn",
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),  
 )
