@@ -1,6 +1,6 @@
 ThisBuild/version := "0.0.4snap"
 name := "OpenStrat"
-ThisBuild/scalaVersion := "2.12.8"
+ThisBuild/scalaVersion := "2.13.8"
 ThisBuild/organization := "OpenStratOrg"
 ThisBuild/autoAPIMappings := true
 
