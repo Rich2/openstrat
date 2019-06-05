@@ -17,7 +17,7 @@ object Apps
       (4, (pGames.pSpace.Planets(_), "ScalaFx Planets")),
       (5, (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
       (6, (new pGames.pDung.DungeonGui(_), "ScalaFx Dungeon")),
-      (7, (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),         
+      (7, (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),
       (8, (ColourGen(_), "ScalaFx Some Colours")),
       (9, (pGames.p305.BC305Gui(_, pGames.p305.Bc1), "BC 305")),
       (10, (pGames.pCard.BlackJackGui(_), "ScalaFx BlackJack")),
