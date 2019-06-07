@@ -93,7 +93,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
     tiles.iForeach((e, i) => fSetTile(xTileMin + i * 2, y, e))
   }
    
-  def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Unit =
+  def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
     var cood = Cood(startCood.x, startCood.y)
     import SquareGrid._
