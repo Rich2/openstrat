@@ -45,11 +45,10 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
   val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
   
   /** rows 2, 6, 10 ... -2, -6, -10 ... */
-  def row2sForeach(f: Int => Unit): Unit = for { y <- yRow2Start to yRow2End by 4 } yield f(y)
+  def row2sForeach(f: Int => Unit): Unit = (yRow2Start to yRow2End by 4).foreach(f(_))
       
   /** rows 4, 8 12 ... 0, -4, -8 ... */
-  def row4sForeach(f: Int => Unit): Unit =
-    for { y <- yRow4Start to yRow4End by 4 } yield f(y)      
+  def row4sForeach(f: Int => Unit): Unit = (yRow4Start to yRow4End by 4).foreach(f(_))
   
   /** Needs more work. */
   final override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 

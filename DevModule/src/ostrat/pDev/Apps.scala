@@ -9,7 +9,7 @@ import pCanv._, pStrat._
  *  "git update-index --assume-unchanged Core/src/ostrat/pDev/Apps.scala" before pushing or pull-requesting changes." */
 object Apps
 {
-  val theMap: Map[Int, (CanvasPlatform => Unit, String)] = Map(
+  val theMap: Map[Int, (CanvasPlatform => Any, String)] = Map(
       (0, (new pGames.pCiv.CivGui(_), "ScalaFx Rise of Civs")),
       (1, (pGames.pWW2.WWIIGui(_, pGames.pWW2.WW1940), "World War II") ),
       (2, (pGames.p1783.Y1783Gui(_, pGames.p1783.Nap1), "1783")),
@@ -64,5 +64,5 @@ object Apps
   /** Change appNum to change the loaded application. */
   val appNum: Int = 1
 
-  def curr: (CanvasPlatform => Unit, String) = theMap(appNum)
+  def curr: (CanvasPlatform => Any, String) = theMap(appNum)
 }

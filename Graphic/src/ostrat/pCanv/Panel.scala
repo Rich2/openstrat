@@ -20,9 +20,9 @@ case class Panel(private val outerCanv: CanvasMulti, clipPoly: Polygon, cover: B
   def repaints(els: GraphicElem*): Unit = repaint(els.toList)   
 }
 
-case class MButtonCmd(cmd: MouseButton => Unit)
+case class MButtonCmd(cmd: MouseButton => Any)
 {
-   @inline def apply(mb: MouseButton): Unit = cmd(mb)
+   @inline def apply(mb: MouseButton): Any = cmd(mb)
 }
 
 /** The purpose of this trait is to give common methods for Panels and Simple Canvases. A SimpleCanvas is like a Panel but not a Panel.*/ 
