@@ -6,7 +6,7 @@ package object ostrat
 {
   /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
    *  everyone's utility file. */
-  implicit class any2stringadd[A](a: A) {}
+  //implicit class any2stringadd[A](a: A) {}
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
   val Cos60 = 0.5

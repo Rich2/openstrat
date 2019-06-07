@@ -15,7 +15,7 @@ sealed trait EMon[+A]
   def errs: StrList
   def map[B](f: A => B): EMon[B]  
   def flatMap[B](f: A => EMon[B]): EMon[B]
-  def foreach[U](f: A => U): Unit
+  def foreach(f: A => Unit): Unit
   def getElse[A1 >: A](elseValue: => A1): A1 
   def biMap[L2, R2](fLeft: StrList => L2, fRight: A => R2): Either[L2, R2]
   def toEither: Either[StrList, A] 
@@ -47,7 +47,7 @@ case class Good[+A](val value: A) extends EMon[A]
   def errs: StrList = Nil
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))   
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
-  override def foreach[U](f: A => U): Unit = f(_)
+  override def foreach(f: A => Unit): Unit = f(value)
   override def getElse[A1 >: A](elseValue: => A1): A1 = value
   override def biMap[L2, R2](fLeft: StrList => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
   override def toEither: Either[StrList, A] = Right(value)
@@ -90,7 +90,7 @@ case class Bad[+A](errs: StrList) extends EMon[A]
 {
   override def map[B](f: A => B): EMon[B] = Bad[B](errs)   
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad(errs)
-  override def foreach[U](f: A => U): Unit = {}
+  override def foreach(f: A => Unit): Unit = {}
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
   override def biMap[L2, R2](fLeft: StrList => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
   override def toEither: Either[StrList, A] = Left(errs)
