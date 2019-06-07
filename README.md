@@ -15,7 +15,7 @@ sbt //In bash from project's root folder
 ```
 From within the sbt console run:
 ```
-~ DevModuleJvm/reStart //To launch a ScalaFx window. The most useful command for development
+~ reStart //To launch a ScalaFx window. The most useful command for development
 ~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
 StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
 ~ all3/test //Rerun tests on modules UtilJvm, GraphicJvm and StratJvm
@@ -109,5 +109,3 @@ For IntellliJ useful options:
    
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
-
-
