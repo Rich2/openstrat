@@ -34,3 +34,5 @@ lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings)
 	Compile/unmanagedSourceDirectories := List("src", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("DevModule/" + s)),
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
+
+//lazy val
