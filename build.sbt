@@ -35,4 +35,6 @@ lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings)
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-//lazy val
+lazy val JsMacros = (project in file("DevModule/JsMacros")).enablePlugins(ScalaJSPlugin).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Macros/src",
+)
