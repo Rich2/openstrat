@@ -83,8 +83,7 @@ object Dev extends PlatformsModule
   object js extends InnerJs
   {
    def moduleDeps = Seq(Strat.js)
-   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'js / 'src, millSourcePath / 'srcLearn)
-
+   def sources = T.sources(Dev.millSourcePath / 'src, millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
   } 
 }
 

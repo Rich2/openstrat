@@ -16,8 +16,8 @@ sbt //In bash from project's root folder
 From within the sbt console run:
 ```
 ~ reStart //To launch a ScalaFx window. The most useful command for development
-~ StratJs/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
-StratJs/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
+~ JsDev/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
+JsDev/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
 ~ all3/test //Rerun tests on modules UtilJvm, GraphicJvm and StratJvm
 DocProj/doc //Will produce docs for the UtilJvm GraphicJvm and StratJvm modules.
   They can be found in target/DocProj/target/scala-2.12/api/.
