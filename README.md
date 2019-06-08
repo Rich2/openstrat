@@ -104,7 +104,7 @@ For IntellliJ useful options:
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
 
-  **5. DevModule
+  **5. Dev**
     -**pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
    
 

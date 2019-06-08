@@ -35,28 +35,28 @@ lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings)
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-def jsProj(name: String) = Project("Js" + name, file("DevModule/SbtDir/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
+def jsProj(name: String) = Project("Js" + name, file("Dev/SbtDir/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
 	libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
-	libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.7"
-	
+	libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.7",
+	scalaSource := (ThisBuild/baseDirectory).value / name / "src",
 )
 
-lazy val JsUtilMacros = jsProj("UtilMacros").settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "UtilMacros/src",
+lazy val JsUtilMacros = jsProj("UtilMacros").settings(  
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
 )
 
-lazy val JsUtil = jsProj("Util").dependsOn(JsUtilMacros).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+lazy val JsUtil = jsProj("Util").dependsOn(JsUtilMacros).settings(  
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
 )
 
-lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Graphic/src",
+lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(  
   Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsStrat = jsProj("Strat").dependsOn(JsGraphic).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Strat/src",
+lazy val JsStrat = jsProj("Strat").dependsOn(JsGraphic).settings(  
   Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+)
+
+lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcLearn", "Dev/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )

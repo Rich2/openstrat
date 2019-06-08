@@ -16,11 +16,10 @@ trait PlatformsModule extends ScalaModule with Common
 
   trait InnerJs extends ScalaJSModule with Common
   { 
-  	def scalaVersion = "2.12.8"
+  	def scalaVersion = "2.13.0"
 	  def scalaJSVersion = "0.6.28" 
-	  def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
-	  
-	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.6")
+	  def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
+	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.7")
   }
 
   trait InnerNative extends ScalaNativeModule with Common
@@ -40,9 +39,9 @@ trait PlatformsModule extends ScalaModule with Common
 
 object UtilMacros extends PlatformsModule
 {
-def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-object js extends InnerJs
-object Nat extends InnerNative  
+  def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+  object js extends InnerJs
+  object Nat extends InnerNative  
 }
 
 object Util extends PlatformsModule
@@ -75,7 +74,7 @@ object Strat extends PlatformsModule
   object Nat extends InnerNative
 }
 
-object DevModule extends PlatformsModule
+object Dev extends PlatformsModule
 {
   def moduleDeps = Seq(Strat)
   def mainClass = Some("ostrat.pFx.DevApp")
@@ -89,7 +88,7 @@ object DevModule extends PlatformsModule
   } 
 }
 
-def run() = DevModule.runBackground()
+def run() = Dev.runBackground()
 def test = Util.test
-def jsfast = DevModule.js.fastOpt
-def jsfull = Strat.js.fullOpt
+def jsfast = Dev.js.fastOpt
+def jsfull = Dev.js.fullOpt
