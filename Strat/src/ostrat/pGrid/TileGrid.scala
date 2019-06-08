@@ -187,7 +187,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     var acc: GraphicElems = Nil
     foreachTileAll(t => f1(t) match
       {
-      case None => acc
+      case None =>
       case Some(a) => acc :::= f2(t, a)
       })    
     acc.reverse

@@ -4,5 +4,5 @@ DocProj/
 DevData/
 bin/
 out/
-subProjects/
+sbtDir/
 .*/

@@ -35,6 +35,28 @@ lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings)
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-lazy val JsMacros = (project in file("DevModule/JsMacros")).enablePlugins(ScalaJSPlugin).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Macros/src",
+def jsProj(name: String) = Project("Js" + name, file("DevModule/SbtDir/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
+	libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
+	libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.7"
+	
+)
+
+lazy val JsUtilMacros = jsProj("UtilMacros").settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "UtilMacros/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+)
+
+lazy val JsUtil = jsProj("Util").dependsOn(JsUtilMacros).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+)
+
+lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Graphic/src",
+  Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+)
+
+lazy val JsStrat = jsProj("Strat").dependsOn(JsGraphic).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Strat/src",
+  Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
