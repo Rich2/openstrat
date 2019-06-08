@@ -80,9 +80,16 @@ object DevModule extends PlatformsModule
   def moduleDeps = Seq(Strat)
   def mainClass = Some("ostrat.pFx.DevApp")
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, millSourcePath / 'srcLearn)
+
+  object js extends InnerJs
+  {
+   def moduleDeps = Seq(Strat.js)
+   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'js / 'src, millSourcePath / 'srcLearn)
+
+  } 
 }
 
 def run() = DevModule.runBackground()
 def test = Util.test
-def jsfast = Strat.js.fastOpt
+def jsfast = DevModule.js.fastOpt
 def jsfull = Strat.js.fullOpt
