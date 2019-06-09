@@ -8,7 +8,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def parseToStatements: EMon[List[pParse.Statement]] = pParse.stringToStatements(thisString)
   def findTokens: EMon[List[pParse.Token]] = pParse.TokensFind.fromString(thisString)
   def findStatements: EMon[List[pParse.Statement]] = findTokens.flatMap(pParse.GetStatements(_))
-  def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
+  //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
   def findType[A: Persist]: EMon[A] = thisString.parseToStatements.flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
   def findInt: EMon[Int] = thisString.parseToStatements.flatMap(_.findInt)
@@ -16,6 +16,12 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findBoolean: EMon[Boolean] = thisString.parseToStatements.flatMap(_.findBoolean)
   def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseToStatements.flatMap(_.findTypeIndex[A](index))  
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
+
+  def asType[A](implicit ev: Persist[A]): EMon[A] = parseToStatements.flatMap(sts => sts match
+    { case h :: Nil => ev.fromStatement(h).elseTry(ev.fromStatements(sts))
+      case sts => ev.fromStatements(sts)
+    })
+  def asInt: EMon[Int] = asType[Int]
   
   def findIntArray: EMon[Array[Int]] = thisString.parseToStatements.flatMap(_.findIntArray)
   
