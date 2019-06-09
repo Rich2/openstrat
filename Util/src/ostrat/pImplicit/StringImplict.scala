@@ -83,5 +83,14 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     }
   }
   def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
-  def appendParenth(innerStrs: String*): String = thisString - innerStrs.semiParenth  
+  def appendParenth(innerStrs: String*): String = thisString - innerStrs.semiParenth
+  def prependIndefiniteArticle = thisString.find(!_.isWhitespace) match
+  {
+    case Some(ch) => ch.toLower match
+    {
+      case 'a' | 'e' | 'i' | 'o' | 'u' => "an " + thisString
+      case _ => "a " + thisString
+    }
+    case _ => "a " + thisString
+  }
 }

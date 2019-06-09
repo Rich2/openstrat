@@ -21,7 +21,12 @@ package object ostrat
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None  
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
-  
+  def readlnT[T](implicit ev: Persist[T]): T =
+    {
+      def loop: T =
+        scala.io.StdIn.readLine("Please enter " + ev.typeStr.prependIndefiniteArticle).asType[T].getElse(loop)
+      loop
+    }
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
   //type LeftRight[A] = Either[A, A]
