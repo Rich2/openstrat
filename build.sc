@@ -17,17 +17,17 @@ trait PlatformsModule extends ScalaModule with Common
   trait InnerJs extends ScalaJSModule with Common
   { 
   	def scalaVersion = "2.13.0"
-	  def scalaJSVersion = "0.6.28" 
-	  def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
-	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.7")
+	def scalaJSVersion = "0.6.28" 
+	def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
+	def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.7")
   }
 
   trait InnerNative extends ScalaNativeModule with Common
   {
     def scalaVersion = "2.11.12"
     def scalaNativeVersion = "0.3.8"  
-	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
-	  def ivyDeps = outer.ivyDeps() //++ ivyNat()	 
+	def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
+	def ivyDeps = outer.ivyDeps() //++ ivyNat()	 
   }
 
   trait InnerTests extends Tests
@@ -47,15 +47,16 @@ object UtilMacros extends PlatformsModule
 object Util extends PlatformsModule
 { 
   def moduleDeps = Seq(UtilMacros)  
-  object test extends InnerTests  
+  object test extends InnerTests
+
   object js extends InnerJs {  def moduleDeps = Seq(UtilMacros.js)  }
+
   object Nat extends InnerNative  
 }
 
 object Graphic extends PlatformsModule
 { 
-  def moduleDeps = Seq(Util)
-  
+  def moduleDeps = Seq(Util)  
   object test extends InnerTests
   
   object js extends InnerJs {  def moduleDeps = Seq(Util.js)  }
@@ -64,12 +65,12 @@ object Graphic extends PlatformsModule
 
 object Strat extends PlatformsModule
 {
-   def moduleDeps = Seq(Graphic)   
-  
+  def moduleDeps = Seq(Graphic)  
   object test extends InnerTests
-  {  //def moduleDeps = Seq(Graphic.test, Core)   
+  {
+  	//def moduleDeps = Seq(Graphic.test)
   }
-  
+    
   object js extends InnerJs { def moduleDeps = Seq(Graphic.js) }
   object Nat extends InnerNative
 }
@@ -82,8 +83,8 @@ object Dev extends PlatformsModule
 
   object js extends InnerJs
   {
-   def moduleDeps = Seq(Strat.js)
-   def sources = T.sources(Dev.millSourcePath / 'src, millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
+  	def moduleDeps = Seq(Strat.js)
+    def sources = T.sources(Dev.millSourcePath / 'src, millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
   } 
 }
 
