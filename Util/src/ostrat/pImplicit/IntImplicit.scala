@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pImplicit
-import math.Pi
+import math.Pi, collection.immutable.ArraySeq, reflect.ClassTag
  
 class IntImplicit(val thisInt: Int) extends AnyVal
 {
@@ -38,6 +38,34 @@ class IntImplicit(val thisInt: Int) extends AnyVal
   def fori(f: Int => Unit): Unit = (0 until thisInt).foreach(f)
   def imap[A](f: Int => A): IndexedSeq[A] = (0 until thisInt).map(f(_))
   def iFlatMap[A](f: Int => Seq[A]): Seq[A] = (0 until thisInt).flatMap(f(_))
+
+  /** folds across the Integer range starting with this Int to the given end of range. */
+  def foldTo[A](toValue: Int, initialValue: A)(f: (A, Int) => A): A =
+  { var count: Int = thisInt
+    var acc: A = initialValue
+    while(count <= toValue) { acc = f(acc, count); count += 1 }
+    acc
+  }
+
+  /** folds across the Integer range starting with this Int until the given end of range. */
+  def foldUntil[A](untilValue: Int, initialValue: A)(f: (A, Int) => A): A =
+  { var count: Int = thisInt
+    var acc: A = initialValue
+    while(count < untilValue) { acc = f(acc, count); count += 1 }
+    acc
+  }
+
+  /** maps across the Integer range starting with this Int to the given end of range. */
+  def mapTo[A](toValue: Int, initialValue: A)(f: Int => A)(implicit ct: ClassTag[A]): ArraySeq[A] =
+  { val len = (toValue - thisInt + 1).min(0)
+    val arr = new Array[A](len)
+    var count: Int = thisInt
+    while(count <= toValue)
+    { arr(count - thisInt) = f(count)
+      count += 1
+    }
+    ArraySeq.unsafeWrapArray[A](arr)
+  }
 
   def str2Dig: String = thisInt match
   { case i if (i > 9) || (i < -9) => i.toString
