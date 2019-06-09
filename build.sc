@@ -66,11 +66,9 @@ object Graphic extends PlatformsModule
 object Strat extends PlatformsModule
 {
   def moduleDeps = Seq(Graphic)  
+
   object test extends InnerTests
-  {
-  	//def moduleDeps = Seq(Graphic.test)
-  }
-    
+      
   object js extends InnerJs { def moduleDeps = Seq(Graphic.js) }
   object Nat extends InnerNative
 }
