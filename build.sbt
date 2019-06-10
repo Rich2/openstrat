@@ -17,6 +17,8 @@ lazy val UtilMacros = project.settings(commonSettings).settings(
 lazy val Util = project.dependsOn(UtilMacros).settings(commonSettings).settings(
 	scalaSource := baseDirectory.value / "src",
 	Compile/unmanagedSourceDirectories := List(scalaSource.value),
+	Test/scalaSource := baseDirectory.value / "test/src",
+	Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
 lazy val Graphic = project.dependsOn(Util).settings(commonSettings).settings(
