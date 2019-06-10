@@ -38,17 +38,17 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Concatenates a space and then the other String */
   def -- (other: String): String = thisString + " " + other
   /** appends a newline special character to this String */
-  def nl: String = thisString - "\n"   
+  def nl: String = thisString + "\n"
   /** Concatenates a newline special character followed by spaces to this string */
-  def nl(indent: Int): String = thisString - "\n" - indent.toSpaces   
+  def nl(indent: Int): String = thisString + "\n" + indent.toSpaces
   /** prepends a newline special character and spaces to this string */
-  def preNl(indent: Int): String = thisString - "\n" - indent.toSpaces
+  def preNl(indent: Int): String = thisString + "\n" + indent.toSpaces
   /** Prepends a newline special character to this String */
-  def preNl: String = "\n" - thisString
+  def preNl: String = "\n" + thisString
   /** Prepends 2 spaces to string */   
-  def ind2: String = "  " - thisString
+  def ind2: String = "  " + thisString
   /** Prepends 4 spaces to string */
-  def ind4: String = "    " - thisString
+  def ind4: String = "    " + thisString
   /** Concatenates a '/' character and then the other String. Useful for constructing directory/ folder paths on the Web, Linux and Unix */      
   def / (other: String): String = thisString + "/" + other
   def :- (other: String): String = thisString + ": " + other 
@@ -75,7 +75,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def commaAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
   def semicolonAppend(extraStrings: String*): String =
   {
-    val v1 = extraStrings.foldLeft(thisString)(_ - "; " - _)
+    val v1 = extraStrings.foldLeft(thisString)(_ + "; " + _)
     extraStrings.length match
     {
       case 0 => ife(thisString == "", v1 + ";", v1)
@@ -83,7 +83,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     }
   }
   def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
-  def appendParenth(innerStrs: String*): String = thisString - innerStrs.semiParenth
+  def appendParenth(innerStrs: String*): String = thisString + innerStrs.semiParenth
   def prependIndefiniteArticle = thisString.find(!_.isWhitespace) match
   {
     case Some(ch) => ch.toLower match
