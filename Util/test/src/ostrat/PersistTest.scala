@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-object PersistTest extends TestSuite
+object PersistTest
 {
   class TestClass(val str: String) extends PersistSingleton
 
@@ -24,20 +24,6 @@ object PersistTest extends TestSuite
 
   val tests = Tests
   {    
-    'persistNums -
-    {
-      5.str ==> "5"
-      "5".findType[Int] ==> Good(5)
-      (-86).str ==> "-86"
-      (-86).strComma ==> "-86"
-      (-86).strTyped ==> "Int(-86)"
-      23.4.str ==> "23.4"
-      (-6.00).str ==> "-6.0"
-      val d: Double = 8
-      d.strTyped ==> "DFloat(8.0)"
-      "7".findType[Int] ==> Good(7)
-      "7".findType[Double] ==> Good(7)
-    }    
 
     val aa: TestClass = TestObjA
     val aaStr: String = "TestObjA"

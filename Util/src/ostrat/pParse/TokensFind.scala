@@ -111,7 +111,7 @@ object TokensFind
       case d :: t if d.isDigit && str.length == 9 && t.ifHead(_.isDigit) => longLoop(rem, str, intAcc.toLong)
       case d :: tail if d.isDigit && str.length == 9 && intAcc > 214748364 => longLoop(rem, str, intAcc.toLong)
       case d :: tail if d.isDigit && str.length == 9 && intAcc == 214748364 && d > '7' => longLoop(rem, str, intAcc.toLong)
-      case d :: tail if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d + '0')
+      case d :: tail if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d - '0')
       case '.' :: tail => decimalLoop(tail, str + firstDigit.toString, intAcc, 10)
       case _ :: tail => Good3(rem, tp.addStr(str),  IntToken(tp, str, intAcc))
     }

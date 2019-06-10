@@ -8,9 +8,8 @@ class AppStart extends Application
   override def start(primaryStage: stage.Stage): Unit =
   {
     val bounds = stage.Screen.getPrimary.getVisualBounds
-    deb(findDevSettingElse("displayWidth" ,0).toString)
-    val canvWidth = bounds.getWidth - 8//findDevSettingElse("displayWidth", bounds.getWidth - 8)
-    val canvHeight = bounds.getHeight - 40//findDevSettingElse("displayHeight", bounds.getHeight - 40)
+    val canvWidth = findDevSettingElse("displayWidth", bounds.getWidth - 8)
+    val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight - 40)
     val canvasCanvas: canvas.Canvas = new canvas.Canvas(canvWidth, canvHeight) 
     val root = new scene.Group()
     root.getChildren.add(canvasCanvas)    
