@@ -11,7 +11,7 @@ class Squad(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) ext
   def move(newMove: Cood *): Unit = action = Move(Coods.fromSeq(newMove) )
   def fire(x: Int, y: Int): Unit = action = Fire(x cc y)
   val colour = polity.colour
-  override def toString = "Squad" - (polity.toString).enParenth
+  override def toString = "Squad" + (polity.toString).enParenth
   
   override def equals(other: Any): Boolean = other match
   { case that: Squad => polity == that.polity
