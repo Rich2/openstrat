@@ -31,7 +31,7 @@ lazy val Strat = project.dependsOn(Graphic).settings(commonSettings).settings(
 
 lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings).settings(
 	scalaSource := baseDirectory.value / "DevModule/src",
-	Compile/unmanagedSourceDirectories := List("src", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("DevModule/" + s)),
+	Compile/unmanagedSourceDirectories := List("src", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
