@@ -13,7 +13,7 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
   /** Km / Radian Earth/s Circumference divided by 2 Pi */
   //val kmPerRadian = 40075.0 / Pi2
   val metresPerRadian: Dist = 40075.km / Pi2   
-  def viewStr: String = "Focus:" -- focus.degStr -- "Scale: " - scale.kmStr2
+  def viewStr: String = "Focus:" -- focus.degStr -- "Scale: " + scale.kmStr2
   def updateView(): Unit = {repaintMap; setStatus(viewStr) }
   def setFocus(ll: LatLong): Unit = { focus = ll; updateView }
   def view: EarthView = EarthView(focus, scale, focusUp) 
@@ -22,7 +22,7 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
   //def focusDown = ! focusUp
   def ifInvScale: Dist = ife(focusUp, scale, -scale)
   def saveNamePrefix: String = "EarthGui"
-  def saveName = saveNamePrefix - ".save"   
+  def saveName = saveNamePrefix + ".save"
   def loadView(): Unit = canv.fromFileFindForeach(saveName, newView => setView(newView))   
   @inline def polyToGlobedArea(latLongs: LatLongs): GlobedArea = focus.polyToGlobedArea(latLongs)
   def latLongToDist2(ll: LatLong): Dist2 = focus.fromFocusDist2(ll)
