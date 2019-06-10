@@ -16,8 +16,8 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal// extends PersistSim
   def str1: String = f"$thisDouble%1.1f"
   def str2: String = f"$thisDouble%1.2f"
   def str3: String = f"$thisDouble%1.3f"
-  def commaedStr1s(others: Double*): String = others.foldLeft(str1)(_ - ", " - _.str1)
-  def commaedStr2s(others: Double*): String = others.foldLeft(str2)(_ - ", " - _.str2)
+  def commaedStr1s(others: Double*): String = others.foldLeft(str1)(_ + ", " + _.str1)
+  def commaedStr2s(others: Double*): String = others.foldLeft(str2)(_ + ", " + _.str2)
   def fromTo(toValue: Double, step: Double): List[Double] = doubleFromTo(thisDouble, toValue, step)
    
   def fFromTo[A](toValue: Double, step: Double, f: Double => A): List[A] =
@@ -58,7 +58,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal// extends PersistSim
   
   def toDegsMinsStr: String =
   { val (degs, mins) = toDegsMins
-    degs.toString - "°" - mins.ifZero("", mins.toString)
+    degs.toString + "°" + mins.ifZero("", mins.toString)
   }
   
   @inline def sin: Double = math.sin(thisDouble)
