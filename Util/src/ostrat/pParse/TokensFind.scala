@@ -75,7 +75,7 @@ object TokensFind
         case c2 :: tail3 => c2 match
         { 
           case '\"' | '\n' | '\b' | '\t' | '\f' | '\r' | '\'' | '\\' => loop(tail3, strAcc :+ c2)
-          case c2 => bad1(tp, "Unrecognised escape Sequence \\" - c2.toString)
+          case c2 => bad1(tp, "Unrecognised escape Sequence \\" + c2.toString)
         }
       }               
       case h :: tail2 => loop(tail2, strAcc :+ h)
@@ -111,8 +111,8 @@ object TokensFind
       case d :: t if d.isDigit && str.length == 9 && t.ifHead(_.isDigit) => longLoop(rem, str, intAcc.toLong)
       case d :: tail if d.isDigit && str.length == 9 && intAcc > 214748364 => longLoop(rem, str, intAcc.toLong)
       case d :: tail if d.isDigit && str.length == 9 && intAcc == 214748364 && d > '7' => longLoop(rem, str, intAcc.toLong)
-      case d :: tail if d.isDigit => intLoop(tail, str - d.toString, (intAcc * 10) + d - '0')
-      case '.' :: tail => decimalLoop(tail, str - firstDigit.toString, intAcc, 10)
+      case d :: tail if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d + '0')
+      case '.' :: tail => decimalLoop(tail, str + firstDigit.toString, intAcc, 10)
       case _ :: tail => Good3(rem, tp.addStr(str),  IntToken(tp, str, intAcc))
     }
              
@@ -122,15 +122,15 @@ object TokensFind
       case d :: tail if d.isDigit && str.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")
       case d :: tail if d.isDigit && str.length == 18 && longAcc > 922337203685477580L => bad1(tp, "Integer too big for 64 bit value")
       case d :: tail if d.isDigit && str.length == 18 && longAcc > 922337203685477580L && d > '7' => bad1(tp, "Integer too big for 64 bit value")
-      case d :: tail if d.isDigit => longLoop(tail, str - d.toString, (longAcc * 10) + d - '0')
-      case '.' :: tail => decimalLoop(tail, str - firstDigit.toString, longAcc, 10)
+      case d :: tail if d.isDigit => longLoop(tail, str + d.toString, (longAcc * 10) + d - '0')
+      case '.' :: tail => decimalLoop(tail, str + firstDigit.toString, longAcc, 10)
       case _ :: tail => Good3(rem, tp.addStr(str), LongIntToken(tp, str, longAcc))
     }      
                  
     def decimalLoop(rem: List[Char], str: String, floatAcc: Double, divisor: Double): EMon[(List[Char], TextPosn, Token)] = rem match
     {
       case Nil => Good3(rem, tp.addStr(str), FloatToken(tp, str, floatAcc))
-      case d :: tail if d.isDigit => decimalLoop(tail, str - d.toString, floatAcc + (d - '0') / divisor, divisor * 10)
+      case d :: tail if d.isDigit => decimalLoop(tail, str + d.toString, floatAcc + (d - '0') / divisor, divisor * 10)
       case c :: tail => Good3(rem, tp.addStr(str),  FloatToken(tp, str, floatAcc))
     }
     intLoop(rem, firstDigit.toString, firstDigit - '0')
@@ -144,9 +144,9 @@ object TokensFind
         case h :: tail => h match
         {
           case d if d.isHexDigit && (strAcc.length == 9) && tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)                  
-          case d if d.isDigit => hexIntLoop(tail, strAcc - d.toString, (intAcc * 16) + d - '0')
-          case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'A' + 10)
-          case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc - al.toString, (intAcc * 16) + al - 'a' + 10)
+          case d if d.isDigit => hexIntLoop(tail, strAcc + d.toString, (intAcc * 16) + d - '0')
+          case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'A' + 10)
+          case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'a' + 10)
           case _ => Good3(rem, tp.addStr(strAcc), IntToken(tp, strAcc, intAcc))
         }
       }            
@@ -154,9 +154,9 @@ object TokensFind
       {
         case Nil => Good3(rem, tp.addStr(strAcc), LongIntToken(tp, strAcc, longAcc))
         case d :: tail if d.isHexDigit && strAcc.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")                  
-        case d :: tail if d.isDigit => hexLongLoop(tail, strAcc - d.toString, (longAcc * 16) + d - '0')
-        case al :: tail if (al <= 'F') && (al >= 'A') => hexLongLoop(tail, strAcc - al.toString, (longAcc * 16) + al - 'A' + 10)
-        case al :: tail if (al <= 'f') && (al >= 'a') => hexLongLoop(tail, strAcc - al.toString, (longAcc * 16) + al - 'a' + 10)
+        case d :: tail if d.isDigit => hexLongLoop(tail, strAcc + d.toString, (longAcc * 16) + d - '0')
+        case al :: tail if (al <= 'F') && (al >= 'A') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'A' + 10)
+        case al :: tail if (al <= 'f') && (al >= 'a') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'a' + 10)
         case _ :: tail => Good3(rem, tp.addStr(strAcc), LongIntToken(tp, strAcc, longAcc))       
       }            
       hexIntLoop(rem, "0x", 0)
