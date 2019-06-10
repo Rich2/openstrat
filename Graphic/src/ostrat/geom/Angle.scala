@@ -17,7 +17,7 @@ trait AngleLike extends Any
  *  while Latitudes have a normal range +- 90 degrees. */
 final class Angle private(val radians: Double) extends AnyVal with AngleLike
 { override def toString = degStr2
-  def degStr2: String = degs.str2 -"\u00B0"
+  def degStr2: String = degs.str2 + "\u00B0"
   def toVec2: Vec2 = Vec2(math.cos(radians), math.sin(radians))
   def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
   def +(other: Angle) = Angle(radians + other.radians)
