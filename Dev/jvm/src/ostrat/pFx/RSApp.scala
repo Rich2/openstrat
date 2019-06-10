@@ -1,16 +1,16 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFx
-import javafx.application.Application
-import javafx.scene, javafx.stage, scene.canvas
+import javafx.application.Application, javafx.{scene, stage}, javafx.scene.canvas
 
 class AppStart extends Application
 {
-  override def start(primaryStage: stage.Stage): Unit = 
+  override def start(primaryStage: stage.Stage): Unit =
   {
     val bounds = stage.Screen.getPrimary.getVisualBounds
-    val canvWidth = findDevSettingElse("displayWidth", bounds.getWidth - 8)
-    val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight - 40)
+    deb(findDevSettingElse("displayWidth" ,0).toString)
+    val canvWidth = bounds.getWidth - 8//findDevSettingElse("displayWidth", bounds.getWidth - 8)
+    val canvHeight = bounds.getHeight - 40//findDevSettingElse("displayHeight", bounds.getHeight - 40)
     val canvasCanvas: canvas.Canvas = new canvas.Canvas(canvWidth, canvHeight) 
     val root = new scene.Group()
     root.getChildren.add(canvasCanvas)    

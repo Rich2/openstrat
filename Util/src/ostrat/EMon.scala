@@ -35,9 +35,9 @@ object EMon
   { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
     def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
     def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
-    def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] =
+    def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] =
       thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingStr)))
-    def findSettingElse[A: Persist](settingStr: String, elseValue: => A): A = findSett[A](settingStr).getElse(elseValue) 
+    def findSettingElse[A: Persist](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
   }
 }
 

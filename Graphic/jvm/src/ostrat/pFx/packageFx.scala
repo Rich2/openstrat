@@ -1,11 +1,13 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+/** This package is for JavaFx code.*/
 package object pFx
 { val userHomeDir: String = System.getProperty("user.home")
   val openStratDir: String = userHomeDir / "AppData/Local/OpenStratData"
   val openStratDevDir: String = openStratDir / "Dev"
   lazy val generalDevSettings: EMon[String] = loadRsonFile(openStratDevDir / "GeneralDevSettings.rson")
+  def findDevSetting[A: Persist](settingStr: String): EMon[A] = generalDevSettings.findSetting(settingStr)
   def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = generalDevSettings.findSettingElse(settingStr, elseValue)
   def saveRsonFile(path: String, fileName: String, output: String): Unit =
   { import java.io._
@@ -22,6 +24,6 @@ package object pFx
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
    *  procedure (Unit returning function) with that object of type A */
   def fromRsonFileFindForeach[A: Persist](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).foreach(f)
-  def settFromFile[A: Persist](settingStr: String, fileName: String): EMon[A] = loadRsonFile(fileName).findSett[A](settingStr)
+  def settFromFile[A: Persist](settingStr: String, fileName: String): EMon[A] = loadRsonFile(fileName).findSetting[A](settingStr)
   def settFromFileElse[A: Persist](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 }

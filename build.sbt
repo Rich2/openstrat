@@ -26,7 +26,7 @@ lazy val Graphic = project.dependsOn(Util).settings(commonSettings).settings(
 
 lazy val Strat = project.dependsOn(Graphic).settings(commonSettings).settings(
   scalaSource := baseDirectory.value / "src",
-	Compile/unmanagedSourceDirectories := List(scalaSource.value),	
+	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),	
 )
 
 lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings).settings(
