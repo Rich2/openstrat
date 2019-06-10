@@ -39,6 +39,6 @@ case class HPre(str: String) extends HSimple { def tag = "pre" }
 case class HCode(str: String) extends HSimple
 {
    def tag = "code"
-   override def out(indent: Int) = openAtts(indent).nl - str.nl - closeTag
+   override def out(indent: Int) = openAtts(indent).nl + str.nl + closeTag
 }
 
