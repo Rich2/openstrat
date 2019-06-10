@@ -105,8 +105,8 @@ class IntImplicit(val thisInt: Int) extends AnyVal
 
   def str2Dig: String = thisInt match
   { case i if (i > 9) || (i < -9) => i.toString
-    case i if (i >= 0) => "0" - i.toString
-    case i => "-0" - (-i).toString
+    case i if (i >= 0) => "0" + i.toString
+    case i => "-0" + (-i).toString
   }
 
   /** Increases the value of an integer while that integer does not match condition */
@@ -125,7 +125,7 @@ class IntImplicit(val thisInt: Int) extends AnyVal
   }
    
   @inline def hexStr: String = thisInt.toHexString.toUpperCase
-  @inline def hexStr2: String = ife(hexStr.length == 1, "0" - hexStr, hexStr)
+  @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)
   def isDivBy3: Boolean = thisInt % 3 == 0
    
   def isDivBy4: Boolean = thisInt % 4 == 0
@@ -141,8 +141,8 @@ class IntImplicit(val thisInt: Int) extends AnyVal
   def tenthsStr(tenths: Int): String =
   { val res = thisInt.abs * tenths.abs
     val mod = res % 10
-    val str1 = (mod != 0).ifMod((res / 10).toString)(_ - "." - mod.toString)
-    (thisInt < 0 |!& tenths < 0).ifMod(str1)("-" - _)
+    val str1 = (mod != 0).ifMod((res / 10).toString)(_ + "." + mod.toString)
+    (thisInt < 0 |!& tenths < 0).ifMod(str1)("-" + _)
   }
    
   def hundredthsStr(hundreds: Int): String =
@@ -151,9 +151,9 @@ class IntImplicit(val thisInt: Int) extends AnyVal
     val str1 = res % 100 match
     { case 0 => rs
       case m if m % 10 == 0 => rs.dotAppend((m / 10).toString)
-      case m => rs.dotAppend((m / 10).toString) - (m % 10).toString
+      case m => rs.dotAppend((m / 10).toString) + (m % 10).toString
     }
-    (thisInt < 0  |!& hundreds < 0).ifMod(str1)("-" - _)
+    (thisInt < 0  |!& hundreds < 0).ifMod(str1)("-" + _)
   }
   /** Only use positive value that won't overflow int) */
   def intToPower(operand: Int): Int = (0 to operand).foldLeft(thisInt)((acc, i) => acc * thisInt)
