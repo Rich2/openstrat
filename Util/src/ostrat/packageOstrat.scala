@@ -1,14 +1,11 @@
-import scala.reflect.ClassTag
-
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
 {
-  /** This vital implicit class kills off the vile and insidious any2stringadd implicit from the Scala Compiler. I strongly recommend it for
-   *  everyone's utility file. */
-  //implicit class any2stringadd[A](a: A) {}
+  import scala.reflect.ClassTag
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
   val Cos60 = 0.5
