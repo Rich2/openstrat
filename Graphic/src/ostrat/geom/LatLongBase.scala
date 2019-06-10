@@ -52,22 +52,22 @@ trait LatLongBase
    def equatorialRadius: Dist
    def polarRadius: Dist
    override def toString: String = degStr
-   def latLetter = lat.ifNeg("S", "N")
-   def longLetter = long.ifNeg("W", "E")
-   def latDegStr = latDegs.abs.str2 - latLetter
-   def longDegStr = longDegs.abs.str2 - longLetter
+   def latLetter: String = lat.ifNeg("S", "N")
+   def longLetter: String = long.ifNeg("W", "E")
+   def latDegStr: String = latDegs.abs.str2 + latLetter
+   def longDegStr: String = longDegs.abs.str2 + longLetter
    def degStr: String = latDegStr.commaAppend(longDegStr)
    def latDegMinStr: String =
    {
       
       val (degs, mins) = lat.abs.toDegsMins
-      degs.toString - latLetter - mins.str2Dig
+      degs.toString + latLetter + mins.str2Dig
    }
    def longDegMinStr: String =
    {
       
       val (degs, mins) = long.abs.toDegsMins
-      degs.toString - longLetter - mins.str2Dig
+      degs.toString + longLetter + mins.str2Dig
    }
    
    def degMinStr: String = latDegMinStr.commaAppend(longDegMinStr)   
