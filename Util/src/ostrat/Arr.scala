@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import scala.reflect.ClassTag
-trait Arr[+A] extends Any
+/*trait Arr[+A] extends Any
 {
   def length: Int
   def apply(index: Int): A
@@ -57,5 +57,5 @@ class ArrInt(val arr: Array[Int]) extends AnyVal with Arr[Int]
 class ArrDouble(val arr: Array[Double]) extends AnyVal with Arr[Double]
 { override def length: Int = arr.length
   override def apply(index: Int): Double = arr(index)  
-}
+}*/
 

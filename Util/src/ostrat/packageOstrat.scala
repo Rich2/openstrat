@@ -1,3 +1,5 @@
+import scala.reflect.ClassTag
+
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
@@ -35,7 +37,13 @@ package object ostrat
     loop(io.StdIn.readLine ("Please enter " + artStr).asType[T])
   }
 
-  def readInt = readT[Int]
+  def readInt: Int = readT[Int]
+  def readDouble: Double = readT[Double]
+  import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer
+  type Arr[A] = ArraySeq[A]
+  @inline def ArrWrap[A](mutArray: Array[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](mutArray)
+  @inline def ArrWrapBuff[A](buff: ArrayBuffer[A])(implicit ct: ClassTag[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](buff.toArray)
+  @inline def newBuff[A](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
 
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
