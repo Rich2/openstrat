@@ -11,7 +11,7 @@ class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
   def ifHead(f: A => Boolean) : Boolean = thisIter.ifEmpty(false, f(thisIter.head))  
   def headOrElse(vEmpty: A): A = if (thisIter.isEmpty) vEmpty else thisIter.head
   def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
-    thisIter.ifEmpty("", thisIter.tail.foldLeft(f(thisIter.head))(_ - seperator - f(_)))   
+    thisIter.ifEmpty("", thisIter.tail.foldLeft(f(thisIter.head))(_ + seperator + f(_)))
   def toStrsCommaFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold(", ", fToStr)
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
    
