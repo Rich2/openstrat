@@ -16,7 +16,7 @@ final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdD3
   { case Vec3(px, py, pz) => (x =~ px) && (y =~ py) && (z =~ pz)
     case _ => false
   }   
-  def str1: String = "x: " - x.str1 - ", y: " - y.str1 - ", z: " - z.str1
+  def str1: String = "x: " + x.str1 + ", y: " + y.str1 + ", z: " + z.str1
   def toTriple: (Double, Double, Double) = (x, y, z)   
   def +(other: Vec3): Vec3 = Vec3(x + other.x, y + other.y, z + other.z)
   def addXYZ (otherX: Double, otherY: Double, otherZ: Double): Vec3 = Vec3(x + otherX, y + otherY, z + otherZ)
