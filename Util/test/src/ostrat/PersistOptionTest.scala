@@ -28,6 +28,7 @@ object PersistOptionTest extends TestSuite
     {
       Some(-5).str ==> "-5"
       "-78.2".findType[Some[Double]] ==> Good(Some(-78.2))
+
       "-78.2".findType[Option[Double]] ==> Good(Some(-78.2))
       "Some(-78.2)".findType[Some[Double]] ==> Good(Some(-78.2))
       "Some(-78.2)".findType[Option[Double]] ==> Good(Some(-78.2))

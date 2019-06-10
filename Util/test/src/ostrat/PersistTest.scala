@@ -21,14 +21,13 @@ object PersistTest extends TestSuite
   object My2
   { implicit object My2Persist extends Persist2[Seq[Int], String, My2]("My2", m => (m.ints, m.myStr), apply)
   }
-  
-  
-  
+
   val tests = Tests
   {    
     'persistNums -
     {
-      5.str ==> "5" 
+      5.str ==> "5"
+      "5".findType[Int] ==> Good(5)
       (-86).str ==> "-86"
       (-86).strComma ==> "-86"
       (-86).strTyped ==> "Int(-86)"
