@@ -14,7 +14,7 @@ final class Dist(val metres: Double) extends AnyVal with Ordered[Dist]// with St
   def /(operand: Double): Dist = Dist(metres / operand)
   def max(operand: Dist): Dist = ife(metres > operand.metres, this, operand)
   def min(operand: Dist): Dist = ife(metres < operand.metres, this, operand)
-  def kmStr2 = (metres / 1000).str2 - "km"  
+  def kmStr2 = (metres / 1000).str2 + "km"
   override def compare(that: Dist): Int = () match 
   { case _ if metres == that.metres => 0
     case _ if metres > that.metres => 1
