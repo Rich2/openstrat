@@ -80,16 +80,28 @@ class IntImplicit(val thisInt: Int) extends AnyVal
   }
 
   /** maps across the Integer range starting with this Int to the given end of range. */
- /* def flatMapTo[A](toValue: Int, initialValue: A)(f: Int => ArraySeq[A])(implicit ct: ClassTag[A]): ArraySeq[A] =
-  { //val len = (toValue - thisInt + 1).min(0)
+  def flatMapTo[A](toValue: Int, initialValue: A)(f: Int => ArraySeq[A])(implicit ct: ClassTag[A]): ArraySeq[A] =
+  { val len = (toValue - thisInt + 1).min(0)
     val arr = new ArrayBuffer[A](len)
     var count: Int = thisInt
     while(count <= toValue)
-    { arr.append(count - thisInt) = f(count)
+    { arr.addAll(f(count))
       count += 1
     }
-    ArraySeq.unsafeWrapArray[A](arr)
-  }*/
+    ArraySeq.unsafeWrapArray[A](arr.toArray)
+  }
+
+  /** maps across the Integer range starting with this Int until the given end of range. */
+  def flatMapUntil[A](untilValue: Int, initialValue: A)(f: Int => ArraySeq[A])(implicit ct: ClassTag[A]): ArraySeq[A] =
+  { val len = (untilValue - thisInt).min(0)
+    val arr = new ArrayBuffer[A](len)
+    var count: Int = thisInt
+    while(count < untilValue)
+    { arr.addAll(f(count))
+      count += 1
+    }
+    ArraySeq.unsafeWrapArray[A](arr.toArray)
+  }
 
   def str2Dig: String = thisInt match
   { case i if (i > 9) || (i < -9) => i.toString
