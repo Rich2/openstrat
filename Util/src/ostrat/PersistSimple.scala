@@ -25,7 +25,7 @@ trait ShowSimple[-A] extends Show[A]
   final override def syntaxDepth: Int = 1
   override def showComma(obj: A): String = show(obj)
   override def showSemi(obj: A): String = show(obj)
-  override def showTyped(obj: A): String = typeStr - show(obj).enParenth
+  override def showTyped(obj: A): String = typeStr + show(obj).enParenth
 }
 
 
