@@ -10,8 +10,8 @@ final case class Cood(val x: Int, val y: Int) extends ProdI2
 { //def typeSym = 'Cood
   def _1 = x
   def _2 = y
-  def xyStr: String = x.toString - ", " - y.toString
-  def yxStr: String = y.toString - ", " -x.toString
+  def xyStr: String = x.toString + ", " + y.toString
+  def yxStr: String = y.toString + ", " + x.toString
   def fXY[A](f: (Int, Int) => A): A = f(x, y)
   def canEqual(a: Any) = a.isInstanceOf[Cood]
   def eqXY(x: Int, y: Int): Boolean = this == Cood(x, y)
