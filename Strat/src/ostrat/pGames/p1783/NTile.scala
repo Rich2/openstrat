@@ -21,6 +21,6 @@ object NTile
 case class Corps(tile: NTile, polity: Polity)
 {
    val colour = polity.colour
-   override def toString = "Corps" - (polity.toString).enParenth
+   override def toString = "Corps" + (polity.toString).enParenth
 
 }

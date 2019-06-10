@@ -22,7 +22,7 @@ object BcTile
 class Legion(val polity: Polity, var cood: Cood)
 {
    val colour = polity.colour
-   override def toString = "Legions" - (polity.toString).enParenth
+   override def toString = "Legions" + (polity.toString).enParenth
    override def equals(other: Any): Boolean = other match
    {
       case that: Legion => polity == that.polity
