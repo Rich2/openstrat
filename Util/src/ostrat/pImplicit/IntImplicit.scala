@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pImplicit
-import math.Pi, collection.immutable.ArraySeq, reflect.ClassTag
+import math.Pi, collection._, immutable.ArraySeq, mutable.ArrayBuffer, reflect.ClassTag
  
 class IntImplicit(val thisInt: Int) extends AnyVal
 {
@@ -66,6 +66,30 @@ class IntImplicit(val thisInt: Int) extends AnyVal
     }
     ArraySeq.unsafeWrapArray[A](arr)
   }
+
+  /** maps across the Integer range starting with this Int until the given end of range. */
+  def mapUntil[A](untilValue: Int, initialValue: A)(f: Int => A)(implicit ct: ClassTag[A]): ArraySeq[A] =
+  { val len = (untilValue - thisInt).min(0)
+    val arr = new Array[A](len)
+    var count: Int = thisInt
+    while(count < untilValue)
+    { arr(count - thisInt) = f(count)
+      count += 1
+    }
+    ArraySeq.unsafeWrapArray[A](arr)
+  }
+
+  /** maps across the Integer range starting with this Int to the given end of range. */
+ /* def flatMapTo[A](toValue: Int, initialValue: A)(f: Int => ArraySeq[A])(implicit ct: ClassTag[A]): ArraySeq[A] =
+  { //val len = (toValue - thisInt + 1).min(0)
+    val arr = new ArrayBuffer[A](len)
+    var count: Int = thisInt
+    while(count <= toValue)
+    { arr.append(count - thisInt) = f(count)
+      count += 1
+    }
+    ArraySeq.unsafeWrapArray[A](arr)
+  }*/
 
   def str2Dig: String = thisInt match
   { case i if (i > 9) || (i < -9) => i.toString
