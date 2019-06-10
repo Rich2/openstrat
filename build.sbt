@@ -4,35 +4,37 @@ ThisBuild/scalaVersion := "2.13.0"
 ThisBuild/organization := "OpenStratOrg"
 ThisBuild/autoAPIMappings := true
 
-val commonSettings = List(	
-    scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
-    libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
+def commonSettings = List(
+	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
+    libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
+    libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.9" % "test",
+    testFrameworks += new TestFramework("utest.runner.Framework"), 
 )
 
-lazy val UtilMacros = project.settings(commonSettings).settings(
+def stdSettings = commonSettings ::: List(
   scalaSource := baseDirectory.value / "src",
+  Test/scalaSource := baseDirectory.value / "test/src",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+)
+
+lazy val UtilMacros = project.settings(stdSettings).settings(
 	Compile/unmanagedSourceDirectories := List(scalaSource.value),	
 )
 
-lazy val Util = project.dependsOn(UtilMacros).settings(commonSettings).settings(
-	scalaSource := baseDirectory.value / "src",
-	Compile/unmanagedSourceDirectories := List(scalaSource.value),
-	Test/scalaSource := baseDirectory.value / "test/src",
-	Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+lazy val Util = project.dependsOn(UtilMacros).settings(stdSettings).settings(
+	Compile/unmanagedSourceDirectories := List(scalaSource.value),	
 )
 
-lazy val Graphic = project.dependsOn(Util).settings(commonSettings).settings(
-	scalaSource := baseDirectory.value / "src",
+lazy val Graphic = project.dependsOn(Util).settings(stdSettings).settings(
 	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
-lazy val Strat = project.dependsOn(Graphic).settings(commonSettings).settings(
-  scalaSource := baseDirectory.value / "src",
+lazy val Strat = project.dependsOn(Graphic).settings(stdSettings).settings(
 	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),	
 )
 
 lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings).settings(
-	scalaSource := baseDirectory.value / "DevModule/src",
+	scalaSource := baseDirectory.value / "Dev/src",
 	Compile/unmanagedSourceDirectories := List("src", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
