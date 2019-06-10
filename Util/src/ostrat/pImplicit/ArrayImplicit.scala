@@ -10,7 +10,7 @@ class ArrayDoubleImplicit(val thisArray:Array[Double]) extends AnyVal
     thisArray.foreach{d => f(index, d); index += 1 }
   }
   
-  def str: String = thisArray.foldLeft("Array(")(_ + _.toString - ",")
+  def str: String = thisArray.foldLeft("Array(")(_ + _.toString + ",")
 }
 
 /** Extension methods for Array[A] class */
