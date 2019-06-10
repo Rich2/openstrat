@@ -10,7 +10,7 @@ case class StringIterableImplicit(iter: Iterable[String])
       def loop(rem: Iterable[String], strAcc: String, acc2: A): String = rem.ifEmpty(strAcc,
          {
          val (newStrAcc, newAcc2) = f(rem.head, acc2)
-         loop(rem.tail, strAcc - newStrAcc, newAcc2)
+         loop(rem.tail, strAcc + newStrAcc, newAcc2)
          })
       loop(iter, initialString, initialAcc2)   
    }
