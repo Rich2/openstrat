@@ -2,6 +2,7 @@
 package ostrat
 package pGrid
 
+/** An array[Int] based collection for Cood. */
 class Coods(val arr: Array[Int]) extends AnyVal with ProductI2s[Cood] 
 { //override def typeStr: String = "Coods"
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
