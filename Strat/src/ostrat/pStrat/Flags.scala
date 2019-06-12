@@ -37,7 +37,7 @@ object FlagsZ
   { val poly = Rectangle(5 / 3.0, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)         
-    val cross = List(bar, arm).anti45.flatMap(_.rCross)//  flatRCross
+    val cross = Arr(bar, arm).anti45.flatMap(_.rCross)//  flatRCross
     val s1: Arr[PaintElem] = Arr(
         poly.fill(Red),
         Circle.segs(6.0 /8).fill(White)) ++ cross      
@@ -87,12 +87,12 @@ object FlagsZ
         1 vv 0.5,
         xDiag vv ywc)
       
-    val reds1 = List(r1, r2).map(_.fill(englishRed))      
-    val reds = reds1.flatMap(e => List(e, e.fTrans(- _)))//.flatWithNegate
+    val reds1 = Arr(r1, r2).map(_.fill(englishRed))
+    val reds = reds1.flatMap(e => Arr(e, e.fTrans(- _)))//.flatWithNegate
       
     val blues =
-    { val l1 = List(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
-      l1.flatMap(b => List(b, b.negX, b.negY, b.negXY))
+    { val l1 = Arr(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
+      l1.flatMap(b => Arr(b, b.negX, b.negY, b.negXY))
     }
     england.addElems(blues ++ reds).mutObj("United Kingdom flag")
   }

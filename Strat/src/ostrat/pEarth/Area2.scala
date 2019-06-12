@@ -28,9 +28,9 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: Terrain) e
          {
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val curveSegs: Shape = curveSegDists.pMap(_.toCurveSeg(eg.trans))
-            List(ShapeSubj.fill(cenXY, curveSegs, this, terr.colour))
+            Arr(ShapeSubj.fill(cenXY, curveSegs, this, terr.colour))
          }
-         case GlobedNone => Nil
+         case GlobedNone => Arr()
       }
    }   
 }

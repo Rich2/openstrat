@@ -65,11 +65,11 @@ trait ProductVals[A] extends Any
     res
   }
   
-  /** Maps to a standard Array of type B. */
-  def Map[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): Array[B] =
+  /** Maps to Arr of type B. */
+  def Map[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): Arr[B] =
   { val res = new Array[B](length)
     iForeach((a, i) => res(i) = f(a))
-     res
+     res.toArr
   }
 
   /** Maps to a standard Array of type B. */

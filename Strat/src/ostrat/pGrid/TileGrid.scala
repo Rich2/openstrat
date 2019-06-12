@@ -173,24 +173,24 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   
   final def tilesOptionDispAll(f: TileT => Option[GraphicElem]): GraphicElems = 
   {
-    var acc: GraphicElems = Nil
+    val acc: Buff[GraphicElem] = newBuff()
     foreachTileAll(t => f(t) match
       {
       case None =>
-      case Some(g) => acc ::= g
+      case Some(g) => acc += g
       })
-    acc.reverse
+    acc.toArr
   }
   
   final def tilesOptionFlattenDispAll[A](f1: TileT => Option[A])(f2: (TileT, A) => GraphicElems): GraphicElems = 
   {
-    var acc: GraphicElems = Nil
+    val acc: Buff[GraphicElem] = newBuff()
     foreachTileAll(t => f1(t) match
       {
       case None =>
-      case Some(a) => acc :::= f2(t, a)
+      case Some(a) => acc ++= f2(t, a)
       })    
-    acc.reverse
+    acc.toArr
   }
   
   /** Set tile row from the Cood. */
@@ -286,8 +286,8 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
      
   /** Fundamental method for producing GraphicElems from the Grid */
-  def tilesDisplayFoldAll(f: TileT => GraphicElems): GraphicElems = tilesFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)
-  def tileCoodsDisplayFoldAll(f: Cood => GraphicElems): GraphicElems = tileCoodsFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Nil)   
+  def tilesDisplayFoldAll(f: TileT => GraphicElems): GraphicElems = tilesFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Arr())
+  def tileCoodsDisplayFoldAll(f: Cood => GraphicElems): GraphicElems = tileCoodsFoldAll[GraphicElems](f, (acc, pair) => acc ++ pair)(Arr())
   
   /** Warning implementations need modification. */   
   def adjTileCoodsOfTile(tileCood: Cood): Coods    

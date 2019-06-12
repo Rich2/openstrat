@@ -43,7 +43,7 @@ package object ostrat
   {
     def mapWith1[B, C](initC: C)(f: (A, C) => (B, C))(implicit ct: ClassTag[B]): Arr[B] =
     {
-      var accB: Buff[B] = newBuff()
+      val accB: Buff[B] = newBuff()
       var accC: C = initC
       thisArr.foreach { a =>
         val (newB, newC) = f(a, accC)

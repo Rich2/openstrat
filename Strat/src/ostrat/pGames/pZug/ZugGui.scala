@@ -47,9 +47,9 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
         val counter = UnitCounters.infantry(30, head, head.colour, tile.colour, 4).slate(cen)
         counter :: action(head)
       }
-      case _ => Nil   
+      case _ => Arr()
     }    
-    tv ::: tText ::: lunit
+    tv ++ tText ++ lunit
   }
     
   def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElems = ofs =>
@@ -62,7 +62,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   }
     
   def dSides: GraphicElems = ofSidesDisplayFold(fSide)
-  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex) ::: dSides//ofHexsDisplayFold(fHex).collapse
+  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex) ++ dSides//ofHexsDisplayFold(fHex).collapse
      
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
@@ -72,14 +72,14 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       eTop()            
     }
     
-    case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
+    case (RightButton, Arr(squad : Squad), Arr(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
       squad.action = Move(Coods.fromSeq(l))
       repaintMap
     }
     
-    case (MiddleButton, List(squad : Squad), List(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
+    case (MiddleButton, Arr(squad : Squad), Arr(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
     
-    case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
+    case (RightButton, Arr(squad : Squad), Arr(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
     
     case _ => deb("Other" -- clickList.toString)
   }   

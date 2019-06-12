@@ -17,15 +17,15 @@ trait OfGridElem[TileT <: Tile, SideT <: TileSide, GridT <: TileGrid[TileT, Side
   def psc: Double
   /** The number of pixels per tile, centre to centre */
   def tScale: Double = psc * grid.xStep
-  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale) cObjs else Nil
-  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElems = if (tScale > ifScale) cObj.toList else Nil
-  def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale && b) cObjs else Nil
-  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElems = if (tScale > ifScale && b) cObjs.toList else Nil
+  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale) cObjs else Arr()
+  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElems = if (tScale > ifScale) cObj.toArr else Arr()
+  def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale && b) cObjs else Arr()
+  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElems = if (tScale > ifScale && b) cObjs.toList else Arr()
   
   def ifScaleOptObj[A <: AnyRef](ifScale: Double, optA: Opt[A])(f: A => CanvO): GraphicElems = if (tScale < ifScale) Nil else optA.fold(Nil, a => List(f(a)))
     
   def ifScaleOptObjs[A <: AnyRef](ifScale: Double, optA: Opt[A])(f: A => GraphicElems): GraphicElems =
-    if (tScale < ifScale) Nil else optA.fold(Nil, f(_))
+    if (tScale < ifScale) Arr() else optA.fold(Nil, f(_))
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
@@ -43,8 +43,8 @@ trait OfSide[TileT <: Tile, SideT <: TileSide, GridT <: TileGrid[TileT, SideT]] 
   final def cood: Cood = side.cood   
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
   def vertDispLine: Line2 = coodsLine.toLine2(coodToDispVec2)
-  def ifTiles[A](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A): List[A] = grid.optSidesTiles(cood) match
+  def ifTiles[A](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A): Arr[A] = grid.optSidesTiles(cood) match
   { case (Some(t1), Some(t2)) => if (f(t1, t2)) fA(t1, t2) :: Nil else Nil
-    case _ => Nil
+    case _ => Arr()
   }
 }
