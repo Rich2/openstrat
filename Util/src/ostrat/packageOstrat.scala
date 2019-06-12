@@ -52,6 +52,9 @@ package object ostrat
       }
       ArraySeq.unsafeWrapArray[B](accB.toArray)
     }
+
+    def removeFirst(f: A => Boolean): Arr[A] = ???
+    def ifAppendArr[B >: A](b: Boolean, newElems: => Arr[B]): Arr[B] = ife(b, thisArr ++ newElems, thisArr)
   }
 
   implicit class ArrayExtension[A](thisMutableArray: Array[A])

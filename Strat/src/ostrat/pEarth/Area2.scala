@@ -20,8 +20,8 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: Terrain) e
             val v2s: Polygon = d2s.pMap(eg.trans)// eg.transSeq(d2s)
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val vis1: GraphicElems = ife(fill, v2s.fillActive(terr.colour, this), Arr())
-            val vis2: GraphicElems = List(v2s.draw(2.0, terr.colour.redOrPink)).
-               ifAppendList(eg.scale < textScale && fill, TextGraphic.lines(aStrs, 10, cenXY, terr.contrast))
+            val vis2: GraphicElems = Arr(v2s.draw(2.0, terr.colour.redOrPink)).
+               ifAppendArr(eg.scale < textScale && fill, TextGraphic.lines(aStrs, 10, cenXY, terr.contrast))
             vis1 ++ vis2
          }
          case GlobedSome(curveSegDists) =>

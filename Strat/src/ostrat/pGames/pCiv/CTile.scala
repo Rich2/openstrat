@@ -9,7 +9,7 @@ case class CTile(x: Int, y: Int, terr: Terrain) extends Tile
 {
    def colour = terr.colour
    var settlement: Boolean = false
-   var lunits: List[Warrior] = Nil
+   var lunits: Arr[Warrior] = Arr()
 }
 
 object CTile

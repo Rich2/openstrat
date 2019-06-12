@@ -17,7 +17,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
   var pScale: Double = scaleAlignMin  
   var focus: Vec2 = grid.cen  
   override def mapObjs =
-  { val tiles = tilesFlatMapListAll{t => List(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) } 
+  { val tiles = tilesFlatMapAll{t => Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) }
     val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
       val rect = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
       val arr = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
@@ -31,7 +31,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.fHead(Arr, Arr(_))
+    { selected = clickList.fHead(Arr(), Arr(_))
       statusText = selected.headOption.fold("Nothing Selected")(_.toString)
       eTop()            
     }

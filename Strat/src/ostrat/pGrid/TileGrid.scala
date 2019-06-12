@@ -82,7 +82,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   }
   
   /** Map all Tiles to Array[B] with function. */
-  final def tilesMapAll[B: ClassTag](f: TileT => B): Array[B] =
+  final def tilesMapAll[B: ClassTag](f: TileT => B): Arr[B] =
   {
     val acc: ArrayBuffer[B] = new ArrayBuffer(0)
     foreachTilesCoodAll{ tileCood =>
@@ -90,19 +90,19 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
       val newRes: B = f(tile)
       acc += newRes
     }
-    acc.toArray
+    acc.toArr
   }
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMapAll[R: ClassTag](f: TileT => Array[R]): Array[R] =
+  def tilesFlatMapAll[R: ClassTag](f: TileT => Arr[R]): Arr[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
-      val newRes: Array[R] = f(tile)
+      val newRes: Arr[R] = f(tile)
       acc ++= newRes
     }
-    acc.toArray
+    acc.toArr
   }
   
   /** Map all Tiles to an List with function and flatten into Single List. */

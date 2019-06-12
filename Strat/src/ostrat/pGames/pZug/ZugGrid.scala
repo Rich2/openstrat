@@ -13,7 +13,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNu
   def placeSquad(polity: Polity, x: Int, y: Int): Squad =
   { val sd = Squad(polity, x, y, getID)     
     val tile = getTile(x, y)
-    setTile(x, y,tile.copy(lunits = sd :: tile.lunits))
+    setTile(x, y,tile.copy(lunits = sd +: tile.lunits))
     sd
   }
   

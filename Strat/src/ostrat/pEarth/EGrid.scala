@@ -107,7 +107,7 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
          val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Arr())
          acc ++= newRes
       }
-      acctoArr
+      acc.toArr
    }
    
    def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems = 

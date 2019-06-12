@@ -6,7 +6,7 @@ import pEarth._
 
 case class NTile(x: Int, y: Int, terr: Terrain) extends ETile
 {
-  var lunits: List[Corps] = Nil
+  var lunits: Arr[Corps] = Arr()
 }
 
 object NTile

@@ -23,16 +23,17 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
       val lunit: GraphicElems = tile.lunits match
       {
-        case ::(head, _) if tog.tScale > 50 =>
+        case Arr1(head, _) if tog.tScale > 50 =>
         {
           val maxOffset = tog.grid.coodToVec2(head.dirn.halfRelCood)
           val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
           val posn = fTrans(gridPosn)
           val fillColour = head.faction.colour                      
-          Rectangle.curvedCornersCentred(90, 60, 10, posn).subjAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil   
+          val r = Rectangle.curvedCornersCentred(90, 60, 10, posn).subjAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString)
+          Arr(r)
           //Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
         }
-        case _ => Nil
+        case _ => Arr()
        }
        tv ++ tText ++ sett ++ lunit ++ sides
      }

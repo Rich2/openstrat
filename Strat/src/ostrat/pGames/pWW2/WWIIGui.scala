@@ -51,7 +51,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
     {
       case (LeftButton, _, _) =>
       {
-        selected = clickList.fHead(Arr, Arr(_))
+        selected = clickList.fHead(Arr(), Arr(_))
         statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
         eTop()
       }
@@ -59,7 +59,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       {
         army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
         val newArmy = army.copy(newTile)
-        newTile.lunits += newArmy
+        newTile.lunits :+ newArmy
         selected = Arr(newArmy)
         repaintMap  
       }      
