@@ -121,7 +121,7 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
       val sideAcc: Buff[GraphicElem] = newBuff()
       foreachSidesCoodAll { sideCood =>
          val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
-         val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Nil) 
+         val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Arr())
          sideAcc ++= newRes
       }      
       acc ++ sideAcc

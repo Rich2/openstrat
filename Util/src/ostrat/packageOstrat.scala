@@ -5,7 +5,11 @@
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
 {
-  import scala.reflect.ClassTag
+  import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
+
+  type Arr[A] = ArraySeq[A]
+  type Buff[A] = ArrayBuffer[A]
+
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
   val Cos60 = 0.5
@@ -36,41 +40,10 @@ package object ostrat
 
   def readInt: Int = readT[Int]
   def readDouble: Double = readT[Double]
-  import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer
-  type Arr[A] = ArraySeq[A]
-
-  implicit class ArrExtension[A](thisArr: Arr[A])
-  {
-    def mapWith1[B, C](initC: C)(f: (A, C) => (B, C))(implicit ct: ClassTag[B]): Arr[B] =
-    {
-      val accB: Buff[B] = newBuff()
-      var accC: C = initC
-      thisArr.foreach { a =>
-        val (newB, newC) = f(a, accC)
-        accB += newB
-        accC = newC
-      }
-      ArraySeq.unsafeWrapArray[B](accB.toArray)
-    }
-
-    def removeFirst(f: A => Boolean): Arr[A] = ???
-    def ifAppendArr[B >: A](b: Boolean, newElems: => Arr[B]): Arr[B] = ife(b, thisArr ++ newElems, thisArr)
-  }
-
-  implicit class ArrayExtension[A](thisMutableArray: Array[A])
-  {
-    def toArr: Arr[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
-  }
 
   @inline def ArrWrap[A](mutArray: Array[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](mutArray)
   @inline def ArrWrapBuff[A](buff: ArrayBuffer[A])(implicit ct: ClassTag[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](buff.toArray)
-  type Buff[A] = ArrayBuffer[A]
   @inline def newBuff[A](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
-
-  implicit class ArrayBufferExtensions[A](thisBuff: Buff[A])(implicit ct: ClassTag[A])
-  {
-    @inline def toArr: Arr[A] = ArrWrapBuff[A](thisBuff)
-  }
 
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
@@ -132,28 +105,14 @@ package object ostrat
     { val i: Int = list.indexOf[T](thisT)
       ife(i >= list.length - 1, list(0), list(i + 1))
     }
-  }  
-
-  implicit class OptionRichClass[A](thisOption: Option[A])
-  { def map2[B, C](ob: Option[B], f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
-    def toEMon(errs: StrList): EMon[A] = thisOption match
-    { case Some(a) => Good(a)
-      case None => Bad(errs)
-    }
-    def toEMon1(fp: TextSpan, detail: String): EMon[A] = thisOption match
-    { case Some(a) => Good(a)
-      case None => bad1(fp, detail)
-    }
   }
 
-  implicit class CharRichClass(thisChar: Char)
-  {
-    def isHexDigit: Boolean = thisChar match
-    { case d if d.isDigit => true
-      case al if ((al <= 'E') && (al >= 'A')) => true
-      case al if ((al <= 'e') && (al >= 'a')) => true
-      case _ => false
-    }
+  implicit class ArrayExtension[A](thisMutableArray: Array[A])
+  { def toArr: Arr[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
+  }
+
+  implicit class ArrayBufferExtensions[A](thisBuff: Buff[A])(implicit ct: ClassTag[A])
+  { @inline def toArr: Arr[A] = ArrWrapBuff[A](thisBuff)
   }
    
   implicit class FunitRichImp(fu: () => Unit)
@@ -166,11 +125,12 @@ package object ostrat
   }
   
   import pImplicit._
+  implicit def arrToArrExtensions[A](thisArr: Arr[A]): ArrExtensions[A] = new ArrExtensions[A](thisArr)
   implicit def arrayDoubleToImplicit(arr: Array[Double]): ArrayDoubleImplicit = new ArrayDoubleImplicit(arr)
   implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]): ArrayImplicit[A] = new pImplicit.ArrayImplicit[A](arr)
   implicit def booleanToRichImp(b: Boolean): BooleanImplicit = new BooleanImplicit(b)
   implicit def intToImplicit(i: Int): IntImplicit = new IntImplicit(i)
-  implicit def longToImplicit(i: Long): OtherImplicit = new OtherImplicit(i)
+  implicit def longToImplicit(i: Long): LongExtensions = new LongExtensions(i)
   implicit def doubleToImplicit(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def stringToImplicit(s: String): StringImplicit = new StringImplicit(s)
   implicit def listToImplicit[A](thisList: List[A]): ListImplicit[A] = new ListImplicit[A](thisList)
@@ -179,5 +139,7 @@ package object ostrat
   implicit def showTToStringerImplicit[A](thisVal: A)(implicit ev: ShowOnly[A]): ShowerImplicit[A] = new ShowerImplicit[A](ev, thisVal) 
   implicit def traversableToImplicit[A](iter: Iterable[A]): IterableImplicit[A] = new IterableImplicit[A](iter)  
   implicit def stringTraverableToImplict(strIter: Iterable[String]): StringIterableImplicit = StringIterableImplicit(strIter)   
-  implicit def stringArrayToStringTraversibleRichImp(strArray: Array[String]): StringIterableImplicit = StringIterableImplicit(strArray) 
+  implicit def stringArrayToStringIterableExtensions(strArray: Array[String]): StringIterableImplicit = StringIterableImplicit(strArray)
+  implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
+  implicit def charToCharExtensions(thisChar: Char): CharExtensions = new CharExtensions(thisChar)
 }
