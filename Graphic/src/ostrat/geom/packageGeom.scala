@@ -20,7 +20,7 @@ package object geom
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type SSet[A] = scala.collection.SortedSet[A]
-  type GraphicElems = List[GraphicElem]
+  type GraphicElems = Arr[GraphicElem]
   /** Hopefully this existential syntax baggage will be gone in dotty */
   type CanvO = GraphicElem
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           

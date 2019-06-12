@@ -16,7 +16,7 @@ abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelL
       canv.clear(backColour)
       subjs = paintObjs(canvObjs)//paintObjs paints the objects to the screen and returns a list of active objects  
    }
-   def repaints(els: GraphicElem*): Unit = { canvObjs = els.toList; refresh() }   
+   def repaints(els: GraphicElem*): Unit = { canvObjs = els.toArr; refresh() }
    def repaint(els: List[GraphicElem]): Unit = { canvObjs = els; refresh() }
    
    def timedRepaint(f: Integer => List[GraphicElem]): Unit =

@@ -38,9 +38,21 @@ package object ostrat
   def readDouble: Double = readT[Double]
   import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer
   type Arr[A] = ArraySeq[A]
+  @inline def Arr[A](inp: A *)(implicit ct: ClassTag[A]): Arr[A] = ArraySeq.apply(inp :_*)
+  implicit class ArrayExtension[A](thisMutableArray: Array[A])
+  {
+    def toArr: Arr[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
+  }
+
   @inline def ArrWrap[A](mutArray: Array[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](mutArray)
   @inline def ArrWrapBuff[A](buff: ArrayBuffer[A])(implicit ct: ClassTag[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](buff.toArray)
+  type Buff[A] = ArrayBuffer[A]
   @inline def newBuff[A](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
+
+  implicit class ArrayBufferExtensions[A](thisBuff: Buff[A])(implicit ct: ClassTag[A])
+  {
+    @inline def toArr: Arr[A] = ArrWrapBuff[A](thisBuff)
+  }
 
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]

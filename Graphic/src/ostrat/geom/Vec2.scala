@@ -123,8 +123,8 @@ object Vec2
   def circlePt(angle: Double): Vec2 = Vec2(cos(angle), sin(angle))
   def circlePtClockwise(angle: Double): Vec2 = Vec2(cos(angle), - sin(angle))
    
-  implicit class Vec2SeqImplicit(thisSeq: Seq[Vec2])
-  { def toPolygon: Polygon = thisSeq.toPValues
+  implicit class Vec2ArrExtension(thisArr: Arr[Vec2])
+  { def toPolygon: Polygon = thisArr.toPValues
   }
 
   implicit val PersistImplicit: Persist[Vec2] = new PersistD2[Vec2]("Vec2", v => (v.x, v.y), apply)

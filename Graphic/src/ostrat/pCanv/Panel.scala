@@ -16,8 +16,8 @@ case class Panel(private val outerCanv: CanvasMulti, clipPoly: Polygon, cover: B
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
    
-  def repaint(els: List[GraphicElem]): Unit = { canvObjs = els; outerCanv.refreshPanel(this) }
-  def repaints(els: GraphicElem*): Unit = repaint(els.toList)   
+  def repaint(els: Arr[GraphicElem]): Unit = { canvObjs = els; outerCanv.refreshPanel(this) }
+  def repaints(els: GraphicElem*): Unit = repaint(els.toArr)
 }
 
 case class MButtonCmd(cmd: MouseButton => Any)
@@ -29,14 +29,14 @@ case class MButtonCmd(cmd: MouseButton => Any)
 trait PanelLike extends RectGeom
 {
    /** These are currently stored in reverse. I think this would be better in an Array */
-   var subjs: List[GraphicActive] = Nil
-   var canvObjs: List[GraphicElem] = Nil
+   var subjs: Arr[GraphicActive] = Arr()
+   var canvObjs: Arr[GraphicElem] = Arr()
    /** This method name is inconsistent with mouseup on the canvas class*/
-   var mouseUp: (Vec2, MouseButton, List[AnyRef]) => Unit = (v, b, s) => {}
+   var mouseUp: (Vec2, MouseButton, Arr[AnyRef]) => Unit = (v, b, s) => {}
    /** This method name is inconsistent with mousedown on the canvas class */
-   var mouseDown: (Vec2, MouseButton, List[AnyRef]) => Unit = (v, b, s) => {}
-   var fMouseMoved: (Vec2, MouseButton, Seq[Any]) => Unit = (v, b, s) => {}
-   var fMouseDragged: (Vec2, MouseButton, Seq[Any]) => Unit = (v, b, s) => {}
+   var mouseDown: (Vec2, MouseButton, Arr[AnyRef]) => Unit = (v, b, s) => {}
+   var fMouseMoved: (Vec2, MouseButton, Arr[Any]) => Unit = (v, b, s) => {}
+   var fMouseDragged: (Vec2, MouseButton, Arr[Any]) => Unit = (v, b, s) => {}
    def setMouseSimplest(action: => Unit): Unit = mouseUp = (_, _, _) => action
    def setMouseSimple(action: Vec2 => Unit): Unit = mouseUp = (v, _, _) => action(v)
 }

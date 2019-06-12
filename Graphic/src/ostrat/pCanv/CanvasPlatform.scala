@@ -137,7 +137,7 @@ trait CanvasPlatform extends RectGeom
   def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
     
-  def rendElems(elems: List[PaintElem]): Unit = elems.foreach(rendElem) 
+  def rendElems(elems: Arr[PaintElem]): Unit = elems.foreach(rendElem)
   
   def rendElem(el: PaintElem): Unit = el match
   {

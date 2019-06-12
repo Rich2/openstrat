@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pImplicit
-
+import reflect.ClassTag
 /** Extension methods for Traversable[A] */
 class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the tail value */
@@ -14,7 +14,8 @@ class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
     thisIter.ifEmpty("", thisIter.tail.foldLeft(f(thisIter.head))(_ + seperator + f(_)))
   def toStrsCommaFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold(", ", fToStr)
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
-   
+  def toArr(implicit ct: ClassTag[A]): Arr[A] = thisIter.toArray.toArr
+
   /** Maps over a Traversable (collection / sequence) with a counter. */
   def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =
   { var i = count

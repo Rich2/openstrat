@@ -14,7 +14,7 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transer
             
    def fixed(evObj: AnyRef, elems: List[PaintElem]): NoScaleShape = NoScaleShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): NoScaleShape =
-      NoScaleShape(cen, segs, evObj, List(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
+      NoScaleShape(cen, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = TextCen): NoScaleShape =
       NoScaleShape(cen, segs, evObj, List(
