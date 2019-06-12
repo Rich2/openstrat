@@ -7,7 +7,7 @@ trait OfSquare[TileT <: Tile, SideT <: TileSide, GridT <: SquareGrid[TileT, Side
 {
    def sideUpLine: Line2 = CoodLine(cood.addXY(-1, 1), cood.addXY(1, 1)).toLine2(cood => coodToDispVec2(cood))
    def sideRightLine: Line2 = CoodLine(cood.addXY(1, 1), cood.addXY(1, - 1)).toLine2(cood => coodToDispVec2(cood))
-   override def ownSideLines: List[Line2] = List(sideUpLine, sideRightLine)
+   override def ownSideLines: Arr[Line2] = Arr(sideUpLine, sideRightLine)
 }
 
 case class OfSquareReg[TileT <: Tile, SideT <: TileSide, GridT <: SquareGrid[TileT, SideT]](tile: TileT, grid: GridT,

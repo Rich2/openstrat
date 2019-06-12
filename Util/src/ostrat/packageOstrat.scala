@@ -170,7 +170,7 @@ package object ostrat
   implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]): ArrayImplicit[A] = new pImplicit.ArrayImplicit[A](arr)
   implicit def booleanToRichImp(b: Boolean): BooleanImplicit = new BooleanImplicit(b)
   implicit def intToImplicit(i: Int): IntImplicit = new IntImplicit(i)
-  implicit def longToImplicit(i: Long): LongImplicit = new LongImplicit(i)
+  implicit def longToImplicit(i: Long): OtherImplicit = new OtherImplicit(i)
   implicit def doubleToImplicit(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def stringToImplicit(s: String): StringImplicit = new StringImplicit(s)
   implicit def listToImplicit[A](thisList: List[A]): ListImplicit[A] = new ListImplicit[A](thisList)

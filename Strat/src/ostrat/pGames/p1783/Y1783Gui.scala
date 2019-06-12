@@ -42,14 +42,14 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
   {
     val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this) )
-    gs ::: as   
+    gs ++ as
   }
  
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, _) => selected = clickList.fHead(Nil, List(_))
         
-    case (RightButton, List(c : Corps), List(newTile: NTile)) =>
+    case (RightButton, Arr(c : Corps), Arr(newTile: NTile)) =>
     {
       c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
       val newCorps = c.copy(newTile) 
@@ -58,7 +58,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
       repaintMap  
     }
     
-    case (RightButton, List(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)  
+    case (RightButton, Arr(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
     case _ => 
   }
   

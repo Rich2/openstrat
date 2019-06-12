@@ -19,8 +19,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
   override def mapObjs =
   { val tiles = tilesFlatMapAll{t => Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) }
     val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
-      val rect = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
-      val arr = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
+      val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
+      val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
       arr ++ rect
     }
     tiles ++ units ++ sidesDrawAll()
