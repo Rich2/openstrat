@@ -38,7 +38,22 @@ package object ostrat
   def readDouble: Double = readT[Double]
   import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer
   type Arr[A] = ArraySeq[A]
-  @inline def Arr[A](inp: A *)(implicit ct: ClassTag[A]): Arr[A] = ArraySeq.apply(inp :_*)
+
+  implicit class ArrExtension[A](thisArr: Arr[A])
+  {
+    def mapWith1[B, C](initC: C)(f: (A, C) => (B, C))(implicit ct: ClassTag[B]): Arr[B] =
+    {
+      var accB: Buff[B] = newBuff()
+      var accC: C = initC
+      thisArr.foreach { a =>
+        val (newB, newC) = f(a, accC)
+        accB += newB
+        accC = newC
+      }
+      ArraySeq.unsafeWrapArray[B](accB.toArray)
+    }
+  }
+
   implicit class ArrayExtension[A](thisMutableArray: Array[A])
   {
     def toArr: Arr[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)

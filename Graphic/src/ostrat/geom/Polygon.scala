@@ -35,15 +35,15 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
     PolyFillDraw(this, fillColour, lineWidth, lineColour)
     
   def fillActive(fillColour: Colour, evObj: AnyRef, layer: Int = 0): GraphicElems =
-    List(PolyFill(this, fillColour, layer), PolyActive(this, evObj, layer))   
+    Arr(PolyFill(this, fillColour, layer), PolyActive(this, evObj, layer))
     
     
   def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0): GraphicElems =
-    List(PolyFillDraw(this, fillColour,lineWidth, lineColour, zOrder), PolyActive(this, evObj, zOrder))
+    Arr(PolyFillDraw(this, fillColour,lineWidth, lineColour, zOrder), PolyActive(this, evObj, zOrder))
     
   def fillActiveDrawText(fillColour: Colour, evObj: AnyRef, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
       zOrder: Int = 0): GraphicElems =
-    List(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour, zOrder), PolyActive(this, evObj, zOrder))  
+    Arr(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour, zOrder), PolyActive(this, evObj, zOrder))
   
   def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black, layer: Int = 0): PolySubj =
     PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour, layer)
@@ -56,10 +56,10 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
    
   def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubj =
     fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
-  def subj(evObj: AnyRef, elems: PaintElem*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toList)
-  def subjSeq(evObj: AnyRef, elems: List[PaintElem]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
+  def subj(evObj: AnyRef, elems: PaintElem*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toArr)
+  def subjSeq(evObj: AnyRef, elems: Arr[PaintElem]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
   def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
-    PolySubj(this.polyCentre, this, evObj, List(PolyFillDraw(this, fillColour, lineWidth, lineColour),
+    PolySubj(this.polyCentre, this, evObj, Arr(PolyFillDraw(this, fillColour, lineWidth, lineColour),
         TextGraphic(str, textSize, this.polyCentre, lineColour)))
   
   def closedPolygonToLine2s: Line2s =

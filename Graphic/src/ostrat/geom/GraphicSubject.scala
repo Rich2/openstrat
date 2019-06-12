@@ -6,13 +6,13 @@ package geom
  *  margin space. Not sure about the name. not sure if the trait is useful. */
 trait GraphicSubject extends GraphicElem with GraphicActive
 { def cen: Vec2
-  def elems: List[PaintElem]  
+  def elems: Arr[PaintElem]
   def tL: GraphicSubject = this.slate(boundingRect.bottomRight)
   def tR: GraphicSubject = this.slate(boundingRect.bottomLeft)
   def bL: GraphicSubject = this.slate(boundingRect.topRight)
   def bR: GraphicSubject = this.slate(boundingRect.topLeft)
   def width = boundingRect.width    
-  def addElems(newElems: List[PaintElem]): GraphicSubject
-  def addElem(newElem: PaintElem): GraphicSubject = addElems(List(newElem))
+  def addElems(newElems: Arr[PaintElem]): GraphicSubject
+  def addElem(newElem: PaintElem): GraphicSubject = addElems(Arr(newElem))
   def mutObj(newObj: AnyRef): GraphicSubject
 }

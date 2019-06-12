@@ -17,9 +17,9 @@ abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelL
       subjs = paintObjs(canvObjs)//paintObjs paints the objects to the screen and returns a list of active objects  
    }
    def repaints(els: GraphicElem*): Unit = { canvObjs = els.toArr; refresh() }
-   def repaint(els: List[GraphicElem]): Unit = { canvObjs = els; refresh() }
+   def repaint(els: Arr[GraphicElem]): Unit = { canvObjs = els; refresh() }
    
-   def timedRepaint(f: Integer => List[GraphicElem]): Unit =
+   def timedRepaint(f: Integer => Arr[GraphicElem]): Unit =
    {
      val combinedF: Integer => Unit = elapsed => repaint(f(elapsed))
      canv.startFramePermanent(combinedF)
@@ -27,7 +27,7 @@ abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelL
    
    def timedRepaint1(f: Integer => GraphicElem): Unit =
    {
-     val combinedF: Integer => Unit = elapsed => repaint(List(f(elapsed)))
+     val combinedF: Integer => Unit = elapsed => repaint(Arr(f(elapsed)))
      canv.startFramePermanent(combinedF)
    }
 }

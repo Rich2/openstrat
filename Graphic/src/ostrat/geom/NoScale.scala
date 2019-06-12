@@ -20,7 +20,7 @@ NoScaleGraphicElem with ShapeActiveTr
 object NoScaleShape
 {
    def fillDraw(referenceVec: Vec2, segs: Shape, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
-   NoScaleShape = NoScaleShape(referenceVec, segs, evObj, List(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
+   NoScaleShape = NoScaleShape(referenceVec, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 
 //case class NoScalePoly

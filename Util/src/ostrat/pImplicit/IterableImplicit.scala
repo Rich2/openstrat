@@ -2,6 +2,7 @@
 package ostrat
 package pImplicit
 import reflect.ClassTag
+
 /** Extension methods for Traversable[A] */
 class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the tail value */
@@ -17,19 +18,19 @@ class IterableImplicit[A](val thisIter: Iterable[A]) extends AnyVal
   def toArr(implicit ct: ClassTag[A]): Arr[A] = thisIter.toArray.toArr
 
   /** Maps over a Traversable (collection / sequence) with a counter. */
-  def iMap[B](f: (A, Int) => B, count: Int = 0): List[B] =
+  def iMap[B](f: (A, Int) => B, count: Int = 0)(implicit ct: ClassTag[B]): Arr[B] =
   { var i = count
-    var acc: List[B] = Nil
-    thisIter.foreach{el => acc ::= f(el, i); i += 1 }
-    acc.reverse
+    val buff: Buff[B] = newBuff()
+    thisIter.foreach{el => buff += f(el, i); i += 1 }
+    buff.toArr
   }
    
   /** flatMaps over a traversable (collection / sequence) with a counter */
-  def iFlatMap[B](f: (A, Int) => Seq[B], count: Int = 0): Seq[B] =
+  def iFlatMap[B](f: (A, Int) => Arr[B], count: Int = 0)(implicit ct: ClassTag[B]): Arr[B] =
   { var i = count
-    var acc: Seq[B] = Seq()
-    thisIter.foreach{el => acc ++= f(el, i); i += 1 }
-    acc
+    val buff: Buff[B] = newBuff()
+    thisIter.foreach{el => buff ++= f(el, i); i += 1 }
+    buff.toArr
   }
    
   /** foreach loop with counter */

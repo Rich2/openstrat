@@ -35,6 +35,6 @@ object AmericasSouth extends Area1("SAmericas", -6.52 ll -62.28)
    val paraiba = deg(-7.15, -34.82)
    val eSAmerica = Area2("ESAmerica", deg(-2.04, -70.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE, nwSAmericaES)
    
-   override val a2Seq = List(fSAmerica, wSAmerica, eSAmerica)       
+   override val a2Seq = Arr(fSAmerica, wSAmerica, eSAmerica)
          
 }

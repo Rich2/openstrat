@@ -12,5 +12,5 @@ object PolarSouth extends Area1("PolarSouth", -89.9 ll 0)
          deg(-73.36, -98.40), deg(-69.2, -65.71), deg(-82.6, -60.61), deg(-80.31, -33.72), deg(-78.61, -35.65/* db */), deg(-72.27, -10.51))   
    
    //override val gridMaker = E80Empty       
-   override val a2Seq = List(antartica) 
+   override val a2Seq = Arr(antartica)
 }

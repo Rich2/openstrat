@@ -5,14 +5,7 @@ package geom
 /** This is not well documented. */
 case class DisplayRow(margin: Double, subjs: Arr[GraphicSubject])
 { /** Horrible code. Needs rewriting. */
-  def fromLeft(leftPt: Vec2): Arr[GraphicSubject] =
-  {
-    var acc: Buff[GraphicSubject] = newBuff()
-    var xAcc: Double = leftPt.x + margin
-    subjs.foreach { head =>
-      acc += head.slateX(x + head.width / 2)//.asInstanceOf[GraphicSubject]
-      x += head.width + margin
-    }
-    acc.toArr
-  }  
+  def fromLeft(leftPt: Vec2): Arr[GraphicSubject] = subjs.mapWith1(leftPt.x + margin)((head, x) =>
+    (head.slateX(x + head.width / 2),//.asInstanceOf[GraphicSubject]
+      x + head.width + margin))
 }
