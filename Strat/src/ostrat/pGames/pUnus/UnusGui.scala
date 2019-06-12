@@ -21,9 +21,9 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
     val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
       val rect = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
       val arr = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
-      arr.toList ::: rect
+      arr ++ rect
     }
-    tiles ::: units ::: sidesDrawAll()
+    tiles ++ units ++ sidesDrawAll()
   }
   
   //optional members  
@@ -31,12 +31,12 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.fHead(Nil, List(_))
+    { selected = clickList.fHead(Arr, Arr(_))
       statusText = selected.headOption.fold("Nothing Selected")(_.toString)
       eTop()            
     }
     
-    case (RightButton, List(mp : MPlayer), List(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
+    case (RightButton, Arr(mp : MPlayer), Arr(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
       {        
         statusText = mp.toString -- "move to" -- moveTile.cood.str
         val stCood = mp.cood
@@ -44,7 +44,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
         grid.fSetTile(stCood, Some(newMP))
         rePanels
       }
-    case (RightButton, List(mp : MPlayer), List(moveTile: UTile)) =>
+    case (RightButton, Arr(mp : MPlayer), Arr(moveTile: UTile)) =>
       {        
         statusText = mp.toString -- "can not move to" -- moveTile.cood.str
         eTop()

@@ -29,23 +29,23 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     {
       case Move(coods) =>      
       {
-        coods.foldWithPrevious[GraphicElems](squad.cood, Nil){(acc, prevCood, nextCood) =>
+        coods.foldWithPrevious[GraphicElems](squad.cood, Arr()){(acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
           val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast, 3)
           val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast, 3)
           acc :+ l1 :+ l2
         }
       }
-      case Fire(target) => List(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red, 3).dashed(20, 20))
-      case _ => Nil
+      case Fire(target) => Arr(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red, 3).dashed(20, 20))
+      case _ => Arr()
     }
     
     val lunit: GraphicElems = tile.lunits match
     {
-      case ::(head, _) if tScale > 68 =>
+      case s if tScale > 68 & s.nonEmpty =>
       {
-        val counter = UnitCounters.infantry(30, head, head.colour, tile.colour, 4).slate(cen)
-        counter :: action(head)
+        val counter = UnitCounters.infantry(30, s.head, s.head.colour, tile.colour, 4).slate(cen)
+        Arr(counter) ++ action(s.head)
       }
       case _ => Arr()
     }    
@@ -55,7 +55,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElems = ofs =>
   { import ofs._    
     ifScaleCObjs(60, side.wall match
-      { case true => vertDispLine.draw(6, Gray) :: Nil
+      { case true => Arr(vertDispLine.draw(6, Gray))
         case _ => ifTiles(_.colour == _.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
       }
     )    
@@ -67,7 +67,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.fHead(Nil, List(_))
+    { selected = clickList.fHead(Arr(), Arr(_))
       statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
       eTop()            
     }

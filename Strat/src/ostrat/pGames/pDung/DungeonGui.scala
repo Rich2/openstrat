@@ -30,7 +30,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.fHead(Nil, List(_))
+    { selected = clickList.fHead(Arr, Arr(_))
       statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
       eTop()
     }

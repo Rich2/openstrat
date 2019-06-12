@@ -22,7 +22,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNu
     val y = tr._3
     val sd = Squad(tr._1, x, y, getID)     
     val tile = getTile(x, y)
-    setTile(x, y,tile.copy(lunits = sd :: tile.lunits))
+    setTile(x, y,tile.copy(Arr(lunits = sd) ++ tile.lunits))
   }
   
   val fTerrCost: (ZugTile, ZugTile) => OptInt = _.terr.cost + _.terr.cost
