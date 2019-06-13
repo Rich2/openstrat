@@ -50,19 +50,19 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
     {
       case (LeftButton, _, _) =>
-      {
-        selected = clickList.fHead(Arr(), Arr(_))
+      { selected = clickList.fLast(Arr(), Arr(_))
         statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
         eTop()
       }
+
       case (RightButton, Arr(army : Army), Arr(newTile: W2Tile)) =>
-      {
-        army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
+      { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
         val newArmy = army.copy(newTile)
-        newTile.lunits :+ newArmy
+        newTile.lunits :+= newArmy
         selected = Arr(newArmy)
         repaintMap  
-      }      
+      }
+
       case _ => 
     }
   scale = 1.08.km

@@ -11,6 +11,7 @@ class SeqImplicit[A](thisSeq: Seq[A])
   /** This method and "headOnly" method on TraversableImplicit removes the need for headOption in the majority of case. Use head Only if you are only
    *  interested in the head value */
   def fHead[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.head)
+  def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisSeq.isEmpty) ifEmpty else fNonEmpty(thisSeq.last)
   
   def addOpt(optEl: Option[A]): Seq[A] = optEl match
   { case None => thisSeq

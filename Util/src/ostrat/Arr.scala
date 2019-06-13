@@ -15,3 +15,12 @@ object Arr1
     case _ => None
   }
 }
+
+object Arr1End
+{
+  def unapply[A](arr: ArraySeq[A]): Option[(ArraySeq[A], A)] = arr match
+  {
+    case arr if arr.nonEmpty => Some((arr.init, arr.last))
+    case _ => None
+  }
+}
