@@ -55,54 +55,6 @@ class IntImplicit(val thisInt: Int) extends AnyVal
     acc
   }
 
-  /*/** maps across the Integer range starting with this Int to the given end of range. */
-  def mapTo[A](toValue: Int, initialValue: A)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
-  { val len = (toValue - thisInt + 1).min(0)
-    val arr = new Array[A](len)
-    var count: Int = thisInt
-    while(count <= toValue)
-    { arr(count - thisInt) = f(count)
-      count += 1
-    }
-    ArrWrap[A](arr)
-  }*/
-
-  /** maps across the Integer range starting with this Int until the given end of range. */
-  def mapUntil[A](untilValue: Int, initialValue: A)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
-  { val len = (untilValue - thisInt).min(0)
-    val arr = new Array[A](len)
-    var count: Int = thisInt
-    while(count < untilValue)
-    { arr(count - thisInt) = f(count)
-      count += 1
-    }
-    ArrWrap[A](arr)
-  }
-
-  /** flatMaps across the Integer range starting with this Int to the given end of range. */
-  def flatMapTo[A](toValue: Int, initialValue: A)(f: Int => Arr[A])(implicit ct: ClassTag[A]): Arr[A] =
-  { val len = (toValue - thisInt + 1).min(0)
-    val buff = newBuff[A](len)
-    var count: Int = thisInt
-    while(count <= toValue)
-    { buff.addAll(f(count))
-      count += 1
-    }
-    ArrWrapBuff[A](buff)
-  }
-
-  /** flatMaps across the Integer range starting with this Int until the given end of range. */
-  def flatMapUntil[A](untilValue: Int, initialValue: A)(f: Int => Arr[A])(implicit ct: ClassTag[A]): Arr[A] =
-  { val len = (untilValue - thisInt).min(0)
-    val buff = newBuff[A](len)
-    var count: Int = thisInt
-    while(count < untilValue)
-    { buff.addAll(f(count))
-      count += 1
-    }
-    ArrWrapBuff[A](buff)
-  }
-
   def str2Dig: String = thisInt match
   { case i if (i > 9) || (i < -9) => i.toString
     case i if (i >= 0) => "0" + i.toString

@@ -14,5 +14,5 @@ object PacificTop extends Area1("Pacific", 0 ll 175)
    val eHawii = 19.51 ll -154.80
    val hawaii = Area2("Hawaii", 20.85 ll -156.92, plain, sHawaii, nwHawaii, nHawaii, hana, eHawii)
  // override val gridMaker = E80Empty 
-  override val a2Seq: List[Area2] = List(hawaii) 
+  override val a2Seq: Arr[Area2] = Arr(hawaii)
 }

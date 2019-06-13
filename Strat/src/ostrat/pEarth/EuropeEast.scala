@@ -7,7 +7,7 @@ object EuropeEast extends Area1("EuropeEast", 60 ll 60)
 {
    override def fill = false   
    import pPts._
-   override val a2Seq: List[Area2] = List(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
+   override val a2Seq: Arr[Area2] = Arr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }
 
 object EuropeEastGrid extends EGridMaker

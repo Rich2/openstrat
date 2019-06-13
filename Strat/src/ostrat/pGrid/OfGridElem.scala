@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
+import geom._, reflect.ClassTag
 
 /** Although including the cood could be considered to break the principle of encapsulation, A tile should not need to know where it is in a grid. I
  *   think it is necessary. Although the cood is determined by its position in the array there is just no good way for this data to be recovered by
@@ -43,7 +43,7 @@ trait OfSide[TileT <: Tile, SideT <: TileSide, GridT <: TileGrid[TileT, SideT]] 
   final def cood: Cood = side.cood   
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
   def vertDispLine: Line2 = coodsLine.toLine2(coodToDispVec2)
-  def ifTiles[A](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A): Arr[A] = grid.optSidesTiles(cood) match
+  def ifTiles[A](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): Arr[A] = grid.optSidesTiles(cood) match
   { case (Some(t1), Some(t2)) => if (f(t1, t2)) Arr(fA(t1, t2)) else Arr()
     case _ => Arr()
   }

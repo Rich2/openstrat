@@ -6,7 +6,7 @@ import geom._, Terrain._
 object AtlanticNorth extends Area1("NAtlantic", 60 ll -30)
 { 
   // override val gridMaker = E80Empty   
-   override val a2Seq: List[Area2] = List(Iceland)
+   override val a2Seq: Arr[Area2] = Arr(Iceland)
 }
 
 object Iceland extends Area2("Iceland", 64.78 ll -18.07, taiga)

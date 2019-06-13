@@ -66,21 +66,21 @@ trait ProductVals[A] extends Any
   }
   
   /** Maps to Arr of type B. */
-  def Map[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): Arr[B] =
+  def map[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): Arr[B] =
   { val res = new Array[B](length)
     iForeach((a, i) => res(i) = f(a))
      res.toArr
   }
 
   /** Maps to a standard Array of type B. */
-  def MapS[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): Arr[B] =
+  def mapS[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): Arr[B] =
   { val res = new Array[B](length)
     iForeach((a, i) => res(i) = f(a))
     ArrWrap(res)
   }
    
   /** maps ValueProduct collection to List */
-  def MapList[B <: AnyRef](f: A => B): List[B] =
+  def mapList[B <: AnyRef](f: A => B): List[B] =
   { var res: List[B] = Nil
     foreachReverse(res ::= f(_))
     res

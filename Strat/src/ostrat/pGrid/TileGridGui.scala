@@ -29,7 +29,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   def coodStrDisp(cood: Cood) = TextGraphic(cood.xyStr, 12, coodToDisp(cood))
   def polygonOfTileDisp(tileCood: Cood): Polygon = vertCoodsOfTile(tileCood).pMap(coodToDisp)
   final def sideLinesDispAll: Line2s = grid.sideLinesAll.fTrans(fTrans)
-  final def sidesDrawAll(lineWidth: Double = 2, colour: Colour = Colour.Black): GraphicElems = sideLinesDispAll.Map(_.draw(lineWidth, colour))
+  final def sidesDrawAll(lineWidth: Double = 2, colour: Colour = Colour.Black): GraphicElems = sideLinesDispAll.map(_.draw(lineWidth, colour))
   
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)

@@ -96,6 +96,8 @@ package object ostrat
     acc.reverse
   }
 
+  def iUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] = iToMap[A](iFrom, iUntil - 1, iStep)(f)
+
   def iToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
   {
     val iLen = (iTo - iFrom + 1).min(0) / iStep
@@ -108,6 +110,9 @@ package object ostrat
     }
     array.toArr
   }
+
+  def ijUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
+    ijToMap[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
   def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
   {
