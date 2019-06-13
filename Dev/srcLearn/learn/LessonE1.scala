@@ -12,9 +12,9 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   
   def cmdDisp = cmd match
   {
-    case Some(Move(v)) => Arrow.draw(state.posn, v, zOrder = -1) :: Nil
-    case Some(CycleColour) => state.drawNextColour :: Nil
-    case _ => Nil
+    case Some(Move(v)) => Arr(Arrow.draw(state.posn, v, zOrder = -1))
+    case Some(CycleColour) => Arr(state.drawNextColour)
+    case _ => Arr()
   }
   
   def disp() =

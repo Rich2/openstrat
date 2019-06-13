@@ -7,7 +7,7 @@ import geom._
 abstract class Area2(val symName: String, val cen: LatLong, val terr: Terrain) extends GeographicSymbolKey
 {
    override def toString = name.commaAppend(terr.toString)
-   def aStrs = List(name)
+   def aStrs = Arr(name)
    def textScale: Dist = 15.km   
    def latLongs: LatLongs   
    

@@ -28,7 +28,7 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   {
     case Arr1(r: ARect, tail) =>
       {
-        rList = rList.replace(r, r.mutateColour(r.colour.nextFromList(List(Red, Orange, Green))))        
+        rList = ??? //rList.replace(r, r.mutateColour(r.colour.nextFromList(List(Red, Orange, Green))))
         repaint(gList :+ startText)
       }
       case _ =>       
