@@ -96,11 +96,27 @@ package object ostrat
     acc.reverse
   }
 
-  def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A): Arr[A] =
+  def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
   {
-    var i:Int = iFrom
-
+    val iLen = (iTo - iFrom + 1).min(0) / iStep
+    val jLen = (jTo - jFrom + 1).min(0) / jStep
+    val arrLen = iLen * jLen
+    val array: Array[A] = new Array[A](arrLen)
+    var i: Int = iFrom
+    while(i <= iTo)
+    {
+      var j: Int = jFrom
+      while(j <= jTo)
+      { array(i * jLen + j) = f(i, j)
+        j += 1
+      }
+      i += 1
+    }
+    array.toArr
   }
+
+  def ijSameToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
+    ijToMap[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
   
   /** Extension methods for AnyT */
   implicit class AnyTImplicit[T](thisT: T)
