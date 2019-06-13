@@ -3,6 +3,7 @@ package ostrat
 package pEarth
 import pGrid._, reflect.ClassTag
 
+/** An all world map, parametised by Tile and Tile side types. */
 class EarthAllMap[TileT <: Tile, SideT <: TileSide](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
       implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 {

@@ -18,8 +18,7 @@ trait OfEElem[TileT <: Tile, SideT <: TileSide] extends OfGridElem[TileT, SideT,
 /** A stand OfTile maps from Grid Coordinates to map Vec2 and then to display Vec2. This maps from Grid Coordinate to Dist2 to Vec2 */
 class OfETile[TileT <: Tile, SideT <: TileSide](val eg: EarthGui, val eGrid: EGrid[TileT, SideT], val tile: TileT) extends
 OfHex[TileT, SideT, EGrid[TileT, SideT]] with OfEElem[TileT, SideT]
-{   
-   
+{
    def cenLL: LatLong = eGrid.getLL(cood)
    def cen: Vec2 = eg.latLongToXY(cenLL)
    def cenFacing: Boolean = focus.latLongFacing(cenLL)
