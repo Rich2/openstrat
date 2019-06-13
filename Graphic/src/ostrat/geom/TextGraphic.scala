@@ -26,7 +26,7 @@ object TextGraphicCen
 
 object TextGraphic
 { 
-  def lines(strs: List[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
+  def lines(strs: Arr[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
       align: TextAlign = TextCen): Arr[TextGraphic] =
   { val len = strs.length
     if(len == 0) Arr()

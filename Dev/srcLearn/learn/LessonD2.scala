@@ -18,7 +18,7 @@ case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
   val t6 = tStr.findTypeIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
   val t7 = tStr.findType[Vec2]
   val t8 = tStr.findDouble //This fails because 7 can be both an Int and a Double.
-  val topStrs = List(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
+  val topStrs = Arr(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
   val topBlock = MText(200, topStrs)
   
   val arr = Array(4, 5, 6)

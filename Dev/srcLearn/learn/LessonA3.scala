@@ -12,7 +12,7 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LessonA3(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")
 {
-  val stuff = List(
+  val stuff = Arr(
       LineDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
       LineDraw(0 vv 50, 150 vv 200, 3),
       LineDraw(50 vv -50, 200 vv -50, 2, Red),//Note if you don't include a Colour you get Black
