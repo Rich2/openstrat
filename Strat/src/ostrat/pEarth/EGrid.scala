@@ -20,41 +20,13 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
    thisEGrid =>
    type GridT <: EGrid[TileT, SideT]
    val vec2ToLL: Vec2 => LatLong = fVec2ToLatLongReg(cenLong, scale, xOffset, yOffset)   
-   
-//   def edgeChain(x1: Int, y1: Int, up: Boolean, x2: Int, y2: Int, maxLen: Int = 100): HSideChain =
-//   {      
-//       Unit match
-//       {
-//          //case _ if !outerSides.coodContains(x1, y1) => excep(x1.toString -- y1.toString --"Start side in edgechain method not an outer side")
-//          //case _ if !outerSides.coodContains(x2, y2) => excep(x2.toString -- y2.toString --"End side in edgechain method not an outer side")
-//          case _ => 
-//       }
-//       val h1 = HSideV(x1, y1, up)
-//       HSideChain(this, Seq(h1))
-//   }
-   //def chain(x: Int, y: Int, vNum: Int, others: SideVec*): HexChain = HexChain(this, x, y, vNum, others:_*)
-   //def chainLL(x: Int, y: Int, vNum: Int, others: SideVec*): Seq[LatLong] = HexChain(this, x, y, vNum, others:_*).latLongs
-  // def vertsToLLs(inp: Seq[HexVert]): Seq[LatLong] = inp.map(v => vec2ToLL(v.toVec2))
-   /** Throws Exception for the time being */
-   //def hexsFromInnerSide(sideCood: HSideCood): (HexE, HexE) = sideCood.adjTileCoods.bimap(hexs.getHex(_), hexs.getHex(_))   
-   
-  // @deprecated def vertToLL(x: Int, y: Int): LatLong = vec2ToLL(HexVert(x, y).toVec2)
+
    def vToLL(vIn: Vec2) : LatLong = vec2ToLL(vIn)
-   //def sides
-//   def sideIfCens(sideCood: HSideCood, f: (HexE, HexE) => Boolean): Boolean =
-//   {
-//      val optHexs = getHexsFromSide(sideCood)
-//      ife (optHexs.length == 2, f(optHexs(0), optHexs(1)), false)
-//   }
+
    override def toString: String = "Grid " + name
    
    def vertLL(x: Int, y: Int, ptNum: Int): LatLong = ???
-//   {
-//      val xy: Vec2 = HG.xyToVec2(x, y) + verts(ptNum)
-//      vec2ToLL(xy)
-//   }
-   /** name needs modifying */
-   //def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+
    def llXLen =  (xTileMax - xTileMin + 5) * 2    
    def llYLen = yTileMax - yTileMin + 3
    val vArr: Array[Double] = new Array[Double](llYLen * llXLen)
@@ -86,8 +58,6 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
       sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
       vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
          }   
-   
-  // def vertLL(hv: HexVert): LatLong = vec2ToLL(hv.toVec2)
 
    def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
    {
@@ -110,84 +80,25 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
       acc.toArr
    }
    
-   def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems = 
+   def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems)(implicit
+     ct: ClassTag[TileT]): GraphicElems =
    {
-      /*val acc: Buff[GraphicElem] = newBuff()
+      val acc: Buff[GraphicElem] = newBuff()
       foreachTilesCoodAll { tileCood =>
          val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-         val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Arr())
+         val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Arr[GraphicElem]())
          acc ++= newRes
-      }*/
+      }
 
-    /*  val acc: Arr[GraphicElem] = tilesFlatMapAll { tile =>
-         val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tile.cood))
-         ife(tog.cenFacing, fDisp(tog), Arr())
-      }*/
-
-    /*  val sideAcc: Buff[GraphicElem] = newBuff()
+      val sideAcc: Buff[GraphicElem] = newBuff()
       foreachSidesCoodAll { sideCood =>
          val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
-         val newRes: GraphicElems = ???// ife(tog.sideCenFacing, sDisp(tog), Arr())
+         val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Arr[GraphicElem]())
          sideAcc ++= newRes
       }      
-      (acc ++ sideAcc).toArr*/
-      Arr[GraphicElem]()
+      (acc ++ sideAcc).toArr
    }   
       
    def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => GraphicElems): GraphicElems = tileCoodsDisplayFoldAll(cood => fDisp(this, cood))
    var rightGrid: Option[EGrid[TileT, SideT]] = None
 }
-      
-//   val sideObjs: CanvObjs = sidesFlatMap((cood, st) =>
-//        {
-//           val ln: Line2 = cood.hexSideLine
-//           val lnLL: LatLongLine = ln.toLatLongLine(vec2ToLL)
-//           val lnDist3: LineDist3 = eg.latLongLineToDist3(lnLL) 
-//           val (lineWidth, colour) = st match
-//           {
-//              case Straits => (4, Colour.Blue)           
-//              case _ => (1, Colour.Black)
-//            }
-//           (lnDist3.zsPos).toOption(LineDraw(lnDist3.toXY.toLine2(eg.trans),lineWidth, colour)).toSeq 
-//        })
-         
-//      val s3b: CanvObjs = (scale > eg.scale * 8.0).ifSeq(innerSides.flatMap(sd =>
-//         {
-//            val lnv: Line2 = sd.hexSideLine
-//            val lnLL: LatLongLine = lnv.toLatLongLine(vec2ToLL)
-//            val lnDist3: LineDist3 = eg.latLongLineToDist3(lnLL)
-//            val (h1, h2) = hexsFromInnerSide(sd)
-//            (lnDist3.zsPos && (h1.terr == h2.terr)).toOption(LineDraw(lnDist3.toXY.toLine2(eg.trans), 1, h1.terr.colour.blackOrWhite))
-//         }))
- 
-
-
-//abstract class EGridU04(name: String, xMin: Int, xMax: Int, yMin: Int, yMax: Int) extends
-//   EGridU(name, cenLong = 40.east, xOffset = 100, xMin, xMax, yMin, yMax)
-
-//abstract class EGridU00(name: String, xMin: Int, xMax: Int, yMin: Int, yMax: Int) extends
-//   EGridU(name, cenLong = 0.0.east, xOffset = 100, xMin, xMax, yMin, yMax)
-//abstract class EGridU(name: String, cenLong: Longitude, xOffset: Int, xMin: Int, xMax: Int, yMin: Int, yMax: Int) extends
-//   EGrid(name, cenLong, gridDistU, xOffset, yOffset = 200, xMin, xMax, yMin, yMax)
-
-//abstract class EGridV(name: String, cenLong: Longitude, xOffset: Int, xMin: Int, xMax: Int, yMin: Int, yMax: Int) extends
-//   EGrid(name, cenLong, gridDistV, xOffset, 60, xMin, xMax, yMin, yMax)
-//abstract class EGridW(name: String, cenLong: Longitude, xOffset: Int, xMin: Int, xMax: Int, yMin: Int, yMax: Int) extends
-//   EGrid(name, cenLong, gridDistW, xOffset, 30, xMin, xMax, yMin, yMax)
-
-//class GVert(grid: EGrid, hv: HexVert)
-//{
-//   def latLong: LatLong = grid.vec2ToLL(hv.toVec2)
-//   def edgeChain(start: SideVec, end: HSideCood): HSideChain =
-//   {
-//      //val v = hv 
-//      ???
-//   }
-//}
-//
-//object GVert
-//{
-//   def apply(grid: EGrid, x: Int, y: Int): GVert = new GVert(grid, HexVert(x, y))
-//}
-
-
