@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pImplicit
-import math.Pi, reflect.ClassTag
+import math.Pi//, reflect.ClassTag
  
 class IntImplicit(val thisInt: Int) extends AnyVal
 {

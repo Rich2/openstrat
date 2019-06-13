@@ -67,7 +67,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   def out(elapsed: Integer, startTime: Integer): Unit =
   { pls.foreach(_.move(elapsed))
     mapFocus = planetFocus.posn
-    repaintMap()
+    if(!paused)repaintMap()
     canv.frame(out, startTime)           
   }      
 }
