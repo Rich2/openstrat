@@ -17,7 +17,7 @@ object GraphicActive
 {
   implicit class GraphicActiveListImplicit(thisArr: Arr[GraphicActive])
   { /** Note the lack of reverse at the end */
-    def ptInList(pt: Vec2): Arr[AnyRef] = ??? // thisArr.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)
+    def ptInList(pt: Vec2): Arr[AnyRef] = thisArr.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)
   }
 }
 
