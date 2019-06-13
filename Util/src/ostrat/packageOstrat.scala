@@ -86,14 +86,27 @@ package object ostrat
     
   def nullRef[A <: AnyRef]: Opt[A] = new Opt[A](null.asInstanceOf[A])
   
-  @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] =
-  { var count = fromValue
+  @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] = {
+    var count = fromValue
     var acc: List[Double] = Nil
-    while (count <= toValue)
-    { acc ::= count
+    while (count <= toValue) {
+      acc ::= count
       count += step
     }
     acc.reverse
+  }
+
+  def iToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
+  {
+    val iLen = (iTo - iFrom + 1).min(0) / iStep
+    val array: Array[A] = new Array[A](iLen)
+    var i: Int = iFrom
+    while(i <= iTo)
+    {
+      array(i) = f(i)
+      i += 1
+    }
+    array.toArr
   }
 
   def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
