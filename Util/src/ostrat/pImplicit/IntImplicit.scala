@@ -56,7 +56,7 @@ class IntImplicit(val thisInt: Int) extends AnyVal
   }
 
   /** maps across the Integer range starting with this Int to the given end of range. */
-  def mapTo[A](toValue: Int, initialValue: A)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
+  /*def mapTo[A](toValue: Int, initialValue: A)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
   { val len = (toValue - thisInt + 1).min(0)
     val arr = new Array[A](len)
     var count: Int = thisInt
@@ -65,7 +65,7 @@ class IntImplicit(val thisInt: Int) extends AnyVal
       count += 1
     }
     ArrWrap[A](arr)
-  }
+  }*/
 
   /** maps across the Integer range starting with this Int until the given end of range. */
   def mapUntil[A](untilValue: Int, initialValue: A)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
