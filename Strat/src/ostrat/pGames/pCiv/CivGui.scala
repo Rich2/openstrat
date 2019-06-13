@@ -43,13 +43,13 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
     case (LeftButton, _, _) =>
     {
       deb(selected.toString)
-      selected = clickList.fHead(Nil, List(_))
+      selected = clickList.fHead(Arr(), Arr(_))
       statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
       eTop()
     }
     
     //If a Warrior is selected and a tile adjacent to the Warrior is right clicked =>
-    case (RightButton, List(warr : Warrior), List(newTile: CTile)) =>
+    case (RightButton, Arr(warr : Warrior), Arr(newTile: CTile)) =>
       {
         deb("Rt") 
         val newCood = newTile.cood
@@ -68,7 +68,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
               val oldTile = grid.getTile(oldCood)
               oldTile.lunits = oldTile.lunits.removeFirst(_ == warr)
               warr.cood = newCood
-              newTile.lunits ::= warr
+              newTile.lunits +:= warr
               repaintMap
             }
             else

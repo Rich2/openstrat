@@ -34,7 +34,7 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
 //    case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
 //  }
   
-  repaint(stuff.toList)   
+  repaint(stuff)
   
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
   {

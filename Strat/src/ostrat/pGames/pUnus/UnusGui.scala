@@ -21,7 +21,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
     val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
       val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
       val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
-      arr ++ rect
+      ol.toArr ++ rect
     }
     tiles ++ units ++ sidesDrawAll()
   }

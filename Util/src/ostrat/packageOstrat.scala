@@ -95,6 +95,12 @@ package object ostrat
     }
     acc.reverse
   }
+
+  def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A): Arr[A] =
+  {
+    var i:Int = iFrom
+
+  }
   
   /** Extension methods for AnyT */
   implicit class AnyTImplicit[T](thisT: T)
