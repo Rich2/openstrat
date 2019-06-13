@@ -45,7 +45,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
           {
             case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
                (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-            case Straits => vertDispLine.draw(6, Colour.Blue) :: Nil
+            case Straits => Arr(vertDispLine.draw(6, Colour.Blue))
          })        
    }   
          
