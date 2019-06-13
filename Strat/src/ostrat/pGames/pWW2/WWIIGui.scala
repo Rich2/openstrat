@@ -50,7 +50,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
     {
       case (LeftButton, _, _) =>
-      { selected = clickList.fLast(Arr(), Arr(_))
+      { selected = clickList.fHead(Arr(), Arr(_))
         statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
         eTop()
       }

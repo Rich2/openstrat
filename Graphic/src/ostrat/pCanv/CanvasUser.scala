@@ -26,7 +26,7 @@ abstract class CanvasUser(val title: String)
 
        case ga: GraphicActive => subjBuff += ga
     }
-    subjBuff.toArr
+    subjBuff.toArr.reverse
   }
    
   def refresh(): Unit   
