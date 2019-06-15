@@ -10,6 +10,11 @@ case class MPlayer(player: Player, cood: Cood, move: Option[Cood] = None) extend
   override def colour = player.colour
 }
 
+object MPlayer
+{
+  implicit val persistMPlayer: Persist[MPlayer] = new Persist3[Player, Cood, Option[Cood], MPlayer]("MPlayer", mp => (mp.player, mp.cood, mp.move), apply)
+}
+
 case class Player(val char: Char, val colour: Colour)
 {
   override def toString = "Player " + char
@@ -17,6 +22,6 @@ case class Player(val char: Char, val colour: Colour)
 
 object Player
 {
-  implicit object Player extends Persist2[Char, Colour, Player]("Player", p => (p.char, p.colour), apply)
+  implicit val persistPlayer: Persist[Player] = new Persist2[Char, Colour, Player]("Player", p => (p.char, p.colour), apply)
 }
 

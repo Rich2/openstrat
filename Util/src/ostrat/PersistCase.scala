@@ -52,7 +52,7 @@ class PersistD2[R](typeStr: String, fParam: R => (Double, Double), newT: (Double
    Persist2[Double, Double, R](typeStr, fParam, newT)
 
 /** Persistence class for 3 parameter case classes. */   
-abstract class Persist3[A1, A2, A3, R](typeStr: String, val fParam: R => (A1, A2, A3), val newT: (A1, A2, A3) => R)(
+class Persist3[A1, A2, A3, R](typeStr: String, val fParam: R => (A1, A2, A3), val newT: (A1, A2, A3) => R)(
     implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends PersistCase[R](typeStr)
 { def persistMems = List(ev1, ev2, ev3)
   
