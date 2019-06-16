@@ -52,11 +52,6 @@ abstract class PersistD3[R](typeStr: String, fParam: R => (Double, Double, Doubl
 /** Persistence class for 4 parameter case classes. */   
 abstract class Persist4[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), val newT: (A1, A2, A3, A4) => R)(
     implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends Show4(typeStr, fParam) with PersistCase[R]
-{ def persistMems = List(ev1, ev2, ev3, ev4)
-  override def showSemi(obj: R): String =
-  { val (p1, p2, p3, p4) = fParam(obj)
-    ev1.show(p1).semicolonAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4))
-  }
-  override def fromClauses(clauses: List[Clause]): EMon[R] = fromClauses4(newT, clauses)
+{ override def fromClauses(clauses: List[Clause]): EMon[R] = fromClauses4(newT, clauses)
   override def fromParameterStatements(sts: List[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)
 }
