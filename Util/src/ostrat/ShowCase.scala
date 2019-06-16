@@ -14,6 +14,8 @@ abstract class Show1[A1, R](typeStr: String, val fParam: R => (A1))(implicit ev1
   def showComma(obj: R): String = ev1.show(fParam(obj))
 }
 
+class Show1Only[A1, R](typeStr: String, fParam: R => A1)(implicit ev1: Persist[A1]) extends Show1[A1, R](typeStr,fParam) with ShowOnly[R]
+
 /** Show type class for 2 parameter case classes. */
 abstract class Show2[A1, A2, R](typeStr: String, val fParam: R => (A1, A2))(implicit ev1: Persist[A1], ev2: Persist[A2]) extends ShowCase[R](typeStr)
 { def persistMems = List(ev1, ev2)
@@ -28,6 +30,9 @@ abstract class Show2[A1, A2, R](typeStr: String, val fParam: R => (A1, A2))(impl
     ev1.show(a1) + ", " + ev2.show(a2)
   }
 }
+
+class Show2Only[A1, A2, R](typeStr: String, fParam: R => (A1, A2))(implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr,
+  fParam) with ShowOnly[R]
 
 /** Show type class for 3 parameter case classes. */
 abstract class Show3[A1, A2, A3, R](typeStr: String, val fParam: R => (A1, A2, A3))(implicit ev1: Persist[A1], ev2: Persist[A2],
@@ -45,6 +50,9 @@ abstract class Show3[A1, A2, A3, R](typeStr: String, val fParam: R => (A1, A2, A
     ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3))
   }
 }
+
+class Show3Only[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3))(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends
+  Show3[A1, A2, A3, R](typeStr, fParam) with ShowOnly[R]
 
 /** Show type class for 4 parameter case classes. */
 abstract class Show4[A1, A2, A3, A4, R](typeStr: String, val fParam: R => (A1, A2, A3, A4))(implicit ev1: Persist[A1], ev2: Persist[A2],
