@@ -24,3 +24,4 @@ abstract class Show3[A1, A2, A3, R](typeStr: String, val fParam: R => (A1, A2, A
     ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3))
   }
 }
+

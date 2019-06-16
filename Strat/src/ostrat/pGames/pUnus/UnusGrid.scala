@@ -46,9 +46,7 @@ class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turn
 object UnusGrid
 {
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
-//  implicit object UnusGridShow extends Show[UnusGrid]
-//  {
-//    override def show(obj: UnusGrid) = ???  
-//  }
+  implicit val showUnusGrid: ShowOnly[UnusGrid] = ??? //ShowOnly4[UnusGrid]
+
 }
 
