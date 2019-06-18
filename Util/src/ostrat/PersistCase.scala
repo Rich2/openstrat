@@ -5,7 +5,7 @@ import pParse._
 /** The base trait for the persistence of Case classes, aka Product types */
 trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
 {  
-  def persistMems: List[Persist[_]] 
+  def persistMems: Arr[Persist[_]]
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
     case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
