@@ -153,6 +153,8 @@ package object ostrat
 
   implicit class ArrayBufferExtensions[A](thisBuff: Buff[A])(implicit ct: ClassTag[A])
   { @inline def toArr: Arr[A] = ArrWrapBuff[A](thisBuff)
+    @inline def arrAppends(operands: A*): Arr[A] = ArrWrapBuff[A]((thisBuff ++= operands))
+    @inline def arrAppend(operand: A): Arr[A] = ArrWrapBuff[A]((thisBuff += operand))
   }
    
   implicit class FunitRichImp(fu: () => Unit)

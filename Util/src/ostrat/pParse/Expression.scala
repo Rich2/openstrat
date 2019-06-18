@@ -31,7 +31,7 @@ case class StringStatements(statements: List[Statement]) extends StatementSeq
   def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class ClausesExpr(exprs: List[Expr]) extends ExprCompound
+case class ClausesExpr(exprs: Arr[Expr]) extends ExprCompound
 {  def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"

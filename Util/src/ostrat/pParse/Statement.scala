@@ -83,7 +83,7 @@ object Statement
 
 /** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
  *  on the last Clauses is optional. */
-case class ClausedStatement(clauses: List[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanCompound
+case class ClausedStatement(clauses: Arr[Clause], optSemi: Opt[SemicolonToken]) extends Statement with TextSpanCompound
 {
   def expr: Expr = ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head

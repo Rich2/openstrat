@@ -29,7 +29,7 @@ object Persist
     override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Array[A]] = ???
-    override def fromClauses(clauses: List[Clause]): EMon[Array[A]] = ???
+    override def fromClauses(clauses: Arr[Clause]): EMon[Array[A]] = ???
   
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
@@ -46,7 +46,7 @@ object Persist
     override def showSemi(thisArr: Arr[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: Arr[A]): String = thisArr.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Arr[A]] = ???
-    override def fromClauses(clauses: List[Clause]): EMon[Arr[A]] = ???
+    override def fromClauses(clauses: Arr[Clause]): EMon[Arr[A]] = ???
 
     override def fromExpr(expr: ParseExpr): EMon[Arr[A]] =  expr match
     {
@@ -66,7 +66,7 @@ object Persist
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
     override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
-    override def fromClauses(clauses: List[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
+    override def fromClauses(clauses: Arr[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
     {
       case AlphaBracketExpr(AlphaToken(_, "Some"), ParenthBlock(hs:: Nil, _, _) :: Nil) => ev.fromExpr(hs.expr).map(Some(_))
@@ -100,7 +100,7 @@ object Persist
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
-    override def fromClauses(clauses: List[Clause]): EMon[Array[Int]] = ???
+    override def fromClauses(clauses: Arr[Clause]): EMon[Array[Int]] = ???
   
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
@@ -115,7 +115,7 @@ object Persist
     override def showSemi(thisArray: Arr[Int]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(ev.show(_)).commaFold
     override def fromParameterStatements(sts: List[Statement]): EMon[Arr[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
-    override def fromClauses(clauses: List[Clause]): EMon[Arr[Int]] = ???
+    override def fromClauses(clauses: Arr[Clause]): EMon[Arr[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Arr[Int]] = expr match
     { case SemicolonToken(_) => Good(Arr[Int]())

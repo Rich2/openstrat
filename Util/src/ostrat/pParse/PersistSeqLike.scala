@@ -41,7 +41,7 @@ class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]](
  
   override def fromExpr(expr: Expr): EMon[List[A]] = fromExprLike(expr)  
   override def fromParameterStatements(sts: List[Statement]): EMon[List[A]] = ???
-  override def fromClauses(clauses: List[Clause]): EMon[List[A]] = ???
+  override def fromClauses(clauses: Arr[Clause]): EMon[List[A]] = ???
 }
 
 class PersistConsImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, ::[A]](ev)
@@ -55,7 +55,7 @@ class PersistConsImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, ::[A]](ev
     case Nil => bad1(TextSpan.empty, "Empty List can not be parsed into Cons.")
   }
   override def fromParameterStatements(sts: List[Statement]): EMon[::[A]] = ???
-  override def fromClauses(clauses: List[Clause]): EMon[::[A]] = ???
+  override def fromClauses(clauses: Arr[Clause]): EMon[::[A]] = ???
 }
 
  
@@ -70,7 +70,7 @@ class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](
     case Nil => Good(Nil) 
   }
   override def fromParameterStatements(sts: List[Statement]): EMon[Nil.type] = ???
-  override def fromClauses(clauses: List[Clause]): EMon[Nil.type] = ???
+  override def fromClauses(clauses: Arr[Clause]): EMon[Nil.type] = ???
 }
 
 class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]](ev)
@@ -79,7 +79,7 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]](ev
   override def showComma(thisSeq: Seq[A]): String = thisSeq.map(ev.show(_)).commaFold
   override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr) 
   override def fromParameterStatements(sts: List[Statement]): EMon[Seq[A]] = ???
-  override def fromClauses(clauses: List[Clause]): EMon[Seq[A]] = ???
+  override def fromClauses(clauses: Arr[Clause]): EMon[Seq[A]] = ???
 }
 
 class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[A]](ev)
@@ -96,5 +96,5 @@ class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[
 //         case es @ EmptyStatement(_) => es.asError         
 //  }
   override def fromParameterStatements(sts: List[Statement]): EMon[Vector[A]] = ???
-  override def fromClauses(clauses: List[Clause]): EMon[Vector[A]] = ???
+  override def fromClauses(clauses: Arr[Clause]): EMon[Vector[A]] = ???
 }
