@@ -94,7 +94,7 @@ object GetStatements
     case (at: AlphaToken) :: (bb: BracketBlock) :: t2 =>
     {//typedSpan needs removal */
       val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
-      sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks))               
+      sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toArr))
     }
     case h :: tail => sortBlocks(tail, acc :+ h)
   }

@@ -89,7 +89,7 @@ object Colour
     def fromExpr(expr: ParseExpr): EMon[Colour] = expr match
     {
       case AlphaToken(_, typeName) if Colour.strToValue.nonEmpty => Good(Colour.strToValue(typeName)) 
-      case AlphaBracketExpr(AlphaToken(_, "Colour"), ParenthBlock(st :: Nil, _, _) :: Nil) => expr.exprParseErr[Colour](this)
+      case AlphaBracketExpr(AlphaToken(_, "Colour"), Arr(ParenthBlock(Arr(st), _, _))) => expr.exprParseErr[Colour](this)
       case _ => expr.exprParseErr[Colour](this)
     }
     def show(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
