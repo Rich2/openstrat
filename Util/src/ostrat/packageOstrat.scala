@@ -9,7 +9,8 @@ package object ostrat
 
   type Arr[A] = ArraySeq[A]
   type Buff[A] = ArrayBuffer[A]
-
+  type EMonList[A] = EMon[List[A]]
+  type EMonArr[A] = EMon[Arr[A]]
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
   val Cos60 = 0.5
@@ -51,7 +52,7 @@ package object ostrat
   //type Trav[A] = Traversable[A]  
   type FStr = Function0[String]
   type FStrSeq = Seq[Function0[String]]  
-  type EMonList[A] = EMon[List[A]]
+
   type StrList = List[String]
   
   /** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */

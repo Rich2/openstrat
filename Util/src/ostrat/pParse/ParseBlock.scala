@@ -19,14 +19,14 @@ sealed trait BracketToken extends Token
 sealed trait BracketOpen extends BracketToken
 {
    def matchingBracket(bc: BracketClose): Boolean
-   def newBracketBlock(cb: BracketClose, statements: List[Statement]): BracketBlock
+   def newBracketBlock(cb: BracketClose, statements: Arr[Statement]): BracketBlock
 }
 sealed trait BracketClose extends BracketToken
 
 case class ParenthOpen(startPosn: TextPosn) extends BracketOpen  
 { def str = "("
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[ParenthClose]
-  override def newBracketBlock(cb: BracketClose, statements: List[Statement]): BracketBlock = (ParenthBlock(statements, this, cb))
+  override def newBracketBlock(cb: BracketClose, statements: Arr[Statement]): BracketBlock = (ParenthBlock(statements, this, cb))
 }
 
 case class ParenthClose(startPosn: TextPosn) extends BracketClose { def str = ")" }
@@ -34,7 +34,7 @@ case class ParenthClose(startPosn: TextPosn) extends BracketClose { def str = ")
 case class SquareOpen(startPosn: TextPosn) extends BracketOpen
 { def str = "["
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[SquareClose]
-  override def newBracketBlock(cb: BracketClose, statements: List[Statement]): BracketBlock = (SquareBlock(statements, this, cb))   
+  override def newBracketBlock(cb: BracketClose, statements: Arr[Statement]): BracketBlock = (SquareBlock(statements, this, cb))
 }
 
 case class SquareClose(startPosn: TextPosn) extends BracketClose  { def str = "]" }
@@ -42,7 +42,7 @@ case class SquareClose(startPosn: TextPosn) extends BracketClose  { def str = "]
 case class CurlyOpen(startPosn: TextPosn) extends BracketOpen
 { def str = "{"  
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[CurlyClose]
-  override def newBracketBlock(cb: BracketClose, statements: List[Statement]): BracketBlock = (CurlyBlock(statements, this, cb))
+  override def newBracketBlock(cb: BracketClose, statements: Arr[Statement]): BracketBlock = (CurlyBlock(statements, this, cb))
 }
 case class CurlyClose(startPosn: TextPosn) extends BracketClose { def str = "}" }
 
@@ -54,12 +54,12 @@ sealed trait BracketBlock extends StatementSeq
    def endPosn: TextPosn = endBracket.endPosn
 }
 
-case class ParenthBlock(statements: List[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
+case class ParenthBlock(statements: Arr[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
 { override def exprName: String = "ParenthBlock" }
 
-case class SquareBlock(statements: List[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
+case class SquareBlock(statements: Arr[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
 { override def exprName: String = "SquareBlock" }
 
-case class CurlyBlock(statements: List[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
+case class CurlyBlock(statements: Arr[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
 { override def exprName: String = "CurlyBlock" }
 

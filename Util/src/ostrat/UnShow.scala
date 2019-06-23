@@ -10,7 +10,7 @@ trait UnShow[+T]
   /** Trys to build an object of type T from the statement. Not sure if this is useful. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
   
-  def fromStatements(sts: List[Statement]): EMon[T]
+  def fromStatements(sts: Arr[Statement]): EMon[T]
   
   def fromClauses1[A1, B](f: A1 => B, clauses: Arr[Clause])(implicit ev1: Persist[A1]): EMon[B] = clauses match
   { case Seq(c1, c2) => ev1.fromExpr(c1.expr).map(f)

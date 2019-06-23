@@ -15,16 +15,16 @@ trait ExprCompound extends Expr with TextSpanCompound
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ExprToken extends Expr with ExprMemberToken
 
-trait StatementSeq extends Expr { def statements: List[Statement] }
+trait StatementSeq extends Expr { def statements: Arr[Statement] }
 
-case class FileStatements(statements: List[Statement]) extends StatementSeq
+case class FileStatements(statements: Arr[Statement]) extends StatementSeq
 {
   def exprName: String = "FileStatements"
   def startPosn: TextPosn = statements.head.startPosn
   def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class StringStatements(statements: List[Statement]) extends StatementSeq
+case class StringStatements(statements: Arr[Statement]) extends StatementSeq
 {
   def exprName: String = "StringStatements"
   def startPosn: TextPosn = statements.head.startPosn

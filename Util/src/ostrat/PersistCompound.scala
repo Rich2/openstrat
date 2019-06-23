@@ -7,15 +7,15 @@ trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
 { 
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
-    case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
+    case AlphaBracketExpr(AlphaToken(_, typeName), Arr(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
     case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }
 
   /** Not sure about this method */
-  def fromParameterStatements(sts: List[Statement]): EMon[R]
+  def fromParameterStatements(sts: Arr[Statement]): EMon[R]
   
-  override def fromStatements(sts: List[Statement]): EMon[R] = fromParameterStatements(sts)  
+  override def fromStatements(sts: Arr[Statement]): EMon[R] = fromParameterStatements(sts)
 }
 
 trait ShowCompound[R] extends Show[R]

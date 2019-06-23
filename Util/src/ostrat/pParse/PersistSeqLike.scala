@@ -4,7 +4,7 @@ package pParse
 
 object AlphaSquareParenth
 {
-  def unapply(expr: Expr): Option[(String, List[Statement], List[Statement])] = expr match
+  def unapply(expr: Expr): Option[(String, Arr[Statement], Arr[Statement])] = expr match
   {
     case AlphaBracketExpr(AlphaToken(_, name), Arr(SquareBlock(ts, _, _) , ParenthBlock(sts, _, _))) => Some((name, ts, sts))
     case _ => None
@@ -13,7 +13,7 @@ object AlphaSquareParenth
 
 object AlphaParenth
 {
-  def unapply(expr: Expr): Option[(String, List[Statement])] = expr match
+  def unapply(expr: Expr): Option[(String, Arr[Statement])] = expr match
   {
     case AlphaBracketExpr(AlphaToken(_, name), Arr(ParenthBlock(sts, _, _))) => Some((name, sts))
     case _ => None

@@ -69,10 +69,10 @@ object Persist
     override def fromClauses(clauses: Arr[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
     {
-      case AlphaBracketExpr(AlphaToken(_, "Some"), Arr(ParenthBlock(hs:: Nil, _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+      case AlphaBracketExpr(AlphaToken(_, "Some"), Arr(ParenthBlock(Arr(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
     }
-    override def fromStatements(sts: List[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
+    override def fromStatements(sts: Arr[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
   } 
   
   implicit val NonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
@@ -99,7 +99,7 @@ object Persist
   {       
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
-    override def fromParameterStatements(sts: List[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
+    override def fromParameterStatements(sts: Arr[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Arr[Clause]): EMon[Array[Int]] = ???
   
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
