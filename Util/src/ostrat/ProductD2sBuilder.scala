@@ -16,6 +16,6 @@ abstract class ProductD2sBuilder[A <: ProdD2, M <: ProductD2s[A]](typeStr: Strin
   override def showSemi(thisColl: M): String = thisColl.mapBy2(_.str + ", " + _.str).mkString("; ")
   override def showComma(thisColl: M): String = show(thisColl)
   //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
-  override def fromParameterStatements(sts: List[Statement]): EMon[M] = ???
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[M] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[M] = ???
 }

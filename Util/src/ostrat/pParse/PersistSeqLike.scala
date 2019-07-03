@@ -40,7 +40,7 @@ class PersistListImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, List[A]](
   override def showComma(thisSeq: List[A]): String = thisSeq.map(ev.show(_)).commaFold
  
   override def fromExpr(expr: Expr): EMon[List[A]] = fromExprLike(expr)  
-  override def fromParameterStatements(sts: List[Statement]): EMon[List[A]] = ???
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[List[A]] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[List[A]] = ???
 }
 
@@ -54,7 +54,7 @@ class PersistConsImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, ::[A]](ev
     case h :: tail => Good(::(h, tail))
     case Nil => bad1(TextSpan.empty, "Empty List can not be parsed into Cons.")
   }
-  override def fromParameterStatements(sts: List[Statement]): EMon[::[A]] = ???
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[::[A]] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[::[A]] = ???
 }
 
@@ -69,7 +69,7 @@ class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](
     case h :: tail => bad1(TextSpan.empty, "Non empty List can not be parsed into Nil.")
     case Nil => Good(Nil) 
   }
-  override def fromParameterStatements(sts: List[Statement]): EMon[Nil.type] = ???
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[Nil.type] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[Nil.type] = ???
 }
 
@@ -78,7 +78,7 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]](ev
   override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(ev.showComma(_)).semiFold
   override def showComma(thisSeq: Seq[A]): String = thisSeq.map(ev.show(_)).commaFold
   override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr) 
-  override def fromParameterStatements(sts: List[Statement]): EMon[Seq[A]] = ???
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[Seq[A]] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[Seq[A]] = ???
 }
 
@@ -95,6 +95,6 @@ class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[
 //         case ClausedStatement(clauses, _) => fromClauses(clauses)
 //         case es @ EmptyStatement(_) => es.asError         
 //  }
-  override def fromParameterStatements(sts: List[Statement]): EMon[Vector[A]] = ???
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[Vector[A]] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[Vector[A]] = ???
 }

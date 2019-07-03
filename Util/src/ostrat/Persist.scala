@@ -28,7 +28,7 @@ object Persist
   {
     override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
-    override def fromParameterStatements(sts: List[Statement]): EMon[Array[A]] = ???
+    override def fromParameterStatements(sts: Arr[Statement]): EMon[Array[A]] = ???
     override def fromClauses(clauses: Arr[Clause]): EMon[Array[A]] = ???
   
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
@@ -45,7 +45,7 @@ object Persist
   {
     override def showSemi(thisArr: Arr[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: Arr[A]): String = thisArr.map(ev.show(_)).commaFold
-    override def fromParameterStatements(sts: List[Statement]): EMon[Arr[A]] = ???
+    override def fromParameterStatements(sts: Arr[Statement]): EMon[Arr[A]] = ???
     override def fromClauses(clauses: Arr[Clause]): EMon[Arr[A]] = ???
 
     override def fromExpr(expr: ParseExpr): EMon[Arr[A]] =  expr match
@@ -85,7 +85,7 @@ object Persist
       case e => bad1(e, "None not found")
     }
     
-    override def fromStatements(sts: List[Statement]): EMon[None.type] = ife(sts.isEmpty, Good(None), bad1(sts.startPosn, "None not found."))
+    override def fromStatements(sts: Arr[Statement]): EMon[None.type] = ife(sts.isEmpty, Good(None), bad1(sts.startPosn, "None not found."))
   }
   
   implicit def optionToPersist[A](implicit evA: Persist[A]): Persist[Option[A]] =
@@ -114,7 +114,7 @@ object Persist
   {
     override def showSemi(thisArray: Arr[Int]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(ev.show(_)).commaFold
-    override def fromParameterStatements(sts: List[Statement]): EMon[Arr[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
+    override def fromParameterStatements(sts: Arr[Statement]): EMon[Arr[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Arr[Clause]): EMon[Arr[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Arr[Int]] = expr match

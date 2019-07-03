@@ -33,7 +33,7 @@ object GetStatements
     
     case Seq(bc: BracketClose, tail @ _*) => open.matchingBracket(bc) match
     { case false => bad1(bc, "Unexpected Closing Parenthesis")
-      case true => statementLoop(acc, Nil, Nil).map(g => (open.newBracketBlock(bc, g), tail))            
+      case true => statementLoop(acc, Nil, Nil).map(g => (open.newBracketBlock(bc, g.toArr), tail))
     }
     
     case Seq(nbt: BlockMember, tail @ _*) => bracketLoop(tail, acc :+ nbt, open)               

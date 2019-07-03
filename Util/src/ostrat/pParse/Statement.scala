@@ -75,28 +75,27 @@ object Statement
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementList, settingStr)
   }
 
-  implicit class ArrImplicit(statementList: Arr[Statement]) extends TextSpan
+  implicit class ArrImplicit(statementArr: Arr[Statement]) extends TextSpan
   { private def ifEmptyFilePosn: FilePosn = FilePosn("Empty Statement Seq", 0, 0)
-    def startPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.head.startPosn)
-    def endPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.last.endPosn)
+    def startPosn = statementArr.ifEmpty(ifEmptyFilePosn, statementArr.head.startPosn)
+    def endPosn = statementArr.ifEmpty(ifEmptyFilePosn, statementArr.last.endPosn)
 
-    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementList match
+    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementArr match
     { case Seq(h1) => h1.errGet[A1](ev1)
       case s => bad1(s, s.length.toString -- "statements not 1")
     }
 
-    def errGet2[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[(A1, A2)] = statementList match
+    def errGet2[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[(A1, A2)] = statementArr match
     { case Seq(h1, h2) => h1.errGet[A1](ev1).map2(h2.errGet[A2](ev2), (g1, g2: A2) => (g1, g2))
       case s => bad1(s, s.length.toString -- "statements not 2")
     }
 
-    def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] =
-      statementList match
+    def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] = statementArr match
       { case Seq(h1, h2, h3) => h1.errGet[A1](ev1)map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
       case s => bad1(s, s.length.toString -- "statements not 3")
       }
     def errGet4[A1, A2, A3, A4](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
-    EMon[(A1, A2, A3, A4)] = statementList match
+    EMon[(A1, A2, A3, A4)] = statementArr match
     {
       case Seq(h1, h2, h3, h4) => h1.errGet[A1](ev1)map4(h2.errGet[A2](ev2), h3.errGet[A3](ev3), h4.errGet[A4],
         (g1: A1, g2: A2, g3: A3, g4: A4) => (g1, g2, g3, g4))
@@ -112,27 +111,27 @@ object Statement
     def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
                                                               ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
 
-    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementList)
+    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementArr.toList)
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
     {
-      val list = ev.listFromStatementList(statementList)
+      val list = ev.listFromStatementList(statementArr.toList)
       if (list.length > index) Good(list(index))
       else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
-    def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementList)
-    def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementList)
-    def findBoolean: EMon[Boolean] = Persist.BooleanPersist.findFromStatementList(statementList)
-    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntPersistImplicit.findFromStatementList(statementList)
+    def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementArr.toList)
+    def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementArr.toList)
+    def findBoolean: EMon[Boolean] = Persist.BooleanPersist.findFromStatementList(statementArr.toList)
+    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntPersistImplicit.findFromStatementList(statementArr.toList)
 
     /** Find setting from RSON statement */
-    def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingStr)
+    def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementArr.toList, settingStr)
     def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
-    def findIntSett(settingStr: String): EMon[Int] = Persist.IntPersist.settingFromStatementList(statementList, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoublePersist.settingFromStatementList(statementList, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementList, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = Persist.IntPersist.settingFromStatementList(statementArr.toList, settingStr)
+    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoublePersist.settingFromStatementList(statementArr.toList, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementArr.toList, settingStr)
   }
 
   implicit class EmonStatementListImplict(eMon: EMon[List[Statement]])
