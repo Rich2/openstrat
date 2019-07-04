@@ -1,5 +1,5 @@
 package ostrat
-package pImplicit
+package pExt
 import collection.immutable.ArraySeq, scala.reflect.ClassTag
 
 class ArrExtensions[A](thisArr: Arr[A])

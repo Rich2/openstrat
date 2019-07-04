@@ -1,8 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pImplicit
+package pExt
 
-class BooleanImplicit(val thisBool : Boolean) extends AnyVal// extends PersistSimple
+class BooleanExtensions(val thisBool : Boolean) extends AnyVal// extends PersistSimple
 {
   /** Folds the Boolean, a safer and more functional alternative to using an if else statement */
   def fold[A](ifTrue: => A, ifFalse: => A): A = if (thisBool) ifTrue else ifFalse

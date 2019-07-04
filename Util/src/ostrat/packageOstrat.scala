@@ -140,17 +140,6 @@ package object ostrat
   def ijSameToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
     ijToMap[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
   
-  /** Extension methods for AnyT */
-  implicit class AnyTImplicit[T](thisT: T)
-  {
-    def *(operand: Int): Multiple[T] = Multiple(thisT, operand) 
-    
-    def nextFromList(list: List[T]): T =
-    { val i: Int = list.indexOf[T](thisT)
-      ife(i >= list.length - 1, list(0), list(i + 1))
-    }
-  }
-
   implicit class ArrayExtension[A](thisMutableArray: Array[A])
   { def toArr: Arr[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
   }
@@ -170,22 +159,26 @@ package object ostrat
     def tupleFold[C](f: (A, B) => C): C = f(thisTuple._1, thisTuple._2)
   }
   
-  import pImplicit._
+  import pExt._
+  implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def arrToArrExtensions[A](thisArr: Arr[A]): ArrExtensions[A] = new ArrExtensions[A](thisArr)
-  implicit def arrayDoubleToImplicit(arr: Array[Double]): ArrayDoubleImplicit = new ArrayDoubleImplicit(arr)
-  implicit def arrayRefToImplict[A <: AnyRef](arr: Array[A]): ArrayImplicit[A] = new pImplicit.ArrayImplicit[A](arr)
-  implicit def booleanToRichImp(b: Boolean): BooleanImplicit = new BooleanImplicit(b)
-  implicit def intToImplicit(i: Int): IntImplicit = new IntImplicit(i)
+  implicit def arrayDoubleToExtensions(arr: Array[Double]): ArrayDoubleExtensions = new ArrayDoubleExtensions(arr)
+  implicit def arrayRefToExtensions[A <: AnyRef](arr: Array[A]): ArrayRefExtensions[A] = new pExt.ArrayRefExtensions[A](arr)
+  implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
+  implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
+  implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
+  implicit def iterableToExtensions[A](iter: Iterable[A]): IterableExtensions[A] = new IterableExtensions[A](iter)
+  implicit def listToExtensions[A](thisList: List[A]): ListExtensions[A] = new ListExtensions[A](thisList)
+
+  implicit def charToExtensions(thisChar: Char): CharExtensions = new CharExtensions(thisChar)
   implicit def longToImplicit(i: Long): LongExtensions = new LongExtensions(i)
-  implicit def doubleToImplicit(d: Double): DoubleImplicit = new DoubleImplicit(d)
-  implicit def stringToImplicit(s: String): StringImplicit = new StringImplicit(s)
-  implicit def listToImplicit[A](thisList: List[A]): ListImplicit[A] = new ListImplicit[A](thisList)
-  implicit def seqToImplicit[A](thisSeq: Seq[A]): SeqImplicit[A] = new SeqImplicit(thisSeq)  
-  implicit def persistTToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): ShowerImplicit[A] = new ShowerImplicit[A](ev, thisVal) 
-  implicit def showTToStringerImplicit[A](thisVal: A)(implicit ev: ShowOnly[A]): ShowerImplicit[A] = new ShowerImplicit[A](ev, thisVal) 
-  implicit def traversableToImplicit[A](iter: Iterable[A]): IterableImplicit[A] = new IterableImplicit[A](iter)  
-  implicit def stringTraverableToImplict(strIter: Iterable[String]): StringIterableImplicit = StringIterableImplicit(strIter)   
-  implicit def stringArrayToStringIterableExtensions(strArray: Array[String]): StringIterableImplicit = StringIterableImplicit(strArray)
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
-  implicit def charToCharExtensions(thisChar: Char): CharExtensions = new CharExtensions(thisChar)
+
+  implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
+  implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: ShowOnly[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
+  implicit def persistTToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
+
+  implicit def stringToExtensions(s: String): StringImplicit = new StringImplicit(s)
+  implicit def stringIterableToExtensions(strIter: Iterable[String]): StringIterableExtensions = StringIterableExtensions(strIter)
+  implicit def stringArrayToExtensions(strArray: Array[String]): StringIterableExtensions = StringIterableExtensions(strArray)
 }

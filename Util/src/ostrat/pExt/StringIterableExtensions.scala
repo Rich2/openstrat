@@ -1,8 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pImplicit
+package pExt
 
-case class StringIterableImplicit(iter: Iterable[String])
+case class StringIterableExtensions(iter: Iterable[String])
 {   
    def strFold(seperatorString: String = ""): String = iter.ifEmpty("", iter.tail.foldLeft(iter.head)(_ + seperatorString + _))
    def strFold2[A](initialAcc2: A, initialString: String = "")(f: (String, A) => (String, A)) =

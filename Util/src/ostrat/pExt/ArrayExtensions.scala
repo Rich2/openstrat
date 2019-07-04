@@ -1,9 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pImplicit
+package pExt
 
 /** Extension methods for Array[Double] class. Brought into scope by the arrayDoubleToImplicit method in package object. */
-class ArrayDoubleImplicit(val thisArray:Array[Double]) extends AnyVal
+class ArrayDoubleExtensions(val thisArray:Array[Double]) extends AnyVal
 { /** Foreach with iterator. */ 
   def iForeach(f: (Int, Double) => Unit, indexStart: Int = 0): Unit =
   { var index = indexStart
@@ -14,7 +14,7 @@ class ArrayDoubleImplicit(val thisArray:Array[Double]) extends AnyVal
 }
 
 /** Extension methods for Array[A] class */
-class ArrayImplicit[A <: AnyRef](val thisArray: Array[A]) extends AnyVal
+class ArrayRefExtensions[A <: AnyRef](val thisArray: Array[A]) extends AnyVal
 { //s def str: String = "Array
   /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the 
   *  tail value */

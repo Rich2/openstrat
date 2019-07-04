@@ -1,8 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pImplicit
+package pExt
 
-class ListImplicit[A](val thisList: List[A]) extends AnyVal
+class ListExtensions[A](val thisList: List[A]) extends AnyVal
 {   
    def ifAppendList[B >: A](b: Boolean, newElems: => List[B]): List[B] = if (b) thisList ::: newElems else thisList    
    def removeFirst(f: A => Boolean): List[A] =
