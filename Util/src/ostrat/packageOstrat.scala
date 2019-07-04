@@ -21,9 +21,12 @@ package object ostrat
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
+  @inline def ife2[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, vElse: => A): A = if (b1) vTrue1 else if (b2) vTrue2 else vElse
+  @inline def ife3[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, b3: Boolean, vTrue3: => A, vElse: => A): A =
+    if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else vElse
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
-  def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None  
+  def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
   def readT[T](implicit ev: Persist[T]): T =
@@ -31,8 +34,7 @@ package object ostrat
     def loop(inp: EMon[T]): T = inp match
     { case Good(t) => t
       case _ =>
-      {
-        println
+      { println
         loop(io.StdIn.readLine ("That was not a single "+ ev.typeStr + ". Please enter " + artStr).asType[T])
       }
     }
