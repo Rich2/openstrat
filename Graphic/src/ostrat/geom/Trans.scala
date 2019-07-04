@@ -10,8 +10,7 @@ trait Transer extends Any
 
 /** The typeclass trait for transforming an object in 2d geometry. */
 trait Trans[T]
-{
-  def trans(obj: T, f: Vec2 => Vec2):  T  
+{ def trans(obj: T, f: Vec2 => Vec2):  T
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
