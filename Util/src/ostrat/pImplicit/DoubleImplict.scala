@@ -63,4 +63,10 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal// extends PersistSim
   
   @inline def sin: Double = math.sin(thisDouble)
   @inline def cos: Double = math.cos(thisDouble)
+
+  def match2[A](f1: Double => Boolean, v1: => A, f2: Double => Boolean, v2: => A): A = if (f1(thisDouble)) v1 else v2
+  def match3[A](f1: Double => Boolean, v1: => A, f2: Double => Boolean, v2: => A, v3: => A): A =
+    if (f1(thisDouble)) v1 else if (f2(thisDouble)) v2 else v3
+
+
 }

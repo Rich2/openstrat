@@ -111,5 +111,9 @@ class IntImplicit(val thisInt: Int) extends AnyVal
   def intToPower(operand: Int): Int = (0 to operand).foldLeft(thisInt)((acc, i) => acc * thisInt)
   @inline def plus1: Int = thisInt + 1
   @inline def minus1: Int = thisInt - 1
+
+  def match2[A](f1: Int => Boolean, v1: => A, f2: Int => Boolean, v2: => A): A = if (f1(thisInt)) v1 else v2
+  def match3[A](f1: Int => Boolean, v1: => A, f2: Int => Boolean, v2: => A, f3: Int => Boolean, v3: => A): A =
+    if (f1(thisInt)) v1 else if (f2(thisInt)) v2 else v3
 } 
    
