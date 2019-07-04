@@ -33,10 +33,9 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   override def xSideMin: Int = xTileMin - 1
   override def xSideMax: Int = xTileMax + 1  
   
-  override def coodIsTile(x: Int, y: Int): Unit = () match
-  { case _ if x %% 2 == 0 & y %% 2 == 0 =>      
-    case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate") 
-  }
+  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
+    x %% 2 == 0 & y %% 2 == 0,
+    x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate")
   
   override def coodIsSide(x: Int, y: Int): Unit = () match
   { case _ if x.isOdd & y.isOdd =>   

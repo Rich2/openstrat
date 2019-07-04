@@ -24,6 +24,10 @@ package object ostrat
   @inline def ife2[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, vElse: => A): A = if (b1) vTrue1 else if (b2) vTrue2 else vElse
   @inline def ife3[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, b3: Boolean, vTrue3: => A, vElse: => A): A =
     if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else vElse
+
+  @inline def ife3Excep[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, b3: Boolean, vTrue3: => A, excepStr: => String): A =
+    if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else throw new Exception(excepStr)
+
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
@@ -76,6 +80,8 @@ package object ostrat
   
   @inline def excep(str: => String): Nothing = throw new Exception(str)
   @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
+  @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
+
   def Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3): Good[(A1, A2, A3)] = Good[(A1, A2, A3)]((a1, a2, a3)) 
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.toString + detail

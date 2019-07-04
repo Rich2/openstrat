@@ -11,7 +11,10 @@ class AnyTypeExtensions[A](thisA: A)
     ife(i >= list.length - 1, list(0), list(i + 1))
   }
 
-  def match2a[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B): B = if (f1(thisA)) v1 else v2
-  def match3a[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B, v3: => B): B =
+  def match2[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B): B = if (f1(thisA)) v1 else v2
+  def match3[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B, v3: => B): B =
     if (f1(thisA)) v1 else if (f2(thisA)) v2 else v3
+
+  def match3Excep[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B, f3: A => Boolean, v3: => B, excepStr: String): B =
+    if (f1(thisA)) v1 else if (f2(thisA)) v2 else if (f3(thisA)) v3 else throw new Exception(excepStr)
 }

@@ -33,13 +33,13 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
    
   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
   
-  override def coodIsTile(x: Int, y: Int): Unit = ifExcep(
-    !(x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2),
+  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
+    x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
     x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")
   
-  override def coodIsSide(x: Int, y: Int): Unit = ifExcep(
-    !( (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0) | (x.isOdd & y.isOdd)),
-      x.toString.commaAppend (y.toString) -- "is an invalid Hexside tile coordinate")
+  override def coodIsSide(x: Int, y: Int): Unit = ifNotExcep(
+    (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0) | (x.isOdd & y.isOdd),
+    x.toString.commaAppend (y.toString) -- "is an invalid Hexside tile coordinate")
   
   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = ife3(
     (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0), (Cood(x -2, y), Cood(x + 2, y)),
@@ -105,12 +105,11 @@ object HexGrid
     }
   }
    
-  @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = () match
-  { case _ if (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3) => upRight
-    case _ if (y.isDivBy4 && x.div4Rem2) || (y.div4Rem2 && x.isDivBy4) => rightSide
-    case _ if (y.div4Rem1 && x.div4Rem3) || (y.div4Rem3 && x.div4Rem1) => downRight
-    case _ => excep("invalid Hex Side coordinate: " + x.toString.commaAppend(y.toString))
-  }
+  @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = ife3Excep(
+    (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3), upRight,
+    (y.isDivBy4 && x.div4Rem2) || (y.div4Rem2 && x.isDivBy4), rightSide,
+    (y.div4Rem1 && x.div4Rem3) || (y.div4Rem3 && x.div4Rem1), downRight,
+    "invalid Hex Side coordinate: " + x.toString.commaAppend(y.toString))
 
   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
   val yDist =  2 / sqrt(3)
