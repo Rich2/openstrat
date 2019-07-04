@@ -47,25 +47,20 @@ class EGrid80km[TileT <: Tile, SideT <: TileSide] (bounds: Array[Int], name: Str
       setLongitude(xSideMin, y - 1, lt2New)      
    }
    
-   override def optTile(x: Int, y: Int): Option[TileT] = () match
-   {
-      case _ if y < yTileMin => None
-      case _ if y > yTileMax => None
-      case _ if x < rowTileXStart(y) => None
-      case _ if x == rowTileXEnd(y) + 4 => rightGrid.map{grid =>
-         val rs: Int = grid.rowTileXStart(y)
-         grid.getTile(rs, y)         
-      }
-      case _ if x > rowTileXEnd(y) => None   
-      case _ => Some(getTile(x, y))
-   }
-   
-   //val xLLLen = (xTileMax - xTileMin + 5) * 2
-  // val yLLLen = yTileMax - yTileMin + 3 
- //  val llArr = new Array[Double](xLLLen * yLLLen)
-   //def xLLInd(x: Int): Int = (x - xTileMin + 2) * 2
-  // def yLLInd(y: Int): Int = y - yTileMin + 1
-  // def llInd(x: Int, y: Int): Int = yLLInd(y) * xLLLen + xLLInd(x)
+   override def optTile(x: Int, y: Int): Option[TileT] = ife5(
+     y < yTileMin, None,
+     y > yTileMax, None,
+     x < rowTileXStart(y), None,
+
+     x == rowTileXEnd(y) + 4,
+     rightGrid.map { grid =>
+        val rs: Int = grid.rowTileXStart(y)
+        grid.getTile(rs, y)
+     },
+
+     x > rowTileXEnd(y), None,
+     Some(getTile(x, y))
+   )
 }
 
 object EGrid80km

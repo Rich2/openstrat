@@ -21,13 +21,25 @@ package object ostrat
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
-  @inline def ife2[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, vElse: => A): A = if (b1) vTrue1 else if (b2) vTrue2 else vElse
-  @inline def ife3[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, b3: Boolean, vTrue3: => A, vElse: => A): A =
+  @inline def ife2[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, vElse: => A): A = if (b1) vTrue1 else if (b2) vTrue2 else vElse
+  @inline def ife3[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, b3: => Boolean, vTrue3: => A, vElse: => A): A =
     if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else vElse
+  @inline def ife4[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, b3: => Boolean, vTrue3: => A, b4: => Boolean, vTrue4: => A, vElse: => A): A =
+    if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else if(b4) vTrue4 else vElse
 
-  @inline def ife3Excep[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, b3: Boolean, vTrue3: => A, excepStr: => String): A =
+  @inline def ife5[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, b3: => Boolean, vTrue3: => A, b4: => Boolean, vTrue4: => A,
+    b5: => Boolean, vTrue5: => A, vElse: => A): A =
+    if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else if(b4) vTrue4 else if(b5) vTrue5 else vElse
+
+  @inline def if2Excep[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, excepStr: => String): A =
+    if (b1) vTrue1 else if (b2) vTrue2 else  throw new Exception(excepStr)
+
+  @inline def if3Excep[A](b1: Boolean, vTrue1: => A, b2: Boolean, vTrue2: => A, b3: Boolean, vTrue3: => A, excepStr: => String): A =
     if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else throw new Exception(excepStr)
 
+  @inline def excep(str: => String): Nothing = throw new Exception(str)
+  @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
+  @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
   def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
   def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
   def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
@@ -77,10 +89,6 @@ package object ostrat
   type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
   /** Product7[Double, Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct7s Array[Double] based collections. */
   type ProdD7 = Product7[Double, Double, Double, Double, Double, Double, Double]
-  
-  @inline def excep(str: => String): Nothing = throw new Exception(str)
-  @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
-  @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
 
   def Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3): Good[(A1, A2, A3)] = Good[(A1, A2, A3)]((a1, a2, a3)) 
   /** Not sure about this method. */

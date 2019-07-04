@@ -33,21 +33,17 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   override def xSideMin: Int = xTileMin - 1
   override def xSideMax: Int = xTileMax + 1  
   
-  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
-    x %% 2 == 0 & y %% 2 == 0,
+  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(x %% 2 == 0 & y %% 2 == 0,
     x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate")
   
-  override def coodIsSide(x: Int, y: Int): Unit = () match
-  { case _ if x.isOdd & y.isOdd =>   
-    case _ => excep(x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")   
-  }
-  
+  override def coodIsSide(x: Int, y: Int): Unit = ifNotExcep(x.isOdd & y.isOdd,
+    x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")
+
   override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 
-  {
-    for {y <- yTileMin to yTileMax by 2
+  { for { y <- yTileMin to yTileMax by 2
       x <- xTileMin.plus1 to xTileMax.minus1 by 2
     } f(x, y)
-    for {y <- yTileMin.plus1 to yTileMax.minus1 by 2
+    for { y <- yTileMin.plus1 to yTileMax.minus1 by 2
       x <- xTileMin to xTileMax by 2
     } f(x, y)
   }
@@ -115,12 +111,10 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   
   override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
   
-  override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = () match
-  {
-    case _ if x.isOdd & y.isEven => (Cood(x - 1, y), Cood(x + 1, y))
-    case _ if x.isEven & y.isOdd => (Cood(x, y - 1), Cood(x, y + 1))
-    case _ => excep("Invalid Square Coordinate")
-  }
+  override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = if2Excep(
+    x.isOdd & y.isEven, (Cood(x - 1, y), Cood(x + 1, y)),
+    x.isEven & y.isOdd, (Cood(x, y - 1), Cood(x, y + 1)),
+    "Invalid Square Coordinate")
  
   /** Warning needs Modification */
   override def adjTileCoodsOfTile(tileCood: Cood): Coods = SquareGrid.adjTileCoodsOfTile(tileCood)

@@ -43,14 +43,8 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: TileSide](val rowBounds: Array
     rowForeachTilesXYAll(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
   }  
 
-  override def optTile(x: Int, y: Int): Option[TileT] = () match
-  {
-    case _ if y < yTileMin => None
-    case _ if y > yTileMax => None
-    case _ if x < rowTileXStart(y) => None
-    case _ if x > rowTileXEnd(y) => None   
-    case _ => Some(getTile(x, y))
-  } 
+  override def optTile(x: Int, y: Int): Option[TileT] =
+    ife(y < yTileMin | y > yTileMax | x < rowTileXStart(y) | x > rowTileXEnd(y), None, Some(getTile(x, y)))
   
   final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }

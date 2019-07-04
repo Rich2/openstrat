@@ -27,12 +27,12 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   def xRotation(rotation: Double): Dist3 =
   { val scalar: Dist = Dist(sqrt(y.metres * y.metres + z.metres * z.metres))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
-    val ang0 = () match
-    { //As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
-      case _ if z.neg && y.neg => atan(y / z) - Pi
-      case _ if z.neg => Pi + atan(y / z) //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
-      case _ => atan(y / z) //This operates on the standard atan range -Pi/2 to pi/2
-    }
+
+    val ang0 = ife2(//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
+      z.neg && y.neg, atan(y / z) - Pi,
+      z.neg,          Pi + atan(y / z), //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
+                      atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
+
     val ang1 = ang0 + rotation
     Dist3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }

@@ -18,18 +18,16 @@ case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) ext
   def isHorizontal: Boolean = yStart == yEnd
   def isVertical: Boolean = xStart == xEnd
   /**Checks whether a forward horizontal ray crosses this polygon side. */
-  def rayIntersection(pt: Vec2): Boolean = () match
-  { case _ if pt.y > yStart & pt.y > yEnd => false //Check if point is above the polygon side, above beg pt and end pt
-    case _ if pt.y < yStart & pt.y < yEnd => false //Check if point is  below the polygon side, below beg pt and end pt
-    case _ if 0.000001 > (yEnd - yStart).abs => false /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
+  def rayIntersection(pt: Vec2): Boolean = ife3(
+    pt.y > yStart & pt.y > yEnd, false, //Check if point is above the polygon side, above beg pt and end pt
+    pt.y < yStart & pt.y < yEnd, false, //Check if point is  below the polygon side, below beg pt and end pt
+    0.000001 > (yEnd - yStart).abs, false, /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
      of the polygon that the point can measured as outside */
-    case _ =>
     { val ptDeltaY: Double = pt.y - yStart
       val deltaX: Double = xEnd - xStart //Not entirely sure what's going on here
       val lineX: Double = xStart + (deltaX * ptDeltaY / (yEnd - yStart)) //
       pt.x > lineX
-    }
-  }
+    })
 
   def angle: Angle = (pEnd - pStart).angle
   def draw(lineWidth: Double, colour: Colour = Black, layer: Int = 0): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour, layer)

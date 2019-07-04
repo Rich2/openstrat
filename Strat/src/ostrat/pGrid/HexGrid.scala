@@ -105,7 +105,7 @@ object HexGrid
     }
   }
    
-  @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = ife3Excep(
+  @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
     (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3), upRight,
     (y.isDivBy4 && x.div4Rem2) || (y.div4Rem2 && x.isDivBy4), rightSide,
     (y.div4Rem1 && x.div4Rem3) || (y.div4Rem3 && x.div4Rem1), downRight,
