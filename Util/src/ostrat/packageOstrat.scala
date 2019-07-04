@@ -74,7 +74,8 @@ package object ostrat
   /** Product7[Double, Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct7s Array[Double] based collections. */
   type ProdD7 = Product7[Double, Double, Double, Double, Double, Double, Double]
   
-  def excep(str: String): Nothing = throw new Exception(str)
+  @inline def excep(str: => String): Nothing = throw new Exception(str)
+  @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
   def Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3): Good[(A1, A2, A3)] = Good[(A1, A2, A3)]((a1, a2, a3)) 
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.toString + detail

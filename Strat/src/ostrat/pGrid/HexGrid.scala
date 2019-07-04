@@ -59,9 +59,9 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
     !(x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2),
     excep(x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate"))
   
-  override def coodIsSide(x: Int, y: Int): Unit = oif(
+  override def coodIsSide(x: Int, y: Int): Unit = ifExcep(
     !( (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0) | (x.isOdd & y.isOdd)),
-      excep (x.toString.commaAppend (y.toString) -- "is an invalid Hexside tile coordinate"))
+      x.toString.commaAppend (y.toString) -- "is an invalid Hexside tile coordinate")
   
   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = ife3(
     (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0), (Cood(x -2, y), Cood(x + 2, y)),

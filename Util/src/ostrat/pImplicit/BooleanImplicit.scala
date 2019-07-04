@@ -4,7 +4,7 @@ package pImplicit
 
 class BooleanImplicit(val thisBool : Boolean) extends AnyVal// extends PersistSimple
 {
-   /** Folds the Boolean, a safer and more functional alternative to using an if else statement */
+  /** Folds the Boolean, a safer and more functional alternative to using an if else statement */
   def fold[A](ifTrue: => A, ifFalse: => A): A = if (thisBool) ifTrue else ifFalse
   /** A safer alternative to using an "if" without an else */
    @inline def ifDo(f:  => Unit): Unit = if(thisBool) f else {}
