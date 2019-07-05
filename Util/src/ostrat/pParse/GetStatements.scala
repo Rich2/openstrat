@@ -12,7 +12,7 @@ object GetStatements
    *  intervening tokens with a Bracket Block. */
   private def fileLoop(rem: Seq[Token], acc: List[BlockMember]): EMonArr[Statement] = rem match
   {
-    case Seq() => statementLoop(acc, Nil, Nil).map(_.toArr)
+    case Seq() => statementLoop(acc, newBuff(), Nil)//.map(_.toArr)
     case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flatMap{pair =>
       val (bracketBlock, remTokens) = pair
       fileLoop(remTokens, acc :+ bracketBlock)               
@@ -33,16 +33,16 @@ object GetStatements
     
     case Seq(bc: BracketClose, tail @ _*) => open.matchingBracket(bc) match
     { case false => bad1(bc, "Unexpected Closing Parenthesis")
-      case true => statementLoop(acc, Nil, Nil).map(g => (open.newBracketBlock(bc, g.toArr), tail))
+      case true => statementLoop(acc, newBuff(), Nil).map(g => (open.newBracketBlock(bc, g.toArr), tail))
     }
     
     case Seq(nbt: BlockMember, tail @ _*) => bracketLoop(tail, acc :+ nbt, open)               
   }      
    
-  private def statementLoop(rem: Seq[BlockMember], acc: List[Statement], subAcc: List[StatementMember]): EMonList[Statement] = rem match
+  private def statementLoop(rem: Seq[BlockMember], acc: Buff[Statement], subAcc: List[StatementMember]): EMonArr[Statement] = rem match
   {
-    case Seq() if subAcc.isEmpty => Good(acc)
-    case Seq () => getStatement(subAcc, nullRef).map(acc :+ _)      
+    case Seq() if subAcc.isEmpty => Good(acc).map(_.toArr)
+    case Seq () => getStatement(subAcc, nullRef).map(acc :+ _).map(_.toArr)
     
     case Seq(h, tail @ _*) => h match
     {
