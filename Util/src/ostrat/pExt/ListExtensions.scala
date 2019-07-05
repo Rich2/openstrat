@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pExt
+import reflect.ClassTag
 
 class ListExtensions[A](val thisList: List[A]) extends AnyVal
 {   
@@ -20,5 +21,11 @@ class ListExtensions[A](val thisList: List[A]) extends AnyVal
    
    /** Replaces all instances of the old value with the new value */
    def replace(oldValue: A, newValue: A): List[A] = thisList map { it => if (it == oldValue) newValue else it }
-   
+
+   def toArr(implicit ct: ClassTag[A]): Arr[A] =
+   {
+      val buff: Buff[A] = newBuff()
+      thisList.foreach{buff += _}
+      buff.toArr
+   }
 }

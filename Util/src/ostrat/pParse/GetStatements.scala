@@ -6,13 +6,13 @@ package pParse
 object GetStatements
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
-  def apply(tokens: Seq[Token]): EMonList[Statement] = fileLoop(tokens, Nil)
+  def apply(tokens: Seq[Token]): EMonArr[Statement] = fileLoop(tokens, Nil)
    
   /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the 
    *  intervening tokens with a Bracket Block. */
-  private def fileLoop(rem: Seq[Token], acc: List[BlockMember]): EMonList[Statement] = rem match
+  private def fileLoop(rem: Seq[Token], acc: List[BlockMember]): EMonArr[Statement] = rem match
   {
-    case Seq() => statementLoop(acc, Nil, Nil)
+    case Seq() => statementLoop(acc, Nil, Nil).map(_.toArr)
     case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flatMap{pair =>
       val (bracketBlock, remTokens) = pair
       fileLoop(remTokens, acc :+ bracketBlock)               

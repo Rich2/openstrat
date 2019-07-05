@@ -37,7 +37,7 @@ case class ClausesExpr(exprs: Arr[Expr]) extends ExprCompound
   override def exprName: String = "Claused Expr"
 }
 
-case class UnimplementedExpr(bMems: Seq[BlockMember]) extends ExprCompound
+case class UnimplementedExpr(bMems: Arr[BlockMember]) extends ExprCompound
 { def startMem = bMems.head
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
