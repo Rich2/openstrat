@@ -173,7 +173,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   
   final def tilesOptionDispAll(f: TileT => Option[GraphicElem]): GraphicElems = 
   {
-    val acc: Buff[GraphicElem] = newBuff()
+    val acc: Buff[GraphicElem] = Buff()
     foreachTileAll(t => f(t) match
       {
       case None =>
@@ -184,7 +184,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   
   final def tilesOptionFlattenDispAll[A](f1: TileT => Option[A])(f2: (TileT, A) => GraphicElems): GraphicElems = 
   {
-    val acc: Buff[GraphicElem] = newBuff()
+    val acc: Buff[GraphicElem] = Buff()
     foreachTileAll(t => f1(t) match
       {
       case None =>

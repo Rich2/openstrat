@@ -6,7 +6,7 @@ class ArrExtensions[A](thisArr: Arr[A])
 {
   def mapWith1[B, C](initC: C)(f: (A, C) => (B, C))(implicit ct: ClassTag[B]): Arr[B] =
   {
-    val accB: Buff[B] = newBuff()
+    val accB: Buff[B] = Buff()
     var accC: C = initC
     thisArr.foreach { a =>
       val (newB, newC) = f(a, accC)

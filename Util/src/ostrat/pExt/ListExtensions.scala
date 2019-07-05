@@ -24,7 +24,7 @@ class ListExtensions[A](val thisList: List[A]) extends AnyVal
 
    def toArr(implicit ct: ClassTag[A]): Arr[A] =
    {
-      val buff: Buff[A] = newBuff()
+      val buff: Buff[A] = Buff()
       thisList.foreach{buff += _}
       buff.toArr
    }

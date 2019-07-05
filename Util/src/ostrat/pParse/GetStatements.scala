@@ -12,7 +12,7 @@ object GetStatements
    *  intervening tokens with a Bracket Block. */
   private def fileLoop(rem: Seq[Token], acc: List[BlockMember]): EMonArr[Statement] = rem match
   {
-    case Seq() => statementLoop(acc, newBuff(), Nil)//.map(_.toArr)
+    case Seq() => statementLoop(acc, Buff(), Nil)//.map(_.toArr)
     case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flatMap{pair =>
       val (bracketBlock, remTokens) = pair
       fileLoop(remTokens, acc :+ bracketBlock)               
@@ -33,7 +33,7 @@ object GetStatements
     
     case Seq(bc: BracketClose, tail @ _*) => open.matchingBracket(bc) match
     { case false => bad1(bc, "Unexpected Closing Parenthesis")
-      case true => statementLoop(acc, newBuff(), Nil).map(g => (open.newBracketBlock(bc, g.toArr), tail))
+      case true => statementLoop(acc, Buff(), Nil).map(g => (open.newBracketBlock(bc, g.toArr), tail))
     }
     
     case Seq(nbt: BlockMember, tail @ _*) => bracketLoop(tail, acc :+ nbt, open)               
@@ -64,33 +64,33 @@ object GetStatements
       case (ct: CommaToken) :: tail => getExpr(subAcc).flatMap(g => loop(tail, acc :+ Clause(g , Opt(ct)), Nil))
       case (em: ExprMember) :: tail => loop(tail, acc, subAcc :+ em)
     }
-    loop(statement, newBuff(), Nil)
+    loop(statement, Buff(), Nil)
   }
    
   private def getExpr(seg: List[ExprMember]): EMon[Expr] = 
   {
-    def loop(rem: List[ExprMember], acc: List[ExprMember]): EMon[Expr] = rem match
+    def loop(rem: List[ExprMember], acc: Buff[ExprMember]): EMon[Expr] = rem match
     {
-      case Nil => getBlocks(acc)
+      case Nil => getBlocks(acc.toArr)
       case (at: AsignToken) :: tail =>
       {
-        val eLs = getBlocks(acc)
-        val eRs = loop(tail, Nil)
+        val eLs = getBlocks(acc.toArr)
+        val eRs = loop(tail, Buff())
         eLs.map2[Expr, Expr](eRs, (ls, rs) => AsignExpr(at, ls, rs))
       }
       case h :: tail => loop(tail, acc :+ h)
     }
-    loop(seg, Nil)
+    loop(seg, Buff())
   }
   
-  private def getBlocks(seg: List[ExprMember]): EMon[Expr] = sortBlocks(seg, Nil).flatMap {
+  private def getBlocks(seg: Arr[ExprMember]): EMon[Expr] = sortBlocks(seg.toList, Buff()).flatMap {
     case Seq(e: Expr) => Good(e)      
     case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString) 
   }
    
-  private def sortBlocks(rem: List[ExprMember], acc: List[TokenOrBlock]): EMon[List[TokenOrBlock]] = rem match
+  private def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
   {
-    case Nil => prefixPlus(acc, Nil)
+    case Nil => prefixPlus(acc.toList, Buff())
     case (at: AlphaToken) :: (bb: BracketBlock) :: t2 =>
     {//typedSpan needs removal */
       val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
@@ -99,9 +99,9 @@ object GetStatements
     case h :: tail => sortBlocks(tail, acc :+ h)
   }
       
-  private def prefixPlus(rem: List[TokenOrBlock], acc: List[TokenOrBlock]): EMon[List[TokenOrBlock]] = rem match
+  private def prefixPlus(rem: List[TokenOrBlock], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
   {
-    case Nil => Good(acc)
+    case Nil => Good(acc).map(_.toArr)
     case (pp: PlusPreToken) :: (right: Expr) :: tail => prefixPlus(tail, acc :+ PreOpExpr(pp, right))
     case (pp: PlusPreToken) :: _ => bad1(pp, "Prefix operator not fillowed by expression")
     case h :: tail => prefixPlus(tail, acc :+ h)
