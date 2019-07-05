@@ -8,7 +8,7 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
   var focus: LatLong = LatLong.deg(50, 0)   
   /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */
   var scale: Dist =   15500.km / mapPanelDiameter
-  def scaleMin: Dist = 400.km / mapPanelDiameter 
+  def scaleMin: Dist = 180.km / mapPanelDiameter
   def scaleMax: Dist = 17000.km / mapPanelDiameter
   /** Km / Radian Earth/s Circumference divided by 2 Pi */
   //val kmPerRadian = 40075.0 / Pi2
