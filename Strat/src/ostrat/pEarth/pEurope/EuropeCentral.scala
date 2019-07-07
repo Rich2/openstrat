@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pPts
+package pEurope
 import geom._, Terrain._
 
 object Germania extends Area2("Germania", 50.50 ll 11.11, plain)

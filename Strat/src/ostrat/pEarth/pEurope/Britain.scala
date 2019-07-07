@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pPts
+package pEurope
 import geom._, Terrain._
 
 object Scotland extends Area2("Scotland", 56.82 ll -4.07, hills)

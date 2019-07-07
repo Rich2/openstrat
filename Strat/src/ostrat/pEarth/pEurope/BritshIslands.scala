@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pPts
+package pEurope
 import geom._, Terrain._
 
 object OuterHebrides extends Area2("OuterHebrides", 57.83 ll -6.09, plain)

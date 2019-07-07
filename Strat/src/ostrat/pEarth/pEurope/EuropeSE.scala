@@ -1,10 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pPts
-import geom._, Terrain._
+package pEurope
+import ostrat.geom._, Terrain._
 
- object Balkans extends Area2("Balkans", 43.9 ll 22.1, plain)
+object Balkans extends Area2("Balkans", 43.9 ll 22.1, plain)
 {
    val odessa = 46.48 ll 30.74
    val burgas = 42.51 ll 27.58

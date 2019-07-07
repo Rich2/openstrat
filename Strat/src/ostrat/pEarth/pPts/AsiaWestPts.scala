@@ -2,7 +2,10 @@
 package ostrat
 package pEarth
 package pPts
-import geom._, LatLong._, Terrain._
+import geom._
+import LatLong._
+import Terrain._
+import ostrat.pEarth.pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
 
 object RusNorth extends Area2("NRus", 61 ll 54, taiga)
 {

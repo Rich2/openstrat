@@ -1,7 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import pGrid._, reflect.ClassTag
+import ostrat.pEarth.pEurope.{EuropeEast, EuropeEastGrid, EuropeWest, EuropeWestGrid}
+import pGrid._
+
+import reflect.ClassTag
 
 /** An all world map, parametised by Tile and Tile side types. */
 class EarthAllMap[TileT <: Tile, SideT <: TileSide](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(

@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-package pPts
+package pEurope
 import geom._, Terrain._
 
 object Frankia extends Area2("Frankia", 47.28 ll 1.93, plain)
