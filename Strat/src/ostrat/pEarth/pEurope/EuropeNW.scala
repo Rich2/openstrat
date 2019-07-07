@@ -4,17 +4,16 @@ package pEarth
 package pEurope
 import geom._, pGrid._, Terrain._, reflect.ClassTag
 
-object EuropeWest extends Area1("EuropeWest", 20 ll 0)  
+object EuropeNW extends Area1("EuropeNW", 20 ll 0)
 {//bottom = 45.59N * 2 - 46.21 = 44.97
   //override def fill = false
-  override val a2Seq: Arr[Area2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen,
-     Frankia, FranceSouth, Iberia, Jutland, Zealand,  Germania,
-     Alpsland, Sardina, Italy, Corsica, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
+  override val a2Seq: Arr[Area2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
+     Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
    //override def iTiles: Seq[ITile] = Seq()//,CBritain, NBritain ,SBritain, Denmark, NSea, BalticSea)
    //override def iSides: Seq[ISide] = iTiles.flatMap(_.ownISides)
 }
 
-object EuropeWestGrid extends EGridMaker
+object EuropeNWGrid extends EGridMaker
 {
   def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT],
     evSide: ClassTag[SideT]): EGrid80km[TileT, SideT] =

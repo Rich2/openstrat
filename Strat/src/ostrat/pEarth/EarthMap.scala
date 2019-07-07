@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import ostrat.pEarth.pEurope.{EuropeEast, EuropeEastGrid, EuropeWest, EuropeWestGrid}
+
 import pGrid._
 
 import reflect.ClassTag
@@ -38,12 +38,12 @@ trait EarthAreas[TileT <: ETile, SideT <: TileSide]
    def tops: Arr[Area1]
 }
 
-object EarthAreas// extends AreaTop
+object EarthAreas
 {
-   import pPts._
-   val oldWorld: Arr[Area1] = Arr(EuropeWest, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
+   import pPts._, pEurope._
+   val oldWorld: Arr[Area1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
    val newWorld: Arr[Area1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
-   val grids: Arr[EGridMaker] = Arr(EuropeWestGrid, EuropeEastGrid)
+   val grids: Arr[EGridMaker] = Arr(EuropeNWGrid, EuropeEastGrid)
    //val otherTops = oldWorld ::: newWorld
    def allTops =  oldWorld ++ newWorld// otherTops
 }
