@@ -17,13 +17,21 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
   var pScale: Double = scaleAlignMin  
   var focus: Vec2 = grid.cen  
   override def mapObjs =
-  { val tiles = tilesFlatMapAll{t => Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)) }
-    val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
+  { val tiles = tilesFlatMapAll{t =>
+
+    val op = t.oPlayer.map{p =>
       val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
       val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
       ol.toArr ++ rect
     }
-    tiles ++ units ++ sidesDrawAll()
+    Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)).optAppends(op)
+  }
+    /*val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
+      val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
+      val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
+      ol.toArr ++ rect
+    }*/
+    tiles /*++ units*/ ++ sidesDrawAll()
   }
   
   //optional members  

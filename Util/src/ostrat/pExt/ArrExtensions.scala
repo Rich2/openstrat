@@ -30,4 +30,6 @@ class ArrExtensions[A](thisArr: Arr[A])
   def replace(oldValue: A, newValue: A): Arr[A] = thisArr.map { it => if (it == oldValue) newValue else it }
 
   def ifAppendArr[B >: A](b: Boolean, newElems: => Arr[B]): Arr[B] = ife(b, thisArr ++ newElems, thisArr)
+  def optAppend[B >: A](optElem: Option[B]): Arr[B] = optElem.fold[Arr[B]](thisArr)(b => thisArr :+ b)
+  def optAppends[B >: A](optElems: Option[Arr[B]]): Arr[B] = optElems.fold[Arr[B]](thisArr)(bs => thisArr ++ bs)
 }
