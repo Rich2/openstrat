@@ -5,7 +5,7 @@ import geom._, pGrid._
 package object pEarth
 {
    /** The North-South divide between Area1s and Grids at 45 degrees north approx. */
-   val divN45 = 44.97.north
+   val divN45 = 45.27369792435918.north
    //import HexGrid._
    /** Returns a function for a specific EGrid to convert from gridVec to Latlong */
    def fVec2ToLatLongReg(refLong: Longitude, scale: Dist, xOffset: Int, yOffset: Int = 0): Vec2 => LatLong = inp =>

@@ -5,8 +5,8 @@ import geom._, Terrain._
 
 object Frankia extends Area2("Frankia", 47.28 ll 1.93, plain)
 {
-  val southWest = divN45 ll -1.21
-  val southEast = divN45 ll 5.16
+  val southWest = divN45 ll -1.29
+  val southEast = divN45 ll 5.53
 
   val sLAmelie = 45.47 ll -1.15
   val royan = 45.61 ll -1.04

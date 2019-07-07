@@ -6,7 +6,7 @@ import geom._, pGrid._, reflect.ClassTag
 /** 80km hexs. deltaX in HexCood 1 = 20km */   
 class EGrid80km[TileT <: Tile, SideT <: TileSide] (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
       xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
-   EGrid[TileT, SideT](bounds, name, cenLong, EGrid80km.scale, xOffset, 300, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+   EGrid[TileT, SideT](bounds, name, cenLong, EGrid80km.scale, xOffset, EGrid80km.yOffset, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {
    foreachTileRowAll{y => 
       val pair = EGrid80km.tileRowMaxX(y, xOffset)
@@ -64,43 +64,44 @@ class EGrid80km[TileT <: Tile, SideT <: TileSide] (bounds: Array[Int], name: Str
 }
 
 object EGrid80km
-{
-   val scale = 20.km
-   import pGrid._
-   def  coodToLatLong0(inp: Cood): LatLong =
-   {
-      val adj: Vec2 = HexGrid.coodToVec2(inp.subXY(0, 300))      
-      val d2: Dist2 = adj * scale
-      val lat: Double = d2.y / EarthPolarRadius         
-      val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-      LatLong(lat, longDelta)
-   }
-   
-   def xDelta(y: Int, x: Int): Double = coodToLatLong0(Cood(x, y)).longDegs
-   def tileRowMaxX(y: Int, xOffset: Int = 0): (Int, Int) =
-   {
-      val startX: Int = ife(y %% 4 == 0, 0, 2)
-      val hexDelta: Double = xDelta(y, 4)       
-      val margin = 15 - hexDelta
-      def loop(xAcc: Int): (Int, Int) =
-      {
-         val newPt = xDelta(y, xAcc)
-         val overlapRatio = (newPt - margin) / hexDelta
-         newPt match
-         {
-            case r if r < margin => loop(xAcc + 4)
-            //case r if overlapRatio < 0.2 => (-xAcc, xAcc + 4)
-            case r if overlapRatio < 0.5 => (-xAcc, xAcc)
-            case r => (4 - xAcc, xAcc)
-         }
-      }
-      val (neg, pos) = loop(startX)
-      (neg + xOffset , pos + xOffset)      
-   }   
+{ val scale = 20.km
+  val yOffset = 300
 
-   def getBounds(xOffset: Int, yTileMin: Int, yTileMax: Int): Array[Int] =
-   {
-      
+  def  coodToLatLong0(inp: Cood): LatLong =
+  { val adj: Vec2 = HexGrid.coodToVec2(inp.subXY(0, 300))
+     val d2: Dist2 = adj * scale
+     val lat: Double = d2.y / EarthPolarRadius
+     val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
+     LatLong(lat, longDelta)
+  }
+
+  def yToLatDegs(y: Int): Double = ((y - yOffset) * HexGrid.yRatio * scale / EarthPolarRadius).radiansToDegrees
+   
+  def xDelta(y: Int, x: Int): Double = coodToLatLong0(Cood(x, y)).longDegs
+
+  def tileRowMaxX(y: Int, xOffset: Int = 0): (Int, Int) =
+  {
+    val startX: Int = ife(y %% 4 == 0, 0, 2)
+    val hexDelta: Double = xDelta(y, 4)
+    val margin = 15 - hexDelta
+
+    def loop(xAcc: Int): (Int, Int) =
+    {
+      val newPt = xDelta(y, xAcc)
+      val overlapRatio = (newPt - margin) / hexDelta
+      newPt match
+      { case r if r < margin => loop(xAcc + 4)
+        //case r if overlapRatio < 0.2 => (-xAcc, xAcc + 4)
+        case r if overlapRatio < 0.5 => (-xAcc, xAcc)
+        case r => (4 - xAcc, xAcc)
+      }
+    }
+    val (neg, pos) = loop(startX)
+    (neg + xOffset , pos + xOffset)
+  }
+
+  def getBounds(xOffset: Int, yTileMin: Int, yTileMax: Int): Array[Int] =
+  {
       val bounds = new Array[Int]((yTileMax - yTileMin + 1) * 2)
       (yTileMin to yTileMax by 2).foreach{ y =>
          val p = (y - 446) * 2
@@ -114,12 +115,12 @@ object EGrid80km
 
 object E80Empty extends EGridMaker 
 {
-   def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-       evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
-   EGrid80km[TileT, SideT] =
+  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT,
+      evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
+  EGrid80km[TileT, SideT] =
       new EGrid80km[TileT, SideT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0, turnNum = 0)
       
-   //def rowDelta(y: Int): Double = ???  
+  //def rowDelta(y: Int): Double = ???
 }
 
 class EGFarNorth[TileT <: Tile, SideT <: TileSide](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
@@ -132,7 +133,7 @@ class EGFarNorth[TileT <: Tile, SideT <: TileSide](name: String, cenLong: Longit
 
 object EGFarNorth
 {
-   def getBounds(xOffset: Int): Array[Int] = EGrid80km.getBounds(xOffset, 446, 540)
+  def getBounds(xOffset: Int): Array[Int] = EGrid80km.getBounds(xOffset, 446, 540)
       
  }
 
@@ -142,5 +143,5 @@ class EGNorth[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], name: String
          
 object EGNearNorth
 {
-   def getBounds(xOffset: Int): Array[Int] = EGrid80km.getBounds(xOffset, 300, 444)
+  def getBounds(xOffset: Int): Array[Int] = EGrid80km.getBounds(xOffset, 300, 444)
 }

@@ -4,8 +4,9 @@ package pEarth
 package pEurope
 import geom._, pGrid._, Terrain._, reflect.ClassTag
 
+/** 44.97N, 15 East */
 object EuropeNW extends Area1("EuropeNW", 20 ll 0)
-{//bottom = 45.59N * 2 - 46.21 = 44.97
+{//bottom = 45.59 - (46.21 - 45.59) / 2 = 44.97
   //override def fill = false
   override val a2Seq: Arr[Area2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
      Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
