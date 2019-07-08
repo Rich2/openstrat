@@ -55,8 +55,10 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
     { val newGrid = game.newTurn(grid.getMoves)
       new UnusSetGui(canv, newGrid, game)
     }
-  val bTurn = clickButton("T" -- grid.turnNum.str, turnCmd)   
-  override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)   
+  def saveCmd: MB0 = mb => deb("Save not implemented yet")
+  val bTurn = clickButton("T" -- grid.turnNum.str, turnCmd)
+  val bSave = clickButton("S", saveCmd)
+  override def eTop(): Unit = reTop(guButs :+ bTurn :+ bSave :+ status)
   mapPanel.backColour = Colour.Wheat
   rePanels
 }
