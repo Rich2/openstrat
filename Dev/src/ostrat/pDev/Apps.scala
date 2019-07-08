@@ -22,7 +22,7 @@ object Apps
       (9, (pGames.p305.BC305Gui(_, pGames.p305.Bc1), "BC 305")),
       (10, (pGames.pCard.BlackJackGui(_), "ScalaFx BlackJack")),
       (11, (new pGames.pChess.DraughtsGui(_), "Draughts")),
-      (12, (new pGames.pUnus.UnusGui(_, pGames.pUnus.Unus1()), "Simplest Game")),
+      (12, (new pGames.pSimp.UnusGui(_, pGames.pSimp.Simp1()), "Simplest Game")),
       
       (20, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
       (21, (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),

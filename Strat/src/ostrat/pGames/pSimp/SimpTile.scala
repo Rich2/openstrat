@@ -1,9 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames.pUnus
+package pGames.pSimp
 import pGrid._
 
-/** A very Simple Tile for UnusGame. */
+/** A very Simple Tile for Simplicissima. */
 case class UTile(x: Int, y: Int, oPlayer: Option[MPlayer]) extends Tile
 
 object UTile

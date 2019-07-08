@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 
-/** This package is the beginnings of a grand strategy development game starting in 1783. */
+/** This pSimp is the beginnings of a grand strategy development game starting in 1783. */
 package object p1783
 {
   

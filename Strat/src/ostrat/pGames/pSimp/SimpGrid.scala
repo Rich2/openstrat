@@ -1,22 +1,22 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames.pUnus
+package pGames.pSimp
 import pGrid._ 
 
-class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
+class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
   def getMoves: List[Move] = this.tilesMapOptionListAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
-  def baseCopy: UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+  def baseCopy: SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
   
-  def copy: UnusGrid =
+  def copy: SimpGrid =
   {
     val ng = baseCopy
     foreachTilesXYAll{(x, y) => ng.setTile(x, y, getTile(x, y))}
     ng
   }
   
-  def resolveTurn(moves: List[Move]): UnusGrid = 
+  def resolveTurn(moves: List[Move]): SimpGrid =
   {    
     val medGrid = new Array[UTileInter](arrLen)
     foreachTilesXYAll{(x, y) =>
@@ -26,7 +26,7 @@ class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turn
     moves.foreach { m =>
       if (this.isTileCoodAdjTileCood(m.sCood, m.cood)) medGrid(coodToInd(m.cood)).potentialPlayers ::= m.mPlayer.player
     }
-    val newGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum + 1)
+    val newGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum + 1)
     newGrid.setTilesAll(None)    
     this.foreachTileAll(tile => tile.oPlayer.foreach(mp => moves.find(_.mPlayer == mp) match
       {
@@ -43,11 +43,11 @@ class UnusGrid (xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turn
   }
 }
 
-object UnusGrid
+object SimpGrid
 {
-  def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): UnusGrid = new UnusGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
-  implicit val showUnusGrid: ShowOnly[UnusGrid] =
-    new Show4Only[Int, Int, Int, Int, UnusGrid]("UnusGrid", ug => (ug.xTileMin, ug.xTileMax, ug.yTileMin, ug.yTileMax))
+  def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
+  implicit val showUnusGrid: ShowOnly[SimpGrid] =
+    new Show4Only[Int, Int, Int, Int, SimpGrid]("SimpGrid", ug => (ug.xTileMin, ug.xTileMax, ug.yTileMin, ug.yTileMax))
 
 }
 

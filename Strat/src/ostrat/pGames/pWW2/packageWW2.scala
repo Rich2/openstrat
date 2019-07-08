@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 
-/** This package is the beginnings of a WWII grand strategy game. */
+/** This pSimp is the beginnings of a WWII grand strategy game. */
 package object pWW2
 {   
   

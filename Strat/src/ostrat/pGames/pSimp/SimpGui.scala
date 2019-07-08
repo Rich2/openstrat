@@ -1,17 +1,17 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames.pUnus
+package pGames.pSimp
 import geom._, pCanv._, pGrid._
 
 /** Main application for Unus Game. */
-class UnusGui(canv: CanvasPlatform, grid: UnusGrid)
+class UnusGui(canv: CanvasPlatform, grid: SimpGrid)
 {
-  val game = new UnusGame(grid)
+  val game = new Simplicissima(grid)
   new UnusSetGui(canv, grid, game)
 }
 
 /** This needs tidying up. */
-class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGame) extends TileGridGui[UTile, SideBare, UnusGrid]("Unus Game")
+class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplicissima) extends TileGridGui[UTile, SideBare, SimpGrid]("Unus Game")
 {
   //Required members
   var pScale: Double = scaleAlignMin  
@@ -26,16 +26,9 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
     }
     Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)).optAppends(op)
   }
-    /*val units =  grid.tilesOptionFlattenDispAll(_.oPlayer){(t, p) =>
-      val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
-      val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour, -1))
-      ol.toArr ++ rect
-    }*/
-    tiles /*++ units*/ ++ sidesDrawAll()
+    tiles ++ sidesDrawAll()
   }
-  
-  //optional members  
-  
+
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
@@ -45,32 +38,21 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: UnusGrid, val game: UnusGam
     }
     
     case (RightButton, Arr(mp : MPlayer), Arr(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
-      {        
-        statusText = mp.toString -- "move to" -- moveTile.cood.str
+      { statusText = mp.toString -- "move to" -- moveTile.cood.str
         val stCood = mp.cood
         val newMP = mp.copy(move = Some(moveTile.cood))
         grid.fSetTile(stCood, Some(newMP))
         rePanels
       }
     case (RightButton, Arr(mp : MPlayer), Arr(moveTile: UTile)) =>
-      {        
-        statusText = mp.toString -- "can not move to" -- moveTile.cood.str
+      { statusText = mp.toString -- "can not move to" -- moveTile.cood.str
         eTop()
       }
-//      scen.zPath(squad.cood, newTile.cood).foreach{l =>
-//      squad.action = Move(Coods.fromSeq(l))
-//      repaintMap
-//    }
-//    
-//    case (MiddleButton, List(squad : Squad), List(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
-//    
-//    case (RightButton, List(squad : Squad), List(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
-    
+
     case _ => deb("Other" -- clickList.toString)
   }   
   def turnCmd: MB0 = mb =>
-    {
-      val newGrid = game.newTurn(grid.getMoves)
+    { val newGrid = game.newTurn(grid.getMoves)
       new UnusSetGui(canv, newGrid, game)
     }
   val bTurn = clickButton("T" -- grid.turnNum.str, turnCmd)   
