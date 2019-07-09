@@ -84,8 +84,9 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Seq[A]](ev
 
 class PersistVectorImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Vector[A]](ev)
 {
-  override def showSemi(thisSeq: Vector[A]): String = thisSeq.map(ev.showComma(_)).semiFold
-  override def showComma(thisSeq: Vector[A]): String = thisSeq.map(ev.show(_)).commaFold
+  override def showSemi(thisVector: Vector[A]): String = thisVector.map(ev.showComma(_)).semiFold
+  override def showComma(thisVector: Vector[A]): String =
+    ife (thisVector.length == 1, ev.show(thisVector(0)) + ",", thisVector.map(ev.show(_)).commaFold)
  
   override def fromExpr(expr: Expr): EMon[Vector[A]] = fromExprLike(expr).map(_.toVector)
 //      override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = clauses.eMonMap (cl => ev.fromExpr(cl.expr))

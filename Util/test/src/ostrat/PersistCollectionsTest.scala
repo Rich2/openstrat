@@ -42,5 +42,10 @@ object PersistCollectionsTest  extends TestSuite
     {
       a1.str ==> a1Res
     }
+
+    'Arr -
+    {
+      Arr(-1, -2, -3).str ==> """Seq[Int](-1; -2; -3)"""
+    }
   }
 }

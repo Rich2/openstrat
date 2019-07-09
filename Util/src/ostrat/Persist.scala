@@ -109,6 +109,16 @@ object Persist
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
+  
+  implicit val IntPersist: Persist[Int] = new PersistSimple[Int]("Int")
+  { def show(obj: Int): String = obj.toString
+    override def fromExpr(expr: Expr): EMon[Int] = expr match      
+    { case IntToken(_, _, i) => Good(i)
+      case PreOpExpr(op, IntToken(_, _, i)) if op.str == "+" => Good(i)
+      case PreOpExpr(op, IntToken(_, _, i)) if op.str == "-" => Good(-i)
+      case  _ => expr.exprParseErr[Int]
+    }
+  }
 
   implicit val ArrIntPersistImplicit: Persist[Arr[Int]] = new PersistSeqLike[Int, Arr[Int]](Persist.IntPersist)
   {
@@ -122,16 +132,6 @@ object Persist
       case AlphaBracketExpr(AlphaToken(_, "Seq"), Arr(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
         sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArr)
       case e => bad1(expr, "Unknown Exoression for Seq")
-    }
-  }
-  
-  implicit val IntPersist: Persist[Int] = new PersistSimple[Int]("Int")
-  { def show(obj: Int): String = obj.toString
-    override def fromExpr(expr: Expr): EMon[Int] = expr match      
-    { case IntToken(_, _, i) => Good(i)
-      case PreOpExpr(op, IntToken(_, _, i)) if op.str == "+" => Good(i)
-      case PreOpExpr(op, IntToken(_, _, i)) if op.str == "-" => Good(-i)
-      case  _ => expr.exprParseErr[Int]
     }
   }
   

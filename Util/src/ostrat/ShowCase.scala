@@ -60,9 +60,10 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A
   ShowCase[R]
 {
   final override def showMems = Arr(ev1, ev2, ev3, ev4)
+
   override def showSemi(obj: R): String = {
     val (p1, p2, p3, p4) = fParam(obj)
-    ev1.show(p1).semicolonAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4))
+    ev1.showComma(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4))
   }
 
   final override def showComma(obj: R): String =
