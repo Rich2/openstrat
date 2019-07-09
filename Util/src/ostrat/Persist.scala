@@ -55,9 +55,7 @@ object Persist
       case _ => ???// expr.exprParseErr[A](this)
     }
   }
-  
-  implicit def seqToPersistDirect[A](thisSeq: Seq[A])(implicit ev: Persist[A]): PersistSeqDirect[A] = new PersistSeqDirect[A](thisSeq, ev)
-    
+
   implicit def someToPersist[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
   {     
     override def typeStr: String = "Some" + ev.typeStr.enSquare
