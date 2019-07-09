@@ -17,7 +17,8 @@ abstract class Show1[A1, R](val typeStr: String, val fParam: R => (A1))(implicit
 class Show1Only[A1, R](typeStr: String, fParam: R => A1)(implicit ev1: Persist[A1]) extends Show1[A1, R](typeStr,fParam) with ShowOnly[R]
 
 /** Show type class for 2 parameter case classes. */
-abstract class Show2[A1, A2, R](val typeStr: String, val fParam: R => (A1, A2))(implicit ev1: Show[A1], ev2: Show[A2]) extends ShowCase[R]//(typeStr)
+class Show2[A1, A2, R](val typeStr: String, val fParam: R => (A1, A2), opt2: Option[A2] = None, opt1: Option[A1] = None)(
+  implicit ev1: Show[A1], ev2: Show[A2]) extends ShowCase[R]
 { final override def showMems: Arr[Show[_]] = Arr(ev1, ev2)
 
   override def showSemi(obj: R): String =
@@ -31,12 +32,12 @@ abstract class Show2[A1, A2, R](val typeStr: String, val fParam: R => (A1, A2))(
   }
 }
 
-class Show2Only[A1, A2, R](typeStr: String, fParam: R => (A1, A2))(implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr,
-  fParam) with ShowOnly[R]
+class Show2Only[A1, A2, R](typeStr: String, fParam: R => (A1, A2), opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1],
+  ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam, opt2, opt1) with ShowOnly[R]
 
 /** Show type class for 3 parameter case classes. */
-abstract class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A2, A3), opt3: Option[A3] = None, opt2: Option[A2] = None,
-    opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends ShowCase[R]//(typeStr)
+class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A2, A3), opt3: Option[A3] = None, opt2: Option[A2] = None,
+    opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends ShowCase[R]
 { override def showMems: Arr[Show[_]] = Arr(ev1, ev2, ev3)
   
   final override def showSemi(obj: R): String =
@@ -50,12 +51,13 @@ abstract class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A
   }
 }
 
-class Show3Only[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3))(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends
-  Show3[A1, A2, A3, R](typeStr, fParam) with ShowOnly[R]
+class Show3Only[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+  implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr, fParam, opt3, opt2, opt1) with ShowOnly[R]
 
 /** Show type class for 4 parameter case classes. */
-abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4))(implicit ev1: Persist[A1], ev2: Persist[A2],
-  ev3: Persist[A3], ev4: Persist[A4]) extends ShowCase[R]//(typeStr)
+abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4), opt4: Option[A4] = None, opt3: Option[A3] = None,
+  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends
+  ShowCase[R]
 {
   final override def showMems = Arr(ev1, ev2, ev3, ev4)
   override def showSemi(obj: R): String = {
@@ -69,5 +71,6 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A
   }
 }
 
-class Show4Only[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4))(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-  ev4: Persist[A4]) extends Show4[A1, A2, A3, A4, R](typeStr, fParam) with ShowOnly[R]
+class Show4Only[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), opt4: Option[A4] = None, opt3: Option[A3] = None,
+  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
+  ev4: Persist[A4]) extends Show4[A1, A2, A3, A4, R](typeStr, fParam, opt4, opt3, opt2, opt1) with ShowOnly[R]

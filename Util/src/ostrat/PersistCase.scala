@@ -30,7 +30,7 @@ class PersistD1[R](typeStr: String, fParam: R => Double, newT: Double => R) exte
 
 /** Persistence class for 2 parameter case classes. */ 
 class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-  implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam) with PersistCase[R]
+  implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam, opt2, opt1) with PersistCase[R]
 {
   override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses2(newT, clauses)
@@ -64,8 +64,17 @@ abstract class PersistD3[R](typeStr: String, fParam: R => (Double, Double, Doubl
    Persist3[Double, Double, Double, R](typeStr, fParam, newT)
 
 /** Persistence class for 4 parameter case classes. */   
-abstract class Persist4[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), val newT: (A1, A2, A3, A4) => R)(
-    implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends Show4(typeStr, fParam) with PersistCase[R]
-{ override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses4(newT, clauses)
+class Persist4[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), val newT: (A1, A2, A3, A4) => R, opt4: Option[A4],
+  opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
+  ev4: Persist[A4]) extends Show4(typeStr, fParam, opt4, opt3, opt2, opt1) with PersistCase[R]
+{ override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2, ev3, ev4)
+  override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses4(newT, clauses)
   override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)
+}
+
+object Persist4
+{
+  def apply[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), newT: (A1, A2, A3, A4) => R, opt4: Option[A4] = None, opt3: Option[A3] = None,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
+    Persist4[A1, A2, A3, A4, R] = new Persist4(typeStr, fParam, newT, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4)
 }

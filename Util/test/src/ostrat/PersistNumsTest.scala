@@ -3,7 +3,6 @@ import utest._
 
 object PersistNumsTest  extends TestSuite
 {
-  deb("228".parseToStatements.toString)
   val tests = Tests {
     'Ints -
     {
