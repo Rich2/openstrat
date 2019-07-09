@@ -40,7 +40,7 @@ object PersistCaseTest extends TestSuite
 
     'Persist4 -
     {
-      my4a.str ==> """My4(3, 2; "Yes"; "AAA"; 8,)"""
+      my4a.str ==> """My4(3, 2; "Yes"; "AAA",; 8,)"""
     }
   }
 }
