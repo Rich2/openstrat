@@ -24,7 +24,7 @@ sealed trait EMon[+A]
   def eitherFlatMap[D](f: A => Either[StrList, D]): Either[StrList, D]   
   def map2[A2, B](eMon2: EMon[A2], f: (A, A2) => B): EMon[B]
   def map3[A2, A3, B](eMon2: EMon[A2], eMon3: EMon[A3], f: (A, A2, A3) => B): EMon[B]
-  def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B]
+  //def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B]
   def isGood: Boolean
   def isBad: Boolean
 }
@@ -65,7 +65,7 @@ case class Good[+A](val value: A) extends EMon[A]
     case Good(a2) => eMon3.map(a3 => f(value, a2, a3))                
   }
  
-  override def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B] = eMon2 match
+  /*override def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B] = eMon2 match
   {
     case Bad(errs2) => Bad[B](errs2 ::: eMon3.errs ::: eMon4.errs)
     case Good(a2) => eMon3 match
@@ -73,7 +73,7 @@ case class Good[+A](val value: A) extends EMon[A]
       case Bad(errs3) => Bad[B](errs3 ::: eMon4.errs)
       case Good(a3) =>eMon4.map(a4 => f(value, a2, a3, a4))        
     }
-  }  
+  }  */
 }
 
 object Good
@@ -104,8 +104,8 @@ case class Bad[+A](errs: StrList) extends EMon[A]
   override def map2[A2, B](eMon2: EMon[A2], f: (A, A2) => B): EMon[B] = Bad[B](errs ::: eMon2.errs)   
   override def map3[A2, A3, B](eMon2: EMon[A2], eMon3: EMon[A3], f: (A, A2, A3) => B): EMon[B] = Bad[B](errs ::: eMon2.errs ::: eMon3.errs) 
   
-  override def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B] = 
-    Bad[B](errs ::: eMon2.errs ::: eMon3.errs ::: eMon4.errs)    
+ /* override def map4[A2, A3, A4, B](eMon2: EMon[A2], eMon3: EMon[A3], eMon4: EMon[A4], f: (A, A2, A3, A4) => B): EMon[B] =
+    Bad[B](errs ::: eMon2.errs ::: eMon3.errs ::: eMon4.errs)   */
 }
 
 object Bad

@@ -38,8 +38,8 @@ object Statement
     def errGet4[A1, A2, A3, A4](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
        EMon[(A1, A2, A3, A4)] = statementList match
     {
-       case Seq(h1, h2, h3, h4) => h1.errGet[A1](ev1)map4(h2.errGet[A2](ev2), h3.errGet[A3](ev3), h4.errGet[A4],
-             (g1: A1, g2: A2, g3: A3, g4: A4) => (g1, g2, g3, g4))
+       case Seq(h1, h2, h3, h4) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3); g4 <-  h4.errGet[A4]}
+             yield (g1, g2, g3, g4)
        case s => bad1(s, s.length.toString -- "statements not 4")
     }
     def errFun1[A1, A2, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = errGet1[A1].map(f1(_))
@@ -91,16 +91,17 @@ object Statement
     }
 
     /** Seeks to get a Sequence of 3 types from a Statement Arr. */
-    def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] = statementArr match
-    { case Arr(h1, h2, h3) => h1.errGet[A1](ev1).map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
-      case s => bad1(s, s.length.toString -- "statements not 3")
-    }
+//    def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] = statementArr match
+//    { case Arr(h1, h2, h3) => h1.errGet[A1](ev1).map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
+//      case s => bad1(s, s.length.toString -- "statements not 3")
+//    }
 
     def errGet4[A1, A2, A3, A4](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
     EMon[(A1, A2, A3, A4)] = statementArr match
     {
-      case Arr(h1, h2, h3, h4) => h1.errGet[A1](ev1)map4(h2.errGet[A2](ev2), h3.errGet[A3](ev3), h4.errGet[A4],
-        (g1: A1, g2: A2, g3: A3, g4: A4) => (g1, g2, g3, g4))
+      case Arr(h1, h2, h3, h4) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3); g4 <- h4.errGet[A4] }
+        yield (g1, g2, g3, g4)
+
       case s => bad1(s, s.length.toString -- "statements not 4")
     }
     def errFun1[A1, A2, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = errGet1[A1].map(f1(_))
