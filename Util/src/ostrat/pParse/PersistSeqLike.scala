@@ -58,7 +58,6 @@ class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](e
   override def fromParameterStatements(sts: Arr[Statement]): EMon[::[A]] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[::[A]] = ???
 }
-
  
 class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](ev)
 {
@@ -84,13 +83,6 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](e
 class PersistVectorImplicit[A](ev: Persist[A]) extends PersistIterable[A, Vector[A]](ev)
 {
   override def fromExpr(expr: Expr): EMon[Vector[A]] = fromExprLike(expr).map(_.toVector)
-//      override def fromClauses(clauses: Seq[Clause]): EMon[Seq[A]] = clauses.eMonMap (cl => ev.fromExpr(cl.expr))
-//      override def fromStatement(st: Statement): EMon[Seq[A]] = st match
-//      {
-//         case MonoStatement(expr, _) => fromExpr(expr)
-//         case ClausedStatement(clauses, _) => fromClauses(clauses)
-//         case es @ EmptyStatement(_) => es.asError         
-//  }
   override def fromParameterStatements(sts: Arr[Statement]): EMon[Vector[A]] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[Vector[A]] = ???
 }

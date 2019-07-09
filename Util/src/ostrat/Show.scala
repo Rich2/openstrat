@@ -7,7 +7,7 @@ package ostrat
 trait Show[-T]
 {
   def typeStr: String
-  /** Provides the standard string representation for the object */
+  /** Provides the standard string representation for the object. */
   def show(obj: T): String
   
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2 */
@@ -19,7 +19,9 @@ trait Show[-T]
   
   /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
-   *  for case classes with a single member. */
+   *  for case classes with a single member. This method will rarely be used, as it is only applicable when the object is being shown stand alone and
+   *  not as part of a containing object. So generally the full show method string will be desired. It may have uses for on the fly aggregation of
+   *  strings. */
   def showSemi(obj: T): String
   
   /** For most objects showTyped will return the same value as show(obj: T), for PeristValues the value will be type enclosed. 4.showTyped

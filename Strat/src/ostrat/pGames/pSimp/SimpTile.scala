@@ -4,7 +4,7 @@ package pGames.pSimp
 import pGrid._
 
 /** A very Simple Tile for Simplicissima. */
-case class UTile(x: Int, y: Int, oPlayer: Option[MPlayer]) extends Tile
+case class UTile(x: Int, y: Int, oPlayer: Option[MPlayer] = None) extends Tile
 { override def toString: String = UTile.persistImplicit.show(this)
 }
 
@@ -17,7 +17,7 @@ object UTile
     override def asType(obj: AnyRef): UTile = obj.asInstanceOf[UTile]   
   }
 
-  implicit val persistImplicit: Persist[UTile] = Persist3[Int, Int, Option[MPlayer], UTile]("UTile", u => (u.x, u.y, u.oPlayer), apply)
+  implicit val persistImplicit: Persist[UTile] = Persist3[Int, Int, Option[MPlayer], UTile]("UTile", u => (u.x, u.y, u.oPlayer), apply, Some(None))
 }
 
 case class UTileInter(x: Int, y: Int, oPlayer: Option[MPlayer], var potentialPlayers: List[Player] = Nil)
