@@ -28,7 +28,6 @@ object PersistCaseTest extends TestSuite
   { implicit val persist: Persist[My4] = Persist4[Arr[Int], String, List[String], Vector[Int], My4]("My4", m => (m.a1, m.s2, m.l3, m.v4), apply)
   }
   val my4a = My4(Arr(3, 2), "Yes", "AAA" :: Nil, Vector(8))
-  deb(my4a.str)
   
   val tests = Tests
   {    
@@ -39,12 +38,18 @@ object PersistCaseTest extends TestSuite
       Mb2(4, (5, 6)).str ==> """Mb2(4; 5, 6)"""
     }
 
+    val p3r1 = "Mb3(2; 3)"
+    val p3r2 = "Mb3(2)"
+    val p3r3 = "Mb3()"
     'Persist3 -
     { Ma3("Hi", -3, -3.4).str ==> """Ma3("Hi"; -3; -3.4)"""
       Mb3(2, 3, 4).str ==> """Mb3(2; 3; 4)"""
-      Mb3(2, 3, 3).str ==> """Mb3(2; 3)"""
-      Mb3(2, 2, 3).str ==> """Mb3(2)"""
-      Mb3(1, 2, 3).str ==> """Mb3()"""
+      Mb3(2, 3, 3).str ==> p3r1
+      p3r1.findType[Mb3] ==> Good(Mb3(2, 3, 3))
+      Mb3(2, 2, 3).str ==> p3r2
+      p3r2.findType[Mb3] ==> Good(Mb3(2, 2, 3))
+      Mb3(1, 2, 3).str ==> p3r3
+      p3r3.findType[Mb3] ==> Good(Mb3(1, 2, 3))
     }
 
     'Persist4 -

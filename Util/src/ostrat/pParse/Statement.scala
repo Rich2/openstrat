@@ -81,7 +81,7 @@ object Statement
     def endPosn = statementArr.ifEmpty(ifEmptyFilePosn, statementArr.last.endPosn)
 
     def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementArr match
-    { case Seq(h1) => h1.errGet[A1](ev1)
+    { case Arr(h1) => h1.errGet[A1](ev1)
       case s => bad1(s, s.length.toString -- "statements not 1")
     }
 
@@ -90,14 +90,16 @@ object Statement
       case s => bad1(s, s.length.toString -- "statements not 2")
     }
 
+    /** Seeks to get a Sequence of 3 types from a Statement Arr. */
     def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] = statementArr match
-      { case Seq(h1, h2, h3) => h1.errGet[A1](ev1)map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
+    { case Arr(h1, h2, h3) => h1.errGet[A1](ev1).map3(h2.errGet[A2](ev2), h3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => (g1, g2, g3))
       case s => bad1(s, s.length.toString -- "statements not 3")
-      }
+    }
+
     def errGet4[A1, A2, A3, A4](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
     EMon[(A1, A2, A3, A4)] = statementArr match
     {
-      case Seq(h1, h2, h3, h4) => h1.errGet[A1](ev1)map4(h2.errGet[A2](ev2), h3.errGet[A3](ev3), h4.errGet[A4],
+      case Arr(h1, h2, h3, h4) => h1.errGet[A1](ev1)map4(h2.errGet[A2](ev2), h3.errGet[A3](ev3), h4.errGet[A4],
         (g1: A1, g2: A2, g3: A3, g4: A4) => (g1, g2, g3, g4))
       case s => bad1(s, s.length.toString -- "statements not 4")
     }
@@ -105,9 +107,9 @@ object Statement
 
     def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = errGet2[A1, A2].map(f2.tupled(_))
 
-    def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
+    /*def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
       errGet3[A1, A2, A3].map(f3.tupled(_))
-
+*/
     def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
                                                               ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
 

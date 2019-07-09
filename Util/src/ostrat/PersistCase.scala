@@ -51,8 +51,17 @@ class Persist3[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), val ne
   ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr,fParam, opt3, opt2, opt1) with PersistCase[R]
 { override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2, ev3)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses3(newT, clauses)
-  override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1, opt2, opt3) match
+  {
+    case (Arr(s1, s2, s3), _, _, _) => s1.errGet[A1](ev1).map3(s2.errGet[A2](ev2), s3.errGet[A3](ev3), (g1: A1, g2: A2, g3: A3) => newT(g1, g2, g3))
+    case (Arr(s1, s2), _, _, Some(d3)) => s1.errGet[A1](ev1).map2(s2.errGet[A2](ev2), (g1: A1, g2: A2) => newT(g1, g2, d3))
+    case (Arr(s1), _, Some(d2), Some(d3)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3))
+    case (Arr(), Some(d1), Some(d2), Some(d3)) => Good(newT(d1, d2, d3))
+    case _ => bad1(sts.startPosn, sts.length.str -- "parameters, should be 3.")
+  }
+   // sts.errGet3(ev1, ev2, ev3).map{case (a, b, c) => newT(a, b, c)} // sts.errFun3(newT)(ev1, ev2, ev3)
 }
+
 object Persist3
 { def apply[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None,
   opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): Persist3[A1, A2, A3, R] =
