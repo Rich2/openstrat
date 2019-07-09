@@ -41,7 +41,7 @@ class PersistD2[R](typeStr: String, fParam: R => (Double, Double), newT: (Double
 /** Persistence class for 3 parameter case classes. */   
 class Persist3[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), val newT: (A1, A2, A3) => R, opt3: Option[A3] = None,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
-  ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr,fParam) with PersistCase[R]
+  ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr,fParam, opt3, opt2, opt1) with PersistCase[R]
 { override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses3(newT, clauses)
   override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
 }
