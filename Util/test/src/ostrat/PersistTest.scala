@@ -19,7 +19,7 @@ object PersistTest
   case class My2(ints: Seq[Int], myStr: String)
  
   object My2
-  { implicit object My2Persist extends Persist2[Seq[Int], String, My2]("My2", m => (m.ints, m.myStr), apply)
+  { implicit val persist: Persist[My2] = Persist2[Seq[Int], String, My2]("My2", m => (m.ints, m.myStr), apply)
   }
 
   val tests = Tests

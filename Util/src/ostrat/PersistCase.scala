@@ -6,6 +6,7 @@ import pParse._
 trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
 {  
   def persistMems: Arr[Persist[_]]
+  //override def showMems: Arr[Show[_]] = persistMems
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
     case AlphaBracketExpr(AlphaToken(_, typeName), Arr(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
@@ -17,7 +18,9 @@ trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
 /** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */
 class Persist1[A1, R](typeStr: String, fParam: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1]) extends Show1(typeStr, fParam: R => A1) with
    PersistCase[R]
-{ def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses1(newT, clauses)
+{
+  override def persistMems: Arr[Persist[_]] = Arr(ev1)
+  def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses1(newT, clauses)
   def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun1(newT)(ev1)
 }
 
@@ -26,14 +29,18 @@ class Persist1[A1, R](typeStr: String, fParam: R => A1, val newT: A1 => R)(impli
 class PersistD1[R](typeStr: String, fParam: R => Double, newT: Double => R) extends Persist1[Double, R](typeStr, fParam, newT)
 
 /** Persistence class for 2 parameter case classes. */ 
-class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1, A2) => R)(implicit ev1: Persist[A1], ev2: Persist[A2])
-   extends Show2[A1, A2, R](typeStr, fParam) with PersistCase[R]
+class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+  implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam) with PersistCase[R]
 {
-   
+  override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses2(newT, clauses)
   override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun2(newT)(ev1, ev2)
 }
 
+object Persist2
+{ def apply[A1, A2, R](typeStr: String, fParam: R => (A1, A2), newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+  implicit ev1: Persist[A1], ev2: Persist[A2]): Persist2[A1, A2, R] = new Persist2(typeStr, fParam, newT, opt2, opt1)(ev1, ev2)
+}
 /** Persistence class for case classes consisting of 2 Double parameters. */
 class PersistD2[R](typeStr: String, fParam: R => (Double, Double), newT: (Double, Double) => R) extends
    Persist2[Double, Double, R](typeStr, fParam, newT)
@@ -42,7 +49,8 @@ class PersistD2[R](typeStr: String, fParam: R => (Double, Double), newT: (Double
 class Persist3[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), val newT: (A1, A2, A3) => R, opt3: Option[A3] = None,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
   ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr,fParam, opt3, opt2, opt1) with PersistCase[R]
-{ override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses3(newT, clauses)
+{ override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2, ev3)
+  override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses3(newT, clauses)
   override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun3(newT)(ev1, ev2, ev3)
 }
 object Persist3
