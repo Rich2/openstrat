@@ -20,21 +20,22 @@ object Statement
     def startPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.head.startPosn)
     def endPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.last.endPosn)
 
-    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementList match
-    { case Seq(h1) => h1.errGet[A1](ev1)
+    def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementList match
+    { case Seq(h1) => h1.errGet[A1].map(f1)
       case s => bad1(s, s.length.toString -- "statements not 1")
     }
 
-    def errGet2[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[(A1, A2)] = statementList match
-    { case Seq(h1, h2) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2) } yield (g1, g2)
+    def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = statementList match
+    { case Seq(h1, h2) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2) } yield f2(g1, g2)
       case s => bad1(s, s.length.toString -- "statements not 2")
     }
 
-    def errGet3[A1, A2, A3](implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[(A1, A2, A3)] =
+    def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
       statementList match
-    { case Seq(h1, h2, h3) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3) } yield (g1, g2, g3)
+    { case Seq(h1, h2, h3) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3) } yield f3(g1, g2, g3)
       case s => bad1(s, s.length.toString -- "statements not 3")
     }
+
     def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
        EMon[B] = statementList match
     {
@@ -42,16 +43,6 @@ object Statement
              yield f4(g1, g2, g3, g4)
        case s => bad1(s, s.length.toString -- "statements not 4")
     }
-    def errFun1[A1, A2, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = errGet1[A1].map(f1(_))
-
-    def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = errGet2[A1, A2].map(f2.tupled(_))
-
-    def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
-       errGet3[A1, A2, A3].map(f3.tupled(_))
-
-    /*(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-          ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))
-    */
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementList)
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
@@ -81,13 +72,13 @@ object Statement
     def startPosn = statementArr.ifEmpty(ifEmptyFilePosn, statementArr.head.startPosn)
     def endPosn = statementArr.ifEmpty(ifEmptyFilePosn, statementArr.last.endPosn)
 
-    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = statementArr match
-    { case Arr(h1) => h1.errGet[A1](ev1)
+    def errFun1[A1, A2, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementArr match
+    { case Arr(h1) => h1.errGet[A1].map(f1)
       case s => bad1(s, s.length.toString -- "statements not 1")
     }
 
-    def errGet2[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[(A1, A2)] = statementArr match
-    { case Seq(h1, h2) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2) } yield (g1, g2)
+    def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = statementArr match
+    { case Seq(h1, h2) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2) } yield f2(g1, g2)
       case s => bad1(s, s.length.toString -- "statements not 2")
     }
 
@@ -97,16 +88,6 @@ object Statement
       case Arr(h1, h2, h3, h4) => for { g1 <- h1.errGet[A1]; g2 <- h2.errGet[A2]; g3 <- h3.errGet[A3]; g4 <- h4.errGet[A4] } yield f4(g1, g2, g3, g4)
       case sts => bad1(sts, sts.lenStr -- "statements found, 4 required.")
     }
-
-    def errFun1[A1, A2, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = errGet1[A1].map(f1(_))
-
-    def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = errGet2[A1, A2].map(f2.tupled(_))
-
-    /*def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
-      errGet3[A1, A2, A3].map(f3.tupled(_))
-*/
-    /*(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-                                                              ev4: Persist[A4]): EMon[B] = errGet4[A1, A2, A3, A4].map(f4.tupled(_))*/
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementArr.toList)
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
@@ -131,10 +112,10 @@ object Statement
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementArr.toList, settingStr)
   }
 
-  implicit class EmonStatementListImplict(eMon: EMon[List[Statement]])
-  {
-    def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = eMon.flatMap(_.errGet1[A1])
-  }
+//  implicit class EmonStatementListImplict(eMon: EMon[List[Statement]])
+//  {
+//   // def errGet1[A1](implicit ev1: Persist[A1]): EMon[(A1)] = eMon.flatMap(_.errGet1[A1])
+//  }
 }
 
 /** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
