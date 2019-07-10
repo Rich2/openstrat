@@ -21,7 +21,12 @@ class Persist1[A1, R](typeStr: String, fParam: R => A1, val newT: A1 => R)(impli
 {
   override def persistMems: Arr[Persist[_]] = Arr(ev1)
   def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses1(newT, clauses)
-  def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun1(newT)(ev1)
+  def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1) match
+  {
+    case (Arr(s1), _) => s1.errGet[A1].map(g1 => newT(g1))
+    case (Arr(), Some(d1)) => Good(newT(d1))
+    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 1.")
+  }
 }
 
 /** Persistence class for case classes taking a single Double parameter. Not sure about this class. It is currently being used for Double based value
@@ -40,7 +45,7 @@ class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1,
     case (Arr(s1, s2), _, _) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2)
     case (Arr(s1), _, Some(d2)) => s1.errGet[A1].map(g1 => newT(g1, d2))
     case (Arr(), Some(d1), Some(d2)) => Good(newT(d1, d2))
-    case _ => bad1(sts.startPosn, sts.length.str -- "parameters, should be 2.")
+    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 2.")
   }
 }
 
@@ -64,7 +69,7 @@ class Persist3[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), val ne
     case (Arr(s1, s2), _, _, Some(d3)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2, d3)
     case (Arr(s1), _, Some(d2), Some(d3)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3))
     case (Arr(), Some(d1), Some(d2), Some(d3)) => Good(newT(d1, d2, d3))
-    case _ => bad1(sts.startPosn, sts.length.str -- "parameters, should be 3.")
+    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 3.")
   }
    // sts.errGet3(ev1, ev2, ev3).map{case (a, b, c) => newT(a, b, c)} // sts.errFun3(newT)(ev1, ev2, ev3)
 }
@@ -85,7 +90,17 @@ class Persist4[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4)
   ev4: Persist[A4]) extends Show4(typeStr, fParam, opt4, opt3, opt2, opt1) with PersistCase[R]
 { override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2, ev3, ev4)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses4(newT, clauses)
-  override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun4(newT)(ev1, ev2, ev3, ev4)
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1, opt2, opt3, opt4) match
+  {
+    case (Arr(s1, s2, s3, s4), _, _, _, _) =>
+      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3); g4 <- s4.errGet[A4] } yield newT(g1, g2, g3, g4)
+    case (Arr(s1, s2, s3), _, _, _, Some(d4)) =>
+      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3) } yield newT(g1, g2, g3, d4)
+    case (Arr(s1, s2), _, _, Some(d3), Some(d4)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2, d3, d4)
+    case (Arr(s1), _, Some(d2), Some(d3), Some(d4)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3, d4))
+    case (Arr(), Some(d1), Some(d2), Some(d3), Some(d4)) => Good(newT(d1, d2, d3, d4))
+    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 4.")
+  }
 }
 
 object Persist4
