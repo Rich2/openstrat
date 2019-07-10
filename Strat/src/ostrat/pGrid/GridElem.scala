@@ -13,12 +13,16 @@ trait GridElem
 }
 
 trait Tile extends GridElem
-{ def canEqual(a: Any) = a.isInstanceOf[Tile]
+{
+  type FromT
+  def fromT: FromT
+  def canEqual(a: Any) = a.isInstanceOf[Tile]
   override def hashCode: Int = (x, y).##
   override def equals(that: Any): Boolean = that match
   { case that: Tile => that.canEqual(this) & cood == that.cood
     case _ => false
   }
+
 }
 
 trait TileSide extends GridElem
@@ -33,13 +37,32 @@ trait TileSide extends GridElem
 trait ColouredTile extends Tile with WithColour
 
 case class TileBare(x: Int, y: Int) extends Tile
-case class SideBare(x: Int, y: Int) extends TileSide
-object SideBare
-{
-   implicit object SideBareIsType extends IsType[SideBare]
-   {
-      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[SideBare]
-      override def asType(obj: AnyRef): SideBare = obj.asInstanceOf[SideBare]   
-   }
+{ type FromT = Unit
+  def fromT = ()
 }
 
+case class SideBare(x: Int, y: Int) extends TileSide
+
+object SideBare
+{ implicit object SideBareIsType extends IsType[SideBare]
+  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[SideBare]
+    override def asType(obj: AnyRef): SideBare = obj.asInstanceOf[SideBare]
+  }
+}
+
+case class TileRow[T](yRow: Int, xStart: Int, yStart: Int, values: Arr[Multiple[T]])
+object TileRow
+{
+  implicit def persistImplicit[T](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]]
+  {
+    def show(obj: ostrat.pGrid.TileRow[T]): String = "This is a placeholder for TileRow"
+    def showComma(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
+    def showSemi(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
+    def showTyped(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
+    def syntaxDepth: Int = ev.syntaxDepth + 2
+    def fromClauses(clauses: ostrat.Arr[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def fromExpr(expr: ostrat.pParse.Expr): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def fromStatements(sts: ostrat.Arr[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def typeStr: String = ???
+  }
+}

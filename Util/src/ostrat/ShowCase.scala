@@ -74,7 +74,7 @@ class Show3Only[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), opt3:
   implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr, fParam, opt3, opt2, opt1) with ShowOnly[R]
 
 /** Show type class for 4 parameter case classes. */
-abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4), opt4: Option[A4] = None, opt3In: Option[A3] = None,
+abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4), val opt4: Option[A4] = None, opt3In: Option[A3] = None,
   opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends
   ShowCase[R]
 {
@@ -96,5 +96,32 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A
 }
 
 class Show4Only[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), opt4: Option[A4] = None, opt3: Option[A3] = None,
-  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-  ev4: Persist[A4]) extends Show4[A1, A2, A3, A4, R](typeStr, fParam, opt4, opt3, opt2, opt1) with ShowOnly[R]
+  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends
+  Show4[A1, A2, A3, A4, R](typeStr, fParam, opt4, opt3, opt2, opt1) with ShowOnly[R]
+
+/** Show type class for 4 parameter case classes. */
+abstract class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4, A5), val opt5: Option[A5], optIn4: Option[A4] = None,
+  opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
+  ev4: Persist[A4], ev5: Persist[A5]) extends ShowCase[R]
+{
+  val opt4: Option[A4] = ife(opt5.nonEmpty, optIn4, None)
+  val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
+  val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+  val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+
+  final override def showMems = Arr(ev1, ev2, ev3, ev4, ev5)
+
+  override def showSemi(obj: R): String = {
+    val (p1, p2, p3, p4, p5) = fParam(obj)
+    ev1.showComma(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4), ev5.showComma(p5))
+  }
+
+  final override def showComma(obj: R): String =
+  { val (p1, p2, p3, p4, p5) = fParam(obj)
+    ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4), ev5.show(p5))
+  }
+}
+
+class Show5Only[A1, A2, A3, A4, A5, R](typeStr: String, fParam: R => (A1, A2, A3, A4, A5), opt5: Option[A5] = None, opt4: Option[A4] = None,
+  opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
+  ev4: Persist[A4], ev5: Persist[A5]) extends Show5[A1, A2, A3, A4, A5, R](typeStr, fParam, opt5, opt4, opt3, opt2, opt1) with ShowOnly[R]

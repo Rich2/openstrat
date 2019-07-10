@@ -6,6 +6,8 @@ import Colour._, pGrid._
 
 case class DTile(x: Int, y: Int, var piece: Option[Draught] = None) extends ColouredTile
 {
+  type FromT = Option[Draught]
+  def fromT = piece
   def darkTile: Boolean = (x + y).isEven
   def colour: Colour = ife(darkTile, Red, White)
   

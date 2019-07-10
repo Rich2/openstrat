@@ -23,7 +23,10 @@ object Wall extends DTerr
 }
 
 case class DTile(x: Int, y: Int, terr: DTerr) extends ColouredTile//GridElem
-{ var charac: Opt[Character] = nullRef
+{
+  type FromT = DTerr
+  def fromT = terr
+  var charac: Opt[Character] = nullRef
   def colour = terr.colour
 }
 

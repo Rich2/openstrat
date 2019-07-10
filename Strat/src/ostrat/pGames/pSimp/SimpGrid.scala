@@ -47,7 +47,8 @@ object SimpGrid
 {
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
   implicit val showUnusGrid: ShowOnly[SimpGrid] =
-    new Show4Only[Int, Int, Int, Int, SimpGrid]("SimpGrid", ug => (ug.xTileMin, ug.xTileMax, ug.yTileMin, ug.yTileMax))
+    new Show5Only[Int, Int, Int, Int, Arr[TileRow[Option[MPlayer]]], SimpGrid](
+      "SimpGrid", ug => (ug.xTileMin, ug.xTileMax, ug.yTileMin, ug.yTileMax, Arr()))
 
 }
 

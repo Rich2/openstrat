@@ -5,7 +5,10 @@ import pGrid._
 
 /** A very Simple Tile for Simplicissima. */
 case class UTile(x: Int, y: Int, oPlayer: Option[MPlayer] = None) extends Tile
-{ override def toString: String = UTile.persistImplicit.show(this)
+{
+  type FromT = Option[MPlayer]
+  def fromT = oPlayer
+  override def toString: String = UTile.persistImplicit.show(this)
 }
 
 object UTile

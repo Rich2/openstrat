@@ -7,17 +7,19 @@ import pGrid._
 
 case class CTile(x: Int, y: Int, terr: Terrain) extends Tile
 {
-   def colour = terr.colour
-   var settlement: Boolean = false
-   var lunits: Arr[Warrior] = Arr()
+  type FromT = Terrain
+  def fromT = terr
+  def colour = terr.colour
+  var settlement: Boolean = false
+  var lunits: Arr[Warrior] = Arr()
 }
 
 object CTile
 {
-   implicit val tileMaker: (Int, Int, Terrain) => CTile = apply
-   implicit object CTileIsType extends IsType[CTile]
-   {
-      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[CTile]
-      override def asType(obj: AnyRef): CTile = obj.asInstanceOf[CTile]
-   }
+  implicit val tileMaker: (Int, Int, Terrain) => CTile = apply
+
+  implicit object CTileIsType extends IsType[CTile]
+  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[CTile]
+    override def asType(obj: AnyRef): CTile = obj.asInstanceOf[CTile]
+  }
 }

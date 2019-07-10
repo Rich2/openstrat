@@ -4,6 +4,10 @@ package pEarth
 import geom._, pGrid._
 
 case class TerrOnly(x: Int, y: Int, terr: Terrain) extends ETile
+{
+  type FromT = Terrain
+  def fromT = terr
+}
 object TerrOnly
 {
    implicit val tileMaker: (Int, Int, Terrain) => TerrOnly = apply
