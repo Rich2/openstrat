@@ -5,6 +5,7 @@ package pExt
 /** Extension methods for the Seq[A] class. These are bought into scope by the seqToImplicit method in the package object. */
 class SeqExtensions[A](thisSeq: Seq[A])
 {
+  def lenStr: String = thisSeq.length.toString
   /** This needs to be changed to by name parameters when by name varargs are allowed. I think this is coming in 12.3 */
   def ifAppend[B >: A](b: Boolean, elems: B*): Seq[B] = if (b) thisSeq ++ elems else thisSeq
   
