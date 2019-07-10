@@ -72,12 +72,7 @@ object GetStatements
     def loop(rem: List[ExprMember], acc: Buff[ExprMember]): EMon[Expr] = rem match
     {
       case Nil => getBlocks(acc.toArr)
-      case (at: AsignToken) :: tail =>
-      {
-        val eLs = getBlocks(acc.toArr)
-        val eRs = loop(tail, Buff())
-        eLs.map2[Expr, Expr](eRs, (ls, rs) => AsignExpr(at, ls, rs))
-      }
+      case (at: AsignToken) :: tail => for { gLs <- getBlocks(acc.toArr); gRs <- loop(tail, Buff()) } yield AsignExpr(at, gLs, gRs)
       case h :: tail => loop(tail, acc :+ h)
     }
     loop(seg, Buff())

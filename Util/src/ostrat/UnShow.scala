@@ -18,14 +18,14 @@ trait UnShow[+T]
   }
   
   def fromClauses2[A1, A2, B](f: (A1, A2) => B, clauses: Arr[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = clauses match
-  { case Seq(c1, c2) => ev1.fromExpr(c1.expr).map2(ev2.fromExpr(c2.expr), f)
+  { case Seq(c1, c2) => for { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr) } yield f(g1, g2)
     case _ => excep("from clauses exception")
   }
    
-  def fromClauses3[A1, A2, A3, B](f: (A1, A2, A3) => B, clauses: Arr[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
-    clauses match
-  { case Seq(c1, c2, c3) => ev1.fromExpr(c1.expr).map3(ev2.fromExpr(c2.expr), ev3.fromExpr(c3.expr), f)
-  }
+  def fromClauses3[A1, A2, A3, B](f: (A1, A2, A3) => B, clauses: Arr[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B]
+    = clauses match { case Seq(c1, c2, c3) => for
+    { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr); g3 <- ev3.fromExpr(c3.expr) } yield f(g1, g2, g3) }
+
   
   def fromClauses4[A1, A2, A3, A4, B](f: (A1, A2, A3, A4) => B, clauses: Arr[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2],
       ev3: Persist[A3], ev4: Persist[A4]): EMon[B] = clauses match
