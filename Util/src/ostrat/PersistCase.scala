@@ -34,7 +34,14 @@ class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1,
 {
   override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses2(newT, clauses)
-  override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun2(newT)(ev1, ev2)
+  //override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = sts.errFun2(newT)(ev1, ev2)
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1, opt2) match
+  {
+    case (Arr(s1, s2), _, _) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2)
+    case (Arr(s1), _, Some(d2)) => s1.errGet[A1].map(g1 => newT(g1, d2))
+    case (Arr(), Some(d1), Some(d2)) => Good(newT(d1, d2))
+    case _ => bad1(sts.startPosn, sts.length.str -- "parameters, should be 2.")
+  }
 }
 
 object Persist2
