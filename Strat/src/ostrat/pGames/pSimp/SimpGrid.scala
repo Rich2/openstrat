@@ -6,7 +6,7 @@ import pGrid._
 class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
-  def getMoves: List[Move] = this.tilesMapOptionListAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
+  def getMoves: Arr[Move] = tilesMapOptionAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
   def baseCopy: SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
   
   def copy: SimpGrid =
@@ -16,7 +16,7 @@ class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnN
     ng
   }
   
-  def resolveTurn(moves: List[Move]): SimpGrid =
+  def resolveTurn(moves: Arr[Move]): SimpGrid =
   {    
     val medGrid = new Array[UTileInter](arrLen)
     foreachTilesXYAll{(x, y) =>

@@ -145,7 +145,13 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     foreachTileAll(acc ::= f(_))
     acc.reverse
   }
-  
+
+  final def tilesMapOptionAll[A: ClassTag](f: TileT => Option[A]): Arr[A] =
+  { var acc: Buff[A] = Buff()
+    foreachTileAll(t => acc = f(t).fold(acc)(acc.+= _))
+    acc.toArr
+  }
+
   final def tilesMapOptionListAll[A](f: TileT => Option[A]): List[A] =
   {
     var acc: List[A] = Nil
