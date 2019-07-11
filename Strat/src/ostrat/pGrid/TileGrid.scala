@@ -23,6 +23,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def xTileMax: Int
   def yTileMin: Int
   def yTileMax: Int
+  def numTileRow: Int = (yTileMax - yTileMin + 1) / 2
   
   def xArrLen: Int
   def yArrLen: Int
@@ -79,6 +80,14 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   final def foreachTileRowAll(f: Int => Unit): Unit =
   { var y: Int = yTileMin
     while(y <= yTileMax) { f(y); y += 2 }
+  }
+
+  def tileRowMapAll[A](f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
+  {
+    val acc: Array[A] = new Array[A](numTileRow)
+    var count = 0
+    foreachTileRowAll{y => acc(count) = f(y); count += 1 }
+    acc.toArr
   }
   
   /** Map all Tiles to Array[B] with function. */
