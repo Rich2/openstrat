@@ -44,14 +44,28 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit
   /** For each Tile's XY in the whole of the row. */
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
+  final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)(getTile(_, _))
 
   def tileRowToMulti(y: Int): Arr[Multiple[TileT#FromT]] =
    {
      val acc: Buff[Multiple[TileT#FromT]] = Buff()
-     val subAcc: Int = 0
-     val subValue: Option[TileT#FromT] = None
-     //rowForeachTilesXYAll(y )
-     ???
+     var subAcc: Int = 0
+     var oValue: Option[TileT#FromT] = None
+     rowForeachTileAll(y){ tile =>
+       val newT = tile.fromT
+       oValue match
+       {
+         case None => { subAcc = 1; oValue = Some(newT) }
+         case Some(sv) if sv == newT => subAcc += 1
+         case Some(sv) => { acc += Multiple(sv, subAcc); subAcc = 1; oValue = Some(newT) }
+       }
+     }
+     oValue match
+     {
+       case Some(sv) => acc += Multiple (sv, subAcc)
+       case None =>
+     }
+     acc.toArr
    }
 
   final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
