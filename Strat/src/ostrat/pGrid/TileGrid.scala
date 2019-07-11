@@ -35,10 +35,25 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def xyToInd(x: Int, y: Int): Int = xToInd(x) + yToInd(y) * xArrLen
   final def coodToInd(cood: Cood): Int = xyToInd(cood.x, cood.y)
   val yRatio: Double
-  def xStep: Int 
+  def xStep: Int
+  def rowTileXStart(y: Int): Int
+  def rowTileXEnd(y: Int): Int
   def tileNum: Int
+
+  /** For each Tile's XY in part of a row. */
   def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit
-  final def rowForeachTilesXYAll(y: Int, f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, xTileMin, xTileMax, f)
+  /** For each Tile's XY in the whole of the row. */
+  final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
+
+  def tileRowToMulti(y: Int): Arr[Multiple[TileT#FromT]] =
+   {
+     val acc: Buff[Multiple[TileT#FromT]] = Buff()
+     val subAcc: Int = 0
+     val subValue: Option[TileT#FromT] = None
+     //rowForeachTilesXYAll(y )
+     ???
+   }
+
   final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
     setTiles(bottomLeft.x, topRight.y, bottomLeft.y, topRight.y, tileValue)(f)
   def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
@@ -69,7 +84,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   final def setTilesAll[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = foreachTilesXYAll((x, y) => fSetTile(x, y, value)(fTile))
   
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
-  @inline final def foreachTilesXYAll(f: (Int, Int) => Unit): Unit = foreachTileRowAll(y => rowForeachTilesXYAll(y, f))  
+  @inline final def foreachTilesXYAll(f: (Int, Int) => Unit): Unit = foreachTileRowAll(y => rowForeachTilesXYAll(y)(f))
   
   /** For all Tiles call side effecting function on the Tile's Cood. */
   @inline final def foreachTilesCoodAll(f: Cood => Unit): Unit = foreachTilesXYAll((x, y) => f(Cood(x, y)))

@@ -8,8 +8,7 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
 (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGrid[TileT, SideT]// with HexGrid[TileT]   
 {
   override val yRatio: Double = HexGrid.yRatio  
-  def rowTileXStart(y: Int): Int
-  def rowTileXEnd(y: Int): Int  
+
   
   override def xArrLen: Int = (xTileMax - xTileMin) / 4 + 1 //+1 for zeroth tile
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
@@ -19,8 +18,9 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
   override def xStep: Int = 4   
   override def xToInd(x: Int): Int = (x - xTileMin) / 4  
   override def xSideMin: Int = xTileMin - 2
-  override def xSideMax: Int = xTileMax + 2  
-  
+  override def xSideMax: Int = xTileMax + 2
+
+  /** For each Tile's XY in part of a row. */
   final override def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit =
   {
     val xPt: Int = ife(y %% 4 == 0, 0, 2)

@@ -42,7 +42,9 @@ class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnN
     newGrid    
   }
   def toTuple5: (Int, Int, Int, Int, Arr[TileRow[Option[MPlayer]]]) = {
-    val trs: Arr[TileRow[Option[MPlayer]]] = Arr[TileRow[Option[MPlayer]]]() // ug.tileRowMapAll(y => TileRow(y, ug.xTileMin, ug.xTileMax, Arr()))
+    val trs: Arr[TileRow[Option[MPlayer]]] = tileRowMapAll{y =>
+      TileRow(y, rowTileXStart(y), rowTileXEnd(y), Arr[Multiple[Option[MPlayer]]]())
+    }
     (xTileMin, xTileMax, yTileMin, yTileMax, trs)
   }
 }

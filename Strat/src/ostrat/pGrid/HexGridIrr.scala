@@ -31,7 +31,7 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: TileSide](val rowBounds: Array
   final override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 
   {   
     if (tileNum == 0) return    
-    rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) })    
+    rowForeachTilesXYAll(yTileMin){(x, y) => f(x - 1, y - 1); f(x + 1, y - 1) }
     
     ((yTileMin + 1) to (yTileMax - 1) by 2).foreach{ y =>
       val xStart = rowTileXStart(y - 1).min(rowTileXStart(y + 1)) + 1
@@ -40,7 +40,7 @@ abstract class HexGridIrr[TileT <: Tile, SideT <: TileSide](val rowBounds: Array
     }
     
     foreachTilesXYAll{ (x, y) => f(x + 2, y)}
-    rowForeachTilesXYAll(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
+    rowForeachTilesXYAll(yTileMax){(x, y) => f(x - 1, y + 1); f(x + 1, y + 1) }
   }  
 
   override def optTile(x: Int, y: Int): Option[TileT] =

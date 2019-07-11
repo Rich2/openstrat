@@ -55,7 +55,7 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
   {   
     if (tileNum == 0) return
     //Bottom horrisontal row.
-    rowForeachTilesXYAll(yTileMin, (x, y) => { f(x - 1, y - 1); f(x + 1, y - 1) }) 
+    rowForeachTilesXYAll(yTileMin){ (x, y) => f(x - 1, y - 1); f(x + 1, y - 1) }
     
     //All middle horrisontal rows
     for { y <- (yTileMin + 1) to (yTileMax - 1) by 2
@@ -64,11 +64,11 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
     
     //Vertical sides
     foreachTileRowAll {y =>
-      rowForeachTilesXYAll(y, (x, y) => f(x - 2, y))
+      rowForeachTilesXYAll(y){ (x, y) => f(x - 2, y) }
       f(rowTileXEnd(y) + 2, y)
     }
     //Top Row 
-    rowForeachTilesXYAll(yTileMax, (x, y) => { f(x - 1, y + 1); f(x + 1, y + 1) })    
+    rowForeachTilesXYAll(yTileMax){ (x, y) => f(x - 1, y + 1); f(x + 1, y + 1) }
   }
    
   def tileNeighboursCoods(cood: Cood): Coods =
