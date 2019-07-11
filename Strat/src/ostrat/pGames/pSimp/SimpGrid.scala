@@ -41,17 +41,16 @@ class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnN
       }))
     newGrid    
   }
+  def toTuple5: (Int, Int, Int, Int, Arr[TileRow[Option[MPlayer]]]) = {
+    val trs: Arr[TileRow[Option[MPlayer]]] = Arr[TileRow[Option[MPlayer]]]() // ug.tileRowMapAll(y => TileRow(y, ug.xTileMin, ug.xTileMax, Arr()))
+    (xTileMin, xTileMax, yTileMin, yTileMax, trs)
+  }
 }
 
-object SimpGrid
-{
+object SimpGrid {
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
-  implicit val showUnusGrid: ShowOnly[SimpGrid] =
-  {
-    val trs: Arr[TileRow[Option[MPlayer]]] = Arr() // tileRowMapAll(y => TileRow(y, xTileMin, xTileMax)
-    new Show5Only[Int, Int, Int, Int, Arr[TileRow[Option[MPlayer]]], SimpGrid](
-      "SimpGrid", ug => (ug.xTileMin, ug.xTileMax, ug.yTileMin, ug.yTileMax, trs))
-  }
 
+  implicit val showUnusGrid: ShowOnly[SimpGrid] =
+    new Show5Only[Int, Int, Int, Int, Arr[TileRow[Option[MPlayer]]], SimpGrid]("SimpGrid", _.toTuple5)
 }
 
