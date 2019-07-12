@@ -46,6 +46,10 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
   final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)(getTile(_, _))
 
+  def tilesToMultiAll: Arr[TileRow[TileT#FromT]] = tileRowMapAll(tileRowClass)
+
+  def tileRowClass(y: Int): TileRow[TileT#FromT] = TileRow(y, rowTileXStart(y), rowTileXEnd(y), tileRowToMulti(y))
+
   def tileRowToMulti(y: Int): Arr[Multiple[TileT#FromT]] =
    {
      val acc: Buff[Multiple[TileT#FromT]] = Buff()
