@@ -7,6 +7,7 @@ import geom._, pCanv._, pGrid._
 class UnusGui(canv: CanvasPlatform, grid: SimpGrid)
 {
   val game = new Simplicissima(grid)
+  deb(grid.str)
   new UnusSetGui(canv, grid, game)
 }
 

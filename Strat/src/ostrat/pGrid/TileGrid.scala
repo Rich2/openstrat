@@ -44,7 +44,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit
   /** For each Tile's XY in the whole of the row. */
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
-  final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)(getTile(_, _))
+  final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)((x, y) => f(getTile(x, y)))
 
   def tilesToMultiAll: Arr[TileRow[TileT#FromT]] = tileRowMapAll(tileRowClass)
 
@@ -109,7 +109,8 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   
   /** For all Tiles call side effecting function on the Tile. */
   @inline final def foreachTileAll(f: TileT => Unit): Unit =  foreachTilesCoodAll{ tileCood => f(getTile(tileCood)) }  
-  
+
+  /** For each tile row, perform side effecting method. */
   final def foreachTileRowAll(f: Int => Unit): Unit =
   { var y: Int = yTileMin
     while(y <= yTileMax) { f(y); y += 2 }
@@ -119,7 +120,9 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   {
     val acc: Array[A] = new Array[A](numTileRow)
     var count = 0
+    debvar(numTileRow)
     foreachTileRowAll{y => acc(count) = f(y); count += 1 }
+    debb()
     acc.toArr
   }
   
