@@ -116,11 +116,10 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     while(y <= yTileMax) { f(y); y += 2 }
   }
 
+  /** Maps each tile row to an Arr[A] */
   def tileRowMapAll[A](f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
-  { val acc: Array[A] = new Array[A](arrLen)
-    var count = 0
-    debvar(arrLen)
-    foreachTileRowAll{y => acc(count) = f(y); count += 1 }
+  { val acc: Buff[A] = Buff(arrLen)
+    foreachTileRowAll{y => acc += f(y) }
     acc.toArr
   }
   
