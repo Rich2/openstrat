@@ -10,18 +10,28 @@ object deb
    
   def debImpl(c: Context)(str: c.Expr[String]): c.Expr[Unit] = 
   { import c.universe._     
-    val pos: Position  = c.macroApplication.pos      
-    val s1 = macroPosn(c)(pos)
+
+    val s1 = macroPosn(c)
     val Predef_println = typeOf[Predef.type].decl(TermName("println"))
     c.Expr(q"""$Predef_println($s1 + ": " + $str)""")
   }  
    
-  def macroPosn(c: Context)(posn: c.Position): String =
-  { val fileName = posn.source.toString
+  def macroPosn(c: Context): String =
+  { import c.universe._
+    val posn: Position  = c.macroApplication.pos
+    val fileName = posn.source.toString
     val lineNum: String = posn.line.toString
     val column: String = posn.column.toString
     fileName + "." + lineNum + "." + column
-  }   
+  }
+
+  def str: String = macro strImpl
+
+  def strImpl(c: Context): c.Expr[String] =
+  { import c.universe._
+    val s1 = macroPosn(c)
+    c.Expr(q"""$s1""")
+  }
 }
 
 /** Macro function object, prints source code position. */
@@ -30,11 +40,9 @@ object debb
   /** Simplest Macro shows source code position. Must include parenthesis debb(). Without the parenthesis the macro will not print. */
   def apply(): Unit = macro debbImpl
   
-  
   def debbImpl(c: Context)(): c.Expr[Unit] = 
-  { import c.universe._     
-    val pos: Position  = c.macroApplication.pos      
-    val s1 = deb.macroPosn(c)(pos)
+  { import c.universe._
+    val s1 = deb.macroPosn(c)
     val Predef_println = typeOf[Predef.type].decl(TermName("println"))
     c.Expr(q"""$Predef_println($s1)""")
   }  
@@ -51,11 +59,10 @@ object debvar
   {
     import c.universe._      
     val name1: String = show(inputExpr.tree).reverse.takeWhile(_ != '.').reverse
-    val name2: String = name1 + ": " 
-    val pos: Position  = c.macroApplication.pos      
-    val codePosnStr: String = deb.macroPosn(c)(pos)
+    val name2: String = name1 + " = "
+    val str: String = deb.macroPosn(c) + ". " + name1 + " = "
     val Predef_println: Symbol = typeOf[Predef.type].decl(TermName("println"))
-    val tree: c.Tree = q"""$Predef_println($codePosnStr + " " + $name2 + $inputExpr)"""
+    val tree: c.Tree = q"""$Predef_println($str + $inputExpr)"""
     c.Expr(tree)      
   }
 }

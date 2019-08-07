@@ -8,6 +8,8 @@ class UnusGui(canv: CanvasPlatform, grid: SimpGrid)
 {
   val game = new Simplicissima(grid)
   deb(grid.str)
+  val fg = 5
+  debvar(fg)
   new UnusSetGui(canv, grid, game)
 }
 
