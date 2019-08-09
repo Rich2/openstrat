@@ -59,7 +59,6 @@ object debvar
   {
     import c.universe._      
     val name1: String = show(inputExpr.tree).reverse.takeWhile(_ != '.').reverse
-    val name2: String = name1 + " = "
     val str: String = deb.macroPosn(c) + ". " + name1 + " = "
     val Predef_println: Symbol = typeOf[Predef.type].decl(TermName("println"))
     val tree: c.Tree = q"""$Predef_println($str + $inputExpr)"""
