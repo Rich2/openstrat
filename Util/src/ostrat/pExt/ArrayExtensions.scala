@@ -2,37 +2,31 @@
 package ostrat
 package pExt
 
-/** Extension methods for Array[Double] class. Brought into scope by the arrayDoubleToImplicit method in package object. */
-class ArrayDoubleExtensions(val thisArray:Array[Double]) extends AnyVal
-{ /** Foreach with iterator. */ 
-  def iForeach(f: (Int, Double) => Unit, indexStart: Int = 0): Unit =
-  { var index = indexStart
-    thisArray.foreach{d => f(index, d); index += 1 }
-  }
-  
-  def str: String = thisArray.foldLeft("Array(")(_ + _.toString + ",")
-}
-
 /** Extension methods for Array[A] class */
-class ArrayRefExtensions[A <: AnyRef](val thisArray: Array[A]) extends AnyVal
-{ //s def str: String = "Array
-  /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the 
-  *  tail value */
+class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal { //s def str: String = "Array
+  /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the
+   * tail value */
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
-   
-  def valueProducts[B <: ProductVals[A]](implicit factory: Int => B): B =
-  { val length = thisArray.length
+
+  def valueProducts[B <: ProductVals[A]](implicit factory: Int => B): B = {
+    val length = thisArray.length
     val valProds = factory(length)
     var count = 0
-    while (count < length)
-    { valProds.setElem(count, thisArray(count))
+    while (count < length) {
+      valProds.setElem(count, thisArray(count))
       count += 1
     }
     valProds
   }
-//  def toStrFold(seperator: String = "", f: A => String = _.toString): String =
-//    thisArray.ifEmpty("", thisArray.tail.foldLeft(f(thisArray.head))(_ - seperator - f(_)))   
-//  def commaFold(fToStr: A => String = _.toString): String = thisArray.toStrFold(", ", fToStr)
-//  def semiFold(fToStr: A => String = _.toString): String = thisArray.toStrFold("; ", fToStr)
-//  def toStringAlt: String = "Array" + thisArray.semiFold
+
+  /** foreach loop with counter */
+  def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit = {
+    var counter = count
+    var rem = thisArray
+    while (rem.nonEmpty) {
+      f(rem.head, counter)
+      counter += 1
+      rem = rem.tail
+    }
+  }
 }

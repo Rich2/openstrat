@@ -55,7 +55,7 @@ object TileRow
 {
   implicit def persistImplicit[T](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]]
   {
-    def show(obj: ostrat.pGrid.TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
+     def show(obj: ostrat.pGrid.TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
     def showComma(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
     def showSemi(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
     def showTyped(obj: ostrat.pGrid.TileRow[T]): String = show(obj)

@@ -9,7 +9,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   statusText --= "Left click on unit to select, right click to move."
   focusUp = true
   override def saveNamePrefix = "WW2"
-  deb(EGrid80km.yToLatDegs(445).toString)
+
   val fHex: OfETile[W2Tile, W2Side] => GraphicElems = etog =>
     {
       import etog._         

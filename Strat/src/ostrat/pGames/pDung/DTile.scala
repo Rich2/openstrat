@@ -6,8 +6,7 @@ import Colour._
 import pGrid._
 
 sealed trait DTerr extends AnyRef with PersistSingleton
-{ //def typeSym = 'DTerr
-  def colour: Colour
+{ def colour: Colour
 }
 
 object DTerr { implicit val toDTile: (Int, Int, DTerr) => DTile = DTile.apply }
