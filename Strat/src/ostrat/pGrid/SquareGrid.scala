@@ -59,7 +59,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
    
   final def setColumn[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
   {
-    val tiles = tileMakers.flatMap(_.toSeq)      
+    val tiles = tileMakers.flatMap(_.singlesList)
     tiles.iForeach{(e, i) =>
       val y = yStart + i * 2
       fSetTile(x, y, e)      
@@ -72,7 +72,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
    
   final def setColumnDown[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
   {
-    val tiles = tileMakers.flatMap(_.toSeq)
+    val tiles = tileMakers.flatMap(_.singlesList)
       
     tiles.iForeach{(e, i) =>
       val y = yStart - i * 2
@@ -85,9 +85,8 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
     setColumnDown(cood.x, cood.y, tileValues: _*)(f)
    
   def fSetRow[A](y: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Unit =
-  {
-    val tiles = tileMakers.flatMap(_.toSeq)     
-    tiles.iForeach((e, i) => fSetTile(xTileMin + i * 2, y, e))
+  { val tiles = tileMakers.flatMap(_.singlesList)
+    tiles.iForeach((e , i) => fSetTile(xTileMin + i * 2, y, e))
   }
    
   def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Cood =

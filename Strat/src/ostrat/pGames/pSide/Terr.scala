@@ -21,6 +21,7 @@ case class TGrid(ts: Array[Terr]) extends HGrid[Terr]
 
 object Game extends App
 {
-  val a: Arr[Multiple[Terr]] = Arr(Sea * 5, Land * 2)
-  println(a)
+  val a1: ArrMulti[Terr] = Arr(Sea * 6, Land * 3)
+  val a2: ArrMulti[Terr] = Arr(Sea , Land * 3, Sea * 3, Land * 2)
+  println(a2)
 }

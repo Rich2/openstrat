@@ -11,6 +11,7 @@ package object ostrat
   type Buff[A] = ArrayBuffer[A]
   type EMonList[A] = EMon[List[A]]
   type EMonArr[A] = EMon[Arr[A]]
+  type ArrMulti[A] = Arr[Multiple[A]]
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
   val Cos60 = 0.5
@@ -120,14 +121,21 @@ package object ostrat
   {
     val iLen = (iTo - iFrom + 1).min(0) / iStep
     val array: Array[A] = new Array[A](iLen)
-    var i: Int = iFrom
+    var count = 0
+    @inline def i: Int = iFrom + count * iStep
     while(i <= iTo)
-    {
-      array(i) = f(i)
-      i += 1
+    { array(count) = f(i)
+      count += 1
     }
     array.toArr
   }
+
+  def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
+  { var i: Int = iFrom
+    while(i <= iTo) { f(i); i += iStep }
+  }
+
+  def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
 
   def ijUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
     ijToMap[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
