@@ -22,7 +22,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   final override def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit = for 
   {x <- xTileMin.max(xStart).incrementTill(_.isEven) to xTileMax.min(xEnd).decrementTill(_.isEven) by xStep} f(x, y)
   
-  override def xToInd(x: Int): Int = (x - xTileMin) / 2  
+  //override def xToInd(x: Int): Int = (x - xTileMin) / 2
   override def xArrLen: Int = xTileMax - xTileMin + 3
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)

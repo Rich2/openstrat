@@ -15,8 +15,7 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
   override val arr: Array[TileT] = new Array[TileT](arrLen)
   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)   
-  override def xStep: Int = 4   
-  override def xToInd(x: Int): Int = (x - xTileMin) / 4  
+  override def xStep: Int = 4
   override def xSideMin: Int = xTileMin - 2
   override def xSideMax: Int = xTileMax + 2
 

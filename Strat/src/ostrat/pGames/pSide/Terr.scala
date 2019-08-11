@@ -10,16 +10,17 @@ case class Coast(p1: Int, p2: Int = 0, p3: Int = 0, p4: Int = 0, p5: Int = 0, p6
 trait TGrid[TileT]
 {
   type GridT[A] <: TGrid[A]
-  def ts: Array[TileT]
+  def tArr: Array[TileT]
   def arrRows: Array[Int]
   def numRows: Int = arrRows.length / 2 - 1
   def rowIndex(rowNum: Int): Int = arrRows(rowNum * 2)
   def xRowStart(rowNum: Int): Int = arrRows(rowNum * 2 + 1)
-  //def getTile
-
-  def map[B](mapGrid: Array[Int] => GridT[B], f: TileT => B): GridT[B] =
+  @inline def xStep: Int
+  def xyToInd(x: Int, y: Int): Int = (x - xRowStart(y)) / xStep + rowIndex(y)
+  def getTile(x: Int, y: Int): TileT = tArr(xyToInd(x, y))
+    def map[B](mapGrid: Array[Int] => GridT[B], f: TileT => B): GridT[B] =
   { val res = mapGrid(arrRows)
-    ts.iForeach((t, i) => res.ts(i) = f(t))
+    tArr.iForeach((t, i) => res.tArr(i) = f(t))
     res
   }
 }
@@ -27,9 +28,20 @@ trait TGrid[TileT]
 trait HGrid[TileT] extends TGrid[TileT]
 {
   type GridT[A] = HGrid[A]
+  @inline override def xStep: Int = 4
 }
 
-class MyGrid(val ts: Array[Terr], val arrRows: Array[Int]) extends HGrid[Terr]
+object HGrid
+{
+  def rowMultis[TileT, GridT <: HGrid[TileT]](inp: Arr[RowMulti[TileT]]) (implicit fac: (Array[TileT], Array[Int]) => GridT) : GridT =
+  {
+    ???
+  }
+}
+
+case class RowMulti[TileT](xStart: Int, ms: ArrMulti[TileT])
+
+class MyGrid(val tArr: Array[Terr], val arrRows: Array[Int]) extends HGrid[Terr]
 
 object Game extends App
 {
