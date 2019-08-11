@@ -1,10 +1,11 @@
 package ostrat
 package pGames.pSide
 
-sealed trait Terr
-object Land extends Terr
-object Sea extends Terr
+sealed trait Terr extends ostrat.PersistSingleton
+object Land extends Terr { override def str = "Land"}
+object Sea extends Terr { override def str = "Sea"}
 case class Coast(p1: Int, p2: Int = 0, p3: Int = 0, p4: Int = 0, p5: Int = 0, p6: Int = 0) extends Terr
+{ def str = "Coast"}
 
 trait HGrid[TileT]
 {
@@ -20,6 +21,6 @@ case class TGrid(ts: Array[Terr]) extends HGrid[Terr]
 
 object Game extends App
 {
-  val a: Arr[Multiple[Terr]] = Arr(Sea * 5, Sea)
+  val a: Arr[Multiple[Terr]] = Arr(Sea * 5, Land * 2)
   println(a)
 }
