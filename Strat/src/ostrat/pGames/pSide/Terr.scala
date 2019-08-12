@@ -44,7 +44,7 @@ object TGrid
     indArr(0) = yMin
     var count = 1
     var rowCount = 0
-    inp.foreach{rm =>
+    inp.reverseForeach{rm =>
       indArr(rowCount * 2 + 1) = count
       indArr(rowCount * 2 + 2) = rm.xStart
       rm.multis.foreach(_.foreach{t => tiles(count) = t; count += 1 })
@@ -87,4 +87,5 @@ object Game extends App
   val g1 = TGrid.rowMultis(Arr(RowMulti(0, a3)), 4, MyGrid.apply)
   debvar(g1.yMin)
   debvar(g1.numRows)
+  println(g1.toString)
 }
