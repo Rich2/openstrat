@@ -22,6 +22,7 @@ trait TGrid[TileT]
   @inline def yMin: Int = indArr(0)
   @inline def yLen: Int = yMin + indArr.length / 2 - 1
   @inline def yMax: Int = yMin + indArr.length - 3
+  //@inline def xMin: Int =
   def yInd(y: Int): Int = (y - indArr.last) / 2
   def rowIndex(rowNum: Int): Int = indArr(rowNum - yMin + 1)
   def xRowStart(rowNum: Int): Int = indArr(rowNum - yMin + 2)
@@ -36,6 +37,9 @@ trait TGrid[TileT]
     tArr.iForeach((t, i) => res.tArr(i) = f(t))
     res
   }
+  def rowForeach(f: Int => Unit) = iToForeach(yMin, yMax, yStep)(f)
+  def rowsAllMap[B](f: Int => B): Arr[B] = ???
+
   def rowTileArr(y: Int): Arr[TileT] = ???
   def fRow[B](y: Int, f: (Int, Int, Arr[TileT]) => B): B = f(y, xRowStart(y), ???)
   def rowsStr: String = "TGrid"
