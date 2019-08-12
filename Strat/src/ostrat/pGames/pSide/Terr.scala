@@ -1,6 +1,6 @@
 package ostrat
 package pGames.pSide
-import reflect.ClassTag
+import reflect.ClassTag, geom._, pCanv._
 
 sealed trait Terr extends ostrat.PersistSingleton
 object Land extends Terr { override def str = "Land"}
@@ -117,7 +117,6 @@ object TGrid
       rowCount += 2
       rm.multis.foreach(_.foreach{t => tiles(count) = t; count += 1 })
     }
-
     fac(tiles, indArr)
   }
 }
@@ -148,12 +147,13 @@ object MyGrid
 
 }
 
-object Game extends App
+case class TGui(canv: CanvasPlatform)
 {
   val g1 = TGrid.rowMulti(460, MyGrid.apply,
+    RowMulti(180, Sea * 2, Land * 5, Sea * 2),
     RowMulti(178, Sea , Land * 3, Sea * 3, Land * 2),
     RowMulti(180, Sea * 6, Land * 3)
   )
-
+  canv.rendElem(TextGraphic(g1.rowsStr(4), 18))
   println(g1.rowsStr(4))
 }
