@@ -10,13 +10,13 @@ object IndentCon
     def out(indent: Int): String = thisSeq match
     { case Seq() => ""
       case Seq(head) if !head.multiLine => head.out(indent + 2)
-      case _ => thisSeq.foldLeft("")(_.nl + (indent + 2).toSpaces + _.out(indent + 2)).nl + indent.toSpaces
+      case _ => thisSeq.foldLeft("")(_.nl + (indent + 2).spaces + _.out(indent + 2)).nl + indent.spaces
     }
 
     def encOut(indent: Int, begStr: String, endStr: String) = thisSeq match
     { case Seq() => begStr + endStr
       case Seq(head) if !head.multiLine => begStr + head.out(indent + 2) + endStr
-      case _ => thisSeq.toStrsFold("\n" + indent.toSpaces, _.out(indent + 2)) + endStr
+      case _ => thisSeq.toStrsFold("\n" + indent.spaces, _.out(indent + 2)) + endStr
     }
 
     def curlyedOut(indent: Int) = thisSeq.encOut(indent, "{", "}")

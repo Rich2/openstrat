@@ -27,8 +27,8 @@ trait XmlEl extends Indenter with XCon
       {
          def loop(rem: Seq[XAtt], acc: String, i: Int): String = rem match
          {
-            case Seq() => acc + "\n" + indent.toSpaces
-            case Seq(h, tail @ _*) if h.multiLine => loop(tail, acc.nl + indent.toSpaces + h.out(indent + 2), 5)
+            case Seq() => acc + "\n" + indent.spaces
+            case Seq(h, tail @ _*) if h.multiLine => loop(tail, acc.nl + indent.spaces + h.out(indent + 2), 5)
             //case Seq(h, tail @ _*) if h. == 5 => loop(tail, acc.nl - h.out(indent + 2), 1)
             case Seq(h, tail @ _*) => loop(tail, acc -- h.out(indent + 2), i + 1)
          }

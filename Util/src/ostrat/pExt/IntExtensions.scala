@@ -29,7 +29,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
   @inline def degreesToRadians: Double = thisInt * Pi / 180
   @inline def radiansToDegrees: Double = thisInt * 180.0 / Pi
-  def toSpaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
+  def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
 
   def doTimes(f: () => Unit): Unit =
   { var count: Int = 0

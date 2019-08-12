@@ -17,49 +17,94 @@ trait TGrid[TileT]
   /** The index Arr first value is the bottom row number followed by 2 values for each row. The index for the start of the row in the tile Arr
    * followed by the xCood for the start of the row. Hence its length is 2 * numRows + 1. */
   def indArr: Array[Int]
+
   /** The number of rows. */
-  def numRows: Int = indArr.length / 2 - 1
+  def numRows: Int = {
+    val i: Int = indArr.length
+    debvar(i)
+    println(i)
+    val res0: Int = i / 2
+    println(res0)
+    debvar(res0)
+    val res1: Int = res0 - 1
+    res1
+  }
+
   @inline def yMin: Int = indArr(0)
   @inline def yLen: Int = yMin + indArr.length / 2 - 1
   @inline def yMax: Int = yMin + indArr.length - 3
 
   @inline def xMin: Int =
   { var acc: Int = 10000000
-    rowsForAll(y => acc.min(xRowStart(y)))
+    rowsForAll(y => acc = acc.min(xRowStart(y)))
     acc
   }
 
   @inline def xMax: Int =
   { var acc: Int = -10000000
-    rowsForAll(y => acc.max(xRowStart(y)))
+    rowsForAll(y => acc = acc.max(xRowStart(y)))
     acc
   }
 
   def yInd(y: Int): Int = (y - indArr.last) / 2
   def rowIndex(y: Int): Int = indArr(y - yMin + 1)
   def xRowStart(y: Int): Int = indArr(y - yMin + 2)
-  def xRowEnd(y: Int): Int = xRowStart(y) + rowLen(y)
-  def rowLen(y: Int): Int = ife(y == yMax, tileNum - rowIndex(y), rowIndex(y + yStep) - rowIndex(y))
+  def xRowEnd(y: Int): Int = xRowStart(y) + xRowLen(y)
+  def xRowLen(y: Int): Int = (rowTileNum(y) - 1 ) * 4
+  def rowTileNum(y: Int): Int =  ife(y == yMax, tileNum - rowIndex(y), rowIndex(y + yStep) - rowIndex(y))
   @inline def xStep: Int
 
   def xyToInd(x: Int, y: Int): Int = (x - xRowStart(y)) / xStep + rowIndex(y)
   def getTile(x: Int, y: Int): TileT = tArr(xyToInd(x, y))
 
-  def map[B](mapGrid: Array[Int] => GridT[B], f: TileT => B): GridT[B] =
-  { val res = mapGrid(indArr)
+  def map[B](newGrid: Array[Int] => GridT[B], f: TileT => B): GridT[B] =
+  { val res = newGrid(indArr)
     tArr.iForeach((t, i) => res.tArr(i) = f(t))
     res
   }
   def rowsForAll(f: Int => Unit) = iToForeach(yMin, yMax, yStep)(f)
-  def rowsAllMap[B](f: Int => B): Arr[B] = ???
 
-  def rowTileArr(y: Int): Arr[TileT] = ???
-  def fRow[B](y: Int, f: (Int, Int, Arr[TileT]) => B): B = f(y, xRowStart(y), ???)
-  def rowsStr(len: Int = 3): String =
+  def yToRowI(y: Int): Int = (y - yMin) / 2
+
+  def rowsMapAll[B](f: Int => B)(implicit ct: ClassTag[B]): Arr[B] =
+  { val array: Array[B] = new Array(numRows)
+    //debvar(indArr.length)
+    //debvar(numRows)
+    rowsForAll(y => array(yToRowI(y)) = f(y))
+    array.toArr
+  }
+
+  def rowTilesForAll(y: Int)(f: TileT => Unit): Unit = iToForeach(xRowStart(y), xRowEnd(y), xStep)(x => f(getTile(x, y)))
+
+  def rowTilesIForAll(y: Int)(f: (TileT, Int) => Unit): Unit =
   {
+    var x = xRowStart(y)
+    val xe = xRowEnd(y)
+    debvar(xe)
+    var i = 0
+    while(x <= xe)
+    { f(getTile(x, y), i)
+      x += xStep
+      i += 1
+    }
+  }
+
+  def rowTileArr(y: Int)(implicit ct: ClassTag[TileT]): Arr[TileT] =
+  {
+    debvar(rowTileNum(y))
+    val array: Array[TileT] = new Array(rowTileNum(y))
+    rowTilesIForAll(y)((t, i) => array(i) = t)
+    array.toArr
+  }
+  def fRow[B](y: Int, f: (Int, Int, Arr[TileT]) => B): B = f(y, xRowStart(y), ???)
+
+  def rowsStr(len: Int = 3)(implicit ct: ClassTag[TileT]): String =
+  { def fullLen = len + 2
     var acc = "TGrid {"
     val xm = xMin
-    rowsForAll{y => acc += "\n  " + xRowStart(y).toString}
+    val strs = rowsMapAll{y =>
+        xRowStart(y).toString + (xRowStart(y) - xm + 1).spaces + rowTileArr(y).toStrsFold("  ", _.toString)
+    }
     acc + "\n}"
   }
 }

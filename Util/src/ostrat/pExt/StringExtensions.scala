@@ -40,9 +40,9 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** appends a newline special character to this String */
   def nl: String = thisString + "\n"
   /** Concatenates a newline special character followed by spaces to this string */
-  def nl(indent: Int): String = thisString + "\n" + indent.toSpaces
+  def nl(indent: Int): String = thisString + "\n" + indent.spaces
   /** prepends a newline special character and spaces to this string */
-  def preNl(indent: Int): String = thisString + "\n" + indent.toSpaces
+  def preNl(indent: Int): String = thisString + "\n" + indent.spaces
   /** Prepends a newline special character to this String */
   def preNl: String = "\n" + thisString
   /** Prepends 2 spaces to string */   
