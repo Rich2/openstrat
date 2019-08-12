@@ -5,7 +5,7 @@ import math.Pi//, reflect.ClassTag
  
 class IntExtensions(val thisInt: Int) extends AnyVal
 {
-  /** modulus */
+  /** Correct defintion of modulus. */
   def %%(divisor: Int): Int =
   { val r = thisInt % divisor
     if (r < 0) divisor + r else r
@@ -20,8 +20,6 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def neg: Boolean = thisInt < 0
   def ifSumEven[A](evenVal: => A, oddVal: => A, operand: Int): A = if((thisInt + operand).isEven) evenVal else oddVal
   def ifSumOdd[A](oddVal: => A, evenVal: => A, operand: Int): A = if((thisInt + operand).isOdd) oddVal else evenVal
-  //def ifinc(b: Boolean): Int = if (b) thisInt + 1 else thisInt
-  //def ifdec(b: Boolean): Int = if (b) thisInt - 1 else thisInt
   def diff(operand: Int): Int = (thisInt - operand).abs
   def div2RoundUp: Int = thisInt / 2 + thisInt % 2
   def div2RoundDown: Int = thisInt / 2 - thisInt % 2
@@ -29,15 +27,14 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def billion: Long = thisInt.toLong *     1000000000L
   def trillion: Long = thisInt.toLong *    1000000000000L
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
-  //@inline def x2 = thisInt * 2
   @inline def degreesToRadians: Double = thisInt * Pi / 180
   @inline def radiansToDegrees: Double = thisInt * 180.0 / Pi
   def toSpaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
-  //override def persistStr: String = thisInt.toString
-  //def ifNeg[A](vNeg: => A, vPos: => A): A = if (thisInt < 0) vNeg else vPos
-  def fori(f: Int => Unit): Unit = (0 until thisInt).foreach(f)
-  def imap[A](f: Int => A): IndexedSeq[A] = (0 until thisInt).map(f(_))
-  def iFlatMap[A](f: Int => Seq[A]): Seq[A] = (0 until thisInt).flatMap(f(_))
+
+  def doTimes(f: () => Unit): Unit =
+  { var count: Int = 0
+    while(count < thisInt) {f(); count += 1}
+  }
 
   /** folds across the Integer range starting with this Int to the given end of range. */
   def foldTo[A](toValue: Int, initialValue: A)(f: (A, Int) => A): A =

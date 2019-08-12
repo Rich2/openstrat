@@ -7,6 +7,8 @@ case class Multiple[+A](value: A, num: Int)
 { def * (operand: Int): Multiple[A] = Multiple(value, num * operand)
   override def toString = "Multiple" + (value.toString + "; " + num.toString).enParenth
 
+  def foreach(f: A => Unit): Unit = num.doTimes(() => f(value))
+
   def singlesList: List[A] =
   {
     var acc: List[A] = Nil
@@ -34,6 +36,24 @@ case class Multiple[+A](value: A, num: Int)
 object Multiple
 {
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
+
+  implicit class ArrImplicit[A](thisArr: Arr[Multiple[A]])
+  {
+    def singlesLen: Int = thisArr.sumBy(_.num)
+    def flatSingles(implicit ct: ClassTag[A]): Arr[A] =
+    {
+      val len = thisArr.foldLeft(0)(_ + _.num)
+      val res = new Array[A](len)
+      var count = 0
+      thisArr.foreach{m =>
+        m.foreach{v =>
+          res(count) = v
+          count += 1
+        }
+      }
+      res.toArr
+    }
+  }
 
   implicit class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   { def toSingles: List[A] = thisSeq.toList.flatMap(_.singlesList)

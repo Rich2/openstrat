@@ -16,6 +16,12 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toStrsCommaFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold(", ", fToStr)
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
   def toArr(implicit ct: ClassTag[A]): Arr[A] = thisIter.toArray.toArr
+  def sumBy(f: A => Int): Int =
+  {
+    var acc = 0
+    thisIter.foreach(acc += f(_))
+    acc
+  }
 
   /** Maps over a Traversable (collection / sequence) with a counter. */
   def iMap[B](f: (A, Int) => B, count: Int = 0)(implicit ct: ClassTag[B]): Arr[B] =
