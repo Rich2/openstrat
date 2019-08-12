@@ -15,6 +15,8 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     thisIter.ifEmpty("", thisIter.tail.foldLeft(f(thisIter.head))(_ + seperator + f(_)))
   def toStrsCommaFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold(", ", fToStr)
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
+  def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
+  def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
   def toArr(implicit ct: ClassTag[A]): Arr[A] = thisIter.toArray.toArr
   def sumBy(f: A => Int): Int =
   {

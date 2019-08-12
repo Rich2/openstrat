@@ -13,14 +13,19 @@ trait TGrid[TileT]
   type GridT[A] <: TGrid[A]
   @inline final def yStep: Int = 2
   def tArr: Array[TileT]
+  def tileNum: Int = tArr.length
+  /** The index Arr first value is the bottom row number followed by 2 values for each row. The index for the start of the row in the tile Arr
+   * followed by the xCood for the start of the row. Hence its length is 2 * numRows + 1. */
   def indArr: Array[Int]
+  /** The number of rows. */
   def numRows: Int = indArr.length / 2 - 1
   @inline def yMin: Int = indArr(0)
   @inline def yLen: Int = yMin + indArr.length / 2 - 1
   @inline def yMax: Int = yMin + indArr.length - 3
   def yInd(y: Int): Int = (y - indArr.last) / 2
-  def rowIndex(rowNum: Int): Int = indArr(rowNum * 2)
-  def xRowStart(rowInd: Int): Int = indArr(rowInd * 2 + 1)
+  def rowIndex(rowNum: Int): Int = indArr(rowNum - yMin + 1)
+  def xRowStart(rowNum: Int): Int = indArr(rowNum - yMin + 2)
+  def rowLen(y: Int): Int = ife(y == yMax, tileNum - rowIndex(y), rowIndex(y + yStep) - rowIndex(y))
   @inline def xStep: Int
 
   def xyToInd(x: Int, y: Int): Int = (x - xRowStart(y)) / xStep + rowIndex(y)
@@ -31,27 +36,34 @@ trait TGrid[TileT]
     tArr.iForeach((t, i) => res.tArr(i) = f(t))
     res
   }
+  def rowTileArr(y: Int): Arr[TileT] = ???
+  def fRow[B](y: Int, f: (Int, Int, Arr[TileT]) => B): B = f(y, xRowStart(y), ???)
+  def rowsStr: String = "TGrid"
 }
 
 object TGrid
 {
+  def rowMulti[TileT, GridT <: TGrid[TileT]](yMin: Int, fac:(Array[TileT], Array[Int]) => GridT,inp: RowMulti[TileT]*)(implicit ct: ClassTag[TileT]):
+    GridT = rowMultis[TileT, GridT](inp.toArr, yMin: Int, fac)(ct)
+
   def rowMultis[TileT, GridT <: TGrid[TileT]](inp: Arr[RowMulti[TileT]], yMin: Int, fac:(Array[TileT], Array[Int]) => GridT)(
     implicit ct: ClassTag[TileT]): GridT =
   {
-    val len = inp.sumBy(_.multis.singlesLen + 10)
+    val len = inp.sumBy(_.multis.singlesLen)
     val tiles = new Array[TileT](len)
-    val indArr = new Array[Int](inp.length * 2 + 2)
+    /* The index Arr first value is the bottom row number followed by 2 values for each row. The index for the start of the row in the tile Arr
+     * followed by the xCood for the start of the row. Hence its length is 2 * numRows + 1. */
+    val indArr = new Array[Int](inp.length * 2 + 1)
     indArr(0) = yMin
-    var count = 1
-    var rowCount = 0
+    var count = 0
+    var rowCount = 1
     inp.reverseForeach{rm =>
-      indArr(rowCount * 2 + 1) = count
-      indArr(rowCount * 2 + 2) = rm.xStart
+      indArr(rowCount) = count
+      indArr(rowCount + 1) = rm.xStart
+      rowCount += 2
       rm.multis.foreach(_.foreach{t => tiles(count) = t; count += 1 })
-      rowCount += 1
     }
 
-    //assert((rowCount * 2) == indArr.length)
     fac(tiles, indArr)
   }
 }
@@ -62,11 +74,14 @@ trait HGrid[TileT] extends TGrid[TileT]
   @inline override def xStep: Int = 4
 }
 
-
-
-case class RowMulti[TileT](xStart: Int, multis: ArrMulti[TileT])
+class RowMulti[TileT](val xStart: Int, val multis: ArrMulti[TileT])
 {
   //def toPair(implicit ct: ClassTag[TileT]): (Int, Arr[TileT]) = (xStart, multis.flatSingles)
+}
+
+object RowMulti
+{
+  def apply[TileT](xStart: Int, multis: Multiple[TileT]*): RowMulti[TileT] = new RowMulti(xStart, multis.toArr)
 }
 
 case class MyGrid(val tArr: Array[Terr], val indArr: Array[Int]) extends HGrid[Terr]
@@ -81,11 +96,17 @@ object MyGrid
 
 object Game extends App
 {
-  val a1: ArrMulti[Terr] = Arr(Sea * 6, Land * 3)
-  val a2: ArrMulti[Terr] = Arr(Sea , Land * 3, Sea * 3, Land * 2)
-  val a3: ArrMulti[Terr] = Arr(Sea)
-  val g1 = TGrid.rowMultis(Arr(RowMulti(0, a3)), 4, MyGrid.apply)
+  val g1 = TGrid.rowMulti(460, MyGrid.apply,
+    RowMulti(178, Sea , Land * 3, Sea * 3, Land * 2),
+    RowMulti(180, Sea * 6, Land * 3)
+  )
+
   debvar(g1.yMin)
   debvar(g1.numRows)
-  println(g1.toString)
+  debvar(g1.tileNum)
+  debvar(g1.tArr.toStr)
+  debvar(g1.rowLen(462))
+  debvar(g1.xRowStart(462))
+  debvar(g1.rowLen(460))
+  debvar(g1.xRowStart(460))
 }
