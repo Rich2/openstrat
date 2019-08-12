@@ -93,4 +93,14 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     }
     case _ => "a " + thisString
   }
+
+  def lengthFix(newLenIn: Int = 3, packChar: Char = ' '): String =
+  { val newLen = newLenIn.min(1).max(9)
+    (newLen - thisString.length) match {
+      case l if l < 0 => thisString.take(newLen)
+      case 0 => thisString
+      case l if l.isEven => packChar.timesString(l / 2) + thisString + packChar.timesString(l / 2)
+      case l => packChar.timesString(l / 2 - 1) + thisString + packChar.timesString(l / 2)
+    }
+  }
 }

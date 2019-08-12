@@ -11,6 +11,13 @@ class CharExtensions(thisChar: Char)
     case al if ((al <= 'e') && (al >= 'a')) => true
     case _ => false
   }
+
+  def timesString(n: Int): String =
+  {
+    var acc = ""
+    n.doTimes(() => acc += thisChar.toString)
+    acc
+  }
 }
 
 class LongExtensions(val thisLong: Long) extends AnyVal
