@@ -118,9 +118,10 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
 
   /** Maps each tile row to an Arr[A] */
   def tileRowMapAll[A](f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
-  { val acc: Buff[A] = Buff(arrLen)
-    foreachTileRowAll{y => acc += f(y) }
-    acc.toArr
+  { val array: Array[A] = new Array(arrLen)
+    var count = 0
+    foreachTileRowAll{y => array(count) = f(y); count += 1 }
+    array.toArr
   }
   
   /** Map all Tiles to Array[B] with function. */
