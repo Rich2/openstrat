@@ -19,17 +19,7 @@ trait TGrid[TileT]
   def indArr: Array[Int]
 
   /** The number of rows. */
-  def numRows: Int = {
-    val i: Int = indArr.length
-    debvar(i)
-    println(i)
-    val res0: Int = i / 2
-    println(res0)
-    debvar(res0)
-    val res1: Int = res0 - 1
-    res1
-  }
-
+  def numRows: Int = indArr.length / 2
   @inline def yMin: Int = indArr(0)
   @inline def yLen: Int = yMin + indArr.length / 2 - 1
   @inline def yMax: Int = yMin + indArr.length - 3
@@ -68,8 +58,6 @@ trait TGrid[TileT]
 
   def rowsMapAll[B](f: Int => B)(implicit ct: ClassTag[B]): Arr[B] =
   { val array: Array[B] = new Array(numRows)
-    //debvar(indArr.length)
-    //debvar(numRows)
     rowsForAll(y => array(yToRowI(y)) = f(y))
     array.toArr
   }
@@ -80,7 +68,6 @@ trait TGrid[TileT]
   {
     var x = xRowStart(y)
     val xe = xRowEnd(y)
-    debvar(xe)
     var i = 0
     while(x <= xe)
     { f(getTile(x, y), i)
@@ -90,22 +77,21 @@ trait TGrid[TileT]
   }
 
   def rowTileArr(y: Int)(implicit ct: ClassTag[TileT]): Arr[TileT] =
-  {
-    debvar(rowTileNum(y))
-    val array: Array[TileT] = new Array(rowTileNum(y))
+  { val array: Array[TileT] = new Array(rowTileNum(y))
     rowTilesIForAll(y)((t, i) => array(i) = t)
     array.toArr
   }
+
   def fRow[B](y: Int, f: (Int, Int, Arr[TileT]) => B): B = f(y, xRowStart(y), ???)
 
   def rowsStr(len: Int = 3)(implicit ct: ClassTag[TileT]): String =
-  { def fullLen = len + 2
-    var acc = "TGrid {"
+  { var acc = "TGrid\n"
     val xm = xMin
-    val strs = rowsMapAll{y =>
-        xRowStart(y).toString + (xRowStart(y) - xm + 1).spaces + rowTileArr(y).toStrsFold("  ", _.toString)
+    debvar(xm)
+    val strs: Arr[String] = rowsMapAll{y =>
+        xRowStart(y).toString + ((xRowStart(y) - xm) * 2).spaces + rowTileArr(y).toStrsFold((len - 3).min(0).spaces, _.toString.lengthFix(len))
     }
-    acc + "\n}"
+    acc + strs.encurly
   }
 }
 
@@ -169,5 +155,5 @@ object Game extends App
     RowMulti(180, Sea * 6, Land * 3)
   )
 
-  println(g1.rowsStr())
+  println(g1.rowsStr(4))
 }

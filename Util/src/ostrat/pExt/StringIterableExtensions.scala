@@ -19,5 +19,17 @@ case class StringIterableExtensions(iter: Iterable[String])
    def semiParenth: String = semiFold.enParenth
    def commaParenth: String = commaFold.enParenth
    def insertSpaces: String = strFold(" ")
-   def insertSlashes: String = strFold(" / ")   
+   def insertSlashes: String = strFold(" / ")
+   def encurly: String =
+   {
+      var acc: String = "{ "
+      var count = 0
+      iter.foreach {s => count match
+      {
+         case 0 => { acc = acc + s; count = 1 }
+         case _ => acc = acc + "\n  " + s
+      }}
+      acc = ife(count == 0, acc + "}", acc + "\n}")
+      acc
+   }
 }
