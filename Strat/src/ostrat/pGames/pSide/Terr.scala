@@ -22,10 +22,23 @@ trait TGrid[TileT]
   @inline def yMin: Int = indArr(0)
   @inline def yLen: Int = yMin + indArr.length / 2 - 1
   @inline def yMax: Int = yMin + indArr.length - 3
-  //@inline def xMin: Int =
+
+  @inline def xMin: Int =
+  { var acc: Int = 10000000
+    rowsForAll(y => acc.min(xRowStart(y)))
+    acc
+  }
+
+  @inline def xMax: Int =
+  { var acc: Int = -10000000
+    rowsForAll(y => acc.max(xRowStart(y)))
+    acc
+  }
+
   def yInd(y: Int): Int = (y - indArr.last) / 2
-  def rowIndex(rowNum: Int): Int = indArr(rowNum - yMin + 1)
-  def xRowStart(rowNum: Int): Int = indArr(rowNum - yMin + 2)
+  def rowIndex(y: Int): Int = indArr(y - yMin + 1)
+  def xRowStart(y: Int): Int = indArr(y - yMin + 2)
+  def xRowEnd(y: Int): Int = xRowStart(y) + rowLen(y)
   def rowLen(y: Int): Int = ife(y == yMax, tileNum - rowIndex(y), rowIndex(y + yStep) - rowIndex(y))
   @inline def xStep: Int
 
@@ -37,12 +50,18 @@ trait TGrid[TileT]
     tArr.iForeach((t, i) => res.tArr(i) = f(t))
     res
   }
-  def rowForeach(f: Int => Unit) = iToForeach(yMin, yMax, yStep)(f)
+  def rowsForAll(f: Int => Unit) = iToForeach(yMin, yMax, yStep)(f)
   def rowsAllMap[B](f: Int => B): Arr[B] = ???
 
   def rowTileArr(y: Int): Arr[TileT] = ???
   def fRow[B](y: Int, f: (Int, Int, Arr[TileT]) => B): B = f(y, xRowStart(y), ???)
-  def rowsStr: String = "TGrid"
+  def rowsStr(len: Int = 3): String =
+  {
+    var acc = "TGrid {"
+    val xm = xMin
+    rowsForAll{y => acc += "\n  " + xRowStart(y).toString}
+    acc + "\n}"
+  }
 }
 
 object TGrid
@@ -105,12 +124,5 @@ object Game extends App
     RowMulti(180, Sea * 6, Land * 3)
   )
 
-  debvar(g1.yMin)
-  debvar(g1.numRows)
-  debvar(g1.tileNum)
-  debvar(g1.tArr.toStr)
-  debvar(g1.rowLen(462))
-  debvar(g1.xRowStart(462))
-  debvar(g1.rowLen(460))
-  debvar(g1.xRowStart(460))
+  println(g1.rowsStr())
 }
