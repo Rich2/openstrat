@@ -7,12 +7,14 @@ trait TGrid[TileT]
 {
   type GridT[A] <: TGrid[A]
   @inline final def yStep: Int = 2
+  def coodToVec2(cood: Cood): Vec2
   def tArr: Array[TileT]
   def tileNum: Int = tArr.length
   /** The index Arr first value is the bottom row number followed by 2 values for each row. The index for the start of the row in the tile Arr
    * followed by the xCood for the start of the row. Hence its length is 2 * numRows + 1. */
   def indArr: Array[Int]
-
+  def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
+  def vertCoodsOfTile(tileCood: Cood): Coods
   /** The number of rows. */
   def numRows: Int = indArr.length / 2
   @inline def yMin: Int = indArr(0)
@@ -31,6 +33,8 @@ trait TGrid[TileT]
     acc
   }
 
+  def cen: Vec2 // coodToVec2((xMax + xMin) /2 cc (yMin + yMax) / 2)
+
   def yInd(y: Int): Int = (y - indArr.last) / 2
   def rowIndex(y: Int): Int = indArr(y - yMin + 1)
   def xRowStart(y: Int): Int = indArr(y - yMin + 2)
@@ -41,6 +45,11 @@ trait TGrid[TileT]
 
   def xyToInd(x: Int, y: Int): Int = (x - xRowStart(y)) / xStep + rowIndex(y)
   def getTile(x: Int, y: Int): TileT = tArr(xyToInd(x, y))
+  def vertVec2sOfTile(x: Int, y: Int): Vec2s = vertCoodsOfTile(x, y).pMap(coodToVec2)
+  def vertDispVec2s(x: Int, y: Int, scale: Double, offset: Vec2 = cen): Vec2s = vertVec2sOfTile(x, y).fTrans(v => (v - offset) * scale)
+  def tileFill(x: Int, y: Int, scale: Double, offset: Vec2 = cen)(f: TileT => Colour): PolyFill =
+    PolyFill(vertDispVec2s(x, y, scale, offset).toPolygon, f(getTile(x, y)))
+
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
   def map[B](newGrid: Array[Int] => GridT[B], f: TileT => B): GridT[B] =
@@ -83,7 +92,6 @@ trait TGrid[TileT]
   def rowsStr(len: Int = 3)(implicit ct: ClassTag[TileT]): String =
   { var acc = "TGrid\n"
     val xm = xMin
-    debvar(xm)
     val strs: Arr[String] = rowsMapAll{y =>
       xRowStart(y).toString + ((xRowStart(y) - xm) * 2).spaces + rowTileArr(y).toStrsFold((len - 3).min(0).spaces, _.toString.lengthFix(len))
     }

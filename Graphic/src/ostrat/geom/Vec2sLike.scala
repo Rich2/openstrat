@@ -30,6 +30,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with T
   @inline def xStart: Double = arr(0)
   @inline def yStart: Double = arr(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
+  def toPolygon: Polygon = new Polygon(arr)
  
   def fTrans(f: Vec2 => Vec2): Vec2s =  new Vec2s(arrTrans(f))
   

@@ -7,12 +7,13 @@ trait HGrid[TileT] extends TGrid[TileT]
 {
   type GridT[A] = HGrid[A]
   @inline override def xStep: Int = 4
+  override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
     x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
     x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")
-
+  override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
+  def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
 }
-
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
 abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
@@ -87,8 +88,12 @@ object HexGrid
 {
   val yRatio = sqrt(3)
   /** Verts start at Up and follow clockwise */
-  val vertCoodsOfTile00: Coods = Coods.ints(0,1,  2,1,  2,-1,  0 ,-1,  -2,-1,  -2,1)
-  def vertCoodsOfTile(tileCood: Cood): Coods = vertCoodsOfTile00.pMap(_ + tileCood)
+  val vertCoodsOfTile00: Coods = Coods.ints(0,1,  2,1,  2,-1,  0,-1,  -2,-1,  -2,1)
+  def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
+  def vertCoodsOfTile(tileCood: Cood): Coods =
+  {
+    vertCoodsOfTile00.pMap(_ + tileCood)
+  }
   val sideCoodsOfTile00: Coods = Coods.ints(1,1, 2,0, 1,-1, -1,-1, -2,0, -1,1).pMap(p => Cood(p._1, p._2))
   def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.pMap(tileCood + _)
   val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.pMap(_ * 2)
@@ -108,7 +113,7 @@ object HexGrid
     def yAdj: Double = y * yRatio
     (x % 4, y % 4) match
     { case (xr, yr) if yr.isEven && xr.isEven => Vec2(x, yAdj)
-      case (xr, yr) if yr.isEven => throw new Exception("HexCood, y is even but x is odd. This is an invalid HexCood")
+      case (xr, yr) if yr.isEven => throw new Exception("Hex Cood " + x.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
       case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(x, yAdj)
       case (0, 1) | (2, 3)  =>  Vec2(x, yAdj + yDist /2)
       case (xr, yr) => Vec2(x, yAdj - yDist / 2)

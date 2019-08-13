@@ -1,14 +1,25 @@
 package ostrat
 package pGames.pChannel
-import geom._, pGrid._,  pCanv._
+import geom._, pGrid._,  pCanv._, Colour._
 
 sealed trait Terr extends ostrat.PersistSingleton
-object Land extends Terr { override def str = "Land"}
-object Sea extends Terr { override def str = "Sea"}
+{ def colour: Colour
+}
+
+object Land extends Terr
+{ override def str = "Land"
+  def colour = LightGreen
+}
+
+object Sea extends Terr
+{ override def str = "Sea"
+  def colour = Blue
+}
+
 case class Coast(p1: Int, p2: Int = 0, p3: Int = 0, p4: Int = 0, p5: Int = 0, p6: Int = 0) extends Terr
-{ def str = "Coast"}
-
-
+{ def str = "Coast"
+  def colour = Blue
+}
 
 case class MyGrid(val tArr: Array[Terr], val indArr: Array[Int]) extends HGrid[Terr]
 {
@@ -28,5 +39,6 @@ case class TGui(canv: CanvasPlatform)
     RowMulti(180, Sea * 6, Land * 3)
   )
   canv.rendElem(TextGraphic(g1.rowsStr(4), 18))
+  canv.rendElem(g1.tileFill(182, 462, 120)(_.colour))
   println(g1.rowsStr(4))
 }

@@ -7,8 +7,10 @@ trait SGrid[TileT] extends TGrid[TileT]
 {
   type GridT[A] = SGrid[A]
   @inline override def xStep: Int = 2
+  override def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(x %% 2 == 0 & y %% 2 == 0,
     x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate")
+  override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGrid.vertCoodsOfTile(tileCood)
 }
 
 /** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
@@ -139,6 +141,7 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
 object SquareGrid
 {
   val vertCoodsOfTile00: Coods = Coods.ints(1,1,  1,-1,  -1,-1, -1,1)
+  def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
   def vertCoodsOfTile(inp: Cood): Coods = vertCoodsOfTile00.pMap(inp + _)
   val adjTileCoodsOfTile00: Coods = Coods(0 cc 2, 2 cc 2, 2 cc 0, 2 cc -2, 0 cc -2, -2 cc -2, -2 cc 0)
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
