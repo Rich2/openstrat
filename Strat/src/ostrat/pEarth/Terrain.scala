@@ -57,17 +57,18 @@ case class Plain(biome: Biome = OpenTerrain) extends Land
   override def str = "Plain"   
 }
 
-case class Hills(biome: Biome = OpenTerrain) extends Terrain
+case class Hills(biome: Biome = OpenTerrain) extends Land
 {
   override def str = "Hills"
   
   def colour = biome match
-  { case Forrest => Green
+  { case Forrest => Olive
+    case Desert => Tan
     case _ => Chocolate
   }
 }
 
-case class Mountains(biome: Biome = OpenTerrain) extends Terrain
+case class Mountains(biome: Biome = OpenTerrain) extends Land
 { override def str = "Mountain"
   override def colour = Gray 
 }
