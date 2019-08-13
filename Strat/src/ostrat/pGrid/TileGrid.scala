@@ -9,7 +9,7 @@ trait TGrid[TileT]
   @inline final def yStep: Int = 2
   def coodToVec2(cood: Cood): Vec2
   def tArr: Array[TileT]
-  def tileNum: Int = tArr.length
+  def numTile: Int = tArr.length
   /** The index Arr first value is the bottom row number followed by 2 values for each row. The index for the start of the row in the tile Arr
    * followed by the xCood for the start of the row. Hence its length is 2 * numRows + 1. */
   def indArr: Array[Int]
@@ -40,7 +40,7 @@ trait TGrid[TileT]
   def xRowStart(y: Int): Int = indArr(y - yMin + 2)
   def xRowEnd(y: Int): Int = xRowStart(y) + xRowLen(y)
   def xRowLen(y: Int): Int = (rowTileNum(y) - 1 ) * 4
-  def rowTileNum(y: Int): Int =  ife(y == yMax, tileNum - rowIndex(y), rowIndex(y + yStep) - rowIndex(y))
+  def rowTileNum(y: Int): Int =  ife(y == yMax, numTile - rowIndex(y), rowIndex(y + yStep) - rowIndex(y))
   @inline def xStep: Int
 
   def xyToInd(x: Int, y: Int): Int = (x - xRowStart(y)) / xStep + rowIndex(y)
@@ -49,6 +49,13 @@ trait TGrid[TileT]
   def vertDispVec2s(x: Int, y: Int, scale: Double, offset: Vec2 = cen): Vec2s = vertVec2sOfTile(x, y).fTrans(v => (v - offset) * scale)
   def tileFill(x: Int, y: Int, scale: Double, offset: Vec2 = cen)(f: TileT => Colour): PolyFill =
     PolyFill(vertDispVec2s(x, y, scale, offset).toPolygon, f(getTile(x, y)))
+  def tilesFillAll(scale: Double, offset: Vec2 = cen)(f: TileT => Colour): Arr[PolyFill] =
+  {
+    val array: Array[PolyFill] = new Array(numTile)
+    var count: Int = 0
+    xyTilesForAll{(x, y, tile) => array(count) = tileFill(x, y, scale, offset)(f); count += 1}
+    array.toArr
+  }
 
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
@@ -57,6 +64,8 @@ trait TGrid[TileT]
     tArr.iForeach((t, i) => res.tArr(i) = f(t))
     res
   }
+
+  def xyTilesForAll(f: (Int, Int, TileT) => Unit): Unit = rowsForAll(y => rowXYTilesForAll(y)(f))
   def rowsForAll(f: Int => Unit) = iToForeach(yMin, yMax, yStep)(f)
 
   def yToRowI(y: Int): Int = (y - yMin) / 2
@@ -68,10 +77,10 @@ trait TGrid[TileT]
   }
 
   def rowTilesForAll(y: Int)(f: TileT => Unit): Unit = iToForeach(xRowStart(y), xRowEnd(y), xStep)(x => f(getTile(x, y)))
+  def rowXYTilesForAll(y: Int)(f: (Int, Int, TileT) => Unit): Unit = iToForeach(xRowStart(y), xRowEnd(y), xStep)(x => f(x, y, getTile(x, y)))
 
   def rowTilesIForAll(y: Int)(f: (TileT, Int) => Unit): Unit =
-  {
-    var x = xRowStart(y)
+  { var x = xRowStart(y)
     val xe = xRowEnd(y)
     var i = 0
     while(x <= xe)

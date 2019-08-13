@@ -27,6 +27,6 @@ case class TGui(canv: CanvasPlatform)
     RowMulti(180, sea * 6, plain * 3)
   )
   canv.rendElem(TextGraphic(g1.rowsStr(4), 18))
-  canv.rendElem(g1.tileFill(182, 462, 120)(_.colour))
+  canv.rendElems(g1.tilesFillAll(30)(_.colour))
   println(g1.rowsStr(4))
 }
