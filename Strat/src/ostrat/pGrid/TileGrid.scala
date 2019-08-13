@@ -113,6 +113,13 @@ trait TGrid[TileT]
     }
     acc + strs.encurly
   }
+
+  def sideCoodsAll: Coods =
+  {
+    val acc: Buff[Cood] = Buff(numTile * 4)
+
+    ???
+  }
 }
 
 object TGrid
