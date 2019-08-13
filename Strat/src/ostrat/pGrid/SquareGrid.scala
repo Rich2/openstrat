@@ -3,6 +3,14 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag
 
+trait SGrid[TileT] extends TGrid[TileT]
+{
+  type GridT[A] = SGrid[A]
+  @inline override def xStep: Int = 2
+  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(x %% 2 == 0 & y %% 2 == 0,
+    x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate")
+}
+
 /** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int,

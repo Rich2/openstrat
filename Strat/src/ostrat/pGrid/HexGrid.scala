@@ -3,6 +3,17 @@ package ostrat
 package pGrid
 import geom._, math.sqrt, reflect.ClassTag
 
+trait HGrid[TileT] extends TGrid[TileT]
+{
+  type GridT[A] = HGrid[A]
+  @inline override def xStep: Int = 4
+  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
+    x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
+    x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")
+
+}
+
+
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
 abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
 (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGrid[TileT, SideT]// with HexGrid[TileT]   
