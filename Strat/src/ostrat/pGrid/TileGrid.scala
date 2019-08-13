@@ -15,6 +15,7 @@ trait TGrid[TileT]
   def indArr: Array[Int]
   def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
   def vertCoodsOfTile(tileCood: Cood): Coods
+
   /** The number of rows. */
   def numRows: Int = indArr.length / 2
   @inline def yMin: Int = indArr(0)
@@ -29,11 +30,11 @@ trait TGrid[TileT]
 
   @inline def xMax: Int =
   { var acc: Int = -10000000
-    rowsForAll(y => acc = acc.max(xRowStart(y)))
+    rowsForAll(y => acc = acc.max(xRowEnd(y)))
     acc
   }
 
-  def cen: Vec2 // coodToVec2((xMax + xMin) /2 cc (yMin + yMax) / 2)
+  def cen: Vec2
 
   def yInd(y: Int): Int = (y - indArr.last) / 2
   def rowIndex(y: Int): Int = indArr(y - yMin + 1)
@@ -46,16 +47,12 @@ trait TGrid[TileT]
   def xyToInd(x: Int, y: Int): Int = (x - xRowStart(y)) / xStep + rowIndex(y)
   def getTile(x: Int, y: Int): TileT = tArr(xyToInd(x, y))
   def vertVec2sOfTile(x: Int, y: Int): Vec2s = vertCoodsOfTile(x, y).pMap(coodToVec2)
-  def vertDispVec2s(x: Int, y: Int, scale: Double, offset: Vec2 = cen): Vec2s = vertVec2sOfTile(x, y).fTrans(v => (v - offset) * scale)
-  def tileFill(x: Int, y: Int, scale: Double, offset: Vec2 = cen)(f: TileT => Colour): PolyFill =
-    PolyFill(vertDispVec2s(x, y, scale, offset).toPolygon, f(getTile(x, y)))
-  def tilesFillAll(scale: Double, offset: Vec2 = cen)(f: TileT => Colour): Arr[PolyFill] =
-  {
-    val array: Array[PolyFill] = new Array(numTile)
-    var count: Int = 0
-    xyTilesForAll{(x, y, tile) => array(count) = tileFill(x, y, scale, offset)(f); count += 1}
-    array.toArr
-  }
+  def vertDispVec2s(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Vec2s =
+    vertVec2sOfTile(x, y).fTrans(v => (v - mapOffset) * scale - displayOffset)
+  def tileFill(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): PolyFill =
+    PolyFill(vertDispVec2s(x, y, scale, mapOffset, displayOffset).toPolygon, f(getTile(x, y)))
+  def tilesFillAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): Arr[PolyFill] =
+    xyTilesMapAll((x, y, tile) => tileFill(x, y, scale, mapOffset, displayOffset)(f))
 
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
@@ -66,7 +63,16 @@ trait TGrid[TileT]
   }
 
   def xyTilesForAll(f: (Int, Int, TileT) => Unit): Unit = rowsForAll(y => rowXYTilesForAll(y)(f))
-  def rowsForAll(f: Int => Unit) = iToForeach(yMin, yMax, yStep)(f)
+
+  def xyTilesMapAll[B](f: (Int, Int, TileT) => B)(implicit ct: ClassTag[B]): Arr[B] =
+  { val array: Array[B] = new Array(numTile)
+    var count: Int = 0
+    tilesXYForAll{(x, y) => array(count) = f(x, y, getTile(x, y)); count += 1}
+    array.toArr
+  }
+
+  def rowsForAll(f: Int => Unit): Unit = iToForeach(yMin, yMax, yStep)(f)
+  def tilesXYForAll(f: (Int, Int) => Unit): Unit = rowsForAll(y => rowTilesXYForAll(y)(f))
 
   def yToRowI(y: Int): Int = (y - yMin) / 2
 
@@ -78,6 +84,7 @@ trait TGrid[TileT]
 
   def rowTilesForAll(y: Int)(f: TileT => Unit): Unit = iToForeach(xRowStart(y), xRowEnd(y), xStep)(x => f(getTile(x, y)))
   def rowXYTilesForAll(y: Int)(f: (Int, Int, TileT) => Unit): Unit = iToForeach(xRowStart(y), xRowEnd(y), xStep)(x => f(x, y, getTile(x, y)))
+  def rowTilesXYForAll(y: Int)(f: (Int, Int) => Unit): Unit = iToForeach(xRowStart(y), xRowEnd(y), xStep)(x => f(x, y))
 
   def rowTilesIForAll(y: Int)(f: (TileT, Int) => Unit): Unit =
   { var x = xRowStart(y)
