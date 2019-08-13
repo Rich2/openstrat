@@ -14,12 +14,14 @@ case class MyGrid(val tArr: Array[Terrain], val indArr: Array[Int]) extends HGri
 }
 
 case class TGui(canv: CanvasPlatform)
-{ import Terrain._
+{ import Terrain._, RowMulti.{apply => rm}
   val g1 = TGrid.rowMulti(460, MyGrid.apply,
-    RowMulti(180, sea * 2, plain * 5, sea * 2),
-    RowMulti(178, sea , hills * 3, sea * 3, plain * 2),
-    RowMulti(180, sea * 6, plain * 3)
+    rm(180, sea, hills * 3, plain * 2, sea * 3),
+    rm(178, sea, hills * 2, plain * 3, sea * 3),
+    rm(180, sea * 2, plain * 5, sea * 2),
+    rm(178, sea , hills * 3, sea * 3, plain * 2),
+    rm(180, sea * 6, plain * 3)
   )
 
-  canv.rendElems(g1.tilesFillAll(45)(_.colour))
+  canv.rendElems(g1.tilesFillAll(48)(_.colour))
 }
