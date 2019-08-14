@@ -3,8 +3,7 @@ package ostrat
 
 /** This is the base trait for the ProductDoubles and ProductInts classes. */
 trait ProductVals[A] extends Any
-{ //def typeStr: String
-  //override def toString: String = typeStr - MapList(_.toString).commaParenth
+{ def typeStr: String
   def productSize: Int
   def arrLen: Int
   final def length: Int = arrLen / productSize
@@ -13,7 +12,7 @@ trait ProductVals[A] extends Any
   def head: A = apply(0)
   def setHead(value: A): Unit = setElem(0, value)
   def last: A = apply(length - 1)
-  def setLast(value: A): Unit = setElem(length -1, value) 
+  def setLast(value: A): Unit = setElem(length -1, value)
   
   def foreach[U](f: A => U): Unit =
   { var count = 0
@@ -36,6 +35,24 @@ trait ProductVals[A] extends Any
   def foldLeft[B](initial: B)(f: (B, A) => B) =
   { var acc: B = initial
     foreach(a => acc = f(acc, a))
+    acc
+  }
+
+  def foldHeadTail[B](initial: B)(fHead: (B, A) => B)(fTail: (B, A) => B) =
+  { var acc: B = initial
+    var start: Boolean = true
+    foreach{a => if(start == true)
+      {acc = fHead(acc, a); start = false}
+      else acc = fTail(acc, a)
+    }
+    acc
+  }
+
+  def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
+  {
+    var acc: String = ""
+    var start = true
+    foreach(a => ife(start == true, {acc = f(a); start = false}, acc += a))
     acc
   }
    

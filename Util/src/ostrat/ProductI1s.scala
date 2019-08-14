@@ -30,4 +30,6 @@ trait ProductI1s[A <: ProdI1] extends Any with ProductInts[A]
     }
     acc
   }
+  def toArrs: Arr[Arr[Int]] = map(el => Arr(el.intValue))
+  def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
 }

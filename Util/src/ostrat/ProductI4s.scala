@@ -17,6 +17,8 @@ trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
   def head2: Int = arr(1)
   def head3: Int = arr(2)
   def head4: Int = arr(3)
+  def toArrs: Arr[Arr[Int]] = map(el => Arr(el._1, el._2, el._3, el._4))
+  def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 
 abstract class ProductI4sCompanion[A <: ProdI4, M <: ProductI4s[A]]

@@ -21,7 +21,9 @@ trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
       count += 1
     }
     newArr
-   }  
+   }
+  def toArrs: Arr[Arr[Int]] = map(el => Arr(el._1, el._2))
+  def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
 abstract class ProductI2sCompanion[A <: ProdI2, M <: ProductI2s[A]]

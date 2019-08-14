@@ -2,13 +2,16 @@
 package ostrat
 
 /** Base trait for Array[Double] base collections of Products of 3 Doubles. */
-trait ProductD3s[A <: ProdD3] extends Any with ProductDs[A]
+trait ProductD3s[A <: ProdD3] extends Any with ProductDoubles[A]
 { 
   def productSize = 3    
   def newElem(d1: Double, d2: Double, d3: Double): A  
   def apply(index: Int): A = newElem(arr(3 * index), arr(3 * index + 1), arr(3 * index + 2))
   def setElem(index: Int, elem: A): Unit = { arr(3 * index) = elem._1; arr(3 * index + 1) = elem._2; arr(3 * index + 2) = elem._3 }  
-  def head1: Double = arr(0); def head2: Double = arr(1); def head3: Double = arr(2)   
+  def head1: Double = arr(0); def head2: Double = arr(1); def head3: Double = arr(2)
+
+  def toArrs: Arr[Arr[Double]] = map(el => Arr(el._1, el._2, el._3))
+  def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3)))
 }
 
 abstract class ProductD3sCompanion[A <: ProdD3, M <: ProductD3s[A]]

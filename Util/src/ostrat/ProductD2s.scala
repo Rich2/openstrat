@@ -2,7 +2,7 @@
 package ostrat
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
-trait ProductD2s[A <: ProdD2] extends Any with ProductDs[A]
+trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
 {
   def productSize: Int = 2
   def newElem(d1: Double, d2: Double): A
@@ -45,4 +45,7 @@ trait ProductD2s[A <: ProdD2] extends Any with ProductDs[A]
     }
     newArr
    }
+
+  def toArrs: Arr[Arr[Double]] = map(el => Arr(el._1, el._2))
+  def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }

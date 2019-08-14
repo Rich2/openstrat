@@ -114,7 +114,7 @@ object LatLong
 }
 
 class LatLongs(val arr: Array[Double]) extends AnyVal with ProductD2s[LatLong]
-{ //override def typeStr: String = "LatLongs"
+{ override def typeStr: String = "LatLongs"
   override def newElem(d1: Double, d2: Double): LatLong = LatLong.apply(d1, d2)
 }
 

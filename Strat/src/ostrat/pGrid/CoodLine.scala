@@ -22,19 +22,22 @@ object CoodLine
    def apply(c1: Cood, c2: Cood): CoodLine = CoodLine(c1.x, c1.y, c2.x, c2.y)
 }
 
+
 /** An Array[Int] based collection for CoodLines. */
 class CoodLines(val arr: Array[Int]) extends AnyVal with ProductI4s[CoodLine] 
-{
+{ override def typeStr: String = "CoodLines"
   override def newElem(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = CoodLine.apply(i1, i2, i3, i4)
   def toLine2s(f: Cood => Vec2): Line2s = pMap(_.toLine2(f))
+  //override def toString: String = CoodLines.PersistImplicit.show(this)
 }
 
 object CoodLines extends ProductI4sCompanion[CoodLine, CoodLines]
-{ 
+{
   implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
-  
-  implicit object CoodsLinesPersistImplicit extends ProductI4sBuilder[CoodLine, CoodLines]("CoodLines")
+
+  implicit val PersistImplicit = new ProductI4sBuilder[CoodLine, CoodLines]("CoodLines")
   {
     override def fromArray(value: Array[Int]): CoodLines = new CoodLines(value)
   }
 }
+

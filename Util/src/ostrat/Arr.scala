@@ -24,3 +24,4 @@ object Arr1End
     case _ => None
   }
 }
+trait AType[A <: AType[A]]
