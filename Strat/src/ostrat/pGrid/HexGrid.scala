@@ -13,6 +13,7 @@ trait HGrid[TileT] extends TGrid[TileT]
     x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")
   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
   def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
+  override def sideCoodLine(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
 }
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
@@ -100,18 +101,21 @@ object HexGrid
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
   def vertCoodsOfSide(sideCood: Cood): CoodLine = vertCoodsOfSide(sideCood.x, sideCood.y)
 
-  def vertCoodsOfSide(xSideCood: Int, ySideCood: Int): CoodLine = (xSideCood %% 4, ySideCood %% 4) match
+  def vertCoodsOfSide(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
+    CoodLine(x + 1, y, x - 1, y))
+
+  /*  (xSideCood %% 4, ySideCood %% 4) match
   { case (0, 2) | (2, 0) => CoodLine(xSideCood, ySideCood + 1, xSideCood, ySideCood - 1)
     case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(xSideCood - 1, ySideCood, xSideCood + 1, ySideCood)
     case _ => excep("Invalid Hex Cood for a side")
-  }
+  }*/
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
   def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
 
   def coodToVec2(x: Int, y: Int): Vec2 =
   {
     def yAdj: Double = y * yRatio
-    (x % 4, y % 4) match
+    (x %% 4, y %% 4) match
     { case (xr, yr) if yr.isEven && xr.isEven => Vec2(x, yAdj)
       case (xr, yr) if yr.isEven => throw new Exception("Hex Cood " + x.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
       case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(x, yAdj)

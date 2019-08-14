@@ -24,8 +24,9 @@ object CoodLine
 
 /** An Array[Int] based collection for CoodLines. */
 class CoodLines(val arr: Array[Int]) extends AnyVal with ProductI4s[CoodLine] 
-{// override def typeStr: String = "CoodLines"
+{
   override def newElem(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = CoodLine.apply(i1, i2, i3, i4)
+  def toLine2s(f: Cood => Vec2): Line2s = pMap(_.toLine2(f))
 }
 
 object CoodLines extends ProductI4sCompanion[CoodLine, CoodLines]

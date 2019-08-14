@@ -11,6 +11,7 @@ trait SGrid[TileT] extends TGrid[TileT]
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(x %% 2 == 0 & y %% 2 == 0,
     x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate")
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGrid.vertCoodsOfTile(tileCood)
+  override def sideCoodLine(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
 }
 
 /** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
