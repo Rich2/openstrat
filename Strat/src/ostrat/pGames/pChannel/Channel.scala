@@ -25,9 +25,10 @@ case class TGui(canv: CanvasPlatform)
   val scale = 48
   val sc = HexGrid.sideCoodsOfTile(0 cc 0)
   val cl = g1.sideCoodLine(2 cc 0)
-  //debvar(cl)
+  debvar(sc)
 
-  debvar(g1.vertCoodsOfTile(0, 0))
+  debvar(g1.sideCoodLine(2, 0))
   canv.rendElems(
-    g1.tilesFillAll(scale)(_.colour) ++ g1.sideDrawsAll(scale)(4.0))
+    g1.tilesFillAll(scale)(_.colour) :+ CoodLine(2, -1, 0, -1).toLine2(g1.coodToVec2).scale(48).draw(4))
+  //g1.sideDrawsAll(scale)(4.0))
 }
