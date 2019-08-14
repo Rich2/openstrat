@@ -2,8 +2,7 @@
 package ostrat
 
 trait ProdI1 extends Any
-{
-  def intValue: Int
+{ def intValue: Int
 }
 
 trait ProductI1s[A <: ProdI1] extends Any with ProductInts[A]

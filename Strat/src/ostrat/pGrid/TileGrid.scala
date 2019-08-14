@@ -129,14 +129,11 @@ trait TGrid[TileT]
 
   def sideCoodLinesAll: CoodLines = sideCoodsAll.pMap(sideCoodLine)
 
-  def sideLinesAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Line2s = {
-    val res1: CoodLines = sideCoodLinesAll
-      debvar(res1)
-      res1.toLine2s(cood => (coodToVec2(cood) - mapOffset) * scale - displayOffset)
-  }
+  def sideLinesAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Line2s =
+     sideCoodLinesAll.toLine2s(cood => (coodToVec2(cood) - mapOffset) * scale - displayOffset)
+
   def sideDrawsAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(lineWidth: Double, colour: Colour = Black): Arr[LineDraw] = {
     val res1 = sideLinesAll(scale, mapOffset, displayOffset)
-    debvar(res1.length)
     res1.map(_.draw(lineWidth, colour))
   }
 }

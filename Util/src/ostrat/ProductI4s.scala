@@ -7,10 +7,10 @@ trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
   def apply(index: Int): A = newElem(arr(4 * index), arr(4 * index + 1), arr(4 * index + 2), arr(4 * index + 3))
   def setElem(index: Int, elem: A): Unit =
-  { arr(2 * index) = elem._1;
-    arr(2 * index + 1) = elem._2
-    arr(2 * index + 2) = elem._3
-    arr(2 * index + 3) = elem._4
+  { arr(4 * index) = elem._1;
+    arr(4 * index + 1) = elem._2
+    arr(4 * index + 2) = elem._3
+    arr(4 * index + 3) = elem._4
   }
   
   def head1: Int = arr(0)

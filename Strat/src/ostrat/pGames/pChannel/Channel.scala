@@ -15,20 +15,15 @@ case class MyGrid(val tArr: Array[Terrain], val indArr: Array[Int]) extends HGri
 
 case class TGui(canv: CanvasPlatform)
 { import Terrain._, RowMulti.{apply => rm}
-  val g1 = TGrid.rowMulti(4, MyGrid.apply,
-    rm(4, sea)//, hills * 3, plain * 2, sea * 3),
-    /*rm(178, sea, hills * 2, plain * 3, sea * 3),
+  val g1 = TGrid.rowMulti(460, MyGrid.apply,
+    rm(180, sea, hills * 3, plain * 2, sea * 3),
+    rm(178, sea, hills * 2, plain * 3, sea * 3),
     rm(180, sea * 2, plain * 5, sea * 2),
     rm(178, sea , hills * 3, sea * 3, plain * 2),
-    rm(180, sea * 6, plain * 3)*/
+    rm(180, sea * 6, plain * 3)
   )
-  val sl = 48
-  val sc = HexGrid.sideCoodsOfTile(0 cc 0)
-  val cl = g1.sideCoodLine(2 cc 0)
-  debvar(sc)
+  val scale = 48
 
-  debvar(g1.sideCoodLine(2, 0))
-  canv.rendElems(
-    g1.tilesFillAll(sl)(_.colour) :+ CoodLine(2, -1, 0, -1).toLine2(g1.coodToVec2).scale(sl).draw(4, Green))
-  canv.rendElems(g1.sideDrawsAll(sl)(4.0))
+  canv.rendElems(g1.tilesFillAll(scale)(_.colour))
+  canv.rendElems(g1.sideDrawsAll(scale)(2.0))
 }
