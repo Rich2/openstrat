@@ -48,8 +48,7 @@ object TerrainNone extends WTile
 }
 
 trait Land extends WTile
-{
-  def terr: Terrain
+{ def terr: Terrain
   def biome: Biome
   override def toString = biome.toString -- str
 
