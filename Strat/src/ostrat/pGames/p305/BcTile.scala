@@ -5,9 +5,9 @@ package p305
 import pGrid._
 import pEarth._
 
-case class BcTile(x: Int, y: Int, terr: Terrain) extends ETile
+case class BcTile(x: Int, y: Int, terr: WTile) extends ETile
 {
-  type FromT = Terrain
+  type FromT = WTile
   def fromT = terr
   var lunits: List[Legion] = Nil
 }

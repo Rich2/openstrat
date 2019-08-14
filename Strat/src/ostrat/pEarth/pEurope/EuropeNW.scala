@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, pGrid._, Terrain._, reflect.ClassTag
+import geom._, pGrid._, WTile._, reflect.ClassTag
 
 /** 44.97N, 15 East */
 object EuropeNW extends Area1("EuropeNW", 20 ll 0)
@@ -16,8 +16,8 @@ object EuropeNW extends Area1("EuropeNW", 20 ll 0)
 
 object EuropeNWGrid extends EGridMaker
 {
-  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT],
-    evSide: ClassTag[SideT]): EGrid80km[TileT, SideT] =
+  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT],
+                                              evSide: ClassTag[SideT]): EGrid80km[TileT, SideT] =
   {
     val grid: EGFarNorth[TileT, SideT] = new EGFarNorth[TileT, SideT]("WEurope", 0.east, xOffset = 200, xTileMin = 114, xTileMax = 286)
     grid.setTilesAll(Ocean)(fTile)

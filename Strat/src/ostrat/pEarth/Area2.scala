@@ -4,7 +4,7 @@ package pEarth
 import geom._
 
 /** A second level area */
-abstract class Area2(val symName: String, val cen: LatLong, val terr: Terrain) extends GeographicSymbolKey
+abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
    override def toString = name.commaAppend(terr.toString)
    def aStrs = Arr(name)
@@ -37,7 +37,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: Terrain) e
 
 object Area2
 {
-   def apply(symName: String, cen: LatLong, terr: Terrain, latLongArgs: LatLong*) = new Area2(symName, cen, terr)
+   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new Area2(symName, cen, terr)
    {      
       val latLongs = LatLongs(latLongArgs: _*)
    }  

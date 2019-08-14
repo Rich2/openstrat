@@ -1,7 +1,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, Terrain._
+import geom._, WTile._
 
 object Frankia extends Area2("Frankia", 47.28 ll 1.93, plain)
 {

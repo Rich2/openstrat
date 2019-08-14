@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._, Terrain._
+import geom._, WTile._
 
 object Majorca extends Area2("Majorca", 39.59 ll 3.01, plain)
 {

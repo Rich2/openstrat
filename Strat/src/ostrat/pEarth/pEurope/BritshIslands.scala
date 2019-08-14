@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, Terrain._
+import geom._, WTile._
 
 object OuterHebrides extends Area2("OuterHebrides", 57.83 ll -6.09, plain)
 {

@@ -115,8 +115,8 @@ object EGrid80km
 
 object E80Empty extends EGridMaker 
 {
-  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-      evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
+  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
+                                              evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
   EGrid80km[TileT, SideT] =
       new EGrid80km[TileT, SideT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0, turnNum = 0)
       

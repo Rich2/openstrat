@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._, geom.LatLong._, Terrain._
+import geom._, geom.LatLong._, WTile._
 
 object Australasia extends Area1("Australasia", -23 ll 130)
 {

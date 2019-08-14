@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pPts
-import geom._, LatLong._, pEarth._, Terrain._
+import geom._, LatLong._, pEarth._, WTile._
 
 object AmericasSouth extends Area1("SAmericas", -6.52 ll -62.28)
 {      

@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pPts
-import geom._, geom.LatLong._, Terrain._
+import geom._, geom.LatLong._, WTile._
 
 object PolarNorth extends Area1("NPole", 89.5 ll 0)
 {   

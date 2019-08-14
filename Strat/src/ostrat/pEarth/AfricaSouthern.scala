@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._, LatLong._, Terrain._
+import geom._, LatLong._, WTile._
 
 object AfricaSouthern extends Area1("AfricaSouthern", -16.14 ll 24.36)
 {

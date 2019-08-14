@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pPts
-import geom._, LatLong._, Terrain._
+import geom._, LatLong._, WTile._
 
 object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
 {  

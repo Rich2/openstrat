@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, Terrain._
+import geom._, WTile._
 
 object Jutland extends Area2("Jutland", 56.29 ll 9.33, plain)
 {

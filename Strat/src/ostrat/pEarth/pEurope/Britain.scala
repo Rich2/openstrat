@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, Terrain._
+import geom._, WTile._
 
 object Scotland extends Area2("Scotland", 56.82 ll -4.07, hills)
 {

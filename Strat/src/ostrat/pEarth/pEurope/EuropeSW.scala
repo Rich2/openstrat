@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, Terrain._
+import geom._, WTile._
 
 object EuropeSW extends Area1("EuropeSw", 20 ll 0)
 {//top = 45.59N * 2 - 46.21 = 44.97

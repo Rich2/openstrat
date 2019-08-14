@@ -13,7 +13,7 @@ class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNu
 
 object Civ1 extends CivGrid(4, 40, 4, 16, 0)
 {
-  import Terrain._
+  import WTile._
   setTilesAll(plain)
   import Civ1.{setRow => gs}
  

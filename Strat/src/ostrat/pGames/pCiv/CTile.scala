@@ -5,9 +5,9 @@ package pCiv
 import pEarth._
 import pGrid._
 
-case class CTile(x: Int, y: Int, terr: Terrain) extends Tile
+case class CTile(x: Int, y: Int, terr: WTile) extends Tile
 {
-  type FromT = Terrain
+  type FromT = WTile
   def fromT = terr
   def colour = terr.colour
   var settlement: Boolean = false
@@ -16,7 +16,7 @@ case class CTile(x: Int, y: Int, terr: Terrain) extends Tile
 
 object CTile
 {
-  implicit val tileMaker: (Int, Int, Terrain) => CTile = apply
+  implicit val tileMaker: (Int, Int, WTile) => CTile = apply
 
   implicit object CTileIsType extends IsType[CTile]
   { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[CTile]

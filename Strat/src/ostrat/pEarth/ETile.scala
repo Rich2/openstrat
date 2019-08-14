@@ -4,7 +4,7 @@ package pEarth
 import pGrid._
 
 trait ETile extends ColouredTile
-{ def terr: Terrain
+{ def terr: WTile
   def colour: Colour = terr.colour
   def str: String = terr.str
 }

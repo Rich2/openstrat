@@ -3,14 +3,14 @@ package ostrat
 package pEarth
 import geom._, pGrid._
 
-case class TerrOnly(x: Int, y: Int, terr: Terrain) extends ETile
+case class TerrOnly(x: Int, y: Int, terr: WTile) extends ETile
 {
-  type FromT = Terrain
+  type FromT = WTile
   def fromT = terr
 }
 object TerrOnly
 {
-   implicit val tileMaker: (Int, Int, Terrain) => TerrOnly = apply
+   implicit val tileMaker: (Int, Int, WTile) => TerrOnly = apply
    implicit object TerrOnlyIsType extends IsType[TerrOnly]
    {
       override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[TerrOnly]

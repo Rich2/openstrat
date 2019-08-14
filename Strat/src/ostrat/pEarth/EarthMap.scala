@@ -7,14 +7,14 @@ import pGrid._
 import reflect.ClassTag
 
 /** An all world map, parametised by Tile and Tile side types. */
-class EarthAllMap[TileT <: Tile, SideT <: TileSide](fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
+class EarthAllMap[TileT <: Tile, SideT <: TileSide](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
       implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 {
   override val tops: Arr[Area1] = EarthAreas.allTops
   def topsMap[A](f :Area1 => A): Arr[A] = tops.map(f)
 }
 
-class OldWorldMap[TileT <: Tile, SideT <: TileSide](val fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
+class OldWorldMap[TileT <: Tile, SideT <: TileSide](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
       implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
 {
   def tile(x: Int, y: Int): TileT = grids(0).getTile(x, y)

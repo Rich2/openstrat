@@ -6,7 +6,7 @@ import geom._, pGrid._, reflect.ClassTag
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
 {
-  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, Terrain) => TileT, fSide: (Int, Int, SideTerr) => SideT,
+  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
                                               evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
   EGrid[TileT, SideT]
 }

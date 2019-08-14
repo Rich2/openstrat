@@ -4,9 +4,9 @@ package pGames
 package p1783
 import pEarth._
 
-case class NTile(x: Int, y: Int, terr: Terrain) extends ETile
+case class NTile(x: Int, y: Int, terr: WTile) extends ETile
 {
-  type FromT = Terrain
+  type FromT = WTile
   def fromT = terr
   var lunits: Arr[Corps] = Arr()
 }

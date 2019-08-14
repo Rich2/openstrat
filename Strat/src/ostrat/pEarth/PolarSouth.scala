@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import geom._, LatLong._, Terrain._
+import geom._, LatLong._, WTile._
 
 object PolarSouth extends Area1("PolarSouth", -89.9 ll 0)
 {

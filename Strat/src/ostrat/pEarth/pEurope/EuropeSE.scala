@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import ostrat.geom._, Terrain._
+import ostrat.geom._, WTile._
 
 object Balkans extends Area2("Balkans", 43.9 ll 22.1, plain)
 {
