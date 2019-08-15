@@ -149,3 +149,5 @@ object Coastal
     dnLtA: Int = 0, dnLtB: Int = 0, upLtA: Int = 0, upLtB: Int = 0): Coastal =
     new Coastal(VertOffs(upA, upB, upRtA, upRtB, dnRtA, dnRtB, downA, downB, dnLtA, dnLtB, upLtA, upLtB))
 }
+
+case class Straits(farV: Int)
