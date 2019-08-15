@@ -34,7 +34,6 @@ trait TGrid[TileT]
   }
 
   def cen: Vec2
-
   def yInd(y: Int): Int = (y - indArr.last) / 2
   def rowIndex(y: Int): Int = indArr(y - yMin + 1)
   def xRowStart(y: Int): Int = indArr(y - yMin + 2)

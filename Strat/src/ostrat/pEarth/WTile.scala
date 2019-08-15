@@ -42,6 +42,7 @@ trait Water extends WTile
 case object Ocean extends Water { def str = "Ocean" }
 case object Lake extends Water { def str = "Lake" }
 
+
 object TerrainNone extends WTile
 { override def str = "No terrain"
   override def colour = Gray
@@ -128,7 +129,9 @@ case object Taiga extends Biome
   override def colour = DarkCyan
 }
 
-case class Coast(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: Int = 4, upRt: Int = 4, dnRt: Int = 4, down: Int = 4, dnLt: Int = 4,
-  upLt: Int = 4) extends Land
+case class Coast(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: Int = 0, upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0,
+  upLt: Int = 0) extends Land
 { def str = "Coast"
 }
+
+case class Coastal(upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0) extends Water { def str = "Ocean"}
