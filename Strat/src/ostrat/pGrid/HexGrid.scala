@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._, math.sqrt, reflect.ClassTag
+import geom._, pGrid._,  math.sqrt, reflect.ClassTag
 
 trait HGrid[TileT] extends TGrid[TileT]
 {
@@ -15,33 +15,30 @@ trait HGrid[TileT] extends TGrid[TileT]
   def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
   override def sideCoodLine(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
 
-  def tilePolygonReduce(xc: Int, yc: Int, up: Int = 0, upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0): Polygon =
+  def tilePolygonReduce(xc: Int, yc: Int, vertoffs: VertOffs): Polygon = //tilePolygon(xc, yc)
+  //(, up: Int = 0 upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0): Polygon =
   {
     import HexGrid.{coodToVec2 => ctv}
-    val tc: Vec2 = ctv(xc, yc)
+ //   val tc: Vec2 = ctv(xc, yc)
 
-    def getv(x: Int, y: Int, offset: Int): Vec2 =
-    {
-      val aOff: Int = offset.max(0).min(3)
-      (tc * aOff + ctv(x cc y) * (4 - aOff)) / 4
-    }
-
-    val p1: List[Vec2] = List(getv(xc, yc + 1, up))
-    val p2: List[Vec2] = List(getv(xc + 2, yc + 1, upRt))
-    val p3: List[Vec2] = List(getv(xc + 2, yc - 1, dnRt))
-    val p4: List[Vec2] = List(getv(xc, yc - 1, down))
-    val p5: List[Vec2] = dnLt match
-    {
-      case r if r < 4 => List(getv(xc - 2, yc - 1, dnLt))
-      case r => ???
-    }
-    val p6: List[Vec2] = List(getv(xc -2, yc + 1, upLt))
-    Polygon.fromList(p1 ::: p2 ::: p3 ::: p4 ::: p5 ::: p6)
+   // def getv(x: Int, y: Int, offset: Int): Vec2 =
+    //{
+     // val aOff: Int = offset.max(0).min(3)
+      //(tc * aOff + ctv(x cc y) * (4 - aOff)) / 4
+   // }
+    var acc: Buff[Double] = Buff(24)
+    acc.app2(ctv(xc, yc + 1))
+    acc.app2(ctv(xc + 2, yc + 1))
+    acc.app2(ctv(xc + 2, yc - 1))
+    acc.app2(ctv(xc, yc - 1))
+    acc.app2(ctv(xc - 2, yc - 1))
+    //  case r => ???    }
+    acc.app2(ctv(xc -2, yc + 1))
+    new Polygon(acc.toArray)
   }
 
-  def tileDisplayPolygonReduce(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(up: Int = 0, upRt: Int = 0,
-    dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0): Polygon =
-    tilePolygonReduce(x, y, up, upRt, dnRt, down, dnLt, upLt).fTrans(v => (v - mapOffset) * scale - displayOffset)
+  def tileDisplayPolygonReduce(x: Int, y: Int, scale: Double, vertOffs: VertOffs, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
+    tilePolygonReduce(x, y, vertOffs).fTrans(v => (v - mapOffset) * scale - displayOffset)
 }
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */

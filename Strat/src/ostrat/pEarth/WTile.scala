@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import Colour._
+import pGrid._, Colour._
 
 trait WTile extends WithColour
 {
@@ -129,9 +129,15 @@ case object Taiga extends Biome
   override def colour = DarkCyan
 }
 
-case class Coast(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: Int = 0, upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0,
-  upLt: Int = 0) extends Land
+class Coast(val terr: Terrain, val biome: Biome, val vertoffs: VertOffs) extends Land
 { def str = "Coast"
 }
+object Coast
+{
+  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, upA: Int = 0, upB: Int = 0, UpRtA: Int = 0, upRtB: Int = 0,
+    dnRtA: Int = 0, dnRtB: Int = 0, downA: Int = 0, downB: Int = 0, dnLtA: Int = 0, dnLtB: Int = 0, upLtA: Int = 0, upLtB: Int = 0): Coast =
+    new Coast(terr, biome, VertOffs(upA, upB, UpRtA, upRtB, dnRtA, dnRtB, downA, downB, dnLtA, dnLtB, upLtA, upLtB))
+}
 
-case class Coastal(upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0) extends Water { def str = "Ocean"}
+
+case class Coastal(vertoffs: VertOffs) extends Water { def str = "Ocean"}

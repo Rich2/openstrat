@@ -182,6 +182,11 @@ package object ostrat
     @inline def arrAppend(operand: A): Arr[A] = ArrWrapBuff[A]((thisBuff += operand))
     def pAdd (operand: ProductVals[A]): Buff[A] = { operand.foreach(thisBuff.addOne(_)); thisBuff }
   }
+
+  implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
+  {
+    def app2(prod: ProdD2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
+  }
    
   implicit class FunitRichImp(fu: () => Unit)
   { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()} 
