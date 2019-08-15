@@ -145,7 +145,7 @@ object Coast
 class Coastal(val vertOffs: VertOffs) extends Water with CoastLike { def str = "Ocean"}
 object Coastal
 {
-  def apply(upA: Int = 0, upB: Int = 0, upRtA: Int = 0, upRtB: Int = 0,            dnRtA: Int = 0, dnRtB: Int = 0, downA: Int = 0, downB: Int = 0,
+  def apply(upA: Int = 0, upB: Int = 0, upRtA: Int = 0, upRtB: Int = 0, dnRtA: Int = 0, dnRtB: Int = 0, downA: Int = 0, downB: Int = 0,
     dnLtA: Int = 0, dnLtB: Int = 0, upLtA: Int = 0, upLtB: Int = 0): Coastal =
     new Coastal(VertOffs(upA, upB, upRtA, upRtB, dnRtA, dnRtB, downA, downB, dnLtA, dnLtB, upLtA, upLtB))
 }
