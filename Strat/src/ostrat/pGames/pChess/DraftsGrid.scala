@@ -17,7 +17,7 @@ class DGrid extends SquareGrid[DTile, SideBare](1, 8, 1, 8, 0)// extends AnyVal
 //    new DGrid(newArr)
 //  }
   def squares(tileWidth: Double): Arr[PolyFill] =
-  ijSameToMap(1, 8){ (x, y) => Square.fill(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth) }
+  iiToMap(1, 8){ (x, y) => Square.fill(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth) }
 
   def rowSize = 8
   def rowCen = (1.0 + rowSize) / 2.0

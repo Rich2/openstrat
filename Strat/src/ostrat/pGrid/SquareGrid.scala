@@ -52,13 +52,9 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   override def coodIsSide(x: Int, y: Int): Unit = ifNotExcep(x.isOdd & y.isOdd,
     x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")
 
-  override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit = 
-  { for { y <- yTileMin to yTileMax by 2
-      x <- xTileMin.plus1 to xTileMax.minus1 by 2
-    } f(x, y)
-    for { y <- yTileMin.plus1 to yTileMax.minus1 by 2
-      x <- xTileMin to xTileMax by 2
-    } f(x, y)
+  override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit =
+  { ijToForeach(yTileMin, yTileMax, 2)(xTileMin + 1, xTileMax -1, 2)((y, x) => f(x, y))
+    ijToForeach(yTileMin + 1, yTileMax - 1, 2)(xTileMin, xTileMax, 2)((y, x) => f(x, y))
   }
    
   /** Sets a rectangle of tiles to the same terrain type. */
