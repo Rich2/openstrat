@@ -4,6 +4,12 @@ package pExt
 /** Extension methods for Any type A. */
 class AnyTypeExtensions[A](thisA: A)
 {
+  def fRepeat(num: Int)(f: A => A): A =
+  { var acc: A = thisA
+    num.doTimes(() => acc = f(acc))
+    acc
+  }
+
   def *(operand: Int): Multiple[A] = Multiple(thisA, operand)
 
   def nextFromList(list: List[A]): A =

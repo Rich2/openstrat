@@ -105,7 +105,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     (thisInt < 0  |!& hundreds < 0).ifMod(str1)("-" + _)
   }
   /** Only use positive value that won't overflow int) */
-  def intToPower(operand: Int): Int = (0 to operand).foldLeft(thisInt)((acc, i) => acc * thisInt)
+  def power(operand: Int): Int = 1.fRepeat(operand)(a => a * thisInt)
   @inline def plus1: Int = thisInt + 1
   @inline def minus1: Int = thisInt - 1
 
