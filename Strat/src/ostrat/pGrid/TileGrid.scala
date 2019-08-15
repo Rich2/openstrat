@@ -75,6 +75,18 @@ trait TGrid[TileT]
     array.toArr
   }
 
+  def xyTilesAccAll[B](f: (Int, Int, TileT, Buff[B]) => Unit)(implicit ct: ClassTag[B]): Arr[B] =
+  { val buff: Buff[B] = Buff(numTile)
+    tilesXYForAll((x, y) => f(x, y, getTile(x, y), buff))
+    buff.toArr
+  }
+
+  def xyTilesDispAll(f: (Int, Int, TileT, Buff[PaintElem]) => Unit): Arr[PaintElem] = xyTilesAccAll(f)
+
+
+
+
+
   def rowsForAll(f: Int => Unit): Unit = iToForeach(yMin, yMax, yStep)(f)
   def tilesXYForAll(f: (Int, Int) => Unit): Unit = rowsForAll(y => rowTilesXYForAll(y)(f))
   def tilesCoodForAll(f: Cood => Unit): Unit = rowsForAll(y => rowTilesCoodForAll(y)(f))
@@ -123,7 +135,7 @@ trait TGrid[TileT]
   def sideCoodsAll: Coods =
   { val acc: Buff[Cood] = Buff(numTile * 4)
     tilesCoodForAll(tc =>  acc.pAdd(HexGrid.sideCoodsOfTile(tc)))
-    acc./*toSet.*/pMap[Cood, Coods](c => c)
+    acc.pMap[Cood, Coods](c => c)
   }
 
   def sideCoodLinesAll: CoodLines = sideCoodsAll.pMap(sideCoodLine)

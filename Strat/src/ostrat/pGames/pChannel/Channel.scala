@@ -1,6 +1,6 @@
 package ostrat
 package pGames.pChannel
-import pGrid._, pEarth._, pCanv._, Colour._
+import pGrid._, pEarth._, geom._, pCanv._, Colour._
 
 /*
 case class Coast(p1: Int, p2: Int = 0, p3: Int = 0, p4: Int = 0, p5: Int = 0, p6: Int = 0) extends Terr
@@ -23,9 +23,9 @@ case class TGui(canv: CanvasPlatform)
     rm(180, sea * 6, plain * 3)
   )
   val scale = 48
-  def stuff = g1.xyTilesMapAll {(x, y, tile) => tile match {
-    case c: CoastLike => g1.tileDisplayPolygonReduce(x, y, scale, c.vertOffs).fill(tile.colour)
-    case t => g1.tileFill(x, y, scale)(_.colour)
+  def stuff = g1.xyTilesDispAll {(x, y, tile, buff) => tile match {
+    case c: CoastLike => buff.append(g1.tileDisplayPolygonReduce(x, y, scale, c.vertOffs).fill(tile.colour))
+    case t => buff.append(g1.tileFill(x, y, scale)(_.colour))
     }
   }
 
