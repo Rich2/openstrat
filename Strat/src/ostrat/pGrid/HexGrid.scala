@@ -15,24 +15,57 @@ trait HGrid[TileT] extends TGrid[TileT]
   def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
   override def sideCoodLine(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
 
-  def tilePolygonReduce(xc: Int, yc: Int, vertoffs: VertOffs): Polygon = //tilePolygon(xc, yc)
-  //(, up: Int = 0 upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0): Polygon =
+  def tilePolygonReduce(xc: Int, yc: Int, vs: VertOffs): Polygon =
   {
     import HexGrid.{coodToVec2 => ctv}
- //   val tc: Vec2 = ctv(xc, yc)
-
-   // def getv(x: Int, y: Int, offset: Int): Vec2 =
-    //{
-     // val aOff: Int = offset.max(0).min(3)
-      //(tc * aOff + ctv(x cc y) * (4 - aOff)) / 4
-   // }
     var acc: Buff[Double] = Buff(24)
+    val cen: Vec2 = ctv(xc, yc)
+
+    def vAdj(nA: Int, nB: Int, vert: Cood, cenA: Cood, cenB: Cood): Unit =
+    {
+      val vv = ctv(vert)
+
+      (nA, nB) match {
+        case (0, 0) => acc.app2(vv)
+
+        case (a, b) if a < 0 & b == a =>
+        {
+          val r = ((-a - 5) * cen + (a + 5) * vv) / 5
+          acc.app2(r)
+        }
+        case(a, b) => debvar((a, b))
+//        case (a, b) =>
+//        {
+//          a match {
+//            case 0 => acc.app2(vv)
+//            case a if a < 0 => ((-a - 5) * cen + (a + 5) * vv) / 5
+//
+//            case a => {
+//              val r = ((-a - 5) * ctv(cenA) + (a + 5) * vv) / 5
+//              acc.app2(r)
+//            }
+//          }
+//
+//          b match
+//          {
+//            case 0 => acc.app2(vv)
+//            case b if b < 0 => ((-b - 5) * cen + (b + 5) * vv) / 5
+//
+//            case b =>
+//            {
+//              val r = ((-b - 5) * ctv(cenB) + (b + 5) * vv) / 5
+//              acc.app2(r)
+//            }
+//          }
+//        }
+      }
+    }
+
     acc.app2(ctv(xc, yc + 1))
     acc.app2(ctv(xc + 2, yc + 1))
-    acc.app2(ctv(xc + 2, yc - 1))
-    acc.app2(ctv(xc, yc - 1))
+    vAdj(vs.dnRtA, vs.dnRtB, Cood(xc + 2, yc - 1), Cood(xc + 4, yc), Cood(xc + 2, yc - 2))
+    vAdj(vs.downA, vs.downB, Cood(xc, yc - 1), Cood(xc + 2, yc - 2), Cood(xc -2, yc -2))
     acc.app2(ctv(xc - 2, yc - 1))
-    //  case r => ???    }
     acc.app2(ctv(xc -2, yc + 1))
     new Polygon(acc.toArray)
   }

@@ -18,7 +18,7 @@ case class TGui(canv: CanvasPlatform)
   val g1 = TGrid.rowMulti(460, MyGrid.apply,
     rm(180, sea, hills * 3, plain * 2, sea * 3),
     rm(178, sea, hills * 2, plain * 3, sea * 3),
-    rm(180, sea * 2, plain * 4, Coast(dnLtA = - 2, dnRtA = 2, downA = -2, downB = -2), sea, plain),
+    rm(180, sea * 2, plain * 4, Coast(dnLtA = - 2, dnRtA = -2, downA = -2, downB = -2), sea, plain),
     rm(178, sea , hills * 3, sea * 3, plain * 2),
     rm(180, sea * 6, plain * 3)
   )

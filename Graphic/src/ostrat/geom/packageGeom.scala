@@ -33,7 +33,12 @@ package object geom
     def findVec2Sett(setting: String): EMon[Vec2] = stss(thisString).flatMap(_.findSett[Vec2](setting))
     def findVec2SettElse(setting: String, elseValue: Vec2): Vec2 = findVec2Sett(setting).getElse(elseValue)
   }
-   
+
+  implicit class DoubleImplicit(thisDouble: Double)
+  { def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
+
+  }
+
   implicit class DistImplicit(thisDist: Dist)
   {  def / (operand: Dist): Double = thisDist.metres / operand.metres
   }
