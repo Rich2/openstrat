@@ -18,12 +18,17 @@ case class TGui(canv: CanvasPlatform)
   val g1 = TGrid.rowMulti(460, MyGrid.apply,
     rm(180, sea, hills * 3, plain * 2, sea * 3),
     rm(178, sea, hills * 2, plain * 3, sea * 3),
-    rm(180, sea * 2, plain * 4, Coast(dnRt = 2), sea),
+    rm(180, sea * 2, plain * 4, Coast(dnRt = 2, down = 2), sea, plain),
     rm(178, sea , hills * 3, sea * 3, plain * 2),
     rm(180, sea * 6, plain * 3)
   )
   val scale = 48
+  def stuff = g1.xyTilesMapAll {(x, y, tile) => tile match {
+    case c: Coast => g1.tileDisplayPolygonReduce(x, y, scale)(c.up, c.upRt, c.dnRt, 2, c.dnLt, c.upLt).fill(tile.colour)
+    case t => g1.tileFill(x, y, scale)(_.colour)
+    }
+  }
 
-  canv.rendElems(g1.tilesFillAll(scale)(_.colour))
+  canv.rendElems(stuff)
   canv.rendElems(g1.sideDrawsAll(scale)(2.0))
 }

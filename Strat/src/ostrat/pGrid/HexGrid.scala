@@ -14,6 +14,34 @@ trait HGrid[TileT] extends TGrid[TileT]
   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
   def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
   override def sideCoodLine(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
+
+  def tilePolygonReduce(xc: Int, yc: Int, up: Int = 0, upRt: Int = 0, dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0): Polygon =
+  {
+    import HexGrid.{coodToVec2 => ctv}
+    val tc: Vec2 = ctv(xc, yc)
+
+    def getv(x: Int, y: Int, offset: Int): Vec2 =
+    {
+      val aOff: Int = offset.max(0).min(3)
+      (tc * aOff + ctv(x cc y) * (4 - aOff)) / 4
+    }
+
+    val p1: List[Vec2] = List(getv(xc, yc + 1, up))
+    val p2: List[Vec2] = List(getv(xc + 2, yc + 1, upRt))
+    val p3: List[Vec2] = List(getv(xc + 2, yc - 1, dnRt))
+    val p4: List[Vec2] = List(getv(xc, yc - 1, down))
+    val p5: List[Vec2] = dnLt match
+    {
+      case r if r < 4 => List(getv(xc - 2, yc - 1, dnLt))
+      case r => ???
+    }
+    val p6: List[Vec2] = List(getv(xc -2, yc + 1, upLt))
+    Polygon.fromList(p1 ::: p2 ::: p3 ::: p4 ::: p5 ::: p6)
+  }
+
+  def tileDisplayPolygonReduce(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(up: Int = 0, upRt: Int = 0,
+    dnRt: Int = 0, down: Int = 0, dnLt: Int = 0, upLt: Int = 0): Polygon =
+    tilePolygonReduce(x, y, up, upRt, dnRt, down, dnLt, upLt).fTrans(v => (v - mapOffset) * scale - displayOffset)
 }
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
