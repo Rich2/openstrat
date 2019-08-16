@@ -22,7 +22,7 @@ trait SideTerr
 
 object SideNone extends SideTerr
 object SideEdge extends SideTerr
-object Straits extends SideTerr
+object Straitsold extends SideTerr
 
 object VertIn
 
