@@ -35,21 +35,12 @@ trait HGrid[TileT] extends TGrid[TileT]
         }
 
         case hv: HVertDirn2 if (vert + hv.dirn) == Cood(xc, yc) =>
-        { val rLeft = (hv.ltVal * ctv(vert + hv.ltDirn) + (5 - hv.ltVal) * vv) / 5
-          acc.app2(rLeft)
-          val rRight = (hv.rtVal * ctv(vert + hv.rtDirn) + (5 - hv.rtVal) * vv) / 5
-          acc.app2(rRight)
+        { acc.app2(hv.ltVert(vert))
+          acc.app2(hv.rtVert(vert))
         }
 
-        case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) =>
-        { val rLeft = (hv.ltVal * ctv(vert + hv.ltDirn) + (5 - hv.ltVal) * vv) / 5
-          acc.app2(rLeft)
-        }
-
-        case hv: HVertDirn2 =>
-        { val rRight = (hv.rtVal * ctv(vert + hv.rtDirn) + (5 - hv.rtVal) * vv) / 5
-          acc.app2(rRight)
-        }
+        case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) => acc.app2(hv.ltVert(vert))
+        case hv: HVertDirn2 => acc.app2(hv.rtVert(vert))
       }
     }
 

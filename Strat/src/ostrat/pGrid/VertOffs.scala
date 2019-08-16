@@ -1,5 +1,6 @@
 package ostrat
 package pGrid
+import geom._, HexGrid.{coodToVec2 => ctv}
 
 case class VertOffs(up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg, down: BVert = VertReg, dnLt: TVert = VertReg,
   upLt: BVert = VertReg)
@@ -18,6 +19,9 @@ trait HVertDirn2 extends HVertDirn
   def ltVal: Int
   def rtDirn: Cood
   def rtVal: Int
+  def ltVert(vert: Cood): Vec2 = (ltVal * ctv(vert + ltDirn) + (5 - ltVal) * ctv(vert)) / 5
+  def rtVert(vert: Cood): Vec2 = (rtVal * ctv(vert + rtDirn) + (5 - rtVal) * ctv(vert)) / 5
+
 }
 
 sealed trait TVertDirn extends HVertDirn with TVert
@@ -62,4 +66,9 @@ case class HVDnLt1(value: Int) extends HVDnLt with HVertDirn1
 case class HVDnLt2(ltVal: Int, rtVal: Int) extends HVDnLt with HVertDirn2
 { override def ltDirn: Cood = 0 cc 1
   override def rtDirn: Cood = 2 cc -1
+  def sideOtherVert(vs: VertOffs): HVert = ???
+  def sidePoly(vert: Cood, vs: VertOffs): Polygon = vs.dnRt match
+  {
+    case other: HVDnRt2 => Polygon(rtVert(vert), ltVert(vert), other.rtVert(vert.addX(2)), other.ltVert(vert.addX(2)))
+  }
 }

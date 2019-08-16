@@ -141,13 +141,12 @@ object Coast
     new Coast(terr, biome, VertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
 
-
 class Coastal(val vertOffs: VertOffs) extends Water with CoastLike { def str = "Ocean"}
 object Coastal
 {
   def apply(up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg, down: BVert = VertReg, dnLt: TVert = VertReg, upLt: BVert = VertReg):
     Coastal = new Coastal(VertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
-trait CoastVert
-case object CoastVertReg extends CoastVert
-case class Straits(farV: Int) extends CoastVert
+
+class StraitsDnLt(ltVal: Int, rtVal: Int) extends HVDnLt2(ltVal, rtVal)
+object StraitsDnLt{ def apply(ltVal: Int, rtVal: Int) = new StraitsDnLt(ltVal, rtVal) }

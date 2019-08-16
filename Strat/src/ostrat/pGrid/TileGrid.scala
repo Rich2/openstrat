@@ -45,6 +45,8 @@ trait TGrid[TileT]
   def xyToInd(x: Int, y: Int): Int = (x - xRowStart(y)) / xStep + rowIndex(y)
   def getTile(x: Int, y: Int): TileT = tArr(xyToInd(x, y))
   def tilePolygon(x: Int, y: Int): Polygon = vertCoodsOfTile(x, y).pMap(coodToVec2)
+  def fTrans(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Vec2 => Vec2 =
+    v => (v - mapOffset) * scale - displayOffset
 
   def tileDisplayPolygon(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
     tilePolygon(x, y).fTrans(v => (v - mapOffset) * scale - displayOffset)
@@ -82,11 +84,6 @@ trait TGrid[TileT]
   }
 
   def xyTilesDispAll(f: (Int, Int, TileT, Buff[PaintElem]) => Unit): Arr[PaintElem] = xyTilesAccAll(f)
-
-
-
-
-
   def rowsForAll(f: Int => Unit): Unit = iToForeach(yMin, yMax, yStep)(f)
   def tilesXYForAll(f: (Int, Int) => Unit): Unit = rowsForAll(y => rowTilesXYForAll(y)(f))
   def tilesCoodForAll(f: Cood => Unit): Unit = rowsForAll(y => rowTilesCoodForAll(y)(f))
