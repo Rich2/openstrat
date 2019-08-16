@@ -1,25 +1,65 @@
 package ostrat
 package pGrid
 
-case class VertOffs(upA: Int = 0, upB: Int = 0, upRtA: Int = 0, upRtB: Int = 0, dnRtA: Int = 0, dnRtB: Int = 0, downA: Int = 0, downB: Int = 0,
-               dnLtA: Int = 0, dnLtB: Int = 0, upLtA: Int = 0, upLtB: Int = 0)
+case class VertOffs(up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg, down: BVert = VertReg, dnLt: TVert = VertReg,
+  upLt: BVert = VertReg)
 
 /** Offsets 1 to 4 */
-sealed trait HVertDirn
-{ def value: Int
-  def dirn: Cood
+sealed trait HVert
+trait TVert extends HVert
+trait BVert extends HVert
+object VertReg extends TVert with BVert
+trait HVertDirn extends HVert { def dirn: Cood }
+
+sealed trait HVertDirn1 extends HVertDirn{ def value: Int }
+
+sealed trait HVertDirn2 extends HVertDirn
+{ def ltDirn: Cood
+  def ltVal: Int
+  def rtDirn: Cood
+  def rtVal: Int
 }
 
-sealed trait TVertDirn extends HVertDirn
-case class HVUpRt(value: Int) extends TVertDirn { override def dirn = 2 cc 1 }
-case class HVDown(value: Int) extends TVertDirn { override def dirn =  0 cc - 1 }
-case class HVupRt(value: Int) extends TVertDirn { override def dirn = -2 cc 1 }
+sealed trait TVertDirn extends HVertDirn with TVert
+trait HVUpRt extends TVertDirn { override def dirn = 2 cc 1 }
+case class HVUpRt1(value: Int) extends HVUpRt with HVertDirn1
+case class HVUpRt2(ltVal: Int, rtVal: Int) extends HVUpRt with HVertDirn2
+{ override def ltDirn: Cood = 0 cc -1
+  override def rtDirn: Cood = -2 cc 1
+}
 
-sealed trait BVertDirn extends HVertDirn
-case class HVUp(value: Int) extends BVertDirn { override def dirn = 0 cc 1 }
-case class HVDnRt(value: Int) extends BVertDirn { override def dirn = 2 cc -1 }
-case class HVDnLt(value: Int) extends BVertDirn { override def dirn = -2 cc -1 }
+trait HVDown extends TVertDirn { override def dirn =  0 cc - 1 }
+case class HVDown1(value: Int) extends HVDown with HVertDirn1
+case class HVDown2(ltVal: Int, rtVal: Int) extends HVDown with HVertDirn2
+{ override def ltDirn: Cood = -2 cc 1
+  override def rtDirn: Cood = 2 cc 1
+}
 
-sealed trait HVertOff
-case class TVertOff(off1: TVertDirn, off2: TVertDirn) extends HVertOff
-case class BVertOff(off1: BVertDirn, off2: BVertDirn) extends HVertOff
+trait HVUpLt extends TVertDirn { override def dirn = -2 cc 1 }
+case class HVUpLt1(value: Int) extends HVUpLt with HVertDirn1
+case class HVUpLt2(ltVal: Int, rtVal: Int) extends HVUpLt with HVertDirn2
+{ override def ltDirn: Cood = 2 cc 0
+  override def rtDirn: Cood = 0 cc -1
+}
+
+sealed trait BVertDirn extends HVertDirn with BVert
+trait HVUp extends BVertDirn { override def dirn = 0 cc 1 }
+case class HVUp1(value: Int) extends HVUp with HVertDirn1
+case class HVUp2(ltVal: Int, rtVal: Int) extends HVUp with HVertDirn2
+{ override def ltDirn: Cood = 2 cc -1
+  override def rtDirn: Cood = -2 cc -1
+}
+
+trait HVDnRt extends BVertDirn { override def dirn = 2 cc -1 }
+case class HVDnRt1(value: Int) extends HVDnRt with HVertDirn1
+case class HVDnRt2(ltVal: Int, rtVal: Int) extends HVDnRt with HVertDirn2
+{ override def ltDirn: Cood = -2 cc -1
+  override def rtDirn: Cood = 0 cc 1
+}
+
+trait HVDnLt extends BVertDirn  { override def dirn = -2 cc -1 }
+case class HVDnLt1(value: Int) extends HVDnLt with HVertDirn1
+case class HVDnLt2(ltVal: Int, rtVal: Int) extends HVDnLt with HVertDirn2
+{ override def ltDirn: Cood = 0 cc 1
+  override def rtDirn: Cood = 2 cc -1
+}

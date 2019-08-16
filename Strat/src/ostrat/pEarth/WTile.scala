@@ -136,18 +136,17 @@ class Coast(val terr: Terrain, val biome: Biome, val vertOffs: VertOffs) extends
 }
 object Coast
 {
-  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, upA: Int = 0, upB: Int = 0, UpRtA: Int = 0, upRtB: Int = 0,
-    dnRtA: Int = 0, dnRtB: Int = 0, downA: Int = 0, downB: Int = 0, dnLtA: Int = 0, dnLtB: Int = 0, upLtA: Int = 0, upLtB: Int = 0): Coast =
-    new Coast(terr, biome, VertOffs(upA, upB, UpRtA, upRtB, dnRtA, dnRtB, downA, downB, dnLtA, dnLtB, upLtA, upLtB))
+  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg,
+    down: BVert = VertReg, dnLt: TVert = VertReg, upLt: BVert = VertReg): Coast =
+    new Coast(terr, biome, VertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
 
 
 class Coastal(val vertOffs: VertOffs) extends Water with CoastLike { def str = "Ocean"}
 object Coastal
 {
-  def apply(upA: Int = 0, upB: Int = 0, upRtA: Int = 0, upRtB: Int = 0, dnRtA: Int = 0, dnRtB: Int = 0, downA: Int = 0, downB: Int = 0,
-    dnLtA: Int = 0, dnLtB: Int = 0, upLtA: Int = 0, upLtB: Int = 0): Coastal =
-    new Coastal(VertOffs(upA, upB, upRtA, upRtB, dnRtA, dnRtB, downA, downB, dnLtA, dnLtB, upLtA, upLtB))
+  def apply(up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg, down: BVert = VertReg, dnLt: TVert = VertReg, upLt: BVert = VertReg):
+    Coastal = new Coastal(VertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
 trait CoastVert
 case object CoastVertReg extends CoastVert

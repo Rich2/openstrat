@@ -21,52 +21,44 @@ trait HGrid[TileT] extends TGrid[TileT]
     var acc: Buff[Double] = Buff(24)
     val cen: Vec2 = ctv(xc, yc)
 
-    def vAdj(nA: Int, nB: Int, vert: Cood, cenA: Cood, cenB: Cood): Unit =
+    def vAdj(hv: HVert, vert: Cood): Unit =
     {
       val vv = ctv(vert)
 
-      (nA, nB) match {
-        case (0, 0) => acc.app2(vv)
+      (hv) match
+      {
+        case VertReg => acc.app2(vv)
 
-        case (a, b) if a < 0 & b == a =>
-        {
-          val r = (-a * cen + (a + 5) * vv) / 5
+        case hv: HVertDirn1 =>
+        { val r = (hv.value * ctv(vert + hv.dirn) + (5 - hv.value) * vv) / 5
           acc.app2(r)
         }
 
-        case (a, b) =>
-        {
-          a match {
-            case 0 => acc.app2(vv)
-            case a if a < 0 => (-a * cen + (a + 5) * vv) / 5
+        case hv: HVertDirn2 if (vert + hv.dirn) == Cood(xc, yc) =>
+        { val rLeft = (hv.ltVal * ctv(vert + hv.ltDirn) + (5 - hv.ltVal) * vv) / 5
+          acc.app2(rLeft)
+          val rRight = (hv.rtVal * ctv(vert + hv.rtDirn) + (5 - hv.rtVal) * vv) / 5
+          acc.app2(rRight)
+        }
 
-            case a => {
-              val r = (a * ctv(cenA) + (5 - a) * vv) / 5
-              acc.app2(r)
-            }
-          }
+        case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) =>
+        { val rLeft = (hv.ltVal * ctv(vert + hv.ltDirn) + (5 - hv.ltVal) * vv) / 5
+          acc.app2(rLeft)
+        }
 
-          b match
-          {
-            case 0 => acc.app2(vv)
-            case b if b < 0 => (-b * cen + (5 + b) * vv) / 5
-
-            case b =>
-            {
-              val r = (b * ctv(cenB) + (5 - b) * vv) / 5
-              acc.app2(r)
-            }
-          }
-        acc}
+        case hv: HVertDirn2 =>
+        { val rRight = (hv.rtVal * ctv(vert + hv.rtDirn) + (5 - hv.rtVal) * vv) / 5
+          acc.app2(rRight)
+        }
       }
     }
 
-    vAdj(vs.upA, vs.upB, Cood(xc, yc + 1), Cood(xc -2, yc + 2), Cood(xc + 2, yc + 2))
-    vAdj(vs.upRtA, vs.upRtB, Cood(xc + 2, yc + 1), Cood(xc + 2, yc + 2), Cood(xc + 4, yc))
-    vAdj(vs.dnRtA, vs.dnRtB, Cood(xc + 2, yc - 1), Cood(xc + 4, yc), Cood(xc + 2, yc - 2))
-    vAdj(vs.downA, vs.downB, Cood(xc, yc - 1), Cood(xc + 2, yc - 2), Cood(xc -2, yc -2))
-    vAdj(vs.dnLtA, vs.dnLtB, Cood(xc - 2, yc - 1), Cood(xc - 2, yc - 2), Cood(xc -4, yc))
-    vAdj(vs.upLtA, vs.upLtB, Cood(xc -2, yc + 1), Cood(xc - 4, yc), Cood(xc + 2, yc + 2))
+    vAdj(vs.up, Cood(xc, yc + 1))
+    vAdj(vs.upRt, Cood(xc + 2, yc + 1))
+    vAdj(vs.dnRt, Cood(xc + 2, yc - 1))
+    vAdj(vs.down, Cood(xc, yc - 1))
+    vAdj(vs.dnLt, Cood(xc - 2, yc - 1))
+    vAdj(vs.upLt, Cood(xc -2, yc + 1))
     new Polygon(acc.toArray)
   }
 

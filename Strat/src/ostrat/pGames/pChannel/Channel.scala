@@ -15,11 +15,14 @@ case class MyGrid(val tArr: Array[WTile], val indArr: Array[Int]) extends HGrid[
 
 case class TGui(canv: CanvasPlatform)
 { import WTile._, RowMulti.{apply => rm}
+  val v204463 = HVDnLt2(2, 2)
+  val v206463 = HVUpRt2(2, 2)
+
   val g1 = TGrid.rowMulti(460, MyGrid.apply,
     rm(180, sea, hills * 3, plain * 2, sea * 3),
     rm(178, sea, hills * 2, plain * 3, sea * 3),
-    rm(180, sea * 2, plain * 4, Coast(dnRtA = - 2, dnRtB = -2, downA = -2, downB = -2), Coastal(dnLtA = 1, dnLtB = 2), plain),
-    rm(178, sea , hills * 3, sea * 2, Coastal(upRtA = 2, upRtB = 1), Coast(upA = -1, upB = -1, upLtA = -1, upLtB = -1), plain),
+    rm(180, sea * 2, plain * 4, Coast(dnRt = v206463, down = v204463), Coastal(dnLt = v206463), plain),
+    rm(178, sea , hills * 3, sea * 2, Coastal(upRt = v204463), Coast(up = HVUpRt2(2, 2), upLt = v204463), plain),
     rm(180, sea * 6, plain * 3)
   )
   val scale = 48
