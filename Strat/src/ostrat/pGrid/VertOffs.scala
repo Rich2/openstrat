@@ -13,7 +13,7 @@ trait HVertDirn extends HVert { def dirn: Cood }
 
 sealed trait HVertDirn1 extends HVertDirn{ def value: Int }
 
-sealed trait HVertDirn2 extends HVertDirn
+trait HVertDirn2 extends HVertDirn
 { def ltDirn: Cood
   def ltVal: Int
   def rtDirn: Cood

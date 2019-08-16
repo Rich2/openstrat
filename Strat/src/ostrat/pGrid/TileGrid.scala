@@ -151,8 +151,8 @@ trait TGrid[TileT]
 
 object TGrid
 {
-  def rowMulti[TileT, GridT <: TGrid[TileT]](yMin: Int, fac:(Array[TileT], Array[Int]) => GridT,inp: RowMulti[TileT]*)(implicit ct: ClassTag[TileT]):
-  GridT = rowMultis[TileT, GridT](inp.toArr, yMin: Int, fac)(ct)
+  def rowMulti[TileT, GridT <: TGrid[TileT]](yMin: Int, fac:(Array[TileT], Array[Int]) => GridT,inp: RowMulti[TileT]*)(
+    implicit ct: ClassTag[TileT]): GridT = rowMultis[TileT, GridT](inp.toArr, yMin: Int, fac)(ct)
 
   def rowMultis[TileT, GridT <: TGrid[TileT]](inp: Arr[RowMulti[TileT]], yMin: Int, fac:(Array[TileT], Array[Int]) => GridT)(
     implicit ct: ClassTag[TileT]): GridT =
@@ -175,14 +175,14 @@ object TGrid
   }
 }
 
-class RowMulti[TileT](val xStart: Int, val multis: ArrMulti[TileT])
+class RowMulti[TileT](val y: Int, val xStart: Int, val multis: ArrMulti[TileT])
 {
   //def toPair(implicit ct: ClassTag[TileT]): (Int, Arr[TileT]) = (xStart, multis.flatSingles)
 }
 
 object RowMulti
 {
-  def apply[TileT](xStart: Int, multis: Multiple[TileT]*): RowMulti[TileT] = new RowMulti(xStart, multis.toArr)
+  def apply[TileT](y: Int, xStart: Int, multis: Multiple[TileT]*): RowMulti[TileT] = new RowMulti(y, xStart, multis.toArr)
 }
 
 /** A Tile grid that contains both values for the tiles and the tile boundaries or sides. Rivers, straits, walls, doors, windows ditches and

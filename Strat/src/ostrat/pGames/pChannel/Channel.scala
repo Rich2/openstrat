@@ -19,11 +19,11 @@ case class TGui(canv: CanvasPlatform)
   val v206463 = HVUpRt2(2, 2)
 
   val g1 = TGrid.rowMulti(460, MyGrid.apply,
-    rm(180, sea, hills * 3, plain * 2, sea * 3),
-    rm(178, sea, hills * 2, plain * 3, sea * 3),
-    rm(180, sea * 2, plain * 4, Coast(dnRt = v206463, down = v204463), Coastal(dnLt = v206463), plain),
-    rm(178, sea , hills * 3, sea * 2, Coastal(upRt = v204463), Coast(up = HVUpRt2(2, 2), upLt = v204463), plain),
-    rm(180, sea * 6, plain * 3)
+    rm(468, 180, sea, hills * 3, plain * 2, sea * 3),
+    rm(466, 178, sea, hills * 2, plain * 3, sea * 3),
+    rm(464, 180, sea * 2, plain * 4, Coast(dnRt = v206463, down = v204463), Coastal(dnLt = v206463), plain),
+    rm(462, 178, sea , hills * 3, sea * 2, Coastal(upRt = v204463), Coast(up = HVUpRt2(2, 2), upLt = v204463), plain),
+    rm(460, 180, sea * 6, plain * 3)
   )
   val scale = 48
   def stuff = g1.xyTilesDispAll {(x, y, tile, buff) => tile match {
