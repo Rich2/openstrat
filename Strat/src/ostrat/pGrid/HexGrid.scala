@@ -15,33 +15,20 @@ trait HGrid[TileT] extends TGrid[TileT]
   def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
   override def sideCoodLine(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
 
-  def tilePolygonReduce(xc: Int, yc: Int, vs: VertOffs): Polygon =
+  def tilePolygonReduce(xc: Int, yc: Int, vs: HVertOffs): Polygon =
   {
-    import HexGrid.{coodToVec2 => ctv}
-    var acc: Buff[Double] = Buff(24)
-    val cen: Vec2 = ctv(xc, yc)
+    val acc: Buff[Double] = Buff(24)
 
-    def vAdj(hv: HVert, vert: Cood): Unit =
-    {
-      val vv = ctv(vert)
+    def vAdj(hv: HVert, vert: Cood): Unit = (hv) match
+    { case hv: HVertSingle => acc.app2(hv.vec2(vert))
 
-      (hv) match
-      {
-        case VertReg => acc.app2(vv)
-
-        case hv: HVertDirn1 =>
-        { val r = (hv.value * ctv(vert + hv.dirn) + (5 - hv.value) * vv) / 5
-          acc.app2(r)
-        }
-
-        case hv: HVertDirn2 if (vert + hv.dirn) == Cood(xc, yc) =>
-        { acc.app2(hv.ltVert(vert))
-          acc.app2(hv.rtVert(vert))
-        }
-
-        case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) => acc.app2(hv.ltVert(vert))
-        case hv: HVertDirn2 => acc.app2(hv.rtVert(vert))
+      case hv: HVertDirn2 if (vert + hv.dirn) == Cood(xc, yc) =>
+      { acc.app2(hv.ltVert(vert))
+        acc.app2(hv.rtVert(vert))
       }
+
+      case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) => acc.app2(hv.ltVert(vert))
+      case hv: HVertDirn2 => acc.app2(hv.rtVert(vert))
     }
 
     vAdj(vs.up, Cood(xc, yc + 1))
@@ -53,7 +40,7 @@ trait HGrid[TileT] extends TGrid[TileT]
     new Polygon(acc.toArray)
   }
 
-  def tileDisplayPolygonReduce(x: Int, y: Int, scale: Double, vertOffs: VertOffs, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
+  def tileDisplayPolygonReduce(x: Int, y: Int, scale: Double, vertOffs: HVertOffs, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
     tilePolygonReduce(x, y, vertOffs).fTrans(v => (v - mapOffset) * scale - displayOffset)
 }
 

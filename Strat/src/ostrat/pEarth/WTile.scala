@@ -129,23 +129,23 @@ case object Taiga extends Biome
   override def colour = DarkCyan
 }
 
-trait CoastLike{ def vertOffs: VertOffs}
+trait CoastLike{ def vertOffs: HVertOffs}
 
-class Coast(val terr: Terrain, val biome: Biome, val vertOffs: VertOffs) extends Land with CoastLike
+class Coast(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs) extends Land with CoastLike
 { def str = "Coast"
 }
 object Coast
 {
-  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg,
-    down: BVert = VertReg, dnLt: TVert = VertReg, upLt: BVert = VertReg): Coast =
-    new Coast(terr, biome, VertOffs(up, upRt, dnRt, down, dnLt, upLt))
+  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg,
+    down: BVert = HVertReg, dnLt: TVert = HVertReg, upLt: BVert = HVertReg): Coast =
+    new Coast(terr, biome, HVertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
 
-class Coastal(val vertOffs: VertOffs) extends Water with CoastLike { def str = "Ocean"}
+class Coastal(val vertOffs: HVertOffs) extends Water with CoastLike { def str = "Ocean"}
 object Coastal
 {
-  def apply(up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg, down: BVert = VertReg, dnLt: TVert = VertReg, upLt: BVert = VertReg):
-    Coastal = new Coastal(VertOffs(up, upRt, dnRt, down, dnLt, upLt))
+  def apply(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg, down: BVert = HVertReg, dnLt: TVert = HVertReg,
+    upLt: BVert = HVertReg): Coastal = new Coastal(HVertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
 
 class StraitsDnLt(ltVal: Int, rtVal: Int) extends HVDnLt2(ltVal, rtVal)

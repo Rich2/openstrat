@@ -2,17 +2,30 @@ package ostrat
 package pGrid
 import geom._, HexGrid.{coodToVec2 => ctv}
 
-case class VertOffs(up: TVert = VertReg, upRt: BVert = VertReg, dnRt: TVert = VertReg, down: BVert = VertReg, dnLt: TVert = VertReg,
-  upLt: BVert = VertReg)
+case class HVertOffs(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg, down: BVert = HVertReg, dnLt: TVert = HVertReg,
+                     upLt: BVert = HVertReg)
 
-/** Offsets 1 to 4 */
+/** A definition of a Hex Vert with 0, 1 or 2 offset values. Offsets must be Int 1 <= i >= 4 */
 sealed trait HVert
 trait TVert extends HVert
 trait BVert extends HVert
-object VertReg extends TVert with BVert
-trait HVertDirn extends HVert { def dirn: Cood }
 
-sealed trait HVertDirn1 extends HVertDirn{ def value: Int }
+trait HVertSingle extends HVert
+{ def vec2(vert: Cood): Vec2
+}
+
+object HVertReg extends TVert with BVert with HVertSingle
+{ override def vec2(vert: Cood): Vec2 = ctv(vert)
+}
+
+trait HVertDirn extends HVert
+{ def dirn: Cood
+}
+
+sealed trait HVertDirn1 extends HVertDirn with HVertSingle
+{ def value: Int
+  override def vec2(vert: Cood): Vec2 = (value * ctv(vert + dirn) + (5 - value) * ctv(vert)) / 5
+}
 
 trait HVertDirn2 extends HVertDirn
 { def ltDirn: Cood
@@ -21,7 +34,6 @@ trait HVertDirn2 extends HVertDirn
   def rtVal: Int
   def ltVert(vert: Cood): Vec2 = (ltVal * ctv(vert + ltDirn) + (5 - ltVal) * ctv(vert)) / 5
   def rtVert(vert: Cood): Vec2 = (rtVal * ctv(vert + rtDirn) + (5 - rtVal) * ctv(vert)) / 5
-
 }
 
 sealed trait TVertDirn extends HVertDirn with TVert
@@ -66,8 +78,8 @@ case class HVDnLt1(value: Int) extends HVDnLt with HVertDirn1
 case class HVDnLt2(ltVal: Int, rtVal: Int) extends HVDnLt with HVertDirn2
 { override def ltDirn: Cood = 0 cc 1
   override def rtDirn: Cood = 2 cc -1
-  def sideOtherVert(vs: VertOffs): HVert = ???
-  def sidePoly(vert: Cood, vs: VertOffs): Polygon = vs.dnRt match
+  def sideOtherVert(vs: HVertOffs): HVert = ???
+  def sidePoly(vert: Cood, vs: HVertOffs): Polygon = vs.dnRt match
   {
     case other: HVDnRt2 => Polygon(rtVert(vert), ltVert(vert), other.rtVert(vert.addX(2)), other.ltVert(vert.addX(2)))
   }
