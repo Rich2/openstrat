@@ -1,5 +1,5 @@
 package ostrat
-package pGames.pChannel
+package pGames.pNew
 import pGrid._, pEarth._, pCanv._, Colour._
 
 case class TGui(canv: CanvasPlatform)
@@ -7,8 +7,8 @@ case class TGui(canv: CanvasPlatform)
   val g1: MyGrid = Channel()
   val scale = 48
   def stuff = g1.xyTilesDispAll {(x, y, tile, buff) => tile match {
-    case c: CoastLike =>{
-      buff.append(g1.tileDisplayPolygonReduce(x, y, scale, c.vertOffs).fill(tile.colour))
+    case c: HVertOffsTr =>
+    { buff.append(g1.tileDisplayPolygonReduce(x, y, scale, c.vertOffs).fill(tile.colour))
       c match
       { case ct: Coast => ct.vertOffs.dnRt match
         { case s: StraitsDnLt =>

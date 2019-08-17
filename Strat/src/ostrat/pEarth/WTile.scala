@@ -129,9 +129,9 @@ case object Taiga extends Biome
   override def colour = DarkCyan
 }
 
-trait CoastLike{ def vertOffs: HVertOffs}
+//trait CoastLike extends WTile { def vertOffs: HVertOffs}
 
-class Coast(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs) extends Land with CoastLike
+class Coast(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs) extends Land with HVertOffsTr
 { def str = "Coast"
 }
 object Coast
@@ -141,7 +141,7 @@ object Coast
     new Coast(terr, biome, HVertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
 
-class Coastal(val vertOffs: HVertOffs) extends Water with CoastLike { def str = "Ocean"}
+class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}
 object Coastal
 {
   def apply(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg, down: BVert = HVertReg, dnLt: TVert = HVertReg,

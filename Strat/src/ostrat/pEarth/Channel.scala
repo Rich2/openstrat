@@ -26,10 +26,8 @@ object Channel
 
 object ChannelApp extends App
 {
-  deb("Hello World")
-  val multip = (9.power(6) + 1) / 2
-  debvar(multip)
-  val hn = 2 power 30
-  val lo = hn / multip
-  debvar(lo)
+  import EGrid80km.{coodToLatLong0Off200 => ctl }
+  val a = ctl(204 cc 464).degStr
+  deb(a.toString)
+
 }

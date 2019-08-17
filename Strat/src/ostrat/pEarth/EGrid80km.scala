@@ -67,6 +67,7 @@ object EGrid80km
 { val scale = 20.km
   val yOffset = 300
 
+  def  coodToLatLong0Off200(inp: Cood): LatLong = coodToLatLong0(inp.subX(200))
   def  coodToLatLong0(inp: Cood): LatLong =
   { val adj: Vec2 = HexGrid.coodToVec2(inp.subXY(0, 300))
      val d2: Dist2 = adj * scale

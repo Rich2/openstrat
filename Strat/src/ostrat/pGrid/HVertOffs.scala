@@ -5,6 +5,8 @@ import geom._, HexGrid.{coodToVec2 => ctv}
 case class HVertOffs(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg, down: BVert = HVertReg, dnLt: TVert = HVertReg,
                      upLt: BVert = HVertReg)
 
+trait HVertOffsTr { def vertOffs: HVertOffs}
+
 /** A definition of a Hex Vert with 0, 1 or 2 offset values. Offsets must be Int 1 <= i >= 4 */
 sealed trait HVert
 trait TVert extends HVert
