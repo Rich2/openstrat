@@ -24,7 +24,6 @@ case class TGui(canv: CanvasPlatform)
     }
   }
 
-
   canv.rendElems(stuff)
   canv.rendElems(g1.sideDrawsAll(scale)(2.0))
 }
