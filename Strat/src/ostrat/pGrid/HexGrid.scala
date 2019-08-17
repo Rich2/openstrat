@@ -23,12 +23,12 @@ trait HGrid[TileT] extends TGrid[TileT]
     { case hv: HVertSingle => acc.app2(hv.vec2(vert))
 
       case hv: HVertDirn2 if (vert + hv.dirn) == Cood(xc, yc) =>
-      { acc.app2(hv.ltVert(vert))
-        acc.app2(hv.rtVert(vert))
+      { acc.app2(hv.ltVec2(vert))
+        acc.app2(hv.rtVec2(vert))
       }
 
-      case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) => acc.app2(hv.ltVert(vert))
-      case hv: HVertDirn2 => acc.app2(hv.rtVert(vert))
+      case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) => acc.app2(hv.ltVec2(vert))
+      case hv: HVertDirn2 => acc.app2(hv.rtVec2(vert))
     }
 
     vAdj(vs.up, Cood(xc, yc + 1))
