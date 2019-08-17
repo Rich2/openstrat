@@ -32,7 +32,10 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolyDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
     PolyFillDraw(this, fillColour, lineWidth, lineColour)
-    
+
+  def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolyFillText =
+    PolyFillText(this, fillColour, str, fontSize, textColour, layer)
+
   def fillActive(fillColour: Colour, evObj: AnyRef, layer: Int = 0): GraphicElems =
     Arr(PolyFill(this, fillColour, layer), PolyActive(this, evObj, layer))
     

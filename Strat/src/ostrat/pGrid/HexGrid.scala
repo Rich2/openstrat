@@ -40,8 +40,16 @@ trait HGrid[TileT] extends TGrid[TileT]
     new Polygon(acc.toArray)
   }
 
+  def tilePolygonVar(x: Int, y: Int): Polygon = getTile(x, y) match
+  { case t: HVertOffsTr => tilePolygonReduce(x, y, t.vertOffs)
+    case t =>  vertCoodsOfTile(x, y).pMap(coodToVec2)
+  }
+
   def tileDisplayPolygonReduce(x: Int, y: Int, scale: Double, vertOffs: HVertOffs, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
     tilePolygonReduce(x, y, vertOffs).fTrans(v => (v - mapOffset) * scale - displayOffset)
+
+  def tileDisplayPolygonVar(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
+    tilePolygonVar(x, y).fTrans(v => (v - mapOffset) * scale - displayOffset)
 }
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */

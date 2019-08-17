@@ -46,7 +46,8 @@ trait CanvasPlatform extends RectGeom
   final def polyDraw(dp: PolyDraw): Unit = oif(dp.ifv2, pPolyDraw(dp))
   final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))  
   def pPolyDraw(dp: PolyDraw): Unit
-  
+
+  /** Not quite sure whats going on in this implmentation. */
   final def polyFillDraw(pfd: PolyFillDraw): Unit = pfd.vertsLen match
   { case 0 | 1 =>
     case 2 => polyDraw(pfd.noFill)
@@ -155,6 +156,7 @@ trait CanvasPlatform extends RectGeom
     case bd: BezierDraw => bezierDraw(bd)
     case tg: TextGraphic => textGraphic(tg)
     case to: TextOutline => textOutline(to)
+    case pft: PolyFillText =>  { polyFill(pft.fillOnly); textGraphic(pft.textGraphicOnly) }
     case pfdt: PolyFillDrawText => { polyFillDraw(pfdt.fillDrawOnly); textGraphic(pfdt.textGraphicOnly) }
     case el => deb(el.toString -- "Not implemented")
   }    

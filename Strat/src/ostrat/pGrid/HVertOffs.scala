@@ -38,7 +38,7 @@ trait HVertDirn2 extends HVertDirn
   def ltVec2(vert: Cood): Vec2 = (ltVal * ctv(vert + ltDirn) + (5 - ltVal) * ctv(vert)) / 5
   def rtVec2(vert: Cood): Vec2 = (rtVal * ctv(vert + rtDirn) + (5 - rtVal) * ctv(vert)) / 5
   def sidePoly(vert: Cood, vs: HVertOffs): Polygon = nextVert(vs) match
-  { case other: HVertDirn2 => Polygon(rtVec2(vert), ltVec2(vert), other.rtVec2(vert), other.ltVec2(vert))
+  { case other: HVertDirn2 =>{deb("2"); Polygon(rtVec2(vert), ltVec2(vert), other.rtVec2(vert), other.ltVec2(vert)) }
     case other: HVertSingle => Polygon(rtVec2(vert), ltVec2(vert), other.vec2(vert))
   }
 }
@@ -98,7 +98,7 @@ case class HVDnRt2(ltVal: Int, rtVal: Int) extends HVDnRt with HVertDirn2
 
 trait HVDnLt extends BVertDirn
 { override def dirn = -2 cc -1
-  override def nextVert(verts: HVertOffs): HVert = verts.upLt
+  override def nextVert(verts: HVertOffs): HVert = verts.dnRt
 }
 case class HVDnLt1(value: Int) extends HVDnLt with HVertDirn1
 case class HVDnLt2(ltVal: Int, rtVal: Int) extends HVDnLt with HVertDirn2
