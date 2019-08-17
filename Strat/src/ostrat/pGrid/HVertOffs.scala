@@ -79,7 +79,7 @@ case class HVDnLt2(ltVal: Int, rtVal: Int) extends HVDnLt with HVertDirn2
 { override def ltDirn: Cood = 0 cc 1
   override def rtDirn: Cood = 2 cc -1
   def sideOtherVert(vs: HVertOffs): HVert = ???
-  def sidePoly(vert: Cood, vs: HVertOffs): Polygon = vs.dnRt match
+  def sidePoly(vert: Cood, vs: HVertOffs): Polygon = vs.down match
   {
     case other: HVDnRt2 => Polygon(rtVert(vert), ltVert(vert), other.rtVert(vert.addX(2)), other.ltVert(vert.addX(2)))
   }
