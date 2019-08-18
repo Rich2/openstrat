@@ -164,3 +164,13 @@ trait ProductVals[A] extends Any
     acc
   }
 }
+
+abstract class ProductValsBuilder[A, M](val typeStr: String) extends ShowCompound[M] with PersistCompound[M]
+{
+  /** Atomic Value type normally Double or Int. */
+  type VT
+  def appendtoBuffer(buf: Buff[VT], value: A): Unit
+  def fromArray(value: Array[VT]): M
+  def fromBuffer(buf: Buff[VT]): M
+  def newBuffer: Buff[VT]
+}
