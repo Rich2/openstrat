@@ -11,8 +11,8 @@ case class TGui(canv: CanvasPlatform)
     buff.append(g1.tileDisplayPolygonVar(x, y, scale).fillText(tile.colour, str, 15, tile.colour.contrastBW))
     tile match
     {
-      case c: Coast => c.fSides(x cc y){(_, poly) =>
-        val fill = poly.fTrans(g1.fTrans(scale)).fill(Colour.Blue)
+      case c: Land => c.fSides(x cc y){(_, poly) =>
+        val fill = poly.fTrans(g1.fTrans(scale)).fill(Blue)
         buff.append(fill)
       }
       case _ =>

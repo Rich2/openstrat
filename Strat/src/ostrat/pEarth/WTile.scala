@@ -22,16 +22,16 @@ object WTile
     def fromExpr(expr: ParseExpr): EMon[WTile] = ???
   }
 
-  val plain: WTile = Inland(Plains)
-  val hills : WTile = Inland(Hilly)
-  val forr : WTile = Inland(Plains, Forrest)
-  val desert : WTile = Inland(Plains, Desert)
-  val jungle : WTile = Inland(Plains, Jungle)
-  val taiga : WTile = Inland(Plains, Taiga)
-  val ice : WTile = Inland(Plains, IceCap)
+  val plain: WTile = Land(Plains)
+  val hills : WTile = Land(Hilly)
+  val forr : WTile = Land(Plains, Forrest)
+  val desert : WTile = Land(Plains, Desert)
+  val jungle : WTile = Land(Plains, Jungle)
+  val taiga : WTile = Land(Plains, Taiga)
+  val ice : WTile = Land(Plains, IceCap)
   val sice: WTile = SeaIce
   val sea: WTile = Ocean
-  val mtain: WTile = Inland(Mountains)
+  val mtain: WTile = Land(Mountains)
 }
 
 trait Water extends WTile
@@ -48,10 +48,15 @@ object TerrainNone extends WTile
   override def colour = Gray
 }
 
-trait Land extends WTile
-{ def terr: Terrain
-  def biome: Biome
-  override def toString = biome.toString -- str
+
+class Land(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs, val sideUR: Option[Unit] = None, val sideRt: Option[Unit] = None,
+            val sideDR: Option[Unit]) extends WTile with HSides[Unit]
+{
+  override def str = terr match
+  {
+    case Plains => biome.toString -- str
+    case t => t.toString
+  }
 
   def colour: Colour = terr match
   { case Plains => biome.colour
@@ -61,12 +66,11 @@ trait Land extends WTile
   }
 }
 
-case class Inland(terr: Terrain, biome: Biome = OpenTerrain) extends Land
+object Land
 {
-  def str = terr match
-  { case Plains => biome.str
-    case _ => terr.str
-  }
+  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg,
+            down: BVert = HVertReg, dnLt: TVert = HVertReg, upLt: BVert = HVertReg, sideUR: Option[Unit] = None, sideRt: Option[Unit] = None,
+            sideDR: Option[Unit] = None): Land = new Land(terr, biome, HVertOffs(up, upRt, dnRt, down, dnLt, upLt), sideUR, sideRt, sideDR)
 }
 
 trait Terrain
@@ -129,19 +133,8 @@ case object Taiga extends Biome
   override def colour = DarkCyan
 }
 
-//trait CoastLike extends WTile { def vertOffs: HVertOffs}
 
-class Coast(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs, val sideUR: Option[Unit] = None, val sideRt: Option[Unit] = None,
-  val sideDR: Option[Unit]) extends
-  Land with HSides[Unit]
-{ def str = "Coast"
-}
-object Coast
-{
-  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg,
-    down: BVert = HVertReg, dnLt: TVert = HVertReg, upLt: BVert = HVertReg, sideUR: Option[Unit] = None, sideRt: Option[Unit] = None,
-    sideDR: Option[Unit] = None): Coast = new Coast(terr, biome, HVertOffs(up, upRt, dnRt, down, dnLt, upLt), sideUR, sideRt, sideDR)
-}
+
 
 class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}
 object Coastal
