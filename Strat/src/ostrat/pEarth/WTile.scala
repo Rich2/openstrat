@@ -131,14 +131,16 @@ case object Taiga extends Biome
 
 //trait CoastLike extends WTile { def vertOffs: HVertOffs}
 
-class Coast(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs) extends Land with HVertOffsTr
+class Coast(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs, val sideUR: Option[Unit] = None, val sideRt: Option[Unit] = None,
+  val sideDR: Option[Unit]) extends
+  Land with HSides[Unit]
 { def str = "Coast"
 }
 object Coast
 {
   def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg,
-    down: BVert = HVertReg, dnLt: TVert = HVertReg, upLt: BVert = HVertReg): Coast =
-    new Coast(terr, biome, HVertOffs(up, upRt, dnRt, down, dnLt, upLt))
+    down: BVert = HVertReg, dnLt: TVert = HVertReg, upLt: BVert = HVertReg, sideUR: Option[Unit] = None, sideRt: Option[Unit] = None,
+    sideDR: Option[Unit] = None): Coast = new Coast(terr, biome, HVertOffs(up, upRt, dnRt, down, dnLt, upLt), sideUR, sideRt, sideDR)
 }
 
 class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}
@@ -148,5 +150,5 @@ object Coastal
     upLt: BVert = HVertReg): Coastal = new Coastal(HVertOffs(up, upRt, dnRt, down, dnLt, upLt))
 }
 
-class StraitsDnLt(ltVal: Int, rtVal: Int) extends HVDnLt2(ltVal, rtVal)
-object StraitsDnLt{ def apply(ltVal: Int, rtVal: Int) = new StraitsDnLt(ltVal, rtVal) }
+//class StraitsDnLt(ltVal: Int, rtVal: Int) extends HVDnLt2(ltVal, rtVal)
+//object StraitsDnLt{ def apply(ltVal: Int, rtVal: Int) = new StraitsDnLt(ltVal, rtVal) }

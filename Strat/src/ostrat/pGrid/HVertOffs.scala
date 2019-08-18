@@ -7,6 +7,50 @@ case class HVertOffs(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert =
 
 trait HVertOffsTr { def vertOffs: HVertOffs}
 
+trait HSides[SideT] extends HVertOffsTr
+{ def sideUR: Option[SideT]
+  def sideRt: Option[SideT]
+  def sideDR: Option[SideT]
+  def fSides(cenCood: Cood)(f: (SideT, Polygon) => Unit): Unit =
+  {
+    sideUR.fold(()){s =>(vertOffs.up, vertOffs.upRt) match
+      {
+        case (a: HVertDirn2, b: HVertDirn2) =>
+        { val vUp = cenCood.addXY(0, 1)
+          val vUR = cenCood.addXY(2, 1)
+          val poly = Polygon(a.rtVec2(vUp), a.ltVec2(vUp), b.rtVec2(vUR), b.ltVec2(vUR))
+          f(s, poly)
+        }
+        case _ =>
+      }
+    }
+
+    sideRt.fold(()){s =>(vertOffs.upRt, vertOffs.dnRt) match
+    {
+      case (a: HVertDirn2, b: HVertDirn2) =>
+      { val vUR = cenCood.addXY(2, 1)
+        val vDR = cenCood.addXY(2, -1)
+        val poly = Polygon(a.rtVec2(vUR), a.ltVec2(vDR), b.rtVec2(vUR), b.ltVec2(vUR))
+        f(s, poly)
+      }
+      case _ =>
+    }
+    }
+
+    sideDR.fold(()){s => (vertOffs.dnRt, vertOffs.down) match
+      {
+        case (a: HVertDirn2, b: HVertDirn2) =>
+        { val vDR = cenCood.addXY(2, -1)
+          val vDn = cenCood.addXY(0, -1)
+          val poly = Polygon(a.rtVec2(vDR), a.ltVec2(vDR), b.rtVec2(vDn), b.ltVec2(vDn))
+          f(s, poly)
+        }
+        case _ =>
+      }
+    }
+  }
+}
+
 /** A definition of a Hex Vert with 0, 1 or 2 offset values. Offsets must be Int 1 <= i >= 4 */
 sealed trait HVert
 trait TVert extends HVert

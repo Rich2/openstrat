@@ -50,6 +50,9 @@ trait HGrid[TileT] extends TGrid[TileT]
 
   def tileDisplayPolygonVar(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
     tilePolygonVar(x, y).fTrans(v => (v - mapOffset) * scale - displayOffset)
+
+  def tileFillVar(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): PolyFill =
+    tileDisplayPolygonVar(x, y, scale, mapOffset, displayOffset).fill(f(getTile(x, y)))
 }
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
