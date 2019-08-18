@@ -56,6 +56,19 @@ sealed trait HVert
 trait TVert extends HVert
 trait BVert extends HVert
 
+trait HCoodVert
+{ def x: Int
+  def y: Int
+  def cood: Cood = x cc y
+  def vert: HVert
+}
+object HCoodVert
+{
+  def dn1(x: Int, y: Int, offset: Int): TCoodVert = TCoodVert(x, y, HVDown1(offset))
+}
+case class TCoodVert(x: Int, y: Int, vert: TVert) extends HCoodVert
+case class BCoodVert(x: Int, y: Int, vert: BVert) extends HCoodVert
+
 trait HVertSingle extends HVert
 { def vec2(vert: Cood): Vec2
 }
