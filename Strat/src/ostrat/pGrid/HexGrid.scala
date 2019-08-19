@@ -3,58 +3,6 @@ package ostrat
 package pGrid
 import geom._, pGrid._,  math.sqrt, reflect.ClassTag
 
-trait HGrid[TileT] extends TGrid[TileT]
-{
-  type GridT[A] = HGrid[A]
-  @inline override def xStep: Int = 4
-  override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
-  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
-    x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
-    x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")
-  override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
-  def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
-  override def sideCoodLine(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
-
-  def tilePolygonReduce(xc: Int, yc: Int, vs: HVertOffs): Polygon =
-  {
-    val acc: Buff[Double] = Buff(24)
-
-    def vAdj(hv: HVert, vert: Cood): Unit = (hv) match
-    { case hv: HVertSingle => acc.app2(hv.vec2(vert))
-
-      case hv: HVertDirn2 if (vert + hv.dirn) == Cood(xc, yc) =>
-      { acc.app2(hv.ltVec2(vert))
-        acc.app2(hv.rtVec2(vert))
-      }
-
-      case hv: HVertDirn2 if (vert + hv.ltDirn) == Cood(xc, yc) => acc.app2(hv.ltVec2(vert))
-      case hv: HVertDirn2 => acc.app2(hv.rtVec2(vert))
-    }
-
-    vAdj(vs.up, Cood(xc, yc + 1))
-    vAdj(vs.upRt, Cood(xc + 2, yc + 1))
-    vAdj(vs.dnRt, Cood(xc + 2, yc - 1))
-    vAdj(vs.down, Cood(xc, yc - 1))
-    vAdj(vs.dnLt, Cood(xc - 2, yc - 1))
-    vAdj(vs.upLt, Cood(xc -2, yc + 1))
-    new Polygon(acc.toArray)
-  }
-
-  def tilePolygonVar(x: Int, y: Int): Polygon = getTile(x, y) match
-  { case t: HVertOffsTr => tilePolygonReduce(x, y, t.vertOffs)
-    case t =>  vertCoodsOfTile(x, y).pMap(coodToVec2)
-  }
-
-  def tileDisplayPolygonReduce(x: Int, y: Int, scale: Double, vertOffs: HVertOffs, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
-    tilePolygonReduce(x, y, vertOffs).fTrans(v => (v - mapOffset) * scale - displayOffset)
-
-  def tileDisplayPolygonVar(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Polygon =
-    tilePolygonVar(x, y).fTrans(v => (v - mapOffset) * scale - displayOffset)
-
-  def tileFillVar(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): PolyFill =
-    tileDisplayPolygonVar(x, y, scale, mapOffset, displayOffset).fill(f(getTile(x, y)))
-}
-
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
 abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
 (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGrid[TileT, SideT]// with HexGrid[TileT]   
@@ -165,7 +113,7 @@ object HexGrid
    
   @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
     (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3), upRight,
-    (y.isDivBy4 && x.div4Rem2) || (y.div4Rem2 && x.isDivBy4), rightSide,
+    (y.div4Rem0 && x.div4Rem2) || (y.div4Rem2 && x.div4Rem0), rightSide,
     (y.div4Rem1 && x.div4Rem3) || (y.div4Rem3 && x.div4Rem1), downRight,
     "invalid Hex Side coordinate: " + x.toString.commaAppend(y.toString))
 

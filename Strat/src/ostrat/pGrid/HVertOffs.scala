@@ -2,6 +2,17 @@ package ostrat
 package pGrid
 import geom._, HexGrid.{coodToVec2 => ctv}
 
+class HVOffset(val value: Int) extends AnyVal
+{
+  def topVert: Boolean = value.isEven
+  def bottomVert: Boolean = value.isOdd
+  def noOffset: Boolean = value.div2.isEven
+  def isOffset: Boolean = value.div2.isOdd
+  def singleOffset: Boolean = isOffset & value.div4.isEven
+  def twoOffsets: Boolean = isOffset & value.div4.isOdd
+  def offset1: Boolean = true
+}
+
 case class HVertOffs(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg, down: BVert = HVertReg, dnLt: TVert = HVertReg,
                      upLt: BVert = HVertReg)
 

@@ -21,6 +21,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def ifSumEven[A](evenVal: => A, oddVal: => A, operand: Int): A = if((thisInt + operand).isEven) evenVal else oddVal
   def ifSumOdd[A](oddVal: => A, evenVal: => A, operand: Int): A = if((thisInt + operand).isOdd) oddVal else evenVal
   def diff(operand: Int): Int = (thisInt - operand).abs
+  def div2: Int = thisInt / 2
+  def div4: Int = thisInt / 4
   def div2RoundUp: Int = thisInt / 2 + thisInt % 2
   def div2RoundDown: Int = thisInt / 2 - thisInt % 2
   def million: Int = thisInt *             1000000
@@ -78,7 +80,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)
   def isDivBy3: Boolean = thisInt % 3 == 0
    
-  def isDivBy4: Boolean = thisInt % 4 == 0
+  def div4Rem0: Boolean = thisInt % 4 == 0
   def div4Rem1: Boolean = thisInt %% 4 == 1
   def div4Rem2: Boolean = thisInt %% 4 == 2
   def div4Rem3: Boolean = thisInt %% 4 == 3
