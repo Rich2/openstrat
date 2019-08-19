@@ -46,7 +46,8 @@ object UtilMacros extends PlatformsModule
 
 object Util extends PlatformsModule
 { 
-  def moduleDeps = Seq(UtilMacros)  
+  def moduleDeps = Seq(UtilMacros) 
+  def ivyDeps = Agg(ivy"org.typelevel::cats-core:2.0.0-RC1")
   object test extends InnerTests
 
   object js extends InnerJs {  def moduleDeps = Seq(UtilMacros.js)  }
