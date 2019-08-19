@@ -18,7 +18,9 @@ case class TGui(canv: CanvasPlatform)
       case _ =>
     }
   }
-  val p = Rectangle(3, 2).some
+  val p = Rectangle(3, 2)
+
+  val ps = Array(p, p ,p).scale(2)
   debvar(p.scale(3))
   canv.rendElems(stuff)
   canv.rendElems(g1.sideDrawsAll(scale)(2.0))

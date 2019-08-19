@@ -16,6 +16,7 @@ trait Trans[T]
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
 object Trans
 {
+  import cats._
   implicit def TransFromTranserImplicit[T <: Transer]: Trans[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
@@ -23,7 +24,7 @@ object Trans
   
  // implicit def ListTrans[A](implicit ev: Trans[A]): Trans[List[A]] =
   //  (obj, f) => obj.map(el => ev.trans(el, f))
-import cats._
+
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
     (obj, f) => evF.map(obj)(el => evA.trans(el, f))// obj.map(el => ev.trans(el, f))
   
