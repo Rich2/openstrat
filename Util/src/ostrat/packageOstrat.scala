@@ -3,7 +3,19 @@
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
  *   elements, an Either based errors framework and general utilities. */
-package object ostrat
+import cats._
+package object ostrat extends syntax.AllSyntax with syntax.AllSyntaxBinCompat0
+with syntax.AllSyntaxBinCompat1
+with syntax.AllSyntaxBinCompat2
+with syntax.AllSyntaxBinCompat3
+with syntax.AllSyntaxBinCompat4
+with instances.AllInstances
+with instances.AllInstancesBinCompat0
+with instances.AllInstancesBinCompat1
+with instances.AllInstancesBinCompat2
+with instances.AllInstancesBinCompat3
+with instances.AllInstancesBinCompat4
+with instances.AllInstancesBinCompat5
 {
   import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
 
