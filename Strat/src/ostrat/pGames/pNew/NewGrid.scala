@@ -1,6 +1,6 @@
 package ostrat
 package pGames.pNew
-import pGrid._, pEarth._, pCanv._, Colour._
+import pGrid._, pEarth._,geom._,  pCanv._, Colour._
 
 case class TGui(canv: CanvasPlatform)
 {
@@ -18,7 +18,8 @@ case class TGui(canv: CanvasPlatform)
       case _ =>
     }
   }
-
+  val p = Some(Rectangle(3, 2))
+  debvar(p.scale(3))
   canv.rendElems(stuff)
   canv.rendElems(g1.sideDrawsAll(scale)(2.0))
 }
