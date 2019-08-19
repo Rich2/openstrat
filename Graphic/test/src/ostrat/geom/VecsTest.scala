@@ -6,7 +6,6 @@ import utest._
 /** Was called LinePath. */
 object VecsTest extends TestSuite
 {
-  
   val tests = Tests
   {
     val v1s: LinePath = LinePath(2.1 vv 0, 5.4 vv 0)
