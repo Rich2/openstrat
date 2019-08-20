@@ -5,7 +5,7 @@ ThisBuild/organization := "OpenStratOrg"
 ThisBuild/autoAPIMappings := true
 
 def commonSettings = List(
-	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
+	scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
     libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
     libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0-RC1",
     libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.9" % "test",

@@ -8,6 +8,14 @@ trait Transer extends Any
 { def fTrans(f: Vec2 => Vec2): Transer
 }
 
+case class BadTranser(i: Int = 0) extends Transer
+{ def fTrans(f: Vec2 => Vec2): GoodTranser = GoodTranser(i)
+}
+
+case class GoodTranser(i: Int = 0) extends Transer
+{ def fTrans(f: Vec2 => Vec2): GoodTranser = GoodTranser(i)
+}
+
 /** The typeclass trait for transforming an object in 2d geometry. */
 trait Trans[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T

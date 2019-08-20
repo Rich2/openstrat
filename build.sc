@@ -4,7 +4,7 @@ import mill._, scalalib._, scalajslib._, scalanativelib._
 trait Common extends ScalaModule
 {
   def version = "0.0.4snap"  
-  def scalacOptions = Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint")
+  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
 trait PlatformsModule extends ScalaModule with Common
