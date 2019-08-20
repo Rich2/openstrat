@@ -24,28 +24,26 @@ trait Trans[T]
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
 object Trans
 {
-  import cats._
   implicit def TransFromTranserImplicit[T <: Transer]: Trans[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
   implicit def ArrTrans[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Arr[A]] = (obj, f) => obj.map(el => ev.trans(el, f))
   
- // implicit def ListTrans[A](implicit ev: Trans[A]): Trans[List[A]] =
-  //  (obj, f) => obj.map(el => ev.trans(el, f))
+  implicit def ListTrans[A](implicit ev: Trans[A]): Trans[List[A]] =
+    (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
-    (obj, f) => evF.map(obj)(el => evA.trans(el, f))// obj.map(el => ev.trans(el, f))
+ // implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
+   // (obj, f) => evF.map(obj)(el => evA.trans(el, f))// obj.map(el => ev.trans(el, f))
   
- // implicit def OptionTrans[A](implicit ev: Trans[A]): Trans[Option[A]] =
-   // (obj, f) => obj.map(el => ev.trans(el, f))
+  implicit def OptionTrans[A](implicit ev: Trans[A]): Trans[Option[A]] =
+    (obj, f) => obj.map(el => ev.trans(el, f))
     
- // implicit def SomeTrans[A](implicit ev: Trans[A]): Trans[Some[A]] =
-   // (obj, f) => Some(ev.trans(obj.value, f))
+  implicit def SomeTrans[A](implicit ev: Trans[A]): Trans[Some[A]] =
+    (obj, f) => Some(ev.trans(obj.value, f))
   
   implicit def ArrayTrans[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  //implicit def EitherTrans[A, B](implicit ev: Trans[B]): Trans[Either[A, B]] =
-    //(obj, f) => obj.map(el => ev.trans(el, f))
+  implicit def EitherTrans[A, B](implicit ev: Trans[B]): Trans[Either[A, B]] =
+    (obj, f) => obj.map(el => ev.trans(el, f))
 }
-

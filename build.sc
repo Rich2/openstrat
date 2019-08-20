@@ -2,32 +2,27 @@
 import mill._, scalalib._, scalajslib._, scalanativelib._
 
 trait Common extends ScalaModule
-{
-  def version = "0.0.4snap"  
+{ def version = "0.0.4snap"  
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
 trait PlatformsModule extends ScalaModule with Common
-{
-  outer =>
-  
+{ outer =>  
   def scalaVersion = "2.13.0"
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src)
 
   trait InnerJs extends ScalaJSModule with Common
-  { 
-  	def scalaVersion = "2.13.0"
-	def scalaJSVersion = "0.6.28" 
-	def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
-	def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.7")
+  { def scalaVersion = "2.13.0"
+	  def scalaJSVersion = "0.6.28" 
+	  def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
+	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.7")
   }
 
   trait InnerNative extends ScalaNativeModule with Common
-  {
-    def scalaVersion = "2.11.12"
+  { def scalaVersion = "2.11.12"
     def scalaNativeVersion = "0.3.8"  
-	def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
-	def ivyDeps = outer.ivyDeps() //++ ivyNat()	 
+	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
+	  def ivyDeps = outer.ivyDeps() //++ ivyNat()	 
   }
 
   trait InnerTests extends Tests
@@ -38,16 +33,14 @@ trait PlatformsModule extends ScalaModule with Common
 }
 
 object UtilMacros extends PlatformsModule
-{
-  def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+{ def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
   object js extends InnerJs
   object Nat extends InnerNative  
 }
 
 object Util extends PlatformsModule
-{ 
-  def moduleDeps = Seq(UtilMacros) 
-  def ivyDeps = Agg(ivy"org.typelevel::cats-core:2.0.0-RC1")
+{ def moduleDeps = Seq(UtilMacros)
+
   object test extends InnerTests
 
   object js extends InnerJs {  def moduleDeps = Seq(UtilMacros.js)  }
@@ -81,8 +74,7 @@ object Dev extends PlatformsModule
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, millSourcePath / 'srcLearn)
 
   object js extends InnerJs
-  {
-  	def moduleDeps = Seq(Strat.js)
+  {  	def moduleDeps = Seq(Strat.js)
     def sources = T.sources(Dev.millSourcePath / 'src, millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
   } 
 }

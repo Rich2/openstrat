@@ -18,11 +18,7 @@ case class TGui(canv: CanvasPlatform)
       case _ =>
     }
   }
-  val b1 = BadTranser(1)
-  val b2 = BadTranser(2)
-  val l = List(b1, b2).scale(5)
-  val ls = l.scale(3)
-  debvar(ls)
+
   canv.rendElems(stuff)
   canv.rendElems(g1.sideDrawsAll(scale)(2.0))
 }
