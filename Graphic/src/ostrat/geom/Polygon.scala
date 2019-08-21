@@ -6,10 +6,10 @@ import Colour.Black
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
 class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transer with Vec2sLike
 { override def typeStr: String = "Polygon"
-  //override def toString: String = Polygon.PolygonPersist.show(this)
   override def newElem(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  
   def eq(obj: Polygon): Boolean = arr.sameElements(obj.arr)
+
   /** Creates a bounding rectangle for a collection of 2d points */
   def boundingRect: BoundingRect =
   { var minX, maxX = head1
@@ -22,7 +22,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with 
     }         
     BoundingRect(minX, maxX, minY, maxY)               
   }
- // def toVec2s: Vec2s = new Vec2s(arr)
+
   def boundingWidth: Double = boundingRect.width
   def boundingHeight: Double = boundingRect.height   
   def polyCentre: Vec2 = boundingRect.cen

@@ -5,8 +5,7 @@ import math._
 
 /** 2 dimensional vector using metres as units rather than pure numbers. */
 class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
-{
-  override def toString: String = Dist2.PersistImplicit.show(this) 
+{ override def toString: String = Dist2.PersistImplicit.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
   def x: Dist = Dist(xMetres)
   val y: Dist = Dist(yMetres)
@@ -24,6 +23,7 @@ class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
   def / (operator: Double): Dist2 = Dist2(x / operator, y / operator)
   def magnitude: Dist = Dist(math.sqrt(xMetres.squared + yMetres.squared))
   def rotate(a: Angle): Dist2 =  Dist2.metres(x.metres * a.cos - y.metres * a.sin, x.metres * a.sin + y.metres * a.cos)
+
   def rotateRadians(r: Double): Dist2 =
   { val newX = xMetres * cos(r) - yMetres * sin(r)
     val newY =
@@ -61,5 +61,4 @@ class Dist2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]
 
 object Dist2s extends ProductD2sCompanion[Dist2, Dist2s]
 { implicit val factory: Int => Dist2s = i => new Dist2s(new Array[Double](i * 2))
-  //override def fromArray(value: Array[Double]): Dist2s = new Dist2s(value)
 }

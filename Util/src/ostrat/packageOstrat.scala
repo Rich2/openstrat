@@ -66,11 +66,9 @@ package object ostrat
 
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
-  //type LeftRight[A] = Either[A, A]
-  //type Trav[A] = Traversable[A]  
-  type FStr = Function0[String]
-  type FStrSeq = Seq[Function0[String]]  
 
+  type FStr = Function0[String]
+  type FStrSeq = Seq[Function0[String]]
   type StrList = List[String]
   
   /** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
@@ -104,8 +102,8 @@ package object ostrat
     
   def nullRef[A <: AnyRef]: Opt[A] = new Opt[A](null.asInstanceOf[A])
   
-  @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] = {
-    var count = fromValue
+  @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] =
+  { var count = fromValue
     var acc: List[Double] = Nil
     while (count <= toValue) {
       acc ::= count
@@ -117,11 +115,11 @@ package object ostrat
   def iUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] = iToMap[A](iFrom, iUntil - 1, iStep)(f)
 
   def iToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
-  {
-    val iLen = (iTo - iFrom + 1).min(0) / iStep
+  { val iLen = (iTo - iFrom + 1).min(0) / iStep
     val array: Array[A] = new Array[A](iLen)
     var count = 0
     @inline def i: Int = iFrom + count * iStep
+
     while(i <= iTo)
     { array(count) = f(i)
       count += 1
@@ -150,15 +148,14 @@ package object ostrat
     Arr[A] = ijToMap[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
   def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
-  {
-    val iLen = (iTo - iFrom + 1).min(0) / iStep
+  { val iLen = (iTo - iFrom + 1).min(0) / iStep
     val jLen = (jTo - jFrom + 1).min(0) / jStep
     val arrLen = iLen * jLen
     val array: Array[A] = new Array[A](arrLen)
     var i: Int = iFrom
+
     while(i <= iTo)
-    {
-      var j: Int = jFrom
+    { var j: Int = jFrom
       while(j <= jTo)
       { array(i * jLen + j) = f(i, j)
         j += 1
@@ -183,12 +180,11 @@ package object ostrat
   }
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
-  {
-    def app2(prod: ProdD2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
+  { def app2(prod: ProdD2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
   }
    
   implicit class FunitRichImp(fu: () => Unit)
-  { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()} 
+  { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()}
   }   
    
   implicit class Tuple2Implicit[A, B](thisTuple: Tuple2[A, B])
