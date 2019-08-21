@@ -13,7 +13,7 @@ object TransTest extends TestSuite
     't1
     { r1 ==> r1
       assert(r1.scale(3) eq (r2))
-      assert(List(4, 5) eq List(4, 5))
+
      // assert(List(r1, r2).scale(2) eq List(r3, r4))
     }
 
