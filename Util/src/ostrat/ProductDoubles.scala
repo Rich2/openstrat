@@ -21,9 +21,10 @@ trait ProductDoubles[A] extends Any with ProductVals[A]
   }
 }
 
-abstract class ProductDsBuilder[A, M <: ProductDoubles[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr)
+abstract class ProductDsBuilder[A, M <: ProductDoubles[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr) //with Eq[M]
 {
   type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
+  //override def eqv(m1: M, m2: M): Boolean = ???
 }

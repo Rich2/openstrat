@@ -191,6 +191,9 @@ package object ostrat
   { def bimap[C, D](f1: A => C, f2: B => D): Tuple2[C, D] = (f1(thisTuple._1), f2(thisTuple._2))
     def tupleFold[C](f: (A, B) => C): C = f(thisTuple._1, thisTuple._2)
   }
+
+ // implicit class EqerImplicit[T](thisT: T)(implicit ev: Eq[T])
+ // {  }
   
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
