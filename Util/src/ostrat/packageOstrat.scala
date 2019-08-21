@@ -192,8 +192,10 @@ package object ostrat
     def tupleFold[C](f: (A, B) => C): C = f(thisTuple._1, thisTuple._2)
   }
 
- // implicit class EqerImplicit[T](thisT: T)(implicit ev: Eq[T])
- // {  }
+  implicit class EqerImplicit[T](thisT: T)(implicit ev: Eq[T])
+  { def equ(operand: T): Boolean = ev.eqv(thisT, operand)
+    def notEqu(operand: T): Boolean = !equ(operand)
+  }
   
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
