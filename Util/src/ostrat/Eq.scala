@@ -7,7 +7,13 @@ trait Eq[A]
 object Eq
 {
   implicit val intImplicit: Eq[Int] = (a1, a2) => a1 == a2
- // implicit def functorImplicit[A, F[A]](implicit evF: Functor[F], evA: Eq[A]): Eq[F[A]] = (a1, a2) => f => evF.map(f)
+
+  implicit val doubleImplicit: Eq[Double] = (d1, d2) =>
+  { val precision = 1e12
+  ((d1 - d2).abs/(d1.abs.max(d2.abs).max(1))) * precision  < 1
+  }
+
+  // implicit def functorImplicit[A, F[A]](implicit evF: Functor[F], evA: Eq[A]): Eq[F[A]] = (a1, a2) => f => evF.map(f)
 
   implicit def listImplicit[A](implicit ev: Eq[A]): Eq[List[A]] = (l1, l2) =>
   { def loop(rem1: List[A], rem2: List[A]): Boolean = (rem1, rem2) match

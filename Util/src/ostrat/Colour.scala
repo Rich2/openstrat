@@ -82,6 +82,8 @@ trait WithColour extends AnyRef
 
 object Colour
 {
+  implicit val eqImplicit: Eq[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
+
   implicit object ColourPersistImplicit extends PersistSimple[Colour]("Colour")
   {
     import pParse._

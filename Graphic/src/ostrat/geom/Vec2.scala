@@ -59,8 +59,6 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2
   }
   def distanceFrom(other: Vec2): Double = math.sqrt({val dim = (x - other.x); dim * dim} + {val dim = (y - other.y); dim * dim})
   def toLine(angle: Angle, length: Double): Line2 = Line2(this, this + angle.toVec2 * length)
-    
- 
    
   def rectVerts(width: Double, height: Double): Seq[Vec2] =
   { val ax = width / 2

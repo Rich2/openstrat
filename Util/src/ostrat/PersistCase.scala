@@ -35,7 +35,7 @@ class PersistD1[R](typeStr: String, fParam: R => Double, newT: Double => R) exte
 
 /** Persistence class for 2 parameter case classes. */ 
 class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-  implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam, opt2, opt1) with PersistCase[R]
+  implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam, opt2, opt1) with PersistCase[R]// with Eq[R]
 {
   override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses2(newT, clauses)
@@ -47,6 +47,10 @@ class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1,
     case (Arr(), Some(d1), Some(d2)) => Good(newT(d1, d2))
     case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 2.")
   }
+
+ // override def equ(r1: A1, r2): Boolean =
+  //{ val (a1, b1) = fParam(r1)
+   // val (a2, b2) = fParam(r2)
 }
 
 object Persist2
