@@ -56,9 +56,7 @@ For IntellliJ useful options:
      * Array based compound value collections of same length elements.
      * Other general utilities.
    - **ostrat.parse**
-     * Basic  geometry.
-     * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
-     * 2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing.   
+     * The code for parsing RSON, Rich Succinct Object Notation.  
    - **ostrat.pWeb** Code for the generation and manipulation of
      * HTML
      * Other XML
