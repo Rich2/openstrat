@@ -1,6 +1,6 @@
 package ostrat
 package pGames.pNew
-import pGrid._, pEarth._,geom._,  pCanv._, Colour._
+import pGrid._, pEarth._,  pCanv._, Colour._
 
 case class TGui(canv: CanvasPlatform)
 {

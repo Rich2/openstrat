@@ -54,6 +54,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
   def turnCmd: MB0 = mb =>
     { val newGrid = game.newTurn(grid.getMoves)
       new UnusSetGui(canv, newGrid, game)
+      ()
     }
   def saveCmd: MB0 = mb => setStatus("Save not implemented yet.")
   val bTurn = clickButton("T" -- grid.turnNum.str, turnCmd)
