@@ -78,7 +78,7 @@ For IntellliJ useful options:
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
 
 **4. Strat** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:   
-   - **ostrat.pGrid** depends on geom and pCanv
+   - **ostrat.pGrid** Depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
      * OfTile classes for the display of tiles.
@@ -90,8 +90,6 @@ For IntellliJ useful options:
      * Flags.
      * DemoCanvas for graphics elements.
      * Odds and ends.
-   
-
    - **ostrat.pGames** a number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common functionality and classes.
      * ostrat.pGames.pWW2 A grand strategy world War 2 game, using the hex tiled world terrain map. 
      * ostrat.pGames.p1783 A grand strategy game, also using the world map starting in 1783.
