@@ -29,13 +29,13 @@ lazy val Graphic = project.dependsOn(Util).settings(stdSettings).settings(
 	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
-lazy val Strat = project.dependsOn(Graphic).settings(stdSettings).settings(
-	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),	
+lazy val World = project.dependsOn(Graphic).settings(stdSettings).settings(
+	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
-lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings).settings(
+lazy val root = (project in file(".")).dependsOn(World).settings(commonSettings).settings(
 	scalaSource := baseDirectory.value / "Dev/src",
-	Compile/unmanagedSourceDirectories := List("src", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
+	Compile/unmanagedSourceDirectories := List("src", "srcDev", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
@@ -57,10 +57,11 @@ lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(
   Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsStrat = jsProj("Strat").dependsOn(JsGraphic).settings(  
-  Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val JsWorld = jsProj("World").dependsOn(JsGraphic).settings(  
+  Compile/unmanagedSourceDirectories := List("World/src", "World/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcLearn", "Dev/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+
+lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcDev", "Dev/srcLearn", "Dev/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )

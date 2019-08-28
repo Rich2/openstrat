@@ -57,7 +57,7 @@ object Graphic extends PlatformsModule
   object Nat extends InnerNative
 }
 
-object Strat extends PlatformsModule
+object World extends PlatformsModule
 {
   def moduleDeps = Seq(Graphic)  
 
@@ -69,12 +69,12 @@ object Strat extends PlatformsModule
 
 object Dev extends PlatformsModule
 {
-  def moduleDeps = Seq(Strat)
+  def moduleDeps = Seq(World)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, millSourcePath / 'srcLearn)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcDev, millSourcePath / 'jvm / 'src, millSourcePath / 'srcLearn)
 
   object js extends InnerJs
-  {  	def moduleDeps = Seq(Strat.js)
+  {  	def moduleDeps = Seq(World.js)
     def sources = T.sources(Dev.millSourcePath / 'src, millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
   } 
 }
