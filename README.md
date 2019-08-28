@@ -46,7 +46,7 @@ For IntellliJ useful options:
 
 **The Code currently has 5 modules.** Each module can be built for Jvm and JavaFx and for the Javascript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
-**1. UtilMacros** They are a separate unit of compilation for sbt /mill. Just a couple of simple macros so as one can track down the source location of one's debug printlns.
+**1. UtilMacros** They are a separate unit of compilation for sbt /mill. 3 simple macros, that print the source code location to help with debuging and development.
 
 **2. Util** No module dependancies. Organised into the following folders and packages.
    - 
