@@ -48,7 +48,7 @@ For IntellliJ useful options:
 
 **1. UtilMacros** They are a separate unit of compilation for sbt /mill. 3 simple macros, that print the source code location to help with debuging and development.
 
-**2. Util** Depends on UtilMacros. Organised into the following folders and packages.    
+**2. Util** Depends on UtilMacros. Organised into the following folders and packages:
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
@@ -63,7 +63,7 @@ For IntellliJ useful options:
      * CSS
      * Simple Javascipt
 
-**3. Graphic** Depends on UtilMacros and Util, organised into the following packages.  
+**3. Graphic** Depends on UtilMacros and Util, organised into the following packages:
    - **ostrat.geom** A pure or near pure functional package.
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
@@ -77,7 +77,7 @@ For IntellliJ useful options:
      * There is no implementation for Native yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGl, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
 
-**4. Strat** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:   
+**4. Strat** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:
    - **ostrat.pGrid** Depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
