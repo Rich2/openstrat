@@ -8,7 +8,7 @@ trait ShowCase[R]/*(val typeStr: String)*/ extends ShowCompound[R]
 }
 
 /** Show type class for 1 parameter case classes. */
-abstract class Show1[A1, R](val typeStr: String, val fParam: R => (A1), val opt1: Option[A1] = None)(implicit ev1: Show[A1]) extends ShowCase[R]
+abstract class Show1[A1, R](val typeStr: String, val fParam: R => A1, val opt1: Option[A1] = None)(implicit ev1: Show[A1]) extends ShowCase[R]
 { final override def showMems: Arr[Show[_]] = Arr(ev1)
   def showSemi(obj: R): String = ev1.showComma(fParam(obj))
   def showComma(obj: R): String = ev1.show(fParam(obj))
@@ -25,7 +25,7 @@ class Show2[A1, A2, R](val typeStr: String, val fArg1: R => A1, val fArg2: R => 
 }
 
 /** Show type class for 3 parameter case classes. */
-class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A2, A3), val opt3: Option[A3] = None, opt2In: Option[A2] = None,
+class Show3[A1, A2, A3, R](val typeStr: String, val fArg1: R => A1, val fArg2: R => A2, fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3]) extends ShowCase[R]
 {
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
@@ -34,7 +34,9 @@ class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A2, A3), v
   override def showMems: Arr[Show[_]] = Arr(ev1, ev2, ev3)
 
   final override def showSemi(obj: R): String =
-  { val (p1, p2, p3) = fParam(obj)
+  { val p1 = fArg1(obj)
+    val p2 = fArg2(obj)
+    val p3 = fArg3(obj)
     (opt1, opt2, opt3) match
     {
       case (Some(v1), Some(v2), Some(v3)) if v1 == p1 & v2 == p2 & v3 == p3 => ""
@@ -45,10 +47,12 @@ class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A2, A3), v
   }
 
   final override def showComma(obj: R): String =
-  { val (p1, p2, p3) = fParam(obj)
+  { val p1 = fArg1(obj)
+    val p2 = fArg2(obj)
+    val p3 = fArg3(obj)
+
     (opt1, opt2, opt3) match
-    {
-      case (Some(v1), Some(v2), Some(v3)) if v1 == p1 & v2 == p2 & v3 == p3 => ""
+    { case (Some(v1), Some(v2), Some(v3)) if v1 == p1 & v2 == p2 & v3 == p3 => ""
       case (_, Some(v2), Some(v3)) if v2 == p2 & v3 == p3 => ev1.show(p1) + ","
       case (_, _, Some(v3)) if v3 == p3 => ev1.showComma(p1).commaAppend(ev2.showComma(p2))
       case _ => ev1.showComma(p1).commaAppend(ev2.showComma(p2), ev3.showComma(p3))

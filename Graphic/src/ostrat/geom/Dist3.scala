@@ -43,6 +43,6 @@ object Dist3
 { 
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): Dist3 = new Dist3(xMetres, yMetres, zMetres)
   def apply(x: Dist, y: Dist, z: Dist): Dist3 = new Dist3(x.metres, y.metres, z.metres)
-  implicit object Dist3Persist extends Persist3[Dist, Dist, Dist, Dist3]("Dist3", v => (v.x, v.y, v.z), apply)
+  implicit object Dist3Persist extends Persist3[Dist, Dist, Dist, Dist3]("Dist3", _.x, _.y, _.z, apply)
   var counter = 0
 }

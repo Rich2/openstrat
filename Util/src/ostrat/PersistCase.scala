@@ -70,9 +70,9 @@ class PersistD2[R](typeStr: String, fArg1: R => Double, fArg2: R => Double, newT
 
 
 /** Persistence class for 3 parameter case classes. */   
-class Persist3[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), val newT: (A1, A2, A3) => R, opt3: Option[A3] = None,
+class Persist3[A1, A2, A3, R](typeStr: String, fArg1: R => A1, fArg2: R => A2, fArg3: R => A3, val newT: (A1, A2, A3) => R, opt3: Option[A3] = None,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
-  ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr,fParam, opt3, opt2, opt1) with PersistCase[R]
+  ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr,fArg1, fArg2, fArg3, opt3, opt2, opt1) with PersistCase[R]
 { override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2, ev3)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses3(newT, clauses)
   override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1, opt2, opt3) match
@@ -87,14 +87,14 @@ class Persist3[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), val ne
 }
 
 object Persist3
-{ def apply[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None,
+{ def apply[A1, A2, A3, R](typeStr: String, fArg1: R => A1, fArg2: R => A2, fArg3: R => A3, newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None,
   opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): Persist3[A1, A2, A3, R] =
-  new Persist3(typeStr, fParam, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
+  new Persist3(typeStr, fArg1, fArg2, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
 }
 
 /** Persistence class for case classes consisting of 3 Double parameters. */
-abstract class PersistD3[R](typeStr: String, fParam: R => (Double, Double, Double), newT: (Double, Double, Double) => R) extends
-   Persist3[Double, Double, Double, R](typeStr, fParam, newT)
+abstract class PersistD3[R](typeStr: String, fArg1: R => Double, fArg2: R => Double, fArg3: R => Double, newT: (Double, Double, Double) => R) extends
+   Persist3[Double, Double, Double, R](typeStr, fArg1, fArg2, fArg3, newT)
 
 /** Persistence class for 4 parameter case classes. */   
 class Persist4[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), val newT: (A1, A2, A3, A4) => R, opt4: Option[A4],

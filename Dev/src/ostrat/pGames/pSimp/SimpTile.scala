@@ -20,7 +20,7 @@ object UTile
     override def asType(obj: AnyRef): UTile = obj.asInstanceOf[UTile]   
   }
 
-  implicit val persistImplicit: Persist[UTile] = Persist3[Int, Int, Option[MPlayer], UTile]("UTile", u => (u.x, u.y, u.oPlayer), apply, Some(None))
+  implicit val persistImplicit: Persist[UTile] = Persist3[Int, Int, Option[MPlayer], UTile]("UTile", _.x, _.y, _.oPlayer, apply, Some(None))
 }
 
 case class UTileInter(x: Int, y: Int, oPlayer: Option[MPlayer], var potentialPlayers: List[Player] = Nil)

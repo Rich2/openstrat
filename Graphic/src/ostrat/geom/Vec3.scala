@@ -101,19 +101,5 @@ object Vec3
 { def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
   
-  implicit object PersistImplicit extends PersistD3[Vec3]("Vec3", v => (v.x, v.y, v.z), apply)
-//   implicit class Vec3SeqImplicit(thisSeq: Seq[Vec3])
-//   {
-//      /** Returns Some z positive points if 3 or more */ 
-//      def if3ZPositive: Option[Vec2s] = 
-//      {
-//      def loop(rem: Seq[Vec3], acc: Seq[Vec2]): Seq[Vec2] = rem.fHead(acc, (h, tail)=> h match
-//         {
-//            case h if h.z > 0 => loop(tail, acc :+ Vec2(h.x, h.y))                  
-//            case _ => loop(tail, acc)
-//         })
-//      val res: Seq[Vec2] = loop(thisSeq, Seq())
-//      ifSome(res.length > 2, res)   
-//      }
-//   } 
+  implicit object PersistImplicit extends PersistD3[Vec3]("Vec3", _.x, _.y, _.z, apply)
 }

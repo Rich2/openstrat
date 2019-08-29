@@ -21,6 +21,6 @@ object W2Tile
     override def asType(obj: AnyRef): W2Tile = obj.asInstanceOf[W2Tile]
   }
   
-  implicit object W2TilePersist extends Persist3[Int, Int, WTile, W2Tile]("W2Tile", obj => (obj.x , obj.y, obj.terr), apply)
+  implicit object W2TilePersist extends Persist3[Int, Int, WTile, W2Tile]("W2Tile", _.x , _.y, _.terr, apply)
 }
 
