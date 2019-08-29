@@ -97,9 +97,9 @@ abstract class PersistD3[R](typeStr: String, fArg1: R => Double, fArg2: R => Dou
    Persist3[Double, Double, Double, R](typeStr, fArg1, fArg2, fArg3, newT)
 
 /** Persistence class for 4 parameter case classes. */   
-class Persist4[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), val newT: (A1, A2, A3, A4) => R, opt4: Option[A4],
+class Persist4[A1, A2, A3, A4, R](typeStr: String, fArg1: R => A1, fArg2: R => A2, fArg3: R => A3, fArg4: R => A4, val newT: (A1, A2, A3, A4) => R, opt4: Option[A4],
   opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-  ev4: Persist[A4]) extends Show4(typeStr, fParam, opt4, opt3, opt2, opt1) with PersistCase[R]
+  ev4: Persist[A4]) extends Show4(typeStr, fArg1, fArg2, fArg3, fArg4, opt4, opt3, opt2, opt1) with PersistCase[R]
 { override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2, ev3, ev4)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses4(newT, clauses)
   override def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1, opt2, opt3, opt4) match
@@ -117,7 +117,7 @@ class Persist4[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4)
 
 object Persist4
 {
-  def apply[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), newT: (A1, A2, A3, A4) => R, opt4: Option[A4] = None, opt3: Option[A3] = None,
+  def apply[A1, A2, A3, A4, R](typeStr: String, fArg1: R => A1, fArg2: R => A2, fArg3: R => A3, fArg4: R => A4, newT: (A1, A2, A3, A4) => R, opt4: Option[A4] = None, opt3: Option[A3] = None,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
-    Persist4[A1, A2, A3, A4, R] = new Persist4(typeStr, fParam, newT, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4)
+    Persist4[A1, A2, A3, A4, R] = new Persist4(typeStr, fArg1, fArg2, fArg3, fArg4, newT, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4)
 }

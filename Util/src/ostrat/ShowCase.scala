@@ -63,7 +63,7 @@ class Show3[A1, A2, A3, R](val typeStr: String, val fArg1: R => A1, val fArg2: R
 }
 
 /** Show type class for 4 parameter case classes. */
-abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4), val opt4: Option[A4] = None, opt3In: Option[A3] = None,
+abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None,
   opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: Show[A1], ev2: Show[A2], ev3: Show[A3], ev4: Show[A4]) extends
   ShowCase[R]
 {
@@ -73,13 +73,19 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A
 
   final override def showMems = Arr(ev1, ev2, ev3, ev4)
 
-  override def showSemi(obj: R): String = {
-    val (p1, p2, p3, p4) = fParam(obj)
+  override def showSemi(obj: R): String =
+  { val p1 = fArg1(obj)
+    val p2 = fArg2(obj)
+    val p3 = fArg3(obj)
+    val p4 = fArg4(obj)
     ev1.showComma(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4))
   }
 
   final override def showComma(obj: R): String =
-  { val (p1, p2, p3, p4) = fParam(obj)
+  { val p1 = fArg1(obj)
+    val p2 = fArg2(obj)
+    val p3 = fArg3(obj)
+    val p4 = fArg4(obj)
     ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4))
   }
 }
