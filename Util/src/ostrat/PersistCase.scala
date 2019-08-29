@@ -16,7 +16,7 @@ trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
 }
 
 /** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */
-class Persist1[A1, R](typeStr: String, fParam: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1]) extends Show1(typeStr, fParam: R => A1) with
+class Persist1[A1, R](typeStr: String, fParam: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1], eq1: Eq[A1]) extends Show1(typeStr, fParam: R => A1) with
    PersistCase[R]
 {
   override def persistMems: Arr[Persist[_]] = Arr(ev1)

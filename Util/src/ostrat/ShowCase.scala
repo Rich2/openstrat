@@ -8,8 +8,10 @@ trait ShowCase[R]/*(val typeStr: String)*/ extends ShowCompound[R]
 }
 
 /** Show type class for 1 parameter case classes. */
-abstract class Show1[A1, R](val typeStr: String, val fParam: R => A1, val opt1: Option[A1] = None)(implicit ev1: Show[A1]) extends ShowCase[R]
-{ final override def showMems: Arr[Show[_]] = Arr(ev1)
+abstract class Show1[A1, R](val typeStr: String, val fParam: R => A1, val opt1: Option[A1] = None)(implicit ev1: Show[A1], eq1: Eq[A1]) extends
+  ShowCase[R] with Eq[R]
+{ override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fParam(a1), fParam(a2))
+  final override def showMems: Arr[Show[_]] = Arr(ev1)
   def showSemi(obj: R): String = ev1.showComma(fParam(obj))
   def showComma(obj: R): String = ev1.show(fParam(obj))
 }
