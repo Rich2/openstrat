@@ -51,9 +51,20 @@ object Show
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
   }
 
+  implicit val StringImplicit: Show[String] = new ShowSimple[String]("Str")
+  { def show(obj: String): String = obj.enquote
+  }
+
   implicit val ArrayIntImplicit: Show[Array[Int]] = new ShowSeqLike[Int, Array[Int]]
   { override val evA: Show[Int] = Show.IntImplicit
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
+  }
+
+  /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def arrRefImplicit[A <: AnyRef](implicit ev: Show[A]): Show[Arr[A]] = new ShowSeqLike[A, Arr[A]]
+  { override def evA: Show[A] = ev
+    override def showSemi(thisArr: Arr[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    override def showComma(thisArr: Arr[A]): String = thisArr.map(ev.show(_)).commaFold
   }
 }
