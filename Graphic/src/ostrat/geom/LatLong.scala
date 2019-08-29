@@ -82,7 +82,7 @@ object LatLong
     new LatLong(lat, long)
   }
    
-  implicit object PersistImplict extends PersistD2[LatLong]("LatLong", ll => (ll.lat, ll.long), apply)
+  implicit object PersistImplict extends PersistD2[LatLong]("LatLong", _.lat, _.long, apply)
    
   //def apply(latAngle: Latitude, longAngle: Longitude): LatLong = new LatLong(latAngle.radians, longAngle.radians)
    //def ll(lat: Latitude, long: Longitude) = new LatLong(lat.radians, long.radians)

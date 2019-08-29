@@ -22,6 +22,6 @@ case class Player(val char: Char, val colour: Colour)
 
 object Player
 {
-  implicit val persistPlayer: Persist[Player] = new Persist2[Char, Colour, Player]("Player", p => (p.char, p.colour), apply)
+  implicit val persistPlayer: Persist[Player] = new Persist2[Char, Colour, Player]("Player", _.char, _.colour, apply)
 }
 

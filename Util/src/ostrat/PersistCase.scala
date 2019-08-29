@@ -34,8 +34,8 @@ class Persist1[A1, R](typeStr: String, fParam: R => A1, val newT: A1 => R)(impli
 class PersistD1[R](typeStr: String, fParam: R => Double, newT: Double => R) extends Persist1[Double, R](typeStr, fParam, newT)
 
 /** Persistence class for 2 parameter case classes. */ 
-class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-  implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam, opt2, opt1) with PersistCase[R]// with Eq[R]
+class Persist2[A1, A2, R](typeStr: String, fArg1: R => A1, fArg2: R => A2, val newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+  implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fArg1, fArg2, opt2, opt1) with PersistCase[R]// with Eq[R]
 {
   override def persistMems: Arr[Persist[_]] = Arr(ev1, ev2)
   override def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses2(newT, clauses)
@@ -54,12 +54,20 @@ class Persist2[A1, A2, R](typeStr: String, fParam: R => (A1, A2), val newT: (A1,
 }
 
 object Persist2
-{ def apply[A1, A2, R](typeStr: String, fParam: R => (A1, A2), newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-  implicit ev1: Persist[A1], ev2: Persist[A2]): Persist2[A1, A2, R] = new Persist2(typeStr, fParam, newT, opt2, opt1)(ev1, ev2)
+{ def apply[A1, A2, R](typeStr: String, fArg1: R => A1, fArg2: R => A2, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+  implicit ev1: Persist[A1], ev2: Persist[A2]): Persist2[A1, A2, R] = new Persist2(typeStr, fArg1, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
+
+/** Persistence class for case classes consisting of 2 Int parameters. */
+class PersistInt2[R](typeStr: String, fArg1: R => Int, fArg2: R => Int, newT: (Int, Int) => R) extends
+  Persist2[Int, Int, R](typeStr, fArg1, fArg2, newT)
+
+
 /** Persistence class for case classes consisting of 2 Double parameters. */
-class PersistD2[R](typeStr: String, fParam: R => (Double, Double), newT: (Double, Double) => R) extends
-   Persist2[Double, Double, R](typeStr, fParam, newT)
+class PersistD2[R](typeStr: String, fArg1: R => Double, fArg2: R => Double, newT: (Double, Double) => R) extends
+   Persist2[Double, Double, R](typeStr, fArg1, fArg2, newT)
+
+
 
 /** Persistence class for 3 parameter case classes. */   
 class Persist3[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), val newT: (A1, A2, A3) => R, opt3: Option[A3] = None,

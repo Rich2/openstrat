@@ -199,5 +199,5 @@ object Persist
   }
 
   implicit def tuple2Implicit[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2]): Persist[Tuple2[A1, A2]] =
-    Persist2[A1, A2, (A1, A2)]("Tuple2", t2 => (t2._1, t2._2), (a1, a2) => (a1, a2))
+    Persist2[A1, A2, (A1, A2)]("Tuple2", _._1, _._2, (a1, a2) => (a1, a2))
 }

@@ -129,5 +129,5 @@ object Vec2
   { def toPolygon: Polygon = thisIter.toPValues
   }
 
-  implicit val PersistImplicit: Persist[Vec2] = new PersistD2[Vec2]("Vec2", v => (v.x, v.y), apply)
+  implicit val PersistImplicit: Persist[Vec2] = new PersistD2[Vec2]("Vec2", _.x, _.y, apply)
 }

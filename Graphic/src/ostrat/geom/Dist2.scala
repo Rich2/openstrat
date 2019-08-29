@@ -51,7 +51,7 @@ object Dist2
   { def / (operator: Dist): Vec2 = Vec2(thisDist2.x/ operator, thisDist2.y / operator)
   }
 
-  implicit val PersistImplicit: Persist[Dist2] = new PersistD2[Dist2]("Dist2", d2 => (d2.xMetres, d2.yMetres), new Dist2(_, _))
+  implicit val PersistImplicit: Persist[Dist2] = new PersistD2[Dist2]("Dist2", _.xMetres, _.yMetres, new Dist2(_, _))
 }
 
 class Dist2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]
