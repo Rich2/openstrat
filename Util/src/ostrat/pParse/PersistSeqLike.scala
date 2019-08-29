@@ -20,16 +20,13 @@ object AlphaParenth
   }
 }
 
-abstract class PersistSeqLike[A, R](val ev: Persist[A]) extends ShowCompound[R] with PersistCompound[R]
+abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSeqLike[A, R] with PersistCompound[R]
 {
-  override def typeStr = "Seq" + ev.typeStr.enSquare
-  override def syntaxDepth = ev.syntaxDepth + 1
-  
   def fromExprLike(expr: Expr): EMon[List[A]] = expr match
   {
     case SemicolonToken(_) => Good(List[A]())
-    case AlphaSquareParenth("Seq", ts, sts) => sts.eMonMap[A](_.errGet[A](ev))
-    case AlphaParenth("Seq", sts) => sts.eMonMap[A](_.errGet[A](ev))
+    case AlphaSquareParenth("Seq", ts, sts) => sts.eMonMap[A](_.errGet[A](evA))
+    case AlphaParenth("Seq", sts) => sts.eMonMap[A](_.errGet[A](evA))
     case e => bad1(expr, "Unknown Exoression for Seq")
   }
 }

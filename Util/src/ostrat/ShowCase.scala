@@ -15,7 +15,7 @@ abstract class Show1[A1, R](val typeStr: String, val fParam: R => (A1), val opt1
 }
 
 class Show1Only[A1, R](typeStr: String, fParam: R => A1)(implicit ev1: Persist[A1], opt1: Option[A1] = None) extends
-  Show1[A1, R](typeStr,fParam, opt1) with ShowOnly[R]
+  Show1[A1, R](typeStr,fParam, opt1)// with ShowOnly[R]
 
 /** Show type class for 2 parameter case classes. */
 class Show2[A1, A2, R](val typeStr: String, val fParam: R => (A1, A2), val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
@@ -36,7 +36,7 @@ class Show2[A1, A2, R](val typeStr: String, val fParam: R => (A1, A2), val opt2:
 }
 
 class Show2Only[A1, A2, R](typeStr: String, fParam: R => (A1, A2), opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1],
-  ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam, opt2, opt1) with ShowOnly[R]
+  ev2: Persist[A2]) extends Show2[A1, A2, R](typeStr, fParam, opt2, opt1)// with ShowOnly[R]
 
 /** Show type class for 3 parameter case classes. */
 class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A2, A3), val opt3: Option[A3] = None, opt2In: Option[A2] = None,
@@ -71,7 +71,7 @@ class Show3[A1, A2, A3, R](val typeStr: String, val fParam: R => (A1, A2, A3), v
 }
 
 class Show3Only[A1, A2, A3, R](typeStr: String, fParam: R => (A1, A2, A3), opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-  implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr, fParam, opt3, opt2, opt1) with ShowOnly[R]
+  implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]) extends Show3[A1, A2, A3, R](typeStr, fParam, opt3, opt2, opt1)// with ShowOnly[R]
 
 /** Show type class for 4 parameter case classes. */
 abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4), val opt4: Option[A4] = None, opt3In: Option[A3] = None,
@@ -97,7 +97,7 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, val fParam: R => (A
 
 class Show4Only[A1, A2, A3, A4, R](typeStr: String, fParam: R => (A1, A2, A3, A4), opt4: Option[A4] = None, opt3: Option[A3] = None,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]) extends
-  Show4[A1, A2, A3, A4, R](typeStr, fParam, opt4, opt3, opt2, opt1) with ShowOnly[R]
+  Show4[A1, A2, A3, A4, R](typeStr, fParam, opt4, opt3, opt2, opt1)// with ShowOnly[R]
 
 /** Show type class for 4 parameter case classes. */
 abstract class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, val fParam: R => (A1, A2, A3, A4, A5), val opt5: Option[A5], optIn4: Option[A4] = None,
@@ -124,4 +124,4 @@ abstract class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, val fParam: R =
 
 class Show5Only[A1, A2, A3, A4, A5, R](typeStr: String, fParam: R => (A1, A2, A3, A4, A5), opt5: Option[A5] = None, opt4: Option[A4] = None,
   opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-  ev4: Persist[A4], ev5: Persist[A5]) extends Show5[A1, A2, A3, A4, A5, R](typeStr, fParam, opt5, opt4, opt3, opt2, opt1) with ShowOnly[R]
+  ev4: Persist[A4], ev5: Persist[A5]) extends Show5[A1, A2, A3, A4, A5, R](typeStr, fParam, opt5, opt4, opt3, opt2, opt1)// with ShowOnly[R]

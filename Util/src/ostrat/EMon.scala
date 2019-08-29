@@ -41,8 +41,7 @@ object EMon
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based 
  *  Right[List[String], +A]. */
 case class Good[+A](val value: A) extends EMon[A] 
-{
-  def errs: StrList = Nil
+{ def errs: StrList = Nil
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))   
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
   override def foreach(f: A => Unit): Unit = f(value)
@@ -58,9 +57,8 @@ case class Good[+A](val value: A) extends EMon[A]
 
 object Good
 {
-  implicit def GoodShowImplicit[A](implicit ev: Show[A]): ShowOnly[Good[A]] = new ShowOnly[Good[A]] with ShowCompound[Good[A]]
-  {
-    override def syntaxDepth: Int = ev.syntaxDepth + 1
+  implicit def GoodShowImplicit[A](implicit ev: Show[A]): Show[Good[A]] = new Show[Good[A]] with ShowCompound[Good[A]]
+  { override def syntaxDepth: Int = ev.syntaxDepth + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
     override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
     override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
@@ -69,8 +67,7 @@ object Good
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: StrList) extends EMon[A]
-{
-  override def map[B](f: A => B): EMon[B] = Bad[B](errs)   
+{ override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad(errs)
   override def foreach(f: A => Unit): Unit = {}
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
@@ -85,7 +82,7 @@ case class Bad[+A](errs: StrList) extends EMon[A]
 
 object Bad
 {
-  implicit def BadShowImplicit[A](implicit ev: Show[A]): ShowOnly[Bad[A]] = new ShowOnly[Bad[A]] with ShowCompound[Bad[A]]
+  implicit def BadShowImplicit[A](implicit ev: Show[A]): Show[Bad[A]] = new Show[Bad[A]] with ShowCompound[Bad[A]]
   {
     override def syntaxDepth: Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare

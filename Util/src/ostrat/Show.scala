@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import pParse._
 
 /** The classic Show type class. A functional version of toString .Mostly you will want to use Persist which not only gives the Show methods
  *   to String representation, but the methods to parse Strings back to objects of the type T. However it may often be useful to start with Show
@@ -29,4 +30,30 @@ trait Show[-T]
   def showTyped(obj: T): String
 }
 
-trait ShowOnly[T] extends Show[T]
+object Show
+{
+  implicit val IntImplicit: Show[Int] = new ShowSimple[Int]("Int")
+  { def show(obj: Int): String = obj.toString
+  }
+
+  implicit val DoubleImplicit: Show[Double] = new ShowSimple[Double]("DFloat")
+  { def show(obj: Double): String = obj.toString
+  }
+
+  implicit val BooleanImplicit: Show[Boolean] = new ShowSimple[Boolean]("Bool")
+  { override def show(obj: Boolean): String = obj.toString
+  }
+
+  implicit val ArrIntImplicit: Show[Arr[Int]] = new ShowSeqLike[Int, Arr[Int]]
+  {
+    override val evA: Show[Int] = Show.IntImplicit
+    override def showSemi(thisArray: Arr[Int]): String = thisArray.map(evA.showComma(_)).semiFold
+    override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
+  }
+
+  implicit val ArrayIntImplicit: Show[Array[Int]] = new ShowSeqLike[Int, Array[Int]]
+  { override val evA: Show[Int] = Show.IntImplicit
+    override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
+    override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
+  }
+}

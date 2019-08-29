@@ -54,17 +54,17 @@ object Statement
       if (list.length > index) Good(list(index))
         else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
-    def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementList)
-    def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementList)
-    def findBoolean: EMon[Boolean] = Persist.BooleanPersist.findFromStatementList(statementList)
-    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntPersistImplicit.findFromStatementList(statementList)
+    def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementList)
+    def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementList)
+    def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findFromStatementList(statementList)
+    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findFromStatementList(statementList)
 
     /** Find setting from RSON statement */
     def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList, settingStr)
     def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
-    def findIntSett(settingStr: String): EMon[Int] = Persist.IntPersist.settingFromStatementList(statementList, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoublePersist.settingFromStatementList(statementList, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementList, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = Persist.IntImplicit.settingFromStatementList(statementList, settingStr)
+    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoubleImplicit.settingFromStatementList(statementList, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementList, settingStr)
   }
 
   implicit class ArrImplicit(statementArr: Arr[Statement]) extends TextSpan
@@ -82,17 +82,17 @@ object Statement
       if (list.length > index) Good(list(index))
       else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
-    def findInt: EMon[Int] = Persist.IntPersist.findFromStatementList(statementArr.toList)
-    def findDouble: EMon[Double] = Persist.DoublePersist.findFromStatementList(statementArr.toList)
-    def findBoolean: EMon[Boolean] = Persist.BooleanPersist.findFromStatementList(statementArr.toList)
-    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntPersistImplicit.findFromStatementList(statementArr.toList)
+    def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementArr.toList)
+    def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementArr.toList)
+    def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findFromStatementList(statementArr.toList)
+    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findFromStatementList(statementArr.toList)
 
     /** Find setting from RSON statement */
     def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementArr.toList, settingStr)
     def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
-    def findIntSett(settingStr: String): EMon[Int] = Persist.IntPersist.settingFromStatementList(statementArr.toList, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoublePersist.settingFromStatementList(statementArr.toList, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanPersist.settingFromStatementList(statementArr.toList, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = Persist.IntImplicit.settingFromStatementList(statementArr.toList, settingStr)
+    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoubleImplicit.settingFromStatementList(statementArr.toList, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementArr.toList, settingStr)
   }
 }
 

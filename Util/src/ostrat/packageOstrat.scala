@@ -212,8 +212,8 @@ package object ostrat
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
 
   implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
-  implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: ShowOnly[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
-  implicit def persistTToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
+  implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: Show[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
+  //implicit def persistTToStringerImplicit[A](thisVal: A)(implicit ev: Persist[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
 
   implicit def stringToExtensions(s: String): StringImplicit = new StringImplicit(s)
   implicit def stringIterableToExtensions(strIter: Iterable[String]): StringIterableExtensions = StringIterableExtensions(strIter)

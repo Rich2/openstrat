@@ -92,23 +92,22 @@ object Persist
     override def syntaxDepth: Int = evA.syntaxDepth
   }
   
-  
-  implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Persist.IntPersist)
+  implicit val ArrayIntImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Persist.IntImplicit)
   {       
-    override def showSemi(thisArray: Array[Int]): String = thisArray.map(ev.showComma(_)).semiFold
-    override def showComma(thisArray: Array[Int]): String = thisArray.map(ev.show(_)).commaFold
+    override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
+    override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
     override def fromParameterStatements(sts: Arr[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Arr[Clause]): EMon[Array[Int]] = ???
   
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
       case AlphaBracketExpr(AlphaToken(_, "Seq"), Arr(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
-        sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArray)
+        sts.eMonMap[Int](_.errGet[Int](evA)).map(_.toArray)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
   
-  implicit val IntPersist: Persist[Int] = new PersistSimple[Int]("Int")
+  implicit val IntImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   { def show(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
     { case IntToken(_, _, i) => Good(i)
@@ -118,17 +117,17 @@ object Persist
     }
   }
 
-  implicit val ArrIntPersistImplicit: Persist[Arr[Int]] = new PersistSeqLike[Int, Arr[Int]](Persist.IntPersist)
+  implicit val ArrIntImplicit: Persist[Arr[Int]] = new PersistSeqLike[Int, Arr[Int]](Persist.IntImplicit)
   {
-    override def showSemi(thisArray: Arr[Int]): String = thisArray.map(ev.showComma(_)).semiFold
-    override def showComma(thisArray: Arr[Int]): String = thisArray.map(ev.show(_)).commaFold
+    override def showSemi(thisArray: Arr[Int]): String = thisArray.map(evA.showComma(_)).semiFold
+    override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
     override def fromParameterStatements(sts: Arr[Statement]): EMon[Arr[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Arr[Clause]): EMon[Arr[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Arr[Int]] = expr match
     { case SemicolonToken(_) => Good(Arr[Int]())
       case AlphaBracketExpr(AlphaToken(_, "Seq"), Arr(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
-        sts.eMonMap[Int](_.errGet[Int](ev)).map(_.toArr)
+        sts.eMonMap[Int](_.errGet[Int](evA)).map(_.toArr)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
@@ -175,7 +174,7 @@ object Persist
     }
   }
   
-  implicit val DoublePersist: Persist[Double] = new PersistSimple[Double]("DFloat")
+  implicit val DoubleImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
   { def show(obj: Double): String = obj.toString      
     override def fromExpr(expr: Expr): EMon[Double] = expr match      
     { case IntToken(_, _, i) => Good(i.toDouble)
@@ -188,7 +187,7 @@ object Persist
     } 
   }   
    
-  implicit val BooleanPersist: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
+  implicit val BooleanImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def show(obj: Boolean): String = obj.toString  
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case AlphaToken(_, str) if str == "true" => Good(true)

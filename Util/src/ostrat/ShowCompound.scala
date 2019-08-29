@@ -2,9 +2,15 @@
 package ostrat
 import pParse._
 
+trait ShowCompound[R] extends Show[R]
+{
+  final override def show(obj: R): String = typeStr + showSemi(obj).enParenth
+  @inline override def showTyped(obj: R): String = show(obj)
+}
+
 /** Persistence base trait for PersistCase and PerististSeqLike. Some methods probably need to be moved down into sub classes. */
 trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
-{ 
+{
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
     case AlphaBracketExpr(AlphaToken(_, typeName), Arr(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
@@ -14,17 +20,9 @@ trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
 
   /** Not sure about this method */
   def fromParameterStatements(sts: Arr[Statement]): EMon[R]
-  
+
   override def fromStatements(sts: Arr[Statement]): EMon[R] = fromParameterStatements(sts)
 }
-
-trait ShowCompound[R] extends Show[R]
-{
-  final override def show(obj: R): String = typeStr + showSemi(obj).enParenth
-  @inline override def showTyped(obj: R): String = show(obj)
-}
-
-
 
 
 
