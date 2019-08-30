@@ -11,6 +11,8 @@ package object ostrat
   type EMonList[A] = EMon[List[A]]
   type EMonArr[A] = EMon[Arr[A]]
   type ArrMulti[A] = Arr[Multiple[A]]
+  type PersistEq[A] = Persist[A] with Eq[A]
+  type ShowEq[A] = Show[A] with Eq[A]
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
   val Cos60 = 0.5

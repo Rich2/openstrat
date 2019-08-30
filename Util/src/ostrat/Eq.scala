@@ -13,6 +13,15 @@ object Eq
   ((d1 - d2).abs/(d1.abs.max(d2.abs).max(1))) * precision  < 1
   }
 
+  implicit val booleanImplicit: Eq[Boolean] = (a1, a2) => a1 == a2
+  implicit val stringImplicit: Eq[String] = (a1, a2) => a1 == a2
+  implicit val charImplicit: Eq[Char] = (a1, a2) => a1 == a2
+
+  implicit def optionImplicit[A](implicit ev: Eq[A]): Eq[Option[A]] = (a1, a2) => (a1, a2) match
+  { case (None, None) => true
+    case (Some(v1), Some(v2)) => ev.eqv(v1, v2)
+    case _ => false
+  }
   // implicit def functorImplicit[A, F[A]](implicit evF: Functor[F], evA: Eq[A]): Eq[F[A]] = (a1, a2) => f => evF.map(f)
 
   implicit def listImplicit[A](implicit ev: Eq[A]): Eq[List[A]] = (l1, l2) =>
@@ -51,4 +60,10 @@ object Eq
       }
       acc
     }
+}
+
+class EqCase3[A1, A2, A3, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3)(implicit eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]) extends
+  Eq[R]
+{
+  override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2)) & eq3.eqv(fArg3(a1), fArg3(a2))
 }

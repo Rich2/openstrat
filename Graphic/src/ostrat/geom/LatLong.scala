@@ -6,7 +6,7 @@ import math._
 /** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD2
 {
-  override def toString: String = LatLong.PersistImplict.show(this)
+  override def toString: String = LatLong.persistImplict.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = lat
   def _2 = long
@@ -82,7 +82,7 @@ object LatLong
     new LatLong(lat, long)
   }
    
-  implicit object PersistImplict extends PersistD2[LatLong]("LatLong", _.lat, _.long, apply)
+  implicit val persistImplict: PersistEq[LatLong] = new PersistD2[LatLong]("LatLong", _.lat, _.long, apply)
    
   //def apply(latAngle: Latitude, longAngle: Longitude): LatLong = new LatLong(latAngle.radians, longAngle.radians)
    //def ll(lat: Latitude, long: Longitude) = new LatLong(lat.radians, long.radians)

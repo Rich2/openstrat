@@ -9,7 +9,7 @@ class W2Tile(val x: Int, val y: Int, val terr: WTile) extends ETile
   type FromT = WTile
   def fromT: WTile = terr
   var lunits: Arr[Army] = Arr()
-  override def toString: String = W2Tile.W2TilePersist.show(this)
+  override def toString: String = W2Tile.persistImplicit.show(this)
 }
 
 object W2Tile
@@ -21,6 +21,6 @@ object W2Tile
     override def asType(obj: AnyRef): W2Tile = obj.asInstanceOf[W2Tile]
   }
   
-  implicit object W2TilePersist extends Persist3[Int, Int, WTile, W2Tile]("W2Tile", _.x , _.y, _.terr, apply)
+  implicit val persistImplicit: PersistEq[W2Tile] = new Persist3[Int, Int, WTile, W2Tile]("W2Tile", _.x , _.y, _.terr, apply)
 }
 

@@ -53,9 +53,10 @@ object SideBare
 case class TileRow[T](yRow: Int, xStart: Int, yStart: Int, values: Arr[Multiple[T]])
 object TileRow
 {
+  implicit def eqImplicit[T](implicit ev: Eq[T]): Eq[TileRow[T]] = new EqCase3(_.yRow, _.xStart, _.values)
+
   implicit def persistImplicit[T](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]]
-  {
-     def show(obj: ostrat.pGrid.TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
+  { def show(obj: ostrat.pGrid.TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
     def showComma(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
     def showSemi(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
     def showTyped(obj: ostrat.pGrid.TileRow[T]): String = show(obj)

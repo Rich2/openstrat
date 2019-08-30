@@ -16,7 +16,10 @@ object WTile
     override def asType(obj: AnyRef): WTile = obj.asInstanceOf[WTile]
   }
 
-  implicit object TerrainPersist extends PersistSimple[WTile]("Terrain")
+  /** This is not correct, but put in as temporary measure. */
+  implicit val eqImplicit: Eq[WTile] = (a1, a2) => a1 == a2
+
+  implicit val persistImplicit: Persist[WTile] = new PersistSimple[WTile]("Terrain")
   {
     def show(obj: WTile): String = obj.str
     def fromExpr(expr: ParseExpr): EMon[WTile] = ???

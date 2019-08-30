@@ -7,7 +7,7 @@ import math._
  *  was a great idea. */
 final class Vec2 (val x: Double, val y: Double) extends ProdD2
 {
-  override def toString: String = Vec2.PersistImplicit.show(this)
+  override def toString: String = Vec2.persistImplicit.show(this)
   def commaStr = x.toString + ", " + y.toString
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
@@ -129,5 +129,5 @@ object Vec2
   { def toPolygon: Polygon = thisIter.toPValues
   }
 
-  implicit val PersistImplicit: Persist[Vec2] = new PersistD2[Vec2]("Vec2", _.x, _.y, apply)
+  implicit val persistImplicit: PersistEq[Vec2] = new PersistD2[Vec2]("Vec2", _.x, _.y, apply)
 }
