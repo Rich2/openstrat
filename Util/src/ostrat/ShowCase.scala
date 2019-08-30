@@ -18,9 +18,11 @@ abstract class Show1[A1, R](val typeStr: String, val fParam: R => A1, val opt1: 
 
 /** Show type class for 2 parameter case classes. */
 class Show2[A1, A2, R](val typeStr: String, val fArg1: R => A1, val fArg2: R => A2, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
-  implicit ev1: Show[A1], ev2: Show[A2]) extends ShowCase[R]
+  implicit ev1: Show[A1], ev2: Show[A2], eq1: Eq[A1], eq2: Eq[A2]) extends ShowCase[R] with Eq[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2))
+
   final override def showMems: Arr[Show[_]] = Arr(ev1, ev2)
   override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
   override def showComma(obj: R): String = ev1.show(fArg1(obj)) + ", " + ev2.show(fArg2(obj))
@@ -100,15 +102,25 @@ class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, val fArg1: R => A1, val 
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
+  override def eqv(a1: R, a2: R): Boolean =
+
   final override def showMems = Arr(ev1, ev2, ev3, ev4, ev5)
 
-  override def showSemi(obj: R): String = {
-    val (p1, p2, p3, p4, p5) = fParam(obj)
+  override def showSemi(obj: R): String =
+  { val p1 = fArg1(obj)
+    val p2 = fArg2(obj)
+    val p3 = fArg3(obj)
+    val p4 = fArg4(obj)
+    val p5 = fArg5(obj)
     ev1.showComma(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4), ev5.showComma(p5))
   }
 
   final override def showComma(obj: R): String =
-  { val (p1, p2, p3, p4, p5) = fParam(obj)
+  { val p1 = fArg1(obj)
+    val p2 = fArg2(obj)
+    val p3 = fArg3(obj)
+    val p4 = fArg4(obj)
+    val p5 = fArg5(obj)
     ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4), ev5.show(p5))
   }
 }
