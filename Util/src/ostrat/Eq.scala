@@ -62,8 +62,20 @@ object Eq
     }
 }
 
+class EqCase2[A1, A2, R](val fArg1: R => A1, val fArg2: R => A2)(implicit eq1: Eq[A1], eq2: Eq[A2]) extends Eq[R]
+{ override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2))
+}
+
+object EqCase2
+{ def apply[A1, A2, R](fArg1: R => A1, fArg2: R => A2)(implicit eq1: Eq[A1], eq2: Eq[A2]): EqCase2[A1, A2, R] = new EqCase2(fArg1, fArg2)
+}
+
 class EqCase3[A1, A2, A3, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3)(implicit eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]) extends
   Eq[R]
-{
-  override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2)) & eq3.eqv(fArg3(a1), fArg3(a2))
+{ override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2)) & eq3.eqv(fArg3(a1), fArg3(a2))
+}
+
+object EqCase3
+{ def apply[A1, A2, A3, R](fArg1: R => A1, fArg2: R => A2, fArg3: R => A3)(implicit eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]): EqCase3[A1, A2, A3, R] =
+    new EqCase3(fArg1, fArg2, fArg3)
 }

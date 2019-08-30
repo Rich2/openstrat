@@ -17,8 +17,8 @@ abstract class Show1[A1, R](val typeStr: String, val fParam: R => A1, val opt1: 
 }
 
 /** Show type class for 2 parameter case classes. */
-class Show2[A1, A2, R](val typeStr: String, val fArg1: R => A1, val fArg2: R => A2, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
-  implicit ev1: Show[A1], ev2: Show[A2], eq1: Eq[A1], eq2: Eq[A2]) extends ShowCase[R] with Eq[R]
+class Show2[A1, A2, R](val typeStr: String, fArg1: R => A1, fArg2: R => A2, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
+  implicit ev1: Show[A1], ev2: Show[A2], eq1: Eq[A1], eq2: Eq[A2]) extends EqCase2[A1, A2, R](fArg1, fArg2) with ShowCase[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2))
