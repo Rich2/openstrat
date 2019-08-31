@@ -4,6 +4,8 @@ trait Eq[A]
 { def eqv(a1: A, a2: A): Boolean
 }
 
+/** The campanion object for the Eq typeclass, containing instances for common types. This does not currently use a functor instance for a number of
+ * reasons. */
 object Eq
 {
   implicit val intImplicit: Eq[Int] = (a1, a2) => a1 == a2
@@ -22,7 +24,6 @@ object Eq
     case (Some(v1), Some(v2)) => ev.eqv(v1, v2)
     case _ => false
   }
-  // implicit def functorImplicit[A, F[A]](implicit evF: Functor[F], evA: Eq[A]): Eq[F[A]] = (a1, a2) => f => evF.map(f)
 
   implicit def listImplicit[A](implicit ev: Eq[A]): Eq[List[A]] = (l1, l2) =>
   { def loop(rem1: List[A], rem2: List[A]): Boolean = (rem1, rem2) match
@@ -62,6 +63,10 @@ object Eq
     }
 }
 
+class EqCase1[A1, R](val fArg1: R => A1)(implicit eq1: Eq[A1]) extends Eq[R]
+{ override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2))
+}
+
 class EqCase2[A1, A2, R](val fArg1: R => A1, val fArg2: R => A2)(implicit eq1: Eq[A1], eq2: Eq[A2]) extends Eq[R]
 { override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2))
 }
@@ -76,6 +81,21 @@ class EqCase3[A1, A2, A3, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: 
 }
 
 object EqCase3
-{ def apply[A1, A2, A3, R](fArg1: R => A1, fArg2: R => A2, fArg3: R => A3)(implicit eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]): EqCase3[A1, A2, A3, R] =
+{
+  def apply[A1, A2, A3, R](fArg1: R => A1, fArg2: R => A2, fArg3: R => A3)(implicit eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]): EqCase3[A1, A2, A3, R] =
     new EqCase3(fArg1, fArg2, fArg3)
+}
+
+class EqCase4[A1, A2, A3, A4, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, val fArg4: R => A4)(implicit eq1: Eq[A1], eq2: Eq[A2],
+  eq3: Eq[A3], eq4: Eq[A4]) extends Eq[R]
+{
+  override def eqv(a1: R, a2: R): Boolean = eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2)) & eq3.eqv(fArg3(a1), fArg3(a2)) &
+    eq4.eqv(fArg4(a1), fArg4(a2))
+}
+
+class EqCase5[A1, A2, A3, A4, A5, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, val fArg4: R => A4, val fArg5: R => A5)(implicit
+  eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]) extends Eq[R]
+{ override def eqv(a1: R, a2: R): Boolean =
+    eq1.eqv(fArg1(a1), fArg1(a2)) & eq2.eqv(fArg2(a1), fArg2(a2)) & eq3.eqv(fArg3(a1), fArg3(a2)) & eq4.eqv(fArg4(a1), fArg4(a2)) &
+    eq5.eqv(fArg5(a1), fArg5(a2))
 }
