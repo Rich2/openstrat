@@ -4,7 +4,7 @@ package ostrat
 /** This package is for JavaFx code.*/
 package object pFx
 { val userHomeDir: String = System.getProperty("user.home")
-  val openStratDir: String = userHomeDir / "AppData/Local/OpenStratData"
+  val openStratDir: String = userHomeDir / "AppData/Local/OpenStrat"
   val openStratDevDir: String = openStratDir / "Dev"
   lazy val generalDevSettings: EMon[String] = loadRsonFile(openStratDevDir / "GeneralDevSettings.rson")
   def findDevSetting[A: Persist](settingStr: String): EMon[A] = generalDevSettings.findSetting(settingStr)
