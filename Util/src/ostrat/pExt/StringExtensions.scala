@@ -72,23 +72,25 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   
   def toTokens: EMonList[pParse.Token] = pParse.stringToTokens(thisString)
   /** Appends strings with a comma and space seperator */
-  def commaAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
-  def semicolonAppend(extraStrings: String*): String =
-  {
-    val v1 = extraStrings.foldLeft(thisString)(_ + "; " + _)
+  def appendCommas(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
+
+  /** Appends extra Strings to thisString separated by " ;". */
+  def appendSemicolons(extraStrings: String*): String =
+  { val v1 = extraStrings.foldLeft(thisString)(_ + "; " + _)
     extraStrings.length match
-    {
-      case 0 => ife(thisString == "", v1 + ";", v1)
+    { case 0 => ife(thisString == "", v1 + ";", v1)
       case _ => ife(extraStrings.last == "", v1 + ";", v1)
     }
   }
+
+  def commaInts(ints: Int*): String = ints.foldLeft(thisString)(_ + ", " + _.toString)
+
   def dotAppend(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + "." + _)  
-  def appendParenth(innerStrs: String*): String = thisString + innerStrs.semiParenth
+  def appendParenthSemis(innerStrs: String*): String = thisString + innerStrs.semiParenth
+
   def prependIndefiniteArticle = thisString.find(!_.isWhitespace) match
-  {
-    case Some(ch) => ch.toLower match
-    {
-      case 'a' | 'e' | 'i' | 'o' | 'u' => "an " + thisString
+  { case Some(ch) => ch.toLower match
+    { case 'a' | 'e' | 'i' | 'o' | 'u' => "an " + thisString
       case _ => "a " + thisString
     }
     case _ => "a " + thisString

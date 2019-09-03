@@ -34,17 +34,17 @@ abstract class HexGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val 
   
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
     x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
-    x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")
+    x.commaInts(y) -- "is an invalid Hex tile coordinate")
   
   override def coodIsSide(x: Int, y: Int): Unit = ifNotExcep(
     (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0) | (x.isOdd & y.isOdd),
-    x.toString.commaAppend (y.toString) -- "is an invalid Hexside tile coordinate")
+    x.commaInts(y) -- "is an invalid Hexside tile coordinate")
   
   override def sidesTileCoods(x: Int, y: Int) = ife3(
     (x %% 4 == 0 & y %% 4 == 2) | (x %% 4 == 2 & y %% 4 == 0), (Cood(x -2, y), Cood(x + 2, y)),
     (x %% 4 == 1 & y %% 4 == 1) | (x %% 4 == 3 & y %% 4 == 3), (Cood(x - 1, y - 1), Cood(x + 1, y + 1)),
     (x %% 4 == 1 & y %% 4 == 3) | (x %% 4 == 3 & y %% 4 == 1), (Cood(x - 1, y + 1), Cood(x + 1, y - 1)),
-    excep("Invalid Hex Side Coordinate".commaAppend(x.toString, y.toString)))
+    excep("Invalid Hex Side Coordinate".commaInts(x, y)))
     
   override def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A =  cood match
   { case Cood(x, y) if x %% 8 == 0 & y %% 4 == 0 => v1
@@ -115,7 +115,7 @@ object HexGrid
     (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3), upRight,
     (y.div4Rem0 && x.div4Rem2) || (y.div4Rem2 && x.div4Rem0), rightSide,
     (y.div4Rem1 && x.div4Rem3) || (y.div4Rem3 && x.div4Rem1), downRight,
-    "invalid Hex Side coordinate: " + x.toString.commaAppend(y.toString))
+    "invalid Hex Side coordinate: " + x.toString.appendCommas(y.toString))
 
   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
   val yDist =  2 / sqrt(3)

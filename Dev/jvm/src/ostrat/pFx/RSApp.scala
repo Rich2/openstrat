@@ -16,7 +16,7 @@ class AppStart extends Application
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new scene.Scene(root, canvWidth, canvHeight)
-    val sett = fromRsonFileFind[Int](openStratDir / "AppNum.txt")
+    val sett = findDevSetting[Int]("AppNum")
     deb(sett.toString)
     val pair = pDev.Apps.curr(sett.getElse(pDev.Apps.appNum))
     val newAlt = CanvasFx(canvasCanvas)

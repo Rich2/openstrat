@@ -9,7 +9,7 @@ trait HGrid[TileT] extends TGrid[TileT]
   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
     x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
-    x.toString.commaAppend(y.toString) -- "is an invalid Hex tile coordinate")
+    x.commaInts((y)) -- "is an invalid Hex tile coordinate")
   override def vertCoodsOfTile(tileCood: Cood): Coods = HexGrid.vertCoodsOfTile(tileCood)
   def cen: Vec2 = (xMax + xMin) / 2 vv (yMin + yMax) * HexGrid.yRatio / 2
   override def sideCoodLine(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)

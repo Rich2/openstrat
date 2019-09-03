@@ -32,7 +32,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def degreesToRadians: Double = thisInt * Pi / 180
   @inline def radiansToDegrees: Double = thisInt * 180.0 / Pi
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
-  def commaAppendStr(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
+  def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
+  def semicolonInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + "; " + _.toString)
 
   def doTimes(f: () => Unit): Unit =
   { var count: Int = 0

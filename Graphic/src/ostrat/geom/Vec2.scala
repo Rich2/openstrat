@@ -12,7 +12,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y   
-  def strMod(f: Double => String): String = "Vec2".appendParenth(f(x), f(y))
+  def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
   def str1: String = strMod(_.str1)
   def str2: String = strMod(_.str2)
   def str3: String = strMod(_.str3)

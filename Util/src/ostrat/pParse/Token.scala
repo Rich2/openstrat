@@ -28,7 +28,7 @@ case class DotToken(startPosn: TextPosn) extends ExprMemberToken { def str = "."
  *  better performance than the equivalent Strings. */
 case class AlphaToken(startPosn: TextPosn, str: String) extends ExprToken
 { override def exprName: String = "AlphaTokenExpr"
-  //override def  = sym.name
+  override def toString: String =  "AlphaToken".appendParenthSemis(str, startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
 case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken
@@ -56,9 +56,9 @@ trait IntLikeToken extends ExprToken
 /** A 32 bit integer token */
 case class IntToken(startPosn: TextPosn, str: String, intValue: Int) extends IntLikeToken
 {
-   override def exprName: String = "IntTokenExpr"
+  override def toString: String = "IntToken".appendParenthSemis(str.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
+  override def exprName: String = "IntTokenExpr"
 }
-
 case class HexIntToken(startPosn: TextPosn, str: String, intValue: Int) extends IntLikeToken
 {
    override def exprName: String = "HexIntIntTokenExpr"

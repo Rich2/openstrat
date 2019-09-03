@@ -9,7 +9,7 @@ trait SGrid[TileT] extends TGrid[TileT]
   @inline override def xStep: Int = 2
   override def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(x %% 2 == 0 & y %% 2 == 0,
-    x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate")
+    x.toString.appendCommas(y.toString) -- "is an invalid Square tile coordinate")
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGrid.vertCoodsOfTile(tileCood)
   override def sideCoodLine(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
 }
@@ -47,10 +47,10 @@ abstract class SquareGrid[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, v
   override def xSideMax: Int = xTileMax + 1  
   
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(x %% 2 == 0 & y %% 2 == 0,
-    x.toString.commaAppend(y.toString) -- "is an invalid Square tile coordinate")
+    x.toString.appendCommas(y.toString) -- "is an invalid Square tile coordinate")
   
   override def coodIsSide(x: Int, y: Int): Unit = ifNotExcep(x.isOdd & y.isOdd,
-    x.toString.commaAppend(y.toString) -- "is an invalid Squareside tile coordinate")
+    x.toString.appendCommas(y.toString) -- "is an invalid Squareside tile coordinate")
 
   override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit =
   { ijToForeach(yTileMin, yTileMax, 2)(xTileMin + 1, xTileMax -1, 2)((y, x) => f(x, y))

@@ -47,8 +47,8 @@ class Show3[A1, A2, A3, R](val typeStr: String, fArg1: R => A1, fArg2: R => A2, 
     {
       case (Some(v1), Some(v2), Some(v3)) if v1 == p1 & v2 == p2 & v3 == p3 => ""
       case (_, Some(v2), Some(v3)) if v2 == p2 & v3 == p3 => ev1.showComma(p1)
-      case (_, _, Some(v3)) if v3 == p3 => ev1.showComma(p1).semicolonAppend(ev2.showComma(p2))
-      case _ => ev1.showComma(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3))
+      case (_, _, Some(v3)) if v3 == p3 => ev1.showComma(p1).appendSemicolons(ev2.showComma(p2))
+      case _ => ev1.showComma(p1).appendSemicolons(ev2.showComma(p2), ev3.showComma(p3))
     }
   }
 
@@ -60,8 +60,8 @@ class Show3[A1, A2, A3, R](val typeStr: String, fArg1: R => A1, fArg2: R => A2, 
     (opt1, opt2, opt3) match
     { case (Some(v1), Some(v2), Some(v3)) if v1 == p1 & v2 == p2 & v3 == p3 => ""
       case (_, Some(v2), Some(v3)) if v2 == p2 & v3 == p3 => ev1.show(p1) + ","
-      case (_, _, Some(v3)) if v3 == p3 => ev1.showComma(p1).commaAppend(ev2.showComma(p2))
-      case _ => ev1.showComma(p1).commaAppend(ev2.showComma(p2), ev3.showComma(p3))
+      case (_, _, Some(v3)) if v3 == p3 => ev1.showComma(p1).appendCommas(ev2.showComma(p2))
+      case _ => ev1.showComma(p1).appendCommas(ev2.showComma(p2), ev3.showComma(p3))
     }
   }
 }
@@ -85,7 +85,7 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, fArg1: R => A1, fAr
     val p2 = fArg2(obj)
     val p3 = fArg3(obj)
     val p4 = fArg4(obj)
-    ev1.showComma(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4))
+    ev1.showComma(p1).appendSemicolons(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4))
   }
 
   final override def showComma(obj: R): String =
@@ -93,7 +93,7 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, fArg1: R => A1, fAr
     val p2 = fArg2(obj)
     val p3 = fArg3(obj)
     val p4 = fArg4(obj)
-    ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4))
+    ev1.show(p1).appendCommas(ev2.show(p2), ev3.show(p3), ev4.show(p4))
   }
 }
 
@@ -119,7 +119,7 @@ class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, fArg1: R => A1, fArg2: R
     val p3 = fArg3(obj)
     val p4 = fArg4(obj)
     val p5 = fArg5(obj)
-    ev1.showComma(p1).semicolonAppend(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4), ev5.showComma(p5))
+    ev1.showComma(p1).appendSemicolons(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4), ev5.showComma(p5))
   }
 
   final override def showComma(obj: R): String =
@@ -128,7 +128,7 @@ class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, fArg1: R => A1, fArg2: R
     val p3 = fArg3(obj)
     val p4 = fArg4(obj)
     val p5 = fArg5(obj)
-    ev1.show(p1).commaAppend(ev2.show(p2), ev3.show(p3), ev4.show(p4), ev5.show(p5))
+    ev1.show(p1).appendCommas(ev2.show(p2), ev3.show(p3), ev4.show(p4), ev5.show(p5))
   }
 }
 

@@ -47,7 +47,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
   
   def mapMinMaxStr[B](f: A => B)(implicit cmp: Ordering[B]): String =
   { val (min, max) = thisSeq.foldMinMax(f)(cmp)
-    min.toString.commaAppend(max.toString)
+    min.toString.appendCommas(max.toString)
   }
   
   def filterMap[B](fFilter: A => Boolean, fMap: A => B): Seq[B] = thisSeq.foldLeft[Seq[B]](Seq())((acc, h) => ife(fFilter(h), acc :+ fMap(h), acc))

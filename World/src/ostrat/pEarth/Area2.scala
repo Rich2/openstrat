@@ -6,7 +6,7 @@ import geom._
 /** A second level area */
 abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
-   override def toString = name.commaAppend(terr.toString)
+   override def toString = name.appendCommas(terr.toString)
    def aStrs = Arr(name)
    def textScale: Dist = 15.km   
    def latLongs: LatLongs   

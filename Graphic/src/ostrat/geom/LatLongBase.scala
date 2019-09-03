@@ -56,7 +56,7 @@ trait LatLongBase
    def longLetter: String = long.ifNeg("W", "E")
    def latDegStr: String = latDegs.abs.str2 + latLetter
    def longDegStr: String = longDegs.abs.str2 + longLetter
-   def degStr: String = latDegStr.commaAppend(longDegStr)
+   def degStr: String = latDegStr.appendCommas(longDegStr)
    def latDegMinStr: String =
    {
       
@@ -70,7 +70,7 @@ trait LatLongBase
       degs.toString + longLetter + mins.str2Dig
    }
    
-   def degMinStr: String = latDegMinStr.commaAppend(longDegMinStr)   
+   def degMinStr: String = latDegMinStr.appendCommas(longDegMinStr)
    def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)   
    def toDist3: Dist3 =
    {
