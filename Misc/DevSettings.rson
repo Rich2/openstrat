@@ -1,5 +1,5 @@
 displayX = 0;
-appNum = 20;
+appNum = 1;
 
 /* Change the  number to change the app on next run.
 (0, (new pGames.pCiv.CivGui(_), "ScalaFx Rise of Civs")),
