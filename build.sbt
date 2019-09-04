@@ -36,6 +36,7 @@ lazy val World = project.dependsOn(Graphic).settings(stdSettings).settings(
 lazy val root = (project in file(".")).dependsOn(World).settings(commonSettings).settings(
 	scalaSource := baseDirectory.value / "Dev/src",
 	Compile/unmanagedSourceDirectories := List("src", "srcDev", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
+	watchTriggers += Glob(System.getProperty("user.home")) / "AppData/Local/OpenStratData/DevSettings.rson",
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
