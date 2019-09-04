@@ -2,21 +2,27 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA8(canv: CanvasPlatform) extends CanvasSimple("Lesson A8")
+case class LessonA8(canv: CanvasPlatform) extends CanvasSimple("lesson A7")
 {
-  def bd(c1: Vec2, c2: Vec2, colour: Colour) = BezierDraw(Vec2Z, c1, c2, 500 vv 350, 3, colour)
-  //This can be more elegantly expressed in dotty
-  def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
-  val pt1 = 500 vv - 400
-  val sh1 = Shape(LineSeg(Vec2Z), LineSeg(200 vv 0), BezierSeg(300 vv 300, 350 vv 100, pt1), LineSeg(100 vv -200)) 
-  
-  def stuff = Arr(
-         bd(-100 vv 200, 300 vv 400, Green),
-         bd(-150 vv -50, 250 vv 350, Violet),
-         bd(-250 vv 50, 200 vv 400, Orange),
-         bd(-300 vv 100, 200 vv 0, Pink),
-         ShapeFill(sh1, Yellow), 
-         TextGraphic(pt1.toString, 12, pt1),
-         )
-   repaint(stuff)   
+  //Lets copy the values across form the previous lesson.
+  val pt1 = -200 vv 200
+  val arcCentre = 0 vv 200
+  val pt2 = 0 vv 400
+  val pt3 = 200 vv 200
+  val pt4 = 200 vv -200
+  val ctrl1 = 150 vv -125
+  val ctrl2 = -175 vv -250
+  val pt5 = -200 vv -200
+
+  //But this time we are going to create an intermediate shape.
+  val shape1: Shape = Shape(LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5))
+  val sf1 = ShapeFill(shape1.slate(400 vv 100), Violet)  
+  val sf2 = ShapeDraw(shape1.clk45, 2)  
+  val sf3 = sf2.scale(0.5)  
+  val sf4 = sf3.slate(-250, 200)  
+  val sf5 = sf4.slateX(-100).copy(colour = Green)  
+  val rect = Rectangle(200, 100, -400 vv 100).fill(Orange)
+  canv.polyFill(rect)
+  val sf6 = sf5.negY.copy(colour = Red)
+  repaints(sf1, sf2, sf3, sf4, sf5, sf6)
 }

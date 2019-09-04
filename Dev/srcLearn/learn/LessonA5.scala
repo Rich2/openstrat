@@ -1,29 +1,40 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA5(canv: CanvasPlatform) extends CanvasSimple("Lesson A5")
+/* These lessons are intended to be accessible to people who haven't programmed before and have limited geometry knowledge. This is a comment. It
+ *  doesn't do anything. Everything between the forward-slash star at the beginning of the comment and the star forward-slash at the end is a comment.
+ *  Hopefully in your
+ *   editor or IDE (integrated Developer Environment) the comments will appear in a different colour. */
+
+// This is also a comment. Everything after two forward-slashes to the end of line. You can add and remove //s from the beginning of the commands,
+// Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
+// The associated commands will appear / disappear from the screen.
+ 
+case class LessonA5(canv: CanvasPlatform) extends CanvasSimple("Lesson A4")
 {
-  //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
-  val ptStart: Vec2 = -100 vv 50
-  //Lets create another value and call it ptEnd. This is another Vec2, the compiler infers this, although we didn't state it directly.
-  val ptEnd = 500 vv 300
-  
-  //However if you uncomment the line below you will get a compile error. You have told the compiler you are expecting a Vec2 but given it a number.
-  //val badPoint: Vec2 = 100
-  
-  repaints(//So lets use those values above
-      BezierDraw(ptStart, 200 vv 350, 0 vv 70, ptEnd, 2, Blue),
-      BezierDraw(ptStart, 200 vv 350, 100 vv 270, ptEnd, 2, Gray),
-      BezierDraw(ptStart, 100 vv 350, 100 vv 270, ptEnd, 2, Violet),
-      BezierDraw(ptStart, 0 vv 350, 100 vv 270, ptEnd, 2, DarkRed),
-  
-      //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
-      TextOutline(Vec2Z, "Text in outline at centre screen", 40, Orange, 1),
-      TextOutline(0 vv -200, "More text in outline, at x is 0, y is - 200", 60, Red, 2),
-  
-      // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
-      Polygon(-300 vv 200, -300 vv 300, -250 vv 300).fill(Orange),
-      Polygon(-250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200).draw(2, Blue), 
-      )  
+  val stuff = Arr(
+      LineDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
+      LineDraw(0 vv 50, 150 vv 200, 3),
+      LineDraw(50 vv -50, 200 vv -50, 2, Red),//Note if you don't include a Colour you get Black
+   
+      ArcDraw(-200 vv 0, 0 vv 0, 0 vv 200),
+      ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
+      BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
+      )
+  repaint(stuff)
 }
+
+/** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
+  * screen. Congratulations! you are now a programmer. But, but, you respond, there's loads of magic going on here that I don't understand. All
+  * programmers rely on magic, and of course the first thing we should know about magic is it doesn't always work. I will try and explain how some of
+  * the magic works, but in programming there's always more magic to decode.
+  *
+  * The second type is text. Programmers refer to text as Strings, for some reason. I shall use the term string from now on. Strings start with a "
+  * quotation mark and end with a quotation mark. Change the text in on one of the strings, save the file and you should see the text change on the
+  * screen. If you try replacing a string with a number or replacing a number with a String, the compiler will complain and you will get an error
+  * message. The third type is Colour. Note Colours must have the correct capital letters. You can just try guessing the colours or you can google /
+  * duckduck web colours to see what is available. Again put a Colour where a number or a string is expected or vice versa and the compiler will
+  * complain. */
+
+
+ 

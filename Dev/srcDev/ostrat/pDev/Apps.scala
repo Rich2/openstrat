@@ -32,14 +32,15 @@ object Apps
       (26, (new pGames.pReactor.ReactorGUI(_), "reactor")),
       
       (31, (learn.LessonA1(_), "ScalaFx Demonstration Canvas 1")), //Static Graphics
-      (32, (learn.LessonA2(_), "ScalaFx Demonstration Canvas 2")),
-      (33, (learn.LessonA3(_), "ScalaFx Demonstration Canvas 3")),
-      (34, (learn.LessonA4(_), "ScalaFx Demonstration Canvas 4")),
-      (35, (learn.LessonA5(_), "ScalaFx Demonstration Canvas 5")),
+      (32, (learn.LessonA3(_), "ScalaFx Demonstration Canvas 2")),
+      (33, (learn.LessonA4(_), "ScalaFx Demonstration Canvas 3")),
+      (34, (learn.LessonA5(_), "ScalaFx Demonstration Canvas 4")),
+      (35, (learn.LessonA6(_), "ScalaFx Demonstration Canvas 5")),
       (36, (learn.LessonA6(_), "ScalaFx Demonstration Canvas 6")),
       (37, (learn.LessonA7(_), "ScalaFx Demonstration Canvas 7")),
       (38, (learn.LessonA8(_), "ScalaFx Demonstration Canvas 8")),
       (39, (learn.LessonA9(_), "ScalaFx Demonstration Canvas 9")),
+      (310, (learn.LessonA10(_), "ScalaFx Demonstration Canvas 10")),
       
       (41, (learn.LessonB1(_), "ScalaFx Demonstration Animated Canvas 1")), //Moving Graphics
       (42, (learn.LessonB2(_), "ScalaFx Demonstration Animated Canvas 2")),
