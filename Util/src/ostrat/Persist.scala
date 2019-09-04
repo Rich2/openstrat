@@ -39,8 +39,6 @@ object Persist
     }
   }
 
-
-
   implicit def someToPersist[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
   {     
     override def typeStr: String = "Some" + ev.typeStr.enSquare
@@ -76,8 +74,6 @@ object Persist
   { override def typeStr: String = "Option" + evA.typeStr.enSquare
     override def syntaxDepth: Int = evA.syntaxDepth
   }
-  
-
   
   implicit val IntImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   { def show(obj: Int): String = obj.toString

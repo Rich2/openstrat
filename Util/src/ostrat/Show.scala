@@ -32,7 +32,7 @@ trait Show[-T]
 
 object Show
 {
-  implicit val IntImplicit: Show[Int] = new ShowSimple[Int]("Int")
+  implicit val intImplicit: Show[Int] = new ShowSimple[Int]("Int")
   { def show(obj: Int): String = obj.toString
   }
 
@@ -45,8 +45,7 @@ object Show
   }
 
   implicit val ArrIntImplicit: Show[Arr[Int]] = new ShowSeqLike[Int, Arr[Int]]
-  {
-    override val evA: Show[Int] = Show.IntImplicit
+  { override val evA: Show[Int] = Show.intImplicit
     override def showSemi(thisArray: Arr[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
   }
@@ -56,7 +55,7 @@ object Show
   }
 
   implicit val ArrayIntImplicit: Show[Array[Int]] = new ShowSeqLike[Int, Array[Int]]
-  { override val evA: Show[Int] = Show.IntImplicit
+  { override val evA: Show[Int] = Show.intImplicit
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
   }

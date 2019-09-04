@@ -1,9 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import pParse._
+
 trait UnShow[+T]
-{
-  def typeStr: String  
+{ def typeStr: String
   def fromExpr(expr: Expr): EMon[T]  
   def fromClauses(clauses: Arr[Clause]): EMon[T]
   
