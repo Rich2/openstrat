@@ -89,8 +89,8 @@ For IntellliJ useful options:
    - **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
    
 
-  **5. Dev**
-  - **ostrat.pStrat** depends on geom, pCanv and pGrid
+**5. Strat**
+  - **ostrat.pStrat** depends on geom, pCanv and pGrid and pEarth
      * Flags.
      * DemoCanvas for graphics elements.
      * Odds and ends.
@@ -104,7 +104,11 @@ For IntellliJ useful options:
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
-    -**pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
+    
+
+**6. Learn** Depends on UtilMacros, Util, Graphic, World and Strat.
+   - **pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
    
+**7. Dev** Depends on all the other modules. This is purely an integration module for developement purposes and is not intended to contain library code.
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
