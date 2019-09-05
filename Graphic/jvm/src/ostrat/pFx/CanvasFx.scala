@@ -194,6 +194,6 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
 
   override def gcSave(): Unit = gc.save()
   override def gcRestore(): Unit = gc.restore()
-  def saveFile(fileName: String, output: String): Unit = saveRsonFile(openStratDir, fileName, output: String)
-  def loadFile(fileName: String): EMon[String] = loadRsonFile(openStratDir / fileName)
+  def saveFile(fileName: String, output: String): Unit = saveRsonFile(yourDir, fileName, output: String)
+  def loadFile(fileName: String): EMon[String] = loadRsonFile(yourDir / fileName)
 }

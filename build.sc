@@ -72,6 +72,7 @@ object Dev extends PlatformsModule
   def moduleDeps = Seq(World)
   def mainClass = Some("ostrat.pFx.DevApp")
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcDev, millSourcePath / 'jvm / 'src, millSourcePath / 'srcLearn)
+  def resources = T.sources(millSourcePath / 'mine)
 
   object js extends InnerJs
   {  	def moduleDeps = Seq(World.js)

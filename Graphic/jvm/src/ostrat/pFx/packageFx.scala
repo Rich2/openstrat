@@ -5,7 +5,9 @@ package ostrat
 package object pFx
 { val userHomeDir: String = System.getProperty("user.home")
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
-  lazy val generalDevSettings: EMon[String] = loadRsonFile(openStratDir / "DevSettings.rson")
+  lazy val generalDevSettings: EMon[String] = eTry(io.Source.fromResource("DevSettings.rson").getLines().mkString)
+    //loadRsonFile(openStratDir / "DevSettings.rson")
+
   def findDevSetting[A: Persist](settingStr: String): EMon[A] = generalDevSettings.findSetting(settingStr)
   def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = generalDevSettings.findSettingElse(settingStr, elseValue)
   def saveRsonFile(path: String, fileName: String, output: String): Unit =
