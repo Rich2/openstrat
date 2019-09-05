@@ -33,9 +33,17 @@ lazy val World = project.dependsOn(Graphic).settings(stdSettings).settings(
 	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
-lazy val root = (project in file(".")).dependsOn(World).settings(commonSettings).settings(
+lazy val Strat = project.dependsOn(World).settings(stdSettings).settings(
+	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+)
+
+lazy val Learn = project.dependsOn(Strat).settings(stdSettings).settings(
+	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+)
+
+lazy val root = (project in file(".")).dependsOn(Learn).settings(commonSettings).settings(
 	scalaSource := baseDirectory.value / "Dev/src",
-	Compile/unmanagedSourceDirectories := List("src", "srcDev", "srcLearn", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
+	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
     Compile/unmanagedResourceDirectories in Compile += baseDirectory.value / "Dev/mine",
 	watchTriggers +=  baseDirectory.value.toGlob / "Dev/mine/DevSettings.rson",
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
@@ -63,7 +71,14 @@ lazy val JsWorld = jsProj("World").dependsOn(JsGraphic).settings(
   Compile/unmanagedSourceDirectories := List("World/src", "World/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
+lazy val JsStrat = jsProj("Strat").dependsOn(JsWorld).settings(  
+  Compile/unmanagedSourceDirectories := List("World/src", "World/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+)
 
-lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcDev", "Dev/srcLearn", "Dev/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val JsLearn = jsProj("Learn").dependsOn(JsStrat).settings(  
+  Compile/unmanagedSourceDirectories := List("World/src", "World/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+)
+
+lazy val JsDev = jsProj("Dev").dependsOn(JsLearn).settings(  
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
