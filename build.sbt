@@ -45,7 +45,7 @@ lazy val root = (project in file(".")).dependsOn(Learn).settings(commonSettings)
 	scalaSource := baseDirectory.value / "Dev/src",
 	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
     Compile/unmanagedResourceDirectories in Compile += baseDirectory.value / "Dev/mine",
-	watchTriggers +=  baseDirectory.value.toGlob / "Dev/mine/DevSettings.rson",
+	//watchTriggers +=  baseDirectory.value.toGlob / "Dev/mine/DevSettings.rson",
 	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
