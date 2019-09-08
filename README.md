@@ -2,7 +2,7 @@
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Cross platform Scala 2d graphics, basic geometry, maps, earth maps, hex-tiling, square tiling and strategy library. It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the Javascript version can be seen at [richstrat.com](https://richstrat.com), documentation at [richstrat.com/api/ostrat/index.html](https://richstrat.com/api/ostrat/index.html). 
+Cross platform Scala 2d graphics, basic geometry, maps, earth maps, hex-tiling, square tiling and strategy library. It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the JavaScript version can be seen at [richstrat.com](https://richstrat.com), documentation at [richstrat.com/api/ostrat/index.html](https://richstrat.com/api/ostrat/index.html). 
 
 This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and want to get involved, drop into the gitter channel and say hi. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.
 
@@ -44,9 +44,9 @@ For IntellliJ useful options:
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
 * Project-Pane => Options -> "Flatten packages"
 
-**The Code currently has 5 modules.** Each module can be built for Jvm and JavaFx and for the Javascript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
+**The Code currently has 5 modules.** Each module can be built for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
-**1. UtilMacros** They are a separate unit of compilation for sbt /mill. 3 simple macros, that print the source code location to help with debuging and development.
+**1. UtilMacros** They are a separate unit of compilation for sbt /mill. 3 simple macros, that print the source code location to help with debugging and development.
 
 **2. Util** Depends on UtilMacros. Organised into the following folders and packages:
    - **ostrat** The root package. All other packages depend on this.     
@@ -90,16 +90,16 @@ For IntellliJ useful options:
    
 
 **5. Strat**
-  - **ostrat.pStrat** depends on geom, pCanv and pGrid and pEarth
+   - **ostrat.pStrat** depends on geom, pCanv and pGrid and pEarth
      * Flags.
      * DemoCanvas for graphics elements.
      * Odds and ends.
    - **ostrat.pGames** A number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common functionality and classes.
      * ostrat.pGames.pWW2 A grand strategy world War 2 game, using the hex tiled world terrain map. 
      * ostrat.pGames.p1783 A grand strategy game, also using the world map starting in 1783.
-     * ostrat.pGames.p305 A grand Strategy Game set in 305BC, using part of the world map.
+     * ostrat.pGames.p305 A grand strategy game set in 305BC, using part of the world map.
      * ostrat.pGames.pZug A 20th century squad based strategy game using hex tiles.
-     * ostrat.pGames.pCiv A civilisational development game using hex tiles.
+     * ostrat.pGames.pCiv A human history 4x development game using hex tiles.
      * ostrat.pGames.pDung A Square tile based dungeon game.
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
