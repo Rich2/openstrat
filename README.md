@@ -109,6 +109,6 @@ For IntellliJ useful options:
 **6. Learn** Depends on UtilMacros, Util, Graphic, World and Strat.
    - **pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
    
-**7. Dev** Depends on all the other modules. This is purely an integration module for developement purposes and is not intended to contain library code.
+**7. Dev** Depends on all the other modules. This is purely an integration module for development purposes and is not intended to contain library code.
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
