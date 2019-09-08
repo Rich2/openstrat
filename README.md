@@ -46,14 +46,13 @@ For IntellliJ useful options:
 
 **The Code currently has 5 modules.** Each module can be built for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
-**1. UtilMacros** They are a separate unit of compilation for sbt /mill. 3 simple macros, that print the source code location to help with debugging and development.
-
-**2. Util** Depends on UtilMacros. Organised into the following folders and packages:
+**1. Util** Depends on UtilMacros. Organised into the following folders and packages:
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
      * A functional Either based Errors framework.
      * Array based compound value collections of same length elements.
+     * 3 simple macros, that print the source code location to help with debugging and development. They are a separate unit of compilation for sbt /mill, in the srcMacros folder.
      * Other general utilities.
    - **ostrat.parse**
      * The code for parsing RSON, Rich Succinct Object Notation.  
@@ -63,7 +62,7 @@ For IntellliJ useful options:
      * CSS
      * Simple Javascipt
 
-**3. Graphic** Depends on UtilMacros and Util, organised into the following packages:
+**2. Graphic** Depends on UtilMacros and Util, organised into the following packages:
    - **ostrat.geom** A pure or near pure functional package.
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
@@ -82,14 +81,14 @@ For IntellliJ useful options:
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and  what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
 
 
-**4. World** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:   
+**3. World** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:   
    - **ostrat.pEarth** depends on geom, pCanv and pGrid
      * Earth and sphere geometry.
      * Grids of Earth terrain.
    - **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
    
 
-**5. Strat**
+**4. Strat**
    - **ostrat.pStrat** depends on geom, pCanv and pGrid and pEarth
      * Flags.
      * DemoCanvas for graphics elements.
@@ -106,9 +105,9 @@ For IntellliJ useful options:
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
     
 
-**6. Learn** Depends on UtilMacros, Util, Graphic, World and Strat.
+**5. Learn** Depends on UtilMacros, Util, Graphic, World and Strat.
    - **pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
    
-**7. Dev** Depends on all the other modules. This is purely an integration module for development purposes and is not intended to contain library code.
+**6. Dev** Depends on all the other modules. This is purely an integration module for development purposes and is not intended to contain library code.
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.

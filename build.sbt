@@ -17,45 +17,46 @@ def stdSettings = commonSettings ::: List(
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-lazy val UtilMacros = project.settings(stdSettings).settings(
-	Compile/unmanagedSourceDirectories := List(scalaSource.value),	
+lazy val UtilMacros = project.settings(commonSettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),	
 )
 
 lazy val Util = project.dependsOn(UtilMacros).settings(stdSettings).settings(
-	Compile/unmanagedSourceDirectories := List(scalaSource.value),	
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),	
 )
 
 lazy val Graphic = project.dependsOn(Util).settings(stdSettings).settings(
-	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
 lazy val World = project.dependsOn(Graphic).settings(stdSettings).settings(
-	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
 lazy val Strat = project.dependsOn(World).settings(stdSettings).settings(
-	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
 lazy val Learn = project.dependsOn(Strat).settings(stdSettings).settings(
-	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
 )
 
 lazy val root = (project in file(".")).dependsOn(Learn).settings(commonSettings).settings(
-	scalaSource := baseDirectory.value / "Dev/src",
-	Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
-    Compile/unmanagedResourceDirectories in Compile += baseDirectory.value / "Dev/mine",
-	//watchTriggers +=  baseDirectory.value.toGlob / "Dev/mine/DevSettings.rson",
-	Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
+  scalaSource := baseDirectory.value / "Dev/src",
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
+  Compile/unmanagedResourceDirectories in Compile += baseDirectory.value / "Dev/mine",
+  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
 def jsProj(name: String) = Project("Js" + name, file("Dev/SbtDir/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
-	libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
-	libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.7",
-	scalaSource := (ThisBuild/baseDirectory).value / name / "src",
+  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.7",
+  scalaSource := (ThisBuild/baseDirectory).value / name / "src",
 )
 
-lazy val JsUtilMacros = jsProj("UtilMacros").settings(  
+lazy val JsUtilMacros = jsProj("UtilMacros").settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
 )
 
