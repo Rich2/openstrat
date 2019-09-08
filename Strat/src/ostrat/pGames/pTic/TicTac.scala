@@ -7,5 +7,7 @@ object Cross extends Player
 object Naught extends Player
 
 class TicGrid(val array: Array[Option[Player]]) extends AnyVal with SqSqArr[Option[Player]]
-{ def size = 3
+{ type GridT = TicGrid
+  def size = 3
+  override def thisFac = new TicGrid(_)
 }
