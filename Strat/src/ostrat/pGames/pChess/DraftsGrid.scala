@@ -54,9 +54,5 @@ object DGrid
   }
 }
 
-class ChessGrid[TileT <: Tile](length: Int, turnNum: Int)(implicit evTile: ClassTag[TileT]) extends SquareGrid[TileT, SideBare](1, length, 1, length,
-    turnNum)
-{
-   
-   
-}
+//class ChessGrid[TileT <: Tile](length: Int, turnNum: Int)(implicit evTile: ClassTag[TileT]) extends SquareGrid[TileT, SideBare](1, length, 1, length,
+ //   turnNum){}
