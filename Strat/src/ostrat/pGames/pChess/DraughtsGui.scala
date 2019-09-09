@@ -19,7 +19,7 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
 //  }  
   
   val grid = DGrid.start
-  deb(grid.getTile(1, 1).toString)
+ // deb(grid.getTile(1, 1).toString)
   val margin = 15
   val tileWidth = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
   

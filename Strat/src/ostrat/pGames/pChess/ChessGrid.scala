@@ -1,10 +1,13 @@
 package ostrat
 package pGames.pChess
-import pGrid._, Colour._
+import geom._, pGrid._, Colour._
 
 sealed trait Piece
 object Pawn extends Piece
 object Rook extends Piece
+{
+  def rtLine: Coods = Coods(0 cc 100, 5 cc 100, 30 cc 100, 30 cc 80, 20 cc 80, 30 cc 0, 0 cc 0)
+}
 object Knight extends Piece
 object Bishop extends Piece
 object Queen extends Piece

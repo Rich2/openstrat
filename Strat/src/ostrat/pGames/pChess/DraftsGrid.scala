@@ -44,7 +44,7 @@ object DGrid
   {
     val dg = new DGrid
     val ser = 0 to 6 by 2
-    ser.foreach(i => dg.setTile(1, i + 1, DTile(1, i + 1)))
+    //ser.foreach(i => dg.setTile(1, i + 1, DTile(1, i + 1)))
     ser.foreach(i => dg.setSome(2, i + 2, BlackD))
     ser.foreach(i => dg.setSome(3, i + 2, BlackD))
     ser.foreach(i => dg.setSome(6, i + 2, WhiteD))
