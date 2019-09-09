@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 package pChess
-import pCanv._, Colour._
+import geom._, pCanv._, Colour._
 
 case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
 {
@@ -21,19 +21,11 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
   val grid = DGrid.start
  // deb(grid.getTile(1, 1).toString)
   val margin = 15
-  val tileWidth = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
+  val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
   
-  val stuff = grid.squares(tileWidth)// ::: grid. 
+  val stuff = Arr("Drafts".graphic(36, colour = Green))//grid.squares(tileWidth)// ::: grid.
   
-//  val stuff = DGrid.start.flatMap
-//  {
-//    case DarkSq(x, y, Some(p))  => List(
-//        Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj),
-//        Circle.fillSubj(tileWidth / 1.6, p, p.colour, tileWidth * x.adj, tileWidth * y.adj)) 
-//    case DarkSq(x, y, _)  => Square.fill(tileWidth, darkSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil      
-//    case LightSq(x, y) => Square.fill(tileWidth, lightSquareColour, tileWidth * x.adj, tileWidth * y.adj) :: Nil          
-//  }
-  
+
   repaint(stuff)
   
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match

@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import math._
+import math._, Colour.Black
 
 /** I chose the package name to not clash with "geometry" that may be use in other libraries This package contains Basic geometry. A number of
  *   implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of 
@@ -32,6 +32,8 @@ package object geom
     def findVec2Else(elseValue: => Vec2) = findVec2.getElse(elseValue)
     def findVec2Sett(setting: String): EMon[Vec2] = stss(thisString).flatMap(_.findSett[Vec2](setting))
     def findVec2SettElse(setting: String, elseValue: Vec2): Vec2 = findVec2Sett(setting).getElse(elseValue)
+    def graphic(fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = TextCen, zOrder: Int = 0): TextGraphic =
+      TextGraphic(thisString, fontSize, posn, colour, align, zOrder)
   }
 
   implicit class DoubleImplicit(thisDouble: Double)
