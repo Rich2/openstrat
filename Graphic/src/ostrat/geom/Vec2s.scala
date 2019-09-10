@@ -23,6 +23,8 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with T
     }
   }
 
+  def reverse: Vec2s = ???
+
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
    * the minimum number of points. */
   def yMirrorClose: Polygon =
