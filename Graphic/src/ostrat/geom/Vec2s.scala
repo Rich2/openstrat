@@ -36,10 +36,12 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2]  with T
     count = 0
     while (count < length)
     {
+      val res = apply(length - count - 1).negX
+      val ind = length + count * 2
+      acc(ind) = res.x
+      acc(ind + 1) = res.y
       count += 1
     }
-
-
     new Polygon(acc)
   }
 
