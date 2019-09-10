@@ -2,12 +2,9 @@
 package ostrat
 package geom
 
-trait Vec2sLike extends Any
-{
-  def arr: Array[Double]
-  def arrTrans(f: Vec2 => Vec2): Array[Double] =
-  {
-    val newArr = new Array[Double](arr.length)
+trait Vec2sLike extends Any with ProductD2s[Vec2]
+{ def arrTrans(f: Vec2 => Vec2): Array[Double] =
+  { val newArr = new Array[Double](arr.length)
     var count = 0
     while (count < arr.length)
     {
