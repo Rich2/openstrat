@@ -5,8 +5,9 @@ package ostrat
 trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
 {
   def productSize: Int = 2
-  def newElem(d1: Double, d2: Double): A
-  def apply(index: Int): A = newElem(arr(2 * index), arr(2 * index + 1))
+  /** Method for creating new elements from 2 Doubles. */
+  def elemBuilder(d1: Double, d2: Double): A
+  def apply(index: Int): A = elemBuilder(arr(2 * index), arr(2 * index + 1))
   def getPair(index: Int): (Double, Double) = (arr(2 * index), arr(2 * index + 1))
   
   def setElem(index: Int, elem: A): Unit =

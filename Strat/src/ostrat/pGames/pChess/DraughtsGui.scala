@@ -22,8 +22,8 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
  // deb(grid.getTile(1, 1).toString)
   val margin = 15
   val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
-  
-  val stuff = Arr("Drafts".graphic(36, colour = Green))//grid.squares(tileWidth)// ::: grid.
+  val s1 = "Drafts".graphic(36, colour = Black)
+  val stuff = Arr(Rook.rtLine.toPolygon.slateY(-50).scale(4).fill(Black))//grid.squares(tileWidth)// ::: grid.
   
 
   repaint(stuff)

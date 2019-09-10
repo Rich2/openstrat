@@ -56,7 +56,7 @@ object Dist2
 
 class Dist2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]
 { override def typeStr: String = "Dist2s"
-  override def newElem(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
+  override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }
 
 object Dist2s extends ProductD2sCompanion[Dist2, Dist2s]

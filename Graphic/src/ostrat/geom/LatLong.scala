@@ -115,7 +115,7 @@ object LatLong
 
 class LatLongs(val arr: Array[Double]) extends AnyVal with ProductD2s[LatLong]
 { override def typeStr: String = "LatLongs"
-  override def newElem(d1: Double, d2: Double): LatLong = LatLong.apply(d1, d2)
+  override def elemBuilder(d1: Double, d2: Double): LatLong = LatLong.apply(d1, d2)
 }
 
 object LatLongs extends ProductD2sCompanion[LatLong, LatLongs]

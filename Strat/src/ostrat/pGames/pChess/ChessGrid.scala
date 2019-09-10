@@ -6,7 +6,7 @@ sealed trait Piece
 object Pawn extends Piece
 object Rook extends Piece
 {
-  def rtLine: Coods = Coods(0 cc 100, 5 cc 100, 30 cc 100, 30 cc 80, 20 cc 80, 30 cc 0, 0 cc 0)
+  def rtLine: Vec2s = Vec2s(0 vv 100, 5 vv 100, 30 vv 100, 30 vv 80, 20 vv 80, 30 vv 0, 0 vv 0)
 }
 object Knight extends Piece
 object Bishop extends Piece
