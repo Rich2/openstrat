@@ -10,7 +10,11 @@ object Rook extends Piece
 }
 object Knight extends Piece
 object Bishop extends Piece
+
 object Queen extends Piece
+{ def rtLine: Vec2s = Vec2s(0 vv 100, 10 vv 90, 25 vv 100, 15 vv 75, 20 vv 75, 20 vv 70, 15 vv 70, 20 vv 30, 30 vv 10, 30 vv 0)
+}
+
 object King extends Piece
 
 sealed trait Player extends WithColour

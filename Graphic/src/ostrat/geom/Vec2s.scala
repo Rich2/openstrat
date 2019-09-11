@@ -30,7 +30,7 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
     val acc = appendArray(length)
     var count = arrLen
 
-    foreachReverse{ orig =>
+    foreachReverse { orig =>
       acc(count) = - orig.x
       acc(count + 1) = orig.y
       count += 2
