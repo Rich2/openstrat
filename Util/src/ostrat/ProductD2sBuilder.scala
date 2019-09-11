@@ -13,7 +13,7 @@ abstract class ProductD2sBuilder[A <: ProdD2, M <: ProductD2s[A]](typeStr: Strin
   import pParse._  
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
-  override def showSemi(thisColl: M): String = thisColl.mapBy2(_.str + ", " + _.str).mkString("; ")
+  override def showSemi(thisColl: M): String = thisColl.map(el => el._1.str + ", " + el._2.str).mkString("; ")
   override def showComma(thisColl: M): String = show(thisColl)
   //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
   override def fromParameterStatements(sts: Arr[Statement]): EMon[M] = ???

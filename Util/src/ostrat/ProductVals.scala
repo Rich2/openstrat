@@ -13,7 +13,8 @@ trait ProductVals[A] extends Any
   def setHead(value: A): Unit = setElem(0, value)
   def last: A = apply(length - 1)
   def setLast(value: A): Unit = setElem(length -1, value)
-  
+
+  /** Consider changing this name to foreachProd, as might not be appropriate to all sub classes. */
   def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < length) { f(apply(count)); count += 1 }
@@ -55,7 +56,8 @@ trait ProductVals[A] extends Any
     foreach(a => ife(start == true, {acc = f(a); start = false}, acc += a))
     acc
   }
-   
+
+  /** Consider changing this name, as might not be appropriate to all sub classes. */
   def foreachReverse[U](f: A => U): Unit =
   { var count = length
     while(count > 0) { count -= 1; f(apply(count)) }
@@ -114,6 +116,8 @@ trait ProductVals[A] extends Any
     }
     res
   }
+
+
    
   /** map 2 values of A to 1 element of B in List. */
   def by2MapList[B](f: (A, A) => B): List[B] =

@@ -35,17 +35,6 @@ trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
     while(count < length){ res(count) = arr(count * 2 + 1); count += 1 }
     res
   }
-  
-  def mapBy2[B](f: (Double, Double) => B)(implicit m: scala.reflect.ClassTag[B]): Array[B] =
-  {
-    val newArr = new Array[B](length)
-    var count = 0
-    while (count < length) 
-    { newArr(count) = f(arr(count * 2), arr(count * 2 + 1))
-      count += 1
-    }
-    newArr
-   }
 
   def toArrs: Arr[Arr[Double]] = map(el => Arr(el._1, el._2))
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))

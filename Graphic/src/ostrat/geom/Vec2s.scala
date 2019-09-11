@@ -23,26 +23,17 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
     }
   }
 
-  def reverse: Vec2s = ???
-
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
    * the minimum number of points. */
   def yMirrorClose: Polygon =
   {
-    val acc = new Array[Double](arr.length * 2)
-    var count = 0
-    while (count < arr.length)
-    { acc(count) = arr(count)
-      count += 1
-    }
-    count = 0
-    while (count < length)
-    {
-      val res = apply(length - count - 1).negX
-      val ind = length + count * 2
-      acc(ind) = res.x
-      acc(ind + 1) = res.y
-      count += 1
+    val acc = appendArray(length)
+    var count = arrLen
+
+    foreachReverse{ orig =>
+      acc(count) = - orig.x
+      acc(count + 1) = orig.y
+      count += 2
     }
     new Polygon(acc)
   }

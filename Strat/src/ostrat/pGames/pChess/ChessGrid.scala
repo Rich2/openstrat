@@ -4,9 +4,9 @@ import geom._, pGrid._, Colour._
 
 sealed trait Piece
 object Pawn extends Piece
+
 object Rook extends Piece
-{
-  def rtLine: Vec2s = Vec2s(0 vv 100, 5 vv 100, 30 vv 100, 30 vv 80, 20 vv 80, 30 vv 0, 0 vv 0)
+{ def rtLine: Vec2s = Vec2s(5 vv 100, 5 vv 95, 10 vv 95, 10 vv 100, 25 vv 100, 25 vv 80, 20 vv 80, 20 vv 75, 15 vv 75, 20 vv 15, 30 vv 10, 30 vv 0)
 }
 object Knight extends Piece
 object Bishop extends Piece

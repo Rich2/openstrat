@@ -19,6 +19,14 @@ trait ProductDoubles[A] extends Any with ProductVals[A]
     }
     typeStr + body.enParenth
   }
+
+  /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
+  def appendArray(appendProductsLength: Int): Array[Double] =
+  {
+    val acc = new Array[Double](arrLen + appendProductsLength * productSize)
+    arr.copyToArray(acc)
+    acc
+  }
 }
 
 abstract class ProductDsBuilder[A, M <: ProductDoubles[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr) //with Eq[M]
