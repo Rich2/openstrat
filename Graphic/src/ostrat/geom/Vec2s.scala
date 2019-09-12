@@ -24,10 +24,9 @@ class Vec2s(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
   }
 
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
-   * the minimum number of points. */
+   * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
   def yMirrorClose: Polygon =
-  {
-    val acc = appendArray(length)
+  { val acc = appendArray(length)
     var count = arrLen
 
     foreachReverse { orig =>
