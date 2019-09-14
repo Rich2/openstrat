@@ -3,17 +3,21 @@ package ostrat
 package geom
 
 /** Factory object for squares. There is no companon Square class. */
-object Square
+object Square extends NoScale
 {
-  def apply(width: Double, cen: Vec2 = Vec2Z): Polygon = apply(width, cen.x, cen.y)
-  def apply(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
+  val noScale: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
+  override def fTrans(f: Vec2 => Vec2): Transer = noScale.fTrans(f)
+  def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = noScale.fTrans(_ * width + cen)
+  def xy(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,
       xCen - width/2   vv yCen - width / 2)
-         
-  def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z, layer: Int = 0): PolyFill = apply(width, cen.x, cen.y).fill(colour, layer)
-  def fill(width: Double, colour: Colour, xCen: Double, yCen: Double): PolyFill = apply(width, xCen, yCen).fill(colour) 
+
+  /**Needs Changing possibly removing. */
+  def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z, layer: Int = 0): PolyFill = apply(width, cen).fill(colour, layer)
+  /**Needs Changing possibly removing. */
+  def fillXY(width: Double, colour: Colour, xCen: Double, yCen: Double): PolyFill = apply(width, xCen vv yCen).fill(colour)
    
   def curvedSegs(width: Double, radius: Double): List[CurveSeg] =
   { val w = width / 2
