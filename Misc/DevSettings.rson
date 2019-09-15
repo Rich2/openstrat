@@ -42,8 +42,8 @@ displayY = 0;
 (52, (learn.LessonC2(_), "ScalaFx Demonstration Interactive Canvas 2")),
 (53, (learn.LessonC3(_), "ScalaFx Demonstration Interactive Canvas 3")),
 (54, (learn.LessonC4(_), "ScalaFx Demonstration Interactive Canvas 4")),
-(55, (learn.LessonC5(_), "ScalaFx Demonstration Interactive Canvas 5")),
-(56, (learn.LessonC6(_), "ScalaFx Demonstration Interactive Canvas 6")),
+(55, (learn.LessonC5(_), "ScalaFx Demonstration Interactive Canvas 5")), //
+(56, (learn.LessonC6(_), "ScalaFx Demonstration Interactive Canvas 6")), //Keyboard Input
 
 (61, (learn.LessonD1(_), "ScalaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
 (62, (learn.LessonD2(_), "ScalaFx Demonstration Persistence 2")),
