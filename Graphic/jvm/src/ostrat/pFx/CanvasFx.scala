@@ -1,15 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFx
-import geom._
-import pCanv._
-import javafx._
-import scene._
-//import ostrat.Colour
-//import ostrat.stringToImplicit
+import geom._, pCanv._, javafx._, scene._
 
 /** An alternative version of CanvasFx to experiment with removing the ScalaFx dependency and just use JavaFx directly. */
-case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSaver
+case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLeft// with CanvSaver
 { val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
   override def width = canvFx.getWidth.max(100)
   override def height = canvFx.getHeight.max(100)
@@ -28,7 +23,7 @@ case class CanvasFx(canvFx: canvas.Canvas) extends CanvasTopLeft// with CanvSave
   //canvFx.onMouseMoved = (e: input.MouseEvent) => mouseMovedTopLeft(e.x, e.y, getButton(e))    
   canvFx.setOnMouseDragged((e: input.MouseEvent) => mouseDraggedTopLeft(e.getX, e.getY, getButton(e))) 
   
-  canvFx.setOnKeyReleased((e: input.KeyEvent) => {deb("Pressed"); keyReleased() })
+  theScene.setOnKeyReleased{(e: input.KeyEvent) => deb("Pressed"); keyReleased() }
 
   canvFx.setOnScroll((e: input.ScrollEvent) => e.getDeltaY match
   { case 0 => //("scroll delta 0")
