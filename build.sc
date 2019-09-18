@@ -7,7 +7,7 @@ trait Common extends ScalaModule
 }
 
 trait CommonStd extends Common
-{ def scalaVersion = "2.13.0"
+{ def scalaVersion = "2.13.1"
 }
 
 trait CommonStdJs extends ScalaJSModule with CommonStd
