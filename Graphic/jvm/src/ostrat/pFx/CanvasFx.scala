@@ -5,7 +5,8 @@ import geom._, pCanv._, javafx._, scene._
 
 /** An alternative version of CanvasFx to experiment with removing the ScalaFx dependency and just use JavaFx directly. */
 case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLeft// with CanvSaver
-{ val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
+{
+  val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
   override def width = canvFx.getWidth.max(100)
   override def height = canvFx.getHeight.max(100)
   def getButton(e: input.MouseEvent): MouseButton = 

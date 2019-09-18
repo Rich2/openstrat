@@ -2,7 +2,7 @@
 package ostrat
 package pFx
 
-/** Name should possibly be DevAppFx */
+/** Name should possibly be DevAppFx. */
 object DevApp
 {
   def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart], args: _*)
