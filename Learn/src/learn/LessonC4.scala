@@ -10,6 +10,7 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
   def sGraphic = Rectangle(width, height, cen).fillDrawSubj(this, colour, 2, contrast)
 }
 
+/** This lesson is working, but has what looks like a very dubious implementation. */
 case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
 {
   val r1 = ARect(-300 vv 300)
@@ -28,8 +29,8 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   {
     case Arr1(r: ARect, tail) =>
       {
-        rList = ??? //rList.replace(r, r.mutateColour(r.colour.nextFromList(List(Red, Orange, Green))))
-        repaint(gList :+ startText)
+        rList = rList.replace(r, r.mutateColour(r.colour.nextFromList(List(Red, Orange, Green))))
+        repaint(rList.map(_.graphic) :+ startText)
       }
       case _ =>       
   }
