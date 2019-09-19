@@ -28,7 +28,10 @@ trait Show[-T]
   /** For most objects showTyped will return the same value as show(obj: T), for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */
   def showTyped(obj: T): String
-}
+
+  def showSemiNames(obj: T): String = showSemi(obj)
+  def showCommaNames(obj: T): String = showComma(obj)
+ }
 
 object Show
 {

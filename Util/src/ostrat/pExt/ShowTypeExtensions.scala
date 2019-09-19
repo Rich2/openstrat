@@ -18,4 +18,7 @@ class ShowerTypeExtensions[-A](ev: Show[A], thisVal: A)
   /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */
   @inline def strTyped: String = ev.showTyped(thisVal)
+
+  @inline def strCommaNames: String = ev.showCommaNames(thisVal)
+  @inline def strSemiNames: String = ev.showSemiNames(thisVal)
 }

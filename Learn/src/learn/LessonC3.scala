@@ -18,8 +18,8 @@ case class LessonC3(canv: CanvasPlatform) extends CanvasSimple("Lesson C3")
   mouseUp = (posn, button, selectedList) =>
     {
       val newText = selectedList match
-      { case Arr1(h, tail) => TextGraphic("You hit a yellow rectangle at " + posn.str, 28, textPosn)
-        case _ => TextGraphic("You missed the yellow rectangles " + posn.strComma, 28, textPosn)
+      { case Arr1(h, tail) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, 28, textPosn)
+        case _ => TextGraphic("You missed the yellow rectangles. " + posn.strCommaNames, 28, textPosn)
       }  
       repaint(rList :+ newText)
   }
