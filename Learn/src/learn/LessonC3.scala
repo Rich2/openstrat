@@ -19,7 +19,7 @@ case class LessonC3(canv: CanvasPlatform) extends CanvasSimple("Lesson C3")
     {
       val newText = selectedList match
       { case Arr1(h, tail) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, 28, textPosn)
-        case _ => TextGraphic("You missed the yellow rectangles. " + posn.strCommaNames, 28, textPosn)
+        case _ => TextGraphic("You missed the yellow rectangles.\n" + posn.strCommaNames, 28, textPosn)
       }  
       repaint(rList :+ newText)
   }

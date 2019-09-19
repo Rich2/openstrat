@@ -19,6 +19,11 @@ class ShowerTypeExtensions[-A](ev: Show[A], thisVal: A)
    * will return Int(4) */
   @inline def strTyped: String = ev.showTyped(thisVal)
 
+
+}
+
+class Show2erTypeExtensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
+{
   @inline def strCommaNames: String = ev.showCommaNames(thisVal)
   @inline def strSemiNames: String = ev.showSemiNames(thisVal)
 }

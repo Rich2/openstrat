@@ -26,8 +26,8 @@ class Show2[A1, A2, R](val typeStr: String, pName1: String, fArg1: R => A1, pNam
   final override def showMems: Arr[Show[_]] = Arr(ev1, ev2)
   override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
   override def showComma(obj: R): String = ev1.show(fArg1(obj)) + ", " + ev2.show(fArg2(obj))
-  override def showSemiNames(obj: R): String = pName1 :- ev1.showComma(fArg1(obj)) + "; " + pName2 :- ev2.showComma(fArg2(obj))
-  override def showCommaNames(obj: R): String = pName1 :- ev1.show(fArg1(obj)) + ", " + pName2 :- ev2.show(fArg2(obj))
+  def showSemiNames(obj: R): String = pName1 :- ev1.showComma(fArg1(obj)) + "; " + pName2 :- ev2.showComma(fArg2(obj))
+  def showCommaNames(obj: R): String = pName1 :- ev1.show(fArg1(obj)) + ", " + pName2 :- ev2.show(fArg2(obj))
 }
 
 /** Show type class for 3 parameter case classes. */
