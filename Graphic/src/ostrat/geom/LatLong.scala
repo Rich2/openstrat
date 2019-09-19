@@ -82,7 +82,7 @@ object LatLong
     new LatLong(lat, long)
   }
    
-  implicit val persistImplict: PersistEq[LatLong] = new PersistD2[LatLong]("LatLong", _.lat, _.long, apply)
+  implicit val persistImplict: PersistEq[LatLong] = new PersistD2[LatLong]("LatLong", "lat", _.lat, "long", _.long, apply)
    
   //def apply(latAngle: Latitude, longAngle: Longitude): LatLong = new LatLong(latAngle.radians, longAngle.radians)
    //def ll(lat: Latitude, long: Longitude) = new LatLong(lat.radians, long.radians)

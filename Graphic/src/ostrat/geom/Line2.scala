@@ -38,7 +38,7 @@ object Line2
 { /** Factory apply method for Line2. If using Doubles "Line2(x1 vv y1, x2 vv y2)" is the preferred syntax, rather than calling the constructor
 * directly. */
   @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
-  implicit val persistImplicit: Persist[Line2] with Eq[Line2] = new Persist2[Vec2, Vec2, Line2]("Line2", _.pStart, _.pEnd, Line2(_, _))
+  implicit val persistImplicit: Persist[Line2] with Eq[Line2] = new Persist2[Vec2, Vec2, Line2]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Line2(_, _))
 }
 object HLine
 { /** Creates a horizontal Line2 */

@@ -8,7 +8,7 @@ import math._
 final class Vec2 (val x: Double, val y: Double) extends ProdD2
 {
   override def toString: String = Vec2.persistImplicit.show(this)
-  def commaStr = x.toString + ", " + y.toString
+  //def commaStr = x.toString + ", " + y.toString
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y   
@@ -107,13 +107,6 @@ object Vec2
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
   def fromAngle(angle: Angle, scalar: Double = 1.0): Vec2 = angle.toVec2 * scalar
 
-//  implicit val vecGenExt: Vec2Gen[Double, Vec2] = new Vec2Gen[Double, Vec2]
-//  {
-//    override def xx(v: Vec2): Double = v.x
-//    override def yy(v: Vec2): Double = v.y
-//    override def newVec(x: Double, y: Double): Vec2 = new Vec2(x, y)
-//  }
-  
   implicit class Vec2Implicit(thisVec: Vec2)
   { def * (operand: Dist): Dist2 = Dist2(thisVec.x * operand, thisVec.y * operand)
   }
@@ -129,5 +122,5 @@ object Vec2
   { def toPolygon: Polygon = thisIter.toPValues
   }
 
-  implicit val persistImplicit: PersistEq[Vec2] = new PersistD2[Vec2]("Vec2", _.x, _.y, apply)
+  implicit val persistImplicit: PersistD2[Vec2] = new PersistD2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
 }

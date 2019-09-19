@@ -17,7 +17,7 @@ abstract class Show1[A1, R](val typeStr: String, fArg1: R => A1, val opt1: Optio
 }
 
 /** Show type class for 2 parameter case classes. */
-class Show2[A1, A2, R](val typeStr: String, fArg1: R => A1, fArg2: R => A2, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
+class Show2[A1, A2, R](val typeStr: String, pName1: String, fArg1: R => A1, pName2: String, fArg2: R => A2, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
   implicit ev1: Show[A1], ev2: Show[A2], eq1: Eq[A1], eq2: Eq[A2]) extends EqCase2[A1, A2, R](fArg1, fArg2) with ShowCase[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -26,6 +26,8 @@ class Show2[A1, A2, R](val typeStr: String, fArg1: R => A1, fArg2: R => A2, val 
   final override def showMems: Arr[Show[_]] = Arr(ev1, ev2)
   override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
   override def showComma(obj: R): String = ev1.show(fArg1(obj)) + ", " + ev2.show(fArg2(obj))
+  def showSemiNames(obj: R): String = pName1 :- ev1.showComma(fArg1(obj)) + "; " + pName2 :- ev2.showComma(fArg2(obj))
+  def showCommaNames(obj: R): String = pName1 :- ev1.show(fArg1(obj)) + ", " + pName2 :- ev2.show(fArg2(obj))
 }
 
 /** Show type class for 3 parameter case classes. */

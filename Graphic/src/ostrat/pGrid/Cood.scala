@@ -37,7 +37,7 @@ object Cood
 { def apply(x: Int, y: Int): Cood = new Cood(x, y)
   def unapply(tc: Cood): Option[(Int, Int)] = Some((tc.x, tc.y))
   def list(inp: (Int, Int)*): List[Cood] = inp.toList.map(p => Cood(p._1, p._2))
-  implicit object CoodPersist extends PersistInt2[Cood]("Cood", _.x, _.y, apply)
+  implicit object CoodPersist extends PersistInt2[Cood]("Cood", "x", _.x, "y", _.y, apply)
 }
 
 trait GridBuilder
