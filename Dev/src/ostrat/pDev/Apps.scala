@@ -66,5 +66,5 @@ object Apps
   
   /** Change appNum to change the loaded application. */
   val appStr: String = "1"
-  def curr(str: String): (CanvasPlatform => Any, String) = theMap(str)
+  def curr(str: String): (CanvasPlatform => Any, String) = theMap.getOrElse(str, theMap("A1"))
 }
