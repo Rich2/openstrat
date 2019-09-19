@@ -19,7 +19,7 @@ object PersistTest
   case class My2(ints: Seq[Int], myStr: String)
  
   object My2
-  { implicit val persist: Persist[My2] = Persist2[Seq[Int], String, My2]("My2", m => (m.ints, m.myStr), apply)
+  { implicit val persist: Persist[My2] = Persist2[Seq[Int], String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
   }
 
   val tests = Tests
@@ -37,7 +37,7 @@ object PersistTest
       aa.str ==> aaStr
       aaStr.findType[TestClass] ==> Good(TestObjA)
       aa.strTyped ==> "TestClass(TestObjA)"
-      abSeq.str.findType[Seq[TestClass]] ==> Good(Seq(TestObjA, TestObjB))      
+      abSeq.str.findType[Seq[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
       str1.str ==> str1Std
       str1.strSemi ==> str1Std
       str1.strComma ==> str1Std

@@ -61,6 +61,15 @@ object Eq
       }
       acc
     }
+
+  implicit def seqImplicit[A](implicit ev: Eq[A]): Eq[Seq[A]] =  (l1, l2) => l1 == l2
+  /*{ def loop(rem1: Seq[A], rem2: Seq[A]): Boolean = (rem1, rem2) match
+  { case (Nil, Nil) => true
+    case (h1 :: t1, h2 :: t2) if ev.eqv(h1, h2) => loop(t1, t2)
+    case _ => false
+  }
+    loop(l1, l2)
+  }*/
 }
 
 class EqCase1[A1, R](val fArg1: R => A1)(implicit eq1: Eq[A1]) extends Eq[R]

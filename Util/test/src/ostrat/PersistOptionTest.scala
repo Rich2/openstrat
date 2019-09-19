@@ -7,7 +7,7 @@ object PersistOptionTest extends TestSuite
   case class Test1(a: Option[Int], b: Int, c: Option[Double])
   object Test1
   {
-    implicit object Test1Persist extends Persist3[Option[Int], Int, Option[Double], Test1]("Test1", r => (r.a, r.b, r.c), apply)
+    implicit object Test1Persist extends Persist3[Option[Int], Int, Option[Double], Test1]("Test1", _.a, _.b, _.c, apply)
   }
   val t1 = Test1(Some(5), 4, Some(2.0))
   val t1Str = "Test1(5; 4; 2.0)"  
@@ -37,7 +37,7 @@ object PersistOptionTest extends TestSuite
     'Option -
     {
       val oa: Option[Int] = Some(5)
-      oa.str ==> "5"        
+      oa.str ==> "5"
       t1.str ==> t1Str
       "27".findType[Some[Int]] ==> Good(Some(27))
       t1Str.findType[Test1] ==> Good(Test1(Some(5), 4, Some(2.0)))
