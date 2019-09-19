@@ -62,14 +62,10 @@ object Eq
       acc
     }
 
-  implicit def seqImplicit[A](implicit ev: Eq[A]): Eq[Seq[A]] =  (l1, l2) => l1 == l2
-  /*{ def loop(rem1: Seq[A], rem2: Seq[A]): Boolean = (rem1, rem2) match
-  { case (Nil, Nil) => true
-    case (h1 :: t1, h2 :: t2) if ev.eqv(h1, h2) => loop(t1, t2)
-    case _ => false
-  }
-    loop(l1, l2)
-  }*/
+  implicit def seqImplicit[A](implicit ev: Eq[A]): Eq[Seq[A]] =  (s1, s2) => s1.sameElements(s2)
+  implicit def vectorImplicit[A](implicit ev: Eq[A]): Eq[Vector[A]] =  (v1, v2) => v1.sameElements(v2)
+
+  implicit def tuple2Implicit[A1, A2](implicit eq1: Eq[A1], eq2: Eq[A2]): Eq[(A1, A2)] = (p1, p2) => eq1.eqv(p1._1, p2._1) & eq2.eqv(p1._2, p2._2)
 }
 
 class EqCase1[A1, R](val fArg1: R => A1)(implicit eq1: Eq[A1]) extends Eq[R]

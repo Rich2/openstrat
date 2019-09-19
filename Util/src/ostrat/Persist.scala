@@ -40,7 +40,7 @@ object Persist
   }
 
   implicit def someToPersist[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
-  {     
+  {
     override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepth: Int = ev.syntaxDepth
     override def show(obj: Some[A]) = ev.show(obj.value)
@@ -54,26 +54,26 @@ object Persist
       case expr => ev.fromExpr(expr).map(Some(_))
     }
     override def fromStatements(sts: Arr[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
-  } 
-  
+  }
+
   implicit val NonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
-  {   
-    override def show(obj: None.type) = ""   
+  {
+    override def show(obj: None.type) = ""
     def fromExpr(expr: Expr): EMon[None.type] = expr match
     {
       case AlphaToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }
-    
+
     override def fromStatements(sts: Arr[Statement]): EMon[None.type] = ife(sts.isEmpty, Good(None), bad1(sts.startPosn, "None not found."))
   }
-  
+
   implicit def optionToPersist[A](implicit evA: Persist[A]): Persist[Option[A]] =
-    new PersistSum2[Option[A], Some[A], None.type](someToPersist[A](evA), NonePersistImplicit) 
-  { override def typeStr: String = "Option" + evA.typeStr.enSquare
-    override def syntaxDepth: Int = evA.syntaxDepth
-  }
+    new PersistSum2[Option[A], Some[A], None.type](someToPersist[A](evA), NonePersistImplicit)
+    { override def typeStr: String = "Option" + evA.typeStr.enSquare
+      override def syntaxDepth: Int = evA.syntaxDepth
+    }
   
   implicit val IntImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   { def show(obj: Int): String = obj.toString

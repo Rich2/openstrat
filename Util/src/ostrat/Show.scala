@@ -44,7 +44,11 @@ object Show
   { override def show(obj: Boolean): String = obj.toString
   }
 
-  implicit val ArrIntImplicit: Show[Arr[Int]] = new ShowSeqLike[Int, Arr[Int]]
+  implicit val stringImplicit: Show[String] = new ShowSimple[String]("Str")
+  { def show(obj: String): String = obj.enquote
+  }
+
+  implicit val arrIntImplicit: Show[Arr[Int]] = new ShowSeqLike[Int, Arr[Int]]
   { override val evA: Show[Int] = Show.intImplicit
     override def showSemi(thisArray: Arr[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
@@ -54,10 +58,6 @@ object Show
   { override val evA: Show[A] = ev
     override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(evA.showComma(_)).semiFold
     override def showComma(thisSeq: Seq[A]): String = thisSeq.map(evA.show(_)).commaFold
-  }
-
-  implicit val StringImplicit: Show[String] = new ShowSimple[String]("Str")
-  { def show(obj: String): String = obj.enquote
   }
 
   implicit val ArrayIntImplicit: Show[Array[Int]] = new ShowSeqLike[Int, Array[Int]]
