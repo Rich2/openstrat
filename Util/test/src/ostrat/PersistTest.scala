@@ -29,7 +29,8 @@ object PersistTest
     val aaStr: String = "TestObjA"
     val str1: String = "I am a String"
     val str1Std: String = "\"I am a String\""
-    val abSeq = Seq(TestObjA, TestObjB)    
+    val abSeq = Seq(TestObjA, TestObjB)
+    val abArr = Arr(TestObjA, TestObjB)
     val mc = My2(List(7, 8, 9), "hi")
     
     'persistOther -
@@ -37,7 +38,9 @@ object PersistTest
       aa.str ==> aaStr
       aaStr.findType[TestClass] ==> Good(TestObjA)
       aa.strTyped ==> "TestClass(TestObjA)"
+      abArr.str.findType[Seq[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
       abSeq.str.findType[Seq[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
+
       str1.str ==> str1Std
       str1.strSemi ==> str1Std
       str1.strComma ==> str1Std

@@ -50,6 +50,12 @@ object Show
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
   }
 
+  implicit def seqImplicit[A](implicit ev: Show[A]): Show[Seq[A]] = new ShowSeqLike[A, Seq[A]]
+  { override val evA: Show[A] = ev
+    override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(evA.showComma(_)).semiFold
+    override def showComma(thisSeq: Seq[A]): String = thisSeq.map(evA.show(_)).commaFold
+  }
+
   implicit val StringImplicit: Show[String] = new ShowSimple[String]("Str")
   { def show(obj: String): String = obj.enquote
   }
