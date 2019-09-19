@@ -6,7 +6,7 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](implicit val ct1: Cla
 {
   def ev1: Show[A1]
   def ev2: Show[A2]
-  
+
   override def show(obj: ST): String = obj match
   {
     case a1: A1 => ev1.show(a1)

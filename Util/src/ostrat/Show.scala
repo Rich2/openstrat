@@ -48,28 +48,48 @@ object Show
   { def show(obj: String): String = obj.enquote
   }
 
-  implicit val arrIntImplicit: Show[Arr[Int]] = new ShowSeqLike[Int, Arr[Int]]
-  { override val evA: Show[Int] = Show.intImplicit
-    override def showSemi(thisArray: Arr[Int]): String = thisArray.map(evA.showComma(_)).semiFold
-    override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
-  }
-
   implicit def seqImplicit[A](implicit ev: Show[A]): Show[Seq[A]] = new ShowSeqLike[A, Seq[A]]
   { override val evA: Show[A] = ev
     override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(evA.showComma(_)).semiFold
     override def showComma(thisSeq: Seq[A]): String = thisSeq.map(evA.show(_)).commaFold
   }
 
-  implicit val ArrayIntImplicit: Show[Array[Int]] = new ShowSeqLike[Int, Array[Int]]
-  { override val evA: Show[Int] = Show.intImplicit
-    override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
-    override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
+  /** Implicit method for creating Array[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def arrayImplicit[A](implicit ev: Show[A]): Show[Array[A]] = new ShowSeqLike[A, Array[A]]
+  { override def evA: Show[A] = ev
+    override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
+    override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrRefImplicit[A <: AnyRef](implicit ev: Show[A]): Show[Arr[A]] = new ShowSeqLike[A, Arr[A]]
+  implicit def arrImplicit[A](implicit ev: Show[A]): Show[Arr[A]] = new ShowSeqLike[A, Arr[A]]
   { override def evA: Show[A] = ev
     override def showSemi(thisArr: Arr[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: Arr[A]): String = thisArr.map(ev.show(_)).commaFold
   }
+
+  implicit def someImplicit[A](implicit ev: Show[A]): Show[Some[A]] = new Show[Some[A]]
+  {
+    override def typeStr: String = "Some" + ev.typeStr.enSquare
+    override def syntaxDepth: Int = ev.syntaxDepth
+    override def show(obj: Some[A]) = ev.show(obj.value)
+    override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
+    override def showComma(obj: Some[A]) = ev.showComma(obj.value)
+    override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
+  }
+
+  implicit val NoneImplicit: Show[None.type] = new ShowSimple[None.type]("None")
+  {
+    override def show(obj: None.type) = ""
+  }
+
+  implicit def optionImplicit[A](implicit evA: Show[A]): Show[Option[A]] =
+    new ShowSum2[Option[A], Some[A], None.type]
+    {
+      override def ev1 = someImplicit[A](evA)
+      override def ev2 = NoneImplicit
+      override def typeStr: String = "Option" + evA.typeStr.enSquare
+      override def syntaxDepth: Int = evA.syntaxDepth
+    }
+
 }
