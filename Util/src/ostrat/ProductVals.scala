@@ -167,6 +167,16 @@ trait ProductVals[A] extends Any
     }
     acc
   }
+
+  def indexOf[B >: A](elem: B): Int =
+  { var continue = true
+    var count  = 0
+    while (count < length & continue)
+    { if (elem == apply(count)) { continue = false }
+      else count += 1
+    }
+    ife(continue, -1, count)
+  }
 }
 
 abstract class ProductValsBuilder[A, M](val typeStr: String) extends ShowCompound[M] with PersistCompound[M]

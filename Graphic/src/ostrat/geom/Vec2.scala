@@ -8,7 +8,6 @@ import math._
 final class Vec2 (val x: Double, val y: Double) extends ProdD2
 {
   override def toString: String = Vec2.persistImplicit.show(this)
-  //def commaStr = x.toString + ", " + y.toString
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y   
