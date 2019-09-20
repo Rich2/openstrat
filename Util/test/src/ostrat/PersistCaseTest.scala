@@ -15,12 +15,12 @@ object PersistCaseTest extends TestSuite
   
   case class Ma3(s1: String, i1: Int, d1: Double)
   object Ma3
-  { implicit val persist: Persist[Ma3] = Persist3[String, Int, Double, Ma3]("Ma3", _.s1, _.i1, _.d1, apply)
+  { implicit val persist: Persist[Ma3] = Persist3[String, Int, Double, Ma3]("Ma3", "s1", _.s1, "i1", _.i1, "d1", _.d1, apply)
   }
 
   case class Mb3(i1: Int = 1, i2: Int = 2, i3: Int = 3)
   object Mb3
-  { implicit val persist: Persist[Mb3] = Persist3[Int, Int, Int, Mb3]("Mb3", _.i1, _.i2, _.i3, apply, Some(3), Some(2), Some(1))
+  { implicit val persist: Persist[Mb3] = Persist3[Int, Int, Int, Mb3]("Mb3", "i1", _.i1, "i2", _.i2, "i3", _.i3, apply, Some(3), Some(2), Some(1))
   }
 
   case class My4(a1: Arr[Int], s2: String, l3: List[String], v4: Vector[Int])

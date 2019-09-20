@@ -101,5 +101,5 @@ object Vec3
 { def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
   
-  implicit object PersistImplicit extends PersistD3[Vec3]("Vec3", _.x, _.y, _.z, apply)
+  implicit object PersistImplicit extends PersistD3[Vec3]("Vec3", "x", _.x, "y", _.y, "z", _.z, apply)
 }

@@ -21,6 +21,6 @@ object W2Tile
     override def asType(obj: AnyRef): W2Tile = obj.asInstanceOf[W2Tile]
   }
   
-  implicit val persistImplicit: PersistEq[W2Tile] = new Persist3[Int, Int, WTile, W2Tile]("W2Tile", _.x , _.y, _.terr, apply)
+  implicit val persistImplicit: PersistEq[W2Tile] = new Persist3[Int, Int, WTile, W2Tile]("W2Tile", "x", _.x , "y", _.y, "terr", _.terr, apply)
 }
 

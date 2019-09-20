@@ -12,7 +12,8 @@ case class MPlayer(player: Player, cood: Cood, move: Option[Cood] = None) extend
 
 object MPlayer
 {
-  implicit val persistMPlayer: PersistEq[MPlayer] = new Persist3[Player, Cood, Option[Cood], MPlayer]("MPlayer", _.player, _.cood, _.move, apply)
+  implicit val persistMPlayer: PersistEq[MPlayer] = new Persist3[Player, Cood, Option[Cood], MPlayer](
+    "MPlayer", "player", _.player, "cood",_.cood, "move", _.move, apply)
 }
 
 case class Player(val char: Char, val colour: Colour)
