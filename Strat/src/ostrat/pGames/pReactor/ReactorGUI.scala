@@ -66,7 +66,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
         drawBalls(size*(thisOne % cols) vv size*(thisOne / cols), currentPlayer, cellCounts(thisOne))
         for ( x <- cellNeighbours(thisOne) ) addBall( x )
       }
-      canv.timeOut(() => ReactorGUI.this.processQueue(), 101)
+      canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
     }
     else turnComplete()
     checkForGameOver()
