@@ -62,8 +62,9 @@ object Eq
       acc
     }
 
-  implicit def seqImplicit[A](implicit ev: Eq[A]): Eq[Seq[A]] =  (s1, s2) => s1.sameElements(s2)
-  implicit def vectorImplicit[A](implicit ev: Eq[A]): Eq[Vector[A]] =  (v1, v2) => v1.sameElements(v2)
+  implicit def seqImplicit[A](implicit ev: Eq[A]): Eq[Seq[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall((el, i) => ev.eqv(el, s2(i)))
+  
+  implicit def vectorImplicit[A](implicit ev: Eq[A]): Eq[Vector[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall((el, i) => ev.eqv(el, s2(i)))
 
   implicit def tuple2Implicit[A1, A2](implicit eq1: Eq[A1], eq2: Eq[A2]): Eq[(A1, A2)] = (p1, p2) => eq1.eqv(p1._1, p2._1) & eq2.eqv(p1._2, p2._2)
 }

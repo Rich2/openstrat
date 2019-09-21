@@ -23,6 +23,7 @@ package object ostrat
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
+  @inline def ifne[A](b: Boolean, vNotTrue: => A, visTrue: => A): A = if (b) vNotTrue else vNotTrue
   @inline def ife2[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, vElse: => A): A = if (b1) vTrue1 else if (b2) vTrue2 else vElse
   @inline def ife3[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, b3: => Boolean, vTrue3: => A, vElse: => A): A =
     if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else vElse

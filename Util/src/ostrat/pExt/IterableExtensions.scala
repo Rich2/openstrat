@@ -52,7 +52,17 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
       rem = rem.tail
     }      
   }
-   
+  
+  def iForall(f: (A, Int) => Boolean): Boolean = 
+  { var count = 0
+    var rem = thisIter
+    var succeed = true
+    while(rem.nonEmpty & succeed)
+      if (f(rem.head, count)) {count += 1; rem = rem.tail }
+        else succeed = false
+    succeed    
+  }
+  /** Not sure what this does. */
   def mapVar1[B, C](initialVar: B, f: (A, B) => (B, C)): Seq[C] =
   { var varB: B = initialVar
     var acc: Seq[C] = Seq()
