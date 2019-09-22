@@ -2,7 +2,7 @@
 package ostrat
 package pGames
 package pChess
-import Colour._, pGrid._, geom._, reflect.ClassTag
+import Colour._, pGrid._, geom._
 
 class DGrid extends SquareGrid[DTile, SideBare](1, 8, 1, 8, 0)// extends AnyVal
 {  
