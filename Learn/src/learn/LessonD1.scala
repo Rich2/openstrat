@@ -24,10 +24,10 @@ case class LessonD1(canv: CanvasPlatform) extends CanvasSimple("Lesson D1")
 
 object SText
 {
-  def apply(y: Double, str: String)  = TextGraphic(str, 24, -250 vv y, align = TextLeft)
+  def apply(y: Double, str: String)  = TextGraphic(str, 24, -250 vv y, align = LeftAlign)
 }
 
 object MText
 {
-  def apply(y: Double, strs: Arr[String]): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv y, align = TextLeft)
+  def apply(y: Double, strs: Arr[String]): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv y, align = LeftAlign)
 }

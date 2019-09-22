@@ -41,7 +41,7 @@ case class PolyFillText(verts: Polygon, fillColour: Colour, str: String, fontSiz
 {
   override def fTrans(f: Vec2 => Vec2) = PolyFillText(verts.fTrans(f), fillColour, str,fontSize, textColour, zOrder)
 
-  def textGraphicOnly: TextGraphic = TextGraphic(str, fontSize, verts.boundingRect.cen, textColour, TextCen, zOrder)
+  def textGraphicOnly: TextGraphic = TextGraphic(str, fontSize, verts.boundingRect.cen, textColour, CenAlign, zOrder)
   def fillOnly: PolyFill = PolyFill(verts, fillColour, zOrder)
 }
 
@@ -50,6 +50,6 @@ case class PolyFillDrawText(verts: Polygon, fillColour: Colour, str: String, fon
 {
   override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(verts.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour, zOrder)
   def drawOnly: PolyDraw = PolyDraw(verts, lineWidth, lineColour, zOrder)
-  def textGraphicOnly: TextGraphic = TextGraphic(str, fontSize, verts.boundingRect.cen, Black, TextCen, zOrder)
+  def textGraphicOnly: TextGraphic = TextGraphic(str, fontSize, verts.boundingRect.cen, Black, CenAlign, zOrder)
   def fillDrawOnly: PolyFillDraw = PolyFillDraw(verts, fillColour, lineWidth, lineColour, zOrder)
 }

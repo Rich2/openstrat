@@ -23,7 +23,7 @@ object PolySubj
       new PolySubj(cen, poly, evObj, Arr(PolyDraw(poly, lineWidth, lineColour)))
   
   def fillText(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
-      align: TextAlign = TextCen) =
+      align: TextAlign = CenAlign) =
         new PolySubj(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
   
   def fillContrastText(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 4) =

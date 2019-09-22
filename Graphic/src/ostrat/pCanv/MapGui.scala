@@ -24,7 +24,7 @@ abstract class MapGui(title: String) extends CanvasMulti(title)
   def buttonStd(str: String, cmd: MB0, backColour: Colour = Colour.White) =
     Rectangle.curvedCornersCentred(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
    
-  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, TextLeft)
+  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   /**  repaints the top command bar */
   def reTop(commands: Arr[GraphicSubject]): Unit = topPan.repaint(DisplayRow(10, commands).fromLeft(topPan.cenLeft))
   var statusText = "This is the status text."

@@ -92,11 +92,11 @@ trait CanvasPlatform extends RectGeom
   def pShapeFillDraw(sfd: ShapeFillDraw): Unit  
    
   def textGraphic(tg: TextGraphic): Unit
-  final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = TextCen): Unit =
+  final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
     textGraphic(TextGraphic(str, fontSize, posn, colour, align))
    
   def textOutline(to: TextOutline): Unit
-  final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = TextCen): Unit =
+  final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = CenAlign): Unit =
     textOutline(TextOutline(posn, text, fontSize, colour, lineWidth, align))
     
   def dashedLineDraw(dld: DashedLineDraw): Unit   

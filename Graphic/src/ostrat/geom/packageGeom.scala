@@ -32,7 +32,7 @@ package object geom
     def findVec2Else(elseValue: => Vec2) = findVec2.getElse(elseValue)
     def findVec2Sett(setting: String): EMon[Vec2] = stss(thisString).flatMap(_.findSett[Vec2](setting))
     def findVec2SettElse(setting: String, elseValue: Vec2): Vec2 = findVec2Sett(setting).getElse(elseValue)
-    def graphic(fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = TextCen, zOrder: Int = 0): TextGraphic =
+    def graphic(fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign, zOrder: Int = 0): TextGraphic =
       TextGraphic(thisString, fontSize, posn, colour, align, zOrder)
   }
 

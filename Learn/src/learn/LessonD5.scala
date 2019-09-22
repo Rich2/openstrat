@@ -11,7 +11,7 @@ case class LessonD5(canv: CanvasPlatform) extends CanvasSimple("Lesson D5")
   val ss = Sett("Arr", s1).ap("Ls", s2).str
   val c1 = ss.findIntArray  
  
-  val cc = TextGraphic.lines(Arr(c1).map(_.toString), lineSpacing = 1.5, posn = -250 vv -150, align = TextLeft)
+  val cc = TextGraphic.lines(Arr(c1).map(_.toString), lineSpacing = 1.5, posn = -250 vv -150, align = LeftAlign)
   
   
   repaint(SText(200, ss) +: cc)

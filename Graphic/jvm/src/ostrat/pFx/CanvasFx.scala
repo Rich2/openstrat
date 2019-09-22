@@ -94,9 +94,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   def fxAlign(align: TextAlign) =
   { import text._
     align match
-    { case TextCen => TextAlignment.CENTER
-      case TextLeft => TextAlignment.LEFT
-      case TextRight => TextAlignment.RIGHT
+    { case CenAlign => TextAlignment.CENTER
+      case LeftAlign => TextAlignment.LEFT
+      case RightAlign => TextAlignment.RIGHT
     }
   }
    

@@ -19,7 +19,7 @@ case class LessonD3(canv: CanvasPlatform) extends CanvasSimple("Lesson D3")
   val c5 = s2.findVec2SettElse("MyPosn", 45 vv 1.2)
   val c6 = s2.findVec2SettElse("Posn", 45 vv 1.2)//Gives the result from the string, but has guard if setting not found.
   
-  val bottomBlock = TextGraphic.lines(Arr(c0, c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 vv -150, align = TextLeft)
+  val bottomBlock = TextGraphic.lines(Arr(c0, c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 vv -150, align = LeftAlign)
   
    
   repaint(topBlock +: middleBlock +: bottomBlock)
