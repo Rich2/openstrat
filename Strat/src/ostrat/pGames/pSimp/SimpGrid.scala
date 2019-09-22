@@ -47,7 +47,8 @@ class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnN
 object SimpGrid {
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
 
-  implicit val showUnusGrid: Show[SimpGrid] = Show5[Int, Int, Int, Int, Arr[TileRow[UTile#FromT]], SimpGrid]("SimpGrid", _.xTileMin,
-    _.xTileMax, _.yTileMin, _.yTileMax, _.tilesToMultiAll)
+  implicit val showUnusGrid: Show[SimpGrid] =
+    Show5[Int, Int, Int, Int, Arr[TileRow[UTile#FromT]], SimpGrid]("SimpGrid", "xTilemin", _.xTileMin, "xTilemax", _.xTileMax, "yTileMin", _.yTileMin,
+    "yTileMax", _.yTileMax, "tilesToMultiAll", _.tilesToMultiAll)
 }
 

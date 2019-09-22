@@ -34,7 +34,7 @@ object FilePosn
   def empty: FilePosn = new FilePosn("Empty object", 0, 0)
   def emptyError[A](errStr: String): Bad[A] = bad1(empty, errStr)
   
-  implicit object FilePosnShow extends Show3[String, Int, Int, FilePosn]("FilePosn", _.fileName, _.lineNum, _.linePosn)
+  implicit object FilePosnShow extends Show3[String, Int, Int, FilePosn]("FilePosn", "fileName", _.fileName, "lineNum", _.lineNum, "linePosn", _.linePosn)
 }
 
 trait TextSpan
