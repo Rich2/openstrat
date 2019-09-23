@@ -4,9 +4,9 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LessonA1(canv: CanvasPlatform) extends CanvasSimple("Lesson A1")
 {
   repaints(
-    TextGraphic("This text is in the centre of the frame.", 18),
-    TextGraphic("This text is 200 pixels up.", 18, 0 vv 200, Blue),
-    TextGraphic("This text is 400 pixels right, down 200", 25, 400 vv -200),
+    Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
+    Rectangle(200, 100, 100 vv 50).fill(Green),
+    Square.fill(100, Orange, 300 vv 0)
   )
 }
 
