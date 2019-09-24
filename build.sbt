@@ -1,4 +1,4 @@
-ThisBuild/version := "0.0.4"
+ThisBuild/version := "0.0.5-snap"
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.13.1"
 ThisBuild/organization := "OpenStratOrg"
