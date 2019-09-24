@@ -36,7 +36,7 @@ lazy val World = project.dependsOn(Graphic).settings(stdSettings).settings(
 
 lazy val Strat = project.dependsOn(World).settings(stdSettings).settings(
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
-  assemblyJarName in assembly := "strat.jar"
+  assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
 
 lazy val Learn = project.dependsOn(Strat).settings(stdSettings).settings(
