@@ -20,10 +20,10 @@ case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colo
   override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, zOrder)
 }
 
-/** Not sure if this is a good object to have */
+/** Not sure if this is a good object to have. */
 object TextGraphicCen
 {
-  def apply(str: String, fontSize: Int, posn: Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
+  def apply(str: String, fontSize: Int, posn : Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
     new TextGraphic(str, fontSize, posn, colour, CenAlign, zOrder)
 }
 
