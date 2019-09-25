@@ -112,5 +112,5 @@ For IntellliJ useful options:
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
 
-**Road Map** Priorites- To be completed.
-   - Audio (not urgent) : (scalajs hooks into Web API AudioContext so thats half the bases covered?)
+**Road Map** Priorities- To be completed.
+   - Audio (not urgent) : (scalajs hooks into Web API AudioContext so thats half the bases covered?). Wod won't look into jfx now until things a bit more certain that way.
