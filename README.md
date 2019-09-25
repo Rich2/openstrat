@@ -113,8 +113,4 @@ For IntellliJ useful options:
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories. [Useful Git commands](/WebPages/DocPages/GitCommands.html). [Miscelleaneous notes](/WebPages/DocPages/GeneralNotes.html)
 
 **Road Map** Priorities- To be completed.
-<<<<<<< HEAD
-   - Audio (not urgent) : (scalajs hooks into Web API AudioContext so thats half the bases covered?). Wod won't look into jfx now until things a bit more certain that way.
-=======
    - Audio (not urgent) : (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain that way.
->>>>>>> aa3275c6c16195ed3d456a3f1ae9817408d3c186
