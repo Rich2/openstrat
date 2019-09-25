@@ -113,4 +113,4 @@ For IntellliJ useful options:
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
 
 **Road Map** Priorites- To be completed.
-*Audio - (scalajs hooks into Web API AudioContext so thats half the bases covered?)
+   - **Audio - (scalajs hooks into Web API AudioContext so thats half the bases covered?)
