@@ -110,7 +110,7 @@ For IntellliJ useful options:
    
 **6. Dev** Depends on all the other modules. This is purely an integration module for development purposes and is not intended to contain library code.
 
-The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories. (Useful Git commands)[https://richstrat.com/Documentation/GitCommands.html]. [Miscelleaneous notes](/WebPages/DocPages/GeneralNotes.html)
+The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories. [Useful Git commands](https://richstrat.com/Documentation/GitCommands.html). [Miscelleaneous notes](/WebPages/DocPages/GeneralNotes.html)
 
 **Road Map** Priorities- To be completed.
    - Audio (not urgent) : (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain that way.
