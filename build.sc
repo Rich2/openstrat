@@ -1,8 +1,8 @@
 // build.sc
-import mill._, scalalib._, scalajslib._, scalanativelib._
+import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
-{ def version = "0.0.4snap"  
+{ def version = "0.0.5snap"  
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
@@ -40,9 +40,20 @@ trait PlatformsModule extends ScalaModule with CommonStd
 
 object Util extends PlatformsModule
 {
-  object UtilMacrosJvm extends CommonStd
+  object UtilMacrosJvm extends CommonStd with PublishModule
   { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
     def sources = T.sources(Util.millSourcePath / 'srcMacros)
+    def publishVersion = "0.0.5"
+    def pomSettings = PomSettings(
+      description = "openstrat",
+      organization = "com.richstrat",
+      url = "https://github.com/richtype/openstrat",
+      licenses = Seq(License.MIT),
+      versionControl = VersionControl.github("richtype", "openstrat"),
+      developers = Seq(
+        Developer("richtype", "Rich Oliver","https://github.com/richtype")
+      )
+    )
   }
 
   object UtilMacrosJs extends CommonStdJs
@@ -78,7 +89,8 @@ object World extends PlatformsModule
 }
 
 object Strat extends PlatformsModule
-{ def moduleDeps = Seq(World)  
+{ def moduleDeps = Seq(World)
+  
 
   object test extends InnerTests
       
