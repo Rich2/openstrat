@@ -12,7 +12,7 @@ abstract class CanvasUser(val title: String)
     val subjBuff: Buff[GraphicActive] = Buff()
       
     movedObjs.foreach
-    { case ce: PaintElem => canv.rendElem(ce)         
+    { case ce: PaintElem => ce.rendElem(canv)
 
       case cs: GraphicSubject =>
       { canv.rendElems(cs.elems)

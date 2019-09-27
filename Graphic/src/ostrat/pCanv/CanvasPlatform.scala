@@ -47,12 +47,13 @@ trait CanvasPlatform extends RectGeom
   final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))  
   def pPolyDraw(dp: PolyDraw): Unit
 
-  /** Not quite sure whats going on in this implmentation. */
+  /** Checks length of polygon, before fill and draw output. */
   final def polyFillDraw(pfd: PolyFillDraw): Unit = pfd.vertsLen match
   { case 0 | 1 =>
     case 2 => polyDraw(pfd.noFill)
     case _ => pPolyFillDraw(pfd)
   }
+
   def pPolyFillDraw(pfd: PolyFillDraw): Unit
 //  def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
 //    textGraphic(str, fontSize, pts.polyCentre, fontColour)
@@ -138,26 +139,5 @@ trait CanvasPlatform extends RectGeom
   def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
     
-  def rendElems(elems: Arr[PaintElem]): Unit = elems.foreach(rendElem)
-  
-  def rendElem(el: PaintElem): Unit = el match
-  {
-    case fp: PolyFill => polyFill(fp)//verts, fillColour)
-    case dp: PolyDraw => polyDraw(dp)// (verts, lineWidth, lineColour) => polyDraw(verts, lineWidth, lineColour)
-    case pfd: PolyFillDraw => polyFillDraw(pfd)
-    case lsd: LinesDraw => linesDraw(lsd)
-    case ld: LineDraw => lineDraw(ld)
-    case v2sd: LinePathDraw => vec2sDraw(v2sd)
-    case dld: DashedLineDraw => dashedLineDraw(dld)
-    case sf: ShapeFill => shapeFill(sf)
-    case sd: ShapeDraw => shapeDraw(sd)
-    case sfd: ShapeFillDraw => shapeFillDraw(sfd) 
-    case ad: ArcDraw => arcDraw(ad)
-    case bd: BezierDraw => bezierDraw(bd)
-    case tg: TextGraphic => textGraphic(tg)
-    case to: TextOutline => textOutline(to)
-    case pft: PolyFillText =>  { polyFill(pft.fillOnly); textGraphic(pft.textGraphicOnly) }
-    case pfdt: PolyFillDrawText => { polyFillDraw(pfdt.fillDrawOnly); textGraphic(pfdt.textGraphicOnly) }
-    case el => deb(el.toString -- "Not implemented")
-  }    
+  def rendElems(elems: Arr[PaintElem]): Unit = elems.foreach(_.rendElem(this))
 }
