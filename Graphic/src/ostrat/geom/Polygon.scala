@@ -104,11 +104,13 @@ object Polygon extends ProductD2sCompanion[Vec2, Polygon]
   }
 }
 
+/* A polyon using distances. */
 class DPolygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]
 { override def typeStr: String = "DPolygon"
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }
 
+/** The companion object for DPolygon. Provides an implicit builder. */
 object DPolygon extends ProductD2sCompanion[Dist2, DPolygon]
 { implicit val factory: Int => DPolygon = i => new DPolygon(new Array[Double](i * 2))
 }
