@@ -12,7 +12,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   
   def cmdDisp = cmd match
   {
-    case Some(Move(v)) => Arr(Arrow.draw(state.posn, v, zOrder = -1))
+    case Some(Move(v)) => Arr(Arrow.draw(state.posn, v))
     case Some(CycleColour) => Arr(state.drawNextColour)
     case _ => Arr()
   }
@@ -25,14 +25,12 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   disp()
   
   topBar.mouseUp = (v, b , s) => s match
-  {
-    case Arr(Turn) => { state = state.turn(cmd); cmd = None; disp() }
+  { case Arr(Turn) => { state = state.turn(cmd); cmd = None; disp() }
     case _ => 
   }
   
   mainPanel.mouseUp = (v, b, s) => b match 
-  {
-    case LeftButton => {cmd = Some(Move(v)); disp() }
+  { case LeftButton => {cmd = Some(Move(v)); disp() }
     case _ => { cmd = Some(CycleColour); disp() }   
   }
 }

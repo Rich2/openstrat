@@ -30,7 +30,7 @@ case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) ext
     })
 
   def angle: Angle = (pEnd - pStart).angle
-  def draw(lineWidth: Double, colour: Colour = Black, layer: Int = 0): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour, layer)
+  def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 }
 
 /** Companion object for the Line2 class */

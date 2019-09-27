@@ -31,12 +31,12 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       {
         coods.foldWithPrevious[GraphicElems](squad.cood, Arr()){(acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
-          val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast, 3)
-          val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast, 3)
+          val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast)
+          val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast)
           acc :+ l1 :+ l2
         }
       }
-      case Fire(target) => Arr(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red, 3).dashed(20, 20))
+      case Fire(target) => Arr(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red).dashed(20, 20))
       case _ => Arr()
     }
     
@@ -44,7 +44,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     {
       case s if tScale > 68 & s.nonEmpty =>
       {
-        val counter = UnitCounters.infantry(30, s.head, s.head.colour, tile.colour, 4).slate(cen)
+        val counter = UnitCounters.infantry(30, s.head, s.head.colour, tile.colour).slate(cen)
         Arr(counter) ++ action(s.head)
       }
       case _ => Arr()
