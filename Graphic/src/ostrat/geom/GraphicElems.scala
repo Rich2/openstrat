@@ -16,16 +16,14 @@ trait PaintElem extends Any with GraphicElem
 
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, zOrder: Int) extends
   PaintElem with CurveLike
-{
-  def typeStr: String = "LineDraw"  
+{ def typeStr: String = "LineDraw"
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour, zOrder)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, lineWidth, dashLength, gapLength, colour, zOrder)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.lineDraw(this)
 }
 
 object LineDraw
-{
-  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black, zOrder: Int = 0): LineDraw =
+{ def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black, zOrder: Int = 0): LineDraw =
     new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, zOrder)  
 }
 
@@ -35,14 +33,12 @@ case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black
 }
 
 object LinesDraw
-{
-  def apply(lineWidth: Double, colour: Colour, zOrder: Int, lineSegs: Line2 *): LinesDraw =
+{ def apply(lineWidth: Double, colour: Colour, zOrder: Int, lineSegs: Line2 *): LinesDraw =
     LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour, zOrder)
 }
 
 case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem
-{
-  def length = vec2s.length - 1
+{ def length = vec2s.length - 1
   def xStart = vec2s.xStart
   def yStart = vec2s.yStart
   override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(vec2s.fTrans(f), lineWidth, colour, zOrder) 
