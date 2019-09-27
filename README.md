@@ -35,6 +35,7 @@ mill run //To launch a ScalaFx window.
 mill -w run //As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful command for development
 mill test //To run tests
 mill -w //To recompile and rerun the tests on source code changes.
+mill -w Dev.runMain ostrat.pFx.App3D//temp command
 mill -w jsfast //To rebuild the fast optimised Js file. Use with WebPages/MillFastDev.html
 mill jsfull //To build the fully optimised Js file. Use with WebPages/MillFullDev.html
 mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.

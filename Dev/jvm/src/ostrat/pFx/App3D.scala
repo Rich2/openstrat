@@ -12,6 +12,7 @@ class AppStart3D extends javafx.application.Application
 {
   override def start(primaryStage: stage.Stage): Unit =
   {
+    deb("Hi")
     val bounds = stage.Screen.getPrimary.getVisualBounds
     val canvWidth: Double = findDevSettingElse("displayWidth", bounds.getWidth - 8)
     val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight - 40)
