@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFx
-import javafx.{scene, stage}, scene.canvas._
+import javafx.scene._, javafx.stage._, canvas._
 
 object App3D
 {
@@ -10,18 +10,23 @@ object App3D
 
 class AppStart3D extends javafx.application.Application
 {
-  override def start(primaryStage: stage.Stage): Unit =
+  override def start(primaryStage: Stage): Unit =
   {
     deb("Hi")
-    val bounds = stage.Screen.getPrimary.getVisualBounds
+    val bounds = Screen.getPrimary.getVisualBounds
     val canvWidth: Double = findDevSettingElse("displayWidth", bounds.getWidth - 8)
     val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight - 40)
     val canvasCanvas: Canvas = new Canvas(canvWidth, canvHeight)
-    val root = new scene.Group()
-    root.getChildren.add(canvasCanvas)
+    val root = new Group()
+    
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
-    val jScene = new scene.Scene(root, canvWidth, canvHeight)
+    val camera = new PerspectiveCamera
+    camera.translateZProperty.set(-1000)
+    val sphere = new shape.Sphere(150)
+    root.getChildren.add(sphere)//canvasCanvas)
+    val jScene = new Scene(root, canvWidth, canvHeight)
+    jScene.setCamera(camera)
     val sett = findDevSetting[String]("appStr")
     val pair = pDev.Apps.curr(sett.getElse(pDev.Apps.appStr))
     val newAlt = CanvasFx(canvasCanvas, jScene)
