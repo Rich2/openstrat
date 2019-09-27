@@ -3,7 +3,12 @@ package ostrat
 package pFx
 import javafx.{scene, stage}, scene.canvas._
 
-class AppStart extends javafx.application.Application
+object App3D
+{
+  def main(args: Array[String]): Unit = javafx.application.Application.launch(classOf[AppStart3D], args: _*)
+}
+
+class AppStart3D extends javafx.application.Application
 {
   override def start(primaryStage: stage.Stage): Unit =
   {
@@ -20,11 +25,10 @@ class AppStart extends javafx.application.Application
     val pair = pDev.Apps.curr(sett.getElse(pDev.Apps.appStr))
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)
-    primaryStage.setTitle(pair._2)
+    primaryStage.setTitle("3D App")
     primaryStage.setScene(jScene)
     primaryStage.show
   }
 }
- 
-   
+
 
