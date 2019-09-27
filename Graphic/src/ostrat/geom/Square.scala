@@ -3,17 +3,17 @@ package ostrat
 package geom
 
 /** Factory object for squares. There is no companon Square class. */
-object Square extends NoScale
+object Square extends NoScalePolygon
 {
-  val noScale: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
-  override def fTrans(f: Vec2 => Vec2): Transer = noScale.fTrans(f)
-  def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = noScale.fTrans(_ * width + cen)
+  override val polygon: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
+  def fTrans(f: Vec2 => Vec2): Polygon = polygon.fTrans(f)
+  def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = polygon.fTrans(_ * width + cen)
   def xy(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,
       xCen - width/2   vv yCen - width / 2)
-
+   
   /**Needs Changing possibly removing. */
   def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z, layer: Int = 0): PolyFill = apply(width, cen).fill(colour, layer)
   /**Needs Changing possibly removing. */

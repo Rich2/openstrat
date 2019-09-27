@@ -92,13 +92,26 @@ class Polygon(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
   }
   
   def fillSubj(evObj: AnyRef, fillColour: Colour, layer: Int = 0): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour, layer)
+
+  def distScale(distRatio: Dist): DPolygon = pMap[Dist2, DPolygon](_ * distRatio)
 }
 
 object Polygon extends ProductD2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
   
-  implicit object PolygonPersist extends ProductD2sBuilder[Vec2, Polygon]("Polygon")
-  {
-    override def fromArray(value: Array[Double]): Polygon = new Polygon(value)
+  implicit val persistImplicit: ProductD2sBuilder[Vec2, Polygon] = new ProductD2sBuilder[Vec2, Polygon]("Polygon")
+  { override def fromArray(value: Array[Double]): Polygon = new Polygon(value)
   }
 }
+
+class DPolygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]
+{ override def typeStr: String = "DPolygon"
+  override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
+}
+
+object DPolygon extends ProductD2sCompanion[Dist2, DPolygon]
+{ implicit val factory: Int => DPolygon = i => new DPolygon(new Array[Double](i * 2))
+}
+
+
+

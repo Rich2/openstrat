@@ -23,4 +23,7 @@ object NoScaleShape
    NoScaleShape = NoScaleShape(referenceVec, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 
-//case class NoScalePoly
+trait NoScalePolygon
+{ def polygon: Polygon
+  def dist(width: Dist, cen: Dist2 = Dist2Z): DPolygon  = polygon.distScale(width)
+}

@@ -2,7 +2,7 @@
 package ostrat
 package pExt
 
-class DoubleImplicit(val thisDouble: Double) extends AnyVal// extends PersistSimple[Double
+class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {
   def %%(divisor: Double): Double =
   { val r = thisDouble % divisor
@@ -63,8 +63,4 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal// extends PersistSim
   
   @inline def sin: Double = math.sin(thisDouble)
   @inline def cos: Double = math.cos(thisDouble)
-
-
-
-
 }

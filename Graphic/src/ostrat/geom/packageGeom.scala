@@ -38,7 +38,7 @@ package object geom
 
   implicit class DoubleImplicit(thisDouble: Double)
   { def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
-
+    def metres: Dist = new Dist(thisDouble)
   }
 
   implicit class DistImplicit(thisDist: Dist)
