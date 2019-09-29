@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait ProductDoubles[A] extends Any with ProductVals[A]
 { def array: Array[Double]
   def arrLen = array.length
-  def toArrs: Arr[Arr[Double]]
+  //def toArrs: Arr[Arr[Double]]
   def foreachArr(f: Arr[Double] => Unit): Unit
 
   override def toString: String =
@@ -34,6 +34,6 @@ abstract class ProductDsBuilder[A, M <: ProductDoubles[A]](typeStr: String) exte
   type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  implicit val eqImplicit: Eq[M] = (m1, m2) => m1.array.eq(m2.array)
+  //implicit val eqImplicit: Eq[M] = (m1, m2) => m1.array.eq(m2.array)
   //override def eqv(m1: M, m2: M): Boolean = ???
 }

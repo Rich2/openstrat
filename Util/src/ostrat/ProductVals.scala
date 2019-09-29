@@ -179,7 +179,7 @@ trait ProductVals[A] extends Any
   }
 }
 
-abstract class ProductValsBuilder[A, M](val typeStr: String) extends ShowCompound[M] with PersistCompound[M]
+abstract class ProductValsBuilder[A, M](val typeStr: String) extends PersistCompound[M]
 {
   /** Atomic Value type normally Double or Int. */
   type VT
