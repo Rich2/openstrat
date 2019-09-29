@@ -51,7 +51,7 @@ object CanvasJs extends CanvasTopLeft
   override protected[this] def tlPolyFill(fp: PolyFill): Unit =
   { gc.beginPath()
     gc.moveTo(fp.xHead, fp.yHead)
-    fp.verts.foreachPairTail(gc.lineTo)
+    fp.poly.foreachPairTail(gc.lineTo)
     gc.closePath()
     gc.fillStyle = fp.colour.webStr
     gc.fill()
@@ -60,7 +60,7 @@ object CanvasJs extends CanvasTopLeft
   override def tlPolyDraw(dp: PolyDraw): Unit =
   { gc.beginPath()
     gc.moveTo(dp.xHead, dp.yHead)
-    dp.verts.foreachPairTail(gc.lineTo)
+    dp.poly.foreachPairTail(gc.lineTo)
     gc.closePath()
     gc.strokeStyle = dp.colour.webStr
     gc.lineWidth = dp.lineWidth
@@ -70,7 +70,7 @@ object CanvasJs extends CanvasTopLeft
   override protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit =
   { gc.beginPath()
     gc.moveTo(pfd.xHead, pfd.yHead)
-    pfd.verts.foreachPairTail(gc.lineTo)
+    pfd.poly.foreachPairTail(gc.lineTo)
     gc.closePath()
     gc.fillStyle = pfd.fillColour.webStr
     gc.fill()
@@ -93,7 +93,7 @@ object CanvasJs extends CanvasTopLeft
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
     gc.strokeStyle = ld.colour.webStr
-    gc.lineWidth = ld.lineWidth
+    gc.lineWidth = ld.width
     gc.stroke()
   }
   
@@ -116,7 +116,7 @@ object CanvasJs extends CanvasTopLeft
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
-    lsd.lineSegs.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
+    lsd.lines.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
     gc.lineWidth = lsd.lineWidth
     gc.strokeStyle = lsd.colour.webStr
     gc.stroke()

@@ -18,7 +18,7 @@ trait PolyElem extends Any with PaintElem
    def yArray: Array[Double] = poly.elem2sArray
 }
 
-/** Immutable Graphic element that defines, fills a Polygon. */ 
+/** Immutable Graphic element that defines and fills a Polygon. */
 case class PolyFill(poly: Polygon, colour: Colour) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(poly.fTrans(f), colour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.polyFill(this)
@@ -28,10 +28,14 @@ object PolyFill
 { implicit val persistImplicit: Persist2[Polygon, Colour, PolyFill] = Persist2("PolyFill", "poly", _.poly, "colour", _.colour, apply)
 }
 
-/** Immutable Graphic element that defines, draws a Polygon. */
+/** Immutable Graphic element that defines and draws a Polygon. */
 case class PolyDraw(poly: Polygon, lineWidth: Double, colour: Colour = Black) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(poly.fTrans(f), lineWidth, colour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.polyDraw(this)
+}
+
+object PolyDraw
+{ implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolyDraw] = Persist3("PolyFill", "poly", _.poly, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
 case class PolyFillDraw(poly: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem

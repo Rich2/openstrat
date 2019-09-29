@@ -26,14 +26,13 @@ object LineDraw
     Persist4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, apply, Some(Black), Some(1.0))
 }
 
-case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintElem
-{ override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lineSegs.fTrans(f), lineWidth, colour)
+case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintElem
+{ override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.linesDraw(this)
 }
 
 object LinesDraw
-{ def apply(lineWidth: Double, colour: Colour, lineSegs: Line2 *): LinesDraw =
-    LinesDraw(lineSegs.valueProducts[Line2s], lineWidth, colour)
+{ def apply(lineWidth: Double, colour: Colour, lines: Line2 *): LinesDraw =  LinesDraw(lines.valueProducts[Line2s], lineWidth, colour)
 }
 
 case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem
