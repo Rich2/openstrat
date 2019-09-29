@@ -13,17 +13,17 @@ class Shape(val array: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] w
     new CurveSeg(iMatch, d1, d2, d3, d4, d5, d6)
    
   def fTrans(f: Vec2 => Vec2): Shape =
-  { val newArr = new Array[Double](length * 7)
+  { val newArray = new Array[Double](length * 7)
     def setMiddle(offset: Int): Unit =
     { val newMiddle: Vec2 = f(array(offset + 3) vv array(offset + 4))
-      newArr(offset + 3) = newMiddle.x
-      newArr(offset + 4) = newMiddle.y
+      newArray(offset + 3) = newMiddle.x
+      newArray(offset + 4) = newMiddle.y
     }
       
     def setEnd(offset: Int): Unit =
     { val newEnd: Vec2 = f(array(offset + 5) vv array(offset + 6))
-      newArr(offset + 5) = newEnd.x
-      newArr(offset + 6) = newEnd.y
+      newArray(offset + 5) = newEnd.x
+      newArray(offset + 6) = newEnd.y
     }      
       
     (0 until length).foreach{index =>
@@ -31,21 +31,21 @@ class Shape(val array: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] w
       array(offset) match
       { 
         case 10 =>
-        { newArr(offset) = 10
+        { newArray(offset) = 10
           setEnd(offset)
         }
         
         case 11 =>
-        { newArr(offset) = 11
+        { newArray(offset) = 11
           setMiddle(offset)
           setEnd(offset)
         }   
         
         case 12 =>
-        { newArr(offset) = 12
+        { newArray(offset) = 12
           val newControl1: Vec2 = f(array(offset + 1) vv array(offset + 2)) 
-          newArr(offset + 1) = newControl1.x
-          newArr(offset + 2) = newControl1.y
+          newArray(offset + 1) = newControl1.x
+          newArray(offset + 2) = newControl1.y
           setMiddle(offset)
           setEnd(offset)
         }
@@ -53,7 +53,7 @@ class Shape(val array: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] w
         case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
       }
     }
-    new Shape(newArr)
+    new Shape(newArray)
   }
    
   def fill(colour: Colour): ShapeFill = ShapeFill(this, colour)

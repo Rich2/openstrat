@@ -11,7 +11,7 @@ trait GraphicSubject extends GraphicElem with GraphicActive
   def tR: GraphicSubject = this.slate(boundingRect.bottomLeft)
   def bL: GraphicSubject = this.slate(boundingRect.topRight)
   def bR: GraphicSubject = this.slate(boundingRect.topLeft)
-  def width = boundingRect.width    
+  def width: Double = boundingRect.width
   def addElems(newElems: Arr[PaintElem]): GraphicSubject
   def addElem(newElem: PaintElem): GraphicSubject = addElems(Arr(newElem))
   def mutObj(newObj: AnyRef): GraphicSubject
