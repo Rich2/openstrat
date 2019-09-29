@@ -40,7 +40,7 @@ trait CanvasPlatform extends RectGeom
   var textMin: Int = 10
   
   final def polyFill(pf: PolyFill): Unit = oif(pf.ifv3, pPolyFill(pf))
-  final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))  
+  //final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))
   def pPolyFill(pf: PolyFill): Unit
   
   final def polyDraw(dp: PolyDraw): Unit = oif(dp.ifv2, pPolyDraw(dp))
@@ -58,10 +58,10 @@ trait CanvasPlatform extends RectGeom
 //  def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
 //    textGraphic(str, fontSize, pts.polyCentre, fontColour)
    
-  def vec2sDraw(pod: LinePathDraw): Unit = ife(pod.vec2s.length >= 2, pLinePathDraw(pod), deb(pod.vec2s.length.toString))
-  final def vec2sDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
-    vec2sDraw(LinePathDraw(LinePath(pStart, pEnds :_*), lineWidth, colour))
-  def pLinePathDraw(pod: LinePathDraw): Unit  
+  def linePathDraw(pod: LinePathDraw): Unit = ife(pod.vec2s.length >= 2, pLinePathDraw(pod), deb(pod.vec2s.length.toString))
+  //final def linePathDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
+    //vec2sDraw(LinePathDraw(LinePath(pStart, pEnds :_*), lineWidth, colour))
+  def pLinePathDraw(pod: LinePathDraw): Unit
    
   def lineDraw(ld: LineDraw): Unit
   final def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =

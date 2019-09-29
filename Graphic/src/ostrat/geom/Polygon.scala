@@ -96,6 +96,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
 
 object Polygon extends ProductD2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
+  implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.arr, p2.arr)
   
   implicit val persistImplicit: ProductD2sBuilder[Vec2, Polygon] = new ProductD2sBuilder[Vec2, Polygon]("Polygon")
   { override def fromArray(value: Array[Double]): Polygon = new Polygon(value)

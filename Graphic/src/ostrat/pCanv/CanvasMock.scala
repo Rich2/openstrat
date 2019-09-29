@@ -14,7 +14,7 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
     *  The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
    
    override def timeOut(f: () => Unit, millis: Integer): Unit = {}   
-   override def pPolyFill(pf: PolyFill): Unit = {}    
+   override def pPolyFill(pf: PolyFill): Unit = {}
    override def pPolyDraw(dp: PolyDraw): Unit = {}
    override def pPolyFillDraw(pfd: PolyFillDraw): Unit = {}
    override def pLinePathDraw(pod: LinePathDraw): Unit = {}
