@@ -27,17 +27,17 @@ class Polygon(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
   def boundingHeight: Double = boundingRect.height   
   def polyCentre: Vec2 = boundingRect.cen
    
-  def fill(fillColour: Colour, layer: Int = 0): PolyFill = PolyFill(this, fillColour, layer)
+  def fill(fillColour: Colour, layer: Int = 0): PolyFill = PolyFill(this, fillColour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolyDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
     PolyFillDraw(this, fillColour, lineWidth, lineColour)
 
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolyFillText =
-    PolyFillText(this, fillColour, str, fontSize, textColour, layer)
+    PolyFillText(this, fillColour, str, fontSize, textColour)
 
   def fillActive(fillColour: Colour, evObj: AnyRef, layer: Int = 0): GraphicElems =
-    Arr(PolyFill(this, fillColour, layer), PolyActive(this, evObj, layer))
+    Arr(PolyFill(this, fillColour), PolyActive(this, evObj, layer))
     
     
   def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0): GraphicElems =
