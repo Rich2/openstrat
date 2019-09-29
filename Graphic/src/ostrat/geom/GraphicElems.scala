@@ -12,17 +12,18 @@ trait PaintElem extends Any with GraphicElem
 { def rendElem(cp: pCanv.CanvasPlatform): Unit
 }
 
-case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour) extends
-  PaintElem with CurveLike
+case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends PaintElem with CurveLike
 { def typeStr: String = "LineDraw"
-  override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), lineWidth, colour)
-  def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, lineWidth, dashLength, gapLength, colour)
+  override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)
+  def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, width, dashLength, gapLength, colour)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.lineDraw(this)
 }
 
 object LineDraw
 { def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): LineDraw =
     new LineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour)
+  implicit val persistImplicit: Persist4[Vec2, Vec2, Double, Colour, LineDraw] =
+    Persist4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, apply, Some(Black), Some(1.0))
 }
 
 case class LinesDraw(lineSegs: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintElem
