@@ -36,19 +36,17 @@ class Polygon(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolyFillText =
     PolyFillText(this, fillColour, str, fontSize, textColour)
 
-  def fillActive(fillColour: Colour, evObj: AnyRef, layer: Int = 0): GraphicElems =
-    Arr(PolyFill(this, fillColour), PolyActive(this, evObj, layer))
+  def fillActive(fillColour: Colour, evObj: AnyRef): GraphicElems = Arr(PolyFill(this, fillColour), PolyActive(this, evObj))
     
-    
-  def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0): GraphicElems =
-    Arr(PolyFillDraw(this, fillColour,lineWidth, lineColour, zOrder), PolyActive(this, evObj, zOrder))
+  def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
+    Arr(PolyFillDraw(this, fillColour,lineWidth, lineColour), PolyActive(this, evObj))
     
   def fillActiveDrawText(fillColour: Colour, evObj: AnyRef, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
       zOrder: Int = 0): GraphicElems =
-    Arr(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour, zOrder), PolyActive(this, evObj, zOrder))
+    Arr(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour), PolyActive(this, evObj))
   
-  def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black, layer: Int = 0): PolySubj =
-    PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour, layer)
+  def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
+    PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
   
   def drawSubj(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
     PolySubj.draw(this.polyCentre, this, evObj, lineWidth, lineColour)   
@@ -91,7 +89,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
     res
   }
   
-  def fillSubj(evObj: AnyRef, fillColour: Colour, layer: Int = 0): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour, layer)
+  def fillSubj(evObj: AnyRef, fillColour: Colour): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour)
 
   def distScale(distRatio: Dist): DPolygon = pMap[Dist2, DPolygon](_ * distRatio)
 }

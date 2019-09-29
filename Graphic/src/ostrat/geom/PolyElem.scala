@@ -25,20 +25,20 @@ case class PolyFill(verts: Polygon, colour: Colour) extends PolyElem
 }
 
 /** Immutable Graphic element that defines, draws a Polygon. */
-case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PolyElem
-{ override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour, zOrder)
+case class PolyDraw(verts: Polygon, lineWidth: Double, colour: Colour = Black) extends PolyElem
+{ override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(verts.fTrans(f), lineWidth, colour)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.polyDraw(this)
 }
 
-case class PolyFillDraw(verts: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) extends PolyElem
-{ override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour, zOrder)
-  def noFill: PolyDraw = PolyDraw(verts, lineWidth, lineColour, zOrder)
+case class PolyFillDraw(verts: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem
+{ override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(verts.fTrans(f), fillColour, lineWidth, lineColour)
+  def noFill: PolyDraw = PolyDraw(verts, lineWidth, lineColour)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.polyFillDraw(this)
 }
 
 /** A pointable polygon without visual */
-case class PolyActive(poly: Polygon, evObj: AnyRef, zOrder: Int = 0) extends GraphicElem with PolyActiveTr
-{ override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj, zOrder) }
+case class PolyActive(poly: Polygon, evObj: AnyRef) extends GraphicElem with PolyActiveTr
+{ override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj) }
 
 case class PolyFillText(verts: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem
 {
@@ -48,12 +48,12 @@ case class PolyFillText(verts: Polygon, fillColour: Colour, str: String, fontSiz
   def fillOnly: PolyFill = PolyFill(verts, fillColour)
 }
 
-case class PolyFillDrawText(verts: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black,
-    zOrder: Int = 0) extends PolyElem
+case class PolyFillDrawText(verts: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
+   lineColour: Colour = Black) extends PolyElem
 {
-  override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(verts.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour, zOrder)
-  def drawOnly: PolyDraw = PolyDraw(verts, lineWidth, lineColour, zOrder)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, verts.boundingRect.cen, Black, CenAlign, zOrder)
-  def fillDrawOnly: PolyFillDraw = PolyFillDraw(verts, fillColour, lineWidth, lineColour, zOrder)
+  override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(verts.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
+  def drawOnly: PolyDraw = PolyDraw(verts, lineWidth, lineColour)
+  def textOnly: TextGraphic = TextGraphic(str, fontSize, verts.boundingRect.cen, Black, CenAlign)
+  def fillDrawOnly: PolyFillDraw = PolyFillDraw(verts, fillColour, lineWidth, lineColour)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.polyFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
 }

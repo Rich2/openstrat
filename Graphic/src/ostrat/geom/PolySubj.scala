@@ -3,21 +3,20 @@ package ostrat
 package geom
 import Colour.Black
 
-case class PolySubj(cen: Vec2, poly: Polygon, evObj: AnyRef, elems: Arr[PaintElem], zOrder: Int = 0) extends GraphicSubject with PolyActiveTr
+case class PolySubj(cen: Vec2, poly: Polygon, evObj: AnyRef, elems: Arr[PaintElem]) extends GraphicSubject with PolyActiveTr
 {
-  def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.trans(f), zOrder)   
-  override def addElems(newElems: Arr[PaintElem]): PolySubj = new PolySubj(cen, poly, evObj, elems ++ newElems, zOrder)
-  override def mutObj(newObj: AnyRef): PolySubj = new PolySubj(cen, poly, newObj, elems, zOrder)
+  def fTrans(f: Vec2 => Vec2): PolySubj = new PolySubj(f(cen), poly.fTrans(f), evObj, elems.trans(f))
+  override def addElems(newElems: Arr[PaintElem]): PolySubj = new PolySubj(cen, poly, evObj, elems ++ newElems)
+  override def mutObj(newObj: AnyRef): PolySubj = new PolySubj(cen, poly, newObj, elems)
 }
 
 object PolySubj
 {
-  def fill(cen: Vec2, poly: Polygon, evObj: AnyRef, colour: Colour, zOrder: Int = 0) = new PolySubj(cen, poly, evObj, Arr(poly.fill(colour)),
-      zOrder)
+  def fill(cen: Vec2, poly: Polygon, evObj: AnyRef, colour: Colour) = new PolySubj(cen, poly, evObj, Arr(poly.fill(colour)))
    
   /** Not sure if this is double filling the polygon */
-  def fillDraw(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black, zOrder: Int = 0) =
-    new PolySubj(cen, poly, evObj, Arr(PolyFillDraw(poly, fillColour, lineWidth, lineColour, zOrder)), zOrder)
+  def fillDraw(cen: Vec2, poly: Polygon, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) =
+    new PolySubj(cen, poly, evObj, Arr(PolyFillDraw(poly, fillColour, lineWidth, lineColour)))
    
   def draw(cen: Vec2, poly: Polygon, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black) =
       new PolySubj(cen, poly, evObj, Arr(PolyDraw(poly, lineWidth, lineColour)))
