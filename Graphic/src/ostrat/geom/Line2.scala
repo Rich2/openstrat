@@ -5,8 +5,7 @@ import Colour.Black
 
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
 case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transer with CurveLike
-{ 
-  override def toString: String = Line2.persistImplicit.show(this)
+{ override def toString: String = Line2.persistImplicit.show(this)
   override def _1 = xStart
   override def _2 = yStart
   override def _3 = xEnd
