@@ -4,11 +4,11 @@ package geom
 import Colour.Black
 
 /** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
-class Polygon(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
+class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
 { override def typeStr: String = "Polygon"
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  
-  def eq(obj: Polygon): Boolean = arr.sameElements(obj.arr)
+  def eq(obj: Polygon): Boolean = array.sameElements(obj.array)
 
   /** Creates a bounding rectangle for a collection of 2d points */
   def boundingRect: BoundingRect =
@@ -96,7 +96,7 @@ class Polygon(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
 
 object Polygon extends ProductD2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
-  implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.arr, p2.arr)
+  implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.array, p2.array)
   
   implicit val persistImplicit: ProductD2sBuilder[Vec2, Polygon] = new ProductD2sBuilder[Vec2, Polygon]("Polygon")
   { override def fromArray(value: Array[Double]): Polygon = new Polygon(value)
@@ -104,7 +104,7 @@ object Polygon extends ProductD2sCompanion[Vec2, Polygon]
 }
 
 /* A polyon using distances. */
-class DPolygon(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]
+class DPolygon(val array: Array[Double]) extends AnyVal with ProductD2s[Dist2]
 { override def typeStr: String = "DPolygon"
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }

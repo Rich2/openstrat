@@ -10,10 +10,10 @@ object Eq
 {
   implicit val intImplicit: Eq[Int] = (a1, a2) => a1 == a2
 
-  implicit val doubleImplicit: Eq[Double] = (d1, d2) =>
-  { val precision = 1e12
+  implicit val doubleImplicit: Eq[Double] = (d1, d2) => d1 == d2
+  /*{ val precision = 1e12
   ((d1 - d2).abs/(d1.abs.max(d2.abs).max(1))) * precision  < 1
-  }
+  }*/
 
   implicit val booleanImplicit: Eq[Boolean] = (a1, a2) => a1 == a2
   implicit val stringImplicit: Eq[String] = (a1, a2) => a1 == a2

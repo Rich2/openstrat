@@ -4,13 +4,13 @@ package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transer with Vec2sLike
+class LinePath(val array: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transer with Vec2sLike
 { override def typeStr: String = "LinePath"
   //override def toString: String = LinePath.LinePathPersist.show(this)
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-  @inline def lengthFull: Int = arr.length / 2  
-  @inline def xStart: Double = arr(0)
-  @inline def yStart: Double = arr(1)
+  @inline def lengthFull: Int = array.length / 2
+  @inline def xStart: Double = array(0)
+  @inline def yStart: Double = array(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
  
   def fTrans(f: Vec2 => Vec2): LinePath =  new LinePath(arrTrans(f))
@@ -18,7 +18,7 @@ class LinePath(val arr: Array[Double]) extends AnyVal with ProductD2s[Vec2] with
   def foreachEnd(f: (Double, Double) => Unit): Unit =
   { var count = 1
     while (count < lengthFull)
-    { f(arr(count *2), arr( count * 2 + 1))
+    { f(array(count *2), array( count * 2 + 1))
       count += 1      
     }
   }
@@ -35,16 +35,16 @@ object LinePath extends ProductD2sCompanion[Vec2, LinePath]
     override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
   }
   def apply(pStart: Vec2, pEnds: Vec2 *): LinePath =
-  { val arr = new Array[Double](pEnds.length * 2 + 2)
-    arr(0) = pStart.x
-    arr(1) = pStart.y
+  { val array = new Array[Double](pEnds.length * 2 + 2)
+    array(0) = pStart.x
+    array(1) = pStart.y
     var count = 0
     while (count < pEnds.length)
-    { arr(count * 2 + 2) = pEnds(count).x
-      arr(count * 2 + 3) = pEnds(count).y
+    { array(count * 2 + 2) = pEnds(count).x
+      array(count * 2 + 3) = pEnds(count).y
       count += 1
     }
-    new LinePath(arr)
+    new LinePath(array)
   }
   
 }

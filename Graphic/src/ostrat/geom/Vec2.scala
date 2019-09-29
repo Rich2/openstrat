@@ -94,11 +94,13 @@ final class Vec2 (val x: Double, val y: Double) extends ProdD2
     arcCentre + resultAngle.toVec2 * radius / alphaAngle.cos
   }
   
-  def linesCross(armLength: Double = 5): Seq[Line2] = Seq(Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength))
+  def linesCross(armLength: Double = 5): Seq[Line2] = Seq( new Line2(x - armLength, y , x + armLength, y),
+    new Line2(x, y - armLength, x, y + armLength))
   
   /** Not sure about this method */
   def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LinesDraw =
-    LinesDraw(lineWidth, lineColour, Line2(x - armLength, y, x + armLength, y), Line2(x, y - armLength, x, y + armLength))
+    Line2s.doubles(x - armLength, y, x + armLength, y,
+    x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 }
 
 object Vec2

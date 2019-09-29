@@ -26,38 +26,41 @@ object LineDraw
     Persist4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, apply, Some(Black), Some(1.0))
 }
 
+/** I think its to better to use the mame lineWidth consistently. */
 case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintElem
 { override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.linesDraw(this)
 }
 
 object LinesDraw
-{ def apply(lineWidth: Double, colour: Colour, lines: Line2 *): LinesDraw =  LinesDraw(lines.valueProducts[Line2s], lineWidth, colour)
+{
+  //implicit val persistImplicit: Persist3[Line2s, Double, Colour, LinesDraw] =
+    //Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
-case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black, zOrder: Int = 0) extends PaintElem
+case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black) extends PaintElem
 { def length = vec2s.length - 1
   def xStart = vec2s.xStart
   def yStart = vec2s.yStart
-  override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(vec2s.fTrans(f), lineWidth, colour, zOrder) 
+  override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(vec2s.fTrans(f), lineWidth, colour)
   @inline def foreachEnd(f: (Double, Double) => Unit): Unit = vec2s.foreachEnd(f)
   override def rendElem(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 }
 
-case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double],
-    zOrder: Int) extends PaintElem with CurveLike
+case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour,
+  dashArr: Array[Double]) extends PaintElem with CurveLike
 {
   def typeStr: String = "DashedLineDraw"
   //def str = persist4(xStart, xEnd, lineWidth, colour)
-  override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour, zOrder)
+  override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
 }
 
 object DashedLineDraw
 {
-  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black, zOrder: Int = 0):
-    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, Array[Double](dashLength, gapLength), zOrder)
+  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black):
+    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, Array[Double](dashLength, gapLength))
   
-  def array(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black, zOrder: Int = 0):
-    DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, dashArr, zOrder)
+  def array(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black): DashedLineDraw =
+    new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, dashArr)
 }

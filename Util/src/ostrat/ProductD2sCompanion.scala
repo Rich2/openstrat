@@ -12,8 +12,8 @@ trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
     var count: Int = 0
     
     while (count < length)
-    { res.arr(count * 2) = elems(count)._1         
-      res.arr(count * 2 + 1) = elems(count)._2
+    { res.array(count * 2) = elems(count)._1         
+      res.array(count * 2 + 1) = elems(count)._2
       count += 1
     }
     res
@@ -26,7 +26,7 @@ trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
     var count: Int = 0
     
     while (count < arrLen)
-    { res.arr(count) = elems(count)
+    { res.array(count) = elems(count)
        count += 1         
     }
     res
@@ -40,9 +40,9 @@ trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
     var rem = list
     
     while (count < arrLen)
-    { res.arr(count) = rem.head._1
+    { res.array(count) = rem.head._1
       count += 1
-      res.arr(count) = rem.head._2
+      res.array(count) = rem.head._2
       count += 1
       rem = rem.tail
     }

@@ -4,12 +4,15 @@ package geom
 import Colour.Black
 
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
-case class Line2(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends ProdD4 with Transer with CurveLike
+class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdD4 with Transer with CurveLike
 { override def toString: String = Line2.persistImplicit.show(this)
   override def _1 = xStart
   override def _2 = yStart
   override def _3 = xEnd
   override def _4 = yEnd
+  override def canEqual(that: Any): Boolean = that match
+  { case op: Line2 => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd
+  }
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd)
   def fTrans(f: Vec2 => Vec2): Line2 = Line2(f(pStart), f(pEnd))
   def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)

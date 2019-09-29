@@ -54,7 +54,7 @@ object Dist2
   implicit val PersistImplicit: Persist[Dist2] = new PersistD2[Dist2]("Dist2", "x", _.xMetres, "y", _.yMetres, new Dist2(_, _))
 }
 
-class Dist2s(val arr: Array[Double]) extends AnyVal with ProductD2s[Dist2]
+class Dist2s(val array: Array[Double]) extends AnyVal with ProductD2s[Dist2]
 { override def typeStr: String = "Dist2s"
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }

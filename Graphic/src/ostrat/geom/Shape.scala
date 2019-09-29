@@ -6,7 +6,7 @@ import Colour.Black
 /** Shape is an Array[Double] based collection for a sequence of CurveSegs, similar to a Polygon which is an Array[Double based collection of just
  *   LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg positive infinity for
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
-class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] with Transer
+class Shape(val array: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] with Transer
 { override def typeStr = "Shape"
 
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg =
@@ -15,20 +15,20 @@ class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] wit
   def fTrans(f: Vec2 => Vec2): Shape =
   { val newArr = new Array[Double](length * 7)
     def setMiddle(offset: Int): Unit =
-    { val newMiddle: Vec2 = f(arr(offset + 3) vv arr(offset + 4))
+    { val newMiddle: Vec2 = f(array(offset + 3) vv array(offset + 4))
       newArr(offset + 3) = newMiddle.x
       newArr(offset + 4) = newMiddle.y
     }
       
     def setEnd(offset: Int): Unit =
-    { val newEnd: Vec2 = f(arr(offset + 5) vv arr(offset + 6))
+    { val newEnd: Vec2 = f(array(offset + 5) vv array(offset + 6))
       newArr(offset + 5) = newEnd.x
       newArr(offset + 6) = newEnd.y
     }      
       
     (0 until length).foreach{index =>
       val offset = index * 7
-      arr(offset) match
+      array(offset) match
       { 
         case 10 =>
         { newArr(offset) = 10
@@ -43,7 +43,7 @@ class Shape(val arr: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] wit
         
         case 12 =>
         { newArr(offset) = 12
-          val newControl1: Vec2 = f(arr(offset + 1) vv arr(offset + 2)) 
+          val newControl1: Vec2 = f(array(offset + 1) vv array(offset + 2)) 
           newArr(offset + 1) = newControl1.x
           newArr(offset + 2) = newControl1.y
           setMiddle(offset)

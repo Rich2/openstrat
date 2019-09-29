@@ -4,11 +4,11 @@ package geom
 
 trait Vec2sLike extends Any with ProductD2s[Vec2]
 { def arrTrans(f: Vec2 => Vec2): Array[Double] =
-  { val newArr = new Array[Double](arr.length)
+  { val newArr = new Array[Double](array.length)
     var count = 0
-    while (count < arr.length)
+    while (count < array.length)
     {
-      val newVec = f(arr(count) vv arr(count + 1))
+      val newVec = f(array(count) vv array(count + 1))
       newArr(count) = newVec.x      
       newArr(count + 1) = newVec.y
       count += 2

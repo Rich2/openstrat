@@ -3,22 +3,22 @@ package geom
 
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
  *  LinePath class should not entail a runtime cost. */
-class Vec2s(val arr: Array[Double]) extends AnyVal with Transer with Vec2sLike
+class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
 { override def typeStr: String = "Vecs2"
   //override def toString: String = Vec2s.Vec2sPersist.show(this)
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-  @inline def lengthFull: Int = arr.length / 2
-  @inline def xStart: Double = arr(0)
-  @inline def yStart: Double = arr(1)
+  @inline def lengthFull: Int = array.length / 2
+  @inline def xStart: Double = array(0)
+  @inline def yStart: Double = array(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
-  def toPolygon: Polygon = new Polygon(arr)
+  def toPolygon: Polygon = new Polygon(array)
 
   def fTrans(f: Vec2 => Vec2): Vec2s =  new Vec2s(arrTrans(f))
 
   def foreachEnd(f: (Double, Double) => Unit): Unit =
   { var count = 1
     while (count < lengthFull)
-    { f(arr(count *2), arr( count * 2 + 1))
+    { f(array(count *2), array( count * 2 + 1))
       count += 1
     }
   }
