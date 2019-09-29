@@ -3,19 +3,19 @@ package ostrat
 package pGrid
 
 /** An array[Int] based collection for Cood. */
-class Coods(val arr: Array[Int]) extends AnyVal with ProductI2s[Cood] 
+class Coods(val array: Array[Int]) extends AnyVal with ProductI2s[Cood]
 { override def typeStr: String = "Coods"
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
    
   def filter(f: Cood => Boolean): Coods =
-  { val tempArr = new Array[Int](arr.length)
+  { val tempArr = new Array[Int](array.length)
     var count = 0
     var lengthCounter = 0
     while (count < length)
     {
       if (f(this.apply(count)))
-      { tempArr(lengthCounter * 2) = arr(count * 2)
-        tempArr(lengthCounter * 2 + 1) = arr(count * 2 + 1)
+      { tempArr(lengthCounter * 2) = array(count * 2)
+        tempArr(lengthCounter * 2 + 1) = array(count * 2 + 1)
         lengthCounter += 1
       }
       count += 1

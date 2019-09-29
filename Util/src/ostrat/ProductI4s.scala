@@ -5,18 +5,18 @@ trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
 {
   override def productSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
-  def apply(index: Int): A = newElem(arr(4 * index), arr(4 * index + 1), arr(4 * index + 2), arr(4 * index + 3))
+  def apply(index: Int): A = newElem(array(4 * index), array(4 * index + 1), array(4 * index + 2), array(4 * index + 3))
   def setElem(index: Int, elem: A): Unit =
-  { arr(4 * index) = elem._1;
-    arr(4 * index + 1) = elem._2
-    arr(4 * index + 2) = elem._3
-    arr(4 * index + 3) = elem._4
+  { array(4 * index) = elem._1;
+    array(4 * index + 1) = elem._2
+    array(4 * index + 2) = elem._3
+    array(4 * index + 3) = elem._4
   }
   
-  def head1: Int = arr(0)
-  def head2: Int = arr(1)
-  def head3: Int = arr(2)
-  def head4: Int = arr(3)
+  def head1: Int = array(0)
+  def head2: Int = array(1)
+  def head3: Int = array(2)
+  def head4: Int = array(3)
   def toArrs: Arr[Arr[Int]] = map(el => Arr(el._1, el._2, el._3, el._4))
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
@@ -30,13 +30,13 @@ abstract class ProductI4sCompanion[A <: ProdI4, M <: ProductI4s[A]]
     var count: Int = 0
     while (count < arrLen)
     {
-      res.arr(count) = elems(count / 2)._1
+      res.array(count) = elems(count / 2)._1
       count += 1
-      res.arr(count) = elems(count / 2)._2
+      res.array(count) = elems(count / 2)._2
       count += 1
-      res.arr(count) = elems(count / 2)._3
+      res.array(count) = elems(count / 2)._3
       count += 1
-      res.arr(count) = elems(count / 2)._4
+      res.array(count) = elems(count / 2)._4
       count += 1      
     }
     res

@@ -1,8 +1,8 @@
 package ostrat
 
 trait ProductInts[A] extends Any with ProductVals[A]
-{ def arr: Array[Int]
-  def arrLen = arr.length
+{ def array: Array[Int]
+  def arrLen = array.length
   def toArrs: Arr[Arr[Int]]
   def foreachArr(f: Arr[Int] => Unit): Unit
 
