@@ -34,16 +34,16 @@ case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) e
 
 object LinesDraw
 {
-  //implicit val persistImplicit: Persist3[Line2s, Double, Colour, LinesDraw] =
-    //Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
+  implicit val persistImplicit: Persist3[Line2s, Double, Colour, LinesDraw] =
+     Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
-case class LinePathDraw(vec2s: LinePath, lineWidth: Double, colour: Colour = Black) extends PaintElem
-{ def length = vec2s.length - 1
-  def xStart = vec2s.xStart
-  def yStart = vec2s.yStart
-  override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(vec2s.fTrans(f), lineWidth, colour)
-  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = vec2s.foreachEnd(f)
+case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends PaintElem
+{ def length = path.length - 1
+  def xStart = path.xStart
+  def yStart = path.yStart
+  override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(path.fTrans(f), lineWidth, colour)
+  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = path.foreachEnd(f)
   override def rendElem(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 }
 

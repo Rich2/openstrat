@@ -3,8 +3,7 @@ package ostrat
 import pParse._
 
 trait ShowCompound[R] extends Show[R]
-{
-  final override def show(obj: R): String = typeStr + showSemi(obj).enParenth
+{ final override def show(obj: R): String = typeStr + showSemi(obj).enParenth
   @inline override def showTyped(obj: R): String = show(obj)
 }
 

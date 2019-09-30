@@ -58,7 +58,7 @@ trait CanvasPlatform extends RectGeom
 //  def polyDrawText(pts: Polygon, lineWidth: Double, borderColour: Colour, str: String, fontSize: Int, fontColour: Colour = Black): Unit =
 //    textGraphic(str, fontSize, pts.polyCentre, fontColour)
    
-  def linePathDraw(pod: LinePathDraw): Unit = ife(pod.vec2s.length >= 2, pLinePathDraw(pod), deb(pod.vec2s.length.toString))
+  def linePathDraw(pod: LinePathDraw): Unit = { debvar(pod.path.length); oif(pod.path.length >= 1, pLinePathDraw(pod)) }
   //final def linePathDraw(lineWidth: Double, colour: Colour, pStart: Vec2, pEnds: Vec2 *): Unit =
     //vec2sDraw(LinePathDraw(LinePath(pStart, pEnds :_*), lineWidth, colour))
   def pLinePathDraw(pod: LinePathDraw): Unit
