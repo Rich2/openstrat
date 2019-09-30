@@ -40,9 +40,9 @@ trait PlatformsModule extends ScalaModule with CommonStd
 
 object Util extends PlatformsModule
 {
-  object UtilMacrosJvm extends CommonStd with PublishModule
+  object MacrosJvm extends CommonStd with PublishModule
   { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-    def sources = T.sources(Util.millSourcePath / 'srcMacros)
+    def sources = T.sources(Util.millSourcePath / 'Macros / 'src)
     def publishVersion = "0.0.5"
     def pomSettings = PomSettings(
       description = "openstrat",
@@ -56,13 +56,13 @@ object Util extends PlatformsModule
     )
   }
 
-  object UtilMacrosJs extends CommonStdJs
+  object MacrosJs extends CommonStdJs
 
-  def moduleDeps = Seq(UtilMacrosJvm)
+  def moduleDeps = Seq(MacrosJvm)
   object test extends InnerTests
   
   object js extends InnerJs
-  { def moduleDeps = Seq(UtilMacrosJs)
+  { def moduleDeps = Seq(MacrosJs)
   }
 
   object Nat extends InnerNative  
