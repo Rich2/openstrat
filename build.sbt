@@ -12,13 +12,13 @@ def commonSettings = List(
 )
 
 def stdSettings = commonSettings ::: List(
-  scalaSource := baseDirectory.value / "src",
+  scalaSource := (baseDirectory).value / "src",
+  Compile/scalaSource := baseDirectory.value / "src",
   Test/scalaSource := baseDirectory.value / "test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-lazy val UtilMacros = (project in file("Util/Macros")).settings(commonSettings).settings(
-  scalaSource := (baseDirectory).value / "src",
+lazy val UtilMacros = (project in file("Util/Macros")).settings(stdSettings).settings(  
   Compile/unmanagedSourceDirectories := List(scalaSource.value),	
 )
 
@@ -44,7 +44,7 @@ lazy val Learn = project.dependsOn(Strat).settings(stdSettings).settings(
 )
 
 lazy val root = (project in file(".")).dependsOn(Learn).settings(commonSettings).settings(
-  scalaSource := baseDirectory.value / "Dev/src",
+  Compile/scalaSource := baseDirectory.value / "Dev/src",
   Test/scalaSource := baseDirectory.value / "Dev/test/src",
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
   Compile/unmanagedResourceDirectories := List(baseDirectory.value / "Dev/mine"),
@@ -58,7 +58,7 @@ def jsProj(name: String) = Project("Js" + name, file("Dev/SbtDir/Js" + name)).en
 )
 
 lazy val JsUtilMacros = jsProj("UtilMacros").settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
 )
 
