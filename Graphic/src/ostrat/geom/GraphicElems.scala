@@ -12,7 +12,7 @@ trait PaintElem extends Any with GraphicElem
 { def rendElem(cp: CanvasPlatform): Unit
 }
 
-case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends PaintElem with CurveLike
+case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikePaintElem
 { def typeStr: String = "LineDraw"
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, width, dashLength, gapLength, colour)
@@ -48,10 +48,9 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
 }
 
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour,
-  dashArr: Array[Double]) extends PaintElem with CurveLike
+  dashArr: Array[Double]) extends CurveLikePaintElem
 {
   def typeStr: String = "DashedLineDraw"
-  //def str = persist4(xStart, xEnd, lineWidth, colour)
   override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
 }
@@ -60,6 +59,10 @@ object DashedLineDraw
 {
   def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashLength: Double, gapLength: Double, colour: Colour = Black):
     DashedLineDraw = new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, Array[Double](dashLength, gapLength))
+
+  /*implicit val persistImplicit: Persist6[Vec2, Vec2, Double, Double, Double, Colour, DashedLineDraw] =
+    Persist6("DashedLineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "lineWidth", _.lineWidth, "dashLength", _.dashLength, "gapLength", _.gapLength,
+    "colour", _.colour, apply)*/
   
   def array(pStart: Vec2, pEnd: Vec2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black): DashedLineDraw =
     new DashedLineDraw(pStart.x, pStart.y, pEnd.x, pEnd.y, lineWidth, colour, dashArr)

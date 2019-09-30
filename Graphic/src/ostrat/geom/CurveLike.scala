@@ -11,3 +11,5 @@ trait CurveLike extends CurveSegLike //with Stringer
   /** Start point often called p1 */
   final def pStart: Vec2 = Vec2(xStart, yStart)
 }
+
+trait CurveLikePaintElem extends CurveLike with PaintElem
