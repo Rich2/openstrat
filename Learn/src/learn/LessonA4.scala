@@ -17,7 +17,7 @@ case class LessonA4(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")
     LineDraw(0 vv 50, 150 vv 200, 3),
     LineDraw(50 vv -50, 200 vv -50, 2, Red),//Note if you don't include a Colour you get Black
 
-    LinePathDraw(LinePath(0 vv -50, 25 vv -75, 50 vv -75), 2, Orange),
+    LinePath(0 vv -50, 50 vv -100, -25 vv -75, 200 vv -60).draw(2, Orange),
    
     ArcDraw(-200 vv 0, 0 vv 0, 0 vv 200),
     ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),

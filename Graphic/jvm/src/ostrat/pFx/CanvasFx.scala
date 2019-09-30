@@ -57,10 +57,10 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
-    pod.foreachEnd(gc.moveTo)
+    pod.foreachEnd(gc.lineTo)
     gc.setStroke(toFxColor(pod.colour))
     gc.setLineWidth(pod.lineWidth)
-    gc.stroke()//Think this is right but not sure.    
+    gc.stroke()
   }
    
   override protected[this] def tlLineDraw(ld: LineDraw): Unit =
