@@ -38,10 +38,16 @@ object PolyDraw
 { implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolyDraw] = Persist3("PolyFill", "poly", _.poly, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
+/** Immutable Graphic element that defines, fills and draws a Polygon. */
 case class PolyFillDraw(poly: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(poly.fTrans(f), fillColour, lineWidth, lineColour)
   def noFill: PolyDraw = PolyDraw(poly, lineWidth, lineColour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.polyFillDraw(this)
+}
+
+object PolyFillDraw
+{ implicit val persistImplicit: Persist4[Polygon, Colour, Double, Colour, PolyFillDraw] =
+    Persist4("PolyFill", "poly", _.poly, "fillColour", _.fillColour, "lineWidth", _.lineWidth, "lineColour", _.lineColour, apply)
 }
 
 /** A pointable polygon without visual */
@@ -49,8 +55,7 @@ case class PolyActive(poly: Polygon, evObj: AnyRef) extends GraphicElem with Pol
 { override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj) }
 
 case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem
-{
-  override def fTrans(f: Vec2 => Vec2) = PolyFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
+{ override def fTrans(f: Vec2 => Vec2) = PolyFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.polyFill(fillOnly); cp.textGraphic(textOnly) }
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, textColour, CenAlign)
   def fillOnly: PolyFill = PolyFill(poly, fillColour)
@@ -64,4 +69,10 @@ case class PolyFillDrawText(poly: Polygon, fillColour: Colour, str: String, font
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolyFillDraw = PolyFillDraw(poly, fillColour, lineWidth, lineColour)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.polyFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
+}
+
+object PolyFillDrawText
+{ implicit val persistImplicit: Persist6[Polygon, Colour, String, Int, Double, Colour, PolyFillDrawText] =
+  Persist6("PolyFill", "poly", _.poly, "fillColour", _.fillColour, "str", _.str, "fontSize", _.fontSize, "lineWidth", _.lineWidth,
+    "lineColour", _.lineColour, apply)
 }

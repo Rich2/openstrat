@@ -41,6 +41,15 @@ trait UnShow[+T]
             g5 <- ev5.fromExpr(c5.expr)
           } yield f(g1, g2, g3, g4, g5)
   }
+
+  def fromClauses6[A1, A2, A3, A4, A5, A6, B](f: (A1, A2, A3, A4, A5, A6) => B, clauses: Arr[Clause])(implicit
+  ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4], ev5: Persist[A5], ev6: Persist[A6]): EMon[B] = clauses match
+  {
+    case Seq(c1, c2, c3, c4, c5, c6) =>
+      for { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr); g3 <- ev3.fromExpr(c3.expr); g4 <- ev4.fromExpr(c4.expr);
+            g5 <- ev5.fromExpr(c5.expr); g6 <- ev6.fromExpr(c6.expr)
+          } yield f(g1, g2, g3, g4, g5, g6)
+  }
   
   def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
   
