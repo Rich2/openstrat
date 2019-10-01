@@ -55,12 +55,12 @@ object TerrainNone extends WTile
 class Land(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs, val sideUR: Option[Unit] = None, val sideRt: Option[Unit] = None,
             val sideDR: Option[Unit]) extends WTile with HSides[Unit]
 {
-  //override def toString: String = str
+  override def toString: String = "Land" + str.enParenth
 
   override def str = terr match
   {
-    case Plains => biome.toString -- str
-    case t => t.toString
+    case Plains => biome.toString //-- str
+    case t => t.str
   }
 
   def colour: Colour = terr match
@@ -101,11 +101,12 @@ case object Mountains extends Terrain
 trait Biome
 { def colour: Colour
   def str: String
+  override def toString: String = str
 }
 
 case object OpenTerrain extends Biome
 { def colour: Colour = LightGreen
-  def str = "open ground"
+  def str = "Open Ground"
 }
 
 case object Forrest extends Biome
