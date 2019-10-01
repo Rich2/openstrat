@@ -63,6 +63,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
         repaintMap  
       }
 
+      case (RightButton, Arr(army : Army), as) => debvar(as)
       case _ => 
     }
   scale = 1.08.km
