@@ -1,7 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** This pSimp covers hex and Square tile grids. The grid and grid-gui hierarchies currently lack clarity. */
+/** This package works with hexagonal and Square tile grids. The Tile objects themsleves will not in the general case the contain grid coordinates, although
+ * it may be necesary to iclude this data for complex Tile values interacting with their wider environment. Its fundamental components are the grid data itself.
+ * This is just a linear array of tile data. The grid and grid-gui hierarchies currently contain a mix of new and old systems. */
 package object pGrid
 {
   val Cood00 = Cood(0, 0)
