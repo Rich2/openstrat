@@ -14,3 +14,4 @@ trait SqSqArr[T] extends Any with GridArr[T]
   def size: Int
   override def getInd(x: Int, y: Int): Int = (y - 1) / 2 * size + x / 2
 }
+

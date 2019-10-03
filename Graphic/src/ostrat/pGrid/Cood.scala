@@ -40,9 +40,6 @@ object Cood
   implicit object CoodPersist extends PersistInt2[Cood]("Cood", "x", _.x, "y", _.y, apply)
 }
 
-trait GridBuilder
-{
-   val xRatio: Double
-   val xRadius: Double
-   val yRadius: Double
-}
+
+
+
