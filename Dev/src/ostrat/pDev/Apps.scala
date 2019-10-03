@@ -25,6 +25,8 @@ object Apps
       ("12", (new pGames.pSimp.UnusGui(_, pGames.pSimp.Simp1()), "Simplest Game")),
       ("13", (pGames.pNew.TGui(_), "New Grid")),
       ("14", (new pGames.pReactor.ReactorGUI(_), "reactor")),
+      ("15", (new pGames.pChess.ChessGui(_), "Chess")),
+
       
       ("Z0", (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
       ("Z1", (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
@@ -63,7 +65,6 @@ object Apps
       ("E1", (learn.LessonE1(_), "ScalaFx Demonstration Games 1")), //Building turn based games.
       ("E2", (learn.LessonE2(_), "ScalaFx Demonstration Games 2")),
 
-      ("G1", (learn.LessonG1(_), "ScalaFx Demonstration Grid Canvas 1")),
   )
   
   /** Change appNum to change the loaded application. */
