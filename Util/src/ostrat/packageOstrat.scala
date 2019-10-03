@@ -151,15 +151,15 @@ package object ostrat
     Arr[A] = ijToMap[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
   def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
-  { val iLen = (iTo - iFrom + 1).min(0) / iStep
-    val jLen = (jTo - jFrom + 1).min(0) / jStep
+  { val iLen = (iTo - iFrom + 1).max(0) / iStep
+    val jLen = (jTo - jFrom + 1).max(0) / jStep
     val arrLen = iLen * jLen
     val array: Array[A] = new Array[A](arrLen)
-    var i: Int = iFrom
+    var i: Int = iFrom - 1
 
-    while(i <= iTo)
-    { var j: Int = jFrom
-      while(j <= jTo)
+    while(i < iTo)
+    { var j: Int = jFrom - 1
+      while(j < jTo)
       { array(i * jLen + j) = f(i, j)
         j += 1
       }

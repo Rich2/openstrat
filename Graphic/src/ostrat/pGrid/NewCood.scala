@@ -1,5 +1,6 @@
 package ostrat
 package pGrid
+import geom. _
 
 trait NCood
 { type CoodT <: NCood
@@ -34,5 +35,16 @@ final case class SSCood(x: Int, y: Int) extends NCood
   def fEvenSum[A](ifEven: A, ifOdd: A): A = ife(evenSum, ifEven, ifOdd)
 }
 
-
 trait FSSCood[R] extends Function1[SSCood, R]
+{
+  def xy(x: Int, y: Int): R = apply(SSCood(x, y))
+}
+
+case class SSGridRange(xMax: Int, yMax: Int)
+{
+  def fDisp(f: FSSCood[Colour], scale: Double): Arr[PaintElem] = ijToMap(1, xMax)(1, yMax) { (x, y) =>
+    val c: Colour = f.xy(x, y)
+    Square.fillXY(scale, c, x * scale, y * scale)
+
+  }
+}
