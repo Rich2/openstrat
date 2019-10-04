@@ -4,12 +4,15 @@ package geom
 import reflect.ClassTag
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2):
  *  T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-trait Transer extends Any
-{ def fTrans(f: Vec2 => Vec2): Transer
+sealed trait Transer extends Any
+{ def fTrans(f: Vec2 => Vec2): Scaled
 }
 
+/** A Geometrical object or shape that has been scaled. */
+trait Scaled extends Any with Transer
+
 /** A Geometrical object or shape that has not been scaled. That has its iconic scale. */
-trait NoScale extends Transer
+trait UnScaled extends Any with Transer
 
 /*case class BadTranser(i: Int = 0) extends Transer
 { def fTrans(f: Vec2 => Vec2): GoodTranser = GoodTranser(i)

@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** The base trait for CurveSeg and Curve and their associated GraphicElems */
-trait CurveSegLike
+trait CurveSegLike extends Scaled
 { /** the x component of the end point */
   def xEnd: Double
   /** the y component of the end point */
@@ -15,7 +15,7 @@ trait CurveSegLike
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the previous segment. There is
   * no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory object apply methods. */
 case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends
-ProdD7 with Transer with CurveSegLike
+ProdD7 with CurveSegLike
 { 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
   @inline override def _1 = iMatch

@@ -12,11 +12,15 @@ trait BezierLike extends CurveLike
   final def pC2: Vec2 = Vec2(xC2, yC2)   
 }
 
-/** Cubic bezier curve */
+/** Cubic bezier curve. */
 class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
       val xEnd: Double, val yEnd: Double) extends BezierLike
 { def typeStr: String = "Bezier"
-  //def str = persist4(pStart, pC1, pC2, pEnd)
+  def fTrans(f: Vec2 => Vec2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))
+}
+
+object Bezier
+{ def apply(pStart: Vec2, pC1: Vec2, pC2: Vec2, pEnd: Vec2): Bezier = new Bezier(pStart.x, pStart.y, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
 }
       
 /** Functional class for Drawing a cubic Bezier curve. */

@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** So there is a lack of clarity over whether the segs are relative to the cen, and if the cen is needed at all. */
-case class ShapeCentred(cen: Vec2, segs: Shape) extends Transer
+case class ShapeCentred(cen: Vec2, segs: Shape) extends Scaled
 {
    /** This may need clarification */
    override def fTrans(f: Vec2 => Vec2): ShapeCentred = ShapeCentred(f(cen), segs)//.fTrans(f))
