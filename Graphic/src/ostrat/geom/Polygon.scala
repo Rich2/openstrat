@@ -27,7 +27,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def boundingHeight: Double = boundingRect.height   
   def polyCentre: Vec2 = boundingRect.cen
    
-  def fill(fillColour: Colour, layer: Int = 0): PolyFill = PolyFill(this, fillColour)
+  def fill(fillColour: Colour): PolyFill = PolyFill(this, fillColour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolyDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
@@ -103,7 +103,7 @@ object Polygon extends ProductD2sCompanion[Vec2, Polygon]
   }
 }
 
-/* A polyon using distances. */
+/* A polygon using distances. */
 class DPolygon(val array: Array[Double]) extends AnyVal with ProductD2s[Dist2]
 { override def typeStr: String = "DPolygon"
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
@@ -113,6 +113,3 @@ class DPolygon(val array: Array[Double]) extends AnyVal with ProductD2s[Dist2]
 object DPolygon extends ProductD2sCompanion[Dist2, DPolygon]
 { implicit val factory: Int => DPolygon = i => new DPolygon(new Array[Double](i * 2))
 }
-
-
-

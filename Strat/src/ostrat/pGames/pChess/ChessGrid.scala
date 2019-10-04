@@ -2,7 +2,7 @@ package ostrat
 package pGames.pChess
 import geom._, pGrid._, Colour._
 
-sealed trait Piece extends NoScalePolygon
+sealed trait Piece extends UnScaledPolygon
 {
   def polygon: Polygon = Square.polygon
 }

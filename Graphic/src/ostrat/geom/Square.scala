@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-/** Factory object for squares. There is no companon Square class. */
-object Square extends NoScalePolygon
+/** Factory object for squares. There is no companion Square class. */
+object Square extends UnScaledPolygon
 {
   override val polygon: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
   def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = polygon.fTrans(_ * width + cen)
@@ -14,7 +14,7 @@ object Square extends NoScalePolygon
       xCen - width/2   vv yCen - width / 2)
    
   /**Needs Changing possibly removing. */
-  def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z, layer: Int = 0): PolyFill = apply(width, cen).fill(colour, layer)
+  def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z): PolyFill = apply(width, cen).fill(colour)
   /**Needs Changing possibly removing. */
   def fillXY(width: Double, colour: Colour, xCen: Double, yCen: Double): PolyFill = apply(width, xCen vv yCen).fill(colour)
    
