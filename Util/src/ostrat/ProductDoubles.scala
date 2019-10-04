@@ -30,10 +30,9 @@ trait ProductDoubles[A] extends Any with ProductVals[A]
 }
 
 abstract class ProductDsBuilder[A, M <: ProductDoubles[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr) with Eq[M]
-{
-  type VT = Double
+{ type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
   //implicit val eqImplicit: Eq[M] = (m1, m2) => m1.array.eq(m2.array)
-  override def eqv(m1: M, m2: M): Boolean = ???
+  override def eqv(m1: M, m2: M): Boolean = m1.array equ m2.array
 }

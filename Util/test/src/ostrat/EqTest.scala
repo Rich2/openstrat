@@ -13,8 +13,6 @@ object EqTest extends TestSuite
       assert(List(4, 5) equ List(4, 5))
       assert(List(6, -10, 2) equ List(6, -10, 2))
       assert(Arr(3,4,5) notEqu( Arr(3,4,5,6)))
-
     }
-
   }
 }
