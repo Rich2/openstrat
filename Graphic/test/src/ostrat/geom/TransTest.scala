@@ -12,9 +12,11 @@ object TransTest extends TestSuite
 
     't1
     { r1 ==> r1
-      assert(r1.scale(3) eq (r2))
-
-     // assert(List(r1, r2).scale(2) eq List(r3, r4))
+      assert(r1.scale(3) equ (r2))
+      assert(r1.scale(2) equ r3)
+      assert(r2.scale(2) equ r4)
+      assert(List(6, -10, 2) equ List(6, -10, 2))
+      assert(List(r1, r2).scale(2) equ List(r3, r4))
     }
 
   }

@@ -12,6 +12,11 @@ trait PaintElem extends Any with GraphicElem
 { def rendElem(cp: CanvasPlatform): Unit
 }
 
+trait UnFilled
+{
+
+}
+
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikePaintElem
 { def typeStr: String = "LineDraw"
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)

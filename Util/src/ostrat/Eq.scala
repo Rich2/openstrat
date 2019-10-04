@@ -28,7 +28,7 @@ object Eq
   implicit def listImplicit[A](implicit ev: Eq[A]): Eq[List[A]] = (l1, l2) =>
   { def loop(rem1: List[A], rem2: List[A]): Boolean = (rem1, rem2) match
     { case (Nil, Nil) => true
-      case (h1 :: t1, h2 :: t2) if ev.eqv(h1, h2) => loop(t1, t2)
+      case (::(h1, t1) , ::(h2, t2)) if ev.eqv(h1, h2) => loop(t1, t2)
       case _ => false
     }
     loop(l1, l2)
