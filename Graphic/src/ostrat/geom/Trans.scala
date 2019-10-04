@@ -10,17 +10,16 @@ sealed trait Transer extends Any
 
 /** A Geometrical object or shape that has been scaled. */
 trait Scaled extends Any with Transer
+{
+  def fTrans(f: Vec2 => Vec2): Scaled
+}
 
 /** A Geometrical object or shape that has not been scaled. That has its iconic scale. */
 trait UnScaled extends Any with Transer
-
-/*case class BadTranser(i: Int = 0) extends Transer
-{ def fTrans(f: Vec2 => Vec2): GoodTranser = GoodTranser(i)
+{ type ScaledT <: Scaled
+  def scaled: ScaledT
+  def fTrans(f: Vec2 => Vec2): ScaledT
 }
-
-case class GoodTranser(i: Int = 0) extends Transer
-{ def fTrans(f: Vec2 => Vec2): GoodTranser = GoodTranser(i)
-}*/
 
 /** The typeclass trait for transforming an object in 2d geometry. */
 trait Trans[T]
@@ -30,8 +29,11 @@ trait Trans[T]
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
 object Trans
 {
-  implicit def TransFromTranserImplicit[T <: Transer]: Trans[T] =
+  implicit def fromScaledImplicit[T <: Scaled]: Trans[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
+
+  implicit def fromUnScaledImplicit[T <: UnScaled]: Trans[T#ScaledT] =
+    (obj, f) => obj.fTrans(f).asInstanceOf[T#ScaledT]
 
   implicit def ArrTrans[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Arr[A]] = (obj, f) => obj.map(el => ev.trans(el, f))
   
