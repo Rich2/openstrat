@@ -23,7 +23,9 @@ object NoScaleShape
    NoScaleShape = NoScaleShape(referenceVec, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 
-trait NoScalePolygon
+/** This is not a Polygon but should trans to Polygon. */
+trait NoScalePolygon extends Transer
 { def polygon: Polygon
+  def fTrans(f: Vec2 => Vec2): Polygon = polygon.fTrans(f)
   def dist(width: Dist, cen: Dist2 = Dist2Z): DPolygon  = polygon.distScale(width)
 }

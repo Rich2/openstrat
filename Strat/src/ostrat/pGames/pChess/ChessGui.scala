@@ -20,7 +20,7 @@ case class ChessGui(canv: CanvasPlatform) extends CanvasSimple("Chess")
   // deb(grid.getTile(1, 1).toString)
   val margin = 15
   val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
-  val s1 = "Drafts".graphic(36, colour = Black)
+  val s1 = Arr(Queen, Rook)
   val p = Queen.polygon.scale(200)
   
   val stuff = Arr(p.fill(Black))//grid.squares(tileWidth)// ::: grid.

@@ -6,7 +6,6 @@ package geom
 object Square extends NoScalePolygon
 {
   override val polygon: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
-  def fTrans(f: Vec2 => Vec2): Polygon = polygon.fTrans(f)
   def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = polygon.fTrans(_ * width + cen)
   def xy(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
       xCen - width / 2 vv yCen + width / 2,
