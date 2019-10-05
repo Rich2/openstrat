@@ -12,6 +12,9 @@ object TransDister
 {
   implicit def TransDistFromTransDisterImplicit[T <: TransDister]: TransDist[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
+
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransDist[A]): TransDist[F[A]] =
+    (obj, f) => evF.map(obj)(el => evA.trans(el, f))
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */

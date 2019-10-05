@@ -6,6 +6,14 @@ trait Functor[F[_]]
 
 object Functor
 {
+  implicit def arrImplicit: Functor[Arr] = new Functor[Arr] { override def map[A, B](fa: Arr[A])(f: A => B): Arr[B] = fa.map(f) }
+
+  //implicit def arrayImplicit: Functor[Array] = new Functor[Array] { override def map[A, B](fa: Array[A])(f: A => B): Array[B] = fa.map(f) }
+
+  implicit def listImplicit: Functor[List] = new Functor[List] { override def map[A, B](fa: List[A])(f: A => B): List[B] = fa.map(f) }
+
+  implicit def vectorImplicit: Functor[Vector] = new Functor[Vector] { override def map[A, B](fa: Vector[A])(f: A => B): Vector[B] = fa.map(f) }
+
   implicit val optionImplicit: Functor[Option] = new Functor[Option]
   { def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa match
     { case None => None
@@ -16,4 +24,6 @@ object Functor
   implicit val someImplicit: Functor[Some] = new Functor[Some] {
     override def map[A, B](fa: Some[A])(f: A => B): Some[B] = Some(f(fa.value))
   }
+
+  //implicit def eitherImplicit: Functor[Either] = new Functor[Either] { override def map[A, B](fa: Either[A])(f: A => B): Either[B] = fa.map(f) }
 }
