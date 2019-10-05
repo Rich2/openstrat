@@ -39,7 +39,4 @@ object Trans
 
   implicit def ArrayTrans[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
-
-  /*implicit def EitherTrans[A, B](implicit ev: Trans[B]): Trans[Either[A, B]] =
-    (obj, f) => obj.map(el => ev.trans(el, f))*/
 }
