@@ -39,6 +39,13 @@ trait ProductVals[A] extends Any
     acc
   }
 
+  /** This will throw on an empty collection. */
+  def foldTailLeft[B](initial: B)(f: (B, A) => B) =
+  { var acc: B = initial
+    foreachTail(a => acc = f(acc, a))
+    acc
+  }
+
   def foldHeadTail[B](initial: B)(fHead: (B, A) => B)(fTail: (B, A) => B) =
   { var acc: B = initial
     var start: Boolean = true

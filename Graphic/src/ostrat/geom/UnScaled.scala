@@ -24,7 +24,16 @@ object UnScaledShape
 /** This is not a Polygon but should fTrans to Polygon. */
 trait UnScaledPolygon extends UnScaled
 { type ScaledT = Polygon
-  //def polygon: Polygon
   def fTrans(f: Vec2 => Vec2): Polygon = scaled.fTrans(f)
   def dist(width: Dist, cen: Dist2 = Dist2Z): DPolygon  = scaled.distScale(width)
+  def minX: Double = scaled.minX
+  def maxX: Double = scaled.maxX
+  def minY: Double = scaled.minY
+  def maxY: Double = scaled.maxY
+}
+
+trait UnScaledPolygonYMirror extends UnScaledPolygon
+{ /* The right side of the Y Axis of this UnscaledPolygon, defined relative to a unit of 100 for convenience. So 0.35 is defined as 35. 0.222 is defined as 22.2  */
+  def rtLine100: Vec2s
+  final override def scaled = rtLine100.yMirrorClose.slateY(-50).scale(0.01)
 }

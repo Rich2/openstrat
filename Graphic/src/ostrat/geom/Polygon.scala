@@ -9,7 +9,12 @@ class Polygon(val array: Array[Double]) extends AnyVal with Scaled with Vec2sLik
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  
   def eq(obj: Polygon): Boolean = array.sameElements(obj.array)
-
+  def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
+  def maxX: Double = foldTailLeft(head.x)((acc, el) => acc.max(el.x))
+  def minY: Double = foldTailLeft(head.y)((acc, el) => acc.min(el.y))
+  def maxY: Double = foldTailLeft(head.y)((acc, el) => acc.max(el.y))
+  def width: Double = maxX - minX
+  def height: Double = maxY - minY
   /** Creates a bounding rectangle for a collection of 2d points */
   def boundingRect: BoundingRect =
   { var minX, maxX = head1

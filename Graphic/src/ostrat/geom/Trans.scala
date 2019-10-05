@@ -10,8 +10,7 @@ sealed trait Transer extends Any
 
 /** A Geometrical object or shape that has been scaled. */
 trait Scaled extends Any with Transer
-{
-  def fTrans(f: Vec2 => Vec2): Scaled
+{ def fTrans(f: Vec2 => Vec2): Scaled
 }
 
 /** A Geometrical object or shape that has not been scaled. That has its iconic scale. */
