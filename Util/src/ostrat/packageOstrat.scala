@@ -197,9 +197,9 @@ package object ostrat
 
   implicit class EqerImplicit[T](thisT: T)(implicit ev: Eq[T])
   { def equ(operand: T): Boolean = ev.eqv(thisT, operand)
-    def notEqu(operand: T): Boolean = !equ(operand)
+    def nequ(operand: T): Boolean = !equ(operand)
   }
-  
+
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new pExt.ArrayExtensions[A](arr)

@@ -18,6 +18,8 @@ object Eq
   implicit val booleanImplicit: Eq[Boolean] = (a1, a2) => a1 == a2
   implicit val stringImplicit: Eq[String] = (a1, a2) => a1 == a2
   implicit val charImplicit: Eq[Char] = (a1, a2) => a1 == a2
+  implicit val noneImplicit: Eq[None.type] = (_, _) => true
+  implicit def someImplicit[A](implicit ev: Eq[A]): Eq[Some[A]]= (s1, s2) => ev.eqv(s1.value, s2.value)
 
   implicit def optionImplicit[A](implicit ev: Eq[A]): Eq[Option[A]] = (a1, a2) => (a1, a2) match
   { case (None, None) => true
