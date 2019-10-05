@@ -25,5 +25,7 @@ object Functor
     override def map[A, B](fa: Some[A])(f: A => B): Some[B] = Some(f(fa.value))
   }
 
-  //implicit def eitherImplicit: Functor[Either] = new Functor[Either] { override def map[A, B](fa: Either[A])(f: A => B): Either[B] = fa.map(f) }
+  /*implicit def eitherImplicit[L]: Functor[Either[L, _]] = new Functor[Either[L, _]]
+  { override def map[A, B](fa: Either[L, A])(f: A => B): Either[L, B] = fa.map(f)
+  }*/
 }
