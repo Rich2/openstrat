@@ -35,7 +35,7 @@ object Trans
     (obj, f) => obj.fTrans(f).asInstanceOf[T#ScaledT]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
-    (obj, f) => evF.map(obj)(el => evA.trans(el, f))
+    (obj, f) => evF.map(obj, el => evA.trans(el, f))
 
   implicit def ArrayTrans[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
