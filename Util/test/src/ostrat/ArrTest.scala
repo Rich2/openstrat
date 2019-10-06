@@ -3,18 +3,21 @@ import utest._
 
 object ArrTest extends TestSuite
 {
+  trait MyT
+  case class My1(i: Int) extends MyT
+  case class My2(j: Int) extends MyT
   val tests = Tests
   {
-    val at1: Att[Int] = Att(1, 2, 3)
-    val at2 = at1.map(_ * 2)
-    val at3 = at2.map(_ > 3)
+    val ar1: ArrR[My1] = ArrR(My1(1), My1(2), My1(3))
+    val ar2: ArrR[My2] = ArrR(My2(4), My2(5))
+    val ar12: ArrR[MyT] = ar1 ++ ar2
     'test1 -
     {
-      assert(at1.length == 3)
-      assert(at2(2) == 6)
-      assert(at2.array.isInstanceOf[Array[Int]])
-      assert(at3(1) == true)
-      assert(at3.array.isInstanceOf[Array[Boolean]])
+      ar1.length ==> 3
+      ar12.length ==> 5
+      //assert(at2.array.isInstanceOf[Array[Int]])
+     // assert(at3(1) == true)
+      //assert(at3.array.isInstanceOf[Array[Boolean]])*/
     }
   }
 }

@@ -3,19 +3,19 @@ package pExt
 import collection.immutable.ArraySeq, scala.reflect.ClassTag
 
 class ArrExtensions[A](thisArr: Arr[A])
-{
-  def mapWith1[B, C](initC: C)(f: (A, C) => (B, C))(implicit ct: ClassTag[B]): Arr[B] =
-  {
-    val accB: Buff[B] = Buff()
+{ /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
+  def mapWithAcc[B, C](initC: C)(f: (A, C) => (B, C))(implicit ct: ClassTag[B]): Arr[B] =
+  { val accB: Buff[B] = Buff()
     var accC: C = initC
     thisArr.foreach { a =>
       val (newB, newC) = f(a, accC)
       accB += newB
       accC = newC
     }
-    ArraySeq.unsafeWrapArray[B](accB.toArray)
+    accB.toArr
   }
 
+  /** Removes the first element that satisfies the function and returns a new Arr. Returns itself if no matching element found. */
   def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A]): Arr[A] = thisArr.indexWhere(f) match
   { case -1 => thisArr
     case i =>
@@ -26,7 +26,8 @@ class ArrExtensions[A](thisArr: Arr[A])
       mutArr.toArr
     }
   }
-  /** Replaces all instances of the old value with the new value */
+
+  /** Replaces all instances of the old value with the new value. */
   def replace(oldValue: A, newValue: A): Arr[A] = thisArr.map { it => if (it == oldValue) newValue else it }
 
   def reverseForeach(f: A => Unit): Unit =
