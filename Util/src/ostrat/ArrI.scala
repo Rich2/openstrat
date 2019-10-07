@@ -3,22 +3,31 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 class ArrBuild
 
-trait ArrN[+T] extends Any
+trait ArrN[+A] extends Any
 {
-  //@uncheckedVariance def array: Array[T]
-  //def length: Int = array.length
+  def array: Array[A] @uncheckedVariance
+  @inline def length: Int = array.length
+  @inline def apply(index: Int): A = array(index)
+
+  protected[this] def internalAdd[AA >: A, B <: AA](opArray: Array[B], newArray: Array[AA]): Unit =
+  {
+    val opLength = newArray.length
+    var count = 0
+    while (count < length)
+    { newArray(count) = apply(count)
+      count += 1
+    }
+    var count2 = 0
+    while (count2 < opLength)
+    { newArray(count) = opArray(count2)
+      count += 1; count2 += 1
+    }
+  }
 }
-/*object ArrB
-{
 
-}*/
-
-class ArrR[+T <: AnyRef](val array: Array[T] @uncheckedVariance) extends AnyVal with
-  ArrN[T]
+class ArrR[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrN[A]
 {
-  def length: Int = array.length
-  @inline def apply(index: Int): T = array(index)
-  def ++[AA >: T <: AnyRef](operand: ArrR[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): ArrR[AA] =
+  def ++[AA >: A <: AnyRef](operand: ArrR[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): ArrR[AA] =
   {
     val newArray: Array[AA] = new Array[AA](length + operand.length)
     var count = 0
@@ -39,17 +48,13 @@ object ArrR
 { def apply[A <: AnyRef](inp: A*)(implicit ct: ClassTag[A]): ArrR[A] = new ArrR[A](inp.toArray)
 }
 
-trait ArrValue[T] extends Any with ArrN[T]
-{ def array: Array[T]
-  @inline def length: Int = array.length
-  //def newArray(length: Int): Array[T]
-  def newArr(length: Int): ArrValue[T]
-  @inline def apply(index: Int): T = array(index)
+trait ArrValue[A] extends Any with ArrN[A]
+{ def newArr(length: Int): ArrValue[A]
 
-  def ++(operand: ArrValue[T] ): ArrValue[T] =
+  def ++(operand: ArrValue[A] ): ArrValue[A] =
   {
-    val res: ArrValue[T] = newArr(length + operand.length)
-    val resArray: Array[T] = res.array
+    val res: ArrValue[A] = newArr(length + operand.length)
+    val resArray: Array[A] = res.array
     var count = 0
     while (count < length)
     { resArray(count) = apply(count)
@@ -66,8 +71,7 @@ trait ArrValue[T] extends Any with ArrN[T]
 
 
 class ArrI(val array: Array[Int]) extends AnyVal with ArrValue[Int]
-{ //override def newArray(length: Int): Array[Int] = new Array[Int](length)
-  override def newArr(length: Int): ArrI = new ArrI(new Array[Int](length))
+{ override def newArr(length: Int): ArrI = new ArrI(new Array[Int](length))
 }
 
 object ArrI
@@ -76,8 +80,7 @@ object ArrI
 }
 
 class ArrD(val array: Array[Double]) extends AnyVal with ArrValue[Double]
-{// override def newArray(length: Int): Array[Double] = new Array[Double](length)
-  override def newArr(length: Int): ArrD = new ArrD(new Array[Double](length))
+{ override def newArr(length: Int): ArrD = new ArrD(new Array[Double](length))
 }
 
 /*

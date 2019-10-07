@@ -20,6 +20,8 @@ object ArrTest extends TestSuite
       ar12.length ==> 5
       ar12(4).i ==> 5
       ai12.length ==> 6
+      ai12(0) ==> 1
+      ai12(5) ==> 6
       //assert(at2.array.isInstanceOf[Array[Int]])
      // assert(at3(1) == true)
       //assert(at3.array.isInstanceOf[Array[Boolean]])*/
