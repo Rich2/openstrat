@@ -3,7 +3,7 @@
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
  *   elements, an Either based errors framework and general utilities. */
-package object ostrat
+package object ostrat extends LowPriority
 { import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
 
   type Arr[A] = ArraySeq[A]
@@ -199,6 +199,9 @@ package object ostrat
   { def equ(operand: T): Boolean = ev.eqv(thisT, operand)
     def nequ(operand: T): Boolean = !equ(operand)
   }
+
+  implicit val arrIBuildImplicit: ArrBuild[Int] = len => new ArrI(new Array[Int](len))
+  implicit val arrDBuildImplicit: ArrBuild[Double] = len => new ArrD(new Array[Double](len))
 
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)

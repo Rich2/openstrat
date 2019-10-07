@@ -1,6 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+import scala.reflect.ClassTag
+
 trait IsType[A <: AnyRef]
 { def isType(obj: AnyRef): Boolean
   def asType(obj: AnyRef): A
@@ -13,6 +15,10 @@ object IsType
   { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[AnyRef]
     override def asType(obj: AnyRef): AnyRef = obj.asInstanceOf[AnyRef]
   }
+}
+trait LowPriority
+{
+  implicit def arrRBuildImplicit[T <: AnyRef](implicit ct: ClassTag[T]): ArrBuild[T] = len => new ArrR[T](new Array[T](len))
 }
 
 // trait SymbolKey

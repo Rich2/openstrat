@@ -1,7 +1,7 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-class ArrBuild
+trait ArrBuild[+T] extends Function1[Int, ArrN[T]]
 
 trait ArrN[+A] extends Any
 {
@@ -9,9 +9,20 @@ trait ArrN[+A] extends Any
   @inline def length: Int = array.length
   @inline def apply(index: Int): A = array(index)
 
-  protected[this] def internalAdd[AA >: A, B <: AA](opArray: Array[B], newArray: Array[AA]): Unit =
+  def map[B](f: A => B)(implicit ev: ArrBuild[B]): ArrN[B] =
   {
-    val opLength = newArray.length
+    val res = ev(length)
+    var count = 0
+    while (count < length)
+    { res.array(count) = f(apply(count))
+      count += 1
+    }
+    res
+  }
+
+  protected[this] def internalAppend[AA >: A, B <: AA](opArray: Array[B], newArray: Array[AA]): Unit =
+  {
+    val opLength = opArray.length
     var count = 0
     while (count < length)
     { newArray(count) = apply(count)
@@ -30,16 +41,7 @@ class ArrR[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal 
   def ++[AA >: A <: AnyRef](operand: ArrR[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): ArrR[AA] =
   {
     val newArray: Array[AA] = new Array[AA](length + operand.length)
-    var count = 0
-    while (count < length)
-    { newArray(count) = apply(count)
-      count += 1
-    }
-    var count2 = 0
-    while (count2 < operand.length)
-    { newArray(count) = operand(count2)
-      count += 1; count2 += 1
-    }
+    internalAppend(operand.array, newArray)
     new ArrR(newArray)
   }
 }
@@ -54,29 +56,17 @@ trait ArrValue[A] extends Any with ArrN[A]
   def ++(operand: ArrValue[A] ): ArrValue[A] =
   {
     val res: ArrValue[A] = newArr(length + operand.length)
-    val resArray: Array[A] = res.array
-    var count = 0
-    while (count < length)
-    { resArray(count) = apply(count)
-      count += 1
-    }
-    var count2 = 0
-    while (count2 < operand.length)
-    { resArray(count) = operand(count2)
-      count += 1; count2 += 1
-    }
+    internalAppend(operand.array, res.array)
     res
   }
 }
-
 
 class ArrI(val array: Array[Int]) extends AnyVal with ArrValue[Int]
 { override def newArr(length: Int): ArrI = new ArrI(new Array[Int](length))
 }
 
 object ArrI
-{
-  def apply(inp: Int*): ArrI = new ArrI(inp.toArray)
+{ def apply(inp: Int*): ArrI = new ArrI(inp.toArray)
 }
 
 class ArrD(val array: Array[Double]) extends AnyVal with ArrValue[Double]
@@ -88,13 +78,6 @@ class ArrD(val array: Array[Double]) extends AnyVal with ArrValue[Double]
 class Att[+A](val array: Array[A] @scala.annotation.unchecked.uncheckedVariance) extends AnyVal
 {
   @inline def foreach[U](f: A => U): Unit = array.foreach(f)
-
-  def map[B](f: A => B)(implicit ct: ClassTag[B]): Att[B] =
-  { var count = 0
-    val newArray: Array[B] = new Array[B](length)
-    while (count < length) { newArray(count) = f(array(count)); count += 1}
-    new Att(newArray)
-  }
 
   //def flatMap[B](f: A => B)(implicit ct: ClassTag[B]): Att[B] =
 

@@ -123,8 +123,6 @@ trait ProductVals[A] extends Any
     }
     res
   }
-
-
    
   /** map 2 values of A to 1 element of B in List. */
   def by2MapList[B](f: (A, A) => B): List[B] =
