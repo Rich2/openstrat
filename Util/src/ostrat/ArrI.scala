@@ -3,6 +3,7 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 trait ArrBuild[+T] extends Function1[Int, ArrN[T]]
 
+/** If successful name will be changed to Arr. */
 trait ArrN[+A] extends Any
 {
   def array: Array[A] @uncheckedVariance
@@ -36,7 +37,7 @@ trait ArrN[+A] extends Any
   }
 }
 
-class ArrR[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrN[A]
+final class ArrR[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrN[A]
 {
   def ++[AA >: A <: AnyRef](operand: ArrR[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): ArrR[AA] =
   {
@@ -61,7 +62,7 @@ trait ArrValue[A] extends Any with ArrN[A]
   }
 }
 
-class ArrI(val array: Array[Int]) extends AnyVal with ArrValue[Int]
+final class ArrI(val array: Array[Int]) extends AnyVal with ArrValue[Int]
 { override def newArr(length: Int): ArrI = new ArrI(new Array[Int](length))
 }
 
@@ -69,7 +70,7 @@ object ArrI
 { def apply(inp: Int*): ArrI = new ArrI(inp.toArray)
 }
 
-class ArrD(val array: Array[Double]) extends AnyVal with ArrValue[Double]
+final class ArrD(val array: Array[Double]) extends AnyVal with ArrValue[Double]
 { override def newArr(length: Int): ArrD = new ArrD(new Array[Double](length))
 }
 
