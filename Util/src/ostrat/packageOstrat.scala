@@ -202,6 +202,7 @@ package object ostrat extends LowPriority
 
   implicit val arrIBuildImplicit: ArrBuild[Int] = len => new ArrI(new Array[Int](len))
   implicit val arrDBuildImplicit: ArrBuild[Double] = len => new ArrD(new Array[Double](len))
+  implicit val arrLongBuildImplicit: ArrBuild[Long] = len => new ArrLong(new Array[Long](len))
 
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)

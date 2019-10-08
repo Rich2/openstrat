@@ -17,6 +17,7 @@ object ArrTest extends TestSuite
     val am1 = ar1.map(_.i * 10)
     val am2 = am1.map(i => My2(i + 5))
     val am3 = am2.map(_.i * 0.5)
+    val am4 = am3.map(_.toLong)
     'test1 -
     {
       ar1.length ==> 3
@@ -30,6 +31,7 @@ object ArrTest extends TestSuite
       am2(2).i ==> 35
       assert(am3.array.isInstanceOf[Array[Double]])
       am3(0) ==> 7.5
+      assert(am4.array.isInstanceOf[Array[Long]])
     }
   }
 }

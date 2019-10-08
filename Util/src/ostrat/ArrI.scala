@@ -74,6 +74,9 @@ final class ArrD(val array: Array[Double]) extends AnyVal with ArrValue[Double]
 { override def newArr(length: Int): ArrD = new ArrD(new Array[Double](length))
 }
 
+final class ArrLong(val array: Array[Long]) extends AnyVal with ArrValue[Long]
+{ override def newArr(length: Int): ArrLong = new ArrLong(new Array[Long](length))
+}
 /*
 /** Using Att as temporary name, can be switched to Arr later to replace type alias for ArraySeq. */
 class Att[+A](val array: Array[A] @scala.annotation.unchecked.uncheckedVariance) extends AnyVal
