@@ -18,10 +18,8 @@ case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends ProdI4
 }
 
 object CoodLine
-{
-   def apply(c1: Cood, c2: Cood): CoodLine = CoodLine(c1.x, c1.y, c2.x, c2.y)
+{ def apply(c1: Cood, c2: Cood): CoodLine = CoodLine(c1.x, c1.y, c2.x, c2.y)
 }
-
 
 /** An Array[Int] based collection for CoodLines. */
 class CoodLines(val array: Array[Int]) extends AnyVal with ProductI4s[CoodLine]
@@ -31,13 +29,15 @@ class CoodLines(val array: Array[Int]) extends AnyVal with ProductI4s[CoodLine]
   //override def toString: String = CoodLines.PersistImplicit.show(this)
 }
 
-object CoodLines extends ProductI4sCompanion[CoodLine, CoodLines]
-{
-  implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
-
-  implicit val PersistImplicit = new ProductI4sBuilder[CoodLine, CoodLines]("CoodLines")
-  {
-    override def fromArray(value: Array[Int]): CoodLines = new CoodLines(value)
-  }
+class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProductI4sBuff[CoodLine, CoodLines]
+{ override def toProductInts: CoodLines = new CoodLines(toArray)
 }
 
+object CoodLines extends ProductI4sCompanion[CoodLine, CoodLines]
+{ implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
+  override def buff(initialSize: Int): CoodLinesBuff = new CoodLinesBuff(buffInt(initialSize * 4))
+
+  implicit val PersistImplicit = new ProductI4sBuilder[CoodLine, CoodLines]("CoodLines")
+  { override def fromArray(value: Array[Int]): CoodLines = new CoodLines(value)
+  }
+}

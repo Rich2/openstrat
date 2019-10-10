@@ -39,3 +39,72 @@ trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
   def toArrs: Arr[Arr[Double]] = map(el => Arr(el._1, el._2))
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
+
+trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
+{
+  val factory: Int => ST
+  def apply(length: Int): ST = factory(length)
+  def apply(elems: T*): ST =
+  {
+    val length = elems.length
+    val res = factory(length)
+    var count: Int = 0
+
+    while (count < length)
+    { res.array(count * 2) = elems(count)._1
+      res.array(count * 2 + 1) = elems(count)._2
+      count += 1
+    }
+    res
+  }
+
+  def doubles(elems: Double*): ST =
+  {
+    val arrLen: Int = elems.length
+    val res = factory(elems.length / 2)
+    var count: Int = 0
+
+    while (count < arrLen)
+    { res.array(count) = elems(count)
+      count += 1
+    }
+    res
+  }
+
+  def fromList(list: List[T]): ST =
+  {
+    val arrLen: Int = list.length * 2
+    val res = factory(list.length)
+    var count: Int = 0
+    var rem = list
+
+    while (count < arrLen)
+    { res.array(count) = rem.head._1
+      count += 1
+      res.array(count) = rem.head._2
+      count += 1
+      rem = rem.tail
+    }
+    res
+  }
+}
+
+import collection.mutable.ArrayBuffer
+
+/** Both Persists and Builds ProductD2s collection classes. */
+abstract class ProductD2sBuilder[A <: ProdD2, M <: ProductD2s[A]](typeStr: String) extends ProductDsBuilder[A, M](typeStr)
+{
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
+  { buf += value._1
+    buf += value._2
+  }
+
+  import pParse._
+  override def syntaxDepth = 3
+  /** Not sure about this implementation. */
+  override def showSemi(thisColl: M): String = thisColl.map(el => el._1.str + ", " + el._2.str).mkString("; ")
+  override def showComma(thisColl: M): String = show(thisColl)
+  //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[M] = ???
+  override def fromClauses(clauses: Arr[Clause]): EMon[M] = ???
+}

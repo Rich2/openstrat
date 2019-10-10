@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import collection.mutable.ArrayBuffer
 
 trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
 {
@@ -21,8 +22,13 @@ trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 
+trait ProductI4sBuff[A <: ProdI4, M <: ProductI4s[A]] extends Any with ProductIsBuff[A, M]
+{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4)}
+}
+
 abstract class ProductI4sCompanion[A <: ProdI4, M <: ProductI4s[A]]
 { val factory: Int => M
+  def buff(initialSize: Int): ProductI4sBuff[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4
@@ -41,4 +47,24 @@ abstract class ProductI4sCompanion[A <: ProdI4, M <: ProductI4s[A]]
     }
     res
   }
+}
+
+
+
+abstract class ProductI4sBuilder[A <: ProdI4, M <: ProductI4s[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)
+{
+  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
+  { buf += value._1
+    buf += value._2
+    buf += value._3
+    buf += value._4
+  }
+
+  import pParse._
+  override def syntaxDepth = 3
+  /** Not sure about this implementation. */
+  override def showSemi(thisColl: M): String = ???//thisColl.mapBy2(_ + ", " + _ ).mkString("; ")
+  override def showComma(thisColl: M): String = show(thisColl)
+  override def fromParameterStatements(sts: Arr[Statement]): EMon[M] = ???
+  override def fromClauses(clauses: Arr[Clause]): EMon[M] = ???
 }

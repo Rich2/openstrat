@@ -19,7 +19,7 @@ trait ProductInts[A] extends Any with ProductVals[A]
   }
 }
 
-trait ProductIntsBuff[A, M <: ProductInts[A]] extends Any
+trait ProductIsBuff[A, M <: ProductInts[A]] extends Any
 { def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]
   def toProductInts: M
@@ -33,7 +33,7 @@ abstract class ProductIntsBuilder[A, M <: ProductInts[A]](typeStr: String) exten
   override def newBuffer: Buff[Int] = Buff[Int](0)
 }
 
-trait ProductIntsCompanion[M]
+trait ProductIsCompanion[M]
 { def fromBuffer(buff: Buff[Int]): M = fromArray(buff.toArray[Int])
   val factory: Int => M
   def fromArray(array: Array[Int]): M

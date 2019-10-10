@@ -27,12 +27,11 @@ trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
-trait ProductI2sBuff[A <: ProdI2, M <: ProductI2s[A]] extends Any with ProductIntsBuff[A, M]
+trait ProductI2sBuff[A <: ProdI2, M <: ProductI2s[A]] extends Any with ProductIsBuff[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2) }
-
 }
 
-abstract class ProductI2sCompanion[A <: ProdI2, M <: ProductI2s[A]] extends ProductIntsCompanion[M]
+abstract class ProductI2sCompanion[A <: ProdI2, M <: ProductI2s[A]] extends ProductIsCompanion[M]
 {
   implicit val factory: Int => M = i => fromArray(new Array[Int](i * 2))
   def buff(initialSize: Int): ProductI2sBuff[A, M]
