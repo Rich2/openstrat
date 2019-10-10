@@ -1,16 +1,27 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-trait ArrBuild[+T] extends Function1[Int, ArrN[T]]
+trait ArrBuild[B]
+{
+  def bMap[A](orig: ArrN[A], f: A => B): ArrN[B]
+}
 
 /** If successful name will be changed to Arr. */
 trait ArrN[+A] extends Any
 {
-  def array: Array[A] @uncheckedVariance
+  @inline def length: Int
+  @inline def apply(index: Int): A
+
+  def map[B](f: A => B)(implicit ev: ArrBuild[B]): ArrN[B] = ev.bMap[A](this, f)
+}
+
+trait ArrSimple[+A] extends Any with ArrN[A]
+{ def array: Array[A] @uncheckedVariance
   @inline def length: Int = array.length
   @inline def apply(index: Int): A = array(index)
 
-  def map[B](f: A => B)(implicit ev: ArrBuild[B]): ArrN[B] =
+
+  /*def map[B](f: A => B)(implicit ev: ArrBuild[B]): ArrN[B] =
   {
     val res = ev(length)
     var count = 0
@@ -19,7 +30,7 @@ trait ArrN[+A] extends Any
       count += 1
     }
     res
-  }
+  }*/
 
   protected[this] def internalAppend[AA >: A, B <: AA](opArray: Array[B], newArray: Array[AA]): Unit =
   {
@@ -37,7 +48,7 @@ trait ArrN[+A] extends Any
   }
 }
 
-final class ArrR[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrN[A]
+final class ArrR[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrSimple[A]
 {
   def ++[AA >: A <: AnyRef](operand: ArrR[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): ArrR[AA] =
   {
@@ -51,7 +62,7 @@ object ArrR
 { def apply[A <: AnyRef](inp: A*)(implicit ct: ClassTag[A]): ArrR[A] = new ArrR[A](inp.toArray)
 }
 
-trait ArrValue[A] extends Any with ArrN[A]
+trait ArrValue[A] extends Any with ArrSimple[A]
 { def newArr(length: Int): ArrValue[A]
 
   def ++(operand: ArrValue[A] ): ArrValue[A] =

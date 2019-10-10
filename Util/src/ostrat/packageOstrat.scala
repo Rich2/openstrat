@@ -200,9 +200,12 @@ package object ostrat extends LowPriority
     def nequ(operand: T): Boolean = !equ(operand)
   }
 
-  implicit val arrIBuildImplicit: ArrBuild[Int] = len => new ArrI(new Array[Int](len))
-  implicit val arrDBuildImplicit: ArrBuild[Double] = len => new ArrD(new Array[Double](len))
-  implicit val arrLongBuildImplicit: ArrBuild[Long] = len => new ArrLong(new Array[Long](len))
+  implicit val arrIBuildImplicit: ArrBuild[Int] = new ArrBuild[Int]
+  {
+    override def bMap[A](orig: ArrN[A], f: A => Int): ArrI = ??? //(new Array[Int](len))
+  }
+  //implicit val arrDBuildImplicit: ArrBuild[Double] = len => new ArrD(new Array[Double](len))
+  //implicit val arrLongBuildImplicit: ArrBuild[Long] = len => new ArrLong(new Array[Long](len))
 
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
