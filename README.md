@@ -7,7 +7,7 @@ This project has 2 main focuses:
 <h2>A functional Geometry and Vector Graphics library</h2>
 <h2>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</h2>
 
-The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision part of which was to explore the possiblites of Algebra of Tiling. Out of the needs of these 2 focuses, 2 secondary focuses have developed:
+The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision, part of which was to explore the possiblites of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary focuses have developed:
 
 <h2>A Show, 2D-Show and Persistence Library / Framework</h2>
 <h2> Compound Value type collections library</h2>
