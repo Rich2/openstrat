@@ -2,7 +2,17 @@
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Cross platform Scala 2d graphics, basic geometry, maps, earth maps, hex-tiling, square tiling and strategy library. It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the JavaScript version can be seen at <a href="https://richstrat.com">richstrat.com</a>, Scala Docs at [richstrat.com/api/ostrat/index.html](https://richstrat.com/api/ostrat/index.html). 
+This project has 2 main focuses:
+
+<h2>A functional Geometry and Vector Graphics library</h2>
+<h2>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</h2>
+
+The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision part of which was to explore the possiblites of Algebra of Tiling. Out of the needs of these 2 focuses, 2 secondary focuses have developed:
+
+<h2>A Show, 2D-Show and Persistence Library / Framework</h2>
+<h2> Compound Value type collections library</h2>
+
+It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the JavaScript version can be seen at <a href="https://richstrat.com">richstrat.com</a>, Scala Docs at [richstrat.com/api/ostrat/index.html](https://richstrat.com/api/ostrat/index.html). 
 
 This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and want to get involved, drop into the gitter channel and say hi. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.
 
@@ -45,14 +55,14 @@ For IntellliJ useful options:
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
 * Project-Pane => Options -> "Flatten packages"
 
-**The Code currently has 5 modules.** Each module can be built for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
+**The Code is currently organised into 6 modules.** Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
 **1. Util** Depends on UtilMacros. Organised into the following folders and packages:
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
      * A functional Either based Errors framework.
-     * Array based compound value collections of same length elements.
+     * Array based compound value collections of same length elements,to overcome the performance deficencies of the Java and JavaScript platforms, with a view to maximising common code for future Scala Native and Scala Web assembly platforms.
      * 3 simple macros, that print the source code location to help with debugging and development. They are a separate unit of compilation for sbt /mill, in the srcMacros folder.
      * Other general utilities.
    - **ostrat.parse**
