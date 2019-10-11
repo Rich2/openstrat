@@ -28,7 +28,7 @@ class Coods(val array: Array[Int]) extends AnyVal with ProductI2s[Cood]
 }
 
 class CoodsBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProductI2sBuff[Cood, Coods]
-{ override def toProductInts: Coods = new Coods(toArray)
+{ override def unBuff: Coods = new Coods(toArray)
 }
 
 object Coods extends ProductI2sCompanion[Cood, Coods]

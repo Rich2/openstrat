@@ -18,6 +18,7 @@ object Colours
   }
 }
 
+/** This should maybe go into an object with other common Colour sequences. */
 class RainbowCycle(val value: Int) extends AnyVal
 {
   def apply(): Colour = rainbow(value)

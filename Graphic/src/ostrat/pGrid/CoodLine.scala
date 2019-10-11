@@ -30,7 +30,7 @@ class CoodLines(val array: Array[Int]) extends AnyVal with ProductI4s[CoodLine]
 }
 
 class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProductI4sBuff[CoodLine, CoodLines]
-{ override def toProductInts: CoodLines = new CoodLines(toArray)
+{ override def unBuff: CoodLines = new CoodLines(toArray)
 }
 
 object CoodLines extends ProductI4sCompanion[CoodLine, CoodLines]

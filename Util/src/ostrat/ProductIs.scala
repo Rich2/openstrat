@@ -22,7 +22,7 @@ trait ProductInts[A] extends Any with ProductVals[A]
 trait ProductIsBuff[A, M <: ProductInts[A]] extends Any
 { def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]
-  def toProductInts: M
+  def unBuff: M
   def append(newElem: A): Unit
   def addAll(newElems: M): Unit = buffer.addAll(newElems.array)
 }
