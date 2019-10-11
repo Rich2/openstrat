@@ -22,7 +22,7 @@ trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 
-trait ProductI4sBuff[A <: ProdI4, M <: ProductI4s[A]] extends Any with ProductIsBuff[A, M]
+trait ProductI4sBuff[A <: ProdI4, M <: ProductI4s[A]] extends Any with ProductIntsBuff[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4)}
 }
 

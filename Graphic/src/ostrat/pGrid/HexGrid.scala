@@ -76,13 +76,13 @@ object HexGrid
 {
   val yRatio = sqrt(3)
   /** Verts start at Up and follow clockwise */
-  val vertCoodsOfTile00: Coods = Coods.ints(0,1,  2,1,  2,-1,  0,-1,  -2,-1,  -2,1)
+  val vertCoodsOfTile00: Coods = Coods(0 cc 1,  2 cc 1,  2 cc -1,  0 cc -1,  -2 cc -1,  -2 cc 1)
   def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
   def vertCoodsOfTile(tileCood: Cood): Coods =
   {
     vertCoodsOfTile00.pMap(_ + tileCood)
   }
-  val sideCoodsOfTile00: Coods = Coods.ints(1,1, 2,0, 1,-1, -1,-1, -2,0, -1,1).pMap(p => Cood(p._1, p._2))
+  val sideCoodsOfTile00: Coods = Coods(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1).pMap(p => Cood(p._1, p._2))
   def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.pMap(tileCood + _)
   val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.pMap(_ * 2)
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)

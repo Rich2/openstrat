@@ -41,6 +41,10 @@ trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
+trait ProductD2sBuff[A <: ProdD2, M <: ProductD2s[A]] extends Any with ProductDsBuff[A, M]
+{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2) }
+}
+
 trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
 {
   val factory: Int => ST
@@ -90,9 +94,6 @@ trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
   }
 }
 
-trait ProductD2sBuff[A <: ProdD2, M <: ProductD2s[A]] extends Any with ProductDsBuff[A, M]
-{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2) }
-}
 
 /** Both Persists and Builds ProductD2s collection classes. */
 abstract class ProductD2sBuilder[A <: ProdD2, M <: ProductD2s[A]](typeStr: String) extends ProductDsBuilder[A, M](typeStr)

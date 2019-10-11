@@ -43,13 +43,11 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
    
   /** foreach loop with counter */
-  def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit =
-  { var counter = count
-    var rem = thisIter
-    while(rem.nonEmpty)
-    { f(rem.head, counter)
-      counter += 1
-      rem = rem.tail
+  def iForeach(f: (A, Int) => Unit, initialIndex: Int = 0): Unit =
+  { var i = initialIndex
+    thisIter.foreach { elem =>
+      f(elem, i)
+      i += 1
     }      
   }
   

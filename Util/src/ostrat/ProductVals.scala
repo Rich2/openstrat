@@ -9,6 +9,8 @@ trait ProductVals[A] extends Any
   final def length: Int = arrLen / productSize
   def apply(index: Int): A
   def setElem(index: Int, elem: A): Unit
+  def setElems(index: Int, elems: A*): Unit = elems.iForeach((a, i) => setElem(i, a), index)
+  def setElemSeq(index: Int, elems: Iterable[A]) = elems.iForeach((a, i) => setElem(i, a), index)
   def head: A = apply(0)
   def setHead(value: A): Unit = setElem(0, value)
   def last: A = apply(length - 1)
@@ -183,6 +185,15 @@ trait ProductVals[A] extends Any
     ife(continue, -1, count)
   }
 }
+
+
+trait ProductValsBuff[A, M <: ProductVals[A]] extends Any
+{ def unBuff: M
+  def append(newElem: A): Unit
+  def addAll(newElems: M): Unit
+}
+
+
 
 abstract class ProductValsBuilder[A, M](val typeStr: String) extends PersistCompound[M]
 {

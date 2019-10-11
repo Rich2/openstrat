@@ -1,6 +1,8 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
+ * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
 trait ProductInts[A] extends Any with ProductVals[A]
 { def array: Array[Int]
   def arrLen = array.length
@@ -19,7 +21,9 @@ trait ProductInts[A] extends Any with ProductVals[A]
   }
 }
 
-trait ProductIsBuff[A, M <: ProductInts[A]] extends Any
+/** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
+ * ArrayBuffer[Int] They are named ProductIntsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
+trait ProductIntsBuff[A, M <: ProductInts[A]] extends Any
 { def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]
   def unBuff: M
@@ -33,7 +37,7 @@ abstract class ProductIntsBuilder[A, M <: ProductInts[A]](typeStr: String) exten
   override def newBuffer: Buff[Int] = Buff[Int](0)
 }
 
-trait ProductIsCompanion[M]
+trait ProductIntsCompanion[M]
 { def fromBuffer(buff: Buff[Int]): M = fromArray(buff.toArray[Int])
   val factory: Int => M
   def fromArray(array: Array[Int]): M

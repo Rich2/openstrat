@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-/** A sequence of plain 2 dimension (mathematical) vectors. This should possibly be renamed Polygon. Clockwise is the default */
+/** A Polygon is encoded as a sequence of plain 2 dimension (mathematical) vectors. Minimum length 3.. Clockwise is the default */
 class Polygon(val array: Array[Double]) extends AnyVal with Scaled with Vec2sLike
 { override def typeStr: String = "Polygon"
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
@@ -99,8 +99,17 @@ class Polygon(val array: Array[Double]) extends AnyVal with Scaled with Vec2sLik
   def distScale(distRatio: Dist): DPolygon = pMap[Dist2, DPolygon](_ * distRatio)
 }
 
-object Polygon extends ProductD2sCompanion[Vec2, Polygon]
+object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => Polygon = i => new Polygon(new Array[Double](i * 2))
+
+  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): Polygon =
+  { val len = (3 + tail.length)
+    val res = factory(len)
+    res.setElems(0, v1, v2, v3)
+    res.setElemSeq(3, tail)
+    res
+  }
+
   implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.array, p2.array)
   
   implicit val persistImplicit: ProductD2sBuilder[Vec2, Polygon] = new ProductD2sBuilder[Vec2, Polygon]("Polygon")
