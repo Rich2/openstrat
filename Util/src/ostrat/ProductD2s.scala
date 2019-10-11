@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
 trait ProductD2s[A <: ProdD2] extends Any with ProductDoubles[A]
@@ -89,7 +90,9 @@ trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
   }
 }
 
-import collection.mutable.ArrayBuffer
+trait ProductD2sBuff[A <: ProdD2, M <: ProductD2s[A]] extends Any with ProductDsBuff[A, M]
+{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2) }
+}
 
 /** Both Persists and Builds ProductD2s collection classes. */
 abstract class ProductD2sBuilder[A <: ProdD2, M <: ProductD2s[A]](typeStr: String) extends ProductDsBuilder[A, M](typeStr)

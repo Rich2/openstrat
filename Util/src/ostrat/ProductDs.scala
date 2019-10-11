@@ -29,6 +29,14 @@ trait ProductDoubles[A] extends Any with ProductVals[A]
   }
 }
 
+trait ProductDsBuff[A, M <: ProductDoubles[A]] extends Any
+{ def buffer: ArrayBuffer[Double]
+  def toArray: Array[Double] = buffer.toArray[Double]
+  def unBuff: M
+  def append(newElem: A): Unit
+  def addAll(newElems: M): Unit = buffer.addAll(newElems.array)
+}
+
 abstract class ProductDsBuilder[A, M <: ProductDoubles[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr) with Eq[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
