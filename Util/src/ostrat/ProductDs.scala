@@ -29,7 +29,7 @@ trait ProductDoubles[A] extends Any with ProductVals[A]
   }
 }
 
-trait ProductDsBuff[A, M <: ProductDoubles[A]] extends Any
+trait ProductDsBuff[A, M <: ProductDoubles[A]] extends Any with ProductValsBuff[A, M]
 { def buffer: ArrayBuffer[Double]
   def toArray: Array[Double] = buffer.toArray[Double]
   def unBuff: M

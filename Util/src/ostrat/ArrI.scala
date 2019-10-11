@@ -20,18 +20,6 @@ trait ArrSimple[+A] extends Any with ArrN[A]
   @inline def length: Int = array.length
   @inline def apply(index: Int): A = array(index)
 
-
-  /*def map[B](f: A => B)(implicit ev: ArrBuild[B]): ArrN[B] =
-  {
-    val res = ev(length)
-    var count = 0
-    while (count < length)
-    { res.array(count) = f(apply(count))
-      count += 1
-    }
-    res
-  }*/
-
   protected[this] def internalAppend[AA >: A, B <: AA](opArray: Array[B], newArray: Array[AA]): Unit =
   {
     val opLength = opArray.length

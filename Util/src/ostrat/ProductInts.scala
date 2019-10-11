@@ -23,7 +23,7 @@ trait ProductInts[A] extends Any with ProductVals[A]
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * ArrayBuffer[Int] They are named ProductIntsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
-trait ProductIntsBuff[A, M <: ProductInts[A]] extends Any
+trait ProductIntsBuff[A, M <: ProductInts[A]] extends Any with ProductValsBuff[A, M]
 { def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]
   def unBuff: M
