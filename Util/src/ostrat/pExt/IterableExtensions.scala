@@ -61,7 +61,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     succeed    
   }
   /** Not sure what this does. */
-  def mapVar1[B, C](initialVar: B, f: (A, B) => (B, C)): Seq[C] =
+  /*def mapVar1[B, C](initialVar: B, f: (A, B) => (B, C)): Seq[C] =
   { var varB: B = initialVar
     var acc: Seq[C] = Seq()
     thisIter.foreach{el =>
@@ -70,9 +70,9 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
       acc :+= pair._2
     }
     acc
-  }
+  }*/
    
-  def flatMapVar1[B, C](initialVar: B, initialAcc: C)(f: (A, B, C) => (B, C)): C =
+  /*def flatMapVar1[B, C](initialVar: B, initialAcc: C)(f: (A, B, C) => (B, C)): C =
   { var varB: B = initialVar
     var acc: C = initialAcc
     thisIter.foreach{el =>
@@ -81,7 +81,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
       acc = pair._2
     }
     acc
-  } 
+  } */
    
   def toStrFold2[B](secondAcc: B)(f: (B, A) => (String, B)): String =
   { var acc: String = ""
@@ -96,7 +96,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
    
   def iterHead[B](ifEmpty: => B, fNonEmpty: (A, Iterable[A]) => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head, thisIter.tail)
   
-  /** Folds over this traverable with a to Emon function, accumulating errors */      
+  /** Folds over this traverable with A => EMon[B] function, accumulating errors */
   def eMonMap[B](f: A => EMon[B]): EMon[List[B]] =      
   {
     def goodLoop(rem: List[A], goodAcc: List[B]): EMon[List[B]] = rem match
@@ -145,7 +145,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
     
   /** product map method maps from a Traversable to an Array based ProductValues class. */
-  def pMap[B , C <: ProductVals[B]](f: A => B)(implicit factory: Int => C): C =
+  def pMap[B , M <: ProductVals[B]](f: A => B)(implicit factory: Int => M): M =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>

@@ -12,6 +12,13 @@ trait ArrN[+A] extends Any
   @inline def length: Int
   @inline def apply(index: Int): A
 
+  @inline def foreach[U](f: A => U): Unit =
+  { var count = 0
+    while(count < length)
+    { f(apply(count))
+      count += 1
+    }
+  }
   def map[B](f: A => B)(implicit ev: ArrBuild[B]): ArrN[B] = ev.bMap[A](this, f)
 }
 
@@ -80,8 +87,6 @@ final class ArrLong(val array: Array[Long]) extends AnyVal with ArrValue[Long]
 /** Using Att as temporary name, can be switched to Arr later to replace type alias for ArraySeq. */
 class Att[+A](val array: Array[A] @scala.annotation.unchecked.uncheckedVariance) extends AnyVal
 {
-  @inline def foreach[U](f: A => U): Unit = array.foreach(f)
-
   //def flatMap[B](f: A => B)(implicit ct: ClassTag[B]): Att[B] =
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
