@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
-trait ProductDoubles[A] extends Any with ProductVals[A]
+trait ProductDbls[A] extends Any with ProductVals[A]
 { def array: Array[Double]
   def arrLen = array.length
   //def toArrs: Arr[Arr[Double]]
@@ -29,7 +29,7 @@ trait ProductDoubles[A] extends Any with ProductVals[A]
   }
 }
 
-trait ProductDsBuff[A, M <: ProductDoubles[A]] extends Any with ProductValsBuff[A, M]
+trait ProductDblsBuff[A, M <: ProductDbls[A]] extends Any with ProductValsBuff[A, M]
 { def buffer: ArrayBuffer[Double]
   def toArray: Array[Double] = buffer.toArray[Double]
   def unBuff: M
@@ -37,7 +37,8 @@ trait ProductDsBuff[A, M <: ProductDoubles[A]] extends Any with ProductValsBuff[
   def addAll(newElems: M): Unit = buffer.addAll(newElems.array)
 }
 
-abstract class ProductDsBuilder[A, M <: ProductDoubles[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr) with Eq[M]
+/** Builds persists */
+abstract class ProductDblsBuilder[A, M <: ProductDbls[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr) with Eq[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

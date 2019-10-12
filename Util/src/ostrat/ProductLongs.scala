@@ -42,5 +42,3 @@ trait ProductLongsCompanion[M]
   val factory: Long => M
   def fromArray(array: Array[Long]): M
 }
-
-
