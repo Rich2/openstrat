@@ -8,7 +8,7 @@ import math._, Colour.Black
 package object geom
 {
   implicit def TransToExtension[T](value: T)(implicit ev: Trans[T]) = new TransExtension[T](value, ev)
-  implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: Trans[T#ScaledT]) = new TransExtension[T#ScaledT](value.scaled, ev)
+  implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: Trans[T#TranserT]) = new TransExtension[T#TranserT](value.scaled, ev)
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
   /** Dist2(0.km, 0.km) constant */

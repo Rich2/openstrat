@@ -4,7 +4,7 @@ package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val array: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Scaled with Vec2sLike
+class LinePath(val array: Array[Double]) extends AnyVal with ProductD2s[Vec2] with Transer with Vec2sLike
 { override def typeStr: String = "LinePath"
   //override def toString: String = LinePath.LinePathPersist.show(this)
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)

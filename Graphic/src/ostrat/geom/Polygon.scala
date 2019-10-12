@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** A Polygon is encoded as a sequence of plain 2 dimension (mathematical) vectors. Minimum length 3.. Clockwise is the default */
-class Polygon(val array: Array[Double]) extends AnyVal with Scaled with Vec2sLike
+class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
 { override def typeStr: String = "Polygon"
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  

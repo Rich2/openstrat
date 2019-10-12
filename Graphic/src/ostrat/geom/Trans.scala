@@ -4,20 +4,16 @@ package geom
 import reflect.ClassTag
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-sealed trait Transer extends Any
-{ def fTrans(f: Vec2 => Vec2): Scaled
+trait Transer extends Any
+{ def fTrans(f: Vec2 => Vec2): Transer
 }
 
-/** A Geometrical object or shape that has been scaled. */
-trait Scaled extends Any with Transer
-{ def fTrans(f: Vec2 => Vec2): Scaled
-}
-
-/** A Geometrical object or shape that has not been scaled. That has its iconic scale. */
+/** A Geometrical object or shape that has not been scaled. That has its iconic scale. An object centred on x = , y = 0, all the object is between x =
+ * +- 0.5 and y = +- 0.5 */
 trait UnScaled extends Any with Transer
-{ type ScaledT <: Scaled
-  def scaled: ScaledT
-  def fTrans(f: Vec2 => Vec2): ScaledT
+{ type TranserT <: Transer
+  def scaled: TranserT
+  def fTrans(f: Vec2 => Vec2): TranserT
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
@@ -28,11 +24,11 @@ trait Trans[T]
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
 object Trans
 {
-  implicit def fromScaledImplicit[T <: Scaled]: Trans[T] =
+  implicit def fromScaledImplicit[T <: Transer]: Trans[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
-  implicit def fromUnScaledImplicit[T <: UnScaled]: Trans[T#ScaledT] =
-    (obj, f) => obj.fTrans(f).asInstanceOf[T#ScaledT]
+  implicit def fromUnScaledImplicit[T <: UnScaled]: Trans[T#TranserT] =
+    (obj, f) => obj.fTrans(f).asInstanceOf[T#TranserT]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
