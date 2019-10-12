@@ -2,8 +2,8 @@
 package ostrat
 package geom
 import reflect.ClassTag
-/** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2):
- *  T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
+/** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
+ *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
 sealed trait Transer extends Any
 { def fTrans(f: Vec2 => Vec2): Scaled
 }
