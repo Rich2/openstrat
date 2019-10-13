@@ -16,20 +16,20 @@ class MutInt(val array: Array[Int]) extends AnyVal with MutArr[Int]
   override def apply(index: Int): Int = array(index)
 }
 
-object ArrTInt extends ArrT[Int]
+final class ArrTInt extends ArrT[Int]
 { type G = ArrInt
   type H = BuffInt
   type J = MutInt
 }
 
-trait BuildInts extends ArrBuilder[Int, ArrTInt.type]
-{ override def imutNew(length: Int): ArrInt
+object BuildInts extends ArrBuilder[Int, ArrTInt]
+{ override def imutNew(length: Int): ArrInt = new ArrInt(new Array[Int](length))
   override def imutSet(arr: ArrInt, index: Int, value: Int): Unit = arr.array(index) = value
-  def buffNew(length: Int = 4): BuffInt = ???
-  def buffAppend(buff: BuffInt, value: Int): Unit = ???
-  def buffAppends(buff: BuffInt, values: ArrInt): Unit = ???
-  def buffImut(buff: BuffInt): ArrInt = ???
-  def mutNew(length: Int): MutInt = ???
+  def buffNew(length: Int = 4): BuffInt = new BuffInt(new ArrayBuffer[Int](length))
+  def buffAppend(buff: BuffInt, value: Int): Unit = buff.buffer.append(value)
+  def buffAppends(buff: BuffInt, values: ArrInt): Unit = buff.buffer.addAll(values.array)
+  def buffImut(buff: BuffInt): ArrInt = new ArrInt(buff.buffer.toArray)
+  def mutNew(length: Int): MutInt = new MutInt(new Array[Int](length))
 }
 /*trait ArrBuild[B]
 {
