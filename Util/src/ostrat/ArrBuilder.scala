@@ -3,25 +3,43 @@ package ostrat
 trait BaseArr[A] extends Any
 { def length: Int
   def apply(index: Int): A
+
   def foreach[U](f: A => U): Unit =
-  {
-    var count = 0
+  { var count = 0
     while(count < length)
     { f(apply(count))
       count = count + 1
     }
   }
-  //def map[B, ](f: )
+
+  def iForeach[U](f: (A, Int) => U): Unit =
+  { var count = 0
+    while(count < length)
+    { f(apply(count), count)
+      count = count + 1
+    }
+  }
+
+  def map[B, M <: ArrT[B]](f: A => B)(ev: ArrBuilder[B, M]): M#G =
+  { val res = ev.newImut(length)
+    iForeach((a, i) => ev.setImut(res, i, f(a)))
+    res
+  }
 }
 
+trait ArrT[A]
+{ type G <: ImutArr[A]
+  type H <: BuffArr[A]
+  type J <: MutArr[A]
+}
 
 trait ImutArr[A] extends Any with BaseArr[A]
 trait BuffArr[A] extends Any with BaseArr[A]
 trait MutArr[A] extends Any with BaseArr[A]
 
-trait ArrBuilder[B, K <: ImutArr[B], L <: BuffArr[B], M <: MutArr[B]]
-{ def newImut(length: Int): K
-  def newBuff(length: Int = 0): L
-  def newMut(length: Int): M
-  def setImut(arr: K, index: Int, value: B): Unit
+trait ArrBuilder[B, M <: ArrT[B]]
+{ def newImut(length: Int): M#G
+  def newBuff(length: Int = 4): M#H
+  def newMut(length: Int): M#J
+  def setImut(arr: M#G, index: Int, value: B): Unit
 }
