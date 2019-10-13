@@ -37,8 +37,13 @@ object BaseArr
 {
   implicit class BaseArrImplicit[A](ba: BaseArr[A])
   {
-    //sdef bind[B, G <: ImutArr[B]](f: A => G)(implicit ev: ArrBuilder[B, G]): G = ???
+   def bind[BB <: ImutArr[_]](f: A => BB)(implicit ev: Bind[BB]): BB = ev.bind[A](ba, f)
   }
+}
+
+trait Bind[BB <: ImutArr[_]]
+{
+  def bind[A](orig: BaseArr[A], f: A => BB): BB
 }
 
 trait ImutArr[+A] extends Any with BaseArr[A]

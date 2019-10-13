@@ -14,7 +14,7 @@ object ArrTest extends TestSuite
     val ds1 = DFloats(1.5, 3, 4.5, 6)
     val ds2 = is1.map(_ * 1.5)
     val ds3 = is1.seqMap{a => List(a + 0.1, a + 0.2)}
-   // val ds4 s= is1.bind[Double, ArrDou](a => ArrDou(a + 0.1, a + 0.2))
+    val ds4 = is1.bind(a => Ints(a + 10, a + 20, a + 30))
     val ar1: Refs[My1] = Refs(My1(1), My1(2), My1(3))
     /*val ar2: ArrR[My2] = ArrR(My2(4), My2(5))
     val ar12: ArrR[MyT] = ar1 ++ ar2
@@ -35,6 +35,9 @@ object ArrTest extends TestSuite
       ds2.length ==> 4
       ds3(0) ==> 1.1
       ds3.length ==> 8
+      ds4(1) ==> 21
+      ds4(5) ==> 32
+      ds4.length ==> 12
       ar1.length ==> 3
      /* ar12.length ==> 5
       ar12(4).i ==> 5

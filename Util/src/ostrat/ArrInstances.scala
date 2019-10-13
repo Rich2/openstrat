@@ -37,6 +37,14 @@ class Ints(val array: Array[Int]) extends AnyVal with ImutArr[Int]
 }
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
+  implicit val bindImplicit: Bind[Ints] = new Bind[Ints]
+  {
+    override def bind[A](orig: BaseArr[A], f: A => Ints): Ints =
+    { val buff = new ArrayBuffer[Int]
+      orig.foreach(a => buff.addAll(f(a).array))
+      new Ints(buff.toArray)
+    }
+  }
 }
 
 class BuffInts(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
