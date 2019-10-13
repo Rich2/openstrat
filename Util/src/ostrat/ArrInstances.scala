@@ -1,18 +1,18 @@
 package ostrat
 import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-class ArrRefs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ImutArr[A]
+class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ImutArr[A]
 { override def length: Int = array.length
   override def apply(index: Int): A = array(index)
-  def ++ [AA >: A <: AnyRef](op: ArrRefs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): ArrRefs[AA] =
+  def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + op.length)
     array.copyToArray(newArray)
     op.array.copyToArray(newArray, length)
-    new ArrRefs(newArray)
+    new Refs(newArray)
   }
 }
-object ArrRefs
-{ def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): ArrRefs[A] = new ArrRefs(input.toArray)
+object Refs
+{ def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): Refs[A] = new Refs(input.toArray)
 }
 
 class BuffRefs(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
@@ -49,19 +49,19 @@ class MutInts(val array: Array[Int]) extends AnyVal with MutArr[Int]
   override def apply(index: Int): Int = array(index)
 }
 
-class ArrDou(val array: Array[Double]) extends AnyVal with ImutArr[Double]
+class DFloats(val array: Array[Double]) extends AnyVal with ImutArr[Double]
 { override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
-  def ++ (op: ArrDou): ArrDou =
+  def ++ (op: DFloats): DFloats =
   { val newArray = new Array[Double](length + op.length)
     array.copyToArray(newArray)
     op.array.copyToArray(newArray, length)
-    new ArrDou(newArray)
+    new DFloats(newArray)
   }
 }
 
-object ArrDou
-{ def apply(input: Double*): ArrDou = new ArrDou(input.toArray)
+object DFloats
+{ def apply(input: Double*): DFloats = new DFloats(input.toArray)
 }
 
 class BuffDou(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffArr[Double]
