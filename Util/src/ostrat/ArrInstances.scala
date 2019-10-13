@@ -4,33 +4,96 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, r
 class ArrInt(val array: Array[Int]) extends AnyVal with ImutArr[Int]
 { override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
+  def ++ (op: ArrInt): ArrInt =
+  { val newArray = new Array[Int](length + op.length)
+    array.copyToArray(newArray)
+    op.array.copyToArray(newArray, length)
+    new ArrInt(newArray)
+  }
+
+  /*override def flatMap[B](f: Int => ImutArr[B])(implicit ev: ArrBuilder[B]): ev.G =
+  { val buff = ev.buffNew(length)
+    foreach(a => ev.buffAppends(buff, f(a)))
+    ev.buffImut(buff)
+  }*/
+}
+
+object ArrInt
+{ def apply(input: Int*): ArrInt = new ArrInt(input.toArray)
 }
 
 class BuffInt(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
 { override def length: Int = buffer.length
   override def apply(index: Int): Int = buffer(index)
+  /*override def flatMap[B](f: Int => ImutArr[B])(implicit ev: ArrBuilder[B]): ev.G =
+  { val buff = ev.buffNew(length)
+    foreach(a => ev.buffAppends(buff, f(a)))
+    ev.buffImut(buff)
+  }*/
 }
 
 class MutInt(val array: Array[Int]) extends AnyVal with MutArr[Int]
 { override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
+  /*override def flatMap[B](f: Int => ImutArr[B])(implicit ev: ArrBuilder[B]): ev.G =
+  { val buff = ev.buffNew(length)
+    foreach(a => ev.buffAppends(buff, f(a)))
+    ev.buffImut(buff)
+  }*/
 }
 
-final class ArrTInt extends ArrT[Int]
+/*final class ArrTInt extends ArrT[Int]
 { type G = ArrInt
   type H = BuffInt
   type J = MutInt
+}*/
+
+class ArrDou(val array: Array[Double]) extends AnyVal with ImutArr[Double]
+{ override def length: Int = array.length
+  override def apply(index: Int): Double = array(index)
+  def ++ (op: ArrDou): ArrDou =
+  { val newArray = new Array[Double](length + op.length)
+    array.copyToArray(newArray)
+    op.array.copyToArray(newArray, length)
+    new ArrDou(newArray)
+  }
+
+  /*override def flatMap[B](f: Double => ImutArr[B])(implicit ev: ArrBuilder[B]): ev.G =
+  { val buff = ev.buffNew(length)
+    foreach(a => ev.buffAppends(buff, f(a)))
+    ev.buffImut(buff)
+  }*/
 }
 
-object BuildInts extends ArrBuilder[Int, ArrTInt]
-{ override def imutNew(length: Int): ArrInt = new ArrInt(new Array[Int](length))
-  override def imutSet(arr: ArrInt, index: Int, value: Int): Unit = arr.array(index) = value
-  def buffNew(length: Int = 4): BuffInt = new BuffInt(new ArrayBuffer[Int](length))
-  def buffAppend(buff: BuffInt, value: Int): Unit = buff.buffer.append(value)
-  def buffAppends(buff: BuffInt, values: ArrInt): Unit = buff.buffer.addAll(values.array)
-  def buffImut(buff: BuffInt): ArrInt = new ArrInt(buff.buffer.toArray)
-  def mutNew(length: Int): MutInt = new MutInt(new Array[Int](length))
+object ArrDou
+{ def apply(input: Double*): ArrDou = new ArrDou(input.toArray)
 }
+
+class BuffDou(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffArr[Double]
+{ override def length: Int = buffer.length
+  override def apply(index: Int): Double = buffer(index)
+  /*override def flatMap[B](f: Double => ImutArr[B])(implicit ev: ArrBuilder[B]): ev.G =
+  { val buff = ev.buffNew(length)
+    foreach(a => ev.buffAppends(buff, f(a)))
+    ev.buffImut(buff)
+  }*/
+}
+
+class MutDou(val array: Array[Double]) extends AnyVal with MutArr[Double]
+{ override def length: Int = array.length
+  override def apply(index: Int): Double = array(index)
+  /*override def flatMap[B](f: Double => ImutArr[B])(implicit ev: ArrBuilder[B]): ev.G =
+  { val buff = ev.buffNew(length)
+    foreach(a => ev.buffAppends(buff, f(a)))
+    ev.buffImut(buff)
+  }*/
+}
+
+/*final class ArrTDou extends ArrT[Double]
+{ type G = ArrDou
+  type H = BuffDou
+  type J = MutDou
+}*/
 /*trait ArrBuild[B]
 {
   def bMap[A](orig: ArrN[A], f: A => B): ArrN[B]
