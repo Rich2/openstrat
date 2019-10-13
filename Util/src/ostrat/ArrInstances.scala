@@ -4,6 +4,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, r
 class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ImutArr[A]
 { override def length: Int = array.length
   override def apply(index: Int): A = array(index)
+
   def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + op.length)
     array.copyToArray(newArray)
@@ -13,6 +14,15 @@ class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal 
 }
 object Refs
 { def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): Refs[A] = new Refs(input.toArray)
+
+  implicit def bindImplicit[B <: AnyRef](implicit ct: ClassTag[B]): Bind[Refs[B]] = new Bind[Refs[B]]
+  {
+    override def bind[A](orig: BaseArr[A], f: A => Refs[B]): Refs[B] =
+    { val buff = new ArrayBuffer[B]
+      orig.foreach(a => buff.addAll(f(a).array))
+      new Refs[B](buff.toArray)
+    }
+  }
 }
 
 class BuffRefs(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
@@ -70,6 +80,14 @@ class DFloats(val array: Array[Double]) extends AnyVal with ImutArr[Double]
 
 object DFloats
 { def apply(input: Double*): DFloats = new DFloats(input.toArray)
+  implicit val bindImplicit: Bind[DFloats] = new Bind[DFloats]
+  {
+    override def bind[A](orig: BaseArr[A], f: A => DFloats): DFloats =
+    { val buff = new ArrayBuffer[Double]
+      orig.foreach(a => buff.addAll(f(a).array))
+      new DFloats(buff.toArray)
+    }
+  }
 }
 
 class BuffDou(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffArr[Double]
