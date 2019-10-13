@@ -12,18 +12,23 @@ trait BaseArr[A] extends Any
     }
   }
 
-  def iForeach[U](f: (A, Int) => U): Unit =
-  { var count = 0
-    while(count < length)
-    { f(apply(count), count)
-      count = count + 1
-    }
+  /** foreach with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
+  def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
+  { val endIndex = length + startIndex
+    var i: Int = startIndex
+    while(i < endIndex ) { f(apply(i), i); i = i + 1 }
   }
 
   def map[B, M <: ArrT[B]](f: A => B)(ev: ArrBuilder[B, M]): M#G =
-  { val res = ev.newImut(length)
-    iForeach((a, i) => ev.setImut(res, i, f(a)))
+  { val res = ev.imutNew(length)
+    iForeach((a, i) => ev.imutSet(res, i, f(a)))
     res
+  }
+
+  def flatMap[B, M <: ArrT[B]](f: A => M#G)(ev: ArrBuilder[B, M]): M#G =
+  { val buff = ev.buffNew(length)
+    foreach(a => ev.buffAppends(buff, f(a)))
+    ev.buffImut(buff)
   }
 }
 
@@ -38,8 +43,11 @@ trait BuffArr[A] extends Any with BaseArr[A]
 trait MutArr[A] extends Any with BaseArr[A]
 
 trait ArrBuilder[B, M <: ArrT[B]]
-{ def newImut(length: Int): M#G
-  def newBuff(length: Int = 4): M#H
-  def newMut(length: Int): M#J
-  def setImut(arr: M#G, index: Int, value: B): Unit
+{ def imutNew(length: Int): M#G
+  def imutSet(arr: M#G, index: Int, value: B): Unit
+  def buffNew(length: Int = 4): M#H
+  def buffAppend(buff: M#H, value: B): Unit
+  def buffAppends(buff: M#H, values: M#G): Unit
+  def buffImut(buff: M#H): M#G
+  def mutNew(length: Int): M#J
 }

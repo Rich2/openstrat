@@ -71,10 +71,12 @@ trait ProductVals[A] extends Any
   { var count = length
     while(count > 0) { count -= 1; f(apply(count)) }
   }
-   
-  def iForeach[U](f: (A, Int) => U): Unit =
-  { var count = 0
-    while(count < length) { f(apply(count), count); count += 1 }
+
+  /** foreach with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
+  def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
+  { val endIndex = length + startIndex
+    var i: Int = startIndex
+    while(i < endIndex ) { f(apply(i), i); i = i + 1 }
   }
       
   def iForeachReverse[U](f: (A, Int) => U): Unit =

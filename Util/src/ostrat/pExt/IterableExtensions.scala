@@ -42,13 +42,10 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     buff.toArr
   }
    
-  /** foreach loop with counter */
+  /** foreach loop with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
   def iForeach(f: (A, Int) => Unit, initialIndex: Int = 0): Unit =
   { var i = initialIndex
-    thisIter.foreach { elem =>
-      f(elem, i)
-      i += 1
-    }      
+    thisIter.foreach { elem => f(elem, i); i += 1 }
   }
   
   def iForall(f: (A, Int) => Boolean): Boolean = 
