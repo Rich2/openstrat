@@ -1,7 +1,37 @@
 package ostrat
-import annotation.unchecked.uncheckedVariance, reflect.ClassTag
+import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-trait ArrBuild[B]
+class ArrInt(val array: Array[Int]) extends AnyVal with ImutArr[Int]
+{ override def length: Int = array.length
+  override def apply(index: Int): Int = array(index)
+}
+
+class BuffInt(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
+{ override def length: Int = buffer.length
+  override def apply(index: Int): Int = buffer(index)
+}
+
+class MutInt(val array: Array[Int]) extends AnyVal with MutArr[Int]
+{ override def length: Int = array.length
+  override def apply(index: Int): Int = array(index)
+}
+
+object ArrTInt extends ArrT[Int]
+{ type G = ArrInt
+  type H = BuffInt
+  type J = MutInt
+}
+
+trait BuildInts extends ArrBuilder[Int, ArrTInt.type]
+{ override def imutNew(length: Int): ArrInt
+  override def imutSet(arr: ArrInt, index: Int, value: Int): Unit = arr.array(index) = value
+  def buffNew(length: Int = 4): BuffInt = ???
+  def buffAppend(buff: BuffInt, value: Int): Unit = ???
+  def buffAppends(buff: BuffInt, values: ArrInt): Unit = ???
+  def buffImut(buff: BuffInt): ArrInt = ???
+  def mutNew(length: Int): MutInt = ???
+}
+/*trait ArrBuild[B]
 {
   def bMap[A](orig: ArrN[A], f: A => B): ArrN[B]
 }
@@ -20,9 +50,9 @@ trait ArrN[+A] extends Any
     }
   }
   def map[B](f: A => B)(implicit ev: ArrBuild[B]): ArrN[B] = ev.bMap[A](this, f)
-}
+}*/
 
-trait ArrSimple[+A] extends Any with ArrN[A]
+/*trait ArrSimple[+A] extends Any with ArrN[A]
 { def array: Array[A] @uncheckedVariance
   @inline def length: Int = array.length
   @inline def apply(index: Int): A = array(index)
@@ -82,7 +112,7 @@ final class ArrD(val array: Array[Double]) extends AnyVal with ArrValue[Double]
 
 final class ArrLong(val array: Array[Long]) extends AnyVal with ArrValue[Long]
 { override def newArr(length: Int): ArrLong = new ArrLong(new Array[Long](length))
-}
+}*/
 /*
 /** Using Att as temporary name, can be switched to Arr later to replace type alias for ArraySeq. */
 class Att[+A](val array: Array[A] @scala.annotation.unchecked.uncheckedVariance) extends AnyVal
