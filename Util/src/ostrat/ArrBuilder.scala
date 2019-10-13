@@ -1,7 +1,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait BaseArr[A] extends Any
+trait BaseArr[+A] extends Any
 { def length: Int
   def apply(index: Int): A
 
@@ -20,57 +20,64 @@ trait BaseArr[A] extends Any
     while(i < endIndex ) { f(apply(i), i); i = i + 1 }
   }
 
-  def map[B](f: A => B)(implicit ev: ArrBuilder[B]): ev.G =
+  def map[B](f: A => B)(implicit ev: ArrBuilder[B]): ev.ImutT =
   { val res = ev.imutNew(length)
     iForeach((a, i) => ev.imutSet(res, i, f(a)))
     res
   }
 
-  def flatMap[B](f: A => ImutArr[B])(implicit ev: ArrBuilder[B]): ev.G =
+  def seqMap[B](f: A => Iterable[B])(implicit ev: ArrBuilder[B]): ev.ImutT =
   { val buff = ev.buffNew(length)
-    foreach(a => ev.buffAppends(buff, f(a).asInstanceOf[ev.G]))
+    foreach(a => ev.buffAppendSeq(buff, f(a)))
     ev.buffImut(buff)
   }
 }
 
-trait ImutArr[A] extends Any with BaseArr[A]
+object BaseArr
+{
+  implicit class BaseArrImplicit[A](ba: BaseArr[A])
+  {
+    //sdef bind[B, G <: ImutArr[B]](f: A => G)(implicit ev: ArrBuilder[B, G]): G = ???
+  }
+}
+
+trait ImutArr[+A] extends Any with BaseArr[A]
 trait BuffArr[A] extends Any with BaseArr[A]
 trait MutArr[A] extends Any with BaseArr[A]
 
 trait ArrBuilder[B]
-{
-  type G <: ImutArr[B]
-  type H <: BuffArr[B]
-  type J <: MutArr[B]
-  def imutNew(length: Int): G
-  def imutSet(arr: G, index: Int, value: B): Unit
-  def buffNew(length: Int = 4): H
-  def buffAppend(buff: H, value: B): Unit
-  def buffAppends(buff: H, values: ImutArr[B]): Unit = values.foreach(buffAppend(buff, _))
-  def buffImut(buff: H): G
-  def mutNew(length: Int): J
+{ type ImutT <: ImutArr[B]
+  type BuffT <: BuffArr[B]
+  type MutT <: MutArr[B]
+  def imutNew(length: Int): ImutT
+  def imutSet(arr: ImutT, index: Int, value: B): Unit
+  def buffNew(length: Int = 4): BuffT
+  def buffAppend(buff: BuffT, value: B): Unit
+  def buffAppendSeq(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffAppend(buff, _))
+  def buffImut(buff: BuffT): ImutT
+  def mutNew(length: Int): MutT
+  def fBind[A](as: BaseArr[A], f: A => ImutT): ImutT = imutNew(0)
 }
 
 object ArrBuilder
 {
   implicit val intsImplicit: ArrBuilder[Int] = new ArrBuilder[Int]
-  {
-    type G = ArrInt
-    type H = BuffInt
-    type J = MutInt
-    override def imutNew(length: Int): ArrInt = new ArrInt(new Array[Int](length))
-    override def imutSet(arr: ArrInt, index: Int, value: Int): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): BuffInt = new BuffInt(new ArrayBuffer[Int](length))
-    override def buffAppend(buff: BuffInt, value: Int): Unit = buff.buffer.append(value)
-    //override def buffAppends(buff: BuffInt, values: ImutArr[Int]): Unit = values.buff.buffer.addAll(values.array)
-    override def buffImut(buff: BuffInt): ArrInt = new ArrInt(buff.buffer.toArray)
-    override def mutNew(length: Int): MutInt = new MutInt(new Array[Int](length))
+  { type ImutT = Ints
+    type BuffT = BuffInts
+    type MutT = MutInts
+    override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
+    override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
+    override def buffNew(length: Int = 4): BuffInts = new BuffInts(new ArrayBuffer[Int](length))
+    override def buffAppend(buff: BuffInts, value: Int): Unit = buff.buffer.append(value)
+    //override def buffAppends(buff: BuffInts, values: ImutArr[Int]): Unit = values.buff.buffer.addAll(values.array)
+    override def buffImut(buff: BuffInts): Ints = new Ints(buff.buffer.toArray)
+    override def mutNew(length: Int): MutInts = new MutInts(new Array[Int](length))
   }
 
   implicit val doublesImplicit: ArrBuilder[Double] = new ArrBuilder[Double]
-  { type G = ArrDou
-    type H = BuffDou
-    type J = MutDou
+  { type ImutT = ArrDou
+    type BuffT = BuffDou
+    type MutT = MutDou
     override def imutNew(length: Int): ArrDou = new ArrDou(new Array[Double](length))
     override def imutSet(arr: ArrDou, index: Int, value: Double): Unit = arr.array(index) = value
     override def buffNew(length: Int = 4): BuffDou = new BuffDou(new ArrayBuffer[Double](length))
