@@ -3,7 +3,6 @@ import utest._
 
 object ArrTest extends TestSuite
 {
-
   val tests = Tests
   {
     val is1 = Ints(1, 2, 3, 4)

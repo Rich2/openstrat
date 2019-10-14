@@ -2,7 +2,7 @@
 package ostrat
 
 /** This is the base trait for the ProductDoubles and ProductInts classes. */
-trait ProductVals[A] extends Any
+trait ProductVals[A] extends Any with ImutArr[A]
 { def typeStr: String
   def productSize: Int
   def arrLen: Int
@@ -17,10 +17,10 @@ trait ProductVals[A] extends Any
   def setLast(value: A): Unit = setElem(length -1, value)
 
   /** Consider changing this name to foreachProd, as might not be appropriate to all sub classes. */
-  def foreach[U](f: A => U): Unit =
+  /*def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < length) { f(apply(count)); count += 1 }
-  }
+  }*/
    
   def foreachTail[U](f: A => U): Unit =
   { var count = 1
@@ -73,11 +73,11 @@ trait ProductVals[A] extends Any
   }
 
   /** foreach with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
-  def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
+  /*def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
   { val endIndex = length + startIndex
     var i: Int = startIndex
     while(i < endIndex ) { f(apply(i), i); i = i + 1 }
-  }
+  }*/
       
   def iForeachReverse[U](f: (A, Int) => U): Unit =
   { var count = length

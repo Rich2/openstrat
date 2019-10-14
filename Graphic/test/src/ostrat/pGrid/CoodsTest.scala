@@ -6,7 +6,7 @@ import utest._
 object CoodsTest  extends TestSuite
 {
   val c1 = 5 cc -96
-  val cs = Coods.ints(5,4, 3,2, 7,8, -5,-42)
+  val cs = Coods(5 cc 4, 3 cc 2, 7 cc 8, -5 cc -42)
   val tests = Tests
   {
     'test1 -
