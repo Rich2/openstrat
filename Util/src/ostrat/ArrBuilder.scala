@@ -80,15 +80,15 @@ object ArrBuilder
   }
 
   implicit val doublesImplicit: ArrBuilder[Double] = new ArrBuilder[Double]
-  { type ImutT = DFloats
+  { type ImutT = Dbls
     type BuffT = BuffDou
     type MutT = MutDou
-    override def imutNew(length: Int): DFloats = new DFloats(new Array[Double](length))
-    override def imutSet(arr: DFloats, index: Int, value: Double): Unit = arr.array(index) = value
+    override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
+    override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
     override def buffNew(length: Int = 4): BuffDou = new BuffDou(new ArrayBuffer[Double](length))
     override def buffAppend(buff: BuffDou, value: Double): Unit = buff.buffer.append(value)
-    //override def buffAppends(buff: BuffDou, values: DFloats): Unit = buff.buffer.addAll(values.array)
-    override def buffImut(buff: BuffDou): DFloats = new DFloats(buff.buffer.toArray)
+    //override def buffAppends(buff: BuffDou, values: Dbls): Unit = buff.buffer.addAll(values.array)
+    override def buffImut(buff: BuffDou): Dbls = new Dbls(buff.buffer.toArray)
     override def mutNew(length: Int): MutDou = new MutDou(new Array[Double](length))
   }
 }

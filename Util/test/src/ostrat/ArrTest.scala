@@ -9,11 +9,11 @@ object ArrTest extends TestSuite
     val is1 = Ints(1, 2, 3, 4)
     val is2 = Ints(5, 6, 7)
     val is3 = is1 ++ is2
-    val ds1 = DFloats(1.5, 3, 4.5, 6)
+    val ds1 = Dbls(1.5, 3, 4.5, 6)
     val ds2 = is1.map(_ * 1.5)
     val ds3 = is1.seqMap{a => List(a + 0.1, a + 0.2)}
     val ds4 = is1.bind(a => Ints(a + 10, a + 20, a + 30))
-    val ds5 = is2.bind(i => DFloats(i, i * 0.5))
+    val ds5 = is2.bind(i => Dbls(i, i * 0.5))
     'test1 -
     {
       is1(3) ==> 4

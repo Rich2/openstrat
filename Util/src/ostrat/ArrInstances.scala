@@ -100,25 +100,25 @@ class MutLongs(val array: Array[Long]) extends AnyVal with MutArr[Long]
 }
 
 
-class DFloats(val array: Array[Double]) extends AnyVal with ImutArr[Double]
+class Dbls(val array: Array[Double]) extends AnyVal with ImutArr[Double]
 { override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
-  def ++ (op: DFloats): DFloats =
+  def ++ (op: Dbls): Dbls =
   { val newArray = new Array[Double](length + op.length)
     array.copyToArray(newArray)
     op.array.copyToArray(newArray, length)
-    new DFloats(newArray)
+    new Dbls(newArray)
   }
 }
 
-object DFloats
-{ def apply(input: Double*): DFloats = new DFloats(input.toArray)
-  implicit val bindImplicit: Bind[DFloats] = new Bind[DFloats]
+object Dbls
+{ def apply(input: Double*): Dbls = new Dbls(input.toArray)
+  implicit val bindImplicit: Bind[Dbls] = new Bind[Dbls]
   {
-    override def bind[A](orig: BaseArr[A], f: A => DFloats): DFloats =
+    override def bind[A](orig: BaseArr[A], f: A => Dbls): Dbls =
     { val buff = new ArrayBuffer[Double]
       orig.foreach(a => buff.addAll(f(a).array))
-      new DFloats(buff.toArray)
+      new Dbls(buff.toArray)
     }
   }
 }
