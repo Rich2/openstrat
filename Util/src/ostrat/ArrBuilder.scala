@@ -1,54 +1,13 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait BaseArr[+A] extends Any
-{ def length: Int
-  def apply(index: Int): A
-
-  def foreach[U](f: A => U): Unit =
-  { var count = 0
-    while(count < length)
-    { f(apply(count))
-      count = count + 1
-    }
-  }
-
-  /** foreach with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
-  def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
-  { val endIndex = length + startIndex
-    var i: Int = startIndex
-    while(i < endIndex ) { f(apply(i), i); i = i + 1 }
-  }
-
-  def map[B](f: A => B)(implicit ev: ArrBuilder[B]): ev.ImutT =
-  { val res = ev.imutNew(length)
-    iForeach((a, i) => ev.imutSet(res, i, f(a)))
-    res
-  }
-
-  def seqMap[B](f: A => Iterable[B])(implicit ev: ArrBuilder[B]): ev.ImutT =
-  { val buff = ev.buffNew(length)
-    foreach(a => ev.buffAppendSeq(buff, f(a)))
-    ev.buffImut(buff)
-  }
-}
-
-object BaseArr
-{
-  implicit class BaseArrImplicit[A](ba: BaseArr[A])
-  {
-   def bind[BB <: ImutArr[_]](f: A => BB)(implicit ev: Bind[BB]): BB = ev.bind[A](ba, f)
-  }
-}
-
 trait Bind[BB <: ImutArr[_]]
-{
-  def bind[A](orig: BaseArr[A], f: A => BB): BB
+{ def bind[A](orig: ArrayBased[A], f: A => BB): BB
 }
 
-trait ImutArr[+A] extends Any with BaseArr[A]
-trait BuffArr[A] extends Any with BaseArr[A]
-trait MutArr[A] extends Any with BaseArr[A]
+trait ImutArr[+A] extends Any with ArrayBased[A]
+trait BuffArr[A] extends Any with ArrayBased[A]
+trait MutArr[A] extends Any with ArrayBased[A]
 
 trait ArrBuilder[B]
 { type ImutT <: ImutArr[B]
@@ -61,7 +20,7 @@ trait ArrBuilder[B]
   def buffAppendSeq(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffAppend(buff, _))
   def buffImut(buff: BuffT): ImutT
   def mutNew(length: Int): MutT
-  def fBind[A](as: BaseArr[A], f: A => ImutT): ImutT = imutNew(0)
+  def fBind[A](as: ArrayBased[A], f: A => ImutT): ImutT = imutNew(0)
 }
 
 object ArrBuilder

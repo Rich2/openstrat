@@ -7,13 +7,13 @@ trait ProductVals[A] extends Any with ImutArr[A]
   def productSize: Int
   def arrLen: Int
   final def length: Int = arrLen / productSize
-  def apply(index: Int): A
+
   def setElem(index: Int, elem: A): Unit
   def setElems(index: Int, elems: A*): Unit = elems.iForeach((a, i) => setElem(i, a), index)
   def setElemSeq(index: Int, elems: Iterable[A]) = elems.iForeach((a, i) => setElem(i, a), index)
-  def head: A = apply(0)
+
   def setHead(value: A): Unit = setElem(0, value)
-  def last: A = apply(length - 1)
+
   def setLast(value: A): Unit = setElem(length -1, value)
 
   /** Consider changing this name to foreachProd, as might not be appropriate to all sub classes. */
