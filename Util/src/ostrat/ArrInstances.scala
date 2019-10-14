@@ -67,6 +67,39 @@ class MutInts(val array: Array[Int]) extends AnyVal with MutArr[Int]
   override def apply(index: Int): Int = array(index)
 }
 
+class Longs(val array: Array[Long]) extends AnyVal with ImutArr[Long]
+{ override def length: Int = array.length
+  override def apply(index: Int): Long = array(index)
+  def ++ (op: Longs): Longs =
+  { val newArray = new Array[Long](length + op.length)
+    array.copyToArray(newArray)
+    op.array.copyToArray(newArray, length)
+    new Longs(newArray)
+  }
+}
+object Longs
+{ def apply(input: Long*): Longs = new Longs(input.toArray)
+  implicit val bindImplicit: Bind[Longs] = new Bind[Longs]
+  {
+    override def bind[A](orig: BaseArr[A], f: A => Longs): Longs =
+    { val buff = new ArrayBuffer[Long]
+      orig.foreach(a => buff.addAll(f(a).array))
+      new Longs(buff.toArray)
+    }
+  }
+}
+
+class BuffLongs(val buffer: ArrayBuffer[Long]) extends AnyVal with BuffArr[Long]
+{ override def length: Int = buffer.length
+  override def apply(index: Int): Long = buffer(index)
+}
+
+class MutLongs(val array: Array[Long]) extends AnyVal with MutArr[Long]
+{ override def length: Int = array.length
+  override def apply(index: Int): Long = array(index)
+}
+
+
 class DFloats(val array: Array[Double]) extends AnyVal with ImutArr[Double]
 { override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
