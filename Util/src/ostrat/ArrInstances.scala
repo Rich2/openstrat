@@ -1,7 +1,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ImutArr[A]
+class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
 { override def length: Int = array.length
   override def apply(index: Int): A = array(index)
 
@@ -35,7 +35,7 @@ class MutRefs(val array: Array[Int]) extends AnyVal with MutArr[Int]
   override def apply(index: Int): Int = array(index)
 }
 
-class Ints(val array: Array[Int]) extends AnyVal with ImutArr[Int]
+class Ints(val array: Array[Int]) extends AnyVal with ArrImut[Int]
 { override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
   def ++ (op: Ints): Ints =
@@ -67,7 +67,7 @@ class MutInts(val array: Array[Int]) extends AnyVal with MutArr[Int]
   override def apply(index: Int): Int = array(index)
 }
 
-class Longs(val array: Array[Long]) extends AnyVal with ImutArr[Long]
+class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 { override def length: Int = array.length
   override def apply(index: Int): Long = array(index)
   def ++ (op: Longs): Longs =
@@ -100,7 +100,7 @@ class MutLongs(val array: Array[Long]) extends AnyVal with MutArr[Long]
 }
 
 
-class Dbls(val array: Array[Double]) extends AnyVal with ImutArr[Double]
+class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 { override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
   def ++ (op: Dbls): Dbls =

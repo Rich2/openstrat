@@ -1,16 +1,29 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait Bind[BB <: ImutArr[_]]
+trait Bind[BB <: ArrImut[_]]
 { def bind[A](orig: ArrayBased[A], f: A => BB): BB
 }
 
-trait ImutArr[+A] extends Any with ArrayBased[A]
+trait ArrImut[+A] extends Any with ArrayBased[A]
+{
+  /*def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A]): Arr[A] = thisArr.indexWhere(f) match
+  { case -1 => thisArr
+    case i =>
+    {
+      val mutArr = new Array[A](thisArr.length - 1)
+      (0 until i).foreach(i => mutArr(i) = thisArr(i))
+      (i + 1).until(thisArr.length).foreach(i => mutArr(i - 1) = thisArr(i))
+      mutArr.toArr
+    }
+  }*/
+
+}
 trait BuffArr[A] extends Any with ArrayBased[A]
 trait MutArr[A] extends Any with ArrayBased[A]
 
 trait ArrBuilder[B]
-{ type ImutT <: ImutArr[B]
+{ type ImutT <: ArrImut[B]
   type BuffT <: BuffArr[B]
   type MutT <: MutArr[B]
   def imutNew(length: Int): ImutT
@@ -33,7 +46,7 @@ object ArrBuilder
     override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
     override def buffNew(length: Int = 4): BuffInts = new BuffInts(new ArrayBuffer[Int](length))
     override def buffAppend(buff: BuffInts, value: Int): Unit = buff.buffer.append(value)
-    //override def buffAppends(buff: BuffInts, values: ImutArr[Int]): Unit = values.buff.buffer.addAll(values.array)
+    //override def buffAppends(buff: BuffInts, values: ArrImut[Int]): Unit = values.buff.buffer.addAll(values.array)
     override def buffImut(buff: BuffInts): Ints = new Ints(buff.buffer.toArray)
     override def mutNew(length: Int): MutInts = new MutInts(new Array[Int](length))
   }

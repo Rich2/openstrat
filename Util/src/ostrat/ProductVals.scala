@@ -2,7 +2,7 @@
 package ostrat
 
 /** This is the base trait for the ProductDoubles and ProductInts classes. */
-trait ProductVals[A] extends Any with ImutArr[A]
+trait ProductVals[A] extends Any with ArrImut[A]
 { def typeStr: String
   def productSize: Int
   def arrLen: Int
