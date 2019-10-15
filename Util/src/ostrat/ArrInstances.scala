@@ -62,11 +62,6 @@ class BuffInts(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
   override def apply(index: Int): Int = buffer(index)
 }
 
-class MutInts(val array: Array[Int]) extends AnyVal with MutArr[Int]
-{ override def length: Int = array.length
-  override def apply(index: Int): Int = array(index)
-}
-
 class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 { override def length: Int = array.length
   override def apply(index: Int): Long = array(index)
