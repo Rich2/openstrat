@@ -20,7 +20,6 @@ trait ArrImut[+A] extends Any with ArrayBased[A]
 
 }
 trait BuffArr[A] extends Any with ArrayBased[A]
-trait MutArr[A] extends Any with ArrayBased[A]
 
 trait ArrBuilder[B]
 { type ImutT <: ArrImut[B]
@@ -49,12 +48,12 @@ object ArrBuilder
 
   implicit val doublesImplicit: ArrBuilder[Double] = new ArrBuilder[Double]
   { type ImutT = Dbls
-    type BuffT = BuffDou
+    type BuffT = BuffDbl
     override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
     override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): BuffDou = new BuffDou(new ArrayBuffer[Double](length))
-    override def buffAppend(buff: BuffDou, value: Double): Unit = buff.buffer.append(value)
+    override def buffNew(length: Int = 4): BuffDbl = new BuffDbl(new ArrayBuffer[Double](length))
+    override def buffAppend(buff: BuffDbl, value: Double): Unit = buff.buffer.append(value)
     //override def buffAppends(buff: BuffDou, values: Dbls): Unit = buff.buffer.addAll(values.array)
-    override def buffImut(buff: BuffDou): Dbls = new Dbls(buff.buffer.toArray)
+    override def buffImut(buff: BuffDbl): Dbls = new Dbls(buff.buffer.toArray)
   }
 }

@@ -30,11 +30,6 @@ class BuffRefs(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
   override def apply(index: Int): Int = buffer(index)
 }
 
-class MutRefs(val array: Array[Int]) extends AnyVal with MutArr[Int]
-{ override def length: Int = array.length
-  override def apply(index: Int): Int = array(index)
-}
-
 class Ints(val array: Array[Int]) extends AnyVal with ArrImut[Int]
 { override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
@@ -89,12 +84,6 @@ class BuffLongs(val buffer: ArrayBuffer[Long]) extends AnyVal with BuffArr[Long]
   override def apply(index: Int): Long = buffer(index)
 }
 
-class MutLongs(val array: Array[Long]) extends AnyVal with MutArr[Long]
-{ override def length: Int = array.length
-  override def apply(index: Int): Long = array(index)
-}
-
-
 class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 { override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
@@ -118,12 +107,7 @@ object Dbls
   }
 }
 
-class BuffDou(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffArr[Double]
+class BuffDbl(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffArr[Double]
 { override def length: Int = buffer.length
   override def apply(index: Int): Double = buffer(index)
-}
-
-class MutDou(val array: Array[Double]) extends AnyVal with MutArr[Double]
-{ override def length: Int = array.length
-  override def apply(index: Int): Double = array(index)
 }
