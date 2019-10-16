@@ -4,7 +4,7 @@ package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
-case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor..")
+case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("Reactor")
 {
   //override def width = 200
   //override def height = 200
@@ -29,7 +29,6 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
     repaint(Arr(
       Rectangle(width, height, 0 vv 0).fill(Colour(0xFF181818)), 
       gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })
-      //NB gameBtn <= left click = new game | middle click = load game | right click = save game
     ))
     turn = 0
     players = Array(Red, Green, Yellow, Blue)
@@ -123,20 +122,26 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("chainreactor.
   }
   def saveGame() : Unit = 
   {
-    var saveData = ""
+    var saveData = "\n"
     saveData += turn.toString + "\n"
-    saveData += players.mkString("[", ",", "]") + "\n"
-    saveData += cellCounts.mkString("[", ",", "]") + "\n"
-    saveData += cellColors.mkString("[", ",", "]") + "\n"
+    saveData += players.mkString(",") + "\n"
+    saveData += cellCounts.mkString(",") + "\n"
+    saveData += cellColors.mkString(",") + "\n"
     saveData += currentPlayer.toString + "\n"
     canv.saveFile("Reactor.data", saveData)
     deb("Saved!")
   }
   def loadGame() : Unit = 
   {
-    val arr = canv.loadFile("test")
-    deb(arr.toString)
-    //turn = arr.right.split("\n")(0).toInt
+    val loadData = canv.loadFile("test")//**BUG "Reactor.data")
+    deb(loadData.toString)
+    if (loadData.isGood)
+    {
+      turn = loadData.toString.split("\n")(1).toInt  //loadData.right.split("\n")(0).toInt
+      deb("turn == " + turn)
+      //players = loadData.toString.split("\n")(2).split(",").map[Colour](String=>Colour)
+      deb("players == " + players)
+    }
     //canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
 }
