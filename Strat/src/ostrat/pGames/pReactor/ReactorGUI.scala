@@ -139,8 +139,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("Reactor")
     {
       turn = loadData.toString.split("\n")(1).toInt  //loadData.right.split("\n")(0).toInt
       deb("turn == " + turn)
-      //players = loadData.toString.split("\n")(2).split(",").map[Colour](String=>Colour)
-      deb("players == " + players)
+      val c = Colour.strToValue("Red")
+      deb(c.toString)
+      //players = loadData.toString.split("\n")(2).split(",").map[Colour](c => Colour.strToValue(c))
+      deb("players == " + players.toString)
     }
     //canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
@@ -150,7 +152,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("Reactor")
   //     def saveCmd = (mb: MouseButton) => { setStatus("Saved"); canv.saveFile(saveName, view.str) }
   // def bSave = button3("save", saveCmd)
 //  var currentPlayer = p1 //
-//  sealed class player(colour:Colour) Extends Colour(colour)
+//  sealed class player(colour:Colour) Extends Colour(colour) 
 //  object p1 extends player(Red)
 //  object p2 extends player(Green)
 //  object p3 extends player(Yellow)
