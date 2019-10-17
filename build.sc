@@ -36,6 +36,11 @@ trait PlatformsModule extends ScalaModule with CommonStd
     def testFrameworks = Seq("utest.runner.Framework") 
     def sources = T.sources(millSourcePath / 'src)  
   }
+
+  trait InnerExamples extends ScalaModule with CommonStd
+  {
+  	def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
+  }
 }
 
 object Util extends PlatformsModule
@@ -63,6 +68,10 @@ object Util extends PlatformsModule
   
   object js extends InnerJs
   { def moduleDeps = Seq(MacrosJs)
+  }
+
+  object examples extends InnerExamples
+  {	def moduleDeps = Seq(Util)
   }
 
   object Nat extends InnerNative  
