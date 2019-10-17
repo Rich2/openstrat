@@ -6,9 +6,6 @@ import geom._, pCanv._, Colour._
 
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("Reactor")
 {
-  //override def width = 200
-  //override def height = 200
-
   val size = 40  //cell size in pixels
   val rows = 8
   val cols = 10
