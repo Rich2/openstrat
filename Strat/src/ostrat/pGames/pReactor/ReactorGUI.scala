@@ -134,15 +134,18 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("Reactor")
   def loadGame() : Unit = 
   {
     val loadData = canv.loadFile("test")//**BUG "Reactor.data")
-    deb(loadData.toString)
+    //deb(loadData.toString)
     if (loadData.isGood)
     {
-      turn = loadData.toString.split("\n")(1).toInt  //loadData.right.split("\n")(0).toInt
+      loadData.foreach(i=>deb(i.toString))
+      //turn = loadData.toString.split("\n")(1).toInt  //loadData.right.split("\n")(0).toInt
       deb("turn == " + turn)
       val c = Colour.strToValue("Red")
       deb(c.toString)
       //players = loadData.toString.split("\n")(2).split(",").map[Colour](c => Colour.strToValue(c))
       deb("players == " + players.toString)
+    } else {
+      deb("bad filename?")
     }
     //canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
