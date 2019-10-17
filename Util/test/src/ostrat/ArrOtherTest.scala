@@ -29,7 +29,5 @@ object ArrOtherTest extends TestSuite
       intArr4.length ==> 12
       dblArr3(1) ==> 2.5
     }
-
-
   }
 }

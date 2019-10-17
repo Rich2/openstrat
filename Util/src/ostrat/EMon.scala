@@ -1,14 +1,14 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** This corresponds, but is not functionally equivalent to an Either[StrList, A] or Either[List[String], +A]. There are advantages to having a
- *  separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the methods biMap, to Either,
- *  eitherMap and eitherFlatMap when interoperability with Either is required. Have forgotten the reason I chose a separate class over using Either.*/
+/** An Errors handling class. Consider changing name to EHan. An This corresponds, but is not functionally equivalent to an Either[StrList, A] or
+ *  Either[List[String], +A]. There are advantages to having a *  separate class and I find that I rarely use Either apart from with standard errors
+ *  as the Left type. However use the methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view
+ *  Either[T] class is redundant and is rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A]
 {
   @inline def fold[B](fBad: StrList => B, fGood: A => B): B = this match
-  {
-    case Good(a) => fGood(a)
+  { case Good(a) => fGood(a)
     case Bad(errs) => fBad(errs)
   }
   
