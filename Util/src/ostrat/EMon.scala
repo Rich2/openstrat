@@ -1,22 +1,30 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** An Errors handling class. Consider changing name to EHan. An This corresponds, but is not functionally equivalent to an Either[StrList, A] or
- *  Either[List[String], +A]. There are advantages to having a *  separate class and I find that I rarely use Either apart from with standard errors
- *  as the Left type. However use the methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view
- *  Either[T] class is redundant and is rarely used except as an errors handler. So it makes sense to use a dedicated class. */
+/** An Errors handling class. Consider changing name to EHan. The main ways to consume the final result of the flatMap operation are fold, getElse,
+ * foreach and forEither. This corresponds, but is not functionally equivalent to an Either[StrList, A] or Either[List[String], +A]. There are
+ * advantages to having a *  separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the
+ * methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view Either[T] class is redundant and is
+ * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A]
-{
+{ /** Will perform action if Good. Does nothing if Bad. */
+  def foreach(f: A => Unit): Unit
+
+  /** Fold the EMon of type A into a type of B. */
   @inline def fold[B](fBad: StrList => B, fGood: A => B): B = this match
   { case Good(a) => fGood(a)
     case Bad(errs) => fBad(errs)
   }
   
   def errs: StrList
-  def map[B](f: A => B): EMon[B]  
+  def map[B](f: A => B): EMon[B]
+
+  /** This is just a Unit returning map, but is preferred because the method  is explicit that it is called for effects not a value. */
+  def forEither(fBad: StrList => Unit, fGood: A => Unit): Unit = fold[Unit](fBad, fGood)
   def flatMap[B](f: A => EMon[B]): EMon[B]
-  def foreach(f: A => Unit): Unit
   def getElse[A1 >: A](elseValue: => A1): A1
+
+  /** Use this EMon if good else use other EMmn */
   def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1]
   def biMap[L2, R2](fLeft: StrList => L2, fRight: A => R2): Either[L2, R2]
   def toEither: Either[StrList, A] 

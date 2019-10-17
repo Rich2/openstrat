@@ -2,13 +2,18 @@ package ostrat
 
 object HelloEmon extends App
 { println("Welcome to Hello Emon. This will printout the first number but not the second.")
-  "4".findInt.foreach(i => println(i.str))
-
-
-  val d1: EMon[Int] = "2.2".findInt
-  d1.foreach(i => println(i.str))// nothing happens.
-  val i1: Int = d1.getElse(0)
+  val mi1: EMon[Int] = "4".findInt
+  mi1.foreach(i => println(i.str))//Something happens
+  val mi2: EMon[Int] = "2.2".findInt
+  mi2.foreach(i => println(i.str))//Nothing happens.
+  val i1: Int = mi2.getElse(0)
   println("You asked for " + i1.str)
-  val s1: String = d1.fold(_ => "This is not an Int", "This really is an Int: " + _)
+  val s1: String = mi2.fold(_ => "This is not an Int", "This really is an Int: " + _)
   println(s1)
+  var counter: Int = 10
+  println("Counter value = " + counter.str)
+  mi1.forEither(errs => println("The counter was not changed."), counter += _)
+  println("Counter value is now: " + counter.str)
+  mi2.forEither(errs => println("The counter was not changed."), counter += _)
+  println("Counter value is now: " + counter.str)
 }
