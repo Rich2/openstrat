@@ -6,7 +6,7 @@ package pParse
 object TokensFind
 {
   type TokensMon = EMon[List[Token]]
-  /** Max numbers for long and hexidecimal formats needs to be implemented */
+  /** Max numbers for long and hexadecimal formats needs to be implemented */
   def apply(srcStr: String, fileName: String): TokensMon = mainLoop(srcStr.toList, new FilePosn(fileName, 1, 1), Nil)
   def fromString(srcStr: String): TokensMon = apply(srcStr, "FromString")
      

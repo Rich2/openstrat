@@ -3,7 +3,7 @@ package ostrat
 
 /** An Errors handling class. Consider changing name to EHan. The main ways to consume the final result of the flatMap operation are fold, getElse,
  * foreach and forEither. This corresponds, but is not functionally equivalent to an Either[StrList, A] or Either[List[String], +A]. There are
- * advantages to having a *  separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the
+ * advantages to having a separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the
  * methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view Either[T] class is redundant and is
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A]
@@ -42,6 +42,8 @@ object EMon
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] =
       thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingStr)))
     def findSettingElse[A: Persist](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
+    def findSomeSetting[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
+    def findSomeSettingElse[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
 }
 

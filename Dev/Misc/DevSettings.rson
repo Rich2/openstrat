@@ -1,6 +1,8 @@
 appStr = "1";
 displayX = 0;
 displayY = 0;
+/* displayWidth = 1920 */
+/* displayHeight = 1080 */
 
 /* Change the  number to change the app on next run.
   ("0", (new pGames.pCiv.CivGui(_), "ScalaFx Rise of Civs")),
