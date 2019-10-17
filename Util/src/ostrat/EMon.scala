@@ -18,7 +18,6 @@ sealed trait EMon[+A]
   
   def errs: StrList
   def map[B](f: A => B): EMon[B]
-
   /** This is just a Unit returning map, but is preferred because the method  is explicit that it is called for effects not a value. */
   def forEither(fBad: StrList => Unit, fGood: A => Unit): Unit = fold[Unit](fBad, fGood)
   def flatMap[B](f: A => EMon[B]): EMon[B]

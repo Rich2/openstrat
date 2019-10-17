@@ -15,7 +15,7 @@ def stdSettings = commonSettings ::: List(
   scalaSource := (baseDirectory).value / "src",
   Compile/scalaSource := baseDirectory.value / "src",
   Test/scalaSource := baseDirectory.value / "test/src",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value, baseDirectory.value / "examples/src"),
 )
 
 lazy val UtilMacros = (project in file("Util/Macros")).settings(stdSettings).settings(  
