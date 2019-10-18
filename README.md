@@ -123,5 +123,8 @@ For IntellliJ useful options:
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories. [Useful Git commands](https://richstrat.com/Documentation/GitCommands.html). [Miscellaneous notes](https://richstrat.com/Documentation/Miscellaneous.html)
 
-**Road Map** Priorities- To be completed.
-   - Audio (not urgent) : (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain that way.
+**Road Map** So currently we now have a 3 month maximum time frame for Github issues, for non urgent issues left as eaily accessible for beginners. Everything will go in the road map, unitl we have time and focus to start implementing.
+  - 2.5D, 3D Graphics. The knowledge form inplementing 2.5 and 3d will allow clarification of the 2d Transformation of arcs. 
+  - Audio: (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain that way.
+  - Array Double based generalised deep-compound value-types includind C-style type unions and single Array based collections of those types. Currently we just have Pruducts of a single type.
+  - Deep-compound value-types with repeat last members. These can not have single Array Collections.
