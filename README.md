@@ -4,7 +4,7 @@
 
 This project has 2 main focuses:
 
-<h2>A functional Geometry and Vector Graphics library</h2>
+<h3>A functional Geometry and Vector Graphics library</h3>
 <h2>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</h2>
 
 The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision, part of which was to explore the possiblites of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary focuses have developed:
@@ -18,7 +18,7 @@ This project is intended to be accessible and welcoming to programmers of all le
 
 However at the other end, I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal language to explore these questions.
 
-Scala currently set to 2.13.1. Scala.Js set to 0.6.29. Sbt currently set to 1.3.3 (uses the build.sbt file). Update your Mill to 0.5.1 (uses the build.sc file). Run:
+Scala currently set to 2.13.1. Scala.Js set to 0.6.29. Sbt currently set to 1.3.3 (uses the build.sbt file). Update your Mill to 0.5.2 (uses the build.sc file). Run:
 
 ```
 sbt //In bash from project's root folder
