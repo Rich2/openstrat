@@ -18,10 +18,13 @@ trait ArrImut[+A] extends Any with ArrayBased[A]
   /** Replaces all instances of the old value with the new value. */
   def replace(oldValue: A @uncheckedVariance, newValue: A@uncheckedVariance): ThisT =
   { val newArr = buildThis(length)
-    iForeach {(i, el) => ife(el == oldValue, newValue, el) }
+    foreach( el => ife(el == oldValue, newValue, el))
     newArr
   }
 
+ // def ifAppendArr[B >: A](b: Boolean, newElems: => Arr[B]): Arr[B] = ife(b, thisArr ++ newElems, thisArr)
+ // def optAppend[B >: A](optElem: Option[B]): Arr[B] = optElem.fold[Arr[B]](thisArr)(b => thisArr :+ b)
+ // def optAppends[B >: A](optElems: Option[Arr[B]]): Arr[B] = optElems.fold[Arr[B]](thisArr)(bs => thisArr ++ bs)
 }
 
 trait BuffArr[A] extends Any with ArrayBased[A]

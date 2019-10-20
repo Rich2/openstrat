@@ -1,42 +1,21 @@
 package ostrat
-import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, reflect.ClassTag
+import scala.collection.mutable.ArrayBuffer
 
-final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
-{ type ThisT = Refs[A] @uncheckedVariance
-  override def buildThis(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
-  override def length: Int = array.length
-  override def apply(index: Int): A = array(index)
-
-  def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
-  { val newArray = new Array[AA](length + op.length)
-    array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
-    new Refs(newArray)
+trait ArrValues[A] extends Any with ArrImut[A]
+{ type ThisT <: ArrValues[A]
+  def :+ [A](op: A): ThisT =
+  { val newArr = buildThis(length + 1)
+    //array.copyToArray(newArr.arr)
+    // newArray(length) = op
+    ??? //new Refs(newArray)
   }
 }
-object Refs
-{ def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): Refs[A] = new Refs(input.toArray)
-
-  implicit def bindImplicit[B <: AnyRef](implicit ct: ClassTag[B]): Bind[Refs[B]] = new Bind[Refs[B]]
-  {
-    override def bind[A](orig: ArrayBased[A], f: A => Refs[B]): Refs[B] =
-    { val buff = new ArrayBuffer[B]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Refs[B](buff.toArray)
-    }
-  }
-}
-
-class BuffRefs(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
-{ override def length: Int = buffer.length
-  override def apply(index: Int): Int = buffer(index)
-}
-
-final class Ints(val array: Array[Int]) extends AnyVal with ArrImut[Int]
+final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 { type ThisT = Ints
   override def buildThis(length: Int): Ints = new Ints(new Array[Int](length))
   override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
+
   def ++ (op: Ints): Ints =
   { val newArray = new Array[Int](length + op.length)
     array.copyToArray(newArray)
