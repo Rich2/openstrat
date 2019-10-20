@@ -1,13 +1,16 @@
 package ostrat
 
 trait ArrayBased[+A] extends Any
-{ def length: Int
+{
+  def length: Int
   def apply(index: Int): A
 
   def head: A = apply(0)
   def last: A = apply(length - 1)
   type ThisT <: ArrayBased[A]
   def buildThis(length: Int): ThisT = ???
+  def returnThis: ThisT = ???
+  def setUnsafe(i: Int, value: A @annotation.unchecked.uncheckedVariance): Unit = ???
 
   def foreach[U](f: A => U): Unit =
   { var count = 0
@@ -37,25 +40,30 @@ trait ArrayBased[+A] extends Any
   }
 
   /** Return the index of the first lemenet where predicate is true, or -1 if predicate not true forall. */
-  def indexWhere(f: A => Boolean): Int = ???
-
-  def removeFirst(f: A => Boolean): ThisT = ??? //thisArr.indexWhere(f) match
-  /*{ case -1 => thisArr
-    case i =>
-    {
-      val mutArr = new Array[A](thisArr.length - 1)
-      (0 until i).foreach(i => mutArr(i) = thisArr(i))
-      (i + 1).until(thisArr.length).foreach(i => mutArr(i - 1) = thisArr(i))
-      mutArr.toArr
+  def indexWhere(f: A => Boolean): Int =
+  { var count = 0
+    var result = -1
+    while(count < length & result == -1)
+    { if(f(apply(count))) result = count
+      count += 1
     }
-  }*/
+    result
+  }
 
+  def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
+  { case -1 => returnThis
+    case n =>
+    { val newArr = buildThis(length - 1)
+      iUntilForeach(0, n)(i => newArr.setUnsafe(i, apply(i)))
+      iUntilForeach(n + 1, length)(i => newArr.setUnsafe(i - 1, apply(i)))
+      newArr
+    }
+  }
 }
 
 object ArrayBased
 {
   implicit class ArrBaseImplicit[A](ba: ArrayBased[A])
-  {
-    def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: Bind[BB]): BB = ev.bind[A](ba, f)
+  { def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: Bind[BB]): BB = ev.bind[A](ba, f)
   }
 }

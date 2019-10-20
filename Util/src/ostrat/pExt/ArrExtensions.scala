@@ -18,11 +18,10 @@ class ArrExtensions[A](thisArr: Arr[A])
   /** Removes the first element that satisfies the function and returns a new Arr. Returns itself if no matching element found. */
   def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A]): Arr[A] = thisArr.indexWhere(f) match
   { case -1 => thisArr
-    case i =>
-    {
-      val mutArr = new Array[A](thisArr.length - 1)
-      (0 until i).foreach(i => mutArr(i) = thisArr(i))
-      (i + 1).until(thisArr.length).foreach(i => mutArr(i - 1) = thisArr(i))
+    case n =>
+    { val mutArr = new Array[A](thisArr.length - 1)
+      iUntilForeach(0, n)(i => mutArr(i) = thisArr(i))
+      iUntilForeach(n + 1, thisArr.length)(i => mutArr(i - 1) = thisArr(i))
       mutArr.toArr
     }
   }
