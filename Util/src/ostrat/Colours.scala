@@ -2,8 +2,10 @@
 package ostrat
 import Colour._
 
-class Colours(val array: Array[Int]) extends AnyVal with ProductI1s[Colour]
-{ override def typeStr: String = "Colours"
+final class Colours(val array: Array[Int]) extends AnyVal with ProductI1s[Colour]
+{ type ThisT = Colours
+  override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
+  override def typeStr: String = "Colours"
   final override def newElem(intValue: Int): Colour = Colour(intValue)  
 }
 

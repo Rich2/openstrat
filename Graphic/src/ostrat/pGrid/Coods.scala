@@ -4,7 +4,9 @@ package pGrid
 
 /** An array[Int] based collection for Cood. */
 class Coods(val array: Array[Int]) extends AnyVal with ProductI2s[Cood]
-{ override def typeStr: String = "Coods"
+{ type ThisT = Coods
+  override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
+  override def typeStr: String = "Coods"
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
    
   def filter(f: Cood => Boolean): Coods =

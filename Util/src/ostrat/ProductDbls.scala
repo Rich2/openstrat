@@ -4,7 +4,10 @@ import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
 trait ProductDbls[A] extends Any with ProductVals[A]
-{ def array: Array[Double]
+{ type ThisT <: ProductDbls[A]
+  def array: Array[Double]
+  def unsafeFromArray(array: Array[Double]): ThisT
+  final override def buildThis(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
   def arrLen = array.length
   //def toArrs: Arr[Arr[Double]]
   def foreachArr(f: Arr[Double] => Unit): Unit

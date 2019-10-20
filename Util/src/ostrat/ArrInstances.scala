@@ -1,8 +1,10 @@
 package ostrat
 import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
-{ override def length: Int = array.length
+final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
+{ type ThisT = Refs[A] @uncheckedVariance
+  override def buildThis(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
+  override def length: Int = array.length
   override def apply(index: Int): A = array(index)
 
   def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
@@ -30,8 +32,10 @@ class BuffRefs(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
   override def apply(index: Int): Int = buffer(index)
 }
 
-class Ints(val array: Array[Int]) extends AnyVal with ArrImut[Int]
-{ override def length: Int = array.length
+final class Ints(val array: Array[Int]) extends AnyVal with ArrImut[Int]
+{ type ThisT = Ints
+  override def buildThis(length: Int): Ints = new Ints(new Array[Int](length))
+  override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
   def ++ (op: Ints): Ints =
   { val newArray = new Array[Int](length + op.length)
@@ -58,7 +62,9 @@ class BuffInts(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
 }
 
 class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
-{ override def length: Int = array.length
+{ type ThisT = Longs
+  override def buildThis(length: Int): Longs = new Longs(new Array[Long](length))
+  override def length: Int = array.length
   override def apply(index: Int): Long = array(index)
   def ++ (op: Longs): Longs =
   { val newArray = new Array[Long](length + op.length)
@@ -85,7 +91,9 @@ class BuffLongs(val buffer: ArrayBuffer[Long]) extends AnyVal with BuffArr[Long]
 }
 
 class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
-{ override def length: Int = array.length
+{ type ThisT = Dbls
+  override def buildThis(length: Int): Dbls = new Dbls(new Array[Double](length))
+  override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
   def ++ (op: Dbls): Dbls =
   { val newArray = new Array[Double](length + op.length)

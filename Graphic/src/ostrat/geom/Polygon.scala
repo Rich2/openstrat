@@ -5,7 +5,9 @@ import Colour.Black
 
 /** A Polygon is encoded as a sequence of plain 2 dimension (mathematical) vectors. Minimum length 3.. Clockwise is the default */
 class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
-{ override def typeStr: String = "Polygon"
+{ type ThisT = Polygon
+  def unsafeFromArray(array: Array[Double]): Polygon = new Polygon(array)
+  override def typeStr: String = "Polygon"
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   def fTrans(f: Vec2 => Vec2): Polygon = new Polygon(arrTrans(f))  
   def eq(obj: Polygon): Boolean = array.sameElements(obj.array)
@@ -119,7 +121,9 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
 
 /* A polygon using distances. */
 class DPolygon(val array: Array[Double]) extends AnyVal with ProductD2s[Dist2]
-{ override def typeStr: String = "DPolygon"
+{ type ThisT = DPolygon
+  def unsafeFromArray(array: Array[Double]): DPolygon = new DPolygon(array)
+  override def typeStr: String = "DPolygon"
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }
 

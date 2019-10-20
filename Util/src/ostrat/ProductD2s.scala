@@ -5,6 +5,8 @@ import collection.mutable.ArrayBuffer
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
 trait ProductD2s[A <: ProdD2] extends Any with ProductDbls[A]
 {
+  type ThisT <: ProductD2s[A]
+
   def productSize: Int = 2
   /** Method for creating new elements from 2 Doubles. */
   def elemBuilder(d1: Double, d2: Double): A

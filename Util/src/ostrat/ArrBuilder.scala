@@ -5,21 +5,6 @@ trait Bind[BB <: ArrImut[_]]
 { def bind[A](orig: ArrayBased[A], f: A => BB): BB
 }
 
-trait ArrImut[+A] extends Any with ArrayBased[A]
-{
-  /*def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A]): Arr[A] = thisArr.indexWhere(f) match
-  { case -1 => thisArr
-    case i =>
-    {
-      val mutArr = new Array[A](thisArr.length - 1)
-      (0 until i).foreach(i => mutArr(i) = thisArr(i))
-      (i + 1).until(thisArr.length).foreach(i => mutArr(i - 1) = thisArr(i))
-      mutArr.toArr
-    }
-  }*/
-
-}
-trait BuffArr[A] extends Any with ArrayBased[A]
 
 trait ArrBuilder[B]
 { type ImutT <: ArrImut[B]

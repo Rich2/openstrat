@@ -4,7 +4,9 @@ package geom
 
 /** Array[Double based collection class for Line2s */
 class Line2s(val array: Array[Double]) extends AnyVal with ProductD4s[Line2] with Transer// with BaseArr[Line2]
-{ override def typeStr: String = "Line2s"
+{ type ThisT = Line2s
+  def unsafeFromArray(array: Array[Double]): Line2s = new Line2s(array)
+  override def typeStr: String = "Line2s"
   //override def toString: String = Line2s.PersistImplict.show(this)
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): Line2 = new Line2(d1, d2, d3, d4)
   override def fTrans(f: Vec2 => Vec2): Line2s = pMap(orig => Line2(f(orig.pStart), f(orig.pEnd)))

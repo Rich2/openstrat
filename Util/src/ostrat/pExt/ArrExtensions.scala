@@ -1,6 +1,6 @@
 package ostrat
 package pExt
-import collection.immutable.ArraySeq, scala.reflect.ClassTag
+import scala.reflect.ClassTag
 
 class ArrExtensions[A](thisArr: Arr[A])
 { /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */

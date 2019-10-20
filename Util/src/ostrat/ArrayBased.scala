@@ -1,15 +1,15 @@
 package ostrat
 
 trait ArrayBased[+A] extends Any
-{
+{ type ThisT <: ArrayBased[A]
+
+  def returnThis: ThisT = ???
   def length: Int
   def apply(index: Int): A
 
   def head: A = apply(0)
   def last: A = apply(length - 1)
-  type ThisT <: ArrayBased[A]
-  def buildThis(length: Int): ThisT = ???
-  def returnThis: ThisT = ???
+
   def setUnsafe(i: Int, value: A @annotation.unchecked.uncheckedVariance): Unit = ???
 
   def foreach[U](f: A => U): Unit =
@@ -50,15 +50,7 @@ trait ArrayBased[+A] extends Any
     result
   }
 
-  def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
-  { case -1 => returnThis
-    case n =>
-    { val newArr = buildThis(length - 1)
-      iUntilForeach(0, n)(i => newArr.setUnsafe(i, apply(i)))
-      iUntilForeach(n + 1, length)(i => newArr.setUnsafe(i - 1, apply(i)))
-      newArr
-    }
-  }
+
 }
 
 object ArrayBased

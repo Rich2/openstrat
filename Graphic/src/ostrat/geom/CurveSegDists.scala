@@ -3,7 +3,9 @@ package ostrat
 package geom
 
 class CurveSegDists(val array: Array[Double]) extends AnyVal with ProductD7s[CurveSegDist]
-{ override def typeStr: String = "CurvedSegDists"
+{ type ThisT = CurveSegDists
+  override def unsafeFromArray(array: Array[Double]): CurveSegDists = new CurveSegDists(array)
+  override def typeStr: String = "CurvedSegDists"
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSegDist =
     new CurveSegDist(iMatch, d1, d2, d3, d4, d5, d6)
 }
