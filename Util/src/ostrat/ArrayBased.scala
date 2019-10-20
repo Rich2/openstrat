@@ -11,8 +11,6 @@ trait ArrayBased[+A] extends Any
   def head: A = apply(0)
   def last: A = apply(length - 1)
 
-
-
   def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < length)
@@ -40,6 +38,12 @@ trait ArrayBased[+A] extends Any
     ev.buffImut(buff)
   }
 
+  def foldLeft[B](initial: B)(f: (B, A) => B) =
+  { var acc: B = initial
+    foreach(a => acc = f(acc, a))
+    acc
+  }
+
   /** Return the index of the first lemenet where predicate is true, or -1 if predicate not true forall. */
   def indexWhere(f: A => Boolean): Int =
   { var count = 0
@@ -51,7 +55,18 @@ trait ArrayBased[+A] extends Any
     result
   }
 
+  def foreachTail[U](f: A => U): Unit =
+  { var count = 1
+    while(count < length) { f(apply(count)); count += 1 }
+  }
 
+  def foreachInit[U](f: A => U): Unit =
+  { var count = 0
+    while(count < length - 1)
+    { f(apply(count))
+      count += 1
+    }
+  }
 }
 
 object ArrayBased

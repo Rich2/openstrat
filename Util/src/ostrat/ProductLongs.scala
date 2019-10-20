@@ -3,7 +3,7 @@ import collection.mutable.ArrayBuffer
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Long, Long or Float. They are stored with a backing
  * Array[Long] They are named ProductLongs rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait ProductLongs[A] extends Any with ProductVals[A]
+trait ProductLongs[A] extends Any with ArrProducts[A]
 { def array: Array[Long]
   def arrLen = array.length
   def toArrs: Arr[Arr[Long]]

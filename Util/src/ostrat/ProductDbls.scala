@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
-trait ProductDbls[A] extends Any with ProductVals[A]
+trait ProductDbls[A] extends Any with ArrProducts[A]
 { type ThisT <: ProductDbls[A]
   def array: Array[Double]
   def unsafeFromArray(array: Array[Double]): ThisT

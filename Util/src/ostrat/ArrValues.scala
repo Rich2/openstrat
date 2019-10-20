@@ -3,7 +3,7 @@ import scala.collection.mutable.ArrayBuffer
 
 trait ArrValues[A] extends Any with ArrImut[A]
 { type ThisT <: ArrValues[A]
-  def :+ [A](op: A): ThisT =
+  def :+ (op: A): ThisT =
   { val newArr = buildThis(length + 1)
     //array.copyToArray(newArr.arr)
     // newArray(length) = op
@@ -15,7 +15,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
   override def buildThis(length: Int): Ints = new Ints(new Array[Int](length))
   override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
-
+  override def unsafeSetElem(i: Int, value: Int): Unit = array(i) = value
   def ++ (op: Ints): Ints =
   { val newArray = new Array[Int](length + op.length)
     array.copyToArray(newArray)
@@ -46,6 +46,8 @@ class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
   override def buildThis(length: Int): Longs = new Longs(new Array[Long](length))
   override def length: Int = array.length
   override def apply(index: Int): Long = array(index)
+  override def unsafeSetElem(i: Int, value: Long): Unit = array(i) = value
+
   def ++ (op: Longs): Longs =
   { val newArray = new Array[Long](length + op.length)
     array.copyToArray(newArray)
@@ -75,6 +77,8 @@ class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
   override def buildThis(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
+  override def unsafeSetElem(i: Int, value: Double): Unit = array(i) = value
+
   def ++ (op: Dbls): Dbls =
   { val newArray = new Array[Double](length + op.length)
     array.copyToArray(newArray)

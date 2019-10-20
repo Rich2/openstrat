@@ -142,7 +142,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
     
   /** product map method maps from a Traversable to an Array based ProductValues class. */
-  def pMap[B , M <: ProductVals[B]](f: A => B)(implicit factory: Int => M): M =
+  def pMap[B , M <: ArrProducts[B]](f: A => B)(implicit factory: Int => M): M =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>
@@ -154,7 +154,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
   
   /** Copies from a Traversable to an Array based ProductValues class. */
-  def toPValues[B <: ProductVals[A]](implicit factory: Int => B): B =
+  def toPValues[B <: ArrProducts[A]](implicit factory: Int => B): B =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>      

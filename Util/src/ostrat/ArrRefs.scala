@@ -6,6 +6,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   override def buildThis(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
   override def length: Int = array.length
   override def apply(index: Int): A = array(index)
+  def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
 
   def :+ [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
