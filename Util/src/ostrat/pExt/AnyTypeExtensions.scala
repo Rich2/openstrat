@@ -18,7 +18,7 @@ class AnyTypeExtensions[A](thisA: A)
   }
 
   def nextFromSeq(prods: ArrProducts[A]): A =
-  { val i: Int = prods.indexOf[A](thisA)
+  { val i: Int = prods.indexOf(thisA)
     ife(i >= prods.length - 1, prods(0), prods(i + 1))
   }
 
