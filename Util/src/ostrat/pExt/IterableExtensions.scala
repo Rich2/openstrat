@@ -126,7 +126,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     val res = factory(elemNum)
     var count = 0
     thisIter.foreach {a =>
-      secondIter.foreach{ b => res.setElem(count, f(a, b)); count += 1 }
+      secondIter.foreach{ b => res.unsafeSetElem(count, f(a, b)); count += 1 }
     }
     res
   }
@@ -147,7 +147,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     var count: Int = 0
     thisIter.foreach { orig =>
       val newValue: B = f(orig)
-      res.setElem(count, newValue)
+      res.unsafeSetElem(count, newValue)
       count += 1         
     }
     res
@@ -158,7 +158,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>      
-      res.setElem(count, orig)
+      res.unsafeSetElem(count, orig)
       count += 1         
     }
     res

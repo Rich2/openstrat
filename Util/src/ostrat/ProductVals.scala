@@ -2,19 +2,19 @@
 package ostrat
 
 /** This is the base trait for the ProductDoubles and ProductInts classes. */
-trait ProductVals[A] extends Any with ArrImut[A]
+trait ProductVals[A] extends Any with ArrValues[A]
 { def typeStr: String
   def productSize: Int
   def arrLen: Int
   final def length: Int = arrLen / productSize
 
-  def setElem(index: Int, elem: A): Unit
-  def setElems(index: Int, elems: A*): Unit = elems.iForeach((a, i) => setElem(i, a), index)
-  def setElemSeq(index: Int, elems: Iterable[A]) = elems.iForeach((a, i) => setElem(i, a), index)
+  def unsafeSetElem(index: Int, elem: A): Unit
+  def unsafeSetElems(index: Int, elems: A*): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
+  def unsafeSetElemSeq(index: Int, elems: Iterable[A]) = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
 
-  def setHead(value: A): Unit = setElem(0, value)
+  def setHead(value: A): Unit = unsafeSetElem(0, value)
 
-  def setLast(value: A): Unit = setElem(length -1, value)
+  def unsafeSetLast(value: A): Unit = unsafeSetElem(length -1, value)
 
   /** Consider changing this name to foreachProd, as might not be appropriate to all sub classes. */
   /*def foreach[U](f: A => U): Unit =
@@ -89,7 +89,7 @@ trait ProductVals[A] extends Any with ArrImut[A]
     var count: Int = 0
     while (count < length)
     { val newValue: B = f(apply(count))
-      res.setElem(count, newValue)
+      res.unsafeSetElem(count, newValue)
       count += 1         
     }
     res
@@ -122,7 +122,7 @@ trait ProductVals[A] extends Any with ArrImut[A]
     var count: Int = 0
     while (count < length)
     { val newValue: B = f(apply(count), apply(count + 1))
-      res.setElem(count, newValue)
+      res.unsafeSetElem(count, newValue)
       count += 2         
     }
     res
@@ -147,16 +147,16 @@ trait ProductVals[A] extends Any with ArrImut[A]
    *  type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++ [N <: ProductVals[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(length + operand.length)
-    iForeach((elem, i) => res.setElem(i, elem))
-    operand.iForeach((elem, i) => res.setElem(i + length, elem))
+    iForeach((elem, i) => res.unsafeSetElem(i, elem))
+    operand.iForeach((elem, i) => res.unsafeSetElem(i + length, elem))
     res
   }
   
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
   def :+ [N <: ProductVals[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(length + 1)
-    iForeach((elem, i) => res.setElem(i, elem))
-    res.setElem(length, operand)
+    iForeach((elem, i) => res.unsafeSetElem(i, elem))
+    res.unsafeSetElem(length, operand)
     res
   }  
   

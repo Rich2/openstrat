@@ -7,7 +7,7 @@ trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
   override def productSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
   def apply(index: Int): A = newElem(array(4 * index), array(4 * index + 1), array(4 * index + 2), array(4 * index + 3))
-  def setElem(index: Int, elem: A): Unit =
+  override def unsafeSetElem(index: Int, elem: A): Unit =
   { array(4 * index) = elem._1;
     array(4 * index + 1) = elem._2
     array(4 * index + 2) = elem._3

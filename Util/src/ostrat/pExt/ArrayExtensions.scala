@@ -13,7 +13,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal { //s def str: 
     val valProds = factory(length)
     var count = 0
     while (count < length) {
-      valProds.setElem(count, thisArray(count))
+      valProds.unsafeSetElem(count, thisArray(count))
       count += 1
     }
     valProds

@@ -71,7 +71,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
     var count: Int = 0
     thisSeq.foreach { orig =>
       val newValue: B = f(orig)
-      res.setElem(count, newValue)
+      res.unsafeSetElem(count, newValue)
       count += 1         
     }
     res
@@ -81,7 +81,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
   { val length = thisSeq.length
     val valProds = factory(length)
     var count = 0
-    while (count < length){ valProds.setElem(count, thisSeq(count)); count += 1 }
+    while (count < length){ valProds.unsafeSetElem(count, thisSeq(count)); count += 1 }
     valProds
   }
   

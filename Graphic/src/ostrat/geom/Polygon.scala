@@ -71,8 +71,8 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   
   def closedPolygonToLine2s: Line2s =
   { val res: Line2s = Line2s(length)   
-    for (i <- 0 until (length -1)) res.setElem(i, Line2(apply(i), apply(i + 1)))      
-    res.setLast(Line2(last, head))     
+    for (i <- 0 until (length -1)) res.unsafeSetElem(i, Line2(apply(i), apply(i + 1)))      
+    res.unsafeSetLast(Line2(last, head))
     res
   }
    
@@ -81,18 +81,18 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): Polygon =
   { val res = Polygon.factory(length + 1)
-    (0 until insertionPoint).foreach(i => res.setElem(i, apply(i)))
-    res.setElem(insertionPoint, newVec)
-    (insertionPoint until length).foreach(i => res.setElem(i + 1, apply(i)))
+    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
+    res.unsafeSetElem(insertionPoint, newVec)
+    (insertionPoint until length).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
     res
   }
    
   /** Insert vertices */
   def insVerts(insertionPoint: Int, newVecs: Vec2 *): Polygon =
   { val res = Polygon.factory(length + newVecs.length)
-    (0 until insertionPoint).foreach(i => res.setElem(i, apply(i)))
-    newVecs.iForeach((elem, i) => res.setElem(insertionPoint + i, elem))     
-    (insertionPoint until length).foreach(i => res.setElem(i + newVecs.length, apply(i)))
+    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
+    newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))     
+    (insertionPoint until length).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
     res
   }
   
@@ -107,8 +107,8 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
   def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): Polygon =
   { val len = (3 + tail.length)
     val res = factory(len)
-    res.setElems(0, v1, v2, v3)
-    res.setElemSeq(3, tail)
+    res.unsafeSetElems(0, v1, v2, v3)
+    res.unsafeSetElemSeq(3, tail)
     res
   }
 

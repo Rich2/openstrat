@@ -23,6 +23,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
     new Ints(newArray)
   }
 }
+
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
   implicit val bindImplicit: Bind[Ints] = new Bind[Ints]

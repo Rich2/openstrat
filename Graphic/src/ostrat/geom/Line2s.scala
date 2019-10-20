@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Array[Double based collection class for Line2s */
-class Line2s(val array: Array[Double]) extends AnyVal with ProductD4s[Line2] with Transer// with BaseArr[Line2]
+class Line2s(val array: Array[Double]) extends AnyVal with ProductD4s[Line2] with Transer
 { type ThisT = Line2s
   def unsafeFromArray(array: Array[Double]): Line2s = new Line2s(array)
   override def typeStr: String = "Line2s"

@@ -11,7 +11,7 @@ trait ProductD7s[A <: ProdD7] extends Any with ProductDbls[A]
     newElem(array(offset), array(offset + 1), array(offset + 2), array(offset + 3), array(offset + 4), array(offset + 5), array(offset + 6))
   }
    
-  def setElem(index: Int, elem: A): Unit =
+  override def unsafeSetElem(index: Int, elem: A): Unit =
   { val offset = 7 * index;
     array(offset) = elem._1; array(offset + 1) = elem._2; array(offset + 2) = elem._3; array(offset + 3) = elem._4; array(offset + 4) = elem._5
     array(offset + 5) = elem._6; array(offset + 6) = elem._7

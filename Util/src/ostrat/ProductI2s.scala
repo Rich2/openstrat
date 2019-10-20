@@ -8,7 +8,7 @@ trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
   def newElem(i1: Int, i2: Int): A
   final override def apply(index: Int): A = newElem(array(2 * index), array(2 * index + 1))
 
-  final def setElem(index: Int, elem: A): Unit = { array(2 * index) = elem._1; array(2 * index + 1) = elem._2 }
+  final override def unsafeSetElem(index: Int, elem: A): Unit = { array(2 * index) = elem._1; array(2 * index + 1) = elem._2 }
 
   def head1: Int = array(0)
   def head2: Int = array(1)

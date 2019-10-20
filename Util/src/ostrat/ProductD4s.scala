@@ -9,7 +9,7 @@ trait ProductD4s[A <: ProdD4] extends Any with ProductDbls[A]
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
   def apply(index: Int): A = newElem(array(4 * index), array(4 * index + 1), array(4 * index + 2), array(4 * index + 3))
    
-  def setElem(index: Int, elem: A): Unit =
+  final override def unsafeSetElem(index: Int, elem: A): Unit =
   { array(4 * index) = elem._1
     array(4 * index + 1) = elem._2
     array(4 * index + 2) = elem._3

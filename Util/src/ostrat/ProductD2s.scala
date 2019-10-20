@@ -13,7 +13,7 @@ trait ProductD2s[A <: ProdD2] extends Any with ProductDbls[A]
   def apply(index: Int): A = elemBuilder(array(2 * index), array(2 * index + 1))
   def getPair(index: Int): (Double, Double) = (array(2 * index), array(2 * index + 1))
   
-  def setElem(index: Int, elem: A): Unit =
+  override def unsafeSetElem(index: Int, elem: A): Unit =
   { array(2 * index) = elem._1
     array(2 * index + 1) = elem._2
   }
