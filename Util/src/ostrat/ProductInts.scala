@@ -31,7 +31,7 @@ trait ProductIntsBuff[A, M <: ProductInts[A]] extends Any with ProductValsBuff[A
   def toArray: Array[Int] = buffer.toArray[Int]
   def unBuff: M
   def append(newElem: A): Unit
-  def addAll(newElems: M): Unit = buffer.addAll(newElems.array)
+  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
 abstract class ProductIntsBuilder[A, M <: ProductInts[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr)

@@ -37,7 +37,7 @@ trait ProductDblsBuff[A, M <: ProductDbls[A]] extends Any with ProductValsBuff[A
   def toArray: Array[Double] = buffer.toArray[Double]
   def unBuff: M
   def append(newElem: A): Unit
-  def addAll(newElems: M): Unit = buffer.addAll(newElems.array)
+  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
 /** Builds persists */

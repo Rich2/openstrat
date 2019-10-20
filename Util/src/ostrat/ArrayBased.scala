@@ -1,4 +1,5 @@
 package ostrat
+import annotation.unchecked.uncheckedVariance
 
 trait ArrayBased[+A] extends Any
 { type ThisT <: ArrayBased[A]
@@ -10,7 +11,7 @@ trait ArrayBased[+A] extends Any
   def head: A = apply(0)
   def last: A = apply(length - 1)
 
-  def setUnsafe(i: Int, value: A @annotation.unchecked.uncheckedVariance): Unit = ???
+  def setUnsafe(i: Int, value: A @uncheckedVariance): Unit = ???
 
   def foreach[U](f: A => U): Unit =
   { var count = 0

@@ -34,5 +34,5 @@ trait ProductL1s[A <: ProdL1] extends Any with ProductLongs[A]
 }
 
 trait ProductL1sBuff[A <: ProdL1, M <: ProductL1s[A]] extends Any with ProductLongsBuff[A, M]
-{ override def append(newElem: A): Unit = buffer.append(newElem._1)
+{ override def append(newElem: A): Unit = { buffer.append(newElem._1); () }
 }

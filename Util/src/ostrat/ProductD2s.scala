@@ -44,7 +44,7 @@ trait ProductD2s[A <: ProdD2] extends Any with ProductDbls[A]
 }
 
 trait ProductD2sBuff[A <: ProdD2, M <: ProductD2s[A]] extends Any with ProductDblsBuff[A, M]
-{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2) }
+{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
 trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]

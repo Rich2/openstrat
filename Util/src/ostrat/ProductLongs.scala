@@ -28,7 +28,7 @@ trait ProductLongsBuff[A, M <: ProductLongs[A]] extends Any with ProductValsBuff
   def toArray: Array[Long] = buffer.toArray[Long]
   def unBuff: M
   def append(newElem: A): Unit
-  def addAll(newElems: M): Unit = buffer.addAll(newElems.array)
+  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
 abstract class ProductLongsBuilder[A, M <: ProductLongs[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr)

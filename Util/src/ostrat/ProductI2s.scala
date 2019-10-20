@@ -28,7 +28,7 @@ trait ProductI2s[A <: ProdI2] extends Any with ProductInts[A]
 }
 
 trait ProductI2sBuff[A <: ProdI2, M <: ProductI2s[A]] extends Any with ProductIntsBuff[A, M]
-{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2) }
+{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
 abstract class ProductI2sCompanion[A <: ProdI2, M <: ProductI2s[A]] extends ProductIntsCompanion[M]

@@ -23,7 +23,7 @@ trait ProductI4s[A <: ProdI4] extends Any with ProductInts[A]
 }
 
 trait ProductI4sBuff[A <: ProdI4, M <: ProductI4s[A]] extends Any with ProductIntsBuff[A, M]
-{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4)}
+{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4); ()}
 }
 
 abstract class ProductI4sCompanion[A <: ProdI4, M <: ProductI4s[A]]
