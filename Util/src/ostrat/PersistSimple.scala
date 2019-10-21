@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** A Persist class described by a single value. Its not clear whther this means a single token or not. */
+/** A Persist class described by a single value. Its not clear whether this means a single token or not. */
 abstract class PersistSimple[A](typeStr: String) extends ShowSimple[A](typeStr) with Persist[A]
 {  
   /** A PersistSimple can be parsed from the expression within a Clause, but it can't be parsed from a ClausedStatement */

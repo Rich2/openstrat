@@ -48,18 +48,25 @@ case class HashAlphaToken(startPosn: TextPosn, str: String) extends ExprToken
   override def exprName: String = "HashAlphaTokenExpr"
 }
 
-trait IntLikeToken extends ExprToken
-{
-  def intValue: Int
+/** A 32 bit Integer Token. */
+trait IntToken extends ExprToken
+{ def intValue: Int
 }
 
-/** A 32 bit integer token */
-case class IntToken(startPosn: TextPosn, str: String, intValue: Int) extends IntLikeToken
+object IntToken
+{ def unapply(token: Token): Option[(TextPosn, String, Int)] = token match
+  { case it: IntToken => Some(it.startPosn, it.str, it.intValue)
+    case _ => None
+  }
+}
+
+/** A 32 bit integer token in standard decimal format. */
+case class IntDecToken(startPosn: TextPosn, str: String, intValue: Int) extends IntToken
 {
   override def toString: String = "IntToken".appendParenthSemis(str.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def exprName: String = "IntTokenExpr"
 }
-case class HexIntToken(startPosn: TextPosn, str: String, intValue: Int) extends IntLikeToken
+case class IntHexToken(startPosn: TextPosn, str: String, intValue: Int) extends IntToken
 {
    override def exprName: String = "HexIntIntTokenExpr"
 }

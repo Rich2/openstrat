@@ -107,13 +107,13 @@ object TokensFind
   {
     def intLoop(rem: List[Char], str: String, intAcc: Int): EMon[(List[Char], TextPosn, Token)] = rem match
     {
-      case Nil =>  Good3(rem, tp.addStr(str), IntToken(tp, str, intAcc))
+      case Nil =>  Good3(rem, tp.addStr(str), IntDecToken(tp, str, intAcc))
       case d :: t if d.isDigit && str.length == 9 && t.ifHead(_.isDigit) => longLoop(rem, str, intAcc.toLong)
       case d :: tail if d.isDigit && str.length == 9 && intAcc > 214748364 => longLoop(rem, str, intAcc.toLong)
       case d :: tail if d.isDigit && str.length == 9 && intAcc == 214748364 && d > '7' => longLoop(rem, str, intAcc.toLong)
       case d :: tail if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d - '0')
       case '.' :: tail => decimalLoop(tail, str + firstDigit.toString, intAcc, 10)
-      case _ :: tail => Good3(rem, tp.addStr(str),  IntToken(tp, str, intAcc))
+      case _ :: tail => Good3(rem, tp.addStr(str),  IntDecToken(tp, str, intAcc))
     }
              
     def longLoop(rem: List[Char], str: String, longAcc: Long): EMon[(List[Char], TextPosn, Token)] = rem match
@@ -140,14 +140,14 @@ object TokensFind
   {
       def hexIntLoop(rem: List[Char], strAcc: String, intAcc: Int): EMon[(List[Char], TextPosn, Token)] = rem match
       {
-        case Nil => Good3(rem, tp.addStr(strAcc), HexIntToken(tp, strAcc, intAcc))
+        case Nil => Good3(rem, tp.addStr(strAcc), IntHexToken(tp, strAcc, intAcc))
         case h :: tail => h match
         {
           case d if d.isHexDigit && (strAcc.length == 9) && tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)                  
           case d if d.isDigit => hexIntLoop(tail, strAcc + d.toString, (intAcc * 16) + d - '0')
           case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'A' + 10)
           case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'a' + 10)
-          case _ => Good3(rem, tp.addStr(strAcc), IntToken(tp, strAcc, intAcc))
+          case _ => Good3(rem, tp.addStr(strAcc), IntDecToken(tp, strAcc, intAcc))
         }
       }            
       def hexLongLoop(rem: List[Char], strAcc: String, longAcc: Long): EMon[(List[Char], TextPosn, Token)] = rem match
