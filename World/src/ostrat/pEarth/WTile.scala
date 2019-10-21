@@ -53,7 +53,7 @@ object TerrainNone extends WTile
 
 
 class Land(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs, val sideUR: Option[Unit] = None, val sideRt: Option[Unit] = None,
-            val sideDR: Option[Unit]) extends WTile with HSides[Unit]
+  val sideDR: Option[Unit]) extends WTile with HSides[Unit]
 {
   override def toString: String = "Land" + str.enParenth
 
