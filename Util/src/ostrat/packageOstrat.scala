@@ -75,24 +75,24 @@ package object ostrat extends LowPriority
   type FStrSeq = Seq[Function0[String]]
   type StrList = List[String]
   
-  /** Product2[Int, Int] with Stringer. These are used in ArrHomoInt2s Array[Int] based collections. */
+  /** Homogeneous Product2[Int, Int] with Stringer. These are used in ArrHomoInt2s Array[Int] based collections. */
   type HomoInt2 = Product2[Int, Int]
-  /** Product4[Int, Int, Int, Int] with Stringer. These are used in ArrHomoInt4 Array[Int] based collections. */
+  /** Homogeneous Product4[Int, Int, Int, Int] with Stringer. These are used in ArrHomoInt4 Array[Int] based collections. */
   type HomoInt4 = Product4[Int, Int, Int, Int]
-  /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
-  type ProdD2 = Product2[Double, Double]  
-  /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */
-  type ProdD3 = Product3[Double, Double, Double]
-  /** Product4[Double, Double, Double, Double]. These are used in DoubleProduct4s Array[Double] based collections. */
-  type ProdD4 = Product4[Double, Double, Double, Double]  
-  /** Product5[Double, Double, Double, Double, Double]. These are used in DoubleProduct5s Array[Double] based collections. */
-  type ProdD5 = Product5[Double, Double, Double, Double, Double]
-  /** Product6[Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct6s Array[Double] based collections. */
-  type ProdD6 = Product6[Double, Double, Double, Double, Double, Double]
-  /** Product7[Double, Double, Double, Double, Double, Double, Double]. These are used in DoubleProduct7s Array[Double] based collections. */
-  type ProdD7 = Product7[Double, Double, Double, Double, Double, Double, Double]
+  /** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
+  type HomoDbl2 = Product2[Double, Double]
+  /** Homogeneous Product3[Double, Double, Double]. These are used in ArrHomoDbl3 Array[Double] based collections. */
+  type HomoDbl3 = Product3[Double, Double, Double]
+  /** Homogeneous Product4[Double, Double, Double, Double]. These are used in ArrHomoDbl4 Array[Double] based collections. */
+  type HomoDbl4 = Product4[Double, Double, Double, Double]
+  /** Homogeneous Product5[Double, Double, Double, Double, Double]. These are used in ArrHmoDbl5 Array[Double] based collections. */
+  type HomoDbl5 = Product5[Double, Double, Double, Double, Double]
+  /** Homogeneous Product6[Double, Double, Double, Double, Double, Double]. These are used in ArrHomoDbl6 Array[Double] based collections. */
+  type HomoDbl6 = Product6[Double, Double, Double, Double, Double, Double]
+  /** Homogeneous Product7[Double, Double, Double, Double, Double, Double, Double]. These are used in ArrHomoDbl7 Array[Double] based collections. */
+  type HomoDbl7 = Product7[Double, Double, Double, Double, Double, Double, Double]
 
-  def Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3): Good[(A1, A2, A3)] = Good[(A1, A2, A3)]((a1, a2, a3)) 
+  def Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3): Good[(A1, A2, A3)] = Good[(A1, A2, A3)]((a1, a2, a3))
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.toString + detail
   def bad1[B](fp: TextPosn, detail: String): Bad[B] = Bad[B](parseErr(fp, detail) :: Nil)
@@ -103,9 +103,9 @@ package object ostrat extends LowPriority
 
   val two32: Long = 4294967296L
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
-    
+
   def nullRef[A <: AnyRef]: Opt[A] = new Opt[A](null.asInstanceOf[A])
-  
+
   @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] =
   { var count = fromValue
     var acc: List[Double] = Nil
@@ -171,7 +171,7 @@ package object ostrat extends LowPriority
 
   def iiToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
     ijToMap[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
-  
+
   implicit class ArrayExtension[A](thisMutableArray: Array[A])
   { def toArr: Arr[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
   }
@@ -184,7 +184,7 @@ package object ostrat extends LowPriority
   }
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
-  { def app2(prod: ProdD2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
+  { def app2(prod: HomoDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
   }
    
   implicit class FunitRichImp(fu: () => Unit)

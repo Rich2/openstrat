@@ -4,7 +4,7 @@ package geom
 import math._
 
 /** 3 dimensional vector using metres as units rather than pure numbers. */
-final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdD3 //with Stringer
+final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends HomoDbl3 //with Stringer
 { def typeStr: String = "Dist3"
   //def str = persistD3(xMetres, yMetres, zMetres)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist3]

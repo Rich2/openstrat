@@ -5,7 +5,7 @@ import math._
 
 /** A 3 dimensional vector, can be used to represent 3 dimensional points and translations of 3 dimensional points. Right-handed coordinate
  *  system is the default */
-final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdD3
+final class Vec3 (val x: Double, val y: Double, val z: Double) extends HomoDbl3
 { 
   override def toString: String = Vec3.PersistImplicit.show(this) 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec3]

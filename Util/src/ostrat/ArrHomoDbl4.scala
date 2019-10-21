@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] base collections of Products of 4 Doubles. */
-trait ArrHomoDbl4[A <: ProdD4] extends Any with ArrHomoDblN[A]
+trait ArrHomoDbl4[A <: HomoDbl4] extends Any with ArrHomoDblN[A]
 {
   def productSize: Int = 4
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
@@ -25,7 +25,7 @@ trait ArrHomoDbl4[A <: ProdD4] extends Any with ArrHomoDblN[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 
-abstract class ProductD4sCompanion[A <: ProdD4, M <: ArrHomoDbl4[A]] //extends ProductDsBuilder[A, M]
+abstract class ProductD4sCompanion[A <: HomoDbl4, M <: ArrHomoDbl4[A]] //extends ProductDsBuilder[A, M]
 {
   val factory: Int => M
   def apply(length: Int): M = factory(length)
@@ -79,7 +79,7 @@ abstract class ProductD4sCompanion[A <: ProdD4, M <: ArrHomoDbl4[A]] //extends P
 }
 
 /** Both Persists and Builds ProductD4s Collection classes. */
-abstract class ArrHomoDbl4Builder[A <: ProdD4, M <: ArrHomoDbl4[A]](typeStr: String) extends ArrHomoDblNBuilder[A, M](typeStr)
+abstract class ArrHomoDbl4Builder[A <: HomoDbl4, M <: ArrHomoDbl4[A]](typeStr: String) extends ArrHomoDblNBuilder[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1

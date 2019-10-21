@@ -4,7 +4,7 @@ package geom
 import math._
 
 /** 2 dimensional vector using metres as units rather than pure numbers. */
-class Dist2(val xMetres: Double, val yMetres: Double) extends ProdD2
+class Dist2(val xMetres: Double, val yMetres: Double) extends HomoDbl2
 { override def toString: String = Dist2.PersistImplicit.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
   def x: Dist = Dist(xMetres)
