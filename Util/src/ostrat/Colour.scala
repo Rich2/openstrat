@@ -13,19 +13,20 @@ class Colour(val argbValue: Int) extends AnyVal with ProdI1
   def green: Int = (argbValue >> 8)  & 0xFF //(argbValue /256) % 256
   def blue: Int = (argbValue >> 0) & 0xFF //(argbValue % 256) % 256
   
-  def hexStr = red.hexStr2 + green.hexStr2 + blue.hexStr2 + alpha.hexStr2
+  def hexStr = "0x" + alpha.hexStr2 + red.hexStr2 + green.hexStr2 + blue.hexStr2
   def redGl: Float = (red / 256.toFloat)
   def greenGl:Float = (green / 256.toFloat)
   def blueGl: Float = (blue / 256.toFloat)
   def setAlpha(newAlpha: Int): Colour = Colour((argbValue & 0xFFFFFF) | (newAlpha << 24))
   def contrastBW: Colour = ife((red + green + blue) > 128 * 3, Colour.Black, Colour.White)
   def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
+
   def nextFrom(seq: Colours): Colour = seq.findIndex(this) match
-  {
-    case NoInt => seq(0)
+  { case NoInt => seq(0)
     case SomeInt(i) if i >= seq.length - 1 => seq(0)
     case SomeInt(i) => seq(i + 1)
   }
+
   def nextFromRainbow: Colour = nextFrom(Colour.rainbow)
   
   /** Returns the colour with the greatest contrast */
@@ -69,7 +70,8 @@ def contrast2(other: Colour): Colour =
   /** Modifies the alpha value of the rgba Int */
   def modAlpha(newAlpha: Int) = Colour.fromInts(red, green, blue, newAlpha)
   //def glCommaed(alpha: Double = 1.0): String = Seq(redGl, greenGl, blueGl, alpha.toString).commaParenth
-  //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)  
+  //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
+  def hasName: Boolean = Colour.valueToStr.contains(this)
 }
 
 /** This trait provides a few handy methods for classes with the colour member */
@@ -88,9 +90,12 @@ object Colour
   {
     import pParse._
     def fromExpr(expr: ParseExpr): EMon[Colour] = expr match
-    {
-      case AlphaToken(_, typeName) if Colour.strToValue.nonEmpty => Good(Colour.strToValue(typeName)) 
-      case AlphaBracketExpr(AlphaToken(_, "Colour"), Arr(ParenthBlock(Arr(st), _, _))) => expr.exprParseErr[Colour](this)
+    { case AlphaToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
+      case IntHexToken(_, _, v) => Good(Colour(v))
+      case AlphaBracketExpr(AlphaToken(_, "Colour"), Arr(ParenthBlock(Arr(st), _, _))) => st.expr match
+      { case IntHexToken(_, _, v) => Good(Colour(v))
+        case _ => expr.exprParseErr[Colour](this)
+      }
       case _ => expr.exprParseErr[Colour](this)
     }
     def show(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
@@ -245,7 +250,6 @@ object Colour
    val WhiteSmoke: Colour = new Colour(0xFFF5F5F5)
    val Yellow: Colour = new Colour(0xFFFFFF00)
    val YellowGreen: Colour = new Colour(0xFF9ACD32)
-   
    
    val strToValue: Map[String, Colour] = Map(
 ("AntiqueWhite", AntiqueWhite), ("Aqua", Aqua), ("Aquamarine", Aquamarine), ("Azure", Azure), ("Beige", Beige), ("Bisque", Bisque), ("Black", Black),

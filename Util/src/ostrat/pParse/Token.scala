@@ -63,7 +63,7 @@ object IntToken
 /** A 32 bit integer token in standard decimal format. */
 case class IntDecToken(startPosn: TextPosn, str: String, intValue: Int) extends IntToken
 {
-  override def toString: String = "IntToken".appendParenthSemis(str.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
+  override def toString: String = "IntDecToken".appendParenthSemis(str.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def exprName: String = "IntTokenExpr"
 }
 case class IntHexToken(startPosn: TextPosn, str: String, intValue: Int) extends IntToken

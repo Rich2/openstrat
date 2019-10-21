@@ -6,7 +6,9 @@ import utest._
 object TokenTest extends TestSuite
 { 
   val tests = Tests
-  { 
+  {
+    val ct = "Colour(0xFF000000)".findTokens
+
     'Test1
     { assertMatch("45".findTokens){case Good(List(IntDecToken(_, _, 45))) =>}
       assertMatch("45".findTokens){case Good(List(IntToken(_, _, 45))) =>}
