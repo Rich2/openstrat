@@ -19,7 +19,7 @@ object ColourTest extends TestSuite
       s1 ==> "Black"
       e1 ==> Good(Black)
       c2 ==> Black
-      e3 ==> Good(Black)
+     // e3 ==> Good(Black)
      // assertMatch(bStr.findTokens){case Good(_) =>}
     }
   }

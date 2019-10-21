@@ -9,7 +9,9 @@ object TokenTest extends TestSuite
   { 
     'Test1
     {
-      assert("#".findTokens.isBad)      
+      assertMatch("45".findTokens){case Good(List(IntToken(_, _, 45))) =>}
+      assertMatch("0x11".findTokens){case Good(List(HexIntToken(_, _, 17))) =>}
+      "#".findTokens.isBad ==> true
     }
   }
 }
