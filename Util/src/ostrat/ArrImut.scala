@@ -7,6 +7,7 @@ trait ArrImut[+A] extends Any with ArrayBased[A]
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
   def unsafeSetHead(value: A @uncheckedVariance): Unit = unsafeSetElem(0, value)
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(length -1, value)
+  def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int ): Unit = ???
 
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis

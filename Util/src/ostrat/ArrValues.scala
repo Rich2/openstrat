@@ -16,6 +16,8 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
   override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
   override def unsafeSetElem(i: Int, value: Int): Unit = array(i) = value
+  override def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = array.copyToArray(array, offset, copyLength)
+
   def ++ (op: Ints): Ints =
   { val newArray = new Array[Int](length + op.length)
     array.copyToArray(newArray)
@@ -47,6 +49,7 @@ class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
   override def length: Int = array.length
   override def apply(index: Int): Long = array(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = array(i) = value
+  override def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = array.copyToArray(array, offset, copyLength)
 
   def ++ (op: Longs): Longs =
   { val newArray = new Array[Long](length + op.length)
@@ -78,6 +81,7 @@ class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
   override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = array(i) = value
+  override def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = array.copyToArray(array, offset, copyLength)
 
   def ++ (op: Dbls): Dbls =
   { val newArray = new Array[Double](length + op.length)
