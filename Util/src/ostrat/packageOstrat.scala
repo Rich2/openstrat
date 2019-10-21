@@ -75,10 +75,10 @@ package object ostrat extends LowPriority
   type FStrSeq = Seq[Function0[String]]
   type StrList = List[String]
   
-  /** Product2[Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
-  type ProdI2 = Product2[Int, Int]
-  /** Product2[Int, Int, Int, Int] with Stringer. These are used in IntProduct2s Array[Double] based collections. */
-  type ProdI4 = Product4[Int, Int, Int, Int]
+  /** Product2[Int, Int] with Stringer. These are used in ArrHomoInt2s Array[Int] based collections. */
+  type HomoInt2 = Product2[Int, Int]
+  /** Product4[Int, Int, Int, Int] with Stringer. These are used in ArrHomoInt4 Array[Int] based collections. */
+  type HomoInt4 = Product4[Int, Int, Int, Int]
   /** Product2[Double, Double] with Stringer. These are used in DoubleProduct2s Array[Double] based collections. */
   type ProdD2 = Product2[Double, Double]  
   /** Product3[Double, Double, Double]. These are used in DoubleProduct3s Array[Double] based collections. */

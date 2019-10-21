@@ -24,7 +24,7 @@ object Line2s extends ProductD4sCompanion[Line2, Line2s]
 {
   implicit val factory: Int => Line2s = i => new Line2s(new Array[Double](i * 4))
    
-  implicit val persistImplicit: ProductD4sBuilder[Line2, Line2s] = new ProductD4sBuilder[Line2, Line2s]("Line2s")
+  implicit val persistImplicit: ArrHomoDbl4Builder[Line2, Line2s] = new ArrHomoDbl4Builder[Line2, Line2s]("Line2s")
   { override def fromArray(value: Array[Double]): Line2s = new Line2s(value)
   }
 }

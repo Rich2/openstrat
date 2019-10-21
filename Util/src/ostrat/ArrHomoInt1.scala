@@ -6,7 +6,7 @@ trait ProdI1 extends Any
   @inline def _1 : Int = intValue
 }
 
-trait ArrHomoInt1[A <: ProdI1] extends Any with ArrHomoInts[A]
+trait ArrHomoInt1[A <: ProdI1] extends Any with ArrHomoIntN[A]
 {
   final override def productSize: Int = 1
   def newElem(intValue: Int): A

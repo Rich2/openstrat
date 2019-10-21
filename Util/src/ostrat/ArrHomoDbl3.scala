@@ -2,7 +2,7 @@
 package ostrat
 
 /** Base trait for Array[Double] base collections of Products of 3 Doubles. */
-trait ArrHomoDbl3[A <: ProdD3] extends Any with ArrHomoDbls[A]
+trait ArrHomoDbl3[A <: ProdD3] extends Any with ArrHomoDblN[A]
 { def productSize = 3
   def newElem(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = newElem(array(3 * index), array(3 * index + 1), array(3 * index + 2))

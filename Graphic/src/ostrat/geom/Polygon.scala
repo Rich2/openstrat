@@ -114,7 +114,7 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
 
   implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.array, p2.array)
   
-  implicit val persistImplicit: ProductD2sBuilder[Vec2, Polygon] = new ProductD2sBuilder[Vec2, Polygon]("Polygon")
+  implicit val persistImplicit: ArrHomoDbl2Builder[Vec2, Polygon] = new ArrHomoDbl2Builder[Vec2, Polygon]("Polygon")
   { override def fromArray(value: Array[Double]): Polygon = new Polygon(value)
   }
 }

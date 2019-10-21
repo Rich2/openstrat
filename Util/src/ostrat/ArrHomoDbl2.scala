@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
-trait ArrHomoDbl2[A <: ProdD2] extends Any with ArrHomoDbls[A]
+trait ArrHomoDbl2[A <: ProdD2] extends Any with ArrHomoDblN[A]
 {
   type ThisT <: ArrHomoDbl2[A]
 
@@ -43,7 +43,7 @@ trait ArrHomoDbl2[A <: ProdD2] extends Any with ArrHomoDbls[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
-trait ProductD2sBuff[A <: ProdD2, M <: ArrHomoDbl2[A]] extends Any with ProductDblsBuff[A, M]
+trait ArrBuffDbl2[A <: ProdD2, M <: ArrHomoDbl2[A]] extends Any with ArrBuffDblN[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
@@ -98,7 +98,7 @@ trait ProductD2sCompanion[T <: ProdD2, ST <: ArrHomoDbl2[T]]
 
 
 /** Both Persists and Builds ProductD2s collection classes. */
-abstract class ProductD2sBuilder[A <: ProdD2, M <: ArrHomoDbl2[A]](typeStr: String) extends ProductDblsBuilder[A, M](typeStr)
+abstract class ArrHomoDbl2Builder[A <: ProdD2, M <: ArrHomoDbl2[A]](typeStr: String) extends ArrHomoDblNBuilder[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1

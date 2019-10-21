@@ -32,7 +32,7 @@ object LinePath extends ProductD2sCompanion[Vec2, LinePath]
 {
   implicit val factory: Int => LinePath = i => new LinePath(new Array[Double](i * 2))
   
-  implicit object LinePathPersist extends ProductD2sBuilder[Vec2, LinePath]("LinePath")
+  implicit object LinePathPersist extends ArrHomoDbl2Builder[Vec2, LinePath]("LinePath")
   {
     override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
   }
