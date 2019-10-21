@@ -2,21 +2,21 @@
 package ostrat
 
 /** Base trait for Array[Double] base collections of Products of 7 Doubles. */
-trait ProductD7s[A <: ProdD7] extends Any with ProductDbls[A]
-{ def productSize: Int = 7  
+trait ArrHomoDbl7[A <: ProdD7] extends Any with ArrHomoDbls[A]
+{ def productSize: Int = 7
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
-  
+
   def apply(index: Int): A =
   { val offset = 7 * index
     newElem(array(offset), array(offset + 1), array(offset + 2), array(offset + 3), array(offset + 4), array(offset + 5), array(offset + 6))
   }
-   
+
   override def unsafeSetElem(index: Int, elem: A): Unit =
   { val offset = 7 * index;
     array(offset) = elem._1; array(offset + 1) = elem._2; array(offset + 2) = elem._3; array(offset + 3) = elem._4; array(offset + 4) = elem._5
     array(offset + 5) = elem._6; array(offset + 6) = elem._7
   }
-   
+
   def head1: Double = array(0); def head2: Double = array(1); def head3: Double = array(2); def head4: Double = array(3); def head5: Double = array(4)
   def head6: Double = array(5); def head7: Double = array(6)
 
@@ -24,7 +24,7 @@ trait ProductD7s[A <: ProdD7] extends Any with ProductDbls[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4, el._5, el._6, el._7)))
 }
 
-abstract class ProductD7sCompanion[A <: ProdD7, M <: ProductD7s[A]]
+abstract class ProductD7sCompanion[A <: ProdD7, M <: ArrHomoDbl7[A]]
 { val factory: Int => M
   def apply(length: Int): M = factory(length)
   def apply(elems: A*): M =

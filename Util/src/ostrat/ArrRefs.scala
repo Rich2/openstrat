@@ -34,7 +34,7 @@ object Refs
 
   implicit def bindImplicit[B <: AnyRef](implicit ct: ClassTag[B]): Bind[Refs[B]] = new Bind[Refs[B]]
   {
-    override def bind[A](orig: ArrayBased[A], f: A => Refs[B]): Refs[B] =
+    override def bind[A](orig: ArrayLike[A], f: A => Refs[B]): Refs[B] =
     { val buff = new ArrayBuffer[B]
       orig.foreach(a => buff.addAll(f(a).array))
       new Refs[B](buff.toArray)
@@ -42,7 +42,7 @@ object Refs
   }
 }
 
-class BuffRefs(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
+class RefsBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with ArrBuff[Int]
 { override def length: Int = buffer.length
   override def apply(index: Int): Int = buffer(index)
 }

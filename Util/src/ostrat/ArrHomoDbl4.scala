@@ -3,19 +3,19 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] base collections of Products of 4 Doubles. */
-trait ProductD4s[A <: ProdD4] extends Any with ProductDbls[A]
+trait ArrHomoDbl4[A <: ProdD4] extends Any with ArrHomoDbls[A]
 {
   def productSize: Int = 4
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
   def apply(index: Int): A = newElem(array(4 * index), array(4 * index + 1), array(4 * index + 2), array(4 * index + 3))
-   
+
   final override def unsafeSetElem(index: Int, elem: A): Unit =
   { array(4 * index) = elem._1
     array(4 * index + 1) = elem._2
     array(4 * index + 2) = elem._3
     array(4 * index + 3) = elem._4
   }
-   
+
   def head1: Double = array(0)
   def head2: Double = array(1)
   def head3: Double = array(2)
@@ -25,7 +25,7 @@ trait ProductD4s[A <: ProdD4] extends Any with ProductDbls[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 
-abstract class ProductD4sCompanion[A <: ProdD4, M <: ProductD4s[A]] //extends ProductDsBuilder[A, M]
+abstract class ProductD4sCompanion[A <: ProdD4, M <: ArrHomoDbl4[A]] //extends ProductDsBuilder[A, M]
 {
   val factory: Int => M
   def apply(length: Int): M = factory(length)
@@ -44,7 +44,7 @@ abstract class ProductD4sCompanion[A <: ProdD4, M <: ProductD4s[A]] //extends Pr
     }
      res
    }
-   
+
   def doubles(elems: Double*): M =
   { val arrLen: Int = elems.length
     val res = factory(elems.length / 4)
@@ -79,7 +79,7 @@ abstract class ProductD4sCompanion[A <: ProdD4, M <: ProductD4s[A]] //extends Pr
 }
 
 /** Both Persists and Builds ProductD4s Collection classes. */
-abstract class ProductD4sBuilder[A <: ProdD4, M <: ProductD4s[A]](typeStr: String) extends ProductDblsBuilder[A, M](typeStr)
+abstract class ProductD4sBuilder[A <: ProdD4, M <: ArrHomoDbl4[A]](typeStr: String) extends ProductDblsBuilder[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1

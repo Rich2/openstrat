@@ -1,8 +1,12 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-trait ArrayBased[+A] extends Any
-{ type ThisT <: ArrayBased[A]
+/** Base trait for Array buffers. The compound deep-value types use the standard ArrayBuffers for underlying storage.  */
+trait ArrBuff[A] extends Any with ArrayLike[A]
+
+/** Base trait for Arr and  ArrBuff. */
+trait ArrayLike[+A] extends Any
+{ type ThisT <: ArrayLike[A]
 
   def returnThis: ThisT = ???
   def length: Int
@@ -114,9 +118,9 @@ trait ArrayBased[+A] extends Any
   }
 }
 
-object ArrayBased
+object ArrayLike
 {
-  implicit class ArrBaseImplicit[A](ba: ArrayBased[A])
+  implicit class ArrBaseImplicit[A](ba: ArrayLike[A])
   { def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: Bind[BB]): BB = ev.bind[A](ba, f)
   }
 }

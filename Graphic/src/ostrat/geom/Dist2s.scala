@@ -1,7 +1,7 @@
 package ostrat
 package geom
 
-class Dist2s(val array: Array[Double]) extends AnyVal with ProductD2s[Dist2]
+class Dist2s(val array: Array[Double]) extends AnyVal with ArrHomoDbl2[Dist2]
 { type ThisT = Dist2s
   override def unsafeFromArray(array: Array[Double]): Dist2s = new Dist2s(array)
   override def typeStr: String = "Dist2s"

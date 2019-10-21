@@ -3,35 +3,35 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
-trait ProductD2s[A <: ProdD2] extends Any with ProductDbls[A]
+trait ArrHomoDbl2[A <: ProdD2] extends Any with ArrHomoDbls[A]
 {
-  type ThisT <: ProductD2s[A]
+  type ThisT <: ArrHomoDbl2[A]
 
   def productSize: Int = 2
   /** Method for creating new elements from 2 Doubles. */
   def elemBuilder(d1: Double, d2: Double): A
   def apply(index: Int): A = elemBuilder(array(2 * index), array(2 * index + 1))
   def getPair(index: Int): (Double, Double) = (array(2 * index), array(2 * index + 1))
-  
+
   override def unsafeSetElem(index: Int, elem: A): Unit =
   { array(2 * index) = elem._1
     array(2 * index + 1) = elem._2
   }
   def head1: Double = array(0)
   def head2: Double = array(1)
-   
+
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
-  { var count = 1      
+  { var count = 1
     while(count < length) { f(array(count * 2), array(count * 2 + 1)); count += 1 }
   }
-   
+
   def elem1sArray: Array[Double] =
   { val res = new Array[Double](length)
     var count = 0
     while(count < length){ res(count) = array(count * 2); count += 1 }
     res
   }
-  
+
   def elem2sArray: Array[Double] =
   { val res = new Array[Double](length)
     var count = 0
@@ -43,11 +43,11 @@ trait ProductD2s[A <: ProdD2] extends Any with ProductDbls[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
-trait ProductD2sBuff[A <: ProdD2, M <: ProductD2s[A]] extends Any with ProductDblsBuff[A, M]
+trait ProductD2sBuff[A <: ProdD2, M <: ArrHomoDbl2[A]] extends Any with ProductDblsBuff[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
-trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
+trait ProductD2sCompanion[T <: ProdD2, ST <: ArrHomoDbl2[T]]
 {
   val factory: Int => ST
   def apply(length: Int): ST = factory(length)
@@ -98,7 +98,7 @@ trait ProductD2sCompanion[T <: ProdD2, ST <: ProductD2s[T]]
 
 
 /** Both Persists and Builds ProductD2s collection classes. */
-abstract class ProductD2sBuilder[A <: ProdD2, M <: ProductD2s[A]](typeStr: String) extends ProductDblsBuilder[A, M](typeStr)
+abstract class ProductD2sBuilder[A <: ProdD2, M <: ArrHomoDbl2[A]](typeStr: String) extends ProductDblsBuilder[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1

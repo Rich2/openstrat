@@ -2,7 +2,7 @@
 package ostrat
 import Colour._
 
-final class Colours(val array: Array[Int]) extends AnyVal with ProductI1s[Colour]
+final class Colours(val array: Array[Int]) extends AnyVal with ArrHomoInt1[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"

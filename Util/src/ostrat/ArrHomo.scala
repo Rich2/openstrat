@@ -1,20 +1,15 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** This is the base trait for the ProductDoubles and ProductInts classes. */
-trait ArrProducts[A] extends Any with ArrValues[A] {
+/** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
+ * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
+trait ArrHomo[A] extends Any with ArrValues[A] {
   def typeStr: String
-
   def productSize: Int
-
   def arrLen: Int
-
   final def length: Int = arrLen / productSize
-
   def unsafeSetElem(index: Int, elem: A): Unit
-
   def unsafeSetElems(index: Int, elems: A*): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
-
   def unsafeSetElemSeq(index: Int, elems: Iterable[A]) = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
 
   def toStrsFold(seperator: String = "", f: A => String = _.toString): String = {
@@ -26,7 +21,7 @@ trait ArrProducts[A] extends Any with ArrValues[A] {
     acc
   }
 
-  def pMap[B, N <: ArrProducts[B]](f: A => B)(implicit factory: Int => N): N = {
+  def pMap[B, N <: ArrHomo[B]](f: A => B)(implicit factory: Int => N): N = {
     val res = factory(length)
     var count: Int = 0
     while (count < length) {
@@ -59,7 +54,7 @@ trait ArrProducts[A] extends Any with ArrValues[A] {
   }
 
   /** map every 2 elements of type A from this ProductValue Collection A to 1 element of B Product Value collection N[B]. */
-  def by2PMap[B, N <: ArrProducts[B]](f: (A, A) => B)(implicit factory: Int => N): N = {
+  def by2PMap[B, N <: ArrHomo[B]](f: (A, A) => B)(implicit factory: Int => N): N = {
     val res = factory(length / 2)
     var count: Int = 0
     while (count < length) {
@@ -82,7 +77,7 @@ trait ArrProducts[A] extends Any with ArrValues[A] {
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++[N <: ArrProducts[A]](operand: N)(implicit factory: Int => N): N = {
+  def ++[N <: ArrHomo[A]](operand: N)(implicit factory: Int => N): N = {
     val res = factory(length + operand.length)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     operand.iForeach((elem, i) => res.unsafeSetElem(i + length, elem))
@@ -90,7 +85,7 @@ trait ArrProducts[A] extends Any with ArrValues[A] {
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+[N <: ArrProducts[A]](operand: A)(implicit factory: Int => N): N = {
+  def :+[N <: ArrHomo[A]](operand: A)(implicit factory: Int => N): N = {
     val res = factory(length + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     res.unsafeSetElem(length, operand)
@@ -115,13 +110,13 @@ trait ArrProducts[A] extends Any with ArrValues[A] {
   }
 }
 
-trait ProductValsBuff[A, M <: ArrProducts[A]] extends Any
+trait ArrBuffHomo[A, M <: ArrHomo[A]] extends Any
 { def unBuff: M
   def append(newElem: A): Unit
   def addAll(newElems: M): Unit
 }
 
-abstract class ProductValsBuilder[A, M](val typeStr: String) extends PersistCompound[M]
+abstract class ArrHomoBuilder[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: Buff[VT], value: A): Unit

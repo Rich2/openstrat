@@ -22,7 +22,7 @@ object CoodLine
 }
 
 /** An Array[Int] based collection for CoodLines. */
-class CoodLines(val array: Array[Int]) extends AnyVal with ProductI4s[CoodLine]
+class CoodLines(val array: Array[Int]) extends AnyVal with ArrHomoInt4[CoodLine]
 { type ThisT = CoodLines
   override def unsafeFromArray(array: Array[Int]): CoodLines = new CoodLines(array)
   override def typeStr: String = "CoodLines"

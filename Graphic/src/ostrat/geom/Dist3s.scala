@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Collection class for Dist3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */
-class Dist3s(val array: Array[Double]) extends AnyVal with ProductD3s[Dist3]
+class Dist3s(val array: Array[Double]) extends AnyVal with ArrHomoDbl3[Dist3]
 { type ThisT = Dist3s
   def unsafeFromArray(array: Array[Double]): ThisT = new Dist3s(array)
   override def typeStr: String = "Dist3s"

@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait Vec2sLike extends Any with ProductD2s[Vec2]
+trait Vec2sLike extends Any with ArrHomoDbl2[Vec2]
 { def arrTrans(f: Vec2 => Vec2): Array[Double] =
   { val newArray = new Array[Double](array.length)
     var count = 0

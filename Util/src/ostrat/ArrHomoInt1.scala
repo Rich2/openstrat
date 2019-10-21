@@ -6,13 +6,13 @@ trait ProdI1 extends Any
   @inline def _1 : Int = intValue
 }
 
-trait ProductI1s[A <: ProdI1] extends Any with ProductInts[A]
+trait ArrHomoInt1[A <: ProdI1] extends Any with ArrHomoInts[A]
 {
   final override def productSize: Int = 1
   def newElem(intValue: Int): A
   final override def apply(index: Int): A = newElem(array(index))
   final override def unsafeSetElem(index: Int, elem: A): Unit = array(index) = elem.intValue
-  
+
   /** This method could be made more general. */
   def findIndex(value: A): OptInt =
   {
@@ -33,6 +33,6 @@ trait ProductI1s[A <: ProdI1] extends Any with ProductInts[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
 }
 
-trait ProductI1sBuff[A <: ProdI1, M <: ProductI1s[A]] extends Any with ProductIntsBuff[A, M]
+trait ProductI1sBuff[A <: ProdI1, M <: ArrHomoInt1[A]] extends Any with ArrBuffHomoInts[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1); () }
 }

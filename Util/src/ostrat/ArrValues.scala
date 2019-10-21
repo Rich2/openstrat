@@ -30,7 +30,7 @@ object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
   implicit val bindImplicit: Bind[Ints] = new Bind[Ints]
   {
-    override def bind[A](orig: ArrayBased[A], f: A => Ints): Ints =
+    override def bind[A](orig: ArrayLike[A], f: A => Ints): Ints =
     { val buff = new ArrayBuffer[Int]
       orig.foreach(a => buff.addAll(f(a).array))
       new Ints(buff.toArray)
@@ -38,7 +38,7 @@ object Ints
   }
 }
 
-class BuffInts(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffArr[Int]
+class IntsBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with ArrBuff[Int]
 { override def length: Int = buffer.length
   override def apply(index: Int): Int = buffer(index)
 }
@@ -62,7 +62,7 @@ object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
   implicit val bindImplicit: Bind[Longs] = new Bind[Longs]
   {
-    override def bind[A](orig: ArrayBased[A], f: A => Longs): Longs =
+    override def bind[A](orig: ArrayLike[A], f: A => Longs): Longs =
     { val buff = new ArrayBuffer[Long]
       orig.foreach(a => buff.addAll(f(a).array))
       new Longs(buff.toArray)
@@ -70,7 +70,7 @@ object Longs
   }
 }
 
-class BuffLongs(val buffer: ArrayBuffer[Long]) extends AnyVal with BuffArr[Long]
+class LongsBuff(val buffer: ArrayBuffer[Long]) extends AnyVal with ArrBuff[Long]
 { override def length: Int = buffer.length
   override def apply(index: Int): Long = buffer(index)
 }
@@ -95,7 +95,7 @@ object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
   implicit val bindImplicit: Bind[Dbls] = new Bind[Dbls]
   {
-    override def bind[A](orig: ArrayBased[A], f: A => Dbls): Dbls =
+    override def bind[A](orig: ArrayLike[A], f: A => Dbls): Dbls =
     { val buff = new ArrayBuffer[Double]
       orig.foreach(a => buff.addAll(f(a).array))
       new Dbls(buff.toArray)
@@ -103,7 +103,7 @@ object Dbls
   }
 }
 
-class BuffDbl(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffArr[Double]
+class DblBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with ArrBuff[Double]
 { override def length: Int = buffer.length
   override def apply(index: Int): Double = buffer(index)
 }

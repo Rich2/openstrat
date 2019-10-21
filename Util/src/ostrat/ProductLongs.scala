@@ -3,7 +3,7 @@ import collection.mutable.ArrayBuffer
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Long, Long or Float. They are stored with a backing
  * Array[Long] They are named ProductLongs rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait ProductLongs[A] extends Any with ArrProducts[A]
+trait ProductLongs[A] extends Any with ArrHomo[A]
 { def array: Array[Long]
   def arrLen = array.length
   def toArrs: Arr[Arr[Long]]
@@ -23,7 +23,7 @@ trait ProductLongs[A] extends Any with ArrProducts[A]
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Long, Long or Float. They are stored with a backing
  * ArrayBuffer[Long] They are named ProductLongsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
-trait ProductLongsBuff[A, M <: ProductLongs[A]] extends Any with ProductValsBuff[A, M]
+trait ProductLongsBuff[A, M <: ProductLongs[A]] extends Any with ArrBuffHomo[A, M]
 { def buffer: ArrayBuffer[Long]
   def toArray: Array[Long] = buffer.toArray[Long]
   def unBuff: M
@@ -31,7 +31,7 @@ trait ProductLongsBuff[A, M <: ProductLongs[A]] extends Any with ProductValsBuff
   def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-abstract class ProductLongsBuilder[A, M <: ProductLongs[A]](typeStr: String) extends ProductValsBuilder[A, M](typeStr)
+abstract class ProductLongsBuilder[A, M <: ProductLongs[A]](typeStr: String) extends ArrHomoBuilder[A, M](typeStr)
 { type VT = Long
   override def fromBuffer(buf: Buff[Long]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Long] = Buff[Long](0)

@@ -8,7 +8,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal { //s def str: 
    * tail value */
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
 
-  def valueProducts[B <: ArrProducts[A]](implicit factory: Int => B): B = {
+  def valueProducts[B <: ArrHomo[A]](implicit factory: Int => B): B = {
     val length = thisArray.length
     val valProds = factory(length)
     var count = 0

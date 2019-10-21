@@ -6,7 +6,7 @@ import Colour.Black
 /** Shape is an Array[Double] based collection for a sequence of CurveSegs, similar to a Polygon which is an Array[Double based collection of just
  *   LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg positive infinity for
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
-class Shape(val array: Array[Double]) extends AnyVal with ProductD7s[CurveSeg] with Transer
+class Shape(val array: Array[Double]) extends AnyVal with ArrHomoDbl7[CurveSeg] with Transer
 { type ThisT = Shape
   def unsafeFromArray(array: Array[Double]): Shape = new Shape(array)
   override def typeStr = "Shape"

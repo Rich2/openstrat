@@ -120,7 +120,7 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
 }
 
 /* A polygon using distances. */
-class DPolygon(val array: Array[Double]) extends AnyVal with ProductD2s[Dist2]
+class DPolygon(val array: Array[Double]) extends AnyVal with ArrHomoDbl2[Dist2]
 { type ThisT = DPolygon
   def unsafeFromArray(array: Array[Double]): DPolygon = new DPolygon(array)
   override def typeStr: String = "DPolygon"

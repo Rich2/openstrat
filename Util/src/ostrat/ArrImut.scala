@@ -1,7 +1,9 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-trait ArrImut[+A] extends Any with ArrayBased[A]
+/** Immutable Array. The final classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a
+ * compile time wrapper with no boxing run cost. Name will be shortened to Arr once the laias for ArraySeq has been removed. */
+trait ArrImut[+A] extends Any with ArrayLike[A]
 { type ThisT <: ArrImut[A]
   def buildThis(length: Int): ThisT
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
@@ -26,6 +28,4 @@ trait ArrImut[+A] extends Any with ArrayBased[A]
     newArr
   }
 }
-
-trait BuffArr[A] extends Any with ArrayBased[A]
 
