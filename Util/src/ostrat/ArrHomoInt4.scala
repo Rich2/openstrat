@@ -18,7 +18,7 @@ trait ArrHomoInt4[A <: HomoInt4] extends Any with ArrHomoIntN[A]
   def head2: Int = array(1)
   def head3: Int = array(2)
   def head4: Int = array(3)
-  def toArrs: Arr[Arr[Int]] = map(el => Arr(el._1, el._2, el._3, el._4))
+  def toArrs: Arr[Arr[Int]] = mapArrSeq(el => Arr(el._1, el._2, el._3, el._4))
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 

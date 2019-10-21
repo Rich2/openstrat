@@ -23,7 +23,7 @@ trait ArrHomoI2S[A <: HomoInt2] extends Any with ArrHomoIntN[A]
     }
     newArr
    }
-  def toArrs: Arr[Arr[Int]] = map(el => Arr(el._1, el._2))
+  def toArrs: Arr[Arr[Int]] = mapArrSeq(el => Arr(el._1, el._2))
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 

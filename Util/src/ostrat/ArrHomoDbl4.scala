@@ -21,7 +21,7 @@ trait ArrHomoDbl4[A <: HomoDbl4] extends Any with ArrHomoDblN[A]
   def head3: Double = array(2)
   def head4: Double = array(3)
 
-  def toArrs: Arr[Arr[Double]] = map(el => Arr(el._1, el._2, el._3, el._4))
+  def toArrs: Arr[Arr[Double]] = mapArrSeq(el => Arr(el._1, el._2, el._3, el._4))
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 

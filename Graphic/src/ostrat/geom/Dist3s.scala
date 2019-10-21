@@ -13,7 +13,7 @@ class Dist3s(val array: Array[Double]) extends AnyVal with ArrHomoDbl3[Dist3]
    *  points are moved to the horizon. */ 
   def earthZPositive: GlobedArea =
   {         
-    filterCount(_.z.pos) match
+    existsCount(_.z.pos) match
     { case 0 => GlobedNone
       case n if n == length => GlobedAll(pMap(_.xy))
       case n => GlobedNone

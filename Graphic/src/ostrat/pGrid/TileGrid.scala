@@ -142,7 +142,7 @@ trait TGrid[TileT]
 
   def sideDrawsAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(lineWidth: Double, colour: Colour = Black): Arr[LineDraw] = {
     val res1 = sideLinesAll(scale, mapOffset, displayOffset)
-    res1.map(_.draw(lineWidth, colour))
+    res1.mapArrSeq(_.draw(lineWidth, colour))
   }
 }
 

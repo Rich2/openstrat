@@ -20,7 +20,7 @@ trait ArrHomoDbl6[A <: HomoDbl6] extends Any with ArrHomoDblN[A]
   def head1: Double = array(0); def head2: Double = array(1); def head3: Double = array(2); def head4: Double = array(3); def head5: Double = array(4)
   def head6: Double = array(5)
 
-  def toArrs: Arr[Arr[Double]] = map(el => Arr(el._1, el._2, el._3, el._4, el._5, el._6))
+  def toArrs: Arr[Arr[Double]] = mapArrSeq(el => Arr(el._1, el._2, el._3, el._4, el._5, el._6))
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4, el._5, el._6)))
 }
 

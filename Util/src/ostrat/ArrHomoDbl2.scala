@@ -39,7 +39,7 @@ trait ArrHomoDbl2[A <: HomoDbl2] extends Any with ArrHomoDblN[A]
     res
   }
 
-  def toArrs: Arr[Arr[Double]] = map(el => Arr(el._1, el._2))
+  def toArrs: Arr[Arr[Double]] = mapArrSeq(el => Arr(el._1, el._2))
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
@@ -108,7 +108,7 @@ abstract class ArrHomoDbl2Builder[A <: HomoDbl2, M <: ArrHomoDbl2[A]](typeStr: S
   import pParse._
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
-  override def showSemi(thisColl: M): String = thisColl.map(el => el._1.str + ", " + el._2.str).mkString("; ")
+  override def showSemi(thisColl: M): String = thisColl.mapArrSeq(el => el._1.str + ", " + el._2.str).mkString("; ")
   override def showComma(thisColl: M): String = show(thisColl)
   //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
   override def fromParameterStatements(sts: Arr[Statement]): EMon[M] = ???

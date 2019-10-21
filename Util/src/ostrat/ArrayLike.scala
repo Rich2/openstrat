@@ -116,6 +116,29 @@ trait ArrayLike[+A] extends Any
     while (res == false & count < length){ if (elem == apply(count)) res = true; count += 1 }
     res
   }
+
+  /** maps ValueProduct collection to List */
+  def mapList[B <: AnyRef](f: A => B): List[B] =
+  { var res: List[B] = Nil
+    foreachReverse(res ::= f(_))
+    res
+  }
+
+  def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
+  { var acc: String = ""
+    var start = true
+    foreach(a => ife(start == true, {
+      acc = f(a); start = false
+    }, acc += a))
+    acc
+  }
+
+  /** Counts the number of elements that fulfil the condition A => Boolean */
+  def existsCount(f: A => Boolean): Int =
+  { var count = 0
+    foreach(el => if (f(el)) count += 1)
+    count
+  }
 }
 
 object ArrayLike

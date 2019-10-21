@@ -29,7 +29,7 @@ trait ArrHomoInt1[A <: ProdI1] extends Any with ArrHomoIntN[A]
     }
     acc
   }
-  def toArrs: Arr[Arr[Int]] = map(el => Arr(el.intValue))
+  def toArrs: Arr[Arr[Int]] = mapArrSeq(el => Arr(el.intValue))
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
 }
 
