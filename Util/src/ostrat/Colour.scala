@@ -4,7 +4,7 @@ package ostrat
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with ProdI1
 { 
-  override def toString: String = Colour.ColourPersistImplicit.show(this)
+  override def toString: String = Colour.persistImplicit.show(this)
   @inline final override def intValue: Int = argbValue 
   def webStr: String = "#" + hexStr
   def canEqual(a: Any) = a.isInstanceOf[Colour]
@@ -86,7 +86,7 @@ object Colour
 {
   implicit val eqImplicit: Eq[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
-  implicit object ColourPersistImplicit extends PersistSimple[Colour]("Colour")
+  implicit val persistImplicit = new PersistSimple[Colour]("Colour")
   {
     import pParse._
     def fromExpr(expr: ParseExpr): EMon[Colour] = expr match

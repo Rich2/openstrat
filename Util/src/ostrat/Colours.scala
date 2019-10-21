@@ -12,12 +12,12 @@ final class Colours(val array: Array[Int]) extends AnyVal with ArrHomoInt1[Colou
 object Colours
 {
   def apply(inp: Colour *): Colours =
-  {
-    val arr = new Array[Int](inp.length)
+  { val arr = new Array[Int](inp.length)
     var count = 0
     while (count < inp.length) { arr(count) = inp(count).argbValue; count += 1 }
     new Colours(arr)
   }
+  //implicit val persistImplicit: Persist[Colours] = new pParse.PersistSeqLike[Colour, Colours](Colour.persistImplicit) {}
 }
 
 /** This should maybe go into an object with other common Colour sequences. */
