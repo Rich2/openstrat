@@ -5,7 +5,6 @@
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat extends LowPriority
 { import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
-
   type Arr[A] = ArraySeq[A]
   type Buff[A] = ArrayBuffer[A]
   type EMonList[A] = EMon[List[A]]
