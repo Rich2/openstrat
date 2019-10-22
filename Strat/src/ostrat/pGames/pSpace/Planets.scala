@@ -58,11 +58,11 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   def fBut(planet: Planet) = clickButton(planet.name, mb => {planetFocus = planet; repaintMap}, planet.colour)
   def pause = buttonStd(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
-  def cmds: Arr[ShapeSubj] = (zoomable.:+(pause) ++ pls.map(fBut).toArraySeq[ShapeSubj])//.asInstanceOf[Arr[ShapeSubj]]
+  def cmds: Arr[ShapeSubj] = zoomable.:+(pause) ++ pls.map(fBut).toArraySeq
   reTop(cmds)
   
   canv.startFrame((el, st) => out(el, st))
-  def mapObjs = pls.map(_.paint)
+  def mapObjs = pls.map(_.paint).toArraySeq
   
   def out(elapsed: Integer, startTime: Integer): Unit =
   { pls.foreach(_.move(elapsed))
