@@ -121,7 +121,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }   
   
   /** This needs to be renamed. */
-  def iter2ProdD2[B, C <: HomoDbl2, D <: ArrProdDbl2[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =
+  def iter2ProdD2[B, C <: ProdDbl2, D <: ArrProdDbl2[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =
   { val elemNum = thisIter.size * secondIter.size
     val res = factory(elemNum)
     var count = 0

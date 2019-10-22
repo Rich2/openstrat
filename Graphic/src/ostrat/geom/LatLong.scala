@@ -4,7 +4,7 @@ package geom
 import math._
 
 /** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-class LatLong (val lat: Double, val long: Double) extends LatLongBase with HomoDbl2
+class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdDbl2
 {
   override def toString: String = LatLong.persistImplict.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]

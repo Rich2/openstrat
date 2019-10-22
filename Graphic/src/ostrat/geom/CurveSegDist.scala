@@ -32,7 +32,7 @@ trait CurveEndingDist
 }
 
 class CurveSegDist(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double, 
-      val xEndMetres: Double, val yEndMetres: Double) extends HomoDbl7 with CurveEndingDist
+      val xEndMetres: Double, val yEndMetres: Double) extends ProdDbl7 with CurveEndingDist
 { 
   def toCurveSeg(f: Dist2 => Vec2): CurveSeg = xC1Metres match
   {

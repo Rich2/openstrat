@@ -2,7 +2,7 @@
 package ostrat
 
 /** Base trait for Array[Double] base collections of Products of 6 Doubles. */
-trait ArrProdDbl6[A <: HomoDbl6] extends Any with ArrProdDblN[A]
+trait ArrProdDbl6[A <: ProdDbl6] extends Any with ArrProdDblN[A]
 { def productSize: Int = 6
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
@@ -24,7 +24,7 @@ trait ArrProdDbl6[A <: HomoDbl6] extends Any with ArrProdDblN[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4, el._5, el._6)))
 }
 
-abstract class ProductD6sCompanion[A <: HomoDbl6, M <: ArrProdDbl6[A]]
+abstract class ProductD6sCompanion[A <: ProdDbl6, M <: ArrProdDbl6[A]]
 { val factory: Int => M
   def apply(length: Int): M = factory(length)
   

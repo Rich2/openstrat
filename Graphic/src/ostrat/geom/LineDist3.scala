@@ -4,7 +4,7 @@ package geom
 
 /** 3 dimensional line segment measured in metres. A straight line between two points in 3d. */
 class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double,
-    xEndMetres: Double, yEndMetres: Double, zEndMetres: Double) extends HomoDbl6 //with Stringer
+    xEndMetres: Double, yEndMetres: Double, zEndMetres: Double) extends ProdDbl6 //with Stringer
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def pStart: Dist3 = new Dist3(xStartMetres, yStartMetres, zStartMetres)

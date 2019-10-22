@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait ArrProdInt4[A <: HomoInt4] extends Any with ArrProdIntN[A]
+trait ArrProdInt4[A <: ProdInt4] extends Any with ArrProdIntN[A]
 {
   override def productSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -22,11 +22,11 @@ trait ArrProdInt4[A <: HomoInt4] extends Any with ArrProdIntN[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 
-trait ProductI4sBuff[A <: HomoInt4, M <: ArrProdInt4[A]] extends Any with ArrBuffHomoInts[A, M]
+trait ProductI4sBuff[A <: ProdInt4, M <: ArrProdInt4[A]] extends Any with ArrBuffHomoInts[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4); ()}
 }
 
-abstract class ProductI4sCompanion[A <: HomoInt4, M <: ArrProdInt4[A]]
+abstract class ProductI4sCompanion[A <: ProdInt4, M <: ArrProdInt4[A]]
 { val factory: Int => M
   def buff(initialSize: Int): ProductI4sBuff[A, M]
 
@@ -51,7 +51,7 @@ abstract class ProductI4sCompanion[A <: HomoInt4, M <: ArrProdInt4[A]]
 
 
 
-abstract class ProductI4sBuilder[A <: HomoInt4, M <: ArrProdInt4[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)
+abstract class ProductI4sBuilder[A <: ProdInt4, M <: ArrProdInt4[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value._1
