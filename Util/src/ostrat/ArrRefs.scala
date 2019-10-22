@@ -9,6 +9,9 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = drop(1)
 
+  import collection.immutable._
+  def toArraySeq[AA >: A <: AnyRef]: ArraySeq[A] = new ArraySeq.ofRef(array)
+
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   {  array.copyToArray(array, offset, copyLength); ()}
 

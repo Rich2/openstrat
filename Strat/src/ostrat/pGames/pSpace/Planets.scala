@@ -52,13 +52,13 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
     override val size = 14
   }
   
-  val pls: Arr[Planet] = Arr(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto, Sun)
+  val pls: Refs[Planet] = Refs(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto, Sun)
   var planetFocus: Planet = earth
   override def eTop(): Unit = ???
   def fBut(planet: Planet) = clickButton(planet.name, mb => {planetFocus = planet; repaintMap}, planet.colour)
   def pause = buttonStd(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
-  def cmds: Arr[ShapeSubj] = zoomable.:+(pause) ++ pls.map(fBut)
+  def cmds: Arr[ShapeSubj] = (zoomable.:+(pause) ++ pls.map(fBut).toArraySeq[ShapeSubj])//.asInstanceOf[Arr[ShapeSubj]]
   reTop(cmds)
   
   canv.startFrame((el, st) => out(el, st))
