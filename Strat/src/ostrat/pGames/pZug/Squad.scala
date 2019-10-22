@@ -30,9 +30,8 @@ class Squad(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) ext
 }
 
 object Squad
-{
-   def apply(polity: Polity, cood: Cood, id: Int): Squad = new Squad(polity, cood.x, cood.y, id)
-   def apply(polity: Polity, x: Int, y: Int, id: Int): Squad = new Squad(polity, x, y, id)   
+{ def apply(polity: Polity, cood: Cood, id: Int): Squad = new Squad(polity, cood.x, cood.y, id)
+  def apply(polity: Polity, x: Int, y: Int, id: Int): Squad = new Squad(polity, x, y, id)
 }
 
 sealed trait Action

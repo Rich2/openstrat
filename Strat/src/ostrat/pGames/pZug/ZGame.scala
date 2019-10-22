@@ -4,7 +4,7 @@ package pGames
 package pZug
 import pGrid._
 
-class ZGame(scenInit: ZugGrid, val players: List[ZPlayer])
+class ZGame(scenInit: ZugGrid, val players: Refs[ZPlayer])
 {
   private [this] var scen: ZugGrid = scenInit
   def getScen(player: ZPlayer): ZugGrid =
@@ -23,20 +23,20 @@ class ZGame(scenInit: ZugGrid, val players: List[ZPlayer])
   def makeMove(id: Int, coods: Coods): ZugGrid = scen
 }
 
-object ZGame1 extends ZGame(Zug1, List(PlayBritain, PlayGermany))
-object ZGame2 extends ZGame(Zug2, PlayGermanyFrance :: Nil)
+object ZGame1 extends ZGame(Zug1, Refs(PlayBritain, PlayGermany))
+object ZGame2 extends ZGame(Zug2, Refs(PlayGermanyFrance))
 
-case class ZPlayer(polities: List[Polity])
+case class ZPlayer(polities: Refs[Polity])
 
-object PlayBritain extends ZPlayer (List(Britain))
-object PlayGermany extends ZPlayer (List(Germany))
-object PlayGermanyBritain extends ZPlayer (List(Germany, Britain))
-object PlayGermanyFrance extends ZPlayer (List(Germany, France))
+object PlayBritain extends ZPlayer (Refs(Britain))
+object PlayGermany extends ZPlayer (Refs(Germany))
+object PlayGermanyBritain extends ZPlayer (Refs(Germany, Britain))
+object PlayGermanyFrance extends ZPlayer (Refs(Germany, France))
 
 
 case class ZMove(squad: Squad, coods: Coods)
 
-case class ZTurn(moves: List[ZMove])
+case class ZTurn(moves: Refs[ZMove])
 {
   
 }
