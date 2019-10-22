@@ -7,8 +7,16 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   override def length: Int = array.length
   override def apply(index: Int): A = array(index)
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
+  @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = drop(1)
+
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   {  array.copyToArray(array, offset, copyLength); ()}
+
+  def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
+  { val newArray = new Array[A]((length - 1).min0)
+    iUntilForeach(1, length)(i => newArray(i - 1) = array(i))
+    new Refs(newArray)
+  }
 
   def :+ [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
@@ -24,7 +32,6 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 
     new Refs(newArray)
   }
-
 
   def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + op.length)
@@ -51,8 +58,14 @@ object Refs
   }
 }
 
+object Refs1
+{ def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[(A, Refs[A])] = refs match
+  { case arr if refs.nonEmpty => Some((refs.head, refs.drop1))
+    case _ => None
+  }
+}
+
 class RefsBuff[A <: AnyRef](val buffer: ArrayBuffer[A]) extends AnyVal with ArrBuff[A]
 { override def length: Int = buffer.length
   override def apply(index: Int): A = buffer(index)
 }
-

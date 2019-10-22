@@ -4,6 +4,5 @@ package pGames
 
 /** This pSimp is the beginnings of a WWII grand strategy game. */
 package object pWW2
-{   
-  
+{ def sillyMethod: String = "Silly!"
 }

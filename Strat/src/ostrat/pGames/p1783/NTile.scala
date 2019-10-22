@@ -8,7 +8,7 @@ case class NTile(x: Int, y: Int, terr: WTile) extends ETile
 {
   type FromT = WTile
   def fromT = terr
-  var lunits: Arr[Corps] = Arr()
+  var lunits: Refs[Corps] = Refs()
 }
 
 object NTile

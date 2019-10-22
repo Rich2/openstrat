@@ -4,13 +4,7 @@ package pExt
 import math.Pi//, reflect.ClassTag
  
 class IntExtensions(val thisInt: Int) extends AnyVal
-{
-  /** Correct defintion of modulus. */
-  def %%(divisor: Int): Int =
-  { val r = thisInt % divisor
-    if (r < 0) divisor + r else r
-  }
-
+{ def min0 = ife(thisInt > 0, thisInt, 0)
   def isEven: Boolean = thisInt % 2 == 0
   def isOdd: Boolean = thisInt % 2 != 0
   def ifZero[A](vZero: => A, vNonZero: => A): A = if (thisInt == 0) vZero else vNonZero
@@ -34,6 +28,12 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
   def semicolonInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + "; " + _.toString)
+
+  /** Correct defintion of modulus. */
+  def %%(divisor: Int): Int =
+  { val r = thisInt % divisor
+    if (r < 0) divisor + r else r
+  }
 
   def doTimes(f: () => Unit): Unit =
   { var count: Int = 0

@@ -15,9 +15,9 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
       import etog._         
       val colour: Colour = tile.colour
       val poly = vertDispVecs.fillActive(colour, tile)       
+
       val textU: GraphicElems = etog.ifScaleCObjs(68, tile.lunits match
-        {
-          case Arr1(head, _) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
+        { case Refs1(head, _) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
           case _ =>
           {
             val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
@@ -31,16 +31,14 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
      {
        import ofs._
        val line = ifScaleCObjs(60, side.terr match
-         {
-           case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
+         { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
            case Straitsold => Arr(vertDispLine.draw(6, Colour.Blue))
          })      
        line
      } 
       
   def ls: GraphicElems =
-  {
-    val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+  { val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this) )
     gs ++ as
   }
@@ -50,8 +48,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
     case (LeftButton, _, _) => selected = clickList.fHead(Arr(), Arr(_))
         
     case (RightButton, Arr(c : Corps), Arr(newTile: NTile)) =>
-    {
-      c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
+    { c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
       val newCorps = c.copy(newTile) 
       newTile.lunits +:= newCorps
       selected = Arr(newCorps)
