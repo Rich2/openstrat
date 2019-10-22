@@ -3,13 +3,13 @@ package ostrat
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ArrHomo[A] extends Any with ArrValues[A]
+trait ArrProdHomo[A] extends Any with ArrValues[A]
 { def typeStr: String
   def productSize: Int
   def arrLen: Int
   final def length: Int = arrLen / productSize
 
-  def pMap[B, N <: ArrHomo[B]](f: A => B)(implicit factory: Int => N): N =
+  def pMap[B, N <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(length)
     var count: Int = 0
     while (count < length) {
@@ -29,7 +29,7 @@ trait ArrHomo[A] extends Any with ArrValues[A]
 
 
   /** map every 2 elements of type A from this ProductValue Collection A to 1 element of B Product Value collection N[B]. */
-  def by2PMap[B, N <: ArrHomo[B]](f: (A, A) => B)(implicit factory: Int => N): N =
+  def by2PMap[B, N <: ArrProdHomo[B]](f: (A, A) => B)(implicit factory: Int => N): N =
   { val res = factory(length / 2)
     var count: Int = 0
     while (count < length) {
@@ -52,7 +52,7 @@ trait ArrHomo[A] extends Any with ArrValues[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++[N <: ArrHomo[A]](operand: N)(implicit factory: Int => N): N =
+  def ++[N <: ArrProdHomo[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(length + operand.length)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     operand.iForeach((elem, i) => res.unsafeSetElem(i + length, elem))
@@ -60,7 +60,7 @@ trait ArrHomo[A] extends Any with ArrValues[A]
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+[N <: ArrHomo[A]](operand: A)(implicit factory: Int => N): N =
+  def :+[N <: ArrProdHomo[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(length + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     res.unsafeSetElem(length, operand)
@@ -78,7 +78,7 @@ trait ArrHomo[A] extends Any with ArrValues[A]
   }
 }
 
-trait ArrBuffHomo[A, M <: ArrHomo[A]] extends Any
+trait ArrBuffHomo[A, M <: ArrProdHomo[A]] extends Any
 { def unBuff: M
   def append(newElem: A): Unit
   def addAll(newElems: M): Unit

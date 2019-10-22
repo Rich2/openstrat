@@ -179,7 +179,7 @@ package object ostrat extends LowPriority
   { @inline def toArr: Arr[A] = ArrWrapBuff[A](thisBuff)
     @inline def arrAppends(operands: A*): Arr[A] = ArrWrapBuff[A]((thisBuff ++= operands))
     @inline def arrAppend(operand: A): Arr[A] = ArrWrapBuff[A]((thisBuff += operand))
-    def pAdd (operand: ArrHomo[A]): Buff[A] = { operand.foreach(thisBuff.addOne(_)); thisBuff }
+    def pAdd (operand: ArrProdHomo[A]): Buff[A] = { operand.foreach(thisBuff.addOne(_)); thisBuff }
   }
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])

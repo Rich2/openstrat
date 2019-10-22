@@ -121,7 +121,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }   
   
   /** This needs to be renamed. */
-  def iter2ProdD2[B, C <: HomoDbl2, D <: ArrHomoDbl2[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =
+  def iter2ProdD2[B, C <: HomoDbl2, D <: ArrProdDbl2[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =
   { val elemNum = thisIter.size * secondIter.size
     val res = factory(elemNum)
     var count = 0
@@ -142,7 +142,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
     
   /** product map method maps from a Traversable to an Array based ProductValues class. */
-  def pMap[B , M <: ArrHomo[B]](f: A => B)(implicit factory: Int => M): M =
+  def pMap[B , M <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => M): M =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>
@@ -154,7 +154,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
   
   /** Copies from a Traversable to an Array based ProductValues class. */
-  def toPValues[B <: ArrHomo[A]](implicit factory: Int => B): B =
+  def toPValues[B <: ArrProdHomo[A]](implicit factory: Int => B): B =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>      

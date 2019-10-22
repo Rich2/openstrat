@@ -31,7 +31,9 @@ class Persist1[A1, R](typeStr: String, name1: String, fArg1: R => A1, val newT: 
 
 /** Persistence class for case classes taking a single Double parameter. Not sure about this class. It is currently being used for Double based value
  *  classes. I think this is wrong and that they need their own trait class. */
-class PersistD1[R](typeStr: String, name1: String, fArg1: R => Double, newT: Double => R) extends Persist1[Double, R](typeStr, name1, fArg1, newT)
+class PersistDbl1[R](typeStr: String, name1: String, fArg1: R => Double, newT: Double => R) extends Persist1[Double, R](typeStr, name1, fArg1, newT)
+
+class PersistInt1[R](typeStr: String, name1: String, fArg1: R => Int, newT: Int => R) extends Persist1[Int, R](typeStr, name1, fArg1, newT)
 
 /** Persistence class for 2 parameter case classes. */ 
 class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(

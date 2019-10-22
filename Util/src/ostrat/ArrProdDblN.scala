@@ -3,8 +3,8 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
-trait ArrHomoDblN[A] extends Any with ArrHomo[A]
-{ type ThisT <: ArrHomoDblN[A]
+trait ArrProdDblN[A] extends Any with ArrProdHomo[A]
+{ type ThisT <: ArrProdDblN[A]
   def array: Array[Double]
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def buildThis(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
@@ -32,7 +32,7 @@ trait ArrHomoDblN[A] extends Any with ArrHomo[A]
   }
 }
 
-trait ArrBuffDblN[A, M <: ArrHomoDblN[A]] extends Any with ArrBuffHomo[A, M]
+trait ArrBuffDblN[A, M <: ArrProdDblN[A]] extends Any with ArrBuffHomo[A, M]
 { def buffer: ArrayBuffer[Double]
   def toArray: Array[Double] = buffer.toArray[Double]
   def unBuff: M
@@ -41,7 +41,7 @@ trait ArrBuffDblN[A, M <: ArrHomoDblN[A]] extends Any with ArrBuffHomo[A, M]
 }
 
 /** Builds persists */
-abstract class ArrHomoDblNBuilder[A, M <: ArrHomoDblN[A]](typeStr: String) extends ArrHomoBuilder[A, M](typeStr) with Eq[M]
+abstract class ArrHomoDblNBuilder[A, M <: ArrProdDblN[A]](typeStr: String) extends ArrHomoBuilder[A, M](typeStr) with Eq[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

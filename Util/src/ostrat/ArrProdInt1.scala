@@ -6,7 +6,7 @@ trait ProdI1 extends Any
   @inline def _1 : Int = intValue
 }
 
-trait ArrHomoInt1[A <: ProdI1] extends Any with ArrHomoIntN[A]
+trait ArrProdInt1[A <: ProdI1] extends Any with ArrProdIntN[A]
 {
   final override def productSize: Int = 1
   def newElem(intValue: Int): A
@@ -33,6 +33,6 @@ trait ArrHomoInt1[A <: ProdI1] extends Any with ArrHomoIntN[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
 }
 
-trait ProductI1sBuff[A <: ProdI1, M <: ArrHomoInt1[A]] extends Any with ArrBuffHomoInts[A, M]
+trait ProductI1sBuff[A <: ProdI1, M <: ArrProdInt1[A]] extends Any with ArrBuffHomoInts[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1); () }
 }
