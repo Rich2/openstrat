@@ -11,9 +11,9 @@ trait ArrayLike[+A] extends Any
   def returnThis: ThisT = ???
   def length: Int
   def apply(index: Int): A
-
   def head: A = apply(0)
   def last: A = apply(length - 1)
+  def nonEmpty: Boolean = length > 0
 
   def foreach[U](f: A => U): Unit =
   { var count = 0

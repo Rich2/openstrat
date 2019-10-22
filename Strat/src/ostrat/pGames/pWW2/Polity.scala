@@ -11,8 +11,7 @@ trait Polity extends PersistSingleton
 object Polity
 {
   object PolityPersist extends PersistSingletons[Polity]("Polity")
-  {
-    override val singletonList = List(Germany, Britain, France)
+  { override val singletonList = List(Germany, Britain, France)
   }
 }
 

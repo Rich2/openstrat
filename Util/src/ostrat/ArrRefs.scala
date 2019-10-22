@@ -17,6 +17,15 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     new Refs(newArray)
   }
 
+  def +: [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
+  { val newArray = new Array[AA](length + 1)
+    newArray(0) = op
+    array.copyToArray(newArray, 1)
+
+    new Refs(newArray)
+  }
+
+
   def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + op.length)
     array.copyToArray(newArray)
