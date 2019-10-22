@@ -12,17 +12,7 @@ trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
 
   def head1: Int = array(0)
   def head2: Int = array(1)
-  
-  def mapBy2[B](f: (Int, Int) => B)(implicit m: scala.reflect.ClassTag[B]): Array[B] =
-  {
-    val newArr = new Array[B](length)
-    var count = 0
-    while (count < length) 
-    { newArr(count) = f(array(count * 2), array(count * 2 + 1))
-      count += 1
-    }
-    newArr
-   }
+
   def toArrs: Arr[Arr[Int]] = mapArrSeq(el => Arr(el._1, el._2))
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
@@ -62,7 +52,7 @@ abstract class ProductI2sBuilder[A <: ProdInt2, M <: ArrProdInt2[A]](typeStr: St
   import pParse._
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
-  override def showSemi(thisColl: M): String = thisColl.mapBy2(_.str + ", " + _.str).mkString("; ")
+  override def showSemi(thisColl: M): String = thisColl.map2To1(_.toString + ", " + _.toString).mkString("; ")
   override def showComma(thisColl: M): String = show(thisColl)
   override def fromParameterStatements(sts: Arr[Statement]): EMon[M] = ???
   override def fromClauses(clauses: Arr[Clause]): EMon[M] = ???

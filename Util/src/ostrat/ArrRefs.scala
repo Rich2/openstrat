@@ -8,7 +8,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   override def apply(index: Int): A = array(index)
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
-    array.copyToArray(array, offset, copyLength)
+  {  array.copyToArray(array, offset, copyLength); ()}
 
   def :+ [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
@@ -42,8 +42,8 @@ object Refs
   }
 }
 
-class RefsBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with ArrBuff[Int]
+class RefsBuff[A <: AnyRef](val buffer: ArrayBuffer[A]) extends AnyVal with ArrBuff[A]
 { override def length: Int = buffer.length
-  override def apply(index: Int): Int = buffer(index)
+  override def apply(index: Int): A = buffer(index)
 }
 

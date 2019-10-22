@@ -35,6 +35,16 @@ trait ArrayLike[+A] extends Any
     iForeach((a, i) => ev.imutSet(res, i, f(a)))
     res
   }
+  /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
+  def map2To1[B](f: (A, A) => B)(implicit ev: ArrBuilder[B]): ev.ImutT =
+  { val res = ev.imutNew(length)
+    var count = 0
+    while (count + 1  < length)
+    {  ev.imutSet(res, count, f(apply(count), apply(count + 1)))
+      count += 2
+    }
+    res
+  }
 
   def seqMap[B](f: A => Iterable[B])(implicit ev: ArrBuilder[B]): ev.ImutT =
   { val buff = ev.buffNew(length)
@@ -139,6 +149,17 @@ trait ArrayLike[+A] extends Any
     foreach(el => if (f(el)) count += 1)
     count
   }
+
+  /** Not sure about this method. */
+  def mkString(seperator: String): String = ife(length == 0, "",
+    { var acc = head.toString
+      var count = 1
+      while(count < length)
+      { acc += seperator + apply(count).toString
+        count += 1
+      }
+      acc
+    })
 }
 
 object ArrayLike
