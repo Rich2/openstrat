@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
-import ostrat._, geom._
+import ostrat._, geom._, Colours._
 
 package e1
 {
@@ -30,7 +30,7 @@ package e1
   
   object GState
   {
-    val start = GState(0, 0 vv 0, RainbowCycle.start)
+    val start = GState(0, 0 vv 0, rainbowStart)
   }
   
   sealed trait TurnCmd

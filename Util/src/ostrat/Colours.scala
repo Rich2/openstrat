@@ -17,18 +17,16 @@ object Colours
     while (count < inp.length) { arr(count) = inp(count).argbValue; count += 1 }
     new Colours(arr)
   }
-  //implicit val persistImplicit: Persist[Colours] = new pParse.PersistSeqLike[Colour, Colours](Colour.persistImplicit) {}
+
+  /** This class cycles through the colour of the Rainbow. */
+  class RainbowCycle(val value: Int) extends AnyVal
+  {
+    def apply(): Colour = rainbow(value)
+    def next: RainbowCycle = ife(value == rainbow.length - 1, new RainbowCycle(0), new RainbowCycle(value + 1))
+    def nextValue: Colour = next()
+  }
+
+  def rainbowStart: RainbowCycle = new RainbowCycle(0)
 }
 
-/** This should maybe go into an object with other common Colour sequences. */
-class RainbowCycle(val value: Int) extends AnyVal
-{
-  def apply(): Colour = rainbow(value)
-  def next: RainbowCycle = ife(value == rainbow.length - 1, new RainbowCycle(0), new RainbowCycle(value + 1))
-  def nextValue: Colour = next()
-}
 
-object RainbowCycle
-{
-  def start: RainbowCycle = new RainbowCycle(0)
-}
