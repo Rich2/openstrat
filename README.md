@@ -48,10 +48,10 @@ The Strategy games was the original motivation for the project, but the Geometry
 <code>mill jsfull</code> To build the fully optimised Js file. Use with WebPages/MillFullDev.html<br>
 <code>mill mill.scalalib.GenIdea/idea</code> To create an IntelliJ IDEA project.</p>
 
-For IntellliJ useful options:
-* File => Editor => General -> Other -> tick "Show quick documentation on mouse move".
-* File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
-* Project-Pane => Options -> "Flatten packages"
+<ul>For IntellliJ useful options:
+<li>File => Editor => General -> Other -> tick "Show quick documentation on mouse move".</li>
+<li>File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"<li>
+<li>Project-Pane => Options -> "Flatten packages"</li>
 
 **The Code is currently organised into 6 modules.** Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
 
