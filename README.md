@@ -85,7 +85,7 @@ For IntellliJ useful options:
      * An implementation of Canvas for Jvm using JavaFx.
      * An implementation of Canvas for Html Canvas using JavaScript.
      * There is no implementation for Native yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGL, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
-     - **ostrat.pGrid** Depends on geom and pCanv
+   - **ostrat.pGrid** Depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
      * OfTile classes for the display of tiles.
