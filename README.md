@@ -36,20 +36,18 @@ The Strategy games was the original motivation for the project, but the Geometry
 <code>DocProj/doc</code> Will produce docs for the UtilJvm GraphicJvm and StratJvm modules. They can be found in target/DocProj/target/scala-2.12/api/. Local link PathToProject/openstrat/target/DocProj/target/scala-2.12/api/index.html</p>
 
 
-<p>The tilde **~** tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the Misc folder to the  Dev/mine folder. Creating the directory and its parents if not already existing. Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.</p>
+<p>The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the Misc folder to the  Dev/mine folder. Creating the directory and its parents if not already existing. Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.</p>
 
-So I'm experimenting with Mill from the project root folder run:
+<p>So I'm experimenting with Mill from the project root folder run:
+<code>mill run</code> To launch a ScalaFx window.<br>
+<code>mill -w run</code> As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful command for development.<br>
+<code>mill test</code> To run tests.<br>
+<code>mill -w test</code> To recompile and rerun the tests on source code changes.<br>
+<code>mill -w Dev.runMain ostrat.pFx.App3D</code> Temp command<br>
+<code>mill -w jsfast</code> To rebuild the fast optimised Js file. Use with WebPages/MillFastDev.html<br>
+<code>mill jsfull</code> To build the fully optimised Js file. Use with WebPages/MillFullDev.html<br>
+<code>mill mill.scalalib.GenIdea/idea</code> To create an IntelliJ IDEA project.</p>
 
-```
-mill run //To launch a ScalaFx window.
-mill -w run //As above but mill will rebuild and relaunch the ScalaFx window when ever you save changes to source code. The most useful command for development
-mill test //To run tests
-mill -w //To recompile and rerun the tests on source code changes.
-mill -w Dev.runMain ostrat.pFx.App3D//temp command
-mill -w jsfast //To rebuild the fast optimised Js file. Use with WebPages/MillFastDev.html
-mill jsfull //To build the fully optimised Js file. Use with WebPages/MillFullDev.html
-mill mill.scalalib.GenIdea/idea //To create an IntelliJ IDEA project.
-```
 For IntellliJ useful options:
 * File => Editor => General -> Other -> tick "Show quick documentation on mouse move".
 * File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"
