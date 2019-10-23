@@ -34,9 +34,9 @@ trait PanelLike extends RectGeom
    /** This method name is inconsistent with mouseup on the canvas class*/
    var mouseUp: (Vec2, MouseButton, Arr[AnyRef]) => Unit = (v, b, s) => {}
    /** This method name is inconsistent with mousedown on the canvas class */
-   var mouseDown: (Vec2, MouseButton, Arr[AnyRef]) => Unit = (v, b, s) => {}
-   var fMouseMoved: (Vec2, MouseButton, Arr[Any]) => Unit = (v, b, s) => {}
-   var fMouseDragged: (Vec2, MouseButton, Arr[Any]) => Unit = (v, b, s) => {}
+   var mouseDown: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
+   var fMouseMoved: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
+   var fMouseDragged: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
    def setMouseSimplest(action: => Unit): Unit = mouseUp = (_, _, _) => action
    def setMouseSimple(action: Vec2 => Unit): Unit = mouseUp = (v, _, _) => action(v)
 }
