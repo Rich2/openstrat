@@ -28,17 +28,15 @@ The Strategy games was the original motivation for the project, but the Geometry
 
 <p>From within the sbt console run:<br>
 <code>~ reStart</code> To launch a ScalaFx window. The most useful command for development<br>
-~ JsDev/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
-JsDev/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
-~ Util/test //Rerun tests on Util module.
-~ Graphic/test //Rerun tests on, Graphic module.
-~ Strat/test //Rerun tests on, Strat module.
-DocProj/doc //Will produce docs for the UtilJvm GraphicJvm and StratJvm modules.
-  They can be found in target/DocProj/target/scala-2.12/api/.
-  Local link PathToProject/openstrat/target/DocProj/target/scala-2.12/api/index.html
-</code>
+<code>~ JsDev/fastOptJS</code> To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html<br>
+<code>JsDev/fullOptJS</code> To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html<br>
+<code>~ Util/test</code> Rerun tests on Util module.<br>
+<code>~ Graphic/test</code> Rerun tests on, Graphic module.<br>
+<code>~ Strat/test</code> Rerun tests on, Strat module.<br>
+<code>DocProj/doc</code> Will produce docs for the UtilJvm GraphicJvm and StratJvm modules. They can be found in target/DocProj/target/scala-2.12/api/. Local link PathToProject/openstrat/target/DocProj/target/scala-2.12/api/index.html</p>
 
-The tilde **~** tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the Misc folder to the  Dev/mine folder. Creating the directory and its parents if not already existing. Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.
+
+<p>The tilde **~** tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the Misc folder to the  Dev/mine folder. Creating the directory and its parents if not already existing. Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.</p>
 
 So I'm experimenting with Mill from the project root folder run:
 
