@@ -6,34 +6,35 @@ object ArrOtherTest extends TestSuite
 {
   val tests = Tests
   {
-    val intArr1 = Ints(1, 2, 3, 4)
-    val intArr2 = Ints(5, 6, 7)
-    val intArr3 = intArr1 ++ intArr2
-    val dblArr1 = Dbls(1.5, 3, 4.5, 6)
-    val dblArr2 = intArr1.map(_ * 1.5)
-    val dblList1 = intArr1.seqMap{a => List(a + 0.1, a + 0.2)}
-    val longArr1 = Longs(2, 4, 6)
+    val ints1 = Ints(1, 2, 3, 4)
+    val ints2 = Ints(5, 6, 7)
+    val ints3 = ints1 ++ ints2
+    val dbls1 = Dbls(1.5, 3, 4.5, 6)
+    val dbls2 = ints1.map(_ * 1.5)
+    val dblList1 = ints1.iterFlatMap{ a => List(a + 0.1, a + 0.2)}
+    val longs1 = Longs(2, 4, 6) ++ Longs(8, 9)
 
     'test1 -
-    { intArr1(3) ==> 4
-      intArr3.length ==> 7
-      intArr3(6) ==> 7
-      dblArr1(2) ==> 4.5
-      dblArr2(0) ==> 1.5
-      dblArr2.length ==> 4
+    { ints1(3) ==> 4
+      ints3.length ==> 7
+      ints3(6) ==> 7
+      dbls1(2) ==> 4.5
+      dbls2(0) ==> 1.5
+      dbls2.length ==> 4
       dblList1(0) ==> 1.1
       dblList1.length ==> 8
-
+      longs1(4) == 9l
     }
-    val intArr4 = intArr1.bind(a => Ints(a + 10, a + 20, a + 30))
-    //val intArr4 = intArr1.bind(a => Ints(a + 10, a + 20, a + 30))
-    val dblArr3 = intArr2.bind(i => Dbls(i, i * 0.5))
+    val ints4 = ints1.bind(a => Ints(a + 10, a + 20, a + 30))
+    val longs2 = ints1.bind(a => Longs(a + 100, a + 200, a + 300))
+    val dbls3 = ints2.bind(i => Dbls(i, i * 0.5))
     'Bind -
     {
-      intArr4(1) ==> 21
-      intArr4(5) ==> 32
-      intArr4.length ==> 12
-      dblArr3(1) ==> 2.5
+      ints4(1) ==> 21
+      ints4(5) ==> 32
+      ints4.length ==> 12
+      dbls3(1) ==> 2.5
+      longs2.length ==> 12
     }
   }
 }

@@ -52,7 +52,8 @@ trait ArrayLike[+A] extends Any
     res
   }
 
-  def seqMap[B](f: A => Iterable[B])(implicit ev: ArrBuilder[B]): ev.ImutT =
+  /** FlatMaps over a function from A to any Iterable. */
+  def iterFlatMap[B](f: A => Iterable[B])(implicit ev: ArrBuilder[B]): ev.ImutT =
   { val buff = ev.buffNew(length)
     foreach(a => ev.buffAppendSeq(buff, f(a)))
     ev.buffImut(buff)
