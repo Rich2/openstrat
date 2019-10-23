@@ -24,12 +24,10 @@ The Strategy games was the original motivation for the project, but the Geometry
 <p>However at the other end, I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal language to explore these questions.</p>
 
 <p>Scala currently set to 2.13.1. Scala.Js set to 0.6.29. Sbt currently set to 1.3.3 (uses the build.sbt file). Update your Mill to 0.5.2 (uses the build.sc file). Run:<br>
-
 <code>sbt //In bash from project's root folder</code></p>
 
-From within the sbt console run:
-<code>
-~ reStart //To launch a ScalaFx window. The most useful command for development
+<p>From within the sbt console run:<br>
+<code>~ reStart</code> To launch a ScalaFx window. The most useful command for development<br>
 ~ JsDev/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
 JsDev/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
 ~ Util/test //Rerun tests on Util module.
