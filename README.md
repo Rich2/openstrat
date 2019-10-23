@@ -26,9 +26,9 @@ The Strategy games was the original motivation for the project, but the Geometry
 <p>Scala currently set to 2.13.1. Scala.Js set to 0.6.29. Sbt currently set to 1.3.3 (uses the build.sbt file). Update your Mill to 0.5.2 (uses the build.sc file). Run:<br>
 
 <code>sbt //In bash from project's root folder</code></p>
-```
+
 From within the sbt console run:
-```
+<code>
 ~ reStart //To launch a ScalaFx window. The most useful command for development
 ~ JsDev/fastOptJS //To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html
 JsDev/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html
@@ -38,7 +38,7 @@ JsDev/fullOptJS //To build a full optimised JavaScript file. Use with WebPages/S
 DocProj/doc //Will produce docs for the UtilJvm GraphicJvm and StratJvm modules.
   They can be found in target/DocProj/target/scala-2.12/api/.
   Local link PathToProject/openstrat/target/DocProj/target/scala-2.12/api/index.html
-```
+</code>
 
 The tilde **~** tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the Misc folder to the  Dev/mine folder. Creating the directory and its parents if not already existing. Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.
 
