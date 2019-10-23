@@ -1,3 +1,8 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="Documentation.css">  
+</head>
+<body>
 <h1>openstrat</h1>
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -128,3 +133,4 @@ The code is organised so if it gains significant traction with other developers,
   - Audio: (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain that way.
   - Array Double based generalised deep-compound value-types includind C-style type unions and single Array based collections of those types. Currently we just have Pruducts of a single type.
   - Deep-compound value-types with repeat last members. These can not have single Array Collections.
+</body></html>
