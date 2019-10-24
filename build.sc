@@ -83,6 +83,10 @@ object Graphic extends PlatformsModule
   
   object js extends InnerJs {  def moduleDeps = Seq(Util.js)  }
   object Nat extends InnerNative
+
+  object examples extends InnerExamples
+  { def moduleDeps = Seq(Graphic)
+  }
 }
 
 object World extends PlatformsModule
@@ -107,23 +111,14 @@ object Strat extends PlatformsModule
   object Nat extends InnerNative
 }
 
-object Learn extends PlatformsModule
-{ def moduleDeps = Seq(Strat)  
-
-  object test extends InnerTests
-      
-  object js extends InnerJs { def moduleDeps = Seq(Strat.js) }
-  object Nat extends InnerNative
-}
-
 object Dev extends PlatformsModule
-{ def moduleDeps = Seq(Learn)
+{ def moduleDeps = Seq(Strat)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'examples / 'src)
   def resources = T.sources(millSourcePath / 'mine)
 
   object js extends InnerJs
-  { def moduleDeps = Seq(Learn.js)
+  { def moduleDeps = Seq(Strat.js)
     def sources = T.sources(millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
   } 
 }

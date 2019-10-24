@@ -9,3 +9,7 @@ h1 {
 ol li {
 	margin: 1em;
 }
+
+ul li {
+	margin: 0.25em;
+}

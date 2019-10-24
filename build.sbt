@@ -39,14 +39,10 @@ lazy val Strat = project.dependsOn(World).settings(stdSettings).settings(
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
 
-lazy val Learn = project.dependsOn(Strat).settings(stdSettings).settings(
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
-)
-
-lazy val root = (project in file(".")).dependsOn(Learn).settings(commonSettings).settings(
+lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings).settings(
   Compile/scalaSource := baseDirectory.value / "Dev/src",
   Test/scalaSource := baseDirectory.value / "Dev/test/src",
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(s => baseDirectory.value / ("Dev/" + s)),
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/examples/src").map(s => baseDirectory.value / s),
   Compile/unmanagedResourceDirectories := List(baseDirectory.value / "Dev/mine"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
@@ -78,10 +74,6 @@ lazy val JsStrat = jsProj("Strat").dependsOn(JsWorld).settings(
   Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsLearn = jsProj("Learn").dependsOn(JsStrat).settings(  
-  Compile/unmanagedSourceDirectories := List("Learn/src", "Learn/js/src").map(s => (ThisBuild/baseDirectory).value / s)
-)
-
-lazy val JsDev = jsProj("Dev").dependsOn(JsLearn).settings(  
+lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
