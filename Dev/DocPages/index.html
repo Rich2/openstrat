@@ -3,21 +3,25 @@
 <link rel="stylesheet" type="text/css" href="Documentation.css">  
 </head>
 <body>
-<h1>openstrat</h1>
+<h1>OpenStrat</h1>
 
 <p><a href="https://gitter.im/typestrat/Lobby"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
   <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="17" y="15" fill="#010101" fill-opacity=".3">chat</text><text x="17" y="14">chat</text><text x="62" y="15" fill="#010101" fill-opacity=".3">on gitter</text><text x="62" y="14">on gitter</text></g>
 </svg></a></p>
 
-This project has 2 main focuses:
+<p><b>This project has 2 main focuses:
+<ul>
+  <li>A functional Geometry and Vector Graphics library</li>
+  <li>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</li>
+</ul>
+</b></p>
 
-<h3>A functional Geometry and Vector Graphics library</h3>
-<h3>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</h3>
-
-The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision, part of which was to explore the possiblites of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary focuses have developed:
-
-<h3>A Show, 2D-Show and Persistence Library / Framework</h3>
-<h3> Compound Value type collections library</h3>
+<p>The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision, part of which was to explore the possiblites of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary focuses have developed:
+  <ul>
+    <li>A Show, 2D-Show and Persistence Library / Framework</li>
+    <li> Compound Value type collections library</li>
+  </ul>
+</p>
 
 <p>It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the JavaScript version can be seen at <a href="https://richstrat.com">richstrat.com</a>, Scala Docs at [richstrat.com/api/ostrat/index.html](https://richstrat.com/api/ostrat/index.html).</p>
 
@@ -50,15 +54,15 @@ The Strategy games was the original motivation for the project, but the Geometry
 <code>mill jsfull</code> To build the fully optimised Js file. Use with WebPages/MillFullDev.html<br>
 <code>mill mill.scalalib.GenIdea/idea</code> To create an IntelliJ IDEA project.</p>
 
-<ul>For IntellliJ useful options:
+<p><ul>For IntellliJ useful options:
   <li>File => Editor => General -> Other -> tick "Show quick documentation on mouse move".</li>
   <li>File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"</li>
   <li>Project-Pane => Options -> "Flatten packages"</li>
-</ul>
+</ul></p>
 
 <p>The Code is currently organised into 6 modules.** Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11.</p>
 
-<ol>
+<p><ol>
   <li> <b>Util</b> Depends on UtilMacros. Organised into the following folders and packages:
     <ul>
       <li> ostrat The root package. All other packages depend on this.     
@@ -142,7 +146,7 @@ The Strategy games was the original motivation for the project, but the Geometry
     </li>
   </ul>
  </li>
-</ol>
+</ol></p>
 
 <p>The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories.
 <ul>
@@ -155,6 +159,7 @@ The Strategy games was the original motivation for the project, but the Geometry
 <ul><li>2.5D, 3D Graphics. The knowledge form inplementing 2.5 and 3d will allow clarification of the 2d Transformation of arcs.</li>
     <li>Audio: (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain that way.</li>
     <li>Array Double based generalised deep-compound value-types includind C-style type unions and single Array based collections of those types. Currently we just have Pruducts of a single type.</li>
-    <li>Deep-compound value-types with repeat last members. These can not have single Array Collections.</li></ul></p>
+    <li>Deep-compound value-types with repeat last members. These can not have single Array Collections.</li></ul>
+  </p>
 </body>
 </html>
