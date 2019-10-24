@@ -5,8 +5,9 @@
 <body>
 <h1>openstrat</h1>
 
-<p>[![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-</p>
+<p><a href="https://gitter.im/typestrat/Lobby"><svg xmlns="http://www.w3.org/2000/svg" width="92" height="20">
+  <linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><mask id="a"><rect width="92" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h34v20H0z"/><path fill="#46BC99" d="M34 0h58v20H34z"/><path fill="url(#b)" d="M0 0h92v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="17" y="15" fill="#010101" fill-opacity=".3">chat</text><text x="17" y="14">chat</text><text x="62" y="15" fill="#010101" fill-opacity=".3">on gitter</text><text x="62" y="14">on gitter</text></g>
+</svg></a></p>
 
 This project has 2 main focuses:
 
@@ -56,7 +57,8 @@ The Strategy games was the original motivation for the project, but the Geometry
 
 <p>The Code is currently organised into 6 modules.** Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11.</p>
 
-**1. Util** Depends on UtilMacros. Organised into the following folders and packages:
+<ol>
+  <li> <b>Util</b> Depends on UtilMacros. Organised into the following folders and packages:
    - **ostrat** The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
@@ -71,8 +73,9 @@ The Strategy games was the original motivation for the project, but the Geometry
      * Other XML
      * CSS
      * Simple JavaScript
+   </li>
 
-**2. Graphic** Depends on UtilMacros and Util, organised into the following packages:
+   <li> Graphic** Depends on UtilMacros and Util, organised into the following packages:
    - **ostrat.geom** A pure or near pure functional package.
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
@@ -89,16 +92,16 @@ The Strategy games was the original motivation for the project, but the Geometry
      * Square and hex tile grid geometry.
      * OfTile classes for the display of tiles.
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and  what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
+ </li>
 
-
-**3. World** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:   
+ <li> World** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:   
    - **ostrat.pEarth** depends on geom, pCanv and pGrid
      * Earth and sphere geometry.
      * Grids of Earth terrain.
    - **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
-   
+ </li>
 
-**4. Strat**
+ <li> Strat**
    - **ostrat.pStrat** depends on geom, pCanv and pGrid and pEarth
      * Flags.
      * DemoCanvas for graphics elements.
@@ -113,12 +116,15 @@ The Strategy games was the original motivation for the project, but the Geometry
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
-    
+   </li>
 
-**5. Learn** Depends on UtilMacros, Util, Graphic, World and Strat.
+   <li> Learn** Depends on UtilMacros, Util, Graphic, World and Strat.
    - **pLearn** A series of lessons for beginners to Scala, complete beginners to programming and beginners in geometry, using the graphical API. These lessons are published separately as the LearnScala project.
-   
-**6. Dev** Depends on all the other modules. This is purely an integration module for development purposes and is not intended to contain library code.
+ </li>
+
+ <li> Dev** Depends on all the other modules. This is purely an integration module for development purposes and is not intended to contain library code.
+ </li>
+</ol>
 
 The code is organised so if it gains significant traction with other developers, then it can be broken up into separate repositories. [Useful Git commands](https://richstrat.com/Documentation/GitCommands.html). [Miscellaneous notes](https://richstrat.com/Documentation/Miscellaneous.html)
 
@@ -127,8 +133,5 @@ The code is organised so if it gains significant traction with other developers,
     <li>Audio: (scalajs hooks into Web API AudioContext so thats half the bases covered?). w0d won't look into jfx now until things a bit more certain that way.</li>
     <li>Array Double based generalised deep-compound value-types includind C-style type unions and single Array based collections of those types. Currently we just have Pruducts of a single type.</li>
     <li>Deep-compound value-types with repeat last members. These can not have single Array Collections.</li></ul></p>
-
-
-
 </body>
 </html>
