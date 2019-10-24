@@ -1,6 +1,6 @@
 body {
   background-color: Ivory;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 h1 {
@@ -15,9 +15,9 @@ ol li {
 ul li {
 	margin: 0.25em;
 }
-p
-{
-    max-width: 68em;
-    margin-left: auto;
-    margin-right: auto;  
+
+ul, ol, p
+{  max-width: 68em;
+   margin-left: auto;
+   margin-right: auto;  
 }
