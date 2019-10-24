@@ -6,17 +6,20 @@
 <h1>openstrat</h1>
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-This project has 2 main focuses:
+<b>This project has 2 main focuses:</b>
 
 <h3>A functional Geometry and Vector Graphics library</h3>
 <h3>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</h3>
+
+We are currenlty in the process of moving documentation to <a href="https://richstrat.com/Documentation/"></a> as it gives better formatting options.
 
 The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision, part of which was to explore the possiblites of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary focuses have developed:
 
 <h3>A Show, 2D-Show and Persistence Library / Framework</h3>
 <h3> Compound Value type collections library</h3>
 
-<p>It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the JavaScript version can be seen at <a href="https://richstrat.com">richstrat.com</a>, Scala Docs at [richstrat.com/api/ostrat/index.html](https://richstrat.com/api/ostrat/index.html).</p>
+<p>It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the JavaScript version can be seen at <a href="https://richstrat.com">richstrat.com</a>, Scala Docs at <a
+href="https://richstrat.com/api/ostrat/index.html"></p>
 
 <p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and want to get involved, drop into the gitter channel and say hi. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.</p>
 

@@ -51,22 +51,25 @@ The Strategy games was the original motivation for the project, but the Geometry
 <code>mill mill.scalalib.GenIdea/idea</code> To create an IntelliJ IDEA project.</p>
 
 <ul>For IntellliJ useful options:
-<li>File => Editor => General -> Other -> tick "Show quick documentation on mouse move".</li>
-<li>File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"</li>
-<li>Project-Pane => Options -> "Flatten packages"</li></ul>
+  <li>File => Editor => General -> Other -> tick "Show quick documentation on mouse move".</li>
+  <li>File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"</li>
+  <li>Project-Pane => Options -> "Flatten packages"</li>
+</ul>
 
 <p>The Code is currently organised into 6 modules.** Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11.</p>
 
 <ol>
   <li> <b>Util</b> Depends on UtilMacros. Organised into the following folders and packages:
-   - **ostrat** The root package. All other packages depend on this.     
+    <ul>
+      <li> ostrat The root package. All other packages depend on this.     
      * 32 bit Int based Colours.
      * A persistence framework. Succinct readable object notation. Save files at `~/AppData/Local/OpenStratData`.
      * A functional Either based Errors framework.
      * Array based compound value collections of same length elements,to overcome the performance deficencies of the Java and JavaScript platforms, with a view to maximising common code for future Scala Native and Scala Web assembly platforms.
      * 3 simple macros, that print the source code location to help with debugging and development. They are a separate unit of compilation for sbt /mill, in the srcMacros folder.
      * Other general utilities.
-   - **ostrat.parse**
+   </li>
+   <li> ostrat.parse
      * The code for parsing RSON, Rich Succinct Object Notation.  
    - **ostrat.pWeb** Code for the generation and manipulation of
      * HTML
@@ -74,39 +77,51 @@ The Strategy games was the original motivation for the project, but the Geometry
      * CSS
      * Simple JavaScript
    </li>
+ </ul>
+</li>
 
-   <li> Graphic** Depends on UtilMacros and Util, organised into the following packages:
-   - **ostrat.geom** A pure or near pure functional package.
+   <li><b>Graphic</b> Depends on UtilMacros and Util, organised into the following packages:
+    <ul>
+      <li> ostrat.geom** A pure or near pure functional package.
      * Basic  geometry.
      * A number of implementation Value classes of the Int and Double product classes defined in ostrat.
-     * 2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing.     
-   - **ostrat.pCanv** depends on geom. This could be made into a separate module, but I don't see any great advantage.
+     * 2d graphical objects for generalised use. They are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. 
+     </li>
+     <li> ostrat.pCanv** depends on geom. This could be made into a separate module, but I don't see any great advantage.   
      * Abstract canvas and classes for placing objects on that abstract canvas.
      * classes for the manipulation and display of maps.
      * Mouse and other abstract controls.
      * An implementation of Canvas for Jvm using JavaFx.
      * An implementation of Canvas for Html Canvas using JavaScript.
      * There is no implementation for Native yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGL, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
-   - **ostrat.pGrid** Depends on geom and pCanv
+   </li>
+   <li>ostrat.pGrid** Depends on geom and pCanv
      * Abstract regular tile geometry.
      * Square and hex tile grid geometry.
      * OfTile classes for the display of tiles.
    - **ostrat.p3d** Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and  what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
  </li>
-
- <li> World** Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:   
-   - **ostrat.pEarth** depends on geom, pCanv and pGrid
-     * Earth and sphere geometry.
-     * Grids of Earth terrain.
-   - **ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.
+ </ul>
  </li>
 
- <li> Strat**
-   - **ostrat.pStrat** depends on geom, pCanv and pGrid and pEarth
+ <li><b>World</b> Depends on UtilMacros, Util and Graphic. The code for specific applications, organised into the following packages:
+  <ul>
+    <li>ostrat.pEarth** depends on geom, pCanv and pGrid
+     * Earth and sphere geometry.
+     * Grids of Earth terrain.
+    </li>
+    <li>ostrat.pEarth.pPts** large irregular Earth terrain areas. This is mainly a development aid.</li>
+  </ul>
+ </li>
+
+ <li> <b>Strat</b>
+  <ul>
+    <li>ostrat.pStrat** depends on geom, pCanv and pGrid and pEarth
      * Flags.
      * DemoCanvas for graphics elements.
      * Odds and ends.
-   - **ostrat.pGames** A number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common functionality and classes.
+   </li>
+   <li>ostrat.pGames** A number of rudimentary games and applications depending on some or all of the above packages. The intention is to factor out common functionality and classes.
      * ostrat.pGames.pWW2 A grand strategy world War 2 game, using the hex tiled world terrain map. 
      * ostrat.pGames.p1783 A grand strategy game, also using the world map starting in 1783.
      * ostrat.pGames.p305 A grand strategy game set in 305BC, using part of the world map.
@@ -116,6 +131,7 @@ The Strategy games was the original motivation for the project, but the Geometry
      * ostrat.pGames.pCloseOrder. Pre modern close order formation based battles, not using tiles.
      * ostrat.pGames.pSpace A solar system app.
      * ostrat.pGames.pChess. A search for an elegant implementation of Draughts and Chess.
+   </li>
    </li>
 
    <li> Learn** Depends on UtilMacros, Util, Graphic, World and Strat.
