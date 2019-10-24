@@ -19,7 +19,7 @@ The Strategy games was the original motivation for the project, but the Geometry
 <h3> Compound Value type collections library</h3>
 
 <p>It currently works on JavaFx and web page. Using canvas on both platforms. Examples of the JavaScript version can be seen at <a href="https://richstrat.com">richstrat.com</a>, Scala Docs at <a
-href="https://richstrat.com/api/ostrat/index.html"></p>
+href="https://richstrat.com/api/ostrat/index.html"></a></p>
 
 <p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and want to get involved, drop into the gitter channel and say hi. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.</p>
 
