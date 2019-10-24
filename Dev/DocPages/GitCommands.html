@@ -14,40 +14,22 @@
 <li>sbt (this is one way to compile & build the project)</li></ul>
 
 <h3>Git</h3>
-
-<p>clone (used when you want to copy all the files locally (for the 1st time or when you've deleted the project directory) to grab your own copy of
-openstrat from github git clone <a href="https://github.com/Richtype/openstrat"></a>
-cd openstrat
-
-## pull (make your local copy the same as the master)
-# use this to grab the latest copy from github
-git pull origin master
-
-## push (when new files have been added locally (by you))
-# made some changes and want to send them off to the github master
-git add -A    #staging: tell git you've made new files to the project
-git commit -m "description of this commit" #describe the changes
-git push origin master #now push your local changes to master on the tinternet
-
-## push alternative method (you've only made changes to existing files
-# shorthand version of the above BUT wont take into account any new files you may have created
-git commit -a -m "description of this commit"  #staging without adding new files
-git push origin master #send changes to master so others can enjoy them
-
-## status
-# to check the status of your copy of master
-git status
-
-## cache user/pswd
-# store username/password for a set number of seconds, the next time you push
-git config --global credential.helper "cache --timeout=3600"
+<ul><li><code>git clone https://github.com/Rich2/openstrat.git</code> clone Used when you want to copy all the files locally (for the 1st time or when you've deleted the project directory) to grab your own copy of openstrat from github <a href="https://github.com/Richtype/openstrat"></a> to your local folder.</li>
+<li><code>cd openstrat</code>The change to the newly created openstrat project folder.</li>
+<li><code>git pull origin master</code> Bring your local copy up to date with Github.</li>
+<li><code>git add -A</code> Staging: tell git you've made new files to the project</li>
+<li><code>git commit -m "A description of this commit."</code> Describe the changes</li>
+<li><code>git push origin master</code> Nnow push your local changes to master up to Github.</li>
+<li><code>git commit -a -m "A description of this commit."</code> Staging without adding new files## push alternative method (you've only made changes to existing files shorthand version of the above but will not take into account any new files you may have created.</li>
+<li><code>git status</code> To check the status of your copy of master</li>
+<li><code>git config --global credential.helper "cache --timeout=3600"</code> Cache user/pswd store username/password for a set number of seconds, the next time you push</li>
+</ul>
 
 
-### sbt ###
-#NB: if you ever have a problem with compiling or building or similar?
+<p>sbt #NB: if you ever have a problem with compiling or building or similar?
 #     before turning it of and on again! (joke)
 #      its usually worthwhile to run clean once (from the sbt console/terminal) and trying again
 #       before trying to figure out why it dont work
-clean # give everything a wash removing any gremlins that lurk in these builders
+clean # give everything a wash removing any gremlins that lurk in these builders</p>
 </body>
 </html>

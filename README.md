@@ -53,7 +53,7 @@ The Strategy games was the original motivation for the project, but the Geometry
 <li>File => "Build, Execution, Deployment" => Compiler -> "Build project automatically"</li>
 <li>Project-Pane => Options -> "Flatten packages"</li></ul>
 
-**The Code is currently organised into 6 modules.** Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11:
+<p>The Code is currently organised into 6 modules.** Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11.</p>
 
 **1. Util** Depends on UtilMacros. Organised into the following folders and packages:
    - **ostrat** The root package. All other packages depend on this.     
