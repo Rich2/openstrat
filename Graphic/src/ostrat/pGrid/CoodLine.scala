@@ -35,7 +35,7 @@ class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Produ
 { override def unBuff: CoodLines = new CoodLines(toArray)
 }
 
-object CoodLines extends ProductI4sCompanion[CoodLine, CoodLines]
+object CoodLines extends ProdInt4sCompanion[CoodLine, CoodLines]
 { implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): CoodLinesBuff = new CoodLinesBuff(buffInt(initialSize * 4))
 

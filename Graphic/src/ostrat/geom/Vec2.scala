@@ -167,7 +167,7 @@ class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
   //def draw(lineWidth: Double, colour: Colour = Colour.Black): Vec2sDraw = LinePathDraw(this, lineWidth, colour)
 }
 
-object Vec2s extends ProductD2sCompanion[Vec2, Vec2s]
+object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
 {
   implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
 

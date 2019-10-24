@@ -99,7 +99,7 @@ class Shape(val array: Array[Double]) extends AnyVal with ArrProdDbl7[CurveSeg] 
     foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))         
 }
 
-object Shape extends ProductD7sCompanion[CurveSeg, Shape]
+object Shape extends ProdDbl7sCompanion[CurveSeg, Shape]
 {
    implicit val factory: Int => Shape = i => new Shape(new Array[Double](i * 7))   
 }

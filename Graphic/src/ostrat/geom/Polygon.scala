@@ -128,6 +128,6 @@ class DPolygon(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 }
 
 /** The companion object for DPolygon. Provides an implicit builder. */
-object DPolygon extends ProductD2sCompanion[Dist2, DPolygon]
+object DPolygon extends ProdDbl2sCompanion[Dist2, DPolygon]
 { implicit val factory: Int => DPolygon = i => new DPolygon(new Array[Double](i * 2))
 }

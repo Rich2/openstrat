@@ -26,7 +26,7 @@ trait ProductI4sBuff[A <: ProdInt4, M <: ArrProdInt4[A]] extends Any with ArrBuf
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4); ()}
 }
 
-abstract class ProductI4sCompanion[A <: ProdInt4, M <: ArrProdInt4[A]]
+abstract class ProdInt4sCompanion[A <: ProdInt4, M <: ArrProdInt4[A]]
 { val factory: Int => M
   def buff(initialSize: Int): ProductI4sBuff[A, M]
 

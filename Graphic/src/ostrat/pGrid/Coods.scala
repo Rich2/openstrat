@@ -38,7 +38,7 @@ object Coods extends ProductI2sCompanion[Cood, Coods]
   override def buff(initialSize: Int): CoodsBuff = new CoodsBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
 
-  implicit object PersistImplicit extends ProductI2sBuilder[Cood, Coods]("Coods")
+  implicit object PersistImplicit extends ProdInt2sBuilder[Cood, Coods]("Coods")
   {
     override def fromArray(value: Array[Int]): Coods = new Coods(value)
   }

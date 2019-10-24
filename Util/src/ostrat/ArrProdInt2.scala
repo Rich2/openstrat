@@ -42,7 +42,7 @@ abstract class ProductI2sCompanion[A <: ProdInt2, M <: ArrProdInt2[A]] extends P
 }
 
 /** Persistence and Builder class for collections of Int products: ProdI2s. */
-abstract class ProductI2sBuilder[A <: ProdInt2, M <: ArrProdInt2[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)
+abstract class ProdInt2sBuilder[A <: ProdInt2, M <: ArrProdInt2[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value._1

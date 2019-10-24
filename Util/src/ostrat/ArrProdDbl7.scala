@@ -24,7 +24,7 @@ trait ArrProdDbl7[A <: ProdDbl7] extends Any with ArrProdDblN[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4, el._5, el._6, el._7)))
 }
 
-abstract class ProductD7sCompanion[A <: ProdDbl7, M <: ArrProdDbl7[A]]
+abstract class ProdDbl7sCompanion[A <: ProdDbl7, M <: ArrProdDbl7[A]]
 { val factory: Int => M
   def apply(length: Int): M = factory(length)
   def apply(elems: A*): M =

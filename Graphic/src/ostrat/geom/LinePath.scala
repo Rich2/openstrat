@@ -28,7 +28,7 @@ class LinePath(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Vec2] w
   def draw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
 }
 
-object LinePath extends ProductD2sCompanion[Vec2, LinePath]
+object LinePath extends ProdDbl2sCompanion[Vec2, LinePath]
 {
   implicit val factory: Int => LinePath = i => new LinePath(new Array[Double](i * 2))
   

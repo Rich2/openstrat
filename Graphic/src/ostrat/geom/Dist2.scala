@@ -61,7 +61,7 @@ class Dist2s(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
 }
 
-object Dist2s extends ProductD2sCompanion[Dist2, Dist2s]
+object Dist2s extends ProdDbl2sCompanion[Dist2, Dist2s]
 { implicit val factory: Int => Dist2s = i => new Dist2s(new Array[Double](i * 2))
 }
 

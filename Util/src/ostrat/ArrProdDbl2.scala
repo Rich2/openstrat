@@ -47,7 +47,7 @@ trait ArrBuffDbl2[A <: ProdDbl2, M <: ArrProdDbl2[A]] extends Any with ArrBuffDb
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
-trait ProductD2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]]
+trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]]
 {
   val factory: Int => ST
   def apply(length: Int): ST = factory(length)
