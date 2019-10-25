@@ -114,7 +114,7 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
 
   implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.array, p2.array)
   
-  implicit val persistImplicit: ArrHomoDbl2Builder[Vec2, Polygon] = new ArrHomoDbl2Builder[Vec2, Polygon]("Polygon")
+  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, Polygon] = new ArrProdDbl2Persist[Vec2, Polygon]("Polygon")
   { override def fromArray(value: Array[Double]): Polygon = new Polygon(value)
   }
 }
@@ -129,5 +129,8 @@ class DPolygon(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 
 /** The companion object for DPolygon. Provides an implicit builder. */
 object DPolygon extends ProdDbl2sCompanion[Dist2, DPolygon]
-{ implicit val factory: Int => DPolygon = i => new DPolygon(new Array[Double](i * 2))
+{
+  implicit val persistImplicit: ArrProdDbl2Persist[Dist2, DPolygon] = new ArrProdDbl2Persist[Dist2, DPolygon]("DPolygon")
+  { override def fromArray(value: Array[Double]): DPolygon = new DPolygon(value)
+  }
 }

@@ -62,6 +62,9 @@ class Dist2s(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 }
 
 object Dist2s extends ProdDbl2sCompanion[Dist2, Dist2s]
-{ implicit val factory: Int => Dist2s = i => new Dist2s(new Array[Double](i * 2))
+{
+  implicit val persistImplicit: ArrProdDbl2Persist[Dist2, Dist2s] = new ArrProdDbl2Persist[Dist2, Dist2s]("Dist2s")
+  { override def fromArray(value: Array[Double]): Dist2s = new Dist2s(value)
+  }
 }
 

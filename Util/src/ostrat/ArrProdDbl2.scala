@@ -47,9 +47,11 @@ trait ArrBuffDbl2[A <: ProdDbl2, M <: ArrProdDbl2[A]] extends Any with ArrBuffDb
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
-trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]]
+trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsCompanion[T, ST]
 {
-  val factory: Int => ST
+  implicit val persistImplicit: ArrProdDbl2Persist[T, ST]
+  def prodLen: Int = 2
+  //implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * 2))
   def apply(length: Int): ST = factory(length)
   def apply(elems: T*): ST =
   {
@@ -98,7 +100,7 @@ trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]]
 
 
 /** Both Persists and Builds ProductD2s collection classes. */
-abstract class ArrHomoDbl2Builder[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: String) extends ArrHomoDblNBuilder[A, M](typeStr)
+abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1

@@ -169,10 +169,7 @@ class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
 
 object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
 {
-  implicit val factory: Int => Vec2s = i => new Vec2s(new Array[Double](i * 2))
-
-  implicit val persistImplicit: ArrHomoDbl2Builder[Vec2, Vec2s] = new ArrHomoDbl2Builder[Vec2, Vec2s]("Vec2s")
-  {
-    override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
+  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, Vec2s] = new ArrProdDbl2Persist[Vec2, Vec2s]("Vec2s")
+  { override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
   }
 }

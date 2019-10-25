@@ -40,8 +40,14 @@ trait ArrBuffDblN[A, M <: ArrProdDblN[A]] extends Any with ArrBuffHomo[A, M]
   def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-/** Builds persists */
-abstract class ArrHomoDblNBuilder[A, M <: ArrProdDblN[A]](typeStr: String) extends ArrHomoBuilder[A, M](typeStr) with Eq[M]
+trait ProdDblNsCompanion[T,  ST <: ArrProdDblN[T]]
+{ def prodLen: Int
+  implicit val persistImplicit: ArrProdDblNPersist[T, ST]
+  implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
+}
+
+/** Persists and assists in building ArrProdDblN */
+abstract class ArrProdDblNPersist[A, M <: ArrProdDblN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr) with Eq[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

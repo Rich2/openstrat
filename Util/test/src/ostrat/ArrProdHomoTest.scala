@@ -21,13 +21,18 @@ object ArrProdHomoTest  extends TestSuite
 
   object Mines extends ProdDbl2sCompanion[Mine, Mines]
   {
-    implicit val factory: Int => Mines = i => new Mines(new Array[Double](i * 2))
-    implicit val bindImplicit: Bind[Mines] = new Bind[Mines] {
+    //implicit val factory: Int => Mines = i => new Mines(new Array[Double](i * 2))
+    implicit val bindImplicit: Bind[Mines] = new Bind[Mines]
+    {
       override def bind[A](orig: ArrayLike[A], f: A => Mines): Mines =
       { val buff = new ArrayBuffer[Double]
         orig.foreach(a => buff.addAll(f(a).array))
         new Mines(buff.toArray)
       }
+    }
+
+    implicit val persistImplicit: ArrProdDbl2Persist[Mine, Mines] = new ArrProdDbl2Persist[Mine, Mines]("Mines")
+    { override def fromArray(value: Array[Double]): Mines = new Mines(value)
     }
   }
 
@@ -36,10 +41,12 @@ object ArrProdHomoTest  extends TestSuite
     val dbls1 = Dbls(1, 2, 3, 4)
     val mines1 = dbls1.map(d => Mine(d, d * 2))
     val mines2 = dbls1.bind(d => Mines(Mine(d, d), Mine(d * 2, d * 2)))
+    //val str1 = mines2.str
     'test1 -
       { dbls1(3) ==> 4
         mines1(3) ==> Mine(4, 8)
         mines2(0) ==> Mine(1, 1)
+        //str1 ==> "Mines()"
       }
 
 

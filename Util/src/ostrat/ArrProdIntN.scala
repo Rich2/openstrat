@@ -34,7 +34,7 @@ trait ArrBuffHomoInts[A, M <: ArrProdIntN[A]] extends Any with ArrBuffHomo[A, M]
   def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-abstract class ProductIntsBuilder[A, M <: ArrProdIntN[A]](typeStr: String) extends ArrHomoBuilder[A, M](typeStr)
+abstract class ProductIntsBuilder[A, M <: ArrProdIntN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)
 { type VT = Int
   override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Int] = Buff[Int](0)

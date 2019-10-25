@@ -30,12 +30,10 @@ class LinePath(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Vec2] w
 
 object LinePath extends ProdDbl2sCompanion[Vec2, LinePath]
 {
-  implicit val factory: Int => LinePath = i => new LinePath(new Array[Double](i * 2))
-  
-  implicit object LinePathPersist extends ArrHomoDbl2Builder[Vec2, LinePath]("LinePath")
-  {
-    override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
+  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, LinePath] = new ArrProdDbl2Persist[Vec2, LinePath]("LinePath")
+  { override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
   }
+
   def apply(pStart: Vec2, pEnds: Vec2 *): LinePath =
   { val array = new Array[Double](pEnds.length * 2 + 2)
     array(0) = pStart.x
