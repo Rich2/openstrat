@@ -4,7 +4,7 @@ package pParse
 
 /** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
  *  clauses that contain each contain an expression. */
-sealed trait Expr extends TokenOrBlock with ExprMember
+trait Expr extends TokenOrBlock with ExprMember
 { def exprParseErr[A](implicit ev: Persist[A]): EMon[A] = bad1(startPosn, ev.typeStr -- "is not available from" -- exprName)
   def exprName: String
 }
@@ -12,27 +12,34 @@ sealed trait Expr extends TokenOrBlock with ExprMember
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait ExprCompound extends Expr with TextSpanCompound
 
+trait ExprSeq extends ExprCompound
+{ def exprs: Arr[Expr]
+}
+
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ExprToken extends Expr with ExprMemberToken
 
-trait StatementSeq extends Expr { def statements: Arr[Statement] }
+trait StatementSeq extends ExprSeq
+{ def statements: Arr[Statement]
+  def exprs = statements.map(_.expr)
+  def startMem = statements.head
+  def endMem = statements.last
+}
 
 case class FileStatements(statements: Arr[Statement]) extends StatementSeq
-{
-  def exprName: String = "FileStatements"
-  def startPosn: TextPosn = statements.head.startPosn
-  def endPosn: TextPosn = statements.last.endPosn
+{ def exprName: String = "FileStatements"
+//  def startPosn: TextPosn = statements.head.startPosn
+  //def endPosn: TextPosn = statements.last.endPosn
 }
 
 case class StringStatements(statements: Arr[Statement]) extends StatementSeq
-{
-  def exprName: String = "StringStatements"
-  def startPosn: TextPosn = statements.head.startPosn
-  def endPosn: TextPosn = statements.last.endPosn
+{ def exprName: String = "StringStatements"
+  //def startPosn: TextPosn = statements.head.startPosn
+  //def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class ClausesExpr(exprs: Arr[Expr]) extends ExprCompound
-{  def startMem = exprs.head
+case class ClausesExpr(exprs: Arr[Expr]) extends ExprSeq
+{ def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"
 }

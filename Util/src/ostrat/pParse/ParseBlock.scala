@@ -50,8 +50,8 @@ sealed trait BracketBlock extends StatementSeq
 {
    def startBracket: BracketOpen
    def endBracket: BracketClose   
-   def startPosn: TextPosn = startBracket.startPosn
-   def endPosn: TextPosn = endBracket.endPosn
+  // def startPosn: TextPosn = startBracket.startPosn
+ //  def endPosn: TextPosn = endBracket.endPosn
 }
 
 case class ParenthBlock(statements: Arr[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
