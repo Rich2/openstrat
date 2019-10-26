@@ -12,6 +12,12 @@ ol li {	margin: 1em; }
 
 ul li {	margin: 0.25em; }
 
+ol ul{
+  margin-left:0.8em;
+  padding-left: 0.8em;
+}
+
+
 .main
 { max-width: 68em;
   margin-left: auto;
