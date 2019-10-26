@@ -7,7 +7,7 @@
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-<h3>Full documentation at <a href="https://richstrat.com/Documentation/">https://richstrat.com/</a></h3>
+<h3>Full documentation at <a href="https://richstrat.com/">https://richstrat.com/</a></h3>
 <h3>Scala Docs at <a href="https://richstrat.com/api/ostrat/index.html">https://richstrat.com/api/ostrat/index.html)</a></h3>
 
 <h3>A functional Geometry and Vector Graphics library</h3>
