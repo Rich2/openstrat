@@ -7,38 +7,37 @@ object TokensFind
 {
   type ETokenList = EMon[List[Token]]
   /** Max numbers for long and hexadecimal formats needs to be implemented */
-  def apply(srcStr: String, fileName: String): ETokenList = mainLoop(srcStr.toList, new FilePosn(fileName, 1, 1), Nil)
+  def apply(srcStr: String, fileName: String): ETokenList = mainLoop(srcStr.toList, new FilePosn(fileName, 1, 1), Buff[Token]())
   def fromString(srcStr: String): ETokenList = apply(srcStr, "FromString")
 
-  private def mainLoop(rem: List[Char], tp: TextPosn, tokenAcc: List[Token]): ETokenList = rem match
+  private def mainLoop(rem: List[Char], tp: TextPosn, acc: Buff[Token]): ETokenList = rem match
   {
-    case Nil => tokenAcc.goodReverse
-    case ';' :: tail => mainLoop(tail, tp.nextChar,  SemicolonToken(tp) :: tokenAcc)
-    case ',' :: tail => mainLoop(tail, tp.nextChar,  CommaToken(tp) :: tokenAcc)
-    case '(' :: tail => mainLoop(tail, tp.nextChar,  ParenthOpen(tp) :: tokenAcc)
-    case ')' :: tail => mainLoop(tail, tp.nextChar,  ParenthClose(tp) :: tokenAcc)
-    case '[' :: tail => mainLoop(tail, tp.nextChar,  SquareOpen(tp) :: tokenAcc)
-    case ']' :: tail => mainLoop(tail, tp.nextChar,  SquareClose(tp) :: tokenAcc)
-    case '.' :: tail => mainLoop(tail, tp.nextChar,  DotToken(tp) :: tokenAcc)
-    case '\n' :: tail => mainLoop(tail, tp.newLine, tokenAcc)
-    case h :: tail if h.isWhitespace => mainLoop(tail, tp.nextChar, tokenAcc)
-    case '\'' :: '\\' :: '\\' :: tail2 => mainLoop(tail2, tp.right(4), CharToken(tp, '\\') :: tokenAcc)
-    case '\'' ::  '\\' :: '\"' :: tail2 => mainLoop(tail2, tp.right(4), CharToken(tp, '\"') :: tokenAcc)
-    case '\'' ::  '\\' :: '\'' :: tail2 => mainLoop(tail2, tp.right(4), CharToken(tp, '\'') :: tokenAcc)
-    case '\'' ::  c1 :: '\'' :: tail2 => mainLoop(tail2, tp.right(3), CharToken(tp, c1) :: tokenAcc)
+    case Nil => Good(acc.toList)//goodReverse
+    case ';' :: tail => mainLoop(tail, tp.nextChar, acc.append(SemicolonToken(tp)))
+    case ',' :: tail => mainLoop(tail, tp.nextChar,  acc.append(CommaToken(tp)))
+    case '(' :: tail => mainLoop(tail, tp.nextChar,  acc.append(ParenthOpen(tp)))
+    case ')' :: tail => mainLoop(tail, tp.nextChar,  acc.append(ParenthClose(tp)))
+    case '[' :: tail => mainLoop(tail, tp.nextChar,  acc.append(SquareOpen(tp)))
+    case ']' :: tail => mainLoop(tail, tp.nextChar,  acc.append(SquareClose(tp)))
+    case '.' :: tail => mainLoop(tail, tp.nextChar,  acc.append(DotToken(tp)))
+    case '\n' :: tail => mainLoop(tail, tp.newLine, acc)
+    case h :: tail if h.isWhitespace => mainLoop(tail, tp.nextChar, acc)
+    case '\'' :: '\\' :: '\\' :: tail2 => mainLoop(tail2, tp.right(4), acc.append(CharToken(tp, '\\')))
+    case '\'' ::  '\\' :: '\"' :: tail2 => mainLoop(tail2, tp.right(4), acc.append(CharToken(tp, '\"')))
+    case '\'' ::  '\\' :: '\'' :: tail2 => mainLoop(tail2, tp.right(4), acc.append(CharToken(tp, '\'')))
+    case '\'' ::  c1 :: '\'' :: tail2 => mainLoop(tail2, tp.right(3), acc.append(CharToken(tp, c1)))
     case '\'' ::  _ => bad1(tp, "Unclosed Character literal.")
 
     case a :: tail if a.isLetter =>
-    {
-      val (alphaStr, finalTail) = rem.span(a => a.isLetterOrDigit | a == '.')
-      mainLoop(finalTail, tp.addChars(alphaStr),  AlphaToken(tp, alphaStr.mkString) :: tokenAcc)
+    { val (alphaStr, finalTail) = rem.span(a => a.isLetterOrDigit | a == '.')
+      mainLoop(finalTail, tp.addChars(alphaStr),  acc.append(AlphaToken(tp, alphaStr.mkString)))
     }
 
     case '/' :: '*' :: rem =>
     {
       def loop(rem: Seq[Char], tp: TextPosn): ETokenList = rem match
-      { case Nil => tokenAcc.goodReverse
-        case '*' :: '/' :: rem => mainLoop(rem, tp, tokenAcc)
+      { case Nil => Good(acc.toList)
+        case '*' :: '/' :: rem => mainLoop(rem, tp, acc)
         case _ :: rem => loop(rem, tp.nextChar) 
       }      
       loop(rem, tp.addLinePosn(2))
@@ -56,9 +55,9 @@ object TokensFind
       }
       possToken.flatMap{pair =>
         val (rem, tp, token) = pair
-        mainLoop(rem, tp, token :: tokenAcc)
+        mainLoop(rem, tp, acc.append(token))
       }
-    }  
+    }
   }
   
   private[this] def quoteStart(rem: List[Char], tp: TextPosn): EMon[(List[Char], TextPosn, Token)] =  
