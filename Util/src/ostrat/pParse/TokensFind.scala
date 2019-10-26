@@ -5,6 +5,7 @@ package pParse
 /** not sure about comment tokens */
 case class TokensFind(srcStr: String)
 {
+  val array: Array[Char] = srcStr.toCharArray
   type ETokenList = EMon[List[Token]]
   /** Max numbers for long and hexadecimal formats needs to be implemented */
   def apply(fileName: String): ETokenList = mainLoop(srcStr.toList, new FilePosn(fileName, 1, 1), Buff[Token]())
