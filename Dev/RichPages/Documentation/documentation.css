@@ -12,7 +12,7 @@ ol li {	margin: 1em; }
 
 ul li {	margin: 0.25em; }
 
-ul, ol, p
+.main
 { max-width: 68em;
   margin-left: auto;
   margin-right: auto;  
