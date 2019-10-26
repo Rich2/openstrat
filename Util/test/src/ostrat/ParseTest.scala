@@ -1,14 +1,12 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pParse
 import utest._
 
 object ParseTest extends TestSuite
-{ 
+{
   val tests = Tests
   {
     val settingStr = "x = -5; y = 7; true"
-    
+
     'Test1
     {
       "4".findType[Int] ==> Good(4)

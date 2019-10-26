@@ -6,45 +6,45 @@ package pParse
 object GetStatements
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
-  def apply(tokens: Seq[Token]): EMonArr[Statement] = fileLoop(tokens, Nil)
+  def apply(tokens: List[Token]): EMonArr[Statement] = fileLoop(tokens, Nil)
    
   /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the 
    *  intervening tokens with a Bracket Block. */
-  private def fileLoop(rem: Seq[Token], acc: List[BlockMember]): EMonArr[Statement] = rem match
+  private def fileLoop(rem: List[Token], acc: List[BlockMember]): EMonArr[Statement] = rem match
   {
     case Seq() => statementLoop(acc, Buff(), Nil)//.map(_.toArr)
-    case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flatMap{pair =>
+    case (bo: BracketOpen) :: tail => bracketLoop(tail, Nil, bo).flatMap{pair =>
       val (bracketBlock, remTokens) = pair
       fileLoop(remTokens, acc :+ bracketBlock)               
     }
     
     case Seq(bc: BracketClose, _*) => bad1(bc, "Unexpected Closing Brace at top syntax level")
-    case Seq(bm: BlockMember, tail @ _*) => fileLoop(tail, acc :+ bm)
+    case (bm: BlockMember) :: tail => fileLoop(tail, acc :+ bm)
   }  
    
   /** Sorts tokens in to brace hierarchy. */ 
-  private def bracketLoop(rem: Seq[Token], acc: Seq[BlockMember], open: BracketOpen): EMon[(BracketBlock, Seq[Token])] = rem match
+  private def bracketLoop(rem: List[Token], acc: List[BlockMember], open: BracketOpen): EMon[(BracketBlock, List[Token])] = rem match
   {
     case Seq() => bad1(open, "Unclosed Brace")
-    case Seq(bo: BracketOpen, tail @ _*) => bracketLoop(tail, Nil, bo).flatMap{pair =>
+    case (bo: BracketOpen) :: tail => bracketLoop(tail, Nil, bo).flatMap{pair =>
       val (bracketBlock, remTokens) = pair
       bracketLoop(remTokens, acc :+ bracketBlock, open)
     }
     
-    case Seq(bc: BracketClose, tail @ _*) => open.matchingBracket(bc) match
+    case (bc: BracketClose) :: tail => open.matchingBracket(bc) match
     { case false => bad1(bc, "Unexpected Closing Parenthesis")
       case true => statementLoop(acc, Buff(), Nil).map(g => (open.newBracketBlock(bc, g.toArr), tail))
     }
     
-    case Seq(nbt: BlockMember, tail @ _*) => bracketLoop(tail, acc :+ nbt, open)               
+    case (nbt: BlockMember) :: tail => bracketLoop(tail, acc :+ nbt, open)
   }      
    
-  private def statementLoop(rem: Seq[BlockMember], acc: Buff[Statement], subAcc: List[StatementMember]): EMonArr[Statement] = rem match
+  private def statementLoop(rem: List[BlockMember], acc: Buff[Statement], subAcc: List[StatementMember]): EMonArr[Statement] = rem match
   {
     case Seq() if subAcc.isEmpty => Good(acc).map(_.toArr)
     case Seq () => getStatement(subAcc, nullRef).map(acc :+ _).map(_.toArr)
     
-    case Seq(h, tail @ _*) => h match
+    case h :: tail => h match
     {
       case st: SemicolonToken if subAcc.isEmpty => statementLoop(tail, acc :+ EmptyStatement(st), Nil) 
       case st: SemicolonToken => getStatement(subAcc, Opt(st)).flatMap(g => statementLoop(tail, acc :+ g, Nil))         
