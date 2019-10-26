@@ -3,12 +3,12 @@ package ostrat
 package pParse
 
 /** not sure about comment tokens */
-object TokensFind
+case class TokensFind(srcStr: String)
 {
   type ETokenList = EMon[List[Token]]
   /** Max numbers for long and hexadecimal formats needs to be implemented */
-  def apply(srcStr: String, fileName: String): ETokenList = mainLoop(srcStr.toList, new FilePosn(fileName, 1, 1), Buff[Token]())
-  def fromString(srcStr: String): ETokenList = apply(srcStr, "FromString")
+  def apply(fileName: String): ETokenList = mainLoop(srcStr.toList, new FilePosn(fileName, 1, 1), Buff[Token]())
+  def fromString: ETokenList = apply("FromString")
 
   private def mainLoop(rem: List[Char], tp: TextPosn, acc: Buff[Token]): ETokenList = rem match
   {
