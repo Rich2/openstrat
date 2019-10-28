@@ -5,7 +5,7 @@ package pParse
 /** not sure about comment tokens */
 case class TokensFind(srcStr: String)
 {
-  implicit val array: Array[Char] = srcStr.toCharArray
+  val array: Array[Char] = srcStr.toCharArray
   implicit val charArr: Chars = new Chars(array)
   type ETokenList = EMon[Refs[Token]]
   /** Max numbers for long and hexadecimal formats needs to be implemented */

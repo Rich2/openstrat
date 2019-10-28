@@ -44,7 +44,7 @@ class CharsOff(val offset: Int) extends AnyVal
 { def drop(n: Int): CharsOff = new CharsOff(offset + n)
   def drop1: CharsOff = new CharsOff(offset + 1)
   def drop2: CharsOff = new CharsOff(offset + 2)
-  def length(implicit array: Array[Char]): Int = array.length - offset
+  def length(implicit chars: Chars): Int = chars.length - offset
   def span(p: Char => Boolean)(implicit array: Chars): (Chars, CharsOff) =
   {
     var count = 0
@@ -60,7 +60,7 @@ class CharsOff(val offset: Int) extends AnyVal
     (new Chars(newArray), drop(count))
   }
   /** Checks condition against head. Returns false if the collection is empty. */
-  def ifHead(f: Char => Boolean)(implicit array: Array[Char]) : Boolean = (array.length > offset) & f(array(offset))
+  def ifHead(f: Char => Boolean)(implicit chars: Chars) : Boolean = (chars.length > offset) & f(chars(offset))
 }
 
 /** Extractor for empty immutable heapless iterator for Char arrays. */
