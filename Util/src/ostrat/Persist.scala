@@ -79,8 +79,8 @@ object Persist
   { def show(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
     { case IntDecToken(_, _, i) => Good(i)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "+" => Good(i)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "-" => Good(-i)
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "+" => Good(i)
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "-" => Good(-i)
       case  _ => expr.exprParseErr[Int]
     }
   }
@@ -105,11 +105,11 @@ object Persist
   { def show(obj: Long): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Long] = expr match      
     { case IntDecToken(_, _, i) => Good(i.toLong)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "+" => Good(i.toLong)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "-" => Good(-i.toLong)
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "+" => Good(i.toLong)
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "-" => Good(-i.toLong)
       case LongIntToken(_, _, li) => Good(li)
-      case PreOpExpr(op, LongIntToken(_, _, li)) if op.str == "+" => Good(li)
-      case PreOpExpr(op, LongIntToken(_, _, li)) if op.str == "-" => Good(-li)
+      case PreOpExpr(op, LongIntToken(_, _, li)) if op.srcStr == "+" => Good(li)
+      case PreOpExpr(op, LongIntToken(_, _, li)) if op.srcStr == "-" => Good(-li)
       case  _ => expr.exprParseErr[Long]
     }
   }   
@@ -118,11 +118,11 @@ object Persist
   { def show(obj: Float): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Float] = expr match      
     { case IntDecToken(_, _, i) => Good(i.toFloat)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "+" => Good(i.toFloat)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "-" => Good(-(i.toFloat))
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "+" => Good(i.toFloat)
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "-" => Good(-(i.toFloat))
       case FloatToken(_, _, d) => Good(d.toFloat)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.str == "+" => Good(d.toFloat)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.str == "-" => Good(-d.toFloat)
+      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
+      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)
       case  _ => expr.exprParseErr[Float]
     }
   }
@@ -131,11 +131,11 @@ object Persist
   { def show(obj: Double): String = obj.toString      
     override def fromExpr(expr: Expr): EMon[Double] = expr match      
     { case IntDecToken(_, _, i) => Good(i.toDouble)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "+" => Good(i.toDouble)
-      case PreOpExpr(op, IntDecToken(_, _, i)) if op.str == "-" => Good(-(i.toDouble))
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "+" => Good(i.toDouble)
+      case PreOpExpr(op, IntDecToken(_, _, i)) if op.srcStr == "-" => Good(-(i.toDouble))
       case FloatToken(_, _, d) => Good(d)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.str == "+" => Good(d)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.str == "-" => Good(-d)
+      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
+      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
       case  _ => expr.exprParseErr[Double]
     } 
   }   
@@ -152,7 +152,7 @@ object Persist
   implicit val ArrayIntImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Persist.IntImplicit)
   { override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
-    override def fromParameterStatements(sts: Arr[Statement]): EMon[Array[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
+    override def fromParameterStatements(sts: Arr[Statement]): EMon[Array[Int]] = bad1(TextPosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Arr[Clause]): EMon[Array[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
@@ -166,7 +166,7 @@ object Persist
   implicit val ArrIntImplicit: Persist[Arr[Int]] = new PersistSeqLike[Int, Arr[Int]](Persist.IntImplicit)
   { override def showSemi(thisArray: Arr[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
-    override def fromParameterStatements(sts: Arr[Statement]): EMon[Arr[Int]] = bad1(FilePosn.empty, "ArrayInt from statements")
+    override def fromParameterStatements(sts: Arr[Statement]): EMon[Arr[Int]] = bad1(TextPosn.empty, "ArrayInt from statements")
     override def fromClauses(clauses: Arr[Clause]): EMon[Arr[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Arr[Int]] = expr match

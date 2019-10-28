@@ -59,7 +59,7 @@ case class PreOpExpr(op: OperatorToken, right: Expr) extends ExprCompound
 { override def startMem = op
   override def endMem = right
   override def exprName: String = "PreOpExpr"
-  def opStr = op.str
+  def opStr = op.srcStr
 }
 
 case class AsignExpr(asToken: AsignToken, left: Expr, right : Expr) extends ExprCompound

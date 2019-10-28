@@ -17,7 +17,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
       val poly = vertDispVecs.fillActive(colour, tile)       
 
       val textU: GraphicElems = etog.ifScaleCObjs(68, tile.lunits match
-        { case Refs1(head, _) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
+        { case RefsHead(head) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
           case _ =>
           {
             val strs: Arr[String] = Arr(yxStr, cenLL.degStr)

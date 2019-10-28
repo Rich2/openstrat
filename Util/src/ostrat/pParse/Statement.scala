@@ -16,9 +16,9 @@ sealed trait Statement extends TextSpan
 object Statement
 {
   implicit class StatementListImplicit(statementList: List[Statement]) extends TextSpan
-  { private def ifEmptyFilePosn: FilePosn = FilePosn("Empty Statement Seq", 0, 0)
-    def startPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.head.startPosn)
-    def endPosn = statementList.ifEmpty(ifEmptyFilePosn, statementList.last.endPosn)
+  { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
+    def startPosn = statementList.ifEmpty(ifEmptyTextPosn, statementList.head.startPosn)
+    def endPosn = statementList.ifEmpty(ifEmptyTextPosn, statementList.last.endPosn)
 
     def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementList match
     { case Seq(h1) => h1.errGet[A1].map(f1)
@@ -52,7 +52,7 @@ object Statement
     {
       val list = ev.listFromStatementList(statementList)
       if (list.length > index) Good(list(index))
-        else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
+        else bad1(TextPosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
     def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementList)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementList)
@@ -68,9 +68,9 @@ object Statement
   }
 
   implicit class ArrImplicit(statementArr: Arr[Statement]) extends TextSpan
-  { private def ifEmptyFilePosn: FilePosn = FilePosn("Empty Statement Seq", 0, 0)
-    def startPosn = statementArr.ifEmpty(ifEmptyFilePosn, statementArr.head.startPosn)
-    def endPosn = statementArr.ifEmpty(ifEmptyFilePosn, statementArr.last.endPosn)
+  { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
+    def startPosn = statementArr.ifEmpty(ifEmptyTextPosn, statementArr.head.startPosn)
+    def endPosn = statementArr.ifEmpty(ifEmptyTextPosn, statementArr.last.endPosn)
 
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementArr.toList)
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
@@ -80,7 +80,7 @@ object Statement
     {
       val list = ev.listFromStatementList(statementArr.toList)
       if (list.length > index) Good(list(index))
-      else bad1(FilePosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
+      else bad1(TextPosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
     def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementArr.toList)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementArr.toList)

@@ -8,7 +8,8 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the tail value */
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head)
   def fLast[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.last)
-  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisIter.isEmpty) vEmpty else vNonEmpty  
+  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (thisIter.isEmpty) vEmpty else vNonEmpty
+  /** Checks condition against head. Returns false if the collection is empty. */
   def ifHead(f: A => Boolean) : Boolean = thisIter.ifEmpty(false, f(thisIter.head))  
   def headOrElse(vEmpty: A): A = if (thisIter.isEmpty) vEmpty else thisIter.head
   def toStrsFold(seperator: String = "", f: A => String = _.toString): String =

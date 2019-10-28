@@ -32,7 +32,7 @@ object PersistCaseTest extends TestSuite
   
   val tests = Tests
   {    
-    'Persist2 -
+   /* 'Persist2 -
     {
       Ma2(4, "a").str ==> """Ma2(4; "a")"""
       """Ma2(2; "er")""".findType[Ma2] ==> Good(Ma2(2, "er"))
@@ -56,6 +56,6 @@ object PersistCaseTest extends TestSuite
     'Persist4 -
     {
       my4a.str ==> """My4(3, 2; "Yes"; "AAA",; 8,)"""
-    }
+    }*/
   }
 }

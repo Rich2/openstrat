@@ -164,7 +164,14 @@ trait ArrayLike[+A] extends Any
         count += 1
       }
       acc
-    })
+    }
+  )
+
+  def toList: List[A] =
+  { var acc: List[A] = Nil
+    foreachReverse(acc ::= _)
+    acc
+  }
 }
 
 object ArrayLike

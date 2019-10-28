@@ -6,7 +6,7 @@ object PersistCollectionsTest  extends TestSuite
 { 
   val tests = Tests
   { 
-    val l1 = Seq(-1, -2, -30)
+   /* val l1 = Seq(-1, -2, -30)
     val l1Comma: String = "-1, -2, -30"
     val l2: List[Int] = List(4, 5, 6)
     val l2Comma: String = "4, 5, 6"
@@ -46,6 +46,6 @@ object PersistCollectionsTest  extends TestSuite
     'Arr -
     {
       Arr(-1, -2, -3).str ==> """Seq[Int](-1; -2; -3)"""
-    }
+    }*/
   }
 }

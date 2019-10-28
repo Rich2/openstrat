@@ -23,7 +23,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
       val lunit: GraphicElems = tile.lunits match
       {
-        case Refs1(head, _) if tog.tScale > 50 =>
+        case RefsHead(head) if tog.tScale > 50 =>
         { val maxOffset = tog.grid.coodToVec2(head.dirn.halfRelCood)
           val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
           val posn = fTrans(gridPosn)

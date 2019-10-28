@@ -18,7 +18,7 @@ object PersistOptionTest extends TestSuite
   
   val tests = Tests
   {
-    'None
+    /*'None
     {
       None.str ==> ""
       "None".findType[None.type] ==> Good(None)
@@ -44,6 +44,6 @@ object PersistOptionTest extends TestSuite
       t1Str.findType[Test1] ==> Good(Test1(Some(5), 4, Some(2.0)))
       t2.str ==> "Test1(; 7; ;)"
       "Test1(; 7; ;)".findType[Test1] ==> Good(Test1(None, 7, None))  
-    }
+    }*/
   }
 }

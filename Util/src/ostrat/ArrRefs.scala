@@ -59,14 +59,54 @@ object Refs
       new Refs[B](buff.toArray)
     }
   }
+
+  def showImplicit[A <: AnyRef](implicit evInA: Show[A]): Show[Refs[A]] = new pParse.ShowSeqLike[A, Refs[A]]
+  { val evA = evInA
+    def showComma(obj: ostrat.Refs[A]): String = ???
+    def showSemi(obj: ostrat.Refs[A]): String = ???
+  }
 }
 
 object Refs1
-{ def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[(A, Refs[A])] = refs match
+{ /** Extractor for the head of a Refs, immutable covariant Array based collection. Must have length of precisely 1. */
+  def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[A] = refs.length match {
+    case 1 => Some(refs(0))
+    case _ => None
+  }
+}
+
+object RefsHead
+{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[A] = refs match
+  { case refs if refs.length >= 1 => Some(refs(0))
+    case _ => None
+  }
+}
+
+
+object Refs1Tail
+{
+  def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[(A, Refs[A])] = refs match
   { case arr if refs.nonEmpty => Some((refs.head, refs.drop1))
     case _ => None
   }
 }
+
+object GoodRefs1
+{ def unapply[A <: AnyRef](refs: EMon[Refs[A]])(implicit ct: ClassTag[A]): Option[A] = refs match
+  { case Good(refs) if refs.length == 1 => Some(refs.head)
+    case _ => None
+  }
+}
+
+object GoodRefs2
+{ def unapply[A <: AnyRef](refs: EMon[Refs[A]])(implicit ct: ClassTag[A]): Option[(A, A)] = refs match
+{ case Good(refs) if refs.length == 2 => Some((refs(0), refs(1)))
+  case _ => None
+}
+}
+
+
 
 class RefsBuff[A <: AnyRef](val buffer: ArrayBuffer[A]) extends AnyVal with ArrBuff[A]
 { override def length: Int = buffer.length

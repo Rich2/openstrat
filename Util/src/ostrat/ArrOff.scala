@@ -5,10 +5,11 @@ class ArrOff[A](val offset: Int) extends AnyVal
   def drop1: ArrOff[A] = new ArrOff(offset + 1)
   def drop2: ArrOff[A] = new ArrOff(offset + 2)
   def length(implicit array: Array[A]): Int = array.length - offset
+  def span(p: A => Boolean)(implicit array: Array[A]): (ArrImut[A], ArrOff[A]) = ???
 }
 
 object ArrOff0
-{ def unapply[A](inp: ArrOff[A])(implicit array: Array[A]): Option[Unit] = ife(array.length - inp.offset <= 0, Some(), None)
+{   def unapply[A](inp: ArrOff[A])(implicit array: Array[A]): Option[Unit] = ife(array.length - inp.offset <= 0, Some(), None)
 }
 
 object ArrOff1

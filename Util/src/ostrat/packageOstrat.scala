@@ -98,7 +98,7 @@ package object ostrat extends LowPriority
   def bad1[B](fp: TextPosn, detail: String): Bad[B] = Bad[B](parseErr(fp, detail) :: Nil)
   def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](parseErr(fs.startPosn, detail) :: Nil)
   def eTry[A](res: => A): EMon[A] =
-    try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(FilePosn("Java Exception", 1, 1), e.getMessage) }
+    try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(TextPosn("Java Exception", 1, 1), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
 
   val two32: Long = 4294967296L
@@ -201,12 +201,10 @@ package object ostrat extends LowPriority
     def nequ(operand: T): Boolean = !equ(operand)
   }
 
- /* implicit val arrIBuildImplicit: ArrBuild[Int] = new ArrBuild[Int]
-  {
-    override def bMap[A](orig: ArrN[A], f: A => Int): ArrI = ??? //(new Array[Int](len))
-  }*/
-  //implicit val arrDBuildImplicit: ArrBuild[Double] = len => new ArrD(new Array[Double](len))
-  //implicit val arrLongBuildImplicit: ArrBuild[Long] = len => new ArrLong(new Array[Long](len))
+  implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
+  { @inline def toRefs(implicit ct: ClassTag[A]): Refs[A] = new Refs[A](thisBuff.toArray[A])
+    @inline def goodRefs(implicit ct: ClassTag[A]): Good[Refs[A]] = Good(new Refs(thisBuff.toArray))
+  }
 
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)

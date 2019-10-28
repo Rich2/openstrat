@@ -6,8 +6,8 @@ package pExt
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {  
   def parseToStatements: EMon[Arr[pParse.Statement]] = pParse.stringToStatements(thisString)
-  def findTokens: EMon[List[pParse.Token]] = pParse.TokensFind(thisString).fromString
-  def findStatements: EMon[Arr[pParse.Statement]] = findTokens.flatMap(pParse.GetStatements(_))
+  def findTokens: EMon[Refs[pParse.Token]] = pParse.TokensFind(thisString).fromString
+  def findStatements: EMon[Arr[pParse.Statement]] = findTokens.map(g => g.toList).flatMap(pParse.GetStatements(_))
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
   def findType[A: Persist]: EMon[A] = thisString.parseToStatements.flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
@@ -70,7 +70,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     s1 + "." + s2a
   }
   
-  def toTokens: EMonList[pParse.Token] = pParse.stringToTokens(thisString)
+  def toTokens: EMon[Refs[pParse.Token]] = pParse.stringToTokens(thisString)
   /** Appends strings with a comma and space seperator */
   def appendCommas(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
 

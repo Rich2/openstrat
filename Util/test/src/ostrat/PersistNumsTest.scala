@@ -3,8 +3,9 @@ import utest._
 
 object PersistNumsTest  extends TestSuite
 {
-  val tests = Tests {
-    'Ints -
+  val tests = Tests
+  {
+    /*'Ints -
     {
       5.str ==> "5"
       "5".findType[Int] ==> Good(5)
@@ -23,6 +24,6 @@ object PersistNumsTest  extends TestSuite
        val d: Double = 8
        d.strTyped ==> "DFloat(8.0)"
        (-6.00).str ==> "-6.0"
-     }
+     }*/
   }
 }

@@ -6,7 +6,7 @@ object ColourTest extends TestSuite
 { 
   val tests = Tests
   {
-    val c1 = Black
+    /*val c1 = Black
     val s1 = c1.str
     val e1 = s1.findType[Colour]
     val c2 = Colour(0xFF000000)
@@ -25,6 +25,6 @@ object ColourTest extends TestSuite
       e3 ==> Good(Black)
       c4.hasName ==> false
       m4 ==> Good(Colour(0xFFAAAAAA))
-    }
+    }*/
   }
 }

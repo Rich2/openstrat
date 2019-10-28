@@ -54,7 +54,7 @@ trait UnShow[+T]
   def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
   
   def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
-  { case Nil => FilePosn.emptyError("No values of type found")
+  { case Nil => TextPosn.emptyError("No values of type found")
     case h :: Nil => Good(h)
     case s3 => bad1(l.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.") 
   }
@@ -66,7 +66,7 @@ trait UnShow[+T]
   }
   
   def settingFromStatementList(list: List[Statement], settingStr: String): EMon[T] = list match
-  { case Nil => FilePosn.emptyError("No Statements")
+  { case Nil => TextPosn.emptyError("No Statements")
     case List(e1) => settingFromStatement(settingStr, e1)
     case s2 => list.map(settingFromStatement(settingStr, _)).collect{ case g: Good[T] => g } match
     { case Seq(t) => t
