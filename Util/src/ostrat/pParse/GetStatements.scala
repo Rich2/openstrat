@@ -97,8 +97,8 @@ object GetStatements
   private def prefixPlus(rem: List[TokenOrBlock], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
   {
     case Nil => Good(acc).map(_.toArr)
-    case (pp: PlusPreToken) :: (right: Expr) :: tail => prefixPlus(tail, acc :+ PreOpExpr(pp, right))
-    case (pp: PlusPreToken) :: _ => bad1(pp, "Prefix operator not fillowed by expression")
+    case (pp: PrefixToken) :: (right: Expr) :: tail => prefixPlus(tail, acc :+ PreOpExpr(pp, right))
+    case (pp: PrefixToken) :: _ => bad1(pp, "Prefix operator not fillowed by expression")
     case h :: tail => prefixPlus(tail, acc :+ h)
   }
 }

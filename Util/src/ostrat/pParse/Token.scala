@@ -5,7 +5,16 @@ package pParse
 trait Token extends TextSpan
 { def srcStr: String
   override def endPosn: TextPosn = startPosn.addLinePosn(srcStr.length - 1)
-  def str: String
+  final def str: String = tokenTypeStr
+  def tokenTypeStr: String
+  def canEqual(a: Any) = a.isInstanceOf[Token]
+
+  override def equals(that: Any): Boolean = that match
+  { case that: Token => tokenTypeStr == that.tokenTypeStr & startPosn == that.startPosn
+    case _ => false
+  }
+
+  override def hashCode(): Int = tokenTypeStr.hashCode * 31 + startPosn.hashCode
 }
 
 object Token
@@ -21,19 +30,19 @@ trait EmptyExprToken extends BlockMemberToken with ExprToken
 case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken
 { def srcStr = ";"
   override def exprName: String = "EmptyStatementExpr"
-  override def str: String = "SemicolonToken"
+  override def tokenTypeStr: String = "SemicolonToken"
 }
 
 case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with StatementMember
 { def srcStr = ","
   override def exprName: String = "EmptyClauseExpr"
-  override def str: String = "CommaToken"
+  override def tokenTypeStr: String = "CommaToken"
 }
 
 /** The Dot or Stop Token. */
 case class DotToken(startPosn: TextPosn) extends ExprMemberToken
 { def srcStr = "."
-  override def str: String = "DotToken"
+  override def tokenTypeStr: String = "DotToken"
 }
 
 /** An Alphanumeric Token. It contains a symbol rather than a String to represent the AlphaNumeric token as commonly used Symbols have better
@@ -41,26 +50,26 @@ case class DotToken(startPosn: TextPosn) extends ExprMemberToken
 case class AlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
 { override def exprName: String = "AlphaTokenExpr"
   override def toString: String =  "AlphaToken".appendParenthSemis(srcStr, startPosn.lineNum.toString, startPosn.linePosn.toString)
-  override def str: String = "AlphaToken"
+  override def tokenTypeStr: String = "AlphaToken"
 }
 
 case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken
 { def exprName = "CharTokenExpr"
   def srcStr = char.toString.enquote1
-  override def str: String = "CharToken"
+  override def tokenTypeStr: String = "CharToken"
 }
 
 case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
 { def exprName = "StringTokenExpr"
   def srcStr = stringStr.enquote
-  override def str: String = "StringToken"
+  override def tokenTypeStr: String = "StringToken"
 }
 
 /** The purpose of this token is for use at the beginning of a file, to make the the rest of the Statements, sub-statements. As if they were the
  *  statements inside parenthesis. */
 case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
 { override def exprName: String = "HashAlphaTokenExpr"
-  override def str: String = "HashAlphaToken"
+  override def tokenTypeStr: String = "HashAlphaToken"
 }
 
 /** A 32 bit Integer Token. */
@@ -76,44 +85,45 @@ object IntToken
 }
 
 /** A 32 bit integer token in standard decimal format. */
-case class IntDecToken(startPosn: TextPosn, srcStr: String, intValue: Int) extends IntToken
+case class IntDecToken(startPosn: TextPosn, intValue: Int) extends IntToken
 { override def toString: String = "IntDecToken".appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def exprName: String = "IntTokenExpr"
-  override def str: String = "IntDecToken"
+  override def tokenTypeStr: String = "IntDecToken"
+  override def srcStr: String = intValue.toString
 }
 case class IntHexToken(startPosn: TextPosn, srcStr: String, intValue: Int) extends IntToken
 { override def exprName: String = "HexIntIntTokenExpr"
-  override def str: String = "IntHexToken"
+  override def tokenTypeStr: String = "IntHexToken"
 }
 
 
 /** A 64bit signed integer token */
 case class LongIntToken(startPosn: TextPosn, srcStr: String, longValue: Long) extends ExprToken
 { override def exprName: String = "LongIntTokenExpr"
-  override def str: String = "LongIntToken"
+  override def tokenTypeStr: String = "LongIntToken"
 }
 
 
 /** A Double Floating point token. */
 case class FloatToken(startPosn: TextPosn, srcStr: String, floatValue: Double) extends ExprToken
 { override def exprName: String = "FloatTokenExpr"
-  override def str: String = "FloatToken"
+  override def tokenTypeStr: String = "FloatToken"
 }
 
 /** An Operator token. */
 trait OperatorToken extends ExprMemberToken
 case class OtherOperatorToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
-{ override def str: String = "OtherOperatorToken"
+{ override def tokenTypeStr: String = "OtherOperatorToken"
 }
 /** A + or - infix Operator token */
 case class PlusInToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
-{ override def str: String = "PlusInToken"
+{ override def tokenTypeStr: String = "PlusInToken"
 }
 /** A + or - Prefix Operator token */
-case class PlusPreToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
-{ override def str: String = "PlusPreToken"
+case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
+{ override def tokenTypeStr: String = "PlusPreToken"
 }
 case class AsignToken(startPosn: TextPosn) extends ExprMemberToken
 { def srcStr = "="
-  override def str: String = "AsignToken"
+  override def tokenTypeStr: String = "AsignToken"
 }

@@ -10,12 +10,12 @@ object TokenTest extends TestSuite
     val Sp2 = StrPosn(1, 2)
     val Sp3 = StrPosn(1, 3)
     val Sp4 = StrPosn(1, 4)
-    deb("-5".findTokens.asInstanceOf[Good[Refs[Token]]].value(0).srcStr)
+    deb("-".findTokens.asInstanceOf[Good[Refs[Token]]].value(0).str)
     //val ct = "Colour(0xFF000000)".findTokens
 
     'Test1
     { Sp1 ==> StrPosn(1, 1)
-      assertMatch("45".findTokens){case GoodRefs1(IntDecToken(Sp1, "45", 45)) => }
+      assertMatch("45".findTokens){case GoodRefs1(IntDecToken(Sp1, 45)) => }
       assertMatch("45".findTokens){case GoodRefs1(IntToken(Sp1, "45", 45)) => }
       assertMatch("0x2D".findTokens){case GoodRefs1(IntToken(Sp1, "0x2D", 45)) => }
       assertMatch("0x11".findTokens){case GoodRefs1(IntHexToken(Sp1, "0x11", 17)) => }
@@ -35,8 +35,8 @@ object TokenTest extends TestSuite
 
     'Neg
     {
-      assertMatch("-".findTokens){case GoodRefs1(OtherOperatorToken(Sp1, _)) => }
-      assertMatch("- 4".findTokens){case GoodRefs2(OtherOperatorToken(Sp1, _), IntDecToken(Sp3, _, 4)) => }
+      assertMatch("-".findTokens){case GoodRefs1(PlusInToken(_, _)) => }
+      assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDecToken(Sp3, 4)) => }
     }
   }
 }

@@ -68,7 +68,7 @@ case class TokensFind(srcStr: String)
   
   private[this] def quoteStart(rem: CharsOff, tp: TextPosn): EMon[(CharsOff, TextPosn, Token)] =
   {
-    def loop(rem: CharsOff, strAcc: List[Char]): EMon[(CharsOff, TextPosn, Token)] = rem match
+    def loop(rem: CharsOff, strAcc: StringBuilder): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
       case CharsOff0() => bad1(tp, "Unclosed String")
       case CharsOff1('\"', tail2) => Good3(tail2, tp.addLinePosn(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
@@ -79,13 +79,13 @@ case class TokensFind(srcStr: String)
         
         case CharsOff1(c2, tail3) => c2 match
         { 
-          case '\"' | '\n' | '\b' | '\t' | '\f' | '\r' | '\'' | '\\' => loop(tail3, strAcc :+ c2)
+          case '\"' | '\n' | '\b' | '\t' | '\f' | '\r' | '\'' | '\\' => loop(tail3, strAcc.append(c2))
           case c2 => bad1(tp, "Unrecognised escape Sequence \\" + c2.toString)
         }
       }               
-      case CharsOff1(h, tail2) => loop(tail2, strAcc :+ h)
+      case CharsOff1(h, tail2) => loop(tail2, strAcc.append(h))
     }
-    loop(rem, Nil)
+    loop(rem, new StringBuilder())
   }
   
   /** Not sure if this is fully fixed. */
@@ -98,8 +98,8 @@ case class TokensFind(srcStr: String)
     {
       //below makes no sense
       case '+' | '-' => finalTail match
-      {
-        case CharsOffHead(h) if !h. isWhitespace => PlusPreToken(tp, opStr)
+      { //case CharsOff0() =>
+        case CharsOffHead(h) if !h.isWhitespace => PrefixToken(tp, opStr)
         case _ => PlusInToken(tp, opStr)
       }
       case '=' => AsignToken(tp)
@@ -112,13 +112,13 @@ case class TokensFind(srcStr: String)
   {
     def intLoop(rem: CharsOff, str: String, intAcc: Int): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
-      case CharsOff0() =>  Good3(rem, tp.addStr(str), IntDecToken(tp, str, intAcc))
+      case CharsOff0() =>  Good3(rem, tp.addStr(str), IntDecToken(tp, intAcc))
       case CharsOff1(d, t) if d.isDigit && str.length == 9 && t.ifHead(_.isDigit) => longLoop(rem, str, intAcc.toLong)
       case CharsOff1(d, tail) if d.isDigit && str.length == 9 && intAcc > 214748364 => longLoop(rem, str, intAcc.toLong)
       case CharsOff1(d, tail) if d.isDigit && str.length == 9 && intAcc == 214748364 && d > '7' => longLoop(rem, str, intAcc.toLong)
       case CharsOff1(d, tail) if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d - '0')
       case CharsOff1('.', tail) => decimalLoop(tail, str + firstDigit.toString, intAcc, 10)
-      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str),  IntDecToken(tp, str, intAcc))
+      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str),  IntDecToken(tp, intAcc))
     }
              
     def longLoop(rem: CharsOff, str: String, longAcc: Long): EMon[(CharsOff, TextPosn, Token)] = rem match

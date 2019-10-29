@@ -27,35 +27,35 @@ case class ParenthOpen(startPosn: TextPosn) extends BracketOpen
 { def srcStr = "("
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[ParenthClose]
   override def newBracketBlock(cb: BracketClose, statements: Arr[Statement]): BracketBlock = (ParenthBlock(statements, this, cb))
-  override def str: String = "ParenthOpenToken"
+  override def tokenTypeStr: String = "ParenthOpenToken"
 }
 
 case class ParenthClose(startPosn: TextPosn) extends BracketClose
 { def srcStr = ")"
-  override def str: String = "ParenthCloseToken"
+  override def tokenTypeStr: String = "ParenthCloseToken"
 }
 
 case class SquareOpen(startPosn: TextPosn) extends BracketOpen
 { def srcStr = "["
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[SquareClose]
   override def newBracketBlock(cb: BracketClose, statements: Arr[Statement]): BracketBlock = (SquareBlock(statements, this, cb))
-  override def str: String = "SquareOpenToken"
+  override def tokenTypeStr: String = "SquareOpenToken"
 }
 
 case class SquareClose(startPosn: TextPosn) extends BracketClose
 { def srcStr = "]"
-  override def str: String = "SquareCloseToken"
+  override def tokenTypeStr: String = "SquareCloseToken"
 }
 
 case class CurlyOpen(startPosn: TextPosn) extends BracketOpen
 { def srcStr = "{"
   override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[CurlyClose]
   override def newBracketBlock(cb: BracketClose, statements: Arr[Statement]): BracketBlock = (CurlyBlock(statements, this, cb))
-  override def str: String = "CurlyOpenToken"
+  override def tokenTypeStr: String = "CurlyOpenToken"
 }
 case class CurlyClose(startPosn: TextPosn) extends BracketClose
 { def srcStr = "}"
-  override def str: String = "CurlyCloseToken"
+  override def tokenTypeStr: String = "CurlyCloseToken"
 }
 
 sealed trait BracketBlock extends StatementSeq
