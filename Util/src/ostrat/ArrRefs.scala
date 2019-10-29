@@ -8,7 +8,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   override def apply(index: Int): A = array(index)
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = drop(1)
-
+  def refsOffsetter: RefsOff[A] @uncheckedVariance = new RefsOff[A](0)
  // import collection.immutable._
  // def toArraySeq[AA >: A <: AnyRef]: ArraySeq[A] = new ArraySeq.ofRef(array)
 
@@ -67,9 +67,53 @@ object Refs
   }
 }
 
+/** Immutable heapless iterator for Refs. */
+class RefsOff[A <: AnyRef](val offset: Int) extends AnyVal
+{ def drop(n: Int): RefsOff[A] = new RefsOff[A](offset + n)
+  def drop1: RefsOff[A] = new RefsOff(offset + 1)
+  def drop2: RefsOff[A] = new RefsOff(offset + 2)
+  def length(implicit refs: Refs[A]): Int = refs.length - offset
+  def span(p: A => Boolean)(implicit refs: Refs[A], ct: ClassTag[A]): (Refs[A], RefsOff[A]) =
+  {
+    var count = 0
+    var continue = true
+    while (offset + count < refs.length & continue)
+    {
+      if (p(refs(offset + count))) count += 1
+      else continue = false
+    }
+    val newArray: Array[A] = new Array[A](count)
+    iUntilForeach(0, count){i =>
+      newArray(i) = refs(offset + i)}
+    (new Refs(newArray), drop(count))
+  }
+  /** Checks condition against head. Returns false if the collection is empty. */
+  def ifHead(f: A => Boolean)(implicit refs: Refs[A]) : Boolean = (refs.length > offset) & f(refs(offset))
+}
+
+/** Extractor for empty immutable heapless iterator for Refs. */
+case object RefsOff0
+{ /** Extractor for empty immutable heapless iterator for Refs. */
+  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Boolean = refs.length - inp.offset <= 0
+}
+
+/** Extractor object for the head only for immutable heapless iterator for Refs with at least 1 element. */
+object RefsOffHead
+{ /** Extractor for the head only for immutable heapless iterator for Refs with at least 1 element. */
+  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Option[A] =
+    ife(refs.length - inp.offset >= 1, Some(refs(inp.offset)), None)
+}
+
+/** Extractor for immutable heapless iterator for Refs with at l element. */
+object RefsOff1
+{ /** Extractor for immutable heapless iterator for Refs with at l element. */
+  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Option[(A, RefsOff[A])] =
+  ife(refs.length - inp.offset >= 1, Some((refs(inp.offset), inp.drop1)), None)
+}
+
 object Refs1
 { /** Extractor for the head of a Refs, immutable covariant Array based collection. Must have length of precisely 1. */
-  def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[A] = refs.length match {
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[A] = refs.length match {
     case 1 => Some(refs(0))
     case _ => None
   }
@@ -77,7 +121,7 @@ object Refs1
 
 object RefsHead
 { /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[A] = refs match
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[A] = refs match
   { case refs if refs.length >= 1 => Some(refs(0))
     case _ => None
   }
@@ -93,14 +137,14 @@ object Refs1Tail
 }
 
 object GoodRefs1
-{ def unapply[A <: AnyRef](refs: EMon[Refs[A]])(implicit ct: ClassTag[A]): Option[A] = refs match
+{ def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Option[A] = refs match
   { case Good(refs) if refs.length == 1 => Some(refs.head)
     case _ => None
   }
 }
 
 object GoodRefs2
-{ def unapply[A <: AnyRef](refs: EMon[Refs[A]])(implicit ct: ClassTag[A]): Option[(A, A)] = refs match
+{ def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Option[(A, A)] = refs match
 { case Good(refs) if refs.length == 2 => Some((refs(0), refs(1)))
   case _ => None
 }

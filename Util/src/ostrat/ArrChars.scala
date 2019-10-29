@@ -63,18 +63,21 @@ class CharsOff(val offset: Int) extends AnyVal
   def ifHead(f: Char => Boolean)(implicit chars: Chars) : Boolean = (chars.length > offset) & f(chars(offset))
 }
 
-/** Extractor for empty immutable heapless iterator for Char arrays. */
-case object CharsOff0 { def unapply(inp: CharsOff)(implicit array: Chars): Boolean = array.length - inp.offset <= 0 }
+/** Extractor for empty immutable heapless iterator for Chars. */
+case object CharsOff0 { def unapply(inp: CharsOff)(implicit chars: Chars): Boolean = chars.length - inp.offset <= 0 }
 
+/** Extractor object for the head only for immutable heapless iterator for Chars with at least 1 element. */
 object CharsOffHead
-{ def unapply(inp: CharsOff)(implicit array: Chars): Option[Char] =
-  ife(array.length - inp.offset >= 1, Some(array(inp.offset)), None)
+{ /** Extractor for the head only for immutable heapless iterator for Chars with at least 1 element. */
+  def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] =
+  ife(chars.length - inp.offset >= 1, Some(chars(inp.offset)), None)
 }
 
-
+/** Extractor for immutable heapless iterator for Chars with at l element. */
 object CharsOff1
-{ def unapply(inp: CharsOff)(implicit array: Chars): Option[(Char, CharsOff)] =
-  ife(array.length - inp.offset >= 1, Some((array(inp.offset), inp.drop1)), None)
+{ /** Extractor for immutable heapless iterator for Chars with at l element. */
+  def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, CharsOff)] =
+  ife(chars.length - inp.offset >= 1, Some((chars(inp.offset), inp.drop1)), None)
 }
 
 object CharsOff2
