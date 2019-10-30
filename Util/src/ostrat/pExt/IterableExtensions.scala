@@ -19,7 +19,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
-  def toImut(implicit bu: ArrBuilder[A]): bu.ImutT =
+  def toImut[AA <: ArrImut[A]](implicit bu: ArrBuilder[A, AA]): AA =
   {
     val len = thisIter.size
     val res = bu.imutNew(len)

@@ -6,25 +6,25 @@ object ColourTest extends TestSuite
 { 
   val tests = Tests
   {
-    /*val c1 = Black
-    val s1 = c1.str
+    val c1 = Black
+    /*val s1 = c1.str
     val e1 = s1.findType[Colour]
     val c2 = Colour(0xFF000000)
     val s3 = "Colour(0xFF000000)"
     val e3 = s3.findType[Colour]
     val c4 = Colour(0xFFAAAAAA)
     val s4 = c4.str
-    val m4 = s4.findType[Colour]
+    val m4 = s4.findType[Colour]*/
 
     'test1 - 
     {
-      s1 ==> "Black"
+      /*s1 ==> "Black"
       e1 ==> Good(Black)
       c2.hasName ==> true
       c2 ==> Black
       e3 ==> Good(Black)
       c4.hasName ==> false
-      m4 ==> Good(Colour(0xFFAAAAAA))
-    }*/
+      m4 ==> Good(Colour(0xFFAAAAAA))*/
+    }
   }
 }

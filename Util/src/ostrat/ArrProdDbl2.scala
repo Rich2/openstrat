@@ -98,7 +98,6 @@ trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsC
   }
 }
 
-
 /** Both Persists and Builds ProductD2s collection classes. */
 abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr)
 {

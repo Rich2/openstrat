@@ -14,9 +14,9 @@
 
 <h3>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</h3>
 
-<h3>A Show, 2D-Show and Persistence Library / Framework</h3>
+<h3>RSON A Show, 2D-Show and Persistence Library / Framework</h3>
 
-<h3> Compound Value type collections library</h3>
+<h3> Heapless Compound Value type collections library</h3>
 
 <p>Scala currently set to 2.13.1. Scala.Js set to 0.6.29. Sbt currently set to 1.3.3. Update your Mill to 0.5.2.
 
