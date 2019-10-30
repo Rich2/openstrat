@@ -9,14 +9,22 @@ trait BBuild[B , BB <: ArrImut[B]]
 {
   //def map[A, B <: BB](fa: ArrayLike[A], f: A => B): F[B]
   def imutNew(length: Int): BB
+  def imutSet(arr: BB, index: Int, value: B): Unit
 }
 
 object BBuild
 {
   implicit def refsImplicit[B <: AnyRef](implicit ct: ClassTag[B]): BBuild[B, Refs[B]] = new BBuild[B, Refs[B]]
   {
-    override def imutNew(length: Int): Refs[B] = ???
+    override def imutNew(length: Int): Refs[B] =  new Refs(new Array[B](length))
+    override def imutSet(arr: Refs[B], index: Int, value: B): Unit = arr.array(index) = value
   }
+  implicit val intsImplicit: BBuild[Int, Ints] = new BBuild[Int, Ints]
+  {
+    override def imutNew(length: Int): Ints =  new Ints(new Array[Int](length))
+    override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
+  }
+
 }
 
 trait ArrBuilder[B]

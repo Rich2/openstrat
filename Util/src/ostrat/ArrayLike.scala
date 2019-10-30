@@ -48,7 +48,7 @@ trait ArrayLike[+A] extends Any
 
   def bmap[B, BB <: ArrImut[B]](f: A => B)(implicit ev: BBuild[B, BB]): BB =
   { val res = ev.imutNew(length)
-    //iForeach((a, i) => ev.imutSet(res, i, f(a)))
+    iForeach((a, i) => ev.imutSet(res, i, f(a)))
     res
   }
 

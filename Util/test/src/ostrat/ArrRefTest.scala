@@ -17,6 +17,7 @@ object ArrRefTest extends TestSuite
     val myTArr2: Refs[MyT] = ints2.bind(i => Refs(MyA(i), MyB(i)))
     val myRefs1 = ints2.map(MyA(_))
     val refs2: Refs[MyA] = ints2.bmap(MyA(_))
+    val ints3: Ints = refs2.bmap(_.i)
 
     'test2
     { myAArr1(2) ==> MyA(3)
@@ -25,6 +26,8 @@ object ArrRefTest extends TestSuite
       myTArr2.length ==> 6
       myTArr2(0) ==> MyA(5)
       myTArr2(5) ==> MyB(7)
+      refs2(2) ==> MyA(7)
+      ints3(2) ==> 7
     }
   }
 }
