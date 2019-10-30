@@ -5,6 +5,16 @@ trait Bind[BB <: ArrImut[_]]
 { def bind[A](orig: ArrayLike[A], f: A => BB): BB
 }
 
+trait BBuild[BB, F[_ <: BB]]
+{
+  def map[A, B <: BB](fa: ArrayLike[A], f: A => B): F[B]
+}
+
+object BBuild
+{
+  implicit val refsImplicit: BBuild[AnyRef, Refs] = ???
+}
+
 trait ArrBuilder[B]
 { type ImutT <: ArrImut[B]
   type BuffT <: ArrBuff[B]
@@ -30,7 +40,7 @@ object ArrBuilder
   }
 
   implicit val doublesImplicit: ArrBuilder[Double] = new ArrBuilder[Double]
-  { type ImutT = Dbls
+  { final type ImutT = Dbls
     type BuffT = DblBuff
     override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
     override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
