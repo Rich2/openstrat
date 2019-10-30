@@ -67,6 +67,66 @@ object Refs
   }
 }
 
+/** Extractor object for empty Refs[A <: AnyRef]. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+object Refs0
+{ /** Extractor for empty Refs[A <: AnyRef]. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Boolean = refs.length == 0
+}
+
+/** Extractor object for Refs[A <: AnyRef] of length == 1. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+object Refs1
+{ /** Extractor for Refs[A <: AnyRef] of length == 1. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[A] = refs.length match
+  { case 1 => Some(refs(0))
+    case _ => None
+  }
+}
+
+/** Extractor object for Refs[A <: AnyRef] of length == 2. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+object Refs2
+{ /** Extractor for Refs[A <: AnyRef] of length == 2. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A)] = refs.length match
+  { case 2 => Some((refs(0), refs(1)))
+    case _ => None
+  }
+}
+
+/** Extractor object for Refs[A <: AnyRef] of length == 3. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+object Refs3
+{ /** Extractor for Refs[A <: AnyRef] of length == 3, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A, A)] = refs.length match
+  { case 3 => Some((refs(0), refs(1), refs(2)))
+    case _ => None
+  }
+}
+
+/** Extractor object for Refs[A <: AnyRef] of length == 4. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+object Refs4
+{ /** Extractor for Refs[A <: AnyRef] of length == 4, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A, A, A)] = refs.length match
+  { case 4 => Some((refs(0), refs(1), refs(2), refs(3)))
+    case _ => None
+  }
+}
+
+/** Extractor object for Refs[A <: AnyRef] of length == 5. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+object Refs5
+{ /** Extractor for Refs[A <: AnyRef] of length == 5, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A, A, A, A)] = refs.length match
+  { case 5 => Some((refs(0), refs(1), refs(2), refs(3), refs(4)))
+    case _ => None
+  }
+}
+
+/** Extractor object for Refs[A <: AnyRef] of length == 6. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+object Refs6
+{ /** Extractor for Refs[A <: AnyRef] of length == 6, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A, A, A, A, A)] = refs.length match
+  { case 6 => Some((refs(0), refs(1), refs(2), refs(3), refs(4), refs(5)))
+    case _ => None
+  }
+}
+
 /** Immutable heapless iterator for Refs. */
 class RefsOff[A <: AnyRef](val offset: Int) extends AnyVal
 { def drop(n: Int): RefsOff[A] = new RefsOff[A](offset + n)
@@ -111,13 +171,7 @@ object RefsOff1
   ife(refs.length - inp.offset >= 1, Some((refs(inp.offset), inp.drop1)), None)
 }
 
-object Refs1
-{ /** Extractor for the head of a Refs, immutable covariant Array based collection. Must have length of precisely 1. */
-  def unapply[A <: AnyRef](refs: Refs[A]): Option[A] = refs.length match {
-    case 1 => Some(refs(0))
-    case _ => None
-  }
-}
+
 
 object RefsHead
 { /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
@@ -126,7 +180,6 @@ object RefsHead
     case _ => None
   }
 }
-
 
 object Refs1Tail
 {
@@ -145,10 +198,11 @@ object GoodRefs1
 
 object GoodRefs2
 { def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Option[(A, A)] = refs match
-{ case Good(refs) if refs.length == 2 => Some((refs(0), refs(1)))
-  case _ => None
+  { case Good(refs) if refs.length == 2 => Some((refs(0), refs(1)))
+    case _ => None
+  }
 }
-}
+
 
 
 

@@ -7,6 +7,7 @@ package object ostrat extends LowPriority
 { import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
   type Arr[A] = ArraySeq[A]
   type Buff[A] = ArrayBuffer[A]
+  type ERefs[A <: AnyRef] = EMon[Refs[A]]
   type EMonList[A] = EMon[List[A]]
   type EMonArr[A] = EMon[Arr[A]]
   type ArrMulti[A] = Arr[Multiple[A]]
@@ -179,7 +180,7 @@ package object ostrat extends LowPriority
   implicit class ArrayBufferExtensions[A](thisBuff: Buff[A])(implicit ct: ClassTag[A])
   { @inline def toArr: Arr[A] = ArrWrapBuff[A](thisBuff)
     @inline def arrAppends(operands: A*): Arr[A] = ArrWrapBuff[A]((thisBuff ++= operands))
-    @inline def arrAppend(operand: A): Arr[A] = ArrWrapBuff[A]((thisBuff += operand))
+   // @inline def arrAppend(operand: A): ArrImut[A] = ArrWrapBuff[A]((thisBuff += operand))
     def pAdd (operand: ArrProdHomo[A]): Buff[A] = { operand.foreach(thisBuff.addOne(_)); thisBuff }
   }
 

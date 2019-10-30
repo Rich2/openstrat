@@ -39,10 +39,10 @@ trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends UnShow[ST]
   override def fromExpr(expr: Expr): EMon[ST] =
     pList.mapFirstGood(_.fromExpr(expr), bad1(expr.startPosn, "fromExpr, No value of" -- typeStr -- "found."))
     
-  override def fromClauses(clauses: Arr[Clause]): EMon[ST] =
+  override def fromClauses(clauses: Refs[Clause]): EMon[ST] =
     pList.mapFirstGood(_.fromClauses(clauses), bad1(clauses(0).startPosn, "fromClauses No value of" -- typeStr -- "found."))
     
-  override def fromStatements(sts: Arr[Statement]): EMon[ST] =
+  override def fromStatements(sts: Refs[Statement]): EMon[ST] =
     pList.mapFirstGood(_.fromStatements(sts), bad1(sts.toList.startPosn, "fromStatements, No value of" -- typeStr -- "found."))
 }
 

@@ -5,9 +5,9 @@ package pExt
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {  
-  def parseToStatements: EMon[Arr[pParse.Statement]] = pParse.stringToStatements(thisString)
-  def findTokens: EMon[Refs[pParse.Token]] = pParse.TokensFind(thisString).fromString
-  def findStatements: EMon[Arr[pParse.Statement]] = findTokens.flatMap(pParse.GetStatements(_))
+  def parseToStatements: ERefs[pParse.Statement] = pParse.stringToStatements(thisString)
+  def findTokens: ERefs[pParse.Token] = pParse.TokensFind(thisString).fromString
+  def findStatements: ERefs[pParse.Statement] = findTokens.flatMap(pParse.GetStatements(_))
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
   def findType[A: Persist]: EMon[A] = thisString.parseToStatements.flatMap(_.findType[A])
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
@@ -18,7 +18,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
 
   def asType[A](implicit ev: Persist[A]): EMon[A] = parseToStatements.flatMap(sts => sts match
-    { case Arr(h) => ev.fromStatement(h).elseTry(ev.fromStatements(sts))
+    { case Refs1(h) => ev.fromStatement(h).elseTry(ev.fromStatements(sts))
       case sts => ev.fromStatements(sts)
     })
   def asInt: EMon[Int] = asType[Int]

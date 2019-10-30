@@ -28,14 +28,14 @@ object Persist
   {
     override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
-    override def fromParameterStatements(sts: Arr[Statement]): EMon[Array[A]] = ???
-    override def fromClauses(clauses: Arr[Clause]): EMon[Array[A]] = ???
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[Array[A]] = ???
+    override def fromClauses(clauses: Refs[Clause]): EMon[Array[A]] = ???
   
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
-      case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeStr == typeName => ???// fromParameterStatements(sts)
+      case AlphaBracketExpr(AlphaToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName -- "does not equal" -- typeStr)
-      case _ => ???// expr.exprParseErr[A](this)
+      case _ => ??? // expr.exprParseErr[A](this)
     }
   }
 
@@ -47,13 +47,13 @@ object Persist
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
     override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
-    override def fromClauses(clauses: Arr[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
+    override def fromClauses(clauses: Refs[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
     {
-      case AlphaBracketExpr(AlphaToken(_, "Some"), Arr(ParenthBlock(Arr(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+      case AlphaBracketExpr(AlphaToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
     }
-    override def fromStatements(sts: Arr[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
+    override def fromStatements(sts: Refs[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
   }
 
   implicit val NonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
@@ -66,7 +66,7 @@ object Persist
       case e => bad1(e, "None not found")
     }
 
-    override def fromStatements(sts: Arr[Statement]): EMon[None.type] = ife(sts.isEmpty, Good(None), bad1(sts.startPosn, "None not found."))
+    override def fromStatements(sts: Refs[Statement]): EMon[None.type] = ife(sts.empty, Good(None), bad1(sts.startPosn, "None not found."))
   }
 
   implicit def optionToPersist[A](implicit evA: Persist[A]): Persist[Option[A]] =
@@ -152,13 +152,13 @@ object Persist
   implicit val ArrayIntImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Persist.IntImplicit)
   { override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
-    override def fromParameterStatements(sts: Arr[Statement]): EMon[Array[Int]] = bad1(TextPosn.empty, "ArrayInt from statements")
-    override def fromClauses(clauses: Arr[Clause]): EMon[Array[Int]] = ???
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[Array[Int]] = bad1(TextPosn.empty, "ArrayInt from statements")
+    override def fromClauses(clauses: Refs[Clause]): EMon[Array[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(AlphaToken(_, "Seq"), Arr(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
-        sts.eMonMap[Int](_.errGet[Int](evA)).map(_.toArray)
+      case AlphaBracketExpr(AlphaToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+        //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
@@ -166,13 +166,13 @@ object Persist
   implicit val ArrIntImplicit: Persist[Arr[Int]] = new PersistSeqLike[Int, Arr[Int]](Persist.IntImplicit)
   { override def showSemi(thisArray: Arr[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Arr[Int]): String = thisArray.map(evA.show(_)).commaFold
-    override def fromParameterStatements(sts: Arr[Statement]): EMon[Arr[Int]] = bad1(TextPosn.empty, "ArrayInt from statements")
-    override def fromClauses(clauses: Arr[Clause]): EMon[Arr[Int]] = ???
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[Arr[Int]] = bad1(TextPosn.empty, "ArrayInt from statements")
+    override def fromClauses(clauses: Refs[Clause]): EMon[Arr[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Arr[Int]] = expr match
     { case SemicolonToken(_) => Good(Arr[Int]())
-      case AlphaBracketExpr(AlphaToken(_, "Seq"), Arr(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) =>
-        sts.eMonMap[Int](_.errGet[Int](evA)).map(_.toArr)
+      case AlphaBracketExpr(AlphaToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+        //sts.eMap[Int](_.errGet[Int](evA)).map(_.toArr)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
@@ -183,14 +183,14 @@ object Persist
   {
     override def showSemi(thisArr: Arr[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: Arr[A]): String = thisArr.map(ev.show(_)).commaFold
-    override def fromParameterStatements(sts: Arr[Statement]): EMon[Arr[A]] = ???
-    override def fromClauses(clauses: Arr[Clause]): EMon[Arr[A]] = ???
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[Arr[A]] = ???
+    override def fromClauses(clauses: Refs[Clause]): EMon[Arr[A]] = ???
 
     override def fromExpr(expr: ParseExpr): EMon[Arr[A]] =  expr match
     {
-      case AlphaBracketExpr(AlphaToken(_, typeName), Seq(ParenthBlock(sts, _, _))) if typeStr == typeName => ???// fromParameterStatements(sts)
+      case AlphaBracketExpr(AlphaToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName -- "does not equal" -- typeStr)
-      case _ => ???// expr.exprParseErr[A](this)
+      case _ => ??? // expr.exprParseErr[A](this)
     }
   }
 

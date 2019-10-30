@@ -6,10 +6,10 @@ import pParse._
 abstract class PersistSimple[A](typeStr: String) extends ShowSimple[A](typeStr) with Persist[A]
 {  
   /** A PersistSimple can be parsed from the expression within a Clause, but it can't be parsed from a ClausedStatement */
-  override def fromClauses(clauses: Arr[Clause]): EMon[A] = bad1(clauses.head, typeStr -- "can not be parsed from Claused Statement")
+  override def fromClauses(clauses: Refs[Clause]): EMon[A] = bad1(clauses.head, typeStr -- "can not be parsed from Claused Statement")
 
-  override def fromStatements(sts: Arr[Statement]): EMon[A] = sts match
-  { case Arr(st) if st.noSemi => fromExpr(st.expr)
+  override def fromStatements(sts: Refs[Statement]): EMon[A] = sts match
+  { case Refs1(st) if st.noSemi => fromExpr(st.expr)
     case sts => bad1(sts.startPosn, "A simple value can not be parsed from a Statement sequence.")
   }
 //  def fromStatement(st: Statement): EMon[A] = st match

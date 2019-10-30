@@ -61,9 +61,9 @@ object TileRow
     def showSemi(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
     def showTyped(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
     def syntaxDepth: Int = ev.syntaxDepth + 2
-    def fromClauses(clauses: ostrat.Arr[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
-    def fromExpr(expr: ostrat.pParse.Expr): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
-    def fromStatements(sts: ostrat.Arr[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def fromExpr(expr: pParse.Expr): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def fromStatements(sts: Refs[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def typeStr: String = ???
   }
 }
