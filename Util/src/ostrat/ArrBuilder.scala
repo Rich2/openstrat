@@ -8,11 +8,15 @@ trait Bind[BB <: ArrImut[_]]
 trait BBuild[B , BB <: ArrImut[B]]
 {
   //def map[A, B <: BB](fa: ArrayLike[A], f: A => B): F[B]
+  def imutNew(length: Int): BB
 }
 
 object BBuild
 {
-  implicit def refsImplicit[B <: AnyRef](implicit ct: ClassTag[B]): BBuild[B, Refs[B]] = ???
+  implicit def refsImplicit[B <: AnyRef](implicit ct: ClassTag[B]): BBuild[B, Refs[B]] = new BBuild[B, Refs[B]]
+  {
+    override def imutNew(length: Int): Refs[B] = ???
+  }
 }
 
 trait ArrBuilder[B]

@@ -46,6 +46,12 @@ trait ArrayLike[+A] extends Any
     res
   }
 
+  def bmap[B, BB <: ArrImut[B]](f: A => B)(implicit ev: BBuild[B, BB]): BB =
+  { val res = ev.imutNew(length)
+    //iForeach((a, i) => ev.imutSet(res, i, f(a)))
+    res
+  }
+
   def eMap[B](f: A => EMon[B])(implicit ev: ArrBuilder[B]): EMon[ev.ImutT] = ???
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
