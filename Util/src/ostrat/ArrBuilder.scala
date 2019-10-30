@@ -5,14 +5,14 @@ trait Bind[BB <: ArrImut[_]]
 { def bind[A](orig: ArrayLike[A], f: A => BB): BB
 }
 
-trait BBuild[BB, F[_ <: BB]]
+trait BBuild[B , BB <: ArrImut[B]]
 {
-  def map[A, B <: BB](fa: ArrayLike[A], f: A => B): F[B]
+  //def map[A, B <: BB](fa: ArrayLike[A], f: A => B): F[B]
 }
 
 object BBuild
 {
-  implicit val refsImplicit: BBuild[AnyRef, Refs] = ???
+  implicit def refsImplicit[B <: AnyRef](implicit ct: ClassTag[B]): BBuild[B, Refs[B]] = ???
 }
 
 trait ArrBuilder[B]
