@@ -1,6 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+/** Homogeneous Product3[Double, Double, Double]. These are used in ArrHomoDbl3 Array[Double] based collections. */
+trait ProdDbl3 extends Any with Product3[Double, Double, Double] with ProdHomo
+
 /** Base trait for Array[Double] base collections of Products of 3 Doubles. */
 trait ArrProdDbl3[A <: ProdDbl3] extends Any with ArrProdDblN[A]
 { def productSize = 3

@@ -2,6 +2,9 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
+trait ProdDbl2 extends Any with Product2[Double, Double] with ProdHomo
+
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
 trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
 {

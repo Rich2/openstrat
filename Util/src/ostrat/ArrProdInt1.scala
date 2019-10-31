@@ -1,12 +1,12 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait ProdI1 extends Any
+trait ProdInt1 extends Any
 { def intValue: Int
   @inline def _1 : Int = intValue
 }
 
-trait ArrProdInt1[A <: ProdI1] extends Any with ArrProdIntN[A]
+trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
 {
   final override def productSize: Int = 1
   def newElem(intValue: Int): A
@@ -33,6 +33,6 @@ trait ArrProdInt1[A <: ProdI1] extends Any with ArrProdIntN[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
 }
 
-trait ProductI1sBuff[A <: ProdI1, M <: ArrProdInt1[A]] extends Any with ArrBuffHomoInts[A, M]
+trait ProductI1sBuff[A <: ProdInt1, M <: ArrProdInt1[A]] extends Any with ArrBuffHomoInts[A, M]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1); () }
 }

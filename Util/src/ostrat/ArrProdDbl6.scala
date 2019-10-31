@@ -1,6 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
+/** Homogeneous Product6[Double, Double, Double, Double, Double, Double]. These are used in ArrHomoDbl6 Array[Double] based collections. */
+trait ProdDbl6 extends Any with Product6[Double, Double, Double, Double, Double, Double] with ProdHomo
+
 /** Base trait for Array[Double] base collections of Products of 6 Doubles. */
 trait ArrProdDbl6[A <: ProdDbl6] extends Any with ArrProdDblN[A]
 { def productSize: Int = 6

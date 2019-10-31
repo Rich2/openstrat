@@ -2,7 +2,7 @@
 package ostrat
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal with ProdI1
+class Colour(val argbValue: Int) extends AnyVal with ProdInt1
 { 
   override def toString: String = Colour.persistImplicit.show(this)
   @inline final override def intValue: Int = argbValue 

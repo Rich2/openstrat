@@ -64,7 +64,7 @@ object ArrBuilder// extends ArrBuilderLowPriority
     override def buffImut(buff: DblBuff): Dbls = new Dbls(buff.buffer.toArray)
   }
 
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], notA: Not[ProdDbl2]#L[A]): ArrBuilder[A, Refs[A]] =
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], notA: Not[ProdHomo]#L[A]): ArrBuilder[A, Refs[A]] =
     new ArrBuilder[A, Refs[A]]
   { type BuffT = RefsBuff[A]
     override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))

@@ -67,4 +67,3 @@ object Dist2s extends ProdDbl2sCompanion[Dist2, Dist2s]
   { override def fromArray(value: Array[Double]): Dist2s = new Dist2s(value)
   }
 }
-

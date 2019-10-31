@@ -2,6 +2,9 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** Homogeneous Product4[Int, Int, Int, Int] with Stringer. These are used in ArrHomoInt4 Array[Int] based collections. */
+trait ProdInt4 extends Any with Product4[Int, Int, Int, Int] with ProdHomo
+
 trait ArrProdInt4[A <: ProdInt4] extends Any with ArrProdIntN[A]
 {
   override def productSize: Int = 4

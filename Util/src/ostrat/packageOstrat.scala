@@ -81,23 +81,6 @@ package object ostrat extends LowPriority
   type FStr = Function0[String]
   type FStrSeq = Seq[Function0[String]]
   type StrList = List[String]
-  
-  /** Homogeneous Product2[Int, Int] with Stringer. These are used in ArrHomoInt2s Array[Int] based collections. */
-  type ProdInt2 = Product2[Int, Int]
-  /** Homogeneous Product4[Int, Int, Int, Int] with Stringer. These are used in ArrHomoInt4 Array[Int] based collections. */
-  type ProdInt4 = Product4[Int, Int, Int, Int]
-  /** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
-  type ProdDbl2 = Product2[Double, Double]
-  /** Homogeneous Product3[Double, Double, Double]. These are used in ArrHomoDbl3 Array[Double] based collections. */
-  type ProdDbl3 = Product3[Double, Double, Double]
-  /** Homogeneous Product4[Double, Double, Double, Double]. These are used in ArrHomoDbl4 Array[Double] based collections. */
-  type ProdDbl4 = Product4[Double, Double, Double, Double]
-  /** Homogeneous Product5[Double, Double, Double, Double, Double]. These are used in ArrHmoDbl5 Array[Double] based collections. */
-  type ProdDbl5 = Product5[Double, Double, Double, Double, Double]
-  /** Homogeneous Product6[Double, Double, Double, Double, Double, Double]. These are used in ArrHomoDbl6 Array[Double] based collections. */
-  type ProdDbl6 = Product6[Double, Double, Double, Double, Double, Double]
-  /** Homogeneous Product7[Double, Double, Double, Double, Double, Double, Double]. These are used in ArrHomoDbl7 Array[Double] based collections. */
-  type ProdDbl7 = Product7[Double, Double, Double, Double, Double, Double, Double]
 
   def Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3): Good[(A1, A2, A3)] = Good[(A1, A2, A3)]((a1, a2, a3))
   /** Not sure about this method. */
