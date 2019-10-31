@@ -34,10 +34,10 @@ object Chars
   }
 }
 
-class CharsBuff(val buffer: ArrayBuffer[Char]) extends AnyVal with ArrBuff[Char]
+/*class CharsBuff(val buffer: ArrayBuffer[Char]) extends AnyVal with BufferLike[Char]
 { override def length: Int = buffer.length
   override def apply(index: Int): Char = buffer(index)
-}
+}*/
 
 /** Immutable heapless iterator for Char arrays. */
 class CharsOff(val offset: Int) extends AnyVal

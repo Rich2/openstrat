@@ -5,6 +5,15 @@ import collection.mutable.ArrayBuffer
 /** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
 trait ProdDbl2 extends Any with Product2[Double, Double] with ProdHomo
 
+trait ProdDbl2Builder[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrBuilder[A, ArrT]
+{
+  def fromArray(array: Array[Double]): ArrT
+  def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
+  override def imutNew(length: Int): ArrT = fromArray(newArray(length))
+  override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
+  override def buffAppend(buff: BuffT, value: A): Unit = ??? // { buff.append(value._1,) ??? //buff.buffer.append(value)
+}
+
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
 trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
 {
@@ -117,4 +126,9 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
   //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
   override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
   override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
+}
+
+trait BuffProdDbl2[A <: ProdDbl2] extends Any
+{ def buffer: ArrayBuffer[Double]
+  def length: Int = buffer.length / 2
 }

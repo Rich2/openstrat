@@ -1,11 +1,7 @@
 package ostrat
-import annotation.unchecked.uncheckedVariance
-import collection.immutable._, reflect.ClassTag
+import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
 
-/** Base trait for Array buffers. The compound deep-value types use the standard ArrayBuffers for underlying storage.  */
-trait ArrBuff[A] extends Any with ArrayLike[A]
-
-/** Base trait for Arr and  ArrBuff. */
+/** Base trait for Arr and  BuffProducts and ArrayBuffer extension methods. */
 trait ArrayLike[+A] extends Any
 { type ThisT <: ArrayLike[A]
   def returnThis: ThisT = ???

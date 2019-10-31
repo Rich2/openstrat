@@ -38,10 +38,10 @@ object Ints
   }
 }
 
-class IntsBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with ArrBuff[Int]
+/*class IntsBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with BufferLike[Int]
 { override def length: Int = buffer.length
   override def apply(index: Int): Int = buffer(index)
-}
+}*/
 
 class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 { type ThisT = Longs
@@ -70,10 +70,10 @@ object Longs
   }
 }
 
-class LongsBuff(val buffer: ArrayBuffer[Long]) extends AnyVal with ArrBuff[Long]
+/*class LongsBuff(val buffer: ArrayBuffer[Long]) extends AnyVal with BufferLike[Long]
 { override def length: Int = buffer.length
   override def apply(index: Int): Long = buffer(index)
-}
+}*/
 
 class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 { type ThisT = Dbls
@@ -103,7 +103,8 @@ object Dbls
   }
 }
 
-class DblBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with ArrBuff[Double]
+/*
+class DblBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BufferLike[Double]
 { override def length: Int = buffer.length
   override def apply(index: Int): Double = buffer(index)
-}
+}*/

@@ -203,10 +203,8 @@ object GoodRefs2
   }
 }
 
-
-
-
-class RefsBuff[A <: AnyRef](val buffer: ArrayBuffer[A]) extends AnyVal with ArrBuff[A]
+/*
+class RefsBuff[A <: AnyRef](val buffer: ArrayBuffer[A]) extends AnyVal with BufferLike[A]
 { override def length: Int = buffer.length
   override def apply(index: Int): A = buffer(index)
-}
+}*/

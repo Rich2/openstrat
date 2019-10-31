@@ -126,12 +126,10 @@ object Vec2
 
   implicit val persistImplicit: PersistD2[Vec2] = new PersistD2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
 
-  implicit val arrBuilderImplicit: ArrBuilder[Vec2, Vec2s] = new ArrBuilder[Vec2, Vec2s]
+  implicit val arrBuilderImplicit: ArrBuilder[Vec2, Vec2s] = new ProdDbl2Builder[Vec2, Vec2s]
   { type BuffT = Vec2sBuff
-    override def imutNew(length: Int): Vec2s = new Vec2s(new Array[Double](length * 2))
-    override def imutSet(arr: Vec2s, index: Int, value: Vec2): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
+    override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
     override def buffNew(length: Int = 4): Vec2sBuff = ??? // new IntsBuff(new ArrayBuffer[Int](length))
-    override def buffAppend(buff: Vec2sBuff, value: Vec2): Unit = ??? //buff.buffer.append(value)
     override def buffImut(buff: Vec2sBuff): Vec2s = ??? // new Ints(buff.buffer.toArray)
   }
 }
@@ -177,9 +175,8 @@ class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
   //def draw(lineWidth: Double, colour: Colour = Colour.Black): Vec2sDraw = LinePathDraw(this, lineWidth, colour)
 }
 
-class Vec2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with ArrBuff[Vec2]
-{ override def length: Int = buffer.length
-  override def apply(index: Int): Vec2 = ??? // buffer(index)
+class Vec2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Vec2]
+{// override def apply(index: Int): Vec2 = ??? // buffer(index)
 }
 
 object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
