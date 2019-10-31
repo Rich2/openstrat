@@ -14,6 +14,12 @@ package object ostrat extends LowPriority
   type PersistEq[A] = Persist[A] with Eq[A]
   type ShowEq[A] = Show[A] with Eq[A]
   type AnyRefs = Refs[AnyRef]
+  trait NotSubTypeOf[A, B]
+  implicit def isSub[A, B]: A NotSubTypeOf B = null
+  implicit def iSubAmbig1[A, B >: A]: A NotSubTypeOf B = null
+  implicit def iSubAmbig2[A, B >: A]: A NotSubTypeOf B = null
+  type Not[T] = { type L[U] = U NotSubTypeOf T  }
+
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
   val Cos60 = 0.5

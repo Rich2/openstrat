@@ -3,7 +3,9 @@ package ostrat
 import utest._, Colour._
 
 object ColourTest extends TestSuite
-{ 
+{
+  def fn[A](a: A)(implicit ev: Not[Int]#L[A]): Unit = println(a)
+  fn("ER")
   val tests = Tests
   {
     val c1 = Black

@@ -38,19 +38,12 @@ trait ArrBuilder[B, BB <: ArrImut[B]]
   def fBind[A](as: ArrayLike[A], f: A => BB): BB = imutNew(0)
 }
 
-trait ArrBuilderLowPriority
+/*trait ArrBuilderLowPriority
 {
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A]): ArrBuilder[A, Refs[A]] = new ArrBuilder[A, Refs[A]]
-  { type BuffT = RefsBuff[A]
-    override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
-    override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): RefsBuff[A] = new RefsBuff(new ArrayBuffer[A](length))
-    override def buffAppend(buff: RefsBuff[A], value: A): Unit = buff.buffer.append(value)
-    override def buffImut(buff: RefsBuff[A]): Refs[A] = new Refs(buff.buffer.toArray)
-  }
-}
 
-object ArrBuilder extends ArrBuilderLowPriority
+}*/
+
+object ArrBuilder// extends ArrBuilderLowPriority
 {
   implicit val intsImplicit: ArrBuilder[Int, Ints] = new ArrBuilder[Int, Ints]
   { type BuffT = IntsBuff
@@ -71,5 +64,13 @@ object ArrBuilder extends ArrBuilderLowPriority
     override def buffImut(buff: DblBuff): Dbls = new Dbls(buff.buffer.toArray)
   }
 
-
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], notA: Not[ProdDbl2]#L[A]): ArrBuilder[A, Refs[A]] =
+    new ArrBuilder[A, Refs[A]]
+  { type BuffT = RefsBuff[A]
+    override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
+    override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
+    override def buffNew(length: Int = 4): RefsBuff[A] = new RefsBuff(new ArrayBuffer[A](length))
+    override def buffAppend(buff: RefsBuff[A], value: A): Unit = buff.buffer.append(value)
+    override def buffImut(buff: RefsBuff[A]): Refs[A] = new Refs(buff.buffer.toArray)
+  }
 }
