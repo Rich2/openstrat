@@ -14,7 +14,7 @@ object ArrProdHomoTest  extends TestSuite
 
   object Mine
   {
-    implicit val arrBuilderImplicit: ArrBuilder[Mine, Mines] = new ProdDbl2Builder[Mine, Mines]
+    implicit val arrBuilderImplicit: ArrBuild[Mine, Mines] = new ProdDbl2Builder[Mine, Mines]
     { type BuffT = MinesBuff
       override def fromArray(array: Array[Double]): Mines = new Mines(array)
       override def buffNew(length: Int = 4): MinesBuff = ??? // new IntsBuff(new ArrayBuffer[Int](length))
@@ -32,9 +32,9 @@ object ArrProdHomoTest  extends TestSuite
   object Mines extends ProdDbl2sCompanion[Mine, Mines]
   {
     //implicit val factory: Int => Mines = i => new Mines(new Array[Double](i * 2))
-    implicit val bindImplicit: ArrBinder[Mines] = new ArrBinder[Mines]
+    implicit val bindImplicit: ArrFlatBuild[Mines] = new ArrFlatBuild[Mines]
     {
-      override def bind[A](orig: ArrayLike[A], f: A => Mines): Mines =
+      override def flatMap[A](orig: ArrayLike[A], f: A => Mines): Mines =
       { val buff = new ArrayBuffer[Double]
         orig.foreach(a => buff.addAll(f(a).array))
         new Mines(buff.toArray)

@@ -36,16 +36,16 @@ trait ArrayLike[+A] extends Any
     while(i < endIndex ) { f(apply(i), i); i = i + 1 }
   }
 
-  def map[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrBuilder[B, BB]): BB =
+  def map[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB =
   { val res = ev.imutNew(length)
     iForeach((a, i) => ev.imutSet(res, i, f(a)))
     res
   }
 
-  def eMap[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, BB]): EMon[BB] = ???
+  def eMap[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): EMon[BB] = ???
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
-  def map2To1[B, BB <: ArrImut[B]](f: (A, A) => B)(implicit ev: ArrBuilder[B, BB]): BB =
+  def map2To1[B, BB <: ArrImut[B]](f: (A, A) => B)(implicit ev: ArrBuild[B, BB]): BB =
   { val res = ev.imutNew(length)
     var count = 0
     while (count + 1  < length)
@@ -56,7 +56,7 @@ trait ArrayLike[+A] extends Any
   }
 
   /** FlatMaps over a function from A to any Iterable. */
-  def iterFlatMap[B, BB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, BB]): BB =
+  def iterFlatMap[B, BB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrBuild[B, BB]): BB =
   { val buff = ev.buffNew(length)
     foreach(a => ev.buffAppendSeq(buff, f(a)))
     ev.buffImut(buff)
@@ -180,6 +180,6 @@ trait ArrayLike[+A] extends Any
 object ArrayLike
 {
   implicit class ArrBaseImplicit[A](ba: ArrayLike[A])
-  { def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrBinder[BB]): BB = ev.bind[A](ba, f)
+  { def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB = ev.flatMap[A](ba, f)
   }
 }

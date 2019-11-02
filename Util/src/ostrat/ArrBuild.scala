@@ -1,18 +1,18 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** ArrBinder[B, BB] is a type class for the building of efficient compact Immutable Arrays through a bind method, which works similar to flatMap on
+/** ArrFlatBuild[BB] is a type class for the building of efficient compact Immutable Arrays through a bind method, which works similar to flatMap on
  * standard Library collections. It is called bind rather than flatMap partly to distinguish it and party so as it can be used as extension method on
  *  Standard Library collections. Instances for this typeclass for classes / traits you control should go in the companion object of BB. This is
- *  different from the related ArrBuilder[BB] typeclass where the instance should go into the B companion object. */
-trait ArrBinder[BB <: ArrImut[_]]
-{ def bind[A](orig: ArrayLike[A], f: A => BB): BB
+ *  different from the related ArrBuild[BB] typeclass where the instance should go into the B companion object. */
+trait ArrFlatBuild[BB <: ArrImut[_]]
+{ def flatMap[A](orig: ArrayLike[A], f: A => BB): BB
 }
 
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
  *  control should go in the companion object of B not the companion object of not BB. This is different from the related ArrBinder[BB] typeclass
  *  where instance should go into the BB companion object. */
-trait ArrBuilder[B, BB <: ArrImut[B]]
+trait ArrBuild[B, BB <: ArrImut[B]]
 { type BuffT // <: BufferLike[B]
   def imutNew(length: Int): BB
   def imutSet(arr: BB, index: Int, value: B): Unit
@@ -20,11 +20,12 @@ trait ArrBuilder[B, BB <: ArrImut[B]]
   def buffAppend(buff: BuffT, value: B): Unit
   def buffAppendSeq(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffAppend(buff, _))
   def buffImut(buff: BuffT): BB
+  def iterMap[A](inp: Iterable[A], f: A => B): BB = ???
 }
 
-object ArrBuilder
+object ArrBuild
 {
-  implicit val intsImplicit: ArrBuilder[Int, Ints] = new ArrBuilder[Int, Ints]
+  implicit val intsImplicit: ArrBuild[Int, Ints] = new ArrBuild[Int, Ints]
   { type BuffT = ArrayBuffer[Int]
     override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
     override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
@@ -33,7 +34,7 @@ object ArrBuilder
     override def buffImut(buff: ArrayBuffer[Int]): Ints = new Ints(buff.toArray)
   }
 
-  implicit val doublesImplicit: ArrBuilder[Double, Dbls] = new ArrBuilder[Double, Dbls]
+  implicit val doublesImplicit: ArrBuild[Double, Dbls] = new ArrBuild[Double, Dbls]
   { type BuffT = ArrayBuffer[Double]
     override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
     override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
@@ -42,7 +43,7 @@ object ArrBuilder
     override def buffImut(buff: ArrayBuffer[Double]): Dbls = new Dbls(buff.toArray)
   }
 
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], notA: Not[ProdHomo]#L[A]): ArrBuilder[A, Refs[A]] = new ArrBuilder[A, Refs[A]]
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], notA: Not[ProdHomo]#L[A]): ArrBuild[A, Refs[A]] = new ArrBuild[A, Refs[A]]
   { type BuffT = ArrayBuffer[A]
     override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
     override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value

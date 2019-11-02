@@ -28,9 +28,9 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
-  implicit val bindImplicit: ArrBinder[Ints] = new ArrBinder[Ints]
+  implicit val bindImplicit: ArrFlatBuild[Ints] = new ArrFlatBuild[Ints]
   {
-    override def bind[A](orig: ArrayLike[A], f: A => Ints): Ints =
+    override def flatMap[A](orig: ArrayLike[A], f: A => Ints): Ints =
     { val buff = new ArrayBuffer[Int]
       orig.foreach(a => buff.addAll(f(a).array))
       new Ints(buff.toArray)
@@ -60,9 +60,9 @@ class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 }
 object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
-  implicit val bindImplicit: ArrBinder[Longs] = new ArrBinder[Longs]
+  implicit val bindImplicit: ArrFlatBuild[Longs] = new ArrFlatBuild[Longs]
   {
-    override def bind[A](orig: ArrayLike[A], f: A => Longs): Longs =
+    override def flatMap[A](orig: ArrayLike[A], f: A => Longs): Longs =
     { val buff = new ArrayBuffer[Long]
       orig.foreach(a => buff.addAll(f(a).array))
       new Longs(buff.toArray)
@@ -93,9 +93,9 @@ class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 
 object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
-  implicit val bindImplicit: ArrBinder[Dbls] = new ArrBinder[Dbls]
+  implicit val bindImplicit: ArrFlatBuild[Dbls] = new ArrFlatBuild[Dbls]
   {
-    override def bind[A](orig: ArrayLike[A], f: A => Dbls): Dbls =
+    override def flatMap[A](orig: ArrayLike[A], f: A => Dbls): Dbls =
     { val buff = new ArrayBuffer[Double]
       orig.foreach(a => buff.addAll(f(a).array))
       new Dbls(buff.toArray)

@@ -19,7 +19,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
-  def toImut[AA <: ArrImut[A]](implicit bu: ArrBuilder[A, AA]): AA =
+  def toImut[AA <: ArrImut[A]](implicit bu: ArrBuild[A, AA]): AA =
   {
     val len = thisIter.size
     val res = bu.imutNew(len)
@@ -148,7 +148,9 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     }
     acc
   }
-    
+
+  def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB = ev.iterMap[A](thisIter, f)
+
   /** product map method maps from a Traversable to an Array based ProductValues class. */
   def pMap[B , M <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => M): M =
   { val res = factory(thisIter.size)

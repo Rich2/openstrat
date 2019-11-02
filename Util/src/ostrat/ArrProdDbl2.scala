@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
 trait ProdDbl2 extends Any with Product2[Double, Double] with ProdHomo
 
-trait ProdDbl2Builder[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrBuilder[A, ArrT]
+trait ProdDbl2Builder[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrBuild[A, ArrT]
 {
   def fromArray(array: Array[Double]): ArrT
   def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
