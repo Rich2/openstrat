@@ -28,7 +28,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
-  implicit val bindImplicit: Bind[Ints] = new Bind[Ints]
+  implicit val bindImplicit: ArrBinder[Ints] = new ArrBinder[Ints]
   {
     override def bind[A](orig: ArrayLike[A], f: A => Ints): Ints =
     { val buff = new ArrayBuffer[Int]
@@ -60,7 +60,7 @@ class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 }
 object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
-  implicit val bindImplicit: Bind[Longs] = new Bind[Longs]
+  implicit val bindImplicit: ArrBinder[Longs] = new ArrBinder[Longs]
   {
     override def bind[A](orig: ArrayLike[A], f: A => Longs): Longs =
     { val buff = new ArrayBuffer[Long]
@@ -93,7 +93,7 @@ class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 
 object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
-  implicit val bindImplicit: Bind[Dbls] = new Bind[Dbls]
+  implicit val bindImplicit: ArrBinder[Dbls] = new ArrBinder[Dbls]
   {
     override def bind[A](orig: ArrayLike[A], f: A => Dbls): Dbls =
     { val buff = new ArrayBuffer[Double]

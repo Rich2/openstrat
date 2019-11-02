@@ -51,7 +51,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 object Refs
 { def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): Refs[A] = new Refs(input.toArray)
 
-  implicit def bindImplicit[B <: AnyRef](implicit ct: ClassTag[B]): Bind[Refs[B]] = new Bind[Refs[B]]
+  implicit def bindImplicit[B <: AnyRef](implicit ct: ClassTag[B]): ArrBinder[Refs[B]] = new ArrBinder[Refs[B]]
   {
     override def bind[A](orig: ArrayLike[A], f: A => Refs[B]): Refs[B] =
     { val buff = new ArrayBuffer[B]

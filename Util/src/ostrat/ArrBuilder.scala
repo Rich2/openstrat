@@ -1,7 +1,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait Bind[BB <: ArrImut[_]]
+trait ArrBinder[BB <: ArrImut[_]]
 { def bind[A](orig: ArrayLike[A], f: A => BB): BB
 }
 

@@ -24,7 +24,7 @@ class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
 
 object Chars
 { def apply(input: Char*): Chars = new Chars(input.toArray)
-  implicit val bindImplicit: Bind[Chars] = new Bind[Chars]
+  implicit val bindImplicit: ArrBinder[Chars] = new ArrBinder[Chars]
   {
     override def bind[A](orig: ArrayLike[A], f: A => Chars): Chars =
     { val buff = new ArrayBuffer[Char]

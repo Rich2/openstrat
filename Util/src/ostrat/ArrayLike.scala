@@ -186,6 +186,6 @@ trait ArrayLike[+A] extends Any
 object ArrayLike
 {
   implicit class ArrBaseImplicit[A](ba: ArrayLike[A])
-  { def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: Bind[BB]): BB = ev.bind[A](ba, f)
+  { def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrBinder[BB]): BB = ev.bind[A](ba, f)
   }
 }

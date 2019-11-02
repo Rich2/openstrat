@@ -12,6 +12,16 @@ object ArrProdHomoTest  extends TestSuite
     }
   }
 
+  object Mine
+  {
+    implicit val arrBuilderImplicit: ArrBuilder[Mine, Mines] = new ProdDbl2Builder[Mine, Mines]
+    { type BuffT = MinesBuff
+      override def fromArray(array: Array[Double]): Mines = new Mines(array)
+      override def buffNew(length: Int = 4): MinesBuff = ??? // new IntsBuff(new ArrayBuffer[Int](length))
+      override def buffImut(buff: MinesBuff): Mines = ??? // new Ints(buff.buffer.toArray)
+    }
+  }
+
   class Mines(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Mine]
   { type ThisT = Mines
     def typeStr = "Mines"
@@ -22,7 +32,7 @@ object ArrProdHomoTest  extends TestSuite
   object Mines extends ProdDbl2sCompanion[Mine, Mines]
   {
     //implicit val factory: Int => Mines = i => new Mines(new Array[Double](i * 2))
-    implicit val bindImplicit: Bind[Mines] = new Bind[Mines]
+    implicit val bindImplicit: ArrBinder[Mines] = new ArrBinder[Mines]
     {
       override def bind[A](orig: ArrayLike[A], f: A => Mines): Mines =
       { val buff = new ArrayBuffer[Double]
@@ -34,6 +44,10 @@ object ArrProdHomoTest  extends TestSuite
     implicit val persistImplicit: ArrProdDbl2Persist[Mine, Mines] = new ArrProdDbl2Persist[Mine, Mines]("Mines")
     { override def fromArray(value: Array[Double]): Mines = new Mines(value)
     }
+  }
+
+  class MinesBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Mine]
+  {// override def apply(index: Int): Mine = ??? // buffer(index)
   }
 
   val tests = Tests
