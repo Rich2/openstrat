@@ -1,10 +1,17 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
+/** ArrBinder[B, BB] is a type class for the building of efficient compact Immutable Arrays through a bind method, which works similar to flatMap on
+ * standard Library collections. It is called bind rather than flatMap partly to distinguish it and party so as it can be used as extension method on
+ *  Standard Library collections. Instances for this typeclass for classes / traits you control should go in the companion object of BB. This is
+ *  different from the related ArrBuilder[BB] typeclass where the instance should go into the B companion object. */
 trait ArrBinder[BB <: ArrImut[_]]
 { def bind[A](orig: ArrayLike[A], f: A => BB): BB
 }
 
+/** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
+ *  control should go in the companion object of B not the companion object of not BB. This is different from the related ArrBinder[BB] typeclass
+ *  where instance should go into the BB companion object. */
 trait ArrBuilder[B, BB <: ArrImut[B]]
 { type BuffT // <: BufferLike[B]
   def imutNew(length: Int): BB
@@ -13,7 +20,6 @@ trait ArrBuilder[B, BB <: ArrImut[B]]
   def buffAppend(buff: BuffT, value: B): Unit
   def buffAppendSeq(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffAppend(buff, _))
   def buffImut(buff: BuffT): BB
-  def fBind[A](as: ArrayLike[A], f: A => BB): BB = imutNew(0)
 }
 
 object ArrBuilder
