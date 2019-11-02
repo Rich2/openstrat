@@ -37,6 +37,3 @@ case class LessonA4(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")
   * message. The third type is Colour. Note Colours must have the correct capital letters. You can just try guessing the colours or you can google /
   * duckduck web colours to see what is available. Again put a Colour where a number or a string is expected or vice versa and the compiler will
   * complain. */
-
-
- 
