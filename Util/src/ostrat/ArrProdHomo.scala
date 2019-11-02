@@ -30,29 +30,6 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
     res.toArr
   }
 
-
-  /** map every 2 elements of type A from this ProductValue Collection A to 1 element of B Product Value collection N[B]. */
-  def by2PMap[B, N <: ArrProdHomo[B]](f: (A, A) => B)(implicit factory: Int => N): N =
-  { val res = factory(length / 2)
-    var count: Int = 0
-    while (count < length) {
-      val newValue: B = f(apply(count), apply(count + 1))
-      res.unsafeSetElem(count, newValue)
-      count += 2
-    }
-    res
-  }
-
-  /** map 2 values of A to 1 element of B in List. */
-  def by2MapList[B](f: (A, A) => B): List[B] =
-  { var count = 0
-    var acc: List[B] = Nil
-    while (count < length) {
-      acc ::= f(apply(count), apply(count + 1)); count += 2
-    }
-    acc.reverse
-  }
-
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++[N <: ArrProdHomo[A]](operand: N)(implicit factory: Int => N): N =
