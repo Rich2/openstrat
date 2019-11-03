@@ -59,7 +59,7 @@ trait ArrayLike[+A] extends Any
   def iterFlatMap[B, BB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrBuild[B, BB]): BB =
   { val buff = ev.buffNew(length)
     foreach(a => ev.buffAppendSeq(buff, f(a)))
-    ev.buffImut(buff)
+    ev.buffToArr(buff)
   }
 
   def foldLeft[B](initial: B)(f: (B, A) => B) =

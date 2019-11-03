@@ -41,9 +41,8 @@ object Cood
 
   implicit val cood2sBuildImplicit: ArrBuild[Cood, Coods] = new ArrProdInt2sBuild[Cood, Coods]
   { type BuffT = CoodsBuff
-    override def buffNew(length: Int = 4): CoodsBuff = ???
-    override def fromArray(array: Array[Int]): Coods = new Coods(array)
-    override def buffImut(buff: CoodsBuff): Coods = ???
+    override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
+    override def fromIntBuffer(inp: Buff[Int]): CoodsBuff = new CoodsBuff(inp)
   }
 }
 

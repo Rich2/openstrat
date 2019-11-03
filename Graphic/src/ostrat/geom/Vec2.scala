@@ -128,9 +128,8 @@ object Vec2
 
   implicit val vec2sBuildImplicit: ArrBuild[Vec2, Vec2s] = new ArrProdDbl2Build[Vec2, Vec2s]
   { type BuffT = Vec2sBuff
-    override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
-    override def buffNew(length: Int = 4): Vec2sBuff = ???
-    override def buffImut(buff: Vec2sBuff): Vec2s = ???
+    override def fromDblArray(array: Array[Double]): Vec2s = new Vec2s(array)
+    def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2sBuff = new Vec2sBuff(inp)
   }
 }
 

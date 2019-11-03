@@ -37,7 +37,14 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A]
  *  companion object of not BB. This is different from the related ArrProdDblNBinder[BB] typeclass where instance should go into the BB companion
  *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
  *  */
-trait ArrProdDblNBuild[A, ArrT <: ArrProdDblN[A]] extends ArrProdHomoBuild[A, ArrT]
+trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdHomoBuild[B, ArrT]
+{ type BuffT <: BuffProdDblN[B]
+  def fromDblArray(array: Array[Double]): ArrT
+  def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
+  final override def buffNew(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
+  final override def imutNew(length: Int): ArrT = fromDblArray(new Array[Double](length * elemSize))
+  final override def buffToArr(buff: BuffT): ArrT = fromDblArray(buff.buffer.toArray)
+}
 
 trait BuffProdDblN[A] extends Any with ArrBuffHomo[A]
 { type ArrT <: ArrProdDblN[A]

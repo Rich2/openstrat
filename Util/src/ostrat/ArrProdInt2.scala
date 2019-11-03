@@ -7,10 +7,10 @@ trait ProdInt2 extends Any with Product2[Int, Int] with ProdHomo
 
 trait ArrProdInt2sBuild[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdIntNBuild[A, ArrT]
 { type BuffT <: BuffProdInt2[A, ArrT]
-  def fromArray(array: Array[Int]): ArrT
+
+  final override def elemSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
-  override def imutNew(length: Int): ArrT = fromArray(newArray(length))
-  override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
+  final override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
   override def buffAppend(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
 }
 

@@ -63,6 +63,8 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
  *  the related ArrProdHomoBinder[BB] typeclass where instance should go into the BB companion object.The Implicit instances that inherit from this
  *  trait will normally go in the companion object of type B, not the companion object of ArrT. */
 trait ArrProdHomoBuild[B, ArrT <: ArrProdHomo[B]] extends ArrBuild[B, ArrT]
+{ def elemSize: Int
+}
 
 abstract class ArrProdHomoPersist[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
