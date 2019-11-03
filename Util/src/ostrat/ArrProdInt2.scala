@@ -5,6 +5,15 @@ import collection.mutable.ArrayBuffer
 /** Homogeneous Product2[Int, Int] with Stringer. These are used in ArrHomoInt2s Array[Int] based collections. */
 trait ProdInt2 extends Any with Product2[Int, Int] with ProdHomo
 
+trait ArrProdInt2sBuild[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdIntNBuild[A, ArrT]
+{ type BuffT <: BuffProdInt2[A, ArrT]
+  def fromArray(array: Array[Int]): ArrT
+  def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
+  override def imutNew(length: Int): ArrT = fromArray(newArray(length))
+  override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
+  override def buffAppend(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
+}
+
 trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
 { 
   override def productSize: Int = 2  
@@ -20,14 +29,15 @@ trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
-trait ProductI2sBuff[A <: ProdInt2, M <: ArrProdInt2[A]] extends Any with ArrBuffHomoInts[A, M]
-{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
+trait BuffProdInt2[A <: ProdInt2, M <: ArrProdInt2[A]] extends Any with BuffProdHomoInts[A]
+{ type ArrT <: ArrProdInt2[A]
+  override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
 abstract class ProductI2sCompanion[A <: ProdInt2, M <: ArrProdInt2[A]] extends ProductIntsCompanion[M]
 {
   implicit val factory: Int => M = i => fromArray(new Array[Int](i * 2))
-  def buff(initialSize: Int): ProductI2sBuff[A, M]
+  def buff(initialSize: Int): BuffProdInt2[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 2

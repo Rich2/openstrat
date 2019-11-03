@@ -13,7 +13,9 @@ trait ArrFlatBuild[BB <: ArrImut[_]]
  *  control should go in the companion object of B not the companion object of not BB. This is different from the related ArrBinder[BB] typeclass
  *  where instance should go into the BB companion object. */
 trait ArrBuild[B, BB <: ArrImut[B]]
-{ type BuffT // <: BufferLike[B]
+{ /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
+      BuffProdHomo. */
+  type BuffT
   def imutNew(length: Int): BB
   def imutSet(arr: BB, index: Int, value: B): Unit
   def buffNew(length: Int = 4): BuffT

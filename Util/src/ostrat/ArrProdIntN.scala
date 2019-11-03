@@ -24,14 +24,21 @@ trait ArrProdIntN[A] extends Any with ArrProdHomo[A]
   }
 }
 
+/** ArrProdIntlNBuild[B, BB] is a type class for the building of efficient compact Immutable Arrays of Dbl Product elements. ArrT uses a compile time
+ *  wrapped underlying Array[Int]. Instances for this typeclass for classes / traits you control should go in the companion object of B not the
+ *  companion object of not BB. This is different from the related ArrProdIntNFlatBuild[BB] typeclass where instance should go into the BB companion
+ *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
+ *  */
+trait ArrProdIntNBuild[A, ArrT <: ArrProdIntN[A]] extends ArrProdHomoBuild[A, ArrT]
+
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * ArrayBuffer[Int] They are named ProductIntsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
-trait ArrBuffHomoInts[A, M <: ArrProdIntN[A]] extends Any with ArrBuffHomo[A, M]
-{ def buffer: ArrayBuffer[Int]
+trait BuffProdHomoInts[A] extends Any with ArrBuffHomo[A]
+{ type ArrT <: ArrProdIntN[A]
+  def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]
-  def unBuff: M
   def append(newElem: A): Unit
-  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
+  override def addAll(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
 }
 
 abstract class ProductIntsBuilder[A, M <: ArrProdIntN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)

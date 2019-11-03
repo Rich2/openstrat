@@ -25,13 +25,13 @@ trait ArrProdInt4[A <: ProdInt4] extends Any with ArrProdIntN[A]
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
 }
 
-trait ProductI4sBuff[A <: ProdInt4, M <: ArrProdInt4[A]] extends Any with ArrBuffHomoInts[A, M]
+trait ProdInt4Buff[A <: ProdInt4, M <: ArrProdInt4[A]] extends Any with BuffProdHomoInts[A]
 { override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4); ()}
 }
 
 abstract class ProdInt4sCompanion[A <: ProdInt4, M <: ArrProdInt4[A]]
 { val factory: Int => M
-  def buff(initialSize: Int): ProductI4sBuff[A, M]
+  def buff(initialSize: Int): ProdInt4Buff[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4

@@ -31,8 +31,8 @@ class CoodLines(val array: Array[Int]) extends AnyVal with ArrProdInt4[CoodLine]
   //override def toString: String = CoodLines.PersistImplicit.show(this)
 }
 
-class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProductI4sBuff[CoodLine, CoodLines]
-{ override def unBuff: CoodLines = new CoodLines(toArray)
+class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProdInt4Buff[CoodLine, CoodLines]
+{// override def unBuff: CoodLines = new CoodLines(toArray)
 }
 
 object CoodLines extends ProdInt4sCompanion[CoodLine, CoodLines]

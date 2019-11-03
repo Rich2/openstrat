@@ -58,11 +58,11 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
   }
 }
 
-trait ArrBuffHomo[A, M <: ArrProdHomo[A]] extends Any
-{ def unBuff: M
-  def append(newElem: A): Unit
-  def addAll(newElems: M): Unit
-}
+/** ArrProdHomoBuild[B, BB] is a type class for the building of efficient compact Immutable Arrays of homogeneous Product elements. Instances for
+ *  this typeclass for classes / traits you control should go in the companion object of B not the companion object of not BB. This is different from
+ *  the related ArrProdHomoBinder[BB] typeclass where instance should go into the BB companion object.The Implicit instances that inherit from this
+ *  trait will normally go in the companion object of type B, not the companion object of ArrT. */
+trait ArrProdHomoBuild[B, ArrT <: ArrProdHomo[B]] extends ArrBuild[B, ArrT]
 
 abstract class ArrProdHomoPersist[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */

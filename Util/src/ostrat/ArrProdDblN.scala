@@ -32,12 +32,22 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A]
   }
 }
 
-trait ArrBuffDblN[A, M <: ArrProdDblN[A]] extends Any with ArrBuffHomo[A, M]
-{ def buffer: ArrayBuffer[Double]
+/** ArrProdDblNBuild[B, BB] is a type class for the building of efficient compact Immutable Arrays of Dbl Product elements. ArrT uses a compile time
+ *  wrapped underlying Array[Double]. Instances for this typeclass for classes / traits you control should go in the companion object of B not the
+ *  companion object of not BB. This is different from the related ArrProdDblNBinder[BB] typeclass where instance should go into the BB companion
+ *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
+ *  */
+trait ArrProdDblNBuild[A, ArrT <: ArrProdDblN[A]] extends ArrProdHomoBuild[A, ArrT]
+
+trait BuffProdDblN[A] extends Any with ArrBuffHomo[A]
+{ type ArrT <: ArrProdDblN[A]
+  def buffer: ArrayBuffer[Double]
+  def elemSize: Int
+  def length: Int = buffer.length / elemSize
   def toArray: Array[Double] = buffer.toArray[Double]
-  def unBuff: M
+//  def unBuff: M
   def append(newElem: A): Unit
-  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
+  override def addAll(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
 }
 
 trait ProdDblNsCompanion[T,  ST <: ArrProdDblN[T]]

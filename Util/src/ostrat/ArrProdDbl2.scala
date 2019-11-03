@@ -5,13 +5,13 @@ import collection.mutable.ArrayBuffer
 /** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
 trait ProdDbl2 extends Any with Product2[Double, Double] with ProdHomo
 
-trait ProdDbl2sBuild[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrBuild[A, ArrT]
-{
+trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDblNBuild[A, ArrT]
+{ type BuffT <: BuffProdDbl2[A]
   def fromArray(array: Array[Double]): ArrT
   def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
   override def imutNew(length: Int): ArrT = fromArray(newArray(length))
   override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
-  override def buffAppend(buff: BuffT, value: A): Unit = ??? // { buff.append(value._1,) ??? //buff.buffer.append(value)
+  override def buffAppend(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
 }
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
@@ -55,9 +55,7 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
-trait ArrBuffDbl2[A <: ProdDbl2, M <: ArrProdDbl2[A]] extends Any with ArrBuffDblN[A, M]
-{ override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
-}
+
 
 trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsCompanion[T, ST]
 {
@@ -128,7 +126,8 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
   override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
 }
 
-trait BuffProdDbl2[A <: ProdDbl2] extends Any
-{ def buffer: ArrayBuffer[Double]
-  def length: Int = buffer.length / 2
+trait BuffProdDbl2[A <: ProdDbl2] extends Any with BuffProdDblN[A]
+{ type ArrT <: ArrProdDbl2[A]
+  override def elemSize: Int = 2
+  override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }

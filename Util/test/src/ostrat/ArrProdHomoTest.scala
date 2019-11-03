@@ -14,7 +14,7 @@ object ArrProdHomoTest  extends TestSuite
 
   object Mine
   {
-    implicit val arrBuilderImplicit: ArrBuild[Mine, Mines] = new ProdDbl2sBuild[Mine, Mines]
+    implicit val arrBuilderImplicit: ArrBuild[Mine, Mines] = new ArrProdDbl2Build[Mine, Mines]
     { type BuffT = MinesBuff
       override def fromArray(array: Array[Double]): Mines = new Mines(array)
       override def buffNew(length: Int = 4): MinesBuff = ??? // new IntsBuff(new ArrayBuffer[Int](length))

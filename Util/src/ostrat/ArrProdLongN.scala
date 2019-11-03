@@ -23,12 +23,12 @@ trait ArrProdLongN[A] extends Any with ArrProdHomo[A]
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Long, Long or Float. They are stored with a backing
  * ArrayBuffer[Long] They are named ProductLongsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
-trait ProductLongsBuff[A, M <: ArrProdLongN[A]] extends Any with ArrBuffHomo[A, M]
+trait ProductLongsBuff[A] extends Any with ArrBuffHomo[A]
 { def buffer: ArrayBuffer[Long]
   def toArray: Array[Long] = buffer.toArray[Long]
-  def unBuff: M
+//  def unBuff: M
   def append(newElem: A): Unit
-  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
+//  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
 abstract class ProductLongsBuilder[A, M <: ArrProdLongN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)
