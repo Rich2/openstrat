@@ -11,31 +11,38 @@ def commonSettings = List(
     testFrameworks += new TestFramework("utest.runner.Framework"), 
 )
 
-def stdSettings = commonSettings ::: List(
-  scalaSource := (baseDirectory).value / "src",
-  Compile/scalaSource := baseDirectory.value / "src",
-  Test/scalaSource := baseDirectory.value / "test/src",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value, baseDirectory.value / "examples/src"),
+def stdSettings(name: String) = commonSettings ::: List(
+  scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
+  Test/scalaSource := (ThisBuild/baseDirectory).value / name / "test/src",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / name / "examples/src"),
+  version := (ThisBuild/version).value
 )
 
-lazy val UtilMacros = (project in file("Util/Macros")).settings(stdSettings).settings(  
+lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/src",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+)
+
+def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings(stdSettings(name))
+
+lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros).settings(
   Compile/unmanagedSourceDirectories := List(scalaSource.value),	
 )
 
-lazy val Util = project.dependsOn(UtilMacros).settings(stdSettings).settings(
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),	
+lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Graphic" / str),
 )
 
-lazy val Graphic = project.dependsOn(Util).settings(stdSettings).settings(
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+lazy val World = stdJvmProj("World").dependsOn(Graphic).settings(
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "World" / str),
 )
 
-lazy val World = project.dependsOn(Graphic).settings(stdSettings).settings(
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
-)
-
-lazy val Strat = project.dependsOn(World).settings(stdSettings).settings(
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(baseDirectory.value / _),
+lazy val Strat = stdJvmProj("Strat").dependsOn(World).settings(
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Strat" / str),
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
 
@@ -55,7 +62,7 @@ lazy val DocProj = (project in file("target/DocProj")).dependsOn(UtilMacros).set
   apiURL := Some(url("https://richstrat.com/api/")),
 )
 
-def jsProj(name: String) = Project("Js" + name, file("Dev/SbtDir/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
+def jsProj(name: String) = Project("Js" + name, file("target/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.7",
   scalaSource := (ThisBuild/baseDirectory).value / name / "src",
