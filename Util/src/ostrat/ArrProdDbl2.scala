@@ -57,7 +57,6 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
 }
 
 
-
 trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsCompanion[T, ST]
 {
   implicit val persistImplicit: ArrProdDbl2Persist[T, ST]
@@ -73,19 +72,6 @@ trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsC
     while (count < length)
     { res.array(count * 2) = elems(count)._1
       res.array(count * 2 + 1) = elems(count)._2
-      count += 1
-    }
-    res
-  }
-
-  def doubles(elems: Double*): ST =
-  {
-    val arrLen: Int = elems.length
-    val res = factory(elems.length / 2)
-    var count: Int = 0
-
-    while (count < arrLen)
-    { res.array(count) = elems(count)
       count += 1
     }
     res

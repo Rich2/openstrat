@@ -133,6 +133,8 @@ object Vec2
   }
 }
 
+class Vec2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Vec2]
+
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
  *  LinePath class should not entail a runtime cost. */
 class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
@@ -146,6 +148,7 @@ class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
   @inline def yStart: Double = array(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
   def toPolygon: Polygon = new Polygon(array)
+  def toLinePath: LinePath = new LinePath(array)
 
   def fTrans(f: Vec2 => Vec2): Vec2s =  new Vec2s(arrTrans(f))
 
@@ -171,11 +174,7 @@ class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
     new Polygon(acc)
   }
 
-  //def draw(lineWidth: Double, colour: Colour = Colour.Black): Vec2sDraw = LinePathDraw(this, lineWidth, colour)
-}
-
-class Vec2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Vec2]
-{// override def apply(index: Int): Vec2 = ??? // buffer(index)
+  def toPathDraw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this.toLinePath, lineWidth, colour)
 }
 
 object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
@@ -184,5 +183,5 @@ object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
   { override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
   }
 
-
+  implicit val arrFlatBuildImplicit: ArrFlatBuild[Vec2s] = ???
 }
