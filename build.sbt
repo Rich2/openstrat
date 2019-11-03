@@ -1,4 +1,4 @@
-ThisBuild/version := "0.0.5-snap"
+ThisBuild/version := "0.0.7snap"
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.13.1"
 ThisBuild/organization := "OpenStratOrg"
@@ -39,12 +39,19 @@ lazy val Strat = project.dependsOn(World).settings(stdSettings).settings(
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
 
-lazy val root = (project in file(".")).dependsOn(Strat).settings(commonSettings).settings(
+lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
   Compile/scalaSource := baseDirectory.value / "Dev/src",
   Test/scalaSource := baseDirectory.value / "Dev/test/src",
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/examples/src").map(s => baseDirectory.value / s),
   Compile/unmanagedResourceDirectories := List(baseDirectory.value / "Dev/mine"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
+)
+
+lazy val DocProj = (project in file("target/DocProj")).dependsOn(UtilMacros).settings(commonSettings).settings(
+  Compile/unmanagedSourceDirectories := List("Util/src", "Graphic/src", "Graphic/jvm/src", "Graphic/examples/src", "World/src", "Strat/src", "Dev/src").map(s => (ThisBuild/baseDirectory).value / s),
+  version := "0.0.7snap",
+  autoAPIMappings := true,
+  apiURL := Some(url("https://richstrat.com/api/")),
 )
 
 def jsProj(name: String) = Project("Js" + name, file("Dev/SbtDir/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
