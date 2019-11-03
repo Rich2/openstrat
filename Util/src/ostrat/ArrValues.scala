@@ -38,11 +38,6 @@ object Ints
   }
 }
 
-/*class IntsBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with BufferLike[Int]
-{ override def length: Int = buffer.length
-  override def apply(index: Int): Int = buffer(index)
-}*/
-
 class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 { type ThisT = Longs
   override def buildThis(length: Int): Longs = new Longs(new Array[Long](length))

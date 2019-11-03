@@ -15,6 +15,8 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDbl
   override def buffAppend(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
 }
 
+trait ArrProdDbl2FlatBuild[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrFlatBuild[ArrT]
+
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
 trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
 {
@@ -55,7 +57,6 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
   def toArrs: Arr[Arr[Double]] = mapArrSeq(el => Arr(el._1, el._2))
   def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
-
 
 trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsCompanion[T, ST]
 {
