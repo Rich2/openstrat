@@ -48,6 +48,7 @@ lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnido
 )
 
 lazy val DocProj = (project in file("target/DocProj")).dependsOn(UtilMacros).settings(commonSettings).settings(
+  name := "OpenStrat",
   Compile/unmanagedSourceDirectories := List("Util/src", "Graphic/src", "Graphic/jvm/src", "Graphic/examples/src", "World/src", "Strat/src", "Dev/src").map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
   autoAPIMappings := true,
