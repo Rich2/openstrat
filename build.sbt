@@ -99,6 +99,6 @@ lazy val JsStrat = jsProj("Strat").dependsOn(JsWorld).settings(
   Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src", "Graphic/examples/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
