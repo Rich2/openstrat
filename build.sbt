@@ -54,9 +54,19 @@ lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnido
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-lazy val DocProj = (project in file("target/DocProj")).dependsOn(UtilMacros).settings(commonSettings).settings(
+val docDirs: List[String] = List("Util", "Graphic", "World", "Strat", "Dev")
+
+lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSettings).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := List("Util/src", "Graphic/src", "Graphic/jvm/src", "Graphic/examples/src", "World/src", "Strat/src", "Dev/src").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/jvm/src", el + "/examples/src")).map(s => (ThisBuild/baseDirectory).value / s),
+  version := "0.0.7snap",
+  autoAPIMappings := true,
+  apiURL := Some(url("https://richstrat.com/api/")),
+)
+
+lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSettings).settings(
+  name := "OpenStrat",
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/js/src", el + "/examples/src")).map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),

@@ -29,15 +29,15 @@
 </ul>
 </b></p>
 
-<p>The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision, part of which was to explore the possiblites of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary focuses have developed:
+<p>The Strategy games was the original motivation for the project, but the Geometry and Graphics library have far wider applicability. The Geometry and Graphics are far more developed, while the tiling and strategy games are still in a far more expermiental stage. This is in accordance with the oriinal vision, part of which was to explore the possiblites of an Algebra of Tiling. Out of the needs of these 2 primary focuses, 2 secondary focuses have developed. If you are new to programming then just ignore these for the time being.
   <ul>
     <li>RSON A Show, 2D-Show and Persistence Library / Framework.</li>
     <li>Heapless Efficent funtional Array based mapping and Compound Value type collections library. Join the Not[Boxer] Rebellion.</li>
   </ul>
 </p>
 
-<p>It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="api/ostrat/index.html">Scala Docs</a></p>
-
+<p>It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="api/ostrat/index.html">Scala Docs</a> and See <a href="apiJs/ostrat/index.html">Scala Docs for JavaScript target.</a></p></p>
+<p>It currently works on JavaFx and web page. Using canvas on both platforms.
 <p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and want to get involved, drop into the gitter channel and say hi. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.</p>
 
 <p>However at the other end, I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal language to explore these questions.</p>
@@ -46,16 +46,21 @@
 
 <p>Run <code>sbt</code> in bash from project's root folder</p>
 
-<p>From within the sbt console run:<br>
-<code class="sbt">~ reStart</code> To launch a ScalaFx window. The most useful command for development<br>
-<code class="sbt">~ JsDev/fastOptJS</code> To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html<br>
-<code class="sbt">JsDev/fullOptJS</code> To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html<br>
-<code class="sbt">~ Util/test</code> Rerun tests on Util module.<br>
-<code class="sbt">~ Graphic/test</code> Rerun tests on, Graphic module.<br>
-<code class="sbt">~ Strat/test</code> Rerun tests on, Strat module.<br>
-<code class="sbt">~ Util/test;  Graphic/test; Strat/test</code> Rerun tests on Util module.<br>
-<code class="sbt">DocProj/doc</code> Will produce docs for the UtilJvm GraphicJvm and StratJvm modules. They can be found in target/DocProj/target/scala-2.12/api/. Local link PathToProject/openstrat/target/DocProj/target/scala-2.12/api/index.html</p>
-
+<p>From within the sbt console run:
+  <ul>
+  	<li><code class="sbt">~ reStart</code> To launch a ScalaFx window. The most useful command for development</li>
+  	<li><code class="sbt">~ JsDev/fastOptJS</code> To rebuild a fast optimised JavaScript file. Use with WebPages/SbtFastDev.html</li>
+  	<li><code class="sbt">JsDev/fullOptJS</code> To build a full optimised JavaScript file. Use with WebPages/SbtFullDev.html</li>
+  	<li><code class="sbt">~ Util/test</code> Rerun tests on Util module.</li>
+  	<li><code class="sbt">~ Graphic/test</code> Rerun tests on, Graphic module.</li>
+  	<li><code class="sbt">~ Strat/test</code> Rerun tests on, Strat module.</li>
+  	<li><code class="sbt">~ Util/test;  Graphic/test; Strat/test</code> Rerun tests on Util module.</li>
+  	<li><code class="sbt">DocMain/doc</code> Will produce docs for all the main code in all the modules for the Jvm platform. They can be found in
+  	  <a href="target/DocMain/target/scala-2.13/api/">target/DocMain/target/scala-2.13/api/index.html.</a></li>
+  	<li><code class="sbt">DocJs/doc</code> Will produce docs for all the main code in all the modules for the Javascript platform. They can be found in
+  	  <a href="target/DocMain/target/scala-2.13/api/">target/DocJs/target/scala-2.13/api/index.html.</a></li>
+  	</ul>
+  </p>
 
 <p>The tilde <code>~</code> tells sbt to rerun the command every time you modify and save a source file. The first command will build and launch a ScalaFx window. It will rebuild and relaunch so you can immediately see the effects of your changes. Copy the DevSettings.rson file from the Misc folder to the  Dev/mine folder. Creating the directory and its parents if not already existing. Change the appStr setting in DevSettings.rson to change the application. All the examples on the richstrat.com website are available plus others. The second command will also rebuild on source changes in similar manner. However unlike with the reStart command, when you make a source file edit and save it, you will have to manually refresh the browser window after the fastOptJS command has finished the rebuild.</p>
 
