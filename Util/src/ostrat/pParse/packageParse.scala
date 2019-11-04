@@ -22,7 +22,7 @@ package object pParse
     TokensFind(input)(inputSourceName).flatMap(GetStatements(_))
   /** Returns an EMon of a sequence of Statements from a String. */
   def stringToStatements(input: String): ERefs[Statement] =
-    stringToTokens(input).flatMap(GetStatements(_))//.map(_.toArr)
+    stringToTokens(input).flatMap(GetStatements(_))
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokens(srcStr: String): EMon[Refs[Token]] = TokensFind(srcStr).fromString
 }

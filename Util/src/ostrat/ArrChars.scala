@@ -60,7 +60,8 @@ class CharsOff(val offset: Int) extends AnyVal
     (new Chars(newArray), drop(count))
   }
   /** Checks condition against head. Returns false if the collection is empty. */
-  def ifHead(f: Char => Boolean)(implicit chars: Chars) : Boolean = (chars.length > offset) & f(chars(offset))
+  def ifHead(f: Char => Boolean)(implicit chars: Chars) : Boolean = (chars.length > offset) &
+    f(chars(offset))
 }
 
 /** Extractor for empty immutable heapless iterator for Chars. */

@@ -147,7 +147,7 @@ case class TokensFind(srcStr: String)
     { case CharsOff0() => Good3(rem, tp.addStr(strAcc), IntHexToken(tp, strAcc, intAcc))
       case CharsOff1(h, tail) => h match
       {
-        case d if d.isHexDigit && (strAcc.length == 9) && tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)
+        case d if d.isHexDigit & (strAcc.length == 9) & tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)
         case d if d.isDigit => hexIntLoop(tail, strAcc + d.toString, (intAcc * 16) + d - '0')
         case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'A' + 10)
         case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'a' + 10)
