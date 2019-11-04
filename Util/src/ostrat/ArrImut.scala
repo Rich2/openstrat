@@ -30,6 +30,6 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
     newArr
   }
 
-  def offsetter: ArrOff[A @uncheckedVariance] = new ArrOff[A](0)
+  //def offsetter: ArrOff[A @uncheckedVariance] = new ArrOff[A](0)
 }
 

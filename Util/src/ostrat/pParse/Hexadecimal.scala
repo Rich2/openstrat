@@ -32,7 +32,10 @@ object Hexadecimal
     }
 
     rem match
-    { case CharsOff3Tail('0', 'x', HexaDigitChar(c, i), tail) => hexIntLoop (tail, "0x" + c, 0)
+    { case CharsOff2Tail('0', 'x', tail) if tail.forN(16, _.isHexaDigit) => ??? //Needs big integer
+      case CharsOff2Tail('0', 'x', tail) if tail.forN(8, _.isHexaDigit) => hexLongLoop(tail, "Ox", 0)
+      case CharsOff3Tail('0', 'x', HexaDigitChar(_, i), tail) if i >= 8 & tail.forN(6, _.isHexaDigit) => hexLongLoop(tail, "Ox", 0)
+      case CharsOff3Tail('0', 'x', HexaDigitChar(c, i), tail) => hexIntLoop (tail, "0x" + c, 0)
       case CharsOff3Plus('0', 'x', WhitespaceChar(_)) => bad1(tp, "Empty hexademicmal token.")
       case CharsOff3Plus('0', 'x', c) => bad1(tp, "Badly formed hexademicmal token.")
       case CharsOff2('O', 'x') => bad1(tp, "Unclosed hexadecimal token")

@@ -40,11 +40,9 @@ object Chars
 }*/
 
 /** Immutable heapless iterator for Char arrays. */
-class CharsOff(val offset0: Int) extends AnyVal
-{ @inline def offset1: Int = offset0 + 1
-  @inline def offset2: Int = offset0 + 2
-  @inline def offset3: Int = offset0 + 3
-  @inline def offset4: Int = offset0 + 4
+class CharsOff(val offset0: Int) extends AnyVal with ArrOff[Char, Chars]
+{
+  override def apply(index: Int)(implicit chars: Chars): Char = chars(offset0 + index)
   def drop(n: Int): CharsOff = new CharsOff(offset0 + n)
   def drop1: CharsOff = new CharsOff(offset1)
   def drop2: CharsOff = new CharsOff(offset2)
