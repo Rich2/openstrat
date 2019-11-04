@@ -84,23 +84,42 @@ object IntToken
   }
 }
 
+/** An 32 or 64 bit Integer token in standard decimal format. */
+trait IntLikeDeciToken extends ExprToken
+
+/** An 32 or 64 bit Integer tiken in hexadecimal format. */
+trait IntLikeHexaToken extends ExprToken
+
 /** A 32 bit integer token in standard decimal format. */
-case class IntDecToken(startPosn: TextPosn, intValue: Int) extends IntToken
+case class IntDeciToken(startPosn: TextPosn, intValue: Int) extends IntToken with IntLikeDeciToken
 { override def toString: String = "IntDecToken".appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def exprName: String = "IntTokenExpr"
   override def tokenTypeStr: String = "IntDecToken"
   override def srcStr: String = intValue.toString
 }
-case class IntHexToken(startPosn: TextPosn, srcStr: String, intValue: Int) extends IntToken
-{ override def exprName: String = "HexIntIntTokenExpr"
+
+
+/** A 32 bit interger token in hexadecimal */
+case class IntHexaToken(startPosn: TextPosn, srcStr: String, intValue: Int) extends IntToken with IntLikeHexaToken
+{ override def exprName: String = "HexIntTokenExpr"
   override def tokenTypeStr: String = "IntHexToken"
 }
 
+/** A 64 bit Long integer Token. */
+trait LongIntToken extends ExprToken
+{ def longValue: Long
+}
 
-/** A 64bit signed integer token */
-case class LongIntToken(startPosn: TextPosn, srcStr: String, longValue: Long) extends ExprToken
-{ override def exprName: String = "LongIntTokenExpr"
-  override def tokenTypeStr: String = "LongIntToken"
+/** A 64bit signed integer token in standard decimal format. */
+case class LongDeciToken(startPosn: TextPosn, srcStr: String, longValue: Long) extends LongIntToken with IntLikeDeciToken
+{ override def exprName: String = "LongDeciTokenExpr"
+  override def tokenTypeStr: String = "LongDeciToken"
+}
+
+/** A 64bit signed integer token in hexadecimal format. */
+case class LongHexaToken(startPosn: TextPosn, srcStr: String, longValue: Long) extends LongIntToken with IntLikeHexaToken
+{ override def exprName: String = "LongHexaokenExpr"
+  override def tokenTypeStr: String = "LongHexaToken"
 }
 
 

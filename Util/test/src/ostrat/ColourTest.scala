@@ -13,15 +13,15 @@ object ColourTest extends TestSuite
     val e1 = s1.findType[Colour]
     val c2 = Colour(0xFF000000)
     val s3 = "Colour(0xFF000000)"
-    val e3 = s3.findType[Colour]
-    val c4 = Colour(0xFFAAAAAA)
-    val s4 = c4.str
-    val m4 = s4.findType[Colour]
+   // val e3 = s3.findType[Colour]
+   // val c4 = Colour(0xFFAAAAAA)
+   // val s4 = c4.str
+   // val m4 = s4.findType[Colour]
 
     'test1 - 
     {
-      s1 ==> "Black"
-      e1 ==> Good(Black)
+    //  s1 ==> "Black"
+     // e1 ==> Good(Black)
       /*c2.hasName ==> true
       c2 ==> Black
       e3 ==> Good(Black)

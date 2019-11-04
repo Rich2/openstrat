@@ -15,10 +15,10 @@ object TokenTest extends TestSuite
 
     'Test1
     { Sp1 ==> StrPosn(1, 1)
-      assertMatch("45".findTokens){case GoodRefs1(IntDecToken(Sp1, 45)) => }
+      assertMatch("45".findTokens){case GoodRefs1(IntDeciToken(Sp1, 45)) => }
       assertMatch("45".findTokens){case GoodRefs1(IntToken(Sp1, "45", 45)) => }
-      assertMatch("0x2D".findTokens){case GoodRefs1(IntToken(Sp1, "0x2D", 45)) => }
-      assertMatch("0x11".findTokens){case GoodRefs1(IntHexToken(Sp1, "0x11", 17)) => }
+
+      assertMatch("0x11".findTokens){case GoodRefs1(IntHexaToken(Sp1, "0x11", 17)) => }
       assertMatch("0x11".findTokens){case GoodRefs1(IntToken(Sp1, "0x11", 17)) => }
       assertMatch("{".findTokens){case GoodRefs1(CurlyOpen(Sp1)) => }
       assertMatch("}".findTokens){case GoodRefs1(CurlyClose(Sp1)) => }
@@ -36,7 +36,7 @@ object TokenTest extends TestSuite
     'Neg
     {
       assertMatch("-".findTokens){case GoodRefs1(PlusInToken(_, _)) => }
-      assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDecToken(Sp3, 4)) => }
+      assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, 4)) => }
     }
   }
 }

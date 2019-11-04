@@ -9,12 +9,15 @@ case class TokensFind(srcStr: String)
   implicit val charArr: Chars = new Chars(array)
   type ETokenList = EMon[Refs[Token]]
   /** Max numbers for long and hexadecimal formats needs to be implemented */
-  def apply(fileName: String): ETokenList = mainLoop(charArr.charsOffsetter, new TextPosn(fileName, 1, 1), Buff[Token]())
+  def apply(fileName: String): ETokenList ={
+    deb("Entering Main loop")
+    mainLoop(charArr.charsOffsetter, new TextPosn(fileName, 1, 1), Buff[Token]())
+  }
   def fromString: ETokenList = apply("String")
 
   private def mainLoop(remOff: CharsOff, tp: TextPosn, acc: Buff[Token]): ETokenList = remOff match
   {
-    case CharsOff0() => acc.goodRefs//Good(acc.toList)//goodReverse
+    case CharsOff0() => acc.goodRefs
     case CharsOff1(';', newOff) => mainLoop(newOff, tp.nextChar, acc.append(SemicolonToken(tp)))
     case CharsOff1(',', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(CommaToken(tp)))
     case CharsOff1('(', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(ParenthOpen(tp)))
@@ -52,14 +55,15 @@ case class TokensFind(srcStr: String)
     {
       val possToken: EMon[(CharsOff, TextPosn, Token)] = remOff match
       {
-        case CharsOff2('0', 'x', tail)  => zeroX(tail, tp)
+        case CharsOff2('0', 'x', tail)  => {deb("0"); Hexadecimal(tail, tp) }
         case CharsOff1(d, tail) if d.isDigit => digitStart(tail, tp, d)
         //Not sure if that should be tail instead of remOff
         case CharsOffHead(c) if isOperator(c) => operatorStart(remOff, tp)
         case CharsOff1('\"', tail) => quoteStart(tail, tp)
         case CharsOffHead(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
       }
-      possToken.flatMap{pair =>
+      deb("The rest")
+      possToken.flatMap{ pair =>
         val (rem, tp, token) = pair
         mainLoop(rem, tp, acc.append(token))
       }
@@ -112,24 +116,24 @@ case class TokensFind(srcStr: String)
   {
     def intLoop(rem: CharsOff, str: String, intAcc: Int): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
-      case CharsOff0() =>  Good3(rem, tp.addStr(str), IntDecToken(tp, intAcc))
+      case CharsOff0() =>  Good3(rem, tp.addStr(str), IntDeciToken(tp, intAcc))
       case CharsOff1(d, t) if d.isDigit && str.length == 9 && t.ifHead(_.isDigit) => longLoop(rem, str, intAcc.toLong)
       case CharsOff1(d, tail) if d.isDigit && str.length == 9 && intAcc > 214748364 => longLoop(rem, str, intAcc.toLong)
       case CharsOff1(d, tail) if d.isDigit && str.length == 9 && intAcc == 214748364 && d > '7' => longLoop(rem, str, intAcc.toLong)
       case CharsOff1(d, tail) if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d - '0')
       case CharsOff1('.', tail) => decimalLoop(tail, str + firstDigit.toString, intAcc, 10)
-      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str),  IntDecToken(tp, intAcc))
+      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str),  IntDeciToken(tp, intAcc))
     }
              
     def longLoop(rem: CharsOff, str: String, longAcc: Long): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
-      case CharsOff0() => Good3(rem, tp.addStr(str),LongIntToken(tp, str, longAcc))
+      case CharsOff0() => Good3(rem, tp.addStr(str),LongDeciToken(tp, str, longAcc))
       case CharsOff1(d, tail) if d.isDigit && str.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")
       case CharsOff1(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L => bad1(tp, "Integer too big for 64 bit value")
       case CharsOff1(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L && d > '7' => bad1(tp, "Integer too big for 64 bit value")
       case CharsOff1(d, tail) if d.isDigit => longLoop(tail, str + d.toString, (longAcc * 10) + d - '0')
       case CharsOff1('.', tail) => decimalLoop(tail, str + firstDigit.toString, longAcc, 10)
-      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str), LongIntToken(tp, str, longAcc))
+      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str), LongDeciToken(tp, str, longAcc))
     }      
                  
     def decimalLoop(rem: CharsOff, str: String, floatAcc: Double, divisor: Double): EMon[(CharsOff, TextPosn, Token)] = rem match
@@ -138,34 +142,10 @@ case class TokensFind(srcStr: String)
       case CharsOff1(d, tail) if d.isDigit => decimalLoop(tail, str + d.toString, floatAcc + (d - '0') / divisor, divisor * 10)
       case CharsOff1(c, tail) => Good3(rem, tp.addStr(str),  FloatToken(tp, str, floatAcc))
     }
-    intLoop(rem, firstDigit.toString, firstDigit - '0')
+    {deb("entering Int loop"); intLoop(rem, firstDigit.toString, firstDigit - '0') }
   }  
   
-  private[this] def zeroX(rem: CharsOff, tp: TextPosn): EMon[(CharsOff, TextPosn, Token)] =
-  {
-    def hexIntLoop(rem: CharsOff, strAcc: String, intAcc: Int): EMon[(CharsOff, TextPosn, Token)] = rem match
-    { case CharsOff0() => Good3(rem, tp.addStr(strAcc), IntHexToken(tp, strAcc, intAcc))
-      case CharsOff1(h, tail) => h match
-      {
-        case d if d.isHexDigit & (strAcc.length == 9) & tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)
-        case d if d.isDigit => hexIntLoop(tail, strAcc + d.toString, (intAcc * 16) + d - '0')
-        case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'A' + 10)
-        case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'a' + 10)
-        case _ => Good3(rem, tp.addStr(strAcc), IntHexToken(tp, strAcc, intAcc))
-      }
-    }
 
-    def hexLongLoop(rem: CharsOff, strAcc: String, longAcc: Long): EMon[(CharsOff, TextPosn, Token)] = rem match
-    { case CharsOff0() => Good3(rem, tp.addStr(strAcc), LongIntToken(tp, strAcc, longAcc))
-      case CharsOff1(d, tail) if d.isHexDigit && strAcc.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")
-      case CharsOff1(d, tail) if d.isDigit => hexLongLoop(tail, strAcc + d.toString, (longAcc * 16) + d - '0')
-      case CharsOff1(al, tail) if (al <= 'F') && (al >= 'A') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'A' + 10)
-      case CharsOff1(al, tail) if (al <= 'f') && (al >= 'a') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'a' + 10)
-      case CharsOff1(_, tail) => Good3(rem, tp.addStr(strAcc), LongIntToken(tp, strAcc, longAcc))
-    }
-    hexIntLoop(rem, "0x", 0)
-  }
-   
   private[this] def isOperator(char: Char): Boolean = char match
   {
     case '+' | '-' | '*' | '/' | '=' => true

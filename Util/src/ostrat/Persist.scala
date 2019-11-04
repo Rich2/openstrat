@@ -78,9 +78,9 @@ object Persist
   implicit val IntImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   { def show(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
-    { case IntDecToken(_, i) => Good(i)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "+" => Good(i)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "-" => Good(-i)
+    { case IntDeciToken(_, i) => Good(i)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "+" => Good(i)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "-" => Good(-i)
       case  _ => expr.exprParseErr[Int]
     }
   }
@@ -104,12 +104,12 @@ object Persist
   implicit val LongPersist: Persist[Long] = new PersistSimple[Long]("Long")
   { def show(obj: Long): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Long] = expr match      
-    { case IntDecToken(_, i) => Good(i.toLong)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
-      case LongIntToken(_, _, li) => Good(li)
-      case PreOpExpr(op, LongIntToken(_, _, li)) if op.srcStr == "+" => Good(li)
-      case PreOpExpr(op, LongIntToken(_, _, li)) if op.srcStr == "-" => Good(-li)
+    { case IntDeciToken(_, i) => Good(i.toLong)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
+      case LongDeciToken(_, _, li) => Good(li)
+      case PreOpExpr(op, LongDeciToken(_, _, li)) if op.srcStr == "+" => Good(li)
+      case PreOpExpr(op, LongDeciToken(_, _, li)) if op.srcStr == "-" => Good(-li)
       case  _ => expr.exprParseErr[Long]
     }
   }   
@@ -117,9 +117,9 @@ object Persist
   implicit val FloatPersist: Persist[Float] = new PersistSimple[Float]("SFloat")
   { def show(obj: Float): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Float] = expr match      
-    { case IntDecToken(_, i) => Good(i.toFloat)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
+    { case IntDeciToken(_, i) => Good(i.toFloat)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
       case FloatToken(_, _, d) => Good(d.toFloat)
       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)
@@ -130,9 +130,9 @@ object Persist
   implicit val DoubleImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
   { def show(obj: Double): String = obj.toString      
     override def fromExpr(expr: Expr): EMon[Double] = expr match      
-    { case IntDecToken(_, i) => Good(i.toDouble)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
-      case PreOpExpr(op, IntDecToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
+    { case IntDeciToken(_, i) => Good(i.toDouble)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
       case FloatToken(_, _, d) => Good(d)
       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
