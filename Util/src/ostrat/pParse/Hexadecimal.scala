@@ -9,7 +9,7 @@ object Hexadecimal
   {
     def hexIntLoop(rem: CharsOff, strAcc: String, intAcc: Int): EMon[(CharsOff, TextPosn, IntLikeHexaToken)] = rem match
     { case CharsOff0() => Good3(rem, tp.addStr(strAcc), IntHexaToken(tp, strAcc, intAcc))
-      case CharsOff1(h, tail) => h match
+      case CharsOff1Tail(h, tail) => h match
       {
         case d if d.isHexDigit & (strAcc.length == 9) & tail.ifHead(_.isDigit) => hexLongLoop(rem, strAcc, intAcc.toLong)
         case d if d.isDigit => hexIntLoop(tail, strAcc + d.toString, (intAcc * 16) + d - '0')
@@ -21,11 +21,11 @@ object Hexadecimal
 
     def hexLongLoop(rem: CharsOff, strAcc: String, longAcc: Long): EMon[(CharsOff, TextPosn, IntLikeHexaToken)] = rem match
     { case CharsOff0() => Good3(rem, tp.addStr(strAcc), LongHexaToken(tp, strAcc, longAcc))
-      case CharsOff1(d, tail) if d.isHexDigit && strAcc.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")
-      case CharsOff1(d, tail) if d.isDigit => hexLongLoop(tail, strAcc + d.toString, (longAcc * 16) + d - '0')
-      case CharsOff1(al, tail) if (al <= 'F') && (al >= 'A') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'A' + 10)
-      case CharsOff1(al, tail) if (al <= 'f') && (al >= 'a') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'a' + 10)
-      case CharsOff1(_, tail) => Good3(rem, tp.addStr(strAcc), LongHexaToken(tp, strAcc, longAcc))
+      case CharsOff1Tail(d, tail) if d.isHexDigit && strAcc.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")
+      case CharsOff1Tail(d, tail) if d.isDigit => hexLongLoop(tail, strAcc + d.toString, (longAcc * 16) + d - '0')
+      case CharsOff1Tail(al, tail) if (al <= 'F') && (al >= 'A') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'A' + 10)
+      case CharsOff1Tail(al, tail) if (al <= 'f') && (al >= 'a') => hexLongLoop(tail, strAcc + al.toString, (longAcc * 16) + al - 'a' + 10)
+      case CharsOff1Tail(_, tail) => Good3(rem, tp.addStr(strAcc), LongHexaToken(tp, strAcc, longAcc))
     }
     { deb("start of hex"); hexIntLoop(rem, "0x", 0) }
   }

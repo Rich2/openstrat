@@ -17,35 +17,35 @@ case class TokensFind(srcStr: String)
   private def mainLoop(remOff: CharsOff, tp: TextPosn, acc: Buff[Token]): ETokenList = remOff match
   {
     case CharsOff0() => acc.goodRefs
-    case CharsOff1(';', newOff) => mainLoop(newOff, tp.nextChar, acc.append(SemicolonToken(tp)))
-    case CharsOff1(',', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(CommaToken(tp)))
-    case CharsOff1('(', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(ParenthOpen(tp)))
-    case CharsOff1(')', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(ParenthClose(tp)))
-    case CharsOff1('[', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(SquareOpen(tp)))
-    case CharsOff1(']', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(SquareClose(tp)))
-    case CharsOff1('{', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(CurlyOpen(tp)))
-    case CharsOff1('}', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(CurlyClose(tp)))
-    case CharsOff1('.', newOff) => mainLoop(newOff, tp.nextChar,  acc.append(DotToken(tp)))
-    case CharsOff1('\n', newOff) => mainLoop(newOff, tp.newLine, acc)
-    case CharsOff1(h, newOff) if h.isWhitespace => mainLoop(newOff, tp.nextChar, acc)
+    case CharsOff1Tail(';', tail) => mainLoop(tail, tp.nextChar, acc.append(SemicolonToken(tp)))
+    case CharsOff1Tail(',', tail) => mainLoop(tail, tp.nextChar,  acc.append(CommaToken(tp)))
+    case CharsOff1Tail('(', tail) => mainLoop(tail, tp.nextChar,  acc.append(ParenthOpen(tp)))
+    case CharsOff1Tail(')', tail) => mainLoop(tail, tp.nextChar,  acc.append(ParenthClose(tp)))
+    case CharsOff1Tail('[', tail) => mainLoop(tail, tp.nextChar,  acc.append(SquareOpen(tp)))
+    case CharsOff1Tail(']', tail) => mainLoop(tail, tp.nextChar,  acc.append(SquareClose(tp)))
+    case CharsOff1Tail('{', tail) => mainLoop(tail, tp.nextChar,  acc.append(CurlyOpen(tp)))
+    case CharsOff1Tail('}', tail) => mainLoop(tail, tp.nextChar,  acc.append(CurlyClose(tp)))
+    case CharsOff1Tail('.', tail) => mainLoop(tail, tp.nextChar,  acc.append(DotToken(tp)))
+    case CharsOff1Tail('\n', tail) => mainLoop(tail, tp.newLine, acc)
+    case CharsOff1Tail(h, tail) if h.isWhitespace => mainLoop(tail, tp.nextChar, acc)
     //This looks wrong
-   // case CharsOff3('\'', '\\', '\\', newOff) => mainLoop(newOff, tp.right(4), acc.append(CharToken(tp, '\\')))
-  //  case CharsOff3('\'', '\\', '\"', newOff) => mainLoop(newOff, tp.right(4), acc.append(CharToken(tp, '\"')))
-  //  case CharsOff3('\'', '\\', '\'', newOff) => mainLoop(newOff, tp.right(4), acc.append(CharToken(tp, '\'')))
-    case CharsOff3('\'', c1, '\'', newOff) => mainLoop(newOff, tp.right(3), acc.append(CharToken(tp, c1)))
-    case CharsOff1('\'', _)=> bad1(tp, "Unclosed Character literal.")
+   // case CharsOff3('\'', '\\', '\\', tail) => mainLoop(tail, tp.right(4), acc.append(CharToken(tp, '\\')))
+  //  case CharsOff3('\'', '\\', '\"', tail) => mainLoop(tail, tp.right(4), acc.append(CharToken(tp, '\"')))
+  //  case CharsOff3('\'', '\\', '\'', tail) => mainLoop(tail, tp.right(4), acc.append(CharToken(tp, '\'')))
+    case CharsOff3Tail('\'', c1, '\'', tail) => mainLoop(tail, tp.right(3), acc.append(CharToken(tp, c1)))
+    case CharsOff1Tail('\'', _)=> bad1(tp, "Unclosed Character literal.")
 
-    case CharsOff1(a, newOff) if a.isLetter =>
+    case CharsOff1Tail(a, tail) if a.isLetter =>
     { val (alphaStr, finalTail) = remOff.span(a => a.isLetterOrDigit | a == '.')
       mainLoop(finalTail, tp.addChars(alphaStr.array),  acc.append(AlphaToken(tp, alphaStr.mkString)))
     }
 
-    case CharsOff2('/', '*', remOff) =>
+    case CharsOff2Tail('/', '*', remOff) =>
     {
       def loop(rem: CharsOff, tp: TextPosn): ETokenList = rem match
       { case CharsOff0() => acc.goodRefs //Good(acc.toList)
-        case CharsOff2('*', '/', rem) => mainLoop(rem, tp, acc)
-        case CharsOff1(_, rem) => loop(rem, tp.nextChar)
+        case CharsOff2Tail('*', '/', rem) => mainLoop(rem, tp, acc)
+        case CharsOff1Tail(_, rem) => loop(rem, tp.nextChar)
       }      
       loop(remOff, tp.addLinePosn(2))
     }
@@ -56,10 +56,10 @@ case class TokensFind(srcStr: String)
       val possToken: EMon[(CharsOff, TextPosn, Token)] = remOff match
       {
 
-        case CharsOff1(d, tail) if d.isDigit => digitStart(tail, tp, d)
+        case CharsOff1Tail(d, tail) if d.isDigit => digitStart(tail, tp, d)
         //Not sure if that should be tail instead of remOff
         case CharsOffHead(c) if isOperator(c) => operatorStart(remOff, tp)
-        case CharsOff1('\"', tail) => quoteStart(tail, tp)
+        case CharsOff1Tail('\"', tail) => quoteStart(tail, tp)
         case CharsOffHead(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
       }
 
@@ -75,19 +75,19 @@ case class TokensFind(srcStr: String)
     def loop(rem: CharsOff, strAcc: StringBuilder): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
       case CharsOff0() => bad1(tp, "Unclosed String")
-      case CharsOff1('\"', tail2) => Good3(tail2, tp.addLinePosn(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
+      case CharsOff1Tail('\"', tail2) => Good3(tail2, tp.addLinePosn(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
       
-      case CharsOff1('\\', tail2) => tail2 match
+      case CharsOff1Tail('\\', tail2) => tail2 match
       {
         case CharsOff0() =>  bad1(tp, "Unclosed String ending with unclosed escape Sequence")
         
-        case CharsOff1(c2, tail3) => c2 match
+        case CharsOff1Tail(c2, tail3) => c2 match
         { 
           case '\"' | '\n' | '\b' | '\t' | '\f' | '\r' | '\'' | '\\' => loop(tail3, strAcc.append(c2))
           case c2 => bad1(tp, "Unrecognised escape Sequence \\" + c2.toString)
         }
       }               
-      case CharsOff1(h, tail2) => loop(tail2, strAcc.append(h))
+      case CharsOff1Tail(h, tail2) => loop(tail2, strAcc.append(h))
     }
     loop(rem, new StringBuilder())
   }
@@ -117,30 +117,30 @@ case class TokensFind(srcStr: String)
     def intLoop(rem: CharsOff, str: String, intAcc: Int): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
       case CharsOff0() =>  Good3(rem, tp.addStr(str), IntDeciToken(tp, intAcc))
-      case CharsOff1(d, t) if d.isDigit && str.length == 9 && t.ifHead(_.isDigit) => longLoop(rem, str, intAcc.toLong)
-      case CharsOff1(d, tail) if d.isDigit && str.length == 9 && intAcc > 214748364 => longLoop(rem, str, intAcc.toLong)
-      case CharsOff1(d, tail) if d.isDigit && str.length == 9 && intAcc == 214748364 && d > '7' => longLoop(rem, str, intAcc.toLong)
-      case CharsOff1(d, tail) if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d - '0')
-      case CharsOff1('.', tail) => decimalLoop(tail, str + firstDigit.toString, intAcc, 10)
-      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str),  IntDeciToken(tp, intAcc))
+      case CharsOff1Tail(d, t) if d.isDigit && str.length == 9 && t.ifHead(_.isDigit) => longLoop(rem, str, intAcc.toLong)
+      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 9 && intAcc > 214748364 => longLoop(rem, str, intAcc.toLong)
+      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 9 && intAcc == 214748364 && d > '7' => longLoop(rem, str, intAcc.toLong)
+      case CharsOff1Tail(d, tail) if d.isDigit => intLoop(tail, str + d.toString, (intAcc * 10) + d - '0')
+      case CharsOff1Tail('.', tail) => decimalLoop(tail, str + firstDigit.toString, intAcc, 10)
+      case CharsOff1Tail(_, tail) => Good3(rem, tp.addStr(str),  IntDeciToken(tp, intAcc))
     }
              
     def longLoop(rem: CharsOff, str: String, longAcc: Long): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
       case CharsOff0() => Good3(rem, tp.addStr(str),LongDeciToken(tp, str, longAcc))
-      case CharsOff1(d, tail) if d.isDigit && str.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")
-      case CharsOff1(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L => bad1(tp, "Integer too big for 64 bit value")
-      case CharsOff1(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L && d > '7' => bad1(tp, "Integer too big for 64 bit value")
-      case CharsOff1(d, tail) if d.isDigit => longLoop(tail, str + d.toString, (longAcc * 10) + d - '0')
-      case CharsOff1('.', tail) => decimalLoop(tail, str + firstDigit.toString, longAcc, 10)
-      case CharsOff1(_, tail) => Good3(rem, tp.addStr(str), LongDeciToken(tp, str, longAcc))
+      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && tail.ifHead(_.isDigit) => bad1(tp, "Integer too big for 64 bit value")
+      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L => bad1(tp, "Integer too big for 64 bit value")
+      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L && d > '7' => bad1(tp, "Integer too big for 64 bit value")
+      case CharsOff1Tail(d, tail) if d.isDigit => longLoop(tail, str + d.toString, (longAcc * 10) + d - '0')
+      case CharsOff1Tail('.', tail) => decimalLoop(tail, str + firstDigit.toString, longAcc, 10)
+      case CharsOff1Tail(_, tail) => Good3(rem, tp.addStr(str), LongDeciToken(tp, str, longAcc))
     }      
                  
     def decimalLoop(rem: CharsOff, str: String, floatAcc: Double, divisor: Double): EMon[(CharsOff, TextPosn, Token)] = rem match
     {
       case CharsOff0() => Good3(rem, tp.addStr(str), FloatToken(tp, str, floatAcc))
-      case CharsOff1(d, tail) if d.isDigit => decimalLoop(tail, str + d.toString, floatAcc + (d - '0') / divisor, divisor * 10)
-      case CharsOff1(c, tail) => Good3(rem, tp.addStr(str),  FloatToken(tp, str, floatAcc))
+      case CharsOff1Tail(d, tail) if d.isDigit => decimalLoop(tail, str + d.toString, floatAcc + (d - '0') / divisor, divisor * 10)
+      case CharsOff1Tail(c, tail) => Good3(rem, tp.addStr(str),  FloatToken(tp, str, floatAcc))
     }
 
     intLoop(rem, firstDigit.toString, firstDigit - '0')

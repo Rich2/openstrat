@@ -67,15 +67,23 @@ class CharsOff(val offset: Int) extends AnyVal
 /** Extractor for empty immutable heapless iterator for Chars. */
 case object CharsOff0 { def unapply(inp: CharsOff)(implicit chars: Chars): Boolean = chars.length - inp.offset <= 0 }
 
+/** Extractor object for immutable heapless iterator for Chars with length == 1. */
+object CharsOff1
+{ /** Extractor for immutable heapless iterator for Chars with length == 1. */
+  def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] = ife(chars.length - inp.offset == 1, Some(chars(inp.offset)), None)
+}
+
+
 /** Extractor object for the head only for immutable heapless iterator for Chars with at least 1 element. */
 object CharsOffHead
-{ /** Extractor for the head only for immutable heapless iterator for Chars with at least 1 element. */
+{ /** Extractor for the 1st element only, for immutable heapless iterator for Chars with at least 1 element. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] =
   ife(chars.length - inp.offset >= 1, Some(chars(inp.offset)), None)
-}/** Extractor object for the head only for immutable heapless iterator for Chars with at least 1 element. */
+}
 
+/** Extractor object for the head 2 elements only for immutable heapless iterator for Chars with at least 2 element. */
 object CharsOffHead2
-{ /** Extractor for the head 2 elements only for immutable heapless iterator for Chars with at least 2 element. */
+{ /** Extractor for the head 2 elements only for immutable heapless iterator for Chars with at least 2 element. Use this when you don't care about the tail */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char)] =
     ife(chars.length - inp.offset >= 2, Some((chars(inp.offset), chars(inp.offset + 1))), None)
 }
@@ -83,23 +91,23 @@ object CharsOffHead2
 
 
 /** Extractor for immutable heapless iterator for Chars with at l element. */
-object CharsOff1
+object CharsOff1Tail
 { /** Extractor for immutable heapless iterator for Chars with at l element. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, CharsOff)] =
   ife(chars.length - inp.offset >= 1, Some((chars(inp.offset), inp.drop1)), None)
 }
 
-object CharsOff2
+object CharsOff2Tail
 { def unapply(inp: CharsOff)(implicit array: Chars): Option[(Char, Char, CharsOff)] =
     ife(array.length - inp.offset >= 2, Some((array(inp.offset), (array(inp.offset + 1)), inp.drop2)), None)
 }
 
-object CharsOff3
+object CharsOff3Tail
 { def unapply(inp: CharsOff)(implicit array: Chars): Option[(Char, Char, Char, CharsOff)] =
     ife(array.length - inp.offset >= 3, Some((array(inp.offset), array(inp.offset + 1), array(inp.offset + 2), inp.drop(3))), None)
 }
 
-object CharsOff4
+object CharsOff4Tail
 { def unapply(inp: CharsOff)(implicit array: Chars): Option[(Char, Char, Char, Char, CharsOff)] =
   ife(array.length - inp.offset >= 4,
     Some((array(inp.offset), array(inp.offset + 1), array(inp.offset + 2), array(inp.offset + 3), inp.drop(4))),
