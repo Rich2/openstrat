@@ -29,5 +29,4 @@ object Hexadecimal
     }
     { deb("start of hex"); hexIntLoop(rem, "0x", 0) }
   }
-
 }

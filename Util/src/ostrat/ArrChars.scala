@@ -72,7 +72,15 @@ object CharsOffHead
 { /** Extractor for the head only for immutable heapless iterator for Chars with at least 1 element. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] =
   ife(chars.length - inp.offset >= 1, Some(chars(inp.offset)), None)
+}/** Extractor object for the head only for immutable heapless iterator for Chars with at least 1 element. */
+
+object CharsOffHead2
+{ /** Extractor for the head 2 elements only for immutable heapless iterator for Chars with at least 2 element. */
+  def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char)] =
+    ife(chars.length - inp.offset >= 2, Some((chars(inp.offset), chars(inp.offset + 1))), None)
 }
+
+
 
 /** Extractor for immutable heapless iterator for Chars with at l element. */
 object CharsOff1

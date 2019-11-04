@@ -9,10 +9,9 @@ case class TokensFind(srcStr: String)
   implicit val charArr: Chars = new Chars(array)
   type ETokenList = EMon[Refs[Token]]
   /** Max numbers for long and hexadecimal formats needs to be implemented */
-  def apply(fileName: String): ETokenList ={
-    deb("Entering Main loop")
+  def apply(fileName: String): ETokenList =
     mainLoop(charArr.charsOffsetter, new TextPosn(fileName, 1, 1), Buff[Token]())
-  }
+
   def fromString: ETokenList = apply("String")
 
   private def mainLoop(remOff: CharsOff, tp: TextPosn, acc: Buff[Token]): ETokenList = remOff match
@@ -50,19 +49,20 @@ case class TokensFind(srcStr: String)
       }      
       loop(remOff, tp.addLinePosn(2))
     }
-    
+    case CharsOffHead2('0', 'x')  => Hexadecimal(remOff, tp).flatMap{ case (co, tp, ht) => mainLoop(co, tp, acc.append(ht)) }
+
     case _ =>
     {
       val possToken: EMon[(CharsOff, TextPosn, Token)] = remOff match
       {
-        case CharsOff2('0', 'x', tail)  => {deb("0"); Hexadecimal(tail, tp) }
+
         case CharsOff1(d, tail) if d.isDigit => digitStart(tail, tp, d)
         //Not sure if that should be tail instead of remOff
         case CharsOffHead(c) if isOperator(c) => operatorStart(remOff, tp)
         case CharsOff1('\"', tail) => quoteStart(tail, tp)
         case CharsOffHead(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
       }
-      deb("The rest")
+
       possToken.flatMap{ pair =>
         val (rem, tp, token) = pair
         mainLoop(rem, tp, acc.append(token))
@@ -142,7 +142,8 @@ case class TokensFind(srcStr: String)
       case CharsOff1(d, tail) if d.isDigit => decimalLoop(tail, str + d.toString, floatAcc + (d - '0') / divisor, divisor * 10)
       case CharsOff1(c, tail) => Good3(rem, tp.addStr(str),  FloatToken(tp, str, floatAcc))
     }
-    {deb("entering Int loop"); intLoop(rem, firstDigit.toString, firstDigit - '0') }
+
+    intLoop(rem, firstDigit.toString, firstDigit - '0')
   }  
   
 
