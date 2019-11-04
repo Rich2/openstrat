@@ -10,7 +10,6 @@ object TokenTest extends TestSuite
     val Sp2 = StrPosn(1, 2)
     val Sp3 = StrPosn(1, 3)
     val Sp4 = StrPosn(1, 4)
-    deb("-".findTokens.asInstanceOf[Good[Refs[Token]]].value(0).str)
     //val ct = "Colour(0xFF000000)".findTokens
 
     'Test1

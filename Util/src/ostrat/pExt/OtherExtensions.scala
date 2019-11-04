@@ -5,10 +5,10 @@ import reflect.ClassTag
 
 class CharExtensions(thisChar: Char)
 {
-  def isHexDigit: Boolean = thisChar match
+  def isHexaDigit: Boolean = thisChar match
   { case d if d.isDigit => true
-    case al if ((al <= 'E') && (al >= 'A')) => true
-    case al if ((al <= 'e') && (al >= 'a')) => true
+    case al if al <= 'F' && al >= 'A' => true
+    case al if al <= 'f' && al >= 'a' => true
     case _ => false
   }
 

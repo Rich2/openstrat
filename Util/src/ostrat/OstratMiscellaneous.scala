@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-//import scala.reflect.ClassTag
 
 trait IsType[A <: AnyRef]
 { def isType(obj: AnyRef): Boolean
@@ -15,7 +14,22 @@ object IsType
     override def asType(obj: AnyRef): AnyRef = obj.asInstanceOf[AnyRef]
   }
 }
-trait LowPriority
+
+object HexaDigitChar
 {
- // implicit def arrRBuildImplicit[T <: AnyRef](implicit ct: ClassTag[T]): ArrBuild[T] = len => new ArrR[T](new Array[T](len))
+  def unapply(input: Char): Option[(Char, Int)] = input match
+  {
+    case d if d.isDigit => Some((d, d - '0'))
+    case l if l <= 'F' && l >= 'A' => Some((l, l - 'A' + 10))
+    case l if l <= 'f' && l >= 'a' => Some((l, l - 'a' + 10))
+    case c => excep(c.toString -- "is not a hexadecimal digit.")
+  }
+}
+
+object WhitespaceChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case c if c.isWhitespace => Some(c)
+    case _ => None
+  }
 }
