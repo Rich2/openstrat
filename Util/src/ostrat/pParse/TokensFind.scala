@@ -28,22 +28,19 @@ case class TokensFind(srcStr: String)
     case CharsOff1Tail('.', tail) => mainLoop(tail, tp.nextChar,  acc.append(DotToken(tp)))
     case CharsOff1Tail('\n', tail) => mainLoop(tail, tp.newLine, acc)
     case CharsOff1Tail(h, tail) if h.isWhitespace => mainLoop(tail, tp.nextChar, acc)
-    //This looks wrong
-   // case CharsOff3('\'', '\\', '\\', tail) => mainLoop(tail, tp.right(4), acc.append(CharToken(tp, '\\')))
-  //  case CharsOff3('\'', '\\', '\"', tail) => mainLoop(tail, tp.right(4), acc.append(CharToken(tp, '\"')))
-  //  case CharsOff3('\'', '\\', '\'', tail) => mainLoop(tail, tp.right(4), acc.append(CharToken(tp, '\'')))
+    case CharsOff2Tail('/', '/', tail) => { val len = tail.notPredicateLength(_ == '\n'); mainLoop(tail.drop(len), tp.right(len), acc) }
     case CharsOff3Tail('\'', c1, '\'', tail) => mainLoop(tail, tp.right(3), acc.append(CharToken(tp, c1)))
     case CharsOff1Tail('\'', _)=> bad1(tp, "Unclosed Character literal.")
 
     case CharsOff1Tail(a, tail) if a.isLetter =>
     { val (alphaStr, finalTail) = remOff.span(a => a.isLetterOrDigit | a == '.')
-      mainLoop(finalTail, tp.addChars(alphaStr.array),  acc.append(AlphaToken(tp, alphaStr.mkString)))
+      mainLoop(finalTail, tp.addChars(alphaStr.array), acc.append(AlphaToken(tp, alphaStr.mkString)))
     }
 
     case CharsOff2Tail('/', '*', remOff) =>
     {
       def loop(rem: CharsOff, tp: TextPosn): ETokenList = rem match
-      { case CharsOff0() => acc.goodRefs //Good(acc.toList)
+      { case CharsOff0() => acc.goodRefs
         case CharsOff2Tail('*', '/', rem) => mainLoop(rem, tp, acc)
         case CharsOff1Tail(_, rem) => loop(rem, tp.nextChar)
       }      

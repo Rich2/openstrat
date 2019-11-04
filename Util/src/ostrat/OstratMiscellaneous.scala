@@ -15,6 +15,14 @@ object IsType
   }
 }
 
+object LetterChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case c if c.isLetter => Some(c)
+    case _ => None
+  }
+}
+
 object HexaDigitChar
 {
   def unapply(input: Char): Option[(Char, Int)] = input match

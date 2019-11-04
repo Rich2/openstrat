@@ -9,17 +9,9 @@ object Hexadecimal
   {
     def hexIntLoop(rem: CharsOff, strAcc: String, intAcc: Int): EMon[(CharsOff, TextPosn, IntLikeHexaToken)] = rem match
     { case CharsOff0() => Good3(rem, tp.addStr(strAcc), IntHexaToken(tp, strAcc, intAcc))
-      case CharsOff2Plus(HexaDigitChar(_, _), HexaDigitChar(_, _)) if strAcc.length >= 9 /* -2 for 0x */ => hexLongLoop(rem, strAcc, intAcc.toLong)
-      case CharsOff1Plus(HexaDigitChar(_, i)) if i > 9 => hexLongLoop(rem, strAcc, intAcc.toLong)
-      case CharsOff1(HexaDigitChar(c, i)) => Good((rem.drop1, tp.right(strAcc.length - 1), IntHexaToken(tp, strAcc + c, intAcc * 16 + i)))
-      case CharsOff1Tail(h, tail) => h match
-      {
-
-        case d if d.isDigit => hexIntLoop(tail, strAcc + d.toString, (intAcc * 16) + d - '0')
-        case al if (al <= 'F') && (al >= 'A') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'A' + 10)
-        case al if (al <= 'f') && (al >= 'a') => hexIntLoop(tail, strAcc + al.toString, (intAcc * 16) + al - 'a' + 10)
-        case _ => Good3(rem, tp.addStr(strAcc), IntHexaToken(tp, strAcc, intAcc))
-      }
+      case CharsOff1Tail(HexaDigitChar(c, i), tail) => hexIntLoop(tail, strAcc + c, intAcc * 16 + i)
+      case CharsOff1Plus(LetterChar(_)) => bad1(tp, "Badly formed hexadecimal")
+      case _ => Good3(rem, tp.addStr(strAcc), IntHexaToken(tp, strAcc, intAcc))
     }
 
     def hexLongLoop(rem: CharsOff, strAcc: String, longAcc: Long): EMon[(CharsOff, TextPosn, IntLikeHexaToken)] = rem match
