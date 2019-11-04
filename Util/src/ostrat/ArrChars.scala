@@ -74,21 +74,30 @@ object CharsOff1
 }
 
 
-/** Extractor object for the head only for immutable heapless iterator for Chars with at least 1 element. */
-object CharsOffHead
-{ /** Extractor for the 1st element only, for immutable heapless iterator for Chars with at least 1 element. */
+/** Extractor object for the first element for immutable heapless iterator for Chars with at length >= 1. Use this when you don't care about the
+ *  tail. */
+object CharsOff1Plus
+{ /** Extractor for the first element, for immutable heapless iterator for Chars with length >= 1. Use this when you don't care about the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] =
   ife(chars.length - inp.offset >= 1, Some(chars(inp.offset)), None)
 }
 
-/** Extractor object for the head 2 elements only for immutable heapless iterator for Chars with at least 2 element. */
-object CharsOffHead2
-{ /** Extractor for the head 2 elements only for immutable heapless iterator for Chars with at least 2 element. Use this when you don't care about the tail */
+/** Extractor object for the first 2 elements for immutable heapless iterator for Chars with length >= 2. Use this when you don't care about the
+ *  tail. */
+object CharsOff2Plus
+{ /** Extractor for the first 2 elements only for immutable heapless iterator for Chars with at least 2 element. Use this when you don't care about
+    * the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char)] =
     ife(chars.length - inp.offset >= 2, Some((chars(inp.offset), chars(inp.offset + 1))), None)
 }
 
-
+/** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
+ *  tail. */
+object CharsOff3Plus
+{ /** Extractor for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the tail */
+  def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char)] =
+    ife(chars.length - inp.offset >= 3, Some((chars(inp.offset), chars(inp.offset + 1), chars(inp.offset + 2))), None)
+}
 
 /** Extractor for immutable heapless iterator for Chars with at l element. */
 object CharsOff1Tail

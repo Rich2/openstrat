@@ -49,7 +49,7 @@ case class TokensFind(srcStr: String)
       }      
       loop(remOff, tp.addLinePosn(2))
     }
-    case CharsOffHead2('0', 'x')  => Hexadecimal(remOff, tp).flatMap{ case (co, tp, ht) => mainLoop(co, tp, acc.append(ht)) }
+    case CharsOff2Plus('0', 'x')  => Hexadecimal(remOff, tp).flatMap{ case (co, tp, ht) => mainLoop(co, tp, acc.append(ht)) }
 
     case _ =>
     {
@@ -58,9 +58,9 @@ case class TokensFind(srcStr: String)
 
         case CharsOff1Tail(d, tail) if d.isDigit => digitStart(tail, tp, d)
         //Not sure if that should be tail instead of remOff
-        case CharsOffHead(c) if isOperator(c) => operatorStart(remOff, tp)
+        case CharsOff1Plus(c) if isOperator(c) => operatorStart(remOff, tp)
         case CharsOff1Tail('\"', tail) => quoteStart(tail, tp)
-        case CharsOffHead(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
+        case CharsOff1Plus(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
       }
 
       possToken.flatMap{ pair =>
@@ -103,7 +103,7 @@ case class TokensFind(srcStr: String)
       //below makes no sense
       case '+' | '-' => finalTail match
       { //case CharsOff0() =>
-        case CharsOffHead(h) if !h.isWhitespace => PrefixToken(tp, opStr)
+        case CharsOff1Plus(h) if !h.isWhitespace => PrefixToken(tp, opStr)
         case _ => PlusInToken(tp, opStr)
       }
       case '=' => AsignToken(tp)
