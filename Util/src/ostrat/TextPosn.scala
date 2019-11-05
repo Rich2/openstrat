@@ -13,7 +13,13 @@ case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)// extends Tex
 }
 
 
-object StrPosn{ def apply(lineNum: Int = 1, linePosn: Int = 1): TextPosn = new TextPosn("String", lineNum, linePosn)}
+object StrPosn
+{ def apply(lineNum: Int = 1, linePosn: Int = 1): TextPosn = new TextPosn("String", lineNum, linePosn)
+  def unapply(inp: TextPosn): Option[(Int, Int)] = inp match
+  { case TextPosn("String", ln, lp) => Some((ln, lp))
+    case _ => None
+  }
+}
 
 object TextPosn
 { //def apply(fileName: String, lineNum: Int, linePosn: Int): FilePosn = new FilePosn(fileName, lineNum, linePosn)
