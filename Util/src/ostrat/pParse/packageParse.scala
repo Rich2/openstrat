@@ -25,4 +25,9 @@ package object pParse
     stringToTokens(input).flatMap(GetStatements(_))
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokens(srcStr: String): EMon[Refs[Token]] = TokensFind(srcStr).fromString
+
+  def isOperator(char: Char): Boolean = char match
+  { case '+' | '-' | '*' | '/' | '=' => true
+    case _ => false
+  }
 }
