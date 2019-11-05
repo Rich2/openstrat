@@ -46,10 +46,10 @@ case class TokensFind(srcStr: String)
       }      
       loop(remOff, tp.addLinePosn(2))
     }
-    case CharsOff2Plus('0', 'x')  => Hexadecimal(remOff, tp).flatMap{ case (co, tp, ht) => mainLoop(co, tp, acc.append(ht)) }
-    case CharsOff1Tail('\"', tail) => ParseString(tail, tp).flatMap{case (cOff, tp, token) => mainLoop(cOff, tp, acc.append(token)) }
-    case CharsOff1Tail(d, tail) if d.isDigit => DecimalNumber(tail, tp, d).flatMap{case (cOff, tp ,token) => mainLoop(cOff, tp, acc.append(token)) }
-    case CharsOff1Plus(c) if isOperator(c) => ParseOperator(remOff, tp).flatMap{case (cOff, tp ,token) => mainLoop(cOff, tp, acc.append(token)) }
+    case CharsOff2Plus('0', 'x')  => Hexadecimal(remOff, tp).flatMap{ (co, tp, ht) => mainLoop(co, tp, acc.append(ht)) }
+    case CharsOff1Tail('\"', tail) => ParseString(tail, tp).flatMap{ (cOff, tp, token) => mainLoop(cOff, tp, acc.append(token)) }
+    case CharsOff1Tail(d, tail) if d.isDigit => DecimalNumber(tail, tp, d).flatMap{ (cOff, tp ,token) => mainLoop(cOff, tp, acc.append(token)) }
+    case CharsOff1Plus(c) if isOperator(c) => ParseOperator(remOff, tp).flatMap{ (cOff, tp ,token) => mainLoop(cOff, tp, acc.append(token)) }
     case CharsOff1Plus(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
   }
 }
