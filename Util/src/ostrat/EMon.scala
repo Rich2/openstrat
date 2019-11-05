@@ -77,7 +77,7 @@ object Good
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: StrList) extends EMon[A]
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
-  override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad(errs)
+  override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   override def foreach(f: A => Unit): Unit = {}
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
   override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
@@ -98,4 +98,19 @@ object Bad
     override def showSemi(obj: Bad[A]): String = obj.errs.mkString("; ")
     override def showComma(obj: Bad[A]): String = obj.errs.semiFold// semiColonFold //.mkString(", ")
   }
+}
+
+sealed trait EMon3[+A1, +A2, +A3]
+{
+  def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B]
+}
+
+final case class Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3) extends EMon3[A1, A2, A3]
+{
+  override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = f(a1, a2, a3)
+}
+
+final case class Bad3[A1, A2, A3](errs: StrList) extends EMon3[A1, A2, A3]
+{
+  override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = Bad[B](errs)
 }

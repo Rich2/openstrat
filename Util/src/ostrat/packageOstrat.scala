@@ -78,11 +78,13 @@ package object ostrat
   type FStrSeq = Seq[Function0[String]]
   type StrList = List[String]
 
-  def Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3): Good[(A1, A2, A3)] = Good[(A1, A2, A3)]((a1, a2, a3))
+
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.toString + detail
   def bad1[B](fp: TextPosn, detail: String): Bad[B] = Bad[B](parseErr(fp, detail) :: Nil)
   def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](parseErr(fs.startPosn, detail) :: Nil)
+  def bad3[A1, A2, A3](fp: TextPosn, detail: String): Bad3[A1, A2, A3] = Bad3[A1, A2, A3](parseErr(fp, detail) :: Nil)
+  def bad3[A1, A2, A3](fs: TextSpan, detail: String): Bad3[A1, A2, A3] = Bad3[A1, A2, A3](parseErr(fs.startPosn, detail) :: Nil)
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(TextPosn("Java Exception", 1, 1), e.getMessage) }
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold

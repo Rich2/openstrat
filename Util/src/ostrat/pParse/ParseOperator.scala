@@ -4,7 +4,7 @@ package pParse
 object ParseOperator
 {
   /** Not sure if this is fully fixed. */
-  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon[(CharsOff, TextPosn, Token)] =
+  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
     val (opChars, finalTail) = remOff.span(isOperator)
     val opStr = opChars.mkString
