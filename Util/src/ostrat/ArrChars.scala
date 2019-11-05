@@ -34,15 +34,12 @@ object Chars
   }
 }
 
-/*class CharsBuff(val buffer: ArrayBuffer[Char]) extends AnyVal with BufferLike[Char]
-{ override def length: Int = buffer.length
-  override def apply(index: Int): Char = buffer(index)
-}*/
-
 /** Immutable heapless iterator for Char arrays. */
 class CharsOff(val offset0: Int) extends AnyVal with ArrOff[Char, Chars]
 {
   override def apply(index: Int)(implicit chars: Chars): Char = chars(offset0 + index)
+  def str: String = "CharsOff" + offset0.toString.enParenth
+  override def toString = str
   def drop(n: Int): CharsOff = new CharsOff(offset0 + n)
   def drop1: CharsOff = new CharsOff(offset1)
   def drop2: CharsOff = new CharsOff(offset2)
@@ -67,6 +64,14 @@ class CharsOff(val offset0: Int) extends AnyVal with ArrOff[Char, Chars]
   def ifHead(f: Char => Boolean)(implicit chars: Chars) : Boolean = (chars.length > offset0) &
     f(chars(offset0))
 }
+
+object CharsOff
+{
+  def unapply(inp: CharsOff): Option[Int] = inp match
+  { case _ => Some(inp.offset0)
+  }
+}
+
 
 /** Extractor for empty immutable heapless iterator for Chars. */
 case object CharsOff0 { def unapply(inp: CharsOff)(implicit chars: Chars): Boolean = chars.length - inp.offset0 <= 0 }
