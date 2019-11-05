@@ -22,9 +22,10 @@ object ColourTest extends TestSuite
       e1 ==> Good(Black)
       c2.hasName ==> true
       c2 ==> Black
-     // e3 ==> Good(Black)
-     // c4.hasName ==> false
-     // m4 ==> Good(Colour(0xFFAAAAAA))
+      e3 ==> Good(Black)
+      c4.hasName ==> false
+      s4 ==> "0xFFAAAAAA"
+      m4 ==> Good(Colour(0xFFAAAAAA))
     }
   }
 }
