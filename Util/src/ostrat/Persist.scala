@@ -78,9 +78,9 @@ object Persist
   implicit val IntImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   { def show(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
-    { case IntDeciToken(_, i) => Good(i)
-      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "+" => Good(i)
-      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "-" => Good(-i)
+    { case IntDeciToken(_, i) => Good(i.toInt)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
+      case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
       case  _ => expr.exprParseErr[Int]
     }
   }
@@ -107,9 +107,6 @@ object Persist
     { case IntDeciToken(_, i) => Good(i.toLong)
       case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
       case PreOpExpr(op, IntDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
-      case LongDeciToken(_, _, li) => Good(li)
-      case PreOpExpr(op, LongDeciToken(_, _, li)) if op.srcStr == "+" => Good(li)
-      case PreOpExpr(op, LongDeciToken(_, _, li)) if op.srcStr == "-" => Good(-li)
       case  _ => expr.exprParseErr[Long]
     }
   }   

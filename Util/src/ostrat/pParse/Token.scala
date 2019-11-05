@@ -72,54 +72,40 @@ case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
   override def tokenTypeStr: String = "HashAlphaToken"
 }
 
-/** A 32 bit Integer Token. */
+/** A 64 bit Integer Token. */
 trait IntToken extends ExprToken
-{ def intValue: Int
+{ def intValue: Long
 }
 
 object IntToken
 { def unapply(token: Token): Option[(TextPosn, String, Int)] = token match
-  { case it: IntToken => Some(it.startPosn, it.srcStr, it.intValue)
+  { case it: IntToken => Some(it.startPosn, it.srcStr, it.intValue.toInt)
     case _ => None
   }
 }
 
 /** An 32 or 64 bit Integer token in standard decimal format. */
-trait IntLikeDeciToken extends ExprToken
+//trait IntLikeDeciToken extends ExprToken
 
 /** An 32 or 64 bit Integer tiken in hexadecimal format. */
-trait IntLikeHexaToken extends ExprToken
+//trait IntLikeHexaToken extends ExprToken
 
-/** A 32 bit integer token in standard decimal format. */
-case class IntDeciToken(startPosn: TextPosn, intValue: Int) extends IntToken with IntLikeDeciToken
-{ override def toString: String = "IntDecToken".appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
-  override def exprName: String = "IntTokenExpr"
-  override def tokenTypeStr: String = "IntDecToken"
+/** A 64 bit integer token in standard decimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
+ *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
+ *  although of course at the higher semantic levels it can be used very well for programming languages. */
+case class IntDeciToken(startPosn: TextPosn, intValue: Long) extends IntToken //with IntLikeDeciToken
+{ override def toString: String = "IntDeciToken".appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
+  override def exprName: String = "IntDeciTokenExpr"
+  override def tokenTypeStr: String = "IntDeciToken"
   override def srcStr: String = intValue.toString
 }
 
-
-/** A 32 bit interger token in hexadecimal */
-case class IntHexaToken(startPosn: TextPosn, srcStr: String, intValue: Int) extends IntToken with IntLikeHexaToken
-{ override def exprName: String = "HexIntTokenExpr"
-  override def tokenTypeStr: String = "IntHexToken"
-}
-
-/** A 64 bit Long integer Token. */
-trait LongIntToken extends ExprToken
-{ def longValue: Long
-}
-
-/** A 64bit signed integer token in standard decimal format. */
-case class LongDeciToken(startPosn: TextPosn, srcStr: String, longValue: Long) extends LongIntToken with IntLikeDeciToken
-{ override def exprName: String = "LongDeciTokenExpr"
-  override def tokenTypeStr: String = "LongDeciToken"
-}
-
-/** A 64bit signed integer token in hexadecimal format. */
-case class LongHexaToken(startPosn: TextPosn, srcStr: String, longValue: Long) extends LongIntToken with IntLikeHexaToken
-{ override def exprName: String = "LongHexaokenExpr"
-  override def tokenTypeStr: String = "LongHexaToken"
+/** A 64 bit integer token in hexadecimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
+ *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
+ *  although of course at the higher semantic levels it can be used very well for programming languages. */
+case class IntHexaToken(startPosn: TextPosn, srcStr: String, intValue: Long) extends IntToken// with IntLikeHexaToken
+{ override def exprName: String = "IntHexTokenExpr"
+  override def tokenTypeStr: String = "IntHexaToken"
 }
 
 

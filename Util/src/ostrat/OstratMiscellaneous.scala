@@ -24,13 +24,13 @@ object LetterChar
 }
 
 object HexaDigitChar
-{
+{ /** So I first encoded this with an exception and I can't remember why. */
   def unapply(input: Char): Option[(Char, Int)] = input match
   {
-    case d if d.isDigit => Some((d, d - '0'))
+    case n if n.isDigit => Some((n, n - '0'))
     case l if l <= 'F' && l >= 'A' => Some((l, l - 'A' + 10))
     case l if l <= 'f' && l >= 'a' => Some((l, l - 'a' + 10))
-    case c => excep(c.toString -- "is not a hexadecimal digit.")
+    case c => None// excep(c.toString -- "is not a hexadecimal digit.")
   }
 }
 
