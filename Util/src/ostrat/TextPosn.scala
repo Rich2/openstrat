@@ -1,17 +1,17 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)// extends TextPosn
+case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)
 { /** moves the value of the TextPosn to the right. */
   def right(num: Int): TextPosn = TextPosn(fileName, lineNum, linePosn + num)
+  def right1: TextPosn = TextPosn(fileName, lineNum, linePosn + 1)
+  def right2: TextPosn = TextPosn(fileName, lineNum, linePosn + 2)
+  def right3: TextPosn = TextPosn(fileName, lineNum, linePosn + 3)
   def addChars(chars: Seq[Char]): TextPosn = TextPosn(fileName, lineNum, linePosn + chars.length)
   def addStr(str: String): TextPosn = TextPosn(fileName, lineNum, linePosn + str.length)
-  def addLinePosn(offset: Int): TextPosn = TextPosn(fileName, lineNum, linePosn + offset)
   def newLine: TextPosn = TextPosn(fileName, lineNum + 1, 1)
-  def nextChar: TextPosn = right(1)
   def shortStr: String =  lineNum.toString.appendCommas(linePosn.toString)
 }
-
 
 object StrPosn
 { def apply(lineNum: Int = 1, linePosn: Int = 1): TextPosn = new TextPosn("String", lineNum, linePosn)
@@ -36,8 +36,7 @@ trait TextSpan
 }
 
 object TextSpan
-{
-  def empty = new TextSpan{def startPosn = TextPosn.empty; def endPosn = TextPosn.empty }
+{ def empty = new TextSpan{def startPosn = TextPosn.empty; def endPosn = TextPosn.empty }
 }
 
 /** The purpose of this trait is to give the position span of the syntax from its opening and closing components. */

@@ -179,9 +179,10 @@ package object ostrat
   { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()}
   }   
    
-  implicit class Tuple2Implicit[A, B](thisTuple: Tuple2[A, B])
-  { def bimap[C, D](f1: A => C, f2: B => D): Tuple2[C, D] = (f1(thisTuple._1), f2(thisTuple._2))
-    def tupleFold[C](f: (A, B) => C): C = f(thisTuple._1, thisTuple._2)
+  implicit class Tuple2Implicit[A1, A2](thisTuple: Tuple2[A1, A2])
+  {
+    def bimap[B1, B2](f1: A1 => B1, f2: A2 => B2): Tuple2[B1, B2] = (f1(thisTuple._1), f2(thisTuple._2))
+    def f2[B](f: (A1, A2) => B): B = f(thisTuple._1, thisTuple._2)
   }
 
   implicit class EqerImplicit[T](thisT: T)(implicit ev: Eq[T])

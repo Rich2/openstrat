@@ -4,7 +4,7 @@ package pParse
 
 trait Token extends TextSpan
 { def srcStr: String
-  override def endPosn: TextPosn = startPosn.addLinePosn(srcStr.length - 1)
+  override def endPosn: TextPosn = startPosn.right(srcStr.length - 1)
   final def str: String = tokenTypeStr
   def tokenTypeStr: String
   def canEqual(a: Any) = a.isInstanceOf[Token]

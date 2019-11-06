@@ -8,7 +8,7 @@ object ParseString
     def loop(rem: CharsOff, strAcc: StringBuilder): EMon3[CharsOff, TextPosn, Token] = rem match
     {
       case CharsOff0() => bad3(tp, "Unclosed String")
-      case CharsOff1Tail('\"', tail2) => Good3(tail2, tp.addLinePosn(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
+      case CharsOff1Tail('\"', tail2) => Good3(tail2, tp.right(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
 
       case CharsOff1Tail('\\', tail2) => tail2 match
       {
