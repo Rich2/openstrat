@@ -11,7 +11,7 @@ object TokensFind
     implicit val charArr: Chars = new Chars(array)
     val acc: Buff[Token] = Buff[Token]()
 
-    def mainLoop(remOff: CharsOff, tp: TextPosn): ERefs[Token] = remOff match
+    def mainLoop(charsOff: CharsOff, tp: TextPosn): ERefs[Token] = charsOff match
     { case CharsOff0() => acc.goodRefs
       case CharsOff1Tail(';', tail) => { acc.append(SemicolonToken(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail(',', tail) => { acc.append(CommaToken(tp)); mainLoop(tail, tp.right1) }
@@ -34,16 +34,16 @@ object TokensFind
       case CharsOff1Tail('\'', _) => bad1(tp, "Unclosed Character literal.")
 
       //Needs attention.
-      case CharsOff1Tail(a, tail) if a.isLetter =>
-      { val (alphaStr, finalTail) = remOff.span(a => a.isLetterOrDigit | a == '.')
+      case CharsOff1Plus(LetterChar(a)) =>
+      { val (alphaStr, finalTail) = charsOff.span(a => a.isLetterOrDigit | a == '.')
         acc.append(AlphaToken(tp, alphaStr.mkString))
         mainLoop(finalTail, tp.addChars(alphaStr.array))
       }
 
       case CharsOff2Tail('/', '*', tail) => ParseComment(tail, tp.right2).f2(mainLoop)
 
-      case CharsOff2Plus('0', 'x') => Hexadecimal(remOff, tp).flatMap { (co, tp, ht) =>
-        acc.append(ht)
+      case CharsOff2Plus('0', 'x') => Hexadecimal(charsOff, tp).flatMap { (co, tp, token) =>
+        acc.append(token)
         mainLoop(co, tp)
       }
 
@@ -52,12 +52,12 @@ object TokensFind
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Tail(d, tail) if d.isDigit => DecimalNumber(tail, tp, d).flatMap { (cOff, tp, token) =>
+      case CharsOff1Tail(DigitChar(d), tail) => DecimalNumber(tail, tp, d).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Plus(c) if isOperator(c) => ParseOperator(remOff, tp).flatMap { (cOff, tp, token) =>
+      case CharsOff1Plus(c) if isOperator(c) => ParseOperator(charsOff, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
