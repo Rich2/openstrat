@@ -6,8 +6,8 @@ package pParse
 object TokensFind
 {
   /** Max numbers for long and hexadecimal formats needs to be implemented */
-  def apply(srcStr: String, fileName: String): ERefs[Token] = {
-    val array: Array[Char] = srcStr.toCharArray
+  def apply(srcStr: String, fileName: String): ERefs[Token] =
+  { val array: Array[Char] = srcStr.toCharArray
     implicit val charArr: Chars = new Chars(array)
     val acc: Buff[Token] = Buff[Token]()
 
