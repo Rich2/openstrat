@@ -6,7 +6,7 @@ package pExt
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {  
   def parseToStatements: ERefs[pParse.Statement] = pParse.stringToStatements(thisString)
-  def findTokens: ERefs[pParse.Token] = pParse.TokensFind(thisString).fromString
+  def findTokens: ERefs[pParse.Token] = pParse.TokensFind(thisString, "String")
   def findStatements: ERefs[pParse.Statement] = findTokens.flatMap(pParse.GetStatements(_))
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
   def findType[A: Persist]: EMon[A] = thisString.parseToStatements.flatMap(_.findType[A])

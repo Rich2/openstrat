@@ -25,6 +25,7 @@ trait ArrOff[A, ArrT <: ArrImut[A]] extends Any
   def forRange(startIndex: Int, endIndex: Int, p: A => Boolean)(implicit arr: ArrT): Boolean = ???
 
   def notPredicateLength(p: A => Boolean)(implicit arr: ArrT): Int = predicateLength(a => !p(a))
+
   def predicateLength(p: A => Boolean)(implicit arr: ArrT): Int =
   { var count = 0
     var continue = true
