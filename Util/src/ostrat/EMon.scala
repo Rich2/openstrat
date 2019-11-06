@@ -123,3 +123,16 @@ final case class Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3) extends EMon3[A1, A2,
 final case class Bad3[A1, A2, A3](errs: StrList) extends EMon3[A1, A2, A3]
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = Bad[B](errs)
 }
+
+/*sealed trait EMonOff3[A1, ArrT <: ArrImut[A1], OffT <: ArrOff[A1, ArrT], A2]
+{ def flatMap[B](f: (OffT, A1, A2) => EMon[B]): EMon[B]
+  def flatMapAppend[B](f: (OffT, A1, A2) => EMon[B]): EMon[B] = ???
+}
+
+final case class GoodOff3[A1, ArrT <: ArrImut[A1], OffT <: ArrOff[A1, ArrT], A2](ot: OffT, a1: A1, a2: A2) extends EMonOff3[A1, ArrT, OffT , A2]
+{ override def flatMap[B](f: (OffT, A1, A2) => EMon[B]): EMon[B] = f(ot, a1, a2)
+}
+
+final case class BadOff3[A1, ArrT <: ArrImut[A1], OffT <: ArrOff[A1, ArrT], A2](errs: StrList) extends EMonOff3[A1, ArrT, OffT , A2]
+{ override def flatMap[B](f: (OffT, A1, A2) => EMon[B]): EMon[B] = Bad[B](errs)
+}*/
