@@ -39,7 +39,7 @@ object EuropeNWGrid extends EGridMaker
     gs(496, 216, taiga * 7)
     gs(494, 198, taiga, sea * 3, taiga * 7)
     gs(492, 216, taiga * 7)
-    gs(490, 218, taiga * 3, sea, taiga *3)
+    gs(490, 218, taiga * 3, sea, taiga * 3)
     gs(488, 220, taiga * 2, sea * 2, taiga * 3)//, sea * 2)
     gs(486, 186, hills * 2, sea * 10, plain * 3)
     gs(484, 180, hills * 4, sea * 10, plain * 3)

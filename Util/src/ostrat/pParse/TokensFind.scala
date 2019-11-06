@@ -12,8 +12,7 @@ object TokensFind
     val acc: Buff[Token] = Buff[Token]()
 
     def mainLoop(remOff: CharsOff, tp: TextPosn): ERefs[Token] = remOff match
-    {
-      case CharsOff0() => acc.goodRefs
+    { case CharsOff0() => acc.goodRefs
       case CharsOff1Tail(';', tail) => { acc.append(SemicolonToken(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail(',', tail) => { acc.append(CommaToken(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail('(', tail) => { acc.append(ParenthOpen(tp)); mainLoop(tail, tp.right1) }

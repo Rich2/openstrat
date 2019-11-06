@@ -28,7 +28,7 @@ case class Multiple[+A](value: A, num: Int)
 
   def flatMap[B](f: A => Multiple[B]) =
   { val res = f(value)
-     Multiple[B](res.value, res.num * num)
+    Multiple[B](res.value, res.num * num)
   }
 }
 
