@@ -17,3 +17,22 @@ object PrefixPlus
     loop(refs.refsOffsetter)
   }
 }
+
+/** Not sure what this does. */
+object GetBlocks
+{
+  def apply(seg: Arr[ExprMember]): EMon[Expr]= sortBlocks(seg.toList, Buff()).flatMap {
+    case Seq(e: Expr) => Good(e)
+    case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString)
+  }
+
+  def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
+  { case Nil => PrefixPlus(acc.toRefs)
+    case (at: AlphaToken) :: (bb: BracketBlock) :: t2 =>
+    { //typedSpan needs removal
+      val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
+      sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketBlock]]))
+    }
+    case h :: tail => sortBlocks(tail, acc :+ h)
+  }
+}

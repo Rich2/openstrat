@@ -3,7 +3,7 @@ package pParse
 
 object ParseOperator
 {
-  /** Not sure if this is fully fixed. */
+  /** Not sure if this is fully fixed. Parses an operator. Operators can have multiple charachters in RSON. */
   def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
     val (opChars, finalTail) = remOff.span(isOperator)
@@ -22,8 +22,6 @@ object ParseOperator
     }
     Good3(finalTail, tp.addChars(opChars.toList),  ot)
   }
-
-
 }
 
 

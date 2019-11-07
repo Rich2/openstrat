@@ -55,8 +55,8 @@ object GetStatements
 
     def getStatement(statement: List[StatementMember], optSemi: Opt[SemicolonToken]): EMon[Statement] =
     {
-      def loop(rem: List[StatementMember], acc: Buff[Clause], subAcc: List[ExprMember]): EMon[Statement] = rem match {
-        case Nil if acc.isEmpty => getExpr(subAcc).map(g => MonoStatement(g, optSemi))
+      def loop(rem: List[StatementMember], acc: Buff[Clause], subAcc: List[ExprMember]): EMon[Statement] = rem match
+      { case Nil if acc.isEmpty => getExpr(subAcc).map(g => MonoStatement(g, optSemi))
         case Nil if subAcc.isEmpty => Good(ClausedStatement(acc.toRefs, optSemi))
         case Nil => getExpr(subAcc).map(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
         case (ct: CommaToken) :: tail if subAcc.isEmpty => loop(tail, acc :+ EmptyClause(ct), Nil)
@@ -68,28 +68,13 @@ object GetStatements
 
     def getExpr(seg: List[ExprMember]): EMon[Expr] =
     {
-      def loop(rem: List[ExprMember], acc: Buff[ExprMember]): EMon[Expr] = rem match {
-        case Nil => getBlocks(acc.toArr)
-        case (at: AsignToken) :: tail => for {gLs <- getBlocks(acc.toArr); gRs <- loop(tail, Buff())} yield AsignExpr(at, gLs, gRs)
+      def loop(rem: List[ExprMember], acc: Buff[ExprMember]): EMon[Expr] = rem match
+      { case Nil => GetBlocks(acc.toArr)
+        case (at: AsignToken) :: tail => for {gLs <- GetBlocks(acc.toArr); gRs <- loop(tail, Buff())} yield AsignExpr(at, gLs, gRs)
         case h :: tail => loop(tail, acc :+ h)
       }
       loop(seg, Buff())
     }
-
-    def getBlocks(seg: Arr[ExprMember]): EMon[Expr] = sortBlocks(seg.toList, Buff()).flatMap {
-      case Seq(e: Expr) => Good(e)
-      case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString)
-    }
-
-    def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
-    { case Nil => PrefixPlus(acc.toRefs)
-      case (at: AlphaToken) :: (bb: BracketBlock) :: t2 => { //typedSpan needs removal */
-        val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
-        sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketBlock]]))
-      }
-      case h :: tail => sortBlocks(tail, acc :+ h)
-    }
-
 
     fileLoop(tokens.refsOffsetter, Nil)
   }
