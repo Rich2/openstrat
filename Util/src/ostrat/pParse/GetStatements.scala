@@ -82,7 +82,7 @@ object GetStatements
     }
 
     def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
-    { case Nil => prefixPlus(acc.toList, Buff())
+    { case Nil => PrefixPlus(acc.toList)
       case (at: AlphaToken) :: (bb: BracketBlock) :: t2 => { //typedSpan needs removal */
         val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
         sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketBlock]]))
@@ -90,12 +90,7 @@ object GetStatements
       case h :: tail => sortBlocks(tail, acc :+ h)
     }
 
-    def prefixPlus(rem: List[TokenOrBlock], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
-    { case Nil => Good(acc).map(_.toArr)
-      case (pp: PrefixToken) :: (right: Expr) :: tail => prefixPlus(tail, acc :+ PreOpExpr(pp, right))
-      case (pp: PrefixToken) :: _ => bad1(pp, "Prefix operator not fillowed by expression")
-      case h :: tail => prefixPlus(tail, acc :+ h)
-    }
+
     fileLoop(tokens.refsOffsetter, Nil)
   }
 }
