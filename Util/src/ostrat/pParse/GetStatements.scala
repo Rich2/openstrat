@@ -13,31 +13,31 @@ object GetStatements
     def fileLoop(rem: RefsOff[Token], acc: List[BlockMember]): ERefs[Statement] = rem match
     {
       case RefsOff0() => statementLoop(acc, Buff(), Buff())
-      case RefsOff1(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
+      case RefsOff1Tail(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
         val (bracketBlock, remTokens) = pair
         fileLoop(remTokens, acc :+ bracketBlock)
       }
 
-      case RefsOffHead(bc: BracketClose) => bad1(bc, "Unexpected Closing Brace at top syntax level")
-      case RefsOff1(bm: BlockMember, tail) => fileLoop(tail, acc :+ bm)
+      case RefsOff1Plus(bc: BracketClose) => bad1(bc, "Unexpected Closing Brace at top syntax level")
+      case RefsOff1Tail(bm: BlockMember, tail) => fileLoop(tail, acc :+ bm)
     }
 
     /** Sorts tokens in to brace hierarchy. */
     def bracketLoop(rem: RefsOff[Token], acc: List[BlockMember], open: BracketOpen): EMon[(BracketBlock, RefsOff[Token])] = rem match
     { case RefsOff0() => bad1(open, "Unclosed Brace")
-      case RefsOff1(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
+      case RefsOff1Tail(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
         val (bracketBlock, remTokens) = pair
         bracketLoop(remTokens, acc :+ bracketBlock, open)
       }
 
-      case RefsOff1(bc: BracketClose, tail) => open.matchingBracket(bc) match
+      case RefsOff1Tail(bc: BracketClose, tail) => open.matchingBracket(bc) match
       { case false => bad1(bc, "Unexpected Closing Parenthesis")
         case true => statementLoop(acc, Buff(), Buff()).map(g =>
           (open.newBracketBlock(bc, g), tail)
         )
       }
 
-      case RefsOff1(nbt: BlockMember, tail) => bracketLoop(tail, acc :+ nbt, open)
+      case RefsOff1Tail(nbt: BlockMember, tail) => bracketLoop(tail, acc :+ nbt, open)
     }
 
     def statementLoop(rem: List[BlockMember], acc: Buff[Statement], subAcc: Buff[StatementMember]): ERefs[Statement] = rem match
@@ -82,7 +82,7 @@ object GetStatements
     }
 
     def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
-    { case Nil => PrefixPlus(acc.toList)
+    { case Nil => PrefixPlus(acc.toRefs)
       case (at: AlphaToken) :: (bb: BracketBlock) :: t2 => { //typedSpan needs removal */
         val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
         sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketBlock]]))
