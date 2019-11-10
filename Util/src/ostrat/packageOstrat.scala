@@ -24,12 +24,22 @@ package object ostrat
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
   def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
+
+  /** onlyIf-do. Only if the condition is true, perform the effect. */
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
+
+  /** if-else. If the condition is true, use 2nd parameter, else use 3rd parameter. */
   @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
+
+  /** ifNot-else. If the condition is false, use 2nd parameter, else use 3rd parameter. */
   @inline def ifne[A](b: Boolean, vNotTrue: => A, visTrue: => A): A = if (b) vNotTrue else vNotTrue
+
+  /** if-elseif-else. If the first condition is true, use 2nd parameter, else if the second condition in parameter 3 is true use 4th parameter. */
   @inline def ife2[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, vElse: => A): A = if (b1) vTrue1 else if (b2) vTrue2 else vElse
+
   @inline def ife3[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, b3: => Boolean, vTrue3: => A, vElse: => A): A =
     if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else vElse
+
   @inline def ife4[A](b1: Boolean, vTrue1: => A, b2: => Boolean, vTrue2: => A, b3: => Boolean, vTrue3: => A, b4: => Boolean, vTrue4: => A, vElse: => A): A =
     if (b1) vTrue1 else if (b2) vTrue2 else if (b3) vTrue3 else if(b4) vTrue4 else vElse
 
