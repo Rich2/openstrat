@@ -205,6 +205,15 @@ package object ostrat
     @inline def goodRefs(implicit ct: ClassTag[A]): Good[Refs[A]] = Good(new Refs(thisBuff.toArray))
   }
 
+  implicit class RefsIterableImplicit[A <: AnyRef](thisIter: Iterable[A])(implicit ct: ClassTag[A])
+  {
+    def toRefs: Refs[A] =
+    { val buff: Buff[A] = Buff()
+      thisIter.foreach(buff.append)
+      buff.toRefs
+    }
+  }
+
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new pExt.ArrayExtensions[A](arr)

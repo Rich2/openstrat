@@ -40,20 +40,21 @@ object GetBlocks
 /** Needs Testing. */
 object getExpr
 {
-  def apply (seg: List[ExprMember]): EMon[Expr] =
+  def apply (implicit seg: Refs[ExprMember]): EMon[Expr] =
   {
     val acc: Buff[ExprMember] = Buff()
-    def loop(rem: List[ExprMember]): EMon[Expr] = rem match
-    { case Nil => GetBlocks(acc.toArr)
 
-      case (at: AsignToken) :: tail => for {
+    def loop(rem: RefsOff[ExprMember]): EMon[Expr] = rem match
+    { case RefsOff0() => GetBlocks(acc.toArr)
+
+      case RefsOff1Tail(at: AsignToken, tail) => for {
         gLs <- GetBlocks(acc.toArr);
         gRs <- loop(tail) //This has been altered. I think its correct now with no altering to acc
       } yield AsignExpr(at, gLs, gRs)
 
-      case h :: tail => { acc.append(h) ;loop(tail) }
+      case RefsOff1Tail(h, tail) => { acc.append(h) ;loop(tail) }
     }
 
-    loop(seg)
+    loop(seg.refsOffsetter)
   }
 }

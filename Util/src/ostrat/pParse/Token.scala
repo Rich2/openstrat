@@ -79,16 +79,10 @@ trait IntToken extends ExprToken
 
 object IntToken
 { def unapply(token: Token): Option[(TextPosn, String, Int)] = token match
-  { case it: IntToken => Some(it.startPosn, it.srcStr, it.intValue.toInt)
+  { case it: IntToken => Some((it.startPosn, it.srcStr, it.intValue.toInt))
     case _ => None
   }
 }
-
-/** An 32 or 64 bit Integer token in standard decimal format. */
-//trait IntLikeDeciToken extends ExprToken
-
-/** An 32 or 64 bit Integer tiken in hexadecimal format. */
-//trait IntLikeHexaToken extends ExprToken
 
 /** A 64 bit integer token in standard decimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
  *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,

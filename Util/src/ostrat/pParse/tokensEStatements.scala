@@ -2,7 +2,7 @@
 package ostrat
 package pParse
 
-/** Function object for getting Statements from objects. */
+/** Function object for getting Statements from Tokens. */
 object tokensEStatements
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
@@ -44,8 +44,7 @@ object tokensEStatements
 
       case h :: tail => h match {
         case st: SemicolonToken if subAcc.isEmpty => statementLoop(tail, acc :+ EmptyStatement(st), Buff())
-        case st: SemicolonToken => getStatement(subAcc.toList, Opt(st)).flatMap(g
-        => statementLoop(tail, acc :+ g, Buff()))
+        case st: SemicolonToken => getStatement(subAcc.toList, Opt(st)).flatMap(g => statementLoop(tail, acc :+ g, Buff()))
         case sm: StatementMember => statementLoop(tail, acc, subAcc :+ sm)
         case u => excep("Statement Loop, impossible case")
       }
@@ -53,11 +52,11 @@ object tokensEStatements
 
     def getStatement(statement: List[StatementMember], optSemi: Opt[SemicolonToken]): EMon[Statement] = {
       def loop(rem: List[StatementMember], acc: Buff[Clause], subAcc: List[ExprMember]): EMon[Statement] = rem match {
-        case Nil if acc.isEmpty => getExpr(subAcc).map(g => MonoStatement(g, optSemi))
+        case Nil if acc.isEmpty => getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))
         case Nil if subAcc.isEmpty => Good(ClausedStatement(acc.toRefs, optSemi))
-        case Nil => getExpr(subAcc).map(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
+        case Nil => getExpr(subAcc.toRefs).map(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
         case (ct: CommaToken) :: tail if subAcc.isEmpty => loop(tail, acc :+ EmptyClause(ct), Nil)
-        case (ct: CommaToken) :: tail => getExpr(subAcc).flatMap(g => loop(tail, acc :+ Clause(g, Opt(ct)), Nil))
+        case (ct: CommaToken) :: tail => getExpr(subAcc.toRefs).flatMap(g => loop(tail, acc :+ Clause(g, Opt(ct)), Nil))
         case (em: ExprMember) :: tail => loop(tail, acc, subAcc :+ em)
       }
 
