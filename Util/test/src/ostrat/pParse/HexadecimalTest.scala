@@ -5,7 +5,7 @@ import utest._
 object HexadecimalTest extends TestSuite
 {
   val a1 = "0x44".toChars
-  val h1: EMon3[CharsOff, TextPosn, IntHexaToken] = Hexadecimal(a1.charsOffsetter, StrPosn())(a1)
+  val h1: EMon3[CharsOff, TextPosn, IntHexaToken] = parseHexadecimal(a1.charsOffsetter, StrPosn())(a1)
 
   val tests = Tests
   {

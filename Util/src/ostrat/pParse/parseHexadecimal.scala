@@ -2,7 +2,7 @@ package ostrat
 package pParse
 
 /** Function object for parsing expected Hexadecimal number. */
-object Hexadecimal
+object parseHexadecimal
 {
   /** Function for parsing expected Hexadecimal number. */
   def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, IntHexaToken] =

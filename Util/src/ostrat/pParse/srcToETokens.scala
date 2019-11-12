@@ -6,7 +6,7 @@ package pParse
  *  encapsulated. */
 object srcToETokens
 {
-  /** Max numbers for long and hexadecimal formats needs to be implemented */
+  /** Max numbers for long and hexadecimal formats needs to be implemented. */
   def apply(srcStr: String, fileName: String): ERefs[Token] =
   { val array: Array[Char] = srcStr.toCharArray
     implicit val charArr: Chars = new Chars(array)
@@ -43,7 +43,7 @@ object srcToETokens
 
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
 
-      case CharsOff2Plus('0', 'x') => Hexadecimal(charsOff, tp).flatMap { (co, tp, token) =>
+      case CharsOff2Plus('0', 'x') => parseHexadecimal(charsOff, tp).flatMap { (co, tp, token) =>
         acc.append(token)
         mainLoop(co, tp)
       }
