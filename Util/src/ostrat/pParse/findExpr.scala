@@ -37,21 +37,23 @@ object GetBlocks
   }
 }
 
+/** Needs Testing. */
 object getExpr
 {
   def apply (seg: List[ExprMember]): EMon[Expr] =
   {
-    def loop(rem: List[ExprMember], acc: Buff[ExprMember]): EMon[Expr] = rem match
+    val acc: Buff[ExprMember] = Buff()
+    def loop(rem: List[ExprMember]): EMon[Expr] = rem match
     { case Nil => GetBlocks(acc.toArr)
 
       case (at: AsignToken) :: tail => for {
         gLs <- GetBlocks(acc.toArr);
-        gRs <- loop(tail, Buff())
+        gRs <- loop(tail) //This has been altered. I think its correct now with no altering to acc
       } yield AsignExpr(at, gLs, gRs)
 
-      case h :: tail => loop(tail, acc :+ h)
+      case h :: tail => { acc.append(h) ;loop(tail) }
     }
 
-    loop(seg, Buff())
+    loop(seg)
   }
 }
