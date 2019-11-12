@@ -36,3 +36,22 @@ object GetBlocks
     case h :: tail => sortBlocks(tail, acc :+ h)
   }
 }
+
+object getExpr
+{
+  def apply (seg: List[ExprMember]): EMon[Expr] =
+  {
+    def loop(rem: List[ExprMember], acc: Buff[ExprMember]): EMon[Expr] = rem match
+    { case Nil => GetBlocks(acc.toArr)
+
+      case (at: AsignToken) :: tail => for {
+        gLs <- GetBlocks(acc.toArr);
+        gRs <- loop(tail, Buff())
+      } yield AsignExpr(at, gLs, gRs)
+
+      case h :: tail => loop(tail, acc :+ h)
+    }
+
+    loop(seg, Buff())
+  }
+}

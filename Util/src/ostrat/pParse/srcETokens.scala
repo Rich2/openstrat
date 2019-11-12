@@ -3,7 +3,7 @@ package ostrat
 package pParse
 
 /** Function object for creating a Token sequence from Strings. This internally uses a mutable ArrayBuffer, but the mutability is fully encapsulated. */
-object TokensFind
+object srcETokens
 {
   /** Max numbers for long and hexadecimal formats needs to be implemented */
   def apply(srcStr: String, fileName: String): ERefs[Token] =
