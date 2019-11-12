@@ -4,7 +4,7 @@ package pParse
 
 /** Function object for creating an EMon of Refs of Token from a source. This internally uses a mutable ArrayBuffer, but the mutability is fully
  *  encapsulated. */
-object srcETokens
+object srcToETokens
 {
   /** Max numbers for long and hexadecimal formats needs to be implemented */
   def apply(srcStr: String, fileName: String): ERefs[Token] =
