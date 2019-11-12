@@ -1,7 +1,7 @@
 package ostrat
 package pParse
 
-object ParseOperator
+object parseOperator
 {
   /** Not sure if this is fully fixed. Parses an operator. Operators can have multiple charachters in RSON. */
   def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =

@@ -2,8 +2,8 @@
 package ostrat
 package pParse
 
-/** Just a holding object for methods to get Statements from Token. */
-object GetStatements
+/** Function object for getting Statements from objects. */
+object tokensToStatements
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
   def apply(implicit tokens: Refs[Token]): ERefs[Statement] =

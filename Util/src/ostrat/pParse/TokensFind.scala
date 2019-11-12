@@ -40,14 +40,14 @@ object TokensFind
         mainLoop(finalTail, tp.addChars(alphaStr.array))
       }
 
-      case CharsOff2Tail('/', '*', tail) => ParseComment(tail, tp.right2).f2(mainLoop)
+      case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
 
       case CharsOff2Plus('0', 'x') => Hexadecimal(charsOff, tp).flatMap { (co, tp, token) =>
         acc.append(token)
         mainLoop(co, tp)
       }
 
-      case CharsOff1Tail('\"', tail) => ParseString(tail, tp).flatMap { (cOff, tp, token) =>
+      case CharsOff1Tail('\"', tail) => parseStringToken(tail, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
@@ -57,7 +57,7 @@ object TokensFind
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Plus(c) if isOperator(c) => ParseOperator(charsOff, tp).flatMap { (cOff, tp, token) =>
+      case CharsOff1Plus(c) if isOperator(c) => parseOperator(charsOff, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }

@@ -1,7 +1,7 @@
 package ostrat
 package pParse
 
-object ParseComment
+object parseMultiComment
 { /** Searches for comment terminator or end of comment, discards comment and returns the new Chars offset and the new TextPosn*/
   def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): (CharsOff, TextPosn) =
   {

@@ -1,13 +1,13 @@
 package ostrat
 package pParse
 
-object ParseString
+object parseStringToken
 { /** Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first.*/
-  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
+  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, StringToken] =
   {
     val strAcc: StringBuilder = new StringBuilder()
 
-    def loop(rem: CharsOff): EMon3[CharsOff, TextPosn, Token] = rem match
+    def loop(rem: CharsOff): EMon3[CharsOff, TextPosn, StringToken] = rem match
     { case CharsOff0() => bad3(tp, "Unclosed String")
       case CharsOff1Tail('\"', tail2) => Good3(tail2, tp.right(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
       case CharsOff1('\\') =>  bad3(tp, "Unclosed String ending with unclosed escape Sequence")

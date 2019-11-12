@@ -59,11 +59,8 @@ case class CurlyClose(startPosn: TextPosn) extends BracketClose
 }
 
 sealed trait BracketBlock extends StatementSeq
-{
-   def startBracket: BracketOpen
-   def endBracket: BracketClose   
-  // def startPosn: TextPosn = startBracket.startPosn
- //  def endPosn: TextPosn = endBracket.endPosn
+{ def startBracket: BracketOpen
+  def endBracket: BracketClose
 }
 
 case class ParenthBlock(statements: Refs[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
@@ -74,4 +71,3 @@ case class SquareBlock(statements: Refs[Statement], startBracket: BracketOpen, e
 
 case class CurlyBlock(statements: Refs[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
 { override def exprName: String = "CurlyBlock" }
-
