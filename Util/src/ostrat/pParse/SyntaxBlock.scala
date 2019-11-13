@@ -58,6 +58,25 @@ case class CurlyClose(startPosn: TextPosn) extends BracketClose
   override def tokenTypeStr: String = "CurlyCloseToken"
 }
 
+sealed trait BraceType
+{ def openChar: Char
+  def closeChar: Char
+}
+case object ParenthType extends BraceType
+{ override def openChar: Char = '('
+  override def closeChar: Char = ')'
+}
+
+case object SquareType extends BraceType
+{ override def openChar: Char = '['
+  override def closeChar: Char = ']'
+}
+
+case object CurlyType extends BraceType
+{ override def openChar: Char = '{'
+  override def closeChar: Char = '}'
+}
+
 sealed trait BracketBlock extends StatementSeq
 { def startBracket: BracketOpen
   def endBracket: BracketClose
