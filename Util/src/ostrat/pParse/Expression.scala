@@ -23,20 +23,20 @@ trait BlockBase[MemT <: AnyRef]
 { def statements: Refs[MemT]
 }
 
-trait StatementSeq extends ExprSeq with BlockBase[Statement]
+trait StatementsHolder extends ExprSeq with BlockBase[Statement]
 { def statements: Refs[Statement]
   def exprs: Refs[Expr] = statements.map(_.expr).asInstanceOf[Refs[Expr]]
   def startMem = statements.head
   def endMem = statements.last
 }
 
-case class FileStatements(statements: Refs[Statement]) extends StatementSeq
+case class FileStatements(statements: Refs[Statement]) extends StatementsHolder
 { def exprName: String = "FileStatements"
 //  def startPosn: TextPosn = statements.head.startPosn
   //def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class StringStatements(statements: Refs[Statement]) extends StatementSeq
+case class StringStatements(statements: Refs[Statement]) extends StatementsHolder
 { def exprName: String = "StringStatements"
   //def startPosn: TextPosn = statements.head.startPosn
   //def endPosn: TextPosn = statements.last.endPosn

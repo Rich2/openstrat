@@ -77,7 +77,7 @@ case object CurlyType extends BraceType
   override def closeChar: Char = '}'
 }
 
-sealed trait BracketBlock extends StatementSeq
+sealed trait BracketBlock extends StatementsHolder
 { def startBracket: BracketOpen
   def endBracket: BracketClose
 }
