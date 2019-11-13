@@ -19,7 +19,11 @@ trait ExprSeq extends ExprCompound
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ExprToken extends Expr with ExprMemberToken
 
-trait StatementSeq extends ExprSeq
+trait BlockBase[MemT <: AnyRef]
+{ def statements: Refs[MemT]
+}
+
+trait StatementSeq extends ExprSeq with BlockBase[Statement]
 { def statements: Refs[Statement]
   def exprs: Refs[Expr] = statements.map(_.expr).asInstanceOf[Refs[Expr]]
   def startMem = statements.head
