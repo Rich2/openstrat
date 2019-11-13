@@ -3,7 +3,7 @@ package ostrat
 package pParse
 import utest._ 
 
-object TokenTest extends TestSuite
+object srcToETokensTest extends TestSuite
 { 
   val tests = Tests
   { val Sp1 = StrPosn(1, 1)
