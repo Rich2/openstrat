@@ -10,7 +10,7 @@ object tokensToEStatements
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
     def fileLoop(rem: RefsOff[Token], acc: List[BlockMember]): ERefs[Statement] = rem match
-    { case RefsOff0() => statementLoop(acc, Buff(), Buff())
+    { case RefsOff0() => blockMembersToEStatements(acc)
       case RefsOff1Tail(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
         val (bracketBlock, remTokens) = pair
         fileLoop(remTokens, acc :+ bracketBlock)
@@ -30,27 +30,13 @@ object tokensToEStatements
 
       case RefsOff1Tail(bc: BracketClose, tail) => open.matchingBracket(bc) match
       { case false => bad1(bc, "Unexpected Closing Parenthesis")
-        case true => statementLoop(acc, Buff(), Buff()).map(g =>
+        case true => blockMembersToEStatements(acc).map(g =>
           (open.newBracketBlock(bc, g), tail)
         )
       }
 
       case RefsOff1Tail(nbt: BlockMember, tail) => bracketLoop(tail, acc :+ nbt, open)
     }
-
-    def statementLoop(rem: List[BlockMember], acc: Buff[Statement], subAcc: Buff[StatementMember]): ERefs[Statement] = rem match
-    { case Nil if subAcc.isEmpty => Good(acc.toRefs)
-      case Nil => getStatement(subAcc.toList, nullRef).map(acc :+ _).map(_.toRefs)
-
-      case h :: tail => h match
-      { case st: SemicolonToken if subAcc.isEmpty => statementLoop(tail, acc :+ EmptyStatement(st), Buff())
-        case st: SemicolonToken => getStatement(subAcc.toList, Opt(st)).flatMap(g => statementLoop(tail, acc :+ g, Buff()))
-        case sm: StatementMember => statementLoop(tail, acc, subAcc :+ sm)
-        case u => excep("Statement Loop, impossible case")
-      }
-    }
-
-
 
     fileLoop(tokens.refsOffsetter, Nil)
   }

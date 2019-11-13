@@ -19,7 +19,7 @@ object PrefixPlus
 }
 
 /** Not sure what this does. */
-object GetBlocks
+object getBlocks
 {
   def apply(seg: Arr[ExprMember]): EMon[Expr]= sortBlocks(seg.toList, Buff()).flatMap {
     case Seq(e: Expr) => Good(e)
@@ -45,10 +45,10 @@ object getExpr
     val acc: Buff[ExprMember] = Buff()
 
     def loop(rem: RefsOff[ExprMember]): EMon[Expr] = rem match
-    { case RefsOff0() => GetBlocks(acc.toArr)
+    { case RefsOff0() => getBlocks(acc.toArr)
 
       case RefsOff1Tail(at: AsignToken, tail) => for {
-        gLs <- GetBlocks(acc.toArr);
+        gLs <- getBlocks(acc.toArr);
         gRs <- loop(tail) //This has been altered. I think its correct now with no altering to acc
       } yield AsignExpr(at, gLs, gRs)
 
@@ -59,19 +59,3 @@ object getExpr
   }
 }
 
-object getStatement
-{
-  def apply(statement: List[StatementMember], optSemi: Opt[SemicolonToken]): EMon[Statement] =
-  {
-    def loop(rem: List[StatementMember], acc: Buff[Clause], subAcc: List[ExprMember]): EMon[Statement] = rem match {
-      case Nil if acc.isEmpty => getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))
-      case Nil if subAcc.isEmpty => Good(ClausedStatement(acc.toRefs, optSemi))
-      case Nil => getExpr(subAcc.toRefs).map(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
-      case (ct: CommaToken) :: tail if subAcc.isEmpty => loop(tail, acc :+ EmptyClause(ct), Nil)
-      case (ct: CommaToken) :: tail => getExpr(subAcc.toRefs).flatMap(g => loop(tail, acc :+ Clause(g, Opt(ct)), Nil))
-      case (em: ExprMember) :: tail => loop(tail, acc, subAcc :+ em)
-    }
-
-    loop(statement, Buff(), Nil)
-  }
-}
