@@ -2,7 +2,7 @@ package ostrat
 package pParse
 import utest._
 
-object HexadecimalTest extends TestSuite
+object parseHexadecimalTest extends TestSuite
 {
   val a1 = "0x44".toChars
   val h1: EMon3[CharsOff, TextPosn, IntHexaToken] = parseHexadecimal(a1.charsOffsetter, StrPosn())(a1)
