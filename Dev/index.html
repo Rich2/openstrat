@@ -82,18 +82,18 @@
   <li>Project-Pane => Options -> "Flatten packages"</li>
 </ul></p>
 
-<p><b>The Code is currently organised into 6 modules.</b> Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11.</p>
+<p><b>The Code is currently organised into 5 modules.</b> Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala 2.11.</p>
 
 <ol>
-  <li> <b>Util</b> Depends on UtilMacros. Organised into the following folders and packages:
+  <li><a href="Documentation/Util.html"><b>Util Module</b></a> Organised into the following folders and packages:
     <ul>
       <li>ostrat The root package. All other packages depend on this.
-        <ul>
+        <ul>          
           <li>32 bit Int based Colours.</li>
           <li>A persistence framework. Succinct readable object notation. Save files in <code>Dev/mine</code> folder.</li>
           <li>A functional Either based Errors framework.</li>
           <li>Array based compound value collections of same length elements,to overcome the performance deficencies of the Java and JavaScript platforms, with a view to maximising common code for future Scala Native and Scala Web assembly platforms.</li>
-          <li>3 simple macros, that print the source code location to help with debugging and development. They are a separate unit of compilation for sbt /mill, in the srcMacros folder.</li>
+          <li>3 simple macros, that print the source code location to help with debugging and development, in the srcMacros folder. They are a separate unit of compilation for sbt /mill. It is a sub module of the this module inr Mill, but for Sbt it is a sub-project on the same level as Util.</li>
           <li>Other general utilities.</li>
         </ul>
       </li>
