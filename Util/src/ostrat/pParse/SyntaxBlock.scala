@@ -7,12 +7,18 @@ package pParse
  *  StatementMember and SemiToken. So a sequence of TokenOrBlocks is simply a series of tokens which has been parsed into Blocks. */
 trait TokenOrBlock extends TextSpan
 
+/** A block member is either a statement member or the semi colon Statement delimiter. Statement members includes inner blocks. */
 trait BlockMember extends TokenOrBlock
+
+/** A statemement member is ant Token except the semi colon, which is the statement delimiter and the braces, plus it includes blocks, As blocks
+ * contain a sequence of Statements but can themselves be part of a statement. */
 trait StatementMember extends BlockMember
 
 /** I think its helpful to have an expression member trait for syntax that is not expressions. So I don't think it would be helpful if say an opening brace was an
  *  expression. All Expressions are Expression members. */
 trait ExprMember extends StatementMember
+
+/** A Token that can be a member of an expression. */
 trait ExprMemberToken extends BlockMemberToken with ExprMember
 
 sealed trait BracketToken extends Token
@@ -21,6 +27,8 @@ sealed trait BracketOpen extends BracketToken
    def matchingBracket(bc: BracketClose): Boolean
    def newBracketBlock(cb: BracketClose, statements: Refs[Statement]): BracketBlock
 }
+
+/** A closing bracket Token. */
 sealed trait BracketClose extends BracketToken
 
 case class ParenthOpen(startPosn: TextPosn) extends BracketOpen  
