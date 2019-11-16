@@ -19,8 +19,8 @@ case class LessonA6(canv: CanvasPlatform) extends CanvasSimple("Lesson A5")
       BezierDraw(ptStart, 0 vv 350, 100 vv 270, ptEnd, 2, DarkRed),
   
       //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
-      TextOutline(Vec2Z, "Text in outline at centre screen", 40, Orange, 1),
-      TextOutline(0 vv -200, "More text in outline, at x is 0, y is - 200", 60, Red, 2),
+      TextOutline("Text in outline at centre screen", 40, Vec2Z, Orange, 1),
+      TextOutline("More outline text, at x is 0, y is - 200", 60, 0 vv -200, Red, 2),
   
       // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
       Polygon(-300 vv 200, -300 vv 300, -250 vv 300).fill(Orange),

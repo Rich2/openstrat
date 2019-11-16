@@ -30,17 +30,16 @@ object TextGraphicCen
 
 object TextGraphic
 { 
-  def lines(strs: Arr[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
-      align: TextAlign = CenAlign): Arr[TextGraphic] =
+  def lines(strs: Arr[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1,  align: TextAlign = CenAlign): Arr[TextGraphic] =
   { val len = strs.length
     if(len == 0) Arr()
       else strs.iMap((str, i) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align))        
   }
 }
 
-case class TextOutline(posn: Vec2, str: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = CenAlign,
+case class TextOutline(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, lineWidth: Double = 1.0, align: TextAlign = CenAlign,
   zOrder: Int = 0) extends PaintElem
 {
-  override def fTrans(f: Vec2 => Vec2) = TextOutline(f(posn), str, fontSize, colour, lineWidth, align)
+  override def fTrans(f: Vec2 => Vec2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
 }
