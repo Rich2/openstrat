@@ -10,15 +10,15 @@ object srcToETokensTest extends TestSuite
     val Sp2 = StrPosn(1, 2)
     val Sp3 = StrPosn(1, 3)
     val Sp4 = StrPosn(1, 4)
-    //val ct = "Colour(0xFF000000)".findTokens
+    deb("a".findTokens.toString)
 
-    Symbol("Test1")
+    'Test1
     { Sp1 ==> StrPosn(1, 1)
       assertMatch("45".findTokens){case GoodRefs1(IntDeciToken(Sp1, 45)) => }
       assertMatch("45".findTokens){case GoodRefs1(IntToken(Sp1, "45", 45)) => }
-//w0d      assertMatch("45".findTokens){case GoodRefs1(FloatToken(Sp1, "45", 45)) => }
+      //assertMatch("4.5".findTokens){case GoodRefs1(FloatToken(Sp1, "4.5", 4.5)) => }
       assertMatch("\"45\"".findTokens){case GoodRefs1(StringToken(Sp1, "45")) => }
-//w0d     assertMatch("a".findTokens){case GoodRefs1(CharToken(Sp1)) => }
+      assertMatch("\'a\'".findTokens){case GoodRefs1(CharToken(_, 'a')) => }
 
 //w0d      assertMatch("Ab3_5fG".findTokens){case GoodRefs1(AlphaToken(Sp1, "Ab3_5fG")) => }
       assertMatch(",".findTokens){case GoodRefs1(CommaToken(Sp1)) => }
