@@ -17,6 +17,8 @@ object srcToETokensTest extends TestSuite
       assertMatch("45".findTokens){case GoodRefs1(IntDeciToken(Sp1, 45)) => }
       assertMatch("45".findTokens){case GoodRefs1(IntToken(Sp1, "45", 45)) => }
       //assertMatch("4.5".findTokens){case GoodRefs1(FloatToken(Sp1, "4.5", 4.5)) => }
+     //This would work under new proposed shema but that hasn't been implemented yet
+     // assertMatch("4.5".findTokens){case GoodRefs3(IntToken(Sp1, "4", 4), DotToken(Sp4), IntToken(Sp1, "5", 5)) => }
       assertMatch("\"45\"".findTokens){case GoodRefs1(StringToken(Sp1, "45")) => }
       assertMatch("\'a\'".findTokens){case GoodRefs1(CharToken(_, 'a')) => }
 
