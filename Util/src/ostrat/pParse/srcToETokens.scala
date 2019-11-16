@@ -32,7 +32,7 @@ object srcToETokens
       }
 
       case CharsOff3Tail('\'', c1, '\'', tail) => { acc.append(CharToken(tp, c1)); mainLoop(tail, tp.right3) }
-      case CharsOff1Tail('\'', _) => bad1(tp, "Unclosed Character literal.")
+      case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
 
       //Needs attention.
       case CharsOff1Plus(LetterChar(a)) =>
@@ -64,7 +64,7 @@ object srcToETokens
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Plus(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
+      case CharsOff1Plus(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }
 
     mainLoop(charArr.offsetter0, new TextPosn(fileName, 1, 1))

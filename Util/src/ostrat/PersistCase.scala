@@ -10,7 +10,7 @@ trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
     case AlphaBracketExpr(AlphaToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
-    case AlphaBracketExpr(AlphaToken(fp, typeName), _) => bad1(fp, typeName -- "does not equal" -- typeStr)
+    case AlphaBracketExpr(AlphaToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }
 }
@@ -25,7 +25,7 @@ class Persist1[A1, R](typeStr: String, name1: String, fArg1: R => A1, val newT: 
   {
     case (Refs1(s1), _) => s1.errGet[A1].map(g1 => newT(g1))
     case (Refs0(), Some(d1)) => Good(newT(d1))
-    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 1.")
+    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 1.")
   }
 }
 
@@ -48,7 +48,7 @@ class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2:
     case (Refs2(s1, s2), _, _) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2)
     case (Refs1(s1), _, Some(d2)) => s1.errGet[A1].map(g1 => newT(g1, d2))
     case (Refs0(), Some(d1), Some(d2)) => Good(newT(d1, d2))
-    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 2.")
+    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 2.")
   }
 }
 
@@ -80,7 +80,7 @@ class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, na
     case (Refs2(s1, s2), _, _, Some(d3)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2, d3)
     case (Refs1(s1), _, Some(d2), Some(d3)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3))
     case (Refs0(), Some(d1), Some(d2), Some(d3)) => Good(newT(d1, d2, d3))
-    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 3.")
+    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 3.")
   }
    // sts.errGet3(ev1, ev2, ev3).map{case (a, b, c) => newT(a, b, c)} // sts.errFun3(newT)(ev1, ev2, ev3)
 }
@@ -113,7 +113,7 @@ class Persist4[A1, A2, A3, A4, R](typeStr: String, name1: String, fArg1: R => A1
     case (Refs2(s1, s2), _, _, Some(d3), Some(d4)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2, d3, d4)
     case (Refs1(s1), _, Some(d2), Some(d3), Some(d4)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3, d4))
     case (Refs0(), Some(d1), Some(d2), Some(d3), Some(d4)) => Good(newT(d1, d2, d3, d4))
-    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 4.")
+    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 4.")
   }
 }
 
@@ -152,7 +152,7 @@ class Persist5[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R =
 
     case (Refs1(s1), _, Some(d2), Some(d3), Some(d4), Some(d5)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3, d4, d5))
     case (Refs0(), Some(d1), Some(d2), Some(d3), Some(d4), Some(d5)) => Good(newT(d1, d2, d3, d4, d5))
-    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 4.")
+    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 4.")
   }
 }
 
@@ -199,7 +199,7 @@ class Persist6[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1:
 
     case (Refs1(s1), _, Some(d2), Some(d3), Some(d4), Some(d5), Some(d6)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3, d4, d5, d6))
     case (Refs0(), Some(d1), Some(d2), Some(d3), Some(d4), Some(d5), Some(d6)) => Good(newT(d1, d2, d3, d4, d5, d6))
-    case _ => bad1(sts.startPosn, sts.lenStr -- "parameters, should be 4.")
+    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 4.")
   }
 }
 

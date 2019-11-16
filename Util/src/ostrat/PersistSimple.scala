@@ -10,7 +10,7 @@ abstract class PersistSimple[A](typeStr: String) extends ShowSimple[A](typeStr) 
 
   override def fromStatements(sts: Refs[Statement]): EMon[A] = sts match
   { case Refs1(st) if st.noSemi => fromExpr(st.expr)
-    case sts => bad1(sts.startPosn, "A simple value can not be parsed from a Statement sequence.")
+    case sts => sts.startPosn.bad("A simple value can not be parsed from a Statement sequence.")
   }
 //  def fromStatement(st: Statement): EMon[A] = st match
 //  { case MonoStatement(expr, _) => fromExpr(expr)

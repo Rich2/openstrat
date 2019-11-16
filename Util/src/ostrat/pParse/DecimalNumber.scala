@@ -8,10 +8,10 @@ object DecimalNumber
     def intLoop(rem: CharsOff, str: String, longAcc: Long): EMon3[CharsOff, TextPosn, Token] = rem match
     {
       case CharsOff0() => Good3(rem, tp.addStr(str), IntDeciToken(tp, longAcc))
-      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && tail.ifHead(_.isDigit) => bad3(tp, "Integer too big for 64 bit value")
-      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L => bad3(tp, "Integer too big for 64 bit value")
+      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && tail.ifHead(_.isDigit) => tp.bad("Integer too big for 64 bit value")
+      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L => tp.bad("Integer too big for 64 bit value")
       case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L && d > '7' =>
-        bad3(tp, "Integer too big for 64 bit value")
+        tp.bad("Integer too big for 64 bit value")
       case CharsOff1Tail(d, tail) if d.isDigit => intLoop(tail, str + d.toString, (longAcc * 10) + d - '0')
       case CharsOff1Tail('.', tail) => decimalLoop(tail, str + firstDigit.toString, longAcc, 10)
       case CharsOff1Tail(_, tail) => Good3(rem, tp.addStr(str), IntDeciToken(tp, longAcc))

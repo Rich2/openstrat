@@ -56,13 +56,13 @@ trait UnShow[+T]
   def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
   { case Nil => TextPosn.emptyError("No values of type found")
     case h :: Nil => Good(h)
-    case s3 => bad1(l.startPosn, s3.length.toString -- "values of" -- typeStr -- "found.") 
+    case s3 => l.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
   
   def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
   {
     case MonoStatement(AsignExpr(_, AlphaToken(_, sym), rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
-    case _ => bad1(st.startPosn, typeStr -- "not found.")
+    case _ => st.startPosn.bad(typeStr -- "not found.")
   }
   
   def settingFromStatementList(list: List[Statement], settingStr: String): EMon[T] = list match
@@ -70,8 +70,8 @@ trait UnShow[+T]
     case List(e1) => settingFromStatement(settingStr, e1)
     case s2 => list.map(settingFromStatement(settingStr, _)).collect{ case g: Good[T] => g } match
     { case Seq(t) => t
-      case Nil => bad1(list.startPosn, settingStr -- typeStr -- "Setting not found.")
-      case s3 => bad1(list.startPosn, s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+      case Nil => list.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
+      case s3 => list.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }
 }

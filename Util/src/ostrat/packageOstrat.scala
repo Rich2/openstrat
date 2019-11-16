@@ -85,19 +85,15 @@ package object ostrat
   type ParseExpr = pParse.Expr
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
 
-  type FStr = Function0[String]
-  type FStrSeq = Seq[Function0[String]]
-  type StrList = List[String]
-
-
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
-  def bad1[B](fp: TextPosn, detail: String): Bad[B] = Bad[B](Refs(parseErr(fp, detail)))
+  //def bad1[B](fp: TextPosn, detail: String): Bad[B] = Bad[B](Refs(parseErr(fp, detail)))
   def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](Refs(parseErr(fs.startPosn, detail)))
-  def bad3[A1, A2, A3](fp: TextPosn, detail: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](Refs(parseErr(fp, detail)))
+  //def bad3[A1, A2, A3](fp: TextPosn, detail: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](Refs(parseErr(fp, detail)))
   //def bad3[A1, A2, A3](fs: TextSpan, detail: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](parseErr(fs.startPosn, detail) :: Nil)
   def eTry[A](res: => A): EMon[A] =
-    try Good[A](res) catch { case scala.util.control.NonFatal(e) => bad1(TextPosn("Java Exception", 1, 1), e.getMessage) }
+    try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
+
   def commaedInts(iSeq: Int*) = iSeq.map(_.toString).commaFold
 
   val two32: Long = 4294967296L

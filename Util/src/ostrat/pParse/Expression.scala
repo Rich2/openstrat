@@ -5,7 +5,7 @@ package pParse
 /** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
  *  clauses that contain each contain an expression. */
 trait Expr extends TokenOrBlock with ExprMember
-{ def exprParseErr[A](implicit ev: Persist[A]): EMon[A] = bad1(startPosn, ev.typeStr -- "is not available from" -- exprName)
+{ def exprParseErr[A](implicit ev: Persist[A]): EMon[A] = startPosn.bad(ev.typeStr -- "is not available from" -- exprName)
   def exprName: String
 }
 

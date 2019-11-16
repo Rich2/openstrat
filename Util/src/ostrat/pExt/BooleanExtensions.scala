@@ -16,8 +16,8 @@ class BooleanExtensions(val thisBool : Boolean) extends AnyVal// extends Persist
    def ifStr(optionalString: String): String = if (thisBool) optionalString else ""
    /** Returns the the empty string if true, returns String parameter if false */   
    def ifNotStr(optionalString: String): String = if (thisBool) "" else optionalString
-   def errMap[A](fp: TextPosn, errStr: String, ifTrue: => A): EMon[A] = if (thisBool) Good[A](ifTrue) else bad1[A](fp, errStr)
-   def errFlatMap[A](fp: TextPosn, errStr: String, ifTrue: => EMon[A]): EMon[A] = if (thisBool) (ifTrue) else bad1[A](fp, errStr)
+   def errMap[A](fp: TextPosn, errStr: String, ifTrue: => A): EMon[A] = if (thisBool) Good[A](ifTrue) else fp.bad[A](errStr)
+   def errFlatMap[A](fp: TextPosn, errStr: String, ifTrue: => EMon[A]): EMon[A] = if (thisBool) (ifTrue) else fp.bad[A](errStr)
    def toOption[A](obj: A): Option[A] = if (thisBool) Some(obj) else None
    def |!& (operand: Boolean): Boolean = (thisBool || operand) && (!(thisBool && operand))
    /** This needs to be changed to by name parameters when by name varargs are allowed. I think this is coming in 12.3 */

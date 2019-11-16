@@ -25,11 +25,14 @@ object TextPosn
 { //def apply(fileName: String, lineNum: Int, linePosn: Int): FilePosn = new FilePosn(fileName, lineNum, linePosn)
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
-  def emptyError[A](errStr: String): Bad[A] = bad1(empty, errStr)
+  def emptyError[A](errStr: String): Bad[A] = empty.bad(errStr)
 
-  implicit class TextPosnImplicit[A](thisTP: TextPosn)
+  implicit class TextPosnImplicit(thisTP: TextPosn)
   {
-    def bad: Bad[A] = new Bad(Refs(""))
+    def parseErr(detail: String): String = thisTP.fileName -- thisTP.lineNum.toString + ", " + thisTP.linePosn.toString + ": " + detail
+    def bad[A](message: String): Bad[A] = new Bad[A](Refs(parseErr(message)))
+    def bad[A1, A2](message: String): Bad2[A1, A2] = new Bad2[A1, A2](Refs(parseErr(message)))
+    def bad[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](Refs(parseErr(message)))
   }
   
   implicit object TextPosnShow extends Show3[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum,"linePosn", _.linePosn)

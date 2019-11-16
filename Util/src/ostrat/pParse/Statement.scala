@@ -52,7 +52,7 @@ object Statement
     {
       val list = ev.listFromStatementList(statementList)
       if (list.length > index) Good(list(index))
-        else bad1(TextPosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
+        else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
     def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementList)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementList)
@@ -80,7 +80,7 @@ object Statement
     {
       val list = ev.listFromStatementList(statementArr.toList)
       if (list.length > index) Good(list(index))
-      else bad1(TextPosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
+      else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
     def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementArr.toList)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementArr.toList)
@@ -107,7 +107,7 @@ object Statement
     {
       val list = ev.listFromStatementList(statementRefs.toList)
       if (list.length > index) Good(list(index))
-      else bad1(TextPosn.empty, "Element " + index.toString -- "of" -- ev.typeStr -- "not found")
+      else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
     def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementRefs.toList)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementRefs.toList)
@@ -155,7 +155,7 @@ case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with Te
    override def optSemi: Opt[SemicolonToken] = Opt(st)
    override def startMem: TextSpan = st
    override def endMem: TextSpan = st
-   def asError[A]: Bad[A] = bad1(st.startPosn, "Empty Statement")
+   def asError[A]: Bad[A] = st.startPosn.bad("Empty Statement")
 }
 object EmptyStatement
 {
