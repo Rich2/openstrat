@@ -67,6 +67,6 @@ object srcToETokens
       case CharsOff1Plus(c) => bad1(tp, "Unimplemented character in main loop: " + c.toString)
     }
 
-    mainLoop(charArr.charsOffsetter, new TextPosn(fileName, 1, 1))
+    mainLoop(charArr.offsetter0, new TextPosn(fileName, 1, 1))
   }
 }
