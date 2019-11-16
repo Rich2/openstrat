@@ -92,8 +92,8 @@ trait CanvasPlatform extends RectGeom
     textGraphic(TextGraphic(str, fontSize, posn, colour, align))
    
   def textOutline(to: TextOutline): Unit
-  final def textOutline(posn: Vec2, text: String, fontSize: Int, colour: Colour, lineWidth: Double, align: TextAlign = CenAlign): Unit =
-    textOutline(TextOutline(posn, text, fontSize, colour, lineWidth, align))
+  final def textOutline(text: String, fontSize: Int, posn: Vec2, colour: Colour, lineWidth: Double, align: TextAlign = CenAlign): Unit =
+    textOutline(TextOutline(text, fontSize, posn, colour, lineWidth, align))
     
   def dashedLineDraw(dld: DashedLineDraw): Unit   
       
