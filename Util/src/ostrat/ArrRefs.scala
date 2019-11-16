@@ -174,9 +174,6 @@ object GoodRefs4
   }
 }
 
-
-
-
 /** Immutable heapless iterator for Refs. */
 class RefsOff[A <: AnyRef](val offset0: Int) extends AnyVal with ArrOff[A, Refs[A]]
 { override def apply(index: Int)(implicit refs: Refs[A]) = refs(index)

@@ -36,7 +36,7 @@ object srcToETokens
 
       //Needs attention.
       case CharsOff1Plus(LetterChar(a)) =>
-      { val (alphaStr, finalTail) = charsOff.span(a => a.isLetterOrDigit | a == '.')
+      { val (alphaStr, finalTail) = charsOff.span(a => a.isLetterOrDigit | a == '.' | a == '_')
         acc.append(AlphaToken(tp, alphaStr.mkString))
         mainLoop(finalTail, tp.addChars(alphaStr.array))
       }

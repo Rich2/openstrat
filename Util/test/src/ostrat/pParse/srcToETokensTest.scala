@@ -14,19 +14,22 @@ object srcToETokensTest extends TestSuite
     'Test1
     { Sp1 ==> StrPosn(1, 1)
 
-      assertMatch("\'a\'".findTokens){case GoodRefs1(CharToken(_, 'a')) => }
+      assertMatch("\'a\'".findTokens){ case GoodRefs1(CharToken(_, 'a')) => }
+      assertMatch("MyId".findTokens){ case GoodRefs1(AlphaToken(Sp1, "MyId")) => }
+      assertMatch("My3".findTokens){ case GoodRefs1(AlphaToken(Sp1, "My3")) => }
+      assertMatch("My3Id".findTokens){ case GoodRefs1(AlphaToken(Sp1, "My3Id")) => }
+      assertMatch("Ab3_5fG".findTokens){ case GoodRefs1(AlphaToken(Sp1, "Ab3_5fG")) => }
 
-//w0d      assertMatch("Ab3_5fG".findTokens){case GoodRefs1(AlphaToken(Sp1, "Ab3_5fG")) => }
-      assertMatch(",".findTokens){case GoodRefs1(CommaToken(Sp1)) => }
-      assertMatch("{".findTokens){case GoodRefs1(CurlyOpen(Sp1)) => }
-      assertMatch("}".findTokens){case GoodRefs1(CurlyClose(Sp1)) => }
-      assertMatch("(".findTokens){case GoodRefs1(ParenthOpen(Sp1)) => }
-      assertMatch(")".findTokens){case GoodRefs1(ParenthClose(Sp1)) => }
-      assertMatch(" [".findTokens){case GoodRefs1(SquareOpen(Sp2)) => }
-      assertMatch(" ]".findTokens){case GoodRefs1(SquareClose(Sp2)) => }
-      assertMatch(";".findTokens){case GoodRefs1(SemicolonToken(Sp1)) => }
-      assertMatch(";;".findTokens){case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
-      assertMatch(" ; .".findTokens){case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
+      assertMatch(",".findTokens){ case GoodRefs1(CommaToken(Sp1)) => }
+      assertMatch("{".findTokens){ case GoodRefs1(CurlyOpen(Sp1)) => }
+      assertMatch("}".findTokens){ case GoodRefs1(CurlyClose(Sp1)) => }
+      assertMatch("(".findTokens){ case GoodRefs1(ParenthOpen(Sp1)) => }
+      assertMatch(")".findTokens){ case GoodRefs1(ParenthClose(Sp1)) => }
+      assertMatch(" [".findTokens){ case GoodRefs1(SquareOpen(Sp2)) => }
+      assertMatch(" ]".findTokens){ case GoodRefs1(SquareClose(Sp2)) => }
+      assertMatch(";".findTokens){ case GoodRefs1(SemicolonToken(Sp1)) => }
+      assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
+      assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
 //w0d      assertMatch("-".findTokens){case GoodRefs1(OtherOperatorToken(Sp1, "-")) => }
       assertMatch("=".findTokens){case GoodRefs1(AsignToken(Sp1)) => }
       //assertMatch("-".findTokens){case GoodRefs1(PrefixToken(Sp1, "-")) => }
