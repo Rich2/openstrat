@@ -37,7 +37,7 @@ object srcToETokensTest extends TestSuite
     }
     'test2
     {
-      assertMatch("Colour(0xFF000000)".findTokens){case GoodRefs4(_, _, _, _) => }
+      assertMatch("Colour(0xFF000000)".findTokens){case GoodRefs4(AlphaToken(Sp1, "Colour"), ParenthOpen(_), IntHexaToken(_, "FF000000", 4278190080l), ParenthClose(_)) => }
     }
 
     Symbol("Neg")

@@ -97,11 +97,11 @@ case class IntDeciToken(startPosn: TextPosn, intValue: Long) extends IntToken //
 /** A 64 bit integer token in hexadecimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
  *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class IntHexaToken(startPosn: TextPosn, srcStr: String, intValue: Long) extends IntToken// with IntLikeHexaToken
-{ override def exprName: String = "IntHexTokenExpr"
+case class IntHexaToken(startPosn: TextPosn, digitsStr: String, intValue: Long) extends IntToken
+{ override def srcStr: String = "0x" + digitsStr
+  override def exprName: String = "IntHexTokenExpr"
   override def tokenTypeStr: String = "IntHexaToken"
 }
-
 
 /** A Double Floating point token. */
 case class FloatToken(startPosn: TextPosn, srcStr: String, floatValue: Double) extends ExprToken
