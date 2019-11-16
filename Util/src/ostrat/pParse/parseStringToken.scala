@@ -15,6 +15,11 @@ object parseStringToken
       case CharsOff2Plus('\\', c2) => bad3(tp, "Unrecognised escape Sequence \\" + c2.toString)
       case CharsOff1Tail(h, tail2) => { strAcc.append(h); loop(tail2) }
     }
-    loop(rem)
+    rem match
+    {
+      case CharsOff1Tail('\"', tail) => loop(tail)
+      case _ => bad3(tp, "These characters do not begin with a String opening delimitter.")
+    }
+
   }
 }

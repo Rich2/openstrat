@@ -17,6 +17,7 @@ class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
   }
 
   def charsOffsetter: CharsOff = new CharsOff(0)
+  def charsOffsetter1: CharsOff = new CharsOff(1)
   def mkString: String = array.mkString
 
 }

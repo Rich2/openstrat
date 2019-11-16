@@ -48,7 +48,8 @@ object srcToETokens
         mainLoop(co, tp)
       }
 
-      case CharsOff1Tail('\"', tail) => parseStringToken(tail, tp).flatMap { (cOff, tp, token) =>
+      //Passes the whole string for sub parsing including the initail Double quotation character.
+      case CharsOff1Plus('\"') => parseStringToken(charsOff, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
