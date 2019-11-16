@@ -26,8 +26,13 @@ object TextPosn
   def fromServer(linePosn: Int = 1, lineNum: Int = 1): TextPosn = TextPosn("Server error", lineNum, linePosn)
   def empty: TextPosn = TextPosn("Empty object", 0, 0)
   def emptyError[A](errStr: String): Bad[A] = bad1(empty, errStr)
+
+  implicit class TextPosnImplicit[A](thisTP: TextPosn)
+  {
+    def bad: Bad[A] = new Bad(List(""))
+  }
   
-  implicit object TextPosnShow extends Show3[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum, "linePosn", _.linePosn)
+  implicit object TextPosnShow extends Show3[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum,"linePosn", _.linePosn)
 }
 
 trait TextSpan
