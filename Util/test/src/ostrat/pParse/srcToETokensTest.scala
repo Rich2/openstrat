@@ -10,22 +10,14 @@ object srcToETokensTest extends TestSuite
     val Sp2 = StrPosn(1, 2)
     val Sp3 = StrPosn(1, 3)
     val Sp4 = StrPosn(1, 4)
-    deb("a".findTokens.toString)
 
     'Test1
     { Sp1 ==> StrPosn(1, 1)
-      assertMatch("45".findTokens){case GoodRefs1(IntDeciToken(Sp1, 45)) => }
-      assertMatch("45".findTokens){case GoodRefs1(IntToken(Sp1, "45", 45)) => }
-      //assertMatch("4.5".findTokens){case GoodRefs1(FloatToken(Sp1, "4.5", 4.5)) => }
-     //This would work under new proposed shema but that hasn't been implemented yet
-     // assertMatch("4.5".findTokens){case GoodRefs3(IntToken(Sp1, "4", 4), DotToken(Sp4), IntToken(Sp1, "5", 5)) => }
-      assertMatch("\"45\"".findTokens){case GoodRefs1(StringToken(Sp1, "45")) => }
+
       assertMatch("\'a\'".findTokens){case GoodRefs1(CharToken(_, 'a')) => }
 
 //w0d      assertMatch("Ab3_5fG".findTokens){case GoodRefs1(AlphaToken(Sp1, "Ab3_5fG")) => }
       assertMatch(",".findTokens){case GoodRefs1(CommaToken(Sp1)) => }
-      assertMatch("0x11".findTokens){case GoodRefs1(IntHexaToken(Sp1, "0x11", 17)) => }
-      assertMatch("0x11".findTokens){case GoodRefs1(IntToken(Sp1, "0x11", 17)) => }
       assertMatch("{".findTokens){case GoodRefs1(CurlyOpen(Sp1)) => }
       assertMatch("}".findTokens){case GoodRefs1(CurlyClose(Sp1)) => }
       assertMatch("(".findTokens){case GoodRefs1(ParenthOpen(Sp1)) => }
@@ -39,6 +31,10 @@ object srcToETokensTest extends TestSuite
       assertMatch("=".findTokens){case GoodRefs1(AsignToken(Sp1)) => }
       //assertMatch("-".findTokens){case GoodRefs1(PrefixToken(Sp1, "-")) => }
       "#".findTokens.isBad ==> true
+    }
+    'test2
+    {
+      assertMatch("Colour(0xFF000000)".findTokens){case GoodRefs4(_, _, _, _) => }
     }
 
     Symbol("Neg")

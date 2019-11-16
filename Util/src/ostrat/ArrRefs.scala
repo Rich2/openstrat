@@ -167,6 +167,16 @@ object GoodRefs2
   }
 }
 
+object GoodRefs4
+{ def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Option[(A, A, A, A)] = refs match
+  { case Good(refs) if refs.length == 4 => Some((refs(0), refs(1),refs(2), refs(3)))
+    case _ => None
+  }
+}
+
+
+
+
 /** Immutable heapless iterator for Refs. */
 class RefsOff[A <: AnyRef](val offset0: Int) extends AnyVal with ArrOff[A, Refs[A]]
 { override def apply(index: Int)(implicit refs: Refs[A]) = refs(index)
