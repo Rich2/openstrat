@@ -28,7 +28,7 @@ class AppStart3D extends javafx.application.Application
     val jScene = new Scene(root, canvWidth, canvHeight)
     jScene.setCamera(camera)
     val sett = findDevSetting[String]("appStr")
-    val pair = pDev.Apps.curr(sett.getElse(pDev.Apps.appStr))
+    val pair = pDev.Apps.curr(sett.getElse(""))
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)
     primaryStage.setTitle("3D App")

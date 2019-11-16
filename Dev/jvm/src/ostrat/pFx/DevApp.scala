@@ -23,7 +23,8 @@ class AppStart extends javafx.application.Application
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new scene.Scene(root, canvWidth, canvHeight)
     val sett = findDevSetting[String]("appStr")
-    val pair = pDev.Apps.curr(sett.getElse(pDev.Apps.appStr))
+    deb(sett.toString)
+    val pair = pDev.Apps.curr(sett.getElse(""))
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)
     primaryStage.setTitle(pair._2)
@@ -31,6 +32,3 @@ class AppStart extends javafx.application.Application
     primaryStage.show
   }
 }
- 
-   
-
