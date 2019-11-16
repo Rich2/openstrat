@@ -102,7 +102,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def iterHead[B](ifEmpty: => B, fNonEmpty: (A, Iterable[A]) => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head, thisIter.tail)
   
   /** Folds over this traverable with A => EMon[B] function, accumulating errors */
-  def eMonMap[B](f: A => EMon[B]): EMon[List[B]] =      
+  /*def eMonMap[B](f: A => EMon[B]): EMon[List[B]] =
   {
     def goodLoop(rem: List[A], goodAcc: List[B]): EMon[List[B]] = rem match
     {
@@ -116,7 +116,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
       case h :: tail => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
     }
     goodLoop(thisIter.toList, Nil)      
-  }
+  }*/
    
   /** Not sure what this method does */
   def typedSpan[B <: A](typeCheckFunction: A => Boolean): (List[B], List[A]) =

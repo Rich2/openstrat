@@ -29,7 +29,7 @@ object TextPosn
 
   implicit class TextPosnImplicit[A](thisTP: TextPosn)
   {
-    def bad: Bad[A] = new Bad(List(""))
+    def bad: Bad[A] = new Bad(Refs(""))
   }
   
   implicit object TextPosnShow extends Show3[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum,"linePosn", _.linePosn)
