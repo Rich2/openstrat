@@ -16,12 +16,16 @@ object srcToETokens
     { case CharsOff0() => acc.goodRefs
       case CharsOff1Tail(';', tail) => { acc.append(SemicolonToken(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail(',', tail) => { acc.append(CommaToken(tp)); mainLoop(tail, tp.right1) }
+
       case CharsOff1Tail('(', tail) => { acc.append(ParenthOpen(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail(')', tail) => { acc.append(ParenthClose(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail('[', tail) => { acc.append(SquareOpen(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail(']', tail) => { acc.append(SquareClose(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail('{', tail) => { acc.append(CurlyOpen(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail('}', tail) => { acc.append(CurlyClose(tp)); mainLoop(tail, tp.right1) }
+
+      case CharsOff3Tail('.', '.', '.', tail) => { acc.append(Dot3Token(tp)); mainLoop(tail, tp.right3) }
+      case CharsOff2Tail('.', '.', tail) => { acc.append(Dot2Token(tp)); mainLoop(tail, tp.right2) }
       case CharsOff1Tail('.', tail) => { acc.append(DotToken(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail('\n', tail) => mainLoop(tail, tp.newLine)
       case CharsOff1Tail(h, tail) if h.isWhitespace => mainLoop(tail, tp.right1)

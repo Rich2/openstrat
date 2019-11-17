@@ -45,6 +45,18 @@ case class DotToken(startPosn: TextPosn) extends ExprMemberToken
   override def tokenTypeStr: String = "DotToken"
 }
 
+/** The double Dot or Stop Token. */
+case class Dot2Token(startPosn: TextPosn) extends ExprMemberToken
+{ def srcStr = ".."
+  override def tokenTypeStr: String = "DotToken"
+}
+
+/** The triple Dot or Stop Token. */
+case class Dot3Token(startPosn: TextPosn) extends ExprMemberToken
+{ def srcStr = "..."
+  override def tokenTypeStr: String = "DotToken"
+}
+
 case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMember
 { def srcStr = "_"
   override def exprName: String = "EmptyClauseExpr"
