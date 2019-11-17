@@ -39,3 +39,5 @@ code { color: DarkRed; }
   #topmenu { text-align: center; max-width: 100em;}
   #bottommenu {display: none;}
 }
+
+td {padding-right: 0.5em}
