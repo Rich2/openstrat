@@ -45,6 +45,12 @@ case class DotToken(startPosn: TextPosn) extends ExprMemberToken
   override def tokenTypeStr: String = "DotToken"
 }
 
+case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMember
+{ def srcStr = "_"
+  override def exprName: String = "EmptyClauseExpr"
+  override def tokenTypeStr: String = "CommaToken"
+}
+
 /** An Alphanumeric Token. It contains a symbol rather than a String to represent the AlphaNumeric token as commonly used Symbols have better
  *  better performance than the equivalent Strings. */
 case class IdentiferToken(startPosn: TextPosn, srcStr: String) extends ExprToken

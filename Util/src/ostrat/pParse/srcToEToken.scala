@@ -97,6 +97,31 @@ object parseOperatorToken
   }
 }
 
+object parseIdentifier
+{
+  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
+  {
+    val acc: StringBuffer = new StringBuffer()
+    def loop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = ???
+
+
+    remOff match
+    {
+      case CharsOff2Plus(LetterOrUnderscoreChar(c1), LetterOrDigitChar(_)) => { acc.append(c1); loop(remOff.drop1, tp.right1) }
+      case CharsOff2Plus(LetterOrUnderscoreChar(c1), '_') => { acc.append(c1); loop(remOff.drop1, tp.right1) }
+      case CharsOff1Tail('_', tail)  => Good3(tail, tp.right1, UnderscoreToken(tp))
+      case CharsOff1Tail(LetterChar(l), tail) => { acc.append(l); loop(tail, tp.right1) }
+
+      /*=>
+      {
+        val (alphaStr, finalTail) = charsOff.span(a => a.isLetterOrDigit | a == '.' | a == '_')
+        acc.append(IdentiferToken(tp, alphaStr.mkString))
+        mainLoop(finalTail, tp.addChars(alphaStr.array))
+      }*/
+    }
+  }
+}
+
 object parseMultiComment
 { /** Searches for comment terminator or end of comment, discards comment and returns the new Chars offset and the new TextPosn*/
   def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): (CharsOff, TextPosn) =

@@ -34,6 +34,7 @@ object srcToETokensTest extends TestSuite
       //assertMatch("-".findTokens){case GoodRefs1(PrefixToken(Sp1, "-")) => }
       "#".findTokens.isBad ==> true
     }
+
     'Multiple
     {
       assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }

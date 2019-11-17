@@ -31,6 +31,24 @@ object DigitChar
   }
 }
 
+object LetterOrDigitChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case c if c.isLetter => Some(c)
+    case c if c.isDigit => Some(c)
+    case _ => None
+  }
+}
+
+object LetterOrUnderscoreChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case c if c.isLetter => Some(c)
+    case '_' => Some('_')
+    case _ => None
+  }
+}
+
 object HexaDigitChar
 { /** So I first encoded this with an exception and I can't remember why. */
   def unapply(input: Char): Option[(Char, Int)] = input match
