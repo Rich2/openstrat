@@ -41,14 +41,14 @@ object srcToETokensTest extends TestSuite
       assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
 
       assertMatch("Colour(0xFF000000)".findTokens){
-        case GoodRefs4(IdentifierToken(Sp1, "Colour"), ParenthOpen(_), IntHexaToken(_, "FF000000", 4278190080l), ParenthClose(_)) => }
+        case GoodRefs4(IdentifierToken(Sp1, "Colour"), ParenthOpen(_), IntHexaToken(_, "FF000000"), ParenthClose(_)) => }
 
     }
 
     Symbol("Neg")
     {
       assertMatch("-".findTokens){case GoodRefs1(PlusInToken(_, _)) => }
-      assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, 4)) => }
+      assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4")) => }
       
     }
   }

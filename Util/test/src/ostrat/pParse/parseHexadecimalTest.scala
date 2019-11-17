@@ -11,7 +11,7 @@ object parseHexadecimalTest extends TestSuite
   {
     'Test1
     {
-      assertMatch(h1){case Good3(CharsOff(4), StrPosn(1, 5), IntHexaToken(_, _, 68)) => }
+      assertMatch(h1){case Good3(CharsOff(4), StrPosn(1, 5), IntHexaToken(_, _)) => }
     }
   }
 }

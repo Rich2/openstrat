@@ -92,12 +92,12 @@ case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
 
 /** A 64 bit Integer Token. */
 trait IntToken extends ExprToken
-{ def intValue: Long
+{ def getInt: Int
 }
 
 object IntToken
-{ def unapply(token: Token): Option[(TextPosn, String, Int)] = token match
-  { case it: IntToken => Some((it.startPosn, it.srcStr, it.intValue.toInt))
+{ def unapply(token: Token): Option[(TextPosn, String)] = token match
+  { case it: IntToken => Some((it.startPosn, it.srcStr))
     case _ => None
   }
 }
@@ -105,20 +105,22 @@ object IntToken
 /** A 64 bit integer token in standard decimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
  *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class IntDeciToken(startPosn: TextPosn, intValue: Long) extends IntToken //with IntLikeDeciToken
+case class IntDeciToken(startPosn: TextPosn, srcStr: String) extends IntToken //with IntLikeDeciToken
 { override def toString: String = "IntDeciToken".appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def exprName: String = "IntDeciTokenExpr"
   override def tokenTypeStr: String = "IntDeciToken"
-  override def srcStr: String = intValue.toString
+  //override def  = intValue.toString
+  override def getInt: Int = ???
 }
 
 /** A 64 bit integer token in hexadecimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
  *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class IntHexaToken(startPosn: TextPosn, digitsStr: String, intValue: Long) extends IntToken
+case class IntHexaToken(startPosn: TextPosn, digitsStr: String) extends IntToken
 { override def srcStr: String = "0x" + digitsStr
   override def exprName: String = "IntHexTokenExpr"
   override def tokenTypeStr: String = "IntHexaToken"
+  override def getInt: Int = ???
 }
 
 /** A Double Floating point token. */

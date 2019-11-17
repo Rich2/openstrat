@@ -8,10 +8,10 @@ object parseHexadecimal
   def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, IntHexaToken] =
   {
     def hexIntLoop(rem: CharsOff, strAcc: String, intAcc: Long): EMon3[CharsOff, TextPosn, IntHexaToken] = rem match
-    { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), IntHexaToken(tp, strAcc, intAcc))
+    { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), IntHexaToken(tp, strAcc))
       case CharsOff1Tail(HexaDigitChar(c, i), tail) => hexIntLoop(tail, strAcc + c, intAcc * 16 + i)
       case CharsOff1Plus(LetterChar(_)) => tp.bad("Badly formed hexadecimal")
-      case _ => Good3(rem, tp.addStr(strAcc), IntHexaToken(tp, strAcc, intAcc))
+      case _ => Good3(rem, tp.addStr(strAcc), IntHexaToken(tp, strAcc))
     }
 
     rem match
@@ -28,26 +28,15 @@ object parseDeciNumber
 {
   def apply(rem: CharsOff, tp: TextPosn, firstDigit: Char)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
-    def intLoop(rem: CharsOff, str: String, longAcc: Long): EMon3[CharsOff, TextPosn, Token] = rem match
+    def intLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
     {
-      case CharsOff0() => Good3(rem, tp.addStr(str), IntDeciToken(tp, longAcc))
+      case CharsOff0() => Good3(rem, tp.addStr(str), IntDeciToken(tp, str))
       case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && tail.ifHead(_.isDigit) => tp.bad("Integer too big for 64 bit value")
-      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L => tp.bad("Integer too big for 64 bit value")
-      case CharsOff1Tail(d, tail) if d.isDigit && str.length == 18 && longAcc > 922337203685477580L && d > '7' =>
-        tp.bad("Integer too big for 64 bit value")
-      case CharsOff1Tail(d, tail) if d.isDigit => intLoop(tail, str + d.toString, (longAcc * 10) + d - '0')
-      case CharsOff1Tail('.', tail) => decimalLoop(tail, str + firstDigit.toString, longAcc, 10)
-      case CharsOff1Tail(_, tail) => Good3(rem, tp.addStr(str), IntDeciToken(tp, longAcc))
+      case CharsOff1Tail(d, tail) if d.isDigit => intLoop(tail, str + d.toString)
+      case CharsOff1Tail(_, tail) => Good3(rem, tp.addStr(str), IntDeciToken(tp, str))
     }
 
-    def decimalLoop(rem: CharsOff, str: String, floatAcc: Double, divisor: Double): EMon3[CharsOff, TextPosn, Token] = rem match
-    {
-      case CharsOff0() => Good3(rem, tp.addStr(str), FloatToken(tp, str, floatAcc))
-      case CharsOff1Tail(d, tail) if d.isDigit => decimalLoop(tail, str + d.toString, floatAcc + (d - '0') / divisor, divisor * 10)
-      case CharsOff1Tail(c, tail) => Good3(rem, tp.addStr(str),  FloatToken(tp, str, floatAcc))
-    }
-
-    intLoop(rem, firstDigit.toString, firstDigit - '0')
+    intLoop(rem, firstDigit.toString)
   }
 }
 

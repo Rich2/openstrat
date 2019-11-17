@@ -87,21 +87,21 @@ object CharsOff1
 object CharsOff2
 { /** Extractor for immutable heapless iterator for Chars with length == 2. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char)] =
-    ife(chars.length - inp.offset0 == 2, Some(chars(inp.offset0), chars(inp.offset1)), None)
+    ife(chars.length - inp.offset0 == 2, Some((chars(inp.offset0), chars(inp.offset1))), None)
 }
 
 /** Extractor object for immutable heapless iterator for Chars with length == 3. */
 object CharsOff3
 { /** Extractor for immutable heapless iterator for Chars with length == 3. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char)] =
-    ife(chars.length - inp.offset0 == 3, Some(chars(inp.offset0), chars(inp.offset1), chars(inp.offset2)), None)
+    ife(chars.length - inp.offset0 == 3, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2))), None)
 }
 
 /** Extractor object for immutable heapless iterator for Chars with length == 4. */
 object CharsOff4
 { /** Extractor for immutable heapless iterator for Chars with length == 4. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char, Char)] =
-    ife(chars.length - inp.offset0 == 4, Some(chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3)), None)
+    ife(chars.length - inp.offset0 == 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)
 }
 
 /** Extractor object for the first element for immutable heapless iterator for Chars with at length >= 1. Use this when you don't care about the
