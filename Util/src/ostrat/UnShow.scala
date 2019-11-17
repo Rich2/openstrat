@@ -61,7 +61,7 @@ trait UnShow[+T]
   
   def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
   {
-    case MonoStatement(AsignExpr(_, AlphaToken(_, sym), rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
+    case MonoStatement(AsignExpr(_, IdentiferToken(_, sym), rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
   

@@ -47,7 +47,7 @@ case class DotToken(startPosn: TextPosn) extends ExprMemberToken
 
 /** An Alphanumeric Token. It contains a symbol rather than a String to represent the AlphaNumeric token as commonly used Symbols have better
  *  better performance than the equivalent Strings. */
-case class AlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
+case class IdentiferToken(startPosn: TextPosn, srcStr: String) extends ExprToken
 { override def exprName: String = "AlphaTokenExpr"
   override def toString: String =  "AlphaToken".appendParenthSemis(srcStr, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def tokenTypeStr: String = "AlphaToken"

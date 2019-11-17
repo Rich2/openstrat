@@ -53,7 +53,7 @@ case class UnimplementedExpr(bMems: Refs[BlockMember]) extends ExprCompound
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
 }
-case class AlphaBracketExpr(name: AlphaToken, blocks: Refs[BracketBlock]) extends ExprCompound
+case class AlphaBracketExpr(name: IdentiferToken, blocks: Refs[BracketBlock]) extends ExprCompound
 { def startMem = name
   def endMem = blocks.last
   override def exprName: String = "AlphaBracketExpr"  
