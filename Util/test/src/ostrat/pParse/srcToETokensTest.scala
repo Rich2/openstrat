@@ -11,7 +11,7 @@ object srcToETokensTest extends TestSuite
     val Sp3 = StrPosn(1, 3)
     val Sp4 = StrPosn(1, 4)
 
-    'Test1
+    'Single
     { Sp1 ==> StrPosn(1, 1)
 
       assertMatch("\'a\'".findTokens){ case GoodRefs1(CharToken(_, 'a')) => }
@@ -28,23 +28,26 @@ object srcToETokensTest extends TestSuite
       assertMatch(" [".findTokens){ case GoodRefs1(SquareOpen(Sp2)) => }
       assertMatch(" ]".findTokens){ case GoodRefs1(SquareClose(Sp2)) => }
       assertMatch(";".findTokens){ case GoodRefs1(SemicolonToken(Sp1)) => }
-      assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
-      assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
+
 //w0d      assertMatch("-".findTokens){case GoodRefs1(OtherOperatorToken(Sp1, "-")) => }
       assertMatch("=".findTokens){case GoodRefs1(AsignToken(Sp1)) => }
       //assertMatch("-".findTokens){case GoodRefs1(PrefixToken(Sp1, "-")) => }
       "#".findTokens.isBad ==> true
     }
-    'test2
+    'Multiple
     {
-      assertMatch("Colour(0xFF000000)".findTokens){case GoodRefs4(AlphaToken(Sp1, "Colour"), ParenthOpen(_), IntHexaToken(_, "FF000000", 4278190080l), ParenthClose(_)) => }
+      assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
+      assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
+
+      assertMatch("Colour(0xFF000000)".findTokens){
+        case GoodRefs4(AlphaToken(Sp1, "Colour"), ParenthOpen(_), IntHexaToken(_, "FF000000", 4278190080l), ParenthClose(_)) => }
+
     }
 
     Symbol("Neg")
     {
       assertMatch("-".findTokens){case GoodRefs1(PlusInToken(_, _)) => }
       assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, 4)) => }
-      
       
     }
   }
