@@ -24,6 +24,7 @@ object srcToETokens
       case CharsOff1Tail('{', tail) => { acc.append(CurlyOpen(tp)); mainLoop(tail, tp.right1) }
       case CharsOff1Tail('}', tail) => { acc.append(CurlyClose(tp)); mainLoop(tail, tp.right1) }
 
+      case CharsOff4Plus('.', '.', '.', '.') => tp.right3.bad(".... is not an allowed character sequence.")
       case CharsOff3Tail('.', '.', '.', tail) => { acc.append(Dot3Token(tp)); mainLoop(tail, tp.right3) }
       case CharsOff2Tail('.', '.', tail) => { acc.append(Dot2Token(tp)); mainLoop(tail, tp.right2) }
       case CharsOff1Tail('.', tail) => { acc.append(DotToken(tp)); mainLoop(tail, tp.right1) }
