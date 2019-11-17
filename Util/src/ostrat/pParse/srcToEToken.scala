@@ -115,12 +115,11 @@ object parseIdentifier
     {
       case CharsOff0() => tpStart.bad("Can not return Token form empty Char Array.")
       case CharsOff2Plus(LetterOrUnderscoreChar(c1), LetterOrDigitChar(_)) => { acc.append(c1); loop(remOff.drop1, tpStart.right1) }
-      case CharsOff2Plus(LetterOrUnderscoreChar(c1), '_') => { acc.append(c1); loop(remOff.drop1, tpStart.right1) }
+      case CharsOff2Plus(LetterChar(c1), '_') => { acc.append(c1); loop(remOff.drop1, tpStart.right1) }
       case CharsOff2Plus('_', '_') => tpStart.right1.bad("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail('_', tail)  => Good3(tail, tpStart.right1, UnderscoreToken(tpStart))
       case CharsOff1Tail(LetterChar(l), tail) => { acc.append(l); loop(tail, tpStart.right1) }
       case CharsOff1Plus(c) => tpStart.bad(c.toString + " is not a valid start to an identifer.")
-
     }
   }
 }
