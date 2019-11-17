@@ -9,8 +9,8 @@ trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
   //override def showMems: Arr[Show[_]] = persistMems
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
-    case AlphaBracketExpr(IdentiferToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
-    case AlphaBracketExpr(IdentiferToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+    case AlphaBracketExpr(IdentifierToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromParameterStatements(sts)
+    case AlphaBracketExpr(IdentifierToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }
 }

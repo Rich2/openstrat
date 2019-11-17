@@ -34,11 +34,10 @@ object srcToETokens
       case CharsOff3Tail('\'', c1, '\'', tail) => { acc.append(CharToken(tp, c1)); mainLoop(tail, tp.right3) }
       case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
 
-      //Needs attention.
-      case CharsOff1Plus(LetterChar(a)) =>
-      { val (alphaStr, finalTail) = charsOff.span(a => a.isLetterOrDigit | a == '.' | a == '_')
-        acc.append(IdentiferToken(tp, alphaStr.mkString))
-        mainLoop(finalTail, tp.addChars(alphaStr.array))
+      //Needs tests.
+      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifier(charsOff, tp).flatMap { (cOff, tp, token) =>
+        acc.append(token)
+        mainLoop(cOff, tp)
       }
 
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)

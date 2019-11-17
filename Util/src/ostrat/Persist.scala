@@ -33,8 +33,8 @@ object Persist
   
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
-      case AlphaBracketExpr(IdentiferToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-      case AlphaBracketExpr(IdentiferToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+      case AlphaBracketExpr(IdentifierToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentifierToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
   }
@@ -50,7 +50,7 @@ object Persist
     override def fromClauses(clauses: Refs[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
     {
-      case AlphaBracketExpr(IdentiferToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+      case AlphaBracketExpr(IdentifierToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
     }
     override def fromStatements(sts: Refs[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
@@ -61,7 +61,7 @@ object Persist
     override def show(obj: None.type) = ""
     def fromExpr(expr: Expr): EMon[None.type] = expr match
     {
-      case IdentiferToken(_, "None") => Good(None)
+      case IdentifierToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }
@@ -140,8 +140,8 @@ object Persist
   implicit val BooleanImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def show(obj: Boolean): String = obj.toString  
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
-    { case IdentiferToken(_, str) if str == "true" => Good(true)
-      case IdentiferToken(_, str) if str == "false" => Good(false)
+    { case IdentifierToken(_, str) if str == "true" => Good(true)
+      case IdentifierToken(_, str) if str == "false" => Good(false)
       case _ => expr.exprParseErr[Boolean]
     }
   }
@@ -154,7 +154,7 @@ object Persist
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(IdentiferToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+      case AlphaBracketExpr(IdentifierToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
         //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
@@ -168,7 +168,7 @@ object Persist
 
     override def fromExpr(expr: Expr): EMon[Arr[Int]] = expr match
     { case SemicolonToken(_) => Good(Arr[Int]())
-      case AlphaBracketExpr(IdentiferToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+      case AlphaBracketExpr(IdentifierToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
         //sts.eMap[Int](_.errGet[Int](evA)).map(_.toArr)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
@@ -185,8 +185,8 @@ object Persist
 
     override def fromExpr(expr: ParseExpr): EMon[Arr[A]] =  expr match
     {
-      case AlphaBracketExpr(IdentiferToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-      case AlphaBracketExpr(IdentiferToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+      case AlphaBracketExpr(IdentifierToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentifierToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
   }
