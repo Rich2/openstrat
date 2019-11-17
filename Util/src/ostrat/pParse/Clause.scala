@@ -16,5 +16,3 @@ class EmptyClause(ct: CommaToken) extends Clause(ct, Opt(ct)) with TextSpanCompo
 
 /** Factory object for the empty clause. Not sure if it is necessary */
 object EmptyClause { def apply(ct: CommaToken): EmptyClause = new EmptyClause(ct) }
-
-//case class ClauseExpr(

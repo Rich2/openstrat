@@ -54,12 +54,12 @@ object srcToETokens
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Tail(DigitChar(d), tail) => DecimalNumber(tail, tp, d).flatMap { (cOff, tp, token) =>
+      case CharsOff1Tail(DigitChar(d), tail) => parseDeciNumber(tail, tp, d).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Plus(c) if isOperator(c) => parseOperator(charsOff, tp).flatMap { (cOff, tp, token) =>
+      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(charsOff, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
