@@ -25,6 +25,25 @@
     <tr><td>IdentifierToken</td>             <td>= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }</td></tr>
     <tr><td>DeciLitToken</td>                <td>= '0' | (NonZeroDigit { DigitChar })</td></tr>
   </table>
+  <p>AST Precedence From lowest to highest after brace block parsing.
+  	<ul>
+  	  <li>SemicolonToken Delimits the end of a Statement. The last Statement of a block /file may have, but does not need a need a trailing Semicolon. A statement without commas is considered Unclaused.</li>
+  	  <li>CommaToken Delimits the end of clause. The last Clause of a Statement may have, but does not need a trailing Comma, unless it is a single Clause Statment in which case it must have a trailing Comma to 
+  	  destinguish it from an Unclaused Statement.</li>
+  	  <li>assigment operators. == and != are normal operators. Any other operators ending with a '=" character are assignment operators.</li>
+      <li>The single Colon Token</li>
+      <li>| From here on down the precedence is determinted by the first character of the operator. An operator ending in a ':' will be expected to be an infix operator dispatch from its rhs.</li>
+      <li>^</li>
+      <li>&</li>
+      <li>= !</li>
+      <li>:</li>
+      <li>+ -</li>
+      <li>* / %</li>
+      <li>All other specal charachters</li>
+      <li>Whitespace</li>
+  </ul>
+
+  </p>
 </div>
 </body>
 </html>
