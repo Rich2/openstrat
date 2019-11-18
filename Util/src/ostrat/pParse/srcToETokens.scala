@@ -47,7 +47,7 @@ object srcToETokens
 
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
 
-      case CharsOff2Plus('0', 'x') => parseHexadecimal(charsOff, tp).flatMap { (co, tp, token) =>
+      case CharsOff2Plus('0', 'x') => parseNumberToken(charsOff, tp).flatMap { (co, tp, token) =>
         acc.append(token)
         mainLoop(co, tp)
       }
@@ -57,7 +57,7 @@ object srcToETokens
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Tail(DigitChar(d), tail) => parseDeciNumber(tail, tp, d).flatMap { (cOff, tp, token) =>
+      case CharsOff1Plus(DigitChar(d)) => parseNumberToken(charsOff, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
