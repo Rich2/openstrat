@@ -90,47 +90,7 @@ case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
   override def tokenTypeStr: String = "HashAlphaToken"
 }
 
-/** A 64 bit Integer Token. */
-trait IntToken extends ExprToken
-{ def getInt: Int
-}
 
-object IntToken
-{ def unapply(token: Token): Option[(TextPosn, String)] = token match
-  { case it: IntToken => Some((it.startPosn, it.srcStr))
-    case _ => None
-  }
-}
-
-/** A 64 bit integer token in standard decimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
- *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
- *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class IntDeciToken(startPosn: TextPosn, srcStr: String) extends IntToken //with IntLikeDeciToken
-{ override def toString: String = "IntDeciToken".appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
-  override def exprName: String = "IntDeciTokenExpr"
-  override def tokenTypeStr: String = "IntDeciToken"
-  //override def  = intValue.toString
-  override def getInt: Int = ???
-}
-
-/** A 64 bit integer token in hexadecimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
- *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
- *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class IntHexaToken(startPosn: TextPosn, digitsStr: String) extends IntToken
-{ override def srcStr: String = "0x" + digitsStr
-  override def exprName: String = "IntHexTokenExpr"
-  override def tokenTypeStr: String = "IntHexaToken"
-  override def getInt: Int =
-  { var acc = 0
-    implicit val chars = digitsStr.reverse.toChars
-    def loop(rem: CharsOff): Int = rem match
-    {
-      case CharsOff0() => acc
-      case CharsOff1Tail(HexaDigitChar(_, i), tail)  => { acc += i; loop(tail) }
-    }
-    loop(chars.offsetter0)
-  }
-}
 
 /** A Double Floating point token. */
 case class FloatToken(startPosn: TextPosn, srcStr: String, floatValue: Double) extends ExprToken

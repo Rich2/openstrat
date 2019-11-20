@@ -9,7 +9,7 @@ object ParseTest extends TestSuite
 
     'Test1
     {
-      "4".findType[Int] ==> Good(4)
+      //"4".findType[Int] ==> Good(4)
      //-4".findType[Int] ==> Good(-4)
      // settingStr.findSett[Int]("x") ==> Good(-5)
      // settingStr.findSett[Int]("y") ==> Good(7)

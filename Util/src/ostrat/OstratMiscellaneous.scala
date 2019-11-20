@@ -25,8 +25,8 @@ object LetterChar
 
 object DigitChar
 {
-  def unapply(input: Char): Option[Char] = input match
-  { case c if c.isDigit => Some(c)
+  def unapply(input: Char): Option[(Char, Int)] = input match
+  { case c if c.isDigit => Some(c, c - '0')
     case _ => None
   }
 }
@@ -50,13 +50,13 @@ object LetterOrUnderscoreChar
 }
 
 object HexaDigitChar
-{ /** So I first encoded this with an exception and I can't remember why. */
+{
   def unapply(input: Char): Option[(Char, Int)] = input match
   {
     case n if n.isDigit => Some((n, n - '0'))
     case l if l <= 'F' && l >= 'A' => Some((l, l - 'A' + 10))
     case l if l <= 'f' && l >= 'a' => Some((l, l - 'a' + 10))
-    case c => None// excep(c.toString -- "is not a hexadecimal digit.")
+    case c => None
   }
 }
 

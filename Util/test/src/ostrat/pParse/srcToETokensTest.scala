@@ -48,7 +48,7 @@ object srcToETokensTest extends TestSuite
     Symbol("Neg")
     {
       assertMatch("-".findTokens){case GoodRefs1(PlusInToken(_, _)) => }
-      assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4")) => }
+      //assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4")) => }
       
     }
   }
