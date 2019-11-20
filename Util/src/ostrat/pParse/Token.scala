@@ -120,7 +120,16 @@ case class IntHexaToken(startPosn: TextPosn, digitsStr: String) extends IntToken
 { override def srcStr: String = "0x" + digitsStr
   override def exprName: String = "IntHexTokenExpr"
   override def tokenTypeStr: String = "IntHexaToken"
-  override def getInt: Int = ???
+  override def getInt: Int =
+  { var acc = 0
+    implicit val chars = digitsStr.reverse.toChars
+    def loop(rem: CharsOff): Int = rem match
+    {
+      case CharsOff0() => acc
+      case CharsOff1Tail(HexaDigitChar(_, i), tail)  => { acc += i; loop(tail) }
+    }
+    loop(chars.offsetter0)
+  }
 }
 
 /** A Double Floating point token. */
