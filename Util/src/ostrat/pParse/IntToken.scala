@@ -16,7 +16,7 @@ object IntToken
 /** A 64 bit integer token in standard decimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
  *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class IntDeciToken(startPosn: TextPosn, srcStr: String) extends IntToken //with IntLikeDeciToken
+case class IntDeciToken(startPosn: TextPosn, srcStr: String) extends IntToken
 { override def toString: String = "IntDeciToken".appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def exprName: String = "IntDeciTokenExpr"
   override def tokenTypeStr: String = "IntDeciToken"

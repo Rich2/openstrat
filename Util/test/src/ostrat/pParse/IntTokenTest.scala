@@ -6,6 +6,7 @@ import utest._
 object IntTokensTest  extends TestSuite
 {
   val Sp1 = StrPosn(1, 1)
+  val Sp2 = StrPosn(1, 2)
   val Sp44 = StrPosn(4, 4)
   val a1 = "0x44".toChars
   val h1: EMon3[CharsOff, TextPosn, Token] = parseNumberToken(a1.offsetter0, StrPosn())(a1)
@@ -19,6 +20,16 @@ object IntTokensTest  extends TestSuite
     {
       it1.getInt ==> 13
       it2.getInt ==> 2147483647
+    }
+
+    val ht1 = IntHexaToken(Sp1, "A")
+    val ht2 = IntHexaToken(Sp44, "1A")
+    val ht3 = IntHexaToken(Sp2, "7FFFFFFF")
+    'IntDeciToken
+    {
+      ht1.getInt ==> 10
+      ht2.getInt ==> 26
+      ht3.getInt ==> 2147483647
     }
 
     'Gnereral
