@@ -47,17 +47,17 @@ object srcToETokens
 
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
 
-      case CharsOff2Plus('0', 'x') => parseNumberToken(charsOff, tp).flatMap { (co, tp, token) =>
-        acc.append(token)
-        mainLoop(co, tp)
-      }
+//      case CharsOff2Plus('0', 'x') => parseNumberToken(charsOff, tp).flatMap { (co, tp, token) =>
+//        acc.append(token)
+//        mainLoop(co, tp)
+//      }
 
       case CharsOff1Plus('\"') => parseStringToken(charsOff, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
 
-      case CharsOff1Plus(DigitChar(d)) => parseNumberToken(charsOff, tp).flatMap { (cOff, tp, token) =>
+      case CharsOff1Plus(DigitChar(d, _)) => parseNumberToken(charsOff, tp).flatMap { (cOff, tp, token) =>
         acc.append(token)
         mainLoop(cOff, tp)
       }
