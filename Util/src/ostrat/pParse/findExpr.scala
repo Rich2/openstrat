@@ -28,7 +28,7 @@ object getBlocks
 
   def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
   { case Nil => PrefixPlus(acc.toRefs)
-    case (at: IdentifierToken) :: (bb: BracketBlock) :: t2 =>
+    case (at: IdentLowerOnlyToken) :: (bb: BracketBlock) :: t2 =>
     { //typedSpan needs removal
       val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
       sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketBlock]]))
