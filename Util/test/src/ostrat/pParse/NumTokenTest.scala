@@ -22,9 +22,9 @@ object NumTokenTest  extends TestSuite
       it2.getInt ==> 2147483647
     }
 
-    val ht1 = HexaDecimalToken(Sp1, "A")
-    val ht2 = HexaDecimalToken(Sp44, "1A")
-    val ht3 = HexaDecimalToken(Sp2, "7FFFFFFF")
+    val ht1 = Hexa0xToken(Sp1, "A")
+    val ht2 = Hexa0xToken(Sp44, "1A")
+    val ht3 = Hexa0xToken(Sp2, "7FFFFFFF")
     'IntDeciToken
     {
       ht1.getInt ==> 10
@@ -44,7 +44,7 @@ object NumTokenTest  extends TestSuite
       assertMatch("0x11".findTokens){case GoodRefs1(IntHexaToken(Sp1, "11")) => }
       assertMatch("0x11".findTokens){case GoodRefs1(IntToken(Sp1, "0x11")) => }*/
 
-      assertMatch(h1){case Good3(CharsOff(4), StrPosn(1, 5), HexaDecimalToken(_, _)) => }
+      assertMatch(h1){case Good3(CharsOff(4), StrPosn(1, 5), Hexa0xToken(_, _)) => }
     }
   }
 }

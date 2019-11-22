@@ -73,10 +73,10 @@ case class DecimalToken(startPosn: TextPosn, srcStr: String) extends NumToken
   }
 }
 
-/** A 64 bit integer token in hexadecimal format, that can be used for standard 32 bit Ints and 64 bit Longs, as well as less used integer
- *  formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
+/** A hexadecimal token with a leading "0x", that can be used for standard 32 bit Ints, 64 bit Longs, as well as less used integer
+ *  formats such as BigInteger and Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class HexaDecimalToken(startPosn: TextPosn, digitsStr: String) extends NumToken
+case class Hexa0xToken(startPosn: TextPosn, digitsStr: String) extends NumToken
 { override def srcStr: String = "0x" + digitsStr
   override def exprName: String = "IntHexTokenExpr"
   override def tokenTypeStr: String = "IntHexaToken"

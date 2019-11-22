@@ -7,11 +7,11 @@ object parseNumberToken
   /** Function for parsing expected Hexadecimal number. */
   def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
-    def hexaLoop(rem: CharsOff, strAcc: String, intAcc: Long): EMon3[CharsOff, TextPosn, HexaDecimalToken] = rem match
-    { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), HexaDecimalToken(tp, strAcc))
+    def hexaLoop(rem: CharsOff, strAcc: String, intAcc: Long): EMon3[CharsOff, TextPosn, Hexa0xToken] = rem match
+    { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), Hexa0xToken(tp, strAcc))
       case CharsOff1Tail(HexaDigitChar(c, i), tail) => hexaLoop(tail, strAcc + c, intAcc * 16 + i)
       case CharsOff1Plus(LetterChar(_)) => tp.bad("Badly formed hexadecimal")
-      case _ => Good3(rem, tp.addStr(strAcc), HexaDecimalToken(tp, strAcc))
+      case _ => Good3(rem, tp.addStr(strAcc), Hexa0xToken(tp, strAcc))
     }
 
     def deciLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
