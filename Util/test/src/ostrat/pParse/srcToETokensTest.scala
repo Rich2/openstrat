@@ -41,7 +41,7 @@ object srcToETokensTest extends TestSuite
       assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
 
       assertMatch("Colour(0xFF000000)".findTokens){
-        case GoodRefs4(IdentLowerOnlyToken(Sp1, "Colour"), ParenthOpen(_), IntHexaToken(_, "FF000000"), ParenthClose(_)) => }
+        case GoodRefs4(IdentLowerOnlyToken(Sp1, "Colour"), ParenthOpen(_), HexaDecimalToken(_, "FF000000"), ParenthClose(_)) => }
 
     }
 

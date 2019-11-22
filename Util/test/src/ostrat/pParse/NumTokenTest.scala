@@ -3,7 +3,7 @@ package pParse
 import utest._
 
 /** Also tests the srcToETokens function object. */
-object IntTokensTest  extends TestSuite
+object NumTokenTest  extends TestSuite
 {
   val Sp1 = StrPosn(1, 1)
   val Sp2 = StrPosn(1, 2)
@@ -14,17 +14,17 @@ object IntTokensTest  extends TestSuite
 
   val tests = Tests
   {
-    val it1 = IntDeciToken(Sp1, "13")
-    val it2 = IntDeciToken(Sp44, "2147483647")
+    val it1 = DecimalToken(Sp1, "13")
+    val it2 = DecimalToken(Sp44, "2147483647")
     'IntDeciToken
     {
       it1.getInt ==> 13
       it2.getInt ==> 2147483647
     }
 
-    val ht1 = IntHexaToken(Sp1, "A")
-    val ht2 = IntHexaToken(Sp44, "1A")
-    val ht3 = IntHexaToken(Sp2, "7FFFFFFF")
+    val ht1 = HexaDecimalToken(Sp1, "A")
+    val ht2 = HexaDecimalToken(Sp44, "1A")
+    val ht3 = HexaDecimalToken(Sp2, "7FFFFFFF")
     'IntDeciToken
     {
       ht1.getInt ==> 10
@@ -44,7 +44,7 @@ object IntTokensTest  extends TestSuite
       assertMatch("0x11".findTokens){case GoodRefs1(IntHexaToken(Sp1, "11")) => }
       assertMatch("0x11".findTokens){case GoodRefs1(IntToken(Sp1, "0x11")) => }*/
 
-      assertMatch(h1){case Good3(CharsOff(4), StrPosn(1, 5), IntHexaToken(_, _)) => }
+      assertMatch(h1){case Good3(CharsOff(4), StrPosn(1, 5), HexaDecimalToken(_, _)) => }
     }
   }
 }
