@@ -15,6 +15,14 @@ object IsType
   }
 }
 
+object LetterUpper
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case c if c.isUpper => Some(c)
+    case _ => None
+  }
+}
+
 object LetterChar
 {
   def unapply(input: Char): Option[Char] = input match

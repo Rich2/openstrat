@@ -28,3 +28,8 @@ object parseNumberToken
     }
   }
 }
+
+object parseLetterUpper
+{
+  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = tp.notImplemented3
+}

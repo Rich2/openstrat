@@ -12,22 +12,35 @@ object srcToETokens
     implicit val charArr: Chars = new Chars(array)
     val acc: Buff[Token] = Buff[Token]()
 
+    implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
+    { def appendLoop: ERefs[Token] = e3.flatMap { (cOff, tp, token) =>
+      acc.append (token)
+      mainLoop (cOff, tp)
+      }
+    }
+
+    def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): ERefs[Token] =
+    {
+      acc.append(newToken)
+      mainLoop(charsOff, tp)
+    }
+
     def mainLoop(charsOff: CharsOff, tp: TextPosn): ERefs[Token] = charsOff match
     { case CharsOff0() => acc.goodRefs
-      case CharsOff1Tail(';', tail) => { acc.append(SemicolonToken(tp)); mainLoop(tail, tp.right1) }
-      case CharsOff1Tail(',', tail) => { acc.append(CommaToken(tp)); mainLoop(tail, tp.right1) }
+      case CharsOff1Tail(';', tail) => appendLoop(SemicolonToken(tp), tail, tp.right1)
+      case CharsOff1Tail(',', tail) => appendLoop(CommaToken(tp), tail, tp.right1)
 
-      case CharsOff1Tail('(', tail) => { acc.append(ParenthOpen(tp)); mainLoop(tail, tp.right1) }
-      case CharsOff1Tail(')', tail) => { acc.append(ParenthClose(tp)); mainLoop(tail, tp.right1) }
-      case CharsOff1Tail('[', tail) => { acc.append(SquareOpen(tp)); mainLoop(tail, tp.right1) }
-      case CharsOff1Tail(']', tail) => { acc.append(SquareClose(tp)); mainLoop(tail, tp.right1) }
-      case CharsOff1Tail('{', tail) => { acc.append(CurlyOpen(tp)); mainLoop(tail, tp.right1) }
-      case CharsOff1Tail('}', tail) => { acc.append(CurlyClose(tp)); mainLoop(tail, tp.right1) }
+      case CharsOff1Tail('(', tail) => appendLoop(ParenthOpen(tp), tail, tp.right1)
+      case CharsOff1Tail(')', tail) => appendLoop(ParenthClose(tp), tail, tp.right1)
+      case CharsOff1Tail('[', tail) => appendLoop(SquareOpen(tp), tail, tp.right1)
+      case CharsOff1Tail(']', tail) => appendLoop(SquareClose(tp), tail, tp.right1)
+      case CharsOff1Tail('{', tail) => appendLoop(CurlyOpen(tp), tail, tp.right1)
+      case CharsOff1Tail('}', tail) => appendLoop(CurlyClose(tp), tail, tp.right1)
 
       case CharsOff4Plus('.', '.', '.', '.') => tp.right3.bad(".... is not an allowed character sequence.")
-      case CharsOff3Tail('.', '.', '.', tail) => { acc.append(Dot3Token(tp)); mainLoop(tail, tp.right3) }
-      case CharsOff2Tail('.', '.', tail) => { acc.append(Dot2Token(tp)); mainLoop(tail, tp.right2) }
-      case CharsOff1Tail('.', tail) => { acc.append(DotToken(tp)); mainLoop(tail, tp.right1) }
+      case CharsOff3Tail('.', '.', '.', tail) => appendLoop(Dot3Token(tp), tail, tp.right3)
+      case CharsOff2Tail('.', '.', tail) => appendLoop(Dot2Token(tp), tail, tp.right2)
+      case CharsOff1Tail('.', tail) => appendLoop(DotToken(tp), tail, tp.right1)
       case CharsOff1Tail('\n', tail) => mainLoop(tail, tp.newLine)
       case CharsOff1Tail(h, tail) if h.isWhitespace => mainLoop(tail, tp.right1)
 
@@ -36,36 +49,15 @@ object srcToETokens
         mainLoop(tail.drop(len), tp.right(len + 2))
       }
 
-      case CharsOff3Tail('\'', c1, '\'', tail) => { acc.append(CharToken(tp, c1)); mainLoop(tail, tp.right3) }
+      case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(tp, c1), tail, tp.right3)
       case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
 
-      //Needs tests.
-      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifier(charsOff, tp).flatMap { (cOff, tp, token) =>
-        acc.append(token)
-        mainLoop(cOff, tp)
-      }
-
+      case CharsOff1Plus(LetterUpper(l)) => parseLetterUpper(charsOff, tp).appendLoop
+      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifier(charsOff, tp).appendLoop
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
-
-//      case CharsOff2Plus('0', 'x') => parseNumberToken(charsOff, tp).flatMap { (co, tp, token) =>
-//        acc.append(token)
-//        mainLoop(co, tp)
-//      }
-
-      case CharsOff1Plus('\"') => parseStringToken(charsOff, tp).flatMap { (cOff, tp, token) =>
-        acc.append(token)
-        mainLoop(cOff, tp)
-      }
-
-      case CharsOff1Plus(DigitChar(d, _)) => parseNumberToken(charsOff, tp).flatMap { (cOff, tp, token) =>
-        acc.append(token)
-        mainLoop(cOff, tp)
-      }
-
-      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(charsOff, tp).flatMap { (cOff, tp, token) =>
-        acc.append(token)
-        mainLoop(cOff, tp)
-      }
+      case CharsOff1Plus('\"') => parseStringToken(charsOff, tp).appendLoop
+      case CharsOff1Plus(DigitChar(d, _)) => parseNumberToken(charsOff, tp).appendLoop
+      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(charsOff, tp).appendLoop
 
       case CharsOff1Plus(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }
