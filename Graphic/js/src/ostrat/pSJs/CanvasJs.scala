@@ -199,6 +199,6 @@ object CanvasJs extends CanvasTopLeft
   override def saveFile(fileName: String, output: String): Unit = window.localStorage.setItem(fileName, output)
   override def loadFile(fileName: String): EMon[String] =
   { val nStr = window.localStorage.getItem(fileName)
-    if (nStr == null) bad1(TextPosn("Js Error", 1, 1), "File not found") else Good(nStr)
+    if (nStr == null) TextPosn.empty.bad("Js Error, File not found") else Good(nStr)
   }
 }
