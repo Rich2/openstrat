@@ -99,7 +99,16 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
       case RightAlign => TextAlignment.RIGHT
     }
   }
-   
+
+  def fxBaseline(baseLine: BaseLine) =
+  { baseLine match
+    { case TopBL => geometry.VPos.TOP
+      case MiddleBL => geometry.VPos.CENTER
+      case AlphabeticBL => geometry.VPos.BASELINE
+      case BottomBL => geometry.VPos.BOTTOM
+    }
+  }
+
   override protected[this] def tlBezierDraw(bd: BezierDraw): Unit =
   { gc.setStroke(toFxColor(bd.colour))
     gc.setLineWidth(bd.lineWidth)
@@ -109,9 +118,11 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
    
+// baseline - VPos with values of Top, Center, Baseline, or Bottom or null.
+
   override protected[this] def tlTextGraphic(tg: TextGraphic): Unit =
   { gc.setTextAlign(fxAlign(tg.align))
-    gc.setTextBaseline(geometry.VPos.CENTER)
+    gc.setTextBaseline(fxBaseline(tg.baseLine))
     gc.setFont(new text.Font(tg.fontSize))
     gc.setFill(toFxColor(tg.colour))
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)

@@ -165,7 +165,7 @@ object CanvasJs extends CanvasTopLeft
    
   override protected[this] def tlTextGraphic(tg: TextGraphic): Unit =
   { gc.textAlign = tg.align.jsStr
-    gc.textBaseline = "middle"
+    gc.textBaseline = tg.baseLine.jsStr
     gc.font = tg.fontSize.toString + "px Arial"
     gc.fillStyle = tg.colour.webStr
     gc.fillText(tg.str, tg.posn.x, tg.posn.y)
