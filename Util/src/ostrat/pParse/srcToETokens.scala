@@ -52,7 +52,7 @@ object srcToETokens
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(tp, c1), tail, tp.right3)
       case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
 
-      case CharsOff1Plus(LetterUpper(l)) => parseLetterUpper(charsOff, tp).appendLoop
+
       case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifier(charsOff, tp).appendLoop
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
       case CharsOff1Plus('\"') => parseStringToken(charsOff, tp).appendLoop

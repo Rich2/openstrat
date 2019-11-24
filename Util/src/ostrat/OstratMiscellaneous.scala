@@ -34,7 +34,7 @@ object LetterChar
 object DigitChar
 {
   def unapply(input: Char): Option[(Char, Int)] = input match
-  { case c if c.isDigit => Some(c, c - '0')
+  { case c if c.isDigit => Some((c, c - '0'))
     case _ => None
   }
 }

@@ -17,6 +17,8 @@ object parseIdentifier
 
     remOff match
     {
+      //case CharsOff1Plus(LetterUpper(l)) => parseLetterUpper(charsOff, tp).appendLoop
+
       case CharsOff0() => tpStart.bad("Can not return Token form empty Char Array.")
       case CharsOff2Plus(LetterOrUnderscoreChar(c1), LetterOrDigitChar(_)) => { acc.append(c1); loop(remOff.drop1, tpStart.right1) }
       case CharsOff2Plus(LetterChar(c1), '_') => { acc.append(c1); loop(remOff.drop1, tpStart.right1) }
