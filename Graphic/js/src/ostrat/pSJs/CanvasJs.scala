@@ -175,7 +175,7 @@ object CanvasJs extends CanvasTopLeft
   { gc.strokeStyle = to.colour.webStr
     gc.lineWidth = to.lineWidth
     gc.textAlign = to.align.jsStr
-    gc.textBaseline = "middle"
+    gc.textBaseline = to.baseLine.jsStr
     gc.font = to.fontSize.toString + "px Arial"
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }

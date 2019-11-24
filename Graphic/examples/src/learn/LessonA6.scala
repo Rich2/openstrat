@@ -21,7 +21,8 @@ case class LessonA6(canv: CanvasPlatform) extends CanvasSimple("Lesson A5")
       //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
       TextOutline("Text in outline at centre screen", 40, Vec2Z, Orange, 1),
       TextOutline("More outline text, at x is 0, y is - 200", 60, 0 vv -200, Red, 2),
-  
+      TextOutline("Text with its baseline = top", 40, 100 vv 50, Blue, 1, LeftAlign, TopBL),
+
       // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
       Polygon(-300 vv 200, -300 vv 300, -250 vv 300).fill(Orange),
       Polygon(-250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200).draw(2, Blue), 

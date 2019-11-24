@@ -138,7 +138,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
    
   override protected[this] def tlTextOutline(to: TextOutline): Unit =
   { gc.setTextAlign(text.TextAlignment.CENTER)
-    gc.setTextBaseline(geometry.VPos.CENTER)
+    gc.setTextBaseline(fxBaseline(to.baseLine))
     gc.setStroke(toFxColor(to.colour))
     gc.setLineWidth(1)
     gc.setFont(new text.Font(to.fontSize))
