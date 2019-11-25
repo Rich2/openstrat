@@ -101,11 +101,15 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   def fxBaseline(baseLine: BaseLine) =
-  { baseLine match
-    { case TopBL => geometry.VPos.TOP
-      case MiddleBL => geometry.VPos.CENTER
-      case AlphabeticBL => geometry.VPos.BASELINE
-      case BottomBL => geometry.VPos.BOTTOM
+  {
+    import BaseLine._
+    baseLine match
+    { case Top => geometry.VPos.TOP
+      case Middle => geometry.VPos.CENTER
+      case Alphabetic => geometry.VPos.BASELINE
+      case Bottom => geometry.VPos.BOTTOM
+      case Hanging => geometry.VPos.TOP
+      case Ideographic => geometry.VPos.BASELINE
     }
   }
 
