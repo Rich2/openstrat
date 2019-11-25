@@ -32,10 +32,10 @@ object BaseLine
 
 /** A Graphical display of Text.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
-case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine Alphabetic,
-                       zOrder: Int = 0) extends PaintElem
+case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
+  baseLine: BaseLine = BaseLine Alphabetic) extends PaintElem
 {
-  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine, zOrder)
+  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 
@@ -43,7 +43,7 @@ case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colo
 object TextGraphicCen
 {
   def apply(str: String, fontSize: Int, posn : Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
-    new TextGraphic(str, fontSize, posn, colour, CenAlign, BaseLine.Alphabetic, zOrder)
+    new TextGraphic(str, fontSize, posn, colour, CenAlign, BaseLine.Alphabetic)
 }
 
 object TextGraphic
