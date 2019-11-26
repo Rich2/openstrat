@@ -24,8 +24,8 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   //canvFx.onMouseMoved = (e: input.MouseEvent) => mouseMovedTopLeft(e.x, e.y, getButton(e))    
   canvFx.setOnMouseDragged((e: input.MouseEvent) => mouseDraggedTopLeft(e.getX, e.getY, getButton(e))) 
   
-  theScene.setOnKeyPressed{(e: input.KeyEvent) => keyDown(e.getText, e.getCode.getName) }
-  theScene.setOnKeyReleased{(e: input.KeyEvent) => keyUp(e.getText, e.getCode.getName) }
+  theScene.setOnKeyReleased{(e: input.KeyEvent) => keyUp(e.getText) }
+  theScene.setOnKeyPressed{(e: input.KeyEvent) => keyDown(e.getText) }
 
   canvFx.setOnScroll((e: input.ScrollEvent) => e.getDeltaY match
   { case 0 => //("scroll delta 0")
