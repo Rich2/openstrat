@@ -18,6 +18,11 @@ trait ExprSeq extends ExprCompound
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ExprToken extends Expr with ExprMemberToken
+{ def subTypeStr: String
+  def exprName: String = subTypeStr + "Expr"
+  final override def tokenTypeStr: String = subTypeStr + "Token"
+  final override def toString: String = tokenTypeStr.appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
+}
 
 trait BlockBase[MemT <: AnyRef]
 { def statements: Refs[MemT]

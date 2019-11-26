@@ -4,7 +4,6 @@ package pParse
 /** Function object for parsing expected Hexadecimal number. */
 object parseNumberToken
 {
-
   def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
     def deciLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
@@ -27,11 +26,7 @@ object parseNumberToken
 /** A Natural (non negative) number Token. */
 trait NumToken extends ExprToken
 { def getInt: Int
-  def numSubTypeStr: String
-  final override def exprName: String = numSubTypeStr + "Expr"
-  final override def tokenTypeStr: String = numSubTypeStr + "Token"
-  final override def toString: String = tokenTypeStr.appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
-}
+  }
 
 object NumToken
 { def unapply(token: Token): Option[(TextPosn, String)] = token match
@@ -45,7 +40,7 @@ object NumToken
  *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
 case class DecimalToken(startPosn: TextPosn, srcStr: String) extends NumToken
 {
-  override def numSubTypeStr: String = "IntDeci"
+  override def subTypeStr: String = "IntDeci"
 
   override def getInt: Int =
   { var acc = 0
@@ -61,7 +56,7 @@ case class DecimalToken(startPosn: TextPosn, srcStr: String) extends NumToken
 
 case class HexaRawToken(startPosn: TextPosn, srcStr: String) extends NumToken
 {
-  override def numSubTypeStr: String = "HexaRaw"
+  override def subTypeStr: String = "HexaRaw"
 
   override def getInt: Int = ???
 }
