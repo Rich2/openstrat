@@ -19,6 +19,8 @@ class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
   @inline def offsetter(i: Int): CharsOff = new CharsOff(i)
   @inline def offsetter0: CharsOff = new CharsOff(0)
   @inline def offsetter1: CharsOff = new CharsOff(1)
+  @inline def offsetter2: CharsOff = new CharsOff(2)
+  @inline def offsetter3: CharsOff = new CharsOff(3)
   @inline def mkString: String = array.mkString
 
 }

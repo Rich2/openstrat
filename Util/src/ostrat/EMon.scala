@@ -109,8 +109,7 @@ object Bad
 object Bad1
 {
   def unapply(inp: EMonN): Option[String] = inp match
-  {
-    case bd: BadN if bd.errs.length == 1 => Some(bd.errs(0))
+  { case bd: BadN if bd.errs.length == 1 => Some(bd.errs(0))
     case _ => None
   }
 }
