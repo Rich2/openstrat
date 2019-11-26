@@ -1,7 +1,7 @@
 package ostrat
 package pParse
 
-object parseIdentifier
+object parseIdentifierToken
 {
   def apply(remOff: CharsOff, tpStart: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {

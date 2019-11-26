@@ -17,8 +17,7 @@ sealed trait BaseLine
 }
 
 object BaseLine
-{
-  case object Top extends BaseLine { def jsStr = "top" }
+{ case object Top extends BaseLine { def jsStr = "top" }
   case object Middle extends BaseLine { def jsStr = "middle" }
   case object Alphabetic extends BaseLine { def jsStr = "alphabetic" }
   case object Bottom extends BaseLine { def jsStr = "bottom" }
@@ -34,15 +33,13 @@ object BaseLine
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
 case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
   baseLine: BaseLine = BaseLine Alphabetic) extends PaintElem
-{
-  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
+{ override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 
 /** Not sure if this is a good object to have. */
 object TextGraphicCen
-{
-  def apply(str: String, fontSize: Int, posn : Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
+{ def apply(str: String, fontSize: Int, posn : Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
     new TextGraphic(str, fontSize, posn, colour, CenAlign, BaseLine.Alphabetic)
 }
 
@@ -56,9 +53,8 @@ object TextGraphic
   }
 }
 
-case class TextOutline(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, lineWidth: Double = 1.0, align: TextAlign = CenAlign,
-                       baseLine: BaseLine = BaseLine.Alphabetic, zOrder: Int = 0) extends PaintElem
-{
-  override def fTrans(f: Vec2 => Vec2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
+case class TextOutline(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, lineWidth: Double = 1.0,
+  align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic, zOrder: Int = 0) extends PaintElem
+{ override def fTrans(f: Vec2 => Vec2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
 }

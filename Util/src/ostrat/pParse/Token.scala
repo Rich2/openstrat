@@ -70,8 +70,6 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
   override def tokenTypeStr: String = "StringToken"
 }
 
-
-
 /** An Operator token. */
 trait OperatorToken extends ExprMemberToken
 case class OtherOperatorToken(startPosn: TextPosn, srcStr: String) extends OperatorToken

@@ -51,14 +51,14 @@ object srcToETokens
 
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(tp, c1), tail, tp.right3)
       case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
-
-
-      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifier(charsOff, tp).appendLoop
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
       case CharsOff1Plus('\"') => parseStringToken(charsOff, tp).appendLoop
-      case CharsOff1Plus(DigitChar(d, _)) => parseNumberToken(charsOff, tp).appendLoop
-      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(charsOff, tp).appendLoop
+      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifierToken(charsOff, tp).appendLoop
 
+      case CharsOff2Tail('0', 'x', tail) => parseHexa0xToken(charsOff, tp).appendLoop
+      case CharsOff1Plus(DigitChar(d, _)) => parseNumberToken(charsOff, tp).appendLoop
+
+      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(charsOff, tp).appendLoop
       case CharsOff1Plus(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }
 
