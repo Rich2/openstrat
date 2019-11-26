@@ -3,13 +3,13 @@ package pParse
 import utest._
 
 /** Also tests the srcToETokens function object. */
-object NumberTokenTest extends TestSuite
+object IntTokenTest extends TestSuite
 {
   val Sp1 = StrPosn(1, 1)
   val Sp2 = StrPosn(1, 2)
   val Sp44 = StrPosn(4, 4)
   val a1 = "0x44".toChars
-  val h1: EMon3[CharsOff, TextPosn, Token] = parseNumberToken(a1.offsetter0, StrPosn())(a1)
+  val h1: EMon3[CharsOff, TextPosn, Token] = parseIntToken(a1.offsetter0, StrPosn())(a1)
 
   val tests = Tests
   {

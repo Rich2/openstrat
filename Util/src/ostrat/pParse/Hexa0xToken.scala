@@ -4,19 +4,10 @@ package pParse
 /** A hexadecimal token with a leading "0x", that can be used for standard 32 bit Ints, 64 bit Longs, as well as less used integer
  *  formats such as BigInteger and Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class Hexa0xToken(startPosn: TextPosn, digitsStr: String) extends NumToken
+case class Hexa0xToken(startPosn: TextPosn, digitsStr: String) extends MaybeHexaToken
 { override def srcStr: String = "0x" + digitsStr
   override def subTypeStr: String = "IntHexa"
-  override def getInt: Int =
-  { var acc = 0
-    implicit val chars = digitsStr.toChars
-
-    def loop(rem: CharsOff): Int = rem match
-    { case CharsOff0() => acc
-      case CharsOff1Tail(HexaDigitChar(_, i), tail)  => { acc = acc * 16 + i; loop(tail) }
-    }
-    loop(chars.offsetter0)
-  }
+  override def getInt: Int = asHexaInt
 }
 
 object parseHexa0xToken
@@ -32,10 +23,11 @@ object parseHexa0xToken
     }
 
     rem match
-    { case CharsOff1Tail(HexaDigitChar(c, i), tail) => loop (tail, c.toString, i)
-    case CharsOff1Plus(WhitespaceChar(_)) => tp.bad("Empty hexademicmal token.")
-    case CharsOff1Plus(c) => tp.bad("Badly formed hexademicmal token.")
-    case CharsOff0() => tp.bad("Unclosed hexadecimal token")
+    { case CharsOff3Tail('0', 'x', HexaDigitChar(c, i), tail) => loop (tail, c.toString, i)
+      case CharsOff3Plus('0', 'x', WhitespaceChar(_)) => tp.bad("Empty hexademicmal token.")
+      case CharsOff3Plus('0', 'x', c) => tp.bad("Badly formed hexademicmal token.")
+      case CharsOff2('0', 'x') => tp.bad("Unclosed hexadecimal token")
+      case _ => tp.bad("Badly formed explicit Hexadecimal literal")
     }
   }
 }

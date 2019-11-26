@@ -17,8 +17,10 @@ case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends
 }
 
 /* A valid IdentiferUpperToken that is also a valid HexaDecimalToken. */
-case class IdentifierHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierUpperToken
-{ override def subTypeStr: String = "IdentifierHexa"
+case class IdentifierMaybeHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierUpperToken with MaybeHexaToken
+{ override def subTypeStr: String = "IdentifierMaybeHexa"
+  @inline override def digitsStr: String = srcStr
+  override def getInt: Int = asHexaInt
 }
 
 /** A valid IdentifierLowerToken that is also a valid TrigdualToken. */

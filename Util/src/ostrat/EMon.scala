@@ -130,8 +130,16 @@ sealed trait EMon3[+A1, +A2, +A3] extends EMonN
 { def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B]
 }
 
-final case class Good3[A1, A2, A3](a1: A1, a2: A2, a3: A3) extends EMon3[A1, A2, A3]
+final case class Good3[+A1, +A2, +A3](a1: A1, a2: A2, a3: A3) extends EMon3[A1, A2, A3]
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = f(a1, a2, a3)
+}
+
+object Good3
+{
+  //def unapply[A1, A2, A3](inp: EMon3[A1, A2, A3]): Option[(A1, A2, A3)] = inp match
+  //{
+    //case Good
+  //}
 }
 
 final class Bad3[A1, A2, A3](val errs: Strings) extends EMon3[A1, A2, A3] with BadN

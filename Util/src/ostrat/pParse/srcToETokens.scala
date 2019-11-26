@@ -25,7 +25,7 @@ object srcToETokens
       mainLoop(charsOff, tp)
     }
 
-    def mainLoop(charsOff: CharsOff, tp: TextPosn): ERefs[Token] = charsOff match
+    def mainLoop(rem: CharsOff, tp: TextPosn): ERefs[Token] = rem match
     { case CharsOff0() => acc.goodRefs
       case CharsOff1Tail(';', tail) => appendLoop(SemicolonToken(tp), tail, tp.right1)
       case CharsOff1Tail(',', tail) => appendLoop(CommaToken(tp), tail, tp.right1)
@@ -52,13 +52,13 @@ object srcToETokens
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(tp, c1), tail, tp.right3)
       case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
       case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
-      case CharsOff1Plus('\"') => parseStringToken(charsOff, tp).appendLoop
-      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifierToken(charsOff, tp).appendLoop
+      case CharsOff1Plus('\"') => parseStringToken(rem, tp).appendLoop
+      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifierToken(rem, tp).appendLoop
 
-      case CharsOff2Tail('0', 'x', tail) => parseHexa0xToken(tail, tp).appendLoop
-      case CharsOff1Plus(DigitChar(d, _)) => parseNumberToken(charsOff, tp).appendLoop
+      case CharsOff2Plus('0', 'x') => parseHexa0xToken(rem, tp).appendLoop
+      case CharsOff1Plus(DigitChar(d, _)) => parseIntToken(rem, tp).appendLoop
 
-      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(charsOff, tp).appendLoop
+      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
       case CharsOff1Plus(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }
 
