@@ -74,7 +74,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("Reactor")
   }
   def checkForGameOver() : Unit =
   {
-    if (turn > players.length) players = players.filter(cellColors.indexOf(_) != -1)
+    if (turn >= players.length) players = players.filter(cellColors.indexOf(_) != -1)
     if (players.length < 2) 
     {
       canv.textGraphic(" Wins!", 16, 10 vv (-3*size/4), currentPlayer)
