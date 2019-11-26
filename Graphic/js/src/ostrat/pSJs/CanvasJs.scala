@@ -10,6 +10,10 @@ object CanvasJs extends CanvasTopLeft
   def setup() =
   { can.width = (window.innerWidth).max(200).toInt //-20
     can.height = (window.innerHeight).max(200).toInt //-80
+    //tabindex required for canvas to recieve key.Events (now focusable)
+    can.setAttribute("tabindex","1")
+    //give focus to listen for key.Events
+    can.focus()
   }
   setup
    
@@ -29,7 +33,8 @@ object CanvasJs extends CanvasTopLeft
     mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
   
-  can.onkeyup = (e: raw.KeyboardEvent) => {deb("Key up"); keyReleased() }
+  can.onkeyup = (e: raw.KeyboardEvent) => { keyUp(e.key) }
+  can.onkeydown = (e: raw.KeyboardEvent) => { keyDown(e.key) }
 
   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) =>
   { e.deltaY match
