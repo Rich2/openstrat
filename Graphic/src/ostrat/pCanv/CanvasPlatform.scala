@@ -14,7 +14,8 @@ trait CanvasPlatform extends RectGeom
   var mouseDown: (Vec2, MouseButton) => Unit = (v, b) => {}
   var mouseMoved: (Vec2, MouseButton) => Unit = (v, b) => {}
   var mouseDragged: (Vec2, MouseButton) => Unit = (v, b) => {}
-  var keyReleased: () => Unit = () => {}
+  var keyDown: (String) => Unit = (s) => {}
+  var keyUp: (String) => Unit = (s) => {}
   var onScroll: Boolean => Unit = b => {}
   var resize: () => Unit = () => {}
   def clip(pts: Polygon): Unit
