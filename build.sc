@@ -11,7 +11,7 @@ trait CommonStd extends Common
 }
 
 trait CommonStdJs extends ScalaJSModule with CommonStd
-{ def scalaJSVersion = "0.6.31" 
+{ def scalaJSVersion = "1.0.0RC1" 
 }
 
 trait PlatformsModule extends ScalaModule with CommonStd
@@ -21,7 +21,7 @@ trait PlatformsModule extends ScalaModule with CommonStd
 
   trait InnerJs extends CommonStdJs
   { def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
-	def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs0.6:0.9.7")
+	def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs1.0.0RC1:0.9.7")
   }
 
   trait InnerNative extends ScalaNativeModule with CommonStd
