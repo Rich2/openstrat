@@ -27,8 +27,10 @@ object parseNumberToken
 /** A Natural (non negative) number Token. */
 trait NumToken extends ExprToken
 { def getInt: Int
-  def tokenTypeStr: String
-  override def toString: String = tokenTypeStr.appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
+  def numSubTypeStr: String
+  final override def exprName: String = numSubTypeStr + "Expr"
+  final override def tokenTypeStr: String = numSubTypeStr + "Token"
+  final override def toString: String = tokenTypeStr.appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
 object NumToken
@@ -42,8 +44,8 @@ object NumToken
  *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
  *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
 case class DecimalToken(startPosn: TextPosn, srcStr: String) extends NumToken
-{ override def exprName: String = "IntDeciTokenExpr"
-  override def tokenTypeStr: String = "IntDeciToken"
+{
+  override def numSubTypeStr: String = "IntDeci"
 
   override def getInt: Int =
   { var acc = 0
@@ -58,8 +60,8 @@ case class DecimalToken(startPosn: TextPosn, srcStr: String) extends NumToken
 }
 
 case class HexaRawToken(startPosn: TextPosn, srcStr: String) extends NumToken
-{ override def exprName: String = "HexaRawExpr"
-  override def tokenTypeStr: String = "HexaRawToken"
+{
+  override def numSubTypeStr: String = "HexaRaw"
 
   override def getInt: Int = ???
 }

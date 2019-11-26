@@ -3,7 +3,7 @@ package pParse
 import utest._
 
 /** Also tests the srcToETokens function object. */
-object NumTokenTest  extends TestSuite
+object NumberTokenTest  extends TestSuite
 {
   val Sp1 = StrPosn(1, 1)
   val Sp2 = StrPosn(1, 2)
@@ -25,14 +25,14 @@ object NumTokenTest  extends TestSuite
     val ht1 = Hexa0xToken(Sp1, "A")
     val ht2 = Hexa0xToken(Sp44, "1A")
     val ht3 = Hexa0xToken(Sp2, "7FFFFFFF")
+
     'IntDeciToken
-    {
-      ht1.getInt ==> 10
+    { ht1.getInt ==> 10
       ht2.getInt ==> 26
       ht3.getInt ==> 2147483647
     }
 
-    'Gnereral
+    'General
     {
       /*assertMatch("4".findTokens){case GoodRefs1(IntToken(Sp1, "4")) => }
       assertMatch("45".findTokens){case GoodRefs1(IntDeciToken(Sp1, "45")) => }

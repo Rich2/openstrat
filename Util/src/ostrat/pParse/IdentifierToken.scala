@@ -1,28 +1,32 @@
 package ostrat
 package pParse
 
-class IdentNum {
+trait IdentifierToken extends ExprToken
 
-}
+/** An Identifier Token beginning with an uppercase letter. This is a trait not a final class, because some IdentiferUpperTokens are valid raw
+ * Hexadecimal Tokens and some are not. */
+trait IdentifierUpperToken extends ExprToken
 
-trait IdentUpperToken extends ExprToken
-trait IdentLowerToken extends ExprToken
+/** An Identifier Token beginning with an lowecase letter. This is a trait not a final class, because some IdentifierLowerTokens are valid raw
+ * Trigdual Tokens and some are not. */
+trait IdentifierLowerToken extends ExprToken
 
-/** An Alphanumeric Token. It contains a symbol rather than a String to represent the AlphaNumeric token as commonly used Symbols have better
- *  better performance than the equivalent Strings. */
-case class IdentLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends ExprToken
+/** A valid IdentiferlowerToken. */
+case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends ExprToken
 { override def exprName: String = "AlphaTokenExpr"
   override def toString: String =  "AlphaToken".appendParenthSemis(srcStr, startPosn.lineNum.toString, startPosn.linePosn.toString)
   override def tokenTypeStr: String = "AlphaToken"
 }
 
-case class IdentHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperToken
+/* A valid IdentiferUpperToken that is also a valid HexaDecimalToken. */
+case class IdentifierHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierUpperToken
 {
   def exprName: String = "IdentHexaExpr"
   override def tokenTypeStr: String = "IdentHexaToken"
 }
 
-case class IdentLowerTrigToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
+/** A valid IdentifierLowerToken that is also a valid TrigdualToken. */
+case class IdentifierTrigToken(startPosn: TextPosn, srcStr: String) extends IdentifierLowerToken
 {
   def exprName: String = "IdentLowerTrigExpr"
   override def tokenTypeStr: String = "IdentLowerTrigToken"

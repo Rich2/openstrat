@@ -6,8 +6,7 @@ package pParse
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
 case class Hexa0xToken(startPosn: TextPosn, digitsStr: String) extends NumToken
 { override def srcStr: String = "0x" + digitsStr
-  override def exprName: String = "IntHexTokenExpr"
-  override def tokenTypeStr: String = "IntHexaToken"
+  override def numSubTypeStr: String = "IntHexa"
   override def getInt: Int =
   { var acc = 0
     implicit val chars = digitsStr.toChars
