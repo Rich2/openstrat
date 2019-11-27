@@ -23,6 +23,14 @@ object LetterUpper
   }
 }
 
+object LetterLower
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case c if c.isLower => Some(c)
+    case _ => None
+  }
+}
+
 object LetterChar
 {
   def unapply(input: Char): Option[Char] = input match
@@ -65,6 +73,28 @@ object HexaDigitChar
     case l if l <= 'F' && l >= 'A' => Some((l, l - 'A' + 10))
     case l if l <= 'f' && l >= 'a' => Some((l, l - 'a' + 10))
     case c => None
+  }
+}
+
+object HexaLetterChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  {
+    case l if l <= 'F' && l >= 'A' => Some(l)
+    case _ => None
+  }
+}
+
+
+
+object TrigdualChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  {
+    case n if n.isDigit => Some(n)
+    case c if 'n' >= c & c >= 'a' => Some(c)
+    case c if 'w' >= c & c >= 'n' => Some(c)
+    case _ => None
   }
 }
 

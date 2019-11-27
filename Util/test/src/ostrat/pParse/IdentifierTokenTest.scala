@@ -13,7 +13,7 @@ object IdentifierTokenTest extends TestSuite
   {
     'Parse
     {
-      5 ==> 5
+      assertMatch(r1){ case Good3(CharsOff(3), StrPosn(1, 4), IdentifierUpperOnlyToken(_, _)) => }
     }
   }
 }

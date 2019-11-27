@@ -15,10 +15,10 @@ object srcToETokensTest extends TestSuite
     { Sp1 ==> StrPosn(1, 1)
 
       assertMatch("\'a\'".findTokens){ case GoodRefs1(CharToken(_, 'a')) => }
-      assertMatch("MyId".findTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "MyId")) => }
-      assertMatch("My3".findTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "My3")) => }
-      assertMatch("My3Id".findTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "My3Id")) => }
-      assertMatch("Ab3_5fG".findTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "Ab3_5fG")) => }
+      assertMatch("MyId".findTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "MyId")) => }
+      assertMatch("My3".findTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3")) => }
+      assertMatch("My3Id".findTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3Id")) => }
+      assertMatch("ab3_5fG".findTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG")) => }
 
       assertMatch(",".findTokens){ case GoodRefs1(CommaToken(Sp1)) => }
       assertMatch("{".findTokens){ case GoodRefs1(CurlyOpen(Sp1)) => }
@@ -35,14 +35,13 @@ object srcToETokensTest extends TestSuite
       "#".findTokens.isBad ==> true
     }
 
+    val C1 = IdentifierUpperOnlyToken(Sp1, "Colour")
+
     'Multiple
     {
       assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
       assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
-
-      assertMatch("Colour(0xFF000000)".findTokens){
-        case GoodRefs4(IdentifierLowerOnlyToken(Sp1, "Colour"), ParenthOpen(_), Hexa0xToken(_, "FF000000"), ParenthClose(_)) => }
-
+      assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpen(_), Hexa0xToken(_, "FF000000"), ParenthClose(_)) => }
     }
 
     Symbol("Neg")

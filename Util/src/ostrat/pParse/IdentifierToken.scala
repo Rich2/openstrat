@@ -7,13 +7,13 @@ trait IdentifierToken extends ExprToken
  * Hexadecimal Tokens and some are not. */
 trait IdentifierUpperToken extends ExprToken
 
-/** An Identifier Token beginning with an lowecase letter. This is a trait not a final class, because some IdentifierLowerTokens are valid raw
- * Trigdual Tokens and some are not. */
+/** An Identifier Token beginning with a lowercase letter or an underscore character. This is a trait not a final class, because some
+ *  IdentifierLowerTokens are valid raw Trigdual Tokens and some are not. */
 trait IdentifierLowerToken extends ExprToken
 
-/** A valid IdentiferlowerToken. */
+/** A valid Identifier begining with a lowercase letter or an underscore character. */
 case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends ExprToken
-{ override def subTypeStr: String = "IdentifierLower"
+{ override def subTypeStr: String = "IdentifierLowerOnly"
 }
 
 /* A valid IdentiferUpperToken that is also a valid HexaDecimalToken. */
@@ -23,8 +23,13 @@ case class IdentifierMaybeHexaToken(startPosn: TextPosn, srcStr: String) extends
   override def getInt: Int = asHexaInt
 }
 
+case class IdentifierUpperOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierUpperToken
+{
+  override def subTypeStr: String = "IdentifierUpperOnly"
+}
+
 /** A valid IdentifierLowerToken that is also a valid TrigdualToken. */
-case class IdentifierTrigToken(startPosn: TextPosn, srcStr: String) extends IdentifierLowerToken
+case class IdentifierMaybeTrigToken(startPosn: TextPosn, srcStr: String) extends IdentifierLowerToken
 {  override def subTypeStr: String = "IdentLowerTrig"
 }
 
