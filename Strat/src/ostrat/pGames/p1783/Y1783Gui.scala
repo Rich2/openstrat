@@ -19,8 +19,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
       val textU: GraphicElems = etog.ifScaleCObjs(68, tile.lunits match
         { case RefsHead(head) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
           case _ =>
-          {
-            val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
+          { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)
           }
         })         
@@ -28,8 +27,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
      }
    
    def fSide: OfESide[NTile, ESideOnly] => GraphicElems = ofs =>
-     {
-       import ofs._
+     { import ofs._
        val line = ifScaleCObjs(60, side.terr match
          { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
            case Straitsold => Arr(vertDispLine.draw(6, Colour.Blue))
@@ -43,22 +41,25 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
     gs ++ as
   }
  
-  mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
+  mapPanel.mouseUp = (v, but: MouseButton, clickList) => but match
   {
-    case (LeftButton, _, _) => selected = clickList.fHead(Arr(), Arr(_))
+    case LeftButton => selected = clickList.fHead(Arr(), Arr(_))
         
-    case (RightButton, Arr(c : Corps), Arr(newTile: NTile)) =>
-    { c.tile.lunits = c.tile.lunits.removeFirst(_ == c)
-      val newCorps = c.copy(newTile) 
-      newTile.lunits +:= newCorps
-      selected = Arr(newCorps)
-      repaintMap  
+    case RightButton => (selected, clickList) match
+    { case (Arr(c: Corps), Arr(newTile: NTile)) =>
+      {
+       c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
+       val newCorps = c.copy (newTile)
+       newTile.lunits +:= newCorps
+       selected = Arr (newCorps)
+       repaintMap
+      }
+      case (Arr (c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
+      case _ =>
     }
-    
-    case (RightButton, Arr(c : Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
-    case _ => 
+    case _ =>
   }
-  
+
   eTop()   
   loadView   
   repaintMap   
