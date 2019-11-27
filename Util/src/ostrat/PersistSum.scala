@@ -2,7 +2,7 @@
 package ostrat
 import reflect.ClassTag, pParse._
 
-abstract class ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends Show[ST]
+abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends Show[ST]
 {
   def ev1: Show[A1]
   def ev2: Show[A2]
@@ -28,6 +28,16 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](implicit val ct1: Cla
   { case a1: A1 => ev1.showTyped(a1)
     case a2: A2 => ev2.showTyped(a2)
   }  
+}
+
+object ShowSum2
+{
+  def apply[ST <: AnyRef, A1 <: ST, A2 <: ST](typeIn: String, ev1In: Show[A1], ev2In: Show[A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]):
+    ShowSum2[ST, A1, A2] = new ShowSum2[ST, A1, A2]()(ct1, ct2)
+  { override def typeStr: String = typeIn
+    override def ev1: Show[A1] = ev1In
+    override def ev2: Show[A2] = ev2In
+  }
 }
 
 trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends UnShow[ST]

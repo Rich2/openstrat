@@ -22,7 +22,7 @@ object PrefixPlus
 object getBlocks
 {
   def apply(seg: Arr[ExprMember]): EMon[Expr]= sortBlocks(seg.toList, Buff()).flatMap {
-    case Seq(e: Expr) => Good(e)
+    case Arr(e: Expr) => Good(e)
     case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString)
   }
 

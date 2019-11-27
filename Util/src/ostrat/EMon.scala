@@ -51,6 +51,10 @@ object EMon
     def findSomeSetting[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
     def findSomeSettingElse[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
+
+  implicit def showImplicit[A](implicit ev: Show[A]): Show[EMon[A]] =
+    ShowSum2("EMon", Good.GoodShowImplicit(ev),
+      Bad.BadShowImplicit(ev))
 }
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based 
