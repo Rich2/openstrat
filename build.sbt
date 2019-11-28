@@ -47,6 +47,7 @@ lazy val Strat = stdJvmProj("Strat").dependsOn(World).settings(
 )
 
 lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
+  scalaSource := baseDirectory.value / "Dev/src",
   Compile/scalaSource := baseDirectory.value / "Dev/src",
   Test/scalaSource := baseDirectory.value / "Dev/test/src",
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/examples/src").map(s => baseDirectory.value / s),
