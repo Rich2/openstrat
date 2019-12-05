@@ -108,7 +108,7 @@ object CharsOff4
 
 /** Extractor object for the first element for immutable heapless iterator for Chars with at length >= 1. Use this when you don't care about the
  *  tail. */
-object CharsOff1Plus
+object CharsOffHead
 { /** Extractor for the first element, for immutable heapless iterator for Chars with length >= 1. Use this when you don't care about the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] =
   ife(chars.length - inp.offset0 >= 1, Some(chars(inp.offset0)), None)
@@ -116,7 +116,7 @@ object CharsOff1Plus
 
 /** Extractor object for the first 2 elements for immutable heapless iterator for Chars with length >= 2. Use this when you don't care about the
  *  tail. */
-object CharsOff2Plus
+object CharsOffHead2
 { /** Extractor for the first 2 elements only for immutable heapless iterator for Chars with at least 2 element. Use this when you don't care about
     * the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char)] =
@@ -125,18 +125,16 @@ object CharsOff2Plus
 
 /** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
  *  tail. */
-object CharsOff3Plus
+object CharsOffHead3
 { /** Extractor for the first 3 elements only for immutable heapless iterator for Chars with at least 3 element. Use this when you don't care about
  * the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char)] =
     ife(chars.length - inp.offset0 >= 3, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2))), None)
 }
 
-
-
 /** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
  *  tail. */
-object CharsOff4Plus
+object CharsOffHead4
 { /** Extractor for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the tail */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char, Char)] =
     ife(chars.length - inp.offset0 >= 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)

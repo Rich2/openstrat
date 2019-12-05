@@ -35,21 +35,23 @@ object srcToETokensTest extends TestSuite
     }
 
     val C1 = IdentifierUpperOnlyToken(Sp1, "Colour")
+    val st1 = """appStr = "20";
+    displayX = 0;
+    displayY = 0;"""
+
+    val et1 = st1.findTokens
+    val r1: Tokens = et1.get
+    deb(r1(0).toString)
 
     'Multiple
     {
       assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
       assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
       assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpen(_), Hexa0xToken(_, "FF000000"), ParenthClose(_)) => }
+      assertMatch(et1){case Good(_) => }
+      r1.length ==> 12
+      assertMatch(r1){case RefsHead(IdentifierLowerToken(_, _)) => }
     }
-
-    val st1 = """appStr = "20";
-    displayX = 0;
-    displayY = 0;"""
-
-    val et1 = st1.findTokens
-    val r1: Refs[Token] = et1.get
-
 
     val st2 = """/* This is a comment."""
     val st3 = st1 + st2
@@ -62,8 +64,7 @@ object srcToETokensTest extends TestSuite
 
     'Settings
     {
-      assertMatch(et1){case Good(_) => }
-      r1.length ==> 12
+
       assertMatch(st2.findTokens){ case GoodRefs0() => }
       assertMatch(et3){case Good(_) => }
       r3.length ==> 12

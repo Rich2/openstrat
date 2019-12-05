@@ -12,7 +12,7 @@ object parseStringToken
       case CharsOff1Tail('\"', tail2) => Good3(tail2, tp.right(strAcc.length + 2),  StringToken(tp, strAcc.mkString))
       case CharsOff1('\\') =>  tp.bad("Unclosed String ending with unclosed escape Sequence")
       case CharsOff2Tail('\\', c2, tail) if Array('\"', '\n', '\b', '\t', '\f', '\r', '\'', '\\').contains(c2) => { strAcc.append(c2); loop(tail) }
-      case CharsOff2Plus('\\', c2) => tp.bad("Unrecognised escape Sequence \\" + c2.toString)
+      case CharsOffHead2('\\', c2) => tp.bad("Unrecognised escape Sequence \\" + c2.toString)
       case CharsOff1Tail(h, tail2) => { strAcc.append(h); loop(tail2) }
     }
     rem match

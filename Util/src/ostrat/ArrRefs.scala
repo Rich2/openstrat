@@ -9,8 +9,6 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = drop(1)
   def refsOffsetter: RefsOff[A] @uncheckedVariance = new RefsOff[A](0)
- // import collection.immutable._
- // def toArraySeq[AA >: A <: AnyRef]: ArraySeq[A] = new ArraySeq.ofRef(array)
 
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   {  array.copyToArray(array, offset, copyLength); ()}
@@ -127,13 +125,6 @@ object Refs6
   }
 }
 
-object RefsHead
-{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A <: AnyRef](refs: Refs[A]): Option[A] = refs match
-  { case refs if refs.length >= 1 => Some(refs(0))
-    case _ => None
-  }
-}
 
 object Refs1Tail
 {
@@ -147,6 +138,22 @@ object Refs2Tail
 {
   def unapply[A <: AnyRef](refs: Refs[A])(implicit ct: ClassTag[A]): Option[(A, A, Refs[A])] = refs match
   { case arr if refs.nonEmpty => Some((refs(0), refs(1), refs.drop1))
+    case _ => None
+  }
+}
+
+object RefsHead
+{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[A] = refs match
+  { case refs if refs.length >= 1 => Some(refs(0))
+    case _ => None
+  }
+}
+
+object RefsHead2
+{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A)] = refs match
+  { case refs if refs.length >= 2 => Some(refs(0), refs(1))
     case _ => None
   }
 }

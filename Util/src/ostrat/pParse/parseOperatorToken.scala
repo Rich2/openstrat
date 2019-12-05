@@ -14,7 +14,7 @@ object parseOperatorToken
       //below makes no sense
       case '+' | '-' => finalTail match
       { //case CharsOff0() =>
-        case CharsOff1Plus(h) if !h.isWhitespace => PrefixToken(tp, opStr)
+        case CharsOffHead(h) if !h.isWhitespace => PrefixToken(tp, opStr)
         case _ => PlusInToken(tp, opStr)
       }
       case '=' => AsignToken(tp)

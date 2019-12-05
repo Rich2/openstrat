@@ -18,11 +18,14 @@ trait IdentifierLowerToken extends ExprToken
 
 object IdentifierLowerToken
 {
-  def unapply(inp: AnyRef): Option[(TextPosn, String)] = ???
+  def unapply(inp: AnyRef): Option[(TextPosn, String)] = inp match
+  { case ilt: IdentifierLowerToken => Some(ilt.startPosn, ilt.str)
+    case _ => None
+  }
 }
 
 /** A valid Identifier begining with a lowercase letter or an underscore character. */
-case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends ExprToken
+case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierLowerToken
 { override def subTypeStr: String = "IdentifierLowerOnly"
 }
 

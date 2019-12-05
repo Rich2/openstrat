@@ -15,6 +15,8 @@ trait Token extends TextSpan
   }
 
   override def hashCode(): Int = tokenTypeStr.hashCode * 31 + startPosn.hashCode
+
+  override def toString = "Unnamed Token"
 }
 
 object Token

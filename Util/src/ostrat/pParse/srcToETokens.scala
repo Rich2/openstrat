@@ -37,7 +37,7 @@ object srcToETokens
       case CharsOff1Tail('{', tail) => appendLoop(CurlyOpen(tp), tail, tp.right1)
       case CharsOff1Tail('}', tail) => appendLoop(CurlyClose(tp), tail, tp.right1)
 
-      case CharsOff4Plus('.', '.', '.', '.') => tp.right3.bad(".... is not an allowed character sequence.")
+      case CharsOffHead4('.', '.', '.', '.') => tp.right3.bad(".... is not an allowed character sequence.")
       case CharsOff3Tail('.', '.', '.', tail) => appendLoop(Dot3Token(tp), tail, tp.right3)
       case CharsOff2Tail('.', '.', tail) => appendLoop(Dot2Token(tp), tail, tp.right2)
       case CharsOff1Tail('.', tail) => appendLoop(DotToken(tp), tail, tp.right1)
@@ -62,14 +62,14 @@ object srcToETokens
         loop(tail, tp.right2).f2(mainLoop)
       }
 
-      case CharsOff1Plus('\"') => parseStringToken(rem, tp).appendLoop
-      case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifierToken(rem, tp).appendLoop
+      case CharsOffHead('\"') => parseStringToken(rem, tp).appendLoop
+      case CharsOffHead(LetterOrUnderscoreChar(_)) => parseIdentifierToken(rem, tp).appendLoop
 
-      case CharsOff2Plus('0', 'x') => parseHexa0xToken(rem, tp).appendLoop
-      case CharsOff1Plus(DigitChar(d, _)) => parseIntToken(rem, tp).appendLoop
+      case CharsOffHead2('0', 'x') => parseHexa0xToken(rem, tp).appendLoop
+      case CharsOffHead(DigitChar(d, _)) => parseIntToken(rem, tp).appendLoop
 
-      case CharsOff1Plus(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
-      case CharsOff1Plus(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
+      case CharsOffHead(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
+      case CharsOffHead(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }
 
     mainLoop(charArr.offsetter0, new TextPosn(fileName, 1, 1))
