@@ -8,7 +8,8 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   override def apply(index: Int): A = array(index)
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = drop(1)
-  def refsOffsetter: RefsOff[A] @uncheckedVariance = new RefsOff[A](0)
+  def offset(value: Int): RefsOff[A] @uncheckedVariance = new RefsOff[A](value)
+  def offset0: RefsOff[A @uncheckedVariance] = offset(0)
 
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   {  array.copyToArray(array, offset, copyLength); ()}
@@ -264,7 +265,7 @@ object RefsOff2Tail
     ife(inp.length >= 2, Some((inp(0), inp(1), inp.drop2)), None)
 }
 
-object RefsOff1Plus
+object RefsOffHead
 {
   def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Option[A] =
     ife(inp.length  >= 1, Some(inp(0)), None)

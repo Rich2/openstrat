@@ -16,7 +16,7 @@ object tokensToEStatements
         fileLoop(remTokens, acc :+ bracketBlock)
       }
 
-      case RefsOff1Plus(bc: BracketClose) => bad1(bc, "Unexpected Closing Brace at top syntax level")
+      case RefsOffHead(bc: BracketClose) => bad1(bc, "Unexpected Closing Brace at top syntax level")
       case RefsOff1Tail(bm: BlockMember, tail) => fileLoop(tail, acc :+ bm)
     }
 
@@ -38,6 +38,6 @@ object tokensToEStatements
       case RefsOff1Tail(nbt: BlockMember, tail) => bracketLoop(tail, acc :+ nbt, open)
     }
 
-    fileLoop(tokens.refsOffsetter, Nil)
+    fileLoop(tokens.offset0, Nil)
   }
 }

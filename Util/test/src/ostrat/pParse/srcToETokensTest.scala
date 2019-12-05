@@ -49,7 +49,7 @@ object srcToETokensTest extends TestSuite
       assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpen(_), Hexa0xToken(_, "FF000000"), ParenthClose(_)) => }
       assertMatch(et1){case Good(_) => }
       r1.length ==> 12
-      assertMatch(r1){case RefsHead3(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20")) => }
+      assertMatch(r1){case RefsHead4(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
     }
 
     val st2 = """/* This is a comment."""
@@ -59,16 +59,20 @@ object srcToETokensTest extends TestSuite
     val st4 = "\n End of Comment. */"
     val st5 = st1 + "\n" + st2 + st4
     val et5 = st5.findTokens
-    val r5 = et5.get
+
 
     'Settings
     {
+      implicit val r5: Refs[Token] = et5.get
+      val ro6: RefsOff[Token] = r5.offset(4)
 
       assertMatch(st2.findTokens){ case GoodRefs0() => }
       assertMatch(et3){case Good(_) => }
       r3.length ==> 12
       assertMatch(et5){case Good(_) => }
       r5.length ==> 12
+      ro6.length ==> 8
+      //assertMatch(ro6){ case RefsOffHead(IdentifierLowerToken(_, _)) => }
     }
 
     Symbol("Neg")

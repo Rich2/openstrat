@@ -29,7 +29,5 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
     foreach( el => ife(el == oldValue, newValue, el))
     newArr
   }
-
-  //def offsetter: ArrOff[A @uncheckedVariance] = new ArrOff[A](0)
 }
 
