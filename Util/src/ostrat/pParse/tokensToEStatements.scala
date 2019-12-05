@@ -23,6 +23,8 @@ object tokensToEStatements
     /** Sorts tokens in to brace hierarchy. */
     def bracketLoop(rem: RefsOff[Token], acc: List[BlockMember], open: BracketOpen): EMon[(BracketBlock, RefsOff[Token])] = rem match
     { case RefsOff0() => bad1(open, "Unclosed Brace")
+
+      //This case is where an inner BracketBlock starts wiithin the current BracketBlock
       case RefsOff1Tail(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
         val (bracketBlock, remTokens) = pair
         bracketLoop(remTokens, acc :+ bracketBlock, open)

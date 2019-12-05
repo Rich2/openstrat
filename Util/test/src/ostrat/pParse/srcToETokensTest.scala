@@ -59,12 +59,12 @@ object srcToETokensTest extends TestSuite
     val st4 = "\n End of Comment. */"
     val st5 = st1 + "\n" + st2 + st4
     val et5 = st5.findTokens
-
+    implicit val r5: Refs[Token] = et5.get
+    val ro6: RefsOff[Token] = r5.offset(4)
 
     'Settings
     {
-      implicit val r5: Refs[Token] = et5.get
-      val ro6: RefsOff[Token] = r5.offset(4)
+
 
       assertMatch(st2.findTokens){ case GoodRefs0() => }
       assertMatch(et3){case Good(_) => }
@@ -72,7 +72,7 @@ object srcToETokensTest extends TestSuite
       assertMatch(et5){case Good(_) => }
       r5.length ==> 12
       ro6.length ==> 8
-      //assertMatch(ro6){ case RefsOffHead(IdentifierLowerToken(_, _)) => }
+      assertMatch(r5(4)){ case IdentifierLowerToken(_, "displayX") => }
     }
 
     Symbol("Neg")
