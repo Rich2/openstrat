@@ -151,13 +151,28 @@ object RefsHead
 }
 
 object RefsHead2
-{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
+{ /** Extractor for the head 2 elements of a Refs, immutable covariant Array based collection. The tail can be any length. */
   def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A)] = refs match
-  { case refs if refs.length >= 2 => Some(refs(0), refs(1))
+  { case refs if refs.length >= 2 => Some((refs(0), refs(1)))
     case _ => None
   }
 }
 
+object RefsHead3
+{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A, A)] = refs match
+  { case refs if refs.length >= 3 => Some((refs(0), refs(1), refs(2)))
+    case _ => None
+  }
+}
+
+object RefsHead4
+{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A <: AnyRef](refs: Refs[A]): Option[(A, A, A, A)] = refs match
+  { case refs if refs.length >= 4 => Some((refs(0), refs(1), refs(2), refs(3)))
+    case _ => None
+  }
+}
 /** Extractor function object for a Good Refs Sequence of length 0. */
 case object GoodRefs0
 { /** Extractor method for a Good Refs Sequence of length 0. */

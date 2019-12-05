@@ -41,7 +41,6 @@ object srcToETokensTest extends TestSuite
 
     val et1 = st1.findTokens
     val r1: Tokens = et1.get
-    deb(r1(0).toString)
 
     'Multiple
     {
@@ -50,7 +49,7 @@ object srcToETokensTest extends TestSuite
       assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpen(_), Hexa0xToken(_, "FF000000"), ParenthClose(_)) => }
       assertMatch(et1){case Good(_) => }
       r1.length ==> 12
-      assertMatch(r1){case RefsHead(IdentifierLowerToken(_, _)) => }
+      assertMatch(r1){case RefsHead3(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20")) => }
     }
 
     val st2 = """/* This is a comment."""
