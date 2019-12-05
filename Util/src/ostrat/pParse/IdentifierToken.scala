@@ -7,9 +7,19 @@ trait IdentifierToken extends ExprToken
  * Hexadecimal Tokens and some are not. */
 trait IdentifierUpperToken extends ExprToken
 
+object IdentifierUpperToken
+{
+  def unapply(inp: AnyRef): Option[(TextPosn, String)] = ???
+}
+
 /** An Identifier Token beginning with a lowercase letter or an underscore character. This is a trait not a final class, because some
  *  IdentifierLowerTokens are valid raw Trigdual Tokens and some are not. */
 trait IdentifierLowerToken extends ExprToken
+
+object IdentifierLowerToken
+{
+  def unapply(inp: AnyRef): Option[(TextPosn, String)] = ???
+}
 
 /** A valid Identifier begining with a lowercase letter or an underscore character. */
 case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends ExprToken

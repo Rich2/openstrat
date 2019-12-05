@@ -23,14 +23,14 @@ object getBlocks
 {
   def apply(seg: Arr[ExprMember]): EMon[Expr]= sortBlocks(seg.toList, Buff()).flatMap {
     case Arr(e: Expr) => Good(e)
-    case s => bad1(s.head, "Unknown Expression sequence:" -- s.toString)
+    case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
   }
 
   def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
   { case Nil => PrefixPlus(acc.toRefs)
-    case (at: IdentifierLowerOnlyToken) :: (bb: BracketBlock) :: t2 =>
+    case (at: IdentifierLowerToken) :: (bb: BracketBlock) :: t2 =>
     { //typedSpan needs removal
-      val (blocks, tail) = rem.tail.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
+      val (blocks, tail) = t2.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
       sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketBlock]]))
     }
     case h :: tail => sortBlocks(tail, acc :+ h)
@@ -58,4 +58,3 @@ object getExpr
     loop(seg.refsOffsetter)
   }
 }
-
