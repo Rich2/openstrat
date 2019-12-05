@@ -43,19 +43,32 @@ object srcToETokensTest extends TestSuite
       assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpen(_), Hexa0xToken(_, "FF000000"), ParenthClose(_)) => }
     }
 
-    val se1 = """appStr = "20";
+    val st1 = """appStr = "20";
     displayX = 0;
     displayY = 0;"""
 
-    val r1 = se1.findTokens
-    val r2: Refs[Token] = r1.get
+    val et1 = st1.findTokens
+    val r1: Refs[Token] = et1.get
 
-    val se2 = """/* This is a comment."""
+
+    val st2 = """/* This is a comment."""
+    val st3 = st1 + st2
+    val et3 = st3.findTokens
+    val r3 = et3.get
+    val st4 = "\n End of Comment. */"
+    val st5 = st1 + "\n" + st2 + st4
+    val et5 = st5.findTokens
+    val r5 = et5.get
+
     'Settings
     {
-      assertMatch(r1){case Good(_) => }
-      r2.length ==> 12
-      assertMatch(se2.findTokens){ case GoodRefs0() => }
+      assertMatch(et1){case Good(_) => }
+      r1.length ==> 12
+      assertMatch(st2.findTokens){ case GoodRefs0() => }
+      assertMatch(et3){case Good(_) => }
+      r3.length ==> 12
+      assertMatch(et5){case Good(_) => }
+      r5.length ==> 12
     }
 
     Symbol("Neg")
