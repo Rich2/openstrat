@@ -51,7 +51,17 @@ object srcToETokens
 
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(tp, c1), tail, tp.right3)
       case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
-      case CharsOff2Tail('/', '*', tail) => parseMultiComment(tail, tp.right2).f2(mainLoop)
+
+      case CharsOff2Tail('/', '*', tail) =>
+      {
+        def loop(rem: CharsOff, tp: TextPosn): (CharsOff, TextPosn) = rem match
+        { case CharsOff0() => (rem, tp)
+          case CharsOff2Tail('*', '/', tail) => (tail, tp.right(2))
+          case CharsOff1Tail(_, rem) => loop(rem, tp.right1)
+        }
+        loop(tail, tp.right2).f2(mainLoop)
+      }
+
       case CharsOff1Plus('\"') => parseStringToken(rem, tp).appendLoop
       case CharsOff1Plus(LetterOrUnderscoreChar(_)) => parseIdentifierToken(rem, tp).appendLoop
 

@@ -151,6 +151,15 @@ object Refs2Tail
   }
 }
 
+/** Extractor function object for a Good Refs Sequence of length 0. */
+case object GoodRefs0
+{ /** Extractor method for a Good Refs Sequence of length 0. */
+  def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Boolean = refs match
+  { case Good(refs) if refs.length == 0 => true
+    case _ => false
+  }
+}
+
 /** Extractor function object for a Good Refs Sequence of length 1. */
 object GoodRefs1
 { /** Extractor method for a Good Refs Sequence of length 1. */

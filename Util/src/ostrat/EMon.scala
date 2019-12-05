@@ -37,6 +37,9 @@ sealed trait EMon[+A] extends EMonN
   def eitherFlatMap[D](f: A => Either[Strings, D]): Either[Strings, D]
   def isGood: Boolean
   def isBad: Boolean
+
+  /** Gets the value of the EMon, throws exception on Bad. */
+  def get: A
 }
 
 object EMon
@@ -72,6 +75,7 @@ case class Good[+A](val value: A) extends EMon[A]
   override def eitherFlatMap[D](f: A => Either[Strings, D]): Either[Strings, D] = f(value)
   override def isGood: Boolean = true
   override def isBad: Boolean = false
+  override def get: A = value
 }
 
 object Good
@@ -97,6 +101,7 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadN
   override def eitherFlatMap[D](f: A => Either[Strings, D]): Either[Strings, D] = (Left(errs))
   override def isGood: Boolean = false
   override def isBad: Boolean = true
+  override def get: A = excep("Called get on Bad.")
 }
 
 object Bad
