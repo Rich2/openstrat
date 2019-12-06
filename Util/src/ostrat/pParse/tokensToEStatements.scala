@@ -6,7 +6,8 @@ package pParse
 object tokensToEStatements
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
-  def apply(implicit tokens: Refs[Token]): ERefs[Statement] = {
+  def apply(implicit tokens: Refs[Token]): ERefs[Statement] =
+  {
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
     def fileLoop(rem: RefsOff[Token], acc: List[BlockMember]): ERefs[Statement] = rem match
@@ -16,7 +17,7 @@ object tokensToEStatements
         fileLoop(remTokens, acc :+ bracketBlock)
       }
 
-      case RefsOffHead(bc: BracketClose) => bad1(bc, "Unexpected Closing Brace at top syntax level")
+      case RefsOffHead(bc: BracketCloseToken) => bad1(bc, "Unexpected Closing Brace at top syntax level")
       case RefsOff1Tail(bm: BlockMember, tail) => fileLoop(tail, acc :+ bm)
     }
 
@@ -30,12 +31,9 @@ object tokensToEStatements
         bracketLoop(remTokens, acc :+ bracketBlock, open)
       }
 
-      case RefsOff1Tail(bc: BracketClose, tail) => open.matchingBracket(bc) match
-      { case false => bad1(bc, "Unexpected Closing Parenthesis")
-        case true => blockMembersToEStatements(acc).map(g =>
-          (open.newBracketBlock(bc, g), tail)
-        )
-      }
+      case RefsOff1Tail(bc: BracketCloseToken, tail) => if (bc.braces == open.braces)
+        blockMembersToEStatements(acc).map(g => (BracketBlock(g, bc.braces, ??? , ??? ), tail))
+      else bad1(bc, "Unexpected Closing Parenthesis")
 
       case RefsOff1Tail(nbt: BlockMember, tail) => bracketLoop(tail, acc :+ nbt, open)
     }

@@ -17,6 +17,7 @@ package ostrat
 package object pParse
 {
   type Tokens = Refs[Token]
+  type Statements = Refs[Statement]
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
   def srcToStatements(input: String, inputSourceName: String): ERefs[Statement] =

@@ -30,12 +30,12 @@ object srcToETokens
       case CharsOff1Tail(';', tail) => appendLoop(SemicolonToken(tp), tail, tp.right1)
       case CharsOff1Tail(',', tail) => appendLoop(CommaToken(tp), tail, tp.right1)
 
-      case CharsOff1Tail('(', tail) => appendLoop(ParenthOpen(tp), tail, tp.right1)
-      case CharsOff1Tail(')', tail) => appendLoop(ParenthClose(tp), tail, tp.right1)
-      case CharsOff1Tail('[', tail) => appendLoop(SquareOpen(tp), tail, tp.right1)
-      case CharsOff1Tail(']', tail) => appendLoop(SquareClose(tp), tail, tp.right1)
-      case CharsOff1Tail('{', tail) => appendLoop(CurlyOpen(tp), tail, tp.right1)
-      case CharsOff1Tail('}', tail) => appendLoop(CurlyClose(tp), tail, tp.right1)
+      case CharsOff1Tail('(', tail) => appendLoop(ParenthOpenToken(tp), tail, tp.right1)
+      case CharsOff1Tail(')', tail) => appendLoop(ParenthCloseToken(tp), tail, tp.right1)
+      case CharsOff1Tail('[', tail) => appendLoop(SquareOpenToken(tp), tail, tp.right1)
+      case CharsOff1Tail(']', tail) => appendLoop(SquareCloseToken(tp), tail, tp.right1)
+      case CharsOff1Tail('{', tail) => appendLoop(CurlyOpenToken(tp), tail, tp.right1)
+      case CharsOff1Tail('}', tail) => appendLoop(CurlyCloseToken(tp), tail, tp.right1)
 
       case CharsOffHead4('.', '.', '.', '.') => tp.right3.bad(".... is not an allowed character sequence.")
       case CharsOff3Tail('.', '.', '.', tail) => appendLoop(Dot3Token(tp), tail, tp.right3)

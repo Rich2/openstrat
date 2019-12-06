@@ -22,83 +22,87 @@ trait ExprMember extends StatementMember
 trait ExprMemberToken extends BlockMemberToken with ExprMember
 
 sealed trait BracketToken extends Token
+{ def braces: Braces
+}
 sealed trait BracketOpen extends BracketToken
-{
-   def matchingBracket(bc: BracketClose): Boolean
-   def newBracketBlock(cb: BracketClose, statements: Refs[Statement]): BracketBlock
+{ final override def tokenTypeStr = "Open" + braces.name + "BraceToken"
+  final override def srcStr: String = braces.openChar.toString
 }
 
 /** A closing bracket Token. */
-sealed trait BracketClose extends BracketToken
-
-case class ParenthOpen(startPosn: TextPosn) extends BracketOpen  
-{ def srcStr = "("
-  override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[ParenthClose]
-  override def newBracketBlock(cb: BracketClose, statements: Refs[Statement]): BracketBlock = (ParenthBlock(statements, this, cb))
-  override def tokenTypeStr: String = "ParenthOpenToken"
+sealed trait BracketCloseToken extends BracketToken
+{ final override def tokenTypeStr = "Close" + braces.name + "BraceToken"
+  final override def srcStr: String = braces.closeChar.toString
 }
 
-case class ParenthClose(startPosn: TextPosn) extends BracketClose
-{ def srcStr = ")"
-  override def tokenTypeStr: String = "ParenthCloseToken"
+case class ParenthOpenToken(startPosn: TextPosn) extends BracketOpen
+{ override def braces: Braces = Parenthesis
 }
 
-case class SquareOpen(startPosn: TextPosn) extends BracketOpen
-{ def srcStr = "["
-  override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[SquareClose]
-  override def newBracketBlock(cb: BracketClose, statements: Refs[Statement]): BracketBlock = (SquareBlock(statements, this, cb))
-  override def tokenTypeStr: String = "SquareOpenToken"
+case class ParenthCloseToken(startPosn: TextPosn) extends BracketCloseToken
+{ override def braces: Braces = Parenthesis
 }
 
-case class SquareClose(startPosn: TextPosn) extends BracketClose
-{ def srcStr = "]"
-  override def tokenTypeStr: String = "SquareCloseToken"
+case class SquareOpenToken(startPosn: TextPosn) extends BracketOpen
+{ override def braces: Braces = SquareBraces
 }
 
-case class CurlyOpen(startPosn: TextPosn) extends BracketOpen
-{ def srcStr = "{"
-  override def matchingBracket(bc: BracketClose): Boolean = bc.isInstanceOf[CurlyClose]
-  override def newBracketBlock(cb: BracketClose, statements: Refs[Statement]): BracketBlock = (CurlyBlock(statements, this, cb))
-  override def tokenTypeStr: String = "CurlyOpenToken"
+case class SquareCloseToken(startPosn: TextPosn) extends BracketCloseToken
+{ override def braces: Braces = SquareBraces
 }
-case class CurlyClose(startPosn: TextPosn) extends BracketClose
-{ def srcStr = "}"
-  override def tokenTypeStr: String = "CurlyCloseToken"
+
+case class CurlyOpenToken(startPosn: TextPosn) extends BracketOpen
+{ override def braces: Braces = CurlyBraces
+}
+
+case class CurlyCloseToken(startPosn: TextPosn) extends BracketCloseToken
+{ override def braces: Braces = CurlyBraces
 }
 
 sealed trait Braces
 { def openChar: Char
   def closeChar: Char
-  def braceName: String
+  def name: String
 }
-case object RoundBraces extends Braces
+case object Parenthesis extends Braces
 { override def openChar: Char = '('
   override def closeChar: Char = ')'
-  override def braceName: String =  "Round"
+  override def name: String =  "Round"
 }
 
 case object SquareBraces extends Braces
 { override def openChar: Char = '['
   override def closeChar: Char = ']'
-  override def braceName: String = "Square"
+  override def name: String = "Square"
 }
 
 case object CurlyBraces extends Braces
 { override def openChar: Char = '{'
   override def closeChar: Char = '}'
-  override def braceName: String = "Curly"
+  override def name: String = "Curly"
 }
 
-sealed trait BracketBlock extends StatementsHolder
-{ def startBracket: BracketOpen
-  def endBracket: BracketClose
+case class BracketBlock(statements: Statements, braces: Braces, startBracket: TextPosn, endBracket: TextPosn) extends StatementsHolder
+{ def exprName: String = braces.name + "BlockExpr"
 }
 
-case class ParenthBlock(statements: Refs[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
-{ override def exprName: String = "ParenthBlock" }
+object ParenthBlock
+{ def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
+  { case BracketBlock(sts, Parenthesis, sp, ep) => Some((sts, sp, ep))
+    case _ => None
+  }
+}
 
-case class SquareBlock(statements: Refs[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
-{ override def exprName: String = "SquareBlock" }
+object SquareBlock
+{ def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
+{ case BracketBlock(sts, SquareBraces, sp, ep) => Some((sts, sp, ep))
+  case _ => None
+}
+}
 
-case class CurlyBlock(statements: Refs[Statement], startBracket: BracketOpen, endBracket: BracketClose) extends BracketBlock
-{ override def exprName: String = "CurlyBlock" }
+object CurlyBlock
+{ def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
+{ case BracketBlock(sts, CurlyBraces, sp, ep) => Some((sts, sp, ep))
+  case _ => None
+}
+}

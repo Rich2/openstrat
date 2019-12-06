@@ -21,12 +21,12 @@ object srcToETokensTest extends TestSuite
       assertMatch("ab3_5fG".findTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG")) => }
 
       assertMatch(",".findTokens){ case GoodRefs1(CommaToken(Sp1)) => }
-      assertMatch("{".findTokens){ case GoodRefs1(CurlyOpen(Sp1)) => }
-      assertMatch("}".findTokens){ case GoodRefs1(CurlyClose(Sp1)) => }
-      assertMatch("(".findTokens){ case GoodRefs1(ParenthOpen(Sp1)) => }
-      assertMatch(")".findTokens){ case GoodRefs1(ParenthClose(Sp1)) => }
-      assertMatch(" [".findTokens){ case GoodRefs1(SquareOpen(Sp2)) => }
-      assertMatch(" ]".findTokens){ case GoodRefs1(SquareClose(Sp2)) => }
+      assertMatch("{".findTokens){ case GoodRefs1(CurlyOpenToken(Sp1)) => }
+      assertMatch("}".findTokens){ case GoodRefs1(CurlyCloseToken(Sp1)) => }
+      assertMatch("(".findTokens){ case GoodRefs1(ParenthOpenToken(Sp1)) => }
+      assertMatch(")".findTokens){ case GoodRefs1(ParenthCloseToken(Sp1)) => }
+      assertMatch(" [".findTokens){ case GoodRefs1(SquareOpenToken(Sp2)) => }
+      assertMatch(" ]".findTokens){ case GoodRefs1(SquareCloseToken(Sp2)) => }
       assertMatch(";".findTokens){ case GoodRefs1(SemicolonToken(Sp1)) => }
 
       assertMatch("=".findTokens){case GoodRefs1(AsignToken(Sp1)) => }
@@ -46,7 +46,7 @@ object srcToETokensTest extends TestSuite
     {
       assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
       assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
-      assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpen(_), Hexa0xToken(_, "FF000000"), ParenthClose(_)) => }
+      assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_)) => }
       assertMatch(et1){case Good(_) => }
       r1.length ==> 12
       assertMatch(r1){case RefsHead4(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
