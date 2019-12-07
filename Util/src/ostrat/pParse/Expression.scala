@@ -24,24 +24,27 @@ trait ExprToken extends Expr with ExprMemberToken
   final override def toString: String = tokenTypeStr.appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
-trait BlockBase[MemT <: AnyRef]
-{ def statements: Refs[MemT]
+trait BlockRaw
+{ def statements: Refs[Statement]
+  def exprs: Refs[Expr] = statements.map(_.expr)
+  def startMem = statements.head
+  def endMem = statements.last
 }
 
-trait StatementsHolder extends ExprSeq with BlockBase[Statement]
+trait BlockStatements extends ExprSeq
 { def statements: Refs[Statement]
   def exprs: Refs[Expr] = statements.map(_.expr).asInstanceOf[Refs[Expr]]
   def startMem = statements.head
   def endMem = statements.last
 }
 
-case class FileStatements(statements: Refs[Statement]) extends StatementsHolder
+case class FileStatements(statements: Refs[Statement]) extends BlockStatements
 { def exprName: String = "FileStatements"
 //  def startPosn: TextPosn = statements.head.startPosn
   //def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class StringStatements(statements: Refs[Statement]) extends StatementsHolder
+case class StringStatements(statements: Refs[Statement]) extends BlockStatements
 { def exprName: String = "StringStatements"
   //def startPosn: TextPosn = statements.head.startPosn
   //def endPosn: TextPosn = statements.last.endPosn
@@ -59,7 +62,7 @@ case class UnimplementedExpr(bMems: Refs[BlockMember]) extends ExprCompound
   override def exprName: String = "UnimplementedExpr"
 }
 
-case class AlphaBracketExpr(name: IdentifierLowerToken, blocks: Refs[BracketBlock]) extends ExprCompound
+case class AlphaBracketExpr(name: IdentifierLowerToken, blocks: Refs[BracketedStatements]) extends ExprCompound
 { def startMem = name
   def endMem = blocks.last
   override def exprName: String = "AlphaBracketExpr"  

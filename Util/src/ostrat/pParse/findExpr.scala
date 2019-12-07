@@ -28,10 +28,10 @@ object getBlocks
 
   def sortBlocks(rem: List[ExprMember], acc: Buff[TokenOrBlock]): EMonArr[TokenOrBlock] = rem match
   { case Nil => PrefixPlus(acc.toRefs)
-    case (at: IdentifierLowerToken) :: (bb: BracketBlock) :: t2 =>
+    case (at: IdentifierLowerToken) :: (bb: BracketedStatements) :: t2 =>
     { //typedSpan needs removal
-      val (blocks, tail) = t2.typedSpan[BracketBlock](_.isInstanceOf[BracketBlock])
-      sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketBlock]]))
+      val (blocks, tail) = t2.typedSpan[BracketedStatements](_.isInstanceOf[BracketedStatements])
+      sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketedStatements]]))
     }
     case h :: tail => sortBlocks(tail, acc :+ h)
   }

@@ -82,27 +82,31 @@ case object CurlyBraces extends Braces
   override def name: String = "Curly"
 }
 
-case class BracketBlock(statements: Statements, braces: Braces, startBracket: TextPosn, endBracket: TextPosn) extends StatementsHolder
+case class BracketedRaws(statements: Refs[TextSpan], braces: Braces, startBracket: TextPosn, endBracket: TextPosn)// extends StatementsHolder
+{ def exprName: String = braces.name + "BlockExpr"
+}
+
+case class BracketedStatements(statements: Statements, braces: Braces, startBracket: TextPosn, endBracket: TextPosn) extends BlockStatements
 { def exprName: String = braces.name + "BlockExpr"
 }
 
 object ParenthBlock
 { def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
-  { case BracketBlock(sts, Parenthesis, sp, ep) => Some((sts, sp, ep))
+  { case BracketedStatements(sts, Parenthesis, sp, ep) => Some((sts, sp, ep))
     case _ => None
   }
 }
 
 object SquareBlock
 { def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
-{ case BracketBlock(sts, SquareBraces, sp, ep) => Some((sts, sp, ep))
+{ case BracketedStatements(sts, SquareBraces, sp, ep) => Some((sts, sp, ep))
   case _ => None
 }
 }
 
 object CurlyBlock
 { def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
-{ case BracketBlock(sts, CurlyBraces, sp, ep) => Some((sts, sp, ep))
+{ case BracketedStatements(sts, CurlyBraces, sp, ep) => Some((sts, sp, ep))
   case _ => None
 }
 }
