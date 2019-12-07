@@ -32,7 +32,7 @@ object tokensToEStatements
       }
 
       case RefsOff1Tail(bc: BracketCloseToken, tail) => if (bc.braces == open.braces)
-        blockMembersToEStatements(acc).map(g => (BracketBlock(g, bc.braces, ??? , ??? ), tail))
+        blockMembersToEStatements(acc).map(g => (BracketBlock(g, bc.braces, open.startPosn , bc.startPosn ), tail))
       else bad1(bc, "Unexpected Closing Parenthesis")
 
       case RefsOff1Tail(nbt: BlockMember, tail) => bracketLoop(tail, acc :+ nbt, open)
