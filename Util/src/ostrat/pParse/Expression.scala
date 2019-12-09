@@ -9,6 +9,9 @@ trait Expr extends BlockMember with ClauseMember
   def exprName: String
 }
 
+trait Expr0 extends Expr1
+trait Expr1 extends Expr
+
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait ExprCompound extends Expr with TextSpanCompound
 
