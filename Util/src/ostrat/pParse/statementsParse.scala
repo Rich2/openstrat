@@ -1,10 +1,11 @@
 package ostrat
 package pParse
 
-/** Function object to parse a raw Statement where sub blocks have already been parsed into a Statement. */
-object blockMembersParse
+/** Function object to parse a sequence of Statement members into a  sequence of Statements. Statement members are either nonBracketTokens
+ *  or parsed BracketBlocks. */
+object statementsParse
 {
-  /** Parses a raw Statement where sub blocks have already been parsed into a Statement. */
+  /** Parses a sequence of block members raw Statement where sub blocks have already been parsed into a sequence of Statements. */
   def apply(implicit inp: Refs[BlockMember]): ERefs[Statement] =
   {
     val acc: Buff[Statement] = Buff()

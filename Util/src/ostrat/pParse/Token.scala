@@ -41,20 +41,24 @@ case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with Statement
   override def subTypeStr: String = "CommaToken"
 }
 
+/** A Token that can be a member of a Clause. */
+trait ClauseMemberToken extends BlockMemberToken with ClauseMember
+
+
 /** The Dot or Stop Token. */
-case class DotToken(startPosn: TextPosn) extends ExprMemberToken
+case class DotToken(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = "."
   override def tokenTypeStr: String = "DotToken"
 }
 
 /** The double Dot or Stop Token. */
-case class Dot2Token(startPosn: TextPosn) extends ExprMemberToken
+case class Dot2Token(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = ".."
   override def tokenTypeStr: String = "DotToken"
 }
 
 /** The triple Dot or Stop Token. */
-case class Dot3Token(startPosn: TextPosn) extends ExprMemberToken
+case class Dot3Token(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = "..."
   override def tokenTypeStr: String = "DotToken"
 }
@@ -71,7 +75,7 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
 }
 
 /** An Operator token. */
-trait OperatorToken extends ExprMemberToken
+trait OperatorToken extends ClauseMemberToken
 case class OtherOperatorToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
 { override def tokenTypeStr: String = "OtherOperatorToken"
 }
@@ -83,7 +87,7 @@ case class PlusInToken(startPosn: TextPosn, srcStr: String) extends OperatorToke
 case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
 { override def tokenTypeStr: String = "PlusPreToken"
 }
-case class AsignToken(startPosn: TextPosn) extends ExprMemberToken
+case class AsignToken(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = "="
   override def tokenTypeStr: String = "AsignToken"
 }

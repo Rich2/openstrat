@@ -1,8 +1,8 @@
 package ostrat
 package pParse
 
-/** Function object to parse a sequence of Statement members into a Statement. Statement members are either nonBracketTokens or parsed
- *  BracketBlocks. */
+
+/** Function object to parse a raw Statement of statement members, where sub blocks have already been parsed into Statement Blocks. */
 object statementParse
 {
   /** Parses a sequence of Statement members into a Statement. Statement members are either nonBracketTokens or parsed BracketBlocks.  */
@@ -10,7 +10,7 @@ object statementParse
   {
     implicit val inp = memsIn
     val acc: Buff[Clause] = Buff()
-    val subAcc: Buff[ExprMember] = Buff()
+    val subAcc: Buff[ClauseMember] = Buff()
 
     def loop(rem: RefsOff[StatementMember]): EMon[Statement] = rem match {
       case RefsOff0() if acc.isEmpty => getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))
@@ -21,7 +21,7 @@ object statementParse
         acc.append(Clause(g, Opt(ct)))
         loop(tail)
       }
-      case RefsOff1Tail(em: ExprMember, tail) => { subAcc.append(em); loop(tail) }
+      case RefsOff1Tail(em: ClauseMember, tail) => { subAcc.append(em); loop(tail) }
     }
 
     loop(inp.offset0)
