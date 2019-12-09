@@ -24,9 +24,11 @@ sealed trait EMon[+A] extends EMonN
   
   def errs: Strings
   def map[B](f: A => B): EMon[B]
+  def map2[B1, B2](f: A => (B1, B2)) = ???
   /** This is just a Unit returning map, but is preferred because the method  is explicit that it is called for effects not a value. */
   def forEither(fBad: Strings => Unit, fGood: A => Unit): Unit = fold[Unit](fBad, fGood)
   def flatMap[B](f: A => EMon[B]): EMon[B]
+  def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
   def getElse[A1 >: A](elseValue: => A1): A1
 
   /** Use this EMon if good else use other EMmn */
@@ -66,6 +68,7 @@ case class Good[+A](val value: A) extends EMon[A]
 { def errs: Strings = Refs()
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))   
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
+  override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def foreach(f: A => Unit): Unit = f(value)
   override def getElse[A1 >: A](elseValue: => A1): A1 = value
   override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A] = this
@@ -92,6 +95,7 @@ object Good
 case class Bad[+A](errs: Strings) extends EMon[A] with BadN
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
+  override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
   override def foreach(f: A => Unit): Unit = {}
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
   override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
@@ -125,14 +129,20 @@ object Bad1
 
 sealed trait EMon2[+A1, +A2] extends EMonN
 { def flatMap[B](f: (A1, A2) => EMon[B]): EMon[B]
+  def flatMap2[B1, B2](f: (A1, A2) => EMon2[B1, B2]): EMon2[B1, B2]
+  def a1Map[B1](f: (A1 => B1)): EMon2[B1, A2]
 }
 
 final case class Good2[A1, A2](a1: A1, a2: A2) extends EMon2[A1, A2]
 { override def flatMap[B](f: (A1, A2) => EMon[B]): EMon[B] = f(a1, a2)
+  override def flatMap2[B1, B2](f: (A1, A2) => EMon2[B1, B2]): EMon2[B1, B2] = f(a1, a2)
+  override def a1Map[B1](f: (A1 => B1)): EMon2[B1, A2] = Good2[B1, A2](f(a1), a2)
 }
 
-final class Bad2[A1, A2](val errs: Strings) extends EMon2[A1, A2]  with BadN
+final case class Bad2[A1, A2](val errs: Strings) extends EMon2[A1, A2]  with BadN
 { override def flatMap[B](f: (A1, A2) => EMon[B]): EMon[B] = Bad[B](errs)
+  override def a1Map[B1](f: (A1 => B1)): EMon2[B1, A2] = Bad2[B1, A2](errs)
+  override def flatMap2[B1, B2](f: (A1, A2) => EMon2[B1, B2]): EMon2[B1, B2] = Bad2[B1, B2](errs)
 }
 
 sealed trait EMon3[+A1, +A2, +A3] extends EMonN
