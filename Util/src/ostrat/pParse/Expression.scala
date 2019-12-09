@@ -26,7 +26,7 @@ trait ExprToken extends Expr with ExprMemberToken
 
 trait BlockRaw
 { def statements: Refs[Statement]
-  def exprs: Refs[Expr] = statements.map(_.expr)
+ // def exprs: Refs[Expr] = statements.map(_.expr)
   def startMem = statements.head
   def endMem = statements.last
 }

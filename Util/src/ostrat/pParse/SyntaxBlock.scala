@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pParse
+
 /** This trait includes all the tokens except braces plus the Bracket syntactic blocks. The Block in the name block member is either the top level
  *  statements in the file or the statements with in a bracket block. Conceptually the source file is considered a special case of bracket block where 
  *  the beginning of substitutes for the opening bracket and the end of file substitutes for the closing bracket. BlockMember has only two sub traits
@@ -99,14 +100,14 @@ object ParenthBlock
 
 object SquareBlock
 { def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
-{ case BracketedStatements(sts, SquareBraces, sp, ep) => Some((sts, sp, ep))
-  case _ => None
-}
+  { case BracketedStatements(sts, SquareBraces, sp, ep) => Some((sts, sp, ep))
+    case _ => None
+  }
 }
 
 object CurlyBlock
 { def unapply(inp: AnyRef): Option[(Statements, TextPosn, TextPosn)] = inp match
-{ case BracketedStatements(sts, CurlyBraces, sp, ep) => Some((sts, sp, ep))
-  case _ => None
-}
+  { case BracketedStatements(sts, CurlyBraces, sp, ep) => Some((sts, sp, ep))
+    case _ => None
+  }
 }
