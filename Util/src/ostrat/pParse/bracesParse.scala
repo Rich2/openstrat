@@ -16,7 +16,7 @@ object bracesParse
         loop(remTokens, acc :+ bracketBlock))
 
       case RefsOff1Tail(bc: BracketCloseToken, tail) =>
-        if (bc.braces == open.braces) blockMembersToEStatements(acc).flatMap2 { g =>
+        if (bc.braces == open.braces) blockMembersParse(acc).flatMap2 { g =>
           val res = BracketedStatements(g, bc.braces, open.startPosn, bc.startPosn)
           Good2(res, tail)
         }
