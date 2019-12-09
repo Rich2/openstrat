@@ -12,7 +12,7 @@ object tokensToEStatements
      * intervening tokens with a Bracket Block. */
     def fileLoop(rem: RefsOff[Token], acc: List[BlockMember]): ERefs[Statement] = rem match
     { case RefsOff0() => blockMembersToEStatements(acc)
-      case RefsOff1Tail(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
+      case RefsOff1Tail(bo: BracketOpen, tail) => bracesParse(tail, Nil, bo).flatMap { pair =>
         val (bracketBlock, remTokens) = pair
         fileLoop(remTokens, acc :+ bracketBlock)
       }
@@ -21,22 +21,7 @@ object tokensToEStatements
       case RefsOff1Tail(bm: BlockMember, tail) => fileLoop(tail, acc :+ bm)
     }
 
-    /** Sorts tokens in to brace hierarchy. */
-    def bracketLoop(rem: RefsOff[Token], acc: List[BlockMember], open: BracketOpen): EMon[(BracketedStatements, RefsOff[Token])] = rem match
-    { case RefsOff0() => bad1(open, "Unclosed Brace")
 
-      //This case is where an inner BracketBlock starts wiithin the current BracketBlock
-      case RefsOff1Tail(bo: BracketOpen, tail) => bracketLoop(tail, Nil, bo).flatMap { pair =>
-        val (bracketBlock, remTokens) = pair
-        bracketLoop(remTokens, acc :+ bracketBlock, open)
-      }
-
-      case RefsOff1Tail(bc: BracketCloseToken, tail) => if (bc.braces == open.braces)
-        blockMembersToEStatements(acc).map(g => (BracketedStatements(g, bc.braces, open.startPosn , bc.startPosn ), tail))
-      else bad1(bc, "Unexpected Closing Parenthesis")
-
-      case RefsOff1Tail(nbt: BlockMember, tail) => bracketLoop(tail, acc :+ nbt, open)
-    }
 
     fileLoop(tokens.offset0, Nil)
   }
