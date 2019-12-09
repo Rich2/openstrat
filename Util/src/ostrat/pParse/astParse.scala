@@ -13,7 +13,7 @@ object astParse
      * intervening tokens with a Bracket Block. */
     def loop(rem: RefsOff[Token]): ERefs[Statement] = rem match
     {
-      case RefsOff0() => blockMembersParse(acc.toList)
+      case RefsOff0() => blockMembersParse(acc.toRefs)
       case RefsOff1Tail(bo: BracketOpen, tail) => bracesParse(tail, bo).flatMap {(bracketBlock, remTokens) =>
         acc.append(bracketBlock)
         loop(remTokens)

@@ -1,24 +1,31 @@
 package ostrat
 package pParse
 
+/** Function object to parse a raw Statement where sub blocks have already been parsed into a Statement. */
 object blockMembersParse
 {
-  def apply(inp: List[BlockMember]): ERefs[Statement] =
+  /** Parses a raw Statement where sub blocks have already been parsed into a Statement. */
+  def apply(implicit inp: Refs[BlockMember]): ERefs[Statement] =
   {
-    def loop(rem: List[BlockMember], acc: Buff[Statement], subAcc: Buff[StatementMember]): ERefs[Statement] = rem match
-    {
-      case Nil if subAcc.isEmpty => Good(acc.toRefs)
-      case Nil => statementParse(subAcc.toRefs, nullRef).map(acc :+ _).map(_.toRefs)
+    val acc: Buff[Statement] = Buff()
+    val subAcc: Buff[StatementMember] = Buff()
 
-      case h :: tail => h match
-      {
-        case st: SemicolonToken if subAcc.isEmpty => loop(tail, acc :+ EmptyStatement(st), Buff())
-        case st: SemicolonToken => statementParse(subAcc.toRefs, Opt(st)).flatMap(g => loop(tail, acc :+ g, Buff()))
-        case sm: StatementMember => loop(tail, acc, subAcc :+ sm)
-        case u => excep("Statement Loop, impossible case")
-      }
+    def loop(rem: RefsOff[BlockMember]): ERefs[Statement] = rem match
+    {
+      case RefsOff0() if subAcc.isEmpty => Good(acc.toRefs)
+      case RefsOff0() => statementParse(subAcc.toRefs, nullRef).map(acc :+ _).map(_.toRefs)
+      case RefsOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
+
+      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, Opt(st)).flatMap{g =>
+          acc.append(g)
+          loop(tail)
+        }
+
+      case RefsOff1Tail(sm: StatementMember, tail) => { subAcc.append(sm); loop(tail) }
+      case u => excep("Statement Loop, impossible case")
     }
-    loop(inp, Buff(), Buff())
+
+    loop(inp.offset0)
   }
 }
 
