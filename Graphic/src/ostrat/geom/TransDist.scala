@@ -26,10 +26,13 @@ trait TransDist[T]
 /** The companion object for the TransDist typeclass, containing instances for common classes. */
 object TransDist
 {
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
+  implicit def refsImplicit[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]], ev: TransDist[A]): TransDist[Refs[A]] =
+    (obj, f) => obj.map(el => ev.trans(el, f))
+
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransDist[A]): TransDist[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
 
-  implicit def ArrayTransDist[A](implicit ct: reflect.ClassTag[A], ev: TransDist[A]): TransDist[Array[A]] =
+  implicit def arrayImplicit[A](implicit ct: reflect.ClassTag[A], ev: TransDist[A]): TransDist[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 }
 
