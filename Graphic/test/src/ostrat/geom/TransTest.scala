@@ -1,6 +1,6 @@
 package ostrat
 package geom
-import utest._
+import utest._, Colour._
 
 object TransTest extends TestSuite
 {
@@ -27,5 +27,15 @@ object TransTest extends TestSuite
       assert(o1 nequ None)
     }
 
+    val p1 = r1.fill(Red)
+    val p2 = r2.fill(Green)
+    val rs1: Refs[PolyFill] = Refs(p1, p2)
+    val rs1a = rs1.slateX(2)
+
+    'test2
+    {
+      rs1a(1).poly.length ==> 4
+      rs1a(1).poly.polyCentre ==> Vec2(2, 0)
+    }
   }
 }
