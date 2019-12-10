@@ -9,7 +9,6 @@ package object ostrat
   type Buff[A] = ArrayBuffer[A]
   type ERefs[A <: AnyRef] = EMon[Refs[A]]
   type EMonList[A] = EMon[List[A]]
-  type EMonArr[A] = EMon[Arr[A]]
   type ArrMulti[A] = Arr[Multiple[A]]
   type PersistEq[A] = Persist[A] with Eq[A]
   type ShowEq[A] = Show[A] with Eq[A]
