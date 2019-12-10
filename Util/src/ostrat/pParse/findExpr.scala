@@ -28,12 +28,12 @@ object getExpr
     def loop(rem: RefsOff[ClauseMember]): EMon[Expr] = rem match
     { case RefsOff0() => composeBlocks(acc.toArr)
 
-      case RefsOff1Tail(at: AsignToken, tail) => for {
-        gLs <- composeBlocks(acc.toArr);
+      case RefsOff1Tail(at: AsignToken, tail) => for
+      { gLs <- composeBlocks(acc.toArr);
         gRs <- loop(tail) //This has been altered. I think its correct now with no altering to acc
       } yield AsignExpr(at, gLs, gRs)
 
-      case RefsOff1Tail(h, tail) => { acc.append(h) ;loop(tail) }
+      case RefsOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     }
 
     loop(seg.offset0)

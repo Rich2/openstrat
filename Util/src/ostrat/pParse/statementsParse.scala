@@ -5,7 +5,7 @@ package pParse
  *  or parsed BracketBlocks. */
 object statementsParse
 {
-  /** Parses a sequence of block members raw Statement where sub blocks have already been parsed into a sequence of Statements. */
+  /** Parses a sequence of block members raw Statement where bracket blocks have already been parsed into a sequence of Statements. */
   def apply(implicit inp: Refs[BlockMember]): ERefs[Statement] =
   {
     val acc: Buff[Statement] = Buff()
