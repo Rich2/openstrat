@@ -37,7 +37,7 @@ trait PlatformsModule extends ScalaModule with CommonStd
     def sources = T.sources(millSourcePath / 'src)  
   }
 
-  trait InnerExamples extends ScalaModule with CommonStd
+  trait InnerLearn extends ScalaModule with CommonStd
   {
   	def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
   }
@@ -70,7 +70,7 @@ object Util extends PlatformsModule
   { def moduleDeps = Seq(MacrosJs)
   }
 
-  object examples extends InnerExamples
+  object examples extends InnerLearn
   {	def moduleDeps = Seq(Util)
   }
 
@@ -84,7 +84,7 @@ object Graphic extends PlatformsModule
   object js extends InnerJs {  def moduleDeps = Seq(Util.js)  }
   object Nat extends InnerNative
 
-  object examples extends InnerExamples
+  object examples extends InnerLearn
   { def moduleDeps = Seq(Graphic)
   }
 }
@@ -114,7 +114,7 @@ object Strat extends PlatformsModule
 object Dev extends PlatformsModule
 { def moduleDeps = Seq(Strat)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'examples / 'src)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'mine)
 
   object js extends InnerJs
