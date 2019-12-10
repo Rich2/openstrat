@@ -118,15 +118,16 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     goodLoop(thisIter.toList, Nil)      
   }*/
    
-  /** Not sure what this method does */
-  def typedSpan[B <: A](typeCheckFunction: A => Boolean): (List[B], List[A]) =
-  {
-    def loop(rem: List[A], acc: List[B]): (List[B], List[A]) = rem match
-    { case h :: tail if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
-      case s => (acc, s)
-    }
-    loop(thisIter.toList, Nil)
-  }   
+  /** Splits the collection into a prefix/suffix pair according to a type predicate. Hence the first returned collection has narrower type than the
+   * remainder collection. */
+//  def typedSpan[B <: A with AnyRef](typeCheckFunction: A => Boolean): (List[B], List[A]) =
+//  {
+//    def loop(rem: List[A], acc: List[B]): (List[B], List[A]) = rem match
+//    { case h :: tail if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
+//      case s => (acc, s)
+//    }
+//    loop(thisIter.toList, Nil)
+//  }
   
   /** This needs to be renamed. */
   def iter2ProdD2[B, C <: ProdDbl2, D <: ArrProdDbl2[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =

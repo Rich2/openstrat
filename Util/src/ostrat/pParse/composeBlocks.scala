@@ -9,13 +9,13 @@ object composeBlocks
     case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
   }
 
-  def sortBlocks(rem: List[ClauseMember], acc: Buff[BlockMember]): EMonArr[BlockMember] = rem match
+  private[this] def sortBlocks(rem: List[ClauseMember], acc: Buff[BlockMember]): EMonArr[BlockMember] = rem match
   { case Nil => PrefixPlus(acc.toRefs)
-    case (at: IdentifierLowerToken) :: (bb: BracketedStatements) :: t2 =>
+    /*case (at: IdentifierLowerToken) :: (bb: BracketedStatements) :: t2 =>
     { //typedSpan needs removal
       val (blocks, tail) = t2.typedSpan[BracketedStatements](_.isInstanceOf[BracketedStatements])
       sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketedStatements]]))
-    }
+    }*/
     case h :: tail => sortBlocks(tail, acc :+ h)
   }
 }
