@@ -39,15 +39,15 @@ object Multiple
 
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 
-  implicit class ArrImplicit[A](thisArr: Arr[Multiple[A]])
+  implicit class RefsImplicit[A](thisRefs: Refs[Multiple[A]])
   {
-    def singlesLen: Int = thisArr.sumBy(_.num)
+    def singlesLen: Int = thisRefs.sumBy(_.num)
     def flatSingles(implicit ct: ClassTag[A]): Arr[A] =
     {
-      val len = thisArr.foldLeft(0)(_ + _.num)
+      val len = thisRefs.foldLeft(0)(_ + _.num)
       val res = new Array[A](len)
       var count = 0
-      thisArr.foreach{m =>
+      thisRefs.foreach{ m =>
         m.foreach{v =>
           res(count) = v
           count += 1

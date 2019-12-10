@@ -175,6 +175,12 @@ trait ArrayLike[+A] extends Any
     foreachReverse(acc ::= _)
     acc
   }
+
+  def sumBy(f: A => Int): Int =
+  { var acc = 0
+    foreach(acc += f(_))
+    acc
+  }
 }
 
 object ArrayLike
