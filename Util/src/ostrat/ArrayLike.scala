@@ -7,11 +7,11 @@ trait ArrayLike[+A] extends Any
   def returnThis: ThisT = ???
   def length: Int
   def lenStr: String = length.toString
-  def apply(index: Int): A
+  @inline def apply(index: Int): A
   @inline def head: A = apply(0)
   @inline def last: A = apply(length - 1)
-  def empty: Boolean = length <= 0
-  def nonEmpty: Boolean = length > 0
+  @inline def empty: Boolean = length <= 0
+  @inline def nonEmpty: Boolean = length > 0
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (length == 0) vEmpty else vNonEmpty
   def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
   def headToStringElse(ifEmptyString: String): String = ife(length >= 1, head.toString, ifEmptyString)

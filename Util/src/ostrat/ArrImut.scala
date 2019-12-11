@@ -26,7 +26,14 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
   /** Replaces all instances of the old value with the new value. */
   def replace(oldValue: A @uncheckedVariance, newValue: A@uncheckedVariance): ThisT =
   { val newArr = buildThis(length)
-    foreach( el => ife(el == oldValue, newValue, el))
+    var count = 0
+
+    while (count < length)
+    { val orig = apply(count)
+      val finalVal = ife(orig == oldValue, newValue, orig)
+      newArr.unsafeSetElem(count, finalVal)
+      count += 1
+    }
     newArr
   }
 }
