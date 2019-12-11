@@ -18,7 +18,7 @@ case class LessonC3(canv: CanvasPlatform) extends CanvasSimple("Lesson C3")
   mouseUp = (posn, button, selectedList) =>
     {
       val newText = selectedList match
-      { case Arr1(h, tail) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, 28, textPosn)
+      { case Refs1Tail(h, tail) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, 28, textPosn)
         case _ => TextGraphic("You missed the yellow rectangles.\n" + posn.strCommaNames, 28, textPosn)
       }  
       repaintOld(rList :+ newText)

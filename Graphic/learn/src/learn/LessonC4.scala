@@ -25,9 +25,9 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   
   /** Note you can use what names you like. Here I put the types explicitly for clarity. When you are familiar with an anonymous function, you will
    *  probably want to use a short parameter list like (v, b, s).  */
-  mouseUp = (posn: Vec2, button: MouseButton, selected: Arr[AnyRef]) => selected match
+  mouseUp = (posn: Vec2, button: MouseButton, selected: Refs[AnyRef]) => selected match
   {
-    case Arr1(r: ARect, tail) =>
+    case Refs1Tail(r: ARect, tail) =>
       { rArr = rArr.replace(r, r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
         repaintOld(rArr.map(_.graphic) :+ startText)
       }

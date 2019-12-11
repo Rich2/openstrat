@@ -22,7 +22,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple("Flags Gui")
                
   mouseUp = (v, b, s) =>
     {
-      val str: String = s.headOption.map(_.toString).getOrElse("No clickable object on canvas")
+      val str: String = s.fHeadElse(_.toString, "No clickable object on canvas")
       val tg = TextGraphic(str, 28, 0 vv 100)
       repaintOld(stuff :+  tg)
     }

@@ -13,6 +13,7 @@ trait ArrayLike[+A] extends Any
   def empty: Boolean = length <= 0
   def nonEmpty: Boolean = length > 0
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (length == 0) vEmpty else vNonEmpty
+  def fHeadElse[B](ifHead: A => B, noHead: => B): B = ife(length >= 1, ifHead(head), noHead)
 
   /** transitional method to be removed. */
   @deprecated def toArraySeq(implicit ct: ClassTag[A] @uncheckedVariance): ArraySeq[A] =
