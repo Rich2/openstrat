@@ -19,7 +19,7 @@ trait IdentifierLowerToken extends ExprToken
 object IdentifierLowerToken
 {
   def unapply(inp: AnyRef): Option[(TextPosn, String)] = inp match
-  { case ilt: IdentifierLowerToken => Some(ilt.startPosn, ilt.srcStr)
+  { case ilt: IdentifierLowerToken => Some((ilt.startPosn, ilt.srcStr))
     case _ => None
   }
 }

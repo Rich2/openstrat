@@ -7,6 +7,7 @@ object Arr
   @inline def unapplySeq[A](arr: ArraySeq[A]): UnapplySeqWrapper[A] = ArraySeq.unapplySeq(arr)
 }
 
+/*
 object Arr1
 {
   def unapply[A](arr: ArraySeq[A]): Option[(A, ArraySeq[A])] = arr match
@@ -14,4 +15,4 @@ object Arr1
     case arr if arr.nonEmpty => Some((arr.head, arr.tail))
     case _ => None
   }
-}
+}*/
