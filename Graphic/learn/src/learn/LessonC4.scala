@@ -17,11 +17,12 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   val r2 = ARect(300 vv 300)
   val r3 = ARect(300 vv -300)
   val r4 = ARect(-300 vv -300)
-  var rArr = Arr(r1, r2, r3, r4)
+  var rArr = Refs(r1, r2, r3, r4)
   def gArr = rArr.map(_.graphic)
   val textPosn = 0 vv 0
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
-  repaintOld(gArr :+ startText)
+  deb((gArr :+ startText).length.toString)
+  repaint(gArr :+ startText)
   
   /** Note you can use what names you like. Here I put the types explicitly for clarity. When you are familiar with an anonymous function, you will
    *  probably want to use a short parameter list like (v, b, s).  */
@@ -29,8 +30,8 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   {
     case Refs1Tail(r: ARect, tail) =>
       { rArr = rArr.replace(r, r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
-        repaintOld(rArr.map(_.graphic) :+ startText)
+        repaint(rArr.map(_.graphic) :+ startText)
       }
-      case _ =>       
+      case _ =>  deb("Missed")
   }
 }
