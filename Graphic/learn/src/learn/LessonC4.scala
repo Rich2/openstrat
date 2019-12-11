@@ -13,12 +13,13 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
 /** This lesson is working, but has what looks like a very dubious implementation. */
 case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
 {
-  val r1 = ARect(-300 vv 300)
-  val r2 = ARect(300 vv 300)
-  val r3 = ARect(300 vv -300)
-  val r4 = ARect(-300 vv -300)
-  var rArr = Refs(r1, r2, r3, r4)
-  def gArr = rArr.map(_.graphic)
+  val r0 = Rectangle(200, 100)//.fill(Red)
+  val r1 = r0.slate(-300 vv 300)
+  val r2 = r0.slate(300 vv 300)
+  val r3 = r0.slate(300 vv -300)
+  val r4 = r0.slate(-300 vv -300)
+  val rArr = Polygons(r1, r2, r3, r4)
+  /*var gArr = rArr.map(r => r.fillSubj(r, Red))
   val textPosn = 0 vv 0
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
   deb((gArr :+ startText).length.toString)
@@ -29,9 +30,9 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   mouseUp = (posn: Vec2, button: MouseButton, selected: Refs[AnyRef]) => selected match
   {
     case Refs1Tail(r: ARect, tail) =>
-      { rArr = rArr.replace(r, r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
-        repaint(rArr.map(_.graphic) :+ startText)
+      { gArr = gArr.replace(r, r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
+        repaint(gArr :+ startText)
       }
       case _ =>  deb("Missed")
-  }
+  }*/
 }

@@ -25,7 +25,7 @@ object UnScaledShape
 trait UnScaledPolygon extends UnScaled
 { type TranserT = Polygon
   def fTrans(f: Vec2 => Vec2): Polygon = scaled.fTrans(f)
-  def dist(width: Dist, cen: Dist2 = Dist2Z): DPolygon  = scaled.distScale(width)
+  def dist(width: Dist, cen: Dist2 = Dist2Z): PolygonDist  = scaled.distScale(width)
   def minX: Double = scaled.minX
   def maxX: Double = scaled.maxX
   def minY: Double = scaled.minY
