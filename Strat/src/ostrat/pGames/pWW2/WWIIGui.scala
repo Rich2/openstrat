@@ -48,20 +48,20 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   mapPanel.mouseUp = (v, button: MouseButton, clickList) => button match
     {
       case LeftButton =>
-      { selected = clickList.fHead(Arr(), Arr(_))
-        statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+      { selected = clickList//.fHead(Arr(), Arr(_))
+        statusText = selected.headToStringElse("Nothing Clicked")
         eTop()
       }
 
       case RightButton => (selected, clickList) match
-      { case (Arr(army: Army), Arr(newTile: W2Tile)) =>
+      { case (Refs1(army: Army), Refs1(newTile: W2Tile)) =>
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
           newTile.lunits :+= newArmy
-          selected = Arr(newArmy)
+          selected = Refs(newArmy)
           repaintMap
         }
-        case (Arr(army: Army), as) => debvar(as.length)
+        case (Refs1(army: Army), as) => debvar(as.length)
         case _ =>
       }
       case _ =>

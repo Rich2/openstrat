@@ -67,19 +67,19 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.fHead(Arr(), Arr(_))
-      statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+    { selected = clickList //.fHead(Arr(), Arr(_))
+      statusText = selected.headToStringElse("Nothing Clicked")
       eTop()            
     }
     
-    case (RightButton, Arr(squad : Squad), Arr(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
+    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
       squad.action = Move(Coods(l :_*))
       repaintMap
     }
     
-    case (MiddleButton, Arr(squad : Squad), Arr(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
+    case (MiddleButton, Refs1(squad : Squad), Refs1(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
     
-    case (RightButton, Arr(squad : Squad), Arr(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
+    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
     
     case _ => deb("Other" -- clickList.toString)
   }   

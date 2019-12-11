@@ -13,7 +13,7 @@ abstract class MapGui(title: String) extends CanvasMulti(title)
   topPan.backColour = Colour.Gray
   topPan.mouseUp = 
   {
-    case (v, b, Arr(MButtonCmd(cmd))) => cmd.apply(b)
+    case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
     case t => deb(t.toString)
   }
   def cmdButton(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)

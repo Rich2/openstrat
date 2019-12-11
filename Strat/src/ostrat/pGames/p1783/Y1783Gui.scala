@@ -43,18 +43,18 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
  
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => but match
   {
-    case LeftButton => selected = clickList.fHead(Arr(), Arr(_))
+    case LeftButton => selected = clickList //.fHead(Arr(), Arr(_))
         
     case RightButton => (selected, clickList) match
-    { case (Arr(c: Corps), Arr(newTile: NTile)) =>
+    { case (Refs1(c: Corps), Refs1(newTile: NTile)) =>
       {
        c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
        val newCorps = c.copy (newTile)
        newTile.lunits +:= newCorps
-       selected = Arr (newCorps)
+       selected = Refs(newCorps)
        repaintMap
       }
-      case (Arr (c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
+      case (Refs1(c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
       case _ =>
     }
     case _ =>

@@ -8,7 +8,7 @@ object astParse
   /** Gets Statements from Tokens. All other methods in this object are private. */
   def apply(implicit tokens: Refs[Token]): ERefs[Statement] =
   {
-    var acc: Buff[BlockMember] = Buff()
+    val acc: Buff[BlockMember] = Buff()
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
     def loop(rem: RefsOff[Token]): ERefs[Statement] = rem match
