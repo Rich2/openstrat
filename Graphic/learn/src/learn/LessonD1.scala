@@ -19,7 +19,7 @@ case class LessonD1(canv: CanvasPlatform) extends CanvasSimple("Lesson D1")
   val topStrs = Arr(t1, t2, t3, t4, t5)
   val topBlock = MText(200, topStrs)//So note we've created a couple of useful Function objects below for use in this lesson series.  
   
-  repaint(topBlock)  
+  repaintOld(topBlock)
 }
 
 object SText

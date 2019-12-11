@@ -8,7 +8,7 @@ import pCanv.CanvasPlatform, Colour.Black
 trait GraphicElem extends Any with Transer
 
 /* Base trait for all passive objects  on a canvas / panel */
-trait PaintElem extends Any with GraphicElem
+trait PaintElem extends GraphicElem
 { def rendElem(cp: CanvasPlatform): Unit
 }
 

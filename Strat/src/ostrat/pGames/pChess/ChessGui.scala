@@ -26,7 +26,7 @@ case class ChessGui(canv: CanvasPlatform) extends CanvasSimple("Chess")
   val stuff = Arr(p.fill(DarkRed))//grid.squares(tileWidth)// ::: grid.
 
 
-  repaint(stuff)
+  repaintOld(stuff)
 
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
   {

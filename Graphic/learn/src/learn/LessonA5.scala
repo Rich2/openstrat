@@ -21,7 +21,7 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasSimple("Lesson A4")
       ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
       BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
       )
-  repaint(stuff)
+  repaintOld(stuff)
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the

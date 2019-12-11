@@ -34,5 +34,5 @@ case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
   val strs = Arr(r1, r2, r3, r4, r5)map(_.toString)
   val bottomBlock  = MText(-100, strs)
   
-  repaint(topBlock ++ bottomBlock)
+  repaintOld(topBlock ++ bottomBlock)
 }

@@ -18,5 +18,5 @@ case class LessonA9(canv: CanvasPlatform) extends CanvasSimple("Lesson A8")
          ShapeFill(sh1, Yellow), 
          TextGraphic(pt1.toString, 12, pt1),
          )
-   repaint(stuff)   
+   repaintOld(stuff)
 }

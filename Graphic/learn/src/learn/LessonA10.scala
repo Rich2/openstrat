@@ -13,5 +13,5 @@ case class LessonA10(canv: CanvasPlatform) extends CanvasSimple("Lesson A9")
   val cen2 = x1 vv y2
   val arr2 = Arrow(cen0, cen2)
   def stuff = Arr(rect.slateDraw(cen0), rect.slateDraw(cen1), rect.slateDraw(cen2)) ++ arr1 ++ arr2
-   repaint(stuff)   
+   repaintOld(stuff)
 }

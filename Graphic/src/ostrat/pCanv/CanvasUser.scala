@@ -15,12 +15,12 @@ abstract class CanvasUser(val title: String)
     { case ce: PaintElem => ce.rendElem(canv)
 
       case cs: GraphicSubject =>
-      { canv.rendElems(cs.elems)
+      { canv.rendElemsOld(cs.elems)
         subjBuff += cs
       }
 
       case nss: UnScaledShape =>
-      { canv.rendElems(nss.elems.slate(nss.referenceVec))
+      { canv.rendElemsOld(nss.elems.slate(nss.referenceVec))
         subjBuff += nss
       }
 
