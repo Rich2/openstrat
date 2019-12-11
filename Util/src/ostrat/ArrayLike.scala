@@ -55,6 +55,12 @@ trait ArrayLike[+A] extends Any
     res
   }
 
+  def filter[AA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuild[A, AA] @uncheckedVariance): AA =
+  { val buff = ev.buffNew()
+    foreach(a => oif(f(a), ev.buffAppend(buff, a)))
+    ev.buffToArr(buff)
+  }
+
   /** FlatMaps over a function from A to any Iterable. */
   def iterFlatMap[B, BB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrBuild[B, BB]): BB =
   { val buff = ev.buffNew(length)

@@ -16,7 +16,7 @@ abstract class CanvasMulti(title: String) extends CanvasUser(title)
   canv.mouseUp = (v, b) =>
     {
       panels.find(_.clipPoly.ptInPolygon(v)).foreach{ pan =>
-        val objs: Arr[AnyRef] = pan.subjs.ptInList(v)
+        val objs: Arr[AnyRef] = pan.subjs.ptInObjsOld(v)
         pan.mouseUp(v, b, objs)     
     }
   }
