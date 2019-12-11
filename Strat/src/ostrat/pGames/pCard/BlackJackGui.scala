@@ -17,7 +17,7 @@ case class BlackJackGui(canv: CanvasPlatform) extends CanvasSimple("BlackJack")
       val rect: PolyFill = PolyFill(TrapezoidIsosceles(0.35, 0.2, 0.5).slateY(- 0.28), Black)
       c3 :+ rect
    }      
-   repaint(clubFill().scale(400) ++ canv.gridLines2Colours(200, Colour.Red, Colour.Blue))
+   repaintOld(clubFill().scale(400) ++ canv.gridLines2Colours(200, Colour.Red, Colour.Blue))
    //disp.repaint(Seq(Diamond().scale(400).fillDraw(Red, 4, Green)) ++ disp.gridLines2(200, Colour.Red, Colour.Blue))
 }
 

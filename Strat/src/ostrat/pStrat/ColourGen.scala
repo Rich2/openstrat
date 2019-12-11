@@ -30,5 +30,5 @@ case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasSimple("Colour Ge
     val offset = - 35 * i
     Arr(pair._1.slateY(offset), pair._2.slateY(offset))
   }
-  repaint(cols2)
+  repaintOld(cols2)
 }

@@ -11,5 +11,5 @@ case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasSimple("Ba
       x <- 0 to c.rankLen
       } yield Rectangle(15, 10, (x - c.rankMiddle) * 20 + c.posn.x vv (y - 2) * 20 + c.posn.y).fill(c.colour)
    }
-   repaint(rs)
+   repaintOld(rs)
 } 

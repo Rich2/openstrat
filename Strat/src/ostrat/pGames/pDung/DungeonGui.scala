@@ -30,18 +30,18 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.fHead(Arr(), Arr(_))
-      statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+    { selected = clickList//.fHead(Arr(), Arr(_))
+      statusText = selected.headToStringElse("Nothing Clicked")
       eTop()
     }
-    case (RightButton, Arr(ch: Character), Arr(newTile: DTile)) if
+    case (RightButton, Refs1(ch: Character), Refs1(newTile: DTile)) if
       adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
     { grid.getTile(ch.cood).charac = nullRef
       ch.cood = newTile.cood
       newTile.charac = Opt(ch)
       repaintMap      
     }
-    case (MiddleButton, Arr(ch: Character), Arr(newTile: DTile)) => optFace(ch.cood, newTile.cood) match
+    case (MiddleButton, Refs1(ch: Character), Refs1(newTile: DTile)) => optFace(ch.cood, newTile.cood) match
     { case Some(face) => { ch.facing = face; repaintMap }      
       case _ => deb("Middle Button other")
     }

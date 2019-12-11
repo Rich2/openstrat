@@ -8,12 +8,13 @@ trait ArrayLike[+A] extends Any
   def length: Int
   def lenStr: String = length.toString
   def apply(index: Int): A
-  def head: A = apply(0)
-  def last: A = apply(length - 1)
+  @inline def head: A = apply(0)
+  @inline def last: A = apply(length - 1)
   def empty: Boolean = length <= 0
   def nonEmpty: Boolean = length > 0
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (length == 0) vEmpty else vNonEmpty
-
+  def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
+  def headToStringElse(ifEmptyString: String): String = ife(length >= 1, head.toString, ifEmptyString)
   /** transitional method to be removed. */
   @deprecated def toArraySeq(implicit ct: ClassTag[A] @uncheckedVariance): ArraySeq[A] =
   { val newArray: Array[A] = new Array[A](length)
@@ -53,6 +54,12 @@ trait ArrayLike[+A] extends Any
       count += 2
     }
     res
+  }
+
+  def filter[AA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuild[A, AA] @uncheckedVariance): AA =
+  { val buff = ev.buffNew()
+    foreach(a => oif(f(a), ev.buffAppend(buff, a)))
+    ev.buffToArr(buff)
   }
 
   /** FlatMaps over a function from A to any Iterable. */

@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv.CanvasPlatform, Colour.Black
 
-trait PolyElem extends Any with PaintElem
+trait PolyElem extends PaintElem
 {
    def poly: Polygon
    def xHead: Double = poly.head1

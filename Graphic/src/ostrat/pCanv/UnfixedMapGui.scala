@@ -6,7 +6,7 @@ package pCanv
  *  where the planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
 abstract class UnfixedMapGui(title: String) extends MapGui(title)
 {
-  var selected: Arr[AnyRef] = Arr()
+  var selected: Refs[AnyRef] = Refs()
   def inCmd: MouseButton => Unit  
   def outCmd: MouseButton => Unit
   def leftCmd: MouseButton => Unit  

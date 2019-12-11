@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-trait ShapeElem extends Any with PaintElem
+trait ShapeElem extends PaintElem
 { def segs: Shape
   def segsLen: Int = segs.length
 }

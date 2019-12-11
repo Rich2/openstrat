@@ -12,15 +12,15 @@ case class LessonC3(canv: CanvasPlatform) extends CanvasSimple("Lesson C3")
   val rList = Arr(r1, r2, r3, r4)
   val textPosn = 0 vv 0
   val startText = TextGraphic("Please click on the screen.", 28, textPosn)
-  repaint(rList :+ startText)
+  repaintOld(rList :+ startText)
   
   //Note we are ignoring the button here
   mouseUp = (posn, button, selectedList) =>
     {
       val newText = selectedList match
-      { case Arr1(h, tail) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, 28, textPosn)
+      { case Refs1Tail(h, tail) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, 28, textPosn)
         case _ => TextGraphic("You missed the yellow rectangles.\n" + posn.strCommaNames, 28, textPosn)
       }  
-      repaint(rList :+ newText)
+      repaintOld(rList :+ newText)
   }
 }

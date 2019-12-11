@@ -35,19 +35,19 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.fHead(Arr(), Arr(_))
-      statusText = selected.headOption.fold("Nothing Selected")(_.toString)
+    { selected = clickList//. fHead(Arr(), Arr(_))
+      statusText = selected.headToStringElse("Nothing Selected")
       eTop()            
     }
     
-    case (RightButton, Arr(mp : MPlayer), Arr(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
+    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
       { statusText = mp.toString -- "move to" -- moveTile.cood.str
         val stCood = mp.cood
         val newMP = mp.copy(move = Some(moveTile.cood))
         grid.fSetTile(stCood, Some(newMP))
         rePanels
       }
-    case (RightButton, Arr(mp : MPlayer), Arr(moveTile: UTile)) => setStatus(mp.toString -- "can not move to" -- moveTile.cood.str)
+    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTile)) => setStatus(mp.toString -- "can not move to" -- moveTile.cood.str)
 
     case _ => setStatus("Other" -- clickList.toString)
   }   
