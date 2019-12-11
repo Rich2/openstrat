@@ -36,5 +36,33 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
     }
     newArr
   }
+
+  /** Replaces all instances of the old value that fulfill predicate with the new value. */
+  def replaceWhere(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT =
+  { val newArr = buildThis(length)
+    var count = 0
+
+    while (count < length)
+    { val orig = apply(count)
+      val finalVal = ife(pred(orig), newValue, orig)
+      newArr.unsafeSetElem(count, finalVal)
+      count += 1
+    }
+    newArr
+  }
+
+  /** Replaces all instances of the old value that fulfill predicate with the new value. */
+  def modifyWhere(pred: A => Boolean, fNewValue: A => A @uncheckedVariance): ThisT =
+  { val newArr = buildThis(length)
+    var count = 0
+
+    while (count < length)
+    { val orig = apply(count)
+      val finalVal = ife(pred(orig), fNewValue(orig), orig)
+      newArr.unsafeSetElem(count, finalVal)
+      count += 1
+    }
+    newArr
+  }
 }
 

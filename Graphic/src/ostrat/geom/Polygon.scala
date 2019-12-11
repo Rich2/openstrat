@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import Colour.Black, collection.mutable.ArrayBuffer
+import Colour.Black
 
 /** A Polygon is encoded as a sequence of plain 2 dimension (mathematical) vectors. Minimum length 3.. Clockwise is the default */
 class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
@@ -120,8 +120,6 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
 
   implicit val polygonsBuildImplicit: ArrBuild[Polygon, Polygons] = new ArrArrayDblBuild[Polygon, Polygons]
   { def fromArray(array: Array[Array[Double]]): Polygons = new Polygons(array)
-    override def imutSet(arr: Polygons, index: Int, value: Polygon): Unit = arr.array(index) = value.array
-    override def buffAppend(buff: ArrayBuffer[Array[Double]], value: Polygon): Unit = buff.append(value.array)
   }
 }
 
@@ -129,7 +127,6 @@ class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[
 { override type ThisT = Polygons
   def buildThis(length: Int): Polygons = new Polygons(new Array[Array[Double]](length))
   def apply(index: Int): Polygon = new Polygon(array(index))
-  def unsafeSetElem(i: Int, value: Polygon): Unit = array(i) = value.array
 }
 
 object Polygons

@@ -19,7 +19,7 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
   val r3 = r0.slate(300 vv -300)
   val r4 = r0.slate(-300 vv -300)
   val rArr = Polygons(r1, r2, r3, r4)
-  /*var gArr = rArr.map(r => r.fillSubj(r, Red))
+  var gArr = rArr.map(r => r.fillSubj(r.polyCentre, Red))
   val textPosn = 0 vv 0
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
   deb((gArr :+ startText).length.toString)
@@ -29,10 +29,10 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
    *  probably want to use a short parameter list like (v, b, s).  */
   mouseUp = (posn: Vec2, button: MouseButton, selected: Refs[AnyRef]) => selected match
   {
-    case Refs1Tail(r: ARect, tail) =>
-      { gArr = gArr.replace(r, r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
+    /*case Refs1Tail(cen: Vec2, tail) =>
+      { gArr = gArr.modifyWhere(_.cen == cen, r =>  r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
         repaint(gArr :+ startText)
-      }
+      }*/
       case _ =>  deb("Missed")
-  }*/
+  }
 }
