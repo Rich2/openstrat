@@ -148,10 +148,10 @@ trait TGrid[TileT]
 
 object TGrid
 {
-  def rowMulti[TileT <: AnyRef, GridT <: TGrid[TileT]](yMin: Int, fac:(Array[TileT], Array[Int]) => GridT,inp: RowMulti[TileT]*)(
-    implicit ct: ClassTag[TileT]): GridT = rowMultis[TileT, GridT](inp.toArr, yMin: Int, fac)(ct)
+  def rowMulti[TileT <: AnyRef, GridT <: TGrid[TileT]](yMin: Int, fac:(Array[TileT], Array[Int]) => GridT, inp: RowMulti[TileT]*)(
+    implicit ct: ClassTag[TileT]): GridT = rowMultis[TileT, GridT](inp.toRefs, yMin: Int, fac)(ct)
 
-  def rowMultis[TileT <: AnyRef, GridT <: TGrid[TileT]](inp: Arr[RowMulti[TileT]], yMin: Int, fac:(Array[TileT], Array[Int]) => GridT)(
+  def rowMultis[TileT <: AnyRef, GridT <: TGrid[TileT]](inp: Refs[RowMulti[TileT]], yMin: Int, fac:(Array[TileT], Array[Int]) => GridT)(
     implicit ct: ClassTag[TileT]): GridT =
   {
     val len = inp.sumBy(_.multis.singlesLen)
@@ -162,7 +162,7 @@ object TGrid
     indArr(0) = yMin
     var count = 0
     var rowCount = 1
-    inp.reverseForeach{rm =>
+    inp.foreachReverse { rm =>
       indArr(rowCount) = count
       indArr(rowCount + 1) = rm.xStart
       rowCount += 2
