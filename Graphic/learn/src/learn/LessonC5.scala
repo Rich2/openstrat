@@ -18,7 +18,7 @@ case class LessonC5(canv: CanvasPlatform) extends CanvasSimple("Lesson C5")
   {
     s.foreach{ obj =>
       val r = obj.asInstanceOf[ARect] 
-      rArr = rArr.replace(r, r.mutateColour(r.colour.nextFromRainbow))
+      //rArr = rArr.replace(r, r.mutateColour(r.colour.nextFromRainbow))
     }    
     repaintOld(gArr :+ startText)
   }

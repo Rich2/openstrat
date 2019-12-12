@@ -15,20 +15,6 @@ class ArrExtensions[A](thisArr: Arr[A])
     accB.toArr
   }
 
-  /** Removes the first element that satisfies the function and returns a new Arr. Returns itself if no matching element found. */
-  def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A]): Arr[A] = thisArr.indexWhere(f) match
-  { case -1 => thisArr
-    case n =>
-    { val mutArr = new Array[A](thisArr.length - 1)
-      iUntilForeach(0, n)(i => mutArr(i) = thisArr(i))
-      iUntilForeach(n + 1, thisArr.length)(i => mutArr(i - 1) = thisArr(i))
-      mutArr.toArr
-    }
-  }
-
-  /** Replaces all instances of the old value with the new value. */
-  def replace(oldValue: A, newValue: A): Arr[A] = thisArr.map { it => if (it == oldValue) newValue else it }
-
   def reverseForeach(f: A => Unit): Unit =
   { var count = thisArr.length - 1
     while(count >= 0){ f(thisArr(count)); count -= 1}
