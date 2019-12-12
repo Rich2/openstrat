@@ -20,9 +20,10 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
             val v2s: Polygon = d2s.pMap(eg.trans)// eg.transSeq(d2s)
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val vis1: GraphicElems = ife(fill, v2s.fillActive(terr.colour, this), Arr())
-            val vis2: GraphicElems = Arr(v2s.draw(2.0, terr.colour.redOrPink)).
-               ifAppendArr(eg.scale < textScale && fill, TextGraphic.lines(aStrs, 10, cenXY, terr.contrast))
-            vis1 ++ vis2
+            val vis2: GraphicElems = Arr(v2s.draw(2.0, terr.colour.redOrPink))
+            val vis3: GraphicElems = if (eg.scale < textScale && fill) TextGraphic.lines(aStrs, 10, cenXY, terr.contrast)
+              else Arr()
+            vis1 ++ vis2 ++ vis3
          }
          case GlobedSome(curveSegDists) =>
          {

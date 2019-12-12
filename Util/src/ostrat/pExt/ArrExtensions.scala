@@ -15,12 +15,7 @@ class ArrExtensions[A](thisArr: Arr[A])
     accB.toArr
   }
 
-  /*def reverseForeach(f: A => Unit): Unit =
-  { var count = thisArr.length - 1
-    while(count >= 0){ f(thisArr(count)); count -= 1}
-  }*/
-
-  def ifAppendArr[B >: A](b: Boolean, newElems: => Arr[B]): Arr[B] = ife(b, thisArr ++ newElems, thisArr)
+ // def ifAppendArr[B >: A](b: Boolean, newElems: => Arr[B]): Arr[B] = ife(b, thisArr ++ newElems, thisArr)
   def optAppend[B >: A](optElem: Option[B]): Arr[B] = optElem.fold[Arr[B]](thisArr)(b => thisArr :+ b)
   def optAppends[B >: A](optElems: Option[Arr[B]]): Arr[B] = optElems.fold[Arr[B]](thisArr)(bs => thisArr ++ bs)
 }
