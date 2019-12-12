@@ -15,7 +15,8 @@ class ArrExtensions[A](thisArr: Arr[A])
     accB.toArr
   }
 
- // def ifAppendArr[B >: A](b: Boolean, newElems: => Arr[B]): Arr[B] = ife(b, thisArr ++ newElems, thisArr)
-  def optAppend[B >: A](optElem: Option[B]): Arr[B] = optElem.fold[Arr[B]](thisArr)(b => thisArr :+ b)
-  def optAppends[B >: A](optElems: Option[Arr[B]]): Arr[B] = optElems.fold[Arr[B]](thisArr)(bs => thisArr ++ bs)
+  def optAppend(optElems: Option[Arr[A]]): Arr[A] = optElems.fold[Arr[A]](thisArr)(bs => thisArr ++ bs)
+
+  /** Concatenates Arr if Some. Returns original Arr if operand is None. */
+  def optConcat[B >: A](optElems: Option[Arr[B]]): Arr[B] = optElems.fold[Arr[B]](thisArr)(bs => thisArr ++ bs)
 }

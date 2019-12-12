@@ -19,16 +19,18 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
   //Required members
   var pScale: Double = scaleAlignMin  
   var focus: Vec2 = grid.cen  
-  override def mapObjs =
-  { val tiles = tilesFlatMapAll{t =>
 
-    val op = t.oPlayer.map{p =>
-      val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
-      val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour))
-      ol.toArr ++ rect
+  override def mapObjs =
+  {
+    val tiles = tilesFlatMapAll { t =>
+      val op = t.oPlayer.map { p =>
+        val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
+        val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour))
+        ol.toArr ++ rect
+      }
+      val a1 = Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
+      a1.optConcat(op)
     }
-    Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood)).optAppends(op)
-  }
     tiles ++ sidesDrawAll()
   }
 
