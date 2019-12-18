@@ -4,6 +4,7 @@ package ostrat
 trait Opt[A] extends Any
 { def fold[B](fNull: => B, fSome: A => B): B
   def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B]
+  def flatMap[B](f: A => Opt[B])(implicit ev: OptBuild[B]): Opt[B]
   def empty: Boolean
   def nonEmpty: Boolean
 }
@@ -28,14 +29,16 @@ class OptRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with Opt[A]
   def empty: Boolean = ref == null
   def nonEmpty: Boolean = ref != null
   override def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, ev(f(ref)))
+  override def flatMap[B](f: A => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, f(ref))
 }
 
 sealed trait OptInt extends Opt[Int]
 {
   def fold[B](fNull: => B, fSome: Int => B): B
   def + (operand: OptInt): OptInt = combine(operand, _ + _)
+
   def combine[B](operand: OptInt, f: (Int, Int) => Int) = this match
-  { 
+  {
     case SomeInt(v1) => operand match
     { case SomeInt(v2) => SomeInt(f(v1, v2))
       case _ => NoInt
@@ -47,6 +50,7 @@ sealed trait OptInt extends Opt[Int]
 case class SomeInt(value: Int) extends OptInt
 { override def fold[B](fNull: => B, fSome: Int => B): B = fSome(value)
   override def map[B](f: Int => B)(implicit ev: OptBuild[B]): Opt[B] = ev(f(value))
+  override def flatMap[B](f: Int => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = f(value)
   override def empty: Boolean = false
   override def nonEmpty: Boolean = true
 }
@@ -54,9 +58,42 @@ case class SomeInt(value: Int) extends OptInt
 case object NoInt extends OptInt
 { def fold[B](fNull: => B, fSome: Int => B): B = fNull
   override def map[B](f: Int => B)(implicit ev: OptBuild[B]): Opt[B] = ev.none
+  override def flatMap[B](f: Int => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ev.none
   override def empty: Boolean = true
   override def nonEmpty: Boolean = false
   def unapply(inp: OptInt): Boolean = inp.empty
+}
+
+sealed trait OptDbl extends Opt[Double]
+{
+  def fold[B](fNull: => B, fSome: Double => B): B
+  def + (operand: OptDbl): OptDbl = combine(operand, _ + _)
+
+  def combine[B](operand: OptDbl, f: (Double, Double) => Double) = this match
+  {
+    case SomeDbl(v1) => operand match
+    { case SomeDbl(v2) => SomeDbl(f(v1, v2))
+      case _ => NoDbl
+    }
+    case _ => NoDbl
+  }
+}
+
+case class SomeDbl(value: Double) extends OptDbl
+{ override def fold[B](fNull: => B, fSome: Double => B): B = fSome(value)
+  override def map[B](f: Double => B)(implicit ev: OptBuild[B]): Opt[B] = ev(f(value))
+  override def flatMap[B](f: Double => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = f(value)
+  override def empty: Boolean = false
+  override def nonEmpty: Boolean = true
+}
+
+case object NoDbl extends OptDbl
+{ def fold[B](fNull: => B, fSome: Double => B): B = fNull
+  override def map[B](f: Double => B)(implicit ev: OptBuild[B]): Opt[B] = ev.none
+  override def flatMap[B](f: Double => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ev.none
+  override def empty: Boolean = true
+  override def nonEmpty: Boolean = false
+  def unapply(inp: OptDbl): Boolean = inp.empty
 }
 
 trait OptBuild[B]
@@ -71,6 +108,12 @@ object OptBuild
   { override type OptT = OptInt
     def apply(i: Int): OptInt = SomeInt(i)
     def none: OptInt = NoInt
+  }
+
+  implicit val doubleImplicit: OptBuild[Double] = new OptBuild[Double]
+  { override type OptT = OptDbl
+    def apply(inp: Double): OptDbl = SomeDbl(inp)
+    def none: OptDbl = NoDbl
   }
 
   implicit def refImplicit[B >: Null <: AnyRef] = new OptBuild[B]
