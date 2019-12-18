@@ -1,12 +1,25 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-object Opt
-{  
-  def apply[A <: AnyRef](value: A): Opt[A] = new Opt(value)
+trait Opt[A] extends Any
+{ def fold[B](fNull: => B, fSome: A => B): B
+  implicit def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ???
 }
 
-class Opt[A <: AnyRef](val ref: A) extends AnyVal// with Opt[A]
+object Opt
+{ def apply[A](value: A)(implicit ev: OptBuild[A]): Opt[A] = ev(value)
+}
+
+object NoOpt
+{ def apply[A]()(implicit ev: OptBuild[A]): Opt[A] = ev.none
+}
+
+object OptRef
+{
+  def apply[A <: AnyRef](value: A): OptRef[A] = new OptRef(value)
+}
+
+class OptRef[A <: AnyRef](val ref: A) extends AnyVal with Opt[A]
 {
   def fold[B](fNull: => B, fSome: A => B): B = ife(ref == null, fNull, fSome(ref))
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
@@ -14,7 +27,7 @@ class Opt[A <: AnyRef](val ref: A) extends AnyVal// with Opt[A]
   def nonEmpty: Boolean = ref != null
 }
 
-sealed trait OptInt //extends Opt[Int]
+sealed trait OptInt extends Opt[Int]
 {
   def fold[B](fNull: => B, fSome: Int => B): B
   def + (operand: OptInt): OptInt = combine(operand, _ + _)
@@ -37,4 +50,29 @@ case class SomeInt(value: Int) extends OptInt
 case object NoInt extends OptInt
 { 
   def fold[B](fNull: => B, fSome: Int => B): B = fNull
+}
+
+trait OptBuild[B]
+{ type OptT <: Opt[B]
+  def apply(b: B): Opt[B]
+  def none: Opt[B]
+}
+
+object OptBuild
+{
+  implicit val intImplicit: OptBuild[Int] = new OptBuild[Int]
+  { override type OptT = OptInt
+    def apply(i: Int): OptInt = SomeInt(i)
+    def none: OptInt = NoInt
+  }
+
+  implicit def refImplicit[B <: AnyRef] = new OptBuild[B]
+  { override type OptT = OptRef[B]
+    override def apply(b: B) : OptRef[B] = new OptRef(b)
+
+    override def none: Opt[B] =
+    { val noB: B = null.asInstanceOf[B]
+      new OptRef[B](noB)
+    }
+  }
 }

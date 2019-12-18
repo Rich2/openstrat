@@ -98,11 +98,11 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
             
             open.find(_.tile == tile) match
             {
-              case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = Opt(curr) }
+              case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = OptRef(curr) }
               case Some(node) =>
               case None => 
               {
-                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), Opt(curr))
+                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), OptRef(curr))
                 open ::= newNode
                 if (tile.cood == endCood) found = Some(newNode)
               }
@@ -122,7 +122,7 @@ class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int,
   final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 
-case class Node[TileT <: Tile](val tile: TileT, var gCost: Int, var hCost: Int, var parent: Opt[Node[TileT]])
+case class Node[TileT <: Tile](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptRef[Node[TileT]])
 {
   def fCost = gCost + hCost
 }

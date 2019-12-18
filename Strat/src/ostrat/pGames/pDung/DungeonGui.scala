@@ -38,7 +38,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
       adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
     { grid.getTile(ch.cood).charac = nullRef
       ch.cood = newTile.cood
-      newTile.charac = Opt(ch)
+      newTile.charac = OptRef(ch)
       repaintMap      
     }
     case (MiddleButton, Refs1(ch: Character), Refs1(newTile: DTile)) => optFace(ch.cood, newTile.cood) match

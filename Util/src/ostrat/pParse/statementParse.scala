@@ -6,7 +6,7 @@ package pParse
 object statementParse
 {
   /** Parses a sequence of Statement members into a Statement. Statement members are either nonBracketTokens or parsed BracketBlocks.  */
-  def apply(memsIn: Refs[StatementMember], optSemi: Opt[SemicolonToken]): EMon[Statement] =
+  def apply(memsIn: Refs[StatementMember], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
   {
     implicit val inp = memsIn
     val acc: Buff[Clause] = Buff()
@@ -18,7 +18,7 @@ object statementParse
       case RefsOff0() => getExpr(subAcc.toRefs).map(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
       case RefsOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
       case RefsOff1Tail(ct: CommaToken, tail) => getExpr(subAcc.toRefs).flatMap{g =>
-        acc.append(Clause(g, Opt(ct)))
+        acc.append(Clause(g, OptRef(ct)))
         loop(tail)
       }
       case RefsOff1Tail(em: ClauseMember, tail) => { subAcc.append(em); loop(tail) }

@@ -17,7 +17,7 @@ object statementsParse
       case RefsOff0() => statementParse(subAcc.toRefs, nullRef).map(acc :+ _).map(_.toRefs)
       case RefsOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
-      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, Opt(st)).flatMap{g =>
+      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, OptRef(st)).flatMap{ g =>
           acc.append(g)
           loop(tail)
         }
