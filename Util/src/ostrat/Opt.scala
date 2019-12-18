@@ -16,12 +16,11 @@ object NoOpt
 
 object OptRef
 {
-  def apply[A <: AnyRef](value: A): OptRef[A] = new OptRef(value)
+  def apply[A >: Null <: AnyRef](value: A): OptRef[A] = new OptRef(value)
 }
 
-class OptRef[A <: AnyRef](val ref: A) extends AnyVal with Opt[A]
-{
-  def fold[B](fNull: => B, fSome: A => B): B = ife(ref == null, fNull, fSome(ref))
+class OptRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with Opt[A]
+{ def fold[B](fNull: => B, fSome: A => B): B = ife(ref == null, fNull, fSome(ref))
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
   def empty: Boolean = ref == null
   def nonEmpty: Boolean = ref != null
@@ -34,8 +33,7 @@ sealed trait OptInt extends Opt[Int]
   def combine[B](operand: OptInt, f: (Int, Int) => Int) = this match
   { 
     case SomeInt(v1) => operand match
-    {
-      case SomeInt(v2) => SomeInt(f(v1, v2))
+    { case SomeInt(v2) => SomeInt(f(v1, v2))
       case _ => NoInt
     }
     case _ => NoInt
@@ -43,13 +41,11 @@ sealed trait OptInt extends Opt[Int]
 }
 
 case class SomeInt(value: Int) extends OptInt
-{
-  override def fold[B](fNull: => B, fSome: Int => B): B = fSome(value) 
+{ override def fold[B](fNull: => B, fSome: Int => B): B = fSome(value)
 }
 
 case object NoInt extends OptInt
-{ 
-  def fold[B](fNull: => B, fSome: Int => B): B = fNull
+{ def fold[B](fNull: => B, fSome: Int => B): B = fNull
 }
 
 trait OptBuild[B]
@@ -66,13 +62,9 @@ object OptBuild
     def none: OptInt = NoInt
   }
 
-  implicit def refImplicit[B <: AnyRef] = new OptBuild[B]
+  implicit def refImplicit[B >: Null <: AnyRef] = new OptBuild[B]
   { override type OptT = OptRef[B]
     override def apply(b: B) : OptRef[B] = new OptRef(b)
-
-    override def none: Opt[B] =
-    { val noB: B = null.asInstanceOf[B]
-      new OptRef[B](noB)
-    }
+    override def none: Opt[B] = new OptRef[B](null)
   }
 }

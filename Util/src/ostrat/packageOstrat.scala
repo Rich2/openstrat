@@ -97,13 +97,13 @@ package object ostrat
   val two32: Long = 4294967296L
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
 
-  def nullRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
+  def nullRef[A >: Null <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
   @inline def doubleFromTo(fromValue: Double, toValue: Double, step: Double): List[Double] =
   { var count = fromValue
     var acc: List[Double] = Nil
-    while (count <= toValue) {
-      acc ::= count
+    while (count <= toValue)
+    { acc ::= count
       count += step
     }
     acc.reverse
