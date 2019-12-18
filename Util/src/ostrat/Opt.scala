@@ -3,7 +3,9 @@ package ostrat
 
 trait Opt[A] extends Any
 { def fold[B](fNull: => B, fSome: A => B): B
-  implicit def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ???
+  def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B]
+  def empty: Boolean
+  def nonEmpty: Boolean
 }
 
 object Opt
@@ -12,6 +14,7 @@ object Opt
 
 object NoOpt
 { def apply[A]()(implicit ev: OptBuild[A]): Opt[A] = ev.none
+  def unapply[A](inp: Opt[A]): Boolean = inp.empty
 }
 
 object OptRef
@@ -24,6 +27,7 @@ class OptRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with Opt[A]
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
   def empty: Boolean = ref == null
   def nonEmpty: Boolean = ref != null
+  override def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, ev(f(ref)))
 }
 
 sealed trait OptInt extends Opt[Int]
@@ -42,10 +46,17 @@ sealed trait OptInt extends Opt[Int]
 
 case class SomeInt(value: Int) extends OptInt
 { override def fold[B](fNull: => B, fSome: Int => B): B = fSome(value)
+  override def map[B](f: Int => B)(implicit ev: OptBuild[B]): Opt[B] = ev(f(value))
+  override def empty: Boolean = false
+  override def nonEmpty: Boolean = true
 }
 
 case object NoInt extends OptInt
 { def fold[B](fNull: => B, fSome: Int => B): B = fNull
+  override def map[B](f: Int => B)(implicit ev: OptBuild[B]): Opt[B] = ev.none
+  override def empty: Boolean = true
+  override def nonEmpty: Boolean = false
+  def unapply(inp: OptInt): Boolean = inp.empty
 }
 
 trait OptBuild[B]
