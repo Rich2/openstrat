@@ -190,10 +190,8 @@ object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
 
 trait OptVec2 extends Opt[Vec2]
 
-class SomeVec2(x: Double, y: Double) extends OptVec2 with SomeT[Vec2]
-{ def flatMap[B](f: Vec2 => ostrat.Opt[B])(implicit ev: OptBuild[B]): Opt[B] = f(Vec2(x, y))
-  def fold[B](fNull: => B, fSome: Vec2 => B): B = fSome(Vec2(x, y))
-  def map[B](f: Vec2 => B)(implicit ev: OptBuild[B]): Opt[B] = ev.apply(f(Vec2(x, y)))
+class SomeVec2(_1: Double, _2: Double) extends OptVec2 with SomeT[Vec2]
+{ override def value: Vec2 = Vec2(_1, _2)
 }
 
 case object NoVec2 extends OptVec2 with NoOpt[Vec2]

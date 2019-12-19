@@ -312,3 +312,4 @@ object Colours
 
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
 }
+

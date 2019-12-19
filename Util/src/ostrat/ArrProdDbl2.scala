@@ -5,10 +5,6 @@ import collection.mutable.ArrayBuffer
 /** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
 trait ProdDbl2 extends Any with Product2[Double, Double] with ProdHomo
 
-//object ProdDbl2
-
-//strait OptProdDbl2[A <: ProdDbl2] extends Opt[A]
-
 trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDblNBuild[A, ArrT]
 { type BuffT <: BuffProdDbl2[A]
 
