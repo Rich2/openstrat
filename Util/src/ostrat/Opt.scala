@@ -6,16 +6,29 @@ trait Opt[A] extends Any
   def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B]
   def flatMap[B](f: A => Opt[B])(implicit ev: OptBuild[B]): Opt[B]
   def empty: Boolean
-  def nonEmpty: Boolean
+  @inline final def nonEmpty: Boolean = ! empty
 }
 
 object Opt
 { def apply[A](value: A)(implicit ev: OptBuild[A]): Opt[A] = ev(value)
 }
 
+trait SomeT[A] extends Any with Opt[A]
+{ final def empty: Boolean = true
+}
+
+trait NoOpt[A] extends Any with Opt[A]
+{ final def empty: Boolean = true
+  final override def fold[B](fNull: => B, fSome: A => B): B = fNull
+  final override def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ev.none
+  final override def flatMap[B](f: A => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ev.none
+}
+
+
 object NoOpt
 { def apply[A]()(implicit ev: OptBuild[A]): Opt[A] = ev.none
   def unapply[A](inp: Opt[A]): Boolean = inp.empty
+
 }
 
 object OptRef
@@ -27,7 +40,7 @@ class OptRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with Opt[A]
 { def fold[B](fNull: => B, fSome: A => B): B = ife(ref == null, fNull, fSome(ref))
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
   def empty: Boolean = ref == null
-  def nonEmpty: Boolean = ref != null
+  //def nonEmpty: Boolean = ref != null
   override def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, ev(f(ref)))
   override def flatMap[B](f: A => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, f(ref))
 }
@@ -47,20 +60,15 @@ sealed trait OptInt extends Opt[Int]
   }
 }
 
-case class SomeInt(value: Int) extends OptInt
+case class SomeInt(value: Int) extends OptInt with SomeT[Int]
 { override def fold[B](fNull: => B, fSome: Int => B): B = fSome(value)
   override def map[B](f: Int => B)(implicit ev: OptBuild[B]): Opt[B] = ev(f(value))
   override def flatMap[B](f: Int => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = f(value)
-  override def empty: Boolean = false
-  override def nonEmpty: Boolean = true
 }
 
-case object NoInt extends OptInt
-{ def fold[B](fNull: => B, fSome: Int => B): B = fNull
-  override def map[B](f: Int => B)(implicit ev: OptBuild[B]): Opt[B] = ev.none
-  override def flatMap[B](f: Int => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ev.none
-  override def empty: Boolean = true
-  override def nonEmpty: Boolean = false
+case object NoInt extends OptInt with NoOpt[Int]
+{
+
   def unapply(inp: OptInt): Boolean = inp.empty
 }
 
@@ -79,21 +87,14 @@ sealed trait OptDbl extends Opt[Double]
   }
 }
 
-case class SomeDbl(value: Double) extends OptDbl
+case class SomeDbl(value: Double) extends OptDbl with SomeT[Double]
 { override def fold[B](fNull: => B, fSome: Double => B): B = fSome(value)
   override def map[B](f: Double => B)(implicit ev: OptBuild[B]): Opt[B] = ev(f(value))
   override def flatMap[B](f: Double => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = f(value)
-  override def empty: Boolean = false
-  override def nonEmpty: Boolean = true
 }
 
-case object NoDbl extends OptDbl
-{ def fold[B](fNull: => B, fSome: Double => B): B = fNull
-  override def map[B](f: Double => B)(implicit ev: OptBuild[B]): Opt[B] = ev.none
-  override def flatMap[B](f: Double => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ev.none
-  override def empty: Boolean = true
-  override def nonEmpty: Boolean = false
-  def unapply(inp: OptDbl): Boolean = inp.empty
+case object NoDbl extends OptDbl with NoOpt[Double]
+{ def unapply(inp: OptDbl): Boolean = inp.empty
 }
 
 trait OptBuild[B]
