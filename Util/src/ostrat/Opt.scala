@@ -70,23 +70,8 @@ case object NoInt extends OptInt with NoOpt[Int]
 }
 
 sealed trait OptDbl extends Opt[Double]
-{
-  def fold[B](fNull: => B, fSome: Double => B): B
-  def + (operand: OptDbl): OptDbl = combine(operand, _ + _)
-
-  def combine[B](operand: OptDbl, f: (Double, Double) => Double) = this match
-  {
-    case SomeDbl(v1) => operand match
-    { case SomeDbl(v2) => SomeDbl(f(v1, v2))
-      case _ => NoDbl
-    }
-    case _ => NoDbl
-  }
-}
 
 case class SomeDbl(value: Double) extends OptDbl with SomeT[Double]
-{
-}
 
 case object NoDbl extends OptDbl with NoOpt[Double]
 { def unapply(inp: OptDbl): Boolean = inp.empty

@@ -108,6 +108,14 @@ object Colour
    def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
    def blackOrWhite(b: Boolean): Colour = if (b) Black else White
    def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
+
+  implicit val optBuildImplicit: OptBuild[Colour] = new OptBuild[Colour]
+  { override type OptT = OptColour
+    def apply(c: Colour): OptColour = new SomeColour(c.argbValue)
+    def none: OptColour = NoColour
+}
+
+
       
    val AntiqueWhite: Colour = new Colour(0xFFFAEBD7)
    val Aqua: Colour = new Colour(0xFF00FFFF)
@@ -313,3 +321,20 @@ object Colours
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
 }
 
+sealed trait OptColour extends Opt[Colour]
+
+class SomeColour(argbValue: Int) extends OptColour with SomeT[Colour]
+{ override def value: Colour = new Colour(argbValue)
+}
+
+object SomeColour
+{
+  def unapply(input: OptColour): Option[Colour] = input match
+  { case sc: SomeColour => Some(sc.value)
+    case NoColour => None
+  }
+}
+
+case object NoColour extends OptColour with NoOpt[Colour]
+{ def unapply(inp: OptColour): Boolean = inp.empty
+}

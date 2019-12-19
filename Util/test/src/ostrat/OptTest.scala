@@ -21,8 +21,7 @@ object OptTest extends TestSuite
       n1.map(_.length  + 2) ==> NoInt
       assertMatch(n1.map(_.length  + 2)){ case NoOpt() => }
       assertMatch(n2.map(_.length  + 2)){ case SomeInt(7) => }
+      assertMatch(i2.map(i => Colour.Red)){ case SomeColour(Colour.Red) => }
     }
-
   }
-
 }
