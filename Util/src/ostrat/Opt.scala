@@ -15,7 +15,7 @@ object Opt
 
 trait SomeT[A] extends Any with Opt[A]
 { @inline def value: A
-  final def empty: Boolean = true
+  final def empty: Boolean = false
   final def flatMap[B](f: A => ostrat.Opt[B])(implicit ev: OptBuild[B]): Opt[B] = f(value)
   final def fold[B](fNone: => B, fSome: A => B): B = fSome(value)
   final def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ev.apply(f(value))
@@ -38,7 +38,7 @@ object OptRef
 }
 
 class OptRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with Opt[A]
-{ def fold[B](fNull: => B, fSome: A => B): B = ife(ref == null, fNull, fSome(ref))
+{ def fold[B](vNone: => B, fSome: A => B): B = ife(ref == null, vNone, fSome(ref))
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
   def empty: Boolean = ref == null
   override def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, ev(f(ref)))
