@@ -17,10 +17,9 @@ trait SomeT[A] extends Any with Opt[A]
 { @inline def value: A
   final def empty: Boolean = true
   final def flatMap[B](f: A => ostrat.Opt[B])(implicit ev: OptBuild[B]): Opt[B] = f(value)
-  final def fold[B](fNull: => B, fSome: A => B): B = fSome(value)
+  final def fold[B](fNone: => B, fSome: A => B): B = fSome(value)
   final def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ev.apply(f(value))
 }
-
 
 trait NoOpt[A] extends Any with Opt[A]
 { final def empty: Boolean = true
@@ -29,22 +28,19 @@ trait NoOpt[A] extends Any with Opt[A]
   final override def flatMap[B](f: A => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ev.none
 }
 
-
 object NoOpt
 { def apply[A]()(implicit ev: OptBuild[A]): Opt[A] = ev.none
   def unapply[A](inp: Opt[A]): Boolean = inp.empty
 }
 
 object OptRef
-{
-  def apply[A >: Null <: AnyRef](value: A): OptRef[A] = new OptRef(value)
+{ def apply[A >: Null <: AnyRef](value: A): OptRef[A] = new OptRef(value)
 }
 
 class OptRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with Opt[A]
 { def fold[B](fNull: => B, fSome: A => B): B = ife(ref == null, fNull, fSome(ref))
   override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
   def empty: Boolean = ref == null
-  //def nonEmpty: Boolean = ref != null
   override def map[B](f: A => B)(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, ev(f(ref)))
   override def flatMap[B](f: A => Opt[B])(implicit ev: OptBuild[B]): Opt[B] = ife(empty, ev.none, f(ref))
 }
