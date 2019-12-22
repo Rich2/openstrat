@@ -4,14 +4,12 @@ object OptTest extends TestSuite
 {
   val tests = Tests
   {
-
     def f(ss: Opt[String]): Int = ss.fold(-1, _.length)
     val n1: Opt[String] = NoOpt()
     val n2 = Opt("Hello")
     val i1 = NoInt
     val i2 = Opt(5)
     def fa(opt: OptInt): Opt[String] = opt.map(_.toString)
-
 
     'test1
     { f(n1) ==> -1
