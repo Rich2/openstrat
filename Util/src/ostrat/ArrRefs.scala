@@ -6,7 +6,8 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   override def buildThis(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
   override def length: Int = array.length
   override def apply(index: Int): A = array(index)
-  override def toString: String = "Refs" + array.toStrsCommaParenth()
+  override def toString: String = "Refs" + elemsStr
+  def elemsStr: String =  array.toStrsCommaParenth()
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = drop(1)
   def offset(value: Int): RefsOff[A] @uncheckedVariance = new RefsOff[A](value)
