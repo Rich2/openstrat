@@ -11,10 +11,9 @@ object statementParse
     implicit val inp = memsIn
     val acc: Buff[Clause] = Buff()
     val subAcc: Buff[ClauseMember] = Buff()
-    //deb(memsIn.toString)
 
     def loop(rem: RefsOff[StatementMember]): EMon[Statement] = rem match {
-      case RefsOff0() if acc.isEmpty => getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))
+      case RefsOff0() if acc.isEmpty => {getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))}
       case RefsOff0() if subAcc.isEmpty => Good(ClausedStatement(acc.toRefs, optSemi))
       case RefsOff0() => getExpr(subAcc.toRefs).map(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
       case RefsOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }

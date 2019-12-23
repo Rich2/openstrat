@@ -21,21 +21,26 @@ object PrefixPlus
 /** Needs Testing. */
 object getExpr
 {
-  def apply (implicit seg: Refs[ClauseMember]): EMon[Expr] =
+  def apply (implicit seg: Refs[ClauseMember]): EMon[Expr] = fromOffset(seg.offset0)
+
+  def fromOffset(inp: RefsOff[ClauseMember])(implicit seg: Refs[ClauseMember]): EMon[Expr] =
   {
     val acc: Buff[ClauseMember] = Buff()
 
-    def loop(rem: RefsOff[ClauseMember]): EMon[Expr] = rem match
+    def loop(rem: RefsOff[ClauseMember]): EMon[Expr] = { rem match
     { case RefsOff0() => composeBlocks(acc.toRefs)
 
-      case RefsOff1Tail(at: AsignToken, tail) => for
-      { gLs <- composeBlocks(acc.toRefs);
-        gRs <- loop(tail) //This has been altered. I think its correct now with no altering to acc
-      } yield AsignExpr(at, gLs, gRs)
+      case RefsOff1Tail(at @ AsignToken(_), tail) =>
+      {
+        val eA = for {
+          gLs <- composeBlocks(acc.toRefs)
+          gRs <- fromOffset(tail) //This has been altered. I think its correct now with no altering to acc
+        } yield AsignExpr(gLs, at, gRs)
 
+        eA
+      }
       case RefsOff1Tail(h, tail) => { acc.append(h); loop(tail) }
-    }
-
-    loop(seg.offset0)
+    } }
+    loop(inp)
   }
 }

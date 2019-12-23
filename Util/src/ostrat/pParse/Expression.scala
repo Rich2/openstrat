@@ -78,7 +78,7 @@ case class PreOpExpr(op: OperatorToken, right: Expr) extends ExprCompound
   def opStr = op.srcStr
 }
 
-case class AsignExpr(asToken: AsignToken, left: Expr, right : Expr) extends ExprCompound
+case class AsignExpr(left: Expr, asToken: AsignToken, right : Expr) extends ExprCompound
 { override def startMem = left
   override def endMem = right
   override def exprName: String = "AsignExpr"  

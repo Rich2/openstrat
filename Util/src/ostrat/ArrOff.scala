@@ -3,6 +3,7 @@ package ostrat
 trait ArrOff[A, ArrT <: ArrImut[A]] extends Any
 { def offset0: Int
   @inline def apply(index: Int)(implicit arr: ArrT): A
+  def lenStr(implicit arr: ArrT): String = length.toString
   def length(implicit arr: ArrT): Int
   @inline def offset1: Int = offset0 + 1
   @inline def offset2: Int = offset0 + 2

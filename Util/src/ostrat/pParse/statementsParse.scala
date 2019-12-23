@@ -9,7 +9,7 @@ object statementsParse
   def apply(implicit inp: Refs[BlockMember]): ERefs[Statement] =
   {
     val acc: Buff[Statement] = Buff()
-    val subAcc: Buff[StatementMember] = Buff()
+    var subAcc: Buff[StatementMember] = Buff()
 
     def loop(rem: RefsOff[BlockMember]): ERefs[Statement] = rem match
     {
@@ -17,8 +17,9 @@ object statementsParse
       case RefsOff0() => statementParse(subAcc.toRefs, nullRef).map(acc :+ _).map(_.toRefs)
       case RefsOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
-      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, OptRef(st)).flatMap{ g =>
+      case RefsOff1Tail(st: SemicolonToken, tail) =>statementParse(subAcc.toRefs, OptRef(st)).flatMap{ g =>
           acc.append(g)
+          subAcc = Buff()
           loop(tail)
         }
 
@@ -29,4 +30,12 @@ object statementsParse
     loop(inp.offset0)
   }
 }
+
+/*object parseSemicolons
+{
+  def apply(implicit inp: Refs[BlockMember]): ERefs[Refs[StatementMember]] =
+  {
+    ???
+  }
+}*/
 
