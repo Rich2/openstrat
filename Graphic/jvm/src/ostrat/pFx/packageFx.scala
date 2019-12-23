@@ -5,6 +5,7 @@ package ostrat
 package object pFx
 { val userHomeDir: String = System.getProperty("user.home")
   val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
+  /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
   lazy val generalDevSettings: EMon[String] = eTry(io.Source.fromResource("DevSettings.rson").getLines().mkString)
     //loadRsonFile(openStratDir / "DevSettings.rson")
 
