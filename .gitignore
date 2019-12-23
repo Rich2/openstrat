@@ -6,5 +6,5 @@ bin/
 out/
 sbtDir/
 Dev/mine/
-Dev/user/
+Dev/User/
 .*/

@@ -51,7 +51,7 @@ lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnido
   Compile/scalaSource := baseDirectory.value / "Dev/src",
   Test/scalaSource := baseDirectory.value / "Dev/test/src",
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/learn/src").map(s => baseDirectory.value / s),
-  Compile/unmanagedResourceDirectories := List(baseDirectory.value / "Dev/mine"),
+  Compile/unmanagedResourceDirectories := List(baseDirectory.value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 

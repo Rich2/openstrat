@@ -115,7 +115,7 @@ object Dev extends PlatformsModule
 { def moduleDeps = Seq(Strat)
   def mainClass = Some("ostrat.pFx.DevApp")
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src)
-  def resources = T.sources(millSourcePath / 'mine)
+  def resources = T.sources(millSourcePath / 'User)
 
   object js extends InnerJs
   { def moduleDeps = Seq(Strat.js)
