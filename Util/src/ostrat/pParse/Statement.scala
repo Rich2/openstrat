@@ -150,14 +150,13 @@ case class MonoStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extends Un
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with TextSpanCompound
-{
-   override def expr: Expr = st
-   override def optSemi: OptRef[SemicolonToken] = OptRef(st)
-   override def startMem: TextSpan = st
-   override def endMem: TextSpan = st
-   def asError[A]: Bad[A] = st.startPosn.bad("Empty Statement")
+{ override def expr: Expr = st
+  override def optSemi: OptRef[SemicolonToken] = OptRef(st)
+  override def startMem: TextSpan = st
+  override def endMem: TextSpan = st
+  def asError[A]: Bad[A] = st.startPosn.bad("Empty Statement")
 }
+
 object EmptyStatement
-{
-   def apply(st: SemicolonToken): EmptyStatement = new EmptyStatement(st)   
+{ def apply(st: SemicolonToken): EmptyStatement = new EmptyStatement(st)
 }

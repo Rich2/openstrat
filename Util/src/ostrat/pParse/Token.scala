@@ -87,6 +87,7 @@ case class PlusInToken(startPosn: TextPosn, srcStr: String) extends OperatorToke
 case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
 { override def tokenTypeStr: String = "PlusPreToken"
 }
+
 case class AsignToken(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = "="
   override def tokenTypeStr: String = "AsignToken"

@@ -55,7 +55,7 @@ object IntToken
  *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
  *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
 case class DecimalToken(startPosn: TextPosn, srcStr: String) extends MaybeHexaToken
-{ override def subTypeStr: String = "IntDeci"
+{ override def subTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
 
   override def getInt: Int =
