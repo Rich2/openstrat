@@ -30,7 +30,8 @@ trait ArrOff[A, ArrT <: ArrImut[A]] extends Any
   def predicateLength(p: A => Boolean)(implicit arr: ArrT): Int =
   { var count = 0
     var continue = true
-    while(count < length & continue) if (p(apply(count))) count += 1 else continue = false
+    while(count < length & continue)
+    { if (p(apply(count))) count += 1 else continue = false }
     count
   }
 }

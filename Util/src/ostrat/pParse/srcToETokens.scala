@@ -46,7 +46,7 @@ object srcToETokens
 
       case CharsOff2Tail('/', '/', tail) =>
       { val len = tail.notPredicateLength(_ == '\n')
-        mainLoop(tail.drop(len + 2), tp.right(len + 2))
+        mainLoop(tail.drop(len), tp.right(len + 2))
       }
 
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(tp, c1), tail, tp.right3)
