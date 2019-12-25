@@ -27,14 +27,15 @@ trait PlatformsModule extends ScalaModule with CommonStd
   trait InnerNative extends ScalaNativeModule with CommonStd
   { def scalaVersion = "2.11.12"
     def scalaNativeVersion = "0.3.8"  
-	def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
-	def ivyDeps = outer.ivyDeps() //++ ivyNat()	 
+	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
+	  def ivyDeps = outer.ivyDeps() //++ ivyNat()	 
   }
 
   trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.6.9")
     def testFrameworks = Seq("utest.runner.Framework") 
-    def sources = T.sources(millSourcePath / 'src)  
+    def sources = T.sources(millSourcePath / 'src)
+    def resources = T.sources(millSourcePath / 'res)
   }
 
   trait InnerLearn extends ScalaModule with CommonStd
