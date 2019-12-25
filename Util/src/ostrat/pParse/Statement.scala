@@ -39,8 +39,8 @@ object Statement
     def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
        EMon[B] = statementList match
     {
-       case Seq(h1, h2, h3, h4) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3); g4 <-  h4.errGet[A4]}
-             yield f4(g1, g2, g3, g4)
+      case Seq(h1, h2, h3, h4) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3); g4 <-  h4.errGet[A4] }
+        yield f4(g1, g2, g3, g4)
        case s => bad1(s, s.length.toString -- "statements not 4")
     }
 
@@ -48,12 +48,13 @@ object Statement
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
+
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
-    {
-      val list = ev.listFromStatementList(statementList)
+    { val list = ev.listFromStatementList(statementList)
       if (list.length > index) Good(list(index))
         else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
+
     def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementList)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementList)
     def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findFromStatementList(statementList)
@@ -76,9 +77,9 @@ object Statement
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
+
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
-    {
-      val list = ev.listFromStatementList(statementArr.toList)
+    { val list = ev.listFromStatementList(statementArr.toList)
       if (list.length > index) Good(list(index))
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
@@ -94,6 +95,7 @@ object Statement
     def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoubleImplicit.settingFromStatementList(statementArr.toList, settingStr)
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementArr.toList, settingStr)
   }
+
   implicit class RefsImplicit(statementRefs: Refs[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
     def startPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.head.startPosn)
@@ -103,12 +105,13 @@ object Statement
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
+
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
-    {
-      val list = ev.listFromStatementList(statementRefs.toList)
+    { val list = ev.listFromStatementList(statementRefs.toList)
       if (list.length > index) Good(list(index))
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
+
     def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementRefs.toList)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementRefs.toList)
     def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findFromStatementList(statementRefs.toList)
@@ -121,14 +124,12 @@ object Statement
     def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoubleImplicit.settingFromStatementList(statementRefs.toList, settingStr)
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementRefs.toList, settingStr)
   }
-
 }
 
 /** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
  *  on the last Clauses is optional. */
 case class ClausedStatement(clauses: Refs[Clause], optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
-{
-  def expr: Expr = ??? //ClausesExpr(clauses.map(_.expr))
+{ def expr: Expr = ??? //ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head
   def endMem: TextSpan = optSemi.fold[TextSpan](clauses.last, st => st)
   override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)

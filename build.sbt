@@ -14,6 +14,7 @@ def commonSettings = List(
 def stdSettings(name: String) = commonSettings ::: List(
   scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
+  resourceDirectory := (ThisBuild/baseDirectory).value / name / "/res",
   Test/scalaSource := (ThisBuild/baseDirectory).value / name / "test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / name / "learn/src"),
   version := (ThisBuild/version).value
@@ -49,9 +50,10 @@ lazy val Strat = stdJvmProj("Strat").dependsOn(World).settings(
 lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
   scalaSource := baseDirectory.value / "Dev/src",
   Compile/scalaSource := baseDirectory.value / "Dev/src",
+  resourceDirectory := baseDirectory.value / "Dev/res",
   Test/scalaSource := baseDirectory.value / "Dev/test/src",
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/learn/src").map(s => baseDirectory.value / s),
-  Compile/unmanagedResourceDirectories := List(baseDirectory.value / "Dev/User"),
+  Compile/unmanagedResourceDirectories := List(resourceDirectory.value, baseDirectory.value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
