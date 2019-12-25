@@ -11,7 +11,9 @@ object CommentTest extends TestSuite
     val s3 = "x = 5//Some blurb".findTokens
     val s4 = "x = //\n5".findTokens
     val a4 = s4.flatMap(astParse(_))
-    deb(a4.toString)
+    val s5: EMon[String] = eTry(io.Source.fromResource("c1.rson").getLines().mkString)
+    val a5 = s5.flatMap(_.findTokens)
+    deb(a5.toString)
 
     'Test1
     { assertMatch(s1){ case Good(Refs0()) => }

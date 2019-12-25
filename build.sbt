@@ -17,6 +17,8 @@ def stdSettings(name: String) = commonSettings ::: List(
   resourceDirectory := (ThisBuild/baseDirectory).value / name / "/res",
   Test/scalaSource := (ThisBuild/baseDirectory).value / name / "test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / name / "learn/src"),
+  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / name / "test/res",
+  Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   version := (ThisBuild/version).value
 )
 
