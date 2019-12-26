@@ -68,23 +68,6 @@ object Statement
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementList, settingStr)
   }
 
-  implicit class ArrImplicit(statementArr: Arr[Statement]) extends TextSpan
-  { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
-    def startPosn = statementArr.ifEmpty(ifEmptyTextPosn, statementArr.head.startPosn)
-    def endPosn = statementArr.ifEmpty(ifEmptyTextPosn, statementArr.last.endPosn)
-
-    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementArr.toList)
-    /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
-     *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
-
-    def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
-    { val list = ev.listFromStatementList(statementArr.toList)
-      if (list.length > index) Good(list(index))
-      else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
-    }
-  }
-
   implicit class RefsImplicit(statementRefs: Refs[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
     def startPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.head.startPosn)
