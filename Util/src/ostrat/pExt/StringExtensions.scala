@@ -5,7 +5,7 @@ package pExt
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
-  def parseTokens: ERefs[pParse.Token] = pParse.srcToETokens(thisString, "String")
+  def parseTokens: ERefs[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String")
   def parseStatements: ERefs[pParse.Statement] = parseTokens.flatMap(pParse.astParse(_))
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
 

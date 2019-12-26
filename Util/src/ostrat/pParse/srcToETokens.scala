@@ -7,9 +7,9 @@ package pParse
 object srcToETokens
 {
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
-  def apply(srcStr: String, fileName: String): ERefs[Token] =
-  { val array: Array[Char] = srcStr.toCharArray
-    implicit val charArr: Chars = new Chars(array)
+  def apply(charsIn: Array[Char], fileName: String): ERefs[Token] =
+  {// val array: Array[Char] = charsrcStr.toCharArray
+    implicit val charArr: Chars = new Chars(charsIn)
     val acc: Buff[Token] = Buff[Token]()
 
     implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
