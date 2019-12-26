@@ -83,17 +83,6 @@ object Statement
       if (list.length > index) Good(list(index))
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
-    def findInt: EMon[Int] = Persist.IntImplicit.findFromStatementList(statementArr.toList)
-    def findDouble: EMon[Double] = Persist.DoubleImplicit.findFromStatementList(statementArr.toList)
-    def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findFromStatementList(statementArr.toList)
-    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findFromStatementList(statementArr.toList)
-
-    /** Find setting from RSON statement */
-    def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementArr.toList, settingStr)
-    def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
-    def findIntSett(settingStr: String): EMon[Int] = Persist.IntImplicit.settingFromStatementList(statementArr.toList, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoubleImplicit.settingFromStatementList(statementArr.toList, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementArr.toList, settingStr)
   }
 
   implicit class RefsImplicit(statementRefs: Refs[Statement]) extends TextSpan
@@ -102,7 +91,7 @@ object Statement
     def endPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.last.endPosn)
 
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementRefs.toList, settingStr)
-   // def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
+
    def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
     def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findFromStatementList(statementRefs.toList)
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
