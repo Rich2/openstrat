@@ -50,8 +50,11 @@ trait UnShow[+T]
             g5 <- ev5.fromExpr(c5.expr); g6 <- ev6.fromExpr(c6.expr)
           } yield f(g1, g2, g3, g4, g5, g6)
   }
+
+  //def valuesFromStatements[TT <: ArrImut[T]](sts: Statements)(implicit build: ArrBuild[T, TT]): TT //= l.map(fromStatement(_)).collect{ case Good(value) => value }
   
   def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
+
   
   def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
   { case Nil => TextPosn.emptyError("No values of type found")

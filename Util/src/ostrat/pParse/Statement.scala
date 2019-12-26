@@ -98,6 +98,30 @@ object Statement
     def findIntSett(settingStr: String): EMon[Int] = Persist.IntImplicit.settingFromStatementList(statementRefs.toList, settingStr)
     def findDoubleSett(settingStr: String): EMon[Double] = Persist.DoubleImplicit.settingFromStatementList(statementRefs.toList, settingStr)
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementRefs.toList, settingStr)
+
+    def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
+    { case Refs1(h1) => h1.errGet[A1].map(f1)
+      case s => bad1(s, s.length.toString -- "statements not 1")
+    }
+
+    def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = statementRefs match
+    { case Refs2(h1, h2) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2) } yield f2(g1, g2)
+      case s => bad1(s, s.length.toString -- "statements not 2")
+    }
+
+    def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
+      statementRefs match
+      { case Refs3(h1, h2, h3) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3) } yield f3(g1, g2, g3)
+      case s => bad1(s, s.length.toString -- "statements not 3")
+      }
+
+    def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
+    EMon[B] = statementRefs match
+    {
+      case Refs4(h1, h2, h3, h4) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3); g4 <-  h4.errGet[A4] }
+        yield f4(g1, g2, g3, g4)
+      case s => bad1(s, s.length.toString -- "statements not 4")
+    }
   }
 }
 
