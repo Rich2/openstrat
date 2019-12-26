@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import pParse._
+import pParse._, annotation.unchecked.uncheckedVariance
 
 trait UnShow[+T]
 { def typeStr: String
@@ -51,7 +51,8 @@ trait UnShow[+T]
           } yield f(g1, g2, g3, g4, g5, g6)
   }
 
-  //def valuesFromStatements[TT <: ArrImut[T]](sts: Statements)(implicit build: ArrBuild[T, TT]): TT //= l.map(fromStatement(_)).collect{ case Good(value) => value }
+  def valuesFromStatements[TT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit build: ArrBuild[T, TT] @uncheckedVariance): TT =
+    sts.map(fromStatement(_)).collect{ case Good(value) => value }
   
   def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
 

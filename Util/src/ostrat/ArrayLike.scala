@@ -188,6 +188,13 @@ trait ArrayLike[+A] extends Any
     foreach(acc += f(_))
     acc
   }
+
+  def collect[B, BB <: ArrImut[B]](pf: PartialFunction[A, B])(implicit ev: ArrBuild[B, BB]): BB =
+  {
+    val acc = ev.buffNew()
+    foreach{a => if (pf.isDefinedAt(a)) ev.buffAppend(acc, pf(a)) }
+    ev.buffToArr(acc)
+  }
 }
 
 object ArrayLike
