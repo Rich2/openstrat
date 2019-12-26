@@ -105,3 +105,11 @@ object WhitespaceChar
     case _ => None
   }
 }
+
+object OperatorChar
+{
+  def unapply(input: Char): Option[Char] = input match
+{ case c if pParse.isOperator(c) => Some(c)
+  case _ => None
+}
+}

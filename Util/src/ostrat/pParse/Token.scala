@@ -75,18 +75,20 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
 }
 
 /** An Operator token. */
-trait OperatorToken extends ClauseMemberToken
-case class OtherOperatorToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
+//trait OperatorToken extends ClauseMemberToken
+case class OperatorToken(startPosn: TextPosn, srcStr: String) extends ClauseMemberToken // OperatorToken
 { override def tokenTypeStr: String = "OtherOperatorToken"
 }
+
 /** A + or - infix Operator token */
-case class PlusInToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
+/*case class PlusInToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
 { override def tokenTypeStr: String = "PlusInToken"
 }
+
 /** A + or - Prefix Operator token */
 case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToken
 { override def tokenTypeStr: String = "PlusPreToken"
-}
+}*/
 
 case class AsignToken(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = "="

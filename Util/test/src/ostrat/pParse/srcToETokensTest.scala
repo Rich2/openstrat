@@ -14,24 +14,24 @@ object srcToETokensTest extends TestSuite
     'Single
     { Sp1 ==> StrPosn(1, 1)
 
-      assertMatch("\'a\'".findTokens){ case GoodRefs1(CharToken(_, 'a')) => }
-      assertMatch("MyId".findTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "MyId")) => }
-      assertMatch("My3".findTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3")) => }
-      assertMatch("My3Id".findTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3Id")) => }
-      assertMatch("ab3_5fG".findTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG")) => }
+      assertMatch("\'a\'".parseTokens){ case GoodRefs1(CharToken(_, 'a')) => }
+      assertMatch("MyId".parseTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "MyId")) => }
+      assertMatch("My3".parseTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3")) => }
+      assertMatch("My3Id".parseTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3Id")) => }
+      assertMatch("ab3_5fG".parseTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG")) => }
 
-      assertMatch(",".findTokens){ case GoodRefs1(CommaToken(Sp1)) => }
-      assertMatch("{".findTokens){ case GoodRefs1(CurlyOpenToken(Sp1)) => }
-      assertMatch("}".findTokens){ case GoodRefs1(CurlyCloseToken(Sp1)) => }
-      assertMatch("(".findTokens){ case GoodRefs1(ParenthOpenToken(Sp1)) => }
-      assertMatch(")".findTokens){ case GoodRefs1(ParenthCloseToken(Sp1)) => }
-      assertMatch(" [".findTokens){ case GoodRefs1(SquareOpenToken(Sp2)) => }
-      assertMatch(" ]".findTokens){ case GoodRefs1(SquareCloseToken(Sp2)) => }
-      assertMatch(";".findTokens){ case GoodRefs1(SemicolonToken(Sp1)) => }
+      assertMatch(",".parseTokens){ case GoodRefs1(CommaToken(Sp1)) => }
+      assertMatch("{".parseTokens){ case GoodRefs1(CurlyOpenToken(Sp1)) => }
+      assertMatch("}".parseTokens){ case GoodRefs1(CurlyCloseToken(Sp1)) => }
+      assertMatch("(".parseTokens){ case GoodRefs1(ParenthOpenToken(Sp1)) => }
+      assertMatch(")".parseTokens){ case GoodRefs1(ParenthCloseToken(Sp1)) => }
+      assertMatch(" [".parseTokens){ case GoodRefs1(SquareOpenToken(Sp2)) => }
+      assertMatch(" ]".parseTokens){ case GoodRefs1(SquareCloseToken(Sp2)) => }
+      assertMatch(";".parseTokens){ case GoodRefs1(SemicolonToken(Sp1)) => }
 
-      assertMatch("=".findTokens){case GoodRefs1(AsignToken(Sp1)) => }
+      assertMatch("=".parseTokens){case GoodRefs1(AsignToken(Sp1)) => }
 
-      "#".findTokens.isBad ==> true
+      "#".parseTokens.isBad ==> true
     }
 
     val C1 = IdentifierUpperOnlyToken(Sp1, "Colour")
@@ -39,14 +39,14 @@ object srcToETokensTest extends TestSuite
     displayX = 0;
     displayY = 0;"""
 
-    val et1 = st1.findTokens
+    val et1 = st1.parseTokens
     val r1: Tokens = et1.get
 
     'Multiple
     {
-      assertMatch(";;".findTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
-      assertMatch(" ; .".findTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
-      assertMatch("Colour(0xFF000000)".findTokens){ case GoodRefs4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_)) => }
+      assertMatch(";;".parseTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
+      assertMatch(" ; .".parseTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
+      assertMatch("Colour(0xFF000000)".parseTokens){ case GoodRefs4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_)) => }
       assertMatch(et1){case Good(_) => }
       r1.length ==> 12
       assertMatch(r1){case RefsHead4(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
@@ -54,11 +54,11 @@ object srcToETokensTest extends TestSuite
 
     val st2 = """/* This is a comment."""
     val st3 = st1 + st2
-    val et3 = st3.findTokens
+    val et3 = st3.parseTokens
     val r3 = et3.get
     val st4 = "\n End of Comment. */"
     val st5 = st1 + "\n" + st2 + st4
-    val et5 = st5.findTokens
+    val et5 = st5.parseTokens
     implicit val r5: Refs[Token] = et5.get
     val ro6: RefsOff[Token] = r5.offset(4)
 
@@ -66,7 +66,7 @@ object srcToETokensTest extends TestSuite
     {
 
 
-      assertMatch(st2.findTokens){ case GoodRefs0() => }
+      assertMatch(st2.parseTokens){ case GoodRefs0() => }
       assertMatch(et3){case Good(_) => }
       r3.length ==> 12
       assertMatch(et5){case Good(_) => }
@@ -77,7 +77,7 @@ object srcToETokensTest extends TestSuite
 
     Symbol("Neg")
     {
-      assertMatch("-".findTokens){case GoodRefs1(PlusInToken(_, _)) => }
+      //assertMatch("-".parseTokens){case GoodRefs1(PlusInToken(_, _)) => }
       //assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4")) => }
       
     }

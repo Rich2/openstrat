@@ -4,34 +4,37 @@ package pExt
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
-{  
-  def parseToStatements: ERefs[pParse.Statement] = pParse.stringToStatements(thisString)
-  def findTokens: ERefs[pParse.Token] = pParse.srcToETokens(thisString, "String")
-  def findStatements: ERefs[pParse.Statement] = findTokens.flatMap(pParse.astParse(_))
+{
+  def parseTokens: ERefs[pParse.Token] = pParse.srcToETokens(thisString, "String")
+  def parseStatements: ERefs[pParse.Statement] = parseTokens.flatMap(pParse.astParse(_))
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
-  def findType[A: Persist]: EMon[A] = thisString.parseToStatements.flatMap(_.findType[A])
+
+  /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
+  def findType[A: Persist]: EMon[A] = thisString.parseStatements.flatMap(_.findType[A])
+
+  /** Finds Statement of type A. */
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
-  def findInt: EMon[Int] = thisString.parseToStatements.flatMap(_.findInt)
-  def findDouble: EMon[Double] = thisString.parseToStatements.flatMap(_.findDouble)
-  def findBoolean: EMon[Boolean] = thisString.parseToStatements.flatMap(_.findBoolean)
-  def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseToStatements.flatMap(_.findTypeIndex[A](index))  
+  def findInt: EMon[Int] = thisString.parseStatements.flatMap(_.findInt)
+  def findDouble: EMon[Double] = thisString.parseStatements.flatMap(_.findDouble)
+  def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBoolean)
+  def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].foreach(f)
 
-  def asType[A](implicit ev: Persist[A]): EMon[A] = parseToStatements.flatMap(sts => sts match
+  def asType[A](implicit ev: Persist[A]): EMon[A] = parseStatements.flatMap(sts => sts match
     { case Refs1(h) => ev.fromStatement(h).elseTry(ev.fromStatements(sts))
       case sts => ev.fromStatements(sts)
     })
   def asInt: EMon[Int] = asType[Int]
-  
-  def findIntArray: EMon[Array[Int]] = thisString.parseToStatements.flatMap(_.findIntArray)
-  
-  def findSett[A: Persist](settingStr: String): EMon[A] = thisString.parseToStatements.flatMap(_.findSett[A](settingStr))
+
+  def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
+
+  def findSett[A: Persist](settingStr: String): EMon[A] = thisString.parseStatements.flatMap(_.findSett[A](settingStr))
   def findSettElse[A: Persist](settingStr: String, elseValue: A): A = findSett[A](settingStr).getElse(elseValue)
-  def findIntSett(settingStr: String): EMon[Int] = thisString.parseToStatements.flatMap(_.findIntSett(settingStr))
-  def findIntSettElse(settingStr: String, elseValue: Int): Int = findIntSett(settingStr).getElse(elseValue)  
-  def findDoubleSett(settingStr: String): EMon[Double] = thisString.parseToStatements.flatMap(_.findDoubleSett(settingStr))
+  def findIntSett(settingStr: String): EMon[Int] = thisString.parseStatements.flatMap(_.findIntSett(settingStr))
+  def findIntSettElse(settingStr: String, elseValue: Int): Int = findIntSett(settingStr).getElse(elseValue)
+  def findDoubleSett(settingStr: String): EMon[Double] = thisString.parseStatements.flatMap(_.findDoubleSett(settingStr))
   def findDoubleSettElse(settingStr: String, elseValue: Double): Double = findDoubleSett(settingStr).getElse(elseValue)
-  def findBooleanSett(settingStr: String): EMon[Boolean] = thisString.parseToStatements.flatMap(_.findBooleanSett(settingStr))
+  def findBooleanSett(settingStr: String): EMon[Boolean] = thisString.parseStatements.flatMap(_.findBooleanSett(settingStr))
   def findBooleanSettElse(settingStr: String, elseValue: Boolean): Boolean = findBooleanSett(settingStr).getElse(elseValue)
   
   def - (other: String): String = thisString + other

@@ -20,8 +20,8 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
   val c1 = Colour.Azure  
   val t3 = t1.fill(c1)
   val s3 = "0xFFFFFFFF";
-  val c3 = s3.findTokens
-  val c4 = s3.findStatements
+  val c3 = s3.parseTokens
+  val c4 = s3.parseStatements
   val c5 = s3.findType[Colour]
   val tl1 = Rval(t1) - t2 - c1
   

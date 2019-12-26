@@ -23,6 +23,4 @@ object composeBlocks
       case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
     }
   }
-
-
 }
