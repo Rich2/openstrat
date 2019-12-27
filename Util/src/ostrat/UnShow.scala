@@ -55,19 +55,18 @@ trait UnShow[+T]
   def valuesFromStatements[TT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit build: ArrBuild[T, TT] @uncheckedVariance): TT =
     sts.mapCollectGoods(fromStatement)
 
-  /** Prouduces a List of the UnShow type from List of Statements */
-  def valueListFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
+  /** Produces a List of the UnShow type from List of Statements */
+  def valueListFromStatements(l: Statements): List[T] = l.map(fromStatement(_)).collectList{ case Good(value) => value }
 
   /** Finds value of UnShow type, returns error if more than one match. */
-  def findUniqueFromStatementList(l: List[Statement]): EMon[T] = valueListFromStatementList(l) match
+  def findUniqueFromStatementList(l: Statements): EMon[T] = valueListFromStatements(l) match
   { case Nil => TextPosn.emptyError("No values of type found")
     case h :: Nil => Good(h)
     case s3 => l.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
   
   def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
-  {
-    case MonoStatement(AsignExpr(IdentifierLowerOnlyToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
+  { case MonoStatement(AsignExpr(IdentifierLowerOnlyToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
   
