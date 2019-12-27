@@ -76,7 +76,9 @@ object Persist
     }
   
   implicit val IntImplicit: Persist[Int] = new PersistSimple[Int]("Int")
-  { def show(obj: Int): String = obj.toString
+  { override type ArrT = Ints
+    override def arrBuild: ArrBuild[Int, Ints] = ArrBuild.intsImplicit
+    def show(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
     { case DecimalToken(_, i) => Good(i.toInt)
       case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
@@ -147,7 +149,8 @@ object Persist
   }
 
   implicit val ArrayIntImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Persist.IntImplicit)
-  { override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
+  {
+    override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
     override def fromParameterStatements(sts: Refs[Statement]): EMon[Array[Int]] = TextPosn.empty.bad("ArrayInt from statements")
     override def fromClauses(clauses: Refs[Clause]): EMon[Array[Int]] = ???

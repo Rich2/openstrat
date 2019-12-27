@@ -87,7 +87,7 @@ object Statement
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
 
-    def findInt: EMon[Int] = Persist.IntImplicit.findUniqueFromStatements(statementRefs)
+    def findInt: EMon[Int] = Persist.IntImplicit.findUniqueTFromStatements(statementRefs)
     def findDouble: EMon[Double] = Persist.DoubleImplicit.findUniqueFromStatements(statementRefs)
     def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findUniqueFromStatements(statementRefs)
     def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementRefs)
