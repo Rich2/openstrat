@@ -23,13 +23,13 @@ object PersistCaseTest extends TestSuite
   { implicit val persist: Persist[Mb3] = Persist3[Int, Int, Int, Mb3]("Mb3", "i1", _.i1, "i2", _.i2, "i3", _.i3, apply, Some(3), Some(2), Some(1))
   }
 
-  case class My4(a1: Arr[Int], s2: String, l3: List[String], v4: Vector[Int])
+  /*case class My4(a1: Ints, s2: String, l3: List[String], v4: Vector[Int])
   object My4
   { implicit val persist: Persist[My4] =
-      Persist4[Arr[Int], String, List[String], Vector[Int], My4]("My4", "My4", _.a1, "s2",_.s2, "l3",_.l3, "v4", _.v4, apply)
+      Persist4[Ints, String, List[String], Vector[Int], My4]("My4", "My4", _.a1, "s2",_.s2, "l3",_.l3, "v4", _.v4, apply)
   }
   val my4a = My4(Arr(3, 2), "Yes", "AAA" :: Nil, Vector(8))
-  
+  */
   val tests = Tests
   {    
    /* 'Persist2 -

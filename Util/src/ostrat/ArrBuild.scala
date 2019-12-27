@@ -71,5 +71,13 @@ object ArrBuild
     override def buffAppend(buff: ArrayBuffer[Long], value: Long): Unit = buff.append(value)
     override def buffToArr(buff: ArrayBuffer[Long]): Longs = new Longs(buff.toArray)
   }
-}
 
+  implicit val floatImplicit: ArrBuild[Float, Floats] = new ArrBuild[Float, Floats]
+  { type BuffT = ArrayBuffer[Float]
+    override def imutNew(length: Int): Floats = new Floats(new Array[Float](length))
+    override def imutSet(arr: Floats, index: Int, value: Float): Unit = arr.array(index) = value
+    override def buffNew(length: Int = 4): ArrayBuffer[Float] = new ArrayBuffer[Float](length)
+    override def buffAppend(buff: ArrayBuffer[Float], value: Float): Unit = buff.append(value)
+    override def buffToArr(buff: ArrayBuffer[Float]): Floats = new Floats(buff.toArray)
+  }
+}

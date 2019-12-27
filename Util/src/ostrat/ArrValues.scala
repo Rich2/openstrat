@@ -65,11 +65,6 @@ object Longs
   }
 }
 
-/*class LongsBuff(val buffer: ArrayBuffer[Long]) extends AnyVal with BufferLike[Long]
-{ override def length: Int = buffer.length
-  override def apply(index: Int): Long = buffer(index)
-}*/
-
 class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 { type ThisT = Dbls
   override def buildThis(length: Int): Dbls = new Dbls(new Array[Double](length))
@@ -122,6 +117,34 @@ object Booleans
     { val buff = new ArrayBuffer[Boolean]
       orig.foreach(a => buff.addAll(f(a).array))
       new Booleans(buff.toArray)
+    }
+  }
+}
+
+class Floats(val array: Array[Float]) extends AnyVal with ArrImut[Float]
+{ type ThisT = Floats
+  override def buildThis(length: Int): Floats = new Floats(new Array[Float](length))
+  override def length: Int = array.length
+  override def apply(index: Int): Float = array(index)
+  override def unsafeSetElem(i: Int, value: Float): Unit = array(i) = value
+  override def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = array.copyToArray(array, offset, copyLength)
+
+  def ++ (op: Floats): Floats =
+  { val newArray = new Array[Float](length + op.length)
+    array.copyToArray(newArray)
+    op.array.copyToArray(newArray, length)
+    new Floats(newArray)
+  }
+}
+
+object Floats
+{ def apply(input: Float*): Floats = new Floats(input.toArray)
+  implicit val bindImplicit: ArrFlatBuild[Floats] = new ArrFlatBuild[Floats]
+  {
+    override def flatMap[A](orig: ArrayLike[A], f: A => Floats): Floats =
+    { val buff = new ArrayBuffer[Float]
+      orig.foreach(a => buff.addAll(f(a).array))
+      new Floats(buff.toArray)
     }
   }
 }
