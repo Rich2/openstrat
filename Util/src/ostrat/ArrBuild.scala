@@ -63,6 +63,13 @@ object ArrBuild
     override def buffToArr(buff: ArrayBuffer[Boolean]): Booleans = new Booleans(buff.toArray)
   }
 
-
+  implicit val longImplicit: ArrBuild[Long, Longs] = new ArrBuild[Long, Longs]
+  { type BuffT = ArrayBuffer[Long]
+    override def imutNew(length: Int): Longs = new Longs(new Array[Long](length))
+    override def imutSet(arr: Longs, index: Int, value: Long): Unit = arr.array(index) = value
+    override def buffNew(length: Int = 4): ArrayBuffer[Long] = new ArrayBuffer[Long](length)
+    override def buffAppend(buff: ArrayBuffer[Long], value: Long): Unit = buff.append(value)
+    override def buffToArr(buff: ArrayBuffer[Long]): Longs = new Longs(buff.toArray)
+  }
 }
 
