@@ -13,6 +13,7 @@ object Rval
 
 class Sett(val str: String) extends AnyVal
 {
+  /** Not sure why this method is called ap. */
   def ap[A](setting: String, value: A)(implicit ev: Persist[A]): Sett =
   {
     new Sett(str + "\n" + setting + " = " + ev.show(value) + ";")
