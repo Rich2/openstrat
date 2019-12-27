@@ -59,10 +59,10 @@ trait UnShow[+T]
   def valueListFromStatements(l: Statements): List[T] = l.map(fromStatement(_)).collectList{ case Good(value) => value }
 
   /** Finds value of UnShow type, returns error if more than one match. */
-  def findUniqueFromStatementList(l: Statements): EMon[T] = valueListFromStatements(l) match
+  def findUniqueFromStatements(sts: Statements): EMon[T] = valueListFromStatements(sts) match
   { case Nil => TextPosn.emptyError("No values of type found")
     case h :: Nil => Good(h)
-    case s3 => l.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
+    case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
   
   def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
@@ -70,13 +70,13 @@ trait UnShow[+T]
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
   
-  def settingFromStatementList(list: List[Statement], settingStr: String): EMon[T] = list match
-  { case Nil => TextPosn.emptyError("No Statements")
-    case List(e1) => settingFromStatement(settingStr, e1)
-    case s2 => list.map(settingFromStatement(settingStr, _)).collect{ case g: Good[T] => g } match
-    { case Seq(t) => t
-      case Nil => list.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
-      case s3 => list.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+  def settingFromStatementList(sts: Refs[Statement], settingStr: String): EMon[T] = sts match
+  { case Refs0() => TextPosn.emptyError("No Statements")
+    case Refs1(e1) => settingFromStatement(settingStr, e1)
+    case s2 => sts.map(settingFromStatement(settingStr, _)).collect{ case g: Good[T] => g } match
+    { case Refs1(t) => t
+      case Refs0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
+      case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }
 }
