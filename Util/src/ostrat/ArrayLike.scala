@@ -189,12 +189,21 @@ trait ArrayLike[+A] extends Any
     acc
   }
 
+  /** Collects values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
   def collect[B, BB <: ArrImut[B]](pf: PartialFunction[A, B])(implicit ev: ArrBuild[B, BB]): BB =
-  {
-    val acc = ev.buffNew()
+  { val acc = ev.buffNew()
     foreach{a => if (pf.isDefinedAt(a)) ev.buffAppend(acc, pf(a)) }
     ev.buffToArr(acc)
   }
+
+  /** maps from A to EMon[B], collects the good values. */
+  def mapCollectGoods[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): BB =
+  { val acc = ev.buffNew()
+    foreach(f(_).foreach(ev.buffAppend(acc, _)))
+    ev.buffToArr(acc)
+  }
+
+
 }
 
 object ArrayLike

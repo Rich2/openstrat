@@ -51,13 +51,15 @@ trait UnShow[+T]
           } yield f(g1, g2, g3, g4, g5, g6)
   }
 
+  /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
   def valuesFromStatements[TT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit build: ArrBuild[T, TT] @uncheckedVariance): TT =
-    sts.map(fromStatement(_)).collect{ case Good(value) => value }
-  
-  def listFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
+    sts.mapCollectGoods(fromStatement)
 
-  
-  def findFromStatementList(l: List[Statement]): EMon[T] = listFromStatementList(l) match
+  /** Prouduces a List of the UnShow type from List of Statements */
+  def valueListFromStatementList(l: List[Statement]): List[T] = l.map(fromStatement(_)).collect{ case Good(value) => value }
+
+  /** Finds value of UnShow type, returns error if more than one match. */
+  def findUniqueFromStatementList(l: List[Statement]): EMon[T] = valueListFromStatementList(l) match
   { case Nil => TextPosn.emptyError("No values of type found")
     case h :: Nil => Good(h)
     case s3 => l.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
