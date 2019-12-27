@@ -76,8 +76,8 @@ object Persist
     }
   
   implicit val IntImplicit: Persist[Int] = new PersistSimple[Int]("Int")
-  { override type ArrT = Ints
-    override def arrBuild: ArrBuild[Int, Ints] = ArrBuild.intsImplicit
+  {
+    //override def findUniqueFromStatements(sts: Statements): EMon[Int] =
     def show(obj: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Int] = expr match      
     { case DecimalToken(_, i) => Good(i.toInt)

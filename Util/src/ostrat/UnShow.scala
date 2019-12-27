@@ -6,9 +6,6 @@ trait UnShow[+T]
 { def typeStr: String
   def fromExpr(expr: Expr): EMon[T]  
   def fromClauses(clauses: Refs[Clause]): EMon[T]
-
-  type ArrT <: ArrImut[T] @uncheckedVariance
-  def arrBuild: ArrBuild[T, ArrT]  @uncheckedVariance = ???
   
   /** Trys to build an object of type T from the statement. Not sure if this is useful. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
@@ -55,7 +52,8 @@ trait UnShow[+T]
   }
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
-  def valuesFromStatements(sts: Statements): ArrT = sts.mapCollectGoods(fromStatement)(arrBuild)
+  def valuesFromStatements[ArrT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuild[T, ArrT] @uncheckedVariance): ArrT =
+    sts.mapCollectGoods(fromStatement)(arrBuild)
 
   /** Produces a List of the UnShow type from List of Statements */
   def valueListFromStatements(l: Statements): List[T] = l.map(fromStatement(_)).collectList{ case Good(value) => value }
@@ -68,7 +66,8 @@ trait UnShow[+T]
   }
 
   /** Finds value of UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements(sts: Statements): EMon[T] = valuesFromStatements(sts) match
+  def findUniqueTFromStatements[ArrT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuild[T, ArrT] @uncheckedVariance): EMon[T] =
+    valuesFromStatements(sts) match
   { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
     case s if s.length == 1 => Good(s.head)
     case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
