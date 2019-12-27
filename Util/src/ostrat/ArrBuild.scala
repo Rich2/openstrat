@@ -53,4 +53,16 @@ object ArrBuild
     override def buffAppend(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
     override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
   }
+
+  implicit val booleansImplicit: ArrBuild[Boolean, Booleans] = new ArrBuild[Boolean, Booleans]
+  { type BuffT = ArrayBuffer[Boolean]
+    override def imutNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+    override def imutSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.array(index) = value
+    override def buffNew(length: Int = 4): ArrayBuffer[Boolean] = new ArrayBuffer[Boolean](length)
+    override def buffAppend(buff: ArrayBuffer[Boolean], value: Boolean): Unit = buff.append(value)
+    override def buffToArr(buff: ArrayBuffer[Boolean]): Booleans = new Booleans(buff.toArray)
+  }
+
+
 }
+

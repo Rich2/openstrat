@@ -98,8 +98,30 @@ object Dbls
   }
 }
 
-/*
-class DblBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BufferLike[Double]
-{ override def length: Int = buffer.length
-  override def apply(index: Int): Double = buffer(index)
-}*/
+class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
+{ type ThisT = Booleans
+  override def buildThis(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+  override def length: Int = array.length
+  override def apply(index: Int): Boolean = array(index)
+  override def unsafeSetElem(i: Int, value: Boolean): Unit = array(i) = value
+  override def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = array.copyToArray(array, offset, copyLength)
+
+  def ++ (op: Booleans): Booleans =
+  { val newArray = new Array[Boolean](length + op.length)
+  array.copyToArray(newArray)
+  op.array.copyToArray(newArray, length)
+  new Booleans(newArray)
+  }
+}
+
+object Booleans
+{ def apply(input: Boolean*): Booleans = new Booleans(input.toArray)
+  implicit val bindImplicit: ArrFlatBuild[Booleans] = new ArrFlatBuild[Booleans]
+  {
+    override def flatMap[A](orig: ArrayLike[A], f: A => Booleans): Booleans =
+    { val buff = new ArrayBuffer[Boolean]
+      orig.foreach(a => buff.addAll(f(a).array))
+      new Booleans(buff.toArray)
+    }
+  }
+}

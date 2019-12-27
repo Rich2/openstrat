@@ -88,8 +88,8 @@ object Statement
     }
 
     def findInt: EMon[Int] = Persist.IntImplicit.findUniqueTFromStatements(statementRefs)
-    def findDouble: EMon[Double] = Persist.DoubleImplicit.findUniqueFromStatements(statementRefs)
-    def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findUniqueFromStatements(statementRefs)
+    def findDouble: EMon[Double] = Persist.DoubleImplicit.findUniqueTFromStatements(statementRefs)
+    def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findUniqueTFromStatements(statementRefs)
     def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find setting from RSON statement */
