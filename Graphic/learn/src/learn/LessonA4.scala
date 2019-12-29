@@ -10,9 +10,9 @@ import ostrat._, geom._, pCanv._, Colour._
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
  
-case class LessonA4(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")
+case class LessonA4(canv: CanvasPlatform) extends CanvasSimple("Lesson A4")
 {
-  val stuff = Arr(
+  val stuff = Refs(
     LineDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
     LineDraw(0 vv 50, 150 vv 200, 3),
     LineDraw(50 vv -50, 200 vv -50, 2, Red),//Note if you don't include a Colour you get Black
@@ -23,7 +23,7 @@ case class LessonA4(canv: CanvasPlatform) extends CanvasSimple("Lesson A3")
     ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
     BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
   )
-  repaintOld(stuff)
+  repaint(stuff)
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the

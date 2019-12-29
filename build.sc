@@ -2,7 +2,7 @@
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
-{ def version = "0.0.5snap"  
+{ def version = "0.0.7snap"  
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
@@ -49,7 +49,7 @@ object Util extends PlatformsModule
   object MacrosJvm extends CommonStd with PublishModule
   { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
     def sources = T.sources(Util.millSourcePath / 'Macros / 'src)
-    def publishVersion = "0.0.5"
+    def publishVersion = "0.0.7snap"
     def pomSettings = PomSettings(
       description = "openstrat",
       organization = "com.richstrat",
