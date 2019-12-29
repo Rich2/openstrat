@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA7(canv: CanvasPlatform) extends CanvasSimple("Lesson A6")
+case class LessonA7(canv: CanvasPlatform) extends CanvasSimple("Lesson A7")
 {
   val pt1 = -200 vv 200
   val arcCentre = 0 vv 200
