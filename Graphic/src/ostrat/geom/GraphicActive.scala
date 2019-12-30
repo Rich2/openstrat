@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
-trait GraphicActive
+trait GraphicActive extends AnyRef
 { /** If the user clicks with the polygon or shape then the canvas will return this object. It is purely up to the application its
    *  response if any to this object */
   def evObj: AnyRef

@@ -16,9 +16,9 @@ case class Panel(private val outerCanv: CanvasMulti, clipPoly: Polygon, cover: B
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
    
-  def repaintOld(els: Arr[GraphicElem]): Unit = { canvObjs = els; outerCanv.refreshPanel(this) }
-  def repaint(els: GraphicElems): Unit = { canvObjs = els.toArraySeq; outerCanv.refreshPanel(this) }
-  def repaints(els: GraphicElem*): Unit = repaintOld(els.toArr)
+  def repaintOld(els: Arr[GraphicElem]): Unit = { canvObjs = els.toRefs; outerCanv.refreshPanel(this) }
+  def repaint(els: GraphicElems): Unit = { canvObjs = els; outerCanv.refreshPanel(this) }
+  def repaints(els: GraphicElem*): Unit = repaint(els.toRefs)
 }
 
 case class MButtonCmd(cmd: MouseButton => Unit)
@@ -30,7 +30,7 @@ trait PanelLike extends RectGeom
 { /** These are currently stored in reverse. I think this would be better in an Array */
   var subjs: Refs[GraphicActive] = Refs()
 
-  var canvObjs: Arr[GraphicElem] = Arr()
+  var canvObjs: GraphicElems = Refs()
 
   /** This method name is inconsistent with mouseup on the canvas class*/
   var mouseUp: (Vec2, MouseButton, Refs[AnyRef]) => Unit = (v, b, s) => {}
