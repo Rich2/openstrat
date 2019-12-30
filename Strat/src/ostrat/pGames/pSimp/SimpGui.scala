@@ -29,7 +29,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
         ol.toArr ++ rect
       }
       val a1 = Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
-      a1.optConcat(op)
+      a1.optionConcat(op)
     }
     tiles ++ sidesDrawAll()
   }

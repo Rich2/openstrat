@@ -131,7 +131,7 @@ trait TGrid[TileT]
 
   def sideCoodsAll: Coods =
   { val acc: CoodsBuff = Coods.buff(numTile * 2)
-    tilesCoodForAll(tc =>  acc.addAll(HexGrid.sideCoodsOfTile(tc)))
+    tilesCoodForAll(tc =>  acc.grows(HexGrid.sideCoodsOfTile(tc)))
     acc.toArr
   }
 

@@ -31,7 +31,7 @@ trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
 
 trait BuffProdInt2[A <: ProdInt2, M <: ArrProdInt2[A]] extends Any with BuffProdHomoInts[A]
 { type ArrT <: ArrProdInt2[A]
-  override def append(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
+  override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
 }
 
 abstract class ProductI2sCompanion[A <: ProdInt2, M <: ArrProdInt2[A]] extends ProductIntsCompanion[M]

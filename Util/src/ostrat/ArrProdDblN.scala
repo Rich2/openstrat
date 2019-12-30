@@ -57,8 +57,8 @@ trait BuffProdDblN[A] extends Any with ArrBuffHomo[A]
   def length: Int = buffer.length / elemSize
   def toArray: Array[Double] = buffer.toArray[Double]
 //  def unBuff: M
-  def append(newElem: A): Unit
-  override def addAll(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
+  def grow(newElem: A): Unit
+  override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
 }
 
 trait ProdDblNsCompanion[T,  ST <: ArrProdDblN[T]]

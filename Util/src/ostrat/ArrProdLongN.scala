@@ -27,7 +27,7 @@ trait ProductLongsBuff[A] extends Any with ArrBuffHomo[A]
 { def buffer: ArrayBuffer[Long]
   def toArray: Array[Long] = buffer.toArray[Long]
 //  def unBuff: M
-  def append(newElem: A): Unit
+  def grow(newElem: A): Unit
 //  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 

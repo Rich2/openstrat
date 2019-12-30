@@ -43,10 +43,24 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     op.array.copyToArray(newArray, length)
     new Refs(newArray)
   }
+  
+  /** Concatenates the elements of the operand Refs if the condition is true, else returns the original Refs. The return type is the super type of the 
+   * original Refs and the operand Ref. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
+   * method, but concatsIf allows type widening. */
+  def concatsIf[AA >: A <: AnyRef](b: Boolean, newElems: => Refs[AA])(implicit ct: ClassTag[AA]): Refs[AA] = ife(b,this ++ newElems, this)
 
-  def ifAppend[AA >: A <: AnyRef](b: Boolean, newElems: => Refs[AA])(implicit ct: ClassTag[AA]): Refs[AA] = ife(b,this ++ newElems, this)
-  def optAppend[AA >: A <: AnyRef](optElem: Option[AA]@uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = optElem.fld(this, :+ _)
-  def optAppends[AA >: A <: AnyRef](optElems: Option[Refs[AA]])(implicit ct: ClassTag[AA]): Refs[AA] = optElems.fld[Refs[AA]](this, ++ _)
+  /** Appends the elements of the operand Refs if the condition is true, else returns the original Refs. The operand is lazy so will only be evaluated
+   *  if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
+  def appendsIf(b: Boolean, newElems: => Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
+    ife(b,this ++ newElems, this)
+
+  def concatOption[AA >: A <: AnyRef](optElem: Option[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
+    optElem.fld(this, :+ _)
+
+  def appendOption(optElem: Option[A]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = optElem.fld(this, :+ _)
+
+  def concatsOption[AA >: A <: AnyRef](optElems: Option[Refs[AA]])(implicit ct: ClassTag[AA]): Refs[AA] =
+    optElems.fld[Refs[AA]](this, ++ _)
 }
 
 object Refs

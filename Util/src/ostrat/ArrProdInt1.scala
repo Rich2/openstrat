@@ -34,5 +34,5 @@ trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
 }
 
 trait ProductI1sBuff[A <: ProdInt1] extends Any with BuffProdHomoInts[A]
-{ override def append(newElem: A): Unit = { buffer.append(newElem._1); () }
+{ override def grow(newElem: A): Unit = { buffer.append(newElem._1); () }
 }
