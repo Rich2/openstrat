@@ -22,12 +22,12 @@ trait Dist2Gui extends MapGui
    
    val bZoomIn = clickButton("+", zoomInCmd)
    val bZoomOut = clickButton("-", zoomOutCmd)
-   val zoomable: Arr[ShapeSubj] = Arr(bZoomIn, bZoomOut)
+   val zoomable: Refs[ShapeSubj] = Refs(bZoomIn, bZoomOut)
 
    val bMapRotateClockwise = clickButton("\u21BB", MouseButton => { rotation += Angle.deg(-20); repaintMap() } )
    val bMapRotateAntiClockwise = clickButton("\u21BA", Mousebutton => { rotation += Angle.deg(20); repaintMap() } )
   // val focusAdjust = Seq(bFocusLeft, bFocusRight, bFocusUp, bFocusDown, bMapRotateClockwise, bMapRotateAntiClockwise)
-   val adjustZoom: Seq[ShapeSubj] = zoomable //++ focusAdjust
+   val adjustZoom: Refs[ShapeSubj] = zoomable //++ focusAdjust
    def zoomInCmd: MouseButton => Unit = mb =>  { scale = (scale / 1.5).max(scaleMin); repaintMap }
    def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap }
    //def moveInc = 40 /scale
