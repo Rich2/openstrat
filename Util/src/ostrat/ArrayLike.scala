@@ -49,6 +49,18 @@ trait ArrayLike[+A] extends Any
     res
   }
 
+  /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
+  def mapWithAcc[B, BB <: ArrImut[B], C](initC: C)(f: (A, C) => (B, C))(implicit  ev: ArrBuild[B, BB]): BB =
+  { val res = ev.imutNew(length)
+    var accC: C = initC
+    iForeach { (a, i) =>
+      val (newB, newC) = f(a, accC)
+      res.unsafeSetElem(i, newB)
+      accC = newC
+    }
+    res
+  }
+
   def eMap[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): EMon[BB] = ???
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */

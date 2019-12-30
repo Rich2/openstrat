@@ -17,20 +17,18 @@ abstract class CanvasMulti(title: String) extends CanvasUser(title)
     {
       panels.find(_.clipPoly.ptInPolygon(v)).foreach{ pan =>
         val objs: Refs[AnyRef] = pan.subjs.ptInObjs(v)
-        pan.mouseUp(v, b, objs)//.toRefs)
+        pan.mouseUp(v, b, objs)
     }
   }
     
   def refresh(): Unit = panels.foreach(refreshPanel)   
    
   def refreshPanel(panel: Panel): Unit =
-  {
-    val clipPoly = panel.clipPoly
-    //panel.subjs = Nil
+  { val clipPoly = panel.clipPoly
     canv.gcSave()
     canv.clip(clipPoly)
     canv.polyFill(clipPoly.fill(panel.backColour))
-    val movedObjs: Refs[GraphicElem] = panel.canvObjs.slate(panel.cen)//.sortWith(_.zOrder < _.zOrder)
+    val movedObjs: Refs[GraphicElem] = panel.canvObjs.slate(panel.cen)
     panel.subjs = paintObjs(movedObjs)
     canv.gcRestore()
   }   
