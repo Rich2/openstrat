@@ -41,7 +41,7 @@ trait Dist2Gui extends MapGui
    final def repaintMap(): Unit =
    {
       val o2 = mapObjs      
-      mapPanel.repaint(o2)
+      mapPanel.repaintOld(o2)
    }
 //   final def repaintMap(newObjs: Seq[CanvObj[_]]): Unit =
 //   {

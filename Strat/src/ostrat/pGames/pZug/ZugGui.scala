@@ -14,7 +14,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   override var focus: Vec2 = grid.cen
   mapPanel.backColour = Black
   
-  def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => GraphicElems = ofh =>
+  def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => GraphicElemsOld = ofh =>
   { import ofh._         
     val colour: Colour = tile.colour         
     
@@ -25,11 +25,11 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     
     val tText = ifScaleCObj(60, TextGraphicCen(xyStr, 14, cen, colour.contrastBW, 2))
     
-    def action(squad: Squad): GraphicElems = squad.action match
+    def action(squad: Squad): GraphicElemsOld = squad.action match
     {
       case Move(coods) =>      
       {
-        coods.foldWithPrevious[GraphicElems](squad.cood, Arr()){(acc, prevCood, nextCood) =>
+        coods.foldWithPrevious[GraphicElemsOld](squad.cood, Arr()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
           val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast)
           val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast)
@@ -40,7 +40,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       case _ => Arr()
     }
     
-    val lunit: GraphicElems = tile.lunits match
+    val lunit: GraphicElemsOld = tile.lunits match
     {
       case s if tScale > 68 & s.nonEmpty =>
       {
@@ -52,7 +52,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     tv ++ tText ++ lunit
   }
     
-  def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElems = ofs =>
+  def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElemsOld = ofs =>
   { import ofs._    
     ifScaleCObjs(60, side.wall match
       { case true => Arr(vertDispLine.draw(6, Gray))
@@ -61,8 +61,8 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     )    
   }
     
-  def dSides: GraphicElems = ofSidesDisplayFold(fSide)
-  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex) ++ dSides//ofHexsDisplayFold(fHex).collapse
+  def dSides: GraphicElemsOld = ofSidesDisplayFold(fSide)
+  def mapObjs: GraphicElemsOld = ofTilesDisplayFold(fHex) ++ dSides//ofHexsDisplayFold(fHex).collapse
      
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
@@ -87,6 +87,6 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs :+ bTurn :+ status) 
   eTop()
-  mapPanel.repaint(mapObjs)
+  mapPanel.repaintOld(mapObjs)
 }
   

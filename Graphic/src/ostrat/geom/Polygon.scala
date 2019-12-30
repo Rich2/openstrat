@@ -43,13 +43,13 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolyFillText =
     PolyFillText(this, fillColour, str, fontSize, textColour)
 
-  def fillActive(fillColour: Colour, evObj: AnyRef): GraphicElems = Arr(PolyFill(this, fillColour), PolyActive(this, evObj))
+  def fillActive(fillColour: Colour, evObj: AnyRef): GraphicElemsOld = Arr(PolyFill(this, fillColour), PolyActive(this, evObj))
     
-  def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
+  def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black): GraphicElemsOld =
     Arr(PolyFillDraw(this, fillColour,lineWidth, lineColour), PolyActive(this, evObj))
     
   def fillActiveDrawText(fillColour: Colour, evObj: AnyRef, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
-      zOrder: Int = 0): GraphicElems =
+      zOrder: Int = 0): GraphicElemsOld =
     Arr(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour), PolyActive(this, evObj))
   
   def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolySubj =

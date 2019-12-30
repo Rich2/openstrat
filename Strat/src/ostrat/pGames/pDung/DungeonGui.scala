@@ -11,7 +11,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
   var focus: Vec2 = grid.cen
   override def eTop(): Unit = reTop(guButs :+ status)
    
-  def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => GraphicElems = tog =>
+  def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => GraphicElemsOld = tog =>
   { import tog._
     val colour: Colour = tile.colour
     val tv = vertDispVecs.fillActive(colour, tile)
@@ -25,7 +25,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     tv ++ tText ++ player ++ sides
   }
   
-  def mapObjs: GraphicElems =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)
+  def mapObjs: GraphicElemsOld =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
@@ -48,5 +48,5 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     case _ =>
   }
   eTop()
-  mapPanel.repaint(mapObjs)
+  mapPanel.repaintOld(mapObjs)
 }

@@ -19,7 +19,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   
   def disp() =
   { reTop(Arr(StdButton.turn(state.turnNum + 1), status))
-    mainPanel.repaint(state.fillRect +: cmdDisp)
+    mainPanel.repaintOld(state.fillRect +: cmdDisp)
   }
   
   disp()

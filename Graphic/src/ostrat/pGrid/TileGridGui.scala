@@ -29,7 +29,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   def coodStrDisp(cood: Cood) = TextGraphic(cood.xyStr, 12, coodToDisp(cood))
   def polygonOfTileDisp(tileCood: Cood): Polygon = vertCoodsOfTile(tileCood).pMap(coodToDisp)
   final def sideLinesDispAll: Line2s = grid.sideLinesAll.fTrans(fTrans)
-  final def sidesDrawAll(lineWidth: Double = 2, colour: Colour = Colour.Black): GraphicElems = sideLinesDispAll.mapArrSeq(_.draw(lineWidth, colour))
+  final def sidesDrawAll(lineWidth: Double = 2, colour: Colour = Colour.Black): GraphicElemsOld = sideLinesDispAll.mapArrSeq(_.draw(lineWidth, colour))
   
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)
@@ -66,7 +66,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
        
   canv.onScroll = b => { pScale = ife(b, (pScale * 1.2).min(scaleMax), (pScale / 1.2).max(scaleMin)); updateView() }
   
-  def repaintMap() = { mapPanel.repaint(mapObjs) }  
+  def repaintMap() = { mapPanel.repaintOld(mapObjs) }
   
   def ofTilesFold[OfT <: OfTile[TileT, SideT, GridT], R](f: OfT => R, fSum: (R, R) => R, emptyVal: R)(implicit oftFactory: (TileT, GridT,
       TileGridGui[TileT, SideT, GridT]) => OfT) =
@@ -92,11 +92,11 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
     acc
   }
    
-  def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElems)(implicit oftFactory: (TileT, GridT,
-      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofTilesFold[OfT, GraphicElems](f, _ ++ _, Arr())(oftFactory)
+  def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit oftFactory: (TileT, GridT,
+      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofTilesFold[OfT, GraphicElemsOld](f, _ ++ _, Arr())(oftFactory)
          
-  def ofSidesDisplayFold[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => GraphicElems)(implicit ofsFactory: (SideT, GridT,
-      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofSidesFold[OfT, GraphicElems](f, _ ++ _, Arr())(ofsFactory)
+  def ofSidesDisplayFold[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit ofsFactory: (SideT, GridT,
+      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofSidesFold[OfT, GraphicElemsOld](f, _ ++ _, Arr())(ofsFactory)
  
   @inline def adjTileCoodsOfTile(tileCood: Cood): Coods = grid.adjTileCoodsOfTile(tileCood)
   def vertCoodsOfTile(tileCood: Cood): Coods = grid.vertCoodsOfTile(tileCood)

@@ -9,5 +9,5 @@ abstract class Area1(val symName: String, val cen: LatLong) extends GeographicSy
   def a2Seq: Arr[Area2]
   def fill: Boolean = true
   //def a2r(eg: EarthGui): GraphicElems = a2Seq.mdisplayFold(_.display(eg, fill))
-  def disp2(eg: EarthGui): GraphicElems = a2Seq.flatMap(_.display(eg, fill))
+  def disp2(eg: EarthGui): GraphicElemsOld = a2Seq.flatMap(_.display(eg, fill))
 }

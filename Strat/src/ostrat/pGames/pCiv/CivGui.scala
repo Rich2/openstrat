@@ -12,7 +12,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
   mapPanel.backColour = Colour.Black
-  def  fHex: OfHexReg[CTile, SideBare, CivGrid] => GraphicElems = tog =>
+  def  fHex: OfHexReg[CTile, SideBare, CivGrid] => GraphicElemsOld = tog =>
     {
       import tog._        
       val colour: Colour = tile.colour
@@ -21,7 +21,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
       val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
       val tText = ifScaleCObj(60, TextGraphic(xyStr, 14, cen, colour.contrastBW))
       val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
-      val lunit: GraphicElems = tile.lunits match
+      val lunit: GraphicElemsOld = tile.lunits match
       {
         case RefsHead(head) if tog.tScale > 50 =>
         { val maxOffset = tog.grid.coodToVec2(head.dirn.halfRelCood)
@@ -36,7 +36,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
        }
        tv ++ tText ++ sett ++ lunit ++ sides
      }
-  def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex)// ofHexsDisplayFold(fHex).collapse
+  def mapObjs: GraphicElemsOld = ofHTilesDisplayFold(fHex)// ofHexsDisplayFold(fHex).collapse
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, _) =>
@@ -88,5 +88,5 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs :+ bTurn :+ status)
   eTop()
-  mapPanel.repaint(mapObjs)
+  mapPanel.repaintOld(mapObjs)
 }

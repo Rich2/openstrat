@@ -17,14 +17,14 @@ trait OfGridElem[TileT <: Tile, SideT <: TileSide, GridT <: TileGrid[TileT, Side
   def psc: Double
   /** The number of pixels per tile, centre to centre */
   def tScale: Double = psc * grid.xStep
-  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale) cObjs else Arr()
-  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElems = if (tScale > ifScale) cObj.toArr else Arr()
-  def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale && b) cObjs else Arr()
-  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElems = if (tScale > ifScale && b) cObjs.toArr else Arr()
+  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale) cObjs else Arr()
+  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemsOld = if (tScale > ifScale) cObj.toArr else Arr()
+  def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale && b) cObjs else Arr()
+  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemsOld = if (tScale > ifScale && b) cObjs.toArr else Arr()
   
-  def ifScaleOptObj[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => CanvO): GraphicElems = if (tScale < ifScale) Arr() else optA.fold(Arr(), a => Arr(f(a)))
+  def ifScaleOptObj[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => CanvO): GraphicElemsOld = if (tScale < ifScale) Arr() else optA.fold(Arr(), a => Arr(f(a)))
     
-  def ifScaleOptObjs[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => GraphicElems): GraphicElems =
+  def ifScaleOptObjs[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => GraphicElemsOld): GraphicElemsOld =
     if (tScale < ifScale) Arr() else optA.fold(Arr(), f(_))
 }
 

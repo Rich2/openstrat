@@ -10,13 +10,13 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   focusUp = true
   override def saveNamePrefix = "WW2"
 
-  val fHex: OfETile[W2Tile, W2Side] => GraphicElems = etog =>
+  val fHex: OfETile[W2Tile, W2Side] => GraphicElemsOld = etog =>
     {
       import etog._         
       val colour: Colour = tile.colour
       val poly = etog.vertDispVecs.fillActive(colour, tile)
       //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-      val textOrUnit: GraphicElems = ifScaleCObjs(68, tile.lunits match
+      val textOrUnit: GraphicElemsOld = ifScaleCObjs(68, tile.lunits match
         { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
           { val strs: Arr[String] = Arr(xyStr, cenLL.degStr)
@@ -27,7 +27,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       poly ++ textOrUnit
     }
     
-  def fSide: OfESide[W2Tile, W2Side] => GraphicElems = ofs =>
+  def fSide: OfESide[W2Tile, W2Side] => GraphicElemsOld = ofs =>
     {
       import ofs._
       ifScaleCObjs(60, side.terr match
@@ -39,9 +39,9 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
    
   //def dSides: GraphicElems = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
       
-  def ls: GraphicElems = 
-  { val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this) )
+  def ls: GraphicElemsOld =
+  { val gs: GraphicElemsOld = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+    val as: GraphicElemsOld = scen.tops.flatMap(a => a.disp2(this) )
     as ++ gs
   }   
   
