@@ -31,7 +31,7 @@ abstract class CanvasMulti(title: String) extends CanvasUser(title)
     canv.clip(clipPoly)
     canv.polyFill(clipPoly.fill(panel.backColour))
     val movedObjs: Refs[GraphicElem] = panel.canvObjs.slate(panel.cen)//.sortWith(_.zOrder < _.zOrder)
-    panel.subjs = paintObjs(movedObjs.toArraySeq).toRefs
+    panel.subjs = paintObjs(movedObjs.toArraySeq)
     canv.gcRestore()
   }   
 }
