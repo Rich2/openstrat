@@ -16,10 +16,10 @@ case class LessonD1(canv: CanvasPlatform) extends CanvasSimple("Lesson D1")
   val l1 = Line2(v1, v2)
   val t5 = l1.str//So note how there is a semicolon between the two points but a comma between the x and y values of each point. 
   
-  val topStrs = Arr(t1, t2, t3, t4, t5)
+  val topStrs = Refs(t1, t2, t3, t4, t5)
   val topBlock = MText(200, topStrs)//So note we've created a couple of useful Function objects below for use in this lesson series.  
   
-  repaintOld(topBlock)
+  repaint(topBlock)
 }
 
 object SText
@@ -29,5 +29,5 @@ object SText
 
 object MText
 {
-  def apply(y: Double, strs: Arr[String]): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv y, align = LeftAlign)
+  def apply(y: Double, strs: Refs[String]): Refs[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv y, align = LeftAlign)
 }

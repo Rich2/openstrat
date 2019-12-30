@@ -20,7 +20,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
         { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
           { val strs: Arr[String] = Arr(xyStr, cenLL.degStr)
-            TextGraphic.lines(strs, 10, cen, colour.contrastBW)
+            TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
           }
         }
       )

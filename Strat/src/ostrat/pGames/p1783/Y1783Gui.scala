@@ -20,7 +20,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
         { case RefsHead(head) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
           case _ =>
           { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
-            TextGraphic.lines(strs, 10, cen, colour.contrastBW)
+            TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
           }
         })         
         poly ++ textU
