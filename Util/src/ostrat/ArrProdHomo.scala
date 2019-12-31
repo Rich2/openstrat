@@ -7,7 +7,8 @@ trait ProdHomo extends Any
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
 trait ArrProdHomo[A] extends Any with ArrValues[A]
-{ def typeStr: String
+{ type ThisT <: ArrProdHomo[A]
+  def typeStr: String
   def productSize: Int
   def arrLen: Int
   final def length: Int = arrLen / productSize

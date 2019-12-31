@@ -13,7 +13,7 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def buildThis(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
   def arrLen = array.length
-  //def toArrs: Arr[Arr[Double]]
+
   def foreachArr(f: Arr[Double] => Unit): Unit
 
   override def toString: String =

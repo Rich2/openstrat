@@ -23,14 +23,15 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDbl
 //  }
 }
 
+/** Not sure the purpose of this trait. */
+
 trait ArrProdDbl2FlatBuild[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrFlatBuild[ArrT]
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
 trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
-{
-  type ThisT <: ArrProdDbl2[A]
+{ type ThisT <: ArrProdDbl2[A]
 
-  def productSize: Int = 2
+  override def productSize: Int = 2
   /** Method for creating new elements from 2 Doubles. */
   def elemBuilder(d1: Double, d2: Double): A
   def apply(index: Int): A = elemBuilder(array(2 * index), array(2 * index + 1))
@@ -62,8 +63,7 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
     res
   }
 
-  def toArrs: Arr[Arr[Double]] = mapArrSeq(el => Arr(el._1, el._2))
-  def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
+  override def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
 
 trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsCompanion[T, ST]
