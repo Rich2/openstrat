@@ -18,10 +18,22 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
   override def unsafeSetElem(i: Int, value: Int): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = array.copyToArray(array, offset, copyLength)
 
-  def ++ (op: Ints): Ints =
+  /** Alias for append. Functionally appends the operand Ints. */
+  @inline def ++ (op: Ints): Ints = append(op)
+
+  /** Functionally appends the operand Ints. Aliased by the ++ operator. */
+  def append(op: Ints): Ints =
   { val newArray = new Array[Int](length + op.length)
     array.copyToArray(newArray)
     op.array.copyToArray(newArray, length)
+    new Ints(newArray)
+  }
+
+  /** Functionally appends the operand Ints. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
+  def append(op: Int): Ints =
+  { val newArray = new Array[Int](length + 1)
+    array.copyToArray(newArray)
+    newArray(length) = op
     new Ints(newArray)
   }
 }
