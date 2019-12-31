@@ -11,6 +11,7 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
   def typeStr: String
   def productSize: Int
   def arrLen: Int
+
   final def length: Int = arrLen / productSize
 
   def pMap[B, N <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => N): N =

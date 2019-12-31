@@ -123,9 +123,9 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
   }
 }
 
-class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[Polygon]
+final class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[Polygon]
 { override type ThisT = Polygons
-  def buildThis(length: Int): Polygons = new Polygons(new Array[Array[Double]](length))
+  override def unsafeFromArrayArray(aad: Array[Array[Double]]): Polygons = new Polygons(aad)
   def apply(index: Int): Polygon = new Polygon(array(index))
 }
 

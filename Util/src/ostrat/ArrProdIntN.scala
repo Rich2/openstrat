@@ -7,7 +7,7 @@ trait ArrProdIntN[A] extends Any with ArrProdHomo[A]
 { type ThisT <: ArrProdIntN[A]
   def array: Array[Int]
   def unsafeFromArray(array: Array[Int]): ThisT
-  final override def buildThis(length: Int): ThisT = unsafeFromArray(new Array[Int](length * productSize))
+  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * productSize))
   def arrLen = array.length
   def toArrs: Arr[Arr[Int]]
   def foreachArr(f: Arr[Int] => Unit): Unit

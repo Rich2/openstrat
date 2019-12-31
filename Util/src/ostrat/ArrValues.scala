@@ -14,7 +14,7 @@ trait ArrValues[A] extends Any with ArrImut[A]
 /** Immutable Array based class for Ints. There are no concat methods.*/
 final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 { type ThisT = Ints
-  override def buildThis(length: Int): Ints = new Ints(new Array[Int](length))
+  override def unsafeNew(length: Int): Ints = new Ints(new Array[Int](length))
   override def length: Int = array.length
   override def apply(index: Int): Int = array(index)
   override def unsafeSetElem(i: Int, value: Int): Unit = array(i) = value
@@ -62,7 +62,7 @@ object Ints
 
 class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 { type ThisT = Longs
-  override def buildThis(length: Int): Longs = new Longs(new Array[Long](length))
+  override def unsafeNew(length: Int): Longs = new Longs(new Array[Long](length))
   override def length: Int = array.length
   override def apply(index: Int): Long = array(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = array(i) = value
@@ -89,7 +89,7 @@ object Longs
 
 class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 { type ThisT = Dbls
-  override def buildThis(length: Int): Dbls = new Dbls(new Array[Double](length))
+  override def unsafeNew(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = array(i) = value
@@ -117,7 +117,7 @@ object Dbls
 
 class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
 { type ThisT = Booleans
-  override def buildThis(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+  override def unsafeNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
   override def length: Int = array.length
   override def apply(index: Int): Boolean = array(index)
   override def unsafeSetElem(i: Int, value: Boolean): Unit = array(i) = value
@@ -145,7 +145,7 @@ object Booleans
 
 class Floats(val array: Array[Float]) extends AnyVal with ArrImut[Float]
 { type ThisT = Floats
-  override def buildThis(length: Int): Floats = new Floats(new Array[Float](length))
+  override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
   override def length: Int = array.length
   override def apply(index: Int): Float = array(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = array(i) = value

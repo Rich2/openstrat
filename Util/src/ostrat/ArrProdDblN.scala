@@ -11,7 +11,8 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
 { type ThisT <: ArrProdDblN[A]
 
   def unsafeFromArray(array: Array[Double]): ThisT
-  final override def buildThis(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
+  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
+  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = opArray.copyToArray(array, offset * productSize)
   def arrLen = array.length
 
   def foreachArr(f: Arr[Double] => Unit): Unit

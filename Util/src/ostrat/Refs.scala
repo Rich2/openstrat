@@ -3,7 +3,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, r
 
 final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
 { type ThisT = Refs[A] @uncheckedVariance
-  override def buildThis(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
+  override def unsafeNew(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
   override def length: Int = array.length
   override def apply(index: Int): A = array(index)
   override def toString: String = "Refs" + elemsStr

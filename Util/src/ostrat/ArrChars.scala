@@ -1,9 +1,9 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
+final class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
 { type ThisT = Chars
-  override def buildThis(length: Int): Chars = new Chars(new Array[Char](length))
+  override def unsafeNew(length: Int): Chars = new Chars(new Array[Char](length))
   override def length: Int = array.length
   override def apply(index: Int): Char = array(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = array(i) = value

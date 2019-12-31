@@ -4,6 +4,8 @@ import collection.mutable.ArrayBuffer
 trait ArrArrayDbl[A <: ArrayDblBased] extends Any with ArrImut[A]
 { def array: Array[Array[Double]]
   def length: Int = array.length
+  def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
+  final def unsafeNew(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
   def unsafeSetElem(i: Int, value: A): Unit = array(i) = value.array
 }
 

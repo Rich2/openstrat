@@ -5,7 +5,8 @@ import annotation.unchecked.uncheckedVariance
  * compile time wrapper with no boxing run cost. Name will be shortened to Arr once the laias for ArraySeq has been removed. */
 trait ArrImut[+A] extends Any with ArrayLike[A]
 { type ThisT <: ArrImut[A]
-  def buildThis(length: Int): ThisT
+  //def unsafeNew(length: Int): ThisT
+  def unsafeNew(length: Int): ThisT
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
   def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
   def unsafeSetHead(value: A @uncheckedVariance): Unit = unsafeSetElem(0, value)
@@ -16,7 +17,7 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
     case n =>
-    { val newArr = buildThis(length - 1)
+    { val newArr = unsafeNew(length - 1)
       iUntilForeach(0, n)(i => newArr.unsafeSetElem(i, apply(i)))
       iUntilForeach(n + 1, length)(i => newArr.unsafeSetElem(i - 1, apply(i)))
       newArr
@@ -25,7 +26,7 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
 
   /** Replaces all instances of the old value with the new value. */
   def replace(oldValue: A @uncheckedVariance, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = buildThis(length)
+  { val newArr = unsafeNew(length)
     var count = 0
 
     while (count < length)
@@ -39,7 +40,7 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
   def replaceWhere(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = buildThis(length)
+  { val newArr = unsafeNew(length)
     var count = 0
 
     while (count < length)
@@ -53,7 +54,7 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
   def modifyWhere(pred: A => Boolean, fNewValue: A => A @uncheckedVariance): ThisT =
-  { val newArr = buildThis(length)
+  { val newArr = unsafeNew(length)
     var count = 0
 
     while (count < length)
