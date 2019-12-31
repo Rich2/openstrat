@@ -13,14 +13,7 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDbl
 
   override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
   override def buffAppend(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
-  /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
-//  override def append(op: A): ThisT =
-//  { val newArray = new Array[Double](length + elemSize)
-//    array.copyToArray(newArray)
-//    newArray(length) = op._1
-//    newArray(length + 1 = op._2)
-//    unsafeFromArray(newArray)
-//  }
+
 }
 
 /** Not sure the purpose of this trait. */
@@ -62,6 +55,15 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
     while(count < length){ res(count) = array(count * 2 + 1); count += 1 }
     res
   }
+
+  /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
+   def append(op: A): ThisT =
+    { val newArray = new Array[Double](length + productSize)
+      array.copyToArray(newArray)
+      newArray(length) = op._1
+      newArray(length + 1) = op._2
+      unsafeFromArray(newArray)
+    }
 
   override def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
 }
