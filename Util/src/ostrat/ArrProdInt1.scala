@@ -31,6 +31,14 @@ trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
   }
   def toArrs: Arr[Arr[Int]] = mapArrSeq(el => Arr(el.intValue))
   def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
+
+  /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
+  def append(op: A): ThisT =
+  { val newArray = new Array[Int](length + 1)
+    array.copyToArray(newArray)
+    newArray(length) = op._1
+    unsafeFromArray(newArray)
+  }
 }
 
 trait ProductI1sBuff[A <: ProdInt1] extends Any with BuffProdHomoInts[A]

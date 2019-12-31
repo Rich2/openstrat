@@ -13,9 +13,10 @@ object ArrOtherTest extends TestSuite
     val dbls2 = ints1.map(_ * 1.5)
     val dblList1 = ints1.iterFlatMap{ a => List(a + 0.1, a + 0.2)}
     val longs1 = Longs(2, 4, 6) ++ Longs(8, 9)
+    val pre1 = Ints(2, 3, 4).prepend(1)
 
     'test1 -
-    { ints1(3) ==> 4
+    {ints1(3) ==> 4
       ints3.length ==> 7
       ints3(6) ==> 7
       dbls1(2) ==> 4.5
@@ -24,6 +25,8 @@ object ArrOtherTest extends TestSuite
       dblList1(0) ==> 1.1
       dblList1.length ==> 8
       longs1(4) == 9l
+      pre1(0) ==> 1
+      pre1(3) ==> 4
     }
     val ints4 = ints1.bind(a => Ints(a + 10, a + 20, a + 30))
     val longs2 = ints1.bind(a => Longs(a + 100, a + 200, a + 300))

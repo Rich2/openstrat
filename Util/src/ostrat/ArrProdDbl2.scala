@@ -13,6 +13,14 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDbl
 
   override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
   override def buffAppend(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
+  /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
+//  override def append(op: A): ThisT =
+//  { val newArray = new Array[Double](length + elemSize)
+//    array.copyToArray(newArray)
+//    newArray(length) = op._1
+//    newArray(length + 1 = op._2)
+//    unsafeFromArray(newArray)
+//  }
 }
 
 trait ArrProdDbl2FlatBuild[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrFlatBuild[ArrT]

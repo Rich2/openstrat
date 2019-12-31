@@ -3,13 +3,15 @@ import scala.collection.mutable.ArrayBuffer
 
 trait ArrValues[A] extends Any with ArrImut[A]
 { type ThisT <: ArrValues[A]
-  def :+ (op: A): ThisT =
-  { val newArr = buildThis(length + 1)
+  //def append(op: A): ThisT
+ // { val newArr = buildThis(length + 1)
     //array.copyToArray(newArr.arr)
     // newArray(length) = op
-    ??? //new Refs(newArray)
-  }
+ //   ??? //new Refs(newArray)
+ // }
 }
+
+/** Immutable Array based class for Ints. There are no concat methods.*/
 final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 { type ThisT = Ints
   override def buildThis(length: Int): Ints = new Ints(new Array[Int](length))
@@ -29,11 +31,19 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
     new Ints(newArray)
   }
 
-  /** Functionally appends the operand Ints. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
+  /** Functionally appends the operand Int. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: Int): Ints =
   { val newArray = new Array[Int](length + 1)
     array.copyToArray(newArray)
     newArray(length) = op
+    new Ints(newArray)
+  }
+
+  /** Functionally prepends the operand Int. This alphanumeric method is not aliased, to avoid confusion with numeric operators. */
+  def prepend(op: Int): Ints =
+  { val newArray = new Array[Int](length + 1)
+    newArray(0) = op
+    array.copyToArray(newArray, 1)
     new Ints(newArray)
   }
 }
