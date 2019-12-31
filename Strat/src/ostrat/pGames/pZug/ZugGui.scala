@@ -85,7 +85,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   }   
   def turnCmd: MB0 = mb => {}
   val bTurn = clickButton("T", turnCmd)   
-  override def eTop(): Unit = reTop(guButs :+ bTurn :+ status) 
+  override def eTop(): Unit = reTop(guButs ++ bTurn -+ status)
   eTop()
   mapPanel.repaintOld(mapObjs)
 }

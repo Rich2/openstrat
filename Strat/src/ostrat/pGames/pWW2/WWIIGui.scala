@@ -57,7 +57,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       { case (Refs1(army: Army), Refs1(newTile: W2Tile)) =>
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
-          newTile.lunits :+= newArmy
+          newTile.lunits ++= newArmy
           selected = Refs(newArmy)
           repaintMap
         }

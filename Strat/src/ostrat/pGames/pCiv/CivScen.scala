@@ -19,6 +19,6 @@ object Civ1 extends CivGrid(4, 40, 4, 16, 0)
  
   gs(yRow = 12, xStart = 20, hills, mtain * 2)
   modTilesAll(_.settlement = true, (24, 8), (34, 6))
-  getTile(18, 10).lunits :+= Warrior(Uruk, 18, 10)
-  getTile(10, 6).lunits :+= Warrior(Eridu, 10, 6)
+  getTile(18, 10).lunits ++= Warrior(Uruk, 18, 10)
+  getTile(10, 6).lunits ++= Warrior(Eridu, 10, 6)
 }

@@ -28,8 +28,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
         val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour))
         ol.toArr ++ rect
       }
-      val a1 = Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
-      a1.optionConcat(op)
+      val a1: Arr[GraphicElem] = Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
+      a1.appendsOption(op)
     }
     tiles ++ sidesDrawAll()
   }
@@ -61,7 +61,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
   def saveCmd: MB0 = mb => setStatus("Save not implemented yet.")
   val bTurn = clickButton("T" -- grid.turnNum.str, turnCmd)
   val bSave = clickButton("S", saveCmd)
-  override def eTop(): Unit = reTop(guButs :+ bTurn :+ bSave :+ status)
+  override def eTop(): Unit = reTop(guButs ++ bTurn ++ bSave -+ status)
   mapPanel.backColour = Colour.Wheat
   rePanels
 }
