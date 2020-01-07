@@ -6,7 +6,7 @@ import pGrid._
 class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
-  def getMoves: Arr[Move] = tilesMapOptionAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
+  def getMoves: ArrOld[Move] = tilesMapOptionAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
   def baseCopy: SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
   
   def copy: SimpGrid =
@@ -16,7 +16,7 @@ class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnN
     ng
   }
   
-  def resolveTurn(moves: Arr[Move]): SimpGrid =
+  def resolveTurn(moves: ArrOld[Move]): SimpGrid =
   {    
     val medGrid = new Array[UTileInter](arrLen)
     foreachTilesXYAll{(x, y) =>
@@ -48,7 +48,7 @@ object SimpGrid {
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
 
   implicit val showUnusGrid: Show[SimpGrid] =
-    Show5[Int, Int, Int, Int, Arr[TileRow[UTile#FromT]], SimpGrid]("SimpGrid", "xTilemin", _.xTileMin, "xTilemax", _.xTileMax, "yTileMin", _.yTileMin,
+    Show5[Int, Int, Int, Int, ArrOld[TileRow[UTile#FromT]], SimpGrid]("SimpGrid", "xTilemin", _.xTileMin, "xTilemax", _.xTileMax, "yTileMin", _.yTileMin,
     "yTileMax", _.yTileMax, "tilesToMultiAll", _.tilesToMultiAll)
 }
 

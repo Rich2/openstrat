@@ -12,8 +12,8 @@ trait ArrProdDbl3[A <: ProdDbl3] extends Any with ArrProdDblN[A]
   override def unsafeSetElem(index: Int, elem: A): Unit = { array(3 * index) = elem._1; array(3 * index + 1) = elem._2; array(3 * index + 2) = elem._3 }
   def head1: Double = array(0); def head2: Double = array(1); def head3: Double = array(2)
 
-  def toArrs: Arr[Arr[Double]] = mapArrSeq(el => Arr(el._1, el._2, el._3))
-  def foreachArr(f: Arr[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3)))
+  def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => Arr(el._1, el._2, el._3))
+  def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3)))
 }
 
 abstract class ProdDbl3sCompanion[A <: ProdDbl3, M <: ArrProdDbl3[A]]

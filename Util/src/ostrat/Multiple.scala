@@ -21,7 +21,7 @@ case class Multiple[+A](value: A, num: Int)
   }
   def map[B](f: A => B): Multiple[B] = Multiple[B](f(value), num)
 
-  def toArr[B >: A](implicit ct: ClassTag[B]): Arr[B] =
+  def toArr[B >: A](implicit ct: ClassTag[B]): ArrOld[B] =
   { val array: Array[B] = new Array(num)
     array.toArr
   }
@@ -42,7 +42,7 @@ object Multiple
   implicit class RefsImplicit[A](thisRefs: Refs[Multiple[A]])
   {
     def singlesLen: Int = thisRefs.sumBy(_.num)
-    def flatSingles(implicit ct: ClassTag[A]): Arr[A] =
+    def flatSingles(implicit ct: ClassTag[A]): ArrOld[A] =
     {
       val len = thisRefs.foldLeft(0)(_ + _.num)
       val res = new Array[A](len)

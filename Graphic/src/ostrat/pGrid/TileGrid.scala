@@ -54,7 +54,7 @@ trait TGrid[TileT]
   def tileFill(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): PolyFill =
     tileDisplayPolygon(x, y, scale, mapOffset, displayOffset).fill(f(getTile(x, y)))
 
-  def tilesFillAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): Arr[PolyFill] =
+  def tilesFillAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): ArrOld[PolyFill] =
     xyTilesMapAll((x, y, tile) => tileFill(x, y, scale, mapOffset, displayOffset)(f))
 
   /** Throws exception if Cood is not a valid Tile coordinate */
@@ -70,27 +70,27 @@ trait TGrid[TileT]
 
   def xyTilesForAll(f: (Int, Int, TileT) => Unit): Unit = rowsForAll(y => rowXYTilesForAll(y)(f))
 
-  def xyTilesMapAll[B](f: (Int, Int, TileT) => B)(implicit ct: ClassTag[B]): Arr[B] =
+  def xyTilesMapAll[B](f: (Int, Int, TileT) => B)(implicit ct: ClassTag[B]): ArrOld[B] =
   { val array: Array[B] = new Array(numTile)
     var count: Int = 0
     tilesXYForAll{(x, y) => array(count) = f(x, y, getTile(x, y)); count += 1}
     array.toArr
   }
 
-  def xyTilesAccAll[B](f: (Int, Int, TileT, Buff[B]) => Unit)(implicit ct: ClassTag[B]): Arr[B] =
+  def xyTilesAccAll[B](f: (Int, Int, TileT, Buff[B]) => Unit)(implicit ct: ClassTag[B]): ArrOld[B] =
   { val buff: Buff[B] = Buff(numTile)
     tilesXYForAll((x, y) => f(x, y, getTile(x, y), buff))
     buff.toArr
   }
 
-  def xyTilesDispAll(f: (Int, Int, TileT, Buff[PaintElem]) => Unit): Arr[PaintElem] = xyTilesAccAll(f)
+  def xyTilesDispAll(f: (Int, Int, TileT, Buff[PaintElem]) => Unit): ArrOld[PaintElem] = xyTilesAccAll(f)
   def rowsForAll(f: Int => Unit): Unit = iToForeach(yMin, yMax, yStep)(f)
   def tilesXYForAll(f: (Int, Int) => Unit): Unit = rowsForAll(y => rowTilesXYForAll(y)(f))
   def tilesCoodForAll(f: Cood => Unit): Unit = rowsForAll(y => rowTilesCoodForAll(y)(f))
 
   def yToRowI(y: Int): Int = (y - yMin) / 2
 
-  def rowsMapAll[B](f: Int => B)(implicit ct: ClassTag[B]): Arr[B] =
+  def rowsMapAll[B](f: Int => B)(implicit ct: ClassTag[B]): ArrOld[B] =
   { val array: Array[B] = new Array(numRows)
     rowsForAll(y => array(yToRowI(y)) = f(y))
     array.toArr
@@ -112,18 +112,18 @@ trait TGrid[TileT]
     }
   }
 
-  def rowTileArr(y: Int)(implicit ct: ClassTag[TileT]): Arr[TileT] =
+  def rowTileArr(y: Int)(implicit ct: ClassTag[TileT]): ArrOld[TileT] =
   { val array: Array[TileT] = new Array(rowTileNum(y))
     rowTilesIForAll(y)((t, i) => array(i) = t)
     array.toArr
   }
 
-  def fRow[B](y: Int, f: (Int, Int, Arr[TileT]) => B): B = f(y, xRowStart(y), ???)
+  def fRow[B](y: Int, f: (Int, Int, ArrOld[TileT]) => B): B = f(y, xRowStart(y), ???)
 
   def rowsStr(len: Int = 3)(implicit ct: ClassTag[TileT]): String =
   {
     val xm = xMin
-    val strs: Arr[String] = rowsMapAll{y =>
+    val strs: ArrOld[String] = rowsMapAll{ y =>
       xRowStart(y).toString + ((xRowStart(y) - xm) * 2).spaces + rowTileArr(y).toStrsFold((len - 3).min(0).spaces, _.toString.lengthFix(len))
     }
     "TGrid\n" + strs.encurly
@@ -140,7 +140,7 @@ trait TGrid[TileT]
   def sideLinesAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z): Line2s =
      sideCoodLinesAll.toLine2s(cood => (coodToVec2(cood) - mapOffset) * scale - displayOffset)
 
-  def sideDrawsAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(lineWidth: Double, colour: Colour = Black): Arr[LineDraw] = {
+  def sideDrawsAll(scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(lineWidth: Double, colour: Colour = Black): ArrOld[LineDraw] = {
     val res1 = sideLinesAll(scale, mapOffset, displayOffset)
     res1.mapArrSeq(_.draw(lineWidth, colour))
   }
@@ -225,11 +225,11 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
   final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)((x, y) => f(getTile(x, y)))
 
-  def tilesToMultiAll: Arr[TileRow[TileT#FromT]] = tileRowMapAll(tileRowClass)
+  def tilesToMultiAll: ArrOld[TileRow[TileT#FromT]] = tileRowMapAll(tileRowClass)
 
   def tileRowClass(y: Int): TileRow[TileT#FromT] = TileRow(y, rowTileXStart(y), rowTileXEnd(y), tileRowToMulti(y))
 
-  def tileRowToMulti(y: Int): Arr[Multiple[TileT#FromT]] =
+  def tileRowToMulti(y: Int): ArrOld[Multiple[TileT#FromT]] =
    {
      val acc: Buff[Multiple[TileT#FromT]] = Buff()
      var subAcc: Int = 0
@@ -296,7 +296,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   }
 
   /** Maps each tile row to an Arr[A] */
-  def tileRowMapAll[A](f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
+  def tileRowMapAll[A](f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
   { val array: Array[A] = new Array(arrLen)
     var count = 0
     foreachTileRowAll{y => array(count) = f(y); count += 1 }
@@ -304,7 +304,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   }
   
   /** Map all Tiles to Array[B] with function. */
-  final def tilesMapAll[B: ClassTag](f: TileT => B): Arr[B] =
+  final def tilesMapAll[B: ClassTag](f: TileT => B): ArrOld[B] =
   {
     val acc: ArrayBuffer[B] = new ArrayBuffer(0)
     foreachTilesCoodAll{ tileCood =>
@@ -316,12 +316,12 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   }
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMapAll[R: ClassTag](f: TileT => Arr[R]): Arr[R] =
+  def tilesFlatMapAll[R: ClassTag](f: TileT => ArrOld[R]): ArrOld[R] =
   {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
-      val newRes: Arr[R] = f(tile)
+      val newRes: ArrOld[R] = f(tile)
       acc ++= newRes
     }
     acc.toArr
@@ -368,7 +368,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     acc.reverse
   }
 
-  final def tilesMapOptionAll[A: ClassTag](f: TileT => Option[A]): Arr[A] =
+  final def tilesMapOptionAll[A: ClassTag](f: TileT => Option[A]): ArrOld[A] =
   { var acc: Buff[A] = Buff()
     foreachTileAll(t => acc = f(t).fold(acc)(acc.+= _))
     acc.toArr

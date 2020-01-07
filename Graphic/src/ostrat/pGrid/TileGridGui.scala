@@ -44,10 +44,10 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   def foreachTileAll(f: TileT => Unit): Unit = grid.foreachTileAll(f)
   
   /** Map all Tiles to Array with function. */
-  def tilesMapAll[B: ClassTag](f: TileT => B): Arr[B] = grid.tilesMapAll[B](f)
+  def tilesMapAll[B: ClassTag](f: TileT => B): ArrOld[B] = grid.tilesMapAll[B](f)
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMapAll[R: ClassTag](f: TileT => Arr[R]): Arr[R] = grid.tilesFlatMapAll(f)
+  def tilesFlatMapAll[R: ClassTag](f: TileT => ArrOld[R]): ArrOld[R] = grid.tilesFlatMapAll(f)
   
   /** Map all Tiles to a List with function and flatten into Single List. */
   def tilesFlatMapListAll[R: ClassTag](f: TileT => List[R]): List[R] = grid.tilesFlatMapListAll(f)

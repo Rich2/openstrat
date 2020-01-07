@@ -6,8 +6,8 @@ import collection.mutable.ArrayBuffer
 trait ArrProdLongN[A] extends Any with ArrProdHomo[A]
 { def array: Array[Long]
   def arrLen = array.length
-  def toArrs: Arr[Arr[Long]]
-  def foreachArr(f: Arr[Long] => Unit): Unit
+  def toArrs: ArrOld[ArrOld[Long]]
+  def foreachArr(f: ArrOld[Long] => Unit): Unit
 
   override def toString: String =
   { var body = ""

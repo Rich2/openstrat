@@ -11,7 +11,7 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transer
                textAlign: TextAlign = CenAlign): ShapeSubj =
      ShapeSubj(cen, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
             
-   def fixed(evObj: AnyRef, elems: Arr[PaintElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
+   def fixed(evObj: AnyRef, elems: ArrOld[PaintElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): UnScaledShape =
       UnScaledShape(cen, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,

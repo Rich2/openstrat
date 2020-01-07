@@ -21,7 +21,7 @@ package object geom
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type SSet[A] = scala.collection.SortedSet[A]
-  type GraphicElemsOld = Arr[GraphicElem]
+  type GraphicElemsOld = ArrOld[GraphicElem]
   type GraphicElems = Refs[GraphicElem]
   /** Hopefully this existential syntax baggage will be gone in dotty */
   type CanvO = GraphicElem

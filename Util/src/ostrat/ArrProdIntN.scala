@@ -9,8 +9,8 @@ trait ArrProdIntN[A] extends Any with ArrProdHomo[A]
   def unsafeFromArray(array: Array[Int]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * productSize))
   def arrLen = array.length
-  def toArrs: Arr[Arr[Int]]
-  def foreachArr(f: Arr[Int] => Unit): Unit
+  def toArrs: ArrOld[ArrOld[Int]]
+  def foreachArr(f: ArrOld[Int] => Unit): Unit
 
   override def toString: String =
   { var body = ""

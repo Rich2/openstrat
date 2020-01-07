@@ -116,7 +116,7 @@ object Vec2
   def circlePt(angle: Double): Vec2 = Vec2(cos(angle), sin(angle))
   def circlePtClockwise(angle: Double): Vec2 = Vec2(cos(angle), - sin(angle))
    
-  implicit class Vec2ArrExtension(thisArr: Arr[Vec2])
+  implicit class Vec2ArrExtension(thisArr: ArrOld[Vec2])
   { def toPolygon: Polygon = thisArr.toPValues
   }
 

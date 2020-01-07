@@ -16,7 +16,7 @@ class DGrid extends SquareGrid[DTile, SideBare](1, 8, 1, 8, 0)// extends AnyVal
 //    while( count < 64){ newArr(count) = arr(count); count += 1 }
 //    new DGrid(newArr)
 //  }
-  def squares(tileWidth: Double): Arr[PolyFill] =
+  def squares(tileWidth: Double): ArrOld[PolyFill] =
   iiToMap(1, 8){ (x, y) => Square.fillXY(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth) }
 
   def rowSize = 8

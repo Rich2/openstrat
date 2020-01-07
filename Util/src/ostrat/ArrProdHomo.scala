@@ -26,7 +26,7 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
   }
 
   /** Maps to ArrSeq of type B. */
-  def mapArrSeq[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): Arr[B] =
+  def mapArrSeq[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): ArrOld[B] =
   { val res = new Array[B](length)
     iForeach((a, i) => res(i) = f(a))
     res.toArr

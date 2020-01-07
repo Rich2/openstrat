@@ -164,15 +164,15 @@ object Persist
   }
 
   /** Implicit method for creating Arr[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrRefImplicit[A <: AnyRef](implicit ev: Persist[A]): Persist[Arr[A]] = new ArrRefPersist[A](ev)
-  class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Arr[A]](ev)
+  implicit def arrRefImplicit[A <: AnyRef](implicit ev: Persist[A]): Persist[ArrOld[A]] = new ArrRefPersist[A](ev)
+  class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArrOld[A]](ev)
   {
-    override def showSemi(thisArr: Arr[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: Arr[A]): String = thisArr.map(ev.show(_)).commaFold
-    override def fromParameterStatements(sts: Refs[Statement]): EMon[Arr[A]] = ???
-    override def fromClauses(clauses: Refs[Clause]): EMon[Arr[A]] = ???
+    override def showSemi(thisArr: ArrOld[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    override def showComma(thisArr: ArrOld[A]): String = thisArr.map(ev.show(_)).commaFold
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[ArrOld[A]] = ???
+    override def fromClauses(clauses: Refs[Clause]): EMon[ArrOld[A]] = ???
 
-    override def fromExpr(expr: ParseExpr): EMon[Arr[A]] =  expr match
+    override def fromExpr(expr: ParseExpr): EMon[ArrOld[A]] =  expr match
     {
       case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)

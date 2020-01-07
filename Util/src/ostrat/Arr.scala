@@ -3,7 +3,7 @@ package ostrat
 import scala.collection.immutable.ArraySeq, reflect.ClassTag, collection.SeqFactory.UnapplySeqWrapper
 
 object Arr
-{ @inline def apply[A](inp: A *)(implicit ct: ClassTag[A]): Arr[A] = ArraySeq.apply(inp: _*)
+{ @inline def apply[A](inp: A *)(implicit ct: ClassTag[A]): ArrOld[A] = ArraySeq.apply(inp: _*)
   @inline def unapplySeq[A](arr: ArraySeq[A]): UnapplySeqWrapper[A] = ArraySeq.unapplySeq(arr)
 }
 

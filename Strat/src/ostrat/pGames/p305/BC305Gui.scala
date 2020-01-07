@@ -34,7 +34,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
       val poly = vertDispVecs.fillActive(colour, tile)
       
       val tileText: GraphicElemsOld = ifScaleCObjs(68,
-          { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
+          { val strs: ArrOld[String] = Arr(yxStr, cenLL.degStr)
             TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
           })         
           poly ++ tileText

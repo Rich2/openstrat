@@ -47,7 +47,7 @@ object Rectangle
  
   val goldenRatio: Double = 1.6180339887498948482
   def gRatio(height: Double): Polygon = apply(goldenRatio * height, height)
-  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
+  def cross(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
   
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): Shape =
   { val w = width / 2

@@ -17,7 +17,7 @@ object ZugTerr
   //implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply(_, _, _, Nil)
 }
 
-case class ZugTile(x: Int, y: Int, terr: ZugTerr, lunits: Arr[Squad] = Arr()) extends ColouredTile
+case class ZugTile(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[Squad] = Arr()) extends ColouredTile
 {
   type FromT = ZugTerr
   def fromT = terr

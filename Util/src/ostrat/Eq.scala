@@ -50,7 +50,7 @@ object Eq
       acc
     }
 
-  implicit def arrImplicit[A](implicit ev: Eq[A]): Eq[Arr[A]] = (a1, a2) =>
+  implicit def arrImplicit[A](implicit ev: Eq[A]): Eq[ArrOld[A]] = (a1, a2) =>
     if(a1.length != a2.length) false
     else
     { var count = 0

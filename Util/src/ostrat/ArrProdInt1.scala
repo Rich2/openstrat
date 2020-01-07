@@ -29,8 +29,8 @@ trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
     }
     acc
   }
-  def toArrs: Arr[Arr[Int]] = mapArrSeq(el => Arr(el.intValue))
-  def foreachArr(f: Arr[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
+  def toArrs: ArrOld[ArrOld[Int]] = mapArrSeq(el => Arr(el.intValue))
+  def foreachArr(f: ArrOld[Int] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =

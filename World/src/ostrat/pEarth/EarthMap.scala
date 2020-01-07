@@ -10,8 +10,8 @@ import reflect.ClassTag
 class EarthAllMap[TileT <: Tile, SideT <: TileSide](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
       implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 {
-  override val tops: Arr[Area1] = EarthAreas.allTops
-  def topsMap[A](f :Area1 => A): Arr[A] = tops.map(f)
+  override val tops: ArrOld[Area1] = EarthAreas.allTops
+  def topsMap[A](f :Area1 => A): ArrOld[A] = tops.map(f)
 }
 
 class OldWorldMap[TileT <: Tile, SideT <: TileSide](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
@@ -27,23 +27,23 @@ class OldWorldMap[TileT <: Tile, SideT <: TileSide](val fTile: (Int, Int, WTile)
     val newTile = f(oldTile, Cood(tr._1, tr._2), tr._3)
     setTile(tr._1, tr._2, newTile)
   }
-  val tops: Arr[Area1] = EarthAreas.oldWorld
-  val grids: Arr[EGrid[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
+  val tops: ArrOld[Area1] = EarthAreas.oldWorld
+  val grids: ArrOld[EGrid[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
   grids(0).rightGrid = Some(grids(1))
   //val euWest: AreaT = a1Fac(EuropeWest)
 }
 
 trait EarthAreas[TileT <: ETile, SideT <: TileSide]
 {   
-  def tops: Arr[Area1]
+  def tops: ArrOld[Area1]
 }
 
 object EarthAreas
 {
   import pPts._, pEurope._
-  val oldWorld: Arr[Area1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
-  val newWorld: Arr[Area1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
-  val grids: Arr[EGridMaker] = Arr(EuropeNWGrid, EuropeEastGrid)
+  val oldWorld: ArrOld[Area1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
+  val newWorld: ArrOld[Area1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
+  val grids: ArrOld[EGridMaker] = Arr(EuropeNWGrid, EuropeEastGrid)
   //val otherTops = oldWorld ::: newWorld
   def allTops =  oldWorld ++ newWorld// otherTops
 }

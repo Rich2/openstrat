@@ -31,7 +31,7 @@ class OptionExtensions[A](thisOption: Option[A])
   { case None => noneValue
     case Some(a) => fSome(a)
   }
-  def toArr(implicit ct: ClassTag[A]): Arr[A] = thisOption.fold(Arr())(Arr[A](_))
+  def toArr(implicit ct: ClassTag[A]): ArrOld[A] = thisOption.fold(Arr())(Arr[A](_))
 
   def map2[B, C](ob: Option[B], f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
 

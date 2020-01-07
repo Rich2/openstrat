@@ -30,7 +30,7 @@ case class British(var posn: Vec2) extends Company
 
 trait BScen
 {
-   val lunits: Arr[Company]
+   val lunits: ArrOld[Company]
 }
 
 object Nap1 extends BScen

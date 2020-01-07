@@ -62,10 +62,10 @@ object Show
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrImplicit[A](implicit ev: Show[A]): Show[Arr[A]] = new ShowSeqLike[A, Arr[A]]
+  implicit def arrImplicit[A](implicit ev: Show[A]): Show[ArrOld[A]] = new ShowSeqLike[A, ArrOld[A]]
   { override def evA: Show[A] = ev
-    override def showSemi(thisArr: Arr[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: Arr[A]): String = thisArr.map(ev.show(_)).commaFold
+    override def showSemi(thisArr: ArrOld[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    override def showComma(thisArr: ArrOld[A]): String = thisArr.map(ev.show(_)).commaFold
   }
 
   implicit def someImplicit[A](implicit ev: Show[A]): Show[Some[A]] = new Show[Some[A]]

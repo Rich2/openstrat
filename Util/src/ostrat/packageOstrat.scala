@@ -5,7 +5,7 @@
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
 { import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
-  type Arr[A] = ArraySeq[A]
+  type ArrOld[A] = ArraySeq[A]
   type Buff[A] = ArrayBuffer[A]
   type ERefs[A <: AnyRef] = EMon[Refs[A]]
   type RefsMulti[A <: AnyRef] = Refs[Multiple[A]]
@@ -109,9 +109,9 @@ package object ostrat
     acc.reverse
   }
 
-  def iUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] = iToMap[A](iFrom, iUntil - 1, iStep)(f)
+  def iUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] = iToMap[A](iFrom, iUntil - 1, iStep)(f)
 
-  def iToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): Arr[A] =
+  def iToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
     val array: Array[A] = new Array[A](iLen)
     var count = 0
@@ -142,9 +142,9 @@ package object ostrat
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
 
   def ijUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]):
-    Arr[A] = ijToMap[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
+    ArrOld[A] = ijToMap[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
-  def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
+  def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
   { val iLen = (iTo - iFrom + 1).max(0) / iStep
     val jLen = (jTo - jFrom + 1).max(0) / jStep
     val arrLen = iLen * jLen
@@ -162,16 +162,16 @@ package object ostrat
     array.toArr
   }
 
-  def iiToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): Arr[A] =
+  def iiToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
     ijToMap[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
 
   implicit class ArrayExtension[A](thisMutableArray: Array[A])
-  { def toArr: Arr[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
+  { def toArr: ArrOld[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
   }
 
   implicit class ArrayBufferExtensions[A](thisBuff: Buff[A])(implicit ct: ClassTag[A])
-  { @inline def toArr: Arr[A] = ArrWrapBuff[A](thisBuff)
-    @inline def arrAppends(operands: A*): Arr[A] = ArrWrapBuff[A]((thisBuff ++= operands))
+  { @inline def toArr: ArrOld[A] = ArrWrapBuff[A](thisBuff)
+    @inline def arrAppends(operands: A*): ArrOld[A] = ArrWrapBuff[A]((thisBuff ++= operands))
    // @inline def arrAppend(operand: A): ArrImut[A] = ArrWrapBuff[A]((thisBuff += operand))
     def pAdd (operand: ArrProdHomo[A]): Buff[A] = { operand.foreach(thisBuff.addOne(_)); thisBuff }
   }
@@ -179,11 +179,11 @@ package object ostrat
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
   }
-   
+
   implicit class FunitRichImp(fu: () => Unit)
   { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()}
-  }   
-   
+  }
+
   implicit class Tuple2Implicit[A1, A2](thisTuple: Tuple2[A1, A2])
   {
     def bimap[B1, B2](f1: A1 => B1, f2: A2 => B2): Tuple2[B1, B2] = (f1(thisTuple._1), f2(thisTuple._2))
@@ -224,7 +224,7 @@ package object ostrat
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new pExt.ArrayExtensions[A](arr)
-  implicit def arrToArrExtensions[A](thisArr: Arr[A]): ArrExtensions[A] = new ArrExtensions[A](thisArr)
+  implicit def arrToArrExtensions[A](thisArr: ArrOld[A]): ArrExtensions[A] = new ArrExtensions[A](thisArr)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
