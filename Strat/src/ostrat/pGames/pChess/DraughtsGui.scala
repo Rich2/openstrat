@@ -25,7 +25,7 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasSimple("Draughts")
   val s1 = "Drafts".graphic(36, colour = Black)
   val stuff = grid.squares(tileWidth)// ::: grid.
 
-  repaintOld(stuff)
+  repaint(stuff)
   
   mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
   {

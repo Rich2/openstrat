@@ -182,10 +182,7 @@ package object ostrat
     res
   }
 
-  def iiToMapOld[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
-    ijToMapOld[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
-
-  def iiToMap[A, AA <: ArrImut[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuild[A, AA]):  AA =
+  def iiToMap[A, AA <: ArrImut[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuild[A, AA]): AA =
     ijToMap[A, AA](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
