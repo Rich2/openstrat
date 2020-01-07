@@ -37,8 +37,8 @@ object FlagsZ
   { val poly = Rectangle(5 / 3.0, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)         
-    val cross = Arr(bar, arm).anti45.flatMap(_.rCross)//  flatRCross
-    val s1: ArrOld[PaintElem] = Arr(
+    val cross = ArrOld(bar, arm).anti45.flatMap(_.rCross)//  flatRCross
+    val s1: ArrOld[PaintElem] = ArrOld(
         poly.fill(Red),
         Circle.segs(6.0 /8).fill(White)) ++ cross      
         poly.subjSeq("Swastika", s1)
@@ -50,7 +50,7 @@ object FlagsZ
   
   val japan =
   { val poly = Rectangle(1.5, 1)
-    val s1 = Arr(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0 ,45)))
+    val s1 = ArrOld(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0 ,45)))
     poly.subjSeq("Japan Flag", s1)         
   }   
   
@@ -87,12 +87,12 @@ object FlagsZ
         1 vv 0.5,
         xDiag vv ywc)
       
-    val reds1 = Arr(r1, r2).map(_.fill(englishRed))
-    val reds = reds1.flatMap(e => Arr(e, e.fTrans(- _)))//.flatWithNegate
+    val reds1 = ArrOld(r1, r2).map(_.fill(englishRed))
+    val reds = reds1.flatMap(e => ArrOld(e, e.fTrans(- _)))//.flatWithNegate
       
     val blues =
-    { val l1 = Arr(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
-      l1.flatMap(b => Arr(b, b.negX, b.negY, b.negXY))
+    { val l1 = ArrOld(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
+      l1.flatMap(b => ArrOld(b, b.negX, b.negY, b.negXY))
     }
     england.addElems(blues ++ reds).mutObj("United Kingdom flag")
   }

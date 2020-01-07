@@ -29,8 +29,8 @@ trait ArrProdLong1[A <: ProdLong1] extends Any with ArrProdLongN[A]
     }
     acc
   }
-  def toArrs: ArrOld[ArrOld[Long]] = mapArrSeq(el => Arr(el.intValue))
-  def foreachArr(f: ArrOld[Long] => Unit): Unit = foreach(el => f(Arr(el.intValue)))
+  def toArrs: ArrOld[ArrOld[Long]] = mapArrSeq(el => ArrOld(el.intValue))
+  def foreachArr(f: ArrOld[Long] => Unit): Unit = foreach(el => f(ArrOld(el.intValue)))
 }
 
 trait ProductL1sBuff[A <: ProdLong1, M <: ArrProdLong1[A]] extends Any with ProductLongsBuff[A]

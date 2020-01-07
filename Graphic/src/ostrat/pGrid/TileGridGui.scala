@@ -93,10 +93,10 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
   }
    
   def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit oftFactory: (TileT, GridT,
-      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofTilesFold[OfT, GraphicElemsOld](f, _ ++ _, Arr())(oftFactory)
+      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofTilesFold[OfT, GraphicElemsOld](f, _ ++ _, ArrOld())(oftFactory)
          
   def ofSidesDisplayFold[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit ofsFactory: (SideT, GridT,
-      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofSidesFold[OfT, GraphicElemsOld](f, _ ++ _, Arr())(ofsFactory)
+      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofSidesFold[OfT, GraphicElemsOld](f, _ ++ _, ArrOld())(ofsFactory)
  
   @inline def adjTileCoodsOfTile(tileCood: Cood): Coods = grid.adjTileCoodsOfTile(tileCood)
   def vertCoodsOfTile(tileCood: Cood): Coods = grid.vertCoodsOfTile(tileCood)

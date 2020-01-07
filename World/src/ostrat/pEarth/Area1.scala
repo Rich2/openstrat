@@ -5,7 +5,7 @@ import geom._
 
 abstract class Area1(val symName: String, val cen: LatLong) extends GeographicSymbolKey
 {   
-  def neighbs: ArrOld[Area1] = Arr()
+  def neighbs: ArrOld[Area1] = ArrOld()
   def a2Seq: ArrOld[Area2]
   def fill: Boolean = true
   //def a2r(eg: EarthGui): GraphicElems = a2Seq.mdisplayFold(_.display(eg, fill))

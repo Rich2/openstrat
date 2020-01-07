@@ -23,8 +23,8 @@ trait ArrProdDbl7[A <: ProdDbl7] extends Any with ArrProdDblN[A]
   def head1: Double = array(0); def head2: Double = array(1); def head3: Double = array(2); def head4: Double = array(3); def head5: Double = array(4)
   def head6: Double = array(5); def head7: Double = array(6)
 
-  def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => Arr(el._1, el._2, el._3, el._4, el._5, el._6, el._7))
-  def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4, el._5, el._6, el._7)))
+  def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3, el._4, el._5, el._6, el._7))
+  def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(ArrOld(el._1, el._2, el._3, el._4, el._5, el._6, el._7)))
 }
 
 abstract class ProdDbl7sCompanion[A <: ProdDbl7, M <: ArrProdDbl7[A]]

@@ -13,7 +13,7 @@ trait ShowCase[R] extends ShowCompound[R]
 abstract class Show1[A1, R](val typeStr: String, name1: String, fArg1: R => A1, val opt1: Option[A1] = None)(implicit ev1: Show[A1], eq1: Eq[A1])
   extends EqCase1[A1, R](fArg1) with ShowCase[R]
 {
-  final override def showMems: ArrOld[Show[_]] = Arr(ev1)
+  final override def showMems: ArrOld[Show[_]] = ArrOld(ev1)
   def showSemi(obj: R): String = ev1.showComma(fArg1(obj))
   def showComma(obj: R): String = ev1.show(fArg1(obj))
   override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj))
@@ -25,7 +25,7 @@ class Show2[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name2
   implicit ev1: Show[A1], ev2: Show[A2], eq1: Eq[A1], eq2: Eq[A2]) extends EqCase2[A1, A2, R](fArg1, fArg2) with ShowCase[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  final override def showMems: ArrOld[Show[_]] = Arr(ev1, ev2)
+  final override def showMems: ArrOld[Show[_]] = ArrOld(ev1, ev2)
   override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
   override def showComma(obj: R): String = ev1.show(fArg1(obj)) + ", " + ev2.show(fArg2(obj))
   override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj)) + "; " + name2 :- ev2.showComma(fArg2(obj))
@@ -41,7 +41,7 @@ class Show3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, n
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
-  override def showMems: ArrOld[Show[_]] = Arr(ev1, ev2, ev3)
+  override def showMems: ArrOld[Show[_]] = ArrOld(ev1, ev2, ev3)
 
   final override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)
@@ -84,7 +84,7 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, name1: String, fArg
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-  final override def showMems = Arr(ev1, ev2, ev3, ev4)
+  final override def showMems = ArrOld(ev1, ev2, ev3, ev4)
 
   override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)
@@ -121,7 +121,7 @@ class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R 
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-  final override def showMems = Arr(ev1, ev2, ev3, ev4, ev5)
+  final override def showMems = ArrOld(ev1, ev2, ev3, ev4, ev5)
 
   override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)
@@ -171,7 +171,7 @@ class Show6[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg1
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-  final override def showMems = Arr(ev1, ev2, ev3, ev4, ev5, ev6)
+  final override def showMems = ArrOld(ev1, ev2, ev3, ev4, ev5, ev6)
 
   override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)

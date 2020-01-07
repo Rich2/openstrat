@@ -74,7 +74,7 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
     val acc: Buff[GraphicElem] = Buff()
     foreachTilesCoodAll { tileCood =>
       val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-      val newRes: GraphicElemsOld = ife(tog.cenFacing, fDisp(tog), Arr[GraphicElem]())
+      val newRes: GraphicElemsOld = ife(tog.cenFacing, fDisp(tog), ArrOld[GraphicElem]())
       acc ++= newRes
     }
     acc.toArr
@@ -85,14 +85,14 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
     val acc: Buff[GraphicElem] = Buff()
     foreachTilesCoodAll { tileCood =>
       val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-      val newRes: GraphicElemsOld = ife(tog.cenFacing, fDisp(tog), Arr[GraphicElem]())
+      val newRes: GraphicElemsOld = ife(tog.cenFacing, fDisp(tog), ArrOld[GraphicElem]())
       acc ++= newRes
     }
 
     val sideAcc: Buff[GraphicElem] = Buff()
     foreachSidesCoodAll { sideCood =>
       val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
-      val newRes: GraphicElemsOld = ife(tog.sideCenFacing, sDisp(tog), Arr[GraphicElem]())
+      val newRes: GraphicElemsOld = ife(tog.sideCenFacing, sDisp(tog), ArrOld[GraphicElem]())
       sideAcc ++= newRes
     }
     (acc ++ sideAcc).toArr

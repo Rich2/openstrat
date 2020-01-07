@@ -18,7 +18,7 @@ UnScaledGraphicElem with ShapeActiveTr
 
 object UnScaledShape
 { def fillDraw(referenceVec: Vec2, segs: Shape, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
-  UnScaledShape = UnScaledShape(referenceVec, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
+  UnScaledShape = UnScaledShape(referenceVec, segs, evObj, ArrOld(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 
 /** This is not a Polygon but should fTrans to Polygon. */

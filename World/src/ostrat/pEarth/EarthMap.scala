@@ -41,9 +41,9 @@ trait EarthAreas[TileT <: ETile, SideT <: TileSide]
 object EarthAreas
 {
   import pPts._, pEurope._
-  val oldWorld: ArrOld[Area1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
-  val newWorld: ArrOld[Area1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
-  val grids: ArrOld[EGridMaker] = Arr(EuropeNWGrid, EuropeEastGrid)
+  val oldWorld: ArrOld[Area1] = ArrOld(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
+  val newWorld: ArrOld[Area1] = ArrOld(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
+  val grids: ArrOld[EGridMaker] = ArrOld(EuropeNWGrid, EuropeEastGrid)
   //val otherTops = oldWorld ::: newWorld
   def allTops =  oldWorld ++ newWorld// otherTops
 }

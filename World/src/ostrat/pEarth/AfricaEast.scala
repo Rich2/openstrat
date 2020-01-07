@@ -7,7 +7,7 @@ object AfricaEast extends Area1("AfricaEast", 18.19 ll 24.46)
 {
    //override val gridMaker = E80Empty// AfricaEastGrid
    override def fill = false   
-   override val a2Seq: ArrOld[Area2] = Arr(SaharaEast, AfricaNorthEast ,Peloponnese)
+   override val a2Seq: ArrOld[Area2] = ArrOld(SaharaEast, AfricaNorthEast ,Peloponnese)
 }
 
 //object AfricaEastGrid extends EGridMaker

@@ -17,5 +17,5 @@ abstract class SquareGridGui[TileT <: Tile, SideT <: TileSide, GridT <: SquareGr
       acc
    }
    
-   def ofSTilesDisplayFold(f: OfSquareReg[TileT, SideT, GridT] => GraphicElemsOld): GraphicElemsOld = ofSTilesFold[GraphicElemsOld](f, _ ++ _, Arr())
+   def ofSTilesDisplayFold(f: OfSquareReg[TileT, SideT, GridT] => GraphicElemsOld): GraphicElemsOld = ofSTilesFold[GraphicElemsOld](f, _ ++ _, ArrOld())
 } 

@@ -17,15 +17,15 @@ trait OfGridElem[TileT <: Tile, SideT <: TileSide, GridT <: TileGrid[TileT, Side
   def psc: Double
   /** The number of pixels per tile, centre to centre */
   def tScale: Double = psc * grid.xStep
-  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale) cObjs else Arr()
-  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemsOld = if (tScale > ifScale) cObj.toArr else Arr()
-  def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale && b) cObjs else Arr()
-  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemsOld = if (tScale > ifScale && b) cObjs.toArr else Arr()
+  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale) cObjs else ArrOld()
+  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemsOld = if (tScale > ifScale) cObj.toArr else ArrOld()
+  def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale && b) cObjs else ArrOld()
+  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemsOld = if (tScale > ifScale && b) cObjs.toArr else ArrOld()
   
-  def ifScaleOptObj[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => CanvO): GraphicElemsOld = if (tScale < ifScale) Arr() else optA.fold(Arr(), a => Arr(f(a)))
+  def ifScaleOptObj[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => CanvO): GraphicElemsOld = if (tScale < ifScale) ArrOld() else optA.fold(ArrOld(), a => ArrOld(f(a)))
     
   def ifScaleOptObjs[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => GraphicElemsOld): GraphicElemsOld =
-    if (tScale < ifScale) Arr() else optA.fold(Arr(), f(_))
+    if (tScale < ifScale) ArrOld() else optA.fold(ArrOld(), f(_))
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
@@ -44,7 +44,7 @@ trait OfSide[TileT <: Tile, SideT <: TileSide, GridT <: TileGrid[TileT, SideT]] 
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
   def vertDispLine: Line2 = coodsLine.toLine2(coodToDispVec2)
   def ifTiles[A](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): ArrOld[A] = grid.optSidesTiles(cood) match
-  { case (Some(t1), Some(t2)) => if (f(t1, t2)) Arr(fA(t1, t2)) else Arr()
-    case _ => Arr()
+  { case (Some(t1), Some(t2)) => if (f(t1, t2)) ArrOld(fA(t1, t2)) else ArrOld()
+    case _ => ArrOld()
   }
 }

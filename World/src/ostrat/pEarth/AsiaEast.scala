@@ -10,5 +10,5 @@ object AsiaEast extends Area1("Asia", 60 ll 100)
    override def fill = true//false
    import AsiaEastPts._
    //override val gridMaker = E80Empty
-   override val a2Seq = Arr(seAsia, ceAsia, neAsia, feAsia, japan)
+   override val a2Seq = ArrOld(seAsia, ceAsia, neAsia, feAsia, japan)
 }

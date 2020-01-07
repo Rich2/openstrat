@@ -23,7 +23,7 @@ object PolarNorth extends Area1("NPole", 89.5 ll 0)
    val artic = Area2("Artic", deg(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk, deg(81.21, 15.83),
         semersooq, neGreenland, nGreenland, nwGreenland)        
   
-   override val a2Seq = Arr(greenland, artic, Svalbard, Nordauslandet)
+   override val a2Seq = ArrOld(greenland, artic, Svalbard, Nordauslandet)
 }
 
 object Svalbard extends Area2("Svalbard", 78.94 ll 17.78, ice)

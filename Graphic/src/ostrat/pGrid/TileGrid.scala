@@ -514,8 +514,8 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
      
   /** Fundamental method for producing GraphicElems from the Grid */
-  def tilesDisplayFoldAll(f: TileT => GraphicElemsOld): GraphicElemsOld = tilesFoldAll[GraphicElemsOld](f, (acc, pair) => acc ++ pair)(Arr())
-  def tileCoodsDisplayFoldAll(f: Cood => GraphicElemsOld): GraphicElemsOld = tileCoodsFoldAll[GraphicElemsOld](f, (acc, pair) => acc ++ pair)(Arr())
+  def tilesDisplayFoldAll(f: TileT => GraphicElemsOld): GraphicElemsOld = tilesFoldAll[GraphicElemsOld](f, (acc, pair) => acc ++ pair)(ArrOld())
+  def tileCoodsDisplayFoldAll(f: Cood => GraphicElemsOld): GraphicElemsOld = tileCoodsFoldAll[GraphicElemsOld](f, (acc, pair) => acc ++ pair)(ArrOld())
   
   /** Warning implementations need modification. */   
   def adjTileCoodsOfTile(tileCood: Cood): Coods    

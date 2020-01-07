@@ -99,6 +99,6 @@ object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
          
    type A2Type = Area2   
    
-   override val a2Seq = Arr(usa, wCanada, eCanada, baja, cAmerica, cuba)
+   override val a2Seq = ArrOld(usa, wCanada, eCanada, baja, cAmerica, cuba)
    
 }

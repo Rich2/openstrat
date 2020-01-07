@@ -65,7 +65,7 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
       unsafeFromArray(newArray)
     }
 
-  override def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2)))
+  override def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(ArrOld(el._1, el._2)))
 }
 
 trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsCompanion[T, ST]

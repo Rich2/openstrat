@@ -20,10 +20,10 @@ case class ChessGui(canv: CanvasPlatform) extends CanvasSimple("Chess")
   // deb(grid.getTile(1, 1).toString)
   val margin = 15
   val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
-  val s1 = Arr(Queen, Rook)
+  val s1 = ArrOld(Queen, Rook)
   val p = Rook.scale(200)
   
-  val stuff = Arr(p.fill(DarkRed))//grid.squares(tileWidth)// ::: grid.
+  val stuff = ArrOld(p.fill(DarkRed))//grid.squares(tileWidth)// ::: grid.
 
 
   repaintOld(stuff)

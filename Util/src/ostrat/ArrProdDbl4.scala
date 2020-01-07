@@ -24,8 +24,8 @@ trait ArrProdDbl4[A <: ProdDbl4] extends Any with ArrProdDblN[A]
   def head3: Double = array(2)
   def head4: Double = array(3)
 
-  def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => Arr(el._1, el._2, el._3, el._4))
-  def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(Arr(el._1, el._2, el._3, el._4)))
+  def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3, el._4))
+  def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(ArrOld(el._1, el._2, el._3, el._4)))
 }
 
 abstract class ProdDbl4sCompanion[A <: ProdDbl4, M <: ArrProdDbl4[A]] //extends ProductDsBuilder[A, M]

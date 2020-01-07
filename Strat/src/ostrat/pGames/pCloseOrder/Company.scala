@@ -35,5 +35,5 @@ trait BScen
 
 object Nap1 extends BScen
 {
-   val lunits = Arr(French(Vec2(0, - 200)), British(Vec2(0, 200)))
+   val lunits = ArrOld(French(Vec2(0, - 200)), British(Vec2(0, 200)))
 }

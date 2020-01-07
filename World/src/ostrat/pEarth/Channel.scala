@@ -25,7 +25,7 @@ object Channel
     )
   }
 
-  val rms: ArrOld[RowMulti[WTile]] = Arr(
+  val rms: ArrOld[RowMulti[WTile]] = ArrOld(
     rm(468, 180, sea, hills * 3, plain * 3, sea * 2),
     rm(466, 178, sea, hills * 2, plain * 4, sea * 2),
     rm(464, 180, sea * 2, plain * 2, Land(dnRt = v198463), Land(dnLt = v198463), Land(dnRt = v206463, down = v204463, sideDR = Some(())),

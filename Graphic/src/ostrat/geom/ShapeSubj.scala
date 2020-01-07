@@ -11,11 +11,11 @@ case class ShapeSubj(cen: Vec2, shape: Shape, evObj: AnyRef, elems: ArrOld[Paint
 
 object ShapeSubj
 {
-   def fill(cen: Vec2, shape: Shape, evObj: AnyRef, colour: Colour) = ShapeSubj(cen, shape, evObj, Arr(ShapeFill(shape, colour)))
+   def fill(cen: Vec2, shape: Shape, evObj: AnyRef, colour: Colour) = ShapeSubj(cen, shape, evObj, ArrOld(ShapeFill(shape, colour)))
    
    def fillDraw(cen: Vec2, shape: Shape, evObj: AnyRef, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
-      ShapeSubj(cen, shape, evObj, Arr(ShapeFillDraw(shape, fillColour, lineWidth, lineColour)))
+      ShapeSubj(cen, shape, evObj, ArrOld(ShapeFillDraw(shape, fillColour, lineWidth, lineColour)))
    
    def draw(cen: Vec2, shape: Shape, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Colour.Black) =
-      ShapeSubj(cen, shape, evObj, Arr(ShapeDraw(shape, lineWidth, lineColour)))
+      ShapeSubj(cen, shape, evObj, ArrOld(ShapeDraw(shape, lineWidth, lineColour)))
 }

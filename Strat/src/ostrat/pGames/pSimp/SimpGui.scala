@@ -28,7 +28,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
         val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour))
         ol.toArr ++ rect
       }
-      val a1: ArrOld[GraphicElem] = Arr(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
+      val a1: ArrOld[GraphicElem] = ArrOld(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
       a1.appendsOption(op)
     }
     tiles ++ sidesDrawAll()

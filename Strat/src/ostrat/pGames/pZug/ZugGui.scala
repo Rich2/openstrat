@@ -29,15 +29,15 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     {
       case Move(coods) =>      
       {
-        coods.foldWithPrevious[GraphicElemsOld](squad.cood, Arr()){ (acc, prevCood, nextCood) =>
+        coods.foldWithPrevious[GraphicElemsOld](squad.cood, ArrOld()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
           val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast)
           val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast)
           acc :+ l1 :+ l2
         }
       }
-      case Fire(target) => Arr(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red).dashed(20, 20))
-      case _ => Arr()
+      case Fire(target) => ArrOld(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red).dashed(20, 20))
+      case _ => ArrOld()
     }
     
     val lunit: GraphicElemsOld = tile.lunits match
@@ -45,9 +45,9 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       case s if tScale > 68 & s.nonEmpty =>
       {
         val counter = UnitCounters.infantry(30, s.head, s.head.colour, tile.colour).slate(cen)
-        Arr(counter) ++ action(s.head)
+        ArrOld(counter) ++ action(s.head)
       }
-      case _ => Arr()
+      case _ => ArrOld()
     }    
     tv ++ tText ++ lunit
   }
@@ -55,7 +55,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElemsOld = ofs =>
   { import ofs._    
     ifScaleCObjs(60, side.wall match
-      { case true => Arr(vertDispLine.draw(6, Gray))
+      { case true => ArrOld(vertDispLine.draw(6, Gray))
         case _ => ifTiles(_.colour == _.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
       }
     )    

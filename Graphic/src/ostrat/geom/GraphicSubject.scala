@@ -13,6 +13,6 @@ trait GraphicSubject extends GraphicElem with GraphicActive
   def bR: GraphicSubject = this.slate(boundingRect.topLeft)
   def width: Double = boundingRect.width
   def addElems(newElems: ArrOld[PaintElem]): GraphicSubject
-  def addElem(newElem: PaintElem): GraphicSubject = addElems(Arr(newElem))
+  def addElem(newElem: PaintElem): GraphicSubject = addElems(ArrOld(newElem))
   def mutObj(newObj: AnyRef): GraphicSubject
 }

@@ -17,9 +17,9 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       val poly = etog.vertDispVecs.fillActive(colour, tile)
       //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
       val textOrUnit: GraphicElemsOld = ifScaleCObjs(68, tile.lunits match
-        { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
+        { case s if tScale > 68 & s.nonEmpty => ArrOld(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
-          { val strs: ArrOld[String] = Arr(xyStr, cenLL.degStr)
+          { val strs: ArrOld[String] = ArrOld(xyStr, cenLL.degStr)
             TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
           }
         }
@@ -32,7 +32,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       import ofs._
       ifScaleCObjs(60, side.terr match
         { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-          case Straitsold => Arr(vertDispLine.draw(6, Colour.Blue))
+          case Straitsold => ArrOld(vertDispLine.draw(6, Colour.Blue))
         }
       )
    } 

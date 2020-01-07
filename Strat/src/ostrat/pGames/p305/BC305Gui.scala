@@ -34,7 +34,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
       val poly = vertDispVecs.fillActive(colour, tile)
       
       val tileText: GraphicElemsOld = ifScaleCObjs(68,
-          { val strs: ArrOld[String] = Arr(yxStr, cenLL.degStr)
+          { val strs: ArrOld[String] = ArrOld(yxStr, cenLL.degStr)
             TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
           })         
           poly ++ tileText
@@ -45,7 +45,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
           {
             case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
                (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-            case Straitsold => Arr(vertDispLine.draw(6, Colour.Blue))
+            case Straitsold => ArrOld(vertDispLine.draw(6, Colour.Blue))
          })        
    }   
          
