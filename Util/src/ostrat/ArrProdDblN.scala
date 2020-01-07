@@ -54,10 +54,9 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdHomoBuild[B, Ar
 trait BuffProdDblN[A] extends Any with ArrBuffHomo[A]
 { type ArrT <: ArrProdDblN[A]
   def buffer: ArrayBuffer[Double]
-  def elemSize: Int
+
   def length: Int = buffer.length / elemSize
   def toArray: Array[Double] = buffer.toArray[Double]
-//  def unBuff: M
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
 }
@@ -73,6 +72,5 @@ abstract class ArrProdDblNPersist[A, M <: ArrProdDblN[A]](typeStr: String) exten
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  //implicit val eqImplicit: Eq[M] = (m1, m2) => m1.array.eq(m2.array)
   override def eqv(m1: M, m2: M): Boolean = m1.array equ m2.array
 }
