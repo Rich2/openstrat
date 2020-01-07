@@ -170,13 +170,6 @@ package object ostrat
   { def toArr: ArrOld[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
   }
 
-  implicit class ArrayBufferExtensions[A](thisBuff: Buff[A])(implicit ct: ClassTag[A])
-  { @inline def toArr: ArrOld[A] = ArrWrapBuff[A](thisBuff)
-    @inline def arrAppends(operands: A*): ArrOld[A] = ArrWrapBuff[A]((thisBuff ++= operands))
-   // @inline def arrAppend(operand: A): ArrImut[A] = ArrWrapBuff[A]((thisBuff += operand))
-    def pAdd (operand: ArrProdHomo[A]): Buff[A] = { operand.foreach(thisBuff.addOne(_)); thisBuff }
-  }
-
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
   }
