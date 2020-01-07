@@ -29,7 +29,7 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
   def mapArrSeq[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): ArrOld[B] =
   { val res = new Array[B](length)
     iForeach((a, i) => res(i) = f(a))
-    res.toArr
+    res.toArrOld
   }
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different

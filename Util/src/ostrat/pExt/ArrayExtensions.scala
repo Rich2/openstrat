@@ -7,7 +7,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal { //s def str: 
   /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the
    * tail value */
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
-
+  def toArrOld: ArrOld[A] = collection.immutable.ArraySeq.unsafeWrapArray[A](thisArray)
   def valueProducts[B <: ArrProdHomo[A]](implicit factory: Int => B): B = {
     val length = thisArray.length
     val valProds = factory(length)

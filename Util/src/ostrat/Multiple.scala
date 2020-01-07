@@ -23,7 +23,7 @@ case class Multiple[+A](value: A, num: Int)
 
   def toArr[B >: A](implicit ct: ClassTag[B]): ArrOld[B] =
   { val array: Array[B] = new Array(num)
-    array.toArr
+    array.toArrOld
   }
 
   def flatMap[B](f: A => Multiple[B]) =
@@ -53,7 +53,7 @@ object Multiple
           count += 1
         }
       }
-      res.toArr
+      res.toArrOld
     }
   }
 

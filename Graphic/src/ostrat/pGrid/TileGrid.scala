@@ -74,7 +74,7 @@ trait TGrid[TileT]
   { val array: Array[B] = new Array(numTile)
     var count: Int = 0
     tilesXYForAll{(x, y) => array(count) = f(x, y, getTile(x, y)); count += 1}
-    array.toArr
+    array.toArrOld
   }
 
   def xyTilesAccAll[B](f: (Int, Int, TileT, Buff[B]) => Unit)(implicit ct: ClassTag[B]): ArrOld[B] =
@@ -93,7 +93,7 @@ trait TGrid[TileT]
   def rowsMapAll[B](f: Int => B)(implicit ct: ClassTag[B]): ArrOld[B] =
   { val array: Array[B] = new Array(numRows)
     rowsForAll(y => array(yToRowI(y)) = f(y))
-    array.toArr
+    array.toArrOld
   }
 
   def rowTilesForAll(y: Int)(f: TileT => Unit): Unit = iToForeach(xRowStart(y), xRowEnd(y), xStep)(x => f(getTile(x, y)))
@@ -115,7 +115,7 @@ trait TGrid[TileT]
   def rowTileArr(y: Int)(implicit ct: ClassTag[TileT]): ArrOld[TileT] =
   { val array: Array[TileT] = new Array(rowTileNum(y))
     rowTilesIForAll(y)((t, i) => array(i) = t)
-    array.toArr
+    array.toArrOld
   }
 
   def fRow[B](y: Int, f: (Int, Int, ArrOld[TileT]) => B): B = f(y, xRowStart(y), ???)
@@ -300,7 +300,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
   { val array: Array[A] = new Array(arrLen)
     var count = 0
     foreachTileRowAll{y => array(count) = f(y); count += 1 }
-    array.toArr
+    array.toArrOld
   }
   
   /** Map all Tiles to Array[B] with function. */

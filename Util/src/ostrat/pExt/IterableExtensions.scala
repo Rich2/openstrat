@@ -26,7 +26,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     iForeach((a, i) => res.unsafeSetElem(i, a))
     res
   }
-  def toArr(implicit ct: ClassTag[A]): ArrOld[A] = thisIter.toArray.toArr
+  def toArr(implicit ct: ClassTag[A]): ArrOld[A] = thisIter.toArray.toArrOld
   def sumBy(f: A => Int): Int =
   {
     var acc = 0

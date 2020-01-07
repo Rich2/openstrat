@@ -122,7 +122,7 @@ package object ostrat
     { array(count) = f(i)
       count += 1
     }
-    array.toArr
+    array.toArrOld
   }
 
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
@@ -145,7 +145,8 @@ package object ostrat
   def ijUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]):
     ArrOld[A] = ijToMapOld[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
-  def ijToMapOld[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
+  def ijToMapOld[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]):
+  ArrOld[A] =
   { val iLen = (iTo - iFrom + 1).max(0) / iStep
     val jLen = (jTo - jFrom + 1).max(0) / jStep
     val arrLen = iLen * jLen
@@ -160,15 +161,32 @@ package object ostrat
       }
       i += 1
     }
-    array.toArr
+    array.toArrOld
+  }
+ def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
+    implicit ev: ArrBuild[A, AA]):  AA =
+  { val iLen = (iTo - iFrom + 1).max(0) / iStep
+    val jLen = (jTo - jFrom + 1).max(0) / jStep
+    val arrLen = iLen * jLen
+    val res = ev.imutNew(arrLen)
+    var i: Int = iFrom - 1
+
+    while(i < iTo)
+    { var j: Int = jFrom - 1
+      while(j < jTo)
+      { ev.imutSet(res, i * jLen + j, f(i, j))
+        j += 1
+      }
+      i += 1
+    }
+    res
   }
 
   def iiToMapOld[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
     ijToMapOld[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
 
-  implicit class ArrayExtension[A](thisMutableArray: Array[A])
-  { def toArr: ArrOld[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
-  }
+  def iiToMap[A, AA <: ArrImut[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuild[A, AA]):  AA =
+    ijToMap[A, AA](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
