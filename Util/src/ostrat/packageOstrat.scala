@@ -143,9 +143,9 @@ package object ostrat
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
 
   def ijUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]):
-    ArrOld[A] = ijToMap[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
+    ArrOld[A] = ijToMapOld[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
-  def ijToMap[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
+  def ijToMapOld[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
   { val iLen = (iTo - iFrom + 1).max(0) / iStep
     val jLen = (jTo - jFrom + 1).max(0) / jStep
     val arrLen = iLen * jLen
@@ -163,8 +163,8 @@ package object ostrat
     array.toArr
   }
 
-  /*def iiToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
-    ijToMap[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)*/
+  def iiToMapOld[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
+    ijToMapOld[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
 
   implicit class ArrayExtension[A](thisMutableArray: Array[A])
   { def toArr: ArrOld[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
