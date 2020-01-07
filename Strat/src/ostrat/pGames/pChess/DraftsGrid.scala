@@ -2,13 +2,13 @@
 package ostrat
 package pGames
 package pChess
-import Colour._, pGrid._, geom._
+import Colour._ , pGrid._, geom._
 
 class DGrid extends SquareGrid[DTile, SideBare](1, 8, 1, 8, 0)// extends AnyVal
 {  
   //def get(row: Int, col: Int): Option[Draught] = arr((row - 1) * 8 + col - 1)
   //def set(row: Int, col: Int, value: Option[Draught]): Unit = arr((row - 1) * 8 + col - 1) = value
-  def setSome(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = ???//value//Some(value)
+  def setSome(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = ??? //value//Some(value)
 //  def copy: DGrid = 
 //  {
 //    val newArr = new Array[Option[Draught]](64)
@@ -17,25 +17,13 @@ class DGrid extends SquareGrid[DTile, SideBare](1, 8, 1, 8, 0)// extends AnyVal
 //    new DGrid(newArr)
 //  }
   def squares(tileWidth: Double): ArrOld[PolyFill] =
-  iiToMap(1, 8){ (x, y) => Square.fillXY(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth) }
+  ijToMap(1, 8)(1, 8){ (x, y) =>
+    Square.fillXY(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth) }
 
   def rowSize = 8
   def rowCen = (1.0 + rowSize) / 2.0
   def adj(i: Int) = i - rowCen
-  
-//  def pieces(tileWidth: Double): List[GraphicElem[_]] =
-//  {
-//    val res = for
-//    {
-//      x <- 1 to 8
-//      y <- 1 to 8
-//    } yield get(x, y) match
-//    {
-//      case Some(p)  => List(Circle.fillSubj(tileWidth / 1.6, p, p.colour, tileWidth * adj(x), tileWidth * adj(y))) 
-//      case None => Nil        
-//    }
-//    res.toList.flatten 
-//  }
+
 }
 
 object DGrid

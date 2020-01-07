@@ -163,8 +163,8 @@ package object ostrat
     array.toArr
   }
 
-  def iiToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
-    ijToMap[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
+  /*def iiToMap[A](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]): ArrOld[A] =
+    ijToMap[A](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)*/
 
   implicit class ArrayExtension[A](thisMutableArray: Array[A])
   { def toArr: ArrOld[A] = ArraySeq.unsafeWrapArray[A](thisMutableArray)
