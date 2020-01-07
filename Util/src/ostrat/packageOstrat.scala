@@ -142,8 +142,8 @@ package object ostrat
 
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
 
-  def ijUntilMap[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]):
-    ArrOld[A] = ijToMapOld[A](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
+  def ijUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(
+    implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
   def ijToMapOld[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]):
   ArrOld[A] =
@@ -163,6 +163,7 @@ package object ostrat
     }
     array.toArrOld
   }
+
  def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
     implicit ev: ArrBuild[A, AA]):  AA =
   { val iLen = (iTo - iFrom + 1).max(0) / iStep
