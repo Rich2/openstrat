@@ -145,26 +145,7 @@ package object ostrat
   def ijUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(
     implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
-  def ijToMapOld[A](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(implicit ct: ClassTag[A]):
-  ArrOld[A] =
-  { val iLen = (iTo - iFrom + 1).max(0) / iStep
-    val jLen = (jTo - jFrom + 1).max(0) / jStep
-    val arrLen = iLen * jLen
-    val array: Array[A] = new Array[A](arrLen)
-    var i: Int = iFrom - 1
-
-    while(i < iTo)
-    { var j: Int = jFrom - 1
-      while(j < jTo)
-      { array(i * jLen + j) = f(i, j)
-        j += 1
-      }
-      i += 1
-    }
-    array.toArrOld
-  }
-
- def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
+  def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
     implicit ev: ArrBuild[A, AA]):  AA =
   { val iLen = (iTo - iFrom + 1).max(0) / iStep
     val jLen = (jTo - jFrom + 1).max(0) / jStep
