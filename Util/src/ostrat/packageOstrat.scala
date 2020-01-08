@@ -100,7 +100,7 @@ package object ostrat
 
   def nullRef[A >: Null <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
-  @inline def doubleFromToOld(fromValue: Double, toValue: Double, step: Double): List[Double] =
+  /*@inline def doubleFromToOld(fromValue: Double, toValue: Double, step: Double): List[Double] =
   { var count = fromValue
     var acc: List[Double] = Nil
     while (count <= toValue)
@@ -108,9 +108,21 @@ package object ostrat
       count += step
     }
     acc.reverse
-  }
+  }*/
 
-  def iDblToMap[A, AA <: ArrImut[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA = ???
+  /** Not sure if this correct. This might throw on iStep = 0. */
+  def iDblToMap[A, AA <: ArrImut[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Double => A)(implicit ev: ArrBuild[A, AA]): AA =
+  { val iLen = (iTo - iFrom + 1).min(0) / iStep
+    val res: AA = ev.imutNew(iLen.toInt)
+    var count = 0
+    @inline def i: Double = iFrom + count * iStep
+
+    while(i <= iTo)
+    { ev.imutSet(res, count, f(i))
+      count += 1
+    }
+    res
+  }
 
   def iUntilMapOld[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
     iToMapOld[A](iFrom, iUntil - 1, iStep)(f)

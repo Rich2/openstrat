@@ -18,7 +18,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def str3: String = f"$thisDouble%1.3f"
   def commaedStr1s(others: Double*): String = others.foldLeft(str1)(_ + ", " + _.str1)
   def commaedStr2s(others: Double*): String = others.foldLeft(str2)(_ + ", " + _.str2)
-  def fromToOld(toValue: Double, step: Double): List[Double] = doubleFromToOld(thisDouble, toValue, step)
+  //def fromToOld(toValue: Double, step: Double): List[Double] = doubleFromToOld(thisDouble, toValue, step)
    
   def fFromTo[A](toValue: Double, step: Double, f: Double => A): List[A] =
   { var count = thisDouble

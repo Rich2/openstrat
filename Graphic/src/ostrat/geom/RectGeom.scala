@@ -26,20 +26,24 @@ trait RectGeom
    /** Not sure why spacing has got a minus sign */
    def gridLines(spacing: Double = 100, colour: Colour = Black, lineWidth: Double = 1.0): LinesDraw =
    {
-      val xl: List[Double] = doubleFromToOld(-spacing, left, - spacing) ::: 0.0.fromToOld(right, spacing)
-      val xlc: Line2s = xl.pMap(x => new Line2(x, bottom, x, top))
-      val yl: List[Double] = doubleFromToOld(-spacing, bottom, - spacing) ::: 0.0.fromToOld(top, spacing)
-      val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
+      //val xl: List[Double] = doubleFromToOld(-spacing, left, - spacing) ::: 0.0.fromToOld(right, spacing)
+      //val xlc: Line2s = xl.pMap(x => new Line2(x, bottom, x, top))
+      val xlc: Line2s = ???
+      //val yl: List[Double] = doubleFromToOld(-spacing, bottom, - spacing) ::: 0.0.fromToOld(top, spacing)
+      //val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
+      val ylc: Line2s = ???
       LinesDraw(xlc ++ ylc, lineWidth, colour)
    }
    /** Badly named I think, not sure why spacing has got a minus sign */  
    def gridLines2Colours(spacing: Double = 100, cenColour: Colour = Colour.DarkRed, otherColour: Colour = Black, lineWidth: Double = 1.0):
       Seq[LinesDraw] =
    {
-      val xl = doubleFromToOld(-spacing, left, - spacing) ::: spacing.fromToOld(right, spacing)
-      val xlc: Line2s = xl.pMap(x => new  Line2(x, bottom, x, top))
-      val yl = doubleFromToOld(-spacing, bottom, - spacing) ::: spacing.fromToOld(top, spacing)
-      val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
-      Seq(LinesDraw(xlc ++ ylc, lineWidth, otherColour), crossHairs(1, cenColour))
+      //val xl = doubleFromToOld(-spacing, left, - spacing) ::: spacing.fromToOld(right, spacing)
+      //val xlc: Line2s = xl.pMap(x => new  Line2(x, bottom, x, top))
+      val xlc: Line2s = ???
+      //val yl = doubleFromToOld(-spacing, bottom, - spacing) ::: spacing.fromToOld(top, spacing)
+      //val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
+      val ylc: Line2s = ???
+         Seq(LinesDraw(xlc ++ ylc, lineWidth, otherColour), crossHairs(1, cenColour))
    }
 }
