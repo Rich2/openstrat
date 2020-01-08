@@ -100,16 +100,6 @@ package object ostrat
 
   def nullRef[A >: Null <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
-  /*@inline def doubleFromToOld(fromValue: Double, toValue: Double, step: Double): List[Double] =
-  { var count = fromValue
-    var acc: List[Double] = Nil
-    while (count <= toValue)
-    { acc ::= count
-      count += step
-    }
-    acc.reverse
-  }*/
-
   /** Not sure if this correct. This might throw on iStep = 0. */
   def iDblToMap[A, AA <: ArrImut[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Double => A)(implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
@@ -124,24 +114,8 @@ package object ostrat
     res
   }
 
-  def iUntilMapOld[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
-    iToMapOld[A](iFrom, iUntil - 1, iStep)(f)
-
   def iUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
     iToMap[A, AA](iFrom, iUntil - 1, iStep)(f)
-
-  def iToMapOld[A](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
-  { val iLen = (iTo - iFrom + 1).min(0) / iStep
-    val array: Array[A] = new Array[A](iLen)
-    var count = 0
-    @inline def i: Int = iFrom + count * iStep
-
-    while(i <= iTo)
-    { array(count) = f(i)
-      count += 1
-    }
-    array.toArrOld
-  }
 
   def iToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
