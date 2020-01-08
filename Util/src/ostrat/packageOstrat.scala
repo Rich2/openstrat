@@ -110,10 +110,13 @@ package object ostrat
     acc.reverse
   }
 
-  //def iDblToMap
+  def iDblToMap[A, AA <: ArrImut[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA = ???
 
   def iUntilMapOld[A](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
     iToMapOld[A](iFrom, iUntil - 1, iStep)(f)
+
+  def iUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
+    iToMap[A, AA](iFrom, iUntil - 1, iStep)(f)
 
   def iToMapOld[A](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
@@ -128,7 +131,18 @@ package object ostrat
     array.toArrOld
   }
 
-  def iToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA = ???
+  def iToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
+  { val iLen = (iTo - iFrom + 1).min(0) / iStep
+    val res: AA = ev.imutNew(iLen)
+    var count = 0
+    @inline def i: Int = iFrom + count * iStep
+
+    while(i <= iTo)
+    { ev.imutSet(res, count, f(i))
+      count += 1
+    }
+    res
+  }
 
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { var i: Int = iFrom
