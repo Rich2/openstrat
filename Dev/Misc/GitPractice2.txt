@@ -1,2 +1,0 @@
-JUst seeing if I can create a new txt file in this directory.
-OK. Just editing the new file - which should work. --> Next step is to see if I can then delete it successfully.
