@@ -114,9 +114,12 @@ package object ostrat
     res
   }
 
+  /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value is 1. */
   def iUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
     iToMap[A, AA](iFrom, iUntil - 1, iStep)(f)
 
+  /** Maps a range of Ints to an ArrImut[A]. From the start value to (while index is less than or equal to) the end value in integer steps. Default step value
+   *  is 1. */
   def iToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
     val res: AA = ev.imutNew(iLen)
