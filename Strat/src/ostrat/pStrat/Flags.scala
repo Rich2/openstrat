@@ -30,7 +30,9 @@ object FlagsZ
     Rectangle(2, 1).fillSubj(" flag", White).addElems(redCross)
   }   
   
-  val france = leftToRight("France flag", 1.5, Blue, White, Red)
+  /** val france = leftToRight("France flag", 1.5, Blue, White, Red)
+    Changed SM 2020-01-11 - see below */
+  val france = leftToRight("France flag", 1.5, Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
    
   val germany = topToBottom("Germany flag", 5 / 3.0, Black, Red, Gold)
   val nazi: PolySubj =
