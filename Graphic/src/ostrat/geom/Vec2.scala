@@ -29,6 +29,9 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def unary_- : Vec2 = Vec2(-x, -y)
   @inline def *(factor: Double): Vec2 = Vec2(x * factor, y * factor)
   @inline def /(divisor: Double): Vec2 = Vec2(x / divisor, y / divisor)
+
+  /** The dot product of this and the operand vector. */
+  @inline def dot(operand: Vec2): Double = x * operand.x + y * operand.y
   def addX(adj: Double): Vec2 = Vec2(x + adj, y)
   def addY(adj: Double): Vec2 = Vec2(x, y + adj)
   def subX(adj: Double): Vec2 = Vec2(x - adj, y)
