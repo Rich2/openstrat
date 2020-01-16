@@ -4,7 +4,7 @@ package geom
 import math._
 
 /** 2 dimensional vector using metres as units rather than pure numbers. */
-class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
+final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
 { override def toString: String = Dist2.PersistImplicit.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
   def x: Dist = Dist(xMetres)
@@ -22,6 +22,10 @@ class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
   def * (operator: Double): Dist2 = Dist2(x * operator, y * operator)
   def / (operator: Double): Dist2 = Dist2(x / operator, y / operator)
   def magnitude: Dist = Dist(math.sqrt(xMetres.squared + yMetres.squared))
+
+  /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
+  @inline def dot(operand: Dist2): Area = x * operand.x + y * operand.y
+
   def rotate(a: Angle): Dist2 =  Dist2.metres(x.metres * a.cos - y.metres * a.sin, x.metres * a.sin + y.metres * a.cos)
 
   def rotateRadians(r: Double): Dist2 =
