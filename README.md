@@ -19,7 +19,7 @@
 
 <h3> Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 2.13.1. Scala.Js set to 1.0.0-RC2. Sbt currently set to 1.3.6. Update your Mill to 0.5.6.
+<p>Scala currently set to 2.13.1. Scala.Js set to 1.0.0-RC2. Sbt currently set to 1.3.7. Update your Mill to 0.5.6.
 
 </body>
 </html>
