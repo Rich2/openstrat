@@ -14,6 +14,9 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   def x: Dist = Dist(xMetres)
   def y: Dist = Dist(yMetres)
   def z: Dist = Dist(zMetres)
+
+  /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
+  @inline def dot(operand: Dist3): Area = x * operand.x + y * operand.y + z * operand.z
   def xy: Dist2 = new Dist2(xMetres, yMetres)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg

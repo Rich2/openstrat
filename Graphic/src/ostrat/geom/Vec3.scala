@@ -15,7 +15,11 @@ final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdDbl3
   override def equals(other: Any): Boolean = other match
   { case Vec3(px, py, pz) => (x =~ px) && (y =~ py) && (z =~ pz)
     case _ => false
-  }   
+  }
+
+  /** The dot product of this and the operand vector. */
+  @inline def dot(operand: Vec3): Double = x * operand.x + y * operand.y + z * operand.z
+
   def str1: String = "x: " + x.str1 + ", y: " + y.str1 + ", z: " + z.str1
   def toTriple: (Double, Double, Double) = (x, y, z)   
   def +(other: Vec3): Vec3 = Vec3(x + other.x, y + other.y, z + other.z)
