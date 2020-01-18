@@ -1,8 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import math._
-import scala.collection.mutable.ArrayBuffer
+import math._, collection.mutable.ArrayBuffer
 
 /** A 2 dimensional vector, can be used to represent 2 dimensional points and translations of 2 dimensional points. Thanks to Rene Descarte this
  *  was a great idea. */
@@ -11,21 +10,27 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   override def toString: String = Vec2.persistImplicit.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
-  @inline override def _2 = y   
+  @inline override def _2 = y
+  def +(other: Vec2): Vec2 = Vec2(x + other.x, y + other.y)
+  def -(other: Vec2): Vec2 = Vec2(x - other.x, y - other.y)
+  def magnitude = math.sqrt(x * x + y * y)
+
   def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
   def str1: String = strMod(_.str1)
   def str2: String = strMod(_.str2)
   def str3: String = strMod(_.str3)
+
   override def equals(other: Any): Boolean = other match
   { case Vec2(px, py) => (x =~ px) && (y =~ py)
     case _ => false
   }
+  
   def doublesSeq = Seq(x, y)
   def toPair: (Double, Double) = (x, y)
-  def +(other: Vec2): Vec2 = Vec2(x + other.x, y + other.y)
+
   def addXY (otherX: Double, otherY: Double): Vec2 = Vec2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Vec2 = Vec2(x - otherX, y - otherY)
-  def -(other: Vec2): Vec2 = Vec2(x - other.x, y - other.y)
+
   def unary_- : Vec2 = Vec2(-x, -y)
   @inline def *(factor: Double): Vec2 = Vec2(x * factor, y * factor)
   @inline def /(divisor: Double): Vec2 = Vec2(x / divisor, y / divisor)
@@ -49,7 +54,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def inverseY: Vec2 = Vec2(x, -y)
   def toTuple: Tuple2[Double, Double] = (x, y)
   def vv(z: Double): Vec3 = Vec3(x, y, z)
-  def magnitude = math.sqrt(x * x + y * y)
+
+  /** Gives the angle of the vector with respect ot the origin. */
   def angle: Angle =
   { def at = atan(y / x)
     val r = x match
@@ -61,20 +67,21 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
     }
     Angle(r)
   }
-  def distanceFrom(other: Vec2): Double = math.sqrt({val dim = (x - other.x); dim * dim} + {val dim = (y - other.y); dim * dim})
+
+  //def distanceFrom(other: Vec2): Double = math.sqrt({val dim = (x - other.x); dim * dim} + {val dim = (y - other.y); dim * dim})
   def toLine(angle: Angle, length: Double): Line2 = Line2(this, this + angle.toVec2 * length)
    
-  def rectVerts(width: Double, height: Double): Seq[Vec2] =
+  /*def rectVerts(width: Double, height: Double): Seq[Vec2] =
   { val ax = width / 2
     val ay = height / 2
     Seq(Vec2(x - ax, y + ay), Vec2(x + ax, y + ay), Vec2(x + ax, y -ay), Vec2(x -ax, y -ay))
-  }
+  }*/
    
-  def withinRect(target: Vec2, width: Double, height: Double): Boolean =
+  /*def withinRect(target: Vec2, width: Double, height: Double): Boolean =
   { val xd: Double = width / 2
     val yd: Double = height / 2
     (x > target.x - xd) && (x < target.x + xd) && (y > target.y - yd) && (y < target.y + yd)
-  }
+  }*/
   
   /** This sure looks right */
   def rotate(a: Angle): Vec2 =  Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
