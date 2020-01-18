@@ -11,7 +11,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y
-  def +(other: Vec2): Vec2 = Vec2(x + other.x, y + other.y)
+  def +(operand: Vec2): Vec2 = Vec2(x + operand.x, y + operand.y)
   def -(other: Vec2): Vec2 = Vec2(x - other.x, y - other.y)
   def magnitude = math.sqrt(x * x + y * y)
 
@@ -55,7 +55,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def toTuple: Tuple2[Double, Double] = (x, y)
   def vv(z: Double): Vec3 = Vec3(x, y, z)
 
-  /** Gives the angle of the vector with respect ot the origin. */
+  /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle =
   { def at = atan(y / x)
     val r = x match
