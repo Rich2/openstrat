@@ -18,8 +18,7 @@ object srcToETokens
     }
 
     def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): ERefs[Token] =
-    {
-      acc.append(newToken)
+    { acc.append(newToken)
       mainLoop(charsOff, tp)
     }
 

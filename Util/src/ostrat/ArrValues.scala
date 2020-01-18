@@ -58,6 +58,12 @@ object Ints
       new Ints(buff.toArray)
     }
   }
+
+  val showImplicit: Show[Ints] = new pParse.ShowSeqLike[Int, Ints]
+  { def evA: Show[Int] = Show.intImplicit
+    def showComma(obj: Ints): String = ???
+    def showSemi(obj: Ints): String = ???
+  }
 }
 
 class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]

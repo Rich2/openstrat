@@ -19,7 +19,7 @@ object ArrRefTest extends TestSuite
     val refs2: Refs[MyA] = ints2.map(MyA(_))
     val ints3: Ints = refs2.map(_.i)
 
-    'test2
+    'test1
     { myAArr1(2) ==> MyA(3)
       myTArr1.length ==> 5
       ints1(4) ==> 50
@@ -29,6 +29,11 @@ object ArrRefTest extends TestSuite
       myRefs1(1) ==> MyA(6)
       refs2(2) ==> MyA(7)
       ints3(2) ==> 7
+    }
+
+    'Persist
+    {
+      //ints2.str ==> ???
     }
   }
 }
