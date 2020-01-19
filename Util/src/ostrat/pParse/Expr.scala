@@ -15,9 +15,7 @@ trait Expr1 extends Expr
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait ExprCompound extends Expr with TextSpanCompound
 
-trait ExprSeq extends ExprCompound
-{ def exprs: Refs[Expr]
-}
+
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ExprToken extends Expr with ClauseMemberToken
