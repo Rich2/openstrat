@@ -15,6 +15,16 @@ trait Expr1 extends Expr
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait ExprCompound extends Expr with TextSpanCompound
 
+/** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
+trait ExprSeq extends Expr
+{ def exprs: Refs[Expr]
+}
+
+/** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
+trait ExprSeqNonEmpty extends ExprCompound with ExprSeq
+{ def exprs: Refs[Expr]
+}
+
 
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
@@ -32,7 +42,7 @@ trait BlockRaw
   def endMem = statements.last
 }
 
-trait BlockStatements extends ExprSeq
+trait BlockStatements extends ExprSeqNonEmpty
 { def statements: Refs[Statement]
   def exprs: Refs[Expr] = statements.map(_.expr).asInstanceOf[Refs[Expr]]
   def startMem = statements.head
@@ -51,7 +61,7 @@ case class StringStatements(statements: Refs[Statement]) extends BlockStatements
   //def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class ClausesExpr(exprs: Refs[Expr]) extends ExprSeq
+case class ClausesExpr(exprs: Refs[Expr]) extends ExprSeqNonEmpty
 { def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"
