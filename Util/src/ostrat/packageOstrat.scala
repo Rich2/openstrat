@@ -211,9 +211,8 @@ package object ostrat
     }
   }
 
-  implicit class RefsIterableImplicit[A <: AnyRef](thisIter: Iterable[A])(implicit ct: ClassTag[A])
-  {
-    def toRefs: Refs[A] =
+  implicit class IterableAnyRefImplicit[A <: AnyRef](thisIter: Iterable[A])(implicit ct: ClassTag[A])
+  { def toRefs: Refs[A] =
     { val buff: Buff[A] = Buff()
       thisIter.foreach(buff.append)
       buff.toRefs

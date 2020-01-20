@@ -22,7 +22,12 @@ trait ArrBuild[B, ArrT <: ArrImut[B]]
   def buffAppend(buff: BuffT, value: B): Unit
   def buffAppendSeq(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffAppend(buff, _))
   def buffToArr(buff: BuffT): ArrT
-  def iterMap[A](inp: Iterable[A], f: A => B): ArrT = ???
+  def iterMap[A](inp: Iterable[A], f: A => B): ArrT =
+  {
+    val buff = buffNew()
+    inp.foreach(a => buffAppend(buff, f(a)))
+    buffToArr(buff)
+  }
 }
 
 object ArrBuild
