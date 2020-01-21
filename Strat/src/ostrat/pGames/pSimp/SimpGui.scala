@@ -22,17 +22,17 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
 
   override def mapObjs =
   {
-    val tiles = tilesFlatMapAllOld { t =>
+    val tiles = tilesFlatMapAll[GraphicElem ,Refs[GraphicElem]] { t =>
       val op = t.oPlayer.map { p =>
-        val rect: GraphicElemsOld = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
+        val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
         val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour))
-        ol.toArr ++ rect
+        ol.toArr -+ rect
       }
-      val a1: ArrOld[GraphicElem] = ArrOld(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
-      a1.appendsOption(op)
+      val a1: Refs[GraphicElem] = Refs(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
+      a1 //.appendsOption(op)
     }
-    tiles ++ sidesDrawAll()
-  }
+    tiles //-+ sidesDrawAll()
+  }.toArraySeq
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

@@ -1,7 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pExt
-import reflect.ClassTag
 
 class CharExtensions(thisChar: Char)
 {
@@ -31,7 +30,12 @@ class OptionExtensions[A](thisOption: Option[A])
   { case None => noneValue
     case Some(a) => fSome(a)
   }
-  def toArr(implicit ct: ClassTag[A]): ArrOld[A] = thisOption.fold(ArrOld())(ArrOld[A](_))
+
+  def toArr[AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = thisOption.fold(build.imutNew(0)){ a =>
+    val res = build.imutNew(1)
+    build.imutSet(res, 0, a)
+    res
+  }
 
   def map2[B, C](ob: Option[B], f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
 
