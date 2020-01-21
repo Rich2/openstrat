@@ -16,5 +16,5 @@ trait ArrArrayDblBuild[A <: ArrayDblBased, AA <: ArrArrayDbl[A]] extends ArrBuil
   override def imutSet(arr: AA, index: Int, value: A): Unit = arr.array(index) = value.array
   override def buffNew(length: Int = 4): ArrayBuffer[Array[Double]] = new ArrayBuffer[Array[Double]]((length))
   override def buffToArr(buff: ArrayBuffer[Array[Double]]): AA = fromArray(buff.toArray)
-  override def buffAppend(buff: ArrayBuffer[Array[Double]], value: A): Unit = buff.append(value.array)
+  override def buffGrow(buff: ArrayBuffer[Array[Double]], value: A): Unit = buff.append(value.array)
 }

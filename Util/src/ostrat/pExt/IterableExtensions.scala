@@ -150,6 +150,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     acc
   }
 
+  /** Maps to a ArrImut an immutable Array of B. */
   def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB = ev.iterMap[A](thisIter, f)
 
   /** product map method maps from a Traversable to an Array based ProductValues class. */
