@@ -29,7 +29,7 @@ trait ArrBuild[B, ArrT <: ArrImut[B]]
   def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.foreach(buffGrow(buff, _))
 
   /** This method. */
-  def buffAppendSeq(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
+  def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
   
   def buffToArr(buff: BuffT): ArrT
 
