@@ -333,7 +333,7 @@ trait TileGrid[TileT <: Tile, SideT <: TileSide]
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: BB = f(tile)
-      ??? //build.buffAppend(acc, newRes)
+      build.buffGrowArr(acc, newRes)
     }
     build.buffToArr(acc)
   }

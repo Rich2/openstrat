@@ -25,10 +25,10 @@ trait ArrBuild[B, ArrT <: ArrImut[B]]
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
 
-  /** Amutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.foreach(buffGrow(buff, _))
 
-  /** This method. */
+  /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
   
   def buffToArr(buff: BuffT): ArrT
