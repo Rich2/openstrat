@@ -29,9 +29,9 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
         ol.toArr -+ rect
       }
       val a1: Refs[GraphicElem] = Refs(tileActiveOnly(t.cood, t), coodStrDisp(t.cood))
-      a1 //.appendsOption(op)
+      a1.appendsOption(op)
     }
-    tiles //-+ sidesDrawAll()
+    tiles -+ sidesDrawAll()
   }.toArraySeq
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match

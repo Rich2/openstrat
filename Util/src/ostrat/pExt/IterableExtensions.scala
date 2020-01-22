@@ -65,28 +65,6 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
         else succeed = false
     succeed    
   }
-  /** Not sure what this does. */
-  /*def mapVar1[B, C](initialVar: B, f: (A, B) => (B, C)): Seq[C] =
-  { var varB: B = initialVar
-    var acc: Seq[C] = Seq()
-    thisIter.foreach{el =>
-      val pair: (B, C) = f(el, varB)
-      varB = pair._1
-      acc :+= pair._2
-    }
-    acc
-  }*/
-   
-  /*def flatMapVar1[B, C](initialVar: B, initialAcc: C)(f: (A, B, C) => (B, C)): C =
-  { var varB: B = initialVar
-    var acc: C = initialAcc
-    thisIter.foreach{el =>
-      val pair: (B, C) = f(el, varB, acc)
-      varB = pair._1
-      acc = pair._2
-    }
-    acc
-  } */
    
   def toStrFold2[B](secondAcc: B)(f: (B, A) => (String, B)): String =
   { var acc: String = ""
@@ -100,35 +78,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
    
   def iterHead[B](ifEmpty: => B, fNonEmpty: (A, Iterable[A]) => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head, thisIter.tail)
-  
-  /** Folds over this traverable with A => EMon[B] function, accumulating errors */
-  /*def eMonMap[B](f: A => EMon[B]): EMon[List[B]] =
-  {
-    def goodLoop(rem: List[A], goodAcc: List[B]): EMon[List[B]] = rem match
-    {
-      case Nil => Good(goodAcc)
-      case h :: tail => f(h).fold(errs => badLoop(tail, errs), g => goodLoop(tail, goodAcc :+ g))
-    }    
-    
-    def badLoop(rem: List[A], errAcc: StrList): EMon[List[B]] = rem match
-    {
-      case Nil => Bad(errAcc)
-      case h :: tail => f(h).fold(newErrs => badLoop(tail, errAcc ++ newErrs), g => badLoop(tail, errAcc))
-    }
-    goodLoop(thisIter.toList, Nil)      
-  }*/
-   
-  /** Splits the collection into a prefix/suffix pair according to a type predicate. Hence the first returned collection has narrower type than the
-   * remainder collection. */
-//  def typedSpan[B <: A with AnyRef](typeCheckFunction: A => Boolean): (List[B], List[A]) =
-//  {
-//    def loop(rem: List[A], acc: List[B]): (List[B], List[A]) = rem match
-//    { case h :: tail if typeCheckFunction(h) => loop(tail, acc :+ h.asInstanceOf[B])
-//      case s => (acc, s)
-//    }
-//    loop(thisIter.toList, Nil)
-//  }
-  
+
   /** This needs to be renamed. */
   def iter2ProdD2[B, C <: ProdDbl2, D <: ArrProdDbl2[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =
   { val elemNum = thisIter.size * secondIter.size

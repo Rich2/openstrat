@@ -114,6 +114,9 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   def appendOption(optElem: Option[A]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
     optElem.fld(this, ++ _)
 
+  def appendsOption(optElem: Option[Refs[A]]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
+    optElem.fld(this, ++ _)
+
   def concatsOption[AA >: A <: AnyRef](optElems: Option[Refs[AA]])(implicit ct: ClassTag[AA]): Refs[AA] =
     optElems.fld[Refs[AA]](this, this -+ _)
 }

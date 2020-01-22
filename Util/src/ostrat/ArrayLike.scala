@@ -105,7 +105,7 @@ trait ArrayLike[+A] extends Any
     result
   }
 
-  /** Return the index of the first lemenet where predicate is true, or -1 if predicate not true forall. */
+  /** Return the index of the first element where predicate is true, or -1 if predicate not true forall. */
   def indexWhere(f: A => Boolean): Int =
   { var count = 0
     var result = -1
