@@ -222,7 +222,7 @@ package object ostrat
   import pExt._
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new pExt.ArrayExtensions[A](arr)
-  implicit def arrToArrExtensions[A](thisArr: ArrOld[A]): ArrExtensions[A] = new ArrExtensions[A](thisArr)
+  //implicit def arrToArrExtensions[A](thisArr: ArrOld[A]): ArrExtensions[A] = new ArrExtensions[A](thisArr)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
