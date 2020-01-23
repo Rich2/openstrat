@@ -8,8 +8,6 @@ class UnusGui(canv: CanvasPlatform, grid: SimpGrid)
 {
   val game = new Simplicissima(grid)
   deb(grid.str)
-  val fg = 5
-  debvar(fg)
   new UnusSetGui(canv, grid, game)
 }
 
@@ -32,12 +30,12 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
       a1.appendsOption(op)
     }
     tiles -+ sidesDrawAll()
-  }//.toArraySeq
+  }
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList//. fHead(Arr(), Arr(_))
+    { selected = clickList
       statusText = selected.headToStringElse("Nothing Selected")
       eTop()            
     }
