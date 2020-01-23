@@ -20,7 +20,6 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
   thisEGrid =>
   type GridT <: EGrid[TileT, SideT]
   val vec2ToLL: Vec2 => LatLong = fVec2ToLatLongReg(cenLong, scale, xOffset, yOffset)
-
   def vToLL(vIn: Vec2) : LatLong = vec2ToLL(vIn)
 
   override def toString: String = "Grid " + name
@@ -33,19 +32,20 @@ class EGrid[TileT <: Tile, SideT <: TileSide](bounds: Array[Int], val name: Stri
   def llXInd(x: Int): Int = (x - xTileMin + 2) * 2
   def llYInd(y: Int): Int = (y - yTileMin + 1) * llXLen
   def llInd(x: Int, y: Int): Int = llYInd(y) + llXInd(x)
+
   def getLL(x: Int, y: Int): LatLong =
-  {
-    val index: Int = llInd(x, y)
+  { val index: Int = llInd(x, y)
     LatLong(vArr(index), vArr(index + 1))
   }
+
   def getLL(cood: Cood): LatLong = getLL(cood.x ,cood.y)
 
   def setLL(x: Int, y: Int, llValue: LatLong): Unit =
-  {
-    val index: Int = llInd(x, y)
+  { val index: Int = llInd(x, y)
     vArr(index) = llValue.lat
     vArr(index + 1) = llValue.long
   }
+
   def setLL(cood: Cood, llValue: LatLong): Unit = setLL(cood.x, cood.y, llValue)
   final def setLongitude(cood: Cood, radians: Double): Unit = setLongitude(cood.x, cood.y, radians)
   def setLongitude(x: Int, y: Int, radians: Double): Unit = vArr(llInd(x, y) + 1) = radians
