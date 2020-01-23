@@ -8,7 +8,7 @@ final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
 { override def toString: String = Dist2.PersistImplicit.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
   def x: Dist = Dist(xMetres)
-  val y: Dist = Dist(yMetres)
+  def y: Dist = Dist(yMetres)
   override def _1: Double = xMetres
   override def _2: Double = yMetres
   def + (op: Dist2): Dist2 = Dist2(x + op.x, y + op.y)
