@@ -32,7 +32,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
       a1.appendsOption(op)
     }
     tiles -+ sidesDrawAll()
-  }.toArraySeq
+  }//.toArraySeq
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

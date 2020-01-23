@@ -25,7 +25,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     tv ++ tText ++ player ++ sides
   }
   
-  def mapObjs: GraphicElemsOld =  ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)
+  def mapObjs: GraphicElems = (ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)).toRefs
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
@@ -48,5 +48,5 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     case _ =>
   }
   eTop()
-  mapPanel.repaintOld(mapObjs)
+  mapPanel.repaint(mapObjs)
 }

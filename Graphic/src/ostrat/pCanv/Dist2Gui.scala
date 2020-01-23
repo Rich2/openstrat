@@ -41,7 +41,7 @@ trait Dist2Gui extends MapGui
 
   final def repaintMap(): Unit =
   { val o2 = mapObjs
-    mapPanel.repaintOld(o2)
+    mapPanel.repaint(o2)
   }
    
    def reFocus(newFocus: Dist2): Unit =

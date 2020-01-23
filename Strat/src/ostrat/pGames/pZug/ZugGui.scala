@@ -62,7 +62,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   }
     
   def dSides: GraphicElemsOld = ofSidesDisplayFold(fSide)
-  def mapObjs: GraphicElemsOld = ofTilesDisplayFold(fHex) ++ dSides//ofHexsDisplayFold(fHex).collapse
+  def mapObjs: GraphicElems = (ofTilesDisplayFold(fHex) ++ dSides).toRefs//ofHexsDisplayFold(fHex).collapse
      
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
@@ -87,6 +87,6 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs ++ bTurn -+ status)
   eTop()
-  mapPanel.repaintOld(mapObjs)
+  mapPanel.repaint(mapObjs)
 }
   

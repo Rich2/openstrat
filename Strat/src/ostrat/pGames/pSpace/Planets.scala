@@ -62,7 +62,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   reTop(cmds)
   
   canv.startFrame((el, st) => out(el, st))
-  def mapObjs = pls.map(_.paint).toArraySeq
+  def mapObjs = pls.map(_.paint)//.toArraySeq
   
   def out(elapsed: Integer, startTime: Integer): Unit =
   { pls.foreach(_.move(elapsed))

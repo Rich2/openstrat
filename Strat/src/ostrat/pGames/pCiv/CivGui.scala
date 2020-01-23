@@ -36,7 +36,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
        }
        tv ++ tText ++ sett ++ lunit ++ sides
      }
-  def mapObjs: GraphicElemsOld = ofHTilesDisplayFold(fHex)// ofHexsDisplayFold(fHex).collapse
+  def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex).toRefs// ofHexsDisplayFold(fHex).collapse
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, _) =>
@@ -88,5 +88,5 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs ++ bTurn -+ status)
   eTop()
-  mapPanel.repaintOld(mapObjs)
+  mapPanel.repaint(mapObjs)
 }

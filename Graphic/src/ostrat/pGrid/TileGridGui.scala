@@ -70,7 +70,7 @@ abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridRe
        
   canv.onScroll = b => { pScale = ife(b, (pScale * 1.2).min(scaleMax), (pScale / 1.2).max(scaleMin)); updateView() }
   
-  def repaintMap() = { mapPanel.repaintOld(mapObjs) }
+  def repaintMap() = { mapPanel.repaint(mapObjs) }
   
   def ofTilesFold[OfT <: OfTile[TileT, SideT, GridT], R](f: OfT => R, fSum: (R, R) => R, emptyVal: R)(implicit oftFactory: (TileT, GridT,
       TileGridGui[TileT, SideT, GridT]) => OfT) =
