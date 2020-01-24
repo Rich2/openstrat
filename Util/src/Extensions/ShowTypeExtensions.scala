@@ -1,5 +1,4 @@
 package ostrat
-package pExt
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
 class ShowerTypeExtensions[-A](ev: Show[A], thisVal: A)

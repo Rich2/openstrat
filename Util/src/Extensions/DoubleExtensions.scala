@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pExt
 
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {

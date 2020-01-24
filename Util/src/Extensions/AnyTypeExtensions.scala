@@ -1,5 +1,4 @@
 package ostrat
-package pExt
 
 /** Extension methods for Any type A. */
 class AnyTypeExtensions[A](thisA: A)

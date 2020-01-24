@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pExt
 
 /** Extension methods for the Seq[A] class. These are bought into scope by the seqToImplicit method in the package object. */
 class SeqExtensions[A](thisSeq: Seq[A])

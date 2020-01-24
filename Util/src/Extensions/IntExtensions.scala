@@ -1,7 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pExt
-import math.Pi//, reflect.ClassTag
+import math.Pi
  
 class IntExtensions(val thisInt: Int) extends AnyVal
 { def min0 = ife(thisInt > 0, thisInt, 0)
