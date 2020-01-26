@@ -55,10 +55,15 @@ lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnido
   resourceDirectory := baseDirectory.value / "Dev/res",
   Test/scalaSource := baseDirectory.value / "Dev/test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/learn/src").map(s => baseDirectory.value / s),
+  Compile/unmanagedSourceDirectories := List("Dev/src"/*, "Dev/jvm/src"*/, "Graphic/learn/src").map(s => baseDirectory.value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, baseDirectory.value / "Dev/User"),
-  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
+  //Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
+
+lazy val Dev = stdJvmProj("Dev").dependsOn(root).settings(commonSettings).settings(
+  Compile/unmanagedSourceDirectories := List("Dev/jvm/src").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/mainClass := Some("ostrat.pFx.DevApp"),
+  )
 
 val docDirs: List[String] = List("Util", "Graphic", "World", "Strat", "Dev")
 
