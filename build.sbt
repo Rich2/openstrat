@@ -63,6 +63,7 @@ lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnido
 lazy val Dev = stdJvmProj("Dev").dependsOn(root).settings(commonSettings).settings(
   Compile/unmanagedSourceDirectories := List("Dev/jvm/src").map(s => (ThisBuild/baseDirectory).value / s),
   Compile/mainClass := Some("ostrat.pFx.DevApp"),
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "13"
   )
 
 val docDirs: List[String] = List("Util", "Graphic", "World", "Strat", "Dev")
