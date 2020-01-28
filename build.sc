@@ -21,7 +21,7 @@ trait PlatformsModule extends ScalaModule with CommonStd
 
   trait InnerJs extends CommonStdJs
   { def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
-	def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs1.0.0RC2:0.9.8")
+	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs1.0.0RC2:0.9.8")
   }
 
   trait InnerNative extends ScalaNativeModule with CommonStd
@@ -117,6 +117,7 @@ object Dev extends PlatformsModule
   def mainClass = Some("ostrat.pFx.DevApp")
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'User)
+  def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:13")
 
   object js extends InnerJs
   { def moduleDeps = Seq(Strat.js)
