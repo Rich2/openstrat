@@ -3,7 +3,7 @@ package ostrat
 package pGames.pSimp
 import pGrid._ 
 
-class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[UTile, SideBare](xTileMin, xTileMax,
+class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[UTile, SideBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
   def getMoves: ArrOld[Move] = tilesMapOptionAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))

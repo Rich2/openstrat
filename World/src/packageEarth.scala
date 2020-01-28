@@ -39,7 +39,7 @@ package object pEarth
    /** Not necessarily used */
    def  coodToLatLong0(inp: Cood, scale: Dist, yOffset: Int = 0): LatLong =
    {
-      val adj: Vec2 = HexGrid.coodToVec2(inp.subY(yOffset))      
+      val adj: Vec2 = HexGrid.coodToVec2(inp.subY(yOffset))
       val d2: Dist2 = adj * scale
       val lat = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))

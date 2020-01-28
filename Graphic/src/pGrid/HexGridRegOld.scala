@@ -3,8 +3,8 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag
 
-class HexGridReg[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit
-    evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGrid[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax, turnNum) with
+class HexGridRegOld[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit
+  evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridOld[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax, turnNum) with
     TileGridReg[TileT, SideT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)

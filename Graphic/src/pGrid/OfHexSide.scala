@@ -3,9 +3,9 @@ package ostrat
 package pGrid
 import geom._
 
-trait OfHexSide[TileT <: Tile, SideT <: TileSide, GridT <: HexGrid[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
+trait OfHexSide[TileT <: Tile, SideT <: TileSide, GridT <: HexGridOld[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
 
-case class OfHexSideReg[TileT <: Tile, SideT <: TileSide, GridT <: HexGridReg[TileT, SideT]](side: SideT, grid: GridT,
+case class OfHexSideReg[TileT <: Tile, SideT <: TileSide, GridT <: HexGridRegOld[TileT, SideT]](side: SideT, grid: GridT,
     gGui: TileGridGui[TileT, SideT, GridT]) extends OfSide[TileT, SideT, GridT] with OfGridElemReg[TileT, SideT, GridT]
 {
    def sideCenRelGrid: Vec2 = grid.coodToVec2(cood)
@@ -15,6 +15,6 @@ case class OfHexSideReg[TileT <: Tile, SideT <: TileSide, GridT <: HexGridReg[Ti
 
 object OfHexSideReg
 {
-   implicit def implicitBuilder[TileT <: Tile, SideT <: TileSide, GridT <: HexGridReg[TileT, SideT]](side: SideT, grid: GridT,
+   implicit def implicitBuilder[TileT <: Tile, SideT <: TileSide, GridT <: HexGridRegOld[TileT, SideT]](side: SideT, grid: GridT,
          gGui: TileGridGui[TileT, SideT, GridT]) = apply(side, grid, gGui)
 }

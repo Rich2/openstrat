@@ -5,7 +5,7 @@ package pCiv
 import pEarth._
 import pGrid._
 
-class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridReg[CTile, SideBare](xTileMin,
+class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[CTile, SideBare](xTileMin,
     xTileMax, yTileMin, yTileMax, turnNum)
 {
   
