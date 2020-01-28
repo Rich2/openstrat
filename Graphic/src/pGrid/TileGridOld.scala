@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
 
-trait TGrid[TileT]
+/*trait TGrid[TileT]
 { type GridT[A] <: TGrid[A]
   @inline final def yStep: Int = 2
   def coodToVec2(cood: Cood): Vec2
@@ -170,7 +170,7 @@ object TGrid
     }
     fac(tiles, indArr)
   }
-}
+}*/
 
 class RowMulti[TileT <: AnyRef](val y: Int, val xStart: Int, val multis: RefsMulti[TileT])
 {

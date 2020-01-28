@@ -1,12 +1,12 @@
 package ostrat
 package pEarth
 import pGrid._
-case class MyGrid(val tArr: Array[WTile], val indArr: Array[Int]) extends HGrid[WTile]
+/*case class MyGrid(val tArr: Array[WTile], val indArr: Array[Int]) extends HGrid[WTile]
 {
   override def toString = "MyGrid"
-}
+}*/
 
-object Channel
+/*object Channel
 {
   import WTile._, RowMulti.{apply => rm}
   val v204463 = HVDnLt2(2, 2)
@@ -41,4 +41,4 @@ object ChannelApp extends App
   val a = ctl(198 cc 463).degStr
   deb(a.toString)
 
-}
+}*/

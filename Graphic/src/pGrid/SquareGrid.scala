@@ -3,6 +3,7 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag
 
+/*
 trait SGrid[TileT] extends TGrid[TileT]
 {
   type GridT[A] = SGrid[A]
@@ -13,6 +14,7 @@ trait SGrid[TileT] extends TGrid[TileT]
   override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGrid.vertCoodsOfTile(tileCood)
   override def sideCoodLine(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
 }
+*/
 
 /** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */

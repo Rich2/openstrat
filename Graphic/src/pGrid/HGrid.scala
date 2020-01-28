@@ -2,6 +2,7 @@ package ostrat
 package pGrid
 import geom._
 
+/*
 trait HGrid[TileT] extends TGrid[TileT]
 {
   type GridT[A] = HGrid[A]
@@ -53,3 +54,4 @@ trait HGrid[TileT] extends TGrid[TileT]
   def tileFillVar(x: Int, y: Int, scale: Double, mapOffset: Vec2 = cen, displayOffset: Vec2 = Vec2Z)(f: TileT => Colour): PolyFill =
     tileDisplayPolygonVar(x, y, scale, mapOffset, displayOffset).fill(f(getTile(x, y)))
 }
+*/

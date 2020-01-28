@@ -2,6 +2,7 @@ package ostrat
 package pGames.pNew
 import pGrid._, pEarth._,  pCanv._, Colour._
 
+/*
 case class TGui(canv: CanvasPlatform)
 {
   val g1: MyGrid = Channel()
@@ -21,4 +22,4 @@ case class TGui(canv: CanvasPlatform)
 
   canv.rendElemsOld(stuff)
   canv.rendElemsOld(g1.sideDrawsAll(scale)(2.0))
-}
+}*/
