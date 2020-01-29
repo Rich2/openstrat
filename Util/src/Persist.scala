@@ -114,18 +114,7 @@ object Persist
     }
   }
   
-  implicit val doubleImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
-  { def show(obj: Double): String = obj.toString      
-    override def fromExpr(expr: Expr): EMon[Double] = expr match      
-    { case DecimalToken(_, i) => Good(i.toDouble)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
-     /* case FloatToken(_, _, d) => Good(d)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
-    */  case  _ => expr.exprParseErr[Double]
-    } 
-  }   
+
    
   implicit val BooleanImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def show(obj: Boolean): String = obj.toString
