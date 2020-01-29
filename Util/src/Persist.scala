@@ -68,15 +68,6 @@ object Persist
   }
    
 
-  implicit val longImplicit: Persist[Long] = new PersistSimple[Long]("Long")
-  { def show(obj: Long): String = obj.toString
-    override def fromExpr(expr: Expr): EMon[Long] = expr match      
-    { case DecimalToken(_, i) => Good(i.toLong)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
-      case  _ => expr.exprParseErr[Long]
-    }
-  }   
    
   implicit val floatPersist: Persist[Float] = new PersistSimple[Float]("SFloat")
   { def show(obj: Float): String = obj.toString

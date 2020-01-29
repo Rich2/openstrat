@@ -58,7 +58,7 @@ object Statement
     def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueFromStatements(statementList.toRefs)
-    def findLong: EMon[Long] = Persist.longImplicit.findUniqueFromStatements(statementList.toRefs)
+    def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementList.toRefs)
 
     /** Find setting from RSON statement */
@@ -91,7 +91,7 @@ object Statement
     def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueTFromStatements(statementRefs)
     def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
     def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findLong: EMon[Long] = Persist.longImplicit.findUniqueTFromStatements(statementRefs)
+    def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueTFromStatements(statementRefs)
     def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find setting from RSON statement */

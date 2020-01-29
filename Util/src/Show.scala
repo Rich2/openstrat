@@ -32,10 +32,6 @@ trait Show[-T]
 
 object Show
 {
-  /*implicit val intImplicit: Show[Int] = new ShowSimple[Int]("Int")
-  { def show(obj: Int): String = obj.toString
-  }*/
-
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int") {
     //override def findUniqueFromStatements(sts: Statements): EMon[Int] =
     def show(obj: Int): String = obj.toString
@@ -61,9 +57,15 @@ object Show
     }
   }
 
-  /*implicit val BooleanImplicit: Show[Boolean] = new ShowSimple[Boolean]("Bool")
-  { override def show(obj: Boolean): String = obj.toString
-  }*/
+  implicit val longPersistImplicit: Persist[Long] = new PersistSimple[Long]("Long")
+  { def show(obj: Long): String = obj.toString
+    override def fromExpr(expr: Expr): EMon[Long] = expr match
+    { case DecimalToken(_, i) => Good(i.toLong)
+      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
+      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
+      case  _ => expr.exprParseErr[Long]
+    }
+  }
 
   implicit val BooleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def show(obj: Boolean): String = obj.toString
