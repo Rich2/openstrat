@@ -75,18 +75,6 @@ object Persist
       override def syntaxDepth: Int = evA.syntaxDepth
     }
   
-  implicit val intImplicit: Persist[Int] = new PersistSimple[Int]("Int")
-  {
-    //override def findUniqueFromStatements(sts: Statements): EMon[Int] =
-    def show(obj: Int): String = obj.toString
-    override def fromExpr(expr: Expr): EMon[Int] = expr match      
-    { case DecimalToken(_, i) => Good(i.toInt)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
-      case  _ => expr.exprParseErr[Int]
-    }
-  }
-
   implicit val charImplicit: Persist[Char] = new PersistSimple[Char]("Char")
   { def show(obj: Char): String = obj.toString.enquote1
     override def fromExpr(expr: Expr): EMon[Char] = expr match      
@@ -148,7 +136,7 @@ object Persist
     }
   }
 
-  implicit val ArrayIntImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Persist.intImplicit)
+  implicit val ArrayIntImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Show.intPersistImplicit)
   {
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold

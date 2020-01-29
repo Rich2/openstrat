@@ -32,8 +32,20 @@ trait Show[-T]
 
 object Show
 {
-  implicit val intImplicit: Show[Int] = new ShowSimple[Int]("Int")
+  /*implicit val intImplicit: Show[Int] = new ShowSimple[Int]("Int")
   { def show(obj: Int): String = obj.toString
+  }*/
+
+  implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int") {
+    //override def findUniqueFromStatements(sts: Statements): EMon[Int] =
+    def show(obj: Int): String = obj.toString
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match {
+      case DecimalToken(_, i) => Good(i.toInt)
+      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
+      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
+      case _ => expr.exprParseErr[Int]
+    }
   }
 
   implicit val DoubleImplicit: Show[Double] = new ShowSimple[Double]("DFloat")

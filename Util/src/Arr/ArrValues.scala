@@ -60,7 +60,7 @@ object Ints
   }
 
   val showImplicit: Show[Ints] = new pParse.ShowSeqLike[Int, Ints]
-  { def evA: Show[Int] = Show.intImplicit
+  { def evA: Show[Int] = Show.intPersistImplicit
     def showComma(obj: Ints): String = ???
     def showSemi(obj: Ints): String = ???
   }

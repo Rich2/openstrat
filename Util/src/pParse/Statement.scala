@@ -55,7 +55,7 @@ object Statement
         else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
 
-    def findInt: EMon[Int] = Persist.intImplicit.findUniqueFromStatements(statementList.toRefs)
+    def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findDouble: EMon[Double] = Persist.doubleImplicit.findUniqueFromStatements(statementList.toRefs)
     def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findUniqueFromStatements(statementList.toRefs)
     def findLong: EMon[Long] = Persist.longImplicit.findUniqueFromStatements(statementList.toRefs)
@@ -64,7 +64,7 @@ object Statement
     /** Find setting from RSON statement */
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList.toRefs, settingStr)
     def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSetting[A](settingStr).getElse(elseValue)
-    def findIntSett(settingStr: String): EMon[Int] = Persist.intImplicit.settingFromStatementList(statementList.toRefs, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
     def findDoubleSett(settingStr: String): EMon[Double] = Persist.doubleImplicit.settingFromStatementList(statementList.toRefs, settingStr)
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementList.toRefs, settingStr)
   }
@@ -88,7 +88,7 @@ object Statement
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
 
-    def findInt: EMon[Int] = Persist.intImplicit.findUniqueTFromStatements(statementRefs)
+    def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueTFromStatements(statementRefs)
     def findDouble: EMon[Double] = Persist.doubleImplicit.findUniqueTFromStatements(statementRefs)
     def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findUniqueTFromStatements(statementRefs)
     def findLong: EMon[Long] = Persist.longImplicit.findUniqueTFromStatements(statementRefs)
@@ -97,7 +97,7 @@ object Statement
     /** Find setting from RSON statement */
     def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementRefs, settingStr)
 
-    def findIntSett(settingStr: String): EMon[Int] = Persist.intImplicit.settingFromStatementList(statementRefs, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementRefs, settingStr)
     def findDoubleSett(settingStr: String): EMon[Double] = Persist.doubleImplicit.settingFromStatementList(statementRefs, settingStr)
     def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementRefs, settingStr)
 
