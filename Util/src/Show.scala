@@ -61,17 +61,30 @@ object Show
     }
   }
 
-  /*implicit val DoubleImplicit: Show[Double] = new ShowSimple[Double]("DFloat")
-  { def show(obj: Double): String = obj.toString
+  /*implicit val BooleanImplicit: Show[Boolean] = new ShowSimple[Boolean]("Bool")
+  { override def show(obj: Boolean): String = obj.toString
   }*/
 
-  implicit val BooleanImplicit: Show[Boolean] = new ShowSimple[Boolean]("Bool")
+  implicit val BooleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def show(obj: Boolean): String = obj.toString
+    override def fromExpr(expr: Expr): EMon[Boolean] = expr match
+    { case IdentifierLowerOnlyToken(_, str) if str == "true" => Good(true)
+      case IdentifierLowerOnlyToken(_, str) if str == "false" => Good(false)
+      case _ => expr.exprParseErr[Boolean]
+    }
   }
 
-  implicit val stringImplicit: Show[String] = new ShowSimple[String]("Str")
+
+
+
+  implicit val stringPersistImplicit: Persist[String] = new PersistSimple[String]("Str")
   { def show(obj: String): String = obj.enquote
+    override def fromExpr(expr: Expr): EMon[String] = expr match
+    { case StringToken(_, stringStr) => Good(stringStr)
+      case  _ => expr.exprParseErr[String]
+    }
   }
+
 
   implicit def seqImplicit[A](implicit ev: Show[A]): Show[Seq[A]] = new ShowSeqLike[A, Seq[A]]
   { override val evA: Show[A] = ev
@@ -85,6 +98,24 @@ object Show
     override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
   }
+
+  /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)
+  class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
+  {
+    override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
+    override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[Array[A]] = ???
+    override def fromClauses(clauses: Refs[Clause]): EMon[Array[A]] = ???
+
+    override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
+    {
+      case AlphaBracketExpr(IdentifierLowerToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentifierLowerToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+      case _ => ??? // expr.exprParseErr[A](this)
+    }
+  }
+
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def arrImplicit[A](implicit ev: Show[A]): Show[ArrOld[A]] = new ShowSeqLike[A, ArrOld[A]]

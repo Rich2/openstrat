@@ -57,7 +57,7 @@ object Statement
 
     def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueFromStatements(statementList.toRefs)
-    def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findUniqueFromStatements(statementList.toRefs)
+    def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findLong: EMon[Long] = Persist.longImplicit.findUniqueFromStatements(statementList.toRefs)
     def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementList.toRefs)
 
@@ -66,7 +66,7 @@ object Statement
     def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSetting[A](settingStr).getElse(elseValue)
     def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
     def findDoubleSett(settingStr: String): EMon[Double] = Show.doublePersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementList.toRefs, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
   }
 
   implicit class RefsImplicit(statementRefs: Refs[Statement]) extends TextSpan
@@ -90,7 +90,7 @@ object Statement
 
     def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueTFromStatements(statementRefs)
     def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findBoolean: EMon[Boolean] = Persist.BooleanImplicit.findUniqueTFromStatements(statementRefs)
+    def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
     def findLong: EMon[Long] = Persist.longImplicit.findUniqueTFromStatements(statementRefs)
     def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementRefs)
 
@@ -99,7 +99,7 @@ object Statement
 
     def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementRefs, settingStr)
     def findDoubleSett(settingStr: String): EMon[Double] = Show.doublePersistImplicit.settingFromStatementList(statementRefs, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Persist.BooleanImplicit.settingFromStatementList(statementRefs, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementRefs, settingStr)
 
     def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
     { case Refs1(h1) => h1.errGet[A1].map(f1)
