@@ -67,6 +67,19 @@ object Show
     }
   }
 
+  implicit val floatPersistImplicit: Persist[Float] = new PersistSimple[Float]("SFloat")
+  { def show(obj: Float): String = obj.toString
+    override def fromExpr(expr: Expr): EMon[Float] = expr match
+    { case DecimalToken(_, i) => Good(i.toFloat)
+      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
+      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
+      /*  case FloatToken(_, _, d) => Good(d.toFloat)
+        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
+        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)
+       */ case  _ => expr.exprParseErr[Float]
+    }
+  }
+
   implicit val BooleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def show(obj: Boolean): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
@@ -76,9 +89,6 @@ object Show
     }
   }
 
-
-
-
   implicit val stringPersistImplicit: Persist[String] = new PersistSimple[String]("Str")
   { def show(obj: String): String = obj.enquote
     override def fromExpr(expr: Expr): EMon[String] = expr match
@@ -87,6 +97,13 @@ object Show
     }
   }
 
+  implicit val charPersistImplicit: Persist[Char] = new PersistSimple[Char]("Char")
+  { def show(obj: Char): String = obj.toString.enquote1
+    override def fromExpr(expr: Expr): EMon[Char] = expr match
+    { case CharToken(_, char) => Good(char)
+      case  _ => expr.exprParseErr[Char]
+    }
+  }
 
   implicit def seqImplicit[A](implicit ev: Show[A]): Show[Seq[A]] = new ShowSeqLike[A, Seq[A]]
   { override val evA: Show[A] = ev
@@ -118,7 +135,6 @@ object Show
     }
   }
 
-
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def arrImplicit[A](implicit ev: Show[A]): Show[ArrOld[A]] = new ShowSeqLike[A, ArrOld[A]]
   { override def evA: Show[A] = ev
@@ -126,7 +142,7 @@ object Show
     override def showComma(thisArr: ArrOld[A]): String = thisArr.map(ev.show(_)).commaFold
   }
 
-  implicit def someImplicit[A](implicit ev: Show[A]): Show[Some[A]] = new Show[Some[A]]
+  implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
   {
     override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepth: Int = ev.syntaxDepth
@@ -134,20 +150,31 @@ object Show
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
     override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
+    override def fromClauses(clauses: Refs[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
+    override def fromStatements(sts: Refs[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
+
+    override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
+    { case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+      case expr => ev.fromExpr(expr).map(Some(_))
+    }
   }
 
-  implicit val NoneImplicit: Show[None.type] = new ShowSimple[None.type]("None")
+  implicit val nonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
   {
     override def show(obj: None.type) = ""
-  }
-
-  implicit def optionImplicit[A](implicit evA: Show[A]): Show[Option[A]] =
-    new ShowSum2[Option[A], Some[A], None.type]
+    def fromExpr(expr: Expr): EMon[None.type] = expr match
     {
-      override def ev1 = someImplicit[A](evA)
-      override def ev2 = NoneImplicit
-      override def typeStr: String = "Option" + evA.typeStr.enSquare
-      override def syntaxDepth: Int = evA.syntaxDepth
+      case IdentifierLowerOnlyToken(_, "None") => Good(None)
+      case eet: EmptyExprToken => Good(None)
+      case e => bad1(e, "None not found")
     }
 
+    override def fromStatements(sts: Refs[Statement]): EMon[None.type] = ife(sts.empty, Good(None), sts.startPosn.bad("None not found."))
+  }
+
+  implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Persist[Option[A]] =
+    new PersistSum2[Option[A], Some[A], None.type](somePersistImplicit[A](evA), nonePersistImplicit)
+    { override def typeStr: String = "Option" + evA.typeStr.enSquare
+      override def syntaxDepth: Int = evA.syntaxDepth
+    }
 }

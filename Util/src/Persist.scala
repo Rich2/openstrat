@@ -7,7 +7,8 @@ import pParse._
   * Persist companion object persists Integers and constructs Integers from Strings. */
 trait Persist[T] extends Show[T] with UnShow[T]
 
-/** Companion object for the persistence type class. Contains the implicit instances for Scala standard library types. */
+/** Companion object for the persistence type class. The implicit instances for Scala standard library types are to be put in Show. Some methods still
+ * in the Persist companion class. */
 object Persist
 {  
   /** Implicit method for creating List[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
@@ -21,67 +22,6 @@ object Persist
   implicit def seqToPersist[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
   /** Implicit method for creating Vector[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def vectorToPersist[T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)  
-  
-
-  implicit def someToPersist[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
-  {
-    override def typeStr: String = "Some" + ev.typeStr.enSquare
-    override def syntaxDepth: Int = ev.syntaxDepth
-    override def show(obj: Some[A]) = ev.show(obj.value)
-    override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
-    override def showComma(obj: Some[A]) = ev.showComma(obj.value)
-    override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
-    override def fromClauses(clauses: Refs[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
-    override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
-    {
-      case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
-      case expr => ev.fromExpr(expr).map(Some(_))
-    }
-    override def fromStatements(sts: Refs[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
-  }
-
-  implicit val noneImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
-  {
-    override def show(obj: None.type) = ""
-    def fromExpr(expr: Expr): EMon[None.type] = expr match
-    {
-      case IdentifierLowerOnlyToken(_, "None") => Good(None)
-      case eet: EmptyExprToken => Good(None)
-      case e => bad1(e, "None not found")
-    }
-
-    override def fromStatements(sts: Refs[Statement]): EMon[None.type] = ife(sts.empty, Good(None), sts.startPosn.bad("None not found."))
-  }
-
-  implicit def optionToPersist[A](implicit evA: Persist[A]): Persist[Option[A]] =
-    new PersistSum2[Option[A], Some[A], None.type](someToPersist[A](evA), noneImplicit)
-    { override def typeStr: String = "Option" + evA.typeStr.enSquare
-      override def syntaxDepth: Int = evA.syntaxDepth
-    }
-  
-  implicit val charImplicit: Persist[Char] = new PersistSimple[Char]("Char")
-  { def show(obj: Char): String = obj.toString.enquote1
-    override def fromExpr(expr: Expr): EMon[Char] = expr match      
-    { case CharToken(_, char) => Good(char)        
-      case  _ => expr.exprParseErr[Char]
-    }
-  }
-   
-
-   
-  implicit val floatPersist: Persist[Float] = new PersistSimple[Float]("SFloat")
-  { def show(obj: Float): String = obj.toString
-    override def fromExpr(expr: Expr): EMon[Float] = expr match      
-    { case DecimalToken(_, i) => Good(i.toFloat)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
-      case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
-    /*  case FloatToken(_, _, d) => Good(d.toFloat)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
-      case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)
-     */ case  _ => expr.exprParseErr[Float]
-    }
-  }
-  
 
   implicit val ArrayIntImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Show.intPersistImplicit)
   {
