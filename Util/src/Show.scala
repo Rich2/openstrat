@@ -105,17 +105,48 @@ object Show
     }
   }
 
-  implicit def seqImplicit[A](implicit ev: Show[A]): Show[Seq[A]] = new ShowSeqLike[A, Seq[A]]
-  { override val evA: Show[A] = ev
-    override def showSemi(thisSeq: Seq[A]): String = thisSeq.map(evA.showComma(_)).semiFold
-    override def showComma(thisSeq: Seq[A]): String = thisSeq.map(evA.show(_)).commaFold
+  /** Implicit method for creating List[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def listPersistImplicit[A](implicit ev: Persist[A]): Persist[List[A]] = new PersistListImplicit[A](ev)
+
+  /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def consPersistImplicit[A](implicit ev: Persist[A]): Persist[::[A]] = new PersistConsImplicit[A](ev)
+
+  implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
+
+  /** Implicit method for creating Seq[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def seqPersistImplicit[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
+
+  /** Implicit method for creating Vector[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def vectorPersistImplicit[T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)
+
+  implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Show.intPersistImplicit)
+  {
+    override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
+    override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[Array[Int]] = TextPosn.empty.bad("ArrayInt from statements")
+    override def fromClauses(clauses: Refs[Clause]): EMon[Array[Int]] = ???
+
+    override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
+    { case SemicolonToken(_) => Good(Array[Int]())
+      case AlphaBracketExpr(IdentifierUpperToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+      //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
+      case e => bad1(expr, "Unknown Exoression for Seq")
+    }
   }
 
-  /** Implicit method for creating Array[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrayImplicit[A](implicit ev: Show[A]): Show[Array[A]] = new ShowSeqLike[A, Array[A]]
-  { override def evA: Show[A] = ev
-    override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
-    override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
+  class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArrOld[A]](ev)
+  {
+    override def showSemi(thisArr: ArrOld[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    override def showComma(thisArr: ArrOld[A]): String = thisArr.map(ev.show(_)).commaFold
+    override def fromParameterStatements(sts: Refs[Statement]): EMon[ArrOld[A]] = ???
+    override def fromClauses(clauses: Refs[Clause]): EMon[ArrOld[A]] = ???
+
+    override def fromExpr(expr: ParseExpr): EMon[ArrOld[A]] =  expr match
+    {
+      case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+      case _ => ??? // expr.exprParseErr[A](this)
+    }
   }
 
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */

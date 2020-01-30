@@ -59,7 +59,7 @@ object Statement
     def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueFromStatements(statementList.toRefs)
     def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueFromStatements(statementList.toRefs)
-    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementList.toRefs)
+    def findIntArray: EMon[Array[Int]] = Show.ArrayIntPersistImplicit.findUniqueFromStatements(statementList.toRefs)
 
     /** Find setting from RSON statement */
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList.toRefs, settingStr)
@@ -92,7 +92,7 @@ object Statement
     def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
     def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
     def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findIntArray: EMon[Array[Int]] = Persist.ArrayIntImplicit.findUniqueFromStatements(statementRefs)
+    def findIntArray: EMon[Array[Int]] = Show.ArrayIntPersistImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find setting from RSON statement */
     def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementRefs, settingStr)
