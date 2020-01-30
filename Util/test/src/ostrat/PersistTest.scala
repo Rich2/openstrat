@@ -16,10 +16,10 @@ object PersistTest
   object TestObjA extends TestClass("TestObjA")
   object TestObjB extends TestClass("TestObjB")
   
-  case class My2(ints: Seq[Int], myStr: String)
+  case class My2(ints: List[Int], myStr: String)
  
   object My2
-  { implicit val persist: Persist[My2] = Persist2[Seq[Int], String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
+  { implicit val persist: Persist[My2] = Persist2[List[Int], String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
   }
 
   val tests = Tests
@@ -38,8 +38,8 @@ object PersistTest
       aa.str ==> aaStr
       aaStr.findType[TestClass] ==> Good(TestObjA)
       aa.strTyped ==> "TestClass(TestObjA)"
-      abArr.str.findType[Seq[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
-      abSeq.str.findType[Seq[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
+      abArr.str.findType[List[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
+    //  abSeq.str.findType[ArrOld[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
 
       str1.str ==> str1Std
       str1.strSemi ==> str1Std

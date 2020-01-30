@@ -22,7 +22,7 @@ package object ostrat
   val Sin60 = 0.866025404f;
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
-  def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
+ // def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
   @inline def ArrOld[A](inp: A *)(implicit ct: ClassTag[A]): ArrOld[A] = ArraySeq.apply(inp: _*)
 
   /** onlyIf-do. Only if the condition is true, perform the effect. */
@@ -56,9 +56,9 @@ package object ostrat
   @inline def excep(str: => String): Nothing = throw new Exception(str)
   @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
   @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
-  def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
-  def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
-  def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
+ // def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
+  //def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
+  //def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
   def readT[T](implicit ev: Persist[T]): T =

@@ -4,7 +4,7 @@ package ostrat
 trait IsType[A <: AnyRef]
 { def isType(obj: AnyRef): Boolean
   def asType(obj: AnyRef): A
-  def optType(obj: AnyRef): Option[A] = ifSome(isType(obj), asType(obj))
+  def optType(obj: AnyRef): Option[A] = ife(isType(obj), Some(asType(obj)), None)
 }
 
 object IsType
