@@ -30,7 +30,7 @@ trait Show[-T]
   def showTyped(obj: T): String
  }
 
-object Show
+object Show //extends ShowInstancesPriority2
 {
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int") {
     //override def findUniqueFromStatements(sts: Statements): EMon[Int] =
@@ -109,12 +109,11 @@ object Show
   implicit def listPersistImplicit[A](implicit ev: Persist[A]): Persist[List[A]] = new PersistListImplicit[A](ev)
 
   /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def consPersistImplicit[A](implicit ev: Persist[A]): Persist[::[A]] = new PersistConsImplicit[A](ev)
+  //implicit def consPersistImplicit[A](implicit ev: Persist[A]): Persist[::[A]] = new PersistConsImplicit[A](ev)
 
   implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
-  /** Implicit method for creating Seq[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
- // implicit def seqPersistImplicit[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
+
 
   /** Implicit method for creating Vector[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def vectorPersistImplicit[T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)
@@ -167,7 +166,7 @@ object Show
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeqLike[A, ArrOld[A]]
+  implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeqLike[A, ArrOld[A]]
   { override def evA: Show[A] = ev
     override def showSemi(thisArr: ArrOld[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: ArrOld[A]): String = thisArr.map(ev.show(_)).commaFold
@@ -208,4 +207,10 @@ object Show
     { override def typeStr: String = "Option" + evA.typeStr.enSquare
       override def syntaxDepth: Int = evA.syntaxDepth
     }
+}
+
+sealed trait ShowInstancesPriority2
+{
+  /** Implicit method for creating Seq[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  implicit def seqPersistImplicit[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
 }
