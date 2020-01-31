@@ -23,7 +23,7 @@ case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
   
   val arr = Array(4, 5, 6)
   val as = arr.str
-  val r1 = as.findType[Seq[Int]]//The default constructor for a Seq is List
+//  val r1 = as.findType[Seq[Int]]//The default constructor for a Seq is List
   val r2 = as.findType[List[Int]]
   val r3 = as.findType[Vector[Int]]
   val a4 = as.findType[Array[Int]]
@@ -31,7 +31,7 @@ case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
   val r5 = a4.map(_(1))
   val r6: EMon[Int] = a4.map[Int](arr => arr(2))//This is the long explicit result.
   
-  val strs = Refs(r1, r2, r3, r4, r5).map(_.toString)
+  val strs = Refs(/*r1,*/ r2, r3, r4, r5).map(_.toString)
   val bottomBlock  = MText(-100, strs)
   
   repaint(topBlock ++ bottomBlock)
