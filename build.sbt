@@ -49,22 +49,13 @@ lazy val Strat = stdJvmProj("Strat").dependsOn(World).settings(
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
 
-lazy val root = (project in file(".")).dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
-  scalaSource := baseDirectory.value / "Dev/src",
-  Compile/scalaSource := baseDirectory.value / "Dev/src",
-  resourceDirectory := baseDirectory.value / "Dev/res",
-  Test/scalaSource := baseDirectory.value / "Dev/test/src",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-  Compile/unmanagedSourceDirectories := List("Dev/src"/*, "Dev/jvm/src"*/, "Graphic/learn/src").map(s => baseDirectory.value / s),
+lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
+  
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/learn/src").map(s => baseDirectory.value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, baseDirectory.value / "Dev/User"),
-  //Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
-)
-
-lazy val Dev = stdJvmProj("Dev").dependsOn(root).settings(commonSettings).settings(
-  Compile/unmanagedSourceDirectories := List("Dev/jvm/src").map(s => (ThisBuild/baseDirectory).value / s),
-  Compile/mainClass := Some("ostrat.pFx.DevApp"),
+  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13"
-  )
+)
 
 val docDirs: List[String] = List("Util", "Graphic", "World", "Strat", "Dev")
 
