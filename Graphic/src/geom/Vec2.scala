@@ -11,8 +11,13 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y
+
+  /** Adds this Vector to a second 2 dimensional vector. */
   def +(operand: Vec2): Vec2 = Vec2(x + operand.x, y + operand.y)
-  def -(other: Vec2): Vec2 = Vec2(x - other.x, y - other.y)
+
+  /** Subtracts the operand 2-idmensianl vecotr from this 2-dimensional vector. */
+  def -(operand: Vec2): Vec2 = Vec2(x - operand.x, y - operand.y)
+  /** The magnitude of this vector. */
   def magnitude = math.sqrt(x * x + y * y)
 
   def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
