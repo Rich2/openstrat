@@ -54,7 +54,7 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, baseDirectory.value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "13"
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "World", "Strat", "Dev")
@@ -65,6 +65,7 @@ lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).set
   version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
 )
 
 lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSettings).settings(
