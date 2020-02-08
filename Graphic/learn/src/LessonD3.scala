@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, pCanv._
 
 /** D Series lessons deal with persistence */
-case class LessonD3(canv: CanvasPlatform) extends CanvasSimple("Lesson D3")
+case class LessonD3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
 {
   val r1 = Rval(5) - 2.1 - false - "Hello World!" - (2.3 vv -43.8) - Array(4, 5, 6)
   val topBlock = SText(300 , r1.str)

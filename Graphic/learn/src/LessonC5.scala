@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._
 
-case class LessonC5(canv: CanvasPlatform) extends CanvasSimple("Lesson C5")
+case class LessonC5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C5")
 {
   val r1 = ARect(Vec2Z, 500, 300)
   val r2 = ARect(Vec2Z, 400, 250)

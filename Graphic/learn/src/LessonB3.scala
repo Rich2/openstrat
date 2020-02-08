@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._
 
-case class LessonB3(canv: CanvasPlatform) extends CanvasSimple("Lesson B3")
+case class LessonB3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B3")
 {
   /* This again uses the next simplest timer method. This requires a list of objects. */
   timedRepaint{e =>

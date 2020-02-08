@@ -4,7 +4,7 @@ import ostrat._, geom._, pCanv._
 
 /** The B series lessons are dynamic. The display changes with time. You don't need to do all the a lessons before starting on the Bs.
  *  Alternatively if you merely want to create printable materials then you don't need to do the B series. */
-case class LessonB1(canv: CanvasPlatform) extends CanvasSimple("Lesson B1")
+case class LessonB1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B1")
 {
   /*This is the simplest time helper method. You merly need to provide a single object that changes over time. Note each time we create a new
   differenet object. rather than modifying the original. */

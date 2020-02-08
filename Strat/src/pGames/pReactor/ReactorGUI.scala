@@ -4,7 +4,7 @@ package pGames.pReactor
 
 import geom._, pCanv._, Colour._
 
-case class ReactorGUI (canv: CanvasPlatform) extends CanvasSimple("Reactor")
+case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 {
   val size = 40  //cell size in pixels
   val rows = 8

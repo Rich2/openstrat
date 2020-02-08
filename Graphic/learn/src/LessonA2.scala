@@ -1,7 +1,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._, BaseLine._
 
-case class LessonA2(canv: CanvasPlatform) extends CanvasSimple("Lesson A2")
+case class LessonA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 {
   // everything on a line onwards from // is ignored by the compiler (which turns code into something a machine can run)
   // they are useful amongst other things for humans to remind themselves what is intended in their coding and give hints to others trying to understand

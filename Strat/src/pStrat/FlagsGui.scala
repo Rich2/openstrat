@@ -3,7 +3,7 @@ package ostrat
 package pStrat
 import geom._, pCanv._, Colour._, pFlags._, FlagsZ._
 
-case class FlagsGui(canv: CanvasPlatform) extends CanvasSimple("Flags Gui")
+case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 {
   backColour = Gray
    

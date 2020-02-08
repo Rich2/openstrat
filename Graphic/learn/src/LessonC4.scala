@@ -11,7 +11,7 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
 }
 
 /** This lesson is working, but has what looks like a very dubious implementation. */
-case class LessonC4(canv: CanvasPlatform) extends CanvasSimple("Lesson C4")
+case class LessonC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
 {
   val r0 = Rectangle(200, 100)//.fill(Red)
   val r1 = r0.slate(-300 vv 300)

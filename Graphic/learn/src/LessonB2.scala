@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonB2(canv: CanvasPlatform) extends CanvasSimple("Lesson B2")
+case class LessonB2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B2")
 {
   /* This again uses the simplest timer method. The screen is repainted every 15 milliseconds, that forty frames a second. The % operator
    * divides, and returns the remainder. This means ever 5000 milliseconds or 5 seconds the rectangle goes back to the start. */

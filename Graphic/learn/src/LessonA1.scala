@@ -1,7 +1,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA1(canv: CanvasPlatform) extends CanvasSimple("Lesson A1")
+case class LessonA1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
 {
   repaints(
     Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),

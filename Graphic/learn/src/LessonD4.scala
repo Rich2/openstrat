@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 /** Lesson D4 Settings. */
-case class LessonD4(canv: CanvasPlatform) extends CanvasSimple("Lesson D4")
+case class LessonD4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
 {  
   val v1 = Vec2(2.3, -9.8)
   val t4 = v1.str

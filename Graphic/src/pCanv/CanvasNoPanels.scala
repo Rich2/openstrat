@@ -3,8 +3,8 @@ package ostrat
 package pCanv
 import geom._
 
-/** A simple use of the canvas with out splitting it up into Panels. */
-abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelLike 
+/** A canvas that is not divided up into panels. A panel is a portion of the canvas that has its own origin and is clipped. */
+abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with PanelLike
 {      
   override def width = canv.width
   override def height = canv.height

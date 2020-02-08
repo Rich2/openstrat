@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._//, Colour._
 
-case class LessonA10(canv: CanvasPlatform) extends CanvasSimple("Lesson A9")
+case class LessonA10(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A9")
 {
   val rect = Rectangle(300, 200)
   val cen0 = -0 vv -400

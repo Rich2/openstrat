@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, pCanv._
 
 /** D Series lessons deal with persistence */
-case class LessonD2(canv: CanvasPlatform) extends CanvasSimple("Lesson D2")
+case class LessonD2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D2")
 {
   val tStr = """2.0;
      "Hello";
