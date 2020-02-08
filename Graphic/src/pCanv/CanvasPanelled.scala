@@ -3,7 +3,8 @@ package ostrat
 package pCanv
 import geom._
 
-abstract class CanvasMulti(title: String) extends CanvasUser(title)
+/** A canvas divided up into panels. Each panel is clipped and has its own origin. */
+abstract class CanvasPanelled(title: String) extends CanvasUser(title)
 {
   var panels: List[Panel] = Nil
   

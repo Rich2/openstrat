@@ -3,7 +3,7 @@ package ostrat
 package pCanv
 import geom._, Colour._
 
-abstract class CmdBarGui(title: String) extends CanvasMulti(title)
+abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30
   val topBar = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
