@@ -5,21 +5,20 @@ import Colour.Black
 
 /** This trait may need new name and modification */
 trait RectGeom
-{   
-   var backColour: Colour = Colour.White   
-   def width: Double 
-   def height: Double
-   def left = - width / 2
-   def right = width / 2
-   def top = height / 2
-   def bottom = - height / 2
-   def panelCen: Vec2 = Vec2(0, 0)
-   def topLeft: Vec2 = Vec2(left, top)
-   def topRight: Vec2 = Vec2(right, top)
-   def bottomRight: Vec2 = Vec2(right, bottom)
-   def bottomLeft: Vec2 = Vec2(left, bottom)
-   def cenLeft = Vec2(left, 0)
-   def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw =
+{ var backColour: Colour = Colour.White
+  def width: Double
+  def height: Double
+  def left = - width / 2
+  def right = width / 2
+  def top = height / 2
+  def bottom = - height / 2
+  def panelCen: Vec2 = Vec2(0, 0)
+  def topLeft: Vec2 = Vec2(left, top)
+  def topRight: Vec2 = Vec2(right, top)
+  def bottomRight: Vec2 = Vec2(right, bottom)
+  def bottomLeft: Vec2 = Vec2(left, bottom)
+  def cenLeft = Vec2(left, 0)
+  def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw =
      Line2s.doubles(left, 0, right, 0,
         0, top, 0, bottom).draw(lineWidth, lineColour)
 

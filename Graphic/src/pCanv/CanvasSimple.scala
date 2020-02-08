@@ -3,7 +3,7 @@ package ostrat
 package pCanv
 import geom._
 
-/** A simple use of the canvas with out splitting it up into Panels */
+/** A simple use of the canvas with out splitting it up into Panels. */
 abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelLike 
 {      
   override def width = canv.width
@@ -16,8 +16,13 @@ abstract class CanvasSimple(title: String) extends CanvasUser(title) with PanelL
     subjs = paintObjs(canvObjs)//paintObjs paints the objects to the screen and returns a list of active objects
   }
 
+  /** Repaints the canvas takes repeat parameters of GraphicElem. */
   def repaints(els: GraphicElem*): Unit = { canvObjs = els.toRefs; refresh() }
+
+  /** Repaints the canvas using the deprecated interface with ArraySeq. */
   def repaintOld(els: ArrOld[GraphicElem]): Unit = { canvObjs = els.toRefs; refresh() }
+
+  /** Repaints the canvas, takes a Refs collection as parameter. */
   def repaint(els: Refs[GraphicElem]): Unit = { canvObjs = els; refresh() }
 
   def timedRepaint(f: Integer => GraphicElems): Unit =
