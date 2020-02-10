@@ -31,19 +31,17 @@ abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSe
   }
 }
 
-abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends PersistSeqLike[A, R](ev)
+
+
+abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends PersistSeqLike[A, R](ev) with ShowIterable[A, R]
+
+trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
 {
-  def showSemi(thisIter: R): String = thisIter.map(ev.showComma(_)).semiFold
-  override def showComma(thisIter: R): String =
-    ife (thisIter.size == 1, ev.show(thisIter.head) + ",", thisIter.map(ev.show(_)).commaFold)
+  def showSemi(thisIter: R): String = thisIter.map(evA.showComma(_)).semiFold
+  override def showComma(thisIter: R): String = ife (thisIter.size == 1, evA.show(thisIter.head) + ",", thisIter.map(evA.show(_)).commaFold)
 }
 
-class PersistListImplicit[A](ev: Persist[A]) extends PersistIterable[A, List[A]](ev)
-{
-  override def fromExpr(expr: Expr): EMon[List[A]] = fromExprLike(expr)  
-  override def fromParameterStatements(sts: Refs[Statement]): EMon[List[A]] = ???
-  override def fromClauses(clauses: Refs[Clause]): EMon[List[A]] = ???
-}
+
 
 class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](ev)
 {
