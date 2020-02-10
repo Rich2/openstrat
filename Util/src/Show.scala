@@ -105,7 +105,7 @@ object Show //extends ShowInstancesPriority2
     }
   }
 
-  /** Implicit method for creating List[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  /** Implicit method for creating List[A: Show] instances. */
   implicit def listImplicit[A](implicit evIn: Show[A]): Show[List[A]] = new ShowIterable[A, List[A]]
   { override def evA: Show[A] = evIn
   }
