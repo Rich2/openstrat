@@ -22,7 +22,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
       val poly2 = poly1.scale(tog.tScale / 2.5).rotate(charac.facing.angle).slate(tog.cen)      
       ArrOld(poly2.fillDrawSubj(charac, charac.colour, 1), TextGraphic(charac.iden.toString, 16, cen, charac.colour.contrast))
     }
-    tv ++ tText ++ player ++ sides
+    tv.toArraySeq ++ tText ++ player ++ sides
   }
   
   def mapObjs: GraphicElems = (ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)).toRefs

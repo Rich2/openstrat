@@ -24,7 +24,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
           }
         }
       )
-      poly ++ textOrUnit
+      poly.toArraySeq ++ textOrUnit
     }
     
   def fSide: OfESide[W2Tile, W2Side] => GraphicElemsOld = ofs =>

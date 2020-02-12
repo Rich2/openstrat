@@ -37,7 +37,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
           { val strs: ArrOld[String] = ArrOld(yxStr, cenLL.degStr)
             TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
           })         
-          poly ++ tileText
+          poly.toArraySeq ++ tileText
       }
    def fSide: OfESide[BcTile, ESideOnly] => GraphicElemsOld = ofs => {
       import ofs._

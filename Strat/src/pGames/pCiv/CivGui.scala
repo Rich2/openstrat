@@ -34,7 +34,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
         }
         case _ => ArrOld()
        }
-       tv ++ tText ++ sett ++ lunit ++ sides
+       tv.toArraySeq ++ tText ++ sett ++ lunit ++ sides
      }
   def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex).toRefs// ofHexsDisplayFold(fHex).collapse
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match

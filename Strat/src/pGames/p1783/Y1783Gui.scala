@@ -23,7 +23,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
             TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
           }
         })         
-        poly ++ textU
+        poly.toArraySeq ++ textU
      }
    
    def fSide: OfESide[NTile, ESideOnly] => GraphicElemsOld = ofs =>

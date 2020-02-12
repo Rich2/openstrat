@@ -18,8 +18,8 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   { import ofh._         
     val colour: Colour = tile.colour         
     
-    val tv = tile.terr match
-    { case _ : Building => vertDispVecs.fillActive(LightGreen, tile) :+ Square.fill(pScale * 2.5, colour, cen)
+    val tv: GraphicElems = tile.terr match
+    { case _ : Building => vertDispVecs.fillActive(LightGreen, tile).append(Square.fill(pScale * 2.5, colour, cen))
       case _ => vertDispVecs.fillActive(colour, tile)
     }
     
@@ -49,7 +49,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       }
       case _ => ArrOld()
     }    
-    tv ++ tText ++ lunit
+    tv.toArraySeq ++ tText ++ lunit
   }
     
   def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElemsOld = ofs =>
