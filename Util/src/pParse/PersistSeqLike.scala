@@ -70,10 +70,3 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](e
   override def fromParameterStatements(sts: Refs[Statement]): EMon[Seq[A]] = ???
   override def fromClauses(clauses: Refs[Clause]): EMon[Seq[A]] = ???
 }
-
-class PersistVectorImplicit[A](ev: Persist[A]) extends PersistIterable[A, Vector[A]](ev)
-{
-  override def fromExpr(expr: Expr): EMon[Vector[A]] = fromExprLike(expr).map(_.toVector)
-  override def fromParameterStatements(sts: Refs[Statement]): EMon[Vector[A]] = ???
-  override def fromClauses(clauses: Refs[Clause]): EMon[Vector[A]] = ???
-}

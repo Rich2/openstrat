@@ -30,6 +30,11 @@ trait Show[-T]
   def showTyped(obj: T): String
  }
 
+/* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
+   instance without a Show instance. Many Persist instances are placed inside the Show companion object. However type instances that themsleves
+   one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
+   Persist type instances, and these will be placed in the Persist companion object.
+ */
 object Show //extends ShowInstancesPriority2
 {
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int") {
@@ -105,19 +110,17 @@ object Show //extends ShowInstancesPriority2
     }
   }
 
+  class ShowIterableClass[A, R <: Iterable[A]](val evA: Show[A]) extends ShowIterable[A, R]{}
+
   /** Implicit method for creating List[A: Show] instances. */
-  implicit def listImplicit[A](implicit evIn: Show[A]): Show[List[A]] = new ShowIterable[A, List[A]]
-  { override def evA: Show[A] = evIn
-  }
+  implicit def listImplicit[A](implicit ev: Show[A]): Show[List[A]] = new ShowIterableClass[A, List[A]](ev)
+
   /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   //implicit def consPersistImplicit[A](implicit ev: Persist[A]): Persist[::[A]] = new PersistConsImplicit[A](ev)
 
   implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
-
-
-  /** Implicit method for creating Vector[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def vectorPersistImplicit[T](implicit ev: Persist[T]): Persist[Vector[T]] = new PersistVectorImplicit[T](ev)
+  implicit def vectorImplicit[A](implicit ev: Show[A]): Show[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Show.intPersistImplicit)
   {
