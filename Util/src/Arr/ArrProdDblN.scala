@@ -51,6 +51,7 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdHomoBuild[B, Ar
   final override def buffToArr(buff: BuffT): ArrT = fromDblArray(buff.buffer.toArray)
 }
 
+/** A mutable and resizable Array Buffer for collections of elements that are products of Double sub-elements. */
 trait BuffProdDblN[A] extends Any with ArrBuffHomo[A]
 { type ArrT <: ArrProdDblN[A]
   def buffer: ArrayBuffer[Double]

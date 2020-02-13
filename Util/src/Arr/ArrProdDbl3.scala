@@ -49,5 +49,7 @@ abstract class ProdDbl3sCompanion[A <: ProdDbl3, M <: ArrProdDbl3[A]]
 trait BuffProdDbl3[A <: ProdDbl3] extends Any with BuffProdDblN[A]
 { type ArrT <: ArrProdDbl3[A]
   override def elemSize: Int = 3
+
+  /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3); () }
 }
