@@ -3,6 +3,8 @@ package ostrat
 package geom
 import Colour.Black
 
+import scala.collection.mutable.ArrayBuffer
+
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
 class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLike
 { override def toString: String = Line2.persistImplicit.show(this)
@@ -41,7 +43,16 @@ object Line2
 * directly. */
   @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
   implicit val persistImplicit: Persist[Line2] with Eq[Line2] = new Persist2[Vec2, Vec2, Line2]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Line2(_, _))
+
+  /*implicit val line2sBuildImplicit: ArrBuild[Line2, Line2s] = new ArrProdDbl4Build[Line2, Line2s]
+  { type BuffT = Vec2sBuff
+    override def fromDblArray(array: Array[Double]): Line2s = new Line2s(array)
+    def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
+  }*/
 }
+
+//class line2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl4[Line2]
+
 object HLine
 { /** Creates a horizontal Line2 */
   @inline def apply(y: Double, xStart: Double, yEnd: Double): Line2 = new Line2(xStart, y, xStart, y)

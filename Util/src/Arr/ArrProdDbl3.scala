@@ -16,6 +16,19 @@ trait ArrProdDbl3[A <: ProdDbl3] extends Any with ArrProdDblN[A]
   def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(ArrOld(el._1, el._2, el._3)))
 }
 
+trait ArrProdDbl3Build[A <: ProdDbl3, ArrT <: ArrProdDbl3[A]] extends ArrProdDblNBuild[A, ArrT]
+{ type BuffT <: BuffProdDbl3[A]
+
+  final override def elemSize = 3
+  //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
+
+  override def imutSet(arr: ArrT, index: Int, value: A): Unit =
+  { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2; arr.array(index * 2 + 2) = value._3
+  }
+
+  override def buffGrow(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
+}
+
 abstract class ProdDbl3sCompanion[A <: ProdDbl3, M <: ArrProdDbl3[A]]
 { val factory: Int => M
   def apply(length: Int): M = factory(length)
@@ -31,4 +44,10 @@ abstract class ProdDbl3sCompanion[A <: ProdDbl3, M <: ArrProdDbl3[A]]
     }
     res
   }
+}
+
+trait BuffProdDbl3[A <: ProdDbl3] extends Any with BuffProdDblN[A]
+{ type ArrT <: ArrProdDbl3[A]
+  override def elemSize: Int = 3
+  override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3); () }
 }
