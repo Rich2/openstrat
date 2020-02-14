@@ -28,6 +28,18 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
     typeStr + body.enParenth
   }
 
+  /** Alias for append. Functionally appends a second Refs[A] to ArrImut. Returned value has the same type as the dispatching Refs. Both operator and
+   *  alphanumeric names are overloaded. */
+ /* @inline def :+ (op: A): ThisT = append(op)
+
+  /** Functionally appends element to ArrImut. Returned value has the same type as the dispatching Refs. This method is aliased by the ++ operator. */
+  def append(op: A): ThisT =
+  { val newArray = new Array[Double]((length + 1) * elemLen)
+    array.copyToArray(newArray)
+    newArray(length) = op
+    new Refs(newArray)
+  }*/
+
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =
   {
