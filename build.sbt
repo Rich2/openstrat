@@ -40,7 +40,11 @@ lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(
   Compile/unmanagedSourceDirectories := List("src").map(str => (ThisBuild/baseDirectory).value / "Graphic" / str),  
 )
 
-lazy val World = stdJvmProj("World").dependsOn(Graphic).settings(
+lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic).settings(
+  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Tiling" / str),
+)
+
+lazy val World = stdJvmProj("World").dependsOn(Tiling).settings(
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "World" / str),
 )
 

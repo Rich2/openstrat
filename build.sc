@@ -90,13 +90,25 @@ object Graphic extends PlatformsModule
   }
 }
 
-object World extends PlatformsModule
+object Tiling extends PlatformsModule
 { def moduleDeps = Seq(Graphic)  
 
   object test extends InnerTests
       
   object js extends InnerJs
   { def moduleDeps = Seq(Graphic.js) 
+  }
+  
+  object Nat extends InnerNative
+}
+
+object World extends PlatformsModule
+{ def moduleDeps = Seq(World)  
+
+  object test extends InnerTests
+      
+  object js extends InnerJs
+  { def moduleDeps = Seq(Tiling.js) 
   }
   
   object Nat extends InnerNative
