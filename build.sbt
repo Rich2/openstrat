@@ -44,11 +44,7 @@ lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic).settings(
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Tiling" / str),
 )
 
-lazy val World = stdJvmProj("World").dependsOn(Tiling).settings(
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "World" / str),
-)
-
-lazy val Strat = stdJvmProj("Strat").dependsOn(World).settings(
+lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling).settings(
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Strat" / str),
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
@@ -61,7 +57,7 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
 )
 
-val docDirs: List[String] = List("Util", "Graphic", "World", "Strat", "Dev")
+val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
 
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSettings).settings(
   name := "OpenStrat",
@@ -99,11 +95,11 @@ lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(
   Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsWorld = jsProj("World").dependsOn(JsGraphic).settings(  
-  Compile/unmanagedSourceDirectories := List("World/src", "World/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val JsTiling = jsProj("Tiling").dependsOn(JsGraphic).settings(  
+  Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsStrat = jsProj("Strat").dependsOn(JsWorld).settings(  
+lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(  
   Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 

@@ -102,25 +102,13 @@ object Tiling extends PlatformsModule
   object Nat extends InnerNative
 }
 
-object World extends PlatformsModule
-{ def moduleDeps = Seq(World)  
-
-  object test extends InnerTests
-      
-  object js extends InnerJs
-  { def moduleDeps = Seq(Tiling.js) 
-  }
-  
-  object Nat extends InnerNative
-}
-
 object Strat extends PlatformsModule
-{ def moduleDeps = Seq(World)
+{ def moduleDeps = Seq(Tiling)
   
 
   object test extends InnerTests
       
-  object js extends InnerJs { def moduleDeps = Seq(World.js) }
+  object js extends InnerJs { def moduleDeps = Seq(Tiling.js) }
   object Nat extends InnerNative
 }
 
