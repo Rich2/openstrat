@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pWW2
 
 case class Army(tile: W2Tile, polity: Polity) extends WithColour
