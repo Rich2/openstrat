@@ -19,7 +19,7 @@ object Apps
       ("6", (new pGames.pDung.DungeonGui(_), "ScalaFx Dungeon")),
       ("7", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),
       ("8", (ColourGen(_), "ScalaFx Some Colours")),
-      ("9", (pGames.p305.BC305Gui(_, pGames.p305.Bc1), "BC 305")),
+      ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
       ("10", (pGames.pCard.BlackJackGui(_), "ScalaFx BlackJack")),
       ("11", (new pGames.pChess.DraughtsGui(_), "Draughts")),
       ("12", (new pGames.pSimp.UnusGui(_, pGames.pSimp.Simp1()), "Simplest Game")),

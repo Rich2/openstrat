@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package p305
-import pGrid._
-import pEarth._
+import pGrid._, pEarth._
 
 case class BcTile(x: Int, y: Int, terr: WTile) extends ETile
 {
