@@ -40,11 +40,11 @@ lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(
   Compile/unmanagedSourceDirectories := List("src").map(str => (ThisBuild/baseDirectory).value / "Graphic" / str),  
 )
 
-lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic).settings(
+/*lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic).settings(
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Tiling" / str),
-)
+)*/
 
-lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling).settings(
+lazy val Strat = stdJvmProj("Strat").dependsOn(Graphic).settings(
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Strat" / str),
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
