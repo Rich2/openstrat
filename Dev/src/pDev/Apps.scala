@@ -12,7 +12,7 @@ object Apps
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
       ("0", (new pGames.pCiv.CivGui(_), "ScalaFx Rise of Civs")),
       ("1", (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") ),
-      ("2", (pGames.p1783.Y1783Gui(_, pGames.p1783.Nap1), "1783")),
+      ("2", (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
       ("3", (FlagsGui(_), "ScalaFx Flags")),
       ("4", (pGames.pSpace.Planets(_), "ScalaFx Planets")),
       ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
