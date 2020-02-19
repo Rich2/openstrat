@@ -3,10 +3,6 @@ package ostrat
 package pDev
 import pCanv._, pStrat._
 
-/** This file is normally set by "git update-index --assume-unchanged Core/src/ostrat/pDev/Apps.scala" this is to allow the developer to make local
- *  changes to appNum without modifying the master project. If permanent changes are required run:
- *  "git update-index --no-assume-unchanged Core/src/ostrat/pDev/Apps.scala". Stage and commit the changes and then run:
- *  "git update-index --assume-unchanged Core/src/ostrat/pDev/Apps.scala" before pushing or pull-requesting changes." */
 object Apps
 {
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(

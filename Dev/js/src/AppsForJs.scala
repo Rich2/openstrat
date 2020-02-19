@@ -65,5 +65,5 @@ object AppsForJs
   )
 
   /** Change appNum to change the default loaded application. */
-  def curr(str: String): (CanvasPlatform => Any, String) = theMap.getOrElse(str, theMap("1"))
+  def curr: (CanvasPlatform => Any, String) = theMap("4")
 }
