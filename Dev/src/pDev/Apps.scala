@@ -24,7 +24,7 @@ object Apps
       ("11", (new pGames.pChess.DraughtsGui(_), "Draughts")),
       ("12", (new pGames.pSimp.UnusGui(_, pGames.pSimp.Simp1()), "Simplest Game")),
      // ("13", (pGames.pNew.TGui(_), "New Grid")),
-      ("14", (new pGames.pReactor.ReactorGUI(_), "reactor")),
+      ("14", (new pReactor.ReactorGUI(_), "reactor")),
       ("15", (new pGames.pChess.ChessGui(_), "Chess")),
 
       

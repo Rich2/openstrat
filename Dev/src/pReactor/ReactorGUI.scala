@@ -1,6 +1,6 @@
 /* Copyright 2018 w0d. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames.pReactor
+package pReactor
 
 import geom._, pCanv._, Colour._
 
