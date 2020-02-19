@@ -28,10 +28,10 @@ object Apps
       ("15", (new pGames.pChess.ChessGui(_), "Chess")),
 
       
-      ("Z0", (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
-      ("Z1", (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
-      ("Z2", (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame1, pGames.pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
-      ("23", (new pGames.pZug.ZugGui(_, pGames.pZug.ZGame2, pGames.pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
+      ("Z0", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
+      ("Z1", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
+      ("Z2", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
+      ("23", (new pZug.ZugGui(_, pZug.ZGame2, pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
 
       
       ("A1", (learn.LessonA1(_), "ScalaFx Demonstration Canvas 1")), //Static Graphics

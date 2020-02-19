@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pZug
-import Colour._
-import pGrid._
+import Colour._, pGrid._
 
 trait ZugTerr
 {

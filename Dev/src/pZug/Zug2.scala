@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames.pZug
+package pZug
 import pGrid._
 
 object Zug2  extends ZugGrid(4, 38, 2, 10, 0)

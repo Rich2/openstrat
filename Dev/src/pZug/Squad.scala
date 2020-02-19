@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pZug
-import pGrid._
-import pStrat._
+import pGrid._, pStrat._
 
 class Squad(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) extends Lunit
 {
