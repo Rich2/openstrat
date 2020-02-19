@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames.pDung
+package pDung
 import pGrid._
 
 /** Tile is 0.5m square. */

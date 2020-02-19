@@ -16,7 +16,7 @@ object Apps
       ("3", (FlagsGui(_), "ScalaFx Flags")),
       ("4", (pGames.pSpace.Planets(_), "ScalaFx Planets")),
       ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
-      ("6", (new pGames.pDung.DungeonGui(_), "ScalaFx Dungeon")),
+      ("6", (new pDung.DungeonGui(_), "ScalaFx Dungeon")),
       ("7", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),
       ("8", (ColourGen(_), "ScalaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),

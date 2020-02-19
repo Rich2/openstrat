@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames.pDung
+package pDung
 import pGrid._
 
 object Dungeon1 extends DungeonGrid(2, 48, 2, 30, 0) 

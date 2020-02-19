@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pDung
-import Colour._
-import pGrid._
+import Colour._, pGrid._
 
 sealed trait DTerr extends AnyRef with PersistSingleton
 { def colour: Colour
