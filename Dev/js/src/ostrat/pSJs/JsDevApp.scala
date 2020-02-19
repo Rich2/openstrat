@@ -6,7 +6,7 @@ import scala.scalajs.js.annotation._
 @JSExportTopLevel("JsDevApp")
 object JsDevApp
 { @JSExport def main(appStr: String = "1"): Unit =
-  { pDev.Apps.curr(appStr)._1(CanvasJs)
+  { AppsForJs.curr(appStr)._1(CanvasJs)
     ()
   }
 }

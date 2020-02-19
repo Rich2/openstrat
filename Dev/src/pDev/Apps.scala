@@ -64,7 +64,6 @@ object Apps
       
       ("E1", (learn.LessonE1(_), "ScalaFx Demonstration Games 1")), //Building turn based games.
       ("E2", (learn.LessonE2(_), "ScalaFx Demonstration Games 2")),
-
   )
   
   /** Change appNum to change the default loaded application. */
