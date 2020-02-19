@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pCiv
 import geom._, pGrid._, pCanv._, Colour._
 

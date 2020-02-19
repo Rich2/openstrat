@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pCiv
 import pGrid._, pStrat._, pEarth._
 

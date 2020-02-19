@@ -1,9 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pCiv
-import pEarth._
-import pGrid._
+import pEarth._, pGrid._
 
 class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[CTile, SideBare](xTileMin,
     xTileMax, yTileMin, yTileMax, turnNum)
