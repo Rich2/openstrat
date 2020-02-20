@@ -1,5 +1,5 @@
 package ostrat
-package pGames.pChess
+package pChess
 import geom._, pGrid._, Colour._
 
 sealed trait Piece extends UnScaledPolygon

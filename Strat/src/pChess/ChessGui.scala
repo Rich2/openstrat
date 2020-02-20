@@ -1,5 +1,5 @@
 package ostrat
-package pGames.pChess
+package pChess
 import geom._, pCanv._, Colour._
 
 case class ChessGui(canv: CanvasPlatform) extends CanvasNoPanels("Chess")
