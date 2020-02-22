@@ -28,9 +28,9 @@ object ArrOtherTest extends TestSuite
       pre1(0) ==> 1
       pre1(3) ==> 4
     }
-    val ints4 = ints1.bind(a => Ints(a + 10, a + 20, a + 30))
-    val longs2 = ints1.bind(a => Longs(a + 100, a + 200, a + 300))
-    val dbls3 = ints2.bind(i => Dbls(i, i * 0.5))
+    val ints4 = ints1.flatMap(a => Ints(a + 10, a + 20, a + 30))
+    val longs2 = ints1.flatMap(a => Longs(a + 100, a + 200, a + 300))
+    val dbls3 = ints2.flatMap(i => Dbls(i, i * 0.5))
     'Bind -
     {
       ints4(1) ==> 21

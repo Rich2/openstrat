@@ -45,6 +45,9 @@ trait ArrayLike[+A] extends Any
     res
   }
 
+  /** This was an extension method I'm not sure why. It was also called bind. */
+  def flatMap[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB = ev.flatMap[A](this, f)
+
   def iMap[B, BB <: ArrImut[B]](f: (A, Int) => B)(implicit ev: ArrBuild[B, BB]): BB =
   { val res = ev.imutNew(length)
     iForeach((a, i) => ev.imutSet(res, i, f(a, i)))
@@ -235,6 +238,6 @@ trait ArrayLike[+A] extends Any
 object ArrayLike
 {
   implicit class ArrBaseImplicit[A](ba: ArrayLike[A])
-  { def bind[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB = ev.flatMap[A](ba, f)
+  {
   }
 }

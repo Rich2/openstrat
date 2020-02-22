@@ -53,7 +53,7 @@ object ArrProdHomoTest  extends TestSuite
   {
     val dbls1 = Dbls(1, 2, 3, 4)
     val mines1 = dbls1.map(d => Mine(d, d * 2))
-    val mines2 = dbls1.bind(d => Mines(Mine(d, d), Mine(d * 2, d * 2)))
+    val mines2 = dbls1.flatMap(d => Mines(Mine(d, d), Mine(d * 2, d * 2)))
     //val str1 = mines2.str
     'test1 -
       { dbls1(3) ==> 4
