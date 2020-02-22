@@ -16,7 +16,7 @@ object Apps
       ("7", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),
       ("8", (ColourGen(_), "ScalaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
-      ("10", (pGames.pCard.BlackJackGui(_), "ScalaFx BlackJack")),
+      ("10", (pCard.BlackJackGui(_), "ScalaFx BlackJack")),
       ("11", (new pChess.DraughtsGui(_), "Draughts")),
       ("12", (new pGames.pSimp.UnusGui(_, pGames.pSimp.Simp1()), "Simplest Game")),
      // ("13", (pGames.pNew.TGui(_), "New Grid")),
