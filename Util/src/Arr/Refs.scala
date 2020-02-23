@@ -22,21 +22,21 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     new Refs(newArray)
   }
 
-  /** Alias for append. Functionally appends element to ArrImut. Returned value has the same type as the dispatching Refs. Both operator and
+  /** Alias for appendElem. Functionally appends element to ArrImut. Returned value has the same type as the dispatching Refs. Both operator and
    *  alphanumeric names are overloaded. */
-  @inline def ++(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = append(op)(ct)
-
-  /** Alias for append. Functionally appends a second Refs[A] to ArrImut. Returned value has the same type as the dispatching Refs. Both operator and
-   *  alphanumeric names are overloaded. */
-  @inline def ++ (op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = append(op)(ct)
+  @inline def ++(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = appendElem(op)(ct)
 
   /** Functionally appends element to ArrImut. Returned value has the same type as the dispatching Refs. This method is aliased by the ++ operator. */
-  def append(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
+  def appendElem(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
   { val newArray = new Array[A](length + 1)
     array.copyToArray(newArray)
     newArray(length) = op
     new Refs(newArray)
   }
+
+  /** Alias for append. Functionally appends a second Refs[A] to ArrImut. Returned value has the same type as the dispatching Refs. Both operator and
+   *  alphanumeric names are overloaded. */
+  @inline def ++ (op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = append(op)(ct)
 
   /** Functionally appends a second Refs[A] to ArrImut. Returned value has the same type as the dispatching Refs. This method is aliased by the ++
    *  operator. Both operator and alphanumeric names are overloaded.*/
@@ -78,10 +78,10 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   }
 
   /** Alias for prepend. Functionally prepends element to Refs. */
-  def +: [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = prepend[AA](op)(ct)
+  @inline def +: (op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = prepend(op)(ct)
 
   /** Functionally prepends element to array. */
-  def prepend[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
+  def precaternate[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
     array.copyToArray(newArray, 1)
@@ -89,9 +89,10 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   }
 
   /** Alias for precaternate. */
-  def *+: (op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = precaternate(op)(ct)
+  @inline def *+: [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Refs[AA] = precaternate(op)(ct)
 
-  def precaternate(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
+  /** Functionally prepends element to array. */
+  def prepend(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
   { val newArray = new Array[A](length + 1)
     newArray(0) = op
     array.copyToArray(newArray, 1)
