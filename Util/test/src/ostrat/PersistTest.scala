@@ -29,7 +29,7 @@ object PersistTest
     val aaStr: String = "TestObjA"
     val str1: String = "I am a String"
     val str1Std: String = "\"I am a String\""
-    val abSeq = Seq(TestObjA, TestObjB)
+    //val abSeq = Seq(TestObjA, TestObjB)
     val abArr = ArrOld(TestObjA, TestObjB)
     val mc = My2(List(7, 8, 9), "hi")
     

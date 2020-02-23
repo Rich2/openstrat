@@ -8,10 +8,10 @@ object srcToETokensTest extends TestSuite
   val tests = Tests
   { val Sp1 = StrPosn(1, 1)
     val Sp2 = StrPosn(1, 2)
-    val Sp3 = StrPosn(1, 3)
+    //val Sp3 = StrPosn(1, 3)
     val Sp4 = StrPosn(1, 4)
 
-    'Single
+    "Single" -
     { Sp1 ==> StrPosn(1, 1)
 
       assertMatch("\'a\'".parseTokens){ case GoodRefs1(CharToken(_, 'a')) => }
@@ -42,7 +42,7 @@ object srcToETokensTest extends TestSuite
     val et1 = st1.parseTokens
     val r1: Tokens = et1.get
 
-    'Multiple
+    "Multiple" -
     {
       assertMatch(";;".parseTokens){ case GoodRefs2(SemicolonToken(Sp1), SemicolonToken(Sp2)) => }
       assertMatch(" ; .".parseTokens){ case GoodRefs2(SemicolonToken(Sp2), DotToken(Sp4)) => }
@@ -62,11 +62,8 @@ object srcToETokensTest extends TestSuite
     implicit val r5: Refs[Token] = et5.get
     val ro6: RefsOff[Token] = r5.offset(4)
 
-    'Settings
-    {
-
-
-      assertMatch(st2.parseTokens){ case GoodRefs0() => }
+    "Settings" -
+    { assertMatch(st2.parseTokens){ case GoodRefs0() => }
       assertMatch(et3){case Good(_) => }
       r3.length ==> 12
       assertMatch(et5){case Good(_) => }
@@ -75,7 +72,7 @@ object srcToETokensTest extends TestSuite
       assertMatch(r5(4)){ case IdentifierLowerToken(_, "displayX") => }
     }
 
-    Symbol("Neg")
+    "Neg" -
     {
       //assertMatch("-".parseTokens){case GoodRefs1(PlusInToken(_, _)) => }
       //assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4")) => }

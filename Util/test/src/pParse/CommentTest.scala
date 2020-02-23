@@ -14,11 +14,11 @@ object CommentTest extends TestSuite
     val s5: EMon[Array[Char]] = eTry(io.Source.fromResource("c1.rson").toArray)// .getLines().mkString)
     val a5 = s5.flatMap(srcToETokens(_, ""))
     val s6 = "appStr =//\n\"Z0\";"
-    val a6 = s6.parseTokens
+    //val a6 = s6.parseTokens
 
-    val t = 11
+    //val t = 11
 
-    'Test1
+    "Test1" -
     { assertMatch(s1){ case Good(Refs0()) => }
       assertMatch(s2){ case Good(Refs3(_, _, _)) => }
       assertMatch(s3){ case Good(Refs3(_, _, _)) => }

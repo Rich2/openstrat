@@ -3,11 +3,13 @@ import utest._
 
 object ArrRefTest extends TestSuite
 {
+  trait MyT { def i: Int }
+  case class MyA(i: Int) extends MyT
+  case class MyB(i: Int) extends MyT
+
   val tests = Tests
   {
-    trait MyT { def i: Int }
-    case class MyA(i: Int) extends MyT
-    case class MyB(i: Int) extends MyT
+
 
     val myAArr1: Refs[MyA] = Refs(MyA(1), MyA(2), MyA(3))
     val myBArr1: Refs[MyB] = Refs(MyB(4), MyB(5))
@@ -19,7 +21,7 @@ object ArrRefTest extends TestSuite
     val refs2: Refs[MyA] = ints2.map(MyA(_))
     val ints3: Ints = refs2.map(_.i)
 
-    'test1
+    test("1")
     { myAArr1(2) ==> MyA(3)
       myTArr1.length ==> 5
       ints1(4) ==> 50
@@ -31,7 +33,7 @@ object ArrRefTest extends TestSuite
       ints3(2) ==> 7
     }
 
-    'Persist
+    test("Persist")
     {
       //ints2.str ==> ???
     }

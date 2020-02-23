@@ -16,7 +16,7 @@ object ColourTest extends TestSuite
     val s4 = c4.str
     val m4 = s4.findType[Colour]*/
 
-    'test1 - 
+    "Test1" -
     {
       /*s1 ==> "Black"
       e1 ==> Good(Black)

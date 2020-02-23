@@ -7,7 +7,7 @@ ThisBuild/autoAPIMappings := true
 def commonSettings = List(
 	scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
     libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
-    libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.9" % "test",
+    libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.2" % "test",
     testFrameworks += new TestFramework("utest.runner.Framework"), 
 )
 

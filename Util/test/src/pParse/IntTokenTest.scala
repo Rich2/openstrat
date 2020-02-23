@@ -15,7 +15,7 @@ object IntTokenTest extends TestSuite
     val it1 = DecimalToken(Sp1, "13")
     val it2 = DecimalToken(Sp44, "2147483647")
 
-    'IntDeciToken
+    "IntDeciToken" -
     { it1.getInt ==> 13
       it2.getInt ==> 2147483647
     }
@@ -24,13 +24,13 @@ object IntTokenTest extends TestSuite
     val ht2 = Hexa0xToken(Sp44, "1A")
     val ht3 = Hexa0xToken(Sp2, "7FFFFFFF")
 
-    'IntDeciToken
+    "IntDeciToken" -
     { ht1.getInt ==> 10
       ht2.getInt ==> 26
       ht3.getInt ==> 2147483647
     }
 
-    'General
+    "General" -
     {
       assertMatch("4".parseTokens){case GoodRefs1(IntToken(Sp1, "4")) => }
       assertMatch("45".parseTokens){case GoodRefs1(DecimalToken(Sp1, "45")) => }
