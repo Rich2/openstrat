@@ -20,7 +20,7 @@ abstract class CanvasUser(val title: String)
       }
 
       case nss: UnScaledShape =>
-      { canv.rendElemsOld(nss.elems.slate(nss.referenceVec))
+      { canv.rendElems(nss.elems.slate(nss.referenceVec))
         subjBuff += nss
       }
 

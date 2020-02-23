@@ -15,15 +15,8 @@ trait GraphicActive extends AnyRef
 
 object GraphicActive
 {
-  implicit class GraphicActiveListImplicit(thisArr: ArrOld[GraphicActive])
-  { /** Note the lack of reverse at the end */
-    @deprecated def ptInObjsOld(pt: Vec2): ArrOld[AnyRef] = thisArr.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)
-    @deprecated def ptInObjs(pt: Vec2): Refs[AnyRef] = thisArr.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj).toRefs
-  }
   implicit class RefsImplicit(thisRefs: Refs[GraphicActive])
   { /** Note the lack of reverse at the end */
-    @deprecated def ptInObjsOld(pt: Vec2): ArrOld[AnyRef] =
-      thisRefs.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj).toArraySeq
     def ptInObjs(pt: Vec2): Refs[AnyRef] = thisRefs.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)
   }
 }

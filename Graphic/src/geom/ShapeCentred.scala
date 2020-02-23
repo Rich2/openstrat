@@ -11,13 +11,13 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transer
                textAlign: TextAlign = CenAlign): ShapeSubj =
      ShapeSubj(cen, segs, evObj, ArrOld(ShapeFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
             
-   def fixed(evObj: AnyRef, elems: ArrOld[PaintElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
+   def fixed(evObj: AnyRef, elems: Refs[PaintElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): UnScaledShape =
-      UnScaledShape(cen, segs, evObj, ArrOld(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
+      UnScaledShape(cen, segs, evObj, Refs(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = CenAlign): UnScaledShape =
-      UnScaledShape(cen, segs, evObj, ArrOld(
+      UnScaledShape(cen, segs, evObj, Refs(
             ShapeFillDraw(segs, fillColour, lineWidth, lineColour),
             TextGraphic(str, textSize, Vec2Z, lineColour, textAlign)))   
-   def fillFixed(evObj: AnyRef, fillColour: Colour): UnScaledShape = UnScaledShape(cen, segs, evObj, ArrOld(ShapeFill(segs, fillColour)))
+   def fillFixed(evObj: AnyRef, fillColour: Colour): UnScaledShape = UnScaledShape(cen, segs, evObj, Refs(ShapeFill(segs, fillColour)))
 }

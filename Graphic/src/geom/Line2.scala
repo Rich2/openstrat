@@ -3,8 +3,6 @@ package ostrat
 package geom
 import Colour.Black
 
-import scala.collection.mutable.ArrayBuffer
-
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
 class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLike
 { override def toString: String = Line2.persistImplicit.show(this)

@@ -11,15 +11,14 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   var statusText = "Left click to set action to Move. Middle or right click to set action to CycleColour."  
   
   def cmdDisp = cmd match
-  {
-    case Some(Move(v)) => ArrOld(Arrow.draw(state.posn, v))
-    case Some(CycleColour) => ArrOld(state.drawNextColour)
-    case _ => ArrOld()
+  { case Some(Move(v)) => Refs(Arrow.draw(state.posn, v))
+    case Some(CycleColour) => Refs(state.drawNextColour)
+    case _ => Refs()
   }
   
   def disp() =
   { reTop(Refs(StdButton.turn(state.turnNum + 1), status))
-    mainPanel.repaintOld(state.fillRect +: cmdDisp)
+    mainPanel.repaint(state.fillRect +: cmdDisp)
   }
   
   disp()

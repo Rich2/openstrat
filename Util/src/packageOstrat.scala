@@ -23,7 +23,7 @@ package object ostrat
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
  // def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
-  @inline def ArrOld[A](inp: A *)(implicit ct: ClassTag[A]): ArrOld[A] = ArraySeq.apply(inp: _*)
+  @deprecated def ArrOld[A](inp: A *)(implicit ct: ClassTag[A]): ArrOld[A] = ArraySeq.apply(inp: _*)
 
   /** onlyIf-do. Only if the condition is true, perform the effect. */
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
