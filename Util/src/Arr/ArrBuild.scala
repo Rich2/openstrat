@@ -1,5 +1,6 @@
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import collection.mutable.ArrayBuffer
+import reflect.ClassTag, scala.annotation.unused
 
 /** ArrFlatBuild[BB] is a type class for the building of efficient compact Immutable Arrays through a bind method, which works similar to flatMap on
  * standard Library collections. It is called bind rather than flatMap partly to distinguish it and party so as it can be used as extension method on
@@ -60,7 +61,7 @@ object ArrBuild
     override def buffToArr(buff: ArrayBuffer[Double]): Dbls = new Dbls(buff.toArray)
   }
 
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], notA: Not[ProdHomo]#L[A]): ArrBuild[A, Refs[A]] = new ArrBuild[A, Refs[A]]
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrBuild[A, Refs[A]] = new ArrBuild[A, Refs[A]]
   { type BuffT = ArrayBuffer[A]
     override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
     override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value

@@ -1,8 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/** This pSimp contains the a number of games in varying stages of development. */
+/** This package contains a number of highly experimental use cases for the Strat library. */
 package object pGames
-{
-   
-}

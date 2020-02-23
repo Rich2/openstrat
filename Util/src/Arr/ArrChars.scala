@@ -7,7 +7,7 @@ final class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
   override def length: Int = array.length
   override def apply(index: Int): Char = array(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = array(i) = value
-  override def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = array.copyToArray(array, offset, copyLength)
+  override def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
 
   def ++ (op: Chars): Chars =
   { val newArray = new Array[Char](length + op.length)
