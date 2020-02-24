@@ -26,7 +26,7 @@ trait ArrProdDbl5[A <: ProdDbl5] extends Any with ArrProdDblN[A]
   def head4: Double = array(3)
   def head5: Double = array(4)
 
-  def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3, el._4, el._5))
+  //def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3, el._4, el._5))
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el._1, el._2, el._3, el._4, el._5)))
 }
 

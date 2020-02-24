@@ -25,7 +25,7 @@ trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
   def head1: Int = array(0)
   def head2: Int = array(1)
 
-  def toArrs: ArrOld[ArrOld[Int]] = mapArrSeq(el => ArrOld(el._1, el._2))
+  //def toArrs: ArrOld[ArrOld[Int]] = mapArrSeq(el => ArrOld(el._1, el._2))
   def foreachArrOld(f: ArrOld[Int] => Unit): Unit = foreach(el => f(ArrOld(el._1, el._2)))
 }
 
