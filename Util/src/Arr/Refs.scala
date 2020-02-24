@@ -1,6 +1,8 @@
 package ostrat
 import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
+/** The immutable Array based class for reference types. It Inherits the standard foreach, map, flatMap and fold and their variations' methods from
+ *  ArrayLike. */
 final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
 { type ThisT = Refs[A] @uncheckedVariance
   override def unsafeNew(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
@@ -74,7 +76,6 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 
   /** Alias for precaternate. Functionally prepends element to array. Allows type widening. Prefer +: prepend method where no type widening is required. */
   @inline def -+: [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Refs[AA] = precaternate(op)(ct)
-
   /** Functionally prepends element to array. */
   def precaternate[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)

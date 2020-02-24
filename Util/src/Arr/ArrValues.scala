@@ -1,6 +1,7 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
+/** Not sure if this trait can be useful. */
 trait ArrValues[A] extends Any with ArrImut[A]
 { type ThisT <: ArrValues[A]
   //def append(op: A): ThisT
@@ -22,7 +23,6 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 
   /** Alias for append. Functionally appends the operand Ints. */
   @inline def ++ (op: Ints): Ints = append(op)
-
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def append(op: Ints): Ints =
   { val newArray = new Array[Int](length + op.length)
@@ -31,15 +31,17 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
     new Ints(newArray)
   }
 
+  /** Alias for appendElem. Functionally appends the operand Int. */
+  @inline def +- (op: Int): Ints = appendElem(op)
   /** Functionally appends the operand Int. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
-  def append(op: Int): Ints =
+  def appendElem(op: Int): Ints =
   { val newArray = new Array[Int](length + 1)
     array.copyToArray(newArray)
     newArray(length) = op
     new Ints(newArray)
   }
 
-  /** Functionally prepends the operand Int. This alphanumeric method is not aliased, to avoid confusion with numeric operators. */
+  /** Functionally prepends the operand Int. This alphanumeric method is not aliased with an operator to avoid confusion with numeric operators. */
   def prepend(op: Int): Ints =
   { val newArray = new Array[Int](length + 1)
     newArray(0) = op
@@ -50,6 +52,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
+
   implicit val bindImplicit: ArrFlatBuild[Ints] = new ArrFlatBuild[Ints]
   {
     override def flatMap[A](orig: ArrayLike[A], f: A => Ints): Ints =
