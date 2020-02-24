@@ -11,7 +11,7 @@ object IdentifierTokenTest extends TestSuite
   val r1: EMon3[CharsOff, TextPosn, Token] = parseIdentifierToken(o1, p1)(c1)
   val tests = Tests
   {
-    'Parse
+    "Parse" -
     {
       assertMatch(r1){ case Good3(CharsOff(3), StrPosn(1, 4), IdentifierUpperOnlyToken(_, _)) => }
     }

@@ -246,13 +246,13 @@ trait ArrayLike[+A] extends Any
     acc
   }
 
-  def maxBy[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
+  def fMax[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
   { var acc = f(head)
     foreachTail{ el => acc = cmp.max(acc, f(el)) }
     acc
   }
 
-  def minBy[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
+  def fMin[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
   { var acc = f(head)
     foreachTail{el => acc = cmp.min(acc, f(el)) }
     acc

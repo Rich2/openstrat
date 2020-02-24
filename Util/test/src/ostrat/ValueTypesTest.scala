@@ -14,7 +14,8 @@ object ValueTypesTest extends TestSuite
     val dd4 = (-40875, 21474)
     val dd5 = (-40875, -21474)
     val dd6 = (410875, -21001474) 
-    'TwoIntsToDouble -
+
+    "TwoIntsToDouble" -
     { 
       tt(dd1) ==> dd1
       tt(dd2) ==> dd2

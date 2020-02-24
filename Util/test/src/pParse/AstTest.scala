@@ -15,7 +15,7 @@ object AstTest extends TestSuite
 
   val tests = Tests
   {
-    'Test1
+    "Test1" -
     {
       assertMatch(a1){case Good(Refs1(_)) => }
     }

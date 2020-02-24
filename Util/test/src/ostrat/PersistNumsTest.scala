@@ -5,7 +5,7 @@ object PersistNumsTest  extends TestSuite
 {
   val tests = Tests
   {
-    'Ints -
+    "Ints" -
     {
       5.str ==> "5"
       "5".findType[Int] ==> Good(5)
@@ -18,7 +18,7 @@ object PersistNumsTest  extends TestSuite
       "7".findType[Double] ==> Good(7)
     }
 
-    'Doubles -
+    "Doubles" -
      {
        23.4.str ==> "23.4"
        val d: Double = 8

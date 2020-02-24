@@ -33,7 +33,7 @@ object PersistTest
     val abArr = ArrOld(TestObjA, TestObjB)
     val mc = My2(List(7, 8, 9), "hi")
     
-    'persistOther -
+    "PersistOther" -
     {
       aa.str ==> aaStr
       aaStr.findType[TestClass] ==> Good(TestObjA)
