@@ -233,6 +233,32 @@ trait ArrayLike[+A] extends Any
     foreach(f(_).foreach(ev.buffGrow(acc, _)))
     ev.buffToArr(acc)
   }
+
+  def max[B >: A](implicit ord: math.Ordering[B]): A =
+  { var acc = apply(0)
+    foreachTail{el => acc = ord.max(acc, el) }
+    acc
+  }
+
+  def min[B >: A](implicit ord: math.Ordering[B]): A =
+  { var acc = apply(0)
+    foreachTail{el => acc = ord.min(acc, el) }
+    acc
+  }
+
+  def maxBy[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
+  { var acc = f(head)
+    foreachTail{ el => acc = cmp.max(acc, f(el)) }
+    acc
+  }
+
+  def minBy[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
+  { var acc = f(head)
+    foreachTail{el => acc = cmp.min(acc, f(el)) }
+    acc
+  }
+
+
 }
 
 object ArrayLike

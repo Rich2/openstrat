@@ -19,12 +19,12 @@ object Hexa0xTokenTest extends TestSuite
 
   val tests = Tests
   {
-    'Parse
+    "Parse" -
     {
       assertMatch(r1){ case Good3(CharsOff(6), StrPosn(1, 7), Ht1) => }
       assertMatch(r2){ case Good3(CharsOff(9), StrPosn(1, 10), Ht2 ) => }
     }
-    'Values
+    "Values" -
     {
       Ht1.getInt ==> rr1
       Ht1.asHexaInt ==> rr1
