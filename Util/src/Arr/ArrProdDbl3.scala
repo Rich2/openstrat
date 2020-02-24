@@ -13,7 +13,7 @@ trait ArrProdDbl3[A <: ProdDbl3] extends Any with ArrProdDblN[A]
   def head1: Double = array(0); def head2: Double = array(1); def head3: Double = array(2)
 
   def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3))
-  def foreachArr(f: ArrOld[Double] => Unit): Unit = foreach(el => f(ArrOld(el._1, el._2, el._3)))
+  def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el._1, el._2, el._3)))
 }
 
 trait ArrProdDbl3Build[A <: ProdDbl3, ArrT <: ArrProdDbl3[A]] extends ArrProdDblNBuild[A, ArrT]

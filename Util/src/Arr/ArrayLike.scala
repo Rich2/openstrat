@@ -258,6 +258,11 @@ trait ArrayLike[+A] extends Any
     acc
   }
 
+  def toStrsCommaFold(fToStr: A => String = _.toString): String = toStrsFold(", ", fToStr)
+  def toStrsCommaNoSpaceFold(fToStr: A => String = _.toString): String = toStrsFold(",", fToStr)
+  def toStrsSemiFold(fToStr: A => String = _.toString): String = toStrsFold("; ", fToStr)
+  def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
+  def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
 
 }
 
