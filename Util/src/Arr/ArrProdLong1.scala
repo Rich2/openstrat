@@ -29,7 +29,7 @@ trait ArrProdLong1[A <: ProdLong1] extends Any with ArrProdLongN[A]
     }
     acc
   }
-  def toArrs: ArrOld[ArrOld[Long]] = mapArrSeq(el => ArrOld(el.intValue))
+ // def toArrs: ArrOld[ArrOld[Long]] = mapArrSeq(el => ArrOld(el.intValue))
   def foreachArr(f: ArrOld[Long] => Unit): Unit = foreach(el => f(ArrOld(el.intValue)))
 }
 
