@@ -66,7 +66,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
               val oldTile = grid.getTile(oldCood)
               oldTile.lunits = oldTile.lunits.removeFirst(_ == warr)
               warr.cood = newCood
-              newTile.lunits *+:= warr
+              newTile.lunits +:= warr
               repaintMap
             }
             else
@@ -85,7 +85,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
 
   def turnCmd: MB0 = mb => { foreachTileAll(_.lunits.foreach(_.resetMovePts())); repaintMap }
   val bTurn = clickButton("T", turnCmd)   
-  override def eTop(): Unit = reTop(guButs ++ bTurn -+ status)
+  override def eTop(): Unit = reTop(guButs +- bTurn -+ status)
   eTop()
   mapPanel.repaint(mapObjs)
 }

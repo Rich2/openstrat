@@ -18,7 +18,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     val colour: Colour = tile.colour         
     
     val tv: GraphicElems = tile.terr match
-    { case _ : Building => vertDispVecs.fillActive(LightGreen, tile) ++ Square.fill(pScale * 2.5, colour, cen)
+    { case _ : Building => vertDispVecs.fillActive(LightGreen, tile) +- Square.fill(pScale * 2.5, colour, cen)
       case _ => vertDispVecs.fillActive(colour, tile)
     }
     
@@ -84,7 +84,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   }   
   def turnCmd: MB0 = mb => {}
   val bTurn = clickButton("T", turnCmd)   
-  override def eTop(): Unit = reTop(guButs ++ bTurn -+ status)
+  override def eTop(): Unit = reTop(guButs +- bTurn -+ status)
   eTop()
   mapPanel.repaint(mapObjs)
 }

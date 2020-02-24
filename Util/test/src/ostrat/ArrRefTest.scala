@@ -13,7 +13,7 @@ object ArrRefTest extends TestSuite
 
     val myAArr1: Refs[MyA] = Refs(MyA(1), MyA(2), MyA(3))
     val myBArr1: Refs[MyB] = Refs(MyB(4), MyB(5))
-    val myTArr1: Refs[MyT] = myAArr1 -+ myBArr1
+    val myTArr1: Refs[MyT] = myAArr1 -++ myBArr1
     val ints1 = myTArr1.map(_.i * 10)
     val ints2 = Ints(5, 6, 7)
     val myTArr2: Refs[MyT] = ints2.flatMap(i => Refs(MyA(i), MyB(i)))

@@ -6,7 +6,7 @@ import pEarth._
 
 class NapScen extends EarthAllMap[NTile, ESideOnly](NTile.apply, ESideOnly.apply)
 {
-  val fCorp: (NTile, Polity) => Unit = (tile, p: Polity) => tile.lunits = Corps(tile, p) *+: tile.lunits
+  val fCorp: (NTile, Polity) => Unit = (tile, p: Polity) => tile.lunits = Corps(tile, p) +: tile.lunits
 }
 
 object Nap1 extends NapScen

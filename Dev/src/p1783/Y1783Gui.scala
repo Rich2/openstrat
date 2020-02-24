@@ -49,7 +49,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
       {
        c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
        val newCorps = c.copy (newTile)
-       newTile.lunits *+:= newCorps
+       newTile.lunits +:= newCorps
        selected = Refs(newCorps)
        repaintMap
       }
