@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pGames
 package pZug
 import utest._, pGrid._
 
@@ -12,7 +11,7 @@ object ZugTest  extends TestSuite
     val f2 = Zug1.zPath(26 cc 10, 22 cc 14)
     val f3 = Zug1.zPath(24 cc 8, 32 cc 8)    
     
-    'Path
+    "Path" -
     {
       assert(f1 == None)
       assert(f2 == Some(List(24 cc 12, 22 cc 14)))

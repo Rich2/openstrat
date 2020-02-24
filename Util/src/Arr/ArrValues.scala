@@ -12,7 +12,7 @@ trait ArrValues[A] extends Any with ArrImut[A]
  // }
 }
 
-/** Immutable Array based class for Ints. There are no concat methods.*/
+/** Immutable Array based class for Ints. There are no concat methods, as Ints has no type parameter and can not be widened. */
 final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 { type ThisT = Ints
   override def unsafeNew(length: Int): Ints = new Ints(new Array[Int](length))
@@ -21,26 +21,29 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
   override def unsafeSetElem(i: Int, value: Int): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
 
-  /** Alias for append. Functionally appends the operand Ints. */
-  @inline def ++ (op: Ints): Ints = append(op)
+  /** Alias for appendInts. Functionally appends the operand Ints. */
+  @inline def ++ (op: Ints): Ints = appendInts(op)
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
-  def append(op: Ints): Ints =
+  def appendInts(op: Ints): Ints =
   { val newArray = new Array[Int](length + op.length)
     array.copyToArray(newArray)
     op.array.copyToArray(newArray, length)
     new Ints(newArray)
   }
 
-  /** Alias for appendElem. Functionally appends the operand Int. */
-  @inline def +- (op: Int): Ints = appendElem(op)
-  /** Functionally appends the operand Int. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
-  def appendElem(op: Int): Ints =
+  /** Alias for append. Functionally appends the operand Int. */
+  @inline def :+(op: Int): Ints = append(op)
+  /** Functionally appends the operand Int. This method by the :+ operator, rather than the +- operator alias used for append on Refs to avoid
+   *  confusion with arithmetic operations. */
+  def append(op: Int): Ints =
   { val newArray = new Array[Int](length + 1)
     array.copyToArray(newArray)
     newArray(length) = op
     new Ints(newArray)
   }
 
+  /** Alias for prepend. Functionally appends the operand Int. */
+  @inline def +:(op: Int): Ints = prepend(op)
   /** Functionally prepends the operand Int. This alphanumeric method is not aliased with an operator to avoid confusion with numeric operators. */
   def prepend(op: Int): Ints =
   { val newArray = new Array[Int](length + 1)
