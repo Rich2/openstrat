@@ -272,9 +272,9 @@ object GoodRefs2
 
 object GoodRefs3
 { def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Option[(A, A, A)] = refs match
-{ case Good(refs) if refs.length == 3 => Some((refs(0), refs(1), refs(2)))
-  case _ => None
-}
+  { case Good(refs) if refs.length == 3 => Some((refs(0), refs(1), refs(2)))
+    case _ => None
+  }
 }
 
 object GoodRefs4
