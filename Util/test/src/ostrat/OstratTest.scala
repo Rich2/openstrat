@@ -4,7 +4,7 @@ import utest._
 object OstratTest  extends TestSuite {
   val tests = Tests
   {
-    'test1 -
+    "test1" -
       {
         true ==> true
       }

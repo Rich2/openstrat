@@ -24,7 +24,7 @@ object ArrOtherTest extends TestSuite
       dbls2.length ==> 4
       dblList1(0) ==> 1.1
       dblList1.length ==> 8
-      longs1(4) == 9l
+      longs1(4) == 9L
       pre1(0) ==> 1
       pre1(3) ==> 4
     }

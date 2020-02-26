@@ -12,7 +12,7 @@ object PersistCollectionsTest  extends TestSuite
     val l2Comma: String = "4, 5, 6"
     val ll: List[List[Int]] = List(l1, l2)
     
-    'List -
+    "List" -
     { l1.str ==> "Seq[Int](-1; -2; -30)"
       l1.strSemi ==> "-1; -2; -30"
       l1.strComma ==> l1Comma
@@ -21,9 +21,9 @@ object PersistCollectionsTest  extends TestSuite
       ll.str ==> "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")"
       ::(4, Nil).str ==> "Seq[Int](4)"
     }
-    val s2 = "Seq(1; 2; 3)"
+    //val s2 = "Seq(1; 2; 3)"
     
-    'List -
+    "List2" -
     {
     //  ::(4, Nil).str ==> "Seq[Int](4)"
      // "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))

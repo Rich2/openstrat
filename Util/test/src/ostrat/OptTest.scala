@@ -9,9 +9,9 @@ object OptTest extends TestSuite
     val n2 = Opt("Hello")
     val i1 = NoInt
     val i2 = Opt(5)
-    def fa(opt: OptInt): Opt[String] = opt.map(_.toString)
+    //def fa(opt: OptInt): Opt[String] = opt.map(_.toString)
 
-    'test1
+    "test1" -
     { f(n1) ==> -1
       f(n2) ==> 5
       i1.map(_ *  2) ==> NoInt

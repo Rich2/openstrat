@@ -6,7 +6,7 @@ object EqTest extends TestSuite
   val tests = Tests
   {
     val d1 = 1.0 / 3
-    't1
+    "Test1" -
     { assert(4.0 equ 4.0)
       assert(-5.0 nequ 5.0)
       assert(d1 * 3 equ 1.0 )
@@ -19,7 +19,7 @@ object EqTest extends TestSuite
     val o1: Option[Int] = Some(-56)
     val o2: Option[Int] = Some(-56)
 
-    'OptionTest
+    "OptionTest" -
     {
       assert(None equ None)
       assert(Some(7) equ Some(7))

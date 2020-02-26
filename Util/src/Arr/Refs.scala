@@ -264,7 +264,7 @@ object GoodRefs1
 }
 
 object GoodRefs2
-{ def unapply[A <: AnyRef](er: EMon[Refs[A]])(implicit tt: scala.reflect.runtime.universe.WeakTypeTag[EMon[Refs[A]]]): Option[(A, A)] = er.fold(errs => None, g =>
+{ def unapply[A <: AnyRef](er: EMon[Refs[A]]): Option[(A, A)] = er.fold(errs => None, g =>
   if (g.length == 2) Some((g(0), g(1))) else None)
 }
 

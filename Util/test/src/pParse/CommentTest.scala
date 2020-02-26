@@ -13,7 +13,7 @@ object CommentTest extends TestSuite
     val a4 = s4.flatMap(astParse(_))
     val s5: EMon[Array[Char]] = eTry(io.Source.fromResource("c1.rson").toArray)// .getLines().mkString)
     val a5 = s5.flatMap(srcToETokens(_, ""))
-    val s6 = "appStr =//\n\"Z0\";"
+    //val s6 = "appStr =//\n\"Z0\";"
     //val a6 = s6.parseTokens
 
     //val t = 11
