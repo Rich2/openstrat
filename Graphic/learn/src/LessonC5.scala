@@ -17,7 +17,7 @@ case class LessonC5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C5")
   mouseUp = (v, b, s) => 
   {
     s.foreach{ obj =>
-      val r = obj.asInstanceOf[ARect] 
+      //val r = obj.asInstanceOf[ARect]
       //rArr = rArr.replace(r, r.mutateColour(r.colour.nextFromRainbow))
     }    
     repaint(gArr -+ startText)
