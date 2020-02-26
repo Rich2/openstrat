@@ -52,16 +52,16 @@ object ArrProdHomoTest  extends TestSuite
   val tests = Tests
   {
     val dbls1 = Dbls(1, 2, 3, 4)
+    //val ds1 = dbls1.str
     val mines1 = dbls1.map(d => Mine(d, d * 2))
-    val mines2 = dbls1.flatMap(d => Mines(Mine(d, d), Mine(d * 2, d * 2)))
-    //val str1 = mines2.str
+    val mines2 = dbls1.flatMap(d => Mines(Mine(d, d + 0.5), Mine(d * 2, d * 2)))
+    val str1 = mines2.str
+
     "test1" -
       { dbls1(3) ==> 4
         mines1(3) ==> Mine(4, 8)
-        mines2(0) ==> Mine(1, 1)
-        //str1 ==> "Mines()"
+        mines2(0) ==> Mine(1, 1.5)
+        str1 ==> "Mines(1.0, 1.5; 2.0, 2.0; 2.0, 2.5; 4.0, 4.0; 3.0, 3.5; 6.0, 6.0; 4.0, 4.5; 8.0, 8.0)"
       }
-
-
   }
 }
