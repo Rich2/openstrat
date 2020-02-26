@@ -46,7 +46,7 @@ object srcToETokensTest extends TestSuite
     {
       assertMatch(";;".parseTokens){ case Good(Refs2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
       assertMatch(" ; .".parseTokens){ case Good(Refs2(SemicolonToken(Sp2), DotToken(Sp4))) => }
-      assertMatch("Colour(0xFF000000)".parseTokens){ case GoodRefs4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_)) => }
+      assertMatch("Colour(0xFF000000)".parseTokens){ case Good(Refs4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
       assertMatch(et1){case Good(_) => }
       r1.length ==> 12
       assertMatch(r1){case RefsHead4(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
