@@ -248,7 +248,7 @@ object RefsHead4
 /** Extractor function object for a Good Refs Sequence of length 0. */
 case object GoodRefs0
 { /** Extractor method for a Good Refs Sequence of length 0. */
-  def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Boolean = refs match
+  def unapply(refs: EMon[Refs[_]]): Boolean = refs match
   { case Good(refs) if refs.length == 0 => true
     case _ => false
   }
@@ -264,10 +264,8 @@ object GoodRefs1
 }
 
 object GoodRefs2
-{ def unapply[A <: AnyRef](refs: EMon[Refs[A]]): Option[(A, A)] = refs match
-  { case Good(refs) if refs.length == 2 => Some((refs(0), refs(1)))
-    case _ => None
-  }
+{ def unapply[A <: AnyRef](er: EMon[Refs[A]])(implicit tt: scala.reflect.runtime.universe.WeakTypeTag[EMon[Refs[A]]]): Option[(A, A)] = er.fold(errs => None, g =>
+  if (g.length == 2) Some((g(0), g(1))) else None)
 }
 
 object GoodRefs3
