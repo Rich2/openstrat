@@ -15,7 +15,7 @@ object ArrOtherTest extends TestSuite
     val longs1 = Longs(2, 4, 6) ++ Longs(8, 9)
     val pre1 = Ints(2, 3, 4).prepend(1)
 
-    'test1 -
+    "test1" -
     { ints1(3) ==> 4
       ints3.length ==> 7
       ints3(6) ==> 7
@@ -33,7 +33,7 @@ object ArrOtherTest extends TestSuite
     val longs2 = ints1.flatMap(a => Longs(a + 100, a + 200, a + 300))
     val dbls3 = ints2.flatMap(i => Dbls(i, i * 0.5))
 
-    'Bind -
+    "Bind" -
     { ints4(1) ==> 21
       ints4(5) ==> 32
       ints4.length ==> 12

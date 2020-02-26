@@ -14,22 +14,22 @@ object srcToETokensTest extends TestSuite
     "Single" -
     { Sp1 ==> StrPosn(1, 1)
 
-      assertMatch("\'a\'".parseTokens){ case GoodRefs1(CharToken(_, 'a')) => }
-      assertMatch("MyId".parseTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "MyId")) => }
-      assertMatch("My3".parseTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3")) => }
-      assertMatch("My3Id".parseTokens){ case GoodRefs1(IdentifierUpperOnlyToken(Sp1, "My3Id")) => }
-      assertMatch("ab3_5fG".parseTokens){ case GoodRefs1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG")) => }
+      assertMatch("\'a\'".parseTokens){ case Good(Refs1(CharToken(_, 'a'))) => }
+      assertMatch("MyId".parseTokens){ case Good(Refs1(IdentifierUpperOnlyToken(Sp1, "MyId"))) => }
+      assertMatch("My3".parseTokens){ case Good(Refs1(IdentifierUpperOnlyToken(Sp1, "My3"))) => }
+      assertMatch("My3Id".parseTokens){ case Good(Refs1(IdentifierUpperOnlyToken(Sp1, "My3Id"))) => }
+      assertMatch("ab3_5fG".parseTokens){ case Good(Refs1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG"))) => }
 
-      assertMatch(",".parseTokens){ case GoodRefs1(CommaToken(Sp1)) => }
-      assertMatch("{".parseTokens){ case GoodRefs1(CurlyOpenToken(Sp1)) => }
-      assertMatch("}".parseTokens){ case GoodRefs1(CurlyCloseToken(Sp1)) => }
-      assertMatch("(".parseTokens){ case GoodRefs1(ParenthOpenToken(Sp1)) => }
-      assertMatch(")".parseTokens){ case GoodRefs1(ParenthCloseToken(Sp1)) => }
-      assertMatch(" [".parseTokens){ case GoodRefs1(SquareOpenToken(Sp2)) => }
-      assertMatch(" ]".parseTokens){ case GoodRefs1(SquareCloseToken(Sp2)) => }
-      assertMatch(";".parseTokens){ case GoodRefs1(SemicolonToken(Sp1)) => }
+      assertMatch(",".parseTokens){ case Good(Refs1(CommaToken(Sp1))) => }
+      assertMatch("{".parseTokens){ case Good(Refs1(CurlyOpenToken(Sp1))) => }
+      assertMatch("}".parseTokens){ case Good(Refs1(CurlyCloseToken(Sp1))) => }
+      assertMatch("(".parseTokens){ case Good(Refs1(ParenthOpenToken(Sp1))) => }
+      assertMatch(")".parseTokens){ case Good(Refs1(ParenthCloseToken(Sp1))) => }
+      assertMatch(" [".parseTokens){ case Good(Refs1(SquareOpenToken(Sp2))) => }
+      assertMatch(" ]".parseTokens){ case Good(Refs1(SquareCloseToken(Sp2))) => }
+      assertMatch(";".parseTokens){ case Good(Refs1(SemicolonToken(Sp1))) => }
 
-      assertMatch("=".parseTokens){case GoodRefs1(AsignToken(Sp1)) => }
+      assertMatch("=".parseTokens){case Good(Refs1(AsignToken(Sp1))) => }
 
       "#".parseTokens.isBad ==> true
     }
@@ -49,7 +49,7 @@ object srcToETokensTest extends TestSuite
       assertMatch("Colour(0xFF000000)".parseTokens){ case Good(Refs4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
       assertMatch(et1){case Good(_) => }
       r1.length ==> 12
-      assertMatch(r1){case RefsHead4(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
+      assertMatch(r1){ case RefsHead4(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
     }
 
     val st2 = """/* This is a comment."""
@@ -74,8 +74,8 @@ object srcToETokensTest extends TestSuite
 
     "Neg" -
     {
-      //assertMatch("-".parseTokens){case GoodRefs1(PlusInToken(_, _)) => }
-      //assertMatch("- 4".findTokens){case GoodRefs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4")) => }
+      //assertMatch("-".parseTokens){case Good(Refs1(PlusInToken(_, _))) => }
+      //assertMatch("- 4".findTokens){case Good(Refs2(PlusInToken(Sp1, "-"), IntDeciToken(Sp3, "4"))) => }
       
     }
   }
