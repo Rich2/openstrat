@@ -23,8 +23,7 @@ object PersistTest
   }
 
   val tests = Tests
-  {    
-
+  {
     val aa: TestClass = TestObjA
     val aaStr: String = "TestObjA"
     val str1: String = "I am a String"

@@ -314,11 +314,25 @@ case object RefsOff0
   def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Boolean = inp.length <= 0
 }
 
-/** Extractor object for the head only for immutable heapless iterator for Refs with at least 1 element. */
+/** Extractor object for an immutable heapless iterator for Refs with exactly 1 element. */
 object RefsOff1
-{ /** Extractor for the head only for immutable heapless iterator for Refs with at least 1 element. */
+{ /** Extractor for an immutable heapless iterator for Refs with exactly  1 element. */
   def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Option[A] =
-    ife(inp.length >= 1, Some(inp(0)), None)
+    ife(inp.length == 1, Some(inp(0)), None)
+}
+
+/** Extractor object for an immutable heapless iterator for Refs with exactly 2 elements. */
+object RefsOff2
+{ /** Extractor for an immutable heapless iterator for Refs with exactly 2 elements. */
+  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Option[(A, A)] =
+    ife(inp.length == 2, Some((inp(0), inp(1))), None)
+}
+
+/** Extractor object for an immutable heapless iterator for Refs with exactly 3 elements. */
+object RefsOff3
+{ /** Extractor for an immutable heapless iterator for Refs with exactly 3 elements. */
+  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Refs[A]): Option[(A, A, A)] =
+    ife(inp.length == 3, Some((inp(0), inp(1), inp(2))), None)
 }
 
 /** Extractor for immutable heapless iterator for Refs with at least l element. */

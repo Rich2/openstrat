@@ -15,7 +15,7 @@ object AboutPage extends TextPage
    def title: String = "About"   
    def menuLabel = "About"
    def partLink: String = "about"   
-   def middle: Seq[XCon] = Seq(HtmlP("This site's intial aim is to allow me to create some code and share it with family, friends and" -
+   def middle: Seq[XCon] = Seq(HtmlP("This site's intial aim is to allow me to create some code and share it with family, friends and" +
          "co-workers."))
 }
 

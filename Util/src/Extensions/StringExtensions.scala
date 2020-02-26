@@ -36,7 +36,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findBooleanSett(settingStr: String): EMon[Boolean] = thisString.parseStatements.flatMap(_.findBooleanSett(settingStr))
   def findBooleanSettElse(settingStr: String, elseValue: Boolean): Boolean = findBooleanSett(settingStr).getElse(elseValue)
   
-  def - (other: String): String = thisString + other
+ // def - (other: String): String = thisString + other
   /** Concatenates a space and then the other String */
   def -- (other: String): String = thisString + " " + other
   /** appends a newline special character to this String */
