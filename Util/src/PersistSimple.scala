@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import pParse._
 
 /** A Persist class described by a single value. Its not clear whether this means a single token or not. */
 abstract class PersistSimple[A](typeStr: String) extends ShowSimple[A](typeStr) with Persist[A]

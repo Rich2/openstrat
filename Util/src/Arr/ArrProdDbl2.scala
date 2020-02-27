@@ -113,7 +113,6 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
     buf += value._2
   }
 
-  import pParse._
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
   override def showSemi(thisColl: M): String = thisColl.mapArrSeq(el => el._1.str + ", " + el._2.str).mkString("; ")

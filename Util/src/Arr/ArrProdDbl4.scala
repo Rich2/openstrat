@@ -91,7 +91,6 @@ abstract class ArrHomoDbl4Builder[A <: ProdDbl4, M <: ArrProdDbl4[A]](typeStr: S
     buf += value._4
   }
 
-  import pParse._
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
   override def showSemi(thisColl: M): String = ??? // thisColl.mapBy2(_ + ", " + _ ).mkString("; ")

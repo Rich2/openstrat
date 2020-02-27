@@ -130,7 +130,7 @@ object Refs
     }
   }
 
-  def showImplicit[A <: AnyRef](implicit evInA: Show[A]): Show[Refs[A]] = new pParse.ShowSeqLike[A, Refs[A]]
+  implicit def showImplicit[A <: AnyRef](implicit evInA: Show[A]): Show[Refs[A]] = new ShowSeqLike[A, Refs[A]]
   { val evA = evInA
     def showComma(obj: ostrat.Refs[A]): String = ???
     def showSemi(obj: ostrat.Refs[A]): String = ???

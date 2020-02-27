@@ -53,7 +53,7 @@ object Ints
       new Ints(buff.toArray)
     }
   }
-  implicit val showImplicit: Show[Ints] = new pParse.ShowSeqLike[Int, Ints]
+  implicit val showImplicit: Show[Ints] = new ShowSeqLike[Int, Ints]
   { def evA: Show[Int] = Show.intPersistImplicit
     def showComma(obj: Ints): String = obj.toStrsCommaFold()
     def showSemi(obj: Ints): String = obj.toStrsSemiFold()

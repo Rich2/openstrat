@@ -61,7 +61,6 @@ abstract class ProdInt2sBuilder[A <: ProdInt2, M <: ArrProdInt2[A]](typeStr: Str
     buf += value._2
   }
 
-  import pParse._
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
   override def showSemi(thisColl: M): String = thisColl.map2To1(_.toString + ", " + _.toString).mkString("; ")
