@@ -5,12 +5,12 @@ import pParse._, annotation.unchecked.uncheckedVariance
 trait UnShow[+T]
 { def typeStr: String
   def fromExpr(expr: Expr): EMon[T]  
-  def fromClauses(clauses: Refs[Clause]): EMon[T]
+  //def fromClauses(clauses: Refs[Clause]): EMon[T]
   
   /** Trys to build an object of type T from the statement. Not sure if this is useful. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
   
-  def fromStatements(sts: Refs[Statement]): EMon[T]
+  //def fromStatements(sts: Refs[Statement]): EMon[T]
   
   def fromClauses1[A1, B](f: A1 => B, clauses: Refs[Clause])(implicit ev1: Persist[A1]): EMon[B] = clauses match
   { case Refs1(c1) => ev1.fromExpr(c1.expr).map(f)

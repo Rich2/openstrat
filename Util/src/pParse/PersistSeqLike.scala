@@ -46,8 +46,8 @@ class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](e
     case h :: tail => Good(::(h, tail))
     case Nil => bad1(TextSpan.empty, "Empty List can not be parsed into Cons.")
   }
-  override def fromParameterStatements(sts: Refs[Statement]): EMon[::[A]] = ???
-  override def fromClauses(clauses: Refs[Clause]): EMon[::[A]] = ???
+ // override def fromParameterStatements(sts: Refs[Statement]): EMon[::[A]] = ???
+ // override def fromClauses(clauses: Refs[Clause]): EMon[::[A]] = ???
 }
  
 class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](ev)
@@ -60,13 +60,13 @@ class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](
     case h :: tail => bad1(TextSpan.empty, "Non empty List can not be parsed into Nil.")
     case Nil => Good(Nil) 
   }
-  override def fromParameterStatements(sts: Refs[Statement]): EMon[Nil.type] = ???
-  override def fromClauses(clauses: Refs[Clause]): EMon[Nil.type] = ???
+ // override def fromParameterStatements(sts: Refs[Statement]): EMon[Nil.type] = ???
+ // override def fromClauses(clauses: Refs[Clause]): EMon[Nil.type] = ???
 }
 
 class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](ev)
 {
   override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr)
-  override def fromParameterStatements(sts: Refs[Statement]): EMon[Seq[A]] = ???
-  override def fromClauses(clauses: Refs[Clause]): EMon[Seq[A]] = ???
+ // override def fromParameterStatements(sts: Refs[Statement]): EMon[Seq[A]] = ???
+  //override def fromClauses(clauses: Refs[Clause]): EMon[Seq[A]] = ???
 }

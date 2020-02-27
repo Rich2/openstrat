@@ -119,8 +119,8 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
   override def showSemi(thisColl: M): String = thisColl.mapArrSeq(el => el._1.str + ", " + el._2.str).mkString("; ")
   override def showComma(thisColl: M): String = show(thisColl)
   //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
-  override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
-  override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
+ // override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
+ // override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
 }
 
 trait BuffProdDbl2[A <: ProdDbl2] extends Any with BuffProdDblN[A]

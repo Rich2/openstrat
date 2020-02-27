@@ -9,7 +9,7 @@ sealed trait Statement extends TextSpan
 { def optSemi: OptRef[SemicolonToken]
   def hasSemi: Boolean = optSemi.nonEmpty
   def noSemi: Boolean = optSemi.empty
-  def errGet[A](implicit ev: Persist[A]): EMon[A]
+  final def errGet[A](implicit ev: Persist[A]): EMon[A] = ???
   def expr: Expr
 }
 
@@ -133,14 +133,14 @@ case class ClausedStatement(clauses: Refs[Clause], optSemi: OptRef[SemicolonToke
 { def expr: Expr = ??? //ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head
   def endMem: TextSpan = optSemi.fold[TextSpan](clauses.last, st => st)
-  override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
+  //override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
 }
 
 /** An unclaused Statement has a single expression. */
 sealed trait UnClausedStatement extends Statement
 { def expr: Expr
   def optSemi: OptRef[SemicolonToken]
-  override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
+ // override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
 }
 
 /** An un-claused Statement that is not the empty statement. */
