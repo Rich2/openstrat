@@ -19,7 +19,7 @@ object ArrRefTest extends TestSuite
     val refs2: Refs[MyA] = ints2.map(MyA(_))
     val ints3: Ints = refs2.map(_.i)
 
-    test("1")
+    test("map")
     { myAArr1(2) ==> MyA(3)
       myTArr1.length ==> 5
       ints1(4) ==> 50
@@ -31,9 +31,12 @@ object ArrRefTest extends TestSuite
       ints3(2) ==> 7
     }
 
+    val rs1 = "Seq[Int](5; 6; 7)"
+
     test("Persist")
     {
-      ints2.str ==> "Seq[Int](5; 6; 7)"
+      ints2.str ==> rs1
+      //rs1.findType[Ints] ==> Good(ints2)
     }
   }
 }
