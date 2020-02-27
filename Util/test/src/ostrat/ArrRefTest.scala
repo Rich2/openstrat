@@ -13,8 +13,7 @@ object ArrRefTest extends TestSuite
     val myBArr1: Refs[MyB] = Refs(MyB(4), MyB(5))
     val myTArr1: Refs[MyT] = myAArr1 -++ myBArr1
     val ints1 = myTArr1.map(_.i * 10)
-    val ints2 = Ints(5, 6, 7)
-    //val is2 = ints2.str
+    val ints2: Ints = Ints(5, 6, 7)
     val myTArr2: Refs[MyT] = ints2.flatMap(i => Refs(MyA(i), MyB(i)))
     val myRefs1 = ints2.map(MyA(_))
     val refs2: Refs[MyA] = ints2.map(MyA(_))
@@ -34,7 +33,7 @@ object ArrRefTest extends TestSuite
 
     test("Persist")
     {
-     //ints2.str ==> "Seq(5; 6; 7)"
+      ints2.str ==> "Seq[Int](5; 6; 7)"
     }
   }
 }

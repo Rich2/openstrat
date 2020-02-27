@@ -177,7 +177,7 @@ trait ArrayLike[+A] extends Any
   def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
   { var acc: String = ""
     var start = true
-    foreach(a => ife(start == true, { acc = f(a); start = false }, acc += a))
+    foreach{ a => if(start == true) { acc = f(a); start = false } else acc = acc + seperator + f(a)}
     acc
   }
 

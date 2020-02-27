@@ -31,7 +31,7 @@ trait Show[-T]
  }
 
 /* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
-   instance without a Show instance. Many Persist instances are placed inside the Show companion object. However type instances that themsleves
+   instance without a Show instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object.
  */
@@ -208,9 +208,9 @@ object Show //extends ShowInstancesPriority2
 
   implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Persist[Option[A]] =
     new PersistSum2[Option[A], Some[A], None.type](somePersistImplicit[A](evA), nonePersistImplicit)
-    { override def typeStr: String = "Option" + evA.typeStr.enSquare
+  { override def typeStr: String = "Option" + evA.typeStr.enSquare
       override def syntaxDepth: Int = evA.syntaxDepth
-    }
+  }
 }
 
 sealed trait ShowInstancesPriority2
