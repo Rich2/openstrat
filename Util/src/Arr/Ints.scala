@@ -53,9 +53,7 @@ object Ints
       new Ints(buff.toArray)
     }
   }
-  implicit val showImplicit: Show[Ints] = new ArrayLikeShow[Int, Ints]
-  { def evA: Show[Int] = Show.intPersistImplicit
-  }
+  implicit val showImplicit: Show[Ints] = ArrayLikeShow[Int, Ints](Show.intPersistImplicit)
 
   implicit val EqImplicit: Eq[Ints] = (a1, a2) =>
     if(a1.length != a2.length) false

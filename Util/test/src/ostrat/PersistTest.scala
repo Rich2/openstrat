@@ -29,7 +29,7 @@ object PersistTest extends TestSuite
     val str1: String = "I am a String"
     val str1Std: String = "\"I am a String\""
     //val abSeq = Seq(TestObjA, TestObjB)
-    //val abArr = Refs(TestObjA, TestObjB)
+    val abRefs = Refs(TestObjA, TestObjB)
     val mc = My2(List(7, 8, 9), "hi")
     
     "Show Other" -
@@ -41,6 +41,7 @@ object PersistTest extends TestSuite
       str1.strComma ==> str1Std
       str1.strTyped ==> "Str(" + str1Std + ")"
       mc.str ==> "My2(7, 8, 9; \"hi\")"
+      abRefs.str ==> "Seq[TestClass](TestObjA; TestObjB)"
     }
 
     "Persist Other" -

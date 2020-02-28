@@ -273,7 +273,7 @@ object ArrayLike
   }
 }
 
-trait ArrayLikeShow[A, R] extends ShowSeqLike[A, R]
-{ def showComma(obj: Ints): String = obj.toStrsCommaFold()
-  def showSemi(obj: Ints): String = obj.toStrsSemiFold()
+case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: Show[A]) extends ShowSeqLike[A, R]
+{ def showComma(obj: R): String = obj.toStrsCommaFold()
+  def showSemi(obj: R): String = obj.toStrsSemiFold()
 }

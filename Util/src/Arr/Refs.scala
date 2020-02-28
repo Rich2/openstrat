@@ -130,11 +130,7 @@ object Refs
     }
   }
 
-  implicit def showImplicit[A <: AnyRef](implicit evInA: Show[A]): Show[Refs[A]] = new ShowSeqLike[A, Refs[A]]
-  { val evA = evInA
-    def showComma(obj: ostrat.Refs[A]): String = ???
-    def showSemi(obj: ostrat.Refs[A]): String = ???
-  }
+  implicit def showImplicit[A <: AnyRef](implicit evA: Show[A]): Show[Refs[A]] = ArrayLikeShow[A, Refs[A]](evA)
 }
 
 /** Extractor object for empty Refs[A <: AnyRef]. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
