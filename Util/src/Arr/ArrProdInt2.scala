@@ -68,4 +68,3 @@ abstract class ProdInt2sBuilder[A <: ProdInt2, M <: ArrProdInt2[A]](typeStr: Str
  // override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
   //override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
 }
-

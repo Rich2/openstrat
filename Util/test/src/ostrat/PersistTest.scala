@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-object PersistTest
+object PersistTest extends TestSuite
 {
   class TestClass(val str: String) extends PersistSingleton
 
@@ -32,19 +32,22 @@ object PersistTest
     //val abArr = Refs(TestObjA, TestObjB)
     val mc = My2(List(7, 8, 9), "hi")
     
-    "PersistOther" -
+    "Show Other" -
     {
       aa.str ==> aaStr
-      aaStr.findType[TestClass] ==> Good(TestObjA)
       aa.strTyped ==> "TestClass(TestObjA)"
-      //abArr.str.findType[List[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
-    //  abSeq.str.findType[ArrOld[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
-
       str1.str ==> str1Std
       str1.strSemi ==> str1Std
       str1.strComma ==> str1Std
       str1.strTyped ==> "Str(" + str1Std + ")"
       mc.str ==> "My2(7, 8, 9; \"hi\")"
-    }    
+    }
+
+    "Persist Other" -
+    {
+      //aaStr.findType[TestClass] ==> Good(TestObjA)
+      //abArr.str.findType[List[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
+      //  abSeq.str.findType[ArrOld[TestClass]] ==> Good(Seq(TestObjA, TestObjB))
+    }
   }
 }
