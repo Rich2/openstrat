@@ -11,12 +11,11 @@ trait Persist[T] extends Show[T] with UnShow[T]
  * in the Persist companion class. */
 object Persist
 {
-  /** Implicit method for creating List[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
+  /** Implicit method for creating List[A: Persist] instances. */
   implicit def listPersistImplicit[A](implicit ev: Persist[A]): Persist[List[A]] = new PersistIterable[A, List[A]](ev)
   { override def fromExpr(expr: Expr): EMon[List[A]] = fromExprLike(expr)
-    //override def fromParameterStatements(sts: Refs[Statement]): EMon[List[A]] = ???
-    //override def fromClauses(clauses: Refs[Clause]): EMon[List[A]] = ???
   }
+
   implicit def vectorPersistImplicit[A](implicit ev: Persist[A]): Persist[Vector[A]] = new PersistIterable[A, Vector[A]](ev)
   { override def fromExpr(expr: Expr): EMon[Vector[A]] = fromExprLike(expr).map(_.toVector)
    // override def fromParameterStatements(sts: Refs[Statement]): EMon[Vector[A]] = ???

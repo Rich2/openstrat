@@ -110,8 +110,6 @@ object Show //extends ShowInstancesPriority2
     }
   }
 
-
-
   class ShowIterableClass[A, R <: Iterable[A]](val evA: Show[A]) extends ShowIterable[A, R]{}
 
   implicit def ShowIterableImplicit[A](implicit evA: Show[A]): Show[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
