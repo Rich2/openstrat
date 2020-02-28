@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._, pGrid._,  math.sqrt, reflect.ClassTag
+import reflect.ClassTag
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
 abstract class HexGridOld[TileT <: Tile, SideT <: TileSide](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)

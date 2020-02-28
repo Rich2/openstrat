@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._, pGrid._,  math.sqrt, reflect.ClassTag
+import geom._, math.sqrt
 
 object HexGrid
 {
