@@ -12,8 +12,15 @@ trait Persist[T] extends Show[T] with UnShow[T]
 object Persist
 {
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def listPersistImplicit[A](implicit ev: Persist[A]): Persist[List[A]] = new PersistIterable[A, List[A]](ev)
-  { override def fromExpr(expr: Expr): EMon[List[A]] = fromExprLike(expr)
+  implicit def listPersistImplicit[A](implicit evIn: Persist[A]): Persist[List[A]] = new Persist[List[A]] with ShowIterable[A, List[A]]
+  { override val evA: Persist[A] = evIn
+    override def fromExpr(expr: Expr): EMon[List[A]] = expr match
+    {
+      case eet: EmptyExprToken => Good(List[A]())
+      case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
+      case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
+      case e => bad1(expr, "Unknown Exoression for Seq")
+    }
   }
 
   implicit def vectorPersistImplicit[A](implicit ev: Persist[A]): Persist[Vector[A]] = new PersistIterable[A, Vector[A]](ev)

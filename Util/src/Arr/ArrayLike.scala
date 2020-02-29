@@ -17,6 +17,7 @@ trait ArrayLike[+A] extends Any
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (length == 0) vEmpty else vNonEmpty
   def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
   def headToStringElse(ifEmptyString: String): String = ife(length >= 1, head.toString, ifEmptyString)
+
   /** transitional method to be removed. */
   @deprecated def toArraySeq(implicit ct: ClassTag[A] @uncheckedVariance): ArraySeq[A] =
   { val newArray: Array[A] = new Array[A](length)
@@ -67,14 +68,23 @@ trait ArrayLike[+A] extends Any
   }
 
   def eMap[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): EMon[BB] =
-  {
-    var acc = ev.buffNew()
+  { val acc = ev.buffNew()
     var continue = true
     var count = 0
     var errs: Refs[String] = Refs()
     while(count < length & continue == true)
-      f(apply(count)).fold({ e => errs = e; continue = false }, ( ev.buffGrow(acc, _) ))
+      f(apply(count)).fold { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
+  }
+
+  def eMapList[B](f: A => EMon[B]): EMon[List[B]] =
+  { var acc: List[B] = Nil
+    var continue = true
+    var count = 0
+    var errs: Refs[String] = Refs()
+    while(count < length & continue == true)
+      f(apply(count)).fold { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
+    ife(continue, Good(acc.reverse), Bad(errs))
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */

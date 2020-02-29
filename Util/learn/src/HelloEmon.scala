@@ -8,12 +8,12 @@ object HelloEmon extends App
   mi2.foreach(i => println(i.str))//Nothing happens.
   val i1: Int = mi2.getElse(0)
   println("You asked for " + i1.str)
-  val s1: String = mi2.fold(_ => "This is not an Int", "This really is an Int: " + _)
+  val s1: String = mi2.fold("This really is an Int: " + _) (_ => "This is not an Int")
   println(s1)
   var counter: Int = 10
   println("Counter value = " + counter.str)
-  mi1.forEither(errs => println("The counter was not changed."), counter += _)
+  mi1.foldDo { counter += _} {errs => println("The counter was not changed.") }
   println("Counter value is now: " + counter.str)
-  mi2.forEither(errs => println("The counter was not changed."), counter += _)
+  mi2.foldDo { counter += _ } { errs => println("The counter was not changed.") }
   println("Counter value is now: " + counter.str)
 }

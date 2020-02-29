@@ -17,7 +17,13 @@ sealed trait EMon[+A] extends EMonN
   def foreach(f: A => Unit): Unit
 
   /** Fold the EMon of type A into a type of B. */
-  @inline def fold[B](fBad: Strings => B, fGood: A => B): B = this match
+  @inline def fold[B](fGood: A => B)(fBad: Strings => B): B = this match
+  { case Good(a) => fGood(a)
+    case Bad(errs) => fBad(errs)
+  }
+
+  /** Fold the EMon of type A into a type of B. */
+  @inline def fld[B](fGood: A => B, fBad: Strings => B) : B = this match
   { case Good(a) => fGood(a)
     case Bad(errs) => fBad(errs)
   }
@@ -25,8 +31,10 @@ sealed trait EMon[+A] extends EMonN
   def errs: Strings
   def map[B](f: A => B): EMon[B]
   def map2[B1, B2](f: A => (B1, B2)) = ???
-  /** This is just a Unit returning map, but is preferred because the method  is explicit that it is called for effects not a value. */
-  def forEither(fBad: Strings => Unit, fGood: A => Unit): Unit = fold[Unit](fBad, fGood)
+
+  /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects not a value. */
+  def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit
+
   def flatMap[B](f: A => EMon[B]): EMon[B]
   def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
   def getElse[A1 >: A](elseValue: => A1): A1
@@ -66,8 +74,9 @@ object EMon
  *  Right[List[String], +A]. */
 case class Good[+A](val value: A) extends EMon[A] 
 { def errs: Strings = Refs()
-  override def map[B](f: A => B): EMon[B] = Good[B](f(value))   
+  override def map[B](f: A => B): EMon[B] = Good[B](f(value))
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
+  override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def foreach(f: A => Unit): Unit = f(value)
   override def getElse[A1 >: A](elseValue: => A1): A1 = value
@@ -95,6 +104,7 @@ object Good
 case class Bad[+A](errs: Strings) extends EMon[A] with BadN
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
+  override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
   override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
   override def foreach(f: A => Unit): Unit = {}
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue

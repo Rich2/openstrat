@@ -260,8 +260,7 @@ object GoodRefs1
 }
 
 object GoodRefs2
-{ def unapply[A <: AnyRef](er: EMon[Refs[A]]): Option[(A, A)] = er.fold(errs => None, g =>
-  if (g.length == 2) Some((g(0), g(1))) else None)
+{ def unapply[A <: AnyRef](er: EMon[Refs[A]]): Option[(A, A)] = er.fold(g => if (g.length == 2) Some((g(0), g(1))) else None) (errs => None)
 }
 
 object GoodRefs3
