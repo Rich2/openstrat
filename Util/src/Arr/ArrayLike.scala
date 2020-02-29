@@ -66,7 +66,16 @@ trait ArrayLike[+A] extends Any
     res
   }
 
-  def eMap[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): EMon[BB] = ???
+  def eMap[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): EMon[BB] =
+  {
+    var acc = ev.buffNew()
+    var continue = true
+    var count = 0
+    var errs: Refs[String] = Refs()
+    while(count < length & continue == true)
+      f(apply(count)).fold({ e => errs = e; continue = false }, ( ev.buffGrow(acc, _) ))
+    ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
+  }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, BB <: ArrImut[B]](f: (A, A) => B)(implicit ev: ArrBuild[B, BB]): BB =

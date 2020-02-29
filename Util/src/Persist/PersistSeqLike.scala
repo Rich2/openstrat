@@ -25,7 +25,7 @@ abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowSe
   def fromExprLike(expr: Expr): EMon[List[A]] = expr match
   {
     case SemicolonToken(_) => Good(List[A]())
-    case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap[A](_.errGet[A](evA))
+    case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
     case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
     case e => bad1(expr, "Unknown Exoression for Seq")
   }

@@ -83,6 +83,7 @@ case class BracketedRaws(statements: Refs[TextSpan], braces: Braces, startBracke
 
 case class BracketedStatements(statements: Statements, braces: Braces, startBracket: TextPosn, endBracket: TextPosn) extends BlockStatements
 { def exprName: String = braces.name + "BlockExpr"
+  def memExprs: Refs[Expr] = statements.map(_.expr)
 }
 
 object ParenthBlock
