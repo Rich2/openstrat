@@ -25,9 +25,9 @@ object PersistCollectionsTest  extends TestSuite
     
     "List2" -
     {
-    //  ::(4, Nil).str ==> "Seq[Int](4)"
-     // "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
-     // s1.findType[List[Int]] ==> Good(List(1, 2, 3))
+      //"Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
+       // "Seq[Int](1; 2; 3)".findType[List[Int]] ==> Good(List(1, 2, 3))
+
     //  s1.findType[List[Double]] ==> Good(List(1.0, 2, 3))
       //s1.findType[List[Int]] ==> Good(List(1, 2, 3))
       //s1.findType[List[Int]] ==> Good(Seq(1, 2, 3))
