@@ -61,6 +61,8 @@ object ArrBuild
     override def buffToArr(buff: ArrayBuffer[Double]): Dbls = new Dbls(buff.toArray)
   }
 
+  /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
+   * types. */
   implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrBuild[A, Refs[A]] = new ArrBuild[A, Refs[A]]
   { type BuffT = ArrayBuffer[A]
     override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))

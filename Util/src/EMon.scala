@@ -6,7 +6,7 @@ package ostrat
  * advantages to having a separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the
  * methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view Either[T] class is redundant and is
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
-sealed trait EMon[+A]
+sealed trait EMon[+A] extends EMonBase[A]
 {
   /** Will perform action if Good. Does nothing if Bad. */
   def foreach(f: A => Unit): Unit
@@ -64,7 +64,7 @@ object EMon
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
  *  Right[List[String], +A]. */
-case class Good[+A](val value: A) extends EMon[A] with EMonBase[A]
+case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 { def errs: Strings = Refs()
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
@@ -82,7 +82,6 @@ case class Good[+A](val value: A) extends EMon[A] with EMonBase[A]
   override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = f(value)
   override def isGood: Boolean = true
   override def isBad: Boolean = false
-
 }
 
 object Good
