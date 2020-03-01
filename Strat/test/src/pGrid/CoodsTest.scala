@@ -9,7 +9,7 @@ object CoodsTest  extends TestSuite
   val cs = Coods(5 cc 4, 3 cc 2, 7 cc 8, -5 cc -42)
   val tests = Tests
   {
-    'test1 -
+    "test1" -
     {
       c1 ==> Cood(5, -96)
       cs.contains(Cood(4, 5)) ==> false 
