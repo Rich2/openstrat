@@ -31,7 +31,7 @@ object ParseStringTokenTest extends TestSuite
 
     val s4 = "\"Hello"
     val chs4 = s4.toChars
-    val r4 = parseStringToken(chs4.offsetter0, StrPosn())(chs4)
+    //val r4 = parseStringToken(chs4.offsetter0, StrPosn())(chs4)
 
     "Test2" -
     {
