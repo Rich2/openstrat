@@ -1,19 +1,14 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-/*trait EMonN extends Any
-
-trait BadN extends Any
-{ def errs: Strings
-}*/
-
 /** An Errors handling class. Consider changing name to EHan. The main ways to consume the final result of the flatMap operation are fold, getElse,
  * foreach and forEither. This corresponds, but is not functionally equivalent to an Either[StrList, A] or Either[List[String], +A]. There are
  * advantages to having a separate class and I find that I rarely use Either apart from with standard errors as the Left type. However use the
  * methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view Either[T] class is redundant and is
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
-sealed trait EMon[+A] //extends EMonN
-{ /** Will perform action if Good. Does nothing if Bad. */
+sealed trait EMon[+A]
+{
+  /** Will perform action if Good. Does nothing if Bad. */
   def foreach(f: A => Unit): Unit
 
   /** Fold the EMon of type A into a type of B. */
@@ -97,7 +92,7 @@ object Good
 }
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
-case class Bad[+A](errs: Strings) extends EMon[A] //with BadN
+case class Bad[+A](errs: Strings) extends EMon[A]
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   @inline override def fold[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
@@ -127,15 +122,7 @@ object Bad
   }
 }
 
-object Bad1
-{
-  /*def unapply(inp: EMonN): Option[String] = inp match
-  { case bd: BadN if bd.errs.length == 1 => Some(bd.errs(0))
-    case _ => None
-  }*/
-}
-
-sealed trait EMon2[+A1, +A2]// extends EMonN
+sealed trait EMon2[+A1, +A2]
 { def flatMap[B](f: (A1, A2) => EMon[B]): EMon[B]
   def flatMap2[B1, B2](f: (A1, A2) => EMon2[B1, B2]): EMon2[B1, B2]
   def a1Map[B1](f: (A1 => B1)): EMon2[B1, A2]
@@ -147,13 +134,13 @@ final case class Good2[A1, A2](a1: A1, a2: A2) extends EMon2[A1, A2]
   override def a1Map[B1](f: (A1 => B1)): EMon2[B1, A2] = Good2[B1, A2](f(a1), a2)
 }
 
-final case class Bad2[A1, A2](val errs: Strings) extends EMon2[A1, A2] // with BadN
+final case class Bad2[A1, A2](val errs: Strings) extends EMon2[A1, A2]
 { override def flatMap[B](f: (A1, A2) => EMon[B]): EMon[B] = Bad[B](errs)
   override def a1Map[B1](f: (A1 => B1)): EMon2[B1, A2] = Bad2[B1, A2](errs)
   override def flatMap2[B1, B2](f: (A1, A2) => EMon2[B1, B2]): EMon2[B1, B2] = Bad2[B1, B2](errs)
 }
 
-sealed trait EMon3[+A1, +A2, +A3] //extends EMonN
+sealed trait EMon3[+A1, +A2, +A3]
 { def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B]
 }
 
@@ -161,14 +148,6 @@ final case class Good3[+A1, +A2, +A3](a1: A1, a2: A2, a3: A3) extends EMon3[A1, 
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = f(a1, a2, a3)
 }
 
-object Good3
-{
-  //def unapply[A1, A2, A3](inp: EMon3[A1, A2, A3]): Option[(A1, A2, A3)] = inp match
-  //{
-    //case Good
-  //}
-}
-
-final class Bad3[A1, A2, A3](val errs: Strings) extends EMon3[A1, A2, A3] //with BadN
+final class Bad3[A1, A2, A3](val errs: Strings) extends EMon3[A1, A2, A3]
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = Bad[B](errs)
 }
