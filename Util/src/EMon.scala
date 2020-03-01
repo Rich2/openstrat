@@ -42,8 +42,6 @@ sealed trait EMon[+A]
   def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D]
   def isGood: Boolean
   def isBad: Boolean
-
-
 }
 
 object EMon
@@ -156,4 +154,9 @@ final case class Good3[+A1, +A2, +A3](a1: A1, a2: A2, a3: A3) extends EMon3[A1, 
 
 final class Bad3[A1, A2, A3](val errs: Strings) extends EMon3[A1, A2, A3]
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = Bad[B](errs)
+}
+
+object NoGood
+{
+  def apply[A](): Bad[A] = new Bad[A](Refs())
 }
