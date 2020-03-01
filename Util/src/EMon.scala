@@ -64,7 +64,7 @@ object EMon
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
  *  Right[List[String], +A]. */
-case class Good[+A](val value: A) extends EMon[A]
+case class Good[+A](val value: A) extends EMon[A] with EMonBase[A]
 { def errs: Strings = Refs()
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
@@ -96,7 +96,7 @@ object Good
 }
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
-case class Bad[+A](errs: Strings) extends EMon[A]
+case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   @inline override def fold[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)

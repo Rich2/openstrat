@@ -14,15 +14,15 @@ trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
   final override def unsafeSetElem(index: Int, elem: A): Unit = array(index) = elem.intValue
 
   /** This method could be made more general. */
-  def findIndex(value: A): OptInt =
+  def findIndex(value: A): EMonInt =
   {
     var count = 0
-    var acc: OptInt = NoInt
+    var acc: EMonInt = NoneInt
     var continue = true
     while (continue == true & count < length)
     {
       if (value.intValue == array(count))
-      { acc = SomeInt(count)
+      { acc = GoodInt(count)
         continue = false
       }
       count += 1
