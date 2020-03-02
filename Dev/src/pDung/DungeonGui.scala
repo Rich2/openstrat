@@ -16,7 +16,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     val tv = vertDispVecs.fillActive(colour, tile)
      val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
     val tText = ifScaleCObj(60, TextGraphic(xyStr, 14, cen, colour.contrastBW))
-    val player = ifScaleOptObjs(60, tile.charac){charac =>
+    val player = ifScaleOptObjsNew(60, tile.charac){charac =>
       val poly1 = Rectangle(1.5).insVerts(1, -0.25 vv 0.5, 0 vv 0.8, 0.25 vv 0.5)
       val poly2 = poly1.scale(tog.tScale / 2.5).rotate(charac.facing.angle).slate(tog.cen)      
       ArrOld(poly2.fillDrawSubj(charac, charac.colour, 1), TextGraphic(charac.iden.toString, 16, cen, charac.colour.contrast))
@@ -35,9 +35,9 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     }
     case (RightButton, Refs1(ch: Character), Refs1(newTile: DTile)) if
       adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
-    { grid.getTile(ch.cood).charac = nullRef
+    { grid.getTile(ch.cood).charac = NoGood()
       ch.cood = newTile.cood
-      newTile.charac = OptRef(ch)
+      newTile.charac = Good(ch)
       repaintMap      
     }
     case (MiddleButton, Refs1(ch: Character), Refs1(newTile: DTile)) => optFace(ch.cood, newTile.cood) match

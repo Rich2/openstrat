@@ -21,11 +21,14 @@ trait OfGridElem[TileT <: Tile, SideT <: TileSide, GridT <: TileGrid[TileT, Side
   def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemsOld = if (tScale > ifScale) cObj.toArr else ArrOld()
   def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale && b) cObjs else ArrOld()
   def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemsOld = if (tScale > ifScale && b) cObjs.toArr else ArrOld()
-  
+  0
   def ifScaleOptObj[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => CanvO): GraphicElemsOld = if (tScale < ifScale) ArrOld() else optA.fold(ArrOld(), a => ArrOld(f(a)))
     
   def ifScaleOptObjs[A >: Null <: AnyRef](ifScale: Double, optA: OptRef[A])(f: A => GraphicElemsOld): GraphicElemsOld =
     if (tScale < ifScale) ArrOld() else optA.fold(ArrOld(), f(_))
+
+  def ifScaleOptObjsNew[A >: Null <: AnyRef](ifScale: Double, optA: EMon[A])(f: A => GraphicElemsOld): GraphicElemsOld =
+    if (tScale < ifScale) ArrOld() else optA.fld(g => f(g), errs => ArrOld())
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */

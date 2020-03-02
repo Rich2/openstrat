@@ -23,7 +23,7 @@ case class DTile(x: Int, y: Int, terr: DTerr) extends ColouredTile//GridElem
 {
   type FromT = DTerr
   def fromT = terr
-  var charac: OptRef[Character] = nullRef
+  var charac: EMon[Character] = NoGood()
   def colour = terr.colour
 }
 
