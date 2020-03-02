@@ -7,7 +7,7 @@ object EMonBuildTest  extends TestSuite
   {
     val a1: EMonInt = GoodInt(5)
     val a2 = a1.mMap(_ * 11)
-    val a3 = a2.mMap("Good " + _.toString)
+    //val a3 = a2.mMap("Good " + _.toString)
     val b = NoneInt
     val s1: EMon[String] = Good("Hello")
     "Test1" -

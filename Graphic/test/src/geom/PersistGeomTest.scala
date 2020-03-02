@@ -15,7 +15,7 @@ object PersistGeomTest  extends TestSuite
     val vec2bComma = "-0.01, 0.02"
     val vec2bStd: String = "Vec2" + vec2bSemi.enParenth
     
-    'Vec2Test
+    "Vec2Test" -
     { assert(vec2a.toString == vec2aStd)
       assert(vec2a.str == vec2aStd)
       assert(vec2a.str == vec2aStd)
@@ -29,7 +29,7 @@ object PersistGeomTest  extends TestSuite
     val l1 = Line2(vec2a, vec2b)
     val lineStd: String = "Line2(" + vec2aComma + "; " + vec2bComma + ")"
     
-    'Line2Test
+    "Line2Test" -
     { assert(l1.toString == lineStd)      
       assert(l1.str == lineStd)
       assert(l1.str == lineStd)
@@ -38,7 +38,7 @@ object PersistGeomTest  extends TestSuite
       assert(l1.strComma == vec2aStd + ", " + vec2bStd)
     }
     
-    'OtherTest
+    "OtherTest" -
     { assert(Vec3(3.1, -4, 5).str == "Vec3(3.1; -4.0; 5.0)")      
     }
   }
