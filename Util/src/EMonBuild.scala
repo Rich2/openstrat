@@ -2,11 +2,13 @@ package ostrat
 
 trait EMonBase[+A]
 {
-  def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT = ???
+  def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT
+  def errs: Strings
 }
 
 trait GoodBase[+A] extends EMonBase[A]
 { def value: A
+  def errs: Strings = Refs()
 }
 
 trait BadBase[+T] extends EMonBase[T]

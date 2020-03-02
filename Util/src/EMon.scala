@@ -16,8 +16,7 @@ sealed trait EMon[+A] extends EMonBase[A]
 
   /** Fold the EMon of type A into a type of B. */
   @inline def fld[B](fGood: A => B, fBad: Strings => B) : B
-  
-  def errs: Strings
+
   def map[B](f: A => B): EMon[B]
   //def map2[B1, B2](f: A => (B1, B2)) = ???
 
@@ -65,8 +64,9 @@ object EMon
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
  *  Right[List[String], +A]. */
 case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
-{ def errs: Strings = Refs()
+{
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))
+  override def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT = build(f(value))
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
   @inline override def fold[B](fGood: A => B)(fBad: Strings => B): B = fGood(value)
   @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
@@ -97,6 +97,7 @@ object Good
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
+  override def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT = build.newBad(errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   @inline override def fold[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
   @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
