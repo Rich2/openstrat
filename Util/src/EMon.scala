@@ -14,8 +14,10 @@ sealed trait EMon[+A] extends EMonBase[A]
   /** Fold the EMon of type A into a type of B. */
   @inline def fold[B](fGood: A => B)(fBad: Strings => B): B
 
+  @inline def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB
+
   /** Fold the EMon of type A into a type of B. */
-  @inline def fld[B](fGood: A => B, fBad: Strings => B) : B
+ // @inline def fld[B](fGood: A => B, fBad: Strings => B) : B
 
   def map[B](f: A => B): EMon[B]
   //def map2[B1, B2](f: A => (B1, B2)) = ???
@@ -69,7 +71,14 @@ case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
   override def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT = build(f(value))
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
   @inline override def fold[B](fGood: A => B)(fBad: Strings => B): B = fGood(value)
-  @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
+
+  @inline override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB =
+  { val res = build.imutNew(1)
+    build.imutSet(res, 0, f(value))
+    res
+  }
+
+ // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def foreach(f: A => Unit): Unit = f(value)
@@ -100,7 +109,9 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
   override def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT = build.newBad(errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   @inline override def fold[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
-  @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
+  @inline override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB = build.imutNew(0)
+
+  //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
   override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
   override def foreach(f: A => Unit): Unit = {}
