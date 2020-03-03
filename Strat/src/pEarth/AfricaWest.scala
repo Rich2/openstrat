@@ -12,8 +12,8 @@ object AfricaWest extends Area1("WAfrica", 20 ll 40)
 
 object AfricaWestGrid extends EGridMaker
 {
-  def apply[TileT <: Tile, SideT <: TileSide](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-                                              evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80km[TileT, SideT] =
+  def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
+                                                    evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80km[TileT, SideT] =
   {
     val grid: EGNorth[TileT, SideT] = new EGNorth[TileT, SideT](new Array[Int](0), "AfricaWest", 0.east, xOffset = 200, 18, 300)
     grid.setTilesAll(Ocean)(fTile)

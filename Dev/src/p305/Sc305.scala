@@ -3,9 +3,9 @@ package ostrat
 package p305
 import pEarth._
 
-class BcScen extends OldWorldMap[BcTile, ESideOnly](BcTile.apply, ESideOnly.apply)
+class BcScen extends OldWorldMap[BcTileOld, ESideOldOnly](BcTileOld.apply, ESideOldOnly.apply)
 {
-   val fLegion: (BcTile, Polity) => Unit = (tile, p: Polity) =>
+   val fLegion: (BcTileOld, Polity) => Unit = (tile, p: Polity) =>
       {
          tile.lunits = Legion(p, tile.cood) :: tile.lunits
       }

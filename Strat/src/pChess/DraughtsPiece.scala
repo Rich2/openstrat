@@ -3,7 +3,7 @@ package ostrat
 package pChess
 import Colour._, pGrid._
 
-case class DTile(x: Int, y: Int, var piece: Option[Draught] = None) extends ColouredTile
+case class DTileOld(x: Int, y: Int, var piece: Option[Draught] = None) extends ColouredTileOld
 {
   type FromT = Option[Draught]
   def fromT = piece
@@ -12,20 +12,20 @@ case class DTile(x: Int, y: Int, var piece: Option[Draught] = None) extends Colo
   
 }
 
-object DTile
+object DTileOld
 {
-  implicit val DTileAdj: (DTile, Int, Int) => DTile = (t, x, y) => DTile(x, y, t.piece)
-  implicit object DTerrIsType extends IsType[DTile]
+  implicit val DTileAdj: (DTileOld, Int, Int) => DTileOld = (t, x, y) => DTileOld(x, y, t.piece)
+  implicit object DTerrIsType extends IsType[DTileOld]
   {
-    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTile]
-    override def asType(obj: AnyRef): DTile = obj.asInstanceOf[DTile]   
+    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTileOld]
+    override def asType(obj: AnyRef): DTileOld = obj.asInstanceOf[DTileOld]
   }
 }
 
 sealed class Draught(val colour: Colour) extends AnyRef
 object WhiteD extends Draught(White)
 object BlackD extends Draught(Black)
-sealed trait CheckersSq extends GridElem
+sealed trait CheckersSq extends GridElemOld
 {
    def colour: Colour
 }

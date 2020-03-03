@@ -9,7 +9,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   focusUp = true
   override def saveNamePrefix = "WW2"
 
-  val fHex: OfETile[W2Tile, W2Side] => GraphicElemsOld = etog =>
+  val fHex: OfETile[W2TileOld, W2SideOld] => GraphicElemsOld = etog =>
     {
       import etog._         
       val colour: Colour = tile.colour
@@ -26,7 +26,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       poly.toArraySeq ++ textOrUnit
     }
     
-  def fSide: OfESide[W2Tile, W2Side] => GraphicElemsOld = ofs =>
+  def fSide: OfESide[W2TileOld, W2SideOld] => GraphicElemsOld = ofs =>
     {
       import ofs._
       ifScaleCObjs(60, side.terr match
@@ -53,7 +53,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       }
 
       case RightButton => (selected, clickList) match
-      { case (Refs1(army: Army), Refs1(newTile: W2Tile)) =>
+      { case (Refs1(army: Army), Refs1(newTile: W2TileOld)) =>
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
           newTile.lunits +-= newArmy

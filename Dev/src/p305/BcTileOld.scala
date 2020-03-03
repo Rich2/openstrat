@@ -3,18 +3,18 @@ package ostrat
 package p305
 import pGrid._, pEarth._
 
-case class BcTile(x: Int, y: Int, terr: WTile) extends ETile
+case class BcTileOld(x: Int, y: Int, terr: WTile) extends ETileOld
 {
   type FromT = WTile
   def fromT = terr
   var lunits: List[Legion] = Nil
 }
 
-object BcTile
+object BcTileOld
 {  
-  implicit object NTileIsType extends IsType[BcTile]
-  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[BcTile]
-    override def asType(obj: AnyRef): BcTile = obj.asInstanceOf[BcTile]
+  implicit object NTileIsType extends IsType[BcTileOld]
+  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[BcTileOld]
+    override def asType(obj: AnyRef): BcTileOld = obj.asInstanceOf[BcTileOld]
   }
 }
 

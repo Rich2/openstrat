@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import geom._, pCanv._, Colour._, pGrid._, pStrat._ 
 
-class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTile, ZugSide, ZugGrid](canv, "ZugFuhrer")
+class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTileOld, ZugSideOld, ZugGrid](canv, "ZugFuhrer")
 {  
   statusText --= "Left click to select, middle to set to fire, right to set to Move."
   val scen = game.getScen(player)
@@ -13,7 +13,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   override var focus: Vec2 = grid.cen
   mapPanel.backColour = Black
   
-  def fHex: OfHexReg[ZugTile, ZugSide, ZugGrid] => GraphicElemsOld = ofh =>
+  def fHex: OfHexReg[ZugTileOld, ZugSideOld, ZugGrid] => GraphicElemsOld = ofh =>
   { import ofh._         
     val colour: Colour = tile.colour         
     
@@ -51,7 +51,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     tv.toArraySeq ++ tText ++ lunit
   }
     
-  def fSide: OfHexSideReg[ZugTile, ZugSide, ZugGrid] => GraphicElemsOld = ofs =>
+  def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGrid] => GraphicElemsOld = ofs =>
   { import ofs._    
     ifScaleCObjs(60, side.wall match
       { case true => ArrOld(vertDispLine.draw(6, Gray))
@@ -71,14 +71,14 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       eTop()            
     }
     
-    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTile)) => scen.zPath(squad.cood, newTile.cood).foreach{l =>
+    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTileOld)) => scen.zPath(squad.cood, newTile.cood).foreach{ l =>
       squad.action = Move(Coods(l :_*))
       repaintMap
     }
     
-    case (MiddleButton, Refs1(squad : Squad), Refs1(newTile: ZugTile)) => { squad.action = Fire(newTile.cood); repaintMap }
+    case (MiddleButton, Refs1(squad : Squad), Refs1(newTile: ZugTileOld)) => { squad.action = Fire(newTile.cood); repaintMap }
     
-    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTile)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
+    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
     
     case _ => deb("Other" -- clickList.toString)
   }   

@@ -195,7 +195,7 @@ object RowMulti
  *  There are no breaks between the first tile of the row and the last tile of the row although a row can consist of a single tile. Every
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
-trait TileGrid[TileT <: Tile, SideT <: TileSide]
+trait TileGrid[TileT <: TileOld, SideT <: TileSideOld]
 {
   def turnNum: Int
   def xTileMin: Int

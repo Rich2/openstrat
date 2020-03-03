@@ -15,21 +15,21 @@ object ZugTerr
   //implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply(_, _, _, Nil)
 }
 
-case class ZugTile(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[Squad] = ArrOld()) extends ColouredTile
+case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[Squad] = ArrOld()) extends ColouredTileOld
 {
   type FromT = ZugTerr
   def fromT = terr
   def colour = terr.colour     
 }
 
-object ZugTile
+object ZugTileOld
 {
-  implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = apply(_, _, _)//???//ZugTile.apply(_, _, _, Nil)
-  implicit val tileMove: (Int, Int, ZugTile) => ZugTile = (x, y, t) => t.copy(x, y)//apply(_, _, _.// = ZugTile( 
-  implicit object ZugTileIsType extends IsType[ZugTile]
+  implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTileOld = apply(_, _, _)//???//ZugTile.apply(_, _, _, Nil)
+  implicit val tileMove: (Int, Int, ZugTileOld) => ZugTileOld = (x, y, t) => t.copy(x, y)//apply(_, _, _.// = ZugTile(
+  implicit object ZugTileIsType extends IsType[ZugTileOld]
   {
-    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[ZugTile]
-    override def asType(obj: AnyRef): ZugTile = obj.asInstanceOf[ZugTile]   
+    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[ZugTileOld]
+    override def asType(obj: AnyRef): ZugTileOld = obj.asInstanceOf[ZugTileOld]
   }   
 }
 

@@ -7,7 +7,7 @@ sealed trait DTerr extends AnyRef with PersistSingleton
 { def colour: Colour
 }
 
-object DTerr { implicit val toDTile: (Int, Int, DTerr) => DTile = DTile.apply }
+object DTerr { implicit val toDTile: (Int, Int, DTerr) => DTileOld = DTileOld.apply }
 
 object Open extends DTerr
 { override def colour: Colour = Violet
@@ -19,7 +19,7 @@ object Wall extends DTerr
   val str: String = "Wall"
 }
 
-case class DTile(x: Int, y: Int, terr: DTerr) extends ColouredTile//GridElem
+case class DTileOld(x: Int, y: Int, terr: DTerr) extends ColouredTileOld//GridElem
 {
   type FromT = DTerr
   def fromT = terr
@@ -27,12 +27,12 @@ case class DTile(x: Int, y: Int, terr: DTerr) extends ColouredTile//GridElem
   def colour = terr.colour
 }
 
-object DTile
+object DTileOld
 {
-  implicit object DTerrIsType extends IsType[DTile]
+  implicit object DTerrIsType extends IsType[DTileOld]
   {
-    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTile]
-    override def asType(obj: AnyRef): DTile = obj.asInstanceOf[DTile]   
+    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTileOld]
+    override def asType(obj: AnyRef): DTileOld = obj.asInstanceOf[DTileOld]
   }
    
  // SqDBuilder extends PBuilderSingletons[DTerr]

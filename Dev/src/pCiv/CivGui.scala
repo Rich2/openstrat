@@ -3,7 +3,7 @@ package ostrat
 package pCiv
 import geom._, pGrid._, pCanv._, Colour._
 
-class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](canv, "Civs")
+class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, CivGrid](canv, "Civs")
 {
   statusText --= "Left click unit to select. Right click on adjacent hex to move."
   override val grid: CivGrid = Civ1
@@ -11,7 +11,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
   mapPanel.backColour = Colour.Black
-  def  fHex: OfHexReg[CTile, SideBare, CivGrid] => GraphicElemsOld = tog =>
+  def  fHex: OfHexReg[CTileOld, SideOldBare, CivGrid] => GraphicElemsOld = tog =>
     {
       import tog._        
       val colour: Colour = tile.colour
@@ -47,7 +47,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTile, SideBare, CivGrid](
     }
     
     //If a Warrior is selected and a tile adjacent to the Warrior is right clicked =>
-    case (RightButton, Refs1(warr : Warrior), Refs1(newTile: CTile)) =>
+    case (RightButton, Refs1(warr : Warrior), Refs1(newTile: CTileOld)) =>
       {
         deb("Rt") 
         val newCood = newTile.cood

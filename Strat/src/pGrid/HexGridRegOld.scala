@@ -3,8 +3,8 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag
 
-class HexGridRegOld[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit
-  evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridOld[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax, turnNum) with
+class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit
+                                                                                                                                      evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridOld[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax, turnNum) with
     TileGridReg[TileT, SideT]
 {
   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
@@ -122,7 +122,7 @@ class HexGridRegOld[TileT <: Tile, SideT <: TileSide](xTileMin: Int, xTileMax: I
   final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 
-case class Node[TileT <: Tile](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptRef[Node[TileT]])
+case class Node[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptRef[Node[TileT]])
 {
   def fCost = gCost + hCost
 }

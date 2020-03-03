@@ -4,9 +4,9 @@ package p1783
 import pEarth._
 //import pGrid._
 
-class NapScen extends EarthAllMap[NTile, ESideOnly](NTile.apply, ESideOnly.apply)
+class NapScen extends EarthAllMap[NTileOld, ESideOldOnly](NTileOld.apply, ESideOldOnly.apply)
 {
-  val fCorp: (NTile, Polity) => Unit = (tile, p: Polity) => tile.lunits = Corps(tile, p) +: tile.lunits
+  val fCorp: (NTileOld, Polity) => Unit = (tile, p: Polity) => tile.lunits = Corps(tile, p) +: tile.lunits
 }
 
 object Nap1 extends NapScen

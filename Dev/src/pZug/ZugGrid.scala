@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import pGrid._
 
-class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[ZugTile, ZugSide](xTileMin, xTileMax,
+class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[ZugTileOld, ZugSideOld](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
   protected[this] var idCounter: Int = 100
@@ -24,7 +24,7 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNu
     setTile(x, y,tile.copy(lunits = sd +: tile.lunits))
   }
   
-  val fTerrCost: (ZugTile, ZugTile) => OptInt = _.terr.cost + _.terr.cost
+  val fTerrCost: (ZugTileOld, ZugTileOld) => OptInt = _.terr.cost + _.terr.cost
   def zPath(startCood: Cood, endCood: Cood): Option[List[Cood]] = findPath(startCood, endCood, fTerrCost)   
   setTilesAll(Plain)
   setSidesAll(false)

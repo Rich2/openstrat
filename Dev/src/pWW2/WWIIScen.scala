@@ -3,9 +3,9 @@ package ostrat
 package pWW2
 import pEarth._
 
-class WWIIScen extends EarthAllMap[W2Tile, W2Side](W2Tile.apply, W2Side.apply)
+class WWIIScen extends EarthAllMap[W2TileOld, W2SideOld](W2TileOld.apply, W2SideOld.apply)
 {
-  val fArmy: (W2Tile, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) +: tile.lunits
+  val fArmy: (W2TileOld, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) +: tile.lunits
 }
 
 object WW1940 extends WWIIScen

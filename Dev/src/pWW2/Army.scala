@@ -2,7 +2,7 @@
 package ostrat
 package pWW2
 
-case class Army(tile: W2Tile, polity: Polity) extends WithColour
+case class Army(tile: W2TileOld, polity: Polity) extends WithColour
 {
   def colour = polity.colour
   override def toString = "Army" + (polity.toString).enParenth

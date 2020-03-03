@@ -3,7 +3,7 @@ package ostrat
 package pGames.pSimp
 import pGrid._ 
 
-class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[UTile, SideBare](xTileMin, xTileMax,
+class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[UTileOld, SideOldBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
   def getMoves: ArrOld[Move] = tilesMapOptionAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
@@ -48,7 +48,7 @@ object SimpGrid {
   def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
 
   implicit val showUnusGrid: Show[SimpGrid] =
-    Show5[Int, Int, Int, Int, ArrOld[TileRow[UTile#FromT]], SimpGrid]("SimpGrid", "xTilemin", _.xTileMin, "xTilemax", _.xTileMax, "yTileMin", _.yTileMin,
+    Show5[Int, Int, Int, Int, ArrOld[TileRow[UTileOld#FromT]], SimpGrid]("SimpGrid", "xTilemin", _.xTileMin, "xTilemax", _.xTileMax, "yTileMin", _.yTileMin,
     "yTileMax", _.yTileMax, "tilesToMultiAll", _.tilesToMultiAll)
 }
 

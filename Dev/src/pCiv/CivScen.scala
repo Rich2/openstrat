@@ -3,7 +3,7 @@ package ostrat
 package pCiv
 import pEarth._, pGrid._
 
-class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[CTile, SideBare](xTileMin,
+class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[CTileOld, SideOldBare](xTileMin,
     xTileMax, yTileMin, yTileMax, turnNum)
 {
   

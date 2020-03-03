@@ -16,9 +16,9 @@ class Squad(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) ext
     case _ => false
   }
   
-  def canMove(tile: ZugTile): Boolean = tile.terr != Lake
+  def canMove(tile: ZugTileOld): Boolean = tile.terr != Lake
    
-  def terrCost(tile: ZugTile): Int = tile.terr match
+  def terrCost(tile: ZugTileOld): Int = tile.terr match
   { case Plain => 4
     case WheatField => 6
     case StoneBuilding => 10 

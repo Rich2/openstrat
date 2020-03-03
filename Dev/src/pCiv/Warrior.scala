@@ -13,7 +13,7 @@ class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Luni
    def turnMovePts = 10
    var movePts: Int = turnMovePts
    def resetMovePts(): Unit = movePts = turnMovePts
-   def terrCost(tile: CTile): Int = tile.terr match
+   def terrCost(tile: CTileOld): Int = tile.terr match
    { case l: Land if l.terr == Mountains => 10
      case l: Land if l.terr == Hilly => 6
      case _ => 4

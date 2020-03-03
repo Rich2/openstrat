@@ -3,14 +3,14 @@ package ostrat
 package pDung
 import geom._, pCanv._, pGrid._, SFace._, Colour._
 
-class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, DungeonGrid](canv, Dungeon1, "Dungeon")
+class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBare, DungeonGrid](canv, Dungeon1, "Dungeon")
 { 
   mapPanel.backColour = Black
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
   override def eTop(): Unit = reTop(guButs -+ status)
    
-  def fSquare: OfSquareReg[DTile, SideBare, DungeonGrid] => GraphicElemsOld = tog =>
+  def fSquare: OfSquareReg[DTileOld, SideOldBare, DungeonGrid] => GraphicElemsOld = tog =>
   { import tog._
     val colour: Colour = tile.colour
     val tv = vertDispVecs.fillActive(colour, tile)
@@ -24,7 +24,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
     tv.toArraySeq ++ tText ++ player.toArraySeq ++ sides
   }
   
-  def mapObjs: GraphicElems = (ofTilesDisplayFold[OfSquareReg[DTile, SideBare, DungeonGrid]](fSquare)).toRefs
+  def mapObjs: GraphicElems = (ofTilesDisplayFold[OfSquareReg[DTileOld, SideOldBare, DungeonGrid]](fSquare)).toRefs
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
@@ -33,14 +33,14 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTile, SideBare, Du
       statusText = selected.headToStringElse("Nothing Clicked")
       eTop()
     }
-    case (RightButton, Refs1(ch: Character), Refs1(newTile: DTile)) if
+    case (RightButton, Refs1(ch: Character), Refs1(newTile: DTileOld)) if
       adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
     { grid.getTile(ch.cood).charac = NoGood()
       ch.cood = newTile.cood
       newTile.charac = Good(ch)
       repaintMap      
     }
-    case (MiddleButton, Refs1(ch: Character), Refs1(newTile: DTile)) => optFace(ch.cood, newTile.cood) match
+    case (MiddleButton, Refs1(ch: Character), Refs1(newTile: DTileOld)) => optFace(ch.cood, newTile.cood) match
     { case Some(face) => { ch.facing = face; repaintMap }      
       case _ => deb("Middle Button other")
     }

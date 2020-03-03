@@ -4,7 +4,7 @@ package pGrid
 import pCanv._, geom._, reflect.ClassTag
 
 /** Gui for display of a single regular TileGrid */
-abstract class TileGridGui[TileT <: Tile, SideT <: TileSide, GridT <: TileGridReg[TileT, SideT]](title: String) extends UnfixedMapGui(title)
+abstract class TileGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridReg[TileT, SideT]](title: String) extends UnfixedMapGui(title)
 {
   val grid: GridT
   /** Number of pixels per grid unit. */

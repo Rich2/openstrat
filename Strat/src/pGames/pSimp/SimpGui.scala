@@ -12,7 +12,7 @@ class UnusGui(canv: CanvasPlatform, grid: SimpGrid)
 }
 
 /** This needs tidying up. */
-class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplicissima) extends TileGridGui[UTile, SideBare, SimpGrid]("Unus Game")
+class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplicissima) extends TileGridGui[UTileOld, SideOldBare, SimpGrid]("Unus Game")
 {
   //Required members
   var pScale: Double = scaleAlignMin  
@@ -40,14 +40,14 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplic
       eTop()            
     }
     
-    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTile)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
+    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTileOld)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
       { statusText = mp.toString -- "move to" -- moveTile.cood.str
         val stCood = mp.cood
         val newMP = mp.copy(move = Some(moveTile.cood))
         grid.fSetTile(stCood, Some(newMP))
         rePanels
       }
-    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTile)) => setStatus(mp.toString -- "can not move to" -- moveTile.cood.str)
+    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTileOld)) => setStatus(mp.toString -- "can not move to" -- moveTile.cood.str)
 
     case _ => setStatus("Other" -- clickList.toString)
   }   

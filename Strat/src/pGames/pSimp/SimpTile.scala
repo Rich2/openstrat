@@ -4,23 +4,23 @@ package pGames.pSimp
 import pGrid._
 
 /** A very Simple Tile for Simplicissima. */
-case class UTile(x: Int, y: Int, oPlayer: Option[MPlayer] = None) extends Tile
+case class UTileOld(x: Int, y: Int, oPlayer: Option[MPlayer] = None) extends TileOld
 {
   type FromT = Option[MPlayer]
   def fromT = oPlayer
-  override def toString: String = UTile.persistImplicit.show(this)
+  override def toString: String = UTileOld.persistImplicit.show(this)
 }
 
-object UTile
+object UTileOld
 {
-  implicit def make: (Int, Int, Option[MPlayer]) => UTile = UTile.apply
+  implicit def make: (Int, Int, Option[MPlayer]) => UTileOld = UTileOld.apply
 
-  implicit object SimpTileIsType extends IsType[UTile]
-  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[UTile]
-    override def asType(obj: AnyRef): UTile = obj.asInstanceOf[UTile]   
+  implicit object SimpTileIsType extends IsType[UTileOld]
+  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[UTileOld]
+    override def asType(obj: AnyRef): UTileOld = obj.asInstanceOf[UTileOld]
   }
 
-  implicit val persistImplicit: Persist[UTile] = Persist3[Int, Int, Option[MPlayer], UTile]("UTile", "x", _.x, "y", _.y,
+  implicit val persistImplicit: Persist[UTileOld] = Persist3[Int, Int, Option[MPlayer], UTileOld]("UTile", "x", _.x, "y", _.y,
     "oPlayer", _.oPlayer, apply, Some(None))
 }
 
