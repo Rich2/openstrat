@@ -47,3 +47,43 @@ case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
 }
 
 object NoInt extends BadInt(Refs()) with OptInt with NoBase[Int]
+
+trait EMonDbl extends EMonBase[Double]
+{ def mMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB
+}
+
+trait OptDbl extends EMonDbl
+
+case class GoodDbl(value: Double) extends OptDbl with GoodBase[Double]
+{ override def mMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
+  override def forGood(f: Double => Unit): Unit = f(value)
+  override def fold[B](noneValue: => B)(fGood: Double => B): B = fGood(value)
+  @inline override def foldErrs[B](fGood: Double => B)(fBad: Strings => B): B = fGood(value)
+}
+case class BadDbl(errs: Refs[String]) extends EMonDbl with BadBase[Double]
+{ override def mMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
+  override def fold[B](noneValue: => B)(fGood: Double => B): B = noneValue
+  @inline override def foldErrs[B](fGood: Double => B)(fBad: Strings => B): B = fBad(errs)
+}
+
+object NoDbl extends BadDbl(Refs()) with OptDbl with NoBase[Double]
+
+trait EMonBool extends EMonBase[Boolean]
+{ def mMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB
+}
+
+trait OptBool extends EMonBool
+
+case class GoodBool(value: Boolean) extends OptBool with GoodBase[Boolean]
+{ override def mMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
+  override def forGood(f: Boolean => Unit): Unit = f(value)
+  override def fold[B](noneValue: => B)(fGood: Boolean => B): B = fGood(value)
+  @inline override def foldErrs[B](fGood: Boolean => B)(fBad: Strings => B): B = fGood(value)
+}
+case class BadBool(errs: Refs[String]) extends EMonBool with BadBase[Boolean]
+{ override def mMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
+  override def fold[B](noneValue: => B)(fGood: Boolean => B): B = noneValue
+  @inline override def foldErrs[B](fGood: Boolean => B)(fBad: Strings => B): B = fBad(errs)
+}
+
+object NoBool extends BadBool(Refs()) with OptBool with NoBase[Boolean]

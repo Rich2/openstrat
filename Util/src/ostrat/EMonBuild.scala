@@ -24,4 +24,18 @@ object EMonBuild
     override def apply(value: Int): GoodInt = GoodInt(value)
     override def newBad(errs: Refs[String]): BadInt = new BadInt(errs)
   }
+
+  implicit val doubleImplicit: EMonBuild[Double, EMonDbl] = new EMonBuild[Double, EMonDbl]
+  { override type GoodT = GoodDbl
+    override type BadT = BadDbl
+    override def apply(value: Double): GoodDbl = GoodDbl(value)
+    override def newBad(errs: Refs[String]): BadDbl = new BadDbl(errs)
+  }
+
+  implicit val booleanImplicit: EMonBuild[Boolean, EMonBool] = new EMonBuild[Boolean, EMonBool]
+  { override type GoodT = GoodBool
+    override type BadT = BadBool
+    override def apply(value: Boolean): GoodBool = GoodBool(value)
+    override def newBad(errs: Refs[String]): BadBool = new BadBool(errs)
+  }
 }
