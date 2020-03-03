@@ -20,20 +20,20 @@ object HexGet
    /** Hex Grid rows for coordinates: -2, 2; 2; 2; 6, 2; -2, 6; 2, 6; 6, 6 */ 
    def row22Bounds(lowerX: Int, upperX: Int, lowerY:Int, upperY: Int): (Int, Int, Int, Int) =
    {
-      val lx = lowerX.incrementTill(i => (i - 2) %% 4 == 0)
-      val ux = upperX.decrementTill(i => (i - 2) %% 4 == 0)      
-      val ly = lowerY.incrementTill(i => (i - 2) %% 4 == 0) 
-      val uy = upperY.decrementTill(i => (i - 2) %% 4 == 0)
+      val lx = lowerX.roundUpTo(i => (i - 2) %% 4 == 0)
+      val ux = upperX.roundDownTo(i => (i - 2) %% 4 == 0)
+      val ly = lowerY.roundUpTo(i => (i - 2) %% 4 == 0)
+      val uy = upperY.roundDownTo(i => (i - 2) %% 4 == 0)
       (lx, ux, ly, uy)
    }
    
    /** Hex Grid rows for coordinates: -2, 4; 2; 4; 6, 4; -2, 8; 2, 8; 6, 8 */
    def row24Bounds(lowerX: Int, upperX: Int, lowerY:Int, upperY: Int): (Int, Int, Int, Int) =
    {
-      val lx = lowerX.incrementTill(i => i %% 4 == 0)
-      val ux = upperX.decrementTill(i => i %% 4 == 0)      
-      val ly = lowerY.incrementTill(i => (i - 4) %% 4 == 0) 
-      val uy = upperY.decrementTill(i => (i - 4) %% 4 == 0) 
+      val lx = lowerX.roundUpTo(i => i %% 4 == 0)
+      val ux = upperX.roundDownTo(i => i %% 4 == 0)
+      val ly = lowerY.roundUpTo(i => (i - 4) %% 4 == 0)
+      val uy = upperY.roundDownTo(i => (i - 4) %% 4 == 0)
       (lx, ux, ly, uy)
    }
   
@@ -74,19 +74,19 @@ object HexGet
    /** Alternative Hex Grid rows -2, 1; 2, 1; 6, 1; */
    def row21(lowerX: Int, upperX: Int, lowerY:Int, upperY: Int): (Int, Int, Int, Int) =
    {
-      val lx = lowerX.incrementTill(i => (i - 2) %% 4 == 0)
-      val ux = upperX.decrementTill(i => (i - 2) %% 4 == 0)      
-      val ly = lowerY.incrementTill(i => (i - 1) %% 4 == 0) 
-      val uy = upperY.decrementTill(i => (i - 1) %% 4 == 0)  
+      val lx = lowerX.roundUpTo(i => (i - 2) %% 4 == 0)
+      val ux = upperX.roundDownTo(i => (i - 2) %% 4 == 0)
+      val ly = lowerY.roundUpTo(i => (i - 1) %% 4 == 0)
+      val uy = upperY.roundDownTo(i => (i - 1) %% 4 == 0)
       (lx, ux, ly, uy)
    }
    /** Alternative Hex Grid rows -2, 3; 2, 3; 6, 3; */
    def row23(lowerX: Int, upperX: Int, lowerY:Int, upperY: Int): (Int, Int, Int, Int) =
    {
-      val lx = lowerX.incrementTill(i => i %% 4 == 0)
-      val ux = upperX.decrementTill(i => i %% 4 == 0)      
-      val ly = lowerY.incrementTill(i => (i - 3) %% 4 == 0) 
-      val uy = upperY.decrementTill(i => (i - 3) %% 4 == 0)  
+      val lx = lowerX.roundUpTo(i => i %% 4 == 0)
+      val ux = upperX.roundDownTo(i => i %% 4 == 0)
+      val ly = lowerY.roundUpTo(i => (i - 3) %% 4 == 0)
+      val uy = upperY.roundDownTo(i => (i - 3) %% 4 == 0)
       (lx, ux, ly, uy)
    }   
   
@@ -106,7 +106,7 @@ object HexGet
    }
    def row(y: Int, x1: Int, x2: Int): Seq[Cood] = y match
    {
-      case y if y %% 4 == 2 => (x1.incrementTill(_ %% 4 == 2) to x2.decrementTill(_  %% 4 == 2) by 4).map(Cood(_, y))
-      case y if y %% 4 == 0 => (x1.incrementTill(_ %% 4 == 0) to x2.decrementTill(_  %% 4 == 0) by 4).map(Cood(_, y))
+      case y if y %% 4 == 2 => (x1.roundUpTo(_ %% 4 == 2) to x2.roundDownTo(_  %% 4 == 2) by 4).map(Cood(_, y))
+      case y if y %% 4 == 0 => (x1.roundUpTo(_ %% 4 == 0) to x2.roundDownTo(_  %% 4 == 0) by 4).map(Cood(_, y))
    }
 }

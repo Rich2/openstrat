@@ -61,19 +61,19 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     case i => "-0" + (-i).toString
   }
 
-  /** Increases the value of an integer while that integer does not match condition */
-  def incrementTill(f : Int => Boolean): Int = thisInt  match
+  /** Increments the value of an integer while that integer does not match condition. Not guaranteed to terminate. */
+  def roundUpTo(f : Int => Boolean): Int = thisInt  match
   { case i if f(i) => i
-    case i => (i + 1).incrementTill(f)
+    case i => (i + 1).roundUpTo(f)
   }
   
   def roundUpToOdd = thisInt.ifEven(thisInt + 1, thisInt)
   def roundDownToOdd = thisInt.ifEven(thisInt - 1, thisInt)    
    
-  /** Decreases the value of an integer while that integer does not match condition */
-  def decrementTill(f : Int => Boolean): Int = thisInt match
+  /** Decrements the value of an integer while that integer does not match condition. Not guaranteed to terminate. */
+  def roundDownTo(f : Int => Boolean): Int = thisInt match
   { case i if f(i) => i
-    case i => (i - 1).decrementTill(f)
+    case i => (i - 1).roundDownTo(f)
   }
    
   @inline def hexStr: String = thisInt.toHexString.toUpperCase

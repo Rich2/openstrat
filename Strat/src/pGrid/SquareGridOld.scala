@@ -33,7 +33,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
 
   //final override def rowForeachTilesXYAll(y: Int, f: (Int, Int) => Unit): Unit = for {x <- xTileMin to xTileMax by xStep} f(x, y)
   final override def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit = for 
-  {x <- xTileMin.max(xStart).incrementTill(_.isEven) to xTileMax.min(xEnd).decrementTill(_.isEven) by xStep} f(x, y)
+  {x <- xTileMin.max(xStart).roundUpTo(_.isEven) to xTileMax.min(xEnd).roundDownTo(_.isEven) by xStep} f(x, y)
   
   //override def xToInd(x: Int): Int = (x - xTileMin) / 2
   override def xArrLen: Int = xTileMax - xTileMin + 3

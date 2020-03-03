@@ -1,6 +1,8 @@
 package ostrat
 package gOne
+import pGrid._
 
-class OneGrid {
-
+object OneGrid
+{
+  val grid = new HexGridReg(2, 10, 2, 6)
 }

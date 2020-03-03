@@ -23,8 +23,8 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
   final override def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit =
   {
     val xPt: Int = ife(y %% 4 == 0, 0, 2)
-    val xFinalStart = rowTileXStart(y).max(xStart).incrementTill(_ %% 4 == xPt)
-    val xFinalEnd = rowTileXEnd(y).min(xEnd).decrementTill(_ %% 4 == xPt)
+    val xFinalStart = rowTileXStart(y).max(xStart).roundUpTo(_ %% 4 == xPt)
+    val xFinalEnd = rowTileXEnd(y).min(xEnd).roundDownTo(_ %% 4 == xPt)
     (xFinalStart to xFinalEnd by 4).foreach(x => f(x, y))
   }
 
