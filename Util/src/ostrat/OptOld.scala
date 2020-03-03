@@ -71,18 +71,3 @@ trait OptBuild[B]
   def apply(b: B): OptOld[B]
   def none: OptOld[B]
 }
-
-object OptBuild
-{
-  implicit val intImplicit: OptBuild[Int] = new OptBuild[Int]
-  { override type OptT = OptOldInt
-    def apply(i: Int): OptOldInt = SomeInt(i)
-    def none: OptOldInt = NoIntOld
-  }
-
-  implicit def refImplicit[B >: Null <: AnyRef] = new OptBuild[B]
-  { override type OptT = OptOldRef[B]
-    override def apply(b: B) : OptOldRef[B] = new OptOldRef(b)
-    override def none: OptOld[B] = new OptOldRef[B](null)
-  }
-}

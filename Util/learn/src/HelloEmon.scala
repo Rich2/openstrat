@@ -8,7 +8,7 @@ object HelloEmon extends App
   mi2.forGood(i => println(i.str))//Nothing happens.
   val i1: Int = mi2.getElse(0)
   println("You asked for " + i1.str)
-  val s1: String = mi2.fold("This really is an Int: " + _) (_ => "This is not an Int")
+  val s1: String = mi2.foldErrs("This really is an Int: " + _) (_ => "This is not an Int")
   println(s1)
   var counter: Int = 10
   println("Counter value = " + counter.str)

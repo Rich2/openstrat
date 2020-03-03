@@ -73,7 +73,7 @@ trait ArrayLike[+A] extends Any
     var count = 0
     var errs: Refs[String] = Refs()
     while(count < length & continue == true)
-      f(apply(count)).fold { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
+      f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
   }
 
@@ -83,7 +83,7 @@ trait ArrayLike[+A] extends Any
     var count = 0
     var errs: Refs[String] = Refs()
     while(count < length & continue == true)
-      f(apply(count)).fold { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
+      f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))
   }
 

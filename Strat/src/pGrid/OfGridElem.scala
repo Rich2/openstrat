@@ -28,7 +28,7 @@ trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[Ti
     if (tScale < ifScale) ArrOld() else optA.fold(ArrOld(), f(_))
 
   def ifScaleOptObjsNew[A >: Null <: AnyRef](ifScale: Double, eA: EMon[A])(f: A => GraphicElems): GraphicElems =
-    if (tScale < ifScale) Refs() else eA.fold(g => f(g))(_ => Refs())
+    if (tScale < ifScale) Refs() else eA.foldErrs(g => f(g))(_ => Refs())
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */

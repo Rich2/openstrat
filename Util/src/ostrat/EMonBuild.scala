@@ -1,28 +1,5 @@
 package ostrat
 
-trait EMonBase[+A]
-{
-  def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT
-  def errs: Strings
-  /** Will perform action if Good. Does nothing if Bad. */
-  def forGood(f: A => Unit): Unit
-}
-
-trait OptBase[+A] extends EMonBase[A]
-
-trait GoodBase[+A] extends OptBase[A]
-{ def value: A
-  def errs: Strings = Refs()
-}
-
-trait BadBase[+A] extends EMonBase[A]
-{ override def forGood(f: A => Unit): Unit = {}
-}
-
-trait NoBase[+A] extends BadBase[A]
-
-
-
 trait EMonBuild[T]
 {
   type EMonT <: EMonBase[T]
@@ -51,18 +28,3 @@ object EMonBuild
   }
 }
 
-trait EMonInt extends EMonBase[Int]
-{ def mMap[B](f: Int => B)(implicit build: EMonBuild[B]): build.EMonT
-}
-
-trait OptInt extends EMonInt
-
-case class GoodInt(value: Int) extends OptInt with GoodBase[Int]
-{ override def mMap[B](f: Int => B)(implicit build: EMonBuild[B]): build.EMonT = build(f(value))
-  override def forGood(f: Int => Unit): Unit = f(value)
-}
-case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
-{ override def mMap[B](f: Int => B)(implicit build: EMonBuild[B]): build.EMonT = build.newBad(errs)
-}
-
-object NoInt extends BadInt(Refs()) with OptInt with NoBase[Int]
