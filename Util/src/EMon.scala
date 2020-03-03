@@ -167,7 +167,4 @@ final class Bad3[A1, A2, A3](val errs: Strings) extends EMon3[A1, A2, A3]
 { override def flatMap[B](f: (A1, A2, A3) => EMon[B]): EMon[B] = Bad[B](errs)
 }
 
-object NoGood
-{
-  def apply[A](): Bad[A] = new Bad[A](Refs())
-}
+object NoGood extends Bad[Nothing](Refs())
