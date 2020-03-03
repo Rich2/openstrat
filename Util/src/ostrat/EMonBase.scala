@@ -47,4 +47,3 @@ case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
 }
 
 object NoInt extends BadInt(Refs()) with OptInt with NoBase[Int]
-

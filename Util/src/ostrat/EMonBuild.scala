@@ -27,4 +27,3 @@ object EMonBuild
     override def newBad(errs: Refs[String]): BadInt = new BadInt(errs)
   }
 }
-

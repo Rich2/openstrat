@@ -8,15 +8,9 @@ package ostrat
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A] extends EMonBase[A]
 {
-
-
   @inline def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB
 
-  /** Fold the EMon of type A into a type of B. */
- // @inline def fld[B](fGood: A => B, fBad: Strings => B) : B
-
   def map[B](f: A => B): EMon[B]
-  //def map2[B1, B2](f: A => (B1, B2)) = ???
 
   /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects not a value. */
   def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit
