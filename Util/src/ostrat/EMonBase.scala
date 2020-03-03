@@ -32,7 +32,7 @@ trait EMonInt extends EMonBase[Int]
 { def mMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
-trait OptInt extends EMonInt
+trait OptInt extends EMonInt with OptBase[Int]
 
 case class GoodInt(value: Int) extends OptInt with GoodBase[Int]
 { override def mMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
@@ -52,7 +52,7 @@ trait EMonDbl extends EMonBase[Double]
 { def mMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
-trait OptDbl extends EMonDbl
+trait OptDbl extends EMonDbl with OptBase[Double]
 
 case class GoodDbl(value: Double) extends OptDbl with GoodBase[Double]
 { override def mMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
@@ -72,7 +72,7 @@ trait EMonBool extends EMonBase[Boolean]
 { def mMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
-trait OptBool extends EMonBool
+trait OptBool extends EMonBool with OptBase[Boolean]
 
 case class GoodBool(value: Boolean) extends OptBool with GoodBase[Boolean]
 { override def mMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
