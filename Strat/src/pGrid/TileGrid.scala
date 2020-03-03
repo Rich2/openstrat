@@ -13,4 +13,5 @@ trait TileGrid
   def xTileMax: Int
   def yTileMin: Int
   def yTileMax: Int
+  def numOfTiles: Int
 }
