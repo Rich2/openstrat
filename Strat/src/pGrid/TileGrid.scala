@@ -14,4 +14,6 @@ trait TileGrid
   def yTileMin: Int
   def yTileMax: Int
   def numOfTiles: Int
+
+  def allTilesForeach(f: Cood => Unit): Unit
 }

@@ -25,5 +25,6 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   /** Number of Rows where y.Div4Rem0. */
   def numOfRow0s: Int = ((yTileMax.roundDownTo(_.div4Rem0) - yTileMin.roundUpTo(_.div4Rem0) + 4) / 4).min0
 
-  def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
+  override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
+  override def allTilesForeach(f: Cood => Unit): Unit = ???
 }
