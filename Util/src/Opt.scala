@@ -65,13 +65,13 @@ case object NoInt extends OptInt with NoOpt[Int]
 { def unapply(inp: OptInt): Boolean = inp.empty
 }
 
-sealed trait OptDbl extends Opt[Double]
+/*sealed trait OptDbl extends Opt[Double]
 
 case class SomeDbl(value: Double) extends OptDbl with SomeT[Double]
 
 case object NoDbl extends OptDbl with NoOpt[Double]
 { def unapply(inp: OptDbl): Boolean = inp.empty
-}
+}*/
 
 trait OptBuild[B]
 { type OptT <: Opt[B]
@@ -85,12 +85,6 @@ object OptBuild
   { override type OptT = OptInt
     def apply(i: Int): OptInt = SomeInt(i)
     def none: OptInt = NoInt
-  }
-
-  implicit val doubleImplicit: OptBuild[Double] = new OptBuild[Double]
-  { override type OptT = OptDbl
-    def apply(inp: Double): OptDbl = SomeDbl(inp)
-    def none: OptDbl = NoDbl
   }
 
   implicit def refImplicit[B >: Null <: AnyRef] = new OptBuild[B]
