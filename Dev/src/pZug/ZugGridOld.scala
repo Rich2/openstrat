@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import pGrid._
 
-class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[ZugTileOld, ZugSideOld](xTileMin, xTileMax,
+class ZugGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[ZugTileOld, ZugSideOld](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
   protected[this] var idCounter: Int = 100
@@ -29,6 +29,6 @@ class ZugGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNu
   setTilesAll(Plain)
   setSidesAll(false)
   
-  def minCopy: ZugGrid = new ZugGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+  def minCopy: ZugGridOld = new ZugGridOld(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
   def squads(player: Polity, actions: List[SquadTurn]): Unit = {}
 }

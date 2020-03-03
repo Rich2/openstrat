@@ -3,13 +3,13 @@ package ostrat
 package pCiv
 import pEarth._, pGrid._
 
-class CivGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[CTileOld, SideOldBare](xTileMin,
+class CivGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[CTileOld, SideOldBare](xTileMin,
     xTileMax, yTileMin, yTileMax, turnNum)
 {
   
 }
 
-object Civ1 extends CivGrid(4, 40, 4, 16, 0)
+object Civ1 extends CivGridOld(4, 40, 4, 16, 0)
 {
   import WTile._
   setTilesAll(plain)

@@ -17,7 +17,7 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasNoPanels("Draughts")
 //    case c @ Cood(x, y)                           => LightSq(x, y)          
 //  }  
   
-  val grid = DGrid.start
+  val grid = DGridOld.start
  // deb(grid.getTile(1, 1).toString)
   val margin = 15
   val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)

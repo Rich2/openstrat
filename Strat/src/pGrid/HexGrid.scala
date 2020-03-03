@@ -3,6 +3,8 @@ package ostrat
 package pGrid
 import geom._, math.sqrt
 
+trait HexGrid extends TileGrid
+
 object HexGrid
 {
   val yRatio = sqrt(3)

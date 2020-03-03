@@ -2,12 +2,12 @@
 package ostrat
 package pGames.pSimp
 
-class Simplicissima(startScen: SimpGrid)
+class Simplicissima(startScen: SimpGridOld)
 {  
-  var currState: SimpGrid = startScen
-  def newTurn(moves: ArrOld[Move]): SimpGrid =
+  var currState: SimpGridOld = startScen
+  def newTurn(moves: ArrOld[Move]): SimpGridOld =
   {   
-    val newGrid: SimpGrid = currState.resolveTurn(moves)
+    val newGrid: SimpGridOld = currState.resolveTurn(moves)
     currState = newGrid
     currState.copy
   }

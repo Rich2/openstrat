@@ -5,7 +5,7 @@ import geom._
 
 /** A regular rectangular tile grid, covering a flat Euclidean 2s surface as opposed to an earth based tile grid or other grid that is not mapping a
  *  flat 2d surface. */
-trait TileGridReg[TileT <: TileOld, SideT <: TileSideOld] extends TileGrid[TileT, SideT]
+trait TileGridRegOld[TileT <: TileOld, SideT <: TileSideOld] extends TileGridOld[TileT, SideT]
 {
   override def optTile(x: Int, y: Int): Option[TileT] = if (x >= xTileMin & x <= xTileMax & y >= yTileMin & y <= yTileMax )
     Some(getTile(x, y)) else None

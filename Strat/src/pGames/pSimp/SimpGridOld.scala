@@ -3,20 +3,20 @@ package ostrat
 package pGames.pSimp
 import pGrid._ 
 
-class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[UTileOld, SideOldBare](xTileMin, xTileMax,
+class SimpGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends HexGridRegOld[UTileOld, SideOldBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
   def getMoves: ArrOld[Move] = tilesMapOptionAll(t => t.oPlayer.flatMap(p => p.move.map(m => Move(p, m))))
-  def baseCopy: SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+  def baseCopy: SimpGridOld = new SimpGridOld(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
   
-  def copy: SimpGrid =
+  def copy: SimpGridOld =
   {
     val ng = baseCopy
     foreachTilesXYAll{(x, y) => ng.setTile(x, y, getTile(x, y))}
     ng
   }
   
-  def resolveTurn(moves: ArrOld[Move]): SimpGrid =
+  def resolveTurn(moves: ArrOld[Move]): SimpGridOld =
   {    
     val medGrid = new Array[UTileInter](arrLen)
     foreachTilesXYAll{(x, y) =>
@@ -26,7 +26,7 @@ class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnN
     moves.foreach { m =>
       if (this.isTileCoodAdjTileCood(m.sCood, m.cood)) medGrid(coodToInd(m.cood)).potentialPlayers ::= m.mPlayer.player
     }
-    val newGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum + 1)
+    val newGrid = new SimpGridOld(xTileMin, xTileMax, yTileMin, yTileMax, turnNum + 1)
     newGrid.setTilesAll(None)    
     this.foreachTileAll(tile => tile.oPlayer.foreach(mp => moves.find(_.mPlayer == mp) match
       {
@@ -44,11 +44,11 @@ class SimpGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnN
   //def toTuple5: (Int, Int, Int, Int, Arr[TileRow[UTile#FromT]]) = (xTileMin, xTileMax, yTileMin, yTileMax, tilesToMultiAll)
 }
 
-object SimpGrid {
-  def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGrid = new SimpGrid(xTileMin, xTileMax, yTileMin, yTileMax, 0)
+object SimpGridOld {
+  def start(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int): SimpGridOld = new SimpGridOld(xTileMin, xTileMax, yTileMin, yTileMax, 0)
 
-  implicit val showUnusGrid: Show[SimpGrid] =
-    Show5[Int, Int, Int, Int, ArrOld[TileRow[UTileOld#FromT]], SimpGrid]("SimpGrid", "xTilemin", _.xTileMin, "xTilemax", _.xTileMax, "yTileMin", _.yTileMin,
+  implicit val showUnusGrid: Show[SimpGridOld] =
+    Show5[Int, Int, Int, Int, ArrOld[TileRow[UTileOld#FromT]], SimpGridOld]("SimpGrid", "xTilemin", _.xTileMin, "xTilemax", _.xTileMax, "yTileMin", _.yTileMin,
     "yTileMax", _.yTileMax, "tilesToMultiAll", _.tilesToMultiAll)
 }
 

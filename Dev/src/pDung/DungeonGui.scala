@@ -3,14 +3,14 @@ package ostrat
 package pDung
 import geom._, pCanv._, pGrid._, SFace._, Colour._
 
-class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBare, DungeonGrid](canv, Dungeon1, "Dungeon")
+class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBare, DungeonGridOld](canv, Dungeon1, "Dungeon")
 { 
   mapPanel.backColour = Black
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
   override def eTop(): Unit = reTop(guButs -+ status)
    
-  def fSquare: OfSquareReg[DTileOld, SideOldBare, DungeonGrid] => GraphicElemsOld = tog =>
+  def fSquare: OfSquareReg[DTileOld, SideOldBare, DungeonGridOld] => GraphicElemsOld = tog =>
   { import tog._
     val colour: Colour = tile.colour
     val tv = vertDispVecs.fillActive(colour, tile)
@@ -24,7 +24,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBa
     tv.toArraySeq ++ tText ++ player.toArraySeq ++ sides
   }
   
-  def mapObjs: GraphicElems = (ofTilesDisplayFold[OfSquareReg[DTileOld, SideOldBare, DungeonGrid]](fSquare)).toRefs
+  def mapObjs: GraphicElems = (ofTilesDisplayFold[OfSquareReg[DTileOld, SideOldBare, DungeonGridOld]](fSquare)).toRefs
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

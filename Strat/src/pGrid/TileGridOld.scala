@@ -195,7 +195,7 @@ object RowMulti
  *  There are no breaks between the first tile of the row and the last tile of the row although a row can consist of a single tile. Every
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
-trait TileGrid[TileT <: TileOld, SideT <: TileSideOld]
+trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
 {
   def turnNum: Int
   def xTileMin: Int
@@ -203,7 +203,7 @@ trait TileGrid[TileT <: TileOld, SideT <: TileSideOld]
   def yTileMin: Int
   def yTileMax: Int
   def numTileRow: Int = (yTileMax - yTileMin + 1) / 2
-  
+
   def xArrLen: Int
   def yArrLen: Int
   final def arrLen = yArrLen * xArrLen
@@ -256,22 +256,22 @@ trait TileGrid[TileT <: TileOld, SideT <: TileSideOld]
   def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
-  
+
   final def tileDestinguishColour(tileCood: Cood): Colour = tileDestinguish(tileCood, Red, Blue, Green, Orange)
-  def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A  
-  
+  def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A
+
   def optTile(x: Int, y: Int): Option[TileT]
   final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
-    
+
   /** Throws exception if Cood is not a valid Tile coordinate */
   final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)
-  
-  def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); arr(xyToInd(x, y)) }   
-  def getTile(tc: Cood): TileT = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) } 
- 
-  def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }  
+
+  def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); arr(xyToInd(x, y)) }
+  def getTile(tc: Cood): TileT = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) }
+
+  def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }
   def setTile(cood: Cood, value: TileT): Unit = setTile(cood.x, cood.y, value)
-  def copyTile(oldGrid: TileGrid[TileT, _], cood: Cood): Unit = setTile(cood, oldGrid.getTile(cood))
+  def copyTile(oldGrid: TileGridOld[TileT, _], cood: Cood): Unit = setTile(cood, oldGrid.getTile(cood))
   
   def fSetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.x, cood.y, value)(fTile)
   def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =

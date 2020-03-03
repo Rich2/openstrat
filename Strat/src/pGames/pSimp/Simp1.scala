@@ -9,9 +9,9 @@ object Simp1
   object PlayerB extends Player('B', Orange)
   object PlayerC extends Player('C', Green)
   
-  def apply(): SimpGrid =
+  def apply(): SimpGridOld =
   {
-    val newGrid = SimpGrid.start(2, 10, 2, 6)
+    val newGrid = SimpGridOld.start(2, 10, 2, 6)
     newGrid.setTilesAll(None)
     newGrid.fSetTile(4, 4, Some(MPlayer(PlayerA, 4 cc 4)))
     newGrid.fSetTile(8, 4, Some(MPlayer(PlayerB, 8 cc 4)))

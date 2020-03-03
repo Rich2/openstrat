@@ -4,7 +4,7 @@ package pGames.pSimp
 import geom._, pCanv._, pGrid._
 
 /** Main application for Unus Game. */
-class UnusGui(canv: CanvasPlatform, grid: SimpGrid)
+class UnusGui(canv: CanvasPlatform, grid: SimpGridOld)
 {
   val game = new Simplicissima(grid)
   deb(grid.str)
@@ -12,7 +12,7 @@ class UnusGui(canv: CanvasPlatform, grid: SimpGrid)
 }
 
 /** This needs tidying up. */
-class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGrid, val game: Simplicissima) extends TileGridGui[UTileOld, SideOldBare, SimpGrid]("Unus Game")
+class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGridOld, val game: Simplicissima) extends TileGridGui[UTileOld, SideOldBare, SimpGridOld]("Unus Game")
 {
   //Required members
   var pScale: Double = scaleAlignMin  

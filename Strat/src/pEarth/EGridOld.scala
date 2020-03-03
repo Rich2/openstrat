@@ -8,17 +8,17 @@ trait EGridMaker
 {
   def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
                                                     evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
-  EGrid[TileT, SideT]
+  EGridOld[TileT, SideT]
 }
 
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
  *  follows lines of longitude. The y Axis at the cenLong moves along a line of longitude. */
-class EGrid[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int,
-                                                    val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT],
-  evSide: ClassTag[SideT]) extends HexGridIrr[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int,
+                                                       val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT],
+  evSide: ClassTag[SideT]) extends HexGridOldIrr[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {
   thisEGrid =>
-  type GridT <: EGrid[TileT, SideT]
+  type GridT <: EGridOld[TileT, SideT]
   val vec2ToLL: Vec2 => LatLong = fVec2ToLatLongReg(cenLong, scale, xOffset, yOffset)
   def vToLL(vIn: Vec2) : LatLong = vec2ToLL(vIn)
 
@@ -98,6 +98,6 @@ class EGrid[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val name
     (acc ++ sideAcc).toArr
   }
 
-  def disp(eg: EarthGui, fDisp: (EGrid[TileT, SideT], Cood) => GraphicElemsOld): GraphicElemsOld = tileCoodsDisplayFoldAll(cood => fDisp(this, cood))
-  var rightGrid: Option[EGrid[TileT, SideT]] = None
+  def disp(eg: EarthGui, fDisp: (EGridOld[TileT, SideT], Cood) => GraphicElemsOld): GraphicElemsOld = tileCoodsDisplayFoldAll(cood => fDisp(this, cood))
+  var rightGrid: Option[EGridOld[TileT, SideT]] = None
 }

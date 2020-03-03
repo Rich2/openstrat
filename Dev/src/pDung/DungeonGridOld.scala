@@ -4,7 +4,7 @@ package pDung
 import pGrid._
 
 /** Tile is 0.5m square. */
-class DungeonGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends SquareGridOld[DTileOld, SideOldBare](xTileMin, xTileMax,
+class DungeonGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends SquareGridOld[DTileOld, SideOldBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
    def posn(charac: Character, x: Int, y: Int, facing: SFace): Unit =
@@ -13,13 +13,13 @@ class DungeonGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, tu
      charac.facing = facing
    }
    
-   def copy: DungeonGrid =
+   def copy: DungeonGridOld =
    {
-     val newGrid = new DungeonGrid(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+     val newGrid = new DungeonGridOld(xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
      newGrid
    }
    
-   def resolveTurn(actSeqs: List[ActionSeq]): DungeonGrid =
+   def resolveTurn(actSeqs: List[ActionSeq]): DungeonGridOld =
    {
      
      this

@@ -3,15 +3,15 @@ package ostrat
 package pCiv
 import geom._, pGrid._, pCanv._, Colour._
 
-class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, CivGrid](canv, "Civs")
+class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, CivGridOld](canv, "Civs")
 {
   statusText --= "Left click unit to select. Right click on adjacent hex to move."
-  override val grid: CivGrid = Civ1
+  override val grid: CivGridOld = Civ1
   override def scaleMin = 10 
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
   mapPanel.backColour = Colour.Black
-  def  fHex: OfHexReg[CTileOld, SideOldBare, CivGrid] => GraphicElemsOld = tog =>
+  def  fHex: OfHexReg[CTileOld, SideOldBare, CivGridOld] => GraphicElemsOld = tog =>
     {
       import tog._        
       val colour: Colour = tile.colour

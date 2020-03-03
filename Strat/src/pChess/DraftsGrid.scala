@@ -3,7 +3,7 @@ package ostrat
 package pChess
 import Colour._ , pGrid._, geom._
 
-class DGrid extends SquareGridOld[DTileOld, SideOldBare](1, 8, 1, 8, 0)// extends AnyVal
+class DGridOld extends SquareGridOld[DTileOld, SideOldBare](1, 8, 1, 8, 0)// extends AnyVal
 {  
   //def get(row: Int, col: Int): Option[Draught] = arr((row - 1) * 8 + col - 1)
   //def set(row: Int, col: Int, value: Option[Draught]): Unit = arr((row - 1) * 8 + col - 1) = value
@@ -25,11 +25,11 @@ class DGrid extends SquareGridOld[DTileOld, SideOldBare](1, 8, 1, 8, 0)// extend
 
 }
 
-object DGrid
+object DGridOld
 {
-  def start: DGrid =
+  def start: DGridOld =
   {
-    val dg = new DGrid
+    val dg = new DGridOld
     val ser = 0 to 6 by 2
     //ser.foreach(i => dg.setTile(2, i + 1, DTile(1, i + 1)))
     /*ser.foreach(i => dg.setSome(2, i + 2, BlackD))

@@ -20,7 +20,7 @@ trait SGrid[TileT] extends TGrid[TileT]
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int,
                                                                      val turnNum: Int)
-                                                                    (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridReg[TileT, SideT]
+                                                                    (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridRegOld[TileT, SideT]
 {  
   override val yRatio = 1  
   def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)  

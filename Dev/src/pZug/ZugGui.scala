@@ -3,17 +3,17 @@ package ostrat
 package pZug
 import geom._, pCanv._, Colour._, pGrid._, pStrat._ 
 
-class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTileOld, ZugSideOld, ZugGrid](canv, "ZugFuhrer")
+class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGridGui[ZugTileOld, ZugSideOld, ZugGridOld](canv, "ZugFuhrer")
 {  
   statusText --= "Left click to select, middle to set to fire, right to set to Move."
   val scen = game.getScen(player)
-  override val grid: ZugGrid = scen
+  override val grid: ZugGridOld = scen
   override def scaleMin = 10
   override var pScale: Double = scaleAlignMin
   override var focus: Vec2 = grid.cen
   mapPanel.backColour = Black
   
-  def fHex: OfHexReg[ZugTileOld, ZugSideOld, ZugGrid] => GraphicElemsOld = ofh =>
+  def fHex: OfHexReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElemsOld = ofh =>
   { import ofh._         
     val colour: Colour = tile.colour         
     
@@ -51,7 +51,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     tv.toArraySeq ++ tText ++ lunit
   }
     
-  def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGrid] => GraphicElemsOld = ofs =>
+  def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElemsOld = ofs =>
   { import ofs._    
     ifScaleCObjs(60, side.wall match
       { case true => ArrOld(vertDispLine.draw(6, Gray))
