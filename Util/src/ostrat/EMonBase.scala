@@ -6,7 +6,7 @@ package ostrat
  * in the leaf classes, to avoid unnecessary boxing on generic functions. */
 trait EMonBase[+A]
 {
-  def mMap[B](f: A => B)(implicit build: EMonBuild[B]): build.EMonT
+  def mMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB
   def errs: Strings
   /** Will perform action if Good. Does nothing if Bad. */
   def forGood(f: A => Unit): Unit
@@ -29,19 +29,19 @@ trait BadBase[+A] extends EMonBase[A]
 trait NoBase[+A] extends BadBase[A]
 
 trait EMonInt extends EMonBase[Int]
-{ def mMap[B](f: Int => B)(implicit build: EMonBuild[B]): build.EMonT
+{ def mMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
 trait OptInt extends EMonInt
 
 case class GoodInt(value: Int) extends OptInt with GoodBase[Int]
-{ override def mMap[B](f: Int => B)(implicit build: EMonBuild[B]): build.EMonT = build(f(value))
+{ override def mMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
   override def forGood(f: Int => Unit): Unit = f(value)
   override def fold[B](noneValue: => B)(fGood: Int => B): B = fGood(value)
   @inline override def foldErrs[B](fGood: Int => B)(fBad: Strings => B): B = fGood(value)
 }
 case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
-{ override def mMap[B](f: Int => B)(implicit build: EMonBuild[B]): build.EMonT = build.newBad(errs)
+{ override def mMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def fold[B](noneValue: => B)(fGood: Int => B): B = noneValue
   @inline override def foldErrs[B](fGood: Int => B)(fBad: Strings => B): B = fBad(errs)
 }
