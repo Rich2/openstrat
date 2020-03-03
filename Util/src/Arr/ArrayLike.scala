@@ -249,7 +249,7 @@ trait ArrayLike[+A] extends Any
   /** maps from A to EMon[B], collects the good values. */
   def mapCollectGoods[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): BB =
   { val acc = ev.buffNew()
-    foreach(f(_).foreach(ev.buffGrow(acc, _)))
+    foreach(f(_).forGood(ev.buffGrow(acc, _)))
     ev.buffToArr(acc)
   }
 

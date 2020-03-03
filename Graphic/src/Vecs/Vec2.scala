@@ -151,10 +151,10 @@ object Vec2
 
 
 
-trait OptVec2 extends Opt[Vec2]
+trait OptOldVec2 extends OptOld[Vec2]
 
-class SomeVec2(_1: Double, _2: Double) extends OptVec2 with SomeT[Vec2]
+class SomeVec2(_1: Double, _2: Double) extends OptOldVec2 with SomeT[Vec2]
 { override def value: Vec2 = Vec2(_1, _2)
 }
 
-case object NoVec2 extends OptVec2 with NoOpt[Vec2]
+case object NoVec2 extends OptOldVec2 with NoOptOld[Vec2]

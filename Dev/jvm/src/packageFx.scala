@@ -27,7 +27,7 @@ package object pFx
   def fromRsonFileFindElse[A: Persist](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
    *  procedure (Unit returning function) with that object of type A */
-  def fromRsonFileFindForeach[A: Persist](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).foreach(f)
+  def fromRsonFileFindForeach[A: Persist](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).forGood(f)
   def settFromFile[A: Persist](settingStr: String, fileName: String): EMon[A] = loadRsonFile(fileName).findSetting[A](settingStr)
   def settFromFileElse[A: Persist](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 }

@@ -134,7 +134,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     //deb(loadData.toString)
     if (loadData.isGood)
     {
-      loadData.foreach(i=>deb(i.toString))
+      loadData.forGood(i=>deb(i.toString))
       //turn = loadData.toString.split("\n")(1).toInt  //loadData.right.split("\n")(0).toInt
       deb("turn == " + turn)
       val c = Colour.strToValue("Red")

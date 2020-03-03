@@ -6,7 +6,7 @@ import Colour._, pGrid._
 trait ZugTerr
 {
   def colour: Colour
-  def cost: OptInt = SomeInt(1)
+  def cost: OptOldInt = SomeInt(1)
   def conceal: Boolean = false
 }
 
@@ -53,7 +53,7 @@ trait Building extends ZugTerr { override def conceal = true }
 case object StoneBuilding extends Building
 {
    override def colour = Gray
-   override def cost: OptInt = SomeInt(3)
+   override def cost: OptOldInt = SomeInt(3)
 }
 
 object WoodBuilding extends Building
@@ -64,5 +64,5 @@ object WoodBuilding extends Building
 object Lake extends ZugTerr
 {
    override def colour = Blue
-   override def cost: OptInt = NoInt
+   override def cost: OptOldInt = NoIntOld
 }

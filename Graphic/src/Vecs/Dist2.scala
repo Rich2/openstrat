@@ -72,10 +72,10 @@ object Dist2s extends ProdDbl2sCompanion[Dist2, Dist2s]
   }
 }
 
-trait OptDist2 extends Opt[Dist2]
+trait OptOldDist2 extends OptOld[Dist2]
 
-case class SomeDist2(_1: Double, _2: Double) extends OptDist2 with SomeT[Dist2]
+case class SomeDist2(_1: Double, _2: Double) extends OptOldDist2 with SomeT[Dist2]
 { override def value: Dist2 = new Dist2(_1, _2)
 }
 
-case object NoDist2 extends OptDist2 with NoOpt[Dist2]
+case object NoDist2 extends OptOldDist2 with NoOptOld[Dist2]

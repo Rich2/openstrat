@@ -75,7 +75,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
     HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
   def tileNeighbours(tile: TileT): ArrOld[TileT] = tileNeighboursCoods(tile.cood).mapArrSeq(getTile)
      
-  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
+  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptOldInt): Option[List[Cood]] =
   {
     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), nullRef[Node[TileT]]) :: Nil
     var closed: List[Node[TileT]] = Nil
@@ -90,7 +90,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
       neighbs.foreach { tile =>
         fTerrCost(curr.tile, tile) match
         {
-          case NoInt =>
+          case NoIntOld =>
           case SomeInt(nc) if closed.exists(_.tile == tile) =>
           case SomeInt(nc) =>
           {
@@ -98,11 +98,11 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
             
             open.find(_.tile == tile) match
             {
-              case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = OptRef(curr) }
+              case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = OptOldRef(curr) }
               case Some(node) =>
               case None => 
               {
-                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), OptRef(curr))
+                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), OptOldRef(curr))
                 open ::= newNode
                 if (tile.cood == endCood) found = Some(newNode)
               }
@@ -122,7 +122,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 
-case class Node[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptRef[Node[TileT]])
+case class Node[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptOldRef[Node[TileT]])
 {
   def fCost = gCost + hCost
 }

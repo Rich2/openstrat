@@ -3,9 +3,9 @@ package ostrat
 object HelloEmon extends App
 { println("Welcome to Hello Emon. This will printout the first number but not the second.")
   val mi1: EMon[Int] = "4".findInt
-  mi1.foreach(i => println(i.str))//Something happens
+  mi1.forGood(i => println(i.str))//Something happens
   val mi2: EMon[Int] = "2.2".findInt
-  mi2.foreach(i => println(i.str))//Nothing happens.
+  mi2.forGood(i => println(i.str))//Nothing happens.
   val i1: Int = mi2.getElse(0)
   println("You asked for " + i1.str)
   val s1: String = mi2.fold("This really is an Int: " + _) (_ => "This is not an Int")

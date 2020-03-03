@@ -24,7 +24,7 @@ class Colour(val argbValue: Int) extends AnyVal with ProdInt1
   def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
 
   def nextFrom(seq: Colours): Colour = seq.findIndex(this) match
-  { case NoneInt => seq(0)
+  { case NoInt => seq(0)
     case GoodInt(i) if i >= seq.length - 1 => seq(0)
     case GoodInt(i) => seq(i + 1)
   }
@@ -110,9 +110,9 @@ object Colour
    def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
 
   implicit val optBuildImplicit: OptBuild[Colour] = new OptBuild[Colour]
-  { override type OptT = OptColour
-    def apply(c: Colour): OptColour = new SomeColour(c.argbValue)
-    def none: OptColour = NoColour
+  { override type OptT = OptOldColour
+    def apply(c: Colour): OptOldColour = new SomeColour(c.argbValue)
+    def none: OptOldColour = NoColour
 }
 
 
@@ -321,20 +321,20 @@ object Colours
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
 }
 
-sealed trait OptColour extends Opt[Colour]
+sealed trait OptOldColour extends OptOld[Colour]
 
-class SomeColour(argbValue: Int) extends OptColour with SomeT[Colour]
+class SomeColour(argbValue: Int) extends OptOldColour with SomeT[Colour]
 { override def value: Colour = new Colour(argbValue)
 }
 
 object SomeColour
 {
-  def unapply(input: OptColour): Option[Colour] = input match
+  def unapply(input: OptOldColour): Option[Colour] = input match
   { case sc: SomeColour => Some(sc.value)
     case NoColour => None
   }
 }
 
-case object NoColour extends OptColour with NoOpt[Colour]
-{ def unapply(inp: OptColour): Boolean = inp.empty
+case object NoColour extends OptOldColour with NoOptOld[Colour]
+{ def unapply(inp: OptOldColour): Boolean = inp.empty
 }

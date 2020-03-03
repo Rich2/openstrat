@@ -127,7 +127,7 @@ trait CanvasPlatform extends RectGeom
   
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
    *  procedure (Unit returning function) with that object of type A */
-  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Persist[A]): Unit = fromFileFind(fileName)(ev).foreach(f)
+  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Persist[A]): Unit = fromFileFind(fileName)(ev).forGood(f)
   
   def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: Persist[A]): EMon[A] = 
     loadFile(fileName).findSetting(settingStr)(ev)
