@@ -10,7 +10,7 @@ object Functor
 
   //implicit def arrayImplicit: Functor[Array] = new Functor[Array] { override def map[A, B](fa: Array[A])(f: A => B): Array[B] = fa.map(f) }
 
-  implicit def eMonImplicit: Functor[EMon] = new Functor[EMon] { override def map[A, B](fa: EMon[A], f: A => B): EMon[B] = fa.map(f) }
+  implicit def eMonImplicit: Functor[EMon] = new Functor[EMon] { override def map[A, B](fa: EMon[A], f: A => B): EMon[B] = fa.mapOld(f) }
 
   implicit def listImplicit: Functor[List] = new Functor[List] { override def map[A, B](fa: List[A], f: A => B): List[B] = fa.map(f) }
 

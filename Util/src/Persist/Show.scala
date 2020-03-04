@@ -191,8 +191,8 @@ object Show //extends ShowInstancesPriority2
    // override def fromStatements(sts: Refs[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
-    { case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
-      case expr => ev.fromExpr(expr).map(Some(_))
+    { case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).mapOld(Some(_))
+      case expr => ev.fromExpr(expr).mapOld(Some(_))
     }
   }
 

@@ -18,7 +18,7 @@ object composeBlocks
       case RefsOff1Tail(h, tail) => { acc.append(h); sortBlocks(tail) }
     }
 
-    sortBlocks(seg.offset0).flatMap {
+    sortBlocks(seg.offset0).flatMapOld {
       case Refs1(e: Expr) => Good(e)
       case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
     }

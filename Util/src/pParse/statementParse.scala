@@ -13,11 +13,11 @@ object statementParse
     val subAcc: Buff[ClauseMember] = Buff()
 
     def loop(rem: RefsOff[StatementMember]): EMon[Statement] = rem match {
-      case RefsOff0() if acc.isEmpty => {getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))}
+      case RefsOff0() if acc.isEmpty => {getExpr(subAcc.toRefs).mapOld(g => MonoStatement(g, optSemi))}
       case RefsOff0() if subAcc.isEmpty => Good(ClausedStatement(acc.toRefs, optSemi))
-      case RefsOff0() => getExpr(subAcc.toRefs).map(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
+      case RefsOff0() => getExpr(subAcc.toRefs).mapOld(g => ClausedStatement(acc.append(Clause(g, nullRef)).toRefs, optSemi))
       case RefsOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
-      case RefsOff1Tail(ct: CommaToken, tail) => getExpr(subAcc.toRefs).flatMap{g =>
+      case RefsOff1Tail(ct: CommaToken, tail) => getExpr(subAcc.toRefs).flatMapOld{ g =>
         acc.append(Clause(g, OptOldRef(ct)))
         loop(tail)
       }

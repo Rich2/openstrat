@@ -10,13 +10,13 @@ sealed trait EMon[+A] extends EMonBase[A]
 {
   @inline def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB
 
-  def map[B](f: A => B): EMon[B]
+  @deprecated def mapOld[B](f: A => B): EMon[B]
 
   /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects not a value. */
   def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit
 
-  def flatMap[B](f: A => EMon[B]): EMon[B]
-  def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
+  @deprecated def flatMapOld[B](f: A => EMon[B]): EMon[B]
+  def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
 
   /** Gets the value of Good, throws exception on Bad. */
   def get: A
@@ -38,11 +38,11 @@ sealed trait EMon[+A] extends EMonBase[A]
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
+  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMapOld(str => pParse.stringToStatements(str).flatMapOld(_.findType[A]))
     def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
     def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] =
-      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingStr)))
+      thisEMon.flatMapOld(str => pParse.stringToStatements(str).flatMapOld(_.findSett[A](settingStr)))
     def findSettingElse[A: Persist](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
     def findSomeSetting[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
     def findSomeSettingElse[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
@@ -57,9 +57,10 @@ object EMon
  *  Right[List[String], +A]. */
 case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 {
-  override def map[B](f: A => B): EMon[B] = Good[B](f(value))
-  override def tMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
-  override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
+  override def mapOld[B](f: A => B): EMon[B] = Good[B](f(value))
+  override def map[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
+  override def flatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = f(value)
+  override def flatMapOld[B](f: A => EMon[B]): EMon[B] = f(value)
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fGood(value)
 
   override def fold[B](noneValue: => B)(fGood: A => B): B = fGood(value)
@@ -72,7 +73,7 @@ case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 
  // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
-  override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
+  override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
   override def getElse[A1 >: A](elseValue: => A1): A1 = value
@@ -97,16 +98,17 @@ object Good
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
-{ override def map[B](f: A => B): EMon[B] = Bad[B](errs)
-  override def tMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
-  override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
+{ override def mapOld[B](f: A => B): EMon[B] = Bad[B](errs)
+  override def map[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
+  override def flatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
+  override def flatMapOld[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   @inline override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
   @inline override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB = build.imutNew(0)
 
   //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
-  override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
+  override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
  // override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue

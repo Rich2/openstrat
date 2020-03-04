@@ -21,7 +21,7 @@ class Persist1[A1, R](typeStr: String, name1: String, fArg1: R => A1, val newT: 
 
   def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1) match
   {
-    case (Refs1(s1), _) => s1.errGet[A1].map(g1 => newT(g1))
+    case (Refs1(s1), _) => s1.errGet[A1].mapOld(g1 => newT(g1))
     case (Refs0(), Some(d1)) => Good(newT(d1))
     case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 1.")
   }
