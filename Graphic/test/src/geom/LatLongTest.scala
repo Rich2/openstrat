@@ -11,9 +11,8 @@ object LatLongTest   extends TestSuite
     val ll2 = 43 ll 45
     val ll3 = ll2.subLong(226.degreesToRadians)    
     
-    'AddLongitude
-    {
-      assert(ll1.latDegs =~ 44)
+    "AddLongitude" -
+    { assert(ll1.latDegs =~ 44)
       assert(ll1.longDegs =~ 46)
       assert(ll1.addLong(4.degreesToRadians).longDegs =~ 50)
       assert(ll1.addLong(43.degreesToRadians).longDegs =~ 89)

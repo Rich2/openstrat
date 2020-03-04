@@ -53,11 +53,9 @@ object EMon
       Bad.BadShowImplicit(ev))
 }
 
-trait Opt[+A] extends EMon[A] with OptBase[A]
-
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
  *  Right[List[String], +A]. */
-case class Good[+A](val value: A) extends Opt[A] with GoodBase[A]
+case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 {
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))
   override def mMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
@@ -132,5 +130,4 @@ object Bad
   }
 }
 
-object NoGood extends Bad[Nothing](Refs()) with Opt[Nothing]
-
+object NoGood extends Bad[Nothing](Refs())

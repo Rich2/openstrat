@@ -4,8 +4,8 @@ object OptTest extends TestSuite
 {
   val tests = Tests
   {
-    def f(ss: Opt[String]): Int = ss.foldErrs(_.length)(_ => -1)
-    val n1: Opt[String] = NoGood
+    def f(ss: EMon[String]): Int = ss.foldErrs(_.length)(_ => -1)
+    val n1: EMon[String] = NoGood
     val n2 = Good("Hello")
     val i1 = NoInt
 //    val i2 = OptOld(5)

@@ -14,7 +14,7 @@ object TransTest extends TestSuite
     val o4 = Some(r4)
     val v1 = Vector(r1, r2)
 
-    't1
+    "Test1" -
     { r1 ==> r1
       assert(r1.scale(3) equ (r2))
       assert(r1.scale(2) equ r3)
@@ -32,9 +32,8 @@ object TransTest extends TestSuite
     val rs1: Refs[PolyFill] = Refs(p1, p2)
     val rs1a = rs1.slateX(2)
 
-    'test2
-    {
-      rs1a(1).poly.length ==> 4
+    "test2" -
+    { rs1a(1).poly.length ==> 4
       rs1a(1).poly.polyCentre ==> Vec2(2, 0)
     }
   }

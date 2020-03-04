@@ -15,9 +15,7 @@ trait EMonBase[+A]
   def fold[B](noneValue: => B)(fGood: A => B): B
 }
 
-trait OptBase[+A] extends EMonBase[A]
-
-trait GoodBase[+A] extends OptBase[A]
+trait GoodBase[+A] extends EMonBase[A]
 { def value: A
   def errs: Strings = Refs()
 }
@@ -32,9 +30,7 @@ trait EMonInt extends EMonBase[Int]
 { def mMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
-trait OptInt extends EMonInt with OptBase[Int]
-
-case class GoodInt(value: Int) extends OptInt with GoodBase[Int]
+case class GoodInt(value: Int) extends EMonInt with GoodBase[Int]
 { override def mMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
   override def forGood(f: Int => Unit): Unit = f(value)
   override def fold[B](noneValue: => B)(fGood: Int => B): B = fGood(value)
@@ -46,15 +42,13 @@ case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
   @inline override def foldErrs[B](fGood: Int => B)(fBad: Strings => B): B = fBad(errs)
 }
 
-object NoInt extends BadInt(Refs()) with OptInt with NoBase[Int]
+object NoInt extends BadInt(Refs()) with EMonInt with NoBase[Int]
 
 trait EMonDbl extends EMonBase[Double]
 { def mMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
-trait OptDbl extends EMonDbl with OptBase[Double]
-
-case class GoodDbl(value: Double) extends OptDbl with GoodBase[Double]
+case class GoodDbl(value: Double) extends EMonDbl with GoodBase[Double]
 { override def mMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
   override def forGood(f: Double => Unit): Unit = f(value)
   override def fold[B](noneValue: => B)(fGood: Double => B): B = fGood(value)
@@ -66,15 +60,13 @@ case class BadDbl(errs: Refs[String]) extends EMonDbl with BadBase[Double]
   @inline override def foldErrs[B](fGood: Double => B)(fBad: Strings => B): B = fBad(errs)
 }
 
-object NoDbl extends BadDbl(Refs()) with OptDbl with NoBase[Double]
+object NoDbl extends BadDbl(Refs()) with EMonDbl with NoBase[Double]
 
 trait EMonBool extends EMonBase[Boolean]
 { def mMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
-trait OptBool extends EMonBool with OptBase[Boolean]
-
-case class GoodBool(value: Boolean) extends OptBool with GoodBase[Boolean]
+case class GoodBool(value: Boolean) extends EMonBool with GoodBase[Boolean]
 { override def mMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
   override def forGood(f: Boolean => Unit): Unit = f(value)
   override def fold[B](noneValue: => B)(fGood: Boolean => B): B = fGood(value)
@@ -86,4 +78,4 @@ case class BadBool(errs: Refs[String]) extends EMonBool with BadBase[Boolean]
   @inline override def foldErrs[B](fGood: Boolean => B)(fBad: Strings => B): B = fBad(errs)
 }
 
-object NoBool extends BadBool(Refs()) with OptBool with NoBase[Boolean]
+object NoBool extends BadBool(Refs()) with EMonBool with NoBase[Boolean]

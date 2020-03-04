@@ -4,9 +4,8 @@ package pZug
 import Colour._, pGrid._
 
 trait ZugTerr
-{
-  def colour: Colour
-  def cost: OptOldInt = SomeInt(1)
+{ def colour: Colour
+  def cost: EMonInt = GoodInt(1)
   def conceal: Boolean = false
 }
 
@@ -16,8 +15,7 @@ object ZugTerr
 }
 
 case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[Squad] = ArrOld()) extends ColouredTileOld
-{
-  type FromT = ZugTerr
+{ type FromT = ZugTerr
   def fromT = terr
   def colour = terr.colour     
 }
@@ -34,35 +32,29 @@ object ZugTileOld
 }
 
 case object Plain extends ZugTerr
-{
-   override def colour = LightGreen
+{ override def colour = LightGreen
 }
 
 case object WheatField extends ZugTerr
-{
-   override def colour = Wheat
+{ override def colour = Wheat
 }
 
 case object Hill extends ZugTerr
-{
-   override def colour = Brown
+{ override def colour = Brown
 }
 
 trait Building extends ZugTerr { override def conceal = true }
 
 case object StoneBuilding extends Building
-{
-   override def colour = Gray
-   override def cost: OptOldInt = SomeInt(3)
+{ override def colour = Gray
+  override def cost: EMonInt = GoodInt(3)
 }
 
 object WoodBuilding extends Building
-{
-   override def colour = Brown
+{ override def colour = Brown
 }
 
 object Lake extends ZugTerr
-{
-   override def colour = Blue
-   override def cost: OptOldInt = NoIntOld
+{ override def colour = Blue
+  override def cost: EMonInt = NoInt
 }
