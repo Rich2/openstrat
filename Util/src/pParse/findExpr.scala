@@ -31,14 +31,15 @@ object getExpr
     { case RefsOff0() => composeBlocks(acc.toRefs)
 
       case RefsOff1Tail(at @ AsignToken(_), tail) =>
-      {
+        composeBlocks(acc.toRefs).flatMap(gLs => fromOffset(tail).map(gRs => AsignExpr(gLs, at, gRs)))
+      /*{
         val eA = for {
           gLs <- composeBlocks(acc.toRefs)
           gRs <- fromOffset(tail) //This has been altered. I think its correct now with no altering to acc
         } yield AsignExpr(gLs, at, gRs)
 
         eA
-      }
+      }*/
       case RefsOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     } }
     loop(inp)
