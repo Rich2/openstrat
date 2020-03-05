@@ -6,12 +6,12 @@ package pParse
 object statementsParse
 {
   /** Parses a sequence of block members raw Statement where bracket blocks have already been parsed into a sequence of Statements. */
-  def apply(implicit inp: Refs[BlockMember]): ERefs[Statement] =
+  def apply(implicit inp: Refs[BlockMember]): ERefsOld[Statement] =
   {
     val acc: Buff[Statement] = Buff()
     var subAcc: Buff[StatementMember] = Buff()
 
-    def loop(rem: RefsOff[BlockMember]): ERefs[Statement] = rem match
+    def loop(rem: RefsOff[BlockMember]): ERefsOld[Statement] = rem match
     {
       case RefsOff0() if subAcc.isEmpty => Good(acc.toRefs)
       case RefsOff0() => statementParse(subAcc.toRefs, nullRef).mapOld(acc :+ _).mapOld(_.toRefs)

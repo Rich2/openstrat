@@ -7,7 +7,7 @@ package object ostrat
 { import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
   type ArrOld[A] = ArraySeq[A]
   type Buff[A] = ArrayBuffer[A]
-  type ERefs[A <: AnyRef] = EMon[Refs[A]]
+  type ERefsOld[A <: AnyRef] = EMon[Refs[A]]
   type RefsMulti[A <: AnyRef] = Refs[Multiple[A]]
   type PersistEq[A] = Persist[A] with Eq[A]
   type ShowEq[A] = Show[A] with Eq[A]
@@ -196,7 +196,8 @@ package object ostrat
 
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
   { @inline def toRefs(implicit ct: ClassTag[A]): Refs[A] = new Refs[A](thisBuff.toArray[A])
-    @inline def goodRefs(implicit ct: ClassTag[A]): Good[Refs[A]] = Good(new Refs(thisBuff.toArray))
+    def goodRefsOld(implicit ct: ClassTag[A]): Good[Refs[A]] = Good(new Refs(thisBuff.toArray))
+    def goodRefs(implicit ct: ClassTag[A]): GoodRefs[A] = GoodRefs(new Refs(thisBuff.toArray))
 
     def toReverseRefs(implicit ct: ClassTag[A]): Refs[A] =
     { val len = thisBuff.length
