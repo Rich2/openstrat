@@ -6,7 +6,7 @@ package pParse
  *  encapsulated. */
 object srcToETokens
 { /** Max numbers for long and hexadecimal formats needs to be implemented. */
-  def apply(charsIn: Array[Char], fileName: String): ERefsOld[Token] =
+  def apply(charsIn: Array[Char], fileName: String): ERefs[Token] =
   { implicit val charArr: Chars = new Chars(charsIn)
     val acc: Buff[Token] = Buff[Token]()
 
@@ -69,6 +69,6 @@ object srcToETokens
       case CharsOffHead(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }
 
-    mainLoop(charArr.offsetter0, new TextPosn(fileName, 1, 1))
+    mainLoop(charArr.offsetter0, new TextPosn(fileName, 1, 1)).toNewERefs
   }
 }

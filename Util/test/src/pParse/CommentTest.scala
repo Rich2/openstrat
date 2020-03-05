@@ -12,7 +12,7 @@ object CommentTest extends TestSuite
     val s4 = "x = //\n5".parseTokens
     val a4 = s4.flatMapOld(astParse(_))
     val s5: EMon[Array[Char]] = eTry(io.Source.fromResource("c1.rson").toArray)// .getLines().mkString)
-    val a5 = s5.flatMapOld(srcToETokens(_, ""))
+    val a5: ERefs[Token] = s5.flatMap[Refs[Token], ERefs[Token]](g => srcToETokens(g, ""))(EMonBuild.refsImplicit)
     //val s6 = "appStr =//\n\"Z0\";"
     //val a6 = s6.parseTokens
 
@@ -24,7 +24,7 @@ object CommentTest extends TestSuite
       assertMatch(s3){ case Good(Refs3(_, _, _)) => }
       assertMatch(s4){ case Good(Refs3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }
       assertMatch(a4){ case Good(Refs1(_)) => }
-      assertMatch(a5) { case Good(Refs4(_, _, _, _)) => }
+      assertMatch(a5) { case GoodRefs(Refs4(_, _, _, _)) => }
     }
   }
 }

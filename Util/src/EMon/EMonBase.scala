@@ -30,14 +30,29 @@ trait EMonBase[+A]
   def fold[B](noneValue: => B)(fGood: A => B): B
 
   def toEither: Either[Strings, A]
+  def isGood: Boolean
+  def isBad: Boolean
 
-  //def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB
+  /** Maps Good to Right[Strings, D] and Bad to Left[Strings, D]. These are implemented in the base traits GoodBase[+A] and BadBase[+A] as
+   *  Either[+A, +B] boxes all value classes. */
+  def mapToEither[D](f: A => D): Either[Strings, D]
+
+  /** These are implemented in the base traits GoodBase[+A] and BadBase[+A] as Either[+A, +B] boxes all value classes. */
+  def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D]
+
+  /** These are implemented in the base traits GoodBase[+A] and BadBase[+A] as Either[+A, +B] boxes all value classes. */
+  def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2]
 }
 
 trait GoodBase[+A] extends EMonBase[A]
 { def value: A
   override def errs: Strings = Refs()
   override def toEither: Either[Strings, A] = Right(value)
+  override def isGood: Boolean = true
+  override def isBad: Boolean = false
+  override def mapToEither[D](f: A => D): Either[Strings, D] = Right(f(value))
+  override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = f(value)
+  override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
 }
 
 trait BadBase[+A] extends EMonBase[A]
@@ -46,6 +61,12 @@ trait BadBase[+A] extends EMonBase[A]
   override def get: A = excep("Called get on Bad.")
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
  // override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB = build.imutNew(0)
+
+  override def isGood: Boolean = false
+  override def isBad: Boolean = true
+  override def mapToEither[D](f: A => D): Either[Strings, D] = Left(errs)
+  override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = (Left(errs))
+  override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
 }
 
 trait NoBase[+A] extends BadBase[A]

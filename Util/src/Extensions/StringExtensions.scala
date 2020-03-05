@@ -4,7 +4,7 @@ package ostrat
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
-  def parseTokens: ERefsOld[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String")
+  def parseTokens: ERefsOld[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String").toOld
   def parseStatements: ERefsOld[pParse.Statement] = parseTokens.flatMapOld(pParse.astParse(_))
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
 

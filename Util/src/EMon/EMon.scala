@@ -8,23 +8,12 @@ package ostrat
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A] extends EMonBase[A]
 {
+  /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid
+   * unnecessary boxing of primitive values. */
+  def getElse[A1 >: A](elseValue: => A1): A1
   @deprecated def mapOld[B](f: A => B): EMon[B]
-
   @deprecated def flatMapOld[B](f: A => EMon[B]): EMon[B]
   def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
-
-  /** Gets the value of Good or returns the elseValue parameter if Bad. */
-  def getElse[A1 >: A](elseValue: => A1): A1
-
-  /** Use this EMon if good else use other EMon passed as parameter.*/
-  //def elseTry[A1 >: A](other: EMon[A1]): EMon[A1]
-
-  def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2]
-
-  def mapToEither[D](f: A => D): Either[Strings, D]
-  def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D]
-  def isGood: Boolean
-  def isBad: Boolean
 }
 
 object EMon
@@ -43,10 +32,19 @@ object EMon
   implicit def showImplicit[A](implicit ev: Show[A]): Show[EMon[A]] =
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
+
+  implicit class refsImplicit[A <: AnyRef](thisEMon: EMon[Refs[A]])
+  {
+    def toNewERefs: ERefs[A] = thisEMon match
+    {
+      case Good(rs) => GoodRefs(rs)
+      case Bad(errs) => BadRefs(errs)
+    }
+  }
 }
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
- *  Right[List[String], +A]. */
+ *  Right[Refs[String], +A]. */
 final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 {
   override def mapOld[B](f: A => B): EMon[B] = Good[B](f(value))
@@ -57,21 +55,12 @@ final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 
   override def fold[B](noneValue: => B)(fGood: A => B): B = fGood(value)
 
-
-
  // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
   override def getElse[A1 >: A](elseValue: => A1): A1 = value
-  //override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A] = this
-  override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
-
-  override def mapToEither[D](f: A => D): Either[Strings, D] = Right(f(value))
-  override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = f(value)
-  override def isGood: Boolean = true
-  override def isBad: Boolean = false
 }
 
 object Good
@@ -93,19 +82,13 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
   @inline override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
 
-
   //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
 
   override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
  // override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
-  override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
 
-  override def mapToEither[D](f: A => D): Either[Strings, D] = Left(errs)
-  override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = (Left(errs))
-  override def isGood: Boolean = false
-  override def isBad: Boolean = true
 }
 
 object Bad

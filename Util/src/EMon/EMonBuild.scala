@@ -16,7 +16,7 @@ object EMonBuild
     override def newBad(errs: Refs[String]): Bad[B] = new Bad(errs)
   }
 
-  def refsImplicit[B <: AnyRef]: EMonBuild[Refs[B], EMonRefs[B]] = new EMonBuild[Refs[B], EMonRefs[B]]
+  def refsImplicit[B <: AnyRef]: EMonBuild[Refs[B], ERefs[B]] = new EMonBuild[Refs[B], ERefs[B]]
   { override type GoodT = GoodRefs[B]
     override type BadT = BadRefs[B]
     override def apply(value: Refs[B]): GoodRefs[B] = GoodRefs(value)
