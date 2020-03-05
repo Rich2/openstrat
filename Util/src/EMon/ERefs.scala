@@ -1,6 +1,5 @@
 package ostrat
-
-import scala.annotation.unchecked.uncheckedVariance
+import annotation.unchecked.uncheckedVariance
 
 sealed trait ERefs[+A <: AnyRef] extends EMonBase[Refs[A]]
 { def map[B, BB <: EMonBase[B]](f: Refs[A] => B)(implicit build: EMonBuild[B, BB]): BB
@@ -15,7 +14,7 @@ final case class GoodRefs[+A <: AnyRef](value: Refs[A]) extends ERefs[A] with Go
   @inline override def foldErrs[B](fGood: Refs[A] => B)(fBad: Strings => B): B = fGood(value)
   override def get: Refs[A] = value
   override def foldDo(fGood: Refs[A] => Unit)(fBad: Strings => Unit): Unit = fGood(value)
-
+  override def getElse(elseValue: => Refs[A] @uncheckedVariance): Refs[A] = value
   /*override def goodMap[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB =
   { val res = build.imutNew(value.length)
     var count = 0
@@ -33,6 +32,7 @@ case class BadRefs[+A <: AnyRef](errs: Refs[String]) extends ERefs[A] with BadBa
   override def flatMap[B, BB <: EMonBase[B]](f: Refs[A] => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def fold[B](noneValue: => B)(fGood: Refs[A] => B): B = noneValue
   @inline override def foldErrs[B](fGood: Refs[A] => B)(fBad: Strings => B): B = fBad(errs)
+  override def getElse(elseValue: => Refs[A] @uncheckedVariance): Refs[A] = elseValue
 }
 
 object NoRefs extends BadRefs[Nothing](Refs())

@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import scala.annotation.unchecked.uncheckedVariance
 
 /** An Errors handling class. Consider changing name to EHan. The main ways to consume the final result of the flatMap operation are fold, getElse,
  * foreach and forEither. This corresponds, but is not functionally equivalent to an Either[StrList, A] or Either[List[String], +A]. There are
@@ -8,9 +9,7 @@ package ostrat
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A] extends EMonBase[A]
 {
-  /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid
-   * unnecessary boxing of primitive values. */
-  def getElse[A1 >: A](elseValue: => A1): A1
+
   @deprecated def mapOld[B](f: A => B): EMon[B]
   @deprecated def flatMapOld[B](f: A => EMon[B]): EMon[B]
   def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
@@ -60,7 +59,7 @@ final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
   override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
-  override def getElse[A1 >: A](elseValue: => A1): A1 = value
+  override def getElse(elseValue: => A @uncheckedVariance): A = value
 }
 
 object Good
@@ -86,7 +85,7 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
 
   override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
-  override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
+  override def getElse(elseValue: => A @uncheckedVariance): A = elseValue
  // override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
 
 }
