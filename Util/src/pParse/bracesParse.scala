@@ -18,7 +18,7 @@ object bracesParse
       }
 
       case RefsOff1Tail(bc: BracketCloseToken, tail) =>
-        if (bc.braces == open.braces) statementsParse(acc.toRefs).flatMap2Old { g =>
+        if (bc.braces == open.braces) statementsParse(acc.toRefs).toOld.flatMap2Old { g =>
           val res = BracketedStatements(g, bc.braces, open.startPosn, bc.startPosn)
           Good2(res, tail)
         }

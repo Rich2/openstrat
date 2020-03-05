@@ -6,7 +6,7 @@ package pParse
 object statementsParse
 {
   /** Parses a sequence of block members raw Statement where bracket blocks have already been parsed into a sequence of Statements. */
-  def apply(implicit inp: Refs[BlockMember]): ERefsOld[Statement] =
+  def apply(implicit inp: Refs[BlockMember]): ERefs[Statement] =
   {
     val acc: Buff[Statement] = Buff()
     var subAcc: Buff[StatementMember] = Buff()
@@ -27,7 +27,7 @@ object statementsParse
       case u => excep("Statement Loop, impossible case")
     }
 
-    loop(inp.offset0)
+    loop(inp.offset0).toNewERefs
   }
 }
 
