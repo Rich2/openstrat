@@ -12,14 +12,8 @@ sealed trait EMon[+A] extends EMonBase[A]
 
   @deprecated def mapOld[B](f: A => B): EMon[B]
 
-  /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects not a value. */
-  def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit
-
   @deprecated def flatMapOld[B](f: A => EMon[B]): EMon[B]
   def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
-
-  /** Gets the value of Good, throws exception on Bad. */
-  def get: A
 
   /** Gets the value of Good or returns the elseValue parameter if Bad. */
   def getElse[A1 >: A](elseValue: => A1): A1
@@ -28,7 +22,7 @@ sealed trait EMon[+A] extends EMonBase[A]
   //def elseTry[A1 >: A](other: EMon[A1]): EMon[A1]
 
   def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2]
-  def toEither: Either[Strings, A]
+
   def mapToEither[D](f: A => D): Either[Strings, D]
   def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D]
   def isGood: Boolean
@@ -79,7 +73,7 @@ case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
   override def getElse[A1 >: A](elseValue: => A1): A1 = value
   //override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A] = this
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
-  override def toEither: Either[Strings, A] = Right(value)
+
   override def mapToEither[D](f: A => D): Either[Strings, D] = Right(f(value))
   override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = f(value)
   override def isGood: Boolean = true
@@ -107,18 +101,17 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
   @inline override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB = build.imutNew(0)
 
   //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
-  override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
+
   override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse[A1 >: A](elseValue: => A1): A1 = elseValue
  // override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
-  override def toEither: Either[Strings, A] = Left(errs)
+
   override def mapToEither[D](f: A => D): Either[Strings, D] = Left(errs)
   override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = (Left(errs))
   override def isGood: Boolean = false
   override def isBad: Boolean = true
-  override def get: A = excep("Called get on Bad.")
 }
 
 object Bad

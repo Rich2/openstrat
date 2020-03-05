@@ -13,22 +13,36 @@ trait EMonBase[+A]
   def flatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB
 
   def errs: Strings
+
   /** Will perform action if Good. Does nothing if Bad. */
   def forGood(f: A => Unit): Unit
+
   /** Fold the EMon of type A into a type of B. */
   @inline def foldErrs[B](fGood: A => B)(fBad: Strings => B): B
 
+  /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a
+   *  value. This method is implemented in the leaf Good classes to avoid boxing. */
+  def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit
+
+  /** Gets the value of Good, throws exception on Bad. */
+  def get: A
 
   def fold[B](noneValue: => B)(fGood: A => B): B
+
+  def toEither: Either[Strings, A]
 }
 
 trait GoodBase[+A] extends EMonBase[A]
 { def value: A
-  def errs: Strings = Refs()
+  override def errs: Strings = Refs()
+  override def toEither: Either[Strings, A] = Right(value)
 }
 
 trait BadBase[+A] extends EMonBase[A]
 { override def forGood(f: A => Unit): Unit = {}
+  override def toEither: Either[Strings, A] = Left(errs)
+  override def get: A = excep("Called get on Bad.")
+  override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
 }
 
 trait NoBase[+A] extends BadBase[A]
