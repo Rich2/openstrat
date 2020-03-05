@@ -1,27 +1,5 @@
 package ostrat
 
-sealed trait EMonInt extends EMonBase[Int]
-{ def map[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB
-}
-
-final case class GoodInt(value: Int) extends EMonInt with GoodBase[Int]
-{ override def map[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
-  override def flatMap[B, BB <: EMonBase[B]](f: Int => BB)(implicit build: EMonBuild[B, BB]): BB = f(value)
-  override def forGood(f: Int => Unit): Unit = f(value)
-  override def fold[B](noneValue: => B)(fGood: Int => B): B = fGood(value)
-  @inline override def foldErrs[B](fGood: Int => B)(fBad: Strings => B): B = fGood(value)
-  override def get: Int = value
-  override def foldDo(fGood: Int => Unit)(fBad: Strings => Unit): Unit = fGood(value)
-}
-case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
-{ override def map[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
-  override def flatMap[B, BB <: EMonBase[B]](f: Int => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
-  override def fold[B](noneValue: => B)(fGood: Int => B): B = noneValue
-  @inline override def foldErrs[B](fGood: Int => B)(fBad: Strings => B): B = fBad(errs)
-}
-
-object NoInt extends BadInt(Refs())// with EMonInt with NoBase[Int]
-
 sealed trait EMonDbl extends EMonBase[Double]
 { def map[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB
 }
@@ -66,3 +44,4 @@ case class BadBool(errs: Refs[String]) extends EMonBool with BadBase[Boolean]
 }
 
 object NoBool extends BadBool(Refs()) //with EMonBool with NoBase[Boolean]
+
