@@ -11,19 +11,19 @@ object srcToETokens
     val acc: Buff[Token] = Buff[Token]()
 
     implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
-    { def appendLoop: ERefsOld[Token] = e3.flatMap { (cOff, tp, token) =>
+    { def appendLoop: ERefs[Token] = e3.flatMapRefs { (cOff, tp, token) =>
       acc.append (token)
       mainLoop (cOff, tp)
       }
     }
 
-    def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): ERefsOld[Token] =
+    def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): ERefs[Token] =
     { acc.append(newToken)
       mainLoop(charsOff, tp)
     }
 
-    def mainLoop(rem: CharsOff, tp: TextPosn): ERefsOld[Token] = rem match
-    { case CharsOff0() => acc.goodRefsOld
+    def mainLoop(rem: CharsOff, tp: TextPosn): ERefs[Token] = rem match
+    { case CharsOff0() => acc.goodRefs
       case CharsOff1Tail(';', tail) => appendLoop(SemicolonToken(tp), tail, tp.right1)
       case CharsOff1Tail(',', tail) => appendLoop(CommaToken(tp), tail, tp.right1)
 
@@ -34,7 +34,7 @@ object srcToETokens
       case CharsOff1Tail('{', tail) => appendLoop(CurlyOpenToken(tp), tail, tp.right1)
       case CharsOff1Tail('}', tail) => appendLoop(CurlyCloseToken(tp), tail, tp.right1)
 
-      case CharsOffHead4('.', '.', '.', '.') => tp.right3.bad(".... is not an allowed character sequence.")
+      case CharsOffHead4('.', '.', '.', '.') => tp.right3.badRefs(".... is not an allowed character sequence.")
       case CharsOff3Tail('.', '.', '.', tail) => appendLoop(Dot3Token(tp), tail, tp.right3)
       case CharsOff2Tail('.', '.', tail) => appendLoop(Dot2Token(tp), tail, tp.right2)
       case CharsOff1Tail('.', tail) => appendLoop(DotToken(tp), tail, tp.right1)
@@ -47,7 +47,7 @@ object srcToETokens
       }
 
       case CharsOff3Tail('\'', c1, '\'', tail) => appendLoop(CharToken(tp, c1), tail, tp.right3)
-      case CharsOff1Tail('\'', _) => tp.bad("Unclosed Character literal.")
+      case CharsOff1Tail('\'', _) => tp.badRefs("Unclosed Character literal.")
 
       case CharsOff2Tail('/', '*', tail) =>
       {
@@ -66,9 +66,9 @@ object srcToETokens
       case CharsOffHead(DigitChar(d, _)) => parseIntToken(rem, tp).appendLoop
 
       case CharsOffHead(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
-      case CharsOffHead(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
+      case CharsOffHead(c) => tp.badRefs("Unimplemented character in main loop: " + c.toString)
     }
 
-    mainLoop(charArr.offsetter0, new TextPosn(fileName, 1, 1)).toNewERefs
+    mainLoop(charArr.offsetter0, new TextPosn(fileName, 1, 1))
   }
 }
