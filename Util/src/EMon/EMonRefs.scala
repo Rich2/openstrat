@@ -1,5 +1,7 @@
 package ostrat
 
+import scala.annotation.unchecked.uncheckedVariance
+
 sealed trait EMonRefs[+A <: AnyRef] extends EMonBase[Refs[A]]
 { def map[B, BB <: EMonBase[B]](f: Refs[A] => B)(implicit build: EMonBuild[B, BB]): BB
   @deprecated def toOld: EMon[Refs[A]] = foldErrs[EMon[Refs[A]]](Good(_))(Bad(_))
@@ -13,6 +15,18 @@ final case class GoodRefs[+A <: AnyRef](value: Refs[A]) extends EMonRefs[A] with
   @inline override def foldErrs[B](fGood: Refs[A] => B)(fBad: Strings => B): B = fGood(value)
   override def get: Refs[A] = value
   override def foldDo(fGood: Refs[A] => Unit)(fBad: Strings => Unit): Unit = fGood(value)
+
+  /*override def goodMap[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB =
+  { val res = build.imutNew(value.length)
+    var count = 0
+
+    while (count < value.length)
+    {
+      build.imutSet(res, count, f(value(count)))
+      count += 1
+    }
+    res
+  }*/
 }
 case class BadRefs[+A <: AnyRef](errs: Refs[String]) extends EMonRefs[A] with BadBase[Refs[A]]
 { override def map[B, BB <: EMonBase[B]](f: Refs[A] => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)

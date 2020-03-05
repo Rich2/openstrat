@@ -30,6 +30,8 @@ trait EMonBase[+A]
   def fold[B](noneValue: => B)(fGood: A => B): B
 
   def toEither: Either[Strings, A]
+
+  //def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB
 }
 
 trait GoodBase[+A] extends EMonBase[A]
@@ -43,6 +45,7 @@ trait BadBase[+A] extends EMonBase[A]
   override def toEither: Either[Strings, A] = Left(errs)
   override def get: A = excep("Called get on Bad.")
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
+ // override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB = build.imutNew(0)
 }
 
 trait NoBase[+A] extends BadBase[A]

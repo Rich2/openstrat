@@ -8,8 +8,6 @@ package ostrat
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A] extends EMonBase[A]
 {
-  @inline def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB
-
   @deprecated def mapOld[B](f: A => B): EMon[B]
 
   @deprecated def flatMapOld[B](f: A => EMon[B]): EMon[B]
@@ -49,7 +47,7 @@ object EMon
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
  *  Right[List[String], +A]. */
-case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
+final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 {
   override def mapOld[B](f: A => B): EMon[B] = Good[B](f(value))
   override def map[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
@@ -59,11 +57,7 @@ case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 
   override def fold[B](noneValue: => B)(fGood: A => B): B = fGood(value)
 
-  @inline override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB =
-  { val res = build.imutNew(1)
-    build.imutSet(res, 0, f(value))
-    res
-  }
+
 
  // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
@@ -98,7 +92,7 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
   override def flatMapOld[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   @inline override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
-  @inline override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB = build.imutNew(0)
+
 
   //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
 
