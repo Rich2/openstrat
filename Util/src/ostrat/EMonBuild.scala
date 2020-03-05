@@ -9,11 +9,18 @@ trait EMonBuild[B, EMonT <: EMonBase[B]]
 
 object EMonBuild
 {
-  implicit def refImplicit[B <: AnyRef]: EMonBuild[B, EMon[B]] = new EMonBuild[B, EMon[B]]
+  implicit def anyRefImplicit[B <: AnyRef]: EMonBuild[B, EMon[B]] = new EMonBuild[B, EMon[B]]
   { override type GoodT = Good[B]
     override type BadT = Bad[B]
     override def apply(value: B): Good[B] = Good(value)
     override def newBad(errs: Refs[String]): Bad[B] = new Bad(errs)
+  }
+
+  def refsImplicit[B <: AnyRef]: EMonBuild[Refs[B], EMonRefs[B]] = new EMonBuild[Refs[B], EMonRefs[B]]
+  { override type GoodT = GoodRefs[B]
+    override type BadT = BadRefs[B]
+    override def apply(value: Refs[B]): GoodRefs[B] = GoodRefs(value)
+    override def newBad(errs: Refs[String]): BadRefs[B] = new BadRefs(errs)
   }
 
   implicit val intImplicit: EMonBuild[Int, EMonInt] = new EMonBuild[Int, EMonInt]

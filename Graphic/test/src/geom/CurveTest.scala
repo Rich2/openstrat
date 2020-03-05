@@ -8,19 +8,22 @@ object CurveTest extends TestSuite
   val tests = Tests
   {
     val ls1 = LineSeg(4 vv 56)
-    't1 { assert (ls1 == CurveSeg(10, 0, 0, 0, 0, 4, 56)) }
     val as1 = ArcSeg(4 vv 4, 6 vv 4)
-    't2 { assert(as1 == CurveSeg(11, 0, 0, 4, 4, 6, 4)) }
     val as2 = as1.scale(2)
     val as3 = ArcSeg(8 vv 8, 12 vv 8)
-    't2 { assert(as2 == as3) }
     val as4 = as3.slate(5, 10)
-    't3 { assert(as4 == ArcSeg(13 vv 18, 17 vv 18)) }
     val ls2 = LineSeg(-5 vv -8)
-    't4 { assert(ls2 == CurveSeg(10, 0, 0, 0, 0, -5, -8)) }
     val ls3 = ls2.slate(50, -50)
-    't5 { assert(ls3 == CurveSeg(10, 0, 0, 0, 0, 45, -58)) }
     val css = Shape(ls1, ls2, ls3)
-    't6 { assert(css(0) == ls1) }
+
+    "Test1" -
+    { ls1 ==> CurveSeg(10, 0, 0, 0, 0, 4, 56)
+      as1 ==> CurveSeg(11, 0, 0, 4, 4, 6, 4)
+      as2 ==> as3
+      as4 ==> ArcSeg(13 vv 18, 17 vv 18)
+      ls2 ==> CurveSeg(10, 0, 0, 0, 0, -5, -8)
+      ls3 ==> CurveSeg(10, 0, 0, 0, 0, 45, -58)
+      css(0) ==> ls1
+    }
   }
 }
