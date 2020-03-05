@@ -17,6 +17,8 @@ trait EMonBase[+A]
   def forGood(f: A => Unit): Unit
   /** Fold the EMon of type A into a type of B. */
   @inline def foldErrs[B](fGood: A => B)(fBad: Strings => B): B
+
+
   def fold[B](noneValue: => B)(fGood: A => B): B
 }
 
