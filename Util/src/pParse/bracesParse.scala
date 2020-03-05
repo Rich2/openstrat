@@ -9,7 +9,7 @@ object bracesParse
     val acc: Buff[BlockMember] = Buff()
     def loop(rem: RefsOff[Token]): EMon2[BracketedStatements, RefsOff[Token]] = rem match
     {
-      case RefsOff0() => open.startPosn.bad("Unclosed Brace")
+      case RefsOff0() => open.startPosn.bad2("Unclosed Brace")
 
       //This case is where an inner BracketBlock starts within the current BracketBlock
       case RefsOff1Tail(bo: BracketOpen, tail) => bracesParse(tail, bo).flatMap2{(bracketBlock, remTokens) =>
@@ -22,7 +22,7 @@ object bracesParse
           val res = BracketedStatements(g, bc.braces, open.startPosn, bc.startPosn)
           Good2(res, tail)
         }
-        else bc.startPosn.bad("Unexpected Closing Parenthesis")
+        else bc.startPosn.bad2("Unexpected Closing Parenthesis")
 
       case RefsOff1Tail(nbt: BlockMember, tail) => { acc.append(nbt);  loop(tail) }
     }

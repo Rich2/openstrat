@@ -31,9 +31,10 @@ object TextPosn
   {
     def parseErr(detail: String): String = thisTP.fileName -- thisTP.lineNum.toString + ", " + thisTP.linePosn.toString + ": " + detail
     def bad[A](message: String): Bad[A] = new Bad[A](Refs(parseErr(message)))
+    def badRefs[A <: AnyRef](message: String): BadRefs[A] = new BadRefs[A](Refs(parseErr(message)))
     def notImplemented[A] = new Bad[A](Refs(parseErr("Not implemented.")))
-    def bad[A1, A2](message: String): Bad2[A1, A2] = new Bad2[A1, A2](Refs(parseErr(message)))
-    def bad[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](Refs(parseErr(message)))
+    def bad2[A1, A2](message: String): Bad2[A1, A2] = new Bad2[A1, A2](Refs(parseErr(message)))
+    def bad3[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](Refs(parseErr(message)))
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](Refs(parseErr("Not implemented.")))
   }
   
