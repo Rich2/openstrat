@@ -11,23 +11,23 @@ object statementsParse
     val acc: Buff[Statement] = Buff()
     var subAcc: Buff[StatementMember] = Buff()
 
-    def loop(rem: RefsOff[BlockMember]): ERefsOld[Statement] = rem match
+    def loop(rem: RefsOff[BlockMember]): ERefs[Statement] = rem match
     {
-      case RefsOff0() if subAcc.isEmpty => Good(acc.toRefs)
-      case RefsOff0() => statementParse(subAcc.toRefs, nullRef).mapOld(acc :+ _).mapOld(_.toRefs)
+      case RefsOff0() if subAcc.isEmpty => GoodRefs(acc.toRefs)
+      case RefsOff0() => statementParse(subAcc.toRefs, nullRef).map(acc :+ _).map(_.toRefs)(EMonBuild.refsImplicit)
       case RefsOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
-      case RefsOff1Tail(st: SemicolonToken, tail) =>statementParse(subAcc.toRefs, OptOldRef(st)).flatMapOld{ g =>
+      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, OptOldRef(st)).flatMap[Refs[Statement], ERefs[Statement]]{ g =>
           acc.append(g)
           subAcc = Buff()
           loop(tail)
-        }
+        }(EMonBuild.refsImplicit)
 
       case RefsOff1Tail(sm: StatementMember, tail) => { subAcc.append(sm); loop(tail) }
       case u => excep("Statement Loop, impossible case")
     }
 
-    loop(inp.offset0).toNewERefs
+    loop(inp.offset0)
   }
 }
 
