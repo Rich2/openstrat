@@ -9,7 +9,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
    
   val arm = Armenia().scale(100)//.slate(canv.topLeft)
    
-  val stuff = arm ++ List(
+  val stuff = arm ++ Refs(
       france.scale(100).tR.slate(canv.topRight),
       chad.scale(100).tL.slate(canv.topLeft),
       // belgium.scale(100).bL.slate(canv.bottomLeft),
@@ -24,7 +24,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
     {
       val str: String = s.headToStringElse("No clickable object on canvas")
       val tg = TextGraphic(str, 28, 0 vv 100)
-      repaintOld(stuff :+  tg)
+      repaint(stuff -+  tg)
     }
-  repaintOld(stuff)
+  repaint(stuff)
 }  
