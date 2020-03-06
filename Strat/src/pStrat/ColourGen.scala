@@ -26,7 +26,7 @@ case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasNoPanels("Colour 
     c3 = TextGraphic(commaedInts(r1, g1, b1), 15, left + 120 vv top - 20)
   } yield (c2, c3)
    
-  val cols2 = cols.iFlatMap[CanvO]{ (pair , i) =>
+  val cols2 = cols.iFlatMapOld[CanvO]{ (pair, i) =>
     val offset = - 35 * i
     ArrOld(pair._1.slateY(offset), pair._2.slateY(offset))
   }

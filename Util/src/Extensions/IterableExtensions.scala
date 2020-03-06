@@ -34,19 +34,34 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** Maps over a Traversable (collection / sequence) with a counter. */
-  def iMap[B](f: (A, Int) => B, count: Int = 0)(implicit ct: ClassTag[B]): ArrOld[B] =
+  @deprecated def iMapOld[B](f: (A, Int) => B, count: Int = 0)(implicit ct: ClassTag[B]): ArrOld[B] =
   { var i = count
     val buff: Buff[B] = Buff()
     thisIter.foreach{el => buff += f(el, i); i += 1 }
     buff.toArr
   }
+
+  def iMap[B, BB <: ArrImut[B]](f: (A, Int) => B, count: Int = 0)(implicit build: ArrBuild[B, BB]): BB =
+  { var i = count
+    val buff: build.BuffT = build.buffNew()
+    thisIter.foreach{el => build.buffGrow(buff, f(el, i)); i += 1 }
+    build.buffToArr(buff)
+  }
    
   /** flatMaps over a traversable (collection / sequence) with a counter */
-  def iFlatMap[B](f: (A, Int) => ArrOld[B], count: Int = 0)(implicit ct: ClassTag[B]): ArrOld[B] =
+  @deprecated def iFlatMapOld[B](f: (A, Int) => ArrOld[B], count: Int = 0)(implicit ct: ClassTag[B]): ArrOld[B] =
   { var i = count
     val buff: Buff[B] = Buff()
     thisIter.foreach{el => buff ++= f(el, i); i += 1 }
     buff.toArr
+  }
+
+  /** flatMaps over a traversable (collection / sequence) with a counter */
+  def iFlatMap[B, BB <: ArrImut[B]](f: (A, Int) => BB, count: Int = 0)(implicit build: ArrBuild[B, BB]): BB =
+  { var i = count
+    val buff: build.BuffT = build.buffNew()
+    thisIter.foreach{el => build.buffGrowArr(buff, f(el, i)); i += 1 }
+    build.buffToArr(buff)
   }
    
   /** foreach loop with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
