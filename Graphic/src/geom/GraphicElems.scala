@@ -7,7 +7,7 @@ import pCanv.CanvasPlatform, Colour.Black
  *  each time there is a change within the application state or the user view of that application state. */
 trait GraphicElem extends Transer
 
-/* Base trait for all passive objects  on a canvas / panel */
+/* Base trait for all passive objects on a canvas / panel */
 trait PaintElem extends GraphicElem
 { def rendElem(cp: CanvasPlatform): Unit
 }

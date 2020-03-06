@@ -18,22 +18,24 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
+
+  /** Converts to ArrImut.  */
   def toImut[AA <: ArrImut[A]](implicit bu: ArrBuild[A, AA]): AA =
-  {
-    val len = thisIter.size
+  { val len = thisIter.size
     val res = bu.imutNew(len)
     iForeach((a, i) => res.unsafeSetElem(i, a))
     res
   }
+
   def toArr(implicit ct: ClassTag[A]): ArrOld[A] = thisIter.toArray.toArrOld
+
   def sumBy(f: A => Int): Int =
-  {
-    var acc = 0
+  { var acc = 0
     thisIter.foreach(acc += f(_))
     acc
   }
 
-  /** Maps over a Traversable (collection / sequence) with a counter. */
+  /** This is deprecated and will be removed. Maps over a Traversable (collection / sequence) with a counter. */
   @deprecated def iMapOld[B](f: (A, Int) => B, count: Int = 0)(implicit ct: ClassTag[B]): ArrOld[B] =
   { var i = count
     val buff: Buff[B] = Buff()
@@ -41,6 +43,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     buff.toArr
   }
 
+  /** Maps over and  */
   def iMap[B, BB <: ArrImut[B]](f: (A, Int) => B, count: Int = 0)(implicit build: ArrBuild[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.buffNew()
