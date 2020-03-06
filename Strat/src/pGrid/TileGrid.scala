@@ -1,7 +1,7 @@
 package ostrat
 package pGrid
 
-/** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements any TileGrid. The Data for TileGrids is stroed in flat
+/** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements any TileGrid. The Data for TileGrids is stored in flat
  * arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that TileGrid
  * specification. It has methods to map the elements of an Array to the the 2 dimensional geometry of the Tile Grid. On its own a TileGrid can produce the
  * outlines of the grid, coordinates vector positions and other pure mathematical data. Combined with a simple function it can for example produce a
