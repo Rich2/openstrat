@@ -8,4 +8,5 @@ object OneGrid
   object PlayerB extends Player('B', Orange)
   object PlayerC extends Player('C', Green)
   val grid = new HexGridReg(2, 10, 2, 6)
+  val arr = grid.newRefs[EMon[Player]]
 }

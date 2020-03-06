@@ -16,4 +16,6 @@ trait TileGrid
   def numOfTiles: Int
 
   def allTilesForeach(f: Cood => Unit): Unit
+  def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
+  def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)
 }
