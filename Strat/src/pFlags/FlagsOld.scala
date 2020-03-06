@@ -6,15 +6,15 @@ import geom._, Colour._
 object FlagsOld
 {
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-  def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rectangle(ratio, 1).subjSeq(evObj = retObj,
+  def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubjOld =  Rectangle(ratio, 1).subjSeq(evObj = retObj,
       colours.iMapOld((colour, i) => Rectangle.fromTL(ratio / colours.length, 1, -ratio / 2 vv + 0.5).slate(i * ratio / colours.length, 0).fill(colour)))
          
   /** Equal height horrisontal bands. width ratio should normally be greater than 1.0 */     
-  def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubj = Rectangle(ratio, 1).subjSeq(retObj,   
+  def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubjOld = Rectangle(ratio, 1).subjSeq(retObj,
       colours.iMapOld((colour, i) => Rectangle.fromTL(ratio, 1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0, - i.toDouble / colours.length).fill(colour)))
       
-  val austria: PolySubj = topToBottom("Austria flag", 1.5, Black, Yellow)
-  val belgium: PolySubj = leftToRight("Belgium flag", 15.0 / 13.0, Black, Yellow, Red)
+
+  val belgium: PolySubjOld = leftToRight("Belgium flag", 15.0 / 13.0, Black, Yellow, Red)
   val chad = leftToRight("Chad flag", 1.5, Blue, Yellow, Red)
   
   val chinaRepublic =
@@ -34,7 +34,7 @@ object FlagsOld
   val france = leftToRight("France flag", 1.5, Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
    
   val germany = topToBottom("Germany flag", 5 / 3.0, Black, Red, Gold)
-  val nazi: PolySubj =
+  val nazi: PolySubjOld =
   { val poly = Rectangle(5 / 3.0, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)         

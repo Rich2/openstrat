@@ -52,21 +52,21 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
       zOrder: Int = 0): GraphicElems =
     Refs(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour), PolyActive(this, evObj))
   
-  def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
-    PolySubj.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
+  def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolySubjOld =
+    PolySubjOld.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
   
-  def drawSubj(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolySubj =
-    PolySubj.draw(this.polyCentre, this, evObj, lineWidth, lineColour)   
+  def drawSubj(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolySubjOld =
+    PolySubjOld.draw(this.polyCentre, this, evObj, lineWidth, lineColour)
   
   def fillTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-    PolySubj = PolySubj.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)    
+    PolySubjOld = PolySubjOld.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)
    
-  def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubj =
+  def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubjOld =
     fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
-  def subj(evObj: AnyRef, elems: PaintElem*): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems.toArr)
-  def subjSeq(evObj: AnyRef, elems: ArrOld[PaintElem]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
-  def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
-    PolySubj(this.polyCentre, this, evObj, ArrOld(PolyFillDraw(this, fillColour, lineWidth, lineColour),
+  def subj(evObj: AnyRef, elems: PaintElem*): PolySubjOld = new PolySubjOld(this.polyCentre, this, evObj, elems.toArr)
+  def subjSeq(evObj: AnyRef, elems: ArrOld[PaintElem]): PolySubjOld = new PolySubjOld(this.polyCentre, this, evObj, elems)
+  def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubjOld =
+    PolySubjOld(this.polyCentre, this, evObj, ArrOld(PolyFillDraw(this, fillColour, lineWidth, lineColour),
         TextGraphic(str, textSize, this.polyCentre, lineColour)))
   
   def closedPolygonToLine2s: Line2s =
@@ -96,7 +96,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
     res
   }
   
-  def fillSubj(evObj: AnyRef, fillColour: Colour): PolySubj = PolySubj.fill(this.polyCentre, this, evObj, fillColour)
+  def fillSubj(evObj: AnyRef, fillColour: Colour): PolySubjOld = PolySubjOld.fill(this.polyCentre, this, evObj, fillColour)
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 }
