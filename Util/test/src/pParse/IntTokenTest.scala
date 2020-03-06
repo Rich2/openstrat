@@ -32,13 +32,13 @@ object IntTokenTest extends TestSuite
 
     "General" -
     {
-      assertMatch("4".parseTokens){ case Good(Refs1(IntToken(Sp1, "4"))) => }
-      assertMatch("45".parseTokens){ case Good(Refs1(DecimalToken(Sp1, "45"))) => }
-      assertMatch("45".parseTokens){ case Good(Refs1(IntToken(Sp1, "45"))) => }
-      assertMatch("4.5".parseTokens){ case Good(Refs3(DecimalToken(Sp1, "4"), DotToken(Sp2), DecimalToken(Sp3, "5"))) => }
-      assertMatch("\"45\"".parseTokens){ case Good(Refs1(StringToken(Sp1, "45"))) => }
-      assertMatch("0x11".parseTokens){ case Good(Refs1(Hexa0xToken(Sp1, "11"))) => }
-      assertMatch("0x11".parseTokens){ case Good(Refs1(IntToken(Sp1, "0x11"))) => }
+      assertMatch("4".parseTokens){ case GoodRefs(Refs1(IntToken(Sp1, "4"))) => }
+      assertMatch("45".parseTokens){ case GoodRefs(Refs1(DecimalToken(Sp1, "45"))) => }
+      assertMatch("45".parseTokens){ case GoodRefs(Refs1(IntToken(Sp1, "45"))) => }
+      assertMatch("4.5".parseTokens){ case GoodRefs(Refs3(DecimalToken(Sp1, "4"), DotToken(Sp2), DecimalToken(Sp3, "5"))) => }
+      assertMatch("\"45\"".parseTokens){ case GoodRefs(Refs1(StringToken(Sp1, "45"))) => }
+      assertMatch("0x11".parseTokens){ case GoodRefs(Refs1(Hexa0xToken(Sp1, "11"))) => }
+      assertMatch("0x11".parseTokens){ case GoodRefs(Refs1(IntToken(Sp1, "0x11"))) => }
     }
   }
 }

@@ -10,7 +10,7 @@ object CommentTest extends TestSuite
     val s2 = "x = 5//".parseTokens
     val s3 = "x = 5//Some blurb".parseTokens
     val s4 = "x = //\n5".parseTokens
-    val a4 = s4.flatMapOld(astParse(_))
+    val a4 = s4.toOld.flatMapOld(astParse(_))
     val s5: EMon[Array[Char]] = eTry(io.Source.fromResource("c1.rson").toArray)// .getLines().mkString)
     val a5: ERefs[Token] = s5.flatMap[Refs[Token], ERefs[Token]](g => srcToETokens(g, ""))(EMonBuild.refsImplicit)
     //val s6 = "appStr =//\n\"Z0\";"
@@ -19,10 +19,10 @@ object CommentTest extends TestSuite
     //val t = 11
 
     "Test1" -
-    { assertMatch(s1){ case Good(Refs0()) => }
-      assertMatch(s2){ case Good(Refs3(_, _, _)) => }
-      assertMatch(s3){ case Good(Refs3(_, _, _)) => }
-      assertMatch(s4){ case Good(Refs3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }
+    { assertMatch(s1){ case GoodRefs(Refs0()) => }
+      assertMatch(s2){ case GoodRefs(Refs3(_, _, _)) => }
+      assertMatch(s3){ case GoodRefs(Refs3(_, _, _)) => }
+      assertMatch(s4){ case GoodRefs(Refs3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }
       assertMatch(a4){ case Good(Refs1(_)) => }
       assertMatch(a5) { case GoodRefs(Refs4(_, _, _, _)) => }
     }
