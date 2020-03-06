@@ -15,7 +15,16 @@ trait TileGrid
   def yTileMax: Int
   def numOfTiles: Int
 
+  /** Returns the index of an Array from its tile coordinate. */
+  @inline def index(x: Int, y: Int): Int
+
   def allTilesForeach(f: Cood => Unit): Unit
+
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
   def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)
+
+  /** Returns the index of an Array from its tile coordinate. */
+  @inline final def index(cood: Cood): Int = index(cood.x, cood.y)
+
+  def arrSet[A](cood: Cood, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(cood), value)
 }

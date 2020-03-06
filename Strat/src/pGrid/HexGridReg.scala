@@ -36,4 +36,18 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   { ijToForeach(yRow2sMin, yRow2sMax, 4)(xRow2sMin, xRow2sMax, 4)((y, x) => f(Cood(x, y)))
     ijToForeach(yRow0sMin, yRow0sMax, 4)(xRow0sMin, xRow0sMax, 4)((y, x) => f(Cood(x, y)))
   }
+
+  def bottomRowIs2: Boolean = yTileMin.div4Rem2
+  def bottomRowIs0: Boolean = yTileMin.div4Rem0
+
+  @inline override def index(x: Int, y: Int): Int =
+  {
+    val thisRow: Int = y %% 4 match
+    { case 2 => (x - xRow2sMin) / 4
+      case 0 => (x - xRow0sMin) / 4
+    }
+    val y2s: Int = row2sTileLen * (y - yRow2sMin) / 4
+    val y0s: Int = row0sTileLen * (y - yRow0sMin) / 4
+    y0s + y2s + thisRow
+  }
 }

@@ -83,10 +83,15 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def hexStr: String = thisInt.toHexString.toUpperCase
   @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)
   def isDivBy3: Boolean = thisInt % 3 == 0
-   
+
+  /** Dividing by 4 gives remainder of 0. */
   def div4Rem0: Boolean = thisInt % 4 == 0
+
   def div4Rem1: Boolean = thisInt %% 4 == 1
+
+  /** Dividing by 4 gives remainder of 2. */
   def div4Rem2: Boolean = thisInt %% 4 == 2
+
   def div4Rem3: Boolean = thisInt %% 4 == 3
    
   def isDivBy8: Boolean = thisInt % 8 == 0
