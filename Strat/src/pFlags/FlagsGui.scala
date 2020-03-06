@@ -7,9 +7,9 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 {
   backColour = Gray
    
-  val arm = Armenia().scale(100)//.slate(canv.topLeft)
+  val arm = Armenia.subj.scale(100)//.slate(canv.topLeft)
    
-  val stuff = arm ++ Refs(
+  val stuff = arm -+: Refs(
       france.scale(100).tR.slate(canv.topRight),
       chad.scale(100).tL.slate(canv.topLeft),
       // belgium.scale(100).bL.slate(canv.bottomLeft),

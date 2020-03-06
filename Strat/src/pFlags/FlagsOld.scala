@@ -6,11 +6,11 @@ import geom._, Colour._
 object FlagsOld
 {
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-  def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubjOld =  Rectangle(ratio, 1).subjSeq(evObj = retObj,
+  def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubjOld =  Rectangle(ratio, 1).subjSeqOld(evObj = retObj,
       colours.iMapOld((colour, i) => Rectangle.fromTL(ratio / colours.length, 1, -ratio / 2 vv + 0.5).slate(i * ratio / colours.length, 0).fill(colour)))
          
   /** Equal height horrisontal bands. width ratio should normally be greater than 1.0 */     
-  def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubjOld = Rectangle(ratio, 1).subjSeq(retObj,
+  def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubjOld = Rectangle(ratio, 1).subjSeqOld(retObj,
       colours.iMapOld((colour, i) => Rectangle.fromTL(ratio, 1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0, - i.toDouble / colours.length).fill(colour)))
       
 
@@ -42,7 +42,7 @@ object FlagsOld
     val s1: ArrOld[PaintElem] = ArrOld(
         poly.fill(Red),
         Circle.segs(6.0 /8).fill(White)) ++ cross      
-        poly.subjSeq("Swastika", s1)
+        poly.subjSeqOld("Swastika", s1)
   }
   
   val germany1871 = topToBottom("Germany flag", 1.5, Black, White, Red)   
@@ -52,7 +52,7 @@ object FlagsOld
   val japan =
   { val poly = Rectangle(1.5, 1)
     val s1 = ArrOld(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0 ,45)))
-    poly.subjSeq("Japan Flag", s1)         
+    poly.subjSeqOld("Japan Flag", s1)
   }   
   
   val russia = topToBottom("Russia flag", 1.5, White, Blue, Red)   
