@@ -51,7 +51,7 @@ object FlagsOld
   
   val japan =
   { val poly = Rectangle(1.5, 1)
-    val s1 = ArrOld(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0 ,45)))
+    val s1 = ArrOld(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0,45)))
     poly.subjSeqOld("Japan Flag", s1)
   }   
   
