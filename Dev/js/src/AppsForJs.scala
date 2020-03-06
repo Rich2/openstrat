@@ -11,7 +11,7 @@ object AppsForJs
     ("0", (new pCiv.CivGui(_), "ScalaFx Rise of Civs")),
     ("1", (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") ),
     ("2", (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
-    ("3", (FlagsGui(_), "ScalaFx Flags")),
+    ("3", (pFlags.FlagsGui(_), "ScalaFx Flags")),
     ("4", (pSpace.Planets(_), "ScalaFx Planets")),
     ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
     ("6", (new pDung.DungeonGui(_), "ScalaFx Dungeon")),

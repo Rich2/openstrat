@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pStrat
-import geom._, pCanv._, Colour._, pFlags._, FlagsZ._
+package pFlags
+import geom._, pCanv._, Colour._, pFlags._, FlagsOld._
 
 case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 {

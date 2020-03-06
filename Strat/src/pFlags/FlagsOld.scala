@@ -1,9 +1,9 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pStrat
+package pFlags
 import geom._, Colour._
 
-object FlagsZ
+object FlagsOld
 {
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
   def leftToRight(retObj: AnyRef, ratio: Double, colours: Colour*): PolySubj =  Rectangle(ratio, 1).subjSeq(evObj = retObj,

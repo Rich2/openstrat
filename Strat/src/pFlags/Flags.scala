@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pStrat
 package pFlags
 import geom._, Colour._
 
@@ -16,6 +15,11 @@ trait Flag
    def topToBottom(retObj: AnyRef,ratio: Double, colours: Colour*): PolySubj = Rectangle(ratio, 1).subjSeq(retObj,
      colours.iMap((colour, i) => Rectangle.fromTL(ratio, 1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0,
        - i.toDouble / colours.length).fill(colour)))
+}
+
+object Flag
+{
+
 }
 
 object Armenia extends Flag
