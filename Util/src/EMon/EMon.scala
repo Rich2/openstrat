@@ -53,6 +53,7 @@ final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fGood(value)
 
   override def fold[B](noneValue: => B)(fGood: A => B): B = fGood(value)
+  override def fld[B](noneValue: => B, fGood: A => B): B = fGood(value)
 
  // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
@@ -78,7 +79,8 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
   override def map[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def flatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def flatMapOld[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
-  @inline override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
+  override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
+  override def fld[B](noneValue: => B, fGood: A => B): B = noneValue
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
 
   //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)

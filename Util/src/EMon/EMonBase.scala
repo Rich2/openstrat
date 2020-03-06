@@ -32,6 +32,8 @@ trait EMonBase[+A]
   def get: A
 
   def fold[B](noneValue: => B)(fGood: A => B): B
+  def fld[B](noneValue: => B, fGood: A => B): B
+
 
   def toEither: Either[Strings, A]
   def isGood: Boolean
