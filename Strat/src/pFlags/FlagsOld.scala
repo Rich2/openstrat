@@ -25,7 +25,7 @@ object FlagsOld
   val englishRed = Colour.fromInts(204, 0, 0)
   
   val england =
-  { val redCross = Rectangle.cross(2, 1, 0.2).map(_.fill(englishRed))
+  { val redCross = Rectangle.crossOld(2, 1, 0.2).map(_.fill(englishRed))
     Rectangle(2, 1).fillSubj(" flag", White).addElems(redCross)
   }   
   

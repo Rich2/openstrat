@@ -7,6 +7,7 @@ trait Flag
 { def apply(): Refs[PaintElem]
   def name: String
   def ratio: Double
+  def rect: Polygon = Rectangle(ratio)
   def subj: PolySubj = Rectangle(ratio).subjSeq(name + " flag", apply)
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
@@ -31,13 +32,24 @@ object Austria extends Flag
   val apply: Refs[PaintElem] = topToBottom(Black, Yellow)
 }
 
+trait EnglandLike extends Flag
+{ def ratio = 2
+  def englishRed: Colour = Colour.fromInts(204, 0, 0)
+  //def redCross: Refs[PolyFill] = Rectangle.cross(2, 1, 0.2).map(_.fill(englishRed))
+}
+
+object England extends EnglandLike
+{ val name = "England"
+  val apply = Refs() //redCross
+}
+
 object Japan extends Flag
 { val name = "Japan"
   val ratio = 1.5
   val apply: Refs[PaintElem] =
-  { val rect = Rectangle(ratio).fill(White)
+  { val rw = rect.fill(White)
     val circ = Circle.segs(0.6).fill(Colour.fromInts(188, 0,45))
-    Refs(rect, circ)
+    Refs(rw, circ)
   }
 }
 
