@@ -2,7 +2,7 @@
 package ostrat
 package pFlags
 
-import geom._, pCanv._, Colour._, pFlags._, FlagsOld._
+import geom._, pCanv._, Colour._
 
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { val commonScale = 95
@@ -27,11 +27,11 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     Japan.subj.scale(commonScale).slate(300, -20),
     //row 4
     Russia.subj.scale(commonScale).slate(-300, -130),
-    Soviet.subj.scale(commonScale).slate(-100, -130),
+    USSR.subj.scale(commonScale).slate(-100, -130),
     Swastika.subj.scale(commonScale).slate(100, -130),
-    UK.subj.scale(commonScale).slate(300, -130),
+    UnitedKingdom.subj.scale(commonScale).slate(300, -130),
     //row 5
-    US.subj.scale(commonScale).slate(-300, -240),
+    UnitedStates.subj.scale(commonScale).slate(-300, -240),
     WhiteFlag.subj.scale(commonScale).slate(-100, -240),
     // WhiteFlag.subj.scale(commonScale).slate(100, -240),
     // WhiteFlag.subj.scale(commonScale).slate(300, -240),

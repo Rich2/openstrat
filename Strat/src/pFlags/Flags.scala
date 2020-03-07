@@ -154,8 +154,8 @@ object Russia extends Flag
   val apply: Refs[PaintElem] = topToBottom(White, Blue, Red)
 }
 
-object Soviet extends Flag
-{ val name = "Soviet (Simplified)"
+object USSR extends Flag
+{ val name = "USSR"
   val ratio = 1.5
   val apply: Refs[PaintElem] = 
   {
@@ -181,8 +181,8 @@ object Swastika extends Flag
   }
 }
 
-object US extends Flag
-{ val name = "US"
+object UnitedStates extends Flag
+{ val name = "United States"
   val ratio = 1.9
   val apply: Refs[PaintElem] = 
   {
