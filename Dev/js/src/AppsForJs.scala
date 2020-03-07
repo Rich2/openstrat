@@ -24,7 +24,7 @@ object AppsForJs
     // ("13", (pGames.pNew.TGui(_), "New Grid")),
     ("14", (new pReactor.ReactorGUI(_), "reactor")),
     ("15", (new pChess.ChessGui(_), "Chess")),
-
+    ("16", (new pFlags.FlagSelectorGUI(_), "Flag Fun")),
 
     ("Z0", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
     ("Z1", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
