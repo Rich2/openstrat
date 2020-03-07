@@ -98,13 +98,13 @@ object UnitedKingdom extends EnglandLike
       xDiag vv ywc)
 
     val reds1 = Polygons(r1, r2).map(_.fill(englishRed))
-    val reds = reds1.flatMap(e => Refs(e, e.fTrans(-_))) //.flatWithNegate
+    val reds = reds1.flatMap(e => Refs(e, e.negXY)) //.flatWithNegate
 
     val blues = {
       val l1 = Polygons(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
       l1.flatMap(b => Refs(b, b.negX, b.negY, b.negXY))
     }
-     common ++ blues ++ reds//).mutObj("United Kingdom flag")
+     common ++ blues ++ reds
   }
 }
 
