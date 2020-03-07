@@ -18,7 +18,6 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
     uk.scale(200).slate(300, -350).rotate(10.degs),
     japan.scale(200).slate(650, 200).rotate(10.degs),
     TextOutline("This is text outline at x = -400").slateX(-400),
-    Swastika.subj.scale(100).slate(-150, -150),
    )
                
   mouseUp = (v, b, s) =>
