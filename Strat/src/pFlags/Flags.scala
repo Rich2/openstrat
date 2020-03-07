@@ -17,30 +17,33 @@ trait Flag
    def topToBottom(colours: Colour*): Refs[PaintElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio,
      1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0,
        - i.toDouble / colours.length).fill(colour))
-  //)Rectangle(ratio, 1).subjSeq(retObj,
-}
-
-object Flag
-{
-
 }
 
 object Armenia extends Flag
-{ def ratio = 2
-  def apply: Refs[PaintElem] = leftToRight(Red, Blue, Gold)
-  def name = "Armenia"
+{ val name = "Armenia"
+  val ratio = 2
+  val apply: Refs[PaintElem] = leftToRight(Red, Blue, Gold)
 }
 
 object Austria extends Flag
-{ val ratio = 1.5
-  def apply: Refs[PaintElem] = topToBottom(Black, Yellow)
-  def name = "Austria"
+{ def name = "Austria"
+  val ratio = 1.5
+  val apply: Refs[PaintElem] = topToBottom(Black, Yellow)
+}
+
+object Japan extends Flag
+{ val name = "Japan"
+  val ratio = 1.5
+  val apply: Refs[PaintElem] =
+  { val rect = Rectangle(ratio).fill(White)
+    val circ = Circle.segs(0.6).fill(Colour.fromInts(188, 0,45))
+    Refs(rect, circ)
+  }
 }
 
 object Swastika extends Flag
-{ val ratio = 5 / 3.0
-  val name = "Swastika"
-
+{ val name = "Swastika"
+  val ratio = 5 / 3.0
   val apply: Refs[PaintElem] =
   { val poly = Rectangle(ratio, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)

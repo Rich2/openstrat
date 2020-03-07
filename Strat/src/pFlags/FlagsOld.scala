@@ -34,27 +34,11 @@ object FlagsOld
   val france = leftToRight("France flag", 1.5, Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
    
   val germany = topToBottom("Germany flag", 5 / 3.0, Black, Red, Gold)
-  val nazi: PolySubjOld =
-  { val poly = Rectangle(5 / 3.0, 1)
-    val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
-    val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)         
-    val cross = ArrOld(bar, arm).anti45.flatMap(_.rCross)//  flatRCross
-    val s1: ArrOld[PaintElem] = ArrOld(
-        poly.fill(Red),
-        Circle.segs(6.0 /8).fill(White)) ++ cross      
-        poly.subjSeqOld("Swastika", s1)
-  }
-  
+
   val germany1871 = topToBottom("Germany flag", 1.5, Black, White, Red)   
   val italy  = leftToRight("Italy flag", 1.5, Green, White, Red)   
   val ireland = leftToRight("Ireland flag", 2, Green, White, Orange)   
-  
-  val japan =
-  { val poly = Rectangle(1.5, 1)
-    val s1 = ArrOld(poly.fill(White), Circle.segs(0.6).fill(Colour.fromInts(188, 0,45)))
-    poly.subjSeqOld("Japan Flag", s1)
-  }   
-  
+
   val russia = topToBottom("Russia flag", 1.5, White, Blue, Red)   
   
   val soviet =
