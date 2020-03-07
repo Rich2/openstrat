@@ -35,12 +35,53 @@ object Austria extends Flag
 trait EnglandLike extends Flag
 { def ratio = 2
   def englishRed: Colour = Colour.fromInts(204, 0, 0)
-  //def redCross: Refs[PolyFill] = Rectangle.cross(2, 1, 0.2).map(_.fill(englishRed))
+  def redCross: Refs[PolyFill] = Rectangle.cross(2, 1, 0.2).map(_.fill(englishRed))
+  def common = rect.fill(White) +: redCross
 }
 
 object England extends EnglandLike
 { val name = "England"
-  val apply = Refs() //redCross
+  val apply = common
+}
+
+object UnitedKingdom extends EnglandLike
+{ val name = "United Kingdom"
+
+  val apply: Refs[PaintElem] =
+  { val xd = math.sqrt(5) / 30.0 //hypotenuse sqrt(2 * 2 + 1 * 1)
+    val yd = math.sqrt(1.25) / 30.0 //hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)
+    val ywc = 5.0 / 30 //top of White cross bar
+    val xDiag = 10.0 / 30.0 //ywc * 2 where diag crosses ywc
+    val b1 = Polygon(
+      5.0 / 30 vv 0.5, 1 - xd * 3 vv 0.5,
+      1.0 / 6.0 vv ywc + yd)
+
+    val b2 = Polygon(
+      xDiag + 3 * xd vv ywc,
+      1 vv 0.5 - yd * 3,
+      1 vv ywc)
+
+    val r1: Polygon = Polygon(
+      -1 vv 0.5,
+      -xDiag vv ywc,
+      -(xDiag + xd * 2) vv ywc,
+      -1 vv 0.5 - (yd * 2))
+
+    val r2: Polygon = Polygon(
+      xDiag - xd * 2 vv ywc,
+      1 - xd * 2 vv 0.5,
+      1 vv 0.5,
+      xDiag vv ywc)
+
+    val reds1 = Polygons(r1, r2).map(_.fill(englishRed))
+    val reds = reds1.flatMap(e => Refs(e, e.fTrans(-_))) //.flatWithNegate
+
+    val blues = {
+      val l1 = Polygons(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
+      l1.flatMap(b => Refs(b, b.negX, b.negY, b.negXY))
+    }
+     common ++ blues ++ reds//).mutObj("United Kingdom flag")
+  }
 }
 
 object Japan extends Flag

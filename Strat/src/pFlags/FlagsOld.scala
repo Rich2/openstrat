@@ -22,12 +22,12 @@ object FlagsOld
     Rectangle(1.5, 1).fillSubj("China", Red).addElem(blueRect)
   }
   
-  val englishRed = Colour.fromInts(204, 0, 0)
+  /*val englishRed = Colour.fromInts(204, 0, 0)
   
   val england =
   { val redCross = Rectangle.crossOld(2, 1, 0.2).map(_.fill(englishRed))
     Rectangle(2, 1).fillSubj(" flag", White).addElems(redCross)
-  }   
+  }   */
   
   /** val france = leftToRight("France flag", 1.5, Blue, White, Red)
     Changed SM 2020-01-11 - see below */
@@ -46,7 +46,7 @@ object FlagsOld
     Rectangle(1.5, 1).fillSubj("Soviet flag simplified", Red).addElem(star)
   }  
    
-  val uk =
+  /*val uk =
   { val xd = math.sqrt(5) / 30.0//hypotenuse sqrt(2 * 2 + 1 * 1)
     val yd = math.sqrt(1.25) / 30.0//hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)      
     val ywc = 5.0 /30 //top of White cross bar
@@ -80,7 +80,7 @@ object FlagsOld
       l1.flatMap(b => ArrOld(b, b.negX, b.negY, b.negXY))
     }
     england.addElems(blues ++ reds).mutObj("United Kingdom flag")
-  }
+  }*/
   
   val us =
   { val blueRect = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(DarkBlue)
