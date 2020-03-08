@@ -148,13 +148,3 @@ object Vec2
     def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2sBuff = new Vec2sBuff(inp)
   }
 }
-
-
-
-trait OptOldVec2 extends OptOld[Vec2]
-
-class SomeVec2(_1: Double, _2: Double) extends OptOldVec2 with SomeT[Vec2]
-{ override def value: Vec2 = Vec2(_1, _2)
-}
-
-case object NoVec2 extends OptOldVec2 with NoOptOld[Vec2]

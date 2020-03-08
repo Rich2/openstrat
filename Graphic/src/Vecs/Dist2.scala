@@ -71,11 +71,3 @@ object Dist2s extends ProdDbl2sCompanion[Dist2, Dist2s]
   { override def fromArray(value: Array[Double]): Dist2s = new Dist2s(value)
   }
 }
-
-trait OptOldDist2 extends OptOld[Dist2]
-
-case class SomeDist2(_1: Double, _2: Double) extends OptOldDist2 with SomeT[Dist2]
-{ override def value: Dist2 = new Dist2(_1, _2)
-}
-
-case object NoDist2 extends OptOldDist2 with NoOptOld[Dist2]
