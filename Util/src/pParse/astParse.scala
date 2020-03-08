@@ -6,12 +6,12 @@ package pParse
 object astParse
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
-  def apply(implicit tokens: Refs[Token]): ERefs[Statement] =
+  def apply(implicit tokens: Refs[Token]): ERefsSpec[Statement] =
   {
     val acc: Buff[BlockMember] = Buff()
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
-    def loop(rem: RefsOff[Token]): ERefs[Statement] = rem match
+    def loop(rem: RefsOff[Token]): ERefsSpec[Statement] = rem match
     {
       case RefsOff0() => statementsParse(acc.toRefs)
       case RefsOff1Tail(bo: BracketOpen, tail) => bracesParse(tail, bo).flatMapRefs {(bracketBlock, remTokens) =>

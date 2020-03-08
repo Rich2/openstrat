@@ -13,7 +13,7 @@ trait UnShow[+T]
   //def fromStatements(sts: Refs[Statement]): EMon[T]
   
   def fromClauses1[A1, B](f: A1 => B, clauses: Refs[Clause])(implicit ev1: Persist[A1]): EMon[B] = clauses match
-  { case Refs1(c1) => ev1.fromExpr(c1.expr).mapOld(f)
+  { case Refs1(c1) => ev1.fromExpr(c1.expr).map(f)
     case _ => excep("from clauses exception")
   }
   

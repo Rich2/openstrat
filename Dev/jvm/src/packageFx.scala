@@ -8,10 +8,10 @@ package object pFx
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
   lazy val generalDevSettings: EMon[Statements] =
-    eTry(io.Source.fromResource("DevSettings.rson").toArray).flatMapOld(srcToEStatements(_, "DevSettings.rson"))
+    eTry(io.Source.fromResource("DevSettings.rson").toArray).flatMap(srcToEStatements(_, "DevSettings.rson"))
 
-  def findDevSetting[A: Persist](settingStr: String): EMon[A] = generalDevSettings.flatMapOld(_.findSetting(settingStr))
-  def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = generalDevSettings.flatMapOld(_.findSetting(settingStr)).getElse(elseValue)
+  def findDevSetting[A: Persist](settingStr: String): EMon[A] = generalDevSettings.flatMap(_.findSetting(settingStr))
+  def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = generalDevSettings.flatMap(_.findSetting(settingStr)).getElse(elseValue)
 
   def saveRsonFile(path: String, fileName: String, output: String): Unit =
   { import java.io._

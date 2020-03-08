@@ -41,7 +41,7 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
 
 class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](ev)
 {
-  override def fromExpr(expr: Expr): EMon[::[A]] = fromExprLike(expr).flatMapOld
+  override def fromExpr(expr: Expr): EMon[::[A]] = fromExprLike(expr).flatMap
   {
     case h :: tail => Good(::(h, tail))
     case Nil => bad1(TextSpan.empty, "Empty List can not be parsed into Cons.")
@@ -55,7 +55,7 @@ class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](
   override def showSemi(thisSeq: Nil.type): String = ""
   override def showComma(thisSeq: Nil.type): String = ""
  
-  override def fromExpr(expr: Expr): EMon[Nil.type] = fromExprLike(expr).flatMapOld
+  override def fromExpr(expr: Expr): EMon[Nil.type] = fromExprLike(expr).flatMap
   {
     case h :: tail => bad1(TextSpan.empty, "Non empty List can not be parsed into Nil.")
     case Nil => Good(Nil) 

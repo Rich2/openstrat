@@ -24,7 +24,7 @@ object Persist
   }
 
   implicit def vectorPersistImplicit[A](implicit ev: Persist[A]): Persist[Vector[A]] = new PersistIterable[A, Vector[A]](ev)
-  { override def fromExpr(expr: Expr): EMon[Vector[A]] = fromExprLike(expr).mapOld(_.toVector)
+  { override def fromExpr(expr: Expr): EMon[Vector[A]] = fromExprLike(expr).map(_.toVector)
    // override def fromParameterStatements(sts: Refs[Statement]): EMon[Vector[A]] = ???
     //override def fromClauses(clauses: Refs[Clause]): EMon[Vector[A]] = ???
   }

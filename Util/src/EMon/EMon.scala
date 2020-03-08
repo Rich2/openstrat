@@ -8,21 +8,19 @@ import scala.annotation.unchecked.uncheckedVariance
  * methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view Either[T] class is redundant and is
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A] extends EMonBase[A]
-{
-
-  @deprecated def mapOld[B](f: A => B): EMon[B]
-  @deprecated def flatMapOld[B](f: A => EMon[B]): EMon[B]
+{ def map[B](f: A => B): EMon[B]
+  def flatMap[B](f: A => EMon[B]): EMon[B]
   def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
 }
 
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMapOld(str => pParse.stringToStatements(str).flatMapOld(_.findType[A]))
+  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
     def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
     def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] =
-      thisEMon.flatMapOld(str => pParse.stringToStatements(str).flatMapOld(_.findSett[A](settingStr)))
+      thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSett[A](settingStr)))
     def findSettingElse[A: Persist](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
     def findSomeSetting[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
     def findSomeSettingElse[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
@@ -34,10 +32,10 @@ object EMon
 
   implicit class refsImplicit[A <: AnyRef](thisEMon: EMon[Refs[A]])
   {
-    def toNewERefs: ERefs[A] = thisEMon match
+    def toNewERefs: ERefsSpec[A] = thisEMon match
     {
-      case Good(rs) => GoodRefs(rs)
-      case Bad(errs) => BadRefs(errs)
+      case Good(rs) => GoodRefsSpec(rs)
+      case Bad(errs) => BadRefsSpec(errs)
     }
   }
 }
@@ -46,10 +44,10 @@ object EMon
  *  Right[Refs[String], +A]. */
 final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 {
-  override def mapOld[B](f: A => B): EMon[B] = Good[B](f(value))
+  override def map[B](f: A => B): EMon[B] = Good[B](f(value))
   override def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
   override def baseFlatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = f(value)
-  override def flatMapOld[B](f: A => EMon[B]): EMon[B] = f(value)
+  override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fGood(value)
 
   override def fold[B](noneValue: => B)(fGood: A => B): B = fGood(value)
@@ -75,10 +73,10 @@ object Good
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
-{ override def mapOld[B](f: A => B): EMon[B] = Bad[B](errs)
+{ override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def baseFlatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
-  override def flatMapOld[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
+  override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   override def fld[B](noneValue: => B, fGood: A => B): B = noneValue
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)

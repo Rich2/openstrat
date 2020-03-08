@@ -6,18 +6,18 @@ package pParse
 object statementsParse
 {
   /** Parses a sequence of block members raw Statement where bracket blocks have already been parsed into a sequence of Statements. */
-  def apply(implicit inp: Refs[BlockMember]): ERefs[Statement] =
+  def apply(implicit inp: Refs[BlockMember]): ERefsSpec[Statement] =
   {
     val acc: Buff[Statement] = Buff()
     var subAcc: Buff[StatementMember] = Buff()
 
-    def loop(rem: RefsOff[BlockMember]): ERefs[Statement] = rem match
+    def loop(rem: RefsOff[BlockMember]): ERefsSpec[Statement] = rem match
     {
-      case RefsOff0() if subAcc.isEmpty => GoodRefs(acc.toRefs)
+      case RefsOff0() if subAcc.isEmpty => GoodRefsSpec(acc.toRefs)
       case RefsOff0() => statementParse(subAcc.toRefs, NoGood).baseMap(acc :+ _).baseMap(_.toRefs)(EMonBuild.refsImplicit)
       case RefsOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
-      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, Good(st)).baseFlatMap[Refs[Statement], ERefs[Statement]]{ g =>
+      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, Good(st)).baseFlatMap[Refs[Statement], ERefsSpec[Statement]]{ g =>
           acc.append(g)
           subAcc = Buff()
           loop(tail)
