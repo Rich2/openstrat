@@ -32,7 +32,7 @@ object EMon
 
   implicit class refsImplicit[A <: AnyRef](thisEMon: EMon[Refs[A]])
   {
-    def toNewERefs: ERefsSpec[A] = thisEMon match
+    def toERefsSpec: ERefsSpec[A] = thisEMon match
     {
       case Good(rs) => GoodRefsSpec(rs)
       case Bad(errs) => BadRefsSpec(errs)
