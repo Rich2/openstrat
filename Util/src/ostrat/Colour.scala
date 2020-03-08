@@ -24,7 +24,7 @@ class Colour(val argbValue: Int) extends AnyVal with ProdInt1
   def redOrPink: Colour = ife((red + green + blue) > 128 * 3, Colour.DarkRed, Colour.Pink)
 
   def nextFrom(seq: Colours): Colour = seq.findIndex(this) match
-  { case NoInt => seq(0)
+  { case BadIntNo => seq(0)
     case GoodInt(i) if i >= seq.length - 1 => seq(0)
     case GoodInt(i) => seq(i + 1)
   }

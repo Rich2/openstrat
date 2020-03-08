@@ -32,7 +32,7 @@ case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
   @inline override def |+| (operand: EMonInt): EMonInt = appendErrs(operand)
 }
 
-object NoInt extends BadInt(Refs())
+object BadIntNo extends BadInt(Refs())
 
 
 sealed trait EMonInts extends EMonBase[Ints]

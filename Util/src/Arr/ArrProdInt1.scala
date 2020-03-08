@@ -17,7 +17,7 @@ trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
   def findIndex(value: A): EMonInt =
   {
     var count = 0
-    var acc: EMonInt = NoInt
+    var acc: EMonInt = BadIntNo
     var continue = true
     while (continue == true & count < length)
     {

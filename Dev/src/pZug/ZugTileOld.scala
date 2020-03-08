@@ -56,5 +56,5 @@ object WoodBuilding extends Building
 
 object Lake extends ZugTerr
 { override def colour = Blue
-  override def cost: EMonInt = NoInt
+  override def cost: EMonInt = BadIntNo
 }
