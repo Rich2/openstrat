@@ -33,18 +33,6 @@ object NoOptOld
   def unapply[A](inp: OptOld[A]): Boolean = inp.empty
 }
 
-object OptOldRef
-{ def apply[A >: Null <: AnyRef](value: A): OptOldRef[A] = new OptOldRef(value)
-}
-
-class OptOldRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with OptOld[A]
-{ def fold[B](vNone: => B, fSome: A => B): B = ife(ref == null, vNone, fSome(ref))
-  override def toString: String = fold("NoRef", v => "Some(" + v.toString + ")")
-  def empty: Boolean = ref == null
-  override def map[B](f: A => B)(implicit ev: OptBuild[B]): OptOld[B] = ife(empty, ev.none, ev(f(ref)))
-  override def flatMap[B](f: A => OptOld[B])(implicit ev: OptBuild[B]): OptOld[B] = ife(empty, ev.none, f(ref))
-}
-
 trait OptBuild[B]
 { type OptT <: OptOld[B]
   def apply(b: B): OptOld[B]
