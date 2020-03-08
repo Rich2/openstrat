@@ -22,7 +22,7 @@ package object ostrat
   val Sin60 = 0.866025404f;
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
- // def prints(objs: Any*): Unit = println(objs.map(_.toString).commaFold)
+
   @deprecated def ArrOld[A](inp: A *)(implicit ct: ClassTag[A]): ArrOld[A] = ArraySeq.apply(inp: _*)
 
   /** onlyIf-do. Only if the condition is true, perform the effect. */
