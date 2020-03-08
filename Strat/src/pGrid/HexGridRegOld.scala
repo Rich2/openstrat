@@ -77,7 +77,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
      
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => EMonInt): Option[List[Cood]] =
   {
-    var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), nullRef[Node[TileT]]) :: Nil
+    var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), NoGood) :: Nil
     var closed: List[Node[TileT]] = Nil
     var found: Option[Node[TileT]] = None
     while (open.nonEmpty & found == None)
@@ -98,11 +98,11 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
             
             open.find(_.tile == tile) match
             {
-              case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = OptOldRef(curr) }
+              case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = Good(curr) }
               case Some(node) =>
               case None => 
               {
-                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), OptOldRef(curr))
+                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), Good(curr))
                 open ::= newNode
                 if (tile.cood == endCood) found = Some(newNode)
               }
@@ -112,7 +112,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
       }       
    }
      
-  def loop(acc: List[Cood], curr: Node[TileT]): List[Cood] = curr.parent.fold(acc, loop(curr.tile.cood :: acc, _))
+  def loop(acc: List[Cood], curr: Node[TileT]): List[Cood] = curr.parent.fld(acc, loop(curr.tile.cood :: acc, _))
    
   found.map(endNode =>  loop(Nil, endNode))
   }
@@ -122,7 +122,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 
-case class Node[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptOldRef[Node[TileT]])
+case class Node[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: EMon[Node[TileT]])
 {
   def fCost = gCost + hCost
 }

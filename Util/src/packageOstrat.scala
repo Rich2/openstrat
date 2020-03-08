@@ -98,8 +98,6 @@ package object ostrat
   val two32: Long = 4294967296L
   def twoIntsToDouble(i1: Int, i2: Int): Double = { val lg  = (i1.toLong << 32) | (i2 & 0xFFFFFFFFL); java.lang.Double.longBitsToDouble(lg) }
 
-  def nullRef[A >: Null <: AnyRef]: OptOldRef[A] = new OptOldRef[A](null.asInstanceOf[A])
-
   /** Not sure if this correct. This might throw on iStep = 0. */
   def iDblToMap[A, AA <: ArrImut[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Double => A)(implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
