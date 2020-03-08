@@ -24,7 +24,7 @@ object CommentTest extends TestSuite
       assertMatch(s3){ case GoodRefs(Refs3(_, _, _)) => }
       assertMatch(s4){ case GoodRefs(Refs3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }
       assertMatch(a4){ case GoodRefs(Refs1(_)) => }
-      assertMatch(a5) { case GoodRefs(Refs4(_, _, _, _)) => }
+      assertMatch(a5){ case GoodRefs(Refs4(_, _, _, _)) => }
     }
   }
 }
