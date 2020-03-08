@@ -5,7 +5,7 @@ package ostrat
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
   def parseTokens: ERefs[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String")//.toOld
-  def parseStatements: ERefsOld[pParse.Statement] = parseTokens.toOld.flatMapOld(pParse.astParse(_))
+  def parseStatements: ERefsOld[pParse.Statement] = parseTokens.flatMapRefs(pParse.astParse(_)).toOld
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */

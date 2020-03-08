@@ -6,7 +6,7 @@ package pParse
 object astParse
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
-  def apply(implicit tokens: Refs[Token]): ERefsOld[Statement] =
+  def apply(implicit tokens: Refs[Token]): ERefs[Statement] =
   {
     val acc: Buff[BlockMember] = Buff()
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
@@ -23,6 +23,6 @@ object astParse
       case RefsOff1Tail(bm: BlockMember, tail) => { acc.append(bm); loop(tail) }
     }
 
-    loop(tokens.offset0)
+    loop(tokens.offset0).toNewERefs
   }
 }

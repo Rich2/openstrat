@@ -21,10 +21,10 @@ package object pParse
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
   def srcToEStatements(input: Array[Char], inputSourceName: String): ERefsOld[Statement] =
-    srcToETokens(input, inputSourceName).toOld.flatMapOld(astParse(_))
+    srcToETokens(input, inputSourceName).flatMapRefs(astParse(_)).toOld
   /** Returns an EMon of a sequence of Statements from a String. */
   def stringToStatements(input: String): ERefsOld[Statement] =
-    stringToTokens(input).flatMapOld(astParse(_))
+    stringToTokens(input).toNewERefs.flatMapRefs(astParse(_)).toOld
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokens(srcStr: String): ERefsOld[Token] = srcToETokens(srcStr.toCharArray, "String").toOld
 
