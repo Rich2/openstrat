@@ -6,9 +6,9 @@ package pParse
   * clauses containing a single expression. An empty statement is a special case of the UnClausedStatement where the semicolon character is the
   * expression. */
 sealed trait Statement extends TextSpan
-{ def optSemi: OptOldRef[SemicolonToken]
-  def hasSemi: Boolean = optSemi.nonEmpty
-  def noSemi: Boolean = optSemi.empty
+{ def optSemi: EMon[SemicolonToken]
+  def hasSemi: Boolean = optSemi.isGood
+  def noSemi: Boolean = optSemi.isBad
   final def errGet[A](implicit ev: Persist[A]): EMon[A] = ???
   def expr: Expr
 }
@@ -129,31 +129,31 @@ object Statement
 
 /** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
  *  on the last Clauses is optional. */
-case class ClausedStatement(clauses: Refs[Clause], optSemi: OptOldRef[SemicolonToken]) extends Statement with TextSpanCompound
+case class ClausedStatement(clauses: Refs[Clause], optSemi: EMon[SemicolonToken]) extends Statement with TextSpanCompound
 { def expr: Expr = ??? //ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head
-  def endMem: TextSpan = optSemi.fold[TextSpan](clauses.last, st => st)
+  def endMem: TextSpan = optSemi.fld[TextSpan](clauses.last, st => st)
   //override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
 }
 
 /** An unclaused Statement has a single expression. */
 sealed trait UnClausedStatement extends Statement
 { def expr: Expr
-  def optSemi: OptOldRef[SemicolonToken]
+  def optSemi: EMon[SemicolonToken]
  // override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
 }
 
 /** An un-claused Statement that is not the empty statement. */
-case class MonoStatement(expr: Expr, optSemi: OptOldRef[SemicolonToken]) extends UnClausedStatement with TextSpanCompound
+case class MonoStatement(expr: Expr, optSemi: EMon[SemicolonToken]) extends UnClausedStatement with TextSpanCompound
 {
   def startMem: TextSpan = expr
-  def endMem: TextSpan = optSemi.fold(expr, sc => sc)
+  def endMem: TextSpan = optSemi.fld(expr, sc => sc)
 }
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with TextSpanCompound
 { override def expr: Expr = st
-  override def optSemi: OptOldRef[SemicolonToken] = OptOldRef(st)
+  override def optSemi: EMon[SemicolonToken] = Good(st)
   override def startMem: TextSpan = st
   override def endMem: TextSpan = st
   def asError[A]: Bad[A] = st.startPosn.bad("Empty Statement")
