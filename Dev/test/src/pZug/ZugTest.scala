@@ -12,8 +12,7 @@ object ZugTest  extends TestSuite
     val f3 = Zug1.zPath(24 cc 8, 32 cc 8)    
     
     "Path" -
-    {
-      assert(f1 == None)
+    { assert(f1 == None)
       assert(f2 == Some(List(24 cc 12, 22 cc 14)))
       assert(f3 == Some(List(26 cc 10, 30 cc 10, 32 cc 8)))      
     }
