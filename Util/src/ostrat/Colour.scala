@@ -319,21 +319,21 @@ object Colours
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
 }
 
-/*
-sealed trait OptOldColour extends OptOld[Colour]
+sealed trait OptColour extends Opt[Colour]
 
-class SomeColour(argbValue: Int) extends OptOldColour with SomeT[Colour]
-{ override def value: Colour = new Colour(argbValue)
+class SomeColour(argbValue: Int) extends OptColour with SomeT[Colour]
+{ def value: Colour = new Colour(argbValue)
+  override def foreach(f: Colour => Unit): Unit = f(value)
 }
 
 object SomeColour
 {
-  def unapply(input: OptOldColour): Option[Colour] = input match
+  def unapply(input: OptColour): Option[Colour] = input match
   { case sc: SomeColour => Some(sc.value)
     case NoColour => None
   }
 }
 
-case object NoColour extends OptOldColour with NoOptOld[Colour]
-{ def unapply(inp: OptOldColour): Boolean = inp.empty
-}*/
+case object NoColour extends OptColour with NoOpt[Colour]
+{ def unapply(inp: OptColour): Boolean = inp.empty
+}

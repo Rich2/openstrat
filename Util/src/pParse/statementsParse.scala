@@ -12,16 +12,15 @@ object statementsParse
     var subAcc: Buff[StatementMember] = Buff()
 
     def loop(rem: RefsOff[BlockMember]): ERefs[Statement] = rem match
-    {
-      case RefsOff0() if subAcc.isEmpty => Good(acc.toRefs)
-      case RefsOff0() => statementParse(subAcc.toRefs, NoGood).map(acc :+ _).map(_.toRefs)//(EMonBuild.refsImplicit)
+    { case RefsOff0() if subAcc.isEmpty => Good(acc.toRefs)
+      case RefsOff0() => statementParse(subAcc.toRefs, NoGood).map(acc :+ _).map(_.toRefs)
       case RefsOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
       case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, Good(st)).flatMap{ g =>
           acc.append(g)
           subAcc = Buff()
           loop(tail)
-        }//(EMonBuild.refsImplicit)
+        }
 
       case RefsOff1Tail(sm: StatementMember, tail) => { subAcc.append(sm); loop(tail) }
       case u => excep("Statement Loop, impossible case")
@@ -30,12 +29,3 @@ object statementsParse
     loop(inp.offset0)
   }
 }
-
-/*object parseSemicolons
-{
-  def apply(implicit inp: Refs[BlockMember]): ERefs[Refs[StatementMember]] =
-  {
-    ???
-  }
-}*/
-
