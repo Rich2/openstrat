@@ -75,7 +75,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
     HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
   def tileNeighbours(tile: TileT): ArrOld[TileT] = tileNeighboursCoods(tile.cood).mapArrSeq(getTile)
      
-  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => EMonInt): Option[List[Cood]] =
+  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), NoGood) :: Nil
     var closed: List[Node[TileT]] = Nil
@@ -90,9 +90,9 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
       neighbs.foreach { tile =>
         fTerrCost(curr.tile, tile) match
         {
-          case bi: BadInt =>
-          case GoodInt(nc) if closed.exists(_.tile == tile) =>
-          case GoodInt(nc) =>
+          case NoInt =>
+          case SomeInt(nc) if closed.exists(_.tile == tile) =>
+          case SomeInt(nc) =>
           {
             val newGCost = nc + curr.gCost
             
