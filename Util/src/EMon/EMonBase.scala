@@ -11,10 +11,10 @@ trait EMonBase[+A]
    * unnecessary boxing of primitive values. */
   def getElse(elseValue: => A @uncheckedVariance): A
   /** This is called map for typeclass map. Hope to have this as the standard map. */
-  def map[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB
+  def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB
 
   /** This is called map for typeclass map. Hope to have this as the standard map. */
-  def flatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB
+  def baseFlatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB
 
   def errs: Strings
 

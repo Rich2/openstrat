@@ -47,8 +47,8 @@ object EMon
 final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 {
   override def mapOld[B](f: A => B): EMon[B] = Good[B](f(value))
-  override def map[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
-  override def flatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = f(value)
+  override def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
+  override def baseFlatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = f(value)
   override def flatMapOld[B](f: A => EMon[B]): EMon[B] = f(value)
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fGood(value)
 
@@ -76,8 +76,8 @@ object Good
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
 { override def mapOld[B](f: A => B): EMon[B] = Bad[B](errs)
-  override def map[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
-  override def flatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
+  override def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
+  override def baseFlatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def flatMapOld[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   override def fld[B](noneValue: => B, fGood: A => B): B = noneValue
