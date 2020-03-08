@@ -8,7 +8,7 @@ object composeBlocks
   {
     val acc: Buff[BlockMember] = Buff()
 
-    def sortBlocks(rem: RefsOff[ClauseMember]): ERefsOld[BlockMember] = rem match
+    def sortBlocks(rem: RefsOff[ClauseMember]): ERefs[BlockMember] = rem match
     { case RefsOff0() => PrefixPlus(acc.toRefs)
       /*case (at: IdentifierLowerToken) :: (bb: BracketedStatements) :: t2 =>
       { //typedSpan needs removal

@@ -10,7 +10,7 @@ import scala.annotation.unchecked.uncheckedVariance
 sealed trait EMon[+A] extends EMonBase[A]
 { def map[B](f: A => B): EMon[B]
   def flatMap[B](f: A => EMon[B]): EMon[B]
-  def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
+  def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
 }
 
 object EMon
@@ -55,7 +55,7 @@ final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
 
  // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
-  override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
+  override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
   override def getElse(elseValue: => A @uncheckedVariance): A = value
@@ -83,7 +83,7 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
 
   //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
 
-  override def flatMap2Old[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
+  override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse(elseValue: => A @uncheckedVariance): A = elseValue
  // override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
