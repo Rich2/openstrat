@@ -45,27 +45,6 @@ class OptOldRef[A >: Null <: AnyRef](val ref: A) extends AnyVal with OptOld[A]
   override def flatMap[B](f: A => OptOld[B])(implicit ev: OptBuild[B]): OptOld[B] = ife(empty, ev.none, f(ref))
 }
 
-sealed trait OptOldInt extends OptOld[Int]
-{
-  def fold[B](fNull: => B, fSome: Int => B): B
-  def + (operand: OptOldInt): OptOldInt = combine(operand, _ + _)
-
-  def combine[B](operand: OptOldInt, f: (Int, Int) => Int) = this match
-  {
-    case SomeInt(v1) => operand match
-    { case SomeInt(v2) => SomeInt(f(v1, v2))
-      case _ => NoIntOld
-    }
-    case _ => NoIntOld
-  }
-}
-
-case class SomeInt(value: Int) extends OptOldInt with SomeT[Int]
-
-case object NoIntOld extends OptOldInt with NoOptOld[Int]
-{ def unapply(inp: OptOldInt): Boolean = inp.empty
-}
-
 trait OptBuild[B]
 { type OptT <: OptOld[B]
   def apply(b: B): OptOld[B]
