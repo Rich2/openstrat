@@ -55,6 +55,9 @@ trait ArrayLike[+A] extends Any
     res
   }
 
+  def iFlatMap[BB <: ArrImut[_]](f: (A, Int) => BB)(implicit ev: ArrFlatBuild[BB]): BB = ???
+
+
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
   def mapWithAcc[B, BB <: ArrImut[B], C](initC: C)(f: (A, C) => (B, C))(implicit  ev: ArrBuild[B, BB]): BB =
   { val res = ev.imutNew(length)
