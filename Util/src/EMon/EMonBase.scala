@@ -74,5 +74,3 @@ trait BadBase[+A] extends EMonBase[A]
   override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = (Left(errs))
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
 }
-
-trait NoBase[+A] extends BadBase[A]

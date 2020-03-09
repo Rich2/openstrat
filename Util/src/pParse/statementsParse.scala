@@ -13,10 +13,10 @@ object statementsParse
 
     def loop(rem: RefsOff[BlockMember]): ERefs[Statement] = rem match
     { case RefsOff0() if subAcc.isEmpty => Good(acc.toRefs)
-      case RefsOff0() => statementParse(subAcc.toRefs, NoGood).map(acc :+ _).map(_.toRefs)
+      case RefsOff0() => statementParse(subAcc.toRefs, NoRef).map(acc :+ _).map(_.toRefs)
       case RefsOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
-      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, Good(st)).flatMap{ g =>
+      case RefsOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, OptRef(st)).flatMap{ g =>
           acc.append(g)
           subAcc = Buff()
           loop(tail)

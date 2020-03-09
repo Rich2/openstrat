@@ -23,7 +23,7 @@ package object ostrat
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
 
-  def noRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
+  def NoRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
   @deprecated def ArrOld[A](inp: A *)(implicit ct: ClassTag[A]): ArrOld[A] = ArraySeq.apply(inp: _*)
 

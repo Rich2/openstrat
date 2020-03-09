@@ -22,8 +22,8 @@ trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[Ti
   def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale && b) cObjs else ArrOld()
   def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemsOld = if (tScale > ifScale && b) cObjs.toArr else ArrOld()
 
-  def ifScaleOptObjsNew[A >: Null <: AnyRef](ifScale: Double, eA: EMon[A])(f: A => GraphicElems): GraphicElems =
-    if (tScale < ifScale) Refs() else eA.foldErrs(g => f(g))(_ => Refs())
+  def ifScaleOptObjsNew[A >: Null <: AnyRef](ifScale: Double, eA: OptRef[A])(f: A => GraphicElems): GraphicElems =
+    if (tScale < ifScale) Refs() else eA.fld(Refs(), f(_))
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */

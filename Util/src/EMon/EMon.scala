@@ -101,4 +101,4 @@ object Bad
   }
 }
 
-object NoGood extends Bad[Nothing](Refs())
+//object NoGood extends Bad[Nothing](Refs())

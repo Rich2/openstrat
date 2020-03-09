@@ -4,9 +4,9 @@ object OptTest extends TestSuite
 {
   val tests = Tests
   {
-    def f(ss: EMon[String]): Int = ss.foldErrs(_.length)(_ => -1)
-    val n1: EMon[String] = NoGood
-    val n2 = Good("Hello")
+    def f(ss: OptRef[String]): Int = ss.fld(-1, _.length)
+    val n1: OptRef[String] = NoRef
+    val n2 = OptRef("Hello")
     val i1: OptInt = NoInt
 
 //    val i2 = OptOld(5)

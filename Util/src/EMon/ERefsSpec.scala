@@ -18,17 +18,6 @@ final case class GoodRefsSpec[+A <: AnyRef](value: Refs[A]) extends ERefsSpec[A]
   override def foldDo(fGood: Refs[A] => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def getElse(elseValue: => Refs[A] @uncheckedVariance): Refs[A] = value
   override def flatMapRefs[B <: AnyRef](f: Refs[A] => ERefsSpec[B]): ERefsSpec[B] = f(value)
-  /*override def goodMap[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB =
-  { val res = build.imutNew(value.length)
-    var count = 0
-
-    while (count < value.length)
-    {
-      build.imutSet(res, count, f(value(count)))
-      count += 1
-    }
-    res
-  }*/
 }
 case class BadRefsSpec[+A <: AnyRef](errs: Refs[String]) extends ERefsSpec[A] with BadBase[Refs[A]]
 { override def baseMap[B, BB <: EMonBase[B]](f: Refs[A] => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
@@ -39,5 +28,3 @@ case class BadRefsSpec[+A <: AnyRef](errs: Refs[String]) extends ERefsSpec[A] wi
   override def getElse(elseValue: => Refs[A] @uncheckedVariance): Refs[A] = elseValue
   override def flatMapRefs[B <: AnyRef](f: Refs[A] => ERefsSpec[B]): ERefsSpec[B] = BadRefsSpec[B](errs)
 }
-
-object NoRefsSpec$ extends BadRefsSpec[Nothing](Refs())

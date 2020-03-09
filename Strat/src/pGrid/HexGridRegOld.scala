@@ -77,7 +77,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
      
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
-    var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), noRef) :: Nil
+    var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), NoRef) :: Nil
     var closed: List[Node[TileT]] = Nil
     var found: Option[Node[TileT]] = None
     while (open.nonEmpty & found == None)

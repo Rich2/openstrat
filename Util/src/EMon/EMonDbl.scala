@@ -23,5 +23,3 @@ case class BadDbl(errs: Refs[String]) extends EMonDbl with BadBase[Double]
   @inline override def foldErrs[B](fGood: Double => B)(fBad: Strings => B): B = fBad(errs)
   override def getElse(elseValue: => Double): Double = elseValue
 }
-
-object NoDbl extends BadDbl(Refs()) //with EMonDbl with NoBase[Double]

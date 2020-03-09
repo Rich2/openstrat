@@ -23,6 +23,3 @@ case class BadBool(errs: Refs[String]) extends EMonBool with BadBase[Boolean]
   @inline override def foldErrs[B](fGood: Boolean => B)(fBad: Strings => B): B = fBad(errs)
   override def getElse(elseValue: => Boolean): Boolean = elseValue
 }
-
-object NoBool extends BadBool(Refs())
-

@@ -8,7 +8,7 @@ class DungeonGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int,
     yTileMin, yTileMax, turnNum)
 {
    def posn(charac: Character, x: Int, y: Int, facing: SFace): Unit =
-   { getTile(x, y).charac = Good(charac)
+   { getTile(x, y).charac = OptRef(charac)
      charac.setCood(x, y)
      charac.facing = facing
    }
