@@ -10,6 +10,27 @@ trait ArrFlatBuild[ArrT <: ArrImut[_]]
   def flatMap[A](orig: ArrayLike[A], f: A => ArrT): ArrT
 }
 
+trait ArrArrBuild[ArrT <: ArrImut[_]]
+{ type BuffT
+  def buffNew(length: Int = 4): BuffT
+  def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit
+  def buffGrowArr(buff: BuffT, arr: ArrT): Unit// = arr.foreach(buffGrow(buff, _))
+  def buffToArr(buff: BuffT): ArrT
+}
+object ArrArrBuild
+{
+  implicit val intsImplicit: ArrArrBuild[Ints] = new ArrArrBuild[Ints]
+  { type BuffT = ArrayBuffer[Int]
+    //override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
+    //override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
+    override def buffNew(length: Int = 4): ArrayBuffer[Int] = new ArrayBuffer[Int]((length))
+    override def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit = buff.append(value)
+    def buffGrowArr(buff: BuffT, arr: Ints): Unit = arr.foreach(buffGrow(buff, _))
+    override def buffToArr(buff: ArrayBuffer[Int]): Ints = new Ints(buff.toArray)
+
+  }
+}
+
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
  *  control should go in the companion object of B not the companion object of not BB. This is different from the related ArrBinder[BB] typeclass
  *  where instance should go into the BB companion object. The type parameter is named B rather than A, because normally this will be found by an
