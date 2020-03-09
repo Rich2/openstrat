@@ -23,23 +23,24 @@ trait ArrFlatBuild[ArrT <: ArrImut[_]]
 
 trait ArrArrBuild[ArrT <: ArrImut[_]] extends ArrBuildBase[ArrT]
 {
-  def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit
+  //def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit
 
   def buffToArr(buff: BuffT): ArrT
 }
 
 object ArrArrBuild
 {
-  implicit val intsImplicit: ArrArrBuild[Ints] = new ArrArrBuild[Ints]
-  { type BuffT = ArrayBuffer[Int]
-    //override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
-    //override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[Int] = new ArrayBuffer[Int]((length))
-    override def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit = buff.append(value)
-    def buffGrowArr(buff: BuffT, arr: Ints): Unit = arr.foreach(buffGrow(buff, _))
-    override def buffToArr(buff: ArrayBuffer[Int]): Ints = new Ints(buff.toArray)
+  implicit val intsImplicit = IntsBuild
 
-  }
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
+{ type BuffT = ArrayBuffer[A]
+  //override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
+  //override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
+  override def buffNew(length: Int = 4): ArrayBuffer[A] = new ArrayBuffer[A](length)
+  def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
+  override def buffGrowArr(buff: BuffT, arr: Refs[A]): Unit = arr.foreach(buffGrow(buff, _))
+  override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
+}
 }
 
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
@@ -51,7 +52,6 @@ trait ArrBuild[B, ArrT <: ArrImut[B]] extends ArrBuildBase[ArrT]
 {
   def imutNew(length: Int): ArrT
   def imutSet(arr: ArrT, index: Int, value: B): Unit
-
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
@@ -73,14 +73,7 @@ trait ArrBuild[B, ArrT <: ArrImut[B]] extends ArrBuildBase[ArrT]
 
 object ArrBuild
 {
-  implicit val intsImplicit: ArrBuild[Int, Ints] = new ArrBuild[Int, Ints]
-  { type BuffT = ArrayBuffer[Int]
-    override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
-    override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[Int] = new ArrayBuffer[Int]((length))
-    override def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit = buff.append(value)
-    override def buffToArr(buff: ArrayBuffer[Int]): Ints = new Ints(buff.toArray)
-  }
+  implicit val intsImplicit = IntsBuild
 
   implicit val doublesImplicit: ArrBuild[Double, Dbls] = new ArrBuild[Double, Dbls]
   { type BuffT = ArrayBuffer[Double]
