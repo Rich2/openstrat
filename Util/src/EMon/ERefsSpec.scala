@@ -3,7 +3,7 @@ import annotation.unchecked.uncheckedVariance
 
 sealed trait ERefsSpec[+A <: AnyRef] extends EMonBase[Refs[A]]
 { def baseMap[B, BB <: EMonBase[B]](f: Refs[A] => B)(implicit build: EMonBuild[B, BB]): BB
-  @deprecated def toOld: EMon[Refs[A]] = foldErrs[EMon[Refs[A]]](Good(_))(Bad(_))
+  def toUnspecialised: EMon[Refs[A]] = foldErrs[EMon[Refs[A]]](Good(_))(Bad(_))
   def flatMapRefs[B <: AnyRef](f: Refs[A] => ERefsSpec[B]): ERefsSpec[B]
 }
 
