@@ -47,7 +47,7 @@ trait ArrayLike[+A] extends Any
   }
 
   /** This was an extension method I'm not sure why. It was also called bind. */
-  @deprecated def flatMapOld[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB = ev.flatMap[A](this, f)
+ // @deprecated def flatMapOld[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB = ev.flatMap[A](this, f)
 
   def flatMap[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrArrBuild[BB]): BB =
   {

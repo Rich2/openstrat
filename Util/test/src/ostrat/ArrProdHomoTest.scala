@@ -14,7 +14,7 @@ object ArrProdHomoTest  extends TestSuite
 
   object Mine
   {
-    implicit val arrBuilderImplicit: ArrBuild[Mine, Mines] = new ArrProdDbl2Build[Mine, Mines]
+    implicit val arrBuilderImplicit = new ArrProdDbl2Build[Mine, Mines]
     { type BuffT = MinesBuff
       override def fromDblArray(array: Array[Double]): Mines = new Mines(array)
       def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
@@ -30,6 +30,8 @@ object ArrProdHomoTest  extends TestSuite
 
   object Mines extends ProdDbl2sCompanion[Mine, Mines]
   {
+    implicit val flatImplicit: ArrArrBuild[Mines] = Mine.arrBuilderImplicit
+
     //implicit val factory: Int => Mines = i => new Mines(new Array[Double](i * 2))
     implicit val bindImplicit: ArrFlatBuild[Mines] = new ArrFlatBuild[Mines]
     {
@@ -54,7 +56,7 @@ object ArrProdHomoTest  extends TestSuite
     val dbls1 = Dbls(1, 2, 3, 4)
     //val ds1 = dbls1.str
     val mines1 = dbls1.map(d => Mine(d, d * 2))
-    val mines2 = dbls1.flatMapOld(d => Mines(Mine(d, d + 0.5), Mine(d * 2, d * 2)))
+    val mines2 = dbls1.flatMap(d => Mines(Mine(d, d + 0.5), Mine(d * 2, d * 2)))
     val str1 = mines2.str
 
     "test1" -

@@ -32,6 +32,7 @@ object ArrArrBuild
 {
   implicit val intsImplicit = IntsBuild
   implicit val dblsImplicit = DblsBuild
+  implicit val longsImplicit = LongsBuild
 
   implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
 { type BuffT = ArrayBuffer[A]
@@ -75,8 +76,8 @@ trait ArrBuild[B, ArrT <: ArrImut[B]] extends ArrBuildBase[ArrT]
 object ArrBuild
 {
   implicit val intsImplicit = IntsBuild
-
   implicit val doublesImplicit = DblsBuild
+  implicit val longImplicit = LongsBuild
 
   /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
    * types. */
@@ -96,15 +97,6 @@ object ArrBuild
     override def buffNew(length: Int = 4): ArrayBuffer[Boolean] = new ArrayBuffer[Boolean](length)
     override def buffGrow(buff: ArrayBuffer[Boolean], value: Boolean): Unit = buff.append(value)
     override def buffToArr(buff: ArrayBuffer[Boolean]): Booleans = new Booleans(buff.toArray)
-  }
-
-  implicit val longImplicit: ArrBuild[Long, Longs] = new ArrBuild[Long, Longs]
-  { type BuffT = ArrayBuffer[Long]
-    override def imutNew(length: Int): Longs = new Longs(new Array[Long](length))
-    override def imutSet(arr: Longs, index: Int, value: Long): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[Long] = new ArrayBuffer[Long](length)
-    override def buffGrow(buff: ArrayBuffer[Long], value: Long): Unit = buff.append(value)
-    override def buffToArr(buff: ArrayBuffer[Long]): Longs = new Longs(buff.toArray)
   }
 
   implicit val floatImplicit: ArrBuild[Float, Floats] = new ArrBuild[Float, Floats]

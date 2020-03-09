@@ -12,7 +12,7 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDbl
   //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
   override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
-  override def buffGrow(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
+  override def buffGrow(buff: BuffT, value: A): Unit = ??? // { buff.grow(value._1); buff.grow(value._2) }
 }
 
 /** Not sure the purpose of this trait. */
