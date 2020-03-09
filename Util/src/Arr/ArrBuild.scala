@@ -31,6 +31,7 @@ trait ArrArrBuild[ArrT <: ArrImut[_]] extends ArrBuildBase[ArrT]
 object ArrArrBuild
 {
   implicit val intsImplicit = IntsBuild
+  implicit val dblsImplicit = DblsBuild
 
   implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
 { type BuffT = ArrayBuffer[A]
@@ -75,14 +76,7 @@ object ArrBuild
 {
   implicit val intsImplicit = IntsBuild
 
-  implicit val doublesImplicit: ArrBuild[Double, Dbls] = new ArrBuild[Double, Dbls]
-  { type BuffT = ArrayBuffer[Double]
-    override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
-    override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[Double] = new ArrayBuffer[Double](length)
-    override def buffGrow(buff: ArrayBuffer[Double], value: Double): Unit = buff.append(value)
-    override def buffToArr(buff: ArrayBuffer[Double]): Dbls = new Dbls(buff.toArray)
-  }
+  implicit val doublesImplicit = DblsBuild
 
   /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
    * types. */

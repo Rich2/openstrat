@@ -39,33 +39,6 @@ object Longs
   }
 }
 
-class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
-{ type ThisT = Dbls
-  override def unsafeNew(length: Int): Dbls = new Dbls(new Array[Double](length))
-  override def length: Int = array.length
-  override def apply(index: Int): Double = array(index)
-  override def unsafeSetElem(i: Int, value: Double): Unit = array(i) = value
-  override def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
-
-  def ++ (op: Dbls): Dbls =
-  { val newArray = new Array[Double](length + op.length)
-    array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
-    new Dbls(newArray)
-  }
-}
-
-object Dbls
-{ def apply(input: Double*): Dbls = new Dbls(input.toArray)
-  implicit val bindImplicit: ArrFlatBuild[Dbls] = new ArrFlatBuild[Dbls]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Dbls): Dbls =
-    { val buff = new ArrayBuffer[Double]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Dbls(buff.toArray)
-    }
-  }
-}
 
 class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
 { type ThisT = Booleans

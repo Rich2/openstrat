@@ -98,11 +98,11 @@ object UnitedKingdom extends EnglandLike
       xDiag vv ywc)
 
     val reds1 = Polygons(r1, r2).map(_.fill(englishRed))
-    val reds = reds1.flatMapOld(e => Refs(e, e.negXY)) //.flatWithNegate
+    val reds = reds1.flatMap(e => Refs(e, e.negXY))
 
     val blues = {
       val l1 = Polygons(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
-      l1.flatMapOld(b => Refs(b, b.negX, b.negY, b.negXY))
+      l1.flatMap(b => Refs(b, b.negX, b.negY, b.negXY))
     }
      common ++ blues ++ reds
   }
@@ -173,7 +173,7 @@ object Swastika extends Flag
   { val poly = Rectangle(ratio, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
-    val cross = Refs(bar, arm).anti45.flatMapOld(_.rCrossArr)
+    val cross = Refs(bar, arm).anti45.flatMap(_.rCrossArr)
     Refs[PaintElem](
       poly.fill(Red),
       Circle.segs(6.0 / 8).fill(White)
