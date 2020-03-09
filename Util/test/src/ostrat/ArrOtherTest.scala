@@ -30,6 +30,7 @@ object ArrOtherTest extends TestSuite
     }
 
     val ints4 = ints1.flatMap(a => Ints(a + 10, a + 20, a + 30))
+    val ints5 = ints1.flatMapAlt[Int, Ints](a => Ints(a + 10, a + 20, a + 30))
     val longs2 = ints1.flatMap(a => Longs(a + 100, a + 200, a + 300))
     val dbls3 = ints2.flatMap(i => Dbls(i, i * 0.5))
 
@@ -37,6 +38,7 @@ object ArrOtherTest extends TestSuite
     { ints4(1) ==> 21
       ints4(5) ==> 32
       ints4.length ==> 12
+      ints5.length ==> 12
       dbls3(1) ==> 2.5
       longs2.length ==> 12
     }

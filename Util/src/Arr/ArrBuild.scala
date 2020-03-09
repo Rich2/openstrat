@@ -1,13 +1,13 @@
 package ostrat
-import collection.mutable.ArrayBuffer
-import reflect.ClassTag, scala.annotation.unused
+import collection.mutable.ArrayBuffer, reflect.ClassTag, scala.annotation.unused
 
 /** ArrFlatBuild[BB] is a type class for the building of efficient compact Immutable Arrays through a bind method, which works similar to flatMap on
  * standard Library collections. It is called bind rather than flatMap partly to distinguish it and party so as it can be used as extension method on
  *  Standard Library collections. Instances for this typeclass for classes / traits you control should go in the companion object of BB. This is
  *  different from the related ArrBuild[BB] typeclass where the instance should go into the B companion object. */
 trait ArrFlatBuild[ArrT <: ArrImut[_]]
-{ def flatMap[A](orig: ArrayLike[A], f: A => ArrT): ArrT
+{ type BuffT
+  def flatMap[A](orig: ArrayLike[A], f: A => ArrT): ArrT
 }
 
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
