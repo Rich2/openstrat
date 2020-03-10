@@ -35,9 +35,13 @@ trait ArrayLike[+A] extends Any
 
   /** foreach with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
   def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
-  { val endIndex = length + startIndex
+  { var count = 0
     var i: Int = startIndex
-    while(i < endIndex ) { f(apply(i), i); i = i + 1 }
+    while(count < length )
+    { f(apply(count), i)
+      count+= 1
+      i += 1
+    }
   }
 
   def map[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB =
