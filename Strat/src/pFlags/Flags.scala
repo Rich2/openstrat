@@ -185,9 +185,9 @@ object UnitedStates extends Flag
 { val name = "United States"
   val ratio = 1.9
   val oGRed = Colour(0xFFB22234)  //old glory red
-  val GH = 1.9*2/5/12
-  val EF = 1.0*7/13/10
-  val starScale = 4.0/5/13/1.9  //Diameter of star= four-fifths of the stripe width, Width of stripe= Height/13, Height = Width/1.9)
+  val GH = 1.9*2/5/12             //star horizontal spacing
+  val EF = 1.0*7/13/10            //star verticle spacing
+  val starScale = 4.0/5/13/1.9    //Diameter of star= four-fifths of the stripe width, Width of stripe= Height/13, Height = Width/1.9)
   val aStar = Star5.ptUpYCentred.scale(starScale).fill(White).slate(-0.95, 0.5)
   val apply: Refs[PaintElem] = 
   { val stars: Refs[PaintElem] = Refs[PaintElem](Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E)))
