@@ -35,5 +35,7 @@ object LongsBuild extends ArrBuild[Long, Longs] with ArrArrBuild[Longs]
   override def imutSet(arr: Longs, index: Int, value: Long): Unit = arr.array(index) = value
   override def buffNew(length: Int = 4): ArrayBuffer[Long] = new ArrayBuffer[Long](length)
   override def buffGrow(buff: ArrayBuffer[Long], value: Long): Unit = buff.append(value)
+  override def buffGrowArr(buff: Buff[Long], arr: Longs): Unit = buff.addAll(arr.array)
   override def buffToArr(buff: ArrayBuffer[Long]): Longs = new Longs(buff.toArray)
+
 }

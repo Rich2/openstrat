@@ -35,5 +35,6 @@ object DblsBuild extends ArrBuild[Double, Dbls] with ArrArrBuild[Dbls]
   override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
   override def buffNew(length: Int = 4): ArrayBuffer[Double] = new ArrayBuffer[Double](length)
   override def buffGrow(buff: ArrayBuffer[Double], value: Double): Unit = buff.append(value)
+  override def buffGrowArr(buff: Buff[Double], arr: Dbls): Unit = buff.addAll(arr.array)
   override def buffToArr(buff: ArrayBuffer[Double]): Dbls = new Dbls(buff.toArray)
 }

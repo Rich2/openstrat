@@ -23,6 +23,7 @@ trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdHomoBuild[B, Ar
   final override def imutNew(length: Int): ArrT = fromIntArray(new Array[Int](length * elemSize))
   final override def buffNew(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemSize))
   final override def buffToArr(buff: BuffT): ArrT = fromIntArray(buff.buffer.toArray)
+  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = buff.buffer.addAll(arr.array)
 }
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing

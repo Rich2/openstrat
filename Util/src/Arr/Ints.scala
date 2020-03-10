@@ -76,5 +76,6 @@ object IntsBuild extends ArrBuild[Int, Ints] with ArrArrBuild[Ints]
   override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
   override def buffNew(length: Int = 4): ArrayBuffer[Int] = new ArrayBuffer[Int]((length))
   override def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit = buff.append(value)
+  override def buffGrowArr(buff: Buff[Int], arr: Ints): Unit = buff.addAll(arr.array) //??? //arr.unsafeArrayCopy()
   override def buffToArr(buff: ArrayBuffer[Int]): Ints = new Ints(buff.toArray)
 }

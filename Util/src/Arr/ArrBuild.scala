@@ -40,7 +40,8 @@ object ArrArrBuild
   //override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
   override def buffNew(length: Int = 4): ArrayBuffer[A] = new ArrayBuffer[A](length)
   def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
-  override def buffGrowArr(buff: BuffT, arr: Refs[A]): Unit = arr.foreach(buffGrow(buff, _))
+  override def buffGrowArr(buff: BuffT, arr: Refs[A]): Unit = buff.addAll(arr.array)
+  //arr.foreach(buffGrow(buff, _))
   override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
 }
 }
@@ -59,7 +60,7 @@ trait ArrBuild[B, ArrT <: ArrImut[B]] extends ArrBuildBase[ArrT]
   def buffGrow(buff: BuffT, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.foreach(buffGrow(buff, _))
+  def buffGrowArr(buff: BuffT, arr: ArrT): Unit// = arr.foreach(buffGrow(buff, _))
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
@@ -87,6 +88,7 @@ object ArrBuild
     override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
     override def buffNew(length: Int = 4): ArrayBuffer[A] = new ArrayBuffer[A](length)
     override def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
+    override def buffGrowArr(buff: ArrayBuffer[A], arr: Refs[A]): Unit = buff.addAll(arr.array)
     override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
   }
 
@@ -96,6 +98,7 @@ object ArrBuild
     override def imutSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.array(index) = value
     override def buffNew(length: Int = 4): ArrayBuffer[Boolean] = new ArrayBuffer[Boolean](length)
     override def buffGrow(buff: ArrayBuffer[Boolean], value: Boolean): Unit = buff.append(value)
+    override def buffGrowArr(buff: ArrayBuffer[Boolean], arr: Booleans): Unit = buff.addAll(arr.array)
     override def buffToArr(buff: ArrayBuffer[Boolean]): Booleans = new Booleans(buff.toArray)
   }
 
@@ -105,6 +108,7 @@ object ArrBuild
     override def imutSet(arr: Floats, index: Int, value: Float): Unit = arr.array(index) = value
     override def buffNew(length: Int = 4): ArrayBuffer[Float] = new ArrayBuffer[Float](length)
     override def buffGrow(buff: ArrayBuffer[Float], value: Float): Unit = buff.append(value)
+    override def buffGrowArr(buff: ArrayBuffer[Float], arr: Floats): Unit = buff.addAll(arr.array)
     override def buffToArr(buff: ArrayBuffer[Float]): Floats = new Floats(buff.toArray)
   }
 }
