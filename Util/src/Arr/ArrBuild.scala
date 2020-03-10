@@ -7,7 +7,7 @@ trait ArrBuildBase[ArrT <: ArrImut[_]]
       BuffProdHomo. */
   type BuffT
   def buffNew(length: Int = 4): BuffT
-
+  def buffToArr(buff: BuffT): ArrT
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrT): Unit
 }
@@ -16,17 +16,7 @@ trait ArrBuildBase[ArrT <: ArrImut[_]]
  * standard Library collections. It is called bind rather than flatMap partly to distinguish it and party so as it can be used as extension method on
  *  Standard Library collections. Instances for this typeclass for classes / traits you control should go in the companion object of BB. This is
  *  different from the related ArrBuild[BB] typeclass where the instance should go into the B companion object. */
-trait ArrFlatBuild[ArrT <: ArrImut[_]]
-{ //type BuffT
-  def flatMap[A](orig: ArrayLike[A], f: A => ArrT): ArrT
-}
-
 trait ArrArrBuild[ArrT <: ArrImut[_]] extends ArrBuildBase[ArrT]
-{
-  //def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit
-
-  def buffToArr(buff: BuffT): ArrT
-}
 
 object ArrArrBuild
 {
@@ -65,7 +55,7 @@ trait ArrBuild[B, ArrT <: ArrImut[B]] extends ArrBuildBase[ArrT]
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
   
-  def buffToArr(buff: BuffT): ArrT
+  //def buffToArr(buff: BuffT): ArrT
 
   def iterMap[A](inp: Iterable[A], f: A => B): ArrT =
   { val buff = buffNew()

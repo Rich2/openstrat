@@ -32,16 +32,6 @@ object ArrProdHomoTest  extends TestSuite
   {
     implicit val flatImplicit: ArrArrBuild[Mines] = Mine.arrBuilderImplicit
 
-    //implicit val factory: Int => Mines = i => new Mines(new Array[Double](i * 2))
-    implicit val bindImplicit: ArrFlatBuild[Mines] = new ArrFlatBuild[Mines]
-    {
-      override def flatMap[A](orig: ArrayLike[A], f: A => Mines): Mines =
-      { val buff = new ArrayBuffer[Double]
-        orig.foreach(a => buff.addAll(f(a).array))
-        new Mines(buff.toArray)
-      }
-    }
-
     implicit val persistImplicit: ArrProdDbl2Persist[Mine, Mines] = new ArrProdDbl2Persist[Mine, Mines]("Mines")
     { override def fromArray(value: Array[Double]): Mines = new Mines(value)
     }

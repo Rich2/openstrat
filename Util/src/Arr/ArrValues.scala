@@ -50,12 +50,4 @@ class Floats(val array: Array[Float]) extends AnyVal with ArrImut[Float]
 
 object Floats
 { def apply(input: Float*): Floats = new Floats(input.toArray)
-  implicit val bindImplicit: ArrFlatBuild[Floats] = new ArrFlatBuild[Floats]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Floats): Floats =
-    { val buff = new ArrayBuffer[Float]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Floats(buff.toArray)
-    }
-  }
 }

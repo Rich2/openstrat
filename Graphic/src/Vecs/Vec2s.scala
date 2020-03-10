@@ -49,10 +49,6 @@ object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
   implicit val persistImplicit: ArrProdDbl2Persist[Vec2, Vec2s] = new ArrProdDbl2Persist[Vec2, Vec2s]("Vec2s")
   { override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
   }
-
-  implicit val arrFlatBuildImplicit: ArrFlatBuild[Vec2s] = new ArrProdDbl2FlatBuild[Vec2, Vec2s]
-  { override def flatMap[A](orig: ArrayLike[A], f: A => Vec2s): Vec2s = ???
-  }
 }
 
 class Vec2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Vec2]

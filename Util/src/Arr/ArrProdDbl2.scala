@@ -15,10 +15,6 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDbl
   override def buffGrow(buff: BuffT, value: A): Unit = ??? // { buff.grow(value._1); buff.grow(value._2) }
 }
 
-/** Not sure the purpose of this trait. */
-
-trait ArrProdDbl2FlatBuild[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrFlatBuild[ArrT]
-
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
 trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
 { type ThisT <: ArrProdDbl2[A]

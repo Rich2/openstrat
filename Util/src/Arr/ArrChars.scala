@@ -1,5 +1,4 @@
 package ostrat
-import collection.mutable.ArrayBuffer
 
 final class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
 { type ThisT = Chars
@@ -22,19 +21,10 @@ final class Chars(val array: Array[Char]) extends AnyVal with ArrImut[Char]
   @inline def offsetter2: CharsOff = new CharsOff(2)
   @inline def offsetter3: CharsOff = new CharsOff(3)
   @inline def mkString: String = array.mkString
-
 }
 
 object Chars
 { def apply(input: Char*): Chars = new Chars(input.toArray)
-  implicit val bindImplicit: ArrFlatBuild[Chars] = new ArrFlatBuild[Chars]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Chars): Chars =
-    { val buff = new ArrayBuffer[Char]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Chars(buff.toArray)
-    }
-  }
 }
 
 /** Immutable heapless iterator for Char arrays. */
@@ -74,7 +64,6 @@ object CharsOff
   { case _ => Some(inp.offset0)
   }
 }
-
 
 /** Extractor for empty immutable heapless iterator for Chars. */
 case object CharsOff0 { def unapply(inp: CharsOff)(implicit chars: Chars): Boolean = chars.length - inp.offset0 <= 0 }
