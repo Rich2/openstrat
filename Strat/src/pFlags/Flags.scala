@@ -191,11 +191,12 @@ object UnitedStates extends Flag
   val aStar = Star5.ptUpYCentred.scale(starScale).fill(White).slate(-0.95, 0.5)
   val apply: Refs[PaintElem] = 
   { val blueRect: PaintElem = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E))
-    val stars = ijToMap(0, 4)(0, 5)((y, x) => (aStar.slate(2 * x * GH, -2 * y * EF)))
-    println(stars.str)
-    topToBottom(oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed) +- blueRect ++ stars
+    val starsA = ijToMap(0, 5)(0, 4)((i, j) => (aStar.slate(GH + 2 * i* GH, -EF -2 * j * EF)))
+    val starsB = ijToMap(0, 4)(0, 3)((i, j) => (aStar.slate(2*GH + 2 * i* GH, -EF*2 -2 * j * EF)))
+    topToBottom(oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed) +- blueRect ++ starsA ++ starsB
   }
 }
+
 object WhiteFlag extends Flag
 { val name = "White"
   val ratio = 1.5
