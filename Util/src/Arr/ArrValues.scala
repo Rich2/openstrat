@@ -1,5 +1,4 @@
 package ostrat
-import scala.collection.mutable.ArrayBuffer
 
 /** Not sure if this trait can be useful. */
 trait ArrValues[A] extends Any with ArrImut[A]

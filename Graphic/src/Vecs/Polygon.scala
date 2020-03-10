@@ -144,4 +144,6 @@ object Polygons
     }
     new Polygons(array)
   }
+
+  implicit val eqImplicit: Eq[Polygons] = ArrArrayDblEq[Polygon, Polygons]
 }

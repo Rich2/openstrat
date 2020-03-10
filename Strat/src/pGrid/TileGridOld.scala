@@ -317,7 +317,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
   def tilesFlatMapAllOld[R: ClassTag](f: TileT => ArrOld[R]): ArrOld[R] =
-  {0
+  {
     val acc: ArrayBuffer[R] = new ArrayBuffer(0)
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)

@@ -19,3 +19,14 @@ trait ArrArrayDblBuild[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends ArrBu
   override def buffGrow(buff: ArrayBuffer[Array[Double]], value: A): Unit = buff.append(value.array)
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = buff.addAll(arr.array)
 }
+
+class ArrArrayDblEq[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends Eq[ArrT]
+{
+  override def eqv(a1: ArrT, a2: ArrT): Boolean = if (a1.length != a2.length) false
+    else a1.iForAll((el1, i) =>  el1.array equ a2(i).array)
+}
+
+object ArrArrayDblEq
+{
+  def apply[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
+}

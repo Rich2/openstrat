@@ -192,6 +192,21 @@ trait ArrayLike[+A] extends Any
     while(count > 0) { count -= 1; f(apply(count), count) }
   }
 
+  def forAll(p: (A) => Boolean): Boolean =
+  { var acc: Boolean = true
+    var count = 0
+    while (acc & count < length) if (p(apply(count))) count += 1 else acc = false
+    acc
+  }
+
+  def iForAll(p: (A, Int) => Boolean): Boolean =
+  { var acc: Boolean = true
+    var count = 0
+    while (acc & count < length) if (p(apply(count), count)) count += 1 else acc = false
+    acc
+  }
+
+
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
