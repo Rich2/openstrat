@@ -154,20 +154,26 @@ package object ostrat
     implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
   def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
-    implicit ev: ArrBuild[A, AA]):  AA =
+    implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).max(0) / iStep
     val jLen = (jTo - jFrom + 1).max(0) / jStep
     val arrLen = iLen * jLen
     val res = ev.imutNew(arrLen)
-    var i: Int = iFrom - 1
+    var i: Int = iFrom
+    var count = 0
+    debvar(arrLen)
 
     while(i < iTo)
-    { var j: Int = jFrom - 1
+    { var j: Int = jFrom
+      debvar(i)
       while(j < jTo)
-      { ev.imutSet(res, i * jLen + j, f(i, j))
-        j += 1
+      { debvar(j)
+        ev.imutSet(res, count, f(i, j))
+        j += jStep
+        count += 1
       }
-      i += 1
+
+      i += iStep
     }
     res
   }
