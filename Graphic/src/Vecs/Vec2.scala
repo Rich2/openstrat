@@ -142,7 +142,7 @@ object Vec2
 
   implicit val persistImplicit: PersistD2[Vec2] = new PersistD2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
 
-  implicit val vec2sBuildImplicit: ArrBuild[Vec2, Vec2s] = new ArrProdDbl2Build[Vec2, Vec2s]
+  implicit val vec2sBuildImplicit = new ArrProdDbl2Build[Vec2, Vec2s]
   { type BuffT = Vec2sBuff
     override def fromDblArray(array: Array[Double]): Vec2s = new Vec2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2sBuff = new Vec2sBuff(inp)

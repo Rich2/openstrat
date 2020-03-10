@@ -133,6 +133,16 @@ package object ostrat
     res
   }
 
+  def iToFlatMap[AA <: ArrImut[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrArrBuild[AA]): AA =
+  { val buff = ev.buffNew()
+    var i = iFrom
+    while(i <= iTo)
+    { ev.buffGrowArr(buff, f(i))
+      i += iStep
+    }
+    ev.buffToArr(buff)
+  }
+
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { var i: Int = iFrom
     while(i <= iTo) { f(i); i += iStep }

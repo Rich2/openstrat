@@ -79,18 +79,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
    
   def iterHead[B](ifEmpty: => B, fNonEmpty: (A, Iterable[A]) => B): B = if (thisIter.isEmpty) ifEmpty else fNonEmpty(thisIter.head, thisIter.tail)
-
-  /** This needs to be renamed. */
-  def iter2ProdD2[B, C <: ProdDbl2, D <: ArrProdDbl2[C]](secondIter: Iterable[B], f: (A, B) => C)(implicit factory: Int => D): D =
-  { val elemNum = thisIter.size * secondIter.size
-    val res = factory(elemNum)
-    var count = 0
-    thisIter.foreach {a =>
-      secondIter.foreach{ b => res.unsafeSetElem(count, f(a, b)); count += 1 }
-    }
-    res
-  }
-   
+  
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc
     var prev: A = initPrevious

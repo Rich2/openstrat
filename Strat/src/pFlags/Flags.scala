@@ -168,7 +168,7 @@ object USSR extends Flag
   {
     Refs[PaintElem](
       Rectangle(ratio, 1).fill(Red),
-      Star5.ptUpYCentred.scale(0.4).fill(Gold)
+      Star5().scale(0.4).fill(Gold)
     )
   }
 }
