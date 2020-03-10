@@ -184,15 +184,22 @@ object Swastika extends Flag
 object UnitedStates extends Flag
 { val name = "United States"
   val ratio = 1.9
+  val oGRed = Colour(0xFFB22234)  //old glory red
+  val GH = 1.9*2/5/12
+  val EF = 1.0*7/13/10
+  val starScale = 4.0/5/13/1.9  //Diameter of star= four-fifths of the stripe width, Width of stripe= Height/13, Height = Width/1.9)
+  val aStar = Star5.ptUpYCentred.scale(starScale).fill(White).slate(-0.95, 0.5)
   val apply: Refs[PaintElem] = 
-  {
-    Refs[PaintElem](
-      Rectangle(1.9, 1).fill(Pink),
-      Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(DarkBlue),
-    )
+  { val stars: Refs[PaintElem] = Refs[PaintElem](Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E)))
+    for (j <- 0 to 4)
+      {for (i <- 0 to 5)
+        {
+          stars ++ Refs[PaintElem](aStar.slate(2*i*GH, -2*j*EF))
+        }
+    }
+    topToBottom(oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed) ++ stars
   }
 }
-
 object WhiteFlag extends Flag
 { val name = "White"
   val ratio = 1.5
