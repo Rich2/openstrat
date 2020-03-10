@@ -45,14 +45,6 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
 
-  /*implicit val bindImplicit: ArrFlatBuild[Ints] = new ArrFlatBuild[Ints]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Ints): Ints =
-    { val buff = new ArrayBuffer[Int]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Ints(buff.toArray)
-    }
-  }*/
   implicit val showImplicit: Show[Ints] = ArrayLikeShow[Int, Ints](Show.intPersistImplicit)
 
   implicit val EqImplicit: Eq[Ints] = (a1, a2) =>

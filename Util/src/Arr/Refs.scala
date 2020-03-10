@@ -120,16 +120,6 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 
 object Refs
 { def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): Refs[A] = new Refs(input.toArray)
-
-  implicit def bindImplicit[B <: AnyRef](implicit ct: ClassTag[B]): ArrFlatBuild[Refs[B]] = new ArrFlatBuild[Refs[B]]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Refs[B]): Refs[B] =
-    { val buff = new ArrayBuffer[B]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Refs[B](buff.toArray)
-    }
-  }
-
   implicit def showImplicit[A <: AnyRef](implicit evA: Show[A]): Show[Refs[A]] = ArrayLikeShow[A, Refs[A]](evA)
 }
 

@@ -19,14 +19,6 @@ class Longs(val array: Array[Long]) extends AnyVal with ArrImut[Long]
 
 object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
-  implicit val bindImplicit: ArrFlatBuild[Longs] = new ArrFlatBuild[Longs]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Longs): Longs =
-    { val buff = new ArrayBuffer[Long]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Longs(buff.toArray)
-    }
-  }
 }
 
 object LongsBuild extends ArrBuild[Long, Longs] with ArrArrBuild[Longs]

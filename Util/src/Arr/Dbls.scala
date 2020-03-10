@@ -19,14 +19,6 @@ class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
 
 object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
-  implicit val bindImplicit: ArrFlatBuild[Dbls] = new ArrFlatBuild[Dbls]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Dbls): Dbls =
-    { val buff = new ArrayBuffer[Double]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Dbls(buff.toArray)
-    }
-  }
 }
 
 object DblsBuild extends ArrBuild[Double, Dbls] with ArrArrBuild[Dbls]

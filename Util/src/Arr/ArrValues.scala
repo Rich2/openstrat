@@ -30,14 +30,6 @@ class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
 
 object Booleans
 { def apply(input: Boolean*): Booleans = new Booleans(input.toArray)
-  implicit val bindImplicit: ArrFlatBuild[Booleans] = new ArrFlatBuild[Booleans]
-  {
-    override def flatMap[A](orig: ArrayLike[A], f: A => Booleans): Booleans =
-    { val buff = new ArrayBuffer[Boolean]
-      orig.foreach(a => buff.addAll(f(a).array))
-      new Booleans(buff.toArray)
-    }
-  }
 }
 
 class Floats(val array: Array[Float]) extends AnyVal with ArrImut[Float]
