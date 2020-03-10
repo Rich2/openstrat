@@ -14,10 +14,17 @@ trait Flag
   def leftToRight(colours: Colour*): Refs[PaintElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio / colours.length, 1,
     -ratio / 2 vv + 0.5).slate(i * ratio / colours.length, 0).fill(colour))
          
-   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-   def topToBottom(colours: Colour*): Refs[PaintElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio,
+  /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
+  def topToBottom(colours: Colour*): Refs[PaintElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio,
      1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0,
        - i.toDouble / colours.length).fill(colour))
+
+  /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
+  def topToBottomRepeat(numBands: Int, colours: Colour*): Refs[PaintElem] = iUntilMap(0, numBands){ i =>
+    val r1 = Rectangle.fromTL(ratio, 1.0 / numBands, -ratio / 2 vv + 0.5)
+    val r2 = r1.slate(0, - i.toDouble / numBands)
+    r2.fill(colours(i %% colours.length))
+  }
 }
 
 object Armenia extends Flag
@@ -194,7 +201,8 @@ object UnitedStates extends Flag
 
     val starsA = ijToMap(0, 5)(0, 4)((x, j) => (aStar.slate(GH + 2 * x * GH, -EF -2 * j * EF)))
     val starsB = ijToMap(0, 4)(0, 3)((x, j) => (aStar.slate(2 * GH + 2 * x * GH, -EF*2 -2 * j * EF)))
-    topToBottom(oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed) +- blueRect ++ starsA ++ starsB
+    val bars = topToBottomRepeat(13, oGRed, White)
+    bars +- blueRect ++ starsA ++ starsB
   }
 }
 
