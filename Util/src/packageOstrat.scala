@@ -161,14 +161,12 @@ package object ostrat
     val res = ev.imutNew(arrLen)
     var i: Int = iFrom
     var count = 0
-    debvar(res.length)
 
     while(i <= iTo)
     { var j: Int = jFrom
-      debvar(i)
+
       while(j <= jTo)
-      { debvar(j)
-        ev.imutSet(res, count, f(i, j))
+      { ev.imutSet(res, count, f(i, j))
         j += jStep
         count += 1
       }

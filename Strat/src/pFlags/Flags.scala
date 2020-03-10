@@ -192,7 +192,6 @@ object UnitedStates extends Flag
   val apply: Refs[PaintElem] = 
   { val blueRect: PaintElem = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E))
     val stars = ijToMap(0, 4)(0, 5)((y, x) => (aStar.slate(2 * x * GH, -2 * y * EF)))
-    println(stars.str)
     topToBottom(oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed, White, oGRed) +- blueRect ++ stars
   }
 }
