@@ -16,7 +16,7 @@ class Line2s(val array: Array[Double]) extends AnyVal with ArrProdDbl4[Line2] wi
     num.isOdd
   }
 
-  def draw(lineWidth: Double, colour: Colour): LinesDraw = LinesDraw(this, lineWidth, colour)
+  def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
 /** Companion object for the Lines class */
