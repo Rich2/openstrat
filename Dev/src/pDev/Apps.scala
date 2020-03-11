@@ -13,13 +13,13 @@ object Apps
       ("4", (pSpace.Planets(_), "ScalaFx Planets")),
       ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
       ("6", (new pDung.DungeonGui(_), "ScalaFx Dungeon")),
-      ("7", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),
+      ("7", (gOne.GOneGui(_), "JavaFx Game One")),
       ("8", (ColourGen(_), "ScalaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
       ("10", (pCard.BlackJackGui(_), "ScalaFx BlackJack")),
       ("11", (new pChess.DraughtsGui(_), "Draughts")),
       ("12", (new pGames.pSimp.UnusGui(_, pGames.pSimp.Simp1()), "Simplest Game")),
-     // ("13", (pGames.pNew.TGui(_), "New Grid")),
+      ("13", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "ScalaFx Formation")),
       ("14", (new pReactor.ReactorGUI(_), "reactor")),
       ("15", (new pChess.ChessGui(_), "Chess")),
       ("16", (new pFlags.FlagSelectorGUI(_), "Flag Fun")),
@@ -57,11 +57,11 @@ object Apps
       ("D3", (learn.LessonD3(_), "ScalaFx Demonstration Persistence 3")),
       ("D4", (learn.LessonD4(_), "ScalaFx Demonstration Persistence 4")),
       ("D5", (learn.LessonD5(_), "ScalaFx Demonstration Persistence 5")),
-      
+
       ("E1", (learn.LessonE1(_), "ScalaFx Demonstration Games 1")), //Building turn based games.
       ("E2", (learn.LessonE2(_), "ScalaFx Demonstration Games 2")),
   )
   
   /** Change appNum to change the default loaded application. */
-  def curr(str: String): (CanvasPlatform => Any, String) = theMap.getOrElse(str, theMap("1"))
+  def curr(str: String): (CanvasPlatform => Any, String) = theMap.getOrElse(str, theMap("7"))
 }

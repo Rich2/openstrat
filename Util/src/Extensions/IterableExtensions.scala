@@ -105,8 +105,9 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     res
   }
   
-  /** Copies from a Traversable to an Array based ProductValues class. */
-  def toPValues[B <: ArrProdHomo[A]](implicit factory: Int => B): B =
+  /** Copies from a Traversable to an Array based ProductValues class. Not sure about this method or the implicit builder that underlies. It perhaps
+   *  duplicates. */
+  def toArrProdHomo[B <: ArrProdHomo[A]](implicit factory: Int => B): B =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>      

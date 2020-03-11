@@ -133,7 +133,7 @@ object Vec2
   def circlePtClockwise(angle: Double): Vec2 = Vec2(cos(angle), - sin(angle))
    
   implicit class Vec2IterableExtension(thisIter: Iterable[Vec2])
-  { def toPolygon: Polygon = thisIter.toPValues
+  { def toPolygon: Polygon = thisIter.toArrProdHomo
   }
 
   implicit val persistImplicit: PersistD2[Vec2] = new PersistD2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
