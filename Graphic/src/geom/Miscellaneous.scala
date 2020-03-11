@@ -20,5 +20,5 @@ object Star5
   }
 
   /** Not quite sure what this does. */
-  def ptUpYCentred(ratio: Double = 0.5): Polygon = apply(ratio).slateY(deg36.cos / 2 - 0.5)
+  def ptUpYCentred(ratio: Double = classicRatio): Polygon = apply(ratio).slateY(deg36.cos / 2 - 0.5)
 }
