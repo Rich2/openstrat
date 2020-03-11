@@ -192,17 +192,16 @@ object UnitedStates extends Flag
 { val name = "United States"
   val ratio = 1.9
   val oGRed = Colour(0xFFB22234)  //old glory red
-  val GH = 1.9*2/5/12             //star horizontal spacing
-  val EF = 1.0*7/13/10            //star verticle spacing
-  val starScale = 4.0/5/13/1.9    //Diameter of star= four-fifths of the stripe width, Width of stripe= Height/13, Height = Width/1.9)
-  val aStar = Star5().scale(starScale).fill(White).slate(-0.95, 0.5)
-  val apply: Refs[PaintElem] = 
-  { val blueRect: PaintElem = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E))
-
-    val starsA = ijToMap(0, 5)(0, 4)((x, j) => (aStar.slate(GH + 2 * x * GH, -EF -2 * j * EF)))
-    val starsB = ijToMap(0, 4)(0, 3)((x, j) => (aStar.slate(2 * GH + 2 * x * GH, -EF*2 -2 * j * EF)))
-    val bars = topToBottomRepeat(13, oGRed, White)
-    bars +- blueRect ++ starsA ++ starsB
+  val starX = 1.9*2/5/12             //star horizontal spacing
+  val starY = 1.0*7/13/10            //star vertical spacing
+  val starScale = 4.0/5/13/1.9    //Diameter of star = four-fifths of the stripe width, Width of stripe = Height/13, Height = Width/1.9)
+  val star = Star5(0.4).scale(starScale).fill(White).slate(-0.95, 0.5)
+  val apply = 
+  { val blueField = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E))
+    val stars = ijToMap(0, 5)(0, 4)((i, j) => (star.slate(starX + 2 * i * starX, - starY - 2 * j * starY)))
+    val starsInner = ijToMap(0, 4)(0, 3)((i, j) => (star.slate(2 * starX + 2 * i * starX, - starY * 2 - 2 * j * starY)))
+    val stripes = topToBottomRepeat(13, oGRed, White)
+    stripes +- blueField ++ stars ++ starsInner
   }
 }
 
@@ -216,16 +215,3 @@ object WhiteFlag extends Flag
     )
   }
 }
-
-/*
-object TEMPLATE extends Flag
-{ val name = "TEMPLATE"
-  val ratio = 1.5
-  val apply: Refs[PaintElem] = 
-  {
-    Refs[PaintElem](
-      
-    )
-  }
-}
-*/

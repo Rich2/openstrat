@@ -3,11 +3,9 @@ package geom
 
 object Star5
 {
-  /** The ratio for the standard star is where  */
-  def apply(ratio: Double = 0.5): Polygon =
-  {
-    val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-deg36))
-    //(0 to 4).iter2ProdD2[Vec2, Vec2, Polygon](l2, (i, l) => l.rotate(-deg72 * i))
+  /** The ratio for the standard star is approx 0.4. */
+  def apply(ratio: Double = 0.4): Polygon =
+  { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-deg36))
     iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
   }
 
