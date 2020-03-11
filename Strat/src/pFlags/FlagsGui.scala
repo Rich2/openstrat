@@ -22,11 +22,11 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   //val cenFlags = Refs(UnitedStates, Russia, USSR)
   //val cenObjs = cenFlags.iMap((el, i) => el.subj.scale(100).slateY(200 - i * 110))
 
-  val starCen = 400 vv 0
-  val star = Star5().scale(200).slate(starCen).fill(White)
+  val starCen = 300 vv 0
+  val star = Refs(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
-  val us = UnitedStates.subj.scale(400).slate(-100, 250)
-  val stuff = tlObjs ++ trObjs ++ blObjs ++ brObjs -+ us -+ star +- cr
+  val us = UnitedStates.subj.scale(200).slate(-300, 350)
+  val stuff = tlObjs ++ trObjs ++ blObjs ++ brObjs -+ us -++ star +- cr
 
   mouseUp = (v, b, s) =>
   { val str: String = s.headToStringElse("No clickable object on canvas")
