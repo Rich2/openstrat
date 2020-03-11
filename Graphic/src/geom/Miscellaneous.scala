@@ -14,6 +14,8 @@ object Star5
   }
 
   def fill(colour: Colour, ratio: Double = classicRatio): PolyFill = apply(ratio).fill(colour)
+  
+  def draw(lineWidth: Double = 1, colour: Colour): PolyDraw = apply().draw(lineWidth, colour)
 
   def crossLines(ratio: Double = classicRatio) =
   {
@@ -37,12 +39,3 @@ object Star7
   def fill(colour: Colour, ratio: Double = classicRatio): PolyFill = apply(ratio).fill(colour)
 }
 
-object Pentagram
-{
-  val classicRatio = 0.382
-  def apply(): Polygon =
-  { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, -1).rotate(-deg36))
-    iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
-  }
-  def draw(lineWidth: Double = 1, colour: Colour): PolyDraw = apply().draw(lineWidth, colour)
-}
