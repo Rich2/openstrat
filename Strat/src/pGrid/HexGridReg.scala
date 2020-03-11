@@ -60,8 +60,8 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
     { case 2 => (x - xRow2sMin) / 4
       case 0 => (x - xRow0sMin) / 4
     }
-    val y2s: Int = (row2sTileLen * ((y - yRow2sMin) / 4)).max0
-    val y0s: Int = (row0sTileLen * ((y - yRow0sMin) / 4)).max0
+    val y2s: Int = ((y - yRow2sMin).divRoundUp(4) * row2sTileLen).max0
+    val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).max0
     y0s + y2s + thisRow
   }
 }
