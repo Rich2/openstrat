@@ -19,7 +19,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
 
-  /** Converts to ArrImut.  */
+  /** Converts to ArrImut of A. Most commonly a Refs. Prefer the mapArr method where appropriate which combines the converson with a map operation. */
   def toImut[AA <: ArrImut[A]](implicit bu: ArrBuild[A, AA]): AA =
   { val len = thisIter.size
     val res = bu.imutNew(len)
@@ -27,7 +27,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     res
   }
 
-  def toArr(implicit ct: ClassTag[A]): ArrOld[A] = thisIter.toArray.toArrOld
+  @deprecated def toArrOld(implicit ct: ClassTag[A]): ArrOld[A] = thisIter.toArray.toArrOld
 
   def sumBy(f: A => Int): Int =
   { var acc = 0

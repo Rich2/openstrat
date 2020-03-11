@@ -20,10 +20,4 @@ class ListExtensions[A](val thisList: List[A]) extends AnyVal
    
   /** Replaces all instances of the old value with the new value */
   def replace(oldValue: A, newValue: A): List[A] = thisList map { it => if (it == oldValue) newValue else it }
-
-  def toArr(implicit ct: ClassTag[A]): ArrOld[A] =
-  { val buff: Buff[A] = Buff()
-    thisList.foreach{buff += _}
-    buff.toArr
-  }
 }

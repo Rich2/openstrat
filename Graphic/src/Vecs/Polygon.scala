@@ -63,7 +63,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
    
   def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubjOld =
     fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
-  def subj(evObj: AnyRef, elems: PaintElem*): PolySubjOld = new PolySubjOld(this.polyCentre, this, evObj, elems.toArr)
+  @deprecated def subjOld(evObj: AnyRef, elems: PaintElem*): PolySubjOld = new PolySubjOld(this.polyCentre, this, evObj, elems.toArrOld)
   @deprecated def subjSeqOld(evObj: AnyRef, elems: ArrOld[PaintElem]): PolySubjOld = new PolySubjOld(this.polyCentre, this, evObj, elems)
   def subjSeq(evObj: AnyRef, elems: Refs[PaintElem]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
 

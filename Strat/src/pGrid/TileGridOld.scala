@@ -248,7 +248,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
        case Some(sv) => acc += Multiple (sv, subAcc)
        case None =>
      }
-     acc.toArr
+     acc.toArrOld
    }
 
   final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
@@ -312,7 +312,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
       val newRes: B = f(tile)
       acc += newRes
     }
-    acc.toArr
+    acc.toArrOld
   }
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
@@ -324,7 +324,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
       val newRes: ArrOld[R] = f(tile)
       acc ++= newRes
     }
-    acc.toArr
+    acc.toArrOld
   }
 
   def tilesFlatMapAll[B, BB <: ArrImut[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB =
@@ -382,7 +382,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   final def tilesMapOptionAll[A: ClassTag](f: TileT => Option[A]): ArrOld[A] =
   { var acc: Buff[A] = Buff()
     foreachTileAll(t => acc = f(t).fold(acc)(acc.+= _))
-    acc.toArr
+    acc.toArrOld
   }
 
   final def tilesMapOptionListAll[A](f: TileT => Option[A]): List[A] =
@@ -418,7 +418,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
       case None =>
       case Some(g) => acc += g
       })
-    acc.toArr
+    acc.toArrOld
   }
   
   final def tilesOptionFlattenDispAll[A](f1: TileT => Option[A])(f2: (TileT, A) => GraphicElemsOld): GraphicElemsOld =
@@ -429,7 +429,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
       case None =>
       case Some(a) => acc ++= f2(t, a)
       })    
-    acc.toArr
+    acc.toArrOld
   }
   
   /** Set tile row from the Cood. */

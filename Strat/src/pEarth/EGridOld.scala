@@ -77,7 +77,7 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
       val newRes: GraphicElemsOld = ife(tog.cenFacing, fDisp(tog), ArrOld[GraphicElem]())
       acc ++= newRes
     }
-    acc.toArr
+    acc.toArrOld
   }
 
   def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElemsOld, sDisp: (OfESide[TileT, SideT]) => GraphicElemsOld): GraphicElemsOld =
@@ -95,7 +95,7 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
       val newRes: GraphicElemsOld = ife(tog.sideCenFacing, sDisp(tog), ArrOld[GraphicElem]())
       sideAcc ++= newRes
     }
-    (acc ++ sideAcc).toArr
+    (acc ++ sideAcc).toArrOld
   }
 
   def disp(eg: EarthGui, fDisp: (EGridOld[TileT, SideT], Cood) => GraphicElemsOld): GraphicElemsOld = tileCoodsDisplayFoldAll(cood => fDisp(this, cood))

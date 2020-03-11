@@ -18,9 +18,9 @@ trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[Ti
   /** The number of pixels per tile, centre to centre */
   def tScale: Double = psc * grid.xStep
   def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale) cObjs else ArrOld()
-  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemsOld = if (tScale > ifScale) cObj.toArr else ArrOld()
+  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemsOld = if (tScale > ifScale) cObj.toArrOld else ArrOld()
   def ifScaleIfCObjs(ifScale: Double, b: Boolean, cObjs: => GraphicElemsOld): GraphicElemsOld = if (tScale > ifScale && b) cObjs else ArrOld()
-  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemsOld = if (tScale > ifScale && b) cObjs.toArr else ArrOld()
+  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemsOld = if (tScale > ifScale && b) cObjs.toArrOld else ArrOld()
 
   def ifScaleOptObjsNew[A >: Null <: AnyRef](ifScale: Double, eA: OptRef[A])(f: A => GraphicElems): GraphicElems =
     if (tScale < ifScale) Refs() else eA.fld(Refs(), f(_))
