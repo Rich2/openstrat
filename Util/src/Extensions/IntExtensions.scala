@@ -3,7 +3,8 @@ package ostrat
 import math.Pi
  
 class IntExtensions(val thisInt: Int) extends AnyVal
-{ def min0 = ife(thisInt > 0, thisInt, 0)
+{ def min0: Int = ife(thisInt > 0, thisInt, 0)
+  def max0: Int = ife(thisInt > 0, thisInt, 0)
   def isEven: Boolean = thisInt % 2 == 0
   def isOdd: Boolean = thisInt % 2 != 0
   def ifZero[A](vZero: => A, vNonZero: => A): A = if (thisInt == 0) vZero else vNonZero

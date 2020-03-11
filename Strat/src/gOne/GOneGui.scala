@@ -10,6 +10,9 @@ case class GOneGui(canv: CanvasPlatform) extends CanvasNoPanels("Game One Gui")
   val grid = OneGrid.grid
   deb(grid.numOfTiles.toString)
   debvar(grid.row2sTileLen)
+  debvar(grid.xRow2sMin)
+  debvar(grid.yRow2sMin)
+  debvar(grid.yRow0sMin)
   grid.allTilesForeach(c => deb(c.toString + "; " + grid.index(c).toString))
   repaints(Rectangle(2).scale(200).fill(Colour.Green))
 }
