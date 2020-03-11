@@ -42,7 +42,10 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
     ijToForeach(yRow0sMin, yRow0sMax, 4)(xRow0sMin, xRow0sMax, 4)((y, x) => f(Cood(x, y)))
   }
 
+  /** The y coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
   def bottomRowIs2: Boolean = yTileMin.div4Rem2
+
+  /** The y coordinate of the bottom row of this grid divided by 4 leaves remainder of 0. */
   def bottomRowIs0: Boolean = yTileMin.div4Rem0
 
   @inline override def index(x: Int, y: Int): Int =
