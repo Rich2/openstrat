@@ -5,7 +5,7 @@ import math.{Pi}
 
 object Star5
 {
-  val classicRatio = 0.38
+  val classicRatio = 0.382
 
   /** The ratio for the standard star is approx 0.4. */
   def apply(ratio: Double = classicRatio): Polygon =
@@ -27,7 +27,7 @@ object Star5
 
 object Star7
 {
-  val classicRatio = 0.38
+  val classicRatio = 0.692
 
   /** The ratio for the standard star is approx 0.4. */
   def apply(ratio: Double = classicRatio): Polygon =
@@ -39,6 +39,7 @@ object Star7
 
 object Pentagram
 {
+  val classicRatio = 0.577
   def apply(): Polygon =
   { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, -1).rotate(-deg36))
     iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
