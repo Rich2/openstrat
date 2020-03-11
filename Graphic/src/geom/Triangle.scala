@@ -7,8 +7,18 @@ object Triangle
 }
 
 object Equilateral
-{
+{ def draw(sideLength: Double = 1, lineWidth: Double = 1, colour: Colour = Black): PolyDraw =
+ PolyDraw(
+ 	Polygon((0 vv sideLength * math.sqrt(3) / 3),
+					(sideLength / 2 vv -sideLength * math.sqrt(3) / 6),
+					(-sideLength / 2 vv -sideLength * math.sqrt(3) / 6)
+				), lineWidth, colour)
 
+  def fill(sideLength: Double = 1, colour: Colour = Black): PolyFill =
+    PolyFill(
+ 	    Polygon((0 vv sideLength * math.sqrt(3) / 3),
+		  	  		(sideLength / 2 vv -sideLength * math.sqrt(3) / 6),
+		  		  	(-sideLength / 2 vv -sideLength * math.sqrt(3) / 6)
+		    	   ), colour)
 }
-
 
