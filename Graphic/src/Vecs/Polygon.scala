@@ -77,8 +77,9 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
     res.unsafeSetLast(Line2(last, head))
     res
   }
-   
-  def ptInPolygon(pt: Vec2): Boolean = {closedPolygonToLine2s.ptInPolygon(pt) } 
+
+  /** Determines if the parenter point lies inside this Polygon. */
+  def ptInPolygon(pt: Vec2): Boolean = closedPolygonToLine2s.ptInPolygon(pt)
    
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): Polygon =

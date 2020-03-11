@@ -114,5 +114,5 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
       count += 1         
     }
     res
-  }  
+  }
 }
