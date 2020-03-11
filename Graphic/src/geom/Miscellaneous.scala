@@ -39,7 +39,7 @@ object Star7
 
 object Pentagram
 {
-  val classicRatio = 0.577
+  val classicRatio = 0.382
   def apply(): Polygon =
   { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, -1).rotate(-deg36))
     iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
