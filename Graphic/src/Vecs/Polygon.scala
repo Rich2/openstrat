@@ -64,12 +64,12 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolySubjOld =
     fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
   @deprecated def subjOld(evObj: AnyRef, elems: PaintElem*): PolySubjOld = new PolySubjOld(this.polyCentre, this, evObj, elems.toArrOld)
-  @deprecated def subjSeqOld(evObj: AnyRef, elems: ArrOld[PaintElem]): PolySubjOld = new PolySubjOld(this.polyCentre, this, evObj, elems)
+
   def subjSeq(evObj: AnyRef, elems: Refs[PaintElem]): PolySubj = new PolySubj(this.polyCentre, this, evObj, elems)
 
-  def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubjOld =
-    PolySubjOld(this.polyCentre, this, evObj, ArrOld(PolyFillDraw(this, fillColour, lineWidth, lineColour),
-    TextGraphic(str, textSize, this.polyCentre, lineColour)))
+  def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolySubj =
+    PolySubj(this.polyCentre, this, evObj, Refs(PolyFillDraw(this, fillColour, lineWidth, lineColour),
+      TextGraphic(str, textSize, this.polyCentre, lineColour)))
   
   def closedPolygonToLine2s: Line2s =
   { val res: Line2s = Line2s(length)   
