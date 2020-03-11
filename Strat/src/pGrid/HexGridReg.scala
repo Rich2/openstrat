@@ -1,10 +1,13 @@
 package ostrat
 package pGrid
+import geom._
 
 /* A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
 * where the y coordinate divided by 4 has a remainder of 2. */
 case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGrid
 {
+  def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+
   /** Minimum x for Rows where y.Div4Rem2. */
   def xRow2sMin: Int = xTileMax.roundUpTo(_.div4Rem2)
 
