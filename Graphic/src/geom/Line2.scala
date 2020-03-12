@@ -47,6 +47,8 @@ object Line2
     override def fromDblArray(array: Array[Double]): Line2s = new Line2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
   }
+
+  implicit def transimplicit: Trans[Line2] = ???
 }
 
 object HLine
