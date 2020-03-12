@@ -215,3 +215,37 @@ object WhiteFlag extends Flag
     )
   }
 }
+object CommonShapesInFlags extends Flag
+{ val name = "CommonShapesInFlags"
+  val ratio = 1.5
+  val apply: Refs[PaintElem] = 
+  {
+    Refs[PaintElem](
+      Rectangle(1.5, 1).fill(White),
+      Star5().scale(0.1).slate(-0.6 vv 0.3).fill(Pink),
+      Star7(0.382).scale(0.1).slate(-0.6 vv -0.3).fill(Red),
+      Star5().scale(0.1).slate(0.6 vv 0.3).draw(1, Lime),
+      Star3().scale(0.15).slate(0.6 vv -0.3).draw(1, Blue),
+      Star3().scale(0.15).slate(-0.6 vv 0.3).rotate(deg180).draw(1, Blue),
+      Pentagram().scale(0.1).draw(2, Colour(0xFF006233))
+    )
+  }
+}
+  
+object CommonShapesInFlags extends Flag
+{ val name = "CommonShapesInFlags"
+  val ratio = 1.5
+  val apply: Refs[PaintElem] = 
+  {
+    Refs[PaintElem](
+      Rectangle(1.5, 1).fill(White),
+      Star5().scale(0.1).slate(-0.6 vv 0.3).fill(Pink),
+      Star7(0.382).scale(0.1).slate(-0.6 vv -0.3).fill(Red),
+      Star5().scale(0.1).slate(0.6 vv 0.3).draw(1, Lime),
+      Star3().scale(0.15).slate(0.6 vv -0.3).draw(1, Blue),
+      Star3().scale(0.15).slate(-0.6 vv 0.3).rotate(deg180).draw(1, Blue),
+      Pentagram().scale(0.1).draw(2, Colour(0xFF006233))
+    )
+  }
+}
+  
