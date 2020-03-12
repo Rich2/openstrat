@@ -28,6 +28,19 @@ trait ArrProdDbl4[A <: ProdDbl4] extends Any with ArrProdDblN[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el._1, el._2, el._3, el._4)))
 }
 
+trait ArrProdDbl4Build[A <: ProdDbl4, ArrT <: ArrProdDbl4[A]] extends ArrProdDblNBuild[A, ArrT]
+{ type BuffT <: BuffProdDbl4[A]
+
+  final override def elemSize = 4
+  //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
+
+  override def imutSet(arr: ArrT, index: Int, value: A): Unit =
+  { arr.array(index * 4) = value._1; arr.array(index * 4 + 1) = value._2; arr.array(index * 4 + 2); arr.array(index * 4 + 3) = value._4
+  }
+
+  override def buffGrow(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
+}
+
 abstract class ProdDbl4sCompanion[A <: ProdDbl4, M <: ArrProdDbl4[A]] //extends ProductDsBuilder[A, M]
 {
   val factory: Int => M
@@ -82,7 +95,7 @@ abstract class ProdDbl4sCompanion[A <: ProdDbl4, M <: ArrProdDbl4[A]] //extends 
 }
 
 /** Both Persists and Builds ProductD4s Collection classes. */
-abstract class ArrHomoDbl4Builder[A <: ProdDbl4, M <: ArrProdDbl4[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr)
+abstract class ArrProdDbl4Persist[A <: ProdDbl4, M <: ArrProdDbl4[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1
@@ -98,4 +111,14 @@ abstract class ArrHomoDbl4Builder[A <: ProdDbl4, M <: ArrProdDbl4[A]](typeStr: S
   //override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
  // override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
 }
+
+trait BuffProdDbl4[A <: ProdDbl4] extends Any with BuffProdDblN[A]
+{ type ArrT <: ArrProdDbl4[A]
+  override def elemSize: Int = 4
+
+  /** Grows the buffer by a single element. */
+  override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4); () }
+}
+
+
 
