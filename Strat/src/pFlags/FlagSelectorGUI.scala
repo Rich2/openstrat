@@ -33,7 +33,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     //row 5
     UnitedStates.subj.scale(commonScale).slate(-300, -240),
     WhiteFlag.subj.scale(commonScale).slate(-100, -240),
-    // WhiteFlag.subj.scale(commonScale).slate(100, -240),
+    CommonShapesInFlags.subj.scale(commonScale).slate(100, -240),
     // WhiteFlag.subj.scale(commonScale).slate(300, -240),
   )
 
