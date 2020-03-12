@@ -73,21 +73,11 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
     Angle(r)
   }
 
-  //def distanceFrom(other: Vec2): Double = math.sqrt({val dim = (x - other.x); dim * dim} + {val dim = (y - other.y); dim * dim})
-  def toLine(angle: Angle, length: Double): Line2 = Line2(this, this + angle.toVec2 * length)
-   
-  /*def rectVerts(width: Double, height: Double): Seq[Vec2] =
-  { val ax = width / 2
-    val ay = height / 2
-    Seq(Vec2(x - ax, y + ay), Vec2(x + ax, y + ay), Vec2(x + ax, y -ay), Vec2(x -ax, y -ay))
-  }*/
-   
-  /*def withinRect(target: Vec2, width: Double, height: Double): Boolean =
-  { val xd: Double = width / 2
-    val yd: Double = height / 2
-    (x > target.x - xd) && (x < target.x + xd) && (y > target.y - yd) && (y < target.y + yd)
-  }*/
-  
+  def lineTo(pt2: Vec2): Line2 = Line2(this, pt2)
+
+  /** Not sure about this method. */
+  def lineAlong(angle: Angle, magnitude: Double): Line2 = Line2(this, this + angle.toVec2 * magnitude)
+
   /** This sure looks right */
   def rotate(a: Angle): Vec2 =  Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
   def rotateRadians(r: Double): Vec2 = Vec2(x * cos(r) - y * sin(r),

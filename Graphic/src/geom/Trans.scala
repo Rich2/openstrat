@@ -22,7 +22,7 @@ trait Trans[T]
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
-object Trans
+object Trans extends TransLowPriority
 {
   implicit def ArrImutImplicit[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA], ev: Trans[A]): Trans[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
@@ -38,4 +38,10 @@ object Trans
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
+}
+
+trait TransLowPriority
+{
+ // implicit def transerArrImutImplicit[A <: Transer, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): Trans[AA] =
+   // (obj, f) => obj.map[A, AA](_.fTrans(f).asInstanceOf[A])
 }
