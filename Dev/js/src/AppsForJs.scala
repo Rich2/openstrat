@@ -65,5 +65,5 @@ object AppsForJs
   )
 
   /** Change appNum to change the default loaded application. */
-  def curr: (CanvasPlatform => Any, String) = theMap("4")
+  def curr: (CanvasPlatform => Any, String) = theMap("16")
 }
