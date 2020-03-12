@@ -12,7 +12,7 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   def cenAdj = Vec2(xCen, yCenAdj)
   def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cenAdj
-
+  //def tilePolygons = allTilesMap(c => )
   def allSidesDraw(scale: Double): Refs[LinesDraw] =
   {
    // val ls = allTilesFlatMap{ cood => ??? }
@@ -43,33 +43,21 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   def yRow0sMin: Int = yTileMin.roundUpTo(_.div4Rem0)
   def yRow0sMax: Int = yTileMax.roundDownTo(_.div4Rem0)
 
-  /** Number of Rows where y.Div4Rem0. */
-  def numOfRow0s: Int = ((yRow0sMax - yRow0sMin + 4) / 4).max(0)
-
-  override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
-
-  def allTilesMap[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-  { val res = build.imutNew(numOfTiles)
-    allTilesForeach{ cood => build.imutSet(res, index(cood), f(cood))}
-    res
-  }
-
-  def allTilesFlatMap[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrArrBuild[ArrT]): ArrT =
-  { val buff = build.buffNew(numOfTiles)
-    allTilesForeach{ cood => build.buffGrowArr(buff, f(cood))}
-    build.buffToArr(buff)
-  }
-
-  override def allTilesForeach(f: Cood => Unit): Unit =
-  { ijToForeach(yRow2sMin, yRow2sMax, 4)(xRow2sMin, xRow2sMax, 4)((y, x) => f(Cood(x, y)))
-    ijToForeach(yRow0sMin, yRow0sMax, 4)(xRow0sMin, xRow0sMax, 4)((y, x) => f(Cood(x, y)))
-  }
-
   /** The y coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
   def bottomRowIs2: Boolean = yTileMin.div4Rem2
 
   /** The y coordinate of the bottom row of this grid divided by 4 leaves remainder of 0. */
   def bottomRowIs0: Boolean = yTileMin.div4Rem0
+
+  /** Number of Rows where y.Div4Rem0. */
+  def numOfRow0s: Int = ((yRow0sMax - yRow0sMin + 4) / 4).max(0)
+
+  override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
+
+  override def tilesAllForeach(f: Cood => Unit): Unit =
+  { ijToForeach(yRow2sMin, yRow2sMax, 4)(xRow2sMin, xRow2sMax, 4)((y, x) => f(Cood(x, y)))
+    ijToForeach(yRow0sMin, yRow0sMax, 4)(xRow0sMin, xRow0sMax, 4)((y, x) => f(Cood(x, y)))
+  }
 
   @inline override def index(x: Int, y: Int): Int =
   {
