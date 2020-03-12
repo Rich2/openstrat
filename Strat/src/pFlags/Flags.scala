@@ -241,8 +241,12 @@ object CommonShapesInFlags extends Flag
 
       //crescent
       Circle.segs(0.225).slate(-0.6 vv -0.3).fill(Red),
-      Circle.segs(0.175).slate(-0.6 vv -0.3).slate(0.05 vv 0).fill(White),
+      Circle.segs(0.2).slate(-0.6 vv -0.3).slate(0.04 vv 0).fill(White),
 
+      //composite star ()
+      Star5().scale(0.15).slate(-0.3 vv 0).fill(Gold),
+      Star5().scale(0.1).slate(-0.3 vv 0).fill(Magenta),
+      
       Pentagram().scale(0.1).slate(0 vv 0.3).draw(2, Colour(0xFF006233)),
 
     )
