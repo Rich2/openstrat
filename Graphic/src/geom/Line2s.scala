@@ -3,7 +3,7 @@ package ostrat
 package geom
 import collection.mutable.ArrayBuffer
 
-/** Array[Double based collection class for Line2s */
+/** Compact Imutable Array[Double] based collection class for (Line2)s. */
 class Line2s(val array: Array[Double]) extends AnyVal with ArrProdDbl4[Line2] with Transer
 { type ThisT = Line2s
   def unsafeFromArray(array: Array[Double]): Line2s = new Line2s(array)
@@ -20,7 +20,7 @@ class Line2s(val array: Array[Double]) extends AnyVal with ArrProdDbl4[Line2] wi
   def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
-/** Companion object for the Lines class */
+/** Companion object for the Line2s class. */
 object Line2s extends ProdDbl4sCompanion[Line2, Line2s]
 {
   implicit val factory: Int => Line2s = i => new Line2s(new Array[Double](i * 4))
@@ -32,6 +32,5 @@ object Line2s extends ProdDbl4sCompanion[Line2, Line2s]
   implicit val arrArrBuildImplicit: ArrArrBuild[Line2s] = Line2.line2sBuildImplicit
 }
 
+/** Efficient expandable buffer for Line2s. */
 class Line2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl4[Line2]
-
-
