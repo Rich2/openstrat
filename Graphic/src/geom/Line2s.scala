@@ -27,4 +27,6 @@ object Line2s extends ProdDbl4sCompanion[Line2, Line2s]
   implicit val persistImplicit: ArrHomoDbl4Builder[Line2, Line2s] = new ArrHomoDbl4Builder[Line2, Line2s]("Line2s")
   { override def fromArray(value: Array[Double]): Line2s = new Line2s(value)
   }
+
+  implicit val arrArrBuildImplicit: ArrArrBuild[Line2s] = ???
 }

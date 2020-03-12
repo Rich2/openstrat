@@ -10,14 +10,9 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   def yCenAdj: Double = yCenNoAdj * HexGrid.yRatio
   def cen = Vec2(xCen, yCenNoAdj)
   def cenAdj = Vec2(xCen, yCenAdj)
+
   def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cenAdj
-  //def tilePolygons = allTilesMap(c => )
-  def allSidesDraw(scale: Double): Refs[LinesDraw] =
-  {
-   // val ls = allTilesFlatMap{ cood => ??? }
-    ???
-  }
 
   /** Minimum x for Rows where y.Div4Rem2. */
   def xRow2sMin: Int = xTileMin.roundUpTo(_.div4Rem2)
@@ -51,6 +46,14 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
 
   /** Number of Rows where y.Div4Rem0. */
   def numOfRow0s: Int = ((yRow0sMax - yRow0sMin + 4) / 4).max(0)
+
+  /* Override methods */
+
+  override def sideLinesAll : Line2s = tilesAllFlatMap{cood =>
+    val c1: Coods = HexGrid.sideCoodsOfTile(cood)
+    val c2s: Line2s = c1.map(orig => HexGrid.sideCoodToLine(orig))
+    c2s
+  }
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
 

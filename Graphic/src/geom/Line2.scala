@@ -42,6 +42,7 @@ object Line2
   @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
   implicit val persistImplicit: Persist[Line2] with Eq[Line2] = new Persist2[Vec2, Vec2, Line2]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Line2(_, _))
 
+  implicit val line2sBuildImplicit: ArrBuild[Line2, Line2s] = ???
   /*implicit val line2sBuildImplicit: ArrBuild[Line2, Line2s] = new ArrProdDbl4Build[Line2, Line2s]
   { type BuffT = Vec2sBuff
     override def fromDblArray(array: Array[Double]): Line2s = new Line2s(array)
