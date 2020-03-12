@@ -14,6 +14,12 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cenAdj
 
+  def allSidesDraw(scale: Double): Refs[LinesDraw] =
+  {
+   // val ls = allTilesFlatMap{ cood => ??? }
+    ???
+  }
+
   /** Minimum x for Rows where y.Div4Rem2. */
   def xRow2sMin: Int = xTileMin.roundUpTo(_.div4Rem2)
 
@@ -47,6 +53,12 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   { val res = build.imutNew(numOfTiles)
     allTilesForeach{ cood => build.imutSet(res, index(cood), f(cood))}
     res
+  }
+
+  def allTilesFlatMap[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrArrBuild[ArrT]): ArrT =
+  { val buff = build.buffNew(numOfTiles)
+    allTilesForeach{ cood => build.buffGrowArr(buff, f(cood))}
+    build.buffToArr(buff)
   }
 
   override def allTilesForeach(f: Cood => Unit): Unit =
