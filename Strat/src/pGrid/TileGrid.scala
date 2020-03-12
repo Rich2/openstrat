@@ -18,7 +18,19 @@ trait TileGrid
   /** Returns the index of an Array from its tile coordinate. */
   @inline def index(x: Int, y: Int): Int
 
-  def allTilesForeach(f: Cood => Unit): Unit
+  def tilesAllForeach(f: Cood => Unit): Unit
+
+  def tilesAllMap[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  { val res = build.imutNew(numOfTiles)
+    tilesAllForeach{ cood => build.imutSet(res, index(cood), f(cood))}
+    res
+  }
+
+  def tilesAllFlatMap[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrArrBuild[ArrT]): ArrT =
+  { val buff = build.buffNew(numOfTiles)
+    tilesAllForeach{ cood => build.buffGrowArr(buff, f(cood))}
+    build.buffToArr(buff)
+  }
 
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
   def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)
