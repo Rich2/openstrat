@@ -1,9 +1,12 @@
 package ostrat
 package pGrid
+import geom._
 
 /** Currently all SquareGrids are regular. */
-case class SquareGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends TileGrid
+case class SquareGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends TileGridReg
 {
+  def cen = Vec2(xCen, yCen)
+  def yCen: Double = (yTileMin + yTileMax) / 2.0
   def rowTileLen: Int = ((xTileMax.roundDownToEven - xTileMin.roundUpToEven + 2) / 2).min0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).min0
   def numOfTiles: Int = numOfRows * numOfTiles

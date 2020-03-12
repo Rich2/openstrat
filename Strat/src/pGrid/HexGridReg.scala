@@ -4,8 +4,8 @@ import geom._
 
 /* A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
 * where the y coordinate divided by 4 has a remainder of 2. */
-case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGrid
-{ def xCen: Double = (xTileMin + xTileMax) / 2.0
+case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGrid with TileGridReg
+{
   def yCenNoAdj: Double = (yTileMin + yTileMax) / 2.0
   def yCenAdj: Double = yCenNoAdj * HexGrid.yRatio
   def cen = Vec2(xCen, yCenNoAdj)
