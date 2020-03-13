@@ -76,7 +76,7 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
   def eaButts: Refs[ShapeParent] =  Refs(bSave, bLoad)
   def cmd00: MB0 = mb => { focus = LatLong0; focusUp = true; updateView }
   def b00: ShapeParent = clickButton("00", cmd00)
-  override def eTop(): Unit = reTop(guButs ++ Refs(b00, bInv) ++ eaButts -+ status)
+  override def eTop(): Unit = reTop(guButs ++ Refs(b00, bInv) ++ eaButts +- status)
      
   def ls: GraphicElems
    

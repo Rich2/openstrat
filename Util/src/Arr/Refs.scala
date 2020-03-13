@@ -26,7 +26,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 
   /** Alias for append. Functionally appends element to Refs. Returned value has the same type as the dispatching Refs. Use -+ concatElem method if
    * you need type widening. The +- name is chosen to maintain the same precedence level with the ++, -+ and -++ operators.*/
-  @inline def +-(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = append(op)(ct)
+ // @inline def +-(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = append(op)(ct)
   /** Functionally appends element to this Refs. Returned value has the same type as the dispatching Refs. This method is aliased by the +- operator.
    * Use the -+ concat method if type widening is required. */
   def append(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
@@ -63,7 +63,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   /** Alias for concat. Functionally concatenates element to dispatching Refs, allows type widening. The '-' character in the operator name indicates
    *  loss of type precision. The ++ append operator is preferred when type widening is not required. Both operator and alphanumeric method names are
    *  overloaded.*/
-  @inline def -+ [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = concat[AA](op)(ct)
+  @inline def +- [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = concat[AA](op)(ct)
   /** Functionally concatenates 2nd Refs to dispatching Refs, allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ append operator is preferred when type widening is not required. Both operator and alphanumeric method
    *  names are overloaded. */
@@ -106,7 +106,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     ife(b,this ++ newElems, this)
 
   def concatOption[AA >: A <: AnyRef](optElem: Option[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
-    optElem.fld(this, this -+ _)
+    optElem.fld(this, this +- _)
 
   def appendOption(optElem: Option[A]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
     optElem.fld(this, +- _)
