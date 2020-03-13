@@ -55,17 +55,11 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
     PolyParentOld.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
   
-  def drawParentOld(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
-    PolyParentOld.draw(this.polyCentre, this, evObj, lineWidth, lineColour)
-  
-  @deprecated def fillTextParentOld(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-    PolyParentOld = PolyParentOld.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)
-
   def fillTextParent(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolyParent = PolyParent.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)
 
-  def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolyParentOld =
-    fillTextParentOld(evObj, fillColour, str, fontSize, fillColour.contrast)
+  def fillContrastTextParent(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolyParent =
+    fillTextParent(evObj, fillColour, str, fontSize, fillColour.contrast)
 
   def parentSeq(evObj: AnyRef, elems: Refs[PaintElem]): PolyParent = new PolyParent(this.polyCentre, this, evObj, elems)
 
