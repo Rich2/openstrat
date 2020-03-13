@@ -18,14 +18,16 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
   val aTitle = TextGraphic("Flags", 40, 0 vv dimensions("height")/2-dimensions("headerSize")/2)
 
-//   def showPage(thisPage:Int): Unit =
-//   { val firstFlagToShow = thisPage * pageSize
-//     val pageOfFlags = ijToMap(0, flagsPerRow)(0, flagsPerCol)((i, j) => 
-//         (listOfFlags(firstFlagToShow).subj.scale(commonScale).slate(i*dimensions("cellWidth"), j*dimensions("cellHeight")).slate(-300, -240)))
-//     val stuff: Refs[PaintElem] = Refs(background, aTitle) ++ pageOfFlags
-//     repaint(stuff)
-//   }
-// showPage(currentPage)
+   def showPage(thisPage:Int): Unit =
+   { val firstFlagToShow = thisPage * pageSize
+     val pageOfFlags = ijToMap(0, flagsPerRow)(0, flagsPerCol) { (i, j) =>
+         val r1 = listOfFlags(firstFlagToShow).parent.scale(commonScale)
+         r1.slate(i*dimensions("cellWidth"), j*dimensions("cellHeight")).slate(-300, -240)
+     }
+     val stuff: Refs[GraphicElem] = Refs(background, aTitle) -++ pageOfFlags
+     repaint(stuff)
+   }
+ showPage(currentPage)
 
 
 
