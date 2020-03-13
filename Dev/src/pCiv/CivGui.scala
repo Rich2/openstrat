@@ -27,7 +27,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
           val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
           val posn = fTrans(gridPosn)
           val fillColour = head.faction.colour                      
-          val r = Rectangle.curvedCornersCentred(90, 60, 10, posn).subjAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString)
+          val r = Rectangle.curvedCornersCentred(90, 60, 10, posn).parentAllOld(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString)
           ArrOld(r)
           //Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
         }

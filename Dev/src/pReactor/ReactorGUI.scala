@@ -17,7 +17,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val cellNeighbours = new Array[Array[Int]](80)
   var reactionQueue = Array[Int]()
   def gameBtn(str: String, cmd: MouseButton => Unit) =
-    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).subjAll(MButtonCmd(cmd), White, 3, Black, 25, str)
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAllOld(MButtonCmd(cmd), White, 3, Black, 25, str)
 
   init()
   

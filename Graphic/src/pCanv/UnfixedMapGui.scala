@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pCanv
+import geom._
 
 /** So currently this is a turn based class allowing the selection of objects within the map. That is not the case for the Planet App 
  *  where the planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
@@ -21,5 +22,5 @@ abstract class UnfixedMapGui(title: String) extends MapGui(title)
   val bDown = clickButton("\u2B07", downCmd)   
   val bRight = clickButton("\u27A1", rightCmd)
    
-  val guButs = Refs(bIn, bOut, bLeft, bRight, bDown, bUp)
+  val guButs: Refs[ShapeParent] = Refs(bIn, bOut, bLeft, bRight, bDown, bUp)
 }

@@ -16,17 +16,17 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
     case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
     case t => deb(t.toString)
   }
-  def cmdButton(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
+  def cmdButton(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).parentAll(cmd, White, 3, Black, 25, str)
   
   def clickButton(str: String, cmd: MB0, backColour: Colour = Colour.White) =
-    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(MButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
    
   def buttonStd(str: String, cmd: MB0, backColour: Colour = Colour.White) =
-    Rectangle.curvedCornersCentred(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
+    Rectangle.curvedCornersCentred(100, 25, 5).parentAll(cmd, backColour, 3, backColour.contrastBW, 20, str)
    
-  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextParent(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   /**  repaints the top command bar */
-  def reTop(commands: Refs[GraphicSubjectOld]): Unit = topPan.repaint(DisplayRowGraphicSubject(10, commands).fromLeft(topPan.cenLeft))
+  def reTop(commands: Refs[GraphicParent]): Unit = topPan.repaint(DisplayRowGraphicSubject(10, commands).fromLeft(topPan.cenLeft))
   var statusText = "This is the status text."
   def status = textBox(statusText, None)
   val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))

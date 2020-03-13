@@ -14,12 +14,12 @@ abstract class CanvasUser(val title: String)
     movedObjs.foreach
     { case ce: PaintElem => ce.rendElem(canv)
 
-      case cs: GraphicSubject =>
+      case cs: GraphicParent =>
       { canv.rendElems(cs.elems)
         subjBuff += cs
       }
 
-      case cs: GraphicSubjectOld =>
+      case cs: GraphicParentOld =>
       { canv.rendElemsOld(cs.elems)
         subjBuff += cs
       }
