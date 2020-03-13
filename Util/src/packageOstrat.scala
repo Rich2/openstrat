@@ -13,7 +13,7 @@ package object ostrat
   type ShowEq[A] = Show[A] with Eq[A]
   type AnyRefs = Refs[AnyRef]
   type Strings = Refs[String]
-  type Not[T] = { type L[U] = U NotSubTypeOf T  }
+  type Not[T] = { type L[U] = U NotSubTypeOf T }
 
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;

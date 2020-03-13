@@ -4,10 +4,10 @@ package pGames
 package pCloseOrder
 import pCanv._, geom._
 
-case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("BattleGui")//UnfixedMapGui
+case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("BattleGui")
 {   
    val rs: GraphicElems = scen.lunits.flatMap { c =>
-      ijToMap(1, c.ranks)(0, c.rankLen) { (y, x) =>
+      yxToMap(1, c.ranks)(0, c.rankLen) { (y, x) =>
          Rectangle(15, 10, (x - c.rankMiddle) * 20 + c.posn.x vv (y - 2) * 20 + c.posn.y).fill(c.colour)
       }
    }
