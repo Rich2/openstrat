@@ -7,7 +7,7 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
 {
   def mutateColour(newColour: Colour): ARect = copy(colour = newColour) 
   def graphic = Rectangle(width, height, cen).fillSubj(this, colour)
-  def sGraphic = Rectangle(width, height, cen).fillDrawSubj(this, colour, 2, contrast)
+  def sGraphic = Rectangle(width, height, cen).fillDrawParentOld(this, colour, 2, contrast)
 }
 
 /** This lesson is working, but has what looks like a very dubious implementation. */
