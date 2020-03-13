@@ -57,7 +57,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Eucl
   def fBut(planet: Planet) = clickButton(planet.name, mb => {planetFocus = planet; repaintMap}, planet.colour)
   def pause = buttonStd(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
-  def cmds: Refs[ShapeParentOld] = zoomable +- pause ++ pls.map(fBut)
+  def cmds: Refs[ShapeParent] = zoomable +- pause ++ pls.map(fBut)
   reTop(cmds)
   
   canv.startFrame((el, st) => out(el, st))

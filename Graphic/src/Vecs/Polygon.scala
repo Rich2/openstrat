@@ -55,17 +55,19 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
     PolyParentOld.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
   
-  def drawSubj(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
+  def drawParentOld(evObj: AnyRef, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
     PolyParentOld.draw(this.polyCentre, this, evObj, lineWidth, lineColour)
   
-  def fillTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
+  @deprecated def fillTextParentOld(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
     PolyParentOld = PolyParentOld.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)
-   
-  def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolyParentOld =
-    fillTextSubj(evObj, fillColour, str, fontSize, fillColour.contrast)  
-  @deprecated def subjOld(evObj: AnyRef, elems: PaintElem*): PolyParentOld = new PolyParentOld(this.polyCentre, this, evObj, elems.toArrOld)
 
-  def subjSeq(evObj: AnyRef, elems: Refs[PaintElem]): PolyParent = new PolyParent(this.polyCentre, this, evObj, elems)
+  def fillTextParent(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
+  PolyParent = PolyParent.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)
+
+  def fillContrastTextSubj(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10): PolyParentOld =
+    fillTextParentOld(evObj, fillColour, str, fontSize, fillColour.contrast)
+
+  def parentSeq(evObj: AnyRef, elems: Refs[PaintElem]): PolyParent = new PolyParent(this.polyCentre, this, evObj, elems)
 
   def subjAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolyParent =
     PolyParent(this.polyCentre, this, evObj, Refs(PolyFillDraw(this, fillColour, lineWidth, lineColour),
