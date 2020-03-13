@@ -24,7 +24,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
          val r1 = listOfFlags(firstFlagToShow).parent.scale(commonScale)
          r1.slate(i*dimensions("cellWidth"), j*dimensions("cellHeight")).slate(-300, -240)
      }
-     val stuff: Refs[GraphicElem] = Refs(background, aTitle) -++ pageOfFlags
+     val stuff: Refs[GraphicElem] = Refs(background, aTitle) ++ pageOfFlags
      repaint(stuff)
    }
  showPage(currentPage)
