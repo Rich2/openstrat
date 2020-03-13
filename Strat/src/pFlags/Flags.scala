@@ -8,7 +8,7 @@ trait Flag
   def name: String
   def ratio: Double
   def rect: Polygon = Rectangle(ratio)
-  def subj: PolySubj = Rectangle(ratio).subjSeq(name + " flag", apply)
+  def subj: PolyParent = Rectangle(ratio).subjSeq(name + " flag", apply)
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
   def leftToRight(colours: Colour*): Refs[PaintElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio / colours.length, 1,
