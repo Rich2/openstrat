@@ -19,7 +19,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBa
     val player = ifScaleOptObjsNew(60, tile.charac){charac =>
       val poly1 = Rectangle(1.5).insVerts(1, -0.25 vv 0.5, 0 vv 0.8, 0.25 vv 0.5)
       val poly2 = poly1.scale(tog.tScale / 2.5).rotate(charac.facing.angle).slate(tog.cen)      
-      Refs(poly2.fillDrawSubj(charac, charac.colour, 1), TextGraphic(charac.iden.toString, 16, cen, charac.colour.contrast))
+      Refs(poly2.fillDrawParentOld(charac, charac.colour, 1), TextGraphic(charac.iden.toString, 16, cen, charac.colour.contrast))
     }
     tv.toArraySeq ++ tText ++ player.toArraySeq ++ sides
   }

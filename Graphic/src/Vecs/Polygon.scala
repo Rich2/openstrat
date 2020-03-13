@@ -52,8 +52,11 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
       zOrder: Int = 0): GraphicElems =
     Refs(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour), PolyActive(this, evObj))
   
-  def fillDrawSubj(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
+  @deprecated def fillDrawParentOld(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
     PolyParentOld.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
+
+  def fillDrawParent(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParent =
+    PolyParent.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
   
   def fillTextParent(evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolyParent = PolyParent.fillText(this.polyCentre, this, evObj, fillColour, str, fontSize, textColour, align)
