@@ -1,7 +1,6 @@
 /* Copyright 2020 Stephen. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFlags
-
 import geom._, pCanv._, Colour._
 
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
@@ -20,7 +19,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
    def showPage(thisPage:Int): Unit =
    { val firstFlagToShow = thisPage * pageSize
-     val pageOfFlags = ijToMapOld(0, flagsPerRow)(0, flagsPerCol) { (i, j) =>
+     val pageOfFlags = ijToMap(0, flagsPerRow)(0, flagsPerCol) { (i, j) =>
          val r1 = listOfFlags(firstFlagToShow).parent.scale(commonScale)
          r1.slate(i*dimensions("cellWidth"), j*dimensions("cellHeight")).slate(-300, -240)
      }
@@ -28,13 +27,6 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
      repaint(stuff)
    }
  showPage(currentPage)
-
-
-
-
-
-
-
 
   // val stuff = Refs(
   //   //page background & title
