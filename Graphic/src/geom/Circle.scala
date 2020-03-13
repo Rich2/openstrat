@@ -18,10 +18,4 @@ object Circle
   { val fSegs = segs(radius).slate(posn)            
     ShapeFill(fSegs, colour)
   }
-   
-  def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, xCen: Double, yCen: Double): ShapeParentOld =
-    fillSubj(radius, evObj, colour, Vec2(xCen, yCen))
-    
-  def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, cen: Vec2 = Vec2Z): ShapeParentOld =
-    ShapeParentOld.fill(cen, segs(radius).slate(cen), evObj, colour)
 } 

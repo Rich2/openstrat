@@ -19,7 +19,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 object StdButton
 {
   def apply(str: String, cmd: AnyRef) =
-      Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
+      Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAllOld(cmd, White, 3, Black, 25, str)
   def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 

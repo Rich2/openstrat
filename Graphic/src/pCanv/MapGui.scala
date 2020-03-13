@@ -16,13 +16,13 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
     case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
     case t => deb(t.toString)
   }
-  def cmdButton(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).subjAll(cmd, White, 3, Black, 25, str)
+  def cmdButton(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).subjAllOld(cmd, White, 3, Black, 25, str)
   
   def clickButton(str: String, cmd: MB0, backColour: Colour = Colour.White) =
-    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAll(MButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).subjAllOld(MButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
    
   def buttonStd(str: String, cmd: MB0, backColour: Colour = Colour.White) =
-    Rectangle.curvedCornersCentred(100, 25, 5).subjAll(cmd, backColour, 3, backColour.contrastBW, 20, str)   
+    Rectangle.curvedCornersCentred(100, 25, 5).subjAllOld(cmd, backColour, 3, backColour.contrastBW, 20, str)
    
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextSubj(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   /**  repaints the top command bar */
