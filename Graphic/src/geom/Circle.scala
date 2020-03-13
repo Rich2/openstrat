@@ -19,9 +19,9 @@ object Circle
     ShapeFill(fSegs, colour)
   }
    
-  def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, xCen: Double, yCen: Double): ShapeSubj =
+  def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, xCen: Double, yCen: Double): ShapeParentOld =
     fillSubj(radius, evObj, colour, Vec2(xCen, yCen))
     
-  def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, cen: Vec2 = Vec2Z): ShapeSubj =
-    ShapeSubj.fill(cen, segs(radius).slate(cen), evObj, colour)
+  def fillSubj(radius: Double, evObj: AnyRef, colour: Colour, cen: Vec2 = Vec2Z): ShapeParentOld =
+    ShapeParentOld.fill(cen, segs(radius).slate(cen), evObj, colour)
 } 

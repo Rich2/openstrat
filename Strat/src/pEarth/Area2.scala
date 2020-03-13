@@ -30,7 +30,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
          {
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val curveSegs: Shape = curveSegDists.pMap(_.toCurveSeg(eg.trans))
-            ArrOld(ShapeSubj.fill(cenXY, curveSegs, this, terr.colour))
+            ArrOld(ShapeParentOld.fill(cenXY, curveSegs, this, terr.colour))
          }
          case GlobedNone => ArrOld()
       }
