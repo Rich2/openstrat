@@ -8,7 +8,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBa
   mapPanel.backColour = Black
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
-  override def eTop(): Unit = reTop(guButs -+ status)
+  override def eTop(): Unit = reTop(guButs +- status)
    
   def fSquare: OfSquareReg[DTileOld, SideOldBare, DungeonGridOld] => GraphicElemsOld = tog =>
   { import tog._
