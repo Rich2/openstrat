@@ -38,22 +38,22 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 
   /** Alias for appendRefs. Functionally appends a second Refs[A] to this Refs. Returned value has the same type as the dispatching Refs. Use the -++
    * concatRefs method if type widening is required. */
-  @inline def ++ (op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = appendRefs(op)(ct)
+ // @inline def ++ (op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = appendRefs(op)(ct)
   /** Alias for the appendRefs method. Functionally appends an operand Refs[A] to this Refs. Returned value has the same type as the dispatching
    *  Refs. */
-  def appendRefs(op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
+  /*def appendRefs(op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
   { val newArray = new Array[A](length + op.length)
     array.copyToArray(newArray)
     op.array.copyToArray(newArray, length)
     new Refs(newArray)
-  }
+  }*/
 
   /** Alias for concatRefs. Functionally concatenates 2nd Refs to dispatching Refs, allows type widening. The '-' character in the operator name indicates
    *  loss of type precision. The ++ append operator is preferred when type widening is not required. */
-  @inline def -++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = concatRefs[AA](op)(ct)
+  @inline def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = appendRefs[AA](op)(ct)
   /** Functionally concatenates element to dispatching Refs, allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendRefs method is preferred when type widening is not required. */
-  def concatRefs [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
+  def appendRefs [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + op.length)
     array.copyToArray(newArray)
     op.array.copyToArray(newArray, length)
@@ -98,7 +98,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   /** Concatenates the elements of the operand Refs if the condition is true, else returns the original Refs. The return type is the super type of the
    * original Refs and the operand Ref. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
    * method, but concatsIf allows type widening. */
-  def concatRefsIf[AA >: A <: AnyRef](b: Boolean, newElems: => Refs[AA])(implicit ct: ClassTag[AA]): Refs[AA] = ife(b,this -++ newElems, this)
+  def concatRefsIf[AA >: A <: AnyRef](b: Boolean, newElems: => Refs[AA])(implicit ct: ClassTag[AA]): Refs[AA] = ife(b,this ++ newElems, this)
 
   /** Appends the elements of the operand Refs if the condition is true, else returns the original Refs. The operand is lazy so will only be evaluated
    *  if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
@@ -115,7 +115,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     optElem.fld(this, ++ _)
 
   def concatsOption[AA >: A <: AnyRef](optElems: Option[Refs[AA]])(implicit ct: ClassTag[AA]): Refs[AA] =
-    optElems.fld[Refs[AA]](this, this -++ _)
+    optElems.fld[Refs[AA]](this, this ++ _)
 }
 
 object Refs

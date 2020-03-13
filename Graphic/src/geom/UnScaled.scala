@@ -12,7 +12,7 @@ case class UnScaledShape(referenceVec: Vec2, relShape: Shape, evObj: AnyRef, ele
 UnScaledGraphicElem with ShapeActiveTr
 { def shape: Shape = relShape.slate(referenceVec)
   def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, evObj, elems)
-  def addElems(newElems: Refs[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, evObj, elems -++ newElems)
+  def addElems(newElems: Refs[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, evObj, elems ++ newElems)
   def mutObj(newObj: AnyRef): UnScaledShape = UnScaledShape(referenceVec, shape, newObj, elems)
 }
 
