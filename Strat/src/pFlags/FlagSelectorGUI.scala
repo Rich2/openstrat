@@ -1,12 +1,9 @@
 /* Copyright 2020 Stephen. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFlags
-
 import geom._, pCanv._, Colour._
 
-
-//NB: Assumes Flag.ratio is always <=2
-
+/** NB: Assumes Flag.ratio is always <=2. */
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { val commonScale = 95
   val listOfFlags = Array(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy,
@@ -26,7 +23,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
 
-  def clickButton(str: String, cmd: MB0, backColour: Colour = Colour.White) =
+  def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(MButtonCmd((mb: MouseButton) => { showPage(1) }), backColour, 3, backColour.contrastBW, 25, str)
   val btnPrev = clickButton("<", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-150, headerYpos)
   val btnNext = clickButton(">", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-100, headerYpos)   

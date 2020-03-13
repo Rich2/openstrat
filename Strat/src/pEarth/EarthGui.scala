@@ -58,11 +58,11 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
      repaintMap()
   }
   
-  def leftCmd: MB0 = mb => setFocus(focus.subLong(distDelta(mb))) 
-  def rightCmd: MB0 = mb => { focus = focus.addLong(distDelta(mb)); updateView() }   
-  def downCmd: MB0 = mb => { addLat(-distDelta(mb)); updateView }   
-  def upCmd: MB0 = mb => { addLat(distDelta(mb)); updateView }   
-  def invCmd: MB0 = mb => {focusUp = !focusUp; repaintMap() }    
+  def leftCmd: MouseCmd = mb => setFocus(focus.subLong(distDelta(mb)))
+  def rightCmd: MouseCmd = mb => { focus = focus.addLong(distDelta(mb)); updateView() }
+  def downCmd: MouseCmd = mb => { addLat(-distDelta(mb)); updateView }
+  def upCmd: MouseCmd = mb => { addLat(distDelta(mb)); updateView }
+  def invCmd: MouseCmd = mb => {focusUp = !focusUp; repaintMap() }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); updateView() }  
       
   val bInv: ShapeParent = clickButton("inv", invCmd)
@@ -74,7 +74,7 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
   def bSave = clickButton("save", saveCmd)
   def bLoad = clickButton("load", loadCmd)
   def eaButts: Refs[ShapeParent] =  Refs(bSave, bLoad)
-  def cmd00: MB0 = mb => { focus = LatLong0; focusUp = true; updateView }
+  def cmd00: MouseCmd = mb => { focus = LatLong0; focusUp = true; updateView }
   def b00: ShapeParent = clickButton("00", cmd00)
   override def eTop(): Unit = reTop(guButs ++ Refs(b00, bInv) ++ eaButts +- status)
      

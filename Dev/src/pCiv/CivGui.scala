@@ -18,7 +18,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
       //val poly = tog.vertDispVecs
       val tv = vertDispVecs.fillActive(colour, tile)
       val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
-      val tText = ifScaleCObj(60, TextGraphic(xyStr, 14, cen, colour.contrastBW))
+      val tText = ifScaleCObj(60, TextGraphic(yxStr, 14, cen, colour.contrastBW))
       val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
       val lunit: GraphicElemsOld = tile.lunits match
       {
@@ -83,7 +83,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
     case _ => deb("Mouse other")
   }   
 
-  def turnCmd: MB0 = mb => { foreachTileAll(_.lunits.foreach(_.resetMovePts())); repaintMap }
+  def turnCmd: MouseCmd = mb => { foreachTileAll(_.lunits.foreach(_.resetMovePts())); repaintMap }
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs +- bTurn +- status)
   eTop()

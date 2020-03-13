@@ -51,12 +51,12 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGridOld, val game: Simp
 
     case _ => setStatus("Other" -- clickList.toString)
   }   
-  def turnCmd: MB0 = mb =>
+  def turnCmd: MouseCmd = mb =>
     { val newGrid = game.newTurn(grid.getMoves)
       new UnusSetGui(canv, newGrid, game)
       ()
     }
-  def saveCmd: MB0 = mb => setStatus("Save not implemented yet.")
+  def saveCmd: MouseCmd = mb => setStatus("Save not implemented yet.")
   val bTurn = clickButton("T" -- grid.turnNum.str, turnCmd)
   val bSave = clickButton("S", saveCmd)
   override def eTop(): Unit = reTop(guButs +- bTurn +- bSave +- status)
