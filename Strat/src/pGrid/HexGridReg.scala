@@ -58,8 +58,8 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
 
   override def tilesAllForeach(f: Cood => Unit): Unit =
-  { ijToForeach(yRow2sMin, yRow2sMax, 4)(xRow2sMin, xRow2sMax, 4)((y, x) => f(Cood(x, y)))
-    ijToForeach(yRow0sMin, yRow0sMax, 4)(xRow0sMin, xRow0sMax, 4)((y, x) => f(Cood(x, y)))
+  { ijToForeachOld(yRow2sMin, yRow2sMax, 4)(xRow2sMin, xRow2sMax, 4)((y, x) => f(Cood(x, y)))
+    ijToForeachOld(yRow0sMin, yRow0sMax, 4)(xRow0sMin, xRow0sMax, 4)((y, x) => f(Cood(x, y)))
   }
 
   @inline override def index(x: Int, y: Int): Int =

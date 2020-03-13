@@ -20,7 +20,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
    def showPage(thisPage:Int): Unit =
    { val firstFlagToShow = thisPage * pageSize
-     val pageOfFlags = ijToMap(0, flagsPerRow)(0, flagsPerCol) { (i, j) =>
+     val pageOfFlags = ijToMapOld(0, flagsPerRow)(0, flagsPerCol) { (i, j) =>
          val r1 = listOfFlags(firstFlagToShow).parent.scale(commonScale)
          r1.slate(i*dimensions("cellWidth"), j*dimensions("cellHeight")).slate(-300, -240)
      }

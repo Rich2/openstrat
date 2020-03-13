@@ -148,7 +148,7 @@ package object ostrat
     while(i <= iTo) { f(i); i += iStep }
   }
 
-  def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
+  def ijToForeachOld(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
   { var i = iFrom
 
     while(i <= iTo)
@@ -160,10 +160,10 @@ package object ostrat
 
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
 
-  def ijUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(
-    implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
+  def ijUntilMapOld[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(
+    implicit ev: ArrBuild[A, AA]): AA = ijToMapOld[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
-  def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
+  def ijToMapOld[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
     implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).max(0) / iStep
     val jLen = (jTo - jFrom + 1).max(0) / jStep
@@ -187,7 +187,7 @@ package object ostrat
   }
 
   def iiToMap[A, AA <: ArrImut[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuild[A, AA]): AA =
-    ijToMap[A, AA](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
+    ijToMapOld[A, AA](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
