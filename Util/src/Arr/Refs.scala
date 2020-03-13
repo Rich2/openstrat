@@ -36,20 +36,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     new Refs(newArray)
   }
 
-  /** Alias for appendRefs. Functionally appends a second Refs[A] to this Refs. Returned value has the same type as the dispatching Refs. Use the -++
-   * concatRefs method if type widening is required. */
- // @inline def ++ (op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = appendRefs(op)(ct)
-  /** Alias for the appendRefs method. Functionally appends an operand Refs[A] to this Refs. Returned value has the same type as the dispatching
-   *  Refs. */
-  /*def appendRefs(op: Refs[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
-  { val newArray = new Array[A](length + op.length)
-    array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
-    new Refs(newArray)
-  }*/
-
-  /** Alias for concatRefs. Functionally concatenates 2nd Refs to dispatching Refs, allows type widening. The '-' character in the operator name indicates
-   *  loss of type precision. The ++ append operator is preferred when type widening is not required. */
+  /** Alias for appendRefs. Functionally appends 2nd Refs collection to dispatching Refs, allows type widening. This operation allows type widening.*/
   @inline def ++ [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = appendRefs[AA](op)(ct)
   /** Functionally concatenates element to dispatching Refs, allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendRefs method is preferred when type widening is not required. */
@@ -74,28 +61,18 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     new Refs(newArray)
   }
 
-  /** Alias for precaternate. Functionally prepends element to array. Allows type widening. Prefer +- prepend method where no type widening is
+  /** Alias for prepend. Functionally prepends element to array. Allows type widening. Prefer +- prepend method where no type widening is
    *  required. There is no precaternateRefs method, as this would serve no purpose. The ::: method on Lists is required for performance reasons. */
-  @inline def -+: [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Refs[AA] = precaternate(op)(ct)
+  @inline def +: [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Refs[AA] = prepend(op)(ct)
   /** Functionally prepends element to array. */
-  def precaternate[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
+  def prepend[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
     array.copyToArray(newArray, 1)
     new Refs(newArray)
   }
 
-  /** Alias for prepend. Functionally prepends element to Refs. */
-  @inline def +: (op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = prepend(op)(ct)
-  /** Functionally prepends element to array. */
-  def prepend(op: A @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
-  { val newArray = new Array[A](length + 1)
-    newArray(0) = op
-    array.copyToArray(newArray, 1)
-    new Refs(newArray)
-  }
-
-  /** Concatenates the elements of the operand Refs if the condition is true, else returns the original Refs. The return type is the super type of the
+  /** Concatenates the elements of the operands Refs if the condition is true, else returns the original Refs. The return type is the super type of the
    * original Refs and the operand Ref. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
    * method, but concatsIf allows type widening. */
   def concatRefsIf[AA >: A <: AnyRef](b: Boolean, newElems: => Refs[AA])(implicit ct: ClassTag[AA]): Refs[AA] = ife(b,this ++ newElems, this)
