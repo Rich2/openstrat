@@ -165,13 +165,13 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
    
   override protected[this] def tlShapeFill(sf: ShapeFill): Unit =
-  { segsPath(sf.segs)
+  { segsPath(sf.shape)
     gc.setFill(toFxColor(sf.colour))
     gc.fill()
   }
    
   override protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit =
-  { segsPath(sfd.segs)
+  { segsPath(sfd.shape)
     gc.setFill(toFxColor(sfd.fillColour))
     gc.fill()
     gc.setLineWidth(sfd.lineWidth)
@@ -180,7 +180,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   override def tlShapeDraw(sd: ShapeDraw): Unit =
-  { segsPath(sd.segs)
+  { segsPath(sd.shape)
     gc.setLineWidth(sd.lineWidth)
     gc.setStroke(toFxColor(sd.colour))
     gc.stroke()

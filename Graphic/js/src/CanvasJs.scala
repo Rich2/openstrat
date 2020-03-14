@@ -150,17 +150,17 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath
   }
    
-  override protected[this] def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.segs);  gc.fillStyle = sf.colour.webStr; gc.fill }
+  override protected[this] def tlShapeFill(sf: ShapeFill): Unit = { segsPath(sf.shape);  gc.fillStyle = sf.colour.webStr; gc.fill }
    
   override protected[this] def tlShapeDraw(sd: ShapeDraw): Unit =
-  { segsPath(sd.segs)
+  { segsPath(sd.shape)
     gc.strokeStyle = sd.colour.webStr
     gc.lineWidth = sd.lineWidth
     gc.stroke
   }
 
   override protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit =
-  { segsPath(sfd.segs)
+  { segsPath(sfd.shape)
     gc.fillStyle = sfd.fillColour.webStr
     gc.fill
     gc.strokeStyle = sfd.lineColour.webStr
