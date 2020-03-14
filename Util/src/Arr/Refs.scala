@@ -37,7 +37,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 
   /** Alias for concat. Functionally concatenates element to dispatching Refs, allows type widening. */
   @inline def +- [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] = append[AA](op)(ct)
-  /** Functionally appends Refs to dispatching Refs, allows type widening. Aliased by +- operator. */
+  /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
     array.copyToArray(newArray)
