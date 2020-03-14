@@ -14,7 +14,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBa
   { import tog._
     val colour: Colour = tile.colour
     val tv = vertDispVecs.fillActive(colour, tile)
-     val sides = ifScaleCObjsOld(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
+     val sides = ifScaleCObjsOld(60, ownSideLinesOld.map(_.draw(1, colour.contrastBW)))
     val tText = ifScaleCObjOld(60, TextGraphic(xyStr, 14, cen, colour.contrastBW))
     val player = ifScaleOptObjsNew(60, tile.charac){charac =>
       val poly1 = Rectangle(1.5).insVerts(1, -0.25 vv 0.5, 0 vv 0.8, 0.25 vv 0.5)

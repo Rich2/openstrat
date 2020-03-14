@@ -42,7 +42,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
       import ofs._
       ifScaleCObjsOld(60, side.terr match
           {
-            case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
+            case SideNone => ifTilesOld((t1, t2) => t1.colour == t2.colour,
                (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
             case Straitsold => ArrOld(vertDispLine.draw(6, Colour.Blue))
          })        

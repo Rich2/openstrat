@@ -51,17 +51,17 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     tv.toArraySeq ++ tText ++ lunit
   }
     
-  def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElemsOld = ofs =>
+  def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElems = ofs =>
   { import ofs._    
-    ifScaleCObjsOld(60, side.wall match
-      { case true => ArrOld(vertDispLine.draw(6, Gray))
+    ifScaleCObjs(60, side.wall match
+      { case true => Refs(vertDispLine.draw(6, Gray))
         case _ => ifTiles(_.colour == _.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
       }
     )    
   }
     
-  def dSides: GraphicElemsOld = ofSidesDisplayFold(fSide)
-  def mapObjs: GraphicElems = (ofTilesDisplayFold(fHex) ++ dSides).toRefs//ofHexsDisplayFold(fHex).collapse
+  def dSides: GraphicElems = ofSidesDisplayFold(fSide)
+  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex).toRefs ++ dSides //ofHexsDisplayFold(fHex).collapse
      
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

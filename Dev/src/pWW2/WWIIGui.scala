@@ -30,7 +30,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
     {
       import ofs._
       ifScaleCObjsOld(60, side.terr match
-        { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
+        { case SideNone => ifTilesOld((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
           case Straitsold => ArrOld(vertDispLine.draw(6, Colour.Blue))
         }
       )

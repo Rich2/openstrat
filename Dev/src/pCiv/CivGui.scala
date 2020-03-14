@@ -18,7 +18,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
       val colour: Colour = tile.colour
       //val poly = tog.vertDispVecs
       val tv = vertDispVecs.fillActive(colour, tile)
-      //val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
+      val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
       val tText = ifScaleCObj(60, TextGraphic(yxStr, 14, cen, colour.contrastBW))
       val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
 
@@ -31,11 +31,10 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
           val fillColour = head.faction.colour                      
           val r = Rectangle.curvedCornersCentred(90, 60, 10, posn).parentAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString)
           Refs(r)
-          //Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
         }
         case _ => Refs()
        }
-       tv ++ tText ++ sett ++ lunit //++ sides
+       tv ++ tText ++ sett ++ lunit ++ sides
      }
 
   def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex)// ofHexsDisplayFold(fHex).collapse
