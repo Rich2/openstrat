@@ -37,7 +37,7 @@ case class ShapeFillDrawText(shape: Shape, fillColour: Colour, str: String, font
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.shapeFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
 }
 
-case class ShapeAll(shape: Shape, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
+case class ShapeAll(shape: Shape, evObj: AnyRef, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
   extends ShapeElem with ShapeActiveTr
 {
   override def fTrans(f: Vec2 => Vec2) = ShapeFillDrawText(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
