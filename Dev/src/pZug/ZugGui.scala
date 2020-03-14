@@ -13,7 +13,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   override var focus: Vec2 = grid.cen
   mapPanel.backColour = Black
   
-  def fHex: OfHexReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElemsOld = ofh =>
+  def fHex: OfHexReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElems = ofh =>
   { import ofh._         
     val colour: Colour = tile.colour         
     
@@ -24,31 +24,31 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     
     val tText = ifScaleCObj(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))
     
-    def action(squad: Squad): GraphicElemsOld = squad.action match
+    def action(squad: Squad): GraphicElems = squad.action match
     {
       case Move(coods) =>      
       {
-        coods.foldWithPrevious[GraphicElemsOld](squad.cood, ArrOld()){ (acc, prevCood, nextCood) =>
+        coods.foldWithPrevious[GraphicElems](squad.cood, Refs()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
           val l1 = CoodLine(prevCood, sideCood).toLine2(coodToDispVec2).draw(2, scen.getTile(prevCood).contrast)
           val l2 = CoodLine(sideCood, nextCood).toLine2(coodToDispVec2).draw(2, scen.getTile(nextCood).contrast)
-          acc :+ l1 :+ l2
+          acc +- l1 +- l2
         }
       }
-      case Fire(target) => ArrOld(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red).dashed(20, 20))
-      case _ => ArrOld()
+      case Fire(target) => Refs(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red).dashed(20, 20))
+      case _ => Refs()
     }
     
-    val lunit: GraphicElemsOld = tile.lunits match
+    val lunit: GraphicElems = tile.lunits match
     {
       case s if tScale > 68 & s.nonEmpty =>
       {
         val counter = UnitCounters.infantry(30, s.head, s.head.colour, tile.colour).slate(cen)
-        ArrOld(counter) ++ action(s.head)
+        Refs(counter) ++ action(s.head)
       }
-      case _ => ArrOld()
+      case _ => Refs()
     }    
-    (tv ++ tText).toArraySeq ++ lunit
+    (tv ++ tText ++ lunit)//.toArraySeq
   }
     
   def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElems = ofs =>
@@ -61,7 +61,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   }
     
   def dSides: GraphicElems = ofSidesDisplayFold(fSide)
-  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex).toRefs ++ dSides
+  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex) ++ dSides
      
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

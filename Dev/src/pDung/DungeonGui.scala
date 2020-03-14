@@ -24,7 +24,7 @@ class DungeonGui(canv: CanvasPlatform) extends SquareGridGui[DTileOld, SideOldBa
     tv.toArraySeq ++ tText ++ player.toArraySeq ++ sides
   }
   
-  def mapObjs: GraphicElems = (ofTilesDisplayFold[OfSquareReg[DTileOld, SideOldBare, DungeonGridOld]](fSquare)).toRefs
+  def mapObjs: GraphicElems = (ofTilesDisplayFoldOld[OfSquareReg[DTileOld, SideOldBare, DungeonGridOld]](fSquare)).toRefs
 
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {

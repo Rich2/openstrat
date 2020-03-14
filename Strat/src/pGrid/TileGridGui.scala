@@ -96,8 +96,11 @@ abstract class TileGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: Tile
     acc
   }
    
-  def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit oftFactory: (TileT, GridT,
+  @deprecated def ofTilesDisplayFoldOld[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit oftFactory: (TileT, GridT,
       TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofTilesFold[OfT, GraphicElemsOld](f, _ ++ _, ArrOld())(oftFactory)
+
+  def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElems)(implicit oftFactory: (TileT, GridT,
+    TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofTilesFold[OfT, GraphicElems](f, _ ++ _, Refs())(oftFactory)
          
   @deprecated def ofSidesDisplayFoldOld[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit ofsFactory: (SideT, GridT,
       TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofSidesFold[OfT, GraphicElemsOld](f, _ ++ _, ArrOld())(ofsFactory)
