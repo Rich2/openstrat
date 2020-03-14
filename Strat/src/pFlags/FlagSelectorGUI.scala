@@ -23,8 +23,10 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
 
-  def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
-    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(MButtonCmd((mb: MouseButton) => { showPage(1) }), backColour, 3, backColour.contrastBW, 25, str)
+  /*def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).
+      parentAll(MButtonCmd((mb: MouseButton) => { showPage(1) }), backColour, 3, backColour.contrastBW, 25, str)
+*/
   val btnPrev = clickButton("<", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-150, headerYpos)
   val btnNext = clickButton(">", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-100, headerYpos)   
   val btns: Refs[ShapeParent] = Refs(btnPrev, btnNext)
