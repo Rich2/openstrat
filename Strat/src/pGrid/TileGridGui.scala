@@ -61,12 +61,12 @@ abstract class TileGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: Tile
   /** FlatMap all tiles Cood to a List. */
   @inline final def tilesCoodFlatMapListAll[A](f: Cood => List[A]): List[A] = grid.tilesCoodFlatMapListAll(f)
    
-  def inCmd = (mb: MouseButton) => { pScale = (pScale * scaleDelta(mb)).min(scaleMax); updateView }   
-  def outCmd = (mb: MouseButton) => { pScale = (pScale / scaleDelta(mb)).max(scaleMin); updateView } 
-  def leftCmd: MouseButton => Unit = (mb: MouseButton) =>  {focus = focus.subX(distDelta(mb)); updateView() } 
-  def rightCmd: MouseButton => Unit = (mb: MouseButton) => { focus = focus.addX(distDelta(mb)); updateView() }   
-  def downCmd: MouseButton => Unit = (mb: MouseButton) => {  focus = focus.subY(distDelta(mb)); updateView }   
-  def upCmd: MouseButton => Unit = (mb: MouseButton) => { focus = focus.addY(distDelta(mb)); updateView }
+  def inCmd: MouseCmd = mb => { pScale = (pScale * scaleDelta(mb)).min(scaleMax); updateView }
+  def outCmd: MouseCmd = mb => { pScale = (pScale / scaleDelta(mb)).max(scaleMin); updateView }
+  def leftCmd: MouseCmd = mb =>  {focus = focus.subX(distDelta(mb)); updateView() }
+  def rightCmd: MouseCmd = mb => { focus = focus.addX(distDelta(mb)); updateView() }
+  def downCmd: MouseCmd = mb => {  focus = focus.subY(distDelta(mb)); updateView }
+  def upCmd: MouseCmd = mb => { focus = focus.addY(distDelta(mb)); updateView }
        
   canv.onScroll = b => { pScale = ife(b, (pScale * 1.2).min(scaleMax), (pScale / 1.2).max(scaleMin)); updateView() }
   

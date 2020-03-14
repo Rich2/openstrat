@@ -11,13 +11,11 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
   val barWidth = 30
   val topPan: Panel = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
   topPan.backColour = Colour.Gray
-  topPan.mouseUp = 
-  {
-    case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
+
+  topPan.mouseUp =
+  { case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
     case t => deb(t.toString)
   }
-
-
    
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextParent(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   /**  repaints the top command bar */
