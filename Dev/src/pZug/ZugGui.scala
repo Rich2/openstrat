@@ -22,7 +22,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       case _ => vertDispVecs.fillActive(colour, tile)
     }
     
-    val tText = ifScaleCObjOld(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))
+    val tText = ifScaleCObj(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))
     
     def action(squad: Squad): GraphicElemsOld = squad.action match
     {
@@ -48,7 +48,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       }
       case _ => ArrOld()
     }    
-    tv.toArraySeq ++ tText ++ lunit
+    (tv ++ tText).toArraySeq ++ lunit
   }
     
   def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElems = ofs =>
@@ -61,7 +61,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   }
     
   def dSides: GraphicElems = ofSidesDisplayFold(fSide)
-  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex).toRefs ++ dSides //ofHexsDisplayFold(fHex).collapse
+  def mapObjs: GraphicElems = ofTilesDisplayFold(fHex).toRefs ++ dSides
      
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
