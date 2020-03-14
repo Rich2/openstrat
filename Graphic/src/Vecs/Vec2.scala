@@ -80,11 +80,12 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
 
   /** This sure looks right */
   def rotate(a: Angle): Vec2 =  Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
+
   def rotateRadians(r: Double): Vec2 = Vec2(x * cos(r) - y * sin(r),
-      { val ya = x * sin(r)          
-        val yb =y * cos(r)          
-        ya + yb
-      })
+    { val ya = x * sin(r)
+      val yb =y * cos(r)
+      ya + yb
+    })
    
   def centreSquare(length: Double): Polygon =
   { val r = length / 2.0

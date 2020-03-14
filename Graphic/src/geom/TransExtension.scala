@@ -7,15 +7,22 @@ package geom
  *  There is a Trans[Polygon]instance and a Trans[List[Polygon]] instance. The TransDistExtension class provides similar extension methods for
  *  objects that can perform the Dist2 => Dist2 transformation. */
 class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
-{ def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)
+{
+  /** General Vec2 to Vec2 transformation. */
+  def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)
+
   /** Translate in 2 dimensional space. */
   def slate(offset: Vec2): T = trans(_ + offset)
+
   /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): T = trans(_.addXY(xOffset, yOffset))
+
   /** Translate 2 dimensional vectors along the X axis */
   def slateX(xOffset: Double): T = trans(_.addX(xOffset))
+
   /** Translate 2 dimensional vectors along the Y axis */
   def slateY(yOffset: Double): T = trans(_.addY(yOffset))
+
   /** The scale transformation on 2 dimensional vectors. */
   def scale(factor: Double): T = trans(_ * factor)
 
@@ -23,12 +30,16 @@ class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
   override def rotateRadians(r: Double): T = trans(_.rotateRadians(r))
   def scaleY(factor: Double): T = trans(_.scaleY(factor))
   def scaleX(factor: Double): T = trans(_.scaleX(factor))
-  /** this.asInstanceOf[T] */  
+
+  /** this.asInstanceOf[T] */
   def identity: T = this.asInstanceOf[T]
+
   /** Mirrors along the Y axis by negating X. */
   def negX: T = trans(_.negX)
+
   /** Mirrors along the X axis by negating Y. */
   def negY: T = trans(_.negY)
-  /** Negates x and y values */
+
+  /** Vec2 transformation that negates x and y values */
   def negXY: T = trans(- _)
 }

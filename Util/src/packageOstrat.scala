@@ -58,9 +58,7 @@ package object ostrat
   @inline def excep(str: => String): Nothing = throw new Exception(str)
   @inline def ifExcep(b: Boolean, str: => String): Unit = if(b) throw new Exception(str)
   @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
- // def ifSeq[A](b: Boolean, vTrue: => Seq[A]): Seq[A] = if (b) vTrue else Seq()
-  //def ifSeq1[A](b: Boolean, vTrue: => A): Seq[A] = if (b) Seq(vTrue) else Seq()
-  //def ifSome[A](b: Boolean, vTrue: => A): Option[A] = if (b) Some(vTrue) else None
+
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
   def readT[T](implicit ev: Persist[T]): T =
@@ -167,10 +165,12 @@ package object ostrat
    *  when those index names are more appropriate. */
   @inline def xyToMap[A, AA <: ArrImut[A]](xFrom: Int, xTo: Int, xStep: Int = 1)(yFrom: Int, yTo: Int, yStep: Int = 1)(f: (Int, Int) => A)
      (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](xFrom, xTo, xStep)(yFrom, yTo, yStep)(f)(ev)
+
   /** Maps 2 integer ranges. y is the index for the outer loop. x is the index for the inner loop. Alias for the ijToMap method prefer that when those
    * index names are more appropriate. */
   @inline def yxToMap[A, AA <: ArrImut[A]](yFrom: Int, yTo: Int, yStep: Int = 1)(xFrom: Int, xTo: Int, xStep: Int = 1)(f: (Int, Int) => A)
     (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](yFrom, yTo, yStep)(xFrom, xTo, xStep)(f)(ev)
+
   /**  i is the index for the outer loop. j is the index for the inner loop. This method is aliased by */
   def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)
     (implicit ev: ArrBuild[A, AA]): AA =
