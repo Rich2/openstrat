@@ -163,6 +163,10 @@ package object ostrat
   def ijUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)
     (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
+  /** Maps 2 integer ranges. x is the index for the outer loop. y is the index for the inner loop. Alias for the ijToMap method prefer that or yxMap
+   *  when those index names are more appropriate. */
+  @inline def xyToMap[A, AA <: ArrImut[A]](xFrom: Int, xTo: Int, xStep: Int = 1)(yFrom: Int, yTo: Int, yStep: Int = 1)(f: (Int, Int) => A)
+     (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](xFrom, xTo, xStep)(yFrom, yTo, yStep)(f)(ev)
   /** Maps 2 integer ranges. y is the index for the outer loop. x is the index for the inner loop. Alias for the ijToMap method prefer that when those
    * index names are more appropriate. */
   @inline def yxToMap[A, AA <: ArrImut[A]](yFrom: Int, yTo: Int, yStep: Int = 1)(xFrom: Int, xTo: Int, xStep: Int = 1)(f: (Int, Int) => A)
@@ -170,8 +174,8 @@ package object ostrat
   /**  i is the index for the outer loop. j is the index for the inner loop. This method is aliased by */
   def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)
     (implicit ev: ArrBuild[A, AA]): AA =
-  { val iLen = (iTo - iFrom + 1).max(0) / iStep
-    val jLen = (jTo - jFrom + 1).max(0) / jStep
+  { val iLen = (iTo - iFrom + iStep).max(0) / iStep
+    val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
     val res = ev.imutNew(arrLen)
     var i: Int = iFrom

@@ -22,8 +22,8 @@ object UnitedStates extends Flag
 
   val apply =
   { val blueField = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E))
-    val stars = ijToMap(0, 5)(0, 4)((i, j) => (star.slate(starX + 2 * i * starX, - starY - 2 * j * starY)))
-    val starsInner = ijToMap(0, 4)(0, 3)((i, j) => (star.slate(2 * starX + 2 * i * starX, - starY * 2 - 2 * j * starY)))
+    val stars = xyToMap(0, 10, 2)(1, 9, 2) { (x, y) => star.slate(starX + x * starX, -y * starY) }
+    val starsInner = xyToMap(2, 10, 2)(2, 8, 2) { (x, y) => star.slate(x * starX, -y * starY) }
     val stripes = topToBottomRepeat(13, oGRed, White)
     stripes +- blueField ++ stars ++ starsInner
   }
