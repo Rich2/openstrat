@@ -22,7 +22,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       case _ => vertDispVecs.fillActive(colour, tile)
     }
     
-    val tText = ifScaleCObj(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))
+    val tText = ifScaleCObjOld(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))
     
     def action(squad: Squad): GraphicElemsOld = squad.action match
     {
@@ -53,7 +53,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     
   def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElemsOld = ofs =>
   { import ofs._    
-    ifScaleCObjs(60, side.wall match
+    ifScaleCObjsOld(60, side.wall match
       { case true => ArrOld(vertDispLine.draw(6, Gray))
         case _ => ifTiles(_.colour == _.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
       }

@@ -8,10 +8,10 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transer
    /** This may need clarification */
    override def fTrans(f: Vec2 => Vec2): ShapeCentred = ShapeCentred(f(cen), segs)//.fTrans(f))
 
-  @deprecated def parentAllOld(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String,
+ /* @deprecated def parentAllOld(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String,
                     textAlign: TextAlign = CenAlign): ShapeParentOld =
      ShapeParentOld(cen, segs, evObj, ArrOld(ShapeFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
-
+*/
   def parentAll(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String,
                    textAlign: TextAlign = CenAlign): ShapeParent =
     ShapeParent(cen, segs, evObj, Refs(ShapeFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
