@@ -77,5 +77,9 @@ package object geom
   /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
   val deg150: Angle = Angle(5 * Pi / 6)
   /** 180 degrees or Pi radians */
-  def deg180: Angle = Angle(Pi)   
+  def deg180: Angle = Angle(Pi)
+
+  def displayRowParents(margin: Double, subjs: Refs[GraphicParent], leftPt: Vec2): Refs[GraphicParent] =
+    subjs.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.width / 2), x + head.width + margin))
+
 }

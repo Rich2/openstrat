@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pCanv
-import geom._, Colour._
+import geom._
 
 /** A MapGui uses a CanvMulti. It has a main map panel and a top control panel. In addition translates between 2d game coordinates and 2d coordinates
  *  on the canvas. Allowing the canvas to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the
@@ -19,7 +19,7 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
    
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextParent(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   /**  repaints the top command bar */
-  def reTop(commands: Refs[GraphicParent]): Unit = topPan.repaint(DisplayRowParents(10, commands).fromLeft(topPan.cenLeft))
+  def reTop(commands: Refs[GraphicParent]): Unit = topPan.repaint(displayRowParents(10, commands, topPan.cenLeft))
   var statusText = "This is the status text."
   def status = textBox(statusText, None)
   val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
