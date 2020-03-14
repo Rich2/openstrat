@@ -79,7 +79,8 @@ package object geom
   /** 180 degrees or Pi radians */
   def deg180: Angle = Angle(Pi)
 
-  def displayRowParents(margin: Double, subjs: Refs[GraphicParent], leftPt: Vec2): Refs[GraphicParent] =
-    subjs.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.width / 2), x + head.width + margin))
+  def displayRowParents(leftPt: Vec2, parents: Refs[GraphicParent], margin: Double = 10): Refs[GraphicParent] =
+    parents.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.width / 2), x + head.width + margin))
+
 
 }
