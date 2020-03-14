@@ -42,7 +42,7 @@ trait FSSCood[R] extends Function1[SSCood, R]
 
 case class SSGridRange(xMax: Int, yMax: Int)
 {
-  def fDisp(f: FSSCood[Colour], scale: Double): Refs[PaintElem] = ijToMapOld(1, xMax)(1, yMax) { (x, y) =>
+  def fDisp(f: FSSCood[Colour], scale: Double): Refs[PaintElem] = ijToMap(1, xMax)(1, yMax) { (x, y) =>
     val c: Colour = f.xy(x, y)
     Square.fillXY(scale, c, x * scale, y * scale)
   }

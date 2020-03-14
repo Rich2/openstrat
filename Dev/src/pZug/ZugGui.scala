@@ -22,7 +22,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       case _ => vertDispVecs.fillActive(colour, tile)
     }
     
-    val tText = ifScaleCObj(60, TextGraphicCen(xyStr, 14, cen, colour.contrastBW, 2))
+    val tText = ifScaleCObj(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))
     
     def action(squad: Squad): GraphicElemsOld = squad.action match
     {
@@ -82,7 +82,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
     
     case _ => deb("Other" -- clickList.toString)
   }   
-  def turnCmd: MB0 = mb => {}
+  def turnCmd: MouseCmd = mb => {}
   val bTurn = clickButton("T", turnCmd)   
   override def eTop(): Unit = reTop(guButs +- bTurn +- status)
   eTop()

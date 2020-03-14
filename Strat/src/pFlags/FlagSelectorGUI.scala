@@ -1,76 +1,57 @@
 /* Copyright 2020 Stephen. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFlags
-
 import geom._, pCanv._, Colour._
 
+/** NB: Assumes Flag.ratio is always <=2. */
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { val commonScale = 95
   val listOfFlags = Array(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy,
-                                 Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag)
+                          Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag,
+                          WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag,
+                          Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag,
+                          WhiteFlag, UnitedKingdom, WhiteFlag, CommonShapesInFlags, CommonShapesInFlags)
+
   val flagCount = listOfFlags.length
-  val flagsPerRow = 4
+  val flagsPerRow = 5
   val flagsPerCol = 4
   val pageSize = flagsPerRow * flagsPerCol
   val currentPage = 0
   val dimensions = Map("width"->800, "height"->600, "headerSize"->50, "cellWidth"->200, "cellHeight"->110)
 
+  val headerYpos = dimensions("height")/2-dimensions("headerSize")/2
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
-  val aTitle = TextGraphic("Flags", 40, 0 vv dimensions("height")/2-dimensions("headerSize")/2)
+  val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
 
-   def showPage(thisPage:Int): Unit =
-   { val firstFlagToShow = thisPage * pageSize
-     val pageOfFlags = ijToMapOld(0, flagsPerRow)(0, flagsPerCol) { (i, j) =>
-         val r1 = listOfFlags(firstFlagToShow).parent.scale(commonScale)
-         r1.slate(i*dimensions("cellWidth"), j*dimensions("cellHeight")).slate(-300, -240)
-     }
-     val stuff: Refs[GraphicElem] = Refs(background, aTitle) ++ pageOfFlags
-     repaint(stuff)
-   }
- showPage(currentPage)
+  def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(MButtonCmd((mb: MouseButton) => { showPage(1) }), backColour, 3, backColour.contrastBW, 25, str)
+  val btnPrev = clickButton("<", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-150, headerYpos)
+  val btnNext = clickButton(">", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-100, headerYpos)   
+  val btns: Refs[ShapeParent] = Refs(btnPrev, btnNext)
 
+  var stuff: Refs[GraphicElem] = Refs(background, aTitle)
+  
+  def showPage(thisPage:Int): Unit =
+  { val firstFlagToShow = thisPage * pageSize
+    val pageOfFlags = ijToMap(0, flagsPerCol-1)(0, flagsPerRow-1) { (i, j) =>
+      val r1 = listOfFlags(firstFlagToShow+i+j*(flagsPerRow-1)).parent.scale(commonScale)
+      r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate(
+            -(dimensions("width")-dimensions("cellWidth"))/2, (dimensions("height")-dimensions("cellHeight"))/2-dimensions("headerSize"))
+    }
+    stuff = Refs(background, aTitle) ++ pageOfFlags ++ btns
+    repaint(stuff)
+  }
 
+  showPage(currentPage)
 
-
-
-
-
-
-  // val stuff = Refs(
-  //   //page background & title
-
-  //   //row 1
-  //   Armenia.subj.scale(commonScale).slate(-300, 200),
-  //   Austria.subj.scale(commonScale).slate(-100, 200),
-  //   Belgium.subj.scale(commonScale).slate(100, 200),
-  //   Chad.subj.scale(commonScale).slate(300, 200),
-  //   //row 2
-  //   China.subj.scale(commonScale).slate(-300, 90),
-  //   England.subj.scale(commonScale).slate(-100, 90),
-  //   France.subj.scale(commonScale).slate(100, 90),
-  //   Germany.subj.scale(commonScale).slate(300, 90),
-  //   //row 3
-  //   Germany1871.subj.scale(commonScale).slate(-300, -20),
-  //   Italy.subj.scale(commonScale).slate(-100, -20),
-  //   Ireland.subj.scale(commonScale).slate(100, -20),
-  //   Japan.subj.scale(commonScale).slate(300, -20),
-  //   //row 4
-  //   Russia.subj.scale(commonScale).slate(-300, -130),
-  //   USSR.subj.scale(commonScale).slate(-100, -130),
-  //   Swastika.subj.scale(commonScale).slate(100, -130),
-  //   UnitedKingdom.subj.scale(commonScale).slate(300, -130),
-  //   //row 5
-  //   UnitedStates.subj.scale(commonScale).slate(-300, -240),
-  //   WhiteFlag.subj.scale(commonScale).slate(-100, -240),
-  //   CommonShapesInFlags.subj.scale(commonScale).slate(100, -240),
-  //   // WhiteFlag.subj.scale(commonScale).slate(300, -240),
-  // )
-
-  // mouseUp = (v, b, s) =>
-  // { val str: String = s.headToStringElse("")
-  //   val flagName = TextGraphic(str, 28, 200 vv 275)
-  //  // repaint(stuff -+  flagName)
-  // }
-
-//  
+  mouseUp = (v, b, s) =>
+  { 
+    if(v._1 < -80 & v._1 > -120 & v._2 > 260 & v._2 < 285){ showPage(Math.min(currentPage+1 ,flagCount%pageSize)) }
+    else if(v._1 < -130 & v._1 > -170 & v._2 > 260 & v._2 < 285){ showPage(Math.max(currentPage-1 ,0)) }
+    else{
+      val str: String = s.headToStringElse("")
+      val flagName = TextGraphic(str.toString, 28, 200 vv 275)
+      repaint(stuff +- flagName)
+    }
+  }
 }

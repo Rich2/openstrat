@@ -8,19 +8,19 @@ import geom._
 abstract class UnfixedMapGui(title: String) extends MapGui(title)
 {
   var selected: Refs[AnyRef] = Refs()
-  def inCmd: MouseButton => Unit  
-  def outCmd: MouseButton => Unit
-  def leftCmd: MouseButton => Unit  
-  def rightCmd: MouseButton => Unit  
-  def downCmd: MouseButton => Unit    
-  def upCmd: MouseButton => Unit 
+  def inCmd: MouseCmd  
+  def outCmd: MouseCmd
+  def leftCmd: MouseCmd  
+  def rightCmd: MouseCmd
+  def downCmd: MouseCmd    
+  def upCmd: MouseCmd 
    
   val bIn = clickButton("+", inCmd)   
   val bOut = clickButton("-", outCmd)   
-  val bLeft = clickButton("\u2B05", leftCmd)   
-  val bUp = clickButton("\u2B06", upCmd)   
-  val bDown = clickButton("\u2B07", downCmd)   
-  val bRight = clickButton("\u27A1", rightCmd)
+  val bLeft = clickButton("Lt", leftCmd)
+  val bUp = clickButton("Up", upCmd)
+  val bDown = clickButton("Dn", downCmd)
+  val bRight = clickButton("Rt", rightCmd)
    
   val guButs: Refs[ShapeParent] = Refs(bIn, bOut, bLeft, bRight, bDown, bUp)
 }

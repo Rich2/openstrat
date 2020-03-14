@@ -13,7 +13,7 @@ package object ostrat
   type ShowEq[A] = Show[A] with Eq[A]
   type AnyRefs = Refs[AnyRef]
   type Strings = Refs[String]
-  type Not[T] = { type L[U] = U NotSubTypeOf T  }
+  type Not[T] = { type L[U] = U NotSubTypeOf T }
 
   val Tan30 = 0.577350269f;
   val Cos30 = 0.866025404f;
@@ -148,7 +148,7 @@ package object ostrat
     while(i <= iTo) { f(i); i += iStep }
   }
 
-  def ijToForeachOld(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
+  def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
   { var i = iFrom
 
     while(i <= iTo)
@@ -160,13 +160,22 @@ package object ostrat
 
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
 
-  def ijUntilMapOld[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(
-    implicit ev: ArrBuild[A, AA]): AA = ijToMapOld[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
+  def ijUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)
+    (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
 
-  def ijToMapOld[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)(
-    implicit ev: ArrBuild[A, AA]): AA =
-  { val iLen = (iTo - iFrom + 1).max(0) / iStep
-    val jLen = (jTo - jFrom + 1).max(0) / jStep
+  /** Maps 2 integer ranges. x is the index for the outer loop. y is the index for the inner loop. Alias for the ijToMap method prefer that or yxMap
+   *  when those index names are more appropriate. */
+  @inline def xyToMap[A, AA <: ArrImut[A]](xFrom: Int, xTo: Int, xStep: Int = 1)(yFrom: Int, yTo: Int, yStep: Int = 1)(f: (Int, Int) => A)
+     (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](xFrom, xTo, xStep)(yFrom, yTo, yStep)(f)(ev)
+  /** Maps 2 integer ranges. y is the index for the outer loop. x is the index for the inner loop. Alias for the ijToMap method prefer that when those
+   * index names are more appropriate. */
+  @inline def yxToMap[A, AA <: ArrImut[A]](yFrom: Int, yTo: Int, yStep: Int = 1)(xFrom: Int, xTo: Int, xStep: Int = 1)(f: (Int, Int) => A)
+    (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](yFrom, yTo, yStep)(xFrom, xTo, xStep)(f)(ev)
+  /**  i is the index for the outer loop. j is the index for the inner loop. This method is aliased by */
+  def ijToMap[A, AA <: ArrImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)
+    (implicit ev: ArrBuild[A, AA]): AA =
+  { val iLen = (iTo - iFrom + iStep).max(0) / iStep
+    val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
     val res = ev.imutNew(arrLen)
     var i: Int = iFrom
@@ -187,7 +196,7 @@ package object ostrat
   }
 
   def iiToMap[A, AA <: ArrImut[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuild[A, AA]): AA =
-    ijToMapOld[A, AA](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
+    ijToMap[A, AA](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}

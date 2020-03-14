@@ -18,10 +18,10 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
   }
   def cmdButton(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).parentAll(cmd, White, 3, Black, 25, str)
   
-  def clickButton(str: String, cmd: MB0, backColour: Colour = Colour.White) =
+  def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(MButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
    
-  def buttonStd(str: String, cmd: MB0, backColour: Colour = Colour.White) =
+  def buttonStd(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
     Rectangle.curvedCornersCentred(100, 25, 5).parentAll(cmd, backColour, 3, backColour.contrastBW, 20, str)
    
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextParent(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)

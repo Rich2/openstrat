@@ -55,8 +55,8 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
     x.toString.appendCommas(y.toString) -- "is an invalid Squareside tile coordinate")
 
   override def foreachSidesXYAll(f: (Int, Int) => Unit): Unit =
-  { ijToForeachOld(yTileMin, yTileMax, 2)(xTileMin + 1, xTileMax -1, 2)((y, x) => f(x, y))
-    ijToForeachOld(yTileMin + 1, yTileMax - 1, 2)(xTileMin, xTileMax, 2)((y, x) => f(x, y))
+  { ijToForeach(yTileMin, yTileMax, 2)(xTileMin + 1, xTileMax -1, 2)((y, x) => f(x, y))
+    ijToForeach(yTileMin + 1, yTileMax - 1, 2)(xTileMin, xTileMax, 2)((y, x) => f(x, y))
   }
    
   /** Sets a rectangle of tiles to the same terrain type. */
