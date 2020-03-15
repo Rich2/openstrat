@@ -43,15 +43,46 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   showPage(currentPage)
 
-  mouseUp = 
-  {
-    case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
-   // case (v, b, s) => deb(Refs1(s).toString)
-    case (v, b, Refs1(s: Flag)) => {
-      deb(s.toString)
-      // deb(s(0).name + " : " & s(0).ratio )
-      // s.parent.scale(200)
-    }
-    case _ => deb("nothing")
+  mouseUp = (v, button: MouseButton, clickList) => button match
+    {
+      case LeftButton => clickList match
+      { case Refs1(MButtonCmd(cmd)) => cmd.apply(button)
+        case Refs1(flag: Flag) => deb("it f'ing works!")
+        case _ => deb("uncaught left click")
+      }
+    case _ => deb("uncaught non left mouse button")
   }
 }
+
+  // mapPanel.mouseUp = (v, button: MouseButton, clickList) => button match
+  //   {
+  //     case LeftButton =>
+  //     { selected = clickList//.fHead(Arr(), Arr(_))
+  //       statusText = selected.headToStringElse("Nothing Clicked")
+  //       eTop()
+  //     }
+
+  //     case RightButton => (selected, clickList) match
+  //     { case (Refs1(army: Army), Refs1(newTile: W2TileOld)) =>
+  //       { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
+  //         val newArmy = army.copy(newTile)
+  //         newTile.lunits +-= newArmy
+  //         selected = Refs(newArmy)
+  //         repaintMap
+  //       }
+  //       case (Refs1(army: Army), as) => debvar(as.length)
+  //       case _ =>
+  //     }
+  //     case _ =>
+  //   }
+  // mouseUp = 
+  // {
+  //   case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
+  //  // case (v, b, s) => deb(Refs1(s).toString)
+  //   case (v, b, Refs1(s: Flag)) => {
+  //     deb(s.toString)
+  //     // deb(s(0).name + " : " & s(0).ratio )
+  //     // s.parent.scale(200)
+  //   }
+  //   case _ => deb("nothing")
+  // }
