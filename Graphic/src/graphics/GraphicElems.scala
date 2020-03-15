@@ -17,4 +17,3 @@ trait GraphicBounded extends GraphicElem
 trait PaintElem extends GraphicElem
 { def rendElem(cp: CanvasPlatform): Unit
 }
-
