@@ -71,14 +71,14 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
       eTop()            
     }
     
-    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTileOld)) => scen.zPath(squad.cood, newTile.cood).foreach{ l =>
+    case (RightButton, List(squad : Squad), List(newTile: ZugTileOld)) => scen.zPath(squad.cood, newTile.cood).foreach{ l =>
       squad.action = Move(Coods(l :_*))
       repaintMap
     }
     
-    case (MiddleButton, Refs1(squad : Squad), Refs1(newTile: ZugTileOld)) => { squad.action = Fire(newTile.cood); repaintMap }
+    case (MiddleButton, List(squad : Squad), List(newTile: ZugTileOld)) => { squad.action = Fire(newTile.cood); repaintMap }
     
-    case (RightButton, Refs1(squad : Squad), Refs1(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
+    case (RightButton, List(squad : Squad), List(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
     
     case _ => deb("Other" -- clickList.toString)
   }   

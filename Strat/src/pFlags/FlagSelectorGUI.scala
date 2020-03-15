@@ -46,13 +46,13 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   mouseUp = (v, button: MouseButton, clickList) => button match
     {
       case LeftButton => clickList match
-      { case Refs1(MButtonCmd(cmd)) => cmd.apply(button)
-        case Refs1(flag: Flag) => {
+      { case List(MButtonCmd(cmd)) => cmd.apply(button)
+        case List(flag: Flag) => {
           deb("This is a flag: " + flag.toString)
           val num = listOfFlags.indexOf(flag)
           deb(num.toString)
         }
-        case Refs1(stuff) => deb(stuff.toString)
+        case List(stuff) => deb(stuff.toString)
         case _ => deb("uncaught left click")
       }
     case _ => deb("uncaught non left mouse button")

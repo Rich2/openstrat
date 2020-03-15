@@ -7,7 +7,7 @@ import geom._
  *  where the planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
 abstract class UnfixedMapGui(title: String) extends MapGui(title)
 {
-  var selected: Refs[AnyRef] = Refs()
+  var selected: List[Any] = Nil
   def inCmd: MouseCmd  
   def outCmd: MouseCmd
   def leftCmd: MouseCmd  

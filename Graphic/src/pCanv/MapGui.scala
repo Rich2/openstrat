@@ -13,7 +13,7 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
   topPan.backColour = Colour.Gray
 
   topPan.mouseUp =
-  { case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
+  { case (v, b, List(MButtonCmd(cmd))) => cmd.apply(b)
     case t => deb(t.toString)
   }
    

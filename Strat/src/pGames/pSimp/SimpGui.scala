@@ -40,14 +40,14 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGridOld, val game: Simp
       eTop()            
     }
     
-    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTileOld)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
+    case (RightButton, List(mp : MPlayer), List(moveTile: UTileOld)) if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
       { statusText = mp.toString -- "move to" -- moveTile.cood.str
         val stCood = mp.cood
         val newMP = mp.copy(move = Some(moveTile.cood))
         grid.fSetTile(stCood, Some(newMP))
         rePanels
       }
-    case (RightButton, Refs1(mp : MPlayer), Refs1(moveTile: UTileOld)) => setStatus(mp.toString -- "can not move to" -- moveTile.cood.str)
+    case (RightButton, List(mp : MPlayer), List(moveTile: UTileOld)) => setStatus(mp.toString -- "can not move to" -- moveTile.cood.str)
 
     case _ => setStatus("Other" -- clickList.toString)
   }   
