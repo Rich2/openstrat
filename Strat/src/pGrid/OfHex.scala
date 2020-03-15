@@ -8,7 +8,8 @@ trait OfHex[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridOld[TileT, S
    def sideURLine: Line2 = CoodLine(cood.addXY(0, 1), cood.addXY(2, 1)).toLine2(cood => coodToDispVec2(cood))
    def sideRightLine: Line2 = CoodLine(cood.addXY(2, 1), cood.addXY(2, - 1)).toLine2(cood => coodToDispVec2(cood))
    def sideDRLine: Line2 = CoodLine(cood.addXY(2, -1), cood.addXY(0, -1)).toLine2(cood => coodToDispVec2(cood))
-   override def ownSideLines: ArrOld[Line2] = ArrOld(sideURLine, sideRightLine, sideDRLine)
+   override def ownSideLinesOld: ArrOld[Line2] = ArrOld(sideURLine, sideRightLine, sideDRLine)
+   override def ownSideLines: Line2s = Line2s(sideURLine, sideRightLine, sideDRLine)
 }
 
 object OfHex
@@ -18,11 +19,11 @@ object OfHex
 }
 
 case class OfHexReg[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](tile: TileT, grid: GridT,
-                                                                                                  gGui: TileGridGui[TileT, SideT, GridT]) extends OfHex[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
+  gGui: TileGridGui[TileT, SideT, GridT]) extends OfHex[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
 
 object OfHexReg
 {
    implicit def implicitBuilder[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](tile: TileT, grid: GridT,
-                                                                                                              gGui: TileGridGui[TileT, SideT, GridT]) = apply(tile, grid, gGui)
+     gGui: TileGridGui[TileT, SideT, GridT]) = apply(tile, grid, gGui)
 }
 

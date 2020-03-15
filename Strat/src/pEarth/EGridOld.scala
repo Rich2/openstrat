@@ -80,7 +80,8 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     acc.toArrOld
   }
 
-  def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElemsOld, sDisp: (OfESide[TileT, SideT]) => GraphicElemsOld): GraphicElemsOld =
+  def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElemsOld, sDisp: (OfESide[TileT, SideT]) => GraphicElemsOld):
+    GraphicElemsOld =
   {
     val acc: Buff[GraphicElem] = Buff()
     foreachTilesCoodAll { tileCood =>

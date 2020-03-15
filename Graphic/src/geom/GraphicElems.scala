@@ -7,6 +7,11 @@ import pCanv.CanvasPlatform, Colour.Black
  *  each time there is a change within the application state or the user view of that application state. */
 trait GraphicElem extends Transer
 
+trait GraphicBounded extends GraphicElem
+{ /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
+  def boundingRect: BoundingRect
+}
+
 /* Base trait for all passive objects on a canvas / panel */
 trait PaintElem extends GraphicElem
 { def rendElem(cp: CanvasPlatform): Unit

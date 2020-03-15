@@ -11,7 +11,8 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen
   mapPanel.backColour = Colour.Black
-  def  fHex: OfHexReg[CTileOld, SideOldBare, CivGridOld] => GraphicElemsOld = tog =>
+
+  def  fHex: OfHexReg[CTileOld, SideOldBare, CivGridOld] => GraphicElems = tog =>
     {
       import tog._        
       val colour: Colour = tile.colour
@@ -20,22 +21,24 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
       val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
       val tText = ifScaleCObj(60, TextGraphic(yxStr, 14, cen, colour.contrastBW))
       val sett = ifScaleIfCObj(40, tile.settlement, Circle(25).slate(cen).fillFixed(None, Black))
-      val lunit: GraphicElemsOld = tile.lunits match
+
+      val lunit: GraphicElems = tile.lunits match
       {
         case RefsHead(head) if tog.tScale > 50 =>
         { val maxOffset = tog.grid.coodToVec2(head.dirn.halfRelCood)
           val gridPosn = cenRelGrid + maxOffset * head.offsetMagnitude
           val posn = fTrans(gridPosn)
           val fillColour = head.faction.colour                      
-          val r = Rectangle.curvedCornersCentred(90, 60, 10, posn).parentAllOld(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString)
-          ArrOld(r)
-          //Rectangle.curved(90, 60, 10, posn).allFixed(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString) :: Nil
+          val r = Rectangle.curvedCornersCentred(90, 60, 10, posn).parentAll(head, fillColour, 2, fillColour.contrast, 16, head.movePts.toString)
+          Refs(r)
         }
-        case _ => ArrOld()
+        case _ => Refs()
        }
-       tv.toArraySeq ++ tText ++ sett ++ lunit ++ sides
+       tv ++ tText ++ sett ++ lunit ++ sides
      }
-  def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex).toRefs// ofHexsDisplayFold(fHex).collapse
+
+  def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex)// ofHexsDisplayFold(fHex).collapse
+
   mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
   {
     case (LeftButton, _, _) =>

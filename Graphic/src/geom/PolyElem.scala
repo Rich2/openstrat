@@ -3,19 +3,24 @@ package ostrat
 package geom
 import pCanv.CanvasPlatform, Colour.Black
 
-trait PolyElem extends PaintElem
-{
-   def poly: Polygon
-   def xHead: Double = poly.head1
-   def yHead: Double = poly.head2
-   /** The number of vertices. */
-   def vertsLen: Int = poly.length
-   /** Checks for 2 or more vertices */
-   def ifv2: Boolean = poly.length >= 2
-   /** Checks for 3 or more vertices */
-   def ifv3: Boolean = poly.length >= 3
-   def xArray: Array[Double] = poly.elem1sArray
-   def yArray: Array[Double] = poly.elem2sArray
+trait PolyElem extends PaintElem with GraphicBounded
+{ def poly: Polygon
+  def xHead: Double = poly.head1
+  def yHead: Double = poly.head2
+
+  /** The number of vertices. */
+  def vertsLen: Int = poly.length
+
+  /** Checks for 2 or more vertices */
+  def ifv2: Boolean = poly.length >= 2
+
+  /** Checks for 3 or more vertices */
+  def ifv3: Boolean = poly.length >= 3
+
+  def xArray: Array[Double] = poly.elem1sArray
+  def yArray: Array[Double] = poly.elem2sArray
+
+  override def boundingRect: BoundingRect = poly.boundingRect
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */

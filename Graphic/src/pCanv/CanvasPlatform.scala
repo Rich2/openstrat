@@ -85,7 +85,7 @@ trait CanvasPlatform extends RectGeom
    
   final def shapeFillDraw(sfd: ShapeFillDraw): Unit = oif(sfd.segsLen > 0, pShapeFillDraw(sfd))
   final def shapeFillDraw(fillColour: Colour, lineWidth: Double, borderColour: Colour, segs: CurveSeg*): Unit =
-    shapeFillDraw(ShapeFillDraw(Shape(segs: _*), fillColour, lineWidth, borderColour, 1))
+    shapeFillDraw(ShapeFillDraw(Shape(segs: _*), fillColour, lineWidth, borderColour))
   def pShapeFillDraw(sfd: ShapeFillDraw): Unit  
    
   def textGraphic(tg: TextGraphic): Unit
