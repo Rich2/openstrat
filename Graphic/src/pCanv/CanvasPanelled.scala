@@ -17,7 +17,7 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
   canv.mouseUp = (v, b) =>
     {
       panels.find(_.clipPoly.ptInPolygon(v)).foreach{ pan =>
-        val objs: Refs[AnyRef] = pan.subjs.ptInObjs(v)
+        val objs: Refs[AnyRef] = pan.actives.ptInObjs(v)
         pan.mouseUp(v, b, objs)
     }
   }
@@ -30,7 +30,7 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
     canv.clip(clipPoly)
     canv.polyFill(clipPoly.fill(panel.backColour))
     val movedObjs: Refs[GraphicElem] = panel.canvObjs.slate(panel.cen)
-    panel.subjs = paintObjs(movedObjs)
+    panel.actives = paintObjs(movedObjs)
     canv.gcRestore()
   }   
 }

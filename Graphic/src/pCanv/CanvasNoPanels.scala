@@ -9,11 +9,11 @@ abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with Pane
   override def width = canv.width
   override def height = canv.height
    
-  canv.mouseUp = (posn, button) => mouseUp(posn, button, subjs.ptInObjs(posn))
+  canv.mouseUp = (posn, button) => mouseUp(posn, button, actives.ptInObjs(posn))
       
   def refresh(): Unit =
   { canv.clear(backColour)
-    subjs = paintObjs(canvObjs)//paintObjs paints the objects to the screen and returns a list of active objects
+    actives = paintObjs(canvObjs)//paintObjs paints the objects to the screen and returns a list of active objects
   }
 
   /** Repaints the canvas takes repeat parameters of GraphicElem. */
