@@ -22,39 +22,43 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
-  val btnPrev = clickButton("<", (mb: MouseButton) => { prevPage }).slate(-150, headerYpos)
-  val btnNext = clickButton(">", (mb: MouseButton) => { nextPage }).slate(-100, headerYpos)   
-  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnPrev, btnNext)
+  val btnLeft = clickButton("<", (mb: MouseButton) => { prevPage }).slate(-150, headerYpos)
+  val btnRight = clickButton(">", (mb: MouseButton) => { nextPage }).slate(-100, headerYpos)   
+  val btnUp = clickButton("up", (mb: MouseButton) => { prevPage }).slate(-300, headerYpos)
+  val btnDown = clickButton("down", (mb: MouseButton) => { nextPage }).slate(-225, headerYpos)   
+  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnLeft, btnRight, btnUp, btnDown)
 
+  val scrollDirection = 'Horizontal     // 'Horizontal OR 'Vertical
   var viewIndex: Int = 0
   var selectedFlagIndex: Int = -1
-  def nextPage(): Unit = { showPage( Math.min( viewIndex+1 ,flagCount%pageSize+1 ) ) }
-  def prevPage(): Unit = { showPage( Math.max( viewIndex-1 ,0 ) ) }
+  def nextPage(): Unit = { showGridView( Math.min( viewIndex+1 ,flagCount%pageSize+1 ) ) }
+  def prevPage(): Unit = { showGridView( Math.max( viewIndex-1 ,0 ) ) }
 //**NB Scroll <> print col by row
 //     Scroll ^\/ print row then col
 //NB2  From Left | Right 
-  def showPage(firstFlagIndexToShow:Int): Unit =
-  { //val firstFlagToShow = thisPage * pageSize
-
-    
-    var r1 = listOfFlags(firstFlagIndexToShow).parent((firstFlagIndexToShow).toString).scale(commonScale)
+  def showGridView(firstFlagIndexToShow:Int): Unit =
+  { var r1 = listOfFlags(firstFlagIndexToShow).parent((firstFlagIndexToShow).toString).scale(commonScale)
 
     var pageOfFlags:Refs[PolyParent] = Refs( r1.slate( firstFlagsPosition ))
-
-    for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if i+j > 0; if firstFlagIndexToShow+i+j*flagsPerRow < flagCount)
-
-    { val thisIndex = firstFlagIndexToShow+i+j*flagsPerRow
-
-      r1 = listOfFlags(thisIndex).parent((thisIndex).toString).scale(commonScale)
-
-      pageOfFlags = pageOfFlags +- r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
+    if (scrollDirection == 'Horizontal) {
+      for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if i+j > 0; if firstFlagIndexToShow+i+j*flagsPerRow < flagCount)
+      { val thisIndex = firstFlagIndexToShow+i+j*flagsPerRow
+        r1 = listOfFlags(thisIndex).parent((thisIndex).toString).scale(commonScale)
+        pageOfFlags = pageOfFlags +- r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
+      }
+    } else {
+      for( i <- 0 to flagsPerRow-1 ; j <- 0 to flagsPerCol-1 if i+j > 0; if firstFlagIndexToShow+j+i*flagsPerCol < flagCount)
+      { val thisIndex = firstFlagIndexToShow+j+i*flagsPerCol
+        r1 = listOfFlags(thisIndex).parent((thisIndex).toString).scale(commonScale)
+        pageOfFlags = pageOfFlags +- r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
+      }
     }
 
     repaint(everythingNotFlag ++ pageOfFlags)
     viewIndex = firstFlagIndexToShow
   }
 
-  showPage(viewIndex)
+  showGridView(viewIndex)
 
   mouseUp = (v, button: MouseButton, clickList) => button match
     {
