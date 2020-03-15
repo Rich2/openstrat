@@ -10,49 +10,60 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
                           Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag,
                           WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag,
                           Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag,
-                          WhiteFlag, UnitedKingdom, WhiteFlag, CommonShapesInFlags, CommonShapesInFlags)
+                          WhiteFlag, UnitedKingdom, WhiteFlag)
 
   val flagCount = listOfFlags.length
-  val flagsPerRow = 5
-  val flagsPerCol = 4
+  val flagsPerRow = 4
+  val flagsPerCol = 5
   val pageSize = flagsPerRow * flagsPerCol
   val dimensions = Map("width"->800, "height"->600, "headerSize"->50, "cellWidth"->200, "cellHeight"->110)
   val headerYpos = dimensions("height")/2-dimensions("headerSize")/2
+  val firstFlagsPosition = (-(dimensions("width")-dimensions("cellWidth"))/2 vv (dimensions("height")-dimensions("cellHeight"))/2-dimensions("headerSize"))
 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
   val btnPrev = clickButton("<", (mb: MouseButton) => { prevPage }).slate(-150, headerYpos)
   val btnNext = clickButton(">", (mb: MouseButton) => { nextPage }).slate(-100, headerYpos)   
-  val anythingButFlags: Refs[GraphicElem] = Refs(background, aTitle, btnPrev, btnNext)
+  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnPrev, btnNext)
 
-  var currentPage: Int = 0
-  
-  def nextPage(): Unit = { showPage(Math.min(currentPage+1 ,flagCount%pageSize))}
-  def prevPage(): Unit = { showPage(Math.max(currentPage-1 ,0))}
+  var viewIndex: Int = 0
+  var selectedFlagIndex: Int = -1
+  def nextPage(): Unit = { showPage( Math.min( viewIndex+1 ,flagCount%pageSize+1 ) ) }
+  def prevPage(): Unit = { showPage( Math.max( viewIndex-1 ,0 ) ) }
+//**NB Scroll <> print col by row
+//     Scroll ^\/ print row then col
+//NB2  From Left | Right 
+  def showPage(firstFlagIndexToShow:Int): Unit =
+  { //val firstFlagToShow = thisPage * pageSize
 
-  def showPage(thisPage:Int): Unit =
-  { val firstFlagToShow = thisPage * pageSize
-    val pageOfFlags = ijToMap(0, flagsPerCol-1)(0, flagsPerRow-1) { (i, j) =>
-      val r1 = listOfFlags(firstFlagToShow+i+j*(flagsPerRow-1)).parent().scale(commonScale)
-      r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate(
-            -(dimensions("width")-dimensions("cellWidth"))/2, (dimensions("height")-dimensions("cellHeight"))/2-dimensions("headerSize"))
+    
+    var r1 = listOfFlags(firstFlagIndexToShow).parent((firstFlagIndexToShow).toString).scale(commonScale)
+
+    var pageOfFlags:Refs[PolyParent] = Refs( r1.slate( firstFlagsPosition ))
+
+    for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if i+j > 0; if firstFlagIndexToShow+i+j*flagsPerRow < flagCount)
+
+    { val thisIndex = firstFlagIndexToShow+i+j*flagsPerRow
+
+      r1 = listOfFlags(thisIndex).parent((thisIndex).toString).scale(commonScale)
+
+      pageOfFlags = pageOfFlags +- r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
     }
-    repaint(anythingButFlags ++ pageOfFlags)
-    currentPage = thisPage
+
+    repaint(everythingNotFlag ++ pageOfFlags)
+    viewIndex = firstFlagIndexToShow
   }
 
-  showPage(currentPage)
+  showPage(viewIndex)
 
   mouseUp = (v, button: MouseButton, clickList) => button match
     {
       case LeftButton => clickList match
-      { case List(MButtonCmd(cmd)) => cmd.apply(button)
-        case List(flag: Flag) => {
-          deb("This is a flag: " + flag.toString)
-          val num = listOfFlags.indexOf(flag)
-          deb(num.toString)
+      { case Refs1(MButtonCmd(cmd)) => cmd.apply(button)
+        case Refs1(flagIndex) => 
+        { deb(flagIndex.toString)
+          selectedFlagIndex = flagIndex.toString.toInt
         }
-        case List(stuff) => deb(stuff.toString)
         case _ => deb("uncaught left click")
       }
     case _ => deb("uncaught non left mouse button")
