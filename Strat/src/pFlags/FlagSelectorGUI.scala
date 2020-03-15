@@ -16,23 +16,20 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val flagsPerRow = 5
   val flagsPerCol = 4
   val pageSize = flagsPerRow * flagsPerCol
-  val currentPage = 0
   val dimensions = Map("width"->800, "height"->600, "headerSize"->50, "cellWidth"->200, "cellHeight"->110)
-
   val headerYpos = dimensions("height")/2-dimensions("headerSize")/2
+
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
+  val btnPrev = clickButton("<", (mb: MouseButton) => { prevPage }).slate(-150, headerYpos)
+  val btnNext = clickButton(">", (mb: MouseButton) => { nextPage }).slate(-100, headerYpos)   
+  val anythingButFlags: Refs[GraphicElem] = Refs(background, aTitle, btnPrev, btnNext)
 
-  /*def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
-    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).
-      parentAll(MButtonCmd((mb: MouseButton) => { showPage(1) }), backColour, 3, backColour.contrastBW, 25, str)
-*/
-  val btnPrev = clickButton("<", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-150, headerYpos)
-  val btnNext = clickButton(">", (mb: MouseButton) => { deb("THIS NEVER HAPPENS") }).slate(-100, headerYpos)   
-  val btns: Refs[ShapeParent] = Refs(btnPrev, btnNext)
-
-  var stuff: Refs[GraphicElem] = Refs(background, aTitle)
+  var currentPage: Int = 0
   
+  def nextPage(): Unit = { showPage(Math.min(currentPage+1 ,flagCount%pageSize))}
+  def prevPage(): Unit = { showPage(Math.max(currentPage-1 ,0))}
+
   def showPage(thisPage:Int): Unit =
   { val firstFlagToShow = thisPage * pageSize
     val pageOfFlags = ijToMap(0, flagsPerCol-1)(0, flagsPerRow-1) { (i, j) =>
@@ -40,20 +37,21 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
       r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate(
             -(dimensions("width")-dimensions("cellWidth"))/2, (dimensions("height")-dimensions("cellHeight"))/2-dimensions("headerSize"))
     }
-    stuff = Refs(background, aTitle) ++ pageOfFlags ++ btns
-    repaint(stuff)
+    repaint(anythingButFlags ++ pageOfFlags)
+    currentPage = thisPage
   }
 
   showPage(currentPage)
 
-  mouseUp = (v, b, s) =>
-  { 
-    if(v._1 < -80 & v._1 > -120 & v._2 > 260 & v._2 < 285){ showPage(Math.min(currentPage+1 ,flagCount%pageSize)) }
-    else if(v._1 < -130 & v._1 > -170 & v._2 > 260 & v._2 < 285){ showPage(Math.max(currentPage-1 ,0)) }
-    else{
-      val str: String = s.headToStringElse("")
-      val flagName = TextGraphic(str.toString, 28, 200 vv 275)
-      repaint(stuff +- flagName)
+  mouseUp = 
+  {
+    case (v, b, Refs1(MButtonCmd(cmd))) => cmd.apply(b)
+   // case (v, b, s) => deb(Refs1(s).toString)
+    case (v, b, Refs1(s: Flag)) => {
+      deb(s.toString)
+      // deb(s(0).name + " : " & s(0).ratio )
+      // s.parent.scale(200)
     }
+    case _ => deb("nothing")
   }
 }
