@@ -3,9 +3,10 @@ package ostrat
 package geom
 import Colour.Black
 
-trait ShapeElem extends PaintElem
+trait ShapeElem extends PaintElem with GraphicBounded
 { def shape: Shape
   def segsLen: Int = shape.length
+  override def boundingRect: BoundingRect = shape.boundingRect
 }
 
 case class ShapeFill(shape: Shape, colour: Colour) extends ShapeElem
