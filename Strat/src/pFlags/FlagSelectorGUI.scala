@@ -33,7 +33,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   def showPage(thisPage:Int): Unit =
   { val firstFlagToShow = thisPage * pageSize
     val pageOfFlags = ijToMap(0, flagsPerCol-1)(0, flagsPerRow-1) { (i, j) =>
-      val r1 = listOfFlags(firstFlagToShow+i+j*(flagsPerRow-1)).parent.scale(commonScale)
+      val r1 = listOfFlags(firstFlagToShow+i+j*(flagsPerRow-1)).parent().scale(commonScale)
       r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate(
             -(dimensions("width")-dimensions("cellWidth"))/2, (dimensions("height")-dimensions("cellHeight"))/2-dimensions("headerSize"))
     }
@@ -48,6 +48,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
       case LeftButton => clickList match
       { case Refs1(MButtonCmd(cmd)) => cmd.apply(button)
         case Refs1(flag: Flag) => deb("it f'ing works!")
+        case Refs1(stuff) => deb(stuff.toString)
         case _ => deb("uncaught left click")
       }
     case _ => deb("uncaught non left mouse button")
