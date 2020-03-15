@@ -11,7 +11,7 @@ package geom
   def tR: GraphicParentOld = this.slate(boundingRect.bottomLeft)
   def bL: GraphicParentOld = this.slate(boundingRect.topRight)
   def bR: GraphicParentOld = this.slate(boundingRect.topLeft)
-  def width: Double = boundingRect.width
+  //def width: Double = boundingRect.width
   def addElems(newElems: ArrOld[PaintElem]): GraphicParentOld
   def addElem(newElem: PaintElem): GraphicParentOld = addElems(ArrOld(newElem))
   def mutObj(newObj: AnyRef): GraphicParentOld

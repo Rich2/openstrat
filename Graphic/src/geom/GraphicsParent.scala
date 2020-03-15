@@ -10,7 +10,7 @@ trait GraphicParent extends GraphicElem with GraphicActive
   def topRight: GraphicParent = this.slate(- boundingRect.topRight)
   def bottomLeft: GraphicParent = this.slate(- boundingRect.bottomLeft)
   def bottomRight: GraphicParent = this.slate(- boundingRect.bottomRight)
-  def width: Double = boundingRect.width
+
   def addElems(newElems: Refs[PaintElem]): GraphicParent
   def addElem(newElem: PaintElem): GraphicParent = addElems(Refs(newElem))
   def mutObj(newObj: AnyRef): GraphicParent
