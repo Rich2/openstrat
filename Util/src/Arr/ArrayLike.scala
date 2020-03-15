@@ -121,6 +121,12 @@ trait ArrayLike[+A] extends Any
     ev.buffToArr(buff)
   }
 
+  def filterNot[AA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuild[A, AA] @uncheckedVariance): AA =
+  { val buff = ev.buffNew()
+    foreach(a => oif(!f(a), ev.buffGrow(buff, a)))
+    ev.buffToArr(buff)
+  }
+
   def filterToList(f: A => Boolean): List[A] =
   {
     var acc: List[A] = Nil
