@@ -27,15 +27,15 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnMore, btnLess)
 
   var viewIndex, flagsPerScroll, iScrollStep, jScrollStep: Int = 0
-  val scrollDirection:String = "Horizontal" //"Horizontal" | "Verticle"
-  if (scrollDirection == "Horizontal") { flagsPerScroll = flagsPerCol; iScrollStep = flagsPerCol; jScrollStep = 1 }
-  else                                 { flagsPerScroll = flagsPerRow; iScrollStep = 1; jScrollStep = flagsPerRow }
+  val scrollHorizontal: Boolean = true
+  if (scrollHorizontal) { flagsPerScroll = flagsPerCol; iScrollStep = flagsPerCol; jScrollStep = 1 }
+  else  { flagsPerScroll = flagsPerRow; iScrollStep = 1; jScrollStep = flagsPerRow }
 
-  def scrollMore(): Unit = { showGridView( scrollDirection, Math.min( viewIndex + flagsPerScroll, flagCount % pageSize + 1 ) ) }
-  def scrollLess(): Unit = { showGridView( scrollDirection, Math.max( viewIndex - flagsPerScroll, 0 ) ) }
+  def scrollMore(): Unit = { showGridView( scrollHorizontal, Math.min( viewIndex + flagsPerScroll, flagCount % pageSize + 1 ) ) }
+  def scrollLess(): Unit = { showGridView( scrollHorizontal, Math.max( viewIndex - flagsPerScroll, 0 ) ) }
 
 
-  def showGridView(scrollDirection: String, firstFlagIndexToShow:Int): Unit =
+  def showGridView(scrollHorrizontal: Boolean, firstFlagIndexToShow:Int): Unit =
   { var pageOfFlags:Refs[PolyParent] = Refs()
     for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
     { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
@@ -47,7 +47,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     viewIndex = firstFlagIndexToShow
   }
 
-  showGridView("Horizontal", viewIndex)
+  showGridView(true, viewIndex)
 
   mouseUp = (v, button: MouseButton, clickList) => button match
   { case LeftButton => clickList match
