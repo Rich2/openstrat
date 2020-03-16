@@ -1,7 +1,7 @@
 package ostrat
 package geom
 
-case class ShapeParent(cen: Vec2, shape: Shape, evObj: AnyRef, elems: Refs[PaintElem]) extends GraphicParent with ShapeActiveTr
+case class ShapeParent(cen: Vec2, shape: Shape, evObj: Any, elems: Refs[PaintElem]) extends GraphicParent with ShapeActiveTr
 {
   def fTrans(f: Vec2 => Vec2): ShapeParent = ShapeParent(f(cen), shape.fTrans(f), evObj, elems.trans(f))
   override def addElems(newElems: Refs[PaintElem]): ShapeParent = ShapeParent(cen, shape, evObj, elems ++ newElems)

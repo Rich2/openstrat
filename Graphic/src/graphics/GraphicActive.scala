@@ -12,14 +12,6 @@ trait GraphicActive extends GraphicBounded
   def ptInside(pt: Vec2): Boolean
 }
 
-object GraphicActive
-{
-  implicit class RefsImplicit(thisRefs: Refs[GraphicActive])
-  { /** Note the lack of reverse at the end */
-    //def ptInObjs(pt: Vec2): Refs[AnyRef] = thisRefs.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)
-  }
-}
-
 /** An active transparent pointable polygon */
 trait PolyActiveTr extends GraphicActive
 { def poly: Polygon
