@@ -13,5 +13,5 @@ trait GraphicParent extends GraphicElem with GraphicActive
 
   def addElems(newElems: Refs[PaintElem]): GraphicParent
   def addElem(newElem: PaintElem): GraphicParent = addElems(Refs(newElem))
-  def mutObj(newObj: AnyRef): GraphicParent
+  def mutObj(newObj: Any): GraphicParent
 }

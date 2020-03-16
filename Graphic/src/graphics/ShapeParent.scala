@@ -5,7 +5,7 @@ case class ShapeParent(cen: Vec2, shape: Shape, evObj: Any, elems: Refs[PaintEle
 {
   def fTrans(f: Vec2 => Vec2): ShapeParent = ShapeParent(f(cen), shape.fTrans(f), evObj, elems.trans(f))
   override def addElems(newElems: Refs[PaintElem]): ShapeParent = ShapeParent(cen, shape, evObj, elems ++ newElems)
-  override def mutObj(newObj: AnyRef): ShapeParent = ShapeParent(cen, shape, newObj, elems)
+  override def mutObj(newObj: Any): ShapeParent = ShapeParent(cen, shape, newObj, elems)
 }
 
 object ShapeParent
