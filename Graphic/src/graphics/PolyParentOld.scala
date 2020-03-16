@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-@deprecated case class PolyParentOld(cen: Vec2, poly: Polygon, evObj: AnyRef, elems: ArrOld[PaintElem]) extends GraphicParentOld with PolyActiveTr
+@deprecated case class PolyParentOld(cen: Vec2, poly: Polygon, evObj: Any, elems: ArrOld[PaintElem]) extends GraphicParentOld with PolyActiveTr
 {
   def fTrans(f: Vec2 => Vec2): PolyParentOld = new PolyParentOld(f(cen), poly.fTrans(f), evObj, elems.trans(f))
   override def addElems(newElems: ArrOld[PaintElem]): PolyParentOld = new PolyParentOld(cen, poly, evObj, elems ++ newElems)
