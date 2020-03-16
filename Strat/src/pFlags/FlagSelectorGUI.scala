@@ -26,7 +26,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val btnRight = clickButton(">", (mb: MouseButton) => { scrollRight }).slate(-100, headerYpos)   
   val btnUp = clickButton("up", (mb: MouseButton) => { scrollUp }).slate(-300, headerYpos)
   val btnDown = clickButton("down", (mb: MouseButton) => { scrollDown }).slate(-225, headerYpos)   
-  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnLeft, btnRight, btnUp, btnDown)
+  val everythingNotFlag = Refs(background, aTitle, btnLeft, btnRight, btnUp, btnDown)
 
   var viewIndex: Int = 0
   var selectedFlagIndex: Int = -1
@@ -65,11 +65,11 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     {
       case LeftButton => clickList match
       { case List(MButtonCmd(cmd)) => cmd.apply(button)
-        case List(flagIndex) =>
+        case List(flagIndex: Int) =>
         { deb(flagIndex.toString)
-          selectedFlagIndex = flagIndex.toString.toInt
+          selectedFlagIndex = flagIndex//.toString.toInt
         }
-        case _ => deb("uncaught left click")
+        case l => deb(l.toString)
       }
     case _ => deb("uncaught non left mouse button")
   }
