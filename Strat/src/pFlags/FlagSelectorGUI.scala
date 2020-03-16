@@ -40,7 +40,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   { var pageOfFlags:Refs[PolyParent] = Refs()
     for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
     { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
-      val r1 = listOfFlags(thisIndex).parent(firstFlagIndexToShow.toString).scale(commonScale)
+      val r1 = listOfFlags(thisIndex).parent(thisIndex.toString).scale(commonScale)
       pageOfFlags = pageOfFlags +- r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
     }
 
@@ -53,7 +53,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   mouseUp = (v, button: MouseButton, clickList) => button match
   { case LeftButton => clickList match
     { case List(MButtonCmd(cmd)) => cmd.apply(button)
-      case List(flagIndex:String) => deb(flagIndex)
+      case List(flagIndex) => deb(flagIndex.toString)
       case l => deb(l.toString)
     }
     case _ => deb("uncaught non left mouse button")
