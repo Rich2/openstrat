@@ -14,7 +14,7 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
 
   topPan.mouseUp =
   { case (v, b, List(MButtonCmd(cmd))) => cmd.apply(b)
-    case t => deb(t.toString)
+    case (v, b, l) => deb(l.toString)
   }
    
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextParent(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
