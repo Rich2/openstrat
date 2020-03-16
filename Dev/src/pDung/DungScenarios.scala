@@ -5,7 +5,7 @@ import pGrid._
 
 object Dungeon1 extends DungeonGridOld(2, 48, 2, 30, 0)
 {
-  import SquareGridOld._
+  import SquareGrid._
   allWall
   setTerrPath(Open, 4 cc 6, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)
   setColumn(22, 8,  Open * 2)
