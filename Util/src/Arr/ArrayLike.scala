@@ -121,6 +121,19 @@ trait ArrayLike[+A] extends Any
     ev.buffToArr(buff)
   }
 
+  def filterNot[AA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuild[A, AA] @uncheckedVariance): AA =
+  { val buff = ev.buffNew()
+    foreach(a => oif(!f(a), ev.buffGrow(buff, a)))
+    ev.buffToArr(buff)
+  }
+
+  def filterToList(f: A => Boolean): List[A] =
+  {
+    var acc: List[A] = Nil
+    foreach{ a => if (f(a)) acc ::= a }
+    acc.reverse
+  }
+
   /** FlatMaps over a function from A to any Iterable. */
   def iterFlatMap[B, BB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrBuild[B, BB]): BB =
   { val buff = ev.buffNew(length)

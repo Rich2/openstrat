@@ -53,14 +53,14 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       }
 
       case RightButton => (selected, clickList) match
-      { case (Refs1(army: Army), Refs1(newTile: W2TileOld)) =>
+      { case (List(army: Army), List(newTile: W2TileOld)) =>
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
           newTile.lunits +-= newArmy
-          selected = Refs(newArmy)
+          selected = List(newArmy)
           repaintMap
         }
-        case (Refs1(army: Army), as) => debvar(as.length)
+        case (List(army: Army), as) => debvar(as.length)
         case _ =>
       }
       case _ =>

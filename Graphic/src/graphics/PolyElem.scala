@@ -56,7 +56,7 @@ object PolyFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolyActive(poly: Polygon, evObj: AnyRef) extends GraphicElem with PolyActiveTr
+case class PolyActive(poly: Polygon, evObj: Any) extends GraphicElem with PolyActiveTr
 { override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj) }
 
 case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem

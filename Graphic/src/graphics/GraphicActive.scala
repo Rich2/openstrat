@@ -6,7 +6,7 @@ package geom
 trait GraphicActive extends GraphicBounded
 { /** If the user clicks with the polygon or shape then the canvas will return this object. It is purely up to the application its
    *  response if any to this object */
-  def evObj: AnyRef
+  def evObj: Any
 
   /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
   def ptInside(pt: Vec2): Boolean
@@ -16,7 +16,7 @@ object GraphicActive
 {
   implicit class RefsImplicit(thisRefs: Refs[GraphicActive])
   { /** Note the lack of reverse at the end */
-    def ptInObjs(pt: Vec2): Refs[AnyRef] = thisRefs.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)
+    //def ptInObjs(pt: Vec2): Refs[AnyRef] = thisRefs.filter(subj => subj.boundingRect.ptInside(pt) & subj.ptInside(pt)).map(_.evObj)
   }
 }
 

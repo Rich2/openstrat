@@ -27,7 +27,7 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   
   /** Note you can use what names you like. Here I put the types explicitly for clarity. When you are familiar with an anonymous function, you will
    *  probably want to use a short parameter list like (v, b, s).  */
-  mouseUp = (posn: Vec2, button: MouseButton, selected: Refs[AnyRef]) => selected match
+  mouseUp = (posn: Vec2, button: MouseButton, selected: List[Any]) => selected match
   {
     /*case Refs1Tail(cen: Vec2, tail) =>
       { gArr = gArr.modifyWhere(_.cen == cen, r =>  r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
