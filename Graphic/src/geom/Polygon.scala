@@ -43,16 +43,16 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolyFillText =
     PolyFillText(this, fillColour, str, fontSize, textColour)
 
-  def fillActive(fillColour: Colour, evObj: AnyRef): GraphicElems = Refs(PolyFill(this, fillColour), PolyActive(this, evObj))
+  def fillActive(fillColour: Colour, evObj: Any): GraphicElems = Refs(PolyFill(this, fillColour), PolyActive(this, evObj))
     
-  def fillDrawActive(fillColour: Colour, evObj: AnyRef, lineWidth: Double, lineColour: Colour = Black): GraphicElemsOld =
+  def fillDrawActive(fillColour: Colour, evObj: Any, lineWidth: Double, lineColour: Colour = Black): GraphicElemsOld =
     ArrOld(PolyFillDraw(this, fillColour,lineWidth, lineColour), PolyActive(this, evObj))
     
-  def fillActiveDrawText(fillColour: Colour, evObj: AnyRef, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
+  def fillActiveDrawText(fillColour: Colour, evObj: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
       zOrder: Int = 0): GraphicElems =
     Refs(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour), PolyActive(this, evObj))
   
-  @deprecated def fillDrawParentOld(evObj: AnyRef, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
+  @deprecated def fillDrawParentOld(evObj: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParentOld =
     PolyParentOld.fillDraw(this.polyCentre, this, evObj, fillColour, lineWidth, lineColour)
 
   def fillDrawParent(evObj: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolyParent =
@@ -66,7 +66,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
 
   def parentSeq(evObj: Any, elems: Refs[PaintElem]): PolyParent = new PolyParent(this.polyCentre, this, evObj, elems)
 
-  def subjAll(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolyParent =
+  def parentAll(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolyParent =
     PolyParent(this.polyCentre, this, evObj, Refs(PolyFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
   
@@ -98,7 +98,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
     res
   }
   
-  def fillSubj(evObj: AnyRef, fillColour: Colour): PolyParentOld = PolyParentOld.fill(this.polyCentre, this, evObj, fillColour)
+  def parentFillOld(evObj: Any, fillColour: Colour): PolyParentOld = PolyParentOld.fill(this.polyCentre, this, evObj, fillColour)
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 }
