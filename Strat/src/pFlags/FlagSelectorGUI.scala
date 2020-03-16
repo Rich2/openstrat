@@ -6,7 +6,7 @@ import geom._, pCanv._, Colour._
 /** NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right */
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { val commonScale: Int = 95
-  var listOfFlags: Refs[Flag] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy,
+  val listOfFlags: Refs[Flag] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy,
                           Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag,
                           WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag,
                           Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag,
@@ -22,20 +22,21 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
-  val btnMore = clickButton("More", (mb: MouseButton) => { scrollMore }).slate(-200, headerYpos)
-  val btnLess = clickButton("Less", (mb: MouseButton) => { scrollLess }).slate(-100, headerYpos)   
-  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnMore, btnLess)
+  val btnMore = clickButton("More", (mb: MouseButton) => { scrollMore }).slate(-100, headerYpos)
+  val btnLess = clickButton("Less", (mb: MouseButton) => { scrollLess }).slate(-300, headerYpos)   
+  val btnBar =  Rectangle.curvedCorners(100, 30, 10).fill(Pink).slate(-200, headerYpos)   
+  val bar =  Rectangle.curvedCorners(100, 30, 10).fill(Pink).slate(-200, headerYpos)   
+  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnMore, btnLess, btnBar)
 
   var viewIndex, flagsPerScroll, iScrollStep, jScrollStep: Int = 0
-  val scrollHorizontal: Boolean = true
-  if (scrollHorizontal) { flagsPerScroll = flagsPerCol; iScrollStep = flagsPerCol; jScrollStep = 1 }
-  else  { flagsPerScroll = flagsPerRow; iScrollStep = 1; jScrollStep = flagsPerRow }
+  val isScrollHorizontal: Boolean = false
+  if (isScrollHorizontal) { flagsPerScroll = flagsPerCol; iScrollStep = flagsPerScroll; jScrollStep = 1 }
+  else                    { flagsPerScroll = flagsPerRow; iScrollStep = 1; jScrollStep = flagsPerScroll }
 
-  def scrollMore(): Unit = { showGridView( scrollHorizontal, Math.min( viewIndex + flagsPerScroll, flagCount % pageSize + 1 ) ) }
-  def scrollLess(): Unit = { showGridView( scrollHorizontal, Math.max( viewIndex - flagsPerScroll, 0 ) ) }
+  def scrollMore(): Unit = { showGridView( isScrollHorizontal, Math.min( viewIndex + flagsPerScroll, flagCount % pageSize + 1 ) ) }
+  def scrollLess(): Unit = { showGridView( isScrollHorizontal, Math.max( viewIndex - flagsPerScroll, 0 ) ) }
 
-
-  def showGridView(scrollHorrizontal: Boolean, firstFlagIndexToShow:Int): Unit =
+  def showGridView(isScrollHorizontal: Boolean, firstFlagIndexToShow:Int): Unit =
   { var pageOfFlags:Refs[PolyParent] = Refs()
     for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
     { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
@@ -47,7 +48,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     viewIndex = firstFlagIndexToShow
   }
 
-  showGridView(true, viewIndex)
+  showGridView(isScrollHorizontal, viewIndex)
 
   mouseUp = (v, button: MouseButton, clickList) => button match
   { case LeftButton => clickList match
