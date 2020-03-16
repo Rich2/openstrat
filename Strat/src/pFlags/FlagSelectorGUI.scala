@@ -34,10 +34,10 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   def scrollMore(): Unit = { showGridView( scrollDirection, Math.min( viewIndex + flagsPerScroll, flagCount % pageSize + 1 ) ) }
   def scrollLess(): Unit = { showGridView( scrollDirection, Math.max( viewIndex - flagsPerScroll, 0 ) ) }
 
-  var pageOfFlags:Refs[PolyParent] = Refs()
 
   def showGridView(scrollDirection: String, firstFlagIndexToShow:Int): Unit =
-  { for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
+  { var pageOfFlags:Refs[PolyParent] = Refs()
+    for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
     { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
       val r1 = listOfFlags(thisIndex).parent(firstFlagIndexToShow.toString).scale(commonScale)
       pageOfFlags = pageOfFlags +- r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
