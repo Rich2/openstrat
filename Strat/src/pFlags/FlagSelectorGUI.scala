@@ -24,9 +24,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
   val btnMore = clickButton("More", (mb: MouseButton) => { scrollMore }).slate(-100, headerYpos)
   val btnLess = clickButton("Less", (mb: MouseButton) => { scrollLess }).slate(-300, headerYpos)   
-  val barBackground =  Rectangle(100, 30, (-200 vv headerYpos)).fill(Black)  
-  val btnBar =  Rectangle.curvedCorners(50, 30, 10).fill(Pink).slate(-200, headerYpos)   
-  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnMore, btnLess, barBackground, btnBar)
+  val barBackground =  Rectangle.curvedCorners(102, 32, 10, (-200 vv headerYpos)).fill(Black)  
+  val scrollBar =  Rectangle.curvedCorners(50, 30, 10).fill(Pink).slate(-225, headerYpos)   
+  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnMore, btnLess, barBackground)
 
   var viewIndex, flagsPerScroll, iScrollStep, jScrollStep: Int = 0
   val isScrollHorizontal: Boolean = false
@@ -43,8 +43,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
       val r1 = listOfFlags(thisIndex).parent(thisIndex.toString).scale(commonScale)
       pageOfFlags = pageOfFlags +- r1.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
     }
-
-    repaint(everythingNotFlag ++ pageOfFlags)
+    
+    repaint(everythingNotFlag ++ pageOfFlags ++ Refs(Rectangle.curvedCorners(50, 30, 10).fill(Pink).slate(-225, headerYpos).slate(firstFlagIndexToShow*2.5, 0) ))
     viewIndex = firstFlagIndexToShow
   }
 
