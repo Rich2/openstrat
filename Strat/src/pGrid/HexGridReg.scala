@@ -72,4 +72,6 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
     val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).max0
     y0s + y2s + thisRow
   }
+
+  override def sideCoodsOfTile: Coods = ???
 }

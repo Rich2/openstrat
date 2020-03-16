@@ -3,6 +3,7 @@ package ostrat
 package pFlags
 import geom._, Colour._
 
+/** Builder trait for flags. */
 trait Flag
 { def apply(): Refs[PaintElem]
   def name: String
