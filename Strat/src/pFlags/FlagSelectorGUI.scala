@@ -24,9 +24,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val aTitle = TextGraphic("Flags", 40, 0 vv headerYpos)
   val btnMore = clickButton("More", (mb: MouseButton) => { scrollMore }).slate(-100, headerYpos)
   val btnLess = clickButton("Less", (mb: MouseButton) => { scrollLess }).slate(-300, headerYpos)   
-  val btnBar =  Rectangle.curvedCorners(100, 30, 10).fill(Pink).slate(-200, headerYpos)   
-  val bar =  Rectangle.curvedCorners(100, 30, 10).fill(Pink).slate(-200, headerYpos)   
-  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnMore, btnLess, btnBar)
+  val barBackground =  Rectangle(100, 30, (-200 vv headerYpos)).fill(Black)  
+  val btnBar =  Rectangle.curvedCorners(50, 30, 10).fill(Pink).slate(-200, headerYpos)   
+  val everythingNotFlag: Refs[GraphicElem] = Refs(background, aTitle, btnMore, btnLess, barBackground, btnBar)
 
   var viewIndex, flagsPerScroll, iScrollStep, jScrollStep: Int = 0
   val isScrollHorizontal: Boolean = false
