@@ -8,7 +8,7 @@ import Colour.Black
 trait UnScaledGraphicElem extends GraphicElem
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
-case class UnScaledShape(referenceVec: Vec2, relShape: Shape, evObj: Any, elems: Refs[PaintElem], zOrder: Int = 0) extends
+case class UnScaledShape(referenceVec: Vec2, relShape: Shape, evObj: Any, elems: Refs[PaintElem]) extends
 UnScaledGraphicElem with ShapeActiveTr
 { def shape: Shape = relShape.slate(referenceVec)
   def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, evObj, elems)
@@ -17,7 +17,7 @@ UnScaledGraphicElem with ShapeActiveTr
 }
 
 object UnScaledShape
-{ def fillDraw(referenceVec: Vec2, segs: Shape, evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
+{ def fillDraw(referenceVec: Vec2, segs: Shape, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
   UnScaledShape = UnScaledShape(referenceVec, segs, evObj, Refs(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 
