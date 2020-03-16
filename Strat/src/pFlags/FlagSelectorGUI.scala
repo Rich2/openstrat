@@ -66,7 +66,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     {
 
       case LeftButton => clickList match
-      { case List(ShapeAll(1)(MButtonCmd(cmd))) => cmd.apply(button)
+      { //case List(ShapeAll(1)(MButtonCmd(cmd))) => cmd.apply(button))
         case List(flagIndex:String) => deb(flagIndex)
         case l => deb(l.toString)
       }
