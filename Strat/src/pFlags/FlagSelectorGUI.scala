@@ -58,4 +58,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     }
     case _ => deb("uncaught non left mouse button")
   }
+  canv.mouseDown = (v, b) => deb("mouseDown")
+  canv.keyDown = (thekey) => if (thekey == "ArrowUp" || thekey == "ArrowLeft") scrollLess else if (thekey == "ArrowDown" || thekey == "ArrowRight") scrollMore
+  canv.onScroll = (isScrollUp) => if (isScrollUp)  scrollLess else scrollMore
 }
