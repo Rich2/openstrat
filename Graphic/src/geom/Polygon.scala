@@ -98,7 +98,8 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
     res
   }
   
-  def parentFillOld(evObj: Any, fillColour: Colour): PolyParentOld = PolyParentOld.fill(this.polyCentre, this, evObj, fillColour)
+//  @deprecated def parentFillOld(evObj: Any, fillColour: Colour): PolyParentOld = PolyParentOld.fill(this.polyCentre, this, evObj, fillColour)
+  def parentFill(evObj: Any, fillColour: Colour): PolyParent = PolyParent.fill(this.polyCentre, this, evObj, fillColour)
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 }
