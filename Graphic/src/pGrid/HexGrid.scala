@@ -17,11 +17,15 @@ object HexGrid
   def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.pMap(tileCood + _)
   val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.pMap(_ * 2)
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
+
+  def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = vertCoodsOfSide(sideCood).toLine2(c => coodToVec2(c) -relPosn)
   def sideCoodToLine(sideCood: Cood): Line2 = vertCoodsOfSide(sideCood).toLine2(coodToVec2)
   def vertCoodsOfSide(sideCood: Cood): CoodLine = vertCoodsOfSide(sideCood.x, sideCood.y)
 
   def vertCoodsOfSide(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
     CoodLine(x + 1, y, x - 1, y))
+
+  def coodToVec2Rel(cood: Cood, relPosn: Vec2): Vec2 = coodToVec2(cood.x, cood.y) -relPosn
 
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
   def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
@@ -30,10 +34,10 @@ object HexGrid
   { def xAdj: Double = x / xRatio
     (x %% 4, y %% 4) match
     { case (xr, yr) if yr.isEven && xr.isEven => Vec2(xAdj, y)
-      case (xr, yr) if yr.isEven => throw new Exception("Hex Cood " + x.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
+      case (_, yr) if yr.isEven => throw new Exception("Hex Cood " + x.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
       case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(xAdj, y)
       case (0, 1) | (2, 3)  =>  Vec2(xAdj, y + yDist /2)
-      case (xr, yr) => Vec2(xAdj, y - yDist / 2)
+      case _ => Vec2(xAdj, y - yDist / 2)
     }
   }
    

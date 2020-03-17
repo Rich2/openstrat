@@ -24,5 +24,11 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
     c2s
   }
 
-  override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.adjTileCoodsOfTile(tileCood: Cood)
+  def sideLinesAllRel : Line2s = tilesAllFlatMap{cood =>
+    val c1: Coods = HexGrid.sideCoodsOfTile(cood)
+    val c2s: Line2s = c1.map(orig => HexGrid.sideCoodToLineRel(orig, cenAdj))
+    c2s
+  }
+
+  override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood: Cood)
 }
