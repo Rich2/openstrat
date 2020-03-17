@@ -22,7 +22,8 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
                                                                      val turnNum: Int)
                                                                     (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridRegOld[TileT, SideT]
 {  
-  override val yRatio = 1  
+  //override val yRatio = 1
+  override val xRatio = 1
   def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)  
   final def left: Double = xTileMin - margin
   final def right: Double = xTileMax + margin

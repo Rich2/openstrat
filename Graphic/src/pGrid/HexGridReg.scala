@@ -6,10 +6,12 @@ import geom._
 * where the y coordinate divided by 4 has a remainder of 2. */
 case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGrid with AltGridReg
 {
-  def yCenNoAdj: Double = (yTileMin + yTileMax) / 2.0
-  def yCenAdj: Double = yCenNoAdj * HexGrid.yRatio
-  def cen = Vec2(xCen, yCenNoAdj)
-  def cenAdj = Vec2(xCen, yCenAdj)
+  //def yCenNoAdj: Double = (yTileMin + yTileMax) / 2.0
+  def xCenNoAdj: Double = (xTileMin + xTileMax) / 2.0
+  //def yCenAdj: Double = yCenNoAdj * HexGrid.yRatio
+  def xCenAdj: Double = xCenNoAdj / HexGrid.xRatio
+  def cen = Vec2(xCenNoAdj, yCen)
+  def cenAdj = Vec2(xCenAdj, yCen)
 
   def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cenAdj

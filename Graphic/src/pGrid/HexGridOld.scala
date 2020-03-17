@@ -7,7 +7,8 @@ import reflect.ClassTag
 abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
                                                                  (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridOld[TileT, SideT]// with HexGrid[TileT]
 {
-  override val yRatio: Double = HexGrid.yRatio
+  //override val yRatio: Double = HexGrid.yRatio
+  override val xRatio: Double = HexGrid.xRatio
   override def xArrLen: Int = (xTileMax - xTileMin) / 4 + 1 //+1 for zeroth tile
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)

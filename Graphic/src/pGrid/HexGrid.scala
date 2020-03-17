@@ -7,7 +7,9 @@ trait HexGrid extends TileGrid
 
 object HexGrid
 {
-  val yRatio = sqrt(3)
+  //val yRatio = sqrt(3)
+
+  val xRatio = sqrt(3)
   /** Verts start at Up and follow clockwise */
   val vertCoodsOfTile00: Coods = Coods(0 cc 1,  2 cc 1,  2 cc -1,  0 cc -1,  -2 cc -1,  -2 cc 1)
   def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
@@ -36,13 +38,13 @@ object HexGrid
 
   def coodToVec2(x: Int, y: Int): Vec2 =
   {
-    def yAdj: Double = y * yRatio
+    def xAdj: Double = x / xRatio
     (x %% 4, y %% 4) match
-    { case (xr, yr) if yr.isEven && xr.isEven => Vec2(x, yAdj)
+    { case (xr, yr) if yr.isEven && xr.isEven => Vec2(xAdj, y)
       case (xr, yr) if yr.isEven => throw new Exception("Hex Cood " + x.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
-      case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(x, yAdj)
-      case (0, 1) | (2, 3)  =>  Vec2(x, yAdj + yDist /2)
-      case (xr, yr) => Vec2(x, yAdj - yDist / 2)
+      case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(xAdj, y)
+      case (0, 1) | (2, 3)  =>  Vec2(xAdj, y + yDist /2)
+      case (xr, yr) => Vec2(xAdj, y - yDist / 2)
     }
   }
    
@@ -53,11 +55,11 @@ object HexGrid
     "invalid Hex Side coordinate: " + x.toString.appendCommas(y.toString))
 
   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
-  val yDist =  2 / sqrt(3)
-  val yDist2 =  4 / sqrt(3)
-  //val yRatio = sqrt(3)
-  def yAdj(cood: Cood): Double = cood.y * yRatio
-   
+  val yDist = 2.0/3 // 1.5 / sqrt(3)  //  2 / sqrt(3)
+  val yDist2 = 4.0/3 //  3 /  sqrt(3)  //  4 /  sqrt(3)
+
+  //def yAdj(cood: Cood): Double = cood.y * yRatio
+  def xAdj(cood: Cood): Double = cood.x * xRatio
   @inline def x0 = 0
   @inline def y0 = yDist2
   /** The Up vertice */
@@ -102,7 +104,7 @@ object HexGrid
   def latLongToCood(latLong: LatLong, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Dist): Vec2 =
   { val y: Double = ((latLong.lat - latLongOffset.lat) * EarthPolarRadius - xyOffset.y) / gridScale
     val x: Double = ((latLong.long - latLongOffset.long) * EarthEquatorialRadius * math.cos(latLong.lat) - xyOffset.x) / gridScale
-    Vec2(x, y / yRatio)
+    Vec2(x * xRatio, y)
   }
 
   def latLongU(pt: Vec2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridU))

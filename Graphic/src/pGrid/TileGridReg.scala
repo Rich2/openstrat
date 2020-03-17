@@ -10,5 +10,7 @@ trait TileGridReg extends TileGrid
   /** This gives the tile grid lines in a single colour and line width. */
   def sideLinesAllDraw(lineWidth: Double = 2.0, colour: Colour = Colour.Black): LinesDraw = LinesDraw(sideLinesAll, lineWidth, colour)
   /** The centre of the grid by the x coordinate. */
-  def xCen: Double = (xTileMin + xTileMax) / 2.0
+  //def xCen: Double = (xTileMin + xTileMax) / 2.0
+  /** The centre of the grid by the y coordinate. */
+  def yCen: Double = (yTileMin + yTileMax) / 2.0
 }

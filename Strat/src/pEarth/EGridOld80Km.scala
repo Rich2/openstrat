@@ -76,7 +76,7 @@ object EGridOld80Km
      LatLong(lat, longDelta)
   }
 
-  def yToLatDegs(y: Int): Double = ((y - yOffset) * HexGrid.yRatio * scale / EarthPolarRadius).radiansToDegrees
+  def yToLatDegs(y: Int): Double = ((y - yOffset) * scale / EarthPolarRadius).radiansToDegrees
    
   def xDelta(y: Int, x: Int): Double = coodToLatLong0(Cood(x, y)).longDegs
 

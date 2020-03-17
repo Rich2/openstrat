@@ -213,7 +213,8 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   final def yToInd(y: Int): Int = y  - yTileMin
   def xyToInd(x: Int, y: Int): Int = xToInd(x) + yToInd(y) * xArrLen
   final def coodToInd(cood: Cood): Int = xyToInd(cood.x, cood.y)
-  val yRatio: Double
+  //val yRatio: Double
+  val xRatio: Double
   def xStep: Int
   def rowTileXStart(y: Int): Int
   def rowTileXEnd(y: Int): Int
