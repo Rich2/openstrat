@@ -6,7 +6,7 @@ import ostrat._, geom._, pCanv._, Colour._
 case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 100, colour: Colour = Red) extends WithColour
 {
   def mutateColour(newColour: Colour): ARect = copy(colour = newColour) 
-  def graphic = Rectangle(width, height, cen).fillSubj(this, colour)
+  def graphic = Rectangle(width, height, cen).parentFillOld(this, colour)
   def sGraphic = Rectangle(width, height, cen).fillDrawParentOld(this, colour, 2, contrast)
 }
 
@@ -19,7 +19,7 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   val r3 = r0.slate(300 vv -300)
   val r4 = r0.slate(-300 vv -300)
   val rArr = Polygons(r1, r2, r3, r4)
-  var gArr = rArr.map(r => r.fillSubj(r.polyCentre, Red))
+  var gArr = rArr.map(r => r.parentFillOld(r.polyCentre, Red))
   val textPosn = 0 vv 0
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
   deb((gArr +- startText).length.toString)

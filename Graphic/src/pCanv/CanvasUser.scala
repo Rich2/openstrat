@@ -3,6 +3,7 @@ package ostrat
 package pCanv
 import geom._
 
+/** So the descendant classes need to set the canv.mouseup field to use the mouse and its equivalents. */
 abstract class CanvasUser(val title: String)
 {
   val canv: CanvasPlatform

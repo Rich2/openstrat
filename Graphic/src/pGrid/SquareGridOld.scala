@@ -39,8 +39,8 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   override def xArrLen: Int = xTileMax - xTileMin + 3
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)
-  override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGridOld.vertCoodsOfTile(tileCood)
-  override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGridOld.sideCoodsOfTile(tileCood)
+  override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGrid.vertCoodsOfTile(tileCood)
+  override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGrid.sideCoodsOfTile(tileCood)
   override def xStep: Int = 2   
   def margin = 1.1  
   
@@ -98,10 +98,10 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
     tiles.iForeach((e , i) => fSetTile(xTileMin + i * 2, y, e))
   }
    
-  def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGridOld.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Cood =
+  def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
     var cood = Cood(startCood.x, startCood.y)
-    import SquareGridOld._
+    import SquareGrid._
     
     dirns.foreach 
     { case Multiple(Rt, i) => cood = setRow(cood, value * i)(f)
@@ -119,7 +119,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
     case _ => v4
   }
   
-  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGridOld.vertCoodLineOfSide(x, y)
+  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
   
   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = if2Excep(
     x.isOdd & y.isEven, (Cood(x - 1, y), Cood(x + 1, y)),
@@ -127,7 +127,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
     "Invalid Square Coordinate")
  
   /** Warning needs Modification */
-  override def adjTileCoodsOfTile(tileCood: Cood): Coods = SquareGridOld.adjTileCoodsOfTile(tileCood)
+  override def adjTileCoodsOfTile(tileCood: Cood): Coods = SquareGrid.adjTileCoodsOfTile(tileCood)
   
   def tileRowLen: Int = ((xTileMax - xTileMin) / 2  + 1).min(0)
   def tileColumnLen: Int = tileRowLen * ((yTileMax - yTileMin) / 2 + 1).min(0)
@@ -137,26 +137,3 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   override def sideNum: Int = sideRowLen  * sideColumnLen
 }
 
-object SquareGridOld
-{
-  val vertCoodsOfTile00: Coods = Coods(1 cc 1,  1 cc -1,  -1 cc -1, -1 cc 1)
-  def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
-  def vertCoodsOfTile(inp: Cood): Coods = vertCoodsOfTile00.pMap(inp + _)
-  val adjTileCoodsOfTile00: Coods = Coods(0 cc 2, 2 cc 2, 2 cc 0, 2 cc -2, 0 cc -2, -2 cc -2, -2 cc 0)
-  def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
-  def sideCoodsOfTile(inp: Cood): Coods = ???
-   
-  sealed trait PathDirn
-  object Rt extends PathDirn
-  object Lt extends PathDirn
-  object Up extends PathDirn
-  object Dn extends PathDirn
-   
-  def vertCoodLineOfSide(sideCood: Cood): CoodLine = vertCoodLineOfSide(sideCood.x, sideCood.y)
-  
-  def vertCoodLineOfSide(x: Int, y: Int): CoodLine = (x %% 2, y %% 2) match
-  { case (1, 0) => CoodLine(x, y + 1, x, y - 1)
-    case (0, 1)=> CoodLine(x - 1, y, x + 1, y)
-    case _ => excep("Invalid Square Cood for a side")
-  } 
-}
