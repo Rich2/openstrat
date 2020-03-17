@@ -7,16 +7,11 @@ trait HexGrid extends TileGrid
 
 object HexGrid
 {
-  //val yRatio = sqrt(3)
-
   val xRatio = sqrt(3)
   /** Verts start at Up and follow clockwise */
   val vertCoodsOfTile00: Coods = Coods(0 cc 1,  2 cc 1,  2 cc -1,  0 cc -1,  -2 cc -1,  -2 cc 1)
   def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
-  def vertCoodsOfTile(tileCood: Cood): Coods =
-  {
-    vertCoodsOfTile00.pMap(_ + tileCood)
-  }
+  def vertCoodsOfTile(tileCood: Cood): Coods = vertCoodsOfTile00.pMap(_ + tileCood)
   val sideCoodsOfTile00: Coods = Coods(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1)
   //val sideCoodsOfTile00List: List[Cood] = Coods(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1)
   def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.pMap(tileCood + _)
@@ -28,17 +23,11 @@ object HexGrid
   def vertCoodsOfSide(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
     CoodLine(x + 1, y, x - 1, y))
 
-  /*  (xSideCood %% 4, ySideCood %% 4) match
-  { case (0, 2) | (2, 0) => CoodLine(xSideCood, ySideCood + 1, xSideCood, ySideCood - 1)
-    case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(xSideCood - 1, ySideCood, xSideCood + 1, ySideCood)
-    case _ => excep("Invalid Hex Cood for a side")
-  }*/
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
   def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
 
   def coodToVec2(x: Int, y: Int): Vec2 =
-  {
-    def xAdj: Double = x / xRatio
+  { def xAdj: Double = x / xRatio
     (x %% 4, y %% 4) match
     { case (xr, yr) if yr.isEven && xr.isEven => Vec2(xAdj, y)
       case (xr, yr) if yr.isEven => throw new Exception("Hex Cood " + x.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
@@ -55,8 +44,11 @@ object HexGrid
     "invalid Hex Side coordinate: " + x.toString.appendCommas(y.toString))
 
   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
-  val yDist = 2.0/3 // 1.5 / sqrt(3)  //  2 / sqrt(3)
-  val yDist2 = 4.0/3 //  3 /  sqrt(3)  //  4 /  sqrt(3)
+  /** The previous value was 2 / sqrt(3). */
+  val yDist = 2.0/3
+
+/** The previous value was 4 /  sqrt(3). */
+  val yDist2 = 4.0/3
 
   //def yAdj(cood: Cood): Double = cood.y * yRatio
   def xAdj(cood: Cood): Double = cood.x * xRatio

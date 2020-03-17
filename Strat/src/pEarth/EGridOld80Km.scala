@@ -64,7 +64,7 @@ class EGridOld80Km[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], n
 }
 
 object EGridOld80Km
-{ val scale = 20.km
+{ val scale = 20.km * math.sqrt(3)
   val yOffset = 300
 
   def  coodToLatLong0Off200(inp: Cood): LatLong = coodToLatLong0(inp.subX(200))
