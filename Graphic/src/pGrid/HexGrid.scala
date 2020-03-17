@@ -45,10 +45,10 @@ object HexGrid
 
   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
   /** The previous value was 2 / sqrt(3). */
-  val yDist = 2.0/3
+  val yDist = 2.0 / 3
 
 /** The previous value was 4 /  sqrt(3). */
-  val yDist2 = 4.0/3
+  val yDist2 = 4.0 / 3
 
   //def yAdj(cood: Cood): Double = cood.y * yRatio
   def xAdj(cood: Cood): Double = cood.x * xRatio
