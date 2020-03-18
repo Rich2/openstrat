@@ -5,9 +5,9 @@ import geom._, Colour._
 
 /** Builder trait for flags. */
 trait Flag
-{ def apply(): Refs[PaintElem]
-  def name: String
+{ def name: String
   def ratio: Double
+  def apply(): Refs[PaintElem]
   def rect: Polygon = Rectangle(ratio)
   def parentStr: PolyParent = Rectangle(ratio).parentElems(name + " flag", apply)
   def parent(evObj: Any = this): PolyParent = Rectangle(ratio).parentElems(evObj, apply)
@@ -26,6 +26,15 @@ trait Flag
     val r1 = Rectangle.fromTL(ratio, 1.0 / numBands, -ratio / 2 vv + 0.5)
     val r2 = r1.slate(0, - i.toDouble / numBands)
     r2.fill(colours(i %% colours.length))
+  }
+}
+
+object PlainFlagMaker
+{
+  def apply(ratioIn: Double = 1.5, colour: Colour): Flag = new Flag
+  { override def name: String = colour.str + " Flag"
+    override def ratio: Double = ratioIn
+    override def apply(): Refs[PaintElem] = Refs(rect.fill(colour))
   }
 }
 
