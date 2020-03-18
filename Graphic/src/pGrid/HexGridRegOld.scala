@@ -10,10 +10,10 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def vertMargin = 2.8
   def horrMargin = 2.2  
-  final def left: Double = xTileMin - horrMargin
-  final def right: Double = xTileMax + horrMargin
-  final def bottom: Double = yTileMin  * yRatio - vertMargin
-  final def top: Double = yTileMax * yRatio + vertMargin  
+  final def left: Double = xTileMin * xRatio - horrMargin
+  final def right: Double = xTileMax * xRatio + horrMargin
+  final def bottom: Double = yTileMin  - vertMargin
+  final def top: Double = yTileMax + vertMargin
   
   override def rowTileXStart(y: Int): Int = ife(y %% 4 == 0, xRow4Start, xRow2Start)
   override def rowTileXEnd(y: Int): Int = ife(y %% 4 == 0, xRow4End, xRow2End)
@@ -72,7 +72,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   }
    
   def tileNeighboursCoods(cood: Cood): Coods =
-    HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.x & c.x >= xTileMin)
+    HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.y & c.y >= yTileMin & xTileMax >= c.c & c.c >= xTileMin)
   def tileNeighbours(tile: TileT): ArrOld[TileT] = tileNeighboursCoods(tile.cood).mapArrSeq(getTile)
      
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =

@@ -1,7 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import math.Pi
- 
+
+/** Extension methods for Int. */
 class IntExtensions(val thisInt: Int) extends AnyVal
 { def min0: Int = ife(thisInt > 0, thisInt, 0)
   def max0: Int = ife(thisInt > 0, thisInt, 0)
@@ -32,7 +33,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
   def semicolonInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + "; " + _.toString)
 
-  /** Correct defintion of modulus. */
+  /** More useful definition of modulus where a negative number divided by a positive divisor produces a non negative modulus. */
   def %%(divisor: Int): Int =
   { val r = thisInt % divisor
     if (r < 0) divisor + r else r
@@ -80,9 +81,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def roundUpToEven = thisInt.ifEven(thisInt, thisInt + 1)
   def roundDownToEven = thisInt.ifEven(thisInt, thisInt - 1)
   def roundUpToOdd = thisInt.ifEven(thisInt + 1, thisInt)
-  def roundDownToOdd = thisInt.ifEven(thisInt - 1, thisInt)    
-   
-
+  def roundDownToOdd = thisInt.ifEven(thisInt - 1, thisInt)
    
   @inline def hexStr: String = thisInt.toHexString.toUpperCase
   @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)

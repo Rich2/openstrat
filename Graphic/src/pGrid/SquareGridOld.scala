@@ -3,27 +3,13 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag
 
-/*
-trait SGrid[TileT] extends TGrid[TileT]
-{
-  type GridT[A] = SGrid[A]
-  @inline override def xStep: Int = 2
-  override def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)
-  override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(x %% 2 == 0 & y %% 2 == 0,
-    x.toString.appendCommas(y.toString) -- "is an invalid Square tile coordinate")
-  override def vertCoodsOfTile(tileCood: Cood): Coods = SquareGrid.vertCoodsOfTile(tileCood)
-  override def sideCoodLine(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
-}
-*/
-
-/** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls. 
+/** This represents a non-Simple square grid where the tile sides can have their own values. So for square the classic example is walls.
  *  The wall is too thin to occupy a whole tile or a line of tiles. For the time being all square grids are presumed to be regular grids */
 abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int,
-                                                                     val turnNum: Int)
-                                                                    (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridRegOld[TileT, SideT]
-{  
-  override val yRatio = 1  
-  def coodToVec2(cood: Cood): Vec2 = Vec2(cood.x, cood.y)  
+  val turnNum: Int)(implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridRegOld[TileT, SideT]
+{
+  override val xRatio = 1
+  def coodToVec2(cood: Cood): Vec2 = Vec2(cood.c, cood.y)
   final def left: Double = xTileMin - margin
   final def right: Double = xTileMax + margin
   final def bottom: Double = yTileMin - margin
@@ -31,11 +17,9 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   @inline override def rowTileXStart(y: Int): Int = xTileMin
   @inline override def rowTileXEnd(y: Int): Int = xTileMax
 
-  //final override def rowForeachTilesXYAll(y: Int, f: (Int, Int) => Unit): Unit = for {x <- xTileMin to xTileMax by xStep} f(x, y)
   final override def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit = for 
   {x <- xTileMin.max(xStart).roundUpTo(_.isEven) to xTileMax.min(xEnd).roundDownTo(_.isEven) by xStep} f(x, y)
-  
-  //override def xToInd(x: Int): Int = (x - xTileMin) / 2
+
   override def xArrLen: Int = xTileMax - xTileMin + 3
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)
@@ -77,7 +61,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   }
   
   final def setColumn[A](cood: Cood, multis: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setColumn(cood.x, cood.y, multis: _*)(f)
+    setColumn(cood.c, cood.y, multis: _*)(f)
    
   final def setColumnDown[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
   {
@@ -85,13 +69,13 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
       
     tiles.iForeach{(e, i) =>
       val y = yStart - i * 2
-      fSetTile(x, y, e)//f(x, y, e))               
+      fSetTile(x, y, e)
     }
     Cood(x, yStart - (tiles.length - 1) * 2)
   }
   
   final def setColumnDown[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setColumnDown(cood.x, cood.y, tileValues: _*)(f)
+    setColumnDown(cood.c, cood.y, tileValues: _*)(f)
    
   def fSetRow[A](y: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Unit =
   { val tiles = tileMakers.flatMap(_.singlesList)
@@ -100,7 +84,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
    
   def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
-    var cood = Cood(startCood.x, startCood.y)
+    var cood = Cood(startCood.c, startCood.y)
     import SquareGrid._
     
     dirns.foreach 
@@ -119,7 +103,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
     case _ => v4
   }
   
-  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGrid.vertCoodLineOfSide(x, y)
+  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = SquareGrid.sideCoodToCoodLine(x, y)
   
   override def sidesTileCoods(x: Int, y: Int): (Cood, Cood) = if2Excep(
     x.isOdd & y.isEven, (Cood(x - 1, y), Cood(x + 1, y)),
@@ -136,4 +120,3 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   def sideColumnLen: Int = ife(tileColumnLen == 0, tileColumnLen + 1, 0)
   override def sideNum: Int = sideRowLen  * sideColumnLen
 }
-

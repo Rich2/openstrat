@@ -6,43 +6,38 @@ import geom._, math.sqrt
 trait HexGrid extends TileGrid
 
 object HexGrid
-{
-  val yRatio = sqrt(3)
+{ /* converts Grid c to x. */
+  val xRatio = 1.0 / sqrt(3)
   /** Verts start at Up and follow clockwise */
   val vertCoodsOfTile00: Coods = Coods(0 cc 1,  2 cc 1,  2 cc -1,  0 cc -1,  -2 cc -1,  -2 cc 1)
   def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
-  def vertCoodsOfTile(tileCood: Cood): Coods =
-  {
-    vertCoodsOfTile00.pMap(_ + tileCood)
-  }
+  def vertCoodsOfTile(tileCood: Cood): Coods = vertCoodsOfTile00.pMap(_ + tileCood)
   val sideCoodsOfTile00: Coods = Coods(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1)
   //val sideCoodsOfTile00List: List[Cood] = Coods(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1)
   def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.pMap(tileCood + _)
   val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.pMap(_ * 2)
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
-  def sideCoodToLine(sideCood: Cood): Line2 = vertCoodsOfSide(sideCood).toLine2(coodToVec2)
-  def vertCoodsOfSide(sideCood: Cood): CoodLine = vertCoodsOfSide(sideCood.x, sideCood.y)
 
-  def vertCoodsOfSide(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
+  def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = sideCoodToCoodLine(sideCood).toLine2(c => coodToVec2(c) -relPosn)
+  def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2)
+  def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.c, sideCood.y)
+
+  def sideCoodToCoodLine(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
     CoodLine(x + 1, y, x - 1, y))
 
-  /*  (xSideCood %% 4, ySideCood %% 4) match
-  { case (0, 2) | (2, 0) => CoodLine(xSideCood, ySideCood + 1, xSideCood, ySideCood - 1)
-    case (xr, yr) if xr.isOdd & yr.isOdd => CoodLine(xSideCood - 1, ySideCood, xSideCood + 1, ySideCood)
-    case _ => excep("Invalid Hex Cood for a side")
-  }*/
-  /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
-  def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.x, cood.y)
+  def coodToVec2Rel(cood: Cood, relPosn: Vec2): Vec2 = coodToVec2(cood.c, cood.y) -relPosn
 
-  def coodToVec2(x: Int, y: Int): Vec2 =
-  {
-    def yAdj: Double = y * yRatio
-    (x %% 4, y %% 4) match
-    { case (xr, yr) if yr.isEven && xr.isEven => Vec2(x, yAdj)
-      case (xr, yr) if yr.isEven => throw new Exception("Hex Cood " + x.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
-      case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(x, yAdj)
-      case (0, 1) | (2, 3)  =>  Vec2(x, yAdj + yDist /2)
-      case (xr, yr) => Vec2(x, yAdj - yDist / 2)
+  /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
+  def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.c, cood.y)
+
+  def coodToVec2(c: Int, y: Int): Vec2 =
+  { def x: Double = c * xRatio
+    (c %% 4, y %% 4) match
+    { case (xr, yr) if yr.isEven && xr.isEven => Vec2(x, y)
+      case (_, yr) if yr.isEven => throw new Exception("Hex Cood " + c.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
+      case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(x, y)
+      case (0, 1) | (2, 3)  =>  Vec2(x, y + yDist /2)
+      case _ => Vec2(x, y - yDist / 2)
     }
   }
    
@@ -53,11 +48,12 @@ object HexGrid
     "invalid Hex Side coordinate: " + x.toString.appendCommas(y.toString))
 
   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
-  val yDist =  2 / sqrt(3)
-  val yDist2 =  4 / sqrt(3)
-  //val yRatio = sqrt(3)
-  def yAdj(cood: Cood): Double = cood.y * yRatio
-   
+  /** The previous value was 2 / sqrt(3). */
+  val yDist = 2.0 / 3
+
+/** The previous value was 4 /  sqrt(3). */
+  val yDist2 = 4.0 / 3
+
   @inline def x0 = 0
   @inline def y0 = yDist2
   /** The Up vertice */
@@ -102,7 +98,7 @@ object HexGrid
   def latLongToCood(latLong: LatLong, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Dist): Vec2 =
   { val y: Double = ((latLong.lat - latLongOffset.lat) * EarthPolarRadius - xyOffset.y) / gridScale
     val x: Double = ((latLong.long - latLongOffset.long) * EarthEquatorialRadius * math.cos(latLong.lat) - xyOffset.x) / gridScale
-    Vec2(x, y / yRatio)
+    Vec2(x * xRatio, y)
   }
 
   def latLongU(pt: Vec2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridU))

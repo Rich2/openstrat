@@ -17,7 +17,7 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
     case (v, b, l) => deb(l.toString)
   }
    
-  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).fillTextParent(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   /**  repaints the top command bar */
   def reTop(commands: Refs[GraphicBounded]): Unit = topPan.repaint(displayRowParents(topPan.cenLeft, commands))
   var statusText = "This is the status text."

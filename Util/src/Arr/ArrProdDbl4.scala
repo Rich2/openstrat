@@ -35,7 +35,10 @@ trait ArrProdDbl4Build[A <: ProdDbl4, ArrT <: ArrProdDbl4[A]] extends ArrProdDbl
   //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
   override def imutSet(arr: ArrT, index: Int, value: A): Unit =
-  { arr.array(index * 4) = value._1; arr.array(index * 4 + 1) = value._2; arr.array(index * 4 + 2); arr.array(index * 4 + 3) = value._4
+  { arr.array(index * 4) = value._1
+    arr.array(index * 4 + 1) = value._2
+    arr.array(index * 4 + 2) = value._3
+    arr.array(index * 4 + 3) = value._4
   }
 
   override def buffGrow(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)

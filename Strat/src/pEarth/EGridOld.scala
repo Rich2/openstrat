@@ -38,7 +38,7 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     LatLong(vArr(index), vArr(index + 1))
   }
 
-  def getLL(cood: Cood): LatLong = getLL(cood.x ,cood.y)
+  def getLL(cood: Cood): LatLong = getLL(cood.c ,cood.y)
 
   def setLL(x: Int, y: Int, llValue: LatLong): Unit =
   { val index: Int = llInd(x, y)
@@ -46,11 +46,11 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     vArr(index + 1) = llValue.long
   }
 
-  def setLL(cood: Cood, llValue: LatLong): Unit = setLL(cood.x, cood.y, llValue)
-  final def setLongitude(cood: Cood, radians: Double): Unit = setLongitude(cood.x, cood.y, radians)
+  def setLL(cood: Cood, llValue: LatLong): Unit = setLL(cood.c, cood.y, llValue)
+  final def setLongitude(cood: Cood, radians: Double): Unit = setLongitude(cood.c, cood.y, radians)
   def setLongitude(x: Int, y: Int, radians: Double): Unit = vArr(llInd(x, y) + 1) = radians
   /** These 2 methods may be redundant */
-  def coodToLL(cood: Cood): LatLong = coodToLL(cood.x, cood.y) //vec2ToLatLongReg(HG.coodToVec2(hc), cenLong, scale, xOffset, yOffset)
+  def coodToLL(cood: Cood): LatLong = coodToLL(cood.c, cood.y) //vec2ToLatLongReg(HG.coodToVec2(hc), cenLong, scale, xOffset, yOffset)
   def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
 
   foreachTilesCoodAll{cood =>

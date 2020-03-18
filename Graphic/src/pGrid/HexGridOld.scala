@@ -7,7 +7,8 @@ import reflect.ClassTag
 abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
                                                                  (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridOld[TileT, SideT]// with HexGrid[TileT]
 {
-  override val yRatio: Double = HexGrid.yRatio
+  //override val yRatio: Double = HexGrid.yRatio
+  override val xRatio: Double = HexGrid.xRatio
   override def xArrLen: Int = (xTileMax - xTileMin) / 4 + 1 //+1 for zeroth tile
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)
@@ -28,7 +29,7 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
 
   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null   
    
-  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
+  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.sideCoodToCoodLine(x, y)
   
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
     x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
@@ -58,7 +59,7 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
    *  departure and the tile of arrival. */
   def getHCost(startCood: Cood, endCood: Cood): Int =
   { val diff = endCood - startCood
-    val x: Int = diff.x.abs
+    val x: Int = diff.c.abs
     val y: Int = diff.y.abs
      
     y - x match

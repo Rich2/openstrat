@@ -6,6 +6,6 @@ trait CoodMover
 { var xCood: Int
   var yCood: Int
   def cood: Cood = Cood(xCood, yCood) 
-  def cood_= (newCood: Cood): Unit = { xCood = newCood.x; yCood = newCood.y }
+  def cood_= (newCood: Cood): Unit = { xCood = newCood.c; yCood = newCood.y }
   def setCood(newX: Int, newY: Int): Unit = { xCood = newX; yCood = newY }
 }
