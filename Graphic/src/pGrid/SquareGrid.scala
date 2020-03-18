@@ -3,19 +3,23 @@ package pGrid
 import geom._
 
 /** Currently all SquareGrids are regular. */
-case class SquareGrid(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int) extends TileGridReg
+case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int) extends TileGridReg
 {
+  final override def xCen: Double = (cTileMin + cTileMax) / 2.0
+  override def coodToVec2(cood: Cood): Vec2 = Vec2(cood.c, cood.y)
+  override def sideCoodToCoodLine(sideCood: ostrat.pGrid.Cood): CoodLine = SquareGrid.sideCoodToCoodLine(sideCood)
   def cen = Vec2(xCen, yCen)
   //def yCen: Double = (yTileMin + yTileMax) / 2.0
-  def xCen: Double = (xTileMin + xTileMax) / 2.0
-  def rowTileLen: Int = ((xTileMax.roundDownToEven - xTileMin.roundUpToEven + 2) / 2).min0
+
+  def rowTileLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).min0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).min0
   def numOfTiles: Int = numOfRows * numOfTiles
 
-  override def tilesAllForeach(f: Cood => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(xTileMin, xTileMax, 2)((y, x) => f(Cood(x, y)))
-  @inline override def index(x: Int, y: Int): Int = (y - yTileMin) / 2 * rowTileLen + (x - xTileMin) / 2
+  override def tilesAllForeach(f: Cood => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(cTileMin, cTileMax, 2)((y, x) => f(Cood(x, y)))
+  @inline override def index(c: Int, y: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
 
   @inline override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGrid.sideCoodsOfTile(tileCood)
+
 }
 
 object SquareGrid
@@ -33,9 +37,9 @@ object SquareGrid
   object Up extends PathDirn
   object Dn extends PathDirn
 
-  def vertCoodLineOfSide(sideCood: Cood): CoodLine = vertCoodLineOfSide(sideCood.x, sideCood.y)
+  def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.c, sideCood.y)
 
-  def vertCoodLineOfSide(x: Int, y: Int): CoodLine = (x %% 2, y %% 2) match
+  def sideCoodToCoodLine(x: Int, y: Int): CoodLine = (x %% 2, y %% 2) match
   { case (1, 0) => CoodLine(x, y + 1, x, y - 1)
     case (0, 1)=> CoodLine(x - 1, y, x + 1, y)
     case _ => excep("Invalid Square Cood for a side")

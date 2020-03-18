@@ -43,7 +43,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   final def xToInd(x: Int): Int = (x - xTileMin) / xStep
   final def yToInd(y: Int): Int = y  - yTileMin
   def xyToInd(x: Int, y: Int): Int = xToInd(x) + yToInd(y) * xArrLen
-  final def coodToInd(cood: Cood): Int = xyToInd(cood.x, cood.y)
+  final def coodToInd(cood: Cood): Int = xyToInd(cood.c, cood.y)
   //val yRatio: Double
   val xRatio: Double
   def xStep: Int
@@ -84,7 +84,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
    }
 
   final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
-    setTiles(bottomLeft.x, topRight.y, bottomLeft.y, topRight.y, tileValue)(f)
+    setTiles(bottomLeft.c, topRight.y, bottomLeft.y, topRight.y, tileValue)(f)
   def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
@@ -93,19 +93,19 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   def tileDestinguish[A](cood: Cood, v1: A, v2: A, v3: A, v4: A): A
 
   def optTile(x: Int, y: Int): Option[TileT]
-  final def optTile(cood: Cood): Option[TileT] = optTile(cood.x, cood.y)
+  final def optTile(cood: Cood): Option[TileT] = optTile(cood.c, cood.y)
 
   /** Throws exception if Cood is not a valid Tile coordinate */
-  final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.x, cood.y)
+  final def coodIsTile(cood: Cood): Unit = coodIsTile(cood.c, cood.y)
 
   def getTile(x: Int, y: Int): TileT = { coodIsTile(x, y); arr(xyToInd(x, y)) }
-  def getTile(tc: Cood): TileT = { coodIsTile(tc); arr(xyToInd(tc.x, tc.y)) }
+  def getTile(tc: Cood): TileT = { coodIsTile(tc); arr(xyToInd(tc.c, tc.y)) }
 
   def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }
-  def setTile(cood: Cood, value: TileT): Unit = setTile(cood.x, cood.y, value)
+  def setTile(cood: Cood, value: TileT): Unit = setTile(cood.c, cood.y, value)
   def copyTile(oldGrid: TileGridOld[TileT, _], cood: Cood): Unit = setTile(cood, oldGrid.getTile(cood))
   
-  def fSetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.x, cood.y, value)(fTile)
+  def fSetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.c, cood.y, value)(fTile)
   def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =
   { coodIsTile(x, y)
     arr(xyToInd(x, y)) = fTile(x, y, value)
@@ -265,7 +265,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   }
   
   /** Set tile row from the Cood. */
-  final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.x, tileValues: _*)(f)
+  final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.y, cood.c, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 
   final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
@@ -289,7 +289,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   }
    
   final def setRowBack[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setRowBack(cood.y, cood.x, tileValues: _*)(f)
+    setRowBack(cood.y, cood.c, tileValues: _*)(f)
     
   /* *********************************************** Side stuff *************************************************************/
   
@@ -331,29 +331,29 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   def sideCoodsOfTile(tileCood: Cood): Coods     
    
   def setSide(x: Int, y: Int, side: SideT): Unit = { coodIsSide(x, y); sideArr(xySideToInd(x, y)) = side }
-  def setSide(sc: Cood, side: SideT): Unit = { coodIsSide(sc); sideArr(xySideToInd(sc.x, sc.y)) = side }
+  def setSide(sc: Cood, side: SideT): Unit = { coodIsSide(sc); sideArr(xySideToInd(sc.c, sc.y)) = side }
   def fSetSide[A](x: Int, y: Int, value: A)(implicit f: (Int, Int, A) => SideT) = {coodIsSide(x, y); sideArr(xySideToInd(x, y)) = f(x, y, value)}
   /** Sets a Coods collection of Side Cood to the same value. */
-  final def setSideCollection[A](coods: Coods, value: A)(implicit f: (Int, Int, A) => SideT) = coods.foreach(p => fSetSide(p.x, p.y, value))   
+  final def setSideCollection[A](coods: Coods, value: A)(implicit f: (Int, Int, A) => SideT) = coods.foreach(p => fSetSide(p.c, p.y, value))
   final def setSidesAll[A](value: A)(implicit fA: (Int, Int, A) => SideT): Unit = foreachSidesXYAll((x, y) => fSetSide(x, y, value))   
   
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsSide(x: Int, y: Int): Unit
   /** Throws exception if Cood is not a valid Tile coordinate */
-  final def coodIsSide(cood: Cood): Unit = coodIsSide(cood.x, cood.y)   
+  final def coodIsSide(cood: Cood): Unit = coodIsSide(cood.c, cood.y)
   
   def getSide(x: Int, y: Int): SideT = sideArr(xySideToInd(x, y)) 
-  def getSide(tc: Cood): SideT = sideArr(xySideToInd(tc.x, tc.y))  
+  def getSide(tc: Cood): SideT = sideArr(xySideToInd(tc.c, tc.y))
   
   def optSidesTiles(x: Int, y: Int): (Option[TileT], Option[TileT]) =
   { val (c1, c2) = sidesTileCoods(x, y)
     (optTile(c1), optTile(c2))
   }
   
-  final def optSidesTiles(cood: Cood): (Option[TileT], Option[TileT]) = optSidesTiles(cood.x, cood.y)
+  final def optSidesTiles(cood: Cood): (Option[TileT], Option[TileT]) = optSidesTiles(cood.c, cood.y)
    
   def modTilesAll(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) } 
-  def vertCoodLineOfSide(cood: Cood): CoodLine = vertCoodLineOfSide(cood.x, cood.y)
+  def vertCoodLineOfSide(cood: Cood): CoodLine = vertCoodLineOfSide(cood.c, cood.y)
   def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
      
   /** Fundamental method for producing GraphicElems from the Grid */

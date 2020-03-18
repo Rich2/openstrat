@@ -29,7 +29,7 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
 
   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null   
    
-  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.vertCoodsOfSide(x, y)
+  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGrid.sideCoodToCoodLine(x, y)
   
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
     x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
@@ -59,7 +59,7 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
    *  departure and the tile of arrival. */
   def getHCost(startCood: Cood, endCood: Cood): Int =
   { val diff = endCood - startCood
-    val x: Int = diff.x.abs
+    val x: Int = diff.c.abs
     val y: Int = diff.y.abs
      
     y - x match

@@ -18,7 +18,7 @@ class OldWorldMap[TileT <: TileOld, SideT <: TileSideOld](val fTile: (Int, Int, 
       implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
 {
   def tile(x: Int, y: Int): TileT = grids(0).getTile(x, y)
-  def tile(cood: Cood): TileT = tile(cood.x, cood.y)
+  def tile(cood: Cood): TileT = tile(cood.c, cood.y)
   def setTile(x: Int, y: Int, newTile: TileT): Unit = grids(0).setTile(x, y, newTile)
   def fTiles[D](f: (TileT, D) => Unit, data: (Int, Int, D)*) = data.foreach(tr => f(tile(tr._1, tr._2), tr._3))
   /** Needs looking at */

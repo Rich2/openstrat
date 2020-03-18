@@ -21,6 +21,6 @@ class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Luni
 }
 
 object Warrior
-{ def apply(polity: Faction, cood: Cood): Warrior = new Warrior(polity, cood.x, cood.y)
+{ def apply(polity: Faction, cood: Cood): Warrior = new Warrior(polity, cood.c, cood.y)
   def apply(polity: Faction, x: Int, y: Int): Warrior = new Warrior(polity, x, y)
 }

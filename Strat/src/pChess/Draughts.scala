@@ -16,7 +16,7 @@ case class Draughts(turn: Int, ltMen: List[Cood], ltKings: List[Cood], dkMen: Li
     inp match
     {
       case _ if inp.length < 2 => None
-      case List(s, e) if ltMen.contains(s) & !pieces.contains(e) & e.y == s.y + 1 & eqOf(e.x - s.x, -1, 1) =>
+      case List(s, e) if ltMen.contains(s) & !pieces.contains(e) & e.y == s.y + 1 & eqOf(e.c - s.c, -1, 1) =>
         inner(ltMen.replace(s, e), ltKings, dkMen, dkKings)
       case _ => None
     }
@@ -27,7 +27,7 @@ case class Draughts(turn: Int, ltMen: List[Cood], ltKings: List[Cood], dkMen: Li
     inp match
     {
       case _ if inp.length < 2 => None
-      case List(s, e) if dkMen.contains(s) & !pieces.contains(e) & e.y == s.y - 1 & eqOf(e.x - s.x, -1, 1) =>
+      case List(s, e) if dkMen.contains(s) & !pieces.contains(e) & e.y == s.y - 1 & eqOf(e.c - s.c, -1, 1) =>
         inner(ltMen, ltKings, dkMen.replace(s, e), dkKings)
       case _ => None
     }

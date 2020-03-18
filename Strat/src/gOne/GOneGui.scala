@@ -6,7 +6,7 @@ import pCanv._, geom._
 case class GOneGui(canv: CanvasPlatform) extends CanvasNoPanels("Game One Gui")
 {
   val grid = OneGrid.grid
-  val scale: Int = 100
+  val scale: Int = 120
 
   val ls = grid.tilesAllMap{ c =>
     val v = grid.coodToVec2Rel(c) * scale

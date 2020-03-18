@@ -9,14 +9,19 @@ package pGrid
  *  will probably want multiple arrays to describe the game state. The terrain for example may remain invariant, so the terrain data does not need to
  *  be reproduced with every move.*/
 trait TileGrid
-{ def xTileMin: Int
-  def xTileMax: Int
+{
+  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
+  def cTileMin: Int
+
+  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
+  def cTileMax: Int
+
   def yTileMin: Int
   def yTileMax: Int
   def numOfTiles: Int
 
   /** Returns the index of an Array from its tile coordinate. */
-  @inline def index(x: Int, y: Int): Int
+  @inline def index(c: Int, y: Int): Int
 
   def tilesAllForeach(f: Cood => Unit): Unit
 
@@ -40,7 +45,7 @@ trait TileGrid
 
   def setSomeTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[Option[A]]): Unit = arr.unsafeSetElem(index(x, y), Some(value))
   /** Returns the index of an Array from its tile coordinate. */
-  @inline final def index(cood: Cood): Int = index(cood.x, cood.y)
+  @inline final def index(cood: Cood): Int = index(cood.c, cood.y)
 
   def arrSet[A](cood: Cood, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(cood), value)
 }
