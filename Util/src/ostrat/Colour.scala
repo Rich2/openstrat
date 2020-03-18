@@ -102,12 +102,15 @@ object Colour
     }
     def show(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
-  
-   /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-   def apply(argbValue: Int) = new Colour(argbValue)   
-   def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
-   def blackOrWhite(b: Boolean): Colour = if (b) Black else White
-   def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
+
+  /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
+  def apply(argbValue: Int) = new Colour(argbValue)
+  def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
+  def blackOrWhite(b: Boolean): Colour = if (b) Black else White
+  def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
+
+
+   //def allColours: Colours = strToValue.mapArr{case (_, c) => c}
 
   /*implicit val optBuildImplicit: OptBuild[Colour] = new OptBuild[Colour]
   { override type OptT = OptOldColour

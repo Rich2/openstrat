@@ -27,4 +27,6 @@ object UnitedStates extends Flag
     val stripes = topToBottomRepeat(13, oGRed, White)
     stripes +- blueField ++ stars ++ starsInner
   }
+  import pGrid._
+  def starsNow = RectAltGrid(2, 12, 2, 18, 0.2)
 }
