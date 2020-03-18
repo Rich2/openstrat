@@ -31,4 +31,6 @@ case class HexGridReg(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int
   }
 
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood: Cood)
+
+  def sideCoodToLine(sideCood: Cood): Line2 = HexGrid.sideCoodToLine(sideCood)
 }
