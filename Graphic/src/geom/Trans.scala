@@ -8,14 +8,6 @@ trait Transer extends Any
 { def fTrans(f: Vec2 => Vec2): Transer
 }
 
-/** A Geometrical object or shape that has not been scaled. That has its iconic scale. An object centred on x = , y = 0, all the object is between x =
- * +- 0.5 and y = +- 0.5 */
-trait UnScaled extends Any with Transer
-{ type TranserT <: Transer
-  def scaled: TranserT
-  def fTrans(f: Vec2 => Vec2): TranserT
-}
-
 /** The typeclass trait for transforming an object in 2d geometry. */
 trait Trans[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T
