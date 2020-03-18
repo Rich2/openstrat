@@ -22,7 +22,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGridOld, val game: Simp
   {
     val tiles = tilesFlatMapAll[GraphicElem ,Refs[GraphicElem]] { t =>
       val op = t.oPlayer.map { p =>
-        val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillActiveDrawText(p.colour, p, p.toString, 24, 2.0)
+        val rect: GraphicElems = Rectangle(120, 80, coodToDisp(t.cood)).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0)
         val ol: Option[LineDraw] = p.move.map(newCood => CoodLine(t.cood, newCood).toLine2(coodToDisp).draw(2, p.colour))
         ol.toArr ++ rect
       }
