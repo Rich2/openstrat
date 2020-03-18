@@ -6,7 +6,7 @@ import geom._, math.sqrt
 trait HexGrid extends TileGrid
 
 object HexGrid
-{
+{ /* converts Grid c to x. */
   val xRatio = 1.0 / sqrt(3)
   /** Verts start at Up and follow clockwise */
   val vertCoodsOfTile00: Coods = Coods(0 cc 1,  2 cc 1,  2 cc -1,  0 cc -1,  -2 cc -1,  -2 cc 1)
@@ -54,8 +54,6 @@ object HexGrid
 /** The previous value was 4 /  sqrt(3). */
   val yDist2 = 4.0 / 3
 
-  //def yAdj(cood: Cood): Double = cood.y * yRatio
-  def xAdj(cood: Cood): Double = cood.c * xRatio
   @inline def x0 = 0
   @inline def y0 = yDist2
   /** The Up vertice */

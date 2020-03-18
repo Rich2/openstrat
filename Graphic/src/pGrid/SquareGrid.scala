@@ -9,7 +9,6 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   override def coodToVec2(cood: Cood): Vec2 = Vec2(cood.c, cood.y)
   override def sideCoodToCoodLine(sideCood: ostrat.pGrid.Cood): CoodLine = SquareGrid.sideCoodToCoodLine(sideCood)
   def cen = Vec2(xCen, yCen)
-  //def yCen: Double = (yTileMin + yTileMax) / 2.0
 
   def rowTileLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).min0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).min0
@@ -19,7 +18,6 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   @inline override def index(c: Int, y: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
 
   @inline override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGrid.sideCoodsOfTile(tileCood)
-
 }
 
 object SquareGrid
