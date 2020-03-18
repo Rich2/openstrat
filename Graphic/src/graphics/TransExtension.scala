@@ -26,6 +26,15 @@ class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
   /** The scale transformation on 2 dimensional vectors. */
   def scale(factor: Double): T = trans(_ * factor)
 
+  /** The scale transformation on 2 dimensional vectors. */
+  def scaleSlate(factor: Double, addVec: Vec2): T = trans(_ * factor + addVec)
+
+  /** Applies scale transformation and adds x on 2 dimensional vectors. */
+  def scaleSlateX(factor: Double, xDelta: Double): T = trans(v => (v * factor).addX(xDelta))
+
+  /** The scale transformation on 2 dimensional vectors. */
+  def scaleSlateY(factor: Double, yDelta: Double): T = trans(v => (v * factor).addY(yDelta))
+
   override def rotate(angle: Angle): T = trans(_.rotate(angle))
   override def rotateRadians(r: Double): T = trans(_.rotateRadians(r))
   def scaleY(factor: Double): T = trans(_.scaleY(factor))

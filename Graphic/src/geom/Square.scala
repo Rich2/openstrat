@@ -14,7 +14,7 @@ object Square extends UnScaledPolygon
       xCen - width/2   vv yCen - width / 2)
    
   /**Needs Changing possibly removing. */
-  def fill(width: Double, colour: Colour, cen: Vec2 = Vec2Z): PolyFill = apply(width, cen).fill(colour)
+  def fill(colour: Colour)/*, width: Double, cen: Vec2 = Vec2Z)*/: PolyFill = apply.fill(colour)
   /**Needs Changing possibly removing. */
   def fillXY(width: Double, colour: Colour, xCen: Double, yCen: Double): PolyFill = apply(width, xCen vv yCen).fill(colour)
    
