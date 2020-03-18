@@ -5,8 +5,8 @@ package geom
 /** Factory object for squares. There is no companion Square class. */
 object Square extends UnScaledPolygon
 {
-  override val scaled: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
-  def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = scaled.fTrans(_ * width + cen)
+  override val apply: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
+  def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = apply.fTrans(_ * width + cen)
   def xy(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
