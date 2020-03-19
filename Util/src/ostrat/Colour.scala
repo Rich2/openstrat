@@ -109,8 +109,7 @@ object Colour
   def blackOrWhite(b: Boolean): Colour = if (b) Black else White
   def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
 
-
-   //def allColours: Colours = strToValue.mapArr{case (_, c) => c}
+  //def allColours: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c}
 
   /*implicit val optBuildImplicit: OptBuild[Colour] = new OptBuild[Colour]
   { override type OptT = OptOldColour

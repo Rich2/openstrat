@@ -31,7 +31,7 @@ trait Flag
 
 object PlainFlagMaker
 {
-  def apply(ratioIn: Double = 1.5, colour: Colour): Flag = new Flag
+  def apply(colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = colour.str + " Flag"
     override def ratio: Double = ratioIn
     override def apply(): Refs[PaintElem] = Refs(rect.fill(colour))
