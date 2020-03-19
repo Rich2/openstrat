@@ -3,7 +3,7 @@ package ostrat
 package pFlags
 import geom._, Colour._
 
-/** Builder trait for flags. */
+/** The flag trait is a builder for Graphic Elements and sequences of Graphic Elements, representing the flag, it is not itself. */
 trait Flag
 { def name: String
   def ratio: Double
