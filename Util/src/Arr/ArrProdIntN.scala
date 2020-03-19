@@ -19,6 +19,8 @@ trait ArrProdIntN[A] extends Any with ArrProdHomo[A]
 trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdHomoBuild[B, ArrT]
 { type BuffT <:  BuffProdHomoInts[B]
   def fromIntArray(inp: Array[Int]): ArrT
+
+  /* Not sure about the return type of this method. */
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def imutNew(length: Int): ArrT = fromIntArray(new Array[Int](length * elemSize))
   final override def buffNew(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemSize))

@@ -1,5 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
+import collection.mutable.ArrayBuffer
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with ProdInt1
@@ -103,13 +104,20 @@ object Colour
     def show(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 
+  implicit val arrBuildImplicit = new ArrProdInt1sBuild[Colour, Colours]
+  { type BuffT = ColoursBuff
+    override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
+
+    override def fromIntBuffer(inp: ArrayBuffer[Int]): ColoursBuff = new ColoursBuff(inp)
+  }
+
   /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
   def apply(argbValue: Int) = new Colour(argbValue)
   def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
   def blackOrWhite(b: Boolean): Colour = if (b) Black else White
   def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
 
-  //def allColours: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c}
+  def allColours: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c}
 
   /*implicit val optBuildImplicit: OptBuild[Colour] = new OptBuild[Colour]
   { override type OptT = OptOldColour
@@ -291,51 +299,4 @@ object Colour
 ("White", White), ("WhiteSmoke", WhiteSmoke),("Yellow", Yellow), ("YellowGreen", YellowGreen)    
 )
   val valueToStr: Map[Colour, String] = strToValue.map(p => (p._2, p._1))
-}
-import Colour._
-
-final class Colours(val array: Array[Int]) extends AnyVal with ArrProdInt1[Colour]
-{ type ThisT = Colours
-  override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
-  override def typeStr: String = "Colours"
-  final override def newElem(intValue: Int): Colour = Colour(intValue)
-}
-
-object Colours
-{
-  def apply(inp: Colour *): Colours =
-  { val arr = new Array[Int](inp.length)
-    var count = 0
-    while (count < inp.length) { arr(count) = inp(count).argbValue; count += 1 }
-    new Colours(arr)
-  }
-
-  /** This class cycles through the colour of the Rainbow. */
-  class RainbowCycle(val value: Int) extends AnyVal
-  {
-    def apply(): Colour = rainbow(value)
-    def next: RainbowCycle = ife(value == rainbow.length - 1, new RainbowCycle(0), new RainbowCycle(value + 1))
-    def nextValue: Colour = next()
-  }
-
-  def rainbowStart: RainbowCycle = new RainbowCycle(0)
-}
-
-sealed trait OptColour extends Opt[Colour]
-
-class SomeColour(argbValue: Int) extends OptColour with SomeT[Colour]
-{ def value: Colour = new Colour(argbValue)
-  override def foreach(f: Colour => Unit): Unit = f(value)
-}
-
-object SomeColour
-{
-  def unapply(input: OptColour): Option[Colour] = input match
-  { case sc: SomeColour => Some(sc.value)
-    case NoColour => None
-  }
-}
-
-case object NoColour extends OptColour with NoOpt[Colour]
-{ def unapply(inp: OptColour): Boolean = inp.empty
 }

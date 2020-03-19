@@ -61,7 +61,7 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdHomoBuild[B, Ar
   final override def buffNew(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
   final override def imutNew(length: Int): ArrT = fromDblArray(new Array[Double](length * elemSize))
   final override def buffToArr(buff: BuffT): ArrT = fromDblArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = buff.buffer.addAll(arr.array)
+  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.buffer.addAll(arr.array); () }
 }
 
 /** A mutable and resizable Array Buffer for collections of elements that are products of Double sub-elements. */

@@ -1,5 +1,5 @@
 package ostrat
-import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance, reflect.ClassTag
+import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** The immutable Array based class for reference types. It Inherits the standard foreach, map, flatMap and fold and their variations' methods from
  *  ArrayLike. */
