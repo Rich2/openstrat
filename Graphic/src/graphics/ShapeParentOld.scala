@@ -2,10 +2,10 @@
 package ostrat
 package geom
 
-@deprecated case class ShapeParentOld(cen: Vec2, shape: Shape, pointerEv: AnyRef, elems: ArrOld[PaintElem]) extends GraphicParentOld with ShapeActive
+@deprecated case class ShapeParentOld(cen: Vec2, shape: Shape, pointerId: AnyRef, elems: ArrOld[PaintElem]) extends GraphicParentOld with ShapeActive
 {
-   def fTrans(f: Vec2 => Vec2): ShapeParentOld = ShapeParentOld(f(cen), shape.fTrans(f), pointerEv, elems.trans(f))
-   override def addElems(newElems: ArrOld[PaintElem]): ShapeParentOld = ShapeParentOld(cen, shape, pointerEv, elems ++ newElems)
+   def fTrans(f: Vec2 => Vec2): ShapeParentOld = ShapeParentOld(f(cen), shape.fTrans(f), pointerId, elems.trans(f))
+   override def addElems(newElems: ArrOld[PaintElem]): ShapeParentOld = ShapeParentOld(cen, shape, pointerId, elems ++ newElems)
    override def mutObj(newObj: AnyRef): ShapeParentOld = ShapeParentOld(cen, shape, newObj, elems)
 }
 

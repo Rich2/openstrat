@@ -3,9 +3,9 @@ package ostrat
 package geom
 import Colour.Black
 
-case class PolyParent(cen: Vec2, poly: Polygon, pointerEv: Any, elems: Refs[PaintElem]) extends GraphicParent with PolyActive
-{ def fTrans(f: Vec2 => Vec2): PolyParent = new PolyParent(f(cen), poly.fTrans(f), pointerEv, elems.trans(f))
-  override def addElems(newElems: Refs[PaintElem]): PolyParent = new PolyParent(cen, poly, pointerEv, elems ++ newElems)
+case class PolyParent(cen: Vec2, poly: Polygon, pointerId: Any, elems: Refs[PaintElem]) extends GraphicParent with PolyActive
+{ def fTrans(f: Vec2 => Vec2): PolyParent = new PolyParent(f(cen), poly.fTrans(f), pointerId, elems.trans(f))
+  override def addElems(newElems: Refs[PaintElem]): PolyParent = new PolyParent(cen, poly, pointerId, elems ++ newElems)
   override def mutObj(newObj: Any): PolyParent = new PolyParent(cen, poly, newObj, elems)
 }
 

@@ -20,8 +20,8 @@ case class ShapeDraw(shape: Shape, lineWidth: Double, colour: Colour = Black) ex
 }
 
 /** A pointable shape without visual. */
-case class ShapeActiveOnly(shape: Shape, pointerEv: Any) extends GraphicElem with ShapeActive
-{ override def fTrans(f: Vec2 => Vec2): ShapeActiveOnly = ShapeActiveOnly(shape.fTrans(f), pointerEv) }
+case class ShapeActiveOnly(shape: Shape, pointerId: Any) extends GraphicElem with ShapeActive
+{ override def fTrans(f: Vec2 => Vec2): ShapeActiveOnly = ShapeActiveOnly(shape.fTrans(f), pointerId) }
 
 case class ShapeFillDraw(shape: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends ShapeElem
 { override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
@@ -38,10 +38,10 @@ case class ShapeFillDrawText(shape: Shape, fillColour: Colour, str: String, font
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.shapeFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
 }
 
-case class ShapeAll(shape: Shape, pointerEv: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
+case class ShapeAll(shape: Shape, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
   extends ShapeElem with ShapeActive
 {
-  override def fTrans(f: Vec2 => Vec2) = ShapeAll(shape.fTrans(f), pointerEv, str, fillColour, fontSize, lineWidth, lineColour)
+  override def fTrans(f: Vec2 => Vec2) = ShapeAll(shape.fTrans(f), pointerId, str, fillColour, fontSize, lineWidth, lineColour)
   def drawOnly: ShapeDraw = ShapeDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: ShapeFillDraw = ShapeFillDraw(shape, fillColour, lineWidth, lineColour)

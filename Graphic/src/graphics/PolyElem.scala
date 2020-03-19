@@ -33,6 +33,12 @@ object PolyFill
 { implicit val persistImplicit: Persist2[Polygon, Colour, PolyFill] = Persist2("PolyFill", "poly", _.poly, "colour", _.colour, apply)
 }
 
+/** Immutable Graphic element that defines and fills a Polygon. */
+case class PolyFillActive(poly: Polygon, pointerId: Any, colour: Colour) extends PolyElem with PolyActive
+{ override def fTrans(f: Vec2 => Vec2): PolyFillActive = PolyFillActive(poly.fTrans(f), pointerId, colour)
+  override def rendElem(cp: CanvasPlatform): Unit = ??? //cp.polyFill(this)
+}
+
 /** Immutable Graphic element that defines and draws a Polygon. */
 case class PolyDraw(poly: Polygon, lineWidth: Double, colour: Colour = Black) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2): PolyDraw = PolyDraw(poly.fTrans(f), lineWidth, colour)
@@ -56,8 +62,8 @@ object PolyFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolyActiveOnly(poly: Polygon, pointerEv: Any) extends GraphicElem with PolyActive
-{ override def fTrans(f: Vec2 => Vec2): PolyActiveOnly = PolyActiveOnly(poly.fTrans(f), pointerEv) }
+case class PolyActiveOnly(poly: Polygon, pointerId: Any) extends GraphicElem with PolyActive
+{ override def fTrans(f: Vec2 => Vec2): PolyActiveOnly = PolyActiveOnly(poly.fTrans(f), pointerId) }
 
 case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2) = PolyFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
@@ -76,7 +82,7 @@ case class PolyFillDrawText(poly: Polygon, fillColour: Colour, str: String, font
   override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.polyFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
 }
 
-case class PolyAll(poly: Polygon, pointerEv: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
+case class PolyAll(poly: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
                    lineColour: Colour = Black) extends PolyElem with PolyActive
 {
   override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(poly.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)

@@ -3,10 +3,10 @@ package ostrat
 package geom
 import Colour.Black
 
-@deprecated case class PolyParentOld(cen: Vec2, poly: Polygon, pointerEv: Any, elems: ArrOld[PaintElem]) extends GraphicParentOld with PolyActive
+@deprecated case class PolyParentOld(cen: Vec2, poly: Polygon, pointerId: Any, elems: ArrOld[PaintElem]) extends GraphicParentOld with PolyActive
 {
-  def fTrans(f: Vec2 => Vec2): PolyParentOld = new PolyParentOld(f(cen), poly.fTrans(f), pointerEv, elems.trans(f))
-  override def addElems(newElems: ArrOld[PaintElem]): PolyParentOld = new PolyParentOld(cen, poly, pointerEv, elems ++ newElems)
+  def fTrans(f: Vec2 => Vec2): PolyParentOld = new PolyParentOld(f(cen), poly.fTrans(f), pointerId, elems.trans(f))
+  override def addElems(newElems: ArrOld[PaintElem]): PolyParentOld = new PolyParentOld(cen, poly, pointerId, elems ++ newElems)
   override def mutObj(newObj: AnyRef): PolyParentOld = new PolyParentOld(cen, poly, newObj, elems)
 }
 

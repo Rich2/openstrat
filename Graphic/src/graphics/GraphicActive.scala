@@ -5,9 +5,9 @@ package geom
 /** The base trait for all objects that can have mouse / touch pad interaction. */
 trait GraphicActive extends GraphicBounded
 {
-  /** The Pointer Evidence is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
+  /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
       purely up to the application to encode, its response if any to this object. */
-  def pointerEv: Any
+  def pointerId: Any
 
   /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
   def ptInside(pt: Vec2): Boolean
