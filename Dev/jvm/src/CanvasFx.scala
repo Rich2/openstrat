@@ -156,9 +156,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.closePath
   }
    
-  override protected[this] def tlShapeFill(sf: ShapeFill): Unit =
-  { segsPath(sf.shape)
-    gc.setFill(toFxColor(sf.colour))
+  override protected[this] def tlShapeFill(shape: Shape, colour: Colour): Unit =
+  { segsPath(shape)
+    gc.setFill(toFxColor(colour))
     gc.fill()
   }
    

@@ -22,7 +22,7 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    override def arcDraw(ad: ArcDraw): Unit = {}
    override def bezierDraw(bd: BezierDraw): Unit = {}
    override def linesDraw(lsd: LinesDraw): Unit = {}
-   override def pShapeFill(sf: ShapeFill): Unit = {}
+   override def pShapeFill(shape: Shape, colour: Colour): Unit = {}
    override def pShapeFillDraw(sfd: ShapeFillDraw): Unit = {}
    override def pShapeDraw(sd: ShapeDraw): Unit = {}
    override def textGraphic(tg: TextGraphic) = {} 

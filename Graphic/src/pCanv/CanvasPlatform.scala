@@ -48,14 +48,6 @@ trait CanvasPlatform extends RectGeom
   //final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))
   def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
 
-  /** Checks length of polygon, before fill and draw output. */
-  /*final def polyFillDraw(pfd: PolyFillDraw): Unit = pfd.vertsLen match
-  { case 0 | 1 =>
-    case 2 => polyDraw(pfd.noFill)
-    case _ => pPolyFillDraw(pfd)
-  }*/
-
- // def pPolyFillDraw(pfd: PolyFillDraw): Unit
   def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.length >= 1, pLinePathDraw(pod))
   def pLinePathDraw(pod: LinePathDraw): Unit
    
@@ -74,9 +66,9 @@ trait CanvasPlatform extends RectGeom
   def linesDraw(lsd: LinesDraw): Unit
   final def linesDraw(lineWidth: Double, linesColour: Colour, lines: Line2 *): Unit = linesDraw(LinesDraw(Line2s(lines: _*), lineWidth, linesColour))
    
-  final def shapeFill(sf: ShapeFill): Unit = oif(sf.segsLen > 0, pShapeFill(sf))
-  final def shapeFill(fillColour: Colour, segs: CurveSeg *): Unit = shapeFill(ShapeFill(Shape(segs: _*), fillColour))
-  def pShapeFill(sf: ShapeFill): Unit
+  final def shapeFill(shape: Shape, colour: Colour): Unit = oif(shape.length > 0, pShapeFill(shape, colour))
+
+  def pShapeFill(shape: Shape, colour: Colour): Unit
    
   final def shapeDraw(sd: ShapeDraw): Unit = oif(sd.segsLen > 0, pShapeDraw(sd))
   final def shapeDraw(lineWidth: Double, borderColour: Colour, segs: CurveSeg *): Unit =

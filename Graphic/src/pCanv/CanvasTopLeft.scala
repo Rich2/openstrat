@@ -18,7 +18,7 @@ trait CanvasTopLeft extends CanvasPlatform
    final override def linesDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
    final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.fTrans(tlCen))
    
-   final override def pShapeFill(sf: ShapeFill): Unit = tlShapeFill(sf.fTrans(tlCen))
+   final override def pShapeFill(shape: Shape, colour: Colour): Unit = tlShapeFill(shape.fTrans(tlCen), colour)
    final override def pShapeDraw(sd: ShapeDraw): Unit = tlShapeDraw(sd.fTrans(tlCen))
    final override def pShapeFillDraw(sfd: ShapeFillDraw): Unit = tlShapeFillDraw(sfd.fTrans(tlCen))
    
@@ -38,7 +38,7 @@ trait CanvasTopLeft extends CanvasPlatform
    protected[this] def tlLinesDraw(lsd: LinesDraw): Unit
    protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
-   protected[this] def tlShapeFill(sf: ShapeFill): Unit
+   protected[this] def tlShapeFill(shape: Shape, colour: Colour): Unit
    protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit
    protected[this] def tlShapeDraw(sd: ShapeDraw): Unit
    

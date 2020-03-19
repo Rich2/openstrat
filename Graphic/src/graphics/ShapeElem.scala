@@ -11,7 +11,7 @@ trait ShapeElem extends PaintElem with GraphicBounded
 
 case class ShapeFill(shape: Shape, colour: Colour) extends ShapeElem
 { override def fTrans(f: Vec2 => Vec2) = ShapeFill(shape.fTrans(f), colour)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.shapeFill(this)
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.shapeFill(shape, colour)
 }
 
 case class ShapeDraw(shape: Shape, lineWidth: Double, colour: Colour = Black) extends ShapeElem
