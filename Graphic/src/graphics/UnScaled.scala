@@ -18,7 +18,7 @@ trait UnScaledGraphicElem extends GraphicElem
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
 case class UnScaledShape(referenceVec: Vec2, relShape: Shape, pointerEv: Any, elems: Refs[PaintElem]) extends
-UnScaledGraphicElem with ShapeActiveTr
+UnScaledGraphicElem with ShapeActive
 { def shape: Shape = relShape.slate(referenceVec)
   def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, pointerEv, elems)
   def addElems(newElems: Refs[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerEv, elems ++ newElems)

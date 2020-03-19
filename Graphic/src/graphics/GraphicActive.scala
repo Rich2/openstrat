@@ -4,8 +4,9 @@ package geom
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
 trait GraphicActive extends GraphicBounded
-{ /** If the user clicks with the polygon or shape then the canvas will return this object. It is purely up to the application its
-   *  response if any to this object */
+{
+  /** The Pointer Evidence is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
+      purely up to the application to encode, its response if any to this object. */
   def pointerEv: Any
 
   /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
@@ -20,10 +21,11 @@ trait PolyActive extends GraphicActive
 }
 
 /** A pointable shape */
-trait ShapeActiveTr extends GraphicActive
+trait ShapeActive extends GraphicActive
 { def shape: Shape
   def innerPoly: Polygon = shape.pMap(_.pEnd)
   override def boundingRect: BoundingRect = innerPoly.boundingRect
-  /** This method needs improving */
+
+  /** This method needs improving. */
   override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
 }

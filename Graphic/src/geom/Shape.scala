@@ -62,7 +62,7 @@ class Shape(val array: Array[Double]) extends AnyVal with ArrProdDbl7[CurveSeg] 
   def draw(lineWidth: Double, lineColour: Colour = Black) = ShapeDraw(this,lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = ShapeFillDraw(this, fillColour, lineWidth, lineColour)
   def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[GraphicElem] =
-    List(ShapeFillDraw(this, fillColour, lineWidth, lineColour), ShapeActive(this, evObj))
+    List(ShapeFillDraw(this, fillColour, lineWidth, lineColour), ShapeActiveOnly(this, evObj))
 
   def shapeAll(shape: Shape, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):
     ShapeAll = ShapeAll(shape, evObj, str, fillColour, fontSize, lineWidth, lineColour)
