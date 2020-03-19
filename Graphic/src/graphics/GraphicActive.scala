@@ -6,14 +6,14 @@ package geom
 trait GraphicActive extends GraphicBounded
 { /** If the user clicks with the polygon or shape then the canvas will return this object. It is purely up to the application its
    *  response if any to this object */
-  def evObj: Any
+  def pointerEv: Any
 
   /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
   def ptInside(pt: Vec2): Boolean
 }
 
 /** An active transparent pointable polygon */
-trait PolyActiveTr extends GraphicActive
+trait PolyActive extends GraphicActive
 { def poly: Polygon
   override def boundingRect = poly.boundingRect
   override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)

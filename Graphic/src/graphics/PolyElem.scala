@@ -56,8 +56,8 @@ object PolyFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolyActive(poly: Polygon, evObj: Any) extends GraphicElem with PolyActiveTr
-{ override def fTrans(f: Vec2 => Vec2): PolyActive = PolyActive(poly.fTrans(f), evObj) }
+case class PolyActiveOnly(poly: Polygon, pointerEv: Any) extends GraphicElem with PolyActive
+{ override def fTrans(f: Vec2 => Vec2): PolyActiveOnly = PolyActiveOnly(poly.fTrans(f), pointerEv) }
 
 case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2) = PolyFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
@@ -68,6 +68,16 @@ case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize
 
 case class PolyFillDrawText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
    lineColour: Colour = Black) extends PolyElem
+{
+  override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(poly.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
+  def drawOnly: PolyDraw = PolyDraw(poly, lineWidth, lineColour)
+  def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, Black, CenAlign)
+  def fillDrawOnly: PolyFillDraw = PolyFillDraw(poly, fillColour, lineWidth, lineColour)
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.polyFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
+}
+
+case class PolyAll(poly: Polygon, pointerEv: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
+                   lineColour: Colour = Black) extends PolyElem with PolyActive
 {
   override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(poly.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolyDraw = PolyDraw(poly, lineWidth, lineColour)

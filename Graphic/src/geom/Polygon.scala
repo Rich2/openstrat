@@ -43,16 +43,16 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolyFillText =
     PolyFillText(this, fillColour, str, fontSize, textColour)
 
-  def fillActive(fillColour: Colour, evObj: Any): GraphicElems = Refs(PolyFill(this, fillColour), PolyActive(this, evObj))
+  def fillActive(fillColour: Colour, evObj: Any): GraphicElems = Refs(PolyFill(this, fillColour), PolyActiveOnly(this, evObj))
 
   def fillDrawActive(fillColour: Colour, evObj: Any, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
-    Refs(PolyFillDraw(this, fillColour,lineWidth, lineColour), PolyActive(this, evObj))
+    Refs(PolyFillDraw(this, fillColour,lineWidth, lineColour), PolyActiveOnly(this, evObj))
     
   def fillDrawTextActive(fillColour: Colour, evObj: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
-    GraphicElems = Refs(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour), PolyActive(this, evObj))
+    GraphicElems = Refs(PolyFillDrawText(this, fillColour,str, fontSize, lineWidth, lineColour), PolyActiveOnly(this, evObj))
 
   def fillTextActive(fillColour: Colour, evObj: Any, str: String, fontSize: Int = 24): GraphicElems =
-    Refs(PolyFillText(this, fillColour,str, fontSize), PolyActive(this, evObj))
+    Refs(PolyFillText(this, fillColour,str, fontSize), PolyActiveOnly(this, evObj))
 
   def parentFill(evObj: Any, fillColour: Colour): PolyParent = PolyParent.fill(this.polyCentre, this, evObj, fillColour)
 

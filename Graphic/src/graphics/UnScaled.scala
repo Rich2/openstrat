@@ -17,11 +17,11 @@ trait UnScaled extends Any with Transer
 trait UnScaledGraphicElem extends GraphicElem
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
-case class UnScaledShape(referenceVec: Vec2, relShape: Shape, evObj: Any, elems: Refs[PaintElem]) extends
+case class UnScaledShape(referenceVec: Vec2, relShape: Shape, pointerEv: Any, elems: Refs[PaintElem]) extends
 UnScaledGraphicElem with ShapeActiveTr
 { def shape: Shape = relShape.slate(referenceVec)
-  def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, evObj, elems)
-  def addElems(newElems: Refs[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, evObj, elems ++ newElems)
+  def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, pointerEv, elems)
+  def addElems(newElems: Refs[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerEv, elems ++ newElems)
   def mutObj(newObj: AnyRef): UnScaledShape = UnScaledShape(referenceVec, shape, newObj, elems)
 }
 
