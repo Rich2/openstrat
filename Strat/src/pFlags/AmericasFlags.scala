@@ -8,6 +8,7 @@ object UnitedStates extends Flag
 
   /** Old Glory Red */
   val oGRed = Colour(0xFFB22234)
+  val usBlue = Colour(0xFF3C3B6E)
 
   /** star horizontal spacing */
   val starX = 1.9 * 2 / 5 / 12
@@ -16,16 +17,23 @@ object UnitedStates extends Flag
   val starY = 1.0 * 7 / 13 / 10
 
   /** Diameter of star = four-fifths of the stripe width, Width of stripe = Height/13, Height = Width/1.9) */
-  val starScale = 4.0 / 5 / 13 / 1.9
+  val starScaleOld = 4.0 / 5 / 13 / 1.9
 
-  val star = Star5().scale(starScale).fill(White).slate(-0.95, 0.5)
+  val star = Star5().scale(starScaleOld).fill(White).slate(-0.95, 0.5)
+  val dimC = 7.0 / 13
+  val dimD = ratio * 0.4
+  val urRect = Rectangle(dimD / dimC).fill(usBlue)
+  import pGrid._
+  val g = RectAltGrid(2, 22, 2, 18, ratio)
+  val starScale = 0.8 * 7 / 13
+  //val ss = g.tilesAllMap()
 
   val apply =
-  { val blueField = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(Colour(0xFF3C3B6E))
+  { val blueFieldOld = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(usBlue)
     val stars = xyToMap(0, 10, 2)(1, 9, 2) { (x, y) => star.slate(starX + x * starX, -y * starY) }
     val starsInner = xyToMap(2, 10, 2)(2, 8, 2) { (x, y) => star.slate(x * starX, -y * starY) }
     val stripes = topToBottomRepeat(13, oGRed, White)
-    stripes +- blueField ++ stars ++ starsInner
+    stripes +- blueFieldOld ++ stars ++ starsInner
   }
   import pGrid._
   def starsNow = RectAltGrid(2, 12, 2, 18, 0.2)

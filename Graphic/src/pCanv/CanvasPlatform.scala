@@ -33,12 +33,9 @@ trait CanvasPlatform extends RectGeom
   def timeOut(f: () => Unit, millis: Integer): Unit
   
   def startFramePermanent(f: Integer => Unit, millis: Integer = 15): Unit =
-  {
-    def combinedF(elapsed: Integer, startTime: Integer): Unit = { f(elapsed); frame(combinedF, startTime, millis)}
+  { def combinedF(elapsed: Integer, startTime: Integer): Unit = { f(elapsed); frame(combinedF, startTime, millis)}
     startFrame(combinedF, millis)
   }
-  
-  var textMin: Int = 10
   
   final def polyFill(poly: Polygon, colour: Colour): Unit = oif(poly.length >= 3, pPolyFill(poly, colour))
   def pPolyFill(poly: Polygon, colour: Colour): Unit
