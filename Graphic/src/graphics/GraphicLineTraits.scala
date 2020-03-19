@@ -37,10 +37,9 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
   override def rendElem(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 }
 
-case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour,
-                          dashArr: Array[Double]) extends CurveLikePaintElem
-{
-  def typeStr: String = "DashedLineDraw"
+case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double])
+  extends CurveLikePaintElem
+{ def typeStr: String = "DashedLineDraw"
   override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
   override def rendElem(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
 }

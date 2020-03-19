@@ -53,12 +53,12 @@ object CanvasJs extends CanvasTopLeft
    
   val gc = can.getContext("2d").asInstanceOf[raw.CanvasRenderingContext2D]
    
-  override protected[this] def tlPolyFill(fp: PolyFill): Unit =
+  override protected[this] def tlPolyFill(poly: Polygon, colour: Colour): Unit =
   { gc.beginPath()
-    gc.moveTo(fp.xHead, fp.yHead)
-    fp.poly.foreachPairTail(gc.lineTo)
+    gc.moveTo(poly(0).x, poly(0).y)
+    poly.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.fillStyle = fp.colour.webStr
+    gc.fillStyle = colour.webStr
     gc.fill()
   }
 

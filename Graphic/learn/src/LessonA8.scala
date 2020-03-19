@@ -21,8 +21,8 @@ case class LessonA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A7")
   val sf3 = sf2.scale(0.5)  
   val sf4 = sf3.slate(-250, 200)  
   val sf5 = sf4.slateX(-100).copy(colour = Green)  
-  val rect = Rectangle(200, 100, -400 vv 100).fill(Orange)
-  canv.polyFill(rect)
+  val rect = Rectangle(200, 100, -400 vv 100)
+  canv.polyFill(rect, Orange)//Not sure why this code is in here.
   val sf6 = sf5.negY.copy(colour = Red)
   repaints(sf1, sf2, sf3, sf4, sf5, sf6)
 }

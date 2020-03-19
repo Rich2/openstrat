@@ -26,7 +26,7 @@ trait PolyElem extends PaintElem with GraphicBounded
 /** Immutable Graphic element that defines and fills a Polygon. */
 case class PolyFill(poly: Polygon, colour: Colour) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2): PolyFill = PolyFill(poly.fTrans(f), colour)
-  override def rendElem(cp: CanvasPlatform): Unit = cp.polyFill(this)
+  override def rendElem(cp: CanvasPlatform): Unit = cp.polyFill(poly, colour)
 }
 
 object PolyFill
@@ -67,9 +67,13 @@ case class PolyActiveOnly(poly: Polygon, pointerId: Any) extends GraphicElem wit
 
 case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem
 { override def fTrans(f: Vec2 => Vec2) = PolyFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.polyFill(fillOnly); cp.textGraphic(textOnly) }
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, textColour, CenAlign)
   def fillOnly: PolyFill = PolyFill(poly, fillColour)
+
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit =
+  { cp.polyFill(poly, fillColour)
+    cp.textGraphic(textOnly)
+  }
 }
 
 case class PolyFillDrawText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,

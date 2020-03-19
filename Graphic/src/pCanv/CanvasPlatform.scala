@@ -40,9 +40,9 @@ trait CanvasPlatform extends RectGeom
   
   var textMin: Int = 10
   
-  final def polyFill(pf: PolyFill): Unit = oif(pf.ifv3, pPolyFill(pf))
+  final def polyFill(poly: Polygon, colour: Colour): Unit = oif(poly.length >= 3, pPolyFill(poly, colour))
   //final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))
-  def pPolyFill(pf: PolyFill): Unit
+  def pPolyFill(poly: Polygon, colour: Colour): Unit
   
   final def polyDraw(dp: PolyDraw): Unit = oif(dp.ifv2, pPolyDraw(dp))
   final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))  

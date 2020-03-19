@@ -35,9 +35,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
 
   import paint.Color
   def toFxColor(colour: Colour): Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
-  override def tlPolyFill(fp: PolyFill): Unit =
-  { gc.setFill(toFxColor(fp.colour))
-    gc.fillPolygon(fp.xArray, fp.yArray, fp.poly.length)
+  override def tlPolyFill(poly: Polygon, colour: Colour): Unit =
+  { gc.setFill(toFxColor(colour))
+    gc.fillPolygon(poly.elem1sArray, poly.elem2sArray, poly.length)
   }
 
   /** Needs mod */
