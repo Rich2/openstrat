@@ -31,8 +31,9 @@ object UnScaledShape
 }
 
 /** This is not a Polygon but should fTrans to Polygon. */
-trait UnScaledPolygon extends UnScaled
+trait UnScaledPolygon extends  UnScaled
 { type TranserT = Polygon
+  //def apply: Polygon
   def fTrans(f: Vec2 => Vec2): Polygon = apply.fTrans(f)
   def dist(width: Dist, cen: Dist2 = Dist2Z): PolygonDist  = apply.distScale(width)
   def minX: Double = apply.minX
