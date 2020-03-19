@@ -9,8 +9,8 @@ trait CanvasTopLeft extends CanvasPlatform
    def tlCen: Vec2 =>  Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
  
    final override def pPolyFill(poly: Polygon, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
-   final override def pPolyDraw(dp: PolyDraw): Unit = tlPolyDraw(dp.fTrans(tlCen))
-   final override def pPolyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))
+   final override def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = tlPolyDraw(poly.fTrans(tlCen), lineWidth, colour)
+   //final override def pPolyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))
    final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
    final override def lineDraw(ld: LineDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
    final override def arcDraw(ad: ArcDraw): Unit = tlArcDraw(ad.fTrans(tlCen))
@@ -28,8 +28,8 @@ trait CanvasTopLeft extends CanvasPlatform
    final override def clip(pts: Polygon): Unit = tlClip(pts.fTrans(tlCen))
 
    protected[this] def tlPolyFill(poly: Polygon, colour: Colour): Unit
-   protected[this] def tlPolyDraw(dp: PolyDraw): Unit
-   protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit
+   protected[this] def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
+   //protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit
    protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
    
    protected[this] def tlLineDraw(ld: LineDraw): Unit

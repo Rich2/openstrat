@@ -44,18 +44,18 @@ trait CanvasPlatform extends RectGeom
   //final def polyFill(colour: Colour, verts: Vec2 *): Unit = polyFill(verts.toPolygon.fill(colour))
   def pPolyFill(poly: Polygon, colour: Colour): Unit
   
-  final def polyDraw(dp: PolyDraw): Unit = oif(dp.ifv2, pPolyDraw(dp))
-  final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))  
-  def pPolyDraw(dp: PolyDraw): Unit
+  final def polyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = oif(poly.length >= 2, pPolyDraw(poly, lineWidth, colour))
+  //final def polyDraw(lineWidth: Double, lineColour: Colour, verts: Vec2 *): Unit = polyDraw(verts.toPolygon.draw(lineWidth, lineColour))
+  def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
 
   /** Checks length of polygon, before fill and draw output. */
-  final def polyFillDraw(pfd: PolyFillDraw): Unit = pfd.vertsLen match
+  /*final def polyFillDraw(pfd: PolyFillDraw): Unit = pfd.vertsLen match
   { case 0 | 1 =>
     case 2 => polyDraw(pfd.noFill)
     case _ => pPolyFillDraw(pfd)
-  }
+  }*/
 
-  def pPolyFillDraw(pfd: PolyFillDraw): Unit
+ // def pPolyFillDraw(pfd: PolyFillDraw): Unit
   def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.length >= 1, pLinePathDraw(pod))
   def pLinePathDraw(pod: LinePathDraw): Unit
    

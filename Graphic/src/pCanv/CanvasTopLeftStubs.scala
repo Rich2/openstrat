@@ -8,8 +8,8 @@ import geom._
 trait CanvasTopLeftStubs extends CanvasTopLeft
 { override def getTime: Long = 0
   override protected def tlPolyFill(poly: Polygon, colour: Colour): Unit = {}
-  override protected def tlPolyDraw(dp: PolyDraw): Unit = {}
-  override protected def tlPolyFillDraw(fdp: PolyFillDraw): Unit = {}
+  override protected def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = {}
+  //override protected def tlPolyFillDraw(fdp: PolyFillDraw): Unit = {}
   override protected def tlLinesDraw(lsd: LinesDraw): Unit = {}
 
   override protected def tlShapeFill(sf: ShapeFill): Unit = {}

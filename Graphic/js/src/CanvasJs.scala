@@ -62,27 +62,27 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
-  override def tlPolyDraw(dp: PolyDraw): Unit =
+  override def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit =
   { gc.beginPath()
-    gc.moveTo(dp.xHead, dp.yHead)
-    dp.poly.foreachPairTail(gc.lineTo)
+    gc.moveTo(poly(0).x, poly(0).y)
+    poly.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.strokeStyle = dp.colour.webStr
-    gc.lineWidth = dp.lineWidth
+    gc.strokeStyle = colour.webStr
+    gc.lineWidth = lineWidth
     gc.stroke
   }
 
-  override protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit =
+  /*override protected[this] def tlPolyFillDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit =
   { gc.beginPath()
-    gc.moveTo(pfd.xHead, pfd.yHead)
-    pfd.poly.foreachPairTail(gc.lineTo)
+    gc.moveTo(poly(0).x, poly(0).y)
+    poly.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.fillStyle = pfd.fillColour.webStr
+    gc.fillStyle = fillColour.webStr
     gc.fill()
-    gc.strokeStyle = pfd.lineColour.webStr
-    gc.lineWidth = pfd.lineWidth
+    gc.strokeStyle = lineColour.webStr
+    gc.lineWidth = lineWidth
     gc.stroke
-  }
+  }*/
 
   override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
