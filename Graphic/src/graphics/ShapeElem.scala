@@ -16,7 +16,7 @@ case class ShapeFill(shape: Shape, colour: Colour) extends ShapeElem
 
 case class ShapeDraw(shape: Shape, lineWidth: Double, colour: Colour = Black) extends ShapeElem
 { override def fTrans(f: Vec2 => Vec2) = ShapeDraw(shape.fTrans(f), lineWidth, colour)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.shapeDraw(this)
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.shapeDraw(shape, lineWidth, colour)
 }
 
 /** A pointable shape without visual. */
@@ -25,7 +25,11 @@ case class ShapeActiveOnly(shape: Shape, pointerId: Any) extends GraphicElem wit
 
 case class ShapeFillDraw(shape: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends ShapeElem
 { override def fTrans(f: Vec2 => Vec2) = ShapeFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.shapeFillDraw(this)
+
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit =
+  { cp.shapeFill(shape, fillColour)
+    cp.shapeDraw(shape, lineWidth, lineColour)
+  }
 }
 
 case class ShapeFillDrawText(shape: Shape, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
@@ -35,7 +39,11 @@ case class ShapeFillDrawText(shape: Shape, fillColour: Colour, str: String, font
   def drawOnly: ShapeDraw = ShapeDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: ShapeFillDraw = ShapeFillDraw(shape, fillColour, lineWidth, lineColour)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.shapeFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit =
+  { cp.shapeFill(shape, fillColour)
+    cp.shapeDraw(shape, lineWidth, lineColour)
+    cp.textGraphic(textOnly)
+  }
 }
 
 case class ShapeAll(shape: Shape, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
@@ -45,5 +53,10 @@ case class ShapeAll(shape: Shape, pointerId: Any, str: String, fillColour: Colou
   def drawOnly: ShapeDraw = ShapeDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: ShapeFillDraw = ShapeFillDraw(shape, fillColour, lineWidth, lineColour)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.shapeFillDraw(fillDrawOnly); cp.textGraphic(textOnly) }
+
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit =
+  { cp.shapeFill(shape, fillColour)
+    cp.shapeDraw(shape, lineWidth, lineColour)
+    cp.textGraphic(textOnly)
+  }
 }

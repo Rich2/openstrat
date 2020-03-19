@@ -72,18 +72,6 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke
   }
 
-  /*override protected[this] def tlPolyFillDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit =
-  { gc.beginPath()
-    gc.moveTo(poly(0).x, poly(0).y)
-    poly.foreachPairTail(gc.lineTo)
-    gc.closePath()
-    gc.fillStyle = fillColour.webStr
-    gc.fill()
-    gc.strokeStyle = lineColour.webStr
-    gc.lineWidth = lineWidth
-    gc.stroke
-  }*/
-
   override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
   { gc.beginPath
     gc.moveTo(pod.xStart, pod.yStart)
@@ -156,19 +144,10 @@ object CanvasJs extends CanvasTopLeft
     gc.fill
   }
    
-  override protected[this] def tlShapeDraw(sd: ShapeDraw): Unit =
-  { segsPath(sd.shape)
-    gc.strokeStyle = sd.colour.webStr
-    gc.lineWidth = sd.lineWidth
-    gc.stroke
-  }
-
-  override protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit =
-  { segsPath(sfd.shape)
-    gc.fillStyle = sfd.fillColour.webStr
-    gc.fill
-    gc.strokeStyle = sfd.lineColour.webStr
-    gc.lineWidth = sfd.lineWidth
+  override protected[this] def tlShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit =
+  { segsPath(shape)
+    gc.strokeStyle = colour.webStr
+    gc.lineWidth = lineWidth
     gc.stroke
   }
    

@@ -19,9 +19,8 @@ trait CanvasTopLeft extends CanvasPlatform
    final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.fTrans(tlCen))
    
    final override def pShapeFill(shape: Shape, colour: Colour): Unit = tlShapeFill(shape.fTrans(tlCen), colour)
-   final override def pShapeDraw(sd: ShapeDraw): Unit = tlShapeDraw(sd.fTrans(tlCen))
-   final override def pShapeFillDraw(sfd: ShapeFillDraw): Unit = tlShapeFillDraw(sfd.fTrans(tlCen))
-   
+   final override def pShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit = tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
+
    final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
     
@@ -29,7 +28,6 @@ trait CanvasTopLeft extends CanvasPlatform
 
    protected[this] def tlPolyFill(poly: Polygon, colour: Colour): Unit
    protected[this] def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
-   //protected[this] def tlPolyFillDraw(pfd: PolyFillDraw): Unit
    protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
    
    protected[this] def tlLineDraw(ld: LineDraw): Unit
@@ -39,8 +37,8 @@ trait CanvasTopLeft extends CanvasPlatform
    protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
    protected[this] def tlShapeFill(shape: Shape, colour: Colour): Unit
-   protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit
-   protected[this] def tlShapeDraw(sd: ShapeDraw): Unit
+ //  protected[this] def tlShapeFillDraw(sfd: ShapeFillDraw): Unit
+   protected[this] def tlShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit
    
    protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    
@@ -53,5 +51,4 @@ trait CanvasTopLeft extends CanvasPlatform
    protected[this] def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Vec2(x - width / 2, height / 2 - y), mb)
    
    protected[this] def tlClip(pts: Polygon): Unit
-   
 }
