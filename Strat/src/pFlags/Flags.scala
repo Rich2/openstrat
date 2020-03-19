@@ -38,6 +38,15 @@ object PlainFlagMaker
   }
 }
 
+object TextFlagMaker
+{
+  def apply(str: String, colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
+  { override def name: String = colour.str + " Flag"
+    override def ratio: Double = ratioIn
+    override def apply(): Refs[PaintElem] = Refs(rect.fill(colour), TextGraphic(str, 40))
+  }
+}
+
 object Armenia extends Flag
 { val name = "Armenia"
   val ratio = 2
