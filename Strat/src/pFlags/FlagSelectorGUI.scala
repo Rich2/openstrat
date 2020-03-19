@@ -6,7 +6,8 @@ import geom._, pCanv._, Colour._
 /** NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right */
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { val commonScale: Int = 95
-/*  var listOfFlags: Refs[PaintElem] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy,
+/*
+  var listOfFlags: Refs[Flag] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy,
                           Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag,
                           WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag,
                           Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag,
@@ -18,8 +19,15 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val flagsPerCol: Int = 5
   val pageSize: Int = flagsPerRow * flagsPerCol
   
-  var listOfFlags:Refs[GraphicElem] = Refs[GraphicElem]()
-  for( i <- 0 to flagCount-1) { listOfFlags = listOfFlags ++ Rectangle(2).fillTextActive(Violet, "Hello", "This Text") }
+  var listOfFlags = Refs[Flag]()
+  for( i <- 0 to flagCount-1) { 
+    val r = scala.util.Random.nextInt(256)
+    val g = scala.util.Random.nextInt(256)
+    val b = scala.util.Random.nextInt(256)
+    val thisColor = Colour.fromInts(r, g, b)
+    val thisItem = Rectangle(1.5, 1).fillTextActive(Violet, "Hello", "This Text")
+    listOfFlags = listOfFlags ++ Refs(TextFlagMaker(i.toString, thisColor))
+  }
 
   val dimensions = Map("width"->800, "height"->600, "headerSize"->50, "cellWidth"->200, "cellHeight"->110)
   val headerYpos = dimensions("height")/2-dimensions("headerSize")/2
@@ -45,9 +53,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   { var pageOfFlags:Refs[PolyParent] = Refs()
     for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
     { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
-//      val thisFlag = listOfFlags(thisIndex).parent(thisIndex.toString).scale(commonScale)
-//     val thisFlag = listOfFlags(thisIndex).scale(commonScale)
-//      pageOfFlags = pageOfFlags +- thisFlag.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
+      val thisFlag = listOfFlags(thisIndex).parent(thisIndex.toString).scale(commonScale)
+      pageOfFlags = pageOfFlags +- thisFlag.slate(i*dimensions("cellWidth"), -j*dimensions("cellHeight")).slate( firstFlagsPosition )
     }
     
     repaint(everythingNotFlag ++ pageOfFlags ++ Refs(Rectangle.curvedCorners(50, 30, 10).fill(Pink).slate(-225, headerYpos).slate(firstFlagIndexToShow*2.5, 0) ))
