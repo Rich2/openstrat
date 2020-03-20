@@ -6,7 +6,7 @@ trait AltGridReg extends TileGridReg
 {
   def xRatio: Double
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
-  final override def xCen: Double = (cTileMin + cTileMax) / 2.0 * xRatio
+
 
   @inline override def index(c: Int, y: Int): Int =
   {

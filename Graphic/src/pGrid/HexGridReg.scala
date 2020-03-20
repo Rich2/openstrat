@@ -11,6 +11,7 @@ case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
 
   def coodCen = Vec2(cCen, yCen)
 
+  override def xCen: Double = (cTileMin + cTileMax) / 2.0 * xRatio
 
   def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   //def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cen

@@ -28,7 +28,7 @@ object UnitedStates extends Flag
   val g = RectAltGrid(2, 22, 2, 18, dimD / dimC)
   val starScale = 0.8 / 13
   val whiteStar = Star5().scale(starScale).fill(White)
-  val ss = g.tilesAllVecMap(dimC / 12.0){v => whiteStar.slate(v)}
+  val ss = g.tilesAllVecMap(dimC ){v => whiteStar.slate(v)}
   debvar(ss.length)
   val inset = urRect +: ss
 
