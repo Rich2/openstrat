@@ -13,7 +13,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
                           Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag,
                           WhiteFlag, UnitedKingdom, WhiteFlag)
 */
-  val flagCount: Int = 444//listOfFlags.length
+  val flagCount: Int = 20//listOfFlags.length
   val flagsPerRow: Int = 4
   val flagsPerCol: Int = 5
   val pageSize: Int = flagsPerRow * flagsPerCol
@@ -31,9 +31,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val firstFlagsPosition = ( -( dimensions("width")-dimensions("cellWidth") ) / 2 vv ( dimensions("height") - dimensions("cellHeight") ) / 2 - dimensions("headerSize") )
 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
-  val aTitle = TextGraphic( "Scroll: less/more buttons, arrow keys, mouse wheel", 12, 100 vv headerYpos + 10 )
-  val aTitleB = TextGraphic( "TODO: drag bar, spring scroll, pgUp/Dn home/end keys", 12, 100 vv headerYpos - 6 )
-  val aTitleC = TextGraphic( "click base, touch aware, pixel perfection, transitions, clipped scroll, selection", 12, 100 vv headerYpos-22 )
+  val aTitle = TextGraphic( "Scroll: less/more buttons, arrow/pgUp/Dn keys, mouse wheel", 12, 100 vv headerYpos + 10 )
+  val aTitleB = TextGraphic( "TODO: drag bar, spring scroll, home/end keys", 12, 100 vv headerYpos - 6 )
+  val aTitleC = TextGraphic( "click base, touch aware, pixel perfection, transitions, clipped scroll", 12, 100 vv headerYpos-22 )
   val btnMore = clickButton( "More", ( mb: MouseButton) => { scrollMore } ).slate( -100, headerYpos )
   val btnLess = clickButton( "Less", ( mb: MouseButton) => { scrollLess } ).slate( -300, headerYpos )   
   val barBackground =  Rectangle.curvedCorners(102, 32, 10, (-200 vv headerYpos)).fill(Black)  
@@ -41,7 +41,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val everythingNotFlag: Refs[GraphicElem] = Refs( background, aTitle, aTitleB, aTitleC, btnMore, btnLess, barBackground )
 
   var viewIndex, flagsPerScroll, iScrollStep, jScrollStep: Int = 0
-  val isScrollHorizontal: Boolean = false
+  val isScrollHorizontal: Boolean = true
   if ( isScrollHorizontal ) { flagsPerScroll = flagsPerCol; iScrollStep = flagsPerScroll; jScrollStep = 1 }
   else                      { flagsPerScroll = flagsPerRow; iScrollStep = 1; jScrollStep = flagsPerScroll }
   
@@ -49,10 +49,10 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val barAvailable = 100 - barWidth
   val barStart = -barAvailable/2
   val lastFlagIndexToShow = flagsPerScroll * ( ( Math.max(0, flagCount - pageSize + flagsPerScroll - 1)) / flagsPerScroll )
-  def scrollMore(): Unit = { showGridView( isScrollHorizontal, Math.min( viewIndex + flagsPerScroll, lastFlagIndexToShow ) ) }
-  def scrollLess(): Unit = { showGridView( isScrollHorizontal, Math.max( viewIndex - flagsPerScroll, 0 ) ) }
+  def scrollMore(): Unit = { showGridView( Math.min( viewIndex + flagsPerScroll, lastFlagIndexToShow ) ) }
+  def scrollLess(): Unit = { showGridView( Math.max( viewIndex - flagsPerScroll, 0 ) ) }
 
-  def showGridView(isScrollHorizontal: Boolean, firstFlagIndexToShow:Int): Unit =
+  def showGridView( firstFlagIndexToShow:Int): Unit =
   { var pageOfFlags:Refs[PolyParent] = Refs()
     for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
     { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
@@ -68,20 +68,26 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     viewIndex = firstFlagIndexToShow
   }
 
-  showGridView( isScrollHorizontal, viewIndex )
+  showGridView( viewIndex )
 
   mouseUp = ( v, button: MouseButton, clickList ) => button match
   { case LeftButton => clickList match
     { case List( MButtonCmd(cmd) ) => cmd.apply( button )
       case List( flagIndex ) =>
         { selectedIndex = flagIndex.toString.toInt
-          showGridView( isScrollHorizontal, viewIndex ) 
+          showGridView( viewIndex ) 
         } 
       case l => deb(l.toString)
     }
     case _ => deb("uncaught non left mouse button")
   }
   canv.mouseDown = ( v, b ) => ()
-  canv.keyDown = ( thekey ) => if ( thekey=="ArrowUp" || thekey=="ArrowLeft") scrollLess else if ( thekey=="ArrowDown" || thekey=="ArrowRight" ) scrollMore
+  canv.keyDown = ( thekey ) => thekey match
+  { case ("ArrowUp" | "ArrowLeft") => scrollLess
+    case ("ArrowDown" | "ArrowRight" ) => scrollMore
+    case ("PageDown") => showGridView( Math.min( viewIndex + pageSize, lastFlagIndexToShow ) )
+    case ("PageUp") => showGridView( Math.max( viewIndex - pageSize, 0 ) )
+    case _ => deb(thekey)
+  }
   canv.onScroll = ( isScrollUp ) => if ( isScrollUp )  scrollLess else scrollMore
 }
