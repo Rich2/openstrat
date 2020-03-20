@@ -13,14 +13,14 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
                           Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag,
                           WhiteFlag, UnitedKingdom, WhiteFlag)
 */
-  val flagCount: Int = 20//listOfFlags.length
-  val flagsPerRow: Int = 4
-  val flagsPerCol: Int = 5
-  val pageSize: Int = flagsPerRow * flagsPerCol
-  val pages: Int = 1 + ( flagCount - 1 ) / pageSize
+  val itemCount: Int = 444//listOfFlags.length
+  val itemsPerRow: Int = 4
+  val itemsPerCol: Int = 5
+  val itemsPerPage: Int = itemsPerRow * itemsPerCol
+  val pages: Int = 1 + ( itemCount - 1 ) / itemsPerPage
 
   var listOfFlags = Refs[Flag]()
-  for( i <- 0 to flagCount-1 ) { 
+  for( i <- 0 to itemCount-1 ) { 
     val thisColor = Colour.fromInts( scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55 )
     listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) )
   }
@@ -37,35 +37,37 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val btnMore = clickButton( "More", ( mb: MouseButton) => { scrollMore } ).slate( -100, headerYpos )
   val btnLess = clickButton( "Less", ( mb: MouseButton) => { scrollLess } ).slate( -300, headerYpos )   
   val barBackground =  Rectangle.curvedCorners(102, 32, 10, (-200 vv headerYpos)).fill(Black)  
-  val scrollBar =  Rectangle.curvedCorners( Math.min( Math.max( 100.0 * pageSize / flagCount, 100 ), 20 ), 30, 10 ).fill( Pink ).slate( -240, headerYpos )   
+  val scrollBar =  Rectangle.curvedCorners( Math.min( Math.max( 100.0 * itemsPerPage / itemCount, 100 ), 20 ), 30, 10 ).fill( Pink ).slate( -240, headerYpos )   
   val everythingNotFlag: Refs[GraphicElem] = Refs( background, aTitle, aTitleB, aTitleC, btnMore, btnLess, barBackground )
 
-  var viewIndex, flagsPerScroll, iScrollStep, jScrollStep: Int = 0
+  var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   val isScrollHorizontal: Boolean = true
-  if ( isScrollHorizontal ) { flagsPerScroll = flagsPerCol; iScrollStep = flagsPerScroll; jScrollStep = 1 }
-  else                      { flagsPerScroll = flagsPerRow; iScrollStep = 1; jScrollStep = flagsPerScroll }
-  
-  val barWidth = ( 20 + Math.min( 80, 80.0 * pageSize / flagCount ) )
+  // if ( isScrollHorizontal ) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerUnitScroll; jScrollStep = 1 }
+  // else                      { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerUnitScroll }
+  if ( isScrollHorizontal ) { itemsPerUnitScroll = itemsPerPage; iScrollStep = itemsPerPage; jScrollStep = 1 }
+  else                      { itemsPerUnitScroll = itemsPerPage; iScrollStep = 1; jScrollStep = itemsPerPage }
+deb("itemsPerUnitScroll: "+itemsPerUnitScroll.toString)  
+  val barWidth = ( 20 + Math.min( 80, 80.0 * itemsPerPage / itemCount ) )
   val barAvailable = 100 - barWidth
   val barStart = -barAvailable/2
-  val lastFlagIndexToShow = flagsPerScroll * ( ( Math.max(0, flagCount - pageSize + flagsPerScroll - 1)) / flagsPerScroll )
-  def scrollMore(): Unit = { showGridView( Math.min( viewIndex + flagsPerScroll, lastFlagIndexToShow ) ) }
-  def scrollLess(): Unit = { showGridView( Math.max( viewIndex - flagsPerScroll, 0 ) ) }
+  val maxIndexOfFirstItemInView = itemsPerUnitScroll * ( ( Math.max(0, itemCount - itemsPerPage + itemsPerUnitScroll - 1)) / itemsPerUnitScroll )
+  def scrollMore(): Unit = { showGridView( Math.min( viewIndex + itemsPerUnitScroll, maxIndexOfFirstItemInView ) ) }
+  def scrollLess(): Unit = { showGridView( Math.max( viewIndex - itemsPerUnitScroll, 0 ) ) }
 
-  def showGridView( firstFlagIndexToShow:Int): Unit =
-  { var pageOfFlags:Refs[PolyParent] = Refs()
-    for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
-    { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
+  def showGridView( indexOfFirstItemInView:Int): Unit =
+  { var viewableItems:Refs[PolyParent] = Refs()
+    for( j <- 0 to itemsPerCol-1; i <- 0 to itemsPerRow-1 if indexOfFirstItemInView + i*iScrollStep + j*jScrollStep < itemCount)
+    { val thisIndex = indexOfFirstItemInView + i*iScrollStep + j*jScrollStep
       var thisFlag = listOfFlags( thisIndex ).parent( thisIndex.toString ).scale( commonScale )
       if ( thisIndex == selectedIndex ) thisFlag = thisFlag.scale( 0.75 )
-      pageOfFlags = pageOfFlags +- thisFlag.slate( i * dimensions("cellWidth"), -j * dimensions("cellHeight") ).slate( firstFlagsPosition )
+      viewableItems = viewableItems +- thisFlag.slate( i * dimensions("cellWidth"), -j * dimensions("cellHeight") ).slate( firstFlagsPosition )
    }
     
-    val barOffsetX = if ( lastFlagIndexToShow != 0 ) barAvailable * firstFlagIndexToShow * 1.0 / lastFlagIndexToShow else 0
-    repaint( everythingNotFlag ++ pageOfFlags ++ Refs( Rectangle.curvedCorners( barWidth, 30, 10 )
+    val barOffsetX = if ( maxIndexOfFirstItemInView != 0 ) barAvailable * indexOfFirstItemInView * 1.0 / maxIndexOfFirstItemInView else 0
+    repaint( everythingNotFlag ++ viewableItems ++ Refs( Rectangle.curvedCorners( barWidth, 30, 10 )
       .fill( Pink ).slate( -200 + barStart, headerYpos ).slate( barOffsetX, 0 ) ) )
 
-    viewIndex = firstFlagIndexToShow
+    viewIndex = indexOfFirstItemInView
   }
 
   showGridView( viewIndex )
@@ -81,12 +83,16 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     }
     case _ => deb("uncaught non left mouse button")
   }
+
   canv.mouseDown = ( v, b ) => ()
+
   canv.keyDown = ( thekey ) => thekey match
   { case ("ArrowUp" | "ArrowLeft") => scrollLess
     case ("ArrowDown" | "ArrowRight" ) => scrollMore
-    case ("PageDown") => showGridView( Math.min( viewIndex + pageSize, lastFlagIndexToShow ) )
-    case ("PageUp") => showGridView( Math.max( viewIndex - pageSize, 0 ) )
+    case ("PageDown") => showGridView( Math.min( viewIndex + itemsPerPage, maxIndexOfFirstItemInView ) )
+    case ("PageUp") => showGridView( Math.max( viewIndex - itemsPerPage, 0 ) )
+    case ("End") => showGridView( maxIndexOfFirstItemInView )
+    case ("Home") => showGridView( 0 )
     case _ => deb(thekey)
   }
   canv.onScroll = ( isScrollUp ) => if ( isScrollUp )  scrollLess else scrollMore
