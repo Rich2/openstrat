@@ -25,6 +25,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) )
   }
 
+  var selectedIndex = -1
   val dimensions = Map( "width"->800, "height"->600, "headerSize"->50, "cellWidth"->200, "cellHeight"->110 )
   val headerYpos = dimensions("height")/2-dimensions("headerSize")/2
   val firstFlagsPosition = ( -( dimensions("width")-dimensions("cellWidth") ) / 2 vv ( dimensions("height") - dimensions("cellHeight") ) / 2 - dimensions("headerSize") )
@@ -55,9 +56,10 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   { var pageOfFlags:Refs[PolyParent] = Refs()
     for( j <- 0 to flagsPerCol-1; i <- 0 to flagsPerRow-1 if firstFlagIndexToShow + i*iScrollStep + j*jScrollStep < flagCount)
     { val thisIndex = firstFlagIndexToShow + i*iScrollStep + j*jScrollStep
-      val thisFlag = listOfFlags( thisIndex ).parent( thisIndex.toString ).scale( commonScale )
-      pageOfFlags = pageOfFlags +- thisFlag.slate( i * dimensions("cellWidth"), -j * dimensions("cellHeight")).slate( firstFlagsPosition )
-    }
+      var thisFlag = listOfFlags( thisIndex ).parent( thisIndex.toString ).scale( commonScale )
+      if ( thisIndex == selectedIndex ) thisFlag = thisFlag.scale( 0.75 )
+      pageOfFlags = pageOfFlags +- thisFlag.slate( i * dimensions("cellWidth"), -j * dimensions("cellHeight") ).slate( firstFlagsPosition )
+   }
     
     val barOffsetX = if ( lastFlagIndexToShow != 0 ) barAvailable * firstFlagIndexToShow * 1.0 / lastFlagIndexToShow else 0
     repaint( everythingNotFlag ++ pageOfFlags ++ Refs( Rectangle.curvedCorners( barWidth, 30, 10 )
@@ -72,7 +74,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   { case LeftButton => clickList match
     { case List( MButtonCmd(cmd) ) => cmd.apply( button )
       case List( flagIndex ) =>
-        { deb(flagIndex.toString)
+        { selectedIndex = flagIndex.toString.toInt
+          showGridView( isScrollHorizontal, viewIndex ) 
         } 
       case l => deb(l.toString)
     }
