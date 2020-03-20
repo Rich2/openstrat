@@ -4,7 +4,7 @@ package geom
 import math._
 
 /** Distance in metres. */
-final class Dist(val metres: Double) extends AnyVal with Ordered[Dist]// with Stringer
+final class Dist(val metres: Double) extends AnyVal with Ordered[Dist]
 { def typeStr: String = "Dist"
   //def str = persistD1(metres)
   def +(operand: Dist) = Dist(metres + operand.metres)
@@ -24,6 +24,7 @@ final class Dist(val metres: Double) extends AnyVal with Ordered[Dist]// with St
   def neg: Boolean = metres < 0
 }
 
+/** Companion object for the Distance class. */
 object Dist
 { def apply(metres: Double): Dist = new Dist(metres)
 

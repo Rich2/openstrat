@@ -28,7 +28,7 @@ object Colours
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
 }
 
-
+/** ArrayBuffer based buffer class for Colours. */
 class ColoursBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffProdInt1[Colour, Colours]
 
 sealed trait OptColour extends Opt[Colour]

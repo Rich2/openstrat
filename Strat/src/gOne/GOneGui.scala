@@ -12,7 +12,10 @@ case class GOneGui(canv: CanvasPlatform) extends CanvasNoPanels("Game One Gui")
     val v = grid.coodToVec2Rel(c) * scale
     TextGraphic(grid.index(c).str + ": " + c.xyStr, 24, v)
   }
+
+  val ls2 = grid.tilesAllCoodVecMap(scale){ (c, v) =>  TextGraphic(grid.index(c).str + ": " + c.xyStr, 24, v) }
+
   val sls: LinesDraw = grid.sideLinesAllRel.map(_.scale(scale)).draw(2.0)
 
-  repaint(ls  +- sls)
+  repaint(ls2  +- sls)
 }
