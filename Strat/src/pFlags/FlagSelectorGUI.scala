@@ -7,13 +7,9 @@ import geom._, pCanv._, Colour._
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { val commonScale: Int = 95
 /*
-  var listOfFlags: Refs[Flag] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy,
-                          Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag,
-                          WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag,
-                          Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag,
-                          WhiteFlag, UnitedKingdom, WhiteFlag)
+  var listOfFlags: Refs[Flag] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag, WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag, Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag, WhiteFlag, UnitedKingdom, WhiteFlag)
 */
-  val itemCount: Int = 444//listOfFlags.length
+  val itemCount: Int = 431//listOfFlags.length
   val itemsPerRow: Int = 4
   val itemsPerCol: Int = 5
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
@@ -31,9 +27,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val firstFlagsPosition = ( -( dimensions("width")-dimensions("cellWidth") ) / 2 vv ( dimensions("height") - dimensions("cellHeight") ) / 2 - dimensions("headerSize") )
 
   val background = Rectangle.curvedCorners(dimensions("width"), dimensions("height"), 10).fill(Gray)
-  val aTitle = TextGraphic( "Scroll: less/more buttons, arrow/pgUp/Dn keys, mouse wheel", 12, 100 vv headerYpos + 10 )
-  val aTitleB = TextGraphic( "TODO: drag bar, spring scroll, home/end keys", 12, 100 vv headerYpos - 6 )
-  val aTitleC = TextGraphic( "click base, touch aware, pixel perfection, transitions, clipped scroll", 12, 100 vv headerYpos-22 )
+  val aTitle = TextGraphic( "Scroll: less/more buttons, arrow/pgUp/pgDn/Home/End keys, mouse wheel", 12, 150 vv headerYpos + 10 )
+  val aTitleB = TextGraphic( "TODO: drag bar, click base, spring scroll, ", 12, 100 vv headerYpos - 6 )
+  val aTitleC = TextGraphic( "touch aware, pixel perfection, transitions, clipped scroll", 12, 100 vv headerYpos-22 )
   val btnMore = clickButton( "More", ( mb: MouseButton) => { scrollMore } ).slate( -100, headerYpos )
   val btnLess = clickButton( "Less", ( mb: MouseButton) => { scrollLess } ).slate( -300, headerYpos )   
   val barBackground =  Rectangle.curvedCorners(102, 32, 10, (-200 vv headerYpos)).fill(Black)  
@@ -42,15 +38,14 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   val isScrollHorizontal: Boolean = true
-  // if ( isScrollHorizontal ) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerUnitScroll; jScrollStep = 1 }
-  // else                      { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerUnitScroll }
-  if ( isScrollHorizontal ) { itemsPerUnitScroll = itemsPerPage; iScrollStep = itemsPerPage; jScrollStep = 1 }
-  else                      { itemsPerUnitScroll = itemsPerPage; iScrollStep = 1; jScrollStep = itemsPerPage }
-deb("itemsPerUnitScroll: "+itemsPerUnitScroll.toString)  
+  if ( isScrollHorizontal ) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
+  else                      { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerRow }
+  val scrollStep = Math.max(iScrollStep, jScrollStep)
+//deb("itemsPerUnitScroll: "+itemsPerUnitScroll.toString)  
   val barWidth = ( 20 + Math.min( 80, 80.0 * itemsPerPage / itemCount ) )
   val barAvailable = 100 - barWidth
   val barStart = -barAvailable/2
-  val maxIndexOfFirstItemInView = itemsPerUnitScroll * ( ( Math.max(0, itemCount - itemsPerPage + itemsPerUnitScroll - 1)) / itemsPerUnitScroll )
+  val maxIndexOfFirstItemInView = scrollStep * ( ( Math.max(0, itemCount - itemsPerPage + scrollStep - 1)) / scrollStep )
   def scrollMore(): Unit = { showGridView( Math.min( viewIndex + itemsPerUnitScroll, maxIndexOfFirstItemInView ) ) }
   def scrollLess(): Unit = { showGridView( Math.max( viewIndex - itemsPerUnitScroll, 0 ) ) }
 
