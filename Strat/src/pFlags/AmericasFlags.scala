@@ -24,13 +24,11 @@ object UnitedStates extends Flag
   val dimC = 7.0 / 13
   val dimD = ratio * 0.4
   val urRect = Rectangle(dimD / dimC).fill(usBlue)
-  import pGrid._
-  val g = RectAltGrid(2, 22, 2, 18, dimD / dimC)
-  val starScale = 0.8 / 13
-  val whiteStar = Star5().scale(starScale).fill(White)
-  val ss = g.tilesAllVecMap(dimC ){v => whiteStar.slate(v)}
-  debvar(ss.length)
-  val inset = urRect +: ss
+
+
+ // val starScale = 0.8 / 13
+ // val whiteStar = Star5().scale(starScale).fill(White)
+
 
   val apply =
   { val blueFieldOld = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(usBlue)
@@ -39,6 +37,5 @@ object UnitedStates extends Flag
     val stripes = topToBottomRepeat(13, oGRed, White)
     stripes +- blueFieldOld ++ stars ++ starsInner
   }
-  import pGrid._
-  def starsNow = RectAltGrid(2, 12, 2, 18, 0.2)
+
 }

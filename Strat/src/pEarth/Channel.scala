@@ -1,19 +1,16 @@
 package ostrat
 package pEarth
 import pGrid._
-/*case class MyGrid(val tArr: Array[WTile], val indArr: Array[Int]) extends HGrid[WTile]
-{
-  override def toString = "MyGrid"
-}*/
 
-/*object Channel
+
+object Channel
 {
   import WTile._, RowMulti.{apply => rm}
   val v204463 = HVDnLt2(2, 2)
   val v206463 = HVUpRt2(2, 2)
   val v198463 = HVDown1(3)
 
-  def apply(): MyGrid =
+  /*def apply(): MyGrid =
   {
     TGrid.rowMulti(460, MyGrid.apply,
       rm(468, 180, sea, hills * 3, plain * 3, sea * 2),
@@ -23,7 +20,7 @@ import pGrid._
       rm(462, 178, sea , hills * 3, sea, Coastal(up = v198463), Coastal(upRt = v204463), Land(up = HVUpRt2(2, 2), upLt = v204463), plain),
       rm(460, 180, sea * 6, plain * 3),
     )
-  }
+  }*/
 
   val rms: ArrOld[RowMulti[WTile]] = ArrOld(
     rm(468, 180, sea, hills * 3, plain * 3, sea * 2),
@@ -37,8 +34,5 @@ import pGrid._
 
 object ChannelApp extends App
 {
-  import EGrid80km.{coodToLatLong0Off200 => ctl }
-  val a = ctl(198 cc 463).degStr
-  deb(a.toString)
-
-}*/
+  deb("This ChannelApp.")
+}

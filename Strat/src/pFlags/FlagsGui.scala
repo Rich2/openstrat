@@ -27,8 +27,8 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val star = Refs(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
   val us = UnitedStates.parentStr.scale(500)//.slate(-300, 350)
-  val us2 = UnitedStates.inset.scale(500)
-  val stuff = tlObjs ++ trObjs ++ blObjs ++ brObjs ++ us2 //+- us //++ myr
+  //val us2 = UnitedStates.inset.scale(500)
+  val stuff = tlObjs ++ trObjs ++ blObjs ++ brObjs +- us //++ myr
 
   mouseUp = (v, b, s) =>
   { val str: String = s.headToStringElse("No clickable object on canvas")

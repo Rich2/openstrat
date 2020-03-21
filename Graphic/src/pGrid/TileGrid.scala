@@ -7,7 +7,11 @@ package pGrid
  *  can produce the outlines of the grid, coordinates vector positions and other pure mathematical data. Combined with a simple function it can for
  *  example produce a Chess board. Combined with a 64 length array it can produce a Chess board position. For anything but the most simple games, you
  *  will probably want multiple arrays to describe the game state. The terrain for example may remain invariant, so the terrain data does not need to
- *  be reproduced with every move.*/
+ *  be reproduced with every move.
+ *
+ *  A TileGrid is for use cases where the proportions of the Grid predetermine the proportions of the visual representation, as opposed to a use case
+ *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
+ *  Stars on the American flag. */
 trait TileGrid
 {
   /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */

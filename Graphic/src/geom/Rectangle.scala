@@ -75,10 +75,4 @@ object Rectangle
     val offset: Vec2 = hAngle.toVec2 * height * 0.5
     Polygon(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)   
   }
-  import pGrid._
-  def altGrid[A, ArrT <: ArrImut[A]](cMin: Int, cMax: Int, yMin: Int, yMax: Int)(f: Vec2 => A): ArrT =
-  {
-    val g = RectAltGrid(cMin, cMax, yMin, yMax, 1.0)
-    ???
-  }
 }
