@@ -45,7 +45,7 @@ trait ArrProdInt1sBuild[A <: ProdInt1, ArrT <: ArrProdInt1[A]] extends ArrProdIn
   final override def elemSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
   final override def imutSet(arr: ArrT, index: Int, value: A): Unit =  arr.array(index) = value._1
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value._1) }
+  override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value._1); () }
 }
 
 trait BuffProdInt1[A <: ProdInt1, M <: ArrProdInt1[A]] extends Any with BuffProdHomoInts[A]

@@ -25,15 +25,15 @@ object ArrArrBuild
   implicit val longsImplicit = LongsBuild
 
   implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
-{ type BuffT = ArrayBuffer[A]
-  //override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
-  //override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
-  override def buffNew(length: Int = 4): ArrayBuffer[A] = new ArrayBuffer[A](length)
-  def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
-  override def buffGrowArr(buff: BuffT, arr: Refs[A]): Unit = buff.addAll(arr.array)
-  //arr.foreach(buffGrow(buff, _))
-  override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
-}
+  { type BuffT = ArrayBuffer[A]
+    //override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
+    //override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
+    override def buffNew(length: Int = 4): ArrayBuffer[A] = new ArrayBuffer[A](length)
+    //def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
+    override def buffGrowArr(buff: BuffT, arr: Refs[A]): Unit = buff.addAll(arr.array)
+    //arr.foreach(buffGrow(buff, _))
+    override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
+  }
 }
 
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you

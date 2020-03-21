@@ -9,11 +9,6 @@ trait ZugTerr
   def conceal: Boolean = false
 }
 
-object ZugTerr
-{
-  //implicit val zugMakerImplicit: (Int, Int, ZugTerr) => ZugTile = ZugTile.apply(_, _, _, Nil)
-}
-
 case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[Squad] = ArrOld()) extends ColouredTileOld
 { type FromT = ZugTerr
   def fromT = terr

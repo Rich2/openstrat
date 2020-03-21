@@ -71,7 +71,7 @@ class Coods(val array: Array[Int]) extends AnyVal with ArrProdInt2[Cood]
     while (count < lengthCounter * 2){ finalArr(count) = tempArr(count); count += 1 }
     new Coods(finalArr)
   }
-  def flatMapNoDuplicates(f: Cood => Coods): Coods =
+  /*def flatMapNoDuplicates(f: Cood => Coods): Coods =
   {
     val buff = new CoodsBuff()
     foreach{ el =>
@@ -79,7 +79,7 @@ class Coods(val array: Array[Int]) extends AnyVal with ArrProdInt2[Cood]
       //newVals.foreach{ n => if(buff.co)}
     }
     new Coods(buff.toArray)
-  }
+  }*/
 }
 
 class CoodsBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[Cood, Coods]
