@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._, math.sqrt
 
-trait HexGrid extends TileGrid
+trait HexGrid extends Any with TileGrid
 
 object HexGrid
 { /* converts Grid c to x. */

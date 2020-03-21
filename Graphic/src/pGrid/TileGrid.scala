@@ -12,7 +12,7 @@ package pGrid
  *  A TileGrid is for use cases where the proportions of the Grid predetermine the proportions of the visual representation, as opposed to a use case
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
  *  Stars on the American flag. */
-trait TileGrid
+trait TileGrid extends Any
 {
   /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
   def cTileMin: Int
