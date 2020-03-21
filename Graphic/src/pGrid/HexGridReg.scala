@@ -13,7 +13,7 @@ case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
 
   override def xCen: Double = (cTileMin + cTileMax) / 2.0 * xRatio
 
-  def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+
   //def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cen
 
   /* Override methods */
@@ -78,5 +78,4 @@ case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   { ijToForeach(yRow2sMin, yRow2sMax, 4)(cRow2sMin, cRow2sMax, 4)((y, x) => f(Cood(x, y)))
     ijToForeach(yRow0sMin, yRow0sMax, 4)(cRow0sMin, cRow0sMax, 4)((y, x) => f(Cood(x, y)))
   }
-
 }

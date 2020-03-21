@@ -1,5 +1,6 @@
 package ostrat
 package pGrid
+import geom._
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
  *  stored in flat arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that
@@ -12,12 +13,12 @@ package pGrid
  *  A TileGrid is for use cases where the proportions of the Grid predetermine the proportions of the visual representation, as opposed to a use case
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
  *  Stars on the American flag. */
-trait TileGrid extends Any
+trait TileGrid
 { def numOfRows: Int
   def numOfTiles: Int
   def yTileMin: Int
   def yTileMax: Int
-
+  def coodToVec2(cood: Cood): Vec2
   /** Returns the index of an Array from its tile coordinate. */
   @inline def index(c: Int, y: Int): Int
 
