@@ -14,15 +14,10 @@ package pGrid
  *  Stars on the American flag. */
 trait TileGrid extends Any
 {
-  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
-  def cTileMin: Int
-
-  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
-  def cTileMax: Int
-
+  def numOfRows: Int
+  def numOfTiles: Int
   def yTileMin: Int
   def yTileMax: Int
-  def numOfTiles: Int
 
   /** Returns the index of an Array from its tile coordinate. */
   @inline def index(c: Int, y: Int): Int
