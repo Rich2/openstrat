@@ -13,8 +13,7 @@ package pGrid
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
  *  Stars on the American flag. */
 trait TileGrid extends Any
-{
-  def numOfRows: Int
+{ def numOfRows: Int
   def numOfTiles: Int
   def yTileMin: Int
   def yTileMax: Int
@@ -23,6 +22,7 @@ trait TileGrid extends Any
   @inline def index(c: Int, y: Int): Int
 
   def tilesAllForeach(f: Cood => Unit): Unit
+  def tileRowsAllForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
   def tilesAllMap[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
