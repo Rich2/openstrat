@@ -7,7 +7,7 @@ class HexGridIrr(val indexArr: Array[Int]) extends AnyVal with HexGrid
 {
   override def numOfRows: Int = indexArr(0)
   @inline override def yTileMin: Int = indexArr(1)
-  def index(c: Int, y: Int): Int = indexArr(y - yTileMin + 2)
+  def index(c: Int, y: Int): Int = (c - indexArr(y - yTileMin + 2)) / 4
   def numOfTiles: Int = iToFoldInt(0, numOfRows, 2){(acc, i) => acc + indexArr(i + 2)}
   def xRowStart(y: Int): Int = indexArr(y + 2)
   def tilesAllForeach(f: ostrat.pGrid.Cood => Unit): Unit = tileRowsAllForeach{y => iToForeach(0, 0){x => f(Cood(x, y)) } }

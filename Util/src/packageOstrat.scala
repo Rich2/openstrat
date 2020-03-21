@@ -162,7 +162,7 @@ package object ostrat
   { var acc = accInit
     var i = iFrom
     while(i <= iUntil)
-    { f(acc, i)
+    { acc += f(acc, i)
       i += iStep
     }
     acc
