@@ -21,7 +21,11 @@ trait TileGrid
   def coodToVec2(cood: Cood): Vec2
   /** Returns the index of an Array from its tile coordinate. */
   @inline def index(c: Int, y: Int): Int
-
+  def xCen: Double
+  /** The centre of the grid by the y coordinate. */
+  def yCen: Double = (yTileMin + yTileMax) / 2.0
+  def coodToVec2Rel(cood: Cood, gridPosn: Vec2 = cen): Vec2 = coodToVec2(cood) - gridPosn
+  def cen = Vec2(xCen, yCen)
   def tilesAllForeach(f: Cood => Unit): Unit
   def tileRowsAllForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
@@ -36,6 +40,12 @@ trait TileGrid
     tilesAllForeach{ cood => build.buffGrowArr(buff, f(cood))}
     build.buffToArr(buff)
   }
+
+  def tilesAllVecMap[A, ArrT <: ArrImut[A]](scale: Double, relPosn: Vec2 = cen)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+    tilesAllMap { cood => f(coodToVec2Rel(cood, relPosn) * scale) }
+
+  def tilesAllCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double, relPosn: Vec2 = cen)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+    tilesAllMap { cood => f(cood, coodToVec2Rel(cood, relPosn) * scale) }
 
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
   def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)

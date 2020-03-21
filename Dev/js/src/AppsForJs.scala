@@ -25,6 +25,7 @@ object AppsForJs
     ("14", (new pReactor.ReactorGUI(_), "reactor")),
     ("15", (new pChess.ChessGui(_), "Chess")),
     ("16", (new pFlags.FlagSelectorGUI(_), "Flag Fun")),
+    ("17", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
 
     ("Z0", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
     ("Z1", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
@@ -65,5 +66,5 @@ object AppsForJs
   )
 
   /** Change appNum to change the default loaded application. */
-  def curr: (CanvasPlatform => Any, String) = theMap("16")
+  def curr: (CanvasPlatform => Any, String) = theMap("17")
 }

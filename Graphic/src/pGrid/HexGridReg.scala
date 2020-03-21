@@ -6,12 +6,9 @@ import geom._
 * where the y coordinate divided by 4 has a remainder of 2. */
 case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGrid with TileGridReg
 {
-  def xRatio: Double = HexGrid.xRatio
-  override def numOfRows: Int = numOfRow2s + numOfRow0s
-  def cCen: Double = (cTileMin + cTileMax) / 2.0
-  def coodCen = Vec2(cCen, yCen)
 
-  override def xCen: Double = (cTileMin + cTileMax) / 2.0 * xRatio
+  override def numOfRows: Int = numOfRow2s + numOfRow0s
+
 
 
   //def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cen

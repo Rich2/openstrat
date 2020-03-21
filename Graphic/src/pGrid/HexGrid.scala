@@ -5,7 +5,13 @@ import geom._, math.sqrt
 
 trait HexGrid extends TileGrid
 {
+  def cTileMin: Int
+  def cTileMax: Int
   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+  def cCen: Double = (cTileMin + cTileMax) / 2.0
+  def coodCen = Vec2(cCen, yCen)
+  def xRatio: Double = HexGrid.xRatio
+  override def xCen: Double = (cTileMin + cTileMax) / 2.0 * xRatio
 }
 
 object HexGrid

@@ -14,16 +14,11 @@ trait TileGridReg extends TileGrid
 
   def sideCoodsOfTile(tileCood: Cood): Coods
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
-  def xCen: Double
 
-  def tilesAllVecMap[A, ArrT <: ArrImut[A]](scale: Double, relPosn: Vec2 = cen)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    tilesAllMap { cood => f(coodToVec2Rel(cood, relPosn) * scale) }
 
-  def tilesAllCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double, relPosn: Vec2 = cen)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    tilesAllMap { cood => f(cood, coodToVec2Rel(cood, relPosn) * scale) }
 
-  def coodToVec2Rel(cood: Cood, gridPosn: Vec2 = cen): Vec2 = coodToVec2(cood) - gridPosn
-  def cen = Vec2(xCen, yCen)
+
+
   final def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2(_))
 
   final def sideLinesAll : Line2s = tilesAllFlatMap { cood =>
@@ -36,6 +31,5 @@ trait TileGridReg extends TileGrid
   def sideLinesAllDraw(lineWidth: Double = 2.0, colour: Colour = Colour.Black): LinesDraw = LinesDraw(sideLinesAll, lineWidth, colour)
   /** The centre of the grid by the x coordinate. */
   //def xCen: Double = (xTileMin + xTileMax) / 2.0
-  /** The centre of the grid by the y coordinate. */
-  def yCen: Double = (yTileMin + yTileMax) / 2.0
+
 }

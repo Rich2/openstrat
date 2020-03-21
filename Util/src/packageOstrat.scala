@@ -158,11 +158,13 @@ package object ostrat
 
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
 
-  def iToFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
+  def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int = iToFoldInt(iFrom, iUntil - 1, iStep, accInit)(f)
+
+  def iToFoldInt(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
   { var acc = accInit
     var i = iFrom
-    while(i <= iUntil)
-    { acc += f(acc, i)
+    while(i <= iTo)
+    { acc = f(acc, i)
       i += iStep
     }
     acc
