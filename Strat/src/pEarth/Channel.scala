@@ -2,7 +2,6 @@ package ostrat
 package pEarth
 import pGrid._
 
-
 object Channel
 {
   import WTile._, RowMulti.{apply => rm}

@@ -1,6 +1,7 @@
 package ostrat
 package pGrid
 import geom._
+
 trait TileGridReg extends TileGrid
 {
   def sideCoodsAll: Coods = ???

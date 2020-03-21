@@ -17,18 +17,10 @@ object UnitedStates extends Flag
   val starY = 1.0 * 7 / 13 / 10
 
   /** Diameter of star = four-fifths of the stripe width, Width of stripe = Height/13, Height = Width/1.9) */
-  val starScaleOld = 4.0 / 5 / 13 / 1.9
+  val starScale = 4.0 / 5 / 13 / 1.9
 
-  val star0 = Star5().scale(starScaleOld).fill(White)
+  val star0 = Star5().scale(starScale).fill(White)
   val star = star0.slate(-0.95, 0.5)
-  val dimC = 7.0 / 13
-  val dimD = ratio * 0.4
-  val urRect = Rectangle(dimD / dimC).fill(usBlue)
-
-
- // val starScale = 0.8 / 13
- // val whiteStar = Star5().scale(starScale).fill(White)
-
 
   val apply =
   { val blueFieldOld = Rectangle.fromTL(0.76, 7.0/ 13, -0.95 vv 0.5).fill(usBlue)
@@ -37,5 +29,4 @@ object UnitedStates extends Flag
     val stripes = topToBottomRepeat(13, oGRed, White)
     stripes +- blueFieldOld ++ stars ++ starsInner
   }
-
 }
