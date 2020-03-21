@@ -6,17 +6,17 @@ import geom._, pCanv._, Colour._
 /** NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right */
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { val commonScale: Int = 95
-/*
+/**/
   var listOfFlags: Refs[Flag] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag, WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag, Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag, WhiteFlag, UnitedKingdom, WhiteFlag)
-*/
-  val itemCount: Int = 431//listOfFlags.length
+
+  val itemCount: Int = listOfFlags.length
   val itemsPerRow: Int = 4
   val itemsPerCol: Int = 5
 
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
   val pages: Int = 1 + ( itemCount - 1 ) / itemsPerPage
 
-  var listOfFlags = Refs[Flag](); for( i <- 0 to itemCount-1 ) { val thisColor = Colour.fromInts( scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55 ); listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) ) }
+//  var listOfFlags = Refs[Flag](); for( i <- 0 to itemCount-1 ) { val thisColor = Colour.fromInts( scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55 ); listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) ) }
 
   var selectedIndex = -1
   val viewport = Map( "width"->800, "height"->600, "headerSize"->50, "cellWidth"->200, "cellHeight"->110, "maxBarWidth"->100, "minBarWidth"->20, "isScrollHorizontal"-> 1 )
@@ -25,12 +25,11 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
   val aTitle = TextGraphic( "Scroll: less/more buttons, arrow/pgUp/pgDn/Home/End keys, mouse wheel", 12, 150 vv headerYpos + 10 )
-  val aTitleB = TextGraphic( "TODO: drag bar, click base, spring scroll, ", 12, 100 vv headerYpos - 6 )
-  val aTitleC = TextGraphic( "touch aware, pixel perfection, transitions, clipped scroll", 12, 100 vv headerYpos-22 )
+  val aTitleB = TextGraphic( "TODO: drag bar, click base, spring scroll, touch, pixel, clip, effects", 12, 160 vv headerYpos - 6 )
   val btnMore = clickButton( "More", ( mb: MouseButton) => { scrollMore } ).slate( -100, headerYpos )
   val btnLess = clickButton( "Less", ( mb: MouseButton) => { scrollLess } ).slate( -300, headerYpos )   
   val barBackground =  Rectangle.curvedCorners( viewport("maxBarWidth") + 2, 32, 10, (-200 vv headerYpos)).fill(Black)
-  val everythingNotItemOrScrollbar: Refs[GraphicElem] = Refs( background, aTitle, aTitleB, aTitleC, btnMore, btnLess, barBackground )
+  val everythingNotItemOrScrollbar: Refs[GraphicElem] = Refs( background, aTitle, aTitleB, btnMore, btnLess, barBackground )
 
   var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
 
@@ -70,7 +69,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   { case LeftButton => clickList match
     { case List( MButtonCmd(cmd) ) => cmd.apply( button )
       case List( flagIndex ) =>
-        { selectedIndex = flagIndex.toString.toInt
+        { selectedIndex = if (selectedIndex == flagIndex.toString.toInt) -1 else flagIndex.toString.toInt
           showGridView( viewIndex ) 
         } 
       case l => deb(l.toString)
@@ -78,7 +77,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     case _ => deb("uncaught non left mouse button")
   }
 
-  canv.mouseDown = ( v, b ) => deb("mouse down")
+  mouseDown = ( v:Vec2, b:MouseButton, clickList:AnyRefs ) => deb("mouse down: "+clickList.length.toString)
 
   canv.keyDown = ( thekey: String ) => thekey match
   { case ("ArrowUp" | "ArrowLeft") => scrollLess
