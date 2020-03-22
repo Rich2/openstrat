@@ -46,4 +46,6 @@ object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
 }
 
 class Vec2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Vec2]
+{ def dblsToT(d1: Double, d2: Double): Vec2 = Vec2(d1, d2)
+}
 

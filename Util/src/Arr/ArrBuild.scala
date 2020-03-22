@@ -5,7 +5,7 @@ trait ArrBuildBase[ArrT <: ArrImut[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
-  type BuffT
+  type BuffT <: ArrayLike[_]
   def buffNew(length: Int = 4): BuffT
   def buffToArr(buff: BuffT): ArrT
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
@@ -42,15 +42,25 @@ object ArrArrBuild
  *  implicit in the context of a function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever
  *  possible they should not be used directly by end users. */
 trait ArrBuild[B, ArrT <: ArrImut[B]] extends ArrBuildBase[ArrT]
-{
+{ type BuffT <: ArrayLike[B]
   def imutNew(length: Int): ArrT
   def imutSet(arr: ArrT, index: Int, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
 
+  def buffContains(buff: BuffT, newElem: B): Boolean =
+  {
+    var res = false
+    var count = 0
+    while (!res & count < buff.length) if (buff(count) == newElem) true else count += 1
+    res
+  }
+
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrT): Unit// = arr.foreach(buffGrow(buff, _))
+
+  //def buffGrowUniqueArr(buff: BuffT, arr: ArrT): Unit = arr.foreach(newEl => if (!(b))
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))

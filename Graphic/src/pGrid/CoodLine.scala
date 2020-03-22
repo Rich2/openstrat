@@ -33,6 +33,7 @@ class CoodLines(val array: Array[Int]) extends AnyVal with ArrProdInt4[CoodLine]
 
 class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProdInt4Buff[CoodLine, CoodLines]
 {// override def unBuff: CoodLines = new CoodLines(toArray)
+  override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = new CoodLine(i1, i2, i3, i4)
 }
 
 object CoodLines extends ProdInt4sCompanion[CoodLine, CoodLines]

@@ -36,3 +36,5 @@ object Line2s extends ProdDbl4sCompanion[Line2, Line2s]
 
 /** Efficient expandable buffer for Line2s. */
 class Line2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl4[Line2]
+{ override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): Line2 = new Line2(d1, d2, d3, d4)
+}

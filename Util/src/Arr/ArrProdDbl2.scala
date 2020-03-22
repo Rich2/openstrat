@@ -119,4 +119,6 @@ trait BuffProdDbl2[A <: ProdDbl2] extends Any with BuffProdDblN[A]
 { type ArrT <: ArrProdDbl2[A]
   override def elemSize: Int = 2
   override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }
+  def dblsToT(d1: Double, d2: Double): A
+  def apply(index: Int): A = dblsToT(buffer(index * 2), buffer(index * 2 + 1))
 }

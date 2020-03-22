@@ -10,14 +10,8 @@ trait TileGridReg extends TileGrid
   /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
   def cTileMax: Int
 
-  def sideCoodsAll: Coods = ???
-
   def sideCoodsOfTile(tileCood: Cood): Coods
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
-
-
-
-
 
   final def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2(_))
 

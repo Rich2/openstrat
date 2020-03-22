@@ -26,6 +26,8 @@ trait ArrProdInt4[A <: ProdInt4] extends Any with ArrProdIntN[A]
 trait ProdInt4Buff[A <: ProdInt4, M <: ArrProdInt4[A]] extends Any with BuffProdHomoInts[A]
 { override def elemSize: Int = 4
   override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4); ()}
+  def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
+  def apply(index: Int): A = intsToT(buffer(index * 4), buffer(index * 4 + 1), buffer(index * 4 + 2), buffer(index * 4 + 3))
 }
 
 abstract class ProdInt4sCompanion[A <: ProdInt4, M <: ArrProdInt4[A]]

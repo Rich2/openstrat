@@ -36,6 +36,7 @@ trait BuffProdHomoInts[A] extends Any with ArrBuffHomo[A]
   def toArray: Array[Int] = buffer.toArray[Int]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
+  override def length = buffer.length / elemSize
 }
 
 abstract class ProductIntsBuilder[A, M <: ArrProdIntN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)

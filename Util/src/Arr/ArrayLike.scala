@@ -181,7 +181,6 @@ trait ArrayLike[+A] extends Any
     }
   }
 
-
   def foldTailLeft[B](initial: B)(f: (B, A) => B) =
   { var acc: B = initial
     foreachTail(a => acc = f(acc, a))
@@ -290,7 +289,6 @@ trait ArrayLike[+A] extends Any
     acc.reverse
   }
 
-
   /** maps from A to EMon[B], collects the good values. */
   def mapCollectGoods[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): BB =
   { val acc = ev.buffNew()
@@ -327,7 +325,6 @@ trait ArrayLike[+A] extends Any
   def toStrsSemiFold(fToStr: A => String = _.toString): String = toStrsFold("; ", fToStr)
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
-
 }
 
 object ArrayLike

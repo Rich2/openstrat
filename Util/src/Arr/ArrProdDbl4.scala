@@ -121,6 +121,9 @@ trait BuffProdDbl4[A <: ProdDbl4] extends Any with BuffProdDblN[A]
 
   /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2).append(newElem._3).append(newElem._4); () }
+
+  def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): A
+  def apply(index: Int): A = dblsToT(buffer(index * 4), buffer(index * 4 + 1), buffer(index * 4 + 2), buffer(index * 4 + 3))
 }
 
 
