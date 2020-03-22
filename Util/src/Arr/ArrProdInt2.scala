@@ -5,7 +5,6 @@ import collection.mutable.ArrayBuffer
 /** Homogeneous Product2[Int, Int] with Stringer. These are used in ArrHomoInt2s Array[Int] based collections. */
 trait ProdInt2 extends Any with Product2[Int, Int] with ProdHomo
 
-
 trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
 { 
   override def productSize: Int = 2  
@@ -18,7 +17,7 @@ trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
   def head2: Int = array(1)
 }
 
-trait ArrProdInt2sBuild[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdIntNBuild[A, ArrT]
+trait ArrProdInt2Build[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdIntNBuild[A, ArrT]
 { type BuffT <: BuffProdInt2[A, ArrT]
 
   final override def elemSize: Int = 2
@@ -27,7 +26,7 @@ trait ArrProdInt2sBuild[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdIn
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value._1); buff.buffer.append(value._2); () }
 }
 
-trait BuffProdInt2[A <: ProdInt2, M <: ArrProdInt2[A]] extends Any with BuffProdHomoInts[A]
+trait BuffProdInt2[A <: ProdInt2, M <: ArrProdInt2[A]] extends Any with BuffProdIntN[A]
 { type ArrT <: ArrProdInt2[A]
   override def elemSize: Int = 2
   override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }

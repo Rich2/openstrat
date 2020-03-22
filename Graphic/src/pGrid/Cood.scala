@@ -39,10 +39,10 @@ object Cood
   def list(inp: (Int, Int)*): List[Cood] = inp.toList.map(p => Cood(p._1, p._2))
   implicit object CoodPersist extends PersistInt2[Cood]("Cood", "x", _.c, "y", _.y, apply)
 
-  implicit val cood2sBuildImplicit = new ArrProdInt2sBuild[Cood, Coods]
-  { type BuffT = CoodsBuff
+  implicit val cood2sBuildImplicit = new ArrProdInt2Build[Cood, Coods]
+  { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
-    override def fromIntBuffer(inp: Buff[Int]): CoodsBuff = new CoodsBuff(inp)
+    override def fromIntBuffer(inp: Buff[Int]): CoodBuff = new CoodBuff(inp)
   }
 }
 
@@ -74,7 +74,7 @@ class Coods(val array: Array[Int]) extends AnyVal with ArrProdInt2[Cood]
 
   def flatMapNoDuplicates(f: Cood => Coods): Coods =
   {
-    val buff = new CoodsBuff()
+    val buff = new CoodBuff()
     foreach{ el =>
       val newVals = f(el)
       newVals.foreach{ newVal => if( ! buff.contains(newVal)) buff.grow(newVal) }
@@ -83,14 +83,14 @@ class Coods(val array: Array[Int]) extends AnyVal with ArrProdInt2[Cood]
   }
 }
 
-class CoodsBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[Cood, Coods]
+class CoodBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[Cood, Coods]
 { type ArrT = Coods
   override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
 }
 
 object Coods extends ProductI2sCompanion[Cood, Coods]
 {
-  override def buff(initialSize: Int): CoodsBuff = new CoodsBuff(buffInt(initialSize * 2))
+  override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
 
   implicit object PersistImplicit extends ProdInt2sBuilder[Cood, Coods]("Coods")

@@ -16,8 +16,8 @@ trait ArrProdIntN[A] extends Any with ArrProdHomo[A]
  *  companion object of not BB. This is different from the related ArrProdIntNFlatBuild[BB] typeclass where instance should go into the BB companion
  *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
  *  */
-trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdHomoBuild[B, ArrT]
-{ type BuffT <:  BuffProdHomoInts[B]
+trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdValueNBuild[B, ArrT]
+{ type BuffT <:  BuffProdIntN[B]
   def fromIntArray(inp: Array[Int]): ArrT
 
   /* Not sure about the return type of this method. */
@@ -30,7 +30,7 @@ trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdHomoBuild[B, Ar
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * ArrayBuffer[Int] They are named ProductIntsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
-trait BuffProdHomoInts[A] extends Any with BuffProdHomo[A]
+trait BuffProdIntN[A] extends Any with BuffProdValueN[A]
 { type ArrT <: ArrProdIntN[A]
   def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]

@@ -48,7 +48,7 @@ trait ArrProdInt1sBuild[A <: ProdInt1, ArrT <: ArrProdInt1[A]] extends ArrProdIn
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value._1); () }
 }
 
-trait BuffProdInt1[A <: ProdInt1, M <: ArrProdInt1[A]] extends Any with BuffProdHomoInts[A]
+trait BuffProdInt1[A <: ProdInt1, M <: ArrProdInt1[A]] extends Any with BuffProdIntN[A]
 { type ArrT <: ArrProdInt1[A]
   def intToT(value: Int): A
   def apply(i1: Int): A = intToT(buffer(i1))

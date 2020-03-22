@@ -54,7 +54,7 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
  *  companion object of not BB. This is different from the related ArrProdDblNBinder[BB] typeclass where instance should go into the BB companion
  *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
  *  */
-trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdHomoBuild[B, ArrT]
+trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdValueNBuild[B, ArrT]
 { type BuffT <: BuffProdDblN[B]
   def fromDblArray(array: Array[Double]): ArrT
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -65,7 +65,7 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdHomoBuild[B, Ar
 }
 
 /** A mutable and resizable Array Buffer for collections of elements that are products of Double sub-elements. */
-trait BuffProdDblN[A] extends Any with BuffProdHomo[A]
+trait BuffProdDblN[A] extends Any with BuffProdValueN[A]
 { type ArrT <: ArrProdDblN[A]
   def buffer: ArrayBuffer[Double]
 
