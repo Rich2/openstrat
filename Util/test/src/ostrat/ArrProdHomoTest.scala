@@ -38,7 +38,7 @@ object ArrProdHomoTest  extends TestSuite
   }
 
   class MinesBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Mine]
-  {// override def apply(index: Int): Mine = ??? // buffer(index)
+  { def dblsToT(d1: Double, d2: Double): Mine = Mine(d1, d2)
   }
 
   val tests = Tests

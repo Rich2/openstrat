@@ -1,5 +1,8 @@
 package ostrat
-import annotation.unchecked.uncheckedVariance, reflect.ClassTag
+import annotation.unchecked.uncheckedVariance
+import reflect.ClassTag
+import annotation.unused
+import scala.collection.mutable.ArrayBuffer
 
 /** The immutable Array based class for reference types. It Inherits the standard foreach, map, flatMap and fold and their variations' methods from
  *  ArrayLike. */
@@ -79,9 +82,24 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     optElems.fld[Refs[AA]](this, this ++ _)
 }
 
+class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Refs[A]] with ArrArrBuild[Refs[A]]
+{ type BuffT = RefBuff[A]
+  override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
+  override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
+  override def buffNew(length: Int = 4): RefBuff[A] = new RefBuff(new ArrayBuffer[A](length))
+  override def buffGrow(buff: RefBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: RefBuff[A], arr: Refs[A]): Unit = buff.unsafeBuff.addAll(arr.array)
+  override def buffToArr(buff: RefBuff[A]): Refs[A] = new Refs(buff.unsafeBuff.toArray)
+}
+
 object Refs
 { def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): Refs[A] = new Refs(input.toArray)
   implicit def showImplicit[A <: AnyRef](implicit evA: Show[A]): Show[Refs[A]] = ArrayLikeShow[A, Refs[A]](evA)
+}
+
+class RefBuff[A <: AnyRef](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
+{ override def apply(index: Int): A = unsafeBuff(index)
+  override def length: Int = unsafeBuff.length
 }
 
 /** Extractor object for empty Refs[A <: AnyRef]. Refs[A <: AnyRef] is an immutable covariant Array based collection. */

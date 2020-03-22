@@ -3,6 +3,8 @@ package ostrat
 package geom
 import Colour.Black
 
+import scala.collection.mutable.ArrayBuffer
+
 /** A Polygon is encoded as a sequence of plain 2 dimension (mathematical) vectors. Minimum length 3.. Clockwise is the default */
 class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
 { type ThisT = Polygon
@@ -121,7 +123,11 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
   }
 
   implicit val polygonsBuildImplicit: ArrBuild[Polygon, Polygons] = new ArrArrayDblBuild[Polygon, Polygons]
-  { def fromArray(array: Array[Array[Double]]): Polygons = new Polygons(array)
+  {
+    override type BuffT = PolygonsBuff
+    def fromArray(array: Array[Array[Double]]): Polygons = new Polygons(array)
+
+    override def buffNew(length: Int):  BuffT = ???
   }
 }
 
@@ -146,4 +152,10 @@ object Polygons
   }
 
   implicit val eqImplicit: Eq[Polygons] = ArrArrayDblEq[Polygon, Polygons]
+}
+
+class PolygonsBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with DoubleArraysBuff[Polygon]
+{
+  def apply(index: Int): Polygon = new Polygon(unsafeBuff(index))
+  //def dblsToT(d1: Double, d2: Double): Vec2 = Vec2(d1, d2)
 }

@@ -25,8 +25,9 @@ object ArrArrBuild
   implicit val longsImplicit = LongsBuild
   implicit val floatImplicit = FloatsBuild
   implicit val booleansImplicit = BooleansBuild
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new RefsBuild[A]
 
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
+  /*implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
   { type BuffT = ArrayBuffer[A]
     //override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
     //override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
@@ -35,7 +36,7 @@ object ArrArrBuild
     override def buffGrowArr(buff: BuffT, arr: Refs[A]): Unit = buff.addAll(arr.array)
     //arr.foreach(buffGrow(buff, _))
     override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
-  }
+  }*/
 }
 
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
@@ -83,16 +84,8 @@ object ArrBuild
   implicit val longImplicit = LongsBuild
   implicit val floatImplicit = FloatsBuild
   implicit val booleansImplicit = BooleansBuild
-
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new RefsBuild[A]
   /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
    * types. */
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrBuild[A, Refs[A]] = new ArrBuild[A, Refs[A]]
-  { type BuffT = ArrayBuffer[A]
-    override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
-    override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[A] = new ArrayBuffer[A](length)
-    override def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
-    override def buffGrowArr(buff: ArrayBuffer[A], arr: Refs[A]): Unit = buff.addAll(arr.array)
-    override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
-  }
+
 }
