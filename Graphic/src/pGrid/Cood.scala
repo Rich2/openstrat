@@ -83,24 +83,19 @@ class Coods(val array: Array[Int]) extends AnyVal with ArrProdInt2[Cood]
   }
 }
 
-class CoodBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[Cood, Coods]
-{ type ArrT = Coods
-  override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
-}
-
 object Coods extends ProductI2sCompanion[Cood, Coods]
 {
   override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
 
   implicit object PersistImplicit extends ProdInt2sBuilder[Cood, Coods]("Coods")
-  {
-    override def fromArray(value: Array[Int]): Coods = new Coods(value)
+  { override def fromArray(value: Array[Int]): Coods = new Coods(value)
   }
 
-  implicit val arrArrayImplicit: ArrArrBuild[Coods] = Cood.cood2sBuildImplicit
+  implicit val arrArrayImplicit: ArrFlatBuild[Coods] = Cood.cood2sBuildImplicit
 }
 
-
-
-
+class CoodBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[Cood, Coods]
+{ type ArrT = Coods
+  override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
+}

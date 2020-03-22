@@ -21,7 +21,7 @@ object Floats
 { def apply(input: Float*): Floats = new Floats(input.toArray)
 }
 
-object FloatsBuild extends ArrBuild[Float, Floats] with ArrArrBuild[Floats]
+object FloatsBuild extends ArrBuild[Float, Floats] with ArrFlatBuild[Floats]
 { type BuffT = FloatsBuff
   override def imutNew(length: Int): Floats = new Floats(new Array[Float](length))
   override def imutSet(arr: Floats, index: Int, value: Float): Unit = arr.array(index) = value

@@ -64,7 +64,7 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
  *  this typeclass for classes / traits you control should go in the companion object of B not the companion object of not BB. This is different from
  *  the related ArrProdHomoBinder[BB] typeclass where instance should go into the BB companion object.The Implicit instances that inherit from this
  *  trait will normally go in the companion object of type B, not the companion object of ArrT. */
-trait ArrProdValueNBuild[B, ArrT <: ArrProdHomo[B]] extends ArrBuild[B, ArrT] with ArrArrBuild[ArrT]
+trait ArrProdValueNBuild[B, ArrT <: ArrProdHomo[B]] extends ArrBuild[B, ArrT] with ArrFlatBuild[ArrT]
 { def elemSize: Int
 }
 

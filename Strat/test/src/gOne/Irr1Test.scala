@@ -24,5 +24,10 @@ object Irr1Test  extends TestSuite
       g.xRowEnd(8) ==> 8
       g.numOfTiles ==> 8
     }
+
+    "Sides" -
+    {
+      g.sideCoodsAll.length ==> 36
+    }
    }
 }

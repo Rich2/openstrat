@@ -42,7 +42,7 @@ object Vec2s extends ProdDbl2sCompanion[Vec2, Vec2s]
   { override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
   }
 
-  implicit val arrArrayImplicit: ArrArrBuild[Vec2s] = Vec2.vec2sBuildImplicit
+  implicit val arrArrayImplicit: ArrFlatBuild[Vec2s] = Vec2.vec2sBuildImplicit
 }
 
 class Vec2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Vec2]

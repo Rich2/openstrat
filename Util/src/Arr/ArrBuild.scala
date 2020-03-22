@@ -1,5 +1,5 @@
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag, scala.annotation.unused
+import reflect.ClassTag, scala.annotation.unused
 
 trait ArrBuildBase[ArrT <: ArrImut[_]]
 {
@@ -16,9 +16,9 @@ trait ArrBuildBase[ArrT <: ArrImut[_]]
  * standard Library collections. It is called bind rather than flatMap partly to distinguish it and party so as it can be used as extension method on
  *  Standard Library collections. Instances for this typeclass for classes / traits you control should go in the companion object of BB. This is
  *  different from the related ArrBuild[BB] typeclass where the instance should go into the B companion object. */
-trait ArrArrBuild[ArrT <: ArrImut[_]] extends ArrBuildBase[ArrT]
+trait ArrFlatBuild[ArrT <: ArrImut[_]] extends ArrBuildBase[ArrT]
 
-object ArrArrBuild
+object ArrFlatBuild
 {
   implicit val intsImplicit = IntsBuild
   implicit val dblsImplicit = DblsBuild
@@ -26,17 +26,6 @@ object ArrArrBuild
   implicit val floatImplicit = FloatsBuild
   implicit val booleansImplicit = BooleansBuild
   implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new RefsBuild[A]
-
-  /*implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
-  { type BuffT = ArrayBuffer[A]
-    //override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
-    //override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[A] = new ArrayBuffer[A](length)
-    //def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
-    override def buffGrowArr(buff: BuffT, arr: Refs[A]): Unit = buff.addAll(arr.array)
-    //arr.foreach(buffGrow(buff, _))
-    override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
-  }*/
 }
 
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
@@ -78,14 +67,13 @@ trait ArrBuild[B, ArrT <: ArrImut[B]] extends ArrBuildBase[ArrT]
 }
 
 object ArrBuild
-{
-  implicit val intsImplicit = IntsBuild
+{ implicit val intsImplicit = IntsBuild
   implicit val doublesImplicit = DblsBuild
   implicit val longImplicit = LongsBuild
   implicit val floatImplicit = FloatsBuild
   implicit val booleansImplicit = BooleansBuild
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new RefsBuild[A]
+
   /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
    * types. */
-
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new RefsBuild[A]
 }

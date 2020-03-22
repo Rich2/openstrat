@@ -62,7 +62,7 @@ object Ints
     }
 }
 
-object IntsBuild extends ArrBuild[Int, Ints] with ArrArrBuild[Ints]
+object IntsBuild extends ArrBuild[Int, Ints] with ArrFlatBuild[Ints]
 { type BuffT = IntsBuff
   override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
   override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value

@@ -30,7 +30,7 @@ object ArrProdHomoTest  extends TestSuite
 
   object Mines extends ProdDbl2sCompanion[Mine, Mines]
   {
-    implicit val flatImplicit: ArrArrBuild[Mines] = Mine.arrBuilderImplicit
+    implicit val flatImplicit: ArrFlatBuild[Mines] = Mine.arrBuilderImplicit
 
     implicit val persistImplicit: ArrProdDbl2Persist[Mine, Mines] = new ArrProdDbl2Persist[Mine, Mines]("Mines")
     { override def fromArray(value: Array[Double]): Mines = new Mines(value)

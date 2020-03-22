@@ -21,7 +21,7 @@ object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
 }
 
-object LongsBuild extends ArrBuild[Long, Longs] with ArrArrBuild[Longs]
+object LongsBuild extends ArrBuild[Long, Longs] with ArrFlatBuild[Longs]
 { type BuffT = LongsBuff
   override def imutNew(length: Int): Longs = new Longs(new Array[Long](length))
   override def imutSet(arr: Longs, index: Int, value: Long): Unit = arr.array(index) = value

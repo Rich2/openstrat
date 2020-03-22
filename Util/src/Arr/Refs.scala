@@ -82,7 +82,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     optElems.fld[Refs[AA]](this, this ++ _)
 }
 
-class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Refs[A]] with ArrArrBuild[Refs[A]]
+class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Refs[A]] with ArrFlatBuild[Refs[A]]
 { type BuffT = RefBuff[A]
   override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
   override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value

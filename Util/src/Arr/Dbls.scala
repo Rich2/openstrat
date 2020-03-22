@@ -21,7 +21,7 @@ object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
 }
 
-object DblsBuild extends ArrBuild[Double, Dbls] with ArrArrBuild[Dbls]
+object DblsBuild extends ArrBuild[Double, Dbls] with ArrFlatBuild[Dbls]
 { type BuffT = DblsBuff
   override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value

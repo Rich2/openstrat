@@ -29,7 +29,7 @@ object Line2s extends ProdDbl4sCompanion[Line2, Line2s]
   { override def fromArray(value: Array[Double]): Line2s = new Line2s(value)
   }
 
-  implicit val arrArrBuildImplicit: ArrArrBuild[Line2s] = Line2.line2sBuildImplicit
+  implicit val arrArrBuildImplicit: ArrFlatBuild[Line2s] = Line2.line2sBuildImplicit
 
   implicit val transImplicit: Trans[Line2s] = (obj, f) => obj.map(_.fTrans(f))
 }
