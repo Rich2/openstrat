@@ -18,6 +18,11 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   @inline override def index(c: Int, y: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
 
   @inline override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGrid.sideCoodsOfTile(tileCood)
+
+  override def xLeft: Double = cTileMin - 1
+  override def xRight: Double = cTileMax + 1
+  override def top: Double = yTileMax + 1
+  override def bottom: Double = yTileMin - 1
 }
 
 object SquareGrid

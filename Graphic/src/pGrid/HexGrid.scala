@@ -14,6 +14,10 @@ trait HexGrid extends TileGrid
   override def xCen: Double = (cTileMin + cTileMax) / 2.0 * xRatio
   override def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = HexGrid.sideCoodToLineRel(sideCood, relPosn)
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)
+  override def xLeft: Double = (cTileMin - 2) * xRatio
+  override def xRight: Double = (cTileMax + 2) * xRatio
+  def top: Double = yTileMax + 1.5
+  def bottom: Double = yTileMin - 1.5
 }
 
 object HexGrid

@@ -22,6 +22,14 @@ trait TileGrid
   /** Returns the index of an Array from its tile coordinate. */
   @inline def index(c: Int, y: Int): Int
   def xCen: Double
+  def xLeft: Double
+  def xRight: Double
+  def width: Double = xRight - xLeft
+  def top: Double
+  def bottom: Double
+  def height: Double = top - bottom
+  def fullDisplayScale(dispWidth: Double, dispHeight: Double): Double = (dispWidth / width.max(1)).min(dispHeight / height.max(1))
+
   def sideCoodsAll: Coods = tilesAllFlatUniqueMap[Cood, Coods] { cood => sideCoodsOfTile(cood) }
 
   /** The centre of the grid by the y coordinate. */
