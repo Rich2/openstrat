@@ -79,6 +79,7 @@ trait TileGrid
   def setTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(x, y), value)
 
   def setSomeTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[Option[A]]): Unit = arr.unsafeSetElem(index(x, y), Some(value))
+ // def setSome[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[OptRef[A]]): Unit = arr.unsafeSetElem(index(x, y), OptRef(value))
   /** Returns the index of an Array from its tile coordinate. */
   @inline final def index(cood: Cood): Int = index(cood.c, cood.y)
 

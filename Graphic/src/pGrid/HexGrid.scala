@@ -4,8 +4,7 @@ package pGrid
 import geom._, math.sqrt
 
 trait HexGrid extends TileGrid
-{
-  def cTileMin: Int
+{ def cTileMin: Int
   def cTileMax: Int
   override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
@@ -16,8 +15,8 @@ trait HexGrid extends TileGrid
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)
   override def xLeft: Double = (cTileMin - 2) * xRatio
   override def xRight: Double = (cTileMax + 2) * xRatio
-  def top: Double = yTileMax + 1.5
-  def bottom: Double = yTileMin - 1.5
+  def top: Double = yTileMax + HexGrid.yDist2
+  def bottom: Double = yTileMin - HexGrid.yDist2
 }
 
 object HexGrid

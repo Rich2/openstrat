@@ -50,5 +50,3 @@ trait ProductIntsCompanion[M]
   val factory: Int => M
   def fromArray(array: Array[Int]): M
 }
-
-
