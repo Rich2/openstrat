@@ -9,15 +9,16 @@ trait ArrArrayDbl[A <: ArrayDblBased] extends Any with ArrImut[A]
   def unsafeSetElem(i: Int, value: A): Unit = array(i) = value.array
 }
 
+/** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
 trait ArrArrayDblBuild[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends ArrBuild[A, ArrT]
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
-  type BuffT = ArrayBuffer[Array[Double]]
+  type BuffT = DblsArrayBuff
   @inline override def imutNew(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
   override def imutSet(arr: ArrT, index: Int, value: A): Unit = arr.array(index) = value.array
-  override def buffNew(length: Int = 4): ArrayBuffer[Array[Double]] = new ArrayBuffer[Array[Double]]((length))
-  override def buffToArr(buff: ArrayBuffer[Array[Double]]): ArrT = fromArray(buff.toArray)
-  override def buffGrow(buff: ArrayBuffer[Array[Double]], value: A): Unit = buff.append(value.array)
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = buff.addAll(arr.array)
+  override def buffNew(length: Int = 4): DblsArrayBuff = new DblsArrayBuff(new ArrayBuffer[Array[Double]]((length)))
+  override def buffToArr(buff: DblsArrayBuff): ArrT = fromArray(buff.unsafeBuff.toArray)
+  override def buffGrow(buff: DblsArrayBuff, value: A): Unit = buff.unsafeBuff.append(value.array)
+  override def buffGrowArr(buff: DblsArrayBuff, arr: ArrT): Unit = buff.unsafeBuff.addAll(arr.array)
 }
 
 class ArrArrayDblEq[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends Eq[ArrT]
@@ -29,4 +30,10 @@ class ArrArrayDblEq[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends Eq[ArrT]
 object ArrArrayDblEq
 {
   def apply[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
+}
+
+/** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
+class DblsArrayBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayLike[Array[Double]]
+{ override def apply(index: Int): Array[Double] = unsafeBuff(index)
+  override def length: Int = unsafeBuff.length
 }

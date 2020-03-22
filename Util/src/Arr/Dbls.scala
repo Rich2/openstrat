@@ -22,11 +22,16 @@ object Dbls
 }
 
 object DblsBuild extends ArrBuild[Double, Dbls] with ArrArrBuild[Dbls]
-{ type BuffT = ArrayBuffer[Double]
+{ type BuffT = DblsBuff
   override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
-  override def buffNew(length: Int = 4): ArrayBuffer[Double] = new ArrayBuffer[Double](length)
-  override def buffGrow(buff: ArrayBuffer[Double], value: Double): Unit = buff.append(value)
-  override def buffGrowArr(buff: Buff[Double], arr: Dbls): Unit = buff.addAll(arr.array)
-  override def buffToArr(buff: ArrayBuffer[Double]): Dbls = new Dbls(buff.toArray)
+  override def buffNew(length: Int = 4): DblsBuff = new DblsBuff(ArrayBuffer[Double](length))
+  override def buffGrow(buff: DblsBuff, value: Double): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: DblsBuff, arr: Dbls): Unit = buff.unsafeBuff.addAll(arr.array)
+  override def buffToArr(buff: DblsBuff): Dbls = new Dbls(buff.unsafeBuff.toArray)
+}
+
+class DblsBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with ArrayLike[Double]
+{ override def apply(index: Int): Double = unsafeBuff(index)
+  override def length: Int = unsafeBuff.length
 }
