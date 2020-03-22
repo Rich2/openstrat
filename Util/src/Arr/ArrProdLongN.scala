@@ -23,7 +23,7 @@ trait ArrProdLongN[A] extends Any with ArrProdHomo[A]
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Long, Long or Float. They are stored with a backing
  * ArrayBuffer[Long] They are named ProductLongsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
-trait ProductLongsBuff[A] extends Any with ArrBuffHomo[A]
+trait ProductLongsBuff[A] extends Any with BuffProdHomo[A]
 { def buffer: ArrayBuffer[Long]
   def toArray: Array[Long] = buffer.toArray[Long]
 //  def unBuff: M

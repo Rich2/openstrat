@@ -65,7 +65,7 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdHomoBuild[B, Ar
 }
 
 /** A mutable and resizable Array Buffer for collections of elements that are products of Double sub-elements. */
-trait BuffProdDblN[A] extends Any with ArrBuffHomo[A]
+trait BuffProdDblN[A] extends Any with BuffProdHomo[A]
 { type ArrT <: ArrProdDblN[A]
   def buffer: ArrayBuffer[Double]
 

@@ -30,7 +30,7 @@ trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdHomoBuild[B, Ar
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * ArrayBuffer[Int] They are named ProductIntsBuff rather than ProductIsBuff because that name can easlily be confused with ProductI1sBuff. */
-trait BuffProdHomoInts[A] extends Any with ArrBuffHomo[A]
+trait BuffProdHomoInts[A] extends Any with BuffProdHomo[A]
 { type ArrT <: ArrProdIntN[A]
   def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]

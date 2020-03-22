@@ -63,11 +63,16 @@ object Ints
 }
 
 object IntsBuild extends ArrBuild[Int, Ints] with ArrArrBuild[Ints]
-{ type BuffT = ArrayBuffer[Int]
+{ type BuffT = IntsBuff
   override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
   override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
-  override def buffNew(length: Int = 4): ArrayBuffer[Int] = new ArrayBuffer[Int]((length))
-  override def buffGrow(buff: ArrayBuffer[Int], value: Int): Unit = buff.append(value)
-  override def buffGrowArr(buff: Buff[Int], arr: Ints): Unit = buff.addAll(arr.array) //??? //arr.unsafeArrayCopy()
-  override def buffToArr(buff: ArrayBuffer[Int]): Ints = new Ints(buff.toArray)
+  override def buffNew(length: Int = 4): IntsBuff = new IntsBuff(new ArrayBuffer[Int](length))
+  override def buffGrow(buff: IntsBuff, value: Int): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: IntsBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.array)
+  override def buffToArr(buff: IntsBuff): Ints = new Ints(buff.unsafeBuff.toArray)
+}
+
+class IntsBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with ArrayLike[Int]
+{ override def apply(index: Int): Int = unsafeBuff(index)
+  override def length: Int = unsafeBuff.length
 }

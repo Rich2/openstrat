@@ -68,6 +68,15 @@ trait ArrProdHomoBuild[B, ArrT <: ArrProdHomo[B]] extends ArrBuild[B, ArrT] with
 { def elemSize: Int
 }
 
+trait BuffProdHomo[A] extends Any with ArrayLike[A]
+{ type ArrT <: ArrProdHomo[A]
+  def elemSize: Int
+  def grow(newElem: A): Unit
+  def grows(newElems: ArrT): Unit
+  def toArr(implicit build: ArrBuild[A, ArrT]): ArrT = ???
+}
+
+
 abstract class ArrProdHomoPersist[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
