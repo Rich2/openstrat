@@ -1,6 +1,6 @@
 package ostrat
 package pGrid
-import geom._
+import geom._, reflect.ClassTag
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
  *  stored in flat arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that
@@ -78,8 +78,9 @@ trait TileGrid
   def setTile[A <: AnyRef](cood: Cood, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(cood), value)
   def setTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(x, y), value)
 
-  def setSomeTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[Option[A]]): Unit = arr.unsafeSetElem(index(x, y), Some(value))
- // def setSome[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[OptRef[A]]): Unit = arr.unsafeSetElem(index(x, y), OptRef(value))
+  def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
+  //def setSomeTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[Option[A]]): Unit = arr.unsafeSetElem(index(x, y), Some(value))
+  def setTileSome[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: OptRefs[A]): Unit = arr.setSome(index(x, y), value)
   /** Returns the index of an Array from its tile coordinate. */
   @inline final def index(cood: Cood): Int = index(cood.c, cood.y)
 

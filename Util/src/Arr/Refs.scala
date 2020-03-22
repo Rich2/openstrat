@@ -19,7 +19,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   def offset0: RefsOff[A @uncheckedVariance] = offset(0)
 
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
-  {  array.copyToArray(array, offset, copyLength); ()}
+  { array.copyToArray(array, offset, copyLength); () }
 
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
   { val newArray = new Array[A]((length - 1).min0)
