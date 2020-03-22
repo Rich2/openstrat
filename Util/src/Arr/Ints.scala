@@ -1,5 +1,5 @@
 package ostrat
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for Ints. There are no concat methods, as Ints has no type parameter and can not be widened. */
 final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
@@ -63,16 +63,16 @@ object Ints
 }
 
 object IntsBuild extends ArrBuild[Int, Ints] with ArrFlatBuild[Ints]
-{ type BuffT = IntsBuff
+{ type BuffT = IntBuff
   override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
   override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
-  override def buffNew(length: Int = 4): IntsBuff = new IntsBuff(new ArrayBuffer[Int](length))
-  override def buffGrow(buff: IntsBuff, value: Int): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: IntsBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.array)
-  override def buffToArr(buff: IntsBuff): Ints = new Ints(buff.unsafeBuff.toArray)
+  override def buffNew(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
+  override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: IntBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.array)
+  override def buffToArr(buff: IntBuff): Ints = new Ints(buff.unsafeBuff.toArray)
 }
 
-class IntsBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with ArrayLike[Int]
+class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with ArrayLike[Int]
 { override def apply(index: Int): Int = unsafeBuff(index)
   override def length: Int = unsafeBuff.length
 }

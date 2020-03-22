@@ -12,7 +12,7 @@ trait ArrArrayDbl[A <: ArrayDblBased] extends Any with ArrImut[A]
 /** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
 trait ArrArrayDblBuild[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends ArrBuild[A, ArrT]
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
-  type BuffT <: DoubleArraysBuff[A]
+  type BuffT <: ArrayDoubleBuff[A]
   @inline override def imutNew(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
   override def imutSet(arr: ArrT, index: Int, value: A): Unit = arr.array(index) = value.array
   //override def buffNew(length: Int = 4): DblsArrayBuff[A] = new DblsArrayBuff[A](new ArrayBuffer[Array[Double]]((length)))
@@ -33,7 +33,7 @@ object ArrArrayDblEq
 }
 
 /** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
-trait DoubleArraysBuff[A <: ArrayDblBased] extends Any with ArrayLike[A]
+trait ArrayDoubleBuff[A <: ArrayDblBased] extends Any with ArrayLike[A]
 { //override def apply(index: Int): AArray[Double] = unsafeBuff(index)
   def unsafeBuff: ArrayBuffer[Array[Double]]
   override def length: Int = unsafeBuff.length

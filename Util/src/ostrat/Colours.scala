@@ -29,7 +29,7 @@ object Colours
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class ColoursBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffProdInt1[Colour, Colours]
+class ColourBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffProdInt1[Colour, Colours]
 { def intToT(i1: Int): Colour = new Colour(i1)
 }
 
