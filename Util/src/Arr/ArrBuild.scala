@@ -23,6 +23,8 @@ object ArrArrBuild
   implicit val intsImplicit = IntsBuild
   implicit val dblsImplicit = DblsBuild
   implicit val longsImplicit = LongsBuild
+  implicit val floatImplicit = FloatsBuild
+  implicit val booleansImplicit = BooleansBuild
 
   implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrArrBuild[Refs[A]] = new ArrArrBuild[Refs[A]]
   { type BuffT = ArrayBuffer[A]
@@ -79,6 +81,8 @@ object ArrBuild
   implicit val intsImplicit = IntsBuild
   implicit val doublesImplicit = DblsBuild
   implicit val longImplicit = LongsBuild
+  implicit val floatImplicit = FloatsBuild
+  implicit val booleansImplicit = BooleansBuild
 
   /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
    * types. */
@@ -90,25 +94,5 @@ object ArrBuild
     override def buffGrow(buff: ArrayBuffer[A], value: A): Unit = buff.append(value)
     override def buffGrowArr(buff: ArrayBuffer[A], arr: Refs[A]): Unit = buff.addAll(arr.array)
     override def buffToArr(buff: ArrayBuffer[A]): Refs[A] = new Refs(buff.toArray)
-  }
-
-  implicit val booleansImplicit: ArrBuild[Boolean, Booleans] = new ArrBuild[Boolean, Booleans]
-  { type BuffT = ArrayBuffer[Boolean]
-    override def imutNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
-    override def imutSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[Boolean] = new ArrayBuffer[Boolean](length)
-    override def buffGrow(buff: ArrayBuffer[Boolean], value: Boolean): Unit = buff.append(value)
-    override def buffGrowArr(buff: ArrayBuffer[Boolean], arr: Booleans): Unit = buff.addAll(arr.array)
-    override def buffToArr(buff: ArrayBuffer[Boolean]): Booleans = new Booleans(buff.toArray)
-  }
-
-  implicit val floatImplicit: ArrBuild[Float, Floats] = new ArrBuild[Float, Floats]
-  { type BuffT = ArrayBuffer[Float]
-    override def imutNew(length: Int): Floats = new Floats(new Array[Float](length))
-    override def imutSet(arr: Floats, index: Int, value: Float): Unit = arr.array(index) = value
-    override def buffNew(length: Int = 4): ArrayBuffer[Float] = new ArrayBuffer[Float](length)
-    override def buffGrow(buff: ArrayBuffer[Float], value: Float): Unit = buff.append(value)
-    override def buffGrowArr(buff: ArrayBuffer[Float], arr: Floats): Unit = buff.addAll(arr.array)
-    override def buffToArr(buff: ArrayBuffer[Float]): Floats = new Floats(buff.toArray)
   }
 }

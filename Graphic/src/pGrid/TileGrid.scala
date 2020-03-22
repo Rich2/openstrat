@@ -46,7 +46,7 @@ trait TileGrid
     build.buffToArr(buff)
   }
 
-  def tilesAllFlatUniqueMap[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrArrBuild[ArrT]): ArrT =
+  /*def tilesAllFlatUniqueMap[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrArrBuild[ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
     tilesAllForeach { cood =>
       val newVals = f(cood)
@@ -54,7 +54,7 @@ trait TileGrid
       if (!buff.contains(newVal)) build.buffGrowArr(buff, newVal) }
     }
     build.buffToArr(buff)
-  }
+  }*/
 
   def tilesAllVecMap[A, ArrT <: ArrImut[A]](scale: Double, relPosn: Vec2 = cen)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     tilesAllMap { cood => f(coodToVec2Rel(cood, relPosn) * scale) }

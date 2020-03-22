@@ -1,4 +1,5 @@
 package ostrat
+import scala.collection.mutable.ArrayBuffer
 
 /** Not sure if this trait can be useful. */
 trait ArrValues[A] extends Any with ArrImut[A]
@@ -31,22 +32,18 @@ object Booleans
 { def apply(input: Boolean*): Booleans = new Booleans(input.toArray)
 }
 
-class Floats(val array: Array[Float]) extends AnyVal with ArrImut[Float]
-{ type ThisT = Floats
-  override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
-  override def length: Int = array.length
-  override def apply(index: Int): Float = array(index)
-  override def unsafeSetElem(i: Int, value: Float): Unit = array(i) = value
-  override def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
 
-  def ++ (op: Floats): Floats =
-  { val newArray = new Array[Float](length + op.length)
-    array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
-    new Floats(newArray)
-  }
+object BooleansBuild extends ArrBuild[Boolean, Booleans] with ArrArrBuild[Booleans]
+{ type BuffT = BooleanBuff
+  override def imutNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+  override def imutSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.array(index) = value
+  override def buffNew(length: Int = 4): BooleanBuff = new BooleanBuff(new ArrayBuffer[Boolean](length))
+  override def buffGrow(buff: BooleanBuff, value: Boolean): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: BooleanBuff, arr: Booleans): Unit = buff.unsafeBuff.addAll(arr.array)
+  override def buffToArr(buff: BooleanBuff): Booleans = new Booleans(buff.unsafeBuff.toArray)
 }
 
-object Floats
-{ def apply(input: Float*): Floats = new Floats(input.toArray)
+class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with ArrayLike[Boolean]
+{ override def apply(index: Int): Boolean = unsafeBuff(index)
+  override def length: Int = unsafeBuff.length
 }
