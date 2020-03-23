@@ -11,7 +11,7 @@ case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
 
   /* Override methods */
 
-  override def sideCoodToCoodLine(sideCood: ostrat.pGrid.Cood): ostrat.pGrid.CoodLine = HexGrid.sideCoodToCoodLine(sideCood)
+
 
   /** Minimum c for Rows where y.Div4Rem2. */
   def cRow2sMin: Int = cTileMin.roundUpTo(_.div4Rem2)

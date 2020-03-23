@@ -1,6 +1,6 @@
 package ostrat
 package pGrid
-import geom._
+import geom._, Colour.Black
 
 trait TileGridReg extends TileGrid
 {
@@ -13,16 +13,15 @@ trait TileGridReg extends TileGrid
   def sideCoodsOfTile(tileCood: Cood): Coods
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
 
-  final def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2Abs(_))
-
-  final def sideLinesAll : Line2s = tilesAllFlatMap { cood =>
+  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = tilesAllFlatMap { cood =>
     val c1: Coods = sideCoodsOfTile(cood)
-    val c2s: Line2s = c1.map(orig => sideCoodToLine(orig))
+    val c2s: Line2s = c1.map(orig => sideCoodToLine(orig, scale, relPosn))
     c2s
   }
 
   /** This gives the tile grid lines in a single colour and line width. */
-  def sideLinesAllDraw(lineWidth: Double = 2.0, colour: Colour = Colour.Black): LinesDraw = LinesDraw(sideLinesAll, lineWidth, colour)
+  def sideLinesAllDraw(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
+    LinesDraw(sideLinesAll(scale, relPosn), lineWidth, colour)
   /** The centre of the grid by the x coordinate. */
   //def xCen: Double = (xTileMin + xTileMax) / 2.0
 

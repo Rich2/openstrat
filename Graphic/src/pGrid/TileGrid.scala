@@ -41,7 +41,13 @@ trait TileGrid
   /** The centre of the grid by the y coordinate. */
   def yCen: Double = (yTileMin + yTileMax) / 2.0
 
-  def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2
+  def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2): Line2
+
+  def sideCoodToCoodLine(sideCood: Cood): CoodLine
+
+  /** Side Cood to Line2 relative to a position on the grid and then scaled. */
+  final def sideCoodToLine(sideCood: Cood, scale: Double = 1.0, relPosn: Vec2 = Vec2Z): Line2 =
+    sideCoodToCoodLine(sideCood).toLine2(cood => (coodToVec2Abs(cood) -relPosn -cen) * scale)
 
   /** This gives the Vec2 of the Cood relative to a position on the grid and then scaled. (coodToVec2Abs(cood) - gridPosn -cen) * scale */
   def coodToVec2(cood: Cood, gridPosn: Vec2 = Vec2Z, scale: Double = 1.0): Vec2 = (coodToVec2Abs(cood) - gridPosn -cen) * scale
@@ -49,7 +55,7 @@ trait TileGrid
   def cen = Vec2(xCen, yCen)
   def tilesAllForeach(f: Cood => Unit): Unit
   def sideCoodsOfTile(tileCood: Cood): Coods
-  def sideLinesAllRel(offset: Vec2 = cen) : Line2s = sideCoods.map(cood => sideCoodToLineRel(cood, offset))
+  def sideLinesAllRel(scale: Double, offset: Vec2 = cen) : Line2s = sideCoods.map(cood => sideCoodToLineRel(cood, scale, offset))
 
   def tileRowsAllForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 

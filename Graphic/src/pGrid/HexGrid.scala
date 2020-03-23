@@ -11,12 +11,13 @@ trait HexGrid extends TileGrid
   def coodCen = Vec2(cCen, yCen)
   def xRatio: Double = HexGrid.xRatio
   override def xCen: Double = (cTileMin + cTileMax) / 2.0 * xRatio
-  override def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = HexGrid.sideCoodToLineRel(sideCood, relPosn)
+  override def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2): Line2 = HexGrid.sideCoodToLineRel(sideCood, scale, relPosn)
   override def sideCoodsOfTile(tileCood: Cood): Coods = HexGrid.sideCoodsOfTile(tileCood)
   override def xLeft: Double = (cTileMin - 2) * xRatio
   override def xRight: Double = (cTileMax + 2) * xRatio
   def top: Double = yTileMax + HexGrid.yDist2
   def bottom: Double = yTileMin - HexGrid.yDist2
+  override def sideCoodToCoodLine(sideCood: Cood): CoodLine = HexGrid.sideCoodToCoodLine(sideCood)
 }
 
 object HexGrid
@@ -32,9 +33,12 @@ object HexGrid
   val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.pMap(_ * 2)
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
 
-  def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = sideCoodToCoodLine(sideCood).toLine2(c => coodToVec2(c) -relPosn)
+  def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2 = Vec2Z): Line2 =
+    sideCoodToCoodLine(sideCood).toLine2(c => (coodToVec2(c) -relPosn) * scale)
+
   def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2)
   def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.xi, sideCood.yi)
+  //override def sideCoodToCoodLine(sideCood: Cood): ostrat.pGrid.CoodLine = HexGrid.sideCoodToCoodLine(sideCood)
 
   def sideCoodToCoodLine(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
     CoodLine(x + 1, y, x - 1, y))

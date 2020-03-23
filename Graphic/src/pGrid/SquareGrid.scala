@@ -9,7 +9,7 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   override def coodToVec2Abs(cood: Cood): Vec2 = Vec2(cood.xi, cood.yi)
   override def sideCoodToCoodLine(sideCood: ostrat.pGrid.Cood): CoodLine = SquareGrid.sideCoodToCoodLine(sideCood)
   //def cen = Vec2(xCen, yCen)
-  override def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = SquareGrid.sideCoodToLineRel(sideCood, relPosn)
+  override def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2): Line2 = SquareGrid.sideCoodToLineRel(sideCood, scale, relPosn)
   def rowTileLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).min0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).min0
   def numOfTiles: Int = numOfRows * numOfTiles
@@ -39,7 +39,9 @@ object SquareGrid
   object Lt extends PathDirn
   object Up extends PathDirn
   object Dn extends PathDirn
-  def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = sideCoodToCoodLine(sideCood).toLine2(c => Vec2(c.xi, c.yi) -relPosn)
+  def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2): Line2 =
+    sideCoodToCoodLine(sideCood).toLine2(c => (Vec2(c.xi, c.yi) -relPosn) * scale)
+
   def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.xi, sideCood.yi)
 
   def sideCoodToCoodLine(x: Int, y: Int): CoodLine = (x %% 2, y %% 2) match
