@@ -4,8 +4,8 @@ package pFlags
 import geom._, pCanv._, Colour._
 
 /*    NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right */
-/*  TODO: drag bar, click base, spring scroll, touch, pixel, clip, effects */
-
+/*  TODO: drag bar, click base, spring scroll, touch, pixel, clip, effects
+          separate scrollbar */
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
