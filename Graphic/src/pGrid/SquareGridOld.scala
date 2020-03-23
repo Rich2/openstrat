@@ -9,7 +9,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   val turnNum: Int)(implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridRegOld[TileT, SideT]
 {
   override val xRatio = 1
-  def coodToVec2(cood: Cood): Vec2 = Vec2(cood.c, cood.y)
+  def coodToVec2(cood: Cood): Vec2 = Vec2(cood.xi, cood.yi)
   final def left: Double = xTileMin - margin
   final def right: Double = xTileMax + margin
   final def bottom: Double = yTileMin - margin
@@ -61,7 +61,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   }
   
   final def setColumn[A](cood: Cood, multis: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setColumn(cood.c, cood.y, multis: _*)(f)
+    setColumn(cood.xi, cood.yi, multis: _*)(f)
    
   final def setColumnDown[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
   {
@@ -75,7 +75,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
   }
   
   final def setColumnDown[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setColumnDown(cood.c, cood.y, tileValues: _*)(f)
+    setColumnDown(cood.xi, cood.yi, tileValues: _*)(f)
    
   def fSetRow[A](y: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Unit =
   { val tiles = tileMakers.flatMap(_.singlesList)
@@ -84,7 +84,7 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
    
   def setTerrPath[A](value: A, startCood: Cood, dirns: Multiple[SquareGrid.PathDirn]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
-    var cood = Cood(startCood.c, startCood.y)
+    var cood = Cood(startCood.xi, startCood.yi)
     import SquareGrid._
     
     dirns.foreach 

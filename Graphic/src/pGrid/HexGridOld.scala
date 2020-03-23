@@ -59,8 +59,8 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
    *  departure and the tile of arrival. */
   def getHCost(startCood: Cood, endCood: Cood): Int =
   { val diff = endCood - startCood
-    val x: Int = diff.c.abs
-    val y: Int = diff.y.abs
+    val x: Int = diff.xi.abs
+    val y: Int = diff.yi.abs
      
     y - x match
     { case 0 => x 

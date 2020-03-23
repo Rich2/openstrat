@@ -20,7 +20,7 @@ object HUpLeft extends HexDirn(-1, 1)
 
 object HexDirn
 {
-   def fromNeighbTileCood(relCood: Cood): HexDirn = fromNeighbTileCood(relCood.c, relCood.y)
+   def fromNeighbTileCood(relCood: Cood): HexDirn = fromNeighbTileCood(relCood.xi, relCood.yi)
    def fromNeighbTileCood(relX: Int, relY: Int): HexDirn = (relX, relY) match
    {
       case (2, 2) => HUpRight

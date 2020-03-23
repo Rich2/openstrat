@@ -18,7 +18,7 @@ case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends ProdInt4
 }
 
 object CoodLine
-{ def apply(c1: Cood, c2: Cood): CoodLine = CoodLine(c1.c, c1.y, c2.c, c2.y)
+{ def apply(c1: Cood, c2: Cood): CoodLine = CoodLine(c1.xi, c1.yi, c2.xi, c2.yi)
 }
 
 /** An Array[Int] based collection for CoodLines. */

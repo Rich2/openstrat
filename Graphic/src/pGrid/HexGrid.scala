@@ -6,7 +6,7 @@ import geom._, math.sqrt
 trait HexGrid extends TileGrid
 { def cTileMin: Int
   def cTileMax: Int
-  override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+  override def coodToVec2Abs(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
   def coodCen = Vec2(cCen, yCen)
   def xRatio: Double = HexGrid.xRatio
@@ -34,15 +34,15 @@ object HexGrid
 
   def sideCoodToLineRel(sideCood: Cood, relPosn: Vec2): Line2 = sideCoodToCoodLine(sideCood).toLine2(c => coodToVec2(c) -relPosn)
   def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2)
-  def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.c, sideCood.y)
+  def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.xi, sideCood.yi)
 
   def sideCoodToCoodLine(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
     CoodLine(x + 1, y, x - 1, y))
 
-  def coodToVec2Rel(cood: Cood, relPosn: Vec2): Vec2 = coodToVec2(cood.c, cood.y) -relPosn
+  def coodToVec2Rel(cood: Cood, relPosn: Vec2): Vec2 = coodToVec2(cood.xi, cood.yi) -relPosn
 
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
-  def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.c, cood.y)
+  def coodToVec2(cood: Cood): Vec2 = coodToVec2(cood.xi, cood.yi)
 
   def coodToVec2(c: Int, y: Int): Vec2 =
   { def x: Double = c * xRatio

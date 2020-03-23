@@ -13,7 +13,7 @@ trait TileGridReg extends TileGrid
   def sideCoodsOfTile(tileCood: Cood): Coods
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
 
-  final def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2(_))
+  final def sideCoodToLine(sideCood: Cood): Line2 = sideCoodToCoodLine(sideCood).toLine2(coodToVec2Abs(_))
 
   final def sideLinesAll : Line2s = tilesAllFlatMap { cood =>
     val c1: Coods = sideCoodsOfTile(cood)
