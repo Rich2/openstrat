@@ -8,7 +8,7 @@ case class IrrGui(canv: CanvasPlatform) extends CanvasNoPanels("Irregular Hex Gr
   val grid = Irr1.grid
   val scale: Double = grid.fullDisplayScale(width, height)
 
-  val ls2 = grid.tilesAllCoodVecMap(scale){ (c, v) =>  TextGraphic(grid.index(c).str + ": " + c.yxStr, 24, v) }
+  val ls2 = grid.tilesCoodVecMap(scale){ (c, v) =>  TextGraphic(grid.index(c).str + ": " + c.yxStr, 24, v) }
 
   val sls: LinesDraw = grid.sideLinesAllRel().map(_.scale(scale)).draw(2.0)
 
