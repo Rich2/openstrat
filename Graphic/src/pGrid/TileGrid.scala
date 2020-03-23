@@ -36,7 +36,7 @@ trait TileGrid
   def fullDisplayScale(dispWidth: Double, dispHeight: Double): Double = (dispWidth / width.max(1)).min(dispHeight / height.max(1))
 
   /** Gives all the sideCoods of the grid with out duplicates. */
-  def sideCoods: Coods = tilesAllFlatUniqueMap[Cood, Coods] { cood => sideCoodsOfTile(cood) }
+  def sideCoods: Coods = tilesFlatUniqueMap[Cood, Coods] { cood => sideCoodsOfTile(cood) }
 
   /** The centre of the grid by the y coordinate. */
   def yCen: Double = (yTileMin + yTileMax) / 2.0
@@ -45,7 +45,7 @@ trait TileGrid
 
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
 
-  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = tilesAllFlatMap { cood =>
+  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = tilesFlatMap { cood =>
     val c1: Coods = sideCoodsOfTile(cood)
     val c2s: Line2s = c1.map(orig => sideCoodToLine(orig, scale, relPosn))
     c2s
@@ -66,9 +66,11 @@ trait TileGrid
   def tilesAllForeach(f: Cood => Unit): Unit
   def sideCoodsOfTile(tileCood: Cood): Coods
 
-  def tileRowsAllForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
+  /** Foreach grid Row yi coordinate. */
+  def tileRowsForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
-  def tilesAllMap[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  /** Maps from all tile Coods to an Arr of A. The Arr produced can be accessed by its Cood from this grid Class. */
+  def tilesMap[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
     tilesAllForeach{ cood =>
       build.imutSet(res, index(cood), f(cood))
@@ -87,13 +89,16 @@ trait TileGrid
     build.buffToArr(buff)
   }
 
-  def tilesAllFlatMap[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  /** flatMaps from all tile Coods to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
+   *  structure is lost in the flatMap operation. */
+  def tilesFlatMap[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
     tilesAllForeach{ cood => build.buffGrowArr(buff, f(cood))}
     build.buffToArr(buff)
   }
 
-  def tilesAllFlatUniqueMap[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  /** flatmaps from all tile Coods to an Arr of type ArrT, removing all duplicate elements. */
+  def tilesFlatUniqueMap[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
     tilesAllForeach { cood =>
       val newVals = f(cood)
@@ -106,12 +111,12 @@ trait TileGrid
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
   def tilesVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    tilesAllMap { cood => f(coodToVec2(cood, relPosn, scale)) }
+    tilesMap { cood => f(coodToVec2(cood, relPosn, scale)) }
 
   /** Maps all the Tile Coods and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
   def tilesCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    tilesAllMap { cood => f(cood, coodToVec2(cood, relPosn, scale)) }
+    tilesMap { cood => f(cood, coodToVec2(cood, relPosn, scale)) }
 
   /** Creates a new uninitialised Arr of the grid length. */
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
@@ -127,5 +132,6 @@ trait TileGrid
   /** Returns the index of an Array from its tile coordinate. */
   @inline final def index(cood: Cood): Int = index(cood.xi, cood.yi)
 
-  def arrSet[A](cood: Cood, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(cood), value)
+  /** Sets element in a flat Arr according to its Cood. */
+  def setElem[A](cood: Cood, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(cood), value)
 }
