@@ -41,9 +41,19 @@ trait TileGrid
   /** The centre of the grid by the y coordinate. */
   def yCen: Double = (yTileMin + yTileMax) / 2.0
 
-  def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2): Line2
+  //def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2): Line2
 
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
+
+  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = tilesAllFlatMap { cood =>
+    val c1: Coods = sideCoodsOfTile(cood)
+    val c2s: Line2s = c1.map(orig => sideCoodToLine(orig, scale, relPosn))
+    c2s
+  }
+
+  /** This gives the tile grid lines in a single colour and line width. */
+  def sideLinesAllDraw(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
+    LinesDraw(sideLinesAll(scale, relPosn), lineWidth, colour)
 
   /** Side Cood to Line2 relative to a position on the grid and then scaled. */
   final def sideCoodToLine(sideCood: Cood, scale: Double = 1.0, relPosn: Vec2 = Vec2Z): Line2 =
@@ -55,7 +65,6 @@ trait TileGrid
   def cen = Vec2(xCen, yCen)
   def tilesAllForeach(f: Cood => Unit): Unit
   def sideCoodsOfTile(tileCood: Cood): Coods
-  def sideLinesAllRel(scale: Double, offset: Vec2 = cen) : Line2s = sideCoods.map(cood => sideCoodToLineRel(cood, scale, offset))
 
   def tileRowsAllForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
