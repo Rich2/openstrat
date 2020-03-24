@@ -33,7 +33,16 @@ trait TileGrid
   def top: Double
   def bottom: Double
   def height: Double = top - bottom
-  def fullDisplayScale(dispWidth: Double, dispHeight: Double): Double = (dispWidth / width.max(1)).min(dispHeight / height.max(1))
+
+  def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
+  { def adj(inp : Double): Double =inp match
+    { case n if n > 1000 => inp - padding
+      case n if n > 500 => inp - padding * inp / 1000.0
+      case n if n > 10 => n
+      case _ => 10
+    }
+    (adj(dispWidth) / adj(width).max(1)).min(adj(dispHeight) / height.max(1))
+  }
 
   /** The centre of the grid by the y coordinate. */
   def yCen: Double = (yTileMin + yTileMax) / 2.0
