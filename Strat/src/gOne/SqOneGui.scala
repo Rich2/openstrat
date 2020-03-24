@@ -1,6 +1,6 @@
 package ostrat
 package gOne
-import geom._, pCanv._, pGrid._
+import pCanv._, pGrid._
 
 case class SqOneGui(canv: CanvasPlatform) extends CanvasNoPanels("Game One Square Grid")
 {
