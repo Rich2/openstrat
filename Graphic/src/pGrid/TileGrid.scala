@@ -139,15 +139,15 @@ trait TileGrid
 
   def sidesForeach(f: Cood => Unit): Unit = sideCoods.foreach(f)
 
-  def sidesVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+  def sidesCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     sideCoods.map(c => f(c, coodToVec2(c, scale, relPosn)))
 
-  /**************************************************************************************************/
+/**************************************************************************************************/
 
   def vertCoodsOfTile(cood: Cood): Coods
 
   def vertCoods: Coods = tilesFlatUniqueMap[Cood, Coods] { cood => vertCoodsOfTile(cood) }
 
-  def vertsVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+  def vertsCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     vertCoods.map(c => f(c, coodToVec2(c, scale, relPosn)))
 }
