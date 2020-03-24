@@ -19,8 +19,12 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val pages: Int = 1 + ( itemCount - 1 ) / itemsPerPage
 
 //  var listOfFlags = Refs[Flag](); for( i <- 0 to itemCount-1 ) { val thisColor = Colour.fromInts( scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55 ); listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) ) }
+  case class ViewPort(width: Int, height: Int, headerSize: Int, cellWidth: Int, cellHeight: Int, maxBarWidth: Int, minBarWidth: Int,
+     isScrollHorizontal: Int, commonScale: Int)
+  val myView = ViewPort(750, 310, 50, 150, 100, 750, 20, 1, 100)
 
-  val viewport = Map( "width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "maxBarWidth"->(750-80), "minBarWidth"->20, "isScrollHorizontal"-> 1, "commonScale"->100 )
+  val viewport = Map( "width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "maxBarWidth"->(750-80), "minBarWidth"->20,
+    "isScrollHorizontal"-> 1, "commonScale"->100 )
   val headerYpos = viewport("height")/2+viewport("headerSize")/2
   val firstFlagsPosition = ( -( viewport("width")-viewport("cellWidth") ) / 2 vv ( viewport("height") - viewport("cellHeight") ) / 2 )
   val barBackground =  Rectangle.curvedCorners( viewport("maxBarWidth") + 2, 32, 10, (0 vv headerYpos)).fill(Black)
