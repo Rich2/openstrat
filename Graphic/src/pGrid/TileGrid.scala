@@ -35,36 +35,15 @@ trait TileGrid
   def height: Double = top - bottom
   def fullDisplayScale(dispWidth: Double, dispHeight: Double): Double = (dispWidth / width.max(1)).min(dispHeight / height.max(1))
 
-  /** Gives all the sideCoods of the grid with out duplicates. */
-  def sideCoods: Coods = tilesFlatUniqueMap[Cood, Coods] { cood => sideCoodsOfTile(cood) }
-
   /** The centre of the grid by the y coordinate. */
   def yCen: Double = (yTileMin + yTileMax) / 2.0
 
-  //def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2): Line2
-
-  def sideCoodToCoodLine(sideCood: Cood): CoodLine
-
-  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = tilesFlatMap { cood =>
-    val c1: Coods = sideCoodsOfTile(cood)
-    val c2s: Line2s = c1.map(orig => sideCoodToLine(orig, scale, relPosn))
-    c2s
-  }
-
-  /** This gives the tile grid lines in a single colour and line width. */
-  def sideLinesAllDraw(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
-    LinesDraw(sideLinesAll(scale, relPosn), lineWidth, colour)
-
-  /** Side Cood to Line2 relative to a position on the grid and then scaled. */
-  final def sideCoodToLine(sideCood: Cood, scale: Double = 1.0, relPosn: Vec2 = Vec2Z): Line2 =
-    sideCoodToCoodLine(sideCood).toLine2(cood => (coodToVec2Abs(cood) -relPosn -cen) * scale)
-
   /** This gives the Vec2 of the Cood relative to a position on the grid and then scaled. (coodToVec2Abs(cood) - gridPosn -cen) * scale */
-  def coodToVec2(cood: Cood, gridPosn: Vec2 = Vec2Z, scale: Double = 1.0): Vec2 = (coodToVec2Abs(cood) - gridPosn -cen) * scale
+  def coodToVec2(cood: Cood, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (coodToVec2Abs(cood) - gridPosn -cen) * scale
 
   def cen = Vec2(xCen, yCen)
   def tilesAllForeach(f: Cood => Unit): Unit
-  def sideCoodsOfTile(tileCood: Cood): Coods
+
 
   /** Foreach grid Row yi coordinate. */
   def tileRowsForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
@@ -111,12 +90,12 @@ trait TileGrid
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
   def tilesVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    tilesMap { cood => f(coodToVec2(cood, relPosn, scale)) }
+    tilesMap { cood => f(coodToVec2(cood, scale, relPosn)) }
 
   /** Maps all the Tile Coods and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
   def tilesCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    tilesMap { cood => f(cood, coodToVec2(cood, relPosn, scale)) }
+    tilesMap { cood => f(cood, coodToVec2(cood, scale, relPosn)) }
 
   /** Creates a new uninitialised Arr of the grid length. */
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
@@ -124,7 +103,7 @@ trait TileGrid
   def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)
 
   def setTile[A <: AnyRef](cood: Cood, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(cood), value)
-  def setTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(x, y), value)
+  def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(xi, yi), value)
 
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
   //def setSomeTile[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: Refs[Option[A]]): Unit = arr.unsafeSetElem(index(x, y), Some(value))
@@ -134,4 +113,41 @@ trait TileGrid
 
   /** Sets element in a flat Arr according to its Cood. */
   def setElem[A](cood: Cood, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(cood), value)
+
+/**************************************************************************************************/
+
+  /** Gives all the sideCoods of the grid with out duplicates. */
+  def sideCoods: Coods = tilesFlatUniqueMap[Cood, Coods] { cood => sideCoodsOfTile(cood) }
+
+  def sideCoodToCoodLine(sideCood: Cood): CoodLine
+
+  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = tilesFlatMap { cood =>
+    val c1: Coods = sideCoodsOfTile(cood)
+    val c2s: Line2s = c1.map(orig => sideCoodToLine(orig, scale, relPosn))
+    c2s
+  }
+
+  /** This gives the tile grid lines in a single colour and line width. */
+  def sideLinesAllDraw(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
+    LinesDraw(sideLinesAll(scale, relPosn), lineWidth, colour)
+
+  /** Side Cood to Line2 relative to a position on the grid and then scaled. */
+  final def sideCoodToLine(sideCood: Cood, scale: Double = 1.0, relPosn: Vec2 = Vec2Z): Line2 =
+    sideCoodToCoodLine(sideCood).toLine2(cood => (coodToVec2Abs(cood) -relPosn -cen) * scale)
+
+  def sideCoodsOfTile(tileCood: Cood): Coods
+
+  def sidesForeach(f: Cood => Unit): Unit = sideCoods.foreach(f)
+
+  def sidesVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+    sideCoods.map(c => f(c, coodToVec2(c, scale, relPosn)))
+
+  /**************************************************************************************************/
+
+  def vertCoodsOfTile(cood: Cood): Coods
+
+  def vertCoods: Coods = tilesFlatUniqueMap[Cood, Coods] { cood => vertCoodsOfTile(cood) }
+
+  def vertsVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+    vertCoods.map(c => f(c, coodToVec2(c, scale, relPosn)))
 }

@@ -18,6 +18,7 @@ trait HexGrid extends TileGrid
   def top: Double = yTileMax + HexGrid.yDist2
   def bottom: Double = yTileMin - HexGrid.yDist2
   override def sideCoodToCoodLine(sideCood: Cood): CoodLine = HexGrid.sideCoodToCoodLine(sideCood)
+  override def vertCoodsOfTile(cood: Cood): Coods = HexGrid.vertCoodsOfTile(cood)
 }
 
 object HexGrid

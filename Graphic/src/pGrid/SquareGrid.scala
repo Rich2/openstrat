@@ -21,6 +21,7 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   override def xRight: Double = cTileMax + 1
   override def top: Double = yTileMax + 1
   override def bottom: Double = yTileMin - 1
+  override def vertCoodsOfTile(cood : Cood): Coods = SquareGrid.vertCoodsOfTile(cood)
 }
 
 object SquareGrid
