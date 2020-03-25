@@ -25,13 +25,13 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   disp()
   
   topBar.mouseUp = (v, b , s) => s match
-  { case List(Turn) => NoMove
+  { case List(Turn) => newTurn()
     case _ => 
   }
   
   mainPanel.mouseUp = (v, b, s) => b match 
   { case RightButton => {cmd = Move(v); disp() }
     case LeftButton => { cmd = CycleColour; disp() }
-    case MiddleButton => newTurn()
+    case _ => newTurn()
   }
 }

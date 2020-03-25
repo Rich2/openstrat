@@ -1,6 +1,6 @@
 package ostrat
 package gOne
-import pCanv._, geom._
+import pCanv._
 
 /** Graphical user interface for GOne example game. */
 case class IrrGui(canv: CanvasPlatform) extends CanvasNoPanels("Irregular Hex Grid Gui")
