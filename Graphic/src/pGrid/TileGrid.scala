@@ -50,9 +50,22 @@ trait TileGrid
   /** This gives the Vec2 of the Cood relative to a position on the grid and then scaled. (coodToVec2Abs(cood) - gridPosn -cen) * scale */
   def coodToVec2(cood: Cood, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (coodToVec2Abs(cood) - gridPosn -cen) * scale
 
+  /** The centre of the grid in Vec2 coordinates. */
   def cen = Vec2(xCen, yCen)
 
-  def tilesAllForeach(f: Cood => Unit): Unit
+  def tileArrVecForeach[A](arr: ArrayLike[A])(f: (A, Vec2) => Unit): Unit = ???
+
+  def tileArrVecMap[A, B, BB <: ArrImut[B]](arr: ArrayLike[A])(f: (A, Vec2) => B)(implicit build: ArrBuild[B, BB]): BB =
+  {
+    val res = build.imutNew(arr.length)
+    var count = 0
+    tileVecsForeach{v =>
+      //res.unsafeSetElem(count, )
+    }
+    res
+  }
+
+  def tilesCoodsForeach(f: Cood => Unit): Unit
 
   /** Foreach grid Row yi coordinate. */
   def tileRowsForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
@@ -60,7 +73,7 @@ trait TileGrid
   /** Maps from all tile Coods to an Arr of A. The Arr produced can be accessed by its Cood from this grid Class. */
   def tilesMap[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
-    tilesAllForeach{ cood =>
+    tilesCoodsForeach{ cood =>
       build.imutSet(res, index(cood), f(cood))
     }
     res
@@ -70,7 +83,7 @@ trait TileGrid
   {
     val buff = build.buffNew()
 
-    tilesAllForeach { cood =>
+    tilesCoodsForeach { cood =>
       val op: OptRef[A] = inp(index(cood))
       op.foreach ( a => build.buffGrow(buff, f(a, Vec2Z)))
       }
@@ -81,20 +94,22 @@ trait TileGrid
    *  structure is lost in the flatMap operation. */
   def tilesFlatMap[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
-    tilesAllForeach{ cood => build.buffGrowArr(buff, f(cood))}
+    tilesCoodsForeach{ cood => build.buffGrowArr(buff, f(cood))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Coods to an Arr of type ArrT, removing all duplicate elements. */
   def tilesFlatUniqueMap[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
-    tilesAllForeach { cood =>
+    tilesCoodsForeach { cood =>
       val newVals = f(cood)
       newVals.foreach{newVal =>
       if (!buff.contains(newVal)) build.buffGrow(buff, newVal) }
     }
     build.buffToArr(buff)
   }
+
+  def tileVecsForeach(f: Vec2 => Unit): Unit = tilesCoodsForeach(c => f(coodToVec2(c)))
 
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
