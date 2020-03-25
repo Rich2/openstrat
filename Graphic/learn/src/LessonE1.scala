@@ -6,9 +6,9 @@ import ostrat._, geom._, pCanv._
 case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
 {
   import e1._
-  var state: GState = GState.start
+  var state: GameState = GameState.start
   var cmd: Option[TurnCmd] = None
-  var statusText = "Left click to set action to Move. Middle or right click to set action to CycleColour."  
+  var statusText = "Right click to set action to Move. Left or Middle click to set action to CycleColour."
   
   def cmdDisp = cmd match
   { case Some(Move(v)) => Refs(Arrow.draw(state.posn, v))
@@ -16,7 +16,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
     case _ => Refs()
   }
   
-  def disp() =
+  def disp(): Unit =
   { reTop(Refs(StdButton.turn(state.turnNum + 1), status))
     mainPanel.repaint(state.fillRect +: cmdDisp)
   }
@@ -29,7 +29,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   }
   
   mainPanel.mouseUp = (v, b, s) => b match 
-  { case LeftButton => {cmd = Some(Move(v)); disp() }
+  { case RightButton => {cmd = Some(Move(v)); disp() }
     case _ => { cmd = Some(CycleColour); disp() }   
   }
 }
