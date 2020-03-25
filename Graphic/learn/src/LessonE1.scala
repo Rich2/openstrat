@@ -7,12 +7,12 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
 {
   import e1._
   var state: GameState = GameState.start
-  var cmd: Option[TurnCmd] = None
-  var statusText = "Right click to set action to Move. Left or Middle click to set action to CycleColour."
+  var cmd: TurnCmd = NoMove
+  var statusText = "Right click to set action to Move. Left to set action to CycleColour. Press Turn button or middle click for next turn."
   
   def cmdDisp = cmd match
-  { case Some(Move(v)) => Refs(Arrow.draw(state.posn, v))
-    case Some(CycleColour) => Refs(state.drawNextColour)
+  { case Move(v) => Refs(Arrow.draw(state.posn, v))
+    case CycleColour => Refs(state.drawNextColour)
     case _ => Refs()
   }
   
@@ -20,16 +20,18 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   { reTop(Refs(StdButton.turn(state.turnNum + 1), status))
     mainPanel.repaint(state.fillRect +: cmdDisp)
   }
+  def newTurn(): Unit = { state = state.turn(cmd); cmd = NoMove; disp() }
   
   disp()
   
   topBar.mouseUp = (v, b , s) => s match
-  { case List(Turn) => { state = state.turn(cmd); cmd = None; disp() }
+  { case List(Turn) => NoMove
     case _ => 
   }
   
   mainPanel.mouseUp = (v, b, s) => b match 
-  { case RightButton => {cmd = Some(Move(v)); disp() }
-    case _ => { cmd = Some(CycleColour); disp() }   
+  { case RightButton => {cmd = Move(v); disp() }
+    case LeftButton => { cmd = CycleColour; disp() }
+    case MiddleButton => newTurn()
   }
 }

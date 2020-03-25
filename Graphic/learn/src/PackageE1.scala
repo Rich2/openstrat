@@ -9,16 +9,16 @@ package e1
   case class GameState(turnNum: Int, posn: Vec2, rainbowCycle: RainbowCycle)
   {
     /** Move to a new posn if no greater than 150 pixel distant */
-    def turn(cmd: Option[TurnCmd]): GameState = cmd match
+    def turn(cmd: TurnCmd): GameState = cmd match
     {
-      case Some(Move(toPosn)) =>
+      case Move(toPosn) =>
       { val diff = toPosn  - posn
         val len = diff.magnitude
         val max = 150
         val newPosn = ife(len > max, posn + toPosn * max / len, toPosn)
         GameState(turnNum + 1, newPosn, rainbowCycle)
       }   
-      case Some(CycleColour) => GameState(turnNum + 1, posn, rainbowCycle.next)
+      case CycleColour => GameState(turnNum + 1, posn, rainbowCycle.next)
       case _ => copy(turnNum + 1)
     }
     def colour: Colour = rainbowCycle()
@@ -35,6 +35,7 @@ package e1
 
   /** A turned Command is a sealed trait */
   sealed trait TurnCmd
+  case object NoMove extends TurnCmd
   case object CycleColour extends TurnCmd
   case class Move(toPosn: Vec2) extends TurnCmd
   
