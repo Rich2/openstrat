@@ -51,8 +51,8 @@ trait TileGrid
   def coodToVec2(cood: Cood, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (coodToVec2Abs(cood) - gridPosn -cen) * scale
 
   def cen = Vec2(xCen, yCen)
-  def tilesAllForeach(f: Cood => Unit): Unit
 
+  def tilesAllForeach(f: Cood => Unit): Unit
 
   /** Foreach grid Row yi coordinate. */
   def tileRowsForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
