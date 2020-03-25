@@ -60,7 +60,8 @@ trait TileGrid
     val res = build.imutNew(arr.length)
     var count = 0
     tileVecsForeach{v =>
-      //res.unsafeSetElem(count, )
+      res.unsafeSetElem(count, f(arr(count), v))
+      count += 1
     }
     res
   }
