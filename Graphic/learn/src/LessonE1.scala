@@ -24,7 +24,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   
   disp()
   
-  topBar.mouseUp = (v, b , s) => s match
+  topBar.mouseUp = (v, b, s) => s match
   { case List(Turn) => newTurn()
     case _ => 
   }

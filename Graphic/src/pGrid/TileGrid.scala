@@ -80,14 +80,17 @@ trait TileGrid
     res
   }
 
-  def tilesSomeMap[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A])(f: (A, Vec2) => B)(implicit build: ArrBuild[B, ArrT]): ArrT =
+  def tilesSomeMap[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (A, Vec2) => B)
+    (implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
-
     tilesCoodsForeach { cood =>
       val op: OptRef[A] = inp(index(cood))
-      op.foreach ( a => build.buffGrow(buff, f(a, Vec2Z)))
+      op.foreach { a =>
+        val v = coodToVec2(cood, scale, relPosn)
+        build.buffGrow(buff, f(a, v))
       }
+    }
     build.buffToArr(buff)
   }
 
