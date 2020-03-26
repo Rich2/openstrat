@@ -18,7 +18,8 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   def mainHeight = mainPanel.height
   /**  repaints the top command bar */
   def reTop(commands: Refs[GraphicParent]): Unit = topBar.repaint(displayRowParents(topBar.cenLeft, commands))
-  def mainMouseUp(f: (Vec2, MouseButton, List[Any]) => Unit) = mainPanel.mouseUp = f
+  def mainMouseUp: (Vec2, MouseButton, List[Any]) => Unit = mainPanel.mouseUp
+  def mainMouseUp_= (f: (Vec2, MouseButton, List[Any]) => Unit): Unit = { mainPanel.mouseUp = f }
 }
 
 object StdButton

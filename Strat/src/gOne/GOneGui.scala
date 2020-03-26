@@ -9,6 +9,6 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val uts = grid.tilesSomeMap(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
   reTop(Refs())
-  mainPanel.mouseUp = (v, b , l) => deb("Hi")
+  mainMouseUp = (v, b, l) => deb("Hi")
   mainRepaint(cenSideVertCoodText(grid, scale) ++ uts)
 }
