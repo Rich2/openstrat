@@ -10,9 +10,9 @@ abstract class CanvasUser(val title: String)
   /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */
   def paintObjs(movedObjs: GraphicElems): Refs[GraphicActive] =
   {
-    val activejBuff: Buff[GraphicActive] = Buff()
+    val activeBuff: Buff[GraphicActive] = Buff()
     movedObjs.foreach {
-      case el: GraphicActive => activejBuff += el
+      case el: GraphicActive => activeBuff += el
       case _ =>
     }
 
@@ -21,22 +21,22 @@ abstract class CanvasUser(val title: String)
 
       case cs: GraphicParent =>
       { canv.rendElems(cs.elems)
-        //activejBuff += cs
+        //activeBuff += cs
       }
 
       case cs: GraphicParentOld =>
       { canv.rendElemsOld(cs.elems)
-        //activejBuff += cs
+        //activeBuff += cs
       }
 
       case nss: UnScaledShape =>
       { canv.rendElems(nss.elems.slate(nss.referenceVec))
-        //activejBuff += nss
+        //activeBuff += nss
       }
 
-       case ga: GraphicActive => //activejBuff += ga
+       case ga: GraphicActive => //activeBuff += ga
     }
-    activejBuff.toReverseRefs
+    activeBuff.toReverseRefs
   }
    
   def refresh(): Unit   

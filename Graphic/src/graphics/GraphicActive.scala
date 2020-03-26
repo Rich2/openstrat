@@ -18,6 +18,7 @@ trait PolyActive extends GraphicActive
 { def poly: Polygon
   override def boundingRect = poly.boundingRect
   override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
+  override def fTrans(f: Vec2 => Vec2): PolyActive
 }
 
 /** A pointable shape */
@@ -28,4 +29,5 @@ trait ShapeActive extends GraphicActive
 
   /** This method needs improving. */
   override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
+  override def fTrans(f: Vec2 => Vec2): ShapeActive
 }

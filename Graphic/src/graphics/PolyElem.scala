@@ -21,6 +21,7 @@ trait PolyElem extends PaintElem with GraphicBounded
   def yArray: Array[Double] = poly.elem2sArray
 
   override def boundingRect: BoundingRect = poly.boundingRect
+  override def fTrans(f: Vec2 => Vec2): PolyElem
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
@@ -51,7 +52,7 @@ object PolyDraw
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
 case class PolyFillDraw(poly: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyElem
-{ override def fTrans(f: Vec2 => Vec2) = PolyFillDraw(poly.fTrans(f), fillColour, lineWidth, lineColour)
+{ override def fTrans(f: Vec2 => Vec2): PolyFillDraw = PolyFillDraw(poly.fTrans(f), fillColour, lineWidth, lineColour)
   def noFill: PolyDraw = PolyDraw(poly, lineWidth, lineColour)
   override def rendElem(cp: CanvasPlatform): Unit = { cp.polyFill(poly, fillColour); cp.polyDraw(poly, lineWidth, lineColour) }
 }
@@ -66,7 +67,7 @@ case class PolyActiveOnly(poly: Polygon, pointerId: Any) extends GraphicElem wit
 { override def fTrans(f: Vec2 => Vec2): PolyActiveOnly = PolyActiveOnly(poly.fTrans(f), pointerId) }
 
 case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem
-{ override def fTrans(f: Vec2 => Vec2) = PolyFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
+{ override def fTrans(f: Vec2 => Vec2): PolyFillText = PolyFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, textColour, CenAlign)
   def fillOnly: PolyFill = PolyFill(poly, fillColour)
 
@@ -79,7 +80,7 @@ case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize
 case class PolyFillDrawText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
    lineColour: Colour = Black) extends PolyElem
 {
-  override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(poly.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
+  override def fTrans(f: Vec2 => Vec2): PolyFillDrawText = PolyFillDrawText(poly.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolyDraw = PolyDraw(poly, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolyFillDraw = PolyFillDraw(poly, fillColour, lineWidth, lineColour)
@@ -89,7 +90,7 @@ case class PolyFillDrawText(poly: Polygon, fillColour: Colour, str: String, font
 case class PolyAll(poly: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
                    lineColour: Colour = Black) extends PolyElem with PolyActive
 {
-  override def fTrans(f: Vec2 => Vec2) = PolyFillDrawText(poly.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
+  override def fTrans(f: Vec2 => Vec2): PolyAll = PolyAll(poly.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
   def drawOnly: PolyDraw = PolyDraw(poly, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolyFillDraw = PolyFillDraw(poly, fillColour, lineWidth, lineColour)
