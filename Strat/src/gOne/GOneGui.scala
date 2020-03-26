@@ -14,6 +14,8 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
   {
     case (v, LeftButton, cl) =>
     { selected = l
+      debvar(l)
+      debvar(mainPanel.actives)
       statusText = selected.headToStringElse("Nothing Selected")
       thisTop()
     }
