@@ -63,7 +63,7 @@ class ZugGui(canv: CanvasPlatform, game: ZGame, player: ZPlayer) extends HexGrid
   def dSides: GraphicElems = ofSidesDisplayFold(fSide)
   def mapObjs: GraphicElems = ofTilesDisplayFold(fHex) ++ dSides
      
-  mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
+  mapPanel.mouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
     { selected = clickList //.fHead(Arr(), Arr(_))

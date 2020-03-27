@@ -67,7 +67,7 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
       
   val bInv: GraphicBounded = clickButton("inv", invCmd)
    
-  mapPanel.mouseUp = (a, b, s) => { statusText = s.headToStringElse("Nothing Clicked"); eTop() }
+  mapPanel.mouseUp = (b, s, v) => { statusText = s.headToStringElse("Nothing Clicked"); eTop() }
    
   def saveCmd = (mb: MouseButton) => { setStatus("Saved"); canv.saveFile(saveName, view.str) }
   def loadCmd = (mb: MouseButton) => { loadView; updateView() }  

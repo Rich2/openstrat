@@ -31,7 +31,7 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGridOld, val game: Simp
     tiles ++ sidesDrawAll()
   }
 
-  mapPanel.mouseUp = (v, but: MouseButton, clickList) => (but, selected, clickList) match
+  mapPanel.mouseUp = (but: MouseButton, clickList, v) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
     { selected = clickList

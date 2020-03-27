@@ -40,7 +40,7 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
     (gs ++ as).toRefs
   }
  
-  mapPanel.mouseUp = (v, but: MouseButton, clickList) => but match
+  mapPanel.mouseUp = (but: MouseButton, clickList, v) => but match
   {
     case LeftButton => selected = clickList //.fHead(Arr(), Arr(_))
         

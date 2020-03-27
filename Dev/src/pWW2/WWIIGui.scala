@@ -44,7 +44,7 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
     (as ++ gs).toRefs
   }   
   
-  mapPanel.mouseUp = (v, button: MouseButton, clickList) => button match
+  mapPanel.mouseUp = (button: MouseButton, clickList, _) => button match
     {
       case LeftButton =>
       { selected = clickList//.fHead(Arr(), Arr(_))

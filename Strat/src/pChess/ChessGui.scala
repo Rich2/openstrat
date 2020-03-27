@@ -25,18 +25,16 @@ case class ChessGui(canv: CanvasPlatform) extends CanvasNoPanels("Chess")
   
   val stuff = ArrOld(p.fill(DarkRed))//grid.squares(tileWidth)// ::: grid.
 
-
   repaintOld(stuff)
 
-  mouseUp = (but: MouseButton, clickList, v) => (but, clickList, v) match
-  {
-    case (LeftButton, cl, v) =>
-    {
-      deb(cl.toString)
-      //selected = clickList.fHead(Nil, (h , _) => List(h))
-      //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
-      //eTop()
+  mouseUp =
+    { case (LeftButton, cl, v) =>
+      {
+        deb(cl.toString)
+        //selected = clickList.fHead(Nil, (h , _) => List(h))
+        //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+        //eTop()
+      }
+      case _ => deb("Mouse other")
     }
-    case _ => deb("Mouse other")
-  }
 }

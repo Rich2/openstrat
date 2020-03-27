@@ -7,6 +7,6 @@ abstract class EarthAllGui(title: String) extends EarthGui(title)
 {
   val useless: Boolean = true   
   
-  mapPanel.mouseUp = (v, b, s) => selected = s //.fHeadElse(Arr(_), Arr())// eadOption.fold[Arr[AnyRef]](Arr())(h => Arr((h, v)))
+  mapPanel.mouseUp = (b, s, v) => selected = s //.fHeadElse(Arr(_), Arr())// eadOption.fold[Arr[AnyRef]](Arr())(h => Arr((h, v)))
  // mapPanel.fMouseDragged = (v, b, s) => { selectedObj.foreach(_ => println("Drag"))}
 }
