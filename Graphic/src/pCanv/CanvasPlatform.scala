@@ -3,10 +3,14 @@ package ostrat
 package pCanv
 import geom._, Colour._
 
-/** An abstract Canvas trait. A concrete implementation will utilise canvas like an HTML canvas or a Scalafx canvas. This concrete implementation
- *  class must (can?) be mixed in with a a particular use trait like CanvSimple or CanvMulti. The default methods take the origin as the centre of the
- *  canvas. Note the Canvas Platform merely passes bare pointer event data to delegate functions. It does not process them in relation to objects
- *  painted on the Canvas. */
+/** An abstract Canvas interface implemented and to be implemented on various platforms. A concrete implementation will utilise canvas like an HTML
+ *  canvas or a Scalafx canvas. This concrete implementation class must (can?) be mixed in with a a particular use trait like CanvSimple or CanvMulti.
+ *  The default methods take the origin as the centre of the canvas. Note the Canvas Platform merely passes bare pointer event data to delegate
+ *  functions. It does not process them in relation to objects painted on the Canvas.
+ *
+ *  It is really not a good idea to use this trait, use a sub class of this trait directly in your applications. You do not want to be thinking in
+ *  terms of the imperative methods of this application. Use one of the provided classes like CanvasNoPanels or Canvas Panelled or create your own if
+ *  the provided classes don't fullfil your needs. */
 trait CanvasPlatform extends RectGeom
 { /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
   var mouseUp: (Vec2, MouseButton) => Unit = (v, b) => {}

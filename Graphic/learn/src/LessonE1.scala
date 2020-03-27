@@ -15,23 +15,27 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
     case CycleColour => Refs(state.drawNextColour)
     case _ => Refs()
   }
-  
-  def disp(): Unit =
+
+  /** frame refers to the screen output. In the same way that a movie is constructed from a number of still frames. So we create the "action" in a
+   * graphical application through a series of frames. Unlike in the movies our display may not change for significant periods of time. Where we can
+   * it is simpler to create the whole screen out, to create each from a blank slate so to speak rather than just painting the parts of the dsplay
+   * that have been modified. */
+  def frame(): Unit =
   { reTop(Refs(StdButton.turn(state.turnNum + 1), status))
     mainRepaint(state.fillRect +: cmdDisp)
   }
-  def newTurn(): Unit = { state = state.turn(cmd); cmd = NoMove; disp() }
-  
-  disp()
-  
+  def newTurn(): Unit = { state = state.turn(cmd); cmd = NoMove; frame() }
+
+  frame()
+
   topBar.mouseUp = (v, b, s) => s match
   { case List(Turn) => newTurn()
-    case _ => 
+    case _ =>
   }
-  
+
   mainMouseUp = (v, b, s) => b match
-  { case RightButton => { cmd = Move(v); disp() }
-    case LeftButton => { cmd = CycleColour; disp() }
+  { case RightButton => { cmd = Move(v); frame() }
+    case LeftButton => { cmd = CycleColour; frame() }
     case _ => newTurn()
   }
 }
