@@ -26,15 +26,14 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasNoPanels("Draughts")
 
   repaint(stuff)
   
-  mouseUp = (but: MouseButton, clickList, v) => (but, clickList, v) match
-  {
-    case (LeftButton, cl, v) =>
+  mouseUp =
     {
-      deb(cl.toString)
-      //selected = clickList.fHead(Nil, (h , _) => List(h))
-      //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
-      //eTop()
+      case (LeftButton, cl, v) =>
+      { deb(cl.toString)
+        //selected = clickList.fHead(Nil, (h , _) => List(h))
+        //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
+        //eTop()
+      }
+      case _ => deb("Mouse other")
     }
-    case _ => deb("Mouse other")
-  }    
 }
