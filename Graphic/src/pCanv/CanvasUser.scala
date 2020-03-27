@@ -18,14 +18,10 @@ abstract class CanvasUser(val title: String)
 
     movedObjs.foreach
     { case ce: PaintElem => ce.rendToCanvas(canv)
-
       case cs: GraphicParent => canv.rendElems(cs.elems)
-
       case cs: GraphicParentOld => canv.rendElemsOld(cs.elems)
-
       case nss: UnScaledShape => canv.rendElems(nss.elems.slate(nss.referenceVec))
-
-      case v => deb("This debug statement is here to check for unnecessary paint checks: " + v.toString)
+      case v =>
     }
     activeBuff.toReverseRefs
   }

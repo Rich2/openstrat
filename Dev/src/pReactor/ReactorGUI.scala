@@ -101,9 +101,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       reactionQueue = reactionQueue :+ index
     }
   }
-  mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
+  mouseUp = (but: MouseButton, clickList, v) => (but, clickList, v) match
   {
-    case (v, LeftButton, cl) if((reactionQueue.length == 0) && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
+    case (LeftButton, cl, v) if((reactionQueue.length == 0) && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
     {
       val clickedCellIndex = (v._1/size).toInt+cols*((v._2/size).toInt)
       if (currentPlayer == cellColors(clickedCellIndex) || Black  == cellColors(clickedCellIndex))
@@ -112,9 +112,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         canv.timeOut(() => ReactorGUI.this.processQueue(), 100)
       }
     }
-    case (v, LeftButton, cl) if (clickList.length>0) => init()
-    case (v, MiddleButton, cl) if (clickList.length>0) => loadGame()
-    case (v, RightButton, cl) if (clickList.length>0) => saveGame()
+    case (LeftButton, cl, v) if (clickList.length>0) => init()
+    case (MiddleButton, cl, v) if (clickList.length>0) => loadGame()
+    case (RightButton, cl, v) if (clickList.length>0) => saveGame()
     case (_, _, _) => deb("uncaptured click")
   }
   def saveGame() : Unit = 

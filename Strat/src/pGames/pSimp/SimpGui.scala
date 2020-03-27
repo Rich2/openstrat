@@ -48,7 +48,8 @@ class UnusSetGui(val canv: CanvasPlatform, val grid: SimpGridOld, val game: Simp
       }
     case (RightButton, List(mp : MPlayer), List(moveTile: UTileOld)) => setStatus(mp.toString -- "can not move to" -- moveTile.cood.str)
 
-    case _ => setStatus("Other" -- clickList.toString)
+    case (RightButton,_, _ ) => setStatus("Other" -- clickList.toString)
+    case _ => //setStatus("Other" -- clickList.toString)
   }   
   def turnCmd: MouseCmd = mb =>
     { val newGrid = game.newTurn(grid.getMoves)

@@ -28,9 +28,9 @@ case class ChessGui(canv: CanvasPlatform) extends CanvasNoPanels("Chess")
 
   repaintOld(stuff)
 
-  mouseUp = (v, but: MouseButton, clickList) => (v, but, clickList) match
+  mouseUp = (but: MouseButton, clickList, v) => (but, clickList, v) match
   {
-    case (v, LeftButton, cl) =>
+    case (LeftButton, cl, v) =>
     {
       deb(cl.toString)
       //selected = clickList.fHead(Nil, (h , _) => List(h))

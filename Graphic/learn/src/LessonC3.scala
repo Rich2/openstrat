@@ -15,7 +15,7 @@ case class LessonC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   repaint(rList +- startText)
   
   //Note we are ignoring the button here
-  mouseUp = (posn, button, selectedList) =>
+  mouseUp = (button, selectedList, posn) =>
     {
       val newText = selectedList match
       { case ::(h, _) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, 28, textPosn)

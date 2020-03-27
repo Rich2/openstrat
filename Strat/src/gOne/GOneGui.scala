@@ -10,9 +10,9 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
   val uts = grid.tilesSomeMap(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
   def thisTop(): Unit = reTop(Refs(status))
   thisTop()
-  mainMouseUp = (v, b, l) => (v, b, l) match
+  mainMouseUp = (b, l, v) => (b, l, v) match
   {
-    case (v, LeftButton, cl) =>
+    case (LeftButton, cl, v) =>
     { selected = l
       statusText = selected.headToStringElse("Nothing Selected")
       thisTop()

@@ -74,7 +74,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   showGridView( viewIndex )
 
-  mouseUp = ( v, button: MouseButton, clickList ) => button match
+  mouseUp = (button: MouseButton, clickList, v) => button match
   { case LeftButton => clickList match
     { case List( MButtonCmd( cmd ) ) => cmd.apply( button )
       case List( flagIndex ) =>

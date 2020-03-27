@@ -14,7 +14,7 @@ case class LessonC5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C5")
   val startText = TextGraphic("Click on the rectangles. All rectangles under the point will cycle their colour.", 28, 0 vv 400)
   repaint(gArr +- startText)
   
-  mouseUp = (v, b, s) => 
+  mouseUp = (b, s, v) =>
   {
     s.foreach{ obj =>
       //val r = obj.asInstanceOf[ARect]

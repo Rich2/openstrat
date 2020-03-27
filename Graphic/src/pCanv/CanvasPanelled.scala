@@ -17,8 +17,8 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
   canv.mouseUp = (v, b) =>
     {
       panels.find(_.clipPoly.ptInPolygon(v)).foreach{ pan =>
-        val objs: List[Any] = pan.actives.filterToList(_.ptInside(v)).map(_.pointerId)
-        pan.mouseUp(v, b, objs)
+        val ids: List[Any] = pan.actives.filterToList(_.ptInside(v)).map(_.pointerId)
+        pan.mouseUp(b, ids, v)
     }
   }
     
