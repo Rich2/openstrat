@@ -7,34 +7,25 @@ import geom._
 abstract class CanvasUser(val title: String)
 {
   val canv: CanvasPlatform
+
   /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */
   def paintObjs(movedObjs: GraphicElems): Refs[GraphicActive] =
-  {
-    val activeBuff: Buff[GraphicActive] = Buff()
+  { val activeBuff: Buff[GraphicActive] = Buff()
     movedObjs.foreach {
       case el: GraphicActive => activeBuff += el
       case _ =>
     }
 
     movedObjs.foreach
-    { case ce: PaintElem => ce.rendElem(canv)
+    { case ce: PaintElem => ce.rendToCanvas(canv)
 
-      case cs: GraphicParent =>
-      { canv.rendElems(cs.elems)
-        //activeBuff += cs
-      }
+      case cs: GraphicParent => canv.rendElems(cs.elems)
 
-      case cs: GraphicParentOld =>
-      { canv.rendElemsOld(cs.elems)
-        //activeBuff += cs
-      }
+      case cs: GraphicParentOld => canv.rendElemsOld(cs.elems)
 
-      case nss: UnScaledShape =>
-      { canv.rendElems(nss.elems.slate(nss.referenceVec))
-        //activeBuff += nss
-      }
+      case nss: UnScaledShape => canv.rendElems(nss.elems.slate(nss.referenceVec))
 
-       case ga: GraphicActive => //activeBuff += ga
+      case v => deb("This debug statement is here to check for unnecessary paint checks: " + v.toString)
     }
     activeBuff.toReverseRefs
   }

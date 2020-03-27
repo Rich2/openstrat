@@ -42,7 +42,7 @@ case class ArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x
 { def typeStr: String = "ArcDraw"
   //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)
   override def fTrans(f: Vec2 => Vec2) = ArcDraw(f(pStart), f(pCen), f(pEnd), lineWidth, colour, zOrder)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.arcDraw(this)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.arcDraw(this)
 }
 
 /** The companion object for the ArcDraw class */

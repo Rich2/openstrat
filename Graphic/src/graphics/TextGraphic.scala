@@ -34,7 +34,7 @@ object BaseLine
 case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
   baseLine: BaseLine = BaseLine.Middle) extends PaintElem
 { override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 
 /** Not sure if this is a good object to have. */
@@ -56,5 +56,5 @@ object TextGraphic
 case class TextOutline(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, lineWidth: Double = 1.0,
   align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic, zOrder: Int = 0) extends PaintElem
 { override def fTrans(f: Vec2 => Vec2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
 }

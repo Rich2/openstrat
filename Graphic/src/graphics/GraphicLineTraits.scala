@@ -6,7 +6,7 @@ case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, 
 { def typeStr: String = "LineDraw"
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, width, dashLength, gapLength, colour)
-  override def rendElem(cp: CanvasPlatform): Unit = cp.lineDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineDraw(this)
 }
 
 object LineDraw
@@ -19,7 +19,7 @@ object LineDraw
 /** I think its to better to use the mame lineWidth consistently. */
 case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintElem
 { override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
-  override def rendElem(cp: CanvasPlatform): Unit = cp.linesDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linesDraw(this)
 }
 
 object LinesDraw
@@ -34,14 +34,14 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
   def yStart = path.yStart
   override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(path.fTrans(f), lineWidth, colour)
   @inline def foreachEnd(f: (Double, Double) => Unit): Unit = path.foreachEnd(f)
-  override def rendElem(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 }
 
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double])
   extends CurveLikePaintElem
 { def typeStr: String = "DashedLineDraw"
   override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
-  override def rendElem(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
 }
 
 object DashedLineDraw

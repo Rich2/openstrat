@@ -12,10 +12,13 @@ import geom._, Colour._
  *  terms of the imperative methods of this application. Use one of the provided classes like CanvasNoPanels or Canvas Panelled or create your own if
  *  the provided classes don't fullfil your needs. */
 trait CanvasPlatform extends RectGeom
-{ /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
+{
+  /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
   var mouseUp: (Vec2, MouseButton) => Unit = (v, b) => {}
+
   /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command */
   var mouseDown: (Vec2, MouseButton) => Unit = (v, b) => {}
+
   var mouseMoved: (Vec2, MouseButton) => Unit = (v, b) => {}
   var mouseDragged: (Vec2, MouseButton) => Unit = (v, b) => {}
   var keyDown: (String) => Unit = (s) => {}
@@ -23,16 +26,20 @@ trait CanvasPlatform extends RectGeom
   var onScroll: Boolean => Unit = b => {}
   var resize: () => Unit = () => {}
   def clip(pts: Polygon): Unit
+
   /** Returns the system (Unix) time in milliseconds. */
   def getTime: Long
+
   /** A callback timer with an elapsed time from a given start point. Although are in a general purpose form, the most common usage is for animations
    *   where things move dependent on how much time has passed. The function is of form: (elapsedTime(in milliseconds), Startime (in
    *   milliseconds) => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed. */
   def frame(f: (Integer, Integer) => Unit, startTime: Integer, frameLength: Integer = 15): Unit =
     timeOut(() => f(getTime.toInt - startTime, startTime), frameLength)
+
   /** The initial frame although are in a general purpose form, the most common usage is for animations where things move dependent on how much time
    *   has passed. */
   def startFrame(f: (Integer, Integer) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime.toInt)
+
   /** A call back timer. Takes the delay in milliseconds */
   def timeOut(f: () => Unit, millis: Integer): Unit
   
@@ -119,6 +126,6 @@ trait CanvasPlatform extends RectGeom
   def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
     
-  def rendElemsOld(elems: ArrOld[PaintElem]): Unit = elems.foreach(_.rendElem(this))
-  def rendElems(elems: Refs[PaintElem]): Unit = elems.foreach(_.rendElem(this))
+  @deprecated def rendElemsOld(elems: ArrOld[PaintElem]): Unit = elems.foreach(_.rendToCanvas(this))
+  def rendElems(elems: Refs[PaintElem]): Unit = elems.foreach(_.rendToCanvas(this))
 }

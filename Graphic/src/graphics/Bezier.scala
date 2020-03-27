@@ -29,7 +29,7 @@ case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double,
 { def typeStr: String = "BezierDraw"
   //def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 
   override def fTrans(f: Vec2 => Vec2): BezierDraw = BezierDraw(f(pStart), f(pC1),f(pC2), f(pEnd), lineWidth, colour)
-  override def rendElem(cp: pCanv.CanvasPlatform): Unit = cp.bezierDraw(this)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.bezierDraw(this)
 }
 
 /** Companion object for the BezierDraw class. */
