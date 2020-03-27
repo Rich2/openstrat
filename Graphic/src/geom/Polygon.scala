@@ -51,8 +51,8 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillDrawTextActive(fillColour: Colour, evObj: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black): PolyAll =
     PolyAll(this, evObj, fillColour,str, fontSize, lineWidth, lineColour)
 
-  def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24): GraphicElems =
-    Refs(PolyFillText(this, fillColour,str, fontSize), PolyActiveOnly(this, pointerEv))
+  def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24): PolyFillTextActive =
+    PolyFillTextActive(this, pointerEv, fillColour,str, fontSize)
 
   def parentFill(evObj: Any, fillColour: Colour): PolyParent = PolyParent.fill(this.polyCentre, this, evObj, fillColour)
 
@@ -98,7 +98,6 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
     (insertionPoint until length).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
     res
   }
-
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 }

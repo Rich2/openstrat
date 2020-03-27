@@ -11,6 +11,7 @@ trait GraphicActive extends GraphicBounded
 
   /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
   def ptInside(pt: Vec2): Boolean
+  override def fTrans(f: Vec2 => Vec2): GraphicActive
 }
 
 /** An active transparent pointable polygon */

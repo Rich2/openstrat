@@ -102,3 +102,9 @@ object PolyFillDrawText
   Persist6("PolyFill", "poly", _.poly, "fillColour", _.fillColour, "str", _.str, "fontSize", _.fontSize, "lineWidth", _.lineWidth,
     "lineColour", _.lineColour, apply)
 }
+
+case class PolyFillTextActive(poly: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolyElem with PolyActive
+{ override def fTrans(f: Vec2 => Vec2): PolyFillTextActive = PolyFillTextActive(poly.fTrans(f), pointerId, fillColour, str, fontSize)
+  def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, Black, CenAlign)
+  override def rendElem(cp: pCanv.CanvasPlatform): Unit = { cp.polyFill(poly, fillColour); cp.textGraphic(textOnly) }
+}
