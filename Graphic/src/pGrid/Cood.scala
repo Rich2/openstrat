@@ -8,13 +8,19 @@ import geom._
  *  for a Hex Grid except that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile
  *  sides. The axis are named xi and yi to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the
  *  Cood components and the Vec2 components. */
-final case class Cood(val xi: Int, val yi: Int) extends ProdInt2
+final class Cood(val xi: Int, val yi: Int) extends ProdInt2
 { //def typeSym = 'Cood
   def _1 = xi
   def _2 = yi
   def xyStr: String = xi.toString + ", " + yi.toString
   def yxStr: String = yi.toString + ", " + xi.toString
   def fXY[A](f: (Int, Int) => A): A = f(xi, yi)
+
+  override def equals(that: Any): Boolean = that match
+  { case op: Cood if xi == op.xi & yi == op.yi => true
+    case _ => false
+  }
+  
   def canEqual(a: Any) = a.isInstanceOf[Cood]
   def eqXY(x: Int, y: Int): Boolean = this == Cood(x, y)
   def +(operand: Cood): Cood = Cood(xi + operand.xi, yi + operand.yi)
@@ -33,6 +39,11 @@ final case class Cood(val xi: Int, val yi: Int) extends ProdInt2
   def evenSum: Boolean = xi.isOdd & yi.isOdd | xi.isEven & yi.isEven
   /** x.isOdd & y.isEven | x.isEven & y.isOdd */
   def oddSum: Boolean = xi.isOdd & yi.isEven | xi.isEven & yi.isOdd
+}
+
+object CoodNew
+{ def apply(yi: Int, xi: Int): Cood = new Cood(yi, xi)
+  def unapply(tc: Cood): Option[(Int, Int)] = Some((tc.xi, tc.yi))
 }
 
 object Cood
