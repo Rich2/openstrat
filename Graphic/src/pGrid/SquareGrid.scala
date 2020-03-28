@@ -12,7 +12,7 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0
   def numOfTiles: Int = numOfRows * rowTileLen
 
-  override def tilesCoodsForeach(f: Cood => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(cTileMin, cTileMax, 2)((y, x) => f(Cood(x, y)))
+  override def foreachTileCood(f: Cood => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(cTileMin, cTileMax, 2)((y, x) => f(Cood(x, y)))
   @inline override def index(c: Int, y: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
 
   @inline override def sideCoodsOfTile(tileCood: Cood): Coods = SquareGrid.sideCoodsOfTile(tileCood)
@@ -21,7 +21,7 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   override def xRight: Double = cTileMax + 1
   override def top: Double = yTileMax + 1
   override def bottom: Double = yTileMin - 1
-  override def vertCoodsOfTile(cood : Cood): Coods = SquareGrid.vertCoodsOfTile(cood)
+  override def tileVertCoods(cood : Cood): Coods = SquareGrid.vertCoodsOfTile(cood)
 }
 
 object SquareGrid
