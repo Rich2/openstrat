@@ -125,6 +125,8 @@ trait TileGrid
   def tilesCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     tilesMap { cood => f(cood, coodToVec2(cood, scale, relPosn)) }
 
+  def tileVertCoods(cood: Cood): Coods = ???
+
   /** Creates a new uninitialised Arr of the grid length. */
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
 

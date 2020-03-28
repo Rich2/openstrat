@@ -7,9 +7,9 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
 { var statusText = "Stuff"
   val grid = OneGrid.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
-  val uts = grid.tilesSomeMap(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
+  val units = grid.tilesSomeMap(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
   def thisTop(): Unit = reTop(Refs(status))
-  thisTop()
+
 
   mainMouseUp =
     { case (LeftButton, cl, v) =>
@@ -19,5 +19,6 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
       }
       case _ => deb("Hi")
     }
-  mainRepaint(cenSideVertCoodText(grid, scale) ++ uts)
+  thisTop()
+  mainRepaint(cenSideVertCoodText(grid, scale) ++ units)
 }
