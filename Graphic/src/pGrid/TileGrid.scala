@@ -120,7 +120,6 @@ trait TileGrid
   def mapTileCoodVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
     ArrT = mapTileCoods { cood => f(cood, coodToVec2(cood, scale, relPosn)) }
 
-
   def mapPolygons[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     mapTileCoods{ cood =>
       val vcs = tileVertCoods(cood)
