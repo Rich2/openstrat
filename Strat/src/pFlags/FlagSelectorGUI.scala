@@ -76,7 +76,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   mouseUp = (button: MouseButton, clickList, v) => button match
   { case LeftButton => clickList match
-    { case List( MButtonCmd( cmd ) ) => cmd.apply( button )
+    { case List( MouseButtonCmd( cmd ) ) => cmd.apply( button )
       case List( flagIndex ) =>
         { val thisFlag = flagIndex.toString.toInt
           selectedIndex = if (selectedIndex != -1) -1 else thisFlag

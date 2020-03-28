@@ -6,6 +6,8 @@ package geom
  *  each time there is a change within the application state or the user view of that application state. */
 trait GraphicElem extends Transer
 
+/** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
+ *  graphics. */
 trait GraphicBounded extends GraphicElem
 { /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect

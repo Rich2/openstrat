@@ -21,7 +21,7 @@ case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover
   def repaints(els: GraphicElem*): Unit = repaint(els.toRefs)
 }
 
-case class MButtonCmd(cmd: MouseButton => Unit)
+case class MouseButtonCmd(cmd: MouseButton => Unit)
 { @inline def apply(mb: MouseButton): Any = cmd(mb)
 }
 

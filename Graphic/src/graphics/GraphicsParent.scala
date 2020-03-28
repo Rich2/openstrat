@@ -5,7 +5,10 @@ package geom
  *  margin space. Not sure about the name. not sure if the trait is useful. */
 trait GraphicParent extends GraphicElem with GraphicActive
 { def cen: Vec2
-  def elems: Refs[PaintElem]
+
+  /** The type of children can probably be widened in the future. */
+  def children: Refs[PaintElem]
+  
   def topLeft: GraphicParent = this.slate(- boundingRect.topLeft)
   def topRight: GraphicParent = this.slate(- boundingRect.topRight)
   def bottomLeft: GraphicParent = this.slate(- boundingRect.bottomLeft)

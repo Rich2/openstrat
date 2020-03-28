@@ -13,7 +13,7 @@ package object pCanv
 
   /** A button to react to different mouse buttons. The length varies with the String. */
   def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
-    Rectangle.curvedCornersCentred((str.length + 1).max(2) * 17, 30, 5).allElems(MButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
+    Rectangle.curvedCornersCentred((str.length + 1).max(2) * 17, 30, 5).allElems(MouseButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
 
   /** A button to react to different mouse buttons. The length is fixed regardless of the length of the String. */
   def clickButtonStd(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
