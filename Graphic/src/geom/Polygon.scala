@@ -36,6 +36,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
    
   def fill(fillColour: Colour): PolyFill = PolyFill(this, fillColour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolyDraw = PolyDraw(this, lineWidth, lineColour)
+  def active(id: Any): PolyActiveOnly = PolyActiveOnly(this, id)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolyDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolyFillDraw =
     PolyFillDraw(this, fillColour, lineWidth, lineColour)

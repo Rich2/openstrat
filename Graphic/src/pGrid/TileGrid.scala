@@ -117,8 +117,16 @@ trait TileGrid
 
   /** Maps all the Tile Coods and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
-  def mapTileCoodVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    mapTileCoods { cood => f(cood, coodToVec2(cood, scale, relPosn)) }
+  def mapTileCoodVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
+    ArrT = mapTileCoods { cood => f(cood, coodToVec2(cood, scale, relPosn)) }
+
+
+  def mapPolygons[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+    mapTileCoods{ cood =>
+      val vcs = tileVertCoods(cood)
+      val vvs = vcs.map(c => coodToVec2(c, scale, relPosn) )
+      f(cood, vvs.toPolygon)
+    }
 
   /** Creates a new uninitialised Arr of the grid length. */
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
@@ -148,8 +156,6 @@ trait TileGrid
 
   /** The Coods of the vertices of a tile, from its centre Cood. */
   def tileVertCoods(cood: Cood): Coods
-
-
 
   def setTile[A <: AnyRef](cood: Cood, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(cood), value)
   def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(xi, yi), value)

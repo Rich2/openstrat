@@ -1,6 +1,6 @@
 package ostrat
 package gOne
-import pCanv._, geom._
+import pCanv._, geom._, pGrid._
 
 /** Graphical user interface for GOne example game. */
 case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
@@ -8,6 +8,7 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
   val grid = OneGrid.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val units = grid.mapArrTileOptRefwithVec(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
+  val tiles: GraphicElems = grid.mapPolygons(scale){(c: Cood, p: Polygon) => p.active(c) }
   def thisTop(): Unit = reTop(Refs(status))
 
 
@@ -20,5 +21,5 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
       case _ => deb("Hi")
     }
   thisTop()
-  mainRepaint(cenSideVertCoodText(grid, scale) ++ units)
+  mainRepaint(tiles ++ cenSideVertCoodText(grid, scale) ++ units)
 }
