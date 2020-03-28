@@ -19,7 +19,11 @@ trait HexGrid extends TileGrid
   def bottom: Double = yTileMin - HexGrid.yDist2
   override def sideCoodToCoodLine(sideCood: Cood): CoodLine = HexGrid.sideCoodToCoodLine(sideCood)
   override def tileVertCoods(cood: Cood): Coods = HexGrid.vertCoodsOfTile(cood)
-  //override def tileVertCoods(cood: Cood): Coods = HexGrid.vertCoodsOfTile(cood)
+  def activeTiles(scale: Double, relPosn: Vec2 = Vec2Z): Refs[PolyActiveOnly] = mapTileCoods{cood =>
+    val vcs = tileVertCoods(cood)
+    val vvs = vcs.map(c => coodToVec2(c, scale, relPosn) )
+    vvs.toPolygon.active(cood.toHexTile)
+  }
 }
 
 object HexGrid
