@@ -60,15 +60,15 @@ trait TileGrid
   }*/
 
   /** foreachs over each tile's centre Cood. */
-  def foreachTileCood(f: Cood => Unit): Unit
+  def foreachCood(f: Cood => Unit): Unit
 
   /** Foreach grid Row yi coordinate. */
-  def tileRowsForeach(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
+  def ForeachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
   /** Maps from all tile Coods to an Arr of A. The Arr produced can be accessed by its Cood from this grid Class. */
   def mapTileCoods[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
-    foreachTileCood{ cood =>
+    foreachCood{ cood =>
       build.imutSet(res, index(cood), f(cood))
     }
     res
@@ -78,7 +78,7 @@ trait TileGrid
     (implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
-    foreachTileCood { cood =>
+    foreachCood { cood =>
       val op: OptRef[A] = inp(index(cood))
       op.foreach { a =>
         val v = coodToVec2(cood, scale, relPosn)
@@ -90,16 +90,16 @@ trait TileGrid
 
   /** flatMaps from all tile Coods to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
-  def flatMapTileCoods[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  def flatMapCoods[ArrT <: ArrImut[_]](f: Cood => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
-    foreachTileCood{ cood => build.buffGrowArr(buff, f(cood))}
+    foreachCood{ cood => build.buffGrowArr(buff, f(cood))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Coods to an Arr of type ArrT, removing all duplicate elements. */
   def flatUniqueMapTiles[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
-    foreachTileCood { cood =>
+    foreachCood { cood =>
       val newVals = f(cood)
       newVals.foreach{newVal =>
       if (!buff.contains(newVal)) build.buffGrow(buff, newVal) }
@@ -108,11 +108,11 @@ trait TileGrid
   }
 
   /** foreachs over each tile centre Vec2. */
-  def foreachTileVec(f: Vec2 => Unit): Unit = foreachTileCood(c => f(coodToVec2(c)))
+  def foreachVec(f: Vec2 => Unit): Unit = foreachCood(c => f(coodToVec2(c)))
 
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
-  def mapTileVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     mapTileCoods { cood => f(coodToVec2(cood, scale, relPosn)) }
 
   /** Maps all the Tile Coods and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
@@ -173,7 +173,7 @@ trait TileGrid
 
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
 
-  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = flatMapTileCoods { cood =>
+  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = flatMapCoods { cood =>
     val c1: Coods = sideCoodsOfTile(cood)
     val c2s: Line2s = c1.map(orig => sideCoodToLine(orig, scale, relPosn))
     c2s
@@ -191,7 +191,8 @@ trait TileGrid
 
   def sidesForeach(f: Cood => Unit): Unit = sideCoods.foreach(f)
 
-  def sidesMapCoodWithVec[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+  /** maps all tile-sides Cood with its Vec2 to an Arr[A]. */
+  def sidesMapCoodVec[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     sideCoods.map(c => f(c, coodToVec2(c, scale, relPosn)))
 
 /**************************************************************************************************/
