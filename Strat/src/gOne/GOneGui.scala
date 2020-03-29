@@ -17,7 +17,7 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
         statusText = selected.headToStringElse("Nothing Selected")
         thisTop()
       }
-      case _ => deb("Hi")
+      case _ => deb("Other")
     }
   thisTop()
   mainRepaint(tiles ++ cenSideVertCoodText(grid, scale) ++ units)

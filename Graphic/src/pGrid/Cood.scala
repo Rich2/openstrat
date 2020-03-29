@@ -72,5 +72,10 @@ case class HexTile(r: Int, xi: Int) extends Tile
   override def toString: String = "Tile".appendParenthSemis(r.toString, xi.toString)
 }
 
-class HexStep(val cood: Cood)
-object HStepUR extends HexStep(2 cc 2)
+class HTStep(val x: Int, y: Int)
+object HTStepUR extends HTStep(2, 2)
+object HTStepRt extends HTStep(4, 0)
+object HTStepDR extends HTStep(2, -2)
+object HTStepDL extends HTStep(-2, -2)
+object HTStepLt extends HTStep(-4, 0)
+object HTStepUL extends HTStep(-2, 2)
