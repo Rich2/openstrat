@@ -33,5 +33,6 @@ package object pGrid
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct  Cood notation. */
     def cc (y: Int): Cood = Cood(thisInt, y)
+    def rr (c: Int): Roord = Roord(thisInt, c)
   }
 }
