@@ -7,7 +7,7 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
 { var statusText = "Stuff"
   val grid = OneGrid.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
-  val units = grid.mapArrTileOptRefwithVec(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
+  val units = grid.mapArrOptRefVec(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
   val tiles = grid.activeTiles(scale)
   def thisTop(): Unit = reTop(Refs(status))
 

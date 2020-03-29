@@ -47,18 +47,6 @@ trait TileGrid
 /**************************************************************************************************/
 /* Methods that foreach, map, flatMap and fold over all the tiles of the tile grid. */
 
-  /** maps over an array of tile data with each tiles associated centre Vec2. */
-  /*def mapArrWithVecs[A, B, BB <: ArrImut[B]](arr: ArrayLike[A])(f: (A, Vec2) => B)(implicit build: ArrBuild[B, BB]): BB =
-  {
-    val res = build.imutNew(arr.length)
-    var count = 0
-    foreachTileVec{ v =>
-      res.unsafeSetElem(count, f(arr(count), v))
-      count += 1
-    }
-    res
-  }*/
-
   /** foreachs over each tile's centre Cood. */
   def foreachCood(f: Cood => Unit): Unit
 
@@ -66,7 +54,7 @@ trait TileGrid
   def ForeachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
   /** Maps from all tile Coods to an Arr of A. The Arr produced can be accessed by its Cood from this grid Class. */
-  def mapTileCoods[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def mapCoods[A, ArrT <: ArrImut[A]](f: Cood => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
     foreachCood{ cood =>
       build.imutSet(res, index(cood), f(cood))
@@ -74,7 +62,7 @@ trait TileGrid
     res
   }
 
-  def mapArrTileOptRefwithVec[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (A, Vec2) => B)
+  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (A, Vec2) => B)
     (implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
@@ -97,7 +85,7 @@ trait TileGrid
   }
 
   /** flatmaps from all tile Coods to an Arr of type ArrT, removing all duplicate elements. */
-  def flatUniqueMapTiles[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def flatMapCoodsNoDupicates[A, ArrT <: ArrImut[A]](f: Cood => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
     foreachCood { cood =>
       val newVals = f(cood)
@@ -113,15 +101,15 @@ trait TileGrid
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
   def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    mapTileCoods { cood => f(coodToVec2(cood, scale, relPosn)) }
+    mapCoods { cood => f(coodToVec2(cood, scale, relPosn)) }
 
   /** Maps all the Tile Coods and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
-  def mapTileCoodVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
-    ArrT = mapTileCoods { cood => f(cood, coodToVec2(cood, scale, relPosn)) }
+  def mapCoodVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
+    ArrT = mapCoods { cood => f(cood, coodToVec2(cood, scale, relPosn)) }
 
   def mapPolygons[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    mapTileCoods{ cood =>
+    mapCoods{ cood =>
       val vcs = tileVertCoods(cood)
       val vvs = vcs.map(c => coodToVec2(c, scale, relPosn) )
       f(cood, vvs.toPolygon)
@@ -140,8 +128,8 @@ trait TileGrid
   /** Returns the index of an Array from its tile coordinate. */
   @inline final def index(cood: Cood): Int = index(cood.xi, cood.yi)
 
-  /** Sets element in a flat Arr according to its Cood. */
-  def setElem[A](cood: Cood, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(cood), value)
+  /** Sets element in a flat Tiles Arr according to its Cood. */
+  def setTile[A](cood: Cood, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(cood), value)
 
   /** Converts Cood to a Vec2. For a square grid this will be a simple 1 to 1 map. It is called coodToVec2Abs because most of the time, you will want
    * the Vec2 relative to the TileGrid centre. */
@@ -161,15 +149,11 @@ trait TileGrid
 
   def setTileSome[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: OptRefs[A]): Unit = arr.setSome(index(x, y), value)
 
-  /** Not sure what this does. */
-  def vertsCoodVecMap[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    vertCoods.map(c => f(c, coodToVec2(c, scale, relPosn)))
-
   /**************************************************************************************************/
   /* Methods that operate on tile sides. */
 
   /** Gives all the sideCoods of the grid with out duplicates. */
-  def sideCoods: Coods = flatUniqueMapTiles[Cood, Coods] { cood => sideCoodsOfTile(cood) }
+  def sideCoods: Coods = flatMapCoodsNoDupicates[Cood, Coods] { cood => sideCoodsOfTile(cood) }
 
   def sideCoodToCoodLine(sideCood: Cood): CoodLine
 
@@ -198,5 +182,9 @@ trait TileGrid
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
-  def vertCoods: Coods = flatUniqueMapTiles[Cood, Coods] { cood => tileVertCoods(cood) }
+  /** maps all tile-vertices Cood with its Vec2 to an Arr[A]. */
+  def vertsMapCoodVec[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Cood, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+    vertCoods.map(c => f(c, coodToVec2(c, scale, relPosn)))
+
+  def vertCoods: Coods = flatMapCoodsNoDupicates[Cood, Coods] { cood => tileVertCoods(cood) }
 }
