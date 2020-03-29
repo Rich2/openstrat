@@ -47,7 +47,7 @@ object Coods extends ProductI2sCompanion[Cood, Coods]
   { override def fromArray(value: Array[Int]): Coods = new Coods(value)
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuild[Coods] = Cood.cood2sBuildImplicit
+  implicit val arrArrayImplicit: ArrFlatBuild[Coods] = Cood.coodsBuildImplicit
 }
 
 class CoodBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[Cood, Coods]
