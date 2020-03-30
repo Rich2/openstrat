@@ -56,3 +56,8 @@ object HTStepDR extends HTStepSome(-2, 2)
 object HTStepDL extends HTStepSome(-2, -2)
 object HTStepLt extends HTStepSome(0, -4)
 object HTStepUL extends HTStepSome(2, -2)
+
+trait TileMem[A]
+{ val rd: Roord
+  val value: A
+}
