@@ -3,11 +3,11 @@ package pGrid
 
 /* A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
 * where the y coordinate divided by 4 has a remainder of 2. */
-case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int) extends HexGrid with TileGridReg
+case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends HexGrid with TileGridReg
 {
   override def numOfRows: Int = numOfRow2s + numOfRow0s
 
-  //def coodToVec2Rel(cood: Cood): Vec2 = coodToVec2(cood) - cen
+  //def roordToVec2Rel(roord: Roord): Vec2 = roordToVec2(roord) - cen
 
   /* Override methods */
 
@@ -46,7 +46,7 @@ case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
 
-  @inline override def index(c: Int, y: Int): Int =
+  @inline override def index(y: Int, c: Int): Int =
   {
     val thisRow: Int = y %% 4 match
     { case 2 => (c - cRow2sMin) / 4
@@ -57,8 +57,8 @@ case class HexGridReg(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
     y0s + y2s + thisRow
   }
 
-  override def foreachCood(f: Cood => Unit): Unit =
-  { ijToForeach(yRow2sMin, yRow2sMax, 4)(cRow2sMin, cRow2sMax, 4)((y, x) => f(Cood(x, y)))
-    ijToForeach(yRow0sMin, yRow0sMax, 4)(cRow0sMin, cRow0sMax, 4)((y, x) => f(Cood(x, y)))
+  override def foreachRoord(f: Roord => Unit): Unit =
+  { ijToForeach(yRow2sMin, yRow2sMax, 4)(cRow2sMin, cRow2sMax, 4)((y, c) => f(Roord(y , c)))
+    ijToForeach(yRow0sMin, yRow0sMax, 4)(cRow0sMin, cRow0sMax, 4)((y, c) => f(Roord(y, c)))
   }
 }

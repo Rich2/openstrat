@@ -20,5 +20,5 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
       case _ => deb("Other")
     }
   thisTop()
-  mainRepaint(tiles ++ cenSideVertCoodText(grid, scale) ++ units)
+  mainRepaint(tiles)// ++ cenSideVertCoodText(grid, scale) ++ units)
 }

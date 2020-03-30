@@ -27,7 +27,7 @@ object Irr1Test  extends TestSuite
 
     "Sides" -
     {
-      g.sideCoods.length ==> 36
+      g.sideRoords.length ==> 36
     }
    }
 }

@@ -40,7 +40,7 @@ final class Cood(val xi: Int, val yi: Int) extends ProdInt2
   def evenSum: Boolean = xi.isOdd & yi.isOdd | xi.isEven & yi.isEven
   /** x.isOdd & y.isEven | x.isEven & y.isOdd */
   def oddSum: Boolean = xi.isOdd & yi.isEven | xi.isEven & yi.isOdd
-  def toHexTile: HexTile = HexTile(yi, xi)
+
 }
 
 object CoodNew
@@ -60,22 +60,3 @@ object Cood
     override def fromIntBuffer(inp: Buff[Int]): CoodBuff = new CoodBuff(inp)
   }
 }
-
-trait Tile
-{
-  def r: Int
-  def xi: Int
-}
-
-case class HexTile(r: Int, xi: Int) extends Tile
-{
-  override def toString: String = "Tile".appendParenthSemis(r.toString, xi.toString)
-}
-
-class HTStep(val x: Int, y: Int)
-object HTStepUR extends HTStep(2, 2)
-object HTStepRt extends HTStep(4, 0)
-object HTStepDR extends HTStep(2, -2)
-object HTStepDL extends HTStep(-2, -2)
-object HTStepLt extends HTStep(-4, 0)
-object HTStepUL extends HTStep(-2, 2)

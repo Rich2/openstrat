@@ -19,6 +19,8 @@ final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
   def addC(operand: Int): Roord = Roord(y, c + operand)
   def subY(operand: Int): Roord = Roord(y - operand, c)
   def subC(operand: Int): Roord = Roord(y, c - operand)
+
+  def toHexTile: HexTile = HexTile(y, c)
 }
 
 object Roord
@@ -33,3 +35,23 @@ object Roord
     override def fromIntBuffer(inp: Buff[Int]): RoordBuff = new RoordBuff(inp)
   }
 }
+
+
+trait Tile
+{
+  def r: Int
+  def xi: Int
+}
+
+case class HexTile(r: Int, xi: Int) extends Tile
+{
+  override def toString: String = "Tile".appendParenthSemis(r.toString, xi.toString)
+}
+
+class HTStep(val y: Int, c: Int)
+object HTStepUR extends HTStep(2, 2)
+object HTStepRt extends HTStep(0, 4)
+object HTStepDR extends HTStep(-2, 2)
+object HTStepDL extends HTStep(-2, -2)
+object HTStepLt extends HTStep(0, -4)
+object HTStepUL extends HTStep(2, -2)
