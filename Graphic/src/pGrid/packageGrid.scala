@@ -32,7 +32,13 @@ package object pGrid
   
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct  Cood notation. */
-    def cc (y: Int): Cood = Cood(thisInt, y)
+    @deprecated def cc (y: Int): Cood = Cood(thisInt, y)
     def rr (c: Int): Roord = Roord(thisInt, c)
+  }
+
+  implicit class OptRefImplicit[A <: AnyRef](arr: OptRefs[A])
+  {
+    def gridSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.setSome(grid.index(y, c), value)
+    def gridSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.setSome(grid.index(t._1, t._2), t._3))
   }
 }

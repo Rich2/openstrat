@@ -10,10 +10,8 @@ trait OneGrid
 
 object OneGrid1 extends OneGrid
 {
-  val grid = new HexGridReg(2, 6, 2, 10)
-  implicit val players: OptRefs[Player] = grid.newOptRefs[Player]
-  grid.setTileSome[Player](4, 4, PlayerA)
-  grid.setTileSome[Player](4, 8, PlayerB)
-  grid.setTileSome[Player](6, 10, PlayerC)
-
+  implicit val grid = new HexGridReg(2, 6, 2, 10)
+  val players: OptRefs[Player] = grid.newOptRefs[Player]
+  players.gridSetSome(4, 4, PlayerA)
+  players.gridSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }

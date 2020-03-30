@@ -12,6 +12,4 @@ package object gOne
 
     cenTexts +- sls ++ sideTexts ++ vertTexts
   }
-
-  //implicit class
 }
