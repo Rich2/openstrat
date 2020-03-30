@@ -54,7 +54,7 @@ trait TileGrid
   def ForeachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
-  def mapRoords[A, ArrT <: ArrImut[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def map[A, ArrT <: ArrImut[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
     foreachRoord{ roord =>
       build.imutSet(res, index(roord), f(roord))
@@ -78,7 +78,7 @@ trait TileGrid
 
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
-  def flatMapRoords[ArrT <: ArrImut[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  def flatMap[ArrT <: ArrImut[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
     foreachRoord{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)
@@ -101,20 +101,25 @@ trait TileGrid
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
   def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    mapRoords { roord => f(roordToVec2(roord, scale, relPosn)) }
+    map { roord => f(roordToVec2(roord, scale, relPosn)) }
 
   /** Maps all the Tile Roords and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
   def mapRoordVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
-    ArrT = mapRoords { roord => f(roord, roordToVec2(roord, scale, relPosn)) }
+    ArrT = map { roord => f(roord, roordToVec2(roord, scale, relPosn)) }
 
   def mapPolygons[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    mapRoords{ roord =>
+    map{ roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToVec2(c, scale, relPosn) )
       f(roord, vvs.toPolygon)
     }
 
+  def activeTiles(scale: Double, relPosn: Vec2 = Vec2Z): Refs[PolyActiveOnly] = map{ roord =>
+    val vcs = tileVertRoords(roord)
+    val vvs = vcs.map(r => roordToVec2(r, scale, relPosn) )
+    vvs.toPolygon.active(roord.toHexTile)
+  }
   /** Creates a new uninitialised Arr of the grid length. */
   def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
 
@@ -157,7 +162,7 @@ trait TileGrid
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine
 
-  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = flatMapRoords { roord =>
+  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
     val c2s: Line2s = c1.map(orig => sideRoordToLine(orig, scale, relPosn))
     c2s

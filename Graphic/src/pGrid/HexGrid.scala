@@ -18,11 +18,6 @@ trait HexGrid extends TileGrid
   def bottom: Double = yTileMin - HexGrid.yDist2
   override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = HexGrid.sideRoordToRoordLine(sideRoord)
   override def tileVertRoords(roord: Roord): Roords = HexGrid.vertRoordsOfTile(roord)
-  def activeTiles(scale: Double, relPosn: Vec2 = Vec2Z): Refs[PolyActiveOnly] = mapRoords{ roord =>
-    val vcs = tileVertRoords(roord)
-    val vvs = vcs.map(r => roordToVec2(r, scale, relPosn) )
-    vvs.toPolygon.active(roord.toHexTile)
-  }
 }
 
 object HexGrid
