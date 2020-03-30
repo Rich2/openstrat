@@ -8,6 +8,7 @@ final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
   def _2 = c
   def canEqual(a: Any) = a.isInstanceOf[Roord]
   override def toString: String = "Roord".appendSemicolons(y.toString, c.toString)
+  def ycStr: String = y.str.appendCommas(c.str)
   def + (operand: Roord): Roord = Roord(y + operand.y, c + operand.c)
   def -(operand: Roord): Roord = Roord(y - operand.y, c - operand.c)
   def *(operand: Int): Roord = Roord(y * operand, c * operand)

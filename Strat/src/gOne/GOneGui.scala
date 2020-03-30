@@ -9,6 +9,7 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val units = grid.mapArrOptRefVec(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
   val tiles = grid.activeTiles(scale)
+  val sides = cenSideVertCoodText(grid, scale)
   def thisTop(): Unit = reTop(Refs(status))
 
   mainMouseUp =
@@ -20,5 +21,5 @@ case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
       case _ => deb("Other")
     }
   thisTop()
-  mainRepaint(tiles)// ++ cenSideVertCoodText(grid, scale) ++ units)
+  mainRepaint(tiles ++ sides ++ units)// ++  ++ units)
 }

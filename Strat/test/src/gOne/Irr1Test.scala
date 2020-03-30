@@ -14,14 +14,14 @@ object Irr1Test  extends TestSuite
       g.yTileMax ==> 8
       g.cTileMin ==> 2
       g.cTileMax ==> 10
-      g.xRowStart(2) ==> 2
-      g.xRowLen(2) ==> 3
-      g.xRowEnd(2) ==> 10
-      g.xRowLen(4) ==> 2
-      g.xRowLen(6) ==> 1
-      g.xRowEnd(6) ==> 6
-      g.xRowLen(8) ==> 2
-      g.xRowEnd(8) ==> 8
+      g.cRowStart(2) ==> 2
+      g.cRowLen(2) ==> 3
+      g.cRowEnd(2) ==> 10
+      g.cRowLen(4) ==> 2
+      g.cRowLen(6) ==> 1
+      g.cRowEnd(6) ==> 6
+      g.cRowLen(8) ==> 2
+      g.cRowEnd(8) ==> 8
       g.numOfTiles ==> 8
     }
 

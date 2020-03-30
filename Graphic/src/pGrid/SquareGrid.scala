@@ -3,7 +3,7 @@ package pGrid
 import geom._
 
 /** Currently all SquareGrids are regular. */
-case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int) extends TileGridReg
+case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends TileGridReg
 {
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
   override def roordToVec2Abs(roord: Roord): Vec2 = Vec2(roord.c, roord.y)
@@ -12,8 +12,8 @@ case class SquareGrid(cTileMin: Int, cTileMax: Int, yTileMin: Int, yTileMax: Int
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0
   def numOfTiles: Int = numOfRows * rowTileLen
 
-  override def foreachRoord(f: Roord => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(cTileMin, cTileMax, 2)((y, x) => f(Roord(x, y)))
-  @inline override def index(c: Int, y: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
+  override def foreachRoord(f: Roord => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(cTileMin, cTileMax, 2)((y, c) => f(Roord(y, c)))
+  @inline override def index(y: Int, c: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
 
   @inline override def sideRoordsOfTile(tileRoord: Roord): Roords = SquareGrid.sideRoordsOfTile(tileRoord)
 

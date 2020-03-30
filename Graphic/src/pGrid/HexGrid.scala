@@ -47,8 +47,8 @@ object HexGrid
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
   //override def sideRoordToRoordLine(sideRoord: Roord): ostrat.pGrid.RoordLine = HexGrid.sideRoordToRoordLine(sideRoord)
 
-  def sideRoordToRoordLine(x: Int, y: Int): RoordLine = fOrientation(x, y, RoordLine(x - 1, y, x + 1, y), RoordLine(x, y + 1, x, y - 1),
-    RoordLine(x + 1, y, x - 1, y))
+  def sideRoordToRoordLine(y: Int, c: Int): RoordLine = fOrientation(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
+    RoordLine(y, c + 1, y, c - 1))
 
   def roordToVec2Rel(roord: Roord, relPosn: Vec2): Vec2 = roordToVec2(roord.y, roord.c) -relPosn
 
@@ -59,18 +59,18 @@ object HexGrid
   { def x: Double = c * xRatio
     (y %% 4, c %% 4) match
     { case (yr, cr) if yr.isEven && cr.isEven => Vec2(x, y)
-      case (yr, _) if yr.isEven => throw new Exception("Hex Roord " + c.toString -- y.toString + ", y is even but x is odd. This is an invalid HexRoord")
+      case (yr, _) if yr.isEven => throw new Exception("Hex Roord " + y.toString -- c.toString + ", y is even but c is odd. This is an invalid HexRoord")
       case (yr, cr) if cr.isOdd  && yr.isOdd => Vec2(x, y)
       case (1, 0) | (3, 2)  =>  Vec2(x, y + yDist /2)
       case _ => Vec2(x, y - yDist / 2)
     }
   }
 
-  @inline def fOrientation[A](x: Int, y: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
-    (y.div4Rem1 && x.div4Rem1) || (y.div4Rem3 && x.div4Rem3), upRight,
-    (y.div4Rem0 && x.div4Rem2) || (y.div4Rem2 && x.div4Rem0), rightSide,
-    (y.div4Rem1 && x.div4Rem3) || (y.div4Rem3 && x.div4Rem1), downRight,
-    "invalid Hex Side coordinate: " + x.toString.appendCommas(y.toString))
+  @inline def fOrientation[A](y: Int, c: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
+    (y.div4Rem1 && c.div4Rem1) || (y.div4Rem3 && c.div4Rem3), upRight,
+    (y.div4Rem0 && c.div4Rem2) || (y.div4Rem2 && c.div4Rem0), rightSide,
+    (y.div4Rem1 && c.div4Rem3) || (y.div4Rem3 && c.div4Rem1), downRight,
+    "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))
 
   def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
   /** The previous value was 2 / sqrt(3). */
