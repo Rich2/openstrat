@@ -1,8 +1,6 @@
 package ostrat
 package pGrid
-import geom._
-
-import scala.math.sqrt
+import geom._, math.sqrt
 
 trait HexGrid extends TileGrid
 { def cTileMin: Int
@@ -131,31 +129,31 @@ object HexGrid
   def latLongW(pt: Vec2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridW))
 
   val gridA: Int = 1//3.125cm
-val gridB: Int = 2//6.25cm
-val gridC: Int = 4//12.5cm
-val gridD: Int = 8//0.25m
-val gridE: Int = 16//0.5m
-val gridF: Int = 32//1m
-val gridG: Int = 64//2m
-val gridH: Int = 128//4m
-val gridI: Int = 256//8m
-val gridJ: Int = 512//16m
-val gridK: Int = 1024//32m
-val gridL: Int = 2048//64m
-val gridM: Int = 4096//128m
-val gridN: Int = 8192//256m
-val gridO: Int = 16384//512m
-val gridP: Int = 32768//1.024km
-val gridQ: Int = 65536//2.048km
-val gridR: Int = 131072//4.096km
-val gridS: Int = 262144//8.192km
-val gridT: Int = 524288//16.384km
-val gridU: Int = 1048576//32.768km
-val gridV: Int = 2097152//65.536km
-val gridW: Int = 4194304//131.072km
-val gridX: Int = 8388608//266.144km
-val gridY: Int = 16777216//524.288km
-val gridZ: Int = 33554432//1048.576km
+  val gridB: Int = 2//6.25cm
+  val gridC: Int = 4//12.5cm
+  val gridD: Int = 8//0.25m
+  val gridE: Int = 16//0.5m
+  val gridF: Int = 32//1m
+  val gridG: Int = 64//2m
+  val gridH: Int = 128//4m
+  val gridI: Int = 256//8m
+  val gridJ: Int = 512//16m
+  val gridK: Int = 1024//32m
+  val gridL: Int = 2048//64m
+  val gridM: Int = 4096//128m
+  val gridN: Int = 8192//256m
+  val gridO: Int = 16384//512m
+  val gridP: Int = 32768//1.024km
+  val gridQ: Int = 65536//2.048km
+  val gridR: Int = 131072//4.096km
+  val gridS: Int = 262144//8.192km
+  val gridT: Int = 524288//16.384km
+  val gridU: Int = 1048576//32.768km
+  val gridV: Int = 2097152//65.536km
+  val gridW: Int = 4194304//131.072km
+  val gridX: Int = 8388608//266.144km
+  val gridY: Int = 16777216//524.288km
+  val gridZ: Int = 33554432//1048.576km
 
   def gridToGridDist(i: Int): Dist  = Dist(i / 32.0)
   val gridDistU: Dist = gridToGridDist(gridU)

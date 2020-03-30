@@ -50,9 +50,11 @@ case class HexTile(r: Int, xi: Int) extends Tile
 }
 
 class HTStep(val y: Int, c: Int)
-object HTStepUR extends HTStep(2, 2)
-object HTStepRt extends HTStep(0, 4)
-object HTStepDR extends HTStep(-2, 2)
-object HTStepDL extends HTStep(-2, -2)
-object HTStepLt extends HTStep(0, -4)
-object HTStepUL extends HTStep(2, -2)
+object HStepNone extends HTStep(0, 0)
+class HTStepSome(yIn: Int, cIn: Int) extends HTStep(yIn, cIn)
+object HTStepUR extends HTStepSome(2, 2)
+object HTStepRt extends HTStepSome(0, 4)
+object HTStepDR extends HTStepSome(-2, 2)
+object HTStepDL extends HTStepSome(-2, -2)
+object HTStepLt extends HTStepSome(0, -4)
+object HTStepUL extends HTStepSome(2, -2)
