@@ -7,7 +7,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridOld[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax, turnNum) with
     TileGridRegOld[TileT, SideT]
 {
-  override def coodToVec2(cood: Cood): Vec2 = HexGrid.coodToVec2(cood)
+  override def coodToVec2(cood: Cood): Vec2 = HexGridOld.coodToVec2(cood)
   def vertMargin = 2.8
   def horrMargin = 2.2  
   final def left: Double = xTileMin * xRatio - horrMargin
@@ -40,7 +40,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   def sideRowOddLen: Int = (sideRowOddEnd - sideRowOddStart) / 2
   override def tileNum: Int = xRow2Len * yRow2Len + xRow4Len * yRow4Len
   override def sideNum: Int = ???
-  override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGrid.adjTileCoodsOfTile(tileCood)
+  override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGridOld.adjTileCoodsOfTile(tileCood)
   
   val sideArr: Array[SideT] = new Array[SideT](sideArrLen)
   
@@ -72,7 +72,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   }
    
   def tileNeighboursCoods(cood: Cood): Coods =
-    HexGrid.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.yi & c.yi >= yTileMin & xTileMax >= c.xi & c.xi >= xTileMin)
+    HexGridOld.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.yi & c.yi >= yTileMin & xTileMax >= c.xi & c.xi >= xTileMin)
   def tileNeighbours(tile: TileT): ArrOld[TileT] = tileNeighboursCoods(tile.cood).mapArrSeq(getTile)
      
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =

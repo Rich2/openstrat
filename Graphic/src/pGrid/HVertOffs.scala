@@ -1,6 +1,6 @@
 package ostrat
 package pGrid
-import geom._, HexGrid.{coodToVec2 => ctv}
+import geom._, HexGridOld.{coodToVec2 => ctv}
 
 class HVOffset(val value: Int) extends AnyVal
 {

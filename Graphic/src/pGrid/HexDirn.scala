@@ -7,7 +7,7 @@ class HexDirn(x: Int, y: Int)
 {
    val halfRelCood: Cood = Cood(x, y)
    def relCood: Cood = Cood(x * 2, y * 2)   
-   def vec: Vec2 = HexGrid.coodToVec2(halfRelCood)
+   def vec: Vec2 = HexGridOld.coodToVec2(halfRelCood)
 }
 
 object HCen extends HexDirn(0, 0) 

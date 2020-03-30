@@ -54,9 +54,9 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
   def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
 
   foreachTilesCoodAll{cood =>
-    setLL(cood, vec2ToLL(HexGrid.coodToVec2(cood)))
-    sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
-    vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGrid.coodToVec2(vc))))
+    setLL(cood, vec2ToLL(HexGridOld.coodToVec2(cood)))
+    sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridOld.coodToVec2(vc))))
+    vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridOld.coodToVec2(vc))))
   }
 
   def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
