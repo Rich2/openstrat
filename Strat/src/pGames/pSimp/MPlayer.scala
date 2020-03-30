@@ -26,3 +26,5 @@ object Player
   implicit val persistPlayer: PersistEq[Player] = Persist2[Char, Colour, Player]("Player", "char", _.char, "colour", _.colour, apply)
 }
 
+
+

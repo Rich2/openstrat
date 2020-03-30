@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package gOne
-import pGrid._
+import pGrid._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition." */
 case class MPlayer(player: Player, cood: Cood, move: Option[Cood] = None) extends WithColour
@@ -25,4 +25,7 @@ object Player
 {
   implicit val persistPlayer: PersistEq[Player] = Persist2[Char, Colour, Player]("Player", "char", _.char, "colour", _.colour, apply)
 }
+object PlayerA extends Player('A', Red)
+object PlayerB extends Player('B', Orange)
+object PlayerC extends Player('C', Green)
 

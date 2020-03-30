@@ -37,16 +37,14 @@ object Roord
   }
 }
 
-
 trait Tile
-{
-  def r: Int
-  def xi: Int
+{ def r: Int
+  def c: Int
 }
 
-case class HexTile(r: Int, xi: Int) extends Tile
+case class HexTile(r: Int, c: Int) extends Tile
 {
-  override def toString: String = "Tile".appendParenthSemis(r.toString, xi.toString)
+  override def toString: String = "Tile".appendParenthSemis(r.toString, c.toString)
 }
 
 class HTStep(val y: Int, c: Int)

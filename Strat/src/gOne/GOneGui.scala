@@ -3,11 +3,11 @@ package gOne
 import pCanv._, geom._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform) extends CmdBarGui("Game One Gui")
+case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game One Gui")
 { var statusText = "Stuff"
-  val grid = OneGrid.grid
+  val grid = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
-  val units = grid.mapArrOptRefVec(OneGrid.arr, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
+  val units = grid.mapArrOptRefVec(OneGrid1.players, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
   val tiles = grid.activeTiles(scale)
   val sides = cenSideVertCoodText(grid, scale)
   def thisTop(): Unit = reTop(Refs(status))
