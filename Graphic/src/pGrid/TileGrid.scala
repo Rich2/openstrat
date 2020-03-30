@@ -62,15 +62,15 @@ trait TileGrid
     res
   }
 
-  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (A, Vec2) => B)
+  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (A, Roord, Vec2) => B)
     (implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
-    foreachRoord { roord =>
-      val op: OptRef[A] = inp(index(roord))
+    foreachRoord { r =>
+      val op: OptRef[A] = inp(index(r))
       op.foreach { a =>
-        val v = roordToVec2(roord, scale, relPosn)
-        build.buffGrow(buff, f(a, v))
+        val v = roordToVec2(r, scale, relPosn)
+        build.buffGrow(buff, f(a, r, v))
       }
     }
     build.buffToArr(buff)

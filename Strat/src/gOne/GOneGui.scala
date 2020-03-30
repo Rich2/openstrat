@@ -1,24 +1,30 @@
 package ostrat
 package gOne
-import pCanv._, geom._
+import pCanv._, geom._, pGrid._
 
 /** Graphical user interface for GOne example game. */
 case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game One Gui")
 { var statusText = "Stuff"
-  val grid = scen.grid
+  implicit val grid = scen.grid
+  val moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
+
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
-  val units = grid.mapArrOptRefVec(OneGrid1.players, scale){ (p, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, p, p.toString, 24, 2.0) }
+  val units = grid.mapArrOptRefVec(OneGrid1.players, scale){ (p, r, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, (p, r), p.toString, 24, 2.0) }
   val tiles = grid.activeTiles(scale)
   val sides = cenSideVertCoodText(grid, scale)
+
   def thisTop(): Unit = reTop(Refs(status))
 
-  mainMouseUp =
-    { case (LeftButton, cl, v) =>
+  mainMouseUp = (b, cl, _) => (b, cl, selected) match
+    { case (LeftButton, cl, _) =>
       { selected = cl
         statusText = selected.headToStringElse("Nothing Selected")
         thisTop()
       }
-      case _ => deb("Other")
+
+      case (RightButton, (t : HexTile) :: _, (p: Player, r: Roord) :: l) => deb("Move " + l.toString)//List(moveTile: HexTile)) => // if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
+
+       case (_, h, _) => deb("Other; " + h.toString)
     }
   thisTop()
   mainRepaint(tiles ++ sides ++ units)// ++  ++ units)
