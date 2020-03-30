@@ -49,3 +49,5 @@ object SquareGrid
     case _ => excep("Invalid Square Cood for a side")
   }
 }
+
+
