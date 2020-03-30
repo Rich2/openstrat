@@ -15,7 +15,7 @@ object AppsForJs
     ("4", (pSpace.Planets(_), "ScalaFx Planets")),
     ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
     ("6", (new pDung.DungeonGui(_), "ScalaFx Dungeon")),
-    ("7", (gOne.GOneGui(_), "JavaFx Game One")),
+    ("7", (gOne.GOneGui(_, gOne.OneGrid1), "JavaFx Game One")),
     ("8", (ColourGen(_), "ScalaFx Some Colours")),
     ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
     ("10", (pCard.BlackJackGui(_), "ScalaFx BlackJack")),

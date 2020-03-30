@@ -4,7 +4,7 @@ import pGrid._
 
 trait OneGrid
 {
-  def grid: HexGridReg
+  def grid: HexGrid
   def players: OptRefs[Player]
 }
 
@@ -15,4 +15,5 @@ object OneGrid1 extends OneGrid
   grid.setTileSome[Player](4, 4, PlayerA)
   grid.setTileSome[Player](4, 8, PlayerB)
   grid.setTileSome[Player](6, 10, PlayerC)
+
 }
