@@ -6,7 +6,10 @@ import pCanv._, geom._, pGrid._
 case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game One Gui")
 { var statusText = "Stuff"
   implicit val grid = scen.grid
+  val players = scen.players
   val moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
+  players.setOtherOptRefs(moves)(_ => HTStepNone)
+
 
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val units = grid.mapArrOptRefVec(OneGrid1.players, scale){ (p, r, v) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, RPlayer(p, r), p.toString, 24, 2.0) }

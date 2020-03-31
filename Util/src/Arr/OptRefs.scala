@@ -1,11 +1,21 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-class OptRefs[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal
-{
-  def apply(index: Int): OptRef[A] = OptRef(unsafeArr(index))
-  def setSome(index: Int, value: A @uncheckedVariance): Unit = unsafeArr(index) = value
-  def setNone(index: Int): Unit = unsafeArr(index) = null.asInstanceOf[A]
+class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal //with ArrayLike[OptRef[A]]
+{ @inline def length: Int = unsafeArray.length
+  def apply(index: Int): OptRef[A] = OptRef(unsafeArray(index))
+  def setSome(index: Int, value: A @uncheckedVariance): Unit = unsafeArray(index) = value
+  def setNone(index: Int): Unit = unsafeArray(index) = null.asInstanceOf[A]
+
+  def setOtherOptRefs[B <: AnyRef](operand: OptRefs[B])(f: A => B): Unit =
+  { var count = 0
+
+    while (count < length)
+    { apply(count).foldDo { operand.setNone(count) } { a => operand.setSome(count, f(a)) }
+      count += 1
+    }
+  }
+
 }
 
 object OptRefs

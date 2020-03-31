@@ -149,10 +149,13 @@ trait TileGrid
   /** The Roords of the vertices of a tile, from its centre Roord. */
   def tileVertRoords(roord: Roord): Roords
 
+  /** Method may be removed, probably better to dispatch from the Arr, with the grid as parameter. */
   def setTile[A <: AnyRef](roord: Roord, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(roord), value)
+
+  /** Method may be removed, probably better to dispatch from the Arr, with the grid as parameter. */
   def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(xi, yi), value)
 
-  //def setTileSome[A <: AnyRef](x: Int, y: Int, value: A)(implicit arr: OptRefs[A]): Unit = arr.setSome(index(x, y), value)
+  def tileExists(r: Roord): Boolean = ???
 
   /**************************************************************************************************/
   /* Methods that operate on tile sides. */
