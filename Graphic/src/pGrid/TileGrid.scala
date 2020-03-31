@@ -48,7 +48,7 @@ trait TileGrid
 /* Methods that foreach, map, flatMap and fold over all the tiles of the tile grid. */
 
   /** foreachs over each tile's centre Roord. */
-  def foreachRoord(f: Roord => Unit): Unit
+  def foreach(f: Roord => Unit): Unit
 
   /** Foreach grid Row yi coordinate. */
   def ForeachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
@@ -56,21 +56,22 @@ trait TileGrid
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
   def map[A, ArrT <: ArrImut[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
-    foreachRoord{ roord =>
+    foreach{ roord =>
       build.imutSet(res, index(roord), f(roord))
     }
     res
   }
 
-  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (A, Roord, Vec2) => B)
+  /** The A value in the function is put last to allow for possible method name overloads. */
+  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2, A) => B)
     (implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
-    foreachRoord { r =>
+    foreach { r =>
       val op: OptRef[A] = inp(index(r))
       op.foreach { a =>
         val v = roordToVec2(r, scale, relPosn)
-        build.buffGrow(buff, f(a, r, v))
+        build.buffGrow(buff, f(r, v, a))
       }
     }
     build.buffToArr(buff)
@@ -80,14 +81,14 @@ trait TileGrid
    *  structure is lost in the flatMap operation. */
   def flatMap[ArrT <: ArrImut[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
-    foreachRoord{ roord => build.buffGrowArr(buff, f(roord))}
+    foreach{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Roords to an Arr of type ArrT, removing all duplicate elements. */
-  def flatMapRoordsNoDupicates[A, ArrT <: ArrImut[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def flatMapNoDupicates[A, ArrT <: ArrImut[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
-    foreachRoord { roord =>
+    foreach { roord =>
       val newVals = f(roord)
       newVals.foreach{newVal =>
       if (!buff.contains(newVal)) build.buffGrow(buff, newVal) }
@@ -96,16 +97,16 @@ trait TileGrid
   }
 
   /** foreachs over each tile centre Vec2. */
-  def foreachVec(f: Vec2 => Unit): Unit = foreachRoord(c => f(roordToVec2(c)))
+  def foreachVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2(r)))
 
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
-  def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    map { roord => f(roordToVec2(roord, scale, relPosn)) }
+ // def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+   // map { roord => f(roordToVec2(roord, scale, relPosn)) }
 
   /** Maps all the Tile Roords and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
-  def mapRoordVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
+  def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
     ArrT = map { roord => f(roord, roordToVec2(roord, scale, relPosn)) }
 
   def mapPolygons[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
@@ -162,7 +163,7 @@ trait TileGrid
   /* Methods that operate on tile sides. */
 
   /** Gives all the sideRoords of the grid with out duplicates. */
-  def sideRoords: Roords = flatMapRoordsNoDupicates[Roord, Roords] { roord => sideRoordsOfTile(roord) }
+  def sideRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => sideRoordsOfTile(roord) }
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine
 
@@ -195,5 +196,5 @@ trait TileGrid
   def vertsMapRoordVec[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     vertRoords.map(c => f(c, roordToVec2(c, scale, relPosn)))
 
-  def vertRoords: Roords = flatMapRoordsNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
+  def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
 }

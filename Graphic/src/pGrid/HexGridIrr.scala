@@ -12,7 +12,7 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
   def cRowLen(y: Int): Int = indexArr(y - yTileMin + 1)
   def cRowEnd(y: Int): Int = cRowStart(y) + cRowLen(y) * 4 - 4
 
-  def foreachRoord(f: Roord => Unit): Unit = ForeachRow{ y => iToForeach(cRowStart(y), cRowEnd(y), 4) { c => f(Roord(y, c)) } }
+  def foreach(f: Roord => Unit): Unit = ForeachRow{ y => iToForeach(cRowStart(y), cRowEnd(y), 4) { c => f(Roord(y, c)) } }
 
   @inline override def yTileMax: Int = yTileMin + indexArr.length - 2
 

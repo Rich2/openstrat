@@ -23,6 +23,7 @@ case class OptRef[+A <: AnyRef](val value: A) extends AnyVal
   @inline def nonEmpty: Boolean = value == null
   override def toString: String = if(value == null) "NoOpt" else "Some" + value.toString.enParenth
   def fld[B](noneValue: => B, f: A => B): B = if (value == null) noneValue else f(value)
+  def fold[B](noneValue: => B)(f: A => B): B = if (value == null) noneValue else f(value)
   def foldDo(noneDo: => Unit)(f: A => Unit): Unit = if (value == null) noneDo else f(value)
 }
 

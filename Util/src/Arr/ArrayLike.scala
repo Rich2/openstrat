@@ -4,11 +4,10 @@ import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.C
 /** This the base trait for all Array based collections that compile time platform Array classes. So currently there are just two classes for each
  * type A, An ArrImut that wrappes a standard immutable Array to produce an immutable array, and a ArrBuff that wrappes an ArrayBuffer. Currently this
  * just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
-trait ArrayLike[+A] extends Any
+trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
 { type ThisT <: ArrayLike[A]
   def returnThis: ThisT = ???
-  def length: Int
-  def lenStr: String = length.toString
+
   @inline def apply(index: Int): A
   @inline def head: A = apply(0)
   @inline def last: A = apply(length - 1)
@@ -325,13 +324,6 @@ trait ArrayLike[+A] extends Any
   def toStrsSemiFold(fToStr: A => String = _.toString): String = toStrsFold("; ", fToStr)
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
-}
-
-object ArrayLike
-{
-  implicit class ArrBaseImplicit[A](ba: ArrayLike[A])
-  {
-  }
 }
 
 case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: Show[A]) extends ShowSeqLike[A, R]

@@ -58,7 +58,7 @@ case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
     y0s + y2s + thisRow
   }
 
-  override def foreachRoord(f: Roord => Unit): Unit =
+  override def foreach(f: Roord => Unit): Unit =
   { ijToForeach(yRow2sMin, yRow2sMax, 4)(cRow2sMin, cRow2sMax, 4)((y, c) => f(Roord(y , c)))
     ijToForeach(yRow0sMin, yRow0sMax, 4)(cRow0sMin, cRow0sMax, 4)((y, c) => f(Roord(y, c)))
   }
