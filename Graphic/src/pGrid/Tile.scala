@@ -10,21 +10,21 @@ case class HexTile(r: Int, c: Int) extends Tile
 {
   def roord: Roord = Roord(r, c)
   override def toString: String = "Tile".appendParenthSemis(r.toString, c.toString)
-  def adjOf(operand: Roord): OptRef[HTStep] = htSteps.optFind(_.roord == roord - operand)
+  def adjORCenOf(operand: Roord): OptRef[HTStepLike] = htSteps.optFind(_.roord == roord - operand)
+  def adjOf(operand: Roord): OptRef[HTStep] = htStepSomes.optFind(_.roord == roord - operand)
 }
 
-class HTStep(val y: Int, c: Int)
-{
-  def roord: Roord = Roord(y, c)
+class HTStepLike(val y: Int, c: Int)
+{ def roord: Roord = Roord(y, c)
 }
-object HTStepNone extends HTStep(0, 0)
-class HTStepSome(yIn: Int, cIn: Int) extends HTStep(yIn, cIn)
-object HTStepUR extends HTStepSome(2, 2)
-object HTStepRt extends HTStepSome(0, 4)
-object HTStepDR extends HTStepSome(-2, 2)
-object HTStepDL extends HTStepSome(-2, -2)
-object HTStepLt extends HTStepSome(0, -4)
-object HTStepUL extends HTStepSome(2, -2)
+case object HTStepNone extends HTStepLike(0, 0)
+class HTStep(yIn: Int, cIn: Int) extends HTStepLike(yIn, cIn)
+case object HTStepUR extends HTStep(2, 2)
+case object HTStepRt extends HTStep(0, 4)
+case object HTStepDR extends HTStep(-2, 2)
+case object HTStepDL extends HTStep(-2, -2)
+case object HTStepLt extends HTStep(0, -4)
+case object HTStepUL extends HTStep(2, -2)
 
 trait TileMem[A]
 { val rd: Roord

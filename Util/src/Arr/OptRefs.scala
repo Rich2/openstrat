@@ -15,6 +15,15 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
       count += 1
     }
   }
+
+  override def foreach[U](f: OptRef[A] => U): Unit =
+  { var count = 0
+    while (count < length)
+    { f(apply(count))
+      count += 1
+    }
+  }
+
   def foreachSome(f: A => Unit): Unit =
   { var count = 0
     while (count < length){ apply(count).foreach(f); count += 1}

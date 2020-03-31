@@ -40,10 +40,19 @@ package object pGrid
   {
     def gridSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.setSome(grid.index(y, c), value)
     def gridSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.setSome(grid.index(t._1, t._2), t._3))
-    //def gridMapSomes[B, ArrT <: ArrImut[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
-      //grid.foreach(r => arr.mapSomes{f => ??? }
+
+    def gridMapSomes[B, ArrT <: ArrImut[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
+    { val buff = build.buffNew()
+      grid.foreach { r =>
+        arr.apply(grid.index(r)).foreach{a =>
+          val newVal = f(r, a)
+          build.buffGrow(buff, newVal)
+        }
+      }
+      build.buffToArr(buff)
+    }
   }
 
-  val htStepSomes: Refs[HTStepSome] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)
-  val htSteps: Refs[HTStep] = HTStepNone +: htStepSomes
+  val htStepSomes: Refs[HTStep] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)
+  val htSteps: Refs[HTStepLike] = HTStepNone +: htStepSomes
 }

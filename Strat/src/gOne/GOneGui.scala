@@ -8,14 +8,16 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
   implicit val grid = scen.grid
   val players = scen.players
   var moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
-  players.setOtherOptRefs(moves)(_ => HTStepNone)
-
 
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val units = grid.mapArrOptRefVec(OneGrid1.players, scale){ (r, v, p) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, RPlayer(p, r), p.toString, 24, 2.0) }
   val tiles = grid.activeTiles(scale)
   val sides = cenSideVertCoodText(grid, scale)
-  //val mMoves = moves.
+  def mMoves = moves.gridMapSomes{(r, step) =>
+    val newR = r + step.roord
+    val v = grid.roordToVec2(newR, scale)
+    RoordLine(r, newR).toLine2(grid.roordToVec2(_, scale)).draw(2, Colour.Violet)
+  }
 
   def thisTop(): Unit = reTop(Refs(status))
 
@@ -26,9 +28,13 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
         thisTop()
       }
 
-      case (RightButton, (t : HexTile) :: _, RPlayer(p, r) :: l) => t.adjOf(r).foreach(ht => moves.setSome(grid.index(r), ht))// ??? //moves.setSome() t.adjOf(r)
+      case (RightButton, (t : HexTile) :: _, RPlayer(p, r) :: l) => t.adjOf(r).foreach{ ht =>
+        moves.setSome(grid.index(r), ht)
+        repaint()
+      }
        case (_, h, _) => deb("Other; " + h.toString)
     }
   thisTop()
-  mainRepaint(tiles ++ sides ++ units)
+  def repaint() = mainRepaint(tiles ++ sides ++ units ++ mMoves)
+  repaint()
 }
