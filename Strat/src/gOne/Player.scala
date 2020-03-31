@@ -6,15 +6,8 @@ import pGrid._, Colour._
 /** A Player has a very simple token with a letter and colour for recognition." */
 case class RPlayer(value: Player, rd: Roord) extends TileMem[Player]
 
-/*object MPlayer
-{
-  implicit val persistMPlayer: PersistEq[MPlayer] = new Persist3[Player, Cood, Option[Cood], MPlayer](
-    "MPlayer", "player", _.player, "cood",_.cood, "move", _.move, apply)
-}*/
-
 case class Player(val char: Char, val colour: Colour)
-{
-  override def toString = "Player " + char
+{ override def toString = "Player " + char
 }
 
 object Player
@@ -24,4 +17,5 @@ object Player
 object PlayerA extends Player('A', Red)
 object PlayerB extends Player('B', Orange)
 object PlayerC extends Player('C', Green)
+object PlayerD extends Player('D', Violet)
 

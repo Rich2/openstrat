@@ -80,6 +80,13 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 
   def concatsOption[AA >: A <: AnyRef](optElems: Option[Refs[AA]])(implicit ct: ClassTag[AA]): Refs[AA] =
     optElems.fld[Refs[AA]](this, this ++ _)
+
+  def optFind(f: A => Boolean): OptRef[A] =
+  { var acc: OptRef[A] = NoRef
+    var count = 0
+    while (acc == NoRef & count < length) if (f(apply(count))) acc = OptRef(apply(count)) else count += 1
+    acc
+  }
 }
 
 class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Refs[A]] with ArrFlatBuild[Refs[A]]

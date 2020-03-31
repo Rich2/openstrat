@@ -7,7 +7,7 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
 { var statusText = "Stuff"
   implicit val grid = scen.grid
   val players = scen.players
-  val moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
+  var moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
   players.setOtherOptRefs(moves)(_ => HTStepNone)
 
 
@@ -25,8 +25,7 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
         thisTop()
       }
 
-      case (RightButton, (t : HexTile) :: _, RPlayer(p, r) :: l) => deb("Move " + l.toString)//List(moveTile: HexTile)) => // if grid.isTileCoodAdjTileCood(mp.cood, moveTile.cood) =>
-
+      case (RightButton, (t : HexTile) :: _, RPlayer(p, r) :: l) => ??? //moves.setSome() t.adjOf(r)
        case (_, h, _) => deb("Other; " + h.toString)
     }
   thisTop()
