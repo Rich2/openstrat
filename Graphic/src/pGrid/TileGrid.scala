@@ -155,6 +155,7 @@ trait TileGrid
   /** Method may be removed, probably better to dispatch from the Arr, with the grid as parameter. */
   def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(xi, yi), value)
 
+  def isTileRoord(r: Roord): Boolean
   def tileExists(r: Roord): Boolean = ???
 
   /**************************************************************************************************/

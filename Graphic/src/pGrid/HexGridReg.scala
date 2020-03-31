@@ -10,6 +10,7 @@ case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
   //def roordToVec2Rel(roord: Roord): Vec2 = roordToVec2(roord) - cen
 
   /* Override methods */
+  override def tileExists(r: Roord): Boolean =  ???
 
   /** Minimum c for Rows where y.Div4Rem2. */
   def cRow2sMin: Int = cTileMin.roundUpTo(_.div4Rem2)

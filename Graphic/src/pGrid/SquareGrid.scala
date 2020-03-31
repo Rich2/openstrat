@@ -22,6 +22,7 @@ case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
   override def top: Double = yTileMax + 1
   override def bottom: Double = yTileMin - 1
   override def tileVertRoords(roord : Roord): Roords = SquareGrid.vertRoordsOfTile(roord)
+  def isTileRoord(r: Roord): Boolean = r.y.isEven & r.c.isEven
 }
 
 object SquareGrid

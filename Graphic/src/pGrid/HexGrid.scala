@@ -18,6 +18,7 @@ trait HexGrid extends TileGrid
   def bottom: Double = yTileMin - HexGrid.yDist2
   override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = HexGrid.sideRoordToRoordLine(sideRoord)
   override def tileVertRoords(roord: Roord): Roords = HexGrid.vertRoordsOfTile(roord)
+  def isTileRoord(r: Roord): Boolean = r.y.div4Rem2 & r.c.div4Rem2 | r.y.div4Rem0 & r.c.div4Rem0
 }
 
 object HexGrid
