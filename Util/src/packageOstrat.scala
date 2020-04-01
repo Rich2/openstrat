@@ -111,11 +111,10 @@ package object ostrat
     }
     res
   }
-
   
   /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value is 1. */
   def iUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
-    iToMap[A, AA](iFrom, iUntil - 1, iStep)(f)
+    iToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
   /** Maps a range of Ints to an ArrImut[A]. From the start value to (while index is less than or equal to) the end value in integer steps. Default step value
    *  is 1. */
@@ -124,8 +123,7 @@ package object ostrat
     val res: AA = ev.imutNew(iLen)
     var index = 0
     def count = index + iFrom
-
-    while(count <= iTo)
+    while(ife(iStep > 0, count <= iTo,count >= iTo))
     { ev.imutSet(res, index, f(count))
       index += 1
     }
@@ -135,7 +133,7 @@ package object ostrat
   def iToFlatMap[AA <: ArrImut[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuild[AA]): AA =
   { val buff = ev.buffNew()
     var i = iFrom
-    while(i <= iTo)
+    while(ife(iStep > 0, i <= iTo, i >= iTo))
     { ev.buffGrowArr(buff, f(i))
       i += iStep
     }
@@ -144,27 +142,31 @@ package object ostrat
 
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { var i: Int = iFrom
-    while(i <= iTo) { f(i); i += iStep }
+    while(ife(iStep > 1, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
 
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
   { var i = iFrom
-
-    while(i <= iTo)
+    while(ife(iStep > 0, i <= iTo, i >= iTo))
     { var j = jFrom
-      while(j <= jTo){ f(i, j); j += jStep }
+      while(ife(jStep > 0, j <= jTo, j >= jTo))
+      { f(i, j)
+        j += jStep
+      }
       i += iStep
     }
   }
 
-  def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit = iToForeach(iFrom, iUntil - 1, iStep)(f)
+  def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit =
+    iToForeach(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
-  def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int = iToFoldInt(iFrom, iUntil - 1, iStep, accInit)(f)
+  def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
+    iToFoldInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
 
   def iToFoldInt(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
   { var acc = accInit
     var i = iFrom
-    while(i <= iTo)
+    while(ife(iStep> 0, i <= iTo, i >= iTo))
     { acc = f(acc, i)
       i += iStep
     }
