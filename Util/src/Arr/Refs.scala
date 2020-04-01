@@ -87,6 +87,11 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
     while (acc == NoRef & count < length) if (f(apply(count))) acc = OptRef(apply(count)) else count += 1
     acc
   }
+
+  def setAll(value: A @uncheckedVariance): Unit =
+  { var i = 0
+    while(i < length){unsafeSetElem(i, value); i += 1}
+  }
 }
 
 class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Refs[A]] with ArrFlatBuild[Refs[A]]

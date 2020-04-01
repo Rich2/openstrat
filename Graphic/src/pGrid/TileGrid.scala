@@ -138,6 +138,12 @@ trait TileGrid
 
   def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)
 
+  def newRefsSet[A <: AnyRef](value: A)(implicit build: ArrBuild[A, Refs[A]]): Refs[A] =
+  { val res = build.imutNew(numOfTiles)
+    res.setAll(value)
+    res
+  }
+
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
 
 

@@ -7,9 +7,9 @@ object Zug1 //extends ZugGridOld(4, 48, 2, 14, 0)
   implicit val grid = HexGridReg(2, 14, 4, 48)
   val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hexSidesHorrOld(9, 37, 47)
 //  setSideCollection(wall1, true)
-  val terr = grid.newRefs[ZugTerr]
+  val terrs = grid.newRefsSet[ZugTerr](Plain)
   //import terr.{setRow => gs}
-  def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terr.setRow(yRow, cStart, tileValues :_*)(grid)
+  def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
   gs(yRow = 12, cStart = 4, WheatField * 2)
   gs(10, 6, WheatField, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding)
   gs(8, 4, WheatField * 3, StoneBuilding * 1, WheatField * 2, Lake)
