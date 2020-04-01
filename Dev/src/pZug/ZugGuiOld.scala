@@ -18,8 +18,8 @@ class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends H
     val colour: Colour = tile.colour         
     
     val tv: GraphicElems = tile.terr match
-    { case _ : Building => vertDispVecs.fillActive(LightGreen, tile) +- Square.fill(colour).scaleSlate(pScale * 1.6, cen)
-      case _ => vertDispVecs.fillActive(colour, tile)
+    { case _ : Building => Refs(vertDispVecs.fillActive(LightGreen, tile), Square.fill(colour).scaleSlate(pScale * 1.6, cen))
+      case _ => Refs(vertDispVecs.fillActive(colour, tile))
     }
     
     val tText = ifScaleCObj(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))

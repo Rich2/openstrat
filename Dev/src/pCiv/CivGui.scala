@@ -34,7 +34,7 @@ class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, Civ
         }
         case _ => Refs()
        }
-       tv ++ tText ++ sett ++ lunit ++ sides
+       Refs(tv) ++ tText ++ sett ++ lunit ++ sides
      }
 
   def mapObjs: GraphicElems = ofHTilesDisplayFold(fHex)// ofHexsDisplayFold(fHex).collapse
