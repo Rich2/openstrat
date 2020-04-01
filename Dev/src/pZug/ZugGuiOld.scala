@@ -24,7 +24,7 @@ class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends H
     
     val tText = ifScaleCObj(60, TextGraphicCen(yxStr, 14, cen, colour.contrastBW, 2))
     
-    def action(squad: Squad): GraphicElems = squad.action match
+    def action(squad: SquadOld): GraphicElems = squad.action match
     {
       case Move(coods) =>      
       {
@@ -71,14 +71,14 @@ class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends H
       eTop()            
     }
     
-    case (RightButton, List(squad : Squad), List(newTile: ZugTileOld)) => scen.zPath(squad.cood, newTile.cood).foreach{ l =>
+    case (RightButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => scen.zPath(squad.cood, newTile.cood).foreach{ l =>
       squad.action = Move(Coods(l :_*))
       repaintMap
     }
     
-    case (MiddleButton, List(squad : Squad), List(newTile: ZugTileOld)) => { squad.action = Fire(newTile.cood); repaintMap }
+    case (MiddleButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => { squad.action = Fire(newTile.cood); repaintMap }
     
-    case (RightButton, List(squad : Squad), List(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
+    case (RightButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
     
     case _ => deb("Other" -- clickList.toString)
   }   

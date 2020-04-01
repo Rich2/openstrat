@@ -21,6 +21,7 @@ object Zug1 extends ZugScen
   gs(6, 6, WheatField, Plain * 2, StoneBuilding, Plain, Lake)
   gs(4, 4, WheatField * 2)
   gs(2, 6, WheatField)
+  val lunits = grid.newRefsSet[List[Squad]](Nil)
 //  val b1 = placeSquad(Britain, 30, 2)
 //  b1.move(26 cc 2, 22 cc 2)
 //  val b2 = placeSquad(Britain, 32, 4)

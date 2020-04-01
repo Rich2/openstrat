@@ -9,7 +9,7 @@ trait ZugTerr
   def conceal: Boolean = false
 }
 
-case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[Squad] = ArrOld()) extends ColouredTileOld
+case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[SquadOld] = ArrOld()) extends ColouredTileOld
 { type FromT = ZugTerr
   def fromT = terr
   def colour = terr.colour     

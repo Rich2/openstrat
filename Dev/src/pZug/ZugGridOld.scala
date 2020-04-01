@@ -9,8 +9,8 @@ class ZugGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, tur
   protected[this] var idCounter: Int = 100
   def getID: Int = {idCounter += 1; idCounter }
  //var urn: List[ZTurn] = Nil
-  def placeSquad(polity: Polity, x: Int, y: Int): Squad =
-  { val sd = Squad(polity, x, y, getID)     
+  def placeSquad(polity: Polity, x: Int, y: Int): SquadOld =
+  { val sd = SquadOld(polity, x, y, getID)
     val tile = getTile(x, y)
     setTile(x, y,tile.copy(lunits = sd +: tile.lunits))
     sd
@@ -19,7 +19,7 @@ class ZugGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, tur
   def placeSquads(triples: (Polity, Int, Int) *): Unit = triples.foreach {tr =>
     val x = tr._2
     val y = tr._3
-    val sd = Squad(tr._1, x, y, getID)     
+    val sd = SquadOld(tr._1, x, y, getID)
     val tile = getTile(x, y)
     setTile(x, y,tile.copy(lunits = sd +: tile.lunits))
   }
