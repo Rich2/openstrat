@@ -1,7 +1,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-class Floats(val array: Array[Float]) extends AnyVal with ArrImut[Float]
+class Floats(val array: Array[Float]) extends AnyVal with Arr[Float]
 { type ThisT = Floats
   override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
   override def length: Int = array.length

@@ -11,7 +11,7 @@ case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
   def rowTileLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).max0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0
   def numOfTiles: Int = numOfRows * rowTileLen
-
+  def cStep: Int = 2
   override def foreach(f: Roord => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(cTileMin, cTileMax, 2)((y, c) => f(Roord(y, c)))
   @inline override def index(y: Int, c: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
 

@@ -41,5 +41,5 @@ trait TransGenExtension[T] extends Any
    
   /** Produces a regular cross of a sequence of four of the elements rotated */
   def rCross: Seq[T] = (1 to 4).map(i => rotate(deg90 * i))
-  def rCrossArr[TT <: ArrImut[T]](implicit build: ArrBuild[T, TT]): TT = iToMap(1, 4)(i => rotate(deg90 * i))
+  def rCrossArr[TT <: Arr[T]](implicit build: ArrBuild[T, TT]): TT = iToMap(1, 4)(i => rotate(deg90 * i))
 }

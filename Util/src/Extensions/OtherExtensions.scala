@@ -30,7 +30,7 @@ class OptionExtensions[A](thisOption: Option[A])
     case Some(a) => fSome(a)
   }
 
-  def toArr[AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = thisOption.fold(build.imutNew(0)){ a =>
+  def toArr[AA <: Arr[A]](implicit build: ArrBuild[A, AA]): AA = thisOption.fold(build.imutNew(0)){ a =>
     val res = build.imutNew(1)
     build.imutSet(res, 0, a)
     res

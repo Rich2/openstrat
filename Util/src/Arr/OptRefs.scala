@@ -30,7 +30,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
     while (count < length){ apply(count).foreach(f); count += 1}
   }
 
-  def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(build: ArrBuild[B, ArrT]): ArrT =
+  def mapSomes[B, ArrT <: Arr[B]](f: A => B)(build: ArrBuild[B, ArrT]): ArrT =
   { val buff = build.buffNew()
     foreachSome(a => build.buffGrow(buff, f(a)))
     build.buffToArr(buff)

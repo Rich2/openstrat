@@ -27,6 +27,7 @@ trait TileGrid
   def top: Double
   def bottom: Double
   def height: Double = top - bottom
+  def cStep: Int
 
   def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
   { def adj(inp : Double): Double =inp match
@@ -54,7 +55,7 @@ trait TileGrid
   def ForeachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
-  def map[A, ArrT <: ArrImut[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def map[A, ArrT <: Arr[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.imutNew(numOfTiles)
     foreach{ roord =>
       build.imutSet(res, index(roord), f(roord))
@@ -63,8 +64,8 @@ trait TileGrid
   }
 
   /** The A value in the function is put last to allow for possible method name overloads. */
-  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: ArrImut[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2, A) => B)
-    (implicit build: ArrBuild[B, ArrT]): ArrT =
+  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: Arr[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2, A) => B)
+                                                     (implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
     foreach { r =>
@@ -79,14 +80,14 @@ trait TileGrid
 
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
-  def flatMap[ArrT <: ArrImut[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  def flatMap[ArrT <: Arr[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
     foreach{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Roords to an Arr of type ArrT, removing all duplicate elements. */
-  def flatMapNoDupicates[A, ArrT <: ArrImut[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def flatMapNoDupicates[A, ArrT <: Arr[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val buff = build.buffNew(numOfTiles)
     foreach { roord =>
       val newVals = f(roord)
@@ -106,17 +107,17 @@ trait TileGrid
 
   /** Maps all the Tile Roords and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
-  def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
+  def mapVecs[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
     ArrT = map { roord => f(roord, roordToVec2(roord, scale, relPosn)) }
 
-  def mapPolygons[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def mapPolygons[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToVec2(c, scale, relPosn) )
       f(roord, vvs.toPolygon)
     }
 
-  def flatMapPolygons[ArrT <: ArrImut[_]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  def flatMapPolygons[ArrT <: Arr[_]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
     {
       val buff = build.buffNew()
       foreach { roord =>
@@ -133,11 +134,12 @@ trait TileGrid
     vvs.toPolygon.active(roord.toHexTile)
   }
   /** Creates a new uninitialised Arr of the grid length. */
-  def newArr[A, AA <: ArrImut[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
+  def newArr[A, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
 
   def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)
 
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
+
 
 /**************************************************************************************************/
 /* Methods that operate on individual tiles. */
@@ -146,7 +148,7 @@ trait TileGrid
   @inline final def index(roord: Roord): Int = index(roord.y, roord.c)
 
   /** Sets element in a flat Tiles Arr according to its Roord. */
-  def setTile[A](roord: Roord, value: A)(implicit arr: ArrImut[A]): Unit = arr.unsafeSetElem(index(roord), value)
+  def setTile[A](roord: Roord, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(index(roord), value)
 
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. It is called roordToVec2Abs because most of the time, you will want
    * the Vec2 relative to the TileGrid centre. */
@@ -197,14 +199,14 @@ trait TileGrid
   def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
   /** maps all tile-sides Roord with its Vec2 to an Arr[A]. */
-  def sidesMapRoordVec[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+  def sidesMapRoordVec[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     sideRoords.map(c => f(c, roordToVec2(c, scale, relPosn)))
 
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
   /** maps all tile-vertices Roord with its Vec2 to an Arr[A]. */
-  def vertsMapRoordVec[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+  def vertsMapRoordVec[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     vertRoords.map(c => f(c, roordToVec2(c, scale, relPosn)))
 
   def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }

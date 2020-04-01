@@ -48,7 +48,7 @@ abstract class TileGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: Tile
   def tilesMapAll[B: ClassTag](f: TileT => B): ArrOld[B] = grid.tilesMapAll[B](f)
 
   /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMapAll[B, BB <: ArrImut[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB = grid.tilesFlatMapAll[B, BB](f)
+  def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB = grid.tilesFlatMapAll[B, BB](f)
   
   /** Map all Tiles to an Array with function and flatten into Single Array. */
   def tilesFlatMapAllOld[R: ClassTag](f: TileT => ArrOld[R]): ArrOld[R] = grid.tilesFlatMapAllOld(f)

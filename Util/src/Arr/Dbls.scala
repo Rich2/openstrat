@@ -1,7 +1,7 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
-class Dbls(val array: Array[Double]) extends AnyVal with ArrImut[Double]
+class Dbls(val array: Array[Double]) extends AnyVal with Arr[Double]
 { type ThisT = Dbls
   override def unsafeNew(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def length: Int = array.length

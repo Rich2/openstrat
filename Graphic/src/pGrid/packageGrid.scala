@@ -46,7 +46,7 @@ package object pGrid
     def gridSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.setSome(grid.index(y, c), value)
     def gridSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.setSome(grid.index(t._1, t._2), t._3))
 
-    def gridMapSomes[B, ArrT <: ArrImut[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
+    def gridMapSomes[B, ArrT <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
     { val buff = build.buffNew()
       grid.foreach { r =>
         arr.apply(grid.index(r)).foreach{a =>
@@ -59,6 +59,23 @@ package object pGrid
 
     /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
     def gridElemGet(roord: Roord)(implicit grid: TileGrid): A = arr.unsafeArray(grid.index(roord))
+  }
+
+  implicit class ArrImplicit[A](val arr: Arr[A])
+  {
+    /** Set tile row from the Cood. */
+    //final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.yi, cood.xi, tileValues: _*)(f)
+
+    /** Note set Row starts with the y (row) parameter. */
+    final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+    {
+      val tiles: List[A] = tileValues.toSingles
+      tiles.iForeach { (e, i) =>
+        val c = cStart + i * grid.cStep
+        arr.unsafeSetElem(grid.index(yRow, c), e)
+      }
+      Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
+    }
   }
 
   val htStepSomes: Refs[HTStep] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)

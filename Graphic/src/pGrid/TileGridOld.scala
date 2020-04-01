@@ -159,7 +159,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
     acc.toArrOld
   }
 
-  def tilesFlatMapAll[B, BB <: ArrImut[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB =
+  def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB =
   {
     val acc = build.buffNew()
     foreachTilesCoodAll{ tileCood =>
