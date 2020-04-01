@@ -64,7 +64,7 @@ package object pGrid
   implicit class ArrImplicit[A](val arr: Arr[A])
   {
     /** Set tile row from the Cood. */
-    //final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.yi, cood.xi, tileValues: _*)(f)
+    final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
 
     /** Note set Row starts with the y (row) parameter. */
     final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
