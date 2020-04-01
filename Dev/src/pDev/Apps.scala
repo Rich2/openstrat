@@ -26,7 +26,7 @@ object Apps
       ("17", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
       ("18", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
 
-      ("Z1", (new pZug.ZugGui(_), "ScalaFx Zugfuhrer Z1 Britain")),
+      ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "ScalaFx Zugfuhrer Z1 Britain")),
       
       ("Z11", (new pZug.ZugGuiOld(_, pZug.ZGameOld1$, pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
       ("Z12", (new pZug.ZugGuiOld(_, pZug.ZGameOld1$, pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),

@@ -2,7 +2,12 @@ package ostrat
 package pZug
 import pGrid._
 
-object Zug1 //extends ZugGridOld(4, 48, 2, 14, 0)
+trait ZugScen
+{ implicit def grid: HexGridReg
+  def terrs: Refs[ZugTerr]
+}
+
+object Zug1 extends ZugScen
 {
   implicit val grid = HexGridReg(2, 14, 4, 48)
   val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hexSidesHorrOld(9, 37, 47)
