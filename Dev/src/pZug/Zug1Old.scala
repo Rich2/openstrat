@@ -5,7 +5,7 @@ import pGrid._
 
 object Zug1Old extends ZugGridOld(4, 48, 2, 14, 0)
 {
-  val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hSidesHorr(9, 37, 47)
+  val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hexSidesHorrOld(9, 37, 47)
   setSideCollection(wall1, true)
   import Zug1Old.{setRow => gs}
   gs(yRow = 12, xStart = 4, WheatField * 2)

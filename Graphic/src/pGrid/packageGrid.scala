@@ -11,11 +11,16 @@ package ostrat
 package object pGrid
 {
   val Cood00 = Cood(0, 0)
-  
+
   /** Gives a Coods Seq of Cood along a horisonatal line */
-  def hSidesHorr(y: Int, xStart: Int, xEnd : Int): Coods = 
-  {
-    val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2     
+  def hexSidesHorr(y: Int, cStart: Int, cEnd : Int): Roords =
+  { val cs = if (cStart > cEnd) cStart.roundDownToOdd to cEnd.roundUpToOdd by -2 else cStart.roundUpToOdd to cEnd.roundDownToOdd by 2
+    cs.pMap(c => Roord(y, c))
+  }
+
+  /** Gives a Coods Seq of Cood along a horisonatal line */
+  @deprecated def hexSidesHorrOld(y: Int, xStart: Int, xEnd : Int): Coods =
+  { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2
     xs.pMap(x => Cood(x, y))     
   }
   
