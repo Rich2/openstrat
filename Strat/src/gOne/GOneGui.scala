@@ -16,7 +16,7 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
   def mMoves = moves.gridMapSomes{(r, step) =>
     val newR = r + step.roord
     val v = grid.roordToVec2(newR, scale)
-    RoordLine(r, newR).toLine2(grid.roordToVec2(_, scale)).draw(2, Colour.Violet)
+    RoordLine(r, newR).toLine2(grid.roordToVec2(_, scale)).draw(2, players.gridElemGet(r).colour)
   }
 
   def thisTop(): Unit = reTop(Refs(status))
@@ -28,8 +28,10 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
         thisTop()
       }
 
-      case (RightButton, (t : HexTile) :: _, RPlayer(p, r) :: l) => t.adjOf(r).foreach{ ht =>
-        moves.setSome(grid.index(r), ht)
+      case (RightButton, (t : HexTile) :: _, RPlayer(p, r) :: l) =>
+      {
+        val newM = t.adjOf(r)//.foldDo() .foreach{ ht =>
+        moves.set(grid.index(r), newM)
         repaint()
       }
        case (_, h, _) => deb("Other; " + h.toString)

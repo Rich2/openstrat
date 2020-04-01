@@ -4,6 +4,7 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrayBase[OptRef[A]]
 { @inline def length: Int = unsafeArray.length
   def apply(index: Int): OptRef[A] = OptRef(unsafeArray(index))
+  def set(index: Int, value: OptRef[A]): Unit = unsafeArray(index) = value.value
   def setSome(index: Int, value: A @uncheckedVariance): Unit = unsafeArray(index) = value
   def setNone(index: Int): Unit = unsafeArray(index) = null.asInstanceOf[A]
 

@@ -51,6 +51,9 @@ package object pGrid
       }
       build.buffToArr(buff)
     }
+
+    /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
+    def gridElemGet(roord: Roord)(implicit grid: TileGrid): A = arr.unsafeArray(grid.index(roord))
   }
 
   val htStepSomes: Refs[HTStep] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)
