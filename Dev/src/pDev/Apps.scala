@@ -25,11 +25,13 @@ object Apps
       ("16", (new pFlags.FlagSelectorGUI(_), "Flag Fun")),
       ("17", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
       ("18", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
+
+      ("Z1", (new pZug.ZugGui(_), "ScalaFx Zugfuhrer Z1 Britain")),
       
-      ("Z0", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
-      ("Z1", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
-      ("Z2", (new pZug.ZugGui(_, pZug.ZGame1, pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
-      ("23", (new pZug.ZugGui(_, pZug.ZGame2, pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
+      ("Z11", (new pZug.ZugGuiOld(_, pZug.ZGameOld1$, pZug.PlayBritain), "ScalaFx Zugfuhrer Z1 Britain")),
+      ("Z12", (new pZug.ZugGuiOld(_, pZug.ZGameOld1$, pZug.PlayGermany), "ScalaFx Zugfuhrer Z1 Germany")),
+      ("Z13", (new pZug.ZugGuiOld(_, pZug.ZGameOld1$, pZug.PlayGermanyBritain), "ScalaFx Zugfuhrer Z1 Play both")),
+      ("Z14", (new pZug.ZugGuiOld(_, pZug.ZGameOld2$, pZug.PlayGermanyFrance), "ScalaFx Zugfuhrer Z2 Play both")),
 
       
       ("A1", (learn.LessonA1(_), "ScalaFx Demonstration Canvas 1")), //Static Graphics

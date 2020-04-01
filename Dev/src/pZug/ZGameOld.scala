@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import pGrid._
 
-class ZGame(scenInit: ZugGridOld, val players: Refs[ZPlayer])
+class ZGameOld(scenInit: ZugGridOld, val players: Refs[ZPlayer])
 {
   private [this] var scen: ZugGridOld = scenInit
   def getScen(player: ZPlayer): ZugGridOld =
@@ -14,7 +14,7 @@ class ZGame(scenInit: ZugGridOld, val players: Refs[ZPlayer])
       val newUnits = oldTile.lunits.filter(oldUnit => player.polities.contains(oldUnit.polity) | !oldTile.terr.conceal)
       val newTile = oldTile.copy(lunits = newUnits)
       newScen.setTile(cood, newTile)
-      
+
     }
     scen.foreachSidesCoodAll {cood => newScen.setSide(cood, scen.getSide(cood)) }
     newScen
@@ -22,8 +22,8 @@ class ZGame(scenInit: ZugGridOld, val players: Refs[ZPlayer])
   def makeMove(id: Int, coods: Coods): ZugGridOld = scen
 }
 
-object ZGame1 extends ZGame(Zug1, Refs(PlayBritain, PlayGermany))
-object ZGame2 extends ZGame(Zug2, Refs(PlayGermanyFrance))
+object ZGameOld1$ extends ZGameOld(Zug1Old, Refs(PlayBritain, PlayGermany))
+object ZGameOld2$ extends ZGameOld(Zug2Old, Refs(PlayGermanyFrance))
 
 case class ZPlayer(polities: Refs[Polity])
 

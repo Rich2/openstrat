@@ -7,9 +7,9 @@ object ZugTest  extends TestSuite
 {
   val tests = Tests
   {
-    val f1 = Zug1.zPath(26 cc 10, 28 cc 8)
-    val f2 = Zug1.zPath(26 cc 10, 22 cc 14)
-    val f3 = Zug1.zPath(24 cc 8, 32 cc 8)    
+    val f1 = Zug1Old.zPath(26 cc 10, 28 cc 8)
+    val f2 = Zug1Old.zPath(26 cc 10, 22 cc 14)
+    val f3 = Zug1Old.zPath(24 cc 8, 32 cc 8)
     
     "Path" -
     { assert(f1 == None)
