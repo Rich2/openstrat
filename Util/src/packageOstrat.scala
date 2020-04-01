@@ -174,7 +174,7 @@ package object ostrat
   }
 
   def ijUntilMap[A, AA <: ArrImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)
-    (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, iUntil - 1, iStep)(jFrom, jUntil - 1, jStep)(f)
+    (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(jFrom, jUntil - 1, jStep)(f)
 
   /** Maps 2 integer ranges. x is the index for the outer loop. y is the index for the inner loop. Alias for the ijToMap method prefer that or yxMap
    *  when those index names are more appropriate. */
@@ -196,10 +196,10 @@ package object ostrat
     var i: Int = iFrom
     var count = 0
 
-    while(i <= iTo)
+    while(ife(iStep > 0, i <= iTo, i >= iTo))
     { var j: Int = jFrom
 
-      while(j <= jTo)
+      while(ife(jStep > 1, j <= jTo, j >= jTo))
       { ev.imutSet(res, count, f(i, j))
         j += jStep
         count += 1
