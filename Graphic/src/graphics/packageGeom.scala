@@ -7,7 +7,7 @@ import math._, Colour.Black
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {
-  implicit def TransToExtension[T](value: T)(implicit ev: Trans[T]) = new TransExtension[T](value, ev)
+  implicit def transToExtension[T](value: T)(implicit ev: Trans[T]) = new TransExtension[T](value, ev)
   implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: Trans[T#TranserT]) = new TransExtension[T#TranserT](value.apply, ev)
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)

@@ -117,6 +117,13 @@ trait TileGrid
       f(roord, vvs.toPolygon)
     }
 
+  def mapPolygons[A, ArrT <: Arr[A]](f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+    map{ roord =>
+      val vcs = tileVertRoords(roord)
+      val vvs = vcs.map(c => roordToVec2(c))
+      f(roord, vvs.toPolygon)
+    }
+
   def flatMapPolygonsRel[ArrT <: Arr[_]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
     {
       val buff = build.buffNew()

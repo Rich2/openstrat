@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-
+import geom._
 /** This package works with hexagonal and Square tile grids. The tile objects themselves will not in the general case the contain grid coordinates, although
  * it may be necessary to include this data for complex Tile values interacting with their wider environment. Its fundamental components are the grid data itself.
  * This is just a linear array of tile data. Compile-time typed grid data. So for example a chess board can be represented by a 64 element Arr, its context
@@ -76,6 +76,11 @@ package object pGrid
       }
       Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
     }
+  }
+
+  implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
+  {
+    def gridTrans(scale: Double, offset: Vec2 = Vec2Z): T = value.trans(orig => (orig - offset - grid.cen) * scale)
   }
 
   val htStepSomes: Refs[HTStep] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)

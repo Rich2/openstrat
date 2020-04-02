@@ -16,7 +16,7 @@ class ZugGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, tur
     sd
   }
   
-  def placeSquads(triples: (Polity, Int, Int) *): Unit = triples.foreach {tr =>
+  def placeSquads(triples: (Polity, Int, Int) *): Unit = triples.foreach { tr =>
     val x = tr._2
     val y = tr._3
     val sd = SquadOld(tr._1, x, y, getID)
