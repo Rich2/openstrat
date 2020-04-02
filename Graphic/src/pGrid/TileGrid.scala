@@ -135,11 +135,12 @@ trait TileGrid
       build.buffToArr(buff)
     }
 
-  def activeTiles(scale: Double, relPosn: Vec2 = Vec2Z): Refs[PolyActiveOnly] = map{ roord =>
+  def activeTiles: Refs[PolyActiveOnly] = map{ roord =>
     val vcs = tileVertRoords(roord)
-    val vvs = vcs.map(r => roordToVec2Rel(r, scale, relPosn) )
+    val vvs = vcs.map(r => roordToVec2(r))
     vvs.toPolygon.active(roord.toHexTile)
   }
+
   /** Creates a new uninitialised Arr of the grid length. */
   def newArr[A, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
 
