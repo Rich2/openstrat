@@ -6,7 +6,7 @@ import geom._
 case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends TileGridReg
 {
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
-  override def roordToVec2Abs(roord: Roord): Vec2 = Vec2(roord.c, roord.y)
+  override def roordToVec2(roord: Roord): Vec2 = Vec2(roord.c, roord.y)
   override def sideRoordToRoordLine(sideRoord: ostrat.pGrid.Roord): RoordLine = SquareGrid.sideRoordToRoordLine(sideRoord)
   def rowTileLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).max0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0

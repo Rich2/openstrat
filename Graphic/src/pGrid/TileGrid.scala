@@ -64,14 +64,14 @@ trait TileGrid
   }
 
   /** The A value in the function is put last to allow for possible method name overloads. */
-  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: Arr[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2, A) => B)
-                                                     (implicit build: ArrBuild[B, ArrT]): ArrT =
+  def mapArrOptRefVecRel[A <: AnyRef, B, ArrT <: Arr[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2, A) => B)
+                                                        (implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
     foreach { r =>
       val op: OptRef[A] = inp(index(r))
       op.foreach { a =>
-        val v = roordToVec2(r, scale, relPosn)
+        val v = roordToVec2Rel(r, scale, relPosn)
         build.buffGrow(buff, f(r, v, a))
       }
     }
@@ -98,7 +98,7 @@ trait TileGrid
   }
 
   /** foreachs over each tile centre Vec2. */
-  def foreachVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2(r)))
+  def foreachVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
   /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
    * centre. The position is then scaled. */
@@ -107,22 +107,22 @@ trait TileGrid
 
   /** Maps all the Tile Roords and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
    *  which by default is the tileGrid centre. The position is then scaled. */
-  def mapVecs[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
-    ArrT = map { roord => f(roord, roordToVec2(roord, scale, relPosn)) }
+  def mapVecsRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
+    ArrT = map { roord => f(roord, roordToVec2Rel(roord, scale, relPosn)) }
 
-  def mapPolygons[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def mapPolygonsRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
       val vcs = tileVertRoords(roord)
-      val vvs = vcs.map(c => roordToVec2(c, scale, relPosn) )
+      val vvs = vcs.map(c => roordToVec2Rel(c, scale, relPosn) )
       f(roord, vvs.toPolygon)
     }
 
-  def flatMapPolygons[ArrT <: Arr[_]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  def flatMapPolygonsRel[ArrT <: Arr[_]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
     {
       val buff = build.buffNew()
       foreach { roord =>
         val vcs = tileVertRoords(roord)
-        val vvs = vcs.map(c => roordToVec2(c, scale, relPosn))
+        val vvs = vcs.map(c => roordToVec2Rel(c, scale, relPosn))
         build.buffGrowArr(buff, f(roord, vvs.toPolygon))
       }
       build.buffToArr(buff)
@@ -130,7 +130,7 @@ trait TileGrid
 
   def activeTiles(scale: Double, relPosn: Vec2 = Vec2Z): Refs[PolyActiveOnly] = map{ roord =>
     val vcs = tileVertRoords(roord)
-    val vvs = vcs.map(r => roordToVec2(r, scale, relPosn) )
+    val vvs = vcs.map(r => roordToVec2Rel(r, scale, relPosn) )
     vvs.toPolygon.active(roord.toHexTile)
   }
   /** Creates a new uninitialised Arr of the grid length. */
@@ -146,7 +146,6 @@ trait TileGrid
 
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
 
-
 /**************************************************************************************************/
 /* Methods that operate on individual tiles. */
 
@@ -158,13 +157,13 @@ trait TileGrid
 
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. It is called roordToVec2Abs because most of the time, you will want
    * the Vec2 relative to the TileGrid centre. */
-  def roordToVec2Abs(roord: Roord): Vec2
+  def roordToVec2(roord: Roord): Vec2
 
   /** Returns the index of an Array from its tile coordinate. */
   @inline def index(y: Int, c: Int): Int
 
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
-  def roordToVec2(roord: Roord, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (roordToVec2Abs(roord) - gridPosn -cen) * scale
+  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (roordToVec2(roord) - gridPosn -cen) * scale
 
   /** The Roords of the vertices of a tile, from its centre Roord. */
   def tileVertRoords(roord: Roord): Roords
@@ -186,34 +185,44 @@ trait TileGrid
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine
 
-  final def sideLinesAll(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = flatMap { roord =>
+  final def sideLinesAllRel(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
-    val c2s: Line2s = c1.map(orig => sideRoordToLine(orig, scale, relPosn))
+    val c2s: Line2s = c1.map(orig => sideRoordToLine2Rel(orig, scale, relPosn))
+    c2s
+  }
+
+  final def sideLinesAll : Line2s = flatMap { roord =>
+    val c1: Roords = sideRoordsOfTile(roord)
+    val c2s: Line2s = c1.map(orig => sideRoordToLine2(orig))
     c2s
   }
 
   /** This gives the tile grid lines in a single colour and line width. */
-  def sideLinesAllDraw(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
-    LinesDraw(sideLinesAll(scale, relPosn), lineWidth, colour)
+  def sideLinesAllDrawRel(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
+    LinesDraw(sideLinesAllRel(scale, relPosn), lineWidth, colour)
 
   /** Side Roord to Line2 relative to a position on the grid and then scaled. */
-  final def sideRoordToLine(sideRoord: Roord, scale: Double = 1.0, relPosn: Vec2 = Vec2Z): Line2 =
-    sideRoordToRoordLine(sideRoord).toLine2(roord => (roordToVec2Abs(roord) -relPosn -cen) * scale)
+  final def sideRoordToLine2Rel(sideRoord: Roord, scale: Double, relPosn: Vec2 = Vec2Z): Line2 =
+    sideRoordToRoordLine(sideRoord).toLine2(roord => (roordToVec2(roord) -relPosn -cen) * scale)
+
+  /** Side Roord to Line2 relative to a position on the grid and then scaled. */
+  final def sideRoordToLine2(sideRoord: Roord): Line2 =
+    sideRoordToRoordLine(sideRoord).toLine2(roord => roordToVec2(roord))
 
   def sideRoordsOfTile(tileRoord: Roord): Roords
 
   def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
   /** maps all tile-sides Roord with its Vec2 to an Arr[A]. */
-  def sidesMapRoordVec[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    sideRoords.map(c => f(c, roordToVec2(c, scale, relPosn)))
+  def sidesMapRoordVecRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+    sideRoords.map(c => f(c, roordToVec2Rel(c, scale, relPosn)))
 
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
   /** maps all tile-vertices Roord with its Vec2 to an Arr[A]. */
-  def vertsMapRoordVec[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    vertRoords.map(c => f(c, roordToVec2(c, scale, relPosn)))
+  def vertsMapRoordVecRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+    vertRoords.map(c => f(c, roordToVec2Rel(c, scale, relPosn)))
 
   def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
 }

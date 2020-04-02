@@ -10,13 +10,13 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
   var moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
 
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
-  val units = grid.mapArrOptRefVec(OneGrid1.players, scale){ (r, v, p) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, RPlayer(p, r), p.toString, 24, 2.0) }
+  val units = grid.mapArrOptRefVecRel(OneGrid1.players, scale){ (r, v, p) => Rectangle(120, 80, v).fillDrawTextActive(p.colour, RPlayer(p, r), p.toString, 24, 2.0) }
   val tiles = grid.activeTiles(scale)
   val sides = cenSideVertCoodText(grid, scale)
   def mMoves = moves.gridMapSomes{(r, step) =>
     val newR = r + step.roord
-    val v = grid.roordToVec2(newR, scale)
-    RoordLine(r, newR).toLine2(grid.roordToVec2(_, scale)).draw(2, players.gridElemGet(r).colour)
+    val v = grid.roordToVec2Rel(newR, scale)
+    RoordLine(r, newR).toLine2(grid.roordToVec2Rel(_, scale)).draw(2, players.gridElemGet(r).colour)
   }
 
   def thisTop(): Unit = reTop(Refs(status))

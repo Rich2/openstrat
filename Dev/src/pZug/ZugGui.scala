@@ -7,10 +7,11 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   implicit val grid = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
-  val tiles = grid.mapPolygons[GraphicElem, GraphicElems](scale){(r, p) => p.fillTextActive(terrs(grid.index(r)).colour, r.toHexTile, r.ycStr, 16) }
-  val sides = grid.sideLinesAll(scale).draw(2.0)
+  val tilesOld = grid.mapPolygonsRel[GraphicElem, GraphicElems](scale){ (r, p) => p.fillTextActive(terrs(grid.index(r)).colour, r.toHexTile, r.ycStr, 16) }
+  //val sidesOld = grid.sideLinesAllRel(scale).draw(2.0)
+  val sides = grid.sideLinesAll.draw(2.0)
   var statusText = "Welcome to ZugFuhrer"
   def thisTop(): Unit = reTop(Refs(status))
   thisTop()
-  mainRepaint(tiles +- sides)
+  mainRepaint(tilesOld +- sides.fTrans(v => (v - grid.cen) * scale))
 }

@@ -6,7 +6,7 @@ trait HexGrid extends TileGrid
 { def cTileMin: Int
   def cTileMax: Int
   def cStep: Int = 4
-  override def roordToVec2Abs(roord: Roord): Vec2 = HexGrid.roordToVec2(roord)
+  override def roordToVec2(roord: Roord): Vec2 = HexGrid.roordToVec2(roord)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
   def roordCen = Vec2(cCen, yCen)
   def xRatio: Double = HexGrid.xRatio
