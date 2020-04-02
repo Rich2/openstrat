@@ -19,6 +19,12 @@ trait GraphicBounded extends GraphicElem
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
 trait PaintElem extends GraphicElem
-{ /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
+{ override def fTrans(f: Vec2 => Vec2): PaintElem
+  /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
+}
+
+object PaintElem
+{
+  implicit def transImplicit: Trans[PaintElem] = ???
 }

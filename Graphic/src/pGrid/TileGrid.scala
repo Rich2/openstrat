@@ -110,6 +110,9 @@ trait TileGrid
   def mapVecsRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
     ArrT = map { roord => f(roord, roordToVec2Rel(roord, scale, relPosn)) }
 
+  def mapVecs[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
+  ArrT = map { roord => f(roord, roordToVec2Rel(roord)) }
+
   def mapPolygonsRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
       val vcs = tileVertRoords(roord)
@@ -153,6 +156,13 @@ trait TileGrid
   }
 
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
+
+  def cenSideVertRoordText: Refs[PaintElem] =
+  { val cenTexts = mapVecs((r, v) => TextGraphic(r.ycStr, 26, v))
+    val sideTexts = sidesMapRoordVec{ (r, v) =>  TextGraphic(r.ycStr, 22, v, Colour.Blue) }
+    val vertTexts = vertsMapRoordVec{ (r, v) =>  TextGraphic(r.ycStr, 20, v, Colour.Red) }
+    cenTexts ++ sideTexts ++ vertTexts
+  }
 
 /**************************************************************************************************/
 /* Methods that operate on individual tiles. */
@@ -227,12 +237,18 @@ trait TileGrid
   def sidesMapRoordVecRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     sideRoords.map(c => f(c, roordToVec2Rel(c, scale, relPosn)))
 
+  def sidesMapRoordVec[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+    sideRoords.map(r => f(r, roordToVec2(r)))
+
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
   /** maps all tile-vertices Roord with its Vec2 to an Arr[A]. */
   def vertsMapRoordVecRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     vertRoords.map(c => f(c, roordToVec2Rel(c, scale, relPosn)))
+
+  def vertsMapRoordVec[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
+    vertRoords.map(r => f(r, roordToVec2Rel(r)))
 
   def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
 }

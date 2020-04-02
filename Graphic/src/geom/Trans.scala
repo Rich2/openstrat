@@ -14,10 +14,12 @@ trait Trans[T]
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
-object Trans
+object Trans extends TransLow
 {
   implicit def arrImplicit[A, AA <: Arr[A]](implicit build: ArrBuild[A, AA], ev: Trans[A]): Trans[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
+
+
 
   implicit def fromScaledImplicit[T <: Transer]: Trans[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
@@ -30,4 +32,10 @@ object Trans
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
+}
+
+trait TransLow
+{
+  implicit def arrImplicitTranser[A <: Transer, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): Trans[AA] =
+    (obj, f) => obj.map(el => el.fTrans(f).asInstanceOf[A])
 }

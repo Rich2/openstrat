@@ -12,14 +12,4 @@ package object gOne
 
     cenTexts ++ sideTexts ++ vertTexts
   }
-
-  /*def cenSideVertRoordText(grid: TileGrid): Refs[PaintElem] =
-  {
-    val cenTexts = grid.mapVecs((r, v) => TextGraphic(r.ycStr, 26, v))
-
-    val sideTexts = grid.sidesMapRoordVecRel(scale){ (r, v) =>  TextGraphic(r.ycStr, 22, v, Colour.Blue) }
-    val vertTexts = grid.vertsMapRoordVecRel(scale){ (r, v) =>  TextGraphic(r.ycStr, 20, v, Colour.Red) }
-
-    cenTexts ++ sideTexts ++ vertTexts
-  }*/
 }
