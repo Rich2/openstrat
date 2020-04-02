@@ -11,7 +11,7 @@ trait ZugScen
 object Zug1 extends ZugScen
 {
   implicit val grid = HexGridReg(2, 14, 4, 48)
-  val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hexSidesHorrOld(9, 37, 47)
+ // val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hexSidesHorrOld(9, 37, 47)
 //  setSideCollection(wall1, true)
   val terrs = grid.newRefsSet[ZugTerr](Plain)
   //import terr.{setRow => gs}
@@ -23,22 +23,6 @@ object Zug1 extends ZugScen
   gs(4, 4, WheatField * 2)
   gs(2, 6, WheatField)
   val lunits = grid.newRefsSet[List[Squad]](Nil)
-  lunits.gridPrepend(2, 30, Squad(Britain))
-//  b1.move(26 cc 2, 22 cc 2)
-//  val b2 = placeSquad(Britain, 32, 4)
-//  b2.move(28 cc 4, 24 cc 4, 20 cc 4)
-//  val b3 = placeSquad(Britain, 46, 6)
-//  b3.move(42 cc 6)
-//  val b4 = placeSquad(Britain, 38, 10)
-//  b4.fire(18, 6)
-//  val b5 = placeSquad(Britain, 46, 10)
-//  val b6 = placeSquad(Britain, 46, 14)
-//  b6.move(42 cc 14, 38 cc 14, 36 cc 12)
-//
-//  val g1 = placeSquad(Germany, 18, 6)
-//  g1.fire(32, 4)
-//  val g2 = placeSquad(Germany, 18, 10)
-//  g2.fire(32, 4)
-//  val g3 = placeSquad(Germany, 6, 10)
-//  g3.move(8 cc 8, 12 cc 8, 16 cc 8)
+  lunits.gridPrepends(Squad(Britain), 2 rr 30, 4 rr 32, 6 rr 46, 10 rr 38, 10 rr 46, 14 rr 46)
+  lunits.gridPrepends(Squad(Germany), 6 rr 18, 10 rr 18, 10 rr 6)
 }

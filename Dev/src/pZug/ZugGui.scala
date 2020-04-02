@@ -10,7 +10,9 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridIndex(r).colour, r.toHexTile, r.ycStr, 16) }
   val sides = grid.sideLinesAll.draw(2.0)
 
-  val lunits = scen.lunits.gridHeadsMap{(roord, squad) => UnitCounters.infantry(0.5, "Hi", Colour.Green, Colour.Orange).slate(grid.roordToVec2(roord)) }
+  val lunits = scen.lunits.gridHeadsMap{ (roord, squad) =>
+    UnitCounters.infantry(0.6, squad, squad.colour, terrs.gridIndex(roord).colour).slate(roord.gridVec2)
+  }
 
   var statusText = "Welcome to ZugFuhrer"
   def thisTop(): Unit = reTop(Refs(status))

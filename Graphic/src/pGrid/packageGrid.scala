@@ -1,7 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import geom._
-import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** This package works with hexagonal and Square tile grids. The tile objects themselves will not in the general case the contain grid coordinates, although
  * it may be necessary to include this data for complex Tile values interacting with their wider environment. Its fundamental components are the grid data itself.
@@ -42,18 +41,6 @@ package object pGrid
     @deprecated def cc (y: Int): Cood = Cood(thisInt, y)
     def rr (c: Int): Roord = Roord(thisInt, c)
   }
-
-  /*implicit class ArrLikeImplicit[A](val thisArr: ArrayLike[A])
-  {
-    def gridMapToOptRef[B <: AnyRef](f: A => OptRef[B])(implicit grid: TileGrid, ct: ClassTag[B]): Refs[B] =
-    { val buff = new ArrayBuffer[B](4)
-      grid.foreach{ roord =>
-        val a = thisArr(grid.index(roord))
-        f(a).foreach(buff.append(_))
-      }
-      new Refs(buff.toArray)
-    }
-  }*/
 
   implicit class OptRefImplicit[A <: AnyRef](arr: OptRefs[A])
   {
@@ -105,6 +92,7 @@ package object pGrid
   @deprecated implicit class RefsListImplicit[A](thisRefs: Refs[List[A]])
   { def gridPrepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = gridPrepend(Roord(y, c), value)
     def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.array(grid.index(roord)) ::= value
+    def gridPrepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{r =>  thisRefs.array(grid.index(r)) ::= value }
 
     def gridHeadsMap[B, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
     {

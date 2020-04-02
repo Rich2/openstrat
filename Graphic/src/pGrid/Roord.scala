@@ -24,6 +24,7 @@ final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
 
   def toHexTile: HexTile = HexTile(y, c)
   def tilePoly(implicit tileGrid: TileGrid): Polygon = tileGrid.roordToPolygon(this)
+  def gridVec2(implicit tileGrid: TileGrid): Vec2 = tileGrid.roordToVec2(this)
 }
 
 object Roord
