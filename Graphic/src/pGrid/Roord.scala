@@ -1,5 +1,6 @@
 package ostrat
 package pGrid
+import geom._
 
 final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
 { def y: Int = bLong.>>(32).toInt
@@ -22,6 +23,7 @@ final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
   def subC(operand: Int): Roord = Roord(y, c - operand)
 
   def toHexTile: HexTile = HexTile(y, c)
+  def tilePoly(implicit tileGrid: TileGrid): Polygon = tileGrid.roordToPolygon(this)
 }
 
 object Roord

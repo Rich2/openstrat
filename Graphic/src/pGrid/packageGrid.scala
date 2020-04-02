@@ -78,6 +78,11 @@ package object pGrid
     }
   }
 
+  implicit class RefsTileGridImplicit[A <: AnyRef](thisRefs: Refs[A])
+  {
+    def gridIndex(roord: Roord)(implicit tileGrid: TileGrid): A = thisRefs(tileGrid.index(roord))
+  }
+
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
   {
     def gridTrans(scale: Double, offset: Vec2 = Vec2Z): T = value.trans(orig => (orig - offset - grid.cen) * scale)

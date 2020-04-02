@@ -172,6 +172,8 @@ trait TileGrid
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
   def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (roordToVec2(roord) - gridPosn -cen) * scale
 
+  def roordToPolygon(roord: Roord): Polygon = tileVertRoords(roord).map(c => roordToVec2(c)).toPolygon
+
   /** The Roords of the vertices of a tile, from its centre Roord. */
   def tileVertRoords(roord: Roord): Roords
 
