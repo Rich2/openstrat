@@ -1,6 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import geom._
+import collection.mutable.ArrayBuffer, reflect.ClassTag
+
 /** This package works with hexagonal and Square tile grids. The tile objects themselves will not in the general case the contain grid coordinates, although
  * it may be necessary to include this data for complex Tile values interacting with their wider environment. Its fundamental components are the grid data itself.
  * This is just a linear array of tile data. Compile-time typed grid data. So for example a chess board can be represented by a 64 element Arr, its context
@@ -40,6 +42,18 @@ package object pGrid
     @deprecated def cc (y: Int): Cood = Cood(thisInt, y)
     def rr (c: Int): Roord = Roord(thisInt, c)
   }
+
+  /*implicit class ArrLikeImplicit[A](val thisArr: ArrayLike[A])
+  {
+    def gridMapToOptRef[B <: AnyRef](f: A => OptRef[B])(implicit grid: TileGrid, ct: ClassTag[B]): Refs[B] =
+    { val buff = new ArrayBuffer[B](4)
+      grid.foreach{ roord =>
+        val a = thisArr(grid.index(roord))
+        f(a).foreach(buff.append(_))
+      }
+      new Refs(buff.toArray)
+    }
+  }*/
 
   implicit class OptRefImplicit[A <: AnyRef](arr: OptRefs[A])
   {
@@ -88,14 +102,19 @@ package object pGrid
     def gridTrans(scale: Double, offset: Vec2 = Vec2Z): T = value.trans(orig => (orig - offset - grid.cen) * scale)
   }
 
-  implicit class RefsListImplicit[A](thisRefs: Refs[List[A]])
-  {
-    def gridPrepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = gridPrepend(Roord(y, c), value)
+  @deprecated implicit class RefsListImplicit[A](thisRefs: Refs[List[A]])
+  { def gridPrepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = gridPrepend(Roord(y, c), value)
     def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.array(grid.index(roord)) ::= value
 
-    def gridMapHeads[B, BB <: Arr[B]](f: A => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
-    { val buff = build.buffNew()
-      thisRefs.foreach{l => l.forHead(a => build.buffGrow(buff, f(a)))}
+    def gridHeadsMap[B, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
+    {
+      val buff = build.buffNew()
+      grid.foreach { r => thisRefs(grid.index(r)) match
+        {
+          case h :: _ => build.buffGrow(buff, f(r, h))
+          case _ =>
+        }
+      }
       build.buffToArr(buff)
     }
   }
