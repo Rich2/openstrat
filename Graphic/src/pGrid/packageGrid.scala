@@ -91,7 +91,13 @@ package object pGrid
   implicit class RefsListImplicit[A](thisRefs: Refs[List[A]])
   {
     def gridPrepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = gridPrepend(Roord(y, c), value)
-    def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.array(grid.index(roord)) ::= value //:: thisRefs(grid.index(roord))
+    def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.array(grid.index(roord)) ::= value
+
+    def gridMapHeads[B, BB <: Arr[B]](f: A => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
+    { val buff = build.buffNew()
+      thisRefs.foreach{l => l.forHead(a => build.buffGrow(buff, f(a)))}
+      build.buffToArr(buff)
+    }
   }
 
   val htStepSomes: Refs[HTStep] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)

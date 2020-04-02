@@ -116,4 +116,9 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     }
     res
   }
+
+  def forHead(f: A => Unit): Unit = thisIter match
+  { case trav if trav.size > 0 => f(trav.head)
+    case _ =>
+  }
 }
