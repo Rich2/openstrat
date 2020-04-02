@@ -88,6 +88,12 @@ package object pGrid
     def gridTrans(scale: Double, offset: Vec2 = Vec2Z): T = value.trans(orig => (orig - offset - grid.cen) * scale)
   }
 
+  implicit class RefsListImplicit[A](thisRefs: Refs[List[A]])
+  {
+    def gridPrepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = gridPrepend(Roord(y, c), value)
+    def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.array(grid.index(roord)) ::= value //:: thisRefs(grid.index(roord))
+  }
+
   val htStepSomes: Refs[HTStep] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)
   val htSteps: Refs[HTStepLike] = HTStepNone +: htStepSomes
 }

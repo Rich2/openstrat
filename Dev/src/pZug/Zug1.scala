@@ -5,6 +5,7 @@ import pGrid._
 trait ZugScen
 { implicit def grid: HexGridReg
   def terrs: Refs[ZugTerr]
+  def lunits: Refs[List[Squad]]
 }
 
 object Zug1 extends ZugScen
@@ -22,7 +23,7 @@ object Zug1 extends ZugScen
   gs(4, 4, WheatField * 2)
   gs(2, 6, WheatField)
   val lunits = grid.newRefsSet[List[Squad]](Nil)
-//  val b1 = placeSquad(Britain, 30, 2)
+  lunits.gridPrepend(2, 30, Squad(Britain))
 //  b1.move(26 cc 2, 22 cc 2)
 //  val b2 = placeSquad(Britain, 32, 4)
 //  b2.move(28 cc 4, 24 cc 4, 20 cc 4)
