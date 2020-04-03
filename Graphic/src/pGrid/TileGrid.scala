@@ -113,8 +113,8 @@ trait TileGrid
 
   def cenSideVertRoordText: Refs[PaintElem] =
   { val cenTexts = map(r => TextGraphic(r.ycStr, 26, roordToVec2(r)))
-    val sideTexts = sidesMapRoordVec{ (r, v) =>  TextGraphic(r.ycStr, 22, v, Colour.Blue) }
-    val vertTexts = vertsMapRoordVec{ (r, v) =>  TextGraphic(r.ycStr, 20, v, Colour.Red) }
+    val sideTexts = sidesMap{ r =>  TextGraphic(r.ycStr, 22, roordToVec2(r), Colour.Blue) }
+    val vertTexts = vertsMap{ r =>  TextGraphic(r.ycStr, 20, roordToVec2(r), Colour.Red) }
     cenTexts ++ sideTexts ++ vertTexts
   }
 
@@ -176,16 +176,14 @@ trait TileGrid
 
   def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
-  /** Not sure aobut this. maps all tile-sides Roord with its Vec2 to an Arr[A]. */
-  def sidesMapRoordVec[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    sideRoords.map(r => f(r, roordToVec2(r)))
+  /** Maps from each sides roord to an Arr of A. */
+  def sidesMap[A, ArrT <: Arr[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) = sideRoords.map(r => f(r))
 
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
-  /** Not sure about this. maps all tile-vertices Roord with its Vec2 to an Arr[A]. */
-  def vertsMapRoordVec[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    vertRoords.map(r => f(r, roordToVec2(r)))
+  def vertsMap[A, ArrT <: Arr[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
+    vertRoords.map(r => f(r))
 
   def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
 }
