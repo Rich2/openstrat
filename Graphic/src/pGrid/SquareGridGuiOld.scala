@@ -3,8 +3,8 @@ package ostrat
 package pGrid
 import geom._
 /** A Gui for a single regular SquareGridComplex. Currently there are no irregular SquareGrids */
-abstract class SquareGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: SquareGridOld[TileT, SideT]](val canv: pCanv.CanvasPlatform,
-                                                                                                           val grid: GridT, title: String) extends TileGridGui[TileT, SideT, GridT](title)
+abstract class SquareGridGuiOld[TileT <: TileOld, SideT <: TileSideOld, GridT <: SquareGridOld[TileT, SideT]](val canv: pCanv.CanvasPlatform,
+  val grid: GridT, title: String) extends TileGridGui[TileT, SideT, GridT](title)
 {  
    def ofSTilesFold[R](f: OfSquareReg[TileT, SideT, GridT] => R, fSum: (R, R) => R, emptyVal: R) =
    {

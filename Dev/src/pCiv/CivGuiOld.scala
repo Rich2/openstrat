@@ -3,7 +3,7 @@ package ostrat
 package pCiv
 import geom._, pGrid._, pCanv._, Colour._
 
-class CivGui(canv: CanvasPlatform) extends HexGridGui[CTileOld, SideOldBare, CivGridOld](canv, "Civs")
+class CivGuiOld(canv: CanvasPlatform) extends HexGridGuiOld[CTileOld, SideOldBare, CivGridOld](canv, "Civs")
 {
   statusText --= "Left click unit to select. Right click on adjacent hex to move."
   override val grid: CivGridOld = Civ1

@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import geom._, pCanv._, Colour._, pGrid._, pStrat._ 
 
-class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends HexGridGui[ZugTileOld, ZugSideOld, ZugGridOld](canv, "ZugFuhrer")
+class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends HexGridGuiOld[ZugTileOld, ZugSideOld, ZugGridOld](canv, "ZugFuhrer")
 {  
   statusText --= "Left click to select, middle to set to fire, right to set to Move."
   val scen = game.getScen(player)

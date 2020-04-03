@@ -4,7 +4,7 @@ package pGrid
 import geom._, pCanv._
 
 /** Class for displaying a single hex grid */
-abstract class HexGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](val canv: CanvasPlatform, title: String) extends
+abstract class HexGridGuiOld[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](val canv: CanvasPlatform, title: String) extends
    TileGridGui[TileT, SideT, GridT](title)
 {   
    def ofHTilesFold[R](f: OfHexReg[TileT, SideT, GridT] => R, fSum: (R, R) => R, emptyVal: R) =

@@ -6,7 +6,7 @@ import pCanv._, pStrat._
 object Apps
 {
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
-      ("0", (new pCiv.CivGui(_), "JavaFx Rise of Civs")),
+      ("0", (new pCiv.CivGuiOld(_), "JavaFx Rise of Civs")),
       ("1", (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") ),
       ("2", (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
       ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
