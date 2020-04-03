@@ -7,7 +7,7 @@ case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
 {
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
   override def roordToVec2(roord: Roord): Vec2 = Vec2(roord.c, roord.y)
-  override def sideRoordToRoordLine(sideRoord: ostrat.pGrid.Roord): RoordLine = SquareGrid.sideRoordToRoordLine(sideRoord)
+  override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = SquareGrid.sideRoordToRoordLine(sideRoord)
   def rowTileLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).max0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0
   def numOfTiles: Int = numOfRows * rowTileLen
@@ -44,9 +44,9 @@ object SquareGrid
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
 
-  def sideRoordToRoordLine(x: Int, y: Int): RoordLine = (x %% 2, y %% 2) match
-  { case (1, 0) => RoordLine(x, y + 1, x, y - 1)
-    case (0, 1)=> RoordLine(x - 1, y, x + 1, y)
+  def sideRoordToRoordLine(y: Int, c: Int): RoordLine = (y %% 2, c %% 2) match
+  { case (1, 0) => RoordLine(y, c - 1, y, c + 1)
+    case (0, 1)=> RoordLine(y - 1, c, y + 1, c)
     case _ => excep("Invalid Square Roord for a side")
   }
 }

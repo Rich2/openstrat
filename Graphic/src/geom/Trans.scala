@@ -36,6 +36,6 @@ object Trans extends TransLow
 
 trait TransLow
 {
-  implicit def arrImplicitTranser[A <: Transer, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): Trans[AA] =
-    (obj, f) => obj.map(el => el.fTrans(f).asInstanceOf[A])
+  /*implicit def arrImplicitTranser[A <: Transer, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): Trans[AA] =
+    (obj, f) => obj.map(el => el.fTrans(f).asInstanceOf[A])*/
 }

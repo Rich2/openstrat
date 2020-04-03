@@ -1,6 +1,6 @@
 package ostrat
 package pGrid
-import geom._, reflect.ClassTag
+import geom._, reflect.ClassTag, Colour.Black
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
  *  stored in flat arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that
@@ -216,6 +216,8 @@ trait TileGrid
     val c2s: Line2s = c1.map(orig => sideRoordToLine2(orig))
     c2s
   }
+
+  final def sidesDraw(lineWidth: Double, colour: Colour = Black) = sideLinesAll.draw(lineWidth, colour)
 
   /** This gives the tile grid lines in a single colour and line width. */
   def sideLinesAllDrawRel(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =

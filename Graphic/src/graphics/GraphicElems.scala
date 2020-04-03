@@ -23,8 +23,3 @@ trait PaintElem extends GraphicElem
   /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
 }
-
-object PaintElem
-{
-  implicit def transImplicit: Trans[PaintElem] = ???
-}
