@@ -8,7 +8,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridIndex(r).colour, r.toHexTile, r.ycStr, 16) }
-  val sides = grid.sideLinesAll.draw(2.0)
+  val sides = grid.sideLines.draw(2.0)
 
   val lunits = scen.lunits.gridHeadsMap{ (roord, squad) =>
     UnitCounters.infantry(0.6, squad, squad.colour, terrs.gridIndex(roord).colour).slate(roord.gridVec2)

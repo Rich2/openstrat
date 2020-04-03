@@ -64,14 +64,13 @@ trait TileGrid
   }
 
   /** The A value in the function is put last to allow for possible method name overloads. */
-  def mapArrOptRefVecRel[A <: AnyRef, B, ArrT <: Arr[B]](inp: OptRefs[A], scale: Double, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2, A) => B)
-                                                        (implicit build: ArrBuild[B, ArrT]): ArrT =
+  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: Arr[B]](inp: OptRefs[A])(f: (Roord, Vec2, A) => B)(implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.buffNew()
     foreach { r =>
       val op: OptRef[A] = inp(index(r))
       op.foreach { a =>
-        val v = roordToVec2Rel(r, scale, relPosn)
+        val v = roordToVec2(r)
         build.buffGrow(buff, f(r, v, a))
       }
     }
@@ -205,23 +204,14 @@ trait TileGrid
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine
 
-  final def sideLinesAllRel(scale: Double = 1.0, relPosn: Vec2 = Vec2Z) : Line2s = flatMap { roord =>
-    val c1: Roords = sideRoordsOfTile(roord)
-    val c2s: Line2s = c1.map(orig => sideRoordToLine2Rel(orig, scale, relPosn))
-    c2s
-  }
-
-  final def sideLinesAll : Line2s = flatMap { roord =>
+  final def sideLines : Line2s = flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
     val c2s: Line2s = c1.map(orig => sideRoordToLine2(orig))
     c2s
   }
 
-  final def sidesAllDraw(lineWidth: Double, colour: Colour = Black) = sideLinesAll.draw(lineWidth, colour)
-
-  /** This gives the tile grid lines in a single colour and line width. */
-  def sideLinesAllDrawRel(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
-    LinesDraw(sideLinesAllRel(scale, relPosn), lineWidth, colour)
+  /** This gives the all tile grid lines in a single colour and line width. */
+  final def sidesDraw(lineWidth: Double, colour: Colour = Black) = sideLines.draw(lineWidth, colour)
 
   /** Side Roord to Line2 relative to a position on the grid and then scaled. */
   final def sideRoordToLine2Rel(sideRoord: Roord, scale: Double, relPosn: Vec2 = Vec2Z): Line2 =
