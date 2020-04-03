@@ -104,37 +104,15 @@ trait TileGrid
  // def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
    // map { roord => f(roordToVec2(roord, scale, relPosn)) }
 
-  /** Maps all the Tile Roords and their respective tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position,
-   *  which by default is the tileGrid centre. The position is then scaled. */
-  def mapVecsRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
-    ArrT = map { roord => f(roord, roordToVec2Rel(roord, scale, relPosn)) }
-
+  /** Maps all the Tile Roords and their respective tile centre Vec2. */
   def mapVecs[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
   ArrT = map { roord => f(roord, roordToVec2(roord)) }
-
-  def mapPolygonsRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-    map{ roord =>
-      val vcs = tileVertRoords(roord)
-      val vvs = vcs.map(c => roordToVec2Rel(c, scale, relPosn) )
-      f(roord, vvs.toPolygon)
-    }
 
   def mapPolygons[A, ArrT <: Arr[A]](f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToVec2(c))
       f(roord, vvs.toPolygon)
-    }
-
-  def flatMapPolygonsRel[ArrT <: Arr[_]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
-    {
-      val buff = build.buffNew()
-      foreach { roord =>
-        val vcs = tileVertRoords(roord)
-        val vvs = vcs.map(c => roordToVec2Rel(c, scale, relPosn))
-        build.buffGrowArr(buff, f(roord, vvs.toPolygon))
-      }
-      build.buffToArr(buff)
     }
 
   def activeTiles: Refs[PolyActiveOnly] = map{ roord =>
