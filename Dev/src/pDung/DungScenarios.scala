@@ -3,7 +3,7 @@ package ostrat
 package pDung
 import pGrid._
 
-object Dungeon1 extends DungeonGridOld(2, 48, 2, 30, 0)
+object Dungeon1Old extends DungeonGridOld(2, 48, 2, 30, 0)
 {
   import SquareGridOld._
   allWall
@@ -16,7 +16,18 @@ object Dungeon1 extends DungeonGridOld(2, 48, 2, 30, 0)
   posn(CharacZ, 18, 12, SFaceLt)
 }
 
-object Dungeon2 extends DungeonGridOld(2, 10, 2, 10, 0)
+object Dungeon2Old extends DungeonGridOld(2, 10, 2, 10, 0)
 {
   allOpen
 }
+
+trait DungeonScen
+{
+  implicit def grid: TileGrid
+}
+
+object Dungeon1 extends DungeonScen
+{
+  implicit val grid = SquareGrid(2, 30, 2, 48)
+}
+

@@ -11,7 +11,7 @@ object Apps
       ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
       ("4", (pSpace.Planets(_), "JavaFx Planets")),
       ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
-      ("6", (new pDung.DungeonGui(_), "JavaFx Dungeon")),
+      ("6", (new pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
       ("7", (gOne.GOneGui(_, gOne.OneScen1$), "JavaFx Game One")),
       ("8", (ColourGen(_), "JavaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),

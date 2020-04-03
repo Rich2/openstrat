@@ -3,7 +3,7 @@ package ostrat
 package pDung
 import geom._, pCanv._, pGrid._, SFace._, Colour._
 
-class DungeonGuiOld(canv: CanvasPlatform) extends SquareGridGuiOld[DTileOld, SideOldBare, DungeonGridOld](canv, Dungeon1, "Dungeon")
+class DungeonGuiOld(canv: CanvasPlatform) extends SquareGridGuiOld[DTileOld, SideOldBare, DungeonGridOld](canv, Dungeon1Old, "Dungeon")
 { 
   mapPanel.backColour = Black
   var pScale: Double = scaleAlignMin
