@@ -9,13 +9,15 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Ri
   implicit val grid = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val sls = grid.sidesDraw(2.0)
-  val tiles = grid.activeTiles
-  val roardTexts = grid.cenSideVertRoordText
+  val terrs = scen.terrs
+  val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridIndex(r).colour, r.toHexTile, r.ycStr, 16) }
+  //val tiles =  grid.activeTiles
+ //val roardTexts = grid.cenRoordTexts(20)
 
 
   def thisTop(): Unit = reTop(Refs(status))
   thisTop()
-  def frame = (tiles +- sls ++ roardTexts).gridTrans(scale)
+  def frame = (tiles +- sls ).gridTrans(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

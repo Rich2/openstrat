@@ -85,7 +85,7 @@ trait Terrain
 
 case object Plains extends Terrain
 { override def str = "Plains"
-  override def colour: Colour = White
+  override def colour: Colour = MintCream
 }
 
 case object Hilly extends Terrain

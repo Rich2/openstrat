@@ -111,11 +111,13 @@ trait TileGrid
 
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
 
+  def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
+
   def cenSideVertRoordText: Refs[PaintElem] =
-  { val cenTexts = map(r => TextGraphic(r.ycStr, 26, roordToVec2(r)))
+  {
     val sideTexts = sidesMap{ r =>  TextGraphic(r.ycStr, 22, roordToVec2(r), Colour.Blue) }
     val vertTexts = vertsMap{ r =>  TextGraphic(r.ycStr, 20, roordToVec2(r), Colour.Red) }
-    cenTexts ++ sideTexts ++ vertTexts
+    cenRoordTexts() ++ sideTexts ++ vertTexts
   }
 
 /**************************************************************************************************/
