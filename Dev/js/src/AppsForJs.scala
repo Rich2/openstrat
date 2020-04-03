@@ -30,7 +30,7 @@ object AppsForJs
 
     ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "Js Rise of Civs")),
 
-    ("c5", (new pCiv.CivGuiOld(_), "Js Rise of Civs")),
+    //("c5", (new pCiv.CivGuiOld(_), "Js Rise of Civs")),
 
     ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "Js Zugfuhrer Z1 Britain")),
     ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),

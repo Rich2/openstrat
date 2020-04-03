@@ -28,7 +28,7 @@ object Apps
 
       ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
 
-      ("c5", (new pCiv.CivGuiOld(_), "JavaFx Rise of Civs")),
+      //("c5", (new pCiv.CivGuiOld(_), "JavaFx Rise of Civs")),
 
       ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
