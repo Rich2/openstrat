@@ -20,8 +20,12 @@ object Civ1Old extends CivGridOld(4, 40, 4, 16, 0)
   getTile(18, 10).lunits +-= Warrior(Uruk, 18, 10)
   getTile(10, 6).lunits +-= Warrior(Eridu, 10, 6)
 }
+trait CivScen
+{
+  implicit def grid: TileGrid
+}
 
-object Civ1
+object Civ1 extends CivScen
 {
   implicit val grid = HexGridReg(4, 16, 4, 40)
 }

@@ -8,14 +8,13 @@ import pCanv._, pStrat._
 object AppsForJs
 {
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
-    ("0", (new pCiv.CivGuiOld(_), "Js Rise of Civs")),
     ("1", (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") ),
     ("2", (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
     ("3", (pFlags.FlagsGui(_), "Js Flags")),
     ("4", (pSpace.Planets(_), "Js Planets")),
     ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
     ("6", (new pDung.DungeonGuiOld(_), "Js Dungeon")),
-    ("7", (gOne.GOneGui(_, gOne.OneGrid1), "Js Game One")),
+    ("7", (gOne.GOneGui(_, gOne.OneScen1$), "Js Game One")),
     ("8", (ColourGen(_), "Js Some Colours")),
     ("9", (p305.BC305Gui(_, p305.Bc1), "Js BC 305")),
     ("10", (pCard.BlackJackGui(_), "Js BlackJack")),
@@ -28,6 +27,10 @@ object AppsForJs
     ("17", (gOne.IrrGui(_), "Js irregular Grid Game One")),
     ("18", (gOne.SqOneGui(_), "Js Square Grid Game One")),
     ("19", (new pDung.DungeonGuiOld(_), "Js Dungeon")),
+
+    ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "Js Rise of Civs")),
+
+    ("c5", (new pCiv.CivGuiOld(_), "Js Rise of Civs")),
 
     ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "Js Zugfuhrer Z1 Britain")),
     ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),

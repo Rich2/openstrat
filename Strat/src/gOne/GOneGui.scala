@@ -3,7 +3,7 @@ package gOne
 import pCanv._, geom._, pGrid._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game One Gui")
+case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game One Gui")
 { var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
   implicit val grid = scen.grid
   val players = scen.players

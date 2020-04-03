@@ -6,14 +6,13 @@ import pCanv._, pStrat._
 object Apps
 {
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
-      ("0", (new pCiv.CivGuiOld(_), "JavaFx Rise of Civs")),
       ("1", (pWW2.WWIIGui(_, pWW2.WW1940), "World War II") ),
       ("2", (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
       ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
       ("4", (pSpace.Planets(_), "JavaFx Planets")),
       ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
       ("6", (new pDung.DungeonGui(_), "JavaFx Dungeon")),
-      ("7", (gOne.GOneGui(_, gOne.OneGrid1), "JavaFx Game One")),
+      ("7", (gOne.GOneGui(_, gOne.OneScen1$), "JavaFx Game One")),
       ("8", (ColourGen(_), "JavaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
       ("10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
@@ -26,6 +25,10 @@ object Apps
       ("17", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
       ("18", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
       ("19", (new pDung.DungeonGuiOld(_), "JavaFx Dungeon")),
+
+      ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
+
+      ("c5", (new pCiv.CivGuiOld(_), "JavaFx Rise of Civs")),
 
       ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),

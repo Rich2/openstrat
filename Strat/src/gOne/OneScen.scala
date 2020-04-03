@@ -2,13 +2,13 @@ package ostrat
 package gOne
 import pGrid._
 
-trait OneGrid
+trait OneScen
 {
   def grid: HexGrid
   def players: OptRefs[Player]
 }
 
-object OneGrid1 extends OneGrid
+object OneScen1$ extends OneScen
 {
   implicit val grid = new HexGridReg(2, 6, 2, 10)
   val players: OptRefs[Player] = grid.newOptRefs[Player]
