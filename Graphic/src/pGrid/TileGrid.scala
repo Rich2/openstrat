@@ -111,7 +111,7 @@ trait TileGrid
     ArrT = map { roord => f(roord, roordToVec2Rel(roord, scale, relPosn)) }
 
   def mapVecs[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
-  ArrT = map { roord => f(roord, roordToVec2Rel(roord)) }
+  ArrT = map { roord => f(roord, roordToVec2(roord)) }
 
   def mapPolygonsRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
@@ -217,7 +217,7 @@ trait TileGrid
     c2s
   }
 
-  final def sidesDraw(lineWidth: Double, colour: Colour = Black) = sideLinesAll.draw(lineWidth, colour)
+  final def sidesAllDraw(lineWidth: Double, colour: Colour = Black) = sideLinesAll.draw(lineWidth, colour)
 
   /** This gives the tile grid lines in a single colour and line width. */
   def sideLinesAllDrawRel(scale: Double, lineWidth: Double = 2.0, colour: Colour = Colour.Black, relPosn: Vec2): LinesDraw =
@@ -250,7 +250,7 @@ trait TileGrid
     vertRoords.map(c => f(c, roordToVec2Rel(c, scale, relPosn)))
 
   def vertsMapRoordVec[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    vertRoords.map(r => f(r, roordToVec2Rel(r)))
+    vertRoords.map(r => f(r, roordToVec2(r)))
 
   def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
 }
