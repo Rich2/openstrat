@@ -10,9 +10,7 @@ class CivGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, tur
 }
 
 object Civ1Old extends CivGridOld(4, 40, 4, 16, 0)
-{
-
-  setTilesAll(plain)
+{ setTilesAll(plain)
   import Civ1Old.{setRow => gs}
  
   gs(yRow = 12, xStart = 20, hills, mtain * 2)
@@ -20,6 +18,7 @@ object Civ1Old extends CivGridOld(4, 40, 4, 16, 0)
   getTile(18, 10).lunits +-= Warrior(Uruk, 18, 10)
   getTile(10, 6).lunits +-= Warrior(Eridu, 10, 6)
 }
+
 trait CivScen
 { implicit def grid: TileGrid
   def terrs: Refs[Terrain]

@@ -6,24 +6,24 @@ import scala.collection.mutable.ArrayBuffer
 
 /** The immutable Array based class for reference types. It Inherits the standard foreach, map, flatMap and fold and their variations' methods from
  *  ArrayLike. */
-final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends AnyVal with Arr[A]
+final class Refs[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with Arr[A]
 { type ThisT = Refs[A] @uncheckedVariance
   override def unsafeNew(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
-  override def length: Int = array.length
-  override def apply(index: Int): A = array(index)
+  override def length: Int = unsafeArr.length
+  override def apply(index: Int): A = unsafeArr(index)
   override def toString: String = "Refs" + elemsStr
-  def elemsStr: String =  array.toStrsCommaParenth()
-  def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = array(i) = value
+  def elemsStr: String =  unsafeArr.toStrsCommaParenth()
+  def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArr(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] = drop(1)
   def offset(value: Int): RefsOff[A] @uncheckedVariance = new RefsOff[A](value)
   def offset0: RefsOff[A @uncheckedVariance] = offset(0)
 
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
-  { array.copyToArray(array, offset, copyLength); () }
+  { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }
 
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Refs[A] =
   { val newArray = new Array[A]((length - 1).min0)
-    iUntilForeach(1, length)(i => newArray(i - 1) = array(i))
+    iUntilForeach(1, length)(i => newArray(i - 1) = unsafeArr(i))
     new Refs(newArray)
   }
 
@@ -33,8 +33,8 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
    *  indicates loss of type precision. The ++ appendRefs method is preferred when type widening is not required. */
   def appendRefs [AA >: A <: AnyRef](op: Refs[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + op.length)
-    array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
+    unsafeArr.copyToArray(newArray)
+    op.unsafeArr.copyToArray(newArray, length)
     new Refs(newArray)
   }
 
@@ -43,7 +43,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
-    array.copyToArray(newArray)
+    unsafeArr.copyToArray(newArray)
     newArray(length) = op
     new Refs(newArray)
   }
@@ -55,7 +55,7 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
   def prepend[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Refs[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
-    array.copyToArray(newArray, 1)
+    unsafeArr.copyToArray(newArray, 1)
     new Refs(newArray)
   }
 
@@ -97,10 +97,10 @@ final class Refs[+A <: AnyRef](val array: Array[A] @uncheckedVariance) extends A
 class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Refs[A]] with ArrFlatBuild[Refs[A]]
 { type BuffT = RefBuff[A]
   override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
-  override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.array(index) = value
+  override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
   override def buffNew(length: Int = 4): RefBuff[A] = new RefBuff(new ArrayBuffer[A](length))
   override def buffGrow(buff: RefBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: RefBuff[A], arr: Refs[A]): Unit = buff.unsafeBuff.addAll(arr.array)
+  override def buffGrowArr(buff: RefBuff[A], arr: Refs[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
   override def buffToArr(buff: RefBuff[A]): Refs[A] = new Refs(buff.unsafeBuff.toArray)
 }
 

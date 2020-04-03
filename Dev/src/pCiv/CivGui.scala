@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCiv
-import geom._, pGrid._, pCanv._
+import pGrid._, pCanv._
 
 case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Rise Game Gui")
 {
@@ -11,13 +11,10 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Ri
   val sls = grid.sidesDraw(2.0)
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridIndex(r).colour, r.toHexTile, r.ycStr, 16) }
-  //val tiles =  grid.activeTiles
- //val roardTexts = grid.cenRoordTexts(20)
-
 
   def thisTop(): Unit = reTop(Refs(status))
   thisTop()
-  def frame = (tiles +- sls ).gridTrans(scale)
+  def frame = (tiles +- sls).gridTrans(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

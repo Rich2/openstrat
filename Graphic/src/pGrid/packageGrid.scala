@@ -91,8 +91,8 @@ package object pGrid
 
   @deprecated implicit class RefsListImplicit[A](thisRefs: Refs[List[A]])
   { def gridPrepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = gridPrepend(Roord(y, c), value)
-    def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.array(grid.index(roord)) ::= value
-    def gridPrepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{r =>  thisRefs.array(grid.index(r)) ::= value }
+    def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.index(roord)) ::= value
+    def gridPrepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{r =>  thisRefs.unsafeArr(grid.index(r)) ::= value }
 
     def gridHeadsMap[B, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
     {
