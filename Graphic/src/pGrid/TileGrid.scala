@@ -63,20 +63,6 @@ trait TileGrid
     res
   }
 
-  /** The A value in the function is put last to allow for possible method name overloads. */
-  def mapArrOptRefVec[A <: AnyRef, B, ArrT <: Arr[B]](inp: OptRefs[A])(f: (Roord, Vec2, A) => B)(implicit build: ArrBuild[B, ArrT]): ArrT =
-  {
-    val buff = build.buffNew()
-    foreach { r =>
-      val op: OptRef[A] = inp(index(r))
-      op.foreach { a =>
-        val v = roordToVec2(r)
-        build.buffGrow(buff, f(r, v, a))
-      }
-    }
-    build.buffToArr(buff)
-  }
-
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
   def flatMap[ArrT <: Arr[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
@@ -98,15 +84,6 @@ trait TileGrid
 
   /** foreachs over each tile centre Vec2. */
   def foreachVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
-
-  /** Maps all the Tile centre Vec2 posns to an Arr of type A. The positions are relative to a TileGrid position, which by default is the tileGrid
-   * centre. The position is then scaled. */
- // def mapVecs[A, ArrT <: ArrImut[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-   // map { roord => f(roordToVec2(roord, scale, relPosn)) }
-
-  /** Maps all the Tile Roords and their respective tile centre Vec2. */
-  def mapVecs[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]):
-  ArrT = map { roord => f(roord, roordToVec2(roord)) }
 
   def mapPolygons[A, ArrT <: Arr[A]](f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
@@ -135,7 +112,7 @@ trait TileGrid
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
 
   def cenSideVertRoordText: Refs[PaintElem] =
-  { val cenTexts = mapVecs((r, v) => TextGraphic(r.ycStr, 26, v))
+  { val cenTexts = map(r => TextGraphic(r.ycStr, 26, roordToVec2(r)))
     val sideTexts = sidesMapRoordVec{ (r, v) =>  TextGraphic(r.ycStr, 22, v, Colour.Blue) }
     val vertTexts = vertsMapRoordVec{ (r, v) =>  TextGraphic(r.ycStr, 20, v, Colour.Red) }
     cenTexts ++ sideTexts ++ vertTexts
@@ -192,10 +169,6 @@ trait TileGrid
   final def sidesDraw(lineWidth: Double, colour: Colour = Black) = sideLines.draw(lineWidth, colour)
 
   /** Side Roord to Line2 relative to a position on the grid and then scaled. */
-  final def sideRoordToLine2Rel(sideRoord: Roord, scale: Double, relPosn: Vec2 = Vec2Z): Line2 =
-    sideRoordToRoordLine(sideRoord).toLine2(roord => (roordToVec2(roord) -relPosn -cen) * scale)
-
-  /** Side Roord to Line2 relative to a position on the grid and then scaled. */
   final def sideRoordToLine2(sideRoord: Roord): Line2 =
     sideRoordToRoordLine(sideRoord).toLine2(roord => roordToVec2(roord))
 
@@ -203,20 +176,14 @@ trait TileGrid
 
   def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
-  /** maps all tile-sides Roord with its Vec2 to an Arr[A]. */
-  def sidesMapRoordVecRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    sideRoords.map(c => f(c, roordToVec2Rel(c, scale, relPosn)))
-
+  /** Not sure aobut this. maps all tile-sides Roord with its Vec2 to an Arr[A]. */
   def sidesMapRoordVec[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     sideRoords.map(r => f(r, roordToVec2(r)))
 
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
-  /** maps all tile-vertices Roord with its Vec2 to an Arr[A]. */
-  def vertsMapRoordVecRel[A, ArrT <: Arr[A]](scale: Double = 1.0, relPosn: Vec2 = Vec2Z)(f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
-    vertRoords.map(c => f(c, roordToVec2Rel(c, scale, relPosn)))
-
+  /** Not sure about this. maps all tile-vertices Roord with its Vec2 to an Arr[A]. */
   def vertsMapRoordVec[A, ArrT <: Arr[A]](f: (Roord, Vec2) => A)(implicit build: ArrBuild[A, ArrT]) =
     vertRoords.map(r => f(r, roordToVec2(r)))
 

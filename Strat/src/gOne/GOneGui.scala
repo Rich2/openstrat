@@ -11,11 +11,7 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
 
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val lunitsOld = grid.mapArrOptRefVec(players){ (r, v, p) =>
-    Rectangle(0.9, 0.6, v).fillDrawTextActive(p.colour, RPlayer(p, r), p.toString, 24, 2.0)
-  }
-
-  //val lunits =
+  val lunits = players.gridMapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r), p.toString, 24, 2.0) }
 
   val tiles = grid.activeTiles
   val roardTexts = grid.cenSideVertRoordText
@@ -45,7 +41,7 @@ case class GOneGui(canv: CanvasPlatform, scen: OneGrid) extends CmdBarGui("Game 
        case (_, h, _) => deb("Other; " + h.toString)
     }
   thisTop()
-  def frame = (tiles +- sls ++ roardTexts ++ lunitsOld ++ mMoves).gridTrans(scale)
+  def frame = (tiles +- sls ++ roardTexts ++ lunits ++ mMoves).gridTrans(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }
