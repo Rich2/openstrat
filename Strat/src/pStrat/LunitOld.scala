@@ -3,8 +3,7 @@ package ostrat
 package pStrat
 import pGrid._
 
-trait Lunit extends CoodMover
-{
-   var dirn: HexDirn = HCen
-   var offsetMagnitude: Double = 0
+@deprecated trait LunitOld extends CoodMover
+{ var dirn: HexDirn = HCen
+  var offsetMagnitude: Double = 0
 }

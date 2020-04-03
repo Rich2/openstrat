@@ -9,7 +9,7 @@ case class CTileOld(x: Int, y: Int, terr: WTile) extends TileOld
   def fromT = terr
   def colour = terr.colour
   var settlement: Boolean = false
-  var lunits: Refs[Warrior] = Refs()
+  var lunits: Refs[WarriorOld] = Refs()
 }
 
 object CTileOld

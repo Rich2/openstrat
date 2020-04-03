@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import pGrid._, pStrat._
 
-class SquadOld(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) extends Lunit
+class SquadOld(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) extends LunitOld
 {
   var action: Action = NoAction
   def move(newMove: Cood *): Unit = action = Move(Coods(newMove:_*))

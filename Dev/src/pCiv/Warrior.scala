@@ -3,11 +3,15 @@ package ostrat
 package pCiv
 import pGrid._, pStrat._, pEarth._
 
-class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Lunit //with Stringer
+case class Warrior(faction: Faction)
+{ def colour: Colour = faction.colour
+}
+
+class WarriorOld(val faction: Faction, var xCood: Int, var yCood: Int) extends LunitOld
 { def typeStr: String = "Warrior"
   //override def str: String = persist2(faction, cood)
    override def equals(other: Any): Boolean = other match
-   { case that: Warrior => faction == that.faction
+   { case that: WarriorOld => faction == that.faction
      case _ => false
    }
    def turnMovePts = 10
@@ -20,7 +24,7 @@ class Warrior(val faction: Faction, var xCood: Int, var yCood: Int) extends Luni
    }
 }
 
-object Warrior
-{ def apply(polity: Faction, cood: Cood): Warrior = new Warrior(polity, cood.xi, cood.yi)
-  def apply(polity: Faction, x: Int, y: Int): Warrior = new Warrior(polity, x, y)
+object WarriorOld
+{ def apply(polity: Faction, cood: Cood): WarriorOld = new WarriorOld(polity, cood.xi, cood.yi)
+  def apply(polity: Faction, x: Int, y: Int): WarriorOld = new WarriorOld(polity, x, y)
 }

@@ -50,7 +50,7 @@ class CivGuiOld(canv: CanvasPlatform) extends HexGridGuiOld[CTileOld, SideOldBar
     }
     
     //If a Warrior is selected and a tile adjacent to the Warrior is right clicked =>
-    case (RightButton, List(warr : Warrior), List(newTile: CTileOld)) =>
+    case (RightButton, List(warr : WarriorOld), List(newTile: CTileOld)) =>
       {
         deb("Rt") 
         val newCood = newTile.cood
