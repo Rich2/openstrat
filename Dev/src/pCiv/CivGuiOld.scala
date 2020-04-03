@@ -6,7 +6,7 @@ import geom._, pGrid._, pCanv._, Colour._
 class CivGuiOld(canv: CanvasPlatform) extends HexGridGuiOld[CTileOld, SideOldBare, CivGridOld](canv, "Civs")
 {
   statusText --= "Left click unit to select. Right click on adjacent hex to move."
-  override val grid: CivGridOld = Civ1
+  override val grid: CivGridOld = Civ1Old
   override def scaleMin = 10 
   var pScale: Double = scaleAlignMin
   var focus: Vec2 = grid.cen

@@ -9,14 +9,19 @@ class CivGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, tur
   
 }
 
-object Civ1 extends CivGridOld(4, 40, 4, 16, 0)
+object Civ1Old extends CivGridOld(4, 40, 4, 16, 0)
 {
   import WTile._
   setTilesAll(plain)
-  import Civ1.{setRow => gs}
+  import Civ1Old.{setRow => gs}
  
   gs(yRow = 12, xStart = 20, hills, mtain * 2)
   modTilesAll(_.settlement = true, (24, 8), (34, 6))
   getTile(18, 10).lunits +-= Warrior(Uruk, 18, 10)
   getTile(10, 6).lunits +-= Warrior(Eridu, 10, 6)
+}
+
+object Civ1
+{
+  implicit val grid = HexGridReg(4, 16, 4, 40)
 }
