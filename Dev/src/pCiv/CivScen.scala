@@ -28,4 +28,6 @@ trait CivScen
 object Civ1 extends CivScen
 {
   implicit val grid = HexGridReg(4, 16, 4, 40)
+  val terrs = grid.newRefsSet[Terrain](Plains)
+  terrs.setRow(12, 20, Hilly)
 }
