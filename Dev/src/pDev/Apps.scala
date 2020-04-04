@@ -11,7 +11,7 @@ object Apps
       ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
       ("4", (pSpace.Planets(_), "JavaFx Planets")),
       ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
-      ("6", (new pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
+      ("6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
       ("7", (gOne.GOneGui(_, gOne.OneScen1$), "JavaFx Game One")),
       ("8", (ColourGen(_), "JavaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
@@ -27,8 +27,6 @@ object Apps
       ("19", (new pDung.DungeonGuiOld(_), "JavaFx Dungeon")),
 
       ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
-
-      //("c5", (new pCiv.CivGuiOld(_), "JavaFx Rise of Civs")),
 
       ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),

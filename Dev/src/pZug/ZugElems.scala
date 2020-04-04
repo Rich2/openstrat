@@ -2,6 +2,11 @@
 package ostrat
 package pZug
 
+case class Squad(val polity: Polity)
+{
+   def colour = polity.colour
+}
+
 trait Polity extends PersistSingleton
 { //def typeSym = 'Polity
   def colour: Colour

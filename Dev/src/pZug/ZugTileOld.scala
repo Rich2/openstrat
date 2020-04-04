@@ -1,13 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pZug
-import Colour._, pGrid._
-
-trait ZugTerr
-{ def colour: Colour
-  def cost: OptInt = SomeInt(1)
-  def conceal: Boolean = false
-}
+import pGrid._
 
 case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[SquadOld] = ArrOld()) extends ColouredTileOld
 { type FromT = ZugTerr
@@ -26,30 +20,18 @@ object ZugTileOld
   }   
 }
 
-case object Plain extends ZugTerr
-{ override def colour = LightGreen
+case class ZugSideOld(x: Int, y: Int, wall: Boolean) extends TileSideOld
+{
+
 }
 
-case object WheatField extends ZugTerr
-{ override def colour = Wheat
-}
+object ZugSideOld
+{
+  implicit val zugSideMakerImplicit: (Int, Int, Boolean) => ZugSideOld = ZugSideOld.apply
 
-case object Hill extends ZugTerr
-{ override def colour = Brown
-}
-
-trait Building extends ZugTerr { override def conceal = true }
-
-case object StoneBuilding extends Building
-{ override def colour = Gray
-  override def cost: OptInt = SomeInt(3)
-}
-
-object WoodBuilding extends Building
-{ override def colour = Brown
-}
-
-object Lake extends ZugTerr
-{ override def colour = Blue
-  override def cost: OptInt = NoInt
+  implicit object ZugSideIsType extends IsType[ZugSideOld]
+  {
+    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[ZugSideOld]
+    override def asType(obj: AnyRef): ZugSideOld = obj.asInstanceOf[ZugSideOld]
+  }
 }
