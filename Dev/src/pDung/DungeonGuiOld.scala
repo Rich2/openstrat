@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pDung
-import geom._, pCanv._, pGrid._, SFace._, Colour._
+import geom._, pCanv._, pGrid._, SqFace._, Colour._
 
 class DungeonGuiOld(canv: CanvasPlatform) extends SquareGridGuiOld[DTileOld, SideOldBare, DungeonGridOld](canv, Dungeon1Old, "Dungeon")
 { 
@@ -33,14 +33,14 @@ class DungeonGuiOld(canv: CanvasPlatform) extends SquareGridGuiOld[DTileOld, Sid
       statusText = selected.headToStringElse("Nothing Clicked")
       eTop()
     }
-    case (RightButton, List(ch: Character), List(newTile: DTileOld)) if
+    case (RightButton, List(ch: CharacterOld), List(newTile: DTileOld)) if
       adjTileCoodsOfTile(ch.cood).contains(newTile.cood) && ch.canMove(newTile) =>
     { grid.getTile(ch.cood).charac = NoRef
       ch.cood = newTile.cood
       newTile.charac = OptRef(ch)
       repaintMap      
     }
-    case (MiddleButton, List(ch: Character), List(newTile: DTileOld)) => optFace(ch.cood, newTile.cood) match
+    case (MiddleButton, List(ch: CharacterOld), List(newTile: DTileOld)) => optFaceOld(ch.cood, newTile.cood) match
     { case Some(face) => { ch.facing = face; repaintMap }      
       case _ => deb("Middle Button other")
     }

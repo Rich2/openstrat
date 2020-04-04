@@ -6,7 +6,7 @@ case class DTileOld(x: Int, y: Int, terr: DungTerr) extends ColouredTileOld//Gri
 {
   type FromT = DungTerr
   def fromT = terr
-  var charac: OptRef[Character] = NoRef
+  var charac: OptRef[CharacterOld] = NoRef
   def colour = terr.colour
 }
 

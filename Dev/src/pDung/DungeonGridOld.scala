@@ -7,7 +7,7 @@ import pGrid._
 class DungeonGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int) extends SquareGridOld[DTileOld, SideOldBare](xTileMin, xTileMax,
     yTileMin, yTileMax, turnNum)
 {
-   def posn(charac: Character, x: Int, y: Int, facing: SFace): Unit =
+   def posn(charac: CharacterOld, x: Int, y: Int, facing: SqFace): Unit =
    { getTile(x, y).charac = OptRef(charac)
      charac.setCood(x, y)
      charac.facing = facing
