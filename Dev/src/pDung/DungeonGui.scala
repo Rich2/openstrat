@@ -10,7 +10,6 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridElem(r).colour, r.toHexTile, r.ycStr, 16) }
   val sls = grid.sidesDraw(2.0)
 
-
   def thisTop(): Unit = reTop(Refs(status))
   thisTop()
   def frame: GraphicElems = (tiles +- sls).gridTrans(scale)
