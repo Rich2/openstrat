@@ -1,0 +1,90 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package ostrat
+package pGrid
+import geom._
+
+class RefsGridExtensions[A <: AnyRef](thisRefs: Refs[A])
+{
+  def gridIndex(roordStart: Roord)(implicit grid: TileGrid): A = thisRefs(grid.index(roordStart))
+
+  /** Set tile row from the Cood. */
+  final def setRow(startRoord: Roord, tileValues: Multiple[A]*)(implicit rid: TileGrid): Roord =
+    setRow(startRoord.y, startRoord.c, tileValues: _*)
+
+  /** Note set Row starts with the y (row) parameter. */
+  final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  {
+    val tiles: List[A] = tileValues.toSingles
+    tiles.iForeach{(el, i) =>
+      val c = cStart + i * grid.cStep
+      val index = grid.index(yRow, c)
+      thisRefs.unsafeSetElem(index, el)
+    }
+    Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
+  }
+
+  def sqSetAllOfRow(y: Int, tileMakers: Multiple[A]*)(implicit grid: SquareGrid): Unit =
+  { val tiles = tileMakers.flatMap(_.singlesList)
+    tiles.iForeach{(el , i) =>
+      val index = grid.index(y, grid.cTileMin + i * 2)
+      thisRefs.unsafeSetElem(index, el)
+    }
+  }
+
+  /** Note set RowBack starts with the y (row) parameter */
+  /*final def setRowBack(yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+  {
+    val tiles = tileMakers.toSingles
+    tiles.iForeach{(e, i) =>
+      val x = xStart - i * xStep
+      fSetTile(x, yRow, e)
+    }
+    Cood(xStart - (tiles.length - 1) * xStep, yRow)
+  }
+
+  final def setRowBack(cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+    setRowBack(cood.yi, cood.xi, tileValues: _*)(f)*/
+
+  final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  {
+    val tiles = tileMakers.flatMap(_.singlesList)
+    tiles.iForeach{(el, i) =>
+      val y = yStart + i * 2
+      val index = grid.index(y, c)
+      thisRefs.unsafeSetElem(index, el)
+    }
+    Roord(yStart + (tiles.length - 1) * 2, c)
+  }
+
+  final def setColumn(roordStart: Roord, multis: Multiple[A]*)(implicit grid: TileGrid): Roord =
+    setColumn(roordStart.c, roordStart.y, multis: _*)(grid)
+
+  final def setColumnDown(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  {
+    val tiles = tileMakers.flatMap(_.singlesList)
+
+    tiles.iForeach{(el, i) =>
+      val y = yStart - i * 2
+      val index = grid.index(y, c)
+      thisRefs.unsafeSetElem(index, el)
+    }
+    Roord(c, yStart - (tiles.length - 1) * 2)
+  }
+
+  final def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+    setColumnDown(roordStart.c, roordStart.y, tileValues: _*)(grid)
+
+  def setTerrPath(startRoord: Roord, value: A, dirns: Multiple[SquareGridOld.PathDirn]*)(implicit grid: TileGrid): Roord =
+  {
+    var curr = startRoord
+    import SquareGridOld._
+
+    dirns.foreach
+    { case Multiple(Rt, i) => curr = setRow(curr, value * i)
+      case Multiple(Lt, i) => curr = ??? //setRowBack(cood, value * i)(f)
+      case Multiple(Up, i) => curr = setColumn(curr, value * i)
+      case Multiple(Dn, i) => curr = setColumnDown(curr, value * i)
+    }
+    curr
+  }
+}
