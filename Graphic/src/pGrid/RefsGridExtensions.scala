@@ -88,4 +88,11 @@ class RefsGridExtensions[A <: AnyRef](thisRefs: Refs[A])
     }
     curr
   }
+
+  /** Sets a rectangle of tiles to the same terrain type. */
+  def sqGridSetRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(implicit grid: SquareGrid): Unit = for {
+    y <- yFrom.max(grid.yTileMin) to yTo.min(grid.yTileMax) by 2
+    c <- cFrom.max(grid.cTileMin) to cTo.min(grid.cTileMax) by 2
+    index = grid.index(y, c)
+  } thisRefs.unsafeSetElem(index, tileValue)
 }

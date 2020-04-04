@@ -84,8 +84,8 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
    }
 
   final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
-    setTiles(bottomLeft.xi, topRight.yi, bottomLeft.yi, topRight.yi, tileValue)(f)
-  def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
+    setTileRect(bottomLeft.xi, topRight.yi, bottomLeft.yi, topRight.yi, tileValue)(f)
+  def setTileRect[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit
   /** Throws exception if Cood is not a valid Tile coordinate */
   def coodIsTile(x: Int, y: Int): Unit
 

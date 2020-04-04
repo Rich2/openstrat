@@ -119,7 +119,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   
   /* ****************************** SideStuff ****************************************/
   //override def allSideCoods: Coods = ???
-  final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
+  final override def setTileRect[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 
 case class Node[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptRef[Node[TileT]])

@@ -46,5 +46,5 @@ abstract class HexGridOldIrr[TileT <: TileOld, SideT <: TileSideOld](val rowBoun
   override def optTile(x: Int, y: Int): Option[TileT] =
     ife(y < yTileMin | y > yTileMax | x < rowTileXStart(y) | x > rowTileXEnd(y), None, Some(getTile(x, y)))
   
-  final override def setTiles[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
+  final override def setTileRect[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
