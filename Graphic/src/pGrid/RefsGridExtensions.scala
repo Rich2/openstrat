@@ -1,11 +1,11 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
 
 class RefsGridExtensions[A <: AnyRef](thisRefs: Refs[A])
 {
-  def gridIndex(roordStart: Roord)(implicit grid: TileGrid): A = thisRefs(grid.index(roordStart))
+  def gridElem(y: Int, c: Int)(implicit grid: TileGrid): A = thisRefs(grid.index(y, c))
+  def gridElem(roordStart: Roord)(implicit grid: TileGrid): A = thisRefs(grid.index(roordStart))
 
   /** Set tile row from the Cood. */
   final def setRow(startRoord: Roord, tileValues: Multiple[A]*)(implicit rid: TileGrid): Roord =
@@ -32,18 +32,19 @@ class RefsGridExtensions[A <: AnyRef](thisRefs: Refs[A])
   }
 
   /** Note set RowBack starts with the y (row) parameter */
-  /*final def setRowBack(yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+  final def setRowBack(yRow: Int, cStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
   {
     val tiles = tileMakers.toSingles
-    tiles.iForeach{(e, i) =>
-      val x = xStart - i * xStep
-      fSetTile(x, yRow, e)
+    tiles.iForeach{(el, i) =>
+      val c = cStart - i * grid.cStep
+      val index = grid.index(yRow, c)
+      thisRefs.unsafeSetElem(index, el)
     }
-    Cood(xStart - (tiles.length - 1) * xStep, yRow)
+    Roord(yRow, cStart - (tiles.length - 1) * grid.cStep)
   }
 
-  final def setRowBack(cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-    setRowBack(cood.yi, cood.xi, tileValues: _*)(f)*/
+  final def setRowBack(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+    setRowBack(roord.y, roord.c, tileValues: _*)(grid)
 
   final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
   {
@@ -74,14 +75,14 @@ class RefsGridExtensions[A <: AnyRef](thisRefs: Refs[A])
   final def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
     setColumnDown(roordStart.c, roordStart.y, tileValues: _*)(grid)
 
-  def setTerrPath(startRoord: Roord, value: A, dirns: Multiple[SquareGridOld.PathDirn]*)(implicit grid: TileGrid): Roord =
+  def setTerrPath(startRoord: Roord, value: A, dirns: Multiple[SquareGrid.PathDirn]*)(implicit grid: SquareGrid): Roord =
   {
     var curr = startRoord
-    import SquareGridOld._
+    import SquareGrid._
 
     dirns.foreach
     { case Multiple(Rt, i) => curr = setRow(curr, value * i)
-      case Multiple(Lt, i) => curr = ??? //setRowBack(cood, value * i)(f)
+      case Multiple(Lt, i) => curr = setRowBack(curr, value * i)
       case Multiple(Up, i) => curr = setColumn(curr, value * i)
       case Multiple(Dn, i) => curr = setColumnDown(curr, value * i)
     }
