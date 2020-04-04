@@ -49,7 +49,6 @@ abstract class SquareGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMi
     x <- xFrom.max(xTileMin) to xTo.min(xTileMax) by 2
   } fSetTile(x, y, tileValue)
    
-   
   final def setColumn[A](x: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT) : Cood =
   {
     val tiles = tileMakers.flatMap(_.singlesList)

@@ -23,11 +23,13 @@ object Dungeon2Old extends DungeonGridOld(2, 10, 2, 10, 0)
 
 trait DungeonScen
 { implicit def grid: TileGrid
+  def terrs: Refs[DungTerr]
 }
 
 object Dungeon1 extends DungeonScen
 {
   implicit val grid = SquareGrid(2, 30, 2, 48)
   val terrs = grid.newRefsSet[DungTerr](Wall)
+  terrs.setColumn(22, 8,  Open * 2)
 }
 

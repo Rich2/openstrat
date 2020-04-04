@@ -81,7 +81,36 @@ package object pGrid
 
   implicit class RefsTileGridImplicit[A <: AnyRef](thisRefs: Refs[A])
   {
-    def gridIndex(roord: Roord)(implicit tileGrid: TileGrid): A = thisRefs(tileGrid.index(roord))
+    def gridIndex(roordStart: Roord)(implicit grid: TileGrid): A = thisRefs(grid.index(roordStart))
+
+    final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
+    {
+      val tiles = tileMakers.flatMap(_.singlesList)
+      tiles.iForeach{(el, i) =>
+        val y = yStart + i * 2
+        val index = grid.index(y, c)
+        thisRefs.unsafeSetElem(index, el)
+      }
+      Roord(yStart + (tiles.length - 1) * 2, c)
+    }
+
+    final def setColumn(roordStart: Roord, multis: Multiple[A]*)(implicit grid: TileGrid): Roord =
+      setColumn(roordStart.c, roordStart.y, multis: _*)(grid)
+
+    final def setColumnDown(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
+    {
+      val tiles = tileMakers.flatMap(_.singlesList)
+
+      tiles.iForeach{(el, i) =>
+        val y = yStart - i * 2
+        val index = grid.index(y, c)
+        thisRefs.unsafeSetElem(index, el)
+      }
+      Roord(c, yStart - (tiles.length - 1) * 2)
+    }
+
+    final def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+      setColumnDown(roordStart.c, roordStart.y, tileValues: _*)(grid)
   }
 
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
