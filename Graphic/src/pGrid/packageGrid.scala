@@ -111,6 +111,20 @@ package object pGrid
 
     final def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
       setColumnDown(roordStart.c, roordStart.y, tileValues: _*)(grid)
+
+    def setTerrPath(startRoord: Roord, value: A, dirns: Multiple[SquareGridOld.PathDirn]*)(implicit grid: TileGrid): Roord =
+    {
+      var curr = startRoord
+      import SquareGridOld._
+
+      dirns.foreach
+      { case Multiple(Rt, i) => curr = ??? //setRow(curr, value * i)(f)
+        case Multiple(Lt, i) => curr = ??? //setRowBack(cood, value * i)(f)
+        case Multiple(Up, i) => curr = setColumn(curr, value * i)
+        case Multiple(Dn, i) => curr = setColumnDown(curr, value * i)//(f)
+      }
+      curr
+    }
   }
 
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
