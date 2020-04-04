@@ -21,7 +21,7 @@ object Dungeon2Old extends DungeonGridOld(2, 10, 2, 10, 0)
   allOpen
 }
 
-case class CharacPosn(Charac: Character, y: Int, c: Int, facing: SqFace)
+case class CharacPosn(charac: Character, y: Int, c: Int, facing: SqFace)
 
 trait DungeonScen
 { implicit def grid: TileGrid
