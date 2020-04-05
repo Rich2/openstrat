@@ -81,6 +81,7 @@ object EGrid80KmOld
 
   def xDelta(y: Int, x: Int): Double = coodToLatLong0(Cood(x, y)).longDegs
 
+  /** What on earth is this doing? */
   def tileRowMaxX(y: Int, xOffset: Int = 0): (Int, Int) =
   {
     val startX: Int = ife(y %% 4 == 0, 0, 2)
@@ -126,22 +127,20 @@ object E80Empty extends EGridMaker
 }
 
 class EGFarNorth[TileT <: TileOld, SideT <: TileSideOld](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
-                                                        (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
-   EGrid80KmOld[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int,
-         xTileMin: Int, xTileMax: Int, yTileMin = 446, yTileMax = 540, turnNum = 0)
+  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
+  EGrid80KmOld[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int,
+    yTileMin = 446, yTileMax = 540, turnNum = 0)
 {
-
 }
 
 object EGFarNorth
-{
-  def getBounds(xOffset: Int): Array[Int] = EGrid80KmOld.getBounds(xOffset, 446, 540)
+{ def getBounds(xOffset: Int): Array[Int] = EGrid80KmOld.getBounds(xOffset, 446, 540)
+}
 
- }
-
-class EGNorth[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
-                                                     (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends EGrid80KmOld[TileT, SideT] (bounds, name, cenLong, xOffset: Int,
-         xTileMin: Int, xTileMax: Int, yTileMin = 340, yTileMax = 444, turnNum = 0)
+class EGNorth[TileT <: TileOld, SideT <: TileSideOld]
+  (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
+  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
+  EGrid80KmOld[TileT, SideT](bounds, name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin = 340, yTileMax = 444, turnNum = 0)
 
 object EGNearNorth
 {

@@ -6,9 +6,9 @@ import geom._, pGrid._, reflect.ClassTag
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
 {
-  def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-                                                    evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
-  EGridOld[TileT, SideT]
+  def apply[TileT <: TileOld, SideT <: TileSideOld]
+    (implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
+    EGridOld[TileT, SideT]
 }
 
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
@@ -69,17 +69,6 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     acc
   }
 
-  def eDisp(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElemsOld): GraphicElemsOld =
-  {
-    val acc: Buff[GraphicElem] = Buff()
-    foreachTilesCoodAll { tileCood =>
-      val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-      val newRes: GraphicElemsOld = ife(tog.cenFacing, fDisp(tog), ArrOld[GraphicElem]())
-      acc ++= newRes
-    }
-    acc.toArrOld
-  }
-
   def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems =
   {
     val acc: Buff[GraphicElem] = Buff()
@@ -98,6 +87,5 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     (acc ++ sideAcc).toRefs
   }
 
-  def disp(eg: EarthGui, fDisp: (EGridOld[TileT, SideT], Cood) => GraphicElemsOld): GraphicElemsOld = tileCoodsDisplayFoldAll(cood => fDisp(this, cood))
   var rightGrid: Option[EGridOld[TileT, SideT]] = None
 }
