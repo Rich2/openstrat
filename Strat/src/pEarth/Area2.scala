@@ -11,7 +11,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
    def textScale: Dist = 15.km   
    def latLongs: LatLongs   
    
-   def display(eg: EarthGui, fill: Boolean = true): GraphicElemsOld =
+   def display(eg: EarthGui, fill: Boolean = true): GraphicElems =
    {  
       eg.polyToGlobedArea(latLongs) match
       {
@@ -24,15 +24,15 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
             val vis3: GraphicElems =
               if (eg.scale < textScale && fill) TextGraphic.lines(aStrs, 10, cenXY, terr.contrast)
               else Refs()
-            (vis1 ++ vis2 ++ vis3).toArraySeq
+            (vis1 ++ vis2 ++ vis3)
          }
          case GlobedSome(curveSegDists) =>
          {
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val curveSegs: Shape = curveSegDists.pMap(_.toCurveSeg(eg.trans))
-            ArrOld(ShapeParentOld.fill(cenXY, curveSegs, this, terr.colour))
+            Refs(ShapeParent.fill(cenXY, curveSegs, this, terr.colour))
          }
-         case GlobedNone => ArrOld()
+         case GlobedNone => Refs()
       }
    }   
 }
