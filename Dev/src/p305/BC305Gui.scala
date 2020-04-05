@@ -27,31 +27,30 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
 //   def upCmd: MouseButton => Unit = (mb: MouseButton) =>
 //      { lat = Latitude((lat.radians + distDelta(mb)).max(0)); updateView() } 
          
-  val fHex: OfETile[BcTileOld, ESideOldOnly] => GraphicElemsOld = etog =>
+  val fHex: OfETile[BcTileOld, ESideOldOnly] => GraphicElems = etog =>
     { import etog._         
       val colour: Colour = tile.colour
       val poly = vertDispVecs.fillActive(colour, tile)
       
       val tileText: GraphicElems = ifScaleCObjs(68,
-          { val strs: Refs[String] = Refs(yxStr, cenLL.degStr)
-            TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
-          })         
-      (poly +: tileText).toArraySeq
+        { val strs: Refs[String] = Refs(yxStr, cenLL.degStr)
+          TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
+        })
+      poly +: tileText
       }
-   def fSide: OfESide[BcTileOld, ESideOldOnly] => GraphicElemsOld = ofs => {
+   def fSide: OfESide[BcTileOld, ESideOldOnly] => GraphicElems = ofs => {
       import ofs._
       ifScaleCObjs(60, side.terr match
-          {
-            case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
-               (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-            case Straitsold => Refs(vertDispLine.draw(6, Colour.Blue))
-         }).toArraySeq
+        {
+          case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
+          case Straitsold => Refs(vertDispLine.draw(6, Colour.Blue))
+        })
    }   
          
    def ls: GraphicElems =
-   { val gs: GraphicElemsOld = scen.grids.toArraySeq.flatMap(_.eGraphicElemsOld(this, fHex, fSide))
+   { val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
      val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
-     gs.toRefs ++ as
+     gs ++ as
    }
    
    eTop()
