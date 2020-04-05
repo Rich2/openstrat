@@ -9,29 +9,29 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   focusUp = true
   override def saveNamePrefix = "WW2"
 
-  val fHex: OfETile[W2TileOld, W2SideOld] => GraphicElemsOld = etog =>
+  val fHex: OfETile[W2TileOld, W2SideOld] => GraphicElems = etog =>
     {
       import etog._         
       val colour: Colour = tile.colour
       val poly = etog.vertDispVecs.fillActive(colour, tile)
       //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-      val textOrUnit: GraphicElemsOld = ifScaleCObjsOld(68, tile.lunits match
-        { case s if tScale > 68 & s.nonEmpty => ArrOld(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
+      val textOrUnit: GraphicElems = ifScaleCObjs(68, tile.lunits match
+        { case s if tScale > 68 & s.nonEmpty => Refs(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
-          { val strs: ArrOld[String] = ArrOld(yxStr, cenLL.degStr)
-            TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
+          { val strs: Refs[String] = Refs(yxStr, cenLL.degStr)
+            TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
           }
         }
       )
-      Refs(poly).toArraySeq ++ textOrUnit
+      Refs(poly) ++ textOrUnit
     }
     
-  def fSide: OfESide[W2TileOld, W2SideOld] => GraphicElemsOld = ofs =>
+  def fSide: OfESide[W2TileOld, W2SideOld] => GraphicElems = ofs =>
     {
       import ofs._
-      ifScaleCObjsOld(60, side.terr match
-        { case SideNone => ifTilesOld((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-          case Straitsold => ArrOld(vertDispLine.draw(6, Colour.Blue))
+      ifScaleCObjs(60, side.terr match
+        { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
+          case Straitsold => Refs(vertDispLine.draw(6, Colour.Blue))
         }
       )
    } 
@@ -39,9 +39,9 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
   //def dSides: GraphicElems = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
       
   def ls: GraphicElems =
-  { val gs: GraphicElemsOld = scen.grids.toArraySeq.flatMap(_.eGraphicElems(this, fHex, fSide))
+  { val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
-    as ++ gs.toRefs
+    as ++ gs//.toRefs
   }   
   
   mapPanel.mouseUp = (button: MouseButton, clickList, _) => button match

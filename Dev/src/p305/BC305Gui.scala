@@ -40,16 +40,16 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
       }
    def fSide: OfESide[BcTileOld, ESideOldOnly] => GraphicElemsOld = ofs => {
       import ofs._
-      ifScaleCObjsOld(60, side.terr match
+      ifScaleCObjs(60, side.terr match
           {
-            case SideNone => ifTilesOld((t1, t2) => t1.colour == t2.colour,
+            case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour,
                (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-            case Straitsold => ArrOld(vertDispLine.draw(6, Colour.Blue))
-         })        
+            case Straitsold => Refs(vertDispLine.draw(6, Colour.Blue))
+         }).toArraySeq
    }   
          
    def ls: GraphicElems =
-   { val gs: GraphicElemsOld = scen.grids.toArraySeq.flatMap(_.eGraphicElems(this, fHex, fSide))
+   { val gs: GraphicElemsOld = scen.grids.toArraySeq.flatMap(_.eGraphicElemsOld(this, fHex, fSide))
      val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
      gs.toRefs ++ as
    }
