@@ -32,11 +32,11 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
       val colour: Colour = tile.colour
       val poly = vertDispVecs.fillActive(colour, tile)
       
-      val tileText: GraphicElemsOld = ifScaleCObjsOld(68,
-          { val strs: ArrOld[String] = ArrOld(yxStr, cenLL.degStr)
-            TextGraphic.lines(strs.toRefs, 10, cen, colour.contrastBW).toArraySeq
+      val tileText: GraphicElems = ifScaleCObjs(68,
+          { val strs: Refs[String] = Refs(yxStr, cenLL.degStr)
+            TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
           })         
-          Refs(poly).toArraySeq ++ tileText
+      (poly +: tileText).toArraySeq
       }
    def fSide: OfESide[BcTileOld, ESideOldOnly] => GraphicElemsOld = ofs => {
       import ofs._
@@ -49,7 +49,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
    }   
          
    def ls: GraphicElems =
-   { val gs: GraphicElemsOld = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+   { val gs: GraphicElemsOld = scen.grids.toArraySeq.flatMap(_.eGraphicElems(this, fHex, fSide))
      val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
      gs.toRefs ++ as
    }

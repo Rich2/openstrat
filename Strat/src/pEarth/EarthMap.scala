@@ -25,7 +25,7 @@ class OldWorldMap[TileT <: TileOld, SideT <: TileSideOld](val fTile: (Int, Int, 
     setTile(tr._1, tr._2, newTile)
   }
   val tops: Refs[Area1] = EarthAreas.oldWorld
-  val grids: ArrOld[EGridOld[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
+  val grids: Refs[EGridOld[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
   grids(0).rightGrid = Some(grids(1))
   //val euWest: AreaT = a1Fac(EuropeWest)
 }
@@ -40,7 +40,7 @@ object EarthAreas
   import pPts._, pEurope._
   val oldWorld: Refs[Area1] = Refs(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
   val newWorld: Refs[Area1] = Refs(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
-  val grids: ArrOld[EGridMaker] = ArrOld(EuropeNWGridOld, EuropeEastGrid)
+  val grids: Refs[EGridMaker] = Refs(EuropeNWGridOld, EuropeEastGrid)
   //val otherTops = oldWorld ::: newWorld
   def allTops =  oldWorld ++ newWorld// otherTops
 }
