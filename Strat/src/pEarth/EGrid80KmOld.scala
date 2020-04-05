@@ -5,7 +5,7 @@ import geom._, pGrid._, reflect.ClassTag
 
 /** 80km hexs. deltaX in HexCood 1 = 20km */   
 class EGrid80KmOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
-                                                           xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
+   xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
    EGridOld[TileT, SideT](bounds, name, cenLong, EGrid80KmOld.scale, xOffset, EGrid80KmOld.yOffset, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {
    foreachTileRowAll{y =>

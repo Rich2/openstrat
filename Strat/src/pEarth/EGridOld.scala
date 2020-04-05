@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
 import geom._, pGrid._, reflect.ClassTag
@@ -14,7 +14,7 @@ trait EGridMaker
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
  *  follows lines of longitude. The y Axis at the cenLong moves along a line of longitude. */
 class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Dist, val xOffset: Int,
-                                                       val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT],
+  val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT],
   evSide: ClassTag[SideT]) extends HexGridOldIrr[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {
   thisEGrid =>
