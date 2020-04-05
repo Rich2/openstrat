@@ -7,7 +7,7 @@ import geom._
 abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
    override def toString = name.appendCommas(terr.toString)
-   def aStrs = ArrOld(name)
+   def aStrs: Refs[String] = Refs(name)
    def textScale: Dist = 15.km   
    def latLongs: LatLongs   
    
@@ -22,7 +22,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
             val vis1: GraphicElems = ife(fill, Refs(v2s.fillActive(terr.colour, this)), Refs())
             val vis2: GraphicElems = Refs(v2s.draw(2.0, terr.colour.redOrPink))
             val vis3: GraphicElems =
-              if (eg.scale < textScale && fill) TextGraphic.lines(aStrs.toRefs, 10, cenXY, terr.contrast)
+              if (eg.scale < textScale && fill) TextGraphic.lines(aStrs, 10, cenXY, terr.contrast)
               else Refs()
             (vis1 ++ vis2 ++ vis3).toArraySeq
          }
