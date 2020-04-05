@@ -25,6 +25,8 @@ displayY = 0;
       ("18", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
       ("19", (new pDung.DungeonGuiOld(_), "JavaFx Dungeon")),
 
+      ("t1", (new pEarth.pEurope.NWGui(_), "JavaFx NW Wurope Grid")),
+
       ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
 
       ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),

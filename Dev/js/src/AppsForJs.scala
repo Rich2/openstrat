@@ -28,6 +28,8 @@ object AppsForJs
     ("18", (gOne.SqOneGui(_), "Js Square Grid Game One")),
     ("19", (new pDung.DungeonGuiOld(_), "Js Dungeon")),
 
+    ("t1", (new pEarth.pEurope.NWGui(_), "Js NW Wurope Grid")),
+
     ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "Js Rise of Civs")),
 
 
