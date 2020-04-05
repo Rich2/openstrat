@@ -11,7 +11,7 @@ object EuropeNW extends Area1("EuropeNW", 20 ll 0)
      Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
 }
 
-object EuropeNWTerr //extends EGridMaker
+object EuropeNWTerr 
 {
   /*def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT],
                                                     evSide: ClassTag[SideT]): EGridOld80Km[TileT, SideT] =
