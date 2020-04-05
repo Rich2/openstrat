@@ -10,8 +10,18 @@ trait EGrid80Km extends EGrid
 
 object EGrid80Km
 {
+  val scale = 20.km * math.sqrt(3)
   val yFarNorthTileMinMax = (446, 540)
   val yNearNorthTileMinMax = (340, 444)
+
+  /** The key method to get the longitude delta for x based from 0 degs longitude. */
+  def roordToLatLong0(inp: Roord): LatLong =
+  { val adj: Vec2 = HexGrid.roordToVec2(inp.subYC(300, 0))
+    val d2: Dist2 = adj * scale
+    val lat: Double = d2.y / EarthPolarRadius
+    val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
+    LatLong(lat, longDelta)
+  }
 
   def irrGrid(yMin: Int, yMax: Int): Array[Int] =
   {
