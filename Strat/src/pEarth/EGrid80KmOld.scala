@@ -78,12 +78,13 @@ object EGrid80KmOld
      LatLong(lat, longDelta)
   }
 
+  /** Returns the longitudinal delta for a given x at a given y (latitude) for an EGrid80Km Hex Grid. */
   def yToLatDegs(y: Int): Double = ((y - yOffset) * scale / EarthPolarRadius).radiansToDegrees
 
   /** Returns the longitudinal delta for a given x. */
   def xDelta(y: Int, x: Int): Double = coodToLatLong0(Cood(x, y)).longDegs
 
-  /** What on earth is this doing? */
+  /** Returns the min and max x of a tile row in an EGrid80Km grid for a given y (latitude) with a given x offset. */
   def tileRowMaxX(y: Int, xOffset: Int = 0): (Int, Int) =
   {
     val startX: Int = ife(y %% 4 == 0, 0, 2)
@@ -105,6 +106,7 @@ object EGrid80KmOld
     (neg + xOffset , pos + xOffset)
   }
 
+  /** This would seem to return the Arrray that has the irregular HexGrid row specifications. */
   def getBounds(xOffset: Int, yTileMin: Int, yTileMax: Int): Array[Int] =
   {
       val bounds = new Array[Int]((yTileMax - yTileMin + 1) * 2)

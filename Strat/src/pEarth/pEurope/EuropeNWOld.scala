@@ -6,8 +6,8 @@ import geom._, pGrid._, WTile._, reflect.ClassTag
 
 object EuropeNWGridOld extends EGridMaker
 {
-  def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT],
-                                                    evSide: ClassTag[SideT]): EGrid80KmOld[TileT, SideT] =
+  def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
+    evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80KmOld[TileT, SideT] =
   {
     val grid: EGFarNorth[TileT, SideT] = new EGFarNorth[TileT, SideT]("WEurope", 0.east, xOffset = 200, xTileMin = 114, xTileMax = 286)
     grid.setTilesAll(Ocean)(fTile)

@@ -23,6 +23,31 @@ object EGrid80Km
     LatLong(lat, longDelta)
   }
 
+  /** Returns the longitudinal delta for a given c at a given y (latitude) for an EGrid80Km Hex Grid. */
+  def cDelta(y: Int, c: Int): Double = roordToLatLong0(Roord(y, c)).longDegs
+
+  /** Returns the min and max columns of a tile row in an EGrid80Km grid for a given y (latitude) with a given c offset. */
+  def tileRowMaxX(y: Int, cOffset: Int = 0): (Int, Int) =
+  {
+    val startC: Int = ife(y %% 4 == 0, 0, 2)
+    val hexDelta: Double = cDelta(y, 4)
+    val margin = 15 - hexDelta
+
+    def loop(cAcc: Int): (Int, Int) =
+    {
+      val newPt = cDelta(y, cAcc)
+      val overlapRatio = (newPt - margin) / hexDelta
+      newPt match
+      { case r if r < margin => loop(cAcc + 4)
+      //case r if overlapRatio < 0.2 => (-xAcc, xAcc + 4)
+      case r if overlapRatio < 0.5 => (-cAcc, cAcc)
+      case r => (4 - cAcc, cAcc)
+      }
+    }
+    val (neg, pos) = loop(startC)
+    (neg + cOffset , pos + cOffset)
+  }
+
   def irrGrid(yMin: Int, yMax: Int): Array[Int] =
   {
     val buff: ArrayBuffer[Int] = new ArrayBuffer[Int]()
