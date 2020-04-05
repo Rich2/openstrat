@@ -7,12 +7,11 @@ trait OfSquare[TileT <: TileOld, SideT <: TileSideOld, GridT <: SquareGridOld[Ti
 {
    def sideUpLine: Line2 = CoodLine(cood.addXY(-1, 1), cood.addXY(1, 1)).toLine2(cood => coodToDispVec2(cood))
    def sideRightLine: Line2 = CoodLine(cood.addXY(1, 1), cood.addXY(1, - 1)).toLine2(cood => coodToDispVec2(cood))
-   override def ownSideLinesOld: ArrOld[Line2] = ArrOld(sideUpLine, sideRightLine)
    override def ownSideLines: Line2s = Line2s(sideUpLine, sideRightLine)
 }
 
-case class OfSquareReg[TileT <: TileOld, SideT <: TileSideOld, GridT <: SquareGridOld[TileT, SideT]](tile: TileT, grid: GridT,
-                                                                                                     gGui: TileGridGui[TileT, SideT, GridT]) extends OfSquare[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
+case class OfSquareReg[TileT <: TileOld, SideT <: TileSideOld, GridT <: SquareGridOld[TileT, SideT]]
+  (tile: TileT, grid: GridT, gGui: TileGridGui[TileT, SideT, GridT]) extends OfSquare[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
 
 object OfSquareReg
 {

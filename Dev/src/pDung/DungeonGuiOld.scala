@@ -16,7 +16,7 @@ class DungeonGuiOld(canv: CanvasPlatform) extends SquareGridGuiOld[DTileOld, Sid
     val tv = vertDispVecs.fillActive(colour, tile)
     val sides = ifScaleCObjs(60, ownSideLines.map(_.draw(1, colour.contrastBW)))
     val tText = ifScaleCObj(60, TextGraphic(xyStr, 14, cen, colour.contrastBW))
-    val player = ifScaleOptObjsNew(60, tile.charac) { charac =>
+    val player = ifScaleOptObjs(60, tile.charac) { charac =>
       val poly1 = Rectangle(1.5).insVerts(1, -0.25 vv 0.5, 0 vv 0.8, 0.25 vv 0.5)
       val poly2 = poly1.scale(tog.tScale / 2.5).rotate(charac.facing.angle).slate(tog.cen)      
       Refs(poly2.parentFillDraw(charac, charac.colour, 1), TextGraphic(charac.iden.toString, 16, cen, charac.colour.contrast))
