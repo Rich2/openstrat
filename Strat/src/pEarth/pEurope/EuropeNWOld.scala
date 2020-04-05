@@ -4,17 +4,10 @@ package pEarth
 package pEurope
 import geom._, pGrid._, WTile._, reflect.ClassTag
 
-/** 20North, 0 East */
-object EuropeNW extends Area1("EuropeNW", 20 ll 0)
+object EuropeNWGridOld extends EGridMaker
 {
-  override val a2Arr: Refs[Area2] = Refs(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
-     Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
-}
-
-object EuropeNWTerr //extends EGridMaker
-{
-  /*def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT],
-                                                    evSide: ClassTag[SideT]): EGridOld80Km[TileT, SideT] =
+  def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT],
+                                                    evSide: ClassTag[SideT]): EGrid80KmOld[TileT, SideT] =
   {
     val grid: EGFarNorth[TileT, SideT] = new EGFarNorth[TileT, SideT]("WEurope", 0.east, xOffset = 200, xTileMin = 114, xTileMax = 286)
     grid.setTilesAll(Ocean)(fTile)
@@ -61,5 +54,5 @@ object EuropeNWTerr //extends EGridMaker
     gs(446, 198, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
 
     grid
-  }*/
+  }
 }

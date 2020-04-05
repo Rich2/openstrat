@@ -7,13 +7,13 @@ object AfricaWest extends Area1("WAfrica", 20 ll 40)
 {
   type A2Type = Area2
   override def fill = false   
-  override val a2Seq: Refs[Area2] = Refs(Canarias, Sicily, Majorca, SaharaWest, AfricaMidWest)
+  override val a2Arr: Refs[Area2] = Refs(Canarias, Sicily, Majorca, SaharaWest, AfricaMidWest)
 }
 
 object AfricaWestGrid extends EGridMaker
 {
   def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-                                                    evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGridOld80Km[TileT, SideT] =
+                                                    evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80KmOld[TileT, SideT] =
   {
     val grid: EGNorth[TileT, SideT] = new EGNorth[TileT, SideT](new Array[Int](0), "AfricaWest", 0.east, xOffset = 200, 18, 300)
     grid.setTilesAll(Ocean)(fTile)

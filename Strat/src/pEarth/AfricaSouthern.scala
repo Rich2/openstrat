@@ -8,7 +8,7 @@ object AfricaSouthern extends Area1("AfricaSouthern", -16.14 ll 24.36)
   type A2Type = Area2
   override def fill = true//false
   import AfricaSouthernPts._
-  override val a2Seq: Refs[Area2] = Refs(sAfrica, cAfrica, sEAfrica, madagascar)
+  override val a2Arr: Refs[Area2] = Refs(sAfrica, cAfrica, sEAfrica, madagascar)
   //override val gridMaker = E80Empty
 }
 

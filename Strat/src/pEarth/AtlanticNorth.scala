@@ -6,7 +6,7 @@ import geom._, WTile._
 object AtlanticNorth extends Area1("NAtlantic", 60 ll -30)
 { 
   // override val gridMaker = E80Empty   
-   override val a2Seq: Refs[Area2] = Refs(Iceland)
+   override val a2Arr: Refs[Area2] = Refs(Iceland)
 }
 
 object Iceland extends Area2("Iceland", 64.78 ll -18.07, taiga)

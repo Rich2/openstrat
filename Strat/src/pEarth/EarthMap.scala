@@ -40,7 +40,7 @@ object EarthAreas
   import pPts._, pEurope._
   val oldWorld: Refs[Area1] = Refs(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
   val newWorld: Refs[Area1] = Refs(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
-  val grids: ArrOld[EGridMaker] = ArrOld(EuropeNWGrid, EuropeEastGrid)
+  val grids: ArrOld[EGridMaker] = ArrOld(EuropeNWGridOld, EuropeEastGrid)
   //val otherTops = oldWorld ::: newWorld
   def allTops =  oldWorld ++ newWorld// otherTops
 }

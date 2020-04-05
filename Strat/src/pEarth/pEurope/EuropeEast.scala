@@ -7,13 +7,13 @@ import geom._, pGrid._, WTile._, reflect.ClassTag
 object EuropeEast extends Area1("EuropeEast", 60 ll 60)
 {
   override def fill = false
-  override val a2Seq: Refs[Area2] = Refs(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
+  override val a2Arr: Refs[Area2] = Refs(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }
 
 object EuropeEastGrid extends EGridMaker
 {          
   def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-                                                    evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGridOld80Km[TileT, SideT] =
+                                                    evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80KmOld[TileT, SideT] =
   {
      val grid = new EGFarNorth[TileT, SideT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}
      grid.setTilesAll(Ocean)(fTile)
