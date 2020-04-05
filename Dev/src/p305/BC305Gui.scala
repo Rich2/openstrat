@@ -14,7 +14,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
   val minLat = 0.north
   //def focus: LatLong = lat * long
 
-  val tops: Seq[Area1] = EarthAreas.oldWorld
+  val tops: Refs[Area1] = EarthAreas.oldWorld
 //   override def eTop(): Unit = reTop(Seq(bIn, bOut, bLeft, bRight,
 //         bDown, bUp, bInv, status))
 //   /** 4 methods below are incorrect */
@@ -50,9 +50,9 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGui("BC 305
          
    def ls: GraphicElems =
    { val gs: GraphicElemsOld = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-     val as: GraphicElemsOld = scen.tops.flatMap(a => a.disp2(this).toArraySeq )
-     gs ++ as
-   }.toRefs
+     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
+     gs.toRefs ++ as
+   }
    
    eTop()
    loadView 

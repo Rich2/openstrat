@@ -40,8 +40,8 @@ case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("Wo
       
   def ls: GraphicElems =
   { val gs: GraphicElemsOld = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    val as: GraphicElemsOld = scen.tops.flatMap(a => a.disp2(this).toArraySeq )
-    (as ++ gs).toRefs
+    val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
+    as ++ gs.toRefs
   }   
   
   mapPanel.mouseUp = (button: MouseButton, clickList, _) => button match
