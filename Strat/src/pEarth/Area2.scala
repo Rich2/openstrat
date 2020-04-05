@@ -17,7 +17,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
       {
          case GlobedAll(d2s) =>
          { 
-            val v2s: Polygon = d2s.pMap(eg.trans)// eg.transSeq(d2s)
+            val v2s: Polygon = d2s.pMap(eg.trans)
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val vis1: GraphicElems = ife(fill, Refs(v2s.fillActive(terr.colour, this)), Refs())
             val vis2: GraphicElems = Refs(v2s.draw(2.0, terr.colour.redOrPink))

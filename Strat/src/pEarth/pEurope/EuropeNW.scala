@@ -8,7 +8,7 @@ import geom._, pGrid._, WTile._, reflect.ClassTag
 object EuropeNW extends Area1("EuropeNW", 20 ll 0)
 {//bottom = 45.59 - (46.21 - 45.59) / 2 = 44.97
   //override def fill = false
-  override val a2Seq: ArrOld[Area2] = ArrOld(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
+  override val a2Seq: Refs[Area2] = Refs(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
      Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
    //override def iTiles: Seq[ITile] = Seq()//,CBritain, NBritain ,SBritain, Denmark, NSea, BalticSea)
    //override def iSides: Seq[ISide] = iTiles.flatMap(_.ownISides)

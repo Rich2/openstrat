@@ -7,7 +7,7 @@ import geom._, pGrid._, WTile._, reflect.ClassTag
 object EuropeEast extends Area1("EuropeEast", 60 ll 60)
 {
   override def fill = false
-  override val a2Seq: ArrOld[Area2] = ArrOld(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
+  override val a2Seq: Refs[Area2] = Refs(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }
 
 object EuropeEastGrid extends EGridMaker
