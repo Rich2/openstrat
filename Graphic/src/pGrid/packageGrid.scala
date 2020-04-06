@@ -47,6 +47,12 @@ package object pGrid
     def gridSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.setSome(grid.index(y, c), value)
     def gridSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.setSome(grid.index(t._1, t._2), t._3))
 
+    def gridForeachSome(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit =
+    { grid.foreach { r =>
+        arr.apply(grid.index(r)).foreach{a =>f(r, a) }
+      }
+    }
+
     def gridMapSomes[B, ArrT <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
     { val buff = build.newBuff()
       grid.foreach { r =>
@@ -77,6 +83,8 @@ package object pGrid
       }
       Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
     }
+
+    def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, arr(grid.index(r))) }
   }
 
   implicit def refsTileGridImplicit[A <: AnyRef](thisRefs: Refs[A]) = new RefsGridExtensions[A](thisRefs)
