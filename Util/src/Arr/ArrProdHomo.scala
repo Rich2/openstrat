@@ -25,13 +25,6 @@ trait ArrProdHomo[A] extends Any with ArrValues[A]
     res
   }
 
-  /** Maps to ArrSeq of type B. */
-  @deprecated def mapArrSeq[B <: AnyRef](f: A => B)(implicit ev: reflect.ClassTag[B]): ArrOld[B] =
-  { val res = new Array[B](length)
-    iForeach((a, i) => res(i) = f(a))
-    res.toArrOld
-  }
-
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++[N <: ArrProdHomo[A]](operand: N)(implicit factory: Int => N): N =

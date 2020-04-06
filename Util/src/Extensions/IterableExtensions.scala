@@ -27,8 +27,6 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     res
   }
 
-  @deprecated def toArrOld(implicit ct: ClassTag[A]): ArrOld[A] = thisIter.toArray.toArrOld
-
   def sumBy(f: A => Int): Int =
   { var acc = 0
     thisIter.foreach(acc += f(_))

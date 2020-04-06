@@ -6,11 +6,9 @@ import collection.mutable.ArrayBuffer
 trait ArrProdLongN[A] extends Any with ArrProdHomo[A]
 { def array: Array[Long]
   def arrLen = array.length
-  def toArrs: ArrOld[ArrOld[Long]]
-  def foreachArr(f: ArrOld[Long] => Unit): Unit
 
-  override def toString: String =
-  { var body = ""
+  //override def toString: String =
+  /*{ var body = ""
     var start = true
     foreachArr { arr =>
       val el = arr.toStrsCommaNoSpaceFold(_.toString)
@@ -18,7 +16,7 @@ trait ArrProdLongN[A] extends Any with ArrProdHomo[A]
       else  body = body + ";  " + el
     }
     typeStr + body.enParenth
-  }
+  }*/
 }
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Long, Long or Float. They are stored with a backing
