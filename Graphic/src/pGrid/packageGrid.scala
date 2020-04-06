@@ -48,7 +48,7 @@ package object pGrid
     def gridSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.setSome(grid.index(t._1, t._2), t._3))
 
     def gridMapSomes[B, ArrT <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
-    { val buff = build.buffNew()
+    { val buff = build.newBuff()
       grid.foreach { r =>
         arr.apply(grid.index(r)).foreach{a =>
           val newVal = f(r, a)
@@ -94,7 +94,7 @@ package object pGrid
 
     def gridHeadsMap[B, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
     {
-      val buff = build.buffNew()
+      val buff = build.newBuff()
       grid.foreach { r => thisRefs(grid.index(r)) match
         {
           case h :: _ => build.buffGrow(buff, f(r, h))

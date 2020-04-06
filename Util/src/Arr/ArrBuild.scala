@@ -6,7 +6,7 @@ trait ArrBuildBase[ArrT <: Arr[_]]
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
   type BuffT <: ArrayLike[_]
-  def buffNew(length: Int = 4): BuffT
+  def newBuff(length: Int = 4): BuffT
   def buffToArr(buff: BuffT): ArrT
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrT): Unit
@@ -55,7 +55,7 @@ trait ArrBuild[B, ArrT <: Arr[B]] extends ArrBuildBase[ArrT]
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
 
   def iterMap[A](inp: Iterable[A], f: A => B): ArrT =
-  { val buff = buffNew()
+  { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToArr(buff)
   }

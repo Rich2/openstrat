@@ -66,14 +66,14 @@ trait TileGrid
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
   def flatMap[ArrT <: Arr[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
-  { val buff = build.buffNew(numOfTiles)
+  { val buff = build.newBuff(numOfTiles)
     foreach{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Roords to an Arr of type ArrT, removing all duplicate elements. */
   def flatMapNoDupicates[A, ArrT <: Arr[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
-  { val buff = build.buffNew(numOfTiles)
+  { val buff = build.newBuff(numOfTiles)
     foreach { roord =>
       val newVals = f(roord)
       newVals.foreach{newVal =>

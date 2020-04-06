@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
+import reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
 
 class RowMulti[TileT <: AnyRef](val y: Int, val xStart: Int, val multis: RefsMulti[TileT])
 {
@@ -107,7 +107,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   final def tilesMapAll[B, BB <: Arr[B]](f: TileT => B)(implicit build: ArrBuild[B, BB]): BB =
   {
     val res = build.newArr(tileNum)
-    var count = 0
+    val count = 0
     while (count < tileNum)
     {
       val tile = arr(count)
@@ -119,7 +119,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
 
   def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB =
   {
-    val acc = build.buffNew()
+    val acc = build.newBuff()
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: BB = f(tile)
@@ -175,8 +175,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   }*/
 
   final def tilesMapOptionAll[A, AA <: Arr[A]](f: TileT => Option[A])(implicit build: ArrBuild[A, AA]): AA =
-  { val buff = build.buffNew()
-    var count = 0
+  { val buff = build.newBuff()
     foreachTileAll { t =>
       f(t) match {
         case None =>

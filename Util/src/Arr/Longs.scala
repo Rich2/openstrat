@@ -25,7 +25,7 @@ object LongsBuild extends ArrBuild[Long, Longs] with ArrFlatBuild[Longs]
 { type BuffT = LongsBuff
   override def newArr(length: Int): Longs = new Longs(new Array[Long](length))
   override def arrSet(arr: Longs, index: Int, value: Long): Unit = arr.array(index) = value
-  override def buffNew(length: Int = 4): LongsBuff = new LongsBuff(new ArrayBuffer[Long](length))
+  override def newBuff(length: Int = 4): LongsBuff = new LongsBuff(new ArrayBuffer[Long](length))
   override def buffGrow(buff: LongsBuff, value: Long): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: LongsBuff, arr: Longs): Unit = buff.unsafeBuff.addAll(arr.array)
   override def buffToArr(buff: LongsBuff): Longs = new Longs(buff.unsafeBuff.toArray)

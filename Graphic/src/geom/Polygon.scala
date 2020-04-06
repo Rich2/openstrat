@@ -128,7 +128,7 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
     override type BuffT = PolygonBuff
     def fromArray(array: Array[Array[Double]]): Polygons = new Polygons(array)
 
-    override def buffNew(length: Int):  BuffT = ???
+    override def newBuff(length: Int):  BuffT = ???
   }
 }
 

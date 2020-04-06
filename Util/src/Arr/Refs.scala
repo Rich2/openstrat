@@ -98,7 +98,7 @@ class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHom
 { type BuffT = RefBuff[A]
   override def newArr(length: Int): Refs[A] = new Refs(new Array[A](length))
   override def arrSet(arr: Refs[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
-  override def buffNew(length: Int = 4): RefBuff[A] = new RefBuff(new ArrayBuffer[A](length))
+  override def newBuff(length: Int = 4): RefBuff[A] = new RefBuff(new ArrayBuffer[A](length))
   override def buffGrow(buff: RefBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: RefBuff[A], arr: Refs[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
   override def buffToArr(buff: RefBuff[A]): Refs[A] = new Refs(buff.unsafeBuff.toArray)

@@ -4,8 +4,7 @@
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
-{ import collection.immutable.ArraySeq, collection.mutable.ArrayBuffer, reflect.ClassTag
-  type ArrOld[A] = ArraySeq[A]
+{ import collection.mutable.ArrayBuffer, reflect.ClassTag
   type Buff[A] = ArrayBuffer[A]
   type ERefs[A <: AnyRef] = EMon[Refs[A]]
   type RefsMulti[A <: AnyRef] = Refs[Multiple[A]]
@@ -126,7 +125,7 @@ package object ostrat
   }
 
   def iToFlatMap[AA <: Arr[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuild[AA]): AA =
-  { val buff = ev.buffNew()
+  { val buff = ev.newBuff()
     var i = iFrom
     while(ife(iStep > 0, i <= iTo, i >= iTo))
     { ev.buffGrowArr(buff, f(i))

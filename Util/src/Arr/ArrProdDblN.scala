@@ -46,7 +46,7 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdValueNBuild[B, 
 { type BuffT <: BuffProdDblN[B]
   def fromDblArray(array: Array[Double]): ArrT
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
-  final override def buffNew(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
+  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
   final override def newArr(length: Int): ArrT = fromDblArray(new Array[Double](length * elemSize))
   final override def buffToArr(buff: BuffT): ArrT = fromDblArray(buff.buffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.buffer.addAll(arr.array); () }

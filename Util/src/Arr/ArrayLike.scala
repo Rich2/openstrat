@@ -54,7 +54,7 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
 
   def flatMap[BB <: Arr[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB =
   {
-    val buff: ev.BuffT = ev.buffNew()
+    val buff: ev.BuffT = ev.newBuff()
     foreach{ a =>
       val newVals = f(a)
       ev.buffGrowArr(buff, newVals)
@@ -84,7 +84,7 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
   }
 
   def eMap[B, BB <: Arr[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): EMon[BB] =
-  { val acc = ev.buffNew()
+  { val acc = ev.newBuff()
     var continue = true
     var count = 0
     var errs: Refs[String] = Refs()
@@ -115,13 +115,13 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
   }
 
   def filter[AA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuild[A, AA] @uncheckedVariance): AA =
-  { val buff = ev.buffNew()
+  { val buff = ev.newBuff()
     foreach(a => oif(f(a), ev.buffGrow(buff, a)))
     ev.buffToArr(buff)
   }
 
   def filterNot[AA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuild[A, AA] @uncheckedVariance): AA =
-  { val buff = ev.buffNew()
+  { val buff = ev.newBuff()
     foreach(a => oif(!f(a), ev.buffGrow(buff, a)))
     ev.buffToArr(buff)
   }
@@ -135,7 +135,7 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
 
   /** FlatMaps over a function from A to any Iterable. */
   def iterFlatMap[B, BB <: Arr[B]](f: A => Iterable[B])(implicit ev: ArrBuild[B, BB]): BB =
-  { val buff = ev.buffNew(length)
+  { val buff = ev.newBuff(length)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToArr(buff)
   }
@@ -276,7 +276,7 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
 
   /** Collects values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
   def collect[B, BB <: Arr[B]](pf: PartialFunction[A, B])(implicit ev: ArrBuild[B, BB]): BB =
-  { val acc = ev.buffNew()
+  { val acc = ev.newBuff()
     foreach{a => if (pf.isDefinedAt(a)) ev.buffGrow(acc, pf(a)) }
     ev.buffToArr(acc)
   }
@@ -290,7 +290,7 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
 
   /** maps from A to EMon[B], collects the good values. */
   def mapCollectGoods[B, BB <: Arr[B]](f: A => EMon[B])(implicit ev: ArrBuild[B, BB]): BB =
-  { val acc = ev.buffNew()
+  { val acc = ev.newBuff()
     foreach(f(_).forGood(ev.buffGrow(acc, _)))
     ev.buffToArr(acc)
   }

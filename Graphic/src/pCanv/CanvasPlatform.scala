@@ -125,7 +125,6 @@ trait CanvasPlatform extends RectGeom
     
   def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
-    
-  @deprecated def rendElemsOld(elems: ArrOld[PaintElem]): Unit = elems.foreach(_.rendToCanvas(this))
+
   def rendElems(elems: Refs[PaintElem]): Unit = elems.foreach(_.rendToCanvas(this))
 }

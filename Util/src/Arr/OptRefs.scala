@@ -31,7 +31,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
   }
 
   def mapSomes[B, ArrT <: Arr[B]](f: A => B)(build: ArrBuild[B, ArrT]): ArrT =
-  { val buff = build.buffNew()
+  { val buff = build.newBuff()
     foreachSome(a => build.buffGrow(buff, f(a)))
     build.buffToArr(buff)
   }

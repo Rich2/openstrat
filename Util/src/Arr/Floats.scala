@@ -25,7 +25,7 @@ object FloatsBuild extends ArrBuild[Float, Floats] with ArrFlatBuild[Floats]
 { type BuffT = FloatsBuff
   override def newArr(length: Int): Floats = new Floats(new Array[Float](length))
   override def arrSet(arr: Floats, index: Int, value: Float): Unit = arr.array(index) = value
-  override def buffNew(length: Int = 4): FloatsBuff = new FloatsBuff(new ArrayBuffer[Float](length))
+  override def newBuff(length: Int = 4): FloatsBuff = new FloatsBuff(new ArrayBuffer[Float](length))
   override def buffGrow(buff: FloatsBuff, value: Float): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: FloatsBuff, arr: Floats): Unit = buff.unsafeBuff.addAll(arr.array)
   override def buffToArr(buff: FloatsBuff): Floats = new Floats(buff.unsafeBuff.toArray)

@@ -19,9 +19,6 @@ abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with Pane
   /** Repaints the canvas takes repeat parameters of GraphicElem. */
   def repaints(els: GraphicElem*): Unit = { canvObjs = els.toRefs; refresh() }
 
-  /** Repaints the canvas using the deprecated interface with ArraySeq. */
-  def repaintOld(els: ArrOld[GraphicElem]): Unit = { canvObjs = els.toRefs; refresh() }
-
   /** Repaints the canvas, takes a Refs collection as parameter. */
   def repaint(els: Refs[GraphicElem]): Unit = { canvObjs = els; refresh() }
 
