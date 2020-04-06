@@ -20,12 +20,12 @@ case class ChessGui(canv: CanvasPlatform) extends CanvasNoPanels("Chess")
   // deb(grid.getTile(1, 1).toString)
   val margin = 15
   val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
-  val s1 = ArrOld(Queen, Rook)
+  val s1 = Refs(Queen, Rook)
   val p = Rook.scale(200)
   
-  val stuff = ArrOld(p.fill(DarkRed))//grid.squares(tileWidth)// ::: grid.
+  val stuff = Refs(p.fill(DarkRed))//grid.squares(tileWidth)// ::: grid.
 
-  repaintOld(stuff)
+  repaint(stuff)
 
   mouseUp =
     { case (LeftButton, cl, v) =>
