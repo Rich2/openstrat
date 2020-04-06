@@ -211,28 +211,6 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
     acc   
   }
   
-  final def tilesOptionDispAll(f: TileT => Option[GraphicElem]): GraphicElemsOld =
-  {
-    val acc: Buff[GraphicElem] = Buff()
-    foreachTileAll(t => f(t) match
-      {
-      case None =>
-      case Some(g) => acc += g
-      })
-    acc.toArrOld
-  }
-  
-  final def tilesOptionFlattenDispAll[A](f1: TileT => Option[A])(f2: (TileT, A) => GraphicElemsOld): GraphicElemsOld =
-  {
-    val acc: Buff[GraphicElem] = Buff()
-    foreachTileAll(t => f1(t) match
-      {
-      case None =>
-      case Some(a) => acc ++= f2(t, a)
-      })    
-    acc.toArrOld
-  }
-  
   /** Set tile row from the Cood. */
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.yi, cood.xi, tileValues: _*)(f)
   /** Note set Row starts with the y (row) parameter. */ 
