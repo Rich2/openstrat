@@ -166,7 +166,7 @@ package object ostrat
   def iToFoldInt(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
   { var acc = accInit
     var i = iFrom
-    while(ife(iStep> 0, i <= iTo, i >= iTo))
+    while(ife(iStep > 0, i <= iTo, i >= iTo))
     { acc = f(acc, i)
       i += iStep
     }
