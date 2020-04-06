@@ -25,8 +25,6 @@ package object ostrat
 
   def NoRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
-  @deprecated def ArrOld[A](inp: A *)(implicit ct: ClassTag[A]): ArrOld[A] = ArraySeq.apply(inp: _*)
-
   /** onlyIf-do. Only if the condition is true, perform the effect. */
   @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
 
@@ -76,8 +74,6 @@ package object ostrat
   def readInt: Int = readT[Int]
   def readDouble: Double = readT[Double]
 
-  @inline def ArrWrap[A](mutArray: Array[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](mutArray)
-  @inline def ArrWrapBuff[A](buff: ArrayBuffer[A])(implicit ct: ClassTag[A]): ArraySeq[A] = ArraySeq.unsafeWrapArray[A](buff.toArray)
   @inline def Buff[A](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
   @inline def buffInt(initialLength: Int = 5): ArrayBuffer[Int] = new ArrayBuffer[Int](initialLength)
 
@@ -86,10 +82,9 @@ package object ostrat
 
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
-  //def bad1[B](fp: TextPosn, detail: String): Bad[B] = Bad[B](Refs(parseErr(fp, detail)))
+
   def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](Refs(parseErr(fs.startPosn, detail)))
-  //def bad3[A1, A2, A3](fp: TextPosn, detail: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](Refs(parseErr(fp, detail)))
-  //def bad3[A1, A2, A3](fs: TextSpan, detail: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](parseErr(fs.startPosn, detail) :: Nil)
+
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
 

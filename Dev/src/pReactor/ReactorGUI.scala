@@ -23,10 +23,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   
   def init() : Unit =
   { 
-    repaintOld(ArrOld(
+    repaints(
       Rectangle(width, height, 0 vv 0).fill(Colour(0xFF181818)), 
       gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })
-    ))
+    )
+
     turn = 0
     players = Array(Red, Green, Yellow, Blue)
     currentPlayer = players(0)

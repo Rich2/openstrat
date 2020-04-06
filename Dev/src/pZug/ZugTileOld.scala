@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import pGrid._
 
-case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: ArrOld[SquadOld] = ArrOld()) extends ColouredTileOld
+case class ZugTileOld(x: Int, y: Int, terr: ZugTerr, lunits: List[SquadOld] = Nil) extends ColouredTileOld
 { type FromT = ZugTerr
   def fromT = terr
   def colour = terr.colour     
