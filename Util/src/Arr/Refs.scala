@@ -96,8 +96,8 @@ final class Refs[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) exten
 
 class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Refs[A]] with ArrFlatBuild[Refs[A]]
 { type BuffT = RefBuff[A]
-  override def imutNew(length: Int): Refs[A] = new Refs(new Array[A](length))
-  override def imutSet(arr: Refs[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
+  override def newArr(length: Int): Refs[A] = new Refs(new Array[A](length))
+  override def arrSet(arr: Refs[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
   override def buffNew(length: Int = 4): RefBuff[A] = new RefBuff(new ArrayBuffer[A](length))
   override def buffGrow(buff: RefBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: RefBuff[A], arr: Refs[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)

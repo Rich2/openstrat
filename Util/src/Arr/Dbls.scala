@@ -23,8 +23,8 @@ object Dbls
 
 object DblsBuild extends ArrBuild[Double, Dbls] with ArrFlatBuild[Dbls]
 { type BuffT = DblsBuff
-  override def imutNew(length: Int): Dbls = new Dbls(new Array[Double](length))
-  override def imutSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
+  override def newArr(length: Int): Dbls = new Dbls(new Array[Double](length))
+  override def arrSet(arr: Dbls, index: Int, value: Double): Unit = arr.array(index) = value
   override def buffNew(length: Int = 4): DblsBuff = new DblsBuff(ArrayBuffer[Double](length))
   override def buffGrow(buff: DblsBuff, value: Double): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: DblsBuff, arr: Dbls): Unit = buff.unsafeBuff.addAll(arr.array)

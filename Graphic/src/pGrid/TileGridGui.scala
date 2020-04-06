@@ -42,16 +42,13 @@ abstract class TileGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: Tile
   
   /** For all Tiles call side effecting function on the Tile. */
   def foreachTileAll(f: TileT => Unit): Unit = grid.foreachTileAll(f)
-  
+
   /** Map all Tiles to Array with function. */
-  def tilesMapAll[B: ClassTag](f: TileT => B): ArrOld[B] = grid.tilesMapAll[B](f)
+  def tilesMapAll[B, BB <: Arr[B]](f: TileT => B)(implicit build: ArrBuild[B, BB]): BB = grid.tilesMapAll[B, BB](f)
 
   /** Map all Tiles to an Array with function and flatten into Single Array. */
   def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB = grid.tilesFlatMapAll[B, BB](f)
-  
-  /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMapAllOld[R: ClassTag](f: TileT => ArrOld[R]): ArrOld[R] = grid.tilesFlatMapAllOld(f)
-  
+
   /** Map all Tiles to a List with function and flatten into Single List. */
   def tilesFlatMapListAll[R: ClassTag](f: TileT => List[R]): List[R] = grid.tilesFlatMapListAll(f)
   

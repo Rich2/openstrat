@@ -22,7 +22,7 @@ trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdValueNBuild[B, 
 
   /* Not sure about the return type of this method. */
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
-  final override def imutNew(length: Int): ArrT = fromIntArray(new Array[Int](length * elemSize))
+  final override def newArr(length: Int): ArrT = fromIntArray(new Array[Int](length * elemSize))
   final override def buffNew(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemSize))
   final override def buffToArr(buff: BuffT): ArrT = fromIntArray(buff.buffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = buff.buffer.addAll(arr.array)

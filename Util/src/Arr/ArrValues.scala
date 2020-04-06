@@ -35,8 +35,8 @@ object Booleans
 
 object BooleansBuild extends ArrBuild[Boolean, Booleans] with ArrFlatBuild[Booleans]
 { type BuffT = BooleanBuff
-  override def imutNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
-  override def imutSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.array(index) = value
+  override def newArr(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+  override def arrSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.array(index) = value
   override def buffNew(length: Int = 4): BooleanBuff = new BooleanBuff(new ArrayBuffer[Boolean](length))
   override def buffGrow(buff: BooleanBuff, value: Boolean): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: BooleanBuff, arr: Booleans): Unit = buff.unsafeBuff.addAll(arr.array)

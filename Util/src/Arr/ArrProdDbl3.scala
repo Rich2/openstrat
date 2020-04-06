@@ -22,7 +22,7 @@ trait ArrProdDbl3Build[A <: ProdDbl3, ArrT <: ArrProdDbl3[A]] extends ArrProdDbl
   final override def elemSize = 3
   //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
-  override def imutSet(arr: ArrT, index: Int, value: A): Unit =
+  override def arrSet(arr: ArrT, index: Int, value: A): Unit =
   { arr.array(index * 3) = value._1; arr.array(index * 3 + 1) = value._2; arr.array(index * 3 + 2) = value._3
   }
 

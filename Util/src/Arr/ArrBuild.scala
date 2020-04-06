@@ -35,15 +35,14 @@ object ArrFlatBuild
  *  possible they should not be used directly by end users. */
 trait ArrBuild[B, ArrT <: Arr[B]] extends ArrBuildBase[ArrT]
 { type BuffT <: ArrayLike[B]
-  def imutNew(length: Int): ArrT
-  def imutSet(arr: ArrT, index: Int, value: B): Unit
+  def newArr(length: Int): ArrT
+  def arrSet(arr: ArrT, index: Int, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
 
   def buffContains(buff: BuffT, newElem: B): Boolean =
-  {
-    var res = false
+  { val res = false
     var count = 0
     while (!res & count < buff.length) if (buff(count) == newElem) true else count += 1
     res
@@ -52,12 +51,8 @@ trait ArrBuild[B, ArrT <: Arr[B]] extends ArrBuildBase[ArrT]
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrT): Unit// = arr.foreach(buffGrow(buff, _))
 
-  //def buffGrowUniqueArr(buff: BuffT, arr: ArrT): Unit = arr.foreach(newEl => if (!(b))
-
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
-  
-  //def buffToArr(buff: BuffT): ArrT
 
   def iterMap[A](inp: Iterable[A], f: A => B): ArrT =
   { val buff = buffNew()

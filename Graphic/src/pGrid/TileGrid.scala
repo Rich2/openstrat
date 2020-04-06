@@ -56,9 +56,9 @@ trait TileGrid
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
   def map[A, ArrT <: Arr[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
-  { val res = build.imutNew(numOfTiles)
+  { val res = build.newArr(numOfTiles)
     foreach{ roord =>
-      build.imutSet(res, index(roord), f(roord))
+      build.arrSet(res, index(roord), f(roord))
     }
     res
   }
@@ -99,12 +99,12 @@ trait TileGrid
   }
 
   /** Creates a new uninitialised Arr of the grid length. */
-  def newArr[A, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): AA = build.imutNew(numOfTiles)
+  def newArr[A, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): AA = build.newArr(numOfTiles)
 
-  def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.imutNew(numOfTiles)
+  def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.newArr(numOfTiles)
 
   def newRefsSet[A <: AnyRef](value: A)(implicit build: ArrBuild[A, Refs[A]]): Refs[A] =
-  { val res = build.imutNew(numOfTiles)
+  { val res = build.newArr(numOfTiles)
     res.setAll(value)
     res
   }

@@ -22,7 +22,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   /** Converts to ArrImut of A. Most commonly a Refs. Prefer the mapArr method where appropriate which combines the converson with a map operation. */
   def toImut[AA <: Arr[A]](implicit bu: ArrBuild[A, AA]): AA =
   { val len = thisIter.size
-    val res = bu.imutNew(len)
+    val res = bu.newArr(len)
     iForeach((a, i) => res.unsafeSetElem(i, a))
     res
   }

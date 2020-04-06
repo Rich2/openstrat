@@ -64,8 +64,8 @@ object Ints
 
 object IntsBuild extends ArrBuild[Int, Ints] with ArrFlatBuild[Ints]
 { type BuffT = IntBuff
-  override def imutNew(length: Int): Ints = new Ints(new Array[Int](length))
-  override def imutSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
+  override def newArr(length: Int): Ints = new Ints(new Array[Int](length))
+  override def arrSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
   override def buffNew(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
   override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: IntBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.array)

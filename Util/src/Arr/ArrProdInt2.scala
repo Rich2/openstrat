@@ -22,7 +22,7 @@ trait ArrProdInt2Build[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdInt
 
   final override def elemSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
-  final override def imutSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
+  final override def arrSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value._1); buff.buffer.append(value._2); () }
 }
 

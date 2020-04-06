@@ -44,8 +44,8 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
   }
 
   def map[B, BB <: Arr[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.imutNew(length)
-    iForeach((a, i) => ev.imutSet(res, i, f(a)))
+  { val res = ev.newArr(length)
+    iForeach((a, i) => ev.arrSet(res, i, f(a)))
     res
   }
 
@@ -63,8 +63,8 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
   }
 
   def iMap[B, BB <: Arr[B]](f: (A, Int) => B)(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.imutNew(length)
-    iForeach((a, i) => ev.imutSet(res, i, f(a, i)))
+  { val res = ev.newArr(length)
+    iForeach((a, i) => ev.arrSet(res, i, f(a, i)))
     res
   }
 
@@ -73,7 +73,7 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
   def mapWithAcc[B, BB <: Arr[B], C](initC: C)(f: (A, C) => (B, C))(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.imutNew(length)
+  { val res = ev.newArr(length)
     var accC: C = initC
     iForeach { (a, i) =>
       val (newB, newC) = f(a, accC)
@@ -105,10 +105,10 @@ trait ArrayLike[+A] extends Any with ArrayBase[A @uncheckedVariance]
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, BB <: Arr[B]](f: (A, A) => B)(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.imutNew(length)
+  { val res = ev.newArr(length)
     var count = 0
     while (count + 1  < length)
-    {  ev.imutSet(res, count, f(apply(count), apply(count + 1)))
+    {  ev.arrSet(res, count, f(apply(count), apply(count + 1)))
       count += 2
     }
     res

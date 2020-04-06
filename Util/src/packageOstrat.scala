@@ -96,12 +96,12 @@ package object ostrat
   /** Not sure if this correct. This might throw on iStep = 0. */
   def iDblToMap[A, AA <: Arr[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Double => A)(implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
-    val res: AA = ev.imutNew(iLen.toInt)
+    val res: AA = ev.newArr(iLen.toInt)
     var count = 0
     @inline def i: Double = iFrom + count * iStep
 
     while(i <= iTo)
-    { ev.imutSet(res, count, f(i))
+    { ev.arrSet(res, count, f(i))
       count += 1
     }
     res
@@ -115,11 +115,11 @@ package object ostrat
    *  is 1. */
   def iToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
-    val res: AA = ev.imutNew(iLen)
+    val res: AA = ev.newArr(iLen)
     var index = 0
     def count = index + iFrom
     while(ife(iStep > 0, count <= iTo,count >= iTo))
-    { ev.imutSet(res, index, f(count))
+    { ev.arrSet(res, index, f(count))
       index += 1
     }
     res
@@ -187,7 +187,7 @@ package object ostrat
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
-    val res = ev.imutNew(arrLen)
+    val res = ev.newArr(arrLen)
     var i: Int = iFrom
     var count = 0
 
@@ -195,7 +195,7 @@ package object ostrat
     { var j: Int = jFrom
 
       while(ife(jStep > 1, j <= jTo, j >= jTo))
-      { ev.imutSet(res, count, f(i, j))
+      { ev.arrSet(res, count, f(i, j))
         j += jStep
         count += 1
       }

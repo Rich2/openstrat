@@ -57,8 +57,6 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
   final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)((x, y) => f(getTile(x, y)))
 
-  def tileRowClass(y: Int): TileRowOld[TileT#FromT] = TileRowOld(y, rowTileXStart(y), rowTileXEnd(y), tileRowToMulti(y))
-
   def tileRowToMulti(y: Int): ArrOld[Multiple[TileT#FromT]] =
    {
      val acc: Buff[Multiple[TileT#FromT]] = Buff()
@@ -126,27 +124,17 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   }
 
   /** Map all Tiles to Array[B] with function. */
-  final def tilesMapAll[B: ClassTag](f: TileT => B): ArrOld[B] =
+  final def tilesMapAll[B, BB <: Arr[B]](f: TileT => B)(implicit build: ArrBuild[B, BB]): BB =
   {
-    val acc: ArrayBuffer[B] = new ArrayBuffer(0)
-    foreachTilesCoodAll{ tileCood =>
-      val tile = getTile(tileCood)
+    val res = build.newArr(tileNum)
+    var count = 0
+    while (count < tileNum)
+    {
+      val tile = arr(count)
       val newRes: B = f(tile)
-      acc += newRes
+      build.arrSet(res, count, newRes)
     }
-    acc.toArrOld
-  }
-  
-  /** Map all Tiles to an Array with function and flatten into Single Array. */
-  def tilesFlatMapAllOld[R: ClassTag](f: TileT => ArrOld[R]): ArrOld[R] =
-  {
-    val acc: ArrayBuffer[R] = new ArrayBuffer(0)
-    foreachTilesCoodAll{ tileCood =>
-      val tile = getTile(tileCood)
-      val newRes: ArrOld[R] = f(tile)
-      acc ++= newRes
-    }
-    acc.toArrOld
+    res
   }
 
   def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrBuild[B, BB]): BB =
