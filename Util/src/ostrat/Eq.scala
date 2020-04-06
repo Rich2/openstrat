@@ -50,20 +50,6 @@ object Eq
       acc
     }
 
-  implicit def arrImplicit[A](implicit ev: Eq[A]): Eq[ArrOld[A]] = (a1, a2) =>
-    if(a1.length != a2.length) false
-    else
-    { var count = 0
-      var acc = true
-      var continue = true
-
-      while (count < a1.length & continue)
-      { if (ev.eqv(a1(count), a2(count))) count += 1
-        else {acc = false; continue = false}
-      }
-      acc
-    }
-
   implicit def seqImplicit[A](implicit ev: Eq[A]): Eq[Seq[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall((el, i) => ev.eqv(el, s2(i)))
   
   implicit def vectorImplicit[A](implicit ev: Eq[A]): Eq[Vector[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall((el, i) => ev.eqv(el, s2(i)))

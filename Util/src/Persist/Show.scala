@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import pParse._
+import pParse._, collection.immutable.ArraySeq
 
 /** The classic Show type class. A functional version of toString .Mostly you will want to use Persist which not only gives the Show methods
  *   to String representation, but the methods to parse Strings back to objects of the type T. However it may often be useful to start with Show
@@ -173,10 +173,10 @@ object Show //extends ShowInstancesPriority2
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeqLike[A, ArrOld[A]]
+  implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeqLike[A, ArraySeq[A]]
   { override def evA: Show[A] = ev
-    override def showSemi(thisArr: ArrOld[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: ArrOld[A]): String = thisArr.map(ev.show(_)).commaFold
+    override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map(ev.show(_)).commaFold
   }
 
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
