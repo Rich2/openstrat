@@ -4,15 +4,13 @@ package pEarth
 import pGrid._, reflect.ClassTag
 
 /** An all world map, parametised by Tile and Tile side types. */
-class EarthAllMap[TileT <: TileOld, SideT <: TileSideOld](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
-      implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
-{
-  override val tops: Refs[Area1] = EarthAreas.allTops
-  //def topsMap[A](f :Area1 => A): ArrOld[A] = tops.map(f)
+class EarthAllMap[TileT <: TileOld, SideT <: TileSideOld](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
+  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
+{ override val tops: Refs[Area1] = EarthAreas.allTops
 }
 
-class OldWorldMap[TileT <: TileOld, SideT <: TileSideOld](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)(
-      implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
+class OldWorldMap[TileT <: TileOld, SideT <: TileSideOld](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
+  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
 {
   def tile(x: Int, y: Int): TileT = grids(0).getTile(x, y)
   def tile(cood: Cood): TileT = tile(cood.xi, cood.yi)
@@ -27,12 +25,6 @@ class OldWorldMap[TileT <: TileOld, SideT <: TileSideOld](val fTile: (Int, Int, 
   val tops: Refs[Area1] = EarthAreas.oldWorld
   val grids: Refs[EGridOld[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
   grids(0).rightGrid = Some(grids(1))
-  //val euWest: AreaT = a1Fac(EuropeWest)
-}
-
-trait EarthAreas[TileT <: ETileOld, SideT <: TileSideOld]
-{   
-  def tops: ArrOld[Area1]
 }
 
 object EarthAreas
@@ -41,6 +33,6 @@ object EarthAreas
   val oldWorld: Refs[Area1] = Refs(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
   val newWorld: Refs[Area1] = Refs(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
   val grids: Refs[EGridMaker] = Refs(EuropeNWGridOld, EuropeEastGrid)
-  //val otherTops = oldWorld ::: newWorld
-  def allTops =  oldWorld ++ newWorld// otherTops
+
+  def allTops =  oldWorld ++ newWorld
 }
