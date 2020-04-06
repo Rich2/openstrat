@@ -354,11 +354,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
    
   def modTilesAll(f: TileT => Unit, xys: (Int, Int)*): Unit = xys.foreach{ case (x, y) => f(getTile(x, y)) } 
   def vertCoodLineOfSide(cood: Cood): CoodLine = vertCoodLineOfSide(cood.xi, cood.yi)
-  def vertCoodLineOfSide(x: Int, y: Int): CoodLine  
-     
-  /** Fundamental method for producing GraphicElems from the Grid */
-  def tilesDisplayFoldAll(f: TileT => GraphicElemsOld): GraphicElemsOld = tilesFoldAll[GraphicElemsOld](f, (acc, pair) => acc ++ pair)(ArrOld())
-  def tileCoodsDisplayFoldAll(f: Cood => GraphicElemsOld): GraphicElemsOld = tileCoodsFoldAll[GraphicElemsOld](f, (acc, pair) => acc ++ pair)(ArrOld())
+  def vertCoodLineOfSide(x: Int, y: Int): CoodLine
   
   /** Warning implementations need modification. */   
   def adjTileCoodsOfTile(tileCood: Cood): Coods    
