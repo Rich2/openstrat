@@ -50,12 +50,12 @@ object SideOldBare
   }
 }
 
-case class TileRow[T](yRow: Int, xStart: Int, yStart: Int, values: Refs[Multiple[T]])
+case class TileRow[T <: AnyRef](yRow: Int, xStart: Int, yStart: Int, values: Refs[Multiple[T]])
 
 object TileRow {
-  implicit def eqImplicit[T](implicit ev: Eq[T]): Eq[TileRowOld[T]] = EqCase3(_.yRow, _.xStart, _.values)
+  implicit def eqImplicit[T <: AnyRef](implicit ev: Eq[T]): Eq[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)
 
-  implicit def persistImplicit[T](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
+  implicit def persistImplicit[T <: AnyRef](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
     def show(obj: TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
 
     def showComma(obj: TileRow[T]): String = show(obj)

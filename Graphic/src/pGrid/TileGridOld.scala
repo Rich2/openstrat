@@ -57,8 +57,6 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
   final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)((x, y) => f(getTile(x, y)))
 
-  def tilesToMultiAll: ArrOld[TileRowOld[TileT#FromT]] = tileRowMapAll(tileRowClass)
-
   def tileRowClass(y: Int): TileRowOld[TileT#FromT] = TileRowOld(y, rowTileXStart(y), rowTileXEnd(y), tileRowToMulti(y))
 
   def tileRowToMulti(y: Int): ArrOld[Multiple[TileT#FromT]] =
@@ -104,22 +102,22 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }
   def setTile(cood: Cood, value: TileT): Unit = setTile(cood.xi, cood.yi, value)
   def copyTile(oldGrid: TileGridOld[TileT, _], cood: Cood): Unit = setTile(cood, oldGrid.getTile(cood))
-  
+
   def fSetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.xi, cood.yi, value)(fTile)
   def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =
   { coodIsTile(x, y)
     arr(xyToInd(x, y)) = fTile(x, y, value)
   }
   final def setTilesAll[A](value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = foreachTilesXYAll((x, y) => fSetTile(x, y, value)(fTile))
-  
+
   /** For all Tiles call side effecting function on the Tile's XY Cood. */
   @inline final def foreachTilesXYAll(f: (Int, Int) => Unit): Unit = foreachTileRowAll(y => rowForeachTilesXYAll(y)(f))
-  
+
   /** For all Tiles call side effecting function on the Tile's Cood. */
   @inline final def foreachTilesCoodAll(f: Cood => Unit): Unit = foreachTilesXYAll((x, y) => f(Cood(x, y)))
-  
+
   /** For all Tiles call side effecting function on the Tile. */
-  @inline final def foreachTileAll(f: TileT => Unit): Unit =  foreachTilesCoodAll{ tileCood => f(getTile(tileCood)) }  
+  @inline final def foreachTileAll(f: TileT => Unit): Unit =  foreachTilesCoodAll{ tileCood => f(getTile(tileCood)) }
 
   /** For each tile row, perform side effecting method. */
   final def foreachTileRowAll(f: Int => Unit): Unit =
@@ -127,14 +125,6 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
     while(y <= yTileMax) { f(y); y += 2 }
   }
 
-  /** Maps each tile row to an Arr[A] */
-  def tileRowMapAll[A](f: Int => A)(implicit ct: ClassTag[A]): ArrOld[A] =
-  { val array: Array[A] = new Array(arrLen)
-    var count = 0
-    foreachTileRowAll{y => array(count) = f(y); count += 1 }
-    array.toArrOld
-  }
-  
   /** Map all Tiles to Array[B] with function. */
   final def tilesMapAll[B: ClassTag](f: TileT => B): ArrOld[B] =
   {
