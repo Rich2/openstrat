@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import geom._
+
 /** A Gui for a single regular SquareGridComplex. Currently there are no irregular SquareGrids */
 abstract class SquareGridGuiOld[TileT <: TileOld, SideT <: TileSideOld, GridT <: SquareGridOld[TileT, SideT]](val canv: pCanv.CanvasPlatform,
   val grid: GridT, title: String) extends TileGridGui[TileT, SideT, GridT](title)
@@ -16,6 +16,4 @@ abstract class SquareGridGuiOld[TileT <: TileOld, SideT <: TileSideOld, GridT <:
       }
       acc
    }
-   
-   def ofSTilesDisplayFold(f: OfSquareReg[TileT, SideT, GridT] => GraphicElemsOld): GraphicElemsOld = ofSTilesFold[GraphicElemsOld](f, _ ++ _, ArrOld())
 } 

@@ -29,7 +29,6 @@ abstract class TileGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: Tile
   def coodStrDisp(cood: Cood) = TextGraphic(cood.xyStr, 12, coodToDisp(cood))
   def polygonOfTileDisp(tileCood: Cood): Polygon = vertCoodsOfTile(tileCood).pMap(coodToDisp)
   final def sideLinesDispAll: Line2s = grid.sideLinesAll.fTrans(fTrans)
- // final def sidesDrawAllOld(lineWidth: Double = 2, colour: Colour = Colour.Black): GraphicElemsOld = sideLinesDispAll.mapArrSeq(_.draw(lineWidth, colour))
   final def sidesDrawAll(lineWidth: Double = 2, colour: Colour = Colour.Black): GraphicElems = sideLinesDispAll.map(_.draw(lineWidth, colour))
   
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0)
@@ -95,15 +94,9 @@ abstract class TileGridGui[TileT <: TileOld, SideT <: TileSideOld, GridT <: Tile
     }
     acc
   }
-   
-  @deprecated def ofTilesDisplayFoldOld[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit oftFactory: (TileT, GridT,
-      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofTilesFold[OfT, GraphicElemsOld](f, _ ++ _, ArrOld())(oftFactory)
 
   def ofTilesDisplayFold[OfT <: OfTile[TileT, SideT, GridT]](f: OfT => GraphicElems)(implicit oftFactory: (TileT, GridT,
     TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofTilesFold[OfT, GraphicElems](f, _ ++ _, Refs())(oftFactory)
-         
-  @deprecated def ofSidesDisplayFoldOld[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => GraphicElemsOld)(implicit ofsFactory: (SideT, GridT,
-      TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElemsOld = ofSidesFold[OfT, GraphicElemsOld](f, _ ++ _, ArrOld())(ofsFactory)
 
   def ofSidesDisplayFold[OfT <: OfSide[TileT, SideT, GridT]](f: OfT => GraphicElems)(implicit ofsFactory: (SideT, GridT,
     TileGridGui[TileT, SideT, GridT]) => OfT): GraphicElems = ofSidesFold[OfT, GraphicElems](f, _ ++ _, Refs())(ofsFactory)
