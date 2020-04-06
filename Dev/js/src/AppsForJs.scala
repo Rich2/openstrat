@@ -19,7 +19,7 @@ object AppsForJs
     ("9", (p305.BC305Gui(_, p305.Bc1), "Js BC 305")),
     ("10", (pCard.BlackJackGui(_), "Js BlackJack")),
     ("11", (new pChess.DraughtsGui(_), "Draughts")),
-    ("12", (new pGames.pSimp.UnusGui(_, pGames.pSimp.Simp1()), "Simplest Game")),
+
     ("13", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "JavaFx Formation")),
     ("14", (new pReactor.ReactorGUI(_), "reactor")),
     ("15", (new pChess.ChessGui(_), "Chess")),

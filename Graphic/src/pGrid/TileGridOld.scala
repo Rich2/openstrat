@@ -53,31 +53,11 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
 
   /** For each Tile's XY in part of a row. */
   def rowForeachTilesXY(y: Int, xStart: Int, xEnd: Int, f: (Int, Int) => Unit): Unit
+
   /** For each Tile's XY in the whole of the row. */
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
-  final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)((x, y) => f(getTile(x, y)))
 
-  def tileRowToMulti(y: Int): ArrOld[Multiple[TileT#FromT]] =
-   {
-     val acc: Buff[Multiple[TileT#FromT]] = Buff()
-     var subAcc: Int = 0
-     var oValue: Option[TileT#FromT] = None
-     rowForeachTileAll(y){ tile =>
-       val newT = tile.fromT
-       oValue match
-       {
-         case None => { subAcc = 1; oValue = Some(newT) }
-         case Some(sv) if sv == newT => subAcc += 1
-         case Some(sv) => { acc += Multiple(sv, subAcc); subAcc = 1; oValue = Some(newT) }
-       }
-     }
-     oValue match
-     {
-       case Some(sv) => acc += Multiple (sv, subAcc)
-       case None =>
-     }
-     acc.toArrOld
-   }
+  final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)((x, y) => f(getTile(x, y)))
 
   final def setTiles[A](bottomLeft: Cood, topRight: Cood, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit =
     setTileRect(bottomLeft.xi, topRight.yi, bottomLeft.yi, topRight.yi, tileValue)(f)
@@ -160,7 +140,6 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
     acc.reverse
   }
   
-  
   /** Map all tiles' Cood to a List[B]. */
   final def tilesCoodMapListAll[B](f: Cood => B): List[B] =
   { var acc: List[B] = Nil
@@ -189,10 +168,22 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
     acc.reverse
   }
 
-  final def tilesMapOptionAll[A: ClassTag](f: TileT => Option[A]): ArrOld[A] =
+  /*@deprecated final def tilesMapOptionAllOld[A: ClassTag](f: TileT => Option[A]): ArrOld[A] =
   { var acc: Buff[A] = Buff()
     foreachTileAll(t => acc = f(t).fold(acc)(acc.+= _))
     acc.toArrOld
+  }*/
+
+  final def tilesMapOptionAll[A, AA <: Arr[A]](f: TileT => Option[A])(implicit build: ArrBuild[A, AA]): AA =
+  { val buff = build.buffNew()
+    var count = 0
+    foreachTileAll { t =>
+      f(t) match {
+        case None =>
+        case Some(a) => build.buffGrow(buff, a)
+      }
+    }
+    build.buffToArr(buff)
   }
 
   final def tilesMapOptionListAll[A](f: TileT => Option[A]): List[A] =
