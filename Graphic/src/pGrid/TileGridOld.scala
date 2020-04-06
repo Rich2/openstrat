@@ -57,9 +57,9 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
   final def rowForeachTilesXYAll(y: Int)(f: (Int, Int) => Unit): Unit = rowForeachTilesXY(y, rowTileXStart(y), rowTileXEnd(y), f)
   final def rowForeachTileAll(y: Int)(f: TileT => Unit): Unit = rowForeachTilesXYAll(y)((x, y) => f(getTile(x, y)))
 
-  def tilesToMultiAll: ArrOld[TileRow[TileT#FromT]] = tileRowMapAll(tileRowClass)
+  def tilesToMultiAll: ArrOld[TileRowOld[TileT#FromT]] = tileRowMapAll(tileRowClass)
 
-  def tileRowClass(y: Int): TileRow[TileT#FromT] = TileRow(y, rowTileXStart(y), rowTileXEnd(y), tileRowToMulti(y))
+  def tileRowClass(y: Int): TileRowOld[TileT#FromT] = TileRowOld(y, rowTileXStart(y), rowTileXEnd(y), tileRowToMulti(y))
 
   def tileRowToMulti(y: Int): ArrOld[Multiple[TileT#FromT]] =
    {

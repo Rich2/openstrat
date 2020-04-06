@@ -50,19 +50,44 @@ object SideOldBare
   }
 }
 
-case class TileRow[T](yRow: Int, xStart: Int, yStart: Int, values: ArrOld[Multiple[T]])
-object TileRow
-{
-  implicit def eqImplicit[T](implicit ev: Eq[T]): Eq[TileRow[T]] = EqCase3(_.yRow, _.xStart, _.values)
+case class TileRow[T](yRow: Int, xStart: Int, yStart: Int, values: Refs[Multiple[T]])
 
-  implicit def persistImplicit[T](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]]
-  { def show(obj: ostrat.pGrid.TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
-    def showComma(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
-    def showSemi(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
-    def showTyped(obj: ostrat.pGrid.TileRow[T]): String = show(obj)
+object TileRow {
+  implicit def eqImplicit[T](implicit ev: Eq[T]): Eq[TileRowOld[T]] = EqCase3(_.yRow, _.xStart, _.values)
+
+  implicit def persistImplicit[T](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
+    def show(obj: TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
+
+    def showComma(obj: TileRow[T]): String = show(obj)
+
+    def showSemi(obj: TileRow[T]): String = show(obj)
+
+    def showTyped(obj: TileRow[T]): String = show(obj)
+
+    def syntaxDepth: Int = ev.syntaxDepth + 2
+
+    // def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def fromExpr(expr: pParse.Expr): ostrat.EMon[TileRow[T]] = ???
+
+    //  def fromStatements(sts: Refs[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def typeStr: String = ???
+  }
+}
+
+@deprecated case class TileRowOld[T](yRow: Int, xStart: Int, yStart: Int, values: ArrOld[Multiple[T]])
+
+@deprecated object TileRowOld
+{
+  implicit def eqImplicit[T](implicit ev: Eq[T]): Eq[TileRowOld[T]] = EqCase3(_.yRow, _.xStart, _.values)
+
+  implicit def persistImplicit[T](implicit ev: Persist[T]): Persist[TileRowOld[T]] = new Persist[TileRowOld[T]]
+  { def show(obj: ostrat.pGrid.TileRowOld[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
+    def showComma(obj: ostrat.pGrid.TileRowOld[T]): String = show(obj)
+    def showSemi(obj: ostrat.pGrid.TileRowOld[T]): String = show(obj)
+    def showTyped(obj: ostrat.pGrid.TileRowOld[T]): String = show(obj)
     def syntaxDepth: Int = ev.syntaxDepth + 2
    // def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
-    def fromExpr(expr: pParse.Expr): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
+    def fromExpr(expr: pParse.Expr): ostrat.EMon[ostrat.pGrid.TileRowOld[T]] = ???
   //  def fromStatements(sts: Refs[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def typeStr: String = ???
   }

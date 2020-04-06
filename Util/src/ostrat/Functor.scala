@@ -6,8 +6,6 @@ trait Functor[F[_]]
 
 object Functor
 {
-  implicit def arrImplicit: Functor[ArrOld] = new Functor[ArrOld] { override def map[A, B](fa: ArrOld[A], f: A => B): ArrOld[B] = fa.map(f) }
-
   //implicit def arrayImplicit: Functor[Array] = new Functor[Array] { override def map[A, B](fa: Array[A])(f: A => B): Array[B] = fa.map(f) }
 
   implicit def eMonImplicit: Functor[EMon] = new Functor[EMon] { override def map[A, B](fa: EMon[A], f: A => B): EMon[B] = fa.map(f) }
