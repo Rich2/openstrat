@@ -129,8 +129,6 @@ object Show //extends ShowInstancesPriority2
   {
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
-    //override def fromParameterStatements(sts: Refs[Statement]): EMon[Array[Int]] = TextPosn.empty.bad("ArrayInt from statements")
-   // override def fromClauses(clauses: Refs[Clause]): EMon[Array[Int]] = ???
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
@@ -140,16 +138,13 @@ object Show //extends ShowInstancesPriority2
     }
   }
 
-  class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArrOld[A]](ev)
+  class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
-    override def showSemi(thisArr: ArrOld[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: ArrOld[A]): String = thisArr.map(ev.show(_)).commaFold
-  //  override def fromParameterStatements(sts: Refs[Statement]): EMon[ArrOld[A]] = ???
-    //override def fromClauses(clauses: Refs[Clause]): EMon[ArrOld[A]] = ???
+    override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map(ev.show(_)).commaFold
 
-    override def fromExpr(expr: ParseExpr): EMon[ArrOld[A]] =  expr match
-    {
-      case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+    override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
+    { case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
@@ -161,8 +156,6 @@ object Show //extends ShowInstancesPriority2
   {
     override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
-    //override def fromParameterStatements(sts: Refs[Statement]): EMon[Array[A]] = ???
-    //override def fromClauses(clauses: Refs[Clause]): EMon[Array[A]] = ???
 
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
@@ -187,8 +180,6 @@ object Show //extends ShowInstancesPriority2
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
     override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
-   // override def fromClauses(clauses: Refs[Clause]): EMon[Some[A]] = ev.fromClauses(clauses).map(Some(_))
-   // override def fromStatements(sts: Refs[Statement]): EMon[Some[A]] = ev.fromStatements(sts).map(Some(_))
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
     { case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
@@ -199,14 +190,12 @@ object Show //extends ShowInstancesPriority2
   implicit val nonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
   {
     override def show(obj: None.type) = ""
+
     def fromExpr(expr: Expr): EMon[None.type] = expr match
-    {
-      case IdentifierLowerOnlyToken(_, "None") => Good(None)
+    { case IdentifierLowerOnlyToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }
-
-    //override def fromStatements(sts: Refs[Statement]): EMon[None.type] = ife(sts.empty, Good(None), sts.startPosn.bad("None not found."))
   }
 
   implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Persist[Option[A]] =
