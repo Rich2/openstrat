@@ -73,8 +73,9 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
    
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGridOld.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.yi & c.yi >= yTileMin & xTileMax >= c.xi & c.xi >= xTileMin)
-  def tileNeighbours(tile: TileT): ArrOld[TileT] = ??? // tileNeighboursCoods(tile.cood).mapArrSeq(getTile)
-     
+
+  def tileNeighbours(tile: TileT)(implicit build: ArrBuild[TileT, Refs[TileT]]): Refs[TileT] = tileNeighboursCoods(tile.cood).map(getTile)
+
   def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), NoRef) :: Nil
@@ -86,7 +87,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
       //if (curr.tile.cood == endCood) found = true
       open = open.filterNot(_ == curr)
       closed ::= curr
-      val neighbs: ArrOld[TileT] = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      val neighbs: Refs[TileT] = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
       neighbs.foreach { tile =>
         fTerrCost(curr.tile, tile) match
         {
