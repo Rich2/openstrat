@@ -45,6 +45,7 @@ package object pGrid
   implicit class OptRefImplicit[A <: AnyRef](arr: OptRefs[A])
   {
     def gridSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.setSome(grid.index(y, c), value)
+    def gridSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = arr.setSome(grid.index(r), value)
     def gridSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.setSome(grid.index(t._1, t._2), t._3))
 
     def gridForeachSome(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit =
@@ -66,6 +67,11 @@ package object pGrid
 
     /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
     def gridElemGet(roord: Roord)(implicit grid: TileGrid): A = arr.unsafeArray(grid.index(roord))
+  }
+
+  implicit class ArrayImplicit[A](thisArray: Array[A])
+  {
+    def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{r => f(r, thisArray(grid.index(r)))}
   }
 
   implicit class ArrImplicit[A](val arr: Arr[A])

@@ -6,7 +6,7 @@ import pCanv._, geom._, pGrid._
 case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game One Gui")
 { var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
   implicit val grid = scen.grid
-  val players = scen.players
+  val players = scen.oPlayers
   var moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
 
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)

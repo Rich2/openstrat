@@ -26,6 +26,7 @@ final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
   def tilePoly(implicit tileGrid: TileGrid): Polygon = tileGrid.roordToPolygon(this)
   def gridVec2(implicit tileGrid: TileGrid): Vec2 = tileGrid.roordToVec2(this)
   def step(st: HTStep): Roord = this + st.roord
+  def stepBack(st: HTStep): Roord = this - st.roord
 }
 
 object Roord

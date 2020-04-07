@@ -7,6 +7,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
   def set(index: Int, value: OptRef[A]): Unit = unsafeArray(index) = value.value
   def setSome(index: Int, value: A @uncheckedVariance): Unit = unsafeArray(index) = value
   def setNone(index: Int): Unit = unsafeArray(index) = null.asInstanceOf[A]
+  def clone = new OptRefs[A](unsafeArray.clone)
 
   def setOtherOptRefs[B <: AnyRef](operand: OptRefs[B])(f: A => B): Unit =
   { var count = 0
