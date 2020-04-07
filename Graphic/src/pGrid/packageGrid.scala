@@ -44,9 +44,9 @@ package object pGrid
 
   implicit class OptRefImplicit[A <: AnyRef](arr: OptRefs[A])
   {
-    def gridSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.unsafeSetSome(grid.index(y, c), value)
-    def gridSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = arr.unsafeSetSome(grid.index(r), value)
-    def gridSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.unsafeSetSome(grid.index(t._1, t._2), t._3))
+    def gridUnsafeSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.unsafeSetSome(grid.index(y, c), value)
+    def gridUnsafeSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = arr.unsafeSetSome(grid.index(r), value)
+    def gridUnsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.unsafeSetSome(grid.index(t._1, t._2), t._3))
 
     def gridForeachSome(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit =
     { grid.foreach { r =>

@@ -143,8 +143,7 @@ trait TileGrid
   /** Sets element in a flat Tiles Arr according to its Roord. */
   def setTile[A](roord: Roord, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(index(roord), value)
 
-  /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. It is called roordToVec2Abs because most of the time, you will want
-   * the Vec2 relative to the TileGrid centre. */
+  /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
   def roordToVec2(roord: Roord): Vec2
 
   /** Returns the index of an Array from its tile coordinate. */

@@ -19,7 +19,7 @@ trait OneScen
       case List(hst) => {
         val srcIndex = grid.index(hst.r1)
         val moved: Player = resValue(srcIndex).value
-        resValue.gridSetSome(r, moved)
+        resValue.gridUnsafeSetSome(r, moved)
         resValue.unsafeSetNone(srcIndex)
       }
       case _ =>
@@ -46,6 +46,6 @@ object OneScen1 extends OneScenStart
 {
   implicit val grid = new HexGridReg(2, 6, 2, 10)
   val oPlayers: OptRefs[Player] = grid.newOptRefs[Player]
-  oPlayers.gridSetSome(4, 4, PlayerA)
-  oPlayers.gridSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  oPlayers.gridUnsafeSetSome(4, 4, PlayerA)
+  oPlayers.gridUnsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }

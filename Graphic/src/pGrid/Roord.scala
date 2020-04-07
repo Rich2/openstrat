@@ -28,6 +28,7 @@ final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
   def andStep(st: HTStep): HTileAndStep = HTileAndStep(y, c, st)
   def step(st: HTStep): Roord = this + st.roord
   def stepBack(st: HTStep): Roord = this - st.roord
+  def yPlusC: Int = y + c
 }
 
 object Roord
