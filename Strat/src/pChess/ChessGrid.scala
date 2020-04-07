@@ -39,7 +39,13 @@ object PBlack extends Player
 /** Player Piece */
 case class PPiece(player: Player, piece: Piece)
 
-trait ChessScen
+trait ChessLikeScen
+{ def turnSeg: Int
+  implicit val grid = SquareGrid(2, 16, 2, 16)
+  def playerSeg: Player = ife(turnSeg.isOdd, PWhite, PBlack)
+}
+
+trait ChessScen extends ChessLikeScen
 { val turnSeg: Int
   implicit def grid: SquareGrid
   def pieces: OptRefs[PPiece]
@@ -48,7 +54,7 @@ trait ChessScen
 object ChessStart extends ChessScen
 {
   val turnSeg = 0
-  implicit val grid = SquareGrid(2, 16, 2, 16)
+
   val pieces = grid.newOptRefs[PPiece]
   val rp = Refs(Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook)
   rp.iForeach{(p, i) => pieces.gridUnsafeSetSome(2, i * 2 + 2, PPiece(PWhite, p)) }

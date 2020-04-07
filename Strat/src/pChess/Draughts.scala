@@ -10,8 +10,11 @@ package pChess
 //    case c @ Cood(x, y) if c.evenSum          => DarkSq(x, y, None)
 //    case c @ Cood(x, y)                           => LightSq(x, y)
 //  }
-object Draughts
+trait DraughtsScen extends ChessLikeScen
+
+object DraughtsStart extends DraughtsScen
 {
+  val turnSeg = 0
   /*def start: Draughts =
   {
     val xs = (0 to 3).toList.map(_ * 2)

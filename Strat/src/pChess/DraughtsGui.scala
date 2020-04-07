@@ -1,39 +1,28 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pChess
-import geom._, pCanv._, Colour._
+import geom._, pCanv._, Colour._, pGrid._
 
-case class DraughtsGui(canv: CanvasPlatform) extends CanvasNoPanels("Draughts")
+case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui("Draughts")
 {
-  var player = true
-
+  implicit def grid = scen.grid
+  var statusText: String = "Welcome to Chess Gui"
   val darkSquareColour = Brown
-  val lightSquareColour = Pink  
-  
-//  val tiles: Seq[CheckersSq] = for { y <- 1 to rowSize; x <- 1 to rowSize } yield Cood(x, y) match
-//  { case c @ Cood(x, y) if c.evenSum & y <= 3 => DarkSq(x, y, Some(BlackPiece))
-//    case c @ Cood(x, y) if c.evenSum & y >= 6 => DarkSq(x, y, Some(WhitePiece))
-//    case c @ Cood(x, y) if c.evenSum          => DarkSq(x, y, None)
-//    case c @ Cood(x, y)                           => LightSq(x, y)          
-//  }  
-  
-  //val grid = DGridOld.start
- // deb(grid.getTile(1, 1).toString)
-  val margin = 15
- /* val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
-  val s1 = "Drafts".graphic(36, colour = Black)
-  val stuff = grid.squares(tileWidth)// ::: grid.
+  val lightSquareColour = Pink
+  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  repaint(stuff)*/
-  
-  mouseUp =
-    {
-      case (LeftButton, cl, v) =>
-      { deb(cl.toString)
-        //selected = clickList.fHead(Nil, (h , _) => List(h))
-        //statusText = selected.headOption.fold("Nothing Clicked")(_.toString)
-        //eTop()
-      }
-      case _ => deb("Mouse other")
-    }
+  val tiles: GraphicElems = grid.mapPolygons{ (r, p) =>
+    val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
+    p.fill(col) }
+
+ def bTurn = clickButton("Turn ", _ => {
+   repaint()
+   thisTop()
+ })
+  def thisTop(): Unit = reTop(Refs(bTurn, status))
+  thisTop()
+
+  def frame = (tiles).gridTrans(scale)
+  def repaint() = mainRepaint(frame)
+  repaint()
 }
