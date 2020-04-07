@@ -3,15 +3,17 @@ package gOne
 import pCanv._, geom._, pGrid._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game One Gui")
-{ var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
-  implicit val grid = scen.grid
-  val players = scen.oPlayers
-  var moves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
+case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui")
+{ var scen = scenStart
+  var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
+  implicit def grid = scen.grid
+  def players = scen.oPlayers
+  val moves0: OptRefs[HTStep] = grid.newOptRefs[HTStep]
+  var moves: OptRefs[HTStep] = moves0
 
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val lunits = players.gridMapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
+  def lunits = players.gridMapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
     p.toString + "\n" + r.ycStr, 24, 2.0) }
 
   val tiles = grid.activeTiles
@@ -23,7 +25,17 @@ case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game 
     val newR = r + step.roord
     RoordLine(r, newR).gridLine2.draw(2, players.gridElemGet(r).colour)
   }
-  val bTurn = clickButton("Turn " + (scen.turn + 1).toString, _ => "println(Hi")
+
+  def getOrders = moves.gridMapSomes((r, s) => r.andStep(s))
+  val bTurn = clickButton("Turn " + (scen.turn + 1).toString, _ => {
+    debvar(getOrders)
+    scen = scen.turn(getOrders)
+    deb("Done")
+    moves = moves0
+    deb("About to paint")
+    repaint()
+
+  })
   def thisTop(): Unit = reTop(Refs(bTurn, status))
 
   mainMouseUp = (b, cl, _) => (b, cl, selected) match
@@ -35,7 +47,7 @@ case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game 
 
       case (RightButton, (t : HexTile) :: _, List(RPlayer(p, r), HexTile(y, c))) =>
       {
-        val newM = t.adjOf(r)//.foldDo() .foreach{ ht =>
+        val newM = t.adjOf(r)
         moves.set(grid.index(r), newM)
         repaint()
       }

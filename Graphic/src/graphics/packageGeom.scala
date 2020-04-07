@@ -78,6 +78,6 @@ package object geom
   /** 180 degrees or Pi radians */
   def deg180: Angle = Angle(Pi)
 
-  def displayRowParents(leftPt: Vec2, actives: Refs[GraphicBounded], margin: Double = 10): Refs[GraphicBounded] =
+  def displayRowGraphics(leftPt: Vec2, actives: Refs[GraphicBounded], margin: Double = 10): Refs[GraphicBounded] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.width / 2), x + head.width + margin))
 }

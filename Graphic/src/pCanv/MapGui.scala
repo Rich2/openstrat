@@ -19,7 +19,7 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
    
   def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   /**  repaints the top command bar */
-  def reTop(commands: Refs[GraphicBounded]): Unit = topPan.repaint(displayRowParents(topPan.cenLeft, commands))
+  def reTop(commands: Refs[GraphicBounded]): Unit = topPan.repaint(displayRowGraphics(topPan.cenLeft, commands))
   var statusText = "This is the status text."
   def status = textBox(statusText, None)
   val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
