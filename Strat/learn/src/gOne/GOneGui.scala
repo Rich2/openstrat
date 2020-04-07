@@ -11,7 +11,8 @@ case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game 
 
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val lunits = players.gridMapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r), p.toString, 24, 2.0) }
+  val lunits = players.gridMapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
+    p.toString + "\n" + r.ycStr, 24, 2.0) }
 
   val tiles = grid.activeTiles
   val roardTexts = grid.cenSideVertRoordText
@@ -32,7 +33,7 @@ case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game 
         thisTop()
       }
 
-      case (RightButton, (t : HexTile) :: _, RPlayer(p, r) :: l) =>
+      case (RightButton, (t : HexTile) :: _, List(RPlayer(p, r), HexTile(y, c))) =>
       {
         val newM = t.adjOf(r)//.foldDo() .foreach{ ht =>
         moves.set(grid.index(r), newM)

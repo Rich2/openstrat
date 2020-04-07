@@ -7,19 +7,17 @@ trait OneScen
   implicit def grid: HexGrid
   def oPlayers: OptRefs[Player]
 
-  def turn(pairs: Refs[(Roord, HTStep)]): OneScen =
+  def turn(pairs: Refs[HTileAndStep]): OneScen =
   {
-    val resolve: Array[List[HTStep]] = grid.newArrayListSet()
+    val resolve: Array[List[HTileAndStep]] = grid.newArrayListSet()
 
-    pairs.foreach{case (orig, st) =>
-      val targR = orig.step(st)
-      resolve(grid.index(targR)) ::= st
-    }
+    pairs.foreach{hts => resolve(grid.index(hts.r2)) ::= hts }
     val resValue: OptRefs[Player] = oPlayers.clone
+
     resolve.gridForeach{ (r, l) => l match
     {
-      case List(st) => {
-        val srcIndex = grid.index(r.stepBack(st))
+      case List(hst) => {
+        val srcIndex = grid.index(hst.r1)
         val moved: Player = resValue(srcIndex).value
         resValue.gridSetSome(r, moved)
         resValue.setNone(srcIndex)

@@ -9,7 +9,7 @@ object OneScen1Test  extends TestSuite
   val g1 = os1.grid
   val os2 = os1.turn(Refs())
   val g2 = os2.grid
-  val os3 = os1.turn(Refs((Roord(4,4), HTStepUL)))
+  val os3 = os1.turn(Refs(HTileAndStep(4, 4, HTStepUL), HTileAndStep(4, 8, HTStepUL), HTileAndStep(6, 10, HTStepLt)))
   val g3 = os3.grid
 
   val tests = Tests
@@ -38,6 +38,8 @@ object OneScen1Test  extends TestSuite
       os3.oPlayers(1) ==> NoRef
       os3.oPlayers(os3.grid.index(4, 4)) ==> NoRef
       os3.oPlayers(os3.grid.index(6, 2)) ==> OptRef(PlayerA)
+      os3.oPlayers(os3.grid.index(6, 6)) ==> NoRef
+      os3.oPlayers(os3.grid.index(4, 8)) ==> OptRef(PlayerB)
     }
 
     "Sides" -
