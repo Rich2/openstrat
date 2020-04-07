@@ -17,14 +17,14 @@ case class DraughtsGui(canv: CanvasPlatform) extends CanvasNoPanels("Draughts")
 //    case c @ Cood(x, y)                           => LightSq(x, y)          
 //  }  
   
-  val grid = DGridOld.start
+  //val grid = DGridOld.start
  // deb(grid.getTile(1, 1).toString)
   val margin = 15
-  val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
+ /* val tileWidth: Double = ((height.min(width) - margin * 2).max(100) / grid.rowSize)
   val s1 = "Drafts".graphic(36, colour = Black)
   val stuff = grid.squares(tileWidth)// ::: grid.
 
-  repaint(stuff)
+  repaint(stuff)*/
   
   mouseUp =
     {

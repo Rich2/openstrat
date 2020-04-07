@@ -36,8 +36,19 @@ object PBlack extends Player
 /** Player Piece */
 case class PPiece(player: Player, piece: Piece)
 
+/*
 class ChessGrid (val array: Array[Option[PPiece]]) extends AnyVal with SqSqArr[Option[PPiece]]
 { type GridT = ChessGrid
   override def thisFac = new ChessGrid(_)
   def size = 8
+}*/
+trait ChessScen
+{ val turnSeg: Int
+  implicit def grid: SquareGrid
+}
+
+object ChessStart extends ChessScen
+{
+  val turnSeg = 0
+  implicit val grid = SquareGrid(2, 16, 2, 16)
 }

@@ -3,31 +3,11 @@ package ostrat
 package pChess
 import Colour._ , pGrid._, geom._
 
-class DGridOld extends SquareGridOld[DTileOld, SideOldBare](1, 8, 1, 8, 0)// extends AnyVal
-{  
-  //def get(row: Int, col: Int): Option[Draught] = arr((row - 1) * 8 + col - 1)
-  //def set(row: Int, col: Int, value: Option[Draught]): Unit = arr((row - 1) * 8 + col - 1) = value
-  def setSome(row: Int, col: Int, value: Draught): Unit = arr((row - 1) * 8 + col - 1) = ??? //value//Some(value)
-//  def copy: DGrid = 
-//  {
-//    val newArr = new Array[Option[Draught]](64)
-//    var count = 0
-//    while( count < 64){ newArr(count) = arr(count); count += 1 }
-//    new DGrid(newArr)
-//  }
-  def squares(tileWidth: Double): Refs[PolyFill] =
-  iiToMap(1, 8){ (x, y) =>
-    Square.fillXY(tileWidth, x.ifSumOdd(Brown, Pink, y), (x - 4.5) * tileWidth, (y -4.5) * tileWidth) }
 
-  def rowSize = 8
-  def rowCen = (1.0 + rowSize) / 2.0
-  def adj(i: Int) = i - rowCen
 
-}
-
-object DGridOld
+object DraughtsGrid
 {
-  def start: DGridOld =
+  /*def start: DGridOld =
   {
     val dg = new DGridOld
     val ser = 0 to 6 by 2
@@ -38,7 +18,7 @@ object DGridOld
     ser.foreach(i => dg.setSome(7, i + 1, WhiteD))
     ser.foreach(i => dg.setSome(8, i + 2, WhiteD))*/
     dg
-  }
+  }*/
 }
 
 //class ChessGrid[TileT <: Tile](length: Int, turnNum: Int)(implicit evTile: ClassTag[TileT]) extends SquareGrid[TileT, SideBare](1, length, 1, length,
