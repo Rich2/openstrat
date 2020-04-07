@@ -22,7 +22,7 @@ object AppsForJs
 
     ("13", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "JavaFx Formation")),
     ("14", (new pReactor.ReactorGUI(_), "reactor")),
-    ("15", (new pChess.ChessGui(_), "Chess")),
+    ("15", (new pChess.ChessGui(_, pChess.ChessStart), "Chess")),
     ("16", (new pFlags.FlagSelectorGUI(_), "Flag Fun")),
     ("17", (gOne.IrrGui(_), "Js irregular Grid Game One")),
     ("18", (gOne.SqOneGui(_), "Js Square Grid Game One")),
