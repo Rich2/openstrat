@@ -3,7 +3,7 @@ package gOne
 import pGrid._
 
 trait OneScen
-{
+{ def turn: Int
   implicit def grid: HexGrid
   def oPlayers: OptRefs[Player]
 
@@ -24,19 +24,25 @@ trait OneScen
       }
       case _ =>
     }}
-    OneScen(grid, resValue)
+    OneScen(turn + 1, grid, resValue)
   }
+}
+
+trait OneScenStart extends OneScen
+{
+  override def turn: Int = 0
 }
 
 object OneScen
 {
-  def apply(gridIn: HexGrid, opIn: OptRefs[Player]): OneScen = new OneScen
-    { override implicit def grid: HexGrid = gridIn
+  def apply(turnIn: Int, gridIn: HexGrid, opIn: OptRefs[Player]): OneScen = new OneScen
+    { override def turn = turnIn
+      override implicit def grid: HexGrid = gridIn
       override def oPlayers: OptRefs[Player] = opIn
     }
 }
 
-object OneScen1 extends OneScen
+object OneScen1 extends OneScenStart
 {
   implicit val grid = new HexGridReg(2, 6, 2, 10)
   val oPlayers: OptRefs[Player] = grid.newOptRefs[Player]

@@ -23,8 +23,8 @@ case class GOneGui(canv: CanvasPlatform, scen: OneScen) extends CmdBarGui("Game 
     val newR = r + step.roord
     RoordLine(r, newR).gridLine2.draw(2, players.gridElemGet(r).colour)
   }
-
-  def thisTop(): Unit = reTop(Refs(status))
+  val bTurn = clickButton("Turn " + (scen.turn + 1).toString, _ => "println(Hi")
+  def thisTop(): Unit = reTop(Refs(bTurn, status))
 
   mainMouseUp = (b, cl, _) => (b, cl, selected) match
     { case (LeftButton, cl, _) =>
