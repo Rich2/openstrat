@@ -27,6 +27,13 @@ case class OptRef[+A <: AnyRef](val value: A) extends AnyVal
   def foldDo(noneDo: => Unit)(f: A => Unit): Unit = if (value == null) noneDo else f(value)
 }
 
+
+object SomeRef
+{
+  def unapply[A <: AnyRef](inp: OptRef[A]): Option[A] = if (inp.empty) None else Some(inp.value)
+}
+
+
 trait OptInt extends Opt[Int]
 { def map(f: Int => Int): OptInt
   def |+| (operand: OptInt): OptInt
