@@ -20,7 +20,7 @@ trait OneScen
         val srcIndex = grid.index(hst.r1)
         val moved: Player = resValue(srcIndex).value
         resValue.gridSetSome(r, moved)
-        resValue.setNone(srcIndex)
+        resValue.unsafeSetNone(srcIndex)
       }
       case _ =>
     }}

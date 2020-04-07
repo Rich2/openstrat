@@ -27,7 +27,7 @@ trait DungeonScen
 { implicit def grid: TileGrid
   def terrs: Refs[DungTerr]
   def characs: OptRefs[CharacPosn]
-  def posn(charac: Character, y: Int, c: Int, face: SqFace): Unit = characs.setSome(grid.index(y, c), CharacPosn(charac, y, c, face))
+  def posn(charac: Character, y: Int, c: Int, face: SqFace): Unit = characs.unsafeSetSome(grid.index(y, c), CharacPosn(charac, y, c, face))
 }
 
 object Dungeon1 extends DungeonScen

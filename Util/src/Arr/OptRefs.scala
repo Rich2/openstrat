@@ -4,16 +4,23 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrayBase[OptRef[A]]
 { @inline def length: Int = unsafeArray.length
   def apply(index: Int): OptRef[A] = OptRef(unsafeArray(index))
-  def set(index: Int, value: OptRef[A]): Unit = unsafeArray(index) = value.value
-  def setSome(index: Int, value: A @uncheckedVariance): Unit = unsafeArray(index) = value
-  def setNone(index: Int): Unit = unsafeArray(index) = null.asInstanceOf[A]
+
+  def setSome(index: Int, value: A @uncheckedVariance): OptRefs[A] =
+  { val newArray = unsafeArray.clone()
+    newArray(index) = value
+    new OptRefs[A](newArray)
+  }
+
+  def unsafeSet(index: Int, value: OptRef[A]): Unit = unsafeArray(index) = value.value
+  def unsafeSetSome(index: Int, value: A @uncheckedVariance): Unit = unsafeArray(index) = value
+  def unsafeSetNone(index: Int): Unit = unsafeArray(index) = null.asInstanceOf[A]
   def clone = new OptRefs[A](unsafeArray.clone)
 
   def setOtherOptRefs[B <: AnyRef](operand: OptRefs[B])(f: A => B): Unit =
   { var count = 0
 
     while (count < length)
-    { apply(count).foldDo { operand.setNone(count) } { a => operand.setSome(count, f(a)) }
+    { apply(count).foldDo { operand.unsafeSetNone(count) } { a => operand.unsafeSetSome(count, f(a)) }
       count += 1
     }
   }
