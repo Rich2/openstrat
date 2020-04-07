@@ -51,7 +51,7 @@ lazy val Strat = stdJvmProj("Strat").dependsOn(Graphic).settings(
 
 lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
   
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Graphic/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Strat/learn/src", "Graphic/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
@@ -104,5 +104,5 @@ lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(
 )
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src", "Graphic/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src", "Graphic/learn/src", "Strat/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
 )

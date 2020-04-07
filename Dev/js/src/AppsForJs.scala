@@ -14,7 +14,7 @@ object AppsForJs
     ("4", (pSpace.Planets(_), "Js Planets")),
     ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
     ("6", (pDung.DungeonGui(_, pDung.Dungeon1), "Js Dungeon")),
-    ("7", (gOne.GOneGui(_, gOne.OneScen1$), "Js Game One")),
+    ("7", (gOne.GOneGui(_, gOne.OneScen1), "Js Game One")),
     ("8", (ColourGen(_), "Js Some Colours")),
     ("9", (p305.BC305Gui(_, p305.Bc1), "Js BC 305")),
     ("10", (pCard.BlackJackGui(_), "Js BlackJack")),

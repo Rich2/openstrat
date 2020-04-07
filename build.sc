@@ -102,7 +102,7 @@ object Strat extends PlatformsModule
 object Dev extends PlatformsModule
 { def moduleDeps = Seq(Strat)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src, Strat.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'User)
   def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:13")
 
