@@ -30,6 +30,7 @@ class Booleans(val array: Array[Boolean]) extends AnyVal with Arr[Boolean]
 
 object Booleans
 { def apply(input: Boolean*): Booleans = new Booleans(input.toArray)
+  def ofLength(length: Int): Booleans = new Booleans(new Array[Boolean](length))
 }
 
 

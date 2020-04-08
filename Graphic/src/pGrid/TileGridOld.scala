@@ -265,8 +265,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
     foreachSidesCoodAll(c => ev.appendtoBuffer(acc, f (c)))      
     ev.fromBuffer(acc)    
   }
-  
-  //final def SidesCoodPMap
+
   @inline final def sideCoodsAll: Coods = foreachSideCoodPDMapAll[Cood, Coods](c => c)
   final def sideCoodLinesAll: CoodLines = foreachSideCoodPDMapAll[CoodLine, CoodLines](vertCoodLineOfSide(_))
   

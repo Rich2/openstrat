@@ -35,6 +35,15 @@ package object pGrid
 	  yield Cood(x + 2, y + 2)
     res1.toSet
   }
+
+  implicit class booleanGridImplicit(thisBooleans: Booleans)
+  {
+    def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => thisBooleans(grid.index(r)))
+    def gridMap[A, AA <: Arr[A]](f: (Roord, Boolean) => A)(implicit  grid: TileGrid, build: ArrBuild[A, AA]): AA =
+      grid.map(r => f(r, thisBooleans(grid.index(r))))
+    def gridSidesMap[A, AA <: Arr[A]](f: (Roord, Boolean) => A)(implicit  grid: TileGrid, build: ArrBuild[A, AA]): AA =
+      grid.sidesMap(r => f(r, thisBooleans(grid.index(r))))
+  }
   
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct  Cood notation. */
