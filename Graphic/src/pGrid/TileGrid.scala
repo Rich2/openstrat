@@ -193,6 +193,8 @@ trait TileGrid
 
   def sideRoordsOfTile(tileRoord: Roord): Roords
 
+  def sideIndex(roord: Roord): Int = ???
+
   def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
   /** Maps from each sides roord to an Arr of A. */

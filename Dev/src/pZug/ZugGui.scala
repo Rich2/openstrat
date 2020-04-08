@@ -10,7 +10,8 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridElem(r).colour, r.toHexTile, r.ycStr, 16) }
   val sides = scen.sTerrs.gridSidesMap{(r, b) =>
     val sl = grid.sideRoordToLine2(r)
-    ife(b, sl.draw(4, Colour.Gray), sl.draw(2))}
+    ife(b, sl.draw(4, Colour.Red), sl.draw(2))
+  }
   //val sides = grid.sideLines.draw(2.0)
 
   val lunits = scen.lunits.gridHeadsMap{ (roord, squad) =>

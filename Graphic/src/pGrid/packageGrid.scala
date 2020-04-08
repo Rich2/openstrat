@@ -38,11 +38,11 @@ package object pGrid
 
   implicit class booleanGridImplicit(thisBooleans: Booleans)
   {
-    def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => thisBooleans(grid.index(r)))
+    def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => thisBooleans.unsafeSetElem(grid.sideIndex(r), true))
     def gridMap[A, AA <: Arr[A]](f: (Roord, Boolean) => A)(implicit  grid: TileGrid, build: ArrBuild[A, AA]): AA =
       grid.map(r => f(r, thisBooleans(grid.index(r))))
     def gridSidesMap[A, AA <: Arr[A]](f: (Roord, Boolean) => A)(implicit  grid: TileGrid, build: ArrBuild[A, AA]): AA =
-      grid.sidesMap(r => f(r, thisBooleans(grid.index(r))))
+      grid.sidesMap(r => f(r, thisBooleans(grid.sideIndex(r))))
   }
   
   implicit class IntGridImplicit(thisInt: Int)
