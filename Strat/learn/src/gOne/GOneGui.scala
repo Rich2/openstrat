@@ -8,10 +8,14 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
   implicit def grid = scen.grid
   def players = scen.oPlayers
-  val moves0: OptRefs[HTStep] = grid.newOptRefs[HTStep]
-  moves0.foreachSome(println)
-  var moves: OptRefs[HTStep] = moves0
 
+  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
+  val NoMoves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
+
+  /** This is the planned moves or orders for the next turn. */
+  var moves: OptRefs[HTStep] = NoMoves
+
+  /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   def lunits = players.gridMapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
@@ -31,7 +35,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def getOrders = moves.gridMapSomes((r, s) => r.andStep(s))
   def bTurn = clickButton("Turn " + (scen.turn + 1).toString, _ => {
     scen = scen.turn(getOrders)
-    moves = moves0
+    moves = NoMoves
     repaint()
     thisTop()
   })
