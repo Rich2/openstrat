@@ -124,6 +124,7 @@ trait TileGrid
   }
 
   def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
+  def newSideOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfSides)
 
   def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
 
@@ -168,6 +169,8 @@ trait TileGrid
 
   /**************************************************************************************************/
   /* Methods that operate on tile sides. */
+
+  def numOfSides: Int = sideRoords.length
 
   /** Gives all the sideRoords of the grid with out duplicates. */
   def sideRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => sideRoordsOfTile(roord) }

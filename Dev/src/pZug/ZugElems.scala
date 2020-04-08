@@ -2,6 +2,9 @@
 package ostrat
 package pZug
 
+trait STerr
+object Wall extends STerr
+
 case class Squad(val polity: Polity)
 {
    def colour = polity.colour
