@@ -1,10 +1,15 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
+/** OptRefs is an array based collection of optional values, that uses nulls for implementation. The collection use should not have to interact with
+ *  the null values directly.  */
 class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrayBase[OptRef[A]]
 { @inline def length: Int = unsafeArray.length
   def apply(index: Int): OptRef[A] = OptRef(unsafeArray(index))
 
+  /** This produces a completely new immutable collection with the element in the new collection set to the given value. The Old collection remains
+   * unchanged. If you are initialising the collection in an encapsulated space before sharing a references to the collection the unsafeSetSome
+   * method is preferred.*/
   def setSome(index: Int, value: A @uncheckedVariance): OptRefs[A] =
   { val newArray = unsafeArray.clone()
     newArray(index) = value
@@ -46,6 +51,5 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
 }
 
 object OptRefs
-{
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): OptRefs[A] = new OptRefs[A](new Array[A](length))
+{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): OptRefs[A] = new OptRefs[A](new Array[A](length))
 }

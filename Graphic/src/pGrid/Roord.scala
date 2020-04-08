@@ -1,7 +1,14 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
 import geom._
 
+/** A Roord Row-ordinate represents a 2 dimensional integer coordinate within a tile grid system. The row or y value comes first. This is different to
+ * a Vec2 or Vec3 where the y vlue comes 2nd after the x valu. This has current been implemented for Hexs and Squares, while triangles is the third
+ * possible regular tile system. A SqGrid Cood represents either a tile centre, a tile side or a tile vertex. This is the same for a Hex Grid except
+ * that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile sides. The axis are named
+ * y and c to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the Cood components and the
+ * Vec2 components. */
 final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
 { def y: Int = bLong.>>(32).toInt
   def c: Int = bLong.toInt
