@@ -3,25 +3,6 @@ package ostrat
 package pChess
 import Colour._, pGrid._
 
-case class DTileOld(x: Int, y: Int, var piece: Option[Draught] = None) extends ColouredTileOld
-{
-  type FromT = Option[Draught]
-  def fromT = piece
-  def darkTile: Boolean = (x + y).isEven
-  def colour: Colour = ife(darkTile, Red, White)
-  
-}
-
-object DTileOld
-{
-  implicit val DTileAdj: (DTileOld, Int, Int) => DTileOld = (t, x, y) => DTileOld(x, y, t.piece)
-  implicit object DTerrIsType extends IsType[DTileOld]
-  {
-    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[DTileOld]
-    override def asType(obj: AnyRef): DTileOld = obj.asInstanceOf[DTileOld]
-  }
-}
-
 sealed class Draught(val colour: Colour) extends AnyRef
 object WhiteD extends Draught(White)
 object BlackD extends Draught(Black)
