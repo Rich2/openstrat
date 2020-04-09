@@ -5,10 +5,11 @@ import pGrid._
 trait OneScen
 { def turn: Int
   implicit def grid: HexGrid
-  def oPlayersOld: OptRefs[Player]
+  //def oPlayersOld: OptRefs[Player]
+  def oPlayers: TilesOptRef[Player]
 
-  def turn(pairs: Refs[HTileAndStep]): OneScen =
-  {
+  def turn(pairs: Refs[HTileAndStep]): OneScen = ???
+  /*{
     val resolve: Array[List[HTileAndStep]] = grid.newArrayListSet()
 
     pairs.foreach{hts => resolve(grid.index(hts.r2)) ::= hts }
@@ -24,8 +25,8 @@ trait OneScen
       }
       case _ =>
     }}
-    OneScen(turn + 1, grid, resValue)
-  }
+    OneScen(turn + 1, grid, resValue, oPlayers)
+  }*/
 }
 
 trait OneScenStart extends OneScen
@@ -35,17 +36,18 @@ trait OneScenStart extends OneScen
 
 object OneScen
 {
-  def apply(turnIn: Int, gridIn: HexGrid, opIn: OptRefs[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HexGrid, opInOld: OptRefs[Player], opIn: TilesOptRef[Player]): OneScen = new OneScen
     { override def turn = turnIn
       override implicit def grid: HexGrid = gridIn
-      override def oPlayersOld: OptRefs[Player] = opIn
+      override def oPlayers: TilesOptRef[Player] = opIn
     }
 }
 
 object OneScen1 extends OneScenStart
 {
   implicit val grid = new HexGridReg(2, 6, 2, 10)
-  val oPlayersOld: OptRefs[Player] = grid.newOptRefsOld[Player]
-  oPlayersOld.gridUnsafeSetSome(4, 4, PlayerA)
-  oPlayersOld.gridUnsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  val oPlayers = grid.newTilesOptRefs[Player]
+  oPlayers.unsafeSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+
 }

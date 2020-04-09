@@ -7,7 +7,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 { var scen = scenStart
   var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
   implicit def grid = scen.grid
-  def players = scen.oPlayersOld
+  def players = scen.oPlayers
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   val NoMoves: OptRefs[HTStep] = grid.newOptRefsOld[HTStep]
@@ -19,7 +19,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  def lunits = players.gridMapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
+  def lunits = players.mapSomes{(r, p) => Rectangle(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
     p.toString + "\n" + r.ycStr, 24, 2.0) }
 
   /** This makes the tiles active. They repsond to mouse clicks. It does not paint or draw the tiles. */
@@ -35,7 +35,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def moveGraphics: Refs[LineDraw] ={
     moves.gridMapSomes{(r, step) =>
     val newR = r + step.roord
-    RoordLine(r, newR).gridLine2.draw(2, players.gridElemGet(r).colour )
+    RoordLine(r, newR).gridLine2.draw(2, players(r).colour )
   } }
 
   /** Creates the turn button and the action to commit on mouse click. */
