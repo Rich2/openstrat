@@ -26,7 +26,7 @@ package object pGrid
   }
   
   /** Not sure about this method */
-  def rectHCoods(xDim: Int,  yDim: Int, xOff: Int = 0, yOff: Int = 0): Set[Cood] =
+  @deprecated def rectHCoods(xDim: Int,  yDim: Int, xOff: Int = 0, yOff: Int = 0): Set[Cood] =
   { val res1 = for
     { x <- xOff until xDim * 2 + xOff by 2
       y <- yOff until yDim * 2 + yOff by 2
@@ -36,14 +36,14 @@ package object pGrid
     res1.toSet
   }
 
-  implicit class booleanGridImplicit(thisBooleans: Booleans)
+  /*implicit class booleanGridImplicit(thisBooleans: Booleans)
   {
     def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => thisBooleans.unsafeSetElem(grid.sideIndex(r), true))
     def gridMap[A, AA <: Arr[A]](f: (Roord, Boolean) => A)(implicit  grid: TileGrid, build: ArrBuild[A, AA]): AA =
       grid.map(r => f(r, thisBooleans(grid.index(r))))
     def gridSidesMap[A, AA <: Arr[A]](f: (Roord, Boolean) => A)(implicit  grid: TileGrid, build: ArrBuild[A, AA]): AA =
       grid.sidesMap(r => f(r, thisBooleans(grid.sideIndex(r))))
-  }
+  }*/
   
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct  Cood notation. */

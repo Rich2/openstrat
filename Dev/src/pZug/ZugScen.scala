@@ -5,7 +5,7 @@ import pGrid._
 trait ZugScen
 { implicit def grid: HexGridReg
   def terrs: Refs[ZugTerr]
-  def sTerrs: Booleans
+  def sTerrs: SideBooleans
   def lunits: Refs[List[Squad]]
 }
 
@@ -24,7 +24,7 @@ object Zug1 extends ZugScen
  gs(4, 4, WheatField * 2)
  gs(2, 6, WheatField)
 
- val sTerrs: Booleans = grid.newSideBooleans
+ val sTerrs: SideBooleans = grid.newSideBooleans
  val wall1 = Roords(14 rr 36, 13 rr 35, 12 rr 34, 11 rr 35, 10 rr 36) ++ grid.SidesHorr(9, 37, 47)
  sTerrs.gridSetTrues(wall1)
 
@@ -43,6 +43,6 @@ object Zug2 extends ZugScen
  gs(6, 6 , Plain * 4, Lake, Plain * 4)
  gs(4, 4, Plain * 4, Lake, Hill, Plain * 3)
  gs(2, 6, Plain * 2, Lake * 2, Hill, Plain)
- val sTerrs: Booleans = grid.newSideBooleans
+ val sTerrs: SideBooleans = grid.newSideBooleans
  val lunits = grid.newRefsSet[List[Squad]](Nil)
 }
