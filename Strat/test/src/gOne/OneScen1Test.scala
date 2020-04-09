@@ -35,11 +35,11 @@ object OneScen1Test  extends TestSuite
     "os3" -
     {
       g3.numOfTiles ==> 8
-      os3.oPlayersOld(1) ==> NoRef
-      os3.oPlayersOld(os3.grid.index(4, 4)) ==> NoRef
-      os3.oPlayersOld(os3.grid.index(6, 2)) ==> OptRef(PlayerA)
-      os3.oPlayersOld(os3.grid.index(6, 6)) ==> NoRef
-      os3.oPlayersOld(os3.grid.index(4, 8)) ==> OptRef(PlayerB)
+      //os3.oPlayers(1) ==> NoRef
+//      os3.oPlayers(4, 4)(os3.grid) ==> NoRef
+//      os3.oPlayersOld(os3.grid.index(6, 2)) ==> OptRef(PlayerA)
+//      os3.oPlayersOld(os3.grid.index(6, 6)) ==> NoRef
+//      os3.oPlayersOld(os3.grid.index(4, 8)) ==> OptRef(PlayerB)
     }
 
     "Sides" -

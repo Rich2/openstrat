@@ -6,7 +6,8 @@ import pEarth._, pGrid._
 trait CivScen
 { implicit def grid: TileGrid
   def terrs: TilesRef[Terrain]
-  def lunits: Refs[List[Warrior]]
+  /** Not sure about this collection type. */
+  def lunits: TilesRef[List[Warrior]]
 }
 
 object Civ1 extends CivScen
@@ -15,7 +16,7 @@ object Civ1 extends CivScen
   val terrs = grid.newTilesRefSet[Terrain](Plains)
   terrs.setRow(12, 20, Hilly, Mountains * 2)
   terrs.setRow(4, 4, Hilly * 3)
-  val lunits: Refs[List[Warrior]] = grid.newRefsSetOld[List[Warrior]](Nil)
-  lunits.gridPrepend(10, 18, Warrior(Uruk))
-  lunits.gridPrepend(6, 10, Warrior(Eridu))
+  val lunits: TilesRef[List[Warrior]] = grid.newTilesRefSet[List[Warrior]](Nil)
+  lunits.prependAt(10, 18, Warrior(Uruk))
+  lunits.prependAt(6, 10, Warrior(Eridu))
 }
