@@ -15,8 +15,7 @@ case class HexTile(y: Int, c: Int) extends Tile
 }
 
 case class HTileAndStep(y1: Int, c1: Int, step: HTStep)
-{
-  def r1: Roord = Roord(y1, c1)
+{ def r1: Roord = Roord(y1, c1)
   def r2: Roord = r1.step(step)
 }
 

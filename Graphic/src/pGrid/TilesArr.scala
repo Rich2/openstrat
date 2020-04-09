@@ -1,15 +1,21 @@
 package ostrat
 package pGrid
 
-class TilesOptRef[A <: AnyRef](unsafeArr: Array[A])
+class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
-  def unsafeSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(y, c)) = value
+  def clone: TilesOptRef[A] = new TilesOptRef[A](unsafeArr.clone)
+  def mutSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(y, c)) = value
 
-  def unsafeSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = value
+  def mutSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = value
+  def mutSetNone(r: Roord)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = null.asInstanceOf[A]
+
+  def mutMove(r1: Roord, r2: Roord)(implicit grid: TileGrid): Unit =
+  { unsafeArr(grid.index(r2)) = unsafeArr(grid.index(r1))
+    unsafeArr(grid.index(r1)) = null.asInstanceOf[A]
+  }
 
   def setSome(r: Roord, value: A)(implicit grid: TileGrid): TilesOptRef[A] =
-  {
-    val newArr = unsafeArr.clone()
+  { val newArr = unsafeArr.clone()
     newArr(grid.index(r)) = value
     new TilesOptRef[A](newArr)
   }
