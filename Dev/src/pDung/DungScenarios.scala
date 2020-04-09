@@ -38,7 +38,7 @@ object Dungeon1 extends DungeonScen
   terrs.setTerrPath(6 rr 4, Open, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)
   terrs.sqGridSetRect(18, 24, 16, 36, Open)
 
-  val characs = grid.newOptRefs[CharacPosn]
+  val characs = grid.newOptRefsOld[CharacPosn]
   posn(CharacA, 8, 22, SFaceUp)
   posn(CharacB, 24, 18, SFaceRt)
   posn(CharacY, 24, 22, SFaceUR)

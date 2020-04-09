@@ -5,14 +5,14 @@ import pGrid._
 trait OneScen
 { def turn: Int
   implicit def grid: HexGrid
-  def oPlayers: OptRefs[Player]
+  def oPlayersOld: OptRefs[Player]
 
   def turn(pairs: Refs[HTileAndStep]): OneScen =
   {
     val resolve: Array[List[HTileAndStep]] = grid.newArrayListSet()
 
     pairs.foreach{hts => resolve(grid.index(hts.r2)) ::= hts }
-    val resValue: OptRefs[Player] = oPlayers.clone
+    val resValue: OptRefs[Player] = oPlayersOld.clone
 
     resolve.gridForeach{ (r, l) => l match
     {
@@ -38,14 +38,14 @@ object OneScen
   def apply(turnIn: Int, gridIn: HexGrid, opIn: OptRefs[Player]): OneScen = new OneScen
     { override def turn = turnIn
       override implicit def grid: HexGrid = gridIn
-      override def oPlayers: OptRefs[Player] = opIn
+      override def oPlayersOld: OptRefs[Player] = opIn
     }
 }
 
 object OneScen1 extends OneScenStart
 {
   implicit val grid = new HexGridReg(2, 6, 2, 10)
-  val oPlayers: OptRefs[Player] = grid.newOptRefs[Player]
-  oPlayers.gridUnsafeSetSome(4, 4, PlayerA)
-  oPlayers.gridUnsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  val oPlayersOld: OptRefs[Player] = grid.newOptRefsOld[Player]
+  oPlayersOld.gridUnsafeSetSome(4, 4, PlayerA)
+  oPlayersOld.gridUnsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }

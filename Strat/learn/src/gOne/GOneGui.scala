@@ -7,10 +7,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 { var scen = scenStart
   var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
   implicit def grid = scen.grid
-  def players = scen.oPlayers
+  def players = scen.oPlayersOld
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  val NoMoves: OptRefs[HTStep] = grid.newOptRefs[HTStep]
+  val NoMoves: OptRefs[HTStep] = grid.newOptRefsOld[HTStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */

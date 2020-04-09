@@ -123,7 +123,9 @@ trait TileGrid
     res
   }
 
-  @deprecated def newOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
+  @deprecated def newOptRefsOld[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
+  def newTilesOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
+
   @deprecated def newSideOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfSides)
 
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
