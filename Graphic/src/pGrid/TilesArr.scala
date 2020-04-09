@@ -7,6 +7,13 @@ class TilesOptRef[A <: AnyRef](unsafeArr: Array[A])
 
   def unsafeSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = value
 
+  def setSome(r: Roord, value: A)(implicit grid: TileGrid): TilesOptRef[A] =
+  {
+    val newArr = unsafeArr.clone()
+    newArr(grid.index(r)) = value
+    new TilesOptRef[A](newArr)
+  }
+
   def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit =
     triples.foreach(t => unsafeArr(grid.index(t._1, t._2)) = t._3)
 
@@ -22,6 +29,19 @@ class TilesOptRef[A <: AnyRef](unsafeArr: Array[A])
       val a = unsafeArr(grid.index(r))
       if(a != null)
       { val newVal = f(r, a)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToArr(buff)
+  }
+
+  def mapSomeOnlys[B, ArrT <: Arr[B]](f: A => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { r =>
+      val a = unsafeArr(grid.index(r))
+      if(a != null)
+      { val newVal = f(a)
         build.buffGrow(buff, newVal)
       }
     }

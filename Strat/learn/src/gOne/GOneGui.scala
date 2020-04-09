@@ -10,11 +10,11 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def players = scen.oPlayers
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  val NoMoves: OptRefs[HTStep] = grid.newOptRefsOld[HTStep]
+  val NoMoves: TilesOptRef[HTileAndStep] = grid.newTilesOptRef[HTileAndStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
-  var moves: OptRefs[HTStep] = NoMoves
+  var moves: TilesOptRef[HTileAndStep] = NoMoves
 
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
@@ -32,15 +32,11 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   val sidesDraw = grid.sidesDraw(2.0)
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Refs[LineDraw] ={
-    moves.gridMapSomes{(r, step) =>
-    val newR = r + step.roord
-    RoordLine(r, newR).gridLine2.draw(2, players(r).colour )
-  } }
+  def moveGraphics: Refs[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButton("Turn " + (scen.turn + 1).toString, _ => {
-    val getOrders = moves.gridMapSomes((r, s) => r.andStep(s))
+    val getOrders = moves.mapSomeOnlys(rs => rs)
     scen = scen.turn(getOrders)
     moves = NoMoves
     repaint()
@@ -60,7 +56,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
       case (RightButton, (t : HexTile) :: _, List(RPlayer(p, r), HexTile(y, c))) =>
       {
         val newM: OptRef[HTStep] = t.adjOf(r)
-        newM.foreach(m => moves = moves.setSome(grid.index(r), m))
+        newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))//grid.index(r), m))
         repaint()
       }
        case (_, h, _) => deb("Other; " + h.toString)
