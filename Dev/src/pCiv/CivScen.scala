@@ -12,10 +12,10 @@ trait CivScen
 object Civ1 extends CivScen
 {
   implicit val grid = HexGridReg(4, 16, 4, 40)
-  val terrs = grid.newRefsSet[Terrain](Plains)
+  val terrs = grid.newRefsSetOld[Terrain](Plains)
   terrs.setRow(12, 20, Hilly, Mountains * 2)
   terrs.setRow(4, 4, Hilly * 3)
-  val lunits: Refs[List[Warrior]] = grid.newRefsSet[List[Warrior]](Nil)
+  val lunits: Refs[List[Warrior]] = grid.newRefsSetOld[List[Warrior]](Nil)
   lunits.gridPrepend(10, 18, Warrior(Uruk))
   lunits.gridPrepend(6, 10, Warrior(Eridu))
 }

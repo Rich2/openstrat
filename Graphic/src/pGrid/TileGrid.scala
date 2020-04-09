@@ -117,7 +117,7 @@ trait TileGrid
     res
   }
 
-  def newRefsSet[A <: AnyRef](value: A)(implicit build: ArrBuild[A, Refs[A]]): Refs[A] =
+  @deprecated def newRefsSetOld[A <: AnyRef](value: A)(implicit build: ArrBuild[A, Refs[A]]): Refs[A] =
   { val res = build.newArr(numOfTiles)
     res.setAll(value)
     res

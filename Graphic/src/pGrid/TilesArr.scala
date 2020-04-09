@@ -1,6 +1,25 @@
 package ostrat
 package pGrid
 
+class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
+{
+  /** Set tile row from the Roord. */
+  final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
+
+  /** Note set Row starts with the y (row) parameter. */
+  final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  {
+    val tiles: List[A] = tileValues.toSingles
+    tiles.iForeach { (e, i) =>
+      val c = cStart + i * grid.cStep
+      unsafeArr(grid.index(yRow, c)) = e
+    }
+    Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
+  }
+
+  def foreach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, unsafeArr(grid.index(r))) }
+}
+
 class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def clone: TilesOptRef[A] = new TilesOptRef[A](unsafeArr.clone)
