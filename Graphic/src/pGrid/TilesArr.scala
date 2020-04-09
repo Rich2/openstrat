@@ -23,7 +23,7 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
 
   def foreach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, unsafeArr(grid.index(r))) }
 
-  def mutSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
+  def mutSetAll(value: A): Unit = iUntilForeach(0, length){i => unsafeArr(i) = value }
 }
 
 class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal

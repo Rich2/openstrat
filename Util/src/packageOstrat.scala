@@ -136,7 +136,7 @@ package object ostrat
 
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { var i: Int = iFrom
-    while(ife(iStep > 1, i <= iTo, i >= iTo)) { f(i); i += iStep }
+    while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
 
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
