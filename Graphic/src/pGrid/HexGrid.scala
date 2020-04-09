@@ -27,9 +27,15 @@ trait HexGrid extends TileGrid
     var res: Int = -1
     sidesForeach{r =>
       if (r == inp) res = count
-      count + 1
+      count += 1
     }
     res
+  }
+
+  /** Gives a Coods Seq of Cood along a horisonatal line */
+  def SidesHorr(y: Int, xStart: Int, xEnd : Int): Roords =
+  { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2
+    xs.pMap(c => Roord(y, c))
   }
 }
 
