@@ -1,8 +1,12 @@
 package ostrat
 package pGrid
+import scala.reflect.ClassTag
 
 class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
 {
+  def length: Int = unsafeArr.length
+
+  def apply(roord: Roord)(implicit grid: TileGrid): A = unsafeArr(grid.index(roord))
   /** Set tile row from the Roord. */
   final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
 
@@ -18,15 +22,20 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
   }
 
   def foreach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, unsafeArr(grid.index(r))) }
+
+  def mutSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 }
 
 class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
+  def length: Int = unsafeArr.length
   def clone: TilesOptRef[A] = new TilesOptRef[A](unsafeArr.clone)
   def mutSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(y, c)) = value
 
   def mutSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = value
   def mutSetNone(r: Roord)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = null.asInstanceOf[A]
+
+  def mutSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
   def mutMove(r1: Roord, r2: Roord)(implicit grid: TileGrid): Unit =
   { unsafeArr(grid.index(r2)) = unsafeArr(grid.index(r1))
@@ -72,4 +81,7 @@ class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     }
     build.buffToArr(buff)
   }
+}
+object TilesRef
+{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): TilesRef[A] = new TilesRef[A](new Array[A](length))
 }

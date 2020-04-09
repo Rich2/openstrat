@@ -10,7 +10,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Ri
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val sls = grid.sidesDraw(2.0)
   val terrs = scen.terrs
-  val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridElem(r).colour, r.toHexTile, r.ycStr, 16) }
+  val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val lunits = scen.lunits.gridHeadsMap { (roord, lu) =>
     Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, roord.gridVec2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
   }

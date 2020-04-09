@@ -123,6 +123,12 @@ trait TileGrid
     res
   }
 
+  def newTilesRefSet[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesRef[A] =
+  { val res = TilesRef[A](numOfTiles)
+    res.mutSetAll(value)
+    res
+  }
+
   @deprecated def newOptRefsOld[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
   def newTilesOptRef[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
