@@ -115,19 +115,13 @@ trait TileGrid
     res
   }
 
-  def newTilesListSet[A](value: List[A] = Nil): Array[List[A]] =
+  def newTilesArrayList[A](value: List[A] = Nil): Array[List[A]] =
   { val res = new Array[List[A]](numOfTiles)
     res.mapInPlace(_ => value)
     res
   }
 
-  @deprecated def newRefsSetOld[A <: AnyRef](value: A)(implicit build: ArrBuild[A, Refs[A]]): Refs[A] =
-  { val res = build.newArr(numOfTiles)
-    res.setAll(value)
-    res
-  }
-
-  def newTilesRefSet[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesRef[A] =
+  def newTilesRefInit[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesRef[A] =
   { val res = TilesRef[A](numOfTiles)
     res.mutSetAll(value)
     res

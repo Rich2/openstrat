@@ -51,8 +51,8 @@ package object pGrid
     def gridForeachSome(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit =
     { grid.foreach { r =>
         arr.apply(grid.index(r)).foreach{a =>f(r, a) }
-      }
     }
+  }
 
     def gridMapSomes[B, ArrT <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
     { val buff = build.newBuff()
@@ -93,30 +93,27 @@ package object pGrid
     def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, arr(grid.index(r))) }
   }
 
-  implicit def refsTileGridImplicit[A <: AnyRef](thisRefs: Refs[A]) = new RefsGridExtensions[A](thisRefs)
-
-
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
-  {
-    def gridTrans(scale: Double, offset: Vec2 = Vec2Z): T = value.trans(orig => (orig - offset - grid.cen) * scale)
+  { def gridTrans(scale: Double, offset: Vec2 = Vec2Z): T = value.trans(orig => (orig - offset - grid.cen) * scale)
   }
 
-  @deprecated implicit class RefsListImplicit[A](thisRefs: Refs[List[A]])
+  /** Not sure about the use of List in this class. */
+  implicit class TilesListImplicit[A](thisRefs: TilesRef[List[A]])
   { def gridPrepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = gridPrepend(Roord(y, c), value)
     def gridPrepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.index(roord)) ::= value
     def gridPrepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{r =>  thisRefs.unsafeArr(grid.index(r)) ::= value }
 
-    def gridHeadsMap[B, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
+    /*def gridHeadsMap[B <: AnyRef, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(grid.index(r)) match
-        {
-          case h :: _ => build.buffGrow(buff, f(r, h))
-          case _ =>
-        }
+      {
+        case h :: _ => build.buffGrow(buff, f(r, h))
+        case _ =>
+      }
       }
       build.buffToArr(buff)
-    }
+    }*/
   }
 
   val htStepSomes: Refs[HTStep] = Refs(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)
