@@ -132,8 +132,6 @@ trait TileGrid
   @deprecated def newOptRefsOld[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
   def newTilesOptRef[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
-  @deprecated def newSideOptRefs[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfSides)
-
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 
   def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))

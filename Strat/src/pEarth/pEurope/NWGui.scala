@@ -8,7 +8,7 @@ case class NWGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui"
   implicit val grid = EuropeNWTerr.grid
   val scale = 40
   val terrs = EuropeNWTerr.terrs
-  val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs.gridElem(r).colour, r.toHexTile, r.ycStr, 16) }
+  val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val sides = grid.sideLines.draw(2.0)
 
   var statusText = "Hello "

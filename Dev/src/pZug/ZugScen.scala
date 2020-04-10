@@ -4,7 +4,7 @@ import pGrid._
 
 trait ZugScen
 { implicit def grid: HexGridReg
-  def terrs: Refs[ZugTerr]
+  def terrs: TilesRef[ZugTerr]
   def sTerrs: SideBooleans
   def lunits: Refs[List[Squad]]
 }
@@ -14,7 +14,7 @@ object Zug1 extends ZugScen
  implicit val grid = HexGridReg(2, 14, 4, 48)
  // val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hexSidesHorrOld(9, 37, 47)
  //  setSideCollection(wall1, true)
- val terrs = grid.newRefsSetOld[ZugTerr](Plain)
+ val terrs = grid.newTilesRefSet[ZugTerr](Plain)
 
  def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
  gs(yRow = 12, cStart = 4, WheatField * 2)
@@ -36,7 +36,7 @@ object Zug1 extends ZugScen
 object Zug2 extends ZugScen
 {
  override implicit def grid: HexGridReg = HexGridReg(2, 10, 4, 38)
- val terrs = grid.newRefsSetOld[ZugTerr](Lake)
+ val terrs = grid.newTilesRefSet[ZugTerr](Lake)
  def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
  gs(10, 6, Plain * 3, Lake * 3, Plain * 3)
  gs(8, 4 , Plain * 4, Lake * 2, Plain * 3 )
