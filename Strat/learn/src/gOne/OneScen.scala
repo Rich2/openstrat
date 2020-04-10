@@ -8,11 +8,11 @@ trait OneScen
   def oPlayers: TilesOptRef[Player]
 
   def turn(hts: Refs[HTileAndStep]): OneScen =
-  { val resolve: Array[List[HTileAndStep]] = grid.newArrayListSetDepr()
-    hts.foreach{hts => resolve(grid.index(hts.r2)) ::= hts }
+  { val resolve: TilesRef[List[HTileAndStep]] = grid.newTilesRefInit(Nil)//  .newArrayListSetDepr()
+    hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
     val resValue: TilesOptRef[Player] = oPlayers.clone
 
-    resolve.gridForeach{ (r, l) => l match
+    resolve.foreach{ (r, l) => l match
     { case List(hst) => resValue.mutMove(hst.r1, r)
       case _ =>
     }}
