@@ -8,7 +8,7 @@ trait OneScen
   def oPlayers: TilesOptRef[Player]
 
   def turn(hts: Refs[HTileAndStep]): OneScen =
-  { val resolve: Array[List[HTileAndStep]] = grid.newArrayListSet()
+  { val resolve: Array[List[HTileAndStep]] = grid.newArrayListSetDepr()
     hts.foreach{hts => resolve(grid.index(hts.r2)) ::= hts }
     val resValue: TilesOptRef[Player] = oPlayers.clone
 

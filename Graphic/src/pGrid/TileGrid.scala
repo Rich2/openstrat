@@ -98,20 +98,24 @@ trait TileGrid
     vvs.toPolygon.active(roord.toHexTile)
   }
 
-  /** Creates a new uninitialised Arr of the grid length. */
-  def newArr[A, AA <: Arr[A]](implicit build: ArrBuild[A, AA]): AA = build.newArr(numOfTiles)
-
   def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.newArr(numOfTiles)
 
-  def newArray[A](implicit ct: ClassTag[A]): Array[A] = new Array[A](numOfTiles)
+  //def newArrayDepr[A](implicit ct: ClassTag[A]): Array[A] = new Array[A](numOfTiles)
+  //def newTileArray[A](implicit ct: ClassTag[A]): Array[A] = new Array[A](numOfTiles)
 
-  def newArraySet[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =
+  def newTileArrayInit[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =
   { val res = new Array[A](numOfTiles)
     res.mapInPlace(_ => value)
     res
   }
 
-  def newArrayListSet[A](value: List[A] = Nil): Array[List[A]] =
+  @deprecated def newArrayListSetDepr[A](value: List[A] = Nil): Array[List[A]] =
+  { val res = new Array[List[A]](numOfTiles)
+    res.mapInPlace(_ => value)
+    res
+  }
+
+  def newTilesListSet[A](value: List[A] = Nil): Array[List[A]] =
   { val res = new Array[List[A]](numOfTiles)
     res.mapInPlace(_ => value)
     res
