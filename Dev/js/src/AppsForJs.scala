@@ -32,7 +32,6 @@ object AppsForJs
 
     ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "Js Rise of Civs")),
 
-
     ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "Js Zugfuhrer Z1 Britain")),
     ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),
 
@@ -74,5 +73,5 @@ object AppsForJs
   )
 
   /** Change appNum to change the default loaded application. */
-  def curr: (CanvasPlatform => Any, String) = theMap("17")
+  def curr: (CanvasPlatform => Any, String) = theMap("A5")
 }

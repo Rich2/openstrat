@@ -105,6 +105,8 @@ object CanvasJs extends CanvasTopLeft
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     ad.fControlEndRadius(gc.arcTo)
+    gc.strokeStyle = ad.colour.webStr
+    gc.stroke()
   }
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
@@ -120,6 +122,7 @@ object CanvasJs extends CanvasTopLeft
     gc.moveTo(bd.xStart, bd.yStart)
     gc.strokeStyle = bd.colour.webStr
     gc.lineWidth = bd.lineWidth
+    gc.bezierCurveTo(bd.xC1, bd.yC1, bd.xC2, bd.yC2, bd.xEnd, bd.yEnd)
     gc.stroke()
   }
    

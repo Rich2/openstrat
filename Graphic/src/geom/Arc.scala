@@ -18,13 +18,13 @@ trait ArcLike extends CurveLike
     val alphaAngle =  sAng.angleTo(endAngle) / 2
     pCen + resultAngle.toVec2 * radius / alphaAngle.cos
   }
-  /** Calculates ControlPt and then passes controlPt.x, controlPt.y, XENd, yEnd, radius to f */
+  /** Calculates ControlPt and then passes controlPt.x, controlPt.y, XEnd, yEnd, radius to f */
   def fControlEndRadius(f: (Double, Double, Double, Double, Double) => Unit): Unit =
   { val cp = controlPt; f(cp.x, cp.y, xEnd, yEnd, radius) }
 }
 
 /** Currently the Arc class doesn't define direction of the Arc. I think this needs modification. */
-case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, zOrder: Int = 0) extends ArcLike
+case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends ArcLike
 { def typeStr: String = "Arc"
    //override def str = persist3(pStart, pCen, pEnd)
    def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pCen), f(pEnd))   
