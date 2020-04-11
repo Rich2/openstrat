@@ -11,19 +11,19 @@
   </style>
 </head>
 <body>
-	<canvas id='scanv'></canvas>
+  <canvas id='scanv'></canvas>
   <noscript>
     This page will not function properly without Javascript enabled
   </noscript>
-</body>
-<script type='text/javascript'>
+  <script type='text/javascript'>
   // aid local development in ensuring script not cached during a simple refresh
-  var script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute("src", "../out/Dev/js/fastOpt/dest/out.js?"+Date.now().toString());
-  document.getElementsByTagName("head")[0].appendChild(script);
-  script.addEventListener('load', function(e) {
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", "../out/Dev/js/fastOpt/dest/out.js?"+Date.now().toString());
+    document.getElementsByTagName("head")[0].appendChild(script);
+    script.addEventListener('load', function(e) {
     JsDevApp.main();
-});
-</script>
+  });
+  </script>
+</body>
 </html>	
