@@ -44,16 +44,6 @@ package object pGrid
 
   implicit class OptRefImplicit[A <: AnyRef](arr: OptRefs[A])
   {
-    def gridUnsafeSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = arr.unsafeSetSome(grid.index(y, c), value)
-    def gridUnsafeSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = arr.unsafeSetSome(grid.index(r), value)
-    def gridUnsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit = triples.foreach(t => arr.unsafeSetSome(grid.index(t._1, t._2), t._3))
-
-    def gridForeachSome(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit =
-    { grid.foreach { r =>
-        arr.apply(grid.index(r)).foreach{a =>f(r, a) }
-    }
-  }
-
     def gridMapSomes[B, ArrT <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
     { val buff = build.newBuff()
       grid.foreach { r =>
@@ -72,25 +62,6 @@ package object pGrid
   implicit class ArrayImplicit[A](thisArray: Array[A])
   {
     def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{r => f(r, thisArray(grid.index(r)))}
-  }
-
-  implicit class ArrImplicit[A](val arr: Arr[A])
-  {
-    /** Set tile row from the Cood. */
-    final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
-
-    /** Note set Row starts with the y (row) parameter. */
-    final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
-    {
-      val tiles: List[A] = tileValues.toSingles
-      tiles.iForeach { (e, i) =>
-        val c = cStart + i * grid.cStep
-        arr.unsafeSetElem(grid.index(yRow, c), e)
-      }
-      Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
-    }
-
-    def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, arr(grid.index(r))) }
   }
 
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
