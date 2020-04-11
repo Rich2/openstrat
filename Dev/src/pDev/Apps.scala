@@ -38,7 +38,6 @@ object Apps
       ("Z11", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayBritain), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z12", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayGermany), "JavaFx Zugfuhrer Z1 Germany")),
       ("Z13", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayGermanyBritain), "JavaFx Zugfuhrer Z1 Play both")),
-      ("Z14", (new pZug.ZugGuiOld(_, pZug.ZGameOld2, pZug.PlayGermanyFrance), "JavaFx Zugfuhrer Z2 Play both")),
       
       ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")), //Static Graphics
       ("A2", (learn.LessonA2(_), "JavaFx Demonstration Canvas 2")),

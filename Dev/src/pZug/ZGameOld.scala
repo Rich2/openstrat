@@ -23,7 +23,6 @@ class ZGameOld(scenInit: ZugGridOld, val players: Refs[ZPlayer])
 }
 
 object ZGameOld1 extends ZGameOld(Zug1Old, Refs(PlayBritain, PlayGermany))
-object ZGameOld2 extends ZGameOld(Zug2Old, Refs(PlayGermanyFrance))
 
 case class ZPlayer(polities: Refs[Polity])
 

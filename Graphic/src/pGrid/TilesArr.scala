@@ -110,10 +110,10 @@ object TilesRef
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match
-      {
-        case h :: _ => build.buffGrow(buff, f(r, h))
-        case _ =>
-      }
+        {
+          case h :: _ => build.buffGrow(buff, f(r, h))
+          case _ =>
+        }
       }
       build.buffToArr(buff)
     }
