@@ -98,11 +98,6 @@ trait TileGrid
     vvs.toPolygon.active(roord.toHexTile)
   }
 
-  def newRefs[A <: AnyRef](implicit build: ArrBuild[A, Refs[A]]): Refs[A] = build.newArr(numOfTiles)
-
-  //def newArrayDepr[A](implicit ct: ClassTag[A]): Array[A] = new Array[A](numOfTiles)
-  //def newTileArray[A](implicit ct: ClassTag[A]): Array[A] = new Array[A](numOfTiles)
-
   def newTileArrayInit[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =
   { val res = new Array[A](numOfTiles)
     res.mapInPlace(_ => value)
@@ -123,7 +118,7 @@ trait TileGrid
 
   def newTilesOptRef[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
-  def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
+  def newSidesBoolean: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 
   def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
 
