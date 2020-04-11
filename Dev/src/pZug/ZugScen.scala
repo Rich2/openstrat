@@ -12,10 +12,8 @@ trait ZugScen
 object Zug1 extends ZugScen
 {
  implicit val grid = HexGridReg(2, 14, 4, 48)
- // val wall1 = Coods(36 cc 14, 35 cc 13, 34 cc 12, 35 cc 11, 36 cc 10) ++ hexSidesHorrOld(9, 37, 47)
- //  setSideCollection(wall1, true)
- val terrs = grid.newTilesRefInit[ZugTerr](Plain)
 
+ val terrs = grid.newTilesRefInit[ZugTerr](Plain)
  def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
  gs(yRow = 12, cStart = 4, WheatField * 2)
  gs(10, 6, WheatField, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding)

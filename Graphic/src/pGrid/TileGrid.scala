@@ -109,12 +109,6 @@ trait TileGrid
     res
   }
 
-  @deprecated def newArrayListSetDepr[A](value: List[A] = Nil): Array[List[A]] =
-  { val res = new Array[List[A]](numOfTiles)
-    res.mapInPlace(_ => value)
-    res
-  }
-
   def newTilesArrayList[A](value: List[A] = Nil): Array[List[A]] =
   { val res = new Array[List[A]](numOfTiles)
     res.mapInPlace(_ => value)
@@ -127,7 +121,6 @@ trait TileGrid
     res
   }
 
-  @deprecated def newOptRefsOld[A <: AnyRef](implicit ct: ClassTag[A]): OptRefs[A] = OptRefs(numOfTiles)
   def newTilesOptRef[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))

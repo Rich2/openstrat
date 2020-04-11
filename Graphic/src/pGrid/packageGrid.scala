@@ -42,26 +42,8 @@ package object pGrid
     def rr (c: Int): Roord = Roord(thisInt, c)
   }
 
-  implicit class OptRefImplicit[A <: AnyRef](arr: OptRefs[A])
-  {
-    def gridMapSomes[B, ArrT <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
-    { val buff = build.newBuff()
-      grid.foreach { r =>
-        arr.apply(grid.index(r)).foreach{a =>
-          val newVal = f(r, a)
-          build.buffGrow(buff, newVal)
-        }
-      }
-      build.buffToArr(buff)
-    }
-
-    /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-    def gridElemGet(roord: Roord)(implicit grid: TileGrid): A = arr.unsafeArray(grid.index(roord))
-  }
-
   implicit class ArrayImplicit[A](thisArray: Array[A])
-  {
-    def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{r => f(r, thisArray(grid.index(r)))}
+  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{r => f(r, thisArray(grid.index(r)))}
   }
 
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
