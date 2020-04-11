@@ -1,14 +1,14 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pZug
+import pGrid._
 
 case class Squad(val polity: Polity)
 { def colour = polity.colour
 }
 
 trait Polity extends PersistSingleton
-{ //def typeSym = 'Polity
-  def colour: Colour
+{ def colour: Colour
 }
 
 object Germany extends Polity
@@ -25,3 +25,8 @@ object France extends Polity
 { def str: String = "France"
   def colour = Colour.fromInts(125, 255, 255)
 }
+
+sealed trait Action
+case class Move(roords: Roords) extends Action
+case class Fire(roord: Roord) extends Action
+object NoAction extends Action

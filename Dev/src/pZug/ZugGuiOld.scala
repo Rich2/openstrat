@@ -26,7 +26,7 @@ class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends H
     
     def action(squad: SquadOld): GraphicElems = squad.action match
     {
-      case Move(coods) =>      
+      case MoveOld(coods) =>
       {
         coods.foldWithPrevious[GraphicElems](squad.cood, Refs()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
@@ -35,7 +35,7 @@ class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends H
           acc +- l1 +- l2
         }
       }
-      case Fire(target) => Refs(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red).dashed(20, 20))
+      case FireOld(target) => Refs(CoodLine(squad.cood, target).toLine2(coodToDispVec2).draw(2, Red).dashed(20, 20))
       case _ => Refs()
     }
     
@@ -48,7 +48,7 @@ class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends H
       }
       case _ => Refs()
     }    
-    (tv ++ tText ++ lunit)//.toArraySeq
+    (tv ++ tText ++ lunit)
   }
     
   def fSide: OfHexSideReg[ZugTileOld, ZugSideOld, ZugGridOld] => GraphicElems = ofs =>
@@ -72,11 +72,11 @@ class ZugGuiOld(canv: CanvasPlatform, game: ZGameOld, player: ZPlayer) extends H
     }
     
     case (RightButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => scen.zPath(squad.cood, newTile.cood).foreach{ l =>
-      squad.action = Move(Coods(l :_*))
+      squad.action = MoveOld(Coods(l :_*))
       repaintMap
     }
     
-    case (MiddleButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => { squad.action = Fire(newTile.cood); repaintMap }
+    case (MiddleButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => { squad.action = FireOld(newTile.cood); repaintMap }
     
     case (RightButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
     

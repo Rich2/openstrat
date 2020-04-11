@@ -5,9 +5,9 @@ import pGrid._, pStrat._
 
 class SquadOld(val polity: Polity, var xCood: Int, var yCood: Int, val id: Int) extends LunitOld
 {
-  var action: Action = NoAction
-  def move(newMove: Cood *): Unit = action = Move(Coods(newMove:_*))
-  def fire(x: Int, y: Int): Unit = action = Fire(x cc y)
+  var action: ActionOld = NoActionOld
+  def move(newMove: Cood *): Unit = action = MoveOld(Coods(newMove:_*))
+  def fire(x: Int, y: Int): Unit = action = FireOld(x cc y)
   def colour = polity.colour
   override def toString = "Squad" + (polity.toString).enParenth
 
@@ -32,9 +32,9 @@ object SquadOld
   def apply(polity: Polity, x: Int, y: Int, id: Int): SquadOld = new SquadOld(polity, x, y, id)
 }
 
-sealed trait Action
-case class Move(coods: Coods) extends Action
-case class Fire(cood: Cood) extends Action
-object NoAction extends Action
+sealed trait ActionOld
+case class MoveOld(coods: Coods) extends ActionOld
+case class FireOld(cood: Cood) extends ActionOld
+object NoActionOld extends ActionOld
 
-case class SquadTurn(id: Int, action: Action)
+case class SquadTurn(id: Int, action: ActionOld)
