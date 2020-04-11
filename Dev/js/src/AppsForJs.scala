@@ -34,6 +34,7 @@ object AppsForJs
 
     ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "Js Zugfuhrer Z1 Britain")),
     ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),
+    ("Z3", (new pZug.ZugGui(_, pZug.Zug3), "Js Zugfuhrer Z3 France")),
 
     ("Z11", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayBritain), "Js Zugfuhrer Z1 Britain")),
     ("Z12", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayGermany), "Js Zugfuhrer Z1 Germany")),

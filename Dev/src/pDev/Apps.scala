@@ -33,7 +33,8 @@ object Apps
 
       ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
-      
+      ("Z3", (new pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
+
       ("Z11", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayBritain), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z12", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayGermany), "JavaFx Zugfuhrer Z1 Germany")),
       ("Z13", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayGermanyBritain), "JavaFx Zugfuhrer Z1 Play both")),
