@@ -96,6 +96,56 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
   /** Sets a rectangle of tiles to the same terrain type. */
   def sqGridSetRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(implicit grid: SquareGrid): Unit =
     ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => unsafeArr(grid.index(y, c)) =  tileValue }
+
+  /*def findPath(startRoord: Roord, endRoord: Roord)(fTerrCost: (A, A) => OptInt)(implicit grid: HexGrid): Option[List[Roord]] =
+  {
+    var open: List[Node[A]] = Node(apply(startRoord), 0, getHCost(startRoord, endRoord), NoRef) :: Nil
+    var closed: List[Node[A]] = Nil
+    var found: Option[Node[A]] = None
+    while (open.nonEmpty & found == None) {
+      val curr: Node[A] = open.minBy(_.fCost)
+      //if (curr.tile.Roord == endRoord) found = true
+      open = open.filterNot(_ == curr)
+      closed ::= curr
+      val neighbs: Refs[A] = ??? // this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      neighbs.foreach { tile =>
+        fTerrCost(curr.tile, tile) match {
+          case NoInt =>
+          case SomeInt(nc) if closed.exists(_.tile == tile) =>
+          case SomeInt(nc) => {
+            val newGCost = nc + curr.gCost
+
+            open.find(_.tile == tile) match {
+              case Some(node) if newGCost < node.gCost => {
+                node.gCost = newGCost; node.parent = OptRef(curr)
+              }
+              case Some(node) =>
+              case None => {
+                val newNode = Node(tile, newGCost, getHCost(tile.Roord, endRoord), OptRef(curr))
+                open ::= newNode
+                if (tile.Roord == endRoord) found = Some(newNode)
+              }
+            }
+          }
+        }
+      }
+    }
+  }*/
+
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
+   *  departure and the tile of arrival. */
+  def getHCost(startRoord: Roord, endRoord: Roord): Int =
+  { val diff = endRoord - startRoord
+    val c: Int = diff.c.abs
+    val y: Int = diff.y.abs
+
+    y - c match
+    { case 0 => c
+    case n if n > 0 => y
+    case n if n %% 4 == 0 => y - n / 2 //Subtract because n is negative, y being greater than x
+    case n => y - n / 2 + 2
+    }
+  }
 }
 
 object TilesRef
@@ -129,63 +179,5 @@ object TilesRef
       }
       build.buffToArr(buff)
     }
-
-  }
-}
-
-class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
-{
-  def length: Int = unsafeArr.length
-  def clone: TilesOptRef[A] = new TilesOptRef[A](unsafeArr.clone)
-  def mutSetSome(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(y, c)) = value
-
-  def mutSetSome(r: Roord, value: A)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = value
-  def mutSetNone(r: Roord)(implicit grid: TileGrid): Unit = unsafeArr(grid.index(r)) = null.asInstanceOf[A]
-
-  def mutSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
-
-  def mutMove(r1: Roord, r2: Roord)(implicit grid: TileGrid): Unit =
-  { unsafeArr(grid.index(r2)) = unsafeArr(grid.index(r1))
-    unsafeArr(grid.index(r1)) = null.asInstanceOf[A]
-  }
-
-  def setSome(r: Roord, value: A)(implicit grid: TileGrid): TilesOptRef[A] =
-  { val newArr = unsafeArr.clone()
-    newArr(grid.index(r)) = value
-    new TilesOptRef[A](newArr)
-  }
-
-  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGrid): Unit =
-    triples.foreach(t => unsafeArr(grid.index(t._1, t._2)) = t._3)
-
-  /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def apply(roord: Roord)(implicit grid: TileGrid): A = unsafeArr(grid.index(roord))
-
-  def foreachSome(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach { r => f(r, unsafeArr(grid.index(r))) }
-
-  def mapSomes[B, ArrT <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    grid.foreach { r =>
-      val a = unsafeArr(grid.index(r))
-      if(a != null)
-      { val newVal = f(r, a)
-        build.buffGrow(buff, newVal)
-      }
-    }
-    build.buffToArr(buff)
-  }
-
-  def mapSomeOnlys[B, ArrT <: Arr[B]](f: A => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    grid.foreach { r =>
-      val a = unsafeArr(grid.index(r))
-      if(a != null)
-      { val newVal = f(a)
-        build.buffGrow(buff, newVal)
-      }
-    }
-    build.buffToArr(buff)
   }
 }
