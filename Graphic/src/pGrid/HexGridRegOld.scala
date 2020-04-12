@@ -76,7 +76,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
 
   def tileNeighbours(tile: TileT)(implicit build: ArrBuild[TileT, Refs[TileT]]): Refs[TileT] = tileNeighboursCoods(tile.cood).map(getTile)
 
-  def findPath(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
+  @deprecated def findPathOld(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
     var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), NoRef) :: Nil
     var closed: List[Node[TileT]] = Nil

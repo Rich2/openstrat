@@ -25,7 +25,7 @@ class ZugGridOld(xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, tur
   }
   
   val fTerrCost: (ZugTileOld, ZugTileOld) => OptInt = (o1, o2) => o1.terr.cost |+| o2.terr.cost
-  def zPath(startCood: Cood, endCood: Cood): Option[List[Cood]] = findPath(startCood, endCood, fTerrCost)
+  def zPath(startCood: Cood, endCood: Cood): Option[List[Cood]] = findPathOld(startCood, endCood, fTerrCost)
   setTilesAll(Plain)
   setSidesAll(false)
   

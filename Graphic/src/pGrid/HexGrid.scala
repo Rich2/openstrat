@@ -37,6 +37,43 @@ trait HexGrid extends TileGrid
   { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2
     xs.pMap(c => Roord(y, c))
   }
+
+  /*def findPath[TileT](startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
+  {
+    var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), NoRef) :: Nil
+    var closed: List[Node[TileT]] = Nil
+    var found: Option[Node[TileT]] = None
+    while (open.nonEmpty & found == None)
+    {
+      val curr: Node[TileT] = open.minBy(_.fCost)
+      //if (curr.tile.cood == endCood) found = true
+      open = open.filterNot(_ == curr)
+      closed ::= curr
+      val neighbs: Refs[TileT] = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      neighbs.foreach { tile =>
+        fTerrCost(curr.tile, tile) match
+        {
+          case NoInt =>
+          case SomeInt(nc) if closed.exists(_.tile == tile) =>
+          case SomeInt(nc) =>
+          {
+            val newGCost = nc + curr.gCost
+
+            open.find(_.tile == tile) match
+            {
+              case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = OptRef(curr) }
+              case Some(node) =>
+              case None =>
+              {
+                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), OptRef(curr))
+                open ::= newNode
+                if (tile.cood == endCood) found = Some(newNode)
+              }
+            }
+          }
+        }
+      }
+    }*/
 }
 
 object HexGrid
