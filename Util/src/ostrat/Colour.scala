@@ -125,7 +125,7 @@ object Colour
     def none: OptOldColour = NoColour
   }*/
   
-  //named colors following CSS Color Module Level 3    
+  //** named colors & values are following the CSS Color Module Level 4 - though the names are UpperCamelCase here
    val AntiqueWhite: Colour = new Colour(0xFFFAEBD7)
    val Aqua: Colour = new Colour(0xFF00FFFF)
    val Aquamarine = new Colour(0xFF7FFFD4)
@@ -248,6 +248,7 @@ object Colour
    val Plum: Colour = new Colour(0xFFDDA0DD)
    val PowderBlue: Colour = new Colour(0xFFB0E0E6)
    val Purple: Colour = new Colour(0xFF800080)
+   val RebeccaPurple: Colour = new Colour(0xFF663399)
    val Red: Colour = new Colour(0xFFFF0000)
    val RosyBrown: Colour = new Colour(0xFFBC8F8F)
    val RoyalBlue: Colour = new Colour(0xFF4169E1)
@@ -300,7 +301,7 @@ object Colour
 ("Moccasin", Moccasin), ("NavajoWhite", NavajoWhite), ("Navy", Navy), ("OldLace", OldLace), ("Olive", Olive), ("OliveDrab", OliveDrab), ("Orange", Orange),
 ("OrangeRed", OrangeRed), ("Orchid", Orchid), ("PaleGoldenRod", PaleGoldenRod), ("PaleGreen", PaleGreen), ("PaleTurquoise", PaleTurquoise),
 ("PaleVioletRed", PaleVioletRed), ("PapayaWhip", PapayaWhip), ("PeachPuff", PeachPuff), ("Peru", Peru), ("Pink", Pink), ("Plum", Plum),
-("PowderBlue", PowderBlue), ("Purple", Purple), ("Red", Red), ("RosyBrown", RosyBrown), ("RoyalBlue", RoyalBlue), ("SaddleBrown", SaddleBrown),
+("PowderBlue", PowderBlue), ("Purple", Purple), ("RebeccaPurple", RebeccaPurple), ("Red", Red), ("RosyBrown", RosyBrown), ("RoyalBlue", RoyalBlue), ("SaddleBrown", SaddleBrown),
 ("Salmon", Salmon), ("SandyBrown", SandyBrown), ("SeaGreen", SeaGreen), ("SeaShell", SeaShell), ("Sienna", Sienna), ("Silver", Silver),
 ("SkyBlue", SkyBlue), ("SlateBlue", SlateBlue), ("SlateGray", SlateGray), ("SlateGrey", SlateGrey), ("Snow", Snow), ("SpringGreen", SpringGreen), ("SteelBlue", SteelBlue),
 ("Tan", Tan), ("Teal", Teal), ("Thistle", Thistle), ("Tomato", Tomato), ("Turquoise", Turquoise), ("Violet", Violet), ("Wheat", Wheat),
