@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import pGrid._
 
-case class Squad(val polity: Polity, action: Action = NoAction)
+case class Squad(val polity: Polity, var action: Action = NoAction)
 { def colour = polity.colour
 }
 

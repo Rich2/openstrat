@@ -31,6 +31,30 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     action +- uc
   }
 
+  mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
+  {
+    case (LeftButton, _, cl) =>
+    { selected = clickList //.fHead(Arr(), Arr(_))
+      statusText = selected.headToStringElse("Nothing Clicked")
+      thisTop()
+    }
+
+    case (RightButton, List(squad: Squad), List(newTile: Roord)) =>
+      terrs.findPath(/*squad.cood*/ 8 rr 8, newTile)((_, _) => SomeInt(1)).foreach { l =>
+        squad.action = Move(l: _*)
+        mainRepaint(frame)
+      }
+
+    case (MiddleButton, List(squad : Squad), List(newTile: Roord)) =>
+    { squad.action = Fire(newTile)
+      mainRepaint(frame)
+    }
+
+    case (RightButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
+
+    case _ => deb("Other" -- clickList.toString)
+  }
+
   var statusText = "Welcome to ZugFuhrer"
   def thisTop(): Unit = reTop(Refs(status))
   thisTop()
