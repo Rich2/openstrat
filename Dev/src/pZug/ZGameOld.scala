@@ -31,10 +31,6 @@ object PlayGermany extends ZPlayer (Refs(Germany))
 object PlayGermanyBritain extends ZPlayer (Refs(Germany, Britain))
 object PlayGermanyFrance extends ZPlayer (Refs(Germany, France))
 
-
 case class ZMove(squad: SquadOld, coods: Coods)
 
 case class ZTurn(moves: Refs[ZMove])
-{
-  
-}

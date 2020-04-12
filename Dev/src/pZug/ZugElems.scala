@@ -3,7 +3,7 @@ package ostrat
 package pZug
 import pGrid._
 
-case class Squad(val polity: Polity)
+case class Squad(val polity: Polity, action: Action = NoAction)
 { def colour = polity.colour
 }
 
@@ -13,7 +13,9 @@ trait Polity extends PersistSingleton
 
 object Germany extends Polity
 { def str: String = "Germany"
-  def colour = Colour.fromInts(128, 177, 179)//CadetBlue 60% shade
+
+  /** CadetBlue 60% shade. */
+  def colour = Colour.fromInts(128, 177, 179)
 }
 
 object Britain extends Polity
