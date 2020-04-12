@@ -124,7 +124,8 @@ object Colour
     def apply(c: Colour): OptOldColour = new SomeColour(c.argbValue)
     def none: OptOldColour = NoColour
   }*/
-      
+  
+  //named colors following CSS Color Module Level 3    
    val AntiqueWhite: Colour = new Colour(0xFFFAEBD7)
    val Aqua: Colour = new Colour(0xFF00FFFF)
    val Aquamarine = new Colour(0xFF7FFFD4)
@@ -150,6 +151,7 @@ object Colour
    val DarkCyan: Colour = new Colour(0xFF008B8B)
    val DarkGoldenRod: Colour = new Colour(0xFFB8860B)
    val DarkGray: Colour = new Colour(0xFFA9A9A9)
+   val DarkGrey: Colour = new Colour(0xFFA9A9A9)
    val DarkGreen: Colour = new Colour(0xFF006400)
    val DarkKhaki: Colour = new Colour(0xFFBDB76B)
    val DarkMagenta: Colour = new Colour(0xFF8B008B)
@@ -161,12 +163,14 @@ object Colour
    val DarkSeaGreen: Colour = new Colour(0xFF8FBC8F)
    val DarkSlateBlue: Colour = new Colour(0xFF483D8B)
    val DarkSlateGray: Colour = new Colour(0xFF2F4F4F)
+   val DarkSlateGrey: Colour = new Colour(0xFF2F4F4F)
    val DarkTurquoise: Colour = new Colour(0xFF00CED1)
    val DarkViolet: Colour = new Colour(0xFF9400D3)
    val DarkYellow: Colour = new Colour(0xFFEEEE00)
    val DeepPink: Colour = new Colour(0xFFFF1493)
    val DeepSkyBlue: Colour = new Colour(0xFF00BFFF)
    val DimGray: Colour = new Colour(0xFF696969)
+   val DimGrey: Colour = new Colour(0xFF696969)
    val DodgerBlue: Colour = new Colour(0xFF1E90FF)
    val FireBrick: Colour = new Colour(0xFFB22222)
    val FloralWhite: Colour = new Colour(0xFFFFFAF0)
@@ -177,6 +181,7 @@ object Colour
    val Gold: Colour = new Colour(0xFFFFD700)
    val GoldenRod: Colour = new Colour(0xFFDAA520)
    val Gray: Colour = new Colour(0xFF808080)
+   val Grey: Colour = new Colour(0xFF808080)
    val Green: Colour = new Colour(0xFF008000)
    val GreenYellow: Colour = new Colour(0xFFADFF2F)
    val HoneyDew: Colour = new Colour(0xFFF0FFF0)
@@ -195,6 +200,7 @@ object Colour
    val LightCyan: Colour = new Colour(0xFFE0FFFF)
    val LightGoldenRodYellow: Colour = new Colour(0xFFFAFAD2)
    val LightGreen: Colour = new Colour(0xFF90EE90)
+   val LightGray: Colour = new Colour(0xFFD3D3D3)
    val LightGrey: Colour = new Colour(0xFFD3D3D3)
    val LightPink: Colour = new Colour(0xFFFFB6C1)
    val LightRed: Colour = new Colour(0xFFFF7755)
@@ -202,6 +208,7 @@ object Colour
    val LightSeaGreen: Colour = new Colour(0xFF20B2AA)
    val LightSkyBlue: Colour = new Colour(0xFF87CEFA)
    val LightSlateGray: Colour = new Colour(0xFF778899)
+   val LightSlateGrey: Colour = new Colour(0xFF778899)
    val LightSteelBlue: Colour = new Colour(0xFFB0C4DE)
    val LightYellow: Colour = new Colour(0xFFFFFFE0)
    val Lime: Colour = new Colour(0xFF00FF00)
@@ -254,6 +261,7 @@ object Colour
    val SkyBlue: Colour = new Colour(0xFF87CEEB)
    val SlateBlue: Colour = new Colour(0xFF6A5ACD)
    val SlateGray: Colour = new Colour(0xFF708090)
+   val SlateGrey: Colour = new Colour(0xFF708090)
    val Snow: Colour = new Colour(0xFFFFFAFA)
    val SpringGreen: Colour = new Colour(0xFF00FF7F)
    val SteelBlue: Colour = new Colour(0xFF4682B4)
@@ -274,17 +282,17 @@ object Colour
 ("BlanchedAlmond", BlanchedAlmond), ("Blue", Blue), ("BlueViolet", BlueViolet), ("BrightSkyBlue", BrightSkyBlue), ("Brown", Brown),
 ("BurlyWood", BurlyWood), ("CadetBlue", CadetBlue), ("Chartreuse", Chartreuse), ("Chocolate", Chocolate), ("Coral", Coral),
 ("CornflowerBlue", CornflowerBlue), ("Cornsilk", Cornsilk), ("Crimson", Crimson),("Cyan", Cyan), ("DarkBlue", DarkBlue), ("DarkCyan", DarkCyan),
-("DarkGoldenRod", DarkGoldenRod), ("DarkGray", DarkGray), ("DarkGreen", DarkGreen), ("DarkKhaki", DarkKhaki), ("DarkMagenta", DarkMagenta),
+("DarkGoldenRod", DarkGoldenRod), ("DarkGray", DarkGray), ("DarkGrey", DarkGrey), ("DarkGreen", DarkGreen), ("DarkKhaki", DarkKhaki), ("DarkMagenta", DarkMagenta),
 ("DarkOliveGreen", DarkOliveGreen), ("DarkOrange", DarkOrange), ("DarkOrchid", DarkOrchid), ("DarkRed", DarkRed), ("DarkSalmon", DarkSalmon),
-("DarkSeaGreen", DarkSeaGreen), ("DarkSlateBlue", DarkSlateBlue), ("DarkSlateGray", DarkSlateGray), ("DarkTurquoise", DarkTurquoise),
-("DarkViolet", DarkViolet), ("DarkYellow", DarkYellow), ("DeepPink", DeepPink), ("DeepSkyBlue", DeepSkyBlue), ("DimGray", DimGray),
+("DarkSeaGreen", DarkSeaGreen), ("DarkSlateBlue", DarkSlateBlue), ("DarkSlateGray", DarkSlateGray), ("DarkSlateGrey", DarkSlateGrey), ("DarkTurquoise", DarkTurquoise),
+("DarkViolet", DarkViolet), ("DarkYellow", DarkYellow), ("DeepPink", DeepPink), ("DeepSkyBlue", DeepSkyBlue), ("DimGray", DimGray), ("DimGrey", DimGrey),
 ("DodgerBlue", DodgerBlue), ("FireBrick", FireBrick), ("FloralWhite", FloralWhite), ("ForestGreen", ForestGreen), ("Fuchsia", Fuchsia),
-("Gainsboro", Gainsboro),("GhostWhite", GhostWhite), ("Gold", Gold), ("GoldenRod", GoldenRod), ("Gray", Gray), ("Green", Green), 
+("Gainsboro", Gainsboro),("GhostWhite", GhostWhite), ("Gold", Gold), ("GoldenRod", GoldenRod), ("Gray", Gray), ("Grey", Gray), ("Green", Green), 
 ("GreenYellow", GreenYellow), ("HoneyDew", HoneyDew), ("HotPk", HotPink), ("IndianRed", IndianRed), ("Indigo", Indigo), ("Ivory", Ivory), ("Khaki", Khaki),
 ("Lavender", Lavender), ("LavenderBlush", LavenderBlush), ("LawnGreen", LawnGreen), ("LemonChiffon", LemonChiffon), ("LemonLime", LemonLime),
 ("LightBlue", LightBlue), ("LightCoral", LightCoral), ("LightCyan", LightCyan), ("LightGoldenRodYellow", LightGoldenRodYellow),
-("LightGreen", LightGreen), ("LightGrey", LightGrey), ("LightPink", LightPink), ("LightRed", LightRed), ("LightSalmon", LightSalmon),
-("LightSeaGreen", LightSeaGreen), ("LightSkyBlue", LightSkyBlue), ("LightSlateGray", LightSlateGray), ("LightSteelBlue", LightSteelBlue),
+("LightGreen", LightGreen), ("LightGray", LightGray), ("LightGrey", LightGrey), ("LightPink", LightPink), ("LightRed", LightRed), ("LightSalmon", LightSalmon),
+("LightSeaGreen", LightSeaGreen), ("LightSkyBlue", LightSkyBlue), ("LightSlateGray", LightSlateGray), ("LightSlateGrey", LightSlateGrey), ("LightSteelBlue", LightSteelBlue),
 ("LightYellow", LightYellow), ("Lime", Lime), ("LimeGreen", LimeGreen), ("Linen", Linen), ("Magenta", Magenta), ("Maroon", Maroon),
 ("MediumAquaMarine", MediumAquaMarine), ("MediumBlue", MediumBlue), ("MediumOrchid", MediumOrchid), ("MediumPurple", MediumPurple),
 ("MediumSeaGreen", MediumSeaGreen),("MediumSlateBlue", MediumSlateBlue), ("MediumSpringGreen", MediumSpringGreen), ("MediumTurquoise", MediumTurquoise),
@@ -294,7 +302,7 @@ object Colour
 ("PaleVioletRed", PaleVioletRed), ("PapayaWhip", PapayaWhip), ("PeachPuff", PeachPuff), ("Peru", Peru), ("Pink", Pink), ("Plum", Plum),
 ("PowderBlue", PowderBlue), ("Purple", Purple), ("Red", Red), ("RosyBrown", RosyBrown), ("RoyalBlue", RoyalBlue), ("SaddleBrown", SaddleBrown),
 ("Salmon", Salmon), ("SandyBrown", SandyBrown), ("SeaGreen", SeaGreen), ("SeaShell", SeaShell), ("Sienna", Sienna), ("Silver", Silver),
-("SkyBlue", SkyBlue), ("SlateBlue", SlateBlue), ("SlateGray", SlateGray), ("Snow", Snow), ("SpringGreen", SpringGreen), ("SteelBlue", SteelBlue),
+("SkyBlue", SkyBlue), ("SlateBlue", SlateBlue), ("SlateGray", SlateGray), ("SlateGrey", SlateGrey), ("Snow", Snow), ("SpringGreen", SpringGreen), ("SteelBlue", SteelBlue),
 ("Tan", Tan), ("Teal", Teal), ("Thistle", Thistle), ("Tomato", Tomato), ("Turquoise", Turquoise), ("Violet", Violet), ("Wheat", Wheat),
 ("White", White), ("WhiteSmoke", WhiteSmoke),("Yellow", Yellow), ("YellowGreen", YellowGreen)    
 )
