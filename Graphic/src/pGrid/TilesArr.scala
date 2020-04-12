@@ -99,17 +99,17 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
 
   /*def findPath(startRoord: Roord, endRoord: Roord)(fTerrCost: (A, A) => OptInt)(implicit grid: HexGrid): Option[List[Roord]] =
   {
-    var open: List[Node[A]] = Node(apply(startRoord), 0, getHCost(startRoord, endRoord), NoRef) :: Nil
-    var closed: List[Node[A]] = Nil
-    var found: Option[Node[A]] = None
+    var open: List[Node] = Node(startRoord, 0, getHCost(startRoord, endRoord), NoRef) :: Nil
+    var closed: List[Node] = Nil
+    var found: Option[Node] = None
     while (open.nonEmpty & found == None) {
-      val curr: Node[A] = open.minBy(_.fCost)
+      val curr: Node = open.minBy(_.fCost)
       //if (curr.tile.Roord == endRoord) found = true
       open = open.filterNot(_ == curr)
       closed ::= curr
-      val neighbs: Refs[A] = ??? // this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      val neighbs: Roords =  ??? // this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
       neighbs.foreach { tile =>
-        fTerrCost(curr.tile, tile) match {
+        fTerrCost(apply(curr.tile), apply(tile)) match {
           case NoInt =>
           case SomeInt(nc) if closed.exists(_.tile == tile) =>
           case SomeInt(nc) => {
@@ -121,9 +121,9 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
               }
               case Some(node) =>
               case None => {
-                val newNode = Node(tile, newGCost, getHCost(tile.Roord, endRoord), OptRef(curr))
+                val newNode = Node(tile, newGCost, getHCost(apply(tile), endRoord), OptRef(curr))
                 open ::= newNode
-                if (tile.Roord == endRoord) found = Some(newNode)
+                if (tile == endRoord) found = Some(newNode)
               }
             }
           }

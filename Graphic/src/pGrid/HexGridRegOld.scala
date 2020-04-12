@@ -78,12 +78,12 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
 
   @deprecated def findPathOld(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
-    var open: List[Node[TileT]] = Node(this.getTile(startCood), 0, getHCost(startCood, endCood), NoRef) :: Nil
-    var closed: List[Node[TileT]] = Nil
-    var found: Option[Node[TileT]] = None
+    var open: List[NodeOld[TileT]] = NodeOld(this.getTile(startCood), 0, getHCost(startCood, endCood), NoRef) :: Nil
+    var closed: List[NodeOld[TileT]] = Nil
+    var found: Option[NodeOld[TileT]] = None
     while (open.nonEmpty & found == None)
     {
-      val curr: Node[TileT] = open.minBy(_.fCost)
+      val curr: NodeOld[TileT] = open.minBy(_.fCost)
       //if (curr.tile.cood == endCood) found = true
       open = open.filterNot(_ == curr)
       closed ::= curr
@@ -96,33 +96,33 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
           case SomeInt(nc) =>
           {
             val newGCost = nc + curr.gCost
-            
+
             open.find(_.tile == tile) match
             {
               case Some(node) if newGCost < node.gCost => { node.gCost = newGCost; node.parent = OptRef(curr) }
               case Some(node) =>
-              case None => 
+              case None =>
               {
-                val newNode  = Node(tile, newGCost, getHCost(tile.cood, endCood), OptRef(curr))
+                val newNode  = NodeOld(tile, newGCost, getHCost(tile.cood, endCood), OptRef(curr))
                 open ::= newNode
                 if (tile.cood == endCood) found = Some(newNode)
               }
             }
           }
         }
-      }       
+      }
    }
-     
-  def loop(acc: List[Cood], curr: Node[TileT]): List[Cood] = curr.parent.fld(acc, loop(curr.tile.cood :: acc, _))
-   
+
+  def loop(acc: List[Cood], curr: NodeOld[TileT]): List[Cood] = curr.parent.fld(acc, loop(curr.tile.cood :: acc, _))
+
   found.map(endNode =>  loop(Nil, endNode))
   }
-  
+
   /* ****************************** SideStuff ****************************************/
   //override def allSideCoods: Coods = ???
   final override def setTileRect[A](xFrom: Int, xTo: Int, yFrom: Int, yTo: Int, tileValue: A)(implicit f: (Int, Int, A) => TileT): Unit = ???
 }
 
-case class Node[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptRef[Node[TileT]])
+@ deprecated case class NodeOld[TileT <: TileOld](val tile: TileT, var gCost: Int, var hCost: Int, var parent: OptRef[NodeOld[TileT]])
 { def fCost = gCost + hCost
 }
