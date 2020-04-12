@@ -125,7 +125,7 @@ object Colour
     def none: OptOldColour = NoColour
   }*/
   
-  //** named colors & values are following the CSS Color Module Level 4 - though the names are UpperCamelCase here
+  //** named colors & values following CSS Color Module Level 4 - though names are UpperCamelCase here - plus 4 non standard colors: BrightSkyBlue, DarkYellow, LemonLime, LightRed
    val AntiqueWhite: Colour = new Colour(0xFFFAEBD7)
    val Aqua: Colour = new Colour(0xFF00FFFF)
    val Aquamarine = new Colour(0xFF7FFFD4)
