@@ -29,6 +29,11 @@ object France extends Polity
 }
 
 sealed trait Action
+
 case class Move(roords: Roords) extends Action
+object Move
+{ def apply(roords: Roord*): Action = new Move(Roords(roords:_*))
+}
+
 case class Fire(roord: Roord) extends Action
 object NoAction extends Action

@@ -27,27 +27,15 @@ object Zug1 extends ZugScen
   sTerrs.gridSetTrues(wall1)
 
   val lunits: TilesRef[List[Squad]] = grid.newTilesRefInit[List[Squad]](Nil)
-  lunits.prepends(Squad(Britain), 2 rr 30, 4 rr 32, 6 rr 46, 10 rr 38, 10 rr 46, 14 rr 46)
-  lunits.prepends(Squad(Germany), 6 rr 18, 10 rr 18, 10 rr 6)
-
-  /*val b1 = placeSquad(Britain, 30, 2)
-  b1.move(26 cc 2, 22 cc 2)
-  val b2 = placeSquad(Britain, 32, 4)
-  b2.move(28 cc 4, 24 cc 4, 20 cc 4)
-  val b3 = placeSquad(Britain, 46, 6)
-  b3.move(42 cc 6)
-  val b4 = placeSquad(Britain, 38, 10)
-  b4.fire(18, 6)
-  val b5 = placeSquad(Britain, 46, 10)
-  val b6 = placeSquad(Britain, 46, 14)
-  b6.move(42 cc 14, 38 cc 14, 36 cc 12)
-
-  val g1 = placeSquad(Germany, 18, 6)
-  g1.fire(32, 4)
-  val g2 = placeSquad(Germany, 18, 10)
-  g2.fire(32, 4)
-  val g3 = placeSquad(Germany, 6, 10)
-  g3.move(8 cc 8, 12 cc 8, 16 cc 8)*/
+  lunits.prepend(2, 30, Squad(Britain, Move(2 rr 26, 2 rr 22)))
+  lunits.prepend(10, 38, Squad(Britain, Fire(6 rr 18)))
+  lunits.prepend(4, 32, Squad(Britain, Move(4 rr 28, 4 rr 24, 4 rr 20)))
+  lunits.prepend(6, 46, Squad(Britain, Move(6 rr 42)))
+  lunits.prepend(14 rr 46, Squad(Britain, Move(14 rr 42, 14 rr 38, 12 rr 36)))
+  lunits.prepends(Squad(Britain), 10 rr 46)
+  lunits.prepend(6, 18, Squad(Germany, Fire(4 rr 32)))
+  lunits.prepend(10, 18, Squad(Germany, Fire(4 rr 32)))
+  lunits.prepend(6, 10, Squad(Germany, Move(8 rr 8, 8 rr 12, 8 rr 16)))
 }
 
 object Zug2 extends ZugScen

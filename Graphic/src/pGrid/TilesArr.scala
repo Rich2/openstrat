@@ -117,6 +117,19 @@ object TilesRef
       }
       build.buffToArr(buff)
     }
+
+    def gridHeadsFlatMap[BB <: Arr[_]](f: (Roord, A) => BB)(implicit grid: TileGrid, build: ArrFlatBuild[BB]): BB =
+    {
+      val buff = build.newBuff()
+      grid.foreach { r => thisRefs(r) match
+      {
+        case h :: _ => build.buffGrowArr(buff, f(r, h))
+        case _ =>
+      }
+      }
+      build.buffToArr(buff)
+    }
+
   }
 }
 
