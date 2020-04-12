@@ -37,7 +37,58 @@ trait HexGrid extends TileGrid
   { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2
     xs.pMap(c => Roord(y, c))
   }
+  def findPath(startRoord: Roord, endRoord: Roord)(fTerrCost: (Roord, Roord) => OptInt): Option[List[Roord]] =
+  {
+    var open: List[Node] = Node(startRoord, 0, getHCost(startRoord, endRoord), NoRef) :: Nil
+    var closed: List[Node] = Nil
+    var found: Option[Node] = None
 
+    while (open.nonEmpty & found == None)
+    {
+      val curr: Node = open.minBy(_.fCost)
+      //if (curr.tile.Roord == endRoord) found = true
+      open = open.filterNot(_ == curr)
+      closed ::= curr
+      val neighbs: Roords = HexGrid.adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      neighbs.foreach { tile =>
+        fTerrCost(curr.tile, tile) match {
+          case NoInt =>
+          case SomeInt(nc) if closed.exists(_.tile == tile) =>
+          case SomeInt(nc) => {
+            val newGCost = nc + curr.gCost
+
+            open.find(_.tile == tile) match {
+              case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
+              case Some(node) =>
+              case None =>
+              { val newNode = Node(tile, newGCost, getHCost(tile, endRoord), OptRef(curr))
+                open ::= newNode
+                if (tile == endRoord) found = Some(newNode)
+              }
+            }
+          }
+        }
+      }
+    }
+    def loop(acc: List[Roord], curr: Node): List[Roord] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
+
+    found.map(endNode =>  loop(Nil, endNode))
+  }
+
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
+   *  departure and the tile of arrival. */
+  def getHCost(startRoord: Roord, endRoord: Roord): Int =
+  { val diff = endRoord - startRoord
+    val c: Int = diff.c.abs
+    val y: Int = diff.y.abs
+
+    y - c match
+    { case 0 => c
+    case n if n > 0 => y
+    case n if n %% 4 == 0 => y - n / 2 //Subtract because n is negative, y being greater than x
+    case n => y - n / 2 + 2
+    }
+  }
 }
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
 { def fCost = gCost + hCost

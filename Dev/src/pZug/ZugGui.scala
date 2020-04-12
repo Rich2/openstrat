@@ -13,7 +13,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     ife(b, sl.draw(8, Colour.Gray), sl.draw(2))
   }
 
-  val lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
+  def lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
     val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.gridVec2)
     val action: GraphicElems = squad.action match
     {
@@ -34,24 +34,24 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList //.fHead(Arr(), Arr(_))
+    { selected = clickList.headOption.toList
       statusText = selected.headToStringElse("Nothing Clicked")
       thisTop()
     }
 
-    case (RightButton, List(squad: Squad), List(newTile: Roord)) =>
-      terrs.findPath(/*squad.cood*/ 8 rr 8, newTile)((_, _) => SomeInt(1)).foreach { l =>
+    case (RightButton, List(squad: Squad), List(newTile: HexTile)) =>{ deb("FindPath")
+      grid.findPath(squad.roord, newTile.roord)((_, _) => SomeInt(1)).foreach { l =>
         squad.action = Move(l: _*)
         mainRepaint(frame)
-      }
+      } }
 
     case (MiddleButton, List(squad : Squad), List(newTile: Roord)) =>
     { squad.action = Fire(newTile)
       mainRepaint(frame)
     }
 
-    case (RightButton, List(squad : SquadOld), List(newTile: ZugTileOld)) => deb("No Move" -- squad.cood.toString -- newTile.cood.toString)
-
+    case (RightButton, List(squad : Squad), List(newTile: HexTile)) => deb("No Move" -- squad.toString -- newTile.roord.toString)
+    case (RightButton, ll, _) => debvar(ll)
     case _ => deb("Other" -- clickList.toString)
   }
 

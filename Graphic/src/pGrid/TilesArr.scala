@@ -96,59 +96,6 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
   /** Sets a rectangle of tiles to the same terrain type. */
   def sqGridSetRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(implicit grid: SquareGrid): Unit =
     ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => unsafeArr(grid.index(y, c)) =  tileValue }
-
-  def findPath(startRoord: Roord, endRoord: Roord)(fTerrCost: (A, A) => OptInt)(implicit grid: HexGrid): Option[List[Roord]] =
-  {
-    var open: List[Node] = Node(startRoord, 0, getHCost(startRoord, endRoord), NoRef) :: Nil
-    var closed: List[Node] = Nil
-    var found: Option[Node] = None
-
-    while (open.nonEmpty & found == None)
-    {
-      val curr: Node = open.minBy(_.fCost)
-      //if (curr.tile.Roord == endRoord) found = true
-      open = open.filterNot(_ == curr)
-      closed ::= curr
-      val neighbs: Roords = HexGrid.adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
-      neighbs.foreach { tile =>
-        fTerrCost(apply(curr.tile), apply(tile)) match {
-          case NoInt =>
-          case SomeInt(nc) if closed.exists(_.tile == tile) =>
-          case SomeInt(nc) => {
-            val newGCost = nc + curr.gCost
-
-            open.find(_.tile == tile) match {
-              case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
-              case Some(node) =>
-              case None =>
-              { val newNode = Node(tile, newGCost, getHCost(tile, endRoord), OptRef(curr))
-                open ::= newNode
-                if (tile == endRoord) found = Some(newNode)
-              }
-            }
-          }
-        }
-      }
-    }
-    def loop(acc: List[Roord], curr: Node): List[Roord] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
-
-    found.map(endNode =>  loop(Nil, endNode))
-  }
-
-  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
-   *  departure and the tile of arrival. */
-  def getHCost(startRoord: Roord, endRoord: Roord): Int =
-  { val diff = endRoord - startRoord
-    val c: Int = diff.c.abs
-    val y: Int = diff.y.abs
-
-    y - c match
-    { case 0 => c
-    case n if n > 0 => y
-    case n if n %% 4 == 0 => y - n / 2 //Subtract because n is negative, y being greater than x
-    case n => y - n / 2 + 2
-    }
-  }
 }
 
 object TilesRef

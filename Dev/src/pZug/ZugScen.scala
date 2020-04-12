@@ -7,6 +7,9 @@ trait ZugScen
   def terrs: TilesRef[ZugTerr]
   def sTerrs: SideBooleans
   def lunits: TilesRef[List[Squad]]
+  def addUnit(polity: Polity, roord: Roord, action: Action = NoAction): Unit = lunits.prepend(roord, Squad(polity, roord, action))
+  def addYC(polity: Polity, y: Int, c: Int, action: Action = NoAction): Unit = lunits.prepend(y rr c, Squad(polity, y rr c, action))
+  def addUnits(polity: Polity, roords: Roord*): Unit = roords.foreach{r => lunits.prepend(r, Squad(polity, r))}
 }
 
 object Zug1 extends ZugScen
@@ -27,15 +30,15 @@ object Zug1 extends ZugScen
   sTerrs.gridSetTrues(wall1)
 
   val lunits: TilesRef[List[Squad]] = grid.newTilesRefInit[List[Squad]](Nil)
-  lunits.prepend(2, 30, Squad(Britain, Move(2 rr 26, 2 rr 22)))
-  lunits.prepend(10, 38, Squad(Britain, Fire(6 rr 18)))
-  lunits.prepend(4, 32, Squad(Britain, Move(4 rr 28, 4 rr 24, 4 rr 20)))
-  lunits.prepend(6, 46, Squad(Britain, Move(6 rr 42)))
-  lunits.prepend(14 rr 46, Squad(Britain, Move(14 rr 42, 14 rr 38, 12 rr 36)))
-  lunits.prepends(Squad(Britain), 10 rr 46)
-  lunits.prepend(6, 18, Squad(Germany, Fire(4 rr 32)))
-  lunits.prepend(10, 18, Squad(Germany, Fire(4 rr 32)))
-  lunits.prepend(6, 10, Squad(Germany, Move(8 rr 8, 8 rr 12, 8 rr 16)))
+  lunits.prepend(2, 30, Squad(Britain, 2 rr 30, Move(2 rr 26, 2 rr 22)))
+  lunits.prepend(10, 38, Squad(Britain, 10 rr 38, Fire(6 rr 18)))
+  lunits.prepend(4, 32, Squad(Britain, 4 rr 32, Move(4 rr 28, 4 rr 24, 4 rr 20)))
+  lunits.prepend(6, 46, Squad(Britain, 6 rr 46, Move(6 rr 42)))
+  lunits.prepend(14 rr 46, Squad(Britain, 14 rr 46, Move(14 rr 42, 14 rr 38, 12 rr 36)))
+  lunits.prepends(Squad(Britain, 10 rr 46), 10 rr 46)
+  lunits.prepend(6, 18, Squad(Germany, 6 rr 18, Fire(4 rr 32)))
+  lunits.prepend(10, 18, Squad(Germany, 10 rr 18, Fire(4 rr 32)))
+  lunits.prepend(6, 10, Squad(Germany, 6 rr 10, Move(8 rr 8, 8 rr 12, 8 rr 16)))
 }
 
 object Zug2 extends ZugScen
@@ -60,6 +63,6 @@ object Zug3  extends ZugScen
   sTerrs.gridSetTrues(grid.SidesHorr(7, 5, 37))
 
  val lunits = grid.newTilesRefInit[List[Squad]](Nil)
-  lunits.prepends(Squad(Germany), 6 rr 18, 6 rr 30)
-  lunits.prepends(Squad( France), 10 rr 14, 10 rr 22, 10 rr 30)
+  addUnits(Germany, 6 rr 18, 6 rr 30)
+  addUnits(France, 10 rr 14, 10 rr 22, 10 rr 30)
 }
