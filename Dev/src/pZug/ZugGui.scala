@@ -39,11 +39,13 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
       thisTop()
     }
 
-    case (RightButton, List(squad: Squad), List(newTile: HexTile)) =>{ deb("FindPath")
+    case (RightButton, List(squad: Squad), List(newTile: HexTile)) =>
       grid.findPath(squad.roord, newTile.roord)((_, _) => SomeInt(1)).foreach { l =>
         squad.action = Move(l: _*)
         mainRepaint(frame)
-      } }
+        statusText = Squad.toString()
+        thisTop()
+      }
 
     case (MiddleButton, List(squad : Squad), List(newTile: Roord)) =>
     { squad.action = Fire(newTile)

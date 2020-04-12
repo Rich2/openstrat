@@ -5,9 +5,9 @@ package pGrid
 class Roords(val array: Array[Int]) extends AnyVal with ArrProdInt2[Roord]
 { type ThisT = Roords
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
-  override def typeStr: String = "Roords"
+  override def typeStr: String = "Roords" + foldLeft("")(_ + "; " + _.ycStr)
   override def newElem(i1: Int, i2: Int): Roord = Roord.apply(i1, i2)
-
+  override def toString: String = "Roords"
   /*def filter(f: Roord => Boolean): Roords =
   { val tempArr = new Array[Int](array.length)
     var count = 0

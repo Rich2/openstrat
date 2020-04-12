@@ -5,6 +5,7 @@ import pGrid._
 
 case class Squad(val polity: Polity, val roord: Roord, var action: Action = NoAction)
 { def colour = polity.colour
+  override def toString = "Squad" + (roord.ycStr + ", " + action.toString).enParenth
 }
 
 trait Polity extends PersistSingleton
@@ -36,4 +37,7 @@ object Move
 }
 
 case class Fire(roord: Roord) extends Action
+{
+  override def toString: String = "Fire" + roord.ycStr.enParenth
+}
 object NoAction extends Action
