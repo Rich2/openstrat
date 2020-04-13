@@ -1,8 +1,8 @@
 package ostrat
-import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
+import annotation.unchecked.uncheckedVariance, collection.immutable._
 
 /** This the base trait for all Array based collections that compile time platform Array classes. So currently there are just two classes for each
- * type A, An ArrImut that wrappes a standard immutable Array to produce an immutable array, and a ArrBuff that wrappes an ArrayBuffer. Currently this
+ * type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a ArrBuff that wrappes an ArrayBuffer. Currently this
  * just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
 trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 { type ThisT <: ArrayLike[A]
@@ -16,13 +16,6 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (length == 0) vEmpty else vNonEmpty
   def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
   def headToStringElse(ifEmptyString: String): String = ife(length >= 1, head.toString, ifEmptyString)
-
-  /** transitional method to be removed. */
-  @deprecated def toArraySeq(implicit ct: ClassTag[A] @uncheckedVariance): ArraySeq[A] =
-  { val newArray: Array[A] = new Array[A](length)
-    iForeach((v, i) => newArray(i) = v)
-    ArraySeq.unsafeWrapArray(newArray)
-  }
 
   def foreach[U](f: A => U): Unit =
   { var count = 0
@@ -43,15 +36,14 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     }
   }
 
+  /** Specialised map to an immutable ArrBase of B. */
   def map[B, BB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB =
   { val res = ev.newArr(length)
     iForeach((a, i) => ev.arrSet(res, i, f(a)))
     res
   }
 
-  /** This was an extension method I'm not sure why. It was also called bind. */
- // @deprecated def flatMapOld[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB = ev.flatMap[A](this, f)
-
+  /** Specialised flatMap to an immutable Arr. */
   def flatMap[BB <: ArrBase[_]](f: A => BB)(implicit ev: ArrFlatBuild[BB]): BB =
   {
     val buff: ev.BuffT = ev.newBuff()
@@ -62,14 +54,28 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     ev.buffToArr(buff)
   }
 
+  /** Specialised map with index to an immutable ArrBase of B. This method should be overridden in sub classes. */
   def iMap[B, BB <: ArrBase[B]](f: (A, Int) => B)(implicit ev: ArrBuild[B, BB]): BB =
   { val res = ev.newArr(length)
     iForeach((a, i) => ev.arrSet(res, i, f(a, i)))
     res
   }
 
-  def iFlatMap[BB <: ArrBase[_]](f: (A, Int) => BB)(implicit ev: ArrFlatBuild[BB]): BB = ???
+  /** Specialised flatMap with index to an immutable Arr. */
+  def iFlatMap[BB <: ArrBase[_]](f: (A, Int) => BB)(implicit build: ArrFlatBuild[BB]): BB =
+  { val buff: build.BuffT = build.newBuff()
+    var i: Int = 0
+    while (i < length) { f(apply(i), i); i += 1 }
+    build.buffToArr(buff)
+  }
 
+  /** Specialised flatMap with index to an immutable Arr. */
+  def iFlatMap[BB <: ArrBase[_]](iInit: Int = 0)(f: (A, Int) => BB)(implicit build: ArrFlatBuild[BB]): BB =
+  { val buff: build.BuffT = build.newBuff()
+    var count: Int = 0
+    while (count < length) { f(apply(count), count + iInit); count += 1 }
+    build.buffToArr(buff)
+  }
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
   def mapWithAcc[B, BB <: ArrBase[B], C](initC: C)(f: (A, C) => (B, C))(implicit ev: ArrBuild[B, BB]): BB =

@@ -20,7 +20,7 @@ object EuropeNWTerr
 //  grid.fSetSide(181, 477, Straitsold)(fSide)
 //  grid.fSetSide(205, 463, Straitsold)(fSide)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setRow(yRow, cStart, tileValues :_*); () }
-   gs(518, 230, taiga)
+  gs(518, 230, taiga)
   gs(516, 232, taiga)
   gs(514, 230, taiga)
   gs(512, 232, taiga)
