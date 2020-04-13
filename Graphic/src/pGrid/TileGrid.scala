@@ -49,16 +49,29 @@ trait TileGrid
 /* Methods that foreach, map, flatMap and fold over all the tiles of the tile grid. */
 
   /** foreachs over each tile's centre Roord. */
-  def foreach(f: Roord => Unit): Unit
+  final def foreach(f: Roord => Unit): Unit = foreachRow(y => rowForeachTile(y)(f))
 
-  /** Foreach grid Row yi coordinate. */
-  def ForeachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
+  /** Foreach grid Row y coordinate. */
+  final def foreachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
+
+  def rowForeachTile(y: Int)(f: Roord => Unit): Unit
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
   def map[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.newArr(numOfTiles)
     foreach{ roord =>
       build.arrSet(res, index(roord), f(roord))
+    }
+    res
+  }
+
+  /** Maps from all tile Roords with index to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
+  def iMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  { val res = build.newArr(numOfTiles)
+    var i = 0
+    foreach{ roord =>
+      build.arrSet(res, index(roord), f(roord, i))
+      i += 1
     }
     res
   }
@@ -124,6 +137,7 @@ trait TileGrid
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 
   def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
+  def cenRoordIndexTexts(textSize: Int = 26) = iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r)))
 
   def cenSideVertRoordText: Arr[PaintElem] =
   { val sideTexts = sidesMap{ r =>  TextGraphic(r.ycStr, 22, roordToVec2(r), Colour.Blue) }

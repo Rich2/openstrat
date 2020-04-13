@@ -57,9 +57,7 @@ case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
     val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).max0
     y0s + y2s + thisRow
   }
-
-  override def foreach(f: Roord => Unit): Unit =
-  { ijToForeach(yRow2sMin, yRow2sMax, 4)(cRow2sMin, cRow2sMax, 4)((y, c) => f(Roord(y, c)))
-    ijToForeach(yRow0sMin, yRow0sMax, 4)(cRow0sMin, cRow0sMax, 4)((y, c) => f(Roord(y, c)))
-  }
+  def rowForeachTile(y: Int)(f: Roord => Unit): Unit =
+    if(y %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(Roord(y, c)))
+    else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(Roord(y, c)))
 }

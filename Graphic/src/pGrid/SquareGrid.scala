@@ -12,7 +12,6 @@ case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0
   def numOfTiles: Int = numOfRows * rowTileLen
   def cStep: Int = 2
-  override def foreach(f: Roord => Unit): Unit = ijToForeach(yTileMin, yTileMax, 2)(cTileMin, cTileMax, 2)((y, c) => f(Roord(y, c)))
   @inline override def index(y: Int, c: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
 
   @inline override def sideRoordsOfTile(tileRoord: Roord): Roords = SquareGrid.sideRoordsOfTile(tileRoord)
@@ -30,6 +29,7 @@ case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
     val vvs = vcs.map(r => roordToVec2(r))
     vvs.toPolygon.active(roord.toHexTile)
   }
+  def rowForeachTile(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin, cTileMax, 2)(c => f(Roord(y, c)))
 }
 
 object SquareGrid
