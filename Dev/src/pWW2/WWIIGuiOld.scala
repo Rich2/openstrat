@@ -3,7 +3,7 @@ package ostrat
 package pWW2
 import geom._, pEarth._, pCanv._, pStrat._
 
-case class WWIIGui(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGui("World War II")
+case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiOld("World War II")
 {
   statusText --= "Left click on unit to select, right click to move."
   focusUp = true

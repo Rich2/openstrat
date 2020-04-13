@@ -10,7 +10,7 @@ object EuropeEast extends Area1("EuropeEast", 60 ll 60)
   override val a2Arr: Arr[Area2] = Arr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }
 
-object EuropeEastGrid extends EGridMaker
+@deprecated object EuropeNEGridOld extends EGridMaker
 {          
   def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
                                                     evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80KmOld[TileT, SideT] =

@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, e80Grid._, WTile._
+import geom._, pGrid._, e80Grid._, WTile._
 
 /** 20North, 0 East */
 object EuropeNW extends Area1("EuropeNW", 20 ll 0)
@@ -11,9 +11,9 @@ object EuropeNW extends Area1("EuropeNW", 20 ll 0)
      Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
 }
 
-object EuropeNWTerr 
+object EuropeNWTerr extends E80Data
 {
-  implicit val grid = EuropeNWGrid
+  implicit val grid: HexGridIrr = EuropeNWGrid
   val terrs = grid.newTileArr[WTile](Ocean)
 
 //  grid.setSidesAll(SideNone)(fSide)

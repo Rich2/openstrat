@@ -3,7 +3,7 @@ package ostrat
 package p1783
 import geom._, pEarth._, pCanv._, pStrat._
 
-case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("1783")
+case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiOld("1783")
 {
   override def saveNamePrefix = "Y1783"
   /** The distance per pixel. This will normally be much greater than than 1 */
