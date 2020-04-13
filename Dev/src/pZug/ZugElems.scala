@@ -8,6 +8,20 @@ case class Squad(val polity: Polity, val roord: Roord, var action: Action = NoAc
   override def toString = "Squad" + (roord.ycStr + ", " + action.toString).enParenth
 }
 
+object Squad
+{
+  def canMove(tile: ZugTerr): Boolean = tile != Lake
+
+  def terrCost(tile: ZugTerr): OptInt = tile match
+  { case Lake => NoInt
+    case Plain => SomeInt(4)
+    case WheatField => SomeInt(6)
+    case StoneBuilding => SomeInt(10)
+    case Hill => SomeInt(6)
+    case _ => SomeInt(4)
+  }
+}
+
 trait Polity extends PersistSingleton
 { def colour: Colour
 }

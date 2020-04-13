@@ -36,10 +36,6 @@ object AppsForJs
     ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),
     ("Z3", (new pZug.ZugGui(_, pZug.Zug3), "Js Zugfuhrer Z3 France")),
 
-    ("Z11", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayBritain), "Js Zugfuhrer Z1 Britain")),
-    ("Z12", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayGermany), "Js Zugfuhrer Z1 Germany")),
-    ("Z13", (new pZug.ZugGuiOld(_, pZug.ZGameOld1, pZug.PlayGermanyBritain), "Js Zugfuhrer Z1 Play both")),
-
     ("A1", (learn.LessonA1(_), "Js Demonstration Canvas 1")), //Static Graphics
     ("A2", (learn.LessonA2(_), "Js Demonstration Canvas 2")),
     ("A3", (learn.LessonA3(_), "Js Demonstration Canvas 3")),

@@ -27,11 +27,11 @@ case object StoneBuilding extends Building
   override def cost: OptInt = SomeInt(3)
 }
 
-object WoodBuilding extends Building
+case object WoodBuilding extends Building
 { override def colour = Brown
 }
 
-object Lake extends ZugTerr
+case object Lake extends ZugTerr
 { override def colour = Blue
   override def cost: OptInt = NoInt
 }

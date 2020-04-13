@@ -22,8 +22,6 @@ class ZGameOld(scenInit: ZugGridOld, val players: Refs[ZPlayer])
   def makeMove(id: Int, coods: Coods): ZugGridOld = scen
 }
 
-object ZGameOld1 extends ZGameOld(Zug1Old, Refs(PlayBritain, PlayGermany))
-
 case class ZPlayer(polities: Refs[Polity])
 
 object PlayBritain extends ZPlayer (Refs(Britain))

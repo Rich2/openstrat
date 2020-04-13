@@ -31,6 +31,8 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     action +- uc
   }
 
+  def moveFunc: (Roord, Roord) => OptInt = (r1, r2) =>  Squad.terrCost(terrs(r1)) |+| Squad.terrCost(terrs(r2))
+
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
@@ -40,7 +42,10 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     }
 
     case (RightButton, List(squad: Squad), List(newTile: HexTile)) =>
-      grid.findPath(squad.roord, newTile.roord)((_, _) => SomeInt(1)).foreach { l =>
+      grid.findPath(squad.roord, newTile.roord)(moveFunc).fold[Unit]{
+        statusText = "Squad can not move to " + newTile.roord.ycStr
+        thisTop()
+      } { l =>
         squad.action = Move(l: _*)
         mainRepaint(frame)
         statusText = Squad.toString()
