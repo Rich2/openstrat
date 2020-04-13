@@ -1,7 +1,7 @@
 package ostrat
 import reflect.ClassTag, scala.annotation.unused
 
-trait ArrBuildBase[ArrT <: Arr[_]]
+trait ArrBuildBase[ArrT <: ArrBase[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
@@ -16,7 +16,7 @@ trait ArrBuildBase[ArrT <: Arr[_]]
  * standard Library collections. It is called bind rather than flatMap partly to distinguish it and party so as it can be used as extension method on
  *  Standard Library collections. Instances for this typeclass for classes / traits you control should go in the companion object of BB. This is
  *  different from the related ArrBuild[BB] typeclass where the instance should go into the B companion object. */
-trait ArrFlatBuild[ArrT <: Arr[_]] extends ArrBuildBase[ArrT]
+trait ArrFlatBuild[ArrT <: ArrBase[_]] extends ArrBuildBase[ArrT]
 
 object ArrFlatBuild
 {
@@ -33,7 +33,7 @@ object ArrFlatBuild
  *  where instance should go into the BB companion object. The type parameter is named B rather than A, because normally this will be found by an
  *  implicit in the context of a function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever
  *  possible they should not be used directly by end users. */
-trait ArrBuild[B, ArrT <: Arr[B]] extends ArrBuildBase[ArrT]
+trait ArrBuild[B, ArrT <: ArrBase[B]] extends ArrBuildBase[ArrT]
 { type BuffT <: ArrayLike[B]
   def newArr(length: Int): ArrT
   def arrSet(arr: ArrT, index: Int, value: B): Unit

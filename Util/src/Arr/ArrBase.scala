@@ -1,10 +1,10 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-/** Immutable Array. The final classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a
- * compile time wrapper with no boxing run cost. */
-trait Arr[+A] extends Any with ArrayLike[A]
-{ type ThisT <: Arr[A]
+/** Base trait for specialised immutable Arrays. The final classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage.
+ *  A lot of the time this is a compile time wrapper with no boxing run cost. */
+trait ArrBase[+A] extends Any with ArrayLike[A]
+{ type ThisT <: ArrBase[A]
   //def unsafeNew(length: Int): ThisT
   def unsafeNew(length: Int): ThisT
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit

@@ -1,7 +1,7 @@
 package ostrat
 
 /** Not sure how useful this trait is. It has been created for the OptRefs trait because the Scala2 compiler has problems extending ArrayLike.  */
-trait ArrayBase[A] extends Any
+trait ArrayLikeBase[A] extends Any
 {
   /** The number of elements in the collection. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying
    * Array maybe longer by a multiple of this number. */

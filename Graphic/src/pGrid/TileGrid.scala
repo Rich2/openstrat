@@ -55,7 +55,7 @@ trait TileGrid
   def ForeachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
-  def map[A, ArrT <: Arr[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def map[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.newArr(numOfTiles)
     foreach{ roord =>
       build.arrSet(res, index(roord), f(roord))
@@ -65,14 +65,14 @@ trait TileGrid
 
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
-  def flatMap[ArrT <: Arr[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  def flatMap[ArrT <: ArrBase[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Roords to an Arr of type ArrT, removing all duplicate elements. */
-  def flatMapNoDupicates[A, ArrT <: Arr[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def flatMapNoDupicates[A, ArrT <: ArrBase[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach { roord =>
       val newVals = f(roord)
@@ -85,7 +85,7 @@ trait TileGrid
   /** foreachs over each tile centre Vec2. */
   def foreachVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
-  def mapPolygons[A, ArrT <: Arr[A]](f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def mapPolygons[A, ArrT <: ArrBase[A]](f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToVec2(c))
@@ -136,7 +136,7 @@ trait TileGrid
   @inline final def index(roord: Roord): Int = index(roord.y, roord.c)
 
   /** Sets element in a flat Tiles Arr according to its Roord. */
-  def setTile[A](roord: Roord, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(index(roord), value)
+  def setTile[A](roord: Roord, value: A)(implicit arr: ArrBase[A]): Unit = arr.unsafeSetElem(index(roord), value)
 
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
   def roordToVec2(roord: Roord): Vec2
@@ -191,12 +191,12 @@ trait TileGrid
   def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
   /** Maps from each sides roord to an Arr of A. */
-  def sidesMap[A, ArrT <: Arr[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) = sideRoords.map(r => f(r))
+  def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) = sideRoords.map(r => f(r))
 
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
-  def vertsMap[A, ArrT <: Arr[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
+  def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
     vertRoords.map(r => f(r))
 
   def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }

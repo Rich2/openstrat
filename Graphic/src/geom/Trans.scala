@@ -17,7 +17,7 @@ trait Trans[T]
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
 object Trans
 {
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: ArrBuild[A, AA], ev: Trans[A]): Trans[AA] =
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Trans[A]): Trans[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
   implicit def fromScaledImplicit[T <: Transer]: Trans[T] =

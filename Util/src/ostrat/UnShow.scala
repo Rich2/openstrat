@@ -52,7 +52,7 @@ trait UnShow[+T]
   }*/
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
-  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuild[T, ArrT] @uncheckedVariance): ArrT =
+  def valuesFromStatements[ArrT <: ArrBase[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuild[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectGoods(fromStatement)(arrBuild)
 
   /** Produces a List of the UnShow type from List of Statements */
@@ -66,7 +66,7 @@ trait UnShow[+T]
   }
 
   /** Finds value of UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuild[T, ArrT] @uncheckedVariance): EMon[T] =
+  def findUniqueTFromStatements[ArrT <: ArrBase[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuild[T, ArrT] @uncheckedVariance): EMon[T] =
     valuesFromStatements(sts) match
   { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
     case s if s.length == 1 => Good(s.head)

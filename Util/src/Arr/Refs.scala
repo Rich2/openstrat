@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 
 /** The immutable Array based class for reference types. It Inherits the standard foreach, map, flatMap and fold and their variations' methods from
  *  ArrayLike. */
-final class Refs[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with Arr[A]
+final class Refs[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrBase[A]
 { type ThisT = Refs[A] @uncheckedVariance
   override def unsafeNew(length: Int): Refs[A] = new Refs(new Array[AnyRef](length).asInstanceOf[Array[A]])
   override def length: Int = unsafeArr.length

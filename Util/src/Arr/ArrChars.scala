@@ -1,7 +1,7 @@
 package ostrat
 
 /** Efficient immutable Array based collection for Chars. */
-final class Chars(val array: Array[Char]) extends AnyVal with Arr[Char]
+final class Chars(val array: Array[Char]) extends AnyVal with ArrBase[Char]
 { type ThisT = Chars
   override def unsafeNew(length: Int): Chars = new Chars(new Array[Char](length))
   override def length: Int = array.length

@@ -2,7 +2,7 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** Not sure if this trait can be useful. */
-trait ArrValues[A] extends Any with Arr[A]
+trait ArrValues[A] extends Any with ArrBase[A]
 { type ThisT <: ArrValues[A]
   //def append(op: A): ThisT
  // { val newArr = buildThis(length + 1)
@@ -12,7 +12,7 @@ trait ArrValues[A] extends Any with Arr[A]
  // }
 }
 
-class Booleans(val array: Array[Boolean]) extends AnyVal with Arr[Boolean]
+class Booleans(val array: Array[Boolean]) extends AnyVal with ArrBase[Boolean]
 { type ThisT = Booleans
   override def unsafeNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
   override def length: Int = array.length

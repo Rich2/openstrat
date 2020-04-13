@@ -3,7 +3,7 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** OptRefs is an array based collection of optional values, that uses nulls for implementation. The collection use should not have to interact with
  *  the null values directly.  */
-class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrayBase[OptRef[A]]
+class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrayLikeBase[OptRef[A]]
 { @inline def length: Int = unsafeArray.length
   def apply(index: Int): OptRef[A] = OptRef(unsafeArray(index))
 
@@ -43,7 +43,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
     while (count < length){ apply(count).foreach(f); count += 1}
   }
 
-  def mapSomes[B, ArrT <: Arr[B]](f: A => B)(build: ArrBuild[B, ArrT]): ArrT =
+  def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(build: ArrBuild[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     foreachSome(a => build.buffGrow(buff, f(a)))
     build.buffToArr(buff)
