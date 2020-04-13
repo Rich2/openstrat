@@ -10,9 +10,9 @@ object Apps
       ("2", (p1783.Y1783Gui(_, p1783.Nap1), "1783")),
       ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
       ("4", (pSpace.Planets(_), "JavaFx Planets")),
-      ("5", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
+      ("5", (new pEarth.pEurope.NWGui(_), "JavaFx NW Wurope Grid")),
       ("6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
-      ("7", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
+      ("7", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
       ("8", (ColourGen(_), "JavaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
       ("10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
@@ -22,14 +22,11 @@ object Apps
       ("14", (new pReactor.ReactorGUI(_), "reactor")),
       ("15", (new pChess.ChessGui(_, pChess.ChessStart), "Chess")),
       ("16", (new pFlags.FlagSelectorGUI(_), "Flag Fun")),
-      ("17", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
-      ("18", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
-      ("19", (new pDung.DungeonGuiOld(_), "JavaFx Dungeon")),
+      ("17", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
 
-      ("t1", (new pEarth.pEurope.NWGui(_), "JavaFx NW Wurope Grid")),
-
-
-      ("c1", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
+      ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
+      ("G2", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
+      ("G3", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
 
       ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),

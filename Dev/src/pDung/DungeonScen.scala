@@ -3,24 +3,6 @@ package ostrat
 package pDung
 import pGrid._
 
-object Dungeon1Old extends DungeonGridOld(2, 48, 2, 30, 0)
-{
-  import SquareGridOld._
-  allWall
-  setTerrPath(Open, 4 cc 6, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)
-  setColumn(22, 8,  Open * 2)
-  setTileRect(16, 36, 18, 26, Open)
-  posn(CharacOldA, 22, 8, SFaceUp)
-  posn(CharacOldB, 18, 24, SFaceRt)
-  posn(CharacOldY, 22, 24, SFaceUR)
-  posn(CharacOldZ, 18, 12, SFaceLt)
-}
-
-object Dungeon2Old extends DungeonGridOld(2, 10, 2, 10, 0)
-{
-  allOpen
-}
-
 case class CharacPosn(charac: Character, y: Int, c: Int, facing: SqFace)
 
 trait DungeonScen

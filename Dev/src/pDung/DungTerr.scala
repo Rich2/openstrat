@@ -7,8 +7,6 @@ sealed trait DungTerr extends AnyRef with PersistSingleton
 { def colour: Colour
 }
 
-object DungTerr { implicit val toDTile: (Int, Int, DungTerr) => DTileOld = DTileOld.apply }
-
 object Open extends DungTerr
 { override def colour: Colour = Violet
   val str: String = "Open"
