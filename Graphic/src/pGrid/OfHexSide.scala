@@ -5,6 +5,7 @@ import geom._
 
 trait OfHexSide[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridOld[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
 
+/*
 case class OfHexSideReg[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](side: SideT, grid: GridT,
   gGui: TileGridGui[TileT, SideT, GridT]) extends OfSide[TileT, SideT, GridT] with OfGridElemReg[TileT, SideT, GridT]
 {
@@ -16,4 +17,4 @@ object OfHexSideReg
 {
   implicit def implicitBuilder[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](side: SideT, grid: GridT,
     gGui: TileGridGui[TileT, SideT, GridT]) = apply(side, grid, gGui)
-}
+}*/

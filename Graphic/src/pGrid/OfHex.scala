@@ -17,12 +17,12 @@ object OfHex
     //  OfHex[TileT, SideT, GridT] = new OfHex[TileT, SideT, GridT](tile,grid, gGui)     
 }
 
-case class OfHexReg[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](tile: TileT, grid: GridT,
+/*case class OfHexReg[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](tile: TileT, grid: GridT,
   gGui: TileGridGui[TileT, SideT, GridT]) extends OfHex[TileT, SideT, GridT] with OfTileReg[TileT, SideT, GridT]
 
 object OfHexReg
 {
    implicit def implicitBuilder[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridRegOld[TileT, SideT]](tile: TileT, grid: GridT,
      gGui: TileGridGui[TileT, SideT, GridT]) = apply(tile, grid, gGui)
-}
+}*/
 
