@@ -166,6 +166,9 @@ trait TileGrid
   /**************************************************************************************************/
   /* Methods that operate on tile sides. */
 
+  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1)(f)
+  def sideInnerRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin, yTileMax)(f)
+
   def numOfSides: Int = sideRoords.length
 
   /** Gives all the sideRoords of the grid with out duplicates. */
