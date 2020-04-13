@@ -66,7 +66,7 @@ case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
     case y if y == ySideMax & y.div4Rem3 => iToForeach(cRow2sMin - 1, cRow2sMax + 1, 2){ c => f(Roord(y, c)) }
     case y if y == ySideMax => iToForeach(cRow0sMin - 1, cRow0sMax + 1, 2){ c => f(Roord(y, c)) }
     case y if y.div4Rem2 => iToForeach(cRow2sMin - 2, cRow2sMax + 2, 4){ c => f(Roord(y, c)) }
-    case y => iToForeach(cRow0sMin - 2, cRow0sMax + 2, 4){ c => f(Roord(y, c)) }
+    case y if y.div4Rem0 => iToForeach(cRow0sMin - 2, cRow0sMax + 2, 4){ c => f(Roord(y, c)) }
     case y if y == ySideMin & y.div4Rem1 => iToForeach(cRow2sMin - 1, cRow2sMax + 1, 2){ c => f(Roord(y, c)) }
     case y if y == ySideMin => iToForeach(cRow0sMin - 1, cRow0sMax + 1, 2){ c => f(Roord(y, c)) }
     case y => iToForeach(cTileMin - 1, cTileMax, 2){ c => f(Roord(y, c)) }

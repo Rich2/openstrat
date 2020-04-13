@@ -1,6 +1,6 @@
 package ostrat
 package pGrid
-import geom._, reflect.ClassTag, Colour.Black
+import geom._, reflect.ClassTag, Colour._
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
  *  stored in flat arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that
@@ -135,13 +135,15 @@ trait TileGrid
   /** New Tile immutable Tile Arr of Opt data values. */
   def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
-  def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
-  def cenRoordIndexTexts(textSize: Int = 26) = iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r)))
+  def cenRoordTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour))
+
+  def cenRoordIndexTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] =
+    iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r)))
 
   def cenSideVertRoordText: Arr[PaintElem] =
-  { val sideTexts = sidesMap{ r =>  TextGraphic(r.ycStr, 22, roordToVec2(r), Colour.Blue) }
+  {
     val vertTexts = vertsMap{ r =>  TextGraphic(r.ycStr, 20, roordToVec2(r), Colour.Red) }
-    cenRoordTexts() ++ sideTexts ++ vertTexts
+    cenRoordTexts() ++ sideTexts() ++ vertTexts
   }
 
 /**************************************************************************************************/
@@ -178,16 +180,38 @@ trait TileGrid
 
   /**************************************************************************************************/
   /* Methods that operate on tile sides. */
+
   /** foreach side's Roords, calls the effectful function. */
-  def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
+  final def sidesForeach(f: Roord => Unit): Unit = sideRowForeach(y => rowForeachSide(y)(f))
+
+  /** Maps from each sides Roord to an ArrBase of A. */
+  def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
+  { val res = build.newArr(numOfSides)
+    var count = 0
+    sidesForeach{r => build.arrSet(res, count, f(r)); count += 1 }
+    res
+  }
+
+  /** Maps from each sides Roord to an ArrBase of A. */
+  def sidesIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]) =
+  { val res = build.newArr(numOfSides)
+    var count = 0
+    sidesForeach{r => build.arrSet(res, count, f(r, count)); count += 1 }
+    res
+  }
 
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1)(f)
   def sideInnerRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin, yTileMax)(f)
-  def rowForeachSide(y: Int)(f: Roord => Unit): Unit = ???
-  def numOfSides: Int = sideRoords.length
+  def rowForeachSide(y: Int)(f: Roord => Unit): Unit
+
+  final val numOfSides: Int =
+  { var count = 0
+    sidesForeach(r => count += 1)
+    count
+  }
 
   /** Gives all the sideRoords of the grid with out duplicates. */
-  def sideRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => sideRoordsOfTile(roord) }
+  def sideRoords: Roords = sidesMap(r => r)
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine
 
@@ -208,11 +232,9 @@ trait TileGrid
 
   def sideIndex(roord: Roord): Int = ???
 
-
-
-  /** Maps from each sides Roord to an ArrBase of A. */
-  def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) = sideRoords.map(r => f(r))
-
+  def sideTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour) }
+  def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
+    sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
   /** New immutable Arr of Side Boolean data. */
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 

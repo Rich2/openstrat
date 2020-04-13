@@ -22,5 +22,12 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
 
   def cTileMax: Int = if (numOfRows == 0) 0
   else iToFoldInt(yTileMin + 2, yTileMax, 2, cRowEnd(yTileMin) ) { (acc, y) => acc.max(cRowEnd(y)) }
+
+  override def rowForeachSide(y: Int)(f: Roord => Unit): Unit = y match
+  { case y if y == ySideMax => iToForeach(cRowStart(y - 1) - 1, cRowEnd(y - 1) + 1, 2){ c => f(Roord(y, c)) }
+    case y if y == ySideMin => iToForeach(cRowStart(y + 1) - 1, cRowEnd(y + 1) + 1, 2){ c => f(Roord(y, c)) }
+    case y if y.isEven => iToForeach(cRowStart(y) - 2, cRowEnd(y) + 2, 4){ c => f(Roord(y, c)) }
+    case y => iToForeach(cRowStart(y - 1).min(cRowStart(y + 1)) - 1, cRowEnd(y - 1).max(cRowEnd(y + 1)) + 1, 2){ c => f(Roord(y, c)) }
+  }
 }
 
