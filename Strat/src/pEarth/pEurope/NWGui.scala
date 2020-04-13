@@ -11,7 +11,7 @@ case class NWGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui"
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val sides = grid.sideLines.draw(2.0)
 
-  var statusText = "Hello "
+  var statusText = "Tile Grid for North West Europe"
   def thisTop(): Unit = reTop(Refs(status))
   thisTop()
   def frame = (tiles +- sides).gridTrans(scale)
