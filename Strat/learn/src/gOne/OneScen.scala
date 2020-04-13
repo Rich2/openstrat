@@ -7,7 +7,7 @@ trait OneScen
   implicit def grid: HexGrid
   def oPlayers: TilesOptRef[Player]
 
-  def turn(hts: Refs[HTileAndStep]): OneScen =
+  def turn(hts: Arr[HTileAndStep]): OneScen =
   { val resolve: TilesRef[List[HTileAndStep]] = grid.newTilesRefInit(Nil)//  .newArrayListSetDepr()
     hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
     val resValue: TilesOptRef[Player] = oPlayers.clone

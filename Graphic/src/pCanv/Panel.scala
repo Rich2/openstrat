@@ -27,9 +27,9 @@ case class MouseButtonCmd(cmd: MouseButton => Unit)
 /** The purpose of this trait is to give common methods for Panels and Simple Canvases. A SimpleCanvas is like a Panel but not a Panel.*/ 
 trait PanelLike extends RectGeom
 { /** These are currently stored in reverse. I think this would be better in an Array */
-  var actives: Refs[GraphicActive] = Refs()
+  var actives: Arr[GraphicActive] = Arr()
 
-  var canvObjs: GraphicElems = Refs()
+  var canvObjs: GraphicElems = Arr()
 
   /** This method name is inconsistent with mouseup on the canvas class*/
   var mouseUp: (MouseButton, List[Any], Vec2) => Unit = (_, _, _) => {}

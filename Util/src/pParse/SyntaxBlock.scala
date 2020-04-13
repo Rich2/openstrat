@@ -77,13 +77,13 @@ case object CurlyBraces extends Braces
   override def name: String = "Curly"
 }
 
-case class BracketedRaws(statements: Refs[TextSpan], braces: Braces, startBracket: TextPosn, endBracket: TextPosn)// extends StatementsHolder
+case class BracketedRaws(statements: Arr[TextSpan], braces: Braces, startBracket: TextPosn, endBracket: TextPosn)// extends StatementsHolder
 { def exprName: String = braces.name + "BlockExpr"
 }
 
 case class BracketedStatements(statements: Statements, braces: Braces, startBracket: TextPosn, endBracket: TextPosn) extends BlockStatements
 { def exprName: String = braces.name + "BlockExpr"
-  def memExprs: Refs[Expr] = statements.map(_.expr)
+  def memExprs: Arr[Expr] = statements.map(_.expr)
 }
 
 object ParenthBlock

@@ -4,7 +4,7 @@ package pParse
 /** Not entirely sure what this does. */
 object PrefixPlus
 {
-  def apply(implicit refs: Refs[BlockMember]): ERefs[BlockMember] =
+  def apply(implicit refs: Arr[BlockMember]): ERefs[BlockMember] =
   {
     val acc: Buff[BlockMember] = Buff()
 
@@ -21,9 +21,9 @@ object PrefixPlus
 /** Needs Testing. */
 object getExpr
 {
-  def apply (implicit seg: Refs[ClauseMember]): EMon[Expr] = fromOffset(seg.offset0)
+  def apply (implicit seg: Arr[ClauseMember]): EMon[Expr] = fromOffset(seg.offset0)
 
-  def fromOffset(inp: RefsOff[ClauseMember])(implicit seg: Refs[ClauseMember]): EMon[Expr] =
+  def fromOffset(inp: RefsOff[ClauseMember])(implicit seg: Arr[ClauseMember]): EMon[Expr] =
   {
     val acc: Buff[ClauseMember] = Buff()
 

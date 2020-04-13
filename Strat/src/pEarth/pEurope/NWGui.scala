@@ -12,7 +12,7 @@ case class NWGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui"
   val sides = grid.sideLines.draw(2.0)
 
   var statusText = "Tile Grid for North West Europe"
-  def thisTop(): Unit = reTop(Refs(status))
+  def thisTop(): Unit = reTop(Arr(status))
   thisTop()
   def frame = (tiles +- sides).gridTrans(scale)
   mainRepaint(frame)

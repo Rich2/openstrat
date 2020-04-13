@@ -32,7 +32,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   val sidesDraw = grid.sidesDraw(2.0)
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Refs[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
+  def moveGraphics: Arr[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButton("Turn " + (scen.turn + 1).toString, _ => {
@@ -44,7 +44,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   })
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Refs(bTurn, status))
+  def thisTop(): Unit = reTop(Arr(bTurn, status))
 
   mainMouseUp = (b, cl, _) => (b, cl, selected) match
     { case (LeftButton, cl, _) =>

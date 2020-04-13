@@ -18,15 +18,15 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     val action: GraphicElems = squad.action match
     {
       case Move(rs) =>
-      { rs.foldWithPrevious[GraphicElems](roord, Refs()){ (acc, prevCood, nextCood) =>
+      { rs.foldWithPrevious[GraphicElems](roord, Arr()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
           val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(2, Black)
           val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(2, Black)
           acc +- l1 +- l2
         }
       }
-      case Fire(target) => Refs(RoordLine(roord, target).gridLine2.draw(2, Red).dashed(20, 20))
-      case _ => Refs()
+      case Fire(target) => Arr(RoordLine(roord, target).gridLine2.draw(2, Red).dashed(20, 20))
+      case _ => Arr()
     }
     action +- uc
   }
@@ -63,7 +63,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   }
 
   var statusText = "Welcome to ZugFuhrer"
-  def thisTop(): Unit = reTop(Refs(status))
+  def thisTop(): Unit = reTop(Arr(status))
   thisTop()
   def frame = (tiles ++ sides ++ lunits).gridTrans(scale)
   mainRepaint(frame)

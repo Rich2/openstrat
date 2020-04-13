@@ -7,14 +7,14 @@ trait GraphicParent extends GraphicElem with GraphicActive
 { def cen: Vec2
 
   /** The type of children can probably be widened in the future. */
-  def children: Refs[PaintElem]
+  def children: Arr[PaintElem]
   
   def topLeft: GraphicParent = this.slate(- boundingRect.topLeft)
   def topRight: GraphicParent = this.slate(- boundingRect.topRight)
   def bottomLeft: GraphicParent = this.slate(- boundingRect.bottomLeft)
   def bottomRight: GraphicParent = this.slate(- boundingRect.bottomRight)
 
-  def addElems(newElems: Refs[PaintElem]): GraphicParent
-  def addElem(newElem: PaintElem): GraphicParent = addElems(Refs(newElem))
+  def addElems(newElems: Arr[PaintElem]): GraphicParent
+  def addElem(newElem: PaintElem): GraphicParent = addElems(Arr(newElem))
   def mutObj(newObj: Any): GraphicParent
 }

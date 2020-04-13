@@ -2,12 +2,12 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, pGrid._, e80Grid._, WTile._
+import geom._, e80Grid._, WTile._
 
 /** 20North, 0 East */
 object EuropeNW extends Area1("EuropeNW", 20 ll 0)
 {
-  override val a2Arr: Refs[Area2] = Refs(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
+  override val a2Arr: Arr[Area2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
      Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
 }
 

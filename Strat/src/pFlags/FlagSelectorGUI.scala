@@ -10,7 +10,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 { var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
 /**/
-  var listOfFlags: Refs[Flag] = Refs(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag, WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag, Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag, WhiteFlag, UnitedKingdom, WhiteFlag)
+  var listOfFlags: Arr[Flag] = Arr(Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags, WhiteFlag, WhiteFlag, Armenia, WhiteFlag, WhiteFlag, Chad, WhiteFlag, WhiteFlag, WhiteFlag, Chad, England, WhiteFlag, WhiteFlag, WhiteFlag, USSR, WhiteFlag, WhiteFlag, WhiteFlag, UnitedKingdom, WhiteFlag)
 
   val itemCount: Int = listOfFlags.length
   val itemsPerRow: Int = 5  //  columns
@@ -32,8 +32,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val aTitle = TextGraphic( "Scroll: less/more buttons, arrow/pgUp/pgDn/Home/End keys, mouse wheel", 12, 0 vv headerYpos + 30 )
   val btnMore = clickButton( ">", ( mb: MouseButton) => { scrollMore } ).slate( +20+viewport("maxBarWidth")/2, headerYpos )
   val btnLess = clickButton( "<", ( mb: MouseButton) => { scrollLess } ).slate( -20-viewport("maxBarWidth")/2, headerYpos )   
-  val everythingNotItemOrScrollbar: Refs[GraphicElem] = Refs( background, aTitle )
-  val scrollBar: Refs[GraphicElem] = Refs(btnMore, btnLess, barBackground )
+  val everythingNotItemOrScrollbar: Arr[GraphicElem] = Arr( background, aTitle )
+  val scrollBar: Arr[GraphicElem] = Arr(btnMore, btnLess, barBackground )
 
   if ( viewport("isScrollHorizontal") == 1 ) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
   else                                       { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerRow }
@@ -49,9 +49,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   def scrollLess(): Unit = { showGridView( Math.max( viewIndex - itemsPerUnitScroll, 0 ) ) }
   val bar = Rectangle.curvedCorners( barWidth, 30, 10 )
 
-  var viewableItems:Refs[PolyParent] = Refs()
+  var viewableItems:Arr[PolyParent] = Arr()
   def showGridView( indexOfFirstItemInView:Int): Unit =
-  { viewableItems = Refs()
+  { viewableItems = Arr()
     for( j <- 0 to itemsPerCol-1; i <- 0 to itemsPerRow-1 if indexOfFirstItemInView + i * iScrollStep + j * jScrollStep < itemCount )
     { val thisIndex = indexOfFirstItemInView + i * iScrollStep + j * jScrollStep
       val thisFlag = listOfFlags( thisIndex ).parent( thisIndex.toString ).scale( viewport("commonScale")/Math.sqrt(listOfFlags( thisIndex ).ratio ) )
@@ -63,12 +63,12 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   def positionBar(): Unit = 
   { val barOffsetX = if ( maxIndexOfFirstItemInView != 0 ) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
-    repaint( everythingNotItemOrScrollbar ++ scrollBar ++ viewableItems ++ Refs( bar.fill( Pink ).slate( barStart, headerYpos ).slate( barOffsetX, 0 ) ) )
+    repaint( everythingNotItemOrScrollbar ++ scrollBar ++ viewableItems ++ Arr( bar.fill( Pink ).slate( barStart, headerYpos ).slate( barOffsetX, 0 ) ) )
   }
 
   def showSelected(): Unit =
   { val thisFlag = listOfFlags( selectedIndex ).parent( selectedIndex.toString ).scale( 3 * viewport("commonScale")/Math.sqrt(listOfFlags( selectedIndex ).ratio ) )
-    viewableItems = Refs(thisFlag)
+    viewableItems = Arr(thisFlag)
     positionBar()
   }
 

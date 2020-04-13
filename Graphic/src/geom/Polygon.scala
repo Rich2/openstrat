@@ -47,7 +47,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillActive(fillColour: Colour, pointerID: Any): PolyFillActive = PolyFillActive(this, pointerID, fillColour)//, PolyActiveOnly(this, pointerID))
 
   def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
-    Refs(PolyFillDraw(this, fillColour,lineWidth, lineColour), PolyActiveOnly(this, pointerID))
+    Arr(PolyFillDraw(this, fillColour,lineWidth, lineColour), PolyActiveOnly(this, pointerID))
     
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black): PolyAll =
     PolyAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)
@@ -69,10 +69,10 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolyParent =
     parentFillText(pointerID, fillColour, str, fontSize, fillColour.contrast)
 
-  def parentElems(pointerID: Any, elems: Refs[PaintElem]): PolyParent = new PolyParent(this.polyCentre, this, pointerID, elems)
+  def parentElems(pointerID: Any, elems: Arr[PaintElem]): PolyParent = new PolyParent(this.polyCentre, this, pointerID, elems)
 
   def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolyParent =
-    PolyParent(this.polyCentre, this, pointerID, Refs(PolyFillDraw(this, fillColour, lineWidth, lineColour),
+    PolyParent(this.polyCentre, this, pointerID, Arr(PolyFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
   
   def closedPolygonToLine2s: Line2s =

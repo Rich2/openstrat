@@ -6,7 +6,7 @@ package pParse
 object statementParse
 {
   /** Parses a sequence of Statement members into a Statement. Statement members are either nonBracketTokens or parsed BracketBlocks.  */
-  def apply(memsIn: Refs[StatementMember], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
+  def apply(memsIn: Arr[StatementMember], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
   {
     implicit val inp = memsIn
     val acc: Buff[Clause] = Buff()

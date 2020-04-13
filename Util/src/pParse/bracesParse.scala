@@ -4,7 +4,7 @@ package pParse
 /** Sorts tokens in to brace hierarchy. */
 object bracesParse
 {
-  def apply(rem: RefsOff[Token], open: BracketOpen)(implicit arr: Refs[Token]): EMon2[BracketedStatements, RefsOff[Token]] =
+  def apply(rem: RefsOff[Token], open: BracketOpen)(implicit arr: Arr[Token]): EMon2[BracketedStatements, RefsOff[Token]] =
   {
     val acc: Buff[BlockMember] = Buff()
     def loop(rem: RefsOff[Token]): EMon2[BracketedStatements, RefsOff[Token]] = rem match

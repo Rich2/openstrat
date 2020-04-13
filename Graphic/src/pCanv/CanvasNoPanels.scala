@@ -20,7 +20,7 @@ abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with Pane
   def repaints(els: GraphicElem*): Unit = { canvObjs = els.toRefs; refresh() }
 
   /** Repaints the canvas, takes a Refs collection as parameter. */
-  def repaint(els: Refs[GraphicElem]): Unit = { canvObjs = els; refresh() }
+  def repaint(els: Arr[GraphicElem]): Unit = { canvObjs = els; refresh() }
 
   def timedRepaint(f: Integer => GraphicElems): Unit =
   { val combinedF: Integer => Unit = elapsed => repaint(f(elapsed))

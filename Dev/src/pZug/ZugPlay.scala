@@ -2,9 +2,9 @@
 package ostrat
 package pZug
 
-case class ZPlayer(polities: Refs[Polity])
+case class ZPlayer(polities: Arr[Polity])
 
-object PlayBritain extends ZPlayer (Refs(Britain))
-object PlayGermany extends ZPlayer (Refs(Germany))
-object PlayGermanyBritain extends ZPlayer (Refs(Germany, Britain))
-object PlayGermanyFrance extends ZPlayer (Refs(Germany, France))
+object PlayBritain extends ZPlayer (Arr(Britain))
+object PlayGermany extends ZPlayer (Arr(Germany))
+object PlayGermanyBritain extends ZPlayer (Arr(Germany, Britain))
+object PlayGermanyFrance extends ZPlayer (Arr(Germany, France))

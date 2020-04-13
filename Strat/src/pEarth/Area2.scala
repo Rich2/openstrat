@@ -7,11 +7,11 @@ import geom._
 abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
    override def toString = name.appendCommas(terr.toString)
-   def aStrs: Refs[String] = Refs(name)
+   def aStrs: Arr[String] = Arr(name)
    def textScale: Dist = 15.km   
    def latLongs: LatLongs   
    
-   def display(eg: EarthGui, fill: Boolean = true): GraphicElems =
+   def display(eg: EarthGuiOld, fill: Boolean = true): GraphicElems =
    {  
       eg.polyToGlobedArea(latLongs) match
       {
@@ -19,20 +19,20 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
          { 
             val v2s: Polygon = d2s.pMap(eg.trans)
             val cenXY: Vec2 = eg.latLongToXY(cen)
-            val vis1: GraphicElems = ife(fill, Refs(v2s.fillActive(terr.colour, this)), Refs())
-            val vis2: GraphicElems = Refs(v2s.draw(2.0, terr.colour.redOrPink))
+            val vis1: GraphicElems = ife(fill, Arr(v2s.fillActive(terr.colour, this)), Arr())
+            val vis2: GraphicElems = Arr(v2s.draw(2.0, terr.colour.redOrPink))
             val vis3: GraphicElems =
               if (eg.scale < textScale && fill) TextGraphic.lines(aStrs, 10, cenXY, terr.contrast)
-              else Refs()
+              else Arr()
             (vis1 ++ vis2 ++ vis3)
          }
          case GlobedSome(curveSegDists) =>
          {
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val curveSegs: Shape = curveSegDists.pMap(_.toCurveSeg(eg.trans))
-            Refs(ShapeParent.fill(cenXY, curveSegs, this, terr.colour))
+            Arr(ShapeParent.fill(cenXY, curveSegs, this, terr.colour))
          }
-         case GlobedNone => Refs()
+         case GlobedNone => Arr()
       }
    }   
 }

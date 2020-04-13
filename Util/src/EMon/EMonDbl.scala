@@ -15,7 +15,7 @@ final case class GoodDbl(value: Double) extends EMonDbl with GoodBase[Double]
   override def foldDo(fGood: Double => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def getElse(elseValue: => Double): Double = value
 }
-case class BadDbl(errs: Refs[String]) extends EMonDbl with BadBase[Double]
+case class BadDbl(errs: Arr[String]) extends EMonDbl with BadBase[Double]
 { override def baseMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def baseFlatMap[B, BB <: EMonBase[B]](f: Double => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def fold[B](noneValue: => B)(fGood: Double => B): B = noneValue

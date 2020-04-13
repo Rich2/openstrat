@@ -52,7 +52,7 @@ trait EMonBase[+A]
 
 trait GoodBase[+A] extends EMonBase[A]
 { def value: A
-  override def errs: Strings = Refs()
+  override def errs: Strings = Arr()
   override def toEither: Either[Strings, A] = Right(value)
   override def isGood: Boolean = true
   override def isBad: Boolean = false

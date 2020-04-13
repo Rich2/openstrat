@@ -8,7 +8,7 @@ object AsiaWest  extends Area1("AsiaWest", 20.18 ll -0.65)
 {
    override def fill = true//false
    import AsiaWestPts._
-   override val a2Arr = Refs(arabia, persia, iraq, kazak, RusNorth, india, sriLanka, himalayas, centralAsia, severny)
+   override val a2Arr = Arr(arabia, persia, iraq, kazak, RusNorth, india, sriLanka, himalayas, centralAsia, severny)
    //override val gridMaker = E80Empty
    //override val grids = Seq()//AsiaWestGrid())   
 }

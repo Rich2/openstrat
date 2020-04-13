@@ -18,7 +18,7 @@ final case class GoodInt(value: Int) extends EMonInt with GoodBase[Int]
   override def |+| (operand: EMonInt): EMonInt = operand.baseMap(value + _)
 }
 
-case class BadInt(errs: Refs[String]) extends EMonInt with BadBase[Int]
+case class BadInt(errs: Arr[String]) extends EMonInt with BadBase[Int]
 { override def baseMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def baseFlatMap[B, BB <: EMonBase[B]](f: Int => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def fold[B](noneValue: => B)(fGood: Int => B): B = noneValue
@@ -50,7 +50,7 @@ final case class GoodInts(value: Ints) extends EMonInts with GoodBase[Ints]
   override def foldDo(fGood: Ints => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def getElse(elseValue: => Ints): Ints = value
 }
-case class BadInts(errs: Refs[String]) extends EMonInts with BadBase[Ints]
+case class BadInts(errs: Arr[String]) extends EMonInts with BadBase[Ints]
 { override def baseMap[B, BB <: EMonBase[B]](f: Ints => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def baseFlatMap[B, BB <: EMonBase[B]](f: Ints => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def fold[B](noneValue: => B)(fGood: Ints => B): B = noneValue
@@ -59,4 +59,4 @@ case class BadInts(errs: Refs[String]) extends EMonInts with BadBase[Ints]
   override def getElse(elseValue: => Ints): Ints = elseValue
 }
 
-object NoInts extends BadInts(Refs())
+object NoInts extends BadInts(Arr())

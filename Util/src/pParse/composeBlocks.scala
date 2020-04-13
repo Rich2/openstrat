@@ -4,7 +4,7 @@ package pParse
 /** I believe this composes Blocks with their preceding identifiers. */
 object composeBlocks
 {
-  def apply(implicit seg: Refs[ClauseMember]): EMon[Expr]=
+  def apply(implicit seg: Arr[ClauseMember]): EMon[Expr]=
   {
     val acc: Buff[BlockMember] = Buff()
 

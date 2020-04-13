@@ -16,8 +16,8 @@ package ostrat
  *  programming wizards in languages such as Scala, Haskell and Idris. */
 package object pParse
 {
-  type Tokens = Refs[Token]
-  type Statements = Refs[Statement]
+  type Tokens = Arr[Token]
+  type Statements = Arr[Statement]
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
   def srcToEStatements(input: Array[Char], inputSourceName: String): ERefs[Statement] =

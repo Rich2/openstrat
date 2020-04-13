@@ -74,7 +74,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
   def tileNeighboursCoods(cood: Cood): Coods =
     HexGridOld.adjTileCoodsOfTile(cood).filter(c => yTileMax >= c.yi & c.yi >= yTileMin & xTileMax >= c.xi & c.xi >= xTileMin)
 
-  def tileNeighbours(tile: TileT)(implicit build: ArrBuild[TileT, Refs[TileT]]): Refs[TileT] = tileNeighboursCoods(tile.cood).map(getTile)
+  def tileNeighbours(tile: TileT)(implicit build: ArrBuild[TileT, Arr[TileT]]): Arr[TileT] = tileNeighboursCoods(tile.cood).map(getTile)
 
   @deprecated def findPathOld(startCood: Cood, endCood: Cood, fTerrCost: (TileT, TileT) => OptInt): Option[List[Cood]] =
   {
@@ -87,7 +87,7 @@ class HexGridRegOld[TileT <: TileOld, SideT <: TileSideOld](xTileMin: Int, xTile
       //if (curr.tile.cood == endCood) found = true
       open = open.filterNot(_ == curr)
       closed ::= curr
-      val neighbs: Refs[TileT] = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      val neighbs: Arr[TileT] = this.tileNeighbours(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
       neighbs.foreach { tile =>
         fTerrCost(curr.tile, tile) match
         {

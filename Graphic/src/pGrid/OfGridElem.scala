@@ -18,14 +18,14 @@ trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[Ti
   /** The number of pixels per tile, centre to centre */
   def tScale: Double = psc * grid.xStep
 
-  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale) cObjs else Refs()
+  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElems): GraphicElems = if (tScale > ifScale) cObjs else Arr()
 
-  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElems = if (tScale > ifScale) cObj.toRefs else Refs()
+  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElems = if (tScale > ifScale) cObj.toRefs else Arr()
 
-  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElems = if (tScale > ifScale && b) cObjs.toRefs else Refs()
+  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElems = if (tScale > ifScale && b) cObjs.toRefs else Arr()
 
   def ifScaleOptObjs[A >: Null <: AnyRef](ifScale: Double, eA: OptRef[A])(f: A => GraphicElems): GraphicElems =
-    if (tScale < ifScale) Refs() else eA.fld(Refs(), f(_))
+    if (tScale < ifScale) Arr() else eA.fld(Arr(), f(_))
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
@@ -44,9 +44,9 @@ trait OfSide[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT,
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
   def vertDispLine: Line2 = coodsLine.toLine2(coodToDispVec2)
 
-  def ifTiles[A <: AnyRef](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): Refs[A] =
+  def ifTiles[A <: AnyRef](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): Arr[A] =
     grid.optSidesTiles(cood) match
-  { case (Some(t1), Some(t2)) => if (f(t1, t2)) Refs(fA(t1, t2)) else Refs()
-    case _ => Refs()
+  { case (Some(t1), Some(t2)) => if (f(t1, t2)) Arr(fA(t1, t2)) else Arr()
+    case _ => Arr()
   }
 }

@@ -11,9 +11,9 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   var statusText = "Right click to set action to Move. Left to set action to CycleColour. Press Turn button or middle click for next turn."
   
   def cmdDisp = cmd match
-  { case Move(v) => Refs(Arrow.draw(state.posn, v))
-    case CycleColour => Refs(state.drawNextColour)
-    case _ => Refs()
+  { case Move(v) => Arr(Arrow.draw(state.posn, v))
+    case CycleColour => Arr(state.drawNextColour)
+    case _ => Arr()
   }
 
   /** frame refers to the screen output. In the same way that a movie is constructed from a number of still frames. So we create the "action" in a
@@ -21,7 +21,7 @@ case class LessonE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
    * it is simpler to create the whole screen out, to create each from a blank slate so to speak rather than just painting the parts of the dsplay
    * that have been modified. */
   def frame(): Unit =
-  { reTop(Refs(StdButton.turn(state.turnNum + 1), status))
+  { reTop(Arr(StdButton.turn(state.turnNum + 1), status))
     mainRepaint(state.fillRect +: cmdDisp)
   }
   def newTurn(): Unit = { state = state.turn(cmd); cmd = NoMove; frame() }

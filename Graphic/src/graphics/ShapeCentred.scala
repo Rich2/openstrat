@@ -10,18 +10,18 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transer
   
   def parentAll(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String,
                    textAlign: TextAlign = CenAlign): ShapeParent =
-    ShapeParent(cen, segs, evObj, Refs(ShapeFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
+    ShapeParent(cen, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
 
   def allElems(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, fontSize: Int, str: String, textAlign: TextAlign = CenAlign):
     ShapeAll = ShapeAll(segs, evObj, str, fillColour, fontSize, lineWidth, lineColour)
 
-   def fixed(evObj: Any, elems: Refs[PaintElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
+   def fixed(evObj: Any, elems: Arr[PaintElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): UnScaledShape =
-      UnScaledShape(cen, segs, evObj, Refs(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
+      UnScaledShape(cen, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
          textSize: Int, str: String, textAlign: TextAlign = CenAlign): UnScaledShape =
-      UnScaledShape(cen, segs, evObj, Refs(
+      UnScaledShape(cen, segs, evObj, Arr(
             ShapeFillDraw(segs, fillColour, lineWidth, lineColour),
             TextGraphic(str, textSize, Vec2Z, lineColour, textAlign)))   
-   def fillFixed(evObj: AnyRef, fillColour: Colour): UnScaledShape = UnScaledShape(cen, segs, evObj, Refs(ShapeFill(segs, fillColour)))
+   def fillFixed(evObj: AnyRef, fillColour: Colour): UnScaledShape = UnScaledShape(cen, segs, evObj, Arr(ShapeFill(segs, fillColour)))
 }

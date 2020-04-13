@@ -27,7 +27,7 @@ case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasNoPanels("Colour 
    
   val cols2 = cols.toRefs.iFlatMap{ (pair, i) =>
     val offset = - 35 * i
-    Refs(pair._1.slateY(offset), pair._2.slateY(offset))
+    Arr(pair._1.slateY(offset), pair._2.slateY(offset))
   }
   repaint(cols2)
 }

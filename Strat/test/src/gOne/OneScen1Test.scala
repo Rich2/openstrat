@@ -7,9 +7,9 @@ object OneScen1Test  extends TestSuite
 {
   val os1 = OneScen1
   val g1 = os1.grid
-  val os2 = os1.turn(Refs())
+  val os2 = os1.turn(Arr())
   val g2 = os2.grid
-  val os3 = os1.turn(Refs(HTileAndStep(4, 4, HTStepUL), HTileAndStep(4, 8, HTStepUL), HTileAndStep(6, 10, HTStepLt)))
+  val os3 = os1.turn(Arr(HTileAndStep(4, 4, HTStepUL), HTileAndStep(4, 8, HTStepUL), HTileAndStep(6, 10, HTStepLt)))
   val g3 = os3.grid
 
   val tests = Tests

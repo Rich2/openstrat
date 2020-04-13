@@ -17,20 +17,20 @@ case class Y1783Gui(canv: CanvasPlatform, scen: NapScen) extends EarthAllGui("17
       val poly = vertDispVecs.fillActive(colour, tile)       
 
       val textU: GraphicElems = etog.ifScaleCObjs(68, tile.lunits match
-        { case RefsHead(head) if tScale > 68 => Refs(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
+        { case RefsHead(head) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
           case _ =>
-          { val strs: Refs[String] = Refs(yxStr, cenLL.degStr)
+          { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)
           }
         })         
-        Refs(poly) ++ textU
+        Arr(poly) ++ textU
      }
    
    def fSide: OfESide[NTileOld, ESideOldOnly] => GraphicElems = ofs =>
      { import ofs._
        val line = ifScaleCObjs(60, side.terr match
          { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-           case Straitsold => Refs(vertDispLine.draw(6, Colour.Blue))
+           case Straitsold => Arr(vertDispLine.draw(6, Colour.Blue))
          })      
        line
      } 

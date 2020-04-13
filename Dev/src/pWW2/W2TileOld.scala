@@ -7,7 +7,7 @@ class W2TileOld(val x: Int, val y: Int, val terr: WTile) extends ETileOld
 {
   type FromT = WTile
   def fromT: WTile = terr
-  var lunits: Refs[Army] = Refs()
+  var lunits: Arr[Army] = Arr()
   override def toString: String = W2TileOld.persistImplicit.show(this)
 }
 

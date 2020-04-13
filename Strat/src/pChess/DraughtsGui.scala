@@ -19,7 +19,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
    repaint()
    thisTop()
  })
-  def thisTop(): Unit = reTop(Refs(bTurn, status))
+  def thisTop(): Unit = reTop(Arr(bTurn, status))
   thisTop()
 
   def frame = (tiles).gridTrans(scale)

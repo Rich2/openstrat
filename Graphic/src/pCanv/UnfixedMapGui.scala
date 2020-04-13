@@ -22,5 +22,5 @@ abstract class UnfixedMapGui(title: String) extends MapGui(title)
   val bDown = clickButton("Dn", downCmd)
   val bRight = clickButton("Rt", rightCmd)
    
-  val guButs: Refs[GraphicActive] = Refs(bIn, bOut, bLeft, bRight, bDown, bUp)
+  val guButs: Arr[GraphicActive] = Arr(bIn, bOut, bLeft, bRight, bDown, bUp)
 }

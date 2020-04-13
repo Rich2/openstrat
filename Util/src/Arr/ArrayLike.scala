@@ -87,7 +87,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
-    var errs: Refs[String] = Refs()
+    var errs: Arr[String] = Arr()
     while(count < length & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
@@ -97,7 +97,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   { var acc: List[B] = Nil
     var continue = true
     var count = 0
-    var errs: Refs[String] = Refs()
+    var errs: Arr[String] = Arr()
     while(count < length & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))

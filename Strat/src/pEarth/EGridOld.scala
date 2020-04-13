@@ -59,7 +59,7 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridOld.coodToVec2(vc))))
   }
 
-  def ofETilesFold[R](eg: EarthGui, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
+  def ofETilesFold[R](eg: EarthGuiOld, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
   {
     var acc: R = emptyVal
     foreachTilesCoodAll{ tileCood =>
@@ -69,19 +69,19 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     acc
   }
 
-  def eGraphicElems(eg: EarthGui, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems =
+  def eGraphicElems(eg: EarthGuiOld, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems): GraphicElems =
   {
     val acc: Buff[GraphicElem] = Buff()
     foreachTilesCoodAll { tileCood =>
       val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-      val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Refs[GraphicElem]())
+      val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Arr[GraphicElem]())
       acc ++= newRes.unsafeArr
     }
 
     val sideAcc: Buff[GraphicElem] = Buff()
     foreachSidesCoodAll { sideCood =>
       val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
-      val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Refs[GraphicElem]())
+      val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Arr[GraphicElem]())
       sideAcc ++= newRes.unsafeArr
     }
     (acc ++ sideAcc).toRefs

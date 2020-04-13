@@ -69,7 +69,7 @@ object Statement
     def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
   }
 
-  implicit class RefsImplicit(statementRefs: Refs[Statement]) extends TextSpan
+  implicit class RefsImplicit(statementRefs: Arr[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
     def startPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.head.startPosn)
     def endPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.last.endPosn)
@@ -129,7 +129,7 @@ object Statement
 
 /** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
  *  on the last Clauses is optional. */
-case class ClausedStatement(clauses: Refs[Clause], optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
+case class ClausedStatement(clauses: Arr[Clause], optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
 { def expr: Expr = ??? //ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head
   def endMem: TextSpan = optSemi.fld[TextSpan](clauses.last, st => st)

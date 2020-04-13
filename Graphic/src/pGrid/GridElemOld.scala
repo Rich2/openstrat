@@ -50,7 +50,7 @@ object SideOldBare
   }
 }
 
-case class TileRow[T <: AnyRef](yRow: Int, xStart: Int, yStart: Int, values: Refs[Multiple[T]])
+case class TileRow[T <: AnyRef](yRow: Int, xStart: Int, yStart: Int, values: Arr[Multiple[T]])
 
 object TileRow {
   implicit def eqImplicit[T <: AnyRef](implicit ev: Eq[T]): Eq[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)

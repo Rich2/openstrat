@@ -30,7 +30,7 @@ object EMon
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
 
-  implicit class refsImplicit[A <: AnyRef](thisEMon: EMon[Refs[A]])
+  implicit class refsImplicit[A <: AnyRef](thisEMon: EMon[Arr[A]])
   {
     def toERefsSpec: ERefsSpec[A] = thisEMon match
     {

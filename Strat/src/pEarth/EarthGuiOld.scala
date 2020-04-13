@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import geom._, pCanv._
 
-abstract class EarthGui(title: String) extends UnfixedMapGui(title)
+abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
 {
   var focus: LatLong = LatLong.deg(50, 0)   
   /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */
@@ -73,10 +73,10 @@ abstract class EarthGui(title: String) extends UnfixedMapGui(title)
   def loadCmd = (mb: MouseButton) => { loadView; updateView() }  
   def bSave = clickButton("save", saveCmd)
   def bLoad = clickButton("load", loadCmd)
-  def eaButts: Refs[GraphicBounded] =  Refs(bSave, bLoad)
+  def eaButts: Arr[GraphicBounded] =  Arr(bSave, bLoad)
   def cmd00: MouseCmd = mb => { focus = LatLong0; focusUp = true; updateView }
   def b00: GraphicBounded = clickButton("00", cmd00)
-  override def eTop(): Unit = reTop(guButs ++ Refs(b00, bInv) ++ eaButts +- status)
+  override def eTop(): Unit = reTop(guButs ++ Arr(b00, bInv) ++ eaButts +- status)
      
   def ls: GraphicElems
    

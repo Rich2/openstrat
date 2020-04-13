@@ -34,7 +34,7 @@ object Multiple
 
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 
-  implicit class RefsImplicit[A](thisRefs: Refs[Multiple[A]])
+  implicit class RefsImplicit[A](thisRefs: Arr[Multiple[A]])
   {
     def singlesLen: Int = thisRefs.sumBy(_.num)
   }

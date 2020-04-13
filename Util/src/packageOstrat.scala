@@ -6,12 +6,12 @@
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
   type Buff[A] = ArrayBuffer[A]
-  type ERefs[A <: AnyRef] = EMon[Refs[A]]
-  type RefsMulti[A <: AnyRef] = Refs[Multiple[A]]
+  type ERefs[A <: AnyRef] = EMon[Arr[A]]
+  type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
   type PersistEq[A] = Persist[A] with Eq[A]
   type ShowEq[A] = Show[A] with Eq[A]
-  type AnyRefs = Refs[AnyRef]
-  type Strings = Refs[String]
+  type AnyRefs = Arr[AnyRef]
+  type Strings = Arr[String]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
   val Tan30 = 0.577350269f;
@@ -82,7 +82,7 @@ package object ostrat
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
 
-  def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](Refs(parseErr(fs.startPosn, detail)))
+  def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](Arr(parseErr(fs.startPosn, detail)))
 
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
@@ -227,11 +227,11 @@ package object ostrat
   }
 
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
-  { @inline def toRefs(implicit ct: ClassTag[A]): Refs[A] = new Refs[A](thisBuff.toArray[A])
-    def goodRefs(implicit ct: ClassTag[A]): Good[Refs[A]] = Good(new Refs(thisBuff.toArray))
-    def goodRefsSpec(implicit ct: ClassTag[A]): GoodRefsSpec[A] = GoodRefsSpec(new Refs(thisBuff.toArray))
+  { @inline def toRefs(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
+    def goodRefs(implicit ct: ClassTag[A]): Good[Arr[A]] = Good(new Arr(thisBuff.toArray))
+    def goodRefsSpec(implicit ct: ClassTag[A]): GoodRefsSpec[A] = GoodRefsSpec(new Arr(thisBuff.toArray))
 
-    def toReverseRefs(implicit ct: ClassTag[A]): Refs[A] =
+    def toReverseRefs(implicit ct: ClassTag[A]): Arr[A] =
     { val len = thisBuff.length
       val acc: Array[A] = new Array[A](len)
       var count = 0
@@ -240,12 +240,12 @@ package object ostrat
       { acc(count) = thisBuff(len - 1 - count)
         count += 1
       }
-      new Refs(acc)
+      new Arr(acc)
     }
   }
 
   implicit class IterableAnyRefImplicit[A <: AnyRef](thisIter: Iterable[A])(implicit ct: ClassTag[A])
-  { def toRefs: Refs[A] =
+  { def toRefs: Arr[A] =
     { val buff: Buff[A] = Buff()
       thisIter.foreach(buff.append)
       buff.toRefs

@@ -17,12 +17,12 @@ trait ExprCompound extends Expr with TextSpanCompound
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeq extends Expr
-{ def exprs: Refs[Expr]
+{ def exprs: Arr[Expr]
 }
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeqNonEmpty extends ExprCompound with ExprSeq
-{ def exprs: Refs[Expr]
+{ def exprs: Arr[Expr]
 }
 
 
@@ -36,44 +36,44 @@ trait ExprToken extends Expr with ClauseMemberToken
 }
 
 trait BlockRaw
-{ def statements: Refs[Statement]
+{ def statements: Arr[Statement]
  // def exprs: Refs[Expr] = statements.map(_.expr)
   def startMem = statements.head
   def endMem = statements.last
 }
 
 trait BlockStatements extends ExprSeqNonEmpty
-{ def statements: Refs[Statement]
-  def exprs: Refs[Expr] = statements.map(_.expr).asInstanceOf[Refs[Expr]]
+{ def statements: Arr[Statement]
+  def exprs: Arr[Expr] = statements.map(_.expr).asInstanceOf[Arr[Expr]]
   def startMem = statements.head
   def endMem = statements.last
 }
 
-case class FileStatements(statements: Refs[Statement]) extends BlockStatements
+case class FileStatements(statements: Arr[Statement]) extends BlockStatements
 { def exprName: String = "FileStatements"
 //  def startPosn: TextPosn = statements.head.startPosn
   //def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class StringStatements(statements: Refs[Statement]) extends BlockStatements
+case class StringStatements(statements: Arr[Statement]) extends BlockStatements
 { def exprName: String = "StringStatements"
   //def startPosn: TextPosn = statements.head.startPosn
   //def endPosn: TextPosn = statements.last.endPosn
 }
 
-case class ClausesExpr(exprs: Refs[Expr]) extends ExprSeqNonEmpty
+case class ClausesExpr(exprs: Arr[Expr]) extends ExprSeqNonEmpty
 { def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"
 }
 
-case class UnimplementedExpr(bMems: Refs[BlockMember]) extends ExprCompound
+case class UnimplementedExpr(bMems: Arr[BlockMember]) extends ExprCompound
 { def startMem = bMems.head
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
 }
 
-case class AlphaBracketExpr(name: IdentifierLowerToken, blocks: Refs[BracketedStatements]) extends ExprCompound
+case class AlphaBracketExpr(name: IdentifierLowerToken, blocks: Arr[BracketedStatements]) extends ExprCompound
 { def startMem = name
   def endMem = blocks.last
   override def exprName: String = "AlphaBracketExpr"

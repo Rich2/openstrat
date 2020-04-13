@@ -7,16 +7,16 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 {
   backColour = Gray
    
-  val tlFlags = Refs(Armenia, Austria, England, UnitedKingdom, Japan)
+  val tlFlags = Arr(Armenia, Austria, England, UnitedKingdom, Japan)
   val tlObjs = tlFlags.iMap((el, i) => el.parentStr.scale(100).topLeft.slate(canv.topLeft.subY(i * 110)))
 
-  val trFlags = Refs(Belgium, Chad, France)
+  val trFlags = Arr(Belgium, Chad, France)
   val trObjs = trFlags.iMap((el, i) => el.parentStr.scale(100).topRight.slate(canv.topRight.subY(i * 110)))
 
-  val blFlags = Refs(China, Italy)
+  val blFlags = Arr(China, Italy)
   val blObjs = blFlags.iMap((el, i) => el.parentStr.scale(100).bottomLeft.slate(canv.bottomLeft.addY(i * 110)))
 
-  val brFlags = Refs(Germany, Germany1871, Ireland)
+  val brFlags = Arr(Germany, Germany1871, Ireland)
   val brObjs = brFlags.iMap((el, i) => el.parentStr.scale(100).bottomRight.slate(canv.bottomRight.addY(i * 110)))
 
   //val cenFlags = Refs(UnitedStates, Russia, USSR)
@@ -24,7 +24,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   //val myr = Rectangle(2).fillTextActive(Violet, "Hello", "This Text").scale(400).slateY(300)
 
   val starCen = 300 vv 0
-  val star = Refs(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
+  val star = Arr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
   val us = UnitedStates.parentStr.scale(500)//.slate(-300, 350)
   //val us2 = UnitedStates.inset.scale(500)

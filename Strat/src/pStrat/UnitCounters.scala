@@ -11,6 +11,6 @@ object UnitCounters
     val line2 = Line2(rect(1), rect(3))
     val linesColour = fillColour.contrast2(backgroundColour)
     val subj = rect.parentFillDraw(evObj, fillColour, 1, linesColour)
-    subj.addElems(Refs(Line2s(line1, line2).draw(1, linesColour)))
+    subj.addElems(Arr(Line2s(line1, line2).draw(1, linesColour)))
   }  
 }

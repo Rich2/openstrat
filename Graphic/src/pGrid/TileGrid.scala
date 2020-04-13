@@ -92,7 +92,7 @@ trait TileGrid
       f(roord, vvs.toPolygon)
     }
 
-  def activeTiles: Refs[PolyActiveOnly] = map{ roord =>
+  def activeTiles: Arr[PolyActiveOnly] = map{ roord =>
     val vcs = tileVertRoords(roord)
     val vvs = vcs.map(r => roordToVec2(r))
     vvs.toPolygon.active(roord.toHexTile)
@@ -122,7 +122,7 @@ trait TileGrid
 
   def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
 
-  def cenSideVertRoordText: Refs[PaintElem] =
+  def cenSideVertRoordText: Arr[PaintElem] =
   {
     val sideTexts = sidesMap{ r =>  TextGraphic(r.ycStr, 22, roordToVec2(r), Colour.Blue) }
     val vertTexts = vertsMap{ r =>  TextGraphic(r.ycStr, 20, roordToVec2(r), Colour.Red) }
@@ -153,10 +153,10 @@ trait TileGrid
   def tileVertRoords(roord: Roord): Roords
 
   /** Method may be removed, probably better to dispatch from the Arr, with the grid as parameter. */
-  def setTile[A <: AnyRef](roord: Roord, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(roord), value)
+  def setTile[A <: AnyRef](roord: Roord, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(index(roord), value)
 
   /** Method may be removed, probably better to dispatch from the Arr, with the grid as parameter. */
-  def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Refs[A]): Unit = arr.unsafeSetElem(index(xi, yi), value)
+  def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(index(xi, yi), value)
 
   def isTileRoord(r: Roord): Boolean
   def tileExists(r: Roord): Boolean = ???

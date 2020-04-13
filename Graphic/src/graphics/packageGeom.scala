@@ -21,7 +21,7 @@ package object geom
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type SSet[A] = scala.collection.SortedSet[A]
-  type GraphicElems = Refs[GraphicElem]
+  type GraphicElems = Arr[GraphicElem]
   /** Hopefully this existential syntax baggage will be gone in dotty */
   type CanvO = GraphicElem
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
@@ -78,6 +78,6 @@ package object geom
   /** 180 degrees or Pi radians */
   def deg180: Angle = Angle(Pi)
 
-  def displayRowGraphics(leftPt: Vec2, actives: Refs[GraphicBounded], margin: Double = 10): Refs[GraphicBounded] =
+  def displayRowGraphics(leftPt: Vec2, actives: Arr[GraphicBounded], margin: Double = 10): Arr[GraphicBounded] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.width / 2), x + head.width + margin))
 }

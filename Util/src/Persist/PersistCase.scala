@@ -17,9 +17,9 @@ trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
 class Persist1[A1, R](typeStr: String, name1: String, fArg1: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1], eq1: Eq[A1]) extends
   Show1(typeStr, name1,fArg1: R => A1) with PersistCase[R]
 {
-  def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses1(newT, clauses)
+  def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses1(newT, clauses)
 
-  def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1) match
+  def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1) match
   {
     case (Refs1(s1), _) => s1.errGet[A1].map(g1 => newT(g1))
     case (Refs0(), Some(d1)) => Good(newT(d1))

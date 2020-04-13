@@ -17,17 +17,17 @@ trait UnScaled extends Any with Transer
 trait UnScaledGraphicElem extends GraphicElem
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
-case class UnScaledShape(referenceVec: Vec2, relShape: Shape, pointerId: Any, elems: Refs[PaintElem]) extends
+case class UnScaledShape(referenceVec: Vec2, relShape: Shape, pointerId: Any, elems: Arr[PaintElem]) extends
 UnScaledGraphicElem with ShapeActive
 { def shape: Shape = relShape.slate(referenceVec)
   def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, pointerId, elems)
-  def addElems(newElems: Refs[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerId, elems ++ newElems)
+  def addElems(newElems: Arr[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerId, elems ++ newElems)
   def mutObj(newObj: AnyRef): UnScaledShape = UnScaledShape(referenceVec, shape, newObj, elems)
 }
 
 object UnScaledShape
 { def fillDraw(referenceVec: Vec2, segs: Shape, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
-  UnScaledShape = UnScaledShape(referenceVec, segs, evObj, Refs(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
+  UnScaledShape = UnScaledShape(referenceVec, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
 }
 
 /** This is not a Polygon but should fTrans to Polygon. */
