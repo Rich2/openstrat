@@ -18,6 +18,8 @@ trait TileGrid
   def numOfTiles: Int
   def yTileMin: Int
   def yTileMax: Int
+  def ySideMin: Int = yTileMin - 1
+  def ySideMax: Int = yTileMax + 1
 
   /** The centre of the grid in terms of the x Axis. */
   def xCen: Double
@@ -133,9 +135,6 @@ trait TileGrid
   /** New Tile immutable Tile Arr of Opt data values. */
   def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
-  /** New immutable Arr of Side Boolean data. */
-  def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
-
   def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
   def cenRoordIndexTexts(textSize: Int = 26) = iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r)))
 
@@ -179,10 +178,12 @@ trait TileGrid
 
   /**************************************************************************************************/
   /* Methods that operate on tile sides. */
+  /** foreach side's Roords, calls the effectful function. */
+  def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1)(f)
   def sideInnerRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin, yTileMax)(f)
-
+  def rowForeachSide(y: Int)(f: Roord => Unit): Unit = ???
   def numOfSides: Int = sideRoords.length
 
   /** Gives all the sideRoords of the grid with out duplicates. */
@@ -207,11 +208,13 @@ trait TileGrid
 
   def sideIndex(roord: Roord): Int = ???
 
-  /** foreach side's Roords, calls the effectful function. */
-  def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
+
 
   /** Maps from each sides Roord to an ArrBase of A. */
   def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) = sideRoords.map(r => f(r))
+
+  /** New immutable Arr of Side Boolean data. */
+  def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
