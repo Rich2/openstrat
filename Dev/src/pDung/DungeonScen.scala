@@ -15,12 +15,12 @@ trait DungeonScen
 object Dungeon1 extends DungeonScen
 { import SquareGrid._
   implicit val grid = SquareGrid(4, 26, 2, 46)
-  val terrs = grid.newTilesRefInit[DungTerr](Wall)
+  val terrs = grid.newTileArr[DungTerr](Wall)
   terrs.setColumn(22, 8,  Open * 2)
   terrs.setTerrPath(6 rr 4, Open, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)
   terrs.sqGridSetRect(18, 24, 16, 36, Open)
 
-  val characs = grid.newTilesOptRef[CharacPosn]
+  val characs = grid.newTileArrOpt[CharacPosn]
   posn(CharacA, 8, 22, SFaceUp)
   posn(CharacB, 24, 18, SFaceRt)
   posn(CharacY, 24, 22, SFaceUR)

@@ -14,6 +14,14 @@ case class HexTile(y: Int, c: Int) extends Tile
   def adjOf(operand: Roord): OptRef[HTStep] = htStepSomes.optFind(_.roord == roord - operand)
 }
 
+case class SqTile(y: Int, c: Int) extends Tile
+{
+  //def roord: Roord = Roord(y, c)
+  override def toString: String = "Tile".appendParenthSemis(y.toString, c.toString)
+  //def adjORCenOf(operand: Roord): OptRef[HTStepLike] = htSteps.optFind(_.roord == roord - operand)
+  //def adjOf(operand: Roord): OptRef[HTStep] = htStepSomes.optFind(_.roord == roord - operand)
+}
+
 case class HTileAndStep(y1: Int, c1: Int, step: HTStep)
 { def r1: Roord = Roord(y1, c1)
   def r2: Roord = r1.step(step)

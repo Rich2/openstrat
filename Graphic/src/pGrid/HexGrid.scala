@@ -32,6 +32,13 @@ trait HexGrid extends TileGrid
     res
   }
 
+  /** The active tiles without any PaintElems. */
+  override def activeTiles: Arr[PolyActiveOnly] = map{ roord =>
+    val vcs = tileVertRoords(roord)
+    val vvs = vcs.map(r => roordToVec2(r))
+    vvs.toPolygon.active(roord.toHexTile)
+  }
+
   /** Gives a Coods Seq of Cood along a horisonatal line */
   def SidesHorr(y: Int, xStart: Int, xEnd : Int): Roords =
   { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2

@@ -14,7 +14,7 @@ object EuropeNW extends Area1("EuropeNW", 20 ll 0)
 object EuropeNWTerr 
 {
   implicit val grid = EuropeNWGrid
-  val terrs = grid.newTilesRefInit[WTile](Ocean)
+  val terrs = grid.newTileArr[WTile](Ocean)
 
 //  grid.setSidesAll(SideNone)(fSide)
 //  grid.fSetSide(181, 477, Straitsold)(fSide)

@@ -23,6 +23,13 @@ case class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
   override def bottom: Double = yTileMin - 1
   override def tileVertRoords(roord : Roord): Roords = SquareGrid.vertRoordsOfTile(roord)
   def isTileRoord(r: Roord): Boolean = r.y.isEven & r.c.isEven
+
+  /** The active tiles without any PaintElems. */
+  override def activeTiles: Arr[PolyActiveOnly] = map{ roord =>
+    val vcs = tileVertRoords(roord)
+    val vvs = vcs.map(r => roordToVec2(r))
+    vvs.toPolygon.active(roord.toHexTile)
+  }
 }
 
 object SquareGrid

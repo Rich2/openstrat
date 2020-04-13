@@ -82,49 +82,51 @@ trait TileGrid
     build.buffToArr(buff)
   }
 
-  /** foreachs over each tile centre Vec2. */
-  def foreachVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
+  /** foreachs over each tile's Roord and its centre Vec2. */
+  def foreachRVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
-  def mapPolygons[A, ArrT <: ArrBase[A]](f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  /** maps over each tile's Roord and its Polygon. */
+  def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, Polygon) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map{ roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToVec2(c))
       f(roord, vvs.toPolygon)
     }
 
-  def activeTiles: Arr[PolyActiveOnly] = map{ roord =>
-    val vcs = tileVertRoords(roord)
-    val vvs = vcs.map(r => roordToVec2(r))
-    vvs.toPolygon.active(roord.toHexTile)
-  }
+  /** The active tiles without any PaintElems. */
+  def activeTiles: Arr[PolyActiveOnly]
 
-  def newTileArrayInit[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =
+  /** New mutable Array of Tile data. All tiles set to an initial value. */
+  def newTileArray[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =
   { val res = new Array[A](numOfTiles)
     res.mapInPlace(_ => value)
     res
   }
 
-  def newTilesArrayList[A](value: List[A] = Nil): Array[List[A]] =
+  /** New mutable Array of Tile data Lists. */
+  def newTileArrayList[A](value: List[A] = Nil): Array[List[A]] =
   { val res = new Array[List[A]](numOfTiles)
     res.mapInPlace(_ => value)
     res
   }
 
-  def newTilesRefInit[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesRef[A] =
+  /** New immutable Arr of Tile data. */
+  def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesRef[A] =
   { val res = TilesRef[A](numOfTiles)
     res.mutSetAll(value)
     res
   }
 
-  def newTilesOptRef[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
+  /** New Tile immutable Tile Arr of Opt data values. */
+  def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
-  def newSidesBoolean: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
+  /** New immutable Arr of Side Boolean data. */
+  def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 
   def cenRoordTexts(textSize: Int = 26) = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r)))
 
   def cenSideVertRoordText: Arr[PaintElem] =
-  {
-    val sideTexts = sidesMap{ r =>  TextGraphic(r.ycStr, 22, roordToVec2(r), Colour.Blue) }
+  { val sideTexts = sidesMap{ r =>  TextGraphic(r.ycStr, 22, roordToVec2(r), Colour.Blue) }
     val vertTexts = vertsMap{ r =>  TextGraphic(r.ycStr, 20, roordToVec2(r), Colour.Red) }
     cenRoordTexts() ++ sideTexts ++ vertTexts
   }
@@ -188,9 +190,10 @@ trait TileGrid
 
   def sideIndex(roord: Roord): Int = ???
 
+  /** foreach side's Roords, calls the effectful function. */
   def sidesForeach(f: Roord => Unit): Unit = sideRoords.foreach(f)
 
-  /** Maps from each sides roord to an Arr of A. */
+  /** Maps from each sides Roord to an ArrBase of A. */
   def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) = sideRoords.map(r => f(r))
 
 /**************************************************************************************************/

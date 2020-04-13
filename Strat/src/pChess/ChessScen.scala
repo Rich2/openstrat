@@ -12,7 +12,7 @@ object ChessStart extends ChessScen
 {
   val turnSeg = 0
 
-  val pieces = grid.newTilesOptRef[PPiece]
+  val pieces = grid.newTileArrOpt[PPiece]
   val rp = Arr(Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook)
   rp.iForeach{(p, i) => pieces.mutSetSome(2, i * 2 + 2, PPiece(PWhite, p)) }
   iToForeach(2, 16, 2)(c => pieces.mutSetSome(4, c, PPiece(PWhite, Pawn)))

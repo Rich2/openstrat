@@ -8,7 +8,7 @@ trait OneScen
   def oPlayers: TilesOptRef[Player]
 
   def turn(hts: Arr[HTileAndStep]): OneScen =
-  { val resolve: TilesRef[List[HTileAndStep]] = grid.newTilesRefInit(Nil)//  .newArrayListSetDepr()
+  { val resolve: TilesRef[List[HTileAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
     hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
     val resValue: TilesOptRef[Player] = oPlayers.clone
 
@@ -36,7 +36,7 @@ object OneScen
 
 object OneScen1 extends OneScenStart
 { implicit val grid = new HexGridReg(2, 6, 2, 10)
-  val oPlayers = grid.newTilesOptRef[Player]
+  val oPlayers = grid.newTileArrOpt[Player]
   oPlayers.mutSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
