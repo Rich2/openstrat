@@ -6,7 +6,19 @@ package pGrid
 class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends HexGrid
 {
   override def numOfRows: Int = indexArr.length / 2
-  def index(y: Int, c: Int): Int = iUntilFoldInt(yTileMin, y, 2, (c - cRowStart(y)) / 4 ) { (acc, y) =>  acc + cRowLen(y) }
+  val tileIndexArray: Array[Int] =
+  {
+    val res = new Array[Int](numOfRows)
+    var count = 0
+    iUntilForeach(0, numOfRows){ i =>
+      res(i) = count
+      val y = yTileMin + i * 2
+      count += cRowLen(y)
+    }
+    res
+  }
+
+  def index(y: Int, c: Int): Int = tileIndexArray((y - yTileMin) / 2)  + (c - cRowStart(y)) / 4
   def numOfTiles: Int = iToFoldInt(yTileMin, yTileMax, 2) { (acc, y) => acc + cRowLen(y) }
   def cRowStart(y: Int): Int = indexArr(y - yTileMin)
   def cRowEnd(y: Int): Int = indexArr(y - yTileMin + 1)
