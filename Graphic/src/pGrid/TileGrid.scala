@@ -15,6 +15,7 @@ import geom._, reflect.ClassTag, Colour._
  *  Stars on the American flag. */
 trait TileGrid
 { def numOfRows: Int
+  def numOfSideRows: Int = numOfRows * 2 + 1
   def numOfTiles: Int
   def yTileMin: Int
   def yTileMax: Int

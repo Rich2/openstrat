@@ -6,6 +6,9 @@ import pCanv._, geom._, pGrid._
 case class IrrGui(canv: CanvasPlatform) extends CanvasNoPanels("Irregular Hex Grid Gui")
 { implicit val grid = Irr1.grid
   debvar(grid.cTileMin)
+  debvar(grid.numOfTiles)
+  debvar(grid.numOfSides)
+  deb(grid.sideIndexArray.str)
   val scale = grid.fullDisplayScale(width, height)
   val sld: LinesDraw = grid.sidesDraw(2.0)
   val csvr = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts()// cenSideVertRoordText

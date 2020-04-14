@@ -20,6 +20,25 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
 
   def index(y: Int, c: Int): Int = tileIndexArray((y - yTileMin) / 2)  + (c - cRowStart(y)) / 4
   def numOfTiles: Int = iToFoldInt(yTileMin, yTileMax, 2) { (acc, y) => acc + cRowLen(y) }
+
+  val sideIndexArray: Array[Int] =
+  {
+    val res = new Array[Int](ySideMax - ySideMin + 1)
+    var count = 0
+    iUntilForeach(0, numOfSideRows){ i =>
+      res(i) = count
+      val y = ySideMin + i //* 2
+      val rowLen: Int = y match {
+        case y if y == ySideMax => (cRowEnd(y - 1) - cRowStart(y - 1)) / 2 + 2
+        case y if y == ySideMin => (cRowEnd(y + 1) - cRowStart(y + 1)) / 2 + 2
+        case y if y.isEven => (cRowEnd(y) - cRowStart(y)) / 4 + 2
+        case y => (cRowEnd(y - 1).max(cRowEnd(y + 1)) - cRowStart(y - 1).min(cRowStart(y + 1))) / 2 + 2
+      }
+      count += rowLen.max0
+    }
+    res
+  }
+
   def cRowStart(y: Int): Int = indexArr(y - yTileMin)
   def cRowEnd(y: Int): Int = indexArr(y - yTileMin + 1)
 
