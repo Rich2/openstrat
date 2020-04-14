@@ -3,7 +3,7 @@ package pEarth
 package pEurope
 import pGrid._, WTile._
 
-object EuropeNE extends E80Data
+object EuropeNETerr extends E80Data
 {
   implicit val grid: HexGridIrr = EuropeNEGrid
   val terrs: TilesRef[WTile] = grid.newTileArr[WTile](Ocean)

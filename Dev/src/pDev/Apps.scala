@@ -10,27 +10,30 @@ object Apps
       ("2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
       ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
       ("4", (pSpace.Planets(_), "JavaFx Planets")),
-      ("5", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 466 rr 202), "JavaFx NW Wurope Grid")),
+
       ("6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
-      ("7", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
+      ("7", (pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
       ("8", (ColourGen(_), "JavaFx Some Colours")),
       ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
       ("10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
-      ("11", (new pChess.DraughtsGui(_, pChess.DraughtsStart), "Draughts")),
+      ("11", (pChess.DraughtsGui(_, pChess.DraughtsStart), "Draughts")),
 
       ("13", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "JavaFx Formation")),
-      ("14", (new pReactor.ReactorGUI(_), "reactor")),
-      ("15", (new pChess.ChessGui(_, pChess.ChessStart), "Chess")),
-      ("16", (new pFlags.FlagSelectorGUI(_), "Flag Fun")),
+      ("14", (pReactor.ReactorGUI(_), "reactor")),
+      ("15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
+      ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
       ("17", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
+
+      ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 466 rr 202), "JavaFx NW Wurope Grid")),
+      ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerr, 456 rr 388), "JavaFx NE Wurope Grid")),
 
       ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
       ("G2", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
       ("G3", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
 
-      ("Z1", (new pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
-      ("Z2", (new pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
-      ("Z3", (new pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
+      ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
+      ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
+      ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
       
       ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")), //Static Graphics
       ("A2", (learn.LessonA2(_), "JavaFx Demonstration Canvas 2")),
