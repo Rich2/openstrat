@@ -15,10 +15,8 @@ object EuropeNWTerr extends E80Data
 {
   implicit val grid: HexGridIrr = EuropeNWGrid
   val terrs = grid.newTileArr[WTile](Ocean)
-
-//  grid.setSidesAll(SideNone)(fSide)
-//  grid.fSetSide(181, 477, Straitsold)(fSide)
-//  grid.fSetSide(205, 463, Straitsold)(fSide)
+  val sTerrs = grid.newSideBooleans
+  sTerrs.gridSetTrues(477 rr 181, 463 rr 205)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setRow(yRow, cStart, tileValues :_*); () }
   gs(518, 230, taiga)
   gs(516, 232, taiga)

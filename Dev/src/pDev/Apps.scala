@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pDev
-import pCanv._, pStrat._
+import pCanv._, pStrat._, pGrid._
 
 object Apps
 {
@@ -10,7 +10,7 @@ object Apps
       ("2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
       ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
       ("4", (pSpace.Planets(_), "JavaFx Planets")),
-      ("5", (new pEarth.pEurope.NWGui(_), "JavaFx NW Wurope Grid")),
+      ("5", (new pEarth.pEurope.NWGui(_, pEarth.pEurope.EuropeNWTerr, 466 rr 202), "JavaFx NW Wurope Grid")),
       ("6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
       ("7", (new pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
       ("8", (ColourGen(_), "JavaFx Some Colours")),

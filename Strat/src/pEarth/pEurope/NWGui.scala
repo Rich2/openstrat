@@ -3,9 +3,9 @@ package pEarth
 package pEurope
 import pCanv._, pGrid._, geom._
 
-case class NWGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui")
+case class NWGui(canv: CanvasPlatform, scen: E80Data, cenRoord: Roord) extends CmdBarGui("North West Europe Gui")
 {
-  implicit val grid = EuropeNWTerr.grid
+  implicit val grid = scen.grid
   val scale = 40
   val terrs = EuropeNWTerr.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
@@ -14,6 +14,6 @@ case class NWGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui"
   var statusText = "Tile Grid for North West Europe"
   def thisTop(): Unit = reTop(Arr(status))
   thisTop()
-  def frame = (tiles +- sides).gridRoordTrans(466, 202, scale)
+  def frame = (tiles +- sides).gridRoordTrans(cenRoord, scale)
   mainRepaint(frame)
 }
