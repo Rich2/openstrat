@@ -2,7 +2,7 @@
 package ostrat
 package pEarth
 package pEurope
-import geom._, pGrid._, e80Grid._, WTile._
+import geom._, pGrid._, WTile._
 
 /** 20North, 0 East */
 object EuropeNW extends Area1("EuropeNW", 20 ll 0)
@@ -14,8 +14,8 @@ object EuropeNW extends Area1("EuropeNW", 20 ll 0)
 object EuropeNWTerr extends E80Data
 {
   implicit val grid: HexGridIrr = EuropeNWGrid
-  val terrs = grid.newTileArr[WTile](Ocean)
-  val sTerrs = grid.newSideBooleans
+  val terrs: TilesRef[WTile] = grid.newTileArr[WTile](Ocean)
+  val sTerrs: SideBooleans = grid.newSideBooleans
   sTerrs.gridSetTrues(477 rr 181, 463 rr 205)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setRow(yRow, cStart, tileValues :_*); () }
   gs(518, 230, taiga)

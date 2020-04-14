@@ -1,5 +1,5 @@
 package ostrat
-package e80Grid
+package pEarth
 import geom._, pGrid._, collection.mutable.ArrayBuffer
 
 trait EGrid80Km extends EGrid
