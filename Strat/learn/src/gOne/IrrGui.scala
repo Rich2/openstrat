@@ -12,6 +12,6 @@ case class IrrGui(canv: CanvasPlatform) extends CanvasNoPanels("Irregular Hex Gr
   val scale = grid.fullDisplayScale(width, height)
   val sld: LinesDraw = grid.sidesDraw(2.0)
   val csvr = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts()// cenSideVertRoordText
-  val frame = (sld +: csvr).gridTrans(scale)
+  val frame = (sld +: csvr).gridScale(scale)
   repaint(frame)
 }

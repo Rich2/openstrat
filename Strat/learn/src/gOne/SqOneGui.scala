@@ -8,6 +8,6 @@ case class SqOneGui(canv: CanvasPlatform) extends CanvasNoPanels("Game One Squar
   val scale = grid.fullDisplayScale(width, height)
   val sls: LinesDraw = grid.sidesDraw(2.0)
   val csvr = grid.cenSideVertRoordText
-  val frame = (sls +: csvr).gridTrans(scale)
+  val frame = (sls +: csvr).gridScale(scale)
   repaint(frame)
 }

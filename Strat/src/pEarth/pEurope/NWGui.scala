@@ -1,7 +1,7 @@
 package ostrat
 package pEarth
 package pEurope
-import pCanv._, pGrid._
+import pCanv._, pGrid._, geom._
 
 case class NWGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui")
 {
@@ -14,6 +14,6 @@ case class NWGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui"
   var statusText = "Tile Grid for North West Europe"
   def thisTop(): Unit = reTop(Arr(status))
   thisTop()
-  def frame = (tiles +- sides).gridTrans(scale)
+  def frame = (tiles +- sides).gridRoordTrans(466, 202, scale)
   mainRepaint(frame)
 }

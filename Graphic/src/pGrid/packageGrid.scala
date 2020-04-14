@@ -47,7 +47,12 @@ package object pGrid
   }
 
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGrid, ev: Trans[T])
-  { def gridTrans(scale: Double, offset: Vec2 = Vec2Z): T = value.trans(orig => (orig - offset - grid.cen) * scale)
+  { /** Translates Vec2s relative to Grid centre and then scales. */
+    def gridScale(scale: Double): T = value.trans(orig => (orig - grid.cen) * scale)
+
+    def gridTrans(offset: Vec2, scale: Double): T = value.trans(orig => (orig - offset - grid.cen) * scale)
+    def gridRoordTrans(focus: Roord, scale: Double): T = value.trans(orig => (orig - focus.gridVec2) * scale)
+    def gridRoordTrans(yFocus: Int, cFocus: Int, scale: Double): T = value.trans(orig => (orig - grid.roordToVec2(yFocus, cFocus)) * scale)
   }
 
   /** Not sure about the use of List in this class. */

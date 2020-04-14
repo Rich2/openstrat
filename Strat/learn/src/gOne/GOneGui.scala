@@ -62,7 +62,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
        case (_, h, _) => deb("Other; " + h.toString)
     }
   thisTop()
-  def frame = (tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridTrans(scale)
+  def frame = (tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

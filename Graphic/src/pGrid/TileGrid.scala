@@ -159,6 +159,9 @@ trait TileGrid
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
   def roordToVec2(roord: Roord): Vec2
 
+  /** Converts Roord, input as y and components, to a Vec2. For a square grid this will be a simple 1 to 1 map. */
+  def roordToVec2(y: Int, c: Int): Vec2 = roordToVec2(y rr c)
+
   /** Returns the index of an Array from its tile coordinate. */
   @inline def index(y: Int, c: Int): Int
 
