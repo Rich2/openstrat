@@ -10,12 +10,14 @@ import geom._
  * y and c to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the Cood components and the
  * Vec2 components. */
 final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
-{ def y: Int = bLong.>>(32).toInt
-  def c: Int = bLong.toInt
-  def _1 = y
-  def _2 = c
+{ @inline def y: Int = bLong.>>(32).toInt
+  @inline def c: Int = bLong.toInt
+  @inline def _1 = y
+  @inline def _2 = c
   def canEqual(a: Any) = a.isInstanceOf[Roord]
-  override def toString: String = "Roord".appendSemicolons(y.toString, c.toString)
+  @inline def yStr: String = y.toString
+  @inline def cStr: String = c.toString
+  override def toString: String = "Roord".appendSemicolons(yStr, cStr)
   def ycStr: String = y.str.appendCommas(c.str)
   def + (operand: Roord): Roord = Roord(y + operand.y, c + operand.c)
   def -(operand: Roord): Roord = Roord(y - operand.y, c - operand.c)
