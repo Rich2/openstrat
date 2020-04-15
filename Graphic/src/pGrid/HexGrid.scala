@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
 import geom._, math.sqrt
@@ -22,8 +23,7 @@ trait HexGrid extends TileGrid
   def isTileRoord(r: Roord): Boolean = r.y.div4Rem2 & r.c.div4Rem2 | r.y.div4Rem0 & r.c.div4Rem0
 
   override def sideIndex(inp: Roord): Int =
-  {
-    var count = 0
+  { var count = 0
     var res: Int = -1
     sidesForeach{r =>
       if (r == inp) res = count
@@ -38,6 +38,8 @@ trait HexGrid extends TileGrid
     val vvs = vcs.map(r => roordToVec2(r))
     vvs.toPolygon.active(roord.toHexTile)
   }
+
+  def roordDeciToVec2(rd: RoordDeci): Vec2 = rd.toVec2(roordToVec2)
 
   /** Gives a Coods Seq of Cood along a horisonatal line */
   def SidesHorr(y: Int, xStart: Int, xEnd : Int): Roords =
@@ -98,9 +100,15 @@ trait HexGrid extends TileGrid
   }
 
   def sidePolygon(sr: Roord): Polygon =
-  {
-    val (e1, e2) = HexGrid.sideRoordToLineEndRoords(sr)
-    ???
+  { val (topEnd, bottomEnd) = HexGrid.sideRoordToLineEndRoords(sr)
+    val vTop: Vec2 = roordToVec2(topEnd)
+    val vBottom: Vec2 = roordToVec2(bottomEnd)
+    val (leftCen, rightCen) = HexGrid.sideRoordToCens(sr)
+    val p1 = RoordDeci(topEnd, rightCen, 2).toVec2(roordToVec2)
+    val p2 = RoordDeci(bottomEnd, rightCen, 2).toVec2(roordToVec2)
+    val p3 = RoordDeci(bottomEnd, leftCen, 2).toVec2(roordToVec2)
+    val p4 = RoordDeci(topEnd, leftCen, 2).toVec2(roordToVec2)
+    Polygon(vTop, p1, p2, vBottom, p3, p4)
   }
 }
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
@@ -133,7 +141,10 @@ object HexGrid
   def sideRoordToRoordLine(y: Int, c: Int): RoordLine = orient(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
     RoordLine(y, c + 1, y, c - 1))
 
+  /** Top end, bottom end.  */
   def sideRoordToLineEndRoords(sideRoord: Roord): (Roord, Roord) = sideRoordToLineEndRoords(sideRoord.y, sideRoord.c)
+
+  /** Top end, bottom end.  */
   def sideRoordToLineEndRoords(y: Int, c: Int): (Roord, Roord) = orient(y, c, (y rr c - 1, y rr c + 1), (y + 1 rr c, y - 1 rr c),
     (y rr c + 1, y rr c - 1))
 
@@ -159,7 +170,7 @@ object HexGrid
     "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))*/
 
   @inline def orient[A](sideRoord: Roord, upRight: => A, rightSide: => A, downRight: => A): A =
-    orient(sideRoord, upRight, rightSide, downRight)
+    orient(sideRoord.y, sideRoord.c, upRight, rightSide, downRight)
 
   @inline def orient[A](y: Int, c: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
     (y.div4Rem1 && c.div4Rem1) || (y.div4Rem3 && c.div4Rem3), upRight,

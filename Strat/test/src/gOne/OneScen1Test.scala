@@ -44,7 +44,7 @@ object OneScen1Test  extends TestSuite
 
     "Sides" -
       {
-        g1.numOfSides ==> 33
+        g1.numOfSides ==> 35
       }
   }
 }
