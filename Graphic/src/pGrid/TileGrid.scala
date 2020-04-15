@@ -248,6 +248,13 @@ trait TileGrid
 /**************************************************************************************************/
 /* Methods that operate on tile vertices. */
 
+  /** foreach vertex's Roord, calls the effectful function. */
+  final def vertsForeach(f: Roord => Unit): Unit = vertRowForeach(y => rowForeachSide(y)(f))
+
+  final def vertRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1, 2)(f)
+
+  def rowForeachVert(y: Int)(f: Roord => Unit): Unit
+
   def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
     vertRoords.map(r => f(r))
 
