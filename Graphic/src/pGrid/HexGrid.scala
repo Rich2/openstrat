@@ -135,17 +135,17 @@ object HexGrid
   def sideRoordToLine(sideRoord: Roord): Line2 = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
 
-  def sideRoordToCens(sideRoord: Roord): (Roord, Roord) = orient(sideRoord, (sideRoord.subYC(1, 1) ,sideRoord.addYC(1, 1)),
+  def sideRoordToCens(sideRoord: Roord): (Roord, Roord) = sideOrient(sideRoord, (sideRoord.subYC(1, 1) ,sideRoord.addYC(1, 1)),
     (sideRoord.subC(2), sideRoord.addC(2)), (sideRoord.addYC(1, -1), sideRoord.addYC(-1, 1)))
 
-  def sideRoordToRoordLine(y: Int, c: Int): RoordLine = orient(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
+  def sideRoordToRoordLine(y: Int, c: Int): RoordLine = sideOrient(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
     RoordLine(y, c + 1, y, c - 1))
 
   /** Top end, bottom end.  */
   def sideRoordToLineEndRoords(sideRoord: Roord): (Roord, Roord) = sideRoordToLineEndRoords(sideRoord.y, sideRoord.c)
 
   /** Top end, bottom end.  */
-  def sideRoordToLineEndRoords(y: Int, c: Int): (Roord, Roord) = orient(y, c, (y rr c - 1, y rr c + 1), (y + 1 rr c, y - 1 rr c),
+  def sideRoordToLineEndRoords(y: Int, c: Int): (Roord, Roord) = sideOrient(y, c, (y rr c - 1, y rr c + 1), (y + 1 rr c, y - 1 rr c),
     (y rr c + 1, y rr c - 1))
 
   def roordToVec2Rel(roord: Roord, relPosn: Vec2): Vec2 = roordToVec2(roord.y, roord.c) -relPosn
@@ -169,16 +169,16 @@ object HexGrid
     (y.div4Rem1 && c.div4Rem3) || (y.div4Rem3 && c.div4Rem1), downRight(y, c),
     "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))*/
 
-  @inline def orient[A](sideRoord: Roord, upRight: => A, rightSide: => A, downRight: => A): A =
-    orient(sideRoord.y, sideRoord.c, upRight, rightSide, downRight)
+  @inline def sideOrient[A](sideRoord: Roord, upRight: => A, rightSide: => A, downRight: => A): A =
+    sideOrient(sideRoord.y, sideRoord.c, upRight, rightSide, downRight)
 
-  @inline def orient[A](y: Int, c: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
+  @inline def sideOrient[A](y: Int, c: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
     (y.div4Rem1 && c.div4Rem1) || (y.div4Rem3 && c.div4Rem3), upRight,
     (y.div4Rem0 && c.div4Rem2) || (y.div4Rem2 && c.div4Rem0), rightSide,
     (y.div4Rem1 && c.div4Rem3) || (y.div4Rem3 && c.div4Rem1), downRight,
     "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))
 
-  def orientationStr(x: Int, y: Int): String = orient(x, y, "UpRight", "Right", "DownRight")
+  def sideOrientStr(x: Int, y: Int): String = sideOrient(x, y, "UpRight", "Right", "DownRight")
   /** The previous value was 2 / sqrt(3). */
   val yDist = 2.0 / 3
 
