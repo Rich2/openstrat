@@ -120,7 +120,10 @@ object HexGrid
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
   //override def sideRoordToRoordLine(sideRoord: Roord): ostrat.pGrid.RoordLine = HexGrid.sideRoordToRoordLine(sideRoord)
 
-  def sideRoordToRoordLine(y: Int, c: Int): RoordLine = fOrientation(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
+  def sideRoordToCens(sideRoord: Roord): (Roord, Roord) = orient(sideRoord, (sideRoord.subYC(1, 1) ,sideRoord.addYC(1, 1)),
+    (sideRoord.subC(2), sideRoord.addC(2)), (sideRoord.addYC(1, -1), sideRoord.addYC(-1, 1)))
+
+  def sideRoordToRoordLine(y: Int, c: Int): RoordLine = orient(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
     RoordLine(y, c + 1, y, c - 1))
 
   def roordToVec2Rel(roord: Roord, relPosn: Vec2): Vec2 = roordToVec2(roord.y, roord.c) -relPosn
@@ -138,14 +141,16 @@ object HexGrid
       case _ => Vec2(x, y - yDist / 2)
     }
   }
+  @inline def orient[A](sideRoord: Roord, upRight: => A, rightSide: => A, downRight: => A): A =
+    orient(sideRoord, upRight, rightSide, downRight)
 
-  @inline def fOrientation[A](y: Int, c: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
+  @inline def orient[A](y: Int, c: Int, upRight: => A, rightSide: => A, downRight: => A): A = if3Excep(
     (y.div4Rem1 && c.div4Rem1) || (y.div4Rem3 && c.div4Rem3), upRight,
     (y.div4Rem0 && c.div4Rem2) || (y.div4Rem2 && c.div4Rem0), rightSide,
     (y.div4Rem1 && c.div4Rem3) || (y.div4Rem3 && c.div4Rem1), downRight,
     "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))
 
-  def orientationStr(x: Int, y: Int): String = fOrientation(x, y, "UpRight", "Right", "DownRight")
+  def orientationStr(x: Int, y: Int): String = orient(x, y, "UpRight", "Right", "DownRight")
   /** The previous value was 2 / sqrt(3). */
   val yDist = 2.0 / 3
 
