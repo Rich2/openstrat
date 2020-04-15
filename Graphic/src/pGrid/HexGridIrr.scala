@@ -61,6 +61,6 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
     case y => iToForeach(cRowStart(y - 1).min(cRowStart(y + 1)) - 1, cRowEnd(y - 1).max(cRowEnd(y + 1)) + 1, 2){ c => f(Roord(y, c)) }
   }
 
-  override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cRowStart(y) - 1, cRowEnd(y) + 1, 2)(c => f(Roord(y, c)))
+  override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cRowStart(y) - 2, cRowEnd(y) + 2, 2)(c => f(Roord(y, c)))
 }
 

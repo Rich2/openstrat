@@ -72,5 +72,5 @@ case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
     case y => iToForeach(cTileMin - 1, cTileMax + 1, 2){ c => f(Roord(y, c)) }
   }
 
-  override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 1, cTileMax + 1, 2)(c => f(Roord(y, c)))
+  override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 2, cTileMax + 2, 2)(c => f(Roord(y, c)))
 }

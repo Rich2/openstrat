@@ -215,6 +215,12 @@ trait TileGrid
     count
   }
 
+  final val numOfVerts: Int =
+  { var count = 0
+    vertsForeach(r => count += 1)
+    count
+  }
+
   /** Gives all the sideRoords of the grid with out duplicates. */
   def sideRoords: Roords = sidesMap(r => r)
 
@@ -249,7 +255,7 @@ trait TileGrid
 /* Methods that operate on tile vertices. */
 
   /** foreach vertex's Roord, calls the effectful function. */
-  final def vertsForeach(f: Roord => Unit): Unit = vertRowForeach(y => rowForeachSide(y)(f))
+  final def vertsForeach(f: Roord => Unit): Unit = vertRowForeach(y => rowForeachVert(y)(f))
 
   final def vertRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1, 2)(f)
 
@@ -258,7 +264,18 @@ trait TileGrid
   def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
     vertRoords.map(r => f(r))
 
-  def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
+  /** Maps from each verts Roord to an ArrBase of A. */
+  def vertsIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]) =
+  { val res = build.newArr(numOfVerts)
+    var count = 0
+    vertsForeach{r => build.arrSet(res, count, f(r, count)); count += 1 }
+    res
+  }
+
+  def vertRoords: Roords = vertsMap(r => r)
 
   def vertTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r =>  TextGraphic(r.ycStr, fontSize, roordToVec2(r), colour) }
+
+  def vertRoordIndexTexts(textSize: Int = 20, colour: Colour = Red): Arr[TextGraphic] =
+    vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
 }

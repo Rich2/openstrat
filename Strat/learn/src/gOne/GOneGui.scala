@@ -27,7 +27,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   val tiles = grid.activeTiles
 
   /** Gives the tiles Roord. Its Row based integer coordinate. */
-  val roardTexts = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts() ++ grid.vertTexts()
+  val roardTexts = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts() ++ grid.vertRoordIndexTexts()
 
   /** Draws the tiles sides (or edges). */
   val sidesDraw = grid.sidesDraw(2.0)
