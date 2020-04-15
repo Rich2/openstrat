@@ -131,8 +131,8 @@ object HexGrid
   def roordToVec2(y: Int, c: Int): Vec2 =
   { def x: Double = c * xRatio
     (y %% 4, c %% 4) match
-    { case (yr, cr) if yr.isEven && cr.isEven => Vec2(x, y)
-      case (yr, _) if yr.isEven => throw new Exception("Hex Roord " + y.toString -- c.toString + ", y is even but c is odd. This is an invalid HexRoord")
+    { case (yr, _) if yr.isEven /* && cr.isEven */ => Vec2(x, y)
+      //case (yr, _) if yr.isEven => throw new Exception("Hex Roord " + y.toString -- c.toString + ", y is even but c is odd. This is an invalid HexRoord")
       case (yr, cr) if cr.isOdd  && yr.isOdd => Vec2(x, y)
       case (1, 0) | (3, 2)  =>  Vec2(x, y + yDist /2)
       case _ => Vec2(x, y - yDist / 2)

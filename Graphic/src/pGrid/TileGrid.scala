@@ -143,8 +143,8 @@ trait TileGrid
 
   def cenSideVertRoordText: Arr[PaintElem] =
   {
-    val vertTexts = vertsMap{ r =>  TextGraphic(r.ycStr, 20, roordToVec2(r), Colour.Red) }
-    cenRoordTexts() ++ sideTexts() ++ vertTexts
+
+    cenRoordTexts() ++ sideTexts() ++ vertTexts()
   }
 
 /**************************************************************************************************/
@@ -237,8 +237,10 @@ trait TileGrid
   def sideIndex(roord: Roord): Int = ???
 
   def sideTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour) }
+
   def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
     sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
+
   /** New immutable Arr of Side Boolean data. */
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 
@@ -249,4 +251,6 @@ trait TileGrid
     vertRoords.map(r => f(r))
 
   def vertRoords: Roords = flatMapNoDupicates[Roord, Roords] { roord => tileVertRoords(roord) }
+
+  def vertTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r =>  TextGraphic(r.ycStr, fontSize, roordToVec2(r), colour) }
 }
