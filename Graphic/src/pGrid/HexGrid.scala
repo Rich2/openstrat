@@ -96,6 +96,12 @@ trait HexGrid extends TileGrid
     case n => y - n / 2 + 2
     }
   }
+
+  def sidePolygon(sr: Roord): Polygon =
+  {
+    val (e1, e2) = HexGrid.sideRoordToLineEndRoords(sr)
+    ???
+  }
 }
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
 { def fCost = gCost + hCost
@@ -103,8 +109,10 @@ case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: Opt
 object HexGrid
 { /* converts Grid c to x. */
   val xRatio = 1.0 / sqrt(3)
+
   /** Verts start at Up and follow clockwise */
   val vertRoordsOfTile00: Roords = Roords(1 rr 0, 1 rr 2, -1 rr 2, -1 rr 0,  -1 rr -2, 1 rr -2)
+
   def vertRoordsOfTile(y: Int, c: Int): Roords = vertRoordsOfTile(y rr c)
   def vertRoordsOfTile(tileRoord: Roord): Roords = vertRoordsOfTile00.pMap(_ + tileRoord)
   val sideRoordsOfTile00: Roords = Roords(1 rr 1, 0 rr 2, -1 rr 1, -1 rr -1, 0 rr -2, 1 rr -1)
@@ -118,13 +126,16 @@ object HexGrid
 
   def sideRoordToLine(sideRoord: Roord): Line2 = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
-  //override def sideRoordToRoordLine(sideRoord: Roord): ostrat.pGrid.RoordLine = HexGrid.sideRoordToRoordLine(sideRoord)
 
   def sideRoordToCens(sideRoord: Roord): (Roord, Roord) = orient(sideRoord, (sideRoord.subYC(1, 1) ,sideRoord.addYC(1, 1)),
     (sideRoord.subC(2), sideRoord.addC(2)), (sideRoord.addYC(1, -1), sideRoord.addYC(-1, 1)))
 
   def sideRoordToRoordLine(y: Int, c: Int): RoordLine = orient(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
     RoordLine(y, c + 1, y, c - 1))
+
+  def sideRoordToLineEndRoords(sideRoord: Roord): (Roord, Roord) = sideRoordToLineEndRoords(sideRoord.y, sideRoord.c)
+  def sideRoordToLineEndRoords(y: Int, c: Int): (Roord, Roord) = orient(y, c, (y rr c - 1, y rr c + 1), (y + 1 rr c, y - 1 rr c),
+    (y rr c + 1, y rr c - 1))
 
   def roordToVec2Rel(roord: Roord, relPosn: Vec2): Vec2 = roordToVec2(roord.y, roord.c) -relPosn
 
@@ -134,13 +145,19 @@ object HexGrid
   def roordToVec2(y: Int, c: Int): Vec2 =
   { def x: Double = c * xRatio
     (y %% 4, c %% 4) match
-    { case (yr, _) if yr.isEven /* && cr.isEven */ => Vec2(x, y)
-      //case (yr, _) if yr.isEven => throw new Exception("Hex Roord " + y.toString -- c.toString + ", y is even but c is odd. This is an invalid HexRoord")
+    { case (yr, _) if yr.isEven => Vec2(x, y)
       case (yr, cr) if cr.isOdd  && yr.isOdd => Vec2(x, y)
       case (1, 0) | (3, 2)  =>  Vec2(x, y + yDist /2)
       case _ => Vec2(x, y - yDist / 2)
     }
   }
+
+  /*@inline def fOrient[A](y: Int, c: Int, upRight: (Int, Int) => A, rightSide: (Int, Int) => A, downRight: (Int, Int) => A): A = if3Excep(
+    (y.div4Rem1 && c.div4Rem1) || (y.div4Rem3 && c.div4Rem3), upRight(y, c),
+    (y.div4Rem0 && c.div4Rem2) || (y.div4Rem2 && c.div4Rem0), rightSide(y, c),
+    (y.div4Rem1 && c.div4Rem3) || (y.div4Rem3 && c.div4Rem1), downRight(y, c),
+    "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))*/
+
   @inline def orient[A](sideRoord: Roord, upRight: => A, rightSide: => A, downRight: => A): A =
     orient(sideRoord, upRight, rightSide, downRight)
 
