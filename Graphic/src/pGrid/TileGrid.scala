@@ -274,8 +274,11 @@ trait TileGrid
 
   def vertRoords: Roords = vertsMap(r => r)
 
-  def vertTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r =>  TextGraphic(r.ycStr, fontSize, roordToVec2(r), colour) }
+  def vertTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r => TextGraphic(r.ycStr, fontSize, roordToVec2(r), colour) }
 
   def vertRoordIndexTexts(textSize: Int = 20, colour: Colour = Red): Arr[TextGraphic] =
     vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
+
+  /** New immutable Arr of vertex Int data. */
+  def newVertInts: VertInts = new VertInts(new Array[Int](numOfVerts))
 }

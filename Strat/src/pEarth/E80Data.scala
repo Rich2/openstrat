@@ -7,7 +7,8 @@ trait E80Data
 {
   implicit val grid: HexGridIrr
   def terrs: TilesRef[WTile]
-  val sTerrs: SideBooleans
+  def sTerrs: SideBooleans
+  def vTerrs: VertInts
 }
 
 object EuropeNWGrid extends HexGridIrr(446, EGrid80Km.getBounds(200, 446, 540))
