@@ -45,15 +45,13 @@ trait Water extends WTile
 case object Ocean extends Water { def str = "Ocean" }
 case object Lake extends Water { def str = "Lake" }
 
-
 object TerrainNone extends WTile
 { override def str = "No terrain"
   override def colour = Gray
 }
 
 
-class Land(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs, val sideUR: Option[Unit] = None, val sideRt: Option[Unit] = None,
-  val sideDR: Option[Unit]) extends WTile with HSides[Unit]
+class Land(val terr: Terrain, val biome: Biome) extends WTile
 {
   override def toString: String = "Land" + str.enParenth
 
@@ -73,9 +71,9 @@ class Land(val terr: Terrain, val biome: Biome, val vertOffs: HVertOffs, val sid
 
 object Land
 {
-  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain, up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg,
+  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain/*, up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg,
             down: BVert = HVertReg, dnLt: TVert = HVertReg, upLt: BVert = HVertReg, sideUR: Option[Unit] = None, sideRt: Option[Unit] = None,
-            sideDR: Option[Unit] = None): Land = new Land(terr, biome, HVertOffs(up, upRt, dnRt, down, dnLt, upLt), sideUR, sideRt, sideDR)
+            sideDR: Option[Unit] = None*/): Land = new Land(terr, biome/*, HVertOffs(up, upRt, dnRt, down, dnLt, upLt), sideUR, sideRt, sideDR*/)
 }
 
 trait Terrain
@@ -142,12 +140,12 @@ case object Taiga extends Biome
 
 
 
-class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}
+/*class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}
 object Coastal
 {
   def apply(up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg, down: BVert = HVertReg, dnLt: TVert = HVertReg,
     upLt: BVert = HVertReg): Coastal = new Coastal(HVertOffs(up, upRt, dnRt, down, dnLt, upLt))
-}
+}*/
 
 //class StraitsDnLt(ltVal: Int, rtVal: Int) extends HVDnLt2(ltVal, rtVal)
 //object StraitsDnLt{ def apply(ltVal: Int, rtVal: Int) = new StraitsDnLt(ltVal, rtVal) }
