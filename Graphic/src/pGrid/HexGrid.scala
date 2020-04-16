@@ -39,7 +39,7 @@ trait HexGrid extends TileGrid
     vvs.toPolygon.active(roord.toHexTile)
   }
 
-  //def roordDeciToVec2(rd: RoordDeci): Vec2 = rd.toVec2(roordToVec2)
+  def roordOffToVec2(rd: RoordOff): Vec2 = rd.toVec2(roordToVec2)
 
   /** Gives a Coods Seq of Cood along a horisonatal line */
   def SidesHorr(y: Int, xStart: Int, xEnd : Int): Roords =
@@ -104,10 +104,10 @@ trait HexGrid extends TileGrid
     val vTop: Vec2 = roordToVec2(topEnd)
     val vBottom: Vec2 = roordToVec2(bottomEnd)
     val (leftCen, rightCen) = HexGrid.sideRoordToCens(sr)
-    val p1 = RoordDeci(topEnd, rightCen, 2).toVec2(roordToVec2)
-    val p2 = RoordDeci(bottomEnd, rightCen, 2).toVec2(roordToVec2)
-    val p3 = RoordDeci(bottomEnd, leftCen, 2).toVec2(roordToVec2)
-    val p4 = RoordDeci(topEnd, leftCen, 2).toVec2(roordToVec2)
+    val p1 = RoordOff(topEnd, rightCen, 2).toVec2(roordToVec2)
+    val p2 = RoordOff(bottomEnd, rightCen, 2).toVec2(roordToVec2)
+    val p3 = RoordOff(bottomEnd, leftCen, 2).toVec2(roordToVec2)
+    val p4 = RoordOff(topEnd, leftCen, 2).toVec2(roordToVec2)
     Polygon(vTop, p1, p2, vBottom, p3, p4)
   }*/
 }
