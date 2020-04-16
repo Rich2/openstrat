@@ -1,18 +1,16 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pEarth
-import pGrid._, Colour._
+import Colour._
 
 trait WTile extends WithColour
-{
-  def str: String
+{ def str: String
 }
 
 object WTile
 {
   implicit object TerainIsType extends IsType[WTile]
-  {
-    override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[WTile]
+  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[WTile]
     override def asType(obj: AnyRef): WTile = obj.asInstanceOf[WTile]
   }
 
@@ -38,8 +36,7 @@ object WTile
 }
 
 trait Water extends WTile
-{
-  def colour = Blue
+{ def colour = Blue
 }
 
 case object Ocean extends Water { def str = "Ocean" }
@@ -136,9 +133,6 @@ case object Taiga extends Biome
 { override def str = "Taiga"
   override def colour = DarkCyan
 }
-
-
-
 
 /*class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}
 object Coastal
