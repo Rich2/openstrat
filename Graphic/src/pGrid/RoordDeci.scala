@@ -4,6 +4,7 @@ package pGrid
 import geom._
 
 /** A deci-Roordinate. Divides the line between 2 Roords into graduations of ten. Defines the point a certain number of tenths toward the second Roord. */
+/*
 case class RoordDeci(y1: Int, c1: Int, y2: Int, c2: Int, tenths: Int)
 { def r1: Roord = y1 rr c1
   def r2: Roord = y2 rr c2
@@ -12,4 +13,11 @@ case class RoordDeci(y1: Int, c1: Int, y2: Int, c2: Int, tenths: Int)
 
 object RoordDeci
 { def apply(r1: Roord, r2: Roord, tenths: Int): RoordDeci = new RoordDeci(r1.y, r1.c, r2.y, r2.c, tenths)
-}
+}*/
+sealed class HVOffDirn(val y: Int, val c: Int)
+case object HVOffUp extends HVOffDirn(1, 0)
+case object HVOffUR extends HVOffDirn(1, 2)
+case object HVOffDR extends HVOffDirn(-1, 2)
+case object HVOffDown extends HVOffDirn(-1, 0)
+case object HVOffDL extends HVOffDirn(-1, -2)
+case object HVOffUL extends HVOffDirn(1, -2)

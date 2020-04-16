@@ -10,8 +10,8 @@ case class E80GridGui(canv: CanvasPlatform, scen: E80Data, cenRoord: Roord) exte
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val sides: GraphicElems = scen.sTerrs.gridMap { (r, b) =>
-    if (b) grid.sidePolygon(r).fill(Colour.Blue)
-    else grid.sideRoordToLine2(r).draw(2.0)
+    /*if (b) grid.sidePolygon(r).fill(Colour.Blue)
+    else*/ grid.sideRoordToLine2(r).draw(2.0)
   }
   var statusText = "Tile Grid for North West Europe"
   def thisTop(): Unit = reTop(Arr(status))
