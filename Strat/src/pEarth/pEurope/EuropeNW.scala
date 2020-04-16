@@ -17,6 +17,7 @@ object EuropeNWTerr extends E80Data
   val terrs: TilesRef[WTile] = grid.newTileArr[WTile](Ocean)
   val sTerrs: SideBooleans = grid.newSideBooleans
   val vTerrs: VertInts = grid.newVertInts
+
   sTerrs.gridSetTrues(477 rr 181, 463 rr 205)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setRow(yRow, cStart, tileValues :_*); () }
   gs(518, 230, taiga)

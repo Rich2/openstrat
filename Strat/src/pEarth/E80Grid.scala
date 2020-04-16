@@ -4,7 +4,6 @@ import geom._, pGrid._, collection.mutable.ArrayBuffer
 
 trait EGrid80Km extends EGrid
 {
-
 }
 
 object EGrid80Km
@@ -49,8 +48,7 @@ object EGrid80Km
 
   /** This would seem to return the Arrray that has the irregular HexGrid row specifications. */
   def getBounds(xOffset: Int, yTileMin: Int, yTileMax: Int): Array[Int] =
-  {
-    val bounds = new Array[Int]((yTileMax - yTileMin + 2).max0)
+  { val bounds: Array[Int] = new Array[Int]((yTileMax - yTileMin + 2).max0)
     (yTileMin to yTileMax by 2).foreach{ y =>
       val p = (y - yTileMin)// * 2
       val pair = EGrid80Km.tileRowMaxC(y, xOffset)

@@ -15,7 +15,10 @@ import geom._, reflect.ClassTag, Colour._
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
  *  Stars on the American flag. */
 trait TileGrid
-{ def numOfRows: Int
+{
+  /** Number of rows of tiles. This will be different to the number of rows of sides and and will be different to the number of rows of vertices for
+   * HexGrids. */
+  def numOfRows: Int
   def numOfSideRows: Int = numOfRows * 2 + 1
   def numOfTiles: Int
   def yTileMin: Int
@@ -151,9 +154,6 @@ trait TileGrid
 /**************************************************************************************************/
 /* Methods that operate on individual tiles. */
 
-  /** Returns the index of an Array from its tile coordinate. */
-  @inline final def index(roord: Roord): Int = index(roord.y, roord.c)
-
   /** Sets element in a flat Tiles Arr according to its Roord. */
   def setTile[A](roord: Roord, value: A)(implicit arr: ArrBase[A]): Unit = arr.unsafeSetElem(index(roord), value)
 
@@ -163,7 +163,12 @@ trait TileGrid
   /** Converts Roord, input as y and components, to a Vec2. For a square grid this will be a simple 1 to 1 map. */
   def roordToVec2(y: Int, c: Int): Vec2 = roordToVec2(y rr c)
 
-  /** Returns the index of an Array from its tile coordinate. */
+  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  @inline final def index(r: Roord): Int = index(r.y, r.c)
+
+  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
   @inline def index(y: Int, c: Int): Int
 
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
