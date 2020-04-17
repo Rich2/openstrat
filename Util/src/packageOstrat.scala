@@ -183,7 +183,7 @@ package object ostrat
     while(ife(iStep > 0, i <= iTo, i >= iTo))
     { var j: Int = jFrom
 
-      while(ife(jStep > 1, j <= jTo, j >= jTo))
+      while(ife(jStep > 0, j <= jTo, j >= jTo))
       { ev.arrSet(res, count, f(i, j))
         j += jStep
         count += 1
