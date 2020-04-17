@@ -3,7 +3,7 @@ package ostrat
 package gTwo
 import geom._, pCanv._, pGrid._
 
-case class GTwoGui(canv: CanvasPlatform, scen: TwoScen) extends CmdBarGui("Game One Square Grid")
+case class GTwoGui(canv: CanvasPlatform, scen: TwoScen) extends CmdBarGui("Game Two Square Grid")
 {
   implicit val grid = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)

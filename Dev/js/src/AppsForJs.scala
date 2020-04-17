@@ -1,10 +1,8 @@
 package ostrat
 package pSJs
 import pCanv._, pStrat._, pGrid._
-/** This file is normally set by "git update-index --skip-worktree Core/src/ostrat/pDev/Apps.scala" this is to allow the developer to make local
- *  changes to appNum without modifying the master project. If permanent changes are required run:
- *  "git update-index --no-skip-worktree openstrat/Dev/js/src/AppsForJs.scala". Stage and commit the changes and then run:
- *  "git update-index --skip-worktree openstrat/Dev/js/src/AppsForJs.scala" before pushing or pull-requesting changes." */
+
+/** This file was meant to allow the developer to make local changes to appNum without modifying the master project. */
 object AppsForJs
 {
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
@@ -20,7 +18,7 @@ object AppsForJs
     ("10", (pCard.BlackJackGui(_), "Js BlackJack")),
     ("11", (pChess.DraughtsGui(_, pChess.DraughtsStart), "Draughts")),
 
-    ("13", (pGames.pCloseOrder.BattleGui(_, pGames.pCloseOrder.Nap1), "JavaFx Formation")),
+    ("13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
     ("14", (pReactor.ReactorGUI(_), "reactor")),
     ("15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
     ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),

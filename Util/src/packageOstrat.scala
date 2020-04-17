@@ -172,7 +172,7 @@ package object ostrat
 
   /**  i is the index for the outer loop. j is the index for the inner loop. This method is aliased by */
   def ijToMap[A, AA <: ArrBase[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)
-                                  (implicit ev: ArrBuild[A, AA]): AA =
+    (implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
