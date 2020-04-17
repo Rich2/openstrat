@@ -28,8 +28,8 @@ object Apps
       ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerr, 456 rr 388), "JavaFx NE Wurope Grid")),
 
       ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
-      ("G2", (gOne.IrrGui(_), "JavaFx irregular Grid Game One")),
-      ("G3", (gOne.SqOneGui(_), "JavaFx Square Grid Game One")),
+      ("G1i", (gOne.GOneGui(_, gOne.OneScen2), "JavaFx irregular Grid Game One")),
+      ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Square Grid Game Two")),
 
       ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
       ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),

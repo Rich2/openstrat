@@ -41,3 +41,10 @@ object OneScen1 extends OneScenStart
   oPlayers.mutSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
+
+object OneScen2 extends OneScenStart
+{
+  val arr = Array[Int](2, 10, 4, 8, 6, 6, 4, 8)
+  implicit val grid = new HexGridIrr(2, arr)
+  val oPlayers = grid.newTileArrOpt[Player]
+}

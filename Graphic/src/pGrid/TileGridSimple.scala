@@ -153,7 +153,7 @@ trait TileGridSimple
   def cenSideVertRoordText: Arr[PaintElem] =
   {
 
-    cenRoordTexts() ++ sideTexts() ++ vertTexts()
+    cenRoordTexts() ++ sideRoordTexts() ++ vertRoordTexts()
   }
 
   /**************************************************************************************************/
@@ -253,7 +253,7 @@ trait TileGridSimple
 
   def sideIndex(roord: Roord): Int = ???
 
-  def sideTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour) }
+  def sideRoordTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour) }
 
   def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
     sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
@@ -272,7 +272,12 @@ trait TileGridSimple
   def rowForeachVert(y: Int)(f: Roord => Unit): Unit
 
   def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
-    vertRoords.map(r => f(r))
+  { val res = build.newArr(numOfVerts)
+    var count = 0
+    vertsForeach{r => build.arrSet(res, count, f(r)); count += 1 }
+    res
+  }
+    //vertRoords.map(r => f(r))
 
   /** Maps from each verts Roord to an ArrBase of A. */
   def vertsIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]) =
@@ -284,7 +289,7 @@ trait TileGridSimple
 
   def vertRoords: Roords = vertsMap(r => r)
 
-  def vertTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r => TextGraphic(r.ycStr, fontSize, roordToVec2(r), colour) }
+  def vertRoordTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r => TextGraphic(r.ycStr, fontSize, roordToVec2(r), colour) }
 
   def vertRoordIndexTexts(textSize: Int = 20, colour: Colour = Red): Arr[TextGraphic] =
     vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))

@@ -72,8 +72,5 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
     case y if y.isEven => excep("Illegal vertex Roord value. y can not be even.")
     case y => iToForeach(cRowStart(y - 1).min(cRowStart(y + 1)) - 2, cRowEnd(y - 1).max(cRowEnd(y + 1)) + 2, 2){ c => f(Roord(y, c)) }
   }
-
-
-   // iToForeach(cRowStart(y) - 2, cRowEnd(y) + 2, 2)(c => f(Roord(y, c)))
 }
 

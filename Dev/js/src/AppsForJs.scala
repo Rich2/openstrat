@@ -30,8 +30,8 @@ object AppsForJs
     ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 466 rr 402), "Js NE Wurope Grid")),
 
     ("G1", (gOne.GOneGui(_, gOne.OneScen1), "Js Game One")),
-    ("G2", (gOne.IrrGui(_), "Js irregular Grid Game One")),
-    ("G3", (gOne.SqOneGui(_), "Js Square Grid Game One")),
+    ("G1i", (gOne.GOneGui(_, gOne.OneScen2), "Js irregular Grid Game One")),
+    ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "Js Square Grid Game Two")),
 
     ("Z1", (pZug.ZugGui(_, pZug.Zug1), "Js Zugfuhrer Z1 Britain")),
     ("Z2", (pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),
