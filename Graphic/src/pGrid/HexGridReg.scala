@@ -3,7 +3,7 @@ package pGrid
 
 /* A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
 * where the y coordinate divided by 4 has a remainder of 2. */
-case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends HexGrid with TileGridReg
+case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends HexGrid// with TileGrid
 {
   override def numOfRows: Int = numOfRow2s + numOfRow0s
 
