@@ -4,11 +4,12 @@ package gTwo
 import pGrid._
 
 trait TwoScen
-{
-  def grid: SquareGridSimple
+{ def grid: SquareGridSimple
+  def terrs: TileBooleans
 }
 
 object TwoScen1 extends TwoScen
 {
   implicit val grid = new SquareGridSimple(2, 8, 2, 10)
+  val terrs = grid.newTileBooleans
 }

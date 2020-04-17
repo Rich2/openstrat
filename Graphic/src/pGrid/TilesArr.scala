@@ -131,3 +131,12 @@ object TilesRef
     }
   }
 }
+
+class TileBooleans(val unsafeArr: Array[Boolean]) extends AnyVal
+{
+  def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideIndex(r)) = true)
+  def gridSetTrues(roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideIndex(r)) = true)
+
+  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGrid, build: ArrBuild[A, AA]): AA =
+    grid.map(r => f(r, unsafeArr(grid.sideIndex(r))))
+}

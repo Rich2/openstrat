@@ -145,6 +145,9 @@ trait TileGridSimple
   /** New Tile immutable Tile Arr of Opt data values. */
   def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
 
+  /** New immutable Arr of Side Boolean data. */
+  def newTileBooleans: TileBooleans = new TileBooleans(new Array[Boolean](numOfTiles))
+
   def cenRoordTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] = map(r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour))
 
   def cenRoordIndexTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] =
