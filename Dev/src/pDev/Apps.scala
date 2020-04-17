@@ -16,7 +16,7 @@ object Apps
     ("8", (ColourGen(_), "JavaFx Some Colours")),
     ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
     ("10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
-    ("11", (pChess.DraughtsGui(_, pChess.DraughtsStart), "Draughts")),
+    ("11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
 
     ("13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
     ("14", (pReactor.ReactorGUI(_), "reactor")),

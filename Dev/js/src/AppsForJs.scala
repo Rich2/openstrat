@@ -16,7 +16,7 @@ object AppsForJs
     ("8", (ColourGen(_), "Js Some Colours")),
     ("9", (p305.BC305Gui(_, p305.Bc1), "Js BC 305")),
     ("10", (pCard.BlackJackGui(_), "Js BlackJack")),
-    ("11", (pChess.DraughtsGui(_, pChess.DraughtsStart), "Draughts")),
+    ("11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
 
     ("13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
     ("14", (pReactor.ReactorGUI(_), "reactor")),

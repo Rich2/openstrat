@@ -4,7 +4,7 @@ import pGrid._
 
 trait ChessScen extends ChessLikeScen
 { val turnSeg: Int
-  implicit def grid: SquareGrid
+  implicit def grid: SquareGridSimple
   def pieces: TilesOptRef[PPiece]
 }
 

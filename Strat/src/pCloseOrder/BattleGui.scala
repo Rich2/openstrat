@@ -3,6 +3,7 @@ package ostrat
 package pCloseOrder
 import pCanv._, geom._
 
+/** Beginnings of a game to explore close formation battles. */
 case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("BattleGui")
 {
   def lunits = scen.lunits

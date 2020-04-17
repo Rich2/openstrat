@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package pChess
+package pDraughts
 //import pGrid._
 
 
@@ -10,7 +10,9 @@ package pChess
 //    case c @ Cood(x, y) if c.evenSum          => DarkSq(x, y, None)
 //    case c @ Cood(x, y)                           => LightSq(x, y)
 //  }
-trait DraughtsScen extends ChessLikeScen
+trait DraughtsScen extends pChess.ChessLikeScen
+{
+}
 
 object DraughtsStart extends DraughtsScen
 {

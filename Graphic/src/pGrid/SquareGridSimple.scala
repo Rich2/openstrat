@@ -37,3 +37,9 @@ class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
 
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 1, cTileMax + 1, 2)(c => f(Roord(y, c)))
 }
+
+object SquareGridSimple
+{
+  def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): SquareGridSimple =
+    new SquareGridSimple(yTileMin, yTileMax, cTileMin, cTileMax)
+}
