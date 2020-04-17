@@ -116,10 +116,11 @@ package object ostrat
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.newArr(iLen)
     var index = 0
-    def count = index + iFrom
+    var count = index + iFrom
     while(ife(iStep > 0, count <= iTo,count >= iTo))
     { ev.arrSet(res, index, f(count))
       index += 1
+      count += iStep
     }
     res
   }

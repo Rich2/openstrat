@@ -3,14 +3,13 @@ package ostrat
 package pDraughts
 import Colour._
 
-sealed class Draught(val colour: Colour) extends AnyRef
-object WhiteD extends Draught(White)
-object BlackD extends Draught(Black)
-
-sealed trait DraughtsPiece
-{
-   def colour: Colour
-}
-
-case object WhitePiece extends DraughtsPiece { override def colour = White }
-case object BlackPiece extends DraughtsPiece { override def colour = Black }
+sealed trait Draught
+{ def colour: Colour}
+sealed trait WhiteDraught extends Draught { override def colour = White }
+sealed trait BlackDraught extends Draught { override def colour = Black }
+sealed trait Man extends Draught
+sealed trait King extends Draught
+object WhiteMan extends Man with WhiteDraught
+object BlackMan extends Man with BlackDraught
+object WhiteKing extends King with WhiteDraught
+object BlackKing extends King with BlackDraught

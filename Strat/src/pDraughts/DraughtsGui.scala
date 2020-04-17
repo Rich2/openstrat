@@ -6,7 +6,7 @@ import geom._, pCanv._, Colour._, pGrid._
 case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui("Draughts")
 {
   implicit def grid = scen.grid
-  var statusText: String = "Welcome to Chess Gui"
+  var statusText: String = "Welcome to Draughts Gui"
   val darkSquareColour = Brown
   val lightSquareColour = Pink
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
@@ -15,6 +15,8 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
     val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
     p.fill(col) }
 
+  val pieces = scen.draughts.mapSomes((r, d) => Square(0.6, r.gridVec2).fill(d.colour))
+
  def bTurn = clickButton("Turn ", _ => {
    repaint()
    thisTop()
@@ -22,7 +24,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
   def thisTop(): Unit = reTop(Arr(bTurn, status))
   thisTop()
 
-  def frame = (tiles).gridScale(scale)
+  def frame = (tiles ++ pieces).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }
