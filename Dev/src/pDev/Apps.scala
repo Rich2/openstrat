@@ -24,7 +24,7 @@ object Apps
       ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
       ("17", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
 
-      ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 466 rr 202), "JavaFx NW Wurope Grid")),
+      ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 472 rr 204), "JavaFx NW Wurope Grid")),
       ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerr, 456 rr 388), "JavaFx NE Wurope Grid")),
 
       ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),

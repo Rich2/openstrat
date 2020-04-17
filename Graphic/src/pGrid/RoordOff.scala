@@ -14,6 +14,7 @@ case class RoordOff(yV: Int, cV: Int, dirn: HVOffDirn, tenths: Int)
 object RoordOff
 { def apply(r1: Roord, dirn: HVOffDirn, tenths: Int): RoordOff = new RoordOff(r1.y, r1.c, dirn, tenths)
 }
+
 /** yDiv4Rem0 Up, DR, DL or yDiv4Rem2 UR, Dn, UL */
 sealed class HVOffDirn(val y: Int, val c: Int)
 { def r: Roord = y rr c

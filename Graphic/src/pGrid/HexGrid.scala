@@ -99,17 +99,13 @@ trait HexGrid extends TileGrid
     }
   }
 
-  /*def sidePolygon(sr: Roord): Polygon =
-  { val (topEnd, bottomEnd) = HexGrid.sideRoordToLineEndRoords(sr)
-    val vTop: Vec2 = roordToVec2(topEnd)
-    val vBottom: Vec2 = roordToVec2(bottomEnd)
-    val (leftCen, rightCen) = HexGrid.sideRoordToCens(sr)
-    val p1 = RoordOff(topEnd, rightCen, 2).toVec2(roordToVec2)
-    val p2 = RoordOff(bottomEnd, rightCen, 2).toVec2(roordToVec2)
-    val p3 = RoordOff(bottomEnd, leftCen, 2).toVec2(roordToVec2)
-    val p4 = RoordOff(topEnd, leftCen, 2).toVec2(roordToVec2)
-    Polygon(vTop, p1, p2, vBottom, p3, p4)
-  }*/
+  def sidePolygon(sr: Roord): Polygon =
+  { //val (topEnd, bottomEnd) = HexGrid.sideRoordToLineEndRoords(sr)
+    //val vTop: Vec2 = roordToVec2(topEnd)
+    //val vBottom: Vec2 = roordToVec2(bottomEnd)
+    val (o1, o2, o3, o4) = HexGrid.sideRoordToRoordOffs(sr)
+    Arr(o1, o2, o4, o3).map(_.toVec2(roordToVec2)).toPolygon
+  }
 }
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
 { def fCost = gCost + hCost
@@ -138,6 +134,19 @@ object HexGrid
   def sideRoordToCens(sideRoord: Roord): (Roord, Roord) = sideOrient(sideRoord, (sideRoord.subYC(1, 1) ,sideRoord.addYC(1, 1)),
     (sideRoord.subC(2), sideRoord.addC(2)), (sideRoord.addYC(1, -1), sideRoord.addYC(-1, 1)))
 
+  /** Vertices not in order for side Polyon. */
+  def sideRoordToRoordOffs(sideRoord: Roord): (RoordOff, RoordOff, RoordOff, RoordOff) = sideRoordToRoordOffs(sideRoord.y, sideRoord.c)
+
+  /** Vertices not in order for side Polyon. */
+  def sideRoordToRoordOffs(ySide: Int, cSide: Int): (RoordOff, RoordOff, RoordOff, RoordOff) =
+  {
+    import RoordOff.{apply => ro }
+    sideOrient(ySide, cSide,
+      (ro(ySide , cSide - 1, HVOffDown, 2), ro(ySide, cSide - 1, HVOffUR, 2), ro(ySide, cSide +1, HVOffDL, 2), ro(ySide, cSide + 1, HVOffUp, 2)),
+      (ro(ySide + 1, cSide, HVOffDL, 2), ro(ySide + 1, cSide, HVOffDR, 2), ro(ySide - 1, cSide, HVOffUL, 2), ro(ySide - 1, cSide, HVOffUR, 2)),
+      (ro(ySide, cSide + 1, HVOffUL, 2), ro(ySide, cSide + 1, HVOffDown, 2), ro(ySide, cSide - 1, HVOffUp, 2), ro(ySide, cSide - 1, HVOffDR, 2))
+    )
+  }
   def sideRoordToRoordLine(y: Int, c: Int): RoordLine = sideOrient(y, c, RoordLine(y, c - 1, y, c + 1), RoordLine(y + 1, c, y - 1, c),
     RoordLine(y, c + 1, y, c - 1))
 

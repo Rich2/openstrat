@@ -26,7 +26,7 @@ object AppsForJs
     ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
     ("17", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
 
-    ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 466 rr 202), "Js NW Wurope Grid")),
+    ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 472 rr 206), "Js NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 466 rr 402), "Js NE Wurope Grid")),
 
     ("G1", (gOne.GOneGui(_, gOne.OneScen1), "Js Game One")),
@@ -70,5 +70,5 @@ object AppsForJs
   )
 
   /** Change appNum to change the default loaded application. */
-  def curr: (CanvasPlatform => Any, String) = theMap("A5")
+  def curr: (CanvasPlatform => Any, String) = theMap("EG1")
 }

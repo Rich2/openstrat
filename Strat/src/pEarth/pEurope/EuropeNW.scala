@@ -18,7 +18,10 @@ object EuropeNWTerr extends E80Data
   val sTerrs: SideBooleans = grid.newSideBooleans
   val vTerrs: VertInts = grid.newVertInts
 
-  sTerrs.gridSetTrues(477 rr 181, 463 rr 205)
+  sTerrs.gridSetTrues(463 rr 205, 475 rr 235, 476 rr 234,
+    477 rr 181, 477 rr 233, 477 rr 235, 477 rr 237,
+    478 rr 232, 478 rr 236, 478 rr 240,
+    479 rr 233, 479 rr 239)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setRow(yRow, cStart, tileValues :_*); () }
   gs(518, 230, taiga)
   gs(516, 232, taiga)
@@ -40,7 +43,7 @@ object EuropeNWTerr extends E80Data
   gs(484, 180, hills * 4, sea * 10, plain * 3)
   gs(482, 182, hills * 3, sea * 8, plain * 2, sea, plain * 3)
   gs(480, 184, hills * 2, sea * 9, plain *2, sea, plain * 2)
-  gs(478, 182, hills, plain * 3, sea * 7, plain * 2, sea, plain * 2, sea)
+  gs(478, 182, hills, plain * 3, sea * 7, plain * 5, sea)
   gs(476, 176, plain * 2, sea, hills * 2, sea * 8, plain * 3, sea * 3)
   gs(474, 170, plain * 3, sea * 2, hills, plain, sea * 8, plain * 2, sea * 3)
   gs(472, 168, plain * 3, sea * 3, plain * 2, sea * 7, plain * 6)
