@@ -5,7 +5,7 @@ import pGrid._
 
 trait OneScen
 { def turn: Int
-  implicit def grid: HexGrid
+  implicit def grid: HexGridSimple
   def oPlayers: TilesOptRef[Player]
 
   def turn(hts: Arr[HTileAndStep]): OneScen =
@@ -28,9 +28,9 @@ trait OneScenStart extends OneScen
 
 object OneScen
 {
-  def apply(turnIn: Int, gridIn: HexGrid, opIn: TilesOptRef[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HexGridSimple, opIn: TilesOptRef[Player]): OneScen = new OneScen
     { override def turn = turnIn
-      override implicit def grid: HexGrid = gridIn
+      override implicit def grid: HexGridSimple = gridIn
       override def oPlayers: TilesOptRef[Player] = opIn
     }
 }
