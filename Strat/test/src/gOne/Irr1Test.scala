@@ -5,7 +5,7 @@ import utest._
 
 object Irr1Test  extends TestSuite
 {
-  val g = Irr1.grid
+  val g = OneScen2.grid
   val tests = Tests
   {
     "test1" -

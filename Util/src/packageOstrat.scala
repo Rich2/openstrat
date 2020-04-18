@@ -106,22 +106,18 @@ package object ostrat
     res
   }
   
-  /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value is 1. */
+  /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value
+   *  is 1. */
   def iUntilMap[A, AA <: ArrBase[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
     iToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
-  /** Maps a range of Ints to an ArrImut[A]. From the start value to (while index is less than or equal to) the end value in integer steps. Default step value
-   *  is 1. */
+  /** Maps a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps. Default
+   *  step value is 1. */
   def iToMap[A, AA <: ArrBase[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.newArr(iLen)
     var index = 0
-    var count = index + iFrom
-    while(ife(iStep > 0, count <= iTo,count >= iTo))
-    { ev.arrSet(res, index, f(count))
-      index += 1
-      count += iStep
-    }
+    iToForeach(iFrom, iTo, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
     res
   }
 
@@ -135,13 +131,19 @@ package object ostrat
     ev.buffToArr(buff)
   }
 
+  /** foreachs from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
-  { var i: Int = iFrom
+  { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
+    if (iTo > iFrom & iStep <= 0) throw excep("Loop step must be greater then 0. if to-value greater then from-value.")
+    if (iTo < iFrom & iStep >= 0) throw excep("Loop step must be less then 0. if to-value less then from-value.")
+    var i: Int = iFrom
     while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
 
+  /** 2 dimensional from-to-step foreach loop. Throws on non terminaton. */
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
-  { var i = iFrom
+    iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
+ /* { var i = iFrom
     while(ife(iStep > 0, i <= iTo, i >= iTo))
     { var j = jFrom
       while(ife(jStep > 0, j <= jTo, j >= jTo))
@@ -150,7 +152,12 @@ package object ostrat
       }
       i += iStep
     }
-  }
+  }*/
+
+  /** 3 dimensional from-to-step foreach loop. Throws on non terminaton. */
+  def ijkToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
+    (f: (Int, Int, Int) => Unit): Unit =
+    iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => iToForeach(kFrom, kTo, kStep){ k => f(i, j, k) } } }
 
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit =
     iToForeach(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
