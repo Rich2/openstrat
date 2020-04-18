@@ -105,33 +105,8 @@ package object ostrat
     }
     res
   }
-  
-  /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value
-   *  is 1. */
-  def iUntilMap[A, AA <: ArrBase[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
-    iToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
-  /** Maps a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps. Default
-   *  step value is 1. */
-  def iToMap[A, AA <: ArrBase[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
-  { val iLen = (iTo - iFrom + iStep).max(0) / iStep
-    val res: AA = ev.newArr(iLen)
-    var index = 0
-    iToForeach(iFrom, iTo, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
-    res
-  }
-
-  def iToFlatMap[AA <: ArrBase[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuild[AA]): AA =
-  { val buff = ev.newBuff()
-    var i = iFrom
-    while(ife(iStep > 0, i <= iTo, i >= iTo))
-    { ev.buffGrowArr(buff, f(i))
-      i += iStep
-    }
-    ev.buffToArr(buff)
-  }
-
-  /** foreachs from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
+  /** foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
     if (iTo > iFrom & iStep <= 0) throw excep("Loop step must be greater then 0. if to-value greater then from-value.")
@@ -140,76 +115,87 @@ package object ostrat
     while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
 
-  /** 2 dimensional from-to-step foreach loop. Throws on non terminaton. */
-  def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
-    iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
- /* { var i = iFrom
-    while(ife(iStep > 0, i <= iTo, i >= iTo))
-    { var j = jFrom
-      while(ife(jStep > 0, j <= jTo, j >= jTo))
-      { f(i, j)
-        j += jStep
-      }
-      i += iStep
-    }
-  }*/
-
-  /** 3 dimensional from-to-step foreach loop. Throws on non terminaton. */
-  def ijkToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
-    (f: (Int, Int, Int) => Unit): Unit =
-    iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => iToForeach(kFrom, kTo, kStep){ k => f(i, j, k) } } }
-
+  /** foreachs over a range of integers from parameter 1 until parameter 2 (while index is less than) in steps of parameter 3. Throws on non
+   *  termination. */
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit =
     iToForeach(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
-  def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
-    iToFoldInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
+  /** maps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
+   *  Default step value is 1. */
+  def iToMap[A, AA <: ArrBase[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
+  { val iLen = (iTo - iFrom + iStep).max(0) / iStep
+    val res: AA = ev.newArr(iLen)
+    var index = 0
+    iToForeach(iFrom, iTo, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    res
+  }
 
+  /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value
+   *  is 1. Throws on non termination. */
+  def iUntilMap[A, AA <: ArrBase[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuild[A, AA]): AA =
+    iToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
+
+  /** flatMaps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
+   *  Default step value is 1. Throws on non termination. */
+  def iToFlatMap[AA <: ArrBase[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuild[AA]): AA =
+  { val buff = ev.newBuff()
+    iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
+    ev.buffToArr(buff)
+  }
+
+  /** Folds over a range of Ints to an Int. From the start value to (while index is less than or equal to) the end value in integer steps. Default
+   *  step value is 1. Throws on non termination. */
   def iToFoldInt(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
   { var acc = accInit
-    var i = iFrom
-    while(ife(iStep > 0, i <= iTo, i >= iTo))
-    { acc = f(acc, i)
-      i += iStep
-    }
+    iToForeach(iFrom, iTo, iStep){ i => acc = f(acc, i) }
     acc
   }
 
-  def ijUntilMap[A, AA <: ArrBase[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)
-                                     (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(jFrom, jUntil - 1, jStep)(f)
+  /** Folds over a range of Ints to an Int. From the start value until (while index is less than) the end value in integer steps. Default step value
+   *  is 1. */
+  def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
+    iToFoldInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
 
-  /**  i is the index for the outer loop. j is the index for the inner loop. This method is aliased by */
+  /** 2 dimensional from-to-step foreach loop. Throws on non terminaton. */
+  def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
+    iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
+
+  /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
+   * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijToMap[A, AA <: ArrBase[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)
     (implicit ev: ArrBuild[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
     val res = ev.newArr(arrLen)
-    var i: Int = iFrom
-    var count = 0
+    var arrIndex = 0
 
-    while(ife(iStep > 0, i <= iTo, i >= iTo))
-    { var j: Int = jFrom
-
-      while(ife(jStep > 0, j <= jTo, j >= jTo))
-      { ev.arrSet(res, count, f(i, j))
-        j += jStep
-        count += 1
-      }
-
-      i += iStep
+    ijToForeach(iFrom, iTo, iStep)(jFrom, jTo, jStep){ (i, j) =>
+      ev.arrSet(res, arrIndex, f(i, j))
+      arrIndex += 1
     }
     res
   }
 
+  /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
+   * From the start value until (while index is less than) the end value in integer steps. Default step values are 1. */
+  def ijUntilMap[A, AA <: ArrBase[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)
+    (implicit ev: ArrBuild[A, AA]): AA = ijToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(jFrom, jUntil - 1, jStep)(f)
+
   /** ijToMap where i and j have identical ranges. */
-  def iiToMap[A, AA <: ArrBase[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuild[A, AA]): AA =
+  def ijSameToMap[A, AA <: ArrBase[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuild[A, AA]): AA =
     ijToMap[A, AA](nFrom, nTo, nStep)(nFrom, nTo, nStep)(f)
+
+  /** 3 dimensional from-to-step foreach loop. Throws on non termination. */
+  def ijkToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
+    (f: (Int, Int, Int) => Unit): Unit =
+    iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => iToForeach(kFrom, kTo, kStep){ k => f(i, j, k) } } }
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
   }
 
+  /* This needs to be removed. */
   implicit class FunitRichImp(fu: () => Unit)
   { def +(operand: () => Unit): () => Unit = () => {fu() ; operand()}
   }

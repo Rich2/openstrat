@@ -1,6 +1,5 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import reflect.ClassTag
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
@@ -35,8 +34,7 @@ object Multiple
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 
   implicit class RefsImplicit[A](thisRefs: Arr[Multiple[A]])
-  {
-    def singlesLen: Int = thisRefs.sumBy(_.num)
+  { def singlesLen: Int = thisRefs.sumBy(_.num)
   }
 
   implicit class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
