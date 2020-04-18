@@ -8,11 +8,6 @@ class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) ext
   TileGrid
 {
 
-  override def sideArrIndex(y: Int, c: Int): Int =
-  { val oddRows = (y - ySideMin + 1).max0 / 2 * tileRowLen
-    val evenRows = (y - yTileMin + 1).max0 / 2 * (tileRowLen + 1)
-    oddRows + evenRows + ife(y.isOdd, (c - cTileMin + 2) / 2, (c - cTileMin + 1) / 2)
-  }
 }
 
 object SquareGrid

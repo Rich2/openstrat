@@ -4,7 +4,9 @@ package pGrid
 import geom._, math.sqrt
 
 trait HexGrid extends HexGridSimple
-{
+{ def sideRowIndex: Array[Int]
+
+  //override def sideArrIndex(y: Int, c: Int): Int = sideRowIndex(y)
 }
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
 { def fCost = gCost + hCost
@@ -70,12 +72,6 @@ object HexGrid
       case _ => Vec2(x, y - yDist / 2)
     }
   }
-
-  /*@inline def fOrient[A](y: Int, c: Int, upRight: (Int, Int) => A, rightSide: (Int, Int) => A, downRight: (Int, Int) => A): A = if3Excep(
-    (y.div4Rem1 && c.div4Rem1) || (y.div4Rem3 && c.div4Rem3), upRight(y, c),
-    (y.div4Rem0 && c.div4Rem2) || (y.div4Rem2 && c.div4Rem0), rightSide(y, c),
-    (y.div4Rem1 && c.div4Rem3) || (y.div4Rem3 && c.div4Rem1), downRight(y, c),
-    "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))*/
 
   @inline def sideOrient[A](sideRoord: Roord, upRight: => A, rightSide: => A, downRight: => A): A =
     sideOrient(sideRoord.y, sideRoord.c, upRight, rightSide, downRight)

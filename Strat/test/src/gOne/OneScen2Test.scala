@@ -9,7 +9,7 @@ object OneScen2Test  extends TestSuite
   val tests = Tests
   {
     "test1" -
-    { g.numOfRows ==> 4
+    { g.numOfTileRows ==> 4
       g.yTileMin ==> 2
       g.yTileMax ==> 8
       g.cTileMin ==> 2

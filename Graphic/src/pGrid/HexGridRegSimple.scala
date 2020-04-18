@@ -5,9 +5,7 @@ package pGrid
 * where the y coordinate divided by 4 has a remainder of 2. */
 class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HexGrid
 {
-  override def numOfRows: Int = numOfRow2s + numOfRow0s
-
-  //def roordToVec2Rel(roord: Roord): Vec2 = roordToVec2(roord) - cen
+  override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
   /* Override methods */
   override def tileExists(r: Roord): Boolean =  ???
@@ -73,6 +71,30 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   }
 
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 2, cTileMax + 2, 2)(c => f(Roord(y, c)))
+  override def sideRowIndex: Array[Int] =
+  {
+    val array = new Array[Int](numOfSideRows)
+    var count = 0
+    sideRowForeach{y =>
+      array(y) = count
+      rowForeachSide(y)(_ => count += 1)
+    }
+    array
+  }
+  override def sideArrIndex(y: Int, c: Int): Int =/* y match {
+    case y if y == ySideMin & y.div4Rem1 => (c - cRow2sMin + 1) / 2
+    case y if y == ySideMin => (c - cRow0sMin + 1) / 2
+    case y if y == ySideMax & y.div4Rem1 =>
+  }*/
+  { //val oddRows = (y - ySideMin + 1).max0 / 2 *
+    var count = 0
+    var res: Int = -1
+    sidesForeach{r =>
+      if (r == Roord(y, c)) res = count
+      count += 1
+    }
+    res
+  }
 }
 
 object HexGridRegSimple

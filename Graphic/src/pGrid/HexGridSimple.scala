@@ -22,15 +22,7 @@ trait HexGridSimple extends TileGrid
   override def tileVertRoords(roord: Roord): Roords = HexGrid.vertRoordsOfTile(roord)
   def isTileRoord(r: Roord): Boolean = r.y.div4Rem2 & r.c.div4Rem2 | r.y.div4Rem0 & r.c.div4Rem0
 
-  override def sideArrIndex(y: Int, c: Int): Int =
-  { var count = 0
-    var res: Int = -1
-    sidesForeach{r =>
-      if (r == Roord(y, c)) res = count
-      count += 1
-    }
-    res
-  }
+
 
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolyActiveOnly] = map{ roord =>

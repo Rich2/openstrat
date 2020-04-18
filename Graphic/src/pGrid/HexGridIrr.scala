@@ -4,15 +4,16 @@ package pGrid
 
 /** This grid is irregular in the length of the Hex rows. The (0) value gives yTileMin. There are 2 more values for row. Each row from lowest
  *  to highest has two values the xMin for the row and the index into a data array for the first tile of the grid row. */
-class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends HexGrid
+class HexGridIrr(override val yTileMin: Int, val tileRowIndexArray: Array[Int]) extends HexGrid
 {
   /** Number of rows of tiles. This will be different to the number of rows of sides and the number of rows of vertices. */
-  override def numOfRows: Int = indexArr.length / 2
+  override def numOfTileRows: Int = tileRowIndexArray.length / 2
+
+  /** An Array of Ints, 1 for each Tile Row, containing the Tile data Array index for the beginning of the tileRow. */
   val tileIndexArray: Array[Int] =
-  {
-    val res = new Array[Int](numOfRows)
+  { val res = new Array[Int](numOfTileRows)
     var count = 0
-    iUntilForeach(0, numOfRows){ i =>
+    iUntilForeach(0, numOfTileRows){ i =>
       res(i) = count
       val y = yTileMin + i * 2
       count += cRowLen(y)
@@ -26,7 +27,7 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
 
   def numOfTiles: Int = iToFoldInt(yTileMin, yTileMax, 2) { (acc, y) => acc + cRowLen(y) }
 
-  val sideIndexArray: Array[Int] =
+  val sideRowIndex: Array[Int] =
   {
     val res = new Array[Int](ySideMax - ySideMin + 1)
     var count = 0
@@ -44,19 +45,29 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
     res
   }
 
-  def cRowStart(y: Int): Int = indexArr(y - yTileMin)
-  def cRowEnd(y: Int): Int = indexArr(y - yTileMin + 1)
+  override def sideArrIndex(y: Int, c: Int): Int =
+  { var count = 0
+    var res: Int = -1
+    sidesForeach{r =>
+      if (r == Roord(y, c)) res = count
+      count += 1
+    }
+    res
+  }
+
+  def cRowStart(y: Int): Int = tileRowIndexArray(y - yTileMin)
+  def cRowEnd(y: Int): Int = tileRowIndexArray(y - yTileMin + 1)
 
   def cRowLen(y: Int): Int = ((cRowEnd(y) - cRowStart(y) + 4) / 4).max0
 
   def rowForeachTile(y: Int)(f: Roord => Unit): Unit = iToForeach(cRowStart(y), cRowEnd(y), 4) { c => f(Roord(y, c)) }
 
-  @inline override def yTileMax: Int = yTileMin + indexArr.length - 2
+  @inline override def yTileMax: Int = yTileMin + tileRowIndexArray.length - 2
 
-  final override def cTileMin: Int = if (numOfRows == 0) 0
+  final override def cTileMin: Int = if (numOfTileRows == 0) 0
     else iToFoldInt(yTileMin + 2, yTileMax, 2, cRowStart(yTileMin) ) { (acc, y) => acc.min(cRowStart(y)) }
 
-  def cTileMax: Int = if (numOfRows == 0) 0
+  def cTileMax: Int = if (numOfTileRows == 0) 0
   else iToFoldInt(yTileMin + 2, yTileMax, 2, cRowEnd(yTileMin) ) { (acc, y) => acc.max(cRowEnd(y)) }
 
   override def rowForeachSide(y: Int)(f: Roord => Unit): Unit = y match

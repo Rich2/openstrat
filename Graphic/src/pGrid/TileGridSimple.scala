@@ -18,8 +18,8 @@ trait TileGridSimple
 {
   /** Number of rows of tiles. This will be different to the number of rows of sides and and will be different to the number of rows of vertices for
    * HexGrids. */
-  def numOfRows: Int
-  def numOfSideRows: Int = numOfRows * 2 + 1
+  def numOfTileRows: Int
+  def numOfSideRows: Int = numOfTileRows * 2 + 1
   def numOfTiles: Int
   def yTileMin: Int
   def yTileMax: Int
@@ -254,12 +254,15 @@ trait TileGridSimple
 
   def sideRoordsOfTile(tileRoord: Roord): Roords
 
-
-
   def sideRoordTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour) }
 
   def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
     sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
+  /** The index from a Side Roord into an Arr of Side data. */
+  def sideArrIndex(y: Int, c: Int): Int
+
+  /** The index from a Side Roord into an Arr of Side data. */
+  @inline final def sideArrIndex(roord: Roord): Int = sideArrIndex(roord.y, roord.c)
 
 
   /**************************************************************************************************/
@@ -271,6 +274,7 @@ trait TileGridSimple
   final def vertRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1, 2)(f)
 
   def rowForeachVert(y: Int)(f: Roord => Unit): Unit
+
 
   def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
   { val res = build.newArr(numOfVerts)

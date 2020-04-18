@@ -15,7 +15,7 @@ object OneScen1Test  extends TestSuite
   val tests = Tests
   {
     "os1" -
-      { g1.numOfRows ==> 3
+      { g1.numOfTileRows ==> 3
         g1.yTileMin ==> 2
         g1.yTileMax ==> 6
         g1.cTileMin ==> 2
@@ -24,7 +24,7 @@ object OneScen1Test  extends TestSuite
       }
 
     "os2" -
-      { g2.numOfRows ==> 3
+      { g2.numOfTileRows ==> 3
         g2.yTileMin ==> 2
         g2.yTileMax ==> 6
         g2.cTileMin ==> 2
