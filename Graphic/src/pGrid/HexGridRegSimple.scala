@@ -71,7 +71,7 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   }
 
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 2, cTileMax + 2, 2)(c => f(Roord(y, c)))
-  override def sideRowIndex: Array[Int] =
+  override def sideRowIndexArray: Array[Int] =
   {
     val array = new Array[Int](numOfSideRows)
     var count = 0

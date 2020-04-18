@@ -4,7 +4,7 @@ package pGrid
 import geom._, math.sqrt
 
 trait HexGrid extends HexGridSimple
-{ def sideRowIndex: Array[Int]
+{ def sideRowIndexArray: Array[Int]
 
   //override def sideArrIndex(y: Int, c: Int): Int = sideRowIndex(y)
 }

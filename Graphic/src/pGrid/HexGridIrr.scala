@@ -14,7 +14,7 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
 
   /** An Array of index values into an Arrray of Tile data 1 Int index value for each Tile Row, containing the Tile data Array index for the beginning
    *  of the tileRow. */
-  val tileIndexArray: Array[Int] =
+  val tileRowIndexArray: Array[Int] =
   { val res = new Array[Int](numOfTileRows)
     var count = 0
     iUntilForeach(0, numOfTileRows){ i =>
@@ -27,11 +27,11 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
 
   /** Gives the index into a Tile Array for an irregular Hex Grid from its Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */
-  def arrIndex(y: Int, c: Int): Int = tileIndexArray((y - yTileMin) / 2)  + (c - cRowStart(y)) / 4
+  def arrIndex(y: Int, c: Int): Int = tileRowIndexArray((y - yTileMin) / 2)  + (c - cRowStart(y)) / 4
 
   def numOfTiles: Int = iToFoldInt(yTileMin, yTileMax, 2) { (acc, y) => acc + cRowLen(y) }
 
-  val sideRowIndex: Array[Int] =
+  val sideRowIndexArray: Array[Int] =
   {
     val res = new Array[Int](ySideMax - ySideMin + 1)
     var count = 0
