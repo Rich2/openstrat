@@ -62,13 +62,19 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
     res
   }
 
+  /** c Tile Row start value for a given y Row.  */
   def cRowStart(y: Int): Int = tileRowsStartEnd(y - yTileMin)
+
+  /** c Tile Row End value for a given y Row. */
   def cRowEnd(y: Int): Int = tileRowsStartEnd(y - yTileMin + 1)
 
+  /** Tile Row length for a give n y Row. */
   def cRowLen(y: Int): Int = ((cRowEnd(y) - cRowStart(y) + 4) / 4).max0
 
+  /** foreach Tile in a given Row, calls the effectful function on the Tiles Roord. */
   def rowForeachTile(y: Int)(f: Roord => Unit): Unit = iToForeach(cRowStart(y), cRowEnd(y), 4) { c => f(Roord(y, c)) }
 
+  /** The maximum y Row value for this HexGridIrr. */
   @inline override def yTileMax: Int = yTileMin + tileRowsStartEnd.length - 2
 
   final override def cTileMin: Int = if (numOfTileRows == 0) 0

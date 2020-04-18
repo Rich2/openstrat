@@ -19,12 +19,34 @@ trait TileGridSimple
   /** Number of rows of tiles. This will be different to the number of rows of sides and and will be different to the number of rows of vertices for
    * HexGrids. */
   def numOfTileRows: Int
-  def numOfSideRows: Int = numOfTileRows * 2 + 1
+
+  /** The number of Rows of Sides. */
+  @inline final def numOfSideRows: Int = numOfTileRows * 2 + 1
+
+  /** The number of Rows of vertices. */
+  @inline final def numOfVertRows: Int = numOfTileRows + 1
+
+  /** The total number of Tiles in the tile Grid. */
   def numOfTiles: Int
+
+  /** The bottom Tile Row of the TileGrid. the y value. */
   def yTileMin: Int
+
+  /** The top Tile Row of the The TileGrid. the y value. */
   def yTileMax: Int
-  def ySideMin: Int = yTileMin - 1
-  def ySideMax: Int = yTileMax + 1
+
+  /** The bottom Side Row of this TileGrid. The y value. */
+  @inline final def ySideMin: Int = yTileMin - 1
+
+  /** The top Side Row of this TileGrid. The y value. */
+  @inline final def ySideMax: Int = yTileMax + 1
+
+  /** The top Row of Tile vertices. */
+  @inline final def yVertMax: Int = yTileMax + 1
+
+  /** The bottom row of Tile vertices. */
+  @inline final def yVertMin: Int = yTileMin - 1
+
   /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
   def cTileMin: Int
 
