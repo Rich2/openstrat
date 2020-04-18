@@ -16,7 +16,11 @@ package pGrid
  *  Stars on the American flag. */
 trait TileGrid extends TileGridSimple
 {
-  def sideIndex(roord: Roord): Int
+  /** The index from a Side Roord into an Arr of Side data. */
+  def sideArrIndex(y: Int, c: Int): Int
+
+  /** The index from a Side Roord into an Arr of Side data. */
+  @inline final def sideArrIndex(roord: Roord): Int = sideArrIndex(roord.y, roord.c)
 
   /** New immutable Arr of Side Boolean data. */
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))

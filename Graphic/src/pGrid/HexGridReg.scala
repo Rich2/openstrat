@@ -47,7 +47,7 @@ case class HexGridReg(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
 
-  @inline override def index(y: Int, c: Int): Int =
+  @inline override def arrIndex(y: Int, c: Int): Int =
   {
     val thisRow: Int = y %% 4 match
     { case 2 => (c - cRow2sMin) / 4

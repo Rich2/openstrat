@@ -22,7 +22,7 @@ class HexGridIrr(override val yTileMin: Int, val indexArr: Array[Int]) extends H
 
   /** Gives the index into a Tile Array for an irregular Hex Grid from its Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */
-  def index(y: Int, c: Int): Int = tileIndexArray((y - yTileMin) / 2)  + (c - cRowStart(y)) / 4
+  def arrIndex(y: Int, c: Int): Int = tileIndexArray((y - yTileMin) / 2)  + (c - cRowStart(y)) / 4
 
   def numOfTiles: Int = iToFoldInt(yTileMin, yTileMax, 2) { (acc, y) => acc + cRowLen(y) }
 

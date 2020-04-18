@@ -43,7 +43,7 @@ package object pGrid
   }
 
   implicit class ArrayImplicit[A](thisArray: Array[A])
-  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach{r => f(r, thisArray(grid.index(r)))}
+  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach{r => f(r, thisArray(grid.arrIndex(r)))}
   }
 
   implicit class GridTransExtension[T](value: T)(implicit grid: TileGridSimple, ev: Trans[T])
@@ -58,8 +58,8 @@ package object pGrid
   /** Not sure about the use of List in this class. */
   implicit class TilesListImplicit[A](thisRefs: TilesRef[List[A]])
   { def prepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = prepend(Roord(y, c), value)
-    def prepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.index(roord)) ::= value
-    def prepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.index(r)) ::= value }
+    def prepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
+    def prepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 
     /*def gridHeadsMap[B <: AnyRef, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
     {

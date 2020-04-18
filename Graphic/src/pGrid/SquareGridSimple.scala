@@ -6,15 +6,14 @@ import geom._
 /** Currently all SquareGrids are regular. */
 class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGridSimple
 {
-  //(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int)
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
   override def roordToVec2(roord: Roord): Vec2 = Vec2(roord.c, roord.y)
   override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = SquareGrid.sideRoordToRoordLine(sideRoord)
-  def rowTileLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).max0
+  def tileRowLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).max0
   def numOfRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0
-  def numOfTiles: Int = numOfRows * rowTileLen
+  def numOfTiles: Int = numOfRows * tileRowLen
   def cStep: Int = 2
-  @inline override def index(y: Int, c: Int): Int = (y - yTileMin) / 2 * rowTileLen + (c - cTileMin) / 2
+  @inline override def arrIndex(y: Int, c: Int): Int = (y - yTileMin) / 2 * tileRowLen + (c - cTileMin) / 2
 
   @inline override def sideRoordsOfTile(tileRoord: Roord): Roords = SquareGrid.sideRoordsOfTile(tileRoord)
 

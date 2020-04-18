@@ -72,7 +72,7 @@ trait TileGridSimple
   def map[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val res = build.newArr(numOfTiles)
     foreach{ roord =>
-      build.arrSet(res, index(roord), f(roord))
+      build.arrSet(res, arrIndex(roord), f(roord))
     }
     res
   }
@@ -82,7 +82,7 @@ trait TileGridSimple
   { val res = build.newArr(numOfTiles)
     var i = 0
     foreach{ roord =>
-      build.arrSet(res, index(roord), f(roord, i))
+      build.arrSet(res, arrIndex(roord), f(roord, i))
       i += 1
     }
     res
@@ -163,7 +163,7 @@ trait TileGridSimple
   /* Methods that operate on individual tiles. */
 
   /** Sets element in a flat Tiles Arr according to its Roord. */
-  def setTile[A](roord: Roord, value: A)(implicit arr: ArrBase[A]): Unit = arr.unsafeSetElem(index(roord), value)
+  def setTile[A](roord: Roord, value: A)(implicit arr: ArrBase[A]): Unit = arr.unsafeSetElem(arrIndex(roord), value)
 
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
   def roordToVec2(roord: Roord): Vec2
@@ -173,11 +173,11 @@ trait TileGridSimple
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
-  @inline final def index(r: Roord): Int = index(r.y, r.c)
+  @inline final def arrIndex(r: Roord): Int = arrIndex(r.y, r.c)
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
-  @inline def index(y: Int, c: Int): Int
+  @inline def arrIndex(y: Int, c: Int): Int
 
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
   def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (roordToVec2(roord) - gridPosn -cen) * scale
@@ -188,10 +188,10 @@ trait TileGridSimple
   def tileVertRoords(roord: Roord): Roords
 
   /** Method may be removed, probably better to dispatch from the Arr, with the grid as parameter. */
-  def setTile[A <: AnyRef](roord: Roord, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(index(roord), value)
+  def setTile[A <: AnyRef](roord: Roord, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(arrIndex(roord), value)
 
   /** Method may be removed, probably better to dispatch from the Arr, with the grid as parameter. */
-  def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(index(xi, yi), value)
+  def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(arrIndex(xi, yi), value)
 
   def isTileRoord(r: Roord): Boolean
   def tileExists(r: Roord): Boolean = ???
