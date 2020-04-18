@@ -12,7 +12,8 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
   /** Number of rows of tiles. This will be different to the number of rows of sides and the number of rows of vertices. */
   override def numOfTileRows: Int = tileRowsStartEnd.length / 2
 
-  /** An Array of Ints, 1 for each Tile Row, containing the Tile data Array index for the beginning of the tileRow. */
+  /** An Array of index values into an Arrray of Tile data 1 Int index value for each Tile Row, containing the Tile data Array index for the beginning
+   *  of the tileRow. */
   val tileIndexArray: Array[Int] =
   { val res = new Array[Int](numOfTileRows)
     var count = 0
