@@ -3,8 +3,9 @@ package ostrat
 package pGrid
 
 /** This grid is irregular in the length of the Hex rows. The (0) value gives yTileMin. There are 2 more values for row. Each row from lowest
- *  to highest has two values the xMin for the row and the index into a data array for the first tile of the grid row.
- *  @param yTileMin The y vlaue for the bottom tile row of the TileGrid
+ *  to highest has two values the xMin for the row and the index into a data array for the first tile of the grid row. *
+ *  @constructor creates a new HexGridIrr with a defined grid.
+ *  @param yTileMin The y value for the bottom tile row of the TileGrid
  *  @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) extends HexGrid
 {
