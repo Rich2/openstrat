@@ -29,8 +29,10 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
    *  Array data. */
   def arrIndex(y: Int, c: Int): Int = tileRowIndexArray((y - yTileMin) / 2)  + (c - cRowStart(y)) / 4
 
+  /** The number of Tiles in the TileGrid. */
   def numOfTiles: Int = iToFoldInt(yTileMin, yTileMax, 2) { (acc, y) => acc + cRowLen(y) }
 
+  /** An Array of index values into an Array of Side data. 1 Int value for the start index of each Row. */
   val sideRowIndexArray: Array[Int] =
   {
     val res = new Array[Int](ySideMax - ySideMin + 1)
@@ -49,6 +51,7 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
     res
   }
 
+  /** Method gives the index into an Arr / Array of Side Data for a given Side Roord. */
   override def sideArrIndex(y: Int, c: Int): Int =
   { var count = 0
     var res: Int = -1
