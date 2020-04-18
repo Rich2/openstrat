@@ -36,7 +36,7 @@ object OneScen
 }
 
 object OneScen1 extends OneScenStart
-{ implicit val grid = new HexGridReg(2, 6, 2, 10)
+{ implicit val grid = new HexGridRegSimple(2, 6, 2, 10)
   val oPlayers = grid.newTileArrOpt[Player]
   oPlayers.mutSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
