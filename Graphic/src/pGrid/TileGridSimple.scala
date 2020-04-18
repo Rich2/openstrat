@@ -254,15 +254,13 @@ trait TileGridSimple
 
   def sideRoordsOfTile(tileRoord: Roord): Roords
 
-  def sideIndex(roord: Roord): Int = ???
+
 
   def sideRoordTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, textSize, roordToVec2(r), colour) }
 
   def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
     sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
 
-  /** New immutable Arr of Side Boolean data. */
-  def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
 
   /**************************************************************************************************/
   /* Methods that operate on tile vertices. */
@@ -280,7 +278,6 @@ trait TileGridSimple
     vertsForeach{r => build.arrSet(res, count, f(r)); count += 1 }
     res
   }
-    //vertRoords.map(r => f(r))
 
   /** Maps from each verts Roord to an ArrBase of A. */
   def vertsIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]) =
@@ -296,7 +293,4 @@ trait TileGridSimple
 
   def vertRoordIndexTexts(textSize: Int = 20, colour: Colour = Red): Arr[TextGraphic] =
     vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
-
-  /** New immutable Arr of vertex Int data. */
-  def newVertInts: VertInts = new VertInts(new Array[Int](numOfVerts))
 }

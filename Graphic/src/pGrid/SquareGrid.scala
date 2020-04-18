@@ -4,8 +4,10 @@ package pGrid
 import geom._
 
 /** Currently all SquareGrids are regular. */
-class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends SquareGridSimple(yTileMin, yTileMax, cTileMin, cTileMax)
+class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends SquareGridSimple(yTileMin, yTileMax, cTileMin, cTileMax) with
+  TileGrid
 {
+  override def sideIndex(roord: Roord): Int = ???
 }
 
 object SquareGrid

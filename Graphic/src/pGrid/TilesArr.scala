@@ -9,10 +9,10 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
   def apply(roord: Roord)(implicit grid: TileGrid): A = unsafeArr(grid.index(roord))
   def apply(y: Int, c: Int)(implicit grid: TileGrid): A = unsafeArr(grid.index(y, c))
   /** Set tile row from the Roord. */
-  final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
+  final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
 
   /** Note set Row starts with the y (row) parameter. */
-  final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
   {
     val tiles: List[A] = tileValues.toSingles
     tiles.iForeach { (e, i) =>
@@ -36,7 +36,7 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
   }
 
   /** Note set RowBack starts with the y (row) parameter */
-  final def setRowBack(yRow: Int, cStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  final def setRowBack(yRow: Int, cStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
   {
     val tiles = tileMakers.toSingles
     tiles.iForeach{(el, i) =>
@@ -47,10 +47,10 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
     Roord(yRow, cStart - (tiles.length - 1) * grid.cStep)
   }
 
-  final def setRowBack(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  final def setRowBack(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
   setRowBack(roord.y, roord.c, tileValues: _*)(grid)
 
-  final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
   {
     val tiles = tileMakers.flatMap(_.singlesList)
     tiles.iForeach{(el, i) =>
@@ -61,10 +61,10 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
     Roord(yStart + (tiles.length - 1) * 2, c)
   }
 
-  final def setColumn(roordStart: Roord, multis: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  final def setColumn(roordStart: Roord, multis: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
   setColumn(roordStart.c, roordStart.y, multis: _*)(grid)
 
-  final def setColumnDown(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  final def setColumnDown(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
   {
     val tiles = tileMakers.flatMap(_.singlesList)
 
@@ -76,10 +76,10 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
     Roord(c, yStart - (tiles.length - 1) * 2)
   }
 
-  def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
+  def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
   setColumnDown(roordStart.c, roordStart.y, tileValues: _*)(grid)
 
-  def setTerrPath(startRoord: Roord, value: A, dirns: Multiple[SquareGrid.PathDirn]*)(implicit grid: SquareGrid): Roord =
+  def setTerrPath(startRoord: Roord, value: A, dirns: Multiple[SquareGrid.PathDirn]*)(implicit grid: SquareGridSimple): Roord =
   {
     var curr = startRoord
     import SquareGrid._
@@ -94,7 +94,7 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
   }
 
   /** Sets a rectangle of tiles to the same terrain type. */
-  def sqGridSetRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(implicit grid: SquareGrid): Unit =
+  def sqGridSetRect(yFrom: Int, yTo: Int, cFrom: Int, cTo: Int, tileValue: A)(implicit grid: SquareGridSimple): Unit =
     ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => unsafeArr(grid.index(y, c)) =  tileValue }
 }
 

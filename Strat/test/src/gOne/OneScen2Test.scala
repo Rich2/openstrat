@@ -3,7 +3,7 @@ package ostrat
 package gOne
 import utest._
 
-object Irr1Test  extends TestSuite
+object OneScen2Test  extends TestSuite
 {
   val g = OneScen2.grid
   val tests = Tests

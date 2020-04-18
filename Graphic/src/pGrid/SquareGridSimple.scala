@@ -4,7 +4,7 @@ package pGrid
 import geom._
 
 /** Currently all SquareGrids are regular. */
-class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGrid
+class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGridSimple
 {
   //(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int)
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0

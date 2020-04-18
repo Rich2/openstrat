@@ -16,5 +16,11 @@ package pGrid
  *  Stars on the American flag. */
 trait TileGrid extends TileGridSimple
 {
-  
+  def sideIndex(roord: Roord): Int
+
+  /** New immutable Arr of Side Boolean data. */
+  def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))
+
+  /** New immutable Arr of vertex Int data. */
+  def newVertInts: VertInts = new VertInts(new Array[Int](numOfVerts))
 }
