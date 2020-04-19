@@ -17,9 +17,16 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
     array
   }
 
-  /*def cSideRowMin(y: Int): Int = y match {
-    case y if y == ySideMin
-  }*/
+  /** Return the Side Row start for the given Row y value. */
+  def cSideRowMin(y: Int): Int = y match
+  { case y if y == ySideMin & bottomRowIs2 => cRow2sMin - 1
+    case y if y == ySideMin => cRow0sMin - 1
+    case y if y == ySideMax & topRowIs2 => cRow2sMin - 1
+    case y if y == ySideMax => cRow0sMin - 1
+    case y if y.div4Rem2 => cRow2sMin - 2
+    case y if y.div4Rem0 => cRow0sMin + 2
+    case y => cTileMin - 1
+  }
 
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
@@ -52,6 +59,12 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
 
   /** The y coordinate of the bottom row of this grid divided by 4 leaves remainder of 0. */
   def bottomRowIs0: Boolean = yTileMin.div4Rem0
+
+  /** The y coordinate of the top row of this grid divided by 4 leaves remainder of 2. */
+  def topRowIs2: Boolean = yTileMin.div4Rem2
+
+  /** The y coordinate of the top row of this grid divided by 4 leaves remainder of 0. */
+  def topRowIs0: Boolean = yTileMin.div4Rem0
 
   /** Number of Rows where y.Div4Rem0. */
   def numOfRow0s: Int = ((yRow0sMax - yRow0sMin + 4) / 4).max(0)
