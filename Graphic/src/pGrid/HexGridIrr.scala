@@ -12,6 +12,14 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
   /** Number of rows of tiles. This will be different to the number of rows of sides and the number of rows of vertices. */
   override def numOfTileRows: Int = tileRowsStartEnd.length / 2
 
+  /** Return the Side Row start for the given Row y value. */
+  override def cSideRowMin(y: Int): Int = y match {
+    case y if y == ySideMax => cRowStart(y - 1) - 1
+    case y if y == ySideMin => cRowStart(y + 1) - 1
+    case y if y.isEven => cRowStart(y) - 2
+    case y => cRowStart(y - 1).min(cRowStart(y + 1) - 1)
+  }
+
   /** An Array of index values into an Arrray of Tile data 1 Int index value for each Tile Row, containing the Tile data Array index for the beginning
    *  of the tileRow. */
   val tileRowIndexArray: Array[Int] =
@@ -52,15 +60,7 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
   }
 
   /** Method gives the index into an Arr / Array of Side Data for a given Side Roord. */
-  override def sideArrIndex(y: Int, c: Int): Int =
-  { var count = 0
-    var res: Int = -1
-    sidesForeach{r =>
-      if (r == Roord(y, c)) res = count
-      count += 1
-    }
-    res
-  }
+  override def sideArrIndex(y: Int, c: Int): Int = sideRowIndexArray(y - ySideMin) + (c - cSideRowMin(y)) / y.ifEven(4, 2)
 
   /** c Tile Row start value for a given y Row.  */
   def cRowStart(y: Int): Int = tileRowsStartEnd(y - yTileMin)

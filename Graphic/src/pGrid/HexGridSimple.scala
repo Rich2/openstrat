@@ -5,6 +5,9 @@ import geom._
 
 trait HexGridSimple extends TileGridSimple
 {
+  /** Return the Side Row start for the given Row y value. */
+  def cSideRowMin(y: Int): Int
+
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   def sideRowIndexArray: Array[Int]
 

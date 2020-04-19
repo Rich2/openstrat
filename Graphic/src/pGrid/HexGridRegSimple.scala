@@ -18,7 +18,7 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   }
 
   /** Return the Side Row start for the given Row y value. */
-  def cSideRowMin(y: Int): Int = y match
+  override def cSideRowMin(y: Int): Int = y match
   { case y if y == ySideMin & bottomRowIs2 => cRow2sMin - 1
     case y if y == ySideMin => cRow0sMin - 1
     case y if y == ySideMax & topRowIs2 => cRow2sMin - 1
