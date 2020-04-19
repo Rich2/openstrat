@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
 import reflect.ClassTag
@@ -10,8 +10,11 @@ trait Transer extends Any
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
-trait Trans[T]
+trait Trans[T] extends TransAffine[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T
+  override def slate(obj: T, offset: Vec2): T = trans(obj, _ + offset)
+  override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
+  override def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Vec2(v.x * xScale, v.y * yScale))
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
