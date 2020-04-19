@@ -81,7 +81,9 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
     val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).max0
     y0s + y2s + thisRow
   }
-  def rowForeachTile(y: Int)(f: Roord => Unit): Unit =
+
+  /** foreachs over each Tile's Roord in the given Row. The row is specified by its y value. */
+  override def rowForeachTile(y: Int)(f: Roord => Unit): Unit =
     if(y %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(Roord(y, c)))
     else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(Roord(y, c)))
 
@@ -98,20 +100,9 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
 
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 2, cTileMax + 2, 2)(c => f(Roord(y, c)))
 
-  override def sideArrIndex(y: Int, c: Int): Int =/* y match {
-    case y if y == ySideMin & y.div4Rem1 => (c - cRow2sMin + 1) / 2
-    case y if y == ySideMin => (c - cRow0sMin + 1) / 2
-    case y if y == ySideMax & y.div4Rem1 =>
-  }*/
-  { //val oddRows = (y - ySideMin + 1).max0 / 2 *
-    var count = 0
-    var res: Int = -1
-    sidesForeach{r =>
-      if (r == Roord(y, c)) res = count
-      count += 1
-    }
-    res
-  }
+  /** The index from a Side Roord into an Arr of Side data. */
+  override def sideArrIndex(y: Int, c: Int): Int = sideRowIndexArray(y - ySideMin) + (c - cSideRowMin(y)) / y.ifEven(4, 2)
+
 }
 
 object HexGridRegSimple

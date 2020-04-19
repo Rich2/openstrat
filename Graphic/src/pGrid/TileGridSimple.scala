@@ -88,6 +88,7 @@ trait TileGridSimple
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(yTileMin, yTileMax, 2)(f)
 
+  /** foreachs over each Tile's Roord in the given Row. The row is specified by its y value. */
   def rowForeachTile(y: Int)(f: Roord => Unit): Unit
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
@@ -288,6 +289,7 @@ trait TileGridSimple
 
   def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
     sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r), colour))
+
   /** The index from a Side Roord into an Arr of Side data. */
   def sideArrIndex(y: Int, c: Int): Int
 

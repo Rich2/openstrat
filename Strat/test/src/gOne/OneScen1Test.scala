@@ -35,6 +35,9 @@ object OneScen1Test  extends TestSuite
     "os3" -
     {
       g3.numOfTiles ==> 8
+      g1.cSideRowMin(1) ==> 1
+      g1.cSideRowMin(2) ==> 0
+      g1.cSideRowMin(5) ==> 1
       //os3.oPlayers(1) ==> NoRef
 //      os3.oPlayers(4, 4)(os3.grid) ==> NoRef
 //      os3.oPlayersOld(os3.grid.index(6, 2)) ==> OptRef(PlayerA)
