@@ -41,6 +41,13 @@ class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   override def rowForeachSide(y: Int)(f: Roord => Unit): Unit = if(y.isOdd) iToForeach(cTileMin, cTileMax, 2){c => f(Roord(y, c)) }
 
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 1, cTileMax + 1, 2)(c => f(Roord(y, c)))
+
+  override def tileExists(y: Int, c: Int): Boolean = y match
+  { case y if y.isEven & c.isEven & c >= cTileMin & c <= cTileMax => true
+    case y if y.isEven & c.isEven => false
+    case _ => excep("tile exists: invalide Tile Roord.")
+  }
+
 }
 
 object SquareGridSimple

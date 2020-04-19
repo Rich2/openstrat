@@ -7,9 +7,6 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
 {
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
-  /* Override methods */
-  override def tileExists(r: Roord): Boolean =  ???
-
   /** Minimum c for Rows where y.Div4Rem2. */
   def cRow2sMin: Int = cTileMin.roundUpTo(_.div4Rem2)
 

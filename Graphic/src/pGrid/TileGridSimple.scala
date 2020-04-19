@@ -175,7 +175,7 @@ trait TileGridSimple
   final def cenRoordIndexTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] =
     iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r)))
 
-  /** Quick method to give the Tile, Side and Vertex Roord Texts. */
+  /** Quick method to give the Tile, Side and Vertex Roord Text Grahics. */
   final def cenSideVertRoordText: Arr[PaintElem] = cenRoordTexts() ++ sideRoordTexts() ++ vertRoordTexts()
 
   /**************************************************************************************************/
@@ -213,7 +213,12 @@ trait TileGridSimple
   def setTile[A <: AnyRef](xi: Int, yi: Int, value: A)(implicit arr: Arr[A]): Unit = arr.unsafeSetElem(arrIndex(xi, yi), value)
 
   def isTileRoord(r: Roord): Boolean
-  def tileExists(r: Roord): Boolean = ???
+
+  /** Tests whether the Tile exists within the TileGrid. Will throw on an invalid Tile Roord. */
+  final def tileExists(r: Roord): Boolean = tileExists(r.y, r.c)
+
+  /** Tests whether the Tile exists within the TileGrid. Will throw on an invalid Tile Roord. */
+  def tileExists(y: Int, c: Int): Boolean
 
   /**************************************************************************************************/
   /* Methods that operate on tile sides. */

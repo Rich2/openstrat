@@ -21,7 +21,8 @@ trait HexGridSimple extends TileGridSimple
   override def tileVertRoords(roord: Roord): Roords = HexGrid.vertRoordsOfTile(roord)
   def isTileRoord(r: Roord): Boolean = r.y.div4Rem2 & r.c.div4Rem2 | r.y.div4Rem0 & r.c.div4Rem0
 
-
+  /* Override methods */
+  final override def tileExists(y: Int, c: Int): Boolean =  ???
 
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolyActiveOnly] = map{ roord =>
