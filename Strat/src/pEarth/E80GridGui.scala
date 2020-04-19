@@ -3,6 +3,7 @@ package ostrat
 package pEarth
 import geom._, pCanv._, pGrid._
 
+/** Gui to display E80Data objects in isolation. */
 case class E80GridGui(canv: CanvasPlatform, scen: E80Data, cenRoord: Roord) extends CmdBarGui("North West Europe Gui")
 {
   implicit val grid = scen.grid

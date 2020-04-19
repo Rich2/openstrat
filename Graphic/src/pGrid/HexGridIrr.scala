@@ -77,10 +77,10 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
   /** The maximum y Row value for this HexGridIrr. */
   @inline override def yTileMax: Int = yTileMin + tileRowsStartEnd.length - 2
 
-  final override def cTileMin: Int = if (numOfTileRows == 0) 0
+  final override def cTileMin: Int = if (numOfTileRows == 0) 100
     else iToFoldInt(yTileMin + 2, yTileMax, 2, cRowStart(yTileMin) ) { (acc, y) => acc.min(cRowStart(y)) }
 
-  def cTileMax: Int = if (numOfTileRows == 0) 0
+  def cTileMax: Int = if (numOfTileRows == 0) -100
   else iToFoldInt(yTileMin + 2, yTileMax, 2, cRowEnd(yTileMin) ) { (acc, y) => acc.max(cRowEnd(y)) }
 
   override def rowForeachSide(y: Int)(f: Roord => Unit): Unit = y match
