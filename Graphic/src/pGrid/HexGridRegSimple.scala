@@ -3,8 +3,24 @@ package pGrid
 
 /* A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
 * where the y coordinate divided by 4 has a remainder of 2. */
-class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HexGrid
+class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HexGridSimple
 {
+  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
+  override def sideRowIndexArray: Array[Int] =
+  {
+    val array = new Array[Int](numOfSideRows)
+    var count = 0
+    sideRowForeach{y =>
+      array(y - ySideMin) = count
+      rowForeachSide(y)(_ => count += 1)
+    }
+    array
+  }
+
+  /*def cSideRowMin(y: Int): Int = y match {
+    case y if y == ySideMin
+  }*/
+
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
   /** Minimum c for Rows where y.Div4Rem2. */
@@ -68,16 +84,7 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   }
 
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 2, cTileMax + 2, 2)(c => f(Roord(y, c)))
-  override def sideRowIndexArray: Array[Int] =
-  {
-    val array = new Array[Int](numOfSideRows)
-    var count = 0
-    sideRowForeach{y =>
-      array(y) = count
-      rowForeachSide(y)(_ => count += 1)
-    }
-    array
-  }
+
   override def sideArrIndex(y: Int, c: Int): Int =/* y match {
     case y if y == ySideMin & y.div4Rem1 => (c - cRow2sMin + 1) / 2
     case y if y == ySideMin => (c - cRow0sMin + 1) / 2

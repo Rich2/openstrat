@@ -5,7 +5,12 @@ import geom._
 
 trait HexGridSimple extends TileGridSimple
 {
+  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
+  def sideRowIndexArray: Array[Int]
+
+  /** The c delta between tiles. */
   def cStep: Int = 4
+
   override def roordToVec2(roord: Roord): Vec2 = HexGrid.roordToVec2(roord)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
   def roordCen = Vec2(cCen, yCen)

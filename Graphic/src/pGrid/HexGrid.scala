@@ -4,7 +4,7 @@ package pGrid
 import geom._, math.sqrt
 
 trait HexGrid extends HexGridSimple with TileGrid
-{ def sideRowIndexArray: Array[Int]
+{
 }
 
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
