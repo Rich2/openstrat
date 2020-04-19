@@ -14,7 +14,7 @@ case class RoordLine(y1: Int, c1: Int, y2: Int, c2: Int) extends ProdInt4
     val v2 = f(Roord(y2, c2))
     Line2(v1, v2)
   }
-  def gridLine2(implicit grid: TileGrid): Line2 = toLine2(grid.roordToVec2)
+  def gridLine2(implicit grid: TileGridSimple): Line2 = toLine2(grid.roordToVec2)
 }
 
 object RoordLine

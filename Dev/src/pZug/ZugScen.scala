@@ -4,9 +4,9 @@ import pGrid._
 
 trait ZugScen
 { implicit def grid: HexGridReg
-  def terrs: TilesRef[ZugTerr]
+  def terrs: TilesArr[ZugTerr]
   def sTerrs: SideBooleans
-  def lunits: TilesRef[List[Squad]]
+  def lunits: TilesArr[List[Squad]]
   def addUnit(polity: Polity, roord: Roord, action: Action = NoAction): Unit = lunits.prepend(roord, Squad(polity, roord, action))
   def addYC(polity: Polity, y: Int, c: Int, action: Action = NoAction): Unit = lunits.prepend(y rr c, Squad(polity, y rr c, action))
   def addUnits(polity: Polity, roords: Roord*): Unit = roords.foreach{r => lunits.prepend(r, Squad(polity, r))}
@@ -29,7 +29,7 @@ object Zug1 extends ZugScen
   val wall1 = Roords(14 rr 36, 13 rr 35, 12 rr 34, 11 rr 35, 10 rr 36) ++ grid.SidesHorr(9, 37, 47)
   sTerrs.gridSetTrues(wall1)
 
-  val lunits: TilesRef[List[Squad]] = grid.newTileArr[List[Squad]](Nil)
+  val lunits: TilesArr[List[Squad]] = grid.newTileArr[List[Squad]](Nil)
   lunits.prepend(2, 30, Squad(Britain, 2 rr 30, Move(2 rr 26, 2 rr 22)))
   lunits.prepend(10, 38, Squad(Britain, 10 rr 38, Fire(6 rr 18)))
   lunits.prepend(4, 32, Squad(Britain, 4 rr 32, Move(4 rr 28, 4 rr 24, 4 rr 20)))

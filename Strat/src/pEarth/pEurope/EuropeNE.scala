@@ -6,7 +6,7 @@ import pGrid._, WTile._
 object EuropeNETerr extends E80Data
 {
   implicit val grid: HexGridIrr = EuropeNEGrid
-  val terrs: TilesRef[WTile] = grid.newTileArr[WTile](Ocean)
+  val terrs: TilesArr[WTile] = grid.newTileArr[WTile](Ocean)
   val sTerrs: SideBooleans = grid.newSideBooleans
   val vTerrs: VertInts = grid.newVertInts
 //    val grid = new EGFarNorth[TileT, SideT]("EuropeEast", 30.east, xOffset = 400, xTileMin = 314, xTileMax = 486)//{}

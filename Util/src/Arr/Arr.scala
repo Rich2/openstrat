@@ -70,7 +70,7 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
     optElem.fld(this, this +- _)
 
   def appendOption(optElem: Option[A]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
-    optElem.fld(this, +- _)
+    optElem.fld(this, this +- _)
 
   def appendsOption(optElem: Option[Arr[A]]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
     optElem.fld(this, ++ _)

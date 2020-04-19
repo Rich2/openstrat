@@ -2,12 +2,14 @@ package ostrat
 package pGrid
 import scala.reflect.ClassTag
 
-class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
+/** An immutable Arr of Tile data for a specific TileGrid. This is specialised for AnyRef types The tileGrid can map the Roord of the Tile to the
+ *  index of the Arr. Hence most methods take an implicit TIleGrid parameter. */
+class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
 {
   def length: Int = unsafeArr.length
 
-  def apply(roord: Roord)(implicit grid: TileGrid): A = unsafeArr(grid.arrIndex(roord))
-  def apply(y: Int, c: Int)(implicit grid: TileGrid): A = unsafeArr(grid.arrIndex(y, c))
+  def apply(roord: Roord)(implicit grid: TileGridSimple): A = unsafeArr(grid.arrIndex(roord))
+  def apply(y: Int, c: Int)(implicit grid: TileGridSimple): A = unsafeArr(grid.arrIndex(y, c))
   /** Set tile row from the Roord. */
   final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
 
@@ -22,12 +24,11 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
     Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
   }
 
-  def foreach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, unsafeArr(grid.arrIndex(r))) }
+  def foreach(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach{ r => f(r, unsafeArr(grid.arrIndex(r))) }
 
   def mutSetAll(value: A): Unit = iUntilForeach(0, length){i => unsafeArr(i) = value }
 
-
-  def sqSetAllOfRow(y: Int, tileMakers: Multiple[A]*)(implicit grid: SquareGrid): Unit =
+  def sqSetAllOfRow(y: Int, tileMakers: Multiple[A]*)(implicit grid: SquareGridSimple): Unit =
   { val tiles = tileMakers.flatMap(_.singlesList)
     tiles.iForeach{(el , i) =>
       val index = grid.arrIndex(y, grid.cTileMin + i * 2)
@@ -98,15 +99,15 @@ class TilesRef[A <: AnyRef](val unsafeArr: Array[A])
     ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => unsafeArr(grid.arrIndex(y, c)) =  tileValue }
 }
 
-object TilesRef
-{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): TilesRef[A] = new TilesRef[A](new Array[A](length))
+object TilesArr
+{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): TilesArr[A] = new TilesArr[A](new Array[A](length))
 
-  implicit class TilesListImplicit[A](thisRefs: TilesRef[List[A]])
-  { def prependAt(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = prependAt(Roord(y, c), value)
-    def prependAt(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
-    def prependAts(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
+  implicit class TilesListImplicit[A](thisRefs: TilesArr[List[A]])
+  { def prependAt(y: Int, c: Int, value: A)(implicit grid: TileGridSimple): Unit = prependAt(Roord(y, c), value)
+    def prependAt(roord: Roord, value: A)(implicit grid: TileGridSimple): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
+    def prependAts(value : A, roords: Roord*)(implicit grid: TileGridSimple): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 
-    def gridHeadsMap[B, BB <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
+    def gridHeadsMap[B, BB <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGridSimple, build: ArrBuild[B, BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match
@@ -118,7 +119,7 @@ object TilesRef
       build.buffToArr(buff)
     }
 
-    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGrid, build: ArrFlatBuild[BB]): BB =
+    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGridSimple, build: ArrFlatBuild[BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match
@@ -132,11 +133,13 @@ object TilesRef
   }
 }
 
+/** An immutable Arr of Boolean Tile data for a specific TileGrid. This is specialised for Boolean. The tileGrid can map the Roord of the Tile to the
+ *  index of the Arr. Hence most methods take an implicit TIleGrid parameter. */
 class TileBooleans(val unsafeArr: Array[Boolean]) extends AnyVal
 {
-  def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
-  def gridSetTrues(roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
+  def gridSetTrues(roords: Roords)(implicit grid: TileGridSimple): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
+  def gridSetTrues(roords: Roord*)(implicit grid: TileGridSimple): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
 
-  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGrid, build: ArrBuild[A, AA]): AA =
+  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGridSimple, build: ArrBuild[A, AA]): AA =
     grid.map(r => f(r, unsafeArr(grid.sideArrIndex(r))))
 }

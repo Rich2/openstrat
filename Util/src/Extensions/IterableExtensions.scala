@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import reflect.ClassTag
 
 /** Extension methods for Traversable[A] */
 class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal

@@ -1,10 +1,12 @@
 package ostrat
 package pGrid
 
-class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
+/** An immutable Arr of Opt Tile data for a specific TileGrid. This is specialised for OptRef[A]. The tileGrid can map the Roord of the Tile to the
+ *  index of the Arr. Hence most methods take an implicit TileGrid parameter. */
+class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
-  def clone: TilesOptRef[A] = new TilesOptRef[A](unsafeArr.clone)
+  def clone: TilesArrOpt[A] = new TilesArrOpt[A](unsafeArr.clone)
   def mutSetSome(y: Int, c: Int, value: A)(implicit grid: TileGridSimple): Unit = unsafeArr(grid.arrIndex(y, c)) = value
 
   def mutSetSome(r: Roord, value: A)(implicit grid: TileGridSimple): Unit = unsafeArr(grid.arrIndex(r)) = value
@@ -17,19 +19,19 @@ class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     unsafeArr(grid.arrIndex(r1)) = null.asInstanceOf[A]
   }
 
-  def setSome(r: Roord, value: A)(implicit grid: TileGridSimple): TilesOptRef[A] =
+  def setSome(r: Roord, value: A)(implicit grid: TileGridSimple): TilesArrOpt[A] =
   { val newArr = unsafeArr.clone()
     newArr(grid.arrIndex(r)) = value
-    new TilesOptRef[A](newArr)
+    new TilesArrOpt[A](newArr)
   }
 
   def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGridSimple): Unit =
     triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def apply(roord: Roord)(implicit grid: TileGrid): A = unsafeArr(grid.arrIndex(roord))
+  def apply(roord: Roord)(implicit grid: TileGridSimple): A = unsafeArr(grid.arrIndex(roord))
 
-  def foreachSome(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach { r => f(r, unsafeArr(grid.arrIndex(r))) }
+  def foreachSome(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach { r => f(r, unsafeArr(grid.arrIndex(r))) }
 
   def mapSomes[B, ArrT <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGridSimple, build: ArrBuild[B, ArrT]): ArrT =
   {
@@ -44,7 +46,7 @@ class TilesOptRef[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToArr(buff)
   }
 
-  def mapSomeOnlys[B, ArrT <: ArrBase[B]](f: A => B)(implicit grid: TileGrid, build: ArrBuild[B, ArrT]): ArrT =
+  def mapSomeOnlys[B, ArrT <: ArrBase[B]](f: A => B)(implicit grid: TileGridSimple, build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>

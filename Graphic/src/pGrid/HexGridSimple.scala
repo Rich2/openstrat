@@ -3,9 +3,8 @@ package ostrat
 package pGrid
 import geom._
 
-trait HexGridSimple extends TileGrid
-{ def cTileMin: Int
-  def cTileMax: Int
+trait HexGridSimple extends TileGridSimple
+{
   def cStep: Int = 4
   override def roordToVec2(roord: Roord): Vec2 = HexGrid.roordToVec2(roord)
   def cCen: Double = (cTileMin + cTileMax) / 2.0

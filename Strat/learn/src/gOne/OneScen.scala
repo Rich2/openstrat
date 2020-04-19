@@ -6,12 +6,12 @@ import pGrid._
 trait OneScen
 { def turn: Int
   implicit def grid: HexGridSimple
-  def oPlayers: TilesOptRef[Player]
+  def oPlayers: TilesArrOpt[Player]
 
   def turn(hts: Arr[HTileAndStep]): OneScen =
-  { val resolve: TilesRef[List[HTileAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
+  { val resolve: TilesArr[List[HTileAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
     hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
-    val resValue: TilesOptRef[Player] = oPlayers.clone
+    val resValue: TilesArrOpt[Player] = oPlayers.clone
 
     resolve.foreach{ (r, l) => l match
     { case List(hst) => resValue.mutMove(hst.r1, r)
@@ -28,10 +28,10 @@ trait OneScenStart extends OneScen
 
 object OneScen
 {
-  def apply(turnIn: Int, gridIn: HexGridSimple, opIn: TilesOptRef[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HexGridSimple, opIn: TilesArrOpt[Player]): OneScen = new OneScen
     { override def turn = turnIn
       override implicit def grid: HexGridSimple = gridIn
-      override def oPlayers: TilesOptRef[Player] = opIn
+      override def oPlayers: TilesArrOpt[Player] = opIn
     }
 }
 

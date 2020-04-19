@@ -5,7 +5,7 @@ import pGrid._
 
 trait E80Data
 { implicit val grid: HexGridIrr
-  def terrs: TilesRef[WTile]
+  def terrs: TilesArr[WTile]
   def sTerrs: SideBooleans
   def vTerrs: VertInts
 }

@@ -7,8 +7,8 @@ case class CharacPosn(charac: Character, y: Int, c: Int, facing: SqFace)
 
 trait DungeonScen
 { implicit def grid: TileGrid
-  def terrs: TilesRef[DungTerr]
-  def characs: TilesOptRef[CharacPosn]
+  def terrs: TilesArr[DungTerr]
+  def characs: TilesArrOpt[CharacPosn]
   def posn(charac: Character, y: Int, c: Int, face: SqFace): Unit = characs.mutSetSome(y, c, CharacPosn(charac, y, c, face))
 }
 

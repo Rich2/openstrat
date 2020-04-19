@@ -3,11 +3,10 @@ package ostrat
 package pGrid
 import geom._, math.sqrt
 
-trait HexGrid extends HexGridSimple
+trait HexGrid extends HexGridSimple with TileGrid
 { def sideRowIndexArray: Array[Int]
-
-  //override def sideArrIndex(y: Int, c: Int): Int = sideRowIndex(y)
 }
+
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
 { def fCost = gCost + hCost
 }

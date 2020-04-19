@@ -158,14 +158,14 @@ trait TileGridSimple
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesRef[A] =
-  { val res = TilesRef[A](numOfTiles)
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesArr[A] =
+  { val res = TilesArr[A](numOfTiles)
     res.mutSetAll(value)
     res
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): TilesOptRef[A] = new TilesOptRef(new Array[A](numOfTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): TilesArrOpt[A] = new TilesArrOpt(new Array[A](numOfTiles))
 
   /** New immutable Arr of Side Boolean data. */
   final def newTileBooleans: TileBooleans = new TileBooleans(new Array[Boolean](numOfTiles))
