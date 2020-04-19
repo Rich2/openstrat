@@ -237,16 +237,22 @@ trait TileGridSimple
     res
   }
 
+  /** Foreachs over each Row of Sides. Users will not normally need to use this method directly. */
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1)(f)
+
   def sideInnerRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin, yTileMax)(f)
+  
+  /** foreachs over each Side's Roord in the given Row. Users will not normally need to access this method directly. */
   def rowForeachSide(y: Int)(f: Roord => Unit): Unit
 
+  /** The number of Sides in the TileGrid.*/
   final val numOfSides: Int =
   { var count = 0
     sidesForeach(r => count += 1)
     count
   }
 
+  /** The number of tile vertices in the TileGrid. */
   final val numOfVerts: Int =
   { var count = 0
     vertsForeach(r => count += 1)
@@ -295,6 +301,7 @@ trait TileGridSimple
   def rowForeachVert(y: Int)(f: Roord => Unit): Unit
 
 
+  /** maps from each Vertex's Roord to a value of type A. Returns a specialiased immutable Arr. */
   def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
   { val res = build.newArr(numOfVerts)
     var count = 0
@@ -302,7 +309,7 @@ trait TileGridSimple
     res
   }
 
-  /** Maps from each verts Roord to an ArrBase of A. */
+  /** Maps from each vertex's Roord with index, to a specialised Arr of type A. */
   def vertsIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]) =
   { val res = build.newArr(numOfVerts)
     var count = 0
