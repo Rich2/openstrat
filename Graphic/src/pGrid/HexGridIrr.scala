@@ -20,7 +20,7 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
     case y => cRowStart(y - 1).min(cRowStart(y + 1) - 1)
   }
 
-  /** An Array of index values into an Arrray of Tile data 1 Int index value for each Tile Row, containing the Tile data Array index for the beginning
+  /** An Array of index values into an Array of Tile data 1 Int index value for each Tile Row, containing the Tile data Array index for the beginning
    *  of the tileRow. */
   val tileRowIndexArray: Array[Int] =
   { val res = new Array[Int](numOfTileRows)
@@ -77,12 +77,15 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
   /** The maximum y Row value for this HexGridIrr. */
   @inline override def yTileMax: Int = yTileMin + tileRowsStartEnd.length - 2
 
+  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
   final override def cTileMin: Int = if (numOfTileRows == 0) 100
     else iToFoldInt(yTileMin + 2, yTileMax, 2, cRowStart(yTileMin) ) { (acc, y) => acc.min(cRowStart(y)) }
 
+  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
   def cTileMax: Int = if (numOfTileRows == 0) -100
   else iToFoldInt(yTileMin + 2, yTileMax, 2, cRowEnd(yTileMin) ) { (acc, y) => acc.max(cRowEnd(y)) }
 
+  /** foreachs over each Side's Roord in the given Row. Users will not normally need to access this method directly. */
   override def rowForeachSide(y: Int)(f: Roord => Unit): Unit = y match
   { case y if y == ySideMax => iToForeach(cRowStart(y - 1) - 1, cRowEnd(y - 1) + 1, 2){ c => f(Roord(y, c)) }
     case y if y == ySideMin => iToForeach(cRowStart(y + 1) - 1, cRowEnd(y + 1) + 1, 2){ c => f(Roord(y, c)) }
@@ -90,6 +93,7 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
     case y => iToForeach(cRowStart(y - 1).min(cRowStart(y + 1)) - 1, cRowEnd(y - 1).max(cRowEnd(y + 1)) + 1, 2){ c => f(Roord(y, c)) }
   }
 
+  /** foreach Vertice's Roord in the vertex row applies the effectful function. */
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = y match
   { case y if y == ySideMax => iToForeach(cRowStart(y - 1) - 2, cRowEnd(y - 1) + 2, 2){ c => f(Roord(y, c)) }
     case y if y == ySideMin => iToForeach(cRowStart(y + 1) - 2, cRowEnd(y + 1) + 2, 2){ c => f(Roord(y, c)) }

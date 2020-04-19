@@ -47,10 +47,10 @@ trait TileGridSimple
   /** The bottom row of Tile vertices. */
   @inline final def yVertMin: Int = yTileMin - 1
 
-  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
+  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
   def cTileMin: Int
 
-  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio form column coordinate to x. */
+  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
   def cTileMax: Int
 
   /** The centre of the grid in terms of the x Axis. */
@@ -303,10 +303,11 @@ trait TileGridSimple
   /** foreach vertex's Roord, calls the effectful function. */
   final def vertsForeach(f: Roord => Unit): Unit = vertRowForeach(y => rowForeachVert(y)(f))
 
+  /** Foreach row of vertices apply the effctful function taking the y dimension as parameter. */
   final def vertRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1, 2)(f)
 
+  /** foreach Vertice's Roord in the vertex row applies the effectful function. */
   def rowForeachVert(y: Int)(f: Roord => Unit): Unit
-
 
   /** maps from each Vertex's Roord to a value of type A. Returns a specialiased immutable Arr. */
   def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
