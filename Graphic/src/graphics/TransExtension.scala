@@ -44,10 +44,10 @@ class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
   def identity: T = this.asInstanceOf[T]
 
   /** Mirrors along the Y axis by negating X. */
-  def negX: T = trans(_.negX)
+  def negX: T = trans(_.mirrorY)
 
   /** Mirrors along the X axis by negating Y. */
-  def negY: T = trans(_.negY)
+  def negY: T = trans(_.mirrorX)
 
   /** Vec2 transformation that negates x and y values */
   def negXY: T = trans(- _)

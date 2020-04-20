@@ -18,6 +18,8 @@ final case class CArc(xCen: Double, yCen: Double, xStart: Double, yStart: Double
 
   override def rotateRadians(operandRadians: Double): CArc =
     CArc(pCen.rotateRadians(operandRadians), pStart.rotateRadians(operandRadians), deltaRadians)
+
+  def mirrorY: CArc = CArc(pCen.mirrorY, pStart.mirrorY, -deltaRadians)
 }
 
 object CArc

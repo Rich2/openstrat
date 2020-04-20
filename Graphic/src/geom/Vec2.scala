@@ -49,10 +49,19 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def subY(adj: Double): Vec2 = Vec2(x, y - adj)
   def scaleY(factor: Double): Vec2 = Vec2(x, y * factor)
   def scaleX(factor: Double): Vec2 = Vec2(x * factor, y)
+
   /** Mirrors along the Y axis by negating X. */
-  def negX: Vec2 = Vec2(-x, y)
+  def mirrorY: Vec2 = Vec2(-x, y)
+
+  /** Mirrors along the x = xOffset line, that is parallel to the Y axis by negating X. */
+  def mirrorYOffset(xOffset: Double): Vec2 = Vec2(-x + xOffset * 2, y)
+
   /** Mirrors along the X axis by negating Y. */
-  def negY: Vec2 = Vec2(x, -y)
+  def mirrorX: Vec2 = Vec2(x, -y)
+
+  /** Mirrors along the y = yOffset line that is parallel to the  X axis. */
+  def mirrorXOffset(yOffset: Double): Vec2 = Vec2(x, -y + yOffset * 2)
+
   /** Where xnd y is a map on the surface ofa sphere. Currently not working for angles greater than Pi / 2 */
   def toLatLong(radius: Double): LatLong = LatLong(math.acos(y / radius), math.acos(x / radius))
   /** Reverses the y coordinate. Useful for translating between canvases where the y axis measures down and coordinate systems where y is up */
