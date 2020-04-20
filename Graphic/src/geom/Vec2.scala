@@ -64,8 +64,10 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
 
   /** Where xnd y is a map on the surface ofa sphere. Currently not working for angles greater than Pi / 2 */
   def toLatLong(radius: Double): LatLong = LatLong(math.acos(y / radius), math.acos(x / radius))
+
   /** Reverses the y coordinate. Useful for translating between canvases where the y axis measures down and coordinate systems where y is up */
   def inverseY: Vec2 = Vec2(x, -y)
+
   def toTuple: Tuple2[Double, Double] = (x, y)
   def vv(z: Double): Vec3 = Vec3(x, y, z)
 

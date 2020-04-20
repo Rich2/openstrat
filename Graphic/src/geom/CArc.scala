@@ -20,6 +20,7 @@ final case class CArc(xCen: Double, yCen: Double, xStart: Double, yStart: Double
     CArc(pCen.rotateRadians(operandRadians), pStart.rotateRadians(operandRadians), deltaRadians)
 
   def mirrorY: CArc = CArc(pCen.mirrorY, pStart.mirrorY, -deltaRadians)
+  def mirrorX: CArc = CArc(pCen.mirrorX, pStart.mirrorX, -deltaRadians)
 }
 
 object CArc
