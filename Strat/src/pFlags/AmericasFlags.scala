@@ -30,3 +30,10 @@ object UnitedStates extends Flag
     stripes +- blueFieldOld ++ stars ++ starsInner
   }
 }
+
+object Colombia extends Flag
+{
+ val name = "Colombia"
+ val ratio = 1.5
+ val apply: Refs[PaintElem] = topToBottom(Colour(0xFFFCD116), Colour(0xFFFCD116), Colour(0xFF003893), Colour(0xFFCE1126))
+}
