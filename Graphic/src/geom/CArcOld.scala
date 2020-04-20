@@ -24,15 +24,15 @@ trait ArcLike extends CurveLike
 }
 
 /** Currently the Arc class doesn't define direction of the Arc. I think this needs modification. */
-case class Arc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends ArcLike
+case class CArcOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends ArcLike
 { def typeStr: String = "Arc"
    //override def str = persist3(pStart, pCen, pEnd)
-   def fTrans(f: Vec2 => Vec2): Arc = Arc(f(pStart), f(pCen), f(pEnd))   
+   def fTrans(f: Vec2 => Vec2): CArcOld = CArcOld(f(pStart), f(pCen), f(pEnd))
 }
 
 /** The companion object for the Arc class. */
-object Arc
-{ def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2): Arc =  new Arc(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y)
+object CArcOld
+{ def apply(pStart: Vec2, pCen: Vec2, pEnd: Vec2): CArcOld =  new CArcOld(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y)
 }
 
 /** A functional paint element to Draw an Arc. Defined by the arc, the line width, the colour and the zOrder. */
