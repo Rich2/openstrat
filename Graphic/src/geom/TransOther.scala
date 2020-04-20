@@ -25,6 +25,7 @@ trait TransSim[T] extends TransRigid[T]
 trait TransRigider
 { type ThisT <: TransRigider
   def slate(offset: Vec2): ThisT
+  def rotateRadians(radians: Double): ThisT
   //def rotate(angle: Angle): T
 }
 
@@ -32,6 +33,7 @@ trait TransRigider
 trait TransRigid[T]
 {
   def slate(obj: T, offset: Vec2): T
+  def rotateRadians(obj: T, radians: Double): T
   //def rotate(obj: T, angle: Angle): T
   //def reflect
 }

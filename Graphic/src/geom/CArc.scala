@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Circular Arc */
 final case class CArc(xCen: Double, yCen: Double, xStart: Double, yStart: Double, deltaRadians: Double ) extends TransSimer
 { type ThisT = CArc
   def pCen: Vec2 = xCen vv yCen
@@ -13,8 +14,10 @@ final case class CArc(xCen: Double, yCen: Double, xStart: Double, yStart: Double
   def xEnd: Double = pEnd.x
   def yEnd: Double = pEnd.y
   override def slate(offset: Vec2): CArc = CArc(pCen + offset, pStart + offset, deltaRadians)
-
   override def scale(operand: Double): CArc = CArc(xCen * operand, yCen * operand, xStart * operand, yStart * operand, deltaRadians)
+
+  override def rotateRadians(operandRadians: Double): CArc =
+    CArc(pCen.rotateRadians(operandRadians), pStart.rotateRadians(operandRadians), deltaRadians)
 }
 
 object CArc

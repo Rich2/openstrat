@@ -15,6 +15,7 @@ trait Trans[T] extends TransAff[T]
   override def slate(obj: T, offset: Vec2): T = trans(obj, _ + offset)
   override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
   override def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Vec2(v.x * xScale, v.y * yScale))
+  override def rotateRadians(obj: T, radians: Double): T = trans(obj, v => v.rotateRadians(radians))
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
