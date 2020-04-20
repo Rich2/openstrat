@@ -20,9 +20,9 @@ object Arrow
     val mainLine = Line2(startPt, endPt)
     val ang: Angle = mainLine.angle
     val leftAng: Angle = ang + 180.degs - headAngle
-    val leftVert: Vec2 = leftAng.toVec2 *  hypLength + endPt
+    val leftVert: Vec2 = leftAng.toVec2(hypLength) + endPt
     val rightAng: Angle = ang + 180.degs + headAngle
-    val rightVert: Vec2 = rightAng.toVec2 * hypLength + endPt
+    val rightVert: Vec2 = rightAng.toVec2(hypLength) + endPt
     (leftVert, rightVert)
   }
   

@@ -10,7 +10,7 @@ trait Transer extends Any
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
-trait Trans[T] extends TransAffine[T]
+trait Trans[T] extends TransAff[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T
   override def slate(obj: T, offset: Vec2): T = trans(obj, _ + offset)
   override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)

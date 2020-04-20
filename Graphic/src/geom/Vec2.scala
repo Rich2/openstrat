@@ -76,7 +76,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def lineTo(pt2: Vec2): Line2 = Line2(this, pt2)
 
   /** Not sure about this method. */
-  def lineAlong(angle: Angle, magnitude: Double): Line2 = Line2(this, this + angle.toVec2 * magnitude)
+  def lineAlong(angle: Angle, magnitude: Double): Line2 = Line2(this, this + angle.toVec2(magnitude))
 
   /** This sure looks right */
   def rotate(a: Angle): Vec2 =  Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
@@ -99,7 +99,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
     val resultAngle =  angle1.bisect(angle2)
     val alphaAngle =  resultAngle / 2
     val radius = (pt2 - arcCentre).magnitude
-    arcCentre + resultAngle.toVec2 * radius / alphaAngle.cos
+    arcCentre + resultAngle.toVec2(radius / alphaAngle.cos)
   }
   
   def linesCross(armLength: Double = 5): Seq[Line2] = Seq( new Line2(x - armLength, y , x + armLength, y),
@@ -114,7 +114,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
 object Vec2
 { def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
-  def fromAngle(angle: Angle, scalar: Double = 1.0): Vec2 = angle.toVec2 * scalar
+  def fromAngle(angle: Angle, scalar: Double = 1.0): Vec2 = angle.toVec2(scalar)
 
   implicit class Vec2Implicit(thisVec: Vec2)
   { def * (operand: Dist): Dist2 = Dist2(thisVec.x * operand, thisVec.y * operand)

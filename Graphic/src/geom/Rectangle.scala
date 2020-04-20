@@ -72,7 +72,7 @@ object Rectangle
   
   def fromAxis(centreLine: Line2, height: Double): Polygon =
   { val hAngle: Angle = centreLine.angle
-    val offset: Vec2 = hAngle.toVec2 * height * 0.5
+    val offset: Vec2 = hAngle.toVec2(height * 0.5)
     Polygon(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)   
   }
 }

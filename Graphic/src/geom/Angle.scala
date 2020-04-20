@@ -18,8 +18,13 @@ trait AngleLike extends Any
 final class Angle private(val radians: Double) extends AnyVal with AngleLike
 { override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
-  def toVec2: Vec2 = Vec2(math.cos(radians), math.sin(radians))
+
+  /** Creates a Vec2 from this Angle and the magnitude parameter. */
+  def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
+
+  /** This method needs changing. */
   def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
+
   def +(other: Angle) = Angle(radians + other.radians)
   def -(other: Angle) = Angle(radians - other.radians)
   

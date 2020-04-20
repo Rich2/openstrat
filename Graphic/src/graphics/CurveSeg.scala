@@ -9,7 +9,7 @@ trait CurveSegLike extends Transer
   /** the y component of the end point */
   def yEnd: Double
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
-  final def pEnd: Vec2 = Vec2(xEnd, yEnd)
+  final def pEnd: Vec2 = xEnd vv yEnd
 }
 
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the previous segment. There is
@@ -25,7 +25,7 @@ ProdDbl7 with CurveSegLike
   @inline override def _5 = yUses
   @inline override def _6 = xEnd
   @inline override def _7 = yEnd
-   
+
   /** This is control point 2 in a Bezier segment, the centre point in an arc segment and unused in a straight Line Segment */
   def pUses: Vec2 = Vec2(xUses, yUses)
   /** This is control point 1 in a Bezier segment, it not used an arc segment, but first Double set to NaN, it is not nused in a straight Line Segment
@@ -86,7 +86,7 @@ ProdDbl7 with CurveSegLike
   { val sAng: Angle = arcStartAngle(startPt)
     val resultAngle = sAng.bisect(arcEndAngle)
     val alphaAngle =  sAng.angleTo(arcEndAngle) / 2
-    arcCen + resultAngle.toVec2 * arcRadius / alphaAngle.cos
+    arcCen + resultAngle.toVec2(arcRadius) / alphaAngle.cos
   }
   /** Assuming this is ArcSeg, calculates ControlPt and then passes controlPt.x, controlPt.y, XENd, yEnd, radius to f */
   def fControlEndRadius(startPt: Vec2, f: (Double, Double, Double, Double, Double) => Unit): Unit =

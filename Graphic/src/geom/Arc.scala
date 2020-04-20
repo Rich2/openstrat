@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
 import Colour.Black
@@ -16,7 +16,7 @@ trait ArcLike extends CurveLike
   { val sAng: Angle = startAngle
     val resultAngle = sAng.bisect(endAngle)
     val alphaAngle =  sAng.angleTo(endAngle) / 2
-    pCen + resultAngle.toVec2 * radius / alphaAngle.cos
+    pCen + resultAngle.toVec2(radius / alphaAngle.cos)
   }
   /** Calculates ControlPt and then passes controlPt.x, controlPt.y, XEnd, yEnd, radius to f */
   def fControlEndRadius(f: (Double, Double, Double, Double, Double) => Unit): Unit =
