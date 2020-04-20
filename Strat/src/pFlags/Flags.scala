@@ -256,3 +256,15 @@ object CommonShapesInFlags extends Flag
   }
 }
   
+object CzechRepublic extends Flag
+{ val name = "Czech Republic"
+  val ratio = 1.5
+  val apply: Refs[PaintElem] = 
+  {
+    Refs[PaintElem](
+      Rectangle(ratio, 1).fill(White),
+      Rectangle(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
+      Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
+    )
+  }
+}
