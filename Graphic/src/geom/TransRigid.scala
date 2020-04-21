@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait TransRigider
+trait TransRigider extends Any
 { type ThisT <: TransRigider
   def slate(offset: Vec2): ThisT
   def rotateRadians(radians: Double): ThisT
@@ -12,6 +12,8 @@ trait TransRigider
   def mirrorY: ThisT = mirrorYOffset(0)
   def mirrorX: ThisT = mirrorXOffset(0)
   def ySlate(yDelta: Double): ThisT = slate(0 vv yDelta)
+  /** Translate in 2 dimensional space. */
+  def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
 }
 
 /** A Rigid or Euclidean transformations type class. */

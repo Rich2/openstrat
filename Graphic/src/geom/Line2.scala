@@ -5,7 +5,8 @@ import collection.mutable.ArrayBuffer, Colour.Black
 
 /** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
 class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLike
-{ override def toString: String = Line2.persistImplicit.show(this)
+{ override type ThisT = Line2
+  override def toString: String = Line2.persistImplicit.show(this)
   override def _1 = xStart
   override def _2 = yStart
   override def _3 = xEnd

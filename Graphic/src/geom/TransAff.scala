@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait TransAffer extends TransSimer
+trait TransAffer extends Any with TransSimer
 { type ThisT <: TransSimer
   def shear(xScale: Double, yScale: Double): ThisT
 }

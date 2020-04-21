@@ -16,7 +16,7 @@ trait CurveSegLike extends Transer
   * no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory object apply methods. */
 case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends
 ProdDbl7 with CurveSegLike
-{ 
+{ override type ThisT = CurveSeg
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
   @inline override def _1 = iMatch
   @inline override def _2 = xC1

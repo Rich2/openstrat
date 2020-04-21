@@ -5,10 +5,15 @@ import reflect.ClassTag
 
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-trait Transer extends Any
+trait Transer extends Any with TransAffer
 { type ThisT <: Transer
-  def fTrans(f: Vec2 => Vec2): Transer
-  //override def slate(offset: Vec2): T = trans(obj, _ + offset)
+  def fTrans(f: Vec2 => Vec2): ThisT
+  def slate(offset: Vec2): ThisT = fTrans(_ + offset)
+  def scale(operand: Double): ThisT = fTrans(_ * operand)
+  def shear(xScale: Double, yScale: Double): ThisT = ???
+  def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
+  def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
+  def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
@@ -31,8 +36,8 @@ object Trans
   implicit def fromScaledImplicit[T <: Transer]: Trans[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
-  implicit def fromUnScaledImplicit[T <: UnScaled]: Trans[T#TranserT] =
-    (obj, f) => obj.fTrans(f).asInstanceOf[T#TranserT]
+  implicit def fromUnScaledImplicit[T <: UnScaled]: Trans[T#ThisT] =
+    (obj, f) => obj.fTrans(f).asInstanceOf[T#ThisT]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))

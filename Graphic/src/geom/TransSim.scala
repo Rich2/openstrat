@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait TransSimer extends TransRigider
+trait TransSimer extends Any with TransRigider
 { type ThisT <: TransSimer
   def scale(operand: Double): ThisT
 }

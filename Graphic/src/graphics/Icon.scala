@@ -2,8 +2,8 @@ package ostrat
 package geom
 
 trait Icon extends UnScaled
-{ type TranserT <: GraphicBounded
-  def fTrans(f: Vec2 => Vec2): TranserT = apply()
+{ type ThisT <: GraphicBounded
+  def fTrans(f: Vec2 => Vec2): ThisT = apply()
 }
 /*
 trait PolygonIcon

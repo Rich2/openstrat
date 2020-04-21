@@ -6,9 +6,9 @@ import Colour.Black
 /** A Geometrical object or shape that has not been scaled. That has its iconic scale. An object centred on x = , y = 0, all the object is between x =
  * +- 0.5 and y = +- 0.5 */
 trait UnScaled extends Any with Transer
-{ type TranserT <: Transer
-  def apply(): TranserT
-  def fTrans(f: Vec2 => Vec2): TranserT
+{ type ThisT <: Transer
+  def apply(): ThisT
+  def fTrans(f: Vec2 => Vec2): ThisT
 }
 
 
@@ -19,7 +19,8 @@ trait UnScaledGraphicElem extends GraphicFullElem
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
 case class UnScaledShape(referenceVec: Vec2, relShape: PolyCurve, pointerId: Any, elems: Arr[PaintFullElem]) extends
 UnScaledGraphicElem with ShapeActive
-{ def shape: PolyCurve = relShape.slate(referenceVec)
+{ override type ThisT = UnScaledShape
+  def shape: PolyCurve = relShape.slate(referenceVec)
   def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, pointerId, elems)
   def addElems(newElems: Arr[PaintFullElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerId, elems ++ newElems)
   def mutObj(newObj: AnyRef): UnScaledShape = UnScaledShape(referenceVec, shape, newObj, elems)
@@ -32,9 +33,9 @@ object UnScaledShape
 
 /** This is not a Polygon but should fTrans to Polygon. */
 trait UnScaledPolygon extends  UnScaled
-{ type TranserT = Polygon
-  //def apply: Polygon
-  def fTrans(f: Vec2 => Vec2): Polygon = apply.fTrans(f)
+{ type ThisT = Polygon
+  def apply: Polygon
+  def fTrans(f: Vec2 => Vec2): ThisT = apply.fTrans(f)
   def dist(width: Dist, cen: Dist2 = Dist2Z): PolygonDist  = apply.distScale(width)
   def minX: Double = apply.minX
   def maxX: Double = apply.maxX
@@ -43,7 +44,8 @@ trait UnScaledPolygon extends  UnScaled
 }
 
 trait UnScaledPolygonYMirror extends UnScaledPolygon
-{ /* The right side of the Y Axis of this UnscaledPolygon, defined relative to a unit of 100 for convenience. So 0.35 is defined as 35. 0.222 is defined as 22.2  */
+{
+  /* The right side of the Y Axis of this UnscaledPolygon, defined relative to a unit of 100 for convenience. So 0.35 is defined as 35. 0.222 is defined as 22.2  */
   def rtLine100: Vec2s
   final override def apply = rtLine100.yMirrorClose.slateY(-50).scale(0.01)
 }
