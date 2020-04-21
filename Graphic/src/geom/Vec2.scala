@@ -71,18 +71,20 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def toTuple: Tuple2[Double, Double] = (x, y)
   def vv(z: Double): Vec3 = Vec3(x, y, z)
 
-  /** Gives the angle of the vector with respect of the origin. */
-  def angle: Angle =
+  /** Gives the angle of the vector with respect of the origin in radians. */
+  def angleRadians: Double =
   { def at = atan(y / x)
-    val r = x match
+    x match
     { case x if x < - 0.000000010 && y < 0 => at - Pi 
       case x if x < - 0.00000001 => Pi + at
       case x if x > 0.00000001 => at
       case _ if y < 0 => -Pi/2
       case _ => Pi/2
     }
-    Angle(r)
   }
+
+  /** Gives the angle of the vector with respect of the origin. */
+  def angle: Angle = Angle(angleRadians)
 
   def lineTo(pt2: Vec2): Line2 = Line2(this, pt2)
 

@@ -3,27 +3,30 @@ package ostrat
 package geom
 
 /** Circular Arc */
-final case class CArc(xCen: Double, yCen: Double, xStart: Double, yStart: Double, deltaRadians: Double ) extends TransSimer
+final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double ) extends TransSimer
 { type ThisT = CArc
   def pCen: Vec2 = xCen vv yCen
-  //def startAngle: Angle = Angle(startRadians)
-  //def endAngle: Angle = Angle(endRadians)
+  def startAngleRadians: Double = (pStart - pCen).angleRadians
+  def startAngle: Angle = (pStart - pCen).angle
+  def endAngleRadians: Double = startAngleRadians + deltaRadians
+  def endAngle: Angle = Angle(endAngleRadians)
   def pStart: Vec2 = xStart vv yStart
-  def pEnd: Vec2 = ??? //pCen + endAngle.toVec2(r)
+  def pEnd: Vec2 = pCen + endAngle.toVec2(radius)
+  def radius: Double = (pStart - pCen).magnitude
 
   def xEnd: Double = pEnd.x
   def yEnd: Double = pEnd.y
-  override def slate(offset: Vec2): CArc = CArc(pCen + offset, pStart + offset, deltaRadians)
-  override def scale(operand: Double): CArc = CArc(xCen * operand, yCen * operand, xStart * operand, yStart * operand, deltaRadians)
+  override def slate(offset: Vec2): CArc = CArc(pStart + offset, pCen + offset, deltaRadians)
+  override def scale(operand: Double): CArc = CArc(pStart * operand, pCen * operand, deltaRadians)
 
   override def rotateRadians(operandRadians: Double): CArc =
-    CArc(pCen.rotateRadians(operandRadians), pStart.rotateRadians(operandRadians), deltaRadians)
+    CArc(pStart.rotateRadians(operandRadians), pCen.rotateRadians(operandRadians), deltaRadians)
 
-  def mirrorYOffset(xOffset: Double): CArc = CArc(pCen.mirrorYOffset(xOffset), pStart.mirrorYOffset(xOffset), -deltaRadians)
-  def mirrorXOffset(yOffset: Double): CArc = CArc(pCen.mirrorXOffset(yOffset), pStart.mirrorXOffset(yOffset), -deltaRadians)
+  def mirrorYOffset(xOffset: Double): CArc = CArc(pStart.mirrorYOffset(xOffset), pCen.mirrorYOffset(xOffset), -deltaRadians)
+  def mirrorXOffset(yOffset: Double): CArc = CArc(pStart.mirrorXOffset(yOffset), pCen.mirrorXOffset(yOffset), -deltaRadians)
 }
 
 object CArc
 {
-  def apply(pCen: Vec2, pStart: Vec2, deltaRadians: Double): CArc = CArc(pCen.x, pCen.y, pStart.x, pStart.y, deltaRadians)
+  def apply(pStart: Vec2, pCen: Vec2, deltaRadians: Double): CArc = CArc(pStart.x, pStart.y, pCen.x, pCen.y, deltaRadians)
 }
