@@ -3,12 +3,14 @@ package ostrat
 package geom
 import Colour.Black
 
+/** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParent with PolyActive
 { def fTrans(f: Vec2 => Vec2): PolygonParent = new PolygonParent(f(cen), poly.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[PaintFullElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
 }
 
+/** Companion object of the PolygonParent case class. */
 object PolygonParent
 {
   def fill(cen: Vec2, poly: Polygon, evObj: Any, colour: Colour): PolygonParent = new PolygonParent(cen, poly, evObj, Arr(poly.fill(colour)))
