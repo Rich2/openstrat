@@ -14,14 +14,14 @@ trait UnScaled extends Any with Transer
 
 /** This is a display object that has a fixed size and alignment. The object itself should not scale or rotate. Hence transformations are applied
  *  to its reference point. This is for objects on a map as opposed to objects that are part of the map. */
-trait UnScaledGraphicElem extends GraphicElem
+trait UnScaledGraphicElem extends GraphicFullElem
 
 /** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
-case class UnScaledShape(referenceVec: Vec2, relShape: Shape, pointerId: Any, elems: Arr[PaintElem]) extends
+case class UnScaledShape(referenceVec: Vec2, relShape: Shape, pointerId: Any, elems: Arr[PaintFullElem]) extends
 UnScaledGraphicElem with ShapeActive
 { def shape: Shape = relShape.slate(referenceVec)
   def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, pointerId, elems)
-  def addElems(newElems: Arr[PaintElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerId, elems ++ newElems)
+  def addElems(newElems: Arr[PaintFullElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerId, elems ++ newElems)
   def mutObj(newObj: AnyRef): UnScaledShape = UnScaledShape(referenceVec, shape, newObj, elems)
 }
 

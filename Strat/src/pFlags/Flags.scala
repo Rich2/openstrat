@@ -7,22 +7,22 @@ import geom._, Colour._
 trait Flag
 { def name: String
   def ratio: Double
-  def apply(): Arr[PaintElem]
+  def apply(): Arr[PaintFullElem]
   def rect: Polygon = Rectangle(ratio)
   def parentStr: PolyParent = Rectangle(ratio).parentElems(name + " flag", apply)
   def parent(evObj: Any = this): PolyParent = Rectangle(ratio).parentElems(evObj, apply)
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-  def leftToRight(colours: Colour*): Arr[PaintElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio / colours.length, 1,
+  def leftToRight(colours: Colour*): Arr[PaintFullElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio / colours.length, 1,
     -ratio / 2 vv + 0.5).slate(i * ratio / colours.length, 0).fill(colour))
          
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-  def topToBottom(colours: Colour*): Arr[PaintElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio,
+  def topToBottom(colours: Colour*): Arr[PaintFullElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio,
      1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0,
        - i.toDouble / colours.length).fill(colour))
 
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-  def topToBottomRepeat(numBands: Int, colours: Colour*): Arr[PaintElem] = iUntilMap(0, numBands){ i =>
+  def topToBottomRepeat(numBands: Int, colours: Colour*): Arr[PaintFullElem] = iUntilMap(0, numBands){ i =>
     val r1 = Rectangle.fromTL(ratio, 1.0 / numBands, -ratio / 2 vv + 0.5)
     val r2 = r1.slate(0, - i.toDouble / numBands)
     r2.fill(colours(i %% colours.length))
@@ -34,7 +34,7 @@ object PlainFlagMaker
   def apply(colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = colour.str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): Arr[PaintElem] = Arr(rect.fill(colour))
+    override def apply(): Arr[PaintFullElem] = Arr(rect.fill(colour))
   }
 }
 
@@ -43,40 +43,40 @@ object TextFlagMaker
   def apply(str: String, colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): Arr[PaintElem] = Arr(rect.fill(colour), TextGraphic(str, 40))
+    override def apply(): Arr[PaintFullElem] = Arr(rect.fill(colour), TextGraphic(str, 40))
   }
 }
 
 object Armenia extends Flag
 { val name = "Armenia"
   val ratio = 2
-  val apply: Arr[PaintElem] = leftToRight(Red, Blue, Gold)
+  val apply: Arr[PaintFullElem] = leftToRight(Red, Blue, Gold)
 }
 
 object Austria extends Flag
 { def name = "Austria"
   val ratio = 1.5
-  val apply: Arr[PaintElem] = topToBottom(Black, Yellow)
+  val apply: Arr[PaintFullElem] = topToBottom(Black, Yellow)
 }
 
 object Belgium extends Flag
 { val name = "Belgium"
   val ratio = 15.0 / 13.0
-  def apply: Arr[PaintElem] = leftToRight(Black, Yellow, Red)
+  def apply: Arr[PaintFullElem] = leftToRight(Black, Yellow, Red)
 }
 
 object Chad extends Flag
 { val ratio = 1.5
   val name = "Chad"
-  def apply: Arr[PaintElem] = leftToRight(Blue, Yellow, Red)
+  def apply: Arr[PaintFullElem] = leftToRight(Blue, Yellow, Red)
 }
 
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  val apply: Arr[PaintElem] =
+  val apply: Arr[PaintFullElem] =
   {
-    Arr[PaintElem](
+    Arr[PaintFullElem](
       Rectangle(1.5, 1).fill(Red),
       Rectangle.fromTL(0.75, 0.5, - 0.75 vv 0.5).fill(DarkBlue)
     )
@@ -98,7 +98,7 @@ object England extends EnglandLike
 object UnitedKingdom extends EnglandLike
 { val name = "United Kingdom"
 
-  val apply: Arr[PaintElem] =
+  val apply: Arr[PaintFullElem] =
   { val xd = math.sqrt(5) / 30.0 //hypotenuse sqrt(2 * 2 + 1 * 1)
     val yd = math.sqrt(1.25) / 30.0 //hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)
     val ywc = 5.0 / 30 //top of White cross bar
@@ -138,37 +138,37 @@ object UnitedKingdom extends EnglandLike
 object France extends Flag
 { val name = "France"
   val ratio = 1.5
-  val apply: Arr[PaintElem] = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
+  val apply: Arr[PaintFullElem] = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
 }
 
 object Germany extends Flag
 { val name = "Germany"
   val ratio = 5 / 3.0
-  val apply: Arr[PaintElem] = topToBottom(Black, Red, Gold)
+  val apply: Arr[PaintFullElem] = topToBottom(Black, Red, Gold)
 }
 
 object Germany1871 extends Flag
 { val name = "Germany (1871)"
   val ratio = 1.5
-  val apply: Arr[PaintElem] = topToBottom(Black, White, Red)
+  val apply: Arr[PaintFullElem] = topToBottom(Black, White, Red)
 }
 
 object Italy extends Flag
 { val name = "Italy"
   val ratio = 1.5
-  val apply: Arr[PaintElem] = topToBottom(Green, White, Red)
+  val apply: Arr[PaintFullElem] = topToBottom(Green, White, Red)
 }
 
 object Ireland extends Flag
 { val name = "Ireland"
   val ratio = 2
-  val apply: Arr[PaintElem] = topToBottom(Green, White, Orange)
+  val apply: Arr[PaintFullElem] = topToBottom(Green, White, Orange)
 }
 
 object Japan extends Flag
 { val name = "Japan"
   val ratio = 1.5
-  val apply: Arr[PaintElem] =
+  val apply: Arr[PaintFullElem] =
   { val rw = rect.fill(White)
     val circ = Circle.segs(0.6).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
@@ -178,15 +178,15 @@ object Japan extends Flag
 object Russia extends Flag
 { val ratio = 1.5
   val name = "Russia"
-  val apply: Arr[PaintElem] = topToBottom(White, Blue, Red)
+  val apply: Arr[PaintFullElem] = topToBottom(White, Blue, Red)
 }
 
 object USSR extends Flag
 { val name = "USSR"
   val ratio = 1.5
-  val apply: Arr[PaintElem] =
+  val apply: Arr[PaintFullElem] =
   {
-    Arr[PaintElem](
+    Arr[PaintFullElem](
       Rectangle(ratio, 1).fill(Red),
       Star5().scale(0.4).fill(Gold)
     )
@@ -196,12 +196,12 @@ object USSR extends Flag
 object Swastika extends Flag
 { val name = "Swastika"
   val ratio = 5 / 3.0
-  val apply: Arr[PaintElem] =
+  val apply: Arr[PaintFullElem] =
   { val poly = Rectangle(ratio, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
     val cross = Arr(bar, arm).anti45.flatMap(_.rCrossArr)
-    Arr[PaintElem](
+    Arr[PaintFullElem](
       poly.fill(Red),
       Circle.segs(6.0 / 8).fill(White)
     ) ++ cross
@@ -212,9 +212,9 @@ object Swastika extends Flag
 object WhiteFlag extends Flag
 { val name = "White"
   val ratio = 1.5
-  val apply: Arr[PaintElem] =
+  val apply: Arr[PaintFullElem] =
   {
-    Arr[PaintElem](
+    Arr[PaintFullElem](
       Rectangle(1.5, 1).fill(White)
     )
   }
@@ -224,9 +224,9 @@ object CommonShapesInFlags extends Flag
 { val name = "CommonShapesInFlags"
   val ratio = 1.5
 
-  val apply: Arr[PaintElem] =
+  val apply: Arr[PaintFullElem] =
   {
-    Arr[PaintElem](
+    Arr[PaintFullElem](
       Rectangle(1.5, 1).fill(White),
 
       //off centre cross
@@ -259,9 +259,9 @@ object CommonShapesInFlags extends Flag
 object CzechRepublic extends Flag
 { val name = "Czech Republic"
   val ratio = 1.5
-  val apply: Arr[PaintElem] = 
+  val apply: Arr[PaintFullElem] =
   {
-    Arr[PaintElem](
+    Arr[PaintFullElem](
       Rectangle(ratio, 1).fill(White),
       Rectangle(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
       Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
@@ -272,8 +272,8 @@ object CzechRepublic extends Flag
 object CCCP extends Flag
 { val name = "CCCP"
   val ratio = 2.0
-  val apply: Arr[PaintElem] = 
-  { Arr[PaintElem](
+  val apply: Arr[PaintFullElem] =
+  { Arr[PaintFullElem](
       //background
       Rectangle(ratio, 1).fill(Colour(0xFFCC0000)),
       //hammer
@@ -291,8 +291,8 @@ object CCCP extends Flag
 object Iraq extends Flag
 { val name = "Iraq"
   val ratio = 1.5
-  val apply: Arr[PaintElem] = 
-  { topToBottom(Colour(0xFFce1126), White, Black) ++ Arr[PaintElem](
+  val apply: Arr[PaintFullElem] =
+  { topToBottom(Colour(0xFFce1126), White, Black) ++ Arr[PaintFullElem](
       Shape(LineSeg(-0.34 vv 0.2997), BezierSeg(-0.3409 vv 0.3002, -0.3419 vv 0.301, -0.3423 vv 0.3015), BezierSeg(-0.3428 vv 0.3022, -0.3425 vv 0.3022, -0.3403 vv 0.3016), BezierSeg(-0.3365 vv 0.3006, -0.334 vv 0.301, -0.3315 vv 0.3031), LineSeg(-0.3293 vv 0.3049), LineSeg(-0.3268 vv 0.3036), BezierSeg(-0.3254 vv 0.3029, -0.3239 vv 0.3024, -0.3234 vv 0.3025), BezierSeg(-0.3223 vv 0.3028, -0.32 vv 0.3058, -0.3201 vv 0.3068), BezierSeg(-0.3202 vv 0.3081, -0.3191 vv 0.3077, -0.3186 vv 0.3064), BezierSeg(-0.3176 vv 0.3036, -0.3191 vv 0.3005, -0.3217 vv 0.2998), BezierSeg(-0.323 vv 0.2995, -0.3242 vv 0.2996, -0.3261 vv 0.3003), BezierSeg(-0.3285 vv 0.3011, -0.3289 vv 0.3011, -0.3301 vv 0.3002), BezierSeg(-0.3328 vv 0.2981, -0.3366 vv 0.2979, -0.34 vv 0.2997), LineSeg(-0.34 vv 0.2997)).fill(Colour(0xFF007a3d)),
       Shape(LineSeg(-0.3304 vv 0.3084), BezierSeg(-0.3313 vv 0.3096, -0.3325 vv 0.3141, -0.3321 vv 0.3153), BezierSeg(-0.3318 vv 0.3162, -0.3314 vv 0.3164, -0.3306 vv 0.3161), BezierSeg(-0.329 vv 0.3157, -0.3287 vv 0.3146, -0.3289 vv 0.311), BezierSeg(-0.3291 vv 0.3081, -0.3295 vv 0.3073, -0.3304 vv 0.3084), LineSeg(-0.3304 vv 0.3084)).fill(Colour(0xFF007a3d)),
       Shape(LineSeg(-0.4429 vv 0.3117), BezierSeg(-0.4432 vv 0.3095, -0.4391 vv 0.3041, -0.4372 vv 0.3031), BezierSeg(-0.4384 vv 0.3025, -0.44 vv 0.3028, -0.4412 vv 0.3021), BezierSeg(-0.4478 vv 0.2955, -0.4718 vv 0.2721, -0.4762 vv 0.2665), BezierSeg(-0.4632 vv 0.2662, -0.4488 vv 0.2667, -0.4366 vv 0.2672), BezierSeg(-0.4366 vv 0.2761, -0.4283 vv 0.2765, -0.4227 vv 0.2797), BezierSeg(-0.4198 vv 0.2752, -0.4125 vv 0.2755, -0.4116 vv 0.2687), LineSeg(-0.4116 vv 0.2393), LineSeg(-0.5227 vv 0.2393), BezierSeg(-0.5246 vv 0.2307, -0.5324 vv 0.2241, -0.5433 vv 0.2268), BezierSeg(-0.5399 vv 0.2303, -0.5342 vv 0.2315, -0.5322 vv 0.2364), BezierSeg(-0.5305 vv 0.247, -0.5356 vv 0.2535, -0.5389 vv 0.2595), BezierSeg(-0.5335 vv 0.2615, -0.5326 vv 0.262, -0.5271 vv 0.2658), BezierSeg(-0.531 vv 0.2539, -0.5169 vv 0.2552, -0.5065 vv 0.2555), BezierSeg(-0.5062 vv 0.2595, -0.5063 vv 0.2643, -0.5094 vv 0.2648), BezierSeg(-0.5054 vv 0.2663, -0.5048 vv 0.2668, -0.4984 vv 0.2722), LineSeg(-0.4984 vv 0.2562), LineSeg(-0.4215 vv 0.2564), BezierSeg(-0.4215 vv 0.2614, -0.4202 vv 0.2694, -0.4241 vv 0.2694), BezierSeg(-0.4279 vv 0.2694, -0.4243 vv 0.2591, -0.4272 vv 0.2591), LineSeg(-0.4866 vv 0.2591), LineSeg(-0.4867 vv 0.2693), BezierSeg(-0.4842 vv 0.2718, -0.4844 vv 0.2716, -0.4673 vv 0.2888), BezierSeg(-0.4655 vv 0.2905, -0.4535 vv 0.3014, -0.4429 vv 0.3117), LineSeg(-0.4429 vv 0.3117)).fill(Colour(0xFF007a3d)),

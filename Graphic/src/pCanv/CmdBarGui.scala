@@ -13,7 +13,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   def status = textBox(statusText, None)
   val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mainRepaint(els: GraphicElems): Unit = mainPanel.repaint(els)
-  def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els: _*)
+  def mainRepaints(els: GraphicFullElem*): Unit = mainPanel.repaints(els: _*)
   def mainWidth = mainPanel.width
   def mainHeight = mainPanel.height
   /**  repaints the top command bar */

@@ -61,9 +61,11 @@ trait CanvasPlatform extends RectGeom
   final def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =
     lineDraw(LineDraw(pStart, pEnd, lineWidth, colour))
    
-  def arcDraw(ad: ArcDraw): Unit
-  final def arcDraw(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
-    arcDraw(ArcDraw(pStart, pCen, pEnd, lineWidth, colour))
+  def cArcDrawOld(ad: CArcDrawOld): Unit
+  final def cArcDrawOld(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+    cArcDrawOld(CArcDrawOld(pStart, pCen, pEnd, lineWidth, colour))
+
+  def cArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double, lineWidth: Double, colour: Colour): Unit
    
   def bezierDraw(bd: BezierDraw): Unit
   final def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
@@ -126,5 +128,5 @@ trait CanvasPlatform extends RectGeom
   def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: Persist[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
 
-  def rendElems(elems: Arr[PaintElem]): Unit = elems.foreach(_.rendToCanvas(this))
+  def rendElems(elems: Arr[PaintFullElem]): Unit = elems.foreach(_.rendToCanvas(this))
 }

@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-trait ShapeElem extends PaintElem with GraphicBounded
+trait ShapeElem extends PaintFullElem with GraphicBounded
 { def shape: Shape
   def segsLen: Int = shape.length
   override def boundingRect: BoundingRect = shape.boundingRect
@@ -20,7 +20,7 @@ case class ShapeDraw(shape: Shape, lineWidth: Double, colour: Colour = Black) ex
 }
 
 /** A pointable shape without visual. */
-case class ShapeActiveOnly(shape: Shape, pointerId: Any) extends GraphicElem with ShapeActive
+case class ShapeActiveOnly(shape: Shape, pointerId: Any) extends GraphicFullElem with ShapeActive
 { override def fTrans(f: Vec2 => Vec2): ShapeActiveOnly = ShapeActiveOnly(shape.fTrans(f), pointerId) }
 
 case class ShapeFillDraw(shape: Shape, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends ShapeElem

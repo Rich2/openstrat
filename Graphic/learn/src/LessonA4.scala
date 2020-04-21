@@ -19,8 +19,8 @@ case class LessonA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 
     LinePath(0 vv -50, 50 vv -100, -25 vv -75, 200 vv -60).draw(2, Orange),
    
-    ArcDraw(-200 vv 0, 0 vv 0, 0 vv 200),
-    ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
+    CArcDrawOld(-200 vv 0, 0 vv 0, 0 vv 200),
+    CArcDrawOld(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
     BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
   )
   repaint(stuff)

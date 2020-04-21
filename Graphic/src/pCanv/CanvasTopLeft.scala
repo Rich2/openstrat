@@ -13,25 +13,29 @@ trait CanvasTopLeft extends CanvasPlatform
    //final override def pPolyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))
    final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
    final override def lineDraw(ld: LineDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
-   final override def arcDraw(ad: ArcDraw): Unit = tlArcDraw(ad.fTrans(tlCen))
+   final override def cArcDrawOld(ad: CArcDrawOld): Unit = tlCArcDrawOld(ad.fTrans(tlCen))
+
+   final override def cArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double, lineWidth: Double, colour: Colour):
+     Unit = {}
+
    final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
    final override def linesDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
    final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.fTrans(tlCen))
-   
+
    final override def pShapeFill(shape: Shape, colour: Colour): Unit = tlShapeFill(shape.fTrans(tlCen), colour)
    final override def pShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit = tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
 
    final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
-    
+
    final override def clip(pts: Polygon): Unit = tlClip(pts.fTrans(tlCen))
 
    protected[this] def tlPolyFill(poly: Polygon, colour: Colour): Unit
    protected[this] def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
    protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
-   
+
    protected[this] def tlLineDraw(ld: LineDraw): Unit
-   protected[this] def tlArcDraw(ad: ArcDraw): Unit
+   protected[this] def tlCArcDrawOld(ad: CArcDrawOld): Unit
    
    protected[this] def tlLinesDraw(lsd: LinesDraw): Unit
    protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit

@@ -8,7 +8,7 @@ case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack"
    val (hand, deck) = Card.newShuffled.takeCards(5)
    hand.iMap((c, i) => TextGraphic(c.unicode.mkString, 100, 50 + 100 * i vv 100, c.suitColour))
    
-   def clubFill(): Arr[PaintElem] =
+   def clubFill(): Arr[PaintFullElem] =
    {
       val rad: Double = 0.55
       val circ3: Polygon = Polygon(0 vv rad, - rad * Sin60 vv - rad * Sin30, rad * Sin60 vv - rad * Sin30).scale(0.5)

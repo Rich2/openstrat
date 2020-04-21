@@ -17,7 +17,7 @@ object LineDraw
 }
 
 /** I think its to better to use the mame lineWidth consistently. */
-case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintElem
+case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintFullElem
 { override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linesDraw(this)
 }
@@ -28,7 +28,7 @@ object LinesDraw
     Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
-case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends PaintElem
+case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends PaintFullElem
 { def length = path.length - 1
   def xStart = path.xStart
   def yStart = path.yStart

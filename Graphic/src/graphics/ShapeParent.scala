@@ -1,10 +1,10 @@
 package ostrat
 package geom
 
-case class ShapeParent(cen: Vec2, shape: Shape, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent with ShapeActive
+case class ShapeParent(cen: Vec2, shape: Shape, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParent with ShapeActive
 {
   def fTrans(f: Vec2 => Vec2): ShapeParent = ShapeParent(f(cen), shape.fTrans(f), pointerId, children.trans(f))
-  override def addElems(newElems: Arr[PaintElem]): ShapeParent = ShapeParent(cen, shape, pointerId, children ++ newElems)
+  override def addElems(newElems: Arr[PaintFullElem]): ShapeParent = ShapeParent(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): ShapeParent = ShapeParent(cen, shape, newObj, children)
 }
 

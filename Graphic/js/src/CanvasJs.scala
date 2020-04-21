@@ -101,7 +101,7 @@ object CanvasJs extends CanvasTopLeft
     gc.setLineDash(scalajs.js.Array.apply())
   }
    
-  override protected[this] def tlArcDraw(ad: ArcDraw): Unit =
+  override protected[this] def tlCArcDrawOld(ad: CArcDrawOld): Unit =
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     ad.fControlEndRadius(gc.arcTo)

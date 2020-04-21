@@ -17,8 +17,8 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
     LineDraw(0 vv 50, 150 vv 200, 3),
     LineDraw(50 vv -50, 200 vv -50, 2, Red),//Note if you don't include a Colour you get Black
    
-    ArcDraw(-200 vv 0, 0 vv 0, 0 vv 200),
-    ArcDraw(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
+    CArcDrawOld(-200 vv 0, 0 vv 0, 0 vv 200),
+    CArcDrawOld(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
     BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
   )
   repaint(stuff)

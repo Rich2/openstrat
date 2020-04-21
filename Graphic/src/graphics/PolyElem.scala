@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv.CanvasPlatform, Colour.Black
 
-trait PolyElem extends PaintElem with GraphicBounded
+trait PolyElem extends PaintFullElem with GraphicBounded
 { def poly: Polygon
   def xHead: Double = poly.head1
   def yHead: Double = poly.head2
@@ -63,7 +63,7 @@ object PolyFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolyActiveOnly(poly: Polygon, pointerId: Any) extends GraphicElem with PolyActive
+case class PolyActiveOnly(poly: Polygon, pointerId: Any) extends GraphicFullElem with PolyActive
 { override def fTrans(f: Vec2 => Vec2): PolyActiveOnly = PolyActiveOnly(poly.fTrans(f), pointerId) }
 
 case class PolyFillText(poly: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolyElem

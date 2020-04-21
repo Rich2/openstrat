@@ -69,7 +69,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolyParent =
     parentFillText(pointerID, fillColour, str, fontSize, fillColour.contrast)
 
-  def parentElems(pointerID: Any, elems: Arr[PaintElem]): PolyParent = new PolyParent(this.polyCentre, this, pointerID, elems)
+  def parentElems(pointerID: Any, elems: Arr[PaintFullElem]): PolyParent = new PolyParent(this.polyCentre, this, pointerID, elems)
 
   def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolyParent =
     PolyParent(this.polyCentre, this, pointerID, Arr(PolyFillDraw(this, fillColour, lineWidth, lineColour),

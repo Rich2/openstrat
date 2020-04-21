@@ -15,7 +15,7 @@ case class ShapeCentred(cen: Vec2, segs: Shape) extends Transer
   def allElems(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, fontSize: Int, str: String, textAlign: TextAlign = CenAlign):
     ShapeAll = ShapeAll(segs, evObj, str, fillColour, fontSize, lineWidth, lineColour)
 
-   def fixed(evObj: Any, elems: Arr[PaintElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
+   def fixed(evObj: Any, elems: Arr[PaintFullElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
    def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): UnScaledShape =
       UnScaledShape(cen, segs, evObj, Arr(ShapeFillDraw(segs, fillColour, lineWidth, lineColour)))
    def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
