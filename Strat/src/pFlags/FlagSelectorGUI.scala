@@ -49,7 +49,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   def scrollLess(): Unit = { showGridView( Math.max( viewIndex - itemsPerUnitScroll, 0 ) ) }
   val bar = Rectangle.curvedCorners( barWidth, 30, 10 )
 
-  var viewableItems:Arr[PolyParent] = Arr()
+  var viewableItems:Arr[PolygonParent] = Arr()
   def showGridView( indexOfFirstItemInView:Int): Unit =
   { viewableItems = Arr()
     for( j <- 0 to itemsPerCol-1; i <- 0 to itemsPerRow-1 if indexOfFirstItemInView + i * iScrollStep + j * jScrollStep < itemCount )

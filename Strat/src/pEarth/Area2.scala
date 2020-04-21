@@ -29,8 +29,8 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
          case GlobedSome(curveSegDists) =>
          {
             val cenXY: Vec2 = eg.latLongToXY(cen)
-            val curveSegs: Shape = curveSegDists.pMap(_.toCurveSeg(eg.trans))
-            Arr(ShapeParent.fill(cenXY, curveSegs, this, terr.colour))
+            val curveSegs: PolyCurve = curveSegDists.pMap(_.toCurveSeg(eg.trans))
+            Arr(PolyCurveParent.fill(cenXY, curveSegs, this, terr.colour))
          }
          case GlobedNone => Arr()
       }

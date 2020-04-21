@@ -20,11 +20,11 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    
    override def lineDraw(ld: LineDraw): Unit = {}
    override def cArcDrawOld(ad: CArcDrawOld): Unit = {}
-   override def cArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double, lineWidth: Double, colour: Colour): Unit = {}
+   override def cArcDraw(cad: CArcDraw): Unit = {}
    override def bezierDraw(bd: BezierDraw): Unit = {}
    override def linesDraw(lsd: LinesDraw): Unit = {}
-   override def pShapeFill(shape: Shape, colour: Colour): Unit = {}
-   override def pShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit = {}
+   override def pShapeFill(shape: PolyCurve, colour: Colour): Unit = {}
+   override def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = {}
    override def textGraphic(tg: TextGraphic) = {} 
    override def textOutline(to: TextOutline): Unit = {}
    override def dashedLineDraw(dld: DashedLineDraw): Unit = {}

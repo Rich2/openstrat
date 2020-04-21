@@ -108,6 +108,8 @@ object CanvasJs extends CanvasTopLeft
     gc.strokeStyle = ad.colour.webStr
     gc.stroke()
   }
+
+  override protected[this] def tlCArcDraw(tld: CArcDraw): Unit = ???
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
@@ -126,7 +128,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
    
-  private[this] def segsPath(segs: Shape): Unit =
+  private[this] def segsPath(segs: PolyCurve): Unit =
   { gc.beginPath()
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -141,13 +143,13 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath
   }
    
-  override protected[this] def tlShapeFill(shape: Shape, colour: Colour): Unit =
+  override protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit =
   { segsPath(shape)
     gc.fillStyle = colour.webStr
     gc.fill
   }
    
-  override protected[this] def tlShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit =
+  override protected[this] def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit =
   { segsPath(shape)
     gc.strokeStyle = colour.webStr
     gc.lineWidth = lineWidth

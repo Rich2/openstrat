@@ -65,7 +65,7 @@ trait CanvasPlatform extends RectGeom
   final def cArcDrawOld(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
     cArcDrawOld(CArcDrawOld(pStart, pCen, pEnd, lineWidth, colour))
 
-  def cArcDraw(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double, lineWidth: Double, colour: Colour): Unit
+  def cArcDraw(cad: CArcDraw): Unit
    
   def bezierDraw(bd: BezierDraw): Unit
   final def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
@@ -74,12 +74,12 @@ trait CanvasPlatform extends RectGeom
   def linesDraw(lsd: LinesDraw): Unit
   final def linesDraw(lineWidth: Double, linesColour: Colour, lines: Line2 *): Unit = linesDraw(LinesDraw(Line2s(lines: _*), lineWidth, linesColour))
    
-  final def shapeFill(shape: Shape, colour: Colour): Unit = oif(shape.length > 0, pShapeFill(shape, colour))
+  final def shapeFill(shape: PolyCurve, colour: Colour): Unit = oif(shape.length > 0, pShapeFill(shape, colour))
 
-  def pShapeFill(shape: Shape, colour: Colour): Unit
+  def pShapeFill(shape: PolyCurve, colour: Colour): Unit
    
-  final def shapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit = oif(shape.length > 0, pShapeDraw(shape, lineWidth, colour))
-  def pShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit
+  final def shapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = oif(shape.length > 0, pShapeDraw(shape, lineWidth, colour))
+  def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
 
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =

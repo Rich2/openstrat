@@ -24,7 +24,7 @@ trait PolyActive extends GraphicActive
 
 /** A pointable shape */
 trait ShapeActive extends GraphicActive
-{ def shape: Shape
+{ def shape: PolyCurve
   def innerPoly: Polygon = shape.pMap(_.pEnd)
   override def boundingRect: BoundingRect = innerPoly.boundingRect
 

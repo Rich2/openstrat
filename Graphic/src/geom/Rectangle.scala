@@ -50,10 +50,10 @@ object Rectangle
   //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))
   def cross(width: Double, height: Double, barWidth: Double): Polygons = Polygons(apply(width, barWidth), apply(barWidth, height))
   
-  def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): Shape =
+  def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
   { val w = width / 2
     val h = height / 2
-    val s1 = Shape(
+    val s1 = PolyCurve(
         LineSeg(w - radius,          h), ArcSeg(w - radius vv h - radius, w vv h -radius),
         LineSeg(w,          radius - h), ArcSeg(w - radius vv radius - h, w - radius vv -h),
         LineSeg(radius - w,         -h), ArcSeg(radius - w vv radius - h, -w vv radius -h),
@@ -63,11 +63,11 @@ object Rectangle
 
   def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): ShapeCentred =
     ShapeCentred(posn, curvedCorners(width, height, radius).slate(posn))
-  def curvedGoldenRatio(height: Double, radius: Double, posn: Vec2 = Vec2Z): Shape =
+  def curvedGoldenRatio(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurve =
     curvedCorners(height * goldenRatio, height, radius, posn)  
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): ShapeCentred =
     curvedCornersCentred(height * goldenRatio, height, radius, posn)
-  def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolyFillDraw =
+  def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
     gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
   
   def fromAxis(centreLine: Line2, height: Double): Polygon =

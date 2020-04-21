@@ -82,7 +82,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineDashes(dld.dashArr :_*)
     gc.stroke()
     gc.setLineDashes()
-  }  
+  }
+
+  override protected[this] def tlCArcDraw(tld: CArcDraw): Unit = ???
    
   def fxAlign(align: TextAlign) =
   { import text._
@@ -142,7 +144,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }
    
-  private[this] def segsPath(segs: Shape): Unit =
+  private[this] def segsPath(segs: PolyCurve): Unit =
   { gc.beginPath
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -156,13 +158,13 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.closePath
   }
    
-  override protected[this] def tlShapeFill(shape: Shape, colour: Colour): Unit =
+  override protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit =
   { segsPath(shape)
     gc.setFill(toFxColor(colour))
     gc.fill()
   }
 
-  override def tlShapeDraw(shape: Shape, lineWidth: Double, colour: Colour): Unit =
+  override def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit =
   { segsPath(shape)
     gc.setLineWidth(lineWidth)
     gc.setStroke(toFxColor(colour))

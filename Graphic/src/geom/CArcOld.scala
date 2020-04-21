@@ -12,12 +12,14 @@ trait ArcLike extends CurveLike
   def startAngle: Angle = (pStart - pCen).angle
   def endAngle: Angle = (pEnd - pCen).angle
   def deltaAngle: Angle = startAngle.angleTo(endAngle)
+
   def controlPt: Vec2 =
   { val sAng: Angle = startAngle
     val resultAngle = sAng.bisect(endAngle)
     val alphaAngle =  sAng.angleTo(endAngle) / 2
     pCen + resultAngle.toVec2(radius / alphaAngle.cos)
   }
+
   /** Calculates ControlPt and then passes controlPt.x, controlPt.y, XEnd, yEnd, radius to f */
   def fControlEndRadius(f: (Double, Double, Double, Double, Double) => Unit): Unit =
   { val cp = controlPt; f(cp.x, cp.y, xEnd, yEnd, radius) }

@@ -14,6 +14,16 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def pEnd: Vec2 = pCen + endAngle.toVec2(radius)
   def radius: Double = (pStart - pCen).magnitude
 
+  def pCtrl: Vec2 =
+  { val sAng: Angle = startAngle
+    val resultAngle = sAng.bisect(endAngle)
+    val alphaAngle =  sAng.angleTo(endAngle) / 2
+    pCen + resultAngle.toVec2(radius / alphaAngle.cos)
+  }
+
+  def xCtrl: Double = pCtrl.x
+  def yCtrl: Double = pCtrl.y
+
   def xEnd: Double = pEnd.x
   def yEnd: Double = pEnd.y
   override def slate(offset: Vec2): CArc = CArc(pStart + offset, pCen + offset, deltaRadians)

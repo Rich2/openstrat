@@ -13,7 +13,7 @@ case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasNoPanels("Colour 
    (255 * fac).toInt
   }
   
-  val cols: Seq[(PolyFillDraw, TextGraphic)] = for {
+  val cols: Seq[(PolygonFillDraw, TextGraphic)] = for {
     r <- 0 to n
     g <- 0 to n
     b <- 0 to n

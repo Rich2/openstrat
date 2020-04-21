@@ -14,9 +14,9 @@ object Square extends UnScaledPolygon
       xCen - width/2   vv yCen - width / 2)
    
   /**Needs Changing possibly removing. */
-  def fill(colour: Colour)/*, width: Double, cen: Vec2 = Vec2Z)*/: PolyFill = apply.fill(colour)
+  def fill(colour: Colour)/*, width: Double, cen: Vec2 = Vec2Z)*/: PolygonFill = apply.fill(colour)
   /**Needs Changing possibly removing. */
-  def fillXY(width: Double, colour: Colour, xCen: Double, yCen: Double): PolyFill = apply(width, xCen vv yCen).fill(colour)
+  def fillXY(width: Double, colour: Colour, xCen: Double, yCen: Double): PolygonFill = apply(width, xCen vv yCen).fill(colour)
    
   def curvedSegs(width: Double, radius: Double): List[CurveSeg] =
   { val w = width / 2
