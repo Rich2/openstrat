@@ -33,7 +33,8 @@ object BaseLine
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
 case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
   baseLine: BaseLine = BaseLine.Middle) extends PaintFullElem
-{ override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
+{ type ThisT = TextGraphic
+  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 

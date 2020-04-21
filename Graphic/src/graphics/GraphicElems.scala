@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait GraphicElem
+trait GraphicElem// extends TransSimer
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
  *  each time there is a change within the application state or the user view of that application state. */
