@@ -26,7 +26,10 @@ trait TransRigider
 { type ThisT <: TransRigider
   def slate(offset: Vec2): ThisT
   def rotateRadians(radians: Double): ThisT
-  //def rotate(angle: Angle): T
+  def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
+  def mirrorYOffset(xOffset: Double): ThisT
+  def mirrorXOffset(yOffset: Double): ThisT
+
 }
 
 /** A Rigid or Euclidean transformations type class. */
@@ -34,6 +37,6 @@ trait TransRigid[T]
 {
   def slate(obj: T, offset: Vec2): T
   def rotateRadians(obj: T, radians: Double): T
-  //def rotate(obj: T, angle: Angle): T
-  //def reflect
+  def mirrorYOffset(obj: T, xOffset: Double): T
+  def mirrorXOffset(obj: T, yOffset: Double): T
 }
