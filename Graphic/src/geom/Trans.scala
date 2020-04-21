@@ -10,7 +10,7 @@ trait Transer extends Any with TransAffer
   def fTrans(f: Vec2 => Vec2): ThisT
   def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def scale(operand: Double): ThisT = fTrans(_ * operand)
-  def shear(xScale: Double, yScale: Double): ThisT = ???
+  def shear(xScale: Double, yScale: Double): ThisT = fTrans{case Vec2(x, y) => x * xScale vv y * yScale}
   def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
   def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
   def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))

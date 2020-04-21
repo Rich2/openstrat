@@ -61,11 +61,11 @@ object Rectangle
      s1.slate(cen)     
   }  
 
-  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): ShapeCentred =
-    ShapeCentred(posn, curvedCorners(width, height, radius).slate(posn))
+  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
+    PolyCurveCentred(posn, curvedCorners(width, height, radius).slate(posn))
   def curvedGoldenRatio(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurve =
     curvedCorners(height * goldenRatio, height, radius, posn)  
-  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): ShapeCentred =
+  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
     curvedCornersCentred(height * goldenRatio, height, radius, posn)
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
     gRatio(height).fillDraw(colour, lineWidth, colour.contrast)

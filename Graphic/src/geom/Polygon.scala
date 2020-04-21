@@ -36,7 +36,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
    
   def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
-  def active(id: Any): PolyActiveOnly = PolyActiveOnly(this, id)
+  def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
     PolygonFillDraw(this, fillColour, lineWidth, lineColour)
@@ -47,7 +47,7 @@ class Polygon(val array: Array[Double]) extends AnyVal with Transer with Vec2sLi
   def fillActive(fillColour: Colour, pointerID: Any): PolygonFillActive = PolygonFillActive(this, pointerID, fillColour)//, PolyActiveOnly(this, pointerID))
 
   def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
-    Arr(PolygonFillDraw(this, fillColour,lineWidth, lineColour), PolyActiveOnly(this, pointerID))
+    Arr(PolygonFillDraw(this, fillColour,lineWidth, lineColour), PolygonActiveOnly(this, pointerID))
     
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black): PolygonAll =
     PolygonAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)
