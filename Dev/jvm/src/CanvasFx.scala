@@ -84,8 +84,15 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineDashes()
   }
 
-  override protected[this] def tlCArcDraw(tld: CArcDraw): Unit = ???
-   
+  override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
+  { val ca = cad.arc
+    gc.beginPath
+    gc.moveTo(ca.xStart, ca.yStart)
+    gc.arcTo(ca.xCtrl, ca.yCtrl, ca.xEnd, ca.yEnd, ca.radius)
+    //ad.fControlEndRadius(gc.arcTo)
+    gc.setStroke(toFxColor(cad.colour))
+    gc.stroke()
+  }
   def fxAlign(align: TextAlign) =
   { import text._
     align match

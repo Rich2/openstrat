@@ -2,26 +2,6 @@
 package ostrat
 package geom
 
-trait TransAffer extends TransSimer
-{ type ThisT <: TransSimer
-  def shear(xScale: Double, yScale: Double): ThisT
-}
-
-/** Affine Transformation */
-trait TransAff[T] extends TransSim[T]
-{ def shear(obj: T, xScale: Double, yScale: Double): T
-}
-
-trait TransSimer extends TransRigider
-{ type ThisT <: TransSimer
-  def scale(operand: Double): ThisT
-}
-
-/** A Similar Transformations type class */
-trait TransSim[T] extends TransRigid[T]
-{ def scale(obj: T, operand: Double): T
-}
-
 trait TransRigider
 { type ThisT <: TransRigider
   def slate(offset: Vec2): ThisT
@@ -29,7 +9,9 @@ trait TransRigider
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
   def mirrorYOffset(xOffset: Double): ThisT
   def mirrorXOffset(yOffset: Double): ThisT
-
+  def mirrorY: ThisT = mirrorYOffset(0)
+  def mirrorX: ThisT = mirrorXOffset(0)
+  def ySlate(yDelta: Double): ThisT = slate(0 vv yDelta)
 }
 
 /** A Rigid or Euclidean transformations type class. */

@@ -109,7 +109,14 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override protected[this] def tlCArcDraw(tld: CArcDraw): Unit = ???
+  override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
+  { val ca = cad.arc
+    gc.beginPath
+    gc.moveTo(ca.xStart, ca.yStart)
+    gc.arcTo(ca.xCtrl, ca.yCtrl, ca.xEnd, ca.yEnd, ca.radius)
+    gc.strokeStyle = cad.colour.webStr
+    gc.stroke()
+  }
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
