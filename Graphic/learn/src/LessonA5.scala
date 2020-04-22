@@ -12,6 +12,11 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
 {
+  val c1 = CArc(0, 200, 0, 0, 1)
+  val c2 = c1.slate(200, 0)
+  val a1 = Arr(c1, c2)
+ // val a2 = a1.slate(4 vv 5)
+
   val stuff = Arr(
     LineDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
     LineDraw(0 vv 50, 150 vv 200, 3),
@@ -35,6 +40,3 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
   * message. The third type is Colour. Note Colours must have the correct capital letters. You can just try guessing the colours or you can google /
   * duckduck web colours to see what is available. Again put a Colour where a number or a string is expected or vice versa and the compiler will
   * complain. */
-
-
- 

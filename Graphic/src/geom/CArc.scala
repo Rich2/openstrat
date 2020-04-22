@@ -34,6 +34,8 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   def mirrorYOffset(xOffset: Double): CArc = CArc(pStart.mirrorYOffset(xOffset), pCen.mirrorYOffset(xOffset), -deltaRadians)
   def mirrorXOffset(yOffset: Double): CArc = CArc(pStart.mirrorXOffset(yOffset), pCen.mirrorXOffset(yOffset), -deltaRadians)
+
+  def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 }
 
 object CArc

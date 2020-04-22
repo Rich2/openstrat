@@ -12,10 +12,10 @@ class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
   def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)
 
   /** Translate in 2 dimensional space. */
-  def slate(offset: Vec2): T = trans(_ + offset)
+ def slate(offset: Vec2): T = trans(_ + offset)
 
   /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): T = trans(_.addXY(xOffset, yOffset))
+ def slate(xOffset: Double, yOffset: Double): T = trans(_.addXY(xOffset, yOffset))
 
   /** Translate 2 dimensional vectors along the X axis */
   def slateX(xOffset: Double): T = trans(_.addX(xOffset))
@@ -51,4 +51,12 @@ class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
 
   /** Vec2 transformation that negates x and y values */
   def negXY: T = trans(- _)
+}
+
+class TransSimExtension[T](value: T, ev: TransSim[T])
+{
+  /** Translate in 2 dimensional space. */
+  def slate(offset: Vec2): T = ev.slate(value, offset)
+
+  def slate(xOffset: Double, yOffset: Double): T = ev.slate(value, xOffset vv yOffset)
 }

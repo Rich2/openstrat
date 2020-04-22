@@ -26,11 +26,23 @@ trait TransSim[T] extends TransRigid[T]
 
 object TransSim
 {
-  implicit def transSimerToSimImplicit[T <: TransSimer](simer: T) = new TransSim[T]
+  implicit def transSimerToSimImplicit[T <: TransSimer](simer: T): TransSim[T] = new TransSim[T]
   { override def mirrorXOffset(obj: T, yOffset: Double): T = obj.mirrorXOffset(yOffset).asInstanceOf[T]
     override def mirrorYOffset(obj: T, xOffset: Double): T = obj.mirrorYOffset(xOffset).asInstanceOf[T]
     override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
+  }
+
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransSim[A]): TransSim[AA] = new TransSim[AA] {
+    override def scale(obj: AA, operand: Double): AA = obj.map{ts => ev.scale(ts, operand)}
+
+    override def slate(obj: AA, offset: Vec2): AA = obj.map{ts => ev.slate(ts, offset)}
+
+    override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
+
+    override def mirrorYOffset(obj: AA, xOffset: Double): AA = obj.map{ts => ev.mirrorYOffset(ts, xOffset) }
+
+    override def mirrorXOffset(obj: AA, yOffset: Double): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
   }
 }
