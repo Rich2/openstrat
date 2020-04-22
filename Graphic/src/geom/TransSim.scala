@@ -26,7 +26,7 @@ trait TransSim[T] extends TransRigid[T]
 
 object TransSim
 {
-  implicit def transSimerToSimImplicit[T <: TransSimer](simer: T): TransSim[T] = new TransSim[T]
+  implicit def transSimerToSimImplicit[T <: TransSimer]: TransSim[T] = new TransSim[T]
   { override def mirrorXOffset(obj: T, yOffset: Double): T = obj.mirrorXOffset(yOffset).asInstanceOf[T]
     override def mirrorYOffset(obj: T, xOffset: Double): T = obj.mirrorYOffset(xOffset).asInstanceOf[T]
     override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
