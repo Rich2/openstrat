@@ -17,11 +17,6 @@ class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
   /** Translate in 2 dimensional space. */
  //def slate(xOffset: Double, yOffset: Double): T = trans(_.addXY(xOffset, yOffset))
 
-  /** Translate 2 dimensional vectors along the X axis */
-  def slateX(xOffset: Double): T = trans(_.addX(xOffset))
-
-  /** Translate 2 dimensional vectors along the Y axis */
-  def slateY(yOffset: Double): T = trans(_.addY(yOffset))
 
   /** The scale transformation on 2 dimensional vectors. */
   def scale(factor: Double): T = trans(_ * factor)
@@ -55,8 +50,20 @@ class TransExtension[T](value: T, ev: Trans[T]) extends TransGenExtension[T]
 
 class TransSimExtension[T](value: T, ev: TransSim[T])
 {
+
+}
+
+class TransRigidExtension[T](value: T, ev: TransRigid[T])
+{
+  /** Translate 2 dimensional vectors along the X axis */
+  def slateX(xOffset: Double): T = ev.slate(value, xOffset vv 0)
+
+  /** Translate 2 dimensional vectors along the Y axis */
+  def slateY(yOffset: Double): T = ev.slate(value, 0 vv yOffset)
+
   /** Translate in 2 dimensional space. */
   def slate(offset: Vec2): T = ev.slate(value, offset)
 
+  /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): T = ev.slate(value, xOffset vv yOffset)
 }

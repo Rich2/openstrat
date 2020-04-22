@@ -9,7 +9,7 @@ trait TransGenExtension[T] extends Any
   def rotateRadians(r: Double): T 
 
   import math.Pi
-  /** Rotates 30 degrees anti-clockwise or + Pi/3 */
+  /** Rotates 30 degrees anti-clockwise or + Pi/6 */
   def anti30: T = rotate(Angle(Pi / 6))
   /** Rotates 45 degrees anti-clockwise or + Pi/4 */
   def anti45: T = rotate(Angle(Pi / 4))

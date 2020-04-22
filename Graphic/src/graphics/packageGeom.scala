@@ -9,6 +9,7 @@ package object geom
 {
   implicit def transToExtension[T](value: T)(implicit ev: Trans[T]) = new TransExtension[T](value, ev)
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]) = new TransSimExtension[T](value, ev)
+  implicit def transRigidToExtension[T](value: T)(implicit ev: TransRigid[T]) = new TransRigidExtension[T](value, ev)
   implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: Trans[T#ThisT]) = new TransExtension[T#ThisT](value.apply, ev)
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
