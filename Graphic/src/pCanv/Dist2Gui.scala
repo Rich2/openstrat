@@ -17,8 +17,8 @@ trait Dist2Gui extends MapGui
   var mapFocus: Dist2 = Dist2(0.km, 0.km)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)
   
-  def scaleAlignedMin: Dist = ???//mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
-  def scaleRotatedMin: Dist = ???//(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
+  def scaleAlignedMin: Dist = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
+  def scaleRotatedMin: Dist = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
    
   val bZoomIn = clickButton("+", zoomInCmd)
   val bZoomOut = clickButton("-", zoomOutCmd)
