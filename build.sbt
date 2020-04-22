@@ -40,24 +40,24 @@ lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(
   Compile/unmanagedSourceDirectories := List("src").map(str => (ThisBuild/baseDirectory).value / "Graphic" / str),  
 )
 
-/*lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic).settings(
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Tiling" / str),
-)*/
+lazy val Grid = stdJvmProj("Grid").dependsOn(Graphic).settings(
+  Compile/unmanagedSourceDirectories := List("src").map(str => (ThisBuild/baseDirectory).value / "Grid" / str),  
+)
 
-lazy val Strat = stdJvmProj("Strat").dependsOn(Graphic).settings(
+lazy val Strat = stdJvmProj("Strat").dependsOn(Grid).settings(
   Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Strat" / str),
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
 
 lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
   
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Strat/learn/src", "Graphic/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src", "Strat/learn/src", "Grid/learn/src", "Graphic/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
 )
 
-val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
+val docDirs: List[String] = List("Util", "Graphic", "Grid", "Strat", "Dev")
 
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSettings).settings(
   name := "OpenStrat",
@@ -95,11 +95,11 @@ lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(
   Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsTiling = jsProj("Tiling").dependsOn(JsGraphic).settings(  
-  Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val JsGrid = jsProj("Grid").dependsOn(JsGraphic).settings(  
+  Compile/unmanagedSourceDirectories := List("Grid/src", "Grid/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(  
+lazy val JsStrat = jsProj("Strat").dependsOn(JsGrid).settings(  
   Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
