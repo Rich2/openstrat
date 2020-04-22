@@ -5,8 +5,8 @@ import reflect.ClassTag
 
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-trait Transer extends Any with TransAffer
-{ type ThisT <: Transer
+trait TranserAll extends Any with TransAffer
+{ type ThisT <: TranserAll
   def fTrans(f: Vec2 => Vec2): ThisT
   def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def scale(operand: Double): ThisT = fTrans(_ * operand)
@@ -17,7 +17,7 @@ trait Transer extends Any with TransAffer
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
-trait Trans[T] extends TransAff[T]
+trait TransAll[T] extends TransAff[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T
   override def slate(obj: T, offset: Vec2): T = trans(obj, _ + offset)
   override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
@@ -28,20 +28,20 @@ trait Trans[T] extends TransAff[T]
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
-object Trans
+object TransAll
 {
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Trans[A]): Trans[AA] =
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAll[A]): TransAll[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromScaledImplicit[T <: Transer]: Trans[T] =
+  implicit def fromScaledImplicit[T <: TranserAll]: TransAll[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
-  implicit def fromUnScaledImplicit[T <: UnScaled]: Trans[T#ThisT] =
+  implicit def fromUnScaledImplicit[T <: UnScaled]: TransAll[T#ThisT] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T#ThisT]
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Trans[A]): Trans[F[A]] =
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAll[A]): TransAll[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Trans[A]): Trans[Array[A]] =
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransAll[A]): TransAll[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 }

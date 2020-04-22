@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
  *  LinePath class should not entail a runtime cost. */
-class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike with ArrProdDbl2[Vec2]
+class Vec2s(val array: Array[Double]) extends AnyVal with TranserAll with Vec2sLike with ArrProdDbl2[Vec2]
 { type ThisT = Vec2s
   def unsafeFromArray(array: Array[Double]): Vec2s = new Vec2s(array)
   override def typeStr: String = "Vec2s"

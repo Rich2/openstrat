@@ -4,35 +4,35 @@ package geom
 
 /** Trait for objects that can be transformed in 2 dimensional distance space. */
 trait TransDister extends Any
-{ def fTrans(f: Dist2 => Dist2): Transer
+{ def fTrans(f: Dist2 => Dist2): TranserAll
 }
 
 /** The companion object for Transer. */
 object TransDister
 {
-  implicit def TransDistFromTransDisterImplicit[T <: TransDister]: TransDist[T] =
+  implicit def TransDistFromTransDisterImplicit[T <: TransDister]: TransAllDist[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransDist[A]): TransDist[F[A]] =
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAllDist[A]): TransAllDist[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
-trait TransDist[T]
+trait TransAllDist[T]
 {
-  def trans(obj: T, f: Dist2 => Dist2):  T  
+  def trans(obj: T, f: Dist2 => Dist2):  T
 }
 
 /** The companion object for the TransDist typeclass, containing instances for common classes. */
-object TransDist
+object TransAllDist
 {
-  implicit def arrImutImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransDist[A]): TransDist[AA] =
+  implicit def arrImutImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAllDist[A]): TransAllDist[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransDist[A]): TransDist[F[A]] =
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAllDist[A]): TransAllDist[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
 
-  implicit def arrayImplicit[A](implicit ct: reflect.ClassTag[A], ev: TransDist[A]): TransDist[Array[A]] =
+  implicit def arrayImplicit[A](implicit ct: reflect.ClassTag[A], ev: TransAllDist[A]): TransAllDist[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 }
 

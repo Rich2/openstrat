@@ -5,8 +5,8 @@ import Colour.Black
 
 /** A Geometrical object or shape that has not been scaled. That has its iconic scale. An object centred on x = , y = 0, all the object is between x =
  * +- 0.5 and y = +- 0.5 */
-trait UnScaled extends Any with Transer
-{ type ThisT <: Transer
+trait UnScaled extends Any with TranserAll
+{ type ThisT <: TranserAll
   def apply(): ThisT
   def fTrans(f: Vec2 => Vec2): ThisT
 }

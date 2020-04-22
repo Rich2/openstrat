@@ -16,7 +16,7 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
   val c2 = c1.slate(200, 0)
   val a1 = Arr(c1, c2)
   val a2 = a1.slate(4 vv 5)
-  val i1 = implicitly[Trans[CArcOld]]
+  val i1 = implicitly[TransAll[CArcOld]]
   val i2 = implicitly[TransSim[CArc]]
 
   val stuff = Arr(
