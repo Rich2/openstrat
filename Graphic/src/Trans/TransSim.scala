@@ -42,3 +42,8 @@ object TransSim
     override def mirrorXOffset(obj: AA, yOffset: Double): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
   }
 }
+
+class TransSimExtension[T](value: T, ev: TransSim[T])
+{
+
+}

@@ -41,10 +41,7 @@ object TransAllDist
 trait TransDistExtension[T] extends Any with TransGenExtension[T]
 {
   def trans(f: Dist2 => Dist2):  T  
-  def slate(offset: Dist2): T = trans(_ + offset)
-  def slate(xOffset: Dist, yOffset: Dist): T = trans(_.addXY(xOffset, yOffset))
-  def slateX(xOffset: Dist): T = trans(_.addX(xOffset))
-  def slateY(yOffset: Dist): T = trans(_.addY(yOffset))
+
   def scale(factor: Double): T = trans(_ * factor)
 
   override def rotate(angle: Angle): T = trans(_.rotate(angle))

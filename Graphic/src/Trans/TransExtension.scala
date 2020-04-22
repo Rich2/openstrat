@@ -48,8 +48,5 @@ class TransExtension[T](value: T, ev: TransAll[T]) extends TransGenExtension[T]
   def negXY: T = trans(- _)
 }
 
-class TransSimExtension[T](value: T, ev: TransSim[T])
-{
 
-}
 
