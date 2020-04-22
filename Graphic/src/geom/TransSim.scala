@@ -7,11 +7,6 @@ trait TransSimer extends Any with TransRigider
   def scale(operand: Double): ThisT
 }
 
-/** A Similar Transformations type class */
-trait TransSim[T] extends TransRigid[T]
-{ def scale(obj: T, operand: Double): T
-}
-
 trait TransSimerUser extends TransSimer
 { type ThisT <: TransSimerUser
   type MemT <: TransSimer
@@ -22,4 +17,20 @@ trait TransSimerUser extends TransSimer
   override def mirrorYOffset(xOffset: Double): ThisT = newThis(geomMem.mirrorYOffset(xOffset).asInstanceOf[MemT])
   override def mirrorXOffset(yOffset: Double): ThisT = newThis(geomMem.mirrorXOffset(yOffset).asInstanceOf[MemT])
   override def scale(operand: Double): ThisT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
+}
+
+/** A Similar Transformations type class */
+trait TransSim[T] extends TransRigid[T]
+{ def scale(obj: T, operand: Double): T
+}
+
+object TransSim
+{
+  implicit def transSimerToSimImplicit[T <: TransSimer](simer: T) = new TransSim[T]
+  { override def mirrorXOffset(obj: T, yOffset: Double): T = obj.mirrorXOffset(yOffset).asInstanceOf[T]
+    override def mirrorYOffset(obj: T, xOffset: Double): T = obj.mirrorYOffset(xOffset).asInstanceOf[T]
+    override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
+    override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
+    override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
+  }
 }
