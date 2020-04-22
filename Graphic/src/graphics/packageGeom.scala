@@ -11,6 +11,8 @@ package object geom
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]) = new TransSimExtension[T](value, ev)
   implicit def transRigidToExtension[T](value: T)(implicit ev: TransRigid[T]) = new TransRigidExtension[T](value, ev)
   implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransExtension[T#ThisT](value.apply, ev)
+
+  implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]) = new TransRigidDistExtension[T](value, ev)
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
   /** Dist2(0.km, 0.km) constant */
