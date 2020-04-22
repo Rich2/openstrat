@@ -16,7 +16,7 @@ trait UnScaled extends Any with Transer
  *  to its reference point. This is for objects on a map as opposed to objects that are part of the map. */
 trait UnScaledGraphicElem extends GraphicFullElem
 
-/** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
+/*/** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
 case class UnScaledShape(referenceVec: Vec2, relShape: PolyCurve, pointerId: Any, elems: Arr[PaintFullElem]) extends
 UnScaledGraphicElem with ShapeActive
 { override type ThisT = UnScaledShape
@@ -24,12 +24,12 @@ UnScaledGraphicElem with ShapeActive
   def fTrans(f: Vec2 => Vec2): UnScaledShape = UnScaledShape(f(referenceVec), relShape, pointerId, elems)
   def addElems(newElems: Arr[PaintFullElem]): UnScaledShape = UnScaledShape(referenceVec, shape, pointerId, elems ++ newElems)
   def mutObj(newObj: AnyRef): UnScaledShape = UnScaledShape(referenceVec, shape, newObj, elems)
-}
+}*/
 
-object UnScaledShape
+/*object UnScaledShape
 { def fillDraw(referenceVec: Vec2, segs: PolyCurve, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black):
   UnScaledShape = UnScaledShape(referenceVec, segs, evObj, Arr(PolyCurveFillDraw(segs, fillColour, lineWidth, lineColour)))
-}
+}*/
 
 /** This is not a Polygon but should fTrans to Polygon. */
 trait UnScaledPolygon extends  UnScaled

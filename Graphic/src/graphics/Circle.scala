@@ -5,8 +5,8 @@ package geom
 /** This object provides factory methods for circles. */
 object Circle
 {   
-  def apply(scale: Double, cen: Vec2 = Vec2Z): PolyCurveCentred = PolyCurveCentred(cen, segs(scale).slate(cen))
-  def apply(scale: Double, xCen: Double, yCen: Double): PolyCurveCentred = apply(scale, Vec2(xCen, yCen))
+  //def apply(scale: Double, cen: Vec2 = Vec2Z): PolyCurveCentred = PolyCurveCentred(cen, segs(scale).slate(cen))
+  //def apply(scale: Double, xCen: Double, yCen: Double): PolyCurveCentred = apply(scale, Vec2(xCen, yCen))
   
   def segs(scale: Double = 1.0): PolyCurve =
   { val a = ArcSeg(Vec2Z, Vec2(0.5 * scale, 0))
