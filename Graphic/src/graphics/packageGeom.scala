@@ -7,10 +7,11 @@ import math._, Colour.Black
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {
-  implicit def transToExtension[T](value: T)(implicit ev: TransAll[T]) = new TransExtension[T](value, ev)
+  implicit def transAllToExtension[T](value: T)(implicit ev: TransAll[T]) = new TransAllExtension[T](value, ev)
+  implicit def transAffToExtension[T](value: T)(implicit ev: TransAff[T]) = new TransAffExtension[T](value, ev)
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]) = new TransSimExtension[T](value, ev)
   implicit def transRigidToExtension[T](value: T)(implicit ev: TransRigid[T]) = new TransRigidExtension[T](value, ev)
-  implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransExtension[T#ThisT](value.apply, ev)
+  implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
 
   implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]) = new TransSimDistExtension[T](value, ev)
   implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]) = new TransRigidDistExtension[T](value, ev)

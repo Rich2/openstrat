@@ -19,7 +19,7 @@ trait TransSimDisterUser extends TransSimDister
   override def scale(operand: Double): ThisT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
 }
 
-/** A SimDistilar Transformations type class */
+/** A Similar Transformations type class for Dist2 distance 2 dimensional vectors. */
 trait TransSimDist[T] extends TransRigidDist[T]
 { def scale(obj: T, operand: Double): T
 }

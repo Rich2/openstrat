@@ -6,17 +6,10 @@ package geom
  *  any object that has a Trans instance. Trans instances are founded on objects that inherit the Transer trait. Eg Polygon inherits from Transer.
  *  There is a Trans[Polygon]instance and a Trans[List[Polygon]] instance. The TransDistExtension class provides similar extension methods for
  *  objects that can perform the Dist2 => Dist2 transformation. */
-class TransExtension[T](value: T, ev: TransAll[T]) extends TransGenExtension[T]
+class TransAllExtension[T](value: T, ev: TransAll[T]) extends TransGenExtension[T]
 {
   /** General Vec2 to Vec2 transformation. */
   def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)
-
-  /** Translate in 2 dimensional space. */
-// def slate(offset: Vec2): T = trans(_ + offset)
-
-  /** Translate in 2 dimensional space. */
- //def slate(xOffset: Double, yOffset: Double): T = trans(_.addXY(xOffset, yOffset))
-
 
   /** The scale transformation on 2 dimensional vectors. */
   def scale(factor: Double): T = trans(_ * factor)
