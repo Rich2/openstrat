@@ -1,6 +1,6 @@
 ThisBuild/version := "0.0.7snap"
 name := "OpenStrat"
-ThisBuild/scalaVersion := "2.13.1"
+ThisBuild/scalaVersion := "2.13.2"
 ThisBuild/organization := "OpenStratOrg"
 ThisBuild/autoAPIMappings := true
 
@@ -78,7 +78,7 @@ lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).setti
 
 def jsProj(name: String) = Project("Js" + name, file("target/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.8",
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.0.0",
   scalaSource := (ThisBuild/baseDirectory).value / name / "src",
 )
 
