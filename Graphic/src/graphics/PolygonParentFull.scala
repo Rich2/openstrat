@@ -30,3 +30,20 @@ object PolygonParentFull
   def fillContrastText(cen: Vec2, poly: Polygon, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParentFull =
     fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
 }
+
+/** Polygon based Graphic class that constains a number of child Graphic Elements. */
+case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent //with PolyActive
+{ type ThisT = PolygonParent
+  //def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), poly.fTrans(f), pointerId, children.trans(f))
+  override def addElems(newElems: Arr[PaintElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
+  override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
+
+  def mirrorXOffset(yOffset: Double): PolygonParent = ???
+   // PolygonParent(cen.mirrorXOffset(yOffset), poly.mirrorXOffset(yOffset), pointerId, children.mirrorXOffset(yOffset))
+
+  def mirrorYOffset(xOffset: Double): PolygonParent = ???
+  def rotateRadians(radians: Double): PolygonParent = ???
+  def slate(offset: Vec2): PolygonParent = ???
+  def boundingRect: BoundingRect = ???
+  def scale(operand: Double): PolygonParent = ???
+}
