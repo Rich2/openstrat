@@ -310,10 +310,12 @@ object India extends Flag
   val ratio = 1.5
   val apply: Arr[PaintFullElem] =
   { val spoke = PolyCurve(LineSeg(-0.75 vv 0.3833), LineSeg(-0.746 vv 0.4533), BezierSeg(-0.746 vv 0.4533, -0.75 vv 0.4867, -0.75 vv 0.4867), BezierSeg(-0.75 vv 0.4867, -0.754 vv 0.4533, -0.754 vv 0.4533), LineSeg(-0.75 vv 0.3833), LineSeg(-0.75 vv 0.3833)).slate(0.75, -0.5).fill(Colour(0xFF000080))
+    val spokes = iToMap(0,23){i => spoke.rotate(deg30/2*i)}
     val rimNotch = Circle.segs(0.875/75).slate(0, -17.5/150).rotate(deg30/4).fill(Colour(0xFF000080))
+    val rimNotches = iToMap(0,23){i => rimNotch.rotate(deg30/2*i)}
     val outerCircle = Circle.segs(20.0/75).fill(Colour(0xFF000080))
     val middleCircle = Circle.segs(17.5/75).fill(Colour(0xFFFFFFFF))
     val innerCircle = Circle.segs(3.5/75).fill(Colour(0xFF000080))
-      topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle, spoke, rimNotch)
+    topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }
