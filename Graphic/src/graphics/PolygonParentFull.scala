@@ -38,11 +38,15 @@ case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr
   override def addElems(newElems: Arr[PaintElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
 
-  def mirrorXOffset(yOffset: Double): PolygonParent = ???
-   // PolygonParent(cen.mirrorXOffset(yOffset), poly.mirrorXOffset(yOffset), pointerId, children.mirrorXOffset(yOffset))
+  def mirrorXOffset(yOffset: Double): PolygonParent =
+    PolygonParent(cen.mirrorXOffset(yOffset), poly.mirrorXOffset(yOffset), pointerId, children.mirrorXOffset(yOffset))
 
-  def mirrorYOffset(xOffset: Double): PolygonParent = ???
-  def rotateRadians(radians: Double): PolygonParent = ???
+  def mirrorYOffset(xOffset: Double): PolygonParent =
+    PolygonParent(cen.mirrorYOffset(xOffset), poly.mirrorYOffset(xOffset), pointerId, children.mirrorYOffset(xOffset))
+
+  def rotateRadians(radians: Double): PolygonParent =
+    PolygonParent(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))
+
   def slate(offset: Vec2): PolygonParent = ???
   def boundingRect: BoundingRect = ???
   def scale(operand: Double): PolygonParent = ???

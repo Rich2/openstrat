@@ -56,4 +56,9 @@ class TransRigidExtension[T](value: T, ev: TransRigid[T])
 
   /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): T = ev.slate(value, xOffset vv yOffset)
+
+  def mirrorXOffset(yOffset: Double): T = ev.mirrorXOffset(value, yOffset)
+  def mirrorYOffset(xOffset: Double): T = ev.mirrorXOffset(value, xOffset)
+
+  def rotateRadians(radians: Double): T = ev.rotateRadians(value, radians)
 }
