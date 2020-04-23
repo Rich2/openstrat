@@ -36,9 +36,9 @@ object TransAll
   implicit def fromScaledImplicit[T <: TranserAll]: TransAll[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
-  implicit def fromUnScaledImplicit[T <: UnScaled]: TransAll[T#ThisT] =
+  /*implicit def fromUnScaledImplicit[T <: UnScaled]: TransAll[T#ThisT] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T#ThisT]
-
+*/
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAll[A]): TransAll[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
 

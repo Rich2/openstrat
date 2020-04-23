@@ -25,7 +25,7 @@ object TransAff
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAff[A]): TransAff[AA] = new TransAff[AA]
   {
-    override def shear(obj: AA, xScale: Double, yScale: Double): AA = ???
+    override def shear(obj: AA, xScale: Double, yScale: Double): AA = obj.map{ ta => ev.shear(ta, xScale, yScale)}
     override def scale(obj: AA, operand: Double): AA = obj.map{ts => ev.scale(ts, operand)}
     override def slate(obj: AA, offset: Vec2): AA = obj.map{ts => ev.slate(ts, offset)}
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
@@ -34,7 +34,7 @@ object TransAff
   }
 }
 
-class TransAffExtension[T](value: T, ev: TransSim[T])
+class TransAffExtension[T](value: T, ev: TransAff[T])
 {
 
 }

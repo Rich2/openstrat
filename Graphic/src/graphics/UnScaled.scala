@@ -1,20 +1,20 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import Colour.Black
+//import Colour.Black
 
 /** A Geometrical object or shape that has not been scaled. That has its iconic scale. An object centred on x = , y = 0, all the object is between x =
  * +- 0.5 and y = +- 0.5 */
-trait UnScaled extends Any with TranserAll
+/*trait UnScaled extends Any with TranserAll
 { type ThisT <: TranserAll
   def apply(): ThisT
   def fTrans(f: Vec2 => Vec2): ThisT
-}
+}*/
 
 
 /** This is a display object that has a fixed size and alignment. The object itself should not scale or rotate. Hence transformations are applied
  *  to its reference point. This is for objects on a map as opposed to objects that are part of the map. */
-trait UnScaledGraphicElem extends GraphicFullElem
+//trait UnScaledGraphicElem extends GraphicFullElem
 
 /*/** This is a shape that has a fixed size and alignment. Hence transformations are applied to its reference point. */
 case class UnScaledShape(referenceVec: Vec2, relShape: PolyCurve, pointerId: Any, elems: Arr[PaintFullElem]) extends
@@ -32,7 +32,7 @@ UnScaledGraphicElem with ShapeActive
 }*/
 
 /** This is not a Polygon but should fTrans to Polygon. */
-trait UnScaledPolygon extends  UnScaled
+trait UnScaledPolygon //extends  UnScaled
 { type ThisT = Polygon
   def apply: Polygon
   def fTrans(f: Vec2 => Vec2): ThisT = apply.fTrans(f)
