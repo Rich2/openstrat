@@ -44,6 +44,5 @@ object TransSim
 }
 
 class TransSimExtension[T](value: T, ev: TransSim[T])
-{
-
+{ def scale(operand: Double): T = ev.scale(value, operand)
 }

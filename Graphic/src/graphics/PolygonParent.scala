@@ -32,12 +32,11 @@ object PolygonParentFull
 }
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent //with PolyActive
+case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent
 { type ThisT = PolygonParent
-  //def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), poly.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[PaintElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
-
+  override def boundingRect: BoundingRect = poly.boundingRect
   def mirrorXOffset(yOffset: Double): PolygonParent =
     PolygonParent(cen.mirrorXOffset(yOffset), poly.mirrorXOffset(yOffset), pointerId, children.mirrorXOffset(yOffset))
 
@@ -47,7 +46,7 @@ case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr
   def rotateRadians(radians: Double): PolygonParent =
     PolygonParent(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))
 
-  def slate(offset: Vec2): PolygonParent = ???
-  def boundingRect: BoundingRect = ???
-  def scale(operand: Double): PolygonParent = ???
+  def slate(offset: Vec2): PolygonParent = PolygonParent(cen + offset, poly.slate(offset), pointerId, children.slate(offset))
+
+  def scale(operand: Double): PolygonParent = PolygonParent(cen * operand, poly.scale(operand), pointerId, children.scale(operand))
 }
