@@ -40,8 +40,9 @@
   </ul>
 </p>
 
-<p>It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="api/ostrat/index.html">Scala Docs</a> and See <a href="apiJs/ostrat/index.html">Scala Docs for JavaScript target.</a></p></p>
-<p>It currently works on JavaFx and web page. Using canvas on both platforms.
+<p>It currently works on JavaFx and web page. Using canvas on both platforms. See <a href="api/ostrat/index.html">Scala Docs</a> and See <a href="apiJs/ostrat/index.html">Scala Docs for JavaScript target.</a>
+</p>
+
 <p>This project is intended to be accessible and welcoming to programmers of all levels. Indeed it is intended as a vehicle for complete beginners to learn programming in a fun environment. To be able to begin by what for most games would be described as modding and then move down into programming as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and want to get involved, drop into the gitter channel and say hi. If you are not experienced with Scala, you have found this site and want to experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later. The basic build has been tested on Linux and Windows 7. Note unfortunately for the moment there do still seem to be some problems with openjdk and JavaFx, so on Linux you may need to use the Oracle Jdk8.</p>
 
 <p>However at the other end, I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala is, and in particular Scala 3 will be the ideal language to explore these questions.</p>
@@ -138,16 +139,18 @@
         </ul>
       </li>
 
-      <li>ostrat.pGrid Depends on geom and pCanv.
-        <ul>
-          <li>Abstract regular tile geometry.</li>
-          <li>Square and hex tile grid geometry.</li>
-          <li>OfTile classes for the display of tiles.</li>
-        </ul>
-      </li>
+      
 
       <li>ostrat.p3d Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
       </li>
+    </ul>
+  </li>
+
+  <li><b>Tiling</b> Depends on UtilMacros Util and Graphic, just has the ostrat.pGrid package depends on geom and pCanv.
+  	<ul>
+  		<li>Abstract regular tile geometry.</li>
+        <li>Square and hex tile grid geometry.</li>
+        <li>OfTile classes for the display of tiles.</li>
     </ul>
   </li>
 
