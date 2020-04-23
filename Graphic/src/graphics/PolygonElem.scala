@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv.CanvasPlatform, Colour.Black
 
-trait PolygonElem extends PaintFullElem with GraphicBounded
+trait PolygonElem extends PaintFullElem with GraphicBoundedFull
 { type ThisT <: PolygonElem
   def poly: Polygon
   def xHead: Double = poly.head1

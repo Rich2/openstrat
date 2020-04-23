@@ -9,8 +9,8 @@ case class PolyCurveCentred(cen: Vec2, segs: PolyCurve) extends TranserAll
    override def fTrans(f: Vec2 => Vec2): PolyCurveCentred = PolyCurveCentred(f(cen), segs)//.fTrans(f))
   
   def parentAll(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String,
-                   textAlign: TextAlign = CenAlign): PolyCurveParent =
-    PolyCurveParent(cen, segs, evObj, Arr(PolyCurveFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
+                   textAlign: TextAlign = CenAlign): PolyCurveParentFull =
+    PolyCurveParentFull(cen, segs, evObj, Arr(PolyCurveFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, textSize, cen, lineColour, textAlign)))
 
   def allElems(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, fontSize: Int, str: String, textAlign: TextAlign = CenAlign):
     PolyCurveAll = PolyCurveAll(segs, evObj, str, fillColour, fontSize, lineWidth, lineColour)

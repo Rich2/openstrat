@@ -58,21 +58,21 @@ class Polygon(val array: Array[Double]) extends AnyVal with TranserAll with Vec2
   def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24): PolygonFillTextActive =
     PolygonFillTextActive(this, pointerEv, fillColour,str, fontSize)
 
-  def parentFill(pointerID: Any, fillColour: Colour): PolygonParent = PolygonParent.fill(this.polyCentre, this, pointerID, fillColour)
+  def parentFill(pointerID: Any, fillColour: Colour): PolygonParentFull = PolygonParentFull.fill(this.polyCentre, this, pointerID, fillColour)
 
-  def parentFillDraw(pointerID: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolygonParent =
-    PolygonParent.fillDraw(this.polyCentre, this, pointerID, fillColour, lineWidth, lineColour)
+  def parentFillDraw(pointerID: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolygonParentFull =
+    PolygonParentFull.fillDraw(this.polyCentre, this, pointerID, fillColour, lineWidth, lineColour)
   
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-  PolygonParent = PolygonParent.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
+  PolygonParentFull = PolygonParentFull.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
 
-  def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolygonParent =
+  def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolygonParentFull =
     parentFillText(pointerID, fillColour, str, fontSize, fillColour.contrast)
 
-  def parentElems(pointerID: Any, elems: Arr[PaintFullElem]): PolygonParent = new PolygonParent(this.polyCentre, this, pointerID, elems)
+  def parentElems(pointerID: Any, elems: Arr[PaintFullElem]): PolygonParentFull = new PolygonParentFull(this.polyCentre, this, pointerID, elems)
 
-  def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParent =
-    PolygonParent(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
+  def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParentFull =
+    PolygonParentFull(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
   
   def closedPolygonToLine2s: Line2s =

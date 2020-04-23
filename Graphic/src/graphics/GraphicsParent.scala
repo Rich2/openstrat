@@ -1,10 +1,12 @@
 package ostrat
 package geom
 
+trait GraphicsParent extends GraphicElem
+
 /** This is an active visual canvas object. A pointable polygon / shape with visual, that also knows how much display space it needs and preferred
  *  margin space. Not sure about the name. not sure if the trait is useful. */
-trait GraphicParent extends GraphicFullElem with GraphicActive
-{ override type ThisT <: GraphicParent
+trait GraphicParentFull extends GraphicFullElem with GraphicActiveFull
+{ override type ThisT <: GraphicParentFull
   def cen: Vec2
 
   /** The type of children can probably be widened in the future. */

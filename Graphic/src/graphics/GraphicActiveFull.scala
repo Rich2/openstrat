@@ -3,8 +3,8 @@ package ostrat
 package geom
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
-trait GraphicActive extends GraphicBounded
-{ type ThisT <: GraphicActive
+trait GraphicActiveFull extends GraphicBoundedFull
+{ type ThisT <: GraphicActiveFull
   /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
       purely up to the application to encode, its response if any to this object. */
   def pointerId: Any
@@ -15,7 +15,7 @@ trait GraphicActive extends GraphicBounded
 }
 
 /** An active transparent pointable polygon */
-trait PolyActive extends GraphicActive
+trait PolyActive extends GraphicActiveFull
 { type ThisT <: PolyActive
   def poly: Polygon
   override def boundingRect = poly.boundingRect
@@ -24,7 +24,7 @@ trait PolyActive extends GraphicActive
 }
 
 /** A pointable shape */
-trait ShapeActive extends GraphicActive
+trait ShapeActive extends GraphicActiveFull
 {  type ThisT <: ShapeActive
   def shape: PolyCurve
   def innerPoly: Polygon = shape.pMap(_.pEnd)

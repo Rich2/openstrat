@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-trait PolyCurveElem extends PaintFullElem with GraphicBounded
+trait PolyCurveElem extends PaintFullElem with GraphicBoundedFull
 { type ThisT <: PolyCurveElem
   def shape: PolyCurve
   def segsLen: Int = shape.length
