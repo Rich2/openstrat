@@ -10,7 +10,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 { var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
 /**/
-  var listOfFlags: Arr[Flag] = Arr(Iraq, CCCP, CzechRepublic, Colombia, Chile, Cyprus, Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags)
+  var listOfFlags: Arr[Flag] = Arr(India, Iraq, CCCP, CzechRepublic, Colombia, Chile, Cyprus, Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags)
 
   val itemCount: Int = listOfFlags.length
   val itemsPerRow: Int = 5  //  columns
