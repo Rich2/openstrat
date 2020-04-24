@@ -17,6 +17,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def radius: Double = (pStart - pCen).magnitude
   def clock: Boolean = deltaRadians < 0
   def antiClock: Boolean = deltaRadians >= 0
+  def detltaDegs = deltaRadians.radiansToDegrees
 
   def pCtrl: Vec2 =
   { val sAng: Angle = startAngle
