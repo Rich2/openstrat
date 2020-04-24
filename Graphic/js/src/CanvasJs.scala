@@ -109,10 +109,11 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
+  /** Web canvases view of anti clockwise is itself mirrored. */
   override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
   { val ca = cad.arc
     gc.beginPath
-    gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.antiClock)
+    gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.clock)
     gc.strokeStyle = cad.colour.webStr
     gc.stroke()
   }
