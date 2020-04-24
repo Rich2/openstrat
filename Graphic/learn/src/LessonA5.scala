@@ -22,13 +22,13 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
   val d4 = c3.draw(2, Violet)
   val c5 = CArc(190, 0, -10, 10, - math.Pi)
   val d5 = c5.draw(2, Brown)
-  val c6 = CArc(-200, 100, -100, 200, math.Pi / 4)
+  val c6 = CArc(-100, 200, -200, 100,  math.Pi / 4)
   val d6 = c6.draw(2, Green)
   val a1 = Arr(d1, d2, d3, d4, d5, d6)
   val a2 = a1 ++ a1.flatMap(_.startCenEndTexts)
 
-  val cen6 = TextGraphic("c6 cen", 14, -200 vv 100)
-  repaint(a2 +- cen6)
+  val cen6 = TextGraphic("c6 cen", 14, -100 vv 200)
+  repaint(a2)
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
