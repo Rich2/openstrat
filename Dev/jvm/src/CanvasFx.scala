@@ -89,6 +89,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.beginPath
     gc.moveTo(ca.xStart, ca.yStart)
     gc.arcTo(ca.xCtrl, ca.yCtrl, ca.xEnd, ca.yEnd, ca.radius)
+    debvar(ca.pCtrl)
     //ad.fControlEndRadius(gc.arcTo)
     gc.setStroke(toFxColor(cad.colour))
     gc.stroke()
