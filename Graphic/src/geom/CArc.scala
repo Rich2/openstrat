@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Circular Arc */
-final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double ) extends TransSimer
+final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TransSimer
 { type ThisT = CArc
   def pCen: Vec2 = xCen vv yCen
   def startAngleRadians: Double = (pStart - pCen).angleRadians
@@ -13,6 +13,8 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def pStart: Vec2 = xStart vv yStart
   def pEnd: Vec2 = pCen + endAngle.toVec2(radius)
   def radius: Double = (pStart - pCen).magnitude
+  def clock: Boolean = deltaRadians < 0
+  def antiClock: Boolean = deltaRadians >= 0
 
   def pCtrl: Vec2 =
   { val sAng: Angle = startAngle

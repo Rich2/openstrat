@@ -112,8 +112,7 @@ object CanvasJs extends CanvasTopLeft
   override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
   { val ca = cad.arc
     gc.beginPath
-    gc.moveTo(ca.xStart, ca.yStart)
-    gc.arcTo(ca.xCtrl, ca.yCtrl, ca.xEnd, ca.yEnd, ca.radius)
+    gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.antiClock)
     gc.strokeStyle = cad.colour.webStr
     gc.stroke()
   }
