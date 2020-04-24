@@ -7,8 +7,10 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 { type ThisT = CArc
   def pCen: Vec2 = xCen vv yCen
   def startAngleRadians: Double = (pStart - pCen).angleRadians
+  def startAngleRadiansPos: Double = (pStart - pCen).angleRadiansPos
   def startAngle: Angle = (pStart - pCen).angle
   def endAngleRadians: Double = startAngleRadians + deltaRadians
+  def endAngleRadiansPos: Double = startAngleRadiansPos + deltaRadians
   def endAngle: Angle = Angle(endAngleRadians)
   def pStart: Vec2 = xStart vv yStart
   def pEnd: Vec2 = pCen + endAngle.toVec2(radius)
