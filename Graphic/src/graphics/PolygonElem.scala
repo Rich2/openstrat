@@ -36,7 +36,7 @@ object PolygonFill
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFillActive(poly: Polygon, pointerId: Any, colour: Colour) extends PolygonElem with PolyActive
+case class PolygonFillActive(poly: Polygon, pointerId: Any, colour: Colour) extends PolygonElem with PolyActiveFull
 { override type ThisT = PolygonFillActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(poly.fTrans(f), pointerId, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(poly, colour)
@@ -68,7 +68,7 @@ object PolygonFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnly(poly: Polygon, pointerId: Any) extends GraphicFullElem with PolyActive
+case class PolygonActiveOnly(poly: Polygon, pointerId: Any) extends GraphicFullElem with PolyActiveFull
 { override type ThisT = PolygonActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(poly.fTrans(f), pointerId)
 }
@@ -101,7 +101,7 @@ case class PolygonFillDrawText(poly: Polygon, fillColour: Colour, str: String, f
 }
 
 case class PolygonAll(poly: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
-  lineColour: Colour = Black) extends PolygonElem with PolyActive
+  lineColour: Colour = Black) extends PolygonElem with PolyActiveFull
 { override type ThisT = PolygonAll
   override def fTrans(f: Vec2 => Vec2): PolygonAll = PolygonAll(poly.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(poly, lineWidth, lineColour)
@@ -122,7 +122,7 @@ object PolygonFillDrawText
 }
 
 case class PolygonFillTextActive(poly: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonElem
-  with PolyActive
+  with PolyActiveFull
 { override type ThisT = PolygonFillTextActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextActive = PolygonFillTextActive(poly.fTrans(f), pointerId, fillColour, str, fontSize)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, Black, CenAlign)

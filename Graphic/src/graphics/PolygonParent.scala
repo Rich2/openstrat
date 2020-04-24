@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentFull(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParentFull with PolyActive
+case class PolygonParentFull(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParentFull with PolyActiveFull
 { type ThisT = PolygonParentFull
   def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), poly.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[PaintFullElem]): PolygonParentFull = new PolygonParentFull(cen, poly, pointerId, children ++ newElems)

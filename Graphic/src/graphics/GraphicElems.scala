@@ -19,11 +19,20 @@ trait PaintElem extends GraphicElem
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait GraphicBoundedFull extends GraphicFullElem
-{ type ThisT <: GraphicBoundedFull
+trait GraphicBounded extends GraphicElem
+{ type ThisT <: GraphicBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
   def width: Double = boundingRect.width
+}
+
+/** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
+ *  graphics. */
+trait GraphicBoundedFull extends GraphicBounded with GraphicFullElem
+{ type ThisT <: GraphicBoundedFull
+  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
+ // def boundingRect: BoundingRect
+  //def width: Double = boundingRect.width
 }
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
