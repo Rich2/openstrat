@@ -87,9 +87,11 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
   { val ca = cad.arc
     gc.beginPath
+    debvar(ca.deltaRadians)
+    debvar(ca.antiClock)
     gc.moveTo(ca.xStart, ca.yStart)
     gc.arcTo(ca.xCtrl, ca.yCtrl, ca.xEnd, ca.yEnd, ca.radius)
-    debvar(ca.pCtrl)
+    //debvar(ca.pCtrl)
     //ad.fControlEndRadius(gc.arcTo)
     gc.setStroke(toFxColor(cad.colour))
     gc.stroke()
