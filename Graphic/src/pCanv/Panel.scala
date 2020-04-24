@@ -29,7 +29,7 @@ trait PanelLike extends RectGeom
 { /** These are currently stored in reverse. I think this would be better in an Array */
   var actives: Arr[GraphicActive] = Arr()
 
-  var canvObjs: GraphicElems = Arr()
+  var canvObjs: Arr[GraphicElem] = Arr()
 
   /** This method name is inconsistent with mouseup on the canvas class*/
   var mouseUp: (MouseButton, List[Any], Vec2) => Unit = (_, _, _) => {}
