@@ -14,20 +14,18 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
 {
   val c1 = CArc(0, 100, 0, 0, 3)
   val d1 = c1.draw(2, Red)
-  val c2 = c1.slate(200, 0)
+  val c2 = c1.slate(200, 50)
   val d2 = c2.draw(2, Orange)
-  val c3 = CArc(150, 0, 0, 0, math.Pi / 2)
+  val c3 = CArc(150, 0, 50, 0, math.Pi / 2)
   val d3 = c3.draw(2, Blue)
   val c4 = CArc(170, 0, 0, 0, math.Pi)
   val d4 = c3.draw(2, Violet)
   val c5 = CArc(190, 0, 0, 0, - math.Pi)
   val d5 = c5.draw(2, Brown)
   val a1 = Arr(d1, d2, d3, d4, d5)
+  val a2 = a1 ++ a1.flatMap(_.startCenEndTexts)
 
-  val stuff = Arr(
-    TextGraphic("cen"),
-  )
-  repaint(stuff ++ a1)
+  repaint(a2)
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
