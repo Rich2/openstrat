@@ -12,7 +12,7 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
 {
-  val c1 = CArc(0, 200, 0, 0, 1)
+  val c1 = CArc(0, 100, 0, 0, 1)
   val c2 = c1.slate(200, 0)
   val a1 = Arr(c1, c2)
   val a2 = a1.map(_.draw())
@@ -27,7 +27,7 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
     CArcDrawOld(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
     BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
   )
-  repaint(stuff)
+  repaint(stuff ++ a2)
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the

@@ -27,18 +27,18 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
 //   def upCmd: MouseButton => Unit = (mb: MouseButton) =>
 //      { lat = Latitude((lat.radians + distDelta(mb)).max(0)); updateView() } 
          
-  val fHex: OfETile[BcTileOld, ESideOldOnly] => GraphicElems = etog =>
+  val fHex: OfETile[BcTileOld, ESideOldOnly] => GraphicElemFulls = etog =>
     { import etog._         
       val colour: Colour = tile.colour
       val poly = vertDispVecs.fillActive(colour, tile)
       
-      val tileText: GraphicElems = ifScaleCObjs(68,
+      val tileText: GraphicElemFulls = ifScaleCObjs(68,
         { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
           TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
         })
       poly +: tileText
       }
-   def fSide: OfESide[BcTileOld, ESideOldOnly] => GraphicElems = ofs => {
+   def fSide: OfESide[BcTileOld, ESideOldOnly] => GraphicElemFulls = ofs => {
       import ofs._
       ifScaleCObjs(60, side.terr match
         {
@@ -47,9 +47,9 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
         })
    }   
          
-   def ls: GraphicElems =
-   { val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
+   def ls: GraphicElemFulls =
+   { val gs: GraphicElemFulls = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+     val as: GraphicElemFulls = scen.tops.flatMap(a => a.disp2(this))
      gs ++ as
    }
    

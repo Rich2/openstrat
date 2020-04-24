@@ -12,13 +12,13 @@ abstract class CanvasUser(val title: String)
   def paintObjs(movedObjs: Arr[GraphicElem]): Arr[GraphicActive] =
   { val activeBuff: Buff[GraphicActive] = Buff()
     movedObjs.foreach {
-      case el: GraphicActiveFull => activeBuff += el
+      case el: GraphicActive => activeBuff += el
       case _ =>
     }
 
     movedObjs.foreach
-    { case ce: PaintFullElem => ce.rendToCanvas(canv)
-      case cs: GraphicParentFull => canv.rendElems(cs.children)
+    { case ce: PaintElem => ce.rendToCanvas(canv)
+      case cs: GraphicParent => canv.rendElems(cs.children)
      //s case nss: UnScaledShape => canv.rendElems(nss.elems.slate(nss.referenceVec))
       case v =>
     }
