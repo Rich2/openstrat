@@ -81,6 +81,8 @@ trait CanvasPlatform extends RectGeom
   final def shapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = oif(shape.length > 0, pShapeDraw(shape, lineWidth, colour))
   def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
 
+  def circleFill(cf: CircleFill): Unit
+
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
     textGraphic(TextGraphic(str, fontSize, posn, colour, align))

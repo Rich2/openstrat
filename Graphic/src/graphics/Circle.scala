@@ -4,7 +4,7 @@ package geom
 
 object CircleIcon
 
-final case class Circle(x: Double, y: Double, radius: Double) extends TransSimer
+final case class Circle(radius: Double, x: Double, y: Double) extends TransSimer
 { override type ThisT = Circle
   override def rotate(angle: Angle): Circle = this
   override def mirrorX: Circle = this
@@ -21,12 +21,15 @@ object Circle
 {   
   //def apply(scale: Double, cen: Vec2 = Vec2Z): PolyCurveCentred = PolyCurveCentred(cen, segs(scale).slate(cen))
   //def apply(scale: Double, xCen: Double, yCen: Double): PolyCurveCentred = apply(scale, Vec2(xCen, yCen))
-  
+  def apply(radius: Double, cen: Vec2 =Vec2Z): Circle = new Circle(radius, cen.x, cen.y)
+
   def segs(scale: Double = 1.0): PolyCurve =
   { val a = ArcSeg(Vec2Z, Vec2(0.5 * scale, 0))
     val sg1 = (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i))))
     PolyCurve(sg1 :_*)
   }
+
+  def fillNew(colour: Colour): Unit = ???
 
   def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): PolyCurveFill =
   { val fSegs = segs(radius).slate(posn)            
