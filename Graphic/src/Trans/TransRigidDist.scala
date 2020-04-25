@@ -23,7 +23,7 @@ trait TransRigidDist[T]
   def rotateRadians(obj: T, radians: Double): T
   def mirrorYOffset(obj: T, xOffset: Dist): T
   def mirrorXOffset(obj: T, yOffset: Dist): T
-  //def rotate(obj: T, angle: Angle): T
+  def rotate(obj: T, angle: Angle): T = rotateRadians(obj, angle.radians)
 }
 
 object TransRigidDist

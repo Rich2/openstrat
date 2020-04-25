@@ -14,14 +14,14 @@ trait TransRigider extends Any
   def mirrorY: ThisT = mirrorYOffset(0)
   def mirrorX: ThisT = mirrorXOffset(0)
   def ySlate(yDelta: Double): ThisT = slate(0 vv yDelta)
+
   /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
 }
 
 /** A Rigid or Euclidean transformations type class. */
 trait TransRigid[T]
-{
-  def slate(obj: T, offset: Vec2): T
+{ def slate(obj: T, offset: Vec2): T
   def rotateRadians(obj: T, radians: Double): T
   def mirrorYOffset(obj: T, xOffset: Double): T
   def mirrorXOffset(obj: T, yOffset: Double): T
@@ -77,6 +77,9 @@ class TransRigidExtension[T](value: T, ev: TransRigid[T]) extends TransRigidGenE
 
   override def rotateRadians(radians: Double): T = ev.rotateRadians(value, radians)
 
-  override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)//r trans(_.rotate(angle))
-  //override def rotateRadians(r: Double): T = trans(_.rotateRadians(r))
+  override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)
+
+  /** this.asInstanceOf[T] */
+  def identity: T = this.asInstanceOf[T]
+
 }
