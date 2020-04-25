@@ -14,7 +14,7 @@ final case class Circle(radius: Double, x: Double, y: Double) extends TransSimer
   override def mirrorYOffset(xOffset: Double): Circle = this
   override def rotateRadians(radians: Double): Circle = this
   override def slate(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)
-  override def scale(operand: Double): Circle = Circle(radius * operand, x, y)
+  override def scale(operand: Double): Circle = Circle(radius * operand, x * operand, y * operand)
 
   def fill(colour: Colour): CircleFill = CircleFill(this, colour)
 }
