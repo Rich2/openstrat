@@ -4,7 +4,17 @@ package geom
 
 object CircleIcon
 
-case class Circle(x: Double, y: Double, radius: Double)
+final case class Circle(x: Double, y: Double, radius: Double) extends TransSimer
+{ override type ThisT = Circle
+  override def rotate(angle: Angle): Circle = this
+  override def mirrorX: Circle = this
+  override def mirrorY: Circle = this
+  override def mirrorXOffset(yOffset: Double): Circle = this
+  override def mirrorYOffset(xOffset: Double): Circle = this
+  override def rotateRadians(radians: Double): Circle = this
+  override def slate(offset: Vec2): Circle = Circle(x + offset.x, y + offset.y, radius)
+  override def scale(operand: Double): Circle = Circle(x, y, radius * operand)
+}
 
 /** This object provides factory methods for circles. */
 object Circle
