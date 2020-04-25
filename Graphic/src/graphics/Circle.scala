@@ -2,6 +2,10 @@
 package ostrat
 package geom
 
+object CircleIcon
+
+case class Circle(x: Double, y: Double, radius: Double)
+
 /** This object provides factory methods for circles. */
 object Circle
 {   
