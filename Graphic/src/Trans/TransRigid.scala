@@ -61,7 +61,7 @@ object TransRigid
 
 }
 
-class TransRigidExtension[T](value: T, ev: TransRigid[T])
+class TransRigidExtension[T](value: T, ev: TransRigid[T]) extends TransRigidGenExtension[T]
 {
   /** Translate 2 dimensional vectors along the X axis */
   def slateX(xOffset: Double): T = ev.slate(value, xOffset vv 0)

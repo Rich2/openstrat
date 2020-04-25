@@ -42,7 +42,7 @@ object TransRigidDist
   }
 }
 
-class TransRigidDistExtension[T](value: T, ev: TransRigidDist[T])
+class TransRigidDistExtension[T](value: T, ev: TransRigidDist[T]) extends TransRigidGenExtension[T]
 {
   /** Translate 2 dimensional vectors along the X axis */
   def slateX(xOffset: Dist): T = ev.slate(value, Dist2(xOffset, 0.metres))

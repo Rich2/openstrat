@@ -38,7 +38,7 @@ object TransAllDist
 
 /** The object can be transformed in 2 dimensional Distance space. Leaf classes must implement the single method fTrans(f: Dist2 => Dist2):  T The related
  *   trait TranExtension  does the same for trans(f: Vec2 => Vec2): T. */
-trait TransDistExtension[T] extends Any with TransGenExtension[T]
+trait TransAllDistExtension[T] extends Any with TransAllGenExtension[T]
 {
   def trans(f: Dist2 => Dist2):  T  
 
