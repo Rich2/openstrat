@@ -117,6 +117,14 @@ object CanvasJs extends CanvasTopLeft
     gc.strokeStyle = cad.colour.webStr
     gc.stroke()
   }
+
+  override def tlCircleFill(cf: CircleFill): Unit =
+   {
+     val ci = cf.circle
+     gc.beginPath
+     gc.arc(ci.x, ci.y, ci.radius, 0, math.Pi * 2)
+     gc.fill()
+   }
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath

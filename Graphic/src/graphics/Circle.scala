@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
+import pCanv._
 
 object CircleIcon
 
@@ -12,8 +13,10 @@ final case class Circle(radius: Double, x: Double, y: Double) extends TransSimer
   override def mirrorXOffset(yOffset: Double): Circle = this
   override def mirrorYOffset(xOffset: Double): Circle = this
   override def rotateRadians(radians: Double): Circle = this
-  override def slate(offset: Vec2): Circle = Circle(x + offset.x, y + offset.y, radius)
-  override def scale(operand: Double): Circle = Circle(x, y, radius * operand)
+  override def slate(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)
+  override def scale(operand: Double): Circle = Circle(radius * operand, x, y)
+
+  def fill(colour: Colour): CircleFill = CircleFill(this, colour)
 }
 
 /** This object provides factory methods for circles. */
@@ -37,9 +40,11 @@ object Circle
   }
 }
 
-case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser
+case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser with PaintElem
 { override type ThisT = CircleFill
   override type MemT = Circle
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleFill = CircleFill(transer, colour)
+
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 }

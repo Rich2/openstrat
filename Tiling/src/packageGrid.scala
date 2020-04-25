@@ -46,13 +46,17 @@ package object pGrid
   { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach{r => f(r, thisArray(grid.arrIndex(r)))}
   }
 
-  implicit class GridTransExtension[T](value: T)(implicit grid: TileGridSimple, ev: TransAll[T])
-  { /** Translates Vec2s relative to Grid centre and then scales. */
-    def gridScale(scale: Double): T = value.trans(orig => (orig - grid.cen) * scale)
-
-    def gridTrans(offset: Vec2, scale: Double): T = value.trans(orig => (orig - offset - grid.cen) * scale)
+  implicit class GridTransAllExtension[T](value: T)(implicit grid: TileGridSimple, ev: TransAll[T])
+  {
     def gridRoordTrans(focus: Roord, scale: Double): T = value.trans(orig => (orig - focus.gridVec2) * scale)
     def gridRoordTrans(yFocus: Int, cFocus: Int, scale: Double): T = value.trans(orig => (orig - grid.roordToVec2(yFocus, cFocus)) * scale)
+  }
+
+  implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGridSimple, ev: TransSim[T])
+  {
+    /** Translates Vec2s relative to Grid centre and then scales. */
+    def gridScale(scale: Double): T = value.slate(- grid.cen).scale(scale)
+    def gridTrans(offset: Vec2, scale: Double): T = value.slate(-offset - grid.cen).scale(scale)
   }
 
   /** Not sure about the use of List in this class. */
