@@ -14,8 +14,7 @@ class TransAllExtension[T](value: T, ev: TransAll[T]) extends TransGenExtension[
   /** The scale transformation on 2 dimensional vectors. */
   //def scale(factor: Double): T = trans(_ * factor)
 
-  /** The scale transformation on 2 dimensional vectors. */
-  def scaleSlate(factor: Double, addVec: Vec2): T = trans(_ * factor + addVec)
+
 
   /** Applies scale transformation and adds x on 2 dimensional vectors. */
   def scaleSlateX(factor: Double, xDelta: Double): T = trans(v => (v * factor).addX(xDelta))

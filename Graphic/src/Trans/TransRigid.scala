@@ -2,6 +2,8 @@
 package ostrat
 package geom
 
+import scala.reflect.ClassTag
+
 trait TransRigider extends Any
 { type ThisT <: TransRigider
   def slate(offset: Vec2): ThisT
@@ -40,6 +42,23 @@ object TransRigid
     override def mirrorYOffset(obj: AA, xOffset: Double): AA = obj.map{ts => ev.mirrorYOffset(ts, xOffset) }
     override def mirrorXOffset(obj: AA, yOffset: Double): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
   }
+
+  /*implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransRigid[A]): TransRigid[F[A]] = new TransRigid[F[A]]
+  { //override def scale(obj: F[A], operand: Double): F[A] = evF.map[A, A](obj, ts => evA.scale(ts, operand))
+    override def slate(obj: F[A], offset: Vec2): F[A] = evF.map(obj, ts => evA.slate(ts, offset))
+    override def rotateRadians(obj: F[A], radians: Double): F[A] = evF.map(obj, ts => evA.rotateRadians(ts, radians))
+    override def mirrorYOffset(obj: F[A], xOffset: Double): F[A] = evF.map(obj, ts => evA.mirrorYOffset(ts, xOffset))
+    override def mirrorXOffset(obj: F[A], yOffset: Double): F[A] = evF.map(obj, ts => evA.mirrorXOffset(ts, yOffset))
+  }*/
+
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransRigid[A]): TransRigid[Array[A]] = new TransRigid[Array[A]]
+  { //override def scale(obj: Array[A], operand: Double): Array[A] = obj.map { ts => ev.scale(ts, operand) }
+    override def slate(obj: Array[A], offset: Vec2): Array[A] = obj.map { ts => ev.slate(ts, offset) }
+    override def rotateRadians(obj: Array[A], radians: Double): Array[A] = obj.map { ts => ev.rotateRadians(ts, radians) }
+    override def mirrorYOffset(obj: Array[A], xOffset: Double): Array[A] = obj.map { ts => ev.mirrorYOffset(ts, xOffset) }
+    override def mirrorXOffset(obj: Array[A], yOffset: Double): Array[A] = obj.map { ts => ev.mirrorXOffset(ts, yOffset) }
+  }
+
 }
 
 class TransRigidExtension[T](value: T, ev: TransRigid[T])

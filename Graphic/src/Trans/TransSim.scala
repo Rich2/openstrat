@@ -62,4 +62,10 @@ object TransSim
 
 class TransSimExtension[T](value: T, ev: TransSim[T])
 { def scale(operand: Double): T = ev.scale(value, operand)
+
+  /** The scale transformation on 2 dimensional vectors. */
+  def scaleSlate(factor: Double, addVec: Vec2): T =
+  { val r1 = ev.scale(value, factor)
+    ev.slate(r1, addVec)
+  }
 }
