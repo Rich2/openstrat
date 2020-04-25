@@ -32,4 +32,11 @@ object Circle
   { val fSegs = segs(radius).slate(posn)            
     PolyCurveFill(fSegs, colour)
   }
-} 
+}
+
+case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser
+{ override type ThisT = CircleFill
+  override type MemT = Circle
+  override def geomMem: MemT = circle
+  override def newThis(transer: Circle): CircleFill = CircleFill(transer, colour)
+}
