@@ -23,6 +23,7 @@ trait TransRigidDist[T]
   def rotateRadians(obj: T, radians: Double): T
   def mirrorYOffset(obj: T, xOffset: Dist): T
   def mirrorXOffset(obj: T, yOffset: Dist): T
+  //def rotate(obj: T, angle: Angle): T
 }
 
 object TransRigidDist
@@ -44,6 +45,9 @@ object TransRigidDist
 
 class TransRigidDistExtension[T](value: T, ev: TransRigidDist[T]) extends TransRigidGenExtension[T]
 {
+  override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians) //trans(_.rotate(angle))
+  override def rotateRadians(r: Double): T = ev.rotateRadians(value, r)// trans(_.rotateRadians(r))
+
   /** Translate 2 dimensional vectors along the X axis */
   def slateX(xOffset: Dist): T = ev.slate(value, Dist2(xOffset, 0.metres))
 

@@ -44,8 +44,7 @@ trait TransAllDistExtension[T] extends Any with TransAllGenExtension[T]
 
   def scale(factor: Double): T = trans(_ * factor)
 
-  override def rotate(angle: Angle): T = trans(_.rotate(angle))
-  override def rotateRadians(r: Double): T = trans(_.rotateRadians(r))
+
   
   /** this.asInstanceOf[T] */  
   def identity: T = this.asInstanceOf[T]   
