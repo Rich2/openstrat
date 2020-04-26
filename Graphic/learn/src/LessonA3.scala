@@ -6,6 +6,10 @@ case class LessonA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val x1 = 100
   val y1 = 200
   repaints(
+    Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
+    Rectangle(200, 100, 100 vv 50).fill(Green),
+    Square.fill(Orange).scaleSlateX(100, 300),
+
       //Below we create a Text Graphic Object, the first number is number of pixels left or right of the screen centre
       TextGraphic("This text is at " + x1.toString + ", " + y1.toString, 18, x1 vv y1, Red),  
       

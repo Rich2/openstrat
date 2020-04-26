@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package learn
-import ostrat._, geom._, pCanv._, Colour._
+import ostrat._, geom._, pCanv._, Colour._, BaseLine._//{Alphabetic, Bottom, Middle, Top}
 
 case class LessonA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
 {
@@ -25,6 +25,13 @@ case class LessonA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
 
       // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
       Polygon(-300 vv 200, -300 vv 300, -250 vv 300).fill(Orange),
-      Polygon(-250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200).draw(2, Blue), 
-      )  
+      Polygon(-250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200).draw(2, Blue),
+
+    TextGraphic("default baseline", 18, 0 vv 150, Black, RightAlign),
+    TextGraphic("top baseline", 18, 0 vv 150, Black, LeftAlign, Top),
+    TextGraphic("middle", 18, 100 vv 150, Black, LeftAlign, Middle),
+    TextGraphic("bottom", 18, 150 vv 150, Black, LeftAlign, Bottom),
+    TextGraphic("alphabetic = ", 18, -230 vv 150, Black, LeftAlign, Alphabetic),
+
+  )
 }

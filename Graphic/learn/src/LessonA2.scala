@@ -1,5 +1,5 @@
 package learn
-import ostrat._, geom._, pCanv._, Colour._, BaseLine._
+import ostrat._, geom._, pCanv._, Colour._
 
 case class LessonA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 {
@@ -24,12 +24,10 @@ case class LessonA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 
     //Here we try different baseline (vertical alignment)
 
-    TextGraphic("default baseline", 18, 0 vv 150, Black, RightAlign),
-    TextGraphic("top baseline", 18, 0 vv 150, Black, LeftAlign, Top),
-    TextGraphic("middle", 18, 100 vv 150, Black, LeftAlign, Middle),
-    TextGraphic("bottom", 18, 150 vv 150, Black, LeftAlign, Bottom),
-    TextGraphic("alphabetic = ", 18, -230 vv 150, Black, LeftAlign, Alphabetic),
-
+    TextGraphic("-300, 0", 14, -300 vv 0, Orange),
+    TextGraphic("-300, 100", 14, -300 vv 100, Violet),
+    TextGraphic("x=0, y=100", 14, 0 vv 100, Green),
+    TextGraphic("222, 100", 14, 222 vv 100, SlateBlue),
   )
 }
 
