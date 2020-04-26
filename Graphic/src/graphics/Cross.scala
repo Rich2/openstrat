@@ -5,7 +5,7 @@ package geom
 object Cross
 {
   /** Temporary start. */
- def apply(scale: Double = 1) =
+ def apply(scale: Double = 1): Arr[LineDraw] =
  { val lh = Line2(-10 vv 0, 10 vv 0)
    val rh =  Line2(0 vv 10, 0 vv -10)
    Line2s(lh, rh)map(_.scale(scale).draw(2))
