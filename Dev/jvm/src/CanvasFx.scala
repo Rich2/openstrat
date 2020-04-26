@@ -75,7 +75,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def tlCircleFill(cf: CircleFill): Unit =
   { val circ = cf.circle
     gc.setFill(toFxColor(cf.colour))
-    gc.fillOval(circ.x, circ.y, circ.radius, circ.radius)
+//PREVIOUS    gc.fillOval(circ.x, circ.y, circ.radius, circ.radius)
+    gc.fillOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
+//**RG: fillOval(left, top, width, height) these arguments are with respect of the ovals bounding box
   }
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath
