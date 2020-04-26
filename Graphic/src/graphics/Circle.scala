@@ -8,9 +8,9 @@ object CircleIcon
 final case class Circle(radius: Double, x: Double, y: Double) extends TransSimer
 { override type ThisT = Circle
   override def rotate(angle: Angle): Circle = this
-  override def mirrorX: Circle = this
-  override def mirrorY: Circle = this
-  override def mirrorXOffset(yOffset: Double): Circle = this
+  //override def mirrorX: Circle =
+ // override def mirrorY: Circle = this
+  override def mirrorXOffset(yOffset: Double): Circle = Circle(radius, x, - y)
   override def mirrorYOffset(xOffset: Double): Circle = this
   override def rotateRadians(radians: Double): Circle = this
   override def slate(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)

@@ -21,7 +21,11 @@ case class LessonA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
    
     CArcDrawOld(-200 vv 0, 0 vv 0, 0 vv 200),
     CArcDrawOld(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
-    BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green)
+    BezierDraw(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200, 2, Green),
+
+    Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
+  Rectangle(200, 100, 100 vv 50).fill(Green),
+  Square.fill(Orange).scaleSlateX(100, 300),
   )
   repaint(stuff)
 }

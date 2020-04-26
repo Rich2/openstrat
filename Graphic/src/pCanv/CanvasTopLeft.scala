@@ -23,7 +23,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
    final override def pShapeFill(shape: PolyCurve, colour: Colour): Unit = tlShapeFill(shape.fTrans(tlCen), colour)
    final override def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
-   final override def circleFill(cf: CircleFill): Unit = tlCircleFill(cf.slate(width / 2, height / 2))
+   final override def circleFill(cf: CircleFill): Unit = tlCircleFill(cf.mirrorX.slate(width / 2, height / 2))
    final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
 
