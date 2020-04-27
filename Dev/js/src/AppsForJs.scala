@@ -45,7 +45,8 @@ object AppsForJs
     ("A8", (learn.LessonA8(_), "Js Demonstration Canvas 8")),
     ("A9", (learn.LessonA9(_), "Js Demonstration Canvas 9")),
     ("A10", (learn.LessonA10(_), "Js Demonstration Canvas 10")),
-
+    ("A11", (learn.LessonA11(_), "Reflecting a point across a Line")),
+    
     ("B1", (learn.LessonB1(_), "Js Demonstration Animated Canvas 1")), //Moving Graphics
     ("B2", (learn.LessonB2(_), "Js Demonstration Animated Canvas 2")),
     ("B3", (learn.LessonB3(_), "Js Demonstration Animated Canvas 3")),
