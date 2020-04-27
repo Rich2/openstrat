@@ -50,6 +50,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def scaleY(factor: Double): Vec2 = Vec2(x, y * factor)
   def scaleX(factor: Double): Vec2 = Vec2(x * factor, y)
 
+  def reflect(v1: Vec2, v2: Vec2): Vec2 = ???
+
   /** Mirrors along the Y axis by negating X. */
   def mirrorY: Vec2 = Vec2(-x, y)
 
