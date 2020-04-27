@@ -18,5 +18,5 @@ case class CircleDraw(circle: Circle, lineWidth: Double, colour: Colour) extends
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleDraw = CircleDraw(transer, lineWidth, colour)
 
-  override def rendToCanvas(cp: CanvasPlatform): Unit = ??? // cp.circleFill(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
 }

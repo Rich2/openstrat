@@ -17,6 +17,7 @@ final case class Circle(radius: Double, x: Double, y: Double) extends TransSimer
   override def scale(operand: Double): Circle = Circle(radius * operand, x * operand, y * operand)
 
   def fill(colour: Colour): CircleFill = CircleFill(this, colour)
+  def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = CircleDraw(this, lineWidth, colour)
 }
 
 /** This object provides factory methods for circles. */
