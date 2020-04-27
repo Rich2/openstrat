@@ -54,7 +54,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def reflect(v1: Vec2, v2: Vec2): Vec2 = {
     val line = v2 - v1
     val point = (x vv y)
-    2 * v1 - point - 2 * (v1 - point).dot(line / line.magnitude) * line / line.magnitude
+    val lineUnitVector = line / line.magnitude
+    2 * v1 - point - 2 * (v1 - point).dot(lineUnitVector) * lineUnitVector
   }
 
   /** Mirrors along the Y axis by negating X. */
