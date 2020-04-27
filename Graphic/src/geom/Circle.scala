@@ -1,7 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import pCanv._
 
 object CircleIcon
 
@@ -39,13 +38,4 @@ object Circle
   { val fSegs = segs(radius).slate(posn)            
     PolyCurveFill(fSegs, colour)
   }
-}
-
-case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser with PaintElem
-{ override type ThisT = CircleFill
-  override type MemT = Circle
-  override def geomMem: MemT = circle
-  override def newThis(transer: Circle): CircleFill = CircleFill(transer, colour)
-
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 }
