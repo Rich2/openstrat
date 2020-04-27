@@ -51,7 +51,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def scaleX(factor: Double): Vec2 = Vec2(x * factor, y)
 
   /** Reflects this along a line which is specified by two points on the line */
-  def reflect(v1: Vec2, v2: Vec2): Vec2 = {
+  def mirror(v1: Vec2, v2: Vec2): Vec2 = {
     val line: Vec2 = v2 - v1
     val lineUnitVector = line / line.magnitude
     2 * v1 - this - 2 * (v1 - this).dot(lineUnitVector) * lineUnitVector
