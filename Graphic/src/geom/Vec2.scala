@@ -50,7 +50,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def scaleY(factor: Double): Vec2 = Vec2(x, y * factor)
   def scaleX(factor: Double): Vec2 = Vec2(x * factor, y)
 
-  /** Reflects along a line which is specified by two points on the line */
+  /** Reflects this along a line which is specified by two points on the line */
   def reflect(v1: Vec2, v2: Vec2): Vec2 = {
     val line: Vec2 = v2 - v1
     val lineUnitVector = line / line.magnitude
