@@ -18,6 +18,8 @@ final case class Circle(radius: Double, x: Double, y: Double) extends TransSimer
 
   def fill(colour: Colour): CircleFill = CircleFill(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = CircleDraw(this, lineWidth, colour)
+  def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw =
+    CircleFillDraw(this, fillColour, lineWidth, lineColour)
 }
 
 /** This object provides factory methods for circles. */

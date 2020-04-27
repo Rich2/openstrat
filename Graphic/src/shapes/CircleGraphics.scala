@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import pCanv._
+import pCanv._, Colour.Black
 
 case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser with PaintElem
 { override type ThisT = CircleFill
@@ -19,4 +19,14 @@ case class CircleDraw(circle: Circle, lineWidth: Double, colour: Colour) extends
   override def newThis(transer: Circle): CircleDraw = CircleDraw(transer, lineWidth, colour)
 
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
+}
+
+case class CircleFillDraw(circle: Circle, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends TransSimerUser
+  with PaintElem
+{ override type ThisT = CircleFillDraw
+  override type MemT = Circle
+  override def geomMem: MemT = circle
+  override def newThis(transer: Circle): CircleFillDraw = CircleFillDraw(transer, fillColour, lineWidth, lineColour)
+
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
 }

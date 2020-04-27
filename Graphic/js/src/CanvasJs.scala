@@ -105,6 +105,7 @@ object CanvasJs extends CanvasTopLeft
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     ad.fControlEndRadius(gc.arcTo)
+    gc.lineWidth = ad.lineWidth
     gc.strokeStyle = ad.colour.webStr
     gc.stroke()
   }
@@ -114,6 +115,7 @@ object CanvasJs extends CanvasTopLeft
   { val ca = cad.arc
     gc.beginPath
     gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.clock)
+    gc.lineWidth = cad.lineWidth
     gc.strokeStyle = cad.colour.webStr
     gc.stroke()
   }
@@ -130,7 +132,19 @@ object CanvasJs extends CanvasTopLeft
   { val ci = cd.circle
     gc.beginPath
     gc.strokeStyle = cd.colour.webStr
+    gc.lineWidth = cd.lineWidth
     gc.arc(ci.x, ci.y, ci.radius, 0, math.Pi * 2)
+    gc.stroke()
+  }
+
+  override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
+  { val ci = cfd.circle
+    gc.beginPath
+    gc.fillStyle = cfd.fillColour.webStr
+    gc.arc(ci.x, ci.y, ci.radius, 0, math.Pi * 2)
+    gc.lineWidth = cfd.lineWidth
+    gc.strokeStyle = cfd.lineColour.webStr
+    gc.fill()
     gc.stroke()
   }
    
