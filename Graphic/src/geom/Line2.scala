@@ -35,7 +35,7 @@ class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
   def angle: Angle = (pEnd - pStart).angle
   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 
-  def mirrorPt(pt: Vec2): Vec2 = pt.mirror(Vec2(_1, _2), Vec2(_3, _4))
+  def mirrorPt(pt: Vec2): Vec2 = pt.mirror(this)
 }
 
 /** Companion object for the Line2 class */
@@ -43,7 +43,8 @@ object Line2
 { /** Factory apply method for Line2. If using Doubles "Line2(x1 vv y1, x2 vv y2)" is the preferred syntax, rather than calling the constructor
 * directly. */
   @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
-  implicit val persistImplicit: Persist[Line2] with Eq[Line2] = new Persist2[Vec2, Vec2, Line2]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Line2(_, _))
+  implicit val persistImplicit: Persist[Line2] with Eq[Line2] =
+    new Persist2[Vec2, Vec2, Line2]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Line2(_, _))
 
   implicit val line2sBuildImplicit = new ArrProdDbl4Build[Line2, Line2s]
   { type BuffT = Line2sBuff
