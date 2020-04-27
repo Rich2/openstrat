@@ -14,6 +14,7 @@ trait TranserAll extends Any with TransAffer
   def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
   def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
   def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
+  def reflect(v1: Vec2, v2: Vec2): ThisT = fTrans(_.reflect(v1, v2))
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
@@ -25,6 +26,7 @@ trait TransAll[T] extends TransAff[T]
   override def rotateRadians(obj: T, radians: Double): T = trans(obj, _.rotateRadians(radians))
   def mirrorYOffset(obj: T, xOffset: Double): T = trans(obj, _.mirrorYOffset(xOffset))
   def mirrorXOffset(obj: T, yOffset: Double): T = trans(obj, _.mirrorXOffset(yOffset))
+  def reflect(obj: T, v1: Vec2, v2: Vec2): T = trans(obj, _.reflect(v1, v2))
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
