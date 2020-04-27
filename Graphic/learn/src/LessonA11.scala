@@ -1,7 +1,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11")
+case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Reflecting a point across a Line")
 {
   val pointOnLineA = Vec2(-300,0)
   val pointOnLineB = Vec2(300,400)
