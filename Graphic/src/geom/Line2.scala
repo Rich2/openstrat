@@ -34,6 +34,8 @@ class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
 
   def angle: Angle = (pEnd - pStart).angle
   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
+
+  def mirrorPt(pt: Vec2): Vec2 = ???
 }
 
 /** Companion object for the Line2 class */
