@@ -40,9 +40,11 @@ class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
 
 /** Companion object for the Line2 class */
 object Line2
-{ /** Factory apply method for Line2. If using Doubles "Line2(x1 vv y1, x2 vv y2)" is the preferred syntax, rather than calling the constructor
-* directly. */
+{ /** Factory apply method for Line2. */
   @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
+
+  @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): Line2 = new Line2(xStart, yStart, xEnd, yEnd)
+
   implicit val persistImplicit: Persist[Line2] with Eq[Line2] =
     new Persist2[Vec2, Vec2, Line2]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Line2(_, _))
 
