@@ -15,6 +15,8 @@ final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLik
   override def slate(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)
   override def scale(operand: Double): Circle = Circle(radius * operand, x * operand, y * operand)
 
+  override def mirror(line: Line2): Circle = Circle(radius, vCen.mirror(line))
+
   def fill(colour: Colour): CircleFill = CircleFill(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = CircleDraw(this, lineWidth, colour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw =

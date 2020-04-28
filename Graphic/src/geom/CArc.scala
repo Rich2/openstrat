@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Circular Arc */
-final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends  TransSimer
+final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TransSimer
 { type RigidT = CArc
   def pCen: Vec2 = xCen vv yCen
   override def shear(xScale: Double, yScale: Double): EArc = ??? //EArc()
@@ -44,6 +44,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def mirrorYOffset(xOffset: Double): CArc = CArc(pStart.mirrorYOffset(xOffset), pCen.mirrorYOffset(xOffset), -deltaRadians)
   def mirrorXOffset(yOffset: Double): CArc = CArc(pStart.mirrorXOffset(yOffset), pCen.mirrorXOffset(yOffset), -deltaRadians)
 
+  override def mirror(line: Line2): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 }
 

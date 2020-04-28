@@ -13,6 +13,7 @@ trait TransRigider extends Any
   def mirrorXOffset(yOffset: Double): RigidT
   def mirrorY: RigidT = mirrorYOffset(0)
   def mirrorX: RigidT = mirrorXOffset(0)
+  def mirror(line: Line2): RigidT
   def ySlate(yDelta: Double): RigidT = slate(0 vv yDelta)
 
   /** Translate in 2 dimensional space. */
@@ -25,6 +26,7 @@ trait TransRigid[T]
   def rotateRadians(obj: T, radians: Double): T
   def mirrorYOffset(obj: T, xOffset: Double): T
   def mirrorXOffset(obj: T, yOffset: Double): T
+  def mirror(obj: T, line: Line2): T
 }
 
 object TransRigid
@@ -34,6 +36,7 @@ object TransRigid
     override def mirrorYOffset(obj: T, xOffset: Double): T = obj.mirrorYOffset(xOffset).asInstanceOf[T]
     override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
+    override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransRigid[A]): TransRigid[AA] = new TransRigid[AA]
@@ -41,6 +44,7 @@ object TransRigid
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
     override def mirrorYOffset(obj: AA, xOffset: Double): AA = obj.map{ts => ev.mirrorYOffset(ts, xOffset) }
     override def mirrorXOffset(obj: AA, yOffset: Double): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
+    override def mirror(obj: AA, line: Line2): AA = ???
   }
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransRigid[A]): TransRigid[F[A]] = new TransRigid[F[A]]
@@ -48,6 +52,8 @@ object TransRigid
     override def rotateRadians(obj: F[A], radians: Double): F[A] = evF.map(obj, ts => evA.rotateRadians(ts, radians))
     override def mirrorYOffset(obj: F[A], xOffset: Double): F[A] = evF.map(obj, ts => evA.mirrorYOffset(ts, xOffset))
     override def mirrorXOffset(obj: F[A], yOffset: Double): F[A] = evF.map(obj, ts => evA.mirrorXOffset(ts, yOffset))
+
+    override def mirror(obj: F[A], line: Line2): F[A] = ???
   }
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransRigid[A]): TransRigid[Array[A]] = new TransRigid[Array[A]]
@@ -55,6 +61,8 @@ object TransRigid
     override def rotateRadians(obj: Array[A], radians: Double): Array[A] = obj.map { ts => ev.rotateRadians(ts, radians) }
     override def mirrorYOffset(obj: Array[A], xOffset: Double): Array[A] = obj.map { ts => ev.mirrorYOffset(ts, xOffset) }
     override def mirrorXOffset(obj: Array[A], yOffset: Double): Array[A] = obj.map { ts => ev.mirrorXOffset(ts, yOffset) }
+
+    override def mirror(obj: Array[A], line: Line2): Array[A] = ???
   }
 }
 

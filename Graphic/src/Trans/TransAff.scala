@@ -21,6 +21,7 @@ object TransAff
     override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
+    override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAff[A]): TransAff[AA] = new TransAff[AA]
@@ -31,6 +32,8 @@ object TransAff
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
     override def mirrorYOffset(obj: AA, xOffset: Double): AA = obj.map{ts => ev.mirrorYOffset(ts, xOffset) }
     override def mirrorXOffset(obj: AA, yOffset: Double): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
+
+    override def mirror(obj: AA, line: Line2): AA = obj.map(ev.mirror(_, line))
   }
 }
 

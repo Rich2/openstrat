@@ -35,11 +35,12 @@ object TransRigidDist
     override def slate(obj: T, offset: Dist2): T = obj.slate(offset).asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransRigid[A]): TransRigid[AA] = new TransRigid[AA]
-  { override def slate(obj: AA, offset: Vec2): AA = obj.map{ts => ev.slate(ts, offset)}
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransRigidDist[A]): TransRigidDist[AA] = new TransRigidDist[AA]
+  { override def slate(obj: AA, offset: Dist2): AA = obj.map{ts => ev.slate(ts, offset)}
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
-    override def mirrorYOffset(obj: AA, xOffset: Double): AA = obj.map{ts => ev.mirrorYOffset(ts, xOffset) }
-    override def mirrorXOffset(obj: AA, yOffset: Double): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
+    override def mirrorYOffset(obj: AA, xOffset: Dist): AA = obj.map{ts => ev.mirrorYOffset(ts, xOffset) }
+    override def mirrorXOffset(obj: AA, yOffset: Dist): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
+    //override def mirror(obj: AA, line: Line2): AA = obj.map(ev.mirror(_, line))
   }
 }
 

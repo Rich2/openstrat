@@ -12,6 +12,8 @@ final case class EArc(xStart: Double, yStart: Double) extends TransAffer
   override def rotateRadians(radians: Double): EArc = ???
   override def scale(operand: Double): EArc = ???
   override def shear(xScale: Double, yScale: Double): EArc = ???
+
+  override def mirror(line: Line2): EArc = ???
 }
 
 object EArc

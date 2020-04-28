@@ -16,6 +16,8 @@ class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight
   override def rotateRadians(radians: Double):  Ellipse = this
   override def slate(offset: Vec2):  Ellipse = this
   override def scale(operand: Double):  Ellipse = this
+
+  override def mirror(line: Line2): Ellipse = ???
 }
 
 object Ellipse
