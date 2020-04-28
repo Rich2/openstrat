@@ -49,4 +49,6 @@ case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr
   def slate(offset: Vec2): PolygonParent = PolygonParent(cen + offset, poly.slate(offset), pointerId, children.slate(offset))
 
   def scale(operand: Double): PolygonParent = PolygonParent(cen * operand, poly.scale(operand), pointerId, children.scale(operand))
+
+  override def shear(xScale: Double, yScale: Double): TransAffer = ???
 }

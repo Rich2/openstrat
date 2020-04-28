@@ -6,6 +6,7 @@ import reflect.ClassTag
 trait TransSimer extends Any with TransRigider
 {// type RigidT <: TransSimer
   def scale(operand: Double): RigidT
+  def shear(xScale: Double, yScale: Double): TransAffer
 }
 
 trait TransSimerUser extends TransSimer

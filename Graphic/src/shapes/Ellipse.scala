@@ -2,11 +2,14 @@
 package ostrat
 package geom
 
-trait ElipseLike extends TransSimer
+trait EllipseLike extends TransAffer
+{ type RigidT <: EllipseLike
+  override def shear(xScale: Double, yScale: Double): Ellipse
+}
 
-class Ellipse extends ElipseLike with TransAffer
+class Ellipse extends EllipseLike with TransAffer
 { type RigidT = Ellipse
-  def shear(xScale: Double, yScale: Double): Ellipse = this
+  override def shear(xScale: Double, yScale: Double): Ellipse = this
   override def rotate(angle: Angle): Ellipse = this
   override def mirrorXOffset(yOffset: Double):  Ellipse = this
   override def mirrorYOffset(xOffset: Double):  Ellipse = this
