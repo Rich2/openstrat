@@ -3,10 +3,10 @@ package ostrat
 package geom
 
 /** Circular Arc */
-final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TransSimer
+final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends  TransSimer
 { type RigidT = CArc
   def pCen: Vec2 = xCen vv yCen
-  override def shear(xScale: Double, yScale: Double): EArc = EArc()
+  override def shear(xScale: Double, yScale: Double): EArc = ??? //EArc()
   def startAngleRadians: Double = (pStart - pCen).angleRadians
   def startAngleRadiansPos: Double = (pStart - pCen).angleRadiansPos
   def startAngle: Angle = (pStart - pCen).angle

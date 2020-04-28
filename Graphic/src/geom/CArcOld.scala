@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Super trait to Arc and ArcDraw and Arc fill which has not been implemented yet. */
-trait ArcLike extends CurveLike
+trait ArcLikeOld extends CurveLikeOld
 { def xCen: Double
   def yCen: Double
   def pCen: Vec2 = Vec2(xCen, yCen)
@@ -26,7 +26,7 @@ trait ArcLike extends CurveLike
 }
 
 /** Currently the Arc class doesn't define direction of the Arc. I think this needs modification. */
-case class CArcOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends ArcLike
+case class CArcOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends ArcLikeOld
 { override type RigidT = CArcOld
   def typeStr: String = "Arc"
    //override def str = persist3(pStart, pCen, pEnd)
@@ -40,7 +40,7 @@ object CArcOld
 
 /** A functional paint element to Draw an Arc. Defined by the arc, the line width, the colour and the zOrder. */
 case class CArcDrawOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour)
-  extends PaintFullElem with ArcLike
+  extends PaintFullElem with ArcLikeOld
 { override type RigidT = CArcDrawOld
   def typeStr: String = "ArcDraw"
   //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)

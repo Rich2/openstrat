@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Elliptical Arc, not correct */
-final class EArc extends TransAffer
+final case class EArc(xStart: Double, yStart: Double) extends TransAffer
 { override type RigidT = EArc
   override def rotate(angle: Angle): EArc = ???
   override def mirrorYOffset(xOffset: Double): EArc = ???
@@ -16,6 +16,6 @@ final class EArc extends TransAffer
 
 object EArc
 {
-  def apply(): EArc = new EArc
+  //def apply(): EArc = new EArc
 }
 

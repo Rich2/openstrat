@@ -2,7 +2,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikePaintElem
+case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikeOldPaintElem
 { override type RigidT = LineDraw
   def typeStr: String = "LineDraw"
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)
@@ -41,7 +41,7 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
 }
 
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double])
-  extends CurveLikePaintElem
+  extends CurveLikeOldPaintElem
 { override type RigidT = DashedLineDraw
   def typeStr: String = "DashedLineDraw"
   override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
