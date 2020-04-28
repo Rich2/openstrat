@@ -3,8 +3,8 @@ package ostrat
 package geom
 
 trait TransAffer extends Any with TransSimer
-{ type RigidT <: TransAffer
-  def shear(xScale: Double, yScale: Double): RigidT
+{ type RigidT <: TransRigider
+  def shear(xScale: Double, yScale: Double): TransAffer
 }
 
 /** Affine Transformation */

@@ -4,7 +4,7 @@ package geom
 import reflect.ClassTag
 
 trait TransSimer extends Any with TransRigider
-{ type RigidT <: TransSimer
+{// type RigidT <: TransSimer
   def scale(operand: Double): RigidT
 }
 
