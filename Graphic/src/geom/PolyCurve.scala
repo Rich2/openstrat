@@ -8,6 +8,7 @@ import Colour.Black
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
 class PolyCurve(val array: Array[Double]) extends AnyVal with ArrProdDbl7[CurveSeg] with TranserAll
 { type ThisT = PolyCurve
+  type RigidT = PolyCurve
   def unsafeFromArray(array: Array[Double]): PolyCurve = new PolyCurve(array)
   override def typeStr = "Shape"
 

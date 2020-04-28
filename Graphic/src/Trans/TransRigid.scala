@@ -5,18 +5,18 @@ package geom
 import scala.reflect.ClassTag
 
 trait TransRigider extends Any
-{ type ThisT <: TransRigider
-  def slate(offset: Vec2): ThisT
-  def rotateRadians(radians: Double): ThisT
-  def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
-  def mirrorYOffset(xOffset: Double): ThisT
-  def mirrorXOffset(yOffset: Double): ThisT
-  def mirrorY: ThisT = mirrorYOffset(0)
-  def mirrorX: ThisT = mirrorXOffset(0)
-  def ySlate(yDelta: Double): ThisT = slate(0 vv yDelta)
+{ type RigidT <: TransRigider
+  def slate(offset: Vec2): RigidT
+  def rotateRadians(radians: Double): RigidT
+  def rotate(angle: Angle): RigidT = rotateRadians(angle.radians)
+  def mirrorYOffset(xOffset: Double): RigidT
+  def mirrorXOffset(yOffset: Double): RigidT
+  def mirrorY: RigidT = mirrorYOffset(0)
+  def mirrorX: RigidT = mirrorXOffset(0)
+  def ySlate(yDelta: Double): RigidT = slate(0 vv yDelta)
 
   /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
+  def slate(xOffset: Double, yOffset: Double): RigidT = slate(xOffset vv yOffset)
 }
 
 /** A Rigid or Euclidean transformations type class. */

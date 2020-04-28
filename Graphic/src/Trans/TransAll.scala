@@ -6,15 +6,15 @@ import reflect.ClassTag
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
 trait TranserAll extends Any with TransAffer
-{ type ThisT <: TranserAll
-  def fTrans(f: Vec2 => Vec2): ThisT
-  def slate(offset: Vec2): ThisT = fTrans(_ + offset)
-  def scale(operand: Double): ThisT = fTrans(_ * operand)
-  def shear(xScale: Double, yScale: Double): ThisT = fTrans{case Vec2(x, y) => x * xScale vv y * yScale}
-  def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
-  def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
-  def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
-  def mirror(v1: Vec2, v2: Vec2): ThisT = fTrans(_.mirror(v1, v2))
+{ type RigidT <: TranserAll
+  def fTrans(f: Vec2 => Vec2): RigidT
+  def slate(offset: Vec2): RigidT = fTrans(_ + offset)
+  def scale(operand: Double): RigidT = fTrans(_ * operand)
+  def shear(xScale: Double, yScale: Double): RigidT = fTrans{case Vec2(x, y) => x * xScale vv y * yScale}
+  def mirrorXOffset(yOffset: Double): RigidT = fTrans(_.mirrorXOffset(yOffset))
+  def mirrorYOffset(xOffset: Double): RigidT = fTrans(_.mirrorYOffset(xOffset))
+  def rotateRadians(radians: Double): RigidT = fTrans(_.rotateRadians(radians))
+  def mirror(v1: Vec2, v2: Vec2): RigidT = fTrans(_.mirror(v1, v2))
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
@@ -35,7 +35,7 @@ object TransAll
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAll[A]): TransAll[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromScaledImplicit[T <: TranserAll]: TransAll[T] =
+  implicit def fromTranserAllImplicit[T <: TranserAll]: TransAll[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAll[A]): TransAll[F[A]] =

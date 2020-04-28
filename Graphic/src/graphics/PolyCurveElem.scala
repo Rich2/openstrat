@@ -4,32 +4,32 @@ package geom
 import Colour.Black
 
 trait PolyCurveElem extends PaintFullElem with GraphicBoundedFull
-{ type ThisT <: PolyCurveElem
+{ type RigidT <: PolyCurveElem
   def shape: PolyCurve
   def segsLen: Int = shape.length
   override def boundingRect: BoundingRect = shape.boundingRect
 }
 
 case class PolyCurveFill(shape: PolyCurve, colour: Colour) extends PolyCurveElem
-{ override type ThisT = PolyCurveFill
+{ override type RigidT = PolyCurveFill
   override def fTrans(f: Vec2 => Vec2) = PolyCurveFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeFill(shape, colour)
 }
 
 case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = Black) extends PolyCurveElem
-{ override type ThisT = PolyCurveDraw
+{ override type RigidT = PolyCurveDraw
   override def fTrans(f: Vec2 => Vec2) = PolyCurveDraw(shape.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeDraw(shape, lineWidth, colour)
 }
 
 /** A pointable shape without visual. */
 case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends GraphicFullElem with ShapeActive
-{ override type ThisT = PolyCurveActiveOnly
+{ override type RigidT = PolyCurveActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolyCurveActiveOnly = PolyCurveActiveOnly(shape.fTrans(f), pointerId)
 }
 
 case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyCurveElem
-{ override type ThisT = PolyCurveFillDraw
+{ override type RigidT = PolyCurveFillDraw
   override def fTrans(f: Vec2 => Vec2) = PolyCurveFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
@@ -40,7 +40,7 @@ case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Do
 
 case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
   lineColour: Colour = Black) extends PolyCurveElem
-{ override type ThisT = PolyCurveFillDrawText
+{ override type RigidT = PolyCurveFillDrawText
   override def fTrans(f: Vec2 => Vec2) = PolyCurveFillDrawText(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
@@ -54,7 +54,7 @@ case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: Stri
 
 case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2,
   lineColour: Colour = Black) extends PolyCurveElem with ShapeActive
-{ override type ThisT = PolyCurveAll
+{ override type RigidT = PolyCurveAll
   override def fTrans(f: Vec2 => Vec2) = PolyCurveAll(shape.fTrans(f), pointerId, str, fillColour, fontSize, lineWidth, lineColour)
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)

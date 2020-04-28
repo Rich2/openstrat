@@ -4,20 +4,20 @@ package geom
 import reflect.ClassTag
 
 trait TransSimer extends Any with TransRigider
-{ type ThisT <: TransSimer
-  def scale(operand: Double): ThisT
+{ type RigidT <: TransSimer
+  def scale(operand: Double): RigidT
 }
 
 trait TransSimerUser extends TransSimer
-{ type ThisT <: TransSimerUser
+{ type RigidT <: TransSimerUser
   type MemT <: TransSimer
   def geomMem: MemT
-  def newThis(transer: MemT): ThisT
-  override def slate(offset: Vec2): ThisT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
-  override def rotateRadians(radians: Double): ThisT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
-  override def mirrorYOffset(xOffset: Double): ThisT = newThis(geomMem.mirrorYOffset(xOffset).asInstanceOf[MemT])
-  override def mirrorXOffset(yOffset: Double): ThisT = newThis(geomMem.mirrorXOffset(yOffset).asInstanceOf[MemT])
-  override def scale(operand: Double): ThisT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
+  def newThis(transer: MemT): RigidT
+  override def slate(offset: Vec2): RigidT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
+  override def rotateRadians(radians: Double): RigidT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
+  override def mirrorYOffset(xOffset: Double): RigidT = newThis(geomMem.mirrorYOffset(xOffset).asInstanceOf[MemT])
+  override def mirrorXOffset(yOffset: Double): RigidT = newThis(geomMem.mirrorXOffset(yOffset).asInstanceOf[MemT])
+  override def scale(operand: Double): RigidT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
 }
 
 /** A Similar Transformations type class */

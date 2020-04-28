@@ -6,6 +6,7 @@ import collection.mutable.ArrayBuffer
  *  LinePath class should not entail a runtime cost. */
 class Vec2s(val array: Array[Double]) extends AnyVal with TranserAll with Vec2sLike with ArrProdDbl2[Vec2]
 { type ThisT = Vec2s
+  type RigidT = Vec2s
   def unsafeFromArray(array: Array[Double]): Vec2s = new Vec2s(array)
   override def typeStr: String = "Vec2s"
   //override def toString: String = Vec2s.Vec2sPersist.show(this)

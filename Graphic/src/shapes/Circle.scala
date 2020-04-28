@@ -5,7 +5,7 @@ package geom
 object CircleIcon
 
 final case class Circle(radius: Double, x: Double, y: Double) extends TransSimer
-{ override type ThisT = Circle
+{ override type RigidT = Circle
   def vCen: Vec2 = x vv y
   override def rotate(angle: Angle): Circle = this
   //override def mirrorX: Circle =

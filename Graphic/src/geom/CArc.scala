@@ -4,7 +4,7 @@ package geom
 
 /** Circular Arc */
 final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TransSimer
-{ type ThisT = CArc
+{ type RigidT = CArc
   def pCen: Vec2 = xCen vv yCen
   def startAngleRadians: Double = (pStart - pCen).angleRadians
   def startAngleRadiansPos: Double = (pStart - pCen).angleRadiansPos
