@@ -11,13 +11,10 @@ class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight
 { type RigidT = Ellipse
   override def shear(xScale: Double, yScale: Double): Ellipse = this
   override def rotate(angle: Angle): Ellipse = this
-  override def mirrorXOffset(yOffset: Double):  Ellipse = this
-  override def mirrorYOffset(xOffset: Double):  Ellipse = this
   override def rotateRadians(radians: Double):  Ellipse = this
   override def slate(offset: Vec2):  Ellipse = this
   override def scale(operand: Double):  Ellipse = this
-
-  override def mirror(line: Line2): Ellipse = ???
+  override def mirror(line: Line2): Ellipse = this
 }
 
 object Ellipse

@@ -6,8 +6,6 @@ package geom
 final case class EArc(xStart: Double, yStart: Double) extends TransAffer
 { override type RigidT = EArc
   override def rotate(angle: Angle): EArc = ???
-  override def mirrorYOffset(xOffset: Double): EArc = ???
-  override def mirrorXOffset(yOffset: Double): EArc = ???
   override def slate(offset: Vec2): EArc = ???
   override def rotateRadians(radians: Double): EArc = ???
   override def scale(operand: Double): EArc = ???

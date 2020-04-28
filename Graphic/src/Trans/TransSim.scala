@@ -16,8 +16,6 @@ trait TransSimerUser extends TransSimer
   def newThis(transer: MemT): RigidT
   override def slate(offset: Vec2): RigidT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
   override def rotateRadians(radians: Double): RigidT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
-  override def mirrorYOffset(xOffset: Double): RigidT = newThis(geomMem.mirrorYOffset(xOffset).asInstanceOf[MemT])
-  override def mirrorXOffset(yOffset: Double): RigidT = newThis(geomMem.mirrorXOffset(yOffset).asInstanceOf[MemT])
   override def scale(operand: Double): RigidT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
   override def mirror(line: Line2): RigidT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
 }
@@ -30,20 +28,16 @@ trait TransSim[T] extends TransRigid[T]
 object TransSim
 {
   implicit def transSimerImplicit[T <: TransSimer]: TransSim[T] = new TransSim[T]
-  { override def mirrorXOffset(obj: T, yOffset: Double): T = obj.mirrorXOffset(yOffset).asInstanceOf[T]
-    override def mirrorYOffset(obj: T, xOffset: Double): T = obj.mirrorYOffset(xOffset).asInstanceOf[T]
-    override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
+  { override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
     override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransSim[A]): TransSim[AA] = new TransSim[AA]
-  { override def scale(obj: AA, operand: Double): AA = obj.map{ts => ev.scale(ts, operand)}
-    override def slate(obj: AA, offset: Vec2): AA = obj.map{ts => ev.slate(ts, offset)}
-    override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
-    override def mirrorYOffset(obj: AA, xOffset: Double): AA = obj.map{ts => ev.mirrorYOffset(ts, xOffset) }
-    override def mirrorXOffset(obj: AA, yOffset: Double): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
+  { override def scale(obj: AA, operand: Double): AA = obj.map(ev.scale(_, operand))
+    override def slate(obj: AA, offset: Vec2): AA = obj.map(ev.slate(_, offset))
+    override def rotateRadians(obj: AA, radians: Double): AA = obj.map(ev.rotateRadians(_, radians))
     override def mirror(obj: AA, line: Line2): AA = obj.map(ev.mirror(_, line))
   }
 
@@ -51,17 +45,13 @@ object TransSim
   { override def scale(obj: F[A], operand: Double): F[A] = evF.map[A, A](obj, ts => evA.scale(ts, operand))
     override def slate(obj: F[A], offset: Vec2): F[A] = evF.map(obj, ts => evA.slate(ts, offset))
     override def rotateRadians(obj: F[A], radians: Double): F[A] = evF.map(obj, ts => evA.rotateRadians(ts, radians))
-    override def mirrorYOffset(obj: F[A], xOffset: Double): F[A] = evF.map(obj, ts => evA.mirrorYOffset(ts, xOffset))
-    override def mirrorXOffset(obj: F[A], yOffset: Double): F[A] = evF.map(obj, ts => evA.mirrorXOffset(ts, yOffset))
     override def mirror(obj: F[A], line: Line2): F[A] = evF.map(obj, evA.mirror(_, line))
   }
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransSim[A]): TransSim[Array[A]] = new TransSim[Array[A]]
-  { override def scale(obj: Array[A], operand: Double): Array[A] = obj.map { ts => ev.scale(ts, operand) }
-    override def slate(obj: Array[A], offset: Vec2): Array[A] = obj.map { ts => ev.slate(ts, offset) }
-    override def rotateRadians(obj: Array[A], radians: Double): Array[A] = obj.map { ts => ev.rotateRadians(ts, radians) }
-    override def mirrorYOffset(obj: Array[A], xOffset: Double): Array[A] = obj.map { ts => ev.mirrorYOffset(ts, xOffset) }
-    override def mirrorXOffset(obj: Array[A], yOffset: Double): Array[A] = obj.map { ts => ev.mirrorXOffset(ts, yOffset) }
+  { override def scale(obj: Array[A], operand: Double): Array[A] = obj.map(ev.scale(_, operand))
+    override def slate(obj: Array[A], offset: Vec2): Array[A] = obj.map(ev.slate(_, offset))
+    override def rotateRadians(obj: Array[A], radians: Double): Array[A] = obj.map(ev.rotateRadians(_, radians))
     override def mirror(obj: Array[A], line: Line2): Array[A] = obj.map(ev.mirror(_, line))
   }
 }
