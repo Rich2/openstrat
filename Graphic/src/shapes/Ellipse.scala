@@ -9,16 +9,16 @@ trait EllipseLike extends TransAffer
 
 class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight: Double, val upRadius: Double) extends EllipseLike with TransAffer
 { type RigidT = Ellipse
+  def vCen: Vec2 = xCen vv yCen
+  def vRight: Vec2 = xRight vv yRight
   override def shear(xScale: Double, yScale: Double): Ellipse = this
   override def rotate(angle: Angle): Ellipse = this
   override def rotateRadians(radians: Double):  Ellipse = this
-  override def slate(offset: Vec2):  Ellipse = this
-  override def scale(operand: Double):  Ellipse = this
-  override def mirror(line: Line2): Ellipse = this
+  override def slate(offset: Vec2): Ellipse = Ellipse(vCen + offset, vRight + offset, upRadius)
+  override def scale(operand: Double):  Ellipse = Ellipse(vCen * operand * operand, vRight * operand, upRadius * operand)
+  override def mirror(line: Line2): Ellipse = Ellipse(vCen.mirror(line), vRight.mirror(line), upRadius)
 }
 
 object Ellipse
-{
-  def apply(vCen: Vec2, vRight: Vec2, upRadius: Double): Ellipse =
-    new Ellipse(vCen.x, vCen.y, vRight.x, vRight.y, upRadius)
+{ def apply(vCen: Vec2, vRight: Vec2, upRadius: Double): Ellipse = new Ellipse(vCen.x, vCen.y, vRight.x, vRight.y, upRadius)
 }
