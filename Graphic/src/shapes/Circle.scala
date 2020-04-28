@@ -7,8 +7,8 @@ object CircleIcon
 final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLike// with TransSimer
 { override type RigidT = Circle
   def vCen: Vec2 = x vv y
-  def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse
-  override def rotate(angle: Angle): Circle = this
+  def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse(x, y, x + radius, 0, radius)
+  //override def rotate(angle: Angle): Circle = this
   override def mirrorXOffset(yOffset: Double): Circle = Circle(radius, x, 2 * yOffset - y)
   override def mirrorYOffset(xOffset: Double): Circle = Circle(radius, 2 * xOffset - x, y)
   override def rotateRadians(radians: Double): Circle = Circle(radius, vCen.rotateRadians(radians))
