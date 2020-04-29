@@ -92,7 +92,7 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   }
 }
 
-class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) extends ArrBuild[A, Arr[A]] with ArrFlatBuild[Arr[A]]
+class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A]/*, @unused notA: Not[ProdHomo]#L[A]*/) extends ArrBuild[A, Arr[A]] with ArrFlatBuild[Arr[A]]
 { type BuffT = RefBuff[A]
   override def newArr(length: Int): Arr[A] = new Arr(new Array[A](length))
   override def arrSet(arr: Arr[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
