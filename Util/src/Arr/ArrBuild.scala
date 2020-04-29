@@ -25,7 +25,7 @@ object ArrFlatBuild
   implicit val longsImplicit = LongsBuild
   implicit val floatImplicit = FloatsBuild
   implicit val booleansImplicit = BooleansBuild
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new RefsBuild[A]
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A]/*, @unused notA: Not[ProdHomo]#L[A]*/) = new RefsBuild[A]
 }
 
 /** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
