@@ -56,10 +56,11 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
     new Arr(newArray)
   }
 
-  /** Concatenates the elements of the operands Refs if the condition is true, else returns the original Refs. The return type is the super type of the
-   * original Refs and the operand Ref. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
-   * method, but concatsIf allows type widening. */
-  def concatRefsIf[AA >: A <: AnyRef](b: Boolean, newElems: => Arr[AA])(implicit ct: ClassTag[AA]): Arr[AA] = ife(b,this ++ newElems, this)
+  /** Concatenates the elements of the operands Refs if the condition is true, else returns the original Refs. The return type is the super type of
+   *  the original Refs and the operand Ref. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
+   *  method, but concatsIf allows type widening. */
+  def concatRefsIf[AA >: A <: AnyRef](b: Boolean, newElems: => Arr[AA])(implicit ct: ClassTag[AA]): Arr[AA] =
+    ife(b,this ++ newElems, this)
 
   /** Appends the elements of the operand Refs if the condition is true, else returns the original Refs. The operand is lazy so will only be evaluated
    *  if the condition is true. This is similar to the concatsIf method, but appendsIf does not allow type widening. */
