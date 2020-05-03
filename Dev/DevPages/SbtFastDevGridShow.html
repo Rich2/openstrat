@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+  <title>OpenStrat: Play</title>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width'>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Expires" content="0"/>
+  <script type="application/javascript">
+    function drawOpenStratGrid(canvasRef){
+    var thisCanvas = canvasRef ? canvasRef : document.getElementById("scanv");
+    var context = thisCanvas.getContext("2d");
+
+    var width = context.canvas.width;
+    var height = context.canvas.height;
+
+    var centreX = width/2.0;
+    var centreY = height/2.0;
+
+    context.beginPath();
+    context.strokeStyle = 'aqua';
+    context.lineWidth = 0.1;
+    for (var i=centreX; i <= width; i=i+10){
+      context.moveTo(i, 0);
+      context.lineTo(i, height);
+      if ((centreX-i)%100 == 0) context.lineTo(i, 0);
+    }
+    for (var i=centreX; i >= -width; i=i-10){
+      context.moveTo(i, 0);
+      context.lineTo(i, height);
+      if ((centreX-i)%100 == 0) context.lineTo(i, 0);
+    }
+    for (i=centreY; i <= height; i=i+10){
+      context.moveTo(0, i);
+      context.lineTo(width, i);
+      if ((centreY-i)%100 == 0) context.lineTo(0, i);
+    }
+    for (i=centreY; i >= -height; i=i-10){
+      context.moveTo(0, i);
+      context.lineTo(width, i);
+      if ((centreY-i)%100 == 0) context.lineTo(0, i);
+    }
+    context.stroke();
+    context.beginPath();
+    context.moveTo(width/2, 0);
+    context.lineTo(width/2, height);
+    context.moveTo(0, height/2);
+    context.lineTo(width, height/2);
+    context.stroke();
+  }
+
+  function getMouseFeedback(){
+    document.body.onmousemove = function(e){
+      if (document.getElementById("mouseFeedback") == null) {
+        let myDiv = document.createElement("div");
+        myDiv.id = "mouseFeedback";
+        myDiv.style = "position:absolute;left:0px;top:0px;width:130px;height:14px";
+        document.body.appendChild(myDiv);
+      }
+      let feedbackDiv = document.getElementById("mouseFeedback");
+      let openstratCanvas = document.getElementById("scanv");
+      feedbackDiv.innerText = ""+(e.clientX - openstratCanvas.width/2)+", "+(-e.clientY + openstratCanvas.height/2);
+    }
+  }
+  </script>
+  <style>
+    body { margin: 0px; overflow: hidden; }
+  </style>
+</head>
+<body>
+  <canvas id='scanv'></canvas>
+  <noscript>
+    This page will not function properly without Javascript enabled
+  </noscript>
+  <script type='text/javascript'>
+  // aid local development in ensuring script not cached during a simple refresh
+  
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", "../../target/JsDev/target/scala-2.13/jsdev-fastopt.js?"+Date.now().toString());
+    document.getElementsByTagName("head")[0].appendChild(script);
+    script.addEventListener('load', function(e) {
+      JsDevApp.main();
+      getMouseFeedback();
+      drawOpenStratGrid();
+    });
+  </script>
+</body>
+</html>	
