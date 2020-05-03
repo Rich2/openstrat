@@ -350,6 +350,7 @@ object PapuaNewGuinea extends Flag
     val starLarge = PolyCurve(LineSeg(-0.3326 vv 0.1901), LineSeg(-0.3724 vv 0.06216), LineSeg(-0.2676 vv 0.14), LineSeg(-0.3976 vv 0.14), LineSeg(-0.2928 vv 0.06076), LineSeg(-0.3326 vv 0.1901)).fill(Colour(0xFFFFFFFF))
     
     Arr[PaintFullElem](
+      base,
       topRighttriangle, 
       bird, 
       tail, 
