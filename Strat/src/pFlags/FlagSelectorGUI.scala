@@ -10,7 +10,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 { var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
 /**/
-  var listOfFlags: Arr[Flag] = Arr(PapuaNewGuinea, Eritrea, India, Iraq, CCCP, CzechRepublic, Colombia, Chile, Cyprus, Armenia, Austria, Belgium, Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag, CommonShapesInFlags)
+  var listOfFlags: Arr[Flag] = Arr(PapuaNewGuinea, Eritrea, India, Iraq, CCCP, CzechRepublic, Colombia, Chile, Cyprus, Armenia, Austria, Belgium,
+    Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag,
+    CommonShapesInFlags)
 
   val itemCount: Int = listOfFlags.length
   val itemsPerRow: Int = 5  //  columns
@@ -18,7 +20,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
   val pages: Int = 1 + ( itemCount - 1 ) / itemsPerPage
 
-//  var listOfFlags = Refs[Flag](); for( i <- 0 to itemCount-1 ) { val thisColor = Colour.fromInts( scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55 ); listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) ) }
+//  var listOfFlags = Refs[Flag](); for( i <- 0 to itemCount-1 )
+//  { val thisColor = Colour.fromInts( scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55,
+//  scala.util.Random.nextInt( 200 ) + 55 ); listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) ) }
   case class ViewPort(width: Int, height: Int, headerSize: Int, cellWidth: Int, cellHeight: Int, maxBarWidth: Int, minBarWidth: Int,
      isScrollHorizontal: Int, commonScale: Int)
   val myView = ViewPort(750, 310, 50, 150, 100, 750, 20, 1, 100)
@@ -63,12 +67,15 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   def positionBar(): Unit = 
   { val barOffsetX = if ( maxIndexOfFirstItemInView != 0 ) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
-    repaint( everythingNotItemOrScrollbar ++ scrollBar ++ viewableItems ++ Arr( bar.fill( Pink ).slate( barStart, headerYpos ).slate( barOffsetX, 0 ) ) )
+    val stuff = everythingNotItemOrScrollbar ++ scrollBar ++ viewableItems ++ Arr( bar.fill( Pink ))
+    val stuff2 = stuff.slate( barStart, headerYpos ).slate( barOffsetX, 0 )
+    repaint(stuff2)
   }
 
   def showSelected(): Unit =
-  { val thisFlag = listOfFlags( selectedIndex ).parent( selectedIndex.toString ).scale( 3 * viewport("commonScale")/Math.sqrt(listOfFlags( selectedIndex ).ratio ) )
-    viewableItems = Arr(thisFlag)
+  { val thisFlag = listOfFlags( selectedIndex ).parent( selectedIndex.toString )
+    val thisFlag2 = thisFlag.scale( 3 * viewport("commonScale")/Math.sqrt(listOfFlags( selectedIndex ).ratio ) )
+    viewableItems = Arr(thisFlag2)
     positionBar()
   }
 
@@ -91,7 +98,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   // canv.mouseDown = ( v:Vec2, b:MouseButton ) => deb("mouse down on bar: "+barBackground.rect.toString)
 
-//**NB below is for scroll ~> need focus to handle keys also for selected etc
+  //**NB below is for scroll ~> need focus to handle keys also for selected etc
   canv.keyDown = ( thekey: String ) => thekey match
   { case ("ArrowUp" | "ArrowLeft") => scrollLess
     case ("ArrowDown" | "ArrowRight" ) => scrollMore
