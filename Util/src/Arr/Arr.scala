@@ -1,5 +1,6 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-import annotation.unchecked.uncheckedVariance, reflect.ClassTag, annotation.unused, collection.mutable.ArrayBuffer
+import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** The immutable Array based class for reference types. It Inherits the standard foreach, map, flatMap and fold and their variations' methods from
  *  ArrayLike. */
@@ -73,7 +74,7 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   def appendOption(optElem: Option[A]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
     optElem.fld(this, this +- _)
 
-  def appendsOption(optElem: Option[Arr[A]]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
+  def appendsOption(optElem: Option[Arr[A]]@uncheckedVariance)(implicit @unused ct: ClassTag[A] @uncheckedVariance ): Arr[A] =
     optElem.fld(this, ++ _)
 
   def concatsOption[AA >: A <: AnyRef](optElems: Option[Arr[AA]])(implicit ct: ClassTag[AA]): Arr[AA] =
