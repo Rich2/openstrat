@@ -79,32 +79,35 @@ final class ArrAny[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVa
   def concatsOption[AA >: A](optElems: Option[ArrAny[AA]])(implicit ct: ClassTag[AA]): ArrAny[AA] =
     optElems.fld[ArrAny[AA]](this, this ++ _)
 
-  /*def optFind(f: A => Boolean): OptRef[A] =
-  { var acc: OptRef[A] = NoRef
-    var count = 0
-    while (acc == NoRef & count < length) if (f(apply(count))) acc = OptRef(apply(count)) else count += 1
-    acc
-  }*/
-
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
     while(i < length){unsafeSetElem(i, value); i += 1}
   }
 }
 
-/*class AnysBuild[A](implicit ct: ClassTag[A]/*, @unused notA: Not[ProdHomo]#L[A]*/) extends ArrBuild[A, ArrAny[A]] with ArrFlatBuild[Arr[A]]
-{ type BuffT = RefBuff[A]
-  override def newArr(length: Int): Arr[A] = new Arr(new Array[A](length))
-  override def arrSet(arr: Arr[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
-  override def newBuff(length: Int = 4): RefBuff[A] = new RefBuff(new ArrayBuffer[A](length))
-  override def buffGrow(buff: RefBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: RefBuff[A], arr: Arr[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
-  override def buffToArr(buff: RefBuff[A]): Arr[A] = new Arr(buff.unsafeBuff.toArray)
-}*/
+class AnysBuild[A](implicit ct: ClassTag[A]/*, @unused notA: Not[ProdHomo]#L[A]*/) extends ArrBuild[A, ArrAny[A]] with ArrFlatBuild[ArrAny[A]]
+{ type BuffT = AnyBuff[A]
+  override def newArr(length: Int): ArrAny[A] = new ArrAny(new Array[A](length))
+  override def arrSet(arr: ArrAny[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
+  override def newBuff(length: Int = 4): AnyBuff[A] = new AnyBuff(new ArrayBuffer[A](length))
+  override def buffGrow(buff: AnyBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: AnyBuff[A], arr: ArrAny[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
+  override def buffToArr(buff: AnyBuff[A]): ArrAny[A] = new ArrAny(buff.unsafeBuff.toArray)
+}
 
 object ArrAny
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): ArrAny[A] = new ArrAny(input.toArray)
   implicit def showImplicit[A](implicit evA: Show[A]): Show[ArrAny[A]] = ArrayLikeShow[A, ArrAny[A]](evA)
+
+  implicit class ArrAnyRefsExtension[A <: AnyRef](thisArr: ArrAny[A])
+  {
+    def optFind(f: A => Boolean): OptRef[A] =
+    { var acc: OptRef[A] = NoRef
+      var count = 0
+      while (acc == NoRef & count < thisArr.length) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
+      acc
+    }
+  }
 }
 
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]

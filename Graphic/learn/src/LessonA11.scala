@@ -20,11 +20,8 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val cl2 = Circle(80, 110 vv - 300)
   val sq = Square(100, 110 vv -400)
 
-  //val a1 = Arr(r2, cl2)
+  val a1 = ArrAny(r2, cl2)
 
   val aa = Arr(ccl1, ccl1r, r1, r1r)
   repaint(aa ++ c1 ++ c1r +- redLine)
 }
-
-
- 

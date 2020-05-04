@@ -68,13 +68,15 @@ object ArrBuild extends ArrBuildLowPriority
   implicit val longImplicit = LongsBuild
   implicit val floatImplicit = FloatsBuild
   implicit val booleansImplicit = BooleansBuild
+
+  /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
+   * types. */
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]) = new RefsBuild[A]
 }
 
 trait SpecialT extends Any
 
 trait ArrBuildLowPriority
 {
-  /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
-   * types. */
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]) = new RefsBuild[A]
+  implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]) = new AnysBuild[A]
 }
