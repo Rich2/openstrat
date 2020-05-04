@@ -7,35 +7,35 @@
   <meta http-equiv="Pragma" content="no-cache"/>
   <meta http-equiv="Expires" content="0"/>
   <script type="application/javascript">
-    function drawOpenStratGrid(canvasRef){
-    var thisCanvas = canvasRef ? canvasRef : document.getElementById("scanv");
-    var context = thisCanvas.getContext("2d");
+  function drawOpenStratGrid(canvasRef){
+    let thisCanvas = canvasRef ? canvasRef : document.getElementById("scanv");
+    let context = thisCanvas.getContext("2d");
 
-    var width = context.canvas.width;
-    var height = context.canvas.height;
+    let width = context.canvas.width;
+    let height = context.canvas.height;
 
-    var centreX = width/2.0;
-    var centreY = height/2.0;
+    let centreX = width/2.0;
+    let centreY = height/2.0;
 
     context.beginPath();
     context.strokeStyle = 'aqua';
     context.lineWidth = 0.1;
-    for (var i=centreX; i <= width; i=i+10){
+    for (let i=centreX; i <= width; i=i+10){
       context.moveTo(i, 0);
       context.lineTo(i, height);
       if ((centreX-i)%100 == 0) context.lineTo(i, 0);
     }
-    for (var i=centreX; i >= -width; i=i-10){
+    for (let i=centreX; i >= -width; i=i-10){
       context.moveTo(i, 0);
       context.lineTo(i, height);
       if ((centreX-i)%100 == 0) context.lineTo(i, 0);
     }
-    for (i=centreY; i <= height; i=i+10){
+    for (let i=centreY; i <= height; i=i+10){
       context.moveTo(0, i);
       context.lineTo(width, i);
       if ((centreY-i)%100 == 0) context.lineTo(0, i);
     }
-    for (i=centreY; i >= -height; i=i-10){
+    for (let i=centreY; i >= -height; i=i-10){
       context.moveTo(0, i);
       context.lineTo(width, i);
       if ((centreY-i)%100 == 0) context.lineTo(0, i);
