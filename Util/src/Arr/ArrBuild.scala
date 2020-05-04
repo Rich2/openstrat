@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import reflect.ClassTag, scala.annotation.unused
 
@@ -69,9 +70,11 @@ object ArrBuild extends ArrBuildLowPriority
   implicit val booleansImplicit = BooleansBuild
 }
 
+trait SpecialT extends Any
+
 trait ArrBuildLowPriority
 {
   /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
    * types. */
-  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new RefsBuild[A]
+  implicit def refsImplicit[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]) = new RefsBuild[A]
 }

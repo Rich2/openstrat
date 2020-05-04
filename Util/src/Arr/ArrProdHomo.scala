@@ -2,11 +2,11 @@
 package ostrat
 
 /** A homogeneous Product. The final class can be stored as an Array of primitive values. */
-trait ProdHomo extends Any
+trait ProdHomo extends Any with Product with SpecialT
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ArrProdHomo[A] extends Any with ArrValues[A]
+trait ArrProdHomo[A] extends Any with ArrBase[A]
 { type ThisT <: ArrProdHomo[A]
   def typeStr: String
   def productSize: Int

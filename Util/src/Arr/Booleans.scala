@@ -1,16 +1,6 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import scala.collection.mutable.ArrayBuffer
-
-/** Not sure if this trait can be useful. */
-trait ArrValues[A] extends Any with ArrBase[A]
-{ type ThisT <: ArrValues[A]
-  //def append(op: A): ThisT
- // { val newArr = buildThis(length + 1)
-    //array.copyToArray(newArr.arr)
-    // newArray(length) = op
- //   ??? //new Refs(newArray)
- // }
-}
 
 class Booleans(val array: Array[Boolean]) extends AnyVal with ArrBase[Boolean]
 { type ThisT = Booleans
@@ -22,9 +12,9 @@ class Booleans(val array: Array[Boolean]) extends AnyVal with ArrBase[Boolean]
 
   def ++ (op: Booleans): Booleans =
   { val newArray = new Array[Boolean](length + op.length)
-  array.copyToArray(newArray)
-  op.array.copyToArray(newArray, length)
-  new Booleans(newArray)
+    array.copyToArray(newArray)
+    op.array.copyToArray(newArray, length)
+    new Booleans(newArray)
   }
 }
 
@@ -32,7 +22,6 @@ object Booleans
 { def apply(input: Boolean*): Booleans = new Booleans(input.toArray)
   def ofLength(length: Int): Booleans = new Booleans(new Array[Boolean](length))
 }
-
 
 object BooleansBuild extends ArrBuild[Boolean, Booleans] with ArrFlatBuild[Booleans]
 { type BuffT = BooleanBuff

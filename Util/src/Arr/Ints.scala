@@ -1,8 +1,9 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for Ints. There are no concat methods, as Ints has no type parameter and can not be widened. */
-final class Ints(val array: Array[Int]) extends AnyVal with ArrValues[Int]
+final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
 { type ThisT = Ints
   override def unsafeNew(length: Int): Ints = new Ints(new Array[Int](length))
   override def length: Int = array.length
