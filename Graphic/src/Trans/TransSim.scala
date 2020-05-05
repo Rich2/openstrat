@@ -8,6 +8,8 @@ trait TransSimer extends Any with TransAligner
   def scale(operand: Double): AlignT
   def shear(xScale: Double, yScale: Double): TransAffer
   def mirror(line: Line2): AlignT
+  def rotateRadians(radians: Double): AlignT
+  def rotate(angle: Angle): AlignT = rotateRadians(angle.radians)
 }
 
 trait TransSimerUser extends TransSimer
@@ -25,6 +27,8 @@ trait TransSimerUser extends TransSimer
 trait TransSim[T] extends TransAlign[T]
 { def scale(obj: T, operand: Double): T
   def mirror(obj: T, line: Line2): T
+  //override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
+  def rotateRadians(obj: T, radians: Double): T
 }
 
 object TransSim
@@ -34,6 +38,7 @@ object TransSim
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
     override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]
+
     //override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]
   }
 
