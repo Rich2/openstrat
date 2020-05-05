@@ -5,7 +5,7 @@ import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParentFull(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParentFull with PolyActiveFull
-{ type RigidT = PolygonParentFull
+{ type AlignT = PolygonParentFull
   def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), poly.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[PaintFullElem]): PolygonParentFull = new PolygonParentFull(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParentFull = new PolygonParentFull(cen, poly, newObj, children)
@@ -33,7 +33,7 @@ object PolygonParentFull
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent
-{ type RigidT = PolygonParent
+{ type AlignT = PolygonParent
   override def addElems(newElems: Arr[PaintElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect

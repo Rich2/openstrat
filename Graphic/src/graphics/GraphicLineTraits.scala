@@ -3,7 +3,7 @@ package geom
 import pCanv._, Colour.Black
 
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikeOldPaintElem
-{ override type RigidT = LineDraw
+{ override type AlignT = LineDraw
   def typeStr: String = "LineDraw"
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, width, dashLength, gapLength, colour)
@@ -19,7 +19,7 @@ object LineDraw
 
 /** I think its to better to use the mame lineWidth consistently. */
 case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintFullElem
-{ override type RigidT = LinesDraw
+{ override type AlignT = LinesDraw
   override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linesDraw(this)
 }
@@ -31,7 +31,7 @@ object LinesDraw
 }
 
 case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends PaintFullElem
-{ override type RigidT = LinePathDraw
+{ override type AlignT = LinePathDraw
   def length = path.length - 1
   def xStart = path.xStart
   def yStart = path.yStart
@@ -42,7 +42,7 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
 
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double])
   extends CurveLikeOldPaintElem
-{ override type RigidT = DashedLineDraw
+{ override type AlignT = DashedLineDraw
   def typeStr: String = "DashedLineDraw"
   override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)

@@ -4,7 +4,7 @@ package geom
 
 /** Elliptical Arc, not correct */
 final case class EArc(xStart: Double, yStart: Double) extends TransAffer
-{ override type RigidT = EArc
+{ override type AlignT = EArc
   override def rotate(angle: Angle): EArc = ???
   override def slate(offset: Vec2): EArc = ???
   override def rotateRadians(radians: Double): EArc = ???

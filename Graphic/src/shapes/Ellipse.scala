@@ -3,12 +3,12 @@ package ostrat
 package geom
 
 trait EllipseLike extends TransAffer
-{ type RigidT <: EllipseLike
+{ type AlignT <: EllipseLike
   override def shear(xScale: Double, yScale: Double): Ellipse
 }
 
 class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight: Double, val upRadius: Double) extends EllipseLike with TransAffer
-{ type RigidT = Ellipse
+{ type AlignT = Ellipse
   def vCen: Vec2 = xCen vv yCen
   def vRight: Vec2 = xRight vv yRight
   override def shear(xScale: Double, yScale: Double): Ellipse = this

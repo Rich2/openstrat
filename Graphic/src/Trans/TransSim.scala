@@ -3,25 +3,25 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait TransSimer extends Any with TransRigider
+trait TransSimer extends Any with TransAligner
 {// type RigidT <: TransSimer
-  def scale(operand: Double): RigidT
+  def scale(operand: Double): AlignT
   def shear(xScale: Double, yScale: Double): TransAffer
 }
 
 trait TransSimerUser extends TransSimer
-{ type RigidT <: TransSimerUser
+{ type AlignT <: TransSimerUser
   type MemT <: TransSimer
   def geomMem: MemT
-  def newThis(transer: MemT): RigidT
-  override def slate(offset: Vec2): RigidT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
-  override def rotateRadians(radians: Double): RigidT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
-  override def scale(operand: Double): RigidT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
-  override def mirror(line: Line2): RigidT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
+  def newThis(transer: MemT): AlignT
+  override def slate(offset: Vec2): AlignT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
+  override def rotateRadians(radians: Double): AlignT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
+  override def scale(operand: Double): AlignT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
+  override def mirror(line: Line2): AlignT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
 }
 
 /** A Similar Transformations type class */
-trait TransSim[T] extends TransRigid[T]
+trait TransSim[T] extends TransAlign[T]
 { def scale(obj: T, operand: Double): T
 }
 

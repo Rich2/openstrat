@@ -5,7 +5,7 @@ package geom
 object CircleIcon
 
 final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLike with Shape
-{ override type RigidT = Circle
+{ override type AlignT = Circle
   def vCen: Vec2 = x vv y
   def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse(x, y, x + radius, 0, radius)
   override def rotateRadians(radians: Double): Circle = Circle(radius, vCen.rotateRadians(radians))

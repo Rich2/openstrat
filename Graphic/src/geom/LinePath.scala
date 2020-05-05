@@ -6,7 +6,7 @@ package geom
  *  cost. */
 class LinePath(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Vec2] with TranserAll with Vec2sLike
 { type ThisT = LinePath
-  type RigidT = LinePath
+  type AlignT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def typeStr: String = "LinePath"
   //override def toString: String = LinePath.LinePathPersist.show(this)

@@ -6,17 +6,17 @@ import reflect.ClassTag
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
 trait TranserAll extends Any with TransAffer
-{ type RigidT <: TranserAll
-  def fTrans(f: Vec2 => Vec2): RigidT
-  def slate(offset: Vec2): RigidT = fTrans(_ + offset)
-  def scale(operand: Double): RigidT = fTrans(_ * operand)
-  def shear(xScale: Double, yScale: Double): RigidT = fTrans{case Vec2(x, y) => x * xScale vv y * yScale}
-  def mirrorXOffset(yOffset: Double): RigidT = fTrans(_.mirrorXOffset(yOffset))
-  def mirrorYOffset(xOffset: Double): RigidT = fTrans(_.mirrorYOffset(xOffset))
-  def rotateRadians(radians: Double): RigidT = fTrans(_.rotateRadians(radians))
-  def mirror(v1: Vec2, v2: Vec2): RigidT = fTrans(_.mirror(v1, v2))
+{ type AlignT <: TranserAll
+  def fTrans(f: Vec2 => Vec2): AlignT
+  def slate(offset: Vec2): AlignT = fTrans(_ + offset)
+  def scale(operand: Double): AlignT = fTrans(_ * operand)
+  def shear(xScale: Double, yScale: Double): AlignT = fTrans{case Vec2(x, y) => x * xScale vv y * yScale}
+  def mirrorXOffset(yOffset: Double): AlignT = fTrans(_.mirrorXOffset(yOffset))
+  def mirrorYOffset(xOffset: Double): AlignT = fTrans(_.mirrorYOffset(xOffset))
+  def rotateRadians(radians: Double): AlignT = fTrans(_.rotateRadians(radians))
+  def mirror(v1: Vec2, v2: Vec2): AlignT = fTrans(_.mirror(v1, v2))
 
-  override def mirror(line: Line2): RigidT = fTrans((_.mirror(line)))
+  override def mirror(line: Line2): AlignT = fTrans((_.mirror(line)))
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */

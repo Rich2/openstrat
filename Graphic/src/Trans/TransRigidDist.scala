@@ -44,7 +44,7 @@ object TransRigidDist
   }
 }
 
-class TransRigidDistExtension[T](value: T, ev: TransRigidDist[T]) extends TransRigidGenExtension[T]
+class TransAlignDistExtension[T](value: T, ev: TransRigidDist[T]) extends TransAlignGenExtension[T]
 {
   override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians) //trans(_.rotate(angle))
   override def rotateRadians(r: Double): T = ev.rotateRadians(value, r)// trans(_.rotateRadians(r))

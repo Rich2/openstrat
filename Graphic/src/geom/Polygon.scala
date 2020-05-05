@@ -6,7 +6,7 @@ import Colour.Black, collection.mutable.ArrayBuffer
 /** A Polygon is encoded as a sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default */
 class Polygon(val array: Array[Double]) extends AnyVal with TranserAll with Vec2sLike
 { type ThisT = Polygon
-  type RigidT = Polygon
+  type AlignT = Polygon
   def unsafeFromArray(array: Array[Double]): Polygon = new Polygon(array)
   override def typeStr: String = "Polygon"
   override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)

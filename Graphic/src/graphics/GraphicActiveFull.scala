@@ -4,7 +4,7 @@ package geom
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
 trait GraphicActive extends GraphicBounded
-{ type RigidT <: GraphicActive
+{ type AlignT <: GraphicActive
   /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
       purely up to the application to encode, its response if any to this object. */
   def pointerId: Any
@@ -16,7 +16,7 @@ trait GraphicActive extends GraphicBounded
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
 trait GraphicActiveFull extends GraphicActive with GraphicBoundedFull
-{ type RigidT <: GraphicActiveFull
+{ type AlignT <: GraphicActiveFull
   /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
       purely up to the application to encode, its response if any to this object. */
   def pointerId: Any
@@ -28,7 +28,7 @@ trait GraphicActiveFull extends GraphicActive with GraphicBoundedFull
 
 /** An active transparent pointable polygon */
 trait PolyActiveFull extends GraphicActiveFull
-{ type RigidT <: PolyActiveFull
+{ type AlignT <: PolyActiveFull
   def poly: Polygon
   override def boundingRect = poly.boundingRect
   override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
@@ -37,7 +37,7 @@ trait PolyActiveFull extends GraphicActiveFull
 
 /** A pointable shape */
 trait ShapeActive extends GraphicActiveFull
-{  type RigidT <: ShapeActive
+{  type AlignT <: ShapeActive
   def shape: PolyCurve
   def innerPoly: Polygon = shape.pMap(_.pEnd)
   override def boundingRect: BoundingRect = innerPoly.boundingRect
