@@ -10,7 +10,7 @@ package object geom
   implicit def transAllToExtension[T](value: T)(implicit ev: TransAll[T]) = new TransAllExtension[T](value, ev)
   implicit def transAffToExtension[T](value: T)(implicit ev: TransAff[T]) = new TransAffExtension[T](value, ev)
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]) = new TransSimExtension[T](value, ev)
-  implicit def transRigidToExtension[T](value: T)(implicit ev: TransAlign[T]) = new TransAlignExtension[T](value, ev)
+  implicit def transAlignToExtension[T](value: T)(implicit ev: TransAlign[T]) = new TransAlignExtension[T](value, ev)
   //implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
 
   implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]) = new TransAffDistExtension[T](value, ev)

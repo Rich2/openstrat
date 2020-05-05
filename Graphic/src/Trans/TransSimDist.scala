@@ -42,7 +42,8 @@ object TransSimDist
     override def mirrorXOffset(obj: AA, yOffset: Dist): AA = obj.map{ts => ev.mirrorXOffset(ts, yOffset) }
   }
 }
-class TransSimDistExtension[T](value: T, ev: TransSimDist[T])
-{
 
+class TransSimDistExtension[T](value: T, ev: TransSimDist[T]) extends TransSimGenExtension[T]
+{ override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)
+  override def rotateRadians(r: Double): T = ev.rotateRadians(value, r)
 }
