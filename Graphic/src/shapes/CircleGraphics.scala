@@ -8,7 +8,7 @@ case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser wit
   override type MemT = Circle
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleFill = CircleFill(transer, colour)
-  def shear(xScale: Double, yScale: Double): TransAffer = ???
+  def shear(xScale: Double, yScale: Double): TranserAll = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 }
 
@@ -17,7 +17,7 @@ case class CircleDraw(circle: Circle, lineWidth: Double, colour: Colour) extends
   override type MemT = Circle
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleDraw = CircleDraw(transer, lineWidth, colour)
-  def shear(xScale: Double, yScale: Double): TransAffer = ???
+  def shear(xScale: Double, yScale: Double): TranserAll = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
 }
 
@@ -27,6 +27,6 @@ case class CircleFillDraw(circle: Circle, fillColour: Colour, lineWidth: Double 
   override type MemT = Circle
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleFillDraw = CircleFillDraw(transer, fillColour, lineWidth, lineColour)
-  override def shear(xScale: Double, yScale: Double): TransAffer = ???
+  override def shear(xScale: Double, yScale: Double): TranserAll = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
 }

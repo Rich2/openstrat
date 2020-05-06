@@ -5,9 +5,10 @@ package geom
 object CircleIcon
 
 final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLike with Shape
-{ override type AlignT = Circle
+{ //override type AlignT = Circle
+  override def fTrans(f: Vec2 => Vec2): EllipseLike = ???
   def vCen: Vec2 = x vv y
-  def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse(x, y, x + radius, 0, radius)
+  override def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse(x, y, x + radius, 0, radius)
   override def rotateRadians(radians: Double): Circle = Circle(radius, vCen.rotateRadians(radians))
   override def slate(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)
   override def scale(operand: Double): Circle = Circle(radius * operand, x * operand, y * operand)

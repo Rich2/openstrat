@@ -18,7 +18,7 @@ class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadi
     Square(newCen, width, newAngle)
   }
 
-  override def shear(xScale: Double, yScale: Double): TransAffer = ???
+  override def shear(xScale: Double, yScale: Double): TranserAll = ???
 }
 
 /** Factory object for squares. There is no companion Square class. */
