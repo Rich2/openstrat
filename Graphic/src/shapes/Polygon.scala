@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait Polygon extends Any with TranserAll
+trait Polygon extends Any with Vec2sLike with TranserAll
 { def length: Int
   def apply(index: Int): Vec2
   def foreach[U](f: Vec2 => U): Unit

@@ -16,6 +16,6 @@ trait Vec2sLike extends Any with ArrProdDbl2[Vec2]
     }
     newArray
   }
-
+  final override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
   //def foreach(f: Vec2 => Unit): Unit = { var count = 0; while(count < length) { f(apply(count)); count += 1 } }
 }
