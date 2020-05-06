@@ -33,7 +33,7 @@ trait OfTile[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT,
 { def tile: TileT    
   final def cood: Cood = tile.cood   
   def vertCoods: Coods = grid.vertCoodsOfTile(cood)
-  def vertDispVecs: Polygon
+  def vertDispVecs: PolygonGen
   def cen: Vec2
   def ownSideLines: Line2s
 }

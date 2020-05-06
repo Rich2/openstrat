@@ -15,7 +15,7 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
   val v5 = 4.4 vv 5.5
   val v6 = v5.addY(100)
   //So in this longer example, the semicolons and commas become more useful. You can't do this with toString
-  val t1 = Polygon(v1, v2, v3, v4, v5, v6)
+  val t1 = PolygonGen(v1, v2, v3, v4, v5, v6)
   val t2 = LinePath(v1, v2, v3, v4, v5, v6)
   val c1 = Colour.Azure  
   val t3 = t1.fill(c1)

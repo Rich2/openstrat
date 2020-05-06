@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentFull(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParentFull with PolyActiveFull
+case class PolygonParentFull(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParentFull with PolyActiveFull
 { type AlignT = PolygonParentFull
   def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), poly.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[PaintFullElem]): PolygonParentFull = new PolygonParentFull(cen, poly, pointerId, children ++ newElems)
@@ -14,25 +14,25 @@ case class PolygonParentFull(cen: Vec2, poly: Polygon, pointerId: Any, children:
 /** Companion object of the PolygonParent case class. */
 object PolygonParentFull
 {
-  def fill(cen: Vec2, poly: Polygon, evObj: Any, colour: Colour): PolygonParentFull = new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(colour)))
+  def fill(cen: Vec2, poly: PolygonGen, evObj: Any, colour: Colour): PolygonParentFull = new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(colour)))
 
   /** Not sure if this is double filling the polygon */
-  def fillDraw(cen: Vec2, poly: Polygon, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
+  def fillDraw(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
     new PolygonParentFull(cen, poly, evObj, Arr(PolygonFillDraw(poly, fillColour, lineWidth, lineColour)))
 
-  def draw(cen: Vec2, poly: Polygon, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
+  def draw(cen: Vec2, poly: PolygonGen, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
     new PolygonParentFull(cen, poly, evObj, Arr(PolygonDraw(poly, lineWidth, lineColour)))
 
-  def fillText(cen: Vec2, poly: Polygon, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
-    align: TextAlign = CenAlign): PolygonParentFull =
+  def fillText(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
+               align: TextAlign = CenAlign): PolygonParentFull =
     new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
 
-  def fillContrastText(cen: Vec2, poly: Polygon, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParentFull =
+  def fillContrastText(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParentFull =
     fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
 }
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent
+case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent
 { type AlignT = PolygonParent
   override def addElems(newElems: Arr[PaintElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)

@@ -15,14 +15,14 @@ class Vec2s(val array: Array[Double]) extends AnyVal with TranserAll with Vec2sL
   @inline def xStart: Double = array(0)
   @inline def yStart: Double = array(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
-  @inline def toPolygon: Polygon = new Polygon(array)
+  @inline def toPolygon: PolygonGen = new PolygonGen(array)
   @inline def toLinePath: LinePath = new LinePath(array)
 
   def fTrans(f: Vec2 => Vec2): Vec2s =  new Vec2s(arrTrans(f))
 
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
-  def yMirrorClose: Polygon =
+  def yMirrorClose: PolygonGen =
   { val acc = appendArray(length)
     var count = arrLen
 
@@ -31,7 +31,7 @@ class Vec2s(val array: Array[Double]) extends AnyVal with TranserAll with Vec2sL
       acc(count + 1) = orig.y
       count += 2
     }
-    new Polygon(acc)
+    new PolygonGen(acc)
   }
 
   def toPathDraw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this.toLinePath, lineWidth, colour)

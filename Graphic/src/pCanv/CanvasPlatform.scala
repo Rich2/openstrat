@@ -25,7 +25,7 @@ trait CanvasPlatform extends RectGeom
   var keyUp: (String) => Unit = (s) => {}
   var onScroll: Boolean => Unit = b => {}
   var resize: () => Unit = () => {}
-  def clip(pts: Polygon): Unit
+  def clip(pts: PolygonGen): Unit
 
   /** Returns the system (Unix) time in milliseconds. */
   def getTime: Long
@@ -48,11 +48,11 @@ trait CanvasPlatform extends RectGeom
     startFrame(combinedF, millis)
   }
   
-  final def polyFill(poly: Polygon, colour: Colour): Unit = oif(poly.length >= 3, pPolyFill(poly, colour))
-  def pPolyFill(poly: Polygon, colour: Colour): Unit
+  final def polyFill(poly: PolygonGen, colour: Colour): Unit = oif(poly.length >= 3, pPolyFill(poly, colour))
+  def pPolyFill(poly: PolygonGen, colour: Colour): Unit
   
-  final def polyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = oif(poly.length >= 2, pPolyDraw(poly, lineWidth, colour))
-  def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
+  final def polyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit = oif(poly.length >= 2, pPolyDraw(poly, lineWidth, colour))
+  def pPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit
 
   def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.length >= 1, pLinePathDraw(pod))
   def pLinePathDraw(pod: LinePathDraw): Unit

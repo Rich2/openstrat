@@ -8,7 +8,7 @@ trait Flag
 { def name: String
   def ratio: Double
   def apply(): Arr[PaintFullElem]
-  def rect: Polygon = Rectangle(ratio)
+  def rect: PolygonGen = Rectangle(ratio)
   def parentStr: PolygonParentFull = Rectangle(ratio).parentElems(name + " flag", apply)
   def parent(evObj: Any = this): PolygonParentFull = Rectangle(ratio).parentElems(evObj, apply)
 
@@ -103,22 +103,22 @@ object UnitedKingdom extends EnglandLike
     val yd = math.sqrt(1.25) / 30.0 //hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)
     val ywc = 5.0 / 30 //top of White cross bar
     val xDiag = 10.0 / 30.0 //ywc * 2 where diag crosses ywc
-    val b1 = Polygon(
+    val b1 = PolygonGen(
       5.0 / 30 vv 0.5, 1 - xd * 3 vv 0.5,
       1.0 / 6.0 vv ywc + yd)
 
-    val b2 = Polygon(
+    val b2 = PolygonGen(
       xDiag + 3 * xd vv ywc,
       1 vv 0.5 - yd * 3,
       1 vv ywc)
 
-    val r1: Polygon = Polygon(
+    val r1: PolygonGen = PolygonGen(
       -1 vv 0.5,
       -xDiag vv ywc,
       -(xDiag + xd * 2) vv ywc,
       -1 vv 0.5 - (yd * 2))
 
-    val r2: Polygon = Polygon(
+    val r2: PolygonGen = PolygonGen(
       xDiag - xd * 2 vv ywc,
       1 - xd * 2 vv 0.5,
       1 vv 0.5,

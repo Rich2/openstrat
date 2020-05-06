@@ -96,7 +96,7 @@ class PolyCurve(val array: Array[Double]) extends AnyVal with ArrProdDbl7[CurveS
     if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
     BoundingRect(minX, maxX, minY, maxY)
   }
-  def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, Polygon](_.pEnd).ptInPolygon(pt)
+  def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, PolygonGen](_.pEnd).ptInPolygon(pt)
 
   /** Not sure if this is useful */
   def segForeach(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =

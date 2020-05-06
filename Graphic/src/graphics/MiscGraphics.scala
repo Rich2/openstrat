@@ -7,7 +7,7 @@ object Star5
 {
   val classicRatio = 0.382
 
-  def apply(ratio: Double = classicRatio): Polygon =
+  def apply(ratio: Double = classicRatio): PolygonGen =
   { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-deg36))
     iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
   }
@@ -23,14 +23,14 @@ object Star5
   }
 
   /** Not quite sure what this does. */
-  def ptUpYCentred(ratio: Double = classicRatio): Polygon = apply(ratio).slateY(deg36.cos / 2 - 0.5)
+  def ptUpYCentred(ratio: Double = classicRatio): PolygonGen = apply(ratio).slateY(deg36.cos / 2 - 0.5)
 }
 
 object Star7
 {
   val classicRatio = 0.692
 
-  def apply(ratio: Double = classicRatio): Polygon =
+  def apply(ratio: Double = classicRatio): PolygonGen =
   { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-Angle(Pi / 7)))
     iToFlatMap(0, 6)(i => l2.rotate(-Angle(Pi2 / 7) * i)).toPolygon
   }
@@ -40,8 +40,8 @@ object Star7
 
 object Star3
 {
-  def apply(sideLength: Double = 1): Polygon = 
-  { Polygon((0 vv sideLength * math.sqrt(3) / 3),
+  def apply(sideLength: Double = 1): PolygonGen =
+  { PolygonGen((0 vv sideLength * math.sqrt(3) / 3),
               (sideLength / 2 vv -sideLength * math.sqrt(3) / 6),
               (-sideLength / 2 vv -sideLength * math.sqrt(3) / 6))
   }
@@ -54,7 +54,7 @@ object Star3
 
 object Pentagram
 {
-  def apply(): Polygon =
+  def apply(): PolygonGen =
   { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, -1).rotate(-deg36))
     iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
   }

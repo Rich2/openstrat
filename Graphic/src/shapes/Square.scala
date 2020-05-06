@@ -27,7 +27,7 @@ object Square //extends UnScaledPolygon
   def apply(cen: Vec2, width: Double, rotation: Angle = Angle(0)): Square = new Square(cen.x, cen.y, width, rotation.radians)
   //val apply: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
   //def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = apply.fTrans(_ * width + cen)
-  def xy(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
+  def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,

@@ -129,9 +129,9 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
       ya + yb
     })
    
-  def centreSquare(length: Double): Polygon =
+  def centreSquare(length: Double): PolygonGen =
   { val r = length / 2.0
-    Polygon(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y) 
+    PolygonGen(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y)
   }
    
   def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(str, fontSize, this, fontColour)
@@ -166,7 +166,7 @@ object Vec2
   def circlePtClockwise(angle: Double): Vec2 = Vec2(cos(angle), - sin(angle))
    
   implicit class Vec2IterableExtension(thisIter: Iterable[Vec2])
-  { def toPolygon: Polygon = thisIter.toArrProdHomo
+  { def toPolygon: PolygonGen = thisIter.toArrProdHomo
   }
 
   implicit val persistImplicit: PersistD2[Vec2] = new PersistD2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)
