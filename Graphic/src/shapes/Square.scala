@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadians: Double) extends TransSimer
+class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadians: Double) extends TranserAll
 { override type AlignT = Square
   def cen: Vec2 = xCen vv yCen
   def cenRight: Vec2 = cen + rotation.toVec2(width / 2)
@@ -18,7 +18,9 @@ class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadi
     Square(newCen, width, newAngle)
   }
 
-  override def shear(xScale: Double, yScale: Double): TranserAll = ???
+  override def shear(xScale: Double, yScale: Double): Square = ???
+
+  override def fTrans(f: Vec2 => Vec2): Square = ???
 }
 
 /** Factory object for squares. There is no companion Square class. */

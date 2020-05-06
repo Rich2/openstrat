@@ -3,10 +3,10 @@ package ostrat
 package geom
 
 /** Circular Arc */
-final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TransSimer
+final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TranserAll
 { type AlignT = CArc
   def pCen: Vec2 = xCen vv yCen
-  override def shear(xScale: Double, yScale: Double): EArc = ??? //EArc()
+  override def shear(xScale: Double, yScale: Double): CArc = ??? //EArc()
   def startAngleRadians: Double = (pStart - pCen).angleRadians
   def startAngleRadiansPos: Double = (pStart - pCen).angleRadiansPos
   def startAngle: Angle = (pStart - pCen).angle
@@ -41,11 +41,13 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def rotateRadians(operandRadians: Double): CArc =
     CArc(pStart.rotateRadians(operandRadians), pCen.rotateRadians(operandRadians), deltaRadians)
 
-  def mirrorYOffset(xOffset: Double): CArc = CArc(pStart.mirrorYOffset(xOffset), pCen.mirrorYOffset(xOffset), -deltaRadians)
-  def mirrorXOffset(yOffset: Double): CArc = CArc(pStart.mirrorXOffset(yOffset), pCen.mirrorXOffset(yOffset), -deltaRadians)
+  override def mirrorYOffset(xOffset: Double): CArc = CArc(pStart.mirrorYOffset(xOffset), pCen.mirrorYOffset(xOffset), -deltaRadians)
+  override def mirrorXOffset(yOffset: Double): CArc = CArc(pStart.mirrorXOffset(yOffset), pCen.mirrorXOffset(yOffset), -deltaRadians)
 
   override def mirror(line: Line2): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
+
+  override def fTrans(f: Vec2 => Vec2): CArc = ???
 }
 
 object CArc
