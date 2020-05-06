@@ -3,6 +3,6 @@ package ostrat
 package geom
 
 trait Polygon extends Any with TranserAll
-{ def numSides: Int
-  def vert(index: Int): Vec2
+{ def length: Int
+  def apply(index: Int): Vec2
 }

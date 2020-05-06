@@ -31,8 +31,7 @@ class PolygonGen(val array: Array[Double]) extends AnyVal with Polygon with Vec2
     }
     BoundingRect(minX, maxX, minY, maxY)
   }
-  @inline override def numSides: Int = length
-  @inline override def vert(index: Int): Vec2 = apply(index)
+
   def boundingWidth: Double = boundingRect.width
   def boundingHeight: Double = boundingRect.height
   def polyCentre: Vec2 = boundingRect.cen
