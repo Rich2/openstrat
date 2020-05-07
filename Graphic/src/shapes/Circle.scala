@@ -4,7 +4,7 @@ package geom
 
 object CircleIcon
 
-final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLike with Shape
+final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLike
 { //override type AlignT = Circle
   override def fTrans(f: Vec2 => Vec2): EllipseLike = ???
   def vCen: Vec2 = x vv y

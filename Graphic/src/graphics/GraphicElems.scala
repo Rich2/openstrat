@@ -2,24 +2,33 @@
 package ostrat
 package geom
 
-trait GraphicElem extends TransSimer
-{ type AlignT <: GraphicElem
+/** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
+trait GraphicElem extends GeomElem
+
+trait GraphicElemOld extends TransSimer
+{ type AlignT <: GraphicElemOld
 }
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
  *  each time there is a change within the application state or the user view of that application state. */
-trait GraphicFullElem extends GraphicElem with Transer
+trait GraphicFullElem extends GraphicElemOld with Transer
 { type AlignT <: GraphicFullElem
 }
 
 trait PaintElem extends GraphicElem
-{ type AlignT <: PaintElem
+{
   /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
 }
 
+/** Trait to be removed. */
+trait PaintElemOld extends GraphicElemOld with PaintElem
+{ //type AlignT <: PaintElemOld
+
+}
+
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait GraphicBounded extends GraphicElem
+trait GraphicBounded extends GraphicElemOld
 { type AlignT <: GraphicBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
@@ -36,7 +45,7 @@ trait GraphicBoundedFull extends GraphicBounded with GraphicFullElem
 }
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
-trait PaintFullElem extends PaintElem with GraphicFullElem
+trait PaintFullElem extends PaintElemOld with GraphicFullElem
 { type AlignT <: PaintFullElem
   //override def fTrans(f: Vec2 => Vec2): PaintFullElem
 

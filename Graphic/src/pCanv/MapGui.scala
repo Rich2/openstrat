@@ -24,7 +24,7 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
   def status = textBox(statusText, None)
   val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
-  def mapObjs: Arr[GraphicElem]
+  def mapObjs: Arr[GraphicElemOld]
   def eTop(): Unit
   
   def setStatus(str: String): Unit = { statusText = str; eTop() }

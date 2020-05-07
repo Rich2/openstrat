@@ -1,20 +1,20 @@
 package ostrat
 package geom
 
-trait GraphicParent extends GraphicElem
+trait GraphicParent extends GraphicElemOld
 {override type AlignT <: GraphicParent
   def cen: Vec2
   def boundingRect: BoundingRect
   /** The type of children can probably be widened in the future. */
-  def children: Arr[PaintElem]
+  def children: Arr[PaintElemOld]
 
   def topLeft: AlignT = this.slate(- boundingRect.topLeft)
   def topRight: AlignT = this.slate(- boundingRect.topRight)
   def bottomLeft: AlignT = this.slate(- boundingRect.bottomLeft)
   def bottomRight: AlignT = this.slate(- boundingRect.bottomRight)
 
-  def addElems(newElems: Arr[PaintElem]): AlignT
-  def addElem(newElem: PaintElem): AlignT = addElems(Arr(newElem))
+  def addElems(newElems: Arr[PaintElemOld]): AlignT
+  def addElem(newElem: PaintElemOld): AlignT = addElems(Arr(newElem))
   def mutObj(newObj: Any): AlignT
 }
 

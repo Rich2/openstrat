@@ -3,30 +3,36 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser with PaintElem
+case class CircleFill(circle: Circle, colour: Colour) extends TransSimerUser with PaintElemOld
 { override type AlignT = CircleFill
   override type MemT = Circle
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleFill = CircleFill(transer, colour)
   def shear(xScale: Double, yScale: Double): Transer = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
+
+  override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
 
-case class CircleDraw(circle: Circle, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElem
+case class CircleDraw(circle: Circle, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
 { override type AlignT = CircleDraw
   override type MemT = Circle
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleDraw = CircleDraw(transer, lineWidth, colour)
   def shear(xScale: Double, yScale: Double): Transer = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
+
+  override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
 
 case class CircleFillDraw(circle: Circle, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends TransSimerUser
-  with PaintElem
+  with PaintElemOld
 { override type AlignT = CircleFillDraw
   override type MemT = Circle
   override def geomMem: MemT = circle
   override def newThis(transer: Circle): CircleFillDraw = CircleFillDraw(transer, fillColour, lineWidth, lineColour)
   override def shear(xScale: Double, yScale: Double): Transer = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
+
+  override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }

@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 /** Circular Arc Draw PaintElem. */
-final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = Black) extends PaintElem with TransSimerUser
+final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = Black) extends PaintElemOld with TransSimerUser
 { type AlignT = CArcDraw
   type MemT = CArc
   override def geomMem: CArc = arc
@@ -17,4 +17,6 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   def cenEndTexts = Arr(cenText, endText)
   def startCenEndTexts = Arr(startText, cenText, endText)
   override def shear(xScale: Double, yScale: Double): Transer = ???
+
+  override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
