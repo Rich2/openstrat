@@ -2,12 +2,12 @@
 package ostrat
 package geom
 
-trait EllipseLike extends TranserAll//Affer
+trait EllipseLike extends Transer//Affer
 { type AlignT = EllipseLike
   //override def shear(xScale: Double, yScale: Double): Ellipse
 }
 
-class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight: Double, val upRadius: Double) extends EllipseLike with TranserAll//ffer
+class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight: Double, val upRadius: Double) extends EllipseLike with Transer//ffer
 { //type AlignT = Ellipse
   override def fTrans(f: Vec2 => Vec2): EllipseLike = ???
   def vCen: Vec2 = xCen vv yCen

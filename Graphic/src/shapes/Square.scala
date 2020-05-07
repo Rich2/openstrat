@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadians: Double) extends TranserAll
+class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadians: Double) extends Transer
 { override type AlignT = Square
   def cen: Vec2 = xCen vv yCen
   def cenRight: Vec2 = cen + rotation.toVec2(width / 2)

@@ -5,8 +5,8 @@ import reflect.ClassTag
 
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-trait TranserAll extends Any with TransSimer
-{ type AlignT <: TranserAll
+trait Transer extends Any with TransSimer with GeomElem
+{ type AlignT <: Transer
   def fTrans(f: Vec2 => Vec2): AlignT
   def slate(offset: Vec2): AlignT = fTrans(_ + offset)
   def scale(operand: Double): AlignT = fTrans(_ * operand)
@@ -37,7 +37,7 @@ object TransAll
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAll[A]): TransAll[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromTranserAllImplicit[T <: TranserAll]: TransAll[T] =
+  implicit def fromTranserAllImplicit[T <: Transer]: TransAll[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAll[A]): TransAll[F[A]] =
