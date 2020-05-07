@@ -14,10 +14,10 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
 case class LessonC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
 {
   val r0 = Rectangle(200, 100)//.fill(Red)
-  val r1 = r0.slate(-300 vv 300)
-  val r2 = r0.slate(300 vv 300)
-  val r3 = r0.slate(300 vv -300)
-  val r4 = r0.slate(-300 vv -300)
+  val r1 = r0.slateOld(-300 vv 300)
+  val r2 = r0.slateOld(300 vv 300)
+  val r3 = r0.slateOld(300 vv -300)
+  val r4 = r0.slateOld(-300 vv -300)
   val rArr = Polygons(r1, r2, r3, r4)
   var gArr = rArr.map(r => r.parentFill(r.polyCentre, Red))
   val textPosn = 0 vv 0

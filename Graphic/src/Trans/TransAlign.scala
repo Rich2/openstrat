@@ -5,13 +5,14 @@ import reflect.ClassTag
 
 trait TransAligner extends Any //with GeomElem
 { type AlignT <: TransAligner
-  def slate(offset: Vec2): AlignT
+  def slateOld(offset: Vec2): AlignT
 
-  def scale(operand: Double): AlignT
-  def ySlate(yDelta: Double): AlignT = slate(0 vv yDelta)
+  def scaleOld(operand: Double): AlignT
+  //def ySlate(yDelta: Double): AlignT = slateOld(0 vv yDelta)
 
   /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
+  def slateOld(xOffset: Double, yOffset: Double): AlignT = slateOld(xOffset vv yOffset)
+  //def slated(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
 }
 
 /** A Rigid or Euclidean transformations type class. */
@@ -23,8 +24,8 @@ trait TransAlign[T]
 object TransAlign
 {
   implicit def transRigiderImplicit[T <: TransAligner]: TransAlign[T] = new TransAlign[T]
-  { override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
-    override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
+  { override def slate(obj: T, offset: Vec2): T = obj.slateOld(offset).asInstanceOf[T]
+    override def scale(obj: T, operand: Double): T = obj.scaleOld(operand).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAlign[A]): TransAlign[AA] = new TransAlign[AA]

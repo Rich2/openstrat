@@ -31,7 +31,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
     }
 
     def size = 10
-    def paint = Circle(0.6).scale(size).fill(colour).slate(toCanv(posn))
+    def paint = Circle(0.6).scaleOld(size).fill(colour).slateOld(toCanv(posn))
     //Circle(size).fillFixed(this, colour).slate(toCanv(posn))
     override def toString = name
   }

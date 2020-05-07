@@ -34,8 +34,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val barBackground =  Rectangle.curvedCorners( viewport("maxBarWidth") + 2, 32, 10, (0 vv headerYpos)).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
   val aTitle = TextGraphic( "Scroll: less/more buttons, arrow/pgUp/pgDn/Home/End keys, mouse wheel", 12, 0 vv headerYpos + 30 )
-  val btnMore = clickButton( ">", ( mb: MouseButton) => { scrollMore } ).slate( +20+viewport("maxBarWidth")/2, headerYpos )
-  val btnLess = clickButton( "<", ( mb: MouseButton) => { scrollLess } ).slate( -20-viewport("maxBarWidth")/2, headerYpos )   
+  val btnMore = clickButton( ">", ( mb: MouseButton) => { scrollMore } ).slateOld( +20+viewport("maxBarWidth")/2, headerYpos )
+  val btnLess = clickButton( "<", ( mb: MouseButton) => { scrollLess } ).slateOld( -20-viewport("maxBarWidth")/2, headerYpos )
   val everythingNotItemOrScrollbar: Arr[GraphicFullElem] = Arr( background, aTitle )
   val scrollBar: Arr[GraphicFullElem] = Arr(btnMore, btnLess, barBackground )
 

@@ -14,17 +14,17 @@ trait Flag
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
   def leftToRight(colours: Colour*): Arr[PaintFullElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio / colours.length, 1,
-    -ratio / 2 vv + 0.5).slate(i * ratio / colours.length, 0).fill(colour))
+    -ratio / 2 vv + 0.5).slateOld(i * ratio / colours.length, 0).fill(colour))
          
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
   def topToBottom(colours: Colour*): Arr[PaintFullElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio,
-     1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0,
+     1.0 / colours.length, -ratio / 2 vv + 0.5).slateOld(0,
        - i.toDouble / colours.length).fill(colour))
 
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
   def topToBottomRepeat(numBands: Int, colours: Colour*): Arr[PaintFullElem] = iUntilMap(0, numBands){ i =>
     val r1 = Rectangle.fromTL(ratio, 1.0 / numBands, -ratio / 2 vv + 0.5)
-    val r2 = r1.slate(0, - i.toDouble / numBands)
+    val r2 = r1.slateOld(0, - i.toDouble / numBands)
     r2.fill(colours(i %% colours.length))
   }
 }
@@ -188,7 +188,7 @@ object USSR extends Flag
   {
     Arr[PaintFullElem](
       Rectangle(ratio, 1).fill(Red),
-      Star5().scale(0.4).fill(Gold)
+      Star5().scaleOld(0.4).fill(Gold)
     )
   }
 }
@@ -231,27 +231,27 @@ object CommonShapesInFlags extends Flag
 
       //off centre cross
       Rectangle(ratio, 0.25).fill(Green),
-      Rectangle(0.25, 1).fill(Green).slate(-0.3 vv 0),
+      Rectangle(0.25, 1).fill(Green).slateOld(-0.3 vv 0),
 
-      Star5().scale(0.1).slate(-0.6 vv 0.3).fill(Magenta),
+      Star5().scaleOld(0.1).slateOld(-0.6 vv 0.3).fill(Magenta),
 
-      Star7(0.382).scale(0.1).slate(-0.3 vv 0.3).fill(Red),
+      Star7(0.382).scaleOld(0.1).slateOld(-0.3 vv 0.3).fill(Red),
 
-      Star5().scale(0.1).slate(0.3 vv 0.3).draw(1, Lime),
+      Star5().scaleOld(0.1).slateOld(0.3 vv 0.3).draw(1, Lime),
       
       //hexagram
-      Star3().scale(0.15).slate(0.6 vv 0.3).draw(1.5, Blue),
-      Star3().scale(0.15).rotate(deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
+      Star3().scaleOld(0.15).slateOld(0.6 vv 0.3).draw(1.5, Blue),
+      Star3().scaleOld(0.15).rotate(deg180).slateOld(0.6 vv 0.3).draw(1.5, Blue),
 
       //crescent
-      Circle.segs(0.225).slate(-0.6 vv -0.3).fill(Red),
-      Circle.segs(0.2).slate(-0.6 vv -0.3).slate(0.04 vv 0).fill(White),
+      Circle.segs(0.225).slateOld(-0.6 vv -0.3).fill(Red),
+      Circle.segs(0.2).slateOld(-0.6 vv -0.3).slateOld(0.04 vv 0).fill(White),
 
       //composite star ()
-      Star5().scale(0.15).slate(-0.3 vv 0).fill(Gold),
-      Star5().scale(0.1).slate(-0.3 vv 0).fill(Magenta),
+      Star5().scaleOld(0.15).slateOld(-0.3 vv 0).fill(Gold),
+      Star5().scaleOld(0.1).slateOld(-0.3 vv 0).fill(Magenta),
       
-      Pentagram().scale(0.1).slate(0 vv 0.3).draw(2, Colour(0xFF006233)),
+      Pentagram().scaleOld(0.1).slateOld(0 vv 0.3).draw(2, Colour(0xFF006233)),
     )
   }
 }
@@ -263,7 +263,7 @@ object CzechRepublic extends Flag
   {
     Arr[PaintFullElem](
       Rectangle(ratio, 1).fill(White),
-      Rectangle(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
+      Rectangle(ratio, 0.5).slateOld(0 vv -0.25).fill(Colour(0xFFD7141A)),
       Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
     )
   }
@@ -281,9 +281,9 @@ object CCCP extends Flag
       //sickle
       PolyCurve(LineSeg(-0.6695 vv 0.3163), BezierSeg(-0.6437 vv 0.3018, -0.624 vv 0.2809, -0.6124 vv 0.259), BezierSeg(-0.6007 vv 0.2369, -0.5955 vv 0.2137, -0.5954 vv 0.1953), BezierSeg(-0.5952 vv 0.1574, -0.6262 vv 0.1266, -0.6641 vv 0.1266), BezierSeg(-0.6843 vv 0.1266, -0.7025 vv 0.1354, -0.715 vv 0.1493), LineSeg(-0.722 vv 0.1434), BezierSeg(-0.7232 vv 0.1439, -0.7244 vv 0.1441, -0.7257 vv 0.1441), BezierSeg(-0.7287 vv 0.1441, -0.7316 vv 0.1428, -0.7336 vv 0.1405), BezierSeg(-0.7386 vv 0.1398, -0.7427 vv 0.1364, -0.7443 vv 0.1316), BezierSeg(-0.7495 vv 0.1212, -0.7587 vv 0.1129, -0.7698 vv 0.1092), BezierSeg(-0.7699 vv 0.1091, -0.77 vv 0.1091, -0.7701 vv 0.109), BezierSeg(-0.7752 vv 0.1072, -0.7803 vv 0.1038, -0.7847 vv 0.09938), BezierSeg(-0.7934 vv 0.09065, -0.7976 vv 0.07948, -0.7952 vv 0.07165), BezierSeg(-0.7954 vv 0.07097, -0.7956 vv 0.07025, -0.7956 vv 0.06953), BezierSeg(-0.7956 vv 0.06591, -0.7926 vv 0.06298, -0.789 vv 0.06298), BezierSeg(-0.7881 vv 0.06298, -0.7872 vv 0.06317, -0.7864 vv 0.06354), BezierSeg(-0.7786 vv 0.06178, -0.7679 vv 0.06612, -0.7596 vv 0.07447), BezierSeg(-0.7549 vv 0.07922, -0.7514 vv 0.08485, -0.7497 vv 0.09036), BezierSeg(-0.7458 vv 0.1014, -0.7375 vv 0.1104, -0.727 vv 0.1154), BezierSeg(-0.7267 vv 0.1156, -0.7265 vv 0.1157, -0.7263 vv 0.1158), BezierSeg(-0.7228 vv 0.1175, -0.7202 vv 0.1207, -0.7193 vv 0.1245), BezierSeg(-0.7031 vv 0.1054, -0.6789 vv 0.09325, -0.6517 vv 0.09262), BezierSeg(-0.602 vv 0.09145, -0.5649 vv 0.128, -0.5631 vv 0.1807), BezierSeg(-0.5623 vv 0.2072, -0.5725 vv 0.2413, -0.5959 vv 0.2693), BezierSeg(-0.6137 vv 0.2907, -0.6399 vv 0.3085, -0.6695 vv 0.3163), LineSeg(-0.6695 vv 0.3163)).fill(Colour(0xFFFFD700)),
       //outer star
-      Star5().scale(1.0/16).slate(-2.0/3 vv 0.75/2).fill(Colour(0xFFFFD700)),
+      Star5().scaleOld(1.0/16).slateOld(-2.0/3 vv 0.75/2).fill(Colour(0xFFFFD700)),
       //inner star
-      Star5().scale(1.0/25).slate(-2.0/3 vv 0.75/2).fill(Colour(0xFFCC0000)),
+      Star5().scaleOld(1.0/25).slateOld(-2.0/3 vv 0.75/2).fill(Colour(0xFFCC0000)),
     )
   }
 }
@@ -299,7 +299,7 @@ object Iraq extends Flag
       PolyCurve(LineSeg(-0.2945 vv 0.3121), BezierSeg(-0.2903 vv 0.3099, -0.2871 vv 0.3068, -0.282 vv 0.3055), BezierSeg(-0.2826 vv 0.3034, -0.2845 vv 0.3026, -0.2849 vv 0.3003), LineSeg(-0.2849 vv 0.2555), BezierSeg(-0.2793 vv 0.2543, -0.2781 vv 0.2575, -0.2754 vv 0.2592), BezierSeg(-0.2746 vv 0.252, -0.2701 vv 0.245, -0.2702 vv 0.2394), LineSeg(-0.2945 vv 0.2394), LineSeg(-0.2945 vv 0.3121), LineSeg(-0.2945 vv 0.3121)).fill(Colour(0xFF007a3d)),
       PolyCurve(LineSeg(-0.3268 vv 0.2881), LineSeg(-0.318 vv 0.2958), LineSeg(-0.318 vv 0.2567), LineSeg(-0.3117 vv 0.2567), LineSeg(-0.3119 vv 0.3006), BezierSeg(-0.3093 vv 0.3032, -0.3042 vv 0.3069, -0.303 vv 0.3095), LineSeg(-0.303 vv 0.2394), LineSeg(-0.3587 vv 0.2394), BezierSeg(-0.3595 vv 0.254, -0.3597 vv 0.269, -0.3427 vv 0.2658), LineSeg(-0.3427 vv 0.2717), BezierSeg(-0.3432 vv 0.2727, -0.3441 vv 0.2715, -0.3444 vv 0.2728), BezierSeg(-0.3417 vv 0.2755, -0.3408 vv 0.2762, -0.3335 vv 0.2825), LineSeg(-0.3333 vv 0.2567), LineSeg(-0.3269 vv 0.2567), BezierSeg(-0.3269 vv 0.2567, -0.3268 vv 0.2871, -0.3268 vv 0.2881), LineSeg(-0.3268 vv 0.2881)).fill(Colour(0xFF007a3d)),
       PolyCurve(LineSeg(-0.3478 vv 0.2571), BezierSeg(-0.3466 vv 0.2553, -0.3425 vv 0.2553, -0.3427 vv 0.2583), BezierSeg(-0.3434 vv 0.2608, -0.3487 vv 0.2599, -0.3478 vv 0.2571), LineSeg(-0.3478 vv 0.2571)).fill(Colour(0xFFFFFFFF)),
-      Circle.segs(0.0068).slate(-0.5091 vv 0.2311).fill(Colour(0xFF007a3d)),
+      Circle.segs(0.0068).slateOld(-0.5091 vv 0.2311).fill(Colour(0xFF007a3d)),
       PolyCurve(LineSeg(-0.4041 vv 0.312), BezierSeg(-0.3999 vv 0.3098, -0.3967 vv 0.3067, -0.3916 vv 0.3054), BezierSeg(-0.3922 vv 0.3033, -0.394 vv 0.3025, -0.3945 vv 0.3003), LineSeg(-0.3945 vv 0.2554), BezierSeg(-0.3889 vv 0.2542, -0.3877 vv 0.2574, -0.385 vv 0.2591), BezierSeg(-0.3842 vv 0.2519, -0.3797 vv 0.2449, -0.3798 vv 0.2393), LineSeg(-0.4041 vv 0.2393), LineSeg(-0.4041 vv 0.3121), LineSeg(-0.4041 vv 0.312)).fill(Colour(0xFF007a3d))
     ).scale(2.18978).slate(.892 vv -.595)
   }
@@ -309,9 +309,9 @@ object India extends Flag
 { val name = "India"
   val ratio = 1.5
   val apply: Arr[PaintFullElem] =
-  { val spoke = PolyCurve(LineSeg(-0.75 vv 0.3833), LineSeg(-0.746 vv 0.4533), BezierSeg(-0.746 vv 0.4533, -0.75 vv 0.4867, -0.75 vv 0.4867), BezierSeg(-0.75 vv 0.4867, -0.754 vv 0.4533, -0.754 vv 0.4533), LineSeg(-0.75 vv 0.3833), LineSeg(-0.75 vv 0.3833)).slate(0.75, -0.5).fill(Colour(0xFF000080))
+  { val spoke = PolyCurve(LineSeg(-0.75 vv 0.3833), LineSeg(-0.746 vv 0.4533), BezierSeg(-0.746 vv 0.4533, -0.75 vv 0.4867, -0.75 vv 0.4867), BezierSeg(-0.75 vv 0.4867, -0.754 vv 0.4533, -0.754 vv 0.4533), LineSeg(-0.75 vv 0.3833), LineSeg(-0.75 vv 0.3833)).slateOld(0.75, -0.5).fill(Colour(0xFF000080))
     val spokes = iToMap(0,23){i => spoke.rotate(deg30/2*i)}
-    val rimNotch = Circle.segs(0.875/75).slate(0, -17.5/150).rotate(deg30/4).fill(Colour(0xFF000080))
+    val rimNotch = Circle.segs(0.875/75).slateOld(0, -17.5/150).rotate(deg30/4).fill(Colour(0xFF000080))
     val rimNotches = iToMap(0,23){i => rimNotch.rotate(deg30/2*i)}
     val outerCircle = Circle.segs(20.0/75).fill(Colour(0xFF000080))
     val middleCircle = Circle.segs(17.5/75).fill(Colour(0xFFFFFFFF))
@@ -356,9 +356,9 @@ object PapuaNewGuinea extends Flag
       tail, 
       starSmall, 
       starLarge, 
-      starLarge.slate(0 vv -0.4592), 
-      starLarge.slate(-0.1528 vv -0.1953), 
-      starLarge.slate(0.1521 vv -0.1814)
+      starLarge.slateOld(0 vv -0.4592),
+      starLarge.slateOld(-0.1528 vv -0.1953),
+      starLarge.slateOld(0.1521 vv -0.1814)
     )
   }
 }

@@ -8,8 +8,8 @@ class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadi
   def cenRight: Vec2 = cen + rotation.toVec2(width / 2)
   def rotation: Angle = Angle(rotationRadians)
   override def mirror(line: Line2): Square = Square(cen.mirror(line), width, rotation)
-  override def slate(offset: Vec2): Square = Square(cen + offset, width, rotation)
-  override def scale(operand: Double): Square = Square(cen * operand, width * operand, rotation)
+  override def slateOld(offset: Vec2): Square = Square(cen + offset, width, rotation)
+  override def scaleOld(operand: Double): Square = Square(cen * operand, width * operand, rotation)
 
   override def rotateRadians(radians: Double): Square =
   { val newCen = cen.rotateRadians(radians)

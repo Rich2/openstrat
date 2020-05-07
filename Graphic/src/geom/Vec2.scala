@@ -131,7 +131,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
    
   def centreSquare(length: Double): PolygonGen =
   { val r = length / 2.0
-    PolygonGen(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y)
+    PolygonGen(-r vv r, r vv r, r vv -r, -r vv -r).slateOld(x, y)
   }
    
   def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(str, fontSize, this, fontColour)

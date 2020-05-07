@@ -10,8 +10,8 @@ final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLik
   def vCen: Vec2 = x vv y
   override def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse(x, y, x + radius, 0, radius)
   override def rotateRadians(radians: Double): Circle = Circle(radius, vCen.rotateRadians(radians))
-  override def slate(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)
-  override def scale(operand: Double): Circle = Circle(radius * operand, x * operand, y * operand)
+  override def slateOld(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)
+  override def scaleOld(operand: Double): Circle = Circle(radius * operand, x * operand, y * operand)
 
   override def mirror(line: Line2): Circle = Circle(radius, vCen.mirror(line))
 
@@ -35,7 +35,7 @@ object Circle
   def fillNew(colour: Colour): Unit = ???
 
   def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): PolyCurveFill =
-  { val fSegs = segs(radius).slate(posn)            
+  { val fSegs = segs(radius).slateOld(posn)
     PolyCurveFill(fSegs, colour)
   }
 }

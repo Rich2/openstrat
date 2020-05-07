@@ -15,8 +15,8 @@ class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight
   override def shear(xScale: Double, yScale: Double): Ellipse = this
   override def rotate(angle: Angle): Ellipse = this
   override def rotateRadians(radians: Double):  Ellipse = this
-  override def slate(offset: Vec2): Ellipse = Ellipse(vCen + offset, vRight + offset, upRadius)
-  override def scale(operand: Double):  Ellipse = Ellipse(vCen * operand * operand, vRight * operand, upRadius * operand)
+  override def slateOld(offset: Vec2): Ellipse = Ellipse(vCen + offset, vRight + offset, upRadius)
+  override def scaleOld(operand: Double):  Ellipse = Ellipse(vCen * operand * operand, vRight * operand, upRadius * operand)
   override def mirror(line: Line2): Ellipse = Ellipse(vCen.mirror(line), vRight.mirror(line), upRadius)
 
   override def fill(colour: Colour): GraphicElem = ???

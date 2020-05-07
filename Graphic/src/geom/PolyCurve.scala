@@ -69,8 +69,8 @@ class PolyCurve(val array: Array[Double]) extends AnyVal with ArrProdDbl7[CurveS
     PolyCurveAll = PolyCurveAll(shape, evObj, str, fillColour, fontSize, lineWidth, lineColour)
 
  // def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): UnScaledShape = UnScaledShape(posn, this, evObj, Arr(PolyCurveFill(this, colour)))
-  def fillScale(colour: Colour, factor: Double): PolyCurveFill = PolyCurveFill(this.scale(factor), colour)
-  def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): PolyCurveFill = PolyCurveFill(this.scale(factor).slate(offset), colour)
+  def fillScale(colour: Colour, factor: Double): PolyCurveFill = PolyCurveFill(this.scaleOld(factor), colour)
+  def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): PolyCurveFill = PolyCurveFill(this.scaleOld(factor).slateOld(offset), colour)
 
   /** Not sure if this method should be a member of Transable */
   def boundingRect =

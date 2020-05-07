@@ -8,8 +8,8 @@ import reflect.ClassTag
 trait Transer extends Any with TransSimer with GeomElem
 { type AlignT <: Transer
   def fTrans(f: Vec2 => Vec2): AlignT
-  def slate(offset: Vec2): AlignT = fTrans(_ + offset)
-  def scale(operand: Double): AlignT = fTrans(_ * operand)
+  def slateOld(offset: Vec2): AlignT = fTrans(_ + offset)
+  def scaleOld(operand: Double): AlignT = fTrans(_ * operand)
   def shear(xScale: Double, yScale: Double): AlignT = fTrans{case Vec2(x, y) => x * xScale vv y * yScale}
   def mirrorXOffset(yOffset: Double): AlignT = fTrans(_.mirrorXOffset(yOffset))
   def mirrorYOffset(xOffset: Double): AlignT = fTrans(_.mirrorYOffset(xOffset))

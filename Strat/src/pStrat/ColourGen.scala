@@ -21,7 +21,7 @@ case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasNoPanels("Colour 
     g1 = intMaker(g)
     b1 = intMaker(b)
     c1 = Colour.fromInts(r1, g1, b1)
-    c2 = Rectangle.colouredBordered(25, c1, 2).slate(left + 30, top - 20)
+    c2 = Rectangle.colouredBordered(25, c1, 2).slateOld(left + 30, top - 20)
     c3 = TextGraphic(commaedInts(r1, g1, b1), 15, left + 120 vv top - 20)
   } yield (c2, c3)
    
