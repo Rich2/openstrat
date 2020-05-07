@@ -5,15 +5,18 @@ package geom
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
 trait GraphicElem extends GeomElem
 
-trait GraphicElemOld extends TransSimer
+/** This trait is slated for removal. */
+trait GraphicElemOld extends TransSimer with GraphicElem
 { type AlignT <: GraphicElemOld
 }
+
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
  *  each time there is a change within the application state or the user view of that application state. */
 trait GraphicFullElem extends GraphicElemOld with Transer
 { type AlignT <: GraphicFullElem
 }
 
+/** A GraphicElem is either an element that can be rendered to a display or printed. */
 trait PaintElem extends GraphicElem
 {
   /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */

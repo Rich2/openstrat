@@ -19,7 +19,7 @@ class Ellipse(val xCen: Double, val yCen: Double, val xRight: Double, val yRight
   override def scale(operand: Double):  Ellipse = Ellipse(vCen * operand * operand, vRight * operand, upRadius * operand)
   override def mirror(line: Line2): Ellipse = Ellipse(vCen.mirror(line), vRight.mirror(line), upRadius)
 
-  override def fill(colour: Colour): GraphicElemOld = ???
+  override def fill(colour: Colour): GraphicElem = ???
 }
 
 object Ellipse

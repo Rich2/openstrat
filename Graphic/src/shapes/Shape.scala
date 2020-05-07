@@ -4,5 +4,5 @@ package geom
 
 trait Shape
 {
-  def fill(colour: Colour): GraphicElemOld
+  def fill(colour: Colour): GraphicElem
 }
