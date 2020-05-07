@@ -10,6 +10,11 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 { type AlignT <: GraphicElemOld
 }
 
+trait GraphicElemNew extends GraphicElem with GeomElemNew
+{
+  override def fTrans(f: Vec2 => Vec2): GraphicElemNew
+}
+
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
  *  each time there is a change within the application state or the user view of that application state. */
 trait GraphicFullElem extends GraphicElemOld with Transer
@@ -22,6 +27,8 @@ trait PaintElem extends GraphicElem
   /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
 }
+
+trait PaintElemNew extends PaintElem with GraphicElemNew
 
 /** Trait to be removed. */
 trait PaintElemOld extends GraphicElemOld with PaintElem

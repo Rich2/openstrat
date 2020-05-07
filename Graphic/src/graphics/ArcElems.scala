@@ -18,5 +18,5 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   def startCenEndTexts = Arr(startText, cenText, endText)
   override def shear(xScale: Double, yScale: Double): Transer = ???
 
-  override def fTrans(f: Vec2 => Vec2): GeomElem = ???
+ // override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }

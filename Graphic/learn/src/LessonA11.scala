@@ -12,13 +12,18 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val rect = Rectangle(200, 100, 200 vv 200)
   val r1 = rect.fill(Red)
   val r1r = rect.mirror(line1).fill(Orange)
-  val cl1 = Circle(75, 0 vv -50)
+  val cl1 = CircleOld(75, 0 vv -50)
   val ccl1 = cl1.fill(Red)
   val ccl1r = cl1.mirror(line1).fill(Orange)
 
   val r2 = Rectangle(180, 100, 150 vv -200)
-  val cl2 = Circle(80, 110 vv - 300)
+  val cl2 = CircleOld(80, 110 vv - 300)
  // val sq = Square(100, 110 vv -400)
+
+  val cn = Circle(80, 110, -290)
+  val cn1 = cn.slate(20 vv 50)
+  val na: ArrAny[GeomElem] = ArrAny(cl2, cn)
+  val na1 = na.slate(20, 50)
 
   val a1 = ArrAny(r2, cl2)
   val a2 = a1.mirrorY

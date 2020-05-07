@@ -3,7 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait TransAligner extends Any //with GeomElem
+trait TransAligner extends Any with GeomElem
 { type AlignT <: TransAligner
   def slateOld(offset: Vec2): AlignT
 

@@ -170,7 +170,7 @@ object Japan extends Flag
   val ratio = 1.5
   val apply: Arr[PaintFullElem] =
   { val rw = rect.fill(White)
-    val circ = Circle.segs(0.6).fill(Colour.fromInts(188, 0,45))
+    val circ = CircleOld.segs(0.6).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
   }
 }
@@ -203,7 +203,7 @@ object Swastika extends Flag
     val cross = Arr(bar, arm).anti45.flatMap(_.rCrossArr)
     Arr[PaintFullElem](
       poly.fill(Red),
-      Circle.segs(6.0 / 8).fill(White)
+      CircleOld.segs(6.0 / 8).fill(White)
     ) ++ cross
   }
 }
@@ -244,8 +244,8 @@ object CommonShapesInFlags extends Flag
       Star3().scaleOld(0.15).rotate(deg180).slateOld(0.6 vv 0.3).draw(1.5, Blue),
 
       //crescent
-      Circle.segs(0.225).slateOld(-0.6 vv -0.3).fill(Red),
-      Circle.segs(0.2).slateOld(-0.6 vv -0.3).slateOld(0.04 vv 0).fill(White),
+      CircleOld.segs(0.225).slateOld(-0.6 vv -0.3).fill(Red),
+      CircleOld.segs(0.2).slateOld(-0.6 vv -0.3).slateOld(0.04 vv 0).fill(White),
 
       //composite star ()
       Star5().scaleOld(0.15).slateOld(-0.3 vv 0).fill(Gold),
@@ -299,7 +299,7 @@ object Iraq extends Flag
       PolyCurve(LineSeg(-0.2945 vv 0.3121), BezierSeg(-0.2903 vv 0.3099, -0.2871 vv 0.3068, -0.282 vv 0.3055), BezierSeg(-0.2826 vv 0.3034, -0.2845 vv 0.3026, -0.2849 vv 0.3003), LineSeg(-0.2849 vv 0.2555), BezierSeg(-0.2793 vv 0.2543, -0.2781 vv 0.2575, -0.2754 vv 0.2592), BezierSeg(-0.2746 vv 0.252, -0.2701 vv 0.245, -0.2702 vv 0.2394), LineSeg(-0.2945 vv 0.2394), LineSeg(-0.2945 vv 0.3121), LineSeg(-0.2945 vv 0.3121)).fill(Colour(0xFF007a3d)),
       PolyCurve(LineSeg(-0.3268 vv 0.2881), LineSeg(-0.318 vv 0.2958), LineSeg(-0.318 vv 0.2567), LineSeg(-0.3117 vv 0.2567), LineSeg(-0.3119 vv 0.3006), BezierSeg(-0.3093 vv 0.3032, -0.3042 vv 0.3069, -0.303 vv 0.3095), LineSeg(-0.303 vv 0.2394), LineSeg(-0.3587 vv 0.2394), BezierSeg(-0.3595 vv 0.254, -0.3597 vv 0.269, -0.3427 vv 0.2658), LineSeg(-0.3427 vv 0.2717), BezierSeg(-0.3432 vv 0.2727, -0.3441 vv 0.2715, -0.3444 vv 0.2728), BezierSeg(-0.3417 vv 0.2755, -0.3408 vv 0.2762, -0.3335 vv 0.2825), LineSeg(-0.3333 vv 0.2567), LineSeg(-0.3269 vv 0.2567), BezierSeg(-0.3269 vv 0.2567, -0.3268 vv 0.2871, -0.3268 vv 0.2881), LineSeg(-0.3268 vv 0.2881)).fill(Colour(0xFF007a3d)),
       PolyCurve(LineSeg(-0.3478 vv 0.2571), BezierSeg(-0.3466 vv 0.2553, -0.3425 vv 0.2553, -0.3427 vv 0.2583), BezierSeg(-0.3434 vv 0.2608, -0.3487 vv 0.2599, -0.3478 vv 0.2571), LineSeg(-0.3478 vv 0.2571)).fill(Colour(0xFFFFFFFF)),
-      Circle.segs(0.0068).slateOld(-0.5091 vv 0.2311).fill(Colour(0xFF007a3d)),
+      CircleOld.segs(0.0068).slateOld(-0.5091 vv 0.2311).fill(Colour(0xFF007a3d)),
       PolyCurve(LineSeg(-0.4041 vv 0.312), BezierSeg(-0.3999 vv 0.3098, -0.3967 vv 0.3067, -0.3916 vv 0.3054), BezierSeg(-0.3922 vv 0.3033, -0.394 vv 0.3025, -0.3945 vv 0.3003), LineSeg(-0.3945 vv 0.2554), BezierSeg(-0.3889 vv 0.2542, -0.3877 vv 0.2574, -0.385 vv 0.2591), BezierSeg(-0.3842 vv 0.2519, -0.3797 vv 0.2449, -0.3798 vv 0.2393), LineSeg(-0.4041 vv 0.2393), LineSeg(-0.4041 vv 0.3121), LineSeg(-0.4041 vv 0.312)).fill(Colour(0xFF007a3d))
     ).scale(2.18978).slate(.892 vv -.595)
   }
@@ -311,11 +311,11 @@ object India extends Flag
   val apply: Arr[PaintFullElem] =
   { val spoke = PolyCurve(LineSeg(-0.75 vv 0.3833), LineSeg(-0.746 vv 0.4533), BezierSeg(-0.746 vv 0.4533, -0.75 vv 0.4867, -0.75 vv 0.4867), BezierSeg(-0.75 vv 0.4867, -0.754 vv 0.4533, -0.754 vv 0.4533), LineSeg(-0.75 vv 0.3833), LineSeg(-0.75 vv 0.3833)).slateOld(0.75, -0.5).fill(Colour(0xFF000080))
     val spokes = iToMap(0,23){i => spoke.rotate(deg30/2*i)}
-    val rimNotch = Circle.segs(0.875/75).slateOld(0, -17.5/150).rotate(deg30/4).fill(Colour(0xFF000080))
+    val rimNotch = CircleOld.segs(0.875/75).slateOld(0, -17.5/150).rotate(deg30/4).fill(Colour(0xFF000080))
     val rimNotches = iToMap(0,23){i => rimNotch.rotate(deg30/2*i)}
-    val outerCircle = Circle.segs(20.0/75).fill(Colour(0xFF000080))
-    val middleCircle = Circle.segs(17.5/75).fill(Colour(0xFFFFFFFF))
-    val innerCircle = Circle.segs(3.5/75).fill(Colour(0xFF000080))
+    val outerCircle = CircleOld.segs(20.0/75).fill(Colour(0xFF000080))
+    val middleCircle = CircleOld.segs(17.5/75).fill(Colour(0xFFFFFFFF))
+    val innerCircle = CircleOld.segs(3.5/75).fill(Colour(0xFF000080))
     topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }

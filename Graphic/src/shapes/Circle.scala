@@ -4,16 +4,30 @@ package geom
 
 object CircleIcon
 
-final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLike
+final case class Circle(radius: Double, x: Double, y: Double) extends GeomElemNew
+{
+  override def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
+  def vCen: Vec2 = x vv y
+
+  override def slate(offset: Vec2): Circle = Circle(radius, vCen + offset)
+}
+
+/** This object provides factory methods for circles. */
+object Circle
+{
+  def apply(radius: Double, cen: Vec2 = Vec2Z): Circle = new Circle(radius, cen.x, cen.y)
+}
+
+final case class CircleOld(radius: Double, x: Double, y: Double) extends EllipseLike
 { //override type AlignT = Circle
   override def fTrans(f: Vec2 => Vec2): EllipseLike = ???
   def vCen: Vec2 = x vv y
   override def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse(x, y, x + radius, 0, radius)
-  override def rotateRadians(radians: Double): Circle = Circle(radius, vCen.rotateRadians(radians))
-  override def slateOld(offset: Vec2): Circle = Circle(radius, x + offset.x, y + offset.y)
-  override def scaleOld(operand: Double): Circle = Circle(radius * operand, x * operand, y * operand)
+  override def rotateRadians(radians: Double): CircleOld = CircleOld(radius, vCen.rotateRadians(radians))
+  override def slateOld(offset: Vec2): CircleOld = CircleOld(radius, x + offset.x, y + offset.y)
+  override def scaleOld(operand: Double): CircleOld = CircleOld(radius * operand, x * operand, y * operand)
 
-  override def mirror(line: Line2): Circle = Circle(radius, vCen.mirror(line))
+  override def mirror(line: Line2): CircleOld = CircleOld(radius, vCen.mirror(line))
 
   def fill(colour: Colour): CircleFill = CircleFill(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = CircleDraw(this, lineWidth, colour)
@@ -22,9 +36,9 @@ final case class Circle(radius: Double, x: Double, y: Double) extends EllipseLik
 }
 
 /** This object provides factory methods for circles. */
-object Circle
+object CircleOld
 {
-  def apply(radius: Double, cen: Vec2 =Vec2Z): Circle = new Circle(radius, cen.x, cen.y)
+  def apply(radius: Double, cen: Vec2 =Vec2Z): CircleOld = new CircleOld(radius, cen.x, cen.y)
 
   def segs(scale: Double = 1.0): PolyCurve =
   { val a = ArcSeg(Vec2Z, Vec2(0.5 * scale, 0))

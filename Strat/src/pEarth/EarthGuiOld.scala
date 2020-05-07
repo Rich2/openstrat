@@ -81,8 +81,8 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def ls: GraphicElemFulls
    
   def hairs = mapPanel.crossHairs(1 , Colour.Red)   
-  def blueCircle = Circle.segs(EarthAvDiameter / scale).fill(Colour.DarkBlue)
-  def redCircle = Circle.segs(EarthAvDiameter / scale).draw(1, Colour.Red)
+  def blueCircle = CircleOld.segs(EarthAvDiameter / scale).fill(Colour.DarkBlue)
+  def redCircle = CircleOld.segs(EarthAvDiameter / scale).draw(1, Colour.Red)
   def mapObjs: GraphicElemFulls = ls //:+ hairs
   mapPanel.backColour = Colour.Black
   def repaintMap() = { mapPanel.repaint(mapObjs)}
