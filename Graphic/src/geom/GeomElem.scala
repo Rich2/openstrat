@@ -5,13 +5,6 @@ package geom
 /** A geometric element to which 2 dimensional geometric transformations can be applied. Not all elements preserve their full properties under all
  * transformations. So for example a circle is no longer a Circle after a Shear transformation, but remains an Ellipse.  */
 trait GeomElem extends Any
-{ //def fTrans(f: Vec2 => Vec2): GeomElem
-
-
- // def shear(xScale: Double, yScale: Double): GeomElem
-  //def rotateRadiansNew(radians: Double): GeomElem = fTrans(_.rotateRadians(radians))
-  //def mirrorNew(line: Line2): GeomElem = fTrans(_.mirror(line))*/
-}
 
 object GeomElem
 {

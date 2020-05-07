@@ -5,6 +5,20 @@ package geom
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
 trait GraphicElem extends GeomElem
 
+object GraphicElem
+{
+  implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem] {
+    override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj match {
+      case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GraphicElem]
+      case gea: GraphicElemNew => gea.slate(offset)
+    }
+
+    override def scale(obj: GraphicElem, operand: Double): GraphicElem = obj match
+    { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GraphicElem]
+      case gea: GraphicElemNew => gea.scale(operand)
+    }
+  }
+}
 /** This trait is slated for removal. */
 trait GraphicElemOld extends TransSimer with GraphicElem
 { type AlignT <: GraphicElemOld
@@ -13,6 +27,10 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 trait GraphicElemNew extends GraphicElem with GeomElemNew
 {
   override def fTrans(f: Vec2 => Vec2): GraphicElemNew
+
+  override def slate(offset: Vec2): GraphicElemNew = fTrans(_ + offset)
+
+  override def scale(operand: Double): GraphicElemNew = fTrans(_ * operand)
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
