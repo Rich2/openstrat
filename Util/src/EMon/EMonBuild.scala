@@ -1,15 +1,15 @@
 package ostrat
 
-trait EMonBuild[B, EMonT <: EMonBase[B]]
+/*trait EMonBuild[B, EMonT <: EMonBase[B]]
 { type GoodT <: EMonT with GoodBase[B]
   type BadT <: EMonT with BadBase[B]
   def apply(value: B): GoodT
   def newBad(errs: Arr[String]): BadT
-}
+}*/
 
 object EMonBuild
 {
-  implicit def anyRefImplicit[B <: AnyRef]: EMonBuild[B, EMon[B]] = new EMonBuild[B, EMon[B]]
+  /*implicit def anyRefImplicit[B <: AnyRef]: EMonBuild[B, EMon[B]] = new EMonBuild[B, EMon[B]]
   { override type GoodT = Good[B]
     override type BadT = Bad[B]
     override def apply(value: B): Good[B] = Good(value)
@@ -49,5 +49,5 @@ object EMonBuild
     override type BadT = BadInts
     override def apply(value: Ints): GoodInts = GoodInts(value)
     override def newBad(errs: Arr[String]): BadInts = new BadInts(errs)
-  }
+  }*/
 }

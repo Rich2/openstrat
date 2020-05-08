@@ -1,6 +1,7 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
+/*
 sealed trait ERefsSpec[+A] extends EMonBase[Arr[A]]
 { def baseMap[B, BB <: EMonBase[B]](f: Arr[A] => B)(implicit build: EMonBuild[B, BB]): BB
   def toUnspecialised: EMon[Arr[A]] = foldErrs[EMon[Arr[A]]](Good(_))(Bad(_))
@@ -27,4 +28,4 @@ case class BadRefsSpec[+A](errs: Arr[String]) extends ERefsSpec[A] with BadBase[
   @inline override def foldErrs[B](fGood: Arr[A] => B)(fBad: Strings => B): B = fBad(errs)
   override def getElse(elseValue: Arr[A] @uncheckedVariance): Arr[A] = elseValue
   override def flatMapRefs[B <: AnyRef](f: Arr[A] => ERefsSpec[B]): ERefsSpec[B] = BadRefsSpec[B](errs)
-}
+}*/

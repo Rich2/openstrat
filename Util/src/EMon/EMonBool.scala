@@ -1,5 +1,6 @@
 package ostrat
 
+/*
 trait EMonBool extends EMonBase[Boolean]
 { def baseMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB
 }
@@ -22,4 +23,4 @@ case class BadBool(errs: Arr[String]) extends EMonBool with BadBase[Boolean]
   override def fld[B](noneValue: => B, fGood: Boolean => B): B = noneValue
   @inline override def foldErrs[B](fGood: Boolean => B)(fBad: Strings => B): B = fBad(errs)
   override def getElse(elseValue: Boolean): Boolean = elseValue
-}
+}*/

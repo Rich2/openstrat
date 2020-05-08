@@ -1,6 +1,6 @@
 package ostrat
 
-sealed trait EMonDbl extends EMonBase[Double]
+/*sealed trait EMonDbl extends EMonBase[Double]
 { def baseMap[B, BB <: EMonBase[B]](f: Double => B)(implicit build: EMonBuild[B, BB]): BB
 }
 
@@ -22,4 +22,4 @@ case class BadDbl(errs: Arr[String]) extends EMonDbl with BadBase[Double]
   override def fld[B](noneValue: => B, fGood: Double => B): B = noneValue
   @inline override def foldErrs[B](fGood: Double => B)(fBad: Strings => B): B = fBad(errs)
   override def getElse(elseValue: Double): Double = elseValue
-}
+}*/

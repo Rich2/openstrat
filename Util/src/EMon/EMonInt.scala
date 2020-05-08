@@ -1,5 +1,6 @@
 package ostrat
 
+/*
 sealed trait EMonInt extends EMonBase[Int]
 { def baseMap[B, BB <: EMonBase[B]](f: Int => B)(implicit build: EMonBuild[B, BB]): BB
   def |+| (operand: EMonInt): EMonInt
@@ -60,3 +61,4 @@ case class BadInts(errs: Arr[String]) extends EMonInts with BadBase[Ints]
 }
 
 object NoInts extends BadInts(Arr())
+*/
