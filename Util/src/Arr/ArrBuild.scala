@@ -62,7 +62,7 @@ trait ArrBuild[B, ArrT <: ArrBase[B]] extends ArrBuildBase[ArrT]
   }
 }
 
-object ArrBuild extends ArrBuildLowPriority
+object ArrBuild// extends ArrBuildLowPriority
 { implicit val intsImplicit = IntsBuild
   implicit val doublesImplicit = DblsBuild
   implicit val longImplicit = LongsBuild
@@ -76,7 +76,8 @@ object ArrBuild extends ArrBuildLowPriority
 
 trait SpecialT extends Any
 
+/*
 trait ArrBuildLowPriority
 {
   implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]) = new AnysBuild[A]
-}
+}*/

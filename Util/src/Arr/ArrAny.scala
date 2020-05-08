@@ -99,15 +99,7 @@ object ArrAny
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): ArrAny[A] = new ArrAny(input.toArray)
   implicit def showImplicit[A](implicit evA: Show[A]): Show[ArrAny[A]] = ArrayLikeShow[A, ArrAny[A]](evA)
 
-  implicit class ArrAnyRefsExtension[A <: AnyRef](thisArr: ArrAny[A])
-  {
-    def optFind(f: A => Boolean): OptRef[A] =
-    { var acc: OptRef[A] = NoRef
-      var count = 0
-      while (acc == NoRef & count < thisArr.length) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
-      acc
-    }
-  }
+
 }
 
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]

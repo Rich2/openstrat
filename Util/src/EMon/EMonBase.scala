@@ -9,7 +9,7 @@ trait EMonBase[+A]
 {
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid
    * unnecessary boxing of primitive values. */
-  def getElse(elseValue: => A @uncheckedVariance): A
+  def getElse(elseValue: A @uncheckedVariance): A
   /** This is called map for typeclass map. Hope to have this as the standard map. */
   def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB
 

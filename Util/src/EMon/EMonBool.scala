@@ -13,7 +13,7 @@ case class GoodBool(value: Boolean) extends EMonBool with GoodBase[Boolean]
   @inline override def foldErrs[B](fGood: Boolean => B)(fBad: Strings => B): B = fGood(value)
   override def get: Boolean = value
   override def foldDo(fGood: Boolean => Unit)(fBad: Strings => Unit): Unit = fGood(value)
-  override def getElse(elseValue: => Boolean): Boolean = value
+  override def getElse(elseValue: Boolean): Boolean = value
 }
 case class BadBool(errs: Arr[String]) extends EMonBool with BadBase[Boolean]
 { override def baseMap[B, BB <: EMonBase[B]](f: Boolean => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
@@ -21,5 +21,5 @@ case class BadBool(errs: Arr[String]) extends EMonBool with BadBase[Boolean]
   override def fold[B](noneValue: => B)(fGood: Boolean => B): B = noneValue
   override def fld[B](noneValue: => B, fGood: Boolean => B): B = noneValue
   @inline override def foldErrs[B](fGood: Boolean => B)(fBad: Strings => B): B = fBad(errs)
-  override def getElse(elseValue: => Boolean): Boolean = elseValue
+  override def getElse(elseValue: Boolean): Boolean = elseValue
 }

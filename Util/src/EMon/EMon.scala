@@ -58,7 +58,7 @@ final case class Good[+A](val value: A) extends EMon[A] with GoodBase[A]
   override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
-  override def getElse(elseValue: => A @uncheckedVariance): A = value
+  override def getElse(elseValue: A @uncheckedVariance): A = value
 }
 
 object Good
@@ -85,7 +85,7 @@ case class Bad[+A](errs: Strings) extends EMon[A] with BadBase[A]
 
   override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
-  override def getElse(elseValue: => A @uncheckedVariance): A = elseValue
+  override def getElse(elseValue: A @uncheckedVariance): A = elseValue
  // override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
 
 }

@@ -4,7 +4,7 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 
 /** The immutable Array based class for reference types. It Inherits the standard foreach, map, flatMap and fold and their variations' methods from
  *  ArrayLike. */
-final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrBase[A]
+final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrBase[A]
 { type ThisT = Arr[A] @uncheckedVariance
   override def unsafeNew(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
   override def length: Int = unsafeArr.length
@@ -26,10 +26,10 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   }
 
   /** Alias for appendRefs. Functionally appends 2nd Refs collection to dispatching Refs, allows type widening. This operation allows type widening.*/
-  @inline def ++ [AA >: A <: AnyRef](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = appendRefs[AA](op)(ct)
+  @inline def ++ [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = appendRefs[AA](op)(ct)
   /** Functionally concatenates element to dispatching Refs, allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendRefs method is preferred when type widening is not required. */
-  def appendRefs [AA >: A <: AnyRef](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
+  def appendRefs [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
   { val newArray = new Array[AA](length + op.length)
     unsafeArr.copyToArray(newArray)
     op.unsafeArr.copyToArray(newArray, length)
@@ -37,9 +37,9 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   }
 
   /** Alias for concat. Functionally concatenates element to dispatching Refs, allows type widening. */
-  @inline def +- [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = append[AA](op)(ct)
+  @inline def +- [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = append[AA](op)(ct)
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
-  def append[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
+  def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
   { val newArray = new Array[AA](length + 1)
     unsafeArr.copyToArray(newArray)
     newArray(length) = op
@@ -48,9 +48,9 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
 
   /** Alias for prepend. Functionally prepends element to array. Allows type widening. There is no precaternateRefs method, as this would serve no
    *  purpose. The ::: method on Lists is required for performance reasons. */
-  @inline def +: [AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Arr[AA] = prepend(op)(ct)
+  @inline def +: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Arr[AA] = prepend(op)(ct)
   /** Functionally prepends element to array. Aliased by the +: operator. */
-  def prepend[AA >: A <: AnyRef](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
+  def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
   { val newArray = new Array[AA](length + 1)
     newArray(0) = op
     unsafeArr.copyToArray(newArray, 1)
@@ -60,7 +60,7 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   /** Concatenates the elements of the operands Refs if the condition is true, else returns the original Refs. The return type is the super type of
    *  the original Refs and the operand Ref. The operand is lazy so will only be evaluated if the condition is true. This is similar to the appendsIf
    *  method, but concatsIf allows type widening. */
-  def concatRefsIf[AA >: A <: AnyRef](b: Boolean, newElems: => Arr[AA])(implicit ct: ClassTag[AA]): Arr[AA] =
+  def concatRefsIf[AA >: A](b: Boolean, newElems: => Arr[AA])(implicit ct: ClassTag[AA]): Arr[AA] =
     ife(b,this ++ newElems, this)
 
   /** Appends the elements of the operand Refs if the condition is true, else returns the original Refs. The operand is lazy so will only be evaluated
@@ -68,7 +68,7 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   def appendRefsIf(b: Boolean, newElems: => Arr[A] @uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
     ife(b,this ++ newElems, this)
 
-  def concatOption[AA >: A <: AnyRef](optElem: Option[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
+  def concatOption[AA >: A](optElem: Option[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
     optElem.fld(this, this +- _)
 
   def appendOption(optElem: Option[A]@uncheckedVariance)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
@@ -80,12 +80,12 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   def concatsOption[AA >: A <: AnyRef](optElems: Option[Arr[AA]])(implicit ct: ClassTag[AA]): Arr[AA] =
     optElems.fld[Arr[AA]](this, this ++ _)
 
-  def optFind(f: A => Boolean): OptRef[A] =
+  /*def optFind(f: A => Boolean): OptRef[A] =
   { var acc: OptRef[A] = NoRef
     var count = 0
     while (acc == NoRef & count < length) if (f(apply(count))) acc = OptRef(apply(count)) else count += 1
     acc
-  }
+  }*/
 
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
@@ -93,7 +93,7 @@ final class Arr[+A <: AnyRef](val unsafeArr: Array[A] @uncheckedVariance) extend
   }
 }
 
-class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A]/*, @unused notA: Not[ProdHomo]#L[A]*/) extends ArrBuild[A, Arr[A]] with ArrFlatBuild[Arr[A]]
+class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A] ) extends ArrBuild[A, Arr[A]] with ArrFlatBuild[Arr[A]]
 { type BuffT = RefBuff[A]
   override def newArr(length: Int): Arr[A] = new Arr(new Array[A](length))
   override def arrSet(arr: Arr[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
@@ -104,11 +104,22 @@ class RefsBuild[A <: AnyRef](implicit ct: ClassTag[A]/*, @unused notA: Not[ProdH
 }
 
 object Arr
-{ def apply[A <: AnyRef](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
+{ def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
   implicit def showImplicit[A <: AnyRef](implicit evA: Show[A]): Show[Arr[A]] = ArrayLikeShow[A, Arr[A]](evA)
+
+
+  implicit class ArrExtension[A <: AnyRef](thisArr: Arr[A])
+  {
+    def optFind(f: A => Boolean): OptRef[A] =
+    { var acc: OptRef[A] = NoRef
+      var count = 0
+      while (acc == NoRef & count < thisArr.length) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
+      acc
+    }
+  }
 }
 
-class RefBuff[A <: AnyRef](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
+class RefBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
 { override def apply(index: Int): A = unsafeBuff(index)
   override def length: Int = unsafeBuff.length
 }

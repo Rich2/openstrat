@@ -146,7 +146,7 @@ object GoodRefs4
 }
 
 /** Immutable heapless iterator for Refs. */
-class RefsOff[A <: AnyRef](val offset0: Int) extends AnyVal with ArrOff[A, Arr[A]]
+class RefsOff[A](val offset0: Int) extends AnyVal with ArrOff[A, Arr[A]]
 { override def apply(index: Int)(implicit refs: Arr[A]) = refs(index + offset0)
   def drop(n: Int): RefsOff[A] = new RefsOff[A](offset0 + n)
   def drop1: RefsOff[A] = new RefsOff(offset0 + 1)
