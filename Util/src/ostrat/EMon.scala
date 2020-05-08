@@ -70,15 +70,6 @@ object EMon
   implicit def showImplicit[A](implicit ev: Show[A]): Show[EMon[A]] =
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
-
-  /*implicit class refsImplicit[A <: AnyRef](thisEMon: EMon[Arr[A]])
-  {
-    def toERefsSpec: ERefsSpec[A] = thisEMon match
-    {
-      case Good(rs) => GoodRefsSpec(rs)
-      case Bad(errs) => BadRefsSpec(errs)
-    }
-  }*/
 }
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
@@ -160,5 +151,3 @@ object Bad
     override def showComma(obj: Bad[A]): String = ??? // obj.errs.semiFold
   }
 }
-
-//object NoGood extends Bad[Nothing](Refs())

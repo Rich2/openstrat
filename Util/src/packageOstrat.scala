@@ -214,7 +214,6 @@ package object ostrat
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
   { @inline def toRefs(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
     def goodRefs(implicit ct: ClassTag[A]): Good[Arr[A]] = Good(new Arr(thisBuff.toArray))
- //   def goodRefsSpec(implicit ct: ClassTag[A]): GoodRefsSpec[A] = GoodRefsSpec(new Arr(thisBuff.toArray))
 
     def toReverseRefs(implicit ct: ClassTag[A]): Arr[A] =
     { val len = thisBuff.length
