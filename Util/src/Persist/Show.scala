@@ -132,7 +132,7 @@ object Show //extends ShowInstancesPriority2
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(IdentifierUpperToken(_, "Seq"), Refs2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+      case AlphaBracketExpr(IdentifierUpperToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
       //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
@@ -144,7 +144,7 @@ object Show //extends ShowInstancesPriority2
     override def showComma(thisArr: ArraySeq[A]): String = thisArr.map(ev.show(_)).commaFold
 
     override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
-    { case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+    { case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
@@ -159,7 +159,7 @@ object Show //extends ShowInstancesPriority2
 
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
-      case AlphaBracketExpr(IdentifierLowerToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentifierLowerToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(IdentifierLowerToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
@@ -182,7 +182,7 @@ object Show //extends ShowInstancesPriority2
     override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
-    { case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Refs1(ParenthBlock(Refs1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+    { case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
     }
   }

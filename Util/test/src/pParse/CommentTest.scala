@@ -20,11 +20,11 @@ object CommentTest extends TestSuite
 
     "Test1" -
     { assertMatch(s1){ case Good(Arr0()) => }
-      assertMatch(s2){ case Good(Refs3(_, _, _)) => }
-      assertMatch(s3){ case Good(Refs3(_, _, _)) => }
-      assertMatch(s4){ case Good(Refs3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }
-      assertMatch(a4){ case Good(Refs1(_)) => }
-      assertMatch(a5){ case Good(Refs4(_, _, _, _)) => }
+      assertMatch(s2){ case Good(Arr3(_, _, _)) => }
+      assertMatch(s3){ case Good(Arr3(_, _, _)) => }
+      assertMatch(s4){ case Good(Arr3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }
+      assertMatch(a4){ case Good(Arr1(_)) => }
+      assertMatch(a5){ case Good(Arr4(_, _, _, _)) => }
     }
   }
 }

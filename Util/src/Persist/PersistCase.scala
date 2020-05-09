@@ -7,7 +7,7 @@ trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
 {
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
-    case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Refs1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+    case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
     case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }
@@ -21,7 +21,7 @@ class Persist1[A1, R](typeStr: String, name1: String, fArg1: R => A1, val newT: 
 
   def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1) match
   {
-    case (Refs1(s1), _) => s1.errGet[A1].map(g1 => newT(g1))
+    case (Arr1(s1), _) => s1.errGet[A1].map(g1 => newT(g1))
     case (Arr0(), Some(d1)) => Good(newT(d1))
     case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 1.")
   }

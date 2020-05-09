@@ -13,7 +13,7 @@ trait UnShow[+T]
   //def fromStatements(sts: Refs[Statement]): EMon[T]
   
   def fromClauses1[A1, B](f: A1 => B, clauses: Arr[Clause])(implicit ev1: Persist[A1]): EMon[B] = clauses match
-  { case Refs1(c1) => ev1.fromExpr(c1.expr).map(f)
+  { case Arr1(c1) => ev1.fromExpr(c1.expr).map(f)
     case _ => excep("from clauses exception")
   }
   
@@ -80,9 +80,9 @@ trait UnShow[+T]
   
   def settingFromStatementList(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
-    case Refs1(e1) => settingFromStatement(settingStr, e1)
+    case Arr1(e1) => settingFromStatement(settingStr, e1)
     case s2 => sts.map(settingFromStatement(settingStr, _)).collect{ case g: Good[T] => g } match
-    { case Refs1(t) => t
+    { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
       case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }

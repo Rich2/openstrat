@@ -8,59 +8,58 @@ object Arr0
 }
 
 /** Extractor object for Refs[A] of length == 1. Refs[A] is an immutable covariant Array based collection. */
-object Refs1
-{ /** Extractor for Refs[A <: AnyRef] of length == 1. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A](refs: Arr[A]): Option[A] = refs.length match
-  { case 1 => Some(refs(0))
+object Arr1
+{ /** Extractor for Refs[A] of length == 1. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+  def unapply[A](arr: Arr[A]): Option[A] = arr.length match
+  { case 1 => Some(arr(0))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A <: AnyRef] of length == 2. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-object Refs2
-{ /** Extractor for Refs[A <: AnyRef] of length == 2. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A)] = refs.length match
+/** Extractor object for Refs[A] of length == 2. Refs[A] is an immutable covariant Array based collection. */
+object Arr2
+{ /** Extractor for Refs[A] of length == 2. Refs[A] is an immutable covariant Array based collection. */
+  def unapply[A](refs: Arr[A]): Option[(A, A)] = refs.length match
   { case 2 => Some((refs(0), refs(1)))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A <: AnyRef] of length == 3. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-object Refs3
-{ /** Extractor for Refs[A <: AnyRef] of length == 3, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A, A)] = refs.length match
-  { case 3 => Some((refs(0), refs(1), refs(2)))
+/** Extractor object for Refs[A] of length == 3. Refs[A] is an immutable covariant Array based collection. */
+object Arr3
+{ /** Extractor for Refs[A] of length == 3, Refs[A] is an immutable covariant Array based collection. */
+  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = arr.length match
+  { case 3 => Some((arr(0), arr(1), arr(2)))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A <: AnyRef] of length == 4. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-object Refs4
-{ /** Extractor for Refs[A <: AnyRef] of length == 4, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A, A, A)] = refs.length match
-  { case 4 => Some((refs(0), refs(1), refs(2), refs(3)))
+/** Extractor object for Refs[A] of length == 4. Refs[A] is an immutable covariant Array based collection. */
+object Arr4
+{ /** Extractor for Refs[A] of length == 4, Refs[A] is an immutable covariant Array based collection. */
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = arr.length match
+  { case 4 => Some((arr(0), arr(1), arr(2), arr(3)))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A <: AnyRef] of length == 5. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-object Refs5
-{ /** Extractor for Refs[A <: AnyRef] of length == 5, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A, A, A, A)] = refs.length match
-  { case 5 => Some((refs(0), refs(1), refs(2), refs(3), refs(4)))
+/** Extractor object for Refs[A] of length == 5. Refs[A] is an immutable covariant Array based collection. */
+object Arr5
+{ /** Extractor for Refs[A] of length == 5, Refs[A] is an immutable covariant Array based collection. */
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A)] = arr.length match
+  { case 5 => Some((arr(0), arr(1), arr(2), arr(3), arr(4)))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A <: AnyRef] of length == 6. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-object Refs6
-{ /** Extractor for Refs[A <: AnyRef] of length == 6, Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A, A, A, A, A)] = refs.length match
-  { case 6 => Some((refs(0), refs(1), refs(2), refs(3), refs(4), refs(5)))
+/** Extractor object for Refs[A] of length == 6. Refs[A] is an immutable covariant Array based collection. */
+object Arr6
+{ /** Extractor for Refs[A] of length == 6, Refs[A] is an immutable covariant Array based collection. */
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A, A)] = arr.length match
+  { case 6 => Some((arr(0), arr(1), arr(2), arr(3), arr(4), arr(5)))
     case _ => None
   }
 }
-
 
 object Refs1Tail
 {
@@ -78,7 +77,7 @@ object Refs2Tail
   }
 }
 
-object RefsHead
+object ArrHead
 { /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
   def unapply[A <: AnyRef](refs: Arr[A]): Option[A] = refs match
   { case refs if refs.length >= 1 => Some(refs(0))

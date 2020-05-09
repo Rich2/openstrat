@@ -6,7 +6,7 @@ object AlphaSquareParenth
 {
   def unapply(expr: Expr): Option[(String, Arr[Statement], Arr[Statement])] = expr match
   {
-    case AlphaBracketExpr(IdentifierLowerToken(_, name), Refs2(SquareBlock(ts, _, _) , ParenthBlock(sts, _, _))) => Some((name, ts, sts))
+    case AlphaBracketExpr(IdentifierLowerToken(_, name), Arr2(SquareBlock(ts, _, _) , ParenthBlock(sts, _, _))) => Some((name, ts, sts))
     case _ => None
   }
 }
@@ -15,7 +15,7 @@ object AlphaParenth
 {
   def unapply(expr: Expr): Option[(String, Arr[Statement])] = expr match
   {
-    case AlphaBracketExpr(IdentifierLowerToken(_, name), Refs1(ParenthBlock(sts, _, _))) => Some((name, sts))
+    case AlphaBracketExpr(IdentifierLowerToken(_, name), Arr1(ParenthBlock(sts, _, _))) => Some((name, sts))
     case _ => None
   }
 }

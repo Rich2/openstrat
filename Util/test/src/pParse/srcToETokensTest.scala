@@ -14,22 +14,22 @@ object srcToETokensTest extends TestSuite
     "Single" -
     { Sp1 ==> StrPosn(1, 1)
 
-      assertMatch("\'a\'".parseTokens){ case Good(Refs1(CharToken(_, 'a'))) => }
-      assertMatch("MyId".parseTokens){ case Good(Refs1(IdentifierUpperOnlyToken(Sp1, "MyId"))) => }
-      assertMatch("My3".parseTokens){ case Good(Refs1(IdentifierUpperOnlyToken(Sp1, "My3"))) => }
-      assertMatch("My3Id".parseTokens){ case Good(Refs1(IdentifierUpperOnlyToken(Sp1, "My3Id"))) => }
-      assertMatch("ab3_5fG".parseTokens){ case Good(Refs1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG"))) => }
+      assertMatch("\'a\'".parseTokens){ case Good(Arr1(CharToken(_, 'a'))) => }
+      assertMatch("MyId".parseTokens){ case Good(Arr1(IdentifierUpperOnlyToken(Sp1, "MyId"))) => }
+      assertMatch("My3".parseTokens){ case Good(Arr1(IdentifierUpperOnlyToken(Sp1, "My3"))) => }
+      assertMatch("My3Id".parseTokens){ case Good(Arr1(IdentifierUpperOnlyToken(Sp1, "My3Id"))) => }
+      assertMatch("ab3_5fG".parseTokens){ case Good(Arr1(IdentifierLowerOnlyToken(Sp1, "ab3_5fG"))) => }
 
-      assertMatch(",".parseTokens){ case Good(Refs1(CommaToken(Sp1))) => }
-      assertMatch("{".parseTokens){ case Good(Refs1(CurlyOpenToken(Sp1))) => }
-      assertMatch("}".parseTokens){ case Good(Refs1(CurlyCloseToken(Sp1))) => }
-      assertMatch("(".parseTokens){ case Good(Refs1(ParenthOpenToken(Sp1))) => }
-      assertMatch(")".parseTokens){ case Good(Refs1(ParenthCloseToken(Sp1))) => }
-      assertMatch(" [".parseTokens){ case Good(Refs1(SquareOpenToken(Sp2))) => }
-      assertMatch(" ]".parseTokens){ case Good(Refs1(SquareCloseToken(Sp2))) => }
-      assertMatch(";".parseTokens){ case Good(Refs1(SemicolonToken(Sp1))) => }
+      assertMatch(",".parseTokens){ case Good(Arr1(CommaToken(Sp1))) => }
+      assertMatch("{".parseTokens){ case Good(Arr1(CurlyOpenToken(Sp1))) => }
+      assertMatch("}".parseTokens){ case Good(Arr1(CurlyCloseToken(Sp1))) => }
+      assertMatch("(".parseTokens){ case Good(Arr1(ParenthOpenToken(Sp1))) => }
+      assertMatch(")".parseTokens){ case Good(Arr1(ParenthCloseToken(Sp1))) => }
+      assertMatch(" [".parseTokens){ case Good(Arr1(SquareOpenToken(Sp2))) => }
+      assertMatch(" ]".parseTokens){ case Good(Arr1(SquareCloseToken(Sp2))) => }
+      assertMatch(";".parseTokens){ case Good(Arr1(SemicolonToken(Sp1))) => }
 
-      assertMatch("=".parseTokens){case Good(Refs1(AsignToken(Sp1))) => }
+      assertMatch("=".parseTokens){case Good(Arr1(AsignToken(Sp1))) => }
 
       "#".parseTokens.isBad ==> true
     }
@@ -44,9 +44,9 @@ object srcToETokensTest extends TestSuite
 
     "Multiple" -
     {
-      assertMatch(";;".parseTokens){ case Good(Refs2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
-      assertMatch(" ; .".parseTokens){ case Good(Refs2(SemicolonToken(Sp2), DotToken(Sp4))) => }
-      assertMatch("Colour(0xFF000000)".parseTokens){ case Good(Refs4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
+      assertMatch(";;".parseTokens){ case Good(Arr2(SemicolonToken(Sp1), SemicolonToken(Sp2))) => }
+      assertMatch(" ; .".parseTokens){ case Good(Arr2(SemicolonToken(Sp2), DotToken(Sp4))) => }
+      assertMatch("Colour(0xFF000000)".parseTokens){ case Good(Arr4(C1, ParenthOpenToken(_), Hexa0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
       assertMatch(et1){case Good(_) => }
       r1.length ==> 12
       assertMatch(r1){ case RefsHead4(IdentifierLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }

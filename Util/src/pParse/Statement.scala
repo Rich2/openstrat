@@ -102,7 +102,7 @@ object Statement
     def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementRefs, settingStr)
 
     def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
-    { case Refs1(h1) => h1.errGet[A1].map(f1)
+    { case Arr1(h1) => h1.errGet[A1].map(f1)
       case s => bad1(s, s.length.toString -- "statements not 1")
     }
 

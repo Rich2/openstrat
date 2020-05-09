@@ -19,7 +19,7 @@ object composeBlocks
     }
 
     sortBlocks(seg.offset0).flatMap {
-      case Refs1(e: Expr) => Good(e)
+      case Arr1(e: Expr) => Good(e)
       case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
     }
   }

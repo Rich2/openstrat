@@ -17,7 +17,7 @@ object AstTest extends TestSuite
   {
     "Test1" -
     {
-      assertMatch(a1){case Good(Refs1(_)) => }
+      assertMatch(a1){case Good(Arr1(_)) => }
     }
   }
 }
