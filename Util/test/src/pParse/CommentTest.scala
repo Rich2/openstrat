@@ -19,7 +19,7 @@ object CommentTest extends TestSuite
     //val t = 11
 
     "Test1" -
-    { assertMatch(s1){ case Good(Refs0()) => }
+    { assertMatch(s1){ case Good(Arr0()) => }
       assertMatch(s2){ case Good(Refs3(_, _, _)) => }
       assertMatch(s3){ case Good(Refs3(_, _, _)) => }
       assertMatch(s4){ case Good(Refs3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }

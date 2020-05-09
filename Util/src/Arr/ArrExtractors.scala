@@ -1,16 +1,16 @@
 package ostrat
 import reflect.ClassTag
 
-/** Extractor object for empty Refs[A <: AnyRef]. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-object Refs0
-{ /** Extractor for empty Refs[A <: AnyRef]. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Boolean = refs.length == 0
+/** Extractor object for empty Refs[A]. Refs[A] is an immutable covariant Array based collection. */
+object Arr0
+{ /** Extractor for empty Refs[A]. Refs[A] is an immutable covariant Array based collection. */
+  def unapply[A](arr: Arr[A]): Boolean = arr.length == 0
 }
 
-/** Extractor object for Refs[A <: AnyRef] of length == 1. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+/** Extractor object for Refs[A] of length == 1. Refs[A] is an immutable covariant Array based collection. */
 object Refs1
 { /** Extractor for Refs[A <: AnyRef] of length == 1. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[A] = refs.length match
+  def unapply[A](refs: Arr[A]): Option[A] = refs.length match
   { case 1 => Some(refs(0))
     case _ => None
   }

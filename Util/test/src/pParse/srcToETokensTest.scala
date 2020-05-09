@@ -63,7 +63,7 @@ object srcToETokensTest extends TestSuite
     val ro6: RefsOff[Token] = r5.offset(4)
 
     "Settings" -
-    { assertMatch(st2.parseTokens){ case Good(Refs0()) => }
+    { assertMatch(st2.parseTokens){ case Good(Arr0()) => }
       assertMatch(et3){case Good(_) => }
       r3.length ==> 12
       assertMatch(et5){case Good(_) => }

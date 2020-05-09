@@ -79,11 +79,11 @@ trait UnShow[+T]
   }
   
   def settingFromStatementList(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
-  { case Refs0() => TextPosn.emptyError("No Statements")
+  { case Arr0() => TextPosn.emptyError("No Statements")
     case Refs1(e1) => settingFromStatement(settingStr, e1)
     case s2 => sts.map(settingFromStatement(settingStr, _)).collect{ case g: Good[T] => g } match
     { case Refs1(t) => t
-      case Refs0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
+      case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
       case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }
