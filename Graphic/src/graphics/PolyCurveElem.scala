@@ -45,6 +45,7 @@ case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: Stri
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineWidth, lineColour)
+
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.shapeFill(shape, fillColour)
     cp.shapeDraw(shape, lineWidth, lineColour)
