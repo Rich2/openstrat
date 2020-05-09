@@ -130,22 +130,23 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
   def drop1: ArrOff[A] = new ArrOff(offset0 + 1)
   def drop2: ArrOff[A] = new ArrOff(offset0 + 2)
   def length(implicit arr: Arr[A]): Int = arr.length - offset0
-  def span(p: A => Boolean)(implicit refs: Arr[A], ct: ClassTag[A]): (Arr[A], ArrOff[A]) =
+
+  def span(p: A => Boolean)(implicit arr: Arr[A], ct: ClassTag[A]): (Arr[A], ArrOff[A]) =
   {
     var count = 0
     var continue = true
-    while (offset0 + count < refs.length & continue)
-    {
-      if (p(refs(offset0 + count))) count += 1
+
+    while (offset0 + count < arr.length & continue)
+    { if (p(arr(offset0 + count))) count += 1
       else continue = false
     }
     val newArray: Array[A] = new Array[A](count)
     iUntilForeach(0, count){i =>
-      newArray(i) = refs(offset0 + i)}
+      newArray(i) = arr(offset0 + i)}
     (new Arr(newArray), drop(count))
   }
   /** Checks condition against head. Returns false if the collection is empty. */
-  def ifHead(f: A => Boolean)(implicit refs: Arr[A]) : Boolean = (refs.length > offset0) & f(refs(offset0))
+  def ifHead(f: A => Boolean)(implicit arr: Arr[A]) : Boolean = (arr.length > offset0) & f(arr(offset0))
 
 }
 
@@ -165,32 +166,32 @@ object ArrOff1
 /** Extractor object for an immutable heapless iterator for Refs with exactly 2 elements. */
 object ArrOff2
 { /** Extractor for an immutable heapless iterator for Refs with exactly 2 elements. */
-  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, A)] =
+  def unapply[A](inp: ArrOff[A])(implicit arr: Arr[A]): Option[(A, A)] =
     ife(inp.length == 2, Some((inp(0), inp(1))), None)
 }
 
 /** Extractor object for an immutable heapless iterator for Refs with exactly 3 elements. */
 object ArrOff3
 { /** Extractor for an immutable heapless iterator for Refs with exactly 3 elements. */
-  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, A, A)] =
+  def unapply[A](inp: ArrOff[A])(implicit arr: Arr[A]): Option[(A, A, A)] =
     ife(inp.length == 3, Some((inp(0), inp(1), inp(2))), None)
 }
 
 /** Extractor for immutable heapless iterator for Refs with at least l element. */
 object ArrOff1Tail
 { /** Extractor for immutable heapless iterator for Refs with at least l element. */
-  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, ArrOff[A])] =
+  def unapply[A](inp: ArrOff[A])(implicit arr: Arr[A]): Option[(A, ArrOff[A])] =
     ife(inp.length >= 1, Some(((inp(0)), inp.drop1)), None)
 }
 
 object ArrOff2Tail
 {
-  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, A, ArrOff[A])] =
+  def unapply[A](inp: ArrOff[A])(implicit arr: Arr[A]): Option[(A, A, ArrOff[A])] =
     ife(inp.length >= 2, Some((inp(0), inp(1), inp.drop2)), None)
 }
 
 object ArrOffHead
 {
-  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[A] =
+  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit arr: Arr[A]): Option[A] =
     ife(inp.length  >= 1, Some(inp(0)), None)
 }
