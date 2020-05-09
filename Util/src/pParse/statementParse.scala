@@ -12,16 +12,16 @@ object statementParse
     val acc: Buff[Clause] = Buff()
     val subAcc: Buff[ClauseMember] = Buff()
 
-    def loop(rem: RefsOff[StatementMember]): EMon[Statement] = rem match {
-      case RefsOff0() if acc.isEmpty => {getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))}
-      case RefsOff0() if subAcc.isEmpty => Good(ClausedStatement(acc.toRefs, optSemi))
-      case RefsOff0() => getExpr(subAcc.toRefs).map(g => ClausedStatement(acc.append(Clause(g, NoRef)).toRefs, optSemi))
-      case RefsOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
-      case RefsOff1Tail(ct: CommaToken, tail) => getExpr(subAcc.toRefs).flatMap{ g =>
+    def loop(rem: ArrOff[StatementMember]): EMon[Statement] = rem match {
+      case ArrOff0() if acc.isEmpty => {getExpr(subAcc.toRefs).map(g => MonoStatement(g, optSemi))}
+      case ArrOff0() if subAcc.isEmpty => Good(ClausedStatement(acc.toRefs, optSemi))
+      case ArrOff0() => getExpr(subAcc.toRefs).map(g => ClausedStatement(acc.append(Clause(g, NoRef)).toRefs, optSemi))
+      case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
+      case ArrOff1Tail(ct: CommaToken, tail) => getExpr(subAcc.toRefs).flatMap{ g =>
         acc.append(Clause(g, OptRef(ct)))
         loop(tail)
       }
-      case RefsOff1Tail(em: ClauseMember, tail) => { subAcc.append(em); loop(tail) }
+      case ArrOff1Tail(em: ClauseMember, tail) => { subAcc.append(em); loop(tail) }
     }
 
     loop(inp.offset0)

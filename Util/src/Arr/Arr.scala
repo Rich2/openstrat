@@ -13,8 +13,8 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   def elemsStr: String =  unsafeArr.toStrsCommaParenth()
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArr(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(1)
-  def offset(value: Int): RefsOff[A] @uncheckedVariance = new RefsOff[A](value)
-  def offset0: RefsOff[A @uncheckedVariance] = offset(0)
+  def offset(value: Int): ArrOff[A] @uncheckedVariance = new ArrOff[A](value)
+  def offset0: ArrOff[A @uncheckedVariance] = offset(0)
 
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }

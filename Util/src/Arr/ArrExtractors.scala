@@ -1,60 +1,57 @@
 package ostrat
 import reflect.ClassTag
 
-/** Extractor object for empty Refs[A]. Refs[A] is an immutable covariant Array based collection. */
+/** Extractor object for empty Arr[A]. Arr[A] is an immutable covariant Array based collection. */
 object Arr0
-{ /** Extractor for empty Refs[A]. Refs[A] is an immutable covariant Array based collection. */
+{ /** Extractor for empty Arr[A]. Arr[A] is an immutable covariant Array based collection. */
   def unapply[A](arr: Arr[A]): Boolean = arr.length == 0
 }
 
-/** Extractor object for Refs[A] of length == 1. Refs[A] is an immutable covariant Array based collection. */
+/** Extractor object for Arr[A] of length == 1. Arr[A] is an immutable covariant Array based collection. */
 object Arr1
-{ /** Extractor for Refs[A] of length == 1. Refs[A <: AnyRef] is an immutable covariant Array based collection. */
+{ /** Extractor for Arr[A] of length == 1. Arr[A <: AnyRef] is an immutable covariant Array based collection. */
   def unapply[A](arr: Arr[A]): Option[A] = arr.length match
   { case 1 => Some(arr(0))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A] of length == 2. Refs[A] is an immutable covariant Array based collection. */
+/** Extractor object for Arr[A] of length == 2. Arr[A] is an immutable covariant Array based collection. */
 object Arr2
-{ /** Extractor for Refs[A] of length == 2. Refs[A] is an immutable covariant Array based collection. */
-  def unapply[A](refs: Arr[A]): Option[(A, A)] = refs.length match
-  { case 2 => Some((refs(0), refs(1)))
-    case _ => None
-  }
+{ /** Extractor for Arr[A] of length == 2. Arr[A] is an immutable covariant Array based collection. */
+  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.length == 2, Some((arr(0), arr(1))), None)
 }
 
-/** Extractor object for Refs[A] of length == 3. Refs[A] is an immutable covariant Array based collection. */
+/** Extractor object for Arr[A] of length == 3. Arr[A] is an immutable covariant Array based collection. */
 object Arr3
-{ /** Extractor for Refs[A] of length == 3, Refs[A] is an immutable covariant Array based collection. */
+{ /** Extractor for Arr[A] of length == 3, Arr[A] is an immutable covariant Array based collection. */
   def unapply[A](arr: Arr[A]): Option[(A, A, A)] = arr.length match
   { case 3 => Some((arr(0), arr(1), arr(2)))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A] of length == 4. Refs[A] is an immutable covariant Array based collection. */
+/** Extractor object for Arr[A] of length == 4. Arr[A] is an immutable covariant Array based collection. */
 object Arr4
-{ /** Extractor for Refs[A] of length == 4, Refs[A] is an immutable covariant Array based collection. */
+{ /** Extractor for Arr[A] of length == 4, Arr[A] is an immutable covariant Array based collection. */
   def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = arr.length match
   { case 4 => Some((arr(0), arr(1), arr(2), arr(3)))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A] of length == 5. Refs[A] is an immutable covariant Array based collection. */
+/** Extractor object for Arr[A] of length == 5. Arr[A] is an immutable covariant Array based collection. */
 object Arr5
-{ /** Extractor for Refs[A] of length == 5, Refs[A] is an immutable covariant Array based collection. */
+{ /** Extractor for Arr[A] of length == 5, Arr[A] is an immutable covariant Array based collection. */
   def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A)] = arr.length match
   { case 5 => Some((arr(0), arr(1), arr(2), arr(3), arr(4)))
     case _ => None
   }
 }
 
-/** Extractor object for Refs[A] of length == 6. Refs[A] is an immutable covariant Array based collection. */
+/** Extractor object for Arr[A] of length == 6. Arr[A] is an immutable covariant Array based collection. */
 object Arr6
-{ /** Extractor for Refs[A] of length == 6, Refs[A] is an immutable covariant Array based collection. */
+{ /** Extractor for Arr[A] of length == 6, Arr[A] is an immutable covariant Array based collection. */
   def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A, A)] = arr.length match
   { case 6 => Some((arr(0), arr(1), arr(2), arr(3), arr(4), arr(5)))
     case _ => None
@@ -90,18 +87,18 @@ object ArrHead4
   def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = ife(arr.length >= 4, Some((arr(0), arr(1), arr(2), arr(3))), None)
 }
 
-/** Extractor function object for a Good Refs Sequence of length 0. */
+/** Extractor function object for a Good Arr Sequence of length 0. */
 case object GoodArr0
-{ /** Extractor method for a Good Refs Sequence of length 0. */
+{ /** Extractor method for a Good Arr Sequence of length 0. */
   def unapply(eArr: EMon[Arr[_]]): Boolean = eArr match
   { case Good(Arr0()) => true
     case _ => false
   }
 }
 
-/** Extractor function object for a Good Refs Sequence of length 1. */
+/** Extractor function object for a Good Arr Sequence of length 1. */
 object GoodArr1
-{ /** Extractor method for a Good Refs Sequence of length 1. */
+{ /** Extractor method for a Good Arr Sequence of length 1. */
   def unapply[A](eArr: EMon[Arr[A]]): Option[A] = eArr match
   { case Good(Arr1(head)) => Some(head)
     case _ => None
@@ -126,14 +123,14 @@ object GoodArr4
   }
 }
 
-/** Immutable heapless iterator for Refs. */
-class RefsOff[A](val offset0: Int) extends AnyVal with ArrOff[A, Arr[A]]
-{ override def apply(index: Int)(implicit refs: Arr[A]) = refs(index + offset0)
-  def drop(n: Int): RefsOff[A] = new RefsOff[A](offset0 + n)
-  def drop1: RefsOff[A] = new RefsOff(offset0 + 1)
-  def drop2: RefsOff[A] = new RefsOff(offset0 + 2)
-  def length(implicit refs: Arr[A]): Int = refs.length - offset0
-  def span(p: A => Boolean)(implicit refs: Arr[A], ct: ClassTag[A]): (Arr[A], RefsOff[A]) =
+/** Immutable heapless iterator for Arr. */
+class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
+{ override def apply(index: Int)(implicit arr: Arr[A]) = arr(index + offset0)
+  def drop(n: Int): ArrOff[A] = new ArrOff[A](offset0 + n)
+  def drop1: ArrOff[A] = new ArrOff(offset0 + 1)
+  def drop2: ArrOff[A] = new ArrOff(offset0 + 2)
+  def length(implicit arr: Arr[A]): Int = arr.length - offset0
+  def span(p: A => Boolean)(implicit refs: Arr[A], ct: ClassTag[A]): (Arr[A], ArrOff[A]) =
   {
     var count = 0
     var continue = true
@@ -153,47 +150,47 @@ class RefsOff[A](val offset0: Int) extends AnyVal with ArrOff[A, Arr[A]]
 }
 
 /** Extractor for empty immutable heapless iterator for Refs. */
-case object RefsOff0
+case object ArrOff0
 { /** Extractor for empty immutable heapless iterator for Refs. */
-  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Arr[A]): Boolean = inp.length <= 0
+  def unapply[A](inp: ArrOff[A])(implicit arr: Arr[A]): Boolean = inp.length <= 0
 }
 
 /** Extractor object for an immutable heapless iterator for Refs with exactly 1 element. */
-object RefsOff1
+object ArrOff1
 { /** Extractor for an immutable heapless iterator for Refs with exactly  1 element. */
-  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Arr[A]): Option[A] =
+  def unapply[A](inp: ArrOff[A])(implicit arr: Arr[A]): Option[A] =
     ife(inp.length == 1, Some(inp(0)), None)
 }
 
 /** Extractor object for an immutable heapless iterator for Refs with exactly 2 elements. */
-object RefsOff2
+object ArrOff2
 { /** Extractor for an immutable heapless iterator for Refs with exactly 2 elements. */
-  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Arr[A]): Option[(A, A)] =
+  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, A)] =
     ife(inp.length == 2, Some((inp(0), inp(1))), None)
 }
 
 /** Extractor object for an immutable heapless iterator for Refs with exactly 3 elements. */
-object RefsOff3
+object ArrOff3
 { /** Extractor for an immutable heapless iterator for Refs with exactly 3 elements. */
-  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Arr[A]): Option[(A, A, A)] =
+  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, A, A)] =
     ife(inp.length == 3, Some((inp(0), inp(1), inp(2))), None)
 }
 
 /** Extractor for immutable heapless iterator for Refs with at least l element. */
-object RefsOff1Tail
+object ArrOff1Tail
 { /** Extractor for immutable heapless iterator for Refs with at least l element. */
-  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Arr[A]): Option[(A, RefsOff[A])] =
+  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, ArrOff[A])] =
     ife(inp.length >= 1, Some(((inp(0)), inp.drop1)), None)
 }
 
-object RefsOff2Tail
+object ArrOff2Tail
 {
-  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Arr[A]): Option[(A, A, RefsOff[A])] =
+  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[(A, A, ArrOff[A])] =
     ife(inp.length >= 2, Some((inp(0), inp(1), inp.drop2)), None)
 }
 
-object RefsOffHead
+object ArrOffHead
 {
-  def unapply[A <: AnyRef](inp: RefsOff[A])(implicit refs: Arr[A]): Option[A] =
+  def unapply[A <: AnyRef](inp: ArrOff[A])(implicit refs: Arr[A]): Option[A] =
     ife(inp.length  >= 1, Some(inp(0)), None)
 }

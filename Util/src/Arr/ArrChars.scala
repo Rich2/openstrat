@@ -30,7 +30,7 @@ object Chars
 }
 
 /** Immutable heapless iterator for Char arrays. */
-class CharsOff(val offset0: Int) extends AnyVal with ArrOff[Char, Chars]
+class CharsOff(val offset0: Int) extends AnyVal with ArrBaseOff[Char, Chars]
 {
   override def apply(index: Int)(implicit chars: Chars): Char = chars(offset0 + index)
   def str: String = "CharsOff" + offset0.toString.enParenth

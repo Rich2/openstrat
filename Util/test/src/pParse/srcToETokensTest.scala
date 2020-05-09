@@ -60,7 +60,7 @@ object srcToETokensTest extends TestSuite
     val st5 = st1 + "\n" + st2 + st4
     val et5 = st5.parseTokens
     implicit val r5: Arr[Token] = et5.get
-    val ro6: RefsOff[Token] = r5.offset(4)
+    val ro6: ArrOff[Token] = r5.offset(4)
 
     "Settings" -
     { assertMatch(st2.parseTokens){ case Good(Arr0()) => }

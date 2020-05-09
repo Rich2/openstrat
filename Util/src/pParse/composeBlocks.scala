@@ -8,14 +8,14 @@ object composeBlocks
   {
     val acc: Buff[BlockMember] = Buff()
 
-    def sortBlocks(rem: RefsOff[ClauseMember]): ERefs[BlockMember] = rem match
-    { case RefsOff0() => PrefixPlus(acc.toRefs)
+    def sortBlocks(rem: ArrOff[ClauseMember]): ERefs[BlockMember] = rem match
+    { case ArrOff0() => PrefixPlus(acc.toRefs)
       /*case (at: IdentifierLowerToken) :: (bb: BracketedStatements) :: t2 =>
       { //typedSpan needs removal
         val (blocks, tail) = t2.typedSpan[BracketedStatements](_.isInstanceOf[BracketedStatements])
         sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketedStatements]]))
       }*/
-      case RefsOff1Tail(h, tail) => { acc.append(h); sortBlocks(tail) }
+      case ArrOff1Tail(h, tail) => { acc.append(h); sortBlocks(tail) }
     }
 
     sortBlocks(seg.offset0).flatMap {
