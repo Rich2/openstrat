@@ -61,34 +61,23 @@ object Arr6
   }
 }
 
-object Refs1Tail
-{
-  def unapply[A <: AnyRef](refs: Arr[A])(implicit ct: ClassTag[A]): Option[(A, Arr[A])] = refs match
-  { case arr if refs.nonEmpty => Some((refs.head, refs.drop1))
-    case _ => None
-  }
+object arr1Tail
+{ def unapply[A](arr: Arr[A])(implicit ct: ClassTag[A]): Option[(A, Arr[A])] = ife(arr.nonEmpty, Some((arr.head, arr.drop1)), None)
 }
 
-object Refs2Tail
-{
-  def unapply[A <: AnyRef](refs: Arr[A])(implicit ct: ClassTag[A]): Option[(A, A, Arr[A])] = refs match
-  { case arr if refs.nonEmpty => Some((refs(0), refs(1), refs.drop1))
-    case _ => None
-  }
+object arr2Tail
+{ def unapply[A](arr: Arr[A])(implicit ct: ClassTag[A]): Option[(A, A, Arr[A])] = ife(arr.nonEmpty, Some((arr(0), arr(1), arr.drop1)), None)
 }
 
 object ArrHead
 { /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[A] = refs match
-  { case refs if refs.length >= 1 => Some(refs(0))
-    case _ => None
-  }
+  def unapply[A](arr: Arr[A]): Option[A] = ife(arr.nonEmpty, Some(arr(0)), None)
 }
 
-object RefsHead2
+object ArrHead2
 { /** Extractor for the head 2 elements of a Refs, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A)] = refs match
-  { case refs if refs.length >= 2 => Some((refs(0), refs(1)))
+  def unapply[A <: AnyRef](arr: Arr[A]): Option[(A, A)] = arr match
+  { case arr if arr.length >= 2 => Some((arr(0), arr(1)))
     case _ => None
   }
 }
