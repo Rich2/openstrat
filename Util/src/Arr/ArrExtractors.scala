@@ -70,67 +70,60 @@ object arr2Tail
 }
 
 object ArrHead
-{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
+{ /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
   def unapply[A](arr: Arr[A]): Option[A] = ife(arr.nonEmpty, Some(arr(0)), None)
 }
 
+/** Extractor object for the head 2 elements of an Arr, immutable covariant Array based collection. The tail can be any length. */
 object ArrHead2
-{ /** Extractor for the head 2 elements of a Refs, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A <: AnyRef](arr: Arr[A]): Option[(A, A)] = arr match
-  { case arr if arr.length >= 2 => Some((arr(0), arr(1)))
-    case _ => None
-  }
+{ /** Extractor for the head 2 elements of an Arr, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.length >= 2, Some((arr(0), arr(1))), None)
 }
 
-object RefsHead3
-{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A, A)] = refs match
-  { case refs if refs.length >= 3 => Some((refs(0), refs(1), refs(2)))
-    case _ => None
-  }
+object ArrHead3
+{ /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = ife(arr.length >= 3, Some((arr(0), arr(1), arr(2))), None)
 }
 
-object RefsHead4
-{ /** Extractor for the head of a Refs, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A <: AnyRef](refs: Arr[A]): Option[(A, A, A, A)] = refs match
-  { case refs if refs.length >= 4 => Some((refs(0), refs(1), refs(2), refs(3)))
-    case _ => None
-  }
+object ArrHead4
+{ /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = ife(arr.length >= 4, Some((arr(0), arr(1), arr(2), arr(3))), None)
 }
+
 /** Extractor function object for a Good Refs Sequence of length 0. */
-case object GoodRefs0
+case object GoodArr0
 { /** Extractor method for a Good Refs Sequence of length 0. */
-  def unapply(refs: EMon[Arr[_]]): Boolean = refs match
-  { case Good(refs) if refs.length == 0 => true
+  def unapply(eArr: EMon[Arr[_]]): Boolean = eArr match
+  { case Good(Arr0()) => true
     case _ => false
   }
 }
 
 /** Extractor function object for a Good Refs Sequence of length 1. */
-object GoodRefs1
+object GoodArr1
 { /** Extractor method for a Good Refs Sequence of length 1. */
-  def unapply[A <: AnyRef](refs: EMon[Arr[A]]): Option[A] = refs match
-  { case Good(refs) if refs.length == 1 => Some(refs.head)
+  def unapply[A](eArr: EMon[Arr[A]]): Option[A] = eArr match
+  { case Good(Arr1(head)) => Some(head)
     case _ => None
   }
 }
 
-object GoodRefs2
-{ def unapply[A <: AnyRef](er: EMon[Arr[A]]): Option[(A, A)] = er.foldErrs (g => if (g.length == 2) Some((g(0), g(1))) else None)(errs => None)
+object GoodArr2
+{ def unapply[A](eArr: EMon[Arr[A]]): Option[(A, A)] = eArr.foldErrs (g => if (g.length == 2) Some((g(0), g(1))) else None)(errs => None)
 }
 
-object GoodRefs3
-{ def unapply[A <: AnyRef](refs: EMon[Arr[A]]): Option[(A, A, A)] = refs match
-{ case Good(refs) if refs.length == 3 => Some((refs(0), refs(1), refs(2)))
-  case _ => None
-}
+object GoodArr3
+{ def unapply[A](eArr: EMon[Arr[A]]): Option[(A, A, A)] = eArr match
+  { case Good(Arr3(a0, a1, a2)) => Some((a0, a1, a2))
+    case _ => None
+  }
 }
 
-object GoodRefs4
-{ def unapply[A <: AnyRef](refs: EMon[Arr[A]]): Option[(A, A, A, A)] = refs match
-{ case Good(refs) if refs.length == 4 => Some((refs(0), refs(1),refs(2), refs(3)))
-  case _ => None
-}
+object GoodArr4
+{ def unapply[A](arr: EMon[Arr[A]]): Option[(A, A, A, A)] = arr match
+  { case Good(Arr4(a0, a1, a2, a3)) => Some((a0, a1, a2, a3))
+    case _ => None
+  }
 }
 
 /** Immutable heapless iterator for Refs. */
