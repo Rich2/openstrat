@@ -15,7 +15,7 @@ trait TransAligner extends Any with GeomElem
   //def slated(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
 }
 
-/** A Rigid or Euclidean transformations type class. */
+/** A transformation type class allowing only translations and scaling, in order to maintain the alignment of the graphical objects. */
 trait TransAlign[T]
 { def slate(obj: T, offset: Vec2): T
   def scale(obj: T, operand: Double): T
@@ -23,7 +23,7 @@ trait TransAlign[T]
 
 object TransAlign
 {
-  implicit def transRigiderImplicit[T <: TransAligner]: TransAlign[T] = new TransAlign[T]
+  implicit def transAlignerImplicit[T <: TransAligner]: TransAlign[T] = new TransAlign[T]
   { override def slate(obj: T, offset: Vec2): T = obj.slateOld(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scaleOld(operand).asInstanceOf[T]
   }
