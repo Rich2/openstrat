@@ -62,23 +62,22 @@ trait ArrBuild[B, ArrT <: ArrBase[B]] extends ArrBuildBase[ArrT]
   }
 }
 
+/** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
 object ArrBuild extends ArrBuildLowPriority
 { implicit val intsImplicit = IntsBuild
   implicit val doublesImplicit = DblsBuild
   implicit val longImplicit = LongsBuild
   implicit val floatImplicit = FloatsBuild
   implicit val booleansImplicit = BooleansBuild
-
-
 }
 
+/** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. */
 trait SpecialT extends Any
-
 
 trait ArrBuildLowPriority
 {
-  /** This is currently set up to exclude types not extending AnyRef. The notA implicit parameter is to exclude types that are Homogeneous value
-   * types. */
+  /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
+   * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
+   * specialist Arr classes. */
   implicit def refsImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]) = new RefsBuild[A]
-  //implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]) = new AnysBuild[A]
 }
