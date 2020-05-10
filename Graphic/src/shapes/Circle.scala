@@ -5,8 +5,8 @@ package geom
 object CircleIcon
 
 final case class Circle(radius: Double, x: Double, y: Double) extends GeomElemNew
-{
-  override def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
+{ /** This is wong. */
+  override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(vCen)) }
   def vCen: Vec2 = x vv y
 
   override def slate(offset: Vec2): Circle = Circle(radius, vCen + offset)

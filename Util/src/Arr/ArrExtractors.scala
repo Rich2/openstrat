@@ -132,8 +132,7 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
   def length(implicit arr: Arr[A]): Int = arr.length - offset0
 
   def span(p: A => Boolean)(implicit arr: Arr[A], ct: ClassTag[A]): (Arr[A], ArrOff[A]) =
-  {
-    var count = 0
+  { var count = 0
     var continue = true
 
     while (offset0 + count < arr.length & continue)
