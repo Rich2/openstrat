@@ -23,6 +23,19 @@ trait TransAlign[T]
 
 object TransAlign
 {
+  implicit def transImplicit: TransAlign[GeomElem] = new TransAlign[GeomElem]
+  {
+    override def slate(obj: GeomElem, offset: Vec2): GeomElem = obj match
+    { case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GeomElem]
+      case gea: GeomElemNew => gea.slate(offset)
+    }
+
+    override def scale(obj: GeomElem, operand: Double): GeomElem = obj match
+    { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GeomElem]
+      case gea: GeomElemNew => gea.scale(operand)
+    }
+  }
+
   implicit def transAlignerImplicit[T <: TransAligner]: TransAlign[T] = new TransAlign[T]
   { override def slate(obj: T, offset: Vec2): T = obj.slateOld(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scaleOld(operand).asInstanceOf[T]
