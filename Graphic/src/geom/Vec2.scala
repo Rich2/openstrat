@@ -152,7 +152,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
     Line2s.doubles(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 
-  def alignMatrix(matrix: AlignMatrix): Vec2 = this * matrix.scaleDelta + matrix.vDelta
+  def alignMatrix(matrix: AlignMatrix): Vec2 = Vec2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 }
 
 object Vec2

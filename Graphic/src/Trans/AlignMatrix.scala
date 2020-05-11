@@ -2,9 +2,10 @@
 package ostrat
 package geom
 
-case class AlignMatrix(scaleDelta: Double, xDelta: Double, yDelta: Double)
+case class AlignMatrix(xFactor: Double, yFactor: Double, xDelta: Double, yDelta: Double)
 { def vDelta: Vec2 = Vec2(xDelta, yDelta)
-  def scale(operand: Double): AlignMatrix = AlignMatrix(scaleDelta * operand, xDelta * operand, yDelta * operand)
-  def slate(operand: Vec2) : AlignMatrix = AlignMatrix(scaleDelta, xDelta + operand.x, yDelta + operand.y)
-  def slate(xOperand: Double, yOperand: Double) : AlignMatrix = AlignMatrix(scaleDelta, xDelta + xOperand, yDelta + yOperand)
+  def scale(operand: Double): AlignMatrix = AlignMatrix(xFactor * operand, yFactor * operand, xDelta * operand, yDelta * operand)
+  def slate(operand: Vec2): AlignMatrix = AlignMatrix(xFactor, yFactor, xDelta + operand.x, yDelta + operand.y)
+  def slate(xOperand: Double, yOperand: Double): AlignMatrix = AlignMatrix(xFactor, yFactor, xDelta + xOperand, yDelta + yOperand)
+  def xyScale(xOperand: Double, yOperand: Double): AlignMatrix = AlignMatrix(xFactor * xOperand, yFactor * yOperand, xDelta * xOperand, yDelta * yOperand)
 }
