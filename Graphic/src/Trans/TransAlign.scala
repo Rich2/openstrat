@@ -59,17 +59,17 @@ object TransAlign
 
 class TransAlignExtension[T](value: T, ev: TransAlign[T])
 {
-  /** Translate 2 dimensional vectors along the X axis */
-  def slateX(xOffset: Double): T = ev.slate(value, xOffset vv 0)
-
-  /** Translate 2 dimensional vectors along the Y axis */
-  def slateY(yOffset: Double): T = ev.slate(value, 0 vv yOffset)
-
-  /** Translate in 2 dimensional space. */
-  def slate(offset: Vec2): T = ev.slate(value, offset)
-
-  /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): T = ev.slate(value, xOffset vv yOffset)
+//  /** Translate 2 dimensional vectors along the X axis */
+//  def slateX(xOffset: Double): T = ev.slate(value, xOffset vv 0)
+//
+//  /** Translate 2 dimensional vectors along the Y axis */
+//  def slateY(yOffset: Double): T = ev.slate(value, 0 vv yOffset)
+//
+//  /** Translate in 2 dimensional space. */
+//  def slate(offset: Vec2): T = ev.slate(value, offset)
+//
+//  /** Translate in 2 dimensional space. */
+//  def slate(xOffset: Double, yOffset: Double): T = ev.slate(value, xOffset vv yOffset)
 
   /** this.asInstanceOf[T] */
   def identity: T = this.asInstanceOf[T]

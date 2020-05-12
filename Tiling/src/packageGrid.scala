@@ -55,8 +55,8 @@ package object pGrid
   implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGridSimple, ev: TransSim[T])
   {
     /** Translates Vec2s relative to Grid centre and then scales. */
-    def gridScale(scale: Double): T = value.slate(- grid.cen).scale(scale)
-    def gridTrans(offset: Vec2, scale: Double): T = value.slate(-offset - grid.cen).scale(scale)
+    def gridScale(scale: Double): T = ev.slate(value, - grid.cen).scale(scale)
+    def gridTrans(offset: Vec2, scale: Double): T = ev.slate(value, -offset - grid.cen).scale(scale)
   }
 
   /** Not sure about the use of List in this class. */
