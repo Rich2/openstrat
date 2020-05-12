@@ -13,7 +13,16 @@ object GeomElem
 
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */
 trait GeomElemNew extends GeomElem
-{ def fTrans(f: Vec2 => Vec2): GeomElemNew
+{ /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
+  def fTrans(f: Vec2 => Vec2): GeomElemNew
+
+  /** Translate geometric transformation. */
   def slate(offset: Vec2): GeomElemNew = fTrans(_ + offset)
-  def scale(operand: Double): GeomElem = fTrans(_ *  operand)
+
+  /** Translate geometric transformation. */
+  @inline final def slate(xOffset: Double, yOffset: Double): GeomElemNew = slate(xOffset, yOffset)
+
+  def scale(operand: Double): GeomElemNew = fTrans(_ *  operand)
+  def mirrorXOffset(yOffset: Double): GeomElemNew
+  def mirrorX: GeomElemNew = mirrorXOffset(0)
 }
