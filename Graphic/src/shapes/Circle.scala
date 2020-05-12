@@ -18,8 +18,8 @@ final case class Circle(radius: Double, x: Double, y: Double) extends GeomElemNe
 
 /** This object provides factory methods for circles. */
 object Circle
-{
-  def apply(radius: Double, cen: Vec2 = Vec2Z): Circle = new Circle(radius, cen.x, cen.y)
+{ def apply(radius: Double, cen: Vec2 = Vec2Z): Circle = new Circle(radius, cen.x, cen.y)
+  implicit val slateImplicit: Slate[Circle] = (circle, offset) => circle.slate(offset)
 }
 
 final case class CircleOld(radius: Double, x: Double, y: Double) extends EllipseLike
