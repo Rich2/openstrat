@@ -8,7 +8,10 @@ trait GeomElem extends Any// with Product with Serializable
 
 object GeomElem
 {
-
+  implicit def slateImplicit: Slate[GeomElem] = (obj: GeomElem, offset: Vec2) => obj match
+  { case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GeomElem]
+    case gea: GeomElemNew => gea.slate(offset)
+  }
 }
 
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */

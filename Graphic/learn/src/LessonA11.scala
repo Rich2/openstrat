@@ -22,9 +22,9 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val cn = Circle(80, 110, -290)
   val cn1 = cn.slate(20 vv 50)
-  val na/*: Arr[GeomElem]*/ = Arr(cl2, cn)
+  val na: Arr[GeomElem] = Arr(cl2, cn)
 
-  //val na1 = na.scale(20)
+  val na1 = na.slate(20, 20)
 
 
   val a1 = Arr(r2, cl2)
