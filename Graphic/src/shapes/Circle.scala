@@ -12,6 +12,8 @@ final case class Circle(radius: Double, x: Double, y: Double) extends GeomElemNe
   override def slate(offset: Vec2): Circle = Circle(radius, vCen + offset)
 
   override def mirrorXOffset(yOffset: Double): GeomElemNew = Circle(radius, vCen.mirrorXOffset(yOffset))
+
+  override def mirrorYOffset(xOffset: Double): GeomElemNew = Circle(radius, vCen.mirrorYOffset(xOffset))
 }
 
 /** This object provides factory methods for circles. */

@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import math._
@@ -58,6 +58,7 @@ object Dist2
   implicit val PersistImplicit: Persist[Dist2] = new PersistD2[Dist2]("Dist2", "x", _.xMetres, "y", _.yMetres, new Dist2(_, _))
 }
 
+/** Specialised immutable Array based collection class for Dist2. */
 class Dist2s(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 { type ThisT = Dist2s
   override def unsafeFromArray(array: Array[Double]): Dist2s = new Dist2s(array)

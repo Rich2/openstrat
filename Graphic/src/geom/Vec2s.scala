@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import collection.mutable.ArrayBuffer
@@ -18,6 +19,7 @@ class Vec2s(val array: Array[Double]) extends AnyVal with Transer with Vec2sLike
   @inline def toPolygon: PolygonGen = new PolygonGen(array)
   @inline def toLinePath: LinePath = new LinePath(array)
 
+  /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def fTrans(f: Vec2 => Vec2): Vec2s =  new Vec2s(arrTrans(f))
 
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with

@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -24,5 +24,7 @@ trait GeomElemNew extends GeomElem
 
   def scale(operand: Double): GeomElemNew = fTrans(_ *  operand)
   def mirrorXOffset(yOffset: Double): GeomElemNew
-  def mirrorX: GeomElemNew = mirrorXOffset(0)
+  @inline final def mirrorX: GeomElemNew = mirrorXOffset(0)
+  def mirrorYOffset(xOffset: Double): GeomElemNew
+  @inline final def mirrorY: GeomElemNew = mirrorYOffset(0)
 }
