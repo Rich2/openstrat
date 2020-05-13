@@ -3,15 +3,16 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait ReflectAxis[T]
+trait MirrorAxis[T]
 { /** Reflect, mirror across the X axis. */
-  def reflectX: T
+  def mirrorXOffset(yOffset: Double): T
+
 
   /** Reflect, mirror across the Y axis. */
-  def reflectY: T
+  def mirrorYOffset(xOffset: Double): T
 }
 
-object ReflectAxis
+object MirrorAxis
 {
 
 }
