@@ -23,6 +23,6 @@ object Scale
 
 class ScaleExtension[T](value: T, ev: Scale[T])
 {
-  /** Scale. */
+  /** 2d vector scale transformation. */
   def scale(operand: Double): T = ev.scale(value, operand)
 }
