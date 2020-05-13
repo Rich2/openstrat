@@ -16,7 +16,8 @@ object Scale
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Scale[A]): Scale[AA] =
     (obj, offset) => obj.map(ev.scale(_, offset))
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Scale[A]): Scale[F[A]] = (obj, operand) => evF.map(obj, evA.scale(_, operand))
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Scale[A]): Scale[F[A]] =
+    (obj, operand) => evF.map(obj, evA.scale(_, operand))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Scale[A]): Scale[Array[A]] = (obj, operand) => obj.map(ev.scale(_, operand))
 }
