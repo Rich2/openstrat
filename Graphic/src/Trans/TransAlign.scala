@@ -74,7 +74,7 @@ class TransAlignExtension[T](value: T, ev: TransAlign[T])
   /** this.asInstanceOf[T] */
   def identity: T = this.asInstanceOf[T]
 
-  def scale(operand: Double): T = ev.scale(value, operand)
+  //def scale(operand: Double): T = ev.scale(value, operand)
 
   /** The scale transformation on 2 dimensional vectors. */
   def scaleSlate(factor: Double, addVec: Vec2): T =

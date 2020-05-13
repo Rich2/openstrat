@@ -12,6 +12,11 @@ object GeomElem
   { case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GeomElem]
     case gea: GeomElemNew => gea.slate(offset)
   }
+
+  implicit def scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj match
+  { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GeomElem]
+    case gea: GeomElemNew => gea.scale(operand)
+  }
 }
 
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */

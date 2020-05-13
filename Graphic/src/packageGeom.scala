@@ -14,6 +14,7 @@ package object geom
   //implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
 
   implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]) = new SlateExtension[T](value, ev)
+  implicit def scaleToExtension[T](value: T)(implicit ev: Scale[T]) = new ScaleExtension[T](value, ev)
 
   implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]) = new TransAffDistExtension[T](value, ev)
   implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]) = new TransSimDistExtension[T](value, ev)

@@ -20,3 +20,9 @@ object Scale
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Scale[A]): Scale[Array[A]] = (obj, operand) => obj.map(ev.scale(_, operand))
 }
+
+class ScaleExtension[T](value: T, ev: Scale[T])
+{
+  /** Scale. */
+  def scale(operand: Double): T = ev.scale(value, operand)
+}
