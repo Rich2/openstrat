@@ -1,9 +1,10 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
+import reflect.ClassTag
 
-import scala.reflect.ClassTag
-
+/** Type class for translate 2 dimensional vector transformations. Each transformation method has been given its own Type class and associated
+ * extension class. Different sets of transformations can then be combined. */
 trait Slate[T]
 { def slate(obj: T, offset: Vec2): T
 }
