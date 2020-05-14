@@ -7,6 +7,7 @@ import geom._
 trait CanvasTopLeft extends CanvasPlatform
 {   
    def tlCen: Vec2 =>  Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
+   def matrix: ProlignMatrix = ProlignMatrix.mirrorY.slate(width / 2, height / 2)
  
    final override def pPolyFill(poly: PolygonGen, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
    final override def pPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit = tlPolyDraw(poly.fTrans(tlCen), lineWidth, colour)

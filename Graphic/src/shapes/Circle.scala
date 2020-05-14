@@ -15,7 +15,11 @@ final case class Circle(radius: Double, x: Double, y: Double) extends GeomElemNe
 
   override def mirrorYOffset(xOffset: Double): GeomElemNew = Circle(radius, vCen.mirrorYOffset(xOffset))
 
-  override def prolign(matrix: ProlignMatrix): Circle = ??? 
+  override def prolign(matrix: ProlignMatrix): Circle =
+  { val xa = ife(matrix.negX, -x, x)
+    val ya = ife(matrix.negY, -y, y)
+    Circle(radius * matrix.vFactor, xa + matrix.xDelta, ya + matrix.yDelta)
+  }
 }
 
 /** This object provides factory methods for circles. */

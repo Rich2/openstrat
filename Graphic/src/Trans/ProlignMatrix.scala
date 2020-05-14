@@ -21,3 +21,8 @@ final case class ProlignMatrix(vFactor: Double, negY: Boolean, negX: Boolean, xD
   def mirrorY: ProlignMatrix = ProlignMatrix(vFactor, negY, !negX, xDelta, yDelta)
 }
 
+object ProlignMatrix
+{
+  def mirrorY: ProlignMatrix = ProlignMatrix(1, true, false, 0, 0)
+}
+
