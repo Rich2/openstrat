@@ -35,4 +35,6 @@ trait GeomElemNew extends GeomElem
   @inline final def mirrorX: GeomElemNew = mirrorXOffset(0)
   def mirrorYOffset(xOffset: Double): GeomElemNew
   @inline final def mirrorY: GeomElemNew = mirrorYOffset(0)
+
+  def prolign(matrix: ProlignMatrix): GeomElemNew
 }
