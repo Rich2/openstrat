@@ -15,6 +15,7 @@ package object geom
 
   implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]) = new SlateExtension[T](value, ev)
   implicit def scaleToExtension[T](value: T)(implicit ev: Scale[T]) = new ScaleExtension[T](value, ev)
+  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: MirrorAxis[T]) = new MirrorAxisExtension[T](value)(ev)
 
   implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]) = new TransAffDistExtension[T](value, ev)
   implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]) = new TransSimDistExtension[T](value, ev)

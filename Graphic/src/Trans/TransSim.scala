@@ -60,10 +60,10 @@ object TransSim
 }
 
 class TransSimExtension[T](value: T, ev: TransSim[T]) extends TransSimGenExtension[T]
-{ def mirrorParallelX(yOffset: Double): T = mirror(-1, yOffset, 1, yOffset)
-  def mirrorParallelY(xOffset: Double): T = mirror(xOffset, -1, xOffset, 1)
-  def mirrorY: T = mirror(0, -1, 0, 1)
-  def mirrorX: T = mirror(-1, 0, 1, 0)
+{ //def mirrorParallelX(yOffset: Double): T = mirror(-1, yOffset, 1, yOffset)
+  //def mirrorParallelY(xOffset: Double): T = mirror(xOffset, -1, xOffset, 1)
+  //def mirrorY: T = mirror(0, -1, 0, 1)
+  //def mirrorX: T = mirror(-1, 0, 1, 0)
   def mirror(line: Line2) = ev.mirror(value, line)
   def mirror(v1: Vec2, v2: Vec2): T = ev.mirror(value, v1.lineTo(v2))
   def mirror(x1: Double, y1: Double, x2: Double, y2: Double): T = ev.mirror(value, new Line2(x1, y1, x2, y2))
