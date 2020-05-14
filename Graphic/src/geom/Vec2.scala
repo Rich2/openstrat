@@ -72,6 +72,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   /** Mirrors along the y = yOffset line that is parallel to the  X axis. */
   def mirrorXOffset(yOffset: Double): Vec2 = Vec2(x, -y + yOffset * 2)
 
+  @inline def prolignTrans(m: ProlignMatrix): Vec2 = m.vecTrans(this)
+
   /** Where xnd y is a map on the surface ofa sphere. Currently not working for angles greater than Pi / 2 */
   def toLatLong(radius: Double): LatLong = LatLong(math.acos(y / radius), math.acos(x / radius))
 
@@ -98,6 +100,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
       case _ if y < 0 => at -Pi/2
       case _ => at + Pi/2*/
     }
+
+
   }
 
   /** Gives the angle of the vector with respect of the origin in radians. */

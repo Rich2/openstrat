@@ -10,9 +10,11 @@ case class CircleFill(circle: CircleOld, colour: Colour) extends TransSimerUser 
   override def newThis(transer: CircleOld): CircleFill = CircleFill(transer, colour)
   def shear(xScale: Double, yScale: Double): Transer = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
-
- // override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
+
+//case class CircleFill(circle: CircleOld, colour: Colour)
+
+
 
 case class CircleDraw(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
 { override type AlignT = CircleDraw

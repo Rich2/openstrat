@@ -19,6 +19,12 @@ final case class ProlignMatrix(vFactor: Double, negY: Boolean, negX: Boolean, xD
   def mirrorX: ProlignMatrix = ProlignMatrix(vFactor, !negY, negX, xDelta, yDelta)
 
   def mirrorY: ProlignMatrix = ProlignMatrix(vFactor, negY, !negX, xDelta, yDelta)
+
+  def vecTrans(inp: Vec2): Vec2 =
+  { val xa = ife(negX, -inp.x, inp.x)
+    val ya = ife(negY, -inp.y, inp.y)
+    Vec2(xa + xDelta, ya + yDelta)
+  }
 }
 
 object ProlignMatrix
