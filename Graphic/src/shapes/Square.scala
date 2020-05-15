@@ -2,8 +2,9 @@
 package ostrat
 package geom
 
-class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadians: Double) extends Transer
-{ override type AlignT = Square
+final case class Square(width: Double, xCen: Double, yCen: Double)// extends Transer
+{ }/*
+  override type AlignT = Square
   def cen: Vec2 = xCen vv yCen
   def cenRight: Vec2 = cen + rotation.toVec2(width / 2)
   def rotation: Angle = Angle(rotationRadians)
@@ -21,12 +22,12 @@ class Square(val xCen: Double, val yCen: Double, val width: Double, rotationRadi
   override def shear(xScale: Double, yScale: Double): Square = ???
 
   override def fTrans(f: Vec2 => Vec2): Square = ???
-}
+}*/
 
 /** Factory object for squares. There is no companion Square class. */
 object Square //extends UnScaledPolygon
 {
-  def apply(cen: Vec2, width: Double, rotation: Angle = Angle(0)): Square = new Square(cen.x, cen.y, width, rotation.radians)
+  //def apply(cen: Vec2, width: Double, rotation: Angle = Angle(0)): Square = new Square(cen.x, cen.y, width, rotation.radians)
   //val apply: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
   //def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = apply.fTrans(_ * width + cen)
   def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
