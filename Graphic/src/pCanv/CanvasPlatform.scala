@@ -81,7 +81,7 @@ trait CanvasPlatform extends RectGeom
   final def shapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = oif(shape.length > 0, pShapeDraw(shape, lineWidth, colour))
   def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
 
-  def circleFill(cf: CircleFill): Unit
+  def circleFillOld(cf: CircleFillOld): Unit
 
   def circleDraw(cd: CircleDraw): Unit
 

@@ -35,7 +35,7 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends Ellipse
 
   override def mirror(line: Line2): CircleOld = CircleOld(radius, vCen.mirror(line))
 
-  def fill(colour: Colour): CircleFill = CircleFill(this, colour)
+  def fill(colour: Colour): CircleFillOld = CircleFillOld(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = CircleDraw(this, lineWidth, colour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw =
     CircleFillDraw(this, fillColour, lineWidth, lineColour)

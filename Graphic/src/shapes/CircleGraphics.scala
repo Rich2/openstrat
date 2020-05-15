@@ -3,17 +3,19 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-case class CircleFill(circle: CircleOld, colour: Colour) extends TransSimerUser with PaintElemOld
-{ override type AlignT = CircleFill
+case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUser with PaintElemOld
+{ override type AlignT = CircleFillOld
   override type MemT = CircleOld
   override def geomMem: MemT = circle
-  override def newThis(transer: CircleOld): CircleFill = CircleFill(transer, colour)
+  override def newThis(transer: CircleOld): CircleFillOld = CircleFillOld(transer, colour)
   def shear(xScale: Double, yScale: Double): Transer = ???
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
 }
 
-//case class CircleFill(circle: CircleOld, colour: Colour)
-
+case class CircleFill(circle: Circle, colour: Colour) extends PaintElem//New
+{
+  override def rendToCanvas(cp: CanvasPlatform): Unit = {}
+}
 
 
 case class CircleDraw(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
