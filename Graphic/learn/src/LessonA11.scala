@@ -21,6 +21,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
  // val sq = Square(100, 110 vv -400)
 
   val cn = Circle(80, 110, -290)
+  val cnf = CircleFill(cn, Violet)
   val cn1 = cn.slate(20 vv 50)
   val na: Arr[GeomElem] = Arr(cl2, cn)
 

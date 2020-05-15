@@ -79,6 +79,12 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.fillOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
   }
 
+  override def tlCircleFill(cf: CircleFill): Unit =
+  { val circ = cf.circle
+    gc.setFill(toFxColor(cf.colour))
+    gc.fillOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
+  }
+
   override def tlCircleDraw(cd: CircleDraw): Unit =
   { val circ = cd.circle
     gc.setLineWidth(cd.lineWidth)

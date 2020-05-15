@@ -12,17 +12,20 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
 }
 
-case class CircleFill(circle: Circle, colour: Colour) extends PaintElemNew
+final case class CircleFill(circle: Circle, colour: Colour) extends PaintElemNew
 {
   override def rendToCanvas(cp: CanvasPlatform): Unit = {}
 
   override def fTrans(f: Vec2 => Vec2): CircleFill = ???
 
   override def mirrorXOffset(yOffset: Double): CircleFill = CircleFill(circle.mirrorXOffset(yOffset), colour)
-
+  @inline def mirrorX: CircleFill = mirrorXOffset(0)
   override def mirrorYOffset(xOffset: Double): CircleFill = CircleFill(circle.mirrorYOffset(xOffset), colour)
+  @inline def mirrorY: CircleFill = mirrorYOffset(0)
 
   override def slate(offset: Vec2): CircleFill = CircleFill(circle.slate(offset), colour)
+  /** Translate geometric transformation. */
+  @inline def slate(xOffset: Double, yOffset: Double): CircleFill = CircleFill(circle.slate(xOffset, yOffset), colour)
 
   override def scale(operand: Double): CircleFill = CircleFill(circle.scale(operand), colour)
 

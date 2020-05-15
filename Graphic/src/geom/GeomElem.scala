@@ -28,13 +28,13 @@ trait GeomElemNew extends GeomElem
   def slate(offset: Vec2): GeomElemNew
 
   /** Translate geometric transformation. */
-  @inline final def slate(xOffset: Double, yOffset: Double): GeomElemNew = slate(xOffset, yOffset)
+  @inline def slate(xOffset: Double, yOffset: Double): GeomElemNew// = slate(xOffset, yOffset)
 
   def scale(operand: Double): GeomElemNew
   def mirrorXOffset(yOffset: Double): GeomElemNew
-  @inline final def mirrorX: GeomElemNew = mirrorXOffset(0)
+  @inline def mirrorX: GeomElemNew// = mirrorXOffset(0)
   def mirrorYOffset(xOffset: Double): GeomElemNew
-  @inline final def mirrorY: GeomElemNew = mirrorYOffset(0)
+  @inline def mirrorY: GeomElemNew //= mirrorYOffset(0)
 
   def prolign(matrix: ProlignMatrix): GeomElemNew
 }

@@ -3,7 +3,20 @@ package ostrat
 package geom
 
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
-trait GraphicElem extends GeomElem
+sealed trait GraphicElem extends GeomElem
+{
+  /*def slate(offset: Vec2): GraphicElem = this match
+  {
+    case gen: GeomElemNew => gen.slate(offset)
+    case geo: GraphicElemOld => geo.slate(offset)
+  }
+  def slate(xOffset: Double, yOffset: Double): GraphicElem = this match
+  {
+    case gen: GeomElemNew => gen.slate(xOffset, yOffset)
+    case geo: GraphicElemOld => geo.slate(xOffset, yOffset)
+  }*/
+
+}
 
 object GraphicElem
 {
@@ -48,6 +61,9 @@ trait PaintElem extends GraphicElem
 }
 
 trait PaintElemNew extends PaintElem with GraphicElemNew
+{
+  //override def slate(xOffset: Double, yOffset: Double): PaintElemNew
+}
 
 /** Trait to be removed. */
 trait PaintElemOld extends GraphicElemOld with PaintElem

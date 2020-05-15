@@ -29,6 +29,8 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    override def textOutline(to: TextOutline): Unit = {}
    override def dashedLineDraw(dld: DashedLineDraw): Unit = {}
    override def circleFillOld(cf: CircleFillOld): Unit = {}
+
+   override def circleFill(cf: CircleFill): Unit = println("Output " + cf.toString)
    override def circleDraw(cd: CircleDraw): Unit = {}
    override def circleFillDraw(cfd: CircleFillDraw): Unit = {}
    override def clear(colour: Colour = Colour.White): Unit = {}  
