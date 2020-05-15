@@ -85,7 +85,7 @@ trait CanvasPlatform extends RectGeom
 
   def circleFill(cf: CircleFill): Unit
 
-  def circleDraw(cd: CircleDraw): Unit
+  def circleDraw(cd: CircleDrawOld): Unit
 
   def circleFillDraw(cfd: CircleFillDraw): Unit
 

@@ -94,3 +94,13 @@ trait PaintFullElem extends PaintElemOld with GraphicFullElem
   //override def fTrans(f: Vec2 => Vec2): PaintFullElem
 
 }
+
+trait FilledElem extends PaintElemNew
+{ def fillColour: Colour
+}
+
+trait FillElem extends FilledElem
+
+trait Fillable extends GeomElemNew
+{ def fill(colour: Colour): FillElem
+}
