@@ -39,7 +39,6 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 
 trait GraphicElemNew extends GraphicElem with GeomElemNew
 {
-
   override def fTrans(f: Vec2 => Vec2): GraphicElemNew
 
   override def slate(offset: Vec2): GraphicElemNew = fTrans(_ + offset)
