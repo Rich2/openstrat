@@ -4,25 +4,25 @@ package geom
 
 object CircleIcon
 
-final case class Circle(radius: Double, x: Double, y: Double) extends GeomElemNew
+final case class Circle(radius: Double, xCen: Double, yCen: Double) extends GeomElemNew
 { /** This is wong. */
   override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(cen)) }
-  def cen: Vec2 = x vv y
+  def cen: Vec2 = xCen vv yCen
 
   override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
 
   /** Translate geometric transformation. */
-  @inline def slate(xOffset: Double, yOffset: Double): Circle = Circle(radius, x + xOffset, y + yOffset)
+  @inline def slate(xOffset: Double, yOffset: Double): Circle = Circle(radius, xCen + xOffset, yCen + yOffset)
 
   override def scale(operand: Double): Circle = Circle(radius * operand, cen * operand)
 
   override def mirrorXOffset(yOffset: Double): Circle = Circle(radius, cen.mirrorXOffset(yOffset))
 
-  override def mirrorX: Circle = Circle(radius, x, -y)
+  override def mirrorX: Circle = Circle(radius, xCen, -yCen)
 
   override def mirrorYOffset(xOffset: Double): Circle = Circle(radius, cen.mirrorYOffset(xOffset))
 
-  override def mirrorY: Circle = Circle(radius, -x, y)
+  override def mirrorY: Circle = Circle(radius, -xCen, yCen)
 
   override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, cen.prolignTrans(matrix))
 }

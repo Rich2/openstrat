@@ -132,7 +132,7 @@ object CanvasJs extends CanvasTopLeft
   { val ci = cf.circle
     gc.beginPath
     gc.fillStyle = cf.colour.webStr
-    gc.arc(ci.x, ci.y, ci.radius, 0, math.Pi * 2)
+    gc.arc(ci.xCen, ci.yCen, ci.radius, 0, math.Pi * 2)
     gc.fill()
   }
 

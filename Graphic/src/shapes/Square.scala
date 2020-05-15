@@ -2,32 +2,33 @@
 package ostrat
 package geom
 
-final case class Square(width: Double, xCen: Double, yCen: Double)// extends Transer
-{ }/*
-  override type AlignT = Square
+final case class Square(width: Double, xCen: Double, yCen: Double) extends GeomElemNew// extends Transer
+{
+  override def fTrans(f: Vec2 => Vec2): Square = { deb("This is wrong."); Square(width, f(cen)) }
   def cen: Vec2 = xCen vv yCen
-  def cenRight: Vec2 = cen + rotation.toVec2(width / 2)
-  def rotation: Angle = Angle(rotationRadians)
-  override def mirror(line: Line2): Square = Square(cen.mirror(line), width, rotation)
-  override def slateOld(offset: Vec2): Square = Square(cen + offset, width, rotation)
-  override def scaleOld(operand: Double): Square = Square(cen * operand, width * operand, rotation)
 
-  override def rotateRadians(radians: Double): Square =
-  { val newCen = cen.rotateRadians(radians)
-    val newCenRight = cenRight.rotateRadians(radians)
-    val newAngle = (newCenRight - newCen).angle
-    Square(newCen, width, newAngle)
-  }
+  override def slate(offset: Vec2): Square = Square(width, cen + offset)
 
-  override def shear(xScale: Double, yScale: Double): Square = ???
+  /** Translate geometric transformation. */
+  @inline def slate(xOffset: Double, yOffset: Double): Square = Square(width, xCen + xOffset, yCen + yOffset)
 
-  override def fTrans(f: Vec2 => Vec2): Square = ???
-}*/
+  override def scale(operand: Double): Square = Square(width * operand, cen * operand)
+
+  override def mirrorXOffset(yOffset: Double): Square = Square(width, cen.mirrorXOffset(yOffset))
+
+  override def mirrorX: Square = Square(width, xCen, -yCen)
+
+  override def mirrorYOffset(xOffset: Double): Square = Square(width, cen.mirrorYOffset(xOffset))
+
+  override def mirrorY: Square = Square(width, -xCen, yCen)
+
+  override def prolign(matrix: ProlignMatrix): Square = Square(width * matrix.vFactor, cen.prolignTrans(matrix))
+}
 
 /** Factory object for squares. There is no companion Square class. */
 object Square //extends UnScaledPolygon
 {
-  //def apply(cen: Vec2, width: Double, rotation: Angle = Angle(0)): Square = new Square(cen.x, cen.y, width, rotation.radians)
+  def apply(width: Double, cen: Vec2): Square = new Square(width, cen.x, cen.y)
   //val apply: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
   //def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = apply.fTrans(_ * width + cen)
   def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
