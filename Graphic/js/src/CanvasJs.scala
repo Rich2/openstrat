@@ -120,7 +120,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override def tlCircleFill(cf: CircleFillOld): Unit =
+  override def tlCircleFillOld(cf: CircleFillOld): Unit =
   { val ci = cf.circle
     gc.beginPath
     gc.fillStyle = cf.colour.webStr
