@@ -4,6 +4,7 @@ package pReactor
 
 import geom._, pCanv._, Colour._
 
+/** A clone of the classic Atoms game */
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 {
   val size = 40  //cell size in pixels
