@@ -18,7 +18,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val r2 = Rectangle(180, 100, 150 vv -200)
   val cl2 = CircleOld(80, 110 vv - 300)
- // val sq = Square(100, 110 vv -400)
+  val sq = Square(100, 110, -400)
 
   val cn = Circle(80, 110, -290)
   val cnf = CircleFill(cn, Violet)
@@ -28,7 +28,8 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val na1 = na.slate(20, 20)
 
-  val ca = Arr(cn, cn)
+  val ca = Arr(sq, cn)
+  //val ca2 = ca.slate(20, 20)
 
   val na2 = na1.slate(20, 20)
 
