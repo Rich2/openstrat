@@ -23,14 +23,14 @@ object GeomElem
 trait GeomElemNew extends GeomElem
 { /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def fTrans(f: Vec2 => Vec2): GeomElemNew
-
+  
   /** Translate geometric transformation. */
-  def slate(offset: Vec2): GeomElemNew = fTrans(_ + offset)
+  def slate(offset: Vec2): GeomElemNew
 
   /** Translate geometric transformation. */
   @inline final def slate(xOffset: Double, yOffset: Double): GeomElemNew = slate(xOffset, yOffset)
 
-  def scale(operand: Double): GeomElemNew = fTrans(_ *  operand)
+  def scale(operand: Double): GeomElemNew
   def mirrorXOffset(yOffset: Double): GeomElemNew
   @inline final def mirrorX: GeomElemNew = mirrorXOffset(0)
   def mirrorYOffset(xOffset: Double): GeomElemNew

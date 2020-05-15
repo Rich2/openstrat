@@ -6,16 +6,18 @@ object CircleIcon
 
 final case class Circle(radius: Double, x: Double, y: Double) extends GeomElemNew
 { /** This is wong. */
-  override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(vCen)) }
-  def vCen: Vec2 = x vv y
+  override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(cen)) }
+  def cen: Vec2 = x vv y
 
-  override def slate(offset: Vec2): Circle = Circle(radius, vCen + offset)
+  override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
 
-  override def mirrorXOffset(yOffset: Double): GeomElemNew = Circle(radius, vCen.mirrorXOffset(yOffset))
+  override def scale(operand: Double): Circle = Circle(radius * operand, cen * operand)
 
-  override def mirrorYOffset(xOffset: Double): GeomElemNew = Circle(radius, vCen.mirrorYOffset(xOffset))
+  override def mirrorXOffset(yOffset: Double): Circle = Circle(radius, cen.mirrorXOffset(yOffset))
 
-  override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, vCen.prolignTrans(matrix))
+  override def mirrorYOffset(xOffset: Double): Circle = Circle(radius, cen.mirrorYOffset(xOffset))
+
+  override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, cen.prolignTrans(matrix))
 }
 
 /** This object provides factory methods for circles. */

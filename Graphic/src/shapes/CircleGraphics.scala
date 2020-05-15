@@ -16,17 +16,17 @@ case class CircleFill(circle: Circle, colour: Colour) extends PaintElemNew
 {
   override def rendToCanvas(cp: CanvasPlatform): Unit = {}
 
-  override def fTrans(f: Vec2 => Vec2): GraphicElemNew = ???
+  override def fTrans(f: Vec2 => Vec2): CircleFill = ???
 
-  override def mirrorXOffset(yOffset: Double): GeomElemNew = ???
+  override def mirrorXOffset(yOffset: Double): CircleFill = CircleFill(circle.mirrorXOffset(yOffset), colour)
 
-  override def mirrorYOffset(xOffset: Double): GeomElemNew = ???
+  override def mirrorYOffset(xOffset: Double): CircleFill = CircleFill(circle.mirrorYOffset(xOffset), colour)
 
-  override def slate(offset: Vec2): GraphicElemNew = super.slate(offset)
+  override def slate(offset: Vec2): CircleFill = CircleFill(circle.slate(offset), colour)
 
-  override def scale(operand: Double): GraphicElemNew = super.scale(operand)
+  override def scale(operand: Double): CircleFill = CircleFill(circle.scale(operand), colour)
 
-  override def prolign(matrix: ProlignMatrix): GeomElemNew = ???
+  override def prolign(matrix: ProlignMatrix): CircleFill = ???
 }
 
 
