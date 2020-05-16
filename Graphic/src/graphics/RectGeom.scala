@@ -5,7 +5,7 @@ import Colour.Black
 
 /** This trait may need new name and modification */
 trait RectGeom
-{ var backColour: Colour = Colour.White
+{
   def width: Double
   def height: Double
   def left = - width / 2

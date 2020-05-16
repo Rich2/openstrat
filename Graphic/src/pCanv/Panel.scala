@@ -26,7 +26,9 @@ case class MouseButtonCmd(cmd: MouseButton => Unit)
 
 /** The purpose of this trait is to give common methods for Panels and Simple Canvases. A SimpleCanvas is like a Panel but not a Panel.*/ 
 trait PanelLike extends RectGeom
-{ /** These are currently stored in reverse. I think this would be better in an Array */
+{var backColour: Colour = Colour.White
+
+  /** These are currently stored in reverse. I think this would be better in an Array */
   var actives: Arr[GraphicActive] = Arr()
 
   var canvObjs: Arr[GraphicElemOld] = Arr()
