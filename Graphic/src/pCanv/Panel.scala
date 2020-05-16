@@ -12,7 +12,9 @@ case class DispStill(fDisp: () => Unit) extends DispPhase
 case class Panel(private val outerCanv: CanvasPanelled, clipPoly: PolygonGen, cover: Boolean = true) extends PanelLike
 {
   override def toString: String = "Panel:" -- clipPoly.toString
-  val cen: Vec2 = clipPoly.polyCentre
+
+  /** The position of the centre of the Panel on the underlying canvas. */
+  val clipCen: Vec2 = clipPoly.polyCentre
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
 
@@ -25,7 +27,7 @@ case class MouseButtonCmd(cmd: MouseButton => Unit)
 }
 
 /** The purpose of this trait is to give common methods for Panels and Simple Canvases. A SimpleCanvas is like a Panel but not a Panel.*/ 
-trait PanelLike extends RectGeom
+trait PanelLike extends RectCenlign
 {var backColour: Colour = Colour.White
 
   /** These are currently stored in reverse. I think this would be better in an Array */

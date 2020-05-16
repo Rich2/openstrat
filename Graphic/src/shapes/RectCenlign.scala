@@ -1,13 +1,16 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
 
-/** This trait may need new name and modification */
-trait RectGeom
+/** A rectangle aligned with the X and Y axes and centred on x = 0, y = 0. */
+trait RectCenlign extends Rectlign
 {
-  def width: Double
-  def height: Double
+  def xCen: Double = 0
+  def yCen: Double = 0
+  //def cen: Vec2 = Vec2Z
+  //def width: Double
+  //def height: Double
   def left = - width / 2
   def right = width / 2
   def top = height / 2
