@@ -8,9 +8,7 @@ trait RectCenlign extends Rectlign
 {
   def xCen: Double = 0
   def yCen: Double = 0
-  //def cen: Vec2 = Vec2Z
-  //def width: Double
-  //def height: Double
+  //override def cen: Vec2 = Vec2Z
   def left = - width / 2
   def right = width / 2
   def top = height / 2

@@ -6,7 +6,11 @@ trait Rectlign
 { def width: Double
   def height: Double
   def xCen: Double
+  def yCen: Double
+  def cen: Vec2 = Vec2(xCen, yCen)
 }
+
+case class RectlignGen(width: Double, height: Double, xCen: Double, yCen: Double) extends Rectlign
 
 object Rectlign
 {
