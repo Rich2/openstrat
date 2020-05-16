@@ -28,13 +28,25 @@ trait GeomElemNew extends GeomElem
   def slate(offset: Vec2): GeomElemNew
 
   /** Translate geometric transformation. */
-  @inline def slate(xOffset: Double, yOffset: Double): GeomElemNew// = slate(xOffset, yOffset)
+  def slate(xOffset: Double, yOffset: Double): GeomElemNew
 
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
   def scale(operand: Double): GeomElemNew
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   def mirrorXOffset(yOffset: Double): GeomElemNew
-  @inline def mirrorX: GeomElemNew// = mirrorXOffset(0)
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def mirrorX: GeomElemNew
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def mirrorYOffset(xOffset: Double): GeomElemNew
-  @inline def mirrorY: GeomElemNew //= mirrorYOffset(0)
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def mirrorY: GeomElemNew
 
   def prolign(matrix: ProlignMatrix): GeomElemNew
 }

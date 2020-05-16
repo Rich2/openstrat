@@ -28,8 +28,8 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val na1 = na.slate(20, 20)
 
-  val ca = Arr(sq, cn)
-  //val ca2 = ca.slate(20, 20)
+  val ca: Arr[GeomElem] = Arr(sq, cn)
+  val ca2 = ca.slate(20, 20)
 
   val na2 = na1.slate(20, 20)
 
