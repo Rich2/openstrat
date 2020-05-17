@@ -3,7 +3,7 @@ import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
 { def version = "0.0.7snap"  
-  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint")
+  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-target:jvm-1.8", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
 trait CommonStd extends Common
@@ -116,7 +116,7 @@ object Dev extends PlatformsModule
   def mainClass = Some("ostrat.pFx.DevApp")
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src, Strat.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'User)
-  def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:13")
+  //def ivyDeps = Agg(ivy"org.openjfx:javafx:13.0.2")
 
   object js extends InnerJs
   { def moduleDeps = Seq(Strat.js)
