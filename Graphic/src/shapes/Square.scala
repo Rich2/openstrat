@@ -2,7 +2,8 @@
 package ostrat
 package geom
 
-final case class Square(width: Double, xCen: Double, yCen: Double) extends GeomElemNew// extends Transer
+/** Square can be translated, scaled, reflected and rotated while remaining a Square. */
+final case class Square(width: Double, xCen: Double, yCen: Double) extends GeomElemNew
 {
   override def fTrans(f: Vec2 => Vec2): Square = { deb("This is wrong."); Square(width, f(cen)) }
   def cen: Vec2 = xCen vv yCen
@@ -25,7 +26,7 @@ final case class Square(width: Double, xCen: Double, yCen: Double) extends GeomE
   override def prolign(matrix: ProlignMatrix): Square = Square(width * matrix.vFactor, cen.prolignTrans(matrix))
 }
 
-/** Factory object for squares. There is no companion Square class. */
+/** Factory object for squares. */
 object Square
 {
   def apply(width: Double, cen: Vec2): Square = new Square(width, cen.x, cen.y)

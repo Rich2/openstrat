@@ -1,7 +1,7 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pCanv.CanvasPlatform, Colour.Black
+import pCanv._, Colour.Black
 
 trait PolygonElem extends PaintFullElem with GraphicBoundedFull
 { type AlignT <: PolygonElem
