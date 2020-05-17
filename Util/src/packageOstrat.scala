@@ -191,6 +191,24 @@ package object ostrat
     (f: (Int, Int, Int) => Unit): Unit =
     iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => iToForeach(kFrom, kTo, kStep){ k => f(i, j, k) } } }
 
+  /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
+   * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
+  def ijkToMap[A, AA <: ArrBase[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
+    (f: (Int, Int, Int) => A)(implicit ev: ArrBuild[A, AA]): AA =
+  { val iLen = (iTo - iFrom + iStep).max(0) / iStep
+    val jLen = (jTo - jFrom + jStep).max(0) / jStep
+    val kLen = (kTo - kFrom + kStep).max(0) / jStep
+    val arrLen = iLen * jLen * kLen
+    val res = ev.newArr(arrLen)
+    var arrIndex = 0
+
+    ijkToForeach(iFrom, iTo, iStep)(jFrom, jTo, jStep)(kFrom, kTo, kStep){ (i, j, k) =>
+      ev.arrSet(res, arrIndex, f(i, j, k))
+      arrIndex += 1
+    }
+    res
+  }
+
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
   }
