@@ -18,7 +18,7 @@ trait Poly3Plus extends Any
 final case class Triangle(val array: Array[Double]) extends Polygon with Poly3Plus
 { type AlignT = Triangle
 	type ThisT = Triangle
-	override def typeStr = "Triangle"
+	def typeStr = "Triangle"
 	//override def length: Int = 3
 
 	//override def fTrans(f: Vec2 => Vec2): AlignT = Triangle(f(v0), f(v1), f(v2))
@@ -30,7 +30,12 @@ final case class Triangle(val array: Array[Double]) extends Polygon with Poly3Pl
 	}*/
 	def unsafeFromArray(array: Array[Double]): Triangle = new Triangle(array)
 	//override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2)	}
-	def fTrans(f: Vec2 => Vec2): Triangle = new Triangle(arrTrans(f))
+	def fTrans(f: Vec2 => Vec2): Triangle = ??? //new Triangle(arrTrans(f))
+	override def apply(index: Int): Vec2 = ???
+
+	override def foreach[U](f: Vec2 => U): Unit = ???
+
+	override def length: Int = ???
 }
 
 object Triangle
