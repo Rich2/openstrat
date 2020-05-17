@@ -3,7 +3,7 @@ package ostrat
 package pStrat
 import geom._, pCanv._
 
-case class ColourGen(canv: CanvasPlatform) extends pCanv.CanvasNoPanels("Colour Generator")
+case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Generator")
 {
   var line = 0
   val n = 2
