@@ -94,19 +94,18 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 }
 
 class RefsBuild[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A] ) extends ArrBuild[A, Arr[A]] with ArrFlatBuild[Arr[A]]
-{ type BuffT = RefBuff[A]
+{ type BuffT = AnyBuff[A]
   override def newArr(length: Int): Arr[A] = new Arr(new Array[A](length))
   override def arrSet(arr: Arr[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
-  override def newBuff(length: Int = 4): RefBuff[A] = new RefBuff(new ArrayBuffer[A](length))
-  override def buffGrow(buff: RefBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: RefBuff[A], arr: Arr[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
-  override def buffToArr(buff: RefBuff[A]): Arr[A] = new Arr(buff.unsafeBuff.toArray)
+  override def newBuff(length: Int = 4): AnyBuff[A] = new AnyBuff(new ArrayBuffer[A](length))
+  override def buffGrow(buff: AnyBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: AnyBuff[A], arr: Arr[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
+  override def buffToArr(buff: AnyBuff[A]): Arr[A] = new Arr(buff.unsafeBuff.toArray)
 }
 
 object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
   implicit def showImplicit[A <: AnyRef](implicit evA: Show[A]): Show[Arr[A]] = ArrayLikeShow[A, Arr[A]](evA)
-
 
   implicit class ArrExtension[A <: AnyRef](thisArr: Arr[A])
   {
@@ -119,7 +118,7 @@ object Arr
   }
 }
 
-class RefBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
+class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
 { override def apply(index: Int): A = unsafeBuff(index)
   override def length: Int = unsafeBuff.length
 }
