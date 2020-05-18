@@ -8,10 +8,6 @@ trait GeomElem extends Any// with Product with Serializable
 
 object GeomElem
 {
-  implicit def slateImplicit: Slate[GeomElem] = (obj: GeomElem, offset: Vec2) => obj match
-  { case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GeomElem]
-    case gea: GeomElemNew => gea.slate(offset)
-  }
 
   implicit def scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj match
   { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GeomElem]
@@ -20,7 +16,7 @@ object GeomElem
 }
 
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */
-trait GeomElemNew extends GeomElem
+trait GeomElemNew extends GeomElem with Product with Serializable
 { /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def fTrans(f: Vec2 => Vec2): GeomElemNew
   

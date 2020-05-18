@@ -18,12 +18,13 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val r2 = Rectangle(180, 100, 150 vv -200)
   val cl2 = CircleOld(80, 110 vv - 300)
-  val sq = Square(100, 110, -400)
+  val sq = Sqlign(100, 110, -400)
 
   val cn = Circle(80, 110, -290)
   val cnf = CircleFill(cn, Violet)
   val cn1 = cn.slate(20 vv 50)
   val na: Arr[GeomElem] = Arr(cl2, cn)
+  //val na = Arr(cl2, cn)
  // val na: Arr[Product with java.io.Serializable with GeomElem] = Arr(cl2, cn)
 
   val na1 = na.slate(20, 20)
