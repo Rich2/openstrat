@@ -6,6 +6,7 @@ import geom._, pCanv._, Colour._
 /*    NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right */
 /*  TODO: drag bar, click base, spring scroll, touch, pixel, clip, effects
           separate scrollbar, vertical scrollbar */
+
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
@@ -18,96 +19,85 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val itemsPerRow: Int = 5  //  columns
   val itemsPerCol: Int = 3  //  rows
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
-  val pages: Int = 1 + ( itemCount - 1 ) / itemsPerPage
+  val pages: Int = 1 + (itemCount - 1) / itemsPerPage
 
-//  var listOfFlags = Refs[Flag](); for( i <- 0 to itemCount-1 )
-//  { val thisColor = Colour.fromInts( scala.util.Random.nextInt( 200 ) + 55, scala.util.Random.nextInt( 200 ) + 55,
-//  scala.util.Random.nextInt( 200 ) + 55 ); listOfFlags = listOfFlags ++ Refs( TextFlagMaker( i.toString, thisColor ) ) }
-  case class ViewPort(width: Int, height: Int, headerSize: Int, cellWidth: Int, cellHeight: Int, maxBarWidth: Int, minBarWidth: Int,
-     isScrollHorizontal: Int, commonScale: Int)
-  val myView = ViewPort(750, 310, 50, 150, 100, 750, 20, 1, 100)
+//  var listOfFlags = Arr[Flag](); for(i <- 0 to itemCount-1) { val thisColor = Colour.fromInts(scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55); listOfFlags = listOfFlags ++ Arr(TextFlagMaker(i.toString, thisColor)) }
 
-  val viewport = Map( "width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "maxBarWidth"->(750-80), "minBarWidth"->20,
-    "isScrollHorizontal"-> 1, "commonScale"->100 )
-  val headerYpos = viewport("height")/2+viewport("headerSize")/2
-  val firstFlagsPosition = ( -( viewport("width")-viewport("cellWidth") ) / 2 vv ( viewport("height") - viewport("cellHeight") ) / 2 )
-  val barBackground =  Rectangle.curvedCorners( viewport("maxBarWidth") + 2, 32, 10, (0 vv headerYpos)).fill(Black)
+  val viewport = Map("width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "commonScale"->100)
+  val scrollport = Map("maxBarWidth"->(viewport("width")-80), "minBarWidth"->20, "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height")/2 + viewport("headerSize")/2))
+  val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 vv (viewport("height") - viewport("cellHeight")) / 2)
+  val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
-  val aTitle = TextGraphic( "Scroll: less/more buttons, arrow/pgUp/pgDn/Home/End keys, mouse wheel", 12, 0 vv headerYpos + 30 )
-  val btnMore = clickButton( ">", ( mb: MouseButton) => { scrollMore } ).slateOld( +20+viewport("maxBarWidth")/2, headerYpos )
-  val btnLess = clickButton( "<", ( mb: MouseButton) => { scrollLess } ).slateOld( -20-viewport("maxBarWidth")/2, headerYpos )
-  val everythingNotItemOrScrollbar: Arr[GraphicFullElem] = Arr( background, aTitle )
-  val scrollBar: Arr[GraphicFullElem] = Arr(btnMore, btnLess, barBackground )
+  val btnMore = clickButton(">", (mb: MouseButton) => { scrollMore }).slate(+20 + scrollport("maxBarWidth")/2, scrollport("scrollYpos"))
+  val btnLess = clickButton("<", (mb: MouseButton) => { scrollLess }).slate(-20 - scrollport("maxBarWidth")/2, scrollport("scrollYpos"))
+  val scrollBar: Arr[GraphicElemOld] = Arr(btnMore, btnLess, barBackground)
 
-  if ( viewport("isScrollHorizontal") == 1 ) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
-  else                                       { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerRow }
+  if (scrollport("isScrollHorizontal") == 1) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
+  else                                     { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerRow }
 // set itemsPerUnitScroll = itemsPerPage >>> scroll by page rather than by line
 
   val scrollStep = Math.max(iScrollStep, jScrollStep)
-  val barMaxAvailable = viewport("maxBarWidth") - viewport("minBarWidth")
-  val barWidth = ( viewport("minBarWidth") + Math.min( barMaxAvailable, 1.0 * barMaxAvailable * itemsPerPage / itemCount ) )
-  val barAvailable = viewport("maxBarWidth") - barWidth
-  val barStart = -barAvailable/2
-  val maxIndexOfFirstItemInView = scrollStep * ( ( Math.max(0, itemCount - itemsPerPage + scrollStep - 1)) / scrollStep )
-  def scrollMore(): Unit = { showGridView( Math.min( viewIndex + itemsPerUnitScroll, maxIndexOfFirstItemInView ) ) }
-  def scrollLess(): Unit = { showGridView( Math.max( viewIndex - itemsPerUnitScroll, 0 ) ) }
-  val bar = Rectangle.curvedCorners( barWidth, 30, 10 )
-
+  val barMaxAvailable = scrollport("maxBarWidth") - scrollport("minBarWidth")
+  val barWidth = (scrollport("minBarWidth") + Math.min(barMaxAvailable, 1.0 * barMaxAvailable * itemsPerPage / itemCount))
+  val barAvailable = scrollport("maxBarWidth") - barWidth
+  val barStartX = -barAvailable/2
+  val maxIndexOfFirstItemInView = scrollStep * ((Math.max(0, itemCount - itemsPerPage + scrollStep - 1)) / scrollStep)
+  def scrollMore(): Unit = { showGridView(viewIndex + itemsPerUnitScroll) }
+  def scrollLess(): Unit = { showGridView(viewIndex - itemsPerUnitScroll) }
+  val bar = Rectangle.curvedCorners(barWidth, 30, 10)
   var viewableItems:Arr[PolygonParentFull] = Arr()
-  def showGridView( indexOfFirstItemInView:Int): Unit =
-  { viewableItems = Arr()
-    for( j <- 0 to itemsPerCol-1; i <- 0 to itemsPerRow-1 if indexOfFirstItemInView + i * iScrollStep + j * jScrollStep < itemCount )
-    { val thisIndex = indexOfFirstItemInView + i * iScrollStep + j * jScrollStep
-      val thisFlag = listOfFlags( thisIndex ).parent( thisIndex.toString ).scale( viewport("commonScale")/Math.sqrt(listOfFlags( thisIndex ).ratio ) )
-      viewableItems = viewableItems +- thisFlag.slate( i * viewport("cellWidth"), -j * viewport("cellHeight") ).slate( firstFlagsPosition )
+ 
+  def showGridView(indexOfFirstItemInView:Int = 0): Unit =
+  { val firstIndex = Math.min(Math.max(indexOfFirstItemInView, 0), maxIndexOfFirstItemInView)
+    viewableItems = Arr()
+    for(j <- 0 to itemsPerCol-1; i <- 0 to itemsPerRow-1 if firstIndex + i * iScrollStep + j * jScrollStep < itemCount)
+    { val thisIndex = firstIndex + i * iScrollStep + j * jScrollStep
+      val thisFlag = listOfFlags(thisIndex).parent(thisIndex.toString).scale(viewport("commonScale")/Math.sqrt(listOfFlags(thisIndex).ratio))
+      viewableItems = viewableItems +- thisFlag.slate(i * viewport("cellWidth"), -j * viewport("cellHeight")).slate(firstFlagsPosition)
     }
-    viewIndex = indexOfFirstItemInView
-    if (selectedIndex == -1) positionBar() else showSelected( )
+    viewIndex = firstIndex
+    if (selectedIndex == -1) positionBar() else showSelected()
   }
 
   def positionBar(): Unit = 
-  { val barOffsetX = if ( maxIndexOfFirstItemInView != 0 ) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
-    val stuff = everythingNotItemOrScrollbar ++ scrollBar ++ viewableItems ++ Arr( bar.fill( Pink ))
-    val stuff2 = stuff.slate( barStart, headerYpos ).slate( barOffsetX, 0 )
-    repaint(stuff2)
+  { val barOffsetX = if (maxIndexOfFirstItemInView != 0) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
+    repaint(Arr(background) ++ scrollBar ++ viewableItems ++ Arr(bar.fill(Pink).slate(barStartX, scrollport("scrollYpos")).slate(barOffsetX, 0)))
   }
 
   def showSelected(): Unit =
-  { val thisFlag = listOfFlags( selectedIndex ).parent( selectedIndex.toString )
-    val thisFlag2 = thisFlag.scale( 3 * viewport("commonScale")/Math.sqrt(listOfFlags( selectedIndex ).ratio ) )
-    viewableItems = Arr(thisFlag2)
+  { viewableItems = Arr(listOfFlags(selectedIndex).parent(selectedIndex.toString).scale(3 * viewport("commonScale")/Math.sqrt(listOfFlags(selectedIndex).ratio)))
     positionBar()
   }
 
-  showGridView( viewIndex )
+  showGridView(viewIndex)
 
   mouseUp = (button: MouseButton, clickList, v) => button match
   { case LeftButton => clickList match
-    { case List( MouseButtonCmd( cmd ) ) => cmd.apply( button )
-      case List( flagIndex ) =>
-        { val thisFlag = flagIndex.toString.toInt
-          selectedIndex = if (selectedIndex != -1) -1 else thisFlag
-          showGridView( viewIndex )
-        } 
-      case l => {deb(l.toString); selectedIndex = -1; showGridView( viewIndex )}
-    }
-    case _ => deb("uncaught non left mouse button")
+   { case List(MouseButtonCmd(cmd)) => cmd.apply(button)
+     case List(flagIndex) =>
+       { selectedIndex = if (selectedIndex != -1) -1 else flagIndex.toString.toInt
+         showGridView(viewIndex)
+       } 
+     case l => { selectedIndex = -1; showGridView(viewIndex) }
+   }
+   case _ => deb("uncaught non left mouse button")
   }
 
-  canv.mouseDragged = (v:Vec2, b:MouseButton) => deb("mouse dragging.........")
+ canv.mouseDragged = (v:Vec2, b:MouseButton) => deb("mouse dragging.........")
 
-  // canv.mouseDown = ( v:Vec2, b:MouseButton ) => deb("mouse down on bar: "+barBackground.rect.toString)
+//canv.mouseDown = ( v:Vec2, b:MouseButton ) => deb("mouse down on bar: "+barBackground.rect.toString)
 
-  //**NB below is for scroll ~> need focus to handle keys also for selected etc
-  canv.keyDown = ( thekey: String ) => thekey match
-  { case ("ArrowUp" | "ArrowLeft") => scrollLess
-    case ("ArrowDown" | "ArrowRight" ) => scrollMore
-    case ("PageDown") => showGridView( Math.min( viewIndex + itemsPerPage, maxIndexOfFirstItemInView ) )
-    case ("PageUp") => showGridView( Math.max( viewIndex - itemsPerPage, 0 ) )
-    case ("End") => showGridView( maxIndexOfFirstItemInView )
-    case ("Home") => showGridView( 0 )
+//**NB below is for scroll ~> need focus to handle keys also for selected etc
+
+  canv.keyDown = (thekey: String) => thekey match
+  { case ("ArrowUp" | "ArrowLeft") => showGridView(viewIndex - itemsPerUnitScroll)
+    case ("ArrowDown" | "ArrowRight") => showGridView(viewIndex + itemsPerUnitScroll)
+    case ("PageDown") => showGridView(viewIndex + itemsPerPage)
+    case ("PageUp") => showGridView(viewIndex - itemsPerPage)
+    case ("End") => showGridView(maxIndexOfFirstItemInView)
+    case ("Home") => showGridView(0)
     case _ => deb(thekey)
   }
 
-  canv.onScroll = ( isScrollLess: Boolean ) => if ( isScrollLess )  scrollLess else scrollMore
+  canv.onScroll = (isScrollLess: Boolean) => if (isScrollLess)  scrollLess else scrollMore
 }
