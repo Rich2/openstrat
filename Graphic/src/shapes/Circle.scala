@@ -37,7 +37,7 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends Ellipse
 { //override type AlignT = Circle
   override def fTrans(f: Vec2 => Vec2): EllipseLike = ???
   def vCen: Vec2 = x vv y
-  override def shear(xScale: Double, yScale: Double): Ellipse = new Ellipse(x, y, x + radius, 0, radius)
+  override def shear(xScale: Double, yScale: Double): EllipseGen = new EllipseGen(x, y, x + radius, 0, radius)
   override def rotateRadians(radians: Double): CircleOld = CircleOld(radius, vCen.rotateRadians(radians))
   override def slateOld(offset: Vec2): CircleOld = CircleOld(radius, x + offset.x, y + offset.y)
   override def scaleOld(operand: Double): CircleOld = CircleOld(radius * operand, x * operand, y * operand)
