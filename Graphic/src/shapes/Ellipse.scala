@@ -8,5 +8,8 @@ trait Ellipse extends Shape//Affer
   //override def shear(xScale: Double, yScale: Double): Ellipse
 }
 
-trait Ellipselign extends Ellipse
+case class Ellipselign(xCen: Double, yCen: Double, horrRadius: Double, upRadus: Double) extends Ellipse
+{
+  override def fill(colour: Colour): GraphicElem = ???
+}
 
