@@ -7,8 +7,7 @@ object CircleIcon
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends GeomElemNew with Ellipse
 { /** This is wong. */
   override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(cen)) }
-  def cen: Vec2 = xCen vv yCen
-
+  
   override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
 
   /** Translate geometric transformation. */

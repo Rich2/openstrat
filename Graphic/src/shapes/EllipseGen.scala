@@ -2,12 +2,11 @@
 package ostrat
 package geom
 
-case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, val yRight: Double, val radiusB: Double) extends Ellipse
+case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, val yRight: Double, val rHeight: Double) extends Ellipse
 { //type AlignT = Ellipse
  // override def fTrans(f: Vec2 => Vec2): EllipseGen = ???
   def xCen: Double = (xLeft + xRight) /2
   def yCen: Double = (yLeft + yRight) / 2
-  def cen: Vec2 = xCen vv yCen
   def vRight: Vec2 = xRight vv yRight
   //override def shear(xScale: Double, yScale: Double): EllipseGen = this
   //override def rotate(angle: Angle): EllipseGen = this
@@ -22,13 +21,13 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
   def mirrorYOffset(xOffset: Double): GeomElemNew = ???
   def prolign(matrix: ProlignMatrix): GeomElemNew = ???
   def scale(operand: Double): GeomElemNew = ???
-  def slate(xOffset: Double, yOffset: Double): GeomElemNew = ???
+  def slate(xOffset: Double, yOffset: Double): EllipseGen = EllipseGen(xLeft + xOffset, yLeft + yOffset, xRight + xOffset, yRight + yOffset, rHeight)
   def slate(offset: Vec2): GeomElemNew = ???
 
   override def fill(colour: Colour): GraphicElem = ???
 }
 
 object EllipseGen
-{ def apply(vCen: Vec2, vRight: Vec2, upRadius: Double): EllipseGen = new EllipseGen(vCen.x, vCen.y, vRight.x, vRight.y, upRadius)
+{ def apply(vLeft: Vec2, vRight: Vec2, rHeight: Double): EllipseGen = new EllipseGen(vLeft.x, vLeft.y, vRight.x, vRight.y, rHeight)
 }
 

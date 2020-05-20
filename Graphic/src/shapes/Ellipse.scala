@@ -2,16 +2,15 @@
 package ostrat
 package geom
 
-trait Ellipse extends Shape//Affer
+trait Ellipse extends Shape
 { def xCen: Double
   def yCen: Double
-  def cen: Vec2
+  final def cen: Vec2 = xCen vv yCen
 }
 
-case class Ellipselign(xCen: Double, yCen: Double, radiusA: Double, radiusB: Double) extends Ellipse
-{
-  override def cen: Vec2 = xCen vv yCen
-  override def fill(colour: Colour): GraphicElem = ???
+/** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
+case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Double) extends Ellipse
+{ override def fill(colour: Colour): GraphicElem = ???
   def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
   def mirrorX: GeomElemNew = ???
   def mirrorXOffset(yOffset: Double): GeomElemNew = ???
