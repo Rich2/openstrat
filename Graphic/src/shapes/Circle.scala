@@ -4,7 +4,7 @@ package geom
 
 object CircleIcon
 
-final case class Circle(radius: Double, xCen: Double, yCen: Double) extends GeomElemNew
+final case class Circle(radius: Double, xCen: Double, yCen: Double) extends GeomElemNew with Ellipse
 { /** This is wong. */
   override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(cen)) }
   def cen: Vec2 = xCen vv yCen
@@ -25,6 +25,8 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Geom
   override def mirrorY: Circle = Circle(radius, -xCen, yCen)
 
   override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, cen.prolignTrans(matrix))
+
+  override def fill(colour: Colour): GraphicElemNew = ???
 }
 
 /** This object provides factory methods for circles. */

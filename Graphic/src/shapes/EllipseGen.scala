@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, val yRight: Double, val upRadius: Double) extends Ellipse
+case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, val yRight: Double, val radiusB: Double) extends Ellipse
 { //type AlignT = Ellipse
  // override def fTrans(f: Vec2 => Vec2): EllipseGen = ???
   def xCen: Double = (xLeft + xRight) /2
@@ -15,6 +15,15 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
   //override def slateOld(offset: Vec2): EllipseGen = EllipseGen(cen + offset, vRight + offset, upRadius)
   //override def scaleOld(operand: Double):  EllipseGen = EllipseGen(cen * operand * operand, vRight * operand, upRadius * operand)
   //override def mirror(line: Line2): EllipseGen = EllipseGen(cen.mirror(line), vRight.mirror(line), upRadius)
+  def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
+  def mirrorX: GeomElemNew = ???
+  def mirrorXOffset(yOffset: Double): GeomElemNew = ???
+  def mirrorY: GeomElemNew = ???
+  def mirrorYOffset(xOffset: Double): GeomElemNew = ???
+  def prolign(matrix: ProlignMatrix): GeomElemNew = ???
+  def scale(operand: Double): GeomElemNew = ???
+  def slate(xOffset: Double, yOffset: Double): GeomElemNew = ???
+  def slate(offset: Vec2): GeomElemNew = ???
 
   override def fill(colour: Colour): GraphicElem = ???
 }

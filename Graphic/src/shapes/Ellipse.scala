@@ -2,14 +2,24 @@
 package ostrat
 package geom
 
-
 trait Ellipse extends Shape//Affer
-{ //type AlignT = EllipseLike
-  //override def shear(xScale: Double, yScale: Double): Ellipse
+{ def xCen: Double
+  def yCen: Double
+  def cen: Vec2
 }
 
-case class Ellipselign(xCen: Double, yCen: Double, horrRadius: Double, upRadus: Double) extends Ellipse
+case class Ellipselign(xCen: Double, yCen: Double, radiusA: Double, radiusB: Double) extends Ellipse
 {
+  override def cen: Vec2 = xCen vv yCen
   override def fill(colour: Colour): GraphicElem = ???
+  def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
+  def mirrorX: GeomElemNew = ???
+  def mirrorXOffset(yOffset: Double): GeomElemNew = ???
+  def mirrorY: GeomElemNew = ???
+  def mirrorYOffset(xOffset: Double): GeomElemNew = ???
+  def prolign(matrix: ProlignMatrix): GeomElemNew = ???
+  def scale(operand: Double): GeomElemNew = ???
+  def slate(xOffset: Double, yOffset: Double): GeomElemNew = ???
+  def slate(offset: Vec2): GeomElemNew = ???
 }
 

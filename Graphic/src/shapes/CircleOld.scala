@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-final case class CircleOld(radius: Double, x: Double, y: Double) extends Transer with Shape//EllipseLike
+final case class CircleOld(radius: Double, x: Double, y: Double) extends Transer
 { override type AlignT = CircleOld
   override def fTrans(f: Vec2 => Vec2): CircleOld = ???
   def vCen: Vec2 = x vv y
