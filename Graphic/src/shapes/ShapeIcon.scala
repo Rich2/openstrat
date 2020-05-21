@@ -2,9 +2,7 @@
 package ostrat
 package geom
 
-object CircleIcon //extends GeomElemNew
-{
-
+trait ShapeIcon extends GeomElemNew
+{ def slate(offset: Vec2): Shape
 }
 
-case class CircleCen(scale: Double)
