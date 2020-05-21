@@ -6,6 +6,11 @@ trait Ellipse extends Shape
 { def xCen: Double
   def yCen: Double
   final def cen: Vec2 = xCen vv yCen
+
+  override def canEqual(that: Any): Boolean = that match
+  { case e: Ellipse => true
+    case _ => false
+  }
 }
 
 /** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
