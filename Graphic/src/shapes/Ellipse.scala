@@ -26,4 +26,3 @@ case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Doub
   def slate(xOffset: Double, yOffset: Double): GeomElemNew = ???
   def slate(offset: Vec2): GeomElemNew = ???
 }
-

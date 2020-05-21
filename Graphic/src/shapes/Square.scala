@@ -28,7 +28,7 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
 }
 
 /** Factory object for squares. */
-object Square
+object Square //extends ShapeIcon
 {
  // def apply(width: Double, xCen: Double, yCen: Double, rotationRadians: Double): Square = new Square(width, xCen, yCen, rotationRadians)
   def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = Angle(0)): Square = new Square(width, cen.x, cen.y, rotation)
