@@ -57,6 +57,15 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
 )
 
+/*lazy val DotModule = Project("DotModule", file("target/DotModule")).settings (
+   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
+   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
+   Compile/unmanagedSourceDirectories := List(scalaSource.value),
+   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/srcDot",
+   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+   resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns)
+)*/
+
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
 
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSettings).settings(
