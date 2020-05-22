@@ -5,10 +5,10 @@ ThisBuild/organization := "OpenStratOrg"
 ThisBuild/autoAPIMappings := true
 
 def commonSettings = List(
-	scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
-    libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
-    libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.2" % "test",
-    testFrameworks += new TestFramework("utest.runner.Framework"), 
+  scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
+  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.2" % "test",
+  testFrameworks += new TestFramework("utest.runner.Framework"), 
 )
 
 def stdSettings(name: String) = commonSettings ::: List(
@@ -55,16 +55,6 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
-)
-
-lazy val DotModule = Project("DotModule", file("target/DotModule")).settings(
-  scalaVersion := "0.24.0-RC1",
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
-   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
-   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/srcDot",
-   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-   resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns)
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
@@ -115,4 +105,17 @@ lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src", "Graphic/learn/src", "Strat/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
+)
+
+def dottySettings = List(
+	scalaVersion := "0.24.0-RC1",
+  resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns)
+)
+
+lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/srcDot",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),  
 )
