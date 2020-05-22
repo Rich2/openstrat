@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Circle class is defined by its centre and radius. It fulfills the interface for an Elllipse */
+/** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
 { /** This is wong. */
   override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(cen)) }

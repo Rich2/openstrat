@@ -1,9 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCanv
 import geom._
 
-/** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used by graphical applications. */
+/** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used directly by graphical applications. */
 trait CanvasTopLeft extends CanvasPlatform
 {   
    def tlCen: Vec2 =>  Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
