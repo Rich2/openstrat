@@ -109,13 +109,22 @@ lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(
 
 def dottySettings = List(
 	scalaVersion := "0.24.0-RC1",
-  resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns)
+  resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
+  scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
 )
 
-lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  
+/*lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/srcDot",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),  
 )
+
+lazy val DotUtil = Project("DotUtil", file("target/DotUtil")).dependsOn(DotMacros).settings(dottySettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/test/src",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+)*/
