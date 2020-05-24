@@ -17,7 +17,10 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toStrsSemiFold(fToStr: A => String = _.toString): String = thisIter.toStrsFold("; ", fToStr)
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
+
+  /** If the collection is nonEmpty, return head of list convert to string or return the defualt string. */
   def headToStringElse(elseString: => String): String = headOnly(elseString, _.toString)
+  
   /** Converts to ArrImut of A. Most commonly a Refs. Prefer the mapArr method where appropriate which combines the converson with a map operation. */
   def toImut[AA <: ArrBase[A]](implicit bu: ArrBuild[A, AA]): AA =
   { val len = thisIter.size

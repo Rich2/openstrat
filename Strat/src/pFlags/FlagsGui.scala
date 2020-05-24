@@ -28,13 +28,13 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val cr = Cross().slate(starCen)
   val us = UnitedStates.parentStr.scale(500)//.slate(-300, 350)
   //val us2 = UnitedStates.inset.scale(500)
-  def stuff: Arr[GraphicElemOld] = tlObjs ++ trObjs ++ blObjs ++ brObjs +- us //+- myr
+  val notChanging: Arr[GraphicElemOld] = tlObjs ++ trObjs ++ blObjs ++ brObjs +- us //+- myr
 
   mouseUp = (_, li, _) =>
   { val str: String = li.headToStringElse("No clickable object on canvas")
     val tg = TextGraphic(str, 28, 0 vv 100)
-    repaint(stuff +-  tg)
+    repaint(notChanging +-  tg)
   }
 
-  repaint(stuff)
+  repaint(notChanging)
 }
