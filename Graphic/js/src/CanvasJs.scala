@@ -29,7 +29,7 @@ object CanvasJs extends CanvasTopLeft
     case 1 => LeftButton
     case 2 => RightButton
     case 4 => MiddleButton
-    case _ => MultipleButton
+    case _ => MultipleButton  // NB: if _ is a power of 2 this this should be: case _ => OtherButton 
   }
 
   can.onmouseup = (e: MouseEvent) =>
