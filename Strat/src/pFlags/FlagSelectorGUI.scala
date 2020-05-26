@@ -15,7 +15,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
    Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag,
    CommonShapesInFlags)
 
-  val itemCount: Int = listOfFlags.length  // 222 //  
+  val itemCount: Int = listOfFlags.length  // 224 //  
   val itemsPerRow: Int = 5  //  columns
   val itemsPerCol: Int = 3  //  rows
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
@@ -66,7 +66,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   }
 
   def positionBar(): Unit = 
-  { if (isDragging == false) barOffsetX = if (maxIndexOfFirstItemInView != 0) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
+  { barOffsetX = if (maxIndexOfFirstItemInView != 0) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
     bar = Rectangle.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX vv scrollport("scrollYpos")).fill(Pink)
     repaint(Arr(background) ++ scrollBar ++ viewableItems ++ Arr(bar))
   }
@@ -83,7 +83,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     barOffsetX = dragStartBarOffsetX + pixelDelta
     barOffsetX = Math.min(barAvailable, Math.max(0, barOffsetX))
     val currentScroll = ((barOffsetX * maxIndexOfFirstItemInView) / barAvailable).toInt
-    showGridView(currentScroll/itemsPerUnitScroll*itemsPerUnitScroll)
+    showGridView(((currentScroll + itemsPerUnitScroll - 1) / itemsPerUnitScroll * itemsPerUnitScroll))//
   }
 
   mouseUp = (button: MouseButton, clickList, v) =>
