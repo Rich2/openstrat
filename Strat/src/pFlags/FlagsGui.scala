@@ -1,8 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFlags
 import geom._, pCanv._, Colour._
 
+/** A shortcut application to display some flags. */
 case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 {
   backColour = Gray
@@ -26,7 +27,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val starCen = 300 vv 0
   val star = Arr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
-  val us = UnitedStates.parentStr.scale(500)//.slate(-300, 350)
+  val us = India.parentStr.scale(800)//.slate(-300, 350)
   //val us2 = UnitedStates.inset.scale(500)
   def stuff: Arr[GraphicElemOld] = tlObjs ++ trObjs ++ blObjs ++ brObjs +- us //+- myr
 
