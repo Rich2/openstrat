@@ -15,7 +15,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag,
     CommonShapesInFlags)
 
-  val itemCount: Int = listOfFlags.length
+  val itemCount: Int = listOfFlags.length  //222
   val itemsPerRow: Int = 5  //  columns
   val itemsPerCol: Int = 3  //  rows
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
@@ -24,7 +24,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 //  var listOfFlags = Arr[Flag](); for(i <- 0 to itemCount-1) { val thisColor = Colour.fromInts(scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55); listOfFlags = listOfFlags ++ Arr(TextFlagMaker(i.toString, thisColor)) }
 
   val viewport = Map("width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "commonScale"->100)
-  val scrollport = Map("maxBarWidth"->(viewport("width")-80), "minBarWidth"->20, "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height")/2 + viewport("headerSize")/2))
+  val scrollport = Map("isDragging"->0, "startDrag"->0, "maxBarWidth"->(viewport("width")-80), "minBarWidth"->20, "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height")/2 + viewport("headerSize")/2))
   val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 vv (viewport("height") - viewport("cellHeight")) / 2)
   val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
@@ -71,6 +71,11 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   showGridView(viewIndex)
 
+  def dragging(loc: Vec2): Unit =
+  {
+    deb(loc.toString)
+  }
+
   mouseUp = (button: MouseButton, clickList, v) => button match
   { case LeftButton => clickList match
    { case List(MouseButtonCmd(cmd)) => cmd.apply(button)
@@ -83,9 +88,14 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
    case _ => deb("uncaught non left mouse button")
   }
 
- canv.mouseDragged = (v:Vec2, b:MouseButton) => deb("mouse dragging.........")
+  canv.mouseDragged = (v:Vec2, b:MouseButton) => deb("mouse dragged........."+v.toString)
+//GraphicActive.ptInside(pt: Vec2): Boolean
+//  canv.mouseMove = (v:Vec2, b:MouseButton) => deb("mouse moved........."+b.toString)
 
-//canv.mouseDown = ( v:Vec2, b:MouseButton ) => deb("mouse down on bar: "+barBackground.rect.toString)
+  canv.mouseDown = ( v:Vec2, b:MouseButton ) => {
+//    canv.timeOut(() => dragging(v), 100)
+    deb("mouse down at: "+v.toString)
+  }
 
 //**NB below is for scroll ~> need focus to handle keys also for selected etc
 

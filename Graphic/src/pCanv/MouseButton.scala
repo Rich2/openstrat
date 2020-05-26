@@ -15,4 +15,5 @@ case object LeftButton extends MouseButton
 case object MiddleButton extends MouseButton
 case object RightButton extends MouseButton
 case object NoButton extends MouseButton
-
+//MultipleButton is needed for completeness for mouse events in js when the event is NOT instigated by a Mouse Press/Click
+case object MultipleButton extends MouseButton

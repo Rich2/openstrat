@@ -23,6 +23,15 @@ object CanvasJs extends CanvasTopLeft
     case 2 => RightButton
   }
 
+  // e.buttons returns a bitmask of the values below eg returns 3 if both Left & Right button are active
+  def getButtons(e: MouseEvent): MouseButton = e.buttons match
+  { case 0 => NoButton
+    case 1 => LeftButton
+    case 2 => RightButton
+    case 4 => MiddleButton
+    case _ => MultipleButton  // NB: if _ is a power of 2 this this should be: => OtherButton 
+  }
+
   can.onmouseup = (e: MouseEvent) =>
   { val rect: ClientRect = can.getBoundingClientRect()
     mouseUpTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
@@ -33,6 +42,14 @@ object CanvasJs extends CanvasTopLeft
     mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
   
+  can.onmousemove = (e: MouseEvent) => 
+  { val whichMB = getButtons(e)
+    if (whichMB != NoButton) {
+      val rect = can.getBoundingClientRect()
+      mouseDraggedTopLeft(e.clientX - rect.left, e.clientY -rect.top, whichMB)
+    }
+  }
+
   can.onkeyup = (e: raw.KeyboardEvent) => { keyUp(e.key) }
   can.onkeydown = (e: raw.KeyboardEvent) => { keyDown(e.key) }
 
