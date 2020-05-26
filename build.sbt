@@ -5,7 +5,7 @@ ThisBuild/organization := "OpenStratOrg"
 ThisBuild/autoAPIMappings := true
 
 def commonSettings = List(
-  scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.2" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
@@ -112,7 +112,7 @@ lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(
 def dottySettings = List(
 	scalaVersion := "0.24.0-RC1",
   resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
-  scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
 )
 
 lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  

@@ -167,19 +167,17 @@ object RoadmapPage extends TextPage
    def partLink: String = "roadmap"
    override def middle: Seq[XCon] = Seq(HtmlH1("Roadmap")) :+ lists
    def roadList(strs: Seq[String], colour: Colour) = HUList(strs.map(i => new HLItem(i)): _*)(StyleAtt(CssColour(colour)))
+   
    def lists: XCon =
-   {
-      import Colour._
-      import scala.io.Source
-      val gs = Source.fromFile(resDir / "toDo.txt").getLines.foldLeft((Seq[Seq[String]](), Seq[String]()))((acc, line) => line match
-            {
-         case "" => acc        
-         case l if l.head == '#' => (acc._1 :+ acc._2, Seq())
-         case l if l.length < 2 => acc
-         case l if l.tail.head == '#' => (acc._1 :+ acc._2, Seq())
-         case l if l.forall(_.isWhitespace) => acc
-         case l => (acc._1, acc._2 :+ l)
-            })
+   { import scala.io.Source
+     val gs = Source.fromFile(resDir / "toDo.txt").getLines.foldLeft((Seq[Seq[String]](), Seq[String]()))((acc, line) => line match
+     { case "" => acc        
+       case l if l.head == '#' => (acc._1 :+ acc._2, Seq())
+       case l if l.length < 2 => acc
+       case l if l.tail.head == '#' => (acc._1 :+ acc._2, Seq())
+       case l if l.forall(_.isWhitespace) => acc
+       case l => (acc._1, acc._2 :+ l)
+     })
       if (gs._1.length != 2) throw new Exception((gs._1.length + 1).toString -- "lists. Should be 3 lists in ToDo.txt")
 import Colour._
       val urgentIssues = toDoEmp(gs._1(0), "Urgent Issues", Red)
