@@ -8,7 +8,7 @@ import reflect.ClassTag, scala.annotation.unused
 trait ArrFlatBuild[ArrT <: ArrBase[_]] extends ArrBuildBase[ArrT]
 
 object ArrFlatBuild extends ArrFlatBuildLowPriority
-{ implicit val intsImplicit = IntsBuild
+{ implicit val intsImplicit: ArrFlatBuild[Ints] = IntsBuild
   implicit val dblsImplicit = DblsBuild
   implicit val longsImplicit = LongsBuild
   implicit val floatImplicit = FloatsBuild

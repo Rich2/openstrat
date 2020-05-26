@@ -48,11 +48,11 @@ trait ArrBuild[B, ArrT <: ArrBase[B]] extends ArrBuildBase[ArrT]
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
 object ArrBuild extends ArrBuildLowPriority
-{ implicit val intsImplicit = IntsBuild
-  implicit val doublesImplicit = DblsBuild
-  implicit val longImplicit = LongsBuild
-  implicit val floatImplicit = FloatsBuild
-  implicit val booleansImplicit = BooleansBuild
+{ implicit val intsImplicit: ArrBuild[Int, Ints] = IntsBuild
+  implicit val doublesImplicit: ArrBuild[Double, Dbls] = DblsBuild
+  implicit val longImplicit: ArrBuild[Long, Longs] = LongsBuild
+  implicit val floatImplicit: ArrBuild[Float, Floats] = FloatsBuild
+  implicit val booleansImplicit: ArrBuild[Boolean, Booleans] = BooleansBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. */

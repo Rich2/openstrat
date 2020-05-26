@@ -45,27 +45,26 @@ abstract class ProdDbl6sCompanion[A <: ProdDbl6, M <: ArrProdDbl6[A]]
     res
   }
    
-   def doubles(elems: Double*): M =
-   {
-      val arrLen: Int = elems.length
-      val res = factory(elems.length / 6)
-      var count: Int = 0
-      while (count < arrLen) { res.array(count) = elems(count); count += 1 }
-      res
-   }
+  def doubles(elems: Double*): M =
+  { val arrLen: Int = elems.length
+    val res = factory(elems.length / 6)
+    var count: Int = 0
+    while (count < arrLen) { res.array(count) = elems(count); count += 1 }
+    res
+  }
    
-   def fromList(list: List[A]): M = 
-   { val res = factory(list.length)
-     var count: Int = 0
-     var rem = list
+  def fromList(list: List[A]): M = 
+  { val res = factory(list.length)
+    var count: Int = 0
+    var rem = list
      
-     while (count < list.length)
-     { val offset = count * 6
-       res.array(offset) = rem.head._1; res.array(offset +  1) = rem.head._2; res.array(offset +  2) = rem.head._3; res.array(offset +  3) = rem.head._4
-       res.array(offset +  4)= rem.head._5; res.array(offset + 5 )= rem.head._6
-       count += 1
-       rem = rem.tail
-     }
-     res
-   }
+    while (count < list.length)
+    { val offset = count * 6
+      res.array(offset) = rem.head._1; res.array(offset +  1) = rem.head._2; res.array(offset +  2) = rem.head._3; res.array(offset +  3) = rem.head._4
+      res.array(offset +  4)= rem.head._5; res.array(offset + 5 )= rem.head._6
+      count += 1
+      rem = rem.tail
+    }
+    res
+  }
 }
