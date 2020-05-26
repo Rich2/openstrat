@@ -246,7 +246,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     res
   }
 
-  def toStrsFold(seperator: String = "",  f: A => String = _.toString): String =
+  def toStrsFold(seperator: String,  f: A => String): String =
   { var acc: String = ""
     var start = true
     foreach{ a => if(start == true) { acc = f(a); start = false } else acc = acc + seperator + f(a)}
@@ -329,14 +329,14 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     acc
   }
 
-  def toStrsCommaFold(fToStr: A => String = _.toString): String = toStrsFold(", ", fToStr)
-  def toStrsCommaNoSpaceFold(fToStr: A => String = _.toString): String = toStrsFold(",", fToStr)
-  def toStrsSemiFold(fToStr: A => String = _.toString): String = toStrsFold("; ", fToStr)
-  def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
-  def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
+  def toStrsCommaFold(fToStr: A => String): String = toStrsFold(", ", fToStr)
+  def toStrsCommaNoSpaceFold(fToStr: A => String): String = toStrsFold(",", fToStr)
+  def toStrsSemiFold(fToStr: A => String): String = toStrsFold("; ", fToStr)
+  def toStrsCommaParenth(fToStr: A => String): String = toStrsCommaFold(fToStr).enParenth
+  def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
 }
 
 case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: Show[A]) extends ShowSeqLike[A, R]
-{ def showComma(obj: R): String = obj.toStrsCommaFold()
-  def showSemi(obj: R): String = obj.toStrsSemiFold()
+{ def showComma(obj: R): String = obj.toStrsCommaFold(evA.show(_))
+  def showSemi(obj: R): String = obj.toStrsSemiFold(evA.showComma(_))
 }
