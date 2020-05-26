@@ -22,6 +22,8 @@ def stdSettings(name: String) = commonSettings ::: List(
   version := (ThisBuild/version).value
 )
 
+lazy val root = (project in file(".")).aggregate(Dev, JsDev, Util, JsGraphic)
+
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
@@ -113,7 +115,7 @@ def dottySettings = List(
   scalacOptions ++= Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-target:jvm-1.8", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
 )
 
-/*lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  
+lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
@@ -127,4 +129,4 @@ lazy val DotUtil = Project("DotUtil", file("target/DotUtil")).dependsOn(DotMacro
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-)*/
+)
