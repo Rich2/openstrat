@@ -13,6 +13,7 @@ def commonSettings = List(
 def stdSettings(name: String) = commonSettings ::: List(
   scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / name / "learn/src"),
   resourceDirectory := (ThisBuild/baseDirectory).value / name / "/res",
   Test/scalaSource := (ThisBuild/baseDirectory).value / name / "test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / name / "learn/src"),
@@ -36,20 +37,11 @@ def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
 )
 
-lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros).settings(
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),	
-)
-
-lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(
-  Compile/unmanagedSourceDirectories := List("src").map(str => (ThisBuild/baseDirectory).value / "Graphic" / str),  
-)
-
-lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic).settings(
-  Compile/unmanagedSourceDirectories := List("src").map(str => (ThisBuild/baseDirectory).value / "Tiling" / str),  
-)
+lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
+lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util)
+lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic)
 
 lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling).settings(
-  Compile/unmanagedSourceDirectories := List("src", "jvm/src").map(str => (ThisBuild/baseDirectory).value / "Strat" / str),
   assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar"
 )
 
