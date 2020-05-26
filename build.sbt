@@ -6,8 +6,7 @@ ThisBuild/autoAPIMappings := true
 
 def commonSettings = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
-  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.2" % "test",
+  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,  
   testFrameworks += new TestFramework("utest.runner.Framework"), 
 )
 
@@ -25,6 +24,7 @@ def stdSettings(name: String) = commonSettings ::: List(
 lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, Strat, Dev, JsDev)
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSettings).settings(
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.2" % "test",
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
@@ -32,7 +32,9 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings(stdSettings(name))
+def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings(stdSettings(name)).settings(
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
+)
 
 lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros).settings(
   Compile/unmanagedSourceDirectories := List(scalaSource.value),	
@@ -84,6 +86,7 @@ def jsProj(name: String) = Project("Js" + name, file("target/Js" + name)).enable
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.0.0",
   scalaSource := (ThisBuild/baseDirectory).value / name / "src",
+  libraryDependencies += "com.lihaoyi" %%% "utest" % "0.7.4" % "test",
 )
 
 lazy val JsUtilMacros = jsProj("UtilMacros").settings(
@@ -109,7 +112,6 @@ lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src", "Graphic/learn/src", "Strat/learn/src").map(s => (ThisBuild/baseDirectory).value / s),
-  testFrameworks += new TestFramework("utest.runner.Framework"),
 )
 
 def dottySettings = List(
