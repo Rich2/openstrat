@@ -9,10 +9,10 @@ trait ArrFlatBuild[ArrT <: ArrBase[_]] extends ArrBuildBase[ArrT]
 
 object ArrFlatBuild extends ArrFlatBuildLowPriority
 { implicit val intsImplicit: ArrFlatBuild[Ints] = IntsBuild
-  implicit val dblsImplicit = DblsBuild
-  implicit val longsImplicit = LongsBuild
-  implicit val floatImplicit = FloatsBuild
-  implicit val booleansImplicit = BooleansBuild
+  implicit val dblsImplicit: ArrFlatBuild[Dbls] = DblsBuild
+  implicit val longsImplicit: ArrFlatBuild[Longs] = LongsBuild
+  implicit val floatImplicit: ArrFlatBuild[Floats] = FloatsBuild
+  implicit val booleansImplicit: ArrFlatBuild[Booleans] = BooleansBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. */
@@ -22,5 +22,5 @@ trait ArrFlatBuildLowPriority
 { /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBuildBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
- implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]) = new AnyBuild[A]
+ implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrFlatBuild[Arr[A]] = new AnyBuild[A]
 }
