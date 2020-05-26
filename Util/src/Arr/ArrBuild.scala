@@ -27,9 +27,9 @@ trait ArrBuild[B, ArrT <: ArrBase[B]] extends ArrBuildBase[ArrT]
   def buffGrow(buff: BuffT, value: B): Unit
 
   def buffContains(buff: BuffT, newElem: B): Boolean =
-  { val res = false
+  { var res = false
     var count = 0
-    while (!res & count < buff.length) if (buff(count) == newElem) true else count += 1
+    while (!res & count < buff.length) if (buff(count) == newElem) res = true else count += 1
     res
   }
 

@@ -246,7 +246,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     res
   }
 
-  def toStrsFold(seperator: String = "", f: A => String = _.toString): String =
+  def toStrsFold(seperator: String = "",  f: A => String = _.toString): String =
   { var acc: String = ""
     var start = true
     foreach{ a => if(start == true) { acc = f(a); start = false } else acc = acc + seperator + f(a)}

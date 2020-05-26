@@ -89,7 +89,7 @@ object Colour
 {
   implicit val eqImplicit: Eq[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
-  implicit val persistImplicit = new PersistSimple[Colour]("Colour")
+  implicit val persistImplicit: Persist[Colour] = new PersistSimple[Colour]("Colour")
   {
     import pParse._
     def fromExpr(expr: ParseExpr): EMon[Colour] = expr match
@@ -104,7 +104,10 @@ object Colour
     def show(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 
-  implicit val arrBuildImplicit = new ArrProdInt1sBuild[Colour, Colours]
+  implicit val arrBuildImplicit: ArrBuild[Colour, Colours] = ColoursBuild
+  implicit val arrFlatBuildImplicit: ArrFlatBuild[Colours] = ColoursBuild
+  
+  object ColoursBuild extends ArrProdInt1sBuild[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
 

@@ -34,7 +34,7 @@ trait MaybeHexaToken extends IntToken
 
   def asHexaInt: Int =
   { var acc = 0
-    implicit val chars = digitsStr.toChars
+    implicit val chars: Chars = digitsStr.toChars
 
     def loop(rem: CharsOff): Int = rem match
     { case CharsOff0() => acc
@@ -60,7 +60,7 @@ case class DecimalToken(startPosn: TextPosn, srcStr: String) extends MaybeHexaTo
 
   override def getInt: Int =
   { var acc = 0
-    implicit val chars = srcStr.toChars
+    implicit val chars: Chars = srcStr.toChars
     def loop(rem: CharsOff): Int = rem match
     {
       case CharsOff0() => acc
