@@ -89,9 +89,10 @@ class SeqExtensions[A](thisSeq: Seq[A])
     def loop(rem: List[A]): EMon[B] = rem match
     {
       case Nil => errs
+      
       case ::(h, tail) => f(h) match
       {
-        case gd: Good[A] => gd
+        case gd @ Good(a) => gd
         case _ => loop(tail)
       }
     }

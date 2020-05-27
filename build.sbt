@@ -127,3 +127,11 @@ lazy val DotUtil = Project("DotUtil", file("target/DotUtil")).dependsOn(DotMacro
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
+
+lazy val DotGraphic = Project("DotGraphic", file("target/Graphic")).dependsOn(DotUtil).settings(dottySettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Graphic/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphic/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphic/test/src",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+)
