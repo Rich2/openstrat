@@ -110,6 +110,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     { dragStartBarOffsetX = barOffsetX
       dragStartX = v.x
       isDragging = true
+    } else if (b == LeftButton & barBackground.boundingRect.ptInside(v) == true)
+    { if (v.x > barOffsetX) showGridView(viewIndex + itemsPerPage)
+      else showGridView(viewIndex - itemsPerPage)
     }
   }
 
