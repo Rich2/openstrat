@@ -28,14 +28,14 @@ trait Dist2Gui extends MapGui
   val bMapRotateAntiClockwise = clickButton("\u21BA", Mousebutton => { rotation += Angle.deg(20); repaintMap() } )
   // val focusAdjust = Seq(bFocusLeft, bFocusRight, bFocusUp, bFocusDown, bMapRotateClockwise, bMapRotateAntiClockwise)
 
-  def zoomInCmd: MouseButton => Unit = mb =>  { scale = (scale / 1.5).max(scaleMin); repaintMap }
-  def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap }
+  def zoomInCmd: MouseButton => Unit = mb =>  { scale = (scale / 1.5).max(scaleMin); repaintMap() }
+  def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap() }
 
   /** Translates a point from map position to Canvas Display position */
   def toCanv(mapPoint: Dist2): Vec2 = (mapPoint - mapFocus).rotate(rotation) / scale
    
   /** Translates a point from Canvas Display position back to Map position */
-  def invCanv(canvPoint: Vec2): Vec2 = ???//(canvPoint / scale).rotate(-rotation) + mapFocus
+  def invCanv(canvPoint: Vec2): Vec2 = ??? //(canvPoint / scale).rotate(-rotation) + mapFocus
 
   /** Translates an array of map points to an array of Canvas Display positions */
   def arrCanv(inp: Dist2s): PolygonGen = inp.pMap(toCanv(_))
@@ -47,7 +47,7 @@ trait Dist2Gui extends MapGui
    
   def reFocus(newFocus: Dist2): Unit =
   { mapFocus = newFocus
-    repaintMap
+    repaintMap()
   }
 
   def adjFocus(adj: Dist2): Unit = reFocus(mapFocus + adj)

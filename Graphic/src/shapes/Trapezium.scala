@@ -19,8 +19,8 @@ object TrapezoidIsosceles
 object Diamond
 {
   def apply() = PolygonGen(
-      0 vv 0.5,
-      Tan30 / 2 vv 0,
-      0 vv - 0.5,
-      -Tan30/2 vv 0)
+    0 vv 0.5,
+    Vec2(Tan30 / 2, 0),
+    0 vv - 0.5,
+    Vec2(-Tan30 / 2, 0))
 }
