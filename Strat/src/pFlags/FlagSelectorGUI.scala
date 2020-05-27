@@ -21,7 +21,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
   val pages: Int = 1 + (itemCount - 1) / itemsPerPage
 
-  // var listOfFlags = Arr[Flag](); for(i <- 0 to itemCount - 1) { val thisColor = Colour.fromInts(scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55);
+  // listOfFlags = Arr[Flag](); for(i <- 0 to itemCount - 1) { val thisColor = Colour.fromInts(scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55);
   // listOfFlags = listOfFlags ++ Arr(TextFlagMaker(i.toString, thisColor)) }
 
   val viewport = Map("width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "commonScale"->100)
@@ -86,12 +86,12 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     showGridView(((currentScroll + itemsPerUnitScroll - 1) / itemsPerUnitScroll * itemsPerUnitScroll))//
   }
 
-  mouseUp = (button: MouseButton, clickList, v) =>
+  mouseUp = (mouseButton: MouseButton, clickList, mousePosition) =>
   { if (isDragging == true) isDragging = false
     else {
-      button match
+      mouseButton match
       { case LeftButton => clickList match
-       { case List(MouseButtonCmd(cmd)) => cmd.apply(button)
+       { case List(MouseButtonCmd(cmd)) => cmd.apply(mouseButton)
          case List(flagIndex) =>
            { selectedIndex = if (selectedIndex != -1) -1 else flagIndex.toString.toInt
              showGridView(viewIndex)
@@ -103,15 +103,15 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     }
   }
   
-  canv.mouseDragged = (v:Vec2, b:MouseButton) => if (b == LeftButton & isDragging == true) dragging(v.x - dragStartX)
+  canv.mouseDragged = (mousePosition:Vec2, mouseButton:MouseButton) => if (mouseButton == LeftButton & isDragging == true) dragging(mousePosition.x - dragStartX)
 
-  canv.mouseDown = ( v:Vec2, b:MouseButton ) => 
-  { if (b == LeftButton & bar.boundingRect.ptInside(v) == true)
+  canv.mouseDown = (mousePosition:Vec2, mouseButton:MouseButton ) => if (mouseButton == LeftButton)
+  { if (bar.boundingRect.ptInside(mousePosition) == true)
     { dragStartBarOffsetX = barOffsetX
-      dragStartX = v.x
+      dragStartX = mousePosition.x
       isDragging = true
-    } else if (b == LeftButton & barBackground.boundingRect.ptInside(v) == true)
-    { if (v.x > barOffsetX) showGridView(viewIndex + itemsPerPage)
+    } else if (barBackground.boundingRect.ptInside(mousePosition) == true)
+    { if (mousePosition.x > barStartX + barOffsetX) showGridView(viewIndex + itemsPerPage)
       else showGridView(viewIndex - itemsPerPage)
     }
   }
