@@ -111,7 +111,7 @@ trait CanvasPlatform extends RectCenlign
       def func(): Unit =  
       { val curr = getTime
         val elapsed = (curr - start) / 1000
-        fAnim(elapsed)
+        fAnim(elapsed.toDouble)
         if (elapsed < secs) timeOut(() => func(), 30) else animSeq(tail)
       }         
       timeOut(() => func(), 30)

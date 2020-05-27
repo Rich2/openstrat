@@ -7,19 +7,20 @@ import math._, Colour.Black
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {
-  implicit def transAllToExtension[T](value: T)(implicit ev: TransAll[T]) = new TransAllExtension[T](value, ev)
-  implicit def transAffToExtension[T](value: T)(implicit ev: TransAff[T]) = new TransAffExtension[T](value, ev)
-  implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]) = new TransSimExtension[T](value, ev)
-  implicit def transAlignToExtension[T](value: T)(implicit ev: TransAlign[T]) = new TransAlignExtension[T](value, ev)
+  implicit def transAllToExtension[T](value: T)(implicit ev: TransAll[T]): TransAllExtension[T] = new TransAllExtension[T](value, ev)
+  implicit def transAffToExtension[T](value: T)(implicit ev: TransAff[T]): TransAffExtension[T] = new TransAffExtension[T](value, ev)
+  implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
+  implicit def transAlignToExtension[T](value: T)(implicit ev: TransAlign[T]): TransAlignExtension[T] = new TransAlignExtension[T](value, ev)
   //implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
 
-  implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]) = new SlateExtension[T](value, ev)
-  implicit def scaleToExtension[T](value: T)(implicit ev: Scale[T]) = new ScaleExtension[T](value, ev)
-  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: MirrorAxis[T]) = new MirrorAxisExtension[T](value)(ev)
+  implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]): SlateExtension[T] = new SlateExtension[T](value, ev)
+  implicit def scaleToExtension[T](value: T)(implicit ev: Scale[T]): ScaleExtension[T] = new ScaleExtension[T](value, ev)
+  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: MirrorAxis[T]): MirrorAxisExtension[T] = new MirrorAxisExtension[T](value)(ev)
 
-  implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]) = new TransAffDistExtension[T](value, ev)
-  implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]) = new TransSimDistExtension[T](value, ev)
-  implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]) = new TransAlignDistExtension[T](value, ev)
+  implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]): TransAffDistExtension[T] = new TransAffDistExtension[T](value, ev)
+  implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]): TransSimDistExtension[T] = new TransSimDistExtension[T](value, ev)
+  implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]): TransAlignDistExtension[T] =
+    new TransAlignDistExtension[T](value, ev)
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
   /** Dist2(0.km, 0.km) constant */
