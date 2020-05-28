@@ -44,9 +44,4 @@ object Square //extends ShapeIcon
  // def fill(colour: Colour)/*, width: Double, cen: Vec2 = Vec2Z)*/: PolygonFill = apply.fill(colour)
   /**Needs Changing possibly removing. */
  // def fillXY(width: Double, colour: Colour, xCen: Double, yCen: Double): PolygonFill = apply(width, xCen vv yCen).fill(colour)
-   
-  def curvedSegs(width: Double, radius: Double): List[CurveSeg] =
-  { val w = width / 2
-    (0 to 3).toList.flatMap(i => List( LineSeg(w - radius, w), ArcSeg(w - radius vv w -radius, w vv w - radius)).rotateRadians(-i * math.Pi / 2))
-  }
 }

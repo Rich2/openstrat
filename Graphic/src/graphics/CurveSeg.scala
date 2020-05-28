@@ -14,8 +14,8 @@ trait CurveSegLike extends Transer
 
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the previous segment. There is
   * no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory object apply methods. */
-case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double, val yEnd: Double) extends
-ProdDbl7 with CurveSegLike
+case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
+  val yEnd: Double) extends ProdDbl7 with CurveSegLike
 { override type AlignT = CurveSeg
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
   @inline override def _1 = iMatch

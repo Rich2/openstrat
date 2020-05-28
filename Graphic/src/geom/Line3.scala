@@ -6,7 +6,7 @@ package geom
 case class Line3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends ProdDbl6
 { def typeStr: String = "Line3" 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Line3]
-  override def _1 = xStart
+  override def _1: Double = xStart
   override def _2 = yStart
   override def _3 = zStart
   override def _4 = xEnd
