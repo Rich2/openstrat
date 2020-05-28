@@ -5,14 +5,14 @@ import reflect.ClassTag
 
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-trait Transer extends Any with TransSimer with GeomElem
-{ type AlignT <: Transer
+trait TransAller extends Any with TransSimer with GeomElem
+{ type AlignT <: TransAller
   def fTrans(f: Vec2 => Vec2): AlignT
   def slateOld(offset: Vec2): AlignT = fTrans(_ + offset)
   def scaleOld(operand: Double): AlignT = fTrans(_ * operand)
   
   /** A generalised shear transformation. I think this is correct. */
-  def shear(xScale: Double, yScale: Double): Transer = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
+  def shear(xScale: Double, yScale: Double): TransAller = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
   
   def mirrorXOffset(yOffset: Double): AlignT = fTrans(_.mirrorXOffset(yOffset))
   def mirrorYOffset(xOffset: Double): AlignT = fTrans(_.mirrorYOffset(xOffset))
@@ -40,7 +40,7 @@ object TransAll
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAll[A]): TransAll[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromTranserAllImplicit[T <: Transer]: TransAll[T] =
+  implicit def fromTranserAllImplicit[T <: TransAller]: TransAll[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAll[A]): TransAll[F[A]] =

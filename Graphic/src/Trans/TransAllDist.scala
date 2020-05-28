@@ -4,7 +4,7 @@ package geom
 
 /** Trait for objects that can be transformed in 2 dimensional distance space. */
 trait TransDister extends Any
-{ def fTrans(f: Dist2 => Dist2): Transer
+{ def fTrans(f: Dist2 => Dist2): TransAller
 }
 
 /** The companion object for Transer. */

@@ -8,7 +8,7 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   override type MemT = CircleOld
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleFillOld = CircleFillOld(transer, colour)
-  def shear(xScale: Double, yScale: Double): Transer = ???
+  def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
 }
 
@@ -38,7 +38,7 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
   override type MemT = CircleOld
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleDrawOld = CircleDrawOld(transer, lineWidth, colour)
-  def shear(xScale: Double, yScale: Double): Transer = ???
+  def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
 
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
@@ -50,7 +50,7 @@ case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Doub
   override type MemT = CircleOld
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleFillDraw = CircleFillDraw(transer, fillColour, lineWidth, lineColour)
-  override def shear(xScale: Double, yScale: Double): Transer = ???
+  override def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
 
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???

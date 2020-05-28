@@ -5,14 +5,16 @@ package geom
 /** A geometric element to which 2 dimensional geometric transformations can be applied. Not all elements preserve their full properties under all
  * transformations. So for example a circle is no longer a Circle after a Shear transformation, but remains an Ellipse.  */
 trait GeomElem extends Any// with Product with Serializable
-
+{
+ // def slate(offset: Vec2): GeomElem
+}
 object GeomElem
 {
 
-  implicit def scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj match
+  /*implicit def scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj match
   { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GeomElem]
     case gea: GeomElemNew => gea.scale(operand)
-  }
+  }*/
 }
 
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */

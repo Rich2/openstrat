@@ -5,7 +5,7 @@ import reflect.ClassTag
 
 trait TransSimer extends Any with TransAligner
 {// type RigidT <: TransSimer
-  def shear(xScale: Double, yScale: Double): Transer//ffer
+  def shear(xScale: Double, yScale: Double): TransAller//ffer
   def mirror(line: Line2): AlignT
   def rotateRadians(radians: Double): AlignT
   def rotate(angle: Angle): AlignT = rotateRadians(angle.radians)

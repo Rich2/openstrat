@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Elliptical Arc, not correct */
-final case class EArc(xStart: Double, yStart: Double) extends Transer
+final case class EArc(xStart: Double, yStart: Double) extends TransAller
 { override type AlignT = EArc
 
   override def fTrans(f: Vec2 => Vec2): EArc = ???
