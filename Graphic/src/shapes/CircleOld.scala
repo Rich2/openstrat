@@ -8,8 +8,8 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends TransAl
   def vCen: Vec2 = x vv y
   override def shear(xScale: Double, yScale: Double): CircleOld = ??? // new EllipseGen(x, y, x + radius, 0, radius)
   override def rotateRadians(radians: Double): CircleOld = CircleOld(radius, vCen.rotateRadians(radians))
-  override def slateOld(offset: Vec2): CircleOld = CircleOld(radius, x + offset.x, y + offset.y)
-  override def scaleOld(operand: Double): CircleOld = CircleOld(radius * operand, x * operand, y * operand)
+  override def slate(offset: Vec2): CircleOld = CircleOld(radius, x + offset.x, y + offset.y)
+  override def scale(operand: Double): CircleOld = CircleOld(radius * operand, x * operand, y * operand)
 
   override def mirror(line: Line2): CircleOld = CircleOld(radius, vCen.mirror(line))
 
@@ -33,7 +33,7 @@ object CircleOld
   def fillNew(colour: Colour): Unit = ???
 
   def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): PolyCurveFill =
-  { val fSegs = segs(radius).slateOld(posn)
+  { val fSegs = segs(radius).slate(posn)
     PolyCurveFill(fSegs, colour)
   }
 }

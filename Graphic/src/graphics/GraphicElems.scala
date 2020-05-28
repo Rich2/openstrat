@@ -22,12 +22,12 @@ object GraphicElem
 {
   implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem] {
     override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj match {
-      case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GraphicElem]
+      case ta: TransAligner => ta.slate(offset).asInstanceOf[GraphicElem]
       case gea: GraphicElemNew => gea.slate(offset)
     }
 
     override def scale(obj: GraphicElem, operand: Double): GraphicElem = obj match
-    { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GraphicElem]
+    { case ta: TransAligner => ta.scale(operand).asInstanceOf[GraphicElem]
       case gea: GraphicElemNew => gea.scale(operand)
     }
   }

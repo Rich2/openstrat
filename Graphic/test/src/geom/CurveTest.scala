@@ -9,11 +9,11 @@ object CurveTest extends TestSuite
   {
     val ls1 = LineSeg(4 vv 56)
     val as1 = ArcSeg(4 vv 4, 6 vv 4)
-    val as2 = as1.scaleOld(2)
+    val as2 = as1.scale(2)
     val as3 = ArcSeg(8 vv 8, 12 vv 8)
-    val as4 = as3.slateOld(5, 10)
+    val as4 = as3.slate(5, 10)
     val ls2 = LineSeg(-5 vv -8)
-    val ls3 = ls2.slateOld(50, -50)
+    val ls3 = ls2.slate(50, -50)
     val css = PolyCurve(ls1, ls2, ls3)
 
     "Test1" -

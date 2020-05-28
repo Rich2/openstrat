@@ -8,9 +8,9 @@ final case class EArc(xStart: Double, yStart: Double) extends TransAller
 
   override def fTrans(f: Vec2 => Vec2): EArc = ???
   override def rotate(angle: Angle): EArc = ???
-  override def slateOld(offset: Vec2): EArc = ???
+  override def slate(offset: Vec2): EArc = ???
   override def rotateRadians(radians: Double): EArc = ???
-  override def scaleOld(operand: Double): EArc = ???
+  override def scale(operand: Double): EArc = ???
   override def shear(xScale: Double, yScale: Double): EArc = ???
 
   override def mirror(line: Line2): EArc = ???

@@ -11,7 +11,7 @@ trait Scale[T]
 
 object Scale
 {
-  implicit def transAlignerImplicit[T <: TransAligner]: Scale[T] = (obj, operand) => obj.scaleOld(operand).asInstanceOf[T]
+  implicit def transAlignerImplicit[T <: TransAligner]: Scale[T] = (obj, operand) => obj.scale(operand).asInstanceOf[T]
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Scale[A]): Scale[AA] =
     (obj, offset) => obj.map(ev.scale(_, offset))

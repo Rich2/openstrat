@@ -16,10 +16,10 @@ case class LessonA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A7")
 
   //But this time we are going to create an intermediate shape.
   val shape1: PolyCurve = PolyCurve(LineSeg(pt1), ArcSeg(arcCentre, pt2), ArcSeg(arcCentre, pt3), LineSeg(pt4), BezierSeg(ctrl1, ctrl2, pt5))
-  val sf1 = PolyCurveFill(shape1.slateOld(400 vv 100), Violet)
+  val sf1 = PolyCurveFill(shape1.slate(400 vv 100), Violet)
   val sf2 = PolyCurveDraw(shape1.clk45, 2)
-  val sf3 = sf2.scaleOld(0.5)
-  val sf4 = sf3.slateOld(-250, 200)
+  val sf3 = sf2.scale(0.5)
+  val sf4 = sf3.slate(-250, 200)
   val sf5 = sf4.slateX(-100).copy(colour = Green)  
   val rect = Rectangle(200, 100, -400 vv 100)
   canv.polyFill(rect, Orange)//Not sure why this code is in here.

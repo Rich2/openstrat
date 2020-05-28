@@ -39,7 +39,7 @@ class PolygonGen(val array: Array[Double]) extends AnyVal with Polygon with Vec2
   def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
-  def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slateOld(offset), lineWidth, lineColour)
+  def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
     PolygonFillDraw(this, fillColour, lineWidth, lineColour)
 

@@ -58,11 +58,11 @@ object Rectangle
         LineSeg(w,          radius - h), ArcSeg(w - radius vv radius - h, w - radius vv -h),
         LineSeg(radius - w,         -h), ArcSeg(radius - w vv radius - h, -w vv radius -h),
         LineSeg(- w,        h - radius), ArcSeg(radius - w vv h - radius, radius - w vv h))
-     s1.slateOld(cen)
+     s1.slate(cen)
   }  
 
   def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
-    PolyCurveCentred(posn, curvedCorners(width, height, radius).slateOld(posn))
+    PolyCurveCentred(posn, curvedCorners(width, height, radius).slate(posn))
   def curvedGoldenRatio(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurve =
     curvedCorners(height * goldenRatio, height, radius, posn)  
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =

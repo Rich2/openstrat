@@ -46,9 +46,9 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
   def rotateRadians(radians: Double): PolygonParent =
     PolygonParent(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))
 
-  def slateOld(offset: Vec2): PolygonParent = PolygonParent(cen + offset, poly.slateOld(offset), pointerId, children.slate(offset))
+  def slate(offset: Vec2): PolygonParent = PolygonParent(cen + offset, poly.slate(offset), pointerId, children.slate(offset))
 
-  def scaleOld(operand: Double): PolygonParent = PolygonParent(cen * operand, poly.scaleOld(operand), pointerId, children.scale(operand))
+  def scale(operand: Double): PolygonParent = PolygonParent(cen * operand, poly.scale(operand), pointerId, children.scale(operand))
 
   override def shear(xScale: Double, yScale: Double): TransAller = ???
 

@@ -12,12 +12,12 @@ trait Slate[T]
 object Slate
 {
   implicit def slateImplicit: Slate[GeomElem] = (obj: GeomElem, offset: Vec2) => obj match
-  { case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GeomElem]
+  { case ta: TransAligner => ta.slate(offset).asInstanceOf[GeomElem]
     case gea: GeomElemNew => gea.slate(offset)
   }
 
 
-  implicit def transAlignerImplicit[T <: TransAligner]: Slate[T] = (obj, offset) => obj.slateOld(offset).asInstanceOf[T]
+  implicit def transAlignerImplicit[T <: TransAligner]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
 
   implicit def arrImplicit[A](implicit build: ArrBuild[A, Arr[A]], ev: Slate[A]): Slate[Arr[A]] =
     (obj, offset) => obj.map(ev.slate(_, offset))

@@ -16,9 +16,9 @@ trait TransSimerUser extends TransSimer
   type MemT <: TransSimer
   def geomMem: MemT
   def newThis(transer: MemT): AlignT
-  override def slateOld(offset: Vec2): AlignT = newThis(geomMem.slateOld(offset).asInstanceOf[MemT])
+  override def slate(offset: Vec2): AlignT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
   override def rotateRadians(radians: Double): AlignT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
-  override def scaleOld(operand: Double): AlignT = newThis(geomMem.scaleOld(operand).asInstanceOf[MemT])
+  override def scale(operand: Double): AlignT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
   override def mirror(line: Line2): AlignT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
 }
 
@@ -32,9 +32,9 @@ object TransSim
 {
   implicit def transSimerImplicit[T <: TransSimer]: TransSim[T] = new TransSim[T]
   { override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
-    override def slate(obj: T, offset: Vec2): T = obj.slateOld(offset).asInstanceOf[T]
+    override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]
-    override def scale(obj: T, operand: Double): T = obj.scaleOld(operand).asInstanceOf[T]
+    override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransSim[A]): TransSim[AA] = new TransSim[AA]

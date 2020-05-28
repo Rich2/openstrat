@@ -14,7 +14,7 @@ case class LessonA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
 {
   val c1 = CArc(0, 100, 0, 0, 3)
   val d1 = c1.draw(2, Red)
-  val c2 = c1.slateOld(200, 50)
+  val c2 = c1.slate(200, 50)
   val d2 = c2.draw(2, Orange)
   val c3 = CArc(150, 0, 50, 0, math.Pi / 2)
   val d3 = c3.draw(2, Blue)

@@ -6,13 +6,13 @@ import reflect.ClassTag
 /** An object that implements the TransAlign interface through its own methods. */
 trait TransAligner extends Any with GeomElem
 { type AlignT <: TransAligner
-  def slateOld(offset: Vec2): AlignT
+  def slate(offset: Vec2): AlignT
 
-  def scaleOld(operand: Double): AlignT
+  def scale(operand: Double): AlignT
   //def ySlate(yDelta: Double): AlignT = slateOld(0 vv yDelta)
 
   /** Translate in 2 dimensional space. */
-  def slateOld(xOffset: Double, yOffset: Double): AlignT = slateOld(xOffset vv yOffset)
+  def slate(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
   //def slated(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
 }
 
@@ -27,19 +27,19 @@ object TransAlign
   implicit def transImplicit: TransAlign[GeomElem] = new TransAlign[GeomElem]
   {
     override def slate(obj: GeomElem, offset: Vec2): GeomElem = obj match
-    { case ta: TransAligner => ta.slateOld(offset).asInstanceOf[GeomElem]
+    { case ta: TransAligner => ta.slate(offset).asInstanceOf[GeomElem]
       case gea: GeomElemNew => gea.slate(offset)
     }
 
     override def scale(obj: GeomElem, operand: Double): GeomElem = obj match
-    { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GeomElem]
+    { case ta: TransAligner => ta.scale(operand).asInstanceOf[GeomElem]
       case gea: GeomElemNew => gea.scale(operand)
     }
   }
 
   implicit def transAlignerImplicit[T <: TransAligner]: TransAlign[T] = new TransAlign[T]
-  { override def slate(obj: T, offset: Vec2): T = obj.slateOld(offset).asInstanceOf[T]
-    override def scale(obj: T, operand: Double): T = obj.scaleOld(operand).asInstanceOf[T]
+  { override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
+    override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAlign[A]): TransAlign[AA] = new TransAlign[AA]
