@@ -3,9 +3,8 @@ package ostrat
 package geom
 
 /** In geometry this is a 3 dimensional line segment. A straight line between two points. */
-case class Line3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends ProdDbl6// with Stringer
-{ def typeStr: String = "Line3"
- // def str = persist2(pStart, pEnd)
+case class Line3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends ProdDbl6
+{ def typeStr: String = "Line3" 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Line3]
   override def _1 = xStart
   override def _2 = yStart
