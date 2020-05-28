@@ -10,7 +10,10 @@ trait Transer extends Any with TransSimer with GeomElem
   def fTrans(f: Vec2 => Vec2): AlignT
   def slateOld(offset: Vec2): AlignT = fTrans(_ + offset)
   def scaleOld(operand: Double): AlignT = fTrans(_ * operand)
-  def shear(xScale: Double, yScale: Double): AlignT = fTrans{case Vec2(x, y) => x * xScale vv y * yScale}
+  
+  /** A generalised shear transformation. I think this is correct. */
+  def shear(xScale: Double, yScale: Double): Transer = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
+  
   def mirrorXOffset(yOffset: Double): AlignT = fTrans(_.mirrorXOffset(yOffset))
   def mirrorYOffset(xOffset: Double): AlignT = fTrans(_.mirrorYOffset(xOffset))
   def rotateRadians(radians: Double): AlignT = fTrans(_.rotateRadians(radians))
@@ -24,7 +27,7 @@ trait TransAll[T] extends TransAff[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T
   override def slate(obj: T, offset: Vec2): T = trans(obj, _ + offset)
   override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
-  override def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Vec2(v.x * xScale, v.y * yScale))
+  override def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Vec2(v.x * yScale, v.y * xScale))
   override def rotateRadians(obj: T, radians: Double): T = trans(obj, _.rotateRadians(radians))
   def mirrorYOffset(obj: T, xOffset: Double): T = trans(obj, _.mirrorYOffset(xOffset))
   def mirrorXOffset(obj: T, yOffset: Double): T = trans(obj, _.mirrorXOffset(yOffset))
