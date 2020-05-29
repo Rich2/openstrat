@@ -25,25 +25,13 @@ trait GeomElem extends Any// with Product with Serializable
    * in sub classes. */
   def mirrorX: GeomElem
 
-}
-object GeomElem
-{
-
-  /*implicit def scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj match
-  { case ta: TransAligner => ta.scaleOld(operand).asInstanceOf[GeomElem]
-    case gea: GeomElemNew => gea.scale(operand)
-  }*/
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def mirrorY: GeomElem
 }
 
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */
 trait GeomElemNew extends GeomElem with Product with Serializable
-{ 
-  
-  
-  
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def mirrorY: GeomElem
-
+{
   def prolign(matrix: ProlignMatrix): GeomElem
 }

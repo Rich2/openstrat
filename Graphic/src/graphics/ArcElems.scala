@@ -23,5 +23,7 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   override def mirrorXOffset(yOffset: Double): GeomElem = ???
 
   override def mirrorX: CArcDraw = ???
+
+  override def mirrorY: CArcDraw = ???
  // override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
