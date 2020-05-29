@@ -5,17 +5,7 @@ package geom
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
 sealed trait GraphicElem extends GeomElem
 {
-  /*def slate(offset: Vec2): GraphicElem = this match
-  {
-    case gen: GeomElemNew => gen.slate(offset)
-    case geo: GraphicElemOld => geo.slate(offset)
-  }
-  def slate(xOffset: Double, yOffset: Double): GraphicElem = this match
-  {
-    case gen: GeomElemNew => gen.slate(xOffset, yOffset)
-    case geo: GraphicElemOld => geo.slate(xOffset, yOffset)
-  }*/
-
+  
 }
 
 object GraphicElem
@@ -23,12 +13,12 @@ object GraphicElem
   implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem] {
     override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj match {
       case ta: TransAligner => ta.slate(offset).asInstanceOf[GraphicElem]
-      case gea: GraphicElemNew => gea.slate(offset)
+      case gea: GraphicElemNew => ??? // gea.slate(offset)
     }
 
     override def scale(obj: GraphicElem, operand: Double): GraphicElem = obj match
     { case ta: TransAligner => ta.scale(operand).asInstanceOf[GraphicElem]
-      case gea: GraphicElemNew => gea.scale(operand)
+      case gea: GraphicElemNew => ??? // gea.scale(operand)
     }
   }
 }
@@ -39,11 +29,11 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 
 trait GraphicElemNew extends GraphicElem with GeomElemNew
 {
-  override def fTrans(f: Vec2 => Vec2): GraphicElemNew
+  //override def fTrans(f: Vec2 => Vec2): GraphicElemNew
 
-  override def slate(offset: Vec2): GraphicElemNew = fTrans(_ + offset)
+  //override def slate(offset: Vec2): GraphicElemNew = fTrans(_ + offset)
 
-  override def scale(operand: Double): GraphicElemNew = fTrans(_ * operand)
+ // override def scale(operand: Double): GraphicElemNew = fTrans(_ * operand)
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed

@@ -6,7 +6,7 @@ package geom
 final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends GeomElemNew
 {
   def rotationRadians: Double = rotation.radians
-  override def fTrans(f: Vec2 => Vec2): Square = { deb("This is wrong."); Square(width, f(cen), rotation) }
+  
   def cen: Vec2 = xCen vv yCen
 
   override def slate(offset: Vec2): Square = Square(width, cen + offset)

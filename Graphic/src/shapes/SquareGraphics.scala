@@ -7,8 +7,6 @@ final case class SquareFill(square: Square, fillColour: Colour) extends FillElem
 {
   override def rendToCanvas(cp: CanvasPlatform): Unit = {}
 
-  override def fTrans(f: Vec2 => Vec2): SquareFill = ???
-
   override def mirrorXOffset(yOffset: Double): SquareFill = SquareFill(square.mirrorXOffset(yOffset), fillColour)
   @inline def mirrorX: SquareFill = mirrorXOffset(0)
   override def mirrorYOffset(xOffset: Double): SquareFill = SquareFill(square.mirrorYOffset(xOffset), fillColour)

@@ -16,8 +16,6 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
 {
   override def rendToCanvas(cp: CanvasPlatform): Unit = {}
 
-  override def fTrans(f: Vec2 => Vec2): CircleFill = ???
-
   override def mirrorXOffset(yOffset: Double): CircleFill = CircleFill(circle.mirrorXOffset(yOffset), fillColour)
   @inline def mirrorX: CircleFill = mirrorXOffset(0)
   override def mirrorYOffset(xOffset: Double): CircleFill = CircleFill(circle.mirrorYOffset(xOffset), fillColour)

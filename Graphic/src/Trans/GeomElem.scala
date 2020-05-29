@@ -27,7 +27,7 @@ object GeomElem
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */
 trait GeomElemNew extends GeomElem with Product with Serializable
 { /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
-  def fTrans(f: Vec2 => Vec2): GeomElemNew
+  //def fTrans(f: Vec2 => Vec2): GeomElemNew
   
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   def mirrorXOffset(yOffset: Double): GeomElem

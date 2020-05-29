@@ -4,9 +4,7 @@ package geom
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
-{ /** This is wong. */
-  override def fTrans(f: Vec2 => Vec2): GeomElemNew = { deb("This is wrong."); Circle(radius, f(cen)) }
-  
+{   
   override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
 
   /** Translate geometric transformation. */
@@ -50,7 +48,7 @@ object Circle extends ShapeIcon
 
   override def productElement(n: Int): Any = ???
 
-  override def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
+ // override def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
 
   def fill(colour: Colour): GraphicElem = ???
   implicit val slateImplicit: Slate[Circle] = (Circle, offset) => Circle.slate(offset)

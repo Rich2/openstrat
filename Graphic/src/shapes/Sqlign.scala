@@ -7,9 +7,6 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends GeomE
 {
   override def height: Double = width
 
-  override def fTrans(f: Vec2 => Vec2): Sqlign = { deb("This is wrong."); Sqlign(width, f(cen)) }
-  //def cen: Vec2 = xCen vv yCen
-
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
 
   /** Translate geometric transformation. */
