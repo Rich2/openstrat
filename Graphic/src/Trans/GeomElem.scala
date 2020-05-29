@@ -21,6 +21,10 @@ trait GeomElem extends Any// with Product with Serializable
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   def mirrorXOffset(yOffset: Double): GeomElem
 
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def mirrorX: GeomElem
+
 }
 object GeomElem
 {
@@ -35,9 +39,7 @@ object GeomElem
 trait GeomElemNew extends GeomElem with Product with Serializable
 { 
   
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def mirrorX: GeomElem
+  
   
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */

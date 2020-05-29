@@ -59,4 +59,6 @@ case class TextOutline(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colo
 { override type AlignT = TextOutline
   override def fTrans(f: Vec2 => Vec2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
+
+  override def mirrorX: TextOutline = ???
 }

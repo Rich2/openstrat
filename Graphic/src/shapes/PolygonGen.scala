@@ -106,6 +106,8 @@ class PolygonGen(val array: Array[Double]) extends AnyVal with Polygon with Vec2
   }
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
+
+  override def mirrorX: PolygonGen = ???
 }
 
 object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]

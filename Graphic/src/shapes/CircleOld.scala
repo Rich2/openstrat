@@ -4,7 +4,7 @@ package geom
 
 final case class CircleOld(radius: Double, x: Double, y: Double) extends TransAller
 { override type AlignT = CircleOld
-  override def fTrans(f: Vec2 => Vec2): CircleOld = ???
+  override def fTrans(f: Vec2 => Vec2): CircleOld = CircleOld(radius, f(vCen))
   def vCen: Vec2 = x vv y
   override def shear(xScale: Double, yScale: Double): CircleOld = ??? // new EllipseGen(x, y, x + radius, 0, radius)
   override def rotateRadians(radians: Double): CircleOld = CircleOld(radius, vCen.rotateRadians(radians))
@@ -17,6 +17,8 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends TransAl
   def draw(lineWidth: Double = 2, colour: Colour): CircleDrawOld = CircleDrawOld(this, lineWidth, colour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw =
     CircleFillDraw(this, fillColour, lineWidth, lineColour)
+
+ // override def mirrorX: CircleOld = ???
 }
 
 /** This object provides factory methods for circles. */

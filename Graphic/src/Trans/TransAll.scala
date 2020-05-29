@@ -20,6 +20,8 @@ trait TransAller extends Any with TransSimer with GeomElem
   def mirror(v1: Vec2, v2: Vec2): AlignT = fTrans(_.mirror(v1, v2))
 
   override def mirror(line: Line2): AlignT = fTrans((_.mirror(line)))
+
+  override def mirrorX: AlignT = fTrans(_.mirrorX)
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
