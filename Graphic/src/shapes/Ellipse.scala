@@ -13,6 +13,10 @@ trait Ellipse extends Shape
   }*/
 }
 
+object Ellipse {
+  implicit val slateImplicit: Slate[Ellipse] = (e, offset) => EllipseGen(0, 0, 0, 0, 0) // Circle.slate(offset)
+}
+
 /** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
 case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Double) extends Ellipse
 { override def fill(colour: Colour): GraphicElem = ???

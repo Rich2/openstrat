@@ -32,7 +32,10 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val ca2 = ca.slate(20, 20)
 
   val na2 = na1.slate(20, 20)
-
+  
+  val cab = ca
+  val cc = Arr(ca, cab)
+  val cc1 = cc.slate(2, 3)
 
   val a1 = Arr(r2, cl2)
  // val a2 = a1.mirrorY
