@@ -24,6 +24,9 @@ trait TransAller extends Any with TransSimer with GeomElem
   override def mirrorX: AlignT = fTrans(_.mirrorX)
 
   override def mirrorY: AlignT = fTrans(_.mirrorY)
+
+  override def prolign(matrix: ProlignMatrix): AlignT = fTrans(_.prolignTrans(matrix))
+
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */
