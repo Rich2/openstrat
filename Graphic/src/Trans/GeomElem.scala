@@ -10,6 +10,10 @@ trait GeomElem extends Any// with Product with Serializable
 
   /** Translate geometric transformation. */
   def slate(xOffset: Double, yOffset: Double): GeomElem
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  def scale(operand: Double): GeomElem
 }
 object GeomElem
 {
@@ -25,29 +29,19 @@ trait GeomElemNew extends GeomElem with Product with Serializable
 { /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def fTrans(f: Vec2 => Vec2): GeomElemNew
   
-  /** Translate geometric transformation. */
-  def slate(offset: Vec2): GeomElemNew
-
-  /** Translate geometric transformation. */
-  def slate(xOffset: Double, yOffset: Double): GeomElemNew
-
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
-  def scale(operand: Double): GeomElemNew
-
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def mirrorXOffset(yOffset: Double): GeomElemNew
+  def mirrorXOffset(yOffset: Double): GeomElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorX: GeomElemNew
+  def mirrorX: GeomElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def mirrorYOffset(xOffset: Double): GeomElemNew
+  def mirrorYOffset(xOffset: Double): GeomElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorY: GeomElemNew
+  def mirrorY: GeomElem
 
-  def prolign(matrix: ProlignMatrix): GeomElemNew
+  def prolign(matrix: ProlignMatrix): GeomElem
 }

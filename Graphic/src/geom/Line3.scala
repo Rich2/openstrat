@@ -1,8 +1,8 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
-/** In geometry this is a 3 dimensional line segment. A straight line between two points. */
+/** In geometry this is a 3 dimensional line segment. A straight line between two points in a 3d space. */
 case class Line3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends ProdDbl6
 { def typeStr: String = "Line3" 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Line3]
