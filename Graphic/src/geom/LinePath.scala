@@ -9,8 +9,15 @@ class LinePath(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Vec2] w
   type AlignT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def typeStr: String = "LinePath"
+
   //override def toString: String = LinePath.LinePathPersist.show(this)
- // override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
+  // override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
+  override def canEqual(that: Any): Boolean = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
+  
   @inline def lengthFull: Int = array.length / 2
   @inline def xStart: Double = array(0)
   @inline def yStart: Double = array(1)

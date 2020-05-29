@@ -11,6 +11,11 @@ class PolygonGen(val array: Array[Double]) extends AnyVal with Polygon with Vec2
   def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   override def typeStr: String = "Polygon"
 
+  override def canEqual(that: Any): Boolean = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
   def fTrans(f: Vec2 => Vec2): PolygonGen = new PolygonGen(arrTrans(f))
   def eq(obj: PolygonGen): Boolean = array.sameElements(obj.array)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))

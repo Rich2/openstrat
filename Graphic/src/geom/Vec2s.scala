@@ -10,8 +10,15 @@ class Vec2s(val array: Array[Double]) extends AnyVal with TransAller with Vec2sL
   type AlignT = Vec2s
   def unsafeFromArray(array: Array[Double]): Vec2s = new Vec2s(array)
   override def typeStr: String = "Vec2s"
+
   //override def toString: String = Vec2s.Vec2sPersist.show(this)
- // override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
+  // override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
+  override def canEqual(that: Any): Boolean = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
+  
   @inline def lengthFull: Int = array.length / 2
   @inline def xStart: Double = array(0)
   @inline def yStart: Double = array(1)

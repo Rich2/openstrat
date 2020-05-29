@@ -18,6 +18,12 @@ class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: 
 { override type AlignT = Bezier
   def typeStr: String = "Bezier"
   def fTrans(f: Vec2 => Vec2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))
+
+  override def canEqual(that: Any): Boolean = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
 }
 
 object Bezier

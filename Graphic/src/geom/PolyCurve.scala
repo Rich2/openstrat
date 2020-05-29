@@ -15,6 +15,11 @@ class PolyCurve(val array: Array[Double]) extends AnyVal with ArrProdDbl7[CurveS
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg =
     new CurveSeg(iMatch, d1, d2, d3, d4, d5, d6)
 
+  override def canEqual(that: Any): Boolean = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ??? 
   def fTrans(f: Vec2 => Vec2): PolyCurve =
   { val newArray = new Array[Double](length * 7)
     def setMiddle(offset: Int): Unit =

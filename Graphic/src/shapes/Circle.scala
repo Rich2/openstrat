@@ -31,7 +31,7 @@ object Circle extends ShapeIcon
   def apply(radius: Double, cen: Vec2 = Vec2Z): Circle = new Circle(radius, cen.x, cen.y)
   //implicit val slateImplicit: Slate[Circle] = (Circle, offset) => Circle.slate(offset)
 
-  //override def canEqual(that: Any): Boolean = ???
+  override def canEqual(that: Any): Boolean = ???
 
   override def slate(offset: Vec2): Circle = Circle(offset.x, offset.y, 0.5)
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(xOffset, yOffset, 0.5)
@@ -44,9 +44,9 @@ object Circle extends ShapeIcon
 
   override def prolign(matrix: ProlignMatrix): Circle = ???
 
- // override def productArity: Int = 0
+  override def productArity: Int = 0
 
-//  override def productElement(n: Int): Any = ???
+  override def productElement(n: Int): Any = ???
 
  // override def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
 

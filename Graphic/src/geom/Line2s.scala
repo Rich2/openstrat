@@ -13,6 +13,12 @@ class Line2s(val array: Array[Double]) extends AnyVal with ArrProdDbl4[Line2] wi
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): Line2 = new Line2(d1, d2, d3, d4)
   override def fTrans(f: Vec2 => Vec2): Line2s = pMap(orig => Line2(f(orig.pStart), f(orig.pEnd)))
 
+  override def canEqual(that: Any): Boolean = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
+  
   def ptInPolygon(pt: Vec2): Boolean =
   { val num = foldLeft(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
     num.isOdd
