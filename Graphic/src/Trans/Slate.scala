@@ -16,7 +16,6 @@ object Slate
     case gea: GeomElem => gea.slate(offset)
   }
 
-
   implicit def transAlignerImplicit[T <: TransAligner]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
 
   implicit def arrImplicit[A](implicit build: ArrBuild[A, Arr[A]], ev: Slate[A]): Slate[Arr[A]] =
