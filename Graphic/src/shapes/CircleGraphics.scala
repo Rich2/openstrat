@@ -12,6 +12,8 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
 
   override def mirrorYOffset(xOffset: Double): GeomElem = ???
+
+  override def mirrorXOffset(yOffset: Double): GeomElem = ???
 }
 
 final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
@@ -44,6 +46,8 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
 
   override def mirrorYOffset(xOffset: Double): GeomElem = ???
+
+  override def mirrorXOffset(yOffset: Double): GeomElem = ???
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
 
@@ -57,5 +61,7 @@ case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Doub
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
 
   override def mirrorYOffset(xOffset: Double): GeomElem = ???
+
+  override def mirrorXOffset(yOffset: Double): GeomElem = ???
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
