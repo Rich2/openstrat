@@ -28,12 +28,12 @@ object TransAlign
   {
     override def slate(obj: GeomElem, offset: Vec2): GeomElem = obj match
     { case ta: TransAligner => ta.slate(offset).asInstanceOf[GeomElem]
-      case gea: GeomElemNew => gea.slate(offset)
+      case gea: GeomElem => gea.slate(offset)
     }
 
     override def scale(obj: GeomElem, operand: Double): GeomElem = obj match
     { case ta: TransAligner => ta.scale(operand).asInstanceOf[GeomElem]
-      case gea: GeomElemNew => gea.scale(operand)
+      case gea: GeomElem => gea.scale(operand)
     }
   }
 

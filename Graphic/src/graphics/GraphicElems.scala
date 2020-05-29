@@ -27,7 +27,7 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 { type AlignT <: GraphicElemOld
 }
 
-trait GraphicElemNew extends GraphicElem with GeomElemNew
+trait GraphicElemNew extends GraphicElem with GeomElem
 {
   //override def fTrans(f: Vec2 => Vec2): GraphicElemNew
 
@@ -91,6 +91,6 @@ trait FilledElem extends PaintElemNew
 
 trait FillElem extends FilledElem
 
-trait Fillable extends GeomElemNew
+trait Fillable extends GeomElem
 { def fill(colour: Colour): FillElem
 }

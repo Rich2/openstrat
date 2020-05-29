@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait ShapeIcon extends GeomElemNew
+trait ShapeIcon extends GeomElem
 { def slate(offset: Vec2): Shape
 }
 

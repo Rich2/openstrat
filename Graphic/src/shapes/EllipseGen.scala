@@ -14,15 +14,15 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
   //override def slateOld(offset: Vec2): EllipseGen = EllipseGen(cen + offset, vRight + offset, upRadius)
   //override def scaleOld(operand: Double):  EllipseGen = EllipseGen(cen * operand * operand, vRight * operand, upRadius * operand)
   //override def mirror(line: Line2): EllipseGen = EllipseGen(cen.mirror(line), vRight.mirror(line), upRadius)
-  def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
-  def mirrorX: GeomElemNew = ???
-  def mirrorXOffset(yOffset: Double): GeomElemNew = ???
-  def mirrorY: GeomElemNew = ???
-  def mirrorYOffset(xOffset: Double): GeomElemNew = ???
-  def prolign(matrix: ProlignMatrix): GeomElemNew = ???
-  def scale(operand: Double): GeomElemNew = ???
+  def fTrans(f: Vec2 => Vec2): GeomElem = ???
+  def mirrorX: GeomElem = ???
+  def mirrorXOffset(yOffset: Double): GeomElem = ???
+  def mirrorY: GeomElem = ???
+  def mirrorYOffset(xOffset: Double): GeomElem = ???
+  def prolign(matrix: ProlignMatrix): GeomElem = ???
+  def scale(operand: Double): GeomElem = ???
   def slate(xOffset: Double, yOffset: Double): EllipseGen = EllipseGen(xLeft + xOffset, yLeft + yOffset, xRight + xOffset, yRight + yOffset, rHeight)
-  def slate(offset: Vec2): GeomElemNew = ???
+  def slate(offset: Vec2): GeomElem = ???
 
   override def fill(colour: Colour): GraphicElem = ???
 }

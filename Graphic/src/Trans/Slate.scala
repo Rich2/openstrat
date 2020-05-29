@@ -13,7 +13,7 @@ object Slate
 {
   implicit def slateImplicit: Slate[GeomElem] = (obj: GeomElem, offset: Vec2) => obj match
   { case ta: TransAligner => ta.slate(offset).asInstanceOf[GeomElem]
-    case gea: GeomElemNew => gea.slate(offset)
+    case gea: GeomElem => gea.slate(offset)
   }
 
 

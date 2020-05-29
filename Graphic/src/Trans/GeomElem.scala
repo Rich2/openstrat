@@ -33,7 +33,8 @@ trait GeomElem extends Any// with Product with Serializable
 }
 
 /* A temporary element which will be merged with With GeomElem once GeomElemOld can be removed. */
+/*
 trait GeomElemNew extends GeomElem with Product with Serializable
 {
   
-}
+}*/
