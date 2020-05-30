@@ -9,12 +9,16 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
   override def width = canvFx.getWidth.max(100)
   override def height = canvFx.getHeight.max(100)
+  
   def getButton(e: input.MouseEvent): MouseButton = 
-  { import input.MouseButton._
+  { 
+    import input.MouseButton._
     e.getButton match
     { case PRIMARY => LeftButton
       case MIDDLE => MiddleButton
       case SECONDARY => RightButton
+      case BACK => BackButton
+      case FORWARD => ForwardButton
       case _ => NoButton
     }     
   }

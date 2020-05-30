@@ -45,7 +45,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
   }   
   
   mapPanel.mouseUp = (button: MouseButton, clickList, _) => button match
-    {
+    {      
       case LeftButton =>
       { selected = clickList//.fHead(Arr(), Arr(_))
         statusText = selected.headToStringElse("Nothing Clicked")
@@ -63,6 +63,8 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
         case (List(army: Army), as) => debvar(as.length)
         case _ =>
       }
+
+      case mb => deb(mb.toString) 
       case _ =>
     }
   scale = 1.08.km

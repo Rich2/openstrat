@@ -29,6 +29,7 @@ object CanvasJs extends CanvasTopLeft
     case 1 => LeftButton
     case 2 => RightButton
     case 4 => MiddleButton
+    case 8 => BackButton
     case _ => MultipleButton  // NB: if _ is a power of 2 this this should be: => OtherButton 
   }
 
