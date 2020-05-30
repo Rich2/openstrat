@@ -22,6 +22,8 @@ object Slate
     (obj, offset) => obj.map(ev.slate(_, offset))(new AnyBuildAlt[A](ct))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, offset) => evF.map(obj, evA.slate(_, offset))
+  
+  //implicit def listImplicit[A](implicit evA: Slate[A]): Slate[List[A]] = (list, offset) => list.map(evA.slate(_, offset))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Array[A]] = (obj, offset) => obj.map(ev.slate(_, offset))
 }
