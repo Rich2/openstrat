@@ -18,8 +18,8 @@ object Slate
 
   implicit def transAlignerImplicit[T <: TransAligner]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
 
-  implicit def arrImplicit[A](implicit build: ArrBuild[A, Arr[A]], ev: Slate[A]): Slate[Arr[A]] =
-    (obj, offset) => obj.map(ev.slate(_, offset))
+  implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Arr[A]] =
+    (obj, offset) => obj.map(ev.slate(_, offset))(new AnyBuildAlt[A](ct))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, offset) => evF.map(obj, evA.slate(_, offset))
 
