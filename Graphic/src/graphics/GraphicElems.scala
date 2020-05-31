@@ -12,6 +12,17 @@ sealed trait GraphicElem extends Transer
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def mirrorYOffset(xOffset: Double): GraphicElem
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  def mirrorXOffset(yOffset: Double): GraphicElem
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def mirrorX: GraphicElem
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def mirrorY: GraphicElem
 }
 
 object GraphicElem

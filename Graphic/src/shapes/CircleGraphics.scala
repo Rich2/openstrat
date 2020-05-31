@@ -13,7 +13,7 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
 
   override def mirrorYOffset(xOffset: Double): CircleFillOld = ???
 
-  override def mirrorXOffset(yOffset: Double): Transer = ???
+  override def mirrorXOffset(yOffset: Double): CircleFillOld = ???
 
   override def mirrorX: CircleFillOld = CircleFillOld(circle.mirrorX, colour)
 
@@ -38,11 +38,7 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
   override def scale(operand: Double): CircleFill = CircleFill(circle.scale(operand), fillColour)
 
   override def prolign(matrix: ProlignMatrix): CircleFill = CircleFill(circle.prolign(matrix), fillColour)
-
-  
-  //override def mirrorYOffset(xOffset: Double): GeomElem = ???
 }
-
 
 case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
 { override type AlignT = CircleDrawOld
@@ -54,7 +50,7 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
 
   override def mirrorYOffset(xOffset: Double): CircleDrawOld = ???
 
-  override def mirrorXOffset(yOffset: Double): Transer = ???
+  override def mirrorXOffset(yOffset: Double): CircleDrawOld = ???
 
   override def mirrorX: CircleDrawOld = ???
 
@@ -75,7 +71,7 @@ case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Doub
 
   override def mirrorYOffset(xOffset: Double): CircleFillDraw = ???
 
-  override def mirrorXOffset(yOffset: Double): Transer = ???
+  override def mirrorXOffset(yOffset: Double): CircleFillDraw = ???
 
   override def mirrorX: CircleFillDraw = ???
 

@@ -20,7 +20,7 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
 
   override def mirrorYOffset(xOffset: Double): CArcDraw = ???
 
-  override def mirrorXOffset(yOffset: Double): Transer = ???
+  override def mirrorXOffset(yOffset: Double): CArcDraw = ???
 
   override def mirrorX: CArcDraw = ???
 
