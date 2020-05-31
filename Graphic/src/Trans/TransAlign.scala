@@ -4,7 +4,7 @@ package geom
 import reflect.ClassTag
 
 /** An object that implements the TransAlign interface through its own methods. */
-trait TransAligner extends Any with GeomElem
+trait TransAligner extends GeomElem
 { type AlignT <: TransAligner
   def slate(offset: Vec2): AlignT
 

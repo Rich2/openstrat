@@ -4,7 +4,7 @@ package geom
 
 /** A geometric element to which 2 dimensional geometric transformations can be applied. Not all elements preserve their full properties under all
  * transformations. So for example a circle is no longer a Circle after a Shear transformation, but remains an Ellipse.  */
-trait GeomElem extends Any with Product with Serializable
+trait GeomElem extends Product with Serializable
 { /** Translate geometric transformation. */
   def slate(offset: Vec2): GeomElem
 

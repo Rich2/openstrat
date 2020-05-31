@@ -3,7 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait TransSimer extends Any with TransAligner
+trait TransSimer extends TransAligner
 {// type RigidT <: TransSimer
   def shear(xScale: Double, yScale: Double): TransAller//ffer
   def mirror(line: Line2): AlignT
