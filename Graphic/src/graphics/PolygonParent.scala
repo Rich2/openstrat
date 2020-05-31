@@ -58,6 +58,6 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
 
   override def mirrorY: PolygonParent = ???
 
-  override def prolign(matrix: ProlignMatrix): Transer = ???
+  override def prolign(matrix: ProlignMatrix): PolygonParent = ???
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
