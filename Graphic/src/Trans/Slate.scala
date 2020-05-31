@@ -10,12 +10,7 @@ trait Slate[T]
 }
 
 object Slate
-{
-  implicit def slateImplicit: Slate[Transer] = (obj: Transer, offset: Vec2) => obj match
-  { case ta: TransAligner => ta.slate(offset).asInstanceOf[Transer]
-    case gea: Transer => gea.slate(offset)
-  }
-
+{  
   implicit def transAlignerImplicit[T <: TransAligner]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
 
   implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Arr[A]] =

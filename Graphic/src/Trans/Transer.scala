@@ -31,3 +31,8 @@ trait Transer extends Product with Serializable
 
   def prolign(matrix: ProlignMatrix): Transer
 }
+
+object Transer
+{ implicit def slateImplicit: Slate[Transer] = (obj: Transer, offset: Vec2) => obj.slate(offset)
+  implicit def scaleImplicit: Scale[Transer] = (obj: Transer, operand: Double) => obj.scale(operand)
+}
