@@ -33,6 +33,14 @@ trait Transer extends Product with Serializable
 }
 
 object Transer
-{ implicit def slateImplicit: Slate[Transer] = (obj: Transer, offset: Vec2) => obj.slate(offset)
-  implicit def scaleImplicit: Scale[Transer] = (obj: Transer, operand: Double) => obj.scale(operand)
+{ implicit val slateImplicit: Slate[Transer] = (obj: Transer, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[Transer] = (obj: Transer, operand: Double) => obj.scale(operand)
+  
+  implicit val mirrorAxisImplicit: MirrorAxis[Transer] = new MirrorAxis[Transer] {
+    /** Reflect, mirror across a line parallel to the X axis. */
+    override def mirrorXOffset(obj: Transer, yOffset: Double): Transer = obj.mirrorXOffset(yOffset)
+
+    /** Reflect, mirror across a line parallel to the Y axis. */
+    override def mirrorYOffset(obj: Transer, xOffset: Double): Transer = obj.mirrorYOffset(xOffset)
+  }
 }

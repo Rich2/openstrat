@@ -4,8 +4,10 @@ package geom
 
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
 sealed trait GraphicElem extends Transer
-{
-  
+{/** Translate geometric transformation. */
+  //def slate(offset: Vec2): GraphicElem
+  /** Translate geometric transformation. */
+  //def slate(xOffset: Double, yOffset: Double): GraphicElem 
 }
 
 object GraphicElem
@@ -40,15 +42,9 @@ trait PaintElem extends GraphicElem
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
 }
 
-trait PaintElemNew extends PaintElem with GraphicElem
-{
-  //override def slate(xOffset: Double, yOffset: Double): PaintElemNew
-}
-
 /** Trait to be removed. */
-trait PaintElemOld extends GraphicElemOld with PaintElem
-{ //type AlignT <: PaintElemOld
-
+trait PaintElemOld extends GraphicElemOld with PaintElem 
+{
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
@@ -76,7 +72,7 @@ trait PaintFullElem extends PaintElemOld with GraphicFullElem
 
 }
 
-trait FilledElem extends PaintElemNew
+trait FilledElem extends PaintElem
 { def fillColour: Colour
 }
 
