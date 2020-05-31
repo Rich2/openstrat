@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
+import reflect.ClassTag
 
 /** A matrix for proportionate and aligned to X and Y axes transformations. This transformation set preserves Circles and Squares. It also
  * preserves the alignment of Squares and Rectangle to the axes. */
@@ -32,3 +33,21 @@ object ProlignMatrix
   def mirrorY: ProlignMatrix = ProlignMatrix(1, true, false, 0, 0)
 }
 
+/** Type class for Prolign transformations. These areproportionate and aligned to X and Y axes transformations. This transformation set preserves
+ *  Circles and Squares. It also preserves the alignment of Squares and Rectangle to the axes.*/
+trait Prolign[A]
+{ def prolignObj(obj: A, prolignMatrix: ProlignMatrix): A
+}
+
+object Prolign
+{
+  implicit def transAlignerImplicit[T <: TransAligner]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
+
+  implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[Arr[A]] =
+    (obj, offset) => obj.map(ev.prolignObj(_, offset))(new AnyBuildAlt[A](ct))
+
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Prolign[A]): Prolign[F[A]] =
+    (obj, offset) => evF.map(obj, evA.prolignObj(_, offset))
+
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[Array[A]] = (obj, offset) => obj.map(ev.prolignObj(_, offset))
+}
