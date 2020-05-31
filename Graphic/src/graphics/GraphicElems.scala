@@ -5,9 +5,10 @@ package geom
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
 sealed trait GraphicElem extends Transer
 {/** Translate geometric transformation. */
-  //def slate(offset: Vec2): GraphicElem
+  def slate(offset: Vec2): GraphicElem
+ 
   /** Translate geometric transformation. */
-  //def slate(xOffset: Double, yOffset: Double): GraphicElem 
+ def slate(xOffset: Double, yOffset: Double): GraphicElem 
 }
 
 object GraphicElem
@@ -27,6 +28,10 @@ object GraphicElem
 /** This trait is slated for removal. */
 trait GraphicElemOld extends TransSimer with GraphicElem
 { type AlignT <: GraphicElemOld
+
+  override def slate(offset: Vec2): AlignT
+
+  override def slate(xOffset: Double, yOffset: Double): AlignT
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
@@ -54,6 +59,7 @@ trait GraphicBounded extends GraphicElemOld
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
   def width: Double = boundingRect.width
+  
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
