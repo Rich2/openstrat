@@ -11,7 +11,7 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
 
-  override def mirrorYOffset(xOffset: Double): Transer = ???
+  override def mirrorYOffset(xOffset: Double): CircleFillOld = ???
 
   override def mirrorXOffset(yOffset: Double): Transer = ???
 
@@ -52,7 +52,7 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
   def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
 
-  override def mirrorYOffset(xOffset: Double): Transer = ???
+  override def mirrorYOffset(xOffset: Double): CircleDrawOld = ???
 
   override def mirrorXOffset(yOffset: Double): Transer = ???
 
@@ -73,7 +73,7 @@ case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Doub
   override def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
 
-  override def mirrorYOffset(xOffset: Double): Transer = ???
+  override def mirrorYOffset(xOffset: Double): CircleFillDraw = ???
 
   override def mirrorXOffset(yOffset: Double): Transer = ???
 

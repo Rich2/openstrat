@@ -8,7 +8,10 @@ sealed trait GraphicElem extends Transer
   def slate(offset: Vec2): GraphicElem
  
   /** Translate geometric transformation. */
- def slate(xOffset: Double, yOffset: Double): GraphicElem 
+ def slate(xOffset: Double, yOffset: Double): GraphicElem
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  def mirrorYOffset(xOffset: Double): GraphicElem
 }
 
 object GraphicElem
@@ -32,6 +35,9 @@ trait GraphicElemOld extends TransSimer with GraphicElem
   override def slate(offset: Vec2): AlignT
 
   override def slate(xOffset: Double, yOffset: Double): AlignT
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  def mirrorYOffset(xOffset: Double): AlignT
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
