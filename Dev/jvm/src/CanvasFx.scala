@@ -17,8 +17,8 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     { case PRIMARY => LeftButton
       case MIDDLE => MiddleButton
       case SECONDARY => RightButton
-      case BACK => BackButton
-      case FORWARD => ForwardButton
+//      case BACK => BackButton
+//      case FORWARD => ForwardButton
       case _ => NoButton
     }     
   }
