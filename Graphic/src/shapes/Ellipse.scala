@@ -20,13 +20,13 @@ object Ellipse {
 /** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
 case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Double) extends Ellipse
 { override def fill(colour: Colour): GraphicElem = ???
-  def fTrans(f: Vec2 => Vec2): GeomElem = ???
-  def mirrorX: GeomElem = ???
-  def mirrorXOffset(yOffset: Double): GeomElem = ???
-  def mirrorY: GeomElem = ???
-  def mirrorYOffset(xOffset: Double): GeomElem = ???
-  def prolign(matrix: ProlignMatrix): GeomElem = ???
-  def scale(operand: Double): GeomElem = ???
-  def slate(xOffset: Double, yOffset: Double): GeomElem = ???
-  def slate(offset: Vec2): GeomElem = ???
+  def fTrans(f: Vec2 => Vec2): Transer = ???
+  def mirrorX: Transer = ???
+  def mirrorXOffset(yOffset: Double): Transer = ???
+  def mirrorY: Transer = ???
+  def mirrorYOffset(xOffset: Double): Transer = ???
+  def prolign(matrix: ProlignMatrix): Transer = ???
+  def scale(operand: Double): Transer = ???
+  def slate(xOffset: Double, yOffset: Double): Transer = ???
+  def slate(offset: Vec2): Transer = ???
 }

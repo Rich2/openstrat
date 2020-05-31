@@ -22,7 +22,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, cen.prolignTrans(matrix))
 
-  override def fill(colour: Colour): GraphicElemNew = ???
+  override def fill(colour: Colour): GraphicElem = ???
 }
 
 /** This object provides factory methods for circles. */

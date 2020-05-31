@@ -4,7 +4,7 @@ package geom
 import reflect.ClassTag
 
 /** An object that implements the TransAlign interface through its own methods. */
-trait TransAligner extends GeomElem
+trait TransAligner extends Transer
 { type AlignT <: TransAligner
   def slate(offset: Vec2): AlignT
 
@@ -24,16 +24,16 @@ trait TransAlign[T]
 
 object TransAlign
 {
-  implicit def transImplicit: TransAlign[GeomElem] = new TransAlign[GeomElem]
+  implicit def transImplicit: TransAlign[Transer] = new TransAlign[Transer]
   {
-    override def slate(obj: GeomElem, offset: Vec2): GeomElem = obj match
-    { case ta: TransAligner => ta.slate(offset).asInstanceOf[GeomElem]
-      case gea: GeomElem => gea.slate(offset)
+    override def slate(obj: Transer, offset: Vec2): Transer = obj match
+    { case ta: TransAligner => ta.slate(offset).asInstanceOf[Transer]
+      case gea: Transer => gea.slate(offset)
     }
 
-    override def scale(obj: GeomElem, operand: Double): GeomElem = obj match
-    { case ta: TransAligner => ta.scale(operand).asInstanceOf[GeomElem]
-      case gea: GeomElem => gea.scale(operand)
+    override def scale(obj: Transer, operand: Double): Transer = obj match
+    { case ta: TransAligner => ta.scale(operand).asInstanceOf[Transer]
+      case gea: Transer => gea.scale(operand)
     }
   }
 

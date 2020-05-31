@@ -11,15 +11,15 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
 
-  override def mirrorYOffset(xOffset: Double): GeomElem = ???
+  override def mirrorYOffset(xOffset: Double): Transer = ???
 
-  override def mirrorXOffset(yOffset: Double): GeomElem = ???
+  override def mirrorXOffset(yOffset: Double): Transer = ???
 
   override def mirrorX: CircleFillOld = CircleFillOld(circle.mirrorX, colour)
 
   override def mirrorY: CircleFillOld = ???
 
-  override def prolign(matrix: ProlignMatrix): GeomElem = ???
+  override def prolign(matrix: ProlignMatrix): Transer = ???
 }
 
 final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
@@ -52,15 +52,15 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
   def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
 
-  override def mirrorYOffset(xOffset: Double): GeomElem = ???
+  override def mirrorYOffset(xOffset: Double): Transer = ???
 
-  override def mirrorXOffset(yOffset: Double): GeomElem = ???
+  override def mirrorXOffset(yOffset: Double): Transer = ???
 
   override def mirrorX: CircleDrawOld = ???
 
   override def mirrorY: CircleDrawOld = ???
 
-  override def prolign(matrix: ProlignMatrix): GeomElem = ???
+  override def prolign(matrix: ProlignMatrix): Transer = ???
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
 
@@ -73,14 +73,14 @@ case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Doub
   override def shear(xScale: Double, yScale: Double): TransAller = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
 
-  override def mirrorYOffset(xOffset: Double): GeomElem = ???
+  override def mirrorYOffset(xOffset: Double): Transer = ???
 
-  override def mirrorXOffset(yOffset: Double): GeomElem = ???
+  override def mirrorXOffset(yOffset: Double): Transer = ???
 
   override def mirrorX: CircleFillDraw = ???
 
   override def mirrorY: CircleFillDraw = ???
 
-  override def prolign(matrix: ProlignMatrix): GeomElem = ???
+  override def prolign(matrix: ProlignMatrix): Transer = ???
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }

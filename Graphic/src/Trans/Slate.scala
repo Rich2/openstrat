@@ -11,9 +11,9 @@ trait Slate[T]
 
 object Slate
 {
-  implicit def slateImplicit: Slate[GeomElem] = (obj: GeomElem, offset: Vec2) => obj match
-  { case ta: TransAligner => ta.slate(offset).asInstanceOf[GeomElem]
-    case gea: GeomElem => gea.slate(offset)
+  implicit def slateImplicit: Slate[Transer] = (obj: Transer, offset: Vec2) => obj match
+  { case ta: TransAligner => ta.slate(offset).asInstanceOf[Transer]
+    case gea: Transer => gea.slate(offset)
   }
 
   implicit def transAlignerImplicit[T <: TransAligner]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
@@ -23,8 +23,6 @@ object Slate
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, offset) => evF.map(obj, evA.slate(_, offset))
   
-  //implicit def listImplicit[A](implicit evA: Slate[A]): Slate[List[A]] = (list, offset) => list.map(evA.slate(_, offset))
-
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Array[A]] = (obj, offset) => obj.map(ev.slate(_, offset))
 }
 

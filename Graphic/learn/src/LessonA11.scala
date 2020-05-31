@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
@@ -28,10 +29,10 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val na1 = na.slate(20, 20)
 
-  val ca: Arr[GeomElem] = Arr(sq, cn)
+  val ca: Arr[Transer] = Arr(sq, cn)
   val ca2 = ca.slate(20, 20)
   
-  val la: List[GeomElem] = List(sq, cn)
+  val la = List(sq, cn)
   val la2 = la.slate(20, 20)
 
   val na2 = na1.slate(20, 20)

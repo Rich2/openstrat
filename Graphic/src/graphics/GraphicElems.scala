@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
-sealed trait GraphicElem extends GeomElem
+sealed trait GraphicElem extends Transer
 {
   
 }
@@ -13,27 +13,18 @@ object GraphicElem
   implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem] {
     override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj match {
       case ta: TransAligner => ta.slate(offset).asInstanceOf[GraphicElem]
-      case gea: GraphicElemNew => ??? // gea.slate(offset)
+      case gea: GraphicElem => ??? // gea.slate(offset)
     }
 
     override def scale(obj: GraphicElem, operand: Double): GraphicElem = obj match
     { case ta: TransAligner => ta.scale(operand).asInstanceOf[GraphicElem]
-      case gea: GraphicElemNew => ??? // gea.scale(operand)
+      case gea: GraphicElem => ??? // gea.scale(operand)
     }
   }
 }
 /** This trait is slated for removal. */
 trait GraphicElemOld extends TransSimer with GraphicElem
 { type AlignT <: GraphicElemOld
-}
-
-trait GraphicElemNew extends GraphicElem with GeomElem
-{
-  //override def fTrans(f: Vec2 => Vec2): GraphicElemNew
-
-  //override def slate(offset: Vec2): GraphicElemNew = fTrans(_ + offset)
-
- // override def scale(operand: Double): GraphicElemNew = fTrans(_ * operand)
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
@@ -49,7 +40,7 @@ trait PaintElem extends GraphicElem
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
 }
 
-trait PaintElemNew extends PaintElem with GraphicElemNew
+trait PaintElemNew extends PaintElem with GraphicElem
 {
   //override def slate(xOffset: Double, yOffset: Double): PaintElemNew
 }
@@ -91,6 +82,6 @@ trait FilledElem extends PaintElemNew
 
 trait FillElem extends FilledElem
 
-trait Fillable extends GeomElem
+trait Fillable extends Transer
 { def fill(colour: Colour): FillElem
 }

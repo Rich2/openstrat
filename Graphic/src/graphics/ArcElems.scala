@@ -18,14 +18,14 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   def startCenEndTexts = Arr(startText, cenText, endText)
   override def shear(xScale: Double, yScale: Double): TransAller = ???
 
-  override def mirrorYOffset(xOffset: Double): GeomElem = ???
+  override def mirrorYOffset(xOffset: Double): Transer = ???
 
-  override def mirrorXOffset(yOffset: Double): GeomElem = ???
+  override def mirrorXOffset(yOffset: Double): Transer = ???
 
   override def mirrorX: CArcDraw = ???
 
   override def mirrorY: CArcDraw = ???
 
-  override def prolign(matrix: ProlignMatrix): GeomElem = ???
+  override def prolign(matrix: ProlignMatrix): Transer = ???
  // override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }

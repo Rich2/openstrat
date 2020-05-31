@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait Shape extends GeomElem
+trait Shape extends Transer
 {
   def fill(colour: Colour): GraphicElem
 }

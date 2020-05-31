@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends GeomElem
+final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Transer
 {
   def rotationRadians: Double = rotation.radians
   
