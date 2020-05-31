@@ -9,7 +9,11 @@ sealed trait GraphicElem extends Transer
  
   /** Translate geometric transformation. */
  def slate(xOffset: Double, yOffset: Double): GraphicElem
-
+  
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  def scale(operand: Double): GraphicElem
+  
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def mirrorYOffset(xOffset: Double): GraphicElem
 
@@ -29,16 +33,10 @@ sealed trait GraphicElem extends Transer
 
 object GraphicElem
 {
-  implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem] {
-    override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj match {
-      case ta: TransAligner => ta.slate(offset).asInstanceOf[GraphicElem]
-      case gea: GraphicElem => ??? // gea.slate(offset)
-    }
-
-    override def scale(obj: GraphicElem, operand: Double): GraphicElem = obj match
-    { case ta: TransAligner => ta.scale(operand).asInstanceOf[GraphicElem]
-      case gea: GraphicElem => ??? // gea.scale(operand)
-    }
+  implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem]
+  { override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj.slate(offset) 
+    
+    override def scale(obj: GraphicElem, operand: Double): GraphicElem = obj.scale(operand)
   }
 }
 /** This trait is slated for removal. */
@@ -48,6 +46,10 @@ trait GraphicElemOld extends TransSimer with GraphicElem
   override def slate(offset: Vec2): AlignT
 
   override def slate(xOffset: Double, yOffset: Double): AlignT
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): AlignT
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def mirrorYOffset(xOffset: Double): AlignT
