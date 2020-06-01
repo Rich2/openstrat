@@ -47,6 +47,8 @@ object PaintElem
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def mirrorYOffset(obj: PaintElem, xOffset: Double): PaintElem = obj.mirrorYOffset(xOffset)
   }
+
+  implicit val prolignImplicit: Prolign[PaintElem] = (obj, matrix) => obj.prolign(matrix)
 }
 
 /** Trait to be removed. */

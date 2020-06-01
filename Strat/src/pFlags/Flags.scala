@@ -200,7 +200,7 @@ object Swastika extends Flag
   { val poly = Rectangle(ratio, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
-    val cross = Arr(bar, arm).anti45.flatMap(_.rCrossArr)
+    val cross = Arr(bar, arm).rotate45.flatMap(_.rCrossArr)
     Arr[PaintFullElem](
       poly.fill(Red),
       CircleOld.segs(6.0 / 8).fill(White)

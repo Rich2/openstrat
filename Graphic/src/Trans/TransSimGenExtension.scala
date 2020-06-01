@@ -10,19 +10,19 @@ trait TransSimGenExtension[T] extends Any
 
   import math.Pi
   /** Rotates 30 degrees anti-clockwise or + Pi/6 */
-  def anti30: T = rotate(Angle(Pi / 6))
+  def rotate30: T = rotate(Angle(Pi / 6))
   /** Rotates 45 degrees anti-clockwise or + Pi/4 */
-  def anti45: T = rotate(Angle(Pi / 4))
+  def rotate45: T = rotate(Angle(Pi / 4))
   /** Rotates 60 degrees anti-clockwise or + Pi/3 */
-  def anti60: T  = rotate(Angle(Pi / 3))
-  /** Rotates 90 degrees anti-clockwise or + Pi/2 */
-  def anti90: T = rotate(Angle(Pi / 2))
+  def rotate60: T  = rotate(Angle(Pi / 3))
+  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  def rotate90: T = rotate(Angle(Pi / 2))
   /** Rotates 120 degrees anti-clockwise or + 2 * Pi/3 */
-  def anti120: T = rotate(Angle(2 * Pi / 3))
+  def rotate120: T = rotate(Angle(2 * Pi / 3))
   /** Rotates 135 degrees anti-clockwise or + 3 * Pi/4 */
-  def anti135: T = rotate(Angle(3 * Pi / 4))
+  def rotate135: T = rotate(Angle(3 * Pi / 4))
   /** Rotates 150 degrees anti-clockwise or + 5 * Pi/6 */
-  def anti150: T = rotate(Angle(5 * Pi / 6))
+  def rotate150: T = rotate(Angle(5 * Pi / 6))
 
   /** Rotates 30 degrees clockwise or - Pi/3 */
   def clk30: T = rotate(Angle(-Pi / 6))
