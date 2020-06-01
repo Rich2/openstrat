@@ -1,7 +1,6 @@
 /* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pReactor
-
 import geom._, pCanv._, Colour._
 
 /** A clone of the classic Atoms game */

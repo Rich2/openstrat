@@ -28,12 +28,13 @@ final case class ProlignMatrix(vFactor: Double, negY: Boolean, negX: Boolean, xD
   }
 }
 
+/** Companion object for Prolign Matrices. */
 object ProlignMatrix
 {
   def mirrorY: ProlignMatrix = ProlignMatrix(1, true, false, 0, 0)
 }
 
-/** Type class for Prolign transformations. These areproportionate and aligned to X and Y axes transformations. This transformation set preserves
+/** Type class for Prolign transformations. These are proportionate and aligned to X and Y axes transformations. This transformation set preserves
  *  Circles and Squares. It also preserves the alignment of Squares and Rectangle to the axes.*/
 trait Prolign[A]
 { def prolignObj(obj: A, prolignMatrix: ProlignMatrix): A
