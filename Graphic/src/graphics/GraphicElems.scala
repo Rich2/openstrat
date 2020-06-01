@@ -33,6 +33,17 @@ sealed trait GraphicElem extends Transer
 
 object GraphicElem
 {
+  implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)
+
+  implicit val mirrorAxisImplicit: MirrorAxis[GraphicElem] = new MirrorAxis[GraphicElem]
+  { /** Reflect, mirror across a line parallel to the X axis. */
+    override def mirrorXOffset(obj: GraphicElem, yOffset: Double): GraphicElem = obj.mirrorXOffset(yOffset)
+
+    /** Reflect, mirror across a line parallel to the Y axis. */
+    override def mirrorYOffset(obj: GraphicElem, xOffset: Double): GraphicElem = obj.mirrorYOffset(xOffset)
+  }
+  
   implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem]
   { override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj.slate(offset) 
     
