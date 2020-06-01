@@ -43,12 +43,6 @@ object GraphicElem
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def mirrorYOffset(obj: GraphicElem, xOffset: Double): GraphicElem = obj.mirrorYOffset(xOffset)
   }
-  
-  implicit def transImplicit: TransAlign[GraphicElem] = new TransAlign[GraphicElem]
-  { override def slate(obj: GraphicElem, offset: Vec2): GraphicElem = obj.slate(offset) 
-    
-    override def scale(obj: GraphicElem, operand: Double): GraphicElem = obj.scale(operand)
-  }
 }
 /** This trait is slated for removal. */
 trait GraphicElemOld extends TransSimer with GraphicElem

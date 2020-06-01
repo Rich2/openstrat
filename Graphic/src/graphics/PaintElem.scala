@@ -13,6 +13,10 @@ trait PaintElem extends GraphicElem
 
   /** Translate geometric transformation. */
   def slate(xOffset: Double, yOffset: Double): PaintElem
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  def scale(operand: Double): PaintElem
 }
 
 /** Trait to be removed. */
@@ -23,4 +27,6 @@ trait PaintElemOld extends GraphicElemOld with PaintElem
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): AlignT
+
+  def scale(operand: Double): AlignT
 }
