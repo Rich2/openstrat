@@ -247,7 +247,8 @@ package object ostrat
   }
 
   implicit class IterableAnyRefImplicit[A <: AnyRef](thisIter: Iterable[A])(implicit ct: ClassTag[A])
-  { def toRefs: Arr[A] =
+  { /** Converts this Iterable to an immutable Array, Arr. */
+    def toArr: Arr[A] =
     { val buff: Buff[A] = Buff()
       thisIter.foreach(buff.append)
       buff.toRefs

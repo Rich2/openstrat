@@ -10,7 +10,7 @@ class RowMulti[TileT <: AnyRef](val y: Int, val xStart: Int, val multis: RefsMul
 
 object RowMulti
 {
-  def apply[TileT <: AnyRef](y: Int, xStart: Int, multis: Multiple[TileT]*): RowMulti[TileT] = new RowMulti(y, xStart, multis.toRefs)
+  def apply[TileT <: AnyRef](y: Int, xStart: Int, multis: Multiple[TileT]*): RowMulti[TileT] = new RowMulti(y, xStart, multis.toArr)
 }
 
 /** A Tile grid that contains both values for the tiles and the tile boundaries or sides. Rivers, straits, walls, doors, windows ditches and

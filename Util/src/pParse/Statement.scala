@@ -44,29 +44,29 @@ object Statement
        case s => bad1(s, s.length.toString -- "statements not 4")
     }
 */
-    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findUniqueFromStatements(statementList.toRefs)
+    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findUniqueFromStatements(statementList.toArr)
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
 
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
-    { val list = ev.valueListFromStatements(statementList.toRefs)
+    { val list = ev.valueListFromStatements(statementList.toArr)
       if (list.length > index) Good(list(index))
         else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
 
-    def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueFromStatements(statementList.toRefs)
-    def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueFromStatements(statementList.toRefs)
-    def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueFromStatements(statementList.toRefs)
-    def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueFromStatements(statementList.toRefs)
-    def findIntArray: EMon[Array[Int]] = Show.ArrayIntPersistImplicit.findUniqueFromStatements(statementList.toRefs)
+    def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findIntArray: EMon[Array[Int]] = Show.ArrayIntPersistImplicit.findUniqueFromStatements(statementList.toArr)
 
     /** Find setting from RSON statement */
-    def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList.toRefs, settingStr)
+    def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList.toArr, settingStr)
     def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSetting[A](settingStr).getElse(elseValue)
-    def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = Show.doublePersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementList.toRefs, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
+    def findDoubleSett(settingStr: String): EMon[Double] = Show.doublePersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
   }
 
   implicit class RefsImplicit(statementRefs: Arr[Statement]) extends TextSpan
