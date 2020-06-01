@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
  *  LinePath class should not entail a runtime cost. */
-class Vec2s(val array: Array[Double]) extends TransAller with Vec2sLike with ArrProdDbl2[Vec2]
+class Vec2s(val array: Array[Double]) extends AffineElem with Vec2sLike with ArrProdDbl2[Vec2]
 { type ThisT = Vec2s
   type AlignT = Vec2s
   def unsafeFromArray(array: Array[Double]): Vec2s = new Vec2s(array)

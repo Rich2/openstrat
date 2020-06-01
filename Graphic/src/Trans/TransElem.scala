@@ -4,48 +4,48 @@ package geom
 
 /** A geometric element to which 2 dimensional geometric transformations can be applied. Not all elements preserve their full properties under all
  * transformations. So for example a circle is no longer a Circle after a Shear transformation, but remains an Ellipse.  */
-trait Transer extends Product with Serializable
+trait TransElem extends Product with Serializable
 { /** Translate geometric transformation. */
-  def slate(offset: Vec2): Transer
+  def slate(offset: Vec2): TransElem
 
   /** Translate geometric transformation. */
-  def slate(xOffset: Double, yOffset: Double): Transer
+  def slate(xOffset: Double, yOffset: Double): TransElem
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  def scale(operand: Double): Transer
+  def scale(operand: Double): TransElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def mirrorYOffset(xOffset: Double): Transer
+  def mirrorYOffset(xOffset: Double): TransElem
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def mirrorXOffset(yOffset: Double): Transer
+  def mirrorXOffset(yOffset: Double): TransElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorX: Transer
+  def mirrorX: TransElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorY: Transer
+  def mirrorY: TransElem
 
-  def prolign(matrix: ProlignMatrix): Transer
+  def prolign(matrix: ProlignMatrix): TransElem
 
   /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
-  def rotate90: Transer
+  def rotate90: TransElem
 }
 
-object Transer
-{ implicit val slateImplicit: Slate[Transer] = (obj: Transer, offset: Vec2) => obj.slate(offset)
-  implicit val scaleImplicit: Scale[Transer] = (obj: Transer, operand: Double) => obj.scale(operand)
+object TransElem
+{ implicit val slateImplicit: Slate[TransElem] = (obj: TransElem, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[TransElem] = (obj: TransElem, operand: Double) => obj.scale(operand)
   
-  implicit val mirrorAxisImplicit: MirrorAxis[Transer] = new MirrorAxis[Transer]
+  implicit val mirrorAxisImplicit: MirrorAxis[TransElem] = new MirrorAxis[TransElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def mirrorXOffset(obj: Transer, yOffset: Double): Transer = obj.mirrorXOffset(yOffset)
+    override def mirrorXOffset(obj: TransElem, yOffset: Double): TransElem = obj.mirrorXOffset(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def mirrorYOffset(obj: Transer, xOffset: Double): Transer = obj.mirrorYOffset(xOffset)
+    override def mirrorYOffset(obj: TransElem, xOffset: Double): TransElem = obj.mirrorYOffset(xOffset)
   }
   
-  implicit val prolignImplicit: Prolign[Transer] = (obj, matrix) => obj.prolign(matrix)
+  implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)
 }

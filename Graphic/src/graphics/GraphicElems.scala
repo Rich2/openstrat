@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
-trait GraphicElem extends Transer
+trait GraphicElem extends TransElem
 {/** Translate geometric transformation. */
   def slate(offset: Vec2): GraphicElem
  
@@ -67,7 +67,7 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
  *  each time there is a change within the application state or the user view of that application state. */
-trait GraphicFullElem extends GraphicElem with TransAller
+trait GraphicFullElem extends GraphicElem with AffineElem
 { type AlignT <: GraphicFullElem
 
   override def slate(offset: Vec2): AlignT
@@ -114,6 +114,6 @@ trait FilledElem extends PaintElem
 
 trait FillElem extends FilledElem
 
-trait Fillable extends Transer
+trait Fillable extends TransElem
 { def fill(colour: Colour): FillElem
 }

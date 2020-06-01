@@ -14,15 +14,15 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
   //override def slateOld(offset: Vec2): EllipseGen = EllipseGen(cen + offset, vRight + offset, upRadius)
   //override def scaleOld(operand: Double):  EllipseGen = EllipseGen(cen * operand * operand, vRight * operand, upRadius * operand)
   //override def mirror(line: Line2): EllipseGen = EllipseGen(cen.mirror(line), vRight.mirror(line), upRadius)
-  def fTrans(f: Vec2 => Vec2): Transer = ???
-  def mirrorX: Transer = ???
-  def mirrorXOffset(yOffset: Double): Transer = ???
-  def mirrorY: Transer = ???
-  def mirrorYOffset(xOffset: Double): Transer = ???
-  def prolign(matrix: ProlignMatrix): Transer = ???
-  def scale(operand: Double): Transer = ???
+  def fTrans(f: Vec2 => Vec2): TransElem = ???
+  def mirrorX: TransElem = ???
+  def mirrorXOffset(yOffset: Double): TransElem = ???
+  def mirrorY: TransElem = ???
+  def mirrorYOffset(xOffset: Double): TransElem = ???
+  def prolign(matrix: ProlignMatrix): TransElem = ???
+  def scale(operand: Double): TransElem = ???
   def slate(xOffset: Double, yOffset: Double): EllipseGen = EllipseGen(xLeft + xOffset, yLeft + yOffset, xRight + xOffset, yRight + yOffset, rHeight)
-  def slate(offset: Vec2): Transer = ???
+  def slate(offset: Vec2): TransElem = ???
 
  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
  override def rotate90: EllipseGen = ???

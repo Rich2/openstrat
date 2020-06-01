@@ -16,7 +16,7 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   def endText: TextGraphic = TextGraphic("end", 10, arc.pEnd, colour)
   def cenEndTexts = Arr(cenText, endText)
   def startCenEndTexts = Arr(startText, cenText, endText)
-  override def shear(xScale: Double, yScale: Double): TransAller = ???
+  override def shear(xScale: Double, yScale: Double): AffineElem = ???
 
   override def mirrorYOffset(xOffset: Double): CArcDraw = ???
 

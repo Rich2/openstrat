@@ -3,33 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag, math.Pi
 
-/** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
- *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-trait TransAller extends TransSimer with Transer
-{ type AlignT <: TransAller
-  def fTrans(f: Vec2 => Vec2): AlignT
-  def slate(offset: Vec2): AlignT = fTrans(_ + offset)
-  def scale(operand: Double): AlignT = fTrans(_ * operand)
-  
-  /** A generalised shear transformation. I think this is correct. */
-  def shear(xScale: Double, yScale: Double): TransAller = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
-  
-  def mirrorXOffset(yOffset: Double): AlignT = fTrans(_.mirrorXOffset(yOffset))
-  def mirrorYOffset(xOffset: Double): AlignT = fTrans(_.mirrorYOffset(xOffset))
-  def rotateRadians(radians: Double): AlignT = fTrans(_.rotateRadians(radians))
-  def mirror(v1: Vec2, v2: Vec2): AlignT = fTrans(_.mirror(v1, v2))
 
-  override def mirror(line: Line2): AlignT = fTrans((_.mirror(line)))
-
-  override def mirrorX: AlignT = fTrans(_.mirrorX)
-
-  override def mirrorY: AlignT = fTrans(_.mirrorY)
-
-  override def prolign(matrix: ProlignMatrix): AlignT = fTrans(_.prolignTrans(matrix))
-
-  /** Rotates 90 degrees roate-clockwise or + Pi/2 */
-  override def rotate90: AlignT = fTrans(_.rotateRadians(Pi/2))
-}
 
 /** The typeclass trait for transforming an object in 2d geometry. */
 trait TransAll[T] extends TransAff[T]
@@ -49,7 +23,7 @@ object TransAll
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAll[A]): TransAll[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromTranserAllImplicit[T <: TransAller]: TransAll[T] =
+  implicit def fromTranserAllImplicit[T <: AffineElem]: TransAll[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAll[A]): TransAll[F[A]] =

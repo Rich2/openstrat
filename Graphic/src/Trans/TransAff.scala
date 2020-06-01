@@ -1,11 +1,35 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import scala.math.Pi
 
-/*trait TransAffer extends Any with TransSimer
-{ type AlignT <: TransAligner
-  def shear(xScale: Double, yScale: Double): TransAffer
-}*/
+/** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
+ *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
+trait AffineElem extends TransSimer with TransElem
+{ type AlignT <: AffineElem
+  def fTrans(f: Vec2 => Vec2): AlignT
+  def slate(offset: Vec2): AlignT = fTrans(_ + offset)
+  def scale(operand: Double): AlignT = fTrans(_ * operand)
+
+  /** A generalised shear transformation. I think this is correct. */
+  def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
+
+  def mirrorXOffset(yOffset: Double): AlignT = fTrans(_.mirrorXOffset(yOffset))
+  def mirrorYOffset(xOffset: Double): AlignT = fTrans(_.mirrorYOffset(xOffset))
+  def rotateRadians(radians: Double): AlignT = fTrans(_.rotateRadians(radians))
+  def mirror(v1: Vec2, v2: Vec2): AlignT = fTrans(_.mirror(v1, v2))
+
+  override def mirror(line: Line2): AlignT = fTrans((_.mirror(line)))
+
+  override def mirrorX: AlignT = fTrans(_.mirrorX)
+
+  override def mirrorY: AlignT = fTrans(_.mirrorY)
+
+  override def prolign(matrix: ProlignMatrix): AlignT = fTrans(_.prolignTrans(matrix))
+
+  /** Rotates 90 degrees roate-clockwise or + Pi/2 */
+  override def rotate90: AlignT = fTrans(_.rotateRadians(Pi/2))
+}
 
 /** Affine Transformation */
 trait TransAff[T] extends TransSim[T]

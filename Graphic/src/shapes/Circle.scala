@@ -24,7 +24,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def fill(colour: Colour): GraphicElem = ???
 
-  override def rotate90: Transer = ???
+  override def rotate90: TransElem = ???
 }
 
 /** This object provides factory methods for circles. */
@@ -46,7 +46,7 @@ object Circle extends ShapeIcon
 
   override def prolign(matrix: ProlignMatrix): Circle = ???
 
-  override def rotate90: Transer = ???
+  override def rotate90: TransElem = ???
 
   override def productArity: Int = 0
 

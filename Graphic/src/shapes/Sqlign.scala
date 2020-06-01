@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A square aligned to the X and Y axes. */
-final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Transer with Rectlign// extends Transer
+final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends TransElem with Rectlign// extends Transer
 {
   override def height: Double = width
 
