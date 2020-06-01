@@ -38,7 +38,7 @@ object Line2s extends ProdDbl4sCompanion[Line2, Line2s]
 
   implicit val arrArrBuildImplicit: ArrFlatBuild[Line2s] = Line2.line2sBuildImplicit
 
-  implicit val transImplicit: TransAll[Line2s] = (obj, f) => obj.map(_.fTrans(f))
+  implicit val transImplicit: Affine[Line2s] = (obj, f) => obj.map(_.fTrans(f))
 }
 
 /** Efficient expandable buffer for Line2s. */
