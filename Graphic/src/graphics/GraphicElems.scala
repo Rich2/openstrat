@@ -3,11 +3,11 @@ package ostrat
 package geom
 
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
-sealed trait GraphicElem extends Transer
+trait GraphicElem extends Transer
 {/** Translate geometric transformation. */
   def slate(offset: Vec2): GraphicElem
  
-  /** Translate geometric transformation. */
+ /** Translate geometric transformation. */
  def slate(xOffset: Double, yOffset: Double): GraphicElem
   
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
@@ -81,18 +81,6 @@ trait GraphicFullElem extends GraphicElem with TransAller
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def mirrorYOffset(xOffset: Double): AlignT
-}
-
-/** A GraphicElem is either an element that can be rendered to a display or printed. */
-trait PaintElem extends GraphicElem
-{
-  /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
-  def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
-}
-
-/** Trait to be removed. */
-trait PaintElemOld extends GraphicElemOld with PaintElem 
-{
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
