@@ -100,8 +100,6 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
       case _ if y < 0 => at -Pi/2
       case _ => at + Pi/2*/
     }
-
-
   }
 
   /** Gives the angle of the vector with respect of the origin in radians. */
@@ -115,6 +113,15 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
       case _ => at + Pi/2
     }
   }
+  
+  /** rotates the vector 90 degrees or Pi/2 radians, anti-clockwise. */
+  def rotate90: Vec2 = Vec2(-y, x)
+  
+  /** Rotates the vector 180 degrees or Pi radians. */
+  def rotate180: Vec2 = Vec2(-x, -y)
+
+  /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
+  def rotate270: Vec2 = Vec2(y, -x)
 
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle(angleRadians)
