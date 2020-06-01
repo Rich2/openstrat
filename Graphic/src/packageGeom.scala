@@ -13,7 +13,7 @@ package object geom
   implicit def transAlignToExtension[T](value: T)(implicit ev: TransAlign[T]): TransAlignExtension[T] = new TransAlignExtension[T](value, ev)
   //implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
 
-  implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]): SlateExtension[T] = new SlateExtension[T](value, ev)
+  implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)
   implicit def scaleToExtension[T](value: T)(implicit ev: Scale[T]): ScaleExtension[T] = new ScaleExtension[T](value, ev)
   implicit def mirrorAxisToExtension[T](value: T)(implicit ev: MirrorAxis[T]): MirrorAxisExtension[T] = new MirrorAxisExtension[T](value)(ev)
 
