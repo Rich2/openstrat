@@ -33,6 +33,9 @@ trait PaintElem extends GraphicElem
   def mirrorY: PaintElem
 
   def prolign(matrix: ProlignMatrix): PaintElem
+
+  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  def rotate90: PaintElem
 }
 
 /** Companion object for PaintElem contains various implicit instances for the transformation type classes. */

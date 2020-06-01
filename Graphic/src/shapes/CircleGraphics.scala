@@ -20,6 +20,8 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   override def mirrorY: CircleFillOld = ???
 
   override def prolign(matrix: ProlignMatrix): CircleFillOld = ???
+
+  override def rotate90: CircleFillOld = ???
 }
 
 final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
@@ -38,6 +40,8 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
   override def scale(operand: Double): CircleFill = CircleFill(circle.scale(operand), fillColour)
 
   override def prolign(matrix: ProlignMatrix): CircleFill = CircleFill(circle.prolign(matrix), fillColour)
+
+  override def rotate90: CircleFill = ???
 }
 
 case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
@@ -57,6 +61,8 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
   override def mirrorY: CircleDrawOld = ???
 
   override def prolign(matrix: ProlignMatrix): CircleDrawOld = ???
+
+  override def rotate90: CircleDrawOld = ???
   //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }
 
@@ -78,5 +84,6 @@ case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Doub
   override def mirrorY: CircleFillDraw = ???
 
   override def prolign(matrix: ProlignMatrix): CircleFillDraw = ???
-  //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
+
+  override def rotate90: CircleFillDraw = ???
 }

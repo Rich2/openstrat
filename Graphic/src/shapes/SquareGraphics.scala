@@ -21,4 +21,7 @@ final case class SquareFill(square: Square, fillColour: Colour) extends FillElem
   override def scale(operand: Double): SquareFill = SquareFill(square.scale(operand), fillColour)
 
   override def prolign(matrix: ProlignMatrix): SquareFill = SquareFill(square.prolign(matrix), fillColour)
+
+  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  override def rotate90: SquareFill = ???
 }

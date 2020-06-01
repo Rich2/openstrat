@@ -29,6 +29,9 @@ trait GraphicElem extends Transer
   def mirrorY: GraphicElem
 
   def prolign(matrix: ProlignMatrix): GraphicElem
+
+  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  def rotate90: GraphicElem
 }
 
 object GraphicElem

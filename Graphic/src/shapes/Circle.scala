@@ -23,6 +23,8 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, cen.prolignTrans(matrix))
 
   override def fill(colour: Colour): GraphicElem = ???
+
+  override def rotate90: Transer = ???
 }
 
 /** This object provides factory methods for circles. */
@@ -43,6 +45,8 @@ object Circle extends ShapeIcon
   override def mirrorYOffset(xOffset: Double): Circle = Circle(-2 * xOffset, 0,  0.5)
 
   override def prolign(matrix: ProlignMatrix): Circle = ???
+
+  override def rotate90: Transer = ???
 
   override def productArity: Int = 0
 

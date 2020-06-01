@@ -27,5 +27,7 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   override def mirrorY: CArcDraw = ???
 
   override def prolign(matrix: ProlignMatrix): CArcDraw = ???
+
+  override def rotate90: CArcDraw = ???
  // override def fTrans(f: Vec2 => Vec2): GeomElem = ???
 }

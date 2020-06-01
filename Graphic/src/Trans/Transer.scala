@@ -30,6 +30,9 @@ trait Transer extends Product with Serializable
   def mirrorY: Transer
 
   def prolign(matrix: ProlignMatrix): Transer
+
+  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  def rotate90: Transer
 }
 
 object Transer

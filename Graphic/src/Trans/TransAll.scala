@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
-import reflect.ClassTag
+import reflect.ClassTag, math.Pi
 
 /** An object that can transform itself in 2d geometry. This is a key trait, the object can be transformed in 2 dimensional space. Leaf classes must
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
@@ -27,6 +27,8 @@ trait TransAller extends TransSimer with Transer
 
   override def prolign(matrix: ProlignMatrix): AlignT = fTrans(_.prolignTrans(matrix))
 
+  /** Rotates 90 degrees roate-clockwise or + Pi/2 */
+  override def rotate90: AlignT = fTrans(_.rotateRadians(Pi/2))
 }
 
 /** The typeclass trait for transforming an object in 2d geometry. */

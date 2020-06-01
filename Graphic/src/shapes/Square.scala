@@ -25,6 +25,9 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
   override def mirrorY: Square = Square(width, -xCen, yCen, rotation)
 
   override def prolign(matrix: ProlignMatrix): Square = Square(width * matrix.vFactor, cen.prolignTrans(matrix), rotation)
+
+  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  override def rotate90: Square = ???
 }
 
 /** Factory object for squares. */
