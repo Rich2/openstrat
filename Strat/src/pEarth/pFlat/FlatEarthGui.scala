@@ -6,7 +6,7 @@ import geom._, pCanv._
 
 case class FlatEarthGui(canv: CanvasPlatform) extends MapGui("Flat Earth")
 { 
-  override def mapObjs: GraphicElemFulls = Arr()
+  override def mapObjs: Arr[GraphicElem] = Arr()
   override def eTop: Unit = reTop(Arr(status))
   eTop()
 }

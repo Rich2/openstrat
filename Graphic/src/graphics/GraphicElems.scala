@@ -68,8 +68,19 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
  *  each time there is a change within the application state or the user view of that application state. */
-trait GraphicFullElem extends GraphicElemOld with TransAller
+trait GraphicFullElem extends GraphicElem with TransAller
 { type AlignT <: GraphicFullElem
+
+  override def slate(offset: Vec2): AlignT
+
+  override def slate(xOffset: Double, yOffset: Double): AlignT
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): AlignT
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def mirrorYOffset(xOffset: Double): AlignT
 }
 
 /** A GraphicElem is either an element that can be rendered to a display or printed. */
