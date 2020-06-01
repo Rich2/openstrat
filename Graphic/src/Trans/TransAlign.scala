@@ -26,15 +26,9 @@ object TransAlign
 {
   implicit def transImplicit: TransAlign[TransElem] = new TransAlign[TransElem]
   {
-    override def slate(obj: TransElem, offset: Vec2): TransElem = obj match
-    { case ta: TransAligner => ta.slate(offset).asInstanceOf[TransElem]
-      case gea: TransElem => gea.slate(offset)
-    }
+    override def slate(obj: TransElem, offset: Vec2): TransElem = obj.slate(offset)    
 
-    override def scale(obj: TransElem, operand: Double): TransElem = obj match
-    { case ta: TransAligner => ta.scale(operand).asInstanceOf[TransElem]
-      case gea: TransElem => gea.scale(operand)
-    }
+    override def scale(obj: TransElem, operand: Double): TransElem = obj.scale(operand)
   }
 
   implicit def transAlignerImplicit[T <: TransAligner]: TransAlign[T] = new TransAlign[T]
