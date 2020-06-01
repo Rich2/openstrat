@@ -64,8 +64,6 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def mirrorYOffset(xOffset: Double): AlignT
-
-  def prolign(matrix: ProlignMatrix): GraphicElemOld
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed

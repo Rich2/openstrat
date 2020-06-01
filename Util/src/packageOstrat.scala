@@ -229,6 +229,7 @@ package object ostrat
     def nequ(operand: T): Boolean = !equ(operand)
   }
 
+  /** Needs Changing. */
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
   { @inline def toRefs(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
     def goodRefs(implicit ct: ClassTag[A]): Good[Arr[A]] = Good(new Arr(thisBuff.toArray))
