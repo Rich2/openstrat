@@ -24,6 +24,8 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   override def rotate90: CircleFillOld = ???
 
   override def rotate180: CircleFillOld = ???
+
+  override def rotate270: CircleFillOld = ???
 }
 
 final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
@@ -46,6 +48,8 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
   override def rotate90: CircleFill = ???
 
   override def rotate180: CircleFill = ???
+
+  override def rotate270: CircleFill = ???
 }
 
 case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
@@ -69,7 +73,8 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
   override def rotate90: CircleDrawOld = ???
 
   override def rotate180: CircleDrawOld = ???
-  //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
+
+  override def rotate270: CircleDrawOld = ???
 }
 
 case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends TransSimerUser
@@ -94,4 +99,6 @@ case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Doub
   override def rotate90: CircleFillDraw = ???
 
   override def rotate180: CircleFillDraw = ???
+
+  override def rotate270: CircleFillDraw = ???
 }

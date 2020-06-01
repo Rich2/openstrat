@@ -31,10 +31,14 @@ trait TransElem extends Product with Serializable
 
   def prolign(matrix: ProlignMatrix): TransElem
 
-  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   def rotate90: TransElem
   
+  /** Rotates 180 degrees or Pi radians. */
   def rotate180: TransElem
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  def rotate270: TransElem
 }
 
 object TransElem

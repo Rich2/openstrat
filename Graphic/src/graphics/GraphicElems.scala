@@ -30,10 +30,14 @@ trait GraphicElem extends TransElem
 
   def prolign(matrix: ProlignMatrix): GraphicElem
 
-  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   def rotate90: GraphicElem
-
+  
+  /** Rotates 180 degrees or Pi radians. */
   def rotate180: GraphicElem
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  def rotate270: GraphicElem
 }
 
 object GraphicElem

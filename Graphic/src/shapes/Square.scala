@@ -30,6 +30,8 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
   override def rotate90: Square = Square(width, cen.rotate90)
 
   override def rotate180: Square = Square(width, cen.rotate180)
+
+  override def rotate270: Square = Square(width, cen.rotate270)
 }
 
 /** Factory object for squares. */

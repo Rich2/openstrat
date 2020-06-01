@@ -31,4 +31,6 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   override def rotate90: CArcDraw = ???
 
   override def rotate180: CArcDraw = ???
+
+  override def rotate270: CArcDraw = ???
 }

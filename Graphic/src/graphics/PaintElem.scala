@@ -34,10 +34,14 @@ trait PaintElem extends GraphicElem
 
   def prolign(matrix: ProlignMatrix): PaintElem
 
-  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   def rotate90: PaintElem
-
+  
+  /** Rotates 180 degrees or Pi radians. */  
   def rotate180: PaintElem
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  def rotate270: GraphicElem
 }
 
 /** Companion object for PaintElem contains various implicit instances for the transformation type classes. */

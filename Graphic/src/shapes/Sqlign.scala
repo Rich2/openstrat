@@ -27,6 +27,8 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Trans
   override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
 
   override def rotate180: Sqlign = Sqlign(width, cen.rotate180)
+
+  override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
 }
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */

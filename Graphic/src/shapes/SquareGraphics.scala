@@ -22,9 +22,11 @@ final case class SquareFill(square: Square, fillColour: Colour) extends FillElem
 
   override def prolign(matrix: ProlignMatrix): SquareFill = SquareFill(square.prolign(matrix), fillColour)
 
-  /** Rotates 90 degrees or + Pi/2 anti-clockwise  */
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   override def rotate90: SquareFill = SquareFill(square.rotate90, fillColour)
 
   /** Rotates 180 degrees or Pi radians. */
   override def rotate180: SquareFill = SquareFill(square.rotate180, fillColour)
+
+  override def rotate270: SquareFill = SquareFill(square.rotate270, fillColour)
 }

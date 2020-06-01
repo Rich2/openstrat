@@ -33,4 +33,6 @@ case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Doub
   override def rotate90: Ellipselign = ???
 
   override def rotate180: Ellipselign = ???
+
+  override def rotate270: Ellipselign = ???
 }

@@ -63,4 +63,6 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
   override def rotate90: PolygonParent = ???
 
   override def rotate180: PolygonParent = ???
+
+  override def rotate270: PolygonParent = ???
 }

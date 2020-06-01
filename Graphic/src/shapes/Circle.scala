@@ -27,6 +27,8 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def rotate90: Circle = Circle(radius, cen.rotate90)
 
   override def rotate180: Circle = Circle(radius, cen.rotate180)
+
+  override def rotate270: Circle = Circle(radius, cen.rotate270)
 }
 
 /** This object provides factory methods for circles. */
@@ -51,6 +53,8 @@ object Circle extends ShapeIcon
   override def rotate90: TransElem = ???
 
   override def rotate180: TransElem = ???
+
+  override def rotate270: Circle.type = this
 
   override def productArity: Int = 0
 
