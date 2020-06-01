@@ -17,6 +17,9 @@ trait PaintElem extends GraphicElem
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   def scale(operand: Double): PaintElem
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  def mirrorYOffset(xOffset: Double): PaintElem
 }
 
 /** Companion object for PaintElem contains various implicit instances for the transformation type classes. */
@@ -35,4 +38,6 @@ trait PaintElemOld extends GraphicElemOld with PaintElem
   override def slate(xOffset: Double, yOffset: Double): AlignT
 
   def scale(operand: Double): AlignT
+
+  def mirrorYOffset(xOffset: Double): AlignT
 }
