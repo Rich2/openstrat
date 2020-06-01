@@ -31,4 +31,6 @@ case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Doub
   def slate(offset: Vec2): TransElem = ???
 
   override def rotate90: Ellipselign = ???
+
+  override def rotate180: Ellipselign = ???
 }

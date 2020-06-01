@@ -32,6 +32,8 @@ trait GraphicElem extends TransElem
 
   /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
   def rotate90: GraphicElem
+
+  def rotate180: GraphicElem
 }
 
 object GraphicElem

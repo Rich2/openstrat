@@ -36,6 +36,8 @@ trait PaintElem extends GraphicElem
 
   /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
   def rotate90: PaintElem
+
+  def rotate180: PaintElem
 }
 
 /** Companion object for PaintElem contains various implicit instances for the transformation type classes. */

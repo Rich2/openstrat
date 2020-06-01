@@ -24,8 +24,10 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
   def slate(xOffset: Double, yOffset: Double): EllipseGen = EllipseGen(xLeft + xOffset, yLeft + yOffset, xRight + xOffset, yRight + yOffset, rHeight)
   def slate(offset: Vec2): TransElem = ???
 
- /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
- override def rotate90: EllipseGen = ???
+  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  override def rotate90: EllipseGen = ???
+
+ override def rotate180: EllipseGen = ??? 
 
   override def fill(colour: Colour): GraphicElem = ???
 }

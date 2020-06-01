@@ -61,5 +61,6 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
   override def prolign(matrix: ProlignMatrix): PolygonParent = ???
 
   override def rotate90: PolygonParent = ???
-  //override def fTrans(f: Vec2 => Vec2): GeomElem = ???
+
+  override def rotate180: PolygonParent = ???
 }

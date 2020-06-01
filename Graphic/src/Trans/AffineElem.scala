@@ -27,6 +27,9 @@ trait AffineElem extends TransSimer with TransElem
 
   override def prolign(matrix: ProlignMatrix): AlignT = fTrans(_.prolignTrans(matrix))
 
-  /** Rotates 90 degrees roate-clockwise or + Pi/2 */
-  override def rotate90: AlignT = fTrans(_.rotateRadians(Pi/2))
+  /** Rotates 90 degrees or Pi / 2 radians anti-clockwise. */
+  override def rotate90: AlignT = fTrans(_.rotate90)
+
+  /** Rotates 180 degrees or + Pi radians. */
+  override def rotate180: AlignT = fTrans(_.rotate180)
 }

@@ -24,7 +24,9 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Trans
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolignTrans(matrix))
 
-  override def rotate90: Sqlign = ???
+  override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
+
+  override def rotate180: Sqlign = Sqlign(width, cen.rotate180)
 }
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */
