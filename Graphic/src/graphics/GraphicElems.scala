@@ -43,6 +43,8 @@ object GraphicElem
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def mirrorYOffset(obj: GraphicElem, xOffset: Double): GraphicElem = obj.mirrorYOffset(xOffset)
   }
+
+  implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
 }
 /** This trait is slated for removal. */
 trait GraphicElemOld extends TransSimer with GraphicElem

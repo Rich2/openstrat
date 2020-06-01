@@ -19,6 +19,12 @@ trait PaintElem extends GraphicElem
   def scale(operand: Double): PaintElem
 }
 
+/** Companion object for PaintElem contains various implicit instances for the transformation type classes. */
+object PaintElem
+{ implicit val slateImplicit: Slate[PaintElem] = (obj: PaintElem, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[PaintElem] = (obj: PaintElem, operand: Double) => obj.scale(operand)
+}
+
 /** Trait to be removed. */
 trait PaintElemOld extends GraphicElemOld with PaintElem
 { type AlignT <: PaintElemOld
