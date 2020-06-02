@@ -32,9 +32,9 @@ object PolygonParentFull
 }
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[PaintElemOld]) extends GraphicParent
+case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent
 { type SimerT = PolygonParent
-  override def addElems(newElems: Arr[PaintElemOld]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
+  override def addElems(newElems: Arr[PaintElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
   def mirrorXOffset(yOffset: Double): PolygonParent =

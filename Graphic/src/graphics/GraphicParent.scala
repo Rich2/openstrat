@@ -13,8 +13,8 @@ trait GraphicParent extends GraphicElem
   def bottomLeft: SimerT = this.slate(- boundingRect.bottomLeft).asInstanceOf[SimerT] 
   def bottomRight: SimerT = this.slate(- boundingRect.bottomRight).asInstanceOf[SimerT]
 
-  def addElems(newElems: Arr[PaintElemOld]): SimerT
-  def addElem(newElem: PaintElemOld): SimerT = addElems(Arr(newElem))
+  def addElems(newElems: Arr[PaintElem]): SimerT
+  def addElem(newElem: PaintElem): SimerT = addElems(Arr(newElem))
   def mutObj(newObj: Any): SimerT
 }
 
