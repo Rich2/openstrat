@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -43,9 +43,7 @@ object TransSimDist
   }
 }
 
-class TransSimDistExtension[T](value: T, ev: TransSimDist[T]) extends RotateGenExtensions[T] with TransSimGenExtension[T]
+class TransSimDistExtension[T](value: T, ev: TransSimDist[T]) extends RotateGenExtensions[T]
 { override def rotateRadians(r: Double): T = ev.rotateRadians(value, r)
   override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)
-  override def rotateSim(angle: Angle): T = ev.rotateRadians(value, angle.radians)
-  override def rotateRadiansSim(r: Double): T = ev.rotateRadians(value, r)
 }
