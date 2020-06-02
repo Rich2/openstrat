@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import reflect.ClassTag
+import reflect.ClassTag, math.Pi
 
 /** Type class for the rotation of objects of type T */
 trait Rotate[T]
@@ -32,4 +32,45 @@ trait RotateGenExtensions[T]
 {
   def rotateRadians(radians: Double): T
   def rotate(angle: Angle): T
+
+  /** Rotates 30 degrees anti-clockwise or + Pi/6 */
+  def rotate30: T = rotate(Angle(Pi / 6))
+  
+  /** Rotates 45 degrees anti-clockwise or + Pi/4 */
+  def rotate45: T = rotate(Angle(Pi / 4))
+  
+  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
+  def rotate60: T  = rotate(Angle(Pi / 3))
+  
+  /** Rotates 120 degrees anti-clockwise or + 2 * Pi/3 */
+  def rotate120: T = rotate(Angle(2 * Pi / 3))
+  
+  /** Rotates 135 degrees anti-clockwise or + 3 * Pi/4 */
+  def rotate135: T = rotate(Angle(3 * Pi / 4))
+  
+  /** Rotates 150 degrees anti-clockwise or + 5 * Pi/6 */
+  def rotate150: T = rotate(Angle(5 * Pi / 6))
+  
+  /** Rotates 30 degrees clockwise or - Pi/3 */
+  def clk30: T = rotate(Angle(-Pi / 6))
+  
+  /** Rotates 45 degrees clockwise or - Pi/4 */
+  def clk45: T = rotate(Angle(-Pi / 4))
+  
+  /** Rotates 60 degrees clockwise or - Pi/3 */
+  def clk60: T  = rotate(Angle(-Pi / 3))
+
+  /** Rotates 120 degrees clockwise or - 2 * Pi/3 */
+  def clk120: T = rotate(Angle(-2 * Pi / 3))
+  
+  /** Rotates 135 degrees clockwise or - 3 * Pi/ 4 */
+  def clk135: T = rotate(Angle(-3 * Pi / 4))
+  
+  /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
+  def clk150: T = rotate(Angle(-5 * Pi / 6))
+
+  /** Produces a regular cross of a sequence of four of the elements rotated */
+  def rCross: Seq[T] = (1 to 4).map(i => rotate(deg90 * i))
+  
+  def rCrossArr[TT <: ArrBase[T]](implicit build: ArrBuild[T, TT]): TT = iToMap(1, 4)(i => rotate(deg90 * i))
 }
