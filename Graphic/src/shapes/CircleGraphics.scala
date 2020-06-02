@@ -30,28 +30,29 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
 
 final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
 {
-  override def rendToCanvas(cp: CanvasPlatform): Unit = {}
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 
-  override def mirrorXOffset(yOffset: Double): CircleFill = CircleFill(circle.mirrorXOffset(yOffset), fillColour)
-  @inline def mirrorX: CircleFill = mirrorXOffset(0)
+  override def mirrorXOffset(yOffset: Double): CircleFill = copy(circle.mirrorXOffset(yOffset))
+  override def mirrorX: CircleFill = copy(circle.mirrorX)
   override def mirrorYOffset(xOffset: Double): CircleFill = CircleFill(circle.mirrorYOffset(xOffset), fillColour)
-  @inline def mirrorY: CircleFill = mirrorYOffset(0)
+  override def mirrorY: CircleFill = copy(circle.mirrorY)
 
-  override def slate(offset: Vec2): CircleFill = CircleFill(circle.slate(offset), fillColour)
+  override def slate(offset: Vec2): CircleFill = copy(circle.slate(offset))
+  
   /** Translate geometric transformation. */
-  @inline def slate(xOffset: Double, yOffset: Double): CircleFill = CircleFill(circle.slate(xOffset, yOffset), fillColour)
+  @inline def slate(xOffset: Double, yOffset: Double): CircleFill = copy(circle.slate(xOffset, yOffset))
 
   override def scale(operand: Double): CircleFill = CircleFill(circle.scale(operand), fillColour)
 
   override def prolign(matrix: ProlignMatrix): CircleFill = CircleFill(circle.prolign(matrix), fillColour)
 
-  override def rotate90: CircleFill = ???
+  override def rotate90: CircleFill = copy(circle.rotate90)
 
-  override def rotate180: CircleFill = ???
+  override def rotate180: CircleFill = copy(circle.rotate180)
 
-  override def rotate270: CircleFill = ???
+  override def rotate270: CircleFill = copy(circle.rotate270)
 
-  override def rotateRadians(radians: Double): CircleFill = ???
+  override def rotateRadians(radians: Double): CircleFill = copy(circle.rotateRadians(radians))
 }
 
 case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElem
