@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUser with PaintElemOld
+case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUser with PaintElem//Old
 { override type SimerT = CircleFillOld
   override type MemT = CircleOld
   override def geomMem: MemT = circle
@@ -52,7 +52,7 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
   override def rotate270: CircleFill = ???
 }
 
-case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
+case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElem
 { override type SimerT = CircleDrawOld
   override type MemT = CircleOld
   override def geomMem: MemT = circle
