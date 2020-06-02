@@ -17,16 +17,16 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     { case PRIMARY => LeftButton
       case MIDDLE => MiddleButton
       case SECONDARY => RightButton
-//      case BACK => BackButton
-//      case FORWARD => ForwardButton
+      // case BACK => BackButton
+      // case FORWARD => ForwardButton
       case _ => NoButton
     }     
   }
-  //I think getX is wanted not getSceneX or getScreenX
-  canvFx.setOnMouseReleased((e: input.MouseEvent) => mouseUpTopLeft(e.getX(), e.getY, getButton(e)))   
-  //canvFx.onMousePressed = (e: input.MouseEvent) => mouseDownTopLeft(e.x, e.y, getButton(e))   
-  //canvFx.onMouseMoved = (e: input.MouseEvent) => mouseMovedTopLeft(e.x, e.y, getButton(e))    
-  canvFx.setOnMouseDragged((e: input.MouseEvent) => mouseDraggedTopLeft(e.getX, e.getY, getButton(e))) 
+  
+  canvFx.setOnMouseReleased((e: input.MouseEvent) => mouseUpTopLeft(e.getX(), e.getY(), getButton(e)))   
+  canvFx.setOnMousePressed((e: input.MouseEvent) => mouseDownTopLeft(e.getX(), e.getY(), getButton(e)))
+  canvFx.setOnMouseMoved((e: input.MouseEvent) => mouseMovedTopLeft(e.getX(), e.getY(), getButton(e))) 
+  canvFx.setOnMouseDragged((e: input.MouseEvent) => mouseDraggedTopLeft(e.getX(), e.getY(), getButton(e))) 
   
   theScene.setOnKeyReleased{(e: input.KeyEvent) => keyUp(e.getText) }
   theScene.setOnKeyPressed{(e: input.KeyEvent) => keyDown(e.getText) }
