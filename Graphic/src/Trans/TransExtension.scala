@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -6,7 +6,7 @@ package geom
  *  any object that has a Trans instance. Trans instances are founded on objects that inherit the Transer trait. Eg Polygon inherits from Transer.
  *  There is a Trans[Polygon]instance and a Trans[List[Polygon]] instance. The TransDistExtension class provides similar extension methods for
  *  objects that can perform the Dist2 => Dist2 transformation. */
-class TransAllExtension[T](value: T, ev: Affine[T])
+class AffineExtensions[T](value: T, ev: Affine[T])
 {
   /** General Vec2 to Vec2 transformation. */
   def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)

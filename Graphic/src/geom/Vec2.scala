@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import math._, collection.mutable.ArrayBuffer
@@ -114,7 +114,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
     }
   }
   
-  /** rotates the vector 90 degrees or Pi/2 radians, anti-clockwise. */
+  /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
   def rotate90: Vec2 = Vec2(-y, x)
   
   /** Rotates the vector 180 degrees or Pi radians. */

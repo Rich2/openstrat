@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math._, Colour.Black
 
@@ -7,10 +7,9 @@ import math._, Colour.Black
  *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {
-  implicit def transAllToExtension[T](value: T)(implicit ev: Affine[T]): TransAllExtension[T] = new TransAllExtension[T](value, ev)
- // implicit def transAffToExtension[T](value: T)(implicit ev: TransAff[T]): TransAffExtension[T] = new TransAffExtension[T](value, ev)
+  implicit def affineToExtensions[T](value: T)(implicit ev: Affine[T]): AffineExtensions[T] = new AffineExtensions[T](value, ev) 
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
-  //implicit def transAlignToExtension[T](value: T)(implicit ev: TransAlign[T]): TransAlignExtension[T] = new TransAlignExtension[T](value, ev)
+  
   //implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
 
   implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)

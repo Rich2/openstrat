@@ -19,8 +19,8 @@ trait RotateAxes[T]
 /** Companion object for the RotateAxes type class. */
 object RotateAxes
 {
-  implicit def transSimerImplicit[T <: TransSimer]: RotateAxes[T] = new RotateAxes[T] {
-    /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
+  implicit def transSimerImplicit[T <: TransSimer]: RotateAxes[T] = new RotateAxes[T]
+  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
     override def rotateT90(obj: T): T = obj.rotate90.asInstanceOf[T]
 
     /** Rotates object of type T, 180 degrees or Pi radians. */
