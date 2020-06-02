@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pSJs
 import geom._, pCanv._, org.scalajs.dom._
@@ -38,18 +38,19 @@ object CanvasJs extends CanvasTopLeft
     mouseUpTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
 
-  can.onmousedown = (e: MouseEvent) =>
+  can.onmousedown = (e: MouseEvent) => 
   { val rect = can.getBoundingClientRect()
     mouseDownTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
   
-  can.onmousemove = (e: MouseEvent) => 
-  { val whichMB = getButtons(e)
-    if (whichMB != NoButton) {
-      val rect = can.getBoundingClientRect()
-      mouseDraggedTopLeft(e.clientX - rect.left, e.clientY -rect.top, whichMB)
+  can.onmousemove = (e: MouseEvent) => getButtons(e) match
+  { case LeftButton => 
+    { val rect = can.getBoundingClientRect()
+      mouseDraggedTopLeft(e.clientX - rect.left, e.clientY -rect.top, LeftButton)
     }
+    case _ => mouseMovededTopLeft(e.clientX - rect.left, e.clientY -rect.top, LeftButton)
   }
+
 
   can.onkeyup = (e: raw.KeyboardEvent) => { keyUp(e.key) }
   can.onkeydown = (e: raw.KeyboardEvent) => { keyDown(e.key) }
