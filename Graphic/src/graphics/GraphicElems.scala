@@ -112,7 +112,7 @@ trait GraphicBoundedFull extends GraphicBounded with GraphicFullElem
 }
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
-trait PaintFullElem extends PaintElemOld with GraphicFullElem
+trait PaintFullElem extends PaintElem with GraphicFullElem
 { type SimerT <: PaintFullElem 
 }
 
