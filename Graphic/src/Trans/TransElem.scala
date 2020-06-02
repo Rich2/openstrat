@@ -39,6 +39,8 @@ trait TransElem extends Product with Serializable
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   def rotate270: TransElem
+  
+  //def rotateRadians(radians: Double): TransElem
 }
 
 object TransElem
