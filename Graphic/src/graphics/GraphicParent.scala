@@ -6,7 +6,7 @@ trait GraphicParent extends GraphicElem
   def cen: Vec2
   def boundingRect: BoundingRect
   /** The type of children can probably be widened in the future. */
-  def children: Arr[PaintElemOld]
+  def children: Arr[PaintElem]
 
   def topLeft: SimerT = this.slate(- boundingRect.topLeft).asInstanceOf[SimerT]
   def topRight: SimerT = this.slate(- boundingRect.topRight).asInstanceOf[SimerT]

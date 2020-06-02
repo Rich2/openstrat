@@ -102,24 +102,18 @@ trait GraphicBounded extends GraphicElemOld
 { type SimerT <: GraphicBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
-  def width: Double = boundingRect.width
-  
+  def width: Double = boundingRect.width  
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait GraphicBoundedFull extends GraphicBounded with GraphicFullElem
-{ type SimerT <: GraphicBoundedFull
-  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
- // def boundingRect: BoundingRect
-  //def width: Double = boundingRect.width
+{ type SimerT <: GraphicBoundedFull 
 }
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
 trait PaintFullElem extends PaintElemOld with GraphicFullElem
-{ type SimerT <: PaintFullElem
-  //override def fTrans(f: Vec2 => Vec2): PaintFullElem
-
+{ type SimerT <: PaintFullElem 
 }
 
 trait FilledElem extends PaintElem
