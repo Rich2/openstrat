@@ -42,6 +42,8 @@ trait PaintElem extends GraphicElem
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   def rotate270: GraphicElem
+
+  override def rotateRadians(radians: Double): PaintElem
 }
 
 /** Companion object for PaintElem contains various implicit instances for the transformation type classes. */
@@ -82,5 +84,9 @@ trait PaintElemOld extends GraphicElemOld with PaintElem
   override def rotate90: SimerT
   override def rotate180: SimerT
   override def rotate270: SimerT
+
+  override def rotateRadians(radians: Double): SimerT
   //def prolign(matrix: Any): AlignT
+
+  
 }

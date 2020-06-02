@@ -50,6 +50,8 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
   override def rotate180: CircleFill = ???
 
   override def rotate270: CircleFill = ???
+
+  override def rotateRadians(radians: Double): CircleFill = ???
 }
 
 case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElem

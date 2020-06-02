@@ -31,6 +31,8 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
 
  override def rotate270: EllipseGen = ???
 
+ override def rotateRadians(radians: Double): EllipseGen = ???
+
   override def fill(colour: Colour): GraphicElem = ???
 }
 

@@ -29,4 +29,6 @@ final case class SquareFill(square: Square, fillColour: Colour) extends FillElem
   override def rotate180: SquareFill = SquareFill(square.rotate180, fillColour)
 
   override def rotate270: SquareFill = SquareFill(square.rotate270, fillColour)
+
+  override def rotateRadians(radians: Double): SquareFill = ???
 }
