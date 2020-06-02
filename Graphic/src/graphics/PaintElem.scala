@@ -62,30 +62,3 @@ object PaintElem
 
   implicit val prolignImplicit: Prolign[PaintElem] = (obj, matrix) => obj.prolign(matrix)
 }
-
-/** Trait to be removed. */
-trait PaintElemOld extends GraphicElemOld with PaintElem
-{ type SimerT <: PaintElemOld
-
-  override def slate(offset: Vec2): SimerT
-
-  /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): SimerT
-
-  def scale(operand: Double): SimerT
-
-  def mirrorYOffset(xOffset: Double): SimerT
-
-  def mirrorXOffset(yOffset: Double): SimerT
-
-  override def mirrorX: SimerT
-
-  override def mirrorY: SimerT
-
-  override def rotate90: SimerT
-  override def rotate180: SimerT
-  override def rotate270: SimerT
-
-  override def rotateRadians(radians: Double): SimerT
-  //def prolign(matrix: Any): AlignT  
-}
