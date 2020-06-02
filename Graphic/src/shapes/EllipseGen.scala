@@ -3,9 +3,7 @@ package ostrat
 package geom
 
 case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, val yRight: Double, val rHeight: Double) extends Ellipse
-{ //type AlignT = Ellipse
- // override def fTrans(f: Vec2 => Vec2): EllipseGen = ???
-  def xCen: Double = (xLeft + xRight) /2
+{ def xCen: Double = (xLeft + xRight) /2
   def yCen: Double = (yLeft + yRight) / 2
   def vRight: Vec2 = xRight vv yRight
   //override def shear(xScale: Double, yScale: Double): EllipseGen = this
@@ -14,7 +12,7 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
   //override def slateOld(offset: Vec2): EllipseGen = EllipseGen(cen + offset, vRight + offset, upRadius)
   //override def scaleOld(operand: Double):  EllipseGen = EllipseGen(cen * operand * operand, vRight * operand, upRadius * operand)
   //override def mirror(line: Line2): EllipseGen = EllipseGen(cen.mirror(line), vRight.mirror(line), upRadius)
-  def fTrans(f: Vec2 => Vec2): TransElem = ???
+ 
   def mirrorX: TransElem = ???
   def mirrorXOffset(yOffset: Double): TransElem = ???
   def mirrorY: TransElem = ???
@@ -24,7 +22,7 @@ case class EllipseGen(val xLeft: Double, val yLeft: Double, val xRight: Double, 
   def slate(xOffset: Double, yOffset: Double): EllipseGen = EllipseGen(xLeft + xOffset, yLeft + yOffset, xRight + xOffset, yRight + yOffset, rHeight)
   def slate(offset: Vec2): TransElem = ???
 
-  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  /** Rotates 90 degrees or Pi/2 radians clockwise.  */
   override def rotate90: EllipseGen = ???
 
   override def rotate180: EllipseGen = ???

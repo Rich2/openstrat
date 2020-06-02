@@ -70,8 +70,5 @@ object Circle extends ShapeIcon
 
   override def productElement(n: Int): Any = ???
 
- // override def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
-
   def fill(colour: Colour): GraphicElem = ???
-  //implicit val slateImplicit: Slate[Circle] = (Circle, offset) => Circle.slate(offset)
 }
