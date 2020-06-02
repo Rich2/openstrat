@@ -12,7 +12,7 @@ trait Slate[T]
 /** Companion object for the Slate type class. Contains instances. */
 object Slate
 {
-  implicit def transAlignerImplicit[T <: TransAligner]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
+  implicit def transAlignerImplicit[T <: TransSimer]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
 
   implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Arr[A]] =
     (obj, offset) => obj.map(ev.slateT(_, offset))(new AnyBuildAlt[A](ct))

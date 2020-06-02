@@ -17,10 +17,10 @@ package object geom
   implicit def scaleToExtension[T](value: T)(implicit ev: Scale[T]): ScaleExtension[T] = new ScaleExtension[T](value, ev)
   implicit def mirrorAxisToExtension[T](value: T)(implicit ev: MirrorAxis[T]): MirrorAxisExtension[T] = new MirrorAxisExtension[T](value)(ev)
 
-  implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]): TransAffDistExtension[T] = new TransAffDistExtension[T](value, ev)
-  implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]): TransSimDistExtension[T] = new TransSimDistExtension[T](value, ev)
-  implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]): TransAlignDistExtension[T] =
-    new TransAlignDistExtension[T](value, ev)
+  //implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]): TransAffDistExtension[T] = new TransAffDistExtension[T](value, ev)
+  //implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]): TransSimDistExtension[T] = new TransSimDistExtension[T](value, ev)
+  /*implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]): TransAlignDistExtension[T] =
+    new TransAlignDistExtension[T](value, ev)*/
   /** Vec2(x = 0, y = 0) constant */
   val Vec2Z = Vec2(0, 0)
   /** Dist2(0.km, 0.km) constant */
