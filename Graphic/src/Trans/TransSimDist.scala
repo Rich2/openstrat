@@ -45,5 +45,5 @@ object TransSimDist
 
 class TransSimDistExtension[T](value: T, ev: TransSimDist[T]) extends TransSimGenExtension[T]
 { override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)
-  override def rotateRadians(r: Double): T = ev.rotateRadians(value, r)
+  override def rotateRadiansSim(r: Double): T = ev.rotateRadians(value, r)
 }

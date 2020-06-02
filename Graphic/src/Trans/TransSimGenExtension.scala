@@ -6,7 +6,7 @@ package geom
 trait TransSimGenExtension[T] extends Any
 {
   def rotate(angle: Angle): T
-  def rotateRadians(r: Double): T
+  def rotateRadiansSim(r: Double): T
 
   import math.Pi
   /** Rotates 30 degrees anti-clockwise or + Pi/6 */

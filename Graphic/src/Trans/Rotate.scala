@@ -21,13 +21,13 @@ object Rotate
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Rotate[A]): Rotate[Array[A]] = (obj, radians) => obj.map(ev.rotateRadiansT(_, radians))
 }
 
-/** Extension class for instances of the RotateAxes type class. */
+/** Extension class for instances of the Rotate type class. */
 class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [T]
 {
-  
+  override def rotateRadians(radians: Double): T = ev.rotateRadiansT(value, radians)
 }
 
 trait RotateGenExtensions[T]
 {
-  def silly: String = ""
+  def rotateRadians(radians: Double): T
 }
