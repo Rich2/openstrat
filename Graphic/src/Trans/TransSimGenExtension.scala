@@ -16,7 +16,7 @@ trait TransSimGenExtension[T] extends Any
   /** Rotates 60 degrees anti-clockwise or + Pi/3 */
   def rotate60: T  = rotate(Angle(Pi / 3))
   /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
-  def rotate90: T = rotate(Angle(Pi / 2))
+ // def rotate90: T = rotate(Angle(Pi / 2))
   /** Rotates 120 degrees anti-clockwise or + 2 * Pi/3 */
   def rotate120: T = rotate(Angle(2 * Pi / 3))
   /** Rotates 135 degrees anti-clockwise or + 3 * Pi/4 */
@@ -30,8 +30,7 @@ trait TransSimGenExtension[T] extends Any
   def clk45: T = rotate(Angle(-Pi / 4))
   /** Rotates 60 degrees clockwise or - Pi/3 */
   def clk60: T  = rotate(Angle(-Pi / 3))
-  /** Rotates 90 degrees clockwise or - Pi / 2 */
-  def clk90: T = rotate(Angle(-Pi / 2))
+  
   /** Rotates 120 degrees clockwise or - 2 * Pi/3 */
   def clk120: T = rotate(Angle(-2 * Pi / 3))
   /** Rotates 135 degrees clockwise or - 3 * Pi/ 4 */

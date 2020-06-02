@@ -55,3 +55,15 @@ object RotateAxes
 
 /** Extension class for instances of the RotateAxes type class. */
 class RotateAxesExtensions[T](value: T, ev: RotateAxes[T])
+{ /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  def rotate90: T = ev.rotateT90(value)
+
+  /** Rotates 180 degrees or Pi radians. */
+  def rotate180: T = ev.rotateT180(value)
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  def rotate270: T = ev.rotateT270(value)
+
+  /** Rotates 90 degrees or Pi / 2 radians clockwise. */
+  def clk90: T = ev.rotateT270(value)
+}

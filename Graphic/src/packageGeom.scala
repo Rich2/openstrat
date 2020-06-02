@@ -13,7 +13,8 @@ package object geom
   //implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
 
   implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)
- 
+  implicit def rotateAxesToExtension[T](value: T)(implicit ev: RotateAxes[T]): RotateAxesExtensions[T] = new RotateAxesExtensions[T](value, ev)
+  
   implicit class ScaleExtension[T](val value: T)(implicit ev: Scale[T])
   { /** Performs 2d vector scale transformation on objects of type T. */
     def scale(operand: Double): T = ev.scaleT(value, operand)
