@@ -37,4 +37,6 @@ case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Doub
   override def rotate270: Ellipselign = ???
 
   override def rotateRadians(radians: Double): EllipseGen = ???
+
+  override def mirror(line: Line2): EllipseGen = ???
 }

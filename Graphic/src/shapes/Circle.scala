@@ -22,7 +22,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, cen.prolignTrans(matrix))
 
-  override def fill(colour: Colour): GraphicElem = ???
+  override def fill(colour: Colour): CircleFill = CircleFill(this, colour)
 
   override def rotate90: Circle = Circle(radius, cen.rotate90)
 
@@ -31,6 +31,8 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def rotate270: Circle = Circle(radius, cen.rotate270)
 
   override def rotateRadians(radians: Double): Circle = Circle(radius, cen.rotateRadians(radians))
+
+  override def mirror(line: Line2): Circle = Circle(radius, cen.mirror(line))
 }
 
 /** This object provides factory methods for circles. */
@@ -59,6 +61,8 @@ object Circle extends ShapeIcon
   override def rotate270: Circle.type = this
 
   override def rotateRadians(radians: Double): Circle.type = this
+
+  override def mirror(line: Line2): Circle = ???
 
   override def productArity: Int = 0
 

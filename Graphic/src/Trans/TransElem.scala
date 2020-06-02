@@ -41,6 +41,8 @@ trait TransElem extends Product with Serializable
   def rotate270: TransElem
   
   def rotateRadians(radians: Double): TransElem
+
+  def mirror(line: Line2): TransElem
 }
 
 object TransElem

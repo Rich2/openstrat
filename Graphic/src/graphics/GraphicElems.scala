@@ -40,6 +40,8 @@ trait GraphicElem extends TransElem
   def rotate270: GraphicElem
 
   def rotateRadians(radians: Double): GraphicElem
+
+  def mirror(line: Line2): GraphicElem
 }
 
 object GraphicElem
@@ -77,6 +79,7 @@ trait GraphicSimer extends TransSimer with GraphicElem
   override def rotate180: SimerT
   override def rotate270: SimerT
   override def rotateRadians(radians: Double): SimerT
+  override def mirror(line: Line2): SimerT
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed

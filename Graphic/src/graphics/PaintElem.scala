@@ -44,6 +44,8 @@ trait PaintElem extends GraphicElem
   def rotate270: GraphicElem
 
   override def rotateRadians(radians: Double): PaintElem
+
+  def mirror(line: Line2): PaintElem
 }
 
 /** Companion object for PaintElem contains various implicit instances for the transformation type classes. */
