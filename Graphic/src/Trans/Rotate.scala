@@ -67,10 +67,5 @@ trait RotateGenExtensions[T]
   def clk135: T = rotate(Angle(-3 * Pi / 4))
   
   /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
-  def clk150: T = rotate(Angle(-5 * Pi / 6))
-
-  /** Produces a regular cross of a sequence of four of the elements rotated */
-  def rCross: Seq[T] = (1 to 4).map(i => rotate(deg90 * i))
-  
-  def rCrossArr[TT <: ArrBase[T]](implicit build: ArrBuild[T, TT]): TT = iToMap(1, 4)(i => rotate(deg90 * i))
+  def clk150: T = rotate(Angle(-5 * Pi / 6))  
 }

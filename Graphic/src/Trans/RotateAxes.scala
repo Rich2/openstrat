@@ -65,4 +65,9 @@ class RotateAxesExtensions[T](value: T, ev: RotateAxes[T])
 
   /** Rotates 90 degrees or Pi / 2 radians clockwise. */
   def clk90: T = ev.rotateT270(value)
+
+  /** Produces a regular cross of a sequence of four of the elements rotated */
+  def rCross: Seq[T] = List(value, ev.rotateT270(value), ev.rotateT180(value), ev.rotateT90(value))
+
+  def rCrossArr[TT <: ArrBase[T]](implicit build: ArrBuild[T, TT]): TT =  rCross.toImut// ??? // iToMap(1, 4)(i => rotate(deg90 * i))
 }
