@@ -13,7 +13,7 @@ trait Scale[T]
 /** Companion object for the Scale type class. Contains instances. 2 dimensional vector transformations type class. */
 object Scale
 {
-  implicit def transAlignerImplicit[T <: TransSimer]: Scale[T] = (obj, operand) => obj.scale(operand).asInstanceOf[T]
+  implicit def transSimerImplicit[T <: TransSimer]: Scale[T] = (obj, operand) => obj.scale(operand).asInstanceOf[T]
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Scale[A]): Scale[AA] =
     (obj, offset) => obj.map(ev.scaleT(_, offset))
@@ -22,9 +22,4 @@ object Scale
     (obj, operand) => evF.map(obj, evA.scaleT(_, operand))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Scale[A]): Scale[Array[A]] = (obj, operand) => obj.map(ev.scaleT(_, operand))
-}
-
-class ScaleExtension[T](value: T, ev: Scale[T])
-{ /** Performs 2d vector scale transformation on objects of type T. */
-  def scale(operand: Double): T = ev.scaleT(value, operand)
 }
