@@ -25,9 +25,11 @@ object Rotate
 class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [T]
 {
   override def rotateRadians(radians: Double): T = ev.rotateRadiansT(value, radians)
+  def rotate(angle: Angle): T = ev.rotateRadiansT(value, angle.radians)
 }
 
 trait RotateGenExtensions[T]
 {
   def rotateRadians(radians: Double): T
+  def rotate(angle: Angle): T
 }

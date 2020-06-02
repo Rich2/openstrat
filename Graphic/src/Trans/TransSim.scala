@@ -73,7 +73,7 @@ class TransSimExtension[T](value: T, ev: TransSim[T]) extends TransSimGenExtensi
   def mirror(v1: Vec2, v2: Vec2): T = ev.mirror(value, v1.lineTo(v2))
   def mirror(x1: Double, y1: Double, x2: Double, y2: Double): T = ev.mirror(value, new Line2(x1, y1, x2, y2))
   override def rotateRadiansSim(radians: Double): T = ev.rotateRadians(value, radians)
-  override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)
+  override def rotateSim(angle: Angle): T = ev.rotateRadians(value, angle.radians)
   /** this.asInstanceOf[T] */
   def identity: T = this.asInstanceOf[T]
 
