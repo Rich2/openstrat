@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-
 import scala.reflect.ClassTag
 
 /** Type class for 2d geometric transformations that rotate the axes. */
