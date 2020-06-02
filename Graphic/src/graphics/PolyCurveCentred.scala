@@ -4,7 +4,7 @@ package geom
 
 /** So there is a lack of clarity over whether the segs are relative to the cen, and if the cen is needed at all. */
 case class PolyCurveCentred(cen: Vec2, segs: PolyCurve) extends AffineElem
-{ override type AlignT = PolyCurveCentred
+{ override type SimerT = PolyCurveCentred
    /** This may need clarification */
    override def fTrans(f: Vec2 => Vec2): PolyCurveCentred = PolyCurveCentred(f(cen), segs)//.fTrans(f))
   

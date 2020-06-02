@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineElem
-{ override type AlignT = CircleOld
+{ override type SimerT = CircleOld
   override def fTrans(f: Vec2 => Vec2): CircleOld = CircleOld(radius, f(vCen))
   def vCen: Vec2 = x vv y
   override def shear(xScale: Double, yScale: Double): CircleOld = ??? // new EllipseGen(x, y, x + radius, 0, radius)

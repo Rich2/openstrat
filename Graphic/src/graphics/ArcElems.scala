@@ -5,7 +5,7 @@ import pCanv._, Colour.Black
 
 /** Circular Arc Draw PaintElem. */
 final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = Black) extends PaintElemOld with TransSimerUser
-{ type AlignT = CArcDraw
+{ type SimerT = CArcDraw
   type MemT = CArc
   override def geomMem: CArc = arc
   override def newThis(transer: CArc): CArcDraw = CArcDraw(transer, lineWidth, colour)

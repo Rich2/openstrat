@@ -62,22 +62,22 @@ object PaintElem
 
 /** Trait to be removed. */
 trait PaintElemOld extends GraphicElemOld with PaintElem
-{ type AlignT <: PaintElemOld
+{ type SimerT <: PaintElemOld
 
-  override def slate(offset: Vec2): AlignT
+  override def slate(offset: Vec2): SimerT
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): AlignT
+  override def slate(xOffset: Double, yOffset: Double): SimerT
 
-  def scale(operand: Double): AlignT
+  def scale(operand: Double): SimerT
 
-  def mirrorYOffset(xOffset: Double): AlignT
+  def mirrorYOffset(xOffset: Double): SimerT
 
-  def mirrorXOffset(yOffset: Double): AlignT
+  def mirrorXOffset(yOffset: Double): SimerT
 
-  override def mirrorX: AlignT
+  override def mirrorX: SimerT
 
-  override def mirrorY: AlignT
+  override def mirrorY: SimerT
 
   //def prolign(matrix: Any): AlignT
 }

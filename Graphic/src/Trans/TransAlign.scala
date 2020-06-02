@@ -3,12 +3,6 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-/** An object that implements the TransAlign interface through its own methods. */
-trait TransAligner extends TransElem
-{ 
-  
-}
-
 /** A transformation type class allowing only translations and scaling, in order to maintain the alignment of the graphical objects. */
 trait TransAlign[T]
 { def slate(obj: T, offset: Vec2): T

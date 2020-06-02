@@ -6,7 +6,7 @@ package geom
  *  cost. */
 class LinePath(val array: Array[Double]) extends ArrProdDbl2[Vec2] with AffineElem with Vec2sLike
 { type ThisT = LinePath
-  type AlignT = LinePath
+  type SimerT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def typeStr: String = "LinePath"
 

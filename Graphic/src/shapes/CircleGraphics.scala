@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUser with PaintElemOld
-{ override type AlignT = CircleFillOld
+{ override type SimerT = CircleFillOld
   override type MemT = CircleOld
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleFillOld = CircleFillOld(transer, colour)
@@ -53,7 +53,7 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
 }
 
 case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with PaintElemOld
-{ override type AlignT = CircleDrawOld
+{ override type SimerT = CircleDrawOld
   override type MemT = CircleOld
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleDrawOld = CircleDrawOld(transer, lineWidth, colour)
@@ -79,7 +79,7 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
 
 case class CircleFillDraw(circle: CircleOld, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends TransSimerUser
   with PaintElemOld
-{ override type AlignT = CircleFillDraw
+{ override type SimerT = CircleFillDraw
   override type MemT = CircleOld
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleFillDraw = CircleFillDraw(transer, fillColour, lineWidth, lineColour)

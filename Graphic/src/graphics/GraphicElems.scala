@@ -57,41 +57,41 @@ object GraphicElem
 }
 /** This trait is slated for removal. */
 trait GraphicElemOld extends TransSimer with GraphicElem
-{ type AlignT <: GraphicElemOld
+{ type SimerT <: GraphicElemOld
 
-  override def slate(offset: Vec2): AlignT
+  override def slate(offset: Vec2): SimerT
 
-  override def slate(xOffset: Double, yOffset: Double): AlignT
+  override def slate(xOffset: Double, yOffset: Double): SimerT
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): AlignT
+  override def scale(operand: Double): SimerT
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def mirrorYOffset(xOffset: Double): AlignT
+  def mirrorYOffset(xOffset: Double): SimerT
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
  *  each time there is a change within the application state or the user view of that application state. */
 trait GraphicFullElem extends GraphicElem with AffineElem
-{ type AlignT <: GraphicFullElem
+{ type SimerT <: GraphicFullElem
 
-  override def slate(offset: Vec2): AlignT
+  override def slate(offset: Vec2): SimerT
 
-  override def slate(xOffset: Double, yOffset: Double): AlignT
+  override def slate(xOffset: Double, yOffset: Double): SimerT
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): AlignT
+  override def scale(operand: Double): SimerT
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def mirrorYOffset(xOffset: Double): AlignT
+  override def mirrorYOffset(xOffset: Double): SimerT
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait GraphicBounded extends GraphicElemOld
-{ type AlignT <: GraphicBounded
+{ type SimerT <: GraphicBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
   def width: Double = boundingRect.width
@@ -101,7 +101,7 @@ trait GraphicBounded extends GraphicElemOld
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait GraphicBoundedFull extends GraphicBounded with GraphicFullElem
-{ type AlignT <: GraphicBoundedFull
+{ type SimerT <: GraphicBoundedFull
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
  // def boundingRect: BoundingRect
   //def width: Double = boundingRect.width
@@ -109,7 +109,7 @@ trait GraphicBoundedFull extends GraphicBounded with GraphicFullElem
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
 trait PaintFullElem extends PaintElemOld with GraphicFullElem
-{ type AlignT <: PaintFullElem
+{ type SimerT <: PaintFullElem
   //override def fTrans(f: Vec2 => Vec2): PaintFullElem
 
 }

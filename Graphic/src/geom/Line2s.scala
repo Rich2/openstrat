@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 /** Compact Imutable Array[Double] based collection class for (Line2)s. */
 class Line2s(val array: Array[Double]) extends ArrProdDbl4[Line2] with AffineElem
 { type ThisT = Line2s
-  type AlignT = Line2s
+  type SimerT = Line2s
   def unsafeFromArray(array: Array[Double]): Line2s = new Line2s(array)
   override def typeStr: String = "Line2s"
   //override def toString: String = Line2s.PersistImplict.show(this)

@@ -3,30 +3,28 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait TransSimer extends TransAligner
-{ type AlignT <: TransSimer
-  // type RigidT <: TransSimer
-  def shear(xScale: Double, yScale: Double): AffineElem//ffer
-  def mirror(line: Line2): AlignT
-  def rotateRadians(radians: Double): AlignT
-  def rotate(angle: Angle): AlignT = rotateRadians(angle.radians)
-  def scale(operand: Double): AlignT
-  def slate(offset: Vec2): AlignT
+trait TransSimer extends TransElem
+{ type SimerT <: TransSimer
+  def shear(xScale: Double, yScale: Double): AffineElem
+  def mirror(line: Line2): SimerT
+  def rotateRadians(radians: Double): SimerT
+  def rotate(angle: Angle): SimerT = rotateRadians(angle.radians)
+  def scale(operand: Double): SimerT
+  def slate(offset: Vec2): SimerT
 
   /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
-
+  def slate(xOffset: Double, yOffset: Double): SimerT = slate(xOffset vv yOffset)
 }
 
 trait TransSimerUser extends TransSimer
-{ type AlignT <: TransSimerUser
+{ type SimerT <: TransSimerUser
   type MemT <: TransSimer
   def geomMem: MemT
-  def newThis(transer: MemT): AlignT
-  override def slate(offset: Vec2): AlignT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
-  override def rotateRadians(radians: Double): AlignT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
-  override def scale(operand: Double): AlignT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
-  override def mirror(line: Line2): AlignT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
+  def newThis(transer: MemT): SimerT
+  override def slate(offset: Vec2): SimerT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
+  override def rotateRadians(radians: Double): SimerT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
+  override def scale(operand: Double): SimerT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
+  override def mirror(line: Line2): SimerT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
 }
 
 /** A Similar Transformations type class */
@@ -67,19 +65,13 @@ object TransSim
 }
 
 class TransSimExtension[T](value: T, ev: TransSim[T]) extends TransSimGenExtension[T]
-{ //def mirrorParallelX(yOffset: Double): T = mirror(-1, yOffset, 1, yOffset)
-  //def mirrorParallelY(xOffset: Double): T = mirror(xOffset, -1, xOffset, 1)
-  //def mirrorY: T = mirror(0, -1, 0, 1)
-  //def mirrorX: T = mirror(-1, 0, 1, 0)
-  def mirror(line: Line2) = ev.mirror(value, line)
+{ def mirror(line: Line2) = ev.mirror(value, line)
   def mirror(v1: Vec2, v2: Vec2): T = ev.mirror(value, v1.lineTo(v2))
   def mirror(x1: Double, y1: Double, x2: Double, y2: Double): T = ev.mirror(value, new Line2(x1, y1, x2, y2))
   override def rotateRadians(radians: Double): T = ev.rotateRadians(value, radians)
   override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)
   /** this.asInstanceOf[T] */
   def identity: T = this.asInstanceOf[T]
-
-  //def scale(operand: Double): T = ev.scale(value, operand)
 
   /** The scale transformation on 2 dimensional vectors. */
   def scaleSlate(factor: Double, addVec: Vec2): T =
