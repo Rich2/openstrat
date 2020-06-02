@@ -13,7 +13,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val rect = Rectangle(200, 100, 200 vv 200)
   val r1 = rect.fill(Red)
   val r1r = rect.mirror(line1).fill(Orange)
-  val cl1 = CircleOld(75, 0 vv -50)
+  val cl1 = Circle(75, 0 vv -50)
   val ccl1 = cl1.fill(Red)
   val ccl1r = cl1.mirror(line1).fill(Orange)
 

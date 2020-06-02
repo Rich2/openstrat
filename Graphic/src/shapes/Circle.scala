@@ -39,8 +39,10 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 object Circle extends ShapeIcon
 { def apply(radius: Double, xCen: Double, yCen: Double): Circle = new Circle(radius, xCen, yCen)
   def apply(radius: Double, cen: Vec2 = Vec2Z): Circle = new Circle(radius, cen.x, cen.y)
-  //implicit val slateImplicit: Slate[Circle] = (Circle, offset) => Circle.slate(offset)
-
+  
+  implicit val slateImplicit: Slate[Circle] = (obj, offset) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
+  
   override def canEqual(that: Any): Boolean = ???
 
   override def slate(offset: Vec2): Circle = Circle(offset.x, offset.y, 0.5)
@@ -71,5 +73,5 @@ object Circle extends ShapeIcon
  // override def fTrans(f: Vec2 => Vec2): GeomElemNew = ???
 
   def fill(colour: Colour): GraphicElem = ???
-  implicit val slateImplicit: Slate[Circle] = (Circle, offset) => Circle.slate(offset)
+  //implicit val slateImplicit: Slate[Circle] = (Circle, offset) => Circle.slate(offset)
 }
