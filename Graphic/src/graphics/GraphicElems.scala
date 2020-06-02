@@ -58,9 +58,9 @@ object GraphicElem
 
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
 }
-/** This trait is slated for removal. */
-trait GraphicElemOld extends TransSimer with GraphicElem
-{ type SimerT <: GraphicElemOld
+/** This trait is slated for removal as is the TransSimer trait. */
+trait GraphicSimer extends TransSimer with GraphicElem
+{ type SimerT <: GraphicSimer
 
   override def slate(offset: Vec2): SimerT
 
@@ -98,7 +98,7 @@ trait GraphicFullElem extends GraphicElem with AffineElem
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait GraphicBounded extends GraphicElemOld
+trait GraphicBounded extends GraphicSimer
 { type SimerT <: GraphicBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect

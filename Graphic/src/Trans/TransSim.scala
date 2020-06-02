@@ -3,6 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag
 
+/** Slated for removal. */
 trait TransSimer extends TransElem
 { type SimerT <: TransSimer
   def shear(xScale: Double, yScale: Double): AffineElem
