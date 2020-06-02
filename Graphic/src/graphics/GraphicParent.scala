@@ -1,17 +1,17 @@
 package ostrat
 package geom
 
-trait GraphicParent extends GraphicElemOld
-{override type SimerT <: GraphicParent
+trait GraphicParent extends GraphicElem
+{ type SimerT <: GraphicParent
   def cen: Vec2
   def boundingRect: BoundingRect
   /** The type of children can probably be widened in the future. */
   def children: Arr[PaintElemOld]
 
-  def topLeft: SimerT = this.slate(- boundingRect.topLeft)
-  def topRight: SimerT = this.slate(- boundingRect.topRight)
-  def bottomLeft: SimerT = this.slate(- boundingRect.bottomLeft)
-  def bottomRight: SimerT = this.slate(- boundingRect.bottomRight)
+  def topLeft: SimerT = this.slate(- boundingRect.topLeft).asInstanceOf[SimerT]
+  def topRight: SimerT = this.slate(- boundingRect.topRight).asInstanceOf[SimerT]
+  def bottomLeft: SimerT = this.slate(- boundingRect.bottomLeft).asInstanceOf[SimerT] 
+  def bottomRight: SimerT = this.slate(- boundingRect.bottomRight).asInstanceOf[SimerT]
 
   def addElems(newElems: Arr[PaintElemOld]): SimerT
   def addElem(newElem: PaintElemOld): SimerT = addElems(Arr(newElem))

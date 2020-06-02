@@ -48,11 +48,13 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
 
   def slate(offset: Vec2): PolygonParent = PolygonParent(cen + offset, poly.slate(offset), pointerId, children.slate(offset))
 
+  def slate(xOffset: Double, yOffset: Double): PolygonParent = slate(xOffset vv yOffset)
+
   def scale(operand: Double): PolygonParent = PolygonParent(cen * operand, poly.scale(operand), pointerId, children.scale(operand))
 
-  override def shear(xScale: Double, yScale: Double): AffineElem = ???
+  def shear(xScale: Double, yScale: Double): PolygonParent = ???
 
-  override def mirror(line: Line2): PolygonParent = ???
+  def mirror(line: Line2): PolygonParent = ???
 
   override def mirrorX: PolygonParent = ???
 
