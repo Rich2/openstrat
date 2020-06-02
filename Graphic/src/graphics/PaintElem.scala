@@ -79,5 +79,8 @@ trait PaintElemOld extends GraphicElemOld with PaintElem
 
   override def mirrorY: SimerT
 
+  override def rotate90: SimerT
+  override def rotate180: SimerT
+  override def rotate270: SimerT
   //def prolign(matrix: Any): AlignT
 }

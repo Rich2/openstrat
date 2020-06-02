@@ -21,13 +21,13 @@ object RotateAxes
 {
   implicit def transSimerImplicit[T <: TransSimer]: RotateAxes[T] = new RotateAxes[T] {
     /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
-    override def rotateT90(obj: T): T = ???
+    override def rotateT90(obj: T): T = obj.rotate90.asInstanceOf[T]
 
     /** Rotates object of type T, 180 degrees or Pi radians. */
-    override def rotateT180(obj: T): T = ???
+    override def rotateT180(obj: T): T = obj.rotate180.asInstanceOf[T]
 
     /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
-    override def rotateT270(obj: T): T = ???
+    override def rotateT270(obj: T): T = obj.rotate270.asInstanceOf[T]
   }  
   
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: RotateAxes[A]): RotateAxes[F[A]] = new RotateAxes[F[A]]

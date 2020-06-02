@@ -14,6 +14,10 @@ trait TransSimer extends TransElem
 
   /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): SimerT = slate(xOffset vv yOffset)
+
+  override def rotate90: SimerT
+  override def rotate180: SimerT
+  override def rotate270: SimerT
 }
 
 trait TransSimerUser extends TransSimer

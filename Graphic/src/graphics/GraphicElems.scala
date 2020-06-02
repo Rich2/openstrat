@@ -69,6 +69,10 @@ trait GraphicElemOld extends TransSimer with GraphicElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def mirrorYOffset(xOffset: Double): SimerT
+
+  override def rotate90: SimerT
+  override def rotate180: SimerT
+  override def rotate270: SimerT
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
