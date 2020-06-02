@@ -48,7 +48,10 @@ object CanvasJs extends CanvasTopLeft
     { val rect = can.getBoundingClientRect()
       mouseDraggedTopLeft(e.clientX - rect.left, e.clientY -rect.top, LeftButton)
     }
-    case _ => mouseMovededTopLeft(e.clientX - rect.left, e.clientY -rect.top, LeftButton)
+    case _ =>
+    { val rect = can.getBoundingClientRect()
+      mouseMovedTopLeft(e.clientX - rect.left, e.clientY -rect.top, LeftButton)
+    }
   }
 
 
