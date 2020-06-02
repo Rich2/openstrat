@@ -50,7 +50,8 @@ trait PaintElem extends GraphicElem
 object PaintElem
 { implicit val slateImplicit: Slate[PaintElem] = (obj: PaintElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PaintElem] = (obj: PaintElem, operand: Double) => obj.scale(operand)
-
+  implicit val rotateImplicit: Rotate[PaintElem] = (obj: PaintElem, radians: Double) => obj.rotateRadians(radians)
+  
   implicit val mirrorAxisImplicit: MirrorAxis[PaintElem] = new MirrorAxis[PaintElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def mirrorXOffset(obj: PaintElem, yOffset: Double): PaintElem = obj.mirrorXOffset(yOffset)
