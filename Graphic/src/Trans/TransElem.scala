@@ -46,6 +46,7 @@ trait TransElem extends Product with Serializable
 object TransElem
 { implicit val slateImplicit: Slate[TransElem] = (obj: TransElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[TransElem] = (obj: TransElem, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[TransElem] = (obj: TransElem, radians: Double) => obj.rotateRadians(radians)
   
   implicit val mirrorAxisImplicit: MirrorAxis[TransElem] = new MirrorAxis[TransElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
