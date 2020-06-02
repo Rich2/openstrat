@@ -1,4 +1,4 @@
-/* Copyright 2020 Stephen. Licensed under Apache Licence version 2.0 */
+/* Copyright 2020 w0d. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pFlags
 import geom._, pCanv._, Colour._
@@ -15,7 +15,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
    Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag,
    CommonShapesInFlags)
 
-  val itemCount: Int = listOfFlags.length  // 224 //  
+  val itemCount: Int = listOfFlags.length // 224 //  
   val itemsPerRow: Int = 5  //  columns
   val itemsPerCol: Int = 3  //  rows
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
@@ -25,7 +25,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   // listOfFlags = listOfFlags ++ Arr(TextFlagMaker(i.toString, thisColor)) }
 
   val viewport = Map("width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "commonScale"->100)
-  val scrollport = Map("maxBarWidth"->(viewport("width")-80), "minBarWidth"->20, "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height") / 2 + viewport("headerSize") / 2))
+  val scrollport = Map("maxBarWidth"->(viewport("width")  - 80), "minBarWidth"->20, "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height") / 2 + viewport("headerSize") / 2))
   val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 vv (viewport("height") - viewport("cellHeight")) / 2)
   val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
@@ -86,36 +86,36 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     showGridView(((currentScroll + itemsPerUnitScroll - 1) / itemsPerUnitScroll * itemsPerUnitScroll))//
   }
 
-  mouseUp = (mouseButton: MouseButton, clickList, mousePosition) =>
-  { if (isDragging == true) isDragging = false
-    else {
-      mouseButton match
-      { case LeftButton => clickList match
-       { case List(MouseButtonCmd(cmd)) => cmd.apply(mouseButton)
-         case List(flagIndex) =>
-           { selectedIndex = if (selectedIndex != -1) -1 else flagIndex.toString.toInt
-             showGridView(viewIndex)
-           } 
-         case l => { selectedIndex = -1; showGridView(viewIndex) }
-       }
-       case _ => deb("uncaught non left mouse button")
+  mouseUp = (mouseButton: MouseButton, clickList, mousePosition) => isDragging match
+  { case true => isDragging = false
+    case false => mouseButton match
+    { case LeftButton => clickList match
+      { case List(MouseButtonCmd(cmd)) => cmd.apply(mouseButton)
+        case List(flagIndex) =>
+        { selectedIndex = if (selectedIndex != -1) -1 else flagIndex.toString.toInt
+          showGridView(viewIndex)
+        } 
+        case l => { selectedIndex = -1; showGridView(viewIndex) }
       }
+      case _ =>
     }
   }
-  
+   
   canv.mouseDragged = (mousePosition:Vec2, mouseButton:MouseButton) => if (mouseButton == LeftButton & isDragging == true) dragging(mousePosition.x - dragStartX)
-  
-  canv.mouseDown = (mousePosition:Vec2, mouseButton:MouseButton ) => if (mouseButton == LeftButton)
-  { if (bar.boundingRect.ptInside(mousePosition) == true)
+
+  canv.mouseDown = (mousePosition:Vec2, mouseButton:MouseButton) => mouseButton match
+  { case LeftButton if (bar.boundingRect.ptInside(mousePosition) == true) =>
     { dragStartBarOffsetX = barOffsetX
       dragStartX = mousePosition.x
       isDragging = true
-    } else if (barBackground.boundingRect.ptInside(mousePosition) == true)
+    }
+    case LeftButton if (barBackground.boundingRect.ptInside(mousePosition) == true) =>
     { if (mousePosition.x > barStartX + barOffsetX) showGridView(viewIndex + itemsPerPage)
       else showGridView(viewIndex - itemsPerPage)
     }
+    case _ =>
   }
-  
+
 //** NB below is for scroll ~> need focus to handle keys also for selected etc **//
   canv.keyDown = (thekey: String) => thekey match
   { case ("ArrowUp" | "ArrowLeft") => showGridView(viewIndex - itemsPerUnitScroll)
