@@ -5,15 +5,8 @@ import reflect.ClassTag
 
 /** An object that implements the TransAlign interface through its own methods. */
 trait TransAligner extends TransElem
-{ type AlignT <: TransAligner
-  def slate(offset: Vec2): AlignT
-
-  def scale(operand: Double): AlignT
-  //def ySlate(yDelta: Double): AlignT = slateOld(0 vv yDelta)
-
-  /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
-  //def slated(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
+{ 
+  
 }
 
 /** A transformation type class allowing only translations and scaling, in order to maintain the alignment of the graphical objects. */
@@ -31,7 +24,7 @@ object TransAlign
     override def scale(obj: TransElem, operand: Double): TransElem = obj.scale(operand)
   }
 
-  implicit def transAlignerImplicit[T <: TransAligner]: TransAlign[T] = new TransAlign[T]
+  implicit def transAlignerImplicit[T <: TransSimer]: TransAlign[T] = new TransAlign[T]
   { override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
@@ -49,31 +42,5 @@ object TransAlign
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransAlign[A]): TransAlign[Array[A]] = new TransAlign[Array[A]]
   { override def slate(obj: Array[A], offset: Vec2): Array[A] = obj.map(ev.slate(_, offset))
    override def scale(obj: Array[A], operand: Double): Array[A] = obj.map(ev.scale(_, operand))
-  }
-}
-
-class TransAlignExtension[T](value: T, ev: TransAlign[T])
-{
-//  /** Translate 2 dimensional vectors along the X axis */
-//  def slateX(xOffset: Double): T = ev.slate(value, xOffset vv 0)
-//
-//  /** Translate 2 dimensional vectors along the Y axis */
-//  def slateY(yOffset: Double): T = ev.slate(value, 0 vv yOffset)
-//
-//  /** Translate in 2 dimensional space. */
-//  def slate(offset: Vec2): T = ev.slate(value, offset)
-//
-//  /** Translate in 2 dimensional space. */
-//  def slate(xOffset: Double, yOffset: Double): T = ev.slate(value, xOffset vv yOffset)
-
-  /** this.asInstanceOf[T] */
-  def identity: T = this.asInstanceOf[T]
-
-  //def scale(operand: Double): T = ev.scale(value, operand)
-
-  /** The scale transformation on 2 dimensional vectors. */
-  def scaleSlate(factor: Double, addVec: Vec2): T =
-  { val r1 = ev.scale(value, factor)
-    ev.slate(r1, addVec)
   }
 }

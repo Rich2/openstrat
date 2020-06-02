@@ -4,11 +4,18 @@ package geom
 import reflect.ClassTag
 
 trait TransSimer extends TransAligner
-{// type RigidT <: TransSimer
+{ type AlignT <: TransSimer
+  // type RigidT <: TransSimer
   def shear(xScale: Double, yScale: Double): AffineElem//ffer
   def mirror(line: Line2): AlignT
   def rotateRadians(radians: Double): AlignT
   def rotate(angle: Angle): AlignT = rotateRadians(angle.radians)
+  def scale(operand: Double): AlignT
+  def slate(offset: Vec2): AlignT
+
+  /** Translate in 2 dimensional space. */
+  def slate(xOffset: Double, yOffset: Double): AlignT = slate(xOffset vv yOffset)
+
 }
 
 trait TransSimerUser extends TransSimer
@@ -69,4 +76,14 @@ class TransSimExtension[T](value: T, ev: TransSim[T]) extends TransSimGenExtensi
   def mirror(x1: Double, y1: Double, x2: Double, y2: Double): T = ev.mirror(value, new Line2(x1, y1, x2, y2))
   override def rotateRadians(radians: Double): T = ev.rotateRadians(value, radians)
   override def rotate(angle: Angle): T = ev.rotateRadians(value, angle.radians)
+  /** this.asInstanceOf[T] */
+  def identity: T = this.asInstanceOf[T]
+
+  //def scale(operand: Double): T = ev.scale(value, operand)
+
+  /** The scale transformation on 2 dimensional vectors. */
+  def scaleSlate(factor: Double, addVec: Vec2): T =
+  { val r1 = ev.scale(value, factor)
+    ev.slate(r1, addVec)
+  }
 }
