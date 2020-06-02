@@ -104,7 +104,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   }
   
   canv.mouseDragged = (mousePosition:Vec2, mouseButton:MouseButton) => if (mouseButton == LeftButton & isDragging == true) dragging(mousePosition.x - dragStartX)
-
+  
   canv.mouseDown = (mousePosition:Vec2, mouseButton:MouseButton ) => if (mouseButton == LeftButton)
   { if (bar.boundingRect.ptInside(mousePosition) == true)
     { dragStartBarOffsetX = barOffsetX
@@ -115,7 +115,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
       else showGridView(viewIndex - itemsPerPage)
     }
   }
-
+  
 //** NB below is for scroll ~> need focus to handle keys also for selected etc **//
   canv.keyDown = (thekey: String) => thekey match
   { case ("ArrowUp" | "ArrowLeft") => showGridView(viewIndex - itemsPerUnitScroll)
