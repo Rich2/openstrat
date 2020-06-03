@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 
-final case class CircleFill(circle: Circle, fillColour: Colour) extends FillElem
+final case class CircleFill(circle: Circle, fillColour: Colour) extends ShapeFill
 {
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 

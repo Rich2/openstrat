@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._
 
-final case class SquareFill(square: Square, fillColour: Colour) extends FillElem
+final case class SquareFill(square: Square, fillColour: Colour) extends ShapeFill
 {
   override def rendToCanvas(cp: CanvasPlatform): Unit = {}
 

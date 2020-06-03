@@ -119,12 +119,12 @@ trait PaintFullElem extends PaintElem with GraphicFullElem
 { type SimerT <: PaintFullElem 
 }
 
-trait FilledElem extends PaintElem
+trait ShapePaint extends PaintElem
+
+trait ShapeWithFill extends ShapePaint
 { def fillColour: Colour
 }
 
-trait FillElem extends FilledElem
+trait ShapeFill extends ShapeWithFill
 
-trait Fillable extends TransElem
-{ def fill(colour: Colour): FillElem
-}
+trait ShapeDraw
