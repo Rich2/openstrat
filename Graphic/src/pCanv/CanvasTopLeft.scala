@@ -26,8 +26,8 @@ trait CanvasTopLeft extends CanvasPlatform
    final override def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
    final override def circleFillOld(cf: CircleFillOld): Unit = tlCircleFillOld(cf.mirrorX.slate(width / 2, height / 2))
    final override def circleFill(cf: CircleFill): Unit = tlCircleFill(cf.mirrorX.slate(width / 2, height / 2))
-   final override def circleDraw(cd: CircleDrawOld): Unit = tlCircleDraw(cd.mirrorX.slate(width / 2, height / 2))
-   final override def circleFillDraw(cfd: CircleFillDrawOld): Unit = tlCircleFillDraw(cfd.mirrorX.slate(width / 2, height / 2))
+   final override def circleDrawOld(cd: CircleDrawOld): Unit = tlCircleDrawOld(cd.mirrorX.slate(width / 2, height / 2))
+   final override def circleFillDrawOld(cfd: CircleFillDrawOld): Unit = tlCircleFillDraw(cfd.mirrorX.slate(width / 2, height / 2))
    final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
 
@@ -51,7 +51,7 @@ trait CanvasTopLeft extends CanvasPlatform
    protected[this] def tlCircleFillOld(cf: CircleFillOld): Unit
    protected[this] def tlCircleFill(cf: CircleFill): Unit
 
-   protected[this] def tlCircleDraw(cd: CircleDrawOld): Unit
+   protected[this] def tlCircleDrawOld(cd: CircleDrawOld): Unit
    protected[this] def tlCircleFillDraw(cfd: CircleFillDrawOld): Unit
    protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    

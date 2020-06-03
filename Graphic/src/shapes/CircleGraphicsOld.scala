@@ -34,7 +34,7 @@ case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) e
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleDrawOld = CircleDrawOld(transer, lineWidth, colour)
   def shear(xScale: Double, yScale: Double): AffineElem = ???
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDrawOld(this)
 
   override def mirrorYOffset(xOffset: Double): CircleDrawOld = ???
 
@@ -60,7 +60,7 @@ case class CircleFillDrawOld(circle: CircleOld, fillColour: Colour, lineWidth: D
   override def geomMem: MemT = circle
   override def newThis(transer: CircleOld): CircleFillDrawOld = CircleFillDrawOld(transer, fillColour, lineWidth, lineColour)
   override def shear(xScale: Double, yScale: Double): AffineElem = ???
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDrawOld(this)
 
   override def mirrorYOffset(xOffset: Double): CircleFillDrawOld = ???
 

@@ -31,8 +31,8 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    override def circleFillOld(cf: CircleFillOld): Unit = {}
 
    override def circleFill(cf: CircleFill): Unit = println("Output " + cf.toString)
-   override def circleDraw(cd: CircleDrawOld): Unit = {}
-   override def circleFillDraw(cfd: CircleFillDrawOld): Unit = {}
+   override def circleDrawOld(cd: CircleDrawOld): Unit = {}
+   override def circleFillDrawOld(cfd: CircleFillDrawOld): Unit = {}
    override def clear(colour: Colour = Colour.White): Unit = {}  
    override def gcSave(): Unit = {}
    override def gcRestore(): Unit = {} 
