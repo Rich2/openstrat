@@ -99,7 +99,7 @@ trait HexGridSimple extends TileGridSimple
     }
   }
 
-  def sidePolygon(sr: Roord): PolygonGen =
+  def sidePolygon(sr: Roord): PolygonClass =
   { //val (topEnd, bottomEnd) = HexGrid.sideRoordToLineEndRoords(sr)
     //val vTop: Vec2 = roordToVec2(topEnd)
     //val vBottom: Vec2 = roordToVec2(bottomEnd)

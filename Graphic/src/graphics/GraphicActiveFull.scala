@@ -29,7 +29,7 @@ trait GraphicActiveFull extends GraphicActive with GraphicBoundedFull
 /** An active transparent pointable polygon */
 trait PolyActiveFull extends GraphicActiveFull
 { type SimerT <: PolyActiveFull
-  def poly: PolygonGen
+  def poly: PolygonClass
   override def boundingRect = poly.boundingRect
   override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
   //override def fTrans(f: Vec2 => Vec2): ThisT
@@ -39,7 +39,7 @@ trait PolyActiveFull extends GraphicActiveFull
 trait ShapeActive extends GraphicActiveFull
 {  type SimerT <: ShapeActive
   def shape: PolyCurve
-  def innerPoly: PolygonGen = shape.pMap(_.pEnd)
+  def innerPoly: PolygonClass = shape.pMap(_.pEnd)
   override def boundingRect: BoundingRect = innerPoly.boundingRect
 
   /** This method needs improving. */

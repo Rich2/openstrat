@@ -5,10 +5,10 @@ import Colour.Black, collection.mutable.ArrayBuffer
 
 /** A General Polygon as opposed to a specific Polygon such as a Square or a Rectangle is encoded as a sequence of plain 2 dimension (mathematical)
  *  vectors. Minimum length 3. Clockwise is the default */
-class PolygonGen(val array: Array[Double]) extends Polygon with Vec2sLike with AffineElem
-{ type ThisT = PolygonGen
-  type SimerT = PolygonGen
-  def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
+class PolygonClass(val array: Array[Double]) extends Polygon with Vec2sLike with AffineElem
+{ type ThisT = PolygonClass
+  type SimerT = PolygonClass
+  def unsafeFromArray(array: Array[Double]): PolygonClass = new PolygonClass(array)
   override def typeStr: String = "Polygon"
 
   override def canEqual(that: Any): Boolean = ???
@@ -16,8 +16,8 @@ class PolygonGen(val array: Array[Double]) extends Polygon with Vec2sLike with A
   override def productArity: Int = ???
 
   override def productElement(n: Int): Any = ???
-  def fTrans(f: Vec2 => Vec2): PolygonGen = new PolygonGen(arrTrans(f))
-  def eq(obj: PolygonGen): Boolean = array.sameElements(obj.array)
+  def fTrans(f: Vec2 => Vec2): PolygonClass = new PolygonClass(arrTrans(f))
+  def eq(obj: PolygonClass): Boolean = array.sameElements(obj.array)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
   def maxX: Double = foldTailLeft(head.x)((acc, el) => acc.max(el.x))
   def minY: Double = foldTailLeft(head.y)((acc, el) => acc.min(el.y))
@@ -93,8 +93,8 @@ class PolygonGen(val array: Array[Double]) extends Polygon with Vec2sLike with A
   def ptInPolygon(pt: Vec2): Boolean = closedPolygonToLine2s.ptInPolygon(pt)
 
   /** Insert vertice */
-  def insVert(insertionPoint: Int, newVec: Vec2): PolygonGen =
-  { val res = PolygonGen.factory(length + 1)
+  def insVert(insertionPoint: Int, newVec: Vec2): PolygonClass =
+  { val res = PolygonClass.factory(length + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     res.unsafeSetElem(insertionPoint, newVec)
     (insertionPoint until length).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
@@ -102,8 +102,8 @@ class PolygonGen(val array: Array[Double]) extends Polygon with Vec2sLike with A
   }
 
   /** Insert vertices */
-  def insVerts(insertionPoint: Int, newVecs: Vec2 *): PolygonGen =
-  { val res = PolygonGen.factory(length + newVecs.length)
+  def insVerts(insertionPoint: Int, newVecs: Vec2 *): PolygonClass =
+  { val res = PolygonClass.factory(length + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
     (insertionPoint until length).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
@@ -112,13 +112,13 @@ class PolygonGen(val array: Array[Double]) extends Polygon with Vec2sLike with A
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 
-  override def mirrorX: PolygonGen = ???
+  override def mirrorX: PolygonClass = ???
 }
 
-object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]
-{ implicit val factory: Int => PolygonGen = i => new PolygonGen(new Array[Double](i * 2))
+object PolygonClass //extends ProductD2sCompanion[Vec2, Polygon]
+{ implicit val factory: Int => PolygonClass = i => new PolygonClass(new Array[Double](i * 2))
 
-  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): PolygonGen =
+  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): PolygonClass =
   { val len = (3 + tail.length)
     val res = factory(len)
     res.unsafeSetElems(0, v1, v2, v3)
@@ -126,13 +126,13 @@ object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]
     res
   }
 
-  implicit val eqImplicit: Eq[PolygonGen] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.array, p2.array)
+  implicit val eqImplicit: Eq[PolygonClass] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.array, p2.array)
 
-  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, PolygonGen] = new ArrProdDbl2Persist[Vec2, PolygonGen]("Polygon")
-  { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
+  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, PolygonClass] = new ArrProdDbl2Persist[Vec2, PolygonClass]("Polygon")
+  { override def fromArray(value: Array[Double]): PolygonClass = new PolygonClass(value)
   }
 
-  implicit val polygonsBuildImplicit: ArrBuild[PolygonGen, Polygons] = new ArrArrayDblBuild[PolygonGen, Polygons]
+  implicit val polygonsBuildImplicit: ArrBuild[PolygonClass, Polygons] = new ArrArrayDblBuild[PolygonClass, Polygons]
   {
     override type BuffT = PolygonBuff
     def fromArray(array: Array[Array[Double]]): Polygons = new Polygons(array)
@@ -141,15 +141,15 @@ object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]
   }
 }
 
-final class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonGen]
+final class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonClass]
 { override type ThisT = Polygons
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): Polygons = new Polygons(aad)
-  def apply(index: Int): PolygonGen = new PolygonGen(array(index))
+  def apply(index: Int): PolygonClass = new PolygonClass(array(index))
 }
 
 object Polygons
 {
-  def apply(input: PolygonGen*): Polygons =
+  def apply(input: PolygonClass*): Polygons =
   {
     val array: Array[Array[Double]] = new Array[Array[Double]](input.length)
     var count = 0
@@ -161,9 +161,9 @@ object Polygons
     new Polygons(array)
   }
 
-  implicit val eqImplicit: Eq[Polygons] = ArrArrayDblEq[PolygonGen, Polygons]
+  implicit val eqImplicit: Eq[Polygons] = ArrArrayDblEq[PolygonClass, Polygons]
 }
 
-class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[PolygonGen]
-{ def apply(index: Int): PolygonGen = new PolygonGen(unsafeBuff(index))
+class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[PolygonClass]
+{ def apply(index: Int): PolygonClass = new PolygonClass(unsafeBuff(index))
 }

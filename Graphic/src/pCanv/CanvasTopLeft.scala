@@ -9,8 +9,8 @@ trait CanvasTopLeft extends CanvasPlatform
    def tlCen: Vec2 =>  Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
    def matrix: ProlignMatrix = ProlignMatrix.mirrorY.slate(width / 2, height / 2)
  
-   final override def pPolyFill(poly: PolygonGen, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
-   final override def pPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit = tlPolyDraw(poly.fTrans(tlCen), lineWidth, colour)
+   final override def pPolyFill(poly: PolygonClass, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
+   final override def pPolyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit = tlPolyDraw(poly.fTrans(tlCen), lineWidth, colour)
    //final override def pPolyFillDraw(pfd: PolyFillDraw): Unit = tlPolyFillDraw(pfd.fTrans(tlCen))
    final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
    final override def lineDraw(ld: LineDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
@@ -27,14 +27,14 @@ trait CanvasTopLeft extends CanvasPlatform
    final override def circleFillOld(cf: CircleFillOld): Unit = tlCircleFillOld(cf.mirrorX.slate(width / 2, height / 2))
    final override def circleFill(cf: CircleFill): Unit = tlCircleFill(cf.mirrorX.slate(width / 2, height / 2))
    final override def circleDraw(cd: CircleDrawOld): Unit = tlCircleDraw(cd.mirrorX.slate(width / 2, height / 2))
-   final override def circleFillDraw(cfd: CircleFillDraw): Unit = tlCircleFillDraw(cfd.mirrorX.slate(width / 2, height / 2))
+   final override def circleFillDraw(cfd: CircleFillDrawOld): Unit = tlCircleFillDraw(cfd.mirrorX.slate(width / 2, height / 2))
    final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
 
-   final override def clip(pts: PolygonGen): Unit = tlClip(pts.fTrans(tlCen))
+   final override def clip(pts: PolygonClass): Unit = tlClip(pts.fTrans(tlCen))
 
-   protected[this] def tlPolyFill(poly: PolygonGen, colour: Colour): Unit
-   protected[this] def tlPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit
+   protected[this] def tlPolyFill(poly: PolygonClass, colour: Colour): Unit
+   protected[this] def tlPolyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit
    protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
 
    protected[this] def tlLineDraw(ld: LineDraw): Unit
@@ -52,7 +52,7 @@ trait CanvasTopLeft extends CanvasPlatform
    protected[this] def tlCircleFill(cf: CircleFill): Unit
 
    protected[this] def tlCircleDraw(cd: CircleDrawOld): Unit
-   protected[this] def tlCircleFillDraw(cfd: CircleFillDraw): Unit
+   protected[this] def tlCircleFillDraw(cfd: CircleFillDrawOld): Unit
    protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit 
    
    protected[this] def tlTextGraphic(tg: TextGraphic): Unit
@@ -63,5 +63,5 @@ trait CanvasTopLeft extends CanvasPlatform
    protected[this] def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Vec2(x - width / 2, height / 2 - y), mb)
    protected[this] def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Vec2(x - width / 2, height / 2 - y), mb)
    
-   protected[this] def tlClip(pts: PolygonGen): Unit
+   protected[this] def tlClip(pts: PolygonClass): Unit
 }

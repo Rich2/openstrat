@@ -25,7 +25,7 @@ trait CanvasPlatform extends RectCenlign
   var keyUp: (String) => Unit = (s) => {}
   var onScroll: Boolean => Unit = b => {}
   var resize: () => Unit = () => {}
-  def clip(pts: PolygonGen): Unit
+  def clip(pts: PolygonClass): Unit
 
   /** Returns the system (Unix) time in milliseconds. */
   def getTime: Long
@@ -48,11 +48,11 @@ trait CanvasPlatform extends RectCenlign
     startFrame(combinedF, millis)
   }
   
-  final def polyFill(poly: PolygonGen, colour: Colour): Unit = oif(poly.length >= 3, pPolyFill(poly, colour))
-  def pPolyFill(poly: PolygonGen, colour: Colour): Unit
+  final def polyFill(poly: PolygonClass, colour: Colour): Unit = oif(poly.length >= 3, pPolyFill(poly, colour))
+  def pPolyFill(poly: PolygonClass, colour: Colour): Unit
   
-  final def polyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit = oif(poly.length >= 2, pPolyDraw(poly, lineWidth, colour))
-  def pPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit
+  final def polyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit = oif(poly.length >= 2, pPolyDraw(poly, lineWidth, colour))
+  def pPolyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit
 
   def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.length >= 1, pLinePathDraw(pod))
   def pLinePathDraw(pod: LinePathDraw): Unit
@@ -87,7 +87,7 @@ trait CanvasPlatform extends RectCenlign
 
   def circleDraw(cd: CircleDrawOld): Unit
 
-  def circleFillDraw(cfd: CircleFillDraw): Unit
+  def circleFillDraw(cfd: CircleFillDrawOld): Unit
 
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =

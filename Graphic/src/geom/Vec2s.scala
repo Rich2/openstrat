@@ -23,7 +23,7 @@ class Vec2s(val array: Array[Double]) extends AffineElem with Vec2sLike with Arr
   @inline def xStart: Double = array(0)
   @inline def yStart: Double = array(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
-  @inline def toPolygon: PolygonGen = new PolygonGen(array)
+  @inline def toPolygon: PolygonClass = new PolygonClass(array)
   @inline def toLinePath: LinePath = new LinePath(array)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
@@ -31,7 +31,7 @@ class Vec2s(val array: Array[Double]) extends AffineElem with Vec2sLike with Arr
 
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
-  def yMirrorClose: PolygonGen =
+  def yMirrorClose: PolygonClass =
   { val acc = appendArray(length)
     var count = arrLen
 
@@ -40,7 +40,7 @@ class Vec2s(val array: Array[Double]) extends AffineElem with Vec2sLike with Arr
       acc(count + 1) = orig.y
       count += 2
     }
-    new PolygonGen(acc)
+    new PolygonClass(acc)
   }
 
   def toPathDraw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this.toLinePath, lineWidth, colour)

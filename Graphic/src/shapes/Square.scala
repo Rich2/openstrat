@@ -45,7 +45,7 @@ object Square //extends ShapeIcon
   def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = Angle(0)): Square = new Square(width, cen.x, cen.y, rotation)
   //val apply: Polygon = Polygon(0.5 vv 0.5, 0.5 vv -0.5, -0.5 vv -0.5, -0.5 vv 0.5)
   //def apply(width: Double = 1, cen: Vec2 = Vec2Z): Polygon = apply.fTrans(_ * width + cen)
-  def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
+  def xy(width: Double, xCen: Double, yCen: Double): PolygonClass = PolygonClass(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,

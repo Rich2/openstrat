@@ -39,13 +39,13 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
 
   import paint.Color
   def toFxColor(colour: Colour): Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
-  override def tlPolyFill(poly: PolygonGen, colour: Colour): Unit =
+  override def tlPolyFill(poly: PolygonClass, colour: Colour): Unit =
   { gc.setFill(toFxColor(colour))
     gc.fillPolygon(poly.elem1sArray, poly.elem2sArray, poly.length)
   }
 
   /** Needs mod */
-  override protected[this] def tlPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit =
+  override protected[this] def tlPolyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit =
   { gc.setStroke(toFxColor(colour))
     gc.setLineWidth(lineWidth)
     gc.strokePolygon(poly.elem1sArray, poly.elem2sArray, poly.length)
@@ -96,7 +96,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
   }
 
-  override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
+  override def tlCircleFillDraw(cfd: CircleFillDrawOld): Unit =
   { val circ = cfd.circle
     gc.setFill(toFxColor(cfd.fillColour))
     gc.fillOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
@@ -221,7 +221,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def timeOut(f: () => Unit, millis: Integer): Unit = new Timeline(new KeyFrame(util.Duration.millis(millis.doubleValue()),
     (ae: event.ActionEvent) => f())).play
    
-  override protected[this] def tlClip(pts: PolygonGen): Unit =
+  override protected[this] def tlClip(pts: PolygonClass): Unit =
   { gc.beginPath
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)

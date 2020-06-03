@@ -6,7 +6,7 @@ import geom._
 /** A class for testing mouse pointer functionality. */
 case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
 {
-   override def clip(pts: PolygonGen): Unit = {}
+   override def clip(pts: PolygonClass): Unit = {}
    
    override def getTime: Long = ???
    /** A callback timer with an elapsed time from a given start point. The function is of form:
@@ -14,8 +14,8 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
     *  The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
    
    override def timeOut(f: () => Unit, millis: Integer): Unit = {}   
-   override def pPolyFill(poly: PolygonGen, col: Colour): Unit = {}
-   override def pPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit = {}
+   override def pPolyFill(poly: PolygonClass, col: Colour): Unit = {}
+   override def pPolyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit = {}
    override def pLinePathDraw(pod: LinePathDraw): Unit = {}
    
    override def lineDraw(ld: LineDraw): Unit = {}
@@ -32,7 +32,7 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
 
    override def circleFill(cf: CircleFill): Unit = println("Output " + cf.toString)
    override def circleDraw(cd: CircleDrawOld): Unit = {}
-   override def circleFillDraw(cfd: CircleFillDraw): Unit = {}
+   override def circleFillDraw(cfd: CircleFillDrawOld): Unit = {}
    override def clear(colour: Colour = Colour.White): Unit = {}  
    override def gcSave(): Unit = {}
    override def gcRestore(): Unit = {} 

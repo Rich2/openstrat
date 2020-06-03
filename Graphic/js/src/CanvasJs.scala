@@ -75,7 +75,7 @@ object CanvasJs extends CanvasTopLeft
    
   val gc = can.getContext("2d").asInstanceOf[raw.CanvasRenderingContext2D]
    
-  override protected[this] def tlPolyFill(poly: PolygonGen, colour: Colour): Unit =
+  override protected[this] def tlPolyFill(poly: PolygonClass, colour: Colour): Unit =
   { gc.beginPath()
     gc.moveTo(poly(0).x, poly(0).y)
     poly.foreachPairTail(gc.lineTo)
@@ -84,7 +84,7 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
-  override def tlPolyDraw(poly: PolygonGen, lineWidth: Double, colour: Colour): Unit =
+  override def tlPolyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit =
   { gc.beginPath()
     gc.moveTo(poly(0).x, poly(0).y)
     poly.foreachPairTail(gc.lineTo)
@@ -167,7 +167,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
+  override def tlCircleFillDraw(cfd: CircleFillDrawOld): Unit =
   { val ci = cfd.circle
     gc.beginPath
     gc.fillStyle = cfd.fillColour.webStr
@@ -242,7 +242,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def clear(colour: Colour): Unit = { gc.fillStyle = colour.webStr; gc.fillRect(0, 0, width, height) }
 
-  override protected[this] def tlClip(pts: PolygonGen): Unit =
+  override protected[this] def tlClip(pts: PolygonClass): Unit =
   { gc.beginPath
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)
