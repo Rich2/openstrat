@@ -34,4 +34,6 @@ trait AffineElem extends TransSimer with TransElem
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   def rotate270: SimerT = fTrans(_.rotate270)
+
+  override def scaleXY(xOperand: Double, yOperand: Double): SimerT = ???
 }

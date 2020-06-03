@@ -25,13 +25,16 @@ trait CircleGraphic extends ShapeGraphic
 final case class CircleFill(circle: Circle, fillColour: Colour) extends CircleGraphic with ShapeFill
 { type GraphicT = CircleFill
   override def fTrans(newCircle: Circle): GraphicT = CircleFill(newCircle, fillColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)   
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
+
+  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }
 
 final case class CircleDraw(circle: Circle, lineWidth: Double, lineColour: Colour) extends CircleGraphic with ShapeDraw
 { type GraphicT = CircleDraw
   override def fTrans(newCircle: Circle): CircleDraw = CircleDraw(newCircle, lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = ??? // cp.circleDraw(this)  
+  override def rendToCanvas(cp: CanvasPlatform): Unit = ??? // cp.circleDraw(this) 
+  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon

@@ -36,6 +36,8 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
   override def rotateRadians(radians: Double): Square = ???
 
   override def mirror(line: Line2): Square = ???
+
+  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }
 
 /** Factory object for squares. */

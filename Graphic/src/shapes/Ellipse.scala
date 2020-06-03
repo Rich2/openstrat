@@ -7,10 +7,11 @@ trait Ellipse extends Shape
   def yCen: Double
   final def cen: Vec2 = xCen vv yCen
 
- /* override def canEqual(that: Any): Boolean = that match
+  /* override def canEqual(that: Any): Boolean = that match
   { case e: Ellipse => true
     case _ => false
   }*/
+  override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = ???
 }
 
 object Ellipse

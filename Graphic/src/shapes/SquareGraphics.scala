@@ -33,4 +33,6 @@ final case class SquareFill(square: Square, fillColour: Colour) extends ShapeFil
   override def rotateRadians(radians: Double): SquareFill = ???
 
   override def mirror(line: Line2): SquareFill = SquareFill(square.mirror(line), fillColour)
+
+  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }

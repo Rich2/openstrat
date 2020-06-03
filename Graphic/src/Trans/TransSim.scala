@@ -19,6 +19,8 @@ trait TransSimer extends TransElem
   override def rotate90: SimerT
   override def rotate180: SimerT
   override def rotate270: SimerT
+
+  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }
 
 trait TransSimerUser extends TransSimer
@@ -30,6 +32,8 @@ trait TransSimerUser extends TransSimer
   override def rotateRadians(radians: Double): SimerT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
   override def scale(operand: Double): SimerT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
   override def mirror(line: Line2): SimerT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
+
+  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }
 
 /** A Similar Transformations type class */
