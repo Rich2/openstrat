@@ -8,5 +8,14 @@ trait ShapeIcon
 
   /** Scale the ShapeIcon up and position (translate) it. */
   def scaleSlate(scale: Double, cen: Vec2): Shape
+  
+  def fill(colour: Colour): ShapeGraphicIcon
 }
 
+trait ShapeGraphicIcon
+{ /** Scale the ShapeIcon up and position (translate) it. */
+  def scaleSlate(scale: Double, xCen: Double, yCen: Double): GraphicElem
+
+  /** Scale the ShapeIcon up and position (translate) it. */
+  def scaleSlate(scale: Double, cen: Vec2): GraphicElem
+}

@@ -39,7 +39,7 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
 }
 
 /** Factory object for squares. */
-object Square //extends ShapeIcon
+object Square extends ShapeIcon
 {
  // def apply(width: Double, xCen: Double, yCen: Double, rotationRadians: Double): Square = new Square(width, xCen, yCen, rotationRadians)
   def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = Angle(0)): Square = new Square(width, cen.x, cen.y, rotation)
@@ -50,9 +50,11 @@ object Square //extends ShapeIcon
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,
       xCen - width/2   vv yCen - width / 2)
-   
-  /**Needs Changing possibly removing. */
- // def fill(colour: Colour)/*, width: Double, cen: Vec2 = Vec2Z)*/: PolygonFill = apply.fill(colour)
-  /**Needs Changing possibly removing. */
- // def fillXY(width: Double, colour: Colour, xCen: Double, yCen: Double): PolygonFill = apply(width, xCen vv yCen).fill(colour)
+
+  override def scaleSlate(scale: Double, cen: Vec2): Shape = ???
+
+  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Shape = ???
+
+  override def fill(colour: Colour): ShapeGraphicIcon = ???
+  
 }
