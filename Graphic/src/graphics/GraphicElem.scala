@@ -5,7 +5,7 @@ package geom
 /** A GraphicElem is either an element that can be rendered to a display or printed. */
 trait GraphicElem extends DisplayElem
 {
-  /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
 
   /** Translate geometric transformation. */
@@ -48,7 +48,7 @@ trait GraphicElem extends DisplayElem
   def mirror(line: Line2): GraphicElem
 }
 
-/** Companion object for PaintElem contains various implicit instances for the transformation type classes. */
+/** Companion object for [[ostrat.geom.GraphicElem]] contains various implicit instances for the transformation type classes. */
 object GraphicElem
 { implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)

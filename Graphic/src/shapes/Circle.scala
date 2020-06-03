@@ -46,5 +46,5 @@ object Circle extends ShapeIcon
   override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
   override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)  
 
-  def fill(colour: Colour): ShapeGraphicIcon = ???
+  def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }

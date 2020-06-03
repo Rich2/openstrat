@@ -19,3 +19,8 @@ trait ShapeGraphicIcon
   /** Scale the ShapeIcon up and position (translate) it. */
   def scaleSlate(scale: Double, cen: Vec2): DisplayElem
 }
+
+trait ShapeFillIcon extends ShapeGraphicIcon
+{
+  def fillColour: Colour
+}
