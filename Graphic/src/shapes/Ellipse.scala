@@ -13,8 +13,15 @@ trait Ellipse extends Shape
   }*/
 }
 
-object Ellipse {
-  implicit def slateImplicit: Slate[Ellipse] = (e, offset) => EllipseGen(0, 0, 0, 0, 0) // Circle.slate(offset)
+object Ellipse
+{ /** The apply factory methods default to an EllipseClass. */
+  def apply(xLeft: Double, yLeft: Double, xRight: Double, yRight: Double, rHeight: Double): EllipseClass =
+    new EllipseClass(xLeft, yLeft, xRight, yRight, rHeight)
+
+  /** The apply factory methods default to an EllipseClass. */
+  def apply(vLeft: Vec2, vRight: Vec2, rHeight: Double): EllipseClass = new EllipseClass(vLeft.x, vLeft.y, vRight.x, vRight.y, rHeight)
+  
+  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => EllipseClass(0, 0, 0, 0, 0) // Circle.slate(offset)
 }
 
 /** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
@@ -36,7 +43,7 @@ case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Doub
 
   override def rotate270: Ellipselign = ???
 
-  override def rotateRadians(radians: Double): EllipseGen = ???
+  override def rotateRadians(radians: Double): EllipseClass = ???
 
-  override def mirror(line: Line2): EllipseGen = ???
+  override def mirror(line: Line2): EllipseClass = ???
 }
