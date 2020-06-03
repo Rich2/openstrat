@@ -46,6 +46,8 @@ trait GraphicElem extends DisplayElem
   override def rotateRadians(radians: Double): GraphicElem
 
   def mirror(line: Line2): GraphicElem
+
+  override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem
 }
 
 /** Companion object for [[ostrat.geom.GraphicElem]] contains various implicit instances for the transformation type classes. */

@@ -42,6 +42,8 @@ trait DisplayElem extends TransElem
   def rotateRadians(radians: Double): DisplayElem
 
   def mirror(line: Line2): DisplayElem
+
+  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem
 }
 
 object DisplayElem
@@ -80,6 +82,7 @@ trait DisplaySimer extends TransSimer with DisplayElem
   override def rotate270: SimerT
   override def rotateRadians(radians: Double): SimerT
   override def mirror(line: Line2): SimerT
+  override def scaleXY(xOperand: Double, yOperand: Double): SimerT
 }
 
 /** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
