@@ -2,7 +2,11 @@
 package ostrat
 package geom
 
-trait ShapeIcon extends TransElem
-{ def slate(offset: Vec2): Shape
+trait ShapeIcon
+{ /** Scale the ShapeIcon up and position (translate) it. */
+  def scaleSlate(scale: Double, xCen: Double, yCen: Double): Shape
+
+  /** Scale the ShapeIcon up and position (translate) it. */
+  def scaleSlate(scale: Double, cen: Vec2): Shape
 }
 
