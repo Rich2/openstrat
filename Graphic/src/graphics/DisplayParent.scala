@@ -6,15 +6,15 @@ trait DisplayParent extends DisplayElem
   def cen: Vec2
   def boundingRect: BoundingRect
   /** The type of children can probably be widened in the future. */
-  def children: Arr[PaintElem]
+  def children: Arr[GraphicElem]
 
   def topLeft: SimerT = this.slate(- boundingRect.topLeft).asInstanceOf[SimerT]
   def topRight: SimerT = this.slate(- boundingRect.topRight).asInstanceOf[SimerT]
   def bottomLeft: SimerT = this.slate(- boundingRect.bottomLeft).asInstanceOf[SimerT] 
   def bottomRight: SimerT = this.slate(- boundingRect.bottomRight).asInstanceOf[SimerT]
 
-  def addElems(newElems: Arr[PaintElem]): SimerT
-  def addElem(newElem: PaintElem): SimerT = addElems(Arr(newElem))
+  def addElems(newElems: Arr[GraphicElem]): SimerT
+  def addElem(newElem: GraphicElem): SimerT = addElems(Arr(newElem))
   def mutObj(newObj: Any): SimerT
 }
 
@@ -25,14 +25,14 @@ trait DisplayParentFull extends DisplayFullElem with DisplayActiveFull
   def cen: Vec2
 
   /** The type of children can probably be widened in the future. */
-  def children: Arr[PaintFullElem]
+  def children: Arr[GraphicFullElem]
   
   def topLeft: SimerT = this.slate(- boundingRect.topLeft)
   def topRight: SimerT = this.slate(- boundingRect.topRight)
   def bottomLeft: SimerT = this.slate(- boundingRect.bottomLeft)
   def bottomRight: SimerT = this.slate(- boundingRect.bottomRight)
 
-  def addElems(newElems: Arr[PaintFullElem]): SimerT
-  def addElem(newElem: PaintFullElem): SimerT = addElems(Arr(newElem))
+  def addElems(newElems: Arr[GraphicFullElem]): SimerT
+  def addElem(newElem: GraphicFullElem): SimerT = addElems(Arr(newElem))
   def mutObj(newObj: Any): SimerT
 }

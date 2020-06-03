@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in display or both. */
+/** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in a display or both. */
 trait DisplayElem extends TransElem
 {/** Translate geometric transformation. */
   def slate(offset: Vec2): DisplayElem
@@ -115,13 +115,13 @@ trait DisplayBoundedFull extends DisplayBounded with DisplayFullElem
 }
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
-trait PaintFullElem extends PaintElem with DisplayFullElem
-{ type SimerT <: PaintFullElem 
+trait GraphicFullElem extends GraphicElem with DisplayFullElem
+{ type SimerT <: GraphicFullElem 
 }
 
-trait ShapePaint extends PaintElem
+trait ShapeGraphic extends GraphicElem
 
-trait ShapeWithFill extends ShapePaint
+trait ShapeWithFill extends ShapeGraphic
 { def fillColour: Colour
 }
 

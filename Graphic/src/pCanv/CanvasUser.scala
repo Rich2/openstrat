@@ -18,7 +18,7 @@ abstract class CanvasUser(val title: String)
 
     movedObjs.foreach
     { 
-      case ce: PaintElem => ce.rendToCanvas(canv)
+      case ce: GraphicElem => ce.rendToCanvas(canv)
       case cs: DisplayParent => canv.rendElems(cs.children)
       case cpf: DisplayParentFull => canv.rendElems(cpf.children)
       //s case nss: UnScaledShape => canv.rendElems(nss.elems.slate(nss.referenceVec))

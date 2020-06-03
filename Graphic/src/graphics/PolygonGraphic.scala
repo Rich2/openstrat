@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-trait PolygonElem extends PaintFullElem with DisplayBoundedFull
+trait PolygonElem extends GraphicFullElem with DisplayBoundedFull
 { type SimerT <: PolygonElem
   def poly: PolygonClass
   def xHead: Double = poly.head1

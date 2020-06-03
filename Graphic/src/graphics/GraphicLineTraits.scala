@@ -2,7 +2,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikeOldPaintElem
+case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikeOldGraphicElem
 { override type SimerT = LineDraw
   def typeStr: String = "LineDraw"
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)
@@ -18,7 +18,7 @@ object LineDraw
 }
 
 /** I think its to better to use the mame lineWidth consistently. */
-case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends PaintFullElem
+case class LinesDraw(lines: Line2s, lineWidth: Double, colour: Colour = Black) extends GraphicFullElem
 { override type SimerT = LinesDraw
   override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linesDraw(this)
@@ -30,7 +30,7 @@ object LinesDraw
     Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
-case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends PaintFullElem
+case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends GraphicFullElem
 { override type SimerT = LinePathDraw
   def length = path.length - 1
   def xStart = path.xStart
@@ -41,7 +41,7 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
 }
 
 case class DashedLineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour, dashArr: Array[Double])
-  extends CurveLikeOldPaintElem
+  extends CurveLikeOldGraphicElem
 { override type SimerT = DashedLineDraw
   def typeStr: String = "DashedLineDraw"
   override def fTrans(f: Vec2 => Vec2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
