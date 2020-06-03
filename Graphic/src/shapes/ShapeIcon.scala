@@ -14,8 +14,8 @@ trait ShapeIcon
 
 trait ShapeGraphicIcon
 { /** Scale the ShapeIcon up and position (translate) it. */
-  def scaleSlate(scale: Double, xCen: Double, yCen: Double): GraphicElem
+  def scaleSlate(scale: Double, xCen: Double, yCen: Double): DisplayElem
 
   /** Scale the ShapeIcon up and position (translate) it. */
-  def scaleSlate(scale: Double, cen: Vec2): GraphicElem
+  def scaleSlate(scale: Double, cen: Vec2): DisplayElem
 }

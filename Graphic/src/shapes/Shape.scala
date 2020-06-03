@@ -4,5 +4,5 @@ package geom
 
 trait Shape extends TransElem
 {
-  def fill(colour: Colour): GraphicElem
+  def fill(colour: Colour): DisplayElem
 }

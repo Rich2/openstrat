@@ -31,7 +31,7 @@ case class EllipseClass(val xLeft: Double, val yLeft: Double, val xRight: Double
 
   override def rotateRadians(radians: Double): EllipseClass = ???
 
-  override def fill(colour: Colour): GraphicElem = ???
+  override def fill(colour: Colour): DisplayElem = ???
 
   override def mirror(line: Line2): EllipseClass = ???
 }

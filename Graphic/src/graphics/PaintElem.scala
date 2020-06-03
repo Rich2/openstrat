@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A GraphicElem is either an element that can be rendered to a display or printed. */
-trait PaintElem extends GraphicElem
+trait PaintElem extends DisplayElem
 {
   /** Renders this functional immutable Graphic PaintElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
@@ -41,7 +41,7 @@ trait PaintElem extends GraphicElem
   def rotate180: PaintElem
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  def rotate270: GraphicElem
+  def rotate270: DisplayElem
 
   override def rotateRadians(radians: Double): PaintElem
 

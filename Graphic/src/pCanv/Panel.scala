@@ -18,8 +18,8 @@ case class Panel(private val outerCanv: CanvasPanelled, clipPoly: PolygonClass, 
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
 
-  def repaint(els: Arr[GraphicElem]): Unit = { canvObjs = els; outerCanv.refreshPanel(this) }
-  def repaints(els: GraphicElem*): Unit = repaint(els.toArr)
+  def repaint(els: Arr[DisplayElem]): Unit = { canvObjs = els; outerCanv.refreshPanel(this) }
+  def repaints(els: DisplayElem*): Unit = repaint(els.toArr)
 }
 
 case class MouseButtonCmd(cmd: MouseButton => Unit)
@@ -31,9 +31,9 @@ trait PanelLike extends RectCenlign
 {var backColour: Colour = Colour.White
 
   /** These are currently stored in reverse. I think this would be better in an Array */
-  var actives: Arr[GraphicActive] = Arr()
+  var actives: Arr[DisplayActive] = Arr()
 
-  var canvObjs: Arr[GraphicElem] = Arr()
+  var canvObjs: Arr[DisplayElem] = Arr()
 
   /** This method name is inconsistent with mouseup on the canvas class*/
   var mouseUp: (MouseButton, List[Any], Vec2) => Unit = (_, _, _) => {}

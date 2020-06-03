@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentFull(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[PaintFullElem]) extends GraphicParentFull with PolyActiveFull
+case class PolygonParentFull(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[PaintFullElem]) extends DisplayParentFull with PolyActiveFull
 { type SimerT = PolygonParentFull
   def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), poly.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[PaintFullElem]): PolygonParentFull = new PolygonParentFull(cen, poly, pointerId, children ++ newElems)
@@ -32,7 +32,7 @@ object PolygonParentFull
 }
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[PaintElem]) extends GraphicParent
+case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[PaintElem]) extends DisplayParent
 { type SimerT = PolygonParent
   override def addElems(newElems: Arr[PaintElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)

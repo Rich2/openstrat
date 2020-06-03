@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-trait PolygonElem extends PaintFullElem with GraphicBoundedFull
+trait PolygonElem extends PaintFullElem with DisplayBoundedFull
 { type SimerT <: PolygonElem
   def poly: PolygonClass
   def xHead: Double = poly.head1
@@ -68,7 +68,7 @@ object PolygonFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnly(poly: PolygonClass, pointerId: Any) extends GraphicFullElem with PolyActiveFull
+case class PolygonActiveOnly(poly: PolygonClass, pointerId: Any) extends DisplayFullElem with PolyActiveFull
 { override type SimerT = PolygonActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(poly.fTrans(f), pointerId)
 }

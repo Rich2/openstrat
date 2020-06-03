@@ -31,7 +31,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
   val btnMore = clickButton(">", (mb: MouseButton) => { scrollMore }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val btnLess = clickButton("<", (mb: MouseButton) => { scrollLess }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
-  val scrollBar: Arr[GraphicSimer] = Arr(btnMore, btnLess, barBackground)
+  val scrollBar: Arr[DisplaySimer] = Arr(btnMore, btnLess, barBackground)
 
   if (scrollport("isScrollHorizontal") == 1) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
   else                                     { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerRow }

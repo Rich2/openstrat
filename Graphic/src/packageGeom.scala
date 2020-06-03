@@ -39,9 +39,9 @@ package object geom
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type SSet[A] = scala.collection.SortedSet[A]
-  type GraphicElemFulls = Arr[GraphicFullElem]
+  type GraphicElemFulls = Arr[DisplayFullElem]
   /** Hopefully this existential syntax baggage will be gone in dotty */
-  type CanvO = GraphicFullElem
+  type CanvO = DisplayFullElem
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
  
@@ -66,7 +66,7 @@ package object geom
   }
    
   implicit class OptionGeomImplicit[A](thisOption: Option[A])
-  {  def canvObjsPair(f: A => (Seq[GraphicFullElem], Seq[GraphicFullElem])): (Seq[GraphicFullElem], Seq[GraphicFullElem]) = thisOption match
+  {  def canvObjsPair(f: A => (Seq[DisplayFullElem], Seq[DisplayFullElem])): (Seq[DisplayFullElem], Seq[DisplayFullElem]) = thisOption match
      {
         case Some(a) => f(a)
         case None => (Seq(), Seq())
@@ -96,6 +96,6 @@ package object geom
   /** 180 degrees or Pi radians */
   def deg180: Angle = Angle(Pi)
 
-  def displayRowGraphics(leftPt: Vec2, actives: Arr[GraphicBoundedFull], margin: Double = 10): Arr[GraphicBoundedFull] =
+  def displayRowGraphics(leftPt: Vec2, actives: Arr[DisplayBoundedFull], margin: Double = 10): Arr[DisplayBoundedFull] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.width / 2), x + head.width + margin))
 }
