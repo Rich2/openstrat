@@ -127,4 +127,7 @@ trait ShapeWithFill extends ShapeGraphic
 
 trait ShapeFill extends ShapeWithFill
 
-trait ShapeDraw
+trait ShapeDraw extends ShapeGraphic
+{ def lineWidth: Double
+  def lineColour: Colour
+}
