@@ -20,6 +20,11 @@ trait CircleGraphic extends ShapeGraphic
   override def rotate270: GraphicT = fTrans(circle.rotate270)
   override def rotateRadians(radians: Double): GraphicT = fTrans(circle.rotateRadians(radians))
   override def mirror(line: Line2): GraphicT = fTrans(circle.mirror(line))
+
+  def attribs: Arr[Attrib]
+  def svg: String = closedTagStr("circle", attribs)
+  
+  def cen: Vec2 = circle.cen
 }
 
 final case class CircleFill(circle: Circle, fillColour: Colour) extends CircleGraphic with ShapeFill
@@ -28,8 +33,8 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends CircleGr
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
-  def svgFill: Attrib = FillAttrib(fillColour)
-  def svg: String = closedTagStr("Circle", svgFill)
+  override def attribs: Arr[Attrib] = Arr(fillAttrib)
+  
 }
 
 final case class CircleDraw(circle: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with ShapeDraw
@@ -37,6 +42,7 @@ final case class CircleDraw(circle: Circle, lineWidth: Double = 2.0, lineColour:
   override def fTrans(newCircle: Circle): CircleDraw = CircleDraw(newCircle, lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this) 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+  override def attribs: Arr[Attrib] = Arr(strokeWidthAttrib, strokeAttrib)
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon

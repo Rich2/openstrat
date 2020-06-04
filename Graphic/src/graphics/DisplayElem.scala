@@ -6,14 +6,14 @@ package geom
 trait DisplayElem extends TransElem
 {/** Translate geometric transformation. */
   def slate(offset: Vec2): DisplayElem
- 
- /** Translate geometric transformation. */
- def slate(xOffset: Double, yOffset: Double): DisplayElem
-  
+
+  /** Translate geometric transformation. */
+  def slate(xOffset: Double, yOffset: Double): DisplayElem
+
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   def scale(operand: Double): DisplayElem
-  
+
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def mirrorYOffset(xOffset: Double): DisplayElem
 
@@ -32,7 +32,7 @@ trait DisplayElem extends TransElem
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   def rotate90: DisplayElem
-  
+
   /** Rotates 180 degrees or Pi radians. */
   def rotate180: DisplayElem
 
@@ -51,7 +51,7 @@ object DisplayElem
   implicit val slateImplicit: Slate[DisplayElem] = (obj: DisplayElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[DisplayElem] = (obj: DisplayElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[DisplayElem] = (obj: DisplayElem, radians: Double) => obj.rotateRadians(radians)
-  
+
   implicit val mirrorAxisImplicit: MirrorAxis[DisplayElem] = new MirrorAxis[DisplayElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def mirrorXOffset(obj: DisplayElem, yOffset: Double): DisplayElem = obj.mirrorXOffset(yOffset)
@@ -108,29 +108,11 @@ trait DisplayBounded extends DisplaySimer
 { type SimerT <: DisplayBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
-  def width: Double = boundingRect.width  
+  def width: Double = boundingRect.width
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait DisplayBoundedFull extends DisplayBounded with DisplayFullElem
-{ type SimerT <: DisplayBoundedFull 
-}
-
-/** Base trait for all child (non Parent) Graphic elements that output to the display. */
-trait GraphicFullElem extends GraphicElem with DisplayFullElem
-{ type SimerT <: GraphicFullElem 
-}
-
-trait ShapeGraphic extends GraphicElem
-
-trait ShapeWithFill extends ShapeGraphic
-{ def fillColour: Colour
-}
-
-trait ShapeFill extends ShapeWithFill
-
-trait ShapeDraw extends ShapeGraphic
-{ def lineWidth: Double
-  def lineColour: Colour
+{ type SimerT <: DisplayBoundedFull
 }

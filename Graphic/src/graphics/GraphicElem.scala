@@ -66,3 +66,8 @@ object GraphicElem
 
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
 }
+
+/** Base trait for all child (non Parent) Graphic elements that output to the display. */
+trait GraphicFullElem extends GraphicElem with DisplayFullElem
+{ type SimerT <: GraphicFullElem
+}

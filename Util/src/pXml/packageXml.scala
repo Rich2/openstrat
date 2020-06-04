@@ -5,4 +5,5 @@ package ostrat
 package object pXml
 {  
   def closedTagStr(tagName: String, attribs: Attrib *): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
+  def closedTagStr(tagName: String, attribs: Arr[Attrib]): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
 }  

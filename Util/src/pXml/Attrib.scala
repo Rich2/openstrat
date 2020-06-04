@@ -7,8 +7,3 @@ trait Attrib
   def valueStr: String
   def str: String = name + "=" + valueStr.enquote
 }
-
-case class FillAttrib(colour: Colour) extends Attrib
-{ override def name: String = "fill"
-  override def valueStr: String = colour.svgStr
-}

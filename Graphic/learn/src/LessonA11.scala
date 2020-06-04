@@ -27,6 +27,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val v1 = Vec2(0, -cl1.diameter)
   val cd1 = CircleDraw(cl1.slate(v1), 2, Green)
   val cd2 = CircleDraw(cl1.slate(v1.rotate(45.degs)), 2, Gold)
+  val rStr2 = TextGraphic(cd1.svg, 20, cd1.cen)
   val cd3 = CircleDraw(cl1.slate(v1.rotate(-45.degs)), 2, Aquamarine)
   
   val cnf = CircleFill(cn, Violet)
@@ -57,5 +58,5 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   //val cc1 = a1.map(_.fi)
 
   val aa = Arr(ccl1, ccl1r, r1, r1r)
-  repaint(aa ++ c1 ++ c1r +- cd1 +- cd2 +- cd3 +- rStr +- redLine)
+  repaint(aa ++ c1 ++ c1r +- cd1 +- cd2 +- cd3 +- rStr +- rStr2 +- redLine)
 }
