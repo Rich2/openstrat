@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pSJs
-import geom._, pCanv._, org.scalajs.dom._
+import geom._, pCanv._, math.Pi, org.scalajs.dom._
 
 object CanvasJs extends CanvasTopLeft
 { val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
@@ -146,7 +146,7 @@ object CanvasJs extends CanvasTopLeft
   { val ci = cf.circle
     gc.beginPath
     gc.fillStyle = cf.colour.webStr
-    gc.arc(ci.x, ci.y, ci.radius, 0, math.Pi * 2)
+    gc.arc(ci.x, ci.y, ci.radius, 0, Pi * 2)
     gc.fill()
   }
 
@@ -154,7 +154,7 @@ object CanvasJs extends CanvasTopLeft
   { val ci = cf.circle
     gc.beginPath
     gc.fillStyle = cf.fillColour.webStr
-    gc.arc(ci.xCen, ci.yCen, ci.radius, 0, math.Pi * 2)
+    gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
     gc.fill()
   }
 
@@ -163,7 +163,16 @@ object CanvasJs extends CanvasTopLeft
     gc.beginPath
     gc.strokeStyle = cd.colour.webStr
     gc.lineWidth = cd.lineWidth
-    gc.arc(ci.x, ci.y, ci.radius, 0, math.Pi * 2)
+    gc.arc(ci.x, ci.y, ci.radius, 0, Pi * 2)
+    gc.stroke()
+  }
+
+  override def tlCircleDraw(cd: CircleDraw): Unit =
+  { val ci = cd.circle
+    gc.beginPath
+    gc.strokeStyle = cd.lineColour.webStr
+    gc.lineWidth = cd.lineWidth
+    gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
     gc.stroke()
   }
 
@@ -171,7 +180,7 @@ object CanvasJs extends CanvasTopLeft
   { val ci = cfd.circle
     gc.beginPath
     gc.fillStyle = cfd.fillColour.webStr
-    gc.arc(ci.x, ci.y, ci.radius, 0, math.Pi * 2)
+    gc.arc(ci.x, ci.y, ci.radius, 0, Pi * 2)
     gc.lineWidth = cfd.lineWidth
     gc.strokeStyle = cfd.lineColour.webStr
     gc.fill()

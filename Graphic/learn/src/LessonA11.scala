@@ -18,10 +18,15 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val ccl1r = cl1.mirror(line1).fill(Orange)
 
   val r2 = Rectangle(180, 100, 150 vv -200)
-  val cl2 = CircleOld(80, 110 vv - 300)
+  val cl2 = Circle(80, 110 vv - 300)
   val sq = Sqlign(100, 110, -400)
 
   val cn = Circle(80, 110, -290)
+  val v1 = Vec2(0, -cl1.diameter)
+  val cd1 = CircleDraw(cl1.slate(v1), 2, Green)
+  val cd2 = CircleDraw(cl1.slate(v1.rotate(45.degs)), 2, Gold)
+  val cd3 = CircleDraw(cl1.slate(v1.rotate(-45.degs)), 2, Aquamarine)
+  
   val cnf = CircleFill(cn, Violet)
   val cn1 = cn.slate(20 vv 50)
   //val na: Arr[GeomElem] = Arr(cl2, cn)
@@ -50,5 +55,5 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   //val cc1 = a1.map(_.fi)
 
   val aa = Arr(ccl1, ccl1r, r1, r1r)
-  repaint(aa ++ c1 ++ c1r +- redLine)
+  repaint(aa ++ c1 ++ c1r +- cd1 +- cd2 +- cd3 +- redLine)
 }
