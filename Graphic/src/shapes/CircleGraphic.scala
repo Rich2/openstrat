@@ -33,8 +33,7 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends CircleGr
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
-  override def attribs: Arr[Attrib] = Arr(fillAttrib)
-  
+  override def attribs: Arr[Attrib] = Arr(fillAttrib)  
 }
 
 final case class CircleDraw(circle: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with ShapeDraw
@@ -42,7 +41,16 @@ final case class CircleDraw(circle: Circle, lineWidth: Double = 2.0, lineColour:
   override def fTrans(newCircle: Circle): CircleDraw = CircleDraw(newCircle, lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this) 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
-  override def attribs: Arr[Attrib] = Arr(strokeWidthAttrib, strokeAttrib)
+  override def attribs: Arr[Attrib] = drawAttribs
+}
+
+final case class CircleFillDraw(circle: Circle, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with
+  ShapeFillDraw
+{ type GraphicT = CircleFillDraw
+  override def fTrans(newCircle: Circle): CircleFillDraw = CircleFillDraw(newCircle, fillColour, lineWidth, lineColour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = ??? //cp.circleDraw(this)
+  override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+  override def attribs: Arr[Attrib] = fillDrawAttribs
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon

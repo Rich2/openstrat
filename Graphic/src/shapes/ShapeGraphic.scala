@@ -5,18 +5,27 @@ import pXml._
 
 trait ShapeGraphic extends GraphicElem
 
-trait ShapeWithFill extends ShapeGraphic
+trait ShapeFillTr extends ShapeGraphic
 { def fillColour: Colour
   def fillAttrib: Attrib = FillAttrib(fillColour)
 }
 
-trait ShapeFill extends ShapeWithFill
+trait ShapeFill extends ShapeFillTr
 
-trait ShapeDraw extends ShapeGraphic
+trait ShapeDrawTr extends ShapeGraphic
 { def lineWidth: Double
   def lineColour: Colour
   def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
   def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
+}
+
+trait ShapeDraw extends ShapeDrawTr
+{
+  def drawAttribs: Arr[Attrib] = Arr(strokeWidthAttrib, strokeAttrib)
+}
+
+trait ShapeFillDraw extends ShapeFillTr with ShapeDrawTr
+{ def fillDrawAttribs: Arr[Attrib] = Arr(fillAttrib, strokeWidthAttrib, strokeAttrib)
 }
 
 case class FillAttrib(colour: Colour) extends Attrib
