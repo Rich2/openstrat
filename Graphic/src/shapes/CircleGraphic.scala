@@ -28,6 +28,7 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends CircleGr
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+  def svg: String = pXml.closedTagStr("Circle")
 }
 
 final case class CircleDraw(circle: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with ShapeDraw
