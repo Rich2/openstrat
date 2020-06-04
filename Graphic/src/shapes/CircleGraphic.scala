@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pCanv._, Colour.Black
+import pCanv._, Colour.Black, pXml._
 
 trait CircleGraphic extends ShapeGraphic
 { type GraphicT <: CircleGraphic
@@ -28,7 +28,8 @@ final case class CircleFill(circle: Circle, fillColour: Colour) extends CircleGr
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
-  def svg: String = pXml.closedTagStr("Circle")
+  def svgFill: Attrib = FillAttrib(fillColour)
+  def svg: String = closedTagStr("Circle", svgFill)
 }
 
 final case class CircleDraw(circle: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with ShapeDraw

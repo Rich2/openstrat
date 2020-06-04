@@ -8,6 +8,7 @@ class Colour(val argbValue: Int) extends AnyVal with ProdInt1
   override def toString: String = Colour.persistImplicit.show(this)
   @inline final override def intValue: Int = argbValue 
   def webStr: String = "#" + rgbHexStr + alpha.hexStr2
+  def svgStr: String = Colour.valueToStr.get(this).fold(hexStr)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]
   def alpha: Int = (argbValue >> 24) & 0xFF
   def red: Int = (argbValue >> 16) & 0xFF // / (256 * 256)
