@@ -4,6 +4,9 @@ package geom
 import pXml._
 
 trait ShapeGraphic extends GraphicElem
+{
+  
+}
 
 trait ShapeFillTr extends ShapeGraphic
 { def fillColour: Colour

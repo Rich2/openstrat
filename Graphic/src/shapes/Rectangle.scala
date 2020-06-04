@@ -2,8 +2,11 @@
 package ostrat
 package geom
 
-//class RectangleDims(width: Double, height: Double = 1)
-class Rectangle(width: Double, height: Double = 1, cen: Vec2 = Vec2Z)
+trait Rectangle
+{ def width: Double
+  def height: Double
+  def cen: Double
+}
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
 object Rectangle
