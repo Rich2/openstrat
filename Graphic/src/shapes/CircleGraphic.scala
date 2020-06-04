@@ -48,7 +48,7 @@ final case class CircleFillDraw(circle: Circle, fillColour: Colour, lineWidth: D
   ShapeFillDraw
 { type GraphicT = CircleFillDraw
   override def fTrans(newCircle: Circle): CircleFillDraw = CircleFillDraw(newCircle, fillColour, lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = ??? //cp.circleDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
   override def attribs: Arr[Attrib] = fillDrawAttribs
 }

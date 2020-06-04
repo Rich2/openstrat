@@ -88,7 +88,8 @@ trait CanvasPlatform extends RectCenlign
   def circleDraw(cd: CircleDraw): Unit
 
   def circleFillDrawOld(cfd: CircleFillDrawOld): Unit
-
+  def circleFillDraw(cfd: CircleFillDraw): Unit
+  
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
     textGraphic(TextGraphic(str, fontSize, posn, colour, align))

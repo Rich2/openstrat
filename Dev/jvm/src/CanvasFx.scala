@@ -103,7 +103,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
   }  
 
-  override def tlCircleFillDraw(cfd: CircleFillDrawOld): Unit =
+  override def tlCircleFillDrawOld(cfd: CircleFillDrawOld): Unit =
   { val circ = cfd.circle
     gc.setFill(toFxColor(cfd.fillColour))
     gc.fillOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
@@ -111,6 +111,15 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setStroke(toFxColor(cfd.lineColour))
     gc.strokeOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
   }
+  
+  override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
+  { val circ = cfd.circle
+    gc.setFill(toFxColor(cfd.fillColour))
+    gc.fillOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
+    gc.setLineWidth(cfd.lineWidth)
+    gc.setStroke(toFxColor(cfd.lineColour))
+    gc.strokeOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
+  }  
 
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath
