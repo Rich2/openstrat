@@ -85,10 +85,9 @@ trait DisplaySimer extends TransSimer with DisplayElem
   override def scaleXY(xOperand: Double, yOperand: Double): SimerT
 }
 
-/** The base trait for all objects on a canvas / panel. The objects are re-composed for each frame. The Canvas objects must be re-composed
- *  each time there is a change within the application state or the user view of that application state. */
-trait DisplayFullElem extends DisplayElem with AffineElem
-{ type SimerT <: DisplayFullElem
+/** Display element that returns the same type through all affine transformations. */
+trait DisplayAffineElem extends DisplayElem with AffineElem
+{ type SimerT <: DisplayAffineElem
 
   override def slate(offset: Vec2): SimerT
 
@@ -113,6 +112,6 @@ trait DisplayBounded extends DisplaySimer
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait DisplayBoundedFull extends DisplayBounded with DisplayFullElem
+trait DisplayBoundedFull extends DisplayBounded with DisplayAffineElem
 { type SimerT <: DisplayBoundedFull
 }

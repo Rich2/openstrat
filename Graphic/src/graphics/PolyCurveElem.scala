@@ -23,7 +23,7 @@ case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = B
 }
 
 /** A pointable shape without visual. */
-case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends DisplayFullElem with ShapeActive
+case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends DisplayAffineElem with ShapeActive
 { override type SimerT = PolyCurveActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolyCurveActiveOnly = PolyCurveActiveOnly(shape.fTrans(f), pointerId)
 }

@@ -68,7 +68,7 @@ object PolygonFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnly(poly: PolygonClass, pointerId: Any) extends DisplayFullElem with PolyActiveFull
+case class PolygonActiveOnly(poly: PolygonClass, pointerId: Any) extends DisplayAffineElem with PolyActiveFull
 { override type SimerT = PolygonActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(poly.fTrans(f), pointerId)
 }
