@@ -2,6 +2,10 @@ package ostrat
 package geom
 import Colour.Black
 
+trait Triangle extends Polygon
+{	override def length: Int = 3
+}
+
 /*final case class Triangle(val array: Array[Double]) extends Polygon// with Poly3Plus
 { type AlignT = Triangle
 	type ThisT = Triangle

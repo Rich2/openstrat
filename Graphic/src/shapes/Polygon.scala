@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait Polygon //extends TransElem
+trait Polygon extends TransElem
 { def length: Int
   def apply(index: Int): Vec2
   def foreach[U](f: Vec2 => U): Unit
