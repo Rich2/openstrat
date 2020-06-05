@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 trait ArrayDblBased extends Any
-{ def array: Array[Double]
+{ def arrayUnsafe: Array[Double]
 }
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
@@ -12,8 +12,8 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
 
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
-  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(array, offset * productSize); () }
-  def arrLen = array.length
+  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * productSize); () }
+  def arrLen = arrayUnsafe.length
 
   def foreachArr(f: Dbls => Unit): Unit
 
@@ -32,7 +32,7 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
   def appendArray(appendProductsLength: Int): Array[Double] =
   {
     val acc = new Array[Double](arrLen + appendProductsLength * productSize)
-    array.copyToArray(acc)
+    arrayUnsafe.copyToArray(acc)
     acc
   }
 }
@@ -49,7 +49,7 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdValueNBuild[B, 
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
   final override def newArr(length: Int): ArrT = fromDblArray(new Array[Double](length * elemSize))
   final override def buffToArr(buff: BuffT): ArrT = fromDblArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.buffer.addAll(arr.array); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
 }
 
 /** A mutable and resizable Array Buffer for collections of elements that are products of Double sub-elements. */
@@ -60,7 +60,7 @@ trait BuffProdDblN[A] extends Any with BuffProdValueN[A]
   def length: Int = buffer.length / elemSize
   def toArray: Array[Double] = buffer.toArray[Double]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
+  override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
 }
 
 trait ProdDblNsCompanion[T,  ST <: ArrProdDblN[T]]
@@ -74,5 +74,5 @@ abstract class ArrProdDblNPersist[A, M <: ArrProdDblN[A]](typeStr: String) exten
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  override def eqv(m1: M, m2: M): Boolean = m1.array equ m2.array
+  override def eqv(m1: M, m2: M): Boolean = m1.arrayUnsafe equ m2.arrayUnsafe
 }

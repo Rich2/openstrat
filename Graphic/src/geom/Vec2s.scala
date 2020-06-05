@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
  *  LinePath class should not entail a runtime cost. */
-class Vec2s(val array: Array[Double]) extends AffineElem with Vec2sLike with ArrProdDbl2[Vec2]
+class Vec2s(val arrayUnsafe: Array[Double]) extends AffineElem with Vec2sLike with ArrProdDbl2[Vec2]
 { type ThisT = Vec2s
   type SimerT = Vec2s
   def unsafeFromArray(array: Array[Double]): Vec2s = new Vec2s(array)
@@ -19,12 +19,12 @@ class Vec2s(val array: Array[Double]) extends AffineElem with Vec2sLike with Arr
 
   override def productElement(n: Int): Any = ???
   
-  @inline def lengthFull: Int = array.length / 2
-  @inline def xStart: Double = array(0)
-  @inline def yStart: Double = array(1)
+  @inline def lengthFull: Int = arrayUnsafe.length / 2
+  @inline def xStart: Double = arrayUnsafe(0)
+  @inline def yStart: Double = arrayUnsafe(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
-  @inline def toPolygon: PolygonClass = new PolygonClass(array)
-  @inline def toLinePath: LinePath = new LinePath(array)
+  @inline def toPolygon: PolygonClass = new PolygonClass(arrayUnsafe)
+  @inline def toLinePath: LinePath = new LinePath(arrayUnsafe)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def fTrans(f: Vec2 => Vec2): Vec2s =  new Vec2s(arrTrans(f))

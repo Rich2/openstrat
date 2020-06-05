@@ -10,19 +10,19 @@ trait ArrProdDbl4[A <: ProdDbl4] extends Any with ArrProdDblN[A]
 {
   def productSize: Int = 4
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
-  def apply(index: Int): A = newElem(array(4 * index), array(4 * index + 1), array(4 * index + 2), array(4 * index + 3))
+  def apply(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
-  { array(4 * index) = elem._1
-    array(4 * index + 1) = elem._2
-    array(4 * index + 2) = elem._3
-    array(4 * index + 3) = elem._4
+  { arrayUnsafe(4 * index) = elem._1
+    arrayUnsafe(4 * index + 1) = elem._2
+    arrayUnsafe(4 * index + 2) = elem._3
+    arrayUnsafe(4 * index + 3) = elem._4
   }
 
-  def head1: Double = array(0)
-  def head2: Double = array(1)
-  def head3: Double = array(2)
-  def head4: Double = array(3)
+  def head1: Double = arrayUnsafe(0)
+  def head2: Double = arrayUnsafe(1)
+  def head3: Double = arrayUnsafe(2)
+  def head4: Double = arrayUnsafe(3)
 
   //def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3, el._4))
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el._1, el._2, el._3, el._4)))
@@ -35,10 +35,10 @@ trait ArrProdDbl4Build[A <: ProdDbl4, ArrT <: ArrProdDbl4[A]] extends ArrProdDbl
   //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
   override def arrSet(arr: ArrT, index: Int, value: A): Unit =
-  { arr.array(index * 4) = value._1
-    arr.array(index * 4 + 1) = value._2
-    arr.array(index * 4 + 2) = value._3
-    arr.array(index * 4 + 3) = value._4
+  { arr.arrayUnsafe(index * 4) = value._1
+    arr.arrayUnsafe(index * 4 + 1) = value._2
+    arr.arrayUnsafe(index * 4 + 2) = value._3
+    arr.arrayUnsafe(index * 4 + 3) = value._4
   }
 
   override def buffGrow(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
@@ -55,10 +55,10 @@ abstract class ProdDbl4sCompanion[A <: ProdDbl4, M <: ArrProdDbl4[A]] //extends 
     var count: Int = 0
 
     while (count < length)
-    { res.array(count * 4) = elems(count)._1
-      res.array(count * 4 + 1) = elems(count)._2
-      res.array(count * 4 + 2) = elems(count)._3
-      res.array(count * 4 + 3) = elems(count)._4
+    { res.arrayUnsafe(count * 4) = elems(count)._1
+      res.arrayUnsafe(count * 4 + 1) = elems(count)._2
+      res.arrayUnsafe(count * 4 + 2) = elems(count)._3
+      res.arrayUnsafe(count * 4 + 3) = elems(count)._4
       count += 1
     }
      res
@@ -70,7 +70,7 @@ abstract class ProdDbl4sCompanion[A <: ProdDbl4, M <: ArrProdDbl4[A]] //extends 
     var count: Int = 0
 
     while (count < arrLen)
-    { res.array(count) = elems(count)
+    { res.arrayUnsafe(count) = elems(count)
       count += 1
     }
     res
@@ -83,13 +83,13 @@ abstract class ProdDbl4sCompanion[A <: ProdDbl4, M <: ArrProdDbl4[A]] //extends 
     var rem = list
 
     while (count < arrLen)
-    { res.array(count) = rem.head._1
+    { res.arrayUnsafe(count) = rem.head._1
       count += 1
-      res.array(count) = rem.head._2
+      res.arrayUnsafe(count) = rem.head._2
       count += 1
-      res.array(count) = rem.head._3
+      res.arrayUnsafe(count) = rem.head._3
       count += 1
-      res.array(count) = rem.head._4
+      res.arrayUnsafe(count) = rem.head._4
       count += 1
       rem = rem.tail
     }

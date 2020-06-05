@@ -5,7 +5,7 @@ import Colour.Black, collection.mutable.ArrayBuffer
 
 /** A General Polygon as opposed to a specific Polygon such as a Square or a Rectangle is encoded as a sequence of plain 2 dimension (mathematical)
  *  vectors. Minimum length 3. Clockwise is the default */
-class PolygonClass(val array: Array[Double]) extends Polygon with Vec2sLike with AffineElem
+class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLike with AffineElem
 { type ThisT = PolygonClass
   type SimerT = PolygonClass
   def unsafeFromArray(array: Array[Double]): PolygonClass = new PolygonClass(array)
@@ -16,8 +16,11 @@ class PolygonClass(val array: Array[Double]) extends Polygon with Vec2sLike with
   override def productArity: Int = ???
 
   override def productElement(n: Int): Any = ???
+  
+  def x0: Double = arrayUnsafe(0)
+  def y0: Double = arrayUnsafe(1)
   def fTrans(f: Vec2 => Vec2): PolygonClass = new PolygonClass(arrTrans(f))
-  def eq(obj: PolygonClass): Boolean = array.sameElements(obj.array)
+  def eq(obj: PolygonClass): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
   def maxX: Double = foldTailLeft(head.x)((acc, el) => acc.max(el.x))
   def minY: Double = foldTailLeft(head.y)((acc, el) => acc.min(el.y))
@@ -126,7 +129,7 @@ object PolygonClass //extends ProductD2sCompanion[Vec2, Polygon]
     res
   }
 
-  implicit val eqImplicit: Eq[PolygonClass] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.array, p2.array)
+  implicit val eqImplicit: Eq[PolygonClass] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
 
   implicit val persistImplicit: ArrProdDbl2Persist[Vec2, PolygonClass] = new ArrProdDbl2Persist[Vec2, PolygonClass]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonClass = new PolygonClass(value)
@@ -155,7 +158,7 @@ object Polygons
     var count = 0
 
     while (count < input.length)
-    { array(count) = input(count).array
+    { array(count) = input(count).arrayUnsafe
       count += 1
     }
     new Polygons(array)

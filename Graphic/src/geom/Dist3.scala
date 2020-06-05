@@ -50,7 +50,7 @@ object Dist3
   var counter = 0
 }
 /** Collection class for Dist3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */
-class Dist3s(val array: Array[Double]) extends AnyVal with ArrProdDbl3[Dist3]
+class Dist3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Dist3]
 { type ThisT = Dist3s
   def unsafeFromArray(array: Array[Double]): ThisT = new Dist3s(array)
   override def typeStr: String = "Dist3s"

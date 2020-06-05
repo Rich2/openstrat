@@ -1,7 +1,7 @@
 package ostrat
 package geom
 
-class Vec3s(val array: Array[Double]) extends AnyVal with ArrProdDbl3[Vec3]
+class Vec3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Vec3]
 { type ThisT = Vec3s
   override def typeStr: String = "Vec3s"
   //override def elemBuilder(d1: Double, d2: Double, d3): Vec2 = Vec2.apply(d1, d2)

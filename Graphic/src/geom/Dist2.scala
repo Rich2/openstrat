@@ -59,7 +59,7 @@ object Dist2
 }
 
 /** Specialised immutable Array based collection class for Dist2. */
-class Dist2s(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
+class Dist2s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 { type ThisT = Dist2s
   override def unsafeFromArray(array: Array[Double]): Dist2s = new Dist2s(array)
   override def typeStr: String = "Dist2s"

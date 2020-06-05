@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /* A polygon using distances. */
-class PolygonDist(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
+class PolygonDist(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 { type ThisT = PolygonDist
   def unsafeFromArray(array: Array[Double]): PolygonDist = new PolygonDist(array)
   override def typeStr: String = "DPolygon"

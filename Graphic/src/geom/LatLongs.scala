@@ -1,7 +1,7 @@
 package ostrat
 package geom
 
-class LatLongs(val array: Array[Double]) extends AnyVal with ArrProdDbl2[LatLong]
+class LatLongs(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[LatLong]
 { type ThisT = LatLongs
   override def unsafeFromArray(array: Array[Double]): LatLongs = new LatLongs(array)
   override def typeStr: String = "LatLongs"

@@ -4,7 +4,7 @@ package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val array: Array[Double]) extends ArrProdDbl2[Vec2] with AffineElem with Vec2sLike
+class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Vec2] with AffineElem with Vec2sLike
 { type ThisT = LinePath
   type SimerT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
@@ -18,9 +18,9 @@ class LinePath(val array: Array[Double]) extends ArrProdDbl2[Vec2] with AffineEl
 
   override def productElement(n: Int): Any = ???
   
-  @inline def lengthFull: Int = array.length / 2
-  @inline def xStart: Double = array(0)
-  @inline def yStart: Double = array(1)
+  @inline def lengthFull: Int = arrayUnsafe.length / 2
+  @inline def xStart: Double = arrayUnsafe(0)
+  @inline def yStart: Double = arrayUnsafe(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
  
   def fTrans(f: Vec2 => Vec2): LinePath =  new LinePath(arrTrans(f))
@@ -28,7 +28,7 @@ class LinePath(val array: Array[Double]) extends ArrProdDbl2[Vec2] with AffineEl
   def foreachEnd(f: (Double, Double) => Unit): Unit =
   { var count = 1
     while (count < lengthFull)
-    { f(array(count *2), array( count * 2 + 1))
+    { f(arrayUnsafe(count *2), arrayUnsafe( count * 2 + 1))
       count += 1      
     }
   }

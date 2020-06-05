@@ -8,7 +8,7 @@ trait ProdDbl2 extends Any with Product2[Double, Double] with ProdHomo
 trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDblNBuild[A, ArrT]
 { type BuffT <: BuffProdDbl2[A]
   final override def elemSize = 2
-  override def arrSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
+  override def arrSet(arr: ArrT, index: Int, value: A): Unit = { arr.arrayUnsafe(index * 2) = value._1; arr.arrayUnsafe(index * 2 + 1) = value._2}
   override def buffGrow(buff: BuffT, value: A): Unit = ??? // { buffer.append(newElem._1).append(newElem._2).append(newElem._3); () }
 }
 
@@ -19,39 +19,39 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
   override def productSize: Int = 2
   /** Method for creating new elements from 2 Doubles. */
   def elemBuilder(d1: Double, d2: Double): A
-  def apply(index: Int): A = elemBuilder(array(2 * index), array(2 * index + 1))
-  def getPair(index: Int): (Double, Double) = (array(2 * index), array(2 * index + 1))
+  def apply(index: Int): A = elemBuilder(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+  def getPair(index: Int): (Double, Double) = (arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   override def unsafeSetElem(index: Int, elem: A): Unit =
-  { array(2 * index) = elem._1
-    array(2 * index + 1) = elem._2
+  { arrayUnsafe(2 * index) = elem._1
+    arrayUnsafe(2 * index + 1) = elem._2
   }
-  def head1: Double = array(0)
-  def head2: Double = array(1)
+  def head1: Double = arrayUnsafe(0)
+  def head2: Double = arrayUnsafe(1)
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < length) { f(array(count * 2), array(count * 2 + 1)); count += 1 }
+    while(count < length) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
   def elem1sArray: Array[Double] =
   { val res = new Array[Double](length)
     var count = 0
-    while(count < length){ res(count) = array(count * 2); count += 1 }
+    while(count < length){ res(count) = arrayUnsafe(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
   { val res = new Array[Double](length)
     var count = 0
-    while(count < length){ res(count) = array(count * 2 + 1); count += 1 }
+    while(count < length){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
     res
   }
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
    def append(op: A): ThisT =
     { val newArray = new Array[Double](length + productSize)
-      array.copyToArray(newArray)
+      arrayUnsafe.copyToArray(newArray)
       newArray(length) = op._1
       newArray(length + 1) = op._2
       unsafeFromArray(newArray)
@@ -73,8 +73,8 @@ trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsC
     var count: Int = 0
 
     while (count < length)
-    { res.array(count * 2) = elems(count)._1
-      res.array(count * 2 + 1) = elems(count)._2
+    { res.arrayUnsafe(count * 2) = elems(count)._1
+      res.arrayUnsafe(count * 2 + 1) = elems(count)._2
       count += 1
     }
     res
@@ -88,9 +88,9 @@ trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsC
     var rem = list
 
     while (count < arrLen)
-    { res.array(count) = rem.head._1
+    { res.arrayUnsafe(count) = rem.head._1
       count += 1
-      res.array(count) = rem.head._2
+      res.arrayUnsafe(count) = rem.head._2
       count += 1
       rem = rem.tail
     }

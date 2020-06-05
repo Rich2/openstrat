@@ -3,11 +3,11 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-trait PolygonElem extends GraphicFullElem with DisplayBoundedFull
-{ type SimerT <: PolygonElem
+trait PolygonGraphic extends GraphicFullElem with DisplayBoundedFull
+{ type SimerT <: PolygonGraphic
   def poly: PolygonClass
-  def xHead: Double = poly.head1
-  def yHead: Double = poly.head2
+  def xHead: Double = poly.x0
+  def yHead: Double = poly.y0
 
   /** The number of vertices. */
   def vertsLen: Int = poly.length
@@ -25,7 +25,7 @@ trait PolygonElem extends GraphicFullElem with DisplayBoundedFull
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFill(poly: PolygonClass, fillColour: Colour) extends PolygonElem with ShapeFill
+case class PolygonFill(poly: PolygonClass, fillColour: Colour) extends PolygonGraphic with ShapeFill
 { override type SimerT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(poly.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(poly, fillColour)
@@ -36,14 +36,14 @@ object PolygonFill
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFillActive(poly: PolygonClass, pointerId: Any, colour: Colour) extends PolygonElem with PolyActiveFull
+case class PolygonFillActive(poly: PolygonClass, pointerId: Any, colour: Colour) extends PolygonGraphic with PolyActiveFull
 { override type SimerT = PolygonFillActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(poly.fTrans(f), pointerId, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(poly, colour)
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
-case class PolygonDraw(poly: PolygonClass, lineWidth: Double, colour: Colour = Black) extends PolygonElem
+case class PolygonDraw(poly: PolygonClass, lineWidth: Double, colour: Colour = Black) extends PolygonGraphic
 { override type SimerT = PolygonDraw
   override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(poly.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyDraw(poly, lineWidth, colour)
@@ -55,7 +55,7 @@ object PolygonDraw
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
-case class PolygonFillDraw(poly: PolygonClass, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonElem
+case class PolygonFillDraw(poly: PolygonClass, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic
 { override type SimerT = PolygonFillDraw
   override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(poly.fTrans(f), fillColour, lineWidth, lineColour)
   def noFill: PolygonDraw = PolygonDraw(poly, lineWidth, lineColour)
@@ -73,7 +73,7 @@ case class PolygonActiveOnly(poly: PolygonClass, pointerId: Any) extends Display
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(poly.fTrans(f), pointerId)
 }
 
-case class PolygonFillText(poly: PolygonClass, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolygonElem
+case class PolygonFillText(poly: PolygonClass, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolygonGraphic
 { override type SimerT = PolygonFillText
   override def fTrans(f: Vec2 => Vec2): PolygonFillText = PolygonFillText(poly.fTrans(f), fillColour, str,fontSize, textColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, poly.boundingRect.cen, textColour, CenAlign)
@@ -86,7 +86,7 @@ case class PolygonFillText(poly: PolygonClass, fillColour: Colour, str: String, 
 }
 
 case class PolygonFillDrawText(poly: PolygonClass, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
-  extends PolygonElem
+  extends PolygonGraphic
 { override type SimerT = PolygonFillDrawText
   override def fTrans(f: Vec2 => Vec2): PolygonFillDrawText = PolygonFillDrawText(poly.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(poly, lineWidth, lineColour)
@@ -101,7 +101,7 @@ case class PolygonFillDrawText(poly: PolygonClass, fillColour: Colour, str: Stri
 }
 
 case class PolygonAll(poly: PolygonClass, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
-                      lineColour: Colour = Black) extends PolygonElem with PolyActiveFull
+                      lineColour: Colour = Black) extends PolygonGraphic with PolyActiveFull
 { override type SimerT = PolygonAll
   override def fTrans(f: Vec2 => Vec2): PolygonAll = PolygonAll(poly.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(poly, lineWidth, lineColour)
@@ -121,7 +121,7 @@ object PolygonFillDrawText
     "lineColour", _.lineColour, apply)
 }
 
-case class PolygonFillTextActive(poly: PolygonClass, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonElem
+case class PolygonFillTextActive(poly: PolygonClass, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphic
   with PolyActiveFull
 { override type SimerT = PolygonFillTextActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextActive = PolygonFillTextActive(poly.fTrans(f), pointerId, fillColour, str, fontSize)

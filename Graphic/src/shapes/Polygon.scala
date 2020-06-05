@@ -6,4 +6,6 @@ trait Polygon extends TransElem
 { def length: Int
   def apply(index: Int): Vec2
   def foreach[U](f: Vec2 => U): Unit
+  def x0: Double
+  def y0: Double
 }

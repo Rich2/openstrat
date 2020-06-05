@@ -8,9 +8,9 @@ trait ProdDbl3 extends Any with Product3[Double, Double, Double] with ProdHomo
 trait ArrProdDbl3[A <: ProdDbl3] extends Any with ArrProdDblN[A]
 { def productSize = 3
   def newElem(d1: Double, d2: Double, d3: Double): A
-  def apply(index: Int): A = newElem(array(3 * index), array(3 * index + 1), array(3 * index + 2))
-  override def unsafeSetElem(index: Int, elem: A): Unit = { array(3 * index) = elem._1; array(3 * index + 1) = elem._2; array(3 * index + 2) = elem._3 }
-  def head1: Double = array(0); def head2: Double = array(1); def head3: Double = array(2)
+  def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
+  override def unsafeSetElem(index: Int, elem: A): Unit = { arrayUnsafe(3 * index) = elem._1; arrayUnsafe(3 * index + 1) = elem._2; arrayUnsafe(3 * index + 2) = elem._3 }
+  def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2)
 
   //def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3))
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el._1, el._2, el._3)))
@@ -23,7 +23,7 @@ trait ArrProdDbl3Build[A <: ProdDbl3, ArrT <: ArrProdDbl3[A]] extends ArrProdDbl
   //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
   override def arrSet(arr: ArrT, index: Int, value: A): Unit =
-  { arr.array(index * 3) = value._1; arr.array(index * 3 + 1) = value._2; arr.array(index * 3 + 2) = value._3
+  { arr.arrayUnsafe(index * 3) = value._1; arr.arrayUnsafe(index * 3 + 1) = value._2; arr.arrayUnsafe(index * 3 + 2) = value._3
   }
 
   override def buffGrow(buff: BuffT, value: A): Unit = ??? //{ buff.append(value._1,) ??? //buff.buffer.append(value)
@@ -39,7 +39,7 @@ abstract class ProdDbl3sCompanion[A <: ProdDbl3, M <: ArrProdDbl3[A]]
     var count: Int = 0
     while (count < length)
     {
-      res.array(count * 3) = elems(count)._1;  res.array(count * 3 + 1) = elems(count)._2; res.array(count * 3 + 2) = elems(count)._3
+      res.arrayUnsafe(count * 3) = elems(count)._1;  res.arrayUnsafe(count * 3 + 1) = elems(count)._2; res.arrayUnsafe(count * 3 + 2) = elems(count)._3
       count += 1
     }
     res

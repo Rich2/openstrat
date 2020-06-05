@@ -21,7 +21,7 @@ object ArrProdHomoTest  extends TestSuite
     }
   }
 
-  class Mines(val array: Array[Double]) extends AnyVal with ArrProdDbl2[Mine]
+  class Mines(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Mine]
   { type ThisT = Mines
     def typeStr = "Mines"
     def unsafeFromArray(array: Array[Double]): Mines = new Mines(array)

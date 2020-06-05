@@ -10,21 +10,21 @@ trait ArrProdDbl5[A <: ProdDbl5] extends Any with ArrProdDblN[A]
 {
   def productSize: Int = 5
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-  def apply(index: Int): A = newElem(array(5 * index), array(5 * index + 1), array(5 * index + 2), array(5 * index + 3), array(5 * index + 4))
+  def apply(index: Int): A = newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3), arrayUnsafe(5 * index + 4))
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
-  { array(5 * index) = elem._1
-    array(5 * index + 1) = elem._2
-    array(5 * index + 2) = elem._3
-    array(5 * index + 3) = elem._4
-    array(5 * index + 4) = elem._5
+  { arrayUnsafe(5 * index) = elem._1
+    arrayUnsafe(5 * index + 1) = elem._2
+    arrayUnsafe(5 * index + 2) = elem._3
+    arrayUnsafe(5 * index + 3) = elem._4
+    arrayUnsafe(5 * index + 4) = elem._5
   }
 
-  def head1: Double = array(0)
-  def head2: Double = array(1)
-  def head3: Double = array(2)
-  def head4: Double = array(3)
-  def head5: Double = array(4)
+  def head1: Double = arrayUnsafe(0)
+  def head2: Double = arrayUnsafe(1)
+  def head3: Double = arrayUnsafe(2)
+  def head4: Double = arrayUnsafe(3)
+  def head5: Double = arrayUnsafe(4)
 
   //def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el._1, el._2, el._3, el._4, el._5))
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el._1, el._2, el._3, el._4, el._5)))
@@ -41,11 +41,11 @@ abstract class ProdDbl5sCompanion[A <: ProdDbl5, M <: ArrProdDbl5[A]] //extends 
     var count: Int = 0
 
     while (count < length)
-    { res.array(count * 5) = elems(count)._1
-      res.array(count * 5 + 1) = elems(count)._2
-      res.array(count * 5 + 2) = elems(count)._3
-      res.array(count * 5 + 3) = elems(count)._4
-      res.array(count * 5 + 4) = elems(count)._5
+    { res.arrayUnsafe(count * 5) = elems(count)._1
+      res.arrayUnsafe(count * 5 + 1) = elems(count)._2
+      res.arrayUnsafe(count * 5 + 2) = elems(count)._3
+      res.arrayUnsafe(count * 5 + 3) = elems(count)._4
+      res.arrayUnsafe(count * 5 + 4) = elems(count)._5
       count += 1
     }
     res
@@ -57,7 +57,7 @@ abstract class ProdDbl5sCompanion[A <: ProdDbl5, M <: ArrProdDbl5[A]] //extends 
     var count: Int = 0
 
     while (count < arrLen)
-    { res.array(count) = elems(count)
+    { res.arrayUnsafe(count) = elems(count)
       count += 1
     }
     res
@@ -70,15 +70,15 @@ abstract class ProdDbl5sCompanion[A <: ProdDbl5, M <: ArrProdDbl5[A]] //extends 
     var rem = list
 
     while (count < arrLen)
-    { res.array(count) = rem.head._1
+    { res.arrayUnsafe(count) = rem.head._1
       count += 1
-      res.array(count) = rem.head._2
+      res.arrayUnsafe(count) = rem.head._2
       count += 1
-      res.array(count) = rem.head._3
+      res.arrayUnsafe(count) = rem.head._3
       count += 1
-      res.array(count) = rem.head._4
+      res.arrayUnsafe(count) = rem.head._4
       count += 1
-      res.array(count) = rem.head._5
+      res.arrayUnsafe(count) = rem.head._5
       count += 1
       rem = rem.tail
     }
