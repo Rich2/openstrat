@@ -24,7 +24,7 @@ trait Triangle extends Polygon
 	override def elem1sArray: Array[Double] = Array(x0, x1, x2)
 	override def elem2sArray: Array[Double] = Array(y0, y1, y2)
 	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2) }
-	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2) }	
+	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }	
 }
 
 case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle

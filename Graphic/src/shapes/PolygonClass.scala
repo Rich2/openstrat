@@ -104,6 +104,8 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 
   override def mirrorX: PolygonClass = ???
+
+  override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
 }
 
 object PolygonClass //extends ProductD2sCompanion[Vec2, Polygon]
