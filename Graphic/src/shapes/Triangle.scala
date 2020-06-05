@@ -2,7 +2,7 @@ package ostrat
 package geom
 import Colour.Black
 
-final case class Triangle(val array: Array[Double]) extends Polygon// with Poly3Plus
+/*final case class Triangle(val array: Array[Double]) extends Polygon// with Poly3Plus
 { type AlignT = Triangle
 	type ThisT = Triangle
 	def typeStr = "Triangle"
@@ -23,11 +23,11 @@ final case class Triangle(val array: Array[Double]) extends Polygon// with Poly3
 	override def foreach[U](f: Vec2 => U): Unit = ???
 
 	override def length: Int = ???
-}
+}*/
 
 object Triangle
-{ def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double): Triangle = ???
-	def apply(v0: Vec2, v1: Vec2, v2: Vec2): Triangle = ??? // new Triangle(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
+{ //def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double): Triangle = ???
+	//def apply(v0: Vec2, v1: Vec2, v2: Vec2): Triangle = ??? // new Triangle(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFill = PolygonFill(PolygonClass(p1, p2, p3), colour)
 }
 
@@ -46,4 +46,3 @@ object Equilateral
 		    (-sideLength / 2 vv -sideLength * math.sqrt(3) / 6)
 		   ), colour)
 }
-
