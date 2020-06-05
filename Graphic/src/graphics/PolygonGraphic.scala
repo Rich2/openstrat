@@ -5,7 +5,7 @@ import pCanv._, Colour.Black
 
 trait PolygonGraphic extends GraphicFullElem with DisplayBoundedFull
 { type SimerT <: PolygonGraphic
-  def poly: PolygonClass
+  def poly: Polygon
   def xHead: Double = poly.x0
   def yHead: Double = poly.y0
 

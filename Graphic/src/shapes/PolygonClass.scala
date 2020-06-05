@@ -27,19 +27,7 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
   def maxY: Double = foldTailLeft(head.y)((acc, el) => acc.max(el.y))
   def width: Double = maxX - minX
   def height: Double = maxY - minY
-  /** Creates a bounding rectangle for a collection of 2d points */
-  def boundingRect: BoundingRect =
-  { var minX, maxX = head1
-    var minY, maxY = head2
-    foreachTail{v =>
-      minX = minX.min(v.x)
-      maxX = maxX.max(v.x)
-      minY = minY.min(v.y)
-      maxY = maxY.max(v.y)
-    }
-    BoundingRect(minX, maxX, minY, maxY)
-  }
-
+  
   def boundingWidth: Double = boundingRect.width
   def boundingHeight: Double = boundingRect.height
   def polyCentre: Vec2 = boundingRect.cen

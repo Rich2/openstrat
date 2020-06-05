@@ -13,19 +13,23 @@ trait Triangle extends Polygon
 	def x2: Double
 	def y2: Double
 	def v2: Vec2 = x2 vv y2
+	
 	override def apply(index: Int): Vec2 = index match
 	{	case 0 => v0
 		case 1 => v1
 		case 2 => v2
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
 	}
+	
+	override def elem1sArray: Array[Double] = Array(x0, x1, x2)
+	override def elem2sArray: Array[Double] = Array(y0, y1, y2)
+	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2) }
+	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2) }	
 }
 
 case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle
 {
-	override def v1: Vec2 = ???
-
-	override def foreach[U](f: Vec2 => U): Unit = ???
+	override def v1: Vec2 = ???	
 
 	/** Translate geometric transformation. */
 	override def slate(offset: Vec2): TransElem = ???
