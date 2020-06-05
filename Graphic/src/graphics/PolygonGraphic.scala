@@ -25,14 +25,14 @@ trait PolygonElem extends GraphicFullElem with DisplayBoundedFull
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFill(poly: PolygonClass, colour: Colour) extends PolygonElem
+case class PolygonFill(poly: PolygonClass, fillColour: Colour) extends PolygonElem with ShapeFill
 { override type SimerT = PolygonFill
-  override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(poly.fTrans(f), colour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(poly, colour)
+  override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(poly.fTrans(f), fillColour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(poly, fillColour)
 }
 
 object PolygonFill
-{ implicit val persistImplicit: Persist2[PolygonClass, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.poly, "colour", _.colour, apply)
+{ implicit val persistImplicit: Persist2[PolygonClass, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.poly, "colour", _.fillColour, apply)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
