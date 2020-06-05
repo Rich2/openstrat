@@ -34,17 +34,3 @@ trait ShapeFillDraw extends ShapeFillTr with ShapeDrawTr
 { def fillDrawAttribs: Arr[Attrib] = Arr(fillAttrib, strokeWidthAttrib, strokeAttrib)
 }
 
-case class FillAttrib(colour: Colour) extends Attrib
-{ override def name: String = "fill"
-  override def valueStr: String = colour.svgStr
-}
-
-case class StrokeWidthAttrib(lineWidth: Double) extends Attrib
-{ override def name: String = "stroke-width"
-  override def valueStr: String = lineWidth.toString
-}
-
-case class StrokeAttrib(colour: Colour) extends Attrib
-{ override def name: String = "stroke"
-  override def valueStr: String = colour.svgStr
-}
