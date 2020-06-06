@@ -2,17 +2,9 @@
 package ostrat
 package geom
 
-trait Polygon extends TransElem
+trait Polygon extends Vec2sLike
 { def length: Int
-  def apply(index: Int): Vec2
-  def foreach[U](f: Vec2 => U): Unit
-  def foreachTail[U](f: Vec2 => U): Unit
   
-  def foldLeft[B](initial: B)(f: (B, Vec2) => B): B =
-  { var acc: B = initial
-    foreach{ v => acc = f(acc, v) }
-    acc
-  }
   def x0: Double
   def y0: Double
   def elem1sArray: Array[Double]
@@ -30,5 +22,4 @@ trait Polygon extends TransElem
     }
     BoundingRect(minX, maxX, minY, maxY)
   }
-
 }

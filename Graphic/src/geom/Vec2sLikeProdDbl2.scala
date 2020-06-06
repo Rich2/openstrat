@@ -2,8 +2,21 @@
 package ostrat
 package geom
 
+trait Vec2sLike extends TransElem
+{
+  def apply(index: Int): Vec2
+  def foreach[U](f: Vec2 => U): Unit
+  def foreachTail[U](f: Vec2 => U): Unit
+
+  def foldLeft[B](initial: B)(f: (B, Vec2) => B): B =
+  { var acc: B = initial
+    foreach{ v => acc = f(acc, v) }
+    acc
+  }
+}
+
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Vec2sLike extends Any with ArrProdDbl2[Vec2]
+trait Vec2sLikeProdDbl2 extends Vec2sLike with ArrProdDbl2[Vec2]
 { def arrTrans(f: Vec2 => Vec2): Array[Double] =
   { val newArray = new Array[Double](arrayUnsafe.length)
     var count = 0
@@ -17,5 +30,6 @@ trait Vec2sLike extends Any with ArrProdDbl2[Vec2]
     newArray
   }
   final override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
+  override def foldLeft[B](initial: B)(f: (B, ostrat.geom.Vec2) => B): B = super.foldLeft(initial)(f)
   //def foreach(f: Vec2 => Unit): Unit = { var count = 0; while(count < length) { f(apply(count)); count += 1 } }
 }

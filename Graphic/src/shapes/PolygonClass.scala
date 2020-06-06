@@ -5,7 +5,7 @@ import Colour.Black, collection.mutable.ArrayBuffer
 
 /** A General Polygon as opposed to a specific Polygon such as a Square or a Rectangle is encoded as a sequence of plain 2 dimension (mathematical)
  *  vectors. Minimum length 3. Clockwise is the default */
-class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLike with AffineElem
+class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffineElem
 { type ThisT = PolygonClass
   type SimerT = PolygonClass
   def unsafeFromArray(array: Array[Double]): PolygonClass = new PolygonClass(array)

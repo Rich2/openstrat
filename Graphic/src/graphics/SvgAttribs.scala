@@ -18,7 +18,7 @@ case class StrokeAttrib(colour: Colour) extends Attrib
   override def valueStr: String = colour.svgStr
 }
 
-case class SvgAttrib(array: Array[Double]) extends Attrib
+case class SvgAttrib(vec2s: Vec2sLike) extends Attrib
 { override def name: String = "points"
   override def valueStr: String = ???
 }
