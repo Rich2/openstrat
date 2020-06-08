@@ -28,31 +28,6 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   override def rotate270: CircleFillOld = ???
 }
 
-case class CircleDrawOld(circle: CircleOld, lineWidth: Double, colour: Colour) extends TransSimerUser with GraphicElem
-{ override type SimerT = CircleDrawOld
-  override type MemT = CircleOld
-  override def geomMem: MemT = circle
-  override def newThis(transer: CircleOld): CircleDrawOld = CircleDrawOld(transer, lineWidth, colour)
-  def shear(xScale: Double, yScale: Double): AffineElem = ???
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDrawOld(this)
-
-  override def mirrorYOffset(xOffset: Double): CircleDrawOld = ???
-
-  override def mirrorXOffset(yOffset: Double): CircleDrawOld = ???
-
-  override def mirrorX: CircleDrawOld = ???
-
-  override def mirrorY: CircleDrawOld = ???
-
-  override def prolign(matrix: ProlignMatrix): CircleDrawOld = ???
-
-  override def rotate90: CircleDrawOld = ???
-
-  override def rotate180: CircleDrawOld = ???
-
-  override def rotate270: CircleDrawOld = ???
-}
-
 case class CircleFillDrawOld(circle: CircleOld, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends TransSimerUser
   with GraphicElem
 { override type SimerT = CircleFillDrawOld
