@@ -46,6 +46,7 @@ trait DisplayElem extends TransElem
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem
 }
 
+/** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object DisplayElem
 {
   implicit val slateImplicit: Slate[DisplayElem] = (obj: DisplayElem, offset: Vec2) => obj.slate(offset)
