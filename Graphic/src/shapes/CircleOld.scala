@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Slated for removal. */
 final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineElem
 { override type SimerT = CircleOld
   override def fTrans(f: Vec2 => Vec2): CircleOld = CircleOld(radius, f(vCen))
@@ -15,9 +16,8 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineE
 
   def fill(colour: Colour): CircleFill = ??? // CircleFillOld(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = ??? // CircleDrawOld(this, lineWidth, colour)
-  def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw = ??? //CircleFillDrawOld(this, fillColour, lineWidth, lineColour)
-
- // override def mirrorX: CircleOld = ???
+  def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw = ??? 
+  //CircleFillDrawOld(this, fillColour, lineWidth, lineColour)
 }
 
 /** This object provides factory methods for circles. */
@@ -29,12 +29,5 @@ object CircleOld
   { val a = ArcSeg(Vec2Z, Vec2(0.5 * scale, 0))
     val sg1 = (1 to 4).map(i => (a.rotate(Angle(- math.Pi / 2 * i))))
     PolyCurve(sg1 :_*)
-  }
-
-  def fillNew(colour: Colour): Unit = ???
-
-  def fill(radius: Double, colour: Colour, posn: Vec2 = Vec2Z): PolyCurveFill =
-  { val fSegs = segs(radius).slate(posn)
-    PolyCurveFill(fSegs, colour)
   }
 }
