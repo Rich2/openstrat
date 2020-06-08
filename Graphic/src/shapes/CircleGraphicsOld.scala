@@ -28,6 +28,7 @@ case class CircleFillOld(circle: CircleOld, colour: Colour) extends TransSimerUs
   override def rotate270: CircleFillOld = ???
 }
 
+/*
 case class CircleFillDrawOld(circle: CircleOld, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends TransSimerUser
   with GraphicElem
 { override type SimerT = CircleFillDrawOld
@@ -52,4 +53,4 @@ case class CircleFillDrawOld(circle: CircleOld, fillColour: Colour, lineWidth: D
   override def rotate180: CircleFillDrawOld = ???
 
   override def rotate270: CircleFillDrawOld = ???
-}
+}*/

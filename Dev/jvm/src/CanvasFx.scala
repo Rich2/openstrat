@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFx
 import geom._, pCanv._, javafx._, scene._
@@ -94,15 +94,6 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineWidth(cd.lineWidth)
     gc.setStroke(toFxColor(cd.lineColour))
     gc.strokeOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
-  }  
-
-  override def tlCircleFillDrawOld(cfd: CircleFillDrawOld): Unit =
-  { val circ = cfd.circle
-    gc.setFill(toFxColor(cfd.fillColour))
-    gc.fillOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
-    gc.setLineWidth(cfd.lineWidth)
-    gc.setStroke(toFxColor(cfd.lineColour))
-    gc.strokeOval(circ.x-circ.radius, circ.y-circ.radius, circ.radius*2, circ.radius*2)
   }
   
   override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =

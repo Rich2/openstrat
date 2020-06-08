@@ -15,8 +15,7 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineE
 
   def fill(colour: Colour): CircleFillOld = CircleFillOld(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = ??? // CircleDrawOld(this, lineWidth, colour)
-  def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDrawOld =
-    CircleFillDrawOld(this, fillColour, lineWidth, lineColour)
+  def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw = ??? //CircleFillDrawOld(this, fillColour, lineWidth, lineColour)
 
  // override def mirrorX: CircleOld = ???
 }
