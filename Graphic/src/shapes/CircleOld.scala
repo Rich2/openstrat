@@ -13,7 +13,7 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineE
 
   override def mirror(line: Line2): CircleOld = CircleOld(radius, vCen.mirror(line))
 
-  def fill(colour: Colour): CircleFillOld = CircleFillOld(this, colour)
+  def fill(colour: Colour): CircleFill = ??? // CircleFillOld(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = ??? // CircleDrawOld(this, lineWidth, colour)
   def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour): CircleFillDraw = ??? //CircleFillDrawOld(this, fillColour, lineWidth, lineColour)
 

@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pSJs
 import geom._, pCanv._, math.Pi, org.scalajs.dom._
@@ -140,14 +140,6 @@ object CanvasJs extends CanvasTopLeft
     gc.lineWidth = cad.lineWidth
     gc.strokeStyle = cad.colour.webStr
     gc.stroke()
-  }
-
-  override def tlCircleFillOld(cf: CircleFillOld): Unit =
-  { val ci = cf.circle
-    gc.beginPath
-    gc.fillStyle = cf.colour.webStr
-    gc.arc(ci.x, ci.y, ci.radius, 0, Pi * 2)
-    gc.fill()
   }
 
   override def tlCircleFill(cf: CircleFill): Unit =
