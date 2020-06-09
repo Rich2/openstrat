@@ -57,7 +57,8 @@ object AppsForJs
     ("C4", (learn.LessonC4(_), "Js Demonstration Interactive Canvas 4")),
     ("C5", (learn.LessonC5(_), "Js Demonstration Interactive Canvas 5")),
     ("C6", (learn.LessonC6(_), "Js Demonstration Interactive Canvas 6")),
-
+    ("C7", (learn.LessonC7(_), "Js Demonstration Interactive Canvas 7: Exploring Beziers")),
+    
     ("D1", (learn.LessonD1(_), "Js Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
     ("D2", (learn.LessonD2(_), "Js Demonstration Persistence 2")),
     ("D3", (learn.LessonD3(_), "Js Demonstration Persistence 3")),
