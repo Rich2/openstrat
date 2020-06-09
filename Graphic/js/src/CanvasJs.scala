@@ -70,7 +70,7 @@ object CanvasJs extends CanvasTopLeft
       case d if d < 0 => onScroll(true)
       case _ => onScroll(false)
     }
-    e.preventDefault() //Stops the page scrolling when the mouse pointer is over the canvas
+    e.preventDefault() // Stops the page scrolling when the mouse pointer is over the canvas
   }
       
   can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
