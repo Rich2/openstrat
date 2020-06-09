@@ -6,7 +6,7 @@
 <h1>openstrat</h1>
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
+![Scala CI](https://github.com/w0d/openstrat/workflows/Scala%20CI/badge.svg)
 <h3>Full documentation at <a href="https://richstrat.com/">https://richstrat.com/</a></h3>
 <h3>Scala Docs for Jvm at <a href="https://richstrat.com/api/ostrat/index.html">https://richstrat.com/api/ostrat/index.html</a></h3>
 <h3>Scala Docs for Js <a href="https://richstrat.com/apiJs/ostrat/index.html">https://richstrat.com/apiJs/ostrat/index.html</a></h3>
