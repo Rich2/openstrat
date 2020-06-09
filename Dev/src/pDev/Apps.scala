@@ -57,7 +57,8 @@ object Apps
     ("C4", (learn.LessonC4(_), "JavaFx Demonstration Interactive Canvas 4")),
     ("C5", (learn.LessonC5(_), "JavaFx Demonstration Interactive Canvas 5")),
     ("C6", (learn.LessonC6(_), "JavaFx Demonstration Interactive Canvas 6")),
-
+    ("C7", (learn.LessonC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
+    
     ("D1", (learn.LessonD1(_), "JavaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
     ("D2", (learn.LessonD2(_), "JavaFx Demonstration Persistence 2")),
     ("D3", (learn.LessonD3(_), "JavaFx Demonstration Persistence 3")),
