@@ -19,3 +19,4 @@ case object BackButton extends MouseButton
 case object ForwardButton extends MouseButton
 //MultipleButton is needed for completeness for mouse events in js when the Event is NOT instigated by a mouse button
 case object MultipleButton extends MouseButton
+case object UnknownButton extends MouseButton

@@ -21,6 +21,9 @@ object CanvasJs extends CanvasTopLeft
   { case 0 => LeftButton
     case 1 => MiddleButton
     case 2 => RightButton
+    case 3 => BackButton
+    case 4 => ForwardButton
+    case _ => UnknownButton
   }
 
   // e.buttons returns a bitmask of the values below eg returns 3 if both Left & Right button are active
@@ -30,7 +33,10 @@ object CanvasJs extends CanvasTopLeft
     case 2 => RightButton
     case 4 => MiddleButton
     case 8 => BackButton
-    case _ => MultipleButton  // NB: if _ is a power of 2 this this should be: => OtherButton 
+    case 16 => ForwardButton //** ForwardButton needs testing
+    case b if (b < 0) => UnknownButton // Some pointing devices provide or simulate button states with values lower than 0
+    case b if ((b & (b - 1)) == 0) => UnknownButton // Each button is a power of 2  NB: this power of two test is for b > 0
+    case b => MultipleButton
   }
 
   can.onmouseup = (e: MouseEvent) =>
@@ -64,7 +70,7 @@ object CanvasJs extends CanvasTopLeft
       case d if d < 0 => onScroll(true)
       case _ => onScroll(false)
     }
-    e.preventDefault() //Stops the page scrolling when the mouse pointer is over the canvas
+    e.preventDefault() // Stops the page scrolling when the mouse pointer is over the canvas
   }
       
   can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
