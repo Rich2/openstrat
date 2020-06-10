@@ -20,7 +20,8 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   drawBezier()
 
   def drawBezier():Unit = 
-  { val cf1 = Circle(circleRadius, p1).fill(Red) // the start point is represented as a red circle on screen
+  { deb("Draw")
+    val cf1 = Circle(circleRadius, p1).fill(Red) // the start point is represented as a red circle on screen
     val cf2 = Circle(circleRadius, p2).fill(Red) // the end point is represented as a red circle on screen
     val cp1 = Circle(circleRadius, c1).fill(Gray)// the control point for start point is represented as a grey circle on screen
     val cp2 = Circle(circleRadius, c2).fill(Grey)// the control point for end point is represented as a grey circle on screen
