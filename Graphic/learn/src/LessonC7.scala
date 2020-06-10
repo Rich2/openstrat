@@ -38,7 +38,7 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   }
 
   // update the dragged bezier point with its new position and then redraw the screen
-  def dragging(newPosition:Vec2):Unit = if (theDragee != "") 
+  def dragging(newPosition:Vec2):Unit = if (theDragee != None) 
   { theDragee = Some(newPosition)
     drawBezier()
   }
