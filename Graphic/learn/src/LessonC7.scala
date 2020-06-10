@@ -45,13 +45,15 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   }
 
   // test to see if drag operation has started
+  // if the mouseDown is on one of the represented bezier points then set theDragee to its corresponding key in bp
   canv.mouseDown = (position, button) => 
-  { // if the mouseDown is on one of the represented bezier points then set theDragee to its corresponding key in bp
-    if ((c1.v - position).magnitude <= circleRadius) theDragee = Some(c1)
-    else if ((c2.v - position).magnitude <= circleRadius) theDragee = Some(c2)
-    else if ((p1.v - position).magnitude <= circleRadius) theDragee = Some(p1)
-    else if ((p2.v - position).magnitude <= circleRadius) theDragee = Some(p2)
-    else theDragee = None
+  { position match
+    { case p if (c1.v - p).magnitude <= circleRadius => theDragee = Some(c1)
+      case p if (c2.v - position).magnitude <= circleRadius => theDragee = Some(c2)
+      case p if (p1.v - position).magnitude <= circleRadius => theDragee = Some(p1)
+      case p if (p2.v - position).magnitude <= circleRadius => theDragee = Some(p2)
+      case _ => theDragee = None
+    }
     dragging(position)
   }
 
