@@ -5,12 +5,12 @@ import scala.collection.mutable.Map
 //** This lesson displays an interactive Bezier curve whose points can be dragged and also displays the syntax required to draw it 
 case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exploring Beziers")
 { // defines the size of the circles that represent the points of the bezier
-  val circleRadius = 5
+  val circleRadius = 20
 
-  val p1 = -50 vv 0
-  val p2 = 50 vv  0
-  val c1 = -50 vv -125
-  val c2 = 50 vv 25
+  val p1 = -100 vv 0
+  val p2 = 100 vv  0
+  val c1 = -100 vv -250
+  val c2 = 100 vv 50
   // bp (bezier points) holds the points that define the bezier to be displayed
   //var bp:Map[String, Vec2] = Map(", ", , )
 
