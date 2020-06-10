@@ -31,7 +31,7 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
     val bez = BezierDraw(p1.v, c1.v, c2.v, p2.v, 2, Green) // the bezier to be displayed
 
     // this holds the syntax required to draw the current bezier (bez) (NB: replace ; with , )
-    val txt = TextGraphic("BezierDraw(" + p1 + ", " + c1 + ", " + c2 + ", " + "p2" + ", 2, Green)", 18, 0 vv 300)
+    val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
 
     val elementsToPaint = Arr(txt, cf1, cf2, cp1, cp2, cl1, cl2, bez)
 
