@@ -39,8 +39,8 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   /** test to see if drag operation has started */
   /** if the mouseDown is on one of the represented bezier points then set theDragee to its corresponding option */
   canv.mouseDown = (position, button) => 
-  { val points = List(p1, p2, c1, c2)
-//    theDragee = points.find((v - position).magnitude <= circleRadius)
+  { val points = Array(p1, p2, c1, c2)
+    theDragee = points.find(i => (i.v - position).magnitude <= circleRadius)
   }
 
   /** when a point is being dragged update the correspondin bezier point with its new position and then redraw the screen */
