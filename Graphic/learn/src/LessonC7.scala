@@ -44,7 +44,10 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   }
 
   /** when a point is being dragged update the correspondin bezier point with its new position and then redraw the screen */
-  canv.mouseDragged = (position, button) => theDragee match { case Some(drag) => drag.v = position; drawBezier() }
+  canv.mouseDragged = (position, button) => theDragee match
+  { case Some(drag) => drag.v = position; drawBezier()
+    case _ => theDragee = None
+  }
 
   /** dragging has finished so reset theDragee */
   mouseUp = (button, clickList, position) => theDragee = None 
