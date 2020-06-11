@@ -2,6 +2,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
+/** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
 case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, width: Double, colour: Colour) extends CurveLikeOldGraphicElem
 { override type SimerT = LineDraw
   def typeStr: String = "LineDraw"
