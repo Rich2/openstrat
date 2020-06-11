@@ -4,7 +4,7 @@ import ostrat._, geom._, pCanv._, Colour._
 /** This lesson displays an interactive Bezier curve whose points can be dragged and also displays the syntax required to draw it */
 case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exploring Beziers")
 { /** defines the size of the circles that represent the points of the bezier */
-  val circleRadius = 20
+  val circleRadius = 15
   case class Drag(var v: Vec2, c: Colour)
   
   /** start point bezier. */
@@ -14,8 +14,12 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   /** control point for start point */
   val c1 = Drag(-100 vv -250, Red)
   /** control point for end point */
-  val c2 = Drag(100 vv 50, Red)    
-  val pts = Arr(p1, p2, c1, c2)
+  val c2 = Drag(100 vv 50, Red) 
+  
+  val cCen = Drag(0 vv 150, Violet)
+  val cRad = Drag(-70 vv 150, Orange)
+  
+  val pts = Arr(p1, p2, c1, c2, cCen, cRad)
 
   /** when one of the bezier points is being dragged, this will indicate which */
   var theDragee: Option[Drag] = None 
@@ -32,8 +36,9 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
 
     /** this holds the syntax required to draw the current bezier (bez) (NB: replace ; with , ) */
     val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
+    val circAdj = Circle((cCen.v - cRad.v).magnitude, cCen.v).draw(2.0, Blue)
 
-    val elementsToPaint = cds ++ Arr(txt, cl1, cl2, bez)
+    val elementsToPaint = cds ++ Arr(txt, cl1, cl2, bez, circAdj)
 
     repaint(elementsToPaint)
   }
