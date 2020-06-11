@@ -1,0 +1,42 @@
+name: Docs
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  buildDocsMain:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build Docs
+      run: sbt DocMain/doc
+    - uses: actions/upload-artifact@v1
+      with:
+        name: DocMain
+        path: target/DocMain/target/scala-2.13/api/*
+  
+  buildDocsJs:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build Docs
+      run: sbt DocJs/doc
+    - uses: actions/upload-artifact@v1
+      with:
+        name: DocJs
+        path: target/DocJs/target/scala-2.13/api/*
