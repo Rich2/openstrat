@@ -23,6 +23,8 @@ jobs:
       with:
         name: jsdev-fastopt.js
         path: target/JsDev/target/scala-2.13/jsdev-fastopt.js
+        name: jsdev-fastopt.js.map
+        path: target/JsDev/target/scala-2.13/jsdev-fastopt.js.map
 
   buildFull:
 
@@ -40,3 +42,5 @@ jobs:
       with:
         name: jsdev-opt.js
         path: target/JsDev/target/scala-2.13/jsdev-opt.js
+        name: jsdev-opt.js.map
+        path: target/JsDev/target/scala-2.13/jsdev-opt.js.map
