@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  buildFast:
 
     runs-on: ubuntu-latest
 
@@ -21,5 +21,22 @@ jobs:
       run: sbt JsDev/fastOptJS
     - uses: actions/upload-artifact@v1
       with:
-        name: fastopt.js
+        name: jsdev-fastopt.js
         path: target/JsDev/target/scala-2.13/jsdev-fastopt.js
+
+  buildFull:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build for js
+      run: sbt JsDev/fullOptJS
+    - uses: actions/upload-artifact@v1
+      with:
+        name: jsdev-opt.js
+        path: target/JsDev/target/scala-2.13/jsdev-opt.js
