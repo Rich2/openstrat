@@ -3,5 +3,6 @@ package ostrat
 package geom
 
 trait Shape extends TransElem
-{ def fill(colour: Colour): DisplayElem
+{ def fill(colour: Colour): ShapeFill
+  def draw(lineWidth: Double, lineColour: Colour): ShapeDraw
 }
