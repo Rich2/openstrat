@@ -21,7 +21,7 @@ jobs:
       run: sbt DocMain/doc
     - uses: actions/upload-artifact@v1
       with:
-        name: sbt DocMain
+        name: DocMain
         path: target/DocMain/target/scala-2.13/api/*
   
   buildDocsJs:
@@ -35,8 +35,8 @@ jobs:
       with:
         java-version: 1.8
     - name: Build Docs
-      run: DocJs/doc
+      run: sbt DocJs/doc
     - uses: actions/upload-artifact@v1
       with:
-        name: sbt DocJs
+        name: DocJs
         path: target/DocJs/target/scala-2.13/api/*
