@@ -21,7 +21,7 @@ jobs:
       run: sbt DocMain/doc
     - uses: actions/upload-artifact@v1
       with:
-        name: DocMain
+        name: sbt DocMain
         path: target/DocMain/target/scala-2.13/api/*
   
   buildDocsJs:
