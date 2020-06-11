@@ -23,6 +23,9 @@ jobs:
       with:
         name: jsdev-fastopt.js
         path: target/JsDev/target/scala-2.13/jsdev-fastopt.js
+   
+    - uses: actions/upload-artifact@v1
+      with:
         name: jsdev-fastopt.js.map
         path: target/JsDev/target/scala-2.13/jsdev-fastopt.js.map
 
@@ -42,5 +45,7 @@ jobs:
       with:
         name: jsdev-opt.js
         path: target/JsDev/target/scala-2.13/jsdev-opt.js
+    - uses: actions/upload-artifact@v1
+      with:
         name: jsdev-opt.js.map
         path: target/JsDev/target/scala-2.13/jsdev-opt.js.map
