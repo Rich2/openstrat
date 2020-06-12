@@ -25,3 +25,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: something to say
       run: echo See you in 5!
+      env:
+        USERNAME: ${{ github.actor }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
