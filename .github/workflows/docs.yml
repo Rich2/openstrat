@@ -22,7 +22,7 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: DocMain
-        path: target/DocMain/target/scala-2.13/api/*
+        path: target/DocMain/target/scala-2.13/api/
   
   buildDocsJs:
 
@@ -39,4 +39,4 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: DocJs
-        path: target/DocJs/target/scala-2.13/api/*
+        path: target/DocJs/target/scala-2.13/api/
