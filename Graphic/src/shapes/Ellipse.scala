@@ -27,7 +27,9 @@ object Ellipse
 
 /** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
 case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Double) extends Ellipse
-{ override def fill(colour: Colour): DisplayElem = ???
+{ override def fill(colour: Colour): ShapeFill = ???
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   def fTrans(f: Vec2 => Vec2): TransElem = ???
   def mirrorX: TransElem = ???
   def mirrorXOffset(yOffset: Double): TransElem = ???

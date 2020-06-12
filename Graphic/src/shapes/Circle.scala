@@ -22,6 +22,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def mirror(line: Line2): Circle = Circle(radius, cen.mirror(line))
   
   override def fill(colour: Colour): CircleFill = CircleFill(this, colour)
+  def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 }
 
 /** This object provides factory methods for circles. */

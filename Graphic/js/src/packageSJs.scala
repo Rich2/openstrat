@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scalajs.js.Any.fromFunction1, org.scalajs.dom._
 

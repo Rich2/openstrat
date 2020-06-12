@@ -65,4 +65,17 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
     }
     newArr
   }
+  
+  def find(f: A => Boolean): Option[A] =
+  {
+    var count = 0
+    var res: Option[A] = None
+    while (count < length & res == None)
+    {
+      val el = apply(count)
+      if (f(el)) res = Some(el)
+      else count += 1
+    }
+    res
+  }
 }
