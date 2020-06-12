@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pDev
 import pCanv._, pStrat._, pGrid._
@@ -58,6 +58,7 @@ object Apps
     ("C5", (learn.LessonC5(_), "JavaFx Demonstration Interactive Canvas 5")),
     ("C6", (learn.LessonC6(_), "JavaFx Demonstration Interactive Canvas 6")),
     ("C7", (learn.LessonC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
+    ("C8", (learn.LessonC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")),
     
     ("D1", (learn.LessonD1(_), "JavaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
     ("D2", (learn.LessonD2(_), "JavaFx Demonstration Persistence 2")),
