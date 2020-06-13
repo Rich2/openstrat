@@ -11,7 +11,9 @@ trait Ellipse extends Shape
   final def v1: Vec2 = x1 vv y1
   def x2: Double
   def y2: Double
-  final def v2: Vec2 = x2 vv y2
+  def v2: Vec2 = x2 vv y2
+  def aRadius: Double
+  def bRadius: Double
 
   /* override def canEqual(that: Any): Boolean = that match
   { case e: Ellipse => true
@@ -22,17 +24,17 @@ trait Ellipse extends Shape
 
 object Ellipse
 { /** The apply factory methods default to an EllipseClass. */
-  def apply(xLeft: Double, yLeft: Double, xRight: Double, yRight: Double, rHeight: Double): EllipseClass =
-    new EllipseClass(xLeft, yLeft, xRight, yRight, rHeight)
+  def apply(xCen: Double, yCen: Double, x1: Double, y1: Double, radius3: Double): EllipseClass =
+    new EllipseClass(xCen, yCen, x1, y1, radius3)
 
   /** The apply factory methods default to an EllipseClass. */
-  def apply(vLeft: Vec2, vRight: Vec2, rHeight: Double): EllipseClass = new EllipseClass(vLeft.x, vLeft.y, vRight.x, vRight.y, rHeight)
+  def apply(cen: Vec2, v1: Vec2, radius3: Double): EllipseClass = new EllipseClass(cen.x, cen.y, v1.x, v1.y, radius3)
   
-  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => EllipseClass(0, 0, 0, 0, 0) // Circle.slate(offset)
+  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => Ellipse(ell.cen + offset, ell.v1 + offset, ell.bRadius)
 }
 
 /** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
-case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Double) extends Ellipse
+case class Ellipselign(xCen: Double, yCen: Double, aRadius: Double, bRadius: Double) extends Ellipse
 { override def fill(colour: Colour): ShapeFill = ???
 
   override def x1: Double = ???

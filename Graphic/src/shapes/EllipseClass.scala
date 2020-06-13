@@ -2,11 +2,10 @@
 package ostrat
 package geom
 
-case class EllipseClass(val x1: Double, val y1: Double, val x2: Double, val y2: Double, val rHeight: Double) extends Ellipse
-{ def xCen: Double = (x1 + x2) /2
-  def yCen: Double = (y1 + y2) / 2
-  def vLeft: Vec2 = x1 vv y1
-  def vRight: Vec2 = x2 vv y2
+case class EllipseClass(xCen: Double, yCen: Double , x1: Double, y1: Double, val bRadius: Double) extends Ellipse
+{ def x2: Double = 2 * xCen - x1
+  def y2: Double = 2 * yCen - y1
+  def aRadius: Double = (v1 - cen).magnitude
   //override def shear(xScale: Double, yScale: Double): EllipseGen = this
   //override def rotate(angle: Angle): EllipseGen = this
   //override def rotateRadians(radians: Double):  EllipseGen = this
@@ -18,9 +17,9 @@ case class EllipseClass(val x1: Double, val y1: Double, val x2: Double, val y2: 
   def mirrorY: TransElem = copy(-x1, y1, -x2)
   def mirrorYOffset(xOffset: Double): TransElem = ???
   def prolign(matrix: ProlignMatrix): TransElem = ???
-  def scale(operand: Double): EllipseClass = Ellipse(vLeft * operand, vRight * operand, rHeight * operand )
-  def slate(xOffset: Double, yOffset: Double): EllipseClass = Ellipse(x1 + xOffset, y1 + yOffset, x2 + xOffset, y2 + yOffset, rHeight)
-  def slate(offset: Vec2): TransElem = Ellipse(vLeft + offset, vRight + offset, rHeight)
+  def scale(operand: Double): EllipseClass = Ellipse(xCen * operand, yCen * operand, x1 * operand, y1 * operand, bRadius * operand )
+  def slate(xOffset: Double, yOffset: Double): EllipseClass = Ellipse(xCen + xOffset, yCen + yOffset, x1 + xOffset, y1 + yOffset, bRadius)
+  def slate(offset: Vec2): TransElem = Ellipse(cen + offset, v1 + offset, bRadius)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   override def rotate90: EllipseClass = ???
