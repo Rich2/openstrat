@@ -4,11 +4,11 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentFull(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[GraphicFullElem]) extends DisplayParentFull with PolyActiveFull
+case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, children: Arr[GraphicFullElem]) extends DisplayParentFull with PolyActiveFull
 { type SimerT = PolygonParentFull
-  def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), poly.fTrans(f), pointerId, children.trans(f))
-  override def addElems(newElems: Arr[GraphicFullElem]): PolygonParentFull = new PolygonParentFull(cen, poly, pointerId, children ++ newElems)
-  override def mutObj(newObj: Any): PolygonParentFull = new PolygonParentFull(cen, poly, newObj, children)
+  def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
+  override def addElems(newElems: Arr[GraphicFullElem]): PolygonParentFull = new PolygonParentFull(cen, shape, pointerId, children ++ newElems)
+  override def mutObj(newObj: Any): PolygonParentFull = new PolygonParentFull(cen, shape, newObj, children)
 }
 
 /** Companion object of the PolygonParent case class. */

@@ -71,6 +71,10 @@ case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Dou
 	override def mirror(line: Line2): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+	override def fill(colour: Colour): ShapeFill = ???
+
+	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
 object Triangle
@@ -132,11 +136,14 @@ case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, hei
 	override def mirror(line: Line2): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+	override def fill(colour: Colour): ShapeFill = ???
+
+	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
 case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends IsosTriangle
 {	
-
 	override def height: Double = ???
 	override def foreach[U](f: Vec2 => U): Unit = ???
 
@@ -180,6 +187,10 @@ case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends 
 	override def mirror(line: Line2): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+	override def fill(colour: Colour): ShapeFill = ???
+
+	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
 object Equilateral

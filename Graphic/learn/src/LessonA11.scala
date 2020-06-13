@@ -41,7 +41,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val ca2 = ca.slate(20, 20)
   
   val la = List(sq, cn)
-  val la2 = la.slate(20, 20)
+ // val la2 = la.slate(20, 20)
 
   val na2 = na1.scale(20)
   

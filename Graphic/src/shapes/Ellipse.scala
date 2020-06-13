@@ -34,9 +34,11 @@ object Ellipse
 }
 
 /** An Ellipse whose axes are aligned to the x and y axes. The width axis is not necessarily the major axis. */
-case class Ellipselign(xCen: Double, yCen: Double, aRadius: Double, bRadius: Double) extends Ellipse
+case class Ellipselign(xCen: Double, yCen: Double, xRadius: Double, yRadius: Double) extends Ellipse
 { override def fill(colour: Colour): ShapeFill = ???
-
+  @inline def xMajor: Boolean = xRadius >= yRadius
+  override def aRadius: Double = ife(xMajor, xRadius, yRadius)
+  override def bRadius: Double = ife(xMajor, yRadius, xRadius)
   override def x1: Double = ???
 
   override def y1: Double = ???

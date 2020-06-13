@@ -30,7 +30,7 @@ object VecsTest extends TestSuite
       v32 ==> Vec3(4, -5, 0)
       v2s.str ==> "LinePath(2.1, 0.0; 5.4, 0.0; 4.0, 4.0)"
       vs3(1) ==> Vec2(2, 2)
-      cf.poly(2) ==> Vec2(3, 3)
+      cf.shape(2) ==> Vec2(3, 3)
     }    
   }
 }

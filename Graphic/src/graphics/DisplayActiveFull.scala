@@ -29,9 +29,9 @@ trait DisplayActiveFull extends DisplayActive with DisplayBoundedFull
 /** An active transparent pointable polygon */
 trait PolyActiveFull extends DisplayActiveFull
 { type SimerT <: PolyActiveFull
-  def poly: PolygonClass
-  override def boundingRect = poly.boundingRect
-  override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
+  def shape: PolygonClass
+  override def boundingRect = shape.boundingRect
+  override def ptInside(pt: Vec2): Boolean = shape.ptInPolygon(pt)
   //override def fTrans(f: Vec2 => Vec2): ThisT
 }
 

@@ -32,8 +32,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
 /** This object provides factory methods for circles. */
 object Circle extends ShapeIcon
-{ //def apply(radius: Double, xCen: Double, yCen: Double): Circle = new Circle(radius, xCen, yCen)
-  def apply(radius: Double, cen: Vec2): Circle = new Circle(radius, cen.x, cen.y)
+{ def apply(radius: Double, cen: Vec2): Circle = new Circle(radius, cen.x, cen.y)
   
   implicit val slateImplicit: Slate[Circle] = (obj, offset) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
@@ -41,5 +40,5 @@ object Circle extends ShapeIcon
   override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
   override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)  
 
-  def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
+  override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }

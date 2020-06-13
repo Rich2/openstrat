@@ -149,7 +149,7 @@ object CanvasJs extends CanvasTopLeft
   }
 
   override def tlCircleFill(cf: CircleFill): Unit =
-  { val ci = cf.circle
+  { val ci = cf.shape
     gc.beginPath
     gc.fillStyle = cf.fillColour.webStr
     gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
@@ -157,7 +157,7 @@ object CanvasJs extends CanvasTopLeft
   }
 
   override def tlCircleDraw(cd: CircleDraw): Unit =
-  { val ci = cd.circle
+  { val ci = cd.shape
     gc.beginPath
     gc.strokeStyle = cd.lineColour.webStr
     gc.lineWidth = cd.lineWidth
@@ -166,7 +166,7 @@ object CanvasJs extends CanvasTopLeft
   }
 
   override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
-  { val ci = cfd.circle
+  { val ci = cfd.shape
     gc.beginPath
     gc.fillStyle = cfd.fillColour.webStr
     gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)

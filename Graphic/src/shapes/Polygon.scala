@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait Polygon extends Vec2sLike
+trait Polygon extends Vec2sLike with Shape
 { def length: Int
   
   def x0: Double

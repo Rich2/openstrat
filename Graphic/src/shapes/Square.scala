@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends TransElem
+final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Shape // TransElem
 {
   def rotationRadians: Double = rotation.radians
   
@@ -38,6 +38,10 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
   override def mirror(line: Line2): Square = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+  override def fill(colour: Colour): ShapeFill = ???
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
 /** Factory object for squares. */

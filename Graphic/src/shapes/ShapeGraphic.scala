@@ -4,7 +4,8 @@ package geom
 import pXml._
 
 trait ShapeGraphic extends GraphicElem
-{ def attribs: Arr[Attrib]
+{ def shape: Shape
+  def attribs: Arr[Attrib]
 }
 
 trait ShapeFillTr extends ShapeGraphic
