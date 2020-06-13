@@ -7,3 +7,7 @@ trait Attrib
   def valueStr: String
   def str: String = name + "=" + valueStr.enquote
 }
+
+case class NumericAttrib(name: String, num: Double) extends Attrib
+{ override def valueStr: String = num.toString
+}

@@ -53,4 +53,6 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def mirror(line: Line2): GraphicElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+
+  override def attribs: Arr[Attrib] = ???
 }

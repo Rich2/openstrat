@@ -31,6 +31,8 @@ case class PolygonFill(shape: PolygonClass, fillColour: Colour) extends PolygonG
 { override type SimerT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, fillColour)
+
+  override def attribs: Arr[Attrib] = ???
 }
 
 object PolygonFill

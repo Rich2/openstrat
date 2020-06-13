@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package geom
+import ostrat.pXml.Attrib
 import pCanv._
 
 final case class SquareFill(shape: Square, fillColour: Colour) extends ShapeFill
@@ -35,5 +36,7 @@ final case class SquareFill(shape: Square, fillColour: Colour) extends ShapeFill
   override def mirror(line: Line2): SquareFill = SquareFill(shape.mirror(line), fillColour)
 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+
+  override def attribs: Arr[Attrib] = ???
   
 }

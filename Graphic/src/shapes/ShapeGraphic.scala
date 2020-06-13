@@ -14,7 +14,7 @@ trait ShapeFillTr extends ShapeGraphic
 }
 
 trait ShapeFill extends ShapeFillTr
-{ override def attribs: Arr[Attrib] = Arr(fillAttrib)
+{ //override def attribs: Arr[Attrib] = Arr(fillAttrib)
 }
 
 trait ShapeDrawTr extends ShapeGraphic

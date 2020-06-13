@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pXml._
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
@@ -28,6 +29,10 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   
   override def fill(colour: Colour): CircleFill = CircleFill(this, colour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
+  def cxAttrib: NumericAttrib = NumericAttrib("cx", xCen)
+  def cyAttrib: NumericAttrib = NumericAttrib("cy", yCen)
+  def rAttrib: NumericAttrib = NumericAttrib("r", radius)
+  def circleAttribs: Arr[NumericAttrib] = Arr(cxAttrib, cyAttrib, rAttrib)
 }
 
 /** This object provides factory methods for circles. */

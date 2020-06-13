@@ -21,6 +21,7 @@ trait CircleGraphic extends ShapeGraphic
   override def rotateRadians(radians: Double): GraphicT = fTrans(shape.rotateRadians(radians))
   override def mirror(line: Line2): GraphicT = fTrans(shape.mirror(line))
   def svgStr: String = closedTagStr("circle", attribs)
+  def circleAttribs: Arr[NumericAttrib] = shape.circleAttribs
   
   def cen: Vec2 = shape.cen
 }
@@ -31,7 +32,7 @@ final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGra
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
 
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
- // override def attribs: Arr[Attrib] = Arr(fillAttrib)  
+  override def attribs: Arr[Attrib] = circleAttribs +- fillAttrib
 }
 
 final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with ShapeDraw
