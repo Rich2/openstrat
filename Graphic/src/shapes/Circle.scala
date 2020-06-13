@@ -6,7 +6,9 @@ package geom
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
 { /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   @inline def diameter: Double = radius * 2
-  
+
+  override def x1: Double = xCen + radius
+  override def y1: Double = yCen
   override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
   @inline def slate(xOffset: Double, yOffset: Double): Circle = Circle(radius, xCen + xOffset, yCen + yOffset)
   override def scale(operand: Double): Circle = Circle(radius * operand, cen * operand)

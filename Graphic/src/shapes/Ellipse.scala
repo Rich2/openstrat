@@ -6,6 +6,9 @@ trait Ellipse extends Shape
 { def xCen: Double
   def yCen: Double
   final def cen: Vec2 = xCen vv yCen
+  def x1: Double
+  def y1: Double
+  final def v1: Vec2 = x1 vv y1
 
   /* override def canEqual(that: Any): Boolean = that match
   { case e: Ellipse => true
@@ -29,6 +32,9 @@ object Ellipse
 case class Ellipselign(xCen: Double, yCen: Double, rWidth: Double, rHeight: Double) extends Ellipse
 { override def fill(colour: Colour): ShapeFill = ???
 
+  override def x1: Double = ???
+
+  override def y1: Double = ???
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   def fTrans(f: Vec2 => Vec2): TransElem = ???
   def mirrorX: TransElem = ???
