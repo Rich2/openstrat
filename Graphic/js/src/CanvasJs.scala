@@ -176,13 +176,14 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
 
-  override def tlEllipseFill(cf: EllipseFill): Unit = {}
-  /*{ val ci = cf.shape
+  /** Needs fixing. */
+  override def tlEllipseFill(ef: EllipseFill): Unit =
+  { val el = ef.shape
     gc.beginPath
-    gc.fillStyle = cf.fillColour.webStr
-    gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
+    gc.fillStyle = ef.fillColour.webStr
+    //gc.ellipse(el.xCen, el.yCen, el.aRadius, el.bRadius, 0, Pi * 2)
     gc.fill()
-  }*/
+  }
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
