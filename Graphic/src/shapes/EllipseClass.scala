@@ -12,14 +12,14 @@ case class EllipseClass(xCen: Double, yCen: Double , x1: Double, y1: Double, val
   //override def slateOld(offset: Vec2): EllipseGen = EllipseGen(cen + offset, vRight + offset, upRadius)
   //override def mirror(line: Line2): EllipseGen = EllipseGen(cen.mirror(line), vRight.mirror(line), upRadius)
  
-  def mirrorX: TransElem = copy(x1, -y1, x2, -y2)
+  def mirrorX: EllipseClass = copy(x1, -y1, x2, -y2)
   def mirrorXOffset(yOffset: Double): TransElem = ???
   def mirrorY: TransElem = copy(-x1, y1, -x2)
   def mirrorYOffset(xOffset: Double): TransElem = ???
   def prolign(matrix: ProlignMatrix): TransElem = ???
   def scale(operand: Double): EllipseClass = Ellipse(xCen * operand, yCen * operand, x1 * operand, y1 * operand, bRadius * operand )
   def slate(xOffset: Double, yOffset: Double): EllipseClass = Ellipse(xCen + xOffset, yCen + yOffset, x1 + xOffset, y1 + yOffset, bRadius)
-  def slate(offset: Vec2): TransElem = Ellipse(cen + offset, v1 + offset, bRadius)
+  def slate(offset: Vec2): EllipseClass = Ellipse(cen + offset, v1 + offset, bRadius)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   override def rotate90: EllipseClass = ???

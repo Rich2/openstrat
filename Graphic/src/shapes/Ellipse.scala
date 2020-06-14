@@ -19,7 +19,13 @@ trait Ellipse extends Shape
   { case e: Ellipse => true
     case _ => false
   }*/
+  override def slate(offset: Vec2): Ellipse
+
+  override def slate(xOffset: Double, yOffset: Double): Ellipse
+  
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = ???
+
+  override def mirrorX: Ellipse
 }
 
 object Ellipse
@@ -48,14 +54,14 @@ case class Ellipselign(xCen: Double, yCen: Double, xRadius: Double, yRadius: Dou
   override def y2: Double = ???
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   def fTrans(f: Vec2 => Vec2): TransElem = ???
-  def mirrorX: TransElem = ???
+  def mirrorX: Ellipselign = ???
   def mirrorXOffset(yOffset: Double): TransElem = ???
   def mirrorY: TransElem = ???
   def mirrorYOffset(xOffset: Double): TransElem = ???
   def prolign(matrix: ProlignMatrix): TransElem = ???
   def scale(operand: Double): TransElem = ???
-  def slate(xOffset: Double, yOffset: Double): TransElem = ???
-  def slate(offset: Vec2): TransElem = ???
+  def slate(xOffset: Double, yOffset: Double): Ellipselign = ???
+  def slate(offset: Vec2): Ellipselign = ???
 
   override def rotate90: Ellipselign = ???
 

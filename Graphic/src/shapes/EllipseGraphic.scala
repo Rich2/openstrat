@@ -6,18 +6,26 @@ import pCanv._, Colour.Black, pXml._
 trait EllipseGraphic extends ShapeGraphic
 { type GraphicT <: EllipseGraphic
   override def shape: Ellipse
+  def fTrans(newEllipse: Ellipse): GraphicT
+  
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */  
+  override def mirrorX: GraphicT = fTrans(shape.mirrorX)
+  
+  /** Translate geometric transformation. */
+  override def slate(offset: Vec2): GraphicT = fTrans(shape.slate(offset))
+
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): GraphicT = fTrans(shape.slate(xOffset, yOffset))
 }
 
 final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends EllipseGraphic with ShapeFill
-{
+{ type GraphicT = EllipseFill
+
+  override def fTrans(newEllipse: Ellipse): EllipseFill = EllipseFill(newEllipse, fillColour)
+  
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
-  override def rendToCanvas(cp: CanvasPlatform): Unit = { } //???
-
-  /** Translate geometric transformation. */
-  override def slate(offset: Vec2): GraphicElem = ???
-
-  /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): GraphicElem = ???
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)  
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -29,9 +37,7 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def mirrorXOffset(yOffset: Double): GraphicElem = ???
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def mirrorX: GraphicElem = ???
+  
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */

@@ -38,7 +38,7 @@ case class LessonC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: Mor
     val circ = Circle((cCen.v - cRad.v).magnitude, cCen.v).draw(2.0, Blue)
     val ell = Ellipse(0, 0, 200, 0, 100).fill(SeaGreen)
 
-    val elementsToPaint = cds ++ Arr(cl1, cl2, ell, circ)
+    val elementsToPaint = cds ++ Arr(cl1, cl2, ell, circ, ell)
 
     repaint(elementsToPaint)
   }

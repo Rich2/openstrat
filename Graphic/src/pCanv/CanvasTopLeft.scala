@@ -28,7 +28,12 @@ trait CanvasTopLeft extends CanvasPlatform
    final override def circleFill(cf: CircleFill): Unit = tlCircleFill(cf.mirrorX.slate(width / 2, height / 2))
    final override def circleDraw(cd: CircleDraw): Unit = tlCircleDraw(cd.mirrorX.slate(width / 2, height / 2))
    final override def circleFillDraw(cfd: CircleFillDraw): Unit = tlCircleFillDraw(cfd.mirrorX.slate(width / 2, height / 2))
-   final override def ellipseFill(cf: EllipseFill): Unit = {} //tlEllipseFill(cf.mirrorX.slate(width / 2, height / 2))
+   final override def ellipseFill(cf: EllipseFill): Unit =
+   {
+     val e1: EllipseFill = cf.mirrorX
+     val e2: EllipseFill = e1.slate(width / 2, height / 2)
+     tlEllipseFill(e2)
+   }
    
    final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
    final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
