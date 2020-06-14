@@ -11,7 +11,7 @@ trait EllipseGraphic extends ShapeGraphic
 final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends EllipseGraphic with ShapeFill
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
-  override def rendToCanvas(cp: CanvasPlatform): Unit = ???
+  override def rendToCanvas(cp: CanvasPlatform): Unit = { } //???
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): GraphicElem = ???

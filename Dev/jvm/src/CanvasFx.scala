@@ -98,7 +98,13 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineWidth(cfd.lineWidth)
     gc.setStroke(toFxColor(cfd.lineColour))
     gc.strokeOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
-  }  
+  }
+
+  override def tlEllipseFill(cf: EllipseFill): Unit = {}
+  /*{ val circ = cf.shape
+    gc.setFill(toFxColor(cf.fillColour))
+    gc.fillOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
+  }*/
 
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath

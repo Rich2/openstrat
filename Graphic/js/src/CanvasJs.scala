@@ -175,6 +175,14 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
     gc.stroke()
   }
+
+  override def tlEllipseFill(cf: EllipseFill): Unit = {}
+  /*{ val ci = cf.shape
+    gc.beginPath
+    gc.fillStyle = cf.fillColour.webStr
+    gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
+    gc.fill()
+  }*/
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath

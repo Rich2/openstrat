@@ -30,7 +30,7 @@ case class EllipseClass(xCen: Double, yCen: Double , x1: Double, y1: Double, val
 
   override def rotateRadians(radians: Double): EllipseClass = ???
 
-  override def fill(colour: Colour): ShapeFill = ???
+  override def fill(colour: Colour): EllipseFill = EllipseFill(this, colour)
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 

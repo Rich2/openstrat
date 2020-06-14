@@ -80,12 +80,13 @@ trait CanvasPlatform extends RectCenlign
    
   final def shapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = oif(shape.length > 0, pShapeDraw(shape, lineWidth, colour))
   def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
-
-  //def circleFillOld(cf: CircleFillOld): Unit
+  
   def circleFill(cf: CircleFill): Unit
   
   def circleDraw(cd: CircleDraw): Unit
   def circleFillDraw(cfd: CircleFillDraw): Unit
+
+  def ellipseFill(cf: EllipseFill): Unit
   
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
