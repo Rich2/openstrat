@@ -26,9 +26,9 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   
   drawBezier()
 
-  def drawBezier():Unit = 
+  def drawBezier():Unit =
   { val cds = pts.map(dr => Circle(circleRadius, dr.v).fill(dr.c))
-    
+
     val cl1 = LineDraw(p1.v, c1.v, 1, Grey)    /** line between the start point and its control point */
     val cl2 = LineDraw(p2.v, c2.v, 1, Grey)    /** line between the end point and its control point */
 

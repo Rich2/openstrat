@@ -25,21 +25,19 @@ case class LessonC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: Mor
   /** when one of the bezier points is being dragged, this will indicate which */
   var theDragee: Option[Drag] = None 
   
-  drawBezier()
+  drawStuff()
 
-  def drawBezier():Unit = 
+  def drawStuff():Unit = 
   { val cds = pts.map(dr => Circle(circleRadius, dr.v).fill(dr.c))
     
     val cl1 = LineDraw(p1.v, c1.v, 1, Grey)    /** line between the start point and its control point */
     val cl2 = LineDraw(p2.v, c2.v, 1, Grey)    /** line between the end point and its control point */
 
-    val bez = BezierDraw(p1.v, c1.v, c2.v, p2.v, 2, Green) /** the bezier to be displayed */
-
     /** this holds the syntax required to draw the current bezier (bez) (NB: replace ; with , ) */
-    val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
+    //val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
     val circAdj = Circle((cCen.v - cRad.v).magnitude, cCen.v).draw(2.0, Blue)
 
-    val elementsToPaint = cds ++ Arr(txt, cl1, cl2, bez, circAdj)
+    val elementsToPaint = cds ++ Arr(cl1, cl2, circAdj)
 
     repaint(elementsToPaint)
   }
@@ -50,7 +48,7 @@ case class LessonC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: Mor
 
   // When a point is being dragged update the correspondin bezier point with its new position and then redraw the screen. */
   canv.mouseDragged = (position, button) => theDragee match
-  { case Some(drag) => drag.v = position; drawBezier()
+  { case Some(drag) => drag.v = position; drawStuff()
     case _ => theDragee = None
   }
 
