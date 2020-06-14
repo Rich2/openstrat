@@ -63,7 +63,7 @@ lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).set
   version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
 )
 
 lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSettings).settings(
