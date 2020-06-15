@@ -60,7 +60,11 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
 
   // When a point is being dragged update the correspondin bezier point with its new position and then redraw the screen.
   canv.mouseDragged = (position, button) => theDragee match
-  { case Some(drag) => drag.loc = position; drawBezier() 
+  { case Some(drag) if (drag == startPoint) => drag.loc = position; controlStart.loc = drag.loc +  controlStartOffset; drawBezier()
+    case Some(drag) if (drag == endPoint) => drag.loc = position; controlEnd.loc = drag.loc +  controlEndOffset; drawBezier()
+    case Some(drag) if (drag == controlStart) => drag.loc = position; controlStartOffset = drag.loc - startPoint.loc; drawBezier()
+    case Some(drag) if (drag == controlEnd) => drag.loc = position; controlEndOffset = drag.loc - endPoint.loc; drawBezier()
+    case Some(drag) => drag.loc = position; drawBezier() 
     case _ => theDragee = None
   }
 
@@ -68,7 +72,3 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   mouseUp = (button, clickList, position) => theDragee = None 
 }
 
-// case Some(drag) if (drag == startPoint) => drag.loc = position; controlStart.loc = drag.loc +  controlStartOffset; drawBezier()
-//     case Some(drag) if (drag == endPoint) => drag.loc = position; controlEnd.loc = drag.loc +  controlEndOffset; drawBezier()
-//     case Some(drag) if (drag == controlStart) => drag.loc = position; controlStartOffset = drag.loc - startPoint.loc; drawBezier()
-//     case Some(drag) if (drag == controlEnd) => drag.loc = position; controlEndOffset = drag.loc - endPoint.loc; drawBezier()
