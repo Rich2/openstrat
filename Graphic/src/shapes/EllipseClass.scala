@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class EllipseClass(xCen: Double, yCen: Double , x1: Double, y1: Double, val bRadius: Double) extends Ellipse
+case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, val bRadius: Double) extends Ellipse
 { def x2: Double = 2 * xCen - x1
   def y2: Double = 2 * yCen - y1
   def aRadius: Double = (v1 - cen).magnitude

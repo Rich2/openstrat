@@ -2,9 +2,10 @@
 package ostrat
 package geom
 
-/** Elliptical Arc. I think its important not to encode unnecesary data, not because of space concerns but because this may allow contradictory data.
- *  */
-final case class EArc(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double) extends TransElem
+/** Elliptical Arc. I think its important not to encode unnecessary data, not because of space concerns but because this may allow contradictory data.
+ I've replaced  3 scalars and 2 booleans in the JavaFx encoding with 4 scalars. */
+final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x1: Double, y1: Double, xEnd: Double, yEnd: Double) extends
+  TransElem
 { //override type SimerT = EArc
 
   //override def fTrans(f: Vec2 => Vec2): EArc = ???
