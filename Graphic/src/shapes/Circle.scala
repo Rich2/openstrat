@@ -11,6 +11,11 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def y1: Double = yCen
   override def x2: Double = xCen - radius
   override def y2: Double = yCen
+
+  override def x3: Double = xCen
+
+  override def y3: Double = yCen + radius
+
   override def aRadius: Double = radius
   override def bRadius: Double = radius
   override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
