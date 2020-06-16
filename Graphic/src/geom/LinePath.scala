@@ -4,7 +4,7 @@ package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Vec2] with AffineElem with Vec2sLikeProdDbl2
+class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Vec2] with TransAffElem with Vec2sLikeProdDbl2
 { type ThisT = LinePath
   //type ThisT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)

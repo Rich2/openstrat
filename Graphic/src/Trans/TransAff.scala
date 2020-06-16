@@ -4,7 +4,7 @@ package geom
 import reflect.ClassTag
 
 /** The typeclass trait for transforming an object in 2d geometry. */
-trait Affine[T] extends TransSim[T]
+trait TransAff[T] extends TransSim[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T
   override def slate(obj: T, offset: Vec2): T = trans(obj, _ + offset)
   override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
@@ -16,17 +16,17 @@ trait Affine[T] extends TransSim[T]
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
-object Affine
+object TransAff
 {
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Affine[A]): Affine[AA] =
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAff[A]): TransAff[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromTranserAllImplicit[T <: AffineElem]: Affine[T] =
+  implicit def fromTranserAllImplicit[T <: TransAffElem]: TransAff[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Affine[A]): Affine[F[A]] =
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAff[A]): TransAff[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Affine[A]): Affine[Array[A]] =
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransAff[A]): TransAff[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 }

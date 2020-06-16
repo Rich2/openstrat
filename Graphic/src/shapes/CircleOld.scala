@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Slated for removal. */
-final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineElem
+final case class CircleOld(radius: Double, x: Double, y: Double) extends TransAffElem
 { override type ThisT = CircleOld
   override def fTrans(f: Vec2 => Vec2): CircleOld = CircleOld(radius, f(vCen))
   def vCen: Vec2 = x vv y

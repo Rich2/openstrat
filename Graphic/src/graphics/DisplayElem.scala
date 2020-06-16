@@ -87,7 +87,7 @@ trait DisplaySimer extends TransSimElem with DisplayElem
 }
 
 /** Display element that returns the same type through all affine transformations. */
-trait DisplayAffineElem extends DisplayElem with AffineElem
+trait DisplayAffineElem extends DisplayElem with TransAffElem
 { type ThisT <: DisplayAffineElem
 
   override def slate(offset: Vec2): ThisT

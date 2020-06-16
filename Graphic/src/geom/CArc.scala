@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Circular Arc */
-final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends AffineElem
+final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TransAffElem
 { type ThisT = CArc
   override def fTrans(f: Vec2 => Vec2): CArc = ???
   def pCen: Vec2 = xCen vv yCen
