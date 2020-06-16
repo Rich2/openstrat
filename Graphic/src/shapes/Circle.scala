@@ -4,8 +4,18 @@ package geom
 import pXml._
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse
-{ /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
+final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse with TransSimer
+{
+  /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
+  override type ThisT = Circle
+
+  override def fTrans(f: Vec2 => Vec2): Circle =
+  { val v1: Vec2 = cen.addX(radius)
+    val newV1: Vec2 = f(v1)
+    val newCen = f(cen)
+    val newRadius = (newV1 - newCen).magnitude
+    Circle(newCen, newRadius)
+  }
   @inline def diameter: Double = radius * 2
   override def x1: Double = xCen + radius
   override def y1: Double = yCen
@@ -19,7 +29,7 @@ final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Elli
   override def aRadius: Double = radius
   override def bRadius: Double = radius
   override def slate(offset: Vec2): Circle = Circle(cen + offset, radius)
-  @inline def slate(xOffset: Double, yOffset: Double): Circle = Circle(xCen + xOffset, yCen + yOffset, radius)
+  @inline override def slate(xOffset: Double, yOffset: Double): Circle = Circle(xCen + xOffset, yCen + yOffset, radius)
   override def scale(operand: Double): Circle = Circle(cen * operand, radius * operand)
   override def mirrorXOffset(yOffset: Double): Circle = Circle(cen.mirrorXOffset(yOffset), radius)
   override def mirrorX: Circle = Circle(xCen, -yCen, radius)

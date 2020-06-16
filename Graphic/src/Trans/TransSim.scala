@@ -19,7 +19,7 @@ trait TransSimer extends TransElem
   override def rotate180: ThisT
   override def rotate270: ThisT
 
-  override def scaleXY(xOperand: Double, yOperand: Double): ThisT
+  //override def scaleXY(xOperand: Double, yOperand: Double): ThisT
 }
 
 trait TransSimerUser extends TransSimer
