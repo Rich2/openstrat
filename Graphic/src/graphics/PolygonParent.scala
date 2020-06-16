@@ -14,7 +14,7 @@ case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, chi
 /** Companion object of the PolygonParent case class. */
 object PolygonParentFull
 {
-  def fill(cen: Vec2, poly: PolygonClass, evObj: Any, colour: Colour): PolygonParentFull = new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(colour)))
+  //def fill(cen: Vec2, poly: PolygonClass, evObj: Any, colour: Colour): PolygonParentFull = new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(colour)))
 
   /** Not sure if this is double filling the polygon */
   def fillDraw(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
@@ -33,7 +33,7 @@ object PolygonParentFull
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[GraphicElem]) extends DisplayParent
-{ type SimerT = PolygonParent
+{ type ThisT = PolygonParent
   override def addElems(newElems: Arr[GraphicElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
@@ -69,4 +69,9 @@ case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children
   override def rotate270: PolygonParent = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
+}
+
+object PolygonParent
+{
+  def fill(cen: Vec2, poly: PolygonClass, evObj: Any, colour: Colour): PolygonParent = new PolygonParent(cen, poly, evObj, Arr(poly.fill(colour)))
 }
