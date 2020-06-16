@@ -38,9 +38,9 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
    
   //def dSides: GraphicElems = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
       
-  def ls: GraphicElemFulls =
-  { val gs: GraphicElemFulls = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    val as: GraphicElemFulls = scen.tops.flatMap(a => a.disp2(this))
+  def ls: DisplayElems =
+  { val gs: DisplayElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+    val as: DisplayElems = scen.tops.flatMap(a => a.disp2(this))
     as ++ gs
   }   
   
