@@ -9,19 +9,8 @@ trait TransAffElem extends TransSimElem
 { type ThisT <: TransAffElem  
 
   /** A generalised shear transformation. I think this is correct. */
- // def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
-
+ // def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)  
   
-  def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
-  def mirror(v1: Vec2, v2: Vec2): ThisT = fTrans(_.mirror(v1, v2))
-
-  override def mirror(line: Line2): ThisT = fTrans((_.mirror(line)))
-
-  
-
   override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolignTrans(matrix))
-
-  
-
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ???
 }

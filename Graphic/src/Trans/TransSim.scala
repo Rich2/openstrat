@@ -6,13 +6,10 @@ import reflect.ClassTag
 /** A type that can fulfill all the Similar 2d geometrical transformations while retaining its type. */
 trait TransSimElem extends TransAlignElem
 { type ThisT <: TransSimElem  
-  
-  override def mirror(line: Line2): ThisT
-  def rotateRadians(radians: Double): ThisT
+  override def mirror(line: Line2): ThisT = fTrans(_.mirror(line))  
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
-  //def scale(operand: Double): ThisT
-  
-  
+  def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
+  def mirror(v1: Vec2, v2: Vec2): ThisT = fTrans(_.mirror(v1, v2))
 }
 
 trait TransSimElemUser extends TransSimElem
@@ -25,7 +22,7 @@ trait TransSimElemUser extends TransSimElem
   override def scale(operand: Double): ThisT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
   override def mirror(line: Line2): ThisT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
 
-  override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ???
+  //override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ???
 }
 
 /** A Similar Transformations type class */
