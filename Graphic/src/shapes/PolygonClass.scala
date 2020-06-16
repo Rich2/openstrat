@@ -7,7 +7,7 @@ import Colour.Black, collection.mutable.ArrayBuffer
  *  vectors. Minimum length 3. Clockwise is the default */
 class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffineElem
 { type ThisT = PolygonClass
-  type SimerT = PolygonClass
+  //type ThisT = PolygonClass
   def unsafeFromArray(array: Array[Double]): PolygonClass = new PolygonClass(array)
   override def typeStr: String = "Polygon"
 

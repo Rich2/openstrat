@@ -3,37 +3,37 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-/** Slated for removal. */
+/** A type that can fulfill all the Similar 2d geometrical transformations while retaining its type. */
 trait TransSimer extends TransElem
-{ type SimerT <: TransSimer
-  def shear(xScale: Double, yScale: Double): AffineElem
-  def mirror(line: Line2): SimerT
-  def rotateRadians(radians: Double): SimerT
-  def rotate(angle: Angle): SimerT = rotateRadians(angle.radians)
-  def scale(operand: Double): SimerT
-  def slate(offset: Vec2): SimerT
+{ type ThisT <: TransSimer
+  //def shear(xScale: Double, yScale: Double): AffineElem
+  def mirror(line: Line2): ThisT
+  def rotateRadians(radians: Double): ThisT
+  def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
+  def scale(operand: Double): ThisT
+  def slate(offset: Vec2): ThisT
 
   /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): SimerT = slate(xOffset vv yOffset)
+  def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
 
-  override def rotate90: SimerT
-  override def rotate180: SimerT
-  override def rotate270: SimerT
+  override def rotate90: ThisT
+  override def rotate180: ThisT
+  override def rotate270: ThisT
 
-  override def scaleXY(xOperand: Double, yOperand: Double): SimerT
+  override def scaleXY(xOperand: Double, yOperand: Double): ThisT
 }
 
 trait TransSimerUser extends TransSimer
-{ type SimerT <: TransSimerUser
+{ type ThisT <: TransSimerUser
   type MemT <: TransSimer
   def geomMem: MemT
-  def newThis(transer: MemT): SimerT
-  override def slate(offset: Vec2): SimerT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
-  override def rotateRadians(radians: Double): SimerT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
-  override def scale(operand: Double): SimerT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
-  override def mirror(line: Line2): SimerT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
+  def newThis(transer: MemT): ThisT
+  override def slate(offset: Vec2): ThisT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
+  override def rotateRadians(radians: Double): ThisT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
+  override def scale(operand: Double): ThisT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
+  override def mirror(line: Line2): ThisT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
 
-  override def scaleXY(xOperand: Double, yOperand: Double): SimerT = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ???
 }
 
 /** A Similar Transformations type class */

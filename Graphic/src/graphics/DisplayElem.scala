@@ -65,47 +65,47 @@ object DisplayElem
 }
 /** This trait is slated for removal as is the TransSimer trait. */
 trait DisplaySimer extends TransSimer with DisplayElem
-{ type SimerT <: DisplaySimer
+{ type ThisT <: DisplaySimer
 
-  override def slate(offset: Vec2): SimerT
+  override def slate(offset: Vec2): ThisT
 
-  override def slate(xOffset: Double, yOffset: Double): SimerT
+  override def slate(xOffset: Double, yOffset: Double): ThisT
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): SimerT
+  override def scale(operand: Double): ThisT
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def mirrorYOffset(xOffset: Double): SimerT
+  def mirrorYOffset(xOffset: Double): ThisT
 
-  override def rotate90: SimerT
-  override def rotate180: SimerT
-  override def rotate270: SimerT
-  override def rotateRadians(radians: Double): SimerT
-  override def mirror(line: Line2): SimerT
-  override def scaleXY(xOperand: Double, yOperand: Double): SimerT
+  override def rotate90: ThisT
+  override def rotate180: ThisT
+  override def rotate270: ThisT
+  override def rotateRadians(radians: Double): ThisT
+  override def mirror(line: Line2): ThisT
+  override def scaleXY(xOperand: Double, yOperand: Double): ThisT
 }
 
 /** Display element that returns the same type through all affine transformations. */
 trait DisplayAffineElem extends DisplayElem with AffineElem
-{ type SimerT <: DisplayAffineElem
+{ type ThisT <: DisplayAffineElem
 
-  override def slate(offset: Vec2): SimerT
+  override def slate(offset: Vec2): ThisT
 
-  override def slate(xOffset: Double, yOffset: Double): SimerT
+  override def slate(xOffset: Double, yOffset: Double): ThisT
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): SimerT
+  override def scale(operand: Double): ThisT
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def mirrorYOffset(xOffset: Double): SimerT
+  override def mirrorYOffset(xOffset: Double): ThisT
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait DisplayBounded extends DisplaySimer
-{ type SimerT <: DisplayBounded
+{ type ThisT <: DisplayBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
   def width: Double = boundingRect.width
@@ -114,5 +114,5 @@ trait DisplayBounded extends DisplaySimer
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait DisplayBoundedFull extends DisplayBounded with DisplayAffineElem
-{ type SimerT <: DisplayBoundedFull
+{ type ThisT <: DisplayBoundedFull
 }

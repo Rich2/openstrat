@@ -69,5 +69,5 @@ object GraphicElem
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
 trait GraphicFullElem extends GraphicElem with DisplayAffineElem
-{ type SimerT <: GraphicFullElem
+{ type ThisT <: GraphicFullElem
 }

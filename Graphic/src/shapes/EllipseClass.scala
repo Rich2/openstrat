@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double) extends Ellipse with AffineElem
-{  override type SimerT = EllipseClass
+{  override type ThisT = EllipseClass
   def x2: Double = 2 * xCen - x1
   def y2: Double = 2 * yCen - y1
   //def v3: Vec2 = x3 vv y3

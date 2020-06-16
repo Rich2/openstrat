@@ -5,7 +5,7 @@ import pCanv._, Colour.Black
 
 /** Circular Arc Draw PaintElem. */
 final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = Black) extends GraphicElem with TransSimerUser
-{ type SimerT = CArcDraw
+{ type ThisT = CArcDraw
   type MemT = CArc
   override def geomMem: CArc = arc
   override def newThis(transer: CArc): CArcDraw = CArcDraw(transer, lineWidth, colour)
@@ -16,7 +16,7 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   def endText: TextGraphic = TextGraphic("end", 10, arc.pEnd, colour)
   def cenEndTexts = Arr(cenText, endText)
   def startCenEndTexts = Arr(startText, cenText, endText)
-  override def shear(xScale: Double, yScale: Double): AffineElem = ???
+  def shear(xScale: Double, yScale: Double): AffineElem = ???
 
   override def mirrorYOffset(xOffset: Double): CArcDraw = ???
 

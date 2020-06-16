@@ -21,18 +21,18 @@ trait DisplayParent extends DisplayElem
 /** This is an active visual canvas object. A pointable polygon / shape with visual, that also knows how much display space it needs and preferred
  *  margin space. Not sure about the name. not sure if the trait is useful. */
 trait DisplayParentFull extends DisplayAffineElem with DisplayActiveFull
-{ override type SimerT <: DisplayParentFull
+{ override type ThisT <: DisplayParentFull
   def cen: Vec2
 
   /** The type of children can probably be widened in the future. */
   def children: Arr[GraphicFullElem]
   
-  def topLeft: SimerT = this.slate(- boundingRect.topLeft)
-  def topRight: SimerT = this.slate(- boundingRect.topRight)
-  def bottomLeft: SimerT = this.slate(- boundingRect.bottomLeft)
-  def bottomRight: SimerT = this.slate(- boundingRect.bottomRight)
+  def topLeft: ThisT = this.slate(- boundingRect.topLeft)
+  def topRight: ThisT = this.slate(- boundingRect.topRight)
+  def bottomLeft: ThisT = this.slate(- boundingRect.bottomLeft)
+  def bottomRight: ThisT = this.slate(- boundingRect.bottomRight)
 
-  def addElems(newElems: Arr[GraphicFullElem]): SimerT
-  def addElem(newElem: GraphicFullElem): SimerT = addElems(Arr(newElem))
-  def mutObj(newObj: Any): SimerT
+  def addElems(newElems: Arr[GraphicFullElem]): ThisT
+  def addElem(newElem: GraphicFullElem): ThisT = addElems(Arr(newElem))
+  def mutObj(newObj: Any): ThisT
 }

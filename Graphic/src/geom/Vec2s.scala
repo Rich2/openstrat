@@ -7,7 +7,7 @@ import collection.mutable.ArrayBuffer
  *  LinePath class should not entail a runtime cost. */
 class Vec2s(val arrayUnsafe: Array[Double]) extends AffineElem with Vec2sLikeProdDbl2 with ArrProdDbl2[Vec2]
 { type ThisT = Vec2s
-  type SimerT = Vec2s
+  //type ThisT = Vec2s
   def unsafeFromArray(array: Array[Double]): Vec2s = new Vec2s(array)
   override def typeStr: String = "Vec2s"
 

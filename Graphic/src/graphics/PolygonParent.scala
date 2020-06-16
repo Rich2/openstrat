@@ -5,7 +5,7 @@ import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, children: Arr[GraphicFullElem]) extends DisplayParentFull with PolyActiveFull
-{ type SimerT = PolygonParentFull
+{ type ThisT = PolygonParentFull
   def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[GraphicFullElem]): PolygonParentFull = new PolygonParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParentFull = new PolygonParentFull(cen, shape, newObj, children)
