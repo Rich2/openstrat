@@ -4,7 +4,7 @@ package geom
 import pXml._
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
+final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse
 { /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   @inline def diameter: Double = radius * 2
   override def x1: Double = xCen + radius
@@ -18,19 +18,19 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def aRadius: Double = radius
   override def bRadius: Double = radius
-  override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
-  @inline def slate(xOffset: Double, yOffset: Double): Circle = Circle(radius, xCen + xOffset, yCen + yOffset)
-  override def scale(operand: Double): Circle = Circle(radius * operand, cen * operand)
-  override def mirrorXOffset(yOffset: Double): Circle = Circle(radius, cen.mirrorXOffset(yOffset))
-  override def mirrorX: Circle = Circle(radius, xCen, -yCen)
-  override def mirrorYOffset(xOffset: Double): Circle = Circle(radius, cen.mirrorYOffset(xOffset))
-  override def mirrorY: Circle = Circle(radius, -xCen, yCen)
-  override def prolign(matrix: ProlignMatrix): Circle = Circle(radius * matrix.vFactor, cen.prolignTrans(matrix))
-  override def rotate90: Circle = Circle(radius, cen.rotate90)
-  override def rotate180: Circle = Circle(radius, cen.rotate180)
-  override def rotate270: Circle = Circle(radius, cen.rotate270)
-  override def rotateRadians(radians: Double): Circle = Circle(radius, cen.rotateRadians(radians))
-  override def mirror(line: Line2): Circle = Circle(radius, cen.mirror(line))
+  override def slate(offset: Vec2): Circle = Circle(cen + offset, radius)
+  @inline def slate(xOffset: Double, yOffset: Double): Circle = Circle(xCen + xOffset, yCen + yOffset, radius)
+  override def scale(operand: Double): Circle = Circle(cen * operand, radius * operand)
+  override def mirrorXOffset(yOffset: Double): Circle = Circle(cen.mirrorXOffset(yOffset), radius)
+  override def mirrorX: Circle = Circle(xCen, -yCen, radius)
+  override def mirrorYOffset(xOffset: Double): Circle = Circle(cen.mirrorYOffset(xOffset), radius)
+  override def mirrorY: Circle = Circle(-xCen, yCen, radius)
+  override def prolign(matrix: ProlignMatrix): Circle = Circle(cen.prolignTrans(matrix), radius * matrix.vFactor)
+  override def rotate90: Circle = Circle(cen.rotate90, radius)
+  override def rotate180: Circle = Circle(cen.rotate180, radius)
+  override def rotate270: Circle = Circle(cen.rotate270, radius)
+  override def rotateRadians(radians: Double): Circle = Circle(cen.rotateRadians(radians), radius)
+  override def mirror(line: Line2): Circle = Circle(cen.mirror(line), radius)
   
   override def fill(colour: Colour): CircleFill = CircleFill(this, colour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
@@ -42,13 +42,13 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
 /** This object provides factory methods for circles. */
 object Circle extends ShapeIcon
-{ def apply(radius: Double, cen: Vec2): Circle = new Circle(radius, cen.x, cen.y)
+{ def apply(cen: Vec2, radius: Double) = new Circle(cen.x, cen.y, radius)
   
   implicit val slateImplicit: Slate[Circle] = (obj, offset) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
   
-  override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
-  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)  
+  override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(cen, scale)
+  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(xCen, yCen, scale)  
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }

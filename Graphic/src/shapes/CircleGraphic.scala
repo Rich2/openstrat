@@ -53,6 +53,6 @@ final case class CircleFillDraw(shape: Circle, fillColour: Colour, lineWidth: Do
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
-{ override def scaleSlate(scale: Double, cen: Vec2): CircleFill = CircleFill(Circle(scale, cen), fillColour)
-  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circle(scale, xCen, yCen), fillColour)
+{ override def scaleSlate(scale: Double, cen: Vec2): CircleFill = CircleFill(Circle(cen, scale), fillColour)
+  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circle(xCen, yCen, scale), fillColour)
 }
