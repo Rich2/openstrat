@@ -9,8 +9,8 @@ trait Flag
   def ratio: Double
   def apply(): Arr[GraphicFullElem]
   def rect: PolygonClass = Rectangle(ratio)
-  def parentStr: PolygonParentFull = Rectangle(ratio).parentElems(name + " flag", apply)
-  def parent(evObj: Any = this): PolygonParentFull = Rectangle(ratio).parentElems(evObj, apply)
+  def parentStr: PolygonParent = Rectangle(ratio).parentElems(name + " flag", apply)
+  def parent(evObj: Any = this): PolygonParent = Rectangle(ratio).parentElems(evObj, apply)
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
   def leftToRight(colours: Colour*): Arr[GraphicFullElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio / colours.length, 1,
