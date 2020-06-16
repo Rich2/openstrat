@@ -3,14 +3,6 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait TransAlignElem extends TransElem
-{ type ThisT <: TransAlignElem
-  def fTrans(f: Vec2 => Vec2): ThisT  
-  def slate(offset: Vec2): ThisT = fTrans(_ + offset)
-  def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
-  def scale(operand: Double): ThisT = fTrans(_ * operand)
-}
-
 /** A transformation type class allowing only translations and scaling, in order to maintain the alignment of the graphical objects. */
 trait TransAlign[T]
 { def slate(obj: T, offset: Vec2): T
