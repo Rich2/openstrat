@@ -56,19 +56,14 @@ object Armenia extends Flag
 object Chad extends Flag
 { val ratio = 1.5
   val name = "Chad"
-  def apply: Arr[GraphicFullElem] = leftToRight(Blue, Yellow, Red)
+  def apply(): Arr[GraphicFullElem] = leftToRight(Blue, Yellow, Red)
 }
 
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  val apply: Arr[GraphicFullElem] =
-  {
-    Arr[GraphicFullElem](
-      Rectangle(1.5, 1).fill(Red),
-      Rectangle.fromTL(0.75, 0.5, - 0.75 vv 0.5).fill(DarkBlue)
-    )
-  }
+  val apply: Arr[GraphicFullElem] =Arr[GraphicFullElem](Rectangle(1.5, 1).fill(Red),
+    Rectangle.fromTL(0.75, 0.5, - 0.75 vv 0.5).fill(DarkBlue))  
 }
 
 object Japan extends Flag

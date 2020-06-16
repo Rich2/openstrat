@@ -7,9 +7,7 @@ import reflect.ClassTag
 trait TransSimElem extends TransAlignElem
 { type ThisT <: TransSimElem
   
-  def slate(offset: Vec2): ThisT
-  /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
+  
   override def mirror(line: Line2): ThisT
   def rotateRadians(radians: Double): ThisT
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
@@ -18,8 +16,6 @@ trait TransSimElem extends TransAlignElem
   override def rotate90: ThisT
   override def rotate180: ThisT
   override def rotate270: ThisT
-
-  //override def scaleXY(xOperand: Double, yOperand: Double): ThisT
 }
 
 trait TransSimerUser extends TransSimElem

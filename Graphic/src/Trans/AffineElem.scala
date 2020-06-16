@@ -8,7 +8,7 @@ package geom
 trait AffineElem extends TransSimElem
 { type ThisT <: AffineElem
   
-  def slate(offset: Vec2): ThisT = fTrans(_ + offset)
+ // def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def scale(operand: Double): ThisT = fTrans(_ * operand)
 
   /** A generalised shear transformation. I think this is correct. */
