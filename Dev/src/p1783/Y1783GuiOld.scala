@@ -35,7 +35,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
        line
      } 
       
-  def ls: GraphicElemFulls =
+  def ls: DisplayElems =
   { val gs: GraphicElemFulls = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
     val as: GraphicElemFulls = scen.tops.flatMap(a => a.disp2(this))
     gs ++ as

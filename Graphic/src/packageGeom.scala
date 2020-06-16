@@ -40,6 +40,7 @@ package object geom
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type SSet[A] = scala.collection.SortedSet[A]
   type GraphicElemFulls = Arr[DisplayAffineElem]
+  type DisplayElems = Arr[DisplayElem]
   /** Hopefully this existential syntax baggage will be gone in dotty */
   type CanvO = DisplayAffineElem
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           

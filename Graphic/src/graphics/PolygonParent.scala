@@ -14,8 +14,6 @@ case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, chi
 /** Companion object of the PolygonParent case class. */
 object PolygonParentFull
 {
-  //def fill(cen: Vec2, poly: PolygonClass, evObj: Any, colour: Colour): PolygonParentFull = new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(colour)))
-
   /** Not sure if this is double filling the polygon */
   def fillDraw(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
     new PolygonParentFull(cen, poly, evObj, Arr(PolygonFillDraw(poly, fillColour, lineWidth, lineColour)))
