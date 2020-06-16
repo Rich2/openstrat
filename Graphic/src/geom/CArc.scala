@@ -5,6 +5,7 @@ package geom
 /** Circular Arc */
 final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends AffineElem
 { type ThisT = CArc
+  override def fTrans(f: Vec2 => Vec2): CArc = ???
   def pCen: Vec2 = xCen vv yCen
   override def shear(xScale: Double, yScale: Double): CArc = ??? //EArc()
   def startAngleRadians: Double = (pStart - pCen).angleRadians
@@ -47,7 +48,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def mirror(line: Line2): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 
-  override def fTrans(f: Vec2 => Vec2): CArc = ???
+  
 }
 
 object CArc
