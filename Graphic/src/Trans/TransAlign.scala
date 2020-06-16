@@ -3,12 +3,18 @@ package ostrat
 package geom
 import reflect.ClassTag
 
+trait TransAlignElem extends TransElem
+{ type ThisT <: TransAlignElem
+  def fTrans(f: Vec2 => Vec2): ThisT
+}
+
 /** A transformation type class allowing only translations and scaling, in order to maintain the alignment of the graphical objects. */
 trait TransAlign[T]
 { def slate(obj: T, offset: Vec2): T
   def scale(obj: T, operand: Double): T
 }
 
+/** Companion object for the TransAlign type class. Contains instances for various container classes. */
 object TransAlign
 {
   implicit def transImplicit: TransAlign[TransElem] = new TransAlign[TransElem]
@@ -18,7 +24,7 @@ object TransAlign
     override def scale(obj: TransElem, operand: Double): TransElem = obj.scale(operand)
   }
 
-  implicit def transAlignerImplicit[T <: TransSimer]: TransAlign[T] = new TransAlign[T]
+  implicit def transAlignerImplicit[T <: TransSimElem]: TransAlign[T] = new TransAlign[T]
   { override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }

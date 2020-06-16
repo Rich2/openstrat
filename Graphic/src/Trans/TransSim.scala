@@ -4,9 +4,9 @@ package geom
 import reflect.ClassTag
 
 /** A type that can fulfill all the Similar 2d geometrical transformations while retaining its type. */
-trait TransSimer extends TransElem
-{ type ThisT <: TransSimer
-  def fTrans(f: Vec2 => Vec2): ThisT
+trait TransSimElem extends TransAlignElem
+{ type ThisT <: TransSimElem
+  
   def slate(offset: Vec2): ThisT
   /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
@@ -22,9 +22,9 @@ trait TransSimer extends TransElem
   //override def scaleXY(xOperand: Double, yOperand: Double): ThisT
 }
 
-trait TransSimerUser extends TransSimer
+trait TransSimerUser extends TransSimElem
 { type ThisT <: TransSimerUser
-  type MemT <: TransSimer
+  type MemT <: TransSimElem
   def geomMem: MemT
   def newThis(transer: MemT): ThisT
   override def slate(offset: Vec2): ThisT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
@@ -43,7 +43,7 @@ trait TransSim[T] extends TransAlign[T]
 
 object TransSim
 {
-  implicit def transSimerImplicit[T <: TransSimer]: TransSim[T] = new TransSim[T]
+  implicit def transSimerImplicit[T <: TransSimElem]: TransSim[T] = new TransSim[T]
   { override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]

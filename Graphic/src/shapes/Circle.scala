@@ -4,7 +4,7 @@ package geom
 import pXml._
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse with TransSimer
+final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse with TransSimElem
 {
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   override type ThisT = Circle
@@ -16,6 +16,7 @@ final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Elli
     val newRadius = (newV1 - newCen).magnitude
     Circle(newCen, newRadius)
   }
+  
   @inline def diameter: Double = radius * 2
   override def x1: Double = xCen + radius
   override def y1: Double = yCen

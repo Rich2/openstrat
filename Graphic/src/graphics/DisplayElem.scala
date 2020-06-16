@@ -64,7 +64,7 @@ object DisplayElem
   implicit val prolignImplicit: Prolign[DisplayElem] = (obj, matrix) => obj.prolign(matrix)
 }
 /** This trait is slated for removal as is the TransSimer trait. */
-trait DisplaySimer extends TransSimer with DisplayElem
+trait DisplaySimer extends TransSimElem with DisplayElem
 { type ThisT <: DisplaySimer
 
   override def slate(offset: Vec2): ThisT
