@@ -7,7 +7,7 @@ import geom._, Colour._
 trait Flag
 { def name: String
   def ratio: Double
-  def apply(): Arr[GraphicFullElem]
+  def apply(): Arr[GraphicElem]
   def rect: PolygonClass = Rectangle(ratio)
   def parentStr: PolygonParent = Rectangle(ratio).parentElems(name + " flag", apply)
   def parent(evObj: Any = this): PolygonParent = Rectangle(ratio).parentElems(evObj, apply)
@@ -34,7 +34,7 @@ object PlainFlagMaker
   def apply(colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = colour.str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): Arr[GraphicFullElem] = Arr(rect.fill(colour))
+    override def apply(): Arr[GraphicElem] = Arr(rect.fill(colour))
   }
 }
 
