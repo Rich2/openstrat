@@ -11,6 +11,6 @@ trait TransAffElem extends TransSimElem
   /** A generalised shear transformation. I think this is correct. */
  // def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)  
   
-  override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolignTrans(matrix))
+  
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ???
 }

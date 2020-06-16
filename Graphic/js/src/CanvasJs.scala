@@ -144,7 +144,7 @@ object CanvasJs extends CanvasTopLeft
     gc.beginPath
     gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.clock)
     gc.lineWidth = cad.lineWidth
-    gc.strokeStyle = cad.colour.webStr
+    gc.strokeStyle = cad.lineColour.webStr
     gc.stroke()
   }
 

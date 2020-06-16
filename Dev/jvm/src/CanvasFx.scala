@@ -124,7 +124,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.arcTo(ca.xCtrl, ca.yCtrl, ca.xEnd, ca.yEnd, ca.radius)
     //gc.arc(ca.xCen, ca.yCen, ca.radius, ca.radius, ca.startAngleRadians.radiansToDegrees, ca.detltaDegs)
     gc.setLineWidth(cad.lineWidth)
-    gc.setStroke(toFxColor(cad.colour))
+    gc.setStroke(toFxColor(cad.lineColour))
     gc.stroke()
   }
   def fxAlign(align: TextAlign) =

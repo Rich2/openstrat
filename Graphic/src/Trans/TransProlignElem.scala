@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-trait TransAlignElem extends TransElem
-{ type ThisT <: TransAlignElem
+trait TransProlignElem extends TransElem
+{ type ThisT <: TransProlignElem
   def fTrans(f: Vec2 => Vec2): ThisT
   def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
@@ -20,4 +20,6 @@ trait TransAlignElem extends TransElem
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   def rotate270: ThisT = fTrans(_.rotate270)
+
+  override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolignTrans(matrix))
 }

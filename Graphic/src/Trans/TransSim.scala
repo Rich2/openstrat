@@ -3,26 +3,13 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-/** A type that can fulfill all the Similar 2d geometrical transformations while retaining its type. */
-trait TransSimElem extends TransAlignElem
+/** All leaf classes of this type that will preserve their types for all the Similar 2d geometrical transformations. */
+trait TransSimElem extends TransProlignElem
 { type ThisT <: TransSimElem  
   override def mirror(line: Line2): ThisT = fTrans(_.mirror(line))  
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
   def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
   def mirror(v1: Vec2, v2: Vec2): ThisT = fTrans(_.mirror(v1, v2))
-}
-
-trait TransSimElemUser extends TransSimElem
-{ type ThisT <: TransSimElemUser
-  type MemT <: TransSimElem
-  def geomMem: MemT
-  def newThis(transer: MemT): ThisT
-  override def slate(offset: Vec2): ThisT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
-  override def rotateRadians(radians: Double): ThisT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
-  override def scale(operand: Double): ThisT = newThis(geomMem.scale(operand).asInstanceOf[MemT])
-  override def mirror(line: Line2): ThisT = newThis(geomMem.mirror(line).asInstanceOf[MemT])
-
-  //override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ???
 }
 
 /** A Similar Transformations type class */
