@@ -6,7 +6,7 @@ package geom
  *  implement the single method fTrans(f: Vec2 => Vec2): T. The related trait TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
 trait AffineElem extends TransSimer// with TransElem
 { type ThisT <: AffineElem
-  def fTrans(f: Vec2 => Vec2): ThisT
+  
   def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def scale(operand: Double): ThisT = fTrans(_ * operand)
 

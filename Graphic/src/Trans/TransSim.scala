@@ -6,16 +6,15 @@ import reflect.ClassTag
 /** A type that can fulfill all the Similar 2d geometrical transformations while retaining its type. */
 trait TransSimer extends TransElem
 { type ThisT <: TransSimer
-  //def shear(xScale: Double, yScale: Double): AffineElem
-  def mirror(line: Line2): ThisT
+  def fTrans(f: Vec2 => Vec2): ThisT
+  def slate(offset: Vec2): ThisT
+  /** Translate in 2 dimensional space. */
+  def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
+  override def mirror(line: Line2): ThisT
   def rotateRadians(radians: Double): ThisT
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
   def scale(operand: Double): ThisT
-  def slate(offset: Vec2): ThisT
-
-  /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): ThisT = slate(xOffset vv yOffset)
-
+  
   override def rotate90: ThisT
   override def rotate180: ThisT
   override def rotate270: ThisT

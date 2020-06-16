@@ -9,6 +9,8 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, colour: Colour = B
   type MemT = CArc
   override def geomMem: CArc = arc
   override def newThis(transer: CArc): CArcDraw = CArcDraw(transer, lineWidth, colour)
+
+  override def fTrans(f: Vec2 => Vec2): CArcDraw = ???
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.cArcDraw(this)
   def startText = TextGraphic("st", 10, arc.pStart, colour)
   def clkStr: String = ife(arc.clock, "clk", "anti")
