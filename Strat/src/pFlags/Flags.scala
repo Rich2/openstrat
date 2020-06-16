@@ -43,33 +43,33 @@ object TextFlagMaker
   def apply(str: String, colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): Arr[GraphicFullElem] = Arr(rect.fill(colour), TextGraphic(str, 40))
+    override def apply(): Arr[GraphicElem] = Arr(rect.fill(colour), TextGraphic(str, 40))
   }
 }
 
 object Armenia extends Flag
 { val name = "Armenia"
   val ratio = 2
-  val apply: Arr[GraphicFullElem] = leftToRight(Red, Blue, Gold)
+  val apply: Arr[GraphicElem] = leftToRight(Red, Blue, Gold)
 }
 
 object Chad extends Flag
 { val ratio = 1.5
   val name = "Chad"
-  def apply(): Arr[GraphicFullElem] = leftToRight(Blue, Yellow, Red)
+  def apply(): Arr[GraphicElem] = leftToRight(Blue, Yellow, Red)
 }
 
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  val apply: Arr[GraphicFullElem] =Arr[GraphicFullElem](Rectangle(1.5, 1).fill(Red),
+  val apply: Arr[GraphicElem] =Arr[GraphicElem](Rectangle(1.5, 1).fill(Red),
     Rectangle.fromTL(0.75, 0.5, - 0.75 vv 0.5).fill(DarkBlue))  
 }
 
 object Japan extends Flag
 { val name = "Japan"
   val ratio = 1.5
-  val apply: Arr[GraphicFullElem] =
+  val apply: Arr[GraphicElem] =
   { val rw = rect.fill(White)
     val circ = CircleOld.segs(0.6).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
