@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCanv
 import geom._
@@ -29,4 +29,3 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
   
   def setStatus(str: String): Unit = { statusText = str; eTop() }
 }
-
