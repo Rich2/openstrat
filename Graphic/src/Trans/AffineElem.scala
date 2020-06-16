@@ -12,7 +12,7 @@ trait AffineElem extends TransSimer
   def scale(operand: Double): ThisT = fTrans(_ * operand)
 
   /** A generalised shear transformation. I think this is correct. */
-  def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
+ // def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)
 
   def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
   def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))

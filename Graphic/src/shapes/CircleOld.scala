@@ -7,7 +7,7 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineE
 { override type ThisT = CircleOld
   override def fTrans(f: Vec2 => Vec2): CircleOld = CircleOld(radius, f(vCen))
   def vCen: Vec2 = x vv y
-  override def shear(xScale: Double, yScale: Double): CircleOld = ??? // new EllipseGen(x, y, x + radius, 0, radius)
+ // override def shear(xScale: Double, yScale: Double): CircleOld = ??? // new EllipseGen(x, y, x + radius, 0, radius)
   override def rotateRadians(radians: Double): CircleOld = CircleOld(radius, vCen.rotateRadians(radians))
   override def slate(offset: Vec2): CircleOld = CircleOld(radius, x + offset.x, y + offset.y)
   override def scale(operand: Double): CircleOld = CircleOld(radius * operand, x * operand, y * operand)
