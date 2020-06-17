@@ -35,9 +35,7 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def mirrorYOffset(xOffset: Double): GraphicElem = ???
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def mirrorXOffset(yOffset: Double): GraphicElem = ???
-
-  
+  override def mirrorXOffset(yOffset: Double): GraphicElem = ???  
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */

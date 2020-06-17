@@ -2,8 +2,9 @@
 package ostrat
 package geom
 
-trait Ellipse extends Shape
-{ def xCen: Double
+trait Ellipse extends Shape with TransProlignElem
+{ type ThisT <: Ellipse
+  def xCen: Double
   def yCen: Double
   final def cen: Vec2 = xCen vv yCen
   def x1: Double
@@ -22,13 +23,13 @@ trait Ellipse extends Shape
   { case e: Ellipse => true
     case _ => false
   }*/
-  override def slate(offset: Vec2): Ellipse
+  /*override def slate(offset: Vec2): Ellipse
 
-  override def slate(xOffset: Double, yOffset: Double): Ellipse
+  override def slate(xOffset: Double, yOffset: Double): Ellipse*/
   
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = ???
 
-  override def mirrorX: Ellipse
+  //override def mirrorX: Ellipse
 }
 
 object Ellipse
