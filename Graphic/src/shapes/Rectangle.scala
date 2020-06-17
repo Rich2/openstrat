@@ -2,10 +2,25 @@
 package ostrat
 package geom
 
+/** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. */
 trait Rectangle
 { def width: Double
   def height: Double
-  def cen: Double
+  def xCen: Double
+  def yCen: Double
+  @inline final def cen: Vec2 = xCen vv yCen
+  def xTopLeft: Double
+  def yTopLeft: Double
+  def topLeft: Vec2
+  def xTopRight: Double
+  def yTopRight: Double
+  def topRight: Vec2
+  def xBottomRight: Double
+  def yBottomRight: Double
+  def bottomRight: Vec2
+  def xBottomLeft: Double
+  def yBottomLeft: Double
+  def bottomLeft: Vec2
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
