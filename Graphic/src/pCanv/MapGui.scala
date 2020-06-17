@@ -17,11 +17,13 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
     case (_, l, _) => deb(l.toString)
   }
    
-  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+  def textBoxFull(str: String, cmd: AnyRef): PolygonParentFull = Rectangle(10, 25).parentFillTextFull(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+  def textBox(str: String, cmd: AnyRef): PolygonParent = Rectangle(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+  
   /**  repaints the top command bar */
   def reTop(commands: Arr[DisplayBounded]): Unit = topPan.repaint(displayRowGraphics(topPan.cenLeft, commands))
   var statusText = "This is the status text."
-  def status = textBox(statusText, None)
+  def status = textBoxFull(statusText, None)
   val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
   def mapObjs: DisplayElems

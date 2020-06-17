@@ -9,7 +9,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   val topBar = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
   topBar.backColour = Gray
   var statusText: String
-  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+  def textBox(str: String, cmd: AnyRef) = Rectangle(10, 25).parentFillTextFull(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   def status = textBox(statusText, None)
   val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mainRepaint(els: Arr[DisplayElem]): Unit = mainPanel.repaint(els)
