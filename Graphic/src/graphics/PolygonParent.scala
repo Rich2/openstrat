@@ -4,7 +4,8 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, children: Arr[GraphicFullElem]) extends DisplayParentFull with PolyActiveFull
+case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, children: Arr[GraphicFullElem]) extends DisplayParentFull with
+  PolyActiveFull// with PolygonParent
 { type ThisT = PolygonParentFull
   def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[GraphicFullElem]): PolygonParentFull = new PolygonParentFull(cen, shape, pointerId, children ++ newElems)
@@ -17,10 +18,7 @@ object PolygonParentFull
   /** Not sure if this is double filling the polygon */
   def fillDraw(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
     new PolygonParentFull(cen, poly, evObj, Arr(PolygonFillDraw(poly, fillColour, lineWidth, lineColour)))
-
-  def draw(cen: Vec2, poly: PolygonClass, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
-    new PolygonParentFull(cen, poly, evObj, Arr(PolygonDraw(poly, lineWidth, lineColour)))
-
+  
   def fillText(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
                align: TextAlign = CenAlign): PolygonParentFull =
     new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
@@ -52,13 +50,12 @@ case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children
 
   def shear(xScale: Double, yScale: Double): PolygonParent = ???
 
-  def mirror(line: Line2): PolygonParent = ???
+  def mirror(line: Line2): PolygonParent = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
 
-  override def mirrorX: PolygonParent = ???
+  override def mirrorX: PolygonParent = PolygonParent(cen.mirrorX, poly.mirrorX, pointerId, children.mirrorX)
+  override def mirrorY: PolygonParent = PolygonParent(cen.mirrorY, poly.mirrorY, pointerId, children.mirrorY)
 
-  override def mirrorY: PolygonParent = ???
-
-  override def prolign(matrix: ProlignMatrix): PolygonParent = ???
+  override def prolign(matrix: ProlignMatrix): PolygonParent = ??? // PolygonParent(cen.prolignMatrix(matrix), poly.mirrorY, pointerId, children.mirrorY)
 
   override def rotate90: PolygonParent = ???
 
@@ -72,4 +69,7 @@ case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children
 object PolygonParent
 {
   def fill(cen: Vec2, poly: PolygonClass, evObj: Any, colour: Colour): PolygonParent = new PolygonParent(cen, poly, evObj, Arr(poly.fill(colour)))
+
+  def draw(cen: Vec2, poly: PolygonClass, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParent =
+    new PolygonParent(cen, poly, evObj, Arr(PolygonDraw(poly, lineWidth, lineColour)))
 }
