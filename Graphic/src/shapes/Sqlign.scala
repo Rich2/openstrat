@@ -22,7 +22,7 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Trans
 
   override def mirrorY: Sqlign = Sqlign(width, -xCen, yCen)
 
-  override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolignTrans(matrix))
+  override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
 
   override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
 

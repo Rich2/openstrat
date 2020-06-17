@@ -55,7 +55,7 @@ case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children
   override def mirrorX: PolygonParent = PolygonParent(cen.mirrorX, poly.mirrorX, pointerId, children.mirrorX)
   override def mirrorY: PolygonParent = PolygonParent(cen.mirrorY, poly.mirrorY, pointerId, children.mirrorY)
 
-  override def prolign(matrix: ProlignMatrix): PolygonParent = ??? // PolygonParent(cen.prolignMatrix(matrix), poly.mirrorY, pointerId, children.mirrorY)
+  override def prolign(matrix: ProlignMatrix): PolygonParent = PolygonParent(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 
   override def rotate90: PolygonParent = ???
 

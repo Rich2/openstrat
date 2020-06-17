@@ -21,5 +21,5 @@ trait TransProlignElem extends TransElem
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   def rotate270: ThisT = fTrans(_.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolignTrans(matrix))
+  override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolign(matrix))
 }

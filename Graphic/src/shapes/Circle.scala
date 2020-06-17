@@ -36,7 +36,7 @@ final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Elli
   override def mirrorX: Circle = Circle(xCen, -yCen, radius)
   override def mirrorYOffset(xOffset: Double): Circle = Circle(cen.mirrorYOffset(xOffset), radius)
   override def mirrorY: Circle = Circle(-xCen, yCen, radius)
-  override def prolign(matrix: ProlignMatrix): Circle = Circle(cen.prolignTrans(matrix), radius * matrix.vFactor)
+  override def prolign(matrix: ProlignMatrix): Circle = Circle(cen.prolign(matrix), radius * matrix.vFactor)
   override def rotate90: Circle = Circle(cen.rotate90, radius)
   override def rotate180: Circle = Circle(cen.rotate180, radius)
   override def rotate270: Circle = Circle(cen.rotate270, radius)

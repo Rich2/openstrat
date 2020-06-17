@@ -20,6 +20,10 @@ package object geom
   { /** Performs 2d vector scale transformation on objects of type T. */
     def scale(operand: Double): T = ev.scaleT(value, operand)
   }
+  
+  implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])
+  { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
+  }
  
   implicit def mirrorAxisToExtension[T](value: T)(implicit ev: MirrorAxis[T]): MirrorAxisExtension[T] = new MirrorAxisExtension[T](value)(ev)
 
