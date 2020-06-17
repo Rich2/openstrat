@@ -40,6 +40,17 @@ object RotateAxes
     override def rotateT270(obj: F[A]): F[A] = evF.map(obj, evA.rotateT270(_))
   }
 
+  implicit def arrBaseImplicit[A, ArrT <: ArrBase[A]](implicit build: ArrBuild[A, ArrT], evA: RotateAxes[A]): RotateAxes[ArrT] = new RotateAxes[ArrT]
+  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
+    override def rotateT90(obj: ArrT): ArrT = obj.map(evA.rotateT90(_))
+
+    /** Rotates object of type T, 180 degrees or Pi radians. */
+    override def rotateT180(obj: ArrT): ArrT = obj.map(evA.rotateT180(_))
+
+    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
+    override def rotateT270(obj: ArrT): ArrT = obj.map(evA.rotateT270(_))
+  }
+
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], evA: RotateAxes[A]): RotateAxes[Array[A]] = new RotateAxes[Array[A]]
   { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
     override def rotateT90(obj: Array[A]): Array[A] = obj.map(evA.rotateT90(_))

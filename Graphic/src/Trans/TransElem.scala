@@ -52,6 +52,17 @@ object TransElem
   implicit val scaleImplicit: Scale[TransElem] = (obj: TransElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[TransElem] = (obj: TransElem, radians: Double) => obj.rotateRadians(radians)
   
+  implicit val rotateAxesImplicit: RotateAxes[TransElem] = new RotateAxes[TransElem]
+  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
+    override def rotateT90(obj: TransElem): TransElem = obj.rotate90
+
+    /** Rotates object of type T, 180 degrees or Pi radians. */
+    override def rotateT180(obj: TransElem): TransElem = obj.rotate180
+
+    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
+    override def rotateT270(obj: TransElem): TransElem = obj.rotate270
+  }
+  
   implicit val mirrorAxisImplicit: MirrorAxis[TransElem] = new MirrorAxis[TransElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def mirrorXOffset(obj: TransElem, yOffset: Double): TransElem = obj.mirrorXOffset(yOffset)

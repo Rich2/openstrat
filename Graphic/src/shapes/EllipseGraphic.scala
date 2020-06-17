@@ -52,7 +52,7 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def rotate180: GraphicElem = ???
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: DisplayElem = ???
+  override def rotate270: GraphicElem = ???
 
   override def rotateRadians(radians: Double): GraphicElem = ???
 

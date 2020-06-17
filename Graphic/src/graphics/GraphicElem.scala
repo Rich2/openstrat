@@ -41,7 +41,7 @@ trait GraphicElem extends DisplayElem
   def rotate180: GraphicElem
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  def rotate270: DisplayElem
+  def rotate270: GraphicElem
 
   override def rotateRadians(radians: Double): GraphicElem
 
@@ -62,6 +62,17 @@ object GraphicElem
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def mirrorYOffset(obj: GraphicElem, xOffset: Double): GraphicElem = obj.mirrorYOffset(xOffset)
+  }
+
+  implicit val rotateAxesImplicit: RotateAxes[GraphicElem] = new RotateAxes[GraphicElem]
+  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
+    override def rotateT90(obj: GraphicElem): GraphicElem = obj.rotate90
+
+    /** Rotates object of type T, 180 degrees or Pi radians. */
+    override def rotateT180(obj: GraphicElem): GraphicElem = obj.rotate180
+
+    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
+    override def rotateT270(obj: GraphicElem): GraphicElem = obj.rotate270
   }
 
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
