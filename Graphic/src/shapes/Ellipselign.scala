@@ -7,21 +7,21 @@ case class Ellipselign(xCen: Double, yCen: Double, xRadius: Double, yRadius: Dou
 { override type ThisT = Ellipselign
   override def fill(colour: Colour): ShapeFill = ???
   @inline def xMajor: Boolean = xRadius >= yRadius
-  override def aRadius: Double = ife(xMajor, xRadius, yRadius)
-  override def bRadius: Double = ife(xMajor, yRadius, xRadius)
+  override def majorRadius: Double = ife(xMajor, xRadius, yRadius)
+  override def minorRadius: Double = ife(xMajor, yRadius, xRadius)
   override def x1: Double = xCen + xRadius
   override def y1: Double = yCen
   override def x2: Double = xCen - xRadius
   override def y2: Double = yCen
   override def x3: Double = xCen
   override def y3: Double = yCen + yRadius
-
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   def fTrans(f: Vec2 => Vec2): Ellipselign = Ellipselign.cenV1V3(f(cen), f(v1), f(v3))
   
-  override def rotateRadians(radians: Double): EllipseClass = ???
+  override def rotateRadians(radians: Double): EllipseClass =
+    EllipseClass(cen.rotateRadians(radians), v1.rotateRadians(radians), v3.rotateRadians(radians))
 
-  override def mirror(line: Line2): EllipseClass = ???
+  override def mirror(line: Line2): EllipseClass = EllipseClass(cen.mirror(line), v1.mirror(line), v3.mirror(line))
 }
 
 object Ellipselign

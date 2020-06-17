@@ -16,9 +16,10 @@ trait Ellipse extends Shape with TransProlignElem
   def x3: Double
   def y3: Double
   def v3: Vec2 = x3 vv y3
-  def aRadius: Double
-  def bRadius: Double
+  def majorRadius: Double
+  def minorRadius: Double
 
+  override def rotateRadians(radians: Double): Ellipse 
   /* override def canEqual(that: Any): Boolean = that match
   { case e: Ellipse => true
     case _ => false

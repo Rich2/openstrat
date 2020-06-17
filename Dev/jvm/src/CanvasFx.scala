@@ -103,7 +103,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def tlEllipseFill(ef: EllipseFill): Unit = 
   { val el = ef.shape
     gc.setFill(toFxColor(ef.fillColour))
-    gc.fillOval(el.xCen - el.aRadius, el.yCen - el.bRadius, el.aRadius, el.bRadius)
+    gc.fillOval(el.xCen - el.majorRadius, el.yCen - el.minorRadius, el.majorRadius, el.minorRadius)
   }
 
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
