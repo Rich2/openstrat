@@ -16,6 +16,14 @@ trait Rectangle extends Rectanglular with Shape
   @inline final def x3: Double = xTopLeft
   @inline final def y3: Double = yTopLeft
   @inline final def v3: Vec2 = topLeft
+  
+  @inline final def apply(index: Int): Vec2 = index match 
+  { case 0 => v0
+    case 1 => v1
+    case 2 => v2
+    case 3 => v3
+    case n => excep("Index: " + n.toString + " out of range. Only 4 vertices in a Rectangle.")  
+  }
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
