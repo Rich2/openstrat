@@ -1,9 +1,10 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pXml._
 
 /** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. */
-trait Rectangle extends Rectanglular with Polygon
+trait Rectangle extends Rectangular with Polygon
 { final override def length: Int = 4
   def x0: Double
   def y0: Double
@@ -30,6 +31,7 @@ trait Rectangle extends Rectanglular with Polygon
   final override def elem2sArray: Array[Double] = Array(y0, y1, y2, y3)
   final override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); f(v3) }
   final override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3) }
+
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */

@@ -1,13 +1,11 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pCanv._
-import Colour.Black
-import ostrat.pXml.Attrib
+import pCanv._, Colour.Black, pXml._
 
 trait PolygonGraphic extends GraphicFullElem with DisplayBoundedFull with ShapeGraphic
 { type ThisT <: PolygonGraphic
-  def shape: Polygon
+  override def shape: Polygon
   def xHead: Double = shape.x0
   def yHead: Double = shape.y0
 
@@ -24,6 +22,10 @@ trait PolygonGraphic extends GraphicFullElem with DisplayBoundedFull with ShapeG
   def yArray: Array[Double] = shape.elem2sArray
 
   override def boundingRect: BoundingRect = shape.boundingRect
+  
+  
+
+  def svgStr: String = closedTagStr("rect", attribs)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */

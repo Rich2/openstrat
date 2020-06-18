@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Rectangle aligned to the X and Y axes. */
-trait Rectangularlign extends Rectanglular
+trait Rectangularlign extends Rectangular
 { def width: Double
   def height: Double
   def xCen: Double
