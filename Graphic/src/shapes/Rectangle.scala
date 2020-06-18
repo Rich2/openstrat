@@ -63,8 +63,8 @@ object Rectangle
         x - width / 2 vv y)
   }
  
-  val goldenRatio: Double = 1.6180339887498948482
-  def gRatio(height: Double): PolygonClass = apply(goldenRatio * height, height)
+  
+  def gRatio(height: Double): PolygonClass = apply(Phi * height, height)
   //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))
   def cross(width: Double, height: Double, barWidth: Double): Polygons = Polygons(apply(width, barWidth), apply(barWidth, height))
   
@@ -82,9 +82,9 @@ object Rectangle
   def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
     PolyCurveCentred(posn, curvedCorners(width, height, radius).slate(posn))
   def curvedGoldenRatio(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurve =
-    curvedCorners(height * goldenRatio, height, radius, posn)  
+    curvedCorners(height * Phi, height, radius, posn)  
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
-    curvedCornersCentred(height * goldenRatio, height, radius, posn)
+    curvedCornersCentred(height * Phi, height, radius, posn)
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
     gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
   
