@@ -3,13 +3,17 @@ package ostrat
 package geom
 
 /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-final case class Rect(xCen: Double, yCen: Double, xTopRight: Double, yTopRight: Double, xBottomRight: Double, yBottomRight: Double) extends
+final case class Rect(xCen: Double, yCen: Double, x0: Double, y0: Double, x1: Double, y1: Double) extends
   Rectangle with TransAffElem
 { override type ThisT = Rect
   override def width: Double = (cenRight - cen).magnitude * 2
   override def height: Double = (topCen - cen).magnitude * 2
-  override def topRight: Vec2 = Vec2(xTopRight, yTopRight)
-  override def bottomRight: Vec2 = Vec2(xBottomRight, yBottomRight)
+  override def xTopRight: Double = x0
+  override def yTopRight: Double = y0
+  override def topRight: Vec2 = Vec2(x0, y0)
+  override def xBottomRight: Double = x1
+  override def yBottomRight: Double = y1
+  override def bottomRight: Vec2 = Vec2(x1, y1)
   override def topLeft: Vec2 = 2 * cen - bottomRight
   override def xTopLeft: Double = topLeft.x
   override def yTopLeft: Double = topLeft.y

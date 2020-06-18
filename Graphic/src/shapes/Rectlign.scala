@@ -4,7 +4,10 @@ package geom
 
 /** A Rectangle aligned to the X and Y axes. */
 trait Rectanglelign extends Rectangle with Rectangularlign
-{ 
+{ @inline final override def x0: Double = xTopRight
+  @inline final override def y0: Double = yTopRight
+  @inline final override def x1: Double = xTopLeft
+  @inline final override def y1: Double = yTopLeft
 }
 
 /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */

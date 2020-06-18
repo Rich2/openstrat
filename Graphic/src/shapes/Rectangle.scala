@@ -4,9 +4,18 @@ package geom
 
 /** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. */
 trait Rectangle extends Rectanglular with Shape
-{ @inline final def x0: Double = xTopRight
-  @inline final def y0: Double = yTopRight
-  @inline final def v0: Vec2 = topRight  
+{ def x0: Double
+  def y0: Double
+  @inline final def v0: Vec2 = x0 vv y0
+  def x1: Double
+  def y1: Double
+  @inline final def v1: Vec2 = x1 vv y1
+  @inline final def x2: Double = xBottomLeft
+  @inline final def y2: Double = yBottomLeft
+  @inline final def v2: Vec2 = bottomLeft
+  @inline final def x3: Double = xTopLeft
+  @inline final def y3: Double = yTopLeft
+  @inline final def v3: Vec2 = topLeft
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
