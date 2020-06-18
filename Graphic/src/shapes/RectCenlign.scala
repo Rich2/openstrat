@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** A rectangle aligned with the X and Y axes and centred on x = 0, y = 0. */
-trait RectCenlign extends Rectlign
+trait RectCenlign extends Rectangularlign
 { def xCen: Double = 0
   def yCen: Double = 0
   //override def cen: Vec2 = Vec2Z

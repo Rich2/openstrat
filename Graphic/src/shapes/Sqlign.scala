@@ -3,9 +3,8 @@ package ostrat
 package geom
 
 /** A square aligned to the X and Y axes. */
-final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends TransElem with Rectlign// extends Transer
-{
-  
+final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends TransElem with Rectanglelign// extends Transer
+{  
   override def height: Double = width
 
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
@@ -36,6 +35,10 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Trans
   override def mirror(line: Line2): Square = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+  override def fill(colour: Colour): ShapeFill = ???
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */

@@ -20,7 +20,12 @@ final case class Rect(xCen: Double, yCen: Double, xTopRight: Double, yTopRight: 
   def topCen: Vec2 = (topLeft + topRight) / 2
 
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(topRight), f(bottomRight))
+
+  override def fill(colour: Colour): ShapeFill = ???
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
+
 
 object Rect
 {

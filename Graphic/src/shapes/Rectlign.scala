@@ -2,29 +2,61 @@
 package ostrat
 package geom
 
-/** Rectangle aligned to the X and Y axes. */
-trait Rectlign extends Rectangle
-{ def width: Double
-  def height: Double
-  def xCen: Double
-  def yCen: Double
-  @inline final override def xTopLeft: Double = xCen - width / 2
-  @inline final override def yTopLeft: Double = yCen + height / 2
-  @inline final override def topLeft: Vec2 = Vec2(xTopLeft, yTopLeft)
-  @inline final override def xTopRight: Double = xCen + width / 2
-  @inline final override def yTopRight: Double = yCen + height / 2
-  @inline final override def topRight: Vec2 = Vec2(xTopRight, yTopRight)
-  @inline final override def xBottomRight: Double = xCen + width / 2
-  @inline final override def yBottomRight: Double = yCen - height / 2
-  @inline final override def bottomRight: Vec2 = Vec2(xBottomRight, yBottomRight)
-  @inline final override def xBottomLeft: Double = xCen - width / 2
-  @inline final override def yBottomLeft: Double = yCen - height / 2
-  @inline final override def bottomLeft: Vec2 = Vec2(xBottomLeft, yBottomLeft)
+/** A Rectangle aligned to the X and Y axes. */
+trait Rectanglelign extends Rectangle with Rectangularlign
+{ 
 }
 
-case class RectlignClass(width: Double, height: Double, xCen: Double, yCen: Double) extends Rectlign
-
-object Rectlign
+/** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
+case class Rectlign(xCen: Double, yCen: Double, width: Double, height: Double) extends Rectanglelign
 {
+  override def fill(colour: Colour): ShapeFill = ???
 
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
+  /** Translate geometric transformation. */
+  override def slate(offset: Vec2): TransElem = ???
+
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): TransElem = ???
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): TransElem = ???
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def mirrorYOffset(xOffset: Double): TransElem = ???
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def mirrorXOffset(yOffset: Double): TransElem = ???
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def mirrorX: TransElem = ???
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def mirrorY: TransElem = ???
+
+  override def prolign(matrix: ProlignMatrix): TransElem = ???
+
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  override def rotate90: TransElem = ???
+
+  /** Rotates 180 degrees or Pi radians. */
+  override def rotate180: TransElem = ???
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  override def rotate270: TransElem = ???
+
+  override def rotateRadians(radians: Double): TransElem = ???
+
+  override def mirror(line: Line2): TransElem = ???
+
+  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+}
+
+/** Companion object for the Rectlign class */
+object Rectlign
+{ def apply(cen: Vec2, width: Double, height: Double): Rectlign = new Rectlign(cen.x, cen.y, width, height)
 }
