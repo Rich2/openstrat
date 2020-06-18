@@ -26,14 +26,14 @@ trait DisplayParentFull extends DisplayAffineElem with DisplayActiveFull
   def cen: Vec2
 
   /** The type of children can probably be widened in the future. */
-  def children: Arr[GraphicFullElem]
+  def children: Arr[GraphicAffElem]
   
   def topLeft: ThisT = this.slate(- boundingRect.topLeft)
   def topRight: ThisT = this.slate(- boundingRect.topRight)
   def bottomLeft: ThisT = this.slate(- boundingRect.bottomLeft)
   def bottomRight: ThisT = this.slate(- boundingRect.bottomRight)
 
-  def addElems(newElems: Arr[GraphicFullElem]): ThisT
-  def addElem(newElem: GraphicFullElem): ThisT = addElems(Arr(newElem))
+  def addElems(newElems: Arr[GraphicAffElem]): ThisT
+  def addElem(newElem: GraphicAffElem): ThisT = addElems(Arr(newElem))
   def mutObj(newObj: Any): ThisT
 }

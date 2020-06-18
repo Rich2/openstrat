@@ -108,11 +108,11 @@ trait DisplayBounded extends DisplaySimer
 { type ThisT <: DisplayBounded
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
-  def width: Double = boundingRect.width
+  def boundingWidth: Double = boundingRect.width
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait DisplayBoundedFull extends DisplayBounded with DisplayAffineElem
-{ type ThisT <: DisplayBoundedFull
+trait DisplayBoundedAffine extends DisplayBounded with DisplayAffineElem
+{ type ThisT <: DisplayBoundedAffine
 }

@@ -40,7 +40,7 @@ object CArcOld
 
 /** A functional paint element to Draw an Arc. Defined by the arc, the line width, the colour and the zOrder. */
 case class CArcDrawOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour)
-  extends GraphicFullElem with ArcLikeOld
+  extends GraphicAffElem with ArcLikeOld
 { override type ThisT = CArcDrawOld
   def typeStr: String = "ArcDraw"
   //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)

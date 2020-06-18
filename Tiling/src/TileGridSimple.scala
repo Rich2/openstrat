@@ -177,7 +177,7 @@ trait TileGridSimple
     iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToVec2(r)))
 
   /** Quick method to give the Tile, Side and Vertex Roord Text Grahics. */
-  final def cenSideVertRoordText: Arr[GraphicFullElem] = cenRoordTexts() ++ sideRoordTexts() ++ vertRoordTexts()
+  final def cenSideVertRoordText: Arr[GraphicAffElem] = cenRoordTexts() ++ sideRoordTexts() ++ vertRoordTexts()
 
   /**************************************************************************************************/
   /* Methods that operate on individual tiles. */
