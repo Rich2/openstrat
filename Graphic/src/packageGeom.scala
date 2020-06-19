@@ -44,8 +44,7 @@ package object geom
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type DisplayElems = Arr[DisplayElem]
-  /** Hopefully this existential syntax baggage will be gone in dotty */
-  type DispAffEl = DisplayAffineElem
+  
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
  
