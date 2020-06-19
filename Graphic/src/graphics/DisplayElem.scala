@@ -119,8 +119,17 @@ trait DisplayAffineElem extends DisplayElem with TransAffElem
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait DisplayBounded extends DisplaySimer
-{ type ThisT <: DisplayBounded
+trait DisplayBounded extends DisplayElem with BoundedElem
+{ 
+  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
+  //def boundingRect: BoundingRect
+ // def boundingWidth: Double = boundingRect.width
+}
+
+/** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
+ *  graphics. */
+trait DisplayBoundedSimer extends DisplaySimer
+{ type ThisT <: DisplayBoundedSimer
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
   def boundingWidth: Double = boundingRect.width
@@ -128,6 +137,6 @@ trait DisplayBounded extends DisplaySimer
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait DisplayBoundedAffine extends DisplayBounded with DisplayAffineElem
+trait DisplayBoundedAffine extends DisplayBoundedSimer with DisplayAffineElem
 { type ThisT <: DisplayBoundedAffine
 }
