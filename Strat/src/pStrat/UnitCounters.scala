@@ -5,7 +5,7 @@ import geom._
 
 object UnitCounters
 {
-  def infantry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolygonParentFull =
+  def infantry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolygonParent =
   { val rect: PolygonClass = Rectangle(1.5 * scale, scale)
     val line1 = Line2(rect(0), rect(2))
     val line2 = Line2(rect(1), rect(3))

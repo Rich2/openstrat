@@ -10,13 +10,13 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
   scale = 0.99.km   
   focus = 53.17 ll 0.0
 
-  val fHex: OfETile[NTileOld, ESideOldOnly] => GraphicElemFulls = etog =>
+  val fHex: OfETile[NTileOld, ESideOldOnly] => DisplayElems = etog =>
     {
       import etog._         
       val colour: Colour = tile.colour
       val poly = vertDispVecs.fillActive(colour, tile)       
 
-      val textU: GraphicElemFulls = etog.ifScaleCObjs(68, tile.lunits match
+      val textU: DisplayElems = etog.ifScaleCObjs(68, tile.lunits match
         { case ArrHead(head) if tScale > 68 => Arr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
           case _ =>
           { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
@@ -26,7 +26,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
         Arr(poly) ++ textU
      }
    
-   def fSide: OfESide[NTileOld, ESideOldOnly] => GraphicElemFulls = ofs =>
+   def fSide: OfESide[NTileOld, ESideOldOnly] => DisplayElems = ofs =>
      { import ofs._
        val line = ifScaleCObjs(60, side.terr match
          { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))

@@ -18,7 +18,7 @@ trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[Ti
   /** The number of pixels per tile, centre to centre */
   def tScale: Double = psc * grid.xStep
 
-  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElemFulls): GraphicElemFulls = if (tScale > ifScale) cObjs else Arr()
+  def ifScaleCObjs(ifScale: Double, cObjs: => DisplayElems): DisplayElems = if (tScale > ifScale) cObjs else Arr()
 
   def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemFulls = if (tScale > ifScale) cObj.toArr else Arr()
 

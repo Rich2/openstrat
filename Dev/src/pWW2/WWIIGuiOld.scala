@@ -9,13 +9,13 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
   focusUp = true
   override def saveNamePrefix = "WW2"
 
-  val fHex: OfETile[W2TileOld, W2SideOld] => GraphicElemFulls = etog =>
+  val fHex: OfETile[W2TileOld, W2SideOld] => DisplayElems = etog =>
     {
       import etog._         
       val colour: Colour = tile.colour
       val poly = etog.vertDispVecs.fillActive(colour, tile)
       //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
-      val textOrUnit: GraphicElemFulls = ifScaleCObjs(68, tile.lunits match
+      val textOrUnit: DisplayElems = ifScaleCObjs(68, tile.lunits match
         { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
           { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
@@ -26,7 +26,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
       Arr(poly) ++ textOrUnit
     }
     
-  def fSide: OfESide[W2TileOld, W2SideOld] => GraphicElemFulls = ofs =>
+  def fSide: OfESide[W2TileOld, W2SideOld] => DisplayElems = ofs =>
     {
       import ofs._
       ifScaleCObjs(60, side.terr match

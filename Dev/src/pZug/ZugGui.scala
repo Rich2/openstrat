@@ -65,6 +65,6 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   var statusText = "Welcome to ZugFuhrer"
   def thisTop(): Unit = reTop(Arr(status))
   thisTop()
-  def frame = (tiles ++ sides ++ lunits).gridScaleOld(scale)
+  def frame = (tiles ++ sides ++ lunits).gridScale(scale)
   mainRepaint(frame)
 }

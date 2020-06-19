@@ -74,6 +74,11 @@ object PolygonParent
   def draw(cen: Vec2, poly: PolygonClass, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParent =
     new PolygonParent(cen, poly, evObj, Arr(PolygonDraw(poly, lineWidth, lineColour)))
 
+  /** Not sure if this is double filling the polygon */
+  def fillDraw(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParent =
+    new PolygonParent(cen, poly, evObj, Arr(PolygonFillDraw(poly, fillColour, lineWidth, lineColour)))
+
+
   def fillText(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
                align: TextAlign = CenAlign): PolygonParent =
     new PolygonParent(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
