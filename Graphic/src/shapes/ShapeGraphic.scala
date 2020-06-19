@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pXml._
 
-trait ShapeGraphic extends GraphicElem
+trait ShapeGraphic extends DisplayElem
 { def shape: Shape
   def attribs: Arr[Attrib]
 }

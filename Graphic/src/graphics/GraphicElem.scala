@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A GraphicElem is either an element that can be rendered to a display or printed. */
-trait GraphicElem extends DisplayElem
+/*trait GraphicElem extends DisplayElem
 { /** Translate geometric transformation. */
   def slate(offset: Vec2): GraphicElem
 
@@ -72,9 +72,10 @@ object GraphicElem
   }
 
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
-}
+}*/
 
 /** Base trait for all child (non Parent) Graphic elements that output to the display. */
+/*
 trait GraphicAffElem extends GraphicElem with DisplayAffineElem
 { type ThisT <: GraphicAffElem
-}
+}*/

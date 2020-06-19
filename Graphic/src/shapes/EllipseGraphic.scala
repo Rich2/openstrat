@@ -29,34 +29,34 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): GraphicElem = ???
+  override def scale(operand: Double): DisplayElem = ???
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def mirrorYOffset(xOffset: Double): GraphicElem = ???
+  override def mirrorYOffset(xOffset: Double): DisplayElem = ???
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def mirrorXOffset(yOffset: Double): GraphicElem = ???  
+  override def mirrorXOffset(yOffset: Double): DisplayElem = ???  
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def mirrorY: GraphicElem = ???
+  override def mirrorY: DisplayElem = ???
 
-  override def prolign(matrix: ProlignMatrix): GraphicElem = ???
+  override def prolign(matrix: ProlignMatrix): DisplayElem = ???
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: GraphicElem = ???
+  override def rotate90: DisplayElem = ???
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: GraphicElem = ???
+  override def rotate180: DisplayElem = ???
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: GraphicElem = ???
+  override def rotate270: DisplayElem = ???
 
-  override def rotateRadians(radians: Double): GraphicElem = ???
+  override def rotateRadians(radians: Double): DisplayElem = ???
 
-  override def mirror(line: Line2): GraphicElem = ???
+  override def mirror(line: Line2): DisplayElem = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
 
   override def attribs: Arr[Attrib] = ???
 }

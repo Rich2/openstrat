@@ -1,9 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
 
-trait PolyCurveElem extends GraphicAffElem with DisplayBoundedAffine
+trait PolyCurveElem extends DisplayAffineElem with DisplayBoundedAffine
 { type ThisT <: PolyCurveElem
   def shape: PolyCurve
   def segsLen: Int = shape.length

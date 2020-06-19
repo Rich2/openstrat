@@ -32,7 +32,7 @@ object Bezier
       
 /** Functional class for Drawing a cubic Bezier curve. */
 case class BezierDraw (xStart: Double, yStart: Double, xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double,
-    lineWidth: Double, colour: Colour) extends GraphicAffElem with BezierLikeOld
+    lineWidth: Double, colour: Colour) extends DisplayAffineElem with BezierLikeOld
 { override type ThisT = BezierDraw
   def typeStr: String = "BezierDraw"
   //def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 

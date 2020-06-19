@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCanv
 import geom._
@@ -17,10 +17,10 @@ abstract class CanvasUser(val title: String)
     }
 
     movedObjs.foreach
-    { 
-      case ce: GraphicElem => ce.rendToCanvas(canv)
+    {     
       case cs: DisplayParent => canv.rendElems(cs.children)
       case cpf: DisplayParentFull => canv.rendElems(cpf.children)
+      case ce: DisplayElem => ce.rendToCanvas(canv)  
       //s case nss: UnScaledShape => canv.rendElems(nss.elems.slate(nss.referenceVec))
       case v =>
     }

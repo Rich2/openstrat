@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
@@ -40,7 +40,7 @@ object CArcOld
 
 /** A functional paint element to Draw an Arc. Defined by the arc, the line width, the colour and the zOrder. */
 case class CArcDrawOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour)
-  extends GraphicAffElem with ArcLikeOld
+  extends DisplayAffineElem with ArcLikeOld
 { override type ThisT = CArcDrawOld
   def typeStr: String = "ArcDraw"
   //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)

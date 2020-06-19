@@ -4,11 +4,11 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, children: Arr[GraphicAffElem]) extends DisplayParentFull with
+case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, children: Arr[DisplayAffineElem]) extends DisplayParentFull with
   PolyActiveFull// with PolygonParent
 { type ThisT = PolygonParentFull
   def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
-  override def addElems(newElems: Arr[GraphicAffElem]): PolygonParentFull = new PolygonParentFull(cen, shape, pointerId, children ++ newElems)
+  override def addElems(newElems: Arr[DisplayAffineElem]): PolygonParentFull = new PolygonParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParentFull = new PolygonParentFull(cen, shape, newObj, children)
 }
 
@@ -28,9 +28,9 @@ object PolygonParentFull
 }
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[GraphicElem]) extends DisplayParent
+case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[DisplayElem]) extends DisplayParent
 { type ThisT = PolygonParent
-  override def addElems(newElems: Arr[GraphicElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
+  override def addElems(newElems: Arr[DisplayElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
   def mirrorXOffset(yOffset: Double): PolygonParent =

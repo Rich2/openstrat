@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 /** Circular Arc Draw PaintElem. */
-final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour = Black) extends GraphicElem with TransSimElem
+final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour = Black) extends DisplayElem with TransSimElem
 { type ThisT = CArcDraw
 
   override def fTrans(f: Vec2 => Vec2): CArcDraw = CArcDraw(arc.fTrans(f), lineWidth, lineColour)
@@ -17,5 +17,5 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour
   def startCenEndTexts = Arr(startText, cenText, endText)
   
   def shear(xScale: Double, yScale: Double): TransAffElem = ???
-  override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
 }

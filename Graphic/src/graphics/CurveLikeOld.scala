@@ -14,4 +14,4 @@ trait CurveLikeOld extends CurveSegLike
   final def pStart: Vec2 = xStart vv yStart
 }
 
-trait CurveLikeOldGraphicElem extends CurveLikeOld with GraphicAffElem
+trait CurveLikeOldGraphicElem extends CurveLikeOld with DisplayAffineElem
