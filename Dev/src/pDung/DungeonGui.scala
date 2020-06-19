@@ -2,7 +2,7 @@ package ostrat
 package pDung
 import pCanv._, pGrid._, geom._
 
-/** This Gui will be replaced. */
+/** This uses the new Gui. */
 case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui("Dungeon Gui")
 {
   var statusText: String = "Welcome to Dungeon Gui"

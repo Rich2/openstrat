@@ -12,21 +12,6 @@ case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, chi
   override def mutObj(newObj: Any): PolygonParentFull = new PolygonParentFull(cen, shape, newObj, children)
 }
 
-/** Companion object of the PolygonParent case class. */
-object PolygonParentFull
-{
-  /** Not sure if this is double filling the polygon */
-  def fillDraw(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentFull =
-    new PolygonParentFull(cen, poly, evObj, Arr(PolygonFillDraw(poly, fillColour, lineWidth, lineColour)))
-  
-  def fillText(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
-               align: TextAlign = CenAlign): PolygonParentFull =
-    new PolygonParentFull(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
-
-  def fillContrastText(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParentFull =
-    fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
-}
-
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[DisplayElem]) extends DisplayParent with DisplayActive
 { type ThisT = PolygonParent
@@ -82,4 +67,7 @@ object PolygonParent
   def fillText(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
                align: TextAlign = CenAlign): PolygonParent =
     new PolygonParent(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
+
+  def fillContrastText(cen: Vec2, poly: PolygonClass, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParent =
+    fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
 }
