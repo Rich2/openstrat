@@ -21,7 +21,7 @@ trait DisplayParent extends DisplayElem
 
 /** This is an active visual canvas object. A pointable polygon / shape with visual, that also knows how much display space it needs and preferred
  *  margin space. Not sure about the name. not sure if the trait is useful. */
-trait DisplayParentFull extends DisplayAffineElem with DisplayActiveFull
+trait DisplayParentFull extends DisplayAffineElem with DisplayActiveAffine
 { override type ThisT <: DisplayParentFull
   def cen: Vec2
 

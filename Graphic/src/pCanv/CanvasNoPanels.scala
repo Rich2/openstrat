@@ -14,6 +14,7 @@ abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with Pane
   def refresh(): Unit =
   { canv.clear(backColour)
     actives = paintObjs(canvObjs)//paintObjs paints the objects to the screen and returns a list of active objects
+    debvar(actives.length)
   }
 
   /** Repaints the canvas takes repeat parameters of GraphicElem. */
