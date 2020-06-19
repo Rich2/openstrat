@@ -67,12 +67,6 @@ package object pGrid
 
   implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGridSimple, ev: TransSim[T])
   {
-    /** Translates Vec2s relative to Grid centre and then scales. */
-    def gridScaleOld(scale: Double): T =
-    { val a = ev.slate(value, -grid.cen)
-      ev.scale(a, scale)
-    }
-
     def gridTrans(offset: Vec2, scale: Double): T =
     { val a = ev.slate(value, -offset - grid.cen)
       ev.scale(a, scale)
@@ -84,18 +78,6 @@ package object pGrid
   { def prepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = prepend(Roord(y, c), value)
     def prepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
     def prepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
-
-    /*def gridHeadsMap[B <: AnyRef, BB <: Arr[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
-    {
-      val buff = build.newBuff()
-      grid.foreach { r => thisRefs(grid.index(r)) match
-      {
-        case h :: _ => build.buffGrow(buff, f(r, h))
-        case _ =>
-      }
-      }
-      build.buffToArr(buff)
-    }*/
   }
 
   val htStepSomes: Arr[HTStep] = Arr(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)

@@ -10,7 +10,7 @@ case class GTwoGui(canv: CanvasPlatform, scen: TwoScen) extends CmdBarGui("Game 
   var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
   val sls: LinesDraw = grid.sidesDraw(2.0)
   val csvr = grid.cenRoordTexts() ++ grid.sideRoordTexts() ++ grid.vertRoordTexts()
-  val frame = (sls +: csvr ).gridScaleOld(scale)
+  val frame = (sls +: csvr ).gridScale(scale)
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(status))
   thisTop()

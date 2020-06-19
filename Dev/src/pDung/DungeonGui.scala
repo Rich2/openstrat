@@ -1,6 +1,8 @@
 package ostrat
 package pDung
 import pCanv._, pGrid._, geom._
+
+/** This Gui will be replaced. */
 case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui("Dungeon Gui")
 {
   var statusText: String = "Welcome to Dungeon Gui"
@@ -17,7 +19,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
 
   def thisTop(): Unit = reTop(Arr(status))
   thisTop()
-  def frame: GraphicElemFulls = (tiles +- sls ++ players).gridScaleOld(scale)
+  def frame: DisplayElems = (tiles +- sls ++ players).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

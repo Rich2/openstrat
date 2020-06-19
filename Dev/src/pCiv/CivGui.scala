@@ -17,7 +17,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Ri
 
   def thisTop(): Unit = reTop(Arr(status))
   thisTop()
-  def frame = (tiles +- sls ++ lunits).gridScaleOld(scale)
+  def frame = (tiles +- sls ++ lunits).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }
