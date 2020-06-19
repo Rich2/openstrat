@@ -4,8 +4,7 @@ package geom
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
 trait DisplayActive extends DisplayBounded
-{ //type ThisT <: DisplayActive
-  /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
+{ /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
       purely up to the application to encode, its response if any to this object. */
   def pointerId: Any
 
@@ -16,12 +15,6 @@ trait DisplayActive extends DisplayBounded
 /** The base trait for all objects that can have mouse / touch pad interaction. */
 trait DisplayActiveSim extends DisplayBoundedSimer with DisplayActive
 { type ThisT <: DisplayActiveSim
-  /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
-      purely up to the application to encode, its response if any to this object. */
-  /*def pointerId: Any
-
-  /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
-  def ptInside(pt: Vec2): Boolean*/
 }
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
@@ -35,7 +28,6 @@ trait PolyActiveAffine extends DisplayActiveAffine
   def shape: PolygonClass
   override def boundingRect = shape.boundingRect
   override def ptInside(pt: Vec2): Boolean = shape.ptInPolygon(pt)
-  //override def fTrans(f: Vec2 => Vec2): ThisT
 }
 
 /** A pointable shape */

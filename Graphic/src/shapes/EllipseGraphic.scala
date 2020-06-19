@@ -3,24 +3,24 @@ package ostrat
 package geom
 import pCanv._, pXml._
 
-trait EllipseGraphic extends ShapeGraphic
-{ type GraphicT <: EllipseGraphic
+trait EllipseGraphic extends ShapeGraphic//
+{ type ThisT <: EllipseGraphic
   override def shape: Ellipse
-  def fTrans(newEllipse: Ellipse): GraphicT
+  def fTrans(newEllipse: Ellipse): ThisT
   
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */  
-  override def mirrorX: GraphicT = fTrans(shape.mirrorX)
+  override def mirrorX: ThisT = fTrans(shape.mirrorX)
   
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): GraphicT = fTrans(shape.slate(offset))
+  override def slate(offset: Vec2): ThisT = fTrans(shape.slate(offset))
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): GraphicT = fTrans(shape.slate(xOffset, yOffset))
+  override def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(shape.slate(xOffset, yOffset))
 }
 
 final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends EllipseGraphic with ShapeFill
-{ type GraphicT = EllipseFill
+{ type ThisT = EllipseFill
 
   override def fTrans(newEllipse: Ellipse): EllipseFill = EllipseFill(newEllipse, fillColour)
   
