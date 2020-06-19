@@ -3,6 +3,7 @@ package ostrat
 package pCanv
 import geom._, Colour._
 
+/** A simple 2 panel display, a man panel and a command bar. */
 abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30

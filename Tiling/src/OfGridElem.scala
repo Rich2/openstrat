@@ -3,9 +3,9 @@ package ostrat
 package pGrid
 import geom._, reflect.ClassTag
 
-/** Although including the cood could be considered to break the principle of encapsulation, A tile should not need to know where it is in a grid. I
- *   think it is necessary. Although the cood is determined by its position in the array there is just no good way for this data to be recovered by
- *    the Grid for random access. I think also it might be better to change to a var */
+/** To be removed. Although including the cood could be considered to break the principle of encapsulation, A tile should not need to know where it is
+ *  in a grid. I think it is necessary. Although the cood is determined by its position in the array there is just no good way for this data to be
+ *  recovered by the Grid for random access. I think also it might be better to change to a var. */
 trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT, SideT]]
 { def grid: GridT
   def cood: Cood   

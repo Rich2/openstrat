@@ -3,6 +3,7 @@ package ostrat
 package pZug
 import pCanv._, pGrid._, geom._, Colour._, pStrat._
 
+/** Uses the new simpler Gui for Grids. */
 case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuhrer Gui")
 {
   implicit val grid = scen.grid

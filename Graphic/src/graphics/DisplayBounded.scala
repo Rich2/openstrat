@@ -53,7 +53,7 @@ object DisplayBounded
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait DisplayBoundedSimer extends DisplaySimer with DisplayBounded
+trait DisplayBoundedSimer extends DisplaySimElem with DisplayBounded
 { type ThisT <: DisplayBoundedSimer
 
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT
