@@ -43,8 +43,6 @@ package object geom
   val EarthEquatorialRadius: Dist = 6378.137.km
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
-  type SSet[A] = scala.collection.SortedSet[A]
-  type GraphicElemFulls = Arr[DisplayAffineElem]
   type DisplayElems = Arr[DisplayElem]
   /** Hopefully this existential syntax baggage will be gone in dotty */
   type DispAffEl = DisplayAffineElem

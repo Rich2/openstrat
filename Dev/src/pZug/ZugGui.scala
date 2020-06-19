@@ -16,10 +16,10 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
 
   def lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
     val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.gridVec2)
-    val action: GraphicElemFulls = squad.action match
+    val action: DisplayElems = squad.action match
     {
       case Move(rs) =>
-      { rs.foldWithPrevious[GraphicElemFulls](roord, Arr()){ (acc, prevCood, nextCood) =>
+      { rs.foldWithPrevious[DisplayElems](roord, Arr()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
           val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(2, Black)
           val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(2, Black)
