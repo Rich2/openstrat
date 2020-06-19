@@ -31,7 +31,7 @@ trait PanelLike extends RectCenlign
 {var backColour: Colour = Colour.White
 
   /** These are currently stored in reverse. I think this would be better in an Array */
-  var actives: Arr[DisplayActiveSim] = Arr()
+  var actives: Arr[DisplayActive] = Arr()
 
   var canvObjs: Arr[DisplayElem] = Arr()
 

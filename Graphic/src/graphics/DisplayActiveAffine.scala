@@ -4,7 +4,7 @@ package geom
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
 trait DisplayActive extends DisplayBounded
-{ type ThisT <: DisplayActiveSim
+{ //type ThisT <: DisplayActive
   /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
       purely up to the application to encode, its response if any to this object. */
   def pointerId: Any
