@@ -125,7 +125,7 @@ trait DisplayBounded extends DisplayElem with BoundedElem
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait DisplayBoundedSimer extends DisplaySimer with BoundedElem
+trait DisplayBoundedSimer extends DisplaySimer with DisplayBounded
 { type ThisT <: DisplayBoundedSimer
 }
 
