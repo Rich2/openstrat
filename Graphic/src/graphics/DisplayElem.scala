@@ -4,7 +4,11 @@ package geom
 
 /** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in a display or both. */
 trait DisplayElem extends TransElem
-{/** Translate geometric transformation. */
+{
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
+  def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
+  
+  /** Translate geometric transformation. */
   def slate(offset: Vec2): DisplayElem
 
   /** Translate geometric transformation. */
