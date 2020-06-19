@@ -23,8 +23,8 @@ trait DisplayActiveAffine extends DisplayActiveSim with DisplayBoundedAffine
 }
 
 /** A pointable shape */
-trait ShapeActive extends DisplayActiveAffine
-{  type ThisT <: ShapeActive
+trait PolyCurveActive extends DisplayActiveAffine
+{  type ThisT <: PolyCurveActive
   def shape: PolyCurve
   def innerPoly: PolygonClass = shape.pMap(_.pEnd)
   override def boundingRect: BoundingRect = innerPoly.boundingRect

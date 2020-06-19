@@ -23,7 +23,7 @@ case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = B
 }
 
 /** A pointable shape without visual. */
-case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends DisplayAffineElem with ShapeActive
+case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends DisplayAffineElem with PolyCurveActive
 { override type ThisT = PolyCurveActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolyCurveActiveOnly = PolyCurveActiveOnly(shape.fTrans(f), pointerId)
 }
@@ -54,7 +54,7 @@ case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: Stri
 }
 
 case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2,
-  lineColour: Colour = Black) extends PolyCurveElem with ShapeActive
+  lineColour: Colour = Black) extends PolyCurveElem with PolyCurveActive
 { override type ThisT = PolyCurveAll
   override def fTrans(f: Vec2 => Vec2) = PolyCurveAll(shape.fTrans(f), pointerId, str, fillColour, fontSize, lineWidth, lineColour)
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
