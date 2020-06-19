@@ -20,7 +20,7 @@ trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[Ti
 
   def ifScaleCObjs(ifScale: Double, cObjs: => DisplayElems): DisplayElems = if (tScale > ifScale) cObjs else Arr()
 
-  def ifScaleCObj(ifScale: Double, cObj: CanvO *): GraphicElemFulls = if (tScale > ifScale) cObj.toArr else Arr()
+  def ifScaleCObj(ifScale: Double, cObj: CanvO *): DisplayElems = if (tScale > ifScale) cObj.toArr else Arr()
 
   def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: CanvO *): GraphicElemFulls = if (tScale > ifScale && b) cObjs.toArr else Arr()
 
