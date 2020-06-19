@@ -35,6 +35,5 @@ object StdButton
 }
 
 object Turn extends PersistSingleton
-{
-  def str: String = "Turn"
+{ def str: String = "Turn"
 }
