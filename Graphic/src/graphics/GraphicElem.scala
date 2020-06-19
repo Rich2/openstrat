@@ -4,10 +4,7 @@ package geom
 
 /** A GraphicElem is either an element that can be rendered to a display or printed. */
 trait GraphicElem extends DisplayElem
-{
-  
-
-  /** Translate geometric transformation. */
+{ /** Translate geometric transformation. */
   def slate(offset: Vec2): GraphicElem
 
   /** Translate geometric transformation. */

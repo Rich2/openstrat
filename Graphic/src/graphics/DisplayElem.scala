@@ -65,6 +65,17 @@ object DisplayElem
     override def mirrorYOffset(obj: DisplayElem, xOffset: Double): DisplayElem = obj.mirrorYOffset(xOffset)
   }
 
+  implicit val rotateAxesImplicit: RotateAxes[DisplayElem] = new RotateAxes[DisplayElem]
+  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
+    override def rotateT90(obj: DisplayElem): DisplayElem = obj.rotate90
+
+    /** Rotates object of type T, 180 degrees or Pi radians. */
+    override def rotateT180(obj: DisplayElem): DisplayElem = obj.rotate180
+
+    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
+    override def rotateT270(obj: DisplayElem): DisplayElem = obj.rotate270
+  }
+
   implicit val prolignImplicit: Prolign[DisplayElem] = (obj, matrix) => obj.prolign(matrix)
 }
 /** This trait is slated for removal as is the TransSimer trait. */
@@ -106,7 +117,7 @@ trait DisplayAffineElem extends DisplayElem with TransAffElem
   override def mirrorYOffset(xOffset: Double): ThisT
 }
 
-/** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
+/** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait DisplayBounded extends DisplaySimer
 { type ThisT <: DisplayBounded
@@ -115,7 +126,7 @@ trait DisplayBounded extends DisplaySimer
   def boundingWidth: Double = boundingRect.width
 }
 
-/** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
+/** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
 trait DisplayBoundedAffine extends DisplayBounded with DisplayAffineElem
 { type ThisT <: DisplayBoundedAffine
