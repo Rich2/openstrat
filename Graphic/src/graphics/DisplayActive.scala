@@ -22,14 +22,6 @@ trait DisplayActiveAffine extends DisplayActiveSim with DisplayBoundedAffine
 { type ThisT <: DisplayActiveAffine
 }
 
-/** An active transparent pointable polygon */
-trait PolyActiveAffine extends DisplayActiveAffine
-{ type ThisT <: PolyActiveAffine
-  def shape: PolygonClass
-  override def boundingRect = shape.boundingRect
-  override def ptInside(pt: Vec2): Boolean = shape.ptInPolygon(pt)
-}
-
 /** A pointable shape */
 trait ShapeActive extends DisplayActiveAffine
 {  type ThisT <: ShapeActive
