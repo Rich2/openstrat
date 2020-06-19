@@ -1,16 +1,7 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
-
-/** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentFull(cen: Vec2, shape: PolygonClass, pointerId: Any, children: Arr[DisplayAffineElem]) extends DisplayParentFull with
-  PolyActiveAffine// with PolygonParent
-{ type ThisT = PolygonParentFull
-  def fTrans(f: Vec2 => Vec2): PolygonParentFull = new PolygonParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
-  override def addElems(newElems: Arr[DisplayAffineElem]): PolygonParentFull = new PolygonParentFull(cen, shape, pointerId, children ++ newElems)
-  override def mutObj(newObj: Any): PolygonParentFull = new PolygonParentFull(cen, shape, newObj, children)
-}
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[DisplayElem]) extends DisplayParent with DisplayActive

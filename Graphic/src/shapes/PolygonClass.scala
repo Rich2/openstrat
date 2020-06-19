@@ -68,8 +68,8 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
 
   def parentElems(pointerID: Any, elems: Arr[DisplayElem]): PolygonParent = new PolygonParent(this.polyCentre, this, pointerID, elems)
 
-  def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParentFull =
-    PolygonParentFull(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
+  def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParent =
+    PolygonParent(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
 
   def closedPolygonToLine2s: Line2s =
