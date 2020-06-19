@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCloseOrder
 import pCanv._, geom._
@@ -13,6 +13,5 @@ case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("
       Rectangle(15, 10, (x - c.rankMiddle) * 20 + c.posn.x vv (y - 2) * 20 + c.posn.y).fill(c.colour)
     }
   }
-
    repaint(rs)
 } 
