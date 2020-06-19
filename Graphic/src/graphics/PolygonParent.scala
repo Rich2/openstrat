@@ -64,7 +64,7 @@ case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children
 
   override def rotate270: PolygonParent = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonParent = ???
 }
 
 object PolygonParent

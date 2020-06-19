@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** A GraphicElem is either an element that can be rendered to a display (or printed) or is an active element in a display or both. */
+/** A DisplayElem is either an element that can be rendered to a display (or printed) or is an active element in a display or both. */
 trait DisplayElem extends TransElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
@@ -115,22 +115,4 @@ trait DisplayAffineElem extends DisplayElem with TransAffElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def mirrorYOffset(xOffset: Double): ThisT
-}
-
-/** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
- *  graphics. */
-trait DisplayBounded extends DisplayElem with BoundedElem
-{
-}
-
-/** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
- *  graphics. */
-trait DisplayBoundedSimer extends DisplaySimer with DisplayBounded
-{ type ThisT <: DisplayBoundedSimer
-}
-
-/** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
- *  graphics. */
-trait DisplayBoundedAffine extends DisplayBoundedSimer with DisplayAffineElem
-{ type ThisT <: DisplayBoundedAffine
 }
