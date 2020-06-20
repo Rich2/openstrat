@@ -4,7 +4,7 @@ package geom
 
 /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
  * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double) extends Ellipse with TransAffElem
+case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double) extends Ellipse with AffinePreserve
 {  override type ThisT = EllipseClass
   def x2: Double = 2 * xCen - x1
   def y2: Double = 2 * yCen - y1

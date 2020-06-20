@@ -21,7 +21,7 @@ object TransAff
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAff[A]): TransAff[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromTranserAllImplicit[T <: TransAffElem]: TransAff[T] =
+  implicit def fromTranserAllImplicit[T <: AffinePreserve]: TransAff[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAff[A]): TransAff[F[A]] =

@@ -72,6 +72,8 @@ case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Dou
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
+	override def shearX(operand: Double): TransElem = ???
+
 	override def fill(colour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
@@ -137,6 +139,8 @@ case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, hei
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
+	override def shearX(operand: Double): TransElem = ???
+
 	override def fill(colour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
@@ -172,6 +176,8 @@ case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends 
 	override def mirrorY: TransElem = ???
 
 	override def prolign(matrix: ProlignMatrix): TransElem = ???
+
+	override def shearX(operand: Double): TransElem = ???
 
 	/** Rotates 90 degrees or Pi/2 radians anticlockwise. */
 	override def rotate90: TransElem = ???

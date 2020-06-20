@@ -42,7 +42,7 @@ trait Prolign[A]
 
 object Prolign
 {
-  implicit def transAlignerImplicit[T <: TransSimElem]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
+  implicit def transAlignerImplicit[T <: SimilarPreserve]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
 
   implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[Arr[A]] =
     (obj, offset) => obj.map(ev.prolignObj(_, offset))(new AnyBuildAlt[A](ct))

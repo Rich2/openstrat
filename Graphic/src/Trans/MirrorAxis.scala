@@ -13,7 +13,7 @@ trait MirrorAxis[T]
 
 object MirrorAxis
 {
-  implicit def transAlignerImplicit[T <: TransSimElem]: MirrorAxis[T] = new MirrorAxis[T]
+  implicit def transAlignerImplicit[T <: SimilarPreserve]: MirrorAxis[T] = new MirrorAxis[T]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def mirrorXOffset(obj: T, yOffset: Double): T = obj.mirror(Line2(-1, yOffset, 1, yOffset)).asInstanceOf[T]
 

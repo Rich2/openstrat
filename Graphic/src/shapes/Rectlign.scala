@@ -57,6 +57,8 @@ case class Rectlign(xCen: Double, yCen: Double, width: Double, height: Double) e
   override def mirror(line: Line2): TransElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+  override def shearX(operand: Double): TransElem = ???
 }
 
 /** Companion object for the Rectlign class */

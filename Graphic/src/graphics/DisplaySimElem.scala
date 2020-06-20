@@ -5,7 +5,7 @@ package geom
 /** A DisplayElem for which all leaf elements of this trait maintain their type through all similar transformation. This type is purely for the 
  * convenience of using the fTrans method to perform all the Similar transformations. It is not a useful user type hence it has no type class
  * instances associated with it. */
-trait DisplaySimElem extends TransSimElem with DisplayElem
+trait DisplaySimElem extends SimilarPreserve with DisplayElem
 { type ThisT <: DisplaySimElem
   override def slate(offset: Vec2): ThisT
   override def slate(xOffset: Double, yOffset: Double): ThisT
@@ -24,7 +24,7 @@ trait DisplaySimElem extends TransSimElem with DisplayElem
 /** A DisplayElem for which all leaf elements of this trait maintain their type through all affine transformation. This type is purely for the 
  * convenience of using the fTrans method to perform all the affine transformations. It is not a useful user type hence it has no type class
  * instances associated with it. */
-trait DisplayAffineElem extends DisplaySimElem with TransAffElem
+trait DisplayAffineElem extends DisplaySimElem with AffinePreserve
 { type ThisT <: DisplayAffineElem
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT
 }

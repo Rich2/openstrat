@@ -2,8 +2,9 @@
 package ostrat
 package geom
 
-trait TransProlignElem extends TransElem
-{ type ThisT <: TransProlignElem
+/** A class that preserves its type through all the Prolign, proportionate X-Y axes aligned transformations. */
+trait ProlignPreserve extends TransElem
+{ type ThisT <: ProlignPreserve
   def fTrans(f: Vec2 => Vec2): ThisT
   def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))

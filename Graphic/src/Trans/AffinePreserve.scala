@@ -2,15 +2,17 @@
 package ostrat
 package geom
 
-/** An object that can transform itself in 2d geometry and can preserve its type across all affine transofrmations. This is a key trait, the object
+/** A class that can transform itself in 2d geometry and can preserve its type across all affine transformations. This is a key trait, the object
  *  can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2): T. The related trait
  *  TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
-trait TransAffElem extends TransSimElem
-{ type ThisT <: TransAffElem  
+trait AffinePreserve extends SimilarPreserve
+{ type ThisT <: AffinePreserve  
 
   /** A generalised shear transformation. I think this is correct. */
  // def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)  
   
   
-  override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): ThisT = fTrans { case Vec2(x, y) => Vec2(x * xOperand, y) }
+
+  override def shearX(operand: Double): TransElem = ???
 }

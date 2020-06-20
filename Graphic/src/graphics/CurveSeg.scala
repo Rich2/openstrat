@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** The base trait for CurveSeg and Curve and their associated GraphicElems */
-trait CurveSegLike extends TransAffElem
+trait CurveSegLike extends AffinePreserve
 { /** the x component of the end point */
   def xEnd: Double
   /** the y component of the end point */

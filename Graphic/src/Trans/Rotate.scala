@@ -10,7 +10,7 @@ trait Rotate[T]
 
 object Rotate
 {
-  implicit def transSimerImplicit[T <: TransSimElem]: Rotate[T] = (obj, radians) => obj.rotateRadians(radians).asInstanceOf[T]
+  implicit def transSimerImplicit[T <: SimilarPreserve]: Rotate[T] = (obj, radians) => obj.rotateRadians(radians).asInstanceOf[T]
   
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Rotate[A]): Rotate[AA] =
     (obj, radians) => obj.map(ev.rotateRadiansT(_, radians))

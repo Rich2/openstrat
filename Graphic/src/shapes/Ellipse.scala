@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait Ellipse extends Shape with TransProlignElem
+trait Ellipse extends Shape with ProlignPreserve
 { type ThisT <: Ellipse
   def xCen: Double
   def yCen: Double

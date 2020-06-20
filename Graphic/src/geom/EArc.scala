@@ -46,6 +46,8 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def rotate270: TransElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+  override def shearX(operand: Double): TransElem = ???
 }
 
 object EArc

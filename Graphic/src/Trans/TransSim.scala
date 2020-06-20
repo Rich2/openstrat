@@ -4,8 +4,8 @@ package geom
 import reflect.ClassTag
 
 /** All leaf classes of this type that will preserve their types for all the Similar 2d geometrical transformations. */
-trait TransSimElem extends TransProlignElem
-{ type ThisT <: TransSimElem  
+trait SimilarPreserve extends ProlignPreserve
+{ type ThisT <: SimilarPreserve  
   override def mirror(line: Line2): ThisT = fTrans(_.mirror(line))  
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
   def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
@@ -20,7 +20,7 @@ trait TransSim[T] extends TransAlign[T]
 
 object TransSim
 {
-  implicit def transSimerImplicit[T <: TransSimElem]: TransSim[T] = new TransSim[T]
+  implicit def transSimerImplicit[T <: SimilarPreserve]: TransSim[T] = new TransSim[T]
   { override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def mirror(obj: T, line: Line2): T = obj.mirror(line).asInstanceOf[T]

@@ -19,7 +19,7 @@ object TransAlign
     override def scale(obj: TransElem, operand: Double): TransElem = obj.scale(operand)
   }
 
-  implicit def transAlignerImplicit[T <: TransSimElem]: TransAlign[T] = new TransAlign[T]
+  implicit def transAlignerImplicit[T <: SimilarPreserve]: TransAlign[T] = new TransAlign[T]
   { override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }

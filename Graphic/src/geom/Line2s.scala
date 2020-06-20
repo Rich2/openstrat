@@ -4,7 +4,7 @@ package geom
 import collection.mutable.ArrayBuffer
 
 /** Compact Imutable Array[Double] based collection class for (Line2)s. */
-class Line2s(val arrayUnsafe: Array[Double]) extends ArrProdDbl4[Line2] with TransAffElem
+class Line2s(val arrayUnsafe: Array[Double]) extends ArrProdDbl4[Line2] with AffinePreserve
 { type ThisT = Line2s
   //type ThisT = Line2s
   def unsafeFromArray(array: Array[Double]): Line2s = new Line2s(array)

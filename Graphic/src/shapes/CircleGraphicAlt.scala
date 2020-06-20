@@ -9,7 +9,8 @@ case class FillCap(colour: Colour) extends DispCap
 case class DrawCap(colour: Colour) extends DispCap
 case class HoverCap(colour: Colour) extends DispCap
 
-case class CircleGraphicNew(circle: Circle, caps: Arr[DispCap])
+/** A possible alternative method for encoding graphics primitives. */
+case class CircleGraphicAlt(circle: Circle, caps: Arr[DispCap])
 {
 
 }

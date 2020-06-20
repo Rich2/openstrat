@@ -45,6 +45,8 @@ trait TransElem extends Product with Serializable
   def mirror(line: Line2): TransElem
   
   def scaleXY(xOperand: Double, yOperand: Double): TransElem
+  
+  def shearX(operand: Double): TransElem
 }
 
 object TransElem

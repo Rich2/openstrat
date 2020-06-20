@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Circular Arc */
-final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends TransSimElem
+final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends SimilarPreserve
 { type ThisT = CArc
   override def fTrans(f: Vec2 => Vec2): CArc = ???
   def pCen: Vec2 = xCen vv yCen
@@ -49,6 +49,8 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+  override def shearX(operand: Double): TransElem = ???
 }
 
 object CArc

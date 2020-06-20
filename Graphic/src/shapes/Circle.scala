@@ -4,7 +4,7 @@ package geom
 import pXml._
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse with TransSimElem
+final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse with SimilarPreserve
 {
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   override type ThisT = Circle
@@ -42,6 +42,8 @@ final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Elli
   override def rotate270: Circle = Circle(cen.rotate270, radius)
   override def rotateRadians(radians: Double): Circle = Circle(cen.rotateRadians(radians), radius)
   override def mirror(line: Line2): Circle = Circle(cen.mirror(line), radius)
+
+  override def shearX(operand: Double): TransElem = ???
   
   override def fill(colour: Colour): CircleFill = CircleFill(this, colour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
