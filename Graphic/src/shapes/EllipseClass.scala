@@ -2,6 +2,8 @@
 package ostrat
 package geom
 
+/** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
+ * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
 case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double) extends Ellipse with TransAffElem
 {  override type ThisT = EllipseClass
   def x2: Double = 2 * xCen - x1
@@ -13,6 +15,7 @@ case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
+/** Companion object for the EllipseClass. Contains various factory methods for the creation of ellipses from different starting points. */
 object EllipseClass
 { def apply(vLeft: Vec2, vRight: Vec2, vUp: Vec2): EllipseClass = new EllipseClass(vLeft.x, vLeft.y, vRight.x, vRight.y, vUp.x, vUp.y)
   def cenV1V3(cen: Vec2, v1: Vec2, v3: Vec2): EllipseClass = new EllipseClass(cen.x, cen.y, v1.x, v1.y, v3.x, v3.y)
