@@ -29,20 +29,7 @@ final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Elli
 
   override def majorRadius: Double = radius
   override def minorRadius: Double = radius
-  override def slate(offset: Vec2): Circle = Circle(cen + offset, radius)
-  @inline override def slate(xOffset: Double, yOffset: Double): Circle = Circle(xCen + xOffset, yCen + yOffset, radius)
-  override def scale(operand: Double): Circle = Circle(cen * operand, radius * operand)
-  override def mirrorXOffset(yOffset: Double): Circle = Circle(cen.mirrorXOffset(yOffset), radius)
-  override def mirrorX: Circle = Circle(xCen, -yCen, radius)
-  override def mirrorYOffset(xOffset: Double): Circle = Circle(cen.mirrorYOffset(xOffset), radius)
-  override def mirrorY: Circle = Circle(-xCen, yCen, radius)
-  override def prolign(matrix: ProlignMatrix): Circle = Circle(cen.prolign(matrix), radius * matrix.vFactor)
-  override def rotate90: Circle = Circle(cen.rotate90, radius)
-  override def rotate180: Circle = Circle(cen.rotate180, radius)
-  override def rotate270: Circle = Circle(cen.rotate270, radius)
-  override def rotateRadians(radians: Double): Circle = Circle(cen.rotateRadians(radians), radius)
-  override def mirror(line: Line2): Circle = Circle(cen.mirror(line), radius)
-
+  
   override def shearX(operand: Double): TransElem = ???
   
   override def fill(colour: Colour): CircleFill = CircleFill(this, colour)
