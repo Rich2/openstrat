@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** An object that can transform itself in 2d geometry and can preserve its type across all affine transofrmations. This is a key trait, the object
- *  can be transformed in 2 dimensional space. Leaf classes mustimplement the single method fTrans(f: Vec2 => Vec2): T. The related trait
+ *  can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2): T. The related trait
  *  TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
 trait TransAffElem extends TransSimElem
 { type ThisT <: TransAffElem  
