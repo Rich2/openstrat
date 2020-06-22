@@ -17,12 +17,12 @@ object CurveTest extends TestSuite
     val css = PolyCurve(ls1, ls2, ls3)
 
     "Test1" -
-    { ls1 ==> CurveSeg(10, 0, 0, 0, 0, 4, 56)
-      as1 ==> CurveSeg(11, 0, 0, 4, 4, 6, 4)
+    { ls1 ==> CurveTail(10, 0, 0, 0, 0, 4, 56)
+      as1 ==> CurveTail(11, 0, 0, 4, 4, 6, 4)
       as2 ==> as3
       as4 ==> ArcSeg(13 vv 18, 17 vv 18)
-      ls2 ==> CurveSeg(10, 0, 0, 0, 0, -5, -8)
-      ls3 ==> CurveSeg(10, 0, 0, 0, 0, 45, -58)
+      ls2 ==> CurveTail(10, 0, 0, 0, 0, -5, -8)
+      ls3 ==> CurveTail(10, 0, 0, 0, 0, 45, -58)
       css(0) ==> ls1
     }
   }

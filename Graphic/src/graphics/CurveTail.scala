@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** The base trait for CurveSeg and Curve and their associated GraphicElems */
-trait CurveSegLike extends AffinePreserve
+trait CurveTailLike extends AffinePreserve
 { /** the x component of the end point */
   def xEnd: Double
   /** the y component of the end point */
@@ -12,12 +12,13 @@ trait CurveSegLike extends AffinePreserve
   final def pEnd: Vec2 = xEnd vv yEnd
 }
 
-/** A CurveSeg can  be a line segment or an arc segment or a bezier segment. It takes its start point from the pEnd of the previous segment. There is
-  * no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all have their own factory object apply methods. */
-case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
-  val yEnd: Double) extends ProdDbl7 with CurveSegLike
-{ override type ThisT = CurveSeg
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
+/** A CurveSeg can  be a line segment or an arc segment or a bezier segment without its starting point, which is supplied by the previous curveTail.
+ *  It takes its start point from the pEnd of the previous segment. There is no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all
+ *  have their own factory object apply methods. */
+case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
+                     val yEnd: Double) extends ProdDbl7 with CurveTailLike
+{ override type ThisT = CurveTail
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
   @inline override def _1 = iMatch
   @inline override def _2 = xC1
   @inline override def _3 = yC1
@@ -47,28 +48,28 @@ case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xU
      case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
    }
    
-  def segDo(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =  iMatch match
+  def segDo(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =  iMatch match
   { case 10 => fLineSeg(this)
     case 11 => fArcSeg(this)
     case 12 => fBezierSeg(this)
     case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
   }
    
-  override def fTrans(f: Vec2 => Vec2): CurveSeg = iMatch match
+  override def fTrans(f: Vec2 => Vec2): CurveTail = iMatch match
   {
-    case 10 => { val newPEnd: Vec2 = f(pEnd); new CurveSeg(10, 0, 0, 0, 0, newPEnd.x, newPEnd.y) }
+    case 10 => { val newPEnd: Vec2 = f(pEnd); new CurveTail(10, 0, 0, 0, 0, newPEnd.x, newPEnd.y) }
     
     case 11 =>
     { val newPCen: Vec2 = f(pUses)
       val newPEnd: Vec2 = f(pEnd)
-      new CurveSeg(11, 0, 0, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
+      new CurveTail(11, 0, 0, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
     }
     
     case 12 =>
     { val newPC1: Vec2 = f(pC1)
       val newPCen: Vec2 = f(pUses)
       val newPEnd: Vec2 = f(pEnd)
-      new CurveSeg(12, newPC1.x, newPC1.y, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
+      new CurveTail(12, newPC1.x, newPC1.y, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
     }
     
     case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
@@ -97,18 +98,18 @@ case class CurveSeg(val iMatch: Double, val xC1: Double, val yC1: Double, val xU
 
 /** This provides factory methods to create a LineSeg. There is no independent LineSeg class. This is one of 3 factory objects to CurveSeg. */
 object LineSeg
-{ def apply(pEnd: Vec2): CurveSeg =  new CurveSeg(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
-  def apply(xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(10, 0, 0, 0, 0, xEnd, yEnd)
+{ def apply(pEnd: Vec2): CurveTail =  new CurveTail(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
+  def apply(xEnd: Double, yEnd: Double): CurveTail = new CurveTail(10, 0, 0, 0, 0, xEnd, yEnd)
 }
 
 /** This provides factory methods to create an ArcSeg. There is no independent ArcSeg class. This is one of 3 factory objects to CurveSeg. */
 object ArcSeg
-{ def apply(pCen: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
+{ def apply(pCen: Vec2, pEnd: Vec2): CurveTail = new CurveTail(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
   //def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)
 }
 
 /** This provides factory methods to create a BezierSeg. There is no independent BezierSeg class. This is one of 3 factory objects to CurveSeg. */
 object BezierSeg
-{ def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveSeg = new CurveSeg(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
+{ def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveTail = new CurveTail(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
   //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)
 }

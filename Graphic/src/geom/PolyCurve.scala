@@ -6,14 +6,14 @@ import Colour.Black
 /** Shape is an Array[Double] based collection for a sequence of CurveSegs, similar to a Polygon which is an Array[Double based collection of just
  *   LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg positive infinity for
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
-class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveSeg] with AffinePreserve
+class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] with AffinePreserve
 { type ThisT = PolyCurve
   //type ThisT = PolyCurve
   def unsafeFromArray(array: Array[Double]): PolyCurve = new PolyCurve(array)
   override def typeStr = "Shape"
 
-  override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveSeg =
-    new CurveSeg(iMatch, d1, d2, d3, d4, d5, d6)
+  override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
+    new CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
 
   override def canEqual(that: Any): Boolean = ???
 
@@ -104,11 +104,11 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveSeg] wi
   def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, PolygonClass](_.pEnd).ptInPolygon(pt)
 
   /** Not sure if this is useful */
-  def segForeach(fLineSeg: CurveSeg => Unit, fArcSeg: CurveSeg => Unit, fBezierSeg: CurveSeg => Unit): Unit =
+  def segForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =
     foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 }
 
-object PolyCurve extends ProdDbl7sCompanion[CurveSeg, PolyCurve]
+object PolyCurve extends ProdDbl7sCompanion[CurveTail, PolyCurve]
 {
    implicit val factory: Int => PolyCurve = i => new PolyCurve(new Array[Double](i * 7))
 }

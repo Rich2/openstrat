@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Sub traits include Line, LineDraw, Arc, ArcDraw, Bezier, BezierDraw */
-trait CurveLikeOld extends CurveSegLike
+trait CurveLikeOld extends CurveTailLike
 { /** the x component of the start point often called x1 */
   def xStart: Double
 

@@ -34,27 +34,27 @@ trait CurveEndingDist
 class CurveSegDist(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double, 
       val xEndMetres: Double, val yEndMetres: Double) extends ProdDbl7 with CurveEndingDist
 { 
-  def toCurveSeg(f: Dist2 => Vec2): CurveSeg = xC1Metres match
+  def toCurveSeg(f: Dist2 => Vec2): CurveTail = xC1Metres match
   {
     case 10 =>
     { val endVec = f(pEnd)
-      new CurveSeg(10, 0, 0, 0, 0, endVec.x, endVec.y)
+      new CurveTail(10, 0, 0, 0, 0, endVec.x, endVec.y)
     }
     
     case 11 =>
     { val cenVec = f(pUses)
       val endVec = f(pEnd)
-      new CurveSeg(11, 0, 0, cenVec.x, cenVec.y, endVec.x, endVec.y)
+      new CurveTail(11, 0, 0, cenVec.x, cenVec.y, endVec.x, endVec.y)
     }
     
     case _ =>
     { val c1Vec = f(pC1)
       val cenVec = f(pUses)
       val endVec = f(pEnd)
-      new CurveSeg(12, c1Vec.x, c1Vec.y, cenVec.x, cenVec.y, endVec.x, endVec.y)
+      new CurveTail(12, c1Vec.x, c1Vec.y, cenVec.x, cenVec.y, endVec.x, endVec.y)
     }
   }
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveSeg]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
   @inline override def _1 = iMatch
   @inline override def _2 = xC1Metres
   @inline override def _3 = yC1Metres
