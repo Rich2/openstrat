@@ -72,8 +72,8 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
     PolygonParent(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
 
-  def closedPolygonToLine2s: Line2s =
-  { val res: Line2s = Line2s(length)
+  def closedPolygonToLine2s: LineSegs =
+  { val res: LineSegs = LineSegs(length)
     for (i <- 0 until (length -1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
     res.unsafeSetLast(LineSeg(last, head))
     res

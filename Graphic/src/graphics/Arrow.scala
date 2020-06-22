@@ -11,7 +11,7 @@ object Arrow
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)    
     val leftLine: LineSeg = LineSeg(endPt, leftVert)    
     val rightLine: LineSeg = LineSeg(endPt, rightVert)
-    val segs: Line2s = Line2s(mainLine, leftLine, rightLine)    
+    val segs: LineSegs = LineSegs(mainLine, leftLine, rightLine)    
     LinesDraw(segs, lineWidth, lineColour)
   }
   

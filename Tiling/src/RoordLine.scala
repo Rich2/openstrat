@@ -27,7 +27,7 @@ class RoordLines(val array: Array[Int]) extends AnyVal with ArrProdInt4[RoordLin
   override def unsafeFromArray(array: Array[Int]): RoordLines = new RoordLines(array)
   override def typeStr: String = "RoordLines"
   override def newElem(i1: Int, i2: Int, i3: Int, i4: Int): RoordLine = RoordLine.apply(i1, i2, i3, i4)
-  def toLine2s(f: Roord => Vec2): Line2s = pMap(_.toLine2(f))
+  def toLine2s(f: Roord => Vec2): LineSegs = pMap(_.toLine2(f))
   //override def toString: String = RoordLines.PersistImplicit.show(this)
 }
 

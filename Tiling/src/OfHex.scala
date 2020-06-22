@@ -8,7 +8,7 @@ trait OfHex[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridOld[TileT, S
    def sideURLine: LineSeg = CoodLine(cood.addXY(0, 1), cood.addXY(2, 1)).toLine2(cood => coodToDispVec2(cood))
    def sideRightLine: LineSeg = CoodLine(cood.addXY(2, 1), cood.addXY(2, - 1)).toLine2(cood => coodToDispVec2(cood))
    def sideDRLine: LineSeg = CoodLine(cood.addXY(2, -1), cood.addXY(0, -1)).toLine2(cood => coodToDispVec2(cood))
-   override def ownSideLines: Line2s = Line2s(sideURLine, sideRightLine, sideDRLine)
+   override def ownSideLines: LineSegs = LineSegs(sideURLine, sideRightLine, sideDRLine)
 }
 
 object OfHex

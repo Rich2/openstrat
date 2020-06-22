@@ -160,7 +160,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   
   /** Not sure about this method */
   def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LinesDraw =
-    Line2s.doubles(x - armLength, y, x + armLength, y,
+    LineSegs.doubles(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 
   def alignMatrix(matrix: AlignMatrix): Vec2 = Vec2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
