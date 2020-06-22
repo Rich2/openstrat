@@ -3,19 +3,19 @@ package ostrat
 package geom
 import collection.mutable.ArrayBuffer, Colour.Black
 
-/** In geometry this is a line segment. But in this library a seg refers to shape segemnt with out its start (pt1) point */
-class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLikeOld
-{ override type ThisT = Line2
-  override def toString: String = Line2.persistImplicit.show(this)
+/** 2 dimensional line segment. */
+class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLikeOld
+{ override type ThisT = LineSeg
+  override def toString: String = LineSeg.persistImplicit.show(this)
   override def _1 = xStart
   override def _2 = yStart
   override def _3 = xEnd
   override def _4 = yEnd
   override def canEqual(that: Any): Boolean = that match
-  { case op: Line2 => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd
+  { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd
   }
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd)
-  def fTrans(f: Vec2 => Vec2): Line2 = Line2(f(pStart), f(pEnd))
+  def fTrans(f: Vec2 => Vec2): LineSeg = LineSeg(f(pStart), f(pEnd))
   def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)
   def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pStart), f(pEnd))
   def isHorizontal: Boolean = yStart == yEnd
@@ -38,30 +38,30 @@ class Line2(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
   def mirrorPt(pt: Vec2): Vec2 = pt.mirror(this)
 }
 
-/** Companion object for the Line2 class */
-object Line2
-{ /** Factory apply method for Line2. */
-  @inline def apply(pStart: Vec2, pEnd: Vec2): Line2 = new Line2(pStart.x, pStart.y, pEnd.x, pEnd.y)
+/** Companion object for the LineSeg class. */
+object LineSeg
+{ /** Factory apply method for LineSeg. */
+  @inline def apply(pStart: Vec2, pEnd: Vec2): LineSeg = new LineSeg(pStart.x, pStart.y, pEnd.x, pEnd.y)
 
-  @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): Line2 = new Line2(xStart, yStart, xEnd, yEnd)
+  @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): LineSeg = new LineSeg(xStart, yStart, xEnd, yEnd)
 
-  implicit val persistImplicit: Persist[Line2] with Eq[Line2] =
-    new Persist2[Vec2, Vec2, Line2]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Line2(_, _))
+  implicit val persistImplicit: Persist[LineSeg] with Eq[LineSeg] =
+    new Persist2[Vec2, Vec2, LineSeg]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, LineSeg(_, _))
 
-  implicit val line2sBuildImplicit: ArrProdDbl4Build[Line2, Line2s] = new ArrProdDbl4Build[Line2, Line2s]
+  implicit val line2sBuildImplicit: ArrProdDbl4Build[LineSeg, Line2s] = new ArrProdDbl4Build[LineSeg, Line2s]
   { type BuffT = Line2sBuff
     override def fromDblArray(array: Array[Double]): Line2s = new Line2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
   }
 
-  implicit def transimplicit: TransAff[Line2] = (obj: Line2, f: Vec2 => Vec2) => Line2(f(obj.pStart), f(obj.pEnd))
+  implicit def transimplicit: TransAff[LineSeg] = (obj: LineSeg, f: Vec2 => Vec2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
 
 object HLine
 { /** Creates a horizontal Line2 */
-  @inline def apply(y: Double, xStart: Double, yEnd: Double): Line2 = new Line2(xStart, y, xStart, y)
+  @inline def apply(y: Double, xStart: Double, yEnd: Double): LineSeg = new LineSeg(xStart, y, xStart, y)
 }
 object VLine
 { /** Creates a vertical Line2 */
-  @inline def apply(x: Double, yStart: Double, yEnd: Double): Line2 = new Line2(x, yStart, x, yEnd)
+  @inline def apply(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 }

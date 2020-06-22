@@ -7,17 +7,17 @@ object Arrow
   def draw(startPt: Vec2, endPt: Vec2, headAngle: Angle = 30.degs, hypLength: Double = 20, lineWidth: Double = 2, lineColour: Colour = Colour.Black):
     LinesDraw =
   {
-    val mainLine = Line2(startPt, endPt)
+    val mainLine = LineSeg(startPt, endPt)
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)    
-    val leftLine: Line2 = Line2(endPt, leftVert)    
-    val rightLine: Line2 = Line2(endPt, rightVert)
+    val leftLine: LineSeg = LineSeg(endPt, leftVert)    
+    val rightLine: LineSeg = LineSeg(endPt, rightVert)
     val segs: Line2s = Line2s(mainLine, leftLine, rightLine)    
     LinesDraw(segs, lineWidth, lineColour)
   }
   
   def headVerts(startPt: Vec2, endPt: Vec2, headAngle: Angle = 30.degs, hypLength: Double = 20): (Vec2, Vec2) =
   {
-    val mainLine = Line2(startPt, endPt)
+    val mainLine = LineSeg(startPt, endPt)
     val ang: Angle = mainLine.angle
     val leftAng: Angle = ang + 180.degs - headAngle
     val leftVert: Vec2 = leftAng.toVec2(hypLength) + endPt

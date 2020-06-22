@@ -10,10 +10,10 @@ case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends ProdInt4
   def _2 = y1
   def _3 = x2
   def _4 = y2
-   def toLine2(f: Cood => Vec2): Line2 =
+   def toLine2(f: Cood => Vec2): LineSeg =
    {  val v1 = f(Cood(x1, y1))
       val v2 = f(Cood(x2, y2))
-      Line2(v1, v2)
+      LineSeg(v1, v2)
    }
 }
 

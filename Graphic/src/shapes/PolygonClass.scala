@@ -74,8 +74,8 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
 
   def closedPolygonToLine2s: Line2s =
   { val res: Line2s = Line2s(length)
-    for (i <- 0 until (length -1)) res.unsafeSetElem(i, Line2(apply(i), apply(i + 1)))
-    res.unsafeSetLast(Line2(last, head))
+    for (i <- 0 until (length -1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
+    res.unsafeSetLast(LineSeg(last, head))
     res
   }
 

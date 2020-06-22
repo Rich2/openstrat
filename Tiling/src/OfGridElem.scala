@@ -42,7 +42,7 @@ trait OfSide[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT,
 { def side: SideT    
   final def cood: Cood = side.cood   
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
-  def vertDispLine: Line2 = coodsLine.toLine2(coodToDispVec2)
+  def vertDispLine: LineSeg = coodsLine.toLine2(coodToDispVec2)
 
   def ifTiles[A <: AnyRef](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): Arr[A] =
     grid.optSidesTiles(cood) match

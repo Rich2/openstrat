@@ -45,7 +45,7 @@ trait DisplayElem extends TransElem
 
   def rotateRadians(radians: Double): DisplayElem
 
-  def mirror(line: Line2): DisplayElem
+  def mirror(line: LineSeg): DisplayElem
 
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem
 }

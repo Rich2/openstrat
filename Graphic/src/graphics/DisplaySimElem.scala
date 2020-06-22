@@ -14,7 +14,7 @@ trait DisplaySimElem extends SimilarPreserve with DisplayElem
   def mirrorY: ThisT
   def mirrorXOffset(yOffset: Double): ThisT
   def mirrorYOffset(xOffset: Double): ThisT
-  override def mirror(line: Line2): ThisT
+  override def mirror(line: LineSeg): ThisT
   override def rotate90: ThisT
   override def rotate180: ThisT
   override def rotate270: ThisT

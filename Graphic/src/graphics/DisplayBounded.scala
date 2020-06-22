@@ -17,7 +17,7 @@ trait DisplayBounded extends DisplayElem with BoundedElem
   def rotate180: DisplayBounded
   def rotate270: DisplayBounded
   def rotateRadians(radians: Double): DisplayBounded
-  def mirror(line: Line2): DisplayBounded
+  def mirror(line: LineSeg): DisplayBounded
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayBounded
 }
 
