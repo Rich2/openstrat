@@ -109,13 +109,13 @@ object LineTail
   def apply(xEnd: Double, yEnd: Double): CurveTail = new CurveTail(10, 0, 0, 0, 0, xEnd, yEnd)
 }
 
-/** This provides factory methods to create an ArcTail. There is no independent ArcSeg class. This is one of 3 factory objects to CurveTail. */
+/** This provides factory methods to create an ArcTail. There is no independent ArcTail class. This is one of 3 factory objects to CurveTail. */
 object ArcTail
 { def apply(pCen: Vec2, pEnd: Vec2): CurveTail = new CurveTail(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
   //def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)
 }
 
-/** This provides factory methods to create a BezierSeg. There is no independent BezierSeg class. This is one of 3 factory objects to CurveSeg. */
+/** This provides factory methods to create a Bezier tail. There is no independent BezierTail class. This is one of 3 factory objects to CurveTail. */
 object BezierTail
 { def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveTail = new CurveTail(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
   //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)
