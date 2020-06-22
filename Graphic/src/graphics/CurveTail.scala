@@ -74,14 +74,19 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
     
     case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
   }
-  /** Assuming this is Arc Segment */
+  
+  /** Assuming this is Arc Segment tail. */
   def arcCen: Vec2 = Vec2(xUses, yUses)
+  
   /** Assuming this is Arc Segment */
   def arcStartAngle(pStart: Vec2): Angle = (pStart - arcCen).angle
+  
   /** Assuming this is Arc Segment */
   def arcEndAngle: Angle = (pEnd - arcCen).angle
+  
   /** Assuming this is Arc Segment */
   def arcRadius: Double = (pEnd - arcCen).magnitude
+  
   /** Assuming this is Arc Segment */
   def arcControlPt(startPt: Vec2): Vec2 =
   { val sAng: Angle = arcStartAngle(startPt)
@@ -89,6 +94,7 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
     val alphaAngle =  sAng.angleTo(arcEndAngle) / 2
     arcCen + resultAngle.toVec2(arcRadius) / alphaAngle.cos
   }
+  
   /** Assuming this is ArcSeg, calculates ControlPt and then passes controlPt.x, controlPt.y, XENd, yEnd, radius to f */
   def fControlEndRadius(startPt: Vec2, f: (Double, Double, Double, Double, Double) => Unit): Unit =
   { val cp = arcControlPt(startPt)
@@ -96,8 +102,9 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   }
 }
 
-/** This provides factory methods to create a LineSeg. There is no independent LineSeg class. This is one of 3 factory objects to CurveSeg. */
-object LineSeg
+/** This provides factory methods to create a 2 dimensional headless line segment. There is no independent LineTail class. This is one of 3 factory
+ *  objects to CurveTail. */
+object LineTail
 { def apply(pEnd: Vec2): CurveTail =  new CurveTail(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
   def apply(xEnd: Double, yEnd: Double): CurveTail = new CurveTail(10, 0, 0, 0, 0, xEnd, yEnd)
 }

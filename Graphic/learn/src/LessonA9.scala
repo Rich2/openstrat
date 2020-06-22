@@ -8,7 +8,7 @@ case class LessonA9(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A8")
   //This can be more elegantly expressed in dotty
   def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
   val pt1 = 500 vv - 400
-  val sh1 = PolyCurve(LineSeg(Vec2Z), LineSeg(200 vv 0), BezierSeg(300 vv 300, 350 vv 100, pt1), LineSeg(100 vv -200))
+  val sh1 = PolyCurve(LineTail(Vec2Z), LineTail(200 vv 0), BezierSeg(300 vv 300, 350 vv 100, pt1), LineTail(100 vv -200))
   
   def stuff = Arr(
          bd(-100 vv 200, 300 vv 400, Green),
