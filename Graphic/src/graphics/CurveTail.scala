@@ -109,8 +109,8 @@ object LineTail
   def apply(xEnd: Double, yEnd: Double): CurveTail = new CurveTail(10, 0, 0, 0, 0, xEnd, yEnd)
 }
 
-/** This provides factory methods to create an ArcSeg. There is no independent ArcSeg class. This is one of 3 factory objects to CurveSeg. */
-object ArcSeg
+/** This provides factory methods to create an ArcTail. There is no independent ArcSeg class. This is one of 3 factory objects to CurveTail. */
+object ArcTail
 { def apply(pCen: Vec2, pEnd: Vec2): CurveTail = new CurveTail(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
   //def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)
 }

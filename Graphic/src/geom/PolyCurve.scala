@@ -104,7 +104,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
   def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, PolygonClass](_.pEnd).ptInPolygon(pt)
 
   /** Not sure if this is useful */
-  def segForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =
+  def tailForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =
     foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 }
 
