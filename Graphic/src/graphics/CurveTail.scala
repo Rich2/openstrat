@@ -116,7 +116,7 @@ object ArcTail
 }
 
 /** This provides factory methods to create a BezierSeg. There is no independent BezierSeg class. This is one of 3 factory objects to CurveSeg. */
-object BezierSeg
+object BezierTail
 { def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveTail = new CurveTail(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
   //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)
 }
