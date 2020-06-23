@@ -54,7 +54,7 @@ case class Rectlign(xCen: Double, yCen: Double, width: Double, height: Double) e
 
   override def rotateRadians(radians: Double): TransElem = ???
 
-  override def mirror(line: LineSeg): TransElem = ???
+  override def mirror(line: Line): TransElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 

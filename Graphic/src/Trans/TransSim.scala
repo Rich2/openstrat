@@ -6,7 +6,7 @@ import reflect.ClassTag
 /** All leaf classes of this type that will preserve their types for all the Similar 2d geometrical transformations. */
 trait SimilarPreserve extends ProlignPreserve
 { type ThisT <: SimilarPreserve  
-  def mirror(line: LineSeg): ThisT = fTrans(_.mirror(line))  
+  def mirror(line: Line): ThisT = fTrans(_.mirror(line))  
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
   def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
   def mirror(v1: Vec2, v2: Vec2): ThisT = fTrans(_.mirror(v1, v2))
@@ -14,7 +14,7 @@ trait SimilarPreserve extends ProlignPreserve
 
 /** A Similar Transformations type class */
 trait TransSim[T] extends TransAlign[T]
-{ def mirror(obj: T, line: LineSeg): T
+{ def mirror(obj: T, line: Line): T
   def rotateRadians(obj: T, radians: Double): T
 }
 
@@ -50,7 +50,7 @@ object TransSim
 }
 
 class TransSimExtension[T](value: T, ev: TransSim[T])
-{ def mirror(line: LineSeg) = ev.mirror(value, line)
+{ def mirror(line: Line) = ev.mirror(value, line)
   def mirror(v1: Vec2, v2: Vec2): T = ev.mirror(value, v1.lineTo(v2))
   def mirror(x1: Double, y1: Double, x2: Double, y2: Double): T = ev.mirror(value, new LineSeg(x1, y1, x2, y2))
  

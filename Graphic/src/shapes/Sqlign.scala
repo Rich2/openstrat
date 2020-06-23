@@ -32,7 +32,7 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Trans
 
   override def rotateRadians(radians: Double): Square = ???
 
-  override def mirror(line: LineSeg): Square = ???
+  override def mirror(line: Line): Square = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 

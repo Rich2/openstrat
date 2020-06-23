@@ -3,8 +3,7 @@ package ostrat
 package geom
 
 /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-final case class Rect(xCen: Double, yCen: Double, x0: Double, y0: Double, x1: Double, y1: Double) extends
-  Rectangle with AffinePreserve
+final case class Rect(xCen: Double, yCen: Double, x0: Double, y0: Double, x1: Double, y1: Double) extends Rectangle with AffinePreserve
 { override type ThisT = Rect
   override def width: Double = (cenRight - cen).magnitude * 2
   override def height: Double = (topCen - cen).magnitude * 2

@@ -29,7 +29,7 @@ trait Rectangle extends Rectangular with Polygon
 
   final override def elem1sArray: Array[Double] = Array(x0, x1, x2, x3)
   final override def elem2sArray: Array[Double] = Array(y0, y1, y2, y3)
-  final override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); f(v3) }
+  final override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); () }
   final override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3) }
 
 }

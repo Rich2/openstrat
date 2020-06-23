@@ -12,7 +12,7 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineP
   override def slate(offset: Vec2): CircleOld = CircleOld(radius, x + offset.x, y + offset.y)
   override def scale(operand: Double): CircleOld = CircleOld(radius * operand, x * operand, y * operand)
 
-  override def mirror(line: LineSeg): CircleOld = CircleOld(radius, vCen.mirror(line))
+  override def mirror(line: Line): CircleOld = CircleOld(radius, vCen.mirror(line))
 
   def fill(colour: Colour): CircleFill = ??? // CircleFillOld(this, colour)
   def draw(lineWidth: Double = 2, colour: Colour): CircleDraw = ??? // CircleDrawOld(this, lineWidth, colour)
