@@ -3,7 +3,7 @@ package ostrat
 package geom
 import collection.mutable.ArrayBuffer, Colour.Black
 
-/** 2 dimensional line segment. */
+/** A 2 dimensional line segment. A straight line between two points in a 3d space. */
 class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLikeOld
 { override type ThisT = LineSeg
   override def toString: String = LineSeg.persistImplicit.show(this)
@@ -11,9 +11,10 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   override def _2 = yStart
   override def _3 = xEnd
   override def _4 = yEnd
+  
   override def canEqual(that: Any): Boolean = that match
-  { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd
-  }
+  { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
+  
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd)
   def fTrans(f: Vec2 => Vec2): LineSeg = LineSeg(f(pStart), f(pEnd))
   def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)

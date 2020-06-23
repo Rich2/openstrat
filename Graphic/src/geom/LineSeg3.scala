@@ -2,10 +2,10 @@
 package ostrat
 package geom
 
-/** In geometry this is a 3 dimensional line segment. A straight line between two points in a 3d space. */
-case class Line3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends ProdDbl6
+/** A 3 dimensional line segment. A straight line between two points in a 3d space. */
+case class LineSeg3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends ProdDbl6
 { def typeStr: String = "Line3" 
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[Line3]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[LineSeg3]
   override def _1: Double = xStart
   override def _2 = yStart
   override def _3 = zStart
@@ -21,7 +21,7 @@ case class Line3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, y
    //def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pt1), f(pt2))
 }
 
-object Line3
+object LineSeg3
 {
-   def apply(pStart: Vec3, pEnd: Vec3): Line3 = new Line3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)   
+   def apply(pStart: Vec3, pEnd: Vec3): LineSeg3 = new LineSeg3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)   
 }
