@@ -23,7 +23,7 @@ class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double
   def yEnd: Dist = Dist(yEndMetres)
   def zEnd: Dist = Dist(zEndMetres)
   def zsPos: Boolean = zStart.pos && zEnd.pos
-  def toXY: LineDist2 = new LineDist2(xStartMetres, yStartMetres, xEndMetres, yEndMetres)
+  def toXY: DistLineSeg = new DistLineSeg(xStartMetres, yStartMetres, xEndMetres, yEndMetres)
 }
 
 object LineDist3

@@ -53,7 +53,7 @@ class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD
   def latLongFacing(ll: LatLong): Boolean = fromFocusDist3(ll).z.pos
    
   def fromFocusDist3(ll: LatLong): Dist3 = ll.subLong(long).toDist3.xRotation(-lat)
-  def fromFocusLineDist3(inp: LatLongLine): LineDist3 = LineDist3(
+  def fromFocusLineDist3(inp: LLLineSeg): LineDist3 = LineDist3(
     inp.llStart.subLong(long).toDist3.xRotation(-lat),
     inp.latLong2.subLong(long).toDist3.xRotation(-lat))
          
