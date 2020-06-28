@@ -8,11 +8,11 @@ case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack"
    val (hand, deck) = Card.newShuffled.takeCards(5)
    hand.iMap((c, i) => TextGraphic(c.unicode.mkString, 100, 50 + 100 * i vv 100, c.suitColour))
    
-   def clubFill(): Arr[DisplayAffineElem] =
+   def clubFill() =
    {
       val rad: Double = 0.55
       val circ3: PolygonClass = PolygonClass(0 vv rad, - rad * Sin60 vv - rad * Sin30, rad * Sin60 vv - rad * Sin30).scale(0.5)
-      val c3: Arr[PolyCurveFill] = circ3.slateY(0.06).map(cen => CircleOld.segs(2 * rad * 0.46).slate(cen).fill(Black))
+      val c3 = circ3.slateY(0.06).map(cen => Circle(cen ,2 * rad * 0.46).fill(Black))
       val rect: PolygonFill = PolygonFill(TrapezoidIsosceles(0.35, 0.2, 0.5).slateY(- 0.28), Black)
       c3 +- rect
    }      
