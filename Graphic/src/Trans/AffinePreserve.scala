@@ -6,11 +6,7 @@ package geom
  *  can be transformed in 2 dimensional space. Leaf classes must implement the single method fTrans(f: Vec2 => Vec2): T. The related trait
  *  TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
 trait AffinePreserve extends SimilarPreserve
-{ type ThisT <: AffinePreserve  
-
-  /** A generalised shear transformation. I think this is correct. */
- // def shear(xScale: Double, yScale: Double): AffineElem = ??? // fTrans(v => v.x * yScale vv v.y * xScale)  
-  
+{ type ThisT <: AffinePreserve
   
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT = fTrans { case Vec2(x, y) => Vec2(x * xOperand, y) }
 

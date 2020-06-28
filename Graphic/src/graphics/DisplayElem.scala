@@ -45,7 +45,7 @@ trait DisplayElem extends TransElem
 
   def rotateRadians(radians: Double): DisplayElem
 
-  def mirror(line: Line): DisplayElem
+  def reflect(line: Line): DisplayElem
 
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem
 }
@@ -57,12 +57,12 @@ object DisplayElem
   implicit val scaleImplicit: Scale[DisplayElem] = (obj: DisplayElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[DisplayElem] = (obj: DisplayElem, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val mirrorAxisImplicit: MirrorAxis[DisplayElem] = new MirrorAxis[DisplayElem]
+  implicit val mirrorAxisImplicit: ReflectAxis[DisplayElem] = new ReflectAxis[DisplayElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def mirrorXOffset(obj: DisplayElem, yOffset: Double): DisplayElem = obj.mirrorXOffset(yOffset)
+    override def reflectXOffsetT(obj: DisplayElem, yOffset: Double): DisplayElem = obj.mirrorXOffset(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def mirrorYOffset(obj: DisplayElem, xOffset: Double): DisplayElem = obj.mirrorYOffset(xOffset)
+    override def reflectYOffsetT(obj: DisplayElem, xOffset: Double): DisplayElem = obj.mirrorYOffset(xOffset)
   }
 
   implicit val rotateAxesImplicit: RotateAxes[DisplayElem] = new RotateAxes[DisplayElem]

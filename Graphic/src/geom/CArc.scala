@@ -45,7 +45,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def mirrorYOffset(xOffset: Double): CArc = CArc(pStart.mirrorYOffset(xOffset), cen.mirrorYOffset(xOffset), -deltaRadians)
   override def mirrorXOffset(yOffset: Double): CArc = CArc(pStart.mirrorXOffset(yOffset), cen.mirrorXOffset(yOffset), -deltaRadians)
 
-  override def mirror(line: LineSeg): CArc = ???
+  override def reflect(line: LineSeg): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???

@@ -17,7 +17,7 @@ trait DisplayBounded extends DisplayElem with BoundedElem
   def rotate180: DisplayBounded
   def rotate270: DisplayBounded
   def rotateRadians(radians: Double): DisplayBounded
-  def mirror(line: LineSeg): DisplayBounded
+  def reflect(line: LineSeg): DisplayBounded
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayBounded
 }
 
@@ -28,12 +28,12 @@ object DisplayBounded
   implicit val scaleImplicit: Scale[DisplayBounded] = (obj: DisplayBounded, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[DisplayBounded] = (obj: DisplayBounded, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val mirrorAxisImplicit: MirrorAxis[DisplayBounded] = new MirrorAxis[DisplayBounded]
+  implicit val mirrorAxisImplicit: ReflectAxis[DisplayBounded] = new ReflectAxis[DisplayBounded]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def mirrorXOffset(obj: DisplayBounded, yOffset: Double): DisplayBounded = obj.mirrorXOffset(yOffset)
+    override def reflectXOffsetT(obj: DisplayBounded, yOffset: Double): DisplayBounded = obj.mirrorXOffset(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def mirrorYOffset(obj: DisplayBounded, xOffset: Double): DisplayBounded = obj.mirrorYOffset(xOffset)
+    override def reflectYOffsetT(obj: DisplayBounded, xOffset: Double): DisplayBounded = obj.mirrorYOffset(xOffset)
   }
 
   implicit val rotateAxesImplicit: RotateAxes[DisplayBounded] = new RotateAxes[DisplayBounded]

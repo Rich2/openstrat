@@ -42,8 +42,8 @@ trait TransElem extends Product with Serializable
   
   def rotateRadians(radians: Double): TransElem
 
-  def mirror(line: Line): TransElem
-  def mirror(line: LineSeg): TransElem
+  def reflect(line: Line): TransElem
+  def reflect(line: LineSeg): TransElem
   def scaleXY(xOperand: Double, yOperand: Double): TransElem
   
   def shearX(operand: Double): TransElem
@@ -65,12 +65,12 @@ object TransElem
     override def rotateT270(obj: TransElem): TransElem = obj.rotate270
   }
   
-  implicit val mirrorAxisImplicit: MirrorAxis[TransElem] = new MirrorAxis[TransElem]
+  implicit val mirrorAxisImplicit: ReflectAxis[TransElem] = new ReflectAxis[TransElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def mirrorXOffset(obj: TransElem, yOffset: Double): TransElem = obj.mirrorXOffset(yOffset)
+    override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.mirrorXOffset(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def mirrorYOffset(obj: TransElem, xOffset: Double): TransElem = obj.mirrorYOffset(xOffset)
+    override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.mirrorYOffset(xOffset)
   }
   
   implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)

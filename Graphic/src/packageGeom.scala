@@ -26,7 +26,7 @@ package object geom
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
   }
  
-  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: MirrorAxis[T]): MirrorAxisExtension[T] = new MirrorAxisExtension[T](value)(ev)
+  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: ReflectAxis[T]): MirrorAxisExtension[T] = new MirrorAxisExtension[T](value)(ev)
 
   //implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]): TransAffDistExtension[T] = new TransAffDistExtension[T](value, ev)
   //implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]): TransSimDistExtension[T] = new TransSimDistExtension[T](value, ev)

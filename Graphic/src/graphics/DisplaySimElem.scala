@@ -7,18 +7,19 @@ package geom
  * instances associated with it. */
 trait DisplaySimElem extends SimilarPreserve with DisplayElem
 { type ThisT <: DisplaySimElem
-  override def slate(offset: Vec2): ThisT
+  /*override def slate(offset: Vec2): ThisT
   override def slate(xOffset: Double, yOffset: Double): ThisT
   override def scale(operand: Double): ThisT
   def mirrorX: ThisT
   def mirrorY: ThisT
   def mirrorXOffset(yOffset: Double): ThisT
   def mirrorYOffset(xOffset: Double): ThisT
-  override def mirror(line: LineSeg): ThisT
+  override def reflect(line: LineSeg): ThisT
+  override def reflect(line: Line): ThisT
   override def rotate90: ThisT
   override def rotate180: ThisT
   override def rotate270: ThisT
-  override def rotateRadians(radians: Double): ThisT
+  override def rotateRadians(radians: Double): ThisT*/
 }
 
 /** A DisplayElem for which all leaf elements of this trait maintain their type through all affine transformation. This type is purely for the 
