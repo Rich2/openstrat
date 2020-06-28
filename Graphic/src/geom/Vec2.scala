@@ -57,8 +57,10 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   }
 
   /** Reflects this along a line which is specified by two points on the line. */
-  def mirror(v1: Vec2, v2: Vec2): Vec2 =
-  { val lineDelta: Vec2 = v2 - v1
+  def mirror(lineSeg: LineSeg): Vec2 =
+  { val v1 = lineSeg.pStart
+    val v2 = lineSeg.pEnd
+    val lineDelta: Vec2 = v2 - v1
     val lineUnitVector = lineDelta / lineDelta.magnitude
     2 * v1 - this - 2 * (v1 - this).dot(lineUnitVector) * lineUnitVector
   }

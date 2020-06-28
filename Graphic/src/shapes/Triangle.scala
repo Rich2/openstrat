@@ -69,6 +69,7 @@ case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Dou
 	override def rotateRadians(radians: Double): TransElem = ???
 
 	override def mirror(line: Line): TransElem = ???
+	override def mirror(line: LineSeg): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
@@ -136,6 +137,7 @@ case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, hei
 	override def rotateRadians(radians: Double): TransElem = ???
 
 	override def mirror(line: Line): TransElem = ???
+	override def mirror(line: LineSeg): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
@@ -191,6 +193,8 @@ case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends 
 	override def rotateRadians(radians: Double): TransElem = ???
 
 	override def mirror(line: Line): TransElem = ???
+
+	override def mirror(line: LineSeg): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 

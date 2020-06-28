@@ -55,6 +55,7 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def rotateRadians(radians: Double): DisplayElem = ???
 
   override def mirror(line: LineSeg): DisplayElem = ???
+  override def mirror(line: Line): DisplayElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
 
