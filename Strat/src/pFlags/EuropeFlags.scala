@@ -118,15 +118,12 @@ object USSR extends Flag
 object Swastika extends Flag
 { val name = "Swastika"
   val ratio = 5 / 3.0
-  val apply: Arr[DisplayAffineElem] =
+  val apply =
   { val poly = Rectangle(ratio, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
     val cross = Arr(bar, arm).rotate45.flatMap(_.rCrossArr)
-    Arr[DisplayAffineElem](
-      poly.fill(Red),
-      CircleOld.segs(6.0 / 8).fill(White)
-    ) ++ cross
+    Arr(poly.fill(Red), Circle(Vec2Z, 6.0 / 8).fill(White)) ++ cross
   }
 }
 
