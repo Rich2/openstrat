@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pSpace
 import geom._, pCanv._, Colour._
@@ -31,8 +31,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
     }
 
     def size = 10
-    def paint = CircleOld(0.6).scale(size).fill(colour).slate(toCanv(posn))
-    //Circle(size).fillFixed(this, colour).slate(toCanv(posn))
+    def paint = Circle(toCanv(posn), 0.6 * size).fill(colour)
     override def toString = name
   }
   
@@ -47,8 +46,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   val pluto = Planet(3674.5.millionMiles, Colour.SandyBrown, "Pluto")
   
   object Sun extends Planet(0.millionMiles, Yellow, "Sun")
-  {
-    override def move(elapsed: Integer): Unit = {}
+  { override def move(elapsed: Integer): Unit = {}
     override val size = 14
   }
   

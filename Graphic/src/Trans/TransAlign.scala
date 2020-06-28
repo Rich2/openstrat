@@ -13,9 +13,7 @@ trait TransAlign[T]
 object TransAlign
 {
   implicit def transImplicit: TransAlign[TransElem] = new TransAlign[TransElem]
-  {
-    override def slate(obj: TransElem, offset: Vec2): TransElem = obj.slate(offset)    
-
+  { override def slate(obj: TransElem, offset: Vec2): TransElem = obj.slate(offset)
     override def scale(obj: TransElem, operand: Double): TransElem = obj.scale(operand)
   }
 
