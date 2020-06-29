@@ -23,7 +23,7 @@ final case class CircleOld(radius: Double, x: Double, y: Double) extends AffineP
 /** This object provides factory methods for circles. */
 object CircleOld
 {
-  def apply(radius: Double, cen: Vec2 =Vec2Z): CircleOld = new CircleOld(radius, cen.x, cen.y)
+  def apply(radius: Double, cen: Vec2 = Vec2Z): CircleOld = new CircleOld(radius, cen.x, cen.y)
 
   def segs(scale: Double = 1.0): PolyCurve =
   { val a = ArcTail(Vec2Z, Vec2(0.5 * scale, 0))

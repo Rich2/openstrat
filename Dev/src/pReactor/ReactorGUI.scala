@@ -49,11 +49,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def drawBalls(loc:Vec2, color:Colour, count:Int) : Unit =
   {
     canv.polyFill(Rectangle.fromBL(size-1, size-1, loc), Black)
-    if (count==2||count==4||count==5) canv.circleFill(CircleFill(Circle(loc+((size/4) vv (size/4)), size/8), color))
-    if (count==1||count==3||count==5) canv.circleFill(CircleFill(Circle(loc+((size/2) vv (size/2)), size/8), color))
-    if (count==2||count==4||count==5) canv.circleFill(CircleFill(Circle(loc+((3*size/4) vv (3*size/4)), size/8), color))
-    if (count==3||count==4||count==5) canv.circleFill(CircleFill(Circle(loc+((3*size/4) vv (size/4)), size/8), color))
-    if (count==3||count==4||count==5) canv.circleFill(CircleFill(Circle(loc+((size/4) vv (3*size/4)), size/8), color))
+    if (count==2||count==4||count==5) canv.circleFill(CircleFill(Circle(size/8, loc+((size/4) vv (size/4))), color))
+    if (count==1||count==3||count==5) canv.circleFill(CircleFill(Circle(size/8, loc+((size/2) vv (size/2))), color))
+    if (count==2||count==4||count==5) canv.circleFill(CircleFill(Circle(size/8, loc+((3*size/4) vv (3*size/4))), color))
+    if (count==3||count==4||count==5) canv.circleFill(CircleFill(Circle(size/8, loc+((3*size/4) vv (size/4))), color))
+    if (count==3||count==4||count==5) canv.circleFill(CircleFill(Circle(size/8, loc+((size/4) vv (3*size/4))), color))
     if (count>5) canv.polyFill(Rectangle.fromBL(size-1, size-1, loc), Pink)
   }
   def processQueue() : Unit = 

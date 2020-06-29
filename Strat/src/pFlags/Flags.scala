@@ -71,7 +71,7 @@ object Japan extends Flag
   val ratio = 1.5
   val apply: Arr[DisplayElem] =
   { val rw = rect.fill(White)
-    val circ = Circle(Vec2Z, 0.6).fill(Colour.fromInts(188, 0,45))
+    val circ = Circle(0.6, Vec2Z).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
   }
 }

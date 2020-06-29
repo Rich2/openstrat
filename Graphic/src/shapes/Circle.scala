@@ -4,7 +4,7 @@ package geom
 import pXml._
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Ellipse with SimilarPreserve
+final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse with SimilarPreserve
 {
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   override type ThisT = Circle
@@ -14,7 +14,7 @@ final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Elli
     val newV1: Vec2 = f(v1)
     val newCen = f(cen)
     val newRadius = (newV1 - newCen).magnitude
-    Circle(newCen, newRadius)
+    Circle(newRadius, newCen)
   }
   
   @inline def diameter: Double = radius * 2
@@ -42,13 +42,13 @@ final case class Circle(xCen: Double, yCen: Double, radius: Double) extends Elli
 
 /** This object provides factory methods for circles. */
 object Circle extends ShapeIcon
-{ def apply(cen: Vec2, radius: Double) = new Circle(cen.x, cen.y, radius)
+{ def apply(radius: Double, cen: Vec2 = Vec2Z) = new Circle(radius, cen.x, cen.y)
   
   implicit val slateImplicit: Slate[Circle] = (obj, offset) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
   
-  override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(cen, scale)
-  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(xCen, yCen, scale)  
+  override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
+  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)  
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }
