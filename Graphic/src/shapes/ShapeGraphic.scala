@@ -10,7 +10,7 @@ trait ShapeGraphic extends DisplayElem
 
 trait ShapeFillTr extends ShapeGraphic
 { def fillColour: Colour
-  def fillAttrib: Attrib = FillAttrib(fillColour)  
+  def fillAttrib: FillAttrib = FillAttrib(fillColour)  
 }
 
 trait ShapeFill extends ShapeFillTr

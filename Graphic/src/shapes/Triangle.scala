@@ -75,9 +75,11 @@ case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Dou
 
 	override def shearX(operand: Double): TransElem = ???
 
-	override def fill(colour: Colour): ShapeFill = ???
+	override def fill(fillColour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
+	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 object Triangle
@@ -143,9 +145,11 @@ case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, hei
 
 	override def shearX(operand: Double): TransElem = ???
 
-	override def fill(colour: Colour): ShapeFill = ???
+	override def fill(fillColour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
+	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends IsosTriangle
@@ -198,9 +202,11 @@ case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends 
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-	override def fill(colour: Colour): ShapeFill = ???
+	override def fill(fillColour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
+	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 object Equilateral

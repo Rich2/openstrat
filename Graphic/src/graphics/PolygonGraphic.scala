@@ -67,7 +67,8 @@ object PolygonDraw
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
-case class PolygonFillDraw(shape: PolygonClass, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic
+case class PolygonFillDraw(shape: PolygonClass, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic with
+  ShapeFillDraw
 { override type ThisT = PolygonFillDraw
   override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
   def noFill: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)

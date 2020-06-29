@@ -13,9 +13,10 @@ trait Rectanglelign extends Rectangle with Rectangularlign
 /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
 case class Rectlign(xCen: Double, yCen: Double, width: Double, height: Double) extends Rectanglelign
 {
-  override def fill(colour: Colour): ShapeFill = ???
+  override def fill(fillColour: Colour): ShapeFill = ???
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): TransElem = ???
