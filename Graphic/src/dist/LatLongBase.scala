@@ -3,12 +3,13 @@ package ostrat
 package geom
 import math.Pi
 
-class Latitude private(val radians: Double) extends AnyVal with AngleLike
-{ override def degs: Double = radians * 180.0 / Pi
+class Latitude (val degs: Double) extends AnyVal with AngleLike
+{
+  def radians: Double = degs * Pi / 180.0
   
   def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
-  { case r if r <= - PiH => Latitude(-PiH)
-    case r if r >= PiH => Latitude(PiH)
+  { case r if r <= - PiH => Latitude.radians(-PiH)
+    case r if r >= PiH => Latitude.radians(PiH)
     case _ if minLat.radians > maxLat.radians => excep("Latitude.addwithin minLat greaterd than maxLat")
     case _ if maxLat.radians < minLat.radians => excep("Latitude.addwithin maxLat less than minLat")
   }
@@ -19,13 +20,13 @@ class Latitude private(val radians: Double) extends AnyVal with AngleLike
 
 object Latitude
 {
-  def apply(radians: Double): Latitude = radians match
+  def radians(value: Double): Latitude = value match
   { case r if r < -Pi => excep("Latitude with less than - Pi")
     case r if r > Pi => excep("Latitude with greater than Pi")
-    case r => new Latitude(r)   
+    case r => new Latitude(r.radiansToDegrees)
   }
   
-  def deg(degVal: Double) = Latitude(degVal.degreesToRadians)
+  def apply(degVal: Double) = Latitude.radians(degVal.degreesToRadians)
 }
 
 case class Longitude(val radians: Double) extends AnyVal with AngleLike
@@ -45,28 +46,28 @@ object Longitude
 }
 
 trait LatLongBase
-{ def lat: Double
-  def long: Double
-  def latitude: Latitude = Latitude(lat)
-  def longitude: Longitude = Longitude(long)
-  @inline def longDegs: Double = long.radiansToDegrees
-  @inline def latDegs: Double = lat.radiansToDegrees
+{ def latRadians: Double
+  def longRadians: Double
+  def latitude: Latitude = Latitude.radians(latRadians)
+  def longitude: Longitude = Longitude(longRadians)
+  @inline def longDegs: Double = longRadians.radiansToDegrees
+  @inline def latDegs: Double = latRadians.radiansToDegrees
   def equatorialRadius: Dist
   def polarRadius: Dist
   override def toString: String = degStr
-  def latLetter: String = lat.ifNeg("S", "N")
-  def longLetter: String = long.ifNeg("W", "E")
+  def latLetter: String = latRadians.ifNeg("S", "N")
+  def longLetter: String = longRadians.ifNeg("W", "E")
   def latDegStr: String = latDegs.abs.str2 + latLetter
   def longDegStr: String = longDegs.abs.str2 + longLetter
   def degStr: String = latDegStr.appendCommas(longDegStr)
   
   def latDegMinStr: String =
-  { val (degs, mins) = lat.abs.toDegsMins
+  { val (degs, mins) = latRadians.abs.toDegsMins
     degs.toString + latLetter + mins.str2Dig
   }
   
   def longDegMinStr: String =
-  { val (degs, mins) = long.abs.toDegsMins
+  { val (degs, mins) = longRadians.abs.toDegsMins
     degs.toString + longLetter + mins.str2Dig
   }
    
@@ -74,7 +75,7 @@ trait LatLongBase
   def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)   
   
   def toDist3: Dist3 =
-  { val clat = lat.cos.abs
-    Dist3(long.sin * equatorialRadius * clat, lat.sin * polarRadius, long.cos * equatorialRadius * clat)   
+  { val clat = latRadians.cos.abs
+    Dist3(longRadians.sin * equatorialRadius * clat, latRadians.sin * polarRadius, longRadians.cos * equatorialRadius * clat)   
   }
 }
