@@ -29,27 +29,31 @@ object Latitude
   def apply(degVal: Double) = Latitude.radians(degVal.degreesToRadians)
 }
 
-case class Longitude(val radians: Double) extends AnyVal with AngleLike
+class Longitude(val degs: Double) extends AnyVal with AngleLike
 {
-  override def degs: Double = radians * 180.0 / math.Pi
+  def radians: Double = degs.degreesToRadians
+  //override  = radians * 180.0 / math.Pi
   
   def addWithin(deltaAngle: Angle, maxLong: Longitude, minLong: Longitude): Longitude = (radians + deltaAngle.radians) match
-  { case r if r <= - Pi => Longitude(-Pi)
-    case r if r >= Pi => Longitude(Pi)
+  { case r if r <= - Pi => Longitude.radians(-Pi)
+    case r if r >= Pi => Longitude.radians(Pi)
     case _ if minLong.radians > maxLong.radians => excep("Latitude.addwithin minLat greaterd than maxLat")
     case _ if maxLong.radians < minLong.radians => excep("Latitude.addwithin maxLat less than minLat")
   }
 }
 
 object Longitude
-{ def deg(degVal: Double) = Longitude(degVal.degreesToRadians)
+{
+  def radians(value: Double): Longitude = new Longitude(value.radiansToDegrees)
+  def degs(value: Double): Longitude = new Longitude(value)
+ // def deg(degVal: Double) = Longitude(degVal.degreesToRadians)
 }
 
 trait LatLongBase
 { def latRadians: Double
   def longRadians: Double
   def latitude: Latitude = Latitude.radians(latRadians)
-  def longitude: Longitude = Longitude(longRadians)
+  def longitude: Longitude = Longitude.radians(longRadians)
   @inline def longDegs: Double = longRadians.radiansToDegrees
   @inline def latDegs: Double = latRadians.radiansToDegrees
   def equatorialRadius: Dist
