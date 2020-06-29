@@ -14,16 +14,16 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val r1 = rect.fill(Red)
   val r1r = rect.reflect(line1).fill(Orange)
   val vRed = 0 vv -50
-  val cl1 = Circle(vRed, 75)
+  val cl1 = Circle(75, vRed)
   val ccl1 = cl1.fill(Red)
   val rStr = TextGraphic(ccl1.svgStr, 20, vRed)
   val ccl1r = cl1.reflect(line1).fill(Orange)
 
   val r2 = Rectangle(180, 100, 150 vv -200)
-  val cl2 = Circle(110 vv - 300, 80)
+  val cl2 = Circle(80, 110 vv - 300)
   val sq = Sqlign(100, 110, -400)
 
-  val cn = Circle(110, -290, 80)
+  val cn = Circle(80, 110, -290)
   val v1 = Vec2(0, -cl1.diameter)
   val cd1 = CircleDraw(cl1.slate(v1), 2, Green)
   val cd2 = CircleDraw(cl1.slate(v1.rotate(45.degs)), 2, Gold)

@@ -15,7 +15,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
     val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
     p.fill(col) }
 
-  val pieces = scen.draughts.mapSomes((r, d) => Circle(r.gridVec2, 0.7).fill(d.colour))
+  val pieces = scen.draughts.mapSomes((r, d) => Circle(0.7, r.gridVec2).fill(d.colour))
 
  def bTurn = clickButton("Turn ", _ => {
    repaint()
