@@ -106,8 +106,8 @@ object CommonShapesInFlags extends Flag
       Star3().scale(0.15).rotate(deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
 
       //crescent
-      CircleOld.segs(0.225).slate(-0.6 vv -0.3).fill(Red),
-      CircleOld.segs(0.2).slate(-0.6 vv -0.3).slate(0.04 vv 0).fill(White),
+      Circle(0.225, -0.6, -0.3).fill(Red),
+      Circle(0.2, -0.6, -0.3).slate(0.04 vv 0).fill(White),
 
       //composite star ()
       Star5().scale(0.15).slate(-0.3 vv 0).fill(Gold),
@@ -157,7 +157,7 @@ object Iraq extends Flag
         LineTail(-0.3268 vv 0.2881)).fill(Colour(0xFF007a3d)),
       PolyCurve(LineTail(-0.3478 vv 0.2571), BezierTail(-0.3466 vv 0.2553, -0.3425 vv 0.2553, -0.3427 vv 0.2583),
         BezierTail(-0.3434 vv 0.2608, -0.3487 vv 0.2599, -0.3478 vv 0.2571), LineTail(-0.3478 vv 0.2571)).fill(Colour(0xFFFFFFFF)),
-      CircleOld.segs(0.0068).slate(-0.5091 vv 0.2311).fill(Colour(0xFF007a3d)),
+      Circle(0.0068, -0.5091, 0.2311).fill(Colour(0xFF007a3d)),
       PolyCurve(LineTail(-0.4041 vv 0.312), BezierTail(-0.3999 vv 0.3098, -0.3967 vv 0.3067, -0.3916 vv 0.3054),
         BezierTail(-0.3922 vv 0.3033, -0.394 vv 0.3025, -0.3945 vv 0.3003), LineTail(-0.3945 vv 0.2554),
         BezierTail(-0.3889 vv 0.2542, -0.3877 vv 0.2574, -0.385 vv 0.2591), BezierTail(-0.3842 vv 0.2519, -0.3797 vv 0.2449, -0.3798 vv 0.2393),
@@ -174,9 +174,9 @@ object India extends Flag
     val spokes = iToMap(0,23){i => spoke.rotate(deg30/2*i)}
     val rimNotch = Circle(0, -17.5/150, 0.875/75).rotate(deg30/4).fill(Colour(0xFF000080))
     val rimNotches = iToMap(0,23){i => rimNotch.rotate(deg30/2*i)}
-    val outerCircle = CircleOld.segs(20.0/75).fill(Colour(0xFF000080))
-    val middleCircle = CircleOld.segs(17.5/75).fill(Colour(0xFFFFFFFF))
-    val innerCircle = CircleOld.segs(3.5/75).fill(Colour(0xFF000080))
+    val outerCircle = Circle(20.0/75).fill(Colour(0xFF000080))
+    val middleCircle = Circle(17.5/75).fill(Colour(0xFFFFFFFF))
+    val innerCircle = Circle(3.5/75).fill(Colour(0xFF000080))
     topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }
