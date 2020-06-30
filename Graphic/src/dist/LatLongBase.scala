@@ -47,6 +47,7 @@ object Longitude
   def radians(value: Double) = new Longitude(value.radiansToDegrees)
 }
 
+/** The pripose of this trait is to provide super trait for surface positions on all Spheroids.  */
 trait LatLongBase
 { def latRadians: Double
   def longRadians: Double

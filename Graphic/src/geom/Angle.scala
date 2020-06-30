@@ -5,10 +5,13 @@ import math.{Pi}
 
 /** Base trait for Angle, Latitude and Longitude. Not sure if this is a good idea. */
 trait AngleLike extends Any
-{ def radians: Double
+{ /** The value of this angle expressed in degrees. */
+  def degs: Double //= radians * 180.0 / math.Pi
+  def radians: Double
+  
   @inline def sin: Double = math.sin(radians)
   @inline def cos: Double = math.cos(radians)
-  def degs: Double //= radians * 180.0 / math.Pi
+  
   def arcLength(radius: Double): Double = radians * radius
   def arcDistance (radiusDist: Dist): Dist = radians * radiusDist
   /** The angle expressed in 36 millionths of a degree. */
