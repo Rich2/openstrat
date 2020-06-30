@@ -33,6 +33,7 @@ package object geom
   /*implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]): TransAlignDistExtension[T] =
     new TransAlignDistExtension[T](value, ev)*/
   /** Vec2(x = 0, y = 0) constant */
+  val degoidRatio: Int = 36000000  
   val Vec2Z = Vec2(0, 0)
   /** Dist2(0.km, 0.km) constant */
   val Dist2Z = Dist2(0.km, 0.km)

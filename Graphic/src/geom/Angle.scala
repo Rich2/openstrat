@@ -6,7 +6,7 @@ import math.{Pi}
 /** Base trait for Angle, Latitude and Longitude. Not sure if this is a good idea. */
 trait AngleLike extends Any
 { /** The value of this angle expressed in degrees. */
-  def degs: Double //= radians * 180.0 / math.Pi
+  def degs: Double
   def radians: Double
   
   @inline def sin: Double = math.sin(radians)
@@ -20,9 +20,11 @@ trait AngleLike extends Any
 
 /** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
  *  while Latitudes have a normal range +- 90 degrees. */
-final class Angle(val degs: Double) extends AnyVal with AngleLike
-{ override def degoids: Double = radians * 10000000 / 2 / Pi
-  override def radians: Double = degs * Pi / 180
+final class Angle private(val degoids: Double) extends AnyVal with AngleLike
+{ 
+  override def degs: Double = degoids / degoidRatio
+  //override  = radians * 10000000 / 2 / Pi
+  override def radians: Double = degoids * Pi / degoidRatio / 180
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 
@@ -55,7 +57,7 @@ final class Angle(val degs: Double) extends AnyVal with AngleLike
 object Angle
 {
   /** Factory method for Angle from number of degrees */
-  def apply(degrees: Double): Angle = new Angle(degrees)
+  def apply(degrees: Double): Angle = new Angle(degrees * degoidRatio)
 
   /** Resets radians to between + and - Pi */
   @inline def reset(radians: Double): Double =  radians %% Pi2 match
@@ -64,5 +66,5 @@ object Angle
     case r => r
   }
 
-  @inline def radians(radians: Double): Angle = new Angle(reset(radians) * 180 / Pi)
+  @inline def radians(radians: Double): Angle = new Angle(reset(radians) * 180 * degoidRatio / Pi)
 }
