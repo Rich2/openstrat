@@ -11,12 +11,15 @@ trait AngleLike extends Any
   def degs: Double = radians * 180.0 / math.Pi
   def arcLength(radius: Double): Double = radians * radius
   def arcDistance (radiusDist: Dist): Dist = radians * radiusDist
+  /** The angle expressed in 36 millionths of a degree. */
+  def degoids: Double
 }
 
 /** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
  *  while Latitudes have a normal range +- 90 degrees. */
 final class Angle private(val radians: Double) extends AnyVal with AngleLike
 { override def toString = degStr2
+  override def degoids: Double = radians * 10000000 / 2 / Pi
   def degStr2: String = degs.str2 + "\u00B0"
 
   /** Creates a Vec2 from this Angle and the magnitude parameter. */
