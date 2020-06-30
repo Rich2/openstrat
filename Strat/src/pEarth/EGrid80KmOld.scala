@@ -19,8 +19,8 @@ class EGrid80KmOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], n
       val xSideMax = tileMax + 2
       val xSideMin = tileMin - 2
 
-      val rt1: Double = coodToLL(xSideMax, y + 1).long
-      val lt1: Double = coodToLL(xSideMin, y + 1).long
+      val rt1: Double = coodToLL(xSideMax, y + 1).longRadians
+      val lt1: Double = coodToLL(xSideMin, y + 1).longRadians
       val rt1Adj: Double = lt1 + 30.degreesToRadians
       val rt1New = (rt1 + rt1Adj) / 2
       val lt1Adj = rt1 - 30.degreesToRadians
@@ -28,8 +28,8 @@ class EGrid80KmOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], n
       setLongitude(xSideMax, y + 1, rt1New)
       setLongitude(xSideMin, y + 1, lt1New)
 
-      val rts: Double = coodToLL(xSideMax, y).long
-      val lts: Double = coodToLL(xSideMin, y).long
+      val rts: Double = coodToLL(xSideMax, y).longRadians
+      val lts: Double = coodToLL(xSideMin, y).longRadians
       val rtsAdj: Double = lts + 30.degreesToRadians
       val rtsNew = (rts + rtsAdj) / 2
       val ltsAdj = rts - 30.degreesToRadians
@@ -37,8 +37,8 @@ class EGrid80KmOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], n
       setLongitude(xSideMax, y, rtsNew)
       setLongitude(xSideMin, y, ltsNew)
 
-      val rt2: Double = coodToLL(xSideMax, y - 1).long
-      val lt2: Double = coodToLL(xSideMin, y - 1).long
+      val rt2: Double = coodToLL(xSideMax, y - 1).longRadians
+      val lt2: Double = coodToLL(xSideMin, y - 1).longRadians
       val rt2Adj: Double = lt2 + 30.degreesToRadians
       val rt2New = (rt2 + rt2Adj) / 2
       val lt2Adj = rt2 - 30.degreesToRadians

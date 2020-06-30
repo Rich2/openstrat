@@ -137,7 +137,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def rotate270: Vec2 = Vec2(y, -x)
 
   /** Gives the angle of the vector with respect of the origin. */
-  def angle: Angle = Angle(angleRadians)
+  def angle: Angle = Angle.radians(angleRadians)
 
   def lineTo(pt2: Vec2): LineSeg = LineSeg(this, pt2)
 

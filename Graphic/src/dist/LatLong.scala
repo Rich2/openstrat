@@ -4,44 +4,44 @@ package geom
 import math._
 
 /** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdDbl2
+class LatLong (val latRadians: Double, val longRadians: Double) extends LatLongBase with ProdDbl2
 {
   override def toString: String = LatLong.persistImplict.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
-  def _1 = lat
-  def _2 = long
+  def _1 = latRadians
+  def _2 = longRadians
   def persistName = "LatLong"
-  def persistMems = Seq(lat, long)  
+  def persistMems = Seq(latRadians, longRadians)  
   def polarRadius: Dist = EarthPolarRadius
   def equatorialRadius: Dist = EarthEquatorialRadius
-  def +(other: LatLong): LatLong = addLong(other.long).addLat(other.lat)
-  def -(other: LatLong): LatLong = addLong(-other.long).addLat(-other.lat)
+  def +(other: LatLong): LatLong = addLong(other.longRadians).addLat(other.latRadians)
+  def -(other: LatLong): LatLong = addLong(-other.longRadians).addLat(-other.latRadians)
 
   /** This method current does not take account of lines that cross the date line, including the Poles */
   def segsTo(num: Int, toPt: LatLong): Seq[LatLong] =
-  { val latDelta = toPt.lat - lat
-    val longDelta = toPt.long - long
-    Seq(this) ++ (1 to num).map(i => LatLong(lat + i * latDelta, long + i * longDelta))
+  { val latDelta = toPt.latRadians - latRadians
+    val longDelta = toPt.longRadians - longRadians
+    Seq(this) ++ (1 to num).map(i => LatLong(latRadians + i * latDelta, longRadians + i * longDelta))
    }
    
-  def addLat(radians: Double): LatLong = Angle.reset(lat + radians) match
+  def addLat(radians: Double): LatLong = Angle.reset(latRadians + radians) match
   { //Going over the north Pole from western longitude
-    case a if a > PiH && long <= 0 => LatLong(Pi - a, long + Pi)
+    case a if a > PiH && longRadians <= 0 => LatLong(Pi - a, longRadians + Pi)
     //Going over the north Pole from an eastern longitude
-    case a if a > PiH             =>  LatLong(Pi - a, long - Pi)
+    case a if a > PiH             =>  LatLong(Pi - a, longRadians - Pi)
     //Going over the south Pole from western longitude
-    case a if a < -PiH && long < 0 => LatLong(-Pi - a, Pi + long)
+    case a if a < -PiH && longRadians < 0 => LatLong(-Pi - a, Pi + longRadians)
     //Going over the south Pole from eastern longitude
-    case a if a < -PiH             => LatLong(-Pi - a, long - Pi)
-    case a => LatLong(a, long)
+    case a if a < -PiH             => LatLong(-Pi - a, longRadians - Pi)
+    case a => LatLong(a, longRadians)
   }
       
   def subLat(radians: Double): LatLong = addLat(-radians)
-  def addLong(radians: Double): LatLong = LatLong(lat, Angle.reset(long + radians))
+  def addLong(radians: Double): LatLong = LatLong(latRadians, Angle.reset(longRadians + radians))
   def subLong(radians: Double): LatLong = addLong(-radians)
    
   /** Get the XY point from a focus with latitude 0 */
-  def xyLat0: Vec2 = Vec2(sin(long) * cos(lat), sin(lat))
+  def xyLat0: Vec2 = Vec2(sin(longRadians) * cos(latRadians), sin(latRadians))
    
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
   def polyToDist2s(inp: LatLongs): Dist2s = inp.pMap(fromFocusDist2)
@@ -52,10 +52,10 @@ class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD
   }
   def latLongFacing(ll: LatLong): Boolean = fromFocusDist3(ll).z.pos
    
-  def fromFocusDist3(ll: LatLong): Dist3 = ll.subLong(long).toDist3.xRotation(-lat)
+  def fromFocusDist3(ll: LatLong): Dist3 = ll.subLong(longRadians).toDist3.xRotation(-latRadians)
   def fromFocusLineDist3(inp: LLLineSeg): LineDist3 = LineDist3(
-    inp.llStart.subLong(long).toDist3.xRotation(-lat),
-    inp.latLong2.subLong(long).toDist3.xRotation(-lat))
+    inp.llStart.subLong(longRadians).toDist3.xRotation(-latRadians),
+    inp.latLong2.subLong(longRadians).toDist3.xRotation(-latRadians))
          
   def fromFocusDist2(ll: LatLong): Dist2 = fromFocusDist3(ll).xy
   def optFromFocusDist2(ll: LatLong): Option[Dist2] =
@@ -64,13 +64,13 @@ class LatLong (val lat: Double, val long: Double) extends LatLongBase with ProdD
   }
 
   def toOptDist2(inp: LatLong): Option[Dist2] =
-  { val r1: Dist3 = inp.subLong(long).toDist3.xRotation(-lat)
+  { val r1: Dist3 = inp.subLong(longRadians).toDist3.xRotation(-latRadians)
     r1.toXYIfZPositive
   }
    
   def toVec3(polarRadius: Double, equatorialRadius: Double): Vec3 =
-  { val clat = cos(lat).abs
-    Vec3(sin(long) * equatorialRadius * clat, cos(lat) * polarRadius, cos(long) * equatorialRadius * clat)
+  { val clat = cos(latRadians).abs
+    Vec3(sin(longRadians) * equatorialRadius * clat, cos(latRadians) * polarRadius, cos(longRadians) * equatorialRadius * clat)
   }
 }
 
@@ -82,7 +82,7 @@ object LatLong
     new LatLong(lat, long)
   }
    
-  implicit val persistImplict: PersistEq[LatLong] = new PersistD2[LatLong]("LatLong", "lat", _.lat, "long", _.long, apply)
+  implicit val persistImplict: PersistEq[LatLong] = new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, apply)
    
   //def apply(latAngle: Latitude, longAngle: Longitude): LatLong = new LatLong(latAngle.radians, longAngle.radians)
    //def ll(lat: Latitude, long: Longitude) = new LatLong(lat.radians, long.radians)

@@ -13,11 +13,11 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def startAngle: Angle = (pStart - cen).angle
   def endAngleRadians: Double = startAngleRadians + deltaRadians
   def endAngleRadiansPos: Double = startAngleRadiansPos + deltaRadians
-  def endAngle: Angle = Angle(endAngleRadians)
+  def endAngle: Angle = Angle.radians(endAngleRadians)
   def pStart: Vec2 = xStart vv yStart
   def pEnd: Vec2 = cen + endAngle.toVec2(radius)
   def midArcAngleRadians = startAngleRadians + deltaRadians / 2
-  def midArcAngle = Angle(midArcAngleRadians)
+  def midArcAngle = Angle.radians(midArcAngleRadians)
   def pMidArc: Vec2 = cen + midArcAngle.toVec2(radius)
   def radius: Double = (pStart - cen).magnitude
   def clock: Boolean = deltaRadians < 0

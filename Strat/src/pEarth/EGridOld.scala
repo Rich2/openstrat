@@ -42,8 +42,8 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
 
   def setLL(x: Int, y: Int, llValue: LatLong): Unit =
   { val index: Int = llInd(x, y)
-    vArr(index) = llValue.lat
-    vArr(index + 1) = llValue.long
+    vArr(index) = llValue.latRadians
+    vArr(index + 1) = llValue.longRadians
   }
 
   def setLL(cood: Cood, llValue: LatLong): Unit = setLL(cood.xi, cood.yi, llValue)

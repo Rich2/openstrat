@@ -79,25 +79,25 @@ package object geom
   /** 0 degrees or 0 radians */
   def deg0: Angle = Angle(0)
   /** 30 degrees anti-clockwise or + Pi/6 radians */
-  val deg30: Angle = Angle(Pi / 6)
+  val deg30: Angle = Angle(30)
   /** 36 degrees anti-clockwise or + Pi/5 radians */
-  val deg36: Angle = Angle(Pi / 5)
+  val deg36: Angle = Angle(36)
   /** 45 degrees anti-clockwise or + Pi/4 radians */
-  val deg45: Angle = Angle(Pi / 4)
+  val deg45: Angle = Angle(45)
   /** 60 degrees anti-clockwise or + Pi/3 radians */
-  val deg60: Angle  = Angle(Pi / 3)  
+  val deg60: Angle  = Angle(60)  
   /** 72 degrees anti-clockwise or + Pi2/5 radians */
-  val deg72: Angle = Angle(Pi2 / 5)
+  val deg72: Angle = Angle(72)
   /** 90 degrees anti-clockwise or + Pi/2 radians */
-  val deg90: Angle = Angle(Pi / 2)  
+  val deg90: Angle = Angle(90)  
   /** 120 degrees anti-clockwise or + 2 * Pi/3 radians */
-  val deg120: Angle = Angle(2 * Pi / 3)
+  val deg120: Angle = Angle(120)
   /** 135 degrees anti-clockwise or + 3 * Pi/4 radians */
-  val deg135: Angle = Angle(3 * Pi / 4)
+  val deg135: Angle = Angle(135)
   /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
-  val deg150: Angle = Angle(5 * Pi / 6)
+  val deg150: Angle = Angle(150)
   /** 180 degrees or Pi radians */
-  def deg180: Angle = Angle(Pi)
+  def deg180: Angle = Angle(180)
 
   def displayRowGraphics(leftPt: Vec2, actives: Arr[DisplayBounded], margin: Double = 10): Arr[DisplayBounded] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
