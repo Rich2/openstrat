@@ -32,6 +32,15 @@ package object geom
   
   val degoidRadianRatio: Double = degoidRatio * 180.0 / Pi
   
+  /** degoid value for 90 degrees of Pi/2 radians. */
+  val degoid90 = degoidRatio * 90
+  
+  /** degoid value for 180 degrees or Pi radians. */
+  val degoid180 = degoidRatio * 180
+  
+  val degoidM90: Int = - degoidRatio * 90
+  val degoidM180: Int = - degoidRatio * 180
+  
   /** The origin, the intersection of the axes for 2 dimensional vectors. */
   val Vec2Z = Vec2(0, 0)  
   
