@@ -2,17 +2,15 @@
 package ostrat
 import math._, Colour.Black
 
-/** I chose the package name to not clash with "geometry" that may be use in other libraries This package contains Basic geometry. A number of
- *   implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are of 
- *   particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
+/** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains Basic geometry. A
+ *  number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are
+ *  of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {
   val Phi: Double = 1.6180339887498948482
   implicit def affineToExtensions[T](value: T)(implicit ev: TransAff[T]): AffineExtensions[T] = new AffineExtensions[T](value, ev) 
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   
-  //implicit def noScaleTransExtension[T <: UnScaled](value: T)(implicit ev: TransAll[T#ThisT]) = new TransAllExtension[T#ThisT](value.apply, ev)
-
   implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)
   implicit def rotateAxesToExtension[T](value: T)(implicit ev: RotateAxes[T]): RotateAxesExtensions[T] = new RotateAxesExtensions[T](value, ev)
   implicit def rotateToExtension[T](value: T)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)
@@ -27,16 +25,19 @@ package object geom
   }
  
   implicit def mirrorAxisToExtension[T](value: T)(implicit ev: ReflectAxis[T]): MirrorAxisExtension[T] = new MirrorAxisExtension[T](value)(ev)
-
-  //implicit def transAffDistToExtension[T](value: T)(implicit ev: TransAffDist[T]): TransAffDistExtension[T] = new TransAffDistExtension[T](value, ev)
-  //implicit def transSimDistToExtension[T](value: T)(implicit ev: TransSimDist[T]): TransSimDistExtension[T] = new TransSimDistExtension[T](value, ev)
-  /*implicit def transRigidDistToExtension[T](value: T)(implicit ev: TransRigidDist[T]): TransAlignDistExtension[T] =
-    new TransAlignDistExtension[T](value, ev)*/
-  /** Vec2(x = 0, y = 0) constant */
-  val degoidRatio: Int = 36000000  
-  val Vec2Z = Vec2(0, 0)
+    
+  /** The ratio of the degoid to a degree. Th degoid has been chosen as a convenient way to encode Angles using an underlying Double floating point
+   * value. It has been chosen to allow the precise encoding of degrees and decimals of a degree down to 1 millionth. */  
+  val degoidRatio: Int = 36000000
+  
+  val degoidRadianRatio: Double = degoidRatio * 180.0 / Pi
+  
+  /** The origin, the intersection of the axes for 2 dimensional vectors. */
+  val Vec2Z = Vec2(0, 0)  
+  
   /** Dist2(0.km, 0.km) constant */
   val Dist2Z = Dist2(0.km, 0.km)
+  
   val LongD = 2.0 / Cos30
   val cos30: Double = cos(Pi / 6)
   val LatLong0 = LatLong(0, 0)

@@ -7,29 +7,32 @@ import math.{Pi}
 trait AngleLike extends Any
 { /** The value of this angle expressed in degrees. */
   def degs: Double
+  
+  /** The angle expressed in 36 millionths of a degree. */
+  def degoids: Double
+  
+  /** The value of the angle expressd in radians. */
   def radians: Double
   
   @inline def sin: Double = math.sin(radians)
-  @inline def cos: Double = math.cos(radians)
-  
-  def arcLength(radius: Double): Double = radians * radius
-  def arcDistance (radiusDist: Dist): Dist = radians * radiusDist
-  /** The angle expressed in 36 millionths of a degree. */
-  def degoids: Double
+  @inline def cos: Double = math.cos(radians)  
+  def arcDistance (radiusDist: Dist): Dist = radians * radiusDist  
 }
 
 /** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
  *  while Latitudes have a normal range +- 90 degrees. */
 final class Angle private(val degoids: Double) extends AnyVal with AngleLike
-{ 
-  override def degs: Double = degoids / degoidRatio
-  //override  = radians * 10000000 / 2 / Pi
+{
+  /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
+  def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
+
+  def arcLength(radius: Double): Double = radians * radius
+  
+  override def degs: Double = degoids / degoidRatio  
   override def radians: Double = degoids * Pi / degoidRatio / 180
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
-
-  /** Creates a Vec2 from this Angle and the magnitude parameter. */
-  def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
+   
 
   /** This method needs changing. */
   def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
@@ -57,7 +60,7 @@ final class Angle private(val degoids: Double) extends AnyVal with AngleLike
 object Angle
 {
   /** Factory method for Angle from number of degrees */
-  def apply(degrees: Double): Angle = new Angle(degrees * degoidRatio)
+  @inline def apply(degrees: Double): Angle = new Angle(degrees * degoidRatio)
 
   /** Resets radians to between + and - Pi */
   @inline def reset(radians: Double): Double =  radians %% Pi2 match
