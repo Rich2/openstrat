@@ -7,10 +7,15 @@ ThisBuild/autoAPIMappings := true
 def commonSettings = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,  
-  testFrameworks += new TestFramework("utest.runner.Framework"), 
+  testFrameworks += new TestFramework("utest.runner.Framework"),
+  
 )
 
-def stdSettings(name: String) = commonSettings ::: List(
+def jvmSettings = commonSettings ::: List(
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
+)
+
+def stdSettings(name: String) = jvmSettings ::: List(
   scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / name / "srcEx"),
@@ -24,8 +29,7 @@ def stdSettings(name: String) = commonSettings ::: List(
 
 lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, Strat, Dev, JsDev)
 
-lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSettings).settings(
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.2" % "test",
+lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(jvmSettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
@@ -34,7 +38,7 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
 )
 
 def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings(stdSettings(name)).settings(
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
+  
 )
 
 lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
