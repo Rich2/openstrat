@@ -108,12 +108,12 @@ lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(
 )
 
 def dottySettings = List(
-	scalaVersion := "0.24.0-RC1",
+	scalaVersion := "0.25.0-RC2",
   resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
 )
 
-/*lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  
+lazy val DotMacros = Project("DotModule", file("target/DotModule")).settings(dottySettings).settings(  
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
@@ -135,4 +135,4 @@ lazy val DotGraphic = Project("DotGraphic", file("target/Graphic")).dependsOn(Do
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphic/test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-)*/
+)
