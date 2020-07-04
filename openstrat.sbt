@@ -1,4 +1,4 @@
-ThisBuild/version := "0.0.7snap"
+ThisBuild/version := "0.1.0"
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.13.3"
 ThisBuild/organization := "OpenStratOrg"
@@ -54,6 +54,14 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
+)
+
+lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(jvmSettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  Compile/unmanagedSourceDirectories := List("Util", "Graphic", "Tiling", "Strat").map(str => (ThisBuild/baseDirectory).value / str / "src"),
+  Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/test/src",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
