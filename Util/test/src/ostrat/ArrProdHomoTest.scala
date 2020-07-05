@@ -54,7 +54,7 @@ object ArrProdHomoTest  extends TestSuite
         mines1(3) ==> Mine(4, 8)
         mines2(0) ==> Mine(1, 1.5)
         Mine(3, 4).isInstanceOf[AnyRef] ==> true
-        str1 ==> "Mines(1.0, 1.5; 2.0, 2.0; 2.0, 2.5; 4.0, 4.0; 3.0, 3.5; 6.0, 6.0; 4.0, 4.5; 8.0, 8.0)"
+        str1 ==> "Mines(1, 1.5; 2, 2; 2, 2.5; 4, 4; 3, 3.5; 6, 6; 4, 4.5; 8, 8)"
       }
   }
 }
