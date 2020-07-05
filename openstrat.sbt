@@ -42,7 +42,7 @@ def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings
 lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
 lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util)
 lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic)
-lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling).settings(assemblyJarName in assembly := "strat" + (ThisBuild/version).value + ".jar")
+lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling)
 
 lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
@@ -64,7 +64,8 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/test/src",
   Test/unmanagedSourceDirectories := List(),
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
-  assemblyJarName in assembly := "stratlib" + version.value + ".jar"
+  artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "stratlib" + version.value + ".jar" },
+  assemblyJarName in assembly := "stratlib" + version.value + ".jar",
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
