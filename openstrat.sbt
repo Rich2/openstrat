@@ -1,4 +1,5 @@
 ThisBuild/version := "0.1.0"
+ThisBuild/test in assembly := {}
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.13.3"
 ThisBuild/organization := "OpenStratOrg"
@@ -36,9 +37,7 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings(stdSettings(name)).settings(
-  
-)
+def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings(stdSettings(name)).settings()
 
 lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
 lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util)
@@ -64,6 +63,8 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
   Compile/unmanagedResourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "res"), 
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/test/src",
   Test/unmanagedSourceDirectories := List(),
+  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
+  assemblyJarName in assembly := "stratlib" + version.value + ".jar"
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
