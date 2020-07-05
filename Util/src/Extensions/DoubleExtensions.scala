@@ -15,7 +15,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
 
   def str: String = thisDouble.toLong match
   { case l if l == thisDouble => l.toString
-    case d => d.toString
+    case _ => thisDouble.toString
   }
 
   def str1: String = f"$thisDouble%1.1f"
