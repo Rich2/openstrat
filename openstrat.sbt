@@ -64,7 +64,7 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/test/src",
   Test/unmanagedSourceDirectories := List(),
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
-  artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => "stratlib" + version.value + ".jar" },
+  //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => artifact.name + "-" + module.revision + artifact.classifier + "." + artifact.extension },
   assemblyJarName in assembly := "stratlib" + version.value + ".jar",
 )
 
