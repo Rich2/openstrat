@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, collection.immutable.ArraySeq
 
@@ -33,8 +33,7 @@ trait Show[-T]
 /* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
    instance without a Show instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
-   Persist type instances, and these will be placed in the Persist companion object.
- */
+   Persist type instances, and these will be placed in the Persist companion object. */
 object Show //extends ShowInstancesPriority2
 {
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int") {
