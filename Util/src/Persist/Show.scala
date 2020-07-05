@@ -50,7 +50,7 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
-  { def show(obj: Double): String = obj.toString
+  { def show(obj: Double): String = obj.str
     override def fromExpr(expr: Expr): EMon[Double] = expr match
     { case DecimalToken(_, i) => Good(i.toDouble)
       case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
