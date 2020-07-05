@@ -7,8 +7,7 @@ ThisBuild/autoAPIMappings := true
 def commonSettings = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,  
-  testFrameworks += new TestFramework("utest.runner.Framework"),
-  
+  testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
 
 def jvmSettings = commonSettings ::: List(
@@ -56,12 +55,15 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
 )
 
+val libModules =  List("Util", "Graphic", "Tiling", "Strat")
+
 lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(jvmSettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/unmanagedSourceDirectories := List("Util", "Graphic", "Tiling", "Strat").map(str => (ThisBuild/baseDirectory).value / str / "src"),
+  Compile/unmanagedSourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "src"),
+  Compile/unmanagedResourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "res"), 
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/test/src",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  Test/unmanagedSourceDirectories := List(),
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
