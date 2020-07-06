@@ -1,4 +1,4 @@
-ThisBuild/version := "0.1.0"
+ThisBuild/version := "0.1.1snap"
 ThisBuild/test in assembly := {}
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.13.3"
@@ -42,7 +42,7 @@ def stdJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr))
 )
 
 lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
-lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "13")
+lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
 lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic)
 lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling)
 
@@ -52,7 +52,6 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
-  
 )
 
 val libModules =  List("Util", "Graphic", "Tiling", "Strat")
@@ -67,14 +66,14 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
   //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => artifact.name + "-" + module.revision + artifact.classifier + "." + artifact.extension },
   assemblyJarName in assembly := "stratlib_2.13-" + version.value + ".jar",
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
 
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSettings).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/jvm/src", el + "/srcEx")).map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcEx")).map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
@@ -83,7 +82,7 @@ lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).set
 
 lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSettings).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/js/src", el + "/srcEx")).map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcEx")).map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
@@ -106,19 +105,19 @@ lazy val JsUtil = jsProj("Util").dependsOn(JsUtilMacros).settings(
 )
 
 lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(  
-  Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+  Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
 lazy val JsTiling = jsProj("Tiling").dependsOn(JsGraphic).settings(  
-  Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+  Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
 lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(  
-  Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/js/src").map(s => (ThisBuild/baseDirectory).value / s)
+  Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/js/src", "Graphic/srcEx", "Strat/srcEx").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Graphic/srcEx", "Strat/srcEx").map(s => (ThisBuild/baseDirectory).value / s),
 )
 
 def dottySettings = List(

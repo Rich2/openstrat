@@ -2,25 +2,25 @@
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
-{ def version = "0.0.7snap"  
+{ def version = "0.1.1snap"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-target:jvm-1.8", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
 trait CommonStd extends Common
-{ def scalaVersion = "2.13.2"
+{ def scalaVersion = "2.13.3"
 }
 
 trait CommonStdJs extends ScalaJSModule with CommonStd
-{ def scalaJSVersion = "1.1.0" 
+{ def scalaJSVersion = "1.1.1"
 }
 
 trait PlatformsModule extends ScalaModule with CommonStd
 { outer =>  
   
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm)
 
   trait InnerJs extends CommonStdJs
-  { def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)	  
+  { def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
 	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs1.0:1.0.0")
   }
 
@@ -88,6 +88,8 @@ object Graphic extends PlatformsModule
   object examples extends InnerLearn
   { def moduleDeps = Seq(Graphic)
   }
+
+  //def ivyDeps = Agg(ivy"org.openjfx:javafx:13.0.2")
 }
 
 object Tiling extends PlatformsModule
@@ -116,7 +118,7 @@ object Dev extends PlatformsModule
   def mainClass = Some("ostrat.pFx.DevApp")
   def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src, Strat.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'User)
-  //def ivyDeps = Agg(ivy"org.openjfx:javafx:13.0.2")
+
 
   object js extends InnerJs
   { def moduleDeps = Seq(Strat.js)
