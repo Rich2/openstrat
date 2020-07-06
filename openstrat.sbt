@@ -61,7 +61,7 @@ val libModules =  List("Util", "Graphic", "Tiling", "Strat")
 lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(jvmSettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/unmanagedSourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "src"),
+  Compile/unmanagedSourceDirectories := libModules.flatMap(nameStr => List("src", "srcJvm").map(endStr => (ThisBuild/baseDirectory).value / nameStr / endStr)),
   Compile/unmanagedResourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "res"), 
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/test/src",
   Test/unmanagedSourceDirectories := List(),
