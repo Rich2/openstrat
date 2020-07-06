@@ -37,7 +37,9 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-def stdJvmProj(name: String) = Project(name, file("target/Jvm" + name)).settings(stdSettings(name)).settings()
+def stdJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(stdSettings(nameStr)).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / nameStr / "srcJvm"
+)
 
 lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
 lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util)
@@ -48,7 +50,7 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src").map(s => (ThisBuild/baseDirectory).value / s),
+  //Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJvm").map(s => (ThisBuild/baseDirectory).value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
