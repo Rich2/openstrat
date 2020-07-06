@@ -6,8 +6,9 @@ import pParse._, collection.immutable.ArraySeq
  *   to String representation, but the methods to parse Strings back to objects of the type T. However it may often be useful to start with Show
  *   type class and upgrade it later to Persist[T]. */
 trait Show[-T]
-{
+{ /** The RSON type of T. */
   def typeStr: String
+
   /** Provides the standard string representation for the object. */
   def show(obj: T): String
   

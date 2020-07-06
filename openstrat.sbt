@@ -20,9 +20,9 @@ def stdSettings(name: String) = jvmSettings ::: List(
   Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / name / "srcEx"),
   resourceDirectory := (ThisBuild/baseDirectory).value / name / "/res",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / name / "test/src",
+  Test/scalaSource := (ThisBuild/baseDirectory).value / name / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / name / "learn/src"),
-  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / name / "test/res",
+  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / name / "testRes",
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   version := (ThisBuild/version).value
 )
@@ -33,7 +33,7 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/src",
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
@@ -47,7 +47,7 @@ lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling)
 lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/test/src",
+  Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/jvm/src").map(s => (ThisBuild/baseDirectory).value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
