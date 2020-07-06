@@ -42,7 +42,7 @@ def stdJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr))
 )
 
 lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
-lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util)
+lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "13")
 lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic)
 lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling)
 
@@ -50,10 +50,9 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
-  //Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJvm").map(s => (ThisBuild/baseDirectory).value / s),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
+  
 )
 
 val libModules =  List("Util", "Graphic", "Tiling", "Strat")
@@ -68,6 +67,7 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
   //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) => artifact.name + "-" + module.revision + artifact.classifier + "." + artifact.extension },
   assemblyJarName in assembly := "stratlib_2.13-" + version.value + ".jar",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "13",
 )
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
