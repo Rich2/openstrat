@@ -18,7 +18,7 @@ def jvmSettings = commonSettings ::: List(
 def stdSettings(name: String) = jvmSettings ::: List(
   scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / name / "srcEx"),
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / name / "srcExamples"),
   resourceDirectory := (ThisBuild/baseDirectory).value / name / "/res",
   Test/scalaSource := (ThisBuild/baseDirectory).value / name / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / name / "learn/src"),
@@ -73,7 +73,7 @@ val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
 
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSettings).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcEx")).map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExamples")).map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
@@ -82,7 +82,7 @@ lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).set
 
 lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSettings).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcEx")).map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExamples")).map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
@@ -117,7 +117,7 @@ lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(
 )
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Graphic/srcEx", "Strat/srcEx").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Graphic/srcExamples", "Strat/srcExamples").map(s => (ThisBuild/baseDirectory).value / s),
 )
 
 def dottySettings = List(
