@@ -2,7 +2,7 @@ ThisBuild/version := "0.1.1snap"
 ThisBuild/test in assembly := {}
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.13.3"
-ThisBuild/organization := "OpenStratOrg"
+ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
 def commonSettings = List(
