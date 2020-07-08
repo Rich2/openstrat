@@ -14,8 +14,8 @@ class Latitude private(val degs: Double) extends AnyVal with AngleLike
     case _ if maxLat.radians < minLat.radians => excep("Latitude.addwithin maxLat less than minLat")
   }
 
-  def * (long: Longitude): LatLong = LatLong(radians, long.radians)
-  def ll (longDegs: Double): LatLong = LatLong(radians, longDegs.degreesToRadians)
+  def * (long: Longitude): LatLong = LatLong.degs(degs, long.degs)
+  def ll (longDegs: Double): LatLong = LatLong.degs(degs, longDegs)
 }
 
 object Latitude
