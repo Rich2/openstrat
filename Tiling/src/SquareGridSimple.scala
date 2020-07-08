@@ -9,8 +9,8 @@ class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
   override def roordToVec2(roord: Roord): Vec2 = Vec2(roord.c, roord.y)
   override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = SquareGrid.sideRoordToRoordLine(sideRoord)
-  def tileRowLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).max0
-  def numOfTileRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).max0
+  def tileRowLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).atMost0
+  def numOfTileRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).atMost0
   def numOfTiles: Int = numOfTileRows * tileRowLen
   def cStep: Int = 2
   @inline override def arrIndex(y: Int, c: Int): Int = (y - yTileMin) / 2 * tileRowLen + (c - cTileMin) / 2
@@ -32,8 +32,8 @@ class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   }
 
   override def sideArrIndex(y: Int, c: Int): Int =
-  { val oddRows = (y - ySideMin + 1).max0 / 2 * tileRowLen
-    val evenRows = (y - yTileMin + 1).max0 / 2 * (tileRowLen + 1)
+  { val oddRows = (y - ySideMin + 1).atMost0 / 2 * tileRowLen
+    val evenRows = (y - yTileMin + 1).atMost0 / 2 * (tileRowLen + 1)
     oddRows + evenRows + ife(y.isOdd, (c - cTileMin + 2) / 2, (c - cTileMin + 1) / 2)
   }
 

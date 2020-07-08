@@ -20,7 +20,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }
 
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
-  { val newArray = new Array[A]((length - 1).min0)
+  { val newArray = new Array[A]((length - 1).atLeast0)
     iUntilForeach(1, length)(i => newArray(i - 1) = unsafeArr(i))
     new Arr(newArray)
   }

@@ -1,21 +1,37 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math.Pi
 
 /** Extension methods for Int. */
 class IntExtensions(val thisInt: Int) extends AnyVal
-{ def min0: Int = ife(thisInt > 0, thisInt, 0)
-  def max0: Int = ife(thisInt > 0, thisInt, 0)
+{
+  /** Returns the value or 0, if this Int less than 0. */
+  def atLeast0: Int = ife(thisInt > 0, thisInt, 0)
+
+  /** Returns the value or 0, if this Int more than 0. */
+  def atMost0: Int = ife(thisInt > 0, thisInt, 0)
+
+  /** Returns true if this Int is even, false if this Int is odd. */
   def isEven: Boolean = thisInt % 2 == 0
+
+  /** Returns true if this Int is even, false if this Int is odd. */
   def isOdd: Boolean = thisInt % 2 != 0
-  def ifZero[A](vZero: => A, vNonZero: => A): A = if (thisInt == 0) vZero else vNonZero
-  def ifOdd[A](vOdd: => A, vEven: => A): A = if (thisInt % 2 == 0) vEven else vOdd
-  def ifEven[A](vEven: => A, vOdd: => A): A = if (thisInt % 2 == 0) vEven else vOdd
+
+  /** Returns the first lazily evaluated parameter if this Int is 0 else returns the second lazily evaluated parameter. */
+  def if0Else[A](vZero: => A, vNonZero: => A): A = if (thisInt == 0) vZero else vNonZero
+
+  /** Returns the first lazily evaluated parameter if this Int is odd else returns the second lazily evaluated parameter. */
+  def ifOddElse[A](vOdd: => A, vEven: => A): A = if (thisInt % 2 == 0) vEven else vOdd
+
+  /** Returns the first lazily evaluated parameter if this Int is even else returns the second lazily evaluated parameter. */
+  def ifEvenElse[A](vEven: => A, vOdd: => A): A = if (thisInt % 2 == 0) vEven else vOdd
+
+  /** if the predicate is true apply the function to this Int, else return thisInt unmodified. */
   @inline def ifMod(predicate: Boolean, f: Int => Int): Int = if (predicate) f(thisInt) else thisInt
+
   /** Divides rounding up. 11.divRoundUp(10) == 2; */
   def divRoundUp(operand: Int): Int = (thisInt / operand).ifMod(thisInt % operand > 0, _ + 1)
-  def pos: Boolean = thisInt >= 0
-  def neg: Boolean = thisInt < 0
+
   def ifSumEven[A](evenVal: => A, oddVal: => A, operand: Int): A = if((thisInt + operand).isEven) evenVal else oddVal
   def ifSumOdd[A](oddVal: => A, evenVal: => A, operand: Int): A = if((thisInt + operand).isOdd) oddVal else evenVal
   def diff(operand: Int): Int = (thisInt - operand).abs
@@ -78,10 +94,10 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     case i => (i - 1).roundDownTo(f)
   }
 
-  def roundUpToEven = thisInt.ifEven(thisInt, thisInt + 1)
-  def roundDownToEven = thisInt.ifEven(thisInt, thisInt - 1)
-  def roundUpToOdd = thisInt.ifEven(thisInt + 1, thisInt)
-  def roundDownToOdd = thisInt.ifEven(thisInt - 1, thisInt)
+  def roundUpToEven = thisInt.ifEvenElse(thisInt, thisInt + 1)
+  def roundDownToEven = thisInt.ifEvenElse(thisInt, thisInt - 1)
+  def roundUpToOdd = thisInt.ifEvenElse(thisInt + 1, thisInt)
+  def roundDownToOdd = thisInt.ifEvenElse(thisInt - 1, thisInt)
    
   @inline def hexStr: String = thisInt.toHexString.toUpperCase
   @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)

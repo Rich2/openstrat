@@ -65,7 +65,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   
   def toDegsMinsStr: String =
   { val (degs, mins) = toDegsMins
-    degs.toString + "°" + mins.ifZero("", mins.toString)
+    degs.toString + "°" + mins.if0Else("", mins.toString)
   }
   
   @inline def sin: Double = math.sin(thisDouble)

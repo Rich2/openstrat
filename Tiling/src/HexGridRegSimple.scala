@@ -77,8 +77,8 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
     { case 2 => (c - cRow2sMin) / 4
       case 0 => (c - cRow0sMin) / 4
     }
-    val y2s: Int = ((y - yRow2sMin).divRoundUp(4) * row2sTileLen).max0
-    val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).max0
+    val y2s: Int = ((y - yRow2sMin).divRoundUp(4) * row2sTileLen).atMost0
+    val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).atMost0
     y0s + y2s + thisRow
   }
 
@@ -101,7 +101,7 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   override def rowForeachVert(y: Int)(f: Roord => Unit): Unit = iToForeach(cTileMin - 2, cTileMax + 2, 2)(c => f(Roord(y, c)))
 
   /** The index from a Side Roord into an Arr of Side data. */
-  override def sideArrIndex(y: Int, c: Int): Int = sideRowIndexArray(y - ySideMin) + (c - cSideRowMin(y)) / y.ifEven(4, 2)
+  override def sideArrIndex(y: Int, c: Int): Int = sideRowIndexArray(y - ySideMin) + (c - cSideRowMin(y)) / y.ifEvenElse(4, 2)
 
 }
 

@@ -10,6 +10,7 @@ object ExtensionsTest extends TestSuite
       -1 %% 3 ==> 2
       -7 %% 4 ==> 1
       9 %% 5 ==> 4
+      11.divRoundUp(10) ==> 2
     }
   }
 
