@@ -10,5 +10,5 @@ case class LLLineSeg private(latStartSecs: Double, longStartSecs: Double, lat2Se
 
 /** Companion object for the [[LLLineSeg]] class. */
 object LLLineSeg
-{ def apply(llStart: LatLong, ll2: LatLong): LLLineSeg = new LLLineSeg(llStart.latRadians, llStart.longRadians, ll2.latRadians, ll2.longRadians)
+{ def apply(llStart: LatLong, ll2: LatLong): LLLineSeg = new LLLineSeg(llStart.latSecs, llStart.longSecs, ll2.latSecs, ll2.longSecs)
 }

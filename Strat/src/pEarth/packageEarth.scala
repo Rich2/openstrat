@@ -14,7 +14,7 @@ package object pEarth
          val d2: Dist2 = (inp - vOffset) * scale
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-         LatLong(lat, refLong.radians + longDelta)
+         LatLong.radians(lat, refLong.radians + longDelta)
       }
       
    def vec2ToLatLongReg(inp: Vec2, refLong: Longitude, scale: Dist, xOffset: Int, yOffset: Int = 0): LatLong =
@@ -23,7 +23,7 @@ package object pEarth
          val d2: Dist2 = (inp - vOffset) * scale
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-         LatLong(lat, refLong.radians + longDelta)
+         LatLong.radians(lat, refLong.radians + longDelta)
       }   
    
    /** Not necessarily used */   
@@ -33,7 +33,7 @@ package object pEarth
       val d2: Dist2 = (inp - vOffset) * scale
       val lat: Double = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-      LatLong(lat, refLong.radians + longDelta)
+      LatLong.radians(lat, refLong.radians + longDelta)
    }
    
    /** Not necessarily used */
@@ -43,6 +43,6 @@ package object pEarth
       val d2: Dist2 = adj * scale
       val lat = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-      LatLong(lat, longDelta)
+      LatLong.radians(lat, longDelta)
    } 
 }

@@ -35,7 +35,7 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
 
   def getLL(x: Int, y: Int): LatLong =
   { val index: Int = llInd(x, y)
-    LatLong(vArr(index), vArr(index + 1))
+    LatLong.radians(vArr(index), vArr(index + 1))
   }
 
   def getLL(cood: Cood): LatLong = getLL(cood.xi ,cood.yi)

@@ -83,11 +83,11 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
 /** Companion object for LatLong. */
 object LatLong
 {
-  @inline def apply(latRadians: Double, longRadians: Double): LatLong =
+  /*@inline def apply(latRadians: Double, longRadians: Double): LatLong =
   { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
     val long = ((longRadians + Pi) %% Pi2) - Pi
     new LatLong(lat, long)
-  }
+  }*/
 
   @inline def radians(latRadians: Double, longRadians: Double): LatLong =
   { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2

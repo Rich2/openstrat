@@ -19,7 +19,7 @@ object EGrid80Km
     val d2: Dist2 = adj * scale
     val lat: Double = d2.y / EarthPolarRadius
     val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-    LatLong(lat, longDelta)
+    LatLong.radians(lat, longDelta)
   }
 
   /** Returns the longitudinal delta for a given c at a given y (latitude) for an EGrid80Km Hex Grid. */
