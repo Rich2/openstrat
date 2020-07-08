@@ -83,12 +83,6 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
 /** Companion object for LatLong. */
 object LatLong
 {
-  /*@inline def apply(latRadians: Double, longRadians: Double): LatLong =
-  { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
-    val long = ((longRadians + Pi) %% Pi2) - Pi
-    new LatLong(lat, long)
-  }*/
-
   @inline def radians(latRadians: Double, longRadians: Double): LatLong =
   { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
     val long = ((longRadians + Pi) %% Pi2) - Pi
@@ -100,33 +94,7 @@ object LatLong
   implicit val persistImplict: PersistEq[LatLong] =
     new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
 
-  //def apply(latAngle: Latitude, longAngle: Longitude): LatLong = new LatLong(latAngle.radians, longAngle.radians)
-   //def ll(lat: Latitude, long: Longitude) = new LatLong(lat.radians, long.radians)
    def degs(lat: Double, long: Double): LatLong = LatLong.radians(lat.degreesToRadians, long.degreesToRadians)
-  // def lDeg(lat: Latitude, long: Double): LatLong = LatLong(lat.radians, long.degreesToRadians)
- //  def degL(lat: Double, long: Longitude): LatLong = LatLong(lat * Pi / 180.0, long.radians)
-   
-//   def neMin(latDegs: Int, latMinutes: Int, longDegs: Int, longMinutes: Int): LatLong =
-//   {
-//      val lat = ((latMinutes / 60.0) + latDegs) * Pi / 180
-//      val long = ((longMinutes / 60.0) + longDegs) * Pi / 180      
-//      LatLong(lat, long)
-//   }
-   //def nwMin(latDegs: Int, latMinutes: Int, longDegs: Int, longMinutes: Int): LatLong = neMin(latDegs, latMinutes, -longDegs, -longMinutes)
-   //def seMin(latDegs: Int, latMinutes: Int, longDegs: Int, longMinutes: Int): LatLong = neMin(-latDegs, -latMinutes, longDegs, longMinutes)
-   //def swMin(latDegs: Int, latMinutes: Int, longDegs: Int, longMinutes: Int): LatLong = neMin(-latDegs, -latMinutes, -longDegs, -longMinutes)
-   //def seqFromDegs(inp: Double*): Seq[LatLong] = inp.mapBy2((lat, long) => LatLong(lat.degreesToRadians, long.degreesToRadians))
-   
-//   implicit class LatLongSeqImplicit(thisSeq: Seq[LatLong])
-//   {
-//      def toLatLongLines: Seq[LatLongLine] = (thisSeq.length > 1).ifSeq(
-//            {
-//               var start: LatLong = thisSeq.head               
-//               var acc: Seq[LatLongLine] = Seq()
-//               thisSeq.tail.foreach(el => {acc :+= LatLongLine(start, el); start = el})
-//               acc
-//            })
-//   }
 }
 
 
