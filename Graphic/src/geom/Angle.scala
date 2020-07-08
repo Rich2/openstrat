@@ -63,11 +63,11 @@ object Angle
   @inline def apply(degrees: Double): Angle = new Angle(degrees * secsInDeg)
 
   /** Resets radians to between + and - Pi */
-  @inline def reset(radians: Double): Double =  radians %% Pi2 match
+  @inline def resetRadians(radians: Double): Double =  radians %% Pi2 match
   { case r if r <= -Pi => Pi2 + r
     case r if r > Pi => r - Pi2
     case r => r
   }
 
-  @inline def radians(radians: Double): Angle = new Angle(reset(radians) * 180 * secsInDeg / Pi)
+  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * secsInDeg / Pi)
 }

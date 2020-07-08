@@ -3,31 +3,7 @@ package ostrat
 package geom
 import math.Pi
 
-class Latitude (val degs: Double) extends AnyVal with AngleLike
-{ override def degSecs: Double = radians * 3600 * 180 / Pi
-  def radians: Double = degs * Pi / 180.0
-  
-  def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
-  { case r if r <= - PiH => Latitude.radians(-PiH)
-    case r if r >= PiH => Latitude.radians(PiH)
-    case _ if minLat.radians > maxLat.radians => excep("Latitude.addwithin minLat greaterd than maxLat")
-    case _ if maxLat.radians < minLat.radians => excep("Latitude.addwithin maxLat less than minLat")
-  }
-  
-  def * (long: Longitude): LatLong = LatLong(radians, long.radians)
-  def ll (longDegs: Double): LatLong = LatLong(radians, longDegs.degreesToRadians)
-}
 
-object Latitude
-{
-  def radians(value: Double): Latitude = value match
-  { case r if r < -Pi => excep("Latitude with less than - Pi")
-    case r if r > Pi => excep("Latitude with greater than Pi")
-    case r => new Latitude(r.radiansToDegrees)
-  }
-  
-  def apply(degVal: Double) = Latitude.radians(degVal.degreesToRadians)
-}
 
 class Longitude(val degs: Double) extends AnyVal with AngleLike
 { override def degSecs: Double = radians * 10000000 / 2 / Pi

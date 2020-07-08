@@ -4,7 +4,7 @@ package geom
 import math._
 
 /** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-class LatLong (val latRadians: Double, val longRadians: Double) extends LatLongBase with ProdDbl2
+class LatLong private(val latRadians: Double, val longRadians: Double) extends LatLongBase with ProdDbl2
 {
   override def toString: String = LatLong.persistImplict.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
@@ -24,7 +24,7 @@ class LatLong (val latRadians: Double, val longRadians: Double) extends LatLongB
     Seq(this) ++ (1 to num).map(i => LatLong(latRadians + i * latDelta, longRadians + i * longDelta))
    }
    
-  def addLat(radians: Double): LatLong = Angle.reset(latRadians + radians) match
+  def addLat(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
   { //Going over the north Pole from western longitude
     case a if a > PiH && longRadians <= 0 => LatLong(Pi - a, longRadians + Pi)
     //Going over the north Pole from an eastern longitude
@@ -37,7 +37,7 @@ class LatLong (val latRadians: Double, val longRadians: Double) extends LatLongB
   }
       
   def subLat(radians: Double): LatLong = addLat(-radians)
-  def addLong(radians: Double): LatLong = LatLong(latRadians, Angle.reset(longRadians + radians))
+  def addLong(radians: Double): LatLong = LatLong(latRadians, Angle.resetRadians(longRadians + radians))
   def subLong(radians: Double): LatLong = addLong(-radians)
    
   /** Get the XY point from a focus with latitude 0 */
@@ -74,6 +74,7 @@ class LatLong (val latRadians: Double, val longRadians: Double) extends LatLongB
   }
 }
 
+/** Companion object for LatLong. */
 object LatLong
 {
   @inline def apply(latRadians: Double, longRadians: Double): LatLong =
@@ -81,12 +82,19 @@ object LatLong
     val long = ((longRadians + Pi) %% Pi2) - Pi
     new LatLong(lat, long)
   }
+
+  @inline def radians(latRadians: Double, longRadians: Double): LatLong =
+  { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
+    val long = ((longRadians + Pi) %% Pi2) - Pi
+    new LatLong(lat, long)
+  }
    
-  implicit val persistImplict: PersistEq[LatLong] = new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, apply)
+  implicit val persistImplict: PersistEq[LatLong] =
+    new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
    
   //def apply(latAngle: Latitude, longAngle: Longitude): LatLong = new LatLong(latAngle.radians, longAngle.radians)
    //def ll(lat: Latitude, long: Longitude) = new LatLong(lat.radians, long.radians)
-   def deg(lat: Double, long: Double): LatLong = LatLong(lat.degreesToRadians, long.degreesToRadians)
+   def deg(lat: Double, long: Double): LatLong = LatLong.radians(lat.degreesToRadians, long.degreesToRadians)
   // def lDeg(lat: Latitude, long: Double): LatLong = LatLong(lat.radians, long.degreesToRadians)
  //  def degL(lat: Double, long: Longitude): LatLong = LatLong(lat * Pi / 180.0, long.radians)
    

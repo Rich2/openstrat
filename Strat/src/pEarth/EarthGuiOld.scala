@@ -43,7 +43,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   
   def addLat(radians: Double): Unit =
   { import math.Pi
-    Angle.reset(focus.latRadians + radians) match
+    Angle.resetRadians(focus.latRadians + radians) match
     {
       //Going over the north Pole from western longitude
       case a if a > PiH && focus.longRadians <= 0 => { focus = LatLong(Pi - a, focus.longRadians + Pi); focusUp = ! focusUp }
