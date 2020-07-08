@@ -9,7 +9,7 @@ trait AngleLike extends Any
   def degs: Double
   
   /** The angle expressed in 36 millionths of a degree. */
-  def degoids: Double
+  def degSecs: Double
   
   /** The value of the angle expressd in radians. */
   def radians: Double
@@ -21,15 +21,15 @@ trait AngleLike extends Any
 
 /** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
  *  while Latitudes have a normal range +- 90 degrees. */
-final class Angle private(val degoids: Double) extends AnyVal with AngleLike
+final class Angle private(val degSecs: Double) extends AnyVal with AngleLike
 {
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
   def arcLength(radius: Double): Double = radians * radius
   
-  override def degs: Double = degoids / degoidRatio  
-  override def radians: Double = degoids * Pi / degoidRatio / 180
+  override def degs: Double = degSecs / secsInDeg
+  override def radians: Double = degSecs * Pi / secsInDeg / 180
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
    
@@ -60,7 +60,7 @@ final class Angle private(val degoids: Double) extends AnyVal with AngleLike
 object Angle
 {
   /** Factory method for Angle from number of degrees */
-  @inline def apply(degrees: Double): Angle = new Angle(degrees * degoidRatio)
+  @inline def apply(degrees: Double): Angle = new Angle(degrees * secsInDeg)
 
   /** Resets radians to between + and - Pi */
   @inline def reset(radians: Double): Double =  radians %% Pi2 match
@@ -69,5 +69,5 @@ object Angle
     case r => r
   }
 
-  @inline def radians(radians: Double): Angle = new Angle(reset(radians) * 180 * degoidRatio / Pi)
+  @inline def radians(radians: Double): Angle = new Angle(reset(radians) * 180 * secsInDeg / Pi)
 }

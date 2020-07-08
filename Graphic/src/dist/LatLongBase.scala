@@ -4,7 +4,7 @@ package geom
 import math.Pi
 
 class Latitude (val degs: Double) extends AnyVal with AngleLike
-{ override def degoids: Double = radians * 10000000 / 2 / Pi
+{ override def degSecs: Double = radians * 3600 * 180 / Pi
   def radians: Double = degs * Pi / 180.0
   
   def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
@@ -30,7 +30,7 @@ object Latitude
 }
 
 class Longitude(val degs: Double) extends AnyVal with AngleLike
-{ override def degoids: Double = radians * 10000000 / 2 / Pi
+{ override def degSecs: Double = radians * 10000000 / 2 / Pi
   def radians: Double = degs.degreesToRadians  
   
   def addWithin(deltaAngle: Angle, maxLong: Longitude, minLong: Longitude): Longitude = (radians + deltaAngle.radians) match

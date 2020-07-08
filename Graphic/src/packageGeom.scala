@@ -28,18 +28,18 @@ package object geom
     
   /** The ratio of the degoid to a degree. Th degoid has been chosen as a convenient way to encode Angles using an underlying Double floating point
    * value. It has been chosen to allow the precise encoding of degrees and decimals of a degree down to 1 millionth. */  
-  val degoidRatio: Int = 36000000
-  
-  val degoidRadianRatio: Double = degoidRatio * 180.0 / Pi
-  
-  /** degoid value for 90 degrees of Pi/2 radians. */
-  val degoid90 = degoidRatio * 90
-  
-  /** degoid value for 180 degrees or Pi radians. */
-  val degoid180 = degoidRatio * 180
-  
-  val degoidM90: Int = - degoidRatio * 90
-  val degoidM180: Int = - degoidRatio * 180
+  val secsInDeg: Int = 3600
+
+  val secsInRadian: Double = secsInDeg * 180.0 / Pi
+
+  /** seconds value for 90 degrees of Pi/2 radians. */
+  val deg90InSecs = secsInDeg * 90
+
+  /** seconds value for 180 degrees or Pi radians. */
+  val deg180InSecs = secsInDeg * 180
+
+  val degM90InSecs: Int = - secsInDeg * 90
+  val degM180InSecs: Int = - secsInDeg * 180
   
   /** The origin, the intersection of the axes for 2 dimensional vectors. */
   val Vec2Z = Vec2(0, 0)  
