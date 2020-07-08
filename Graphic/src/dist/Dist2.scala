@@ -39,7 +39,7 @@ final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
   }
    
   /** Currently not working for angles greater than Pi / 2 */
-  def toLatLong: LatLong = LatLong(math.asin(y / EarthPolarRadius), math.asin(x / EarthEquatorialRadius))
+  def toLatLong: LatLong = LatLong.radians(math.asin(y / EarthPolarRadius), math.asin(x / EarthEquatorialRadius))
    
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg
