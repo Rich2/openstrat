@@ -1,8 +1,10 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+/** Extension class for Double. This is created as a seperate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {
+  /** Alternative remainder operator that gives positive remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =
   { val r = thisDouble % divisor
     ife(r < 0, divisor + r, r)
