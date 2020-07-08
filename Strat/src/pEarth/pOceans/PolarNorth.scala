@@ -7,20 +7,20 @@ import geom._, geom.LatLong._, WTile._
 object PolarNorth extends Area1("NPole", 89.5 ll 0)
 {   
    override def fill: Boolean = false
-   val sGreenland = deg(59.87, -43.95)
-   val swGreenland = deg(60.82, -48.07)
+   val sGreenland = degs(59.87, -43.95)
+   val swGreenland = degs(60.82, -48.07)
    val pt1 = 75.73 ll -58.98
-   val wGreenland = deg(78.20, -72.77)
-   val nwGreenland = deg(80.33, -67.27)
-   val nGreenland = deg(83.60, -34.19)
-   val neGreenland = deg(81.44, -11.77)
-   val semersooq = deg(70.03, -23.07)
+   val wGreenland = degs(78.20, -72.77)
+   val nwGreenland = degs(80.33, -67.27)
+   val nGreenland = degs(83.60, -34.19)
+   val neGreenland = degs(81.44, -11.77)
+   val semersooq = degs(70.03, -23.07)
    val kulusuk = 65.53 ll -37.05
    
-   val greenland = Area2("Greenland", deg(75, -42), ice,
+   val greenland = Area2("Greenland", degs(75, -42), ice,
          sGreenland, swGreenland, pt1, wGreenland, nwGreenland, nGreenland, neGreenland, semersooq, kulusuk)   
    
-   val artic = Area2("Artic", deg(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk, deg(81.21, 15.83),
+   val artic = Area2("Artic", degs(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk, degs(81.21, 15.83),
         semersooq, neGreenland, nGreenland, nwGreenland)        
   
    override val a2Arr = Arr(greenland, artic, Svalbard, Nordauslandet)

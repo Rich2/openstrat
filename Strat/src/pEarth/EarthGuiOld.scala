@@ -5,7 +5,7 @@ import geom._, pCanv._
 
 abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
 {
-  var focus: LatLong = LatLong.deg(50, 0)   
+  var focus: LatLong = LatLong.degs(50, 0)
   /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */
   var scale: Dist =   14000.km / mapPanelDiameter
   def scaleMin: Dist = 180.km / mapPanelDiameter

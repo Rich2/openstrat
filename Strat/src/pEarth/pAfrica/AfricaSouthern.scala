@@ -37,22 +37,22 @@ object AfricaSouthernPts
   val sEAfrica = Area2("SEAfrica", -2.17 ll 36.64, plain, cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN, katongaMouth,
     AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa, seNacala, sAfricaNE)
    
-  val agulhas = deg(-34.83, 20.00)
-  val capeTown = deg(-34, 19)
+  val agulhas = degs(-34.83, 20.00)
+  val capeTown = degs(-34, 19)
   val nNamibia = -17.12 ll 11.3
   val beira = -19.35 ll 34.3
   val inhambane = -23.38 ll 35.2
   val maputo = -25.4 ll 32.2
-  val richardsBay = deg(-29, 32)
-  val portLiz = deg(-34, 26)
+  val richardsBay = degs(-29, 32)
+  val portLiz = degs(-34, 26)
          
   val sAfrica = Area2("SAfrica", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane, maputo,
     richardsBay, portLiz)
          
-  val madagascarN = deg(-11.95, 49.26)
-  val madagascarE = deg(-15.33, 50.48)
-  val madagascarSE = deg(-25.03, 46.99)
-  val madagascarS = deg(-25.60, 45.16)
-  val tambohorano = deg(-17.51, 43.93)
-  val madagascar = Area2("Madagascar", deg(-19.42, 46.57), plain, madagascarN, madagascarE, madagascarSE, madagascarS, tambohorano)
+  val madagascarN = degs(-11.95, 49.26)
+  val madagascarE = degs(-15.33, 50.48)
+  val madagascarSE = degs(-25.03, 46.99)
+  val madagascarS = degs(-25.60, 45.16)
+  val tambohorano = degs(-17.51, 43.93)
+  val madagascar = Area2("Madagascar", degs(-19.42, 46.57), plain, madagascarN, madagascarE, madagascarSE, madagascarS, tambohorano)
 }

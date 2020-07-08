@@ -49,7 +49,7 @@ package object geom
   
   val LongD = 2.0 / Cos30
   val cos30: Double = cos(Pi / 6)
-  val LatLong0 = LatLong(0, 0)
+  val LatLong0 = LatLong.degs(0, 0)
   val EarthPolarRadius: Dist = 6356.7523.km
   val EarthEquatorialRadius: Dist = 6378.137.km
   val EarthAvDiameter: Dist = 12742.km

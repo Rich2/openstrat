@@ -35,11 +35,11 @@ object Peloponnese extends Area2("Peloponnese", 37.56 ll 22.18, hills)
   val kechries = 37.88 ll 22.99
   val p1 = 37.44 ll 23.51
   val neaKios = 37.58 ll 22.74
-  val voia =deg(36.44, 23.17)
+  val voia =degs(36.44, 23.17)
   val eElos = 36.79 ll 22.78
   val wElos = 36.80 ll 22.61
   val sGreece = 36.38 ll 22.48
-  val koroni = deg(36.73, 21.87)
+  val koroni = degs(36.73, 21.87)
   val kyllini = 37.93 ll 21.13
   val rioPio = 38.30 ll 21.77
   val corinth = 37.94 ll 22.93
@@ -50,8 +50,8 @@ object Peloponnese extends Area2("Peloponnese", 37.56 ll 22.18, hills)
 object SaharaEast extends Area2("ESahara", 23 ll 26, desert)
 {
   val elAgheila = 30.12 ll 19.08
-  val benghazi = deg(32.12, 20.05)
-  val derna = deg(32.93, 22.15)
+  val benghazi = degs(32.12, 20.05)
+  val derna = degs(32.93, 22.15)
   val alamein = 30.3 ll 29.4
   val portSaid = 31.09 ll 32.12
   val suez = 29.38 ll 32.22
@@ -63,8 +63,8 @@ object SaharaEast extends Area2("ESahara", 23 ll 26, desert)
 object AfricaNorthEast extends Area2("NEAfrica", 9 ll 32, plain)
 {    
   val dankalia = 14 ll 41.66// eAfricaN
-  val berbera = deg(10, 44)
-  val hornAfrica = deg(12, 51)
+  val berbera = degs(10, 44)
+  val hornAfrica = degs(12, 51)
   val iskushuban1 = 10.44 ll 51.41
   val iskushuban2 = 10.31 ll 50.90
   val rasMacbar = 9.47 ll 50.85
