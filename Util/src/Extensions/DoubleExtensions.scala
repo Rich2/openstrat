@@ -1,5 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import math.Pi
 
 /** Extension class for Double. This is created as a seperate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
@@ -49,10 +50,13 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   /** if this outside the range minus to plus operand */
   def <> (operand: Double): Boolean = thisDouble > -operand && thisDouble < operand
   def toRoundInt: Int = ife(thisDouble > 0, (thisDouble + 0.5).toInt, (thisDouble - 0.5).toInt)
-  import math._
+
   @inline def radiansToDegrees: Double = thisDouble * 180.0 / Pi
-  @inline def degreesToRadians: Double = thisDouble * Pi / 180.0   
-  @inline def toWholeDegsStr: String = round(radiansToDegrees).toString
+  @inline def degreesToRadians: Double = thisDouble * Pi / 180.0
+  @inline def radiansToSecs: Double = thisDouble * 3600 * 180 / Pi
+  @inline def secsToRadians = thisDouble * Pi / 180.0 / 3600.0
+
+  @inline def toWholeDegsStr: String = math.round(radiansToDegrees).toString
   def to2Ints: (Int, Int) =
   { val lg = java.lang.Double.doubleToRawLongBits(thisDouble)   
     ((lg >>> 32).toInt, (lg & 0xFFFFFFFFL).toInt)
@@ -61,11 +65,6 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def toDegsMins: (Int, Int) =
   { val sx: Int = (radiansToDegrees * 60).toInt
     ((sx / 60), sx % 60)
-  }
-  
-  def toDegsMinsStr: String =
-  { val (degs, mins) = toDegsMins
-    degs.toString + "°" + mins.if0Else("", mins.toString)
   }
   
   @inline def sin: Double = math.sin(thisDouble)
