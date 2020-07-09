@@ -30,20 +30,24 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
    }
 
   def addLatRadians(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
-  { //Going over the north Pole from western longitude
-    case a if a > PiH && longRadians <= 0 => LatLong.radians(Pi - a, longRadians + Pi)
-    //Going over the north Pole from an eastern longitude
-    case a if a > PiH             =>  LatLong.radians(Pi - a, longRadians - Pi)
+  { //Going over the north Pole
+    case a if a > PiH => LatLong.radians(Pi - a, -longRadians)
     //Going over the south Pole from western longitude
-    case a if a < -PiH && longRadians < 0 => LatLong.radians(-Pi - a, Pi + longRadians)
-    //Going over the south Pole from eastern longitude
-    case a if a < -PiH             => LatLong.radians(-Pi - a, longRadians - Pi)
+    case a if a < -PiH => LatLong.radians(-Pi - a, -longRadians)
     case a => LatLong.radians(a, longRadians)
   }
 
   def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)
   def addLongRadians(radians: Double): LatLong = LatLong.radians(latRadians, Angle.resetRadians(longRadians + radians))
   def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)
+  
+  def addLatSecs(secs: Double): LatLong = Angle.resetSecs(latSecs + secs) match
+  { //Going over the north Pole
+    case a if a > secsIn90Degs => LatLong.degSecs(secsIn180Degs - a, -longSecs)
+    //Going over the south Pole
+    case a if a < -secsIn90Degs => LatLong.degSecs(-secsIn180Degs - a, - longSecs)
+    case a => LatLong.degSecs(a, longSecs)
+  }
 
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Vec2 = Vec2(sin(longRadians) * cos(latRadians), sin(latRadians))

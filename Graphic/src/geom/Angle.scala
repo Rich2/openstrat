@@ -53,5 +53,12 @@ object Angle
     case r => r
   }
 
+  /** Resets radians to between + and - Pi */
+  @inline def resetSecs(secs: Double): Double =  secs %% secsIn360Degs match
+  { case r if r <= -secsIn180Degs => secsIn360Degs + r
+    case r if r > secsIn180Degs => r - secsIn360Degs
+    case r => r
+  }
+
   @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * secsInDeg / Pi)
 }
