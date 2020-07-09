@@ -3,9 +3,9 @@ package ostrat
 package geom
 import math.Pi
 
-class Longitude(val degs: Double) extends AnyVal with AngleLike
-{ override def degSecs: Double = radians * 10000000 / 2 / Pi
-  def radians: Double = degs.degreesToRadians
+class Longitude private(val degSecs: Double) extends AnyVal with AngleLike
+{ override def degs: Double = degSecs.secsToDegs
+  def radians: Double = degSecs.secsToRadians
 
   def addWithin(deltaAngle: Angle, maxLong: Longitude, minLong: Longitude): Longitude = (radians + deltaAngle.radians) match
   { case r if r <= - Pi => Longitude.radians(-Pi)
@@ -17,6 +17,6 @@ class Longitude(val degs: Double) extends AnyVal with AngleLike
 }
 
 object Longitude
-{ def deg(degVal: Double) = new Longitude(degVal)
-  def radians(value: Double) = new Longitude(value.radiansToDegrees)
+{ def degs(degVal: Double) = new Longitude(degVal.degsToSecs)
+  def radians(value: Double) = new Longitude(value.radiansToSecs)
 }

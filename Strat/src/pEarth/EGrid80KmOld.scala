@@ -21,27 +21,27 @@ class EGrid80KmOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], n
 
       val rt1: Double = coodToLL(xSideMax, y + 1).longRadians
       val lt1: Double = coodToLL(xSideMin, y + 1).longRadians
-      val rt1Adj: Double = lt1 + 30.degreesToRadians
+      val rt1Adj: Double = lt1 + 30.degsToRadians
       val rt1New = (rt1 + rt1Adj) / 2
-      val lt1Adj = rt1 - 30.degreesToRadians
+      val lt1Adj = rt1 - 30.degsToRadians
       val lt1New = (lt1 + lt1Adj) / 2
       setLongitude(xSideMax, y + 1, rt1New)
       setLongitude(xSideMin, y + 1, lt1New)
 
       val rts: Double = coodToLL(xSideMax, y).longRadians
       val lts: Double = coodToLL(xSideMin, y).longRadians
-      val rtsAdj: Double = lts + 30.degreesToRadians
+      val rtsAdj: Double = lts + 30.degsToRadians
       val rtsNew = (rts + rtsAdj) / 2
-      val ltsAdj = rts - 30.degreesToRadians
+      val ltsAdj = rts - 30.degsToRadians
       val ltsNew = (lts + ltsAdj) / 2
       setLongitude(xSideMax, y, rtsNew)
       setLongitude(xSideMin, y, ltsNew)
 
       val rt2: Double = coodToLL(xSideMax, y - 1).longRadians
       val lt2: Double = coodToLL(xSideMin, y - 1).longRadians
-      val rt2Adj: Double = lt2 + 30.degreesToRadians
+      val rt2Adj: Double = lt2 + 30.degsToRadians
       val rt2New = (rt2 + rt2Adj) / 2
-      val lt2Adj = rt2 - 30.degreesToRadians
+      val lt2Adj = rt2 - 30.degsToRadians
       val lt2New = (lt2 + lt2Adj) / 2
       setLongitude(xSideMax, y - 1, rt2New)
       setLongitude(xSideMin, y - 1, lt2New)
@@ -79,7 +79,7 @@ object EGrid80KmOld
   }
 
   /** Returns the longitudinal delta for a given x at a given y (latitude) for an EGrid80Km Hex Grid. */
-  def yToLatDegs(y: Int): Double = ((y - yOffset) * scale / EarthPolarRadius).radiansToDegrees
+  def yToLatDegs(y: Int): Double = ((y - yOffset) * scale / EarthPolarRadius).radiansToDegs
 
   /** Returns the longitudinal delta for a given x. */
   def xDelta(y: Int, x: Int): Double = coodToLatLong0(Cood(x, y)).longDegs

@@ -43,8 +43,6 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def billion: Long = thisInt.toLong *     1000000000L
   def trillion: Long = thisInt.toLong *    1000000000000L
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
-  @inline def degreesToRadians: Double = thisInt * Pi / 180
-  @inline def radiansToDegrees: Double = thisInt * 180.0 / Pi
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
   def semicolonInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + "; " + _.toString)
@@ -137,5 +135,23 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   }
   /** Only use positive value that won't overflow int) */
   def power(operand: Int): Int = 1.fRepeat(operand)(a => a * thisInt)
+
+  /** Takes this Int as a value in arc degrees and converts it to a value of radians. */
+  @inline def degsToRadians: Double = thisInt * Pi / 180.0
+
+  /** Takes this Int as a value in arc degrees and converts it to a value of arc seconds. */
+  @inline def degsToSecs: Int = thisInt * 3600
+
+  /** Takes this Int as a value in radians and converts it to a value of arc degrees. */
+  @inline def radiansToDegs: Double = thisInt * 180.0 / Pi
+
+  /** Takes this Int as a value in radians and converts it to a value of arc seconds. */
+  @inline def radiansToSecs: Double = thisInt * 3600.0 * 180.0 / Pi
+
+  /** Takes this Int as a value in arc seconds and converts it to a value of radians. */
+  @inline def secsToRadians = thisInt * Pi / 180.0 / 3600.0
+
+  /** Takes this Int as a value in arc deconds and converts it to a value of arc degrees. */
+  @inline def secsToDegs = thisInt / 3600.0
 } 
    

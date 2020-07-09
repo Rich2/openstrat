@@ -10,8 +10,8 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = latRadians
   def _2 = longRadians
-  @inline override def longDegs: Double = longRadians.radiansToDegrees
-  @inline override def latDegs: Double = latRadians.radiansToDegrees
+  @inline override def longDegs: Double = longRadians.radiansToDegs
+  @inline override def latDegs: Double = latRadians.radiansToDegs
   override def latSecs: Double = latDegs * 3600
 
   override def longSecs: Double = longDegs * 3600
@@ -94,7 +94,7 @@ object LatLong
   implicit val persistImplict: PersistEq[LatLong] =
     new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
 
-   def degs(lat: Double, long: Double): LatLong = LatLong.radians(lat.degreesToRadians, long.degreesToRadians)
+   def degs(lat: Double, long: Double): LatLong = LatLong.radians(lat.degsToRadians, long.degsToRadians)
 }
 
 

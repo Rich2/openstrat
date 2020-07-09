@@ -37,7 +37,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
     }
     acc.reverse
   }
-   
+
   def subMin(operand: Double, minValue: Double): Double = (thisDouble - operand).max(minValue)
   def ifNeg[A](vNeg: => A, vPos: => A): A = if (thisDouble < 0) vNeg else vPos
   
@@ -51,19 +51,33 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def <> (operand: Double): Boolean = thisDouble > -operand && thisDouble < operand
   def toRoundInt: Int = ife(thisDouble > 0, (thisDouble + 0.5).toInt, (thisDouble - 0.5).toInt)
 
-  @inline def radiansToDegrees: Double = thisDouble * 180.0 / Pi
-  @inline def degreesToRadians: Double = thisDouble * Pi / 180.0
+  /** Takes this Double as a value in arc degrees and converts it to a value of radians. */
+  @inline def degsToRadians: Double = thisDouble * Pi / 180.0
+
+  /** Takes this Double as a value in arc degrees and converts it to a value of arc seconds. */
+  @inline def degsToSecs: Double = thisDouble * 3600
+
+  /** Takes this Double as a value in radians and converts it to a value of arc degrees. */
+  @inline def radiansToDegs: Double = thisDouble * 180.0 / Pi
+
+  /** Takes this Double as a value in radians and converts it to a value of arc seconds. */
   @inline def radiansToSecs: Double = thisDouble * 3600 * 180 / Pi
+
+  /** Takes this Double as a value in arc seconds and converts it to a value of radians. */
   @inline def secsToRadians = thisDouble * Pi / 180.0 / 3600.0
 
-  @inline def toWholeDegsStr: String = math.round(radiansToDegrees).toString
+  /** Takes this Double as a value in arc deconds and converts it to a value of arc degrees. */
+  @inline def secsToDegs = thisDouble / 3600.0
+
+  /** Probably good to get rid of this. */
+  @inline def toWholeDegsStr: String = math.round(radiansToDegs).toString
   def to2Ints: (Int, Int) =
-  { val lg = java.lang.Double.doubleToRawLongBits(thisDouble)   
+  { val lg = java.lang.Double.doubleToRawLongBits(thisDouble)
     ((lg >>> 32).toInt, (lg & 0xFFFFFFFFL).toInt)
   }
-   
+
   def toDegsMins: (Int, Int) =
-  { val sx: Int = (radiansToDegrees * 60).toInt
+  { val sx: Int = (radiansToDegs * 60).toInt
     ((sx / 60), sx % 60)
   }
   
