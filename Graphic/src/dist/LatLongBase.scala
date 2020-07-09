@@ -12,6 +12,8 @@ trait LatLongBase
   @inline def latDegs: Double// = latRadians.radiansToDegrees
   def latSecs: Double
   def longSecs: Double
+  final def latMins: Double = latSecs / 60
+  final def longMins: Double = longSecs / 60
   def equatorialRadius: Dist
   def polarRadius: Dist
   override def toString: String = degStr

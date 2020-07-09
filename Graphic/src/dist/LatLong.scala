@@ -12,16 +12,15 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
   def _2 = longRadians
   @inline override def longDegs: Double = longRadians.radiansToDegs
   @inline override def latDegs: Double = latRadians.radiansToDegs
-  override def latSecs: Double = latDegs * 3600
-
-  override def longSecs: Double = longDegs * 3600
+  override def latSecs: Double = latDegs.degsToSecs
+  override def longSecs: Double = longDegs.degsToSecs
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  
   def polarRadius: Dist = EarthPolarRadius
   def equatorialRadius: Dist = EarthEquatorialRadius
-  def +(other: LatLong): LatLong = addLong(other.longRadians).addLat(other.latRadians)
-  def -(other: LatLong): LatLong = addLong(-other.longRadians).addLat(-other.latRadians)
+  //def +(other: LatLong): LatLong = addLongRadians(other.longRadians).addLatRadians(other.latRadians)
+  //def -(other: LatLong): LatLong = addLongRadians(-other.longRadians).addLatRadians(-other.latRadians)
 
   /** This method current does not take account of lines that cross the date line, including the Poles */
   def segsTo(num: Int, toPt: LatLong): Seq[LatLong] =
@@ -29,8 +28,8 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
     val longDelta = toPt.longRadians - longRadians
     Seq(this) ++ (1 to num).map(i => LatLong.radians(latRadians + i * latDelta, longRadians + i * longDelta))
    }
-   
-  def addLat(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
+
+  def addLatRadians(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
   { //Going over the north Pole from western longitude
     case a if a > PiH && longRadians <= 0 => LatLong.radians(Pi - a, longRadians + Pi)
     //Going over the north Pole from an eastern longitude
@@ -41,28 +40,28 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
     case a if a < -PiH             => LatLong.radians(-Pi - a, longRadians - Pi)
     case a => LatLong.radians(a, longRadians)
   }
-      
-  def subLat(radians: Double): LatLong = addLat(-radians)
-  def addLong(radians: Double): LatLong = LatLong.radians(latRadians, Angle.resetRadians(longRadians + radians))
-  def subLong(radians: Double): LatLong = addLong(-radians)
-   
+
+  def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)
+  def addLongRadians(radians: Double): LatLong = LatLong.radians(latRadians, Angle.resetRadians(longRadians + radians))
+  def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)
+
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Vec2 = Vec2(sin(longRadians) * cos(latRadians), sin(latRadians))
-   
+
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
   def polyToDist2s(inp: LatLongs): Dist2s = inp.pMap(fromFocusDist2)
-   
+
   def polyToGlobedArea(inp: LatLongs): GlobedArea =
   { val d3s: Dist3s = inp.pMap(el => fromFocusDist3(el))
     d3s.earthZPositive
   }
   def latLongFacing(ll: LatLong): Boolean = fromFocusDist3(ll).z.pos
-   
-  def fromFocusDist3(ll: LatLong): Dist3 = ll.subLong(longRadians).toDist3.xRotation(-latRadians)
+
+  def fromFocusDist3(ll: LatLong): Dist3 = ll.subLongRadians(longRadians).toDist3.xRotation(-latRadians)
   def fromFocusLineDist3(inp: LLLineSeg): LineDist3 = LineDist3(
-    inp.llStart.subLong(longRadians).toDist3.xRotation(-latRadians),
-    inp.latLong2.subLong(longRadians).toDist3.xRotation(-latRadians))
-         
+    inp.llStart.subLongRadians(longRadians).toDist3.xRotation(-latRadians),
+    inp.latLong2.subLongRadians(longRadians).toDist3.xRotation(-latRadians))
+
   def fromFocusDist2(ll: LatLong): Dist2 = fromFocusDist3(ll).xy
   def optFromFocusDist2(ll: LatLong): Option[Dist2] =
   { val v3 = fromFocusDist3(ll)
@@ -70,7 +69,7 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
   }
 
   def toOptDist2(inp: LatLong): Option[Dist2] =
-  { val r1: Dist3 = inp.subLong(longRadians).toDist3.xRotation(-latRadians)
+  { val r1: Dist3 = inp.subLongRadians(longRadians).toDist3.xRotation(-latRadians)
     r1.toXYIfZPositive
   }
    
