@@ -1,11 +1,8 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pEarth
 package pPts
-import geom._
-import LatLong._
-import WTile._
-import ostrat.pEarth.pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
+import geom._, LatLong._, WTile._, pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
 
 object RusNorth extends Area2("NRus", 61 ll 54, taiga)
 {
