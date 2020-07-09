@@ -31,7 +31,8 @@ package object geom
   val secsInDeg: Int = 3600
 
   val secsIn360Degs: Int = secsInDeg * 360
-
+  val secsIn180Degs: Int = secsInDeg * 180
+  val secsIn90Degs: Int = secsInDeg * 90
   val secsInRadian: Double = secsInDeg * 180.0 / Pi
 
   /** seconds value for 90 degrees of Pi/2 radians. */

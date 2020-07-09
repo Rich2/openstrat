@@ -27,12 +27,16 @@ object Latitude
     case r => new Latitude(r.radiansToSecs)
   }
 
-  def apply(degVal: Double) = new Latitude(degVal * 3600)
+  def apply(degVal: Double) = secs(degVal * 3600)
 
   def secs(input: Double): Latitude = input match
   {
     case i if i >= secsIn360Degs => secs(input % secsIn360Degs)
     case i if i <= -secsIn360Degs => secs(input % secsIn360Degs)
-    case _ => ???
+    case i if i > secsIn180Degs => secs(-secsIn360Degs + i)
+    case i if i <= - secsIn180Degs => secs(secsIn360Degs + i)
+    case i if i > secsIn90Degs => new Latitude(secsIn180Degs - i)
+    case i if i < -secsIn90Degs => new Latitude(-secsIn180Degs + i)
+    case i => new Latitude(i)
   }
 }
