@@ -4,16 +4,17 @@ package geom
 import math._
 
 /** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-class LatLong private(val latRadians: Double, val longRadians: Double) extends LatLongBase with ProdDbl2
+class LatLong private(val latSecs: Double, val longSecs: Double) extends LatLongBase with ProdDbl2
 {
   override def toString: String = LatLong.persistImplict.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
-  def _1 = latRadians
-  def _2 = longRadians
-  @inline override def longDegs: Double = longRadians.radiansToDegs
-  @inline override def latDegs: Double = latRadians.radiansToDegs
-  override def latSecs: Double = latDegs.degsToSecs
-  override def longSecs: Double = longDegs.degsToSecs
+  def _1 = latSecs
+  def _2 = longSecs
+  @inline override def latDegs: Double = latSecs.secsToDegs
+  @inline override def longDegs: Double = longSecs.secsToDegs
+
+  override def latRadians: Double = latSecs.secsToRadians
+  override def longRadians: Double = longSecs.secsToRadians
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  
@@ -93,18 +94,18 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
 /** Companion object for LatLong. */
 object LatLong
 {
-  @inline def radians(latRadians: Double, longRadians: Double): LatLong =
+  @inline def radians(latRadians: Double, longRadians: Double): LatLong = //degSecs(latRadians.radiansToSecs, longRadians.radiansToSecs)
   { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
     val long = ((longRadians + Pi) %% Pi2) - Pi
-    new LatLong(lat, long)
+    LatLong.degSecs(lat.radiansToSecs, long.radiansToSecs)
   }
 
-  def degSecs(lat: Double, long: Double): LatLong = LatLong.degs(lat /3600, long /3600)
+  def degSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
 
   implicit val persistImplict: PersistEq[LatLong] =
     new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
 
-   def degs(lat: Double, long: Double): LatLong = LatLong.radians(lat.degsToRadians, long.degsToRadians)
+   def degs(lat: Double, long: Double): LatLong = LatLong.degSecs(lat.degsToSecs, long.degsToSecs)
 }
 
 
