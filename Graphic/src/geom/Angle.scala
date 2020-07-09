@@ -1,23 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import math.{Pi}
-
-/** Base trait for Angle, Latitude and Longitude. Not sure if this is a good idea. */
-trait AngleLike extends Any
-{ /** The value of this angle expressed in degrees. */
-  def degs: Double
-  
-  /** The angle expressed in 36 millionths of a degree. */
-  def degSecs: Double
-  
-  /** The value of the angle expressd in radians. */
-  def radians: Double
-  
-  @inline def sin: Double = math.sin(radians)
-  @inline def cos: Double = math.cos(radians)  
-  def arcDistance (radiusDist: Dist): Dist = radians * radiusDist  
-}
+import math.Pi
 
 /** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
  *  while Latitudes have a normal range +- 90 degrees. */
@@ -26,16 +10,16 @@ final class Angle private(val degSecs: Double) extends AnyVal with AngleLike
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
+  /** Gives the length of the circumference of the arc. */
   def arcLength(radius: Double): Double = radians * radius
   
   override def degs: Double = degSecs / secsInDeg
   override def radians: Double = degSecs * Pi / secsInDeg / 180
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
-   
 
   /** This method needs changing. */
-  def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
+ // def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
 
   def +(other: Angle) = Angle.radians(radians + other.radians)
   def -(other: Angle) = Angle.radians(radians - other.radians)
