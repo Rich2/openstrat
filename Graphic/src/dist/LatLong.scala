@@ -29,6 +29,8 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
     Seq(this) ++ (1 to num).map(i => LatLong.radians(latRadians + i * latDelta, longRadians + i * longDelta))
   }
 
+  /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
+   *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def addLatRadians(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
   { //Going over the north Pole
     case a if a > PiH => LatLong.radians(Pi - a, -longRadians)
@@ -37,8 +39,13 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
     case a => LatLong.radians(a, longRadians)
   }
 
+  /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)
+
+  /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def addLongRadians(radians: Double): LatLong = LatLong.radians(latRadians, Angle.resetRadians(longRadians + radians))
+
+  /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)
   
   def addLatSecs(secs: Double): LatLong = Angle.resetSecs(latSecs + secs) match
