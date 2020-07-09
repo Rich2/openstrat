@@ -27,7 +27,7 @@ class LatLong private(val latRadians: Double, val longRadians: Double) extends L
   { val latDelta = toPt.latRadians - latRadians
     val longDelta = toPt.longRadians - longRadians
     Seq(this) ++ (1 to num).map(i => LatLong.radians(latRadians + i * latDelta, longRadians + i * longDelta))
-   }
+  }
 
   def addLatRadians(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
   { //Going over the north Pole
