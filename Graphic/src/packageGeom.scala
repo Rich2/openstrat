@@ -30,6 +30,8 @@ package object geom
    * value. It has been chosen to allow the precise encoding of degrees and decimals of a degree down to 1 millionth. */  
   val secsInDeg: Int = 3600
 
+  val secsIn360Degs: Int = secsInDeg * 360
+
   val secsInRadian: Double = secsInDeg * 180.0 / Pi
 
   /** seconds value for 90 degrees of Pi/2 radians. */

@@ -9,7 +9,7 @@ object RusNorth extends Area2("NRus", 61 ll 54, taiga)
    val wAsiaE = 66.52.east 
    val indiaE = 91.5.east
    
-   //North Coast
+   /** North Coast */
    val chizhaSouth = 66.90 ll 44.52
    val chizhaWest = 67.19 ll 43.77
    val shoynaNorth1 = 68.30 ll 44.21
