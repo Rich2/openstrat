@@ -40,6 +40,7 @@ trait Prolign[A]
 { def prolignObj(obj: A, prolignMatrix: ProlignMatrix): A
 }
 
+/** Companion object for the Prolign type class. */
 object Prolign
 {
   implicit def transAlignerImplicit[T <: SimilarPreserve]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]

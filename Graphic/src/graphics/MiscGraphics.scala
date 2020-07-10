@@ -1,8 +1,6 @@
 package ostrat
 package geom
 
-import math.{Pi}
-
 object Star5
 {
   val classicRatio = 0.382

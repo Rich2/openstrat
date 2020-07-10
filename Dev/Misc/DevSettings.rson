@@ -34,7 +34,8 @@ displayY = 0;
     ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
     ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
 
-    ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")), //Static Graphics
+    ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
+    ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")), 
     ("A2", (learn.LessonA2(_), "JavaFx Demonstration Canvas 2")),
     ("A3", (learn.LessonA3(_), "JavaFx Demonstration Canvas 3")),
     ("A4", (learn.LessonA4(_), "JavaFx Demonstration Canvas 4")),
