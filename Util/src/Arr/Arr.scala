@@ -120,18 +120,6 @@ class AnyBuild[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A] ) e
   override def buffToArr(buff: AnyBuff[A]): Arr[A] = new Arr(buff.unsafeBuff.toArray)
 }
 
-/** The default Immutable Array based collection builder for the Arr[A] class. */
-class AnyBuildAlt[A](ctIn: ClassTag[A]) extends ArrBuild[A, Arr[A]] with ArrFlatBuild[Arr[A]]
-{ type BuffT = AnyBuff[A]
-  implicit val ct: ClassTag[A] = ctIn
-  override def newArr(length: Int): Arr[A] = new Arr(new Array[A](length))
-  override def arrSet(arr: Arr[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value
-  override def newBuff(length: Int = 4): AnyBuff[A] = new AnyBuff(new ArrayBuffer[A](length))
-  override def buffGrow(buff: AnyBuff[A], value: A): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: AnyBuff[A], arr: Arr[A]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
-  override def buffToArr(buff: AnyBuff[A]): Arr[A] = new Arr(buff.unsafeBuff.toArray)
-}
-
 /** Not sure if this class is necessary now that Arr take Any. */
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
 { override def apply(index: Int): A = unsafeBuff(index)

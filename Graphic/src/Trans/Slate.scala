@@ -15,7 +15,7 @@ object Slate
   implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
 
   implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Arr[A]] =
-    (obj, offset) => obj.map(ev.slateT(_, offset))(new AnyBuildAlt[A](ct))
+    (obj, offset) => obj.map(ev.slateT(_, offset))(new AnyBuild[A])
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, offset) => evF.map(obj, evA.slateT(_, offset))
 
