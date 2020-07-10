@@ -2,8 +2,9 @@
 package ostrat
 package geom
 
-trait Polygon extends Vec2sLike with Shape
-{ def length: Int
+trait Polygon extends Vec2sLike with Shape with ProlignPreserve
+{ type ThisT <: Polygon
+  def length: Int
   
   def x0: Double
   def y0: Double
@@ -22,4 +23,6 @@ trait Polygon extends Vec2sLike with Shape
     }
     BoundingRect(minX, maxX, minY, maxY)
   }
+
+
 }

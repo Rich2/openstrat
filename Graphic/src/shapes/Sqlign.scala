@@ -4,13 +4,12 @@ package geom
 
 /** A square aligned to the X and Y axes. */
 final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends TransElem with Rectanglelign// extends Transer
-{  
+{ override type ThisT = Sqlign
+
+  override def fTrans(f: Vec2 => Vec2): Sqlign = ???
   override def height: Double = width
 
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
-
-  /** Translate geometric transformation. */
-  @inline def slate(xOffset: Double, yOffset: Double): Sqlign = Sqlign(width, xCen + xOffset, yCen + yOffset)
 
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen * operand)
 

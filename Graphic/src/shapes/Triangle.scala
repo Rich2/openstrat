@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
@@ -24,58 +25,18 @@ trait Triangle extends Polygon
 	override def elem1sArray: Array[Double] = Array(x0, x1, x2)
 	override def elem2sArray: Array[Double] = Array(y0, y1, y2)
 	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); () }
-	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }	
+	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }
+
+	override def shearX(operand: Double): Triangle = ???
 }
 
-case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle
-{
-	override def v1: Vec2 = ???	
+final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle with AffinePreserve
+{ override type ThisT = TriangleClass
+	override def v1: Vec2 = ???
 
-	/** Translate geometric transformation. */
-	override def slate(offset: Vec2): TransElem = ???
+	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
 
-	/** Translate geometric transformation. */
-	override def slate(xOffset: Double, yOffset: Double): TransElem = ???
-
-	/** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-	 * Squares. Use the xyScale method for differential scaling. */
-	override def scale(operand: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-	override def mirrorYOffset(xOffset: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-	override def mirrorXOffset(yOffset: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
-	override def mirrorX: TransElem = ???
-
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
-	override def mirrorY: TransElem = ???
-
-	override def prolign(matrix: ProlignMatrix): TransElem = ???
-
-	/** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-	override def rotate90: TransElem = ???
-
-	/** Rotates 180 degrees or Pi radians. */
-	override def rotate180: TransElem = ???
-
-	/** Rotates 90 degrees or Pi/2 radians clockwise. */
-	override def rotate270: TransElem = ???
-
-	override def rotateRadians(radians: Double): TransElem = ???
-
-	override def reflect(line: Line): TransElem = ???
-	override def reflect(line: LineSeg): TransElem = ???
-
-	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
-
-	override def shearX(operand: Double): TransElem = ???
-
-	override def fill(fillColour: Colour): ShapeFill = ???
+	override def fill(fillColour: Colour): ShapeFill = ??? // PolygonFill(this, fillColour)
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
@@ -95,46 +56,13 @@ trait IsosTriangle extends Triangle
 	override def v1: Vec2 = ???
 }
 
-case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, height: Double) extends IsosTriangle
-{
+final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, height: Double) extends IsosTriangle
+{	override type ThisT = IsosTriangleClass
+
+	override def fTrans(f: Vec2 => Vec2): IsosTriangleClass = ???
 	override def v1: Vec2 = ???
 
 	override def foreach[U](f: Vec2 => U): Unit = ???
-
-	/** Translate geometric transformation. */
-	override def slate(offset: Vec2): TransElem = ???
-
-	/** Translate geometric transformation. */
-	override def slate(xOffset: Double, yOffset: Double): TransElem = ???
-
-	/** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-	 * Squares. Use the xyScale method for differential scaling. */
-	override def scale(operand: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-	override def mirrorYOffset(xOffset: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-	override def mirrorXOffset(yOffset: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
-	override def mirrorX: TransElem = ???
-
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
-	override def mirrorY: TransElem = ???
-
-	override def prolign(matrix: ProlignMatrix): TransElem = ???
-
-	/** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-	override def rotate90: TransElem = ???
-
-	/** Rotates 180 degrees or Pi radians. */
-	override def rotate180: TransElem = ???
-
-	/** Rotates 90 degrees or Pi/2 radians clockwise. */
-	override def rotate270: TransElem = ???
 
 	override def rotateRadians(radians: Double): TransElem = ???
 
@@ -143,8 +71,6 @@ case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, hei
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-	override def shearX(operand: Double): TransElem = ???
-
 	override def fill(fillColour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
@@ -152,47 +78,13 @@ case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, hei
 	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
-case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends IsosTriangle
-{	
+final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends IsosTriangle
+{
+	override type ThisT = EquiTriangle
 	override def height: Double = ???
 	override def foreach[U](f: Vec2 => U): Unit = ???
 
-	/** Translate geometric transformation. */
-	override def slate(offset: Vec2): TransElem = ???
-
-	/** Translate geometric transformation. */
-	override def slate(xOffset: Double, yOffset: Double): TransElem = ???
-
-	/** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-	 * Squares. Use the xyScale method for differential scaling. */
-	override def scale(operand: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-	override def mirrorYOffset(xOffset: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-	override def mirrorXOffset(yOffset: Double): TransElem = ???
-
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
-	override def mirrorX: TransElem = ???
-
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
-	override def mirrorY: TransElem = ???
-
-	override def prolign(matrix: ProlignMatrix): TransElem = ???
-
-	override def shearX(operand: Double): TransElem = ???
-
-	/** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-	override def rotate90: TransElem = ???
-
-	/** Rotates 180 degrees or Pi radians. */
-	override def rotate180: TransElem = ???
-
-	/** Rotates 90 degrees or Pi/2 radians clockwise. */
-	override def rotate270: TransElem = ???
+	override def fTrans(f: Vec2 => Vec2): ThisT = ???
 
 	override def rotateRadians(radians: Double): TransElem = ???
 
