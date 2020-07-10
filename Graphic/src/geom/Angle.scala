@@ -16,9 +16,6 @@ final class Angle private(val degSecs: Double) extends AnyVal with AngleLike
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 
-  /** This method needs changing. */
- // def radians360: Double = ife(radians < 0, Pi2 - radians, radians)
-
   def +(other: Angle) = Angle.radians(radians + other.radians)
   def -(other: Angle) = Angle.radians(radians - other.radians)
   
