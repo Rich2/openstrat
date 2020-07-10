@@ -3,6 +3,7 @@ package ostrat
 package geom
 import scala.math.Pi
 
+/** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
 final class Latitude private(val degSecs: Double) extends AnyVal with AngleLike
 {
   def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
@@ -16,6 +17,7 @@ final class Latitude private(val degSecs: Double) extends AnyVal with AngleLike
   def ll (longDegs: Double): LatLong = LatLong.degs(degs, longDegs)
 }
 
+/** Companion object for the [[Latitude]] class. */
 object Latitude
 {
   def radians(value: Double): Latitude = value match

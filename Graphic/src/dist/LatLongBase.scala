@@ -8,8 +8,8 @@ trait LatLongBase
   def longSecs: Double
   def equatorialRadius: Dist
   def polarRadius: Dist
-  @inline final def latitude: Latitude = Latitude.secs(latSecs)
-  @inline final def longitude: Longitude = Longitude.secs(longSecs)
+  @inline final def lat: Latitude = Latitude.secs(latSecs)
+  @inline final def long: Longitude = Longitude.secs(longSecs)
   @inline final def latDegs: Double = latSecs.secsToDegs
   @inline final def longDegs: Double = longSecs.secsToDegs
   @inline final def latRadians: Double = latSecs.secsToRadians
