@@ -3,6 +3,8 @@ package ostrat
 package geom
 import math.Pi
 
+/** The Longitude class is a compile time wrapper around a Double. The longitude value is stored in arc seconds,to allow precise storage of values
+ * specified in the old Degrees, Minutes and Seconds system. Decimals of a degree can also be stored precisely. */
 class Longitude private(val degSecs: Double) extends AnyVal with AngleLike
 { override def degs: Double = degSecs.secsToDegs
   def radians: Double = degSecs.secsToRadians
@@ -19,4 +21,5 @@ class Longitude private(val degSecs: Double) extends AnyVal with AngleLike
 object Longitude
 { def degs(degVal: Double) = new Longitude(degVal.degsToSecs)
   def radians(value: Double) = new Longitude(value.radiansToSecs)
+  def secs(value: Double): Longitude = new Longitude(value)
 }

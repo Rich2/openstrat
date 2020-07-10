@@ -3,6 +3,7 @@ package ostrat
 package pEarth
 import geom._, pCanv._
 
+/** Slated for removal. */
 abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
 {
   var focus: LatLong = LatLong.degs(50, 0)

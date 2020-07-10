@@ -3,7 +3,8 @@ package ostrat
 package geom
 import math._
 
-/** longitude and latitude measured in radians for the earth. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
+/** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
+ * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 class LatLong private(val latSecs: Double, val longSecs: Double) extends LatLongBase with ProdDbl2
 {
   override def toString: String = LatLong.persistImplict.show(this)
@@ -91,9 +92,11 @@ class LatLong private(val latSecs: Double, val longSecs: Double) extends LatLong
   }
 }
 
-/** Companion object for LatLong. */
+/** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s.  */
 object LatLong
 {
+  def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.degSecs, long.degSecs)
+
   @inline def radians(latRadians: Double, longRadians: Double): LatLong = //degSecs(latRadians.radiansToSecs, longRadians.radiansToSecs)
   { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
     val long = ((longRadians + Pi) %% Pi2) - Pi
@@ -107,5 +110,3 @@ object LatLong
 
    def degs(lat: Double, long: Double): LatLong = LatLong.degSecs(lat.degsToSecs, long.degsToSecs)
 }
-
-
