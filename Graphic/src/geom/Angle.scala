@@ -12,9 +12,7 @@ final class Angle private(val degSecs: Double) extends AnyVal with AngleLike
 
   /** Gives the length of the circumference of the arc. */
   def arcLength(radius: Double): Double = radians * radius
-  
-  override def degs: Double = degSecs / secsInDeg
-  override def radians: Double = degSecs * Pi / secsInDeg / 180
+
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 

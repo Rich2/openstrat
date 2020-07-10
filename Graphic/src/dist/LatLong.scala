@@ -5,24 +5,17 @@ import math._
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-class LatLong private(val latSecs: Double, val longSecs: Double) extends LatLongBase with ProdDbl2
+final class LatLong private(val latSecs: Double, val longSecs: Double) extends LatLongBase with ProdDbl2
 {
   override def toString: String = LatLong.persistImplict.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = latSecs
   def _2 = longSecs
-  @inline override def latDegs: Double = latSecs.secsToDegs
-  @inline override def longDegs: Double = longSecs.secsToDegs
-
-  override def latRadians: Double = latSecs.secsToRadians
-  override def longRadians: Double = longSecs.secsToRadians
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  
   def polarRadius: Dist = EarthPolarRadius
   def equatorialRadius: Dist = EarthEquatorialRadius
-  //def +(other: LatLong): LatLong = addLongRadians(other.longRadians).addLatRadians(other.latRadians)
-  //def -(other: LatLong): LatLong = addLongRadians(-other.longRadians).addLatRadians(-other.latRadians)
 
   /** This method current does not take account of lines that cross the date line, including the Poles */
   def segsTo(num: Int, toPt: LatLong): Seq[LatLong] =

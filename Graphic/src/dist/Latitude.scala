@@ -5,9 +5,6 @@ import scala.math.Pi
 
 final class Latitude private(val degSecs: Double) extends AnyVal with AngleLike
 {
-  @inline override def degs: Double = degSecs.secsToDegs
-  @inline override def radians: Double = degSecs.secsToRadians
-
   def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
   { case r if r <= - PiH => Latitude.radians(-PiH)
     case r if r >= PiH => Latitude.radians(PiH)

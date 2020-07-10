@@ -4,18 +4,19 @@ package geom
 
 /** The purpose of this trait is to provide super trait for surface positions on all Spheroids.  */
 trait LatLongBase
-{ def latRadians: Double
-  def longRadians: Double
-  def latitude: Latitude = Latitude.radians(latRadians)
-  def longitude: Longitude = Longitude.radians(longRadians)
-  @inline def longDegs: Double// = longRadians.radiansToDegrees
-  @inline def latDegs: Double// = latRadians.radiansToDegrees
-  def latSecs: Double
+{ def latSecs: Double
   def longSecs: Double
-  final def latMins: Double = latSecs / 60
-  final def longMins: Double = longSecs / 60
   def equatorialRadius: Dist
   def polarRadius: Dist
+  @inline final def latitude: Latitude = Latitude.secs(latSecs)
+  @inline final def longitude: Longitude = Longitude.secs(longSecs)
+  @inline final def latDegs: Double = latSecs.secsToDegs
+  @inline final def longDegs: Double = longSecs.secsToDegs
+  @inline final def latRadians: Double = latSecs.secsToRadians
+  @inline final def longRadians: Double = longSecs.secsToRadians
+  @inline final def latMins: Double = latSecs / 60
+  @inline final def longMins: Double = longSecs / 60
+
   override def toString: String = degStr
   def latLetter: String = latRadians.ifNeg("S", "N")
   def longLetter: String = longRadians.ifNeg("W", "E")
