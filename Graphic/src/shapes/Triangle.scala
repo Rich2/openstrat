@@ -41,6 +41,8 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
 	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
+
+	override def rotateRadians(radians: Double): TriangleClass = ???
 }
 
 object Triangle
@@ -64,7 +66,7 @@ final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Doubl
 
 	override def foreach[U](f: Vec2 => U): Unit = ???
 
-	override def rotateRadians(radians: Double): TransElem = ???
+	override def rotateRadians(radians: Double): IsosTriangleClass = ???
 
 	override def reflect(line: Line): TransElem = ???
 	override def reflect(line: LineSeg): TransElem = ???
@@ -86,7 +88,7 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 
 	override def fTrans(f: Vec2 => Vec2): ThisT = ???
 
-	override def rotateRadians(radians: Double): TransElem = ???
+	override def rotateRadians(radians: Double): Triangle = ???
 
 	override def reflect(line: Line): TransElem = ???
 

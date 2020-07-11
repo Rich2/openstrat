@@ -9,7 +9,7 @@ trait SimilarPreserve extends ProlignPreserve
   def reflect(line: Line): ThisT = fTrans(_.mirror(line))
   def reflect(lineSeg: LineSeg): ThisT = fTrans(_.mirror(lineSeg))
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
-  def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
+  override def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
 }
 
 /** A Similar Transformations type class */

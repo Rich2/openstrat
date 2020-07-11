@@ -19,7 +19,7 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
-  override def rotateRadians(radians: Double): TransElem = ???
+  override def rotateRadians(radians: Double): Rect = ???
 
   override def reflect(line: Line): TransElem = ???
   override def reflect(line: LineSeg): TransElem = ???

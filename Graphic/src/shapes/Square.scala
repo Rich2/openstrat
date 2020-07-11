@@ -3,16 +3,34 @@ package ostrat
 package geom
 
 /** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Shape // TransElem
+final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Polygon //Shape // TransElem
 {
+  override type ThisT = Square
   def rotationRadians: Double = rotation.radians
-  
+
+  override def apply(index: Int): Vec2 = ???
+  override def length: Int = ???
+
+  override def x0: Double = ???
+
+  override def y0: Double = ???
+
+  override def elem1sArray: Array[Double] = ???
+
+  override def elem2sArray: Array[Double] = ???
+
+  override def fTrans(f: Vec2 => Vec2): Square = ???
+
+  override def foreach[U](f: Vec2 => U): Unit = ???
+
+  override def foreachTail[U](f: Vec2 => U): Unit = ???
+
   def cen: Vec2 = xCen vv yCen
 
   override def slate(offset: Vec2): Square = Square(width, cen + offset)
 
   /** Translate geometric transformation. */
-  @inline def slate(xOffset: Double, yOffset: Double): Square = Square(width, xCen + xOffset, yCen + yOffset, rotation)
+  @inline override def slate(xOffset: Double, yOffset: Double): Square = Square(width, xCen + xOffset, yCen + yOffset, rotation)
 
   override def scale(operand: Double): Square = Square(width * operand, cen * operand)
 

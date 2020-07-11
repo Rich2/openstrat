@@ -24,5 +24,5 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
     BoundingRect(minX, maxX, minY, maxY)
   }
 
-
+  override def rotateRadians(radians: Double): Polygon = ???
 }
