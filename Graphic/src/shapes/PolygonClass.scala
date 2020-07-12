@@ -10,11 +10,13 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
   def unsafeFromArray(array: Array[Double]): PolygonClass = new PolygonClass(array)
   override def typeStr: String = "Polygon"
 
-  override def canEqual(that: Any): Boolean = ???
+  override def canEqual(that: Any): Boolean = that match {
+    case s: Shape => true
+    case _ => false
+  }
 
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???
+  override def productArity: Int = 1
+  override def productElement(n: Int): Any = arrayUnsafe
   
   def x0: Double = arrayUnsafe(0)
   def y0: Double = arrayUnsafe(1)
