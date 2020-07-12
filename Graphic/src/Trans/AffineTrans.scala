@@ -4,7 +4,7 @@ package geom
 import reflect.ClassTag
 
 /** The typeclass trait for transforming an object in 2d geometry. */
-trait TransAff[T] extends TransSim[T]
+trait AffineTrans[T] extends TransSim[T]
 { def trans(obj: T, f: Vec2 => Vec2):  T
   override def slate(obj: T, offset: Vec2): T = trans(obj, _ + offset)
   override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
@@ -13,21 +13,21 @@ trait TransAff[T] extends TransSim[T]
   def mirrorYOffset(obj: T, xOffset: Double): T = trans(obj, _.mirrorYOffset(xOffset))
   def mirrorXOffset(obj: T, yOffset: Double): T = trans(obj, _.mirrorXOffset(yOffset))
   override def reflectSegT(obj: T, line: LineSeg): T = trans(obj, _.mirror(line))
-  override def reflectT(obj: T, line: Line): T = trans(obj, _.mirror(line))  
+  override def reflectT(obj: T, line: Line): T = trans(obj, _.mirror(line))
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */
-object TransAff
+object AffineTrans
 {
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAff[A]): TransAff[AA] =
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: AffineTrans[A]): AffineTrans[AA] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 
-  implicit def fromTranserAllImplicit[T <: AffinePreserve]: TransAff[T] =
+  implicit def fromTranserAllImplicit[T <: AffinePreserve]: AffineTrans[T] =
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAff[A]): TransAff[F[A]] =
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: AffineTrans[A]): AffineTrans[F[A]] =
     (obj, f) => evF.map(obj, el => evA.trans(el, f))
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransAff[A]): TransAff[Array[A]] =
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: AffineTrans[A]): AffineTrans[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))
 }

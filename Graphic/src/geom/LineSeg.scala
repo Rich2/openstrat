@@ -58,7 +58,7 @@ object LineSeg
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
   }
 
-  implicit def transimplicit: TransAff[LineSeg] = (obj: LineSeg, f: Vec2 => Vec2) => LineSeg(f(obj.pStart), f(obj.pEnd))
+  implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Vec2 => Vec2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
 
 object HLine

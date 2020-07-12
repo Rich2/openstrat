@@ -8,7 +8,7 @@ import math._, Colour.Black
 package object geom
 {
   val Phi: Double = 1.6180339887498948482
-  implicit def affineToExtensions[T](value: T)(implicit ev: TransAff[T]): AffineExtensions[T] = new AffineExtensions[T](value, ev) 
+  implicit def affineToExtensions[T](value: T)(implicit ev: AffineTrans[T]): AffineExtensions[T] = new AffineExtensions[T](value, ev)
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   
   implicit def slateToExtension[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)
