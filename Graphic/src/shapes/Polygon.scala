@@ -10,6 +10,7 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
   def y0: Double
   def elem1sArray: Array[Double]
   def elem2sArray: Array[Double]
+  def foreachPairTail[U](f: (Double, Double) => U): Unit
 
   /** Creates a bounding rectangle for a collection of 2d points */
   def boundingRect: BoundingRect =

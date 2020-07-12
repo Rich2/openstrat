@@ -26,7 +26,7 @@ trait Triangle extends Polygon
 	override def elem2sArray: Array[Double] = Array(y0, y1, y2)
 	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); () }
 	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }
-
+	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2) }
 	override def shearX(operand: Double): Triangle = ???
 	override def shearY(operand: Double): Triangle = ???
 }

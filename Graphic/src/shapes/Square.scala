@@ -3,29 +3,46 @@ package ostrat
 package geom
 
 /** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Polygon //Shape // TransElem
+final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Rectangle //Polygon //Shape // TransElem
 {
   override type ThisT = Square
   def rotationRadians: Double = rotation.radians
-
-  override def apply(index: Int): Vec2 = ???
-  override def length: Int = ???
 
   override def x0: Double = ???
 
   override def y0: Double = ???
 
-  override def elem1sArray: Array[Double] = ???
+  override def x1: Double = ???
 
-  override def elem2sArray: Array[Double] = ???
+  override def y1: Double = ???
+
+  override def height: Double = ???
+
+  override def xTopLeft: Double = ???
+
+  override def yTopLeft: Double = ???
+
+  override def topLeft: Vec2 = ???
+
+  override def xTopRight: Double = ???
+
+  override def yTopRight: Double = ???
+
+  override def topRight: Vec2 = ???
+
+  override def xBottomRight: Double = ???
+
+  override def yBottomRight: Double = ???
+
+  override def bottomRight: Vec2 = ???
+
+  override def xBottomLeft: Double = ???
+
+  override def yBottomLeft: Double = ???
+
+  override def bottomLeft: Vec2 = ???
 
   override def fTrans(f: Vec2 => Vec2): Square = ???
-
-  override def foreach[U](f: Vec2 => U): Unit = ???
-
-  override def foreachTail[U](f: Vec2 => U): Unit = ???
-
-  def cen: Vec2 = xCen vv yCen
 
   override def slate(offset: Vec2): Square = Square(width, cen + offset)
 
