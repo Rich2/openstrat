@@ -11,4 +11,5 @@ trait AffinePreserve extends SimilarPreserve
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT = fTrans { case Vec2(x, y) => Vec2(x * xOperand, y) }
 
   override def shearX(operand: Double): ThisT = ???
+  override def shearY(operand: Double): ThisT = ???
 }

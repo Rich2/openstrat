@@ -17,6 +17,8 @@ final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGra
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
+
+  override def shearY(operand: Double): TransElem = ???
   override def attribs: Arr[Attrib] = circleAttribs +- fillAttrib
 }
 
@@ -26,6 +28,8 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this) 
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
+
+  override def shearY(operand: Double): TransElem = ???
   override def attribs: Arr[Attrib] = drawAttribs
 }
 
@@ -36,6 +40,8 @@ final case class CircleFillDraw(shape: Circle, fillColour: Colour, lineWidth: Do
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
+
+  override def shearY(operand: Double): TransElem = ???
   override def attribs: Arr[Attrib] = fillDrawAttribs
 }
 

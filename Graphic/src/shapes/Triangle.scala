@@ -28,6 +28,7 @@ trait Triangle extends Polygon
 	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }
 
 	override def shearX(operand: Double): Triangle = ???
+	override def shearY(operand: Double): Triangle = ???
 }
 
 final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle with AffinePreserve

@@ -47,6 +47,7 @@ trait TransElem extends Product with Serializable
   def scaleXY(xOperand: Double, yOperand: Double): TransElem
   
   def shearX(operand: Double): TransElem
+  def shearY(operand: Double): TransElem
 }
 
 object TransElem

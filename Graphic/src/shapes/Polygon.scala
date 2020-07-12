@@ -25,4 +25,6 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
   }
 
   override def rotateRadians(radians: Double): Polygon = ???
+
+  override def shearY(operand: Double): Polygon = ???
 }

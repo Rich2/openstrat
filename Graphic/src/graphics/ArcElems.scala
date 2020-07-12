@@ -20,4 +20,6 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
 
   override def shearX(operand: Double): TransElem = ???
+
+  override def shearY(operand: Double): TransElem = ???
 }

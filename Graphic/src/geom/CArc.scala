@@ -51,6 +51,8 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
   override def shearX(operand: Double): TransElem = ???
+
+  override def shearY(operand: Double): TransElem = ???
 }
 
 object CArc

@@ -39,6 +39,7 @@ final case class SquareFill(shape: Square, fillColour: Colour) extends ShapeFill
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic = ???
 
   override def shearX(operand: Double): TransElem = ???
+  override def shearY(operand: Double): TransElem = ???
 
   override def attribs: Arr[Attrib] = ???
   
