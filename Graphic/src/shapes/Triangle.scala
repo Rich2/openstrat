@@ -37,7 +37,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
 
-	override def fill(fillColour: Colour): ShapeFill = ??? // PolygonFill(this, fillColour)
+	//override def fill(fillColour: Colour): ShapeFill = ??? // PolygonFill(this, fillColour)
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
@@ -74,7 +74,7 @@ final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Doubl
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-	override def fill(fillColour: Colour): ShapeFill = ???
+	//override def fill(fillColour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
@@ -97,7 +97,7 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-	override def fill(fillColour: Colour): ShapeFill = ???
+	//override def fill(fillColour: Colour): ShapeFill = ???
 
 	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 

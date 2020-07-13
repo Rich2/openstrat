@@ -33,7 +33,7 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
   def boundingHeight: Double = boundingRect.height
   def polyCentre: Vec2 = boundingRect.cen
 
-  def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
+  //def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)

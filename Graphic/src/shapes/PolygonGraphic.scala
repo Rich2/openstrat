@@ -32,7 +32,7 @@ trait PolygonActive extends DisplayActive
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFill(shape: PolygonClass, fillColour: Colour) extends PolygonGraphic with ShapeFill
+case class PolygonFill(shape: Polygon, fillColour: Colour) extends PolygonGraphic with ShapeFill
 { override type ThisT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, fillColour)
@@ -40,7 +40,7 @@ case class PolygonFill(shape: PolygonClass, fillColour: Colour) extends PolygonG
 }
 
 object PolygonFill
-{ implicit val persistImplicit: Persist2[PolygonClass, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.fillColour, apply)
+{ implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.fillColour, apply)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */

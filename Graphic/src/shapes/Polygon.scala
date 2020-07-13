@@ -28,4 +28,12 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
   override def rotateRadians(radians: Double): Polygon = ???
 
   override def shearY(operand: Double): Polygon = ???
+
+  def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
+}
+
+object Polygon
+{
+  implicit val eqImplicit: Eq[Polygon] = (p1, p2) => ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
+  implicit val persistImplicit: Persist[Polygon] = ???
 }

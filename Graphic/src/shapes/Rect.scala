@@ -24,7 +24,7 @@ final case class Rect(xCen: Double, yCen: Double, x0: Double, y0: Double, x1: Do
 
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(topRight), f(bottomRight))
 
-  override def fill(fillColour: Colour): ShapeFill = ???
+  //override def fill(fillColour: Colour): ShapeFill = ???
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???

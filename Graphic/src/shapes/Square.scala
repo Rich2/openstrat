@@ -77,7 +77,7 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
 
   override def shearX(operand: Double): TransElem = ???
 
-  override def fill(fillColour: Colour): ShapeFill = ???
+  //override def fill(fillColour: Colour): ShapeFill = ???
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
