@@ -32,6 +32,8 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
 
   def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
+  def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
+    PolygonFillDraw(this, fillColour, lineWidth, lineColour)
 }
 
 object Polygon

@@ -67,7 +67,7 @@ object PolygonDraw
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
-case class PolygonFillDraw(shape: PolygonClass, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic with
+case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic with
   ShapeFillDraw
 { override type ThisT = PolygonFillDraw
   override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
@@ -78,7 +78,7 @@ case class PolygonFillDraw(shape: PolygonClass, fillColour: Colour, lineWidth: D
 }
 
 object PolygonFillDraw
-{ implicit val persistImplicit: Persist4[PolygonClass, Colour, Double, Colour, PolygonFillDraw] =
+{ implicit val persistImplicit: Persist4[Polygon, Colour, Double, Colour, PolygonFillDraw] =
     Persist4("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "lineWidth", _.lineWidth, "lineColour", _.lineColour, apply)
 }
 

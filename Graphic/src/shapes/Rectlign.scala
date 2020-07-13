@@ -15,8 +15,6 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
 { override type ThisT = Rectlign
   override def fTrans(f: Vec2 => Vec2): Rectlign = ???
 
-  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
-
   override def rotateRadians(radians: Double): Rect = ???
 
   override def reflect(line: Line): TransElem = ???
