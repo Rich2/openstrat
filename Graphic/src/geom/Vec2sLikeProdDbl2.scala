@@ -1,7 +1,8 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
+/** A common trait for all classes that can be defined by a sequence of Vec2s. */
 trait Vec2sLike extends TransElem
 {
   def apply(index: Int): Vec2

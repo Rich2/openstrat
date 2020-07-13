@@ -1,8 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pSJs
 import geom._, pCanv._, math.Pi, org.scalajs.dom._
 
+/** An implementation of CanvasPlatform for Scala.js using Web canvas. */
 object CanvasJs extends CanvasTopLeft
 { val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
   override def width = can.width

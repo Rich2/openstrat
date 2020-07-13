@@ -1,10 +1,11 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Homogeneous Product2[Double, Double] with Stringer. These are used in ArrHomoDbl2 Array[Double] based collections. */
 trait ProdDbl2 extends Any with Product2[Double, Double] with ProdHomo
 
+/** A Builder trait for companion objects to construct collection classes of Products2[Double, Double]. */
 trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDblNBuild[A, ArrT]
 { type BuffT <: BuffProdDbl2[A]
   final override def elemSize = 2
