@@ -9,13 +9,14 @@ case class CanvasMock(width: Double, height: Double) extends CanvasPlatform
    override def clip(pts: PolygonClass): Unit = {}
    
    override def getTime: Long = ???
+
    /** A callback timer with an elapsed time from a given start point. The function is of form:
     *  (elapsedTime(in milliseconds), Startime(in millseconds) => Unit.
     *  The startTime is to be used to call the next frame at then end of the function, if another frame is needed */
-   
-   override def timeOut(f: () => Unit, millis: Integer): Unit = {}   
-   override def pPolyFill(poly: PolygonClass, col: Colour): Unit = {}
-   override def pPolyDraw(poly: PolygonClass, lineWidth: Double, colour: Colour): Unit = {}
+   override def timeOut(f: () => Unit, millis: Integer): Unit = {}
+
+   override def pPolyFill(poly: Polygon, col: Colour): Unit = {}
+   override def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = {}
    override def pLinePathDraw(pod: LinePathDraw): Unit = {}
    
    override def lineDraw(ld: LineDraw): Unit = {}
