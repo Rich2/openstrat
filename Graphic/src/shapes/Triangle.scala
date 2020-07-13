@@ -26,7 +26,7 @@ trait Triangle extends Polygon
 	override def elem2sArray: Array[Double] = Array(y0, y1, y2)
 	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); () }
 	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }
-	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2) }
+	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); () }
 	override def shearX(operand: Double): Triangle = ???
 	override def shearY(operand: Double): Triangle = ???
 }
@@ -36,10 +36,6 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 	override def v1: Vec2 = ???
 
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
-
-	//override def fill(fillColour: Colour): ShapeFill = ??? // PolygonFill(this, fillColour)
-
-	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
 	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
@@ -74,10 +70,6 @@ final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Doubl
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-	//override def fill(fillColour: Colour): ShapeFill = ???
-
-	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
-
 	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
@@ -96,10 +88,6 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 	override def reflect(line: LineSeg): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
-
-	//override def fill(fillColour: Colour): ShapeFill = ???
-
-	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
 	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }

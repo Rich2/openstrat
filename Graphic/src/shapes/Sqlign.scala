@@ -38,9 +38,6 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Trans
 
   override def shearX(operand: Double): TransElem = ???
 
-  //override def fill(fillColour: Colour): ShapeFill = ???
-
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 

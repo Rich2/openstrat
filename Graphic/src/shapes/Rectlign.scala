@@ -14,9 +14,7 @@ trait Rectanglelign extends Rectangle with Rectangularlign
 final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Double) extends Rectanglelign
 { override type ThisT = Rectlign
   override def fTrans(f: Vec2 => Vec2): Rectlign = ???
-  //override def fill(fillColour: Colour): ShapeFill = ???
 
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
   override def rotateRadians(radians: Double): Rect = ???

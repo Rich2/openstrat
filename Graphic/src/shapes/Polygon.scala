@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import Colour.Black
 
 trait Polygon extends Vec2sLike with Shape with ProlignPreserve
 { type ThisT <: Polygon
@@ -30,6 +31,7 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
   override def shearY(operand: Double): Polygon = ???
 
   def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 }
 
 object Polygon
