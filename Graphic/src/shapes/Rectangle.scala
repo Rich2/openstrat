@@ -27,6 +27,22 @@ trait Rectangle extends Rectangular with Polygon
     case n => excep("Index: " + n.toString + " out of range. Only 4 vertices in a Rectangle.")  
   }
 
+  override def xGet(index: Int): Double = index match
+  { case 0 => x0
+    case 1 => x1
+    case 2 => x2
+    case 3 => x3
+    case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
+  }
+
+  override def yGet(index: Int): Double = index match
+  { case 0 => y0
+    case 1 => y1
+    case 2 => y2
+    case 3 => y3
+    case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
+  }
+
   final override def elem1sArray: Array[Double] = Array(x0, x1, x2, x3)
   final override def elem2sArray: Array[Double] = Array(y0, y1, y2, y3)
   final override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); () }

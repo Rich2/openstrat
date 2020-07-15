@@ -5,7 +5,7 @@ import Colour.Black, collection.mutable.ArrayBuffer
 
 /** A General Polygon as opposed to a specific Polygon such as a Square or a Rectangle is encoded as a sequence of plain 2 dimension (mathematical)
  *  vectors. Minimum length 3. Clockwise is the default */
-class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
+final class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { type ThisT = PolygonClass
   def unsafeFromArray(array: Array[Double]): PolygonClass = new PolygonClass(array)
   override def typeStr: String = "Polygon"
@@ -17,9 +17,12 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
 
   override def productArity: Int = 1
   override def productElement(n: Int): Any = arrayUnsafe
-  
-  def x0: Double = arrayUnsafe(0)
-  def y0: Double = arrayUnsafe(1)
+
+  override def xGet(index: Int): Double = arrayUnsafe(index * 2)
+  override def yGet(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  @inline def x0: Double = arrayUnsafe(0)
+  @inline def y0: Double = arrayUnsafe(1)
+  @inline def v0: Vec2 = x0 vv y0
   def fTrans(f: Vec2 => Vec2): PolygonClass = new PolygonClass(arrTrans(f))
   def eq(obj: PolygonClass): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
@@ -71,15 +74,10 @@ class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLik
     PolygonParent(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
 
-  def closedPolygonToLine2s: LineSegs =
-  { val res: LineSegs = LineSegs(length)
-    for (i <- 0 until (length -1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
-    res.unsafeSetLast(LineSeg(last, head))
-    res
-  }
+
 
   /** Determines if the parenter point lies inside this Polygon. */
-  def ptInPolygon(pt: Vec2): Boolean = closedPolygonToLine2s.ptInPolygon(pt)
+  def ptInPolygon(pt: Vec2): Boolean = toLineSegs.ptInPolygon(pt)
 
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): PolygonClass =
