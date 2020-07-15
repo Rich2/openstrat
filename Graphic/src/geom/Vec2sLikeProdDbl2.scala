@@ -9,6 +9,12 @@ trait Vec2sLike extends TransElem
   def foreach[U](f: Vec2 => U): Unit
   def foreachTail[U](f: Vec2 => U): Unit
 
+  def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  { val acc = build.newBuff()
+    foreach{ v => build.buffGrow(acc, f(v)) }
+    build.buffToArr(acc)
+  }
+
   def foldLeft[B](initial: B)(f: (B, Vec2) => B): B =
   { var acc: B = initial
     foreach{ v => acc = f(acc, v) }
