@@ -6,7 +6,7 @@ import Colour.Black
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
 case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children: Arr[DisplayElem]) extends DisplayParent with DisplayActive
 { type ThisT = PolygonParent
-  override def ptInside(pt: Vec2): Boolean = poly.ptInPolygon(pt)
+  override def ptInside(pt: Vec2): Boolean = poly.ptInside(pt)
   override def addElems(newElems: Arr[DisplayElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect

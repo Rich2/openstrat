@@ -30,6 +30,6 @@ trait PolyCurveActive extends DisplayActiveAffine
   override def boundingRect: BoundingRect = innerPoly.boundingRect
 
   /** This method needs improving. */
-  override def ptInside(pt: Vec2): Boolean = innerPoly.ptInPolygon(pt)
+  override def ptInside(pt: Vec2): Boolean = innerPoly.ptInside(pt)
   //override def fTrans(f: Vec2 => Vec2): ShapeActive
 }

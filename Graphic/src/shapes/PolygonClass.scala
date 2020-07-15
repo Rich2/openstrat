@@ -76,8 +76,7 @@ final class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Ve
 
 
 
-  /** Determines if the parenter point lies inside this Polygon. */
-  def ptInPolygon(pt: Vec2): Boolean = toLineSegs.ptInPolygon(pt)
+
 
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): PolygonClass =

@@ -26,9 +26,9 @@ trait PolygonGraphic extends DisplayAffineElem with DisplayBoundedAffine with Sh
 
 /** An active transparent pointable polygon */
 trait PolygonActive extends DisplayActive
-{ def shape: PolygonClass
+{ def shape: Polygon
   override def boundingRect = shape.boundingRect
-  override def ptInside(pt: Vec2): Boolean = shape.ptInPolygon(pt)
+  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
