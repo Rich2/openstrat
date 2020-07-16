@@ -5,13 +5,13 @@ package geom
 /** Base trait for Angle, Latitude and Longitude. */
 trait AngleLike extends Any
 { /** The value of this angle expressed in degrees. */
-  @inline final def degs: Double = degSecs / secsInDeg
+  @inline final def degs: Double = secs / secsInDeg
 
   /** The angle expressed in 36 millionths of a degree. */
-  def degSecs: Double
+  def secs: Double
 
   /** The value of the angle expressd in radians. */
-  @inline final def radians: Double = degSecs.secsToRadians
+  @inline final def radians: Double = secs.secsToRadians
 
   /** The sine value of this angle. */
   @inline def sin: Double = math.sin(radians)

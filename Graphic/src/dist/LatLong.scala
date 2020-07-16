@@ -88,7 +88,7 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
 /** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s.  */
 object LatLong
 {
-  def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.degSecs, long.degSecs)
+  def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.secs, long.secs)
 
   @inline def radians(latRadians: Double, longRadians: Double): LatLong = //degSecs(latRadians.radiansToSecs, longRadians.radiansToSecs)
   { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2

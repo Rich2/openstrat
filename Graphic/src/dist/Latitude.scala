@@ -4,7 +4,7 @@ package geom
 import scala.math.Pi
 
 /** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
-final class Latitude private(val degSecs: Double) extends AnyVal with AngleLike
+final class Latitude private(val secs: Double) extends AnyVal with AngleLike
 {
   def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
   { case r if r <= - PiH => Latitude.radians(-PiH)
