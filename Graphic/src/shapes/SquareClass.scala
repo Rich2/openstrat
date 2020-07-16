@@ -2,10 +2,14 @@
 package ostrat
 package geom
 
+trait Square extends Rectangle
+{ def height: Double = width
+}
+
 /** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Rectangle
+final case class SquareClass(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Square
 {
-  override type ThisT = Square
+  override type ThisT = SquareClass
   def rotationRadians: Double = rotation.radians
 
   override def x0: Double = ???
@@ -42,45 +46,45 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
 
   override def bottomLeft: Vec2 = ???
 
-  override def fTrans(f: Vec2 => Vec2): Square = ???
+  override def fTrans(f: Vec2 => Vec2): SquareClass = ???
 
-  override def slate(offset: Vec2): Square = Square(width, cen + offset)
+  override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
 
   /** Translate geometric transformation. */
-  @inline override def slate(xOffset: Double, yOffset: Double): Square = Square(width, xCen + xOffset, yCen + yOffset, rotation)
+  @inline override def slate(xOffset: Double, yOffset: Double): SquareClass = SquareClass(width, xCen + xOffset, yCen + yOffset, rotation)
 
-  override def scale(operand: Double): Square = Square(width * operand, cen * operand)
+  override def scale(operand: Double): SquareClass = SquareClass(width * operand, cen * operand)
 
-  override def mirrorXOffset(yOffset: Double): Square = Square(width, cen.mirrorXOffset(yOffset))
+  override def mirrorXOffset(yOffset: Double): SquareClass = SquareClass(width, cen.mirrorXOffset(yOffset))
 
-  override def mirrorX: Square = Square(width, xCen, -yCen, rotation)
+  override def mirrorX: SquareClass = SquareClass(width, xCen, -yCen, rotation)
 
-  override def mirrorYOffset(xOffset: Double): Square = Square(width, cen.mirrorYOffset(xOffset))
+  override def mirrorYOffset(xOffset: Double): SquareClass = SquareClass(width, cen.mirrorYOffset(xOffset))
 
-  override def mirrorY: Square = Square(width, -xCen, yCen, rotation)
+  override def mirrorY: SquareClass = SquareClass(width, -xCen, yCen, rotation)
 
-  override def prolign(matrix: ProlignMatrix): Square = Square(width * matrix.vFactor, cen.prolign(matrix), rotation)
+  override def prolign(matrix: ProlignMatrix): SquareClass = SquareClass(width * matrix.vFactor, cen.prolign(matrix), rotation)
 
   /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
-  override def rotate90: Square = Square(width, cen.rotate90)
+  override def rotate90: SquareClass = SquareClass(width, cen.rotate90)
 
-  override def rotate180: Square = Square(width, cen.rotate180)
+  override def rotate180: SquareClass = SquareClass(width, cen.rotate180)
 
-  override def rotate270: Square = Square(width, cen.rotate270)
+  override def rotate270: SquareClass = SquareClass(width, cen.rotate270)
 
-  override def rotateRadians(radians: Double): Square = ???
+  override def rotateRadians(radians: Double): SquareClass = ???
 
-  override def reflect(line: Line): Square = ???
-  override def reflect(line: LineSeg): Square = ???
+  override def reflect(line: Line): SquareClass = ???
+  override def reflect(line: LineSeg): SquareClass = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }
 
 /** Factory object for squares. */
-object Square extends ShapeIcon
+object SquareClass extends ShapeIcon
 {
  // def apply(width: Double, xCen: Double, yCen: Double, rotationRadians: Double): Square = new Square(width, xCen, yCen, rotationRadians)
-  def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Square = new Square(width, cen.x, cen.y, rotation)
+  def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass = new SquareClass(width, cen.x, cen.y, rotation)
   
   def xy(width: Double, xCen: Double, yCen: Double): PolygonClass = PolygonClass(
       xCen - width / 2 vv yCen + width / 2,
