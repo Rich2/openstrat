@@ -7,9 +7,10 @@ trait Square extends Rectangle
 }
 
 /** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final case class SquareClass(width: Double, xCen: Double, yCen: Double, rotation: Angle) extends Square
+final case class SquareClass private(width: Double, xCen: Double, yCen: Double, rotationSecs: Double) extends Square
 {
   override type ThisT = SquareClass
+  @inline override def rotation: Angle = Angle.secs(rotationSecs)
   def rotationRadians: Double = rotation.radians
 
   override def x0: Double = ???
@@ -51,17 +52,17 @@ final case class SquareClass(width: Double, xCen: Double, yCen: Double, rotation
   override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
 
   /** Translate geometric transformation. */
-  @inline override def slate(xOffset: Double, yOffset: Double): SquareClass = SquareClass(width, xCen + xOffset, yCen + yOffset, rotation)
+  @inline override def slate(xOffset: Double, yOffset: Double): SquareClass = SquareClass(width, xCen + xOffset, yCen + yOffset, rotation.secs)
 
   override def scale(operand: Double): SquareClass = SquareClass(width * operand, cen * operand)
 
   override def mirrorXOffset(yOffset: Double): SquareClass = SquareClass(width, cen.mirrorXOffset(yOffset))
 
-  override def mirrorX: SquareClass = SquareClass(width, xCen, -yCen, rotation)
+  override def mirrorX: SquareClass = SquareClass(width, xCen, -yCen, rotationSecs)
 
   override def mirrorYOffset(xOffset: Double): SquareClass = SquareClass(width, cen.mirrorYOffset(xOffset))
 
-  override def mirrorY: SquareClass = SquareClass(width, -xCen, yCen, rotation)
+  override def mirrorY: SquareClass = SquareClass(width, -xCen, yCen, rotationSecs)
 
   override def prolign(matrix: ProlignMatrix): SquareClass = SquareClass(width * matrix.vFactor, cen.prolign(matrix), rotation)
 
@@ -84,7 +85,7 @@ final case class SquareClass(width: Double, xCen: Double, yCen: Double, rotation
 object SquareClass extends ShapeIcon
 {
  // def apply(width: Double, xCen: Double, yCen: Double, rotationRadians: Double): Square = new Square(width, xCen, yCen, rotationRadians)
-  def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass = new SquareClass(width, cen.x, cen.y, rotation)
+  def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass = new SquareClass(width, cen.x, cen.y, rotation.secs)
   
   def xy(width: Double, xCen: Double, yCen: Double): PolygonClass = PolygonClass(
       xCen - width / 2 vv yCen + width / 2,

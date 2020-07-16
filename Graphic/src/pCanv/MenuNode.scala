@@ -109,7 +109,7 @@ abstract sealed class MenuNode(val text: String)
 {
    def toTree: Seq[MenuNode] = List(this)   
    def +(other: MenuNode): MenuSeq = MenuSeq(this, other)
-   def +?(b: Boolean, other: MenuNode) = if (b) MenuSeq(this, other) else MenuSeq(this)
+   def ifPlus(b: Boolean, other: MenuNode) = if (b) MenuSeq(this, other) else MenuSeq(this)
    def fold[T](fLeaf: MenuLeaf => T, fBranch: MenuBranch => T, fDynamic: MenuBranchDynamic => T): T = this match
    {
       case m: MenuLeaf => fLeaf(m)

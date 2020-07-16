@@ -23,6 +23,8 @@ final case class Rect(xCen: Double, yCen: Double, x0: Double, y0: Double, x1: Do
   def topCen: Vec2 = (topLeft + topRight) / 2
 
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(topRight), f(bottomRight))
+
+  override def rotation: Angle = (topRight - topLeft).angle
 }
 
 
