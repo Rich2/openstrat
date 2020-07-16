@@ -35,8 +35,6 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Trans
   override def reflect(line: LineSeg): Square = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
-
-  override def shearX(operand: Double): TransElem = ???
 }
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */

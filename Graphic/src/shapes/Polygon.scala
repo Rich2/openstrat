@@ -36,8 +36,10 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
     BoundingRect(minX, maxX, minY, maxY)
   }
 
-  override def rotateRadians(radians: Double): Polygon = ???
+  @inline def polygonMap(f: Vec2 => Vec2): PolygonClass = vertsMap(f).toPolygon
+  @inline override def rotateRadians(radians: Double): Polygon = polygonMap(_.rotateRadians(radians))
 
+  override def shearX(operand: Double): Polygon = ???
   override def shearY(operand: Double): Polygon = ???
 
   def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)

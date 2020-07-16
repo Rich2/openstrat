@@ -74,8 +74,6 @@ final case class Square(width: Double, xCen: Double, yCen: Double, rotation: Ang
   override def reflect(line: LineSeg): Square = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
-
-  override def shearX(operand: Double): TransElem = ???
 }
 
 /** Factory object for squares. */

@@ -21,8 +21,6 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def reflect(line: LineSeg): TransElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
-
-  override def shearX(operand: Double): TransElem = ???
 }
 
 /** Companion object for the Rectlign class */
