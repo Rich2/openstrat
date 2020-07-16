@@ -98,7 +98,7 @@ final class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Ve
   override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
 }
 
-/** Companion object for [[PolgonClass]]. */
+/** Companion object for [[PolygonClass]]. */
 object PolygonClass //extends ProductD2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => PolygonClass = i => new PolygonClass(new Array[Double](i * 2))
 

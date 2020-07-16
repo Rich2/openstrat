@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-/** Closed Polygon made up of straight line segments. The general case can be instantiated with [[PolgonClass]]. */
+/** Closed Polygon made up of straight line segments. The general case can be instantiated with [[PolygonClass]]. */
 trait Polygon extends Vec2sLike with Shape with ProlignPreserve
 { type ThisT <: Polygon
   def length: Int
