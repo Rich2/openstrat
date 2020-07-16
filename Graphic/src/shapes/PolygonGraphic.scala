@@ -31,11 +31,11 @@ trait PolygonActive extends DisplayActive
   override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
 }
 
-/** Immutable Graphic element that defines and fills a Polygon.
+/** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
+ * PolygonFill will be returned.
  * @constructor create a new PolygonFill with the underlying polygon and a colour.
  * @param shape The Polygon shape.
- * @param fillColour The colour of this graphic.
- * */
+ * @param fillColour The colour of this graphic. */
 final case class PolygonFill(shape: Polygon, fillColour: Colour) extends PolygonGraphic with ShapeFill
 { override type ThisT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), fillColour)
