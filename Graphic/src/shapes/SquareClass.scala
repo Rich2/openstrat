@@ -18,15 +18,14 @@ final class SquareClass private(val width: Double, val xCen: Double, val yCen: D
 
   override def productElement(n: Int): Any = ???
 
-  override def x0: Double = ???
+  override def v0: Vec2 = Vec2(width, width).rotate(rotation)
+  override def x0: Double = v0.x
+  override def y0: Double = v0.y
 
-  override def y0: Double = ???
-
-  override def x1: Double = ???
-
-  override def y1: Double = ???
-
-  override def height: Double = ???
+  override def v1: Vec2 = Vec2(width, -width).rotate(rotation)
+  override def x1: Double = v1.x
+  override def y1: Double = v1.y
+  //override def height: Double = width
 
   override def xTopLeft: Double = ???
 

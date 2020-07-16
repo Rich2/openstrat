@@ -7,10 +7,9 @@ trait Rectangle extends Rectangular with Polygon
 { final override def length: Int = 4
   def x0: Double
   def y0: Double
-  @inline final def v0: Vec2 = x0 vv y0
   def x1: Double
   def y1: Double
-  @inline final def v1: Vec2 = x1 vv y1
+  def v1: Vec2
   @inline final def x2: Double = xBottomLeft
   @inline final def y2: Double = yBottomLeft
   @inline final def v2: Vec2 = bottomLeft

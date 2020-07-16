@@ -6,8 +6,10 @@ package geom
 trait Rectanglelign extends Rectangle with Rectangularlign
 { @inline final override def x0: Double = xTopRight
   @inline final override def y0: Double = yTopRight
+  @inline final override def v0: Vec2 = x0 vv y0
   @inline final override def x1: Double = xTopLeft
   @inline final override def y1: Double = yTopLeft
+  @inline final override def v1: Vec2 = x1 vv y1
   override def rotation: Angle = 0.degs
 }
 

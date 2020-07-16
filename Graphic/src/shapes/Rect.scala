@@ -9,10 +9,12 @@ final case class Rect(xCen: Double, yCen: Double, x0: Double, y0: Double, x1: Do
   override def height: Double = (topCen - cen).magnitude * 2
   override def xTopRight: Double = x0
   override def yTopRight: Double = y0
+  override def v0: Vec2 = x0 vv y0
   override def topRight: Vec2 = Vec2(x0, y0)
   override def xBottomRight: Double = x1
   override def yBottomRight: Double = y1
   override def bottomRight: Vec2 = Vec2(x1, y1)
+  override def v1: Vec2 = x1 vv y1
   override def topLeft: Vec2 = 2 * cen - bottomRight
   override def xTopLeft: Double = topLeft.x
   override def yTopLeft: Double = topLeft.y
