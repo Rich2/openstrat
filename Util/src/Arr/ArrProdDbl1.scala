@@ -2,12 +2,14 @@
 package ostrat
 
 trait ProdDbl1 extends Any
-{ def dblValue: Int
+{ def dblValue: Double
   @inline def _1 : Double = dblValue
 }
 
-trait ArrProdDbl1[A <: ProdDbl1] extends Any with ArrProdIntN[A]
+trait ArrProdDbl1[A <: ProdDbl1] extends Any with ArrProdDblN[A]
 {
   final override def productSize: Int = 1
-  def newElem(intValue: Int): A
+  def newElem(dblValue: Double): A
+  final override def apply(index: Int): A = newElem(arrayUnsafe(index))
+  final override def unsafeSetElem(index: Int, elem: A): Unit = arrayUnsafe(index) = elem.dblValue
 }

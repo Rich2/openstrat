@@ -5,8 +5,10 @@ import math.Pi
 
 /** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
  *  while Latitudes have a normal range +- 90 degrees. */
-final class Angle private(val degSecs: Double) extends AnyVal with AngleLike
+final class Angle private(val degSecs: Double) extends AnyVal with AngleLike with ProdDbl1
 {
+  @inline override def dblValue: Double = degSecs
+
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
@@ -56,11 +58,16 @@ object Angle
   }
 
   @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * secsInDeg / Pi)
+
+  @inline def secs(value: Double): Angle = new Angle(value)
 }
 
-/*
-class Angles(val array: Array[Double]) extends AnyVal with ArrProdDbl1[Angle]
-{
+final class Angles(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl1[Angle]
+{ override type ThisT = Angles
   override def typeStr: String = "Angles"
-  //override def newElem(intValue: Int): Angle = new Colour(intValue)
-}*/
+  override def newElem(dblValue: Double): Angle = Angle.secs(dblValue)
+  override def unsafeFromArray(array: Array[Double]): Angles = new Angles(array)
+
+  /** Not sure about this method. */
+  override def foreachArr(f: Dbls => Unit): Unit = ???
+}
