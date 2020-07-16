@@ -57,3 +57,10 @@ object Angle
 
   @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * secsInDeg / Pi)
 }
+
+/*
+class Angles(val array: Array[Double]) extends AnyVal with ArrProdDbl1[Angle]
+{
+  override def typeStr: String = "Angles"
+  //override def newElem(intValue: Int): Angle = new Colour(intValue)
+}*/

@@ -1,7 +1,7 @@
 package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
-final class Colours(val array: Array[Int]) extends AnyVal with ArrProdInt1[Colour]
+final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt1[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"

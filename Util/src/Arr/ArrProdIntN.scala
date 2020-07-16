@@ -5,10 +5,10 @@ import collection.mutable.ArrayBuffer
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
 trait ArrProdIntN[A] extends Any with ArrProdHomo[A]
 { type ThisT <: ArrProdIntN[A]
-  def array: Array[Int]
+  def arrayUnsafe: Array[Int]
   def unsafeFromArray(array: Array[Int]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * productSize))
-  def arrLen = array.length
+  def arrLen = arrayUnsafe.length
 }
 
 /** ArrProdIntlNBuild[B, BB] is a type class for the building of efficient compact Immutable Arrays of Dbl Product elements. ArrT uses a compile time
@@ -25,7 +25,7 @@ trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdValueNBuild[B, 
   final override def newArr(length: Int): ArrT = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemSize))
   final override def buffToArr(buff: BuffT): ArrT = fromIntArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.buffer.addAll(arr.array); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
 }
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
@@ -35,7 +35,7 @@ trait BuffProdIntN[A] extends Any with BuffProdValueN[A]
   def buffer: ArrayBuffer[Int]
   def toArray: Array[Int] = buffer.toArray[Int]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.array); () }
+  override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
   override def length = buffer.length / elemSize
 }
 

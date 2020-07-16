@@ -22,7 +22,7 @@ object RoordLine
 }
 
 /** An Array[Int] based collection for RoordLines. */
-class RoordLines(val array: Array[Int]) extends AnyVal with ArrProdInt4[RoordLine]
+class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt4[RoordLine]
 { type ThisT = RoordLines
   override def unsafeFromArray(array: Array[Int]): RoordLines = new RoordLines(array)
   override def typeStr: String = "RoordLines"

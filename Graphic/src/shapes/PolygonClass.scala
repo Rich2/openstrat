@@ -34,7 +34,6 @@ final class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Ve
   
   def boundingWidth: Double = boundingRect.width
   def boundingHeight: Double = boundingRect.height
-  def polyCentre: Vec2 = boundingRect.cen
 
   def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)

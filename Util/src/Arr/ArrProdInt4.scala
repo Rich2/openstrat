@@ -9,18 +9,18 @@ trait ArrProdInt4[A <: ProdInt4] extends Any with ArrProdIntN[A]
 {
   override def productSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
-  def apply(index: Int): A = newElem(array(4 * index), array(4 * index + 1), array(4 * index + 2), array(4 * index + 3))
+  def apply(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   override def unsafeSetElem(index: Int, elem: A): Unit =
-  { array(4 * index) = elem._1;
-    array(4 * index + 1) = elem._2
-    array(4 * index + 2) = elem._3
-    array(4 * index + 3) = elem._4
+  { arrayUnsafe(4 * index) = elem._1;
+    arrayUnsafe(4 * index + 1) = elem._2
+    arrayUnsafe(4 * index + 2) = elem._3
+    arrayUnsafe(4 * index + 3) = elem._4
   }
 
-  def head1: Int = array(0)
-  def head2: Int = array(1)
-  def head3: Int = array(2)
-  def head4: Int = array(3)
+  def head1: Int = arrayUnsafe(0)
+  def head2: Int = arrayUnsafe(1)
+  def head3: Int = arrayUnsafe(2)
+  def head4: Int = arrayUnsafe(3)
 }
 
 trait ProdInt4Buff[A <: ProdInt4, M <: ArrProdInt4[A]] extends Any with BuffProdIntN[A]
@@ -40,13 +40,13 @@ abstract class ProdInt4sCompanion[A <: ProdInt4, M <: ArrProdInt4[A]]
     var count: Int = 0
     while (count < arrLen)
     {
-      res.array(count) = elems(count / 2)._1
+      res.arrayUnsafe(count) = elems(count / 2)._1
       count += 1
-      res.array(count) = elems(count / 2)._2
+      res.arrayUnsafe(count) = elems(count / 2)._2
       count += 1
-      res.array(count) = elems(count / 2)._3
+      res.arrayUnsafe(count) = elems(count / 2)._3
       count += 1
-      res.array(count) = elems(count / 2)._4
+      res.arrayUnsafe(count) = elems(count / 2)._4
       count += 1
     }
     res

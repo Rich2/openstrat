@@ -56,6 +56,8 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
 
   /** Determines if the parenter point lies inside this Polygon. */
   def ptInside(pt: Vec2): Boolean = toLineSegs.ptInPolygon(pt)
+
+  def polyCentre: Vec2 = boundingRect.cen
 }
 
 /** Companion object for the Polygon trait. */

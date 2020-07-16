@@ -9,12 +9,12 @@ trait ArrProdInt2[A <: ProdInt2] extends Any with ArrProdIntN[A]
 { 
   override def productSize: Int = 2  
   def newElem(i1: Int, i2: Int): A
-  final override def apply(index: Int): A = newElem(array(2 * index), array(2 * index + 1))
+  final override def apply(index: Int): A = newElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
-  final override def unsafeSetElem(index: Int, elem: A): Unit = { array(2 * index) = elem._1; array(2 * index + 1) = elem._2 }
+  final override def unsafeSetElem(index: Int, elem: A): Unit = { arrayUnsafe(2 * index) = elem._1; arrayUnsafe(2 * index + 1) = elem._2 }
 
-  def head1: Int = array(0)
-  def head2: Int = array(1)
+  def head1: Int = arrayUnsafe(0)
+  def head2: Int = arrayUnsafe(1)
 }
 
 trait ArrProdInt2Build[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdIntNBuild[A, ArrT]
@@ -22,7 +22,7 @@ trait ArrProdInt2Build[A <: ProdInt2, ArrT <: ArrProdInt2[A]] extends ArrProdInt
 
   final override def elemSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
-  final override def arrSet(arr: ArrT, index: Int, value: A): Unit = { arr.array(index * 2) = value._1; arr.array(index * 2 + 1) = value._2}
+  final override def arrSet(arr: ArrT, index: Int, value: A): Unit = { arr.arrayUnsafe(index * 2) = value._1; arr.arrayUnsafe(index * 2 + 1) = value._2}
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value._1); buff.buffer.append(value._2); () }
 }
 
@@ -45,9 +45,9 @@ abstract class ProductI2sCompanion[A <: ProdInt2, M <: ArrProdInt2[A]] extends P
     var count: Int = 0
     while (count < arrLen)
     {
-      res.array(count) = elems(count / 2)._1
+      res.arrayUnsafe(count) = elems(count / 2)._1
       count += 1
-      res.array(count) = elems(count / 2)._2
+      res.arrayUnsafe(count) = elems(count / 2)._2
       count += 1
     }
     res
