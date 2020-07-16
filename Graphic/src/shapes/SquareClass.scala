@@ -12,45 +12,27 @@ final class SquareClass private(val width: Double, val xCen: Double, val yCen: D
   override type ThisT = SquareClass
   @inline override def rotation: Angle = Angle.secs(rotationSecs)
   def rotationRadians: Double = rotation.radians
-
-
   override def productArity: Int = 3
-
-  override def productElement(n: Int): Any = ???
-
+  override def productElement(n: Int): Any = 4
   override def v0: Vec2 = Vec2(width, width).rotate(rotation)
   override def x0: Double = v0.x
   override def y0: Double = v0.y
-
   override def v1: Vec2 = Vec2(width, -width).rotate(rotation)
   override def x1: Double = v1.x
   override def y1: Double = v1.y
-  //override def height: Double = width
 
-  override def xTopLeft: Double = ???
-
-  override def yTopLeft: Double = ???
-
-  override def topLeft: Vec2 = ???
-
-  override def xTopRight: Double = ???
-
-  override def yTopRight: Double = ???
-
-  override def topRight: Vec2 = ???
-
-  override def xBottomRight: Double = ???
-
-  override def yBottomRight: Double = ???
-
-  override def bottomRight: Vec2 = ???
-
-  override def xBottomLeft: Double = ???
-
-  override def yBottomLeft: Double = ???
-
-  override def bottomLeft: Vec2 = ???
-
+  @inline override def xTopLeft: Double = x3
+  @inline override def yTopLeft: Double = y3
+  @inline override def topLeft: Vec2 = v3
+  @inline override def xTopRight: Double = x0
+  @inline override def yTopRight: Double = y0
+  @inline override def topRight: Vec2 = v0
+  @inline override def xBottomRight: Double = x1
+  @inline override def yBottomRight: Double = y1
+  @inline override def bottomRight: Vec2 = v1
+  @inline override def xBottomLeft: Double = x2
+  @inline override def yBottomLeft: Double = y2
+  @inline override def bottomLeft: Vec2 = v2
   override def fTrans(f: Vec2 => Vec2): SquareClass = ???
 
   override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
