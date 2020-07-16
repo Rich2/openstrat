@@ -7,11 +7,16 @@ trait Square extends Rectangle
 }
 
 /** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final case class SquareClass private(width: Double, xCen: Double, yCen: Double, rotationSecs: Double) extends Square
+final class SquareClass private(val width: Double, val xCen: Double, val yCen: Double, val rotationSecs: Double) extends Square
 {
   override type ThisT = SquareClass
   @inline override def rotation: Angle = Angle.secs(rotationSecs)
   def rotationRadians: Double = rotation.radians
+  def canEqual(that: Any): Boolean = ???
+
+  override def productArity: Int = 3
+
+  override def productElement(n: Int): Any = ???
 
   override def x0: Double = ???
 
@@ -52,17 +57,17 @@ final case class SquareClass private(width: Double, xCen: Double, yCen: Double, 
   override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
 
   /** Translate geometric transformation. */
-  @inline override def slate(xOffset: Double, yOffset: Double): SquareClass = SquareClass(width, xCen + xOffset, yCen + yOffset, rotation.secs)
+  @inline override def slate(xOffset: Double, yOffset: Double): SquareClass = SquareClass(width, xCen + xOffset, yCen + yOffset, rotation)
 
   override def scale(operand: Double): SquareClass = SquareClass(width * operand, cen * operand)
 
   override def mirrorXOffset(yOffset: Double): SquareClass = SquareClass(width, cen.mirrorXOffset(yOffset))
 
-  override def mirrorX: SquareClass = SquareClass(width, xCen, -yCen, rotationSecs)
+  override def mirrorX: SquareClass = SquareClass(width, xCen, -yCen, rotation)
 
   override def mirrorYOffset(xOffset: Double): SquareClass = SquareClass(width, cen.mirrorYOffset(xOffset))
 
-  override def mirrorY: SquareClass = SquareClass(width, -xCen, yCen, rotationSecs)
+  override def mirrorY: SquareClass = SquareClass(width, -xCen, yCen, rotation)
 
   override def prolign(matrix: ProlignMatrix): SquareClass = SquareClass(width * matrix.vFactor, cen.prolign(matrix), rotation)
 
@@ -84,9 +89,10 @@ final case class SquareClass private(width: Double, xCen: Double, yCen: Double, 
 /** Factory object for squares. */
 object SquareClass extends ShapeIcon
 {
- // def apply(width: Double, xCen: Double, yCen: Double, rotationRadians: Double): Square = new Square(width, xCen, yCen, rotationRadians)
-  def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass = new SquareClass(width, cen.x, cen.y, rotation.secs)
-  
+  @inline def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass = new SquareClass(width, cen.x, cen.y, rotation.secs)
+
+  @inline def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): SquareClass = new SquareClass(width, xCen, yCen, rotation.secs)
+
   def xy(width: Double, xCen: Double, yCen: Double): PolygonClass = PolygonClass(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
