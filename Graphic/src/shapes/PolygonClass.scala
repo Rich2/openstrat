@@ -73,10 +73,6 @@ final class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Ve
     PolygonParent(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
 
-
-
-
-
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): PolygonClass =
   { val res = PolygonClass.factory(length + 1)
@@ -102,6 +98,7 @@ final class PolygonClass(val arrayUnsafe: Array[Double]) extends Polygon with Ve
   override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
 }
 
+/** Companion object for [[PolgonClass]]. */
 object PolygonClass //extends ProductD2sCompanion[Vec2, Polygon]
 { implicit val factory: Int => PolygonClass = i => new PolygonClass(new Array[Double](i * 2))
 
@@ -128,12 +125,14 @@ object PolygonClass //extends ProductD2sCompanion[Vec2, Polygon]
   }
 }
 
+/** Specialised Array based immutable collection class for [[Polygon]]s.  */
 final class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonClass]
 { override type ThisT = Polygons
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): Polygons = new Polygons(aad)
   def apply(index: Int): PolygonClass = new PolygonClass(array(index))
 }
 
+/** Companion object for the [[Polygons]] class. */
 object Polygons
 {
   def apply(input: PolygonClass*): Polygons =
