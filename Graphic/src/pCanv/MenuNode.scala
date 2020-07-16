@@ -44,12 +44,12 @@ object MenuSub
     val v1: Map[String, Seq[MenuSub]] = seq.groupBy(_.text.toLowerCase)
     val v2: Seq[Seq[MenuSub]] = v1.values.toSeq
 
-    v2.map/*[MenuSub, Seq[MenuSub]]*/(i => i match
-    { case Seq(l) => l //There is only Menu Node for this heading
+  v2.map/*[MenuSub, Seq[MenuSub]]*/(i => i match
+  { case Seq(l) => l //There is only Menu Node for this heading
 
-      case s => if (s.exists(j => j.isInstanceOf[MenuBranchDynamic]))
-          MenuBranchDynamic(s.head.text, () => s.flatMap(_.subFold(_.nodes, _.getSubMenu())))
-        else MenuBranch(s.head.text, MenuNode.merge(s.asInstanceOf[Seq[MenuBranch]].flatMap(_.nodes)))
+    case s => if (s.exists(j => j.isInstanceOf[MenuBranchDynamic]))
+        MenuBranchDynamic(s.head.text, () => s.flatMap(_.subFold(_.nodes, _.getSubMenu())))
+      else MenuBranch(s.head.text, MenuNode.merge(s.asInstanceOf[Seq[MenuBranch]].flatMap(_.nodes)))
     })
   }
 }
@@ -64,36 +64,36 @@ abstract sealed class MenuSub(text: String) extends MenuNode(text)
 
 object MenuNode
 {
-   implicit class MenuNodeSeqImp(s: Seq[MenuNode])   
-   {
-      def foldEach(fLeaf: MenuLeaf => Unit, fBranch: MenuBranch => Unit, fDynamic: MenuBranchDynamic => Unit): Unit =
+  implicit class MenuNodeSeqImp(s: Seq[MenuNode])
+  {
+    def foldEach(fLeaf: MenuLeaf => Unit, fBranch: MenuBranch => Unit, fDynamic: MenuBranchDynamic => Unit): Unit =
          s.foreach(i => i.fold(fLeaf, fBranch, fDynamic))         
-      def merge(others: Seq[MenuNode] *): Seq[MenuNode] = MenuNode.merge((others :+ s).flatten)
-   }
+    def merge(others: Seq[MenuNode] *): Seq[MenuNode] = MenuNode.merge((others :+ s).flatten)
+  }
    
-   def merge(seq: Seq[MenuNode]): Seq[MenuNode] =
-   {
-      val v1: Map[String, Seq[MenuNode]] = seq.groupBy(_.text.toLowerCase)
-      val v2: Seq[Seq[MenuNode]] = v1.values.toSeq
-      v2.map/*[MenuNode, Seq[MenuNode]]*/(i => i match
+  def merge(seq: Seq[MenuNode]): Seq[MenuNode] =
+  {
+    val v1: Map[String, Seq[MenuNode]] = seq.groupBy(_.text.toLowerCase)
+    val v2: Seq[Seq[MenuNode]] = v1.values.toSeq
+    v2.map/*[MenuNode, Seq[MenuNode]]*/(i => i match
+    {
+      case Seq(l) => l
+      case s => s match
       {
-         case Seq(l) => l
-         case s => s match
-         {
-            case s if s.exists(i => i.isInstanceOf[MenuBranchDynamic]) => MenuBranchDynamic(s.head.text, () => s.flatMap(_.fold(
-               l => Seq(MenuLeaf("Duplicate menu entry", l.action)),
-                  _.nodes,
-                  _.getSubMenu()
-                  )))
-            case s =>
-            {
-               val leaves = s.collect{case l : MenuLeaf => MenuLeaf("Duplicate menu entry", l.action)}                  
-               val branches = merge(s.collect{case b: MenuBranch => b.nodes }.flatten)
-               MenuBranch(s.head.text, leaves ++ branches)
-            } 
-         } 
-      })   
-   }   
+        case s if s.exists(i => i.isInstanceOf[MenuBranchDynamic]) => MenuBranchDynamic(s.head.text, () => s.flatMap(_.fold(
+           l => Seq(MenuLeaf("Duplicate menu entry", l.action)),
+             _.nodes,
+             _.getSubMenu()
+             )))
+        case s =>
+        {
+          val leaves = s.collect{case l : MenuLeaf => MenuLeaf("Duplicate menu entry", l.action)}
+          val branches = merge(s.collect{case b: MenuBranch => b.nodes }.flatten)
+          MenuBranch(s.head.text, leaves ++ branches)
+        }
+      }
+    })
+  }
 }
 
 abstract sealed class MenuNode(val text: String)
