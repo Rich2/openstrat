@@ -1,74 +1,65 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCanv
 
 object MenuSeq
-{     
-   def apply(nodes: MenuNode*): MenuSeq = Seq(nodes:_ *)   
+{  def apply(nodes: MenuNode*): MenuSeq = Seq(nodes:_ *)
 }
 
 object MenuBranch
-{
-   def apply(text: String): MenuBranch = new MenuBranch(text, Nil)
-   def apply(text: String, nodes: MenuSeq) = new MenuBranch(text, nodes)   
+{ def apply(text: String): MenuBranch = new MenuBranch(text, Nil)
+  def apply(text: String, nodes: MenuSeq) = new MenuBranch(text, nodes)
 }
 
 class MenuBranch(text: String, val nodes: Seq[MenuNode]) extends MenuSub(text) 
-{
-   def addNode(operand: MenuNode): MenuBranch = new MenuBranch(text, nodes :+ operand)
-   def addNodes(operands: MenuNode*): MenuBranch = new MenuBranch(text, operands.toList ++ nodes)
+{ def addNode(operand: MenuNode): MenuBranch = new MenuBranch(text, nodes :+ operand)
+  def addNodes(operands: MenuNode*): MenuBranch = new MenuBranch(text, operands.toList ++ nodes)
 }
 
 object MenuBranchDynamic
-{
-   def apply(text: String, getSubMenu: () => Seq[MenuNode]): MenuBranchDynamic = new MenuBranchDynamic(text, getSubMenu)   
+{ def apply(text: String, getSubMenu: () => Seq[MenuNode]): MenuBranchDynamic = new MenuBranchDynamic(text, getSubMenu)
 }
 
 class MenuBranchDynamic(text: String, val getSubMenu: () => Seq[MenuNode]) extends MenuSub(text)
 
 object MenuLeaf
-{
-   def apply(text: String): MenuLeaf = new MenuLeaf(text, () => {})   
-   def apply(text: String, params: () => Unit *): MenuLeaf = new MenuLeaf(text, params.fold(() => {})(_ + _)) 
+{ def apply(text: String): MenuLeaf = new MenuLeaf(text, () => {})
+  def apply(text: String, params: () => Unit *): MenuLeaf = new MenuLeaf(text, params.fold(() => {})(_ + _))
 }
 
 class MenuLeaf(text: String, val action: () => Unit) extends MenuNode(text)
-{
-	def doAfter(action: () => Unit): MenuLeaf = MenuLeaf(text, action, action)
+{	def doAfter(action: () => Unit): MenuLeaf = MenuLeaf(text, action, action)
 	def +(operand: () => Unit): MenuLeaf = MenuLeaf(text, action + operand)
 }
 
 object MenuSub
 {
-   implicit class MenuSubSeqImp(s: Seq[MenuSub])
-   {
-      def subFoldEach(fBranch: MenuBranch => Unit, fDynamic: MenuBranchDynamic => Unit): Unit =
-         s.foreach(i => i.subFold(fBranch, fDynamic))
-      def merge(others: Seq[MenuSub] *): Seq[MenuSub] = MenuSub.merge((others :+ s).flatten)
-   }
+  implicit class MenuSubSeqImp(s: Seq[MenuSub])
+  { def subFoldEach(fBranch: MenuBranch => Unit, fDynamic: MenuBranchDynamic => Unit): Unit = s.foreach(i => i.subFold(fBranch, fDynamic))
+    def merge(others: Seq[MenuSub] *): Seq[MenuSub] = MenuSub.merge((others :+ s).flatten)
+  }
    
-   def merge(seq: Seq[MenuSub]): Seq[MenuSub] =
-      { //Checks for Menu Items with the same heading
-         val v1: Map[String, Seq[MenuSub]] = seq.groupBy(_.text.toLowerCase)
-         val v2: Seq[Seq[MenuSub]] = v1.values.toSeq
-         v2.map/*[MenuSub, Seq[MenuSub]]*/(i => i match
-         {
-            case Seq(l) => l //There is only Menu Node for this heading
-            case s => if (s.exists(j => j.isInstanceOf[MenuBranchDynamic]))
-                  MenuBranchDynamic(s.head.text, () => s.flatMap(_.subFold(_.nodes, _.getSubMenu())))
-               else
-                  MenuBranch(s.head.text, MenuNode.merge(s.asInstanceOf[Seq[MenuBranch]].flatMap(_.nodes)))
-         })            
-      }   
+  def merge(seq: Seq[MenuSub]): Seq[MenuSub] =
+  { /** Checks for Menu Items with the same heading.*/
+    val v1: Map[String, Seq[MenuSub]] = seq.groupBy(_.text.toLowerCase)
+    val v2: Seq[Seq[MenuSub]] = v1.values.toSeq
+
+    v2.map/*[MenuSub, Seq[MenuSub]]*/(i => i match
+    { case Seq(l) => l //There is only Menu Node for this heading
+
+      case s => if (s.exists(j => j.isInstanceOf[MenuBranchDynamic]))
+          MenuBranchDynamic(s.head.text, () => s.flatMap(_.subFold(_.nodes, _.getSubMenu())))
+        else MenuBranch(s.head.text, MenuNode.merge(s.asInstanceOf[Seq[MenuBranch]].flatMap(_.nodes)))
+    })
+  }
 }
 
 abstract sealed class MenuSub(text: String) extends MenuNode(text)
 {
-   def subFold[T](fBranch: MenuBranch => T, fDynamic: MenuBranchDynamic => T): T = this match
-   {      
-	  case m: MenuBranch => fBranch(m)
+  def subFold[T](fBranch: MenuBranch => T, fDynamic: MenuBranchDynamic => T): T = this match
+  { case m: MenuBranch => fBranch(m)
 	  case m: MenuBranchDynamic => fDynamic(m)
-   }  
+  }
 }
 
 object MenuNode

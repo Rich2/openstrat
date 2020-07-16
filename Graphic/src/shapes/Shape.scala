@@ -6,4 +6,10 @@ trait Shape extends TransElem
 { def fill(fillColour: Colour): ShapeFill
   def draw(lineWidth: Double, lineColour: Colour): ShapeDraw
   def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw
+
+  /** This canEqual override allow the comparison of [[Shape]]s. */
+  def canEqual(that: Any): Boolean = that match
+  { case t: Shape => true
+    case _ => false
+  }
 }

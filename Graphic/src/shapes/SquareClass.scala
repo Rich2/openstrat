@@ -12,7 +12,7 @@ final class SquareClass private(val width: Double, val xCen: Double, val yCen: D
   override type ThisT = SquareClass
   @inline override def rotation: Angle = Angle.secs(rotationSecs)
   def rotationRadians: Double = rotation.radians
-  def canEqual(that: Any): Boolean = ???
+
 
   override def productArity: Int = 3
 
