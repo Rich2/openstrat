@@ -33,7 +33,12 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
       pt.x > lineX
     })
 
+  /** The angle of this line segment. */
   def angle: Angle = (pEnd - pStart).angle
+
+  /** The angle 90 degrees anti-clock wise from the angle of this line segemnt. */
+  def angle90: Angle = angle + 90.degs
+
   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 
   def mirrorPt(pt: Vec2): Vec2 = pt.mirror(this)
