@@ -6,20 +6,22 @@ trait Square extends Rectangle
 { def height: Double = width
 }
 
-/** Square can be translated, scaled, reflected and rotated while remaining a Square. */
-final class SquareClass private(val width: Double, val xCen: Double, val yCen: Double, val rotationSecs: Double) extends Square
+/** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
+ *  rotated while remaining a Square. */
+final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends Square
 {
+  override def v0: Vec2 = x0 vv y0
+  override def v1: Vec2 = x1 vv y1
+  def width: Double = v0.distTo(v1)
+  def xCen: Double = ???
+  def yCen: Double = ???
+  def rotationSecs: Double = ???
+
   override type ThisT = SquareClass
   @inline override def rotation: Angle = Angle.secs(rotationSecs)
   def rotationRadians: Double = rotation.radians
   override def productArity: Int = 3
   override def productElement(n: Int): Any = 4
-  override def v0: Vec2 = Vec2(width, width).rotate(rotation)
-  override def x0: Double = v0.x
-  override def y0: Double = v0.y
-  override def v1: Vec2 = Vec2(width, -width).rotate(rotation)
-  override def x1: Double = v1.x
-  override def y1: Double = v1.y
 
   @inline override def xTopLeft: Double = x3
   @inline override def yTopLeft: Double = y3

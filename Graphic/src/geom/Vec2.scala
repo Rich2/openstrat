@@ -20,6 +20,9 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   /** The magnitude of this vector. */
   def magnitude = math.sqrt(x * x + y * y)
 
+  /** Gives the positive scalar distance between this and the operand Vec2. */
+  def distTo(operand: Vec2): Double = (operand - this).magnitude
+
   def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
   def str1: String = strMod(_.str1)
   def str2: String = strMod(_.str2)
