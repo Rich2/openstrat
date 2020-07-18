@@ -2,14 +2,10 @@
 package ostrat
 package geom
 
-trait Square extends Rectangle
-{ def height: Double = width
-}
-
 /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
  *  rotated while remaining a Square. */
 final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends Square
-{
+{ override type ThisT = SquareClass
   override def v0: Vec2 = x0 vv y0
   override def v1: Vec2 = x1 vv y1
   override def width: Double = v0.distTo(v1)
@@ -24,15 +20,12 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   @inline def x3: Double = v3.x
   @inline def y3: Double = v3.y
   def rotationRadians: Double = rotation.radians
-  @inline override def rotation: Angle = Angle.secs(rotationSecs)
-  def rotationSecs: Double = ???
-  override type ThisT = SquareClass
-
+  @inline override def rotation: Angle = Angle.radians(rotationRadians)
 
   override def productArity: Int = 3
   override def productElement(n: Int): Any = 4
 
-  override def fTrans(f: Vec2 => Vec2): SquareClass = ???
+  override def fTrans(f: Vec2 => Vec2): SquareClass = SquareClass.v0v1(f(v0), f(v1))
 
   override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
 
@@ -72,6 +65,8 @@ object SquareClass extends ShapeIcon
   @inline def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass = new SquareClass(width, cen.x, cen.y, rotation.secs)
 
   @inline def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): SquareClass = new SquareClass(width, xCen, yCen, rotation.secs)
+
+  def v0v1(v0: Vec2, v1: Vec2): SquareClass = new SquareClass(v0.x, v0.y, v1.x, v1.y)
 
   def xy(width: Double, xCen: Double, yCen: Double): PolygonClass = PolygonClass(
       xCen - width / 2 vv yCen + width / 2,

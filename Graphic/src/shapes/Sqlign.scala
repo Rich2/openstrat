@@ -3,10 +3,10 @@ package ostrat
 package geom
 
 /** A square aligned to the X and Y axes. */
-final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Square with Rectanglelign
+final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends Square with Rectanglelign
 { override type ThisT = Sqlign
 
-  override def fTrans(f: Vec2 => Vec2): Sqlign = ???
+  override def fTrans(f: Vec2 => Vec2): Sqlign = Sqlign.cenV0(f(cen), f(v0))
 
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
 
@@ -28,7 +28,7 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Squar
 
   override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
 
-  override def rotateRadians(radians: Double): SquareClass = ???
+  override def rotateRadians(radians: Double): SquareClass = SquareClass.v0v1(v0.rotateRadians(radians), v1.rotateRadians(radians))
 
   override def reflect(line: Line): SquareClass = ???
   override def reflect(line: Sline): SquareClass = ???
@@ -39,4 +39,5 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Squar
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */
 object Sqlign
 { def apply(width: Double, cen: Vec2): Sqlign = new Sqlign(width, cen.x, cen.y)
+  def cenV0(cen: Vec2, v0: Vec2): Sqlign = new Sqlign((v0.x - cen.x) * 2, cen.x, cen.y)
 }
