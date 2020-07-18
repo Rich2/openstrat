@@ -40,6 +40,8 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
       pt.x > lineX
     })
 
+  def midPt: Vec2 = (vStart + vEnd) / 2
+
   /** The angle of this line segment. */
   def angle: Angle = (pEnd - pStart).angle
 
@@ -67,6 +69,14 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
   /** Gives the Vec2 point at the specified distance to the left of the start point. At the start point turn left 90 degrees and then travel the given
    * distance to the point. The Vec2 of that point is returned by this method. */
   def startToLeft(distFromStart: Double): Vec2 = vStart + left90.toVec2(distFromStart)
+
+  /** Gives the Vec2 point at the specified distance to the right of the mid point. At the mid point turn right 90 degrees and then travel the given
+   *  distance to the point. The Vec2 of that point is returned by this method. */
+  def midPtToRight(distFromMidPt: Double): Vec2 = midPt + right90.toVec2(distFromMidPt)
+
+  /** Gives the Vec2 point at the specified distance to the left of the mid point. At the mid point turn left 90 degrees and then travel the given
+   *  distance to the point. The Vec2 of that point is returned by this method. */
+  def midPtToLeft(distFromMidPt: Double): Vec2 = midPt + left90.toVec2(distFromMidPt)
 
   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 

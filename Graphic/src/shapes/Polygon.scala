@@ -60,6 +60,15 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
   def ptInside(pt: Vec2): Boolean = toLineSegs.ptInPolygon(pt)
 
   def polyCentre: Vec2 = boundingRect.cen
+
+  def sline(index: Int): Sline = Sline(apply(index), apply(index + 1))
+
+  def sline0: Sline = sline(0)
+  def sline1: Sline = sline(1)
+  def sline2: Sline = sline(2)
+  def sline3: Sline = sline(3)
+  def sline4: Sline = sline(4)
+  def sline5: Sline = sline(5)
 }
 
 /** Companion object for the Polygon trait. */
