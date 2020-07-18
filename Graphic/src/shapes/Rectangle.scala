@@ -10,12 +10,13 @@ trait Rectangle extends Rectangular with Polygon
   def x1: Double
   def y1: Double
   def v1: Vec2
-  @inline final def x2: Double = xBottomLeft
-  @inline final def y2: Double = yBottomLeft
-  @inline final def v2: Vec2 = bottomLeft
-  @inline final def x3: Double = xTopLeft
-  @inline final def y3: Double = yTopLeft
-  @inline final def v3: Vec2 = topLeft
+  def x2: Double
+  def y2: Double
+  def v2: Vec2
+  def x3: Double
+  def y3: Double
+  def v3: Vec2
+
   def rotation: Angle
   
   @inline final override def apply(index: Int): Vec2 = index match 

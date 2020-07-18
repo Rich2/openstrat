@@ -17,6 +17,12 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   def xCen: Double = ???
   def yCen: Double = ???
   def rotationSecs: Double = ???
+  def v2: Vec2 = ???
+  def v3: Vec2 = ???
+  def x2: Double = ???
+  def x3: Double = ???
+  def y2: Double = ???
+  def y3: Double = ???
 
   override type ThisT = SquareClass
   @inline override def rotation: Angle = Angle.secs(rotationSecs)
@@ -24,7 +30,7 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   override def productArity: Int = 3
   override def productElement(n: Int): Any = 4
 
-  @inline override def xTopLeft: Double = x3
+  /*@inline override def xTopLeft: Double = x3
   @inline override def yTopLeft: Double = y3
   @inline override def topLeft: Vec2 = v3
   @inline override def xTopRight: Double = x0
@@ -35,7 +41,7 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   @inline override def bottomRight: Vec2 = v1
   @inline override def xBottomLeft: Double = x2
   @inline override def yBottomLeft: Double = y2
-  @inline override def bottomLeft: Vec2 = v2
+  @inline override def bottomLeft: Vec2 = v2*/
   override def fTrans(f: Vec2 => Vec2): SquareClass = ???
 
   override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)

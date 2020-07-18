@@ -10,7 +10,7 @@ trait Rectangular
   def xCen: Double
   def yCen: Double
   def cen: Vec2
-  def xTopLeft: Double
+  /*def xTopLeft: Double
   def yTopLeft: Double
   def topLeft: Vec2
   def xTopRight: Double
@@ -21,5 +21,5 @@ trait Rectangular
   def bottomRight: Vec2
   def xBottomLeft: Double
   def yBottomLeft: Double
-  def bottomLeft: Vec2
+  def bottomLeft: Vec2*/
 }
