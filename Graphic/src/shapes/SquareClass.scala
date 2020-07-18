@@ -4,7 +4,7 @@ package geom
 
 /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
  *  rotated while remaining a Square. */
-final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends Square
+final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends Square with SimilarPreserve
 { override type ThisT = SquareClass
   override def v0: Vec2 = x0 vv y0
   override def v1: Vec2 = x1 vv y1
@@ -27,7 +27,7 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   override def toString: String = s"SquareClass($x0, $y0; $x1, $y1)"
   override def fTrans(f: Vec2 => Vec2): SquareClass = SquareClass.v0v1(f(v0), f(v1))
 
-  override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
+  /*override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
 
   /** Translate geometric transformation. */
   @inline override def slate(xOffset: Double, yOffset: Double): SquareClass = SquareClass(width, xCen + xOffset, yCen + yOffset, rotation)
@@ -52,7 +52,7 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   override def rotate270: SquareClass = SquareClass(width, cen.rotate270)
 
   override def rotateRadians(radians: Double): SquareClass = ???
-
+*/
   override def reflect(line: Line): SquareClass = ???
   override def reflect(line: Sline): SquareClass = ???
 
@@ -76,7 +76,7 @@ object SquareClass extends ShapeIcon
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,
-      xCen - width/2   vv yCen - width / 2)
+      xCen - width / 2 vv yCen - width / 2)
 
   override def scaleSlate(scale: Double, cen: Vec2): Shape = ???
 
