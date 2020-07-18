@@ -14,10 +14,10 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
   override def _4 = yEnd
 
   /** The start point of this SLine. */
-  @inline def vStart: Vec2 = xStart vv yStart
+ // @inline def vStart: Vec2 = xStart vv yStart
 
   /** The end point of this Sline. */
-  @inline def vEnd: Vec2 = xEnd vv yEnd
+  //@inline def vEnd: Vec2 = xEnd vv yEnd
 
   override def canEqual(that: Any): Boolean = that match
   { case op: Sline => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
@@ -40,7 +40,7 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
       pt.x > lineX
     })
 
-  def midPt: Vec2 = (vStart + vEnd) / 2
+  def midPt: Vec2 = (pStart + pEnd) / 2
 
   /** The angle of this line segment. */
   def angle: Angle = (pEnd - pStart).angle
@@ -52,23 +52,23 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
   def right90: Angle = angle - 90.degs
 
   /** The relative position of the end point from the start point. */
-  @inline def delta: Vec2 = vEnd - vStart
+  @inline def delta: Vec2 = pEnd - pStart
 
   /** Gives the Vec2 point at the specified distance to the right of the end point. At the end point turn right 90 degrees and then travel the given
    * distance to the point. The Vec2 of that point is returned by this method. */
-  def endToRight(distFromEnd: Double): Vec2 = vEnd + right90.toVec2(distFromEnd)
+  def endToRight(distFromEnd: Double): Vec2 = pEnd + right90.toVec2(distFromEnd)
 
   /** Gives the Vec2 point at the specified distance to the left of the end point. At the end point turn left 90 degrees and then travel the given
    * distance to the point.  The Vec2 of that point is returned by this method.*/
-  def endToLeft(distFromEnd: Double): Vec2 = vEnd + left90.toVec2(distFromEnd)
+  def endToLeft(distFromEnd: Double): Vec2 = pEnd + left90.toVec2(distFromEnd)
 
   /** Gives the Vec2 point at the specified distance to the right of the start point. At the start point turn right 90 degrees and then travel the
    *  given distance to the point. The Vec2 of that point is returned by this method. */
-  def startToRight(distFromStart: Double): Vec2 = vStart + right90.toVec2(distFromStart)
+  def startToRight(distFromStart: Double): Vec2 = pStart + right90.toVec2(distFromStart)
 
   /** Gives the Vec2 point at the specified distance to the left of the start point. At the start point turn left 90 degrees and then travel the given
    * distance to the point. The Vec2 of that point is returned by this method. */
-  def startToLeft(distFromStart: Double): Vec2 = vStart + left90.toVec2(distFromStart)
+  def startToLeft(distFromStart: Double): Vec2 = pStart + left90.toVec2(distFromStart)
 
   /** Gives the Vec2 point at the specified distance to the right of the mid point. At the mid point turn right 90 degrees and then travel the given
    *  distance to the point. The Vec2 of that point is returned by this method. */

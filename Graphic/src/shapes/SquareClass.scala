@@ -20,11 +20,11 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   @inline def x3: Double = v3.x
   @inline def y3: Double = v3.y
   def rotationRadians: Double = rotation.radians
-  @inline override def rotation: Angle = Angle.radians(rotationRadians)
+  @inline override def rotation: Angle =  sline0.angle + 90.degs // Angle.radians(rotationRadians)
 
   override def productArity: Int = 3
   override def productElement(n: Int): Any = 4
-
+  override def toString: String = s"SquareClass($x0, $y0; $x1, $y1)"
   override def fTrans(f: Vec2 => Vec2): SquareClass = SquareClass.v0v1(f(v0), f(v1))
 
   override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
@@ -62,9 +62,13 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
 /** Factory object for squares. */
 object SquareClass extends ShapeIcon
 {
-  @inline def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass = new SquareClass(width, cen.x, cen.y, rotation.secs)
+  @inline def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareClass =
+  { val v0 = cen + Vec2(width / 2, width / 2).rotate(rotation)
+    val v1 = cen + Vec2(width / 2, -width / 2).rotate(rotation)
+    new SquareClass(v0.x, v0.y, v1.x, v1.y)
+  }
 
-  @inline def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): SquareClass = new SquareClass(width, xCen, yCen, rotation.secs)
+  @inline def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): SquareClass = apply(width, xCen vv yCen, rotation)
 
   def v0v1(v0: Vec2, v1: Vec2): SquareClass = new SquareClass(v0.x, v0.y, v1.x, v1.y)
 
