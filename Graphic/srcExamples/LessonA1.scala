@@ -5,6 +5,8 @@ case class LessonA1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
 {
   val sq = Square(100, -100, 200, 0.degs)
   debvar(sq.cen)
+  debvar(sq.v2)
+  debvar(sq.v3)
   val sq2 = Square(100, -100, 100, 0.degs)
   val sq3 = Square(100, -200, 100, 20.degs)
   debvar(sq)

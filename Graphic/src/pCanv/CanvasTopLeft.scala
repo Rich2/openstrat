@@ -6,7 +6,7 @@ import geom._
 /** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used directly by graphical applications. */
 trait CanvasTopLeft extends CanvasPlatform
 {   
-   def tlCen: Vec2 =>  Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
+   def tlCen: Vec2 => Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
    def matrix: ProlignMatrix = ProlignMatrix.mirrorY.slate(width / 2, height / 2)
  
    final override def pPolyFill(poly: Polygon, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
