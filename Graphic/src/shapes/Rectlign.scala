@@ -22,7 +22,7 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def rotateRadians(radians: Double): Rect = ???
 
   override def reflect(line: Line): TransElem = ???
-  override def reflect(line: LineSeg): TransElem = ???
+  override def reflect(line: Sline): TransElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 

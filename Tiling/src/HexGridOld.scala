@@ -84,10 +84,10 @@ object HexGridOld
   val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.pMap(_ * 2)
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
 
-  def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2 = Vec2Z): LineSeg =
+  def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Vec2 = Vec2Z): Sline =
     sideCoodToCoodLine(sideCood).toLine2(c => (coodToVec2(c) -relPosn) * scale)
 
-  def sideCoodToLine(sideCood: Cood): LineSeg = sideCoodToCoodLine(sideCood).toLine2(coodToVec2)
+  def sideCoodToLine(sideCood: Cood): Sline = sideCoodToCoodLine(sideCood).toLine2(coodToVec2)
   def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.xi, sideCood.yi)
   //override def sideCoodToCoodLine(sideCood: Cood): ostrat.pGrid.CoodLine = HexGrid.sideCoodToCoodLine(sideCood)
 

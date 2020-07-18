@@ -5,9 +5,9 @@ import geom._
 
 trait OfHex[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridOld[TileT, SideT]] extends OfTile[TileT, SideT, GridT]
 {
-   def sideURLine: LineSeg = CoodLine(cood.addXY(0, 1), cood.addXY(2, 1)).toLine2(cood => coodToDispVec2(cood))
-   def sideRightLine: LineSeg = CoodLine(cood.addXY(2, 1), cood.addXY(2, - 1)).toLine2(cood => coodToDispVec2(cood))
-   def sideDRLine: LineSeg = CoodLine(cood.addXY(2, -1), cood.addXY(0, -1)).toLine2(cood => coodToDispVec2(cood))
+   def sideURLine: Sline = CoodLine(cood.addXY(0, 1), cood.addXY(2, 1)).toLine2(cood => coodToDispVec2(cood))
+   def sideRightLine: Sline = CoodLine(cood.addXY(2, 1), cood.addXY(2, - 1)).toLine2(cood => coodToDispVec2(cood))
+   def sideDRLine: Sline = CoodLine(cood.addXY(2, -1), cood.addXY(0, -1)).toLine2(cood => coodToDispVec2(cood))
    override def ownSideLines: LineSegs = LineSegs(sideURLine, sideRightLine, sideDRLine)
 }
 

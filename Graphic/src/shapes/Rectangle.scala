@@ -114,7 +114,7 @@ object Rectangle
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
     gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
   
-  def fromAxis(centreLine: LineSeg, height: Double): PolygonClass =
+  def fromAxis(centreLine: Sline, height: Double): PolygonClass =
   { val hAngle: Angle = centreLine.angle
     val offset: Vec2 = hAngle.toVec2(height * 0.5)
     PolygonClass(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)

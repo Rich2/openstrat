@@ -15,10 +15,10 @@ object ReflectAxis
 {
   implicit def transAlignerImplicit[T <: SimilarPreserve]: ReflectAxis[T] = new ReflectAxis[T]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: T, yOffset: Double): T = obj.reflect(LineSeg(-1, yOffset, 1, yOffset)).asInstanceOf[T]
+    override def reflectXOffsetT(obj: T, yOffset: Double): T = obj.reflect(Sline(-1, yOffset, 1, yOffset)).asInstanceOf[T]
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: T, xOffset: Double): T = obj.reflect(LineSeg(xOffset, -1, xOffset, 1)).asInstanceOf[T]
+    override def reflectYOffsetT(obj: T, xOffset: Double): T = obj.reflect(Sline(xOffset, -1, xOffset, 1)).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], evA: ReflectAxis[A]): ReflectAxis[AA] = new ReflectAxis[AA]

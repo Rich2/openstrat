@@ -26,7 +26,7 @@ object PersistGeomTest  extends TestSuite
       assert(vec2b.strComma == vec2bComma)
     }  
     
-    val l1 = LineSeg(vec2a, vec2b)
+    val l1 = Sline(vec2a, vec2b)
     val lineStd: String = "Line2(" + vec2aComma + "; " + vec2bComma + ")"
     
     "Line2Test" -

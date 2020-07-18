@@ -280,7 +280,7 @@ trait TileGridSimple
   final def sidesDraw(lineWidth: Double, colour: Colour = Black) = sideLines.draw(lineWidth, colour)
 
   /** Side Roord to Line2 relative to a position on the grid and then scaled. */
-  final def sideRoordToLine2(sideRoord: Roord): LineSeg =
+  final def sideRoordToLine2(sideRoord: Roord): Sline =
     sideRoordToRoordLine(sideRoord).toLine2(roord => roordToVec2(roord))
 
   def sideRoordsOfTile(tileRoord: Roord): Roords

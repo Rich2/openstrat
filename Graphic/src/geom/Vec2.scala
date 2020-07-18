@@ -60,7 +60,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   }
 
   /** Reflects this along a line which is specified by two points on the line. */
-  def mirror(lineSeg: LineSeg): Vec2 =
+  def mirror(lineSeg: Sline): Vec2 =
   { val v1 = lineSeg.pStart
     val v2 = lineSeg.pEnd
     val lineDelta: Vec2 = v2 - v1
@@ -142,10 +142,10 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle.radians(angleRadians)
 
-  def lineTo(pt2: Vec2): LineSeg = LineSeg(this, pt2)
+  def lineTo(pt2: Vec2): Sline = Sline(this, pt2)
 
   /** Not sure about this method. */
-  def lineAlong(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))
+  def lineAlong(angle: Angle, magnitude: Double): Sline = Sline(this, this + angle.toVec2(magnitude))
 
   /** This sure looks right */
   def rotate(a: Angle): Vec2 =  Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
@@ -171,8 +171,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
     arcCentre + resultAngle.toVec2(radius / alphaAngle.cos)
   }
   
-  def linesCross(armLength: Double = 5): Seq[LineSeg] = Seq( new LineSeg(x - armLength, y , x + armLength, y),
-    new LineSeg(x, y - armLength, x, y + armLength))
+  def linesCross(armLength: Double = 5): Seq[Sline] = Seq( new Sline(x - armLength, y , x + armLength, y),
+    new Sline(x, y - armLength, x, y + armLength))
   
   /** Not sure about this method */
   def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LinesDraw =

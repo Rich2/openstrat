@@ -15,7 +15,7 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def scale(operand: Double): EArc = ???
   //override def shear(xScale: Double, yScale: Double): EArc = ???
 
-  override def reflect(line: LineSeg): EArc = ???
+  override def reflect(line: Sline): EArc = ???
   override def reflect(line: Line): EArc = ???
   
   /** Translate geometric transformation. */

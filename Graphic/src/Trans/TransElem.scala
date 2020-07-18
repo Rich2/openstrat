@@ -43,7 +43,7 @@ trait TransElem extends Product with Serializable
   def rotateRadians(radians: Double): TransElem
 
   def reflect(line: Line): TransElem
-  def reflect(line: LineSeg): TransElem
+  def reflect(line: Sline): TransElem
   def scaleXY(xOperand: Double, yOperand: Double): TransElem
   
   def shearX(operand: Double): TransElem

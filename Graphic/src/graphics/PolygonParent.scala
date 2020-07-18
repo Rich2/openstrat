@@ -29,7 +29,7 @@ case class PolygonParent(cen: Vec2, poly: PolygonClass, pointerId: Any, children
 
   override def shearY(operand: Double): TransElem = ???
 
-  def reflect(line: LineSeg): PolygonParent = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
+  def reflect(line: Sline): PolygonParent = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
   def reflect(line: Line): PolygonParent = ???
   override def mirrorX: PolygonParent = PolygonParent(cen.mirrorX, poly.mirrorX, pointerId, children.mirrorX)
   override def mirrorY: PolygonParent = PolygonParent(cen.mirrorY, poly.mirrorY, pointerId, children.mirrorY)

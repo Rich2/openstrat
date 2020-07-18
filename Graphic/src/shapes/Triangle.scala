@@ -68,7 +68,7 @@ final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Doubl
 	override def rotateRadians(radians: Double): IsosTriangleClass = ???
 
 	override def reflect(line: Line): TransElem = ???
-	override def reflect(line: LineSeg): TransElem = ???
+	override def reflect(line: Sline): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }
@@ -85,7 +85,7 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 
 	override def reflect(line: Line): TransElem = ???
 
-	override def reflect(line: LineSeg): TransElem = ???
+	override def reflect(line: Sline): TransElem = ???
 
 	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }

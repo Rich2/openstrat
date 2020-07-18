@@ -31,7 +31,7 @@ final case class Sqlign(width: Double, xCen: Double, yCen: Double) extends Squar
   override def rotateRadians(radians: Double): SquareClass = ???
 
   override def reflect(line: Line): SquareClass = ???
-  override def reflect(line: LineSeg): SquareClass = ???
+  override def reflect(line: Sline): SquareClass = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }

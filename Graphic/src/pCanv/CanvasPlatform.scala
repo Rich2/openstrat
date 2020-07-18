@@ -72,7 +72,7 @@ trait CanvasPlatform extends RectCenlign
     bezierDraw(BezierDraw(pStart, pEnd, pControl1, pControl2, lineWidth, colour))
 
   def linesDraw(lsd: LinesDraw): Unit
-  final def linesDraw(lineWidth: Double, linesColour: Colour, lines: LineSeg *): Unit = linesDraw(LinesDraw(LineSegs(lines: _*), lineWidth, linesColour))
+  final def linesDraw(lineWidth: Double, linesColour: Colour, lines: Sline *): Unit = linesDraw(LinesDraw(LineSegs(lines: _*), lineWidth, linesColour))
    
   final def shapeFill(shape: PolyCurve, colour: Colour): Unit = oif(shape.length > 0, pShapeFill(shape, colour))
 

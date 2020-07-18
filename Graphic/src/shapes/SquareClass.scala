@@ -65,7 +65,7 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   override def rotateRadians(radians: Double): SquareClass = ???
 
   override def reflect(line: Line): SquareClass = ???
-  override def reflect(line: LineSeg): SquareClass = ???
+  override def reflect(line: Sline): SquareClass = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 }

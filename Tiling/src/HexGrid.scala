@@ -25,10 +25,10 @@ object HexGrid
   val adjTileRoordsOfTile00: Roords = sideRoordsOfTile00.pMap(_ * 2)
   def adjTilesOfTile(tileRoord: Roord): Roords = adjTileRoordsOfTile00.pMap(tileRoord + _)
 
-  def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Vec2 = Vec2Z): LineSeg =
+  def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Vec2 = Vec2Z): Sline =
     sideRoordToRoordLine(sideRoord).toLine2(c => (roordToVec2(c) -relPosn) * scale)
 
-  def sideRoordToLine(sideRoord: Roord): LineSeg = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
+  def sideRoordToLine(sideRoord: Roord): Sline = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
 
   def sideRoordToCens(sideRoord: Roord): (Roord, Roord) = sideOrient(sideRoord, (sideRoord.subYC(1, 1) ,sideRoord.addYC(1, 1)),
