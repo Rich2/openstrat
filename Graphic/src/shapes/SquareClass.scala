@@ -12,21 +12,23 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
 {
   override def v0: Vec2 = x0 vv y0
   override def v1: Vec2 = x1 vv y1
-  def width: Double = v0.distTo(v1)
-  def cen: Vec2 = sline0.midPtToRight(width / 2)
-  def xCen: Double = cen.x
-  def yCen: Double = cen.y
-  def rotationSecs: Double = ???
-  def v2: Vec2 = ???
-  def v3: Vec2 = ???
-  def x2: Double = ???
-  def x3: Double = ???
-  def y2: Double = ???
-  def y3: Double = ???
+  override def width: Double = v0.distTo(v1)
+  override def cen: Vec2 = sline0.midPtToRight(width / 2)
+  override def xCen: Double = cen.x
+  override def yCen: Double = cen.y
 
-  override type ThisT = SquareClass
-  @inline override def rotation: Angle = Angle.secs(rotationSecs)
+  @inline def v2: Vec2 = sline0.endToRight(width)
+  @inline def x2: Double = v2.x
+  @inline def y2: Double = v2.y
+  @inline def v3: Vec2 = sline0.startToRight(width)
+  @inline def x3: Double = v3.x
+  @inline def y3: Double = v3.y
   def rotationRadians: Double = rotation.radians
+  @inline override def rotation: Angle = Angle.secs(rotationSecs)
+  def rotationSecs: Double = ???
+  override type ThisT = SquareClass
+
+
   override def productArity: Int = 3
   override def productElement(n: Int): Any = 4
 

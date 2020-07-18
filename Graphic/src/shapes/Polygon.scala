@@ -61,7 +61,10 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
 
   def polyCentre: Vec2 = boundingRect.cen
 
-  def sline(index: Int): Sline = Sline(apply(index), apply(index + 1))
+  def sline(index: Int): Sline =
+  { val index2: Int = ife(index == length -1, 0, index + 1)
+    Sline(apply(index), apply(index2))
+  }
 
   def sline0: Sline = sline(0)
   def sline1: Sline = sline(1)
