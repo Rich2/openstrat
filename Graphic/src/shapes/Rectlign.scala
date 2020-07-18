@@ -2,7 +2,6 @@
 package ostrat
 package geom
 
-
 /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
 final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Double) extends Rectanglelign
 { override type ThisT = Rectlign
@@ -14,8 +13,6 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def reflect(line: Sline): TransElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
-
-
 }
 
 /** Companion object for the Rectlign class */

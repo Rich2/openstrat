@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Rectangle aligned to the X and Y axes. */
+/** A Rectangle like final class aligned to the X and Y axes. */
 trait Rectangularlign extends Rectangular
 { def width: Double
   def height: Double
@@ -20,10 +20,5 @@ trait Rectangularlign extends Rectangular
   @inline final def xBottomLeft: Double = xCen - width / 2
   @inline final def yBottomLeft: Double = yCen - height / 2
   @inline final def bottomLeft: Vec2 = Vec2(xBottomLeft, yBottomLeft)
-  /*@inline final def x2: Double = xBottomLeft
-  @inline final def y2: Double = yBottomLeft
-  @inline final def v2: Vec2 = bottomLeft
-  @inline final def x3: Double = xTopLeft
-  @inline final def y3: Double = yTopLeft
-  @inline final def v3: Vec2 = topLeft*/
+
 }
