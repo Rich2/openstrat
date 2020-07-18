@@ -157,7 +157,7 @@ object RoadmapPage extends TextPage
   def lists: XCon =
   { import scala.io.Source
     
-    val gs = Source.fromFile(resDir / "toDo.txt").getLines.foldLeft((Seq[Seq[String]](), Seq[String]()))((acc, line) => line match
+    val gs = Source.fromFile(resDir / "toDo.txt").getLines().foldLeft((Seq[Seq[String]](), Seq[String]()))((acc, line) => line match
     { case "" => acc        
       case l if l.head == '#' => (acc._1 :+ acc._2, Seq())
       case l if l.length < 2 => acc

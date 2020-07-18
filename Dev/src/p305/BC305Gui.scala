@@ -54,6 +54,6 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
    }
    
    eTop()
-   loadView 
-   repaintMap
+   loadView()
+   repaintMap()
 }

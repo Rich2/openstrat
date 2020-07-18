@@ -52,7 +52,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
        val newCorps = c.copy (newTile)
        newTile.lunits +:= newCorps
        selected = List(newCorps)
-       repaintMap
+       repaintMap()
       }
       case (List(c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
       case _ =>
@@ -61,6 +61,6 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
   }
 
   eTop()   
-  loadView   
-  repaintMap   
+  loadView()
+  repaintMap()
 }

@@ -16,7 +16,7 @@ object CanvasJs extends CanvasTopLeft
     //give focus to listen for key.Events
     can.focus()
   }
-  setup
+  setup()
    
   def getButton(e: MouseEvent): MouseButton = e.button match
   { case 0 => LeftButton
@@ -75,7 +75,7 @@ object CanvasJs extends CanvasTopLeft
   }
       
   can.oncontextmenu = (e: MouseEvent) => e.preventDefault()
-  window.onresize = (e: UIEvent) => { setup; resize() }
+  window.onresize = (e: UIEvent) => { setup(); resize() }
      
   override def getTime: Long = new scala.scalajs.js.Date().getTime().toLong
   override def timeOut(f: () => Unit, millis: Integer): Unit = { window.setTimeout(f, millis.toDouble); () }
@@ -98,20 +98,20 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath()
     gc.strokeStyle = colour.webStr
     gc.lineWidth = lineWidth
-    gc.stroke
+    gc.stroke()
   }
 
   override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =
-  { gc.beginPath
+  { gc.beginPath()
     gc.moveTo(pod.xStart, pod.yStart)
     pod.foreachEnd(gc.moveTo)
     gc.strokeStyle = pod.colour.webStr
     gc.lineWidth = pod.lineWidth
-    gc.stroke    
+    gc.stroke()
   }
 
   override protected[this] def tlLineDraw(ld: LineDraw): Unit =
-  { gc.beginPath
+  { gc.beginPath()
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)
     gc.strokeStyle = ld.colour.webStr

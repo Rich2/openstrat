@@ -58,7 +58,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
           val newArmy = army.copy(newTile)
           newTile.lunits +-= newArmy
           selected = List(newArmy)
-          repaintMap
+          repaintMap()
         }
         case (List(army: Army), as) => debvar(as.length)
         case _ =>
@@ -69,6 +69,6 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
     }
   scale = 1.08.km
   eTop()
-  loadView
-  repaintMap
+  loadView()
+  repaintMap()
 }

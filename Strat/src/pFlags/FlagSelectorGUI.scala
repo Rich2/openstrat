@@ -25,12 +25,15 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   // listOfFlags = listOfFlags ++ Arr(TextFlagMaker(i.toString, thisColor)) }
 
   val viewport = Map("width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "commonScale"->100)
-  val scrollport = Map("maxBarWidth"->(viewport("width")  - 80), "minBarWidth"->20, "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height") / 2 + viewport("headerSize") / 2))
+
+  val scrollport = Map("maxBarWidth"->(viewport("width")  - 80), "minBarWidth"->20,
+    "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height") / 2 + viewport("headerSize") / 2))
+  
   val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 vv (viewport("height") - viewport("cellHeight")) / 2)
   val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
   val btnMore = clickButton(">", (mb: MouseButton) => { scrollMore }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
-  val btnLess = clickButton("<", (mb: MouseButton) => { scrollLess }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
+  val btnLess = clickButton("<", (mb: MouseButton) => { scrollLess() }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val scrollBar: Arr[DisplaySimElem] = Arr(btnMore, btnLess, barBackground)
 
   if (scrollport("isScrollHorizontal") == 1) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
@@ -127,5 +130,5 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     case _ => deb(thekey)
   }
 
-  canv.onScroll = (isScrollLess: Boolean) => if (isScrollLess) scrollLess else scrollMore
+  canv.onScroll = (isScrollLess: Boolean) => if (isScrollLess) scrollLess() else scrollMore
 }//    canv.timeOut(() => dragging(v), 100)

@@ -3,7 +3,7 @@ package ostrat
 package geom
 import collection.mutable.ArrayBuffer, Colour.Black
 
-/** A 2 dimensional line segment. A straight line between two points in a 3d space. */
+/** A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. */
 class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLikeOld
 { override type ThisT = LineSeg
   override def toString: String = LineSeg.persistImplicit.show(this)
@@ -36,8 +36,11 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   /** The angle of this line segment. */
   def angle: Angle = (pEnd - pStart).angle
 
-  /** The angle 90 degrees anti-clock wise from the angle of this line segemnt. */
-  def angle90: Angle = angle + 90.degs
+  /** The angle 90 degrees anti-clock wise from the angle of this directed line segment. The angle one gets by turning left from this Sline. */
+  def left90: Angle = angle + 90.degs
+
+  /** The angle 90 degrees clock wise from the angle of this line segement. */
+  def angleClk90: Angle = angle - 90.degs
 
   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 
