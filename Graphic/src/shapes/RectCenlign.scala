@@ -7,7 +7,7 @@ import Colour.Black
 trait RectCenlign extends Rectangularlign
 { def xCen: Double = 0
   def yCen: Double = 0
-  //override def cen: Vec2 = Vec2Z
+  override def cen: Vec2 = Vec2Z
   def left = - width / 2
   def right = width / 2
   def top = height / 2

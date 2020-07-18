@@ -10,6 +10,7 @@ trait Rectanglelign extends Rectangle with Rectangularlign
   @inline final override def x1: Double = xTopLeft
   @inline final override def y1: Double = yTopLeft
   @inline final override def v1: Vec2 = x1 vv y1
+  @inline final override def cen: Vec2 = xCen vv yCen
   override def rotation: Angle = 0.degs
 }
 

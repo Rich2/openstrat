@@ -7,6 +7,7 @@ final case class Rect(xCen: Double, yCen: Double, x0: Double, y0: Double, x1: Do
 { override type ThisT = Rect
   override def width: Double = (cenRight - cen).magnitude * 2
   override def height: Double = (topCen - cen).magnitude * 2
+  override def cen: Vec2 = xCen vv yCen
   override def xTopRight: Double = x0
   override def yTopRight: Double = y0
   override def v0: Vec2 = x0 vv y0

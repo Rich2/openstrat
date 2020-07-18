@@ -9,7 +9,7 @@ trait Rectangular
   def height: Double
   def xCen: Double
   def yCen: Double
-  @inline final def cen: Vec2 = xCen vv yCen
+  def cen: Vec2
   def xTopLeft: Double
   def yTopLeft: Double
   def topLeft: Vec2
