@@ -120,7 +120,7 @@ object CanvasJs extends CanvasTopLeft
   }
   
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
-  { gc.beginPath
+  { gc.beginPath()
     gc.moveTo(dld.xStart, dld.yStart)
     gc.lineTo(dld.xEnd, dld.yEnd)
     gc.strokeStyle = dld.colour.webStr
@@ -131,7 +131,7 @@ object CanvasJs extends CanvasTopLeft
   }
    
   override protected[this] def tlCArcDrawOld(ad: CArcDrawOld): Unit =
-  { gc.beginPath
+  { gc.beginPath()
     gc.moveTo(ad.xStart, ad.yStart)
     ad.fControlEndRadius(gc.arcTo)
     gc.lineWidth = ad.lineWidth
@@ -142,7 +142,7 @@ object CanvasJs extends CanvasTopLeft
   /** Web canvases view of anti clockwise is itself mirrored. */
   override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
   { val ca = cad.arc
-    gc.beginPath
+    gc.beginPath()
     gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.clock)
     gc.lineWidth = cad.lineWidth
     gc.strokeStyle = cad.lineColour.webStr
@@ -151,7 +151,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def tlCircleFill(cf: CircleFill): Unit =
   { val ci = cf.shape
-    gc.beginPath
+    gc.beginPath()
     gc.fillStyle = cf.fillColour.webStr
     gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
     gc.fill()
@@ -159,7 +159,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def tlCircleDraw(cd: CircleDraw): Unit =
   { val ci = cd.shape
-    gc.beginPath
+    gc.beginPath()
     gc.strokeStyle = cd.lineColour.webStr
     gc.lineWidth = cd.lineWidth
     gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
@@ -168,7 +168,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
   { val ci = cfd.shape
-    gc.beginPath
+    gc.beginPath()
     gc.fillStyle = cfd.fillColour.webStr
     gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
     gc.lineWidth = cfd.lineWidth
@@ -180,14 +180,14 @@ object CanvasJs extends CanvasTopLeft
   /** Needs fixing. */
   override def tlEllipseFill(ef: EllipseFill): Unit =
   { val el = ef.shape
-    gc.beginPath
+    gc.beginPath()
     gc.fillStyle = ef.fillColour.webStr
     //gc.ellipse(el.xCen, el.yCen, el.aRadius, el.bRadius, 0, Pi * 2)
     gc.fill()
   }
    
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
-  { gc.beginPath
+  { gc.beginPath()
     lsd.lines.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
     gc.lineWidth = lsd.lineWidth
     gc.strokeStyle = lsd.colour.webStr

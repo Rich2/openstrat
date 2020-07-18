@@ -64,8 +64,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
         case _ =>
       }
 
-      case mb => deb(mb.toString) 
-      case _ =>
+      case mb => deb(mb.toString)
     }
   scale = 1.08.km
   eTop()

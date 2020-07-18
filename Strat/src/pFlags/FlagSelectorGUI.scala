@@ -32,7 +32,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 vv (viewport("height") - viewport("cellHeight")) / 2)
   val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
-  val btnMore = clickButton(">", (mb: MouseButton) => { scrollMore }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
+  val btnMore = clickButton(">", (mb: MouseButton) => { scrollMore() }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val btnLess = clickButton("<", (mb: MouseButton) => { scrollLess() }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val scrollBar: Arr[DisplaySimElem] = Arr(btnMore, btnLess, barBackground)
 
@@ -130,5 +130,5 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     case _ => deb(thekey)
   }
 
-  canv.onScroll = (isScrollLess: Boolean) => if (isScrollLess) scrollLess() else scrollMore
-}//    canv.timeOut(() => dragging(v), 100)
+  canv.onScroll = (isScrollLess: Boolean) => if (isScrollLess) scrollLess() else scrollMore()
+}

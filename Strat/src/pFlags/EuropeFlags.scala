@@ -12,7 +12,7 @@ object Austria extends Flag
 object Belgium extends Flag
 { val name = "Belgium"
   val ratio = 15.0 / 13.0
-  def apply: Arr[DisplayAffineElem] = leftToRight(Black, Yellow, Red)
+  def apply(): Arr[DisplayAffineElem] = leftToRight(Black, Yellow, Red)
 }
 
 trait EnglandLike extends Flag

@@ -15,8 +15,8 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   //val kmPerRadian = 40075.0 / Pi2
   val metresPerRadian: Dist = 40075.km / Pi2   
   def viewStr: String = "Focus:" -- focus.degStr -- "Scale: " + scale.kmStr2
-  def updateView(): Unit = {repaintMap; setStatus(viewStr) }
-  def setFocus(ll: LatLong): Unit = { focus = ll; updateView }
+  def updateView(): Unit = {repaintMap(); setStatus(viewStr) }
+  def setFocus(ll: LatLong): Unit = { focus = ll; updateView() }
   def view: EarthView = EarthView(focus, scale, focusUp) 
   def setView(ev: EarthView): Unit = { focus = ev.latLong; scale = ev.scale; focusUp = ev.up }   
   var focusUp: Boolean = true
@@ -71,11 +71,11 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   mapPanel.mouseUp = (b, s, v) => { statusText = s.headToStringElse("Nothing Clicked"); eTop() }
    
   def saveCmd = (mb: MouseButton) => { setStatus("Saved"); canv.saveFile(saveName, view.str) }
-  def loadCmd = (mb: MouseButton) => { loadView; updateView() }  
+  def loadCmd = (mb: MouseButton) => { loadView(); updateView() }
   def bSave = clickButton("save", saveCmd)
   def bLoad = clickButton("load", loadCmd)
   def eaButts: Arr[DisplayBoundedAffine] =  Arr(bSave, bLoad)
-  def cmd00: MouseCmd = mb => { focus = LatLong0; focusUp = true; updateView }
+  def cmd00: MouseCmd = mb => { focus = LatLong0; focusUp = true; updateView() }
   def b00: DisplayBoundedAffine = clickButton("00", cmd00)
   override def eTop(): Unit = reTop(guButs ++ Arr(b00, bInv) ++ eaButts +- status)
      
