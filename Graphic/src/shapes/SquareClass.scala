@@ -13,9 +13,9 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   override def v0: Vec2 = x0 vv y0
   override def v1: Vec2 = x1 vv y1
   def width: Double = v0.distTo(v1)
-  def cen: Vec2 = ???
-  def xCen: Double = ???
-  def yCen: Double = ???
+  def cen: Vec2 = sline0.midPtToRight(width / 2)
+  def xCen: Double = cen.x
+  def yCen: Double = cen.y
   def rotationSecs: Double = ???
   def v2: Vec2 = ???
   def v3: Vec2 = ???
