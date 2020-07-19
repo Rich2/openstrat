@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-trait Triangle extends Polygon
+trait Triangle extends PolygonTr
 {	override def length: Int = 3
 	def x0: Double
 	def y0: Double
@@ -47,7 +47,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 object Triangle
 { //def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double): Triangle = ???
 	//def apply(v0: Vec2, v1: Vec2, v2: Vec2): Triangle = ??? // new Triangle(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
-	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFill = PolygonFill(PolygonClass(p1, p2, p3), colour)
+	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFill = PolygonFill(Polygon(p1, p2, p3), colour)
 }
 
 trait IsosTriangle extends Triangle
@@ -93,14 +93,14 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 object Equilateral
 { def draw(sideLength: Double = 1, lineWidth: Double = 1, colour: Colour = Black): PolygonDraw =
   PolygonDraw(
-	PolygonClass((0 vv sideLength * math.sqrt(3) / 3),
+	Polygon((0 vv sideLength * math.sqrt(3) / 3),
 		(sideLength / 2 vv -sideLength * math.sqrt(3) / 6),
 		(-sideLength / 2 vv -sideLength * math.sqrt(3) / 6)
 		), lineWidth, colour)
 
   def fill(sideLength: Double = 1, colour: Colour = Black): PolygonFill =
     PolygonFill(
- 	    PolygonClass((0 vv sideLength * math.sqrt(3) / 3),
+ 	    Polygon((0 vv sideLength * math.sqrt(3) / 3),
 		    (sideLength / 2 vv -sideLength * math.sqrt(3) / 6),
 		    (-sideLength / 2 vv -sideLength * math.sqrt(3) / 6)
 		   ), colour)

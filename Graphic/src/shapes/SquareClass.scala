@@ -72,7 +72,7 @@ object SquareClass extends ShapeIcon
 
   def v0v1(v0: Vec2, v1: Vec2): SquareClass = new SquareClass(v0.x, v0.y, v1.x, v1.y)
 
-  def xy(width: Double, xCen: Double, yCen: Double): PolygonClass = PolygonClass(
+  def xy(width: Double, xCen: Double, yCen: Double): Polygon = Polygon(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,

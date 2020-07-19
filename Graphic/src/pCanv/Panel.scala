@@ -9,7 +9,7 @@ case class DispAnim(fAnim: Double => Unit, secs: Double) extends DispPhase
 case class DispStill(fDisp: () => Unit) extends DispPhase
 
 /** A virtual panel created from the Canvas implemented using the clip function. */
-case class Panel(private val outerCanv: CanvasPanelled, clipPoly: PolygonClass, cover: Boolean = true) extends PanelLike
+case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover: Boolean = true) extends PanelLike
 {
   override def toString: String = "Panel:" -- clipPoly.toString
 
