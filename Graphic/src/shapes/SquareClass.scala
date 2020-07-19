@@ -27,7 +27,7 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   override def toString: String = s"SquareClass($x0, $y0; $x1, $y1)"
   override def fTrans(f: Vec2 => Vec2): SquareClass = SquareClass.v0v1(f(v0), f(v1))
 
-  /*override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
+  override def slate(offset: Vec2): SquareClass = SquareClass(width, cen + offset)
 
   /** Translate geometric transformation. */
   @inline override def slate(xOffset: Double, yOffset: Double): SquareClass = SquareClass(width, xCen + xOffset, yCen + yOffset, rotation)
@@ -40,11 +40,11 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
 
   override def mirrorYOffset(xOffset: Double): SquareClass = SquareClass(width, cen.mirrorYOffset(xOffset))
 
-  override def mirrorY: SquareClass = SquareClass(width, -xCen, yCen, rotation)
+  override def mirrorY: SquareClass = SquareClass.v0v1(v1.mirrorY, v0.mirrorY)
 
   override def prolign(matrix: ProlignMatrix): SquareClass = SquareClass(width * matrix.vFactor, cen.prolign(matrix), rotation)
 
-  /** Rotates 90 degrees rotate-clockwise or + Pi/2 */
+  /* Rotates 90 degrees rotate-clockwise or + Pi/2
   override def rotate90: SquareClass = SquareClass(width, cen.rotate90)
 
   override def rotate180: SquareClass = SquareClass(width, cen.rotate180)
