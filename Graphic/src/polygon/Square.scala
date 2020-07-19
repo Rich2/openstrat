@@ -4,21 +4,13 @@ package geom
 
 /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
  *  rotated while remaining a Square. */
-final class Square private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends SquareTr with SimilarPreserve
+final class Square private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends SquareTr with RectV0V1 with SimilarPreserve
 { override type ThisT = Square
-  override def v0: Vec2 = x0 vv y0
-  override def v1: Vec2 = x1 vv y1
-  override def width: Double = v0.distTo(v1)
-  override def cen: Vec2 = sline0.midPtToRight(width / 2)
-  override def xCen: Double = cen.x
-  override def yCen: Double = cen.y
 
-  @inline def v2: Vec2 = sline0.endToRight(width)
-  @inline def x2: Double = v2.x
-  @inline def y2: Double = v2.y
-  @inline def v3: Vec2 = sline0.startToRight(width)
-  @inline def x3: Double = v3.x
-  @inline def y3: Double = v3.y
+  override def width: Double = v0.distTo(v1)
+
+
+
   def rotationRadians: Double = rotation.radians
   @inline override def rotation: Angle =  sline0.angle + 90.degs // Angle.radians(rotationRadians)
 
