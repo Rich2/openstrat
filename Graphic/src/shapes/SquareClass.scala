@@ -57,6 +57,12 @@ final class SquareClass private(val x0: Double, val y0: Double, val x1: Double, 
   override def reflect(line: Sline): SquareClass = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+  override def fill(fillColour: Colour): ShapeFill = ???
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 /** Factory object for squares. */

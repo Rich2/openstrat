@@ -96,6 +96,11 @@ final class Polygon(val arrayUnsafe: Array[Double]) extends PolygonTr with Vec2s
   override def mirrorX: Polygon = ???
 
   override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
+
+  def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
+  def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
+  def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
+    PolygonFillDraw(this, fillColour, lineWidth, lineColour)
 }
 
 /** Companion object for [[Polygon]]. */

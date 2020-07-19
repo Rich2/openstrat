@@ -43,10 +43,7 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
   override def shearX(operand: Double): PolygonTr = ???
   override def shearY(operand: Double): PolygonTr = ???
 
-  def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
-  def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
-  def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
-    PolygonFillDraw(this, fillColour, lineWidth, lineColour)
+
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs =if (length > 1)
