@@ -5,8 +5,8 @@ package geom
 /** A rectangle class that has position and may not be aligned to the X and Y axes. */
 final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Double) extends Rectangle with AffinePreserve
 { override type ThisT = Rect
-  //override def width: Double = ??? // (cenRight - cen).magnitude * 2
-  override def height: Double = ??? //(topCen - cen).magnitude * 2
+  
+  override def height: Double = (v1 - v2).magnitude
   override def xCen: Double = ???
   override def yCen: Double = ???
   override def cen: Vec2 = xCen vv yCen
