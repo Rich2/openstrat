@@ -8,10 +8,10 @@ trait DisplayBounded extends DisplayElem with BoundedElem
 { def slate(offset: Vec2): DisplayBounded
   def slate(xOffset: Double, yOffset: Double): DisplayBounded
   def scale(operand: Double): DisplayBounded
-  def mirrorYOffset(xOffset: Double): DisplayBounded
-  def mirrorXOffset(yOffset: Double): DisplayBounded
-  def mirrorX: DisplayBounded
-  def mirrorY: DisplayBounded
+  def reflectYOffset(xOffset: Double): DisplayBounded
+  def reflectXOffset(yOffset: Double): DisplayBounded
+  def reflectX: DisplayBounded
+  def reflectY: DisplayBounded
   def prolign(matrix: ProlignMatrix): DisplayBounded
   def rotate90: DisplayBounded
   def rotate180: DisplayBounded
@@ -30,10 +30,10 @@ object DisplayBounded
 
   implicit val mirrorAxisImplicit: ReflectAxis[DisplayBounded] = new ReflectAxis[DisplayBounded]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: DisplayBounded, yOffset: Double): DisplayBounded = obj.mirrorXOffset(yOffset)
+    override def reflectXOffsetT(obj: DisplayBounded, yOffset: Double): DisplayBounded = obj.reflectXOffset(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: DisplayBounded, xOffset: Double): DisplayBounded = obj.mirrorYOffset(xOffset)
+    override def reflectYOffsetT(obj: DisplayBounded, xOffset: Double): DisplayBounded = obj.reflectYOffset(xOffset)
   }
 
   implicit val rotateAxesImplicit: RotateAxes[DisplayBounded] = new RotateAxes[DisplayBounded]

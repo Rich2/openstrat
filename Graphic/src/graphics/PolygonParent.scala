@@ -10,11 +10,11 @@ case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr
   override def addElems(newElems: Arr[DisplayElem]): PolygonParent = new PolygonParent(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
-  def mirrorXOffset(yOffset: Double): PolygonParent =
-    PolygonParent(cen.mirrorXOffset(yOffset), poly.mirrorXOffset(yOffset), pointerId, children.mirrorXOffset(yOffset))
+  def reflectXOffset(yOffset: Double): PolygonParent =
+    PolygonParent(cen.mirrorXOffset(yOffset), poly.reflectXOffset(yOffset), pointerId, children.mirrorXOffset(yOffset))
 
-  def mirrorYOffset(xOffset: Double): PolygonParent =
-    PolygonParent(cen.mirrorYOffset(xOffset), poly.mirrorYOffset(xOffset), pointerId, children.mirrorYOffset(xOffset))
+  def reflectYOffset(xOffset: Double): PolygonParent =
+    PolygonParent(cen.mirrorYOffset(xOffset), poly.reflectYOffset(xOffset), pointerId, children.mirrorYOffset(xOffset))
 
   def rotateRadians(radians: Double): PolygonParent =
     PolygonParent(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))
@@ -31,8 +31,8 @@ case class PolygonParent(cen: Vec2, poly: Polygon, pointerId: Any, children: Arr
 
   def reflect(line: Sline): PolygonParent = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
   def reflect(line: Line): PolygonParent = ???
-  override def mirrorX: PolygonParent = PolygonParent(cen.mirrorX, poly.mirrorX, pointerId, children.mirrorX)
-  override def mirrorY: PolygonParent = PolygonParent(cen.mirrorY, poly.mirrorY, pointerId, children.mirrorY)
+  override def reflectX: PolygonParent = PolygonParent(cen.mirrorX, poly.reflectX, pointerId, children.mirrorX)
+  override def reflectY: PolygonParent = PolygonParent(cen.mirrorY, poly.reflectY, pointerId, children.mirrorY)
 
   override def prolign(matrix: ProlignMatrix): PolygonParent = PolygonParent(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 

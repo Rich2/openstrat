@@ -11,9 +11,10 @@ trait ProlignPreserve extends TransElem
   def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
   def scale(operand: Double): ThisT = fTrans(_ * operand)
-  override def mirrorX: ThisT = fTrans(_.mirrorX)
-  override def mirrorY: ThisT = fTrans(_.mirrorY)
-
+  def reflectYOffset(xOffset: Double): ThisT
+  def reflectXOffset(yOffset: Double): ThisT
+  override def reflectX: ThisT
+  override def reflectY: ThisT
 
   /** Rotates 90 degrees or Pi / 2 radians anticlockwise. */
   override def rotate90: ThisT = fTrans(_.rotate90)

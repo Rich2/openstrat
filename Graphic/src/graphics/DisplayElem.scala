@@ -19,18 +19,18 @@ trait DisplayElem extends TransElem
   def scale(operand: Double): DisplayElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def mirrorYOffset(xOffset: Double): DisplayElem
+  def reflectYOffset(xOffset: Double): DisplayElem
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def mirrorXOffset(yOffset: Double): DisplayElem
+  def reflectXOffset(yOffset: Double): DisplayElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorX: DisplayElem
+  def reflectX: DisplayElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorY: DisplayElem
+  def reflectY: DisplayElem
 
   def prolign(matrix: ProlignMatrix): DisplayElem
 
@@ -59,10 +59,10 @@ object DisplayElem
 
   implicit val mirrorAxisImplicit: ReflectAxis[DisplayElem] = new ReflectAxis[DisplayElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: DisplayElem, yOffset: Double): DisplayElem = obj.mirrorXOffset(yOffset)
+    override def reflectXOffsetT(obj: DisplayElem, yOffset: Double): DisplayElem = obj.reflectXOffset(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: DisplayElem, xOffset: Double): DisplayElem = obj.mirrorYOffset(xOffset)
+    override def reflectYOffsetT(obj: DisplayElem, xOffset: Double): DisplayElem = obj.reflectYOffset(xOffset)
   }
 
   implicit val rotateAxesImplicit: RotateAxes[DisplayElem] = new RotateAxes[DisplayElem]

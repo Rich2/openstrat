@@ -16,36 +16,36 @@ trait TransElem extends Product with Serializable
   def scale(operand: Double): TransElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def mirrorYOffset(xOffset: Double): TransElem
+  def reflectYOffset(xOffset: Double): TransElem
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def mirrorXOffset(yOffset: Double): TransElem
+  def reflectXOffset(yOffset: Double): TransElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorX: TransElem
+  def reflectX: TransElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def mirrorY: TransElem
+  def reflectY: TransElem
 
   def prolign(matrix: ProlignMatrix): TransElem
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   def rotate90: TransElem
-  
+
   /** Rotates 180 degrees or Pi radians. */
   def rotate180: TransElem
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   def rotate270: TransElem
-  
+
   def rotateRadians(radians: Double): TransElem
 
   def reflect(line: Line): TransElem
   def reflect(line: Sline): TransElem
   def scaleXY(xOperand: Double, yOperand: Double): TransElem
-  
+
   def shearX(operand: Double): TransElem
   def shearY(operand: Double): TransElem
 }
@@ -54,7 +54,7 @@ object TransElem
 { implicit val slateImplicit: Slate[TransElem] = (obj: TransElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[TransElem] = (obj: TransElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[TransElem] = (obj: TransElem, radians: Double) => obj.rotateRadians(radians)
-  
+
   implicit val rotateAxesImplicit: RotateAxes[TransElem] = new RotateAxes[TransElem]
   { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
     override def rotateT90(obj: TransElem): TransElem = obj.rotate90
@@ -65,13 +65,13 @@ object TransElem
     /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
     override def rotateT270(obj: TransElem): TransElem = obj.rotate270
   }
-  
+
   implicit val mirrorAxisImplicit: ReflectAxis[TransElem] = new ReflectAxis[TransElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.mirrorXOffset(yOffset)
+    override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXOffset(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.mirrorYOffset(xOffset)
+    override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.reflectYOffset(xOffset)
   }
   
   implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)

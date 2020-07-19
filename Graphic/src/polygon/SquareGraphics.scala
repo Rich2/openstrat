@@ -8,10 +8,10 @@ final case class SquareFill(shape: Square, fillColour: Colour) extends ShapeFill
 {
   override def rendToCanvas(cp: CanvasPlatform): Unit = {}
 
-  override def mirrorXOffset(yOffset: Double): SquareFill = SquareFill(shape.mirrorXOffset(yOffset), fillColour)
-  @inline def mirrorX: SquareFill = mirrorXOffset(0)
-  override def mirrorYOffset(xOffset: Double): SquareFill = SquareFill(shape.mirrorYOffset(xOffset), fillColour)
-  @inline def mirrorY: SquareFill = mirrorYOffset(0)
+  override def reflectXOffset(yOffset: Double): SquareFill = SquareFill(shape.reflectXOffset(yOffset), fillColour)
+  @inline def reflectX: SquareFill = reflectXOffset(0)
+  override def reflectYOffset(xOffset: Double): SquareFill = SquareFill(shape.reflectYOffset(xOffset), fillColour)
+  @inline def reflectY: SquareFill = reflectYOffset(0)
 
   /** Translate 2d geometric vector transformation. Square properties are maintained under a trasnlate transformation. */
   override def slate(offset: Vec2): SquareFill = SquareFill(shape.slate(offset), fillColour)

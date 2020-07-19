@@ -10,7 +10,7 @@ trait EllipseGraphic extends ShapeGraphic//
   
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */  
-  override def mirrorX: ThisT = fTrans(shape.mirrorX)
+  override def reflectX: ThisT = fTrans(shape.reflectX)
   
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ThisT = fTrans(shape.slate(offset))
@@ -32,14 +32,14 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def scale(operand: Double): DisplayElem = ???
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def mirrorYOffset(xOffset: Double): DisplayElem = ???
+  override def reflectYOffset(xOffset: Double): DisplayElem = ???
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def mirrorXOffset(yOffset: Double): DisplayElem = ???  
+  override def reflectXOffset(yOffset: Double): DisplayElem = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def mirrorY: DisplayElem = ???
+  override def reflectY: DisplayElem = ???
 
   override def prolign(matrix: ProlignMatrix): DisplayElem = ???
 

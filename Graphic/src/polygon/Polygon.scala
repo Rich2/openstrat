@@ -93,7 +93,7 @@ final class Polygon(val arrayUnsafe: Array[Double]) extends PolygonTr with Vec2s
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 
-  override def mirrorX: Polygon = ???
+  override def reflectX: Polygon = ???
 
   override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
 
