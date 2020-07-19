@@ -22,6 +22,12 @@ final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Dou
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(v0), f(v1))
 
   override def rotation: Angle = (v0 - v3).angle
+
+  override def fill(fillColour: Colour): ShapeFill = ???
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 

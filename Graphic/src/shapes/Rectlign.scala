@@ -13,6 +13,12 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def reflect(line: Sline): TransElem = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+
+  override def fill(fillColour: Colour): ShapeFill = ???
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 /** Companion object for the Rectlign class */

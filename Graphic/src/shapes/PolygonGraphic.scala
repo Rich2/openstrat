@@ -5,7 +5,7 @@ import pCanv._, Colour.Black, pXml._
 
 trait PolygonGraphic extends DisplayAffineElem with DisplayBoundedAffine with ShapeGraphic
 { type ThisT <: PolygonGraphic
-  override def shape: PolygonTr
+  override def shape: Polygon
   def xHead: Double = shape.x0
   def yHead: Double = shape.y0
 
@@ -26,7 +26,7 @@ trait PolygonGraphic extends DisplayAffineElem with DisplayBoundedAffine with Sh
 
 /** An active transparent pointable polygon */
 trait PolygonActive extends DisplayActive
-{ def shape: PolygonTr
+{ def shape: Polygon
   override def boundingRect = shape.boundingRect
   override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
 }
@@ -36,7 +36,7 @@ trait PolygonActive extends DisplayActive
  * @constructor create a new PolygonFill with the underlying polygon and a colour.
  * @param shape The Polygon shape.
  * @param fillColour The colour of this graphic. */
-final case class PolygonFill(shape: PolygonTr, fillColour: Colour) extends PolygonGraphic with ShapeFill
+final case class PolygonFill(shape: Polygon, fillColour: Colour) extends PolygonGraphic with ShapeFill
 { override type ThisT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, fillColour)
@@ -44,7 +44,7 @@ final case class PolygonFill(shape: PolygonTr, fillColour: Colour) extends Polyg
 }
 
 object PolygonFill
-{ implicit val persistImplicit: Persist2[PolygonTr, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.fillColour, apply)
+{ implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.fillColour, apply)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
@@ -57,7 +57,7 @@ case class PolygonFillActive(shape: Polygon, pointerId: Any, colour: Colour) ext
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
-case class PolygonDraw(shape: PolygonTr, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic with ShapeDraw
+case class PolygonDraw(shape: Polygon, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic with ShapeDraw
 { override type ThisT = PolygonDraw
   override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyDraw(shape, lineWidth, lineColour)
@@ -66,12 +66,12 @@ case class PolygonDraw(shape: PolygonTr, lineWidth: Double, lineColour: Colour =
 }
 
 object PolygonDraw
-{ implicit val persistImplicit: Persist3[PolygonTr, Double, Colour, PolygonDraw] =
+{ implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolygonDraw] =
     Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
-case class PolygonFillDraw(shape: PolygonTr, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic with
+case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphic with
   ShapeFillDraw
 { override type ThisT = PolygonFillDraw
   override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
@@ -82,7 +82,7 @@ case class PolygonFillDraw(shape: PolygonTr, fillColour: Colour, lineWidth: Doub
 }
 
 object PolygonFillDraw
-{ implicit val persistImplicit: Persist4[PolygonTr, Colour, Double, Colour, PolygonFillDraw] =
+{ implicit val persistImplicit: Persist4[Polygon, Colour, Double, Colour, PolygonFillDraw] =
     Persist4("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "lineWidth", _.lineWidth, "lineColour", _.lineColour, apply)
 }
 
