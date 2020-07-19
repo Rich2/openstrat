@@ -1,23 +1,15 @@
+/* Copyright 2018-20 Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 case class LessonA1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
 {
-  val sq = Square(100, -100, 200, 0.degs)
-  debvar(sq.cen)
-  debvar(sq.v2)
-  debvar(sq.v3)
-  val sq2 = Square(100, -100, 100, 0.degs)
-  val sq3 = Square(100, -200, 100, 20.degs)
-  debvar(sq)
   repaints(
-    Circle(70).fill(Orange),
-    Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
-    Rectangle(200, 100, 100 vv 50).fill(Green),
-    sq.fill(Red),
-    sq2.fill(Pink),
-    sq3.fill(Colour.DarkMagenta),
-    TextGraphic("s1", 24, -100 vv 200)
+    Circle(100, 0, 0).fill(SeaGreen),
+    Circle(70, 50, 80).fill(Orange),
+    Circle(80, 300, 0).fill(Red),
+    Circle(80, -250, 150).fill(Colour.LemonLime),
+    Circle(40, 0, -220).fill(Colour.DarkGoldenRod),
   )
 }
 

@@ -11,7 +11,7 @@ trait RectCenlign extends Rectangularlign
   def left = - width / 2
   def right = width / 2
   def top = height / 2
-  def bottom = - height / 2
+  def bottom = -height / 2
   def panelCen: Vec2 = Vec2(0, 0)
   def cenLeft = Vec2(left, 0)
   def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw = LineSegs.doubles(
