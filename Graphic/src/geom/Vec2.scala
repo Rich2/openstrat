@@ -53,28 +53,25 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def scaleY(factor: Double): Vec2 = Vec2(x, y * factor)
   def scaleX(factor: Double): Vec2 = Vec2(x * factor, y)
 
-  /** Reflects this along a line. */
-  def mirror(line: Line): Vec2 = line match
-  { case xl: XLine => mirrorXLine(xl)
-    case yl: YLine => mirrorYLine(yl)  
+  /** Reflects or mirrors this across a line. */
+  def reflect(line: Line): Vec2 = line match
+  { case xl: XLine => reflectXLine(xl)
+    case yl: YLine => reflectYLine(yl)
   }
 
-  /** Reflects this along a line which is specified by two points on the line. */
-  def mirror(lineSeg: Sline): Vec2 =
+  /** Reflects or mirrors this across a line which is specified by two points on the line. */
+  def reflect(lineSeg: Sline): Vec2 =
   { val v1 = lineSeg.pStart
     val v2 = lineSeg.pEnd
     val lineDelta: Vec2 = v2 - v1
     val lineUnitVector = lineDelta / lineDelta.magnitude
     2 * v1 - this - 2 * (v1 - this).dot(lineUnitVector) * lineUnitVector
   }
-  
-  /** Mirrors this Vec2 across an XLine. */
-  def mirrorXLine(line: XLine): Vec2 = ???
-  
-  def mirrorYLine(line: YLine): Vec2 = ???
 
-  /** Reflects this along a line which is specified by two points on the line. */
- // def mirrorLineSeg(ls: LineSeg): Vec2 = mirror(ls.pStart, ls.pEnd)
+  /** Mirrors this Vec2 across an XLine. */
+  def reflectXLine(line: XLine): Vec2 = ???
+
+  def reflectYLine(line: YLine): Vec2 = ???
 
   /** Mirrors along the Y axis by negating X. */
   def mirrorY: Vec2 = Vec2(-x, y)

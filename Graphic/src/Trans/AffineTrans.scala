@@ -12,8 +12,8 @@ trait AffineTrans[T] extends TransSim[T]
   override def rotateRadians(obj: T, radians: Double): T = trans(obj, _.rotateRadians(radians))
   def mirrorYOffset(obj: T, xOffset: Double): T = trans(obj, _.mirrorYOffset(xOffset))
   def mirrorXOffset(obj: T, yOffset: Double): T = trans(obj, _.mirrorXOffset(yOffset))
-  override def reflectSegT(obj: T, line: Sline): T = trans(obj, _.mirror(line))
-  override def reflectT(obj: T, line: Line): T = trans(obj, _.mirror(line))
+  override def reflectSegT(obj: T, line: Sline): T = trans(obj, _.reflect(line))
+  override def reflectT(obj: T, line: Line): T = trans(obj, _.reflect(line))
 }
 
 /** The companion object for the Trans[T] typeclass, containing instances for common classes. */

@@ -80,7 +80,7 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
 
   def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 
-  def mirrorPt(pt: Vec2): Vec2 = pt.mirror(this)
+  def mirrorPt(pt: Vec2): Vec2 = pt.reflect(this)
 
   /** Converts this 2 dimensional line segment to an infinite length 2 dimensional line */
   //def toLine: Line = ???

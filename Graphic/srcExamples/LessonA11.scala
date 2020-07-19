@@ -9,7 +9,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val p1 = -100 vv 200
 
   val c1 = Cross(1, p1)
-  val c1r = Cross(1, p1.mirror(line1))
+  val c1r = Cross(1, p1.reflect(line1))
   val rect = Rectangle(200, 100, 200 vv 200)
   val r1 = rect.fill(Red)
   val r1r = rect.reflect(line1).fill(Orange)

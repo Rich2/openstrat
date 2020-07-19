@@ -14,7 +14,7 @@ final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Dou
   def reflectXOffset(yOffset: Double): Rect = Rect.v0v1(v1.mirrorXOffset(yOffset), v0.mirrorXOffset(yOffset), width)
   def reflectYOffset(xOffset: Double): Rect = Rect.v0v1(v1.mirrorYOffset(xOffset), v0.mirrorYOffset(xOffset), width)
 
-  override def reflect(line: Line): Rect = ???
+  override def reflect(line: Line): Rect = Rect.v0v1(v1.reflect(line), v0.reflect(line), width)
 
   override def reflect(line: Sline): Rect = ???
 
