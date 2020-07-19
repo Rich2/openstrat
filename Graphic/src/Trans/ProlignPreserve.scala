@@ -13,8 +13,8 @@ trait ProlignPreserve extends TransElem
   def scale(operand: Double): ThisT = fTrans(_ * operand)
   override def mirrorX: ThisT = fTrans(_.mirrorX)
   override def mirrorY: ThisT = fTrans(_.mirrorY)
-  def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
-  def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
+
+
   /** Rotates 90 degrees or Pi / 2 radians anticlockwise. */
   override def rotate90: ThisT = fTrans(_.rotate90)
 

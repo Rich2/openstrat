@@ -5,7 +5,9 @@ import reflect.ClassTag
 
 /** All leaf classes of this type that will preserve their types for all the Similar 2d geometrical transformations. */
 trait SimilarPreserve extends ProlignPreserve
-{ type ThisT <: SimilarPreserve  
+{ type ThisT <: SimilarPreserve
+  def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
+  def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
   def reflect(line: Line): ThisT = fTrans(_.mirror(line))
   def reflect(lineSeg: Sline): ThisT = fTrans(_.mirror(lineSeg))
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)

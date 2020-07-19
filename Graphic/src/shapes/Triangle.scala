@@ -72,7 +72,8 @@ final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Doubl
 	override def foreach[U](f: Vec2 => U): Unit = ???
 
 	override def rotateRadians(radians: Double): IsosTriangleClass = ???
-
+	def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
+	def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
 	override def reflect(line: Line): TransElem = ???
 	override def reflect(line: Sline): TransElem = ???
 
@@ -95,6 +96,8 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 
 	override def rotateRadians(radians: Double): Triangle = ???
 
+	def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
+	def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
 	override def reflect(line: Line): TransElem = ???
 
 	override def reflect(line: Sline): TransElem = ???

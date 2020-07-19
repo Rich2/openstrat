@@ -37,6 +37,8 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
   }
 
   @inline def polygonMap(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
+
+
   @inline override def rotateRadians(radians: Double): PolygonTr = polygonMap(_.rotateRadians(radians))
 
   override def shearX(operand: Double): PolygonTr = ???

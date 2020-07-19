@@ -8,7 +8,8 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def fTrans(f: Vec2 => Vec2): Rectlign = ???
 
   override def rotateRadians(radians: Double): Rect = ???
-
+  def mirrorXOffset(yOffset: Double): ThisT = fTrans(_.mirrorXOffset(yOffset))
+  def mirrorYOffset(xOffset: Double): ThisT = fTrans(_.mirrorYOffset(xOffset))
   override def reflect(line: Line): TransElem = ???
   override def reflect(line: Sline): TransElem = ???
 
