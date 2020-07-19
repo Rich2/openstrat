@@ -7,10 +7,10 @@ case class LessonA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
   // everything on a line onwards from // is ignored by the compiler (which turns code into something a machine can run)
   // they are useful amongst other things for humans to remind themselves what is intended in their coding and give hints to others trying to understand
   // ??comment for repaints?
-  val sq = Square(100, -100, 200, 0.degs)
-  debvar(sq.cen)
-  debvar(sq.v2)
-  debvar(sq.v3)
+  val sq = Square(100, -100, 200, 0.degs).fill(Red)
+ // debvar(sq.shape.cen)
+  //debvar(sq.shape.v2)
+  //debvar(sq.v3)
   val sq2 = Square(100, -100, 100, 0.degs)
   val sq3 = Square(100, -200, 100, 20.degs)
   debvar(sq)
@@ -39,7 +39,7 @@ case class LessonA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
     TextGraphic("222, 100", 14, 222 vv 100, SlateBlue),
     Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
     Rectangle(200, 100, 100 vv 50).fill(Green),
-    sq.fill(Red),
+    sq,
     sq2.fill(Pink),
     sq3.fill(Colour.DarkMagenta),
     TextGraphic("s1", 24, -100 vv 200)
