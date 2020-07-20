@@ -8,7 +8,11 @@ trait CircleGraphic extends ShapeGraphic with SimilarPreserve
   override def shape: Circle
   def svgStr: String = closedTagStr("circle", attribs)
   def circleAttribs: Arr[NumericAttrib] = shape.circleAttribs  
-  def cen: Vec2 = shape.cen
+  @inline final def cen: Vec2 = shape.cen
+  @inline final def xCen: Double = shape.xCen
+  @inline final def yCen: Double = shape.yCen
+  @inline final def radius: Double = shape.radius
+  @inline final def diameter: Double = shape.diameter
 }
 
 final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGraphic with ShapeFill

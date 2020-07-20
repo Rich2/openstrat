@@ -150,10 +150,9 @@ object CanvasJs extends CanvasTopLeft
   }
 
   override def tlCircleFill(cf: CircleFill): Unit =
-  { val ci = cf.shape
-    gc.beginPath()
+  { gc.beginPath()
     gc.fillStyle = cf.fillColour.webStr
-    gc.arc(ci.xCen, ci.yCen, ci.radius, 0, Pi * 2)
+    gc.arc(cf.xCen, cf.yCen, cf.radius, 0, Pi * 2)
     gc.fill()
   }
 
