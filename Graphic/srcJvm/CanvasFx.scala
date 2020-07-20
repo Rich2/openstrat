@@ -85,19 +85,17 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
   
   override def tlCircleDraw(cd: CircleDraw): Unit =
-  { val circ = cd.shape
-    gc.setLineWidth(cd.lineWidth)
+  { gc.setLineWidth(cd.lineWidth)
     gc.setStroke(toFxColor(cd.lineColour))
-    gc.strokeOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
+    gc.strokeOval(cd.xCen - cd.radius, cd.yCen - cd.radius, cd.diameter, cd.diameter)
   }
   
   override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
-  { val circ = cfd.shape
-    gc.setFill(toFxColor(cfd.fillColour))
-    gc.fillOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
+  { gc.setFill(toFxColor(cfd.fillColour))
+    gc.fillOval(cfd.xCen - cfd.radius, cfd.yCen - cfd.radius, cfd.diameter, cfd.diameter)
     gc.setLineWidth(cfd.lineWidth)
     gc.setStroke(toFxColor(cfd.lineColour))
-    gc.strokeOval(circ.xCen - circ.radius, circ.yCen - circ.radius, circ.diameter, circ.diameter)
+    gc.strokeOval(cfd.xCen - cfd.radius, cfd.yCen - cfd.radius, cfd.diameter, cfd.diameter)
   }
 
   override def tlEllipseFill(ef: EllipseFill): Unit = 
