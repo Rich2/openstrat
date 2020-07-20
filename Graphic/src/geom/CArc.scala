@@ -42,8 +42,8 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def rotateRadians(operandRadians: Double): CArc =
     CArc(pStart.rotateRadians(operandRadians), cen.rotateRadians(operandRadians), deltaRadians)
 
-  override def reflectYOffset(xOffset: Double): CArc = CArc(pStart.mirrorYOffset(xOffset), cen.mirrorYOffset(xOffset), -deltaRadians)
-  override def reflectXOffset(yOffset: Double): CArc = CArc(pStart.mirrorXOffset(yOffset), cen.mirrorXOffset(yOffset), -deltaRadians)
+  override def reflectYOffset(xOffset: Double): CArc = CArc(pStart.reflectYOffset(xOffset), cen.reflectYOffset(xOffset), -deltaRadians)
+  override def reflectXOffset(yOffset: Double): CArc = CArc(pStart.reflectXOffset(yOffset), cen.reflectXOffset(yOffset), -deltaRadians)
 
   override def reflect(line: Sline): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)

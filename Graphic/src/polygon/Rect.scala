@@ -9,10 +9,10 @@ final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Dou
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(v0), f(v1))
 
   override def rotation: Angle = (v0 - v3).angle
-  override def reflectX: Rect = Rect.v0v1(v1.mirrorX, v0.mirrorX, width)
-  override def reflectY: Rect = Rect.v0v1(v1.mirrorY, v0.mirrorY, width)
-  def reflectXOffset(yOffset: Double): Rect = Rect.v0v1(v1.mirrorXOffset(yOffset), v0.mirrorXOffset(yOffset), width)
-  def reflectYOffset(xOffset: Double): Rect = Rect.v0v1(v1.mirrorYOffset(xOffset), v0.mirrorYOffset(xOffset), width)
+  override def reflectX: Rect = Rect.v0v1(v1.reflectX, v0.reflectX, width)
+  override def reflectY: Rect = Rect.v0v1(v1.reflectY, v0.reflectY, width)
+  def reflectXOffset(yOffset: Double): Rect = Rect.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
+  def reflectYOffset(xOffset: Double): Rect = Rect.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
 
   override def reflect(line: Line): Rect = Rect.v0v1(v1.reflect(line), v0.reflect(line), width)
 

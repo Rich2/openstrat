@@ -21,10 +21,10 @@ class AffineExtensions[T](value: T, ev: AffineTrans[T])
   def scaleX(factor: Double): T = trans(_.scaleX(factor))
 
   /** Mirrors along the Y axis by negating X. */
-  def negX: T = trans(_.mirrorY)
+  def negX: T = trans(_.reflectY)
 
   /** Mirrors along the X axis by negating Y. */
-  def negY: T = trans(_.mirrorX)
+  def negY: T = trans(_.reflectX)
 
   /** Vec2 transformation that negates x and y values */
   def negXY: T = trans(- _)

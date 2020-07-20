@@ -12,11 +12,11 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen * operand)
 
-  override def reflectXOffset(yOffset: Double): Sqlign = Sqlign(width, cen.mirrorXOffset(yOffset))
+  override def reflectXOffset(yOffset: Double): Sqlign = Sqlign(width, cen.reflectXOffset(yOffset))
 
   override def reflectX: Sqlign = Sqlign(width, xCen, -yCen)
 
-  override def reflectYOffset(xOffset: Double): Sqlign = Sqlign(width, cen.mirrorYOffset(xOffset))
+  override def reflectYOffset(xOffset: Double): Sqlign = Sqlign(width, cen.reflectYOffset(xOffset))
 
   override def reflectY: Sqlign = Sqlign(width, -xCen, yCen)
 

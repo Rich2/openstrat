@@ -26,13 +26,13 @@ final class Square private(val x0: Double, val y0: Double, val x1: Double, val y
 
   override def scale(operand: Double): Square = Square(width * operand, cen * operand)
 
-  override def reflectXOffset(yOffset: Double): Square = Square(width, cen.mirrorXOffset(yOffset))
+  override def reflectXOffset(yOffset: Double): Square = Square(width, cen.reflectXOffset(yOffset))
 
   override def reflectX: Square = Square(width, xCen, -yCen, rotation)
 
-  override def reflectYOffset(xOffset: Double): Square = Square(width, cen.mirrorYOffset(xOffset))
+  override def reflectYOffset(xOffset: Double): Square = Square(width, cen.reflectYOffset(xOffset))
 
-  override def reflectY: Square = Square.v0v1(v1.mirrorY, v0.mirrorY)
+  override def reflectY: Square = Square.v0v1(v1.reflectY, v0.reflectY)
 
   override def prolign(matrix: ProlignMatrix): Square = Square(width * matrix.vFactor, cen.prolign(matrix), rotation)
 
