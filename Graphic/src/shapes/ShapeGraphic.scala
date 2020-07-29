@@ -6,6 +6,15 @@ import pXml._
 trait ShapeGraphic extends DisplayElem
 { def shape: Shape
   def attribs: Arr[Attrib]
+  def svgStr: String
+}
+
+object ShapeGraphic
+{
+  implicit class ArrImplicit(val thisArr: Arr[ShapeGraphic])
+  {
+    def svgList: String = thisArr.foldLeft("")(_ + " " + _)
+  }
 }
 
 /** A shape graphic that includes a fill. */

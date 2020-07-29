@@ -38,13 +38,10 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
 
   @inline def polygonMap(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
-
   @inline override def rotateRadians(radians: Double): PolygonTr = polygonMap(_.rotateRadians(radians))
 
   override def shearX(operand: Double): PolygonTr = ???
   override def shearY(operand: Double): PolygonTr = ???
-
-
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs =if (length > 1)

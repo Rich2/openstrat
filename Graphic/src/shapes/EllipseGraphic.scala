@@ -17,6 +17,8 @@ trait EllipseGraphic extends ShapeGraphic//
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(shape.slate(xOffset, yOffset))
+
+  override def svgStr: String = ???
 }
 
 final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends EllipseGraphic with ShapeFill
