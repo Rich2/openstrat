@@ -146,6 +146,7 @@ object PolygonFillDrawText
     "lineColour", _.lineColour, apply)
 }
 
+/** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */
 case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphic
   with PolygonActive
 { override type ThisT = PolygonFillTextActive
