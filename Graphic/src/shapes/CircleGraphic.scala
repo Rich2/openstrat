@@ -15,6 +15,14 @@ trait CircleGraphic extends ShapeGraphic with SimilarPreserve
   @inline final def diameter: Double = shape.diameter
 }
 
+object CircleGraphic
+{
+  implicit class ArrImplicit(val thisArr: Arr[CircleGraphic])
+  {
+    def svgList: String = thisArr.foldLeft("")(_ + " " + _)
+  }
+}
+
 final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGraphic with ShapeFill
 { type ThisT = CircleFill
   override def fTrans(f: Vec2 => Vec2): ThisT = CircleFill(shape.fTrans(f), fillColour)

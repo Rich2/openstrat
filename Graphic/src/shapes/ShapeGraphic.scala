@@ -8,14 +8,14 @@ trait ShapeGraphic extends DisplayElem
   def attribs: Arr[Attrib]
 }
 
+/** A shape graphic that includes a fill. */
 trait ShapeFillTr extends ShapeGraphic
 { def fillColour: Colour
   def fillAttrib: FillAttrib = FillAttrib(fillColour)  
 }
 
+/** A Graphic that just fills a shape. */
 trait ShapeFill extends ShapeFillTr
-{ //override def attribs: Arr[Attrib] = Arr(fillAttrib)
-}
 
 trait ShapeDrawTr extends ShapeGraphic
 { def lineWidth: Double
