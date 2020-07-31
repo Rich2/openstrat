@@ -5,17 +5,17 @@ ThisBuild/scalaVersion := "2.13.3"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-def commonSettings = List(
+def commonSett = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,  
   testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
 
-def jvmSettings = commonSettings ::: List(
+def jvmSett = commonSett ::: List(
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
 )
 
-def stdSettings(name: String) = jvmSettings ::: List(
+def stdSettings(name: String) = jvmSett ::: List(
   scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / name / "srcExamples"),
@@ -29,7 +29,7 @@ def stdSettings(name: String) = jvmSettings ::: List(
 
 lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, Strat, Dev, JsDev)
 
-lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(jvmSettings).settings(
+lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(jvmSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
@@ -46,7 +46,7 @@ lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(libraryDepende
 lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic)
 lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling)
 
-lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSettings).settings(
+lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
@@ -56,7 +56,7 @@ lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugi
 
 val libModules =  List("Util", "Graphic", "Tiling", "Strat")
 
-lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(jvmSettings).settings(
+lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(jvmSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/unmanagedSourceDirectories := libModules.flatMap(nameStr => List("src", "srcJvm").map(endStr => (ThisBuild/baseDirectory).value / nameStr / endStr)),
@@ -71,7 +71,7 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
 
 val docDirs: List[String] = List("Util", "Graphic", "Tiling", "Strat", "Dev")
 
-lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSettings).settings(
+lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExamples")).map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
@@ -80,7 +80,7 @@ lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).set
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
 )
 
-lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSettings).settings(
+lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExamples")).map(s => (ThisBuild/baseDirectory).value / s),
   version := "0.0.7snap",
@@ -88,7 +88,7 @@ lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).setti
   apiURL := Some(url("https://richstrat.com/api/")),
 )
 
-def jsProj(name: String) = Project("Js" + name, file("target/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSettings).settings(
+def jsProj(name: String) = Project("Js" + name, file("target/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.0.0",
   scalaSource := (ThisBuild/baseDirectory).value / name / "src",
