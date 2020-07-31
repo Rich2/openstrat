@@ -15,16 +15,8 @@ def jvmSett = commonSett ::: List(
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
 )
 
-def stdSettings(name: String) = jvmSett ::: List(
-  scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / name / "/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / name / "ExsSrc"),
-  resourceDirectory := (ThisBuild/baseDirectory).value / name / "/res",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / name / "testSrc",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / name / "ExsSrc"),
-  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / name / "testRes",
-  Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
-  version := (ThisBuild/version).value
+def mainJvmSett(name: String) = jvmSett ::: List(
+  
 )
 
 lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, Strat, Dev, JsDev)
@@ -37,19 +29,28 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-def stdJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(stdSettings(nameStr)).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / nameStr / "srcJvm"
+def mainJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(mainJvmSett(nameStr)).settings(
+  //Compile/unmanagedSourceDirectories += 
+  scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / nameStr / "ExsSrc", (ThisBuild/baseDirectory).value / nameStr / "srcJvm"),
+  resourceDirectory := (ThisBuild/baseDirectory).value / nameStr / "/res",
+  Test/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "testSrc",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / nameStr / "ExsSrc"),
+  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "testRes",
+  Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
+  version := (ThisBuild/version).value
 )
 
-lazy val Util = stdJvmProj("Util").dependsOn(UtilMacros)
-lazy val Graphic = stdJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
-lazy val Tiling = stdJvmProj("Tiling").dependsOn(Graphic)
-lazy val Strat = stdJvmProj("Strat").dependsOn(Tiling)
+lazy val Util = mainJvmProj("Util").dependsOn(UtilMacros)
+lazy val Graphic = mainJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
+lazy val Tiling = mainJvmProj("Tiling").dependsOn(Graphic)
+lazy val Strat = mainJvmProj("Strat").dependsOn(Tiling)
 
-lazy val Dev = stdJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSett).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
+lazy val Dev = mainJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlugin).settings(commonSett).settings(
+  //scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
+  //Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
+  //Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
