@@ -11,27 +11,20 @@ def commonSett = List(
   testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
 
-def jvmSett = commonSett ::: List(
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
-)
-
-def mainJvmSett(name: String) = jvmSett ::: List(
-  
-)
-
 lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, Strat, Dev, JsDev)
 
-lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(jvmSett).settings(
+lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
 )
 
-def mainJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(mainJvmSett(nameStr)).settings(
-  //Compile/unmanagedSourceDirectories += 
+def mainJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / nameStr / "ExsSrc", (ThisBuild/baseDirectory).value / nameStr / "srcJvm"),
   resourceDirectory := (ThisBuild/baseDirectory).value / nameStr / "/res",
@@ -57,7 +50,7 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(Strat).enablePlugins(ScalaUnidocPlug
 
 val libModules =  List("Util", "Graphic", "Tiling", "Strat")
 
-lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(jvmSett).settings(
+lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/unmanagedSourceDirectories := libModules.flatMap(nameStr => List("src", "srcJvm").map(endStr => (ThisBuild/baseDirectory).value / nameStr / endStr)),
