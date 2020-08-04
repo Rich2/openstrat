@@ -116,7 +116,7 @@
     </ul>
   </li>
 
-  <li><b>Graphic</b> Depends on UtilMacros and Util, organised into the following packages:
+  <li><b>Graphic Module</b> Depends on UtilMacros and Util, organised into the following packages:
     <ul>
 
       <li>ostrat.geom A pure or near pure functional package.
@@ -137,16 +137,14 @@
           <li>There is no implementation for Native yet. I'm waiting for Scala-native to get up on 2.12 before experimenting. Running a game server in native should pose no problems. However there is no easily accessible canvas for native on Windows or Linux. The abstract canvas api could be implemented on DirectX or OpenGL, but this would require significantly more work than for the ScalaFx canvas or the Html Canvas.
           </li>
         </ul>
-      </li>
-
-      
+      </li>      
 
       <li>ostrat.p3d Currently just a stub. I have included it because 3d is the preferred GUI. I have started with 2d, just because 3d development is highly time consuming and I want to focus on game play and what might might be described as the algebra of tiling. There is no "physics engine", although there is time and distance and other basic mechanics maths will probably be included later. I prefer 3d graphics, but as we are dealing with animations not a "physics engine", 2d and 3d are completely interchangeable.  There will also be a command line interface. This will be the canonical interface, although it obviously won't be the normal user interface.
       </li>
     </ul>
   </li>
 
-  <li><b>Tiling</b> Depends on UtilMacros Util and Graphic, just has the ostrat.pGrid package depends on geom and pCanv.
+  <li><b>Tiling Module</b> Depends on UtilMacros Util and Graphic, just has the ostrat.pGrid package depends on geom and pCanv.
   	<ul>
   		<li>Abstract regular tile geometry.</li>
         <li>Square and hex tile grid geometry.</li>
@@ -154,7 +152,7 @@
     </ul>
   </li>
 
-  <li> <b>Strat</b>
+  <li> <b>World Module</b>
     <ul>
       
       <li>ostrat.pEarth depends on geom, pCanv and pGrid
@@ -166,24 +164,10 @@
 
       <li>ostrat.pEarth.pPts large irregular Earth terrain areas. This is mainly a development aid.</li>
 
-      <li>ostrat.pStrat depends on geom, pCanv and pGrid and pEarth.
-        <ul>
-          <li>Flags</li>
-          <li>DemoCanvas for graphics elements.</li>
-          <li>Odds and ends.</li>
-        </ul>
-      </li>
-
-      <li>ostrat.pCloseOrder. Pre modern close order formation based battles, not using tiles.</li>
-
-      <li>ostrat.pSpace A solar system app.</li>
-
-      <li>ostratpChess. A search for an elegant implementation of Draughts and Chess.</li>
-
     </ul>
   </li>
 
-<li><b>Dev</b> Depends on all the other modules. This is purely an integration module for development purposes and is not intended to contain library code.
+<li><b>Dev Module</b> The Module as a whole Depends on all the other modules. 
   <ul>
     <li>User folder contains developer settings</li>
     <li>Developer html pages, linked to sbt target and Mill out folder artifacts.</li>
@@ -201,6 +185,21 @@
         <li>ostrat.pGames.pDung A Square tile based dungeon game.</li>
       </ul>
     </li>
+
+      <li>ostrat.pStrat depends on geom, pCanv and pGrid and pEarth.
+        <ul>
+          <li>Flags</li>
+          <li>DemoCanvas for graphics elements.</li>
+          <li>Odds and ends.</li>
+        </ul>
+      </li>
+
+      <li>ostrat.pCloseOrder. Pre modern close order formation based battles, not using tiles.</li>
+
+      <li>ostrat.pSpace A solar system app.</li>
+
+      <li>ostratpChess. A search for an elegant implementation of Draughts and Chess.</li>
+
   </ul>
  </li>
 </ol>
