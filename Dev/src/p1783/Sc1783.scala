@@ -1,8 +1,7 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package p1783
 import pEarth._
-//import pGrid._
 
 class NapScen extends EarthAllMap[NTileOld, ESideOldOnly](NTileOld.apply, ESideOldOnly.apply)
 {
@@ -10,6 +9,5 @@ class NapScen extends EarthAllMap[NTileOld, ESideOldOnly](NTileOld.apply, ESideO
 }
 
 object Nap1 extends NapScen
-{  
-   fTiles[Polity](fCorp, (198, 466, Britain), (210, 458, France))
+{ fTiles[Polity](fCorp, (198, 466, Britain), (210, 458, France))
 }
