@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCard
 import Colour._
@@ -43,37 +43,32 @@ object Card
 }
 
 case class DispCard(unicode: Seq[Char], colour: Colour)// extends CanvObj
-{
-   def cardScale: Int = 100
-   def objWidth: Double = cardScale
-   def objHeight: Double = cardScale * 1.15
- //  def acts = Seq(TextFill(unicode.mkString, cardScale, colour, Vec2(objWidth * 0.6, objHeight * 0.8)))
- //  def elems: Seq[CanvEl] = Seq()
+{ def cardScale: Int = 100
+  def objWidth: Double = cardScale
+  def objHeight: Double = cardScale * 1.15
+  //def acts = Seq(TextFill(unicode.mkString, cardScale, colour, Vec2(objWidth * 0.6, objHeight * 0.8)))
+  //def elems: Seq[CanvEl] = Seq()
 }
 
-//object CardBack extends DispCard( ??? )
-
 case class Card(rank: Rank, suit: Suit)
-{    
-   override def toString: String = rank.toString + "Of" + suit.toString + "s" 
-   def suitColour: Colour = suit match
-   {
-      case Spade | Club => Black
-      case Heart | Diamond => Red
-   }   
+{ override def toString: String = rank.toString + "Of" + suit.toString + "s"
+
+  def suitColour: Colour = suit match
+  { case Spade | Club => Black
+    case Heart | Diamond => Red
+  }
    
-   def unicode: Array[Char] =
-   {
-      //The Unicode sets include a Knight rank between Jack and Queen
-      val offset = if (rank.value < 12) rank.value else rank.value + 1      
-      suit match
-      {//This uses unicode >= 0x10000 which require 2 java /javascript chars to encode one char
-         case Spade => java.lang.Character.toChars(0x1F0A0 + offset)
-         case Heart => java.lang.Character.toChars(0x1F0B0 + offset)
-         case Diamond => java.lang.Character.toChars(0x1F0C0 + offset)
-         case Club => java.lang.Character.toChars(0x1F0D0 + offset)
-      }
-   }   
+  def unicode: Array[Char] =
+  { //The Unicode sets include a Knight rank between Jack and Queen
+    val offset = if (rank.value < 12) rank.value else rank.value + 1
+    suit match
+    {//This uses unicode >= 0x10000 which require 2 java /javascript chars to encode one char
+      case Spade => java.lang.Character.toChars(0x1F0A0 + offset)
+      case Heart => java.lang.Character.toChars(0x1F0B0 + offset)
+      case Diamond => java.lang.Character.toChars(0x1F0C0 + offset)
+      case Club => java.lang.Character.toChars(0x1F0D0 + offset)
+    }
+  }
   
 //   def unicodeObj: CanvObj = DispCard(unicode, suitColour)
 }

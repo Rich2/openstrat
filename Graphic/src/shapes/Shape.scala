@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. */
 trait Shape extends TransElem
 { def fill(fillColour: Colour): ShapeFill
   def draw(lineWidth: Double, lineColour: Colour): ShapeDraw

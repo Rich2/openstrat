@@ -3,12 +3,14 @@ package ostrat
 package geom
 import pXml._
 
+/** A shape based graphic. */
 trait ShapeGraphic extends DisplayElem
 { def shape: Shape
   def attribs: Arr[Attrib]
   def svgStr: String
 }
 
+/** Companion object for the ShapeGraphic class. */
 object ShapeGraphic
 {
   implicit class ArrImplicit(val thisArr: Arr[ShapeGraphic])

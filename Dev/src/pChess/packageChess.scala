@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** This is a package for Chess and Draughts (also known as Checkers). It has been included in the main Strat library, as useful to have code. Because
