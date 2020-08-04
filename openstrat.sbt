@@ -53,10 +53,10 @@ lazy val Graphic = mainJvmProj("Graphic").dependsOn(Util).settings(libraryDepend
 lazy val GraphicExs = exsJvmProj("Graphic").dependsOn(Graphic)//.settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
 lazy val Tiling = mainJvmProj("Tiling").dependsOn(Graphic)
 lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling, GraphicExs)
-lazy val Strat = mainJvmProj("Strat").dependsOn(Tiling)
-lazy val StratExs = exsJvmProj("Strat").dependsOn(Strat, TilingExs)
+lazy val World = mainJvmProj("World").dependsOn(Tiling)
+lazy val WorldExs = exsJvmProj("World").dependsOn(World, TilingExs)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(StratExs).settings(commonSett).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(WorldExs).settings(commonSett).settings(
   //scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   //Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   //Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
@@ -64,7 +64,7 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(StratExs).settings(commonSett).setti
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-val libModules =  List("Util", "Graphic", "Tiling", "Strat")
+val libModules =  List("Util", "Graphic", "Tiling", "World")
 
 lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
@@ -122,12 +122,12 @@ lazy val JsTiling = jsProj("Tiling").dependsOn(JsGraphic).settings(
   Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsStrat = jsProj("Strat").dependsOn(JsTiling).settings(  
-  Compile/unmanagedSourceDirectories := List("Strat/src", "Strat/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val JsWorld = jsProj("World").dependsOn(JsTiling).settings(  
+  Compile/unmanagedSourceDirectories := List("World/src", "World/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsDev = jsProj("Dev").dependsOn(JsStrat).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Graphic/srcExamples", "Strat/srcExamples").map(s => (ThisBuild/baseDirectory).value / s),
+lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Graphic/ExsSrc", "World/ExsSrc").map(s => (ThisBuild/baseDirectory).value / s),
 )
 
 def dottySettings = List(

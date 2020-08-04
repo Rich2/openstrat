@@ -104,7 +104,7 @@ object Tiling extends PlatformsModule
   }
 }
 
-object Strat extends PlatformsModule
+object World extends PlatformsModule
 { def moduleDeps = Seq(Tiling)  
 
   object test extends InnerTests
@@ -114,14 +114,14 @@ object Strat extends PlatformsModule
 }
 
 object Dev extends PlatformsModule
-{ def moduleDeps = Seq(Strat)
+{ def moduleDeps = Seq(World)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src, Strat.millSourcePath / 'learn / 'src)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src, World.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'User)
 
 
   object js extends InnerJs
-  { def moduleDeps = Seq(Strat.js)
+  { def moduleDeps = Seq(World.js)
     def sources = T.sources(millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
   } 
 }
