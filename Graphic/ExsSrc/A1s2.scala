@@ -10,4 +10,5 @@ object A1s2 extends App
   Circle(80, -250, 150).fill(Colour.LemonLime),
   Circle(40, 0, -220).fill(Colour.DarkGoldenRod)
   )
+  println(cfs.svgList)
 }
