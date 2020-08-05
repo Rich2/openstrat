@@ -119,9 +119,14 @@ object Colour
   def apply(argbValue: Int) = new Colour(argbValue)
   def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
   def blackOrWhite(b: Boolean): Colour = if (b) Black else White
+
+  /** The classically designated 7 colours of the rainbow: Red, Orange, Yellow, Green, Blue, Indigo, Violet. */
   def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
 
-  def allColours: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c}
+  /** All the named colours. */
+  def allColours: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c }
+
+  def pairs: Arr[(Colour, Colour)] = ???
 
   /*implicit val optBuildImplicit: OptBuild[Colour] = new OptBuild[Colour]
   { override type OptT = OptOldColour
@@ -288,21 +293,23 @@ object Colour
 ("BlanchedAlmond", BlanchedAlmond), ("Blue", Blue), ("BlueViolet", BlueViolet), ("BrightSkyBlue", BrightSkyBlue), ("Brown", Brown),
 ("BurlyWood", BurlyWood), ("CadetBlue", CadetBlue), ("Chartreuse", Chartreuse), ("Chocolate", Chocolate), ("Coral", Coral),
 ("CornflowerBlue", CornflowerBlue), ("Cornsilk", Cornsilk), ("Crimson", Crimson),("Cyan", Cyan), ("DarkBlue", DarkBlue), ("DarkCyan", DarkCyan),
-("DarkGoldenRod", DarkGoldenRod), ("DarkGray", DarkGray), ("DarkGrey", DarkGrey), ("DarkGreen", DarkGreen), ("DarkKhaki", DarkKhaki), ("DarkMagenta", DarkMagenta),
-("DarkOliveGreen", DarkOliveGreen), ("DarkOrange", DarkOrange), ("DarkOrchid", DarkOrchid), ("DarkRed", DarkRed), ("DarkSalmon", DarkSalmon),
-("DarkSeaGreen", DarkSeaGreen), ("DarkSlateBlue", DarkSlateBlue), ("DarkSlateGray", DarkSlateGray), ("DarkSlateGrey", DarkSlateGrey), ("DarkTurquoise", DarkTurquoise),
-("DarkViolet", DarkViolet), ("DarkYellow", DarkYellow), ("DeepPink", DeepPink), ("DeepSkyBlue", DeepSkyBlue), ("DimGray", DimGray), ("DimGrey", DimGrey),
-("DodgerBlue", DodgerBlue), ("FireBrick", FireBrick), ("FloralWhite", FloralWhite), ("ForestGreen", ForestGreen), ("Fuchsia", Fuchsia),
-("Gainsboro", Gainsboro),("GhostWhite", GhostWhite), ("Gold", Gold), ("GoldenRod", GoldenRod), ("Gray", Gray), ("Grey", Gray), ("Green", Green), 
-("GreenYellow", GreenYellow), ("HoneyDew", HoneyDew), ("HotPk", HotPink), ("IndianRed", IndianRed), ("Indigo", Indigo), ("Ivory", Ivory), ("Khaki", Khaki),
-("Lavender", Lavender), ("LavenderBlush", LavenderBlush), ("LawnGreen", LawnGreen), ("LemonChiffon", LemonChiffon), ("LemonLime", LemonLime),
+("DarkGoldenRod", DarkGoldenRod), ("DarkGray", DarkGray), ("DarkGrey", DarkGrey), ("DarkGreen", DarkGreen), ("DarkKhaki", DarkKhaki),
+("DarkMagenta", DarkMagenta), ("DarkOliveGreen", DarkOliveGreen), ("DarkOrange", DarkOrange), ("DarkOrchid", DarkOrchid), ("DarkRed", DarkRed),
+("DarkSalmon", DarkSalmon), ("DarkSeaGreen", DarkSeaGreen), ("DarkSlateBlue", DarkSlateBlue), ("DarkSlateGray", DarkSlateGray),
+("DarkSlateGrey", DarkSlateGrey), ("DarkTurquoise", DarkTurquoise), ("DarkViolet", DarkViolet), ("DarkYellow", DarkYellow),
+("DeepPink", DeepPink), ("DeepSkyBlue", DeepSkyBlue), ("DimGray", DimGray), ("DimGrey", DimGrey), ("DodgerBlue", DodgerBlue),
+("FireBrick", FireBrick), ("FloralWhite", FloralWhite), ("ForestGreen", ForestGreen), ("Fuchsia", Fuchsia), ("Gainsboro", Gainsboro),
+("GhostWhite", GhostWhite), ("Gold", Gold), ("GoldenRod", GoldenRod), ("Gray", Gray), ("Grey", Gray), ("Green", Green), ("GreenYellow", GreenYellow),
+("HoneyDew", HoneyDew), ("HotPk", HotPink), ("IndianRed", IndianRed), ("Indigo", Indigo), ("Ivory", Ivory), ("Khaki", Khaki), ("Lavender", Lavender),
+("LavenderBlush", LavenderBlush), ("LawnGreen", LawnGreen), ("LemonChiffon", LemonChiffon), ("LemonLime", LemonLime),
 ("LightBlue", LightBlue), ("LightCoral", LightCoral), ("LightCyan", LightCyan), ("LightGoldenRodYellow", LightGoldenRodYellow),
-("LightGreen", LightGreen), ("LightGray", LightGray), ("LightGrey", LightGrey), ("LightPink", LightPink), ("LightRed", LightRed), ("LightSalmon", LightSalmon),
-("LightSeaGreen", LightSeaGreen), ("LightSkyBlue", LightSkyBlue), ("LightSlateGray", LightSlateGray), ("LightSlateGrey", LightSlateGrey), ("LightSteelBlue", LightSteelBlue),
-("LightYellow", LightYellow), ("Lime", Lime), ("LimeGreen", LimeGreen), ("Linen", Linen), ("Magenta", Magenta), ("Maroon", Maroon),
-("MediumAquaMarine", MediumAquaMarine), ("MediumBlue", MediumBlue), ("MediumOrchid", MediumOrchid), ("MediumPurple", MediumPurple),
-("MediumSeaGreen", MediumSeaGreen),("MediumSlateBlue", MediumSlateBlue), ("MediumSpringGreen", MediumSpringGreen), ("MediumTurquoise", MediumTurquoise),
-("MediumVioletRed", MediumVioletRed), ("MidnightBlue", MidnightBlue), ("MintCream", MintCream), ("MistyRose", MistyRose), 
+("LightGreen", LightGreen), ("LightGray", LightGray), ("LightGrey", LightGrey), ("LightPink", LightPink), ("LightRed", LightRed),
+("LightSalmon", LightSalmon), ("LightSeaGreen", LightSeaGreen), ("LightSkyBlue", LightSkyBlue), ("LightSlateGray", LightSlateGray),
+("LightSlateGrey", LightSlateGrey), ("LightSteelBlue", LightSteelBlue), ("LightYellow", LightYellow), ("Lime", Lime), ("LimeGreen", LimeGreen),
+("Linen", Linen), ("Magenta", Magenta), ("Maroon", Maroon), ("MediumAquaMarine", MediumAquaMarine), ("MediumBlue", MediumBlue),
+("MediumOrchid", MediumOrchid), ("MediumPurple", MediumPurple), ("MediumSeaGreen", MediumSeaGreen),("MediumSlateBlue", MediumSlateBlue),
+("MediumSpringGreen", MediumSpringGreen), ("MediumTurquoise", MediumTurquoise), ("MediumVioletRed", MediumVioletRed), ("MidnightBlue", MidnightBlue),
+("MintCream", MintCream), ("MistyRose", MistyRose),
 ("Moccasin", Moccasin), ("NavajoWhite", NavajoWhite), ("Navy", Navy), ("OldLace", OldLace), ("Olive", Olive), ("OliveDrab", OliveDrab), ("Orange", Orange),
 ("OrangeRed", OrangeRed), ("Orchid", Orchid), ("PaleGoldenRod", PaleGoldenRod), ("PaleGreen", PaleGreen), ("PaleTurquoise", PaleTurquoise),
 ("PaleVioletRed", PaleVioletRed), ("PapayaWhip", PapayaWhip), ("PeachPuff", PeachPuff), ("Peru", Peru), ("Pink", Pink), ("Plum", Plum),
