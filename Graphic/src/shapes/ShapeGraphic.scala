@@ -15,7 +15,7 @@ object ShapeGraphic
 {
   implicit class ArrImplicit(val thisArr: Arr[ShapeGraphic])
   {
-    def svgList: String = thisArr.foldLeft("")(_ + " " + _.svgStr)
+    def svgList: String = thisArr.foldLeft("")(_ + "\n" + _.svgStr)
   }
 }
 
