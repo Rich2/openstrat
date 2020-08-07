@@ -16,6 +16,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   def offset(value: Int): ArrOff[A] @uncheckedVariance = new ArrOff[A](value)
   def offset0: ArrOff[A @uncheckedVariance] = offset(0)
 
+  /** Copies the backing Array to the operand Array. */
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }
 
