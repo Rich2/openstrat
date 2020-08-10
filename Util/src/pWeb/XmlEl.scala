@@ -2,9 +2,9 @@
 package ostrat
 package pWeb
 
-/** Xml Content. This trait allows us to use ordinary strings and XMl elements as the default content of Xml elements. For stricter typing 
- *  every element should have its own type, but creating the content type for each element is time consuming. In a few cases like the HTML 
- *  style element the XCon type is not appropriate.  */
+/** Xml Content. This trait allows us to use ordinary strings and XMl elements as the default content of Xml elements. For stricter typing every
+ *  element should have its own type, but creating the content type for each element is time consuming. In a few cases like the HTML style element the
+ *  XCon type is not appropriate.  */
 trait XCon extends IndentCon
 //{
 //   def out(ind: Int): String
