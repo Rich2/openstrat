@@ -1,8 +1,9 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pHtmlFac
-import pWeb._, StratPage._, Colour._
+//import pWeb._, StratPage._, Colour._
 
+/*
 object Rcom
 { def apply(): List[StratPage]  = List(IndexPage, WWIIPage, Y1783Page, BC305Page, DungeonPage, PlanetPage, BrowserTestPage, AboutPage, ZugPage,
     CivPage, DraughtsPage)
@@ -190,4 +191,4 @@ object UtilitiesPage extends TextPage
     "classes, objects and methods, which I use for convenience. Its a very much a work in progress and has a lot of rough edges. So with that warning",
     "here is:" , HtmlBr,
     "<a href=", "/api/index.html".enquote, ">Scala Utility package</a>")()
-}
+}*/

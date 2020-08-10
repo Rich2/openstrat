@@ -3,7 +3,7 @@ package ostrat
 package pHtmlFac
 import pWeb._
 
-object StratPage 
+/*object StratPage
 {
   val cssVersion: String = "07"  
   def projDir = "/GenProj"
@@ -63,4 +63,4 @@ trait StratJsPage extends StratPage
   def fastName: String = jsFile + "-opt.js"
   def canv = HCanvas("scanv")
   //def sdiv : HtmlDiv =  HtmlDiv()(IdAtt("sjs"))  
-}
+}*/
