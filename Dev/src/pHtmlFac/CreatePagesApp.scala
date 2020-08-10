@@ -14,11 +14,11 @@ object CreatePagesApp extends App
       pw.close
    }
    import sys.process._
-   ("cp" -- onlyCss -- fastPagesDir / cssVersionName).!
+  // try{ ("cp" -- onlyCss -- fastPagesDir / cssVersionName).! } catch {case _ => }
    Rcom.local.foreach (pg => nFile(pg.fullLink, pg.out(false), fastPagesDir))
    println("fastPages" :- Rcom.local.length.toString -- "pages successfuly created")
-   
-   ("cp" -- onlyCss -- stageDir / cssVersionName).!
+
+ //  try{  ("cp" -- onlyCss -- stageDir / cssVersionName).!} catch {case _ => }
    Rcom().foreach (pg => nFile(pg.fullLink, pg.out(true), stageDir))
    println("staging" :- Rcom().length.toString -- "pages successfuly created")
    Rcom.jsDeploy.foreach(p => ("cp /openstrat/target" / p.jsFile / "target" / "scala-2.12" / p.fastName -- stageDir / p.stageName).!)
