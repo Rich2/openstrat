@@ -49,19 +49,17 @@ def exsJvmProj(nameStr: String) = Project(nameStr + "Exs", file("target/ExsJvm" 
 )
 
 lazy val Util = mainJvmProj("Util").dependsOn(UtilMacros).settings(
-assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
-)
-lazy val Graphic = mainJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
-lazy val GraphicExs = exsJvmProj("Graphic").dependsOn(Graphic)//.settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
-lazy val Tiling = mainJvmProj("Tiling").dependsOn(Graphic)
-lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling, GraphicExs)
-lazy val World = mainJvmProj("World").dependsOn(Tiling)
-lazy val WorldExs = exsJvmProj("World").dependsOn(World, TilingExs)
+  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false))
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(WorldExs).settings(commonSett).settings(
-  //scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
-  //Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
-  //Test/scalaSource := (ThisBuild/baseDirectory).value / "Dev/testSrc",
+lazy val UtilExs = exsJvmProj("Util").dependsOn(Util)
+lazy val Graphic = mainJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
+lazy val GraphicExs = exsJvmProj("Graphic").dependsOn(Graphic)
+lazy val Tiling = mainJvmProj("Tiling").dependsOn(Graphic)
+lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
+lazy val World = mainJvmProj("World").dependsOn(Tiling)
+lazy val WorldExs = exsJvmProj("World").dependsOn(World)
+
+lazy val Dev = mainJvmProj("Dev").dependsOn(GraphicExs, TilingExs, WorldExs).settings(commonSett).settings(
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
