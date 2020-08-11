@@ -8,6 +8,7 @@ class CurveSegDists(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdD
   override def typeStr: String = "CurvedSegDists"
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): DistCurveTail =
     new DistCurveTail(iMatch, d1, d2, d3, d4, d5, d6)
+  override def fElemStr: DistCurveTail => String = _.toString
 }
 
 object CurveSegDists extends ProdDbl7sCompanion[DistCurveTail, CurveSegDists]

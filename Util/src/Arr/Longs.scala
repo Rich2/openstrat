@@ -1,13 +1,17 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** Immutable Array based class for [[Long]]s. */
 class Longs(val array: Array[Long]) extends AnyVal with ArrBase[Long]
 { type ThisT = Longs
+  override def typeStr: String = "Longs"
   override def unsafeNew(length: Int): Longs = new Longs(new Array[Long](length))
   override def length: Int = array.length
   override def apply(index: Int): Long = array(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
+  override def fElemStr: Long => String = _.toString
 
   def ++ (op: Longs): Longs =
   { val newArray = new Array[Long](length + op.length)

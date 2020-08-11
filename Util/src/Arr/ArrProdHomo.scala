@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** A homogeneous Product. The final class can be stored as an Array of primitive values. */
@@ -8,9 +8,10 @@ trait ProdHomo extends Any with Product with SpecialT
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
 trait ArrProdHomo[A] extends Any with ArrBase[A]
 { type ThisT <: ArrProdHomo[A]
-  def typeStr: String
+
   def productSize: Int
   def arrLen: Int
+
 
   final def length: Int = arrLen / productSize
 

@@ -1,9 +1,11 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 
-/** An array[Int] based collection for Cood. */
+/** An array[Int] based collection for Cood. To be replaced by [[Roords]]. */
 class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt2[Cood]
 { type ThisT = Coods
+  override def fElemStr: Cood => String = _.str
   override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
   override def typeStr: String = "Coods"
   override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)

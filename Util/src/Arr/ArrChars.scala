@@ -1,13 +1,16 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Efficient immutable Array based collection for Chars. */
 final class Chars(val array: Array[Char]) extends AnyVal with ArrBase[Char]
 { type ThisT = Chars
+  override def typeStr: String = "Chars"
   override def unsafeNew(length: Int): Chars = new Chars(new Array[Char](length))
   override def length: Int = array.length
   override def apply(index: Int): Char = array(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
+  override def fElemStr: Char => String = _.toString
 
   /** Append another Chars collection. */
   def ++ (op: Chars): Chars =

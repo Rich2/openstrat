@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0.s */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -16,17 +16,6 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
   def arrLen = arrayUnsafe.length
 
   def foreachArr(f: Dbls => Unit): Unit
-
-  override def toString: String =
-  { var body = ""
-    var start = true
-    foreachArr { arr =>
-      val el = arr.toStrsCommaNoSpaceFold(_.toString)
-      if(start == true) {body = el; start = false}
-      else  body = body + ";  " + el
-    }
-    typeStr + body.enParenth
-  }
 
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =

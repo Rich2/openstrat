@@ -6,11 +6,12 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
  *  flatMap and fold and their variations' methods from ArrayLike. */
 final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrBase[A]
 { type ThisT = Arr[A] @uncheckedVariance
+  override def typeStr: String = "Arr"
   override def unsafeNew(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
   override def length: Int = unsafeArr.length
   override def apply(index: Int): A = unsafeArr(index)
-  override def toString: String = "Refs" + elemsStr
-  def elemsStr: String =  unsafeArr.toStrsCommaParenth()
+
+  override def fElemStr: A @uncheckedVariance => String = _.toString
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArr(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(1)
   def offset(value: Int): ArrOff[A] @uncheckedVariance = new ArrOff[A](value)

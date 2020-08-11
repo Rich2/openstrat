@@ -1,13 +1,18 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** Immutable Array based class for [[Float]]s. */
 class Floats(val array: Array[Float]) extends AnyVal with ArrBase[Float]
 { type ThisT = Floats
+  override def typeStr: String = "Floats"
   override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
   override def length: Int = array.length
   override def apply(index: Int): Float = array(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
+  override def fElemStr: Float => String = _.toString
+
 
   def ++ (op: Floats): Floats =
   { val newArray = new Array[Float](length + op.length)

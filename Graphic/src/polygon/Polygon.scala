@@ -133,8 +133,10 @@ object Polygon //extends ProductD2sCompanion[Vec2, Polygon]
 /** Specialised Array based immutable collection class for [[PolygonTr]]s.  */
 final class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[Polygon]
 { override type ThisT = Polygons
+  override def typeStr: String = "Polygons"
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): Polygons = new Polygons(aad)
   def apply(index: Int): Polygon = new Polygon(array(index))
+  override def fElemStr: Polygon => String = _.str
 }
 
 /** Companion object for the [[Polygons]] class. */

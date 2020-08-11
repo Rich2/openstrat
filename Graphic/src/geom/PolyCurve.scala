@@ -8,10 +8,9 @@ import Colour.Black
  *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
 class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] with AffinePreserve
 { type ThisT = PolyCurve
-  //type ThisT = PolyCurve
   def unsafeFromArray(array: Array[Double]): PolyCurve = new PolyCurve(array)
   override def typeStr = "Shape"
-
+  override def fElemStr: CurveTail => String = _.toString
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
     new CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
 
@@ -109,6 +108,5 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
 }
 
 object PolyCurve extends ProdDbl7sCompanion[CurveTail, PolyCurve]
-{
-   implicit val factory: Int => PolyCurve = i => new PolyCurve(new Array[Double](i * 7))
+{ implicit val factory: Int => PolyCurve = i => new PolyCurve(new Array[Double](i * 7))
 }

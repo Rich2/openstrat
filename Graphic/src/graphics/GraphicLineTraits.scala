@@ -20,7 +20,7 @@ object LineDraw
 }
 
 /** I think its to better to use the mame lineWidth consistently. */
-case class LinesDraw(lines: LineSegs, lineWidth: Double, colour: Colour = Black) extends DisplayAffineElem
+case class LinesDraw(lines: Slines, lineWidth: Double, colour: Colour = Black) extends DisplayAffineElem
 { override type ThisT = LinesDraw
   override def fTrans(f: Vec2 => Vec2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linesDraw(this)
@@ -28,7 +28,7 @@ case class LinesDraw(lines: LineSegs, lineWidth: Double, colour: Colour = Black)
 
 object LinesDraw
 {
-  implicit val persistImplicit: Persist3[LineSegs, Double, Colour, LinesDraw] =
+  implicit val persistImplicit: Persist3[Slines, Double, Colour, LinesDraw] =
     Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 

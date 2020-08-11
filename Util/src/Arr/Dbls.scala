@@ -1,14 +1,17 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
+/** An immutable Array based class for Doubles. */
 class Dbls(val array: Array[Double]) extends AnyVal with ArrBase[Double]
 { type ThisT = Dbls
+  override def typeStr: String = "Doubles"
   override def unsafeNew(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def length: Int = array.length
   override def apply(index: Int): Double = array(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
-
+  override def fElemStr: Double => String = _.toString
   def ++ (op: Dbls): Dbls =
   { val newArray = new Array[Double](length + op.length)
     array.copyToArray(newArray)

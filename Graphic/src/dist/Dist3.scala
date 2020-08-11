@@ -4,9 +4,8 @@ package geom
 import math._
 
 /** 3 dimensional vector using metres as units rather than pure numbers. */
-final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdDbl3 //with Stringer
+final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdDbl3
 { def typeStr: String = "Dist3"
-  //def str = persistD3(xMetres, yMetres, zMetres)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist3]
   def _1 = xMetres
   def _2 = yMetres
@@ -54,6 +53,7 @@ class Dist3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Dis
 { type ThisT = Dist3s
   def unsafeFromArray(array: Array[Double]): ThisT = new Dist3s(array)
   override def typeStr: String = "Dist3s"
+  override def fElemStr: Dist3 => String = _.str
   override def newElem(d1: Double, d2: Double, d3: Double): Dist3 = new Dist3(d1, d2, d3)
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative

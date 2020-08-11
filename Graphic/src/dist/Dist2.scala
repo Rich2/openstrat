@@ -3,7 +3,7 @@ package ostrat
 package geom
 import math._
 
-/** 2 dimensional vector using metres as units rather than pure numbers. */
+/** 2 dimensional vector using metres as units rather than pure scalar numbers. */
 final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
 { override def toString: String = Dist2.PersistImplicit.show(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
@@ -64,6 +64,7 @@ class Dist2s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Dis
   override def unsafeFromArray(array: Array[Double]): Dist2s = new Dist2s(array)
   override def typeStr: String = "Dist2s"
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
+  override def fElemStr: Dist2 => String = _.str
 }
 
 object Dist2s extends ProdDbl2sCompanion[Dist2, Dist2s]

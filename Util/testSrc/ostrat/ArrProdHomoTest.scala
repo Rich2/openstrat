@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._, collection.mutable.ArrayBuffer
 
@@ -26,6 +27,7 @@ object ArrProdHomoTest  extends TestSuite
     def typeStr = "Mines"
     def unsafeFromArray(array: Array[Double]): Mines = new Mines(array)
     override def elemBuilder(d1: Double, d2: Double): Mine = Mine(d1, d2)
+    override def fElemStr: Mine => String = _.toString
   }
 
   object Mines extends ProdDbl2sCompanion[Mine, Mines]

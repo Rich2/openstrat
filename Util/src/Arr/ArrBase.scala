@@ -6,6 +6,7 @@ import annotation.unchecked.uncheckedVariance
  *  A lot of the time this is a compile time wrapper with no boxing run cost. */
 trait ArrBase[+A] extends Any with ArrayLike[A]
 { type ThisT <: ArrBase[A]
+  def typeStr: String
   //def unsafeNew(length: Int): ThisT
   def unsafeNew(length: Int): ThisT
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
@@ -14,7 +15,9 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(length -1, value)
   def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int ): Unit = ???
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance) = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
-
+  def fElemStr: A @uncheckedVariance => String
+  final def elemsStr: String = map(fElemStr).mkString("; ").enParenth
+  final override def toString: String = typeStr + elemsStr
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
     case n =>

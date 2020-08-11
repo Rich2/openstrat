@@ -44,13 +44,13 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
   override def shearY(operand: Double): PolygonTr = ???
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
-  def toLineSegs: LineSegs =if (length > 1)
-  { val res: LineSegs = LineSegs(length)
+  def toLineSegs: Slines =if (length > 1)
+  { val res: Slines = Slines(length)
     for (i <- 0 until (length - 1)) res.unsafeSetElem(i, Sline(apply(i), apply(i + 1)))
     res.unsafeSetLast(Sline(apply(length - 1), v0))
     res
   }
-  else LineSegs()
+  else Slines()
 
   /** Determines if the parenter point lies inside this Polygon. */
   def ptInside(pt: Vec2): Boolean = toLineSegs.ptInPolygon(pt)

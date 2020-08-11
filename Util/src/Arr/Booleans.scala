@@ -1,14 +1,17 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
+/** An immutable Array based class for [[Boolean]]s. */
 class Booleans(val array: Array[Boolean]) extends AnyVal with ArrBase[Boolean]
 { type ThisT = Booleans
+  override def typeStr: String = "Booleans"
   override def unsafeNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
   override def length: Int = array.length
   override def apply(index: Int): Boolean = array(index)
   override def unsafeSetElem(i: Int, value: Boolean): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
+  override def fElemStr: Boolean => String = _.toString
 
   def ++ (op: Booleans): Booleans =
   { val newArray = new Array[Boolean](length + op.length)

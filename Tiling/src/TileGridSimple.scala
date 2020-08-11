@@ -270,9 +270,9 @@ trait TileGridSimple
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine
 
-  final def sideLines : LineSegs = flatMap { roord =>
+  final def sideLines : Slines = flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
-    val c2s: LineSegs = c1.map(orig => sideRoordToLine2(orig))
+    val c2s: Slines = c1.map(orig => sideRoordToLine2(orig))
     c2s
   }
 

@@ -96,9 +96,9 @@ object Sline
   implicit val persistImplicit: Persist[Sline] with Eq[Sline] =
     new Persist2[Vec2, Vec2, Sline]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Sline(_, _))
 
-  implicit val line2sBuildImplicit: ArrProdDbl4Build[Sline, LineSegs] = new ArrProdDbl4Build[Sline, LineSegs]
+  implicit val line2sBuildImplicit: ArrProdDbl4Build[Sline, Slines] = new ArrProdDbl4Build[Sline, Slines]
   { type BuffT = Line2sBuff
-    override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
+    override def fromDblArray(array: Array[Double]): Slines = new Slines(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
   }
 

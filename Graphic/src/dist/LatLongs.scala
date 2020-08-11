@@ -8,6 +8,7 @@ class LatLongs(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[L
   override def unsafeFromArray(array: Array[Double]): LatLongs = new LatLongs(array)
   override def typeStr: String = "LatLongs"
   override def elemBuilder(d1: Double, d2: Double): LatLong = LatLong.degSecs(d1, d2)
+  override def fElemStr: LatLong => String = _.str
 }
 
 /** Companion object for the [[LatLongs]] class. */

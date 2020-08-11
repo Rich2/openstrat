@@ -1,13 +1,15 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 
 /** An array[Int] based collection for Roord. */
 class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt2[Roord]
 { type ThisT = Roords
+  override def fElemStr: Roord => String = _.str
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
   override def typeStr: String = "Roords" + foldLeft("")(_ + "; " + _.ycStr)
   override def newElem(i1: Int, i2: Int): Roord = Roord.apply(i1, i2)
-  override def toString: String = "Roords"
+
   /*def filter(f: Roord => Boolean): Roords =
   { val tempArr = new Array[Int](array.length)
     var count = 0

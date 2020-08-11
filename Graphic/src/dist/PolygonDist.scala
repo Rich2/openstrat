@@ -2,12 +2,13 @@
 package ostrat
 package geom
 
-/* A polygon using distances. */
+/* A polygon using distances meaasured in metres rather than scalars. */
 class PolygonDist(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 { type ThisT = PolygonDist
   def unsafeFromArray(array: Array[Double]): PolygonDist = new PolygonDist(array)
   override def typeStr: String = "DPolygon"
   override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
+  override def fElemStr: Dist2 => String = _.str
 }
 
 /** The companion object for DPolygon. Provides an implicit builder. */
