@@ -1,11 +1,13 @@
 package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
+/** Specialist Array[Int] based class for [[Colour]]s. */
 final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt1[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"
   final override def newElem(intValue: Int): Colour = Colour(intValue)
+  override def toString: String = "Colours" + map(_.str).mkString("; ").enParenth
 }
 
 object Colours
