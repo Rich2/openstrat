@@ -1,4 +1,4 @@
-ThisBuild/version := "0.1.1snap"
+ThisBuild/version := "0.2.0"
 ThisBuild/test in assembly := {}
 name := "OpenStrat"
 ThisBuild/scalaVersion := "2.13.3"
