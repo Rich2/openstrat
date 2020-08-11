@@ -48,7 +48,9 @@ def exsJvmProj(nameStr: String) = Project(nameStr + "Exs", file("target/ExsJvm" 
   version := (ThisBuild/version).value
 )
 
-lazy val Util = mainJvmProj("Util").dependsOn(UtilMacros)
+lazy val Util = mainJvmProj("Util").dependsOn(UtilMacros).settings(
+assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
+)
 lazy val Graphic = mainJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
 lazy val GraphicExs = exsJvmProj("Graphic").dependsOn(Graphic)//.settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
 lazy val Tiling = mainJvmProj("Tiling").dependsOn(Graphic)
