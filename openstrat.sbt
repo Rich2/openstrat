@@ -1,7 +1,11 @@
-ThisBuild/version := "0.2.0"
+val versionStr = "0.2.0"
+ThisBuild/version := versionStr
 ThisBuild/test in assembly := {}
 name := "OpenStrat"
-ThisBuild/scalaVersion := "2.13.3"
+val scalaMajor = "2.13"
+val scalaMinor = "3"
+lazy val jarVersion = "_" + scalaMajor + "-" + versionStr + ".jar"
+ThisBuild/scalaVersion := scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
@@ -50,7 +54,9 @@ def exsJvmProj(nameStr: String) = Project(nameStr + "Exs", file("target/ExsJvm" 
 )
 
 lazy val Util = mainJvmProj("Util").dependsOn(UtilMacros).settings(
-  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false))
+  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
+  assemblyJarName in assembly := "rutil" + jarVersion
+)
 
 lazy val UtilExs = exsJvmProj("Util").dependsOn(Util)
 lazy val Graphic = mainJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
