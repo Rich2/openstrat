@@ -16,7 +16,10 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int ): Unit = ???
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance) = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
   def fElemStr: A @uncheckedVariance => String
+
+  /** The element [[String]] allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   final def elemsStr: String = map(fElemStr).mkString("; ").enParenth
+
   final override def toString: String = typeStr + elemsStr
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
