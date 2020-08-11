@@ -85,7 +85,6 @@ val docDirs: List[String] = List("Util", "Graphic", "Tiling", "World", "Dev")
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/ExsSrc")).map(s => (ThisBuild/baseDirectory).value / s),
-  version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
@@ -94,7 +93,6 @@ lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).set
 lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/ExsSrc")).map(s => (ThisBuild/baseDirectory).value / s),
-  version := "0.0.7snap",
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
 )
