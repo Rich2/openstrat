@@ -6,12 +6,13 @@ ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
 def commonSett = List(
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked",
+   "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,  
   testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
 
-lazy val root = (project in file(".")).aggregate(Util, Graphic)//, Tiling, Strat, Dev, JsDev)
+lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, World, Dev, JsDev)
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
@@ -127,7 +128,8 @@ lazy val JsWorld = jsProj("World").dependsOn(JsTiling).settings(
 )
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Graphic/ExsSrc", "World/ExsSrc").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "UtilExsSrc", "Graphic/ExsSrc", "Tiling/ExsSrc", "World/ExsSrc").
+    map(s => (ThisBuild/baseDirectory).value / s),
 )
 
 def dottySettings = List(
