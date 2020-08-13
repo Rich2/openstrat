@@ -2,7 +2,7 @@
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
-{ def version = "0.1.1snap"
+{ def version = "0.2.1snap"
   def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-target:jvm-1.8", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 

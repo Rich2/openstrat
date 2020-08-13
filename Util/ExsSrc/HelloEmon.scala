@@ -1,5 +1,6 @@
 package ostrat
 
+/** Test App for [[EMon]]s. */
 object HelloEmon extends App
 { println("Welcome to Hello Emon. This will printout the first number but not the second.")
   val mi1: EMon[Int] = "4".findInt
