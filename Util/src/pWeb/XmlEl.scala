@@ -11,55 +11,49 @@ trait XCon extends IndentCon
 //}
 /** An XML Element */
 trait XmlEl extends Indenter with XCon
-{
-   def tag: String
-   def atts: Seq[XAtt] = Seq[XAtt]()
-   def startTagClose: String
-   def conMulti: Boolean = false
-   def attMulti: Boolean = atts.exists(_.multiLine) | atts.length > 5 
-   override def multiLine: Boolean = conMulti | attMulti
-   final def openAtts(indent: Int): String = "<" + tag + startTagAtts(indent) + startTagClose
+{ def tag: String
+  def atts: Seq[XAtt] = Seq[XAtt]()
+  def startTagClose: String
+  def conMulti: Boolean = false
+  def attMulti: Boolean = atts.exists(_.multiLine) | atts.length > 5 
+  override def multiLine: Boolean = conMulti | attMulti
+  final def openAtts(indent: Int): String = "<" + tag + startTagAtts(indent) + startTagClose
    
-   private def startTagAtts(indent: Int): String = atts match
-   {
-      case Seq() => ""
-      case _ if attMulti =>
-      {
-         def loop(rem: Seq[XAtt], acc: String, i: Int): String = rem match
-         {
-            case Seq() => acc + "\n" + indent.spaces
-            case Seq(h, tail @ _*) if h.multiLine => loop(tail, acc.nl + indent.spaces + h.out(indent + 2), 5)
-            //case Seq(h, tail @ _*) if h. == 5 => loop(tail, acc.nl - h.out(indent + 2), 1)
-            case Seq(h, tail @ _*) => loop(tail, acc -- h.out(indent + 2), i + 1)
-         }
-         loop(atts, "", 0)
+  private def startTagAtts(indent: Int): String = atts match
+  {
+    case Seq() => ""
+     
+    case _ if attMulti =>
+    {
+      def loop(rem: Seq[XAtt], acc: String, i: Int): String = rem match
+      { case Seq() => acc + "\n" + indent.spaces
+        case Seq(h, tail @ _*) if h.multiLine => loop(tail, acc.nl + indent.spaces + h.out(indent + 2), 5)
+        //case Seq(h, tail @ _*) if h. == 5 => loop(tail, acc.nl - h.out(indent + 2), 1)
+        case Seq(h, tail @ _*) => loop(tail, acc -- h.out(indent + 2), i + 1)
       }
-      case _ => atts.foldLeft("")(_ -- _.out(indent + 2))
-   }
+      loop(atts, "", 0)
+    }
+    case _ => atts.foldLeft("")(_ -- _.out(indent + 2))
+  }
 }
 
-
 trait XmlVoid extends XmlEl
-{
-   override def startTagClose = "/>"
-   override def out(indent: Int): String = openAtts(indent)    
+{ override def startTagClose = "/>"
+  override def out(indent: Int): String = openAtts(indent)    
 }
 
 trait XNotVoid extends XmlEl
-{
-   def mems: Seq[IndentCon]
-   override def startTagClose: String = ">"
-   def closeTag = "</" + tag + ">"
-   override def out(indent: Int) = openAtts(indent) + mems.out(indent) + closeTag   
+{ def mems: Seq[IndentCon]
+  override def startTagClose: String = ">"
+  def closeTag = "</" + tag + ">"
+  override def out(indent: Int) = openAtts(indent) + mems.out(indent) + closeTag   
 }
 
 trait XEmpty extends XNotVoid
-{
-   override def mems: Seq[XCon] = Seq()
+{ override def mems: Seq[XCon] = Seq()
 }
 
 trait XmlSimple extends XNotVoid
-{
-   def str: String
-   def mems: Seq[XCon] = Seq(IndText(str))      
+{ def str: String
+  def mems: Seq[XCon] = Seq(IndText(str))      
 }
