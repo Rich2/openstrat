@@ -1,14 +1,13 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Not sure what the Con means. */
+/** I presumb IndentCon stands for indentable content. This is the problem when you don't document things. Hence why I'm thinking of starting from
+ *  scratch. */
 trait IndentCon
 { def out(ind: Int): String
   def outLen: Int = out(0).length
   def multiLine: Boolean = outLen > 40
 }
-
-//trait Indenter extends IndentCon
 
 object IndentCon
 {
@@ -35,13 +34,3 @@ object IndentCon
     }
   }
 }
-
-
-
-
-
-//trait IndentMulti
-//{
-//   def conSeq: Seq[IndentCon] 
-//}
-//}
