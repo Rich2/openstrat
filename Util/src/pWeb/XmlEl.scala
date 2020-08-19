@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pWeb
 
@@ -10,7 +10,7 @@ trait XCon extends IndentCon
 //   def out(ind: Int): String
 //}
 /** An XML Element */
-trait XmlEl extends Indenter with XCon
+trait XmlEl extends XCon
 { def tag: String
   def atts: Seq[XAtt] = Seq[XAtt]()
   def startTagClose: String

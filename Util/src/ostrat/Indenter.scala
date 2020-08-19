@@ -1,7 +1,14 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
-trait Indenter extends IndentCon
+/** Not sure what the Con means. */
+trait IndentCon
+{ def out(ind: Int): String
+  def outLen: Int = out(0).length
+  def multiLine: Boolean = outLen > 40
+}
+
+//trait Indenter extends IndentCon
 
 object IndentCon
 {
@@ -29,11 +36,7 @@ object IndentCon
   }
 }
 
-trait IndentCon
-{ def out(ind: Int): String
-  def outLen: Int = out(0).length
-  def multiLine: Boolean = outLen > 40
-}
+
 
 
 

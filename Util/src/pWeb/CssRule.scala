@@ -16,7 +16,7 @@ object CssRule
    }
 }
 
-trait CssRule extends Indenter
+trait CssRule extends IndentCon
 {
    def selector: String
    val cssDecs: Seq[CssDec]
