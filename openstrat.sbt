@@ -49,7 +49,7 @@ def exsJvmProj(nameStr: String) = Project(nameStr + "Exs", file("target/ExsJvm" 
   Test/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "ExsTestSrc",
   Test/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testSrc", (Test/scalaSource).value),
   Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "ExsTestRes",
-  Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
+  Test/unmanagedResourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testRes", (Test/resourceDirectory).value),
   version := (ThisBuild/version).value
 )
 
