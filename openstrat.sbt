@@ -16,7 +16,7 @@ def commonSett = List(
   testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
 
-lazy val root = (project in file(".")).aggregate(UtilCore, GraphicCore, TilingCore, WorldCore, Dev, JsDev)
+lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, World, Dev, JsDev)
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
@@ -47,7 +47,7 @@ def exsJvmProj(nameStr: String) = Project(nameStr + "Exs", file("target/ExsJvm" 
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   resourceDirectory := (ThisBuild/baseDirectory).value / nameStr / "/ExsRes",
   Test/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "ExsTestSrc",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value, (ThisBuild/baseDirectory).value / nameStr / "ExsTestSrc"),
+  Test/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testSrc", (Test/scalaSource).value),
   Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "ExsTestRes",
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   version := (ThisBuild/version).value

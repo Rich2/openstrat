@@ -14,7 +14,7 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   def unsafeSetHead(value: A @uncheckedVariance): Unit = unsafeSetElem(0, value)
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(length -1, value)
   def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int ): Unit = ???
-  def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance) = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
+  def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
   def fElemStr: A @uncheckedVariance => String
 
   /** The element [[String]] allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
@@ -77,7 +77,7 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   {
     var count = 0
     var res: Option[A] = None
-    while (count < length & res == None)
+    while (count < length & res.isEmpty)
     {
       val el = apply(count)
       if (f(el)) res = Some(el)
