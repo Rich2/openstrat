@@ -16,7 +16,7 @@ def commonSett = List(
   testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
 
-lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, World, Dev, JsDev)
+lazy val root = (project in file(".")).aggregate(UtilCore, GraphicCore, TilingCore, WorldCore, Dev, JsDev)
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
@@ -27,7 +27,7 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
 )
 
-def mainJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(commonSett).settings(
+def coreJvmProj(nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
@@ -53,20 +53,20 @@ def exsJvmProj(nameStr: String) = Project(nameStr + "Exs", file("target/ExsJvm" 
   version := (ThisBuild/version).value
 )
 
-lazy val Util = mainJvmProj("Util").dependsOn(UtilMacros).settings(
+lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
   assemblyJarName in assembly := "rutil" + jarVersion
 )
 
-lazy val UtilExs = exsJvmProj("Util").dependsOn(Util)
-lazy val Graphic = mainJvmProj("Graphic").dependsOn(Util).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
-lazy val GraphicExs = exsJvmProj("Graphic").dependsOn(Graphic)
-lazy val Tiling = mainJvmProj("Tiling").dependsOn(Graphic)
-lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
-lazy val World = mainJvmProj("World").dependsOn(Tiling)
-lazy val WorldExs = exsJvmProj("World").dependsOn(World)
+lazy val Util = exsJvmProj("Util").dependsOn(UtilCore)
+lazy val GraphicCore = coreJvmProj("Graphic").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
+lazy val Graphic = exsJvmProj("Graphic").dependsOn(GraphicCore)
+lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicCore)
+lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
+lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
+lazy val World = exsJvmProj("World").dependsOn(WorldCore)
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(GraphicExs, TilingExs, WorldExs).settings(commonSett).settings(
+lazy val Dev = coreJvmProj("Dev").dependsOn(Graphic, Tiling, World).settings(commonSett).settings(
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
