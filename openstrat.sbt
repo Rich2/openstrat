@@ -17,17 +17,20 @@ def commonSett = List(
 )
 
 lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, World, Dev, JsDev)
+lazy val module = SettingKey[File]("module")// = (ThisBuild/baseDirectory).value / nameStr
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
+  module := (ThisBuild/baseDirectory).value / "Util/Macros",
+  scalaSource := module.value / "src",
+  Compile/scalaSource := module.value / "src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/testSrc",
+  Test/scalaSource :=  module.value / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
 )
 
 def coreJvmProj(nameStr: String) = Project(nameStr + "Core", file("target/Jvm" + nameStr)).settings(commonSett).settings(
+
   scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
