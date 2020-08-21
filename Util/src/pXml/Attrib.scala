@@ -2,6 +2,7 @@
 package ostrat
 package pXml
 
+/** An XML attribute. */
 trait Attrib
 { def name: String
   def valueStr: String
