@@ -30,18 +30,17 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
 )
 
 def coreJvmProj(nameStr: String) = Project(nameStr + "Core", file("target/Jvm" + nameStr)).settings(commonSett).settings(
-
-  scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
+  module := (ThisBuild/baseDirectory).value / nameStr,
+  scalaSource := module.value / "src",
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / nameStr / "srcJvm"),
-  resourceDirectory := (ThisBuild/baseDirectory).value / nameStr / "/res",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "testSrc",
+  Compile/scalaSource := module.value / "src",
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm").map(module.value / _),
+  resourceDirectory := module.value / "res",
+  Test/scalaSource := module.value / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "testRes",
+  Test/resourceDirectory :=  module.value / "testRes",
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
-  version := (ThisBuild/version).value
 )
 
 def exsJvmProj(nameStr: String) = Project(nameStr, file("target/ExsJvm" + nameStr)).settings(commonSett).settings(
@@ -55,7 +54,6 @@ def exsJvmProj(nameStr: String) = Project(nameStr, file("target/ExsJvm" + nameSt
   Test/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testSrc", (Test/scalaSource).value),
   Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "ExsTestRes",
   Test/unmanagedResourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testRes", (Test/resourceDirectory).value),
-  version := (ThisBuild/version).value
 )
 
 lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
@@ -63,7 +61,7 @@ lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
   assemblyJarName in assembly := "rutil" + jarVersion
 )
 
-lazy val Util = exsJvmProj("Util").dependsOn(UtilCore)
+lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
 lazy val GraphicCore = coreJvmProj("Graphic").dependsOn(UtilCore).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
 lazy val Graphic = exsJvmProj("Graphic").dependsOn(GraphicCore)
