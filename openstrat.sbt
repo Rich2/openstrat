@@ -12,12 +12,11 @@ ThisBuild/autoAPIMappings := true
 def commonSett = List(
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked",
    "-Xlint"),
-  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,  
-   
+  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
 lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, World, Dev, JsDev)
-lazy val module = SettingKey[File]("module")// = (ThisBuild/baseDirectory).value / nameStr
+lazy val module = SettingKey[File]("module")
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
   module := (ThisBuild/baseDirectory).value / "Util/Macros",
@@ -29,8 +28,8 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
 )
 
-def coreJvmProj(nameStr: String) = Project(nameStr + "Core", file("target/Jvm" + nameStr)).settings(commonSett).settings(
-  module := (ThisBuild/baseDirectory).value / nameStr,
+def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(commonSett).settings(
+  module := (ThisBuild/baseDirectory).value / srcsStr,
   scalaSource := module.value / "src",
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
@@ -42,6 +41,8 @@ def coreJvmProj(nameStr: String) = Project(nameStr + "Core", file("target/Jvm" +
   Test/resourceDirectory :=  module.value / "testRes",
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
 )
+
+def coreJvmProj(nameStr: String) = baseJvmProj(nameStr, nameStr + "Core")
 
 def exsJvmProj(nameStr: String) = Project(nameStr, file("target/ExsJvm" + nameStr)).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/ExsSrc",
@@ -62,15 +63,14 @@ lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
 )
 
 lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
-lazy val GraphicCore = coreJvmProj("Graphic").dependsOn(UtilCore).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
-lazy val Graphic = exsJvmProj("Graphic").dependsOn(GraphicCore)
+lazy val GraphicCore = coreJvmProj("Graphic").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
+lazy val Graphic = exsJvmProj("Graphic").dependsOn(GraphicCore).settings(Compile/mainClass:= Some("learn.LessonE1App"))
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
 lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
 lazy val World = exsJvmProj("World").dependsOn(WorldCore)
 
-lazy val Dev = coreJvmProj("Dev").dependsOn(Graphic, Tiling, World).settings(commonSett).settings(
+lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphic, Tiling, World).settings(
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
