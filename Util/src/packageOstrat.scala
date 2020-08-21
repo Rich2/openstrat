@@ -61,15 +61,14 @@ package object ostrat
   def writeFile(fileName: String, str: String): EMon[Unit] =
   { import java.io._
     var eStr: String = ""
-    try {
-      val pw = new PrintWriter(new File(fileName))
-      pw.write(str)
-      pw.close
+    var opw: Option[FileWriter] = None
+
+    try { opw = Some(new FileWriter(new File(fileName)))
+      opw.get.write(str)
     }
-    catch {
-      case e: Throwable => eStr = e.toString
-        System.out.println("An error occurred.");
-    }
+
+    catch { case e: Throwable => eStr = e.toString }
+    finally{ opw.foreach(_.close()) }
     if (eStr == "") Good(()) else Bad(Arr(eStr))
   }
 
