@@ -9,11 +9,10 @@ object WebPage1 extends App
     """This is just some text for creating a web page.
       |
       |And here's a second paragraph.
+      |And a third.
       |""".stripMargin
-
-  import java.io._
+  
   val h = System.getProperty("user.home");
-  val pw = new PrintWriter(new File(h + "/temp1.txt"))
-  pw.write(body)
-  pw.close
+  val r = writeFile(h + "/temp1.txt", body)
+  deb(r.toString)
 }
