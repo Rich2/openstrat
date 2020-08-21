@@ -12,7 +12,6 @@ object WebPage1 extends App
       |And a third.
       |""".stripMargin
   
-  val h = System.getProperty("user.home");
-  val r = writeFile(h + "/temp1.txt", body)
+  val r = homeWrite("temp.txt", body)
   deb(r.toString)
 }

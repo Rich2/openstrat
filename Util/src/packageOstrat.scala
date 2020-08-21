@@ -58,19 +58,7 @@ package object ostrat
 
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
-  def writeFile(fileName: String, str: String): EMon[Unit] =
-  { import java.io._
-    var eStr: String = ""
-    var opw: Option[FileWriter] = None
 
-    try { opw = Some(new FileWriter(new File(fileName)))
-      opw.get.write(str)
-    }
-
-    catch { case e: Throwable => eStr = e.toString }
-    finally{ opw.foreach(_.close()) }
-    if (eStr == "") Good(()) else Bad(Arr(eStr))
-  }
 
   /** Not sure what this method does. */
   def readT[T](implicit ev: Persist[T]): T =
