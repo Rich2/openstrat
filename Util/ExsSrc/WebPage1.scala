@@ -13,7 +13,7 @@ object WebPage1 extends App
 
   import java.io._
   val h = System.getProperty("user.home");
-  val pw = new PrintWriter(new File(h + "/temp.txt"))
+  val pw = new PrintWriter(new File(h + "/temp1.txt"))
   pw.write(body)
   pw.close
 }

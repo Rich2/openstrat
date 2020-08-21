@@ -58,6 +58,21 @@ package object ostrat
 
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
+  def writeFile(fileName: String, str: String): EMon[Unit] =
+  { import java.io._
+    var eStr: String = ""
+    try {
+      val pw = new PrintWriter(new File(fileName))
+      pw.write(str)
+      pw.close
+    }
+    catch {
+      case e: Throwable => eStr = e.toString
+        System.out.println("An error occurred.");
+    }
+    if (eStr == "") Good(()) else Bad(Arr(eStr))
+  }
+
   /** Not sure what this method does. */
   def readT[T](implicit ev: Persist[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
