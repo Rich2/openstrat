@@ -10,6 +10,10 @@ object WebPage1 extends App
       |
       |And here's a second paragraph.
       |""".stripMargin
-      
-  
+
+  import java.io._
+  val h = System.getProperty("user.home");
+  val pw = new PrintWriter(new File(h + "/temp.txt"))
+  pw.write(body)
+  pw.close
 }
