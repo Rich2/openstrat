@@ -10,7 +10,7 @@ sealed trait ShapeMember
 trait ShapeDisp extends DisplayElem with ShapeMember
 { def shape: Shape
   def members: Arr[ShapeMember]
-  def attribs: Arr[Attrib]
+  //def attribs: Arr[Attrib]
   def svgStr: String
 }
 
