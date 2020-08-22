@@ -3,15 +3,18 @@ package ostrat
 package geom
 import pXml._, Colour.Black
 
+/** A ShapeMember, a member of a ShapeDisp can either be a ShapeFacet or a [[ShapeDisp]]. */
+sealed trait ShapeMember
+
 /** A shape based graphic. Will probably change the name back to ShapeGraphic. */
-trait ShapeDisp extends DisplayElem
+trait ShapeDisp extends DisplayElem with ShapeMember
 { def shape: Shape
-  def facets: Arr[ShapeFacet]
+  def members: Arr[ShapeMember]
   def attribs: Arr[Attrib]
   def svgStr: String
 }
 
-trait ShapeFacet
+trait ShapeFacet extends ShapeMember
 { def attribs: Arr[Attrib]
 }
 
