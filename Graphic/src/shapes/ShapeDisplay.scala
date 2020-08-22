@@ -13,6 +13,11 @@ trait ShapeDisplay extends DisplayElem with ShapeMember
   //def attribs: Arr[Attrib]
   def svgStr: String
 
+  def fMems(f: ShapeDisplay => ShapeDisplay): Arr[ShapeMember] = members.map{
+    case sd: ShapeDisplay => f(sd)
+    case sf: ShapeFacet => sf
+  }
+
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeDisplay
 

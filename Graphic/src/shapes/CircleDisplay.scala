@@ -15,7 +15,7 @@ case class CircleDisplay(shape: Circle, members: Arr[ShapeMember]) extends Shape
   }*/
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): CircleDisplay = ???
+  override def slate(offset: Vec2): CircleDisplay = CircleDisplay(shape.slate(offset), fMems(_.slate(offset)))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): ShapeDisplay = ???
