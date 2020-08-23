@@ -20,7 +20,7 @@ trait CircleGraphicOld extends ShapeGraphicOld with SimilarPreserve
 final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGraphicOld with ShapeFill
 { type ThisT = CircleFill
   override def fTrans(f: Vec2 => Vec2): ThisT = CircleFill(shape.fTrans(f), fillColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
 
@@ -31,7 +31,7 @@ final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGra
 final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicOld with ShapeDraw
 { type ThisT = CircleDraw
   override def fTrans(f: Vec2 => Vec2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDrawOld(this)
   override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
 

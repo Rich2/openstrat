@@ -5,7 +5,7 @@ package geom
 case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]) extends ShapeGraphic// with SimilarPreserve
 { /*override type ThisT = CircleDisplay */
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
-    case FillColour(c) => cp.circleFillNew(shape, c)
+    case FillColour(c) => cp.circleFill(shape, c)
     case _ =>
   }
   /** Translate geometric transformation. */
