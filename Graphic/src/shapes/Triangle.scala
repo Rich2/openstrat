@@ -47,7 +47,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 
 	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
-	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
+	override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 object Triangle
@@ -85,7 +85,7 @@ final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Doubl
 
 	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
-	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
+	override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends IsosTriangle
@@ -111,7 +111,7 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 
 	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
-	override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
+	override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 object Equilateral

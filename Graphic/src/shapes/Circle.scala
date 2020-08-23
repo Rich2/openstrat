@@ -41,7 +41,11 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleGraphic =
     CircleGraphic(this, Arr(CurveDraw(lineWidth, lineColour)), Arr())
 
-  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = CircleFillDraw(this, fillColour, lineWidth, lineColour)
+  override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw =
+    CircleFillDraw(this, fillColour, lineWidth, lineColour)
+
+  def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): CircleGraphic =
+    CircleGraphic(this, Arr(FillColour(fillColour), CurveDraw(lineWidth, lineColour)), Arr())
   
   def cxAttrib: NumericAttrib = NumericAttrib("cx", xCen)
   def cyAttrib: NumericAttrib = NumericAttrib("cy", yCen)

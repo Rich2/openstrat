@@ -113,7 +113,7 @@ object Rectangle
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
-    gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
+    gRatio(height).fillDrawOld(colour, lineWidth, colour.contrast)
   
   def fromAxis(centreLine: Sline, height: Double): Polygon =
   { val hAngle: Angle = centreLine.angle

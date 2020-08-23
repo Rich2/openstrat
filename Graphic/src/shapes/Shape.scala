@@ -6,7 +6,7 @@ package geom
 trait Shape extends TransElem
 { def fillOld(fillColour: Colour): ShapeFill
   def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
-  def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw
+  def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw
 
   /** This canEqual override allow the comparison of [[Shape]]s. */
   def canEqual(that: Any): Boolean = that match

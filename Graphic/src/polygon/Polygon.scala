@@ -99,7 +99,7 @@ final class Polygon(val arrayUnsafe: Array[Double]) extends PolygonTr with Vec2s
 
   def fillOld(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   def drawOld(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
-  def fillDraw(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
+  def fillDrawOld(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
     PolygonFillDraw(this, fillColour, lineWidth, lineColour)
 }
 

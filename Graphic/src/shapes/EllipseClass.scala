@@ -13,7 +13,7 @@ case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: 
   override def fTrans(f: Vec2 => Vec2): EllipseClass = EllipseClass(f(cen), f(v1), f(v3))
   override def fillOld(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
-  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
+  override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 /** Companion object for the EllipseClass. Contains various factory methods for the creation of ellipses from different starting points. */
