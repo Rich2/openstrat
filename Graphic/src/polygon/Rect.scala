@@ -20,7 +20,7 @@ final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Dou
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-  override def fill(fillColour: Colour): ShapeFill = ???
+  override def fillOld(fillColour: Colour): ShapeFill = ???
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 

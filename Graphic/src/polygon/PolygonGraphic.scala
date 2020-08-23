@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black, pXml._
 
-trait PolygonGraphic extends DisplayAffineElem with DisplayBoundedAffine with ShapeGraphic
+trait PolygonGraphic extends DisplayAffineElem with DisplayBoundedAffine with ShapeGraphicOld
 { type ThisT <: PolygonGraphic
   override def shape: Polygon
   def xHead: Double = shape.x0

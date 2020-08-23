@@ -8,6 +8,6 @@ case class LessonB2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B2")
    * divides, and returns the remainder. This means ever 5000 milliseconds or 5 seconds the rectangle goes back to the start. */
   timedRepaint1{e =>
     val e2 = e % 5000
-    Rectangle(200, 100).slateX(e2 / 4 - 600).fill(Red)
+    Rectangle(200, 100).slateX(e2 / 4 - 600).fillOld(Red)
   }
 }

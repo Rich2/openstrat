@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._, pXml._
 
-trait EllipseGraphic extends ShapeGraphic//
+trait EllipseGraphic extends ShapeGraphicOld//
 { type ThisT <: EllipseGraphic
   override def shape: Ellipse
   def fTrans(newEllipse: Ellipse): ThisT

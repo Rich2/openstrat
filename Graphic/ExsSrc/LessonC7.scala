@@ -33,7 +33,7 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
   drawBezier()
 
   def drawBezier():Unit =
-  { val dragCircles = bezierPoints.map(dc => Circle(circleRadius, dc.loc).fill(dc.color))
+  { val dragCircles = bezierPoints.map(dc => Circle(circleRadius, dc.loc).fillOld(dc.color))
 
     val startControlLine = LineDraw(startPoint.loc, controlStart.loc, 1, Grey)    /** line between the start point and its control point */
     val endControlLine = LineDraw(endPoint.loc, controlEnd.loc, 1, Grey)    /** line between the end point and its control point */
@@ -46,7 +46,7 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
     val elementsToPaint = dragCircles ++ Arr(txt, startControlLine, endControlLine, bezier)
 
     val quadraticBezier = BezierDraw(quadraticStart.loc, quadraticControl.loc, quadraticControl.loc, quadraticEnd.loc, 2, Blue)
-    val quadraticDragCircles = quadraticBezierPoints.map(dc => Circle(circleRadius, dc.loc).fill(dc.color))
+    val quadraticDragCircles = quadraticBezierPoints.map(dc => Circle(circleRadius, dc.loc).fillOld(dc.color))
     val quadraticStartControlLine = LineDraw(quadraticStart.loc, quadraticControl.loc, 1, Grey) 
     val quadraticEndControlLine = LineDraw(quadraticEnd.loc, quadraticControl.loc, 1, Grey) 
     val txtQuad = TextGraphic("BezierDraw(" + quadraticStart.loc + ", " + quadraticControl.loc + ", " + quadraticControl.loc + ", " + quadraticEnd.loc + ", 2, Blue)", 18, 0 vv -300, Blue)

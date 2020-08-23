@@ -9,8 +9,8 @@ case class LessonB3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B3")
     val e2 = e % 5000
     val e3 = 5000 - e2
     Arr(
-      Rectangle(200, 100).slateX(e3 / 4 - 600).fill(Colour.fromInts(0, 255 * e2 / 5000, 255 * e3 / 5000)),
-      Rectangle(200, 100).slateX(e2 / 4 - 600).fill(Colour.fromInts(255* e3 / 5000, 255 * e2 /5000, 0 ,  128))
+      Rectangle(200, 100).slateX(e3 / 4 - 600).fillOld(Colour.fromInts(0, 255 * e2 / 5000, 255 * e3 / 5000)),
+      Rectangle(200, 100).slateX(e2 / 4 - 600).fillOld(Colour.fromInts(255* e3 / 5000, 255 * e2 /5000, 0 ,  128))
     )
   }
 }

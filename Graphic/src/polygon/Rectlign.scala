@@ -17,7 +17,7 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-  override def fill(fillColour: Colour): ShapeFill = ???
+  override def fillOld(fillColour: Colour): ShapeFill = ???
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 

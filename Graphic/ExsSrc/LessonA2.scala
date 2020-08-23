@@ -39,7 +39,7 @@ case class LessonA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
     TextGraphic("x=0, y=100", 14, 0 vv 100, Green),
     TextGraphic("222, 100", 14, 222 vv 100, SlateBlue),
     Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
-    Rectangle(200, 100, 100 vv 50).fill(Green),
+    Rectangle(200, 100, 100 vv 50).fillOld(Green),
    // sq0,
    // sq1,
    // sq2.fill(Pink),

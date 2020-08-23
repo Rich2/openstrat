@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pXml._
 
-trait RectangleGraphic extends ShapeGraphic with Rectangular 
+trait RectangleGraphic extends ShapeGraphicOld with Rectangular
 { override def shape: Rectangle
   def xAttrib = NumericAttrib("x", xCen)
   def yAttrib = NumericAttrib("y", yCen)

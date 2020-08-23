@@ -1,57 +1,61 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pCanv._, Colour.Black, pXml._
 
-trait CircleGraphic extends ShapeGraphic with SimilarPreserve
-{ type ThisT <: CircleGraphic
-  override def shape: Circle
-  def svgStr: String = closedTagStr("circle", attribs)
-  def circleAttribs: Arr[NumericAttrib] = shape.circleAttribs  
-  @inline final def cen: Vec2 = shape.cen
-  @inline final def xCen: Double = shape.xCen
-  @inline final def yCen: Double = shape.yCen
-  @inline final def radius: Double = shape.radius
-  @inline final def diameter: Double = shape.diameter
-}
+case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]) extends ShapeGraphic// with SimilarPreserve
+{ /*override type ThisT = CircleDisplay */
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
+    case FillColour(c) => cp.circleFillNew(shape, c)
+    case _ =>
+  }
+  /** Translate geometric transformation. */
+  override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
 
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): ShapeGraphic =
+    CircleGraphic(shape.slate(xOffset, yOffset), facets, children.map(_.slate(xOffset, yOffset)))
 
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): ShapeGraphic = CircleGraphic(shape.scale(operand), facets, children.map(_.scale(operand)))
 
-final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGraphic with ShapeFill
-{ type ThisT = CircleFill
-  override def fTrans(f: Vec2 => Vec2): ThisT = CircleFill(shape.fTrans(f), fillColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(this)
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
-  override def shearX(operand: Double): TransElem = ???
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYOffset(xOffset: Double): ShapeGraphic =
+    CircleGraphic(shape.reflectYOffset(xOffset), facets, children.map(_.reflectYOffset(xOffset)))
 
-  override def shearY(operand: Double): TransElem = ???
-  override def attribs: Arr[Attrib] = circleAttribs +- fillAttrib
-}
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): ShapeGraphic = ???
 
-final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with ShapeDraw
-{ type ThisT = CircleDraw
-  override def fTrans(f: Vec2 => Vec2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this) 
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
-  override def shearX(operand: Double): TransElem = ???
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectX: ShapeGraphic = ???
 
-  override def shearY(operand: Double): TransElem = ???
-  override def attribs: Arr[Attrib] = drawAttribs
-}
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: CircleGraphic = CircleGraphic(shape.reflectY, facets, children.map(_.reflectY))
 
-final case class CircleFillDraw(shape: Circle, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphic with
-  ShapeFillDraw
-{ type ThisT = CircleFillDraw
-  override def fTrans(f: Vec2 => Vec2): CircleFillDraw = CircleFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
-  override def shearX(operand: Double): TransElem = ???
+  override def prolign(matrix: ProlignMatrix): ShapeGraphic = ???
 
-  override def shearY(operand: Double): TransElem = ???
-  override def attribs: Arr[Attrib] = fillDrawAttribs
-}
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  override def rotate90: ShapeGraphic = ???
 
-case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
-{ override def scaleSlate(scale: Double, cen: Vec2): CircleFill = CircleFill(Circle(scale, cen), fillColour)
-  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): CircleFill = CircleFill(Circle(scale, xCen, yCen), fillColour)
+  /** Rotates 180 degrees or Pi radians. */
+  override def rotate180: ShapeGraphic = ???
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  override def rotate270: ShapeGraphic = ???
+
+  override def rotateRadians(radians: Double): ShapeGraphic = ???
+
+  override def reflect(line: Line): ShapeGraphic = ???
+
+  override def reflect(line: Sline): TransElem = ???
+
+  override def svgStr: String = ???
+
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic = ???
+
+  override def shearX(operand: Double): ShapeGraphic = ???
+
+  override def shearY(operand: Double): ShapeGraphic = ???
 }

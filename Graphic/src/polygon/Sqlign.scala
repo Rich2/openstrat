@@ -35,7 +35,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-  override def fill(fillColour: Colour): ShapeFill = ???
+  override def fillOld(fillColour: Colour): ShapeFill = ???
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 

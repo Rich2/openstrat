@@ -1,45 +1,63 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pXml._
 
-/** A shape based graphic. */
+/** A shape based graphic. Will probably change the name back to ShapeGraphic. */
 trait ShapeGraphic extends DisplayElem
 { def shape: Shape
-  def attribs: Arr[Attrib]
+  def facets: Arr[ShapeFacet]
+
+  /** The [[ShapeGraphic]] type will be widened at a later point. */
+  def children: Arr[ShapeGraphic]
+  //def attribs: Arr[Attrib]
   def svgStr: String
-}
 
-/** Companion object for the ShapeGraphic class. */
-object ShapeGraphic
-{
-  implicit class ArrImplicit(val thisArr: Arr[ShapeGraphic])
-  {
-    def svgList: String = thisArr.foldLeft("")(_ + "\n" + _.svgStr)
-  }
-}
+  /*def fMems(f: ShapeDisplay => ShapeDisplay): Arr[ShapeMember] = members.map{
+    case sd: ShapeDisplay => f(sd)
+    case sf: ShapeFacet => sf
+  }*/
 
-/** A shape graphic that includes a fill. */
-trait ShapeFillTr extends ShapeGraphic
-{ def fillColour: Colour
-  def fillAttrib: FillAttrib = FillAttrib(fillColour)  
-}
+  /** Translate geometric transformation. */
+  override def slate(offset: Vec2): ShapeGraphic
 
-/** A Graphic that just fills a shape. */
-trait ShapeFill extends ShapeFillTr
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): ShapeGraphic
 
-trait ShapeDrawTr extends ShapeGraphic
-{ def lineWidth: Double
-  def lineColour: Colour
-  def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
-  def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
-}
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): ShapeGraphic
 
-trait ShapeDraw extends ShapeDrawTr
-{
-  def drawAttribs: Arr[Attrib] = Arr(strokeWidthAttrib, strokeAttrib)
-}
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYOffset(xOffset: Double): ShapeGraphic
 
-trait ShapeFillDraw extends ShapeFillTr with ShapeDrawTr
-{ def fillDrawAttribs: Arr[Attrib] = Arr(fillAttrib, strokeWidthAttrib, strokeAttrib)
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): ShapeGraphic
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectX: ShapeGraphic
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: ShapeGraphic
+
+  override def prolign(matrix: ProlignMatrix): ShapeGraphic
+
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  override def rotate90: ShapeGraphic
+
+  /** Rotates 180 degrees or Pi radians. */
+  override def rotate180: ShapeGraphic
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  override def rotate270: ShapeGraphic
+
+  override def rotateRadians(radians: Double): ShapeGraphic
+
+  override def reflect(line: Line): ShapeGraphic
+
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphic
+  override def shearX(operand: Double): ShapeGraphic
+
+  override def shearY(operand: Double): ShapeGraphic
 }

@@ -31,7 +31,7 @@ object Arrow
   {    
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
     val shaft = LineDraw(startPt, endPt, lineWidth, lineColour)
-    val head = Polygon(rightVert, leftVert, endPt).fill(lineColour)
+    val head = Polygon(rightVert, leftVert, endPt).fillOld(lineColour)
     Arr(shaft, head)
   }
 }

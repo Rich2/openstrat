@@ -50,7 +50,7 @@ final class Square private(val x0: Double, val y0: Double, val x1: Double, val y
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 
-  override def fill(fillColour: Colour): ShapeFill = ???
+  override def fillOld(fillColour: Colour): ShapeFill = ???
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
