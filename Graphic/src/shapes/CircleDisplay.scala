@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class CircleDisplay(shape: Circle, members: Arr[ShapeMember]) extends ShapeDisplay// with SimilarPreserve
+case class CircleDisplay(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeDisplay]) extends ShapeDisplay// with SimilarPreserve
 { /*override type ThisT = CircleDisplay
 
   override def fTrans(f: Vec2 => Vec2): ThisT =
@@ -15,7 +15,7 @@ case class CircleDisplay(shape: Circle, members: Arr[ShapeMember]) extends Shape
   }*/
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): CircleDisplay = CircleDisplay(shape.slate(offset), fMems(_.slate(offset)))
+  override def slate(offset: Vec2): CircleDisplay = CircleDisplay(shape.slate(offset), facets, children.map(_.slate(offset)))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): ShapeDisplay = ???

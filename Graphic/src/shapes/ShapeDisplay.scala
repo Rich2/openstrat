@@ -4,19 +4,22 @@ package geom
 import pXml._, Colour.Black
 
 /** A ShapeMember, a member of a ShapeDisp can either be a ShapeFacet or a [[ShapeDisplay]]. */
-sealed trait ShapeMember
+//sealed trait ShapeMember
 
 /** A shape based graphic. Will probably change the name back to ShapeGraphic. */
-trait ShapeDisplay extends DisplayElem with ShapeMember
+trait ShapeDisplay extends DisplayElem// with ShapeMember
 { def shape: Shape
-  def members: Arr[ShapeMember]
+  def facets: Arr[ShapeFacet]
+
+  /** The [[ShapeDisplay]] type will be widened at a later point. */
+  def children: Arr[ShapeDisplay]
   //def attribs: Arr[Attrib]
   def svgStr: String
 
-  def fMems(f: ShapeDisplay => ShapeDisplay): Arr[ShapeMember] = members.map{
+  /*def fMems(f: ShapeDisplay => ShapeDisplay): Arr[ShapeMember] = members.map{
     case sd: ShapeDisplay => f(sd)
     case sf: ShapeFacet => sf
-  }
+  }*/
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeDisplay
@@ -63,7 +66,7 @@ trait ShapeDisplay extends DisplayElem with ShapeMember
   override def shearY(operand: Double): ShapeDisplay
 }
 
-trait ShapeFacet extends ShapeMember
+trait ShapeFacet// extends ShapeMember
 { def attribs: Arr[Attrib]
 }
 
