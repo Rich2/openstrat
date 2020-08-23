@@ -7,7 +7,7 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
     case FillColour(c) => cp.circleFill(shape, c)
     case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
-    case _ =>
+    case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))

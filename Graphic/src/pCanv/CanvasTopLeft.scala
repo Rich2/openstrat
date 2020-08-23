@@ -33,7 +33,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def circleDrawOld(cd: CircleDraw): Unit = tlCircleDrawOld(cd.reflectX.slate(width / 2, height / 2))
 
   final override def circleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit =
-    tlCircleDraw(circle.slate(width / 2, height / 2), lineWidth, colour)
+    tlCircleDraw(circle.reflectX.slate(width / 2, height / 2), lineWidth, colour)
 
   final override def circleFillDraw(cfd: CircleFillDraw): Unit = tlCircleFillDraw(cfd.reflectX.slate(width / 2, height / 2))
 
