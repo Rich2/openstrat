@@ -13,19 +13,24 @@ case class CircleDisplay(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
     }
     CircleDisplay(shape.fTrans(f), newMems)
   }*/
-
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
+    case FillColour(c) => cp.circleFillNew(shape, c)
+    case _ =>
+  }
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): CircleDisplay = CircleDisplay(shape.slate(offset), facets, children.map(_.slate(offset)))
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeDisplay = ???
+  override def slate(xOffset: Double, yOffset: Double): ShapeDisplay =
+    CircleDisplay(shape.slate(xOffset, yOffset), facets, children.map(_.slate(xOffset, yOffset)))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): ShapeDisplay = ???
+  override def scale(operand: Double): ShapeDisplay = CircleDisplay(shape.scale(operand), facets, children.map(_.scale(operand)))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): ShapeDisplay = ???
+  override def reflectYOffset(xOffset: Double): ShapeDisplay =
+    CircleDisplay(shape.reflectYOffset(xOffset), facets, children.map(_.reflectYOffset(xOffset)))
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXOffset(yOffset: Double): ShapeDisplay = ???
@@ -36,7 +41,7 @@ case class CircleDisplay(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: ShapeDisplay = ???
+  override def reflectY: CircleDisplay = CircleDisplay(shape.reflectY, facets, children.map(_.reflectY))
 
   override def prolign(matrix: ProlignMatrix): ShapeDisplay = ???
 

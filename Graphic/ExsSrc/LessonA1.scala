@@ -5,7 +5,7 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LessonA1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
 {
   repaints(
-    Circle(100, 0, 0).fill(SeaGreen),
+    CircleDisplay(Circle(100, 0, 0), Arr(FillColour(SeaGreen)), Arr()),
     Circle(70, 50, 80).fill(Orange),
     Circle(80, 300, 0).fill(Red),
     Circle(80, -250, 150).fill(Colour.LemonLime),
