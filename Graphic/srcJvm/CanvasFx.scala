@@ -79,20 +79,26 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
 
-  override def tlCircleFill(cf: CircleFill): Unit =
+  override def tlCircleFillOld(cf: CircleFill): Unit =
   { gc.setFill(toFxColor(cf.fillColour))
     gc.fillOval(cf.xCen - cf.radius, cf.yCen - cf.radius, cf.diameter, cf.diameter)
   }
 
-  override def tlCircleFillNew(circle: Circle, colour: Colour): Unit =
+  override def tlCircleFill(circle: Circle, colour: Colour): Unit =
   { gc.setFill(toFxColor(colour))
     gc.fillOval(circle.xCen - circle.radius, circle.yCen - circle.radius, circle.diameter, circle.diameter)
   }
   
-  override def tlCircleDraw(cd: CircleDraw): Unit =
+  override def tlCircleDrawOld(cd: CircleDraw): Unit =
   { gc.setLineWidth(cd.lineWidth)
     gc.setStroke(toFxColor(cd.lineColour))
     gc.strokeOval(cd.xCen - cd.radius, cd.yCen - cd.radius, cd.diameter, cd.diameter)
+  }
+
+  override def tlCircleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit =
+  { gc.setLineWidth(lineWidth)
+    gc.setStroke(toFxColor(colour))
+    gc.strokeOval(circle.xCen - circle.radius, circle.yCen - circle.radius, circle.diameter, circle.diameter)
   }
   
   override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =

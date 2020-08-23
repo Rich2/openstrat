@@ -10,7 +10,7 @@ import geom._, Colour._
  *
  *  It is really not a good idea to use this trait, use a sub class of this trait directly in your applications. You do not want to be thinking in
  *  terms of the imperative methods of this application. Use one of the provided classes like CanvasNoPanels or Canvas Panelled or create your own if
- *  the provided classes don't fullfil your needs. */
+ *  the provided classes don't fulfill your needs. */
 trait CanvasPlatform extends RectCenlign
 {
   /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
@@ -85,6 +85,7 @@ trait CanvasPlatform extends RectCenlign
   def circleFill(circle: Circle, colour: Colour): Unit
   
   def circleDrawOld(cd: CircleDraw): Unit
+  def circleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit
   def circleFillDraw(cfd: CircleFillDraw): Unit
 
   def ellipseFill(cf: EllipseFill): Unit
