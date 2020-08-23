@@ -82,6 +82,7 @@ trait CanvasPlatform extends RectCenlign
   def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
   
   def circleFill(cf: CircleFill): Unit
+  def circleFillNew(circle: Circle, colour: Colour): Unit
   
   def circleDraw(cd: CircleDraw): Unit
   def circleFillDraw(cfd: CircleFillDraw): Unit
