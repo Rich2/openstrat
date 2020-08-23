@@ -8,8 +8,8 @@ case class LessonA1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
     Circle(100, 0, 0).fill(SeaGreen),
     Circle(70, 50, 80).fill(Orange),
     Circle(80, 300, 0).fill(Red),
-    Circle(80, -250, 150).fill(Colour.LemonLime),
-    Circle(40, 0, -220).fill(Colour.DarkGoldenRod),
+    Circle(80, -250, 150).fill(LemonLime),
+    Circle(40, 0, -220).fill(DarkGoldenRod),
   )
 }
 

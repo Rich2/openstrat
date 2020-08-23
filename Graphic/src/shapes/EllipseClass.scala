@@ -12,7 +12,7 @@ case class EllipseClass(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: 
   def minorRadius: Double = (v3 - cen).magnitude
   override def fTrans(f: Vec2 => Vec2): EllipseClass = EllipseClass(f(cen), f(v1), f(v3))
   override def fillOld(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+  override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 

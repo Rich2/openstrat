@@ -52,7 +52,7 @@ final class Square private(val x0: Double, val y0: Double, val x1: Double, val y
 
   override def fillOld(fillColour: Colour): ShapeFill = ???
 
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+  override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }

@@ -20,7 +20,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
             val v2s: Polygon = d2s.pMap(eg.trans)
             val cenXY: Vec2 = eg.latLongToXY(cen)
             val vis1: DisplayElems = ife(fill, Arr(v2s.fillActive(terr.colour, this)), Arr())
-            val vis2: DisplayElems = Arr(v2s.draw(2.0, terr.colour.redOrPink))
+            val vis2: DisplayElems = Arr(v2s.drawOld(2.0, terr.colour.redOrPink))
             val vis3: DisplayElems =
               if (eg.scale < textScale && fill) TextGraphic.lines(aStrs, 10, cenXY, terr.contrast)
               else Arr()

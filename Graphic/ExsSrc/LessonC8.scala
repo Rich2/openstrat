@@ -35,7 +35,7 @@ case class LessonC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: Mor
 
     /** this holds the syntax required to draw the current bezier (bez) (NB: replace ; with , ) */
     //val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
-    val circ = Circle((cCen.v - cRad.v).magnitude, cCen.v).draw(2.0, Blue)
+    val circ = Circle((cCen.v - cRad.v).magnitude, cCen.v).drawOld(2.0, Blue)
     val ell = Ellipse(0, 0, 200, 0, 100, 0).fillOld(SeaGreen)
 
     val elementsToPaint = cds ++ Arr(cl1, cl2, ell, circ, ell)

@@ -37,7 +37,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def fillOld(fillColour: Colour): ShapeFill = ???
 
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+  override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }

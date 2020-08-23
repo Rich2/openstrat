@@ -28,7 +28,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit =
     tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
   // final override def circleFillOld(cf: CircleFillOld): Unit = tlCircleFillOld(cf.mirrorX.slate(width / 2, height / 2))
-  final override def circleFillOld(cf: CircleFill): Unit = tlCircleFillOld(cf.reflectX.slate(width / 2, height / 2))
+  final override def circleFillOld(cf: CircleFillOld): Unit = tlCircleFillOld(cf.reflectX.slate(width / 2, height / 2))
   final override def circleFill(circle: Circle, colour: Colour): Unit = tlCircleFill(circle.reflectX.slate(width / 2, height / 2), colour)
   final override def circleDrawOld(cd: CircleDraw): Unit = tlCircleDrawOld(cd.reflectX.slate(width / 2, height / 2))
 
@@ -63,7 +63,7 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit
 
   protected[this] def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
-  protected[this] def tlCircleFillOld(cf: CircleFill): Unit
+  protected[this] def tlCircleFillOld(cf: CircleFillOld): Unit
   protected[this] def tlCircleFill(circle: Circle, colour: Colour): Unit
   protected[this] def tlCircleDrawOld(cd: CircleDraw): Unit
   protected[this] def tlCircleDraw(circle: Circle, lineWidth: Double, lineColour: Colour): Unit

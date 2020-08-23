@@ -34,9 +34,13 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def shearY(operand: Double): TransElem = ???
   
-  override def fillOld(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
+  override def fillOld(fillColour: Colour): CircleFillOld = CircleFillOld(this, fillColour)
   def fill(fillColour: Colour): CircleGraphic = CircleGraphic(this, Arr(FillColour(fillColour)), Arr())
-  def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
+  def drawOld(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
+
+  def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleGraphic =
+    CircleGraphic(this, Arr(CurveDraw(lineWidth, lineColour)), Arr())
+
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = CircleFillDraw(this, fillColour, lineWidth, lineColour)
   
   def cxAttrib: NumericAttrib = NumericAttrib("cx", xCen)

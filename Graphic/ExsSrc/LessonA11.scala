@@ -30,7 +30,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val rStr2 = TextGraphic(cd1.svgStr, 20, cd1.cen)
   val cd3 = CircleDraw(cl1.slate(v1.rotate(-45.degs)), 2, Aquamarine)
   
-  val cnf = CircleFill(cn, Violet)
+  val cnf = CircleFillOld(cn, Violet)
   val cn1 = cn.slate(20 vv 50)
   //val na: Arr[GeomElem] = Arr(cl2, cn)
   val na = Arr(cl2, cn)
