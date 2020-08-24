@@ -61,7 +61,6 @@ object CanvasJs extends CanvasTopLeft
     }
   }
 
-
   can.onkeyup = (e: raw.KeyboardEvent) => { keyUp(e.key) }
   can.onkeydown = (e: raw.KeyboardEvent) => { keyDown(e.key) }
 
@@ -163,7 +162,10 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
-  override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit = ???
+  override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
+  {
+    val rg = gc.createRadialGradient(circle.xCen, circle.yCen, circle.radius, circle.xCen, circle.yCen, circle.radius)
+  }
 
   override def tlCircleDrawOld(cd: CircleDraw): Unit =
   { gc.beginPath()
