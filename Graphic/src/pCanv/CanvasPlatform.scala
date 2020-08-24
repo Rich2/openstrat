@@ -83,7 +83,8 @@ trait CanvasPlatform extends RectCenlign
   
   def circleFillOld(cf: CircleFillOld): Unit
   def circleFill(circle: Circle, colour: Colour): Unit
-  
+  def circleFillRadial(circle: Circle, fill: FillRadial): Unit
+
   def circleDrawOld(cd: CircleDraw): Unit
   def circleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit
   def circleFillDraw(cfd: CircleFillDraw): Unit

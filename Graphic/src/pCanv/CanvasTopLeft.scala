@@ -30,6 +30,10 @@ trait CanvasTopLeft extends CanvasPlatform
   // final override def circleFillOld(cf: CircleFillOld): Unit = tlCircleFillOld(cf.mirrorX.slate(width / 2, height / 2))
   final override def circleFillOld(cf: CircleFillOld): Unit = tlCircleFillOld(cf.reflectX.slate(width / 2, height / 2))
   final override def circleFill(circle: Circle, colour: Colour): Unit = tlCircleFill(circle.reflectX.slate(width / 2, height / 2), colour)
+
+  final override def circleFillRadial(circle: Circle, fill: FillRadial): Unit =
+    tlCircleFillRadial(circle.reflectX.slate(width / 2, height / 2), fill)
+
   final override def circleDrawOld(cd: CircleDraw): Unit = tlCircleDrawOld(cd.reflectX.slate(width / 2, height / 2))
 
   final override def circleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit =
@@ -65,6 +69,8 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
   protected[this] def tlCircleFillOld(cf: CircleFillOld): Unit
   protected[this] def tlCircleFill(circle: Circle, colour: Colour): Unit
+  protected[this] def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit
+
   protected[this] def tlCircleDrawOld(cd: CircleDraw): Unit
   protected[this] def tlCircleDraw(circle: Circle, lineWidth: Double, lineColour: Colour): Unit
   

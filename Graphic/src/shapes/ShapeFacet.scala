@@ -12,6 +12,9 @@ case class FillColour(colour: Colour) extends ShapeFacet
   def fillAttrib: FillAttrib = FillAttrib(colour)
 }
 
+/** Starting off with simplified. Radial Gradient. Will expand later. */
+case class FillRadial(cenColour: Colour, outerColour: Colour)
+
 case class ShapeActive(id: Any) extends ShapeFacet
 { override def attribs: Arr[Attrib] = Arr()
 }
