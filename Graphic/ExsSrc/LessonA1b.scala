@@ -7,7 +7,7 @@ case class LessonA1b(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
   val cs = Arr(
     Circle(100, 0, 0).draw(2, SeaGreen),
     Circle(70, 50, 80).draw(4, Orange),
-    Circle(80, 300, 0).draw(1, Red),
+    Circle(80, 300, 0).fillRadial(Green, Red),
     Circle(80, -250, 150).fillDraw(Turquoise, 3, Black),
     Circle(40, 0, -220).fillDraw(DarkGoldenRod, 12, Violet),
   )
