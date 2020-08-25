@@ -1,4 +1,4 @@
-appStr = "A11";
+appStr = "1";
 displayX = 0;
 displayY = 0;
 /* displayWidth = 1920 */
@@ -35,7 +35,9 @@ displayY = 0;
     ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
 
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
-    ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")), 
+    ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")),
+    ("A1b", (learn.LessonA1b(_), "JavaFx Demonstration Canvas 1b")),
+    ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")),
     ("A2", (learn.LessonA2(_), "JavaFx Demonstration Canvas 2")),
     ("A3", (learn.LessonA3(_), "JavaFx Demonstration Canvas 3")),
     ("A4", (learn.LessonA4(_), "JavaFx Demonstration Canvas 4")),
