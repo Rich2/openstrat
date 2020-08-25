@@ -15,7 +15,7 @@ def commonSett = List(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
-lazy val root = (project in file(".")).aggregate(Util, Graphic, Tiling, World, Dev, JsDev)
+lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, World, Dev, JsDev)
 lazy val module = SettingKey[File]("module")
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
@@ -63,19 +63,19 @@ lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
 )
 
 lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
-lazy val GraphicCore = coreJvmProj("Graphic").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
-lazy val Graphic = exsJvmProj("Graphic").dependsOn(GraphicCore).settings(Compile/mainClass:= Some("learn.LessonE1App"))
-lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicCore)
+lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
+lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(Compile/mainClass:= Some("learn.LessonE1App"))
+lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
 lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
 lazy val World = exsJvmProj("World").dependsOn(WorldCore)
 
-lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphic, Tiling, World).settings(
+lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphics, Tiling, World).settings(
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-val libModules =  List("Util", "Graphic", "Tiling", "World")
+val libModules =  List("Util", "Graphics", "Tiling", "World")
 
 lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(UtilMacros).settings(commonSett).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
@@ -92,7 +92,7 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
 )
 
-val docDirs: List[String] = List("Util", "Graphic", "Tiling", "World", "Dev")
+val docDirs: List[String] = List("Util", "Graphics", "Tiling", "World", "Dev")
 
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
@@ -132,11 +132,11 @@ lazy val JsUtil = jsProj("Util").dependsOn(JsUtilMacros).settings(
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-lazy val JsGraphic = jsProj("Graphic").dependsOn(JsUtil).settings(  
-  Compile/unmanagedSourceDirectories := List("Graphic/src", "Graphic/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val JsGraphics = jsProj("Graphics").dependsOn(JsUtil).settings(
+  Compile/unmanagedSourceDirectories := List("Graphics/src", "Graphics/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val JsTiling = jsProj("Tiling").dependsOn(JsGraphic).settings(  
+lazy val JsTiling = jsProj("Tiling").dependsOn(JsGraphics).settings(
   Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
@@ -145,7 +145,7 @@ lazy val JsWorld = jsProj("World").dependsOn(JsTiling).settings(
 )
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "UtilExsSrc", "Graphic/ExsSrc", "Tiling/ExsSrc", "World/ExsSrc").
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "UtilExsSrc", "Graphics/ExsSrc", "Tiling/ExsSrc", "World/ExsSrc").
     map(s => (ThisBuild/baseDirectory).value / s),
 )
 
@@ -171,10 +171,10 @@ lazy val DotUtil = Project("DotUtil", file("target/DotUtil")).dependsOn(DotMacro
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-lazy val DotGraphic = Project("DotGraphic", file("target/Graphic")).dependsOn(DotUtil).settings(dottySettings).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Graphic/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphic/src",
+lazy val DotGraphics = Project("DotGraphics", file("target/Graphics")).dependsOn(DotUtil).settings(dottySettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphic/test/src",
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/test/src",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
