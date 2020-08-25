@@ -1,68 +1,55 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pCanv._, pXml._
 
-trait EllipseGraphic extends ShapeGraphicOld//
-{ type ThisT <: EllipseGraphic
-  override def shape: Ellipse
-  def fTrans(newEllipse: Ellipse): ThisT
-  
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */  
-  override def reflectX: ThisT = fTrans(shape.reflectX)
-  
-  /** Translate geometric transformation. */
-  override def slate(offset: Vec2): ThisT = fTrans(shape.slate(offset))
-
-  /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(shape.slate(xOffset, yOffset))
-
+case class EllipseGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]) extends ShapeGraphic {
   override def svgStr: String = ???
-}
 
-final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends EllipseGraphic with ShapeFill
-{ type ThisT = EllipseFill
+  /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
+  override def slate(offset: Vec2): EllipseGraphic = EllipseGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
 
-  override def fTrans(newEllipse: Ellipse): EllipseFill = EllipseFill(newEllipse, fillColour)
-  
-  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)  
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): EllipseGraphic =
+    EllipseGraphic(shape.slate(xOffset, yOffset), facets, children.map(_.slate(xOffset, yOffset)))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): DisplayElem = ???
+  override def scale(operand: Double): EllipseGraphic = ???
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): DisplayElem = ???
+  override def reflectYOffset(xOffset: Double): EllipseGraphic = ???
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): DisplayElem = ???
+  override def reflectXOffset(yOffset: Double): EllipseGraphic = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: DisplayElem = ???
+  override def reflectX: EllipseGraphic = ???
 
-  override def prolign(matrix: ProlignMatrix): DisplayElem = ???
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: EllipseGraphic = ???
+
+  override def prolign(matrix: ProlignMatrix): EllipseGraphic = ???
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: DisplayElem = ???
+  override def rotate90: EllipseGraphic = ???
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: DisplayElem = ???
+  override def rotate180: EllipseGraphic = ???
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: DisplayElem = ???
+  override def rotate270: EllipseGraphic = ???
 
-  override def rotateRadians(radians: Double): DisplayElem = ???
+  override def rotateRadians(radians: Double): EllipseGraphic = ???
 
-  override def reflect(line: Sline): DisplayElem = ???
-  override def reflect(line: Line): DisplayElem = ???
+  override def reflect(line: Line): EllipseGraphic = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): EllipseGraphic = ???
 
-  override def shearX(operand: Double): TransElem = ???
-  override def shearY(operand: Double): TransElem = ???
+  override def shearX(operand: Double): EllipseGraphic = ???
 
-  override def attribs: Arr[Attrib] = ???
+  override def shearY(operand: Double): EllipseGraphic = ???
+
+  override def reflect(line: Sline): TransElem = ???
 }
