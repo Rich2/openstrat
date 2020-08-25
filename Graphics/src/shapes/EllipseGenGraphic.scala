@@ -2,9 +2,16 @@
 package ostrat
 package geom
 
-case class EllipseGenGraphic(val shape: Ellipse, val facets: Arr[ShapeFacet], val children: Arr[ShapeGraphic]) extends EllipseGraphic
+case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]) extends EllipseGraphic
 { override def svgStr: String = ???
-
+  
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
+  { 
+    /*case FillColour(c) => cp.circleFill(shape, c)
+  case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
+  case fr: FillRadial => cp.circleFillRadial(shape, fr)*/
+  case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
+  }
   /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
   override def slate(offset: Vec2): EllipseGenGraphic = EllipseGenGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
 
@@ -14,7 +21,7 @@ case class EllipseGenGraphic(val shape: Ellipse, val facets: Arr[ShapeFacet], va
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): EllipseGenGraphic = ???
+  override def scale(operand: Double): EllipseGenGraphic = EllipseGenGraphic(shape.scale(operand), facets, children.map(_.scale(operand)))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def reflectYOffset(xOffset: Double): EllipseGenGraphic = ???
@@ -28,7 +35,7 @@ case class EllipseGenGraphic(val shape: Ellipse, val facets: Arr[ShapeFacet], va
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: EllipseGenGraphic = ???
+  override def reflectY: EllipseGenGraphic = EllipseGenGraphic(shape.reflectY, facets, children.map(_.reflectY))
 
   override def prolign(matrix: ProlignMatrix): EllipseGenGraphic = ???
 

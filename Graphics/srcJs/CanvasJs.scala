@@ -198,14 +198,14 @@ object CanvasJs extends CanvasTopLeft
   }
 
   /** Needs fixing. */
-  override def tlEllipseFill(ef: EllipseFill): Unit =
+  override def tlEllipseFillOld(ef: EllipseFill): Unit =
   { val el = ef.shape
     gc.beginPath()
     gc.fillStyle = ef.fillColour.webStr
     //gc.ellipse(el.xCen, el.yCen, el.aRadius, el.bRadius, 0, Pi * 2)
     gc.fill()
   }
-   
+  def tlEllipseFill(ellipse: Ellipse, fillColour: FillColour): Unit = ??? 
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath()
     lsd.lines.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})

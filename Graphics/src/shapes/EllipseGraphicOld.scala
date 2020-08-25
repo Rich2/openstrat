@@ -27,7 +27,7 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def fTrans(newEllipse: Ellipse): EllipseFill = EllipseFill(newEllipse, fillColour)
   
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)  
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFillOld(this)  
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

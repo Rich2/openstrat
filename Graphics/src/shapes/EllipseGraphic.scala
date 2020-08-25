@@ -52,3 +52,7 @@ trait EllipseGraphic extends ShapeGraphic
 
   override def reflect(line: Sline): EllipseGraphic
 }
+
+object EllipseGraphic
+{ def apply(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]): EllipseGraphic = new EllipseGenGraphic(shape, facets, children)
+}

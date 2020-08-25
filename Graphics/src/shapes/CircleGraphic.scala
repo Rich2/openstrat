@@ -4,8 +4,8 @@ package geom
 
 case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]) extends EllipseGraphic// with SimilarPreserve
 { /*override type ThisT = CircleDisplay */
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
-    case FillColour(c) => cp.circleFill(shape, c)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
+  { case FillColour(c) => cp.circleFill(shape, c)
     case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
     case fr: FillRadial => cp.circleFillRadial(shape, fr)  
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
