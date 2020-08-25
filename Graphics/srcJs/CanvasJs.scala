@@ -205,7 +205,9 @@ object CanvasJs extends CanvasTopLeft
     //gc.ellipse(el.xCen, el.yCen, el.aRadius, el.bRadius, 0, Pi * 2)
     gc.fill()
   }
-  def tlEllipseFill(ellipse: Ellipse, fillColour: FillColour): Unit = ??? 
+  
+  override def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit = ???
+  
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath()
     lsd.lines.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
@@ -235,7 +237,7 @@ object CanvasJs extends CanvasTopLeft
       )
       startPt = seg.pEnd
     }
-    gc.closePath
+    gc.closePath()
   }
    
   override protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit =
