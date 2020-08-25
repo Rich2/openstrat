@@ -45,15 +45,15 @@ def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("targe
 def coreJvmProj(nameStr: String) = baseJvmProj(nameStr, nameStr + "Core")
 
 def exsJvmProj(nameStr: String) = Project(nameStr, file("target/ExsJvm" + nameStr)).settings(commonSett).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / nameStr / "/ExsSrc",
+  scalaSource := (ThisBuild/baseDirectory).value / nameStr / "srcExs",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "ExsSrc",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "srcExs",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   resourceDirectory := (ThisBuild/baseDirectory).value / nameStr / "/ExsRes",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "ExsTestSrc",
+  Test/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "testSrcExs",
   Test/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testSrc", (Test/scalaSource).value),
-  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "ExsTestRes",
+  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "testResExs",
   Test/unmanagedResourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testRes", (Test/resourceDirectory).value),
 )
 
@@ -83,7 +83,7 @@ lazy val StratLib = Project("StratLib", file("target/JvmStratLib")).dependsOn(Ut
   Compile/unmanagedSourceDirectories := libModules.flatMap(nameStr => List("src", "srcJvm").
     map(endStr => (ThisBuild/baseDirectory).value / nameStr / endStr)),
   Compile/unmanagedResourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "res"), 
-  Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/test/src",
+  Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/testSrc",
   Test/unmanagedSourceDirectories := List(),
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
   //artifactName := { (sv: ScalaVersion, module: ModuleID, artifact: Artifact) =>
@@ -96,7 +96,7 @@ val docDirs: List[String] = List("Util", "Graphics", "Tiling", "World", "Dev")
 
 lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/ExsSrc")).
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs")).
     map(s => (ThisBuild/baseDirectory).value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
@@ -105,7 +105,7 @@ lazy val DocMain = (project in file("target/DocMain")).dependsOn(UtilMacros).set
 
 lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/ExsSrc")).
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).
     map(s => (ThisBuild/baseDirectory).value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
@@ -145,7 +145,7 @@ lazy val JsWorld = jsProj("World").dependsOn(JsTiling).settings(
 )
 
 lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "UtilExsSrc", "Graphics/ExsSrc", "Tiling/ExsSrc", "World/ExsSrc").
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Util/srcExs", "Graphics/srcExs", "Tiling/srcExs", "World/srcExs").
     map(s => (ThisBuild/baseDirectory).value / s),
 )
 
@@ -167,7 +167,7 @@ lazy val DotUtil = Project("DotUtil", file("target/DotUtil")).dependsOn(DotMacro
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/test/src",
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
@@ -175,6 +175,6 @@ lazy val DotGraphics = Project("DotGraphics", file("target/Graphics")).dependsOn
   scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/test/src",
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
