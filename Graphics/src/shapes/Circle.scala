@@ -35,7 +35,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def shearY(operand: Double): TransElem = ???
   
   override def fillOld(fillColour: Colour): CircleFillOld = CircleFillOld(this, fillColour)
-  def fill(fillColour: Colour): CircleGraphic = CircleGraphic(this, Arr(FillColour(fillColour)), Arr())
+  override def fill(fillColour: Colour): CircleGraphic = CircleGraphic(this, Arr(FillColour(fillColour)))
   def fillRadial(cenColour: Colour, outerColour: Colour): CircleGraphic =
     CircleGraphic(this, Arr(FillRadial(cenColour, outerColour)), Arr())
   

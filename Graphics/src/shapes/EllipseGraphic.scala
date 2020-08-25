@@ -54,5 +54,5 @@ trait EllipseGraphic extends ShapeGraphic
 }
 
 object EllipseGraphic
-{ def apply(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]): EllipseGraphic = new EllipseGenGraphic(shape, facets, children)
+{ def apply(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()): EllipseGraphic = new EllipseGenGraphic(shape, facets, children)
 }

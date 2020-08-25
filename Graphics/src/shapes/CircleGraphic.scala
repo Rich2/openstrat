@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic]) extends EllipseGraphic// with SimilarPreserve
+case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic// with SimilarPreserve
 { /*override type ThisT = CircleDisplay */
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillColour(c) => cp.circleFill(shape, c)

@@ -31,15 +31,18 @@ trait Ellipse extends Shape with ProlignPreserve
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = ???
 
   //override def mirrorX: Ellipse
+  def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
 }
 
 object Ellipse
 { /** The apply factory methods default to an EllipseClass. */
-  def apply(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double): EllipseClass =
-    new EllipseClass(xCen, yCen, x1, y1, x3, y3)
+  def apply(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double): EllipseGen =
+    new EllipseGen(xCen, yCen, x1, y1, x3, y3)
 
   /** The apply factory methods default to an EllipseClass. */
-  def apply(cen: Vec2, v1: Vec2, v3: Vec2): EllipseClass = new EllipseClass(cen.x, cen.y, v1.x, v1.y, v3.x,  v3.y)
+  def apply(cen: Vec2, v1: Vec2, v3: Vec2): EllipseGen = new EllipseGen(cen.x, cen.y, v1.x, v1.y, v3.x,  v3.y)
   
   implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => Ellipse(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)
+
+  
 }
