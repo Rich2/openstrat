@@ -163,8 +163,12 @@ object CanvasJs extends CanvasTopLeft
   }
 
   override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
-  {
-    val rg = gc.createRadialGradient(circle.xCen, circle.yCen, circle.radius, circle.xCen, circle.yCen, circle.radius)
+  { val rg = gc.createRadialGradient(circle.xCen, circle.yCen, 0, circle.xCen, circle.yCen, circle.radius)
+    rg.addColorStop(0, fill.cenColour.webStr);
+    rg.addColorStop(1, fill.outerColour.webStr)
+    gc.fillStyle = rg
+    gc.arc(circle.xCen, circle.yCen, circle.radius, 0, Pi * 2)
+    gc.fill()
   }
 
   override def tlCircleDrawOld(cd: CircleDraw): Unit =
