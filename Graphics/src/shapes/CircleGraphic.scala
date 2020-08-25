@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pXml._
 
 case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic// with SimilarPreserve
 { /*override type ThisT = CircleDisplay */
@@ -10,6 +11,8 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
     case fr: FillRadial => cp.circleFillRadial(shape, fr)  
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
+
+  def svgStr: String = closedTagStr("circle", shape.circleAttribs ++ facets.flatMap(_.attribs))
   
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
@@ -53,8 +56,6 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
   override def reflect(line: Line): CircleGraphic = ???
 
   override def reflect(line: Sline): CircleGraphic = ???
-
-  override def svgStr: String = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): EllipseGenGraphic = ???
 
