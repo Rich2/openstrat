@@ -1,5 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import pWeb._
 
 object WebPage1 extends App
 {
@@ -12,6 +13,6 @@ object WebPage1 extends App
       |And a third.
       |""".stripMargin
   
-  val r = homeWrite("temp.txt", body)
+  val r = homeWrite("temp.txt", HtmlHtml(body).out)
   deb(r.toString)
 }
