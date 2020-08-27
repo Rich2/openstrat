@@ -13,6 +13,6 @@ object WebPage1 extends App
       |And a third.
       |""".stripMargin
   
-  val r = homeWrite("temp.txt", HtmlHtml(body).out)
+  val r = homeWrite("temp.txt", HtmlPage(body).out)
   deb(r.toString)
 }

@@ -2,6 +2,12 @@
 package ostrat
 package pWeb
 
+
+case class HtmlPage(body: String)
+{
+  def out: String = "<!doctype html>\n" + HtmlHtml(body).out
+}
+
 trait HtmlElem
 {
   def tag: String
