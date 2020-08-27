@@ -64,5 +64,5 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def shearX(operand: Double): TransElem = ???
   override def shearY(operand: Double): TransElem = ???
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }

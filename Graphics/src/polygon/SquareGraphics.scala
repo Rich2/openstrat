@@ -40,6 +40,6 @@ final case class SquareFill(shape: Square, fillColour: Colour) extends ShapeFill
   override def shearX(operand: Double): TransElem = ???
   override def shearY(operand: Double): TransElem = ???
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
   override def svgStr: String = ???
 }

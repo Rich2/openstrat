@@ -5,8 +5,8 @@ import pWeb._
 
 trait RectangleGraphic extends ShapeGraphicOld with Rectangular
 { override def shape: Rectangle
-  def xAttrib = NumericAttrib("x", xCen)
-  def yAttrib = NumericAttrib("y", yCen)
-  def widthAttrib = NumericAttrib("width", width)
-  def heightAttrib = NumericAttrib("height", height)
+  def xAttrib = XANumeric("x", xCen)
+  def yAttrib = XANumeric("y", yCen)
+  def widthAttrib = XANumeric("width", width)
+  def heightAttrib = XANumeric("height", height)
 }

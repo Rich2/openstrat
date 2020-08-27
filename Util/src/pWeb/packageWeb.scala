@@ -3,7 +3,6 @@ package ostrat
 
 /** I'm just trying out a new package, not sure whether will use pWeb. */
 package object pWeb
-{  
-  def closedTagStr(tagName: String, attribs: Attrib *): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
-  def closedTagStr(tagName: String, attribs: Arr[Attrib]): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
+{ def tagVoidStr(tagName: String, attribs: XmlAtt *): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
+  def tagVoidStr(tagName: String, attribs: Arr[XmlAtt]): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
 }  

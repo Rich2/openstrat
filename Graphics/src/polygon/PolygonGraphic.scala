@@ -21,7 +21,7 @@ trait PolygonGraphic extends DisplayAffineElem with DisplayBoundedAffine with Sh
   def xArray: Array[Double] = shape.elem1sArray
   def yArray: Array[Double] = shape.elem2sArray
   override def boundingRect: BoundingRect = shape.boundingRect
-  def svgStr: String = closedTagStr("rect", attribs)
+  def svgStr: String = tagVoidStr("rect", attribs)
 }
 
 /** An active transparent pointable polygon */
@@ -40,7 +40,7 @@ final case class PolygonFill(shape: Polygon, fillColour: Colour) extends Polygon
 { override type ThisT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, fillColour)
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }
 
 object PolygonFill
@@ -53,7 +53,7 @@ case class PolygonFillActive(shape: Polygon, pointerId: Any, colour: Colour) ext
   override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(shape.fTrans(f), pointerId, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
 
-  override def attribs: Arr[Attrib] = ???  
+  override def attribs: Arr[XmlAtt] = ???  
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
@@ -62,7 +62,7 @@ case class PolygonDraw(shape: Polygon, lineWidth: Double, lineColour: Colour = B
   override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyDraw(shape, lineWidth, lineColour)
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }
 
 object PolygonDraw
@@ -78,7 +78,7 @@ case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double
   def noFill: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = { cp.polyFill(shape, fillColour); cp.polyDraw(shape, lineWidth, lineColour) }
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }
 
 object PolygonFillDraw
@@ -103,7 +103,7 @@ case class PolygonFillText(shape: Polygon, fillColour: Colour, str: String, font
     cp.textGraphic(textOnly)
   }
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }
 
 case class PolygonFillDrawText(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
@@ -120,7 +120,7 @@ case class PolygonFillDrawText(shape: Polygon, fillColour: Colour, str: String, 
     cp.textGraphic(textOnly)
   }
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }
 
 case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
@@ -137,7 +137,7 @@ case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: S
     cp.textGraphic(textOnly)
   }
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }
 
 object PolygonFillDrawText
@@ -154,5 +154,5 @@ case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Col
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = { cp.polyFill(shape, fillColour); cp.textGraphic(textOnly) }
 
-  override def attribs: Arr[Attrib] = ???
+  override def attribs: Arr[XmlAtt] = ???
 }

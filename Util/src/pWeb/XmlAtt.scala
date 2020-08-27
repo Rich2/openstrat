@@ -3,12 +3,13 @@ package ostrat
 package pWeb
 
 /** An XML attribute. */
-trait Attrib
+trait XmlAtt
 { def name: String
   def valueStr: String
   def str: String = name + "=" + valueStr.enquote
 }
 
-case class NumericAttrib(name: String, num: Double) extends Attrib
+/** An Xml numeric attribute. */
+case class XANumeric(name: String, num: Double) extends XmlAtt
 { override def valueStr: String = num.toString
 }

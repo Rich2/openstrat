@@ -6,7 +6,7 @@ import pWeb._
 /** A shape based graphic. */
 trait ShapeGraphicOld extends DisplayElem
 { def shape: Shape
-  def attribs: Arr[Attrib]
+  def attribs: Arr[XmlAtt]
   def svgStr: String
 }
 
@@ -37,9 +37,9 @@ trait ShapeDrawTr extends ShapeGraphicOld
 
 trait ShapeDraw extends ShapeDrawTr
 {
-  def drawAttribs: Arr[Attrib] = Arr(strokeWidthAttrib, strokeAttrib)
+  def drawAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
 }
 
 trait ShapeFillDraw extends ShapeFillTr with ShapeDrawTr
-{ def fillDrawAttribs: Arr[Attrib] = Arr(fillAttrib, strokeWidthAttrib, strokeAttrib)
+{ def fillDrawAttribs: Arr[XmlAtt] = Arr(fillAttrib, strokeWidthAttrib, strokeAttrib)
 }

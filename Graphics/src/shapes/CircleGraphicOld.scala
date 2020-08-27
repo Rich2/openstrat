@@ -6,8 +6,8 @@ import pCanv._, Colour.Black, pWeb._
 trait CircleGraphicOld extends ShapeGraphicOld with SimilarPreserve
 { type ThisT <: CircleGraphicOld
   override def shape: Circle
-  def svgStr: String = closedTagStr("circle", attribs)
-  def circleAttribs: Arr[NumericAttrib] = shape.circleAttribs
+  def svgStr: String = tagVoidStr("circle", attribs)
+  def circleAttribs: Arr[XANumeric] = shape.circleAttribs
   @inline final def cen: Vec2 = shape.cen
   @inline final def xCen: Double = shape.xCen
   @inline final def yCen: Double = shape.yCen
@@ -24,7 +24,7 @@ final case class CircleFillOld(shape: Circle, fillColour: Colour) extends Circle
   override def shearX(operand: Double): TransElem = ???
 
   override def shearY(operand: Double): TransElem = ???
-  override def attribs: Arr[Attrib] = circleAttribs +- fillAttrib
+  override def attribs: Arr[XmlAtt] = circleAttribs +- fillAttrib
 }
 
 /** To be removed. */
@@ -36,7 +36,7 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
   override def shearX(operand: Double): TransElem = ???
 
   override def shearY(operand: Double): TransElem = ???
-  override def attribs: Arr[Attrib] = drawAttribs
+  override def attribs: Arr[XmlAtt] = drawAttribs
 }
 
 /** To be removed. */
@@ -49,7 +49,7 @@ final case class CircleFillDraw(shape: Circle, fillColour: Colour, lineWidth: Do
   override def shearX(operand: Double): TransElem = ???
 
   override def shearY(operand: Double): TransElem = ???
-  override def attribs: Arr[Attrib] = fillDrawAttribs
+  override def attribs: Arr[XmlAtt] = fillDrawAttribs
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
