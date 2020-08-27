@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pXml._, Colour.Black
+import pWeb._, Colour.Black
 trait ShapeFacet// extends ShapeMember
 { def attribs: Arr[Attrib]
 }

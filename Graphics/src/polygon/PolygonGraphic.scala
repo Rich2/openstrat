@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pCanv._, Colour.Black, pXml._
+import pCanv._, Colour.Black, pWeb._
 
 trait PolygonGraphic extends DisplayAffineElem with DisplayBoundedAffine with ShapeGraphicOld
 { type ThisT <: PolygonGraphic
