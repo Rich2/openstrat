@@ -5,26 +5,35 @@ package pWeb
 /** HTML element. */
 trait HtmlElem extends XmlishElem
 
-case class HtmlPage(body: String)
-{ def out: String = "<!doctype html>\n" + HtmlHtml(body).out
+case class HtmlPage(head: HtmlHead, body: HtmlBody)
+{ def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out
+}
+
+object HtmlPage
+{
+  def apply(title: String, body: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(body))
 }
 
 /** A trait for HTML elements that don't indent their children. */
 trait HtmlOuterElem extends HtmlElem
-{ def content: String
-  def out: String = "<" + tag + ">\n" + content + "\n</" + tag + ">"
+{ def out: String = "<" + tag + ">\n" + content + "\n</" + tag + ">"
 }
 
-case class HtmlHead(content: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem
+case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem
 { override def tag: String = "head"
+  override def content: Arr[XCon] = Arr[XCon](titleStr.xCon)
 }
 
 /** The "html" HTML element */
-case class HtmlHtml(body: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem
+case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem
 { def tag: String = "html"
-  def content: String = HtmlBody(body).out
+  override def content = Arr(head, body)
 }
 
-case class HtmlBody(content: String)
-{ def out: String = "<body>\n" + content + "\n</body>"
+case class HtmlBody(contentStr: String) extends HtmlOuterElem
+{ override def tag: String = "body"
+  override def content: Arr[XCon] = ???
+
+  override def attribs: Arr[XmlAtt] = ???
+  //def out: String = "<body>\n" + content + "\n</body>"
 }
