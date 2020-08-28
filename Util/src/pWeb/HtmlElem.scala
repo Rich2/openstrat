@@ -9,20 +9,20 @@ case class HtmlPage(body: String)
 }
 
 trait HtmlElem
-{
-  def tag: String
+{ def tag: String
 }
 
+/** A trait for HTML elements that don't indent their children. */
 trait HtmlOuterElem extends HtmlElem
-{
-  def content: String
+{ def content: String
   def out: String = "<" + tag + ">\n" + content + "\n</" + tag + ">"
 }
 
+case class HtmlHead(content: String)
+
 /** The "html" HTML element */
 case class HtmlHtml(body: String) extends HtmlOuterElem
-{
-  def tag: String = "html"
+{ def tag: String = "html"
   def content: String = HtmlBody(body).out
 }
 
