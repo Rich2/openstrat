@@ -16,12 +16,22 @@ object HtmlPage
 
 /** A trait for HTML elements that don't indent their children. */
 trait HtmlOuterElem extends HtmlElem
-{ def out: String = "<" + tag + ">\n" + content + "\n</" + tag + ">"
+{ def out: String = openTag + content.toStrsFold("\n", _.out) + "\n" + closeTag
 }
 
 case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem
 { override def tag: String = "head"
-  override def content: Arr[XCon] = Arr[XCon](titleStr.xCon)
+  override def content: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
+}
+
+case class HtmlTitle(str: String) extends HtmlElem
+{
+  def tag = "title"
+
+  override def attribs: Arr[XmlAtt] = Arr()
+
+  override def content: Arr[XCon] = ???
+  override def out = "<title>" + str + "</title>"
 }
 
 /** The "html" HTML element */
@@ -32,7 +42,7 @@ case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()
 
 case class HtmlBody(contentStr: String) extends HtmlOuterElem
 { override def tag: String = "body"
-  override def content: Arr[XCon] = ???
+  override def content: Arr[XCon] = Arr(contentStr.xCon)
 
   override def attribs: Arr[XmlAtt] = ???
   //def out: String = "<body>\n" + content + "\n</body>"

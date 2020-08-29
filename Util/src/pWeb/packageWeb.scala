@@ -5,4 +5,9 @@ package ostrat
 package object pWeb
 { def tagVoidStr(tagName: String, attribs: XmlAtt *): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
   def tagVoidStr(tagName: String, attribs: Arr[XmlAtt]): String = attribs.foldLeft("<" + tagName)(_ + " " + _.str) + " />"
+
+  implicit class StringExtension(thisString: String)
+  {
+    def xCon: XConStr = XConStr(thisString)
+  }
 }  

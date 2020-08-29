@@ -7,12 +7,13 @@ object WebPage1 extends App
   val title = "Web Page Example 1"
   
   val body =
-    """This is just some text for creating a web page.
+    """<p>This is just some text for creating a web page. So I'm just going to go on and on for a bit, just in an attempt to drag this out into
+      |multiple lines. So i really don't know what I'm goig to say. Its awful really when you've just got to write stuff to take up lines.<p>
       |
-      |And here's a second paragraph.
-      |And a third.
+      |<p>And here's a second paragraph.</p>
+      |<p>And a third.</p>
       |""".stripMargin
   
-  val r = homeWrite("temp.html", HtmlPage("temp", body).out)
+  val r = homeWrite("Web1.html", HtmlPage("First stab at a web page", body).out)
   deb(r.toString)
 }
