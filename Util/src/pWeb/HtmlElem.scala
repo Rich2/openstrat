@@ -10,8 +10,7 @@ case class HtmlPage(head: HtmlHead, body: HtmlBody)
 }
 
 object HtmlPage
-{
-  def apply(title: String, body: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(body))
+{ def apply(title: String, body: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(body))
 }
 
 /** A trait for HTML elements that don't indent their children. */

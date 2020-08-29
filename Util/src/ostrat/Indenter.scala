@@ -3,6 +3,7 @@ package ostrat
 
 /** I presumbe IndentCon stands for indentable content. This is the problem when you don't document things. Hence why I'm thinking of starting from
  *  scratch. */
+/*
 trait IndentCon
 { def out(ind: Int): String
   def outLen: Int = out(0).length
@@ -33,4 +34,4 @@ object IndentCon
       case _ => true //thisSeq.foldLeft(0)(_ + _.length) > 60
     }
   }
-}
+}*/
