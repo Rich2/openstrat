@@ -13,14 +13,10 @@ object HtmlPage
 { def apply(title: String, body: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(body))
 }
 
-/** A trait for HTML elements that don't indent their children. */
-trait HtmlOuterElem extends HtmlElem
-{ def out: String = openTag1 + content.toStrsFold("\n", _.out) + "\n" + closeTag
-}
-
-case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem
+case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
 { override def tag: String = "head"
   override def content: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
+  def out: String = openTag1 + content.toStrsFold("\n", _.out) + "\n" + closeTag
 }
 
 case class HtmlTitle(str: String) extends HtmlElem
@@ -34,15 +30,16 @@ case class HtmlTitle(str: String) extends HtmlElem
 }
 
 /** The "html" HTML element */
-case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem
+case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
 { def tag: String = "html"
   override def content = Arr(head, body)
+  def out: String = openTag2 + head.out + "\n\n" + body.out + n2CloseTag
 }
 
-case class HtmlBody(contentStr: String) extends HtmlOuterElem
+case class HtmlBody(contentStr: String) extends HtmlElem
 { override def tag: String = "body"
   override def content: Arr[XCon] = Arr(contentStr.xCon)
-
-  override def attribs: Arr[XmlAtt] = ???
+  def out: String = openTag1 + content.toStrsFold("\n", _.out) + n1CloseTag
+  override def attribs: Arr[XmlAtt] = Arr()
   //def out: String = "<body>\n" + content + "\n</body>"
 }

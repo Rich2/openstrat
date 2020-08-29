@@ -9,7 +9,10 @@ trait XmlishElem extends XCon
   def content: Arr[XCon]
   def openTag: String = "<" + tag + ">"
   def openTag1: String = openTag + "\n"
+  def openTag2: String = openTag + "\n\n"
   def closeTag: String = "</" + tag + ">"
+  def n1CloseTag: String = "\n" + closeTag
+  def n2CloseTag: String = "\n\n" + closeTag
 }
 
 /** Content for XML and HTML. */
