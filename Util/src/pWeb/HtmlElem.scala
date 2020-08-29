@@ -16,7 +16,7 @@ object HtmlPage
 
 /** A trait for HTML elements that don't indent their children. */
 trait HtmlOuterElem extends HtmlElem
-{ def out: String = openTag + content.toStrsFold("\n", _.out) + "\n" + closeTag
+{ def out: String = openTag1 + content.toStrsFold("\n", _.out) + "\n" + closeTag
 }
 
 case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlOuterElem

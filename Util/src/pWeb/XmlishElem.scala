@@ -8,6 +8,7 @@ trait XmlishElem extends XCon
   def attribs: Arr[XmlAtt]
   def content: Arr[XCon]
   def openTag: String = "<" + tag + ">"
+  def openTag1: String = openTag + "\n"
   def closeTag: String = "</" + tag + ">"
 }
 
