@@ -13,6 +13,8 @@ object WebPage1 extends App
       |<p>And here's a second paragraph. And again and again, what on earth am I going to say, to drag this out beyond a single line, especially when
       |there's no formatting in the output.</p>
       |
+      |<svg><circle cx=50 cy=50 r=50 fill=orange /></svg>
+      |
       |<p>And a third.</p>""".stripMargin
   
   val r = homeWrite("Web1.html", HtmlPage(title, body).out)
