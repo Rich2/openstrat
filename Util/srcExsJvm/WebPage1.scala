@@ -11,9 +11,11 @@ object WebPage1 extends App
       |multiple lines. So I really don't know what I'm going to say. Its awful really when you've just got to write stuff to take up lines.<p>
       |
       |<p>And here's a second paragraph. And again and again, what on earth am I going to say, to drag this out beyond a single line, especially when
-      |there's no formatting in the output.</p>
+      |there's no formatting in the output. Anyway the SVG below demonstrates the 300 by 150 default viewbox dimensions.</p>
       |
-      |<svg><circle cx=50 cy=50 r=50 fill=orange /></svg>
+      |<svg>
+      |<circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red />
+      |</svg>
       |
       |<p>And a third.</p>""".stripMargin
   
