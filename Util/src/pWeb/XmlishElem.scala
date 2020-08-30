@@ -15,6 +15,8 @@ trait XmlishElem extends XCon
   def n2CloseTag: String = "\n\n" + closeTag
 }
 
+trait XmlElem extends XmlishElem
+
 /** Content for XML and HTML. */
 trait XCon
 {
