@@ -13,6 +13,7 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
   }
 
   def svgStr: String = tagVoidStr("circle", shape.circleAttribs ++ facets.flatMap(_.attribs))
+  def svgOfStr: String = "<svg>" + svgStr + "</svg>"
   
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
