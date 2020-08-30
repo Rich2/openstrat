@@ -10,7 +10,8 @@ case class HtmlPage(head: HtmlHead, body: HtmlBody)
 }
 
 object HtmlPage
-{ def apply(title: String, body: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(body))
+{ /** Creates an HTML page object form the title String and the HTML body contents String. */
+  def title(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(bodyContent))
 }
 
 case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem

@@ -25,3 +25,13 @@ object homeWrite
     fileWrite(h + "/" + fileName, str)
   }
 }
+
+object homeHtmlWrite
+{
+  import pWeb._
+  /** Takes Two strings. The first is used for the HTML title and the file name. The second is contents of the HTML body element.  */
+  def apply(title: String, bodyContent: String): EMon[Unit] =
+  { val h = System.getProperty("user.home")
+    fileWrite(h + "/" + title + ".html", HtmlPage.title(title, bodyContent).out)
+  }
+}
