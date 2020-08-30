@@ -30,11 +30,16 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
 
 def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(commonSett).settings(
   module := (ThisBuild/baseDirectory).value / srcsStr,
-  scalaSource := module.value / "src",
+  
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
+  
+)
+
+def coreJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr + "Core").settings(
+  scalaSource := module.value / "src",
   Compile/scalaSource := module.value / "src",
-  Compile/unmanagedSourceDirectories := List("src", "srcJvm").map(module.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(module.value / _),
   resourceDirectory := module.value / "res",
   Test/scalaSource := module.value / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -42,19 +47,17 @@ def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("targe
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
 )
 
-def coreJvmProj(nameStr: String) = baseJvmProj(nameStr, nameStr + "Core")
-
-def exsJvmProj(nameStr: String) = Project(nameStr, file("target/ExsJvm" + nameStr)).settings(commonSett).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / nameStr / "srcExs",
+def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "srcExs",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "srcExs",
-  Compile/unmanagedSourceDirectories := List("srcExs", "srcExsJvm").map((ThisBuild/baseDirectory).value / nameStr / _),
-  resourceDirectory := (ThisBuild/baseDirectory).value / nameStr / "/ExsRes",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / nameStr / "testSrcExs",
-  Test/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testSrc", (Test/scalaSource).value),
-  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / nameStr / "testResExs",
-  Test/unmanagedResourceDirectories := List((ThisBuild/baseDirectory).value / nameStr / "testRes", (Test/resourceDirectory).value),
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "srcExs",
+  Compile/unmanagedSourceDirectories := List("srcExs", "srcExsJvm", "srcExsFx").map((ThisBuild/baseDirectory).value / srcsStr / _),
+  resourceDirectory := (ThisBuild/baseDirectory).value / srcsStr / "/ExsRes",
+  Test/scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "testSrcExs",
+  Test/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / srcsStr / "testSrc", (Test/scalaSource).value),
+  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / srcsStr / "testResExs",
+  Test/unmanagedResourceDirectories := List((ThisBuild/baseDirectory).value / srcsStr / "testRes", (Test/resourceDirectory).value),
 )
 
 lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
@@ -71,6 +74,14 @@ lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
 lazy val World = exsJvmProj("World").dependsOn(WorldCore)
 
 lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphics, Tiling, World).settings(
+  scalaSource := module.value / "src",
+  Compile/scalaSource := module.value / "src",
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(module.value / _),
+  resourceDirectory := module.value / "res",
+  Test/scalaSource := module.value / "testSrc",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  Test/resourceDirectory :=  module.value / "testRes",
+  Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
