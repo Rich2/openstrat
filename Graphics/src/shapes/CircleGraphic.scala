@@ -15,7 +15,7 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
   def svgStr: String = tagVoidStr("circle", shape.circleAttribs ++ facets.flatMap(_.attribs))
   def svgInline: String =
   {
-    SvgElem(Arr(svgStr.xCon), Arr()).out
+    SvgElem(Arr(svgStr.xCon), Arr()).out(0, 0, 150)
     
   }
   

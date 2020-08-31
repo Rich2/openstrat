@@ -5,7 +5,8 @@ package pWeb
 case class SvgElem(content: Arr[XCon], attribs: Arr[XmlAtt]) extends XmlElem
 {
   override def tag: String = "svg"
-  override def out: String = openTag + content.toStrsFold("\n", _.out) + "\n" + closeTag
+  override def out(indent: Int, linePosn: Int, lineLen: Int): String =
+    openTag + content.toStrsFold("\n", _.out(0, 0, 150)) + "\n" + closeTag
 }
 
 object SvgElem

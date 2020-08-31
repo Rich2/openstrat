@@ -19,8 +19,8 @@ trait XmlElem extends XmlishElem
 
 /** Content for XML and HTML. */
 trait XCon
-{
-  def out: String
+{ /** Returns the XML source code, formatted according to the input. */
+  def out(indent: Int, linePosn: Int, lineLen: Int): String
 }
 
 object XCon
@@ -30,7 +30,7 @@ object XCon
 /** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
 case class XConStr(value: String) extends XCon
 {
-  override def out: String = value
+  override def out(indent: Int, linePosn: Int, lineLen: Int): String = value
 }
 
 object XConStr
