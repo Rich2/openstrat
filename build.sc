@@ -49,7 +49,7 @@ object Util extends PlatformsModule
   object MacrosJvm extends CommonStd with PublishModule
   { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
     def sources = T.sources(Util.millSourcePath / 'Macros / 'src)
-    def publishVersion = "0.0.7snap"
+    def publishVersion = "0.2.1snap"
     def pomSettings = PomSettings(
       description = "openstrat",
       organization = "com.richstrat",
@@ -78,7 +78,7 @@ object Util extends PlatformsModule
   object Nat extends InnerNative  
 }
 
-object Graphic extends PlatformsModule
+object Graphics extends PlatformsModule
 { def moduleDeps = Seq(Util)  
   object test extends InnerTests
   
@@ -86,17 +86,17 @@ object Graphic extends PlatformsModule
   object Nat extends InnerNative
 
   object examples extends InnerLearn
-  { def moduleDeps = Seq(Graphic)
+  { def moduleDeps = Seq(Graphics)
   }
 
   //def ivyDeps = Agg(ivy"org.openjfx:javafx:13.0.2")
 }
 
 object Tiling extends PlatformsModule
-{ def moduleDeps = Seq(Graphic)  
+{ def moduleDeps = Seq(Graphics)  
   object test extends InnerTests
   
-  object js extends InnerJs {  def moduleDeps = Seq(Graphic.js)  }
+  object js extends InnerJs {  def moduleDeps = Seq(Graphics.js)  }
   object Nat extends InnerNative
 
   object examples extends InnerLearn
@@ -116,7 +116,7 @@ object World extends PlatformsModule
 object Dev extends PlatformsModule
 { def moduleDeps = Seq(World)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphic.millSourcePath / 'learn / 'src, World.millSourcePath / 'learn / 'src)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphics.millSourcePath / 'learn / 'src, World.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'User)
 
 
