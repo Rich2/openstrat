@@ -21,12 +21,10 @@ trait XmlElem extends XmlishElem
 trait XCon
 {
   def out: String
-
 }
 
 object XCon
 {
-
 }
 
 /** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */

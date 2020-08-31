@@ -13,9 +13,10 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
   }
 
   def svgStr: String = tagVoidStr("circle", shape.circleAttribs ++ facets.flatMap(_.attribs))
-  def viewPort: String =
+  def svgInline: String =
   {
-    "<svg viewBox=\"0 0 100 100\">" + svgStr + "</svg>"
+    SvgElem(Arr(svgStr.xCon), Arr()).out
+    
   }
   
   /** Translate geometric transformation. */
