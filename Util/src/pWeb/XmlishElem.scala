@@ -16,11 +16,12 @@ trait XmlishElem extends XCon
   def closeTag: String = "</" + tag + ">"
   def n1CloseTag: String = "\n" + closeTag
   def n2CloseTag: String = "\n\n" + closeTag
+  def openVoid: String
 }
 
 trait XmlElem extends XmlishElem
 {
-  def openVoid: String = openAtts + "/>"
+  override def openVoid: String = openAtts + "/>"
   override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = if (contents.empty) openVoid
     else openUnclosed.nl(indent + 2) + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)).nl(indent) + closeTag
 }
