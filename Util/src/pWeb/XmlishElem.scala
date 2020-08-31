@@ -8,6 +8,9 @@ trait XmlishElem extends XCon
   def attribs: Arr[XmlAtt]
   def content: Arr[XCon]
   def openTag: String = "<" + tag + ">"
+  
+  def openAtts: String = "<" + tag + attribs.toStrsFold(" ", _.str) + " "
+  def openUnclosed: String = openAtts + ">"
   def openTag1: String = openTag + "\n"
   def openTag2: String = openTag + "\n\n"
   def closeTag: String = "</" + tag + ">"
@@ -16,15 +19,14 @@ trait XmlishElem extends XCon
 }
 
 trait XmlElem extends XmlishElem
+{
+  def openVoid: String = openAtts + "/>"
+}
 
 /** Content for XML and HTML. */
 trait XCon
 { /** Returns the XML source code, formatted according to the input. */
   def out(indent: Int, linePosn: Int, lineLen: Int): String
-}
-
-object XCon
-{
 }
 
 /** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
