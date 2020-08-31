@@ -9,7 +9,8 @@ case class SvgSvgElem(contents: Arr[XCon], attribs: Arr[XmlAtt]) extends SvgElem
 }
 
 object SvgSvgElem
-{ def apply(width: Double, height: Double, contents: XCon*): SvgSvgElem = new SvgSvgElem(contents.toArr, Arr(WidthAtt(width), HeighAtt(height)))
+{ def apply(minX: Double, minY: Double, width: Double, height: Double, contents: XCon*): SvgSvgElem =
+  new SvgSvgElem(contents.toArr, Arr(WidthAtt(width), HeighAtt(height), ViewBox(minX, minY, width, height)))
 }
 
 case class SvgCircle(attribs: Arr[XmlAtt], contents: Arr[XCon] = Arr()) extends SvgElem

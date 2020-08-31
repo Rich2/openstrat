@@ -10,6 +10,8 @@ case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double)
   def bottomRight = Vec2(maxX, minY)
   def width = maxX - minX
   def height = maxY - minY
+  def xCen: Double = (minX + maxX) / 2
+  def yCen: Double = (minY + maxY) / 2
   def cen = Vec2((minX + maxX) / 2, (minY + maxY) /2)
   def toPolygon: Polygon = Polygon(minX vv maxY, maxX vv maxY, maxX vv minY, minX vv minY)
   def ptInside(pt: Vec2): Boolean = maxX > pt.x & pt.x > minX & maxY > pt.y & pt.y > minY

@@ -12,9 +12,11 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
-  override def svgElem: SvgCircle = SvgCircle(shape.reflectX.slate(shape.radius, shape.radius).circleAttribs ++ facets.flatMap(_.attribs))
+  override def svgElem: SvgCircle = SvgCircle(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
+    circleAttribs ++ facets.flatMap(_.attribs))
   
-  override def svgInline: String = SvgSvgElem(shape.diameter, shape.diameter, svgElem).out(0, 0, 150)
+  override def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
+    svgElem).out(0, 0, 150)
   
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))

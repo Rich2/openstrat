@@ -2,11 +2,10 @@
 package ostrat
 package pWeb
 
-case class ViewPort(minX: Double, minY: Double, width: Double, height: Double) extends XmlAtt
+case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) extends XmlAtt
 {
-  override def name: String = ???
-
-  override def valueStr: String = ???
+  override def name: String = "viewBox"
+  override def valueStr: String = minX.str -- minY.str -- width.str -- height.str
 }
 
 case class WidthAtt(value: Double) extends XmlAtt
