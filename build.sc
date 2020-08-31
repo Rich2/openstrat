@@ -17,7 +17,7 @@ trait CommonStdJs extends ScalaJSModule with CommonStd
 trait PlatformsModule extends ScalaModule with CommonStd
 { outer =>  
   
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs, millSourcePath / 'srcFx)
 
   trait InnerJs extends CommonStdJs
   { def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
@@ -89,7 +89,7 @@ object Graphics extends PlatformsModule
   { def moduleDeps = Seq(Graphics)
   }
 
-  //def ivyDeps = Agg(ivy"org.openjfx:javafx:13.0.2")
+  def ivyDeps = Agg(ivy"org.openjfx:javafx:13.0.2")
 }
 
 object Tiling extends PlatformsModule
@@ -116,7 +116,7 @@ object World extends PlatformsModule
 object Dev extends PlatformsModule
 { def moduleDeps = Seq(World)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'jvm / 'src, Graphics.millSourcePath / 'learn / 'src, World.millSourcePath / 'learn / 'src)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm , Graphics.millSourcePath / 'learn / 'src, World.millSourcePath / 'learn / 'src)
   def resources = T.sources(millSourcePath / 'User)
 
 
