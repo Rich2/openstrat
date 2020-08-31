@@ -6,7 +6,7 @@ package pWeb
 trait XmlishElem extends XCon
 { def tag: String
   def attribs: Arr[XmlAtt]
-  def content: Arr[XCon]
+  def contents: Arr[XCon]
   def openTag: String = "<" + tag + ">"
   def attribsOut: String = ife(attribs.empty, "", " " + attribs.toStrsFold(" ", _.str) + " ")
   def openAtts: String = "<" + tag + attribsOut 
@@ -21,6 +21,8 @@ trait XmlishElem extends XCon
 trait XmlElem extends XmlishElem
 {
   def openVoid: String = openAtts + "/>"
+  override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = if (contents.empty) openVoid
+    else openUnclosed.nl(indent + 2) + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)).nl(indent) + closeTag
 }
 
 /** Content for XML and HTML. */

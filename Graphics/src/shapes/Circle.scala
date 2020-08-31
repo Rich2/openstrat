@@ -34,6 +34,8 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def shearY(operand: Double): TransElem = ???
   
+  def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
+  
   override def fillOld(fillColour: Colour): CircleFillOld = CircleFillOld(this, fillColour)
   override def fill(fillColour: Colour): CircleGraphic = CircleGraphic(this, Arr(FillColour(fillColour)))
   def fillRadial(cenColour: Colour, outerColour: Colour): CircleGraphic =
@@ -67,4 +69,6 @@ object Circle extends ShapeIcon
   override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)  
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
+
+  //implicit class CircleArrImplicit(val thisArr: Arr[Circle])
 }

@@ -16,8 +16,8 @@ object HtmlPage
 
 case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
 { override def tag: String = "head"
-  override def content: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
-  def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + content.toStrsFold("\n", _.out(0, 0, 150)) + "\n" + closeTag
+  override def contents: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
+  def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(0, 0, 150)) + "\n" + closeTag
 }
 
 case class HtmlTitle(str: String) extends HtmlElem
@@ -26,27 +26,27 @@ case class HtmlTitle(str: String) extends HtmlElem
 
   override def attribs: Arr[XmlAtt] = Arr()
 
-  override def content: Arr[XCon] = ???
+  override def contents: Arr[XCon] = ???
   override def out(indent: Int, linePosn: Int, lineLen: Int): String = "<title>" + str + "</title>"
 }
 
 /** The "html" HTML element */
 case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
 { def tag: String = "html"
-  override def content = Arr(head, body)
+  override def contents = Arr(head, body)
   def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag2 + head.out(0, 0, 150) + "\n\n" + body.out(0, 0, 150) + n2CloseTag
 }
 
 case class HtmlBody(contentStr: String) extends HtmlElem
 { override def tag: String = "body"
-  override def content: Arr[XCon] = Arr(contentStr.xCon)
-  def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + content.toStrsFold("\n", _.out(0, 0, 150)) + n1CloseTag
+  override def contents: Arr[XCon] = Arr(contentStr.xCon)
+  def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(0, 0, 150)) + n1CloseTag
   override def attribs: Arr[XmlAtt] = Arr()
   //def out: String = "<body>\n" + content + "\n</body>"
 }
 
 case class HtmlCode(contentStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
 { override def tag: String = "code"
-  override def content: Arr[XCon] = Arr(contentStr.xCon)
+  override def contents: Arr[XCon] = Arr(contentStr.xCon)
   override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = openUnclosed + contentStr + closeTag
 }
