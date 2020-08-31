@@ -44,3 +44,9 @@ case class HtmlBody(contentStr: String) extends HtmlElem
   override def attribs: Arr[XmlAtt] = Arr()
   //def out: String = "<body>\n" + content + "\n</body>"
 }
+
+case class HtmlCode(contentStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
+{ override def tag: String = "code"
+  override def content: Arr[XCon] = Arr(contentStr.xCon)
+  override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = openUnclosed + contentStr + closeTag
+}
