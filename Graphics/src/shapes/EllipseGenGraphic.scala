@@ -1,10 +1,11 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
-{ override def svgStr: String = ???
-  
+{ override def svgElem: SvgElem = ???
+
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { 
     case FillColour(c) => cp.ellipseFill(shape, c)

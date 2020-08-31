@@ -13,7 +13,7 @@ object SvgApp extends App
   val bodyStr =
   s"""<p>80 diameter orange Circle below. <code>Circle(80).fill(Orange).svgInline</code></p>
     |$cof1
-    |<p>120 diameter red Circle below.</p>
+    |<p>120 diameter red Circle below. <code>Circle(120).fill(Red).svgInline</code></p>
     |$cof2""".stripMargin
   val r = homeHtmlWrite("SvgPage1", bodyStr)
   deb(r.toString)

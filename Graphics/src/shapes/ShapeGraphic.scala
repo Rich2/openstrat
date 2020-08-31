@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 /** A shape based graphic. Will probably change the name back to ShapeGraphic. */
 trait ShapeGraphic extends DisplayElem
@@ -10,13 +11,9 @@ trait ShapeGraphic extends DisplayElem
   /** The [[ShapeGraphic]] type will be widened at a later point. */
   def children: Arr[ShapeGraphic]
   //def attribs: Arr[Attrib]
-  def svgStr: String
-
-  /*def fMems(f: ShapeDisplay => ShapeDisplay): Arr[ShapeMember] = members.map{
-    case sd: ShapeDisplay => f(sd)
-    case sf: ShapeFacet => sf
-  }*/
-
+  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgElem.out(indent, linePosn, lineLen)
+  def svgElem: SvgElem
+  def svgInline: String = ??? //SvgSvgElem(shape.diameter, shape.diameter, svgElem).out(0, 0, 150)
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeGraphic
 
