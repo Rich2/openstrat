@@ -8,3 +8,13 @@ case class ViewPort(minX: Double, minY: Double, width: Double, height: Double) e
 
   override def valueStr: String = ???
 }
+
+case class WidthAtt(value: Double) extends XmlAtt
+{ override def name: String = "width"
+  override def valueStr: String = value.toString
+}
+
+case class HeighAtt(value: Double) extends XmlAtt
+{ override def name: String = "height"
+  override def valueStr: String = value.toString
+}

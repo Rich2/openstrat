@@ -10,5 +10,8 @@ case class SvgSvgElem(content: Arr[XCon], attribs: Arr[XmlAtt]) extends XmlElem
 }
 
 object SvgSvgElem
+{
+  def apply(width: Double, height: Double, contents: XCon*): SvgSvgElem = new SvgSvgElem(contents.toArr, Arr(WidthAtt(width), HeighAtt(height)))
+}
 
 

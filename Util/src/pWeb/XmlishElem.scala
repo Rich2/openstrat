@@ -9,7 +9,7 @@ trait XmlishElem extends XCon
   def content: Arr[XCon]
   def openTag: String = "<" + tag + ">"
   
-  def openAtts: String = "<" + tag + attribs.toStrsFold(" ", _.str) + " "
+  def openAtts: String = "<" + tag -- attribs.toStrsFold(" ", _.str) + " "
   def openUnclosed: String = openAtts + ">"
   def openTag1: String = openTag + "\n"
   def openTag2: String = openTag + "\n\n"
