@@ -32,7 +32,7 @@ trait PlatformsModule extends ScalaModule with CommonStd
   }
 
   trait InnerTests extends Tests
-  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.2")
+  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.5")
     def testFrameworks = Seq("utest.runner.Framework") 
     def sources = T.sources(millSourcePath / 'src)
     def resources = T.sources(millSourcePath / 'res)

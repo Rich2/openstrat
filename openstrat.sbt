@@ -25,15 +25,13 @@ lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settin
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  module.value / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
 )
 
 def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("target/Jvm" + nameStr)).settings(commonSett).settings(
-  module := (ThisBuild/baseDirectory).value / srcsStr,
-  
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
-  testFrameworks += new TestFramework("utest.runner.Framework"), 
-  
+  module := (ThisBuild/baseDirectory).value / srcsStr,  
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
+  testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
 
 def coreJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr + "Core").settings(
