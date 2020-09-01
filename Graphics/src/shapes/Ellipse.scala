@@ -3,6 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
+/** The Ellipse trait can either be implemented as an [[EllipseGen]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. */
 trait Ellipse extends Shape with ProlignPreserve
 { type ThisT <: Ellipse
   def xCen: Double
@@ -44,7 +45,5 @@ object Ellipse
   /** The apply factory methods default to an EllipseClass. */
   def apply(cen: Vec2, v1: Vec2, v3: Vec2): EllipseGen = new EllipseGen(cen.x, cen.y, v1.x, v1.y, v3.x,  v3.y)
   
-  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => Ellipse(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)
-
-  
+  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => Ellipse(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)  
 }

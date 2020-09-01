@@ -70,6 +70,4 @@ object Circle extends ShapeIcon
   override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)  
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
-
-  //implicit class CircleArrImplicit(val thisArr: Arr[Circle])
 }

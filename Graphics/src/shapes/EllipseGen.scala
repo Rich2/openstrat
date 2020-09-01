@@ -34,4 +34,3 @@ object EllipseGen
 { def apply(vLeft: Vec2, vRight: Vec2, vUp: Vec2): EllipseGen = new EllipseGen(vLeft.x, vLeft.y, vRight.x, vRight.y, vUp.x, vUp.y)
   def cenV1V3(cen: Vec2, v1: Vec2, v3: Vec2): EllipseGen = new EllipseGen(cen.x, cen.y, v1.x, v1.y, v3.x, v3.y)
 }
-

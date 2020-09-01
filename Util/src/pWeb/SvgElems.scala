@@ -2,6 +2,7 @@
 package ostrat
 package pWeb
 
+/** An SVG element. */
 trait SvgElem extends XmlElem
 
 case class SvgSvgElem(contents: Arr[XCon], attribs: Arr[XmlAtt]) extends SvgElem
