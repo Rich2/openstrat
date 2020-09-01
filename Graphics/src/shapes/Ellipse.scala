@@ -39,11 +39,14 @@ trait Ellipse extends Shape with ProlignPreserve
 
 object Ellipse
 { /** The apply factory methods default to an EllipseClass. */
-  def apply(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double): EllipseGen =
-    new EllipseGen(xCen, yCen, x1, y1, x3, y3)
+  def apply(radiusA: Double, radiusB: Double): EllipseGen = new EllipseGen(0, 0, radiusA, 0, 0, radiusB)
 
   /** The apply factory methods default to an EllipseClass. */
-  def apply(cen: Vec2, v1: Vec2, v3: Vec2): EllipseGen = new EllipseGen(cen.x, cen.y, v1.x, v1.y, v3.x,  v3.y)
+  def apply(radiusA: Double, radiusB: Double, cen: Vec2): EllipseGen = new EllipseGen(cen.x, cen.y, cen.x + radiusA, cen.y, cen.x, cen.y + radiusB)
+
+  /** The apply factory methods default to an EllipseClass. */
+  def apply(radiusA: Double, radiusB: Double, xCen: Double, yCen: Double): EllipseGen =
+    new EllipseGen(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)
   
-  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => Ellipse(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)  
+  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => EllipseGen(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)  
 }
