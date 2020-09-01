@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pWeb._
 
 /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
  * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
@@ -9,15 +8,15 @@ case class EllipseGen(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Do
 {  override type ThisT = EllipseGen
   def x2: Double = 2 * xCen - x1
   def y2: Double = 2 * yCen - y1
-  def majorRadius: Double = (v1 - cen).magnitude
-  def minorRadius: Double = (v3 - cen).magnitude
+  override def radiusA: Double = (v1 - cen).magnitude
+  def radiusB: Double = (v3 - cen).magnitude
+  def majorRadius: Double = radiusA.max(radiusB)
+  def minorRadius: Double = radiusA.min(radiusB)
   override def fTrans(f: Vec2 => Vec2): EllipseGen = EllipseGen(f(cen), f(v1), f(v3))
   override def fillOld(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
   override def fill(fillColour: Colour): EllipseGenGraphic = EllipseGenGraphic(this, Arr(FillColour(fillColour)), Arr())
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
-  override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
-
-  
+  override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???  
   def boundingRect: BoundingRect = BoundingRect(xCen - majorRadius, xCen + majorRadius, yCen - minorRadius, yCen + minorRadius)
 }
 

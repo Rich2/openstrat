@@ -17,23 +17,18 @@ trait Ellipse extends Shape with ProlignPreserve
   def x3: Double
   def y3: Double
   def v3: Vec2 = x3 vv y3
+  def radiusA: Double
+  def radiusB: Double
   def majorRadius: Double
   def minorRadius: Double
   def cxAttrib: XANumeric = XANumeric("cx", xCen)
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
   override def rotateRadians(radians: Double): Ellipse
-  def rxAttrib: XANumeric = XANumeric("rx", majorRadius)
-  def ryAttrib: XANumeric = XANumeric("ry", minorRadius)
+  def rxAttrib: XANumeric = XANumeric("rx", radiusA)
+  def ryAttrib: XANumeric = XANumeric("ry", radiusB)
   def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
-  /* override def canEqual(that: Any): Boolean = that match
-  { case e: Ellipse => true
-    case _ => false
-  }*/
-  /*override def slate(offset: Vec2): Ellipse
-
-  override def slate(xOffset: Double, yOffset: Double): Ellipse*/
-  
+      
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = ???
 
   //override def mirrorX: Ellipse

@@ -2,7 +2,7 @@
 package ostrat
 package geom
 package pExs
-import Colour._//, pWeb._
+import Colour._
 
 object SvgApp extends App 
 { 
