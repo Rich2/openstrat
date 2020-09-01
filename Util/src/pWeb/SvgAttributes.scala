@@ -19,3 +19,7 @@ case class HeighAtt(value: Double) extends XmlAtt
 { override def name: String = "height"
   override def valueStr: String = value.toString
 }
+
+case class SvgTransform(valueStr: String) extends XmlAtt
+{ override def name: String = "transform"
+}

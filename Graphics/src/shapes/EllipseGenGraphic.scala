@@ -10,8 +10,8 @@ case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: 
   { val bounds = shape.boundingRect
     val newEllipse = shape.reflectX.slate(0, bounds.minY + bounds.maxY)
     val newAtts = newEllipse.shapeAttribs
-    val atts2 = if (shape.ellipeRotation == 0.degs) newAtts else newAtts
-    SvgEllipse(newAtts ++ facets.flatMap(_.attribs))
+    val atts2 = if (shape.ellipeRotation == 0.degs) newAtts else newAtts +- SvgTransform("0, 0, 0")
+    SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
   }
   
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
