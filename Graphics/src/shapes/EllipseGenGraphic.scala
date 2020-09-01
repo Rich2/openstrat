@@ -6,8 +6,13 @@ import pWeb._
 /** Not totally sure if trait hierarchy is correct. */
 case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
 { /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
-  override def svgElem: SvgEllipse = SvgEllipse(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
-    shapeAttribs ++ facets.flatMap(_.attribs))  
+  override def svgElem: SvgEllipse =
+  { val bounds = shape.boundingRect
+    val newEllipse = shape.reflectX.slate(0, bounds.minY + bounds.maxY)
+    val newAtts = newEllipse.shapeAttribs
+    val atts2 = if (shape.ellipeRotation == 0.degs) newAtts else newAtts
+    SvgEllipse(newAtts ++ facets.flatMap(_.attribs))
+  }
   
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { 
