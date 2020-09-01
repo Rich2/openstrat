@@ -15,6 +15,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def =~ (other: Double): Boolean =  ((thisDouble - other).abs/(thisDouble.abs.max(other.abs).max(1))) * precision  < 1
   def squared: Double = thisDouble * thisDouble
   def cubed: Double = thisDouble * thisDouble * thisDouble
+  def sqrt: Double = math.sqrt(thisDouble)
 
   def str: String = thisDouble.toLong match
   { case l if l == thisDouble => l.toString
