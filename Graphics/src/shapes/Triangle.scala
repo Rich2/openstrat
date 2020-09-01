@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import Colour.Black
+import Colour.Black, pWeb._
 
 trait Triangle extends PolygonTr
 {	override def length: Int = 3
@@ -38,7 +38,7 @@ trait Triangle extends PolygonTr
 final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle with AffinePreserve
 { override type ThisT = TriangleClass
 	override def v1: Vec2 = ???
-
+	override def shapeAttribs: Arr[XANumeric] = ???
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
 
 	override def rotateRadians(radians: Double): TriangleClass = ???
@@ -68,7 +68,7 @@ final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Doubl
 
 	override def fTrans(f: Vec2 => Vec2): IsosTriangleClass = ???
 	override def v1: Vec2 = ???
-
+	override def shapeAttribs: Arr[XANumeric] = ???
 	override def foreach[U](f: Vec2 => U): Unit = ???
 
 	override def rotateRadians(radians: Double): IsosTriangleClass = ???
@@ -93,7 +93,7 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
 	override type ThisT = EquiTriangle
 	override def height: Double = ???
 	override def foreach[U](f: Vec2 => U): Unit = ???
-
+	override def shapeAttribs: Arr[XANumeric] = ???
 	override def fTrans(f: Vec2 => Vec2): ThisT = ???
 
 	override def rotateRadians(radians: Double): Triangle = ???

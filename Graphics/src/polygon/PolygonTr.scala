@@ -24,7 +24,7 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
   def foreachPairTail[U](f: (Double, Double) => U): Unit
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
-  def boundingRect: BoundingRect =
+  override def boundingRect: BoundingRect =
   { var minX, maxX = xGet(0)
     var minY, maxY = yGet(0)
     foreachTail{v =>

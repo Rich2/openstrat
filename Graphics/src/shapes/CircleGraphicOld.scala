@@ -7,7 +7,7 @@ trait CircleGraphicOld extends ShapeGraphicOld with SimilarPreserve
 { type ThisT <: CircleGraphicOld
   override def shape: Circle
   def svgStr: String = tagVoidStr("circle", attribs)
-  def circleAttribs: Arr[XANumeric] = shape.circleAttribs
+  def circleAttribs: Arr[XANumeric] = shape.shapeAttribs
   @inline final def cen: Vec2 = shape.cen
   @inline final def xCen: Double = shape.xCen
   @inline final def yCen: Double = shape.yCen

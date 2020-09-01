@@ -54,10 +54,10 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   
   
   def rAttrib: XANumeric = XANumeric("r", radius)
-  def circleAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
+  override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
 }
 
-/** This object provides factory methods for circles. */
+/** This object provides factory methods for [[Circle]]s. */
 object Circle extends ShapeIcon
 { def apply(radius: Double, cen: Vec2 = Vec2Z) = new Circle(radius, cen.x, cen.y)
   

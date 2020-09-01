@@ -1,12 +1,13 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
 final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Double) extends Rectanglelign
 { override type ThisT = Rectlign
   override def fTrans(f: Vec2 => Vec2): Rectlign = ???
-
+  override def shapeAttribs: Arr[XANumeric] = ???
   override def rotateRadians(radians: Double): Rect = ???
   override def reflectX: ThisT = fTrans(_.reflectX)
   override def reflectY: ThisT = fTrans(_.reflectY)

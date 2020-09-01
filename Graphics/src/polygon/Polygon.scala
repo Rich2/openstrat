@@ -1,7 +1,9 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import Colour.Black, collection.mutable.ArrayBuffer
+import Colour.Black, pWeb._
+
+import collection.mutable.ArrayBuffer
 
 /** A General Polygon as opposed to a specific Polygon such as a Square or a Rectangle is encoded as a sequence of plain 2 dimension (mathematical)
  *  vectors. Minimum length 3. Clockwise is the default */
@@ -9,6 +11,8 @@ final class Polygon(val arrayUnsafe: Array[Double]) extends PolygonTr with Vec2s
 { type ThisT = Polygon
   def unsafeFromArray(array: Array[Double]): Polygon = new Polygon(array)
   override def typeStr: String = "Polygon"
+
+  override def shapeAttribs: Arr[XANumeric] = ???
 
   override def canEqual(that: Any): Boolean = that match {
     case s: Shape => true

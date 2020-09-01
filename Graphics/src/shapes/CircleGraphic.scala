@@ -13,10 +13,7 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
   }
 
   override def svgElem: SvgCircle = SvgCircle(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
-    circleAttribs ++ facets.flatMap(_.attribs))
-  
-  override def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
-    svgElem).out(0, 0, 150)
+    shapeAttribs ++ facets.flatMap(_.attribs))  
   
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))

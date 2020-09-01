@@ -1,13 +1,14 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 /** A rectangle class that has position and may not be aligned to the X and Y axes. */
 final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Double) extends RectV0V1 //with AffinePreserve
 { override type ThisT = Rect
   override def height: Double = (v1 - v2).magnitude
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(v0), f(v1))
-
+  override def shapeAttribs: Arr[XANumeric] = ???
   override def rotation: Angle = (v0 - v3).angle
   override def reflectX: Rect = Rect.v0v1(v1.reflectX, v0.reflectX, width)
   override def reflectY: Rect = Rect.v0v1(v1.reflectY, v0.reflectY, width)

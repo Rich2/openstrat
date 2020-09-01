@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
  *  rotated while remaining a Square. */
@@ -8,7 +9,7 @@ final class Square private(val x0: Double, val y0: Double, val x1: Double, val y
 { override type ThisT = Square
 
   override def width: Double = v0.distTo(v1)
-
+  override def shapeAttribs: Arr[XANumeric] = ???
 
 
   def rotationRadians: Double = rotation.radians

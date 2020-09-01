@@ -3,11 +3,11 @@ package ostrat
 package geom
 import pWeb._
 
+/** Not totally sure if trait hierarchy is correct. */
 case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
-{ override def svgElem: SvgEllipse = SvgEllipse(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
-  ellipseAttribs ++ facets.flatMap(_.attribs))
-  override def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
-    svgElem).out(0, 0, 150)
+{ /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
+  override def svgElem: SvgEllipse = SvgEllipse(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
+    shapeAttribs ++ facets.flatMap(_.attribs))  
   
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { 
@@ -16,7 +16,6 @@ case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: 
   //case fr: FillRadial => cp.circleFillRadial(shape, fr)*/
   case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
-
   
   /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
   override def slate(offset: Vec2): EllipseGenGraphic = EllipseGenGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
