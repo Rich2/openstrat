@@ -92,6 +92,8 @@ package object geom
    
   /** 0 degrees or 0 radians */
   def deg0: Angle = Angle(0)
+  /** 15 degrees anti-clockwise or + Pi/12 radians */
+  val deg15: Angle = Angle(15)
   /** 30 degrees anti-clockwise or + Pi/6 radians */
   val deg30: Angle = Angle(30)
   /** 36 degrees anti-clockwise or + Pi/5 radians */

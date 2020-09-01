@@ -33,6 +33,9 @@ trait RotateGenExtensions[T]
   def rotateRadians(radians: Double): T
   def rotate(angle: Angle): T
 
+  /** Rotates 15 degrees anti-clockwise or + Pi/12 */
+  def rotate15: T = rotate(deg15)
+  
   /** Rotates 30 degrees anti-clockwise or + Pi/6 */
   def rotate30: T = rotate(deg30)
   

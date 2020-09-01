@@ -20,6 +20,7 @@ case class HeighAtt(value: Double) extends XmlAtt
   override def valueStr: String = value.toString
 }
 
-case class SvgTransform(valueStr: String) extends XmlAtt
+case class SvgRotate(degrees: Double, x: Double, y: Double) extends XmlAtt
 { override def name: String = "transform"
+  override def valueStr: String = "rotate" + Arr(degrees, x, y).mkString(" ").enParenth
 }
