@@ -17,7 +17,10 @@ case class EllipseGen(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Do
   override def fill(fillColour: Colour): EllipseGenGraphic = EllipseGenGraphic(this, Arr(FillColour(fillColour)), Arr())
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???  
-  def boundingRect: BoundingRect = BoundingRect(xCen - majorRadius, xCen + majorRadius, yCen - minorRadius, yCen + minorRadius)
+  def boundingRect: BoundingRect =
+  {
+    BoundingRect(xCen - majorRadius, xCen + majorRadius, yCen - minorRadius, yCen + minorRadius)
+  }
   override def ellipeRotation: Angle = (v1 - cen).angle
 }
 
