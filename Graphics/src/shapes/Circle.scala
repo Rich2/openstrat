@@ -56,6 +56,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   
   def rAttrib: XANumeric = XANumeric("r", radius)
   override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
+  override def ellipeRotation: Angle = 0.degs
 }
 
 /** This object provides factory methods for [[Circle]]s. */

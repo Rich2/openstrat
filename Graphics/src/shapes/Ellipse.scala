@@ -21,6 +21,7 @@ trait Ellipse extends Shape with ProlignPreserve
   def radiusB: Double
   def majorRadius: Double
   def minorRadius: Double
+  def ellipeRotation: Angle
   def cxAttrib: XANumeric = XANumeric("cx", xCen)
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
   override def rotateRadians(radians: Double): Ellipse
