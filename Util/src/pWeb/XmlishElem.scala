@@ -19,6 +19,7 @@ trait XmlishElem extends XCon
   def openVoid: String
 }
 
+/** An XML element. */
 trait XmlElem extends XmlishElem
 {
   override def openVoid: String = openAtts + "/>"
@@ -34,8 +35,7 @@ trait XCon
 
 /** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
 case class XConStr(value: String) extends XCon
-{
-  override def out(indent: Int, linePosn: Int, lineLen: Int): String = value
+{ override def out(indent: Int, linePosn: Int, lineLen: Int): String = value
 }
 
 object XConStr
