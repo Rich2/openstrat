@@ -9,6 +9,7 @@ object SvgApp extends App
   val cof1 = Circle(80).fill(Orange).svgInline  
   val cof2 = Circle(120).fill(Red).svgInline
   val cof3 = Circle(120, 80, 50).fill(Gold).svgInline
+  val ef1 = Ellipse(0, 0, 50, 0, 0, 40).fill(DarkMagenta).svgInline
   val cof4 = Arr(Circle(100, -50, 0).fill(Pink), Circle(100, 50, 0).fill(Colour.LightCoral))
   
   val bodyStr =
@@ -18,7 +19,9 @@ object SvgApp extends App
     |$cof2
     |<p>Another 120 diameter circle, but this one is centred on x = 80, y = 50. The SVG viewPort still views the bounding rectangle of the Circle.
     |<code>Circle(120, 80, 50).fill(Gold).svgInline</code></p>
-    |$cof3""".stripMargin
+    |$cof3
+    |<p>An Ellipse<p>
+    |$ef1""".stripMargin
   val r = homeHtmlWrite("SvgPage1", bodyStr)
   deb(r.toString)
 }

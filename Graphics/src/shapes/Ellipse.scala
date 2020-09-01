@@ -21,7 +21,11 @@ trait Ellipse extends Shape with ProlignPreserve
   def minorRadius: Double
   def cxAttrib: XANumeric = XANumeric("cx", xCen)
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
-  override def rotateRadians(radians: Double): Ellipse 
+  override def rotateRadians(radians: Double): Ellipse
+  def rxAttrib: XANumeric = XANumeric("rx", majorRadius)
+  def ryAttrib: XANumeric = XANumeric("ry", minorRadius)
+  def ellipseAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  def boundingRect: BoundingRect
   /* override def canEqual(that: Any): Boolean = that match
   { case e: Ellipse => true
     case _ => false

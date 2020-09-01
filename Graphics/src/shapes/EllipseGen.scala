@@ -17,9 +17,8 @@ case class EllipseGen(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Do
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
-  def rxAttrib: XANumeric = XANumeric("rx", majorRadius)
-  def ryAttrib: XANumeric = XANumeric("ry", minorRadius)
-  def ellipseAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  
+  def boundingRect: BoundingRect = BoundingRect(xCen - majorRadius, xCen + majorRadius, yCen - minorRadius, yCen + minorRadius)
 }
 
 /** Companion object for the EllipseClass. Contains various factory methods for the creation of ellipses from different starting points. */

@@ -13,7 +13,7 @@ trait ShapeGraphic extends DisplayElem
   //def attribs: Arr[Attrib]
   def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgElem.out(indent, linePosn, lineLen)
   def svgElem: SvgElem
-  def svgInline: String = ??? //SvgSvgElem(shape.diameter, shape.diameter, svgElem).out(0, 0, 150)
+  def svgInline: String //= ??? //SvgSvgElem(shape.diameter, shape.diameter, svgElem).out(0, 0, 150)
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeGraphic
 

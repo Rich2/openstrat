@@ -4,8 +4,11 @@ package geom
 import pWeb._
 
 case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
-{ override def svgElem: SvgElem = ??? // SvgEllipse(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
-   // ellipseAttribs ++ facets.flatMap(_.attribs))
+{ override def svgElem: SvgEllipse = SvgEllipse(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
+  ellipseAttribs ++ facets.flatMap(_.attribs))
+  override def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
+    svgElem).out(0, 0, 150)
+  
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { 
     case FillColour(c) => cp.ellipseFill(shape, c)
