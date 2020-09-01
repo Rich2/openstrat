@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
  * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
@@ -15,6 +16,10 @@ case class EllipseGen(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Do
   override def fill(fillColour: Colour): EllipseGenGraphic = EllipseGenGraphic(this, Arr(FillColour(fillColour)), Arr())
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
+
+  def rxAttrib: XANumeric = XANumeric("rx", majorRadius)
+  def ryAttrib: XANumeric = XANumeric("ry", minorRadius)
+  def ellipseAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
 }
 
 /** Companion object for the EllipseClass. Contains various factory methods for the creation of ellipses from different starting points. */

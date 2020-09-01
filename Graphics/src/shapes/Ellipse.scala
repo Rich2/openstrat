@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 trait Ellipse extends Shape with ProlignPreserve
 { type ThisT <: Ellipse
@@ -18,7 +19,8 @@ trait Ellipse extends Shape with ProlignPreserve
   def v3: Vec2 = x3 vv y3
   def majorRadius: Double
   def minorRadius: Double
-
+  def cxAttrib: XANumeric = XANumeric("cx", xCen)
+  def cyAttrib: XANumeric = XANumeric("cy", yCen)
   override def rotateRadians(radians: Double): Ellipse 
   /* override def canEqual(that: Any): Boolean = that match
   { case e: Ellipse => true

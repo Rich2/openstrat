@@ -4,8 +4,8 @@ package geom
 import pWeb._
 
 case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
-{ override def svgElem: SvgElem = ???
-
+{ override def svgElem: SvgElem = ??? // SvgEllipse(shape.reflectX.slate(0, shape.boundingRect.minY + shape.boundingRect.maxY).
+   // ellipseAttribs ++ facets.flatMap(_.attribs))
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { 
     case FillColour(c) => cp.ellipseFill(shape, c)
@@ -13,6 +13,8 @@ case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: 
   //case fr: FillRadial => cp.circleFillRadial(shape, fr)*/
   case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
+
+  
   /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
   override def slate(offset: Vec2): EllipseGenGraphic = EllipseGenGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
 
