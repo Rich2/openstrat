@@ -42,11 +42,14 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other
   
-  /** Concaternates a newline charachter and then the other [String]]. */
+  /** Concaternates a newline character and then the other [String]]. */
   def --- (other: String): String = thisString + "\n" + other
+
+  /** Concaternates 2 newline characters and then the other [String]]. */
+  def ---- (other: String): String = thisString + "\n\n" + other
   
-  /** Concatenates a newline special character followed by spaces to this string */
-  def nl(indent: Int): String = thisString + "\n" + indent.spaces
+  /** Concatenates a newline special character followed by spaces to this string. */
+  def nli(indent: Int): String = thisString + "\n" + indent.spaces  
   
   /** prepends a newline special character and spaces to this string */
   def preNl(indent: Int): String = thisString + "\n" + indent.spaces

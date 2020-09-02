@@ -7,8 +7,9 @@ object WebPage1 extends App
   val title = "Web Page Example 1"
   
   val bodyStr =
-    """<p>This is just some text for creating a web page. So I'm just going to go on and on for a bit, just in an attempt to drag this out into
-      |multiple lines. So I really don't know what I'm going to say. Its awful really when you've just got to write stuff to take up lines.<p>
+    """<p>This is just some text for creating a web page, using ultra simple code. So I'm just going to go on and on for a bit, just in an attempt to
+      | drag this out into multiple lines. So I really don't know what I'm going to say. Its awful really when you've just got to write stuff to take
+      | up lines.<p>
       |
       |<p>And here's a second paragraph. And again and again, what on earth am I going to say, to drag this out beyond a single line, especially when
       |there's no formatting in the output. Anyway the SVG below demonstrates the 300 by 150 default viewbox dimensions.</p>

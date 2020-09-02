@@ -24,7 +24,7 @@ trait XmlElem extends XmlishElem
 {
   override def openVoid: String = openAtts + "/>"
   override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = if (contents.empty) openVoid
-    else openUnclosed.nl(indent + 2) + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)).nl(indent) + closeTag
+    else openUnclosed.nli(indent + 2) + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)).nli(indent) + closeTag
 }
 
 /** Content for XML and HTML. */

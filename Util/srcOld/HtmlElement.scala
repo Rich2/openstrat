@@ -126,7 +126,7 @@ case class HLinkItem(fileName: String, label: String) extends HNotVoid
 
 case class HtmlFile(fileName: String) extends XCon
 { val lines = io.Source.fromFile(fileName).getLines().toSeq
-  def out(ind: Int): String =  lines.foldLeft("")((acc, el) => acc.nl + ind.spaces + el)
+  def out(ind: Int): String =  lines.foldLeft("")((acc, el) => acc.nli + ind.spaces + el)
 }
 
 //object HFooter
