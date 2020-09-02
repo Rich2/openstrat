@@ -61,3 +61,14 @@ trait ShapeGraphic extends DisplayElem
 
   override def shearY(operand: Double): ShapeGraphic
 }
+
+object ShapeGraphic
+{
+  implicit class ShapeGraphicArrImplicit(val thisArr: Arr[ShapeGraphic])
+  {
+    def svgInline: String =
+    { val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
+      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem)).out(0, 0, 150)
+    }
+  }
+}

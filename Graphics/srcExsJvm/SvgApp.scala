@@ -9,10 +9,11 @@ object SvgApp extends App
   val cof1 = Circle(80).fill(Orange).svgInline  
   val cof2 = Circle(120).fill(Red).svgInline
   val cof3 = Circle(80, 80, 50).fill(Gold).svgInline
+  val cof4 = Arr(Circle(100, -50, 50).fill(Pink), Circle(100, 50, -50).fill(Colour.LightCoral)).svgInline
   val e1 = Ellipse(90, 60)
   val ef1 = e1.fill(DarkMagenta).svgInline
   val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline
-  val cof4 = Arr(Circle(100, -50, 0).fill(Pink), Circle(100, 50, 0).fill(Colour.LightCoral))
+  
   
   val bodyStr =
   s"""<p>The formatting of this example has deliberately been kept simple. For that reason no CSS has been used. 80 diameter orange Circle below.<br>
@@ -28,6 +29,10 @@ object SvgApp extends App
     |<p>Another 80 diameter circle, but this one is centred on x = 80, y = 50. The SVG viewPort still views the bounding rectangle of the Circle.<br>
     |<code>Circle(120, 80, 50).fill(Gold).svgInline</code></p>
     |$cof3
+    |
+    |<p>Two circles coming up. This is not correct yet.<br>
+    |<code>Arr(Circle(100, -50, 50).fill(Pink), Circle(100, 50, -50).fill(Colour.LightCoral)).svgInline</code></p>
+    |$cof4
     |
     |<p>An ellipse 180 wide by 60 high.<br>
     |<code>val e1 = Ellipse(90, 60)<br>
