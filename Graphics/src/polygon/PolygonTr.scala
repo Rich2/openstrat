@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Short for polygon trait. The general case can be instantiated with [[Polygon]], but it provides the interface for particular sub sets of
+/** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
 trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
 { type ThisT <: PolygonTr
@@ -36,7 +36,7 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
     BoundingRect(minX, maxX, minY, maxY)
   }
 
-  @inline def polygonMap(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
+  @inline def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
 
   @inline override def rotateRadians(radians: Double): PolygonTr = polygonMap(_.rotateRadians(radians))
 

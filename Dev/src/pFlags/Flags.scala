@@ -8,7 +8,7 @@ trait Flag
 { def name: String
   def ratio: Double
   def apply(): Arr[DisplayElem]
-  def rect: Polygon = Rectangle(ratio)
+  def rect: PolygonGen = Rectangle(ratio)
   def parentStr: PolygonParent = Rectangle(ratio).parentElems(name + " flag", apply())
   def parent(evObj: Any = this): PolygonParent = Rectangle(ratio).parentElems(evObj, apply())
 

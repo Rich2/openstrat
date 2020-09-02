@@ -25,7 +25,6 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
       case sts => ev.fromStatements(sts)
     })*/
 
-
   def asInt: EMon[Int] = asType[Int]
 
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
@@ -125,6 +124,6 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
       case l => packChar.timesString(l / 2) + thisString + packChar.timesString(l / 2 + 1)
     }
   }
-
+  
   def toChars: Chars = new Chars(thisString.toCharArray)
 }

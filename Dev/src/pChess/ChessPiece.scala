@@ -5,7 +5,7 @@ import geom._, pGrid._, Colour._
 
 sealed trait Piece extends UnScaledPolygon
 {
-  def apply(): Polygon = ??? //Square.apply
+  def apply(): PolygonGen = ??? //Square.apply
 }
 object Pawn extends Piece with UnScaledPolygonYMirror
 {

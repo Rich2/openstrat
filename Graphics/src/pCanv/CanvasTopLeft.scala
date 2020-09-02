@@ -47,7 +47,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
   final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
 
-  final override def clip(pts: Polygon): Unit = tlClip(pts.fTrans(tlCen))
+  final override def clip(pts: PolygonGen): Unit = tlClip(pts.fTrans(tlCen))
 
   protected[this] def tlPolyFill(poly: PolygonTr, colour: Colour): Unit
   protected[this] def tlPolyDraw(poly: PolygonTr, lineWidth: Double, colour: Colour): Unit
@@ -84,5 +84,5 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Vec2(x - width / 2, height / 2 - y), mb)
   protected[this] def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Vec2(x - width / 2, height / 2 - y), mb)
    
-  protected[this] def tlClip(pts: Polygon): Unit
+  protected[this] def tlClip(pts: PolygonGen): Unit
 }

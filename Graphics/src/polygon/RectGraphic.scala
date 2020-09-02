@@ -3,11 +3,8 @@ package ostrat
 package geom
 import pWeb._
 
-case class PolygonGenGraphic(shape: PolygonGen, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
+case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
 {
-
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
-
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): PolygonGraphic = ???
 
@@ -54,4 +51,6 @@ case class PolygonGenGraphic(shape: PolygonGen, facets: Arr[ShapeFacet], childre
   override def shearY(operand: Double): PolygonGraphic = ???
 
   override def reflect(line: Sline): PolygonGraphic = ???
+
+  override def svgElem(bounds: BoundingRect): SvgElem = ???
 }

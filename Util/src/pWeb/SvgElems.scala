@@ -22,5 +22,9 @@ case class SvgCircle(attribs: Arr[XmlAtt], contents: Arr[XCon] = Arr()) extends 
 }
 
 case class SvgEllipse(attribs: Arr[XmlAtt], contents: Arr[XCon] = Arr()) extends SvgElem
-{ override def tag: String = "Ellipse"
+{ override def tag: String = "ellipse"
+}
+
+case class SvgPolygon(attribs: Arr[XmlAtt], contents: Arr[XCon] = Arr()) extends SvgElem
+{ override def tag: String = "polygon"
 }

@@ -11,7 +11,7 @@ case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack"
    def clubFill() =
    {
       val rad: Double = 0.55
-      val circ3: Polygon = Polygon(0 vv rad, - rad * Sin60 vv - rad * Sin30, rad * Sin60 vv - rad * Sin30).scale(0.5)
+      val circ3: PolygonGen = PolygonGen(0 vv rad, - rad * Sin60 vv - rad * Sin30, rad * Sin60 vv - rad * Sin30).scale(0.5)
       val c3 = circ3.slateY(0.06).map(cen => Circle(2 * rad * 0.46, cen).fillOld(Black))
       val rect: PolygonFill = PolygonFill(TrapezoidIsosceles(0.35, 0.2, 0.5).slateY(- 0.28), Black)
       c3 +- rect

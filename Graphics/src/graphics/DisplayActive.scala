@@ -26,7 +26,7 @@ trait DisplayActiveAffine extends DisplayActiveSim with DisplayBoundedAffine
 trait PolyCurveActive extends DisplayActiveAffine
 {  type ThisT <: PolyCurveActive
   def shape: PolyCurve
-  def innerPoly: Polygon = shape.pMap(_.pEnd)
+  def innerPoly: PolygonGen = shape.pMap(_.pEnd)
   override def boundingRect: BoundingRect = innerPoly.boundingRect
 
   /** This method needs improving. */

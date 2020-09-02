@@ -23,7 +23,7 @@ class Vec2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLik
   @inline def xStart: Double = arrayUnsafe(0)
   @inline def yStart: Double = arrayUnsafe(1)
   @inline def pStart: Vec2 = Vec2(xStart, yStart)
-  @inline def toPolygon: Polygon = new Polygon(arrayUnsafe)
+  @inline def toPolygon: PolygonGen = new PolygonGen(arrayUnsafe)
   @inline def toLinePath: LinePath = new LinePath(arrayUnsafe)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
@@ -31,7 +31,7 @@ class Vec2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLik
 
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
-  def yMirrorClose: Polygon =
+  def yMirrorClose: PolygonGen =
   { val acc = appendArray(length)
     var count = arrLen
 
@@ -40,7 +40,7 @@ class Vec2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLik
       acc(count + 1) = orig.y
       count += 2
     }
-    new Polygon(acc)
+    new PolygonGen(acc)
   }
 
   def toPathDraw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this.toLinePath, lineWidth, colour)

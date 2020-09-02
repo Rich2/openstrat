@@ -8,7 +8,7 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
 {
   var panels: List[Panel] = Nil
   
-  def addPanel(clipPoly: Polygon, cover: Boolean = true): Panel =
+  def addPanel(clipPoly: PolygonGen, cover: Boolean = true): Panel =
   { val newPanel = Panel(this, clipPoly, cover)
     panels :+= newPanel
     newPanel

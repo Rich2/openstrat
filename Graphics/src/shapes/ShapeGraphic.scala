@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
-/** A shape based graphic. Will probably change the name back to ShapeGraphic. */
+/** A shape based graphic. */
 trait ShapeGraphic extends DisplayElem
 { def shape: Shape
   def facets: Arr[ShapeFacet]
@@ -60,6 +60,8 @@ trait ShapeGraphic extends DisplayElem
   override def shearX(operand: Double): ShapeGraphic
 
   override def shearY(operand: Double): ShapeGraphic
+
+  override def reflect(line: Sline): ShapeGraphic
 }
 
 object ShapeGraphic

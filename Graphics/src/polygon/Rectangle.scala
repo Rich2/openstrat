@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -54,36 +54,36 @@ trait Rectangle extends Rectangular with PolygonTr
 object Rectangle
 {
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
-  def apply(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): Polygon =
+  def apply(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonGen =
   { 
     val x = cen.x; val y = cen.y
-    Polygon(
+    PolygonGen(
         x - width / 2 vv y + height / 2,
         x + width / 2 vv y + height / 2,
         x + width / 2 vv y - height / 2,
         x - width / 2 vv y - height / 2)
   }
    
-  def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): Polygon = apply(widthOverHeightRatio * scale, scale, cen)
+  def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = apply(widthOverHeightRatio * scale, scale, cen)
   
   /** A rectangle measured from its top left */
-  def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): Polygon = Polygon(
+  def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): PolygonGen = PolygonGen(
       tlVec.x         vv tlVec.y,
       tlVec.x + width vv tlVec.y,
       tlVec.x + width vv tlVec.y - height,
       tlVec.x         vv tlVec.y -height)         
    
-  def fromBL(width: Double, height: Double, v: Vec2): Polygon = Polygon(
+  def fromBL(width: Double, height: Double, v: Vec2): PolygonGen = PolygonGen(
       v.x vv v.y + height,
       v.x + width vv v.y + height,
       v.x + width vv v.y,
       v.x vv v.y)
 
   /** Measured from bottom centre */      
-  def fromBC(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): Polygon =
+  def fromBC(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): PolygonGen =
   {
     val x = bottomCentre.x; val y = bottomCentre.y
-    Polygon(
+    PolygonGen(
         x - width / 2 vv y + height ,
         x + width / 2 vv y + height ,
         x + width / 2 vv y,
@@ -91,7 +91,7 @@ object Rectangle
   }
  
   
-  def gRatio(height: Double): Polygon = apply(Phi * height, height)
+  def gRatio(height: Double): PolygonGen = apply(Phi * height, height)
   //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))
   def cross(width: Double, height: Double, barWidth: Double): Polygons = Polygons(apply(width, barWidth), apply(barWidth, height))
   
@@ -115,9 +115,9 @@ object Rectangle
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
     gRatio(height).fillDrawOld(colour, lineWidth, colour.contrast)
   
-  def fromAxis(centreLine: Sline, height: Double): Polygon =
+  def fromAxis(centreLine: Sline, height: Double): PolygonGen =
   { val hAngle: Angle = centreLine.angle
     val offset: Vec2 = hAngle.toVec2(height * 0.5)
-    Polygon(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
+    PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 }

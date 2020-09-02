@@ -25,7 +25,7 @@ trait CanvasPlatform extends RectCenlign
   var keyUp: (String) => Unit = (s) => {}
   var onScroll: Boolean => Unit = b => {}
   var resize: () => Unit = () => {}
-  def clip(pts: Polygon): Unit
+  def clip(pts: PolygonGen): Unit
 
   /** Returns the system (Unix) time in milliseconds. */
   def getTime: Long
