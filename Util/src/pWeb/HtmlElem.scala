@@ -13,7 +13,7 @@ case class HtmlPage(head: HtmlHead, body: HtmlBody)
 
 object HtmlPage
 { /** Creates an HTML page object form the title String and the HTML body contents String. */
-  def title(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(bodyContent))
+  def title(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(title.h1Str --- bodyContent))
 }
 
 /** HTML head element. */

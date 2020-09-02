@@ -15,12 +15,12 @@ object webglStuff
     gl.clear(COLOR_BUFFER_BIT)
      
     val vShader = gl.createShader(VERTEX_SHADER)
-    val vertText = "attribute vec2 position;".nl + VMain(Seq("gl_Position = vec4(position, 0, 1);")).out(0)
+    val vertText = "attribute vec2 position;" --- VMain(Seq("gl_Position = vec4(position, 0, 1);")).out(0)
     gl.shaderSource(vShader, vertText)
     gl.compileShader(vShader)
      
     val fShader = gl.createShader(FRAGMENT_SHADER)
-    val fragText = "precision highp float;".nl + "uniform vec4 color;".nl + VMain(Seq("gl_FragColor = vec4(0, 1, 0, 1);")).out(0)
+    val fragText = "precision highp float;" --- "uniform vec4 color;" --- VMain(Seq("gl_FragColor = vec4(0, 1, 0, 1);")).out(0)
     gl.shaderSource(fShader, fragText)
     gl.compileShader(fShader)
      
