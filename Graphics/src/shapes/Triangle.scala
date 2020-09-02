@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black, pWeb._
 
-trait Triangle extends PolygonTr
+trait Triangle extends Polygon
 {	override def length: Int = 3
 	def x0: Double
 	def y0: Double

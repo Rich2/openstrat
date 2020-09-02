@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. */
-trait Rectangle extends Rectangular with PolygonTr
+trait Rectangle extends Rectangular with Polygon
 { final override def length: Int = 4
   def x0: Double
   def y0: Double

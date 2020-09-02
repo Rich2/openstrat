@@ -4,7 +4,7 @@ package geom
 
 trait PolygonGraphic extends ShapeGraphic
 {
-  override def shape: PolygonTr
+  override def shape: Polygon
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): PolygonGraphic

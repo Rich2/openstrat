@@ -5,7 +5,7 @@ import Colour.Black, pWeb._, collection.mutable.ArrayBuffer
 
 /** A General Polygon as opposed to a specific Polygon such as a Square or a Rectangle is encoded as a sequence of plain 2 dimension (mathematical)
  *  vectors. Minimum length 3. Clockwise is the default */
-final class PolygonGen(val arrayUnsafe: Array[Double]) extends PolygonTr with Vec2sLikeProdDbl2 with AffinePreserve
+final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { type ThisT = PolygonGen
   def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   override def typeStr: String = "Polygon"
@@ -132,7 +132,7 @@ object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]
   }
 }
 
-/** Specialised Array based immutable collection class for [[PolygonTr]]s.  */
+/** Specialised Array based immutable collection class for [[Polygon]]s.  */
 final class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonGen]
 { override type ThisT = Polygons
   override def typeStr: String = "Polygons"

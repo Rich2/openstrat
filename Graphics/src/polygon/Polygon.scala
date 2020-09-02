@@ -4,8 +4,8 @@ package geom
 
 /** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
-trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
-{ type ThisT <: PolygonTr
+trait Polygon extends Vec2sLike with Shape with ProlignPreserve
+{ type ThisT <: Polygon
   def length: Int
   def xGet(index: Int): Double
   def yGet(index: Int): Double
@@ -38,10 +38,10 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
 
   @inline def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
 
-  @inline override def rotateRadians(radians: Double): PolygonTr = polygonMap(_.rotateRadians(radians))
+  @inline override def rotateRadians(radians: Double): Polygon = polygonMap(_.rotateRadians(radians))
 
-  override def shearX(operand: Double): PolygonTr = ???
-  override def shearY(operand: Double): PolygonTr = ???
+  override def shearX(operand: Double): Polygon = ???
+  override def shearY(operand: Double): Polygon = ???
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: Slines =if (length > 1)
@@ -71,7 +71,7 @@ trait PolygonTr extends Vec2sLike with Shape with ProlignPreserve
 }
 
 /** Companion object for the Polygon trait. */
-object PolygonTr
-{ implicit val eqImplicit: Eq[PolygonTr] = (p1, p2) => ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
-  implicit val persistImplicit: Persist[PolygonTr] = ???
+object Polygon
+{ implicit val eqImplicit: Eq[Polygon] = (p1, p2) => ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
+  implicit val persistImplicit: Persist[Polygon] = ???
 }
