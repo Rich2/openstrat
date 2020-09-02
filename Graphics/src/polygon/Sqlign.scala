@@ -29,10 +29,10 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
 
-  override def rotateRadians(radians: Double): Square = Square.v0v1(v0.rotateRadians(radians), v1.rotateRadians(radians))
+  override def rotateRadians(radians: Double): SquareGen = SquareGen.v0v1(v0.rotateRadians(radians), v1.rotateRadians(radians))
 
-  override def reflect(line: Line): Square = ???
-  override def reflect(line: Sline): Square = ???
+  override def reflect(line: Line): SquareGen = ???
+  override def reflect(line: Sline): SquareGen = ???
 
   override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
 

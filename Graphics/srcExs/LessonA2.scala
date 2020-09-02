@@ -12,8 +12,8 @@ case class LessonA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
  // debvar(sq.shape.cen)
   //debvar(sq.shape.v2)
   //debvar(sq.v3)
-  val sq2 = Square(100, -100, 100, 0.degs)
-  val sq3 = Square(100, -200, 100, 20.degs)
+  val sq2 = SquareGen(100, -100, 100, 0.degs)
+  val sq3 = SquareGen(100, -200, 100, 20.degs)
  // debvar(sq0)
 
   repaints(
