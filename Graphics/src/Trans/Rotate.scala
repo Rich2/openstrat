@@ -3,7 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-/** Type class for the rotation of objects of type T */
+/** Type class for the rotation of objects of type T. */
 trait Rotate[T]
 { def rotateRadiansT(obj: T, radians: Double): T
 }
