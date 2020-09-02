@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
@@ -66,7 +66,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Concatenates a '/' character and then the other String. Useful for constructing directory/ folder paths on the Web, Linux and Unix */      
   def / (other: String): String = thisString + "/" + other
   
-  def :- (other: String): String = thisString + ": " + other  
+  def -:-(other: String): String = thisString + ": " + other  
   def optAppend (optionOther: Option[String]): String = optionOther.fold(thisString)(string2 => thisString + " " + string2)
   def enquote: String = "\"" + thisString + "\""
   def enquote1: String = "'" + thisString + "'"

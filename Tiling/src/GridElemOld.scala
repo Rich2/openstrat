@@ -56,7 +56,7 @@ object TileRow {
   implicit def eqImplicit[T <: AnyRef](implicit ev: Eq[T]): Eq[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)
 
   implicit def persistImplicit[T <: AnyRef](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
-    def show(obj: TileRow[T]): String = (deb.str :- "This is a placeholder for TileRow").enquote
+    def show(obj: TileRow[T]): String = (deb.str -:- "This is a placeholder for TileRow").enquote
 
     def showComma(obj: TileRow[T]): String = show(obj)
 

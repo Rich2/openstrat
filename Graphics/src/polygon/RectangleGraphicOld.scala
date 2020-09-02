@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
-trait RectangleGraphic extends ShapeGraphicOld with Rectangular
+trait RectangleGraphicOld extends ShapeGraphicOld with Rectangular
 { override def shape: Rectangle
   def xAttrib = XANumeric("x", xCen)
   def yAttrib = XANumeric("y", yCen)

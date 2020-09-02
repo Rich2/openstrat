@@ -35,7 +35,7 @@ final case class SquareFill(shape: Square, fillColour: Colour) extends ShapeFill
   override def reflect(line: Line): SquareFill = SquareFill(shape.reflect(line), fillColour)
   override def reflect(line: Sline): SquareFill = SquareFill(shape.reflect(line), fillColour)
 
-  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphicOld = ???
 
   override def shearX(operand: Double): TransElem = ???
   override def shearY(operand: Double): TransElem = ???

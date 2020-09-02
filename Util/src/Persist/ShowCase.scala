@@ -16,8 +16,8 @@ abstract class Show1[A1, R](val typeStr: String, name1: String, fArg1: R => A1, 
   final override def showMems(): Arr[Show[_]] = Arr(ev1)
   def showSemi(obj: R): String = ev1.showComma(fArg1(obj))
   def showComma(obj: R): String = ev1.show(fArg1(obj))
-  override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj))
-  override def showCommaNames(obj: R): String = name1 :- ev1.show(fArg1(obj))
+  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj))
+  override def showCommaNames(obj: R): String = name1 -:- ev1.show(fArg1(obj))
 }
 
 /** Show type class for 2 parameter case classes. */
@@ -28,8 +28,8 @@ class Show2[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name2
   final override def showMems(): Arr[Show[_]] = Arr(ev1, ev2)
   override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
   override def showComma(obj: R): String = ev1.show(fArg1(obj)) + ", " + ev2.show(fArg2(obj))
-  override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj)) + "; " + name2 :- ev2.showComma(fArg2(obj))
-  override def showCommaNames(obj: R): String = name1 :- ev1.show(fArg1(obj)) + ", " + name2 :- ev2.show(fArg2(obj))
+  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj))
+  override def showCommaNames(obj: R): String = name1 -:- ev1.show(fArg1(obj)) + ", " + name2 -:- ev2.show(fArg2(obj))
 }
 
 /** Show type class for 3 parameter case classes. */
@@ -68,10 +68,10 @@ class Show3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, n
       case _ => ev1.showComma(p1).appendCommas(ev2.showComma(p2), ev3.showComma(p3))
     }
   }
-  override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj)) + "; " + name2 :- ev2.showComma(fArg2(obj)) + "; " +
-    name3 :- ev3.showComma(fArg3(obj))
+  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
+    name3 -:- ev3.showComma(fArg3(obj))
   
-  override def showCommaNames(obj: R): String = name1 :- ev1.show(fArg1(obj)) + ", " + name2 :- ev2.show(fArg2(obj)) + name3 :- ev3.show(fArg3(obj))
+  override def showCommaNames(obj: R): String = name1 -:- ev1.show(fArg1(obj)) + ", " + name2 -:- ev2.show(fArg2(obj)) + name3 -:- ev3.show(fArg3(obj))
 }
 
 /** Show type class for 4 parameter case classes. */
@@ -102,11 +102,11 @@ abstract class Show4[A1, A2, A3, A4, R](val typeStr: String, name1: String, fArg
     ev1.show(p1).appendCommas(ev2.show(p2), ev3.show(p3), ev4.show(p4))
   }
 
-  override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj)) + "; " + name2 :- ev2.showComma(fArg2(obj)) + "; " +
-    name3 :- ev3.showComma(fArg3(obj)) + "; " + name4 :- ev4.showComma(fArg4(obj))
+  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
+    name3 -:- ev3.showComma(fArg3(obj)) + "; " + name4 -:- ev4.showComma(fArg4(obj))
   
-  override def showCommaNames(obj: R): String = name1 :- ev1.show(fArg1(obj)) + ", " + name2 :- ev2.show(fArg2(obj)) + name3 :- ev3.show(fArg3(obj)) +
-    name4 :- ev4.show(fArg4(obj))
+  override def showCommaNames(obj: R): String = name1 -:- ev1.show(fArg1(obj)) + ", " + name2 -:- ev2.show(fArg2(obj)) + name3 -:- ev3.show(fArg3(obj)) +
+    name4 -:- ev4.show(fArg4(obj))
 }
 
 /** Show type class for 5 parameter case classes. */
@@ -141,11 +141,11 @@ class Show5[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R 
     ev1.show(p1).appendCommas(ev2.show(p2), ev3.show(p3), ev4.show(p4), ev5.show(p5))
   }
 
-  override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj)) + "; " + name2 :- ev2.showComma(fArg2(obj)) + "; " +
-    name3 :- ev3.showComma(fArg3(obj)) + "; " + name4 :- ev4.showComma(fArg4(obj))+ name5 :- ev5.showComma(fArg5(obj))
+  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
+    name3 -:- ev3.showComma(fArg3(obj)) + "; " + name4 -:- ev4.showComma(fArg4(obj))+ name5 -:- ev5.showComma(fArg5(obj))
   
-  override def showCommaNames(obj: R): String = name1 :- ev1.show(fArg1(obj)) + ", " + name2 :- ev2.show(fArg2(obj)) + name3 :- ev3.show(fArg3(obj)) +
-    name4 :- ev4.show(fArg4(obj))+ name5 :- ev5.show(fArg5(obj))
+  override def showCommaNames(obj: R): String = name1 -:- ev1.show(fArg1(obj)) + ", " + name2 -:- ev2.show(fArg2(obj)) + name3 -:- ev3.show(fArg3(obj)) +
+    name4 -:- ev4.show(fArg4(obj))+ name5 -:- ev5.show(fArg5(obj))
 }
 
 object Show5
@@ -193,12 +193,12 @@ class Show6[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg1
     ev1.show(p1).appendCommas(ev2.show(p2), ev3.show(p3), ev4.show(p4), ev5.show(p5), ev6.show(p6))
   }
 
-  override def showSemiNames(obj: R): String = name1 :- ev1.showComma(fArg1(obj)) + "; " + name2 :- ev2.showComma(fArg2(obj)) + "; " +
-    name3 :- ev3.showComma(fArg3(obj)) + "; " + name4 :- ev4.showComma(fArg4(obj)) + name5 :- ev5.showComma(fArg5(obj)) +
-    name6 :- ev6.showComma(fArg6(obj))
+  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
+    name3 -:- ev3.showComma(fArg3(obj)) + "; " + name4 -:- ev4.showComma(fArg4(obj)) + name5 -:- ev5.showComma(fArg5(obj)) +
+    name6 -:- ev6.showComma(fArg6(obj))
 
-  override def showCommaNames(obj: R): String = name1 :- ev1.show(fArg1(obj)) + ", " + name2 :- ev2.show(fArg2(obj)) + name3 :- ev3.show(fArg3(obj)) +
-    name4 :- ev4.show(fArg4(obj)) + name5 :- ev5.show(fArg5(obj)) + name6 :- ev6.show(fArg6(obj))
+  override def showCommaNames(obj: R): String = name1 -:- ev1.show(fArg1(obj)) + ", " + name2 -:- ev2.show(fArg2(obj)) + name3 -:- ev3.show(fArg3(obj)) +
+    name4 -:- ev4.show(fArg4(obj)) + name5 -:- ev5.show(fArg5(obj)) + name6 -:- ev6.show(fArg6(obj))
 }
 
 object Show6
