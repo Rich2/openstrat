@@ -78,7 +78,15 @@ object ShapeGraphic
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[ShapeGraphic] = new ReflectAxisOffset[ShapeGraphic]
+  implicit val reflectAxisImplicit: ReflectAxis[ShapeGraphic] = new ReflectAxis[ShapeGraphic]
+  { /** Reflect, mirror across the X axis. */
+    override def reflectXT(obj: ShapeGraphic): ShapeGraphic = obj.reflectX
+
+    /** Reflect, mirror across the Y axis. */
+    override def reflectYT(obj: ShapeGraphic): ShapeGraphic = obj.reflectY
+  }
+  
+  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeGraphic] = new ReflectAxisOffset[ShapeGraphic]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: ShapeGraphic, yOffset: Double): ShapeGraphic = obj.reflectXOffset(yOffset)
 
@@ -97,6 +105,5 @@ object ShapeGraphic
     override def rotateT270(obj: ShapeGraphic): ShapeGraphic = obj.rotate270
   }
 
-  implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
-  
+  implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)  
 }

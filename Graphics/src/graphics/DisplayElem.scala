@@ -57,7 +57,15 @@ object DisplayElem
   implicit val scaleImplicit: Scale[DisplayElem] = (obj: DisplayElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[DisplayElem] = (obj: DisplayElem, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[DisplayElem] = new ReflectAxisOffset[DisplayElem]
+  implicit val reflectAxisImplicit: ReflectAxis[DisplayElem] = new ReflectAxis[DisplayElem]
+  { /** Reflect, mirror across the X axis. */
+    override def reflectXT(obj: DisplayElem): DisplayElem = obj.reflectX
+
+    /** Reflect, mirror across the Y axis. */
+    override def reflectYT(obj: DisplayElem): DisplayElem = obj.reflectY
+  }
+
+  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[DisplayElem] = new ReflectAxisOffset[DisplayElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: DisplayElem, yOffset: Double): DisplayElem = obj.reflectXOffset(yOffset)
 
