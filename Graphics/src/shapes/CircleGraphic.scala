@@ -16,15 +16,15 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
     shapeAttribs ++ facets.flatMap(_.attribs))  
   
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
+  override def slate(offset: Vec2): CircleGraphic = CircleGraphic(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): CircleGraphic =
-    CircleGraphic(shape.slate(xOffset, yOffset), facets, children.map(_.slate(xOffset, yOffset)))
+    CircleGraphic(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): CircleGraphic = CircleGraphic(shape.scale(operand), facets, children.map(_.scale(operand)))
+  override def scale(operand: Double): CircleGraphic = CircleGraphic(shape.scale(operand), facets, children.scale(operand))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def reflectYOffset(xOffset: Double): CircleGraphic =

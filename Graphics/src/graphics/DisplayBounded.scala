@@ -28,7 +28,7 @@ object DisplayBounded
   implicit val scaleImplicit: Scale[DisplayBounded] = (obj: DisplayBounded, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[DisplayBounded] = (obj: DisplayBounded, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val mirrorAxisImplicit: ReflectAxis[DisplayBounded] = new ReflectAxis[DisplayBounded]
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[DisplayBounded] = new ReflectAxisOffset[DisplayBounded]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: DisplayBounded, yOffset: Double): DisplayBounded = obj.reflectXOffset(yOffset)
 

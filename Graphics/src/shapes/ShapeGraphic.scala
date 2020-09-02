@@ -73,4 +73,30 @@ object ShapeGraphic
       SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(0, 0, 150)
     }
   }
+
+  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, radians: Double) => obj.rotateRadians(radians)
+
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[ShapeGraphic] = new ReflectAxisOffset[ShapeGraphic]
+  { /** Reflect, mirror across a line parallel to the X axis. */
+    override def reflectXOffsetT(obj: ShapeGraphic, yOffset: Double): ShapeGraphic = obj.reflectXOffset(yOffset)
+
+    /** Reflect, mirror across a line parallel to the Y axis. */
+    override def reflectYOffsetT(obj: ShapeGraphic, xOffset: Double): ShapeGraphic = obj.reflectYOffset(xOffset)
+  }
+
+  implicit val rotateAxesImplicit: RotateAxes[ShapeGraphic] = new RotateAxes[ShapeGraphic]
+  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
+    override def rotateT90(obj: ShapeGraphic): ShapeGraphic = obj.rotate90
+
+    /** Rotates object of type T, 180 degrees or Pi radians. */
+    override def rotateT180(obj: ShapeGraphic): ShapeGraphic = obj.rotate180
+
+    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
+    override def rotateT270(obj: ShapeGraphic): ShapeGraphic = obj.rotate270
+  }
+
+  implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
+  
 }

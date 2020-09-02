@@ -6,7 +6,7 @@ import pWeb._
 case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
 {
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): PolygonGraphic = ???
+  override def slate(offset: Vec2): RectGraphic = RectGraphic(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonGraphic = ???

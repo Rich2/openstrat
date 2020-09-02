@@ -66,7 +66,7 @@ object TransElem
     override def rotateT270(obj: TransElem): TransElem = obj.rotate270
   }
 
-  implicit val mirrorAxisImplicit: ReflectAxis[TransElem] = new ReflectAxis[TransElem]
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[TransElem] = new ReflectAxisOffset[TransElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXOffset(yOffset)
 
