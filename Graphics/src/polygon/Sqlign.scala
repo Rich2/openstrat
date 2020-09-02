@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A square aligned to the X and Y axes. */
-final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends SquareTr with Rectanglelign
+final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends Square with Rectanglelign
 { override type ThisT = Sqlign
   override def shapeAttribs: Arr[XANumeric] = ???
   override def fTrans(f: Vec2 => Vec2): Sqlign = Sqlign.cenV0(f(cen), f(v0))

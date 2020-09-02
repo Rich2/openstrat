@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Not sure about this class. */
 case class SqCenlign(width: Double) //extends Sqlign with RectCenlign
 {
 
