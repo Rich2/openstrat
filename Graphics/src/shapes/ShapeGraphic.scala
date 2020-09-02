@@ -9,14 +9,14 @@ trait ShapeGraphic extends DisplayElem
   def facets: Arr[ShapeFacet]
   
   final def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
-    svgElem).out(0, 0, 150)
+    svgJustElem).out(0, 0, 150)
   
   /** The [[ShapeGraphic]] type will be widened at a later point. */
   def children: Arr[ShapeGraphic]
   
-  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgElem.out(indent, linePosn, lineLen)
-  def svgElem: SvgElem
-  
+  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, linePosn, lineLen)
+  final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
+  def svgElem(bounds: BoundingRect): SvgElem
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeGraphic
 
@@ -68,7 +68,7 @@ object ShapeGraphic
   {
     def svgInline: String =
     { val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
-      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem)).out(0, 0, 150)
+      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(0, 0, 150)
     }
   }
 }

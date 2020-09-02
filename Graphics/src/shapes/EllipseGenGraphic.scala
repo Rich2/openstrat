@@ -7,8 +7,8 @@ import pWeb._
 case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
 { 
   /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
-  override def svgElem: SvgEllipse =
-  { val bounds = shape.boundingRect
+  override def svgElem(bounds: BoundingRect): SvgEllipse =
+  { //val bounds = shape.boundingRect
     val newEllipse = shape.reflectX.slate(0, bounds.minY + bounds.maxY)
     val newAtts = newEllipse.shapeAttribs
     val atts2 = if (shape.ellipeRotation == 0.degs) newAtts else newAtts +- SvgRotate(- shape.ellipeRotation.degs, shape.xCen, shape.yCen)
