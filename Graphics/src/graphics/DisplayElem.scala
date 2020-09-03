@@ -16,14 +16,8 @@ trait DisplayElem extends TransElem
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  def scale(operand: Double): DisplayElem
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYOffset(xOffset: Double): DisplayElem
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXOffset(yOffset: Double): DisplayElem
-
+  def scale(operand: Double): DisplayElem  
+  
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   def reflectX: DisplayElem
@@ -31,6 +25,12 @@ trait DisplayElem extends TransElem
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   def reflectY: DisplayElem
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  def reflectXOffset(yOffset: Double): DisplayElem
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  def reflectYOffset(xOffset: Double): DisplayElem
 
   def prolign(matrix: ProlignMatrix): DisplayElem
 

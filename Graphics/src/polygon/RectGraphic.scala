@@ -9,39 +9,39 @@ case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[Shape
   override def slate(offset: Vec2): RectGraphic = RectGraphic(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonGraphic =
+  override def slate(xOffset: Double, yOffset: Double): RectGraphic =
     RectGraphic(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): PolygonGraphic = ???
+  override def scale(operand: Double): RectGraphic = RectGraphic(shape.scale(operand), facets, children.scale(operand))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): PolygonGraphic = ???
+  override def reflectYOffset(xOffset: Double): RectGraphic = ???
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): PolygonGraphic = ???
+  override def reflectXOffset(yOffset: Double): RectGraphic = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: PolygonGraphic = ???
+  override def reflectX: RectGraphic = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: PolygonGraphic = ???
+  override def reflectY: RectGraphic = ???
 
-  override def prolign(matrix: ProlignMatrix): PolygonGraphic = ???
+  override def prolign(matrix: ProlignMatrix): RectGraphic = ???
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: PolygonGraphic = ???
+  override def rotate90: RectGraphic = ???
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: PolygonGraphic = ???
+  override def rotate180: RectGraphic = ???
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: PolygonGraphic = ???
+  override def rotate270: RectGraphic = ???
 
-  override def rotateRadians(radians: Double): PolygonGraphic = ???
+  override def rotateRadians(radians: Double): RectGraphic = ???
 
   override def reflect(line: Line): PolygonGraphic = ???
 
@@ -51,7 +51,7 @@ case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[Shape
 
   override def shearY(operand: Double): PolygonGraphic = ???
 
-  override def reflect(line: Sline): PolygonGraphic = ???
+  override def reflect(line: Sline): RectGraphic = ???
 
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 }

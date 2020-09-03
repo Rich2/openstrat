@@ -14,13 +14,7 @@ trait EllipseGraphic extends ShapeGraphic
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): EllipseGraphic
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): EllipseGraphic
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): EllipseGraphic
-
+ 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def reflectX: EllipseGraphic
@@ -29,6 +23,12 @@ trait EllipseGraphic extends ShapeGraphic
    * in sub classes. */
   override def reflectY: EllipseGraphic
 
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): EllipseGraphic
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYOffset(xOffset: Double): EllipseGraphic
+  
   override def prolign(matrix: ProlignMatrix): EllipseGraphic
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */

@@ -26,35 +26,34 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): CircleGraphic = CircleGraphic(shape.scale(operand), facets, children.scale(operand))
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): CircleGraphic =
-    CircleGraphic(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): CircleGraphic = ???
-
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: CircleGraphic = ???
+  override def reflectX: CircleGraphic = CircleGraphic(shape.reflectX, facets, children.reflectX)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def reflectY: CircleGraphic = CircleGraphic(shape.reflectY, facets, children.reflectY)
 
-  override def prolign(matrix: ProlignMatrix): CircleGraphic = ???
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): CircleGraphic = CircleGraphic(shape.reflectXOffset(yOffset), facets, children.reflectXOffset(yOffset))
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYOffset(xOffset: Double): CircleGraphic = CircleGraphic(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
+
+  override def prolign(matrix: ProlignMatrix): CircleGraphic = CircleGraphic(shape.prolign(matrix), facets, children.prolign(matrix))
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: CircleGraphic = ???
+  override def rotate90: CircleGraphic = CircleGraphic(shape.rotate90, facets, children.rotate90)
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: CircleGraphic = ???
+  override def rotate180: CircleGraphic = CircleGraphic(shape.rotate180, facets, children.rotate180)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: CircleGraphic = ???
+  override def rotate270: CircleGraphic = CircleGraphic(shape.rotate270, facets, children.rotate270)
 
-  override def rotateRadians(radians: Double): CircleGraphic = ???
+  override def rotateRadians(radians: Double): CircleGraphic = CircleGraphic(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-  override def reflect(line: Line): CircleGraphic = ???
+  override def reflect(line: Line): CircleGraphic = ??? //CircleGraphic(shape.reflect(line), facets, children.reflect(line))
 
   override def reflect(line: Sline): CircleGraphic = ???
 

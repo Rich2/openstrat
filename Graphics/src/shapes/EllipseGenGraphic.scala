@@ -32,34 +32,36 @@ case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: 
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): EllipseGenGraphic = EllipseGenGraphic(shape.scale(operand), facets, children.scale(operand))
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): EllipseGenGraphic = ???
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): EllipseGenGraphic = ???
+  override def scale(operand: Double): EllipseGenGraphic = EllipseGenGraphic(shape.scale(operand), facets, children.scale(operand))  
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: EllipseGenGraphic = ???
+  override def reflectX: EllipseGenGraphic = EllipseGenGraphic(shape.reflectX, facets, children.reflectX)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def reflectY: EllipseGenGraphic = EllipseGenGraphic(shape.reflectY, facets, children.reflectY)
 
-  override def prolign(matrix: ProlignMatrix): EllipseGenGraphic = ???
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): EllipseGenGraphic =
+    EllipseGenGraphic(shape.reflectXOffset(yOffset), facets, children.reflectXOffset(yOffset))
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYOffset(xOffset: Double): EllipseGenGraphic =
+    EllipseGenGraphic(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
+  
+  override def prolign(matrix: ProlignMatrix): EllipseGenGraphic = EllipseGenGraphic(shape.prolign(matrix), facets, children.prolign(matrix))
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: EllipseGenGraphic = ???
+  override def rotate90: EllipseGenGraphic = EllipseGenGraphic(shape.rotate90, facets, children.rotate90)
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: EllipseGenGraphic = ???
+  override def rotate180: EllipseGenGraphic = EllipseGenGraphic(shape.rotate180, facets, children.rotate180)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: EllipseGenGraphic = ???
+  override def rotate270: EllipseGenGraphic = EllipseGenGraphic(shape.rotate270, facets, children.rotate270)
 
-  override def rotateRadians(radians: Double): EllipseGenGraphic = ???
+  override def rotateRadians(radians: Double): EllipseGenGraphic = EllipseGenGraphic(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
   override def reflect(line: Line): EllipseGenGraphic = ???
 
