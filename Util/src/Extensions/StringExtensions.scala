@@ -63,7 +63,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def ind4: String = "    " + thisString
   
   /** Concatenates a '/' character and then the other String. Useful for constructing directory/ folder paths on the Web, Linux and Unix */      
-  def / (other: String): String = thisString + "/" + other
+  def -/-(other: String): String = thisString + "/" + other
   
   def -:-(other: String): String = thisString + ": " + other  
   def optAppend (optionOther: Option[String]): String = optionOther.fold(thisString)(string2 => thisString + " " + string2)

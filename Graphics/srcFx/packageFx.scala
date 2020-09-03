@@ -4,7 +4,7 @@ import pParse._
 /** This package is for JavaFx code.*/
 package object pFx
 { val userHomeDir: String = System.getProperty("user.home")
-  val yourDir: String = userHomeDir / "AppData/Local/OpenStratData"
+  val yourDir: String = userHomeDir -/- "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
   lazy val generalDevSettings: EMon[Statements] =
@@ -17,7 +17,7 @@ package object pFx
   { import java.io._
     val dir = new File(path)
     if (!dir.exists) dir.mkdirs
-    val pw = new PrintWriter(new File(path / fileName))
+    val pw = new PrintWriter(new File(path -/- fileName))
     pw.write(output)
     pw.close
   }

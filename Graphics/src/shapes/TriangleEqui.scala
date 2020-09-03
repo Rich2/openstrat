@@ -3,9 +3,9 @@ package ostrat
 package geom
 import pWeb._
 
-final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) extends IsosTriangle
+final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) extends TriangleIsos
 {
-  override type ThisT = EquiTriangle
+  override type ThisT = TriangleEqui
   override def height: Double = ???
   override def foreach[U](f: Vec2 => U): Unit = ???
   override def shapeAttribs: Arr[XANumeric] = ???
@@ -16,11 +16,11 @@ final case class EquiTriangle(x0: Double, y0: Double, x2: Double, y2: Double) ex
   override def reflectY: ThisT = fTrans(_.reflectY)
   def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
   def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
-  override def reflect(line: Line): TransElem = ???
+  override def reflect(line: Line): Triangle = ???
 
-  override def reflect(line: Sline): TransElem = ???
+  override def reflect(line: Sline): Triangle = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): Triangle = ???
 
   override def fillOld(fillColour: Colour): ShapeFill = ???
 

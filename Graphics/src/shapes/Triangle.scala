@@ -55,35 +55,3 @@ object Triangle
 	//def apply(v0: Vec2, v1: Vec2, v2: Vec2): Triangle = ??? // new Triangle(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFill = PolygonFill(PolygonGen(p1, p2, p3), colour)
 }
-
-trait IsosTriangle extends Triangle
-{	def height: Double
-	def x1: Double = ???
-	def y1: Double = ???
-	override def v1: Vec2 = ???
-}
-
-final case class IsosTriangleClass(x0: Double, y0: Double, x2: Double, y2: Double, height: Double) extends IsosTriangle
-{	override type ThisT = IsosTriangleClass
-
-	override def fTrans(f: Vec2 => Vec2): IsosTriangleClass = ???
-	override def v1: Vec2 = ???
-	override def shapeAttribs: Arr[XANumeric] = ???
-	override def foreach[U](f: Vec2 => U): Unit = ???
-
-	override def rotateRadians(radians: Double): IsosTriangleClass = ???
-	def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
-	def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-	override def reflectX: ThisT = fTrans(_.reflectX)
-	override def reflectY: ThisT = fTrans(_.reflectY)
-	override def reflect(line: Line): TransElem = ???
-	override def reflect(line: Sline): TransElem = ???
-
-	override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
-
-	override def fillOld(fillColour: Colour): ShapeFill = ???
-
-	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
-
-	override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
-}

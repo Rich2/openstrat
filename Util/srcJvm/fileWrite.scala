@@ -34,6 +34,6 @@ object homeHtmlWrite
    *  HTML title and the file name. The second is contents of the HTML body element.  */
   def apply(title: String, bodyContent: String): EMon[String] =
   { val h = System.getProperty("user.home")
-    fileWrite(h + "/" + title + ".html", HtmlPage.title(title, bodyContent).out)
+    fileWrite(h -/- title + ".html", HtmlPage.title(title, bodyContent).out)
   }
 }

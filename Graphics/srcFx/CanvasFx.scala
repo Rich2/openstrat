@@ -253,5 +253,5 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def gcSave(): Unit = gc.save()
   override def gcRestore(): Unit = gc.restore()
   def saveFile(fileName: String, output: String): Unit = saveRsonFile(yourDir, fileName, output: String)
-  def loadFile(fileName: String): EMon[String] = loadRsonFile(yourDir / fileName)
+  def loadFile(fileName: String): EMon[String] = loadRsonFile(yourDir -/- fileName)
 }
