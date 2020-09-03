@@ -19,6 +19,6 @@ object WebPage1 extends App
       |
       |<p>And a third.</p>""".stripMargin
   
-  val r = homeHtmlWrite("Web1", bodyStr)
+  val r = opensettHtmlWrite("Web1", bodyStr)
   deb(r.toString)
 }

@@ -5,6 +5,6 @@ package pExs
 
 object LessonPagesApp extends App
 {
-  val r = homeHtmlWrite("SvgPage1", "Hello")
+  val r = opensettHtmlWrite("lessonA1", "Hello")
   deb(r.toString)
 }

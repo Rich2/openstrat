@@ -42,6 +42,6 @@ object SvgApp extends App
     |<p>The above ellipse rotated.<br>
     |<code>val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline</code><p>
     |$ef2""".stripMargin
-  val r = homeHtmlWrite("SvgPage1", bodyStr)
+  val r = opensettHtmlWrite("SvgPage1", bodyStr)
   deb(r.toString)
 }
