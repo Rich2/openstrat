@@ -10,6 +10,8 @@ final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Dou
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(v0), f(v1))
   override def shapeAttribs: Arr[XANumeric] = ???
   override def rotation: Angle = (v0 - v3).angle
+
+  override def rotateRadians(radians: Double): Rect = ???
   override def reflectX: Rect = Rect.v0v1(v1.reflectX, v0.reflectX, width)
   override def reflectY: Rect = Rect.v0v1(v1.reflectY, v0.reflectY, width)
   def reflectXOffset(yOffset: Double): Rect = Rect.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)

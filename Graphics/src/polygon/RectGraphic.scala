@@ -33,15 +33,15 @@ case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[Shape
   override def prolign(matrix: ProlignMatrix): RectGraphic = RectGraphic(shape.prolign(matrix), facets, children.prolign(matrix))
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: RectGraphic = ???
+  override def rotate90: RectGraphic = RectGraphic(shape.rotate90, facets, children.rotate90)
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: RectGraphic = ???
+  override def rotate180: RectGraphic = RectGraphic(shape.rotate180, facets, children.rotate180)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: RectGraphic = ???
+  override def rotate270: RectGraphic = RectGraphic(shape.rotate270, facets, children.rotate270)
 
-  override def rotateRadians(radians: Double): RectGraphic = ???
+  override def rotateRadians(radians: Double): RectGraphic = RectGraphic(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
   override def reflect(line: Line): PolygonGraphic = ???
 
