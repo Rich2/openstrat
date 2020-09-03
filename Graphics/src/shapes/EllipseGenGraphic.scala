@@ -24,15 +24,15 @@ case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: 
   }
   
   /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
-  override def slate(offset: Vec2): EllipseGenGraphic = EllipseGenGraphic(shape.slate(offset), facets, children.map(_.slate(offset)))
+  override def slate(offset: Vec2): EllipseGenGraphic = EllipseGenGraphic(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): EllipseGenGraphic =
-    EllipseGenGraphic(shape.slate(xOffset, yOffset), facets, children.map(_.slate(xOffset, yOffset)))
+    EllipseGenGraphic(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): EllipseGenGraphic = EllipseGenGraphic(shape.scale(operand), facets, children.map(_.scale(operand)))
+  override def scale(operand: Double): EllipseGenGraphic = EllipseGenGraphic(shape.scale(operand), facets, children.scale(operand))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def reflectYOffset(xOffset: Double): EllipseGenGraphic = ???
@@ -46,7 +46,7 @@ case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: 
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: EllipseGenGraphic = EllipseGenGraphic(shape.reflectY, facets, children.map(_.reflectY))
+  override def reflectY: EllipseGenGraphic = EllipseGenGraphic(shape.reflectY, facets, children.reflectY)
 
   override def prolign(matrix: ProlignMatrix): EllipseGenGraphic = ???
 

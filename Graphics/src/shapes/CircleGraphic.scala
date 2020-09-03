@@ -3,8 +3,8 @@ package ostrat
 package geom
 import pWeb._
 
-case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic// with SimilarPreserve
-{ /*override type ThisT = CircleDisplay */
+case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
+{
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillColour(c) => cp.circleFill(shape, c)
     case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
@@ -28,7 +28,7 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def reflectYOffset(xOffset: Double): CircleGraphic =
-    CircleGraphic(shape.reflectYOffset(xOffset), facets, children.map(_.reflectYOffset(xOffset)))
+    CircleGraphic(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXOffset(yOffset: Double): CircleGraphic = ???
@@ -39,7 +39,7 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: CircleGraphic = CircleGraphic(shape.reflectY, facets, children.map(_.reflectY))
+  override def reflectY: CircleGraphic = CircleGraphic(shape.reflectY, facets, children.reflectY)
 
   override def prolign(matrix: ProlignMatrix): CircleGraphic = ???
 

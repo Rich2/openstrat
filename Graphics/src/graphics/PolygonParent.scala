@@ -11,10 +11,10 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
   override def mutObj(newObj: Any): PolygonParent = new PolygonParent(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
   def reflectXOffset(yOffset: Double): PolygonParent =
-    PolygonParent(cen.reflectXOffset(yOffset), poly.reflectXOffset(yOffset), pointerId, children.mirrorXOffset(yOffset))
+    PolygonParent(cen.reflectXOffset(yOffset), poly.reflectXOffset(yOffset), pointerId, children.reflectXOffset(yOffset))
 
   def reflectYOffset(xOffset: Double): PolygonParent =
-    PolygonParent(cen.reflectYOffset(xOffset), poly.reflectYOffset(xOffset), pointerId, children.mirrorYOffset(xOffset))
+    PolygonParent(cen.reflectYOffset(xOffset), poly.reflectYOffset(xOffset), pointerId, children.reflectYOffset(xOffset))
 
   def rotateRadians(radians: Double): PolygonParent =
     PolygonParent(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))
@@ -31,8 +31,8 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
 
   def reflect(line: Sline): PolygonParent = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
   def reflect(line: Line): PolygonParent = ???
-  override def reflectX: PolygonParent = PolygonParent(cen.reflectX, poly.reflectX, pointerId, children.mirrorX)
-  override def reflectY: PolygonParent = PolygonParent(cen.reflectY, poly.reflectY, pointerId, children.mirrorY)
+  override def reflectX: PolygonParent = PolygonParent(cen.reflectX, poly.reflectX, pointerId, children.reflectX)
+  override def reflectY: PolygonParent = PolygonParent(cen.reflectY, poly.reflectY, pointerId, children.reflectY)
 
   override def prolign(matrix: ProlignMatrix): PolygonParent = PolygonParent(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 

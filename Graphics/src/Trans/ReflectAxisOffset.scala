@@ -49,14 +49,8 @@ object ReflectAxisOffset
 class ReflectAxisOffsetExtension[A](thisReflector: A)(implicit ev: ReflectAxisOffset[A])
 {
   /** Reflect, mirror across a line parallel to the X axis. */
-  def mirrorXOffset(yOffset: Double): A = ev.reflectXOffsetT(thisReflector, yOffset)
+  def reflectXOffset(yOffset: Double): A = ev.reflectXOffsetT(thisReflector, yOffset)
 
   /** Reflect, mirror across a line parallel to the Y axis. */
-  def mirrorYOffset(xOffset: Double): A = ev.reflectYOffsetT(thisReflector, xOffset)
-
-  /** Reflect, mirror across the X axis. */
-  @inline def mirrorX: A = mirrorXOffset(0)
-
-  /** Reflect, mirror across the Y axis. */
-  @inline def mirrorY: A = mirrorYOffset(0)
+  def reflectYOffset(xOffset: Double): A = ev.reflectYOffsetT(thisReflector, xOffset)  
 }

@@ -9,7 +9,8 @@ case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[Shape
   override def slate(offset: Vec2): RectGraphic = RectGraphic(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonGraphic = ???
+  override def slate(xOffset: Double, yOffset: Double): PolygonGraphic =
+    RectGraphic(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
