@@ -48,7 +48,7 @@ def coreJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr + "Core").settin
 def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
   scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "srcExs",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test",
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "srcExs",
   Compile/unmanagedSourceDirectories := List("srcExs", "srcExsJvm", "srcExsFx").map((ThisBuild/baseDirectory).value / srcsStr / _),
   resourceDirectory := (ThisBuild/baseDirectory).value / srcsStr / "/ExsRes",
@@ -159,7 +159,7 @@ lazy val JsDev = jsProj("Dev").dependsOn(JsWorld).settings(
 )
 
 def dottySettings = List(
-	scalaVersion := "0.26.0-RC1",
+	scalaVersion := "0.27.0-RC1",
   resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
 )
