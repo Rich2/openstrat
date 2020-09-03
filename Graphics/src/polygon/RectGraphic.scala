@@ -15,22 +15,22 @@ case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[Shape
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): RectGraphic = RectGraphic(shape.scale(operand), facets, children.scale(operand))
+  
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectX: RectGraphic = RectGraphic(shape.reflectX, facets, children.reflectX)
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: RectGraphic = RectGraphic(shape.reflectY, facets, children.reflectY)
+  
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): RectGraphic = RectGraphic(shape.reflectXOffset(yOffset), facets, children.reflectXOffset(yOffset))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): RectGraphic = ???
+  override def reflectYOffset(xOffset: Double): RectGraphic = RectGraphic(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): RectGraphic = ???
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def reflectX: RectGraphic = ???
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def reflectY: RectGraphic = ???
-
-  override def prolign(matrix: ProlignMatrix): RectGraphic = ???
+  override def prolign(matrix: ProlignMatrix): RectGraphic = RectGraphic(shape.prolign(matrix), facets, children.prolign(matrix))
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   override def rotate90: RectGraphic = ???

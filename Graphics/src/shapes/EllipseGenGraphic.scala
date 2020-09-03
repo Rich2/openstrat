@@ -63,7 +63,7 @@ case class EllipseGenGraphic(shape: Ellipse, facets: Arr[ShapeFacet], children: 
 
   override def rotateRadians(radians: Double): EllipseGenGraphic = EllipseGenGraphic(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-  override def reflect(line: Line): EllipseGenGraphic = ???
+  override def reflect(line: Line): EllipseGenGraphic = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
 
   override def scaleXY(xOperand: Double, yOperand: Double): EllipseGenGraphic = ???
 
