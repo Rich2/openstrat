@@ -2,6 +2,11 @@
 package ostrat
 package geom
 package pExs
+import pWeb._
+
+trait LessonPage
+{ def page: HtmlPage
+}
 
 object LessonPagesApp extends App
 {

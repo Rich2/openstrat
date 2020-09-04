@@ -4,9 +4,10 @@ package geom
 package pExs
 import pWeb._
 
-object PageA1 
+object PageA1 extends LessonPage
 { val head = HtmlHead(Arr(HtmlTitle("Lesson A1")))
   val bodyStr =
     """<h1>Lesson A1</h1>
-      |<p>covers Circles and Ellipses.</p>""".stripMargin
+      |<p>Covers Circles and Ellipses.</p>""".stripMargin
+  override val page: HtmlPage = HtmlPage(head, HtmlBody(bodyStr))    
 }
