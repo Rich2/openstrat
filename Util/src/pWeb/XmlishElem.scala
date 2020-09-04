@@ -7,23 +7,22 @@ trait XmlishElem extends XCon
 { def tag: String
   def attribs: Arr[XmlAtt]
   def contents: Arr[XCon]
-  def openTag: String = "<" + tag + ">"
+ 
   def attribsOut: String = ife(attribs.empty, "", " " + attribs.toStrsFold(" ", _.str) + " ")
   def openAtts: String = "<" + tag + attribsOut 
   def openUnclosed: String = openAtts + ">"
-  def openTag1: String = openTag + "\n"
-  def openTag2: String = openTag + "\n\n"
+ 
   def closeTag: String = "</" + tag + ">"
   def n1CloseTag: String = "\n" + closeTag
   def n2CloseTag: String = "\n\n" + closeTag
-  def openVoid: String
+  //def openVoid: String
 }
 
 /** An XML element. */
 trait XmlElem extends XmlishElem
 {
-  override def openVoid: String = openAtts + "/>"
-  override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = if (contents.empty) openVoid
+ // override def openVoid: String = openAtts + "/>"
+  override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = if (contents.empty) openAtts + "/>" //openVoid
     else openUnclosed.nli(indent + 2) + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)).nli(indent) + closeTag
 }
 
