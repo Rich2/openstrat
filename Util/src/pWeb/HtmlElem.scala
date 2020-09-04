@@ -17,10 +17,14 @@ object HtmlPage
 }
 
 /** HTML head element. */
-case class HtmlHead(titleStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
+case class HtmlHead(contents : Arr[XCon], attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
 { override def tag: String = "head"
-  override def contents: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
+  //override def contents: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
   def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)) + "\n" + closeTag
+}
+  
+object HtmlHead
+{ def apply(titleStr: String): HtmlHead = new HtmlHead(Arr[XCon](HtmlTitle(titleStr)))
 }
 
 /** HTML title element. */
