@@ -5,23 +5,17 @@ import pWeb._
 object WebPage1 extends App
 {
   val title = "Web Page Example 1"
-  val svgStr2: String = SvgSvgElem(Arr(SvgCircle(Arr(XANumeric("cx", 150)))), Arr()).out()
+  
+  val svgStr2: String = SvgSvgElem(Arr(SvgCircle(Arr(XANumeric("cx", 75), XANumeric("cy", 75), XANumeric("r", 75)))), Arr()).out()
   
   val bodyStr =
-    """<p>This is just some text for creating a web page.  using ultra simple code. I'm going to So I'm just going to go on and on for a bit, just in an attempt to
-      |   drag this out into multiple lines. So I really don't know what I'm going to say. Its awful really when you've just got to write stuff to take
-      |   up lines.
-      |</p>
-      |
-      |<p>And here's a second paragraph. And again and again, what on earth am I going to say, to drag this out beyond a single line, especially when
-      |  there's no formatting in the output. Anyway the SVG below demonstrates the 300 by 150 default viewbox dimensions.
-      |</p>
+    s"""<p>This is just some text for creating a web page. Using fairly simple code. Below are some svg circles encoded by hand.</p>     
       |
       |<svg>
-      |<circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red />
+      |  <circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red />
       |</svg>
       |
-      |<p>And a third paragraph.</p>
+      |<p>And here's the begining of constructing the svg from the Svg syntax functionality.</p>
       |$svgStr2
       | """.stripMargin
   

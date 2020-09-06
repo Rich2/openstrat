@@ -16,7 +16,8 @@ object SvgApp extends App
   
   
   val bodyStr =
-  s"""<p>The formatting of this example has deliberately been kept simple. For that reason no CSS has been used. 80 diameter orange Circle below.<br>
+  s"""<p>So this is some reliatvly simple HTML. The formatting of this example has deliberately been kept simple. For that reason no CSS has been
+    | used. 80 diameter orange Circle below.<br>
     |  <code>Circle(80).fill(Orange).svgInline</code>
     |</p>
     |
