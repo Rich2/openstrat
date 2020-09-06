@@ -68,9 +68,9 @@ object ShapeGraphic
 {
   implicit class ShapeGraphicArrImplicit(val thisArr: Arr[ShapeGraphic])
   {
-    def svgInline: String =
+    def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String =
     { val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
-      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(0, 0, 150)
+      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, linePosn, lineLen)
     }
   }
 

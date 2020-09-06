@@ -9,7 +9,7 @@ object SvgApp extends App
   val cof1 = Circle(80).fill(Orange).svgInline  
   val cof2 = Circle(120).fill(Red).svgInline
   val cof3 = Circle(80, 80, 50).fill(Gold).svgInline
-  val cof4 = Arr(Circle(100, -50, 50).fill(Pink), Circle(100, 50, -50).fill(Colour.LightBlue)).svgInline
+  val cof4 = Arr(Circle(100, -50, 50).fill(Pink), Circle(100, 50, -50).fill(Colour.LightBlue)).svgInline()
   val e1 = Ellipse(90, 60)
   val ef1 = e1.fill(DarkMagenta).svgInline
   val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline
