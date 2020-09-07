@@ -115,7 +115,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     case _ => "a " + thisString
   }
 
-  def lengthFix(newLenIn: Int = 3, packChar: Char = ' '): String =
+  def lengthFix(newLenIn: Int = 3, packChar: Char = ' '): String = 
   { val newLen = newLenIn.min(1).max(9)
     (newLen - thisString.length) match {
       case l if l < 0 => thisString.take(newLen)
@@ -125,6 +125,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     }
   }
   
+  /** Converts this String to an immutable Array based collection of [[Char]]s. */
   def toChars: Chars = new Chars(thisString.toCharArray)
   
   /** Replaces the reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is replaced by "&gt;". */

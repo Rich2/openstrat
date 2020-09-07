@@ -23,6 +23,13 @@ class CharExtensions(thisChar: Char)
   { case '&' => "&amp;"
     case '<' => "&lt;"
     case '>' => "&gt;"
+    case '\"' => "&quot;"
+    case '\'' => "&qpos;"
+    case '\u00A2' => "&cent;"
+    case '£' => "&pound;"
+    case '€' => "&euro;"
+    case '@' => "&copy;"
+    case '\u00Ae' => "&reg"
     case c => c.toString  
   }
 }

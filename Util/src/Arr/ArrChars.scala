@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Efficient immutable Array based collection for Chars. */
+/** Efficient immutable Array based collection for [[Char]]s. */
 final class Chars(val array: Array[Char]) extends AnyVal with ArrBase[Char]
 { type ThisT = Chars
   override def typeStr: String = "Chars"
