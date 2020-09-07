@@ -10,13 +10,11 @@ trait HtmlVoid extends HtmlElem
 { def out: String = ???
 }
 
-trait HtmlNoVoid extends HtmlElem
-{
-  def openTag: String = openAtts + ">"
+trait HtmlNotVoid extends HtmlElem
+{ def openTag: String = openAtts + ">"
   def openTag1: String = openTag + "\n"
   def openTag2: String = openTag + "\n\n"
 }
-
 
 case class HtmlPage(head: HtmlHead, body: HtmlBody)
 { def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 0, 150)
@@ -28,7 +26,7 @@ object HtmlPage
 }
 
 /** HTML head element. */
-case class HtmlHead(contents : Arr[XCon], attribs: Arr[XmlAtt] = Arr()) extends HtmlNoVoid
+case class HtmlHead(contents : Arr[XCon], attribs: Arr[XmlAtt] = Arr()) extends HtmlNotVoid
 { override def tag: String = "head"
   //override def contents: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
   def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)) + "\n" + closeTag
@@ -46,14 +44,14 @@ case class HtmlTitle(str: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
 }
 
 /** The "html" HTML element */
-case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlNoVoid
+case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlNotVoid
 { def tag: String = "html"
   override def contents = Arr(head, body)
   def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag2 + head.out(0, 0, 150) + "\n\n" + body.out(0, 0, 150) + n2CloseTag
 }
 
 /** The HTML body element. */
-case class HtmlBody(contentStr: String) extends HtmlNoVoid
+case class HtmlBody(contentStr: String) extends HtmlNotVoid
 { override def tag: String = "body"
   override def contents: Arr[XCon] = Arr(contentStr.xCon)
   def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(0, 0, 150)) + n1CloseTag

@@ -5,8 +5,6 @@ object WebPage1 extends App
 {
   val title = "Web Page Example 1"
   
-//  val svgStr2: String = SvgSvgElem(Arr(SvgCircle(Arr(XANumeric("cx", 75), XANumeric("cy", 75), XANumeric("r", 75)))), Arr()).out()
-  
   val bodyStr =
     s"""<p>This is just some text for creating a web page. Using fairly simple code. Below are some svg circles encoded by hand.</p>     
       |

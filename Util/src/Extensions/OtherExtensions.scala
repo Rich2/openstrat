@@ -16,6 +16,15 @@ class CharExtensions(thisChar: Char)
     n.doTimes(() => acc += thisChar.toString)
     acc
   }
+
+  /** Returns a [[String]]. Replacing reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is
+   *  replaced by "&gt;". */
+  def htmlReservedSubstituion: String = thisChar match
+  { case '&' => "&amp;"
+    case '<' => "&lt;"
+    case '>' => "&gt;"
+    case c => c.toString  
+  }
 }
 
 class LongExtensions(val thisLong: Long) extends AnyVal

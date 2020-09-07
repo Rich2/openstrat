@@ -126,4 +126,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   }
   
   def toChars: Chars = new Chars(thisString.toCharArray)
+  
+  /** Replaces the reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is replaced by "&gt;". */
+  def htmlReservedSubstitute: String = toChars.foldLeft(""){ (acc, el) => acc + el.htmlReservedSubstituion }
 }

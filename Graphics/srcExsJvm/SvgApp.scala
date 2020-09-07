@@ -5,7 +5,10 @@ package pExs
 import Colour._
 
 object SvgApp extends App 
-{ 
+{
+  val s1 = "<svg><circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red /></svg>"
+    
+  val s1Sub = s1.htmlReservedSubstitute
   val cof1 = Circle(80).fill(Orange).svgInline  
   val cof2 = Circle(120).fill(Red).svgInline
   val cof3 = Circle(80, 80, 50).fill(Gold).svgInline
@@ -15,10 +18,18 @@ object SvgApp extends App
   val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline
   
   
-  val bodyStr =
-  s"""<p>So this is some reliatvly simple HTML. The formatting of this example has deliberately been kept simple. For that reason no CSS has been
-    | used. 80 diameter orange Circle below.<br>
-    |  <code>Circle(80).fill(Orange).svgInline</code>
+  val bodyStr: String = 
+    s"""<p>So this is some relatively simple HTML. The formatting of this example has deliberately been kept simple. For that reason no CSS has been
+    |  used.
+    |</p>
+    | 
+    |<p>The SVG below has been written directly in SVG. The rest of the SVG has been created with openstrat Scala code. It demonstrates the 300 by
+    |  150 default viewbox dimensions.</br>
+    | <code>$s1Sub</code></p>
+    |$s1
+    |
+    |<p>80 diameter orange Circle below.<br> 
+    |<code>Circle(80).fill(Orange).svgInline</code>
     |</p>
     |
     |$cof1
