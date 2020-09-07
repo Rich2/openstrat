@@ -243,14 +243,14 @@ object CanvasJs extends CanvasTopLeft
   override protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit =
   { segsPath(shape)
     gc.fillStyle = colour.webStr
-    gc.fill
+    gc.fill()
   }
    
   override protected[this] def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit =
   { segsPath(shape)
     gc.strokeStyle = colour.webStr
     gc.lineWidth = lineWidth
-    gc.stroke
+    gc.stroke()
   }
    
   override protected[this] def tlTextGraphic(tg: TextGraphic): Unit =
@@ -273,7 +273,7 @@ object CanvasJs extends CanvasTopLeft
   override def clear(colour: Colour): Unit = { gc.fillStyle = colour.webStr; gc.fillRect(0, 0, width, height) }
 
   override protected[this] def tlClip(pts: PolygonGen): Unit =
-  { gc.beginPath
+  { gc.beginPath()
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)
     gc.closePath()
