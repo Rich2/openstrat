@@ -18,16 +18,35 @@ trait Ellipse extends Shape with ProlignPreserve
   def x3: Double
   def y3: Double
   def v3: Vec2 = x3 vv y3
-  def radiusA: Double
-  def radiusB: Double
-  def majorRadius: Double
-  def minorRadius: Double
+  
+  /** radius 1. This will normally be the value of a, the major ellipse radius, but even if it starts as a in certain transformations it may become b,
+   *  the minor ellipse radius. */
+  def r1: Double
+
+  /** radius 2. This will normally be the value of b, the minor ellipse radius, but even if it starts as b in certain transformations it may become a,
+   *  the major ellipse radius. */
+  def r2: Double
+  
+  /** The major radius of this ellipse. */
+  def a: Double
+
+  /** The major radius of this ellipse. */
+  def b: Double
+  
+  /** The h value of this ellipse. */
+  def h: Double
+  
   def ellipeRotation: Angle
+  
+  /** Eccentricity of ellipse. */
+  def e: Double
+  
+  def area: Double
   def cxAttrib: XANumeric = XANumeric("cx", xCen)
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
   override def rotateRadians(radians: Double): Ellipse
-  def rxAttrib: XANumeric = XANumeric("rx", radiusA)
-  def ryAttrib: XANumeric = XANumeric("ry", radiusB)
+  def rxAttrib: XANumeric = XANumeric("rx", r1)
+  def ryAttrib: XANumeric = XANumeric("ry", r2)
   def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
       

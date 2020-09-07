@@ -120,11 +120,11 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def tlEllipseFillOld(ef: EllipseFill): Unit = 
   { val el = ef.shape
     gc.setFill(toFxColor(ef.fillColour))
-    gc.fillOval(el.xCen - el.majorRadius, el.yCen - el.minorRadius, el.majorRadius, el.minorRadius)
+    gc.fillOval(el.xCen - el.a, el.yCen - el.b, el.a, el.b)
   }
   override def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit = 
   { gc.setFill(toFxColor(colour))
-    gc.fillOval(ellipse.xCen - ellipse.majorRadius, ellipse.yCen - ellipse.minorRadius, ellipse.majorRadius, ellipse.minorRadius)
+    gc.fillOval(ellipse.xCen - ellipse.a, ellipse.yCen - ellipse.b, ellipse.a, ellipse.b)
   }
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =
   { gc.beginPath

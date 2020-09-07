@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pWeb._
+import pWeb._, math.Pi
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse with SimilarPreserve
@@ -26,11 +26,13 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def x3: Double = xCen
 
   override def y3: Double = yCen + radius
-  def radiusA: Double = radius
-  def radiusB: Double = radius
-  override def majorRadius: Double = radius
-  override def minorRadius: Double = radius
-  
+  @inline override def r1: Double = radius
+  @inline override def r2: Double = radius
+  @inline override def a: Double = radius
+  @inline override def b: Double = radius
+  override def area: Double = Pi * radius * radius
+  override def e: Double = 0
+  override def h: Double = 0
   override def shearX(operand: Double): TransElem = ???
 
   override def shearY(operand: Double): TransElem = ???
