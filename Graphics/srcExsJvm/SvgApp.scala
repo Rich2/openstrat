@@ -5,28 +5,22 @@ package pExs
 import Colour._
 
 object SvgApp extends App 
-{
-  val s1 = "<svg><circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red /></svg>"
-    
-  val s1Sub = s1.htmlReservedSubstitute
-  val cof1 = Circle(80).fill(Orange).svgInline  
+{ val cof1 = Circle(80).fill(Orange).svgInline  
   val cof2 = Circle(120).fill(Red).svgInline
   val cof3 = Circle(80, 80, 50).fill(Gold).svgInline
   val cof4 = Arr(Circle(100, -50, 50).fill(Pink), Circle(100, 50, -50).fill(Colour.LightBlue)).svgInline()
   val e1 = Ellipse(90, 60)
   val ef1 = e1.fill(DarkMagenta).svgInline
-  val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline  
+  val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline
+  val s3 = "<svg><circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red /></svg>"  
+  val s3Sub = s3.htmlReservedSubstitute
+  val ef3 = Arr(Circle(75, 75, 0).fill(Orange), Circle(75, 225, 0).fill(Violet), Circle(25, 300, 0).fill(Red)).svgInline()
   
   val bodyStr: String = 
     s"""<p>So this is some relatively simple HTML. The formatting of this example has deliberately been kept simple. For that reason no CSS has been
     |  used.
     |</p>
-    | 
-    |<p>The SVG below has been written directly in SVG. The rest of the SVG has been created with openstrat Scala code. It demonstrates the 300 by
-    |  150 default viewbox dimensions.</br>
-    | <code>$s1Sub</code></p>
-    |$s1
-    |
+    
     |<p>80 diameter orange Circle below.<br> 
     |<code>Circle(80).fill(Orange).svgInline</code>
     |</p>
@@ -64,7 +58,18 @@ object SvgApp extends App
     |  <code>val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline</code>
     |</p>
     |
-    |$ef2""".stripMargin
+    |$ef2
+    |
+    |<p>The SVG below has been written directly in SVG. The rest of the SVG has been created with openstrat Scala code. It demonstrates the 300 by
+    |  150 default viewbox dimensions.</br>
+    | <code>$s3Sub</code></p>
+    |$s3
+    |
+    |<p>And here's the above shapes from Scala code.<br>
+    |  <code>Arr(Circle(75, 75, 0).fill(Orange), Circle(75, 225, 0).fill(Violet), Circle(25, 300, 0).fill(Red)).svgInline()</code>
+    |</p>
+    |
+    |$ef3""".stripMargin
   val r = opensettHtmlWrite("SvgPage1", bodyStr)
   deb(r.toString)
 }
