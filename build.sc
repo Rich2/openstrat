@@ -9,7 +9,7 @@ def scalaVersion = "2.13.3"
 
 trait CommonJvm extends Common
 { 
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs, millSourcePath / 'srcExsJvm)
 
   trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.5")
@@ -25,21 +25,21 @@ trait CommonJs extends ScalaJSModule with Common
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1.0:1.0.0")
 }
 
-object MacrosJvm extends CommonJvm// with PublishModule
+object UtilMacros extends CommonJvm// with PublishModule
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Util.millSourcePath / 'Macros / 'src)
+  def sources = T.sources(Util.millSourcePath / 'srcMacros)
 }
 
-object MacrosJs extends CommonJs
+object UtilMacrosJs extends CommonJs
 
 object Util extends CommonJvm
-{
-  def moduleDeps = Seq(MacrosJvm)
+{ def moduleDeps = Seq(UtilMacros)
+  def mainClass = Some("ostrat.WebPage1")
   object test extends InnerTests  
 }
 
-object js extends CommonJs
-{ def moduleDeps = Seq(MacrosJs)
+object Utiljs extends CommonJs
+{ def moduleDeps = Seq(UtilMacrosJs)
 }
 
 /*object Graphics extends PlatformsModule
