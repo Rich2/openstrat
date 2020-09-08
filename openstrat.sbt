@@ -19,11 +19,11 @@ lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, World, 
 lazy val module = SettingKey[File]("module")
 
 lazy val UtilMacros = Project("UtilMacros", file("target/JvmUtilMacros")).settings(commonSett).settings(
-  module := (ThisBuild/baseDirectory).value / "Util/Macros",
-  scalaSource := module.value / "src",
+  module := (ThisBuild/baseDirectory).value / "Util",
+  scalaSource := module.value / "srcMacros",
   Compile/scalaSource := module.value / "src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  module.value / "testSrc",
+  Test/scalaSource :=  module.value / "srcMacrosTest",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
 )
