@@ -3,14 +3,14 @@ import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 
 trait Common extends ScalaModule
 { def version = "0.2.1snap"
-  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-target:jvm-1.8", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint")
+  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint")
 }
 
-trait CommonStd extends Common
+trait CommonJvm extends Common
 { def scalaVersion = "2.13.3"
 }
 
-trait CommonStdJs extends ScalaJSModule with CommonStd
+trait CommonStdJs extends ScalaJSModule with Common
 { def scalaJSVersion = "1.1.1"
 }
 
@@ -24,13 +24,6 @@ trait PlatformsModule extends ScalaModule with CommonStd
 	  def ivyDeps = outer.ivyDeps() ++  Agg(ivy"org.scala-js::scalajs-dom_sjs1.0:1.0.0")
   }
 
-  trait InnerNative extends ScalaNativeModule with CommonStd
-  { def scalaVersion = "2.11.12"
-    def scalaNativeVersion = "0.3.8"  
-	  def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
-	  def ivyDeps = outer.ivyDeps() //++ ivyNat()	 
-  }
-
   trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.5")
     def testFrameworks = Seq("utest.runner.Framework") 
@@ -38,10 +31,13 @@ trait PlatformsModule extends ScalaModule with CommonStd
     def resources = T.sources(millSourcePath / 'res)
   }
 
-  trait InnerLearn extends ScalaModule with CommonStd
-  {
-  	def sources = T.sources(outer.millSourcePath / 'src, millSourcePath / 'src)
+  trait InnerNative extends ScalaNativeModule with CommonStd
+  { def scalaVersion = "2.11.12"
+    def scalaNativeVersion = "0.3.8"  
+    def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcNat)
+    def ivyDeps = outer.ivyDeps() //++ ivyNat()  
   }
+  
 }
 
 object Util extends PlatformsModule
