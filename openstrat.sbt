@@ -131,7 +131,7 @@ def jsProj(name: String) = Project("Js" + name, file("target/Js" + name)).enable
 )
 
 lazy val JsUtilMacros = jsProj("UtilMacros").settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/src",
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
