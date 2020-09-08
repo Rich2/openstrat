@@ -38,20 +38,21 @@ object Util extends CommonJvm
   object test extends InnerTests  
 }
 
-object Utiljs extends CommonJs
+object UtilJs extends CommonJs
 { def moduleDeps = Seq(UtilMacrosJs)
 }
 
-/*object Graphics extends PlatformsModule
-{ def moduleDeps = Seq(Util)  
-  object test extends InnerTests
-  
-  object js extends InnerJs {  def moduleDeps = Seq(Util.js)  }  
-
-  //def ivyDeps = Agg(ivy"org.openjfx:javafx:13.0.2")
+object Graphics extends CommonJvm
+{ def moduleDeps = Seq(Util)
+  //def ivyDeps = Agg(ivy"org.openjfx:javafx:14")
+  object test extends InnerTests  
 }
 
-object Tiling extends PlatformsModule
+object GraphicsJs extends CommonJs
+{ def moduleDeps = Seq(UtilJs)
+}
+
+/*object Tiling extends PlatformsModule
 { def moduleDeps = Seq(Graphics)  
   object test extends InnerTests
   
