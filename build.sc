@@ -20,9 +20,9 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.1.1"
+{ def scalaJSVersion = "1.1.0"
   //def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
-  def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1.1:1.1.0")
+  def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:1.1.0")
 }
 
 object UtilMacros extends CommonJvm// with PublishModule
@@ -31,7 +31,8 @@ object UtilMacros extends CommonJvm// with PublishModule
 }
 
 object UtilMacrosJs extends CommonJs
-{ def sources = T.sources(Util.millSourcePath / 'srcMacros)
+{ def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+  def sources = T.sources(Util.millSourcePath / 'srcMacros)
 }
 
 object Util extends CommonJvm
