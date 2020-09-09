@@ -43,7 +43,7 @@ object Util extends CommonJvm
 
 object UtilJs extends CommonJs
 { def moduleDeps = Seq(UtilMacrosJs)
-  def sources = T.sources(Util.millSourcePath / 'src)
+  def sources = T.sources(Util.millSourcePath / 'src, Util.millSourcePath / 'srcExs)
 }
 
 object Graphics extends CommonJvm
@@ -54,7 +54,7 @@ object Graphics extends CommonJvm
 
 object GraphicsJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
-def sources = T.sources(Graphics.millSourcePath / 'src, Graphics.millSourcePath / 'srcJs)
+  def sources = T.sources(Graphics.millSourcePath / 'src, Graphics.millSourcePath / 'srcJs, Graphics.millSourcePath / 'srcExs)
 }
 
 object Tiling extends CommonJvm
@@ -65,7 +65,7 @@ object Tiling extends CommonJvm
 
 object TilingJs extends CommonJs
  {  def moduleDeps = Seq(GraphicsJs)
-
+def sources = T.sources(Tiling.millSourcePath / 'src, Tiling.millSourcePath / 'srcJs, Tiling.millSourcePath / 'srcExs)
  }
 
 object World extends CommonJvm
@@ -76,6 +76,7 @@ object World extends CommonJvm
 
 object WorldJs extends CommonJs
 { def moduleDeps = Seq(TilingJs)
+  def sources = T.sources(World.millSourcePath / 'src, World.millSourcePath / 'srcJs, World.millSourcePath / 'srcExs)
 }
 
 object Dev extends CommonJvm
@@ -87,9 +88,9 @@ object Dev extends CommonJvm
 
 object DevJs extends CommonJs
 { def moduleDeps = Seq(WorldJs)
-  def sources = T.sources(millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
+  def sources = T.sources(Dev.millSourcePath / 'src, Dev.millSourcePath / 'srcJs)
 } 
-/*def run() = Dev.runBackground()
+//def run() = Dev.runBackground()
 def test = Util.test
-def jsfast = Dev.js.fastOpt
-def jsfull = Dev.js.fullOpt*/
+def jsfast = DevJs.fastOpt
+def jsfull = DevJs.fullOpt
