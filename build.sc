@@ -43,6 +43,7 @@ object Util extends CommonJvm
 
 object UtilJs extends CommonJs
 { def moduleDeps = Seq(UtilMacrosJs)
+  def sources = T.sources(Util.millSourcePath / 'src)
 }
 
 object Graphics extends CommonJvm
@@ -53,43 +54,42 @@ object Graphics extends CommonJvm
 
 object GraphicsJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
+def sources = T.sources(Graphics.millSourcePath / 'src, Graphics.millSourcePath / 'srcJs)
 }
 
-/*object Tiling extends PlatformsModule
+object Tiling extends CommonJvm
 { def moduleDeps = Seq(Graphics)  
   object test extends InnerTests
-  
-  object js extends InnerJs {  def moduleDeps = Seq(Graphics.js)  }
-  object Nat extends InnerNative
-
-  object examples extends InnerLearn
-  { def moduleDeps = Seq(Tiling)
-  }
+  def sources = T.sources(Tiling.millSourcePath / 'src)
 }
 
-object World extends PlatformsModule
+object TilingJs extends CommonJs
+ {  def moduleDeps = Seq(GraphicsJs)
+
+ }
+
+object World extends CommonJvm
 { def moduleDeps = Seq(Tiling)  
 
   object test extends InnerTests
-      
-  object js extends InnerJs { def moduleDeps = Seq(Tiling.js) }
-  object Nat extends InnerNative
 }
 
-object Dev extends PlatformsModule
+object WorldJs extends CommonJs
+{ def moduleDeps = Seq(TilingJs)
+}
+
+object Dev extends CommonJvm
 { def moduleDeps = Seq(World)
   def mainClass = Some("ostrat.pFx.DevApp")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm , Graphics.millSourcePath / 'learn / 'src, World.millSourcePath / 'learn / 'src)
-  def resources = T.sources(millSourcePath / 'User)
-
-
-  object js extends InnerJs
-  { def moduleDeps = Seq(World.js)
-    def sources = T.sources(millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
-  } 
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm)
+  def resources = T.sources(millSourcePath / 'User)  
 }
 
-def run() = Dev.runBackground()
+object DevJs extends CommonJs
+{ def moduleDeps = Seq(WorldJs)
+  def sources = T.sources(millSourcePath / 'src, Dev.millSourcePath / 'srcLearn)
+} 
+/*def run() = Dev.runBackground()
 def test = Util.test
 def jsfast = Dev.js.fastOpt
 def jsfull = Dev.js.fullOpt*/

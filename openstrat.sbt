@@ -122,7 +122,7 @@ lazy val DocJs = (project in file("target/DocJs")).dependsOn(JsUtilMacros).setti
 
 def jsProj(name: String) = Project("Js" + name, file("target/Js" + name)).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value, 
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.0.0",
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0",
   scalaSource := (ThisBuild/baseDirectory).value / name / "src",
   Test/scalaSource := (ThisBuild/baseDirectory).value / name / "testSrc",
 
