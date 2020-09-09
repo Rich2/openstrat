@@ -57,10 +57,10 @@ trait Ellipse extends Shape with ProlignPreserve
 }
 
 object Ellipse
-{ /** The apply factory methods default to an EllipseClass. */
+{ /** Factory method for an [[Ellipse]. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def apply(radiusA: Double, radiusB: Double): EllipseGen = new EllipseGen(0, 0, radiusA, 0, 0, radiusB)
 
-  /** The apply factory methods default to an EllipseClass. */
+  /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def apply(radiusA: Double, radiusB: Double, cen: Vec2): EllipseGen = new EllipseGen(cen.x, cen.y, cen.x + radiusA, cen.y, cen.x, cen.y + radiusB)
 
   /** The apply factory methods default to an EllipseClass. */
