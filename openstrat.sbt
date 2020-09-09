@@ -53,12 +53,12 @@ def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
   testFrameworks += new TestFramework("utest.runner.Framework"), 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
   Compile/scalaSource := moduleDir.value / "srcExs",
-  Compile/unmanagedSourceDirectories := List("srcExs", "srcExsJvm", "srcExsFx").map((ThisBuild/baseDirectory).value / srcsStr / _),
-  resourceDirectory := (ThisBuild/baseDirectory).value / srcsStr / "/ExsRes",
-  Test/scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "testSrcExs",
-  Test/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / srcsStr / "testSrc", (Test/scalaSource).value),
-  Test/resourceDirectory :=  (ThisBuild/baseDirectory).value / srcsStr / "testResExs",
-  Test/unmanagedResourceDirectories := List((ThisBuild/baseDirectory).value / srcsStr / "testRes", (Test/resourceDirectory).value),
+  Compile/unmanagedSourceDirectories := List("srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
+  resourceDirectory := moduleDir.value  / "ExsRes",
+  Test/scalaSource := moduleDir.value / "testSrcExs",
+  Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
+  Test/resourceDirectory :=  moduleDir.value / "testResExs",
+  Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
 lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
@@ -90,14 +90,14 @@ lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphics, Tiling, World).sett
 val libModules =  List("Util", "Graphics", "Tiling", "World")
 
 lazy val StratLib = Project("StratLib", file("SbtDir/StratLib")).dependsOn(UtilMacros).settings(commonSett).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  scalaSource := baseDir.value / "Util/src",
+  Compile/scalaSource := baseDir.value / "Util/src",
 
   Compile/unmanagedSourceDirectories := libModules.flatMap(nameStr => List("src", "srcJvm").
-    map(endStr => (ThisBuild/baseDirectory).value / nameStr / endStr)),
+    map(endStr => baseDir.value / nameStr / endStr)),
 
   Compile/unmanagedResourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "res"), 
-  Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/testSrc",
+  Test/scalaSource := baseDir.value / "Util/testSrc",
   Test/unmanagedSourceDirectories := List(),
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
   assemblyJarName in assembly := "stratlib_2.13-" + version.value + ".jar",
@@ -105,8 +105,8 @@ lazy val StratLib = Project("StratLib", file("SbtDir/StratLib")).dependsOn(UtilM
 )
 
 lazy val StratExs = Project("StratExs", file("SbtDir/StratExsJvm")).dependsOn(StratLib).settings(commonSett).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcExs",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/srcExs",
+  scalaSource := baseDir.value / "Util/srcExs",
+  Compile/scalaSource := baseDir.value / "Util/srcExs",
 
   Compile/unmanagedSourceDirectories := libModules.flatMap(nameStr => List("srcExs", "srcExsJvm", "srcExsFx").
     map(endStr => (ThisBuild/baseDirectory).value / nameStr / endStr)),
