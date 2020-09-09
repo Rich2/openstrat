@@ -3,7 +3,8 @@ package ostrat
 package geom
 import pWeb._
 
-/** The Ellipse trait can either be implemented as an [[EllipseGen]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. */
+/** The Ellipse trait can either be implemented as an [[EllipseGen]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
+ *  methods in the Ellipse companion object return [EllipseGen]]. */
 trait Ellipse extends Shape with ProlignPreserve
 { type ThisT <: Ellipse
   def xCen: Double
@@ -57,7 +58,7 @@ trait Ellipse extends Shape with ProlignPreserve
 }
 
 object Ellipse
-{ /** Factory method for an [[Ellipse]. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
+{ /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
   def apply(radiusA: Double, radiusB: Double): EllipseGen = new EllipseGen(0, 0, radiusA, 0, 0, radiusB)
 
   /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[EllipseGen]] class. */
