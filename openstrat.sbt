@@ -18,11 +18,13 @@ def commonSett = List(
 
 lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, World, Dev, DevJs)
 lazy val moduleDir = SettingKey[File]("moduleDir")
+lazy val baseDir = SettingKey[File]("baseDir")
+ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 lazy val UtilMacros = Project("UtilMacros", file("SbtDir/UtilMacros")).settings(commonSett).settings(
-  moduleDir := (ThisBuild/baseDirectory).value / "Util",
+  moduleDir := baseDir.value / "Util",
   scalaSource := moduleDir.value / "srcMacros",
-  Compile/scalaSource := moduleDir.value / "src",
+  Compile/scalaSource := moduleDir.value / "srcMacros",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  moduleDir.value / "srcMacrosTest",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -30,7 +32,7 @@ lazy val UtilMacros = Project("UtilMacros", file("SbtDir/UtilMacros")).settings(
 )
 
 def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("SbtDir/" + nameStr)).settings(commonSett).settings(
-  moduleDir := (ThisBuild/baseDirectory).value / srcsStr,  
+  moduleDir := baseDir.value / srcsStr,  
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
   testFrameworks += new TestFramework("utest.runner.Framework"),  
 )
@@ -47,10 +49,10 @@ def coreJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr + "Core").settin
 )
 
 def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "srcExs",
+  scalaSource := baseDir.value / srcsStr / "srcExs",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "srcExs",
+  Compile/scalaSource := moduleDir.value / "srcExs",
   Compile/unmanagedSourceDirectories := List("srcExs", "srcExsJvm", "srcExsFx").map((ThisBuild/baseDirectory).value / srcsStr / _),
   resourceDirectory := (ThisBuild/baseDirectory).value / srcsStr / "/ExsRes",
   Test/scalaSource := (ThisBuild/baseDirectory).value / srcsStr / "testSrcExs",
