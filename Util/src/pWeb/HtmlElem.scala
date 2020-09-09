@@ -5,9 +5,10 @@ package pWeb
 /** HTML element. */
 sealed trait HtmlElem extends XmlishElem
 
-
+/** trait for HTML Void elements such as br img and input. */
 trait HtmlVoid extends HtmlElem
-{ def out: String = ???
+{ final override def contents: Arr[XCon] = Arr()
+  //def out: String = ???
 }
 
 trait HtmlNotVoid extends HtmlElem
