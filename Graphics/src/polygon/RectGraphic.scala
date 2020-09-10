@@ -4,6 +4,8 @@ package geom
 
 case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
 {
+  override def svgElem(bounds: BoundingRect): SvgElem = ???
+  
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): RectGraphic = RectGraphic(shape.slate(offset), facets, children.slate(offset))
 
@@ -52,5 +54,5 @@ case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[Shape
 
   override def reflect(line: Sline): RectGraphic = ???
 
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
+  
 }

@@ -8,6 +8,9 @@ final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Dou
 { override type ThisT = Rect
   override def height: Double = (v1 - v2).magnitude
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(v0), f(v1))
+
+  //def rAttrib: XANumeric = XANumeric("r", radius)
+  //override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
   override def shapeAttribs: Arr[XANumeric] = ???
   override def rotation: Angle = (v0 - v3).angle
 

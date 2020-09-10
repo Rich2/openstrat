@@ -11,6 +11,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y
+  override def productPrefix: String = "Vec2"
 
   /** Adds this Vector to a second 2 dimensional vector. */
   def +(operand: Vec2): Vec2 = Vec2(x + operand.x, y + operand.y)
