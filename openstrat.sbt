@@ -109,10 +109,10 @@ lazy val StratExs = Project("StratExs", file("SbtDir/StratExsJvm")).dependsOn(St
   Compile/scalaSource := baseDir.value / "Util/srcExs",
 
   Compile/unmanagedSourceDirectories := libModules.flatMap(nameStr => List("srcExs", "srcExsJvm", "srcExsFx").
-    map(endStr => (ThisBuild/baseDirectory).value / nameStr / endStr)),
+    map(endStr => baseDir.value / nameStr / endStr)),
 
-  Compile/unmanagedResourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "resExs"), 
-  Test/scalaSource := (ThisBuild/baseDirectory).value / "Util/testSrcExs",
+  Compile/unmanagedResourceDirectories := libModules.map(str => baseDir.value / str / "resExs"), 
+  Test/scalaSource := baseDir.value / "Util/testSrcExs",
   Test/unmanagedSourceDirectories := List(),
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
   //artifactName := { (sv: ScalaVersion, moduleDir: ModuleID, artifact: Artifact) =>
@@ -125,8 +125,7 @@ val docDirs: List[String] = List("Util", "Graphics", "Tiling", "World", "Dev")
 
 lazy val DocMain = (project in file("SbtDir/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs")).
-    map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
@@ -134,8 +133,7 @@ lazy val DocMain = (project in file("SbtDir/DocMain")).dependsOn(UtilMacros).set
 
 lazy val DocJs = (project in file("SbtDir/DocJs")).dependsOn(UtilMacrosJs).settings(commonSett).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).
-    map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
 )
@@ -162,7 +160,7 @@ lazy val UtilJs = jsProj("Util").dependsOn(UtilMacrosJs).settings(
 )
 
 lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs).settings(
-  Compile/unmanagedSourceDirectories := List("Graphics/src", "Graphics/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
+  Compile/unmanagedSourceDirectories := List("src", "srcJs").map(s => baseDir.value / "Graphics" / s)
 )
 
 lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs).settings(
