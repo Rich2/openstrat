@@ -10,15 +10,15 @@ case class ViewBox(minX: Double, minY: Double, width: Double, height: Double) ex
 }
 
 /** XML attribute ofr width. */
-case class WidthAtt(value: Double) extends XmlAtt
-{ override def name: String = "width"
-  override def valueStr: String = value.toString
+class WidthAtt(value: Double) extends XANumeric("width", value)
+object WidthAtt
+{ def apply(value: Double): WidthAtt = new WidthAtt(value)
 }
 
 /** XML attribute for height. */
-case class HeighAtt(value: Double) extends XmlAtt
-{ override def name: String = "height"
-  override def valueStr: String = value.toString
+class HeightAtt(value: Double) extends  XANumeric("height", value)
+object HeightAtt
+{ def apply(value: Double): HeightAtt = new HeightAtt(value)
 }
 
 case class SvgRotate(degrees: Double, x: Double, y: Double) extends XmlAtt
