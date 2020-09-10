@@ -104,7 +104,7 @@ lazy val StratLib = Project("StratLib", file("SbtDir/StratLib")).dependsOn(UtilM
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
 )
 
-lazy val StratExs = Project("StratExs", file("SbtDir/StratExsJvm")).dependsOn(StratLib).settings(commonSett).settings(
+lazy val StratExs = Project("StratExs", file("SbtDir/StratExs")).dependsOn(StratLib).settings(commonSett).settings(
   scalaSource := baseDir.value / "Util/srcExs",
   Compile/scalaSource := baseDir.value / "Util/srcExs",
 
