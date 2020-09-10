@@ -4,13 +4,15 @@ package geom
 import pWeb._
 
 /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Double) extends RectV0V1 //with AffinePreserve
+final case class Rect(x0: Double, y0: Double, x1: Double, y1: Double, width: Double) extends RectV0V1
 { override type ThisT = Rect
   override def height: Double = (v1 - v2).magnitude
   override def fTrans(f: Vec2 => Vec2): Rect = Rect.points(f(cen), f(v0), f(v1))
 
   def widthAttrib: WidthAtt = WidthAtt(width)
   def heightAttrib: HeightAtt = HeightAtt(height)
+  def xAttrib: XAttrib = XAttrib(x3)
+  def yAttrib: YAttrib = YAttrib(y3)
   //override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
   override def shapeAttribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib)
   override def rotation: Angle = (v0 - v3).angle

@@ -10,6 +10,15 @@ trait XmlAtt
 }
 
 /** An Xml numeric attribute. */
-case class XANumeric(name: String, num: Double) extends XmlAtt
-{ override def valueStr: String = num.toString
+trait XANumeric extends XmlAtt
+{ def value: Double
+  override def valueStr: String = value.toString
+}
+
+object XANumeric
+{
+  def apply(nameIn: String, valueIn: Double): XANumeric = new XANumeric
+  { override def name: String = nameIn
+    override def value: Double = valueIn    
+  }
 }
