@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 /** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. */
 trait Rectangle extends Rectangular with Polygon
@@ -16,9 +17,12 @@ trait Rectangle extends Rectangular with Polygon
   def x3: Double
   def y3: Double
   def v3: Vec2
-
   def rotation: Angle
-  
+  def widthAttrib: WidthAtt = WidthAtt(width)
+  def heightAttrib: HeightAtt = HeightAtt(height)
+  def xAttrib: XAttrib = XAttrib(x3)
+  def yAttrib: YAttrib = YAttrib(y3)
+  override def shapeAttribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
   @inline final override def apply(index: Int): Vec2 = index match 
   { case 0 => v0
     case 1 => v1
