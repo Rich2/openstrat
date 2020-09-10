@@ -1,4 +1,4 @@
-val versionStr = "0.2.1snap"
+val versionStr = "0.2.1"
 ThisBuild/version := versionStr
 ThisBuild/test in assembly := {}
 name := "OpenStrat"
