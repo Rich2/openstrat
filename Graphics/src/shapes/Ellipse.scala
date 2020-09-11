@@ -5,8 +5,8 @@ import pWeb._, scala.math.{Pi, sqrt}
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
-trait Ellipse extends Shape with ProlignPreserve
-{ type ThisT <: Ellipse
+trait Ellipse extends Shape //with ProlignPreserve
+{ //type ThisT <: Ellipse
   def xCen: Double
   def yCen: Double
   final def cen: Vec2 = xCen vv yCen
@@ -50,25 +50,45 @@ trait Ellipse extends Shape with ProlignPreserve
   def ryAttrib: XANumeric = XANumeric("ry", r2)
   def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
-      
+
+  /** Translate geometric transformation on a Ellipse returns a Ellipse. */
+  override def slate(offset: Vec2): Ellipse = ???
+
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): Ellipse = ???
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): Ellipse = ???
+
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  override def rotate90: Ellipse = ???
+
+  /** Rotates 180 degrees or Pi radians. */
+  override def rotate180: Ellipse = ???
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  override def rotate270: Ellipse = ???
+
+  override def prolign(matrix: ProlignMatrix): Ellipse = ???
   override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = ???
   override def rotateRadians(radians: Double): Ellipse = ???
 
-  override def reflectX: ThisT = ???
+  override def reflectX: Ellipse = ???
 
-  override def reflectY: ThisT = ???
+  override def reflectY: Ellipse = ???
 
-  override def reflectYOffset(xOffset: Double): ThisT = ???
+  override def reflectYOffset(xOffset: Double): Ellipse = ???
 
-  override def reflectXOffset(yOffset: Double): ThisT = ???
+  override def reflectXOffset(yOffset: Double): Ellipse = ???
 
-  override def reflect(line: Line): Shape = ???
+  override def reflect(line: Line): Ellipse = ???
 
-  override def reflect(line: Sline): Shape = ???
+  override def reflect(line: Sline): Ellipse = ???
 
-  override def shearX(operand: Double): Shape = ???
+  override def shearX(operand: Double): Ellipse = ???
 
-  override def shearY(operand: Double): Shape = ???
+  override def shearY(operand: Double): Ellipse = ???
 
   //override def mirrorX: Ellipse
   def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
@@ -92,7 +112,7 @@ object Ellipse
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
   case class Implementation(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double) extends Ellipse //with AffinePreserve
-  { override type ThisT = Implementation
+  { //override type ThisT = Implementation
     def x2: Double = 2 * xCen - x1
     def y2: Double = 2 * yCen - y1
     override def r1: Double = (v1 - cen).magnitude
@@ -102,7 +122,7 @@ object Ellipse
     override def area: Double = Pi * r1 * r2
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared
-    override def fTrans(f: Vec2 => Vec2): Implementation = Implementation(f(cen), f(v1), f(v3))
+   // override def fTrans(f: Vec2 => Vec2): Implementation = Implementation(f(cen), f(v1), f(v3))
     override def fillOld(fillColour: Colour): ShapeFillOld = ??? //EllipseFill = EllipseFill(this, fillColour)
     override def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
     override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???

@@ -6,10 +6,9 @@ import pWeb._, math.Pi
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
 {
-  /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
-  override type ThisT = Circle
-
-  override def fTrans(f: Vec2 => Vec2): Circle =
+  /* Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
+  
+  def fTrans(f: Vec2 => Vec2): Circle =
   { val v1: Vec2 = cen.addX(radius)
     val newV1: Vec2 = f(v1)
     val newCen = f(cen)
@@ -33,6 +32,28 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def area: Double = Pi * radius * radius
   override def e: Double = 0
   override def h: Double = 0
+
+
+  /** Translate geometric transformation on a Circle returns a Circle. */
+  override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
+
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): Circle = Circle(radius, cen.addXY(xOffset, yOffset))
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): Circle = Circle(radius * operand, cen * operand)
+
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  override def rotate90: Circle = Circle(radius, cen.rotate90)
+
+  /** Rotates 180 degrees or Pi radians. */
+  override def rotate180: Circle = Circle(radius, cen.rotate180)
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  override def rotate270: Circle = Circle(radius, cen.rotate270)
+
+  override def prolign(matrix: ProlignMatrix): Circle = ??? //Circleuper.prolign(matrix)
 
   override def rotateRadians(radians: Double): Circle = Circle(radius, cen.rotateRadians(radians))
   def rotate(angle: Angle): Circle = Circle(radius, cen.rotate(angle))
