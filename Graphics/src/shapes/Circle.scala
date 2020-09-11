@@ -45,9 +45,9 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def reflectXOffset(yOffset: Double): Circle = ???
 
-  override def reflectX: Circle = ???
+  override def reflectX: Circle = Circle(radius, cen.reflectX)
 
-  override def reflectY: Circle = ???
+  override def reflectY: Circle = Circle(radius, cen.reflectY)
 
   override def shearX(operand: Double): Ellipse = ???
 
