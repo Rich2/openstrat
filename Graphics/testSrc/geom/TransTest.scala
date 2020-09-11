@@ -5,10 +5,10 @@ import utest._, Colour._
 object TransTest extends TestSuite
 {
   val tests = Tests
-  { val r1: PolygonGen = Rectangle(4, 2)
-    val r2: PolygonGen = Rectangle(12, 6)
-    val r3: PolygonGen = Rectangle(8, 4)
-    val r4: PolygonGen = Rectangle(24, 12)
+  { val r1: PolygonGen = Rect(4, 2)
+    val r2: PolygonGen = Rect(12, 6)
+    val r3: PolygonGen = Rect(8, 4)
+    val r4: PolygonGen = Rect(24, 12)
     val o1: Option[PolygonGen] = Some(r1)
     val o2 = Some(r2)
     val o4 = Some(r4)

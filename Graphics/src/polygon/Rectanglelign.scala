@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A Rectangle aligned to the X and Y axes. */
-trait Rectanglelign extends Rectangle with Rectangularlign
+trait Rectanglelign extends Rect with Rectangularlign
 { @inline final override def x0: Double = xTopRight
   @inline final override def y0: Double = yTopRight
   @inline final override def v0: Vec2 = x0 vv y0

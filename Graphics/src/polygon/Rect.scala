@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. */
-trait Rectangle extends Rectangular with Polygon
+trait Rect extends Rectangular with Polygon
 { final override def length: Int = 4
   def x0: Double
   def y0: Double
@@ -55,7 +55,7 @@ trait Rectangle extends Rectangular with Polygon
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
-object Rectangle
+object Rect
 {
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
   def apply(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonGen =
