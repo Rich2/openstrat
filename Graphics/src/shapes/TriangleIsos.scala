@@ -30,7 +30,7 @@ final case class TriangleIsosGen(x0: Double, y0: Double, x2: Double, y2: Double,
 
   override def scaleXY(xOperand: Double, yOperand: Double): Triangle = ???
 
-  override def fillOld(fillColour: Colour): ShapeFill = ???
+  override def fillOld(fillColour: Colour): ShapeFillOld = ???
 
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 

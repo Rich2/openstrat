@@ -36,15 +36,15 @@ trait PolygonActive extends DisplayActive
  * @constructor create a new PolygonFill with the underlying polygon and a colour.
  * @param shape The Polygon shape.
  * @param fillColour The colour of this graphic. */
-final case class PolygonFill(shape: PolygonGen, fillColour: Colour) extends PolygonGraphicOld with ShapeFill
-{ override type ThisT = PolygonFill
-  override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), fillColour)
+final case class PolygonFillOld(shape: PolygonGen, fillColour: Colour) extends PolygonGraphicOld with ShapeFillOld
+{ override type ThisT = PolygonFillOld
+  override def fTrans(f: Vec2 => Vec2): PolygonFillOld = PolygonFillOld(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, fillColour)
   override def attribs: Arr[XmlAtt] = ???
 }
 
-object PolygonFill
-{ implicit val persistImplicit: Persist2[PolygonGen, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.fillColour, apply)
+object PolygonFillOld
+{ implicit val persistImplicit: Persist2[PolygonGen, Colour, PolygonFillOld] = Persist2("PolyFill", "poly", _.shape, "colour", _.fillColour, apply)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
@@ -96,7 +96,7 @@ case class PolygonFillText(shape: PolygonGen, fillColour: Colour, str: String, f
 { override type ThisT = PolygonFillText
   override def fTrans(f: Vec2 => Vec2): PolygonFillText = PolygonFillText(shape.fTrans(f), fillColour, str,fontSize, textColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, textColour, CenAlign)
-  def fillOnly: PolygonFill = PolygonFill(shape, fillColour)
+  def fillOnly: PolygonFillOld = PolygonFillOld(shape, fillColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.polyFill(shape, fillColour)

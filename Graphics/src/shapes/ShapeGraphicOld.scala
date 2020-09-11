@@ -26,7 +26,7 @@ trait ShapeFillTr extends ShapeGraphicOld
 }
 
 /** A Graphic that just fills a shape. */
-trait ShapeFill extends ShapeFillTr
+trait ShapeFillOld extends ShapeFillTr
 
 trait ShapeDrawTr extends ShapeGraphicOld
 { def lineWidth: Double

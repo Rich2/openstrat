@@ -99,7 +99,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
 
-  def fillOld(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
+  def fillOld(fillColour: Colour): PolygonFillOld = PolygonFillOld(this, fillColour)
   def drawOld(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   def fillDrawOld(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
     PolygonFillDraw(this, fillColour, lineWidth, lineColour)

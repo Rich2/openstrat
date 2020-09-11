@@ -103,7 +103,7 @@ object Ellipse
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared
     override def fTrans(f: Vec2 => Vec2): Implementation = Implementation(f(cen), f(v1), f(v3))
-    override def fillOld(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
+    override def fillOld(fillColour: Colour): ShapeFillOld = ??? //EllipseFill = EllipseFill(this, fillColour)
     override def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
     override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
     override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???

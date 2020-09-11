@@ -29,7 +29,7 @@ object TransTest extends TestSuite
 
     val p1 = r1.fillOld(Red)
     val p2 = r2.fillOld(Green)
-    val rs1: Arr[PolygonFill] = Arr(p1, p2)
+    val rs1: Arr[PolygonFillOld] = Arr(p1, p2)
     val rs1a = rs1.slateX(2)
 
     "test2" -

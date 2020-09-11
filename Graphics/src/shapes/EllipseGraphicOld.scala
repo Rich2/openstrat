@@ -21,6 +21,7 @@ trait EllipseGraphicOld extends ShapeGraphicOld//
   override def svgStr: String = ???
 }
 
+/*
 final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends EllipseGraphicOld with ShapeFill
 { type ThisT = EllipseFill
 
@@ -65,4 +66,4 @@ final case class EllipseFill(shape: Ellipse, fillColour: Colour) extends Ellipse
   override def shearY(operand: Double): TransElem = ???
 
   override def attribs: Arr[XmlAtt] = ???
-}
+}*/

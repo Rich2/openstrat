@@ -41,7 +41,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def circleFillDraw(cfd: CircleFillDraw): Unit = tlCircleFillDraw(cfd.reflectX.slate(width / 2, height / 2))
 
-  final override def ellipseFillOld(cf: EllipseFill): Unit = tlEllipseFillOld(cf.reflectX.slate(width / 2, height / 2))
+  //final override def ellipseFillOld(cf: EllipseFill): Unit = tlEllipseFillOld(cf.reflectX.slate(width / 2, height / 2))
   final override def ellipseFill(ellipse: Ellipse, colour: Colour): Unit = tlEllipseFill(ellipse.reflectX.slate(width / 2, height / 2), colour)
 
   final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
@@ -72,7 +72,7 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlCircleDraw(circle: Circle, lineWidth: Double, lineColour: Colour): Unit
   
   protected[this] def tlCircleFillDraw(cfd: CircleFillDraw): Unit
-  protected[this] def tlEllipseFillOld(cf: EllipseFill): Unit
+  //protected[this] def tlEllipseFillOld(cf: EllipseFill): Unit
   protected[this] def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit
   protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit
    

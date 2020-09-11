@@ -43,7 +43,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 
 	override def rotateRadians(radians: Double): TriangleClass = ???
 
-	override def fillOld(fillColour: Colour): ShapeFill = ???
+	override def fillOld(fillColour: Colour): ShapeFillOld = ???
 
 	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 
@@ -53,5 +53,5 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 object Triangle
 { //def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double): Triangle = ???
 	//def apply(v0: Vec2, v1: Vec2, v2: Vec2): Triangle = ??? // new Triangle(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
-	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFill = PolygonFill(PolygonGen(p1, p2, p3), colour)
+	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFillOld = PolygonFillOld(PolygonGen(p1, p2, p3), colour)
 }

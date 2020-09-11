@@ -18,7 +18,7 @@ object Belgium extends Flag
 trait EnglandLike extends Flag
 { def ratio = 2
   def englishRed: Colour = Colour.fromInts(204, 0, 0)
-  def redCross: Arr[PolygonFill] = Rect.cross(2, 1, 0.2).map(_.fillOld(englishRed))
+  def redCross: Arr[PolygonFillOld] = Rect.cross(2, 1, 0.2).map(_.fillOld(englishRed))
   def common = rect.fillOld(White) +: redCross
 }
 

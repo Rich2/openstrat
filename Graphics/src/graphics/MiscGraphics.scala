@@ -10,7 +10,7 @@ object Star5
     iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
   }
 
-  def fill(colour: Colour, ratio: Double = classicRatio): PolygonFill = apply(ratio).fillOld(colour)
+  def fill(colour: Colour, ratio: Double = classicRatio): PolygonFillOld = apply(ratio).fillOld(colour)
   
   def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().drawOld(lineWidth, colour)
 
@@ -33,7 +33,7 @@ object Star7
     iToFlatMap(0, 6)(i => l2.rotate(Angle(-360 / 7) * i)).toPolygon
   }
   
-  def fill(colour: Colour, ratio: Double = classicRatio): PolygonFill = apply(ratio).fillOld(colour)
+  def fill(colour: Colour, ratio: Double = classicRatio): PolygonFillOld = apply(ratio).fillOld(colour)
 }
 
 object Star3
@@ -46,7 +46,7 @@ object Star3
     
   def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().drawOld(lineWidth, colour)
 
-  def fill(colour: Colour): PolygonFill = apply().fillOld(colour)
+  def fill(colour: Colour): PolygonFillOld = apply().fillOld(colour)
 
 }
 
