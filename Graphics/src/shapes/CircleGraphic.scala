@@ -56,9 +56,9 @@ case class CircleGraphic(shape: Circle, facets: Arr[ShapeFacet], children: Arr[S
 
   override def reflect(line: Sline): CircleGraphic = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): EllipseGenGraphic = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): EllipseGraphic = ???
 
-  override def shearX(operand: Double): EllipseGenGraphic = ???
+  override def shearX(operand: Double): EllipseGraphic = ???
 
-  override def shearY(operand: Double): EllipseGenGraphic = ???
+  override def shearY(operand: Double): EllipseGraphic = ???
 }
