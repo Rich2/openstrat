@@ -196,15 +196,6 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
     gc.stroke()
   }
-
-  /** Needs fixing. */
-  /*override def tlEllipseFillOld(ef: EllipseFill): Unit =
-  { val el = ef.shape
-    gc.beginPath()
-    gc.fillStyle = ef.fillColour.webStr
-    //gc.ellipse(el.xCen, el.yCen, el.aRadius, el.bRadius, 0, Pi * 2)
-    gc.fill()
-  }*/
   
   override def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit = ???
   

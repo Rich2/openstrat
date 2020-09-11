@@ -72,7 +72,6 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlCircleDraw(circle: Circle, lineWidth: Double, lineColour: Colour): Unit
   
   protected[this] def tlCircleFillDraw(cfd: CircleFillDraw): Unit
-  //protected[this] def tlEllipseFillOld(cf: EllipseFill): Unit
   protected[this] def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit
   protected[this] def tlBezierDraw(bezierDraw: BezierDraw): Unit
    
