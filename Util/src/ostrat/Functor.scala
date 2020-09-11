@@ -1,10 +1,12 @@
 package ostrat
 
+/** The functor type class. */
 trait Functor[F[_]]
 { /** Takes an F of A and maps it to an F of B. */
   def mapT[A, B](fa: F[A], f: A => B): F[B]
 }
 
+/** Companion object for the [[Functor]] type class, contains implicit instances. */
 object Functor
 {
   implicit def eMonImplicit: Functor[EMon] = new Functor[EMon] { override def mapT[A, B](fa: EMon[A], f: A => B): EMon[B] = fa.map(f) }

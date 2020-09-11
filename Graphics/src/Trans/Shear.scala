@@ -16,8 +16,8 @@ trait Shear[T]
 object Shear
 {
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Shear[A]): Shear[AA] = new Shear[AA]
-  { def xShearT(obj: AA, yFactor: Double):AA = obj.map(ev.xShearT(_, yFactor))
-    def yShearT(obj: AA, xFactor: Double):AA = obj.map(ev.xShearT(_, xFactor))
+  { def xShearT(obj: AA, yFactor: Double): AA = obj.map(ev.xShearT(_, yFactor))
+    def yShearT(obj: AA, xFactor: Double): AA = obj.map(ev.xShearT(_, xFactor))
   }
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Shear[A]): Shear[F[A]] = new Shear[F[A]]
@@ -29,4 +29,9 @@ object Shear
   { def xShearT(obj: Array[A], yFactor: Double): Array[A] = obj.map(ev.xShearT(_, yFactor))
     def yShearT(obj: Array[A], xFactor: Double): Array[A] = obj.map(ev.xShearT(_, xFactor))
   }
+}
+
+class ShearExtensions[T](obj: T, ev: Shear[T])
+{ def xShear(yFactor: Double): T = ev.xShearT(obj, yFactor)
+  def yShear(xFactor: Double): T = ev.yShearT(obj, xFactor)
 }
