@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
+case class RectGraphic(shape: RectImplement, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
 {
   override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.reflectX.slate(0, bounds.minY + bounds.maxY).
     shapeAttribs ++ facets.flatMap(_.attribs))
