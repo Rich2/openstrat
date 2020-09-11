@@ -4,7 +4,7 @@ package geom
 import pWeb._, math.Pi
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse with SimilarPreserve
+final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse //with SimilarPreserve
 {
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   override type ThisT = Circle
@@ -33,6 +33,22 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def area: Double = Pi * radius * radius
   override def e: Double = 0
   override def h: Double = 0
+
+  override def rotateRadians(radians: Double): Circle = Circle(radius, cen.rotateRadians(radians))
+  def rotate(angle: Angle): Circle = Circle(radius, cen.rotate(angle))
+
+  override def reflect(line: Line): Circle = Circle(radius, cen.reflect(line))
+
+  override def reflect(line: Sline): Circle = Circle(radius, cen.reflect(line))
+
+  override def reflectYOffset(xOffset: Double): Circle = ???
+
+  override def reflectXOffset(yOffset: Double): Circle = ???
+
+  override def reflectX: Circle = ???
+
+  override def reflectY: Circle = ???
+
   override def shearX(operand: Double): Ellipse = ???
 
   override def shearY(operand: Double): Ellipse = ???
