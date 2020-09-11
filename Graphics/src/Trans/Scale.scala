@@ -28,4 +28,5 @@ class ScaleExtensions[T](val value: T, ev: Scale[T])
 { /** Performs 2d vector scale transformation on objects of type T. */
   def scale(operand: Double): T = ev.scaleT(value, operand)
   def scale2: T = ev.scaleT(value, 2)
+  def scale10: T = ev.scaleT(value, 10)
 }
