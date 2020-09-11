@@ -75,6 +75,8 @@ object TransElem
   }
   
   implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)
+  
+  implicit val XYScaleImplicit: XYScale[TransElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
