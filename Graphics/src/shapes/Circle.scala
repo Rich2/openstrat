@@ -4,7 +4,7 @@ package geom
 import pWeb._, math.Pi
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse //with SimilarPreserve
+final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
 {
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   override type ThisT = Circle
@@ -69,8 +69,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
     CircleFillDraw(this, fillColour, lineWidth, lineColour)
 
   def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): CircleGraphic =
-    CircleGraphic(this, Arr(FillColour(fillColour), CurveDraw(lineWidth, lineColour)), Arr())
-  
+    CircleGraphic(this, Arr(FillColour(fillColour), CurveDraw(lineWidth, lineColour)), Arr())  
   
   def rAttrib: XANumeric = XANumeric("r", radius)
   override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
