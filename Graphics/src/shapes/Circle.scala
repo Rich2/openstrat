@@ -33,9 +33,9 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def area: Double = Pi * radius * radius
   override def e: Double = 0
   override def h: Double = 0
-  override def shearX(operand: Double): TransElem = ???
+  override def shearX(operand: Double): Ellipse = ???
 
-  override def shearY(operand: Double): TransElem = ???
+  override def shearY(operand: Double): Ellipse = ???
   
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   

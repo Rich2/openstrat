@@ -18,46 +18,46 @@ trait Shape extends TransElem
   def boundingRect: BoundingRect
 
   /** Translate geometric transformation on a Shape returns a Shape. */
-  def slate(offset: Vec2): Shape
+  override def slate(offset: Vec2): Shape
 
   /** Translate geometric transformation. */
-  def slate(xOffset: Double, yOffset: Double): Shape
+  override def slate(xOffset: Double, yOffset: Double): Shape
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  def scale(operand: Double): Shape
+  override def scale(operand: Double): Shape
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYOffset(xOffset: Double): Shape
+  override def reflectYOffset(xOffset: Double): Shape
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXOffset(yOffset: Double): Shape
+  override def reflectXOffset(yOffset: Double): Shape
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def reflectX: Shape
+  override def reflectX: Shape
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def reflectY: Shape
+  override def reflectY: Shape
 
-  def prolign(matrix: ProlignMatrix): Shape
+  override def prolign(matrix: ProlignMatrix): Shape
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  def rotate90: Shape
+  override def rotate90: Shape
 
   /** Rotates 180 degrees or Pi radians. */
-  def rotate180: Shape
+  override def rotate180: Shape
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  def rotate270: Shape
+  override def rotate270: Shape
 
-  def rotateRadians(radians: Double): Shape
+  override def rotateRadians(radians: Double): Shape
 
-  def reflect(line: Line): Shape
-  def reflect(line: Sline): Shape
-  def scaleXY(xOperand: Double, yOperand: Double): Shape
+  override def reflect(line: Line): Shape
+  override def reflect(line: Sline): Shape
+  override def scaleXY(xOperand: Double, yOperand: Double): Shape
 
-  def shearX(operand: Double): TransElem
-  def shearY(operand: Double): TransElem
+  override def shearX(operand: Double): Shape
+  override def shearY(operand: Double): Shape
 }
