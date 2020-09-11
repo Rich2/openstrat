@@ -71,7 +71,7 @@ trait Ellipse extends Shape //with ProlignPreserve
   override def rotate270: Ellipse = ???
 
   override def prolign(matrix: ProlignMatrix): Ellipse = ???
-  override def scaleXY(xOperand: Double, yOperand: Double): Ellipse = ???
+  override def xyScale(xOperand: Double, yOperand: Double): Ellipse = ???
   override def rotateRadians(radians: Double): Ellipse = ???
 
   override def reflectX: Ellipse = ???

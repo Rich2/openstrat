@@ -20,7 +20,7 @@ final case class CircleFillOld(shape: Circle, fillColour: Colour) extends Circle
 { type ThisT = CircleFillOld
   override def fTrans(f: Vec2 => Vec2): ThisT = CircleFillOld(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
 
   override def shearY(operand: Double): TransElem = ???
@@ -32,7 +32,7 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
 { type ThisT = CircleDraw
   override def fTrans(f: Vec2 => Vec2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDrawOld(this)
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
 
   override def shearY(operand: Double): TransElem = ???
@@ -45,7 +45,7 @@ final case class CircleFillDraw(shape: Circle, fillColour: Colour, lineWidth: Do
 { type ThisT = CircleFillDraw
   override def fTrans(f: Vec2 => Vec2): CircleFillDraw = CircleFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def shearX(operand: Double): TransElem = ???
 
   override def shearY(operand: Double): TransElem = ???

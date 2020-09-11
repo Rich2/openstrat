@@ -14,5 +14,5 @@ trait DisplaySimElem extends SimilarPreserve with DisplayElem
  * instances associated with it. */
 trait DisplayAffineElem extends DisplaySimElem with AffinePreserve
 { type ThisT <: DisplayAffineElem
-  override def scaleXY(xOperand: Double, yOperand: Double): ThisT
+  override def xyScale(xOperand: Double, yOperand: Double): ThisT
 }

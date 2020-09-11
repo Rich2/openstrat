@@ -56,7 +56,7 @@ trait Shape extends TransElem
 
   override def reflect(line: Line): Shape
   override def reflect(line: Sline): Shape
-  override def scaleXY(xOperand: Double, yOperand: Double): Shape
+  override def xyScale(xOperand: Double, yOperand: Double): Shape
 
   override def shearX(operand: Double): Shape
   override def shearY(operand: Double): Shape

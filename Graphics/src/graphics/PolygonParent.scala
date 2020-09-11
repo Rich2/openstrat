@@ -42,7 +42,7 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
 
   override def rotate270: PolygonParent = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): PolygonParent = ???
+  override def xyScale(xOperand: Double, yOperand: Double): PolygonParent = ???
 }
 
 object PolygonParent

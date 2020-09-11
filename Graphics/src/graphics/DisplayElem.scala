@@ -47,7 +47,7 @@ trait DisplayElem extends TransElem
 
   def reflect(line: Line): DisplayElem
 
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem
+  override def xyScale(xOperand: Double, yOperand: Double): DisplayElem
 }
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */

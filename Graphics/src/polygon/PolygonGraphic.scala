@@ -47,7 +47,7 @@ trait PolygonGraphic extends ShapeGraphic
 
   override def reflect(line: Line): PolygonGraphic
 
-  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic
+  override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphic
 
   override def shearX(operand: Double): PolygonGraphic
 

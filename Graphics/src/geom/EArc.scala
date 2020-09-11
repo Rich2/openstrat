@@ -46,7 +46,7 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   override def rotate270: TransElem = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): TransElem = ???
 
   override def shearX(operand: Double): TransElem = ???
   override def shearY(operand: Double): TransElem = ???

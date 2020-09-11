@@ -18,7 +18,7 @@ trait DisplayBounded extends DisplayElem with BoundedElem
   def rotate270: DisplayBounded
   def rotateRadians(radians: Double): DisplayBounded
   def reflect(line: Sline): DisplayBounded
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayBounded
+  override def xyScale(xOperand: Double, yOperand: Double): DisplayBounded
 }
 
 /** Companion object for the DisplayBounded trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
@@ -56,7 +56,7 @@ object DisplayBounded
 trait DisplayBoundedSimer extends DisplaySimElem with DisplayBounded
 { type ThisT <: DisplayBoundedSimer
 
-  override def scaleXY(xOperand: Double, yOperand: Double): ThisT
+  override def xyScale(xOperand: Double, yOperand: Double): ThisT
 }
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve

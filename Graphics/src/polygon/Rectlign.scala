@@ -16,7 +16,7 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def reflect(line: Line): Polygon = ???
   override def reflect(line: Sline): Polygon = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = ???
+  override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
   override def fillOld(fillColour: Colour): ShapeFillOld = ???
 

@@ -48,7 +48,7 @@ final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, va
   override def reflect(line: Line): SquareGen = ???
   override def reflect(line: Sline): SquareGen = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = ???
+  override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
   override def fillOld(fillColour: Colour): ShapeFillOld = ???
 

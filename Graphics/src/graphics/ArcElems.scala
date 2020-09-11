@@ -17,7 +17,7 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour
   def startCenEndTexts = Arr(startText, cenText, endText)
   
   def shear(xScale: Double, yScale: Double): AffinePreserve = ???
-  override def scaleXY(xOperand: Double, yOperand: Double): DisplayElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): DisplayElem = ???
 
   override def shearX(operand: Double): TransElem = ???
 

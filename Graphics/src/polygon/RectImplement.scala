@@ -24,7 +24,7 @@ final class RectImplement(val x0: Double, val y0: Double, val x1: Double, val y1
 
   override def reflect(line: Sline): RectImplement = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = ???
+  override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
   override def fillOld(fillColour: Colour): ShapeFillOld = ???
 

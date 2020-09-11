@@ -48,7 +48,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def reflect(line: Sline): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 
-  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): TransElem = ???
 
   override def shearX(operand: Double): TransElem = ???
 

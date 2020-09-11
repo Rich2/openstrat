@@ -46,7 +46,7 @@ case class PolygonGenGraphic(shape: PolygonGen, facets: Arr[ShapeFacet], childre
 
   override def reflect(line: Line): PolygonGraphic = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic = ???
+  override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphic = ???
 
   override def shearX(operand: Double): PolygonGraphic = ???
 
