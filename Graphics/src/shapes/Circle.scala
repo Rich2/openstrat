@@ -33,15 +33,13 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def e: Double = 0
   override def h: Double = 0
 
-
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def slate(offset: Vec2): Circle = Circle(radius, cen + offset)
 
-  /** Translate geometric transformation. */
+  /** Translate geometric transformation on a Circle returns a Circle. */
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(radius, cen.addXY(xOffset, yOffset))
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Circle = Circle(radius * operand, cen * operand)
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
@@ -69,10 +67,6 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def reflectX: Circle = Circle(radius, cen.reflectX)
 
   override def reflectY: Circle = Circle(radius, cen.reflectY)
-
-  override def shearX(operand: Double): Ellipse = ???
-
-  override def shearY(operand: Double): Ellipse = ???
   
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
