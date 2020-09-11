@@ -13,10 +13,10 @@ final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Dou
   override def reflectY: ThisT = fTrans(_.reflectY)
   def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
   def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-  override def reflect(line: Line): TransElem = ???
-  override def reflect(line: Sline): TransElem = ???
+  override def reflect(line: Line): Polygon = ???
+  override def reflect(line: Sline): Polygon = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = ???
 
   override def fillOld(fillColour: Colour): ShapeFill = ???
 

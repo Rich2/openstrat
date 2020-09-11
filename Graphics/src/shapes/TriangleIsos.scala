@@ -25,10 +25,10 @@ final case class TriangleIsosGen(x0: Double, y0: Double, x2: Double, y2: Double,
   def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
   override def reflectX: ThisT = fTrans(_.reflectX)
   override def reflectY: ThisT = fTrans(_.reflectY)
-  override def reflect(line: Line): TransElem = ???
-  override def reflect(line: Sline): TransElem = ???
+  override def reflect(line: Line): Triangle = ???
+  override def reflect(line: Sline): Triangle = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): Triangle = ???
 
   override def fillOld(fillColour: Colour): ShapeFill = ???
 

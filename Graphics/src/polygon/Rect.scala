@@ -24,7 +24,7 @@ final class Rect(val x0: Double, val y0: Double, val x1: Double, val y1: Double,
 
   override def reflect(line: Sline): Rect = ???
 
-  override def scaleXY(xOperand: Double, yOperand: Double): TransElem = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = ???
 
   override def fillOld(fillColour: Colour): ShapeFill = ???
 
