@@ -53,7 +53,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
   override def rotate270: Circle = Circle(radius, cen.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Circle = ??? //Circleuper.prolign(matrix)
+  override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
 
   override def rotateRadians(radians: Double): Circle = Circle(radius, cen.rotateRadians(radians))
   def rotate(angle: Angle): Circle = Circle(radius, cen.rotate(angle))
@@ -62,9 +62,9 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def reflect(line: Sline): Circle = Circle(radius, cen.reflect(line))
 
-  override def reflectYOffset(xOffset: Double): Circle = ???
+  override def reflectYOffset(xOffset: Double): Circle = Circle(radius, cen.reflectYOffset(xOffset))
 
-  override def reflectXOffset(yOffset: Double): Circle = ???
+  override def reflectXOffset(yOffset: Double): Circle = Circle(radius, cen.reflectXOffset(yOffset))
 
   override def reflectX: Circle = Circle(radius, cen.reflectX)
 
