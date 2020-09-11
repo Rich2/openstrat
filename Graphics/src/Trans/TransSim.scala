@@ -43,11 +43,11 @@ object TransSim
   }
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransSim[A]): TransSim[F[A]] = new TransSim[F[A]]
-  { override def slate(obj: F[A], offset: Vec2): F[A] = evF.map(obj, ts => evA.slate(ts, offset))
-    override def rotateRadians(obj: F[A], radians: Double): F[A] = evF.map(obj, ts => evA.rotateRadians(ts, radians))
-    override def reflectSegT(obj: F[A], line: Sline): F[A] = evF.map(obj, evA.reflectSegT(_, line))
-    override def reflectT(obj: F[A], line: Line): F[A] = evF.map(obj, evA.reflectT(_, line))
-    override def scale(obj: F[A], operand: Double): F[A] = evF.map[A, A](obj, ts => evA.scale(ts, operand))
+  { override def slate(obj: F[A], offset: Vec2): F[A] = evF.mapT(obj, ts => evA.slate(ts, offset))
+    override def rotateRadians(obj: F[A], radians: Double): F[A] = evF.mapT(obj, ts => evA.rotateRadians(ts, radians))
+    override def reflectSegT(obj: F[A], line: Sline): F[A] = evF.mapT(obj, evA.reflectSegT(_, line))
+    override def reflectT(obj: F[A], line: Line): F[A] = evF.mapT(obj, evA.reflectT(_, line))
+    override def scale(obj: F[A], operand: Double): F[A] = evF.mapT[A, A](obj, ts => evA.scale(ts, operand))
   }
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransSim[A]): TransSim[Array[A]] = new TransSim[Array[A]]

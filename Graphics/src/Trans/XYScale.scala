@@ -14,7 +14,7 @@ object XYScale
     (obj, xOperand: Double, yOperand) => obj.map(ev.xyScaleT(_, xOperand, yOperand))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: XYScale[A]): XYScale[F[A]] =
-    (obj, xOperand, yOperand) => evF.map(obj, evA.xyScaleT(_, xOperand, yOperand))
+    (obj, xOperand, yOperand) => evF.mapT(obj, evA.xyScaleT(_, xOperand, yOperand))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: XYScale[A]): XYScale[Array[A]] =
     (obj, xOperand: Double, yOperand) => obj.map(ev.xyScaleT(_, xOperand, yOperand))

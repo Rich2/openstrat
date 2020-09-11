@@ -26,7 +26,7 @@ object AffineTrans
     (obj, f) => obj.fTrans(f).asInstanceOf[T]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: AffineTrans[A]): AffineTrans[F[A]] =
-    (obj, f) => evF.map(obj, el => evA.trans(el, f))
+    (obj, f) => evF.mapT(obj, el => evA.trans(el, f))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: AffineTrans[A]): AffineTrans[Array[A]] =
     (obj, f) => obj.map(el => ev.trans(el, f))

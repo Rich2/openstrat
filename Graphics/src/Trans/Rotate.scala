@@ -16,7 +16,7 @@ object Rotate
     (obj, radians) => obj.map(ev.rotateRadiansT(_, radians))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] =
-    (obj, radians) => evF.map(obj, evA.rotateRadiansT(_, radians))
+    (obj, radians) => evF.mapT(obj, evA.rotateRadiansT(_, radians))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Rotate[A]): Rotate[Array[A]] = (obj, radians) => obj.map(ev.rotateRadiansT(_, radians))
 }

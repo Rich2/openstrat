@@ -49,7 +49,7 @@ object Prolign
     (obj, offset) => obj.map(ev.prolignObj(_, offset))(new AnyBuild[A])
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Prolign[A]): Prolign[F[A]] =
-    (obj, offset) => evF.map(obj, evA.prolignObj(_, offset))
+    (obj, offset) => evF.mapT(obj, evA.prolignObj(_, offset))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[Array[A]] = (obj, offset) => obj.map(ev.prolignObj(_, offset))
 }

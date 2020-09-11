@@ -21,8 +21,8 @@ object Shear
   }
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Shear[A]): Shear[F[A]] = new Shear[F[A]]
-  { def xShearT(obj: F[A], yFactor: Double): F[A] = evF.map(obj, evA.xShearT(_, yFactor))
-    def yShearT(obj: F[A], xFactor: Double): F[A] = evF.map(obj, evA.xShearT(_, xFactor))
+  { def xShearT(obj: F[A], yFactor: Double): F[A] = evF.mapT(obj, evA.xShearT(_, yFactor))
+    def yShearT(obj: F[A], xFactor: Double): F[A] = evF.mapT(obj, evA.xShearT(_, xFactor))
   }
     
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Shear[A]): Shear[Array[A]] = new Shear[Array[A]]

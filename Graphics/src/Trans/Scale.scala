@@ -19,7 +19,7 @@ object Scale
     (obj, offset) => obj.map(ev.scaleT(_, offset))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Scale[A]): Scale[F[A]] =
-    (obj, operand) => evF.map(obj, evA.scaleT(_, operand))
+    (obj, operand) => evF.mapT(obj, evA.scaleT(_, operand))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Scale[A]): Scale[Array[A]] = (obj, operand) => obj.map(ev.scaleT(_, operand))
 }

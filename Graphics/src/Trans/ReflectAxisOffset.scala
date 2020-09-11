@@ -31,10 +31,10 @@ object ReflectAxisOffset
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: ReflectAxisOffset[A]): ReflectAxisOffset[F[A]] = new ReflectAxisOffset[F[A]]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: F[A], yOffset: Double): F[A] = evF.map(obj, evA.reflectXOffsetT(_, yOffset))
+    override def reflectXOffsetT(obj: F[A], yOffset: Double): F[A] = evF.mapT(obj, evA.reflectXOffsetT(_, yOffset))
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: F[A], xOffset: Double): F[A] = evF.map(obj, evA.reflectYOffsetT(_, xOffset))
+    override def reflectYOffsetT(obj: F[A], xOffset: Double): F[A] = evF.mapT(obj, evA.reflectYOffsetT(_, xOffset))
   }
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: ReflectAxisOffset[A]): ReflectAxisOffset[Array[A]] = new ReflectAxisOffset[Array[A]]
