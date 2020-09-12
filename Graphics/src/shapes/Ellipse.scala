@@ -18,54 +18,68 @@ trait Ellipse extends Shape
   
   /** The x component of curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
   def xs0: Double
+
+  /** The y component of curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
   def ys0: Double
   
   /** Curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
   def cs0: Vec2
 
   /** The x component of curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
-  def xcs1: Double
-  
+  def xs1: Double
+
   /** The y component of curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
-  def ycs1: Double
+  def ys1: Double
 
   /** Curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
-  final def cs1: Vec2 = xcs1 vv ycs1
-  def x2: Double
-  def y2: Double
-  def v2: Vec2 = x2 vv y2
-  /*def x3: Double
-  def y3: Double
-  def v3: Vec2 = x3 vv y3*/
-  
+  final def cs1: Vec2 = xs1 vv ys1
+
+  /** The x component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
+  def xs2: Double
+
+  /** The y component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
+  def ys2: Double
+
+  /** Curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
+  final def cs2: Vec2 = Vec2(xs2, ys2)
+
+  /** The x component of curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
+  def xs3: Double
+
+  /** The y component of curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
+  def ys3: Double
+
+  /** Curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
+  def cs3: Vec2 = xs3 vv ys3
+
+  /** radius 0. By default this will be the up radius to cs0. By convention and defualt This will normally be the value of b, the minor ellipse
+   *  radius, but even if it starts as b in certain transformations it may become a, the major ellipse radius. */
+  def radius0: Double
+
   /** radius 1. This will normally be the value of a, the major ellipse radius, but even if it starts as a in certain transformations it may become b,
    *  the minor ellipse radius. */
   def r1: Double
 
-  /** radius 2. This will normally be the value of b, the minor ellipse radius, but even if it starts as b in certain transformations it may become a,
-   *  the major ellipse radius. */
-  def r2: Double
-  
   /** The major radius of this ellipse. */
   def a: Double
 
   /** The major radius of this ellipse. */
   def b: Double
-  
+
   /** The h value of this ellipse. */
   def h: Double
-  
+
   def ellipeRotation: Angle
-  
+
   /** Eccentricity of ellipse. */
   def e: Double
-  
+
   def area: Double
   def cxAttrib: XANumeric = XANumeric("cx", xCen)
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
  // override def rotateRadians(radians: Double): Ellipse
   def rxAttrib: XANumeric = XANumeric("rx", r1)
-  def ryAttrib: XANumeric = XANumeric("ry", r2)
+  def ryAttrib: XANumeric = XANumeric("ry", radius0)
   def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
@@ -124,14 +138,14 @@ object Ellipse
     new Implementation(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)
 
   //def cx1x3(cen: Vec2,)
-  
+
   implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => Implementation(ell.cen + offset, ell.cs1 + offset, ell.cs0 + offset)
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse(0, 0, 0, 0)
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  case class Implementation(xCen: Double, yCen: Double, xcs1: Double, ycs1: Double, x3: Double, y3: Double) extends Ellipse
+  case class Implementation(xCen: Double, yCen: Double, xs1: Double, ys1: Double, x3: Double, y3: Double) extends Ellipse
   {
     override def xs0: Double = ???
 
@@ -139,14 +153,18 @@ object Ellipse
 
     override def cs0: Vec2 = ???
 
-    //override type ThisT = Implementation
-    def x2: Double = 2 * xCen - xcs1
-    def y2: Double = 2 * yCen - ycs1
+    override def xs2: Double = 2 * xCen - xs0
+    override def ys2: Double = 2 * yCen - ys0
+
+    def xs3: Double = 2 * xCen - xs1
+    def ys3: Double = 2 * yCen - ys1
+
+        def radius0: Double = (cs0 - cen).magnitude
     override def r1: Double = (cs1 - cen).magnitude
-    def r2: Double = (cs0 - cen).magnitude
-    def a: Double = r1.max(r2)
-    def b: Double = r1.min(r2)
-    override def area: Double = Pi * r1 * r2
+
+    def a: Double = r1.max(radius0)
+    def b: Double = r1.min(radius0)
+    override def area: Double = Pi * r1 * radius0
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared
    // override def fTrans(f: Vec2 => Vec2): Implementation = Implementation(f(cen), f(v1), f(v3))
@@ -156,9 +174,9 @@ object Ellipse
     override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
     def boundingRect: BoundingRect =
-    { val xd0: Double = r1.squared * (ellipeRotation.cos).squared + r2.squared * (ellipeRotation.sin).squared
+    { val xd0: Double = r1.squared * (ellipeRotation.cos).squared + radius0.squared * (ellipeRotation.sin).squared
       val xd = xd0.sqrt
-      val yd0: Double = r1.squared * (ellipeRotation.sin).squared + r2.squared * (ellipeRotation.cos).squared
+      val yd0: Double = r1.squared * (ellipeRotation.sin).squared + radius0.squared * (ellipeRotation.cos).squared
       val yd = yd0.sqrt
       BoundingRect(xCen - xd, xCen + xd, yCen - yd, yCen + yd)
     }
