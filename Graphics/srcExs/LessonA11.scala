@@ -51,7 +51,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val a1 = Arr(r2, cl2)
   
-  val e1 = Ellipse(0, 0, 0, 0)
+  val e1 = Ellipse(50, 30)
   val ee = Arr(e1, cn)
   //val ee1 = ee.slate(0, 0)
  // val a2 = a1.mirrorY

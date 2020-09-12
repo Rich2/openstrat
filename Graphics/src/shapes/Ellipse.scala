@@ -128,24 +128,27 @@ trait Ellipse extends Shape
 
 object Ellipse
 { /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[Implementation]] class. */
-  def apply(radiusA: Double, radiusB: Double): Ellipse = new Implementation(0, 0, radiusA, 0, 0, radiusB)
+  def apply(radius1: Double, radius0: Double): Ellipse = new Implementation(0, 0, radius1, 0,  radius0)
 
   /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[Implementation]] class. */
-  def apply(radiusA: Double, radiusB: Double, cen: Vec2): Ellipse = new Implementation(cen.x, cen.y, cen.x + radiusA, cen.y, cen.x, cen.y + radiusB)
+  def apply(radius0: Double, radius1: Double, cen: Vec2): Ellipse = new Implementation(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
 
   /** The apply factory methods default to an [[Ellipse.Implementation]] Class. */
-  def apply(radiusA: Double, radiusB: Double, xCen: Double, yCen: Double): Ellipse =
-    new Implementation(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)
+  /*def apply(radiusA: Double, radiusB: Double, xCen: Double, yCen: Double): Ellipse =
+    new Implementation(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)*/
 
-  //def cx1x3(cen: Vec2,)
+  def cs1s3(cen: Vec2, v1: Vec2, v3: Vec2): Implementation =
+  { val radius0: Double = (v3 - cen).magnitude
+    new Implementation(cen.x, cen.y, v1.x, v1.y, radius0)
+  }
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => Implementation(ell.cen + offset, ell.cs1 + offset, ell.cs0 + offset)
+  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s3(ell.cen + offset, ell.cs1 + offset, ell.cs0 + offset)
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse(0, 0, 0, 0)
+  implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse.cs1s3(ell.cen, ell.cs1, ell.cs0)
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  case class Implementation(xCen: Double, yCen: Double, xs1: Double, ys1: Double, x3: Double, y3: Double) extends Ellipse
+  case class Implementation(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius0: Double) extends Ellipse
   {
     override def xs0: Double = ???
 
@@ -159,7 +162,6 @@ object Ellipse
     def xs3: Double = 2 * xCen - xs1
     def ys3: Double = 2 * yCen - ys1
 
-        def radius0: Double = (cs0 - cen).magnitude
     override def r1: Double = (cs1 - cen).magnitude
 
     def a: Double = r1.max(radius0)
@@ -186,7 +188,11 @@ object Ellipse
 
   /** Companion object for the EllipseClass. Contains various factory methods for the creation of ellipses from different starting points. */
   object Implementation
-  { def apply(vLeft: Vec2, vRight: Vec2, vUp: Vec2): Implementation = new Implementation(vLeft.x, vLeft.y, vRight.x, vRight.y, vUp.x, vUp.y)
-    def cenV1V3(cen: Vec2, v1: Vec2, v3: Vec2): Implementation = new Implementation(cen.x, cen.y, v1.x, v1.y, v3.x, v3.y)
+  { //def apply(vLeft: Vec2, vRight: Vec2, vUp: Vec2): Implementation = new Implementation(vLeft.x, vLeft.y, vRight.x, vRight.y, vUp.x, vUp.y)
+
+    def cenV1V3(cen: Vec2, v1: Vec2, v3: Vec2): Implementation =
+    { val radius0: Double = (v3 - cen).magnitude
+      new Implementation(cen.x, cen.y, v1.x, v1.y, radius0)
+    }
   }
 }
