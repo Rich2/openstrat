@@ -40,8 +40,8 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
 
   @inline override def rotateRadians(radians: Double): Polygon = polygonMap(_.rotateRadians(radians))
 
-  override def shearX(operand: Double): Polygon = ???
-  override def shearY(operand: Double): Polygon = ???
+  override def xShear(operand: Double): Polygon = ???
+  override def yShear(operand: Double): Polygon = ???
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: Slines =if (length > 1)

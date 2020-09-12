@@ -86,9 +86,9 @@ trait Ellipse extends Shape //with ProlignPreserve
 
   override def reflect(line: Sline): Ellipse = ???
 
-  override def shearX(operand: Double): Ellipse = ???
+  override def xShear(operand: Double): Ellipse = ???
 
-  override def shearY(operand: Double): Ellipse = ???
+  override def yShear(operand: Double): Ellipse = ???
 
   //override def mirrorX: Ellipse
   def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
@@ -101,17 +101,17 @@ object Ellipse
   /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[Implementation]] class. */
   def apply(radiusA: Double, radiusB: Double, cen: Vec2): Ellipse = new Implementation(cen.x, cen.y, cen.x + radiusA, cen.y, cen.x, cen.y + radiusB)
 
-  /** The apply factory methods default to an EllipseClass. */
+  /** The apply factory methods default to an [[Ellipse.Implementation]] Class. */
   def apply(radiusA: Double, radiusB: Double, xCen: Double, yCen: Double): Ellipse =
     new Implementation(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)
   
   implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => Implementation(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)
-  
+  implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
   implicit def rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse(0, 0, 0, 0)
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  case class Implementation(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double) extends Ellipse //with AffinePreserve
+  case class Implementation(xCen: Double, yCen: Double, x1: Double, y1: Double, x3: Double, y3: Double) extends Ellipse
   { //override type ThisT = Implementation
     def x2: Double = 2 * xCen - x1
     def y2: Double = 2 * yCen - y1

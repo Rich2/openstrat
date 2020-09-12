@@ -48,8 +48,8 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   override def xyScale(xOperand: Double, yOperand: Double): TransElem = ???
 
-  override def shearX(operand: Double): TransElem = ???
-  override def shearY(operand: Double): TransElem = ???
+  override def xShear(operand: Double): TransElem = ???
+  override def yShear(operand: Double): TransElem = ???
 }
 
 object EArc

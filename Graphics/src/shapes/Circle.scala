@@ -95,11 +95,14 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 object Circle extends ShapeIcon
 { def apply(radius: Double, cen: Vec2 = Vec2Z) = new Circle(radius, cen.x, cen.y)
   
+  override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
+  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
+  
   implicit val slateImplicit: Slate[Circle] = (obj, offset) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
-  
-  override def scaleSlate(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
-  override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)  
+  implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, radians: Double) => obj.rotateRadians(radians)
+  implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
+    
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)
 }

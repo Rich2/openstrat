@@ -58,8 +58,8 @@ trait Shape extends TransElem
   override def reflect(line: Sline): Shape
   override def xyScale(xOperand: Double, yOperand: Double): Shape
 
-  override def shearX(operand: Double): Shape
-  override def shearY(operand: Double): Shape
+  override def xShear(operand: Double): Shape
+  override def yShear(operand: Double): Shape
 }
 
 object Shape
@@ -67,27 +67,22 @@ object Shape
   implicit val slateImplicit: Slate[Shape] = (obj: Shape, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, radians: Double) => obj.rotateRadians(radians)
-
+  implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  
   implicit val rotateAxesImplicit: RotateAxes[Shape] = new RotateAxes[Shape]
-  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
-    override def rotateT90(obj: Shape): Shape = obj.rotate90
-
-    /** Rotates object of type T, 180 degrees or Pi radians. */
+  { override def rotateT90(obj: Shape): Shape = obj.rotate90
     override def rotateT180(obj: Shape): Shape = obj.rotate180
-
-    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
     override def rotateT270(obj: Shape): Shape = obj.rotate270
   }
 
   implicit val mirrorAxisImplicit: ReflectAxisOffset[Shape] = new ReflectAxisOffset[Shape]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: Shape, yOffset: Double): Shape = obj.reflectXOffset(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
+  { override def reflectXOffsetT(obj: Shape, yOffset: Double): Shape = obj.reflectXOffset(yOffset)
     override def reflectYOffsetT(obj: Shape, xOffset: Double): Shape = obj.reflectYOffset(xOffset)
   }
 
-  implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
-
-  implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val shearImplicit: Shear[Shape] = new Shear[Shape]
+  { override def xShearT(obj: Shape, yFactor: Double): Shape = obj.xShear(yFactor)
+    override def yShearT(obj: Shape, xFactor: Double): Shape = obj.yShear(xFactor)
+  }
 }

@@ -29,6 +29,7 @@ trait TransElem extends Product with Serializable
    * in sub classes. */
   def reflectY: TransElem
 
+  /** Transforms this TransElem using a [[ProlignMatrix]]. */
   def prolign(matrix: ProlignMatrix): TransElem
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
@@ -46,37 +47,32 @@ trait TransElem extends Product with Serializable
   def reflect(line: Sline): TransElem
   def xyScale(xOperand: Double, yOperand: Double): TransElem
 
-  def shearX(operand: Double): TransElem
-  def shearY(operand: Double): TransElem
+  def xShear(operand: Double): TransElem
+  def yShear(operand: Double): TransElem
 }
 
 object TransElem
 { implicit val slateImplicit: Slate[TransElem] = (obj: TransElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[TransElem] = (obj: TransElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[TransElem] = (obj: TransElem, radians: Double) => obj.rotateRadians(radians)
-
+  implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: XYScale[TransElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  
   implicit val rotateAxesImplicit: RotateAxes[TransElem] = new RotateAxes[TransElem]
-  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
-    override def rotateT90(obj: TransElem): TransElem = obj.rotate90
-
-    /** Rotates object of type T, 180 degrees or Pi radians. */
+  { override def rotateT90(obj: TransElem): TransElem = obj.rotate90
     override def rotateT180(obj: TransElem): TransElem = obj.rotate180
-
-    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
     override def rotateT270(obj: TransElem): TransElem = obj.rotate270
   }
 
   implicit val mirrorAxisImplicit: ReflectAxisOffset[TransElem] = new ReflectAxisOffset[TransElem]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXOffset(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
+  { override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXOffset(yOffset)
     override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.reflectYOffset(xOffset)
   }
   
-  implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)
-  
-  implicit val XYScaleImplicit: XYScale[TransElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val shearImplicit: Shear[TransElem] = new Shear[TransElem]
+  { override def xShearT(obj: TransElem, yFactor: Double): TransElem = obj.xShear(yFactor)
+    override def yShearT(obj: TransElem, xFactor: Double): TransElem = obj.yShear(xFactor)
+  }
 }
 
 /** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve

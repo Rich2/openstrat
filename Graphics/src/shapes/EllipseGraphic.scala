@@ -46,9 +46,9 @@ trait EllipseGraphic extends ShapeGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): EllipseGraphic
 
-  override def shearX(operand: Double): EllipseGraphic
+  override def xShear(operand: Double): EllipseGraphic
 
-  override def shearY(operand: Double): EllipseGraphic
+  override def yShear(operand: Double): EllipseGraphic
 
   override def reflect(line: Sline): EllipseGraphic
 }
@@ -121,9 +121,9 @@ object EllipseGraphic
 
     override def xyScale(xOperand: Double, yOperand: Double): EllipseGraphicImplement = ???
 
-    override def shearX(operand: Double): EllipseGraphicImplement = ???
+    override def xShear(operand: Double): EllipseGraphicImplement = ???
 
-    override def shearY(operand: Double): EllipseGraphicImplement = ???
+    override def yShear(operand: Double): EllipseGraphicImplement = ???
 
     override def reflect(line: Sline): EllipseGraphicImplement = ???
   }

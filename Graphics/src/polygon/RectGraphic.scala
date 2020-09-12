@@ -49,9 +49,9 @@ case class RectGraphic(shape: RectImplement, facets: Arr[ShapeFacet], children: 
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphic = ???
 
-  override def shearX(operand: Double): PolygonGraphic = ???
+  override def xShear(operand: Double): PolygonGraphic = ???
 
-  override def shearY(operand: Double): PolygonGraphic = ???
+  override def yShear(operand: Double): PolygonGraphic = ???
 
   override def reflect(line: Sline): RectGraphic = ???
 
