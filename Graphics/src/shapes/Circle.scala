@@ -27,7 +27,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def xs3: Double = xCen - radius
   override def ys3: Double = yCen
   
-  @inline override def r1: Double = radius
+  @inline override def radius1: Double = radius
   @inline override def radius0: Double = radius
   @inline override def a: Double = radius
   @inline override def b: Double = radius

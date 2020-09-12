@@ -56,9 +56,13 @@ trait Ellipse extends Shape
    *  radius, but even if it starts as b in certain transformations it may become a, the major ellipse radius. */
   def radius0: Double
 
+  final def diameter0: Double = radius0 * 2
+
   /** radius 1. This will normally be the value of a, the major ellipse radius, but even if it starts as a in certain transformations it may become b,
    *  the minor ellipse radius. */
-  def r1: Double
+  def radius1: Double
+
+  final def diameter1: Double = radius1 * 2
 
   /** The major radius of this ellipse. */
   def a: Double
@@ -78,13 +82,13 @@ trait Ellipse extends Shape
   def cxAttrib: XANumeric = XANumeric("cx", xCen)
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
  // override def rotateRadians(radians: Double): Ellipse
-  def rxAttrib: XANumeric = XANumeric("rx", r1)
+  def rxAttrib: XANumeric = XANumeric("rx", radius1)
   def ryAttrib: XANumeric = XANumeric("ry", radius0)
   def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
-  def fTrans(f: Vec2 => Vec2): Ellipse = Ellipse.cs1s3(f(cen), f(s1), f(s3))
-  
+  def fTrans(f: Vec2 => Vec2): Ellipse = Ellipse.cs1s0(f(cen), f(s1), f(s0))
+
   /** Translate geometric transformation on a Ellipse returns a Ellipse. */
   override def slate(offset: Vec2): Ellipse = fTrans(_ + offset)
 
@@ -123,7 +127,7 @@ trait Ellipse extends Shape
   override def xShear(operand: Double): Ellipse = ???
 
   override def yShear(operand: Double): Ellipse = ???
-  
+
   def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
 }
 
@@ -132,20 +136,20 @@ object Ellipse
   def apply(radius1: Double, radius0: Double): Ellipse = new Implementation(0, 0, radius1, 0,  radius0)
 
   /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[Implementation]] class. */
-  def apply(radius0: Double, radius1: Double, cen: Vec2): Ellipse = new Implementation(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
+  def apply(radius1: Double, radius0: Double, cen: Vec2): Ellipse = new Implementation(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
 
   /** The apply factory methods default to an [[Ellipse.Implementation]] Class. */
   /*def apply(radiusA: Double, radiusB: Double, xCen: Double, yCen: Double): Ellipse =
     new Implementation(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)*/
 
-  def cs1s3(cen: Vec2, v1: Vec2, v3: Vec2): Implementation =
-  { val radius0: Double = (v3 - cen).magnitude
+  def cs1s0(cen: Vec2, v1: Vec2, v0: Vec2): Implementation =
+  { val radius0: Double = (v0 - cen).magnitude
     new Implementation(cen.x, cen.y, v1.x, v1.y, radius0)
   }
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s3(ell.cen + offset, ell.s1 + offset, ell.s0 + offset)
+  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s0(ell.cen + offset, ell.s1 + offset, ell.s0 + offset)
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse.cs1s3(ell.cen, ell.s1, ell.s0)
+  implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse.cs1s0(ell.cen, ell.s1, ell.s0)
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
@@ -159,11 +163,11 @@ object Ellipse
     def xs3: Double = 2 * xCen - xs1
     def ys3: Double = 2 * yCen - ys1
 
-    override def r1: Double = (s1 - cen).magnitude
+    override def radius1: Double = (s1 - cen).magnitude
 
-    def a: Double = r1.max(radius0)
-    def b: Double = r1.min(radius0)
-    override def area: Double = Pi * r1 * radius0
+    def a: Double = radius1.max(radius0)
+    def b: Double = radius1.min(radius0)
+    override def area: Double = Pi * radius1 * radius0
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared  
     override def fillOld(fillColour: Colour): ShapeFillOld = ??? 
@@ -172,9 +176,9 @@ object Ellipse
     override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
     def boundingRect: BoundingRect =
-    { val xd0: Double = r1.squared * (ellipeRotation.cos).squared + radius0.squared * (ellipeRotation.sin).squared
+    { val xd0: Double = radius1.squared * (ellipeRotation.cos).squared + radius0.squared * (ellipeRotation.sin).squared
       val xd = xd0.sqrt
-      val yd0: Double = r1.squared * (ellipeRotation.sin).squared + radius0.squared * (ellipeRotation.cos).squared
+      val yd0: Double = radius1.squared * (ellipeRotation.sin).squared + radius0.squared * (ellipeRotation.cos).squared
       val yd = yd0.sqrt
       BoundingRect(xCen - xd, xCen + xd, yCen - yd, yCen + yd)
     }

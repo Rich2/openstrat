@@ -41,7 +41,6 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val ca2 = ca.slate(20, 20)
   
   val la = List(sq, cn)
- // val la2 = la.slate(20, 20)
 
   val na2 = na1.scale(20)
   
@@ -53,9 +52,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   
   val e1 = Ellipse(50, 30)
   val ee = Arr(e1, cn)
-  //val ee1 = ee.slate(0, 0)
- // val a2 = a1.mirrorY
-  //val cc1 = a1.map(_.fi)
+
 
   val aa = Arr(ccl1, ccl1r, r1, r1r)
   repaint(aa ++ c1 ++ c1r +- cd1 +- cd2 +- cd3 +- rStr +- rStr2 +- redLine)
