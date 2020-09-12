@@ -92,9 +92,10 @@ case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends DisplayAffi
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(shape.fTrans(f), pointerId)
 }
 
-case class PolygonFillText(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolygonGraphicOld
-{ override type ThisT = PolygonFillText
-  override def fTrans(f: Vec2 => Vec2): PolygonFillText = PolygonFillText(shape.fTrans(f), fillColour, str,fontSize, textColour)
+case class PolygonFillTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends
+  PolygonGraphicOld
+{ override type ThisT = PolygonFillTextOld
+  override def fTrans(f: Vec2 => Vec2): PolygonFillTextOld = PolygonFillTextOld(shape.fTrans(f), fillColour, str,fontSize, textColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, textColour, CenAlign)
   def fillOnly: PolygonFillOld = PolygonFillOld(shape, fillColour)
 
@@ -106,10 +107,10 @@ case class PolygonFillText(shape: Polygon, fillColour: Colour, str: String, font
   override def attribs: Arr[XmlAtt] = ???
 }
 
-case class PolygonFillDrawText(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
-  extends PolygonGraphicOld
-{ override type ThisT = PolygonFillDrawText
-  override def fTrans(f: Vec2 => Vec2): PolygonFillDrawText = PolygonFillDrawText(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
+case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
+  lineColour: Colour = Black) extends PolygonGraphicOld
+{ override type ThisT = PolygonFillDrawTextOld
+  override def fTrans(f: Vec2 => Vec2): PolygonFillDrawTextOld = PolygonFillDrawTextOld(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
@@ -140,8 +141,8 @@ case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: S
   override def attribs: Arr[XmlAtt] = ???
 }
 
-object PolygonFillDrawText
-{ implicit val persistImplicit: Persist6[Polygon, Colour, String, Int, Double, Colour, PolygonFillDrawText] =
+object PolygonFillDrawTextOld
+{ implicit val persistImplicit: Persist6[Polygon, Colour, String, Int, Double, Colour, PolygonFillDrawTextOld] =
   Persist6("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "str", _.str, "fontSize", _.fontSize, "lineWidth", _.lineWidth,
     "lineColour", _.lineColour, apply)
 }

@@ -41,8 +41,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
 
 
-  def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonFillText =
-    PolygonFillText(this, fillColour, str, fontSize, textColour)
+  def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonFillTextOld =
+    PolygonFillTextOld(this, fillColour, str, fontSize, textColour)
 
   def fillActive(fillColour: Colour, pointerID: Any): PolygonFillActive = PolygonFillActive(this, pointerID, fillColour)//, PolyActiveOnly(this, pointerID))
 
@@ -52,8 +52,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black): PolygonAll =
     PolygonAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)
 
-  def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2.0, lineColour: Colour = Black): PolygonFillDrawText =
-    PolygonFillDrawText(this, fillColour, str, fontSize, lineWidth, lineColour)
+  def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2.0, lineColour: Colour = Black): PolygonFillDrawTextOld =
+    PolygonFillDrawTextOld(this, fillColour, str, fontSize, lineWidth, lineColour)
 
   def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24): PolygonFillTextActive =
     PolygonFillTextActive(this, pointerEv, fillColour,str, fontSize)
