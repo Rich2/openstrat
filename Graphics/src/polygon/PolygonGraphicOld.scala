@@ -71,7 +71,7 @@ object PolygonDraw
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
-case class PolygonFillDraw(shape: PolygonGen, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicOld with
+case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicOld with
   ShapeFillDraw
 { override type ThisT = PolygonFillDraw
   override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
@@ -82,17 +82,17 @@ case class PolygonFillDraw(shape: PolygonGen, fillColour: Colour, lineWidth: Dou
 }
 
 object PolygonFillDraw
-{ implicit val persistImplicit: Persist4[PolygonGen, Colour, Double, Colour, PolygonFillDraw] =
+{ implicit val persistImplicit: Persist4[Polygon, Colour, Double, Colour, PolygonFillDraw] =
     Persist4("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "lineWidth", _.lineWidth, "lineColour", _.lineColour, apply)
 }
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnly(shape: PolygonGen, pointerId: Any) extends DisplayAffineElem with PolygonActive
+case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends DisplayAffineElem with PolygonActive
 { override type ThisT = PolygonActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(shape.fTrans(f), pointerId)
 }
 
-case class PolygonFillText(shape: PolygonGen, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolygonGraphicOld
+case class PolygonFillText(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends PolygonGraphicOld
 { override type ThisT = PolygonFillText
   override def fTrans(f: Vec2 => Vec2): PolygonFillText = PolygonFillText(shape.fTrans(f), fillColour, str,fontSize, textColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, textColour, CenAlign)
@@ -106,7 +106,7 @@ case class PolygonFillText(shape: PolygonGen, fillColour: Colour, str: String, f
   override def attribs: Arr[XmlAtt] = ???
 }
 
-case class PolygonFillDrawText(shape: PolygonGen, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
+case class PolygonFillDrawText(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black)
   extends PolygonGraphicOld
 { override type ThisT = PolygonFillDrawText
   override def fTrans(f: Vec2 => Vec2): PolygonFillDrawText = PolygonFillDrawText(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
@@ -123,7 +123,7 @@ case class PolygonFillDrawText(shape: PolygonGen, fillColour: Colour, str: Strin
   override def attribs: Arr[XmlAtt] = ???
 }
 
-case class PolygonAll(shape: PolygonGen, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
+case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
                       lineColour: Colour = Black) extends PolygonGraphicOld with PolygonActive
 { override type ThisT = PolygonAll
   override def fTrans(f: Vec2 => Vec2): PolygonAll = PolygonAll(shape.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
@@ -141,13 +141,13 @@ case class PolygonAll(shape: PolygonGen, pointerId: Any, fillColour: Colour, str
 }
 
 object PolygonFillDrawText
-{ implicit val persistImplicit: Persist6[PolygonGen, Colour, String, Int, Double, Colour, PolygonFillDrawText] =
+{ implicit val persistImplicit: Persist6[Polygon, Colour, String, Int, Double, Colour, PolygonFillDrawText] =
   Persist6("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "str", _.str, "fontSize", _.fontSize, "lineWidth", _.lineWidth,
     "lineColour", _.lineColour, apply)
 }
 
 /** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */
-case class PolygonFillTextActive(shape: PolygonGen, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphicOld
+case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphicOld
   with PolygonActive
 { override type ThisT = PolygonFillTextActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextActive = PolygonFillTextActive(shape.fTrans(f), pointerId, fillColour, str, fontSize)
