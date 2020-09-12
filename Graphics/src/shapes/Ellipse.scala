@@ -104,10 +104,12 @@ object Ellipse
   /** The apply factory methods default to an [[Ellipse.Implementation]] Class. */
   def apply(radiusA: Double, radiusB: Double, xCen: Double, yCen: Double): Ellipse =
     new Implementation(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)
+
+  //def cx1x3(cen: Vec2,)
   
-  implicit def slateImplicit: Slate[Ellipse] = (ell, offset) => Implementation(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)
+  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => Implementation(ell.cen + offset, ell.v1 + offset, ell.v3 + offset)
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
-  implicit def rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse(0, 0, 0, 0)
+  implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse(0, 0, 0, 0)
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
