@@ -16,24 +16,27 @@ trait Ellipse extends Shape
   /** The centre of the ellipse. */
   final def cen: Vec2 = xCen vv yCen
   
-  /** The x component of curvestill point 0. By default this will be the curvestill at the top of the Ellipse. CurveStills are referred to as Vertex
-   *  (Curve) in maths. */
-  def xcs0: Double
-  def ycs0: Double
+  /** The x component of curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
+  def xs0: Double
+  def ys0: Double
   
-  /** Curvestill point 0. By default this will be the curvestill at the top of the Ellipse. CurveStills are refered to as Vertex (Curve) in maths. */
+  /** Curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
   def cs0: Vec2
-  
-  
+
+  /** The x component of curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
   def xcs1: Double
+  
+  /** The y component of curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
   def ycs1: Double
+
+  /** Curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
   final def cs1: Vec2 = xcs1 vv ycs1
   def x2: Double
   def y2: Double
   def v2: Vec2 = x2 vv y2
-  def x3: Double
+  /*def x3: Double
   def y3: Double
-  def v3: Vec2 = x3 vv y3
+  def v3: Vec2 = x3 vv y3*/
   
   /** radius 1. This will normally be the value of a, the major ellipse radius, but even if it starts as a in certain transformations it may become b,
    *  the minor ellipse radius. */
@@ -122,7 +125,7 @@ object Ellipse
 
   //def cx1x3(cen: Vec2,)
   
-  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => Implementation(ell.cen + offset, ell.cs1 + offset, ell.v3 + offset)
+  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => Implementation(ell.cen + offset, ell.cs1 + offset, ell.cs0 + offset)
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse(0, 0, 0, 0)
 
@@ -130,9 +133,9 @@ object Ellipse
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
   case class Implementation(xCen: Double, yCen: Double, xcs1: Double, ycs1: Double, x3: Double, y3: Double) extends Ellipse
   {
-    override def xcs0: Double = ???
+    override def xs0: Double = ???
 
-    override def ycs0: Double = ???
+    override def ys0: Double = ???
 
     override def cs0: Vec2 = ???
 
@@ -140,7 +143,7 @@ object Ellipse
     def x2: Double = 2 * xCen - xcs1
     def y2: Double = 2 * yCen - ycs1
     override def r1: Double = (cs1 - cen).magnitude
-    def r2: Double = (v3 - cen).magnitude
+    def r2: Double = (cs0 - cen).magnitude
     def a: Double = r1.max(r2)
     def b: Double = r1.min(r2)
     override def area: Double = Pi * r1 * r2

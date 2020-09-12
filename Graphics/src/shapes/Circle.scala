@@ -19,18 +19,18 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   @inline def diameter: Double = radius * 2
 
 
-  override def xcs0: Double = xCen
-  override def ycs0: Double = yCen + radius
-  override def cs0: Vec2 = Vec2(xCen, ycs0)
+  override def xs0: Double = xCen
+  override def ys0: Double = yCen + radius
+  override def cs0: Vec2 = Vec2(xCen, ys0)
 
   override def xcs1: Double = xCen + radius
   override def ycs1: Double = yCen
   override def x2: Double = xCen - radius
   override def y2: Double = yCen
 
-  override def x3: Double = xCen
+  /*override def x3: Double = xCen
 
-  override def y3: Double = yCen + radius
+  override def y3: Double = yCen + radius*/
   @inline override def r1: Double = radius
   @inline override def r2: Double = radius
   @inline override def a: Double = radius
