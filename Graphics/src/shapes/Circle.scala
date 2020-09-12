@@ -5,10 +5,8 @@ import pWeb._, math.Pi
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
 final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Ellipse
-{
-  /* Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
-  
-  def fTrans(f: Vec2 => Vec2): Circle =
+{  
+  override def fTrans(f: Vec2 => Vec2): Circle =
   { val v1: Vec2 = cen.addX(radius)
     val newV1: Vec2 = f(v1)
     val newCen = f(cen)
@@ -16,22 +14,19 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
     Circle(newRadius, newCen)
   }
   
+  /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   @inline def diameter: Double = radius * 2
 
   override def xs0: Double = xCen
   override def ys0: Double = yCen + radius
-  override def cs0: Vec2 = Vec2(xCen, ys0)
+  override def s0: Vec2 = Vec2(xCen, ys0)
   override def xs1: Double = xCen + radius
   override def ys1: Double = yCen
   override def xs2: Double = xCen
   override def ys2: Double = yCen - ys0
-
   override def xs3: Double = xCen - radius
   override def ys3: Double = yCen
-
-  /*override def x3: Double = xCen
-
-  override def y3: Double = yCen + radius*/
+  
   @inline override def r1: Double = radius
   @inline override def radius0: Double = radius
   @inline override def a: Double = radius

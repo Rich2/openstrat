@@ -17,8 +17,8 @@ class AffineExtensions[T](value: T, ev: AffineTrans[T])
   /** The scale transformation on 2 dimensional vectors. */
   def scaleSlateY(factor: Double, yDelta: Double): T = trans(v => (v * factor).addY(yDelta))
 
-  def scaleY(factor: Double): T = trans(_.scaleY(factor))
-  def scaleX(factor: Double): T = trans(_.scaleX(factor))
+  def scaleY(factor: Double): T = trans(_.yScale(factor))
+  def scaleX(factor: Double): T = trans(_.xScale(factor))
 
   /** Mirrors along the Y axis by negating X. */
   def negX: T = trans(_.reflectY)

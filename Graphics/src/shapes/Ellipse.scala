@@ -23,7 +23,7 @@ trait Ellipse extends Shape
   def ys0: Double
   
   /** Curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
-  def cs0: Vec2
+  def s0: Vec2
 
   /** The x component of curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
   def xs1: Double
@@ -32,7 +32,7 @@ trait Ellipse extends Shape
   def ys1: Double
 
   /** Curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
-  final def cs1: Vec2 = xs1 vv ys1
+  final def s1: Vec2 = xs1 vv ys1
 
   /** The x component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
   def xs2: Double
@@ -41,7 +41,7 @@ trait Ellipse extends Shape
   def ys2: Double
 
   /** Curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
-  final def cs2: Vec2 = Vec2(xs2, ys2)
+  final def s2: Vec2 = Vec2(xs2, ys2)
 
   /** The x component of curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
   def xs3: Double
@@ -50,7 +50,7 @@ trait Ellipse extends Shape
   def ys3: Double
 
   /** Curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
-  def cs3: Vec2 = xs3 vv ys3
+  def s3: Vec2 = xs3 vv ys3
 
   /** radius 0. By default this will be the up radius to cs0. By convention and defualt This will normally be the value of b, the minor ellipse
    *  radius, but even if it starts as b in certain transformations it may become a, the major ellipse radius. */
@@ -83,32 +83,34 @@ trait Ellipse extends Shape
   def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
+  def fTrans(f: Vec2 => Vec2): Ellipse = Ellipse.cs1s3(f(cen), f(s1), f(s3))
+  
   /** Translate geometric transformation on a Ellipse returns a Ellipse. */
-  override def slate(offset: Vec2): Ellipse = ???
+  override def slate(offset: Vec2): Ellipse = fTrans(_ + offset)
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): Ellipse = ???
+  override def slate(xOffset: Double, yOffset: Double): Ellipse = fTrans(_.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Ellipse = ???
+  override def scale(operand: Double): Ellipse = fTrans(_ * operand)
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: Ellipse = ???
+  override def rotate90: Ellipse = fTrans(_.rotate90)
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: Ellipse = ???
+  override def rotate180: Ellipse = fTrans(_.rotate180)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Ellipse = ???
+  override def rotate270: Ellipse = fTrans(_.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Ellipse = ???
-  override def xyScale(xOperand: Double, yOperand: Double): Ellipse = ???
-  override def rotateRadians(radians: Double): Ellipse = ???
+  override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
+  override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
+  override def rotateRadians(radians: Double): Ellipse = fTrans(_.rotateRadians(radians))
 
-  override def reflectX: Ellipse = ???
+  override def reflectX: Ellipse = fTrans(_.reflectX)
 
-  override def reflectY: Ellipse = ???
+  override def reflectY: Ellipse = fTrans(_.reflectY)
 
   override def reflectYOffset(xOffset: Double): Ellipse = ???
 
@@ -121,8 +123,7 @@ trait Ellipse extends Shape
   override def xShear(operand: Double): Ellipse = ???
 
   override def yShear(operand: Double): Ellipse = ???
-
-  //override def mirrorX: Ellipse
+  
   def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
 }
 
@@ -142,35 +143,30 @@ object Ellipse
     new Implementation(cen.x, cen.y, v1.x, v1.y, radius0)
   }
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s3(ell.cen + offset, ell.cs1 + offset, ell.cs0 + offset)
+  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s3(ell.cen + offset, ell.s1 + offset, ell.s0 + offset)
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse.cs1s3(ell.cen, ell.cs1, ell.cs0)
+  implicit val rotateImplicit: Rotate[Ellipse] = (ell, radians) => Ellipse.cs1s3(ell.cen, ell.s1, ell.s0)
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
   case class Implementation(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius0: Double) extends Ellipse
-  {
-    override def xs0: Double = ???
-
-    override def ys0: Double = ???
-
-    override def cs0: Vec2 = ???
-
+  { override def s0: Vec2 = cen + s0Angle.toVec2(radius0)
+    override def xs0: Double = s0.x
+    override def ys0: Double = s1.y
     override def xs2: Double = 2 * xCen - xs0
     override def ys2: Double = 2 * yCen - ys0
 
     def xs3: Double = 2 * xCen - xs1
     def ys3: Double = 2 * yCen - ys1
 
-    override def r1: Double = (cs1 - cen).magnitude
+    override def r1: Double = (s1 - cen).magnitude
 
     def a: Double = r1.max(radius0)
     def b: Double = r1.min(radius0)
     override def area: Double = Pi * r1 * radius0
     override def e: Double = sqrt(a.squared - b.squared) / a
-    override def h: Double = (a - b).squared / (a + b).squared
-   // override def fTrans(f: Vec2 => Vec2): Implementation = Implementation(f(cen), f(v1), f(v3))
-    override def fillOld(fillColour: Colour): ShapeFillOld = ??? //EllipseFill = EllipseFill(this, fillColour)
+    override def h: Double = (a - b).squared / (a + b).squared  
+    override def fillOld(fillColour: Colour): ShapeFillOld = ??? 
     override def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
     override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
     override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
@@ -183,16 +179,7 @@ object Ellipse
       BoundingRect(xCen - xd, xCen + xd, yCen - yd, yCen + yd)
     }
 
-    override def ellipeRotation: Angle = (cs1 - cen).angle
-  }
-
-  /** Companion object for the EllipseClass. Contains various factory methods for the creation of ellipses from different starting points. */
-  object Implementation
-  { //def apply(vLeft: Vec2, vRight: Vec2, vUp: Vec2): Implementation = new Implementation(vLeft.x, vLeft.y, vRight.x, vRight.y, vUp.x, vUp.y)
-
-    def cenV1V3(cen: Vec2, v1: Vec2, v3: Vec2): Implementation =
-    { val radius0: Double = (v3 - cen).magnitude
-      new Implementation(cen.x, cen.y, v1.x, v1.y, radius0)
-    }
+    override def ellipeRotation: Angle = (s1 - cen).angle
+    def s0Angle = ellipeRotation + 90.degs
   }
 }
