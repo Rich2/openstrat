@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA1b(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
+case class LsA1b(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1b")
 {
   val cs = Arr(
     Circle(100, 0, 0).draw(2, SeaGreen),

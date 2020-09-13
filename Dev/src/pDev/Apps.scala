@@ -36,8 +36,9 @@ object Apps
     ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
 
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
-    ("A1", (learn.LessonA1(_), "JavaFx Demonstration Canvas 1")),
-    ("A1b", (learn.LessonA1b(_), "JavaFx Demonstration Canvas 1b")),
+    ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
+    ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
+    ("A1s", (learn.LsA1Summary(_), "JavaFx Demonstration Canvas A1 Summary")),
     ("A2", (learn.LessonA2(_), "JavaFx Demonstration Canvas 2")),
     ("A3", (learn.LessonA3(_), "JavaFx Demonstration Canvas 3")),
     ("A4", (learn.LessonA4(_), "JavaFx Demonstration Canvas 4")),
