@@ -8,7 +8,7 @@ final case class RectlignImplement(width: Double, height: Double, xCen: Double, 
 { type ThisT = RectlignImplement
   override def fTrans(f: Vec2 => Vec2): RectlignImplement = ???
   override def shapeAttribs: Arr[XANumeric] = ???
-  override def rotateRadians(radians: Double): RectImplement = ???
+  override def rotateRadians(radians: Double): Rect = ???
   override def reflectX: ThisT = fTrans(_.reflectX)
   override def reflectY: ThisT = fTrans(_.reflectY)
   def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
