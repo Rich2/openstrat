@@ -15,6 +15,3 @@ case class LessonA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val els = Arr(el1, el2)
   repaint(circles ++ crosses ++ els)
 }
-
-
- 

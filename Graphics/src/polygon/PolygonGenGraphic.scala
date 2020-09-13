@@ -4,7 +4,6 @@ package geom
 
 case class PolygonGenGraphic(shape: PolygonGen, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
 {
-
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */
