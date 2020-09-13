@@ -2,7 +2,8 @@
 package ostrat
 package geom
 import pWeb._, Colour.Black
-trait ShapeFacet// extends ShapeMember
+
+trait ShapeFacet
 { def attribs: Arr[XmlAtt]
 }
 

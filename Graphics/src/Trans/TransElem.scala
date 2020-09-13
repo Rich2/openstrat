@@ -51,6 +51,8 @@ trait TransElem extends Product with Serializable
   def yShear(operand: Double): TransElem
 }
 
+/** Companion object for the [[TransElem]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type
+ *  classes. */
 object TransElem
 { implicit val slateImplicit: Slate[TransElem] = (obj: TransElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[TransElem] = (obj: TransElem, operand: Double) => obj.scale(operand)

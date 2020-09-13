@@ -62,6 +62,7 @@ trait Shape extends TransElem
   override def yShear(operand: Double): Shape
 }
 
+/** Companion object for the [[Shape]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type classes. */
 object Shape
 {
   implicit val slateImplicit: Slate[Shape] = (obj: Shape, offset: Vec2) => obj.slate(offset)
