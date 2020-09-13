@@ -4,7 +4,7 @@ package geom
 
 /** A rectangle class that has position and may not be aligned to the X and Y axes. */
 final class RectImplement(val x0: Double, val y0: Double, val x1: Double, val y1: Double, val width: Double) extends RectV0V1
-{ override type ThisT = RectImplement
+{ type ThisT = RectImplement
   override def height: Double = (v1 - v2).magnitude
   override def fTrans(f: Vec2 => Vec2): RectImplement = RectImplement.points(f(cen), f(v0), f(v1))
 

@@ -54,14 +54,14 @@ trait Rect extends Rectangular with Polygon
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); f(x3, y3); () }
 
   /** Translate geometric transformation on a Shape returns a Shape. */
-  override def slate(offset: Vec2): Rect
+  override def slate(offset: Vec2): Rect = ???
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): Rect
+  override def slate(xOffset: Double, yOffset: Double): Rect = ???
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Rect
+  override def scale(operand: Double): Rect = ???
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def reflectYOffset(xOffset: Double): Rect
@@ -77,20 +77,20 @@ trait Rect extends Rectangular with Polygon
    * in sub classes. */
   override def reflectY: Rect
 
-  override def prolign(matrix: ProlignMatrix): Rect
+  override def prolign(matrix: ProlignMatrix): Rect = ???
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: Rect
+  override def rotate90: Rect = ???
 
   /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: Rect
+  override def rotate180: Rect = ???
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Rect
+  override def rotate270: Rect = ???
 
-  override def reflect(line: Line): Rect
+  override def reflect(line: Line): Rect = ???
 
-  override def reflect(line: Sline): Rect
+  override def reflect(line: Sline): Rect = ???
 
   override def rotateRadians(radians: Double): Rect = ???
   //override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
