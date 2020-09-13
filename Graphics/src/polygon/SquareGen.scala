@@ -5,9 +5,8 @@ import pWeb._
 
 /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
  *  rotated while remaining a Square. */
-final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends Square with RectV0V1 with SimilarPreserve
-{ override type ThisT = SquareGen
-
+final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends Square with RectV0V1// with SimilarPreserve
+{ 
   override def width: Double = v0.distTo(v1)
   override def shapeAttribs: Arr[XANumeric] = ???
 
