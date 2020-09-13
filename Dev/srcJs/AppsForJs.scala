@@ -37,7 +37,7 @@ object AppsForJs
     ("Z3", (pZug.ZugGui(_, pZug.Zug3), "Js Zugfuhrer Z3 France")),
 
     ("A1", (learn.LsA1a(_), "Js Demonstration Canvas 1")), //Static Graphics
-    ("A2", (learn.LessonA2(_), "Js Demonstration Canvas 2")),
+    ("A2", (learn.LsA2(_), "Js Demonstration Canvas 2")),
     ("A3", (learn.LessonA3(_), "Js Demonstration Canvas 3")),
     ("A4", (learn.LessonA4(_), "Js Demonstration Canvas 4")),
     ("A5", (learn.LessonA5(_), "Js Demonstration Canvas 5")),
