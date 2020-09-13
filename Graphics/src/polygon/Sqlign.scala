@@ -5,12 +5,13 @@ import pWeb._
 
 /** A square aligned to the X and Y axes. */
 final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends Square with Rectanglelign
-{ override type ThisT = Sqlign
+{ type ThisT = Sqlign
   override def shapeAttribs: Arr[XANumeric] = ???
   override def fTrans(f: Vec2 => Vec2): Sqlign = Sqlign.cenV0(f(cen), f(v0))
 
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
 
+  override def slate(xOffset: Double, yOffset: Double): Sqlign = ???
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen * operand)
 
   override def reflectXOffset(yOffset: Double): Sqlign = Sqlign(width, cen.reflectXOffset(yOffset))

@@ -5,7 +5,7 @@ import pWeb._
 
 final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) extends TriangleIsos
 {
-  override type ThisT = TriangleEqui
+  type ThisT = TriangleEqui
   override def height: Double = ???
   override def foreach[U](f: Vec2 => U): Unit = ???
   override def shapeAttribs: Arr[XANumeric] = ???
@@ -14,8 +14,8 @@ final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) ex
   override def rotateRadians(radians: Double): Triangle = ???
   override def reflectX: ThisT = fTrans(_.reflectX)
   override def reflectY: ThisT = fTrans(_.reflectY)
-  def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-  def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
+  override def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
+  override def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
   override def reflect(line: Line): Triangle = ???
 
   override def reflect(line: Sline): Triangle = ???

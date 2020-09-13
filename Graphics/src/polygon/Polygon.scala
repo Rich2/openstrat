@@ -4,8 +4,11 @@ package geom
 
 /** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
-trait Polygon extends Vec2sLike with Shape with ProlignPreserve
-{ type ThisT <: Polygon
+trait Polygon extends Vec2sLike with Shape// with ProlignPreserve
+{ //type ThisT <: Polygon
+
+  def fTrans(f: Vec2 => Vec2): Polygon = ??? //new Polygon(arrTrans(f))
+
   def length: Int
   def xGet(index: Int): Double
   def yGet(index: Int): Double
@@ -38,7 +41,49 @@ trait Polygon extends Vec2sLike with Shape with ProlignPreserve
 
   @inline def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
 
-  @inline override def rotateRadians(radians: Double): Polygon = polygonMap(_.rotateRadians(radians))
+
+  /** Translate geometric transformation on a Shape returns a Shape. */
+  override def slate(offset: Vec2): Polygon
+
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): Polygon
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): Polygon
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYOffset(xOffset: Double): Polygon
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): Polygon
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectX: Polygon
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: Polygon
+
+  override def prolign(matrix: ProlignMatrix): Polygon
+
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  override def rotate90: Polygon
+
+  /** Rotates 180 degrees or Pi radians. */
+  override def rotate180: Polygon
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  override def rotate270: Polygon
+
+  override def reflect(line: Line): Polygon
+
+  override def reflect(line: Sline): Polygon
+
+  override def xyScale(xOperand: Double, yOperand: Double): Polygon
+
+  override def rotateRadians(radians: Double): Polygon = polygonMap(_.rotateRadians(radians))
 
   override def xShear(operand: Double): Polygon = ???
   override def yShear(operand: Double): Polygon = ???

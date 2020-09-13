@@ -27,6 +27,49 @@ trait Triangle extends Polygon
 	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); () }
 	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }
 	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); () }
+
+
+	/** Translate geometric transformation on a Shape returns a Shape. */
+	override def slate(offset: Vec2): Triangle = ???
+
+	/** Translate geometric transformation. */
+	override def slate(xOffset: Double, yOffset: Double): Triangle = ???
+
+	/** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+	 * Squares. Use the xyScale method for differential scaling. */
+	override def scale(operand: Double): Triangle = ???
+
+	/** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+	override def reflectYOffset(xOffset: Double): Triangle = ???
+
+	/** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+	override def reflectXOffset(yOffset: Double): Triangle = ???
+
+	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+	 * in sub classes. */
+	override def reflectX: Triangle = ???
+
+	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+	 * in sub classes. */
+	override def reflectY: Triangle = ???
+
+	override def prolign(matrix: ProlignMatrix): Triangle = ???
+
+	/** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+	override def rotate90: Triangle = ???
+
+	/** Rotates 180 degrees or Pi radians. */
+	override def rotate180: Triangle = ???
+
+	/** Rotates 90 degrees or Pi/2 radians clockwise. */
+	override def rotate270: Triangle = ???
+
+	override def reflect(line: Line): Triangle = ???
+
+	override def reflect(line: Sline): Triangle = ???
+
+	override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
+
 	override def xShear(operand: Double): Triangle = ???
 	override def yShear(operand: Double): Triangle = ???
 
@@ -35,8 +78,8 @@ trait Triangle extends Polygon
 	override def yGet(index: Int): Double = ???
 }
 
-final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle with AffinePreserve
-{ override type ThisT = TriangleClass
+final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle //with AffinePreserve
+{ type ThisT = TriangleClass
 	override def v1: Vec2 = ???
 	override def shapeAttribs: Arr[XANumeric] = ???
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???

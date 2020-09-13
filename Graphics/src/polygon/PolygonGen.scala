@@ -25,7 +25,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   @inline def x0: Double = arrayUnsafe(0)
   @inline def y0: Double = arrayUnsafe(1)
   @inline def v0: Vec2 = x0 vv y0
-  def fTrans(f: Vec2 => Vec2): PolygonGen = new PolygonGen(arrTrans(f))
+  override def fTrans(f: Vec2 => Vec2): PolygonGen = new PolygonGen(arrTrans(f))
   def eq(obj: PolygonGen): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
   def maxX: Double = foldTailLeft(head.x)((acc, el) => acc.max(el.x))

@@ -5,7 +5,7 @@ import pWeb._
 
 /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
 final case class Rectlign(width: Double, height: Double, xCen: Double, yCen: Double) extends Rectanglelign
-{ override type ThisT = Rectlign
+{ type ThisT = Rectlign
   override def fTrans(f: Vec2 => Vec2): Rectlign = ???
   override def shapeAttribs: Arr[XANumeric] = ???
   override def rotateRadians(radians: Double): RectImplement = ???
