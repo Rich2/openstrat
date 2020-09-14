@@ -4,9 +4,8 @@ package geom
 
 /** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
-trait Polygon extends Vec2sLike with Shape// with ProlignPreserve
-{ //type ThisT <: Polygon
-
+trait Polygon extends Vec2sLike with Shape
+{
   def fTrans(f: Vec2 => Vec2): Polygon = ??? //new Polygon(arrTrans(f))
 
   def length: Int
@@ -119,4 +118,26 @@ trait Polygon extends Vec2sLike with Shape// with ProlignPreserve
 object Polygon
 { implicit val eqImplicit: Eq[Polygon] = (p1, p2) => ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
   implicit val persistImplicit: Persist[Polygon] = ???
+
+  implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, radians: Double) => obj.rotateRadians(radians)
+  implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+
+  implicit val rotateAxesImplicit: RotateAxes[Polygon] = new RotateAxes[Polygon]
+  { override def rotateT90(obj: Polygon): Polygon = obj.rotate90
+    override def rotateT180(obj: Polygon): Polygon = obj.rotate180
+    override def rotateT270(obj: Polygon): Polygon = obj.rotate270
+  }
+
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[Polygon] = new ReflectAxisOffset[Polygon]
+  { override def reflectXOffsetT(obj: Polygon, yOffset: Double): Polygon = obj.reflectXOffset(yOffset)
+    override def reflectYOffsetT(obj: Polygon, xOffset: Double): Polygon = obj.reflectYOffset(xOffset)
+  }
+
+  implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]
+  { override def xShearT(obj: Polygon, yFactor: Double): Polygon = obj.xShear(yFactor)
+    override def yShearT(obj: Polygon, xFactor: Double): Polygon = obj.yShear(xFactor)
+  }
 }
