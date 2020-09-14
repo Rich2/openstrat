@@ -71,7 +71,7 @@ object Japan extends Flag
   val ratio = 1.5
   val apply: Arr[DisplayElem] =
   { val rw = rect.fillOld(White)
-    val circ = Circle(0.6, Vec2Z).fillOld(Colour.fromInts(188, 0,45))
+    val circ = Circle(0.3, Vec2Z).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
   }
 }
@@ -174,9 +174,9 @@ object India extends Flag
     val spokes = iToMap(0,23){i => spoke.rotate(deg30/2*i)}
     val rimNotch = Circle(0, -17.5/150, 0.875/75).rotate(deg30/4).fillOld(Colour(0xFF000080))
     val rimNotches = iToMap(0,23){i => rimNotch.rotate(deg30/2*i)}
-    val outerCircle = Circle(20.0/75).fillOld(Colour(0xFF000080))
-    val middleCircle = Circle(17.5/75).fillOld(Colour(0xFFFFFFFF))
-    val innerCircle = Circle(3.5/75).fillOld(Colour(0xFF000080))
+    val outerCircle = Circle(10.0/75).fill(Colour(0xFF000080))
+    val middleCircle = Circle(8.75/75).fill(Colour(0xFFFFFFFF))
+    val innerCircle = Circle(1.75/75).fill(Colour(0xFF000080))
     topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }
