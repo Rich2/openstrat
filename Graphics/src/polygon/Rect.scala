@@ -63,11 +63,11 @@ trait Rect extends Rectangular with Polygon
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Rect = ???
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): Rect = ???
-
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): Rect
+  override def reflectXOffset(yOffset: Double): Rect = ???
+
+  /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
+  override def reflectYOffset(xOffset: Double): Rect = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
@@ -183,7 +183,7 @@ object Rect
     override def rotateRadians(radians: Double): RectImplement = ???
     override def reflectX: RectImplement = RectImplement.v0v1(v1.reflectX, v0.reflectX, width)
     override def reflectY: RectImplement = RectImplement.v0v1(v1.reflectY, v0.reflectY, width)
-    def reflectXOffset(yOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
+    override def reflectXOffset(yOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
     override def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
 
     override def reflect(line: Line): RectImplement = RectImplement.v0v1(v1.reflect(line), v0.reflect(line), width)

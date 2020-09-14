@@ -5,13 +5,12 @@ import pWeb._
 
 /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
 final case class RectlignImplement(width: Double, height: Double, xCen: Double, yCen: Double) extends Rectlign
-{ type ThisT = RectlignImplement
-  override def fTrans(f: Vec2 => Vec2): RectlignImplement = ???
+{ override def fTrans(f: Vec2 => Vec2): RectlignImplement = ???
   override def shapeAttribs: Arr[XANumeric] = ???
   override def rotateRadians(radians: Double): Rect = ???
   override def reflectX: RectlignImplement = fTrans(_.reflectX)
   override def reflectY: RectlignImplement = fTrans(_.reflectY)
-  def reflectXOffset(yOffset: Double): RectlignImplement = fTrans(_.reflectXOffset(yOffset))
+  override def reflectXOffset(yOffset: Double): RectlignImplement = fTrans(_.reflectXOffset(yOffset))
   override def reflectYOffset(xOffset: Double): RectlignImplement = fTrans(_.reflectYOffset(xOffset))
   //override def reflect(line: Line): Polygon = ???
   //override def reflect(line: Sline): Polygon = ???
@@ -27,5 +26,5 @@ final case class RectlignImplement(width: Double, height: Double, xCen: Double, 
 
 /** Companion object for the Rectlign class */
 object RectlignImplement
-{ def apply(cen: Vec2, width: Double, height: Double): RectlignImplement = new RectlignImplement(width, height, cen.x, cen.y)
+{ def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): RectlignImplement = new RectlignImplement(width, height, cen.x, cen.y)
 }
