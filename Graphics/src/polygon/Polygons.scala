@@ -4,6 +4,7 @@ package geom
 import collection.mutable.ArrayBuffer
 
 /** Specialised Array based immutable collection class for [[Polygon]]s.  */
+/*
 final class Polygons(val array: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonGen]
 { override type ThisT = Polygons
   override def typeStr: String = "Polygons"
@@ -32,4 +33,4 @@ object Polygons
 
 class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[PolygonGen]
 { def apply(index: Int): PolygonGen = new PolygonGen(unsafeBuff(index))
-}
+}*/

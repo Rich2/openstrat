@@ -123,11 +123,11 @@ object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
   }
 
-  implicit val polygonsBuildImplicit: ArrBuild[PolygonGen, Polygons] = new ArrArrayDblBuild[PolygonGen, Polygons]
+  /*implicit val polygonsBuildImplicit: ArrBuild[PolygonGen, Polygons] = new ArrArrayDblBuild[PolygonGen, Polygons]
   {
     override type BuffT = PolygonBuff
     def fromArray(array: Array[Array[Double]]): Polygons = new Polygons(array)
 
     override def newBuff(length: Int):  BuffT = ???
-  }
+  }*/
 }

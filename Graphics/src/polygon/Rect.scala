@@ -140,7 +140,7 @@ object Rect
   
   def gRatio(height: Double): PolygonGen = apply(Phi * height, height)
   //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))
-  def cross(width: Double, height: Double, barWidth: Double): Polygons = Polygons(apply(width, barWidth), apply(barWidth, height))
+  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
   
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
   { val w = width / 2

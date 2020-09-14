@@ -16,7 +16,7 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   val r2 = r0.slate(300 vv 300)
   val r3 = r0.slate(300 vv -300)
   val r4 = r0.slate(-300 vv -300)
-  val rArr = Polygons(r1, r2, r3, r4)
+  val rArr = Arr(r1, r2, r3, r4)
   var gArr = rArr.map(r => r.parentFill(r.polyCentre, Red))
   val textPosn = 0 vv 0
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)

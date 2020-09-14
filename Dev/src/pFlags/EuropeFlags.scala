@@ -18,7 +18,7 @@ object Belgium extends Flag
 trait EnglandLike extends Flag
 { def ratio = 2
   def englishRed: Colour = Colour.fromInts(204, 0, 0)
-  def redCross: Arr[PolygonFillOld] = Rect.cross(2, 1, 0.2).map(_.fillOld(englishRed))
+  def redCross/*: Arr[PolygonFillOld]*/ = Rect.cross(2, 1, 0.2).map(_.fillOld(englishRed))
   def common = rect.fillOld(White) +: redCross
 }
 
@@ -30,7 +30,7 @@ object England extends EnglandLike
 object UnitedKingdom extends EnglandLike
 { val name = "United Kingdom"
 
-  val apply: Arr[DisplayAffineElem] =
+  val apply: Arr[DisplayElem] =
   { val xd = math.sqrt(5) / 30.0 //hypotenuse sqrt(2 * 2 + 1 * 1)
     val yd = math.sqrt(1.25) / 30.0 //hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)
     val ywc = 5.0 / 30 //top of White cross bar
@@ -56,11 +56,11 @@ object UnitedKingdom extends EnglandLike
       1 vv 0.5,
       xDiag vv ywc)
 
-    val reds1 = Polygons(r1, r2).map(_.fillOld(englishRed))
+    val reds1 = Arr(r1, r2).map(_.fillOld(englishRed))
     val reds = reds1.flatMap(e => Arr(e, e.negXY))
 
     val blues = {
-      val l1 = Polygons(b1, b2).map(_.fillOld(Colour.fromInts(0, 0, 102)))
+      val l1 = Arr(b1, b2).map(_.fillOld(Colour.fromInts(0, 0, 102)))
       l1.flatMap(b => Arr(b, b.negX, b.negY, b.negXY))
     }
     common ++ blues ++ reds

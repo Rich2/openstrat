@@ -40,7 +40,6 @@ trait Polygon extends Vec2sLike with Shape
 
   @inline def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
 
-
   /** Translate geometric transformation on a Shape returns a Shape. */
   override def slate(offset: Vec2): Polygon
 
