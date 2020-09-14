@@ -64,7 +64,7 @@ trait Rect extends Rectangular with Polygon
   override def scale(operand: Double): Rect = ???
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): Rect
+  override def reflectYOffset(xOffset: Double): Rect = ???
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXOffset(yOffset: Double): Rect
@@ -184,7 +184,7 @@ object Rect
     override def reflectX: RectImplement = RectImplement.v0v1(v1.reflectX, v0.reflectX, width)
     override def reflectY: RectImplement = RectImplement.v0v1(v1.reflectY, v0.reflectY, width)
     def reflectXOffset(yOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
-    def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
+    override def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
 
     override def reflect(line: Line): RectImplement = RectImplement.v0v1(v1.reflect(line), v0.reflect(line), width)
 

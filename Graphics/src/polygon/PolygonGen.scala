@@ -115,6 +115,9 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   /** Uniform scaling aginst both X and Y axes transformation on a [[polygonGen]] returning a [[PolygonGen]]. Use the xyScale method for differential
    *  scaling. */
   override def scale(operand: Double): PolygonGen = polygonMap(_ * operand)
+
+  /** Mirror, reflection transformation of a PolygonGen across the line x = xOffset, which is parallel to the X axis. Returns a PolygonGen. */
+  override def reflectYOffset(xOffset: Double): PolygonGen = polygonMap(_.reflectYOffset(xOffset))
 }
 
 /** Companion object for [[PolygonGen]]. */

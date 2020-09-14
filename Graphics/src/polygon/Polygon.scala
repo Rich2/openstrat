@@ -50,8 +50,8 @@ trait Polygon extends Vec2sLike with Shape
    *  scaling. */
   override def scale(operand: Double): Polygon = polygonMap(_ * operand)
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): Polygon
+  /** Mirror, reflection transformation of a Polygon across the line x = xOffset, which is parallel to the X axis. Returns a Polygon. */
+  override def reflectYOffset(xOffset: Double): Polygon = polygonMap(_.reflectYOffset(xOffset))
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXOffset(yOffset: Double): Polygon

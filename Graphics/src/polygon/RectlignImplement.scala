@@ -9,10 +9,10 @@ final case class RectlignImplement(width: Double, height: Double, xCen: Double, 
   override def fTrans(f: Vec2 => Vec2): RectlignImplement = ???
   override def shapeAttribs: Arr[XANumeric] = ???
   override def rotateRadians(radians: Double): Rect = ???
-  override def reflectX: ThisT = fTrans(_.reflectX)
-  override def reflectY: ThisT = fTrans(_.reflectY)
-  def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
-  def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
+  override def reflectX: RectlignImplement = fTrans(_.reflectX)
+  override def reflectY: RectlignImplement = fTrans(_.reflectY)
+  def reflectXOffset(yOffset: Double): RectlignImplement = fTrans(_.reflectXOffset(yOffset))
+  override def reflectYOffset(xOffset: Double): RectlignImplement = fTrans(_.reflectYOffset(xOffset))
   //override def reflect(line: Line): Polygon = ???
   //override def reflect(line: Sline): Polygon = ???
 
