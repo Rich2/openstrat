@@ -6,13 +6,13 @@ import geom._, Colour._
 object Austria extends Flag
 { def name = "Austria"
   val ratio = 1.5
-  val apply: Arr[DisplayAffineElem] = topToBottom(Black, Yellow)
+  val apply: Arr[DisplayElem] = topToBottom(Black, Yellow)
 }
 
 object Belgium extends Flag
 { val name = "Belgium"
   val ratio = 15.0 / 13.0
-  def apply(): Arr[DisplayAffineElem] = leftToRight(Black, Yellow, Red)
+  def apply(): Arr[DisplayElem] = leftToRight(Black, Yellow, Red)
 }
 
 trait EnglandLike extends Flag
@@ -70,45 +70,45 @@ object UnitedKingdom extends EnglandLike
 object France extends Flag
 { val name = "France"
   val ratio = 1.5
-  val apply: Arr[DisplayAffineElem] = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
+  val apply: Arr[DisplayElem] = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
 }
 
 object Germany extends Flag
 { val name = "Germany"
   val ratio = 5 / 3.0
-  val apply: Arr[DisplayAffineElem] = topToBottom(Black, Red, Gold)
+  val apply: Arr[DisplayElem] = topToBottom(Black, Red, Gold)
 }
 
 object Germany1871 extends Flag
 { val name = "Germany (1871)"
   val ratio = 1.5
-  val apply: Arr[DisplayAffineElem] = topToBottom(Black, White, Red)
+  val apply: Arr[DisplayElem] = topToBottom(Black, White, Red)
 }
 
 object Italy extends Flag
 { val name = "Italy"
   val ratio = 1.5
-  val apply: Arr[DisplayAffineElem] = topToBottom(Green, White, Red)
+  val apply: Arr[DisplayElem] = topToBottom(Green, White, Red)
 }
 
 object Ireland extends Flag
 { val name = "Ireland"
   val ratio = 2
-  val apply: Arr[DisplayAffineElem] = topToBottom(Green, White, Orange)
+  val apply: Arr[DisplayElem] = topToBottom(Green, White, Orange)
 }
 
 object Russia extends Flag
 { val ratio = 1.5
   val name = "Russia"
-  val apply: Arr[DisplayAffineElem] = topToBottom(White, Blue, Red)
+  val apply: Arr[DisplayElem] = topToBottom(White, Blue, Red)
 }
 
 object USSR extends Flag
 { val name = "USSR"
   val ratio = 1.5
-  val apply: Arr[DisplayAffineElem] =
+  val apply: Arr[DisplayElem] =
   {
-    Arr[DisplayAffineElem](
+    Arr[DisplayElem](
       Rect(ratio, 1).fillOld(Red),
       Star5().scale(0.4).fillOld(Gold)
     )
@@ -130,9 +130,9 @@ object Swastika extends Flag
 object CzechRepublic extends Flag
 { val name = "Czech Republic"
   val ratio = 1.5
-  val apply: Arr[DisplayAffineElem] =
+  val apply: Arr[DisplayElem] =
   {
-    Arr[DisplayAffineElem](
+    Arr[DisplayElem](
       Rect(ratio, 1).fillOld(White),
       Rect(ratio, 0.5).slate(0 vv -0.25).fillOld(Colour(0xFFD7141A)),
       Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
@@ -143,8 +143,8 @@ object CzechRepublic extends Flag
 object CCCP extends Flag
 { val name = "CCCP"
   val ratio = 2.0
-  val apply: Arr[DisplayAffineElem] =
-  { Arr[DisplayAffineElem](
+  val apply: Arr[DisplayElem] =
+  { Arr[DisplayElem](
     //background
     Rect(ratio, 1).fillOld(Colour(0xFFCC0000)),
     //hammer
