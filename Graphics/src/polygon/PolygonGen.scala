@@ -111,6 +111,10 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   /** Translate geometric transformation on a [[PolygonGen]] returns a [[PolygonGen]]. */
   override def slate(xOffset: Double, yOffset: Double): PolygonGen = polygonMap(_.addXY(xOffset, yOffset))
+  
+  /** Uniform scaling aginst both X and Y axes transformation on a [[polygonGen]] returning a [[PolygonGen]]. Use the xyScale method for differential
+   *  scaling. */
+  override def scale(operand: Double): PolygonGen = polygonMap(_ * operand)
 }
 
 /** Companion object for [[PolygonGen]]. */

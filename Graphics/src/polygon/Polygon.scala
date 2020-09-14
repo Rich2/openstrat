@@ -46,9 +46,9 @@ trait Polygon extends Vec2sLike with Shape
   /** Translate geometric transformation on a [[Polygon]] returns a [[Polygon]]. */
   override def slate(xOffset: Double, yOffset: Double): Polygon = polygonMap(_.addXY(xOffset, yOffset))
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Polygon
+  /** Uniform scaling aginst both X and Y axes transformation on a [[polygon]] returning a [[Polygon]]. Use the xyScale method for differential
+   *  scaling. */
+  override def scale(operand: Double): Polygon = polygonMap(_ * operand)
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def reflectYOffset(xOffset: Double): Polygon
