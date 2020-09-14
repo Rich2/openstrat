@@ -116,5 +116,5 @@ package object geom
   def deg180: Angle = Angle(180)
 
   def displayRowGraphics(leftPt: Vec2, actives: Arr[DisplayBounded], margin: Double = 10): Arr[DisplayBounded] =
-    actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
+    actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
 }

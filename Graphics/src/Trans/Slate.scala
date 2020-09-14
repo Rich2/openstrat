@@ -26,10 +26,10 @@ object Slate
 class SlateExtensions[T](value: T, ev: Slate[T])
 {
   /** Translate 2 dimensional vectors along the X axis */
-  def slateX(xOffset: Double): T = ev.slateT(value, xOffset vv 0)
+  def xSlate(xOffset: Double): T = ev.slateT(value, xOffset vv 0)
 
   /** Translate 2 dimensional vectors along the Y axis */
-  def slateY(yOffset: Double): T = ev.slateT(value, 0 vv yOffset)
+  def ySlate(yOffset: Double): T = ev.slateT(value, 0 vv yOffset)
 
   /** Translate in 2 dimensional space. */
   def slate(offset: Vec2): T = ev.slateT(value, offset)

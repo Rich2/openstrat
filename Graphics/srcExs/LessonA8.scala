@@ -20,7 +20,7 @@ case class LessonA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A7")
   val sf2 = PolyCurveDraw(shape1.clk45, 2)
   val sf3 = sf2.scale(0.5)
   val sf4 = sf3.slate(-250, 200)
-  val sf5 = sf4.slateX(-100).copy(colour = Green)  
+  val sf5 = sf4.xSlate(-100).copy(colour = Green)
   val rect = Rect(200, 100, -400 vv 100)
   canv.polyFill(rect, Orange)//Not sure why this code is in here.
   val sf6 = sf5.negY.copy(colour = Red)

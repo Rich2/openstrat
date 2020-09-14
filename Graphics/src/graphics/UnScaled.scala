@@ -18,5 +18,5 @@ trait UnScaledPolygonYMirror extends UnScaledPolygon
 {
   /* The right side of the Y Axis of this UnscaledPolygon, defined relative to a unit of 100 for convenience. So 0.35 is defined as 35. 0.222 is defined as 22.2  */
   def rtLine100: Vec2s
-  final override def apply() = rtLine100.yMirrorClose.slateY(-50).scale(0.01)
+  final override def apply() = rtLine100.yMirrorClose.ySlate(-50).scale(0.01)
 }

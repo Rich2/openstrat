@@ -21,7 +21,7 @@ object Star5
   }
 
   /** Not quite sure what this does. */
-  def ptUpYCentred(ratio: Double = classicRatio): PolygonGen = apply(ratio).slateY(deg36.cos / 2 - 0.5)
+  def ptUpYCentred(ratio: Double = classicRatio): PolygonGen = apply(ratio).ySlate(deg36.cos / 2 - 0.5)
 }
 
 object Star7
