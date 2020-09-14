@@ -10,7 +10,7 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDbl
 { type BuffT <: BuffProdDbl2[A]
   final override def elemSize = 2
   override def arrSet(arr: ArrT, index: Int, value: A): Unit = { arr.arrayUnsafe(index * 2) = value._1; arr.arrayUnsafe(index * 2 + 1) = value._2}
-  override def buffGrow(buff: BuffT, value: A): Unit = ??? // { buffer.append(newElem._1).append(newElem._2).append(newElem._3); () }
+  override def buffGrow(buff: BuffT, value: A): Unit = buff.grow(value)// er.append(newElem._1).append(newElem._2).append(newElem._3); () }
 }
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */

@@ -103,6 +103,14 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def drawOld(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   def fillDrawOld(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
     PolygonFillDraw(this, fillColour, lineWidth, lineColour)
+
+  @inline override def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
+
+  /** Translate geometric transformation on a [[PolygonGen]] returns a [[PolygonGen]]. */
+  override def slate(offset: Vec2): PolygonGen = polygonMap(_ + offset)
+
+  /** Translate geometric transformation on a [[PolygonGen]] returns a [[PolygonGen]]. */
+  override def slate(xOffset: Double, yOffset: Double): PolygonGen = polygonMap(_.addXY(xOffset, yOffset))
 }
 
 /** Companion object for [[PolygonGen]]. */

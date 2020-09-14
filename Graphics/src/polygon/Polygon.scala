@@ -6,7 +6,7 @@ package geom
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
 trait Polygon extends Vec2sLike with Shape
 {
-  def fTrans(f: Vec2 => Vec2): Polygon = ??? //new Polygon(arrTrans(f))
+  def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
   def length: Int
   def xGet(index: Int): Double
@@ -38,13 +38,13 @@ trait Polygon extends Vec2sLike with Shape
     BoundingRect(minX, maxX, minY, maxY)
   }
 
-  @inline def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
+  @inline def polygonMap(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
-  /** Translate geometric transformation on a Shape returns a Shape. */
-  override def slate(offset: Vec2): Polygon
+  /** Translate geometric transformation on a [[Polygon]] returns a [[Polygon]]. */
+  override def slate(offset: Vec2): Polygon = polygonMap(_ + offset)
 
-  /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): Polygon
+  /** Translate geometric transformation on a [[Polygon]] returns a [[Polygon]]. */
+  override def slate(xOffset: Double, yOffset: Double): Polygon = polygonMap(_.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
