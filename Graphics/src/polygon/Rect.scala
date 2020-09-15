@@ -80,13 +80,13 @@ trait Rect extends Rectangular with Polygon
   override def prolign(matrix: ProlignMatrix): Rect = ???
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: Rect = ???
+  /*override def rotate90: Rect = ???
 
   /** Rotates 180 degrees or Pi radians. */
   override def rotate180: Rect = ???
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Rect = ???
+  override def rotate270: Rect = ???*/
 
   override def reflect(line: Line): Rect = ???
 

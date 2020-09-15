@@ -56,13 +56,13 @@ trait Triangle extends Polygon
 	override def prolign(matrix: ProlignMatrix): Triangle = ???
 
 	/** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-	override def rotate90: Triangle = ???
+	/*override def rotate90: Triangle = ???
 
 	/** Rotates 180 degrees or Pi radians. */
 	override def rotate180: Triangle = ???
 
 	/** Rotates 90 degrees or Pi/2 radians clockwise. */
-	override def rotate270: Triangle = ???
+	override def rotate270: Triangle = ???*/
 
 	override def reflect(line: Line): Triangle = ???
 

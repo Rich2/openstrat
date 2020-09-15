@@ -66,13 +66,13 @@ trait Polygon extends Vec2sLike with Shape
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: Polygon
+  /*override def rotate90: Polygon
 
   /** Rotates 180 degrees or Pi radians. */
   override def rotate180: Polygon
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Polygon
+  override def rotate270: Polygon*/
 
   override def reflect(line: Line): Polygon
 
@@ -123,11 +123,11 @@ object Polygon
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val rotateAxesImplicit: RotateAxes[Polygon] = new RotateAxes[Polygon]
+  /*implicit val rotateAxesImplicit: RotateAxes[Polygon] = new RotateAxes[Polygon]
   { override def rotateT90(obj: Polygon): Polygon = obj.rotate90
     override def rotateT180(obj: Polygon): Polygon = obj.rotate180
     override def rotateT270(obj: Polygon): Polygon = obj.rotate270
-  }
+  }*/
 
   implicit val mirrorAxisImplicit: ReflectAxisOffset[Polygon] = new ReflectAxisOffset[Polygon]
   { override def reflectXOffsetT(obj: Polygon, yOffset: Double): Polygon = obj.reflectXOffset(yOffset)

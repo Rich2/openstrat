@@ -33,16 +33,7 @@ trait PolygonGraphic extends ShapeGraphic
   override def reflectYOffset(xOffset: Double): PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
-
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: PolygonGraphic
-
-  /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: PolygonGraphic
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: PolygonGraphic
-
+  
   override def rotateRadians(radians: Double): PolygonGraphic
 
   override def reflect(line: Line): PolygonGraphic

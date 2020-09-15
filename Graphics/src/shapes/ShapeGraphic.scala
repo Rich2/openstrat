@@ -43,13 +43,13 @@ trait ShapeGraphic extends DisplayElem
   override def prolign(matrix: ProlignMatrix): ShapeGraphic
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: ShapeGraphic
+  /*override def rotate90: ShapeGraphic
 
   /** Rotates 180 degrees or Pi radians. */
   override def rotate180: ShapeGraphic
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: ShapeGraphic
+  override def rotate270: ShapeGraphic*/
 
   override def rotateRadians(radians: Double): ShapeGraphic
 
@@ -93,7 +93,7 @@ object ShapeGraphic
     override def reflectYOffsetT(obj: ShapeGraphic, xOffset: Double): ShapeGraphic = obj.reflectYOffset(xOffset)
   }
 
-  implicit val rotateAxesImplicit: RotateAxes[ShapeGraphic] = new RotateAxes[ShapeGraphic]
+  /*implicit val rotateAxesImplicit: RotateAxes[ShapeGraphic] = new RotateAxes[ShapeGraphic]
   { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
     override def rotateT90(obj: ShapeGraphic): ShapeGraphic = obj.rotate90
 
@@ -102,7 +102,7 @@ object ShapeGraphic
 
     /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
     override def rotateT270(obj: ShapeGraphic): ShapeGraphic = obj.rotate270
-  }
+  }*/
 
   implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)  
 }

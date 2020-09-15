@@ -44,15 +44,6 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Circle = Circle(radius * operand, cen * operand)
 
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: Circle = Circle(radius, cen.rotate90)
-
-  /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: Circle = Circle(radius, cen.rotate180)
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Circle = Circle(radius, cen.rotate270)
-
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
 
   override def rotateRadians(radians: Double): Circle = Circle(radius, cen.rotateRadians(radians))

@@ -36,12 +36,6 @@ case class PolygonParent(cen: Vec2, poly: PolygonGen, pointerId: Any, children: 
 
   override def prolign(matrix: ProlignMatrix): PolygonParent = PolygonParent(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 
-  override def rotate90: PolygonParent = PolygonParent(cen.rotate90, poly.rotate90, pointerId, children.rotate90)
-
-  override def rotate180: PolygonParent = ???
-
-  override def rotate270: PolygonParent = ???
-
   override def xyScale(xOperand: Double, yOperand: Double): PolygonParent = ???
 }
 

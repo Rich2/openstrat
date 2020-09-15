@@ -32,13 +32,13 @@ trait EllipseGraphic extends ShapeGraphic
   override def prolign(matrix: ProlignMatrix): EllipseGraphic
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: EllipseGraphic
+  /*override def rotate90: EllipseGraphic
 
   /** Rotates 180 degrees or Pi radians. */
   override def rotate180: EllipseGraphic
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: EllipseGraphic
+  override def rotate270: EllipseGraphic*/
 
   override def rotateRadians(radians: Double): EllipseGraphic
 
@@ -107,13 +107,13 @@ object EllipseGraphic
     override def prolign(matrix: ProlignMatrix): EllipseGraphicImplement = EllipseGraphicImplement(shape.prolign(matrix), facets, children.prolign(matrix))
 
     /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-    override def rotate90: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate90, facets, children.rotate90)
+   /* override def rotate90: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate90, facets, children.rotate90)
 
     /** Rotates 180 degrees or Pi radians. */
     override def rotate180: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate180, facets, children.rotate180)
 
     /** Rotates 90 degrees or Pi/2 radians clockwise. */
-    override def rotate270: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate270, facets, children.rotate270)
+    override def rotate270: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate270, facets, children.rotate270)*/
 
     override def rotateRadians(radians: Double): EllipseGraphicImplement = EllipseGraphicImplement(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 

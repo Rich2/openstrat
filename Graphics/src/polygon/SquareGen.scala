@@ -35,13 +35,6 @@ final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, va
 
   override def prolign(matrix: ProlignMatrix): SquareGen = SquareGen(width * matrix.vFactor, cen.prolign(matrix), rotation)
 
-  //* Rotates 90 degrees rotate-clockwise or + Pi/2
-  override def rotate90: SquareGen = SquareGen(width, cen.rotate90)
-
-  override def rotate180: SquareGen = SquareGen(width, cen.rotate180)
-
-  override def rotate270: SquareGen = SquareGen(width, cen.rotate270)
-
   override def rotateRadians(radians: Double): SquareGen = ???
 
   override def reflect(line: Line): SquareGen = ???

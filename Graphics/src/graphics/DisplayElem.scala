@@ -35,13 +35,13 @@ trait DisplayElem extends TransElem
   def prolign(matrix: ProlignMatrix): DisplayElem
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  def rotate90: DisplayElem
+  /*def rotate90: DisplayElem
 
   /** Rotates 180 degrees or Pi radians. */
   def rotate180: DisplayElem
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  def rotate270: DisplayElem
+  def rotate270: DisplayElem*/
 
   def rotateRadians(radians: Double): DisplayElem
 
@@ -73,7 +73,7 @@ object DisplayElem
     override def reflectYOffsetT(obj: DisplayElem, xOffset: Double): DisplayElem = obj.reflectYOffset(xOffset)
   }
 
-  implicit val rotateAxesImplicit: RotateAxes[DisplayElem] = new RotateAxes[DisplayElem]
+  /*implicit val rotateAxesImplicit: RotateAxes[DisplayElem] = new RotateAxes[DisplayElem]
   { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
     override def rotateT90(obj: DisplayElem): DisplayElem = obj.rotate90
 
@@ -82,7 +82,7 @@ object DisplayElem
 
     /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
     override def rotateT270(obj: DisplayElem): DisplayElem = obj.rotate270
-  }
+  }*/
 
   implicit val prolignImplicit: Prolign[DisplayElem] = (obj, matrix) => obj.prolign(matrix)
 }

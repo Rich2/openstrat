@@ -44,13 +44,13 @@ trait Shape extends TransElem
   override def prolign(matrix: ProlignMatrix): Shape
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: Shape
+  /*override def rotate90: Shape
 
   /** Rotates 180 degrees or Pi radians. */
   override def rotate180: Shape
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Shape
+  override def rotate270: Shape*/
 
   override def rotateRadians(radians: Double): Shape
 
@@ -71,11 +71,11 @@ object Shape
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
-  implicit val rotateAxesImplicit: RotateAxes[Shape] = new RotateAxes[Shape]
+  /*implicit val rotateAxesImplicit: RotateAxes[Shape] = new RotateAxes[Shape]
   { override def rotateT90(obj: Shape): Shape = obj.rotate90
     override def rotateT180(obj: Shape): Shape = obj.rotate180
     override def rotateT270(obj: Shape): Shape = obj.rotate270
-  }
+  }*/
 
   implicit val mirrorAxisImplicit: ReflectAxisOffset[Shape] = new ReflectAxisOffset[Shape]
   { override def reflectXOffsetT(obj: Shape, yOffset: Double): Shape = obj.reflectXOffset(yOffset)

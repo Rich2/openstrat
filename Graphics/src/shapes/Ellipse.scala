@@ -100,13 +100,13 @@ trait Ellipse extends Shape
   override def scale(operand: Double): Ellipse = fTrans(_ * operand)
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: Ellipse = fTrans(_.rotate90)
+  /*override def rotate90: Ellipse = fTrans(_.rotate90)
 
   /** Rotates 180 degrees or Pi radians. */
   override def rotate180: Ellipse = fTrans(_.rotate180)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Ellipse = fTrans(_.rotate270)
+  override def rotate270: Ellipse = fTrans(_.rotate270)*/
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))

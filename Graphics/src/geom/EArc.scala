@@ -37,15 +37,6 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   override def prolign(matrix: ProlignMatrix): TransElem = ???
 
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  override def rotate90: TransElem = ???
-
-  /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: TransElem = ???
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: TransElem = ???
-
   override def xyScale(xOperand: Double, yOperand: Double): TransElem = ???
 
   override def xShear(operand: Double): TransElem = ???

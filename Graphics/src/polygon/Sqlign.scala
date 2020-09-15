@@ -24,12 +24,6 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
 
-  override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
-
-  override def rotate180: Sqlign = Sqlign(width, cen.rotate180)
-
-  override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
-
   override def rotateRadians(radians: Double): SquareGen = SquareGen.v0v1(v0.rotateRadians(radians), v1.rotateRadians(radians))
 
   override def reflect(line: Line): SquareGen = ???

@@ -19,7 +19,7 @@ object TransTest extends TestSuite
       assert(r1.scale(3) equ (r2))
       assert(r1.scale(2) equ r3)
       assert(r2.scale(2) equ r4)
-      assert(Polygons(r1, r2).scale(2) equ Polygons(r3, r4))
+     // assert(Arr(r1, r2).scale(2) equ Arr(r3, r4))
       assert(Array(r1, r2).scale(2) equ Array(r3, r4))
       assert(List(r1, r2).scale(2) equ List(r3, r4))
       assert(v1.scale(2) equ Vector(r3, r4))

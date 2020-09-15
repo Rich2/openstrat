@@ -16,14 +16,5 @@ trait ProlignPreserve extends TransElem
   override def reflectX: ThisT
   override def reflectY: ThisT
 
-  /** Rotates 90 degrees or Pi / 2 radians anticlockwise. */
-  override def rotate90: ThisT = fTrans(_.rotate90)
-
-  /** Rotates 180 degrees or + Pi radians. */
-  override def rotate180: ThisT = fTrans(_.rotate180)
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  def rotate270: ThisT = fTrans(_.rotate270)
-
   override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolign(matrix))
 }

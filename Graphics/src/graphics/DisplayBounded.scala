@@ -13,9 +13,9 @@ trait DisplayBounded extends DisplayElem with BoundedElem
   def reflectX: DisplayBounded
   def reflectY: DisplayBounded
   def prolign(matrix: ProlignMatrix): DisplayBounded
-  def rotate90: DisplayBounded
+  /*def rotate90: DisplayBounded
   def rotate180: DisplayBounded
-  def rotate270: DisplayBounded
+  def rotate270: DisplayBounded*/
   def rotateRadians(radians: Double): DisplayBounded
   def reflect(line: Sline): DisplayBounded
   override def xyScale(xOperand: Double, yOperand: Double): DisplayBounded
@@ -36,7 +36,7 @@ object DisplayBounded
     override def reflectYOffsetT(obj: DisplayBounded, xOffset: Double): DisplayBounded = obj.reflectYOffset(xOffset)
   }
 
-  implicit val rotateAxesImplicit: RotateAxes[DisplayBounded] = new RotateAxes[DisplayBounded]
+  /*implicit val rotateAxesImplicit: RotateAxes[DisplayBounded] = new RotateAxes[DisplayBounded]
   { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
     override def rotateT90(obj: DisplayBounded): DisplayBounded = obj.rotate90
 
@@ -45,7 +45,7 @@ object DisplayBounded
 
     /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
     override def rotateT270(obj: DisplayBounded): DisplayBounded = obj.rotate270
-  }
+  }*/
 
   implicit val prolignImplicit: Prolign[DisplayBounded] = (obj, matrix) => obj.prolign(matrix)
 }
