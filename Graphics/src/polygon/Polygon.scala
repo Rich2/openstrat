@@ -59,10 +59,11 @@ trait Polygon extends Vec2sLike with Shape
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
   override def reflectX: Polygon = polygonMap(_.reflectX)
 
-  /** Mirror, reflection transformation of Polygon across the X axis, returns a Polygon. */
-  override def reflectY: Polygon
+  /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
+  override def reflectY: Polygon = polygonMap(_.reflectY)
 
-  override def prolign(matrix: ProlignMatrix): Polygon
+  /** Prolign 2d transformations, similar transofrmations that retain alignment with the axes. */
+  override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
   override def rotate90: Polygon

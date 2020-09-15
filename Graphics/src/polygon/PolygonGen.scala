@@ -122,6 +122,12 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   /** Mirror, reflection transformation of a PolygonGen across the X axis, returns a PolygonGen. */
   override def reflectX: PolygonGen = polygonMap(_.reflectX)
+
+  /** Mirror, reflection transformation of PolygonGen across the Y axis, returns a PolygonGen. */
+  override def reflectY: PolygonGen = polygonMap(_.reflectY)
+
+  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
+  override def prolign(matrix: ProlignMatrix): PolygonGen = polygonMap(_.prolign(matrix))
 }
 
 /** Companion object for [[PolygonGen]]. */
