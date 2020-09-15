@@ -56,12 +56,10 @@ trait Polygon extends Vec2sLike with Shape
   /** Mirror, reflection transformation of a Polygon across the line x = xOffset, which is parallel to the X axis. Returns a Polygon. */
   override def reflectYOffset(xOffset: Double): Polygon = polygonMap(_.reflectYOffset(xOffset))
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def reflectX: Polygon
+  /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
+  override def reflectX: Polygon = polygonMap(_.reflectX)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection transformation of Polygon across the X axis, returns a Polygon. */
   override def reflectY: Polygon
 
   override def prolign(matrix: ProlignMatrix): Polygon
