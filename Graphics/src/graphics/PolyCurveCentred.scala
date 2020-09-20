@@ -14,14 +14,4 @@ case class PolyCurveCentred(cen: Vec2, segs: PolyCurve) extends AffinePreserve
 
   def allElems(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, fontSize: Int, str: String, textAlign: TextAlign = CenAlign):
     PolyCurveAll = PolyCurveAll(segs, evObj, str, fillColour, fontSize, lineWidth, lineColour)
-
-  /* def fixed(evObj: Any, elems: Arr[PaintFullElem]): UnScaledShape = UnScaledShape(cen, segs, evObj, elems)
-   def fillDrawFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Colour.Black): UnScaledShape =
-      UnScaledShape(cen, segs, evObj, Arr(PolyCurveFillDraw(segs, fillColour, lineWidth, lineColour)))
-   def allFixed(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour,
-         textSize: Int, str: String, textAlign: TextAlign = CenAlign): UnScaledShape =
-      UnScaledShape(cen, segs, evObj, Arr(
-            PolyCurveFillDraw(segs, fillColour, lineWidth, lineColour),
-            TextGraphic(str, textSize, Vec2Z, lineColour, textAlign)))   */
-  // def fillFixed(evObj: AnyRef, fillColour: Colour): UnScaledShape = UnScaledShape(cen, segs, evObj, Arr(PolyCurveFill(segs, fillColour)))
 }

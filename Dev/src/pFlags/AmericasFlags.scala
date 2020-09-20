@@ -39,7 +39,6 @@ object Colombia extends Flag
  val apply: Arr[DisplayAffineElem] = topToBottom(Colour(0xFFFCD116), Colour(0xFFFCD116), Colour(0xFF003893), Colour(0xFFCE1126))
 }
 
-
 object Chile extends Flag
 {
  val name = "Chile"
