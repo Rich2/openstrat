@@ -9,7 +9,7 @@ trait Slate[T]
 { def slateT(obj: T, offset: Vec2): T
 }
 
-/** Companion object for the Slate type class. Contains instances. */
+/** Companion object for the Slate type class. Contains instances for collections and other container classes. */
 object Slate
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]

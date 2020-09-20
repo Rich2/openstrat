@@ -65,15 +65,6 @@ trait Polygon extends Vec2sLike with Shape
   /** Prolign 2d transformations, similar transofrmations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  /*override def rotate90: Polygon
-
-  /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: Polygon
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Polygon*/
-
   override def reflect(line: Line): Polygon
 
   override def reflect(line: Sline): Polygon

@@ -2,17 +2,18 @@
 package ostrat
 package geom
 
-/** A geometric element to which 2 dimensional geometric transformations can be applied. Not all elements preserve their full properties under all
- * transformations. So for example a circle is no longer a Circle after a Shear transformation, but remains an Ellipse.  */
+/** A geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all
+ *  transformations. So for example a circle is no longer a Circle after a Shear transformation, but remains an Ellipse.  */
 trait TransElem extends Product with Serializable
-{ /** Translate geometric transformation. */
+{
+  /** Translate 2D geometric transformation. This abstract method returns a [[TransElem]]. The Return type will be narrowed in sub traits.  */
   def slate(offset: Vec2): TransElem
 
-  /** Translate geometric transformation. */
+  /** Translate 2D geometric transformation. This abstract method returns a [[TransElem]]. The Return type will be narrowed in sub traits. */
   def slate(xOffset: Double, yOffset: Double): TransElem
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  /** Uniform 2D scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles
+   *  and Squares. Use the xyScale method for differential scaling. */
   def scale(operand: Double): TransElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
