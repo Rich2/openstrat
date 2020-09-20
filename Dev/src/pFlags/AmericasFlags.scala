@@ -47,9 +47,9 @@ object Chile extends Flag
  val apply: Arr[DisplayAffineElem] =
   {
     Arr[DisplayAffineElem](
-      Rect(ratio, 1).fillOld(White),
-      Rect(ratio, 0.5, 0 vv -0.25).fillOld(Colour(0xFFD52B1E)),
-      Rect(0.5, 0.5, -0.5 vv 0.25).fillOld(Colour(0xFF0039A6)),
+      Rect.applyOld(ratio, 1).fillOld(White),
+      Rect.applyOld(ratio, 0.5, 0 vv -0.25).fillOld(Colour(0xFFD52B1E)),
+      Rect.applyOld(0.5, 0.5, -0.5 vv 0.25).fillOld(Colour(0xFF0039A6)),
       Star5().scale(0.125).slate(-0.5 vv 0.25).fillOld(White)
     )
   }

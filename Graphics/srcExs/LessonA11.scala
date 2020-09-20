@@ -10,7 +10,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val c1 = Cross(1, p1)
   val c1r = Cross(1, p1.reflect(line1))
-  val rect = Rect(200, 100, 200 vv 200)
+  val rect = Rect.applyOld(200, 100, 200 vv 200)
   val r1 = rect.fillOld(Red)
   val r1r = rect.reflect(line1).fillOld(Orange)
   val vRed = 0 vv -50
@@ -19,7 +19,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
   val rStr = TextGraphic(ccl1.svgStr, 20, vRed)
   val ccl1r = cl1.reflect(line1).fillOld(Orange)
 
-  val r2 = Rect(180, 100, 150 vv -200)
+  val r2 = Rect.applyOld(180, 100, 150 vv -200)
   val cl2 = Circle(80, 110 vv - 300)
   val sq = Sqlign(100, 110, -400)
 

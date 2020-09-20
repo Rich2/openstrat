@@ -100,7 +100,7 @@ trait Rect extends Rectangular with Polygon
 object Rect
 {
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
-  def apply(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonGen =
+  def applyOld(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonGen =
   { val x = cen.x; val y = cen.y
     PolygonGen(
         x - width / 2 vv y + height / 2,
@@ -112,7 +112,7 @@ object Rect
   
   def v0v1(v0: Vec2, v1: Vec2, width: Double): Rect = new RectImplement(v0.x, v0.y, v1.x, v1.y, width)
 
-  def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = apply(widthOverHeightRatio * scale, scale, cen)
+  def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
   
   /** A rectangle measured from its top left */
   def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): PolygonGen = PolygonGen(
@@ -138,9 +138,9 @@ object Rect
         x - width / 2 vv y)
   } 
   
-  def gRatio(height: Double): PolygonGen = apply(Phi * height, height)
+  def gRatio(height: Double): PolygonGen = applyOld(Phi * height, height)
   //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))
-  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
+  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(applyOld(width, barWidth), applyOld(barWidth, height))
   
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
   { val w = width / 2

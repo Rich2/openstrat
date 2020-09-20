@@ -8,6 +8,7 @@ trait Rotate[T]
 { def rotateRadiansT(obj: T, radians: Double): T
 }
 
+/** Companion object for the Rotate[T] type class, contains implicit instances for collections and other container classes. */
 object Rotate
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Rotate[T] = (obj, radians) => obj.rotateRadians(radians).asInstanceOf[T]

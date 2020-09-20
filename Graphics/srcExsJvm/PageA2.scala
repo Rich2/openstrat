@@ -7,7 +7,7 @@ import pWeb._
 object PageA2  extends LessonPage
 { val head = HtmlHead(Arr(HtmlTitle("Lesson A2")))
   
-  val r1 = Rect(4, 5, Vec2Z)
+  val r1 = Rect.applyOld(4, 5, Vec2Z)
   
   val bodyStr =
     """<h1>Lesson A2</h1>

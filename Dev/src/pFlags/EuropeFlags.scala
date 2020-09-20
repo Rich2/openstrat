@@ -109,7 +109,7 @@ object USSR extends Flag
   val apply: Arr[DisplayElem] =
   {
     Arr[DisplayElem](
-      Rect(ratio, 1).fillOld(Red),
+      Rect.applyOld(ratio, 1).fillOld(Red),
       Star5().scale(0.4).fillOld(Gold)
     )
   }
@@ -119,7 +119,7 @@ object Swastika extends Flag
 { val name = "Swastika"
   val ratio = 5 / 3.0
   val apply =
-  { val poly = Rect(ratio, 1)
+  { val poly = Rect.applyOld(ratio, 1)
     val bar = Rect.fromBC(0.1, 0.2).fillOld(Black)
     val arm = Rect.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fillOld(Black)
     val cross = Arr(bar, arm).rotate45.flatMap(_.rCrossArr)
@@ -133,8 +133,8 @@ object CzechRepublic extends Flag
   val apply: Arr[DisplayElem] =
   {
     Arr[DisplayElem](
-      Rect(ratio, 1).fillOld(White),
-      Rect(ratio, 0.5).slate(0 vv -0.25).fillOld(Colour(0xFFD7141A)),
+      Rect.applyOld(ratio, 1).fillOld(White),
+      Rect.applyOld(ratio, 0.5).slate(0 vv -0.25).fillOld(Colour(0xFFD7141A)),
       Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
     )
   }
@@ -146,7 +146,7 @@ object CCCP extends Flag
   val apply: Arr[DisplayElem] =
   { Arr[DisplayElem](
     //background
-    Rect(ratio, 1).fillOld(Colour(0xFFCC0000)),
+    Rect.applyOld(ratio, 1).fillOld(Colour(0xFFCC0000)),
     //hammer
     PolyCurve(LineTail(-0.7709 vv 0.2138), LineTail(-0.7395 vv 0.1822), LineTail(-0.7099 vv 0.2116), BezierTail(-0.6648 vv 0.1633, -0.6175 vv 0.1166, -0.5727 vv 0.06808), BezierTail(-0.566 vv 0.06131, -0.555 vv 0.06128, -0.5483 vv 0.068), BezierTail(-0.5415 vv 0.07472, -0.5415 vv 0.08566, -0.5482 vv 0.09243), BezierTail(-0.5962 vv 0.1378, -0.6444 vv 0.1834, -0.6924 vv 0.2289), LineTail(-0.6525 vv 0.2686), LineTail(-0.7081 vv 0.2763), LineTail(-0.7709 vv 0.2138)).fill(Colour(0xFFFFD700)),
     //sickle

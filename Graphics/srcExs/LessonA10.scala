@@ -4,7 +4,7 @@ import ostrat._, geom._, pCanv._//, Colour._
 
 case class LessonA10(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A9")
 {
-  val rect = Rect(300, 200)
+  val rect = Rect.applyOld(300, 200)
   val cen0 = -0 vv -400
   val x1 = 400
   val y2 = -100
