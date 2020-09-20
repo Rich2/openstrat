@@ -4,8 +4,9 @@ package geom
 import pWeb._
 
 /** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. */
-trait Shape extends TransElem
-{ def fillOld(fillColour: Colour): ShapeFillOld
+trait Shape extends Drawable
+{  
+  def fillOld(fillColour: Colour): ShapeFillOld
   def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
   def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw
   def shapeAttribs: Arr[XANumeric]

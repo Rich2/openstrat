@@ -129,6 +129,8 @@ trait Ellipse extends Shape with Curve
   override def yShear(operand: Double): Ellipse = ???
 
   def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeGraphic = ???
 }
 
 object Ellipse

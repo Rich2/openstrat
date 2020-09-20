@@ -8,6 +8,7 @@ trait Polygon extends Vec2sLike with Shape
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
+  override def draw(lineWidth: Double, lineColour: Colour): PolygonGraphic = ???
   def length: Int
   def xGet(index: Int): Double
   def yGet(index: Int): Double
