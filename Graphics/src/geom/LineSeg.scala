@@ -5,9 +5,9 @@ import collection.mutable.ArrayBuffer, Colour.Black
 
 /** A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. We have created a new short name that avoids
  *  ambiguity. */
-class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLikeOld
-{ override type ThisT = Sline
-  override def toString: String = Sline.persistImplicit.show(this)
+class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with CurveLikeOld
+{ override type ThisT = LineSeg
+  override def toString: String = LineSeg.persistImplicit.show(this)
   override def _1 = xStart
   override def _2 = yStart
   override def _3 = xEnd
@@ -20,10 +20,10 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
   //@inline def vEnd: Vec2 = xEnd vv yEnd
 
   override def canEqual(that: Any): Boolean = that match
-  { case op: Sline => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
+  { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
 
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd)
-  def fTrans(f: Vec2 => Vec2): Sline = Sline(f(pStart), f(pEnd))
+  def fTrans(f: Vec2 => Vec2): LineSeg = LineSeg(f(pStart), f(pEnd))
   def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)
   def toLatLongLine(f: Vec2 => LatLong): LLLineSeg = LLLineSeg(f(pStart), f(pEnd))
   def isHorizontal: Boolean = yStart == yEnd
@@ -87,29 +87,29 @@ class Sline(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: 
 }
 
 /** Companion object for the LineSeg class. */
-object Sline
+object LineSeg
 { /** Factory apply method for LineSeg. */
-  @inline def apply(pStart: Vec2, pEnd: Vec2): Sline = new Sline(pStart.x, pStart.y, pEnd.x, pEnd.y)
+  @inline def apply(pStart: Vec2, pEnd: Vec2): LineSeg = new LineSeg(pStart.x, pStart.y, pEnd.x, pEnd.y)
 
-  @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): Sline = new Sline(xStart, yStart, xEnd, yEnd)
+  @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): LineSeg = new LineSeg(xStart, yStart, xEnd, yEnd)
 
-  implicit val persistImplicit: Persist[Sline] with Eq[Sline] =
-    new Persist2[Vec2, Vec2, Sline]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, Sline(_, _))
+  implicit val persistImplicit: Persist[LineSeg] with Eq[LineSeg] =
+    new Persist2[Vec2, Vec2, LineSeg]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, LineSeg(_, _))
 
-  implicit val line2sBuildImplicit: ArrProdDbl4Build[Sline, Slines] = new ArrProdDbl4Build[Sline, Slines]
+  implicit val line2sBuildImplicit: ArrProdDbl4Build[LineSeg, LineSegs] = new ArrProdDbl4Build[LineSeg, LineSegs]
   { type BuffT = Line2sBuff
-    override def fromDblArray(array: Array[Double]): Slines = new Slines(array)
+    override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
   }
 
-  implicit def transimplicit: AffineTrans[Sline] = (obj: Sline, f: Vec2 => Vec2) => Sline(f(obj.pStart), f(obj.pEnd))
+  implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Vec2 => Vec2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
 
 object HLine
 { /** Creates a horizontal Line2 */
-  @inline def apply(y: Double, xStart: Double, yEnd: Double): Sline = new Sline(xStart, y, xStart, y)
+  @inline def apply(y: Double, xStart: Double, yEnd: Double): LineSeg = new LineSeg(xStart, y, xStart, y)
 }
 object VLine
 { /** Creates a vertical Line2 */
-  @inline def apply(x: Double, yStart: Double, yEnd: Double): Sline = new Sline(x, yStart, x, yEnd)
+  @inline def apply(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 }

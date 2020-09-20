@@ -44,5 +44,5 @@ trait PolygonGraphic extends ShapeGraphic
 
   override def yShear(operand: Double): PolygonGraphic
 
-  override def reflect(line: Sline): PolygonGraphic
+  override def reflect(line: LineSeg): PolygonGraphic
 }

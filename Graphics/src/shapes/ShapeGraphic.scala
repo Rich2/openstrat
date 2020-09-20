@@ -60,7 +60,7 @@ trait ShapeGraphic extends DisplayElem
 
   override def yShear(operand: Double): ShapeGraphic
 
-  override def reflect(line: Sline): ShapeGraphic
+  override def reflect(line: LineSeg): ShapeGraphic
 }
 
 object ShapeGraphic

@@ -12,7 +12,7 @@ trait AffineTrans[T] extends TransSim[T]
   override def rotateRadians(obj: T, radians: Double): T = trans(obj, _.rotateRadians(radians))
   def mirrorYOffset(obj: T, xOffset: Double): T = trans(obj, _.reflectYOffset(xOffset))
   def mirrorXOffset(obj: T, yOffset: Double): T = trans(obj, _.reflectXOffset(yOffset))
-  override def reflectSegT(obj: T, line: Sline): T = trans(obj, _.reflect(line))
+  override def reflectSegT(obj: T, line: LineSeg): T = trans(obj, _.reflect(line))
   override def reflectT(obj: T, line: Line): T = trans(obj, _.reflect(line))
 }
 

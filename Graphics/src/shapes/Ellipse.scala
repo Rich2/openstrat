@@ -122,7 +122,7 @@ trait Ellipse extends Shape
 
   override def reflect(line: Line): Ellipse = ???
 
-  override def reflect(line: Sline): Ellipse = ???
+  override def reflect(line: LineSeg): Ellipse = ???
 
   override def xShear(operand: Double): Ellipse = ???
 

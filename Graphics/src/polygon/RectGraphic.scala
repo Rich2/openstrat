@@ -44,7 +44,7 @@ case class RectGraphic(shape: Rect, facets: Arr[ShapeFacet], children: Arr[Shape
 
   override def yShear(operand: Double): PolygonGraphic = ???
 
-  override def reflect(line: Sline): RectGraphic = ???
+  override def reflect(line: LineSeg): RectGraphic = ???
 
   
 }

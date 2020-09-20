@@ -66,7 +66,7 @@ trait Triangle extends Polygon
 
 	override def reflect(line: Line): Triangle = ???
 
-	override def reflect(line: Sline): Triangle = ???
+	override def reflect(line: LineSeg): Triangle = ???
 
 	override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 

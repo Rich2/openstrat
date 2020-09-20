@@ -50,7 +50,7 @@ trait EllipseGraphic extends ShapeGraphic
 
   override def yShear(operand: Double): EllipseGraphic
 
-  override def reflect(line: Sline): EllipseGraphic
+  override def reflect(line: LineSeg): EllipseGraphic
 }
 
 object EllipseGraphic
@@ -125,6 +125,6 @@ object EllipseGraphic
 
     override def yShear(operand: Double): EllipseGraphicImplement = ???
 
-    override def reflect(line: Sline): EllipseGraphicImplement = ???
+    override def reflect(line: LineSeg): EllipseGraphicImplement = ???
   }
 }

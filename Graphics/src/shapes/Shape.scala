@@ -55,7 +55,7 @@ trait Shape extends TransElem
   override def rotateRadians(radians: Double): Shape
 
   override def reflect(line: Line): Shape
-  override def reflect(line: Sline): Shape
+  override def reflect(line: LineSeg): Shape
   override def xyScale(xOperand: Double, yOperand: Double): Shape
 
   override def xShear(operand: Double): Shape

@@ -18,7 +18,7 @@ final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) ex
   override def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
   override def reflect(line: Line): Triangle = ???
 
-  override def reflect(line: Sline): Triangle = ???
+  override def reflect(line: LineSeg): Triangle = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 

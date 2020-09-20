@@ -10,7 +10,7 @@ class DistLineSeg(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double
   def yEnd: Dist = Dist(yEndMetres)
   def ptStart: Dist2 = Dist2(xStart, yStart)
   def ptEnd: Dist2 = Dist2(xEnd, yEnd)
-  def toLine2(f: Dist2 => Vec2): Sline = Sline(f(ptStart), f(ptEnd))
+  def toLine2(f: Dist2 => Vec2): LineSeg = LineSeg(f(ptStart), f(ptEnd))
 }
 object DistLineSeg
 {

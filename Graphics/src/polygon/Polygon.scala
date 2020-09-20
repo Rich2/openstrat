@@ -67,7 +67,7 @@ trait Polygon extends Vec2sLike with Shape
 
   override def reflect(line: Line): Polygon
 
-  override def reflect(line: Sline): Polygon
+  override def reflect(line: LineSeg): Polygon
 
   override def xyScale(xOperand: Double, yOperand: Double): Polygon
 
@@ -77,30 +77,30 @@ trait Polygon extends Vec2sLike with Shape
   override def yShear(operand: Double): Polygon = ???
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
-  def toLineSegs: Slines =if (length > 1)
-  { val res: Slines = Slines(length)
-    for (i <- 0 until (length - 1)) res.unsafeSetElem(i, Sline(apply(i), apply(i + 1)))
-    res.unsafeSetLast(Sline(apply(length - 1), v0))
+  def toLineSegs: LineSegs =if (length > 1)
+  { val res: LineSegs = LineSegs(length)
+    for (i <- 0 until (length - 1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
+    res.unsafeSetLast(LineSeg(apply(length - 1), v0))
     res
   }
-  else Slines()
+  else LineSegs()
 
   /** Determines if the parenter point lies inside this Polygon. */
   def ptInside(pt: Vec2): Boolean = toLineSegs.ptInPolygon(pt)
 
   def polyCentre: Vec2 = boundingRect.cen
 
-  def sline(index: Int): Sline =
+  def sline(index: Int): LineSeg =
   { val index2: Int = ife(index == length -1, 0, index + 1)
-    Sline(apply(index), apply(index2))
+    LineSeg(apply(index), apply(index2))
   }
 
-  def sline0: Sline = sline(0)
-  def sline1: Sline = sline(1)
-  def sline2: Sline = sline(2)
-  def sline3: Sline = sline(3)
-  def sline4: Sline = sline(4)
-  def sline5: Sline = sline(5)
+  def sline0: LineSeg = sline(0)
+  def sline1: LineSeg = sline(1)
+  def sline2: LineSeg = sline(2)
+  def sline3: LineSeg = sline(3)
+  def sline4: LineSeg = sline(4)
+  def sline5: LineSeg = sline(5)
 }
 
 /** Companion object for the Polygon trait. */

@@ -14,7 +14,7 @@ trait RectCenlign extends Rectangularlign
   def bottom = -height / 2
   def panelCen: Vec2 = Vec2(0, 0)
   def cenLeft = Vec2(left, 0)
-  def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw = Slines.doubles(
+  def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw = LineSegs.doubles(
     left, 0, right, 0,
     0, top, 0, bottom).draw(lineWidth, lineColour)
 
@@ -22,10 +22,10 @@ trait RectCenlign extends Rectangularlign
   def gridLines(spacing: Double = 100, colour: Colour = Black, lineWidth: Double = 1.0): LinesDraw =
   { //val xl: List[Double] = doubleFromToOld(-spacing, left, - spacing) ::: 0.0.fromToOld(right, spacing)
     //val xlc: Line2s = xl.pMap(x => new Line2(x, bottom, x, top))
-    val xlc: Slines = ???
+    val xlc: LineSegs = ???
     //val yl: List[Double] = doubleFromToOld(-spacing, bottom, - spacing) ::: 0.0.fromToOld(top, spacing)
     //val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
-    val ylc: Slines = ???
+    val ylc: LineSegs = ???
     LinesDraw(xlc ++ ylc, lineWidth, colour)
   }
   
@@ -34,10 +34,10 @@ trait RectCenlign extends Rectangularlign
     Arr[LinesDraw] =
   { //val xl = doubleFromToOld(-spacing, left, - spacing) ::: spacing.fromToOld(right, spacing)
     //val xlc: Line2s = xl.pMap(x => new  Line2(x, bottom, x, top))
-    val xlc: Slines = ???
+    val xlc: LineSegs = ???
     //val yl = doubleFromToOld(-spacing, bottom, - spacing) ::: spacing.fromToOld(top, spacing)
     //val ylc: Line2s = yl.pMap(y => new Line2(left, y, right, y))
-    val ylc: Slines = ???
+    val ylc: LineSegs = ???
     Arr(LinesDraw(xlc ++ ylc, lineWidth, otherColour), crossHairs(1, cenColour))
   }
 }

@@ -35,14 +35,14 @@ trait OfTile[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT,
   def vertCoods: Coods = grid.vertCoodsOfTile(cood)
   def vertDispVecs: PolygonGen
   def cen: Vec2
-  def ownSideLines: Slines
+  def ownSideLines: LineSegs
 }
 
 trait OfSide[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]
 { def side: SideT    
   final def cood: Cood = side.cood   
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
-  def vertDispLine: Sline = coodsLine.toLine2(coodToDispVec2)
+  def vertDispLine: LineSeg = coodsLine.toLine2(coodToDispVec2)
 
   def ifTiles[A <: AnyRef](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): Arr[A] =
     grid.optSidesTiles(cood) match

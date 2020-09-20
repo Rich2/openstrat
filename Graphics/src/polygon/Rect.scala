@@ -90,7 +90,7 @@ trait Rect extends Rectangular with Polygon
 
   override def reflect(line: Line): Rect = ???
 
-  override def reflect(line: Sline): Rect = ???
+  override def reflect(line: LineSeg): Rect = ???
 
   override def rotateRadians(radians: Double): Rect = ???
   //override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
@@ -162,7 +162,7 @@ object Rect
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
     gRatio(height).fillDrawOld(colour, lineWidth, colour.contrast)
   
-  def fromAxis(centreLine: Sline, height: Double): PolygonGen =
+  def fromAxis(centreLine: LineSeg, height: Double): PolygonGen =
   { val hAngle: Angle = centreLine.angle
     val offset: Vec2 = hAngle.toVec2(height * 0.5)
     PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
@@ -188,7 +188,7 @@ object Rect
 
     override def reflect(line: Line): RectImplement = RectImplement.v0v1(v1.reflect(line), v0.reflect(line), width)
 
-    override def reflect(line: Sline): RectImplement = ???
+    override def reflect(line: LineSeg): RectImplement = ???
 
     override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 

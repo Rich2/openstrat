@@ -42,5 +42,5 @@ case class PolygonGenGraphic(shape: Polygon, facets: Arr[ShapeFacet], children: 
 
   override def yShear(operand: Double): PolygonGraphic = ???
 
-  override def reflect(line: Sline): PolygonGraphic = ???
+  override def reflect(line: LineSeg): PolygonGraphic = ???
 }

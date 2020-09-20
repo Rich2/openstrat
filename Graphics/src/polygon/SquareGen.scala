@@ -38,7 +38,7 @@ final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, va
   override def rotateRadians(radians: Double): SquareGen = ???
 
   override def reflect(line: Line): SquareGen = ???
-  override def reflect(line: Sline): SquareGen = ???
+  override def reflect(line: LineSeg): SquareGen = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
