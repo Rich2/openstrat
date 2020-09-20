@@ -3,9 +3,54 @@ package ostrat
 package geom
 
 /** An infinite length 2 dimensional straight line trait. */
-sealed trait Line
+sealed trait Line extends Curve
 { /** Reflects, mirrors a point across this line. */
   def reflectPt(pt: Vec2): Vec2
+
+  /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
+  override def slate(offset: Vec2): Line = ???
+
+  /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
+  override def slate(xOffset: Double, yOffset: Double): Line = ???
+
+  /** Uniform 2D scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles
+   * and Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): Line = ???
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYOffset(xOffset: Double): Line = ???
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXOffset(yOffset: Double): Line = ???
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectX: Line = ???
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: Line = ???
+
+  /** Transforms this Line using a [[ProlignMatrix]]. */
+  override def prolign(matrix: ProlignMatrix): Line = ???
+
+  override def rotateRadians(radians: Double): Line = ???
+
+  override def reflect(line: Line): Line = ???
+
+  override def reflect(line: LineSeg): Line = ???
+
+  override def xyScale(xOperand: Double, yOperand: Double): Line = ???
+
+  override def xShear(operand: Double): Line = ???
+
+  override def yShear(operand: Double): Line = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
+
+  override def canEqual(that: Any): Boolean = ???
 }
 
 /** An infinite length 2 dimensional straight line defined in terms of its X value and and an offset. It is defined for all values of Y, but not

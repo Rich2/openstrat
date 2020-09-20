@@ -5,7 +5,7 @@ import pWeb._, scala.math.{Pi, sqrt}
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
-trait Ellipse extends Shape
+trait Ellipse extends Shape with Curve
 {
   /** The x component of centre of the ellipse. */
   def xCen: Double
