@@ -99,7 +99,11 @@ trait Rect extends Rectangular with Polygon
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
 object Rect
 {
-  def apply(width: Double, height: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Rect = ??? 
+  def apply(width: Double, height: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Rect =
+  { val v0 = cen.addXY(width / 2, height / 2).rotate(rotation)
+    val v1 = cen.addXY(width / 2, - height / 2).rotate(rotation)
+    new RectImplement(v0.x, v0.y, v1.x, v1.y, width)
+  }
   
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
   def applyOld(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonGen =
