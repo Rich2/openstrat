@@ -53,6 +53,8 @@ trait CanvasPlatform extends RectCenlign
   
   final def polyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = oif(poly.length >= 2, pPolyDraw(poly, lineWidth, colour))
   def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
+  
+  def rectFill(rect: Rect, colour: Colour): Unit = ???
 
   def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.length >= 1, pLinePathDraw(pod))
   def pLinePathDraw(pod: LinePathDraw): Unit
