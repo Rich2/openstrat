@@ -7,6 +7,12 @@ import pWeb._, scala.math.{Pi, sqrt}
  *  methods in the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends Shape with Curve
 {
+  def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
+
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeGraphic = ???
+
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): DisplayElem = ???
+  
   /** The x component of centre of the ellipse. */
   def xCen: Double
 
@@ -128,9 +134,6 @@ trait Ellipse extends Shape with Curve
 
   override def yShear(operand: Double): Ellipse = ???
 
-  def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
-
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeGraphic = ???
 }
 
 object Ellipse

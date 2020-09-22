@@ -3,9 +3,11 @@ package ostrat
 package geom
 import pWeb._
 
-/** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. */
-trait Shape extends Drawable
-{  
+/** A closed shape. It has vertices and the vertices are connected by straight lines or curved lines. Shape does not extend CurvePath but it does
+ *  extend [[Fillable]] which extends [[Drawable]]. */
+trait Shape extends Fillable
+{
+  def fill(fillColour: Colour): ShapeGraphic
   def fillOld(fillColour: Colour): ShapeFillOld
   def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
   def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw
