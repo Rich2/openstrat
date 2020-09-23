@@ -10,7 +10,7 @@ trait Shape extends Fillable
   def fill(fillColour: Colour): ShapeCompound
   def fillOld(fillColour: Colour): ShapeFill
   def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
-  def shapeAttribs: Arr[XANumeric]
+  def attribs: Arr[XANumeric]
   
   /** This canEqual override allow the comparison of [[Shape]]s. */
   def canEqual(that: Any): Boolean = that match

@@ -8,7 +8,7 @@ final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) ex
   type ThisT = TriangleEqui
   override def height: Double = ???
   override def foreach[U](f: Vec2 => U): Unit = ???
-  override def shapeAttribs: Arr[XANumeric] = ???
+  override def attribs: Arr[XANumeric] = ???
   override def fTrans(f: Vec2 => Vec2): ThisT = ???
 
   override def rotateRadians(radians: Double): Triangle = ???

@@ -16,7 +16,7 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
   }
 
   override def svgElem(bounds: BoundingRect): SvgCircle = SvgCircle(shape.reflectX.slate(0, bounds.minY + bounds.maxY).
-    shapeAttribs ++ facets.flatMap(_.attribs))  
+    attribs ++ facets.flatMap(_.attribs))  
   
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): CircleCompound = CircleCompound(shape.slate(offset), facets, children.slate(offset))

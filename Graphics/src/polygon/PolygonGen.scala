@@ -10,7 +10,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   override def typeStr: String = "Polygon"
 
-  override def shapeAttribs: Arr[XANumeric] = ???
+  override def attribs: Arr[XANumeric] = ???
 
   override def canEqual(that: Any): Boolean = that match {
     case s: Shape => true

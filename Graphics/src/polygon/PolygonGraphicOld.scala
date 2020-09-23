@@ -35,16 +35,16 @@ trait PolygonActive extends GraphicActive
  * PolygonFill will be returned.
  * @constructor create a new PolygonFill with the underlying polygon and a colour.
  * @param shape The Polygon shape.
- * @param fillColour The colour of this graphic. */
-final case class PolygonFillOld(shape: Polygon, fillColour: Colour) extends PolygonGraphicOld with ShapeFill
+ * @param colour The colour of this graphic. */
+final case class PolygonFillOld(shape: Polygon, colour: Colour) extends PolygonGraphicOld with ShapeFill
 { override type ThisT = PolygonFillOld
-  override def fTrans(f: Vec2 => Vec2): PolygonFillOld = PolygonFillOld(shape.fTrans(f), fillColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, fillColour)
+  override def fTrans(f: Vec2 => Vec2): PolygonFillOld = PolygonFillOld(shape.fTrans(f), colour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
   override def attribs: Arr[XmlAtt] = ???
 }
 
 object PolygonFillOld
-{ implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFillOld] = Persist2("PolyFill", "poly", _.shape, "colour", _.fillColour, apply)
+{ implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFillOld] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */

@@ -4,20 +4,20 @@ package geom
 import pCanv._, Colour.Black, pWeb._
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
-trait CircleGraphicSimple extends CircleGraphic with SimilarPreserve
-{ type ThisT <: CircleGraphicSimple  
+trait CircleGraphicSimple extends CircleGraphic with ShapeGraphicSimple with SimilarPreserve
+{ type ThisT <: CircleGraphicSimple
+  override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 }
 
 /** A simple single colour fill of a circle graphic. */
-final case class CircleFill(shape: Circle, fillColour: Colour) extends CircleGraphicSimple with ShapeFill
+final case class CircleFill(shape: Circle, colour: Colour) extends CircleGraphicSimple with ShapeFill
 { type ThisT = CircleFill
-  override def fTrans(f: Vec2 => Vec2): ThisT = CircleFill(shape.fTrans(f), fillColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(shape, fillColour)
+  override def fTrans(f: Vec2 => Vec2): ThisT = CircleFill(shape.fTrans(f), colour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(shape, colour)
   override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
   override def xShear(operand: Double): TransElem = ???
 
   override def yShear(operand: Double): TransElem = ???
-  override def attribs: Arr[XmlAtt] = circleAttribs +- fillAttrib
 }
 
 /** A simple draw of a circle graphic. */
@@ -29,7 +29,7 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
   override def xShear(operand: Double): TransElem = ???
 
   override def yShear(operand: Double): TransElem = ???
-  override def attribs: Arr[XmlAtt] = drawAttribs
+  
 }
 
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon

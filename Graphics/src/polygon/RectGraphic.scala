@@ -10,7 +10,7 @@ case class RectGraphic(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Sha
   override def svgStr: String = ???
 
   override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.reflectX.slate(0, bounds.minY + bounds.maxY).
-    shapeAttribs ++ facets.flatMap(_.attribs))
+    attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): RectGraphic = RectGraphic(shape.slate(offset), facets, children.slate(offset))

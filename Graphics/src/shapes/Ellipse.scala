@@ -90,7 +90,7 @@ trait Ellipse extends Shape with Curve
  // override def rotateRadians(radians: Double): Ellipse
   def rxAttrib: XANumeric = XANumeric("rx", radius1)
   def ryAttrib: XANumeric = XANumeric("ry", radius0)
-  def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
   def fTrans(f: Vec2 => Vec2): Ellipse = Ellipse.cs1s0(f(cen), f(s1), f(s0))

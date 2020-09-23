@@ -7,8 +7,7 @@ import pWeb._
 trait CircleGraphic extends EllipseGraphic
 { override def shape: Circle
   def svgStr: String = tagVoidStr("circle", attribs)
-  def circleAttribs: Arr[XANumeric] = shape.shapeAttribs
-
+  def shapeAttribs: Arr[XANumeric] = shape.attribs
   
   @inline final def radius: Double = shape.radius
   @inline final def diameter: Double = shape.diameter

@@ -10,6 +10,11 @@ trait ShapeGraphic extends GraphicElem
   def svgStr: String
 }
 
+trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
+{
+  def nonShapeAttribs: Arr[XmlAtt]
+}
+
 /** Companion object for the ShapeGraphic class. */
 object ShapeGraphic
 {
@@ -20,16 +25,24 @@ object ShapeGraphic
 }
 
 /** A simple plain colour fill graphic. */
-trait ShapeFill extends ShapeGraphic with GraphicSimple
-{ def fillColour: Colour
-  def fillAttrib: FillAttrib = FillAttrib(fillColour)
+trait ShapeFill extends ShapeGraphicSimple
+{ /** The colour of this fill graphic. */
+  def colour: Colour
+  
+  /** The fill attribute for SVG. */
+  def fillAttrib: FillAttrib = FillAttrib(colour)
+  override def nonShapeAttribs: Arr[XmlAtt] = Arr(fillAttrib)
 }
 
 /** A simple no compound graphic that draws a shape. The line has a sinlge width and colour. */
-trait ShapeDraw extends ShapeGraphic with GraphicSimple
-{ def lineWidth: Double
+trait ShapeDraw extends ShapeGraphicSimple
+{ /** The line width of this draw graphic */
+  def lineWidth: Double
+  
+  /** The line colour of this draw graphic. */
   def lineColour: Colour
+  
   def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
   def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
-  def drawAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
+  def nonShapeAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
 }

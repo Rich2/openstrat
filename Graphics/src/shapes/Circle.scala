@@ -77,7 +77,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
     CircleCompound(this, Arr(FillFacet(fillColour), CurveDraw(lineWidth, lineColour)), Arr())  
   
   def rAttrib: XANumeric = XANumeric("r", radius)
-  override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
+  override def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
   override def ellipeRotation: Angle = 0.degs
 }
 

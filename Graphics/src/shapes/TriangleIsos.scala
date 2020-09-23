@@ -17,7 +17,7 @@ final case class TriangleIsosGen(x0: Double, y0: Double, x2: Double, y2: Double,
 
   override def fTrans(f: Vec2 => Vec2): TriangleIsosGen = ???
   override def v1: Vec2 = ???
-  override def shapeAttribs: Arr[XANumeric] = ???
+  override def attribs: Arr[XANumeric] = ???
   override def foreach[U](f: Vec2 => U): Unit = ???
 
   override def rotateRadians(radians: Double): TriangleIsosGen = ???

@@ -8,7 +8,7 @@ import pWeb._
 final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends Square with RectV0V1// with SimilarPreserve
 { 
   override def width: Double = v0.distTo(v1)
-  override def shapeAttribs: Arr[XANumeric] = ???
+  override def attribs: Arr[XANumeric] = ???
 
   def rotationRadians: Double = rotation.radians
   @inline override def rotation: Angle =  sline0.angle + 90.degs // Angle.radians(rotationRadians)

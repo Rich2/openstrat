@@ -22,7 +22,7 @@ trait Rect extends Rectangular with Polygon
   def heightAttrib: HeightAtt = HeightAtt(height)
   def xAttrib: XAttrib = XAttrib(x3)
   def yAttrib: YAttrib = YAttrib(y3)
-  override def shapeAttribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
+  override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
   @inline final override def apply(index: Int): Vec2 = index match 
   { case 0 => v0
     case 1 => v1

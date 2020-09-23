@@ -58,7 +58,7 @@ object EllipseCompound
     override def svgElem(bounds: BoundingRect): SvgEllipse =
     { //val bounds = shape.boundingRect
       val newEllipse = shape.reflectX.slate(0, bounds.minY + bounds.maxY)
-      val newAtts = newEllipse.shapeAttribs
+      val newAtts = newEllipse.attribs
       val atts2 = if (shape.ellipeRotation == 0.degs) newAtts else newAtts +- SvgRotate(- shape.ellipeRotation.degs, shape.xCen, shape.yCen)
       SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
     }

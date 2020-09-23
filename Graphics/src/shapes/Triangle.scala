@@ -72,7 +72,7 @@ trait Triangle extends Polygon
 final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle //with AffinePreserve
 { type ThisT = TriangleClass
 	override def v1: Vec2 = ???
-	override def shapeAttribs: Arr[XANumeric] = ???
+	override def attribs: Arr[XANumeric] = ???
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
 
 	override def rotateRadians(radians: Double): TriangleClass = ???
