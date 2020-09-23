@@ -40,7 +40,6 @@ final case class PolygonFillOld(shape: Polygon, colour: Colour) extends PolygonG
 { override type ThisT = PolygonFillOld
   override def fTrans(f: Vec2 => Vec2): PolygonFillOld = PolygonFillOld(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
-  override def attribs: Arr[XmlAtt] = ???
 }
 
 object PolygonFillOld
@@ -61,8 +60,6 @@ case class PolygonDraw(shape: Polygon, lineWidth: Double, lineColour: Colour = B
 { override type ThisT = PolygonDraw
   override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyDraw(shape, lineWidth, lineColour)
-
-  override def attribs: Arr[XmlAtt] = ???
 }
 
 object PolygonDraw

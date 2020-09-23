@@ -6,7 +6,7 @@ import pCanv._, Colour.Black, pWeb._
 /** A Simple circle based graphic. Not sure if this trait is useful. */
 trait CircleGraphicSimple extends CircleGraphic with ShapeGraphicSimple with SimilarPreserve
 { type ThisT <: CircleGraphicSimple
-  override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
+  
 }
 
 /** A simple single colour fill of a circle graphic. */

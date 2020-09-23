@@ -8,11 +8,13 @@ trait ShapeGraphic extends GraphicElem
 { def shape: Shape
   def attribs: Arr[XmlAtt]
   def svgStr: String
+  def shapeAttribs: Arr[XmlAtt] = shape.attribs
 }
 
 trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 {
   def nonShapeAttribs: Arr[XmlAtt]
+  final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 }
 
 /** Companion object for the ShapeGraphic class. */
