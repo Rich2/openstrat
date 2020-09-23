@@ -2,7 +2,8 @@
 package ostrat
 package geom
 
-/** A DisplayElem is either an element that can be rendered to a display (or printed) or is an active element in a display or both. */
+/** A GraphicElem, graphic element is either an element that can be rendered to a display (or printed) or is an active element in a display or
+ *  both. */
 trait GraphicElem extends TransElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[ostrat.pCanv.CanvasPlatform]] interface. */
