@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class PolygonGenGraphic(shape: Polygon, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends PolygonGraphic
+case class PolygonGenGraphic(shape: Polygon, facets: Arr[ShapeFacet], children: Arr[ShapeCompound] = Arr()) extends PolygonGraphic
 {
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 

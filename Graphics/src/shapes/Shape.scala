@@ -7,7 +7,7 @@ import pWeb._
  *  extend [[Fillable]] which extends [[Drawable]].Not sure if Shape and Fillable should be seperate classes. */
 trait Shape extends Fillable
 {
-  def fill(fillColour: Colour): ShapeGraphic
+  def fill(fillColour: Colour): ShapeCompound
   def fillOld(fillColour: Colour): ShapeFillOld
   def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
   def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw

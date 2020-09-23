@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait EllipseGraphic extends ShapeGraphic
+trait EllipseGraphic extends ShapeCompound
 { override def shape: Ellipse
 
   /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
@@ -54,11 +54,11 @@ trait EllipseGraphic extends ShapeGraphic
 }
 
 object EllipseGraphic
-{ def apply(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()): EllipseGraphic = new EllipseGraphicImplement(shape, facets, children)
+{ def apply(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeCompound] = Arr()): EllipseGraphic = new EllipseGraphicImplement(shape, facets, children)
 
   /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It been
    * created non anonymously because the type might be useful for certain specialised performance usecases. */
-  case class EllipseGraphicImplement(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeGraphic] = Arr()) extends EllipseGraphic
+  case class EllipseGraphicImplement(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic
   {
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
     override def svgElem(bounds: BoundingRect): SvgEllipse =

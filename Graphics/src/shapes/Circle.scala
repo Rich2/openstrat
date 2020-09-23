@@ -64,20 +64,20 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
   override def fillOld(fillColour: Colour): CircleFillOld = CircleFillOld(this, fillColour)
-  override def fill(fillColour: Colour): CircleGraphic = CircleGraphic(this, Arr(FillColour(fillColour)))
-  def fillRadial(cenColour: Colour, outerColour: Colour): CircleGraphic =
-    CircleGraphic(this, Arr(FillRadial(cenColour, outerColour)), Arr())
+  override def fill(fillColour: Colour): CircleCompound = CircleCompound(this, Arr(FillColour(fillColour)))
+  def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound =
+    CircleCompound(this, Arr(FillRadial(cenColour, outerColour)), Arr())
   
   def drawOld(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 
-  override def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleGraphic =
-    CircleGraphic(this, Arr(CurveDraw(lineWidth, lineColour)), Arr())
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleCompound =
+    CircleCompound(this, Arr(CurveDraw(lineWidth, lineColour)), Arr())
 
   override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw =
     CircleFillDraw(this, fillColour, lineWidth, lineColour)
 
-  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): CircleGraphic =
-    CircleGraphic(this, Arr(FillColour(fillColour), CurveDraw(lineWidth, lineColour)), Arr())  
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): CircleCompound =
+    CircleCompound(this, Arr(FillColour(fillColour), CurveDraw(lineWidth, lineColour)), Arr())  
   
   def rAttrib: XANumeric = XANumeric("r", radius)
   override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)

@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** A Geometric entity that can be drawn producing a [[ShapeGraphic]] */
+/** A Geometric entity that can be drawn producing a [[ShapeCompound]] */
 trait Drawable extends TransElem 
 {
   def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): DisplayElem
