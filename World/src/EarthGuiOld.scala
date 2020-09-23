@@ -66,7 +66,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def invCmd: MouseCmd = mb => {focusUp = !focusUp; repaintMap() }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); updateView() }  
       
-  val bInv: DisplayBoundedAffine = clickButton("inv", invCmd)
+  val bInv: GraphicBoundedAffine = clickButton("inv", invCmd)
    
   mapPanel.mouseUp = (b, s, v) => { statusText = s.headToStringElse("Nothing Clicked"); eTop() }
    
@@ -74,9 +74,9 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def loadCmd = (mb: MouseButton) => { loadView(); updateView() }
   def bSave = clickButton("save", saveCmd)
   def bLoad = clickButton("load", loadCmd)
-  def eaButts: Arr[DisplayBoundedAffine] =  Arr(bSave, bLoad)
+  def eaButts: Arr[GraphicBoundedAffine] =  Arr(bSave, bLoad)
   def cmd00: MouseCmd = mb => { focus = LatLong0; focusUp = true; updateView() }
-  def b00: DisplayBoundedAffine = clickButton("00", cmd00)
+  def b00: GraphicBoundedAffine = clickButton("00", cmd00)
   override def eTop(): Unit = reTop(guButs ++ Arr(b00, bInv) ++ eaButts +- status)
      
   def ls: DisplayElems

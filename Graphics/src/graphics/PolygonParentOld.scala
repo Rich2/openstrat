@@ -4,10 +4,10 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[DisplayElem]) extends DisplayParentOld with DisplayActive
+case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[GraphicElem]) extends GraphicParentOld with GraphicActive
 { type ThisT = PolygonParentOld
   override def ptInside(pt: Vec2): Boolean = poly.ptInside(pt)
-  override def addElems(newElems: Arr[DisplayElem]): PolygonParentOld = new PolygonParentOld(cen, poly, pointerId, children ++ newElems)
+  override def addElems(newElems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParentOld = new PolygonParentOld(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
   def reflectXOffset(yOffset: Double): PolygonParentOld =

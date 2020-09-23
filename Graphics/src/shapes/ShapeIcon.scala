@@ -14,10 +14,10 @@ trait ShapeIcon
 
 trait ShapeGraphicIcon
 { /** Scale the ShapeIcon up and position (translate) it. */
-  def scaleSlate(scale: Double, xCen: Double, yCen: Double): DisplayElem
+  def scaleSlate(scale: Double, xCen: Double, yCen: Double): GraphicElem
 
   /** Scale the ShapeIcon up and position (translate) it. */
-  def scaleSlate(scale: Double, cen: Vec2): DisplayElem
+  def scaleSlate(scale: Double, cen: Vec2): GraphicElem
 }
 
 trait ShapeFillIcon extends ShapeGraphicIcon

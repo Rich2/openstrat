@@ -11,7 +11,7 @@ trait Ellipse extends Shape with Curve
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeCompound = ???
 
-  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): DisplayElem = ???
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): GraphicElem = ???
   
   /** The x component of centre of the ellipse. */
   def xCen: Double

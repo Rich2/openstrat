@@ -6,7 +6,6 @@ import pWeb._
 /** Compound Circle Graphic class. */
 case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic with CircleGraphic
 {
-
   override def attribs: Arr[XmlAtt] = ???
 
   override def svgStr: String = ???

@@ -66,7 +66,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
   def fill(colour: Colour): PolyCurveFill = PolyCurveFill(this, colour)
   def draw(lineWidth: Double, lineColour: Colour = Black) = PolyCurveDraw(this,lineWidth, lineColour)
   def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) = PolyCurveFillDraw(this, fillColour, lineWidth, lineColour)
-  def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[DisplayAffineElem] =
+  def fillDrawClick(evObj: AnyRef, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): List[GraphicAffineElem] =
     List(PolyCurveFillDraw(this, fillColour, lineWidth, lineColour), PolyCurveActiveOnly(this, evObj))
 
   def shapeAll(shape: PolyCurve, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):

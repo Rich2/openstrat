@@ -69,7 +69,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolygonParentOld =
     parentFillText(pointerID, fillColour, str, fontSize, fillColour.contrast)
 
-  def parentElems(pointerID: Any, elems: Arr[DisplayElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
+  def parentElems(pointerID: Any, elems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
 
   def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParentOld =
     PolygonParentOld(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),

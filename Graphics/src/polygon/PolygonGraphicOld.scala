@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black, pWeb._
 
-trait PolygonGraphicOld extends DisplayAffineElem with DisplayBoundedAffine with ShapeGraphic
+trait PolygonGraphicOld extends GraphicAffineElem with GraphicBoundedAffine with ShapeGraphic
 { type ThisT <: PolygonGraphicOld
   override def shape: Polygon
   def xHead: Double = shape.x0
@@ -25,7 +25,7 @@ trait PolygonGraphicOld extends DisplayAffineElem with DisplayBoundedAffine with
 }
 
 /** An active transparent pointable polygon */
-trait PolygonActive extends DisplayActive
+trait PolygonActive extends GraphicActive
 { def shape: Polygon
   override def boundingRect = shape.boundingRect
   override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
@@ -87,7 +87,7 @@ object PolygonFillDraw
 }
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends DisplayAffineElem with PolygonActive
+case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActive
 { override type ThisT = PolygonActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(shape.fTrans(f), pointerId)
 }

@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A shape based graphic. */
-trait ShapeGraphic extends DisplayElem
+trait ShapeGraphic extends GraphicElem
 { def shape: Shape
   def attribs: Arr[XmlAtt]
   def svgStr: String

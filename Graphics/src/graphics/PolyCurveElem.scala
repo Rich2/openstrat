@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-trait PolyCurveElem extends DisplayAffineElem with DisplayBoundedAffine
+trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
 { type ThisT <: PolyCurveElem
   def shape: PolyCurve
   def segsLen: Int = shape.length
@@ -23,7 +23,7 @@ case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = B
 }
 
 /** A pointable shape without visual. */
-case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends DisplayAffineElem with PolyCurveActive
+case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends GraphicAffineElem with PolyCurveActive
 { override type ThisT = PolyCurveActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolyCurveActiveOnly = PolyCurveActiveOnly(shape.fTrans(f), pointerId)
 }

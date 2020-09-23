@@ -36,16 +36,16 @@ object Colombia extends Flag
 {
  val name = "Colombia"
  val ratio = 1.5
- val apply: Arr[DisplayAffineElem] = topToBottom(Colour(0xFFFCD116), Colour(0xFFFCD116), Colour(0xFF003893), Colour(0xFFCE1126))
+ val apply: Arr[GraphicAffineElem] = topToBottom(Colour(0xFFFCD116), Colour(0xFFFCD116), Colour(0xFF003893), Colour(0xFFCE1126))
 }
 
 object Chile extends Flag
 {
  val name = "Chile"
  val ratio = 1.5
- val apply: Arr[DisplayAffineElem] =
+ val apply: Arr[GraphicAffineElem] =
   {
-    Arr[DisplayAffineElem](
+    Arr[GraphicAffineElem](
       Rect.applyOld(ratio, 1).fillOld(White),
       Rect.applyOld(ratio, 0.5, 0 vv -0.25).fillOld(Colour(0xFFD52B1E)),
       Rect.applyOld(0.5, 0.5, -0.5 vv 0.25).fillOld(Colour(0xFF0039A6)),

@@ -57,7 +57,7 @@ package object geom
   val EarthEquatorialRadius: Dist = 6378.137.km
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
-  type DisplayElems = Arr[DisplayElem]
+  type DisplayElems = Arr[GraphicElem]
   
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
@@ -83,7 +83,7 @@ package object geom
   }
    
   implicit class OptionGeomImplicit[A](thisOption: Option[A])
-  {  def canvObjsPair(f: A => (Seq[DisplayAffineElem], Seq[DisplayAffineElem])): (Seq[DisplayAffineElem], Seq[DisplayAffineElem]) = thisOption match
+  {  def canvObjsPair(f: A => (Seq[GraphicAffineElem], Seq[GraphicAffineElem])): (Seq[GraphicAffineElem], Seq[GraphicAffineElem]) = thisOption match
      {
         case Some(a) => f(a)
         case None => (Seq(), Seq())
@@ -115,6 +115,6 @@ package object geom
   /** 180 degrees or Pi radians */
   def deg180: Angle = Angle(180)
 
-  def displayRowGraphics(leftPt: Vec2, actives: Arr[DisplayBounded], margin: Double = 10): Arr[DisplayBounded] =
+  def displayRowGraphics(leftPt: Vec2, actives: Arr[GraphicBounded], margin: Double = 10): Arr[GraphicBounded] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
 }
