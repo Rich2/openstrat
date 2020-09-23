@@ -19,7 +19,7 @@ trait CircleGraphicOld extends ShapeGraphicOld with SimilarPreserve
 final case class CircleFillOld(shape: Circle, fillColour: Colour) extends CircleGraphicOld with ShapeFillOld
 { type ThisT = CircleFillOld
   override def fTrans(f: Vec2 => Vec2): ThisT = CircleFillOld(shape.fTrans(f), fillColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillOld(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(shape, fillColour)
   override def xyScale(xOperand: Double, yOperand: Double): DisplayElem = ???
   override def xShear(operand: Double): TransElem = ???
 
