@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic with CircleGraphic
+case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseCompound with CircleGraphic
 {
   override def attribs: Arr[XmlAtt] = ???
 
@@ -60,9 +60,9 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   override def reflect(line: LineSeg): CircleCompound = ???
 
-  override def xyScale(xOperand: Double, yOperand: Double): EllipseGraphic = ???
+  override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound = ???
 
-  override def xShear(operand: Double): EllipseGraphic = ???
+  override def xShear(operand: Double): EllipseCompound = ???
 
-  override def yShear(operand: Double): EllipseGraphic = ???
+  override def yShear(operand: Double): EllipseCompound = ???
 }
