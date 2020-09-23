@@ -50,8 +50,6 @@ object EllipseCompound
    * created non anonymously because the type might be useful for certain specialised performance usecases. */
   case class EllipseCompoundImplement(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseCompound
   {
-
-
     override def attribs: Arr[XmlAtt] = ???
 
     override def svgStr: String = ???
@@ -101,15 +99,6 @@ object EllipseCompound
       EllipseCompoundImplement(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
 
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
-
-    /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-   /* override def rotate90: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate90, facets, children.rotate90)
-
-    /** Rotates 180 degrees or Pi radians. */
-    override def rotate180: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate180, facets, children.rotate180)
-
-    /** Rotates 90 degrees or Pi/2 radians clockwise. */
-    override def rotate270: EllipseGraphicImplement = EllipseGraphicImplement(shape.rotate270, facets, children.rotate270)*/
 
     override def rotateRadians(radians: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 

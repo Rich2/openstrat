@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-/** GraphicSimple is a non cmpound graphic element that can be rendered to a display (or printed) or is an active element in a display, but can't be
- *  both. */
+/** GraphicSimple is a non compound graphic element that can be rendered to a display (or printed) or is an active element in a display, but can't be
+ *  both that require a [[GraphicCompound]]. */
 trait GraphicSimple extends GraphicElem
 {
   /** Translate geometric transformation. */
