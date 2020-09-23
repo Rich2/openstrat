@@ -20,12 +20,13 @@ object ShapeGraphic
 }
 
 /** A simple plain colour fill graphic. */
-trait ShapeFill extends ShapeGraphic
+trait ShapeFill extends ShapeGraphic with GraphicSimple
 { def fillColour: Colour
   def fillAttrib: FillAttrib = FillAttrib(fillColour)
 }
 
-trait ShapeDraw extends ShapeGraphic
+/** A simple no compound graphic that draws a shape. The line has a sinlge width and colour. */
+trait ShapeDraw extends ShapeGraphic with GraphicSimple
 { def lineWidth: Double
   def lineColour: Colour
   def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)

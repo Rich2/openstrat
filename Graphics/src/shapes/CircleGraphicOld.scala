@@ -20,7 +20,7 @@ final case class CircleFillOld(shape: Circle, fillColour: Colour) extends Circle
 { type ThisT = CircleFillOld
   override def fTrans(f: Vec2 => Vec2): ThisT = CircleFillOld(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(shape, fillColour)
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
   override def xShear(operand: Double): TransElem = ???
 
   override def yShear(operand: Double): TransElem = ???
@@ -32,7 +32,7 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
 { type ThisT = CircleDraw
   override def fTrans(f: Vec2 => Vec2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDrawOld(this)
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
   override def xShear(operand: Double): TransElem = ???
 
   override def yShear(operand: Double): TransElem = ???
