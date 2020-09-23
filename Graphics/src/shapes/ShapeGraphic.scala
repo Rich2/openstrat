@@ -4,23 +4,23 @@ package geom
 import pWeb._
 
 /** A shape based graphic. */
-trait ShapeGraphicOld extends DisplayElem
+trait ShapeGraphic extends DisplayElem
 { def shape: Shape
   def attribs: Arr[XmlAtt]
   def svgStr: String
 }
 
 /** Companion object for the ShapeGraphic class. */
-object ShapeGraphicOld
+object ShapeGraphic
 {
-  implicit class ArrImplicit(val thisArr: Arr[ShapeGraphicOld])
+  implicit class ArrImplicit(val thisArr: Arr[ShapeGraphic])
   {
     def svgList: String = thisArr.foldLeft("")(_ + "\n" + _.svgStr)
   }
 }
 
 /** A shape graphic that includes a fill. */
-trait ShapeFillTr extends ShapeGraphicOld
+trait ShapeFillTr extends ShapeGraphic
 { def fillColour: Colour
   def fillAttrib: FillAttrib = FillAttrib(fillColour)
 }
@@ -28,7 +28,7 @@ trait ShapeFillTr extends ShapeGraphicOld
 /** A Graphic that just fills a shape. */
 trait ShapeFillOld extends ShapeFillTr
 
-trait ShapeDrawTr extends ShapeGraphicOld
+trait ShapeDrawTr extends ShapeGraphic
 { def lineWidth: Double
   def lineColour: Colour
   def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)

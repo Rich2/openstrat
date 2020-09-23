@@ -1,10 +1,16 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 /** Compound Circle Graphic class. */
 case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic with CircleGraphic
 {
+
+  override def attribs: Arr[XmlAtt] = ???
+
+  override def svgStr: String = ???
+
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillFacet(c) => cp.circleFill(shape, c)
     case CurveDraw(w, c) => cp.circleDraw(shape, w, c)

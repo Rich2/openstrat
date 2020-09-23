@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black, pWeb._
 
-trait CircleGraphicOld extends ShapeGraphicOld with SimilarPreserve
+trait CircleGraphicOld extends ShapeGraphic with SimilarPreserve
 { type ThisT <: CircleGraphicOld
   override def shape: Circle
   def svgStr: String = tagVoidStr("circle", attribs)

@@ -1,9 +1,14 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 case class PolygonGenGraphic(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends PolygonGraphic
 {
+  override def attribs: Arr[XmlAtt] = ???
+
+  override def svgStr: String = ???
+
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */

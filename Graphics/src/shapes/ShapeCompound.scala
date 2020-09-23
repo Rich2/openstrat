@@ -3,9 +3,9 @@ package ostrat
 package geom
 
 /** A shape based graphic. */
-trait ShapeGraphic extends DisplayElem
+/*trait ShapeGraphic extends DisplayElem
 { def shape: Shape
-}
+}*/
 
 /** A compound shape based graphic. */
 trait ShapeCompound extends ShapeGraphic

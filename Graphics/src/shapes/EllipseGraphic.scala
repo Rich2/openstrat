@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pWeb._
 
 trait EllipseGraphic extends ShapeCompound
 { override def shape: Ellipse
@@ -60,6 +61,12 @@ object EllipseGraphic
    * created non anonymously because the type might be useful for certain specialised performance usecases. */
   case class EllipseGraphicImplement(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic
   {
+
+
+    override def attribs: Arr[XmlAtt] = ???
+
+    override def svgStr: String = ???
+
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
     override def svgElem(bounds: BoundingRect): SvgEllipse =
     { //val bounds = shape.boundingRect
