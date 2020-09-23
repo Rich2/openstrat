@@ -2,12 +2,7 @@
 package ostrat
 package geom
 
-/** A shape based graphic. */
-/*trait ShapeGraphic extends DisplayElem
-{ def shape: Shape
-}*/
-
-/** A compound shape based graphic. */
+/** A shape based compound graphic. */
 trait ShapeCompound extends ShapeGraphic
 { 
   def facets: Arr[GraphicFacet]
@@ -47,15 +42,6 @@ trait ShapeCompound extends ShapeGraphic
 
   override def prolign(matrix: ProlignMatrix): ShapeCompound
 
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  /*override def rotate90: ShapeGraphic
-
-  /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: ShapeGraphic
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: ShapeGraphic*/
-
   override def rotateRadians(radians: Double): ShapeCompound
 
   override def reflect(line: Line): ShapeCompound
@@ -68,6 +54,8 @@ trait ShapeCompound extends ShapeGraphic
   override def reflect(line: LineSeg): ShapeCompound
 }
 
+/** Companion object for the [[ShapeCompound]] trait, contains implicit instances for 2D geometric transoframtion type classes for common collection
+ *  and other containner classes. */
 object ShapeCompound
 {
   implicit class ShapeGraphicArrImplicit(val thisArr: Arr[ShapeCompound])
@@ -97,17 +85,6 @@ object ShapeCompound
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def reflectYOffsetT(obj: ShapeCompound, xOffset: Double): ShapeCompound = obj.reflectYOffset(xOffset)
   }
-
-  /*implicit val rotateAxesImplicit: RotateAxes[ShapeGraphic] = new RotateAxes[ShapeGraphic]
-  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
-    override def rotateT90(obj: ShapeGraphic): ShapeGraphic = obj.rotate90
-
-    /** Rotates object of type T, 180 degrees or Pi radians. */
-    override def rotateT180(obj: ShapeGraphic): ShapeGraphic = obj.rotate180
-
-    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
-    override def rotateT270(obj: ShapeGraphic): ShapeGraphic = obj.rotate270
-  }*/
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
 }
