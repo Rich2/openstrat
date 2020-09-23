@@ -8,4 +8,8 @@ trait CircleGraphic extends EllipseGraphic
 { override def shape: Circle
   def svgStr: String = tagVoidStr("circle", attribs)
   def circleAttribs: Arr[XANumeric] = shape.shapeAttribs
+
+  
+  @inline final def radius: Double = shape.radius
+  @inline final def diameter: Double = shape.diameter
 }

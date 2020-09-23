@@ -5,13 +5,7 @@ import pCanv._, Colour.Black, pWeb._
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
 trait CircleGraphicSimple extends CircleGraphic with SimilarPreserve
-{ type ThisT <: CircleGraphicSimple
-  
-  @inline final def cen: Vec2 = shape.cen
-  @inline final def xCen: Double = shape.xCen
-  @inline final def yCen: Double = shape.yCen
-  @inline final def radius: Double = shape.radius
-  @inline final def diameter: Double = shape.diameter
+{ type ThisT <: CircleGraphicSimple  
 }
 
 /** A simple single colour fill of a circle graphic. */
