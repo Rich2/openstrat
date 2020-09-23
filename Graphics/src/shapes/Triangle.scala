@@ -55,15 +55,6 @@ trait Triangle extends Polygon
 
 	override def prolign(matrix: ProlignMatrix): Triangle = ???
 
-	/** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-	/*override def rotate90: Triangle = ???
-
-	/** Rotates 180 degrees or Pi radians. */
-	override def rotate180: Triangle = ???
-
-	/** Rotates 90 degrees or Pi/2 radians clockwise. */
-	override def rotate270: Triangle = ???*/
-
 	override def reflect(line: Line): Triangle = ???
 
 	override def reflect(line: LineSeg): Triangle = ???
@@ -89,8 +80,6 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 	override def fillOld(fillColour: Colour): ShapeFillOld = ???
 
 	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
-
-	override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 object Triangle

@@ -10,7 +10,6 @@ trait Shape extends Fillable
   def fill(fillColour: Colour): ShapeCompound
   def fillOld(fillColour: Colour): ShapeFillOld
   def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
-  def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw
   def shapeAttribs: Arr[XANumeric]
   
   /** This canEqual override allow the comparison of [[Shape]]s. */
@@ -45,15 +44,6 @@ trait Shape extends Fillable
   override def reflectY: Shape
 
   override def prolign(matrix: ProlignMatrix): Shape
-
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  /*override def rotate90: Shape
-
-  /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: Shape
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: Shape*/
 
   override def rotateRadians(radians: Double): Shape
 

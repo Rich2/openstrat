@@ -34,8 +34,6 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def fillOld(fillColour: Colour): ShapeFillOld = ???
 
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
-
-  override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 }
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */

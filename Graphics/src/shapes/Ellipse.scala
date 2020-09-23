@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pWeb._, scala.math.{Pi, sqrt}
+import pWeb._, math.{Pi, sqrt}
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
@@ -178,7 +178,6 @@ object Ellipse
     override def fillOld(fillColour: Colour): ShapeFillOld = ??? 
     override def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillFacet(fillColour)), Arr())
     override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
-    override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 
     def boundingRect: BoundingRect =
     { val xd0: Double = radius1.squared * (ellipeRotation.cos).squared + radius0.squared * (ellipeRotation.sin).squared
