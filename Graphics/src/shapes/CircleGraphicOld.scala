@@ -39,19 +39,6 @@ final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: 
   override def attribs: Arr[XmlAtt] = drawAttribs
 }
 
-/** To be removed. */
-final case class CircleFillDraw(shape: Circle, fillColour: Colour, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicOld with
-  ShapeFillDraw
-{ type ThisT = CircleFillDraw
-  override def fTrans(f: Vec2 => Vec2): CircleFillDraw = CircleFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFillDraw(this)
-  override def xyScale(xOperand: Double, yOperand: Double): DisplayElem = ???
-  override def xShear(operand: Double): TransElem = ???
-
-  override def yShear(operand: Double): TransElem = ???
-  override def attribs: Arr[XmlAtt] = fillDrawAttribs
-}
-
 case class CircleFillIcon(fillColour: Colour) extends ShapeFillIcon
 { override def scaleSlate(scale: Double, cen: Vec2): CircleFillOld = CircleFillOld(Circle(scale, cen), fillColour)
   override def scaleSlate(scale: Double, xCen: Double, yCen: Double): CircleFillOld = CircleFillOld(Circle(scale, xCen, yCen), fillColour)
