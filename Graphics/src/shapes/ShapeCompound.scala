@@ -10,7 +10,7 @@ trait ShapeGraphic extends DisplayElem
 /** A compound shape based graphic. */
 trait ShapeCompound extends ShapeGraphic
 { 
-  def facets: Arr[ShapeFacet]
+  def facets: Arr[GraphicFacet]
   
   final def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
     svgJustElem).out(0, 0, 150)

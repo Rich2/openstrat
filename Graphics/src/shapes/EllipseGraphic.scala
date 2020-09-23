@@ -54,11 +54,11 @@ trait EllipseGraphic extends ShapeCompound
 }
 
 object EllipseGraphic
-{ def apply(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeCompound] = Arr()): EllipseGraphic = new EllipseGraphicImplement(shape, facets, children)
+{ def apply(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()): EllipseGraphic = new EllipseGraphicImplement(shape, facets, children)
 
   /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It been
    * created non anonymously because the type might be useful for certain specialised performance usecases. */
-  case class EllipseGraphicImplement(shape: Ellipse, facets: Arr[ShapeFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic
+  case class EllipseGraphicImplement(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic
   {
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
     override def svgElem(bounds: BoundingRect): SvgEllipse =
@@ -71,7 +71,7 @@ object EllipseGraphic
 
     override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
     {
-      case FillColour(c) => cp.ellipseFill(shape, c)
+      case FillFacet(c) => cp.ellipseFill(shape, c)
       //case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
       //case fr: FillRadial => cp.circleFillRadial(shape, fr)*/
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)

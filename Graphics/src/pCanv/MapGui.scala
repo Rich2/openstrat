@@ -17,10 +17,10 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
     case (_, l, _) => deb(l.toString)
   }
    
-  def textBoxFull(str: String, cmd: AnyRef): PolygonParent =
+  def textBoxFull(str: String, cmd: AnyRef): PolygonParentOld =
     Rect.applyOld(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
     
-  def textBox(str: String, cmd: AnyRef): PolygonParent =
+  def textBox(str: String, cmd: AnyRef): PolygonParentOld =
     Rect.applyOld(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
   
   /**  repaints the top command bar */

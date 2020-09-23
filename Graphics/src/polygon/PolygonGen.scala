@@ -58,21 +58,21 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24): PolygonFillTextActive =
     PolygonFillTextActive(this, pointerEv, fillColour,str, fontSize)
 
-  def parentFill(pointerID: Any, fillColour: Colour): PolygonParent = PolygonParent.fill(this.polyCentre, this, pointerID, fillColour)
+  def parentFill(pointerID: Any, fillColour: Colour): PolygonParentOld = PolygonParentOld.fill(this.polyCentre, this, pointerID, fillColour)
 
-  def parentFillDraw(pointerID: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolygonParent =
-    PolygonParent.fillDraw(this.polyCentre, this, pointerID, fillColour, lineWidth, lineColour)
+  def parentFillDraw(pointerID: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolygonParentOld =
+    PolygonParentOld.fillDraw(this.polyCentre, this, pointerID, fillColour, lineWidth, lineColour)
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-  PolygonParent = PolygonParent.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
+  PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
 
-  def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolygonParent =
+  def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolygonParentOld =
     parentFillText(pointerID, fillColour, str, fontSize, fillColour.contrast)
 
-  def parentElems(pointerID: Any, elems: Arr[DisplayElem]): PolygonParent = new PolygonParent(this.polyCentre, this, pointerID, elems)
+  def parentElems(pointerID: Any, elems: Arr[DisplayElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
 
-  def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParent =
-    PolygonParent(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
+  def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParentOld =
+    PolygonParentOld(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
 
   /** Insert vertice */

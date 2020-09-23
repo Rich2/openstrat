@@ -5,7 +5,7 @@ import geom._
 
 object UnitCounters
 {
-  def infantry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolygonParent =
+  def infantry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolygonParentOld =
   { val rect: PolygonGen = Rect.applyOld(1.5 * scale, scale)
     val line1 = LineSeg(rect(0), rect(2))
     val line2 = LineSeg(rect(1), rect(3))

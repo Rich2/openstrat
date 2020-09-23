@@ -64,7 +64,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
   override def fillOld(fillColour: Colour): CircleFillOld = CircleFillOld(this, fillColour)
-  override def fill(fillColour: Colour): CircleCompound = CircleCompound(this, Arr(FillColour(fillColour)))
+  override def fill(fillColour: Colour): CircleCompound = CircleCompound(this, Arr(FillFacet(fillColour)))
   def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound =
     CircleCompound(this, Arr(FillRadial(cenColour, outerColour)), Arr())
   
@@ -77,7 +77,7 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
     CircleFillDraw(this, fillColour, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): CircleCompound =
-    CircleCompound(this, Arr(FillColour(fillColour), CurveDraw(lineWidth, lineColour)), Arr())  
+    CircleCompound(this, Arr(FillFacet(fillColour), CurveDraw(lineWidth, lineColour)), Arr())  
   
   def rAttrib: XANumeric = XANumeric("r", radius)
   override def shapeAttribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)

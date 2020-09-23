@@ -72,3 +72,16 @@ class TransSimExtension[T](value: T, ev: TransSim[T])
     ev.slate(r1, addVec)
   }
 }
+
+trait SimilarAllPreserve extends SimilarPreserve
+{
+  type ThisT2 <: TransElem
+
+  def fTrans2(f: Vec2 => Vec2): ThisT2
+
+  override def xyScale(xOperand: Double, yOperand: Double): ThisT2 = fTrans2(_.xyScale(xOperand, yOperand))
+
+  override def xShear(operand: Double): ThisT2 = ???
+
+  override def yShear(operand: Double): ThisT2 = ???
+}

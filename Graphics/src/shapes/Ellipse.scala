@@ -7,7 +7,7 @@ import pWeb._, scala.math.{Pi, sqrt}
  *  methods in the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends Shape with Curve
 {
-  def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
+  def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillFacet(fillColour)), Arr())
 
   override def draw(lineWidth: Double, lineColour: Colour): ShapeCompound = ???
 
@@ -176,7 +176,7 @@ object Ellipse
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared  
     override def fillOld(fillColour: Colour): ShapeFillOld = ??? 
-    override def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillColour(fillColour)), Arr())
+    override def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillFacet(fillColour)), Arr())
     override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
     override def fillDrawOld(fillColour: Colour, lineWidth: Double, lineColour: Colour): ShapeFillDraw = ???
 

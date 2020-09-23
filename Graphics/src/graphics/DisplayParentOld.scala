@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-trait DisplayParent extends DisplayElem
-{ type ThisT <: DisplayParent
+trait DisplayParentOld extends DisplayElem
+{ type ThisT <: DisplayParentOld
   def cen: Vec2
   def boundingRect: BoundingRect
   /** The type of children can probably be widened in the future. */

@@ -3,10 +3,10 @@ package ostrat
 package geom
 
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: Arr[ShapeFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic with CircleGraphic
+case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseGraphic with CircleGraphic
 {
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
-  { case FillColour(c) => cp.circleFill(shape, c)
+  { case FillFacet(c) => cp.circleFill(shape, c)
     case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
     case fr: FillRadial => cp.circleFillRadial(shape, fr)  
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
