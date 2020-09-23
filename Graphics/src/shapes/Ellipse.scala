@@ -175,7 +175,7 @@ object Ellipse
     override def area: Double = Pi * radius1 * radius0
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared  
-    override def fillOld(fillColour: Colour): ShapeFillOld = ??? 
+    override def fillOld(fillColour: Colour): ShapeFill = ??? 
     override def fill(fillColour: Colour): EllipseGraphic = EllipseGraphic(this, Arr(FillFacet(fillColour)), Arr())
     override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 

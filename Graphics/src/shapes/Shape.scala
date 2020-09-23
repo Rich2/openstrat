@@ -8,7 +8,7 @@ import pWeb._
 trait Shape extends Fillable
 {
   def fill(fillColour: Colour): ShapeCompound
-  def fillOld(fillColour: Colour): ShapeFillOld
+  def fillOld(fillColour: Colour): ShapeFill
   def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
   def shapeAttribs: Arr[XANumeric]
   

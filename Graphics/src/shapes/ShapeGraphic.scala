@@ -19,27 +19,16 @@ object ShapeGraphic
   }
 }
 
-/** A shape graphic that includes a fill. */
-trait ShapeFillTr extends ShapeGraphic
+/** A simple plain colour fill graphic. */
+trait ShapeFill extends ShapeGraphic
 { def fillColour: Colour
   def fillAttrib: FillAttrib = FillAttrib(fillColour)
 }
 
-/** A Graphic that just fills a shape. */
-trait ShapeFillOld extends ShapeFillTr
-
-trait ShapeDrawTr extends ShapeGraphic
+trait ShapeDraw extends ShapeGraphic
 { def lineWidth: Double
   def lineColour: Colour
   def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
   def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
-}
-
-trait ShapeDraw extends ShapeDrawTr
-{
   def drawAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
-}
-
-trait ShapeFillDraw extends ShapeFillTr with ShapeDrawTr
-{ def fillDrawAttribs: Arr[XmlAtt] = Arr(fillAttrib, strokeWidthAttrib, strokeAttrib)
 }

@@ -198,7 +198,7 @@ object Rect
 
     override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
-    override def fillOld(fillColour: Colour): ShapeFillOld = ???
+    override def fillOld(fillColour: Colour): ShapeFill = ???
 
     override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   }

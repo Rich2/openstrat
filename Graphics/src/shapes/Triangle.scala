@@ -77,7 +77,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 
 	override def rotateRadians(radians: Double): TriangleClass = ???
 
-	override def fillOld(fillColour: Colour): ShapeFillOld = ???
+	override def fillOld(fillColour: Colour): ShapeFill = ???
 
 	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }

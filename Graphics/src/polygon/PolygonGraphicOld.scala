@@ -36,7 +36,7 @@ trait PolygonActive extends GraphicActive
  * @constructor create a new PolygonFill with the underlying polygon and a colour.
  * @param shape The Polygon shape.
  * @param fillColour The colour of this graphic. */
-final case class PolygonFillOld(shape: Polygon, fillColour: Colour) extends PolygonGraphicOld with ShapeFillOld
+final case class PolygonFillOld(shape: Polygon, fillColour: Colour) extends PolygonGraphicOld with ShapeFill
 { override type ThisT = PolygonFillOld
   override def fTrans(f: Vec2 => Vec2): PolygonFillOld = PolygonFillOld(shape.fTrans(f), fillColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, fillColour)
@@ -71,8 +71,7 @@ object PolygonDraw
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
-case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicOld with
-  ShapeFillDraw
+case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicOld
 { override type ThisT = PolygonFillDraw
   override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
   def noFill: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
