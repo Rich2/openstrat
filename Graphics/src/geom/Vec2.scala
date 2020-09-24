@@ -51,6 +51,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def addY(adj: Double): Vec2 = Vec2(x, y + adj)
   def subX(adj: Double): Vec2 = Vec2(x - adj, y)
   def subY(adj: Double): Vec2 = Vec2(x, y - adj)
+
   def yScale(factor: Double): Vec2 = Vec2(x, y * factor)
   def xScale(factor: Double): Vec2 = Vec2(x * factor, y)
   def xyScale(xOperand: Double, yOperand: Double): Vec2 = Vec2(x * xOperand, y * yOperand)
