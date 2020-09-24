@@ -39,8 +39,8 @@ object AppsForJs
     ("A1", (learn.LsA1a(_), "Js Demonstration Canvas 1")), //Static Graphics
     ("A2", (learn.LsA2(_), "Js Demonstration Canvas 2")),
     ("A3", (learn.LsA3(_), "Js Demonstration Canvas 3")),
-    ("A4", (learn.LessonA4(_), "Js Demonstration Canvas 4")),
-    ("A5", (learn.LessonA5(_), "Js Demonstration Canvas 5")),
+    ("A4", (learn.LsA4(_), "Js Demonstration Canvas 4")),
+    ("A5", (learn.LsA5(_), "Js Demonstration Canvas 5")),
     ("A6", (learn.LessonA6(_), "Js Demonstration Canvas 6")),
     ("A7", (learn.LessonA7(_), "Js Demonstration Canvas 7")),
     ("A8", (learn.LessonA8(_), "Js Demonstration Canvas 8")),

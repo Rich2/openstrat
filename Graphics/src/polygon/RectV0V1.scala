@@ -10,10 +10,10 @@ trait RectV0V1 extends Rect
   final override def yCen: Double = cen.y
   final override def v0: Vec2 = x0 vv y0
   final override def v1: Vec2 = x1 vv y1
-  @inline final def v2: Vec2 = sline0.endToRight(width)
+  @inline final def v2: Vec2 = 2 * cen - v0 //sline0.endToRight(width)
   @inline final def x2: Double = v2.x
   @inline final def y2: Double = v2.y
-  @inline final def v3: Vec2 = sline0.startToRight(width)
+  @inline final def v3: Vec2 = 2 * cen - v1 // sline0.startToRight(width)
   @inline final def x3: Double = v3.x
   @inline final def y3: Double = v3.y
 }

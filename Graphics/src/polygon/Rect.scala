@@ -93,7 +93,7 @@ object Rect
   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Rect =
   { val v0 = cen.addXY(width / 2, height / 2).rotate(rotation)
     val v1 = cen.addXY(width / 2, - height / 2).rotate(rotation)
-    new RectImplement(v0.x, v0.y, v1.x, v1.y, width)
+    new RectImp(v0.x, v0.y, v1.x, v1.y, width)
   }
   
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
@@ -107,7 +107,7 @@ object Rect
     )
   }
   
-  def v0v1(v0: Vec2, v1: Vec2, width: Double): Rect = new RectImplement(v0.x, v0.y, v1.x, v1.y, width)
+  def v0v1(v0: Vec2, v1: Vec2, width: Double): Rect = new RectImp(v0.x, v0.y, v1.x, v1.y, width)
 
   def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
   
@@ -166,10 +166,10 @@ object Rect
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectImplement(val x0: Double, val y0: Double, val x1: Double, val y1: Double, val width: Double) extends RectV0V1
-  { type ThisT = RectImplement
-    override def height: Double = (v1 - v2).magnitude
-    override def fTrans(f: Vec2 => Vec2): RectImplement = RectImplement.points(f(cen), f(v0), f(v1))
+  final class RectImp(val x0: Double, val y0: Double, val x1: Double, val y1: Double, val width: Double) extends RectV0V1
+  { type ThisT = RectImp
+    override def height: Double = (v0 - v1).magnitude
+    override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0V1(f(cen), f(v0), f(v1))
 
     override def productArity: Int = 5
 
@@ -177,15 +177,15 @@ object Rect
 
     override def rotation: Angle = (v0 - v3).angle
 
-    override def rotateRadians(radians: Double): RectImplement = ???
-    override def reflectX: RectImplement = RectImplement.v0v1(v1.reflectX, v0.reflectX, width)
-    override def reflectY: RectImplement = RectImplement.v0v1(v1.reflectY, v0.reflectY, width)
-    override def reflectXOffset(yOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
-    override def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
+    override def rotateRadians(radians: Double): RectImp = ???
+   // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
+    //override def reflectY: RectImplement = RectImplement.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
+    override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
+   // override def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
 
-    override def reflect(line: Line): RectImplement = RectImplement.v0v1(v1.reflect(line), v0.reflect(line), width)
+    override def reflect(line: Line): RectImp = RectImp.v0v1(v1.reflect(line), v0.reflect(line), width)
 
-    override def reflect(line: LineSeg): RectImplement = ???
+    override def reflect(line: LineSeg): RectImp = ???
 
     override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
@@ -194,17 +194,21 @@ object Rect
    // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   }
 
-  object RectImplement
+  object RectImp
   {
     /** The standard factory method for producing a Rect from width, height, position and rotation. position and rotation take default values */
-    def apply(width: Double, height: Double, posn: Vec2, rotation: Angle = 0.degs): RectImplement = new RectImplement(posn.x, 0, 0, 0, width)
+    def apply(width: Double, height: Double, posn: Vec2, rotation: Angle = 0.degs): RectImp = new RectImp(posn.x, 0, 0, 0, width)
 
     /** The standard factory method for producing a Rect from width, height, the x position, the y position  and the rotation. Rotation has a default
      *  value of 0 degrees. If you want the default position of a rectangle centred at 0, 0, then use the apply method. */
-    def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectImplement = new RectImplement(xCen, 0, 0, 0, 0)
+    def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectImp = new RectImp(xCen, 0, 0, 0, 0)
 
-    /** Factory method for creating a [[RectImplement]] rectangle from the points v0, v1, and the width. */
-    def v0v1(v0: Vec2, v1: Vec2, width: Double): RectImplement = new RectImplement(v0.x, v0.y, v1.x, v1.y, width)
-    def points(cen: Vec2, topRight: Vec2, bottomRight: Vec2): RectImplement = ??? // new Rect(cen.x, cen.y, topRight.x, topRight.y, bottomRight.x, bottomRight.y)
+    /** Factory method for creating a [[RectImp]] rectangle from the points v0, v1, and the width. */
+    def v0v1(v0: Vec2, v1: Vec2, width: Double): RectImp = new RectImp(v0.x, v0.y, v1.x, v1.y, width)
+    
+    def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectImp =
+    { val width = ((v0 + v1) / 2).distTo(cen) * 2
+      new RectImp(v0.x, v0.y, v1.x, v1.y, width)
+    }
   }
 }

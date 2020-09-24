@@ -97,8 +97,8 @@ trait Polygon extends Vec2sLike with Shape
   def polyCentre: Vec2 = boundingRect.cen
 
   def sline(index: Int): LineSeg =
-  { val index2: Int = ife(index == length -1, 0, index + 1)
-    LineSeg(apply(index), apply(index2))
+  { val endVertNum: Int = ife(index == length - 1, 0, index + 1)
+    LineSeg(apply(index), apply(endVertNum))
   }
 
   def sline0: LineSeg = sline(0)
