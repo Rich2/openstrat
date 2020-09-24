@@ -33,8 +33,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     players = Array(Red, Green, Yellow, Blue)
     currentPlayer = players(0)
     reactionQueue = Array[Int]()
-    for( r <- 0 to rows-1; c <- 0 to cols-1)
-    {
+    ijUntilForeach(0, rows)(0, cols){ (r, c) =>
       val index = c+cols*r
       cellCounts(index) = 0
       cellColors(index) = Black
