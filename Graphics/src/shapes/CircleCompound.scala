@@ -45,15 +45,6 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  /*override def rotate90: CircleGraphic = CircleGraphic(shape.rotate90, facets, children.rotate90)
-
-  /** Rotates 180 degrees or Pi radians. */
-  override def rotate180: CircleGraphic = CircleGraphic(shape.rotate180, facets, children.rotate180)
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  override def rotate270: CircleGraphic = CircleGraphic(shape.rotate270, facets, children.rotate270)*/
-
   override def rotateRadians(radians: Double): CircleCompound = CircleCompound(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
   override def reflect(line: Line): CircleCompound = ??? //CircleGraphic(shape.reflect(line), facets, children.reflect(line))

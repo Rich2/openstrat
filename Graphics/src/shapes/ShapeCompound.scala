@@ -9,7 +9,6 @@ trait ShapeCompound extends ShapeGraphic
   
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: Arr[ShapeCompound]
-  
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeCompound
