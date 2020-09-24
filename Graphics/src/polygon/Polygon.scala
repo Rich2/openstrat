@@ -9,7 +9,7 @@ trait Polygon extends Vec2sLike with Shape
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
-  override def draw(lineWidth: Double, lineColour: Colour): PolygonGraphic = ???
+  override def draw(lineWidth: Double, lineColour: Colour): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): PolygonGraphic =
     PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))
@@ -119,13 +119,7 @@ object Polygon
   implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, radians: Double) => obj.rotateRadians(radians)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
-
-  /*implicit val rotateAxesImplicit: RotateAxes[Polygon] = new RotateAxes[Polygon]
-  { override def rotateT90(obj: Polygon): Polygon = obj.rotate90
-    override def rotateT180(obj: Polygon): Polygon = obj.rotate180
-    override def rotateT270(obj: Polygon): Polygon = obj.rotate270
-  }*/
-
+  
   implicit val mirrorAxisImplicit: ReflectAxisOffset[Polygon] = new ReflectAxisOffset[Polygon]
   { override def reflectXOffsetT(obj: Polygon, yOffset: Double): Polygon = obj.reflectXOffset(yOffset)
     override def reflectYOffsetT(obj: Polygon, xOffset: Double): Polygon = obj.reflectYOffset(xOffset)
