@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
+case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
 {
   val x1 = 100
   val y1 = 200

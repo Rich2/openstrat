@@ -40,7 +40,7 @@ object Apps
     ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
     ("A1s", (learn.LsA1Summary(_), "JavaFx Demonstration Canvas A1 Summary")),
     ("A2", (learn.LsA2(_), "JavaFx Demonstration Canvas 2")),
-    ("A3", (learn.LessonA3(_), "JavaFx Demonstration Canvas 3")),
+    ("A3", (learn.LsA3(_), "JavaFx Demonstration Canvas 3")),
     ("A4", (learn.LessonA4(_), "JavaFx Demonstration Canvas 4")),
     ("A5", (learn.LessonA5(_), "JavaFx Demonstration Canvas 5")),
     ("A6", (learn.LessonA6(_), "JavaFx Demonstration Canvas 6")),

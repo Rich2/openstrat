@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-object LsA1aHelp
+object LsA1a
 {
   val arr = Arr(
     Circle(100, 0, 0).fill(SeaGreen),
@@ -14,5 +14,5 @@ object LsA1aHelp
 }
 
 case class LsA1a(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1a")
-{ repaint(LsA1aHelp.arr)
+{ repaint(LsA1a.arr)
 }
