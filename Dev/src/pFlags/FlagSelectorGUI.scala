@@ -134,12 +134,12 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
 //** NB below is for scroll ~> need focus to handle keys also for selected etc **//
   canv.keyDown = (thekey: String) => thekey match
-  {// case ("ArrowUp" | "ArrowLeft") => selectedFocused ? showSelected(#less) : showGridView(viewIndex - itemsPerUnitScroll)
-   // case ("ArrowDown" | "ArrowRight") => selectedFocused ? showSelected(#more) : showGridView(viewIndex + itemsPerUnitScroll)
-   // case ("PageDown") => selectedFocused ? showSelected(#pagemore) : showGridView(viewIndex + itemsPerPage)
-   // case ("PageUp") => selectedFocused ? showSelected(#pageless) : showGridView(viewIndex - itemsPerPage)
-   // case ("End") => selectedFocused ? showSelected(#last) : showGridView(maxIndexOfFirstItemInView)
-   // case ("Home") => selectedFocused ? showSelected(#first) : showGridView(0)
+  {// case ("ArrowUp" | "ArrowLeft") => theSelectionFocus ? showSelected(#less) : showGridView(#less)//viewIndex - itemsPerUnitScroll)
+   // case ("ArrowDown" | "ArrowRight") => theSelectionFocus ? showSelected(#more) : showGridView(#more)//viewIndex + itemsPerUnitScroll)
+   // case ("PageDown") => theSelectionFocus ? showSelected(#pagemore) : showGridView(#pagemore)//viewIndex + itemsPerPage)
+   // case ("PageUp") => theSelectionFocus ? showSelected(#pageless) : showGridView(#pageless)//viewIndex - itemsPerPage)
+   // case ("End") => theSelectionFocus ? showSelected(#last) : showGridView(#last)//maxIndexOfFirstItemInView)
+   // case ("Home") => theSelectionFocus ? showSelected(#first) : showGridView(#first)//0
     case _ => deb(thekey)
   }
   
