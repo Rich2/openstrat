@@ -55,8 +55,13 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   var dragStartBarOffsetX = 0.0
   var dragStartX = 0.0
   var isDragging = false
-
-  def showGridView(indexOfFirstItemInView:Int = 0): Unit =
+  
+//  def showSelected(which:Symbol): Unit =
+//  { 
+           
+//  }
+  
+ def showGridView(indexOfFirstItemInView:Int = 0): Unit =
   { val firstIndex = Math.min(Math.max(indexOfFirstItemInView, 0), maxIndexOfFirstItemInView)
     viewableItems = Arr()
     for(j <- 0 to itemsPerCol - 1; i <- 0 to itemsPerRow - 1 if firstIndex + i * iScrollStep + j * jScrollStep < itemCount)
@@ -121,14 +126,14 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
 //** NB below is for scroll ~> need focus to handle keys also for selected etc **//
   canv.keyDown = (thekey: String) => thekey match
-  { case ("ArrowUp" | "ArrowLeft") => showGridView(viewIndex - itemsPerUnitScroll)
-    case ("ArrowDown" | "ArrowRight") => showGridView(viewIndex + itemsPerUnitScroll)
-    case ("PageDown") => showGridView(viewIndex + itemsPerPage)
-    case ("PageUp") => showGridView(viewIndex - itemsPerPage)
-    case ("End") => showGridView(maxIndexOfFirstItemInView)
-    case ("Home") => showGridView(0)
+  {// case ("ArrowUp" | "ArrowLeft") => selected ? showSelected(#less) : showGridView(viewIndex - itemsPerUnitScroll)
+   // case ("ArrowDown" | "ArrowRight") => selected ? showSelected(#more) : showGridView(viewIndex + itemsPerUnitScroll)
+   // case ("PageDown") => selected ? showSelected(#pagemore) : showGridView(viewIndex + itemsPerPage)
+   // case ("PageUp") => selected ? showSelected(#pageless) : showGridView(viewIndex - itemsPerPage)
+   // case ("End") => selected ? showSelected(#last) : showGridView(maxIndexOfFirstItemInView)
+   // case ("Home") => selected ? showSelected(#first) : showGridView(0)
     case _ => deb(thekey)
   }
-
+  
   canv.onScroll = (isScrollLess: Boolean) => if (isScrollLess) scrollLess() else scrollMore()
 }
