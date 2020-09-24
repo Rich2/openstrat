@@ -10,8 +10,8 @@ trait CircleGraphicSimple extends CircleGraphic with ShapeGraphicSimple with Sim
 }
 
 /** A simple single colour fill of a circle graphic. */
-final case class CircleFill(shape: Circle, colour: Colour) extends CircleGraphicSimple with ShapeFill
-{ type ThisT = CircleFill
+final case class CircleFill(shape: Circle, colour: Colour) extends CircleGraphicSimple with EllipseFill
+{ override type ThisT = CircleFill
   override def fTrans(f: Vec2 => Vec2): ThisT = CircleFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(shape, colour)
   override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
