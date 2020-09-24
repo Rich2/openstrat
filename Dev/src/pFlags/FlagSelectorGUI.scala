@@ -14,7 +14,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   //val #PageMore = "PageMore".intern()
   //val #First = "First".intern()
   //val #Last = "Last".intern()
-  var selectedFocused = false
+  //var selectedFocused = false
   var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
 /**/
