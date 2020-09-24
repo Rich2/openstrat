@@ -4,7 +4,7 @@ package geom
 
 /** A Polygon based graphic. If you just want a gneral polygon as opposed to specifically specified Polygons sucha Rectangle, Square or Trinagle use
  * the implementation class [[PolygonCompound]]. */
-trait PolygonGraphic extends ShapeCompound
+trait PolygonGraphic extends ShapeGraphic
 {
   override def shape: Polygon
   override def svgElem(bounds: BoundingRect): SvgElem = ???

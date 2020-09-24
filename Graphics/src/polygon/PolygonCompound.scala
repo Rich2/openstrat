@@ -21,33 +21,33 @@ case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: 
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): PolygonGraphic = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
+  override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): PolygonGraphic = PolygonCompound(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
+  override def reflectYOffset(xOffset: Double): PolygonCompound = PolygonCompound(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): PolygonGraphic = ???
+  override def reflectXOffset(yOffset: Double): PolygonCompound = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: PolygonGraphic = ???
+  override def reflectX: PolygonCompound = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def reflectY: PolygonCompound = PolygonCompound(shape.reflectY, facets, children.reflectY) 
 
-  override def prolign(matrix: ProlignMatrix): PolygonGraphic = ???
+  override def prolign(matrix: ProlignMatrix): PolygonCompound = ???
 
-  override def rotateRadians(radians: Double): PolygonGraphic = ???
+  override def rotateRadians(radians: Double): PolygonCompound = ???
 
-  override def reflect(line: Line): PolygonGraphic = ???
+  override def reflect(line: Line): PolygonCompound = ???
 
-  override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphic = ???
+  override def xyScale(xOperand: Double, yOperand: Double): PolygonCompound = ???
 
-  override def xShear(operand: Double): PolygonGraphic = ???
+  override def xShear(operand: Double): PolygonCompound = ???
 
-  override def yShear(operand: Double): PolygonGraphic = ???
+  override def yShear(operand: Double): PolygonCompound = ???
 
-  override def reflect(line: LineSeg): PolygonGraphic = ???
+  override def reflect(line: LineSeg): PolygonCompound = ???
 }
