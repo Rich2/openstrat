@@ -14,8 +14,5 @@ object LsA1aHelp
 }
 
 case class LsA1a(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1a")
-{
-  repaint(LsA1aHelp.arr)
+{ repaint(LsA1aHelp.arr)
 }
-
- 
