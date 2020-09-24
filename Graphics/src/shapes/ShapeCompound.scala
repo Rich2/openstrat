@@ -52,13 +52,6 @@ trait ShapeCompound extends ShapeGraphic
  *  and other containner classes. */
 object ShapeCompound
 {
-  implicit class ShapeGraphicArrImplicit(val thisArr: Arr[ShapeCompound])
-  {
-    def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String =
-    { val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
-      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, linePosn, lineLen)
-    }
-  }
 
   implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)

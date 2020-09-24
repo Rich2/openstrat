@@ -28,7 +28,13 @@ object ShapeGraphic
   implicit class ArrImplicit(val thisArr: Arr[ShapeGraphic])
   {
     def svgList: String = thisArr.foldLeft("")(_ + "\n" + _.svgStr)
+
+    def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String =
+    { val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
+      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, linePosn, lineLen)
+    }
   }
+
 }
 
 /** A simple plain colour fill graphic. */
