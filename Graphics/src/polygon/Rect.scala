@@ -118,7 +118,7 @@ object Rect
   
   def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rect = new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
 
-  def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
+ // def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
   
   /** A rectangle measured from its top left */
   def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): PolygonGen = PolygonGen(
@@ -177,7 +177,7 @@ object Rect
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double,  val x1: Double, val y1: Double) extends RectCenV0
   { type ThisT = RectImp
-    override def v1: Vec2 = cen + (v0 - cen).rotate270
+    override def v1: Vec2 = Vec2(x1, y1)
     override def height: Double = (v0 - v1).magnitude
     override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0V1(f(cen), f(v0), f(v1))
 
@@ -210,7 +210,7 @@ object Rect
     def apply(width: Double, height: Double, cen: Vec2, rotation: Angle = 0.degs): RectImp =
     { val v0 = Vec2(cen.x + width, cen.y + height).rotate(rotation)
       val v1 = Vec2(cen.x + width, cen.y - height).rotate(rotation)
-      new RectImp(cen.x,  cen.y, v0.x, v0.y, v1.x, v1.y)
+      new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
     }
     /** The standard factory method for producing a Rect from width, height, the x position, the y position  and the rotation. Rotation has a default
      *  value of 0 degrees. If you want the default position of a rectangle centred at 0, 0, then use the apply method. */
