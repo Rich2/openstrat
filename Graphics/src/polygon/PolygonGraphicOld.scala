@@ -3,6 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black, pWeb._
 
+/** This trait may be removed. */
 trait PolygonGraphicOld extends GraphicAffineElem with GraphicBoundedAffine with ShapeGraphic
 { type ThisT <: PolygonGraphicOld
   override def shape: Polygon
@@ -37,14 +38,14 @@ trait PolygonActive extends GraphicActive
  * @constructor create a new PolygonFill with the underlying polygon and a colour.
  * @param shape The Polygon shape.
  * @param colour The colour of this graphic. */
-final case class PolygonFillOld(shape: Polygon, colour: Colour) extends PolygonGraphicOld with ShapeFill
-{ override type ThisT = PolygonFillOld
-  override def fTrans(f: Vec2 => Vec2): PolygonFillOld = PolygonFillOld(shape.fTrans(f), colour)
+final case class PolygonFill(shape: Polygon, colour: Colour) extends PolygonGraphicOld with ShapeFill
+{ override type ThisT = PolygonFill
+  override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
 }
 
-object PolygonFillOld
-{ implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFillOld] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)
+object PolygonFill
+{ implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
@@ -53,7 +54,7 @@ case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) 
   override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(shape.fTrans(f), pointerId, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
 
-  override def attribs: Arr[XmlAtt] = ???  
+  override def attribs: Arr[XmlAtt] = ???
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
@@ -94,7 +95,7 @@ case class PolygonFillTextOld(shape: Polygon, fillColour: Colour, str: String, f
 { override type ThisT = PolygonFillTextOld
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextOld = PolygonFillTextOld(shape.fTrans(f), fillColour, str,fontSize, textColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, textColour, CenAlign)
-  def fillOnly: PolygonFillOld = PolygonFillOld(shape, fillColour)
+  def fillOnly: PolygonFill = PolygonFill(shape, fillColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.polyFill(shape, fillColour)
