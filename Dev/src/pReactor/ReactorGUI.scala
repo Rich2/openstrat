@@ -6,6 +6,7 @@ import geom._, pCanv._, Colour._
 /** A clone of the classic Atoms game */
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 {
+  var stun_turn_roomname_playername = "stunId.turnId.roomId.playerId"
   val size = 40  //cell size in pixels
   val rows = 8
   val cols = 10
