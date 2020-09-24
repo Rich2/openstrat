@@ -54,10 +54,10 @@ trait Rect extends Rectangular with Polygon
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); f(x3, y3); () }
 
   /** Translate geometric transformation on a Shape returns a Shape. */
-  override def slate(offset: Vec2): Rect = ???
+  override def slate(offset: Vec2): Rect = Rect.v0v1(v0 + offset, v1 + offset, width)
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): Rect = ???
+  override def slate(xOffset: Double, yOffset: Double): Rect = Rect.v0v1(v0.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset), width)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -180,12 +180,12 @@ object Rect
     override def rotateRadians(radians: Double): RectImp = ???
    // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
     //override def reflectY: RectImplement = RectImplement.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
-    override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
+    //override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
    // override def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
 
-    override def reflect(line: Line): RectImp = RectImp.v0v1(v1.reflect(line), v0.reflect(line), width)
+    //override def reflect(line: Line): RectImp = RectImp.v0v1(v1.reflect(line), v0.reflect(line), width)
 
-    override def reflect(line: LineSeg): RectImp = ???
+   // override def reflect(line: LineSeg): RectImp = ???
 
     override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 

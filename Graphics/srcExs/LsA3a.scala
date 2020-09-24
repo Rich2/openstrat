@@ -4,7 +4,7 @@ import ostrat._, geom._, pCanv._, Colour._
 
 object LsA3a
 {
-  val r1 = Rect(450, 200)
+  val r1 = Rect(450, 200)//.slate(-200, 200)
   val r1f = r1.fill(Colour.Khaki)
   debvar(r1.rotation)
   val c1 = Circle(100).fill(Green)
