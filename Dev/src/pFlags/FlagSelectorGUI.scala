@@ -8,12 +8,12 @@ import geom._, pCanv._, Colour._
           separate scrollbar, vertical scrollbar */
 
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
-{ val #Less = "Less".intern()
-  val #More = "More".intern()
-  val #PageLess = "PageLess".intern()
-  val #PageMore = "PageMore".intern()
-  val #First = "First".intern()
-  val #Last = "Last".intern()
+{ //val #Less = "Less".intern()
+//  val #More = "More".intern()
+//  val #PageLess = "PageLess".intern()
+//  val #PageMore = "PageMore".intern()
+//  val #First = "First".intern()
+//  val #Last = "Last".intern()
   
   var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
