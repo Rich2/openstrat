@@ -19,8 +19,7 @@ trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with S
 /** A simple single colour fill of a circle graphic. */
 trait EllipseFill extends EllipseGraphicSimple with ShapeFill
 { type ThisT <: EllipseFill
-  //override def fTrans(f: Vec2 => Vec2): ThisT = EllipseFill(shape.fTrans(f), colour)
-
+  
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(shape, colour)
 }
 
@@ -47,15 +46,32 @@ object EllipseFill
   }
 }
 
-/** A simple draw of a circle graphic. */
-final case class EllipseDraw(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black) extends EllipseGraphicSimple with ShapeDraw
-{ type ThisT = EllipseDraw
-  override def fTrans(f: Vec2 => Vec2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(shape, lineWidth, lineColour)
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
-  override def xShear(operand: Double): TransElem = ???
+trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw
+{
+  type ThisT <: EllipseDraw
+}
 
-  override def yShear(operand: Double): TransElem = ???
-  override def svgElem(bounds: BoundingRect): SvgElem = ???
-  override def svgStr: String = ???
+object EllipseDraw
+{
+  def apply(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black): EllipseDraw = EllipseDrawImp(shape, lineWidth)
+
+  /** A simple draw of a circle graphic. */
+  final case class EllipseDrawImp(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black) extends EllipseDraw
+  { type ThisT = EllipseDraw
+
+    override def fTrans(f: Vec2 => Vec2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineWidth, lineColour)
+
+    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(shape, lineWidth, lineColour)
+
+    override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
+
+    override def xShear(operand: Double): TransElem = ???
+
+    override def yShear(operand: Double): TransElem = ???
+
+    override def svgElem(bounds: BoundingRect): SvgElem = ???
+
+    override def svgStr: String = ???
+  }
+
 }

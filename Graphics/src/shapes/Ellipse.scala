@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pWeb._, math.{Pi, sqrt}
+import pWeb._, Colour.Black, math.{Pi, sqrt}
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
@@ -9,7 +9,7 @@ trait Ellipse extends Shape with Curve
 {
   def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
 
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = EllipseDraw(this, lineWidth, lineColour)
+  override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): GraphicElem = ???
   

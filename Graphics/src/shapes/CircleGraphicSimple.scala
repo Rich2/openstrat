@@ -22,7 +22,7 @@ final case class CircleFill(shape: Circle, colour: Colour) extends CircleGraphic
 }
 
 /** A simple draw of a circle graphic. */
-final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicSimple with ShapeDraw
+final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicSimple with EllipseDraw
 { type ThisT = CircleDraw
   override def fTrans(f: Vec2 => Vec2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDrawOld(this)
