@@ -4,13 +4,15 @@ package geom
 
 /** Rectangle that is in part specified by points v0 and v1. This is the Square and Rect classes. This trait is purely for implementation. It does not
  * have value as a library user interface type. */
-trait RectV0V1 extends Rect
-{ final override def cen: Vec2 = sline0.midPtToRight(width / 2)
-  final override def xCen: Double = cen.x
-  final override def yCen: Double = cen.y
+trait RectCenV0 extends Rect
+{ final override def cen: Vec2 = Vec2(xCen, yCen)
+  final override def width: Double = (v0Mid1 - cen).magnitude * 2
+//  final override def height: Double = (v3Mid0 -cen).magnitude * 2
+  //final override def xCen: Double = cen.x
+ // final override def yCen: Double = cen.y
   final override def v0: Vec2 = x0 vv y0
-  final override def v1: Vec2 = x1 vv y1
-  @inline final def v2: Vec2 = 2 * cen - v0 //sline0.endToRight(width)
+ // final override def v1: Vec2 = x1 vv y1
+  @inline final def v2: Vec2 = 2 * cen - v0
   @inline final def x2: Double = v2.x
   @inline final def y2: Double = v2.y
   @inline final def v3: Vec2 = 2 * cen - v1 // sline0.startToRight(width)

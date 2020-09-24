@@ -17,12 +17,20 @@ trait Rect extends Rectangular with Polygon
   def x3: Double
   def y3: Double
   def v3: Vec2
+  
+  def v0Mid1: Vec2 = v0.midPtTo(v1)
+  def v1Mid2: Vec2 = v1.midPtTo(v2)
+  def v2Mid3: Vec2 = v2.midPtTo(v3)
+  def v3Mid0: Vec2 = v3.midPtTo(v0)
+  
   def rotation: Angle
   def widthAttrib: WidthAtt = WidthAtt(width)
   def heightAttrib: HeightAtt = HeightAtt(height)
   def xAttrib: XAttrib = XAttrib(x3)
   def yAttrib: YAttrib = YAttrib(y3)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
+  
+  
   @inline final override def apply(index: Int): Vec2 = index match 
   { case 0 => v0
     case 1 => v1
@@ -54,10 +62,11 @@ trait Rect extends Rectangular with Polygon
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); f(x3, y3); () }
 
   /** Translate geometric transformation on a Shape returns a Shape. */
-  override def slate(offset: Vec2): Rect = Rect.v0v1(v0 + offset, v1 + offset, width)
+  override def slate(offset: Vec2): Rect = Rect.cenV0V1(cen + offset, v0 + offset, v1 + offset)
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): Rect = Rect.v0v1(v0.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset), width)
+  override def slate(xOffset: Double, yOffset: Double): Rect =
+    Rect.cenV0V1(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -93,7 +102,7 @@ object Rect
   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Rect =
   { val v0 = cen.addXY(width / 2, height / 2).rotate(rotation)
     val v1 = cen.addXY(width / 2, - height / 2).rotate(rotation)
-    new RectImp(v0.x, v0.y, v1.x, v1.y, width)
+    new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   }
   
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
@@ -107,7 +116,7 @@ object Rect
     )
   }
   
-  def v0v1(v0: Vec2, v1: Vec2, width: Double): Rect = new RectImp(v0.x, v0.y, v1.x, v1.y, width)
+  def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rect = new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
 
   def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
   
@@ -166,8 +175,9 @@ object Rect
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectImp(val x0: Double, val y0: Double, val x1: Double, val y1: Double, val width: Double) extends RectV0V1
+  final class RectImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double,  val x1: Double, val y1: Double) extends RectCenV0
   { type ThisT = RectImp
+    override def v1: Vec2 = cen + (v0 - cen).rotate270
     override def height: Double = (v0 - v1).magnitude
     override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0V1(f(cen), f(v0), f(v1))
 
@@ -179,7 +189,7 @@ object Rect
 
     override def rotateRadians(radians: Double): RectImp = ???
    // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
-    //override def reflectY: RectImplement = RectImplement.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
+   // override def reflectY: RectImp = RectImp.v0v1(v3.reflectY, v2.reflectY, width)
     //override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
    // override def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
 
@@ -197,18 +207,20 @@ object Rect
   object RectImp
   {
     /** The standard factory method for producing a Rect from width, height, position and rotation. position and rotation take default values */
-    def apply(width: Double, height: Double, posn: Vec2, rotation: Angle = 0.degs): RectImp = new RectImp(posn.x, 0, 0, 0, width)
-
+    def apply(width: Double, height: Double, cen: Vec2, rotation: Angle = 0.degs): RectImp =
+    { val v0 = Vec2(cen.x + width, cen.y + height).rotate(rotation)
+      val v1 = Vec2(cen.x + width, cen.y - height).rotate(rotation)
+      new RectImp(cen.x,  cen.y, v0.x, v0.y, v1.x, v1.y)
+    }
     /** The standard factory method for producing a Rect from width, height, the x position, the y position  and the rotation. Rotation has a default
      *  value of 0 degrees. If you want the default position of a rectangle centred at 0, 0, then use the apply method. */
-    def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectImp = new RectImp(xCen, 0, 0, 0, 0)
-
-    /** Factory method for creating a [[RectImp]] rectangle from the points v0, v1, and the width. */
-    def v0v1(v0: Vec2, v1: Vec2, width: Double): RectImp = new RectImp(v0.x, v0.y, v1.x, v1.y, width)
-    
-    def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectImp =
-    { val width = ((v0 + v1) / 2).distTo(cen) * 2
-      new RectImp(v0.x, v0.y, v1.x, v1.y, width)
+    def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectImp =
+    { val v0 = Vec2(xCen + width, yCen + height).rotate(rotation)
+      val v1 = Vec2(xCen + width, yCen - height).rotate(rotation)
+      new RectImp(xCen,  yCen, v0.x, v0.y, v1.x, v1.y)
     }
+
+    /** Factory method for creating a [[RectImp]] rectangle from the points cen, v0 and v1 */    
+    def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectImp = new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   }
 }
