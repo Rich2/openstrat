@@ -42,6 +42,8 @@ final case class PolygonFill(shape: Polygon, colour: Colour) extends PolygonGrap
 { override type ThisT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
+
+  override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)
 }
 
 object PolygonFill
@@ -58,7 +60,7 @@ case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) 
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
-case class PolygonDraw(shape: Polygon, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicSimple with ShapeDraw
+case class PolygonDraw(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonGraphicSimple with ShapeDraw
 { override type ThisT = PolygonDraw
   override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyDraw(shape, lineWidth, lineColour)

@@ -45,6 +45,8 @@ trait ShapeFill extends ShapeGraphicSimple
   /** The fill attribute for SVG. */
   def fillAttrib: FillAttrib = FillAttrib(colour)
   override def nonShapeAttribs: Arr[XmlAtt] = Arr(fillAttrib)
+  
+  def toDraw(lineWidth: Double = 2, newColour: Colour = colour): ShapeDraw
 }
 
 /** A simple no compound graphic that draws a shape. The line has a sinlge width and colour. */

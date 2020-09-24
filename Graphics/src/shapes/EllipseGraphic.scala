@@ -21,6 +21,8 @@ trait EllipseFill extends EllipseGraphicSimple with ShapeFill
 { type ThisT <: EllipseFill
   
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(shape, colour)
+
+  override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): EllipseDraw = shape.draw(lineWidth, newColour)
 }
 
 object EllipseFill
@@ -53,7 +55,7 @@ trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw
 
 object EllipseDraw
 {
-  def apply(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black): EllipseDraw = EllipseDrawImp(shape, lineWidth)
+  def apply(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black): EllipseDraw = EllipseDrawImp(shape, lineWidth, lineColour)
 
   /** A simple draw of a circle graphic. */
   final case class EllipseDrawImp(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black) extends EllipseDraw

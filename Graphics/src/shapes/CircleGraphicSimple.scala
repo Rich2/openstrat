@@ -19,6 +19,8 @@ final case class CircleFill(shape: Circle, colour: Colour) extends CircleGraphic
 
   override def yShear(operand: Double): TransElem = ???
   override def svgElem(bounds: BoundingRect): SvgElem = ???
+
+  override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): CircleDraw = shape.draw(lineWidth, newColour)
 }
 
 /** A simple draw of a circle graphic. */
