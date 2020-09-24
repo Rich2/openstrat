@@ -44,7 +44,7 @@ final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, va
 
   //override def fill(fillColour: Colour): ShapeFill = ???
 
-  override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+  //override def draw(lineWidth: Double, lineColour: Colour): PolygonDraw = ???
 }
 
 /** Factory object for squares. */

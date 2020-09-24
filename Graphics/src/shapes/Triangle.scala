@@ -79,7 +79,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 
 	//override def fill(fillColour: Colour): ShapeFill = ???
 
-	override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+//	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
 object Triangle

@@ -7,9 +7,9 @@ import pWeb._, math.{Pi, sqrt}
  *  methods in the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends Shape with Curve
 {
-  def fill(fillColour: Colour): ShapeFill = ??? // EllipseCompound(this, Arr(FillFacet(fillColour)), Arr())
+  def fill(fillColour: Colour): ShapeFill = EllipseFill(this, fillColour)
 
-  override def draw(lineWidth: Double, lineColour: Colour): ShapeCompound = ???
+  override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = EllipseDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): GraphicElem = ???
   
@@ -166,9 +166,9 @@ object Ellipse
     override def area: Double = Pi * radius1 * radius0
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared  
-    override def fill(fillColour: Colour): ShapeFill = ???
+    //override def fill(fillColour: Colour): ShapeFill = ???
     //override def fill(fillColour: Colour): EllipseCompound = EllipseCompound(this, Arr(FillFacet(fillColour)), Arr())
-    override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+   // override def draw(lineWidth: Double, lineColour: Colour): EllipseDraw = ???
 
     def boundingRect: BoundingRect =
     { val xd0: Double = radius1.squared * (ellipeRotation.cos).squared + radius0.squared * (ellipeRotation.sin).squared

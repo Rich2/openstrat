@@ -9,7 +9,7 @@ trait Shape extends Fillable
 {
   //def fill(fillColour: Colour): ShapeCompound
   override def fill(fillColour: Colour): ShapeFill
-  def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw
+  def draw(lineWidth: Double, lineColour: Colour): ShapeDraw
   def attribs: Arr[XANumeric]
   
   /** This canEqual override allow the comparison of [[Shape]]s. */

@@ -32,5 +32,5 @@ final case class TriangleIsosGen(x0: Double, y0: Double, x2: Double, y2: Double,
 
   override def fill(fillColour: Colour): PolygonFill = ???
 
-  override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+  //override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }

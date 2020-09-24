@@ -191,7 +191,7 @@ object Rect
 
     //override def fill(fillColour: Colour): ShapeFill = ???
 
-    override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+   // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   }
 
   object RectImplement
