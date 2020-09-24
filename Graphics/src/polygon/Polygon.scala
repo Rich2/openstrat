@@ -11,7 +11,9 @@ trait Polygon extends Vec2sLike with Shape
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double, lineColour: Colour): PolygonGraphic = ???
 
-  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): PolygonGraphic = ???
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): PolygonGraphic =
+    PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))
+  
   def length: Int
   def xGet(index: Int): Double
   def yGet(index: Int): Double
