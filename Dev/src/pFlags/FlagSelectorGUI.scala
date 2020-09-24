@@ -8,13 +8,13 @@ import geom._, pCanv._, Colour._
           separate scrollbar, vertical scrollbar */
 
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
-{ val #Less = "Less".intern()
-  val #More = "More".intern()
-  val #PageLess = "PageLess".intern()
-  val #PageMore = "PageMore".intern()
-  val #First = "First".intern()
-  val #Last = "Last".intern()
-  
+{ //val #Less = "Less".intern()
+  //val #More = "More".intern()
+  //val #PageLess = "PageLess".intern()
+  //val #PageMore = "PageMore".intern()
+  //val #First = "First".intern()
+  //val #Last = "Last".intern()
+  var selectedFocused = false
   var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
   var selectedIndex = -1
 /**/
@@ -133,12 +133,12 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
 //** NB below is for scroll ~> need focus to handle keys also for selected etc **//
   canv.keyDown = (thekey: String) => thekey match
-  {// case ("ArrowUp" | "ArrowLeft") => selected ? showSelected(#less) : showGridView(viewIndex - itemsPerUnitScroll)
-   // case ("ArrowDown" | "ArrowRight") => selected ? showSelected(#more) : showGridView(viewIndex + itemsPerUnitScroll)
-   // case ("PageDown") => selected ? showSelected(#pagemore) : showGridView(viewIndex + itemsPerPage)
-   // case ("PageUp") => selected ? showSelected(#pageless) : showGridView(viewIndex - itemsPerPage)
-   // case ("End") => selected ? showSelected(#last) : showGridView(maxIndexOfFirstItemInView)
-   // case ("Home") => selected ? showSelected(#first) : showGridView(0)
+  {// case ("ArrowUp" | "ArrowLeft") => selectedFocused ? showSelected(#less) : showGridView(viewIndex - itemsPerUnitScroll)
+   // case ("ArrowDown" | "ArrowRight") => selectedFocused ? showSelected(#more) : showGridView(viewIndex + itemsPerUnitScroll)
+   // case ("PageDown") => selectedFocused ? showSelected(#pagemore) : showGridView(viewIndex + itemsPerPage)
+   // case ("PageUp") => selectedFocused ? showSelected(#pageless) : showGridView(viewIndex - itemsPerPage)
+   // case ("End") => selectedFocused ? showSelected(#last) : showGridView(maxIndexOfFirstItemInView)
+   // case ("Home") => selectedFocused ? showSelected(#first) : showGridView(0)
     case _ => deb(thekey)
   }
   
