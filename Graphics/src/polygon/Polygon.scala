@@ -6,8 +6,6 @@ package geom
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
 trait Polygon extends Vec2sLike with Shape
 {
-
-
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
