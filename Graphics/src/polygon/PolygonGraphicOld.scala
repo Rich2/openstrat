@@ -22,6 +22,7 @@ trait PolygonGraphicOld extends GraphicAffineElem with GraphicBoundedAffine with
   def yArray: Array[Double] = shape.elem2sArray
   override def boundingRect: BoundingRect = shape.boundingRect
   def svgStr: String = tagVoidStr("rect", attribs)
+  override def svgElem(bounds: BoundingRect): SvgElem = ???
 }
 
 /** An active transparent pointable polygon */

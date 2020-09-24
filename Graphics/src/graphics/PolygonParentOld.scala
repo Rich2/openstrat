@@ -41,7 +41,7 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, childre
 
 object PolygonParentOld
 {
-  def fill(cen: Vec2, poly: PolygonGen, evObj: Any, colour: Colour): PolygonParentOld = new PolygonParentOld(cen, poly, evObj, Arr(poly.fillOld(colour)))
+  def fill(cen: Vec2, poly: PolygonGen, evObj: Any, colour: Colour): PolygonParentOld = new PolygonParentOld(cen, poly, evObj, Arr(poly.fill(colour)))
 
   def draw(cen: Vec2, poly: PolygonGen, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParentOld =
     new PolygonParentOld(cen, poly, evObj, Arr(PolygonDraw(poly, lineWidth, lineColour)))
@@ -53,7 +53,7 @@ object PolygonParentOld
 
   def fillText(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
                align: TextAlign = CenAlign): PolygonParentOld =
-    new PolygonParentOld(cen, poly, evObj, Arr(poly.fillOld(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
+    new PolygonParentOld(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
 
   def fillContrastText(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParentOld =
     fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)

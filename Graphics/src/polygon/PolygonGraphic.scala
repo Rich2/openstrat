@@ -7,7 +7,7 @@ package geom
 trait PolygonGraphic extends ShapeCompound
 {
   override def shape: Polygon
-
+  override def svgElem(bounds: BoundingRect): SvgElem = ???
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): PolygonGraphic
 

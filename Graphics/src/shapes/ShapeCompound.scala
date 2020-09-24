@@ -7,15 +7,12 @@ trait ShapeCompound extends ShapeGraphic
 { 
   def facets: Arr[GraphicFacet]
   
-  final def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
-    svgJustElem).out(0, 0, 150)
+
   
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: Arr[ShapeCompound]
   
-  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, linePosn, lineLen)
-  final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
-  def svgElem(bounds: BoundingRect): SvgElem
+
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeCompound
 

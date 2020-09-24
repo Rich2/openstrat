@@ -21,7 +21,7 @@ object VecsTest extends TestSuite
     val v32 = 4 vv -5 vv 0
     val v2s: LinePath = v1s :+ v21
     val vs3 = Ints(1, 2, 3).map(i => i vv i)
-    val cf = vs3.toPolygon.fillOld(Colour.Red)
+    val cf = vs3.toPolygon.fill(Colour.Red)
 
     "Test1" -
     { v21 ==> Vec2(4, 4)

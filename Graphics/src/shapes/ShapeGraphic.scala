@@ -9,6 +9,11 @@ trait ShapeGraphic extends GraphicElem
   def attribs: Arr[XmlAtt]
   def svgStr: String
   def shapeAttribs: Arr[XmlAtt] = shape.attribs
+  final def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
+    svgJustElem).out(0, 0, 150)
+  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, linePosn, lineLen)
+  final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
+  def svgElem(bounds: BoundingRect): SvgElem
 }
 
 trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple

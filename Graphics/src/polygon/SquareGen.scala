@@ -42,7 +42,7 @@ final class SquareGen private(val x0: Double, val y0: Double, val x1: Double, va
 
   override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
-  override def fillOld(fillColour: Colour): ShapeFill = ???
+  //override def fill(fillColour: Colour): ShapeFill = ???
 
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }

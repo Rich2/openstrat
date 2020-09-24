@@ -22,7 +22,7 @@ final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) ex
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 
-  override def fillOld(fillColour: Colour): ShapeFill = ???
+  override def fill(fillColour: Colour): PolygonFillOld = ???
 
   override def drawOld(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }

@@ -9,6 +9,6 @@ case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 
   repaints(
     Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
-    Rect.applyOld(200, 100, 100 vv 50).fillOld(Green),
+    Rect.applyOld(200, 100, 100 vv 50).fill(Green),
   )
 }

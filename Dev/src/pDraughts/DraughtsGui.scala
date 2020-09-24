@@ -13,9 +13,9 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
 
   val tiles: DisplayElems = grid.mapRPolygons{ (r, p) =>
     val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
-    p.fillOld(col) }
+    p.fill(col) }
 
-  val pieces = scen.draughts.mapSomes((r, d) => Circle(0.7, r.gridVec2).fillOld(d.colour))
+  val pieces = scen.draughts.mapSomes((r, d) => Circle(0.7, r.gridVec2).fill(d.colour))
 
  def bTurn = clickButton("Turn ", _ => {
    repaint()

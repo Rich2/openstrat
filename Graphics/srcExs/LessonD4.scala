@@ -18,7 +18,7 @@ case class LessonD4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
   val t1 = PolygonGen(v1, v2, v3, v4, v5, v6)
   val t2 = LinePath(v1, v2, v3, v4, v5, v6)
   val c1 = Colour.Azure  
-  val t3 = t1.fillOld(c1)
+  val t3 = t1.fill(c1)
   val s3 = "0xFFFFFFFF";
   val c3 = s3.parseTokens
   val c4 = s3.parseStatements

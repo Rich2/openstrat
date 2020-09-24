@@ -27,8 +27,8 @@ object TransTest extends TestSuite
       assert(o1 nequ None)
     }
 
-    val p1 = r1.fillOld(Red)
-    val p2 = r2.fillOld(Green)
+    val p1 = r1.fill(Red)
+    val p2 = r2.fill(Green)
     val rs1: Arr[PolygonFillOld] = Arr(p1, p2)
     val rs1a = rs1.xSlate(2)
 
