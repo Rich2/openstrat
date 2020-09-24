@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A Polygon based graphic. If you just want a gneral polygon as opposed to specifically specified Polygons sucha Rectangle, Square or Trinagle use
- * the implementation class [[PolygonGenGraphic]]. */
+ * the implementation class [[PolygonCompound]]. */
 trait PolygonGraphic extends ShapeCompound
 {
   override def shape: Polygon

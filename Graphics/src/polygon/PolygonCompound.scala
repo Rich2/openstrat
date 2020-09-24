@@ -3,7 +3,8 @@ package ostrat
 package geom
 import pWeb._
 
-case class PolygonGenGraphic(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends PolygonGraphic
+/** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
+case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends ShapeCompound with PolygonGraphic
 {
   override def attribs: Arr[XmlAtt] = ???
 
