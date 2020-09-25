@@ -51,3 +51,22 @@ case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: 
 
   override def reflect(line: LineSeg): PolygonCompound = ???
 }
+
+object PolygonCompound
+{
+  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, radians: Double) => obj.rotateRadians(radians)
+  implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: XYScale[PolygonCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[PolygonCompound] = new ReflectAxisOffset[PolygonCompound]
+  { override def reflectXOffsetT(obj: PolygonCompound, yOffset: Double): PolygonCompound = obj.reflectXParallel(yOffset)
+    override def reflectYOffsetT(obj: PolygonCompound, xOffset: Double): PolygonCompound = obj.reflectYParallel(xOffset)
+  }
+
+  implicit val shearImplicit: Shear[PolygonCompound] = new Shear[PolygonCompound]
+  { override def xShearT(obj: PolygonCompound, yFactor: Double): PolygonCompound = obj.xShear(yFactor)
+    override def yShearT(obj: PolygonCompound, xFactor: Double): PolygonCompound = obj.yShear(xFactor)
+  }
+}

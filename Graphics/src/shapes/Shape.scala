@@ -63,12 +63,6 @@ object Shape
   implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, radians: Double) => obj.rotateRadians(radians)
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
-  
-  /*implicit val rotateAxesImplicit: RotateAxes[Shape] = new RotateAxes[Shape]
-  { override def rotateT90(obj: Shape): Shape = obj.rotate90
-    override def rotateT180(obj: Shape): Shape = obj.rotate180
-    override def rotateT270(obj: Shape): Shape = obj.rotate270
-  }*/
 
   implicit val mirrorAxisImplicit: ReflectAxisOffset[Shape] = new ReflectAxisOffset[Shape]
   { override def reflectXOffsetT(obj: Shape, yOffset: Double): Shape = obj.reflectXParallel(yOffset)
