@@ -23,7 +23,10 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
   }
     
   def refresh(): Unit = panels.foreach(refreshPanel)   
-   
+  
+  /** This method creates a new frame for the panel. It clips the painting area. Paints the [[Panel]] with the back colour, translates the
+   *  [[GraphicElem]]s from their positions relative to the [[Panel]]'s centre to their absolute positions on the canvas. It stores the active
+   *  object shapes with their absolute positions on the panels active object list. Finally it unclips the painting area. */
   def refreshPanel(panel: Panel): Unit =
   { val clipPoly = panel.clipPoly
     canv.gcSave()
