@@ -31,7 +31,8 @@ case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: 
   override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): PolygonCompound = PolygonCompound(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
+  override def reflectYParallel(xOffset: Double): PolygonCompound =
+    PolygonCompound(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): PolygonCompound = ???
