@@ -90,6 +90,9 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   /** Reflects, mirrors along the y = yOffset line that is parallel to the  X axis. */
   def reflectXOffset(yOffset: Double): Vec2 = Vec2(x, -y + yOffset * 2)
 
+  def xShear(operand: Double): Vec2 = Vec2(x, y * operand)
+  def yShear(operand: Double): Vec2 = Vec2(x * operand, y)
+
   @inline def prolign(m: ProlignMatrix): Vec2 = m.vecTrans(this)
 
   /** Where xnd y is a map on the surface ofa sphere. Currently not working for angles greater than Pi / 2 */
