@@ -48,8 +48,7 @@ object PolygonParentOld
 
   /** Not sure if this is double filling the polygon */
   def fillDraw(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentOld =
-    new PolygonParentOld(cen, poly, evObj, Arr(PolygonFillDraw(poly, fillColour, lineWidth, lineColour)))
-
+    new PolygonParentOld(cen, poly, evObj, Arr(PolygonFill(poly, fillColour), PolygonDraw(poly, lineWidth, lineColour)))
 
   def fillText(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
                align: TextAlign = CenAlign): PolygonParentOld =

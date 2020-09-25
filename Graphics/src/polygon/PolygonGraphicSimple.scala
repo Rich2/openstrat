@@ -70,19 +70,19 @@ object PolygonDraw
 }
 
 /** Immutable Graphic element that defines, fills and draws a Polygon. */
-case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicSimple
+/*case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicSimple
 { override type ThisT = PolygonFillDraw
   override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
   def noFill: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = { cp.polyFill(shape, fillColour); cp.polyDraw(shape, lineWidth, lineColour) }
 
   override def attribs: Arr[XmlAtt] = ???
-}
+}*/
 
-object PolygonFillDraw
+/*object PolygonFillDraw
 { implicit val persistImplicit: Persist4[Polygon, Colour, Double, Colour, PolygonFillDraw] =
     Persist4("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "lineWidth", _.lineWidth, "lineColour", _.lineColour, apply)
-}
+}*/
 
 /** A pointable polygon without visual */
 case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActive
@@ -111,7 +111,7 @@ case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: Strin
   override def fTrans(f: Vec2 => Vec2): PolygonFillDrawTextOld = PolygonFillDrawTextOld(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
-  def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
+ // def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.polyFill(shape, fillColour)
@@ -128,7 +128,7 @@ case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: S
   override def fTrans(f: Vec2 => Vec2): PolygonAll = PolygonAll(shape.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
-  def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
+ // def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.polyFill(shape, fillColour)

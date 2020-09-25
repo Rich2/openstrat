@@ -47,7 +47,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def fillActive(fillColour: Colour, pointerID: Any): PolygonFillActive = PolygonFillActive(this, pointerID, fillColour)//, PolyActiveOnly(this, pointerID))
 
   def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): DisplayElems =
-    Arr(PolygonFillDraw(this, fillColour,lineWidth, lineColour), PolygonActiveOnly(this, pointerID))
+    Arr(PolygonFill(this, fillColour), PolygonDraw(this,lineWidth, lineColour), PolygonActiveOnly(this, pointerID))
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black): PolygonAll =
     PolygonAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)
@@ -72,7 +72,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def parentElems(pointerID: Any, elems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
 
   def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParentOld =
-    PolygonParentOld(this.polyCentre, this, pointerID, Arr(PolygonFillDraw(this, fillColour, lineWidth, lineColour),
+    PolygonParentOld(this.polyCentre, this, pointerID, Arr(PolygonFill(this, fillColour), PolygonDraw(this, lineWidth, lineColour),
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
 
   /** Insert vertice */
@@ -100,8 +100,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   
-  def fillDrawOld(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
-    PolygonFillDraw(this, fillColour, lineWidth, lineColour)
+  /*def fillDrawOld(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
+    PolygonFillDraw(this, fillColour, lineWidth, lineColour)*/
 
   @inline override def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
 

@@ -165,8 +165,8 @@ object Rect
     curvedCorners(height * Phi, height, radius, posn)  
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
-  def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
-    gRatio(height).fillDrawOld(colour, lineWidth, colour.contrast)
+  /*def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonFillDraw =
+    gRatio(height).fillDrawOld(colour, lineWidth, colour.contrast)*/
   
   def fromAxis(centreLine: LineSeg, height: Double): PolygonGen =
   { val hAngle: Angle = centreLine.angle
