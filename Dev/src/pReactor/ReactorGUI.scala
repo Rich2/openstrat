@@ -44,17 +44,17 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
       if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
     }
-    canv.polyFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
   }
   def drawBalls(loc:Vec2, color:Colour, count:Int) : Unit =
   {
-    canv.polyFill(Rect.fromBL(size-1, size-1, loc), Black)
+    canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Black)
     if (count==2||count==4||count==5) canv.circleFill(Circle(size/8, loc+((size/4) vv (size/4))), color)
     if (count==1||count==3||count==5) canv.circleFill(Circle(size/8, loc+((size/2) vv (size/2))), color)
     if (count==2||count==4||count==5) canv.circleFill(Circle(size/8, loc+((3*size/4) vv (3*size/4))), color)
     if (count==3||count==4||count==5) canv.circleFill(Circle(size/8, loc+((3*size/4) vv (size/4))), color)
     if (count==3||count==4||count==5) canv.circleFill(Circle(size/8, loc+((size/4) vv (3*size/4))), color)
-    if (count>5) canv.polyFill(Rect.fromBL(size-1, size-1, loc), Pink)
+    if (count>5) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
   }
   def processQueue() : Unit = 
   {
@@ -89,7 +89,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     var currentPlayerIndex = players.indexOf(currentPlayer) + 1
     if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
     currentPlayer = players(currentPlayerIndex)
-    canv.polyFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
     canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
   def addBallByIndex(index:Int) : Unit = 

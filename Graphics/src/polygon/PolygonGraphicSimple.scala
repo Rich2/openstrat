@@ -41,7 +41,7 @@ trait PolygonActive extends GraphicActive
 final case class PolygonFill(shape: Polygon, colour: Colour) extends PolygonGraphicSimple with ShapeFill
 { override type ThisT = PolygonFill
   override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)
 }
 
@@ -53,7 +53,7 @@ object PolygonFill
 case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) extends PolygonGraphicSimple with PolygonActive
 { override type ThisT = PolygonFillActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(shape.fTrans(f), pointerId, colour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyFill(shape, colour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
   override def attribs: Arr[XmlAtt] = ???
 }
 
@@ -61,7 +61,7 @@ case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) 
 case class PolygonDraw(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonGraphicSimple with ShapeDraw
 { override type ThisT = PolygonDraw
   override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polyDraw(shape, lineWidth, lineColour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)
 }
 
 object PolygonDraw
@@ -98,7 +98,7 @@ case class PolygonFillTextOld(shape: Polygon, fillColour: Colour, str: String, f
   def fillOnly: PolygonFill = PolygonFill(shape, fillColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.polyFill(shape, fillColour)
+  { cp.polygonFill(shape, fillColour)
     cp.textGraphic(textOnly)
   }
 
@@ -114,8 +114,8 @@ case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: Strin
  // def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.polyFill(shape, fillColour)
-    cp.polyDraw(shape, lineWidth, lineColour)
+  { cp.polygonFill(shape, fillColour)
+    cp.polygonDraw(shape, lineWidth, lineColour)
     cp.textGraphic(textOnly)
   }
 
@@ -131,8 +131,8 @@ case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: S
  // def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.polyFill(shape, fillColour)
-    cp.polyDraw(shape, lineWidth, lineColour)
+  { cp.polygonFill(shape, fillColour)
+    cp.polygonDraw(shape, lineWidth, lineColour)
     cp.textGraphic(textOnly)
   }
 
@@ -151,7 +151,7 @@ case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Col
 { override type ThisT = PolygonFillTextActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextActive = PolygonFillTextActive(shape.fTrans(f), pointerId, fillColour, str, fontSize)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = { cp.polyFill(shape, fillColour); cp.textGraphic(textOnly) }
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = { cp.polygonFill(shape, fillColour); cp.textGraphic(textOnly) }
 
   override def attribs: Arr[XmlAtt] = ???
 }

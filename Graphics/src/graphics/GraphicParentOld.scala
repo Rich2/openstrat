@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** This is slated for removal to be replaced by Graphiccompound elements. */
 trait GraphicParentOld extends GraphicElem
 { type ThisT <: GraphicParentOld
   def cen: Vec2
