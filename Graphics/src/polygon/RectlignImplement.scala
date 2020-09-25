@@ -10,8 +10,8 @@ final case class RectlignImplement(width: Double, height: Double, xCen: Double, 
   override def rotateRadians(radians: Double): Rect = ???
   override def reflectX: RectlignImplement = fTrans(_.reflectX)
   override def reflectY: RectlignImplement = fTrans(_.reflectY)
-  override def reflectXOffset(yOffset: Double): RectlignImplement = fTrans(_.reflectXOffset(yOffset))
-  override def reflectYOffset(xOffset: Double): RectlignImplement = fTrans(_.reflectYOffset(xOffset))
+  override def reflectXParallel(yOffset: Double): RectlignImplement = fTrans(_.reflectXOffset(yOffset))
+  override def reflectYParallel(xOffset: Double): RectlignImplement = fTrans(_.reflectYOffset(xOffset))
   //override def reflect(line: Line): Polygon = ???
   //override def reflect(line: Sline): Polygon = ???
 

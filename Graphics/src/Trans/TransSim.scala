@@ -8,8 +8,8 @@ trait SimilarPreserve extends ProlignPreserve
 { type ThisT <: SimilarPreserve
   override def reflectX: ThisT = fTrans(_.reflectX)
   override def reflectY: ThisT = fTrans(_.reflectY)
-  def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-  def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
+  def reflectYParallel(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
+  def reflectXParallel(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
   def reflect(line: Line): ThisT = fTrans(_.reflect(line))
   def reflect(lineSeg: LineSeg): ThisT = fTrans(_.reflect(lineSeg))
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)

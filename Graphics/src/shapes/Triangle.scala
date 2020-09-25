@@ -40,10 +40,10 @@ trait Triangle extends Polygon
 	override def scale(operand: Double): Triangle = ???
 
 	/** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-	override def reflectYOffset(xOffset: Double): Triangle = ???
+	override def reflectYParallel(xOffset: Double): Triangle = ???
 
 	/** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-	override def reflectXOffset(yOffset: Double): Triangle = ???
+	override def reflectXParallel(yOffset: Double): Triangle = ???
 
 	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
 	 * in sub classes. */

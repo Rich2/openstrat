@@ -19,10 +19,10 @@ sealed trait Line extends Curve
   override def scale(operand: Double): Line = ???
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): Line = ???
+  override def reflectYParallel(xOffset: Double): Line = ???
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): Line = ???
+  override def reflectXParallel(yOffset: Double): Line = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */

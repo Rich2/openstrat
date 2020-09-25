@@ -8,8 +8,8 @@ trait GraphicBounded extends GraphicElem with BoundedElem
 { def slate(offset: Vec2): GraphicBounded
   def slate(xOffset: Double, yOffset: Double): GraphicBounded
   def scale(operand: Double): GraphicBounded
-  def reflectYOffset(xOffset: Double): GraphicBounded
-  def reflectXOffset(yOffset: Double): GraphicBounded
+  def reflectYParallel(xOffset: Double): GraphicBounded
+  def reflectXParallel(yOffset: Double): GraphicBounded
   def reflectX: GraphicBounded
   def reflectY: GraphicBounded
   def prolign(matrix: ProlignMatrix): GraphicBounded
@@ -30,10 +30,10 @@ object GraphicBounded
 
   implicit val mirrorAxisImplicit: ReflectAxisOffset[GraphicBounded] = new ReflectAxisOffset[GraphicBounded]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: GraphicBounded, yOffset: Double): GraphicBounded = obj.reflectXOffset(yOffset)
+    override def reflectXOffsetT(obj: GraphicBounded, yOffset: Double): GraphicBounded = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: GraphicBounded, xOffset: Double): GraphicBounded = obj.reflectYOffset(xOffset)
+    override def reflectYOffsetT(obj: GraphicBounded, xOffset: Double): GraphicBounded = obj.reflectYParallel(xOffset)
   }
 
   /*implicit val rotateAxesImplicit: RotateAxes[DisplayBounded] = new RotateAxes[DisplayBounded]

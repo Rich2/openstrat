@@ -16,12 +16,6 @@ trait TransElem extends Product with Serializable
    *  and Squares. Use the xyScale method for differential scaling. */
   def scale(operand: Double): TransElem
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYOffset(xOffset: Double): TransElem
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXOffset(yOffset: Double): TransElem
-
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   def reflectX: TransElem
@@ -29,6 +23,12 @@ trait TransElem extends Product with Serializable
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   def reflectY: TransElem
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  def reflectYParallel(xOffset: Double): TransElem
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  def reflectXParallel(yOffset: Double): TransElem  
 
   /** Transforms this TransElem using a [[ProlignMatrix]]. */
   def prolign(matrix: ProlignMatrix): TransElem
@@ -53,8 +53,8 @@ object TransElem
   implicit val XYScaleImplicit: XYScale[TransElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
   implicit val mirrorAxisImplicit: ReflectAxisOffset[TransElem] = new ReflectAxisOffset[TransElem]
-  { override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXOffset(yOffset)
-    override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.reflectYOffset(xOffset)
+  { override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXParallel(yOffset)
+    override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.reflectYParallel(xOffset)
   }
   
   implicit val shearImplicit: Shear[TransElem] = new Shear[TransElem]

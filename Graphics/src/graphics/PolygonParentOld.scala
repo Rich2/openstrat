@@ -10,11 +10,11 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, childre
   override def addElems(newElems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParentOld = new PolygonParentOld(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
-  def reflectXOffset(yOffset: Double): PolygonParentOld =
-    PolygonParentOld(cen.reflectXOffset(yOffset), poly.reflectXOffset(yOffset), pointerId, children.reflectXOffset(yOffset))
+  def reflectXParallel(yOffset: Double): PolygonParentOld =
+    PolygonParentOld(cen.reflectXOffset(yOffset), poly.reflectXParallel(yOffset), pointerId, children.reflectXOffset(yOffset))
 
-  def reflectYOffset(xOffset: Double): PolygonParentOld =
-    PolygonParentOld(cen.reflectYOffset(xOffset), poly.reflectYOffset(xOffset), pointerId, children.reflectYOffset(xOffset))
+  def reflectYParallel(xOffset: Double): PolygonParentOld =
+    PolygonParentOld(cen.reflectYOffset(xOffset), poly.reflectYParallel(xOffset), pointerId, children.reflectYOffset(xOffset))
 
   def rotateRadians(radians: Double): PolygonParentOld =
     PolygonParentOld(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))

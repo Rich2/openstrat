@@ -70,21 +70,21 @@ trait Rect extends Rectangular with Polygon
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Rect = ???
+  override def scale(operand: Double): Rect = Rect.cenV0V1(cen * operand, v0 * operand, v1 * operand)
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectX: Rect = Rect.cenV0V1(cen.reflectX, v0.reflectX, v1.reflectX)
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: Rect = Rect.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): Rect = ???
+  override def reflectXParallel(yOffset: Double): Rect = Rect.cenV0V1(cen.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), v1.reflectXOffset(yOffset))
 
   /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
-  override def reflectYOffset(xOffset: Double): Rect = ???
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def reflectX: Rect = ???
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def reflectY: Rect = ???
+  override def reflectYParallel(xOffset: Double): Rect = ???  
 
   override def prolign(matrix: ProlignMatrix): Rect = ???
 

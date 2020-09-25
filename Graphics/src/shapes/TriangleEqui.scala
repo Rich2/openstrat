@@ -14,8 +14,8 @@ final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) ex
   override def rotateRadians(radians: Double): Triangle = ???
   override def reflectX: ThisT = fTrans(_.reflectX)
   override def reflectY: ThisT = fTrans(_.reflectY)
-  override def reflectYOffset(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-  override def reflectXOffset(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
+  override def reflectYParallel(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
+  override def reflectXParallel(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
   override def reflect(line: Line): Triangle = ???
 
   override def reflect(line: LineSeg): Triangle = ???

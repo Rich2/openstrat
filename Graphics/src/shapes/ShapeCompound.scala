@@ -29,10 +29,10 @@ trait ShapeCompound extends ShapeGraphic
   override def reflectY: ShapeCompound
   
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): ShapeCompound
+  override def reflectXParallel(yOffset: Double): ShapeCompound
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): ShapeCompound
+  override def reflectYParallel(xOffset: Double): ShapeCompound
 
   override def prolign(matrix: ProlignMatrix): ShapeCompound
 
@@ -67,10 +67,10 @@ object ShapeCompound
   
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeCompound] = new ReflectAxisOffset[ShapeCompound]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: ShapeCompound, yOffset: Double): ShapeCompound = obj.reflectXOffset(yOffset)
+    override def reflectXOffsetT(obj: ShapeCompound, yOffset: Double): ShapeCompound = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: ShapeCompound, xOffset: Double): ShapeCompound = obj.reflectYOffset(xOffset)
+    override def reflectYOffsetT(obj: ShapeCompound, xOffset: Double): ShapeCompound = obj.reflectYParallel(xOffset)
   }
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  

@@ -27,10 +27,10 @@ trait PolygonGraphic extends ShapeGraphic
   override def reflectY: PolygonGraphic
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): PolygonGraphic
+  override def reflectXParallel(yOffset: Double): PolygonGraphic
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): PolygonGraphic
+  override def reflectYParallel(xOffset: Double): PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
   

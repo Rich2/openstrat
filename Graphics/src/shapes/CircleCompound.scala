@@ -38,10 +38,10 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
   override def reflectY: CircleCompound = CircleCompound(shape.reflectY, facets, children.reflectY)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): CircleCompound = CircleCompound(shape.reflectXOffset(yOffset), facets, children.reflectXOffset(yOffset))
+  override def reflectXParallel(yOffset: Double): CircleCompound = CircleCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): CircleCompound = CircleCompound(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
+  override def reflectYParallel(xOffset: Double): CircleCompound = CircleCompound(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
 
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 

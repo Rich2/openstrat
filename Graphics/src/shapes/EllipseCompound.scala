@@ -23,10 +23,10 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
   override def reflectY: EllipseCompound
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): EllipseCompound
+  override def reflectXParallel(yOffset: Double): EllipseCompound
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): EllipseCompound
+  override def reflectYParallel(xOffset: Double): EllipseCompound
   
   override def prolign(matrix: ProlignMatrix): EllipseCompound
 
@@ -91,12 +91,12 @@ object EllipseCompound
     override def reflectY: EllipseCompoundImplement = EllipseCompoundImplement(shape.reflectY, facets, children.reflectY)
 
     /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-    override def reflectXOffset(yOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.reflectXOffset(yOffset), facets, children.reflectXOffset(yOffset))
+    override def reflectXParallel(yOffset: Double): EllipseCompoundImplement =
+      EllipseCompoundImplement(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
 
     /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-    override def reflectYOffset(xOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
+    override def reflectYParallel(xOffset: Double): EllipseCompoundImplement =
+      EllipseCompoundImplement(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
 
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
 

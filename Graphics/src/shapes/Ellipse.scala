@@ -113,9 +113,9 @@ trait Ellipse extends Shape with Curve
 
   override def reflectY: Ellipse = fTrans(_.reflectY)
 
-  override def reflectYOffset(xOffset: Double): Ellipse = ???
+  override def reflectYParallel(xOffset: Double): Ellipse = ???
 
-  override def reflectXOffset(yOffset: Double): Ellipse = ???
+  override def reflectXParallel(yOffset: Double): Ellipse = ???
 
   override def reflect(line: Line): Ellipse = ???
 

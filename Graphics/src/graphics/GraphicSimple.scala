@@ -25,10 +25,10 @@ trait GraphicSimple extends GraphicElem
   override def reflectY: GraphicSimple
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): GraphicSimple
+  override def reflectXParallel(yOffset: Double): GraphicSimple
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): GraphicSimple
+  override def reflectYParallel(xOffset: Double): GraphicSimple
 
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
@@ -56,10 +56,10 @@ object GraphicSimple
 
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[GraphicSimple] = new ReflectAxisOffset[GraphicSimple]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: GraphicSimple, yOffset: Double): GraphicSimple = obj.reflectXOffset(yOffset)
+    override def reflectXOffsetT(obj: GraphicSimple, yOffset: Double): GraphicSimple = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: GraphicSimple, xOffset: Double): GraphicSimple = obj.reflectYOffset(xOffset)
+    override def reflectYOffsetT(obj: GraphicSimple, xOffset: Double): GraphicSimple = obj.reflectYParallel(xOffset)
   }
 
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)

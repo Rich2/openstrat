@@ -30,10 +30,10 @@ trait Shape extends Fillable
   override def scale(operand: Double): Shape
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): Shape
+  override def reflectYParallel(xOffset: Double): Shape
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): Shape
+  override def reflectXParallel(yOffset: Double): Shape
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
@@ -71,8 +71,8 @@ object Shape
   }*/
 
   implicit val mirrorAxisImplicit: ReflectAxisOffset[Shape] = new ReflectAxisOffset[Shape]
-  { override def reflectXOffsetT(obj: Shape, yOffset: Double): Shape = obj.reflectXOffset(yOffset)
-    override def reflectYOffsetT(obj: Shape, xOffset: Double): Shape = obj.reflectYOffset(xOffset)
+  { override def reflectXOffsetT(obj: Shape, yOffset: Double): Shape = obj.reflectXParallel(yOffset)
+    override def reflectYOffsetT(obj: Shape, xOffset: Double): Shape = obj.reflectYParallel(xOffset)
   }
 
   implicit val shearImplicit: Shear[Shape] = new Shear[Shape]

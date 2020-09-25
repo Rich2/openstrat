@@ -57,10 +57,10 @@ trait Polygon extends Vec2sLike with Shape
   override def scale(operand: Double): Polygon = polygonMap(_ * operand)
 
   /** Mirror, reflection transformation of a Polygon across the line y = yOffset, which is parallel to the X axis, returns a Polygon. */
-  override def reflectXOffset(yOffset: Double): Polygon = polygonMap(_.reflectXOffset(yOffset))
+  override def reflectXParallel(yOffset: Double): Polygon = polygonMap(_.reflectXOffset(yOffset))
 
   /** Mirror, reflection transformation of a Polygon across the line x = xOffset, which is parallel to the X axis. Returns a Polygon. */
-  override def reflectYOffset(xOffset: Double): Polygon = polygonMap(_.reflectYOffset(xOffset))
+  override def reflectYParallel(xOffset: Double): Polygon = polygonMap(_.reflectYOffset(xOffset))
 
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
   override def reflectX: Polygon = polygonMap(_.reflectX)
@@ -121,8 +121,8 @@ object Polygon
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
   implicit val mirrorAxisImplicit: ReflectAxisOffset[Polygon] = new ReflectAxisOffset[Polygon]
-  { override def reflectXOffsetT(obj: Polygon, yOffset: Double): Polygon = obj.reflectXOffset(yOffset)
-    override def reflectYOffsetT(obj: Polygon, xOffset: Double): Polygon = obj.reflectYOffset(xOffset)
+  { override def reflectXOffsetT(obj: Polygon, yOffset: Double): Polygon = obj.reflectXParallel(yOffset)
+    override def reflectYOffsetT(obj: Polygon, xOffset: Double): Polygon = obj.reflectYParallel(xOffset)
   }
 
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]

@@ -32,10 +32,10 @@ case class RectGraphic(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Sha
   override def reflectY: RectGraphic = RectGraphic(shape.reflectY, facets, children.reflectY)
   
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXOffset(yOffset: Double): RectGraphic = RectGraphic(shape.reflectXOffset(yOffset), facets, children.reflectXOffset(yOffset))
+  override def reflectXParallel(yOffset: Double): RectGraphic = RectGraphic(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYOffset(xOffset: Double): RectGraphic = RectGraphic(shape.reflectYOffset(xOffset), facets, children.reflectYOffset(xOffset))
+  override def reflectYParallel(xOffset: Double): RectGraphic = RectGraphic(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
 
   override def prolign(matrix: ProlignMatrix): RectGraphic = RectGraphic(shape.prolign(matrix), facets, children.prolign(matrix))
 
