@@ -3,6 +3,7 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
+/** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphic
 { override def shape: Ellipse
   @inline final def cen: Vec2 = shape.cen
@@ -11,12 +12,13 @@ trait EllipseGraphic extends ShapeGraphic
 }
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
-trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with SimilarPreserve
+trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with SimilarAffPreserve
 { type ThisT <: EllipseGraphicSimple
+  type ThisT2 <: EllipseGraphicSimple
 }
 
 /** A simple single colour fill of a circle graphic. */
-trait EllipseFill extends EllipseGraphicSimple with ShapeFill with SimilarAffPreserve
+trait EllipseFill extends EllipseGraphicSimple with ShapeFill
 { type ThisT <: EllipseFill
   type ThisT2 = EllipseFill
   override def fTrans2(f: Vec2 => Vec2): ThisT2 = EllipseFill(shape.fTrans(f), colour)
@@ -40,7 +42,7 @@ object EllipseFill
   }
 }
 
-trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with SimilarAffPreserve
+trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw
 {
   type ThisT <: EllipseDraw
   type ThisT2 = EllipseDraw
@@ -63,5 +65,4 @@ object EllipseDraw
 
     override def svgStr: String = ???
   }
-
 }
