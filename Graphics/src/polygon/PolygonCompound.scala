@@ -6,6 +6,13 @@ import pWeb._
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
 case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends ShapeCompound with PolygonGraphic
 {
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
+  { case FillFacet(c) => cp.polyFill(shape, c)
+  case DrawFacet(w, c) => cp.polyDraw(shape, w, c)
+ // case fr: FillRadial => cp.circleFillRadial(shape, fr)
+  case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
+  }
+  
   override def attribs: Arr[XmlAtt] = ???
 
   override def svgStr: String = ???
