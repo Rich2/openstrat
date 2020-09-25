@@ -40,7 +40,6 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
   def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
 
-
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonFillTextOld =
     PolygonFillTextOld(this, fillColour, str, fontSize, textColour)
 
@@ -99,9 +98,6 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
-  
-  /*def fillDrawOld(fillColour: Colour, lineWidth: Double = 1.0, lineColour: Colour = Black): PolygonFillDraw =
-    PolygonFillDraw(this, fillColour, lineWidth, lineColour)*/
 
   @inline override def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
 
