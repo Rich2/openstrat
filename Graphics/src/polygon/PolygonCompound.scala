@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends ShapeCompound with PolygonGraphic
+case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends ShapeCompound with PolygonGraphic
 {
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillFacet(c) => cp.polygonFill(shape, c)

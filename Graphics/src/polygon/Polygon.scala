@@ -107,6 +107,9 @@ trait Polygon extends Vec2sLike with Shape
   def sline3: LineSeg = sline(3)
   def sline4: LineSeg = sline(4)
   def sline5: LineSeg = sline(5)
+
+  def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
+    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerID)))
 }
 
 /** Companion object for the Polygon trait. */

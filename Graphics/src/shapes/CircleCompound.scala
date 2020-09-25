@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends EllipseCompound with CircleGraphic
+case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends EllipseCompound with CircleGraphic
 {
   override def attribs: Arr[XmlAtt] = ???
 

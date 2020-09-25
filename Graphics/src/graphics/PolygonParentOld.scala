@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[GraphicElem]) extends GraphicParentOld with GraphicActive
+case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[GraphicElem]) extends GraphicParentOld with GraphicActiveOld
 { type ThisT = PolygonParentOld
   override def ptInside(pt: Vec2): Boolean = poly.ptInside(pt)
   override def addElems(newElems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(cen, poly, pointerId, children ++ newElems)

@@ -8,7 +8,7 @@ trait ShapeCompound extends ShapeGraphic
   def facets: Arr[GraphicFacet]
   
   /** The [[ShapeCompound]] type will be widened at a later point. */
-  def children: Arr[ShapeCompound]
+  def children: Arr[GraphicElem]
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): ShapeCompound

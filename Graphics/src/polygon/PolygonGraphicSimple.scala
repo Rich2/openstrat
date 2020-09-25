@@ -27,7 +27,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with GraphicAffineElem with Gr
 }
 
 /** An active transparent pointable polygon */
-trait PolygonActive extends GraphicActive
+trait PolygonActiveOld extends GraphicActiveOld
 { def shape: Polygon
   override def boundingRect = shape.boundingRect
   override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
@@ -50,7 +50,7 @@ object PolygonFill
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) extends PolygonGraphicSimple with PolygonActive
+case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) extends PolygonGraphicSimple with PolygonActiveOld
 { override type ThisT = PolygonFillActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(shape.fTrans(f), pointerId, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
@@ -85,9 +85,17 @@ object PolygonDraw
 }*/
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActive
+case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActiveOld
 { override type ThisT = PolygonActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(shape.fTrans(f), pointerId)
+}
+
+/** A pointable polygon without visual */
+case class PolygonClickable(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable
+{ override type ThisT = PolygonClickable
+  override def fTrans(f: Vec2 => Vec2): PolygonClickable = PolygonClickable(shape.fTrans(f), pointerId)
+  override def boundingRect = shape.boundingRect
+  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
 }
 
 case class PolygonFillTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends
@@ -123,7 +131,7 @@ case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: Strin
 }
 
 case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
-                      lineColour: Colour = Black) extends PolygonGraphicSimple with PolygonActive
+                      lineColour: Colour = Black) extends PolygonGraphicSimple with PolygonActiveOld
 { override type ThisT = PolygonAll
   override def fTrans(f: Vec2 => Vec2): PolygonAll = PolygonAll(shape.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
@@ -147,7 +155,7 @@ object PolygonFillDrawTextOld
 
 /** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */
 case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphicSimple
-  with PolygonActive
+  with PolygonActiveOld
 { override type ThisT = PolygonFillTextActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextActive = PolygonFillTextActive(shape.fTrans(f), pointerId, fillColour, str, fontSize)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
