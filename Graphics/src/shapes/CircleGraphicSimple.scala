@@ -1,12 +1,11 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pCanv._, Colour.Black, pWeb._
+import pCanv._, Colour.Black
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
 trait CircleGraphicSimple extends CircleGraphic with ShapeGraphicSimple with SimilarPreserve
 { type ThisT <: CircleGraphicSimple
-  
 }
 
 /** A simple single colour fill of a circle graphic. */

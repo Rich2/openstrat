@@ -38,6 +38,6 @@ trait Vec2sLikeProdDbl2 extends Vec2sLike with ArrProdDbl2[Vec2]
   }
   override def fElemStr: Vec2 => String = _.str
   final override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-  override def foldLeft[B](initial: B)(f: (B, ostrat.geom.Vec2) => B): B = super.foldLeft(initial)(f)
+  override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
   //def foreach(f: Vec2 => Unit): Unit = { var count = 0; while(count < length) { f(apply(count)); count += 1 } }
 }
