@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
-case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends ShapeCompound with PolygonGraphic
+case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[ShapeCompound] = Arr()) extends ShapeCompound with RectGraphic
 {
   override def attribs: Arr[XmlAtt] = ???
 
@@ -50,6 +50,4 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Sh
   override def yShear(operand: Double): PolygonCompound = ???
 
   override def reflect(line: LineSeg): RectCompound = ???
-
-  
 }
