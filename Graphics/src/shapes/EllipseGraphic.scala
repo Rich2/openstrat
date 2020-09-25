@@ -13,13 +13,13 @@ trait EllipseGraphic extends ShapeGraphic
 /** A Simple circle based graphic. Not sure if this trait is useful. */
 trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with SimilarPreserve
 { type ThisT <: EllipseGraphicSimple
-
 }
 
 /** A simple single colour fill of a circle graphic. */
-trait EllipseFill extends EllipseGraphicSimple with ShapeFill
+trait EllipseFill extends EllipseGraphicSimple with ShapeFill with SimilarAffPreserve
 { type ThisT <: EllipseFill
-  
+  type ThisT2 = EllipseFill
+  override def fTrans2(f: Vec2 => Vec2): ThisT2 = EllipseFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(shape, colour)
 
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): EllipseDraw = shape.draw(lineWidth, newColour)
@@ -30,15 +30,12 @@ object EllipseFill
   def apply(shape: Ellipse, colour: Colour): EllipseFill = EllipseFillImp(shape, colour)
 
   /** A simple single colour fill of an ellipse graphic. */
-  final case class EllipseFillImp(shape: Ellipse, colour: Colour) extends EllipseFill with SimilarAffPreserve
+  final case class EllipseFillImp(shape: Ellipse, colour: Colour) extends EllipseFill
   { type ThisT = EllipseFill
-    type ThisT2 = EllipseFill
+
     override def fTrans(f: Vec2 => Vec2): ThisT = EllipseFill(shape.fTrans(f), colour)
-    override def fTrans2(f: Vec2 => Vec2): ThisT = EllipseFill(shape.fTrans(f), colour)
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(shape, colour)
-
     override def svgElem(bounds: BoundingRect): SvgElem = ???
-
     override def svgStr: String = ???   
   }
 }

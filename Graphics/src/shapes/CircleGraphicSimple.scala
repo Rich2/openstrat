@@ -13,10 +13,6 @@ final case class CircleFill(shape: Circle, colour: Colour) extends CircleGraphic
 { override type ThisT = CircleFill
   override def fTrans(f: Vec2 => Vec2): ThisT = CircleFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleFill(shape, colour)
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
-  override def xShear(operand: Double): TransElem = ???
-
-  override def yShear(operand: Double): TransElem = ???
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): CircleDraw = shape.draw(lineWidth, newColour)
