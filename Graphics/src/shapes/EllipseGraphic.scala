@@ -40,9 +40,11 @@ object EllipseFill
   }
 }
 
-trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw
+trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with SimilarAffPreserve
 {
   type ThisT <: EllipseDraw
+  type ThisT2 = EllipseDraw
+  override def fTrans2(f: Vec2 => Vec2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineWidth, lineColour)
 }
 
 object EllipseDraw
@@ -56,12 +58,6 @@ object EllipseDraw
     override def fTrans(f: Vec2 => Vec2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineWidth, lineColour)
 
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(shape, lineWidth, lineColour)
-
-    override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
-
-    override def xShear(operand: Double): TransElem = ???
-
-    override def yShear(operand: Double): TransElem = ???
 
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
