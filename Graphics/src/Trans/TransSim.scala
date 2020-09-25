@@ -3,18 +3,6 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-/** All leaf classes of this type that will preserve their types for all the Similar 2d geometrical transformations. */
-trait SimilarPreserve extends ProlignPreserve
-{ type ThisT <: SimilarPreserve
-  override def reflectX: ThisT = fTrans(_.reflectX)
-  override def reflectY: ThisT = fTrans(_.reflectY)
-  def reflectYParallel(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-  def reflectXParallel(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
-  def reflect(line: Line): ThisT = fTrans(_.reflect(line))
-  def reflect(lineSeg: LineSeg): ThisT = fTrans(_.reflect(lineSeg))
-  def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
-  override def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
-}
 
 /** A Similar Transformations type class */
 trait TransSim[T] extends TransAlign[T]
@@ -71,17 +59,4 @@ class TransSimExtension[T](value: T, ev: TransSim[T])
   { val r1 = ev.scale(value, factor)
     ev.slate(r1, addVec)
   }
-}
-
-trait SimilarAllPreserve extends SimilarPreserve
-{
-  type ThisT2 <: TransElem
-
-  def fTrans2(f: Vec2 => Vec2): ThisT2
-
-  override def xyScale(xOperand: Double, yOperand: Double): ThisT2 = fTrans2(_.xyScale(xOperand, yOperand))
-
-  override def xShear(operand: Double): ThisT2 = ???
-
-  override def yShear(operand: Double): ThisT2 = ???
 }

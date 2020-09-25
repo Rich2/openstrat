@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pWeb._, pCanv._, Colour.Black
+import pCanv._, Colour.Black
 
 trait EllipseGraphic extends ShapeGraphic
 { override def shape: Ellipse
@@ -29,18 +29,13 @@ object EllipseFill
 {
   def apply(shape: Ellipse, colour: Colour): EllipseFill = EllipseFillImp(shape, colour)
 
-  /** A simple single colour fill of a circle graphic. */
-  final case class EllipseFillImp(shape: Ellipse, colour: Colour) extends EllipseFill
+  /** A simple single colour fill of an ellipse graphic. */
+  final case class EllipseFillImp(shape: Ellipse, colour: Colour) extends EllipseFill with SimilarAffPreserve
   { type ThisT = EllipseFill
+    type ThisT2 = EllipseFill
     override def fTrans(f: Vec2 => Vec2): ThisT = EllipseFill(shape.fTrans(f), colour)
-
+    override def fTrans2(f: Vec2 => Vec2): ThisT = EllipseFill(shape.fTrans(f), colour)
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(shape, colour)
-
-    override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple = ???
-
-    override def xShear(operand: Double): TransElem = ???
-
-    override def yShear(operand: Double): TransElem = ???
 
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 

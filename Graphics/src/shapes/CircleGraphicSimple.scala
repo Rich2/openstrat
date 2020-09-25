@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
-trait CircleGraphicSimple extends CircleGraphic with ShapeGraphicSimple with SimilarPreserve
+trait CircleGraphicSimple extends CircleGraphic with EllipseGraphicSimple with SimilarPreserve
 { type ThisT <: CircleGraphicSimple
 }
 
