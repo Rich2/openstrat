@@ -28,10 +28,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
-      
-    - name: Display the path
-    run: echo $PATH
-    shell: bash
 
 
 #- name: Download a Build Artifact
