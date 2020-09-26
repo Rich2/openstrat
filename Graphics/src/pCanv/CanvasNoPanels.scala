@@ -22,6 +22,8 @@ abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with Pane
   /** Repaints the canvas, takes a Refs collection as parameter. */
   def repaint(els: Arr[GraphicElem]): Unit = { canvObjs = els; refresh() }
 
+  /** This function is to create a display that changes over time. So you pass in a function from the time elapsed in milliseconds to the Arr of
+   * [[DisplayElem]]s that you want to display at that time point. */
   def timedRepaint(f: Integer => DisplayElems): Unit =
   { val combinedF: Integer => Unit = elapsed => repaint(f(elapsed))
     canv.startFramePermanent(combinedF)

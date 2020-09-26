@@ -20,6 +20,7 @@ class Dbls(val array: Array[Double]) extends AnyVal with ArrBase[Double]
   }
 }
 
+/** Companion object for the Dbls Array based class for Doubles, contains a repeat parameter factory method. */
 object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
 }
