@@ -18,16 +18,16 @@ jobs:
       with:
         java-version: 1.8
     - name: Build for js
-      run: sbt JsDev/fastOptJS
+      run: sbt DevJs/fastOptJS
     - uses: actions/upload-artifact@v1
       with:
-        name: jsdev-fastopt.js
-        path: target/JsDev/target/scala-2.13/jsdev-fastopt.js
+        name: devjs-fastopt.js
+        path: SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js
    
     - uses: actions/upload-artifact@v1
       with:
-        name: jsdev-fastopt.js.map
-        path: target/JsDev/target/scala-2.13/jsdev-fastopt.js.map
+        name: devjs-fastopt.js.map
+        path: SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js.map
 
   buildFull:
 
@@ -40,12 +40,12 @@ jobs:
       with:
         java-version: 1.8
     - name: Build for js
-      run: sbt JsDev/fullOptJS
+      run: sbt DevJs/fullOptJS
     - uses: actions/upload-artifact@v1
       with:
-        name: jsdev-opt.js
-        path: target/JsDev/target/scala-2.13/jsdev-opt.js
+        name: devjs-opt.js
+        path: SbtDir/DevJs/target/scala-2.13/devjs-opt.js
     - uses: actions/upload-artifact@v1
       with:
-        name: jsdev-opt.js.map
-        path: target/JsDev/target/scala-2.13/jsdev-opt.js.map
+        name: devjs-opt.js.map
+        path: SbtDir/DevJs/target/scala-2.13/devjs-opt.js.map
