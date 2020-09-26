@@ -11,6 +11,7 @@ trait GraphicActive extends GraphicBounded
   def ptInside(pt: Vec2): Boolean
 }
 
+/** This is the new active trait that will replace GraphicActive. */
 trait GraphicClickable extends GraphicActive
 
 /** The base trait for all objects that can have mouse / touch pad interaction. */
