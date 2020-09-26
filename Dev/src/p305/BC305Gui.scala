@@ -30,7 +30,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
   val fHex: OfETile[BcTileOld, ESideOldOnly] => DisplayElems = etog =>
     { import etog._         
       val colour: Colour = tile.colour
-      val poly = vertDispVecs.fillActiveOld(colour, tile)
+      val poly = vertDispVecs.fillActive(colour, tile)
       
       val tileText: DisplayElems = ifScaleCObjs(68,
         { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
