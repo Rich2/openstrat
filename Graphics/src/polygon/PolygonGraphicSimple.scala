@@ -69,21 +69,6 @@ object PolygonDraw
     Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)
 }
 
-/** Immutable Graphic element that defines, fills and draws a Polygon. */
-/*case class PolygonFillDraw(shape: Polygon, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolygonGraphicSimple
-{ override type ThisT = PolygonFillDraw
-  override def fTrans(f: Vec2 => Vec2): PolygonFillDraw = PolygonFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
-  def noFill: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = { cp.polyFill(shape, fillColour); cp.polyDraw(shape, lineWidth, lineColour) }
-
-  override def attribs: Arr[XmlAtt] = ???
-}*/
-
-/*object PolygonFillDraw
-{ implicit val persistImplicit: Persist4[Polygon, Colour, Double, Colour, PolygonFillDraw] =
-    Persist4("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "lineWidth", _.lineWidth, "lineColour", _.lineColour, apply)
-}*/
-
 /** A pointable polygon without visual */
 case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActiveOld
 { override type ThisT = PolygonActiveOnly

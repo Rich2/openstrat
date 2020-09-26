@@ -45,7 +45,6 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   def fillActiveOld(fillColour: Colour, pointerID: Any): PolygonFillActive = PolygonFillActive(this, pointerID, fillColour)//, PolyActiveOnly(this, pointerID))
 
-
   def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): DisplayElems =
     Arr(PolygonFill(this, fillColour), PolygonDraw(this,lineWidth, lineColour), PolygonActiveOnly(this, pointerID))
 

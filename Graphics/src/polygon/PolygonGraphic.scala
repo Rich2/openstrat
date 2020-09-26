@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** A Polygon based graphic. If you just want a gneral polygon as opposed to specifically specified Polygons sucha Rectangle, Square or Trinagle use
+/** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as Rectangle, Square or Triangle use
  * the implementation class [[PolygonCompound]]. */
 trait PolygonGraphic extends ShapeGraphic
 {
