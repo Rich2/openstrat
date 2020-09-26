@@ -28,7 +28,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: ed -v "AppsForJs.scala" <<<$',s|theMap(\"1\")|theMap(\"2\")|\nwq\n'
-      echo "Hello ${{ github.event.inputs.name }}"
 
 
 #- name: Download a Build Artifact
