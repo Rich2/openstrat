@@ -113,7 +113,8 @@ trait Polygon extends Vec2sLike with Shape
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerID)))
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
-  PolygonCompound = ??? // PolygonAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)
+  PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour), ShapeActive(pointerID)),
+    Arr(TextGraphic(str, fontSize)))
 }
 
 /** Companion object for the Polygon trait. */
