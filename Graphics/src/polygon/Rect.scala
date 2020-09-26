@@ -174,6 +174,16 @@ object Rect
     PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
+  implicit val slateImplicit: Slate[Rect] = (obj: Rect, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[Rect] = (obj: Rect, radians: Double) => obj.rotateRadians(radians)
+  implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
+
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[Rect] = new ReflectAxisOffset[Rect]
+  { override def reflectXOffsetT(obj: Rect, yOffset: Double): Rect = obj.reflectXParallel(yOffset)
+    override def reflectYOffsetT(obj: Rect, xOffset: Double): Rect = obj.reflectYParallel(xOffset)
+  }
+
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double,  val x1: Double, val y1: Double) extends RectCenV0
   { type ThisT = RectImp
