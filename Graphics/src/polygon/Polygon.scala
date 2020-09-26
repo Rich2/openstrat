@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import Colour.Black
 
 /** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
@@ -110,6 +111,9 @@ trait Polygon extends Vec2sLike with Shape
 
   def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerID)))
+
+  def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
+  PolygonCompound = ??? // PolygonAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)
 }
 
 /** Companion object for the Polygon trait. */
