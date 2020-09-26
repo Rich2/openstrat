@@ -27,7 +27,7 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: BuildThisApp
-      run: ed -v "Dev/srcJs/AppsForJs.scala" <<<$',s|theMap(\"1\")|theMap(\"2\")|\nwq\n'
+      run: ed -v "/home/runner/work/openstrat/openstrat/Dev/srcJs/AppsForJs.scala" <<<$',s|theMap(\"1\")|theMap(\"2\")|\nwq\n'
 
 
 #- name: Download a Build Artifact
