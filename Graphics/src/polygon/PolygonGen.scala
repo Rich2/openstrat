@@ -38,9 +38,9 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def boundingHeight: Double = boundingRect.height
 
   def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
-  def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
+  //def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
 
-  def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonFillTextOld =
+  def fillTextOld(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonFillTextOld =
     PolygonFillTextOld(this, fillColour, str, fontSize, textColour)
 
   def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): DisplayElems =
