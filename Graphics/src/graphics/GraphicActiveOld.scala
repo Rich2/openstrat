@@ -31,7 +31,7 @@ trait GraphicActiveAffine extends GraphicActiveSim with GraphicBoundedAffine
 
 /** A pointable shape */
 trait PolyCurveActive extends GraphicActiveAffine
-{  type ThisT <: PolyCurveActive
+{ type ThisT <: PolyCurveActive
   def shape: PolyCurve
   def innerPoly: PolygonGen = shape.pMap(_.pEnd)
   override def boundingRect: BoundingRect = innerPoly.boundingRect
