@@ -8,12 +8,12 @@ import geom._, pCanv._, Colour._
           separate scrollbar, vertical scrollbar */
 
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
-{ //val #Less = "Less".intern()
-  //val #More = "More".intern()
-  //val #PageLess = "PageLess".intern()
-  //val #PageMore = "PageMore".intern()
-  //val #First = "First".intern()
-  //val #Last = "Last".intern()
+{ //val #_less = "Less".intern()
+  //val #_more = "More".intern()
+  //val #_pageLess = "PageLess".intern()
+  //val #_pageMore = "PageMore".intern()
+  //val #_first = "First".intern()
+  //val #_last = "Last".intern()
   //var selectedFocused = false
 
   var viewIndex, itemsPerUnitScroll, iScrollStep, jScrollStep: Int = 0
@@ -134,12 +134,12 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
 //** NB below is for scroll ~> need focus to handle keys also for selected etc **//
   canv.keyDown = (thekey: String) => thekey match
-  {// case ("ArrowUp" | "ArrowLeft") => theSelectionFocus ? showSelected(#less) : showGridView(#less)//viewIndex - itemsPerUnitScroll)
-   // case ("ArrowDown" | "ArrowRight") => theSelectionFocus ? showSelected(#more) : showGridView(#more)//viewIndex + itemsPerUnitScroll)
-   // case ("PageDown") => theSelectionFocus ? showSelected(#pagemore) : showGridView(#pagemore)//viewIndex + itemsPerPage)
-   // case ("PageUp") => theSelectionFocus ? showSelected(#pageless) : showGridView(#pageless)//viewIndex - itemsPerPage)
-   // case ("End") => theSelectionFocus ? showSelected(#last) : showGridView(#last)//maxIndexOfFirstItemInView)
-   // case ("Home") => theSelectionFocus ? showSelected(#first) : showGridView(#first)//0
+  {// case ("ArrowUp" | "ArrowLeft") => theSelectionFocus ? showSelected(#_less) : showGridView(#_less)//viewIndex - itemsPerUnitScroll)
+   // case ("ArrowDown" | "ArrowRight") => theSelectionFocus ? showSelected(#_more) : showGridView(#_more)//viewIndex + itemsPerUnitScroll)
+   // case ("PageDown") => theSelectionFocus ? showSelected(#_pageMore) : showGridView(#_pagemore)//viewIndex + itemsPerPage)
+   // case ("PageUp") => theSelectionFocus ? showSelected(#_pageLess) : showGridView(#_pageless)//viewIndex - itemsPerPage)
+   // case ("End") => theSelectionFocus ? showSelected(#_last) : showGridView(#_last)//maxIndexOfFirstItemInView)
+   // case ("Home") => theSelectionFocus ? showSelected(#_first) : showGridView(#_first)//0
     case _ => deb(thekey)
   }
   
