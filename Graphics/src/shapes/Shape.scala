@@ -19,6 +19,8 @@ trait Shape extends Fillable
   }
   def boundingRect: BoundingRect
 
+  def cen: Vec2
+  
   /** Translate geometric transformation on a Shape returns a Shape. */
   override def slate(offset: Vec2): Shape
 

@@ -8,7 +8,7 @@ import Colour.Black
 trait Polygon extends Vec2sLike with Shape
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
-
+  override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / length
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double, lineColour: Colour): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
