@@ -30,7 +30,7 @@ abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with Pane
   }
 
   def timedRepaint1(f: Integer => GraphicElem): Unit =
-  { val combinedF: Integer => Unit = elapsed => repaints((f(elapsed)))
+  { val combinedF: Integer => Unit = elapsed => repaints(f(elapsed))
     canv.startFramePermanent(combinedF)
   }
 }

@@ -14,4 +14,6 @@ trait RectCenV0 extends Rect
   @inline final def v3: Vec2 = 2 * cen - v1
   @inline final def x3: Double = v3.x
   @inline final def y3: Double = v3.y
+
+
 }

@@ -46,7 +46,7 @@ final case class PolygonFill(shape: Polygon, colour: Colour) extends PolygonGrap
 }
 
 object PolygonFill
-{ implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)
+{ /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
@@ -65,8 +65,8 @@ case class PolygonDraw(shape: Polygon, lineWidth: Double = 2, lineColour: Colour
 }
 
 object PolygonDraw
-{ implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolygonDraw] =
-    Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)
+{ /*implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolygonDraw] =
+    Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)*/
 }
 
 /** A pointable polygon without visual */
@@ -133,9 +133,9 @@ case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: S
 }
 
 object PolygonFillDrawTextOld
-{ implicit val persistImplicit: Persist6[Polygon, Colour, String, Int, Double, Colour, PolygonFillDrawTextOld] =
+{ /*implicit val persistImplicit: Persist6[Polygon, Colour, String, Int, Double, Colour, PolygonFillDrawTextOld] =
   Persist6("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "str", _.str, "fontSize", _.fontSize, "lineWidth", _.lineWidth,
-    "lineColour", _.lineColour, apply)
+    "lineColour", _.lineColour, apply)*/
 }
 
 /** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */

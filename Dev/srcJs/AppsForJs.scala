@@ -41,7 +41,7 @@ object AppsForJs
     ("A3", (learn.LsA3(_), "Js Demonstration Canvas 3")),
     ("A4", (learn.LsA4(_), "Js Demonstration Canvas 4")),
     ("A5", (learn.LsA5(_), "Js Demonstration Canvas 5")),
-    ("A6", (learn.LessonA6(_), "Js Demonstration Canvas 6")),
+    ("A6", (learn.LsA6(_), "Js Demonstration Canvas 6")),
     ("A7", (learn.LessonA7(_), "Js Demonstration Canvas 7")),
     ("A8", (learn.LessonA8(_), "Js Demonstration Canvas 8")),
     ("A9", (learn.LessonA9(_), "Js Demonstration Canvas 9")),

@@ -17,6 +17,8 @@ trait Rect extends Rectangular with Polygon
   def x3: Double
   def y3: Double
   def v3: Vec2
+
+  override def ptsArray: Array[Double] = Array(x0, y0, x1, y1, x2, y2, x3, y3)
   
   def v0Mid1: Vec2 = v0.midPtTo(v1)
   def v1Mid2: Vec2 = v1.midPtTo(v2)

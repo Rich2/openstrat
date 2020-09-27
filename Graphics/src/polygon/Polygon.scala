@@ -28,6 +28,7 @@ trait Polygon extends Vec2sLike with Shape
   /** May throw on a 0 vertices polygon. */
   def v0: Vec2
 
+  def ptsArray: Array[Double]
   def elem1sArray: Array[Double]
   def elem2sArray: Array[Double]
   def foreachPairTail[U](f: (Double, Double) => U): Unit
@@ -119,8 +120,16 @@ trait Polygon extends Vec2sLike with Shape
 
 /** Companion object for the Polygon trait. */
 object Polygon
-{ implicit val eqImplicit: Eq[Polygon] = (p1, p2) => ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
-  implicit val persistImplicit: Persist[Polygon] = ???
+{
+  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): Polygon = PolygonGen(v1, v2, v3, tail: _*)
+
+  implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.ptsArray, p2.ptsArray)
+
+  //  ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
+ // implicit val persistImplicit: Persist[Polygon] = ???
+   /* new ArrProdDbl2Persist[Vec2, PolygonGen]("Polygon")
+  { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
+  }*/
 
   implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)

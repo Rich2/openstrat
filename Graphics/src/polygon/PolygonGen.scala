@@ -8,6 +8,8 @@ import Colour.Black, pWeb._
 final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { type ThisT = PolygonGen
   def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
+
+  @inline override def ptsArray: Array[Double] = arrayUnsafe
   override def typeStr: String = "Polygon"
 
   override def attribs: Arr[XANumeric] = ???
