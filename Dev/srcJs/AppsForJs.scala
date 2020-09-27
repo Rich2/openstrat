@@ -56,7 +56,7 @@ object AppsForJs
     ("C2", (learn.LsC2(_), "Js Demonstration Interactive Canvas 2")),
     ("C3", (learn.LsC3(_), "Js Demonstration Interactive Canvas 3")),
     ("C4", (learn.LsC4(_), "Js Demonstration Interactive Canvas 4")),
-    ("C5", (learn.LessonC5(_), "Js Demonstration Interactive Canvas 5")),
+    ("C5", (learn.LsC5(_), "Js Demonstration Interactive Canvas 5")),
     ("C6", (learn.LessonC6(_), "Js Demonstration Interactive Canvas 6")),
     ("C7", (learn.LessonC7(_), "Js Demonstration Interactive Canvas 7: Exploring Beziers")), //
     

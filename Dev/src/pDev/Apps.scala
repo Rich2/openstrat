@@ -59,7 +59,7 @@ object Apps
     ("C2", (learn.LsC2(_), "JavaFx Demonstration Interactive Canvas 2")),
     ("C3", (learn.LsC3(_), "JavaFx Demonstration Interactive Canvas 3")),
     ("C4", (learn.LsC4(_), "JavaFx Demonstration Interactive Canvas 4")),
-    ("C5", (learn.LessonC5(_), "JavaFx Demonstration Interactive Canvas 5")),
+    ("C5", (learn.LsC5(_), "JavaFx Demonstration Interactive Canvas 5")),
     ("C6", (learn.LessonC6(_), "JavaFx Demonstration Interactive Canvas 6")),
     ("C7", (learn.LessonC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
     ("C8", (learn.LessonC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")),
