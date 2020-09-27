@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
+case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
 {
   val r = Rect(200, 100).fillActive(Yellow,None)
   val r1 = r.slate(-300, 300)

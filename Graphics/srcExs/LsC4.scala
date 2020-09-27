@@ -10,14 +10,14 @@ case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 10
 }
 
 /** This lesson is working, but has what looks like a very dubious implementation. */
-case class LessonC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
-{ val r0 = Rect.applyOld(200, 100)//.fill(Red)
+case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
+{ val r0 = Rect(200, 100)//.fill(Red)
   val r1 = r0.slate(-300 vv 300)
   val r2 = r0.slate(300 vv 300)
   val r3 = r0.slate(300 vv -300)
   val r4 = r0.slate(-300 vv -300)
   val rArr = Arr(r1, r2, r3, r4)
-  var gArr = rArr.map(r => r.parentFill(r.polyCentre, Red))
+  var gArr = rArr.map(r => r.fillActive(Red,r.polyCentre))
   val textPosn = 0 vv 0
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
   deb((gArr +- startText).length.toString)
@@ -27,10 +27,11 @@ case class LessonC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
    *  probably want to use a short parameter list like (v, b, s).  */
   mouseUp = (button: MouseButton, selected: List[Any], posn: Vec2) => selected match
   {
-    /*case Refs1Tail(cen: Vec2, tail) =>
-      { gArr = gArr.modifyWhere(_.cen == cen, r =>  r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
-        repaint(gArr :+ startText)
-      }*/
-      case _ =>  deb("Missed")
+    /*case ::(cen: Vec2, tail) =>
+    { gArr = gArr.modifyWhere(_.cen == cen, r =>  r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
+      repaint(gArr :+ startText)
+    }*/
+      
+    case _ =>  deb("Missed")
   }
 }
