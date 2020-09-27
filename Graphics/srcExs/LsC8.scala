@@ -3,7 +3,7 @@ package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 /** This lesson displays an interactive Bezier curve whose points can be dragged and also displays the syntax required to draw it */
-case class LessonC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More shape dragging.")
+case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More shape dragging.")
 { /** defines the size of the circles that represent the points of the bezier */
   val circleRadius = 15
   case class Drag(var v: Vec2, c: Colour)

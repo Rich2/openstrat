@@ -2,7 +2,7 @@ package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 /** This lesson displays an interactive Bezier curve whose points can be dragged and also displays the syntax required to draw it */
-case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exploring Beziers")
+case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exploring Beziers")
 { /** defines the size of the circles that represent the points of the bezier */
   val circleRadius = 10
   case class DragCircle(var loc: Vec2, color: Colour)
@@ -58,7 +58,7 @@ case class LessonC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exp
    option */
   canv.mouseDown = (position, _) => theDragee = allBezierPoints.find(i => (i.loc - position).magnitude <= circleRadius)
 
-  // When a point is being dragged update the correspondin bezier point with its new position and then redraw the screen.
+  // When a point is being dragged update the corresponding bezier point with its new position and then redraw the screen.
   canv.mouseDragged = (position, button) => theDragee match
   { case Some(drag) if (drag == startPoint) => drag.loc = position; controlStart.loc = drag.loc +  controlStartOffset; drawBezier()
     case Some(drag) if (drag == endPoint) => drag.loc = position; controlEnd.loc = drag.loc +  controlEndOffset; drawBezier()

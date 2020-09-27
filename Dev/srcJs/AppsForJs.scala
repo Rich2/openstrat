@@ -57,17 +57,17 @@ object AppsForJs
     ("C3", (learn.LsC3(_), "Js Demonstration Interactive Canvas 3")),
     ("C4", (learn.LsC4(_), "Js Demonstration Interactive Canvas 4")),
     ("C5", (learn.LsC5(_), "Js Demonstration Interactive Canvas 5")),
-    ("C6", (learn.LessonC6(_), "Js Demonstration Interactive Canvas 6")),
-    ("C7", (learn.LessonC7(_), "Js Demonstration Interactive Canvas 7: Exploring Beziers")), //
+    ("C6", (learn.LsC6(_), "Js Demonstration Interactive Canvas 6")),
+    ("C7", (learn.LsC7(_), "Js Demonstration Interactive Canvas 7: Exploring Beziers")), //
     
-    ("D1", (learn.LessonD1(_), "Js Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
-    ("D2", (learn.LessonD2(_), "Js Demonstration Persistence 2")),
-    ("D3", (learn.LessonD3(_), "Js Demonstration Persistence 3")),
-    ("D4", (learn.LessonD4(_), "Js Demonstration Persistence 4")),
-    ("D5", (learn.LessonD5(_), "Js Demonstration Persistence 5")),
+    ("D1", (learn.LsD1(_), "Js Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
+    ("D2", (learn.LsD2(_), "Js Demonstration Persistence 2")),
+    ("D3", (learn.LsD3(_), "Js Demonstration Persistence 3")),
+    ("D4", (learn.LsD4(_), "Js Demonstration Persistence 4")),
+    ("D5", (learn.LsD5(_), "Js Demonstration Persistence 5")),
 
-    ("E1", (learn.LessonE1(_), "Js Demonstration Games 1")), //Building turn based games.
-    ("E2", (learn.LessonE2(_), "Js Demonstration Games 2")),
+    ("E1", (learn.LsE1(_), "Js Demonstration Games 1")), //Building turn based games.
+    ("E2", (learn.LsE2(_), "Js Demonstration Games 2")),
   )
 
   /** Change appNum to change the default loaded application. */

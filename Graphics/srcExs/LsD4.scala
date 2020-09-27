@@ -1,9 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 /** Lesson D4 Settings. */
-case class LessonD4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
+case class LsD4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
 {  
   val v1 = Vec2(2.3, -9.8)
   val t4 = v1.str

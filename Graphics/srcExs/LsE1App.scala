@@ -1,7 +1,7 @@
 package learn
 import ostrat._
 
-object LessonE1App extends App
+object LsE1App extends App
 {
   var continue = false//true
   while (continue)
