@@ -6,7 +6,7 @@ import pCanv._, Colour.Black
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphic
 { override def shape: Ellipse
-  @inline final def cen: Vec2 = shape.cen
+  //@inline final def cen: Vec2 = shape.cen
   @inline final def xCen: Double = shape.xCen
   @inline final def yCen: Double = shape.yCen
 }

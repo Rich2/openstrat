@@ -29,7 +29,7 @@ case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   {
     /*case ::(cen: Vec2, tail) =>
     { gArr = gArr.modifyWhere(_.cen == cen, r =>  r.mutateColour(r.colour.nextFromSeq(Colours(Red, Orange, Green))))
-      repaint(gArr :+ startText)
+      repaint(gArr +- startText)
     }*/
       
     case _ =>  deb("Missed")

@@ -14,6 +14,7 @@ trait ShapeGraphic extends GraphicElem
   def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, linePosn, lineLen)
   final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
   def svgElem(bounds: BoundingRect): SvgElem
+  def cen: Vec2 = shape.cen
 }
 
 trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
