@@ -45,10 +45,10 @@ object Apps
     ("A4", (learn.LsA4(_), "JavaFx Demonstration Canvas 4")),
     ("A5", (learn.LsA5(_), "JavaFx Demonstration Canvas 5")),
     ("A6", (learn.LsA6(_), "JavaFx Demonstration Canvas 6")),
-    ("A7", (learn.LessonA7(_), "JavaFx Demonstration Canvas 7")),
-    ("A8", (learn.LessonA8(_), "JavaFx Demonstration Canvas 8")),
-    ("A9", (learn.LessonA9(_), "JavaFx Demonstration Canvas 9")),
-    ("A10", (learn.LessonA10(_), "JavaFx Demonstration Canvas 10")),
+    ("A7", (learn.LsA7(_), "JavaFx Demonstration Canvas 7")),
+    ("A8", (learn.LsA8(_), "JavaFx Demonstration Canvas 8")),
+    ("A9", (learn.LsA9(_), "JavaFx Demonstration Canvas 9")),
+    ("A10", (learn.LsA10(_), "JavaFx Demonstration Canvas 10")),
     ("A11", (learn.LessonA11(_), "Reflecting a point across a Line")),
     
     ("B1", (learn.LessonB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics

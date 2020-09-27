@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A7")
+case class LsA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A8")
 {
   //Lets copy the values across form the previous lesson.
   val pt1 = -200 vv 200
@@ -21,8 +21,6 @@ case class LessonA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A7")
   val sf3 = sf2.scale(0.5)
   val sf4 = sf3.slate(-250, 200)
   val sf5 = sf4.xSlate(-100).copy(colour = Green)
-  val rect = Rect.applyOld(200, 100, -400 vv 100)
-  canv.polygonFill(rect, Orange)//Not sure why this code is in here.
   val sf6 = sf5.negY.copy(colour = Red)
   repaints(sf1, sf2, sf3, sf4, sf5, sf6)
 }
