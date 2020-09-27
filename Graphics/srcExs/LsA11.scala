@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Reflecting a point across a Line")
+case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Reflecting a point across a Line")
 {
   val line1 = LineSeg(-300, 0, 300, 400)
   val redLine = line1.draw(0.25, Red)
@@ -10,7 +10,7 @@ case class LessonA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: R
 
   val c1 = Cross(1, p1)
   val c1r = Cross(1, p1.reflect(line1))
-  val rect = Rect.applyOld(200, 100, 200 vv 200)
+  val rect = Rect(200, 100, 200 vv 200)
   val r1 = rect.fill(Red)
   val r1r = rect.reflect(line1).fill(Orange)
   val vRed = 0 vv -50

@@ -90,11 +90,11 @@ trait Rect extends Rectangular with Polygon
 
   override def prolign(matrix: ProlignMatrix): Rect = ???
 
-  override def reflect(line: Line): Rect = ???
+  override def reflect(line: Line): Rect = Rect.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
 
-  override def reflect(line: LineSeg): Rect = ???
+  override def reflect(line: LineSeg): Rect = Rect.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
 
-  override def rotateRadians(radians: Double): Rect = ???
+  override def rotateRadians(radians: Double): Rect = Rect.cenV0V1(cen.rotateRadians(radians), v0.rotateRadians(radians), v1.rotateRadians(radians))
   //override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 }
 
