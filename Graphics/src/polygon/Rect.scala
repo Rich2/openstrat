@@ -83,12 +83,13 @@ trait Rect extends Rectangular with Polygon
   override def reflectY: Rect = Rect.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): Rect = Rect.cenV0V1(cen.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), v1.reflectXOffset(yOffset))
+  override def reflectXParallel(yOffset: Double): Rect = Rect.cenV0V1(cen.reflectXParallel(yOffset), v0.reflectXParallel(yOffset), v1.reflectXParallel(yOffset))
 
   /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
-  override def reflectYParallel(xOffset: Double): Rect = ???  
+  override def reflectYParallel(xOffset: Double): Rect =
+    Rect.cenV0V1(cen.reflectYParallel(xOffset), v0.reflectYParallel(xOffset), v1.reflectYParallel(xOffset)) 
 
-  override def prolign(matrix: ProlignMatrix): Rect = ???
+  override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0V1(cen.prolign(matrix), v0.prolign(matrix), v1.prolign(matrix))
 
   override def reflect(line: Line): Rect = Rect.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
 
