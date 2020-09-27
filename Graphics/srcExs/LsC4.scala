@@ -5,8 +5,8 @@ import ostrat._, geom._, pCanv._, Colour._
 /** We will use this helper class for Lesson C4 and C5 */
 case class ARect(val cen: Vec2, val width: Double = 200, val height: Double = 100, colour: Colour = Red) extends WithColour
 { def mutateColour(newColour: Colour): ARect = copy(colour = newColour) 
-  def graphic = Rect.applyOld(width, height, cen).parentFill(this, colour)
-  def sGraphic = Rect.applyOld(width, height, cen).parentFillDraw(this, colour, 2, contrast)
+  def graphic = Rect(width, height, cen).fillActive(colour, this)
+  def sGraphic = Rect(width, height, cen).fillDrawActive(colour, 2, contrast, this)
 }
 
 /** This lesson is working, but has what looks like a very dubious implementation. */
