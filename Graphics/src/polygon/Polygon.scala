@@ -113,11 +113,13 @@ trait Polygon extends Vec2sLike with Shape
   def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerID)))
 
+  /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
+   * draw area line width of 2 and a colour of Black. */
   def fillActiveDraw(fillColour: Colour, pointerID: Any, lineWidth: Double = 2, lineColour: Colour = Black): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(PolygonClickable(this, pointerID)))
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-  PolygonCompound = ???
+  PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), TextFacet(str)), Arr())
   //PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
   
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
