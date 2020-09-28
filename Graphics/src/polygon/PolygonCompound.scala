@@ -9,6 +9,7 @@ case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillFacet(c) => cp.polygonFill(shape, c)
     case DrawFacet(w, c) => cp.polygonDraw(shape, w, c)
+    case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }

@@ -30,6 +30,6 @@ case class DrawFacet(width: Double = 2.0, colour: Colour = Black) extends CurveF
   override def attribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
 }
 
-case class TextFacet(str: String) extends GraphicFacet
+case class TextFacet(str: String, colour: Colour) extends GraphicFacet
 { def attribs: Arr[XmlAtt] = Arr()
 }
