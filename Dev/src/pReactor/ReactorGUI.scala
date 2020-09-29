@@ -151,7 +151,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   }
   mouseUp =
     {
-      case (LeftButton, cl, v) if((reactionQueue.length == 0) && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
+      case (LeftButton, cl, v) if((reactionQueue.length == 0 && animationIndexes.length == 0) && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
       {
         val clickedCellIndex = (v._1/size).toInt+cols*((v._2/size).toInt)
         if (currentPlayer == cellColors(clickedCellIndex) || Black  == cellColors(clickedCellIndex))
