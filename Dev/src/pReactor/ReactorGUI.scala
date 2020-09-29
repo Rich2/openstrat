@@ -69,14 +69,13 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     if (cellIndex == animationIndex)
     { animationStep += 0.1
       canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
-    } else 
-    { if (count >= 1) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
-      if (count >= 2) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
-      if (count >= 3) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
-      if (count >= 4) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
-      if (count >= 5) canv.circleFill(Circle(size/8, loc), color)
-      if (count >= 6) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
     }
+    if (count >= 1 && (count != 1 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
+    if (count >= 2 && (count != 2 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
+    if (count >= 3 && (count != 3 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
+    if (count >= 4 && (count != 4 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
+    if (count >= 5 && (count != 5 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 4)), color)
+    if (count >= 6 && (count != 6 && animationIndex != -1)) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
   { val pos = cellSites(whichCell)(whichOne) 
@@ -89,13 +88,12 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def processQueue() : Unit = 
   { if (animationIndex != -1)
     { drawBalls(size*(animationIndex % cols) vv size*(animationIndex / cols), currentPlayer, animationIndex)
-      canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
       if (animationStep >= 1)
       { animationStep = -1
         reactionQueue = reactionQueue :+ animationIndex
         animationIndex = -1
       }
-
+      canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
     }
     else 
     { if (reactionQueue.length > 0)
@@ -141,7 +139,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       cellCounts(index) += 1
       drawBalls(size*(index % cols) vv size*(index / cols), currentPlayer, index)
       animationIndex = index
-      animationStep = 0
+      animationStep = 0.1
     }
   }
   mouseUp =
