@@ -8,7 +8,7 @@ trait TextBox
 
 case class TextCell(textStr: String) extends TextBox
 
-case class TextCtrl(textStr: String, action: pCanv.MouseButton => Unit) extends TextBox
+case class TextCtrl(textStr: String, action: MouseButton => Unit) extends TextBox
 {
 
 }
