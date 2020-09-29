@@ -15,8 +15,12 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   var currentPlayer = players(0)
   var cellCounts = Array.fill[Int](rows*cols)(0)
   var cellColors = Array.fill[Colour](rows*cols)(Black)
-  val cellNeighbours = new Array[Array[Int]](80)
+  val cellSites = new Array[Array[String]](rows*cols)
+  val cellNeighbours = new Array[Array[Int]](rows*cols)
   var reactionQueue = Array[Int]()
+  var animationStep = 0.0
+  var animationIndex = -1
+  var animationType = "Scale"
   def gameBtn(str: String, cmd: MouseButton => Unit) =
     Rect.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
@@ -37,41 +41,78 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       val index = c+cols*r
       cellCounts(index) = 0
       cellColors(index) = Black
-      drawBalls(size*c vv size*r, cellColors(index), cellCounts(index))
+      drawBalls(size*c vv size*r, cellColors(index), index)
       cellNeighbours(index) = Array[Int]()
-      if (c>0) cellNeighbours(index) = (index-1) +: cellNeighbours(index)
-      if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
-      if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
-      if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
+      cellSites(index) = Array[String]()
+      if (c>0) 
+      { cellNeighbours(index) = (index-1) +: cellNeighbours(index)
+        cellSites(index) = "W" +: cellSites(index)
+      }
+      if (r>0) 
+      { cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
+        cellSites(index) = "S" +: cellSites(index)
+      }
+      if (c<(cols-1)) 
+      { cellNeighbours(index) = (index+1) +: cellNeighbours(index)
+        cellSites(index) = "E" +: cellSites(index)
+      }
+      if (r<(rows-1)) 
+      { cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
+        cellSites(index) = "N" +: cellSites(index)
+      }
     }
     canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
   }
-  def drawBalls(loc:Vec2, color:Colour, count:Int) : Unit =
-  {
+  def drawBalls(loc:Vec2, color:Colour, cellIndex:Int) : Unit =
+  { val count = cellCounts(cellIndex)
     canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Black)
-    if (count==2||count==4||count==5) canv.circleFill(Circle(size/8, loc+((size/4) vv (size/4))), color)
-    if (count==1||count==3||count==5) canv.circleFill(Circle(size/8, loc+((size/2) vv (size/2))), color)
-    if (count==2||count==4||count==5) canv.circleFill(Circle(size/8, loc+((3*size/4) vv (3*size/4))), color)
-    if (count==3||count==4||count==5) canv.circleFill(Circle(size/8, loc+((3*size/4) vv (size/4))), color)
-    if (count==3||count==4||count==5) canv.circleFill(Circle(size/8, loc+((size/4) vv (3*size/4))), color)
-    if (count>5) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
+    if (cellIndex == animationIndex)
+    { animationStep += 0.1
+      canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
+    } else 
+    { if (count >= 1) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
+      if (count >= 2) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
+      if (count >= 3) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
+      if (count >= 4) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
+      if (count >= 5) canv.circleFill(Circle(size/8, loc), color)
+      if (count >= 6) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
+    }
+  }
+  def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
+  { val pos = cellSites(whichCell)(whichOne) 
+    if ("N" == pos) size/2 vv 3*size/4
+    else if ("E" == pos) 3*size/4 vv size/2
+    else if ("S" == pos) size/2 vv size/4
+    else if ("W" == pos) size/4 vv size/2
+    else 0 vv 0
   }
   def processQueue() : Unit = 
-  {
-    if (reactionQueue.length > 0)
-    {
-      val thisOne = reactionQueue(0)
-      reactionQueue = reactionQueue.tail
-      if (cellCounts(thisOne) >= cellNeighbours(thisOne).length) {
-        cellCounts(thisOne) -= cellNeighbours(thisOne).length
-        if (cellCounts(thisOne)==0) cellColors(thisOne) = Black
-        drawBalls(size*(thisOne % cols) vv size*(thisOne / cols), currentPlayer, cellCounts(thisOne))
-        for ( x <- cellNeighbours(thisOne) ) addBallByIndex( x )
-      }
+  { if (animationIndex != -1)
+    { drawBalls(size*(animationIndex % cols) vv size*(animationIndex / cols), currentPlayer, animationIndex)
       canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
+      if (animationStep >= 1)
+      { animationStep = -1
+        reactionQueue = reactionQueue :+ animationIndex
+        animationIndex = -1
+      }
+
     }
-    else turnComplete()
-    checkForGameOver()
+    else 
+    { if (reactionQueue.length > 0)
+      {
+        val thisOne = reactionQueue(0)
+        reactionQueue = reactionQueue.tail
+        if (cellCounts(thisOne) >= cellNeighbours(thisOne).length) {
+          cellCounts(thisOne) -= cellNeighbours(thisOne).length
+          if (cellCounts(thisOne)==0) cellColors(thisOne) = Black
+          drawBalls(size*(thisOne % cols) vv size*(thisOne / cols), currentPlayer, thisOne)
+          for ( x <- cellNeighbours(thisOne) ) addBallByIndex( x )
+        }
+        canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
+      }
+      else turnComplete()
+      checkForGameOver()
+    }
   }
   def checkForGameOver() : Unit =
   {
@@ -98,8 +139,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     {
       cellColors(index) = currentPlayer
       cellCounts(index) += 1
-      drawBalls(size*(index % cols) vv size*(index / cols), currentPlayer, cellCounts(index))
-      reactionQueue = reactionQueue :+ index
+      drawBalls(size*(index % cols) vv size*(index / cols), currentPlayer, index)
+      animationIndex = index
+      animationStep = 0
     }
   }
   mouseUp =
