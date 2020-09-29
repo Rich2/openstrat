@@ -8,6 +8,8 @@ trait TextCell
 { def textStr: String
 }
 
+trait TextRect extends TextCell
+
 /** Implementation class for [[TextCell]]. */
 case class TextBox(textStr: String) extends TextCell
 
