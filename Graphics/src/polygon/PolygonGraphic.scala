@@ -4,9 +4,10 @@ package geom
 
 /** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as Rectangle, Square or Triangle use
  * the implementation class [[PolygonCompound]]. */
-trait PolygonGraphic extends ShapeGraphic
+trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 {
   override def shape: Polygon
+  override def boundingRect: BoundingRect = shape.boundingRect
   override def svgElem(bounds: BoundingRect): SvgElem = ???
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): PolygonGraphic

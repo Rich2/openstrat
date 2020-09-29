@@ -36,9 +36,6 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 
-  def boundingWidth: Double = boundingRect.width
-  def boundingHeight: Double = boundingRect.height
-
   def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
   //def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
 

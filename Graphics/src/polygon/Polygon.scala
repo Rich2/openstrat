@@ -5,7 +5,7 @@ import Colour.Black
 
 /** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
-trait Polygon extends Vec2sLike with Shape
+trait Polygon extends Vec2sLike with Shape with BoundedElem
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
   override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / length

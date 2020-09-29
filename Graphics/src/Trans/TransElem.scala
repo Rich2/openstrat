@@ -69,4 +69,5 @@ trait BoundedElem extends TransElem
 { /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
   def boundingWidth: Double = boundingRect.width
+  def boundingHeight: Double = boundingRect.height
 }
