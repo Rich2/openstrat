@@ -2,6 +2,7 @@
 package ostrat
 package pReactor
 import geom._, pCanv._, Colour._
+//import java.util.Arrays
 
 /** A clone of the classic Atoms game */
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
@@ -19,7 +20,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val cellNeighbours = new Array[Array[Int]](rows*cols)
   var reactionQueue = Array[Int]()
   var animationStep = 0.0
-  var animationIndex = -1
+  var animationIndexes = Array[Int]()
   var animationType = "Scale"
   def gameBtn(str: String, cmd: MouseButton => Unit) =
     Rect.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
@@ -64,18 +65,20 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
   }
   def drawBalls(loc:Vec2, color:Colour, cellIndex:Int) : Unit =
-  { val count = cellCounts(cellIndex)
+  { deb("drawBalls"+cellIndex.toString())
+    val count = cellCounts(cellIndex)
+    val isAnimation = animationIndexes.contains(cellIndex)
     canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Black)
-    if (cellIndex == animationIndex)
+    if (isAnimation)
     { animationStep += 0.1
       canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
     }
-    if (count >= 1 && (count != 1 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
-    if (count >= 2 && (count != 2 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
-    if (count >= 3 && (count != 3 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
-    if (count >= 4 && (count != 4 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
-    if (count >= 5 && (count != 5 && animationIndex != -1)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 4)), color)
-    if (count >= 6 && (count != 6 && animationIndex != -1)) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
+    if (count >= 1 && (count != 1 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
+    if (count >= 2 && (count != 2 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
+    if (count >= 3 && (count != 3 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
+    if (count >= 4 && (count != 4 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
+    if (count >= 5 && (count != 5 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 4)), color)
+    if (count >= 6 && (count != 6 && isAnimation)) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
   { val pos = cellSites(whichCell)(whichOne) 
@@ -86,17 +89,19 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     else 0 vv 0
   }
   def processQueue() : Unit = 
-  { if (animationIndex != -1)
-    { drawBalls(size*(animationIndex % cols) vv size*(animationIndex / cols), currentPlayer, animationIndex)
+  { if (animationIndexes.length > 0)
+    { deb("animateQueue")
+      for (animateThisIndex <- animationIndexes) drawBalls(size*(animateThisIndex % cols) vv size*(animateThisIndex / cols), currentPlayer, animateThisIndex)
       if (animationStep >= 1)
       { animationStep = -1
-        reactionQueue = reactionQueue :+ animationIndex
-        animationIndex = -1
+        reactionQueue = reactionQueue ++ animationIndexes
+        animationIndexes = Array[Int]()
       }
       canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
     }
     else 
-    { if (reactionQueue.length > 0)
+    { deb("reactionQueue")
+      if (reactionQueue.length > 0)
       {
         val thisOne = reactionQueue(0)
         reactionQueue = reactionQueue.tail
@@ -131,15 +136,19 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
     canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
-  def addBallByIndex(index:Int) : Unit = 
-  {
+  def addBallByIndex(cellIndex:Int) : Unit = 
+  { deb("addBallByIndex(cellIndex="+cellIndex+")")
     if (players.length > 1) 
     {
-      cellColors(index) = currentPlayer
-      cellCounts(index) += 1
-      drawBalls(size*(index % cols) vv size*(index / cols), currentPlayer, index)
-      animationIndex = index
+      cellColors(cellIndex) = currentPlayer
+      cellCounts(cellIndex) += 1
+      drawBalls(size*(cellIndex % cols) vv size*(cellIndex / cols), currentPlayer, cellIndex)
+      animationIndexes = animationIndexes :+ cellIndex
       animationStep = 0.1
+      var s=""
+      for ( x <- animationIndexes) s+=x+","
+      deb(s)
+      //reactionQueue = reactionQueue :+ cellIndex
     }
   }
   mouseUp =
