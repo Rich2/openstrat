@@ -2,7 +2,6 @@
 package ostrat
 package pReactor
 import geom._, pCanv._, Colour._
-//import java.util.Arrays
 
 /** A clone of the classic Atoms game */
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
