@@ -115,6 +115,6 @@ package object geom
   /** 180 degrees or Pi radians */
   def deg180: Angle = Angle(180)
 
-  def displayRowGraphics(leftPt: Vec2, actives: Arr[GraphicBounded], margin: Double = 10): Arr[GraphicBounded] =
+  def displayRowGraphics(leftPt: Vec2, actives: Arr[BoundedGraphic], margin: Double = 10): Arr[BoundedGraphic] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
 }

@@ -4,36 +4,36 @@ package geom
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait GraphicBounded extends GraphicElem with BoundedElem
-{ def slate(offset: Vec2): GraphicBounded
-  def slate(xOffset: Double, yOffset: Double): GraphicBounded
-  def scale(operand: Double): GraphicBounded
-  def reflectYParallel(xOffset: Double): GraphicBounded
-  def reflectXParallel(yOffset: Double): GraphicBounded
-  def reflectX: GraphicBounded
-  def reflectY: GraphicBounded
-  def prolign(matrix: ProlignMatrix): GraphicBounded
+trait BoundedGraphic extends GraphicElem with BoundedElem
+{ def slate(offset: Vec2): BoundedGraphic
+  def slate(xOffset: Double, yOffset: Double): BoundedGraphic
+  def scale(operand: Double): BoundedGraphic
+  def reflectYParallel(xOffset: Double): BoundedGraphic
+  def reflectXParallel(yOffset: Double): BoundedGraphic
+  def reflectX: BoundedGraphic
+  def reflectY: BoundedGraphic
+  def prolign(matrix: ProlignMatrix): BoundedGraphic
   /*def rotate90: DisplayBounded
   def rotate180: DisplayBounded
   def rotate270: DisplayBounded*/
-  def rotateRadians(radians: Double): GraphicBounded
-  def reflect(line: LineSeg): GraphicBounded
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicBounded
+  def rotateRadians(radians: Double): BoundedGraphic
+  def reflect(line: LineSeg): BoundedGraphic
+  override def xyScale(xOperand: Double, yOperand: Double): BoundedGraphic
 }
 
 /** Companion object for the DisplayBounded trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
-object GraphicBounded
+object BoundedGraphic
 {
-  implicit val slateImplicit: Slate[GraphicBounded] = (obj: GraphicBounded, offset: Vec2) => obj.slate(offset)
-  implicit val scaleImplicit: Scale[GraphicBounded] = (obj: GraphicBounded, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GraphicBounded] = (obj: GraphicBounded, radians: Double) => obj.rotateRadians(radians)
+  implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[GraphicBounded] = new ReflectAxisOffset[GraphicBounded]
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[BoundedGraphic] = new ReflectAxisOffset[BoundedGraphic]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: GraphicBounded, yOffset: Double): GraphicBounded = obj.reflectXParallel(yOffset)
+    override def reflectXOffsetT(obj: BoundedGraphic, yOffset: Double): BoundedGraphic = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: GraphicBounded, xOffset: Double): GraphicBounded = obj.reflectYParallel(xOffset)
+    override def reflectYOffsetT(obj: BoundedGraphic, xOffset: Double): BoundedGraphic = obj.reflectYParallel(xOffset)
   }
 
   /*implicit val rotateAxesImplicit: RotateAxes[DisplayBounded] = new RotateAxes[DisplayBounded]
@@ -47,13 +47,13 @@ object GraphicBounded
     override def rotateT270(obj: DisplayBounded): DisplayBounded = obj.rotate270
   }*/
 
-  implicit val prolignImplicit: Prolign[GraphicBounded] = (obj, matrix) => obj.prolign(matrix)
+  implicit val prolignImplicit: Prolign[BoundedGraphic] = (obj, matrix) => obj.prolign(matrix)
 }
 
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
-trait GraphicBoundedSimer extends GraphicSimElem with GraphicBounded
+trait GraphicBoundedSimer extends GraphicSimElem with BoundedGraphic
 { type ThisT <: GraphicBoundedSimer
 
   override def xyScale(xOperand: Double, yOperand: Double): ThisT
