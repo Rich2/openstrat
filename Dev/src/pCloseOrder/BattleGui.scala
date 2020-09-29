@@ -8,7 +8,7 @@ case class BattleGui(canv: CanvasPlatform, scen: BScen) extends CanvasNoPanels("
 {
   def lunits = scen.lunits
 
-  def rs: DisplayElems = lunits.flatMap { c =>
+  def rs: GraphicElems = lunits.flatMap { c =>
     ijToMap(1, c.ranks)(0, c.rankLen) { (y, x) =>
       Rect.applyOld(15, 10, (x - c.rankMiddle) * 20 + c.posn.x vv (y - 2) * 20 + c.posn.y).fill(c.colour)
     }

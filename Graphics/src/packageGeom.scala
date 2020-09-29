@@ -57,7 +57,7 @@ package object geom
   val EarthEquatorialRadius: Dist = 6378.137.km
   val EarthAvDiameter: Dist = 12742.km
   val EarthAvRadius: Dist = EarthAvDiameter / 2
-  type DisplayElems = Arr[GraphicElem]
+  type GraphicElems = Arr[GraphicElem]
 
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)

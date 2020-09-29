@@ -9,7 +9,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Ch
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val darkSquareColour = DarkGreen
   val lightSquareColour = LightBlue
-  val tiles: DisplayElems = grid.mapRPolygons{ (r, p) =>
+  val tiles: GraphicElems = grid.mapRPolygons{ (r, p) =>
     val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
     val yStr: String = ('A' + r.y / 2 - 1).toChar.toString
     val cStr: String = ('0' + r.c / 2).toChar.toString

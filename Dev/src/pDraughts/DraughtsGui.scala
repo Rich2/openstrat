@@ -11,7 +11,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
   val lightSquareColour = Pink
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val tiles: DisplayElems = grid.mapRPolygons{ (r, p) =>
+  val tiles: GraphicElems = grid.mapRPolygons{ (r, p) =>
     val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
     p.fill(col) }
 
