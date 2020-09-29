@@ -32,7 +32,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       Rect.applyOld(width, height, 0 vv 0).fill(Colour(0xFF181818)),
       gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })
     )
-
+    animationIndexes = Array[Int]()
+    animationStep = 0.0
     turn = 0
     players = Array(Red, Green, Yellow, Blue)
     currentPlayer = players(0)
@@ -68,10 +69,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     val count = cellCounts(cellIndex)
     val isAnimation = animationIndexes.contains(cellIndex)
     canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Black)
-    if (isAnimation)
-    { animationStep += 0.1
-      canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
-    }
+    if (isAnimation) canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
     if (count >= 1 && (count != 1 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
     if (count >= 2 && (count != 2 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
     if (count >= 3 && (count != 3 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
@@ -90,9 +88,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def processQueue() : Unit = 
   { if (animationIndexes.length > 0)
     { deb("animateQueue")
+      animationStep += 0.1
       for (animateThisIndex <- animationIndexes) drawBalls(size*(animateThisIndex % cols) vv size*(animateThisIndex / cols), currentPlayer, animateThisIndex)
       if (animationStep >= 1)
-      { animationStep = -1
+      { animationStep = 0.0
         reactionQueue = reactionQueue ++ animationIndexes
         animationIndexes = Array[Int]()
       }
@@ -141,11 +140,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     {
       cellColors(cellIndex) = currentPlayer
       cellCounts(cellIndex) += 1
-      drawBalls(size*(cellIndex % cols) vv size*(cellIndex / cols), currentPlayer, cellIndex)
       animationIndexes = animationIndexes :+ cellIndex
       animationStep = 0.1
+      drawBalls(size*(cellIndex % cols) vv size*(cellIndex / cols), currentPlayer, cellIndex)
       var s=""
-      for ( x <- animationIndexes) s+=x+","
+      for ( x <- animationIndexes) s=s+x+","
       deb(s)
       //reactionQueue = reactionQueue :+ cellIndex
     }
