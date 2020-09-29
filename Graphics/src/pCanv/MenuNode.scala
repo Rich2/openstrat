@@ -75,9 +75,9 @@ object MenuNode
   {
     val v1: Map[String, Seq[MenuNode]] = seq.groupBy(_.text.toLowerCase)
     val v2: Seq[Seq[MenuNode]] = v1.values.toSeq
-    v2.map/*[MenuNode, Seq[MenuNode]]*/(i => i match
-    {
+    v2.map {
       case Seq(l) => l
+      
       case s => s match
       {
         case s if s.exists(i => i.isInstanceOf[MenuBranchDynamic]) => MenuBranchDynamic(s.head.text, () => s.flatMap(_.fold(
@@ -85,6 +85,7 @@ object MenuNode
              _.nodes,
              _.getSubMenu()
              )))
+        
         case s =>
         {
           val leaves = s.collect{case l : MenuLeaf => MenuLeaf("Duplicate menu entry", l.action)}
@@ -92,19 +93,18 @@ object MenuNode
           MenuBranch(s.head.text, leaves ++ branches)
         }
       }
-    })
+    }
   }
 }
 
 abstract sealed class MenuNode(val text: String)
-{
-   def toTree: Seq[MenuNode] = List(this)   
-   def +(other: MenuNode): MenuSeq = MenuSeq(this, other)
-   def ifPlus(b: Boolean, other: MenuNode) = if (b) MenuSeq(this, other) else MenuSeq(this)
-   def fold[T](fLeaf: MenuLeaf => T, fBranch: MenuBranch => T, fDynamic: MenuBranchDynamic => T): T = this match
-   {
-      case m: MenuLeaf => fLeaf(m)
+{ def toTree: Seq[MenuNode] = List(this)   
+  def +(other: MenuNode): MenuSeq = MenuSeq(this, other)
+  def ifPlus(b: Boolean, other: MenuNode) = if (b) MenuSeq(this, other) else MenuSeq(this)
+ 
+  def fold[T](fLeaf: MenuLeaf => T, fBranch: MenuBranch => T, fDynamic: MenuBranchDynamic => T): T = this match
+  { case m: MenuLeaf => fLeaf(m)
 	  case m: MenuBranch => fBranch(m)
 	  case m: MenuBranchDynamic => fDynamic(m)
-   }
+  }
 }
