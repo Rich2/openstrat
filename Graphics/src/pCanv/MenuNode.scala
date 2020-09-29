@@ -44,7 +44,7 @@ object MenuSub
     val v1: Map[String, Seq[MenuSub]] = seq.groupBy(_.text.toLowerCase)
     val v2: Seq[Seq[MenuSub]] = v1.values.toSeq
 
-  v2.map/*[MenuSub, Seq[MenuSub]]*/(i => i match
+  v2.map(i => i match
   { case Seq(l) => l //There is only Menu Node for this heading
 
     case s => if (s.exists(j => j.isInstanceOf[MenuBranchDynamic]))
@@ -78,21 +78,18 @@ object MenuNode
     v2.map {
       case Seq(l) => l
       
-      case s => s match
-      {
-        case s if s.exists(i => i.isInstanceOf[MenuBranchDynamic]) => MenuBranchDynamic(s.head.text, () => s.flatMap(_.fold(
+      case s if s.exists(i => i.isInstanceOf[MenuBranchDynamic]) => MenuBranchDynamic(s.head.text, () => s.flatMap(_.fold(
            l => Seq(MenuLeaf("Duplicate menu entry", l.action)),
              _.nodes,
              _.getSubMenu()
              )))
         
-        case s =>
-        {
-          val leaves = s.collect{case l : MenuLeaf => MenuLeaf("Duplicate menu entry", l.action)}
-          val branches = merge(s.collect{case b: MenuBranch => b.nodes }.flatten)
-          MenuBranch(s.head.text, leaves ++ branches)
-        }
-      }
+      case s =>
+      {
+        val leaves = s.collect{case l : MenuLeaf => MenuLeaf("Duplicate menu entry", l.action)}
+        val branches = merge(s.collect{case b: MenuBranch => b.nodes }.flatten)
+        MenuBranch(s.head.text, leaves ++ branches)
+      }      
     }
   }
 }
