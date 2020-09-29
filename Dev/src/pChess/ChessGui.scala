@@ -16,7 +16,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Ch
     p.fillTextOld(col, yStr + cStr, 20) }
   val pieces = scen.pieces.mapSomes((r, p) => p.piece().slate(r.gridVec2).fillDraw(p.player.colour, 2.0, p.player.contrastBW))
 
-  def bTurn = clickButton("Turn ", _ => {
+  def bTurn = clickButtonOld("Turn ", _ => {
     repaint()
     thisTop()
   })

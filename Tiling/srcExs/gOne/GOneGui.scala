@@ -36,7 +36,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def moveGraphics: Arr[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = clickButton("Turn " + (scen.turn + 1).toString, _ => {
+  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
     val getOrders = moves.mapSomeOnlys(rs => rs)
     scen = scen.turn(getOrders)
     moves = NoMoves

@@ -17,7 +17,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
 
   val pieces = scen.draughts.mapSomes((r, d) => Circle(0.7, r.gridVec2).fill(d.colour))
 
- def bTurn = clickButton("Turn ", _ => {
+ def bTurn = clickButtonOld("Turn ", _ => {
    repaint()
    thisTop()
  })

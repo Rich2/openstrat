@@ -53,8 +53,8 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   val pls: Arr[Planet] = Arr(mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto, Sun)
   var planetFocus: Planet = earth
   override def eTop(): Unit = ???
-  def fBut(planet: Planet) = clickButton(planet.name, mb => {planetFocus = planet; repaintMap()}, planet.colour)
-  def pause = clickButtonStd(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
+  def fBut(planet: Planet) = clickButtonOld(planet.name, mb => {planetFocus = planet; repaintMap()}, planet.colour)
+  def pause = clickButtonStdOld(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
   def cmds: Arr[GraphicBoundedAffine] = zoomable +- pause ++ pls.map(fBut)
   reTop(cmds)
