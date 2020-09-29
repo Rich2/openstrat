@@ -141,7 +141,6 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       cellColors(cellIndex) = currentPlayer
       cellCounts(cellIndex) += 1
       animationIndexes = animationIndexes :+ cellIndex
-      animationStep = 0.1
       drawBalls(size*(cellIndex % cols) vv size*(cellIndex / cols), currentPlayer, cellIndex)
       var s=""
       for ( x <- animationIndexes) s=s+x+","
