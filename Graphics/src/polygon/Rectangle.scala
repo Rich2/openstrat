@@ -199,7 +199,10 @@ object Rectangle
     override def productElement(n: Int): Any = ???
 
     override def rotation: Angle = (v0 - v3).angle
-
+    
+    /** Translate geometric transformation on a RectangleImp returns a RectangleImp. */
+    override def slate(offset: Vec2): RectangleImp = RectangleImp.cenV0V1(cen + offset, v0 + offset, v1 + offset)
+    
     override def rotateRadians(radians: Double): RectangleImp = ???
    // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
    // override def reflectY: RectImp = RectImp.v0v1(v3.reflectY, v2.reflectY, width)
@@ -235,5 +238,7 @@ object Rectangle
 
     /** Factory method for creating a [[RectangleImp]] rectangle from the points cen, v0 and v1 */    
     def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectangleImp = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+
+   
   }
 }

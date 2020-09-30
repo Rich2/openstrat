@@ -19,19 +19,27 @@ trait Rect extends Rectangle with Rectangularlign
   @inline final def x3: Double = xTopLeft
   @inline final def y3: Double = yTopLeft
   @inline final def v3: Vec2 = topLeft
+
+  override def slate(offset: Vec2): Rect = Rect(width, height, cen + offset)
 }
 
+/** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
 object Rect
 {
+  def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Rect = new RectImp(width, height, cen.x, cen.y)
+  def apply(width: Double, height: Double, xCen: Double, yCen: Double): Rect = new RectImp(width, height, xCen, yCen)
+  
   /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
-  final case class RectImplement(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
-  { override def fTrans(f: Vec2 => Vec2): RectImplement = ???
+  final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
+  { override def fTrans(f: Vec2 => Vec2): RectImp = ???
     override def attribs: Arr[XANumeric] = ???
+
+    override def slate(offset: Vec2): RectImp = RectImp(width, height, cen + offset)
     override def rotateRadians(radians: Double): Rectangle = ???
-    override def reflectX: RectImplement = fTrans(_.reflectX)
-    override def reflectY: RectImplement = fTrans(_.reflectY)
-    override def reflectXParallel(yOffset: Double): RectImplement = fTrans(_.reflectXParallel(yOffset))
-    override def reflectYParallel(xOffset: Double): RectImplement = fTrans(_.reflectYParallel(xOffset))
+    override def reflectX: RectImp = fTrans(_.reflectX)
+    override def reflectY: RectImp = fTrans(_.reflectY)
+    override def reflectXParallel(yOffset: Double): RectImp = fTrans(_.reflectXParallel(yOffset))
+    override def reflectYParallel(xOffset: Double): RectImp = fTrans(_.reflectYParallel(xOffset))
     //override def reflect(line: Line): Polygon = ???
     //override def reflect(line: Sline): Polygon = ???
 
@@ -43,7 +51,7 @@ object Rect
   }
 
   /** Companion object for the Rectlign class */
-  object RectImplement
-  { def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): RectImplement = new RectImplement(width, height, cen.x, cen.y)
+  object RectImp
+  { def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): RectImp = new RectImp(width, height, cen.x, cen.y)
   }
 }
