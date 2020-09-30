@@ -18,7 +18,7 @@ object Belgium extends Flag
 trait EnglandLike extends Flag
 { def ratio = 2
   def englishRed: Colour = Colour.fromInts(204, 0, 0)
-  def redCross/*: Arr[PolygonFillOld]*/ = Rect.cross(2, 1, 0.2).map(_.fill(englishRed))
+  def redCross/*: Arr[PolygonFillOld]*/ = Rectangle.cross(2, 1, 0.2).map(_.fill(englishRed))
   def common = rect.fill(White) +: redCross
 }
 
@@ -109,7 +109,7 @@ object USSR extends Flag
   val apply: Arr[GraphicElem] =
   {
     Arr[GraphicElem](
-      Rect.applyOld(ratio, 1).fill(Red),
+      Rectangle.applyOld(ratio, 1).fill(Red),
       Star5().scale(0.4).fill(Gold)
     )
   }
@@ -119,9 +119,9 @@ object Swastika extends Flag
 { val name = "Swastika"
   val ratio = 5 / 3.0
   val apply =
-  { val poly = Rect.applyOld(ratio, 1)
-    val bar = Rect.fromBC(0.1, 0.2).fill(Black)
-    val arm = Rect.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
+  { val poly = Rectangle.applyOld(ratio, 1)
+    val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
+    val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
     val cross = Arr(bar, arm).rotate45.flatMap(_.rCrossArr)
     Arr(poly.fill(Red), Circle(6.0 / 8).fill(White)) ++ cross
   }
@@ -133,8 +133,8 @@ object CzechRepublic extends Flag
   val apply: Arr[GraphicElem] =
   {
     Arr[GraphicElem](
-      Rect.applyOld(ratio, 1).fill(White),
-      Rect.applyOld(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
+      Rectangle.applyOld(ratio, 1).fill(White),
+      Rectangle.applyOld(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
       Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
     )
   }
@@ -146,7 +146,7 @@ object CCCP extends Flag
   val apply: Arr[GraphicElem] =
   { Arr[GraphicElem](
     //background
-    Rect.applyOld(ratio, 1).fill(Colour(0xFFCC0000)),
+    Rectangle.applyOld(ratio, 1).fill(Colour(0xFFCC0000)),
     //hammer
     PolyCurve(LineTail(-0.7709 vv 0.2138), LineTail(-0.7395 vv 0.1822), LineTail(-0.7099 vv 0.2116), BezierTail(-0.6648 vv 0.1633, -0.6175 vv 0.1166, -0.5727 vv 0.06808), BezierTail(-0.566 vv 0.06131, -0.555 vv 0.06128, -0.5483 vv 0.068), BezierTail(-0.5415 vv 0.07472, -0.5415 vv 0.08566, -0.5482 vv 0.09243), BezierTail(-0.5962 vv 0.1378, -0.6444 vv 0.1834, -0.6924 vv 0.2289), LineTail(-0.6525 vv 0.2686), LineTail(-0.7081 vv 0.2763), LineTail(-0.7709 vv 0.2138)).fill(Colour(0xFFFFD700)),
     //sickle

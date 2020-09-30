@@ -4,7 +4,7 @@ import ostrat._, geom._, pCanv._, Colour._
 
 /** This lesson is working, but has what looks like a very dubious implementation. */
 case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
-{ val r0 = Rect(200, 100)//.fill(Red)
+{ val r0 = Rectangle(200, 100)//.fill(Red)
   val r1 = r0.slate(-300,300)
   val r2 = r0.slate(300, 300)
   val r3 = r0.slate(300, -300)

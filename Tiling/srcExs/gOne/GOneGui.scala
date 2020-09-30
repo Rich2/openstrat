@@ -20,7 +20,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  def lunits = players.mapSomes{(r, p) => Rect.applyOld(0.9, 0.6, r.gridVec2).fillDrawTextActiveOld(p.colour, RPlayer(p, r),
+  def lunits = players.mapSomes{(r, p) => Rectangle.applyOld(0.9, 0.6, r.gridVec2).fillDrawTextActiveOld(p.colour, RPlayer(p, r),
     p.toString + "\n" + r.ycStr, 24, 2.0) }
 
   /** This makes the tiles active. They repsond to mouse clicks. It does not paint or draw the tiles. */

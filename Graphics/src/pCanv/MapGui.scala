@@ -9,7 +9,7 @@ import geom._, Colour._
 abstract class MapGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30
-  val topPan: Panel = addPanel(Rect.fromTL(canv.width, barWidth, canv.topLeft), true)
+  val topPan: Panel = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
   topPan.backColour = Colour.Gray
 
   topPan.mouseUp =
@@ -18,16 +18,16 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
   }
    
   def textBoxFullold(str: String, cmd: AnyRef): PolygonParentOld =
-    Rect.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
+    Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
 
   def textBoxOld(str: String, cmd: AnyRef): PolygonParentOld =
-    Rect.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
+    Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
 
   /**  repaints the top command bar */
   def reTop(commands: Arr[BoundedGraphic]): Unit = topPan.repaint(displayRowGraphics(topPan.cenLeft, commands))
   var statusText = "This is the status text."
   def status = textBoxFullold(statusText, None)
-  val mapPanel: Panel = addPanel(Rect.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
+  val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
   def mapObjs: GraphicElems
   def eTop(): Unit

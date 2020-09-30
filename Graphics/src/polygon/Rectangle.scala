@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. */
-trait Rect extends Rectangular with Polygon
+trait Rectangle extends Rectangular with Polygon
 { final override def length: Int = 4
   def x0: Double
   def y0: Double
@@ -64,48 +64,48 @@ trait Rect extends Rectangular with Polygon
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); f(x3, y3); () }
 
   /** Translate geometric transformation on a Shape returns a Shape. */
-  override def slate(offset: Vec2): Rect = Rect.cenV0V1(cen + offset, v0 + offset, v1 + offset)
+  override def slate(offset: Vec2): Rectangle = Rectangle.cenV0V1(cen + offset, v0 + offset, v1 + offset)
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): Rect =
-    Rect.cenV0V1(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
+  override def slate(xOffset: Double, yOffset: Double): Rectangle =
+    Rectangle.cenV0V1(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Rect = Rect.cenV0V1(cen * operand, v0 * operand, v1 * operand)
+  override def scale(operand: Double): Rectangle = Rectangle.cenV0V1(cen * operand, v0 * operand, v1 * operand)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: Rect = Rect.cenV0V1(cen.reflectX, v0.reflectX, v1.reflectX)
+  override def reflectX: Rectangle = Rectangle.cenV0V1(cen.reflectX, v0.reflectX, v1.reflectX)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: Rect = Rect.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
+  override def reflectY: Rectangle = Rectangle.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): Rect = Rect.cenV0V1(cen.reflectXParallel(yOffset), v0.reflectXParallel(yOffset), v1.reflectXParallel(yOffset))
+  override def reflectXParallel(yOffset: Double): Rectangle = Rectangle.cenV0V1(cen.reflectXParallel(yOffset), v0.reflectXParallel(yOffset), v1.reflectXParallel(yOffset))
 
   /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
-  override def reflectYParallel(xOffset: Double): Rect =
-    Rect.cenV0V1(cen.reflectYParallel(xOffset), v0.reflectYParallel(xOffset), v1.reflectYParallel(xOffset)) 
+  override def reflectYParallel(xOffset: Double): Rectangle =
+    Rectangle.cenV0V1(cen.reflectYParallel(xOffset), v0.reflectYParallel(xOffset), v1.reflectYParallel(xOffset)) 
 
-  override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0V1(cen.prolign(matrix), v0.prolign(matrix), v1.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV0V1(cen.prolign(matrix), v0.prolign(matrix), v1.prolign(matrix))
 
-  override def reflect(line: Line): Rect = Rect.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
+  override def reflect(line: Line): Rectangle = Rectangle.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
 
-  override def reflect(line: LineSeg): Rect = Rect.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
+  override def reflect(line: LineSeg): Rectangle = Rectangle.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
 
-  override def rotateRadians(radians: Double): Rect = Rect.cenV0V1(cen.rotateRadians(radians), v0.rotateRadians(radians), v1.rotateRadians(radians))
+  override def rotateRadians(radians: Double): Rectangle = Rectangle.cenV0V1(cen.rotateRadians(radians), v0.rotateRadians(radians), v1.rotateRadians(radians))
   //override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
-object Rect
+object Rectangle
 {
-  def apply(width: Double, height: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Rect =
+  def apply(width: Double, height: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Rectangle =
   { val v0 = cen.addXY(width / 2, height / 2).rotate(rotation)
     val v1 = cen.addXY(width / 2, - height / 2).rotate(rotation)
-    new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+    new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   }
   
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
@@ -119,7 +119,7 @@ object Rect
     )
   }
   
-  def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rect = new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+  def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
 
  // def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
   
@@ -177,22 +177,22 @@ object Rect
     PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
-  implicit val slateImplicit: Slate[Rect] = (obj: Rect, offset: Vec2) => obj.slate(offset)
-  implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Rect] = (obj: Rect, radians: Double) => obj.rotateRadians(radians)
-  implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
+  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, radians: Double) => obj.rotateRadians(radians)
+  implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[Rect] = new ReflectAxisOffset[Rect]
-  { override def reflectXOffsetT(obj: Rect, yOffset: Double): Rect = obj.reflectXParallel(yOffset)
-    override def reflectYOffsetT(obj: Rect, xOffset: Double): Rect = obj.reflectYParallel(xOffset)
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[Rectangle] = new ReflectAxisOffset[Rectangle]
+  { override def reflectXOffsetT(obj: Rectangle, yOffset: Double): Rectangle = obj.reflectXParallel(yOffset)
+    override def reflectYOffsetT(obj: Rectangle, xOffset: Double): Rectangle = obj.reflectYParallel(xOffset)
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double,  val x1: Double, val y1: Double) extends RectCenV0
-  { type ThisT = RectImp
+  final class RectangleImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends RectCenV0
+  { type ThisT = RectangleImp
     override def v1: Vec2 = Vec2(x1, y1)
     override def height: Double = (v0 - v1).magnitude
-    override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0V1(f(cen), f(v0), f(v1))
+    override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.cenV0V1(f(cen), f(v0), f(v1))
 
     override def productArity: Int = 5
 
@@ -200,7 +200,7 @@ object Rect
 
     override def rotation: Angle = (v0 - v3).angle
 
-    override def rotateRadians(radians: Double): RectImp = ???
+    override def rotateRadians(radians: Double): RectangleImp = ???
    // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
    // override def reflectY: RectImp = RectImp.v0v1(v3.reflectY, v2.reflectY, width)
     //override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
@@ -217,23 +217,23 @@ object Rect
    // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   }
 
-  object RectImp
+  object RectangleImp
   {
     /** The standard factory method for producing a Rect from width, height, position and rotation. position and rotation take default values */
-    def apply(width: Double, height: Double, cen: Vec2, rotation: Angle = 0.degs): RectImp =
+    def apply(width: Double, height: Double, cen: Vec2, rotation: Angle = 0.degs): RectangleImp =
     { val v0 = Vec2(cen.x + width, cen.y + height).rotate(rotation)
       val v1 = Vec2(cen.x + width, cen.y - height).rotate(rotation)
-      new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+      new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
     }
     /** The standard factory method for producing a Rect from width, height, the x position, the y position  and the rotation. Rotation has a default
      *  value of 0 degrees. If you want the default position of a rectangle centred at 0, 0, then use the apply method. */
-    def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectImp =
+    def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectangleImp =
     { val v0 = Vec2(xCen + width, yCen + height).rotate(rotation)
       val v1 = Vec2(xCen + width, yCen - height).rotate(rotation)
-      new RectImp(xCen,  yCen, v0.x, v0.y, v1.x, v1.y)
+      new RectangleImp(xCen,  yCen, v0.x, v0.y, v1.x, v1.y)
     }
 
-    /** Factory method for creating a [[RectImp]] rectangle from the points cen, v0 and v1 */    
-    def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectImp = new RectImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+    /** Factory method for creating a [[RectangleImp]] rectangle from the points cen, v0 and v1 */    
+    def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectangleImp = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   }
 }

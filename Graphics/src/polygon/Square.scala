@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareGen]], a general square. */
-trait Square extends Rect
+trait Square extends Rectangle
 { def height: Double = width
 }
 

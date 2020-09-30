@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 trait RectGraphic extends PolygonGraphic 
-{ override def shape: Rect
+{ override def shape: Rectangle
 }
 
 //trait RectGraphicSimple extends RectGraphic with PolygonGraphicSimple

@@ -22,14 +22,14 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   var animationIndexes = Array[Int]()
   var animationType = "Scale"
   def gameBtn(str: String, cmd: MouseButton => Unit) =
-    Rect.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
   init()
   
   def init() : Unit =
   { 
     repaints(
-      Rect.applyOld(width, height, 0 vv 0).fill(Colour(0xFF181818)),
+      Rectangle.applyOld(width, height, 0 vv 0).fill(Colour(0xFF181818)),
       gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })
     )
     animationIndexes = Array[Int]()
@@ -62,20 +62,20 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         cellSites(index) = "N" +: cellSites(index)
       }
     }
-    canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rectangle.fromBL(size/2, size/2, -size vv -size), currentPlayer)
   }
   def drawBalls(loc:Vec2, color:Colour, cellIndex:Int) : Unit =
   { deb("drawBalls"+cellIndex.toString())
     val count = cellCounts(cellIndex)
     val isAnimation = animationIndexes.contains(cellIndex)
-    canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Black)
+    canv.polygonFill(Rectangle.fromBL(size-1, size-1, loc), Black)
     if (isAnimation) canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
     if (count >= 1 && (count != 1 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
     if (count >= 2 && (count != 2 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
     if (count >= 3 && (count != 3 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
     if (count >= 4 && (count != 4 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
     if (count >= 5 && (count != 5 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 4)), color)
-    if (count >= 6 && (count != 6 && isAnimation)) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
+    if (count >= 6 && (count != 6 && isAnimation)) canv.polygonFill(Rectangle.fromBL(size-1, size-1, loc), Pink)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
   { val pos = cellSites(whichCell)(whichOne) 
@@ -131,7 +131,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     var currentPlayerIndex = players.indexOf(currentPlayer) + 1
     if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
     currentPlayer = players(currentPlayerIndex)
-    canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rectangle.fromBL(size/2, size/2, -size vv -size), currentPlayer)
     canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
   def addBallByIndex(cellIndex:Int) : Unit = 

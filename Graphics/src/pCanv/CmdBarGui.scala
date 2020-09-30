@@ -7,15 +7,15 @@ import geom._, Colour._
 abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30
-  val topBar = addPanel(Rect.fromTL(canv.width, barWidth, canv.topLeft), true)
+  val topBar = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
   topBar.backColour = Gray
   var statusText: String
   
   def textBox(str: String, cmd: AnyRef) =
-    Rect.applyOld(10, 25).parentFillTextOld(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+    Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
     
   def status = textBox(statusText, None)
-  val mainPanel: Panel = addPanel(Rect.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
+  val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mainRepaint(els: Arr[GraphicElem]): Unit = mainPanel.repaint(els)
   def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els: _*)
   def mainWidth = mainPanel.width
@@ -34,7 +34,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 object StdButton
 {
   def apply(str: String, cmd: AnyRef) =
-      Rect.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(cmd, White, 3, Black, 25, str)
+      Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(cmd, White, 3, Black, 25, str)
   def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 
