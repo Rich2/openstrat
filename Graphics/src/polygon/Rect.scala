@@ -25,6 +25,15 @@ trait Rect extends Rectangle with Rectangularlign
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(xOffset: Double, yOffset: Double): Rectangle = Rect(width, height, xCen + xOffset, yCen + yOffset)
+
+  /** Uniform scaling transformation on a Rect returns a Rect. */
+  override def scale(operand: Double): Rectangle = Rect(width * operand, height * operand, cen * operand)
+
+  /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
+  override def reflectX: Rect = Rect(width, height, cen.reflectX)
+
+  /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
+  override def reflectY: Rectangle = Rect(width, height, cen.reflectY)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
@@ -43,10 +52,16 @@ object Rect
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)
+
+    /** Uniform scaling transformation on a RectImp returns a RectImp. */
+    override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen * operand)
     
-    override def rotateRadians(radians: Double): Rectangle = ???
-    override def reflectX: RectImp = fTrans(_.reflectX)
-    override def reflectY: RectImp = fTrans(_.reflectY)
+    /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
+    override def reflectX: RectImp = RectImp(width, height, cen.reflectX)
+
+    /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
+    override def reflectY: Rectangle = Rect(width, height, cen.reflectY)
+    
     override def reflectXParallel(yOffset: Double): RectImp = fTrans(_.reflectXParallel(yOffset))
     override def reflectYParallel(xOffset: Double): RectImp = fTrans(_.reflectYParallel(xOffset))
     //override def reflect(line: Line): Polygon = ???

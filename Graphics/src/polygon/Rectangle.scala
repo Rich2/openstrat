@@ -70,16 +70,13 @@ trait Rectangle extends Rectangular with Polygon
   override def slate(xOffset: Double, yOffset: Double): Rectangle =
     Rectangle.cenV0V1(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  /** Uniform scaling transformation on a Rectangle returns a Rectangle. */
   override def scale(operand: Double): Rectangle = Rectangle.cenV0V1(cen * operand, v0 * operand, v1 * operand)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def reflectX: Rectangle = Rectangle.cenV0V1(cen.reflectX, v0.reflectX, v1.reflectX)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def reflectY: Rectangle = Rectangle.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
