@@ -63,10 +63,10 @@ trait Rectangle extends Rectangular with Polygon
   final override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); f(x3, y3); () }
 
-  /** Translate geometric transformation on a Shape returns a Shape. */
+  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(offset: Vec2): Rectangle = Rectangle.cenV0V1(cen + offset, v0 + offset, v1 + offset)
 
-  /** Translate geometric transformation. */
+  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(xOffset: Double, yOffset: Double): Rectangle =
     Rectangle.cenV0V1(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
 

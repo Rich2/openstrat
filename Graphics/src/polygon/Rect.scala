@@ -20,7 +20,11 @@ trait Rect extends Rectangle with Rectangularlign
   @inline final def y3: Double = yTopLeft
   @inline final def v3: Vec2 = topLeft
 
+  /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2): Rect = Rect(width, height, cen + offset)
+
+  /** Translate geometric transformation on a Rect returns a Rect. */
+  override def slate(xOffset: Double, yOffset: Double): Rectangle = Rect(width, height, xCen + xOffset, yCen + yOffset)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
@@ -29,12 +33,17 @@ object Rect
   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Rect = new RectImp(width, height, cen.x, cen.y)
   def apply(width: Double, height: Double, xCen: Double, yCen: Double): Rect = new RectImp(width, height, xCen, yCen)
   
-  /** Implementation class for Rectanglelign, a rectangle aligned to the X and Y axes. */
+  /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
   { override def fTrans(f: Vec2 => Vec2): RectImp = ???
     override def attribs: Arr[XANumeric] = ???
-
+    
+    /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(offset: Vec2): RectImp = RectImp(width, height, cen + offset)
+
+    /** Translate geometric transformation on a RectImp returns a RectImp. */
+    override def slate(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)
+    
     override def rotateRadians(radians: Double): Rectangle = ???
     override def reflectX: RectImp = fTrans(_.reflectX)
     override def reflectY: RectImp = fTrans(_.reflectY)
