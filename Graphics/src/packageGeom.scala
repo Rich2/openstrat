@@ -120,8 +120,17 @@ package object geom
     
   def displayRowTexts(leftPt: Vec2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedElem] =
   {
+    val y = leftPt.y
     var acc: Buff[BoundedElem] = Buff()
-    var xAcc: Double = 0 
+    var xAcc: Double = 0
+    textCells.foreach{tc =>
+      val rLen = tc.textStr.length * fontSize
+      xAcc = rLen / 2
+      val rect: Rect = Rect(rLen, fontSize, xAcc vv y)
+      val newElem = rect.fill(Colour.Green)
+      acc = acc :+ newElem
+      xAcc += rLen / 2
+    }
     //textCells.mapWithAcc(leftPt.x + margin)((head, x) => (Vec2(x + head.textStr.length / 2, leftPt.y), x + head.textStr.length + margin))
     acc.toArr
   }
