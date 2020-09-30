@@ -33,7 +33,13 @@ trait Rect extends Rectangle with Rectangularlign
   override def reflectX: Rect = Rect(width, height, cen.reflectX)
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-  override def reflectY: Rectangle = Rect(width, height, cen.reflectY)
+  override def reflectY: Rect = Rect(width, height, cen.reflectY)
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a Rect, returns a Rect. */
+  override def reflectXParallel(yOffset: Double): Rect = Rect(width, height, cen.reflectXParallel(yOffset))
+
+  /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
+  override def reflectYParallel(xOffset: Double): Rect = Rect(width, height, cen.reflectYParallel(xOffset))
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
@@ -60,12 +66,13 @@ object Rect
     override def reflectX: RectImp = RectImp(width, height, cen.reflectX)
 
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-    override def reflectY: Rectangle = Rect(width, height, cen.reflectY)
-    
-    override def reflectXParallel(yOffset: Double): RectImp = fTrans(_.reflectXParallel(yOffset))
-    override def reflectYParallel(xOffset: Double): RectImp = fTrans(_.reflectYParallel(xOffset))
-    //override def reflect(line: Line): Polygon = ???
-    //override def reflect(line: Sline): Polygon = ???
+    override def reflectY: RectImp = RectImp(width, height, cen.reflectY)
+
+    /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a RectImp, returns a RectImp. */
+    override def reflectXParallel(yOffset: Double): RectImp = RectImp(width, height, cen.reflectXParallel(yOffset))
+
+    /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, on a RectImp returns a RectImp. */
+    override def reflectYParallel(xOffset: Double): RectImp = RectImp(width, height, cen.reflectYParallel(xOffset))   
 
     override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 

@@ -79,10 +79,11 @@ trait Rectangle extends Rectangular with Polygon
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def reflectY: Rectangle = Rectangle.cenV0V1(cen.reflectY, v0.reflectY, v1.reflectY)
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): Rectangle = Rectangle.cenV0V1(cen.reflectXParallel(yOffset), v0.reflectXParallel(yOffset), v1.reflectXParallel(yOffset))
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a Rectangle, returns a Rectangle. */
+  override def reflectXParallel(yOffset: Double): Rectangle =
+    Rectangle.cenV0V1(cen.reflectXParallel(yOffset), v0.reflectXParallel(yOffset), v1.reflectXParallel(yOffset))
 
-  /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
+  /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, on a Rectangle returns a Rectangle. */
   override def reflectYParallel(xOffset: Double): Rectangle =
     Rectangle.cenV0V1(cen.reflectYParallel(xOffset), v0.reflectYParallel(xOffset), v1.reflectYParallel(xOffset)) 
 
