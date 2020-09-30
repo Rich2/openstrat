@@ -85,7 +85,7 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
       val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Arr[GraphicAffineElem]())
       sideAcc ++= newRes.unsafeArr
     }
-    (acc ++ sideAcc).toRefs
+    (acc ++ sideAcc).toArr
   }
 
   var rightGrid: Option[EGridOld[TileT, SideT]] = None
