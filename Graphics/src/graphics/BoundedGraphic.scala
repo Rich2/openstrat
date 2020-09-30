@@ -36,17 +36,6 @@ object BoundedGraphic
     override def reflectYOffsetT(obj: BoundedGraphic, xOffset: Double): BoundedGraphic = obj.reflectYParallel(xOffset)
   }
 
-  /*implicit val rotateAxesImplicit: RotateAxes[DisplayBounded] = new RotateAxes[DisplayBounded]
-  { /** Rotates object of type T, 90 degrees or Pi/2 radians anticlockwise. */
-    override def rotateT90(obj: DisplayBounded): DisplayBounded = obj.rotate90
-
-    /** Rotates object of type T, 180 degrees or Pi radians. */
-    override def rotateT180(obj: DisplayBounded): DisplayBounded = obj.rotate180
-
-    /** Rotates object of type T, 90 degrees or Pi/2 radians clockwise. */
-    override def rotateT270(obj: DisplayBounded): DisplayBounded = obj.rotate270
-  }*/
-
   implicit val prolignImplicit: Prolign[BoundedGraphic] = (obj, matrix) => obj.prolign(matrix)
 }
 

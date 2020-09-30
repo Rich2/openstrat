@@ -8,6 +8,22 @@ trait TextCell
 { def textStr: String
 }
 
+object TextCell
+{
+  /*implicit val slateImplicit: Slate[TextCell] = (obj: TextCell, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[TextCell] = (obj: TextCell, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[TextCell] = (obj: TextCell, radians: Double) => obj.rotateRadians(radians)
+  
+  implicit val mirrorAxisImplicit: ReflectAxisOffset[TextCell] = new ReflectAxisOffset[TextCell] {
+    /** Reflect, mirror across a line parallel to the X axis. */
+    override def reflectXOffsetT(obj: TextCell, yOffset: Double): TextCell = obj.reflectXParallel(yOffset)
+
+    /** Reflect, mirror across a line parallel to the Y axis. */
+    override def reflectYOffsetT(obj: TextCell, xOffset: Double): TextCell = obj.reflectYParallel(xOffset)
+  }
+  implicit val prolignImplicit: Prolign[TextCell] = (obj, matrix) => obj.prolign(matrix)*/
+}
+
 trait TextRect extends TextCell
 
 /** Implementation class for [[TextCell]]. */

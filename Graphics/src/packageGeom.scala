@@ -118,5 +118,6 @@ package object geom
   def displayRowGraphics(leftPt: Vec2, actives: Arr[BoundedGraphic], margin: Double = 10): Arr[BoundedGraphic] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
     
-  def displayRowTexts(leftPt: Vec2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedGraphic] = ???
+  /*def displayRowTexts(leftPt: Vec2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedGraphic] = 
+     textCells.mapWithAcc(leftPt.x + margin)((head, x) =>  (head.xSlate(x + head. textStr.length / 2), x + head.textStr.length + margin))*/
 }
