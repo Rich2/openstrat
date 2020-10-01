@@ -3,7 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait ReflectAxesOffset[T]
+/*trait ReflectAxesOffset[T]
 { /** Reflect, mirror an object of type T across a line parallel to the X axis. */
   def reflectXOffsetT(obj: T, yOffset: Double): T
 
@@ -53,7 +53,7 @@ class ReflectAxisOffsetExtension[A](thisReflector: A)(implicit ev: ReflectAxesOf
 
   /** Reflect, mirror across a line parallel to the Y axis. */
   //def reflectYOffset(xOffset: Double): A = ev.reflectYOffsetT(thisReflector, xOffset)  
-}
+}*/
 
 class SlateReflectAxesExtensions[A](thisReflector: A)(implicit evS: Slate[A], evR: ReflectAxes[A])
 {

@@ -184,10 +184,10 @@ object Rectangle
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, radians: Double) => obj.rotateRadians(radians)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val mirrorAxisImplicit: ReflectAxesOffset[Rectangle] = new ReflectAxesOffset[Rectangle]
+  /*implicit val mirrorAxisImplicit: ReflectAxesOffset[Rectangle] = new ReflectAxesOffset[Rectangle]
   { override def reflectXOffsetT(obj: Rectangle, yOffset: Double): Rectangle = obj.reflectXParallel(yOffset)
     override def reflectYOffsetT(obj: Rectangle, xOffset: Double): Rectangle = obj.reflectYParallel(xOffset)
-  }
+  }*/
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends RectCenV0

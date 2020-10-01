@@ -27,14 +27,14 @@ object BoundedGraphic
   implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, radians: Double) => obj.rotateRadians(radians)
-
+/*
   implicit val mirrorAxisImplicit: ReflectAxesOffset[BoundedGraphic] = new ReflectAxesOffset[BoundedGraphic]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: BoundedGraphic, yOffset: Double): BoundedGraphic = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def reflectYOffsetT(obj: BoundedGraphic, xOffset: Double): BoundedGraphic = obj.reflectYParallel(xOffset)
-  }
+  }*/
 
   implicit val prolignImplicit: Prolign[BoundedGraphic] = (obj, matrix) => obj.prolign(matrix)
 }

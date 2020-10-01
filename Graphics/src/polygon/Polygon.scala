@@ -146,11 +146,11 @@ object Polygon
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
-  implicit val mirrorAxisImplicit: ReflectAxesOffset[Polygon] = new ReflectAxesOffset[Polygon]
+  /*implicit val mirrorAxisImplicit: ReflectAxesOffset[Polygon] = new ReflectAxesOffset[Polygon]
   { override def reflectXOffsetT(obj: Polygon, yOffset: Double): Polygon = obj.reflectXParallel(yOffset)
     override def reflectYOffsetT(obj: Polygon, xOffset: Double): Polygon = obj.reflectYParallel(xOffset)
   }
-
+*/
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]
   { override def xShearT(obj: Polygon, yFactor: Double): Polygon = obj.xShear(yFactor)
     override def yShearT(obj: Polygon, xFactor: Double): Polygon = obj.yShear(xFactor)

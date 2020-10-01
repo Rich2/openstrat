@@ -105,13 +105,13 @@ object PolygonFill
     override def negXT(obj: PolygonFill): PolygonFill = obj.negX
   }
 
-  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[PolygonFill] = new ReflectAxesOffset[PolygonFill]
+  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[PolygonFill] = new ReflectAxesOffset[PolygonFill]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: PolygonFill, yOffset: Double): PolygonFill = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def reflectYOffsetT(obj: PolygonFill, xOffset: Double): PolygonFill = obj.reflectYParallel(xOffset)
-  }  
+  }  */
   
   /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
    * PolygonFill will be returned.

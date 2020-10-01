@@ -24,8 +24,8 @@ package object geom
   implicit def slateReflectAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: ReflectAxes[T]): SlateReflectAxesExtensions[T] =
     new SlateReflectAxesExtensions[T](value)(evS, evR)
  
-  implicit def mirrorAxisOffsetToExtension[T](value: T)(implicit ev: ReflectAxesOffset[T]): ReflectAxisOffsetExtension[T] =
-    new ReflectAxisOffsetExtension[T](value)(ev)
+  /*implicit def mirrorAxisOffsetToExtension[T](value: T)(implicit ev: ReflectAxesOffset[T]): ReflectAxisOffsetExtension[T] =
+    new ReflectAxisOffsetExtension[T](value)(ev)*/
 
   implicit def mirrorAxisToExtension[T](value: T)(implicit ev: ReflectAxes[T]): ReflectAxesExtension[T] = new ReflectAxesExtension[T](value)(ev)
     

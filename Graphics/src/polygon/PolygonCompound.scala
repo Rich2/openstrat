@@ -72,10 +72,10 @@ object PolygonCompound
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[PolygonCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val mirrorAxisImplicit: ReflectAxesOffset[PolygonCompound] = new ReflectAxesOffset[PolygonCompound]
+  /*implicit val mirrorAxisImplicit: ReflectAxesOffset[PolygonCompound] = new ReflectAxesOffset[PolygonCompound]
   { override def reflectXOffsetT(obj: PolygonCompound, yOffset: Double): PolygonCompound = obj.reflectXParallel(yOffset)
     override def reflectYOffsetT(obj: PolygonCompound, xOffset: Double): PolygonCompound = obj.reflectYParallel(xOffset)
-  }
+  }*/
 
   implicit val shearImplicit: Shear[PolygonCompound] = new Shear[PolygonCompound]
   { override def xShearT(obj: PolygonCompound, yFactor: Double): PolygonCompound = obj.xShear(yFactor)

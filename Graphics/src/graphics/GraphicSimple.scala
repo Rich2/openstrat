@@ -54,13 +54,13 @@ object GraphicSimple
     override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
   }
 
-  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[GraphicSimple] = new ReflectAxesOffset[GraphicSimple]
+  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[GraphicSimple] = new ReflectAxesOffset[GraphicSimple]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: GraphicSimple, yOffset: Double): GraphicSimple = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def reflectYOffsetT(obj: GraphicSimple, xOffset: Double): GraphicSimple = obj.reflectYParallel(xOffset)
-  }
+  }*/
 
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
 }

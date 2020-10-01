@@ -69,11 +69,11 @@ object ShapeFill
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
   }
 
-  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeFill] = new ReflectAxesOffset[ShapeFill]
+  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeFill] = new ReflectAxesOffset[ShapeFill]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: ShapeFill, yOffset: Double): ShapeFill = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def reflectYOffsetT(obj: ShapeFill, xOffset: Double): ShapeFill = obj.reflectYParallel(xOffset)
-  }
+  }*/
 }

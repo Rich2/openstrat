@@ -65,13 +65,13 @@ object ShapeCompound
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
   }
   
-  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeCompound] = new ReflectAxesOffset[ShapeCompound]
+  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeCompound] = new ReflectAxesOffset[ShapeCompound]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: ShapeCompound, yOffset: Double): ShapeCompound = obj.reflectXParallel(yOffset)
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def reflectYOffsetT(obj: ShapeCompound, xOffset: Double): ShapeCompound = obj.reflectYParallel(xOffset)
-  }
+  }*/
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
 }
