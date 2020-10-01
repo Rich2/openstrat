@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait RectGraphic extends PolygonGraphic 
+trait RectangleGraphic extends PolygonGraphic 
 { override def shape: Rectangle
 }
 
