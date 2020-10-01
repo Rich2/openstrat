@@ -2,7 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
-case class LsA1Summary(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
+case class LsA1S(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
 {
   repaints(
     Circle(100, 0, 0).fill(SeaGreen),
@@ -11,6 +11,4 @@ case class LsA1Summary(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1")
     Circle(80, -250, 150).fill(LemonLime),
     Circle(40, 0, -220).fill(DarkGoldenRod),
   )
-}
-
- 
+} 

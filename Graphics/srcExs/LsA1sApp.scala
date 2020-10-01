@@ -2,7 +2,7 @@
 package learn
 import ostrat._, Colour._, geom._
 
-object LsA1s2 extends App
+object LsA1sApp extends App
 {
   val cfs = Arr(Circle(100, 0, 0).fill(SeaGreen),
   Circle(70, 50, 80).fill(Orange),

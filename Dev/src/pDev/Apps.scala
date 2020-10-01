@@ -38,7 +38,7 @@ object Apps
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
     ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
     ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
-    ("A1s", (learn.LsA1Summary(_), "JavaFx Demonstration Canvas A1 Summary")),
+    ("A1s", (learn.LsA1S(_), "JavaFx Demonstration Canvas A1 Summary")),
     ("A2", (learn.LsA2(_), "JavaFx Demonstration Canvas 2")),
     ("A3a", (learn.LsA3a(_), "JavaFx Demonstration Canvas 3a")),
     ("A3", (learn.LsA3(_), "JavaFx Demonstration Canvas 3")),

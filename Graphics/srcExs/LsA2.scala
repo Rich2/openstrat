@@ -6,9 +6,10 @@ case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 {
   val sq2 = SquareGen(100, -100, 100, 0.degs)
   val sq3 = SquareGen(100, -200, 100, 20.degs)
+  val rg: PolygonFill = Rect(200, 100, 100, 50).fill(Green)
 
   repaints(
     Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
-    Rectangle.applyOld(200, 100, 100 vv 50).fill(Green),
+    rg,
   )
 }

@@ -8,8 +8,8 @@ trait Rect extends Rectangle with Rectangularlign
 { @inline final override def x0: Double = xTopRight
   @inline final override def y0: Double = yTopRight
   @inline final override def v0: Vec2 = x0 vv y0
-  @inline final override def x1: Double = xTopLeft
-  @inline final override def y1: Double = yTopLeft
+  @inline final override def x1: Double = xBottomRight
+  @inline final override def y1: Double = yBottomRight
   @inline final override def v1: Vec2 = x1 vv y1
   @inline final override def cen: Vec2 = xCen vv yCen
   override def rotation: Angle = 0.degs
@@ -58,7 +58,7 @@ object Rect
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
-  { override def fTrans(f: Vec2 => Vec2): RectImp = ???
+  { override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0(f(cen), f(v0))
     override def attribs: Arr[XANumeric] = ???
     
     /** Translate geometric transformation on a RectImp returns a RectImp. */
