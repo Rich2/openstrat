@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
-trait RectangleCompound extends ShapeCompound with RectangleGraphic
+trait RectangleCompound extends PolygonCompound with RectangleGraphic
 {
   override def attribs: Arr[XmlAtt] = ???
 

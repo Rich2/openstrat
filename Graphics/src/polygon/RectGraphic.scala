@@ -1,13 +1,13 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pWeb._
 
+/** This is a graphic based on a Rect shape. A rectangle aligned to the X and Y axes. */
 trait RectGraphic extends RectangleGraphic
-{
-  override def shape: Rect
+{ override def shape: Rect
 }
 
+/** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
 case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectGraphic with RectangleCompound
 {
   //override def attribs: Arr[XmlAtt] = ???
