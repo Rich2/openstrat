@@ -40,6 +40,8 @@ trait Rect extends Rectangle with Rectangularlign
 
   /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
   override def reflectYParallel(xOffset: Double): Rect = Rect(width, height, cen.reflectYParallel(xOffset))
+
+  override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
@@ -47,6 +49,10 @@ object Rect
 {
   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Rect = new RectImp(width, height, cen.x, cen.y)
   def apply(width: Double, height: Double, xCen: Double, yCen: Double): Rect = new RectImp(width, height, xCen, yCen)
+
+  /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
+   * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
+  def cenV0(cen: Vec2, v0: Vec2): Rect = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
@@ -72,7 +78,9 @@ object Rect
     override def reflectXParallel(yOffset: Double): RectImp = RectImp(width, height, cen.reflectXParallel(yOffset))
 
     /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, on a RectImp returns a RectImp. */
-    override def reflectYParallel(xOffset: Double): RectImp = RectImp(width, height, cen.reflectYParallel(xOffset))   
+    override def reflectYParallel(xOffset: Double): RectImp = RectImp(width, height, cen.reflectYParallel(xOffset))
+
+    override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
     override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
@@ -81,8 +89,12 @@ object Rect
     // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   }
 
-  /** Companion object for the Rectlign class */
+  /** Companion object for the [[Rect.RectImp]] class */
   object RectImp
   { def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): RectImp = new RectImp(width, height, cen.x, cen.y)
+
+    /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
+     * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
+    def cenV0(cen: Vec2, v0: Vec2): RectImp = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
   }
 }
