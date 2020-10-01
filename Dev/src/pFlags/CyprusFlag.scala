@@ -11,7 +11,7 @@ object Cyprus extends Flag
   {
     val background = Rect(1.5, 1).fill(White)
     
-    val map = PolyCurve(LineTail(0.4619 vv 0.3267), LineTail(0.458 vv 0.3252), LineTail(0.4564 vv 0.3245), LineTail(0.4517 vv 0.3248),
+    val cMap = PolyCurve(LineTail(0.4619 vv 0.3267), LineTail(0.458 vv 0.3252), LineTail(0.4564 vv 0.3245), LineTail(0.4517 vv 0.3248),
       LineTail(0.4472 vv 0.3227), LineTail(0.4393 vv 0.3173), LineTail(0.439 vv 0.317), LineTail(0.436 vv 0.3163), LineTail(0.4333 vv 0.3174),
       LineTail(0.4317 vv 0.3167), LineTail(0.4312 vv 0.3135), LineTail(0.4297 vv 0.3112), LineTail(0.4279 vv 0.3099), LineTail(0.4216 vv 0.3093),
       LineTail(0.4163 vv 0.3066), LineTail(0.4094 vv 0.3084), LineTail(0.4061 vv 0.3072), LineTail(0.3993 vv 0.301), LineTail(0.3958 vv 0.2993),
@@ -255,9 +255,7 @@ object Cyprus extends Flag
       BezierTail(-0.2581 vv -0.1778, -0.2584 vv -0.1781, -0.2586 vv -0.1782), BezierTail(-0.2589 vv -0.1783, -0.2591 vv -0.1784, -0.2594 vv -0.1784),
       LineTail(-0.2593 vv -0.1784)).fill(Colour(0xFF4e5b31))
 
-    Arr[GraphicElem](
-      background,
-      map,
+    Arr[GraphicElem](background, cMap,
       leaf01, leaf02, leaf03, leaf04, leaf05, leaf06, leaf07, leaf08, leaf09, leaf10, leaf11, leaf12, leaf13, leaf14, leaf15, leaf16, leaf17, leaf18,
       leaf01.negX, leaf02.negX, leaf03.negX, leaf04.negX, leaf05.negX, leaf06.negX, leaf07.negX, leaf08.negX, leaf09.negX, leaf10.negX,
       leaf11.negX, leaf12.negX, leaf13.negX, leaf14.negX, leaf15.negX, leaf16.negX, leaf17.negX, leaf18.negX
