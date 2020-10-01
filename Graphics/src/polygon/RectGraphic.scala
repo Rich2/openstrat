@@ -30,11 +30,11 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: RectCompound = RectCompound(shape.negY, facets, children.reflectX)
+  override def negY: RectCompound = RectCompound(shape.negY, facets, children.negY)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: RectCompound = RectCompound(shape.negX, facets, children.reflectY)
+  override def negX: RectCompound = RectCompound(shape.negX, facets, children.negX)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): RectCompound = RectCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))

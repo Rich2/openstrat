@@ -52,6 +52,11 @@ object TransElem
   implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[TransElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
+  implicit val reflectAxesImplicit: ReflectAxes[TransElem] = new ReflectAxes[TransElem]
+  { override def negYT(obj: TransElem): TransElem = obj.negY
+    override def negXT(obj: TransElem): TransElem = obj.negX
+  }
+  
   implicit val reflectAxesOffsetImplicit: ReflectAxesOffset[TransElem] = new ReflectAxesOffset[TransElem]
   { override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXParallel(yOffset)
     override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.reflectYParallel(xOffset)

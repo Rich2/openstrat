@@ -31,11 +31,11 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: CircleCompound = CircleCompound(shape.negY, facets, children.reflectX)
+  override def negY: CircleCompound = CircleCompound(shape.negY, facets, children.negY)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: CircleCompound = CircleCompound(shape.negX, facets, children.reflectY)
+  override def negX: CircleCompound = CircleCompound(shape.negX, facets, children.negX)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): CircleCompound = CircleCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))

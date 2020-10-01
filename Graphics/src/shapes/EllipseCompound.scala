@@ -86,11 +86,11 @@ object EllipseCompound
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def negY: EllipseCompoundImplement = EllipseCompoundImplement(shape.negY, facets, children.reflectX)
+    override def negY: EllipseCompoundImplement = EllipseCompoundImplement(shape.negY, facets, children.negY)
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def negX: EllipseCompoundImplement = EllipseCompoundImplement(shape.negX, facets, children.reflectY)
+    override def negX: EllipseCompoundImplement = EllipseCompoundImplement(shape.negX, facets, children.negX)
 
     /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
     override def reflectXParallel(yOffset: Double): EllipseCompoundImplement =

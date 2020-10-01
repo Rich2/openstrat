@@ -52,9 +52,11 @@ object ReflectAxes
 /** Class to provide extension methods for ReflectAxis typeclass. */
 class ReflectAxesExtension[A](thisReflector: A)(implicit ev: ReflectAxes[A])
 {
-  /** Reflect, mirror across the X axis. */
-  @inline def reflectX: A = ev.negYT(thisReflector)
+  /** Reflect, mirror across the X axis by negating Y. */
+  @inline def negY: A = ev.negYT(thisReflector)
 
-  /** Reflect, mirror across the Y axis. */
-  @inline def reflectY: A = ev.negXT(thisReflector)
+  /** Reflect, mirror across the Y axis by negating X. */
+  @inline def negX: A = ev.negXT(thisReflector)
+  
+  @inline def negXY: A = ev.negXT(ev.negYT(thisReflector))
 }

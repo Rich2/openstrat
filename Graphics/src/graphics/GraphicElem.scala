@@ -50,12 +50,9 @@ object GraphicElem
   implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, radians: Double) => obj.rotateRadians(radians)
   implicit val XYScaleImplicit: XYScale[GraphicElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
-  
-  implicit val reflectAxisImplicit: ReflectAxes[GraphicElem] = new ReflectAxes[GraphicElem]
-  { /** Reflect, mirror across the X axis. */
-    override def negYT(obj: GraphicElem): GraphicElem = obj.negY
 
-    /** Reflect, mirror across the Y axis. */
+  implicit val reflectAxisImplicit: ReflectAxes[GraphicElem] = new ReflectAxes[GraphicElem]
+  { override def negYT(obj: GraphicElem): GraphicElem = obj.negY
     override def negXT(obj: GraphicElem): GraphicElem = obj.negX
   }
 

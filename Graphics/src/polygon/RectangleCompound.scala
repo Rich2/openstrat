@@ -25,11 +25,11 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
   
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: RectangleCompound = RectangleCompound(shape.negY, facets, children.reflectX)
+  override def negY: RectangleCompound = RectangleCompound(shape.negY, facets, children.negY)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: RectangleCompound = RectangleCompound(shape.negX, facets, children.reflectY)
+  override def negX: RectangleCompound = RectangleCompound(shape.negX, facets, children.negX)
   
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): RectangleCompound = RectangleCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
@@ -79,11 +79,11 @@ object RectangleCompound
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def negY: RectangleCompoundImp = RectangleCompoundImp(shape.negY, facets, children.reflectX)
+    override def negY: RectangleCompoundImp = RectangleCompoundImp(shape.negY, facets, children.negY)
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def negX: RectangleCompoundImp = RectangleCompoundImp(shape.negX, facets, children.reflectY)
+    override def negX: RectangleCompoundImp = RectangleCompoundImp(shape.negX, facets, children.negX)
 
     /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
     override def reflectXParallel(yOffset: Double): RectangleCompoundImp = RectangleCompoundImp(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
