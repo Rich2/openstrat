@@ -9,7 +9,7 @@ object Cyprus extends Flag
 
   val apply =
   {
-    val background = Rectangle.applyOld(1.5, 1).fill(White)
+    val background = Rect(1.5, 1).fill(White)
     
     val map = PolyCurve(LineTail(0.4619 vv 0.3267), LineTail(0.458 vv 0.3252), LineTail(0.4564 vv 0.3245), LineTail(0.4517 vv 0.3248),
       LineTail(0.4472 vv 0.3227), LineTail(0.4393 vv 0.3173), LineTail(0.439 vv 0.317), LineTail(0.436 vv 0.3163), LineTail(0.4333 vv 0.3174),
