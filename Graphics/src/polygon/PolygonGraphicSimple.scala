@@ -59,12 +59,6 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
    * in sub classes. */
   override def negX: PolygonFill = PolygonFill(shape.negX, colour)
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): PolygonFill = PolygonFill(shape.reflectXParallel(yOffset), colour)
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): PolygonFill = PolygonFill(shape.reflectYParallel(xOffset), colour)
-
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), colour)
 
   override def rotateRadians(radians: Double): PolygonFill = PolygonFill(shape.rotateRadians(radians), colour)

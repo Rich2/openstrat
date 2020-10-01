@@ -27,12 +27,6 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
    * in sub classes. */
   override def negX: PolygonGraphic
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): PolygonGraphic
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): PolygonGraphic
-
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
   
   override def rotateRadians(radians: Double): PolygonGraphic

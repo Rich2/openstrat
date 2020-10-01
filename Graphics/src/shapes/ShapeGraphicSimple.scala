@@ -26,12 +26,6 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
    * in sub classes. */
   def negX: ShapeGraphicSimple
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXParallel(yOffset: Double): ShapeGraphicSimple
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYParallel(xOffset: Double): ShapeGraphicSimple
-
   def prolign(matrix: ProlignMatrix): ShapeGraphicSimple
 
   def rotateRadians(radians: Double): ShapeGraphicSimple

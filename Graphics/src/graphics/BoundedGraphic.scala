@@ -8,8 +8,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 { def slate(offset: Vec2): BoundedGraphic
   def slate(xOffset: Double, yOffset: Double): BoundedGraphic
   def scale(operand: Double): BoundedGraphic
-  def reflectYParallel(xOffset: Double): BoundedGraphic
-  def reflectXParallel(yOffset: Double): BoundedGraphic
+
   def negY: BoundedGraphic
   def negX: BoundedGraphic
   def prolign(matrix: ProlignMatrix): BoundedGraphic

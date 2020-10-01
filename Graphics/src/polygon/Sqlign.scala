@@ -14,11 +14,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def slate(xOffset: Double, yOffset: Double): Sqlign = ???
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen * operand)
 
-  override def reflectXParallel(yOffset: Double): Sqlign = Sqlign(width, cen.reflectXParallel(yOffset))
-
   override def negY: Sqlign = Sqlign(width, xCen, -yCen)
-
-  override def reflectYParallel(xOffset: Double): Sqlign = Sqlign(width, cen.reflectYParallel(xOffset))
 
   override def negX: Sqlign = Sqlign(width, -xCen, yCen)
 

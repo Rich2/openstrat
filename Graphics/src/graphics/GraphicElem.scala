@@ -27,12 +27,6 @@ trait GraphicElem extends TransElem
    * in sub classes. */
   def negX: GraphicElem
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXParallel(yOffset: Double): GraphicElem
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYParallel(xOffset: Double): GraphicElem
-
   def prolign(matrix: ProlignMatrix): GraphicElem
 
   def rotateRadians(radians: Double): GraphicElem

@@ -31,12 +31,6 @@ trait Shape extends Fillable
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Shape
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): Shape
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): Shape
-
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def negY: Shape

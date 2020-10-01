@@ -28,11 +28,7 @@ final class SquareGen private(val xCen: Double, val yCen: Double, val x0: Double
 
   override def scale(operand: Double): SquareGen = SquareGen(width * operand, cen * operand)
 
-  override def reflectXParallel(yOffset: Double): SquareGen = SquareGen(width, cen.reflectXParallel(yOffset))
-
   override def negY: SquareGen = SquareGen(width, xCen, -yCen, rotation)
-
-  override def reflectYParallel(xOffset: Double): SquareGen = SquareGen(width, cen.reflectYParallel(xOffset))
 
   override def negX: SquareGen = SquareGen.v0v1(v1.negX, v0.negX)
 

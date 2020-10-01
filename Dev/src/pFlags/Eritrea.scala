@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFlags
-import geom._, Colour._
+import geom._
 
 object Eritrea extends Flag
 { val name = "Eritrea"

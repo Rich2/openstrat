@@ -24,12 +24,6 @@ trait GraphicSimple extends GraphicElem
    * in sub classes. */
   override def negX: GraphicSimple
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): GraphicSimple
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): GraphicSimple
-
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
   override def rotateRadians(radians: Double): GraphicSimple

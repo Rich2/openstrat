@@ -105,12 +105,6 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
    *  scaling. */
   override def scale(operand: Double): PolygonGen = polygonMap(_ * operand)
 
-  /** Mirror, reflection transformation of a PolygonGen across the line y = yOffset, which is parallel to the X axis, returns a PolygonGen. */
-  override def reflectXParallel(yOffset: Double): PolygonGen = polygonMap(_.reflectXParallel(yOffset))
-
-  /** Mirror, reflection transformation of a PolygonGen across the line x = xOffset, which is parallel to the X axis. Returns a PolygonGen. */
-  override def reflectYParallel(xOffset: Double): PolygonGen = polygonMap(_.reflectYParallel(xOffset))
-
   /** Mirror, reflection transformation of a PolygonGen across the X axis, returns a PolygonGen. */
   override def negY: PolygonGen = polygonMap(_.negY)
 

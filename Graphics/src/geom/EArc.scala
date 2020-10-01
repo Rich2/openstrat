@@ -21,12 +21,6 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): TransElem = ???
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): TransElem = ???
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): TransElem = ???
-
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def negY: TransElem = ???

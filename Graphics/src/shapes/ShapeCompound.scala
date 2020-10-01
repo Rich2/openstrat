@@ -27,12 +27,6 @@ trait ShapeCompound extends ShapeGraphic
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def negX: ShapeCompound
-  
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): ShapeCompound
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): ShapeCompound
 
   override def prolign(matrix: ProlignMatrix): ShapeCompound
 

@@ -24,12 +24,6 @@ trait TransElem extends Product with Serializable
    *  be narrowed in sub classes. */
   def negX: TransElem
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYParallel(xOffset: Double): TransElem
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXParallel(yOffset: Double): TransElem  
-
   /** Transforms this TransElem using a [[ProlignMatrix]]. */
   def prolign(matrix: ProlignMatrix): TransElem
 

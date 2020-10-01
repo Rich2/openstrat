@@ -31,13 +31,6 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): PolygonCompound =
-    PolygonCompound(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): PolygonCompound = ???
-
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def negY: PolygonCompound = ???
@@ -109,13 +102,6 @@ object PolygonCompound
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */
     override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
-
-    /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-    override def reflectYParallel(xOffset: Double): PolygonCompoundImp =
-      PolygonCompoundImp(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
-
-    /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-    override def reflectXParallel(yOffset: Double): PolygonCompoundImp = ???
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */

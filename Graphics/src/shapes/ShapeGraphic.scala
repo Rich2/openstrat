@@ -34,12 +34,6 @@ trait ShapeGraphic extends GraphicElem
    * in sub classes. */
   def negX: ShapeGraphic
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXParallel(yOffset: Double): ShapeGraphic
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYParallel(xOffset: Double): ShapeGraphic
-
   def prolign(matrix: ProlignMatrix): ShapeGraphic
 
   def rotateRadians(radians: Double): ShapeGraphic

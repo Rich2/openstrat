@@ -22,12 +22,6 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
    * in sub classes. */
   override def negX: EllipseCompound
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): EllipseCompound
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): EllipseCompound
-  
   override def prolign(matrix: ProlignMatrix): EllipseCompound
 
   override def rotateRadians(radians: Double): EllipseCompound
@@ -91,14 +85,6 @@ object EllipseCompound
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
     override def negX: EllipseCompoundImplement = EllipseCompoundImplement(shape.negX, facets, children.negX)
-
-    /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-    override def reflectXParallel(yOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
-
-    /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-    override def reflectYParallel(xOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
 
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
 

@@ -36,12 +36,6 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
    * in sub classes. */
   override def negX: RectCompound = RectCompound(shape.negX, facets, children.negX)
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): RectCompound = RectCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): RectCompound = RectCompound(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
-
   override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
   override def xyScale(xOperand: Double, yOperand: Double): RectCompound =

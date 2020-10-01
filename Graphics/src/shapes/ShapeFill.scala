@@ -32,12 +32,6 @@ trait ShapeFill extends ShapeGraphicSimple
    * in sub classes. */
   override def negX: ShapeFill
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): ShapeFill
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): ShapeFill
-
   override def prolign(matrix: ProlignMatrix): ShapeFill
 
   override def rotateRadians(radians: Double): ShapeFill

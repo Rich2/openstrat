@@ -35,12 +35,6 @@ trait Rect extends Rectangle with Rectangularlign
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect(width, height, cen.negX)
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a Rect, returns a Rect. */
-  override def reflectXParallel(yOffset: Double): Rect = Rect(width, height, cen.reflectXParallel(yOffset))
-
-  /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, returns a Rect. */
-  override def reflectYParallel(xOffset: Double): Rect = Rect(width, height, cen.reflectYParallel(xOffset))
-
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
@@ -75,12 +69,6 @@ object Rect
 
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
     override def negX: RectImp = RectImp(width, height, cen.negX)
-
-    /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a RectImp, returns a RectImp. */
-    override def reflectXParallel(yOffset: Double): RectImp = RectImp(width, height, cen.reflectXParallel(yOffset))
-
-    /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, on a RectImp returns a RectImp. */
-    override def reflectYParallel(xOffset: Double): RectImp = RectImp(width, height, cen.reflectYParallel(xOffset))
 
     override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 

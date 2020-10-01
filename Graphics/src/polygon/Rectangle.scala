@@ -81,14 +81,6 @@ trait Rectangle extends Rectangular with Polygon
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.cenV0V1(cen.negX, v0.negX, v1.negX)
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a Rectangle, returns a Rectangle. */
-  override def reflectXParallel(yOffset: Double): Rectangle =
-    Rectangle.cenV0V1(cen.reflectXParallel(yOffset), v0.reflectXParallel(yOffset), v1.reflectXParallel(yOffset))
-
-  /** Mirror, reflection transformation of a Rect across the line x = xOffset, which is parallel to the X axis, on a Rectangle returns a Rectangle. */
-  override def reflectYParallel(xOffset: Double): Rectangle =
-    Rectangle.cenV0V1(cen.reflectYParallel(xOffset), v0.reflectYParallel(xOffset), v1.reflectYParallel(xOffset)) 
-
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV0V1(cen.prolign(matrix), v0.prolign(matrix), v1.prolign(matrix))
 
   override def reflect(line: Line): Rectangle = Rectangle.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))

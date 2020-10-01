@@ -53,10 +53,6 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def reflect(line: LineSeg): Circle = Circle(radius, cen.reflect(line))
 
-  override def reflectYParallel(xOffset: Double): Circle = Circle(radius, cen.reflectYParallel(xOffset))
-
-  override def reflectXParallel(yOffset: Double): Circle = Circle(radius, cen.reflectXParallel(yOffset))
-
   override def negY: Circle = Circle(radius, cen.negY)
 
   override def negX: Circle = Circle(radius, cen.negX)

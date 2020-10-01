@@ -58,12 +58,6 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
    *  scaling. */
   override def scale(operand: Double): Polygon = polygonMap(_ * operand)
 
-  /** Mirror, reflection transformation of a Polygon across the line y = yOffset, which is parallel to the X axis, returns a Polygon. */
-  override def reflectXParallel(yOffset: Double): Polygon = polygonMap(_.reflectXParallel(yOffset))
-
-  /** Mirror, reflection transformation of a Polygon across the line x = xOffset, which is parallel to the X axis. Returns a Polygon. */
-  override def reflectYParallel(xOffset: Double): Polygon = polygonMap(_.reflectYParallel(xOffset))
-
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
   override def negY: Polygon = polygonMap(_.negY)
 

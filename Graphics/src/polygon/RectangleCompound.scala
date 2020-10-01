@@ -30,12 +30,6 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
   override def negX: RectangleCompound = RectangleCompound(shape.negX, facets, children.negX)
-  
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): RectangleCompound = RectangleCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): RectangleCompound = RectangleCompound(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
 
   override def prolign(matrix: ProlignMatrix): RectangleCompound = RectangleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
@@ -84,12 +78,6 @@ object RectangleCompound
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
     override def negX: RectangleCompoundImp = RectangleCompoundImp(shape.negX, facets, children.negX)
-
-    /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-    override def reflectXParallel(yOffset: Double): RectangleCompoundImp = RectangleCompoundImp(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
-
-    /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-    override def reflectYParallel(xOffset: Double): RectangleCompoundImp = RectangleCompoundImp(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
 
     override def prolign(matrix: ProlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
 
