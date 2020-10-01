@@ -50,11 +50,11 @@ trait Triangle extends Polygon
 
 	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
 	 * in sub classes. */
-	override def reflectX: Triangle = ???
+	override def negY: Triangle = ???
 
 	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
 	 * in sub classes. */
-	override def reflectY: Triangle = ???
+	override def negX: Triangle = ???
 
 	override def prolign(matrix: ProlignMatrix): Triangle = ???
 

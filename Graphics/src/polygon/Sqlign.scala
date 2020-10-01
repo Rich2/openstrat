@@ -16,11 +16,11 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def reflectXParallel(yOffset: Double): Sqlign = Sqlign(width, cen.reflectXParallel(yOffset))
 
-  override def reflectX: Sqlign = Sqlign(width, xCen, -yCen)
+  override def negY: Sqlign = Sqlign(width, xCen, -yCen)
 
   override def reflectYParallel(xOffset: Double): Sqlign = Sqlign(width, cen.reflectYParallel(xOffset))
 
-  override def reflectY: Sqlign = Sqlign(width, -xCen, yCen)
+  override def negX: Sqlign = Sqlign(width, -xCen, yCen)
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
 

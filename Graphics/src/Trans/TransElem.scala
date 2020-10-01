@@ -16,13 +16,13 @@ trait TransElem extends Product with Serializable
    *  and Squares. Use the xyScale method for differential scaling. */
   def scale(operand: Double): TransElem
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def reflectX: TransElem
+  /** Mirror, reflection transformation across the X axis by negating y. This method has been left abstract in GeomElemNew to allow the return type
+   *  to be narrowed in sub classes. */
+  def negY: TransElem
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def reflectY: TransElem
+  /** Mirror, reflection transformation across the Y axis by negating X. This method has been left abstract in GeomElemNew to allow the return type to
+   *  be narrowed in sub classes. */
+  def negX: TransElem
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   def reflectYParallel(xOffset: Double): TransElem

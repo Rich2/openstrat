@@ -28,11 +28,11 @@ trait ShapeGraphic extends GraphicElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def reflectX: ShapeGraphic
+  def negY: ShapeGraphic
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def reflectY: ShapeGraphic
+  def negX: ShapeGraphic
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   def reflectXParallel(yOffset: Double): ShapeGraphic
@@ -70,10 +70,10 @@ object ShapeGraphic
 
   implicit val reflectAxisImplicit: ReflectAxis[ShapeGraphic] = new ReflectAxis[ShapeGraphic]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: ShapeGraphic): ShapeGraphic = obj.reflectX
+    override def reflectXT(obj: ShapeGraphic): ShapeGraphic = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: ShapeGraphic): ShapeGraphic = obj.reflectY
+    override def reflectYT(obj: ShapeGraphic): ShapeGraphic = obj.negX
   }
 
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeGraphic] = new ReflectAxisOffset[ShapeGraphic]

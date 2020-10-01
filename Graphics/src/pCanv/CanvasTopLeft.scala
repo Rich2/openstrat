@@ -16,7 +16,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def cArcDrawOld(ad: CArcDrawOld): Unit = tlCArcDrawOld(ad.fTrans(tlCen))
 
-  final override def cArcDraw(cad: CArcDraw): Unit = tlCArcDraw(cad.reflectX.slate(width / 2, height / 2))
+  final override def cArcDraw(cad: CArcDraw): Unit = tlCArcDraw(cad.negY.slate(width / 2, height / 2))
 
   final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
   final override def linesDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
@@ -27,20 +27,20 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit =
     tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
  
-  final override def circleFill(circle: Circle, colour: Colour): Unit = tlCircleFill(circle.reflectX.slate(width / 2, height / 2), colour)
+  final override def circleFill(circle: Circle, colour: Colour): Unit = tlCircleFill(circle.negY.slate(width / 2, height / 2), colour)
 
   final override def circleFillRadial(circle: Circle, fill: FillRadial): Unit =
-    tlCircleFillRadial(circle.reflectX.slate(width / 2, height / 2), fill)
+    tlCircleFillRadial(circle.negY.slate(width / 2, height / 2), fill)
 
-  final override def circleDrawOld(cd: CircleDraw): Unit = tlCircleDrawOld(cd.reflectX.slate(width / 2, height / 2))
+  final override def circleDrawOld(cd: CircleDraw): Unit = tlCircleDrawOld(cd.negY.slate(width / 2, height / 2))
 
   final override def circleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit =
-    tlCircleDraw(circle.reflectX.slate(width / 2, height / 2), lineWidth, colour)
+    tlCircleDraw(circle.negY.slate(width / 2, height / 2), lineWidth, colour)
   
-  final override def ellipseFill(ellipse: Ellipse, colour: Colour): Unit = tlEllipseFill(ellipse.reflectX.slate(width / 2, height / 2), colour)
+  final override def ellipseFill(ellipse: Ellipse, colour: Colour): Unit = tlEllipseFill(ellipse.negY.slate(width / 2, height / 2), colour)
   
   final override def ellipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit =
-    tlEllipseDraw(ellipse.reflectX.slate(width / 2, height / 2), lineWidth, colour)
+    tlEllipseDraw(ellipse.negY.slate(width / 2, height / 2), lineWidth, colour)
     
   final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
   final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))

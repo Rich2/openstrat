@@ -65,10 +65,10 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   override def reflectYParallel(xOffset: Double): Polygon = polygonMap(_.reflectYParallel(xOffset))
 
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
-  override def reflectX: Polygon = polygonMap(_.reflectX)
+  override def negY: Polygon = polygonMap(_.negY)
 
   /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
-  override def reflectY: Polygon = polygonMap(_.reflectY)
+  override def negX: Polygon = polygonMap(_.negX)
 
   /** Prolign 2d transformations, similar transofrmations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))

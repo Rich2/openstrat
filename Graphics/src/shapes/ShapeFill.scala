@@ -26,11 +26,11 @@ trait ShapeFill extends ShapeGraphicSimple
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: ShapeFill
+  override def negY: ShapeFill
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: ShapeFill
+  override def negX: ShapeFill
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): ShapeFill
@@ -63,10 +63,10 @@ object ShapeFill
 
   implicit val reflectAxisImplicit: ReflectAxis[ShapeFill] = new ReflectAxis[ShapeFill]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: ShapeFill): ShapeFill = obj.reflectX
+    override def reflectXT(obj: ShapeFill): ShapeFill = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: ShapeFill): ShapeFill = obj.reflectY
+    override def reflectYT(obj: ShapeFill): ShapeFill = obj.negX
   }
 
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeFill] = new ReflectAxisOffset[ShapeFill]

@@ -109,9 +109,9 @@ trait Ellipse extends Shape with Curve
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
   override def rotateRadians(radians: Double): Ellipse = fTrans(_.rotateRadians(radians))
 
-  override def reflectX: Ellipse = fTrans(_.reflectX)
+  override def negY: Ellipse = fTrans(_.negY)
 
-  override def reflectY: Ellipse = fTrans(_.reflectY)
+  override def negX: Ellipse = fTrans(_.negX)
 
   override def reflectYParallel(xOffset: Double): Ellipse = ???
 

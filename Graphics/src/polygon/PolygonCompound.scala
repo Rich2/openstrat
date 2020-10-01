@@ -40,11 +40,11 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: PolygonCompound = ???
+  override def negY: PolygonCompound = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: PolygonCompound = PolygonCompound(shape.reflectY, facets, children.reflectY) 
+  override def negX: PolygonCompound = PolygonCompound(shape.negX, facets, children.reflectY) 
 
   override def prolign(matrix: ProlignMatrix): PolygonCompound = ???
 
@@ -119,11 +119,11 @@ object PolygonCompound
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectX: PolygonCompoundImp = ???
+    override def negY: PolygonCompoundImp = ???
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectY: PolygonCompoundImp = PolygonCompoundImp(shape.reflectY, facets, children.reflectY)
+    override def negX: PolygonCompoundImp = PolygonCompoundImp(shape.negX, facets, children.reflectY)
 
     override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = ???
 

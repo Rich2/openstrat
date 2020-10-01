@@ -9,7 +9,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def svgStr: String = ???
 
-  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.reflectX.slate(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slate(0, bounds.minY + bounds.maxY).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
@@ -25,11 +25,11 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
   
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: RectangleCompound = RectangleCompound(shape.reflectX, facets, children.reflectX)
+  override def negY: RectangleCompound = RectangleCompound(shape.negY, facets, children.reflectX)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: RectangleCompound = RectangleCompound(shape.reflectY, facets, children.reflectY)
+  override def negX: RectangleCompound = RectangleCompound(shape.negX, facets, children.reflectY)
   
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): RectangleCompound = RectangleCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
@@ -63,7 +63,7 @@ object RectangleCompound
 
     override def svgStr: String = ???
 
-    override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.reflectX.slate(0, bounds.minY + bounds.maxY).
+    override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slate(0, bounds.minY + bounds.maxY).
       attribs ++ facets.flatMap(_.attribs))
 
     /** Translate geometric transformation. */
@@ -79,11 +79,11 @@ object RectangleCompound
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectX: RectangleCompoundImp = RectangleCompoundImp(shape.reflectX, facets, children.reflectX)
+    override def negY: RectangleCompoundImp = RectangleCompoundImp(shape.negY, facets, children.reflectX)
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectY: RectangleCompoundImp = RectangleCompoundImp(shape.reflectY, facets, children.reflectY)
+    override def negX: RectangleCompoundImp = RectangleCompoundImp(shape.negX, facets, children.reflectY)
 
     /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
     override def reflectXParallel(yOffset: Double): RectangleCompoundImp = RectangleCompoundImp(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))

@@ -79,10 +79,10 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def reflectYLine(line: YLine): Vec2 = ???
   
   /** Reflects ,mirrors along the X axis by negating Y. */
-  def reflectX: Vec2 = Vec2(x, -y)
+  def negY: Vec2 = Vec2(x, -y)
 
   /** Reflects, mirrors along the Y axis by negating X. */
-  def reflectY: Vec2 = Vec2(-x, y)
+  def negX: Vec2 = Vec2(-x, y)
 
   /** Reflects, mirrors along the y = yOffset line that is parallel to the  X axis. */
   def reflectXParallel(yOffset: Double): Vec2 = Vec2(x, -y + yOffset * 2)

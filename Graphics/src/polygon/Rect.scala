@@ -30,10 +30,10 @@ trait Rect extends Rectangle with Rectangularlign
   override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen * operand)
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-  override def reflectX: Rect = Rect(width, height, cen.reflectX)
+  override def negY: Rect = Rect(width, height, cen.negY)
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-  override def reflectY: Rect = Rect(width, height, cen.reflectY)
+  override def negX: Rect = Rect(width, height, cen.negX)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a Rect, returns a Rect. */
   override def reflectXParallel(yOffset: Double): Rect = Rect(width, height, cen.reflectXParallel(yOffset))
@@ -71,10 +71,10 @@ object Rect
     override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen * operand)
     
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-    override def reflectX: RectImp = RectImp(width, height, cen.reflectX)
+    override def negY: RectImp = RectImp(width, height, cen.negY)
 
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-    override def reflectY: RectImp = RectImp(width, height, cen.reflectY)
+    override def negX: RectImp = RectImp(width, height, cen.negX)
 
     /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis on a RectImp, returns a RectImp. */
     override def reflectXParallel(yOffset: Double): RectImp = RectImp(width, height, cen.reflectXParallel(yOffset))

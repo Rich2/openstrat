@@ -16,11 +16,11 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
  
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: EllipseCompound
+  override def negY: EllipseCompound
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: EllipseCompound
+  override def negX: EllipseCompound
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): EllipseCompound
@@ -59,7 +59,7 @@ object EllipseCompound
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
     override def svgElem(bounds: BoundingRect): SvgEllipse =
     { //val bounds = shape.boundingRect
-      val newEllipse = shape.reflectX.slate(0, bounds.minY + bounds.maxY)
+      val newEllipse = shape.negY.slate(0, bounds.minY + bounds.maxY)
       val newAtts = newEllipse.attribs
       val atts2 = if (shape.ellipeRotation == 0.degs) newAtts else newAtts +- SvgRotate(- shape.ellipeRotation.degs, shape.xCen, shape.yCen)
       SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
@@ -86,11 +86,11 @@ object EllipseCompound
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectX: EllipseCompoundImplement = EllipseCompoundImplement(shape.reflectX, facets, children.reflectX)
+    override def negY: EllipseCompoundImplement = EllipseCompoundImplement(shape.negY, facets, children.reflectX)
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectY: EllipseCompoundImplement = EllipseCompoundImplement(shape.reflectY, facets, children.reflectY)
+    override def negX: EllipseCompoundImplement = EllipseCompoundImplement(shape.negX, facets, children.reflectY)
 
     /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
     override def reflectXParallel(yOffset: Double): EllipseCompoundImplement =

@@ -10,8 +10,8 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
   def scale(operand: Double): BoundedGraphic
   def reflectYParallel(xOffset: Double): BoundedGraphic
   def reflectXParallel(yOffset: Double): BoundedGraphic
-  def reflectX: BoundedGraphic
-  def reflectY: BoundedGraphic
+  def negY: BoundedGraphic
+  def negX: BoundedGraphic
   def prolign(matrix: ProlignMatrix): BoundedGraphic
   /*def rotate90: DisplayBounded
   def rotate180: DisplayBounded

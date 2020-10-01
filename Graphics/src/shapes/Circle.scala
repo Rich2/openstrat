@@ -57,9 +57,9 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def reflectXParallel(yOffset: Double): Circle = Circle(radius, cen.reflectXParallel(yOffset))
 
-  override def reflectX: Circle = Circle(radius, cen.reflectX)
+  override def negY: Circle = Circle(radius, cen.negY)
 
-  override def reflectY: Circle = Circle(radius, cen.reflectY)
+  override def negX: Circle = Circle(radius, cen.negX)
   
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   

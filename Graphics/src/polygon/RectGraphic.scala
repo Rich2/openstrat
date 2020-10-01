@@ -14,7 +14,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   override def svgStr: String = ???
 
-  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.reflectX.slate(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slate(0, bounds.minY + bounds.maxY).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
@@ -30,11 +30,11 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: RectCompound = RectCompound(shape.reflectX, facets, children.reflectX)
+  override def negY: RectCompound = RectCompound(shape.negY, facets, children.reflectX)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: RectCompound = RectCompound(shape.reflectY, facets, children.reflectY)
+  override def negX: RectCompound = RectCompound(shape.negX, facets, children.reflectY)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): RectCompound = RectCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))

@@ -18,10 +18,10 @@ object ReflectAxis
 {
   implicit def transAlignerImplicit[T <: SimilarPreserve]: ReflectAxis[T] = new ReflectAxis[T]
   { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXT(obj: T): T = obj.reflectX.asInstanceOf[T]
+    override def reflectXT(obj: T): T = obj.negY.asInstanceOf[T]
 
     /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYT(obj: T): T = obj.reflectY.asInstanceOf[T]
+    override def reflectYT(obj: T): T = obj.negX.asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], evA: ReflectAxis[A]): ReflectAxis[AA] = new ReflectAxis[AA]

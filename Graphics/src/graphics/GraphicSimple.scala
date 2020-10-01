@@ -18,11 +18,11 @@ trait GraphicSimple extends GraphicElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: GraphicSimple
+  override def negY: GraphicSimple
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: GraphicSimple
+  override def negX: GraphicSimple
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): GraphicSimple
@@ -48,10 +48,10 @@ object GraphicSimple
 
   implicit val reflectAxisImplicit: ReflectAxis[GraphicSimple] = new ReflectAxis[GraphicSimple]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: GraphicSimple): GraphicSimple = obj.reflectX
+    override def reflectXT(obj: GraphicSimple): GraphicSimple = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: GraphicSimple): GraphicSimple = obj.reflectY
+    override def reflectYT(obj: GraphicSimple): GraphicSimple = obj.negX
   }
 
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[GraphicSimple] = new ReflectAxisOffset[GraphicSimple]

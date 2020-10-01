@@ -22,11 +22,11 @@ trait ShapeCompound extends ShapeGraphic
   
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: ShapeCompound
+  override def negY: ShapeCompound
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: ShapeCompound
+  override def negX: ShapeCompound
   
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): ShapeCompound
@@ -59,10 +59,10 @@ object ShapeCompound
 
   implicit val reflectAxisImplicit: ReflectAxis[ShapeCompound] = new ReflectAxis[ShapeCompound]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: ShapeCompound): ShapeCompound = obj.reflectX
+    override def reflectXT(obj: ShapeCompound): ShapeCompound = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: ShapeCompound): ShapeCompound = obj.reflectY
+    override def reflectYT(obj: ShapeCompound): ShapeCompound = obj.negX
   }
   
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeCompound] = new ReflectAxisOffset[ShapeCompound]

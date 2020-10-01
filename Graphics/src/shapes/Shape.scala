@@ -39,11 +39,11 @@ trait Shape extends Fillable
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: Shape
+  override def negY: Shape
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: Shape
+  override def negX: Shape
 
   override def prolign(matrix: ProlignMatrix): Shape
 

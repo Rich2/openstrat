@@ -53,11 +53,11 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: PolygonFill = PolygonFill(shape.reflectX, colour)
+  override def negY: PolygonFill = PolygonFill(shape.negY, colour)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: PolygonFill = PolygonFill(shape.reflectY, colour)
+  override def negX: PolygonFill = PolygonFill(shape.negX, colour)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   override def reflectXParallel(yOffset: Double): PolygonFill = PolygonFill(shape.reflectXParallel(yOffset), colour)
@@ -99,10 +99,10 @@ object PolygonFill
 
   implicit val reflectAxisImplicit: ReflectAxis[PolygonFill] = new ReflectAxis[PolygonFill]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: PolygonFill): PolygonFill = obj.reflectX
+    override def reflectXT(obj: PolygonFill): PolygonFill = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: PolygonFill): PolygonFill = obj.reflectY
+    override def reflectYT(obj: PolygonFill): PolygonFill = obj.negX
   }
 
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[PolygonFill] = new ReflectAxisOffset[PolygonFill]

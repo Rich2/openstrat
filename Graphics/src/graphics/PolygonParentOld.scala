@@ -31,8 +31,8 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, childre
 
   def reflect(line: LineSeg): PolygonParentOld = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
   def reflect(line: Line): PolygonParentOld = ???
-  override def reflectX: PolygonParentOld = PolygonParentOld(cen.reflectX, poly.reflectX, pointerId, children.reflectX)
-  override def reflectY: PolygonParentOld = PolygonParentOld(cen.reflectY, poly.reflectY, pointerId, children.reflectY)
+  override def negY: PolygonParentOld = PolygonParentOld(cen.negY, poly.negY, pointerId, children.reflectX)
+  override def negX: PolygonParentOld = PolygonParentOld(cen.negX, poly.negX, pointerId, children.reflectY)
 
   override def prolign(matrix: ProlignMatrix): PolygonParentOld = PolygonParentOld(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 

@@ -29,11 +29,11 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: TransElem = ???
+  override def negY: TransElem = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: TransElem = ???
+  override def negX: TransElem = ???
 
   override def prolign(matrix: ProlignMatrix): TransElem = ???
 

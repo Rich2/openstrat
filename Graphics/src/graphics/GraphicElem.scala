@@ -21,11 +21,11 @@ trait GraphicElem extends TransElem
   
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def reflectX: GraphicElem
+  def negY: GraphicElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def reflectY: GraphicElem
+  def negX: GraphicElem
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
   def reflectXParallel(yOffset: Double): GraphicElem
@@ -53,10 +53,10 @@ object GraphicElem
   
   implicit val reflectAxisImplicit: ReflectAxis[GraphicElem] = new ReflectAxis[GraphicElem]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: GraphicElem): GraphicElem = obj.reflectX
+    override def reflectXT(obj: GraphicElem): GraphicElem = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: GraphicElem): GraphicElem = obj.reflectY
+    override def reflectYT(obj: GraphicElem): GraphicElem = obj.negX
   }
 
   implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[GraphicElem] = new ReflectAxisOffset[GraphicElem]
