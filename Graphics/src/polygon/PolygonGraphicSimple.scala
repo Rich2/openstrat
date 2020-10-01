@@ -39,10 +39,7 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
 { //type ThisT <: PolygonFill
   // override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
-  override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)
-
-  
-  
+  override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)  
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): PolygonFill = PolygonFill(shape.slate(offset), colour)
@@ -66,9 +63,9 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
   override def reflectXParallel(yOffset: Double): PolygonFill = PolygonFill(shape.reflectXParallel(yOffset), colour)
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): PolygonFill = ???
+  override def reflectYParallel(xOffset: Double): PolygonFill = PolygonFill(shape.reflectYParallel(xOffset), colour)
 
-  override def prolign(matrix: ProlignMatrix): PolygonFill = ???
+  override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), colour)
 
   override def rotateRadians(radians: Double): PolygonFill = PolygonFill(shape.rotateRadians(radians), colour)
 
