@@ -24,10 +24,10 @@ trait Rect extends Rectangle with Rectangularlign
   override def slate(offset: Vec2): Rect = Rect(width, height, cen + offset)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slate(xOffset: Double, yOffset: Double): Rectangle = Rect(width, height, xCen + xOffset, yCen + yOffset)
+  override def slate(xOffset: Double, yOffset: Double): Rect = Rect(width, height, xCen + xOffset, yCen + yOffset)
 
   /** Uniform scaling transformation on a Rect returns a Rect. */
-  override def scale(operand: Double): Rectangle = Rect(width * operand, height * operand, cen * operand)
+  override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen * operand)
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def reflectX: Rect = Rect(width, height, cen.reflectX)
