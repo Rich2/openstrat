@@ -96,7 +96,9 @@ trait Rectangle extends Rectangular with Polygon
   override def reflect(line: LineSeg): Rectangle = Rectangle.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
 
   override def rotateRadians(radians: Double): Rectangle = Rectangle.cenV0V1(cen.rotateRadians(radians), v0.rotateRadians(radians), v1.rotateRadians(radians))
-  //override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
+
+  override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
+    Rectangle.cenV0V1(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
@@ -213,7 +215,7 @@ object Rectangle
 
    // override def reflect(line: LineSeg): RectImp = ???
 
-    override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
+    //override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
 
     //override def fill(fillColour: Colour): ShapeFill = ???
 

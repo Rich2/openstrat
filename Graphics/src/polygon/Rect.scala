@@ -42,6 +42,8 @@ trait Rect extends Rectangle with Rectangularlign
   override def reflectYParallel(xOffset: Double): Rect = Rect(width, height, cen.reflectYParallel(xOffset))
 
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
+
+  override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
@@ -82,7 +84,7 @@ object Rect
 
     override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
-    override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
+    override def xyScale(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 
     //override def fill(fillColour: Colour): ShapeFill = ???
 

@@ -29,7 +29,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def reflect(line: Line): SquareGen = ???
   override def reflect(line: LineSeg): SquareGen = ???
 
-  override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
+  override def xyScale(xOperand: Double, yOperand: Double): Sqlign = ???
 
   //override def fill(fillColour: Colour): ShapeFill = ???
 
