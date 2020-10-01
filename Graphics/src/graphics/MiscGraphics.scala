@@ -1,3 +1,4 @@
+/* Copyright 2018-20 Richard Oliver, W0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -38,16 +39,13 @@ object Star7
 
 object Star3
 {
-  def apply(sideLength: Double = 1): PolygonGen =
-  { PolygonGen((0 vv sideLength * math.sqrt(3) / 3),
+  def apply(sideLength: Double = 1): PolygonGen = PolygonGen((0 vv sideLength * math.sqrt(3) / 3),
               (sideLength / 2 vv -sideLength * math.sqrt(3) / 6),
               (-sideLength / 2 vv -sideLength * math.sqrt(3) / 6))
-  }
-    
+      
   def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(lineWidth, colour)
 
   def fill(colour: Colour): PolygonFill = apply().fill(colour)
-
 }
 
 object Pentagram
@@ -58,5 +56,4 @@ object Pentagram
   }
 
   def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(lineWidth, colour)
-
 }
