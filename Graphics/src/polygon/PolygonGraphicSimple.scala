@@ -97,15 +97,15 @@ object PolygonFill
   implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxisImplicit: ReflectAxis[PolygonFill] = new ReflectAxis[PolygonFill]
+  implicit val reflectAxisImplicit: ReflectAxes[PolygonFill] = new ReflectAxes[PolygonFill]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: PolygonFill): PolygonFill = obj.negY
+    override def negYT(obj: PolygonFill): PolygonFill = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: PolygonFill): PolygonFill = obj.negX
+    override def negXT(obj: PolygonFill): PolygonFill = obj.negX
   }
 
-  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[PolygonFill] = new ReflectAxisOffset[PolygonFill]
+  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[PolygonFill] = new ReflectAxesOffset[PolygonFill]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: PolygonFill, yOffset: Double): PolygonFill = obj.reflectXParallel(yOffset)
 

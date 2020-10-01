@@ -184,7 +184,7 @@ object Rectangle
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, radians: Double) => obj.rotateRadians(radians)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[Rectangle] = new ReflectAxisOffset[Rectangle]
+  implicit val mirrorAxisImplicit: ReflectAxesOffset[Rectangle] = new ReflectAxesOffset[Rectangle]
   { override def reflectXOffsetT(obj: Rectangle, yOffset: Double): Rectangle = obj.reflectXParallel(yOffset)
     override def reflectYOffsetT(obj: Rectangle, xOffset: Double): Rectangle = obj.reflectYParallel(xOffset)
   }

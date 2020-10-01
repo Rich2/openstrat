@@ -51,15 +51,15 @@ object GraphicElem
   implicit val XYScaleImplicit: XYScale[GraphicElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
   
-  implicit val reflectAxisImplicit: ReflectAxis[GraphicElem] = new ReflectAxis[GraphicElem]
+  implicit val reflectAxisImplicit: ReflectAxes[GraphicElem] = new ReflectAxes[GraphicElem]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: GraphicElem): GraphicElem = obj.negY
+    override def negYT(obj: GraphicElem): GraphicElem = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: GraphicElem): GraphicElem = obj.negX
+    override def negXT(obj: GraphicElem): GraphicElem = obj.negX
   }
 
-  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[GraphicElem] = new ReflectAxisOffset[GraphicElem]
+  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[GraphicElem] = new ReflectAxesOffset[GraphicElem]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: GraphicElem, yOffset: Double): GraphicElem = obj.reflectXParallel(yOffset)
 

@@ -46,15 +46,15 @@ object GraphicSimple
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val reflectAxisImplicit: ReflectAxis[GraphicSimple] = new ReflectAxis[GraphicSimple]
+  implicit val reflectAxisImplicit: ReflectAxes[GraphicSimple] = new ReflectAxes[GraphicSimple]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: GraphicSimple): GraphicSimple = obj.negY
+    override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: GraphicSimple): GraphicSimple = obj.negX
+    override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
   }
 
-  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[GraphicSimple] = new ReflectAxisOffset[GraphicSimple]
+  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[GraphicSimple] = new ReflectAxesOffset[GraphicSimple]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: GraphicSimple, yOffset: Double): GraphicSimple = obj.reflectXParallel(yOffset)
 

@@ -28,7 +28,7 @@ object BoundedGraphic
   implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[BoundedGraphic] = new ReflectAxisOffset[BoundedGraphic]
+  implicit val mirrorAxisImplicit: ReflectAxesOffset[BoundedGraphic] = new ReflectAxesOffset[BoundedGraphic]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: BoundedGraphic, yOffset: Double): BoundedGraphic = obj.reflectXParallel(yOffset)
 

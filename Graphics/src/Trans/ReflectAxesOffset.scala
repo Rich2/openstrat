@@ -3,7 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-trait ReflectAxisOffset[T]
+trait ReflectAxesOffset[T]
 { /** Reflect, mirror an object of type T across a line parallel to the X axis. */
   def reflectXOffsetT(obj: T, yOffset: Double): T
 
@@ -11,9 +11,9 @@ trait ReflectAxisOffset[T]
   def reflectYOffsetT(obj: T, xOffset: Double): T
 }
 
-object ReflectAxisOffset
+object ReflectAxesOffset
 {
-  implicit def transAlignerImplicit[T <: SimilarPreserve]: ReflectAxisOffset[T] = new ReflectAxisOffset[T]
+  implicit def transAlignerImplicit[T <: SimilarPreserve]: ReflectAxesOffset[T] = new ReflectAxesOffset[T]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: T, yOffset: Double): T = obj.reflect(LineSeg(-1, yOffset, 1, yOffset)).asInstanceOf[T]
 
@@ -21,7 +21,7 @@ object ReflectAxisOffset
     override def reflectYOffsetT(obj: T, xOffset: Double): T = obj.reflect(LineSeg(xOffset, -1, xOffset, 1)).asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], evA: ReflectAxisOffset[A]): ReflectAxisOffset[AA] = new ReflectAxisOffset[AA]
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], evA: ReflectAxesOffset[A]): ReflectAxesOffset[AA] = new ReflectAxesOffset[AA]
   { /** Reflect, mirror across the X axis. */
     override def reflectXOffsetT(obj: AA, yOffset: Double): AA = obj.map(evA.reflectXOffsetT(_, yOffset))
 
@@ -29,7 +29,7 @@ object ReflectAxisOffset
     override def reflectYOffsetT(obj: AA, xOffset: Double): AA = obj.map(evA.reflectYOffsetT(_, xOffset))
   }
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: ReflectAxisOffset[A]): ReflectAxisOffset[F[A]] = new ReflectAxisOffset[F[A]]
+  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: ReflectAxesOffset[A]): ReflectAxesOffset[F[A]] = new ReflectAxesOffset[F[A]]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: F[A], yOffset: Double): F[A] = evF.mapT(obj, evA.reflectXOffsetT(_, yOffset))
 
@@ -37,7 +37,7 @@ object ReflectAxisOffset
     override def reflectYOffsetT(obj: F[A], xOffset: Double): F[A] = evF.mapT(obj, evA.reflectYOffsetT(_, xOffset))
   }
 
-  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: ReflectAxisOffset[A]): ReflectAxisOffset[Array[A]] = new ReflectAxisOffset[Array[A]]
+  implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: ReflectAxesOffset[A]): ReflectAxesOffset[Array[A]] = new ReflectAxesOffset[Array[A]]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: Array[A], yOffset: Double): Array[A] = obj.map(ev.reflectXOffsetT(_, yOffset))
 
@@ -46,7 +46,7 @@ object ReflectAxisOffset
   }
 }
 
-class ReflectAxisOffsetExtension[A](thisReflector: A)(implicit ev: ReflectAxisOffset[A])
+class ReflectAxisOffsetExtension[A](thisReflector: A)(implicit ev: ReflectAxesOffset[A])
 {
   /** Reflect, mirror across a line parallel to the X axis. */
   def reflectXOffset(yOffset: Double): A = ev.reflectXOffsetT(thisReflector, yOffset)

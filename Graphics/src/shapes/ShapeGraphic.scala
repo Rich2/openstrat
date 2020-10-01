@@ -68,15 +68,15 @@ object ShapeGraphic
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxisImplicit: ReflectAxis[ShapeGraphic] = new ReflectAxis[ShapeGraphic]
+  implicit val reflectAxisImplicit: ReflectAxes[ShapeGraphic] = new ReflectAxes[ShapeGraphic]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: ShapeGraphic): ShapeGraphic = obj.negY
+    override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: ShapeGraphic): ShapeGraphic = obj.negX
+    override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
   }
 
-  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeGraphic] = new ReflectAxisOffset[ShapeGraphic]
+  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeGraphic] = new ReflectAxesOffset[ShapeGraphic]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: ShapeGraphic, yOffset: Double): ShapeGraphic = obj.reflectXParallel(yOffset)
 

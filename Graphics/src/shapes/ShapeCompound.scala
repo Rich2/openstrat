@@ -57,15 +57,15 @@ object ShapeCompound
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val reflectAxisImplicit: ReflectAxis[ShapeCompound] = new ReflectAxis[ShapeCompound]
+  implicit val reflectAxisImplicit: ReflectAxes[ShapeCompound] = new ReflectAxes[ShapeCompound]
   { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: ShapeCompound): ShapeCompound = obj.negY
+    override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
 
     /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: ShapeCompound): ShapeCompound = obj.negX
+    override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
   }
   
-  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeCompound] = new ReflectAxisOffset[ShapeCompound]
+  implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeCompound] = new ReflectAxesOffset[ShapeCompound]
   { /** Reflect, mirror across a line parallel to the X axis. */
     override def reflectXOffsetT(obj: ShapeCompound, yOffset: Double): ShapeCompound = obj.reflectXParallel(yOffset)
 
