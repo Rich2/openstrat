@@ -61,19 +61,8 @@ object ShapeFill
   implicit val XYScaleImplicit: XYScale[ShapeFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxisImplicit: ReflectAxes[ShapeFill] = new ReflectAxes[ShapeFill]
-  { /** Reflect, mirror across the X axis. */
-    override def negYT(obj: ShapeFill): ShapeFill = obj.negY
-
-    /** Reflect, mirror across the Y axis. */
+  implicit val reflectAxesImplicit: ReflectAxes[ShapeFill] = new ReflectAxes[ShapeFill]
+  { override def negYT(obj: ShapeFill): ShapeFill = obj.negY
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
   }
-
-  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeFill] = new ReflectAxesOffset[ShapeFill]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: ShapeFill, yOffset: Double): ShapeFill = obj.reflectXParallel(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: ShapeFill, xOffset: Double): ShapeFill = obj.reflectYParallel(xOffset)
-  }*/
 }

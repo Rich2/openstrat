@@ -57,11 +57,6 @@ object TransElem
     override def negXT(obj: TransElem): TransElem = obj.negX
   }
   
-  /*implicit val reflectAxesOffsetImplicit: ReflectAxesOffset[TransElem] = new ReflectAxesOffset[TransElem]
-  { override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXParallel(yOffset)
-    override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.reflectYParallel(xOffset)
-  }*/
-  
   implicit val shearImplicit: Shear[TransElem] = new Shear[TransElem]
   { override def xShearT(obj: TransElem, yFactor: Double): TransElem = obj.xShear(yFactor)
     override def yShearT(obj: TransElem, xFactor: Double): TransElem = obj.yShear(xFactor)

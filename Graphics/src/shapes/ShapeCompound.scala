@@ -52,26 +52,14 @@ trait ShapeCompound extends ShapeGraphic
  *  and other containner classes. */
 object ShapeCompound
 {
-
   implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, radians: Double) => obj.rotateRadians(radians)
 
-  implicit val reflectAxisImplicit: ReflectAxes[ShapeCompound] = new ReflectAxes[ShapeCompound]
-  { /** Reflect, mirror across the X axis. */
-    override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
-
-    /** Reflect, mirror across the Y axis. */
+  implicit val reflectAxesImplicit: ReflectAxes[ShapeCompound] = new ReflectAxes[ShapeCompound]
+  { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
   }
-  
-  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeCompound] = new ReflectAxesOffset[ShapeCompound]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: ShapeCompound, yOffset: Double): ShapeCompound = obj.reflectXParallel(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: ShapeCompound, xOffset: Double): ShapeCompound = obj.reflectYParallel(xOffset)
-  }*/
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  
 }
