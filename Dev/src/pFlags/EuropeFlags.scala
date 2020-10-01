@@ -57,11 +57,11 @@ object UnitedKingdom extends EnglandLike
       xDiag vv ywc)
 
     val reds1 = Arr(r1, r2).map(_.fill(englishRed))
-    val reds = reds1.flatMap(e => Arr(e, e.negXY))
+    val reds = reds1.flatMap(e => Arr(e, e.reflectX.reflectY))
 
     val blues = {
       val l1 = Arr(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
-      l1.flatMap(b => Arr(b, b.negX, b.negY, b.negXY))
+      l1.flatMap(b => Arr(b, b.reflectX, b.reflectY, b.reflectX.reflectY))
     }
     common ++ blues ++ reds
   }

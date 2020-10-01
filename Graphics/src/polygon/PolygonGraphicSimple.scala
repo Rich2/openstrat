@@ -42,39 +42,41 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)
 
   
-  override def xShear(operand: Double): PolygonFill = ???
-
-  override def yShear(operand: Double): PolygonFill = ???
-
-  override def reflect(line: LineSeg): PolygonFill = ???
+  
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): PolygonFill = ???
+  override def slate(offset: Vec2): PolygonFill = PolygonFill(shape.slate(offset), colour)
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonFill = ???
+  override def slate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slate(xOffset, yOffset), colour)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): PolygonFill = ???
+  override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), colour)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: PolygonFill = ???
+  override def reflectX: PolygonFill = PolygonFill(shape.reflectX, colour)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: PolygonFill = ???
+  override def reflectY: PolygonFill = PolygonFill(shape.reflectY, colour)
 
   /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): PolygonFill = ???
+  override def reflectXParallel(yOffset: Double): PolygonFill = PolygonFill(shape.reflectXParallel(yOffset), colour)
 
   /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
   override def reflectYParallel(xOffset: Double): PolygonFill = ???
 
   override def prolign(matrix: ProlignMatrix): PolygonFill = ???
 
-  override def rotateRadians(radians: Double): PolygonFill = ???
+  override def rotateRadians(radians: Double): PolygonFill = PolygonFill(shape.rotateRadians(radians), colour)
+
+  override def xShear(operand: Double): PolygonFill = ???
+
+  override def yShear(operand: Double): PolygonFill = ???
+
+  override def reflect(line: LineSeg): PolygonFill = ???
 
   override def reflect(line: Line): PolygonFill = ???
 
@@ -92,6 +94,28 @@ object PolygonFill
   def apply(shape: Polygon, colour: Colour): PolygonFill = new PolygonFillImp(shape, colour)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
+  implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, radians: Double) => obj.rotateRadians(radians)
+  implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
+
+  implicit val reflectAxisImplicit: ReflectAxis[PolygonFill] = new ReflectAxis[PolygonFill]
+  { /** Reflect, mirror across the X axis. */
+    override def reflectXT(obj: PolygonFill): PolygonFill = obj.reflectX
+
+    /** Reflect, mirror across the Y axis. */
+    override def reflectYT(obj: PolygonFill): PolygonFill = obj.reflectY
+  }
+
+  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[PolygonFill] = new ReflectAxisOffset[PolygonFill]
+  { /** Reflect, mirror across a line parallel to the X axis. */
+    override def reflectXOffsetT(obj: PolygonFill, yOffset: Double): PolygonFill = obj.reflectXParallel(yOffset)
+
+    /** Reflect, mirror across a line parallel to the Y axis. */
+    override def reflectYOffsetT(obj: PolygonFill, xOffset: Double): PolygonFill = obj.reflectYParallel(xOffset)
+  }  
+  
   /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
    * PolygonFill will be returned.
    * @constructor create a new PolygonFill with the underlying polygon and a colour.

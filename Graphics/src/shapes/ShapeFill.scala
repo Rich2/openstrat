@@ -50,6 +50,30 @@ trait ShapeFill extends ShapeGraphicSimple
 
   override def xShear(operand: Double): ShapeFill
 
-  override def yShear(operand: Double): ShapeFill
-  
+  override def yShear(operand: Double): ShapeFill  
+}
+
+object ShapeFill
+{
+  implicit val slateImplicit: Slate[ShapeFill] = (obj: ShapeFill, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[ShapeFill] = (obj: ShapeFill, radians: Double) => obj.rotateRadians(radians)
+  implicit val XYScaleImplicit: XYScale[ShapeFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
+
+  implicit val reflectAxisImplicit: ReflectAxis[ShapeFill] = new ReflectAxis[ShapeFill]
+  { /** Reflect, mirror across the X axis. */
+    override def reflectXT(obj: ShapeFill): ShapeFill = obj.reflectX
+
+    /** Reflect, mirror across the Y axis. */
+    override def reflectYT(obj: ShapeFill): ShapeFill = obj.reflectY
+  }
+
+  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeFill] = new ReflectAxisOffset[ShapeFill]
+  { /** Reflect, mirror across a line parallel to the X axis. */
+    override def reflectXOffsetT(obj: ShapeFill, yOffset: Double): ShapeFill = obj.reflectXParallel(yOffset)
+
+    /** Reflect, mirror across a line parallel to the Y axis. */
+    override def reflectYOffsetT(obj: ShapeFill, xOffset: Double): ShapeFill = obj.reflectYParallel(xOffset)
+  }
 }
