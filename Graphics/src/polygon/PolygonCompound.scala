@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends ShapeCompound with PolygonGraphic
+trait PolygonCompound extends ShapeCompound with PolygonGraphic
 {
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillFacet(c) => cp.polygonFill(shape, c)
@@ -63,6 +63,9 @@ case class PolygonCompound(shape: Polygon, facets: Arr[GraphicFacet], children: 
 
 object PolygonCompound
 {
+  def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
+    new PolygonCompoundImp(shape, facets, children)
+  
   implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, radians: Double) => obj.rotateRadians(radians)
@@ -78,4 +81,62 @@ object PolygonCompound
   { override def xShearT(obj: PolygonCompound, yFactor: Double): PolygonCompound = obj.xShear(yFactor)
     override def yShearT(obj: PolygonCompound, xFactor: Double): PolygonCompound = obj.yShear(xFactor)
   }
+
+  /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
+  case class PolygonCompoundImp(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends PolygonCompound
+  {
+    override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
+    { case FillFacet(c) => cp.polygonFill(shape, c)
+    case DrawFacet(w, c) => cp.polygonDraw(shape, w, c)
+    case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
+    // case fr: FillRadial => cp.circleFillRadial(shape, fr)
+    case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
+    }
+
+    override def attribs: Arr[XmlAtt] = ???
+
+    override def svgStr: String = ???
+
+    override def svgElem(bounds: BoundingRect): SvgElem = ???
+
+    /** Translate geometric transformation. */
+    override def slate(offset: Vec2): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
+
+    /** Translate geometric transformation. */
+    override def slate(xOffset: Double, yOffset: Double): PolygonCompoundImp =
+      PolygonCompoundImp(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
+
+    /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+     * Squares. Use the xyScale method for differential scaling. */
+    override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
+
+    /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+    override def reflectYParallel(xOffset: Double): PolygonCompoundImp =
+      PolygonCompoundImp(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
+
+    /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+    override def reflectXParallel(yOffset: Double): PolygonCompoundImp = ???
+
+    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+     * in sub classes. */
+    override def reflectX: PolygonCompoundImp = ???
+
+    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+     * in sub classes. */
+    override def reflectY: PolygonCompoundImp = PolygonCompoundImp(shape.reflectY, facets, children.reflectY)
+
+    override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = ???
+
+    override def rotateRadians(radians: Double): PolygonCompoundImp = ???
+
+    override def reflect(line: Line): PolygonCompoundImp = ???
+
+    override def xyScale(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
+
+    override def xShear(operand: Double): PolygonCompoundImp = ???
+
+    override def yShear(operand: Double): PolygonCompoundImp = ???
+
+    override def reflect(line: LineSeg): PolygonCompoundImp = ???
+  }  
 }

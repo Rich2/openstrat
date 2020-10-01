@@ -2,6 +2,7 @@
 package ostrat
 package geom
 import pWeb._
+
 trait RectGraphic extends RectangleGraphic
 {
   override def shape: Rect
