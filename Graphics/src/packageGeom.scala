@@ -20,6 +20,9 @@ package object geom
   implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
   }
+
+  implicit def slateReflectAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: ReflectAxes[T]): SlateReflectAxesExtensions[T] =
+    new SlateReflectAxesExtensions[T](value)(evS, evR)
  
   implicit def mirrorAxisOffsetToExtension[T](value: T)(implicit ev: ReflectAxesOffset[T]): ReflectAxisOffsetExtension[T] =
     new ReflectAxisOffsetExtension[T](value)(ev)
