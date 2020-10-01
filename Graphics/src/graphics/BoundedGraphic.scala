@@ -19,6 +19,9 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
   def rotateRadians(radians: Double): BoundedGraphic
   def reflect(line: LineSeg): BoundedGraphic
   override def xyScale(xOperand: Double, yOperand: Double): BoundedGraphic
+
+  override def xShear(operand: Double): BoundedGraphic
+  override def yShear(operand: Double): BoundedGraphic
 }
 
 /** Companion object for the DisplayBounded trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
@@ -27,14 +30,17 @@ object BoundedGraphic
   implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, radians: Double) => obj.rotateRadians(radians)
-/*
-  implicit val mirrorAxisImplicit: ReflectAxesOffset[BoundedGraphic] = new ReflectAxesOffset[BoundedGraphic]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: BoundedGraphic, yOffset: Double): BoundedGraphic = obj.reflectXParallel(yOffset)
+  implicit val XYScaleImplicit: XYScale[BoundedGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-    /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: BoundedGraphic, xOffset: Double): BoundedGraphic = obj.reflectYParallel(xOffset)
-  }*/
+  implicit val reflectAxesImplicit: ReflectAxes[BoundedGraphic] = new ReflectAxes[BoundedGraphic]
+  { override def negYT(obj: BoundedGraphic): BoundedGraphic = obj.negY
+    override def negXT(obj: BoundedGraphic): BoundedGraphic = obj.negX
+  }
+
+  implicit val shearImplicit: Shear[BoundedGraphic] = new Shear[BoundedGraphic]
+  { override def xShearT(obj: BoundedGraphic, yFactor: Double): BoundedGraphic = obj.xShear(yFactor)
+    override def yShearT(obj: BoundedGraphic, xFactor: Double): BoundedGraphic = obj.yShear(xFactor)
+  }
 
   implicit val prolignImplicit: Prolign[BoundedGraphic] = (obj, matrix) => obj.prolign(matrix)
 }

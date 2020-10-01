@@ -25,9 +25,9 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, childre
 
   def scale(operand: Double): PolygonParentOld = PolygonParentOld(cen * operand, poly.scale(operand), pointerId, children.scale(operand))
 
-  override def xShear(operand: Double): TransElem = ???
+  override def xShear(operand: Double): BoundedGraphic = ???
 
-  override def yShear(operand: Double): TransElem = ???
+  override def yShear(operand: Double): BoundedGraphic = ???
 
   def reflect(line: LineSeg): PolygonParentOld = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
   def reflect(line: Line): PolygonParentOld = ???

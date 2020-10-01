@@ -44,23 +44,12 @@ object GraphicSimple
 {
   implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, radians: Double) => obj.rotateRadians(radians)
-
-  implicit val reflectAxisImplicit: ReflectAxes[GraphicSimple] = new ReflectAxes[GraphicSimple]
-  { /** Reflect, mirror across the X axis. */
-    override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
-
-    /** Reflect, mirror across the Y axis. */
-    override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
-  }
-
-  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[GraphicSimple] = new ReflectAxesOffset[GraphicSimple]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: GraphicSimple, yOffset: Double): GraphicSimple = obj.reflectXParallel(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: GraphicSimple, xOffset: Double): GraphicSimple = obj.reflectYParallel(xOffset)
-  }*/
-
+  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, radians: Double) => obj.rotateRadians(radians)  
+  implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
+  
+  implicit val reflectAxesImplicit: ReflectAxes[GraphicSimple] = new ReflectAxes[GraphicSimple]
+  { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
+    override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
+  }  
 }

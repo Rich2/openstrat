@@ -66,7 +66,10 @@ object Shape
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  
+  implicit val reflectAxesImplicit: ReflectAxes[Shape] = new ReflectAxes[Shape]
+  { override def negYT(obj: Shape): Shape = obj.negY
+    override def negXT(obj: Shape): Shape = obj.negX
+  }
 
   implicit val shearImplicit: Shear[Shape] = new Shear[Shape]
   { override def xShearT(obj: Shape, yFactor: Double): Shape = obj.xShear(yFactor)
