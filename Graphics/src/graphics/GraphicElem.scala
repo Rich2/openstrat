@@ -48,7 +48,9 @@ object GraphicElem
   implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, radians: Double) => obj.rotateRadians(radians)
-
+  implicit val XYScaleImplicit: XYScale[GraphicElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
+  
   implicit val reflectAxisImplicit: ReflectAxis[GraphicElem] = new ReflectAxis[GraphicElem]
   { /** Reflect, mirror across the X axis. */
     override def reflectXT(obj: GraphicElem): GraphicElem = obj.reflectX
@@ -63,7 +65,5 @@ object GraphicElem
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def reflectYOffsetT(obj: GraphicElem, xOffset: Double): GraphicElem = obj.reflectYParallel(xOffset)
-  }
-
-  implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
+  }  
 }

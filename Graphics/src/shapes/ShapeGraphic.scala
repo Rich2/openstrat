@@ -15,12 +15,38 @@ trait ShapeGraphic extends GraphicElem
   final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
   def svgElem(bounds: BoundingRect): SvgElem
   def cen: Vec2 = shape.cen
-}
 
-trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
-{
-  def nonShapeAttribs: Arr[XmlAtt]
-  final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
+  /** Translate geometric transformation. */
+  def slate(offset: Vec2): ShapeGraphic
+
+  /** Translate geometric transformation. */
+  def slate(xOffset: Double, yOffset: Double): ShapeGraphic
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  def scale(operand: Double): ShapeGraphic
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def reflectX: ShapeGraphic
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def reflectY: ShapeGraphic
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  def reflectXParallel(yOffset: Double): ShapeGraphic
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  def reflectYParallel(xOffset: Double): ShapeGraphic
+
+  def prolign(matrix: ProlignMatrix): ShapeGraphic
+
+  def rotateRadians(radians: Double): ShapeGraphic
+
+  def reflect(line: Line): ShapeGraphic
+
+  override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphic  
 }
 
 /** Companion object for the ShapeGraphic class. */
@@ -35,30 +61,26 @@ object ShapeGraphic
       SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, linePosn, lineLen)
     }
   }
+  
+  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, radians: Double) => obj.rotateRadians(radians)
+  implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-}
+  implicit val reflectAxisImplicit: ReflectAxis[ShapeGraphic] = new ReflectAxis[ShapeGraphic]
+  { /** Reflect, mirror across the X axis. */
+    override def reflectXT(obj: ShapeGraphic): ShapeGraphic = obj.reflectX
 
-/** A simple plain colour fill graphic. */
-trait ShapeFill extends ShapeGraphicSimple
-{ /** The colour of this fill graphic. */
-  def colour: Colour
-  
-  /** The fill attribute for SVG. */
-  def fillAttrib: FillAttrib = FillAttrib(colour)
-  override def nonShapeAttribs: Arr[XmlAtt] = Arr(fillAttrib)
-  
-  def toDraw(lineWidth: Double = 2, newColour: Colour = colour): ShapeDraw
-}
+    /** Reflect, mirror across the Y axis. */
+    override def reflectYT(obj: ShapeGraphic): ShapeGraphic = obj.reflectY
+  }
 
-/** A simple no compound graphic that draws a shape. The line has a sinlge width and colour. */
-trait ShapeDraw extends ShapeGraphicSimple
-{ /** The line width of this draw graphic */
-  def lineWidth: Double
-  
-  /** The line colour of this draw graphic. */
-  def lineColour: Colour
-  
-  def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
-  def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
-  def nonShapeAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
+  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[ShapeGraphic] = new ReflectAxisOffset[ShapeGraphic]
+  { /** Reflect, mirror across a line parallel to the X axis. */
+    override def reflectXOffsetT(obj: ShapeGraphic, yOffset: Double): ShapeGraphic = obj.reflectXParallel(yOffset)
+
+    /** Reflect, mirror across a line parallel to the Y axis. */
+    override def reflectYOffsetT(obj: ShapeGraphic, xOffset: Double): ShapeGraphic = obj.reflectYParallel(xOffset)
+  }
 }

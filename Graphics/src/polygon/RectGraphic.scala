@@ -44,13 +44,6 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
-  override def reflect(line: Line): RectCompound = ???
-
-  override def xyScale(xOperand: Double, yOperand: Double): RectCompound = ???
-
-  override def xShear(operand: Double): PolygonCompound = ???
-
-  override def yShear(operand: Double): PolygonCompound = ???
-
-  override def reflect(line: LineSeg): RectCompound = ???
+  override def xyScale(xOperand: Double, yOperand: Double): RectCompound =
+    RectCompound(shape.xyScale(xOperand, yOperand), facets, children.xyScale(xOperand, yOperand) )
 }
