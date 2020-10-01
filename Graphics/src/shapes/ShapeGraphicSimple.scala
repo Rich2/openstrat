@@ -41,17 +41,7 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
   override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphicSimple
 }
 
-/** A simple plain colour fill graphic. */
-trait ShapeFill extends ShapeGraphicSimple
-{ /** The colour of this fill graphic. */
-  def colour: Colour
 
-  /** The fill attribute for SVG. */
-  def fillAttrib: FillAttrib = FillAttrib(colour)
-  override def nonShapeAttribs: Arr[XmlAtt] = Arr(fillAttrib)
-
-  def toDraw(lineWidth: Double = 2, newColour: Colour = colour): ShapeDraw
-}
 
 /** A simple no compound graphic that draws a shape. The line has a sinlge width and colour. */
 trait ShapeDraw extends ShapeGraphicSimple

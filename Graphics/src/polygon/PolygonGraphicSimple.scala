@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black, pWeb._
 
 /** This trait may be removed. */
-trait PolygonGraphicSimple extends PolygonGraphic with GraphicAffineElem with GraphicBoundedAffine
+trait PolygonGraphicSimple extends PolygonGraphic// with GraphicSimElem with GraphicBoundedSimer
 { type ThisT <: PolygonGraphicSimple
   override def shape: Polygon
   def xHead: Double = shape.x0
@@ -34,23 +34,80 @@ trait PolygonActiveOld extends GraphicActiveOld
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
- * PolygonFill will be returned.
- * @constructor create a new PolygonFill with the underlying polygon and a colour.
- * @param shape The Polygon shape.
- * @param colour The colour of this graphic. */
-final case class PolygonFill(shape: Polygon, colour: Colour) extends PolygonGraphicSimple with ShapeFill
-{ override type ThisT = PolygonFill
-  override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
+ * PolygonFill will be returned. */
+trait PolygonFill extends PolygonGraphicSimple with ShapeFill
+{ //type ThisT <: PolygonFill
+  // override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)
+
+  
+  override def xShear(operand: Double): PolygonFill = ???
+
+  override def yShear(operand: Double): PolygonFill = ???
+
+  override def reflect(line: LineSeg): PolygonFill = ???
+
+  /** Translate geometric transformation. */
+  override def slate(offset: Vec2): PolygonFill = ???
+
+  /** Translate geometric transformation. */
+  override def slate(xOffset: Double, yOffset: Double): PolygonFill = ???
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  override def scale(operand: Double): PolygonFill = ???
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectX: PolygonFill = ???
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def reflectY: PolygonFill = ???
+
+  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
+  override def reflectXParallel(yOffset: Double): PolygonFill = ???
+
+  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
+  override def reflectYParallel(xOffset: Double): PolygonFill = ???
+
+  override def prolign(matrix: ProlignMatrix): PolygonFill = ???
+
+  override def rotateRadians(radians: Double): PolygonFill = ???
+
+  override def reflect(line: Line): PolygonFill = ???
+
+  override def xyScale(xOperand: Double, yOperand: Double): PolygonFill = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
+
+  override def canEqual(that: Any): Boolean = ???
 }
 
 object PolygonFill
-{ /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
+{
+  def apply(shape: Polygon, colour: Colour): PolygonFill = new PolygonFillImp(shape, colour)
+  /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
+
+  /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
+   * PolygonFill will be returned.
+   * @constructor create a new PolygonFill with the underlying polygon and a colour.
+   * @param shape The Polygon shape.
+   * @param colour The colour of this graphic. */
+  final case class PolygonFillImp(shape: Polygon, colour: Colour) extends PolygonFill
+  { override type ThisT = PolygonFillImp
+   // override def fTrans(f: Vec2 => Vec2): PolygonFillImp = PolygonFillImp(shape.fTrans(f), colour)
+
+    //override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)
+  }
 }
 
 /** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) extends PolygonGraphicSimple with PolygonActiveOld
+case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) extends PolygonGraphicSimple with PolygonActiveOld with
+  GraphicAffineElem with GraphicBoundedAffine
 { override type ThisT = PolygonFillActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(shape.fTrans(f), pointerId, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
@@ -58,7 +115,8 @@ case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) 
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
-case class PolygonDraw(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonGraphicSimple with ShapeDraw
+case class PolygonDraw(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonGraphicSimple with ShapeDraw with
+  GraphicAffineElem with GraphicBoundedAffine
 { override type ThisT = PolygonDraw
   override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)
@@ -84,7 +142,7 @@ case class PolygonClickable(shape: Polygon, pointerId: Any) extends GraphicAffin
 }
 
 case class PolygonFillTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends
-  PolygonGraphicSimple
+  PolygonGraphicSimple with GraphicAffineElem with GraphicBoundedAffine
 { override type ThisT = PolygonFillTextOld
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextOld = PolygonFillTextOld(shape.fTrans(f), fillColour, str,fontSize, textColour)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, textColour, CenAlign)
@@ -99,7 +157,7 @@ case class PolygonFillTextOld(shape: Polygon, fillColour: Colour, str: String, f
 }
 
 case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
-  lineColour: Colour = Black) extends PolygonGraphicSimple
+  lineColour: Colour = Black) extends PolygonGraphicSimple with GraphicAffineElem with GraphicBoundedAffine
 { override type ThisT = PolygonFillDrawTextOld
   override def fTrans(f: Vec2 => Vec2): PolygonFillDrawTextOld = PolygonFillDrawTextOld(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
@@ -116,7 +174,7 @@ case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: Strin
 }
 
 case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
-                      lineColour: Colour = Black) extends PolygonGraphicSimple with PolygonActiveOld
+                      lineColour: Colour = Black) extends PolygonGraphicSimple with PolygonActiveOld with GraphicAffineElem with GraphicBoundedAffine
 { override type ThisT = PolygonAll
   override def fTrans(f: Vec2 => Vec2): PolygonAll = PolygonAll(shape.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
   def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
@@ -140,7 +198,7 @@ object PolygonFillDrawTextOld
 
 /** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */
 case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphicSimple
-  with PolygonActiveOld
+  with PolygonActiveOld with GraphicAffineElem with GraphicBoundedAffine
 { override type ThisT = PolygonFillTextActive
   override def fTrans(f: Vec2 => Vec2): PolygonFillTextActive = PolygonFillTextActive(shape.fTrans(f), pointerId, fillColour, str, fontSize)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)

@@ -6,6 +6,6 @@ trait RectangleGraphic extends PolygonGraphic
 { override def shape: Rectangle
 }
 
-//trait RectGraphicSimple extends RectGraphic with PolygonGraphicSimple
+trait RectangleGraphicSimple extends PolygonGraphicSimple with RectangleGraphic 
 
-//trait RectFill extends RectGraphicSimple// with PolygonFill
+//trait RectangleFill extends PolygonFill with RectangleGraphicSimple

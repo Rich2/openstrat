@@ -5,7 +5,7 @@ object Star5
 {
   val classicRatio = 0.382
 
-  def apply(ratio: Double = classicRatio): PolygonGen =
+  def apply(ratio: Double = classicRatio): Polygon =
   { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-deg36))
     iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
   }
@@ -21,14 +21,14 @@ object Star5
   }
 
   /** Not quite sure what this does. */
-  def ptUpYCentred(ratio: Double = classicRatio): PolygonGen = apply(ratio).ySlate(deg36.cos / 2 - 0.5)
+  def ptUpYCentred(ratio: Double = classicRatio): Polygon = apply(ratio).ySlate(deg36.cos / 2 - 0.5)
 }
 
 object Star7
 {
   val classicRatio = 0.692
 
-  def apply(ratio: Double = classicRatio): PolygonGen =
+  def apply(ratio: Double = classicRatio): Polygon =
   { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-Angle(180 / 7)))
     iToFlatMap(0, 6)(i => l2.rotate(Angle(-360 / 7) * i)).toPolygon
   }

@@ -25,7 +25,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   //val myr = Rectangle(2).fillTextActive(Violet, "Hello", "This Text").scale(400).slateY(300)
 
   val starCen = 300 vv 0
-  val star = Arr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
+  val star: GraphicElems = Arr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
   val us = India.parentStr.scale(800)//.slate(-300, 350)
   //val us2 = UnitedStates.inset.scale(500)
