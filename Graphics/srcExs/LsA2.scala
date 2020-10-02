@@ -5,14 +5,14 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 {
   val sq0 = Sqlign(100).fill(Red)
-  //val sq1 
+  val sq1 = Square(100 / 2.sqrt, 45.degs).fill(Pink)
   val sq2 = Sqlign(100, -100, 100).fill(Orange)
-  val sq3 = Square(100, -200, 100, 20.degs).fill(Colour.Sienna)
+  val sq3 = Square(100, 20.degs, -200, 100).fill(Colour.Sienna)
   val rg: PolygonFill = Rect(200, 100, 100, 50).fill(Green)
   val rd: PolygonDraw = Rect(200, 100, 100, 160).draw()
 
   repaints(
     Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
-    rg, rd, sq0, sq2, sq3,
+    rg, rd, sq0, sq1, sq2, sq3,
   )
 }

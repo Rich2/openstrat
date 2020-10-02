@@ -32,12 +32,12 @@ trait Square extends Rectangle
 /** Companion object for the Square trait. However its apply methods delegate to the SquareClass implementation class. */
 object Square
 {
-  def apply(width: Double, cen: Vec2, rotation: Angle): Square =
+  def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
     cenV0(cen, cen + delta)
   }
   
-  def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): Square =
+  def apply(width: Double, rotation: Angle, xCen: Double, yCen: Double): Square =
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
     new SquareImp(xCen, yCen, xCen + delta.x, yCen + delta.y)
   }
