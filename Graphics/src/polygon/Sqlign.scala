@@ -7,11 +7,10 @@ import pWeb._
 final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends Square with Rect
 { type ThisT = Sqlign
   override def attribs: Arr[XANumeric] = ???
-  override def fTrans(f: Vec2 => Vec2): Sqlign = Sqlign.cenV0(f(cen), f(v0))
 
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
 
-  override def slate(xOffset: Double, yOffset: Double): Sqlign = ???
+  override def slate(xOffset: Double, yOffset: Double): Sqlign = Sqlign(width, xCen + xOffset, yCen + yOffset)
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen * operand)
 
   override def negY: Sqlign = Sqlign(width, xCen, -yCen)
@@ -19,13 +18,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def negX: Sqlign = Sqlign(width, -xCen, yCen)
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
-
-  //override def rotateRadians(radians: Double): SquareGen = SquareGen.v0v1(v0.rotateRadians(radians), v1.rotateRadians(radians))
-
   
-
-  override def xyScale(xOperand: Double, yOperand: Double): Sqlign = ???
-
   //override def fill(fillColour: Colour): ShapeFill = ???
 
  // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
@@ -33,6 +26,6 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */
 object Sqlign
-{ def apply(width: Double, cen: Vec2): Sqlign = new Sqlign(width, cen.x, cen.y)
-  def cenV0(cen: Vec2, v0: Vec2): Sqlign = new Sqlign((v0.x - cen.x) * 2, cen.x, cen.y)
+{ def apply(width: Double, cen: Vec2 = Vec2Z): Sqlign = new Sqlign(width, cen.x, cen.y)
+  def apply(width: Double, xCen: Double, yCen: Double): Sqlign = new Sqlign(width, xCen, yCen)
 }

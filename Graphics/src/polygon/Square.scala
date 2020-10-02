@@ -62,14 +62,14 @@ object Square
     override def toString: String = s"SquareClass($x0, $y0; $x1, $y1)"
     override def fTrans(f: Vec2 => Vec2): SquareImp = SquareImp.cenV0(f(cen), f(v0))
 
-    override def slate(offset: Vec2): SquareImp = SquareImp(width, cen + offset)
+    override def slate(offset: Vec2): SquareImp = SquareImp.cenV0(cen + offset, v0 + offset)
 
     /** Translate geometric transformation. */
-    @inline override def slate(xOffset: Double, yOffset: Double): SquareImp = SquareImp(width, xCen + xOffset, yCen + yOffset, rotation)
+    @inline override def slate(xOffset: Double, yOffset: Double): SquareImp = SquareImp.cenV0(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset))
 
-    override def scale(operand: Double): SquareImp = SquareImp(width * operand, cen * operand)
+    override def scale(operand: Double): SquareImp = SquareImp.cenV0(cen * operand, v0 * operand)
 
-    override def negY: SquareImp = SquareImp(width, xCen, -yCen, rotation)
+    override def negY: SquareImp = SquareImp.cenV0(cen.negY, v0.negY)
 
     override def negX: SquareImp = SquareImp.cenV0(cen.negX, v0.negX)
 
@@ -85,20 +85,8 @@ object Square
   }
 
   /** Factory object for squares. */
-  object SquareImp extends ShapeIcon
+  object SquareImp //extends ShapeIcon
   {
-    /*@inline def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle): Square = Square(width, cen.x, cen.y, rotation)
-  
-    @inline def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): Square = Square(width, xCen, yCen, rotation)*/
-
-    @inline def apply(width: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): SquareImp =
-    { val v0 = cen + Vec2(width / 2, width / 2).rotate(rotation)
-      val v1 = cen + Vec2(width / 2, -width / 2).rotate(rotation)
-      new SquareImp(v0.x, v0.y, v1.x, v1.y)
-    }
-
-    @inline def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): SquareImp = apply(width, xCen vv yCen, rotation)
-
     def cenV0(cen: Vec2, v0: Vec2): SquareImp = new SquareImp(cen.x, cen.y, v0.x, v0.y)
 
     def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
@@ -107,10 +95,10 @@ object Square
       xCen + width / 2 vv yCen - width / 2,
       xCen - width / 2 vv yCen - width / 2)
 
-    override def scaleSlate(scale: Double, cen: Vec2): Shape = ???
+   // override def scaleSlate(scale: Double, cen: Vec2): Shape = ???
 
-    override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Shape = ???
+   // override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Shape = ???
 
-    override def fill(colour: Colour): ShapeGraphicIcon = ???
+   // override def fill(colour: Colour): ShapeGraphicIcon = ???
   }
 }
