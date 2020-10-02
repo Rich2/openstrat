@@ -8,4 +8,14 @@ trait RectangleGraphic extends PolygonGraphic
 
 trait RectangleGraphicSimple extends PolygonGraphicSimple with RectangleGraphic 
 
-//trait RectangleFill extends PolygonFill with RectangleGraphicSimple
+trait RectangleFill extends PolygonFill with RectangleGraphicSimple
+{
+  override def slate(offset: Vec2): RectangleFill = ???
+}
+
+object RectangleFill
+{
+  def apply(shape: Rectangle, colour: Colour): RectangleFill = ???
+  
+  case class RectangleFillImp(shape: Rectangle, colour: Colour) extends RectangleFill
+}
