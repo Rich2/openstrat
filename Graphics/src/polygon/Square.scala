@@ -32,8 +32,15 @@ trait Square extends Rectangle
 /** Companion object for the Square trait. However its apply methods delegate to the SquareClass implementation class. */
 object Square
 {
-  def apply(width: Double, cen: Vec2, rotation: Angle): Square = ???
-  def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): Square = ???
+  def apply(width: Double, cen: Vec2, rotation: Angle): Square =
+  { val delta = Vec2(width / 2, width / 2).rotate(rotation)
+    cenV0(cen, cen + delta)
+  }
+  
+  def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): Square =
+  { val delta = Vec2(width / 2, width / 2).rotate(rotation)
+    new SquareImp(xCen, yCen, xCen + delta.x, yCen + delta.y)
+  }
   
   def cenV0(cen: Vec2, v0: Vec2): Square = new SquareImp(cen.x, cen.y, v0.x, v0.y)
   
@@ -53,7 +60,7 @@ object Square
     override def productArity: Int = 3
     override def productElement(n: Int): Any = 4
     override def toString: String = s"SquareClass($x0, $y0; $x1, $y1)"
-    override def fTrans(f: Vec2 => Vec2): SquareImp = SquareImp.v0v1(f(v0), f(v1))
+    override def fTrans(f: Vec2 => Vec2): SquareImp = SquareImp.cenV0(f(cen), f(v0))
 
     override def slate(offset: Vec2): SquareImp = SquareImp(width, cen + offset)
 
@@ -64,13 +71,13 @@ object Square
 
     override def negY: SquareImp = SquareImp(width, xCen, -yCen, rotation)
 
-    override def negX: SquareImp = SquareImp.v0v1(v1.negX, v0.negX)
+    override def negX: SquareImp = SquareImp.cenV0(cen.negX, v0.negX)
 
-    override def prolign(matrix: ProlignMatrix): SquareImp = SquareImp(width * matrix.vFactor, cen.prolign(matrix), rotation)
+    override def prolign(matrix: ProlignMatrix): SquareImp = SquareImp.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
-    override def rotateRadians(radians: Double): SquareImp = ???
+    override def rotateRadians(radians: Double): SquareImp = SquareImp.cenV0(cen.rotateRadians(radians), v0.rotateRadians(radians)) 
 
-    override def reflect(lineLike: LineLike): SquareImp = ???
+    override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
 
     //override def fill(fillColour: Colour): ShapeFill = ???
 
@@ -92,7 +99,7 @@ object Square
 
     @inline def apply(width: Double, xCen: Double, yCen: Double, rotation: Angle): SquareImp = apply(width, xCen vv yCen, rotation)
 
-    def v0v1(v0: Vec2, v1: Vec2): SquareImp = new SquareImp(v0.x, v0.y, v1.x, v1.y)
+    def cenV0(cen: Vec2, v0: Vec2): SquareImp = new SquareImp(cen.x, cen.y, v0.x, v0.y)
 
     def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
       xCen - width / 2 vv yCen + width / 2,
