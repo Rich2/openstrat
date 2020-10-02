@@ -10,7 +10,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
   override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / length
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
-  override def draw(lineWidth: Double, lineColour: Colour): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))
