@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black, pWeb._
 
 /** This trait may be removed. */
-trait PolygonGraphicSimple extends PolygonGraphic// with GraphicSimElem with GraphicBoundedSimer
+trait PolygonGraphicSimple extends PolygonGraphic
 { type ThisT <: PolygonGraphicSimple
   override def shape: Polygon
   def xHead: Double = shape.x0
@@ -26,12 +26,7 @@ trait PolygonGraphicSimple extends PolygonGraphic// with GraphicSimElem with Gra
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 }
 
-/** An active transparent pointable polygon */
-trait PolygonActiveOld extends GraphicActiveOld
-{ def shape: Polygon
-  override def boundingRect = shape.boundingRect
-  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
-}
+
 
 /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
  * PolygonFill will be returned. */
@@ -109,13 +104,11 @@ object PolygonFill
   }
 }
 
-/** Immutable Graphic element that defines and fills a Polygon. */
-case class PolygonFillActive(shape: PolygonGen, pointerId: Any, colour: Colour) extends PolygonGraphicSimple with PolygonActiveOld with
-  GraphicAffineElem with GraphicBoundedAffine
-{ override type ThisT = PolygonFillActive
-  override def fTrans(f: Vec2 => Vec2): PolygonFillActive = PolygonFillActive(shape.fTrans(f), pointerId, colour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
-  override def attribs: Arr[XmlAtt] = ???
+/** An active transparent pointable polygon */ 
+trait PolygonActiveOld extends GraphicActiveOld
+{ def shape: Polygon
+  override def boundingRect = shape.boundingRect
+  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
 }
 
 /** Immutable Graphic element that defines and draws a Polygon. */
@@ -129,6 +122,8 @@ case class PolygonDraw(shape: Polygon, lineWidth: Double = 2, lineColour: Colour
 object PolygonDraw
 { /*implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolygonDraw] =
     Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)*/
+  
+  
 }
 
 /** A pointable polygon without visual */
@@ -192,12 +187,6 @@ case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: S
   }
 
   override def attribs: Arr[XmlAtt] = ???
-}
-
-object PolygonFillDrawTextOld
-{ /*implicit val persistImplicit: Persist6[Polygon, Colour, String, Int, Double, Colour, PolygonFillDrawTextOld] =
-  Persist6("PolyFill", "poly", _.shape, "fillColour", _.fillColour, "str", _.str, "fontSize", _.fontSize, "lineWidth", _.lineWidth,
-    "lineColour", _.lineColour, apply)*/
 }
 
 /** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */
