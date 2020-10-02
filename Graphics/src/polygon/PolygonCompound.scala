@@ -122,7 +122,5 @@ object PolygonCompound
     override def xShear(operand: Double): PolygonCompoundImp = ???
 
     override def yShear(operand: Double): PolygonCompoundImp = ???
-
-   // override def reflect(lineLike: LineLike): PolygonCompoundImp = ???
   }  
 }

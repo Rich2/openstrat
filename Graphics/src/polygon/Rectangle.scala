@@ -85,8 +85,6 @@ trait Rectangle extends Rectangular with Polygon
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.cenV0V1(cen.reflect(lineLike), v0.reflect(lineLike), v1.reflect(lineLike))
 
-  //override def reflect(line: LineSeg): Rectangle = Rectangle.cenV0V1(cen.reflect(line), v0.reflect(line), v1.reflect(line))
-
   override def rotateRadians(radians: Double): Rectangle = Rectangle.cenV0V1(cen.rotateRadians(radians), v0.rotateRadians(radians), v1.rotateRadians(radians))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =

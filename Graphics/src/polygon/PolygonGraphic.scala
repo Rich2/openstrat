@@ -38,6 +38,4 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   override def xShear(operand: Double): PolygonGraphic
 
   override def yShear(operand: Double): PolygonGraphic
-
-  //override def reflect(line: LineSeg): PolygonGraphic
 }

@@ -55,8 +55,6 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 
   override def rotateRadians(radians: Double): PolygonGraphicSimple
 
-  //override def reflect(lineLike: LineLike): PolygonGraphicSimple
-
   override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphicSimple
 
   override def productArity: Int = ???
