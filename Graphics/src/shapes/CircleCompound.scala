@@ -41,9 +41,9 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   override def rotateRadians(radians: Double): CircleCompound = CircleCompound(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-  override def reflect(line: Line): CircleCompound = ??? //CircleGraphic(shape.reflect(line), facets, children.reflect(line))
+  override def reflect(lineLike: LineLike): CircleCompound = ??? //CircleGraphic(shape.reflect(line), facets, children.reflect(line))
 
-  override def reflect(line: LineSeg): CircleCompound = ???
+ // override def reflect(line: LineSeg): CircleCompound = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound = ???
 

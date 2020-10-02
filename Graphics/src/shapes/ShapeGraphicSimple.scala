@@ -30,7 +30,7 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 
   override def rotateRadians(radians: Double): ShapeGraphicSimple
 
-  override def reflect(line: Line): ShapeGraphicSimple
+  override def reflect(lineLike: LineLike): ShapeGraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphicSimple
 }

@@ -16,7 +16,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
   def rotate180: DisplayBounded
   def rotate270: DisplayBounded*/
   def rotateRadians(radians: Double): BoundedGraphic
-  def reflect(line: LineSeg): BoundedGraphic
+  override def reflect(lineLike: LineLike): BoundedGraphic
   override def xyScale(xOperand: Double, yOperand: Double): BoundedGraphic
 
   override def xShear(operand: Double): BoundedGraphic

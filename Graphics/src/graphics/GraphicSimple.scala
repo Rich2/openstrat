@@ -28,7 +28,7 @@ trait GraphicSimple extends GraphicElem
 
   override def rotateRadians(radians: Double): GraphicSimple
 
-  override def reflect(line: Line): GraphicSimple
+  override def reflect(lineLike: LineLike): GraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple
 }

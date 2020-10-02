@@ -49,9 +49,9 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def rotateRadians(radians: Double): Circle = Circle(radius, cen.rotateRadians(radians))
   def rotate(angle: Angle): Circle = Circle(radius, cen.rotate(angle))
 
-  override def reflect(line: Line): Circle = Circle(radius, cen.reflect(line))
+  override def reflect(lineLike: LineLike): Circle = Circle(radius, cen.reflect(lineLike))
 
-  override def reflect(line: LineSeg): Circle = Circle(radius, cen.reflect(line))
+  //override def reflect(line: LineSeg): Circle = Circle(radius, cen.reflect(line))
 
   override def negY: Circle = Circle(radius, cen.negY)
 

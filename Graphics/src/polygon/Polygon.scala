@@ -67,9 +67,9 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   /** Prolign 2d transformations, similar transofrmations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
-  override def reflect(line: Line): Polygon
+  override def reflect(lineLike: LineLike): Polygon
 
-  override def reflect(line: LineSeg): Polygon
+  //override def reflect(line: LineSeg): Polygon
 
   override def xyScale(xOperand: Double, yOperand: Double): Polygon
 

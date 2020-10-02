@@ -36,11 +36,11 @@ trait ShapeFill extends ShapeGraphicSimple
 
   override def rotateRadians(radians: Double): ShapeFill
 
-  override def reflect(line: Line): ShapeFill
+  override def reflect(lineLike: LineLike): ShapeFill
 
   override def xyScale(xOperand: Double, yOperand: Double): ShapeFill  
 
-  override def reflect(line: LineSeg): ShapeFill
+  //override def reflect(line: LineSeg): ShapeFill
 
   override def xShear(operand: Double): ShapeFill
 

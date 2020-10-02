@@ -42,7 +42,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def rotateRadians(operandRadians: Double): CArc =
     CArc(pStart.rotateRadians(operandRadians), cen.rotateRadians(operandRadians), deltaRadians)
 
-  override def reflect(line: LineSeg): CArc = ???
+  override def reflect(lineLike: LineLike): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 
   override def xyScale(xOperand: Double, yOperand: Double): TransElem = ???

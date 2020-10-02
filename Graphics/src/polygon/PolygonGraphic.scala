@@ -31,7 +31,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   
   override def rotateRadians(radians: Double): PolygonGraphic
 
-  override def reflect(line: Line): PolygonGraphic
+  override def reflect(lineLike: LineLike): PolygonGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphic
 
@@ -39,5 +39,5 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 
   override def yShear(operand: Double): PolygonGraphic
 
-  override def reflect(line: LineSeg): PolygonGraphic
+  //override def reflect(line: LineSeg): PolygonGraphic
 }

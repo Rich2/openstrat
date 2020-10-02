@@ -31,7 +31,7 @@ trait GraphicElem extends TransElem
 
   def rotateRadians(radians: Double): GraphicElem
 
-  def reflect(line: Line): GraphicElem
+  def reflect(lineLike: LineLike): GraphicElem
 
   override def xyScale(xOperand: Double, yOperand: Double): GraphicElem
 }

@@ -29,7 +29,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 
   override def yShear(operand: Double): PolygonGraphicSimple
 
-  override def reflect(line: LineSeg): PolygonGraphicSimple
+  override def reflect(lineLike: LineLike): PolygonGraphicSimple
 
   override def nonShapeAttribs: Arr[XmlAtt] = ???
 
@@ -55,7 +55,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 
   override def rotateRadians(radians: Double): PolygonGraphicSimple
 
-  override def reflect(line: Line): PolygonGraphicSimple
+  //override def reflect(lineLike: LineLike): PolygonGraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphicSimple
 
@@ -102,9 +102,9 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
 
   override def yShear(operand: Double): PolygonFill = ???
 
-  override def reflect(line: LineSeg): PolygonFill = ???
+  override def reflect(lineLike: LineLike): PolygonFill = ???
 
-  override def reflect(line: Line): PolygonFill = ???
+ //S override def reflect(line: Line): PolygonFill = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonFill = ???
 

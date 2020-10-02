@@ -32,14 +32,14 @@ trait ShapeCompound extends ShapeGraphic
 
   override def rotateRadians(radians: Double): ShapeCompound
 
-  override def reflect(line: Line): ShapeCompound
+  override def reflect(lineLike: LineLike): ShapeCompound
 
   override def xyScale(xOperand: Double, yOperand: Double): ShapeCompound
   override def xShear(operand: Double): ShapeCompound
 
   override def yShear(operand: Double): ShapeCompound
 
-  override def reflect(line: LineSeg): ShapeCompound
+ // override def reflect(line: LineSeg): ShapeCompound
 }
 
 /** Companion object for the [[ShapeCompound]] trait, contains implicit instances for 2D geometric transoframtion type classes for common collection

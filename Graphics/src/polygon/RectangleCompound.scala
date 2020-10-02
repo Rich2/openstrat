@@ -35,7 +35,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def rotateRadians(radians: Double): RectangleCompound = RectangleCompound(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-  override def reflect(line: Line): RectangleCompound = ???
+  override def reflect(lineLike: LineLike): RectangleCompound = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleCompound = ???
 
@@ -43,7 +43,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def yShear(operand: Double): PolygonCompound = ???
 
-  override def reflect(line: LineSeg): RectangleCompound = ???
+ // override def reflect(line: LineSeg): RectangleCompound = ???
 }
 
 object RectangleCompound
@@ -83,7 +83,7 @@ object RectangleCompound
 
     override def rotateRadians(radians: Double): RectangleCompoundImp = RectangleCompoundImp(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-    override def reflect(line: Line): RectangleCompoundImp = ???
+    override def reflect(lineLike: LineLike): RectangleCompoundImp = ???
 
     override def xyScale(xOperand: Double, yOperand: Double): RectangleCompoundImp = ???
 
@@ -91,6 +91,6 @@ object RectangleCompound
 
     override def yShear(operand: Double): PolygonCompound = ???
 
-    override def reflect(line: LineSeg): RectangleCompoundImp = ???
+   // override def reflect(line: LineSeg): RectangleCompoundImp = ???
   }
 }

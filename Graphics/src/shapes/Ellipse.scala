@@ -113,9 +113,9 @@ trait Ellipse extends Shape with Curve
 
   override def negX: Ellipse = fTrans(_.negX)
 
-  override def reflect(line: Line): Ellipse = ???
+  override def reflect(lineLike: LineLike): Ellipse = ???
 
-  override def reflect(line: LineSeg): Ellipse = ???
+  //override def reflect(line: LineSeg): Ellipse = ???
 
   override def xShear(operand: Double): Ellipse = ???
 

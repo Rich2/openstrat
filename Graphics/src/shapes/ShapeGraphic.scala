@@ -38,7 +38,7 @@ trait ShapeGraphic extends GraphicElem
 
   def rotateRadians(radians: Double): ShapeGraphic
 
-  def reflect(line: Line): ShapeGraphic
+  def reflect(lineLike: LineLike): ShapeGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphic  
 }

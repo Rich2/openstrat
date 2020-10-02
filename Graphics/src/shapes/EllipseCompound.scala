@@ -26,7 +26,7 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
 
   override def rotateRadians(radians: Double): EllipseCompound
 
-  override def reflect(line: Line): EllipseCompound
+  override def reflect(lineLike: LineLike): EllipseCompound
 
   override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound
 
@@ -34,7 +34,7 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
 
   override def yShear(operand: Double): EllipseCompound
 
-  override def reflect(line: LineSeg): EllipseCompound
+  //override def reflect(line: LineSeg): EllipseCompound
 }
 
 object EllipseCompound
@@ -90,7 +90,7 @@ object EllipseCompound
 
     override def rotateRadians(radians: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-    override def reflect(line: Line): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
+    override def reflect(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
 
     override def xyScale(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
 
@@ -98,6 +98,6 @@ object EllipseCompound
 
     override def yShear(operand: Double): EllipseCompoundImplement = ???
 
-    override def reflect(line: LineSeg): EllipseCompoundImplement = ???
+    //override def reflect(line: LineSeg): EllipseCompoundImplement = ???
   }
 }

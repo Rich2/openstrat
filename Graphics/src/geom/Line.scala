@@ -31,9 +31,9 @@ sealed trait Line extends Curve with LineLike
 
   override def rotateRadians(radians: Double): Line = ???
 
-  override def reflect(line: Line): Line = ???
+  override def reflect(lineLike: LineLike): Line = ???
 
-  override def reflect(line: LineSeg): Line = ???
+ // override def reflect(line: LineSeg): Line = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): Line = ???
 

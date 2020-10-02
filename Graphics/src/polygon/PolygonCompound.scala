@@ -43,7 +43,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def rotateRadians(radians: Double): PolygonCompound = ???
 
-  override def reflect(line: Line): PolygonCompound = ???
+  override def reflect(lineLike: LineLike): PolygonCompound = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonCompound = ???
 
@@ -51,7 +51,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def yShear(operand: Double): PolygonCompound = ???
 
-  override def reflect(line: LineSeg): PolygonCompound = ???
+ // override def reflect(line: LineSeg): PolygonCompound = ???
 }
 
 object PolygonCompound
@@ -115,7 +115,7 @@ object PolygonCompound
 
     override def rotateRadians(radians: Double): PolygonCompoundImp = ???
 
-    override def reflect(line: Line): PolygonCompoundImp = ???
+    override def reflect(lineLike: LineLike): PolygonCompoundImp = ???
 
     override def xyScale(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
 
@@ -123,6 +123,6 @@ object PolygonCompound
 
     override def yShear(operand: Double): PolygonCompoundImp = ???
 
-    override def reflect(line: LineSeg): PolygonCompoundImp = ???
+   // override def reflect(lineLike: LineLike): PolygonCompoundImp = ???
   }  
 }

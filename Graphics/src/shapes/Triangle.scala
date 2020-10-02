@@ -52,9 +52,9 @@ trait Triangle extends Polygon
 
 	override def prolign(matrix: ProlignMatrix): Triangle = ???
 
-	override def reflect(line: Line): Triangle = ???
+	override def reflect(lineLike: LineLike): Triangle = ???
 
-	override def reflect(line: LineSeg): Triangle = ???
+	//override def reflect(line: LineSeg): Triangle = ???
 
 	override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 
