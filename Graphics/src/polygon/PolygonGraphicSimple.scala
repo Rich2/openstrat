@@ -104,12 +104,6 @@ object PolygonFill
   }
 }
 
-/** An active transparent pointable polygon */ 
-trait PolygonActiveOld extends GraphicActiveOld
-{ def shape: Polygon
-  override def boundingRect = shape.boundingRect
-  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
-}
 
 /** Immutable Graphic element that defines and draws a Polygon. */
 case class PolygonDraw(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonGraphicSimple with ShapeDraw with
@@ -124,6 +118,13 @@ object PolygonDraw
     Persist3("PolyFill", "poly", _.shape, "lineWidth", _.lineWidth, "colour", _.lineColour, apply)*/
   
   
+}
+
+/** An active transparent pointable polygon */
+trait PolygonActiveOld extends GraphicActiveOld
+{ def shape: Polygon
+  override def boundingRect = shape.boundingRect
+  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
 }
 
 /** A pointable polygon without visual */
