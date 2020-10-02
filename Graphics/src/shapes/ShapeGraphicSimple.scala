@@ -9,28 +9,28 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
   final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 
   /** Translate geometric transformation. */
-  def slate(offset: Vec2): ShapeGraphicSimple
+  override def slate(offset: Vec2): ShapeGraphicSimple
 
   /** Translate geometric transformation. */
-  def slate(xOffset: Double, yOffset: Double): ShapeGraphicSimple
+  override def slate(xOffset: Double, yOffset: Double): ShapeGraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  def scale(operand: Double): ShapeGraphicSimple
+  override def scale(operand: Double): ShapeGraphicSimple
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def negY: ShapeGraphicSimple
+  override def negY: ShapeGraphicSimple
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  def negX: ShapeGraphicSimple
+  override def negX: ShapeGraphicSimple
 
-  def prolign(matrix: ProlignMatrix): ShapeGraphicSimple
+  override def prolign(matrix: ProlignMatrix): ShapeGraphicSimple
 
-  def rotateRadians(radians: Double): ShapeGraphicSimple
+  override def rotateRadians(radians: Double): ShapeGraphicSimple
 
-  def reflect(line: Line): ShapeGraphicSimple
+  override def reflect(line: Line): ShapeGraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphicSimple
 }
