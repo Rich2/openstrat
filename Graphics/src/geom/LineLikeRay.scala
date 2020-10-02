@@ -2,8 +2,10 @@
 package ostrat
 package geom
 
+trait LineLike
+
 /** Geometrical Ray. */
-class Ray private(x0: Double, y0: Double, angleSecs: Double)
+class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 {
 
 }
