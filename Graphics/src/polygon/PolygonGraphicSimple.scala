@@ -54,14 +54,21 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def rotateRadians(radians: Double): PolygonGraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphicSimple
-
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???
-
-  override def canEqual(that: Any): Boolean = ???
 }
 
+object PolygonGraphicSimple
+{
+  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, radians: Double) => obj.rotateRadians(radians)
+  implicit val XYScaleImplicit: XYScale[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[PolygonGraphicSimple] = (obj, matrix) => obj.prolign(matrix)
+
+  implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphicSimple] = new ReflectAxes[PolygonGraphicSimple]
+  { override def negYT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negY
+    override def negXT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negX
+  }
+}
 
 /** An active transparent pointable polygon */
 trait PolygonActiveOld extends GraphicActiveOld
