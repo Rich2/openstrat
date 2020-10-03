@@ -45,11 +45,11 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def reflect(lineLike: LineLike): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 
-  override def xyScale(xOperand: Double, yOperand: Double): TransElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???
 
-  override def xShear(operand: Double): TransElem = ???
+  override def xShear(operand: Double): GeomElem = ???
 
-  override def yShear(operand: Double): TransElem = ???
+  override def yShear(operand: Double): GeomElem = ???
 }
 
 object CArc

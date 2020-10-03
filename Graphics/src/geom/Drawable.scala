@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** A Geometric entity that can be drawn producing a [[ShapeCompound]] */
-trait Drawable extends TransElem 
+trait Drawable extends GeomElem
 {
   def draw(lineWidth: Double = 2, lineColour: Colour = Black): GraphicElem
 }

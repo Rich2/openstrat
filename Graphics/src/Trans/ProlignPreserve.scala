@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A class that preserves its type through all the Prolign, proportionate XY axes aligned transformations. */
-trait ProlignPreserve extends TransElem
+trait ProlignPreserve extends GeomElem
 { /** The most narrow type preserved in some 2d geometric transformations. */
   type ThisT <: ProlignPreserve
   

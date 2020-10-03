@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A common trait for all classes that can be defined by a sequence of Vec2s. */
-trait Vec2sLike extends TransElem
+trait Vec2sLike extends GeomElem
 {
   def apply(index: Int): Vec2
   def foreach[U](f: Vec2 => U): Unit

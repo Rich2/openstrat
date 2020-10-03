@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Mathematically this is a simple curve. A mathematical complex curve is called a [[CurvePath]] in this Library. */
-trait Curve extends TransElem
+trait Curve extends GeomElem
 {
 
 }

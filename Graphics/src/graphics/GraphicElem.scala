@@ -4,7 +4,7 @@ package geom
 
 /** A GraphicElem, graphic element is either an element that can be rendered to a display (or printed) or is an active element in a display or
  *  both. */
-trait GraphicElem extends TransElem
+trait GraphicElem extends GeomElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[CanvasPlatform]] interface. */
   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
