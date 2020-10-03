@@ -27,12 +27,12 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   override def prolign(matrix: ProlignMatrix): PolygonDraw = PolygonDraw(shape.prolign(matrix), lineWidth, lineColour)
 
   override def rotateRadians(radians: Double): PolygonDraw = PolygonDraw(shape.rotateRadians(radians), lineWidth, lineColour)
-  override def reflect(lineLike: LineLike): PolygonDraw = ???
-  override def xyScale(xOperand: Double, yOperand: Double): PolygonDraw = ???
+  override def reflect(lineLike: LineLike): PolygonDraw = PolygonDraw(shape.reflect(lineLike), lineWidth, lineColour)
+  override def xyScale(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.xyScale(xOperand, yOperand), lineWidth, lineColour)
 
-  override def xShear(operand: Double): PolygonDraw = ???
+  override def xShear(operand: Double): PolygonDraw = PolygonDraw(shape.xShear(operand), lineWidth, lineColour)
 
-  override def yShear(operand: Double): PolygonDraw = ???
+  override def yShear(operand: Double): PolygonDraw = PolygonDraw(shape.yShear(operand), lineWidth, lineColour)
 }
 
 object PolygonDraw
@@ -44,8 +44,7 @@ object PolygonDraw
 
   /** Immutable Graphic element that defines and draws a Polygon. */
   case class PolygonDrawImp(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonDraw
-  { //override type ThisT = PolygonDrawImp
-    //override def fTrans(f: Vec2 => Vec2): PolygonDrawImp = PolygonDrawImp(shape.fTrans(f), lineWidth, lineColour)
+  { 
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)
   }
 }
