@@ -8,7 +8,7 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
   var turn:Int
   var players:Array[Colour]
   var currentPlayer:Colour
-  var cellCounts = Array.fill[Int](rows*cols)(0)
+  var cellCounts:Array[Int]
   var cellColors = Array.fill[Colour](rows*cols)(Black)
   val cellSites = new Array[Array[String]](rows*cols)
   val cellNeighbours = new Array[Array[Int]](rows*cols)
@@ -17,16 +17,15 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
   newGame()
   
   def newGame() : Unit =
-  { 
-    turn = 0
+  { turn = 0
     players = thePlayers.clone()
     currentPlayer = players(0)
+    cellCounts = Array.fill[Int](rows*cols)(0)
+    cellColors = Array.fill[Colour](rows*cols)(Black)
     reactionQueue = Array[Array[Int]]()
     ijUntilForeach(0, rows)(0, cols)
     { (r, c) =>
       val index:Int = c + cols * r
-      cellCounts(index) = 0
-      cellColors(index) = Black
       cellNeighbours(index) = Array[Int]()
       cellSites(index) = Array[String]()
       if (c>0) 
@@ -64,8 +63,7 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
   }
   def addBallByIndex(cellIndex:Int) : Unit = 
   { if (players.length > 1) 
-    {
-      cellColors(cellIndex) = currentPlayer
+    { cellColors(cellIndex) = currentPlayer
       cellCounts(cellIndex) += 1
     }
   }
