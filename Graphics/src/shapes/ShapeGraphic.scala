@@ -66,12 +66,4 @@ object ShapeGraphic
   { override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
     override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
   }
-
-  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[ShapeGraphic] = new ReflectAxesOffset[ShapeGraphic]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: ShapeGraphic, yOffset: Double): ShapeGraphic = obj.reflectXParallel(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: ShapeGraphic, xOffset: Double): ShapeGraphic = obj.reflectYParallel(xOffset)
-  }*/
 }

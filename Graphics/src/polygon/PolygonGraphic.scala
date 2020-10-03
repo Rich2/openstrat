@@ -39,3 +39,17 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 
   override def yShear(operand: Double): PolygonGraphic
 }
+
+object PolygonGraphic
+{
+  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, radians: Double) => obj.rotateRadians(radians)
+  implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
+
+  implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphic] = new ReflectAxes[PolygonGraphic]
+  { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
+    override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
+  }
+}
