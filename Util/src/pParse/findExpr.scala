@@ -9,7 +9,7 @@ object PrefixPlus
     val acc: Buff[BlockMember] = Buff()
 
     def loop(rem: ArrOff[BlockMember]): ERefs[BlockMember] = rem match
-    { case ArrOff0() => Good(acc).map(_.toRefs)
+    { case ArrOff0() => Good(acc).map(_.toArr)
       //case RefsOff2Tail(pp: PrefixToken,  right: Expr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       //case RefsOffHead(pp: PrefixToken) => bad1(pp, "Prefix operator not followed by expression")
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
@@ -28,10 +28,10 @@ object getExpr
     val acc: Buff[ClauseMember] = Buff()
 
     def loop(rem: ArrOff[ClauseMember]): EMon[Expr] = { rem match
-    { case ArrOff0() => composeBlocks(acc.toRefs)
+    { case ArrOff0() => composeBlocks(acc.toArr)
 
       case ArrOff1Tail(at @ AsignToken(_), tail) =>
-        composeBlocks(acc.toRefs).flatMap(gLs => fromOffset(tail).map(gRs => AsignExpr(gLs, at, gRs)))
+        composeBlocks(acc.toArr).flatMap(gLs => fromOffset(tail).map(gRs => AsignExpr(gLs, at, gRs)))
       /*{
         val eA = for {
           gLs <- composeBlocks(acc.toRefs)

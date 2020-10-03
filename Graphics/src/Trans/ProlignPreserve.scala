@@ -11,10 +11,9 @@ trait ProlignPreserve extends TransElem
   def slate(offset: Vec2): ThisT = fTrans(_ + offset)
   def slate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
   def scale(operand: Double): ThisT = fTrans(_ * operand)
-  def reflectYParallel(xOffset: Double): ThisT
-  def reflectXParallel(yOffset: Double): ThisT
-  override def reflectX: ThisT
-  override def reflectY: ThisT
+
+  override def negY: ThisT
+  override def negX: ThisT
 
   override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolign(matrix))
 }

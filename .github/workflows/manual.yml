@@ -26,8 +26,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ github.event.inputs.name }}"
+    - name: BuildThisApp
+      run: ed -v "/home/runner/work/openstrat/openstrat/Dev/srcJs/AppsForJs.scala" <<<$',s|theMap(\"1\")|theMap(\"2\")|\nwq\n'
 
 
 #- name: Download a Build Artifact

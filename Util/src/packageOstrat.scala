@@ -237,7 +237,7 @@ package object ostrat
 
   /** Needs Changing. */
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
-  { @inline def toRefs(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
+  { @inline def toArr(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
     def goodRefs(implicit ct: ClassTag[A]): Good[Arr[A]] = Good(new Arr(thisBuff.toArray))
 
     def toReverseRefs(implicit ct: ClassTag[A]): Arr[A] =
@@ -258,8 +258,12 @@ package object ostrat
     def toArr: Arr[A] =
     { val buff: Buff[A] = Buff()
       thisIter.foreach(buff.append)
-      buff.toRefs
+      buff.toArr
     }
+  }
+  
+  implicit class ArrayBufferExtensions[A](thisBuff: ArrayBuffer[A])(implicit ct: ClassTag[A])
+  { def toArr: Arr[A] = new Arr(thisBuff.toArray[A])
   }
 
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)

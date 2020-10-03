@@ -58,11 +58,11 @@ object Arr6
   }
 }
 
-object arr1Tail
+object Arr1Tail
 { def unapply[A](arr: Arr[A])(implicit ct: ClassTag[A]): Option[(A, Arr[A])] = ife(arr.nonEmpty, Some((arr.head, arr.drop1)), None)
 }
 
-object arr2Tail
+object Arr2Tail
 { def unapply[A](arr: Arr[A])(implicit ct: ClassTag[A]): Option[(A, A, Arr[A])] = ife(arr.nonEmpty, Some((arr(0), arr(1), arr.drop1)), None)
 }
 

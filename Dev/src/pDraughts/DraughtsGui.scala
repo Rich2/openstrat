@@ -11,13 +11,13 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
   val lightSquareColour = Pink
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val tiles: DisplayElems = grid.mapRPolygons{ (r, p) =>
+  val tiles: GraphicElems = grid.mapRPolygons{ (r, p) =>
     val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
     p.fill(col) }
 
   val pieces = scen.draughts.mapSomes((r, d) => Circle(0.7, r.gridVec2).fill(d.colour))
 
- def bTurn = clickButton("Turn ", _ => {
+ def bTurn = clickButtonOld("Turn ", _ => {
    repaint()
    thisTop()
  })

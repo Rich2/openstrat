@@ -7,6 +7,8 @@ import reflect.ClassTag
  * extension class. Different sets of transformations can then be combined. */
 trait Slate[T]
 { def slateT(obj: T, offset: Vec2): T
+  def xSlateT(obj: T, xOffset: Double): T = slateT(obj, xOffset vv 0)
+  def ySlateT(obj: T, yOffset: Double): T = slateT(obj, 0 vv yOffset)
 }
 
 /** Companion object for the Slate type class. Contains instances for collections and other container classes. */

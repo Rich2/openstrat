@@ -10,8 +10,8 @@ trait AffineTrans[T] extends TransSim[T]
   override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
   def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Vec2(v.x * yScale, v.y * xScale))
   override def rotateRadians(obj: T, radians: Double): T = trans(obj, _.rotateRadians(radians))
-  def mirrorYOffset(obj: T, xOffset: Double): T = trans(obj, _.reflectYOffset(xOffset))
-  def mirrorXOffset(obj: T, yOffset: Double): T = trans(obj, _.reflectXOffset(yOffset))
+  def mirrorYOffset(obj: T, xOffset: Double): T = trans(obj, _.reflectYParallel(xOffset))
+  def mirrorXOffset(obj: T, yOffset: Double): T = trans(obj, _.reflectXParallel(yOffset))
   override def reflectSegT(obj: T, line: LineSeg): T = trans(obj, _.reflect(line))
   override def reflectT(obj: T, line: Line): T = trans(obj, _.reflect(line))
 }

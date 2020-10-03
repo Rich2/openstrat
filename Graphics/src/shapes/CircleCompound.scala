@@ -15,7 +15,7 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
-  override def svgElem(bounds: BoundingRect): SvgCircle = SvgCircle(shape.reflectX.slate(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: BoundingRect): SvgCircle = SvgCircle(shape.negY.slate(0, bounds.minY + bounds.maxY).
     attribs ++ facets.flatMap(_.attribs))  
   
   /** Translate geometric transformation. */
@@ -31,25 +31,19 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: CircleCompound = CircleCompound(shape.reflectX, facets, children.reflectX)
+  override def negY: CircleCompound = CircleCompound(shape.negY, facets, children.negY)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: CircleCompound = CircleCompound(shape.reflectY, facets, children.reflectY)
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): CircleCompound = CircleCompound(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): CircleCompound = CircleCompound(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
+  override def negX: CircleCompound = CircleCompound(shape.negX, facets, children.negX)
 
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
   override def rotateRadians(radians: Double): CircleCompound = CircleCompound(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-  override def reflect(line: Line): CircleCompound = ??? //CircleGraphic(shape.reflect(line), facets, children.reflect(line))
+  override def reflect(lineLike: LineLike): CircleCompound = ??? //CircleGraphic(shape.reflect(line), facets, children.reflect(line))
 
-  override def reflect(line: LineSeg): CircleCompound = ???
+ // override def reflect(line: LineSeg): CircleCompound = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound = ???
 

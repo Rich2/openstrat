@@ -4,7 +4,7 @@ import ostrat._, geom._, pCanv._, Colour._
 
 object LsA3a
 {
-  val r1: Rect = Rect(200, 150)//.slate(-200, 200)
+  val r1: Rectangle = Rectangle(200, 150)//.slate(-200, 200)
   val r1f: PolygonFill = r1.fill(Colour.Khaki)
   val r2 = r1.slate(-200, 150)
   

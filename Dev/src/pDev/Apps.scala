@@ -38,40 +38,40 @@ object Apps
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
     ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
     ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
-    ("A1s", (learn.LsA1Summary(_), "JavaFx Demonstration Canvas A1 Summary")),
+    ("A1s", (learn.LsA1S(_), "JavaFx Demonstration Canvas A1 Summary")),
     ("A2", (learn.LsA2(_), "JavaFx Demonstration Canvas 2")),
     ("A3a", (learn.LsA3a(_), "JavaFx Demonstration Canvas 3a")),
     ("A3", (learn.LsA3(_), "JavaFx Demonstration Canvas 3")),
     ("A4", (learn.LsA4(_), "JavaFx Demonstration Canvas 4")),
     ("A5", (learn.LsA5(_), "JavaFx Demonstration Canvas 5")),
-    ("A6", (learn.LessonA6(_), "JavaFx Demonstration Canvas 6")),
-    ("A7", (learn.LessonA7(_), "JavaFx Demonstration Canvas 7")),
-    ("A8", (learn.LessonA8(_), "JavaFx Demonstration Canvas 8")),
-    ("A9", (learn.LessonA9(_), "JavaFx Demonstration Canvas 9")),
-    ("A10", (learn.LessonA10(_), "JavaFx Demonstration Canvas 10")),
-    ("A11", (learn.LessonA11(_), "Reflecting a point across a Line")),
+    ("A6", (learn.LsA6(_), "JavaFx Demonstration Canvas 6")),
+    ("A7", (learn.LsA7(_), "JavaFx Demonstration Canvas 7")),
+    ("A8", (learn.LsA8(_), "JavaFx Demonstration Canvas 8")),
+    ("A9", (learn.LsA9(_), "JavaFx Demonstration Canvas 9")),
+    ("A10", (learn.LsA10(_), "JavaFx Demonstration Canvas 10")),
+    ("A11", (learn.LsA11(_), "Reflecting a point across a Line")),
     
-    ("B1", (learn.LessonB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
-    ("B2", (learn.LessonB2(_), "JavaFx Demonstration Animated Canvas 2")),
-    ("B3", (learn.LessonB3(_), "JavaFx Demonstration Animated Canvas 3")),
+    ("B1", (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
+    ("B2", (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")),
+    ("B3", (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")),
 
-    ("C1", (learn.LessonC1(_), "JavaFx Demonstration Interactive Canvas 1")), //User interactive graphics
-    ("C2", (learn.LessonC2(_), "JavaFx Demonstration Interactive Canvas 2")),
-    ("C3", (learn.LessonC3(_), "JavaFx Demonstration Interactive Canvas 3")),
-    ("C4", (learn.LessonC4(_), "JavaFx Demonstration Interactive Canvas 4")),
-    ("C5", (learn.LessonC5(_), "JavaFx Demonstration Interactive Canvas 5")),
-    ("C6", (learn.LessonC6(_), "JavaFx Demonstration Interactive Canvas 6")),
-    ("C7", (learn.LessonC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
-    ("C8", (learn.LessonC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")),
+    ("C1", (learn.LsC1(_), "JavaFx Demonstration Interactive Canvas 1")), //User interactive graphics
+    ("C2", (learn.LsC2(_), "JavaFx Demonstration Interactive Canvas 2")),
+    ("C3", (learn.LsC3(_), "JavaFx Demonstration Interactive Canvas 3")),
+    ("C4", (learn.LsC4(_), "JavaFx Demonstration Interactive Canvas 4")),
+    ("C5", (learn.LsC5(_), "JavaFx Demonstration Interactive Canvas 5")),
+    ("C6", (learn.LsC6(_), "JavaFx Demonstration Interactive Canvas 6")),
+    ("C7", (learn.LsC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
+    ("C8", (learn.LsC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")),
     
-    ("D1", (learn.LessonD1(_), "JavaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
-    ("D2", (learn.LessonD2(_), "JavaFx Demonstration Persistence 2")),
-    ("D3", (learn.LessonD3(_), "JavaFx Demonstration Persistence 3")),
-    ("D4", (learn.LessonD4(_), "JavaFx Demonstration Persistence 4")),
-    ("D5", (learn.LessonD5(_), "JavaFx Demonstration Persistence 5")),
+    ("D1", (learn.LsD1(_), "JavaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
+    ("D2", (learn.LsD2(_), "JavaFx Demonstration Persistence 2")),
+    ("D3", (learn.LsD3(_), "JavaFx Demonstration Persistence 3")),
+    ("D4", (learn.LsD4(_), "JavaFx Demonstration Persistence 4")),
+    ("D5", (learn.LsD5(_), "JavaFx Demonstration Persistence 5")),
 
-    ("E1", (learn.LessonE1(_), "JavaFx Demonstration Games 1")), //Building turn based games.
-    ("E2", (learn.LessonE2(_), "JavaFx Demonstration Games 2")),
+    ("E1", (learn.LsE1(_), "JavaFx Demonstration Games 1")), //Building turn based games.
+    ("E2", (learn.LsE2(_), "JavaFx Demonstration Games 2")),
   )
 
   /** Change appNum to change the default loaded application. */

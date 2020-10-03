@@ -21,12 +21,11 @@ final case class TriangleIsosGen(x0: Double, y0: Double, x2: Double, y2: Double,
   override def foreach[U](f: Vec2 => U): Unit = ???
 
   override def rotateRadians(radians: Double): TriangleIsosGen = ???
-  override def reflectXParallel(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
-  override def reflectYParallel(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-  override def reflectX: ThisT = fTrans(_.reflectX)
-  override def reflectY: ThisT = fTrans(_.reflectY)
-  override def reflect(line: Line): Triangle = ???
-  override def reflect(line: LineSeg): Triangle = ???
+
+  override def negY: ThisT = fTrans(_.negY)
+  override def negX: ThisT = fTrans(_.negX)
+  override def reflect(lineLike: LineLike): Triangle = ???
+  //override def reflect(line: LineSeg): Triangle = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 

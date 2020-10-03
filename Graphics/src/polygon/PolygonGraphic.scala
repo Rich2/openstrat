@@ -2,11 +2,12 @@
 package ostrat
 package geom
 
-/** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as Rectangle, Square or Triangle use
- * the implementation class [[PolygonCompound]]. */
-trait PolygonGraphic extends ShapeGraphic
+/** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as Rectangle, Square or Triangle
+ *  use the implementation class [[PolygonCompound]]. */
+trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 {
   override def shape: Polygon
+  override def boundingRect: BoundingRect = shape.boundingRect
   override def svgElem(bounds: BoundingRect): SvgElem = ???
   /** Translate geometric transformation. */
   override def slate(offset: Vec2): PolygonGraphic
@@ -20,29 +21,35 @@ trait PolygonGraphic extends ShapeGraphic
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: PolygonGraphic
+  override def negY: PolygonGraphic
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: PolygonGraphic
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): PolygonGraphic
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): PolygonGraphic
+  override def negX: PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
   
   override def rotateRadians(radians: Double): PolygonGraphic
 
-  override def reflect(line: Line): PolygonGraphic
+  override def reflect(lineLike: LineLike): PolygonGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphic
 
   override def xShear(operand: Double): PolygonGraphic
 
   override def yShear(operand: Double): PolygonGraphic
+}
 
-  override def reflect(line: LineSeg): PolygonGraphic
+object PolygonGraphic
+{
+  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, radians: Double) => obj.rotateRadians(radians)
+  implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
+
+  implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphic] = new ReflectAxes[PolygonGraphic]
+  { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
+    override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
+  }
 }

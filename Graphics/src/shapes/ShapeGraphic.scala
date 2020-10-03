@@ -14,12 +14,33 @@ trait ShapeGraphic extends GraphicElem
   def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, linePosn, lineLen)
   final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
   def svgElem(bounds: BoundingRect): SvgElem
-}
+  def cen: Vec2 = shape.cen
 
-trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
-{
-  def nonShapeAttribs: Arr[XmlAtt]
-  final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
+  /** Translate geometric transformation. */
+  def slate(offset: Vec2): ShapeGraphic
+
+  /** Translate geometric transformation. */
+  def slate(xOffset: Double, yOffset: Double): ShapeGraphic
+
+  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
+   * Squares. Use the xyScale method for differential scaling. */
+  def scale(operand: Double): ShapeGraphic
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def negY: ShapeGraphic
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  def negX: ShapeGraphic
+
+  def prolign(matrix: ProlignMatrix): ShapeGraphic
+
+  def rotateRadians(radians: Double): ShapeGraphic
+
+  def reflect(lineLike: LineLike): ShapeGraphic
+
+  override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphic  
 }
 
 /** Companion object for the ShapeGraphic class. */
@@ -34,30 +55,15 @@ object ShapeGraphic
       SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, linePosn, lineLen)
     }
   }
+  
+  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, radians: Double) => obj.rotateRadians(radians)
+  implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-}
-
-/** A simple plain colour fill graphic. */
-trait ShapeFill extends ShapeGraphicSimple
-{ /** The colour of this fill graphic. */
-  def colour: Colour
-  
-  /** The fill attribute for SVG. */
-  def fillAttrib: FillAttrib = FillAttrib(colour)
-  override def nonShapeAttribs: Arr[XmlAtt] = Arr(fillAttrib)
-  
-  def toDraw(lineWidth: Double = 2, newColour: Colour = colour): ShapeDraw
-}
-
-/** A simple no compound graphic that draws a shape. The line has a sinlge width and colour. */
-trait ShapeDraw extends ShapeGraphicSimple
-{ /** The line width of this draw graphic */
-  def lineWidth: Double
-  
-  /** The line colour of this draw graphic. */
-  def lineColour: Colour
-  
-  def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
-  def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
-  def nonShapeAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
+  implicit val reflectAxesImplicit: ReflectAxes[ShapeGraphic] = new ReflectAxes[ShapeGraphic]
+  { override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
+    override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
+  }
 }

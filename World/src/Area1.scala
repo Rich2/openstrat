@@ -8,5 +8,5 @@ abstract class Area1(val symName: String, val cen: LatLong) extends GeographicSy
 { def neighbs: Arr[Area1] = Arr()
   def a2Arr: Arr[Area2]
   def fill: Boolean = true
-  def disp2(eg: EarthGuiOld): DisplayElems = a2Arr.flatMap(_.display(eg, fill))
+  def disp2(eg: EarthGuiOld): GraphicElems = a2Arr.flatMap(_.display(eg, fill))
 }

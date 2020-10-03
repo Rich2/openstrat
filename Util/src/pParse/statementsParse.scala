@@ -12,11 +12,11 @@ object statementsParse
     var subAcc: Buff[StatementMember] = Buff()
 
     def loop(rem: ArrOff[BlockMember]): ERefs[Statement] = rem match
-    { case ArrOff0() if subAcc.isEmpty => Good(acc.toRefs)
-      case ArrOff0() => statementParse(subAcc.toRefs, NoRef).map(acc :+ _).map(_.toRefs)
+    { case ArrOff0() if subAcc.isEmpty => Good(acc.toArr)
+      case ArrOff0() => statementParse(subAcc.toArr, NoRef).map(acc :+ _).map(_.toArr)
       case ArrOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
-      case ArrOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toRefs, OptRef(st)).flatMap{ g =>
+      case ArrOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toArr, OptRef(st)).flatMap{ g =>
           acc.append(g)
           subAcc = Buff()
           loop(tail)

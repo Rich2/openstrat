@@ -19,6 +19,8 @@ trait Shape extends Fillable
   }
   def boundingRect: BoundingRect
 
+  def cen: Vec2
+  
   /** Translate geometric transformation on a Shape returns a Shape. */
   override def slate(offset: Vec2): Shape
 
@@ -29,26 +31,20 @@ trait Shape extends Fillable
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Shape
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): Shape
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): Shape
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def negY: Shape
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: Shape
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def reflectY: Shape
+  override def negX: Shape
 
   override def prolign(matrix: ProlignMatrix): Shape
 
   override def rotateRadians(radians: Double): Shape
 
-  override def reflect(line: Line): Shape
-  override def reflect(line: LineSeg): Shape
+  override def reflect(lineLike: LineLike): Shape
+  //override def reflect(line: LineSeg): Shape
   override def xyScale(xOperand: Double, yOperand: Double): Shape
 
   override def xShear(operand: Double): Shape
@@ -64,9 +60,9 @@ object Shape
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[Shape] = new ReflectAxisOffset[Shape]
-  { override def reflectXOffsetT(obj: Shape, yOffset: Double): Shape = obj.reflectXParallel(yOffset)
-    override def reflectYOffsetT(obj: Shape, xOffset: Double): Shape = obj.reflectYParallel(xOffset)
+  implicit val reflectAxesImplicit: ReflectAxes[Shape] = new ReflectAxes[Shape]
+  { override def negYT(obj: Shape): Shape = obj.negY
+    override def negXT(obj: Shape): Shape = obj.negX
   }
 
   implicit val shearImplicit: Shear[Shape] = new Shear[Shape]

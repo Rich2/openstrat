@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCanv
-import geom._
+import geom._, Colour._
 
 /** A MapGui uses a CanvMulti. It has a main map panel and a top control panel. In addition translates between 2d game coordinates and 2d coordinates
  *  on the canvas. Allowing the canvas to display a moving, scalable 2d view though the Game map. The x coordinate increases from left to right, the
@@ -9,7 +9,7 @@ import geom._
 abstract class MapGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30
-  val topPan: Panel = addPanel(Rect.fromTL(canv.width, barWidth, canv.topLeft), true)
+  val topPan: Panel = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
   topPan.backColour = Colour.Gray
 
   topPan.mouseUp =
@@ -17,19 +17,19 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
     case (_, l, _) => deb(l.toString)
   }
    
-  def textBoxFull(str: String, cmd: AnyRef): PolygonParentOld =
-    Rect.applyOld(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
-    
-  def textBox(str: String, cmd: AnyRef): PolygonParentOld =
-    Rect.applyOld(10, 25).parentFillText(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
-  
+  def textBoxFullold(str: String, cmd: AnyRef): PolygonParentOld =
+    Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
+
+  def textBoxOld(str: String, cmd: AnyRef): PolygonParentOld =
+    Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
+
   /**  repaints the top command bar */
-  def reTop(commands: Arr[GraphicBounded]): Unit = topPan.repaint(displayRowGraphics(topPan.cenLeft, commands))
+  def reTop(commands: Arr[BoundedGraphic]): Unit = topPan.repaint(displayRowGraphics(topPan.cenLeft, commands))
   var statusText = "This is the status text."
-  def status = textBoxFull(statusText, None)
-  val mapPanel: Panel = addPanel(Rect.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
+  def status = textBoxFullold(statusText, None)
+  val mapPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mapPanelDiameter = mapPanel.width.min(mapPanel.height).max(10)   
-  def mapObjs: DisplayElems
+  def mapObjs: GraphicElems
   def eTop(): Unit
   
   def setStatus(str: String): Unit = { statusText = str; eTop() }

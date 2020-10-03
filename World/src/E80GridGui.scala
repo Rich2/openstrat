@@ -10,7 +10,7 @@ case class E80GridGui(canv: CanvasPlatform, scen: E80Data, cenRoord: Roord) exte
   val scale = 40
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
-  val sides: DisplayElems = scen.sTerrs.gridMap { (r, b) =>
+  val sides: GraphicElems = scen.sTerrs.gridMap { (r, b) =>
     if (b) grid.sidePolygon(r).fill(Colour.Blue)
     else grid.sideRoordToLine2(r).draw(2.0)
   }

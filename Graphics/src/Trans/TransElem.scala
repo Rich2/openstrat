@@ -16,27 +16,21 @@ trait TransElem extends Product with Serializable
    *  and Squares. Use the xyScale method for differential scaling. */
   def scale(operand: Double): TransElem
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def reflectX: TransElem
+  /** Mirror, reflection transformation across the X axis by negating y. This method has been left abstract in GeomElemNew to allow the return type
+   *  to be narrowed in sub classes. */
+  def negY: TransElem
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def reflectY: TransElem
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  def reflectYParallel(xOffset: Double): TransElem
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  def reflectXParallel(yOffset: Double): TransElem  
+  /** Mirror, reflection transformation across the Y axis by negating X. This method has been left abstract in GeomElemNew to allow the return type to
+   *  be narrowed in sub classes. */
+  def negX: TransElem
 
   /** Transforms this TransElem using a [[ProlignMatrix]]. */
   def prolign(matrix: ProlignMatrix): TransElem
 
   def rotateRadians(radians: Double): TransElem
 
-  def reflect(line: Line): TransElem
-  def reflect(line: LineSeg): TransElem
+  def reflect(lineLike: LineLike): TransElem
+  //def reflect(line: LineSeg): TransElem
   def xyScale(xOperand: Double, yOperand: Double): TransElem
 
   def xShear(operand: Double): TransElem
@@ -52,9 +46,9 @@ object TransElem
   implicit val prolignImplicit: Prolign[TransElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[TransElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[TransElem] = new ReflectAxisOffset[TransElem]
-  { override def reflectXOffsetT(obj: TransElem, yOffset: Double): TransElem = obj.reflectXParallel(yOffset)
-    override def reflectYOffsetT(obj: TransElem, xOffset: Double): TransElem = obj.reflectYParallel(xOffset)
+  implicit val reflectAxesImplicit: ReflectAxes[TransElem] = new ReflectAxes[TransElem]
+  { override def negYT(obj: TransElem): TransElem = obj.negY
+    override def negXT(obj: TransElem): TransElem = obj.negX
   }
   
   implicit val shearImplicit: Shear[TransElem] = new Shear[TransElem]
@@ -69,4 +63,5 @@ trait BoundedElem extends TransElem
 { /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
   def boundingWidth: Double = boundingRect.width
+  def boundingHeight: Double = boundingRect.height
 }

@@ -15,12 +15,12 @@ abstract class UnfixedMapGui(title: String) extends MapGui(title)
   def downCmd: MouseCmd    
   def upCmd: MouseCmd 
    
-  val bIn = clickButton("+", inCmd)   
-  val bOut = clickButton("-", outCmd)   
-  val bLeft = clickButton("Lt", leftCmd)
-  val bUp = clickButton("Up", upCmd)
-  val bDown = clickButton("Dn", downCmd)
-  val bRight = clickButton("Rt", rightCmd)
+  val bIn = clickButtonOld("+", inCmd)   
+  val bOut = clickButtonOld("-", outCmd)   
+  val bLeft = clickButtonOld("Lt", leftCmd)
+  val bUp = clickButtonOld("Up", upCmd)
+  val bDown = clickButtonOld("Dn", downCmd)
+  val bRight = clickButtonOld("Rt", rightCmd)
    
   val guButs: Arr[GraphicActiveSim] = Arr(bIn, bOut, bLeft, bRight, bDown, bUp)
 }

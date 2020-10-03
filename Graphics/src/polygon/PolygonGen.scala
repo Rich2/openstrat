@@ -8,6 +8,8 @@ import Colour.Black, pWeb._
 final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { type ThisT = PolygonGen
   def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
+
+  @inline override def ptsArray: Array[Double] = arrayUnsafe
   override def typeStr: String = "Polygon"
 
   override def attribs: Arr[XANumeric] = ???
@@ -34,16 +36,13 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 
-  def boundingWidth: Double = boundingRect.width
-  def boundingHeight: Double = boundingRect.height
-
   def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
-  def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
+  //def slateDraw(offset: Vec2, lineWidth: Double = 2, lineColour: Colour = Black) = PolygonDraw(this.slate(offset), lineWidth, lineColour)
 
-  def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonFillTextOld =
+  def fillTextOld(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonFillTextOld =
     PolygonFillTextOld(this, fillColour, str, fontSize, textColour)
 
-  def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): DisplayElems =
+  def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
     Arr(PolygonFill(this, fillColour), PolygonDraw(this,lineWidth, lineColour), PolygonActiveOnly(this, pointerID))
 
   def fillDrawTextActiveOld(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
@@ -60,11 +59,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def parentFillDraw(pointerID: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolygonParentOld =
     PolygonParentOld.fillDraw(this.polyCentre, this, pointerID, fillColour, lineWidth, lineColour)
 
-  def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-  PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
-
-  def parentFillContrastText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10): PolygonParentOld =
-    parentFillText(pointerID, fillColour, str, fontSize, fillColour.contrast)
+  def parentFillTextOld(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
+    PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
 
   def parentElems(pointerID: Any, elems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
 
@@ -109,17 +105,11 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
    *  scaling. */
   override def scale(operand: Double): PolygonGen = polygonMap(_ * operand)
 
-  /** Mirror, reflection transformation of a PolygonGen across the line y = yOffset, which is parallel to the X axis, returns a PolygonGen. */
-  override def reflectXParallel(yOffset: Double): PolygonGen = polygonMap(_.reflectXOffset(yOffset))
-
-  /** Mirror, reflection transformation of a PolygonGen across the line x = xOffset, which is parallel to the X axis. Returns a PolygonGen. */
-  override def reflectYParallel(xOffset: Double): PolygonGen = polygonMap(_.reflectYOffset(xOffset))
-
   /** Mirror, reflection transformation of a PolygonGen across the X axis, returns a PolygonGen. */
-  override def reflectX: PolygonGen = polygonMap(_.reflectX)
+  override def negY: PolygonGen = polygonMap(_.negY)
 
   /** Mirror, reflection transformation of PolygonGen across the Y axis, returns a PolygonGen. */
-  override def reflectY: PolygonGen = polygonMap(_.reflectY)
+  override def negX: PolygonGen = polygonMap(_.negX)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): PolygonGen = polygonMap(_.prolign(matrix))

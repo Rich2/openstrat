@@ -15,20 +15,25 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   var currentPlayer = players(0)
   var cellCounts = Array.fill[Int](rows*cols)(0)
   var cellColors = Array.fill[Colour](rows*cols)(Black)
-  val cellNeighbours = new Array[Array[Int]](80)
+  val cellSites = new Array[Array[String]](rows*cols)
+  val cellNeighbours = new Array[Array[Int]](rows*cols)
   var reactionQueue = Array[Int]()
+  var animationStep = 0.0
+  var animationIndexes = Array[Int]()
+  var animationType = "Scale"
   def gameBtn(str: String, cmd: MouseButton => Unit) =
-    Rect.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
   init()
   
   def init() : Unit =
   { 
     repaints(
-      Rect.applyOld(width, height, 0 vv 0).fill(Colour(0xFF181818)),
+      Rectangle.applyOld(width, height, 0 vv 0).fill(Colour(0xFF181818)),
       gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })
     )
-
+    animationIndexes = Array[Int]()
+    animationStep = 0.0
     turn = 0
     players = Array(Red, Green, Yellow, Blue)
     currentPlayer = players(0)
@@ -37,41 +42,78 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       val index = c+cols*r
       cellCounts(index) = 0
       cellColors(index) = Black
-      drawBalls(size*c vv size*r, cellColors(index), cellCounts(index))
+      drawBalls(size*c vv size*r, cellColors(index), index)
       cellNeighbours(index) = Array[Int]()
-      if (c>0) cellNeighbours(index) = (index-1) +: cellNeighbours(index)
-      if (r>0) cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
-      if (c<(cols-1)) cellNeighbours(index) = (index+1) +: cellNeighbours(index)
-      if (r<(rows-1)) cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
+      cellSites(index) = Array[String]()
+      if (c>0) 
+      { cellNeighbours(index) = (index-1) +: cellNeighbours(index)
+        cellSites(index) = "W" +: cellSites(index)
+      }
+      if (r>0) 
+      { cellNeighbours(index) = (index-cols) +: cellNeighbours(index)
+        cellSites(index) = "S" +: cellSites(index)
+      }
+      if (c<(cols-1)) 
+      { cellNeighbours(index) = (index+1) +: cellNeighbours(index)
+        cellSites(index) = "E" +: cellSites(index)
+      }
+      if (r<(rows-1)) 
+      { cellNeighbours(index) = (index+cols) +: cellNeighbours(index)
+        cellSites(index) = "N" +: cellSites(index)
+      }
     }
-    canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rectangle.fromBL(size/2, size/2, -size vv -size), currentPlayer)
   }
-  def drawBalls(loc:Vec2, color:Colour, count:Int) : Unit =
-  {
-    canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Black)
-    if (count==2||count==4||count==5) canv.circleFill(Circle(size/8, loc+((size/4) vv (size/4))), color)
-    if (count==1||count==3||count==5) canv.circleFill(Circle(size/8, loc+((size/2) vv (size/2))), color)
-    if (count==2||count==4||count==5) canv.circleFill(Circle(size/8, loc+((3*size/4) vv (3*size/4))), color)
-    if (count==3||count==4||count==5) canv.circleFill(Circle(size/8, loc+((3*size/4) vv (size/4))), color)
-    if (count==3||count==4||count==5) canv.circleFill(Circle(size/8, loc+((size/4) vv (3*size/4))), color)
-    if (count>5) canv.polygonFill(Rect.fromBL(size-1, size-1, loc), Pink)
+  def drawBalls(loc:Vec2, color:Colour, cellIndex:Int) : Unit =
+  { deb("drawBalls"+cellIndex.toString())
+    val count = cellCounts(cellIndex)
+    val isAnimation = animationIndexes.contains(cellIndex)
+    canv.polygonFill(Rectangle.fromBL(size-1, size-1, loc), Black)
+    if (isAnimation) canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
+    if (count >= 1 && (count != 1 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
+    if (count >= 2 && (count != 2 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
+    if (count >= 3 && (count != 3 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
+    if (count >= 4 && (count != 4 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
+    if (count >= 5 && (count != 5 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 4)), color)
+    if (count >= 6 && (count != 6 && isAnimation)) canv.polygonFill(Rectangle.fromBL(size-1, size-1, loc), Pink)
+  }
+  def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
+  { val pos = cellSites(whichCell)(whichOne) 
+    if ("N" == pos) size/2 vv 3*size/4
+    else if ("E" == pos) 3*size/4 vv size/2
+    else if ("S" == pos) size/2 vv size/4
+    else if ("W" == pos) size/4 vv size/2
+    else 0 vv 0
   }
   def processQueue() : Unit = 
-  {
-    if (reactionQueue.length > 0)
-    {
-      val thisOne = reactionQueue(0)
-      reactionQueue = reactionQueue.tail
-      if (cellCounts(thisOne) >= cellNeighbours(thisOne).length) {
-        cellCounts(thisOne) -= cellNeighbours(thisOne).length
-        if (cellCounts(thisOne)==0) cellColors(thisOne) = Black
-        drawBalls(size*(thisOne % cols) vv size*(thisOne / cols), currentPlayer, cellCounts(thisOne))
-        for ( x <- cellNeighbours(thisOne) ) addBallByIndex( x )
+  { if (animationIndexes.length > 0)
+    { deb("animateQueue")
+      animationStep += 0.1
+      for (animateThisIndex <- animationIndexes) drawBalls(size*(animateThisIndex % cols) vv size*(animateThisIndex / cols), currentPlayer, animateThisIndex)
+      if (animationStep >= 1)
+      { animationStep = 0.0
+        reactionQueue = reactionQueue ++ animationIndexes
+        animationIndexes = Array[Int]()
       }
       canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
     }
-    else turnComplete()
-    checkForGameOver()
+    else 
+    { deb("reactionQueue")
+      if (reactionQueue.length > 0)
+      {
+        val thisOne = reactionQueue(0)
+        reactionQueue = reactionQueue.tail
+        if (cellCounts(thisOne) >= cellNeighbours(thisOne).length) {
+          cellCounts(thisOne) -= cellNeighbours(thisOne).length
+          if (cellCounts(thisOne)==0) cellColors(thisOne) = Black
+          drawBalls(size*(thisOne % cols) vv size*(thisOne / cols), currentPlayer, thisOne)
+          for ( x <- cellNeighbours(thisOne) ) addBallByIndex( x )
+        }
+        canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
+      }
+      else turnComplete()
+      checkForGameOver()
+    }
   }
   def checkForGameOver() : Unit =
   {
@@ -89,22 +131,27 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     var currentPlayerIndex = players.indexOf(currentPlayer) + 1
     if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
     currentPlayer = players(currentPlayerIndex)
-    canv.polygonFill(Rect.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rectangle.fromBL(size/2, size/2, -size vv -size), currentPlayer)
     canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
-  def addBallByIndex(index:Int) : Unit = 
-  {
+  def addBallByIndex(cellIndex:Int) : Unit = 
+  { deb("addBallByIndex(cellIndex="+cellIndex+")")
     if (players.length > 1) 
     {
-      cellColors(index) = currentPlayer
-      cellCounts(index) += 1
-      drawBalls(size*(index % cols) vv size*(index / cols), currentPlayer, cellCounts(index))
-      reactionQueue = reactionQueue :+ index
+      cellColors(cellIndex) = currentPlayer
+      cellCounts(cellIndex) += 1
+      animationIndexes = animationIndexes :+ cellIndex
+      animationStep = 0.0
+      drawBalls(size*(cellIndex % cols) vv size*(cellIndex / cols), currentPlayer, cellIndex)
+      var s=""
+      for ( x <- animationIndexes) s=s+x+","
+      deb(s)
+      //reactionQueue = reactionQueue :+ cellIndex
     }
   }
   mouseUp =
     {
-      case (LeftButton, cl, v) if((reactionQueue.length == 0) && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
+      case (LeftButton, cl, v) if((reactionQueue.length == 0 && animationIndexes.length == 0) && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows)) =>
       {
         val clickedCellIndex = (v._1/size).toInt+cols*((v._2/size).toInt)
         if (currentPlayer == cellColors(clickedCellIndex) || Black  == cellColors(clickedCellIndex))

@@ -5,12 +5,12 @@ import Colour.Black
 
 /** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
-trait Polygon extends Vec2sLike with Shape
+trait Polygon extends Vec2sLike with Shape with BoundedElem
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
-
+  override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / length
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
-  override def draw(lineWidth: Double, lineColour: Colour): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
+  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))
@@ -28,6 +28,7 @@ trait Polygon extends Vec2sLike with Shape
   /** May throw on a 0 vertices polygon. */
   def v0: Vec2
 
+  def ptsArray: Array[Double]
   def elem1sArray: Array[Double]
   def elem2sArray: Array[Double]
   def foreachPairTail[U](f: (Double, Double) => U): Unit
@@ -57,24 +58,18 @@ trait Polygon extends Vec2sLike with Shape
    *  scaling. */
   override def scale(operand: Double): Polygon = polygonMap(_ * operand)
 
-  /** Mirror, reflection transformation of a Polygon across the line y = yOffset, which is parallel to the X axis, returns a Polygon. */
-  override def reflectXParallel(yOffset: Double): Polygon = polygonMap(_.reflectXOffset(yOffset))
-
-  /** Mirror, reflection transformation of a Polygon across the line x = xOffset, which is parallel to the X axis. Returns a Polygon. */
-  override def reflectYParallel(xOffset: Double): Polygon = polygonMap(_.reflectYOffset(xOffset))
-
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
-  override def reflectX: Polygon = polygonMap(_.reflectX)
+  override def negY: Polygon = polygonMap(_.negY)
 
   /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
-  override def reflectY: Polygon = polygonMap(_.reflectY)
+  override def negX: Polygon = polygonMap(_.negX)
 
   /** Prolign 2d transformations, similar transofrmations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
-  override def reflect(line: Line): Polygon
+  override def reflect(lineLike: LineLike): Polygon
 
-  override def reflect(line: LineSeg): Polygon
+  //override def reflect(line: LineSeg): Polygon
 
   override def xyScale(xOperand: Double, yOperand: Double): Polygon
 
@@ -112,14 +107,32 @@ trait Polygon extends Vec2sLike with Shape
   def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerID)))
 
+  /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
+   * draw area line width of 2 and a colour of Black. */
+  def fillActiveDraw(fillColour: Colour, pointerID: Any, lineWidth: Double = 2, lineColour: Colour = Black): PolygonCompound =
+    PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(PolygonClickable(this, pointerID)))
+
+  def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
+  PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), TextFacet(str, textColour)), Arr())
+  //PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
+  
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
-  PolygonCompound = ??? // PolygonAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)
+  PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour), ShapeActive(pointerID)),
+    Arr(TextGraphic(str, fontSize)))
 }
 
 /** Companion object for the Polygon trait. */
 object Polygon
-{ implicit val eqImplicit: Eq[Polygon] = (p1, p2) => ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
-  implicit val persistImplicit: Persist[Polygon] = ???
+{
+  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): Polygon = PolygonGen(v1, v2, v3, tail: _*)
+
+  implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.ptsArray, p2.ptsArray)
+
+  //  ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
+ // implicit val persistImplicit: Persist[Polygon] = ???
+   /* new ArrProdDbl2Persist[Vec2, PolygonGen]("Polygon")
+  { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
+  }*/
 
   implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
@@ -127,11 +140,11 @@ object Polygon
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
-  implicit val mirrorAxisImplicit: ReflectAxisOffset[Polygon] = new ReflectAxisOffset[Polygon]
-  { override def reflectXOffsetT(obj: Polygon, yOffset: Double): Polygon = obj.reflectXParallel(yOffset)
-    override def reflectYOffsetT(obj: Polygon, xOffset: Double): Polygon = obj.reflectYParallel(xOffset)
+  implicit val reflectAxesImplicit: ReflectAxes[Polygon] = new ReflectAxes[Polygon]
+  { override def negYT(obj: Polygon): Polygon = obj.negY
+    override def negXT(obj: Polygon): Polygon = obj.negX
   }
-
+  
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]
   { override def xShearT(obj: Polygon, yFactor: Double): Polygon = obj.xShear(yFactor)
     override def yShearT(obj: Polygon, xFactor: Double): Polygon = obj.yShear(xFactor)

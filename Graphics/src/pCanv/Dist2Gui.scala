@@ -20,12 +20,12 @@ trait Dist2Gui extends MapGui
   def scaleAlignedMin: Dist = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
   def scaleRotatedMin: Dist = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
    
-  val bZoomIn = clickButton("+", zoomInCmd)
-  val bZoomOut = clickButton("-", zoomOutCmd)
+  val bZoomIn = clickButtonOld("+", zoomInCmd)
+  val bZoomOut = clickButtonOld("-", zoomOutCmd)
   val zoomable: Arr[GraphicActiveAffine] = Arr(bZoomIn, bZoomOut)
 
-  val bMapRotateClockwise = clickButton("\u21BB", MouseButton => { rotation += Angle(-20); repaintMap() } )
-  val bMapRotateAntiClockwise = clickButton("\u21BA", Mousebutton => { rotation += Angle(20); repaintMap() } )
+  val bMapRotateClockwise = clickButtonOld("\u21BB", MouseButton => { rotation += Angle(-20); repaintMap() } )
+  val bMapRotateAntiClockwise = clickButtonOld("\u21BA", Mousebutton => { rotation += Angle(20); repaintMap() } )
   // val focusAdjust = Seq(bFocusLeft, bFocusRight, bFocusUp, bFocusDown, bMapRotateClockwise, bMapRotateAntiClockwise)
 
   def zoomInCmd: MouseButton => Unit = mb =>  { scale = (scale / 1.5).max(scaleMin); repaintMap() }

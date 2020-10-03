@@ -10,11 +10,6 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, childre
   override def addElems(newElems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(cen, poly, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolygonParentOld = new PolygonParentOld(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
-  def reflectXParallel(yOffset: Double): PolygonParentOld =
-    PolygonParentOld(cen.reflectXOffset(yOffset), poly.reflectXParallel(yOffset), pointerId, children.reflectXOffset(yOffset))
-
-  def reflectYParallel(xOffset: Double): PolygonParentOld =
-    PolygonParentOld(cen.reflectYOffset(xOffset), poly.reflectYParallel(xOffset), pointerId, children.reflectYOffset(xOffset))
 
   def rotateRadians(radians: Double): PolygonParentOld =
     PolygonParentOld(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))
@@ -25,14 +20,13 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, childre
 
   def scale(operand: Double): PolygonParentOld = PolygonParentOld(cen * operand, poly.scale(operand), pointerId, children.scale(operand))
 
-  override def xShear(operand: Double): TransElem = ???
+  override def xShear(operand: Double): BoundedGraphic = ???
 
-  override def yShear(operand: Double): TransElem = ???
+  override def yShear(operand: Double): BoundedGraphic = ???
 
-  def reflect(line: LineSeg): PolygonParentOld = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
-  def reflect(line: Line): PolygonParentOld = ???
-  override def reflectX: PolygonParentOld = PolygonParentOld(cen.reflectX, poly.reflectX, pointerId, children.reflectX)
-  override def reflectY: PolygonParentOld = PolygonParentOld(cen.reflectY, poly.reflectY, pointerId, children.reflectY)
+  def reflect(lineLike: LineLike): PolygonParentOld = ??? // PolygonParent(cen.mirror(line), poly.mirror(line), pointerId, children.mirror(line))
+  override def negY: PolygonParentOld = PolygonParentOld(cen.negY, poly.negY, pointerId, children.negY)
+  override def negX: PolygonParentOld = PolygonParentOld(cen.negX, poly.negX, pointerId, children.negX)
 
   override def prolign(matrix: ProlignMatrix): PolygonParentOld = PolygonParentOld(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 

@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import geom._, Colour._
 
@@ -9,13 +9,13 @@ package object pCanv
   type MouseCmd = MouseButton => Unit
 
   /** A simple button that does not depend on which mouse button is pressed. */
-  def simpleButton(str: String, cmd: AnyRef) = Rect.curvedCornersCentred(50, 25, 5).allElems(cmd, White, 3, Black, 25, str)
+  def simpleButtonOld(str: String, cmd: AnyRef) = Rectangle.curvedCornersCentred(50, 25, 5).allElems(cmd, White, 3, Black, 25, str)
 
   /** A button to react to different mouse buttons. The length varies with the String. */
-  def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
-    Rect.curvedCornersCentred((str.length + 1).max(2) * 17, 30, 5).allElems(MouseButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
+  def clickButtonOld(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
+    Rectangle.curvedCornersCentred((str.length + 1).max(2) * 17, 30, 5).allElems(MouseButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
 
   /** A button to react to different mouse buttons. The length is fixed regardless of the length of the String. */
-  def clickButtonStd(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
-    Rect.curvedCornersCentred(100, 25, 5).allElems(cmd, backColour, 3, backColour.contrastBW, 20, str)
+  def clickButtonStdOld(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
+    Rectangle.curvedCornersCentred(100, 25, 5).allElems(cmd, backColour, 3, backColour.contrastBW, 20, str)
 }

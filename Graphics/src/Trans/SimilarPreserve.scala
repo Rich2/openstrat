@@ -5,12 +5,11 @@ package geom
 /** All leaf classes of this type that will preserve their types for all the Similar 2d geometrical transformations. */
 trait SimilarPreserve extends ProlignPreserve
 { type ThisT <: SimilarPreserve
-  override def reflectX: ThisT = fTrans(_.reflectX)
-  override def reflectY: ThisT = fTrans(_.reflectY)
-  def reflectYParallel(xOffset: Double): ThisT = fTrans(_.reflectYOffset(xOffset))
-  def reflectXParallel(yOffset: Double): ThisT = fTrans(_.reflectXOffset(yOffset))
-  def reflect(line: Line): ThisT = fTrans(_.reflect(line))
-  def reflect(lineSeg: LineSeg): ThisT = fTrans(_.reflect(lineSeg))
+  override def negY: ThisT = fTrans(_.negY)
+  override def negX: ThisT = fTrans(_.negX)
+
+  def reflect(lineLike: LineLike): ThisT = fTrans(_.reflect(lineLike))
+  //def reflect(lineSeg: LineSeg): ThisT = fTrans(_.reflect(lineSeg))
   def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
   override def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
 }

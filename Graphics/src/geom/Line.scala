@@ -4,7 +4,7 @@ package geom
 
 /** An infinite length 2 dimensional straight line trait. Note this is the mathematical definition of a line. InSVg and other APIs the name line is
  * used for a line segment, which in openstrat is called a [[LineSeg]] */
-sealed trait Line extends Curve
+sealed trait Line extends Curve with LineLike
 { /** Reflects, mirrors a point across this line. */
   def reflectPt(pt: Vec2): Vec2
 
@@ -18,28 +18,22 @@ sealed trait Line extends Curve
    * and Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Line = ???
 
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): Line = ???
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): Line = ???
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def negY: Line = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: Line = ???
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def reflectY: Line = ???
+  override def negX: Line = ???
 
   /** Transforms this Line using a [[ProlignMatrix]]. */
   override def prolign(matrix: ProlignMatrix): Line = ???
 
   override def rotateRadians(radians: Double): Line = ???
 
-  override def reflect(line: Line): Line = ???
+  override def reflect(lineLike: LineLike): Line = ???
 
-  override def reflect(line: LineSeg): Line = ???
+ // override def reflect(line: LineSeg): Line = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): Line = ???
 

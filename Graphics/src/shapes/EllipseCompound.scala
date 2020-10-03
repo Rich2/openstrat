@@ -16,23 +16,17 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
  
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: EllipseCompound
+  override def negY: EllipseCompound
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: EllipseCompound
+  override def negX: EllipseCompound
 
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): EllipseCompound
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): EllipseCompound
-  
   override def prolign(matrix: ProlignMatrix): EllipseCompound
 
   override def rotateRadians(radians: Double): EllipseCompound
 
-  override def reflect(line: Line): EllipseCompound
+  override def reflect(lineLike: LineLike): EllipseCompound
 
   override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound
 
@@ -40,7 +34,7 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
 
   override def yShear(operand: Double): EllipseCompound
 
-  override def reflect(line: LineSeg): EllipseCompound
+  //override def reflect(line: LineSeg): EllipseCompound
 }
 
 object EllipseCompound
@@ -59,7 +53,7 @@ object EllipseCompound
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
     override def svgElem(bounds: BoundingRect): SvgEllipse =
     { //val bounds = shape.boundingRect
-      val newEllipse = shape.reflectX.slate(0, bounds.minY + bounds.maxY)
+      val newEllipse = shape.negY.slate(0, bounds.minY + bounds.maxY)
       val newAtts = newEllipse.attribs
       val atts2 = if (shape.ellipeRotation == 0.degs) newAtts else newAtts +- SvgRotate(- shape.ellipeRotation.degs, shape.xCen, shape.yCen)
       SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
@@ -86,25 +80,17 @@ object EllipseCompound
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectX: EllipseCompoundImplement = EllipseCompoundImplement(shape.reflectX, facets, children.reflectX)
+    override def negY: EllipseCompoundImplement = EllipseCompoundImplement(shape.negY, facets, children.negY)
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def reflectY: EllipseCompoundImplement = EllipseCompoundImplement(shape.reflectY, facets, children.reflectY)
-
-    /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-    override def reflectXParallel(yOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.reflectXParallel(yOffset), facets, children.reflectXOffset(yOffset))
-
-    /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-    override def reflectYParallel(xOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.reflectYParallel(xOffset), facets, children.reflectYOffset(xOffset))
+    override def negX: EllipseCompoundImplement = EllipseCompoundImplement(shape.negX, facets, children.negX)
 
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
 
     override def rotateRadians(radians: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-    override def reflect(line: Line): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
+    override def reflect(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
 
     override def xyScale(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
 
@@ -112,6 +98,6 @@ object EllipseCompound
 
     override def yShear(operand: Double): EllipseCompoundImplement = ???
 
-    override def reflect(line: LineSeg): EllipseCompoundImplement = ???
+    //override def reflect(line: LineSeg): EllipseCompoundImplement = ???
   }
 }

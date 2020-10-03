@@ -18,23 +18,17 @@ trait GraphicSimple extends GraphicElem
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectX: GraphicSimple
+  override def negY: GraphicSimple
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def reflectY: GraphicSimple
-
-  /** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-  override def reflectXParallel(yOffset: Double): GraphicSimple
-
-  /** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-  override def reflectYParallel(xOffset: Double): GraphicSimple
+  override def negX: GraphicSimple
 
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
   override def rotateRadians(radians: Double): GraphicSimple
 
-  override def reflect(line: Line): GraphicSimple
+  override def reflect(lineLike: LineLike): GraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple
 }
@@ -44,23 +38,12 @@ object GraphicSimple
 {
   implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, radians: Double) => obj.rotateRadians(radians)
-
-  implicit val reflectAxisImplicit: ReflectAxis[GraphicSimple] = new ReflectAxis[GraphicSimple]
-  { /** Reflect, mirror across the X axis. */
-    override def reflectXT(obj: GraphicSimple): GraphicSimple = obj.reflectX
-
-    /** Reflect, mirror across the Y axis. */
-    override def reflectYT(obj: GraphicSimple): GraphicSimple = obj.reflectY
-  }
-
-  implicit val reflectAxisOffsetImplicit: ReflectAxisOffset[GraphicSimple] = new ReflectAxisOffset[GraphicSimple]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: GraphicSimple, yOffset: Double): GraphicSimple = obj.reflectXParallel(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: GraphicSimple, xOffset: Double): GraphicSimple = obj.reflectYParallel(xOffset)
-  }
-
+  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, radians: Double) => obj.rotateRadians(radians)  
+  implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
+  
+  implicit val reflectAxesImplicit: ReflectAxes[GraphicSimple] = new ReflectAxes[GraphicSimple]
+  { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
+    override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
+  }  
 }

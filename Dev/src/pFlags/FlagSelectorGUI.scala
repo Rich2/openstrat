@@ -38,10 +38,10 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height") / 2 + viewport("headerSize") / 2))
   
   val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 vv (viewport("height") - viewport("cellHeight")) / 2)
-  val barBackground =  Rect.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
-  val background = Rect.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
-  val btnMore = clickButton(">", (mb: MouseButton) => { scrollMore() }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
-  val btnLess = clickButton("<", (mb: MouseButton) => { scrollLess() }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
+  val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
+  val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
+  val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
+  val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val scrollBar: Arr[GraphicSimElem] = Arr(btnMore, btnLess, barBackground)
 
   if (scrollport("isScrollHorizontal") == 1) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
@@ -58,7 +58,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   def scrollLess(): Unit = { showGridView(viewIndex - itemsPerUnitScroll) }
   var viewableItems:Arr[PolygonParentOld] = Arr()
 
-  var bar = Rect.curvedCorners(barWidth, 30, 10).fill(Pink)
+  var bar = Rectangle.curvedCorners(barWidth, 30, 10).fill(Pink)
   var barOffsetX = 0.0
   var dragStartBarOffsetX = 0.0
   var dragStartX = 0.0
@@ -83,7 +83,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   def positionBar(): Unit = 
   { barOffsetX = if (maxIndexOfFirstItemInView != 0) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
-    bar = Rect.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX vv scrollport("scrollYpos")).fill(Pink)
+    bar = Rectangle.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX vv scrollport("scrollYpos")).fill(Pink)
     repaint(Arr(background) ++ scrollBar ++ viewableItems ++ Arr(bar))
   }
 

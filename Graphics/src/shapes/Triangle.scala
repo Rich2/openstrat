@@ -14,6 +14,8 @@ trait Triangle extends Polygon
 	def x2: Double
 	def y2: Double
 	def v2: Vec2 = x2 vv y2
+
+
 	
 	override def apply(index: Int): Vec2 = index match
 	{	case 0 => v0
@@ -21,7 +23,8 @@ trait Triangle extends Polygon
 		case 2 => v2
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
 	}
-	
+
+	override def ptsArray: Array[Double] = Array(x0, y0, x1, y1, x2, y2)
 	override def elem1sArray: Array[Double] = Array(x0, x1, x2)
 	override def elem2sArray: Array[Double] = Array(y0, y1, y2)
 	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); () }
@@ -39,25 +42,19 @@ trait Triangle extends Polygon
 	 * Squares. Use the xyScale method for differential scaling. */
 	override def scale(operand: Double): Triangle = ???
 
-	/** Mirror, reflection transformation across the line x = xOffset, which is parallel to the X axis. */
-	override def reflectYParallel(xOffset: Double): Triangle = ???
-
-	/** Mirror, reflection transformation across the line y = yOffset, which is parallel to the X axis. */
-	override def reflectXParallel(yOffset: Double): Triangle = ???
+	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+	 * in sub classes. */
+	override def negY: Triangle = ???
 
 	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
 	 * in sub classes. */
-	override def reflectX: Triangle = ???
-
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
-	override def reflectY: Triangle = ???
+	override def negX: Triangle = ???
 
 	override def prolign(matrix: ProlignMatrix): Triangle = ???
 
-	override def reflect(line: Line): Triangle = ???
+	override def reflect(lineLike: LineLike): Triangle = ???
 
-	override def reflect(line: LineSeg): Triangle = ???
+	//override def reflect(line: LineSeg): Triangle = ???
 
 	override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 
