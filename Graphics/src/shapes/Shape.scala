@@ -44,7 +44,7 @@ trait Shape extends Fillable
   override def rotateRadians(radians: Double): Shape
 
   override def reflect(lineLike: LineLike): Shape
-  //override def reflect(line: LineSeg): Shape
+
   override def xyScale(xOperand: Double, yOperand: Double): Shape
 
   override def xShear(operand: Double): Shape

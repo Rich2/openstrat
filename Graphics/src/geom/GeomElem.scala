@@ -5,43 +5,44 @@ package geom
 /** A geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all
  *  transformations. So for example a [[Circle]] is no longer a [[Circle]] after a Shear transformation, but remains an [[Ellipse]]. [[GraphicElem]]
  *  inherits from GeomElem. A [[Circle]] is not a [[GraphicElem]] but if we add a fill colour to make a [[CircleFill]], or a line width and line
- *  colour to it, we have a [[GraphicElem]] a graphical eelement that can be displayed on a canvas or output to SVG. */
+ *  colour to it, we have a [[GraphicElem]] a graphical element that can be displayed on a canvas or output to SVG. It is expected that all elements
+ *  that inherit from GeomElem that are not [[GraphicElem]]s will be [[Drawable]] elements, but this has not been finalised. */
 trait GeomElem extends Product with Serializable
 {
   /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
   def slate(offset: Vec2): GeomElem
 
-  /** Translate 2D geometric transformation. This abstract method returns a [[GeomElem]]. The Return type will be narrowed in sub traits. */
+  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   def slate(xOffset: Double, yOffset: Double): GeomElem
 
   /** Uniform 2D scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles
-   *  and Squares. Use the xyScale method for differential scaling. */
+   *  and Squares. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
   def scale(operand: Double): GeomElem
 
-  /** Mirror, reflection transformation across the X axis by negating y. This method has been left abstract in GeomElemNew to allow the return type
-   *  to be narrowed in sub classes. */
+  /** Mirror, reflection transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
   def negY: GeomElem
 
-  /** Mirror, reflection transformation across the Y axis by negating X. This method has been left abstract in GeomElemNew to allow the return type to
-   *  be narrowed in sub classes. */
+  /** Mirror, reflection transformation across the Y axis by negating X. The return type will be narrowed in sub traits/ classes. */
   def negX: GeomElem
 
-  /** 2D Transformation using a [[ProlignMatrix]]. This method has been left abstract in GeomElemNew to allow the return type to be narrowed in sub
-   *  classes and traits. */
+  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   def prolign(matrix: ProlignMatrix): GeomElem
 
-  /** Rotation 2D geometric transformation on a GeomElem. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   *  in sub classes and traits. */
+  /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def rotateRadians(radians: Double): GeomElem
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. This method has been left abstract in GeomElemNew to
-   *  allow the return type to be narrowed in sub classes and traits. */
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in sub classes and
+   *  traits. */
   def reflect(lineLike: LineLike): GeomElem
 
-  /** XY scaling 2D geometric transformation on a GeomElem. */
+  /** XY scaling 2D geometric transformation on a GeomElem. This allows different scaling factors across X and Y dimensions. The return type will be
+   *  narrowed in sub classes and traits. */
   def xyScale(xOperand: Double, yOperand: Double): GeomElem
 
+  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def xShear(operand: Double): GeomElem
+
+  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def yShear(operand: Double): GeomElem
 }
 

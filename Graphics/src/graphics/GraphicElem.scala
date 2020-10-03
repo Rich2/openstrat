@@ -7,39 +7,48 @@ package geom
 trait GraphicElem extends GeomElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[CanvasPlatform]] interface. */
-  def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
+   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
   
-  /** Translate geometric transformation. */
-  def slate(offset: Vec2): GraphicElem
+  /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
+  override def slate(offset: Vec2): GraphicElem
 
-  /** Translate geometric transformation. */
-  def slate(xOffset: Double, yOffset: Double): GraphicElem
+  /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
+  override def slate(xOffset: Double, yOffset: Double): GraphicElem
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
-  def scale(operand: Double): GraphicElem  
+  /** Uniform scaling 2D geomtric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes.
+   * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
+   *  method for differential scaling on the X and Y axes. */
+  override def scale(operand: Double): GraphicElem
   
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def negY: GraphicElem
+  /** Mirror, reflection transformation across the X axis on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
+   *  classes. */
+  override def negY: GraphicElem
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  def negX: GraphicElem
+  /** Mirror, reflection transformation across the X axis on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
+   *  classes. */
+  override def negX: GraphicElem
 
-  /** 2D Transformation using a [[ProlignMatrix]] on a GraphicElem, returns a GraphicElem. This method has been left abstract to allow the return type
-   *  to be narrowed in sub classes and traits. */
-  def prolign(matrix: ProlignMatrix): GraphicElem
+  /** 2D Transformation using a [[ProlignMatrix]] on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
+   *  classes. */
+  override def prolign(matrix: ProlignMatrix): GraphicElem
 
-  /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. This method
-   *  has been left abstract to allow the return type to be narrowed in sub classes and traits. */
-  def rotateRadians(radians: Double): GraphicElem
+  /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. The Return
+   *  type will be narrowed in sub traits / classes. */
+  override def rotateRadians(radians: Double): GraphicElem
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a GraphicElem, returns a GraphicElem. This method has been left
-   *  abstract in GeomElemNew to allow the return type to be narrowed in sub classes and traits. */
-  def reflect(lineLike: LineLike): GraphicElem
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a GraphicElem, returns a GraphicElem. The Return type will be narrowed
+   *  in sub traits / classes. */
+  override def reflect(lineLike: LineLike): GraphicElem
 
+  /** XY scaling 2D geometric transformation on a GraphicElem. This allows different scaling factors across X and Y dimensions. The return type will
+   *  be narrowed in sub classes and traits.*/
   override def xyScale(xOperand: Double, yOperand: Double): GraphicElem
+
+  /** Shear 2D geometric transformation along the X Axis on a GraphicElem. The return type will be narrowed in sub classes and traits. */
+  override def xShear(operand: Double): GraphicElem
+
+  /** Shear 2D geometric transformation along the X Axis on a GraphicElem. The return type will be narrowed in sub classes and traits. */
+  override def yShear(operand: Double): GraphicElem
 }
 
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
