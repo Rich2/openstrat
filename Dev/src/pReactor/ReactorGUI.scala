@@ -24,9 +24,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def gameBtn(str: String, cmd: MouseButton => Unit) =
     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
-  init()
+  newGame()
   
-  def init() : Unit =
+  def newGame() : Unit =
   { 
     repaints(
       Rectangle.applyOld(width, height, 0 vv 0).fill(Colour(0xFF181818)),
@@ -70,6 +70,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     val isAnimation = animationIndexes.contains(cellIndex)
     canv.polygonFill(Rectangle.fromBL(size-1, size-1, loc), Black)
     if (isAnimation) canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, count-1)), color)
+   
     if (count >= 1 && (count != 1 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
     if (count >= 2 && (count != 2 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
     if (count >= 3 && (count != 3 && isAnimation)) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
@@ -157,10 +158,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         if (currentPlayer == cellColors(clickedCellIndex) || Black  == cellColors(clickedCellIndex))
         {
           addBallByIndex(clickedCellIndex)
-          canv.timeOut(() => ReactorGUI.this.processQueue(), 100)
+          canv.timeOut(() => ReactorGUI.this.processQueue(), 25)
         }
       }
-      case (LeftButton, cl, v) if (cl.length > 0) => init()
+      case (LeftButton, cl, v) if (cl.length > 0) => newGame()
       case (MiddleButton, cl, v) if (cl.length > 0) => loadGame()
       case (RightButton, cl, v) if (cl.length > 0) => saveGame()
       case (_, _, _) => deb("uncaptured click")
