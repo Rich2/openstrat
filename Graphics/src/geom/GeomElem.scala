@@ -3,10 +3,12 @@ package ostrat
 package geom
 
 /** A geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all
- *  transformations. So for example a circle is no longer a Circle after a Shear transformation, but remains an Ellipse.  */
+ *  transformations. So for example a [[Circle]] is no longer a [[Circle]] after a Shear transformation, but remains an [[Ellipse]]. [[GraphicElem]]
+ *  inherits from GeomElem. A [[Circle]] is not a [[GraphicElem]] but if we add a fill colour to make a [[CircleFill]], or a line width and line
+ *  colour to it, we have a [[GraphicElem]] a graphical eelement that can be displayed on a canvas or output to SVG. */
 trait GeomElem extends Product with Serializable
 {
-  /** Translate 2D geometric transformation. This abstract method returns a [[GeomElem]]. The Return type will be narrowed in sub traits.  */
+  /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
   def slate(offset: Vec2): GeomElem
 
   /** Translate 2D geometric transformation. This abstract method returns a [[GeomElem]]. The Return type will be narrowed in sub traits. */
@@ -61,13 +63,4 @@ object GeomElem
   { override def xShearT(obj: GeomElem, yFactor: Double): GeomElem = obj.xShear(yFactor)
     override def yShearT(obj: GeomElem, xFactor: Double): GeomElem = obj.yShear(xFactor)
   }
-}
-
-/** This trait is for layout. For placing Graphic elements in rows and columns. It includes polygon and shape graphics but not line and curve
- *  graphics. */
-trait BoundedElem extends GeomElem
-{ /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
-  def boundingRect: BoundingRect
-  def boundingWidth: Double = boundingRect.width
-  def boundingHeight: Double = boundingRect.height
 }
