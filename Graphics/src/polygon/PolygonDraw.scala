@@ -10,25 +10,23 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)  
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
-  override def slate(offset: Vec2): PolygonDraw = PolygonDraw(shape.slate(offset))
+  override def slate(offset: Vec2): PolygonDraw = PolygonDraw(shape.slate(offset), lineWidth, lineColour)
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonDraw = PolygonDraw(shape.slate(xOffset, yOffset))
+  override def slate(xOffset: Double, yOffset: Double): PolygonDraw = PolygonDraw(shape.slate(xOffset, yOffset), lineWidth, lineColour)
 
   /** Uniform scaling transformation a PolygonDraw, returns a PolygonDraw. */
-  override def scale(operand: Double): PolygonDraw = PolygonDraw(shape.scale(operand))
+  override def scale(operand: Double): PolygonDraw = PolygonDraw(shape.scale(operand), lineWidth, lineColour)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def negY: PolygonDraw = ???
+  /** Mirror, reflection transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
+  override def negY: PolygonDraw = PolygonDraw(shape.negY, lineWidth, lineColour)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def negX: PolygonDraw = ???
+  /** Mirror, reflection transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
+  override def negX: PolygonDraw = PolygonDraw(shape.negY, lineWidth, lineColour)
 
-  override def prolign(matrix: ProlignMatrix): PolygonDraw = ???
+  override def prolign(matrix: ProlignMatrix): PolygonDraw = PolygonDraw(shape.prolign(matrix), lineWidth, lineColour)
 
-  override def rotateRadians(radians: Double): PolygonDraw = ???
+  override def rotateRadians(radians: Double): PolygonDraw = PolygonDraw(shape.rotateRadians(radians), lineWidth, lineColour)
   override def reflect(lineLike: LineLike): PolygonDraw = ???
   override def xyScale(xOperand: Double, yOperand: Double): PolygonDraw = ???
 
