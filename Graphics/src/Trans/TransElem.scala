@@ -32,8 +32,11 @@ trait TransElem extends Product with Serializable
    *  in sub classes and traits. */
   def rotateRadians(radians: Double): TransElem
 
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a TransElem. This method has been left abstract in GeomElemNew to
+   *  allow the return type to be narrowed in sub classes and traits. */
   def reflect(lineLike: LineLike): TransElem
 
+  /** XY scaling 2D geometric transformation on a TransElem. */
   def xyScale(xOperand: Double, yOperand: Double): TransElem
 
   def xShear(operand: Double): TransElem

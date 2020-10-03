@@ -27,10 +27,16 @@ trait GraphicElem extends TransElem
    * in sub classes. */
   def negX: GraphicElem
 
+  /** 2D Transformation using a [[ProlignMatrix]] on a GraphicElem, returns a GraphicElem. This method has been left abstract to allow the return type
+   *  to be narrowed in sub classes and traits. */
   def prolign(matrix: ProlignMatrix): GraphicElem
 
+  /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. This method
+   *  has been left abstract to allow the return type to be narrowed in sub classes and traits. */
   def rotateRadians(radians: Double): GraphicElem
 
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a GraphicElem, returns a GraphicElem. This method has been left
+   *  abstract in GeomElemNew to allow the return type to be narrowed in sub classes and traits. */
   def reflect(lineLike: LineLike): GraphicElem
 
   override def xyScale(xOperand: Double, yOperand: Double): GraphicElem
