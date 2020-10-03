@@ -19,7 +19,7 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   val rStr = TextGraphic(ccl1.svgStr, 20, vRed)
   val ccl1r = cl1.reflect(line1).fill(Orange)
 
-  val r2 = Rectangle.applyOld(180, 100, 150 vv -200)
+  val r2 = Rectangle(180, 100, 150 vv -200)
   val cl2 = Circle(80, 110 vv - 300)
   val sq = Sqlign(100, 110, -400)
 
