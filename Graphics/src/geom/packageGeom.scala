@@ -2,9 +2,10 @@
 package ostrat
 import math._, Colour.Black
 
-/** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains Basic geometry. A
- *  number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They are
- *  of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
+/** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
+ * graphics. Of particular note are the [[Vec2]], [[GeomElem]] and [[GraphicElem]] class /traits. These are the foundation of the API and the library.
+ * A number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They
+ * are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
 {
   val Phi: Double = 1.6180339887498948482
