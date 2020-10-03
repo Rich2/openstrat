@@ -8,7 +8,7 @@ case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
   val sq1 = Square(100 / 2.sqrt, 45.degs).fill(Pink)
   val sq2 = Sqlign(100, -100, 100).fill(Orange)
   val sq3 = Square(100, 20.degs, -200, 100).fill(Colour.Sienna)
-  val rg: PolygonFill = Rect(200, 100, 100, 50).fill(Green)
+  val rg: RectangleFill = Rect(200, 100, 100, 50).fill(Green)
   val rd: PolygonDraw = Rect(200, 100, 100, 160).draw()
 
   repaints(
