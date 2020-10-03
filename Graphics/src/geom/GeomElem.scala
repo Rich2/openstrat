@@ -15,14 +15,14 @@ trait GeomElem extends Product with Serializable
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   def slate(xOffset: Double, yOffset: Double): GeomElem
 
-  /** Uniform 2D scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles
-   *  and Squares. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+  /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
+   *  [[Circles]] and [[Squares]]. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
   def scale(operand: Double): GeomElem
 
-  /** Mirror, reflection transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
   def negY: GeomElem
 
-  /** Mirror, reflection transformation across the Y axis by negating X. The return type will be narrowed in sub traits/ classes. */
+  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits/ classes. */
   def negX: GeomElem
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
@@ -42,7 +42,7 @@ trait GeomElem extends Product with Serializable
   /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def xShear(operand: Double): GeomElem
 
-  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
+  /** Shear 2D geometric transformation along the Y Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def yShear(operand: Double): GeomElem
 }
 
