@@ -24,13 +24,16 @@ trait TransElem extends Product with Serializable
    *  be narrowed in sub classes. */
   def negX: TransElem
 
-  /** Transforms this TransElem using a [[ProlignMatrix]]. */
+  /** 2D Transformation using a [[ProlignMatrix]]. This method has been left abstract in GeomElemNew to allow the return type to be narrowed in sub
+   *  classes and traits. */
   def prolign(matrix: ProlignMatrix): TransElem
 
+  /** Rotation 2D geometric transformation on a TransElem. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   *  in sub classes and traits. */
   def rotateRadians(radians: Double): TransElem
 
   def reflect(lineLike: LineLike): TransElem
-  //def reflect(line: LineSeg): TransElem
+
   def xyScale(xOperand: Double, yOperand: Double): TransElem
 
   def xShear(operand: Double): TransElem
