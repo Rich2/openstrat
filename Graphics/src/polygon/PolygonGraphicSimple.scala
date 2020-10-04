@@ -102,21 +102,6 @@ case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: Strin
  // override def attribs: Arr[XmlAtt] = ???
 }
 
-case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
-                      lineColour: Colour = Black) extends PolygonGraphicSimple with PolygonActiveOld with GraphicAffineElem with GraphicBoundedAffine
-{ override type ThisT = PolygonAll
-  override def fTrans(f: Vec2 => Vec2): PolygonAll = PolygonAll(shape.fTrans(f), pointerId, fillColour, str, fontSize, lineWidth, lineColour)
-  def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
- // def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
-
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.polygonFill(shape, fillColour)
-    cp.polygonDraw(shape, lineWidth, lineColour)
-    cp.textGraphic(textOnly)
-  }
-}
-
 /** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */
 case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphicSimple
   with PolygonActiveOld with GraphicAffineElem with GraphicBoundedAffine
