@@ -78,12 +78,6 @@ trait PolygonActiveOld extends GraphicActiveOld
 }
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnlyOld(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActiveOld
-{ override type ThisT = PolygonActiveOnlyOld
-  override def fTrans(f: Vec2 => Vec2): PolygonActiveOnlyOld = PolygonActiveOnlyOld(shape.fTrans(f), pointerId)
-}
-
-/** A pointable polygon without visual */
 case class PolygonClickable(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable
 { override type ThisT = PolygonClickable
   override def fTrans(f: Vec2 => Vec2): PolygonClickable = PolygonClickable(shape.fTrans(f), pointerId)
@@ -121,8 +115,6 @@ case class PolygonAll(shape: Polygon, pointerId: Any, fillColour: Colour, str: S
     cp.polygonDraw(shape, lineWidth, lineColour)
     cp.textGraphic(textOnly)
   }
-
-//  override def attribs: Arr[XmlAtt] = ???
 }
 
 /** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */

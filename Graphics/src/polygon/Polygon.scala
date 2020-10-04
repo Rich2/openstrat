@@ -116,6 +116,8 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def sline4: LineSeg = sline(4)
   def sline5: LineSeg = sline(5)
 
+  def active(id: Any): PolygonClickable = PolygonClickable(this, id)
+
   def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerID)))
 
