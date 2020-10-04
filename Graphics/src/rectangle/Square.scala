@@ -30,7 +30,7 @@ trait Square extends Rectangle
   override def rotateRadians(radians: Double): Square = Square.cenV0(cen.rotateRadians(radians), v0.rotateRadians(radians))
 }
 
-/** Companion object for the Square trait. However its apply methods delegate to the SquareClass implementation class. */
+/** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
 object Square extends ShapeIcon
 {
   def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
