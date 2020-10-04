@@ -7,7 +7,9 @@ import pWeb._
 final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends Square with Rect
 { type ThisT = Sqlign
   override def attribs: Arr[XANumeric] = ???
-
+  override def xLs3Cen: Double = ls3Cen.x
+  override def yLs3Cen: Double = ls3Cen.y
+  override def ls3Cen: Vec2 = (v3 + v0) / 2
   override def height: Double = width
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
 
@@ -19,10 +21,6 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def negX: Sqlign = Sqlign(width, -xCen, yCen)
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
-  
-  //override def fill(fillColour: Colour): ShapeFill = ???
-
- // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
 }
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */

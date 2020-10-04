@@ -15,6 +15,7 @@ trait RectCenV0 extends Rectangle
   @inline final def v3: Vec2 = 2 * cen - v1
   @inline final def x3: Double = v3.x
   @inline final def y3: Double = v3.y
-
-
+  final override def xLs3Cen: Double = ls3Cen.x
+  final override def yLs3Cen: Double = ls3Cen.y
+  final override def ls3Cen: Vec2 = (v3 + v0) / 2
 }

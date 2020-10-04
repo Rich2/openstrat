@@ -20,6 +20,10 @@ trait Rectangle extends Rectangular with Polygon
   def y3: Double
   def v3: Vec2
   
+  def xLs3Cen: Double
+  def yLs3Cen: Double
+  def ls3Cen: Vec2
+  
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double
   
