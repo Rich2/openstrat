@@ -48,14 +48,15 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
 
   @inline def polygonMap(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
-  /** Translate geometric transformation on a [[Polygon]] returns a [[Polygon]]. */
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
+   *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(offset: Vec2): Polygon = polygonMap(_ + offset)
 
-  /** Translate geometric transformation on a [[Polygon]] returns a [[Polygon]]. */
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
+   *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(xOffset: Double, yOffset: Double): Polygon = polygonMap(_.addXY(xOffset, yOffset))
 
-  /** Uniform scaling aginst both X and Y axes transformation on a [[polygon]] returning a [[Polygon]]. Use the xyScale method for differential
-   *  scaling. */
+  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Polygon = polygonMap(_ * operand)
 
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
@@ -68,8 +69,6 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
   override def reflect(lineLike: LineLike): Polygon
-
-  //override def reflect(line: LineSeg): Polygon
 
   override def xyScale(xOperand: Double, yOperand: Double): Polygon
 
