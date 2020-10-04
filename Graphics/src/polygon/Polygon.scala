@@ -140,9 +140,8 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(TextGraphic(str, fontSize, cen, textColour)))
 
-  /*def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
-  PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)),
-    Arr(PolygonClickable(cen, pointerID), TextGraphic(str, fontSize, cen)))*/
+  def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24): PolygonCompound =
+    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerEv), TextGraphic(str, fontSize, cen)))
 }
 
 /** Companion object for the Polygon trait. */

@@ -70,13 +70,6 @@ object PolygonGraphicSimple
   }
 }
 
-/** An active transparent pointable polygon */
-trait PolygonActiveOld extends GraphicActiveOld
-{ def shape: Polygon
-  override def boundingRect = shape.boundingRect
-  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
-}
-
 /** A pointable polygon without visual */
 case class PolygonClickable(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable
 { override type ThisT = PolygonClickable
@@ -100,15 +93,4 @@ case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: Strin
   }
 
  // override def attribs: Arr[XmlAtt] = ???
-}
-
-/** A polygon graphic, filled with a uniform colour with text at its centre, that responds actively to mouse trackpad events. */
-case class PolygonFillTextActive(shape: Polygon, pointerId: Any, fillColour: Colour, str: String, fontSize: Int = 24) extends PolygonGraphicSimple
-  with PolygonActiveOld with GraphicAffineElem with GraphicBoundedAffine
-{ override type ThisT = PolygonFillTextActive
-  override def fTrans(f: Vec2 => Vec2): PolygonFillTextActive = PolygonFillTextActive(shape.fTrans(f), pointerId, fillColour, str, fontSize)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = { cp.polygonFill(shape, fillColour); cp.textGraphic(textOnly) }
-
-  //override def attribs: Arr[XmlAtt] = ???
 }
