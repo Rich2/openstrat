@@ -36,10 +36,9 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 
-  def active(id: Any): PolygonActiveOnly = PolygonActiveOnly(this, id)
+  def active(id: Any): PolygonActiveOnlyOld = PolygonActiveOnlyOld(this, id)
 
-  def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
-    Arr(PolygonFill(this, fillColour), PolygonDraw(this,lineWidth, lineColour), PolygonActiveOnly(this, pointerID))
+
 
   def fillDrawTextActiveOld(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black):
     PolygonAll = PolygonAll(this, pointerID, fillColour,str, fontSize, lineWidth, lineColour)

@@ -78,9 +78,9 @@ trait PolygonActiveOld extends GraphicActiveOld
 }
 
 /** A pointable polygon without visual */
-case class PolygonActiveOnly(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActiveOld
-{ override type ThisT = PolygonActiveOnly
-  override def fTrans(f: Vec2 => Vec2): PolygonActiveOnly = PolygonActiveOnly(shape.fTrans(f), pointerId)
+case class PolygonActiveOnlyOld(shape: Polygon, pointerId: Any) extends GraphicAffineElem with PolygonActiveOld
+{ override type ThisT = PolygonActiveOnlyOld
+  override def fTrans(f: Vec2 => Vec2): PolygonActiveOnlyOld = PolygonActiveOnlyOld(shape.fTrans(f), pointerId)
 }
 
 /** A pointable polygon without visual */
