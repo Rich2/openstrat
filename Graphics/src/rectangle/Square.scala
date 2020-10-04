@@ -30,7 +30,7 @@ trait Square extends Rectangle
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the SquareClass implementation class. */
-object Square
+object Square extends ShapeIcon
 {
   def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
@@ -41,9 +41,17 @@ object Square
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
     new SquareImp(xCen, yCen, xCen + delta.x, yCen + delta.y)
   }
-  
+
   def cenV0(cen: Vec2, v0: Vec2): Square = new SquareImp(cen.x, cen.y, v0.x, v0.y)
-  
+
+  /** Scale the Square and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
+  override def reify(scale: Double, xCen: Double, yCen: Double): Sqlign = Sqlign(scale, xCen, yCen)
+
+  /** Scale the Shape and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
+  override def reify(scale: Double, cen: Vec2): Shape = Sqlign(scale, cen)
+
+  override def fill(colour: Colour): ShapeGraphicIcon = ???
+
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
   final class SquareImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double) extends Square with RectCenV0

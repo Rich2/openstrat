@@ -10,4 +10,6 @@ trait CircleGraphic extends EllipseGraphic
   
   @inline final def radius: Double = shape.radius
   @inline final def diameter: Double = shape.diameter
+
+
 }
