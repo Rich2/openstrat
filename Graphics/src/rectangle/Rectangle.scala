@@ -3,9 +3,9 @@ package ostrat
 package geom
 import pWeb._
 
-/** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. You can build a
- *  Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned to the X and Y axis prefer the
- *  factory methods on the companion object of the shorter named [[Rect]] trait. */
+/** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
+ *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
+ *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
 trait Rectangle extends Rectangular with Polygon
 { final override def length: Int = 4
   def x0: Double
