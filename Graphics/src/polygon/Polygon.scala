@@ -56,7 +56,8 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(xOffset: Double, yOffset: Double): Polygon = polygonMap(_.addXY(xOffset, yOffset))
 
-  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. */
+  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
+   *  return type of this method will be narrowed further in descendant traits / classes. */
   override def scale(operand: Double): Polygon = polygonMap(_ * operand)
 
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
@@ -65,16 +66,28 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
   override def negX: Polygon = polygonMap(_.negX)
 
-  /** Prolign 2d transformations, similar transofrmations that retain alignment with the axes. */
+  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): Polygon
-
-  override def xyScale(xOperand: Double, yOperand: Double): Polygon
-
+  /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
+   *  be narrowed in some but not all sub traits / classes. */
   override def rotateRadians(radians: Double): Polygon = polygonMap(_.rotateRadians(radians))
 
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
+   *  traits / classes. */
+  override def reflect(lineLike: LineLike): Polygon
+
+  /** XY scaling 2D geometric transformation on a Shape returns a Shape. This allows different scaling factors across X and Y dimensions. The return
+   *  type will be narrowed in some, but not all descendant Polygon types. */
+  override def xyScale(xOperand: Double, yOperand: Double): Polygon
+
+
+  /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
+   *  classes and traits. */
   override def xShear(operand: Double): Polygon = ???
+
+  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and traits.
+   *  */
   override def yShear(operand: Double): Polygon = ???
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
