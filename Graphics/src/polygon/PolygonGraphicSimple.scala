@@ -91,21 +91,6 @@ case class PolygonClickable(shape: Polygon, pointerId: Any) extends GraphicAffin
   override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
 }
 
-case class PolygonFillTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, textColour: Colour = Black) extends
-  PolygonGraphicSimple with GraphicAffineElem with GraphicBoundedAffine
-{ override type ThisT = PolygonFillTextOld
-  override def fTrans(f: Vec2 => Vec2): PolygonFillTextOld = PolygonFillTextOld(shape.fTrans(f), fillColour, str,fontSize, textColour)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, textColour, CenAlign)
-  def fillOnly: PolygonFill = PolygonFill(shape, fillColour)
-
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.polygonFill(shape, fillColour)
-    cp.textGraphic(textOnly)
-  }
-
- // override def attribs: Arr[XmlAtt] = ???
-}
-
 case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
   lineColour: Colour = Black) extends PolygonGraphicSimple with GraphicAffineElem with GraphicBoundedAffine
 { override type ThisT = PolygonFillDrawTextOld
