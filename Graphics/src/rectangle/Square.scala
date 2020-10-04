@@ -5,7 +5,8 @@ import pWeb._
 
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareGen]], a general square. */
 trait Square extends Rectangle
-{ def height: Double = width
+{ //def width: Double
+  //def height: Double = width
 
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(offset: Vec2): Square = Square.cenV0(cen + offset, v0 + offset)

@@ -19,6 +19,13 @@ trait Rectangle extends Rectangular with Polygon
   def x3: Double
   def y3: Double
   def v3: Vec2
+  
+  /** length from v1 to v2 and v3 to v4. */
+  def width1: Double
+  
+  /** length from v2 to v3 and v03 to v1. */
+  def width2: Double
+  
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
   override def ptsArray: Array[Double] = Array(x0, y0, x1, y1, x2, y2, x3, y3)
   
@@ -28,12 +35,11 @@ trait Rectangle extends Rectangular with Polygon
   def v3Mid0: Vec2 = v3.midPtTo(v0)
   
   def rotation: Angle
-  def widthAttrib: WidthAtt = WidthAtt(width)
-  def heightAttrib: HeightAtt = HeightAtt(height)
+  def widthAttrib: WidthAtt = WidthAtt(width1)
+  def heightAttrib: HeightAtt = HeightAtt(width2)
   def xAttrib: XAttrib = XAttrib(x3)
   def yAttrib: YAttrib = YAttrib(y3)
-  override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
-  
+  override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)  
   
   @inline final override def apply(index: Int): Vec2 = index match 
   { case 0 => v0
@@ -183,7 +189,7 @@ object Rectangle
   final class RectangleImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends RectCenV0
   { type ThisT = RectangleImp
     override def v1: Vec2 = Vec2(x1, y1)
-    override def height: Double = (v0 - v1).magnitude
+    
     override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.cenV0V1(f(cen), f(v0), f(v1))
 
     override def productArity: Int = 5

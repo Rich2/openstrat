@@ -8,6 +8,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 { type ThisT = Sqlign
   override def attribs: Arr[XANumeric] = ???
 
+  override def height: Double = width
   override def slate(offset: Vec2): Sqlign = Sqlign(width, cen + offset)
 
   override def slate(xOffset: Double, yOffset: Double): Sqlign = Sqlign(width, xCen + xOffset, yCen + yOffset)

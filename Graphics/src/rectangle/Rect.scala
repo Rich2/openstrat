@@ -19,6 +19,8 @@ trait Rect extends Rectangle with Rectangularlign
   @inline final def x3: Double = xTopLeft
   @inline final def y3: Double = yTopLeft
   @inline final def v3: Vec2 = topLeft
+  final override def width1 = width
+  final override def width2: Double = height
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2): Rect = Rect(width, height, cen + offset)

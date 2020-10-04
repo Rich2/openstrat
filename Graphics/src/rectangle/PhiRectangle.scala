@@ -12,4 +12,5 @@ object PhiRectangle
 case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with PhiRectangle
 {
   override def width: Double = height * Phi
+  
 }
