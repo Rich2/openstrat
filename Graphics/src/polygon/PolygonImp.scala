@@ -45,11 +45,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
     PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
 
   def parentElems(pointerID: Any, elems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
-
-  def parentAll(pointerID: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String): PolygonParentOld =
-    PolygonParentOld(this.polyCentre, this, pointerID, Arr(PolygonFill(this, fillColour), PolygonDraw(this, lineWidth, lineColour),
-      TextGraphic(str, textSize, this.polyCentre, lineColour)))
-
+  
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): PolygonImp =
   { val res = PolygonImp.factory(length + 1)
