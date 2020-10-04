@@ -142,7 +142,7 @@ trait TileGridSimple
     }
 
   /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonClickable]
+  def activeTiles: Arr[PolygonActive]
 
   /** New mutable Array of Tile data. All tiles set to an initial value. */
   final def newTileArray[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =

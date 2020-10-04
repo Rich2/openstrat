@@ -116,18 +116,21 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def sline4: LineSeg = sline(4)
   def sline5: LineSeg = sline(5)
 
-  def active(id: Any): PolygonClickable = PolygonClickable(this, id)
+  def active(id: Any): PolygonActive = PolygonActive(this, id)
 
   def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
-    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerID)))
+    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonActive(this, pointerID)))
 
   /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
    * draw area line width of 2 and a colour of Black. */
   def fillActiveDraw(fillColour: Colour, pointerID: Any, lineWidth: Double = 2, lineColour: Colour = Black): PolygonCompound =
-    PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(PolygonClickable(this, pointerID)))
+    PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(PolygonActive(this, pointerID)))
 
   def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): GraphicElems =
-    Arr(PolygonFill(this, fillColour), PolygonDraw(this,lineWidth, lineColour), PolygonClickable(this, pointerID))
+    Arr(PolygonFill(this, fillColour), PolygonDraw(this,lineWidth, lineColour), PolygonActive(this, pointerID))
+
+  def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2.0, lineColour: Colour = Black): PolygonCompound =
+    PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(TextGraphic(str, fontSize, cen)))
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), TextFacet(str, textColour)), Arr())
@@ -141,7 +144,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(TextGraphic(str, fontSize, cen, textColour)))
 
   def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24): PolygonCompound =
-    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonClickable(this, pointerEv), TextGraphic(str, fontSize, cen)))
+    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cen)))
 }
 
 /** Companion object for the Polygon trait. */

@@ -36,9 +36,6 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 
-  def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2.0, lineColour: Colour = Black): PolygonFillDrawTextOld =
-    PolygonFillDrawTextOld(this, fillColour, str, fontSize, lineWidth, lineColour)
-
   def parentFill(pointerID: Any, fillColour: Colour): PolygonParentOld = PolygonParentOld.fill(this.polyCentre, this, pointerID, fillColour)
 
   def parentFillDraw(pointerID: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolygonParentOld =

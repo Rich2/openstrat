@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import Colour.Black, pWeb._
+import pWeb._
 
 /** This trait may be removed. */
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
@@ -71,26 +71,9 @@ object PolygonGraphicSimple
 }
 
 /** A pointable polygon without visual */
-case class PolygonClickable(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable
-{ override type ThisT = PolygonClickable
-  override def fTrans(f: Vec2 => Vec2): PolygonClickable = PolygonClickable(shape.fTrans(f), pointerId)
+case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable
+{ override type ThisT = PolygonActive
+  override def fTrans(f: Vec2 => Vec2): PolygonActive = PolygonActive(shape.fTrans(f), pointerId)
   override def boundingRect = shape.boundingRect
   override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
-}
-
-case class PolygonFillDrawTextOld(shape: Polygon, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
-  lineColour: Colour = Black) extends PolygonGraphicSimple with GraphicAffineElem with GraphicBoundedAffine
-{ override type ThisT = PolygonFillDrawTextOld
-  override def fTrans(f: Vec2 => Vec2): PolygonFillDrawTextOld = PolygonFillDrawTextOld(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
-  def drawOnly: PolygonDraw = PolygonDraw(shape, lineWidth, lineColour)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
- // def fillDrawOnly: PolygonFillDraw = PolygonFillDraw(shape, fillColour, lineWidth, lineColour)
-
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.polygonFill(shape, fillColour)
-    cp.polygonDraw(shape, lineWidth, lineColour)
-    cp.textGraphic(textOnly)
-  }
-
- // override def attribs: Arr[XmlAtt] = ???
 }

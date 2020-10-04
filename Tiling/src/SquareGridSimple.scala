@@ -25,7 +25,7 @@ class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   override def isTileRoord(r: Roord): Boolean = r.y.isEven & r.c.isEven
 
   /** The active tiles without any PaintElems. */
-  override def activeTiles: Arr[PolygonClickable] = map{ roord =>
+  override def activeTiles: Arr[PolygonActive] = map{ roord =>
     val vcs = tileVertRoords(roord)
     val vvs = vcs.map(r => roordToVec2(r))
     vvs.toPolygon.active(roord.toHexTile)

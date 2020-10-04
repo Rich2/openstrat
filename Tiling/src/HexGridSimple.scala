@@ -33,7 +33,7 @@ trait HexGridSimple extends TileGridSimple
   final override def tileExists(y: Int, c: Int): Boolean =  ???
 
   /** The active tiles without any PaintElems. */
-  override def activeTiles: Arr[PolygonClickable] = map{ roord =>
+  override def activeTiles: Arr[PolygonActive] = map{ roord =>
     val vcs = tileVertRoords(roord)
     val vvs = vcs.map(r => roordToVec2(r))
     vvs.toPolygon.active(roord.toHexTile)
