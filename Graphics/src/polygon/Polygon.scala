@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-/** Short for polygon trait. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
+/** Short for polygon trait. The general case can be instantiated with [[PolygonImp]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
 trait Polygon extends Vec2sLike with Shape with BoundedElem
 {
@@ -136,7 +136,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
 /** Companion object for the Polygon trait. */
 object Polygon
 {
-  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): Polygon = PolygonGen(v1, v2, v3, tail: _*)
+  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): Polygon = PolygonImp(v1, v2, v3, tail: _*)
 
   implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.ptsArray, p2.ptsArray)
 

@@ -3,11 +3,11 @@ package ostrat
 package geom
 import Colour.Black, pWeb._
 
-/** A General Polygon as opposed to a specific Polygon such as a Square or a Rectangle is encoded as a sequence of plain 2 dimension (mathematical)
- *  vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
-final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
-{ type ThisT = PolygonGen
-  def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
+/** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
+ *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
+final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
+{ type ThisT = PolygonImp
+  def unsafeFromArray(array: Array[Double]): PolygonImp = new PolygonImp(array)
 
   @inline override def ptsArray: Array[Double] = arrayUnsafe
   override def typeStr: String = "Polygon"
@@ -27,8 +27,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   @inline def x0: Double = arrayUnsafe(0)
   @inline def y0: Double = arrayUnsafe(1)
   @inline def v0: Vec2 = x0 vv y0
-  override def fTrans(f: Vec2 => Vec2): PolygonGen = new PolygonGen(arrTrans(f))
-  def eq(obj: PolygonGen): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
+  override def fTrans(f: Vec2 => Vec2): PolygonImp = new PolygonImp(arrTrans(f))
+  def eq(obj: PolygonImp): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
   def maxX: Double = foldTailLeft(head.x)((acc, el) => acc.max(el.x))
   def minY: Double = foldTailLeft(head.y)((acc, el) => acc.min(el.y))
@@ -69,8 +69,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
       TextGraphic(str, textSize, this.polyCentre, lineColour)))
 
   /** Insert vertice */
-  def insVert(insertionPoint: Int, newVec: Vec2): PolygonGen =
-  { val res = PolygonGen.factory(length + 1)
+  def insVert(insertionPoint: Int, newVec: Vec2): PolygonImp =
+  { val res = PolygonImp.factory(length + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     res.unsafeSetElem(insertionPoint, newVec)
     (insertionPoint until length).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
@@ -78,8 +78,8 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   }
 
   /** Insert vertices */
-  def insVerts(insertionPoint: Int, newVecs: Vec2 *): PolygonGen =
-  { val res = PolygonGen.factory(length + newVecs.length)
+  def insVerts(insertionPoint: Int, newVecs: Vec2 *): PolygonImp =
+  { val res = PolygonImp.factory(length + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
     (insertionPoint until length).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
@@ -93,33 +93,33 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
-  @inline override def polygonMap(f: Vec2 => Vec2): PolygonGen = vertsMap(f).toPolygon
+  @inline override def polygonMap(f: Vec2 => Vec2): PolygonImp = vertsMap(f).toPolygon
 
-  /** Translate geometric transformation on a [[PolygonGen]] returns a [[PolygonGen]]. */
-  override def slate(offset: Vec2): PolygonGen = polygonMap(_ + offset)
+  /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
+  override def slate(offset: Vec2): PolygonImp = polygonMap(_ + offset)
 
-  /** Translate geometric transformation on a [[PolygonGen]] returns a [[PolygonGen]]. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonGen = polygonMap(_.addXY(xOffset, yOffset))
-  
-  /** Uniform scaling aginst both X and Y axes transformation on a [[polygonGen]] returning a [[PolygonGen]]. Use the xyScale method for differential
+  /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
+  override def slate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
+
+  /** Uniform scaling aginst both X and Y axes transformation on a [[polygonGen]] returning a [[PolygonImp]]. Use the xyScale method for differential
    *  scaling. */
-  override def scale(operand: Double): PolygonGen = polygonMap(_ * operand)
+  override def scale(operand: Double): PolygonImp = polygonMap(_ * operand)
 
   /** Mirror, reflection transformation of a PolygonGen across the X axis, returns a PolygonGen. */
-  override def negY: PolygonGen = polygonMap(_.negY)
+  override def negY: PolygonImp = polygonMap(_.negY)
 
   /** Mirror, reflection transformation of PolygonGen across the Y axis, returns a PolygonGen. */
-  override def negX: PolygonGen = polygonMap(_.negX)
+  override def negX: PolygonImp = polygonMap(_.negX)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): PolygonGen = polygonMap(_.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): PolygonImp = polygonMap(_.prolign(matrix))
 }
 
-/** Companion object for [[PolygonGen]]. */
-object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]
-{ implicit val factory: Int => PolygonGen = i => new PolygonGen(new Array[Double](i * 2))
+/** Companion object for [[PolygonImp]]. */
+object PolygonImp //extends ProductD2sCompanion[Vec2, Polygon]
+{ implicit val factory: Int => PolygonImp = i => new PolygonImp(new Array[Double](i * 2))
 
-  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): PolygonGen =
+  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): PolygonImp =
   { val len = (3 + tail.length)
     val res = factory(len)
     res.unsafeSetElems(0, v1, v2, v3)
@@ -127,10 +127,10 @@ object PolygonGen //extends ProductD2sCompanion[Vec2, Polygon]
     res
   }
 
-  implicit val eqImplicit: Eq[PolygonGen] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
+  implicit val eqImplicit: Eq[PolygonImp] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
 
-  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, PolygonGen] = new ArrProdDbl2Persist[Vec2, PolygonGen]("Polygon")
-  { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
+  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, PolygonImp] = new ArrProdDbl2Persist[Vec2, PolygonImp]("Polygon")
+  { override def fromArray(value: Array[Double]): PolygonImp = new PolygonImp(value)
   }
 
   /*implicit val polygonsBuildImplicit: ArrBuild[PolygonGen, Polygons] = new ArrArrayDblBuild[PolygonGen, Polygons]

@@ -264,7 +264,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def clear(colour: Colour): Unit = { gc.fillStyle = colour.webStr; gc.fillRect(0, 0, width, height) }
 
-  override protected[this] def tlClip(pts: PolygonGen): Unit =
+  override protected[this] def tlClip(pts: PolygonImp): Unit =
   { gc.beginPath()
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)

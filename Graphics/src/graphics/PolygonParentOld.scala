@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Polygon based Graphic class that constains a number of child Graphic Elements. */
-case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, children: Arr[GraphicElem]) extends GraphicParentOld with GraphicActiveOld
+case class PolygonParentOld(cen: Vec2, poly: PolygonImp, pointerId: Any, children: Arr[GraphicElem]) extends GraphicParentOld with GraphicActiveOld
 { type ThisT = PolygonParentOld
   override def ptInside(pt: Vec2): Boolean = poly.ptInside(pt)
   override def addElems(newElems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(cen, poly, pointerId, children ++ newElems)
@@ -35,19 +35,19 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonGen, pointerId: Any, childre
 
 object PolygonParentOld
 {
-  def fill(cen: Vec2, poly: PolygonGen, evObj: Any, colour: Colour): PolygonParentOld = new PolygonParentOld(cen, poly, evObj, Arr(poly.fill(colour)))
+  def fill(cen: Vec2, poly: PolygonImp, evObj: Any, colour: Colour): PolygonParentOld = new PolygonParentOld(cen, poly, evObj, Arr(poly.fill(colour)))
 
-  def draw(cen: Vec2, poly: PolygonGen, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParentOld =
+  def draw(cen: Vec2, poly: PolygonImp, evObj: Any, lineWidth: Double, lineColour: Colour = Black): PolygonParentOld =
     new PolygonParentOld(cen, poly, evObj, Arr(PolygonDraw(poly, lineWidth, lineColour)))
 
   /** Not sure if this is double filling the polygon */
-  def fillDraw(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentOld =
+  def fillDraw(cen: Vec2, poly: PolygonImp, evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black): PolygonParentOld =
     new PolygonParentOld(cen, poly, evObj, Arr(PolygonFill(poly, fillColour), PolygonDraw(poly, lineWidth, lineColour)))
 
-  def fillText(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
+  def fillText(cen: Vec2, poly: PolygonImp, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4, fontColour: Colour = Colour.Black,
                align: TextAlign = CenAlign): PolygonParentOld =
     new PolygonParentOld(cen, poly, evObj, Arr(poly.fill(fillColour), TextGraphic(str, fontSize, poly.polyCentre, fontColour, align)))
 
-  def fillContrastText(cen: Vec2, poly: PolygonGen, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParentOld =
+  def fillContrastText(cen: Vec2, poly: PolygonImp, evObj: Any, fillColour: Colour, str: String, fontSize: Int = 4): PolygonParentOld =
     fillText(cen, poly, evObj, fillColour, str, fontSize, fillColour.contrast)
 }

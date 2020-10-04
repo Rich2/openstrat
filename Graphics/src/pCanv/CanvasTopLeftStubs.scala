@@ -20,7 +20,7 @@ trait CanvasTopLeftStubs extends CanvasTopLeft
 //   override protected def tlCircleFill(x: Double, y: Double, radius: Double, colour: Colour): Unit = {}
    //override protected def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)
    
-   override protected def tlClip(pts: PolygonGen): Unit = {}
+   override protected def tlClip(pts: PolygonImp): Unit = {}
    def clear(colour: Colour = Colour.White): Unit = {} 
    def gcSave(): Unit = {} 
    def gcRestore(): Unit = {}

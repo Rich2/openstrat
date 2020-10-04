@@ -4,8 +4,8 @@ package geom
 
 /** This is not a Polygon but should fTrans to Polygon. */
 trait UnScaledPolygon //extends  UnScaled
-{ type ThisT = PolygonGen
-  def apply(): PolygonGen
+{ type ThisT = PolygonImp
+  def apply(): PolygonImp
   def fTrans(f: Vec2 => Vec2): ThisT = apply().fTrans(f)
   def dist(width: Dist, cen: Dist2 = Dist2Z): PolygonDist  = apply().distScale(width)
   def minX: Double = apply().minX

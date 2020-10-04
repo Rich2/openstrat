@@ -97,7 +97,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
     if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
     BoundingRect(minX, maxX, minY, maxY)
   }
-  def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, PolygonGen](_.pEnd).ptInside(pt)
+  def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, PolygonImp](_.pEnd).ptInside(pt)
 
   /** Not sure if this is useful */
   def tailForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =

@@ -98,7 +98,7 @@ object Square extends ShapeIcon
   {
     def cenV0(cen: Vec2, v0: Vec2): SquareImp = new SquareImp(cen.x, cen.y, v0.x, v0.y)
 
-    def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
+    def xy(width: Double, xCen: Double, yCen: Double): PolygonImp = PolygonImp(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,
