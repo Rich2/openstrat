@@ -46,7 +46,6 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
 
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
 
-  //override def rotate(angle: Angle): Circle = Circle(radius, cen.rotateRadians(angle))
   override def rotate(angle: Angle): Circle = Circle(radius, cen.rotate(angle))
 
   override def reflect(lineLike: LineLike): Circle = Circle(radius, cen.reflect(lineLike))

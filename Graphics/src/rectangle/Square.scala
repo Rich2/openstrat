@@ -23,6 +23,15 @@ trait Square extends Rectangle
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
   override def negX: Square = Square.cenV0(cen.negX, v0.negX)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
+  override def rotate90: Square = Square.cenV0(cen.rotate90, v0.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Square, returns a Square. */
+  override def rotate180: Square = Square.cenV0(cen.rotate180, v0.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
+  override def rotate270: Square = Square.cenV0(cen.rotate270, v0.rotate270)
+
   override def prolign(matrix: ProlignMatrix): Square = Square.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
   override def reflect(lineLike: LineLike): Square = Square.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
