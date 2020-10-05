@@ -29,33 +29,28 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def negY: CircleCompound = CircleCompound(shape.negY, facets, children.negY)
-
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection 2D geometric transformation across the Y axis on a CircleCompound returns a CircleCompound. This transformation negates the X
+   *  values.*/
   override def negX: CircleCompound = CircleCompound(shape.negX, facets, children.negX)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a CircleCompound, returns a CircleCompound.
-   *  The return type will be narrowed in sub traits / classes. */
+  /** Mirror, reflection 2D geometric transformation across the X axis on a CircleCompound returns a CircleCompound. This transformation negates the Y
+   *  values. */
+  override def negY: CircleCompound = CircleCompound(shape.negY, facets, children.negY)
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a CircleCompound, returns a CircleCompound. */
   override def rotate90: CircleCompound = CircleCompound(shape.rotate90, facets, children.rotate90)
 
-  /** Rotate 180 degrees 2D geometric transformation on a CircleCompound, returns a CircleCompound. The return type will be narrowed in sub traits
-   *  / classes. */
+  /** Rotate 180 degrees 2D geometric transformation on a CircleCompound, returns a CircleCompound. */
   override def rotate180: CircleCompound =  CircleCompound(shape.rotate180, facets, children.rotate180)
 
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a CircleCompound, returns a CircleCompound.
-   *  The return type  will be narrowed in sub traits / classes. */
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a CircleCompound, returns a CircleCompound. */
   override def rotate270: CircleCompound =  CircleCompound(shape.rotate270, facets, children.rotate270)
 
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
   override def rotateRadians(radians: Double): CircleCompound = CircleCompound(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
 
-  override def reflect(lineLike: LineLike): CircleCompound = ??? //CircleGraphic(shape.reflect(line), facets, children.reflect(line))
-
- // override def reflect(line: LineSeg): CircleCompound = ???
+  override def reflect(lineLike: LineLike): CircleCompound = ??? //CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
   override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound = ???
 
