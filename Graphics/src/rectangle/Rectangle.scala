@@ -91,17 +91,16 @@ trait Rectangle extends Rectangular with Polygon
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.cenV0V1(cen.negX, v0.negX, v1.negX)
 
-
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: Rectangle = ???
+  override def rotate90: Rectangle = Rectangle.cenV0V1(cen.rotate90, v0.rotate90, v1.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Rectangle = ???
+  override def rotate180: Rectangle = Rectangle.cenV0V1(cen.rotate180, v0.rotate180, v1.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: Rectangle = ???
+  override def rotate270: Rectangle = Rectangle.cenV0V1(cen.rotate270, v0.rotate270, v1.rotate270)
 
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV0V1(cen.prolign(matrix), v0.prolign(matrix), v1.prolign(matrix))
 
@@ -255,7 +254,5 @@ object Rectangle
 
     /** Factory method for creating a [[RectangleImp]] rectangle from the points cen, v0 and v1 */    
     def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectangleImp = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-
-   
   }
 }

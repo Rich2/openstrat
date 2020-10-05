@@ -27,12 +27,11 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
    * in sub classes. */
   override def negX: PolygonGraphic
 
+  override def rotate90: PolygonGraphic
 
-  override def rotate90: PolygonGraphic = ???
+  override def rotate180: PolygonGraphic
 
-  override def rotate180: PolygonGraphic = ???
-
-  override def rotate270: PolygonGraphic = ???
+  override def rotate270: PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
   

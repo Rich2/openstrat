@@ -49,18 +49,17 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
    * in sub classes. */
   override def negX: PolygonGraphicSimple
 
-
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonGraphicSimple, returns a PolygonGraphicSimple. The
    * return type will be narrowed in sub traits / classes. */
-  override def rotate90: PolygonGraphicSimple = ???
+  override def rotate90: PolygonGraphicSimple
 
   /** Rotate 180 degrees 2D geometric transformation on a PolygonGraphicSimple, returns a PolygonGraphicSimple. The return type will be narrowed in sub traits /
    * classes. */
-  override def rotate180: PolygonGraphicSimple = ???
+  override def rotate180: PolygonGraphicSimple
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonGraphicSimple, returns a PolygonGraphicSimple. The
    * return type will be narrowed in sub traits / classes. */
-  override def rotate270: PolygonGraphicSimple = ???
+  override def rotate270: PolygonGraphicSimple
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphicSimple
 
