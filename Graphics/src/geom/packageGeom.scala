@@ -13,22 +13,19 @@ package object geom
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   
   implicit def slateToExtensions[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)
-  //implicit def rotateAxesToExtensions[T](value: T)(implicit ev: RotateAxes[T]): RotateAxesExtensions[T] = new RotateAxesExtensions[T](value, ev)
-  implicit def rotateToExtensions[T](value: T)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)  
   implicit def scaleToExtensions[T](value: T)(implicit ev: Scale[T]): ScaleExtensions[T] = new ScaleExtensions[T](value, ev)
+  implicit def transAxesToExtension[T](value: T)(implicit ev: TransAxes[T]): TransAxesExtension[T] = new TransAxesExtension[T](value)(ev)  
+  implicit def rotateToExtensions[T](value: T)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)  
+  
   implicit def xyScaleToExtensions[T](value: T)(implicit ev: XYScale[T]): XYScaleExtensions[T] = new XYScaleExtensions[T](value, ev)
   implicit def shearToExtensions[T](value: T)(implicit ev: Shear[T]): ShearExtensions[T] = new ShearExtensions[T](value, ev)
+
+  implicit def slateTransAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: TransAxes[T]): SlateTransAxesExtensions[T] =
+    new SlateTransAxesExtensions[T](value)(evS, evR)
+  
   implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
-  }
-
-  implicit def slateReflectAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: TransAxes[T]): SlateReflectAxesExtensions[T] =
-    new SlateReflectAxesExtensions[T](value)(evS, evR)
- 
-  /*implicit def mirrorAxisOffsetToExtension[T](value: T)(implicit ev: ReflectAxesOffset[T]): ReflectAxisOffsetExtension[T] =
-    new ReflectAxisOffsetExtension[T](value)(ev)*/
-
-  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: TransAxes[T]): TransAxesExtension[T] = new TransAxesExtension[T](value)(ev)
+  }  
     
   /** The ratio of the degoid to a degree. Th degoid has been chosen as a convenient way to encode Angles using an underlying Double floating point
    * value. It has been chosen to allow the precise encoding of degrees and decimals of a degree down to 1 millionth. */  
