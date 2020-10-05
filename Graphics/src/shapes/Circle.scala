@@ -67,14 +67,11 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
   override def fill(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
-  //override def fill(fillColour: Colour): CircleCompound = CircleCompound(this, Arr(FillFacet(fillColour)))
+
   def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound =
     CircleCompound(this, Arr(FillRadial(cenColour, outerColour)), Arr())
   
   override def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
-
-  /*override def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleCompound =
-    CircleCompound(this, Arr(DrawFacet(lineWidth, lineColour)), Arr())*/
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): CircleCompound =
     CircleCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr())  

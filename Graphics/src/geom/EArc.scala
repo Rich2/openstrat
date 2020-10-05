@@ -19,34 +19,34 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   //override def reflect(line: Line): EArc = ???
   
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): GeomElem = ???
+  override def slate(xOffset: Double, yOffset: Double): EArc = ???
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: GeomElem = ???
+  override def negY: EArc = ???
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: GeomElem = ???
+  override def negX: EArc = ???
 
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
    * classes. */
-  override def rotate90: GeomElem = ???
+  override def rotate90: EArc = ???
 
   /** Rotate 180 degrees 2D geometric transformation. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: GeomElem = ???
+  override def rotate180: EArc = ???
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
    * classes. */
-  override def rotate270: GeomElem = ???
+  override def rotate270: EArc = ???
 
-  override def prolign(matrix: ProlignMatrix): GeomElem = ???
+  override def prolign(matrix: ProlignMatrix): EArc = ???
 
-  override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???
+  override def xyScale(xOperand: Double, yOperand: Double): EArc = ???
 
-  override def xShear(operand: Double): GeomElem = ???
-  override def yShear(operand: Double): GeomElem = ???
+  override def xShear(operand: Double): EArc = ???
+  override def yShear(operand: Double): EArc = ???
 }
 
 object EArc
