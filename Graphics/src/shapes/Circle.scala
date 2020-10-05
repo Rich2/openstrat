@@ -54,6 +54,15 @@ final case class Circle(radius: Double, xCen: Double, yCen: Double) extends Elli
   override def negY: Circle = Circle(radius, cen.negY)
 
   override def negX: Circle = Circle(radius, cen.negX)
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
+  override def rotate90: Circle = fTrans(_.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Circle, returns a Circle. */
+  override def rotate180: Circle = fTrans(_.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
+  override def rotate270: Circle = fTrans(_.rotate270)
   
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   

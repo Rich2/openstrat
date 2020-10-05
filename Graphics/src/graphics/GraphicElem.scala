@@ -28,6 +28,18 @@ trait GraphicElem extends GeomElem
    *  sub traits / classes. */
   override def negX: GraphicElem
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return
+   *  type will be narrowed in sub traits / classes. */
+  override def rotate90: GraphicElem
+
+  /** Rotate 180 degrees 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: GraphicElem
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return
+   *  type will be narrowed in sub traits / classes. */
+  override def rotate270: GraphicElem
+
   /** 2D geometric transformation using a [[ProlignMatrix]] on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
    *  classes. */
   override def prolign(matrix: ProlignMatrix): GraphicElem

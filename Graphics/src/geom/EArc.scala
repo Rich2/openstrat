@@ -29,6 +29,18 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
    * in sub classes. */
   override def negX: GeomElem = ???
 
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate90: GeomElem = ???
+
+  /** Rotate 180 degrees 2D geometric transformation. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: GeomElem = ???
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate270: GeomElem = ???
+
   override def prolign(matrix: ProlignMatrix): GeomElem = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???

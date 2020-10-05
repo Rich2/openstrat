@@ -22,7 +22,20 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   override def negY: PolygonDraw = PolygonDraw(shape.negY, lineWidth, lineColour)
 
   /** Mirror, reflection transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
-  override def negX: PolygonDraw = PolygonDraw(shape.negY, lineWidth, lineColour)
+  override def negX: PolygonDraw = PolygonDraw(shape.negX, lineWidth, lineColour)
+
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonDraw, returns a PolygonDraw. The return
+   * type will be narrowed in sub traits / classes. */
+  override def rotate90: PolygonDraw = PolygonDraw(shape.rotate90, lineWidth, lineColour)
+
+  /** Rotate 180 degrees 2D geometric transformation on a PolygonDraw, returns a PolygonDraw. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: PolygonDraw = PolygonDraw(shape.rotate180, lineWidth, lineColour)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonDraw, returns a PolygonDraw. The return
+   * type will be narrowed in sub traits / classes. */
+  override def rotate270: PolygonDraw = PolygonDraw(shape.rotate270, lineWidth, lineColour)
 
   /** Mirror, reflection transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
   override def prolign(matrix: ProlignMatrix): PolygonDraw = PolygonDraw(shape.prolign(matrix), lineWidth, lineColour)

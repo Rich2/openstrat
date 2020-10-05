@@ -37,6 +37,18 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
    * in sub classes. */
   override def negX: CircleCompound = CircleCompound(shape.negX, facets, children.negX)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a CircleCompound, returns a CircleCompound.
+   *  The return type will be narrowed in sub traits / classes. */
+  override def rotate90: CircleCompound = CircleCompound(shape.rotate90, facets, children.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a CircleCompound, returns a CircleCompound. The return type will be narrowed in sub traits
+   *  / classes. */
+  override def rotate180: CircleCompound =  CircleCompound(shape.rotate180, facets, children.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a CircleCompound, returns a CircleCompound.
+   *  The return type  will be narrowed in sub traits / classes. */
+  override def rotate270: CircleCompound =  CircleCompound(shape.rotate270, facets, children.rotate270)
+
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
   override def rotateRadians(radians: Double): CircleCompound = CircleCompound(shape.rotateRadians(radians), facets, children.rotateRadians(radians))

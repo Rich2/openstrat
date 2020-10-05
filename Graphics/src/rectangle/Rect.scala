@@ -37,6 +37,17 @@ trait Rect extends Rectangle with Rectangularlign
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect(width, height, cen.negX)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rect, returns a Rect. The return type will be
+   *  narrowed in sub traits / classes. */
+  override def rotate90: Rect = Rect(height, width, cen.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Rect, returns a Rect. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Rect = Rect(width, height, cen.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rect, returns a Rect. The return type  will be
+   *  narrowed in sub traits / classes. */
+  override def rotate270: Rect = Rect(height, width, cen.rotate270)
+
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))

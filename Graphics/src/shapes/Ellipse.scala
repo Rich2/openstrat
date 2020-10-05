@@ -113,6 +113,17 @@ trait Ellipse extends Shape with Curve
 
   override def negX: Ellipse = fTrans(_.negX)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Ellipse, returns a Ellipse. The return type will be
+   *  narrowed in sub traits / classes. */
+  override def rotate90: Ellipse = fTrans(_.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Ellipse, returns a Ellipse. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Ellipse = fTrans(_.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Ellipse, returns a Ellipse. The return type  will be
+   *  narrowed in sub traits / classes. */
+  override def rotate270: Ellipse = fTrans(_.rotate270)
+
   override def reflect(lineLike: LineLike): Ellipse = ???
 
   //override def reflect(line: LineSeg): Ellipse = ???

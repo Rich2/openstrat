@@ -29,6 +29,18 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
    * in sub classes. */
   override def negX: PolygonFill = PolygonFill(shape.negX, colour)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return
+   * type will be narrowed in sub traits / classes. */
+  override def rotate90: PolygonFill = PolygonFill(shape.rotate90, colour)
+
+  /** Rotate 180 degrees 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: PolygonFill =  PolygonFill(shape.rotate180, colour)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return
+   * type will be narrowed in sub traits / classes. */
+  override def rotate270: PolygonFill =  PolygonFill(shape.rotate270, colour)
+
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), colour)
 
   override def rotateRadians(radians: Double): PolygonFill = PolygonFill(shape.rotateRadians(radians), colour)

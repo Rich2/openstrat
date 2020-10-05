@@ -39,8 +39,18 @@ trait Shape extends Fillable
    *  classes. */
   override def negX: Shape
 
-  /** 2D Transformation using a [[ProlignMatrix]] on a Shape, returns a Shape. The Return type will be narrowed in sub traits /
-  *  classes. */
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Shape, returns a Shape. The return type will
+   *  be narrowed in sub traits / classes. */
+  override def rotate90: Shape
+
+  /** Rotate 180 degrees 2D geometric transformation on a Shape, returns a Shape. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Shape
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Shape, returns a Shape. The return type will
+   *  be narrowed in sub traits / classes. */
+  override def rotate270: Shape
+
+  /** 2D Transformation using a [[ProlignMatrix]] on a Shape, returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def prolign(matrix: ProlignMatrix): Shape
 
   /** Rotation 2D geometric transformation on a Shape taking the rotation as a scalar measured in radians, returns a Shape. The Return type will be

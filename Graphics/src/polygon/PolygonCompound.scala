@@ -37,7 +37,18 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: PolygonCompound = PolygonCompound(shape.negX, facets, children.negX) 
+  override def negX: PolygonCompound = PolygonCompound(shape.negX, facets, children.negX)
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonCompound, returns a PolygonCompound.
+   *  The return type will be narrowed in sub traits / classes. */
+  override def rotate90: PolygonCompound = PolygonCompound(shape.rotate90, facets, children.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a PolygonCompound, returns a PolygonCompound. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: PolygonCompound =  PolygonCompound(shape.rotate180, facets, children.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonCompound, returns a PolygonCompound. The return type  will be
+   *  narrowed in sub traits / classes. */
+  override def rotate270: PolygonCompound =  PolygonCompound(shape.rotate270, facets, children.rotate270)
 
   override def prolign(matrix: ProlignMatrix): PolygonCompound = ???
 
