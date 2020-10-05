@@ -27,6 +27,7 @@ trait EllipseFill extends EllipseGraphicSimple with ShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): EllipseDraw = shape.draw(lineWidth, newColour)
 }
 
+/** Companion object for the EllipseFill class. */
 object EllipseFill
 {
   def apply(shape: Ellipse, colour: Colour): EllipseFill = EllipseFillImp(shape, colour)

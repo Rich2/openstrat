@@ -124,9 +124,9 @@ object CanvasJs extends CanvasTopLeft
     gc.lineTo(dld.xEnd, dld.yEnd)
     gc.strokeStyle = dld.colour.webStr
     gc.lineWidth = dld.lineWidth
-    gc.setLineDash(scalajs.js.Array.apply(dld.dashArr: _ *))    
+    gc.setLineDash(scalajs.js.Array(dld.dashArr.toArraySeq))
     gc.stroke()
-    gc.setLineDash(scalajs.js.Array.apply())
+    gc.setLineDash(scalajs.js.Array())
   }
    
   override protected[this] def tlCArcDrawOld(ad: CArcDrawOld): Unit =
@@ -147,13 +147,6 @@ object CanvasJs extends CanvasTopLeft
     gc.strokeStyle = cad.lineColour.webStr
     gc.stroke()
   }
-
-  /*override def tlCircleFillOld(cf: CircleFillOld): Unit =
-  { gc.beginPath()
-    gc.fillStyle = cf.fillColour.webStr
-    gc.arc(cf.xCen, cf.yCen, cf.radius, 0, Pi * 2)
-    gc.fill()
-  }*/
 
   override def tlCircleFill(circle: Circle, colour: Colour): Unit =
   { gc.beginPath()
@@ -264,7 +257,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def clear(colour: Colour): Unit = { gc.fillStyle = colour.webStr; gc.fillRect(0, 0, width, height) }
 
-  override protected[this] def tlClip(pts: PolygonGen): Unit =
+  override protected[this] def tlClip(pts: PolygonImp): Unit =
   { gc.beginPath()
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)

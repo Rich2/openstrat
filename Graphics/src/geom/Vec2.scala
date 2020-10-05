@@ -135,13 +135,13 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   }
   
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
-  def rotate90: Vec2 = Vec2(-y, x)
+  @inline def rotate90: Vec2 = Vec2(-y, x)
   
   /** Rotates the vector 180 degrees or Pi radians. */
-  def rotate180: Vec2 = Vec2(-x, -y)
+  @inline def rotate180: Vec2 = Vec2(-x, -y)
 
   /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
-  def rotate270: Vec2 = Vec2(y, -x)
+  @inline def rotate270: Vec2 = Vec2(y, -x)
 
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle.radians(angleRadians)
@@ -151,8 +151,14 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   /** Not sure about this method. */
   def lineAlong(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))
 
-  /** This sure looks right */
-  def rotate(a: Angle): Vec2 =  Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
+  /** Rotates this vector through the given angle around the origin. */
+  def rotate(a: Angle): Vec2 = a match
+  { case Deg0 => this
+    case Deg90 => rotate90
+    case Deg180 => rotate180
+    case Deg270 => rotate270  
+    case a => Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
+  }
 
   def rotateRadians(r: Double): Vec2 = Vec2(x * cos(r) - y * sin(r),
     { val ya = x * sin(r)
@@ -160,9 +166,9 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
       ya + yb
     })
    
-  def centreSquare(length: Double): PolygonGen =
+  def centreSquare(length: Double): PolygonImp =
   { val r = length / 2.0
-    PolygonGen(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y)
+    PolygonImp(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y)
   }
    
   def fillText(str: String, fontSize: Int, fontColour: Colour = Colour.Black) = TextGraphic(str, fontSize, this, fontColour)
@@ -199,7 +205,7 @@ object Vec2
   def circlePtClockwise(angle: Double): Vec2 = Vec2(cos(angle), - sin(angle))
    
   implicit class Vec2IterableExtension(thisIter: Iterable[Vec2])
-  { def toPolygon: PolygonGen = thisIter.toArrProdHomo
+  { def toPolygon: PolygonImp = thisIter.toArrProdHomo
   }
 
   implicit val persistImplicit: PersistD2[Vec2] = new PersistD2[Vec2]("Vec2", "x", _.x, "y", _.y, apply)

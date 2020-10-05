@@ -29,9 +29,21 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
    * in sub classes. */
   override def negX: PolygonFill = PolygonFill(shape.negX, colour)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return
+   * type will be narrowed in sub traits / classes. */
+  override def rotate90: PolygonFill = PolygonFill(shape.rotate90, colour)
+
+  /** Rotate 180 degrees 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: PolygonFill =  PolygonFill(shape.rotate180, colour)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return
+   * type will be narrowed in sub traits / classes. */
+  override def rotate270: PolygonFill =  PolygonFill(shape.rotate270, colour)
+
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), colour)
 
-  override def rotateRadians(radians: Double): PolygonFill = PolygonFill(shape.rotateRadians(radians), colour)
+  override def rotate(angle: Angle): PolygonFill = PolygonFill(shape.rotate(angle), colour)
 
   override def xShear(operand: Double): PolygonFill = ???
 
@@ -57,13 +69,16 @@ object PolygonFill
 
   implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[PolygonFill] = new ReflectAxes[PolygonFill]
+  implicit val reflectAxesImplicit: TransAxes[PolygonFill] = new TransAxes[PolygonFill]
   { override def negYT(obj: PolygonFill): PolygonFill = obj.negY
     override def negXT(obj: PolygonFill): PolygonFill = obj.negX
+    override def rotate90T(obj: PolygonFill): PolygonFill = obj.rotate90
+    override def rotate180T(obj: PolygonFill): PolygonFill = obj.rotate180
+    override def rotate270T(obj: PolygonFill): PolygonFill = obj.rotate270
   }
 
   /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a

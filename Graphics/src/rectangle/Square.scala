@@ -5,7 +5,8 @@ import pWeb._
 
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareGen]], a general square. */
 trait Square extends Rectangle
-{ def height: Double = width
+{ //def width: Double
+  //def height: Double = width
 
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(offset: Vec2): Square = Square.cenV0(cen + offset, v0 + offset)
@@ -22,15 +23,24 @@ trait Square extends Rectangle
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
   override def negX: Square = Square.cenV0(cen.negX, v0.negX)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
+  override def rotate90: Square = Square.cenV0(cen.rotate90, v0.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Square, returns a Square. */
+  override def rotate180: Square = Square.cenV0(cen.rotate180, v0.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
+  override def rotate270: Square = Square.cenV0(cen.rotate270, v0.rotate270)
+
   override def prolign(matrix: ProlignMatrix): Square = Square.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
   override def reflect(lineLike: LineLike): Square = Square.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
 
-  override def rotateRadians(radians: Double): Square = Square.cenV0(cen.rotateRadians(radians), v0.rotateRadians(radians))
+  override def rotate(angle: Angle): Square = Square.cenV0(cen.rotate(angle), v0.rotate(angle))
 }
 
-/** Companion object for the Square trait. However its apply methods delegate to the SquareClass implementation class. */
-object Square
+/** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
+object Square extends ShapeIcon
 {
   def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
@@ -41,9 +51,17 @@ object Square
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
     new SquareImp(xCen, yCen, xCen + delta.x, yCen + delta.y)
   }
-  
+
   def cenV0(cen: Vec2, v0: Vec2): Square = new SquareImp(cen.x, cen.y, v0.x, v0.y)
-  
+
+  /** Scale the Square and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
+  override def reify(scale: Double, xCen: Double, yCen: Double): Sqlign = Sqlign(scale, xCen, yCen)
+
+  /** Scale the Shape and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
+  override def reify(scale: Double, cen: Vec2): Shape = Sqlign(scale, cen)
+
+  override def fill(colour: Colour): ShapeGraphicIcon = ???
+
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
   final class SquareImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double) extends Square with RectCenV0
@@ -75,7 +93,7 @@ object Square
 
     override def prolign(matrix: ProlignMatrix): SquareImp = SquareImp.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
-    override def rotateRadians(radians: Double): SquareImp = SquareImp.cenV0(cen.rotateRadians(radians), v0.rotateRadians(radians)) 
+    override def rotate(angle: Angle): SquareImp = SquareImp.cenV0(cen.rotate(angle), v0.rotate(angle))
 
     override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
 
@@ -89,7 +107,7 @@ object Square
   {
     def cenV0(cen: Vec2, v0: Vec2): SquareImp = new SquareImp(cen.x, cen.y, v0.x, v0.y)
 
-    def xy(width: Double, xCen: Double, yCen: Double): PolygonGen = PolygonGen(
+    def xy(width: Double, xCen: Double, yCen: Double): PolygonImp = PolygonImp(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen - width / 2,

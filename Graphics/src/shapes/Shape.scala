@@ -21,33 +21,54 @@ trait Shape extends Fillable
 
   def cen: Vec2
   
-  /** Translate geometric transformation on a Shape returns a Shape. */
+  /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def slate(offset: Vec2): Shape
 
-  /** Translate geometric transformation. */
+  /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): Shape
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  /** Uniform scaling 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
+   *  xyScale method for differential scaling on the X and Y axes. */
   override def scale(operand: Double): Shape
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection 2D geometric transformation across the X axis on a Shape returns a Shape. The Return type will be narrowed in sub traits /
+   *  classes. */
   override def negY: Shape
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** Mirror, reflection 2D geometric transformation across the X axis on a Shape returns a Shape. The Return type will be narrowed in sub traits /
+   *  classes. */
   override def negX: Shape
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Shape, returns a Shape. The return type will
+   *  be narrowed in sub traits / classes. */
+  override def rotate90: Shape
+
+  /** Rotate 180 degrees 2D geometric transformation on a Shape, returns a Shape. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Shape
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Shape, returns a Shape. The return type will
+   *  be narrowed in sub traits / classes. */
+  override def rotate270: Shape
+
+  /** 2D Transformation using a [[ProlignMatrix]] on a Shape, returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def prolign(matrix: ProlignMatrix): Shape
 
-  override def rotateRadians(radians: Double): Shape
+  /** Rotation 2D geometric transformation on a Shape taking the rotation as a scalar measured in radians, returns a Shape. The Return type will be
+   *  narrowed in sub traits / classes. */
+  override def rotate(angle: Angle): Shape
 
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a Shape, returns a Shape. The Return type will be narrowed in sub
+   *  traits / classes. */
   override def reflect(lineLike: LineLike): Shape
-  //override def reflect(line: LineSeg): Shape
+
+  /** XY scaling 2D geometric transformation on a Shape returns a Shape. This allows different scaling factors across X and Y dimensions. The return
+   *  type will be narrowed in sub classes and traits. */
   override def xyScale(xOperand: Double, yOperand: Double): Shape
 
+  /** Shear 2D geometric transformation along the X Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def xShear(operand: Double): Shape
+
+  /** Shear 2D geometric transformation along the Y Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def yShear(operand: Double): Shape
 }
 
@@ -56,13 +77,16 @@ object Shape
 {
   implicit val slateImplicit: Slate[Shape] = (obj: Shape, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val reflectAxesImplicit: ReflectAxes[Shape] = new ReflectAxes[Shape]
+  implicit val reflectAxesImplicit: TransAxes[Shape] = new TransAxes[Shape]
   { override def negYT(obj: Shape): Shape = obj.negY
     override def negXT(obj: Shape): Shape = obj.negX
+    override def rotate90T(obj: Shape): Shape = obj.rotate90
+    override def rotate180T(obj: Shape): Shape = obj.rotate180
+    override def rotate270T(obj: Shape): Shape = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[Shape] = new Shear[Shape]

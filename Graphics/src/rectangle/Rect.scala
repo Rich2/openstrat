@@ -19,6 +19,8 @@ trait Rect extends Rectangle with Rectangularlign
   @inline final def x3: Double = xTopLeft
   @inline final def y3: Double = yTopLeft
   @inline final def v3: Vec2 = topLeft
+  final override def width1 = width
+  final override def width2: Double = height
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2): Rect = Rect(width, height, cen + offset)
@@ -34,6 +36,17 @@ trait Rect extends Rectangle with Rectangularlign
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect(width, height, cen.negX)
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rect, returns a Rect. The return type will be
+   *  narrowed in sub traits / classes. */
+  override def rotate90: Rect = Rect(height, width, cen.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Rect, returns a Rect. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Rect = Rect(width, height, cen.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rect, returns a Rect. The return type  will be
+   *  narrowed in sub traits / classes. */
+  override def rotate270: Rect = Rect(height, width, cen.rotate270)
 
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
@@ -54,7 +67,9 @@ object Rect
   final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
   { override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0(f(cen), f(v0))
     override def attribs: Arr[XANumeric] = ???
-    
+    override def xLs3Cen: Double = ls3Cen.x
+    override def yLs3Cen: Double = ls3Cen.y
+    override def ls3Cen: Vec2 = (v3 + v0) / 2
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(offset: Vec2): RectImp = RectImp(width, height, cen + offset)
 

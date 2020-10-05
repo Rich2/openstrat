@@ -34,9 +34,21 @@ trait ShapeGraphic extends GraphicElem
    * in sub classes. */
   def negX: ShapeGraphic
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a ShapeGraphic, returns a ShapeGraphic. The
+   *  return type will be narrowed in sub traits / classes. */
+  def rotate90: ShapeGraphic
+
+  /** Rotate 180 degrees 2D geometric transformation on a ShapeGraphic, returns a ShapeGraphic. The return type will be narrowed in sub traits /
+   *  classes. */
+  override def rotate180: ShapeGraphic
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a ShapeGraphic, returns a ShapeGraphic. The
+   *  return type will be narrowed in sub traits / classes. */
+  override def rotate270: ShapeGraphic
+
   def prolign(matrix: ProlignMatrix): ShapeGraphic
 
-  def rotateRadians(radians: Double): ShapeGraphic
+  def rotate(angle: Angle): ShapeGraphic
 
   def reflect(lineLike: LineLike): ShapeGraphic
 
@@ -58,12 +70,15 @@ object ShapeGraphic
   
   implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[ShapeGraphic] = new ReflectAxes[ShapeGraphic]
+  implicit val reflectAxesImplicit: TransAxes[ShapeGraphic] = new TransAxes[ShapeGraphic]
   { override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
     override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
+    override def rotate90T(obj: ShapeGraphic): ShapeGraphic = obj.rotate90
+    override def rotate180T(obj: ShapeGraphic): ShapeGraphic = obj.rotate180
+    override def rotate270T(obj: ShapeGraphic): ShapeGraphic = obj.rotate270
   }
 }

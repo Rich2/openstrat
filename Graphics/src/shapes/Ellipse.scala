@@ -11,7 +11,8 @@ trait Ellipse extends Shape with Curve
 
   override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineWidth, lineColour)
 
-  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): GraphicElem = ???
+  override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): GraphicElem =
+    EllipseCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))
   
   /** The x component of centre of the ellipse. */
   def xCen: Double
@@ -107,36 +108,41 @@ trait Ellipse extends Shape with Curve
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
-  override def rotateRadians(radians: Double): Ellipse = fTrans(_.rotateRadians(radians))
+  override def rotate(angle: Angle): Ellipse = fTrans(_.rotate(angle))
 
   override def negY: Ellipse = fTrans(_.negY)
 
   override def negX: Ellipse = fTrans(_.negX)
 
-  override def reflect(lineLike: LineLike): Ellipse = ???
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Ellipse, returns a Ellipse. The return type will be
+   *  narrowed in sub traits / classes. */
+  override def rotate90: Ellipse = fTrans(_.rotate90)
 
-  //override def reflect(line: LineSeg): Ellipse = ???
+  /** Rotate 180 degrees 2D geometric transformation on a Ellipse, returns a Ellipse. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Ellipse = fTrans(_.rotate180)
 
-  override def xShear(operand: Double): Ellipse = ???
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Ellipse, returns a Ellipse. The return type  will be
+   *  narrowed in sub traits / classes. */
+  override def rotate270: Ellipse = fTrans(_.rotate270)
 
-  override def yShear(operand: Double): Ellipse = ???
+  override def reflect(lineLike: LineLike): Ellipse = fTrans(_.reflect(lineLike))
 
+  override def xShear(operand: Double): Ellipse = fTrans(_.xShear(operand))
+
+  override def yShear(operand: Double): Ellipse = fTrans(_.yShear(operand))
 }
 
+/** Companion object for the Ellipse trait caontains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp.. */
 object Ellipse
-{ /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[Implementation]] class. */
-  def apply(radius1: Double, radius0: Double): Ellipse = new Implementation(0, 0, radius1, 0,  radius0)
+{ /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
+  def apply(radius1: Double, radius0: Double): Ellipse = new EllipseImp(0, 0, radius1, 0,  radius0)
 
-  /** Factory method for an [[Ellipse]]. The apply factory methods in this Ellipse companion object default to an [[Implementation]] class. */
-  def apply(radius1: Double, radius0: Double, cen: Vec2): Ellipse = new Implementation(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
+  /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
+  def apply(radius1: Double, radius0: Double, cen: Vec2): Ellipse = new EllipseImp(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
 
-  /** The apply factory methods default to an [[Ellipse.Implementation]] Class. */
-  /*def apply(radiusA: Double, radiusB: Double, xCen: Double, yCen: Double): Ellipse =
-    new Implementation(xCen, yCen, xCen + radiusA, yCen, xCen, yCen + radiusB)*/
-
-  def cs1s0(cen: Vec2, v1: Vec2, v0: Vec2): Implementation =
+  def cs1s0(cen: Vec2, v1: Vec2, v0: Vec2): EllipseImp =
   { val radius0: Double = (v0 - cen).magnitude
-    new Implementation(cen.x, cen.y, v1.x, v1.y, radius0)
+    new EllipseImp(cen.x, cen.y, v1.x, v1.y, radius0)
   }
 
   implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s0(ell.cen + offset, ell.s1 + offset, ell.s0 + offset)
@@ -145,7 +151,7 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  case class Implementation(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius0: Double) extends Ellipse
+  case class EllipseImp(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius0: Double) extends Ellipse
   { override def s0: Vec2 = cen + s0Angle.toVec2(radius0)
     override def xs0: Double = s0.x
     override def ys0: Double = s1.y
@@ -161,10 +167,7 @@ object Ellipse
     def b: Double = radius1.min(radius0)
     override def area: Double = Pi * radius1 * radius0
     override def e: Double = sqrt(a.squared - b.squared) / a
-    override def h: Double = (a - b).squared / (a + b).squared  
-    //override def fill(fillColour: Colour): ShapeFill = ???
-    //override def fill(fillColour: Colour): EllipseCompound = EllipseCompound(this, Arr(FillFacet(fillColour)), Arr())
-   // override def draw(lineWidth: Double, lineColour: Colour): EllipseDraw = ???
+    override def h: Double = (a - b).squared / (a + b).squared
 
     def boundingRect: BoundingRect =
     { val xd0: Double = radius1.squared * (ellipeRotation.cos).squared + radius0.squared * (ellipeRotation.sin).squared

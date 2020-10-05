@@ -33,7 +33,7 @@ final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
 
   def toHexTile: HexTile = HexTile(y, c)
   def toSqTile: SqTile = SqTile(y, c)
-  def tilePoly(implicit tileGrid: TileGridSimple): PolygonGen = tileGrid.roordToPolygon(this)
+  def tilePoly(implicit tileGrid: TileGridSimple): PolygonImp = tileGrid.roordToPolygon(this)
   def gridVec2(implicit tileGrid: TileGridSimple): Vec2 = tileGrid.roordToVec2(this)
   def andStep(st: HTStep): HTileAndStep = HTileAndStep(y, c, st)
   def step(st: HTStep): Roord = this + st.roord

@@ -23,7 +23,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 
   override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), colour)
 
-  override def rotateRadians(radians: Double): RectangleFill = RectangleFill(shape.rotateRadians(radians), colour)
+  override def rotate(angle: Angle): RectangleFill = RectangleFill(shape.rotate(angle), colour)
 
   override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), colour)
 

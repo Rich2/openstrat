@@ -13,9 +13,9 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val sls = grid.sidesDraw(2.0)
   val players = scen.characs.mapSomes { (r, cp) =>
-    val poly1: PolygonGen = Rectangle.applyOld(1.5).insVerts(1, -0.25 vv 0.5, 0 vv 0.8, 0.25 vv 0.5).rotate(cp.facing.angle)
-    val poly2: PolygonGen = poly1.scale( 0.75).slate(r.gridVec2)
-    poly2.fillDrawTextActiveOld(cp.charac.colour, cp, cp.charac.iden.toString, 16, 2.0, cp.charac.colour.contrast)
+    val poly1: PolygonImp = Rectangle.applyOld(1.5).insVerts(1, -0.25 vv 0.5, 0 vv 0.8, 0.25 vv 0.5).rotate(cp.facing.angle)
+    val poly2: PolygonImp = poly1.scale( 0.75).slate(r.gridVec2)
+    poly2.fillDrawTextActive(cp.charac.colour, cp, cp.charac.iden.toString, 16, 2.0, cp.charac.colour.contrast)
   }
 
   def thisTop(): Unit = reTop(Arr(status))

@@ -134,7 +134,7 @@ trait TileGridSimple
   final def foreachRVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
   /** maps over each tile's Roord and its Polygon. */
-  final def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, PolygonGen) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  final def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, PolygonImp) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map { roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToVec2(c))
@@ -142,7 +142,7 @@ trait TileGridSimple
     }
 
   /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonActiveOnly]
+  def activeTiles: Arr[PolygonActive]
 
   /** New mutable Array of Tile data. All tiles set to an initial value. */
   final def newTileArray[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =
@@ -202,7 +202,7 @@ trait TileGridSimple
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
   def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (roordToVec2(roord) - gridPosn -cen) * scale
 
-  def roordToPolygon(roord: Roord): PolygonGen = tileVertRoords(roord).map(c => roordToVec2(c)).toPolygon
+  def roordToPolygon(roord: Roord): PolygonImp = tileVertRoords(roord).map(c => roordToVec2(c)).toPolygon
 
   /** The Roords of the vertices of a tile, from its centre Roord. */
   def tileVertRoords(roord: Roord): Roords

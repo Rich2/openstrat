@@ -19,7 +19,7 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour
   def shear(xScale: Double, yScale: Double): AffinePreserve = ???
   override def xyScale(xOperand: Double, yOperand: Double): GraphicElem = ???
 
-  override def xShear(operand: Double): TransElem = ???
+  override def xShear(operand: Double): GraphicElem = ???
 
-  override def yShear(operand: Double): TransElem = ???
+  override def yShear(operand: Double): GraphicElem = ???
 }

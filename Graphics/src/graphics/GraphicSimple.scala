@@ -24,9 +24,21 @@ trait GraphicSimple extends GraphicElem
    * in sub classes. */
   override def negX: GraphicSimple
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The
+   *  return type will be narrowed in sub traits / classes. */
+  override def rotate90: GraphicSimple
+
+  /** Rotate 180 degrees 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: GraphicSimple
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The
+   *  return type will be narrowed in sub traits / classes. */
+  override def rotate270: GraphicSimple
+
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
-  override def rotateRadians(radians: Double): GraphicSimple
+  override def rotate(angle: Angle): GraphicSimple
 
   override def reflect(lineLike: LineLike): GraphicSimple
 
@@ -38,12 +50,15 @@ object GraphicSimple
 {
   implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, radians: Double) => obj.rotateRadians(radians)  
+  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
   
-  implicit val reflectAxesImplicit: ReflectAxes[GraphicSimple] = new ReflectAxes[GraphicSimple]
+  implicit val reflectAxesImplicit: TransAxes[GraphicSimple] = new TransAxes[GraphicSimple]
   { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
     override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
+    override def rotate90T(obj: GraphicSimple): GraphicSimple = obj.rotate90
+    override def rotate180T(obj: GraphicSimple): GraphicSimple = obj.rotate180
+    override def rotate270T(obj: GraphicSimple): GraphicSimple = obj.rotate270
   }  
 }

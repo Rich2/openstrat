@@ -28,9 +28,22 @@ trait ShapeCompound extends ShapeGraphic
    * in sub classes. */
   override def negX: ShapeCompound
 
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a ShapeCompound, returns a ShapeCompound. The
+   * return type will be narrowed in sub traits / classes. */
+  override def rotate90: ShapeCompound = ???
+
+  /** Rotate 180 degrees 2D geometric transformation on a ShapeCompound, returns a ShapeCompound. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: ShapeCompound = ???
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a ShapeCompound, returns a ShapeCompound. The
+   * return type will be narrowed in sub traits / classes. */
+  override def rotate270: ShapeCompound = ???
+
   override def prolign(matrix: ProlignMatrix): ShapeCompound
 
-  override def rotateRadians(radians: Double): ShapeCompound
+  override def rotate(angle: Angle): ShapeCompound
 
   override def reflect(lineLike: LineLike): ShapeCompound
 
@@ -48,11 +61,14 @@ object ShapeCompound
 {
   implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: Angle) => obj.rotate(angle)
 
-  implicit val reflectAxesImplicit: ReflectAxes[ShapeCompound] = new ReflectAxes[ShapeCompound]
+  implicit val reflectAxesImplicit: TransAxes[ShapeCompound] = new TransAxes[ShapeCompound]
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
+    override def rotate90T(obj: ShapeCompound): ShapeCompound = obj.rotate90
+    override def rotate180T(obj: ShapeCompound): ShapeCompound = obj.rotate180
+    override def rotate270T(obj: ShapeCompound): ShapeCompound = obj.rotate270
   }
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  

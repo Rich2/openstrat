@@ -12,9 +12,9 @@ trait TransAlign[T]
 /** Companion object for the TransAlign type class. Contains instances for various container classes. */
 object TransAlign
 {
-  implicit def transImplicit: TransAlign[TransElem] = new TransAlign[TransElem]
-  { override def slate(obj: TransElem, offset: Vec2): TransElem = obj.slate(offset)
-    override def scale(obj: TransElem, operand: Double): TransElem = obj.scale(operand)
+  implicit def transImplicit: TransAlign[GeomElem] = new TransAlign[GeomElem]
+  { override def slate(obj: GeomElem, offset: Vec2): GeomElem = obj.slate(offset)
+    override def scale(obj: GeomElem, operand: Double): GeomElem = obj.scale(operand)
   }
 
   implicit def transAlignerImplicit[T <: SimilarPreserve]: TransAlign[T] = new TransAlign[T]

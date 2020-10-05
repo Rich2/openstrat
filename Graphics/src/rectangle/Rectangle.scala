@@ -3,9 +3,9 @@ package ostrat
 package geom
 import pWeb._
 
-/** Rectangle trait. The leaf classes of this class may or may not be squares and may or may not be aligned to the X and Y Axes. You can build a
- *  Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned to the X and Y axis prefer the
- *  factory methods on the companion object of the shorter named [[Rect]] trait. */
+/** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
+ *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
+ *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
 trait Rectangle extends Rectangular with Polygon
 { final override def length: Int = 4
   def x0: Double
@@ -19,7 +19,20 @@ trait Rectangle extends Rectangular with Polygon
   def x3: Double
   def y3: Double
   def v3: Vec2
+  
+  def xLs3Cen: Double
+  def yLs3Cen: Double
+  def ls3Cen: Vec2
+  
+  /** length from v1 to v2 and v3 to v4. */
+  def width1: Double
+  
+  /** length from v2 to v3 and v03 to v1. */
+  def width2: Double
+  
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
+  override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
+  
   override def ptsArray: Array[Double] = Array(x0, y0, x1, y1, x2, y2, x3, y3)
   
   def v0Mid1: Vec2 = v0.midPtTo(v1)
@@ -28,12 +41,11 @@ trait Rectangle extends Rectangular with Polygon
   def v3Mid0: Vec2 = v3.midPtTo(v0)
   
   def rotation: Angle
-  def widthAttrib: WidthAtt = WidthAtt(width)
-  def heightAttrib: HeightAtt = HeightAtt(height)
+  def widthAttrib: WidthAtt = WidthAtt(width1)
+  def heightAttrib: HeightAtt = HeightAtt(width2)
   def xAttrib: XAttrib = XAttrib(x3)
   def yAttrib: YAttrib = YAttrib(y3)
-  override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
-  
+  override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)  
   
   @inline final override def apply(index: Int): Vec2 = index match 
   { case 0 => v0
@@ -64,7 +76,7 @@ trait Rectangle extends Rectangular with Polygon
   final override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); () }
   final override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); f(x3, y3); () }
-
+  
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(offset: Vec2): Rectangle = Rectangle.cenV0V1(cen + offset, v0 + offset, v1 + offset)
 
@@ -81,11 +93,22 @@ trait Rectangle extends Rectangular with Polygon
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.cenV0V1(cen.negX, v0.negX, v1.negX)
 
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate90: Rectangle = Rectangle.cenV0V1(cen.rotate90, v0.rotate90, v1.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Rectangle = Rectangle.cenV0V1(cen.rotate180, v0.rotate180, v1.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate270: Rectangle = Rectangle.cenV0V1(cen.rotate270, v0.rotate270, v1.rotate270)
+
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV0V1(cen.prolign(matrix), v0.prolign(matrix), v1.prolign(matrix))
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.cenV0V1(cen.reflect(lineLike), v0.reflect(lineLike), v1.reflect(lineLike))
 
-  override def rotateRadians(radians: Double): Rectangle = Rectangle.cenV0V1(cen.rotateRadians(radians), v0.rotateRadians(radians), v1.rotateRadians(radians))
+  override def rotate(angle: Angle): Rectangle = Rectangle.cenV0V1(cen.rotate(angle), v0.rotate(angle), v1.rotate(angle))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.cenV0V1(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
@@ -101,9 +124,9 @@ object Rectangle
   }
   
   /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
-  def applyOld(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonGen =
+  def applyOld(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonImp =
   { val x = cen.x; val y = cen.y
-    PolygonGen(
+    PolygonImp(
         x - width / 2 vv y + height / 2,
         x + width / 2 vv y + height / 2,
         x + width / 2 vv y - height / 2,
@@ -116,32 +139,32 @@ object Rectangle
  // def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
   
   /** A rectangle measured from its top left */
-  def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): PolygonGen = PolygonGen(
+  def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): PolygonImp = PolygonImp(
       tlVec.x         vv tlVec.y,
       tlVec.x + width vv tlVec.y,
       tlVec.x + width vv tlVec.y - height,
       tlVec.x         vv tlVec.y -height)         
    
-  def fromBL(width: Double, height: Double, v: Vec2): PolygonGen = PolygonGen(
+  def fromBL(width: Double, height: Double, v: Vec2): PolygonImp = PolygonImp(
       v.x vv v.y + height,
       v.x + width vv v.y + height,
       v.x + width vv v.y,
       v.x vv v.y)
 
   /** Measured from bottom centre */      
-  def fromBC(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): PolygonGen =
+  def fromBC(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): PolygonImp =
   {
     val x = bottomCentre.x; val y = bottomCentre.y
-    PolygonGen(
+    PolygonImp(
         x - width / 2 vv y + height ,
         x + width / 2 vv y + height ,
         x + width / 2 vv y,
         x - width / 2 vv y)
   } 
   
-  def gRatio(height: Double): PolygonGen = applyOld(Phi * height, height)
+  def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
   //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))
-  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(applyOld(width, barWidth), applyOld(barWidth, height))
+  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
   
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
   { val w = width / 2
@@ -161,29 +184,32 @@ object Rectangle
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonCompound =
-    gRatio(height).fillDraw(colour, lineWidth, colour.contrast)
+    goldenRatio(height).fillDraw(colour, lineWidth, colour.contrast)
   
-  def fromAxis(centreLine: LineSeg, height: Double): PolygonGen =
+  def fromAxis(centreLine: LineSeg, height: Double): PolygonImp =
   { val hAngle: Angle = centreLine.angle
     val offset: Vec2 = hAngle.toVec2(height * 0.5)
-    PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
+    PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
   implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
   
-  implicit val reflectAxesImplicit: ReflectAxes[Rectangle] = new ReflectAxes[Rectangle]
+  implicit val reflectAxesImplicit: TransAxes[Rectangle] = new TransAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
+    override def rotate90T(obj: Rectangle): Rectangle = obj.rotate90
+    override def rotate180T(obj: Rectangle): Rectangle = obj.rotate180
+    override def rotate270T(obj: Rectangle): Rectangle = obj.rotate270
   }
   
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double, val x1: Double, val y1: Double) extends RectCenV0
   { type ThisT = RectangleImp
     override def v1: Vec2 = Vec2(x1, y1)
-    override def height: Double = (v0 - v1).magnitude
+    
     override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.cenV0V1(f(cen), f(v0), f(v1))
 
     override def productArity: Int = 5
@@ -195,7 +221,7 @@ object Rectangle
     /** Translate geometric transformation on a RectangleImp returns a RectangleImp. */
     override def slate(offset: Vec2): RectangleImp = RectangleImp.cenV0V1(cen + offset, v0 + offset, v1 + offset)
     
-    override def rotateRadians(radians: Double): RectangleImp = ???
+    override def rotate(angle: Angle): RectangleImp = ???
    // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
    // override def reflectY: RectImp = RectImp.v0v1(v3.reflectY, v2.reflectY, width)
     //override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
@@ -230,7 +256,5 @@ object Rectangle
 
     /** Factory method for creating a [[RectangleImp]] rectangle from the points cen, v0 and v1 */    
     def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectangleImp = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-
-   
   }
 }

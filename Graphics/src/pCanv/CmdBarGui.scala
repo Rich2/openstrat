@@ -12,7 +12,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   var statusText: String
   
   def textBox(str: String, cmd: AnyRef) =
-    Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Colour.Gray, str, 15, Colour.White, LeftAlign)
+    Rectangle(40, 25).fillDrawTextActive(Gray, cmd, str, 15, 2, White, LeftAlign)
     
   def status = textBox(statusText, None)
   val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))

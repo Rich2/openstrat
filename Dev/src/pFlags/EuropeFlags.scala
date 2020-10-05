@@ -35,22 +35,22 @@ object UnitedKingdom extends EnglandLike
     val yd = math.sqrt(1.25) / 30.0 //hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)
     val ywc = 5.0 / 30 //top of White cross bar
     val xDiag = 10.0 / 30.0 //ywc * 2 where diag crosses ywc
-    val b1 = PolygonGen(
+    val b1 = PolygonImp(
       5.0 / 30 vv 0.5, 1 - xd * 3 vv 0.5,
       1.0 / 6.0 vv ywc + yd)
 
-    val b2 = PolygonGen(
+    val b2 = PolygonImp(
       xDiag + 3 * xd vv ywc,
       1 vv 0.5 - yd * 3,
       1 vv ywc)
 
-    val r1: PolygonGen = PolygonGen(
+    val r1: PolygonImp = PolygonImp(
       -1 vv 0.5,
       -xDiag vv ywc,
       -(xDiag + xd * 2) vv ywc,
       -1 vv 0.5 - (yd * 2))
 
-    val r2: PolygonGen = PolygonGen(
+    val r2: PolygonImp = PolygonImp(
       xDiag - xd * 2 vv ywc,
       1 - xd * 2 vv 0.5,
       1 vv 0.5,
@@ -122,7 +122,7 @@ object Swastika extends Flag
   { val poly = Rectangle.applyOld(ratio, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rectangle.fromTL(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
-    val cross = Arr(bar, arm).rotate45.flatMap(_.rCrossArr)
+    val cross = Arr(bar, arm).rotate45.flatMap(_.rotateQuadrants)
     Arr(poly.fill(Red), Circle(6.0 / 8).fill(White)) ++ cross
   }
 }

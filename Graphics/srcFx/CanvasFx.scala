@@ -244,7 +244,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override def timeOut(f: () => Unit, millis: Integer): Unit = new Timeline(new KeyFrame(util.Duration.millis(millis.doubleValue()),
     (ae: event.ActionEvent) => f())).play
    
-  override protected[this] def tlClip(pts: PolygonGen): Unit =
+  override protected[this] def tlClip(pts: PolygonImp): Unit =
   { gc.beginPath
     gc.moveTo(pts.head1, pts.head2)
     pts.foreachPairTail(gc.lineTo)

@@ -8,7 +8,7 @@ trait Flag
 { def name: String
   def ratio: Double
   def apply(): Arr[GraphicElem]
-  def rect: PolygonGen = Rectangle.applyOld(ratio)
+  def rect: PolygonImp = Rectangle.applyOld(ratio)
   def parentStr: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
   def parent(evObj: Any = this): PolygonParentOld = Rectangle.applyOld(ratio).parentElems(evObj, apply())
 
@@ -103,7 +103,7 @@ object CommonShapesInFlags extends Flag
       
       //hexagram
       Star3().scale(0.15).slate(0.6 vv 0.3).draw(1.5, Blue),
-      Star3().scale(0.15).rotate(deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
+      Star3().scale(0.15).rotate(Deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
 
       //crescent
       Circle(0.225, -0.6, -0.3).fill(Red),
@@ -178,9 +178,9 @@ object India extends Flag
     val spokes = iToMap(0,23){i => spoke.rotate(deg30/2*i)}
     val rimNotch = Circle(0, -17.5/150, 0.875/75).rotate(deg30/4).fill(Colour(0xFF000080))
     val rimNotches = iToMap(0,23){i => rimNotch.rotate(deg30/2*i)}
-    val outerCircle = Circle(10.0/75).fill(Colour(0xFF000080))
-    val middleCircle = Circle(8.75/75).fill(Colour(0xFFFFFFFF))
-    val innerCircle = Circle(1.75/75).fill(Colour(0xFF000080))
+    val outerCircle = Circle(20.0/75).fill(Colour(0xFF000080))
+    val middleCircle = Circle(17.5/75).fill(Colour(0xFFFFFFFF))
+    val innerCircle = Circle(3.5/75).fill(Colour(0xFF000080))
     topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }

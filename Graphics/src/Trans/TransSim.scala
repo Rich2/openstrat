@@ -3,19 +3,18 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-
 /** A Similar Transformations type class */
 trait TransSim[T] extends TransAlign[T]
 { def reflectT(obj: T, line: Line): T
   def reflectSegT(obj: T, lineSeg: LineSeg): T
-  def rotateRadians(obj: T, radians: Double): T
+  def rotate(obj: T, angle: Angle): T
 }
 
 /** Companion object for the TranSim transformation type class trait. */
 object TransSim
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: TransSim[T] = new TransSim[T]
-  { override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
+  { override def rotate(obj: T, angle: Angle): T = obj.rotate(angle).asInstanceOf[T]
     override def slate(obj: T, offset: Vec2): T = obj.slate(offset).asInstanceOf[T]
     override def reflectSegT(obj: T, line: LineSeg): T = obj.reflect(line).asInstanceOf[T]
     override def reflectT(obj: T, line: Line): T = obj.reflect(line).asInstanceOf[T]
@@ -24,7 +23,7 @@ object TransSim
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransSim[A]): TransSim[AA] = new TransSim[AA]
   { override def slate(obj: AA, offset: Vec2): AA = obj.map(ev.slate(_, offset))
-    override def rotateRadians(obj: AA, radians: Double): AA = obj.map(ev.rotateRadians(_, radians))
+    override def rotate(obj: AA, angle: Angle): AA = obj.map(ev.rotate(_, angle))
     override def reflectSegT(obj: AA, line: LineSeg): AA = obj.map(ev.reflectSegT(_, line))
     override def reflectT(obj: AA, line: Line): AA = obj.map(ev.reflectT(_, line))
     override def scale(obj: AA, operand: Double): AA = obj.map(ev.scale(_, operand))
@@ -32,7 +31,7 @@ object TransSim
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransSim[A]): TransSim[F[A]] = new TransSim[F[A]]
   { override def slate(obj: F[A], offset: Vec2): F[A] = evF.mapT(obj, ts => evA.slate(ts, offset))
-    override def rotateRadians(obj: F[A], radians: Double): F[A] = evF.mapT(obj, ts => evA.rotateRadians(ts, radians))
+    override def rotate(obj: F[A], angle: Angle): F[A] = evF.mapT(obj, ts => evA.rotate(ts, angle))
     override def reflectSegT(obj: F[A], line: LineSeg): F[A] = evF.mapT(obj, evA.reflectSegT(_, line))
     override def reflectT(obj: F[A], line: Line): F[A] = evF.mapT(obj, evA.reflectT(_, line))
     override def scale(obj: F[A], operand: Double): F[A] = evF.mapT[A, A](obj, ts => evA.scale(ts, operand))
@@ -40,7 +39,7 @@ object TransSim
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransSim[A]): TransSim[Array[A]] = new TransSim[Array[A]]
   { override def slate(obj: Array[A], offset: Vec2): Array[A] = obj.map(ev.slate(_, offset))
-    override def rotateRadians(obj: Array[A], radians: Double): Array[A] = obj.map(ev.rotateRadians(_, radians))
+    override def rotate(obj: Array[A], angle: Angle): Array[A] = obj.map(ev.rotate(_, angle))
     override def reflectSegT(obj: Array[A], line: LineSeg): Array[A] = obj.map(ev.reflectSegT(_, line))
     override def reflectT(obj: Array[A], line: Line): Array[A] = obj.map(ev.reflectT(_, line))
     override def scale(obj: Array[A], operand: Double): Array[A] = obj.map(ev.scale(_, operand))

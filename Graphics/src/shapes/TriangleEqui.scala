@@ -11,7 +11,7 @@ final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) ex
   override def attribs: Arr[XANumeric] = ???
   override def fTrans(f: Vec2 => Vec2): ThisT = ???
 
-  override def rotateRadians(radians: Double): Triangle = ???
+  override def rotate(angle: Angle): Triangle = ???
   override def negY: ThisT = fTrans(_.negY)
   override def negX: ThisT = fTrans(_.negX)
 

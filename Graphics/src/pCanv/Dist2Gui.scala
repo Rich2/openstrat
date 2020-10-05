@@ -38,7 +38,7 @@ trait Dist2Gui extends MapGui
   def invCanv(canvPoint: Vec2): Vec2 = ??? //(canvPoint / scale).rotate(-rotation) + mapFocus
 
   /** Translates an array of map points to an array of Canvas Display positions */
-  def arrCanv(inp: Dist2s): PolygonGen = inp.pMap(toCanv(_))
+  def arrCanv(inp: Dist2s): PolygonImp = inp.pMap(toCanv(_))
 
   final def repaintMap(): Unit =
   { val o2 = mapObjs
@@ -51,7 +51,7 @@ trait Dist2Gui extends MapGui
   }
 
   def adjFocus(adj: Dist2): Unit = reFocus(mapFocus + adj)
-  var rotation: Angle = deg0
+  var rotation: Angle = Deg0
 
   implicit class ImpVec2InCanvasMap(thisVec2: Vec2)
   { def mapRotate: Vec2 = thisVec2.rotate(rotation)

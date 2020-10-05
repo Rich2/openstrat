@@ -26,10 +26,22 @@ sealed trait Line extends Curve with LineLike
    * in sub classes. */
   override def negX: Line = ???
 
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate90: Line = ???
+
+  /** Rotate 180 degrees 2D geometric transformation. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Line = ???
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate270: Line = ???
+
   /** Transforms this Line using a [[ProlignMatrix]]. */
   override def prolign(matrix: ProlignMatrix): Line = ???
 
-  override def rotateRadians(radians: Double): Line = ???
+  override def rotate(angle: Angle): Line = ???
 
   override def reflect(lineLike: LineLike): Line = ???
 

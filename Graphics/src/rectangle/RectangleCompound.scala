@@ -33,7 +33,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def prolign(matrix: ProlignMatrix): RectangleCompound = RectangleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
-  override def rotateRadians(radians: Double): RectangleCompound = RectangleCompound(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
+  override def rotate(angle: Angle): RectangleCompound = RectangleCompound(shape.rotate(angle), facets, children.rotate(angle))
 
   override def reflect(lineLike: LineLike): RectangleCompound = ???
 
@@ -81,7 +81,7 @@ object RectangleCompound
 
     override def prolign(matrix: ProlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
 
-    override def rotateRadians(radians: Double): RectangleCompoundImp = RectangleCompoundImp(shape.rotateRadians(radians), facets, children.rotateRadians(radians))
+    override def rotate(angle: Angle): RectangleCompoundImp = RectangleCompoundImp(shape.rotate(angle), facets, children.rotate(angle))
 
     override def reflect(lineLike: LineLike): RectangleCompoundImp = ???
 
@@ -90,7 +90,5 @@ object RectangleCompound
     override def xShear(operand: Double): PolygonCompound = ???
 
     override def yShear(operand: Double): PolygonCompound = ???
-
-   // override def reflect(line: LineSeg): RectangleCompoundImp = ???
   }
 }
