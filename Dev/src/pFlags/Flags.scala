@@ -103,7 +103,7 @@ object CommonShapesInFlags extends Flag
       
       //hexagram
       Star3().scale(0.15).slate(0.6 vv 0.3).draw(1.5, Blue),
-      Star3().scale(0.15).rotate(deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
+      Star3().scale(0.15).rotate(Deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
 
       //crescent
       Circle(0.225, -0.6, -0.3).fill(Red),

@@ -51,7 +51,7 @@ trait Dist2Gui extends MapGui
   }
 
   def adjFocus(adj: Dist2): Unit = reFocus(mapFocus + adj)
-  var rotation: Angle = deg0
+  var rotation: Angle = Deg0
 
   implicit class ImpVec2InCanvasMap(thisVec2: Vec2)
   { def mapRotate: Vec2 = thisVec2.rotate(rotation)

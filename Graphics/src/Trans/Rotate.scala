@@ -39,13 +39,13 @@ trait RotateGenExtensions[T]
   def rotateRadians(radians: Double): T
   def rotate(angle: Angle): T
   /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  def rotate90: T = rotate(deg90)
+  def rotate90: T = rotate(Deg90)
 
   /** Rotates 180 degrees or Pi radians. */
-  def rotate180: T = rotate(deg180)
+  def rotate180: T = rotate(Deg180)
 
   /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  def rotate270: T = rotate(-deg90)
+  def rotate270: T = rotate(-Deg90)
 
   /** Rotates 90 degrees or Pi / 2 radians clockwise. */
   def clk90: T = rotate270
