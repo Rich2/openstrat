@@ -84,13 +84,13 @@ object TransAxes
     override def negXT(obj: Array[A]): Array[A] = obj.map(ev.negXT(_))
 
     /** Rotate 90 degrees anti clockwise or rotate 270 degrees an object of type T clockwise 2D geometric transformation. */
-    override def rotate90T(obj: Array[A]): Array[A] = ???
+    override def rotate90T(obj: Array[A]): Array[A] = obj.map(ev.rotate90T(_))
 
     /** Rotate 180 degrees 2D geometric an object of type T transformation. */
-    override def rotate180T(obj: Array[A]): Array[A] = ???
+    override def rotate180T(obj: Array[A]): Array[A] = obj.map(ev.rotate180T(_))
 
     /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise an object of type T 2D geometric transformation. */
-    override def rotate270T(obj: Array[A]): Array[A] = ???
+    override def rotate270T(obj: Array[A]): Array[A] = obj.map(ev.rotate270T(_))
   }
 }
 
