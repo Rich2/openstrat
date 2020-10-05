@@ -34,7 +34,7 @@ trait ShapeFill extends ShapeGraphicSimple
 
   override def prolign(matrix: ProlignMatrix): ShapeFill
 
-  override def rotateRadians(radians: Double): ShapeFill
+  override def rotate(angle: Angle): ShapeFill
 
   override def reflect(lineLike: LineLike): ShapeFill
 
@@ -51,7 +51,7 @@ object ShapeFill
 {
   implicit val slateImplicit: Slate[ShapeFill] = (obj: ShapeFill, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeFill] = (obj: ShapeFill, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[ShapeFill] = (obj: ShapeFill, angle : Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
 

@@ -11,8 +11,7 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonImp, pointerId: Any, childre
   override def mutObj(newObj: Any): PolygonParentOld = new PolygonParentOld(cen, poly, newObj, children)
   override def boundingRect: BoundingRect = poly.boundingRect
 
-  def rotateRadians(radians: Double): PolygonParentOld =
-    PolygonParentOld(cen.rotateRadians(radians), poly.rotateRadians(radians), pointerId, children.rotateRadians(radians))
+  def rotate(angle: Angle): PolygonParentOld = PolygonParentOld(cen.rotate(angle), poly.rotate(angle), pointerId, children.rotate(angle))
 
   def slate(offset: Vec2): PolygonParentOld = PolygonParentOld(cen + offset, poly.slate(offset), pointerId, children.slate(offset))
 

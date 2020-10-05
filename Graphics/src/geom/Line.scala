@@ -41,7 +41,7 @@ sealed trait Line extends Curve with LineLike
   /** Transforms this Line using a [[ProlignMatrix]]. */
   override def prolign(matrix: ProlignMatrix): Line = ???
 
-  override def rotateRadians(radians: Double): Line = ???
+  override def rotate(angle: Angle): Line = ???
 
   override def reflect(lineLike: LineLike): Line = ???
 

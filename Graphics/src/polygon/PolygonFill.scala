@@ -43,7 +43,7 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
 
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), colour)
 
-  override def rotateRadians(radians: Double): PolygonFill = PolygonFill(shape.rotateRadians(radians), colour)
+  override def rotate(angle: Angle): PolygonFill = PolygonFill(shape.rotate(angle), colour)
 
   override def xShear(operand: Double): PolygonFill = ???
 
@@ -69,7 +69,7 @@ object PolygonFill
 
   implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
 

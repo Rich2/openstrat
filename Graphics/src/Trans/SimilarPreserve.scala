@@ -10,8 +10,8 @@ trait SimilarPreserve extends ProlignPreserve
 
   def reflect(lineLike: LineLike): ThisT = fTrans(_.reflect(lineLike))
   //def reflect(lineSeg: LineSeg): ThisT = fTrans(_.reflect(lineSeg))
-  def rotate(angle: Angle): ThisT = rotateRadians(angle.radians)
-  override def rotateRadians(radians: Double): ThisT = fTrans(_.rotateRadians(radians))
+  //def rotate(angle: Angle): ThisT = rotate(angle.radians)
+  override def rotate(angle: Angle): ThisT = fTrans(_.rotate(angle))
 }
 
 /** A trait that preserves one type through all the similar 2D geometrical transformations and preserves a second type ThisT2 through the other

@@ -41,7 +41,7 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   override def prolign(matrix: ProlignMatrix): PolygonDraw = PolygonDraw(shape.prolign(matrix), lineWidth, lineColour)
   
   /** Mirror, rotate(radians) transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
-  override def rotateRadians(radians: Double): PolygonDraw = PolygonDraw(shape.rotateRadians(radians), lineWidth, lineColour)
+  override def rotate(angle: Angle): PolygonDraw = PolygonDraw(shape.rotate(angle), lineWidth, lineColour)
   
   /** Mirror, reflection transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
   override def reflect(lineLike: LineLike): PolygonDraw = PolygonDraw(shape.reflect(lineLike), lineWidth, lineColour)
@@ -62,7 +62,7 @@ object PolygonDraw
 
   implicit val slateImplicit: Slate[PolygonDraw] = (obj: PolygonDraw, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonDraw] = (obj: PolygonDraw, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[PolygonDraw] = (obj: PolygonDraw, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[PolygonDraw] = (obj: PolygonDraw, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonDraw] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonDraw] = (obj, matrix) => obj.prolign(matrix)
 

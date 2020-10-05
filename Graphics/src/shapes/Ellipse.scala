@@ -107,7 +107,7 @@ trait Ellipse extends Shape with Curve
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
-  override def rotateRadians(radians: Double): Ellipse = fTrans(_.rotateRadians(radians))
+  override def rotate(angle: Angle): Ellipse = fTrans(_.rotate(angle))
 
   override def negY: Ellipse = fTrans(_.negY)
 

@@ -29,7 +29,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
   
-  override def rotateRadians(radians: Double): PolygonGraphic
+  override def rotate(angle: Angle): PolygonGraphic
 
   override def reflect(lineLike: LineLike): PolygonGraphic
 
@@ -44,7 +44,7 @@ object PolygonGraphic
 {
   implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
 

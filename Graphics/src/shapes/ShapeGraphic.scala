@@ -36,7 +36,7 @@ trait ShapeGraphic extends GraphicElem
 
   def prolign(matrix: ProlignMatrix): ShapeGraphic
 
-  def rotateRadians(radians: Double): ShapeGraphic
+  def rotate(angle: Angle): ShapeGraphic
 
   def reflect(lineLike: LineLike): ShapeGraphic
 
@@ -58,7 +58,7 @@ object ShapeGraphic
   
   implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 

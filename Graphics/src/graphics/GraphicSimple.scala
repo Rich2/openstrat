@@ -26,7 +26,7 @@ trait GraphicSimple extends GraphicElem
 
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
-  override def rotateRadians(radians: Double): GraphicSimple
+  override def rotate(angle: Angle): GraphicSimple
 
   override def reflect(lineLike: LineLike): GraphicSimple
 
@@ -38,7 +38,7 @@ object GraphicSimple
 {
   implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, radians: Double) => obj.rotateRadians(radians)  
+  implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
   

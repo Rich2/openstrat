@@ -72,7 +72,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 	override def attribs: Arr[XANumeric] = ???
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
 
-	override def rotateRadians(radians: Double): TriangleClass = ???
+	override def rotate(angle: Angle): TriangleClass = ???
 
 	//override def fill(fillColour: Colour): ShapeFill = ???
 

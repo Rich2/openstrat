@@ -51,7 +51,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphicSimple
 
-  override def rotateRadians(radians: Double): PolygonGraphicSimple
+  override def rotate(angle: Angle): PolygonGraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphicSimple
 }
@@ -60,7 +60,7 @@ object PolygonGraphicSimple
 {
   implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonGraphicSimple] = (obj, matrix) => obj.prolign(matrix)
 

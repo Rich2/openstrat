@@ -82,7 +82,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
 
   /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
    *  be narrowed in some but not all sub traits / classes. */
-  override def rotateRadians(radians: Double): Polygon = polygonMap(_.rotateRadians(radians))
+  override def rotate(angle: Angle): Polygon = polygonMap(_.rotate(angle))
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
    *  traits / classes. */
@@ -173,7 +173,7 @@ object Polygon
 
   implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   

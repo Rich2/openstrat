@@ -40,7 +40,7 @@ trait GeomElem extends Product with Serializable
   def prolign(matrix: ProlignMatrix): GeomElem
 
   /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  def rotateRadians(radians: Double): GeomElem
+  def rotate(angle: Angle): GeomElem
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in sub classes and
    *  traits. */
@@ -62,7 +62,7 @@ trait GeomElem extends Product with Serializable
 object GeomElem
 { implicit val slateImplicit: Slate[GeomElem] = (obj: GeomElem, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GeomElem] = (obj: GeomElem, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[GeomElem] = (obj: GeomElem, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[GeomElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[GeomElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 

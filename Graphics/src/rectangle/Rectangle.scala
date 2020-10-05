@@ -95,7 +95,7 @@ trait Rectangle extends Rectangular with Polygon
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.cenV0V1(cen.reflect(lineLike), v0.reflect(lineLike), v1.reflect(lineLike))
 
-  override def rotateRadians(radians: Double): Rectangle = Rectangle.cenV0V1(cen.rotateRadians(radians), v0.rotateRadians(radians), v1.rotateRadians(radians))
+  override def rotate(angle: Angle): Rectangle = Rectangle.cenV0V1(cen.rotate(angle), v0.rotate(angle), v1.rotate(angle))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.cenV0V1(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
@@ -181,7 +181,7 @@ object Rectangle
 
   implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
   
   implicit val reflectAxesImplicit: ReflectAxes[Rectangle] = new ReflectAxes[Rectangle]
@@ -205,7 +205,7 @@ object Rectangle
     /** Translate geometric transformation on a RectangleImp returns a RectangleImp. */
     override def slate(offset: Vec2): RectangleImp = RectangleImp.cenV0V1(cen + offset, v0 + offset, v1 + offset)
     
-    override def rotateRadians(radians: Double): RectangleImp = ???
+    override def rotate(angle: Angle): RectangleImp = ???
    // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
    // override def reflectY: RectImp = RectImp.v0v1(v3.reflectY, v2.reflectY, width)
     //override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)

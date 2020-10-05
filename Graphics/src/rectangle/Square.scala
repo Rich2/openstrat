@@ -27,7 +27,7 @@ trait Square extends Rectangle
 
   override def reflect(lineLike: LineLike): Square = Square.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
 
-  override def rotateRadians(radians: Double): Square = Square.cenV0(cen.rotateRadians(radians), v0.rotateRadians(radians))
+  override def rotate(angle: Angle): Square = Square.cenV0(cen.rotate(angle), v0.rotate(angle))
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
@@ -84,7 +84,7 @@ object Square extends ShapeIcon
 
     override def prolign(matrix: ProlignMatrix): SquareImp = SquareImp.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
-    override def rotateRadians(radians: Double): SquareImp = SquareImp.cenV0(cen.rotateRadians(radians), v0.rotateRadians(radians)) 
+    override def rotate(angle: Angle): SquareImp = SquareImp.cenV0(cen.rotate(angle), v0.rotate(angle))
 
     override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
 

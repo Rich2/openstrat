@@ -39,8 +39,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def slate(offset: Vec2): CArc = CArc(pStart + offset, cen + offset, deltaRadians)
   override def scale(operand: Double): CArc = CArc(pStart * operand, cen * operand, deltaRadians)
 
-  override def rotateRadians(operandRadians: Double): CArc =
-    CArc(pStart.rotateRadians(operandRadians), cen.rotateRadians(operandRadians), deltaRadians)
+  override def rotate(angle: Angle): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), deltaRadians)
 
   override def reflect(lineLike: LineLike): CArc = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)

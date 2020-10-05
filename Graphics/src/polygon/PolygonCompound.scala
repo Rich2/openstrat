@@ -52,7 +52,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonCompound = ???
 
-  override def rotateRadians(radians: Double): PolygonCompound = ???
+  override def rotate(angle: Angle): PolygonCompound = ???
 
   override def reflect(lineLike: LineLike): PolygonCompound = ???
 
@@ -72,7 +72,7 @@ object PolygonCompound
   
   implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Vec2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, radians: Double) => obj.rotateRadians(radians)
+  implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[PolygonCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
@@ -124,7 +124,7 @@ object PolygonCompound
 
     override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = ???
 
-    override def rotateRadians(radians: Double): PolygonCompoundImp = ???
+    override def rotate(angle: Angle): PolygonCompoundImp = ???
 
     override def reflect(lineLike: LineLike): PolygonCompoundImp = ???
 
