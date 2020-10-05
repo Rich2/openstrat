@@ -1,6 +1,6 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-
+import collection.immutable.ArraySeq
 /** Extension methods for Array[A] class */
 class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the
@@ -36,4 +36,5 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   def toStrsCommaParenth(fToStr: A => String = _.toString): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
   def toStr: String = "Arr" + toStrsSemiParenth()
+  def toArraySeq: ArraySeq[A] = ArraySeq.unsafeWrapArray(thisArray)
 }

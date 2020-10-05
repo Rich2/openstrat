@@ -5,11 +5,11 @@ import ostrat._, geom._, pCanv._, Colour._
 object LsA1a
 {
   val arr = Arr(
-    Circle(100, 0, 0).fill(SeaGreen),
-    Circle(70, 50, 80).fill(Orange),
-    Circle(80, 300, 0).fill(Red),
-    Circle(80, -250, 150).fill(LemonLime),
-    Circle(40, 0, -220).fill(DarkGoldenRod),
+    Circle(200, 0, 0).fill(SeaGreen),
+    Circle(140, 50, 80).fill(Orange),
+    Circle(160, 300, 0).fill(Red),
+    Circle(160, -250, 150).fill(LemonLime),
+    Circle(80, 0, -220).fill(DarkGoldenRod),
   )
 }
 
