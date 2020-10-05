@@ -33,7 +33,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: PolygonCompound = ???
+  override def negY: PolygonCompound = PolygonCompound(shape.negY, facets, children.negY)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
@@ -61,8 +61,6 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def xShear(operand: Double): PolygonCompound = ???
 
   override def yShear(operand: Double): PolygonCompound = ???
-
- // override def reflect(line: LineSeg): PolygonCompound = ???
 }
 
 object PolygonCompound
