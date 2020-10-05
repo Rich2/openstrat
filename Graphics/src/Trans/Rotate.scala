@@ -24,32 +24,15 @@ object Rotate
 
 /** Extension class for instances of the Rotate type class. */
 class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [T]
-{
-  override def rotateRadians(radians: Double): T = ev.rotateT(value, Angle.radians(radians))
+{ override def rotateRadians(radians: Double): T = ev.rotateT(value, Angle.radians(radians))
   def rotate(angle: Angle): T = ev.rotateT(value, angle)
-
-  /** Produces a regular cross of a sequence of four of the elements rotated */
-  def rCross: Seq[T] = List(value, rotate270, rotate180, rotate90)
-
-  def rCrossArr[TT <: ArrBase[T]](implicit build: ArrBuild[T, TT]): TT =  rCross.toImut  
 }
 
 trait RotateGenExtensions[T]
 {
   def rotateRadians(radians: Double): T
-  def rotate(angle: Angle): T
-  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
-  def rotate90: T = rotate(Deg90)
+  def rotate(angle: Angle): T 
 
-  /** Rotates 180 degrees or Pi radians. */
-  def rotate180: T = rotate(Deg180)
-
-  /** Rotates 90 degrees or Pi/2 radians clockwise. */
-  def rotate270: T = rotate(-Deg90)
-
-  /** Rotates 90 degrees or Pi / 2 radians clockwise. */
-  def clk90: T = rotate270
- 
   /** Rotates 15 degrees anti-clockwise or + Pi/12 */
   def rotate15: T = rotate(deg15)
   

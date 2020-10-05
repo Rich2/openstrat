@@ -95,13 +95,29 @@ object TransAxes
 }
 
 /** Class to provide extension methods for TransAxes typeclass. */
-class TransAxesExtension[A](thisReflector: A)(implicit ev: TransAxes[A])
+class TransAxesExtension[T](thisT: T)(implicit ev: TransAxes[T])
 {
   /** Reflect, mirror across the X axis by negating Y. */
-  @inline def negY: A = ev.negYT(thisReflector)
+  @inline def negY: T = ev.negYT(thisT)
 
   /** Reflect, mirror across the Y axis by negating X. */
-  @inline def negX: A = ev.negXT(thisReflector)
+  @inline def negX: T = ev.negXT(thisT)
   
-  @inline def negXY: A = ev.negXT(ev.negYT(thisReflector))
+  /** Negates X and Y, functionally the same as rotate180. */
+  @inline def negXY: T = ev.rotate180T(thisT)
+
+  /** Rotates 90 degrees or Pi/2 radians anticlockwise. */
+  def rotate90: T = ev.rotate90T(thisT)
+
+  /** Rotates 180 degrees or Pi radians. */
+  def rotate180: T = ev.rotate180T(thisT)
+
+  /** Rotates 90 degrees or Pi/2 radians clockwise. */
+  def rotate270: T = ev.rotate270T(thisT)
+
+  /** Rotates 90 degrees or Pi / 2 radians clockwise. */
+  def clk90: T = ev.rotate270T(thisT)
+
+  def rCross: Seq[T] = List(thisT, rotate270, rotate180, rotate90)
+  def rCrossArr[TT <: ArrBase[T]](implicit build: ArrBuild[T, TT]): TT = rCross.toImut
 }
