@@ -3,7 +3,6 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-
 /** A Similar Transformations type class */
 trait TransSim[T] extends TransAlign[T]
 { def reflectT(obj: T, line: Line): T

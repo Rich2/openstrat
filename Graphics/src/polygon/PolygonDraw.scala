@@ -3,7 +3,6 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-
 /** Immutable Graphic element that defines and draws a Polygon. */
 trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
 { //override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
@@ -23,7 +22,6 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
 
   /** Mirror, reflection transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
   override def negX: PolygonDraw = PolygonDraw(shape.negX, lineWidth, lineColour)
-
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonDraw, returns a PolygonDraw. The return
    * type will be narrowed in sub traits / classes. */
