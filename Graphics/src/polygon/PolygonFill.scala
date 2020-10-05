@@ -73,9 +73,12 @@ object PolygonFill
   implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[PolygonFill] = new ReflectAxes[PolygonFill]
+  implicit val reflectAxesImplicit: TransAxes[PolygonFill] = new TransAxes[PolygonFill]
   { override def negYT(obj: PolygonFill): PolygonFill = obj.negY
     override def negXT(obj: PolygonFill): PolygonFill = obj.negX
+    override def rotate90T(obj: PolygonFill): PolygonFill = obj.rotate90
+    override def rotate180T(obj: PolygonFill): PolygonFill = obj.rotate180
+    override def rotate270T(obj: PolygonFill): PolygonFill = obj.rotate270
   }
 
   /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a

@@ -66,9 +66,12 @@ object GeomElem
   implicit val prolignImplicit: Prolign[GeomElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[GeomElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val reflectAxesImplicit: ReflectAxes[GeomElem] = new ReflectAxes[GeomElem]
+  implicit val transAxesImplicit: TransAxes[GeomElem] = new TransAxes[GeomElem]
   { override def negYT(obj: GeomElem): GeomElem = obj.negY
     override def negXT(obj: GeomElem): GeomElem = obj.negX
+    override def rotate90T(obj: GeomElem): GeomElem = obj.rotate90
+    override def rotate180T(obj: GeomElem): GeomElem = obj.rotate180
+    override def rotate270T(obj: GeomElem): GeomElem = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[GeomElem] = new Shear[GeomElem]

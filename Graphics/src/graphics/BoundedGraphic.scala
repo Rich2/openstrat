@@ -11,10 +11,12 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 
   def negY: BoundedGraphic
   def negX: BoundedGraphic
+  def rotate90: BoundedGraphic
+  def rotate180: BoundedGraphic
+  def rotate270: BoundedGraphic
+
   def prolign(matrix: ProlignMatrix): BoundedGraphic
-  /*def rotate90: DisplayBounded
-  def rotate180: DisplayBounded
-  def rotate270: DisplayBounded*/
+
   def rotate(angle: Angle): BoundedGraphic
   override def reflect(lineLike: LineLike): BoundedGraphic
   override def xyScale(xOperand: Double, yOperand: Double): BoundedGraphic
@@ -23,7 +25,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
   override def yShear(operand: Double): BoundedGraphic
 }
 
-/** Companion object for the DisplayBounded trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
+/** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object BoundedGraphic
 {
   implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, offset: Vec2) => obj.slate(offset)
@@ -31,9 +33,12 @@ object BoundedGraphic
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[BoundedGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val reflectAxesImplicit: ReflectAxes[BoundedGraphic] = new ReflectAxes[BoundedGraphic]
+  implicit val reflectAxesImplicit: TransAxes[BoundedGraphic] = new TransAxes[BoundedGraphic]
   { override def negYT(obj: BoundedGraphic): BoundedGraphic = obj.negY
     override def negXT(obj: BoundedGraphic): BoundedGraphic = obj.negX
+    override def rotate90T(obj: BoundedGraphic): BoundedGraphic = obj.rotate90
+    override def rotate180T(obj: BoundedGraphic): BoundedGraphic = obj.rotate180
+    override def rotate270T(obj: BoundedGraphic): BoundedGraphic = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[BoundedGraphic] = new Shear[BoundedGraphic]

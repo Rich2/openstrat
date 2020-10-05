@@ -30,15 +30,15 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonImp, pointerId: Any, childre
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return
    * type will be narrowed in sub traits / classes. */
-  override def rotate90: GraphicElem = PolygonParentOld(cen.rotate90, poly.rotate90, pointerId, children.rotate90)
+  override def rotate90: PolygonParentOld = PolygonParentOld(cen.rotate90, poly.rotate90, pointerId, children.rotate90)
 
-  /** Rotate 180 degrees 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be narrowed in sub traits /
-   * classes. */
-  override def rotate180: GraphicElem = PolygonParentOld(cen.rotate180, poly.rotate180, pointerId, children.rotate180)
+  /** Rotate 180 degrees 2D geometric transformation on a PolygonParentOld, returns a PolygonParentOld. The return type will be narrowed in sub traits
+   *  / classes. */
+  override def rotate180: PolygonParentOld = PolygonParentOld(cen.rotate180, poly.rotate180, pointerId, children.rotate180)
 
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return
-   * type will be narrowed in sub traits / classes. */
-  override def rotate270: GraphicElem = PolygonParentOld(cen.rotate270, poly.rotate270, pointerId, children.rotate270)
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonParentOld, returns a PolygonParentOld.
+   *  The return type will be narrowed in sub traits / classes. */
+  override def rotate270: PolygonParentOld = PolygonParentOld(cen.rotate270, poly.rotate270, pointerId, children.rotate270)
 
   override def prolign(matrix: ProlignMatrix): PolygonParentOld = PolygonParentOld(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 

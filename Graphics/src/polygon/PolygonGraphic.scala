@@ -27,6 +27,13 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
    * in sub classes. */
   override def negX: PolygonGraphic
 
+
+  override def rotate90: PolygonGraphic = ???
+
+  override def rotate180: PolygonGraphic = ???
+
+  override def rotate270: PolygonGraphic = ???
+
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
   
   override def rotate(angle: Angle): PolygonGraphic
@@ -48,8 +55,11 @@ object PolygonGraphic
   implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphic] = new ReflectAxes[PolygonGraphic]
+  implicit val reflectAxesImplicit: TransAxes[PolygonGraphic] = new TransAxes[PolygonGraphic]
   { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
     override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
+    override def rotate90T(obj: PolygonGraphic): PolygonGraphic = obj.rotate90
+    override def rotate180T(obj: PolygonGraphic): PolygonGraphic = obj.rotate180
+    override def rotate270T(obj: PolygonGraphic): PolygonGraphic = obj.rotate270
   }
 }

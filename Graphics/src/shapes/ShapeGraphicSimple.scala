@@ -26,6 +26,19 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
    * in sub classes. */
   override def negX: ShapeGraphicSimple
 
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a ShapeGraphicSimple, returns a ShapeGraphicSimple. The
+   * return type will be narrowed in sub traits / classes. */
+  override def rotate90: ShapeGraphicSimple
+
+  /** Rotate 180 degrees 2D geometric transformation on a ShapeGraphicSimple, returns a ShapeGraphicSimple. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: ShapeGraphicSimple
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a ShapeGraphicSimple, returns a ShapeGraphicSimple. The
+   * return type will be narrowed in sub traits / classes. */
+  override def rotate270: ShapeGraphicSimple
+
   override def prolign(matrix: ProlignMatrix): ShapeGraphicSimple
 
   override def rotate(angle: Angle): ShapeGraphicSimple

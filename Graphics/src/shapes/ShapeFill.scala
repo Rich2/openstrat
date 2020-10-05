@@ -32,6 +32,19 @@ trait ShapeFill extends ShapeGraphicSimple
    * in sub classes. */
   override def negX: ShapeFill
 
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a ShapeGraphic, returns a ShapeGraphic. The
+   * return type will be narrowed in sub traits / classes. */
+  override def rotate90: ShapeFill
+
+  /** Rotate 180 degrees 2D geometric transformation on a ShapeGraphic, returns a ShapeGraphic. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: ShapeFill
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a ShapeGraphic, returns a ShapeGraphic. The
+   * return type will be narrowed in sub traits / classes. */
+  override def rotate270: ShapeFill
+
   override def prolign(matrix: ProlignMatrix): ShapeFill
 
   override def rotate(angle: Angle): ShapeFill
@@ -55,8 +68,11 @@ object ShapeFill
   implicit val XYScaleImplicit: XYScale[ShapeFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[ShapeFill] = new ReflectAxes[ShapeFill]
+  implicit val reflectAxesImplicit: TransAxes[ShapeFill] = new TransAxes[ShapeFill]
   { override def negYT(obj: ShapeFill): ShapeFill = obj.negY
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
+    override def rotate90T(obj: ShapeFill): ShapeFill = obj.rotate90
+    override def rotate180T(obj: ShapeFill): ShapeFill = obj.rotate180
+    override def rotate270T(obj: ShapeFill): ShapeFill = obj.rotate270
   }
 }

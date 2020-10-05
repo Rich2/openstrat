@@ -22,13 +22,13 @@ package object geom
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
   }
 
-  implicit def slateReflectAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: ReflectAxes[T]): SlateReflectAxesExtensions[T] =
+  implicit def slateReflectAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: TransAxes[T]): SlateReflectAxesExtensions[T] =
     new SlateReflectAxesExtensions[T](value)(evS, evR)
  
   /*implicit def mirrorAxisOffsetToExtension[T](value: T)(implicit ev: ReflectAxesOffset[T]): ReflectAxisOffsetExtension[T] =
     new ReflectAxisOffsetExtension[T](value)(ev)*/
 
-  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: ReflectAxes[T]): ReflectAxesExtension[T] = new ReflectAxesExtension[T](value)(ev)
+  implicit def mirrorAxisToExtension[T](value: T)(implicit ev: TransAxes[T]): TransAxesExtension[T] = new TransAxesExtension[T](value)(ev)
     
   /** The ratio of the degoid to a degree. Th degoid has been chosen as a convenient way to encode Angles using an underlying Double floating point
    * value. It has been chosen to allow the precise encoding of degrees and decimals of a degree down to 1 millionth. */  

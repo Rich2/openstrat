@@ -177,9 +177,12 @@ object Polygon
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
-  implicit val reflectAxesImplicit: ReflectAxes[Polygon] = new ReflectAxes[Polygon]
+  implicit val reflectAxesImplicit: TransAxes[Polygon] = new TransAxes[Polygon]
   { override def negYT(obj: Polygon): Polygon = obj.negY
     override def negXT(obj: Polygon): Polygon = obj.negX
+    override def rotate90T(obj: Polygon): Polygon = obj.rotate90
+    override def rotate180T(obj: Polygon): Polygon = obj.rotate180
+    override def rotate270T(obj: Polygon): Polygon = obj.rotate270
   }
   
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]

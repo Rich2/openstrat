@@ -91,6 +91,18 @@ trait Rectangle extends Rectangular with Polygon
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.cenV0V1(cen.negX, v0.negX, v1.negX)
 
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate90: Rectangle = ???
+
+  /** Rotate 180 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Rectangle = ???
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate270: Rectangle = ???
+
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV0V1(cen.prolign(matrix), v0.prolign(matrix), v1.prolign(matrix))
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.cenV0V1(cen.reflect(lineLike), v0.reflect(lineLike), v1.reflect(lineLike))
@@ -184,9 +196,12 @@ object Rectangle
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
   
-  implicit val reflectAxesImplicit: ReflectAxes[Rectangle] = new ReflectAxes[Rectangle]
+  implicit val reflectAxesImplicit: TransAxes[Rectangle] = new TransAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
+    override def rotate90T(obj: Rectangle): Rectangle = obj.rotate90
+    override def rotate180T(obj: Rectangle): Rectangle = obj.rotate180
+    override def rotate270T(obj: Rectangle): Rectangle = obj.rotate270
   }
   
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
