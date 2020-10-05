@@ -117,6 +117,9 @@ class TransAxesExtension[T](thisT: T)(implicit ev: TransAxes[T])
 
   /** Rotates 90 degrees or Pi / 2 radians clockwise. */
   def clk90: T = ev.rotate270T(thisT)
+
+  /** Rotates 270 degrees or 3Pi / 2 radians clockwise. */
+  def clk270: T = ev.rotate270T(thisT)
   
   /** returns an Arr of this type T consisting of the original object and the transformation of the object through 90, 180 and 270 degrees. */
   def rotateQuadrants(implicit ct: ClassTag[T]): Arr[T] = Arr(thisT, rotate270, rotate180, rotate90)

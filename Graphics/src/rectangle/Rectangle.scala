@@ -31,6 +31,8 @@ trait Rectangle extends Rectangular with Polygon
   def width2: Double
   
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
+  override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
+  
   override def ptsArray: Array[Double] = Array(x0, y0, x1, y1, x2, y2, x3, y3)
   
   def v0Mid1: Vec2 = v0.midPtTo(v1)
@@ -74,7 +76,7 @@ trait Rectangle extends Rectangular with Polygon
   final override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); () }
   final override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); f(x3, y3); () }
-
+  
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(offset: Vec2): Rectangle = Rectangle.cenV0V1(cen + offset, v0 + offset, v1 + offset)
 

@@ -9,7 +9,7 @@ case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
   val sq2 = Sqlign(100, -100, 100).fill(Orange)
   val sq3 = Square(100, 20.degs, -200, 100).fill(Colour.Sienna)
   val rg: RectangleFill = Rect(200, 100, 100, 50).fill(Green)
-  val rd: PolygonDraw = Rect(200, 100, 100, 160).draw()
+  val rd: RectangleDraw = Rect(200, 100, 100, 160).draw()
 
   repaints(
     Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
