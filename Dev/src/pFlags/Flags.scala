@@ -178,9 +178,9 @@ object India extends Flag
     val spokes = iToMap(0,23){i => spoke.rotate(deg30/2*i)}
     val rimNotch = Circle(0, -17.5/150, 0.875/75).rotate(deg30/4).fill(Colour(0xFF000080))
     val rimNotches = iToMap(0,23){i => rimNotch.rotate(deg30/2*i)}
-    val outerCircle = Circle(10.0/75).fill(Colour(0xFF000080))
-    val middleCircle = Circle(8.75/75).fill(Colour(0xFFFFFFFF))
-    val innerCircle = Circle(1.75/75).fill(Colour(0xFF000080))
+    val outerCircle = Circle(20.0/75).fill(Colour(0xFF000080))
+    val middleCircle = Circle(17.5/75).fill(Colour(0xFFFFFFFF))
+    val innerCircle = Circle(3.5/75).fill(Colour(0xFF000080))
     topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }
