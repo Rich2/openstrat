@@ -50,13 +50,13 @@ object TransAxes
     override def negXT(obj: AA): AA = obj.map(evA.negXT(_))
 
     /** Rotate 90 degrees anti clockwise or rotate 270 degrees an object of type T clockwise 2D geometric transformation. */
-    override def rotate90T(obj: AA): AA = ???
+    override def rotate90T(obj: AA): AA = obj.map(evA.rotate90T(_))
 
     /** Rotate 180 degrees 2D geometric an object of type T transformation. */
-    override def rotate180T(obj: AA): AA = ???
+    override def rotate180T(obj: AA): AA = obj.map(evA.rotate180T(_))
 
     /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise an object of type T 2D geometric transformation. */
-    override def rotate270T(obj: AA): AA = ???
+    override def rotate270T(obj: AA): AA = obj.map(evA.rotate270T(_))
   }
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransAxes[A]): TransAxes[F[A]] = new TransAxes[F[A]]
@@ -67,13 +67,13 @@ object TransAxes
     override def negXT(obj: F[A]): F[A] = evF.mapT(obj, evA.negXT(_))
 
     /** Rotate 90 degrees anti clockwise or rotate 270 degrees an object of type T clockwise 2D geometric transformation. */
-    override def rotate90T(obj: F[A]): F[A] = ???
+    override def rotate90T(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate90T(_))
 
     /** Rotate 180 degrees 2D geometric an object of type T transformation. */
-    override def rotate180T(obj: F[A]): F[A] = ???
+    override def rotate180T(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate180T(_))
 
     /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise an object of type T 2D geometric transformation. */
-    override def rotate270T(obj: F[A]): F[A] = ???
+    override def rotate270T(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate270T(_))
   }
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: TransAxes[A]): TransAxes[Array[A]] = new TransAxes[Array[A]]
@@ -117,7 +117,7 @@ class TransAxesExtension[T](thisT: T)(implicit ev: TransAxes[T])
 
   /** Rotates 90 degrees or Pi / 2 radians clockwise. */
   def clk90: T = ev.rotate270T(thisT)
-
-  def rCross: Seq[T] = List(thisT, rotate270, rotate180, rotate90)
-  def rCrossArr[TT <: ArrBase[T]](implicit build: ArrBuild[T, TT]): TT = rCross.toImut
+  
+  /** returns an Arr of this type T consisting of the original object and the transformation of the object through 90, 180 and 270 degrees. */
+  def rotateQuadrants(implicit ct: ClassTag[T]): Arr[T] = Arr(thisT, rotate270, rotate180, rotate90)
 }
