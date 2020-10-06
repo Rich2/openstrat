@@ -9,6 +9,8 @@ trait BoundedElem extends GeomElem
   def boundingRect: BoundingRect
   def boundingWidth: Double = boundingRect.width
   def boundingHeight: Double = boundingRect.height
+  def boundingTR: Vec2 = boundingRect.topRight
+  def boundingBR: Vec2 = boundingRect.bottomRight
   def boundingTL: Vec2 = boundingRect.topLeft
   def boundingBL: Vec2 = boundingRect.bottomLeft
 }
