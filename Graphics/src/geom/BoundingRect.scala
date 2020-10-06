@@ -2,8 +2,18 @@
 package ostrat
 package geom
 
-/** An intermediate class for describing the vertical / horisontal bounding rectangle for a Polygon or Shape. Defined by 4 Double values. */
-case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double)
+sealed trait BoundingOpt
+{
+  def || (operand: BoundingOpt): BoundingOpt = (this, operand) match
+  { case (br1: BoundingRect, br2: BoundingRect) => br1 || br2
+    case (br1: BoundingRect, _) => br1
+    case (_, br2: BoundingRect) => br2
+    case _ => BoundingNone
+  }
+}
+
+/** An intermediate class for describing the vertical / horrisontal bounding rectangle for a Polygon or Shape. Defined by 4 Double values. */
+case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double) extends BoundingOpt
 { def topLeft = Vec2(minX, maxY)
   def topRight = Vec2(maxX, maxY)
   def bottomLeft = Vec2(minX, minY)
@@ -20,3 +30,5 @@ case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double)
   def || (operand: BoundingRect): BoundingRect =
     BoundingRect(minX.min(operand.minX), maxX.max(operand.maxX), minY.min(operand.minY), maxY.max(operand.maxY))
 }
+
+object BoundingNone extends BoundingOpt

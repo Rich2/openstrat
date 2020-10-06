@@ -14,9 +14,3 @@ trait BoundedElem extends GeomElem
   def boundingTL: Vec2 = boundingRect.topLeft
   def boundingBL: Vec2 = boundingRect.bottomLeft
 }
-
-/** BoundingRect type class */
-trait BoundedTC[T]
-{
-  def boundingRectT(obj: T): BoundingRect
-}
