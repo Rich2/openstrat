@@ -9,7 +9,10 @@ trait Flag
   def ratio: Double
   def apply(): Arr[GraphicElem]
   def rect: PolygonImp = Rectangle.applyOld(ratio)
+
+  /** Not quite sure why this is called parentStr. */
   def parentStr: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
+
   def parent(evObj: Any = this): PolygonParentOld = Rectangle.applyOld(ratio).parentElems(evObj, apply())
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
