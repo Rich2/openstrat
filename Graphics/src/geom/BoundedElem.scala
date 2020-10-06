@@ -10,3 +10,19 @@ trait BoundedElem extends GeomElem
   def boundingWidth: Double = boundingRect.width
   def boundingHeight: Double = boundingRect.height
 }
+
+trait AlignedElem extends BoundedElem
+{
+  def xTopLeft: Double
+  def yTopLeft: Double
+  def topLeft: Vec2
+  def xTopRight: Double
+  def yTopRight: Double
+  def topRight: Vec2
+  def xBottomRight: Double
+  def yBottomRight: Double
+  def bottomRight: Vec2
+  def xBottomLeft: Double
+  def yBottomLeft: Double
+  def bottomLeft: Vec2
+}
