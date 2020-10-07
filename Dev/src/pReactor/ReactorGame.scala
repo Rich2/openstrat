@@ -27,7 +27,7 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
     addBallQueue = Array[Int]()
     winner = Black
     
-    subscribers = Map("newBallForCell"->Array[Int]())
+    subscribers = Map("newBallForCell"->Array[Int](), "cellWantsToPop"->Array[Int]())
 
     ijUntilForeach(0, rows)(0, cols)
     { (r, c) =>
