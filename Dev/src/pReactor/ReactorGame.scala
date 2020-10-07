@@ -13,8 +13,8 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
   val cellSites:Array[Array[String]]
   val cellNeighbours:Array[Array[Int]]
   var addBallQueue:Array[Int]
-  var currentAddBallQueue:Array[Int]
   var winner:Colour
+  var subscribers:Map[String, Array[Int]]
 
   newGame()
   
@@ -26,6 +26,9 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
     cellColors = Array.fill[Colour](rows*cols)(Black)
     addBallQueue = Array[Int]()
     winner = Black
+    
+    subscribers = Map("newBallForCell"->Array[Int](), "cellWantsToPop"->Array[Int]())
+
     ijUntilForeach(0, rows)(0, cols)
     { (r, c) =>
       val index:Int = c + cols * r
@@ -49,7 +52,32 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
       }
     }
   }
-   def isGameOver(): Boolean =
+  def addBallByIndex(cellIndex:Int): Unit =
+  { cellColors(cellIndex) = currentPlayer
+    cellCounts(cellIndex) += 1
+  }
+  def newTurn(thisPlayer:Colour, thisCell:Int): Unit =
+  { if (players.length > 1 && thisPlayer == currentPlayer) 
+    { if (cellColors(thisCell) == Black || cellColors(thisCell) == thisPlayer) addBallQueue = Array(thisCell)
+    }
+  }
+  def processTurn():Boolean = 
+  { val oldAddBallQueue:Array[Int] = addBallQueue.clone
+    for (i <- 0 to addBallQueue.length - 1) addBallByIndex(addBallQueue(i))
+    addBallQueue = Array[Int]()
+    for (i <- oldAddBallQueue) doThePop(i)
+    if (addBallQueue.length == 0) true //no more processing required - essentially the current players turn has concluded(bar animations) and completeTurn() can be called
+    else false // processTurn needs to be called again in the future
+  }
+  def completeTurn(): Unit =
+  { if (addBallQueue.length == 0)
+    { turn += 1
+      var currentPlayerIndex = players.indexOf(currentPlayer) + 1
+      if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
+      currentPlayer = players(currentPlayerIndex)
+    }
+  }
+  def isGameOver(): Boolean =
   { if (turn >= players.length) players = players.filter(cellColors.indexOf(_) != -1)
     if (players.length < 2) 
     { addBallQueue.drop(addBallQueue.length)
@@ -58,27 +86,6 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
     } else {
       false
     }
-  }
-  def turnComplete(): Unit =
-  { turn += 1
-    var currentPlayerIndex = players.indexOf(currentPlayer) + 1
-    if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
-    currentPlayer = players(currentPlayerIndex)
-  }
-  def addBallByIndex(cellIndex:Int): Int =
-  { cellColors(cellIndex) = currentPlayer
-    cellCounts(cellIndex) += 1
-    cellIndex
-  }
-  def takeTurn(thisPlayer:Colour, thisCell:Int): Unit =
-  { if (players.length > 1 && thisPlayer == currentPlayer) 
-    { if (cellColors(thisCell) == Black || cellColors(thisCell) == thisPlayer) addBallQueue = Array(thisCell)
-    }
-  }
-  def processQueue():Unit = 
-  { //var newAddBallQueue:Array[Int] = Array[Int]()
-    for (i <- 0 to addBallQueue.length - 1) addBallByIndex(addBallQueue(i)) //{ newAddBallQueue = newAddBallQueue :+ addBallByIndex(addBallQueue(i)) }
-    addBallQueue = Array[Int]()  //  newAddBallQueue.clone
   }
   def isReadyToPop(thisCell:Int):Boolean = 
   { if (cellCounts(thisCell) >= cellNeighbours(thisCell).length) true
