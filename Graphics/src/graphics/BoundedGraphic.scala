@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-/** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
- *  graphics. */
+/** This trait is for layout. For placing Display elements in rows and columns. It includes [[PolygonGraphic]] and [[ShapeGraphic]]s but not [[Line]] and
+ * [[Curve]] graphics. */
 trait BoundedGraphic extends GraphicElem with BoundedElem
 { def slate(offset: Vec2): BoundedGraphic
   def slate(xOffset: Double, yOffset: Double): BoundedGraphic
