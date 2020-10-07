@@ -4,8 +4,9 @@ package geom
 import pWeb._
 
 /** A shape based graphic. */
-trait ShapeGraphic extends GraphicElem
+trait ShapeGraphic extends BoundedGraphic
 { def shape: Shape
+  override def boundingRect: BoundingRect = shape.boundingRect
   def attribs: Arr[XmlAtt]
   def svgStr: String
   def shapeAttribs: Arr[XmlAtt] = shape.attribs
