@@ -8,7 +8,7 @@ trait Flag
 { def name: String
   def ratio: Double
   def apply(): Arr[GraphicElem]
-  def rect: PolygonImp = Rectangle.applyOld(ratio)
+  def rect: Polygon = Rectangle(ratio, 1)
 
   /** Not quite sure why this is called parentStr. */
   def parentStr: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
