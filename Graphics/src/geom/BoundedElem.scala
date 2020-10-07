@@ -7,7 +7,10 @@ package geom
 trait BoundedElem extends GeomElem
 { /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   def boundingRect: BoundingRect
+
+  /** The width of the [[BoundingRect]] of this object. */
   def boundingWidth: Double = boundingRect.width
+
   def boundingHeight: Double = boundingRect.height
   def boundingTR: Vec2 = boundingRect.topRight
   def boundingBR: Vec2 = boundingRect.bottomRight

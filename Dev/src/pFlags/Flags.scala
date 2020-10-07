@@ -65,7 +65,7 @@ object Chad extends Flag
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] =Arr[GraphicElem](Rectangle.applyOld(1.5, 1).fill(Red),
+  val apply: Arr[GraphicElem] = Arr[GraphicElem](Rectangle.applyOld(1.5, 1).fill(Red),
     Rectangle.fromTL(0.75, 0.5, - 0.75 vv 0.5).fill(DarkBlue))
 }
 
@@ -74,7 +74,7 @@ object Japan extends Flag
   val ratio = 1.5
   val apply: Arr[GraphicElem] =
   { val rw = rect.fill(White)
-    val circ = Circle(0.3, Vec2Z).fill(Colour.fromInts(188, 0,45))
+    val circ = Circle(0.6).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
   }
 }
