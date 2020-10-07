@@ -17,8 +17,8 @@ abstract class MapGui(title: String) extends CanvasPanelled(title)
     case (_, l, _) => deb(l.toString)
   }
    
-  def textBoxFullold(str: String, cmd: AnyRef): PolygonParentOld =
-    Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
+  def textBoxFullold(str: String, cmd: AnyRef): PolygonCompound =
+    Rectangle.applyOld(10, 25).fillTextActive(Gray, cmd, str, 15, White, LeftAlign)
 
   def textBoxOld(str: String, cmd: AnyRef): PolygonParentOld =
     Rectangle.applyOld(10, 25).parentFillTextOld(cmd, Gray, str, 15, White, LeftAlign)
