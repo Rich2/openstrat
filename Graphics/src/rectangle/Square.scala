@@ -42,6 +42,8 @@ trait Square extends Rectangle
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
 object Square extends ShapeIcon
 {
+  override type ShapeT = Sqlign
+
   def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
     cenV0(cen, cen + delta)
@@ -58,7 +60,7 @@ object Square extends ShapeIcon
   override def reify(scale: Double, xCen: Double, yCen: Double): Sqlign = Sqlign(scale, xCen, yCen)
 
   /** Scale the Shape and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
-  override def reify(scale: Double, cen: Vec2): Shape = Sqlign(scale, cen)
+  override def reify(scale: Double, cen: Vec2 = Vec2Z): Sqlign = Sqlign(scale, cen)
 
   override def fill(colour: Colour): ShapeGraphicIcon = ???
 

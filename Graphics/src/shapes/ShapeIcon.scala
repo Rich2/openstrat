@@ -3,11 +3,12 @@ package ostrat
 package geom
 
 trait ShapeIcon
-{ /** Scale the ShapeIcon up and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
-  def reify(scale: Double, xCen: Double, yCen: Double): Shape
+{ type ShapeT <: Shape
+  /** Scale the ShapeIcon up and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
+  def reify(scale: Double, xCen: Double, yCen: Double): ShapeT
 
   /** Scale the ShapeIcon up and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
-  def reify(scale: Double, cen: Vec2): Shape
+  def reify(scale: Double, cen: Vec2 = Vec2Z): ShapeT
   
   def fill(colour: Colour): ShapeGraphicIcon
 }

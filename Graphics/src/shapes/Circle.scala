@@ -80,11 +80,19 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def ellipeRotation: Angle = 0.degs
 }
 
-/** This object provides factory methods for [[Circle]]s. */
+/** This is the companion object for the Circle case class. It provides factory methods for creating [[Circle]]s. */
 object Circle extends ShapeIcon
-{ def apply(diameter: Double, cen: Vec2 = Vec2Z) = new Circle(diameter, cen.x, cen.y)
+{
+  override type ShapeT = Circle
+  /** Standard factory method for creating a circle from its diameter and the position of its centre. */
+  def apply(diameter: Double, cen: Vec2 = Vec2Z) = new Circle(diameter, cen.x, cen.y)
+
+  /** Factory method for creating a circle from its radius and the position of its centre. */
   def fromRadius(radius: Double, cen: Vec2 = Vec2Z) = new Circle(radius * 2, cen.x, cen.y)
+
+  /** Factory method for creating a circle from its radius and the position of its centre. */
   def fromRadius(radius: Double, xCen: Double, yCen: Double) = new Circle(radius * 2, xCen, yCen)
+
   override def reify(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
   
