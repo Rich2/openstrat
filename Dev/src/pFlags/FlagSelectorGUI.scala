@@ -88,7 +88,10 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   }
 
   def showSelected(): Unit =
-  { viewableItems = Arr(listOfFlags(selectedIndex).parentOld(selectedIndex.toString).scale(3 * viewport("commonScale") / Math.sqrt(listOfFlags(selectedIndex).ratio)))
+  {
+    val item = listOfFlags(selectedIndex).compound(selectedIndex.toString)
+    val item2 = item.scale(3 * viewport("commonScale") / Math.sqrt(listOfFlags(selectedIndex).ratio))
+    viewableItems = Arr(item2)
     positionBar()
   }
 
