@@ -44,9 +44,6 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def parentFillDraw(pointerID: Any, fillColour: Colour, lineWidth:  Double, lineColour: Colour = Black): PolygonParentOld =
     PolygonParentOld.fillDraw(this.polyCentre, this, pointerID, fillColour, lineWidth, lineColour)
 
-  def parentFillTextOld(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-    PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
-
   def parentElems(pointerID: Any, elems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
   
   /** Insert vertice */
