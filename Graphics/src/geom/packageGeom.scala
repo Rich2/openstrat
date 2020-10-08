@@ -22,6 +22,9 @@ package object geom
 
   implicit def slateTransAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: TransAxes[T]): SlateTransAxesExtensions[T] =
     new SlateTransAxesExtensions[T](value)(evS, evR)
+
+  implicit def alignedSlateToExtension[T<: AlignedGeom](value: T )(implicit evS: Slate[T]): AlignedSlateExtensions[T] =
+    new AlignedSlateExtensions[T](value)(evS)
   
   implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)

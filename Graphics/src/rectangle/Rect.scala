@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
-trait Rect extends Rectangle with Rectangularlign with AlignedElem
+trait Rect extends Rectangle with Rectangularlign with AlignedGeom
 { @inline final override def x0: Double = xTopRight
   @inline final override def y0: Double = yTopRight
   @inline final override def v0: Vec2 = x0 vv y0
@@ -51,6 +51,8 @@ trait Rect extends Rectangle with Rectangularlign with AlignedElem
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
+
+  override def activeChildren(id: Any, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */

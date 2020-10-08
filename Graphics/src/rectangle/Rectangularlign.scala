@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A Rectangle like final class aligned to the X and Y axes. */
-trait Rectangularlign extends Rectangular
+trait Rectangularlign extends AlignedElem//extends Rectangular
 { def width: Double
   def height: Double
   def xCen: Double

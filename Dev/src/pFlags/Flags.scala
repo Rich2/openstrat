@@ -8,12 +8,12 @@ trait Flag
 { def name: String
   def ratio: Double
   def apply(): Arr[GraphicElem]
-  def rect: Polygon = Rectangle(ratio, 1)
+  def rect: Rect = Rect(ratio, 1)
 
   /** Not quite sure why this is called parentStr. */
   def parentStrOld: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
 
-  def compoundStr: PolygonCompound = rect.activeChildren(name + " flag", apply())
+  def compoundStr: RectCompound = rect.activeChildren(name + " flag", apply())
 
   def compound(evObj: Any = this): PolygonCompound =
   { val rect = Rect(ratio, 1)

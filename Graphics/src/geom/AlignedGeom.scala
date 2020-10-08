@@ -2,8 +2,12 @@
 package ostrat
 package geom
 
-trait AlignedElem extends BoundedElem
+/** This is either an alignedElem which inherits from Geom or something like a Panel. */
+trait AlignedElem
 {
+  def xCen: Double
+  def yCen: Double
+  def cen: Vec2
   def xTopRight: Double
   def yTopRight: Double
   def topRight: Vec2
@@ -16,4 +20,9 @@ trait AlignedElem extends BoundedElem
   def xTopLeft: Double
   def yTopLeft: Double
   def topLeft: Vec2
+  /*def xTopCen: Double
+  def yTopCen: Double
+  def topCen: Vec2*/
 }
+
+trait AlignedGeom extends BoundedElem with AlignedElem
