@@ -11,9 +11,14 @@ trait Flag
   def rect: Polygon = Rectangle(ratio, 1)
 
   /** Not quite sure why this is called parentStr. */
-  def parentStr: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
+  def parentStrOld: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
 
-  def parent(evObj: Any = this): PolygonParentOld = Rectangle.applyOld(ratio).parentElems(evObj, apply())
+  def parentOld(evObj: Any = this): PolygonParentOld = Rectangle.applyOld(ratio).parentElems(evObj, apply())
+
+  def compound(evObj: Any = this): PolygonCompound =
+  { val rect = Rect(ratio, 1)
+    PolygonCompound(rect, Arr(), apply() +- rect.active(evObj))
+  }
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
   def leftToRight(colours: Colour*): Arr[GraphicElem] = colours.iMap((colour, i) => Rectangle.fromTL(ratio / colours.length, 1,

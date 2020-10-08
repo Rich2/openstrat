@@ -56,7 +56,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val maxIndexOfFirstItemInView = scrollStep * ((Math.max(0, itemCount - itemsPerPage + scrollStep - 1)) / scrollStep)
   def scrollMore(): Unit = { showGridView(viewIndex + itemsPerUnitScroll) }
   def scrollLess(): Unit = { showGridView(viewIndex - itemsPerUnitScroll) }
-  var viewableItems:Arr[PolygonParentOld] = Arr()
+  var viewableItems:Arr[GraphicElem] = Arr()
 
   var bar = Rectangle.curvedCorners(barWidth, 30, 10).fill(Pink)
   var barOffsetX = 0.0
@@ -74,7 +74,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     viewableItems = Arr()
     for(j <- 0 to itemsPerCol - 1; i <- 0 to itemsPerRow - 1 if firstIndex + i * iScrollStep + j * jScrollStep < itemCount)
     { val thisIndex = firstIndex + i * iScrollStep + j * jScrollStep
-      val thisFlag = listOfFlags(thisIndex).parent(thisIndex.toString).scale(viewport("commonScale") / Math.sqrt(listOfFlags(thisIndex).ratio))
+      val thisFlag = listOfFlags(thisIndex).compound(thisIndex.toString).scale(viewport("commonScale") / Math.sqrt(listOfFlags(thisIndex).ratio))
       viewableItems = viewableItems +- thisFlag.slate(i * viewport("cellWidth"), -j * viewport("cellHeight")).slate(firstFlagsPosition)
     }
     viewIndex = firstIndex
@@ -88,7 +88,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   }
 
   def showSelected(): Unit =
-  { viewableItems = Arr(listOfFlags(selectedIndex).parent(selectedIndex.toString).scale(3 * viewport("commonScale") / Math.sqrt(listOfFlags(selectedIndex).ratio)))
+  { viewableItems = Arr(listOfFlags(selectedIndex).parentOld(selectedIndex.toString).scale(3 * viewport("commonScale") / Math.sqrt(listOfFlags(selectedIndex).ratio)))
     positionBar()
   }
 
