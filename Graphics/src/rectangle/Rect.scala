@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
-trait Rect extends Rectangle with Rectangularlign
+trait Rect extends Rectangle with Rectangularlign with AlignedElem
 { @inline final override def x0: Double = xTopRight
   @inline final override def y0: Double = yTopRight
   @inline final override def v0: Vec2 = x0 vv y0
