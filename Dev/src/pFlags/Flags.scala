@@ -13,6 +13,8 @@ trait Flag
   /** Not quite sure why this is called parentStr. */
   def parentStrOld: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
 
+  def compoundStr: PolygonCompound = rect.activeChildren(name + " flag", apply())
+
   def compound(evObj: Any = this): PolygonCompound =
   { val rect = Rect(ratio, 1)
     PolygonCompound(rect, Arr(), apply() +- rect.active(evObj))
