@@ -26,7 +26,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def gameBtn(str: String, cmd: MouseButton => Unit) =
     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
-  newGame()
+  //newGame()
+
+  //val aDefaultGame:ReactorGame = new ReactorGame
   
   def newGame() : Unit =
   { 
