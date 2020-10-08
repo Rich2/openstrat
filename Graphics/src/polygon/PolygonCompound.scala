@@ -61,6 +61,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def xShear(operand: Double): PolygonCompound = ???
 
   override def yShear(operand: Double): PolygonCompound = ???
+
+  def addChildren(newChildren: Arr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 }
 
 object PolygonCompound
