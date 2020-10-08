@@ -3,6 +3,7 @@ package ostrat
 package gOne
 import pGrid._
 
+/** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each Tile can contain a single player or be empty. */
 trait OneScen
 { def turn: Int
   implicit def grid: HexGridSimple
@@ -22,6 +23,7 @@ trait OneScen
   }
 }
 
+/** This trait just puts the value 0 in for the turn. */
 trait OneScenStart extends OneScen
 { override def turn: Int = 0
 }
