@@ -3,8 +3,9 @@ package pReactor
 import Colour._
 
 /** A clone of the classic Atoms game */
-abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colour] = Array(Red, Green, Yellow, Blue)) 
-{
+abstract class ReactorGame() 
+{ val rows:Int
+  val cols:Int
   var turn:Int
   var players:Array[Colour]
   var currentPlayer:Colour
@@ -16,10 +17,11 @@ abstract class ReactorGame(rows: Int = 8, cols: Int = 10, thePlayers:Array[Colou
   var winner:Colour
   var subscribers:Map[String, Array[Int]]
 
-  newGame()
-  
-  def newGame(): Unit =
-  { turn = 0
+  def newGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] = Array(Red, Green, Yellow, Blue)): Unit =
+  { val rows = aRows
+    val cols = aCols
+    val thePlayers = aPlayers
+    turn = 0
     players = thePlayers.clone()
     currentPlayer = players(0)
     cellCounts = Array.fill[Int](rows*cols)(0)
