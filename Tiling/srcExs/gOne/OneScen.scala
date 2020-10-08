@@ -3,9 +3,9 @@ package ostrat
 package gOne
 import pGrid._
 
-/** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each Tile can contain a single player or be empty. */
+/** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
 trait OneScen
-{ def turn: Int
+{ val turn: Int
   implicit def grid: HexGridSimple
   def oPlayers: TilesArrOpt[Player]
 
@@ -25,13 +25,13 @@ trait OneScen
 
 /** This trait just puts the value 0 in for the turn. */
 trait OneScenStart extends OneScen
-{ override def turn: Int = 0
+{ override val turn: Int = 0
 }
 
 object OneScen
 {
   def apply(turnIn: Int, gridIn: HexGridSimple, opIn: TilesArrOpt[Player]): OneScen = new OneScen
-    { override def turn = turnIn
+    { override val turn = turnIn
       override implicit def grid: HexGridSimple = gridIn
       override def oPlayers: TilesArrOpt[Player] = opIn
     }
