@@ -15,7 +15,6 @@ trait ShapeGraphic extends BoundedGraphic
   def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, linePosn, lineLen)
   final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
   def svgElem(bounds: BoundingRect): SvgElem
-  def cen: Vec2 = shape.cen
 
   /** Translate geometric transformation. */
   def slate(offset: Vec2): ShapeGraphic
@@ -53,7 +52,11 @@ trait ShapeGraphic extends BoundedGraphic
 
   def reflect(lineLike: LineLike): ShapeGraphic
 
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphic  
+  override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphic
+
+  override def xCen: Double = shape.xCen
+  override def yCen: Double = shape.yCen
+  override def cen: Vec2 = shape.cen
 }
 
 /** Companion object for the ShapeGraphic class. */

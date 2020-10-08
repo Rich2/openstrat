@@ -43,6 +43,8 @@ case class PolygonParentOld(cen: Vec2, poly: PolygonImp, pointerId: Any, childre
   override def prolign(matrix: ProlignMatrix): PolygonParentOld = PolygonParentOld(cen.prolign(matrix), poly.prolign(matrix), pointerId, children.prolign(matrix))
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonParentOld = ???
+  def xCen: Double = ???
+  def yCen: Double = ???
 }
 
 object PolygonParentOld

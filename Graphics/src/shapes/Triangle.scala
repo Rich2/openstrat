@@ -15,8 +15,6 @@ trait Triangle extends Polygon
 	def y2: Double
 	def v2: Vec2 = x2 vv y2
 
-
-	
 	override def apply(index: Int): Vec2 = index match
 	{	case 0 => v0
 		case 1 => v1
@@ -64,6 +62,9 @@ trait Triangle extends Polygon
 	override def xGet(index: Int): Double = ???
 
 	override def yGet(index: Int): Double = ???
+
+	def xCen: Double = (x0 + x1 + x2) / 3
+	def yCen: Double = (y0 + y1 + y2) / 3
 }
 
 final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle //with AffinePreserve
@@ -73,10 +74,7 @@ final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
 
 	override def rotate(angle: Angle): TriangleClass = ???
-
-	//override def fill(fillColour: Colour): ShapeFill = ???
-
-//	override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+	
 }
 
 object Triangle

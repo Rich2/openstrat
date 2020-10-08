@@ -14,18 +14,27 @@ case class PolyCurveFill(shape: PolyCurve, colour: Colour) extends PolyCurveElem
 { override type ThisT = PolyCurveFill
   override def fTrans(f: Vec2 => Vec2) = PolyCurveFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeFill(shape, colour)
+  def xCen: Double = ???
+  def yCen: Double = ???
+  def cen: Vec2 = ???
 }
 
 case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = Black) extends PolyCurveElem
 { override type ThisT = PolyCurveDraw
   override def fTrans(f: Vec2 => Vec2) = PolyCurveDraw(shape.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeDraw(shape, lineWidth, colour)
+  def xCen: Double = ???
+  def yCen: Double = ???
+  def cen: Vec2 = ???
 }
 
 /** A pointable shape without visual. */
 case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends GraphicAffineElem with PolyCurveActive
 { override type ThisT = PolyCurveActiveOnly
   override def fTrans(f: Vec2 => Vec2): PolyCurveActiveOnly = PolyCurveActiveOnly(shape.fTrans(f), pointerId)
+  def xCen: Double = ???
+  def yCen: Double = ???
+  def cen: Vec2 = ???
 }
 
 case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyCurveElem
@@ -36,6 +45,9 @@ case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Do
   { cp.shapeFill(shape, fillColour)
     cp.shapeDraw(shape, lineWidth, lineColour)
   }
+  def xCen: Double = ???
+  def yCen: Double = ???
+  def cen: Vec2 = ???
 }
 
 case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
@@ -51,6 +63,9 @@ case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: Stri
     cp.shapeDraw(shape, lineWidth, lineColour)
     cp.textGraphic(textOnly)
   }
+  def xCen: Double = ???
+  def yCen: Double = ???
+  def cen: Vec2 = ???
 }
 
 case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2,
@@ -66,4 +81,8 @@ case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColou
     cp.shapeDraw(shape, lineWidth, lineColour)
     cp.textGraphic(textOnly)
   }
+
+  def xCen: Double = ???
+  def yCen: Double = ???
+  def cen: Vec2 = ???
 }
