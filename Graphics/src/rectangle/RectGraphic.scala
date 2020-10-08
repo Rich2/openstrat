@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** This is a graphic based on a Rect shape. A rectangle aligned to the X and Y axes. */
-trait RectGraphic extends RectangleGraphic
+trait RectGraphic extends RectangleGraphic with ShapeGraphicAligned
 { override def shape: Rect
 }
 

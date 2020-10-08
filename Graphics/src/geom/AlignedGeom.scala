@@ -26,3 +26,5 @@ trait AlignedElem
 }
 
 trait AlignedGeom extends BoundedElem with AlignedElem
+
+trait ShapeAligned extends Shape with AlignedGeom

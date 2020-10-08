@@ -9,7 +9,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   backColour = Gray
    
   val tlFlags = Arr(Armenia, Austria, England, UnitedKingdom, Japan)
-  val tlObjs = tlFlags.iMap((el, i) => el.parentStrOld.scale(100).copyBoundingTL.slate(canv.topLeft.subY(i * 110)))
+  val tlObjs = tlFlags.iMap((el, i) => el.compoundStr.scale(100).topLeftSlate(canv.topLeft.subY(i * 110)))
 
   val trFlags = Arr(Belgium, Chad, France)
   val trObjs = trFlags.iMap((el, i) => el.parentStrOld.scale(100).copyBoundingTR.slate(canv.topRight.subY(i * 110)))
