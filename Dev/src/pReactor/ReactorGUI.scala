@@ -28,7 +28,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 
   //newGame()
 
-  //val aDefaultGame:ReactorGame = new ReactorGame
+  val aDefaultGame = new ReactorGame
+
+  
   
   def newGame() : Unit =
   { 
