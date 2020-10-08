@@ -4,7 +4,7 @@ package geom
 import pWeb._, math.Pi
 
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
-final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends Ellipse //with AlignedElem
+final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends Ellipse with AlignedElem
 {  
   override def fTrans(f: Vec2 => Vec2): Circle =
   { val v1: Vec2 = cen.addX(radius)
@@ -79,9 +79,19 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
   override def ellipeRotation: Angle = 0.degs
 
-  private[this] def root2: Double = 2.sqrt
-
-  //def xTopRight: Vec2 = ???
+  private[this] def rr2: Double = diameter * 2.sqrt
+  override def xTopRight: Double = rr2
+  override def yTopRight: Double = rr2
+  override def topRight: Vec2 = Vec2(rr2, rr2)
+  override def xBottomRight: Double = rr2
+  override def yBottomRight: Double = -rr2
+  override def bottomRight: Vec2 = Vec2(rr2, -rr2)
+  override def xBottomLeft: Double = -rr2
+  override def yBottomLeft: Double = -rr2
+  override def bottomLeft: Vec2 = Vec2(-rr2, -rr2)
+  override def xTopLeft: Double = -rr2
+  override def yTopLeft: Double = rr2
+  override def topLeft: Vec2 = Vec2(-rr2, rr2)
 }
 
 /** This is the companion object for the Circle case class. It provides factory methods for creating [[Circle]]s. */

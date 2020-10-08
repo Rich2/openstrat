@@ -4,9 +4,6 @@ package geom
 
 trait AlignedElem extends BoundedElem
 {
-  def xTopLeft: Double
-  def yTopLeft: Double
-  def topLeft: Vec2
   def xTopRight: Double
   def yTopRight: Double
   def topRight: Vec2
@@ -16,4 +13,7 @@ trait AlignedElem extends BoundedElem
   def xBottomLeft: Double
   def yBottomLeft: Double
   def bottomLeft: Vec2
+  def xTopLeft: Double
+  def yTopLeft: Double
+  def topLeft: Vec2
 }
