@@ -3,25 +3,23 @@ package pReactor
 import Colour._
 
 /** A clone of the classic Atoms game */
-abstract class ReactorGame() 
-{ val rows:Int
-  val cols:Int
-  var turn:Int
-  var players:Array[Colour]
-  var currentPlayer:Colour
-  var cellCounts:Array[Int]
-  var cellColors:Array[Colour]
-  val cellSites:Array[Array[String]]
-  val cellNeighbours:Array[Array[Int]]
-  var addBallQueue:Array[Int]
-  var winner:Colour
-  var subscribers:Map[String, Array[Int]]
+case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] = Array(Red, Green, Yellow, Blue)) 
+{ val rows = aRows
+  val cols = aCols
+  var turn = 0
+  val thePlayers = aPlayers
+  var players = thePlayers.clone()
+  var currentPlayer = Black
+  var cellCounts = Array[Int]()
+  var cellColors = Array[Colour]()
+  val cellSites = Array[Array[String]]()
+  val cellNeighbours = Array[Array[Int]]()
+  var addBallQueue = Array[Int]()
+  var winner = Black
+  var subscribers = Map[String, Array[Int]]()
 
-  def newGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] = Array(Red, Green, Yellow, Blue)): Unit =
-  { val rows = aRows
-    val cols = aCols
-    val thePlayers = aPlayers
-    turn = 0
+  def newGame(): Unit =
+  { turn = 0
     players = thePlayers.clone()
     currentPlayer = players(0)
     cellCounts = Array.fill[Int](rows*cols)(0)
