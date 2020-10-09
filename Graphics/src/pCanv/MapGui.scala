@@ -9,7 +9,7 @@ import geom._, Colour._
 abstract class MapGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30
-  val topPan: Panel = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
+  val topPan: Panel = addPanel(Rect.tl(canv.width, barWidth, canv.topLeft), true)
   topPan.backColour = Colour.Gray
 
   topPan.mouseUp =
