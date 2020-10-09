@@ -6,8 +6,8 @@ import geom._, Colour._
 object PapuaNewGuinea extends Flag
 { val name = "Papua New Guinea"
   val ratio = 4.0/3
-  val apply: Arr[GraphicElem] =
-  { val base = Rectangle.applyOld(ratio, 1).fill(Black)
+  val apply: GraphicElems =
+  { val base = Rect(ratio, 1).fill(Black)
     val topRightTriangle = Triangle.fill(-2.0/3 vv 0.5, 2.0/3 vv 0.5, 2.0/3 vv -0.5, Colour(0xFFce1126))
 
     val bird = PolyCurve(LineTail(0.04247 vv 0.2211), BezierTail(0.03302 vv 0.2089, 0.01065 vv 0.2334, -0.01615 vv 0.2339),
@@ -57,7 +57,7 @@ object PapuaNewGuinea extends Flag
     val starLarge = PolyCurve(LineTail(-0.3326 vv 0.1901), LineTail(-0.3724 vv 0.06216), LineTail(-0.2676 vv 0.14), LineTail(-0.3976 vv 0.14),
       LineTail(-0.2928 vv 0.06076), LineTail(-0.3326 vv 0.1901)).fill(Colour(0xFFFFFFFF))
 
-    Arr[GraphicElem](
+    Arr(
       base,
       topRightTriangle,
       bird,
