@@ -63,7 +63,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
   override def rotate270: Circle = Circle(diameter, cen.rotate270)
 
-  override def moveTo(newCen: Vec2): Circle = Circle(diameter, newCen)
+  override def slateTo(newCen: Vec2): Circle = Circle(diameter, newCen)
   
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   

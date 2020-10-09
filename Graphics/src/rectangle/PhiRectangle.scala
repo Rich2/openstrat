@@ -19,5 +19,5 @@ case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with
   override def yLs3Cen: Double = yCen + height / 2 
   override def ls3Cen: Vec2 = Vec2(0, yLs3Cen)
 
-  override def moveTo(newCen: Vec2): PhiRect = ???
+  override def slateTo(newCen: Vec2): PhiRect = ???
 }

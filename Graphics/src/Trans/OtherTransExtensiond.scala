@@ -12,7 +12,8 @@ class SlateTransAxesExtensions[A](thisReflector: A)(implicit evS: Slate[A], evR:
   def reflectYOffset(xOffset: Double): A = evS.xSlateT(evR.negXT(thisReflector), 2 * xOffset)
 }
 
+/*
 class AlignedSlateExtensions[A <: AlignedGeom](thisA: A)(implicit evS: Slate[A])
 {
-  def topLeftSlate(topLeftOffset: Vec2): A = evS.slateT(thisA, topLeftOffset + 2 * thisA.cen - thisA.topLeft)
-}
+ // def topLeftSlate(topLeftOffset: Vec2): A = evS.slateT(thisA, topLeftOffset + 2 * thisA.cen - thisA.topLeft)
+}*/

@@ -52,7 +52,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 
-  override def moveTo(newCen: Vec2): Rect = Rect(width, height, newCen)
+  override def slateTo(newCen: Vec2): Rect = Rect(width, height, newCen)
 
   override def activeChildren(id: Any, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
 }
@@ -66,6 +66,19 @@ object Rect
   /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
   def cenV0(cen: Vec2, v0: Vec2): Rect = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
+
+  implicit val slateImplicit: Slate[Rect] = (obj: Rect, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
+  implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
+  implicit val slateToImplicit: SlateTo[Rect] = (obj: Rect, newCen: Vec2) => obj.slateTo(newCen)
+
+  implicit val reflectAxesImplicit: TransAxes[Rect] = new TransAxes[Rect]
+  { override def negYT(obj: Rect): Rect = obj.negY
+    override def negXT(obj: Rect): Rect = obj.negX
+    override def rotate90T(obj: Rect): Rect = obj.rotate90
+    override def rotate180T(obj: Rect): Rect = obj.rotate180
+    override def rotate270T(obj: Rect): Rect = obj.rotate270
+  }
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
