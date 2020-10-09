@@ -6,7 +6,7 @@ import pWeb._
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
-trait Rectangle extends Polygon //Rectangular with Polygon
+trait Rectangle extends Polygon
 { final override def length: Int = 4
   def x0: Double
   def y0: Double
@@ -145,11 +145,11 @@ object Rectangle
       tlVec.x + width vv tlVec.y - height,
       tlVec.x         vv tlVec.y -height)
    
-  def fromBL(width: Double, height: Double, v: Vec2): PolygonImp = PolygonImp(
+  /*def fromBL(width: Double, height: Double, v: Vec2): PolygonImp = PolygonImp(
       v.x vv v.y + height,
       v.x + width vv v.y + height,
       v.x + width vv v.y,
-      v.x vv v.y)
+      v.x vv v.y)*/
 
   /** Measured from bottom centre */      
   def fromBC(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): PolygonImp =

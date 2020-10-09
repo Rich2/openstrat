@@ -69,12 +69,12 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         cellSites(index) = "N" +: cellSites(index)
       }
     }
-    canv.polygonFill(Rectangle.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), currentPlayer)
   }
   def drawBalls(loc:Vec2, color:Colour, cellIndex:Int, whichNewBall:Int = 1) : Unit =
   { val count = cellCounts(cellIndex)
     val isAnimation = animationIndexes.contains(cellIndex)
-    canv.polygonFill(Rectangle.fromBL(size-1, size-1, loc), Black)
+    canv.polygonFill(Rect.bl(size-1, size-1, loc), Black)
     if (isAnimation) canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(cellIndex, whichNewBall-1)), color)
    
     if (count > 1) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
@@ -82,7 +82,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     if (count > 3) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
     if (count > 4) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
     if (count > 5) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 4)), color)
-    if (count > 6) canv.polygonFill(Rectangle.fromBL(size-1, size-1, loc), Pink)
+    if (count > 6) canv.polygonFill(Rect.bl(size-1, size-1, loc), Pink)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
   { deb("whichCell="+whichCell.toString)
@@ -143,7 +143,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     var currentPlayerIndex = players.indexOf(currentPlayer) + 1
     if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
     currentPlayer = players(currentPlayerIndex)
-    canv.polygonFill(Rectangle.fromBL(size/2, size/2, -size vv -size), currentPlayer)
+    canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), currentPlayer)
     canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
   def addBallByIndex(cellIndex:Int) : Unit = 

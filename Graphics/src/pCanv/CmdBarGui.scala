@@ -15,7 +15,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
     Rectangle(40, 25).fillDrawTextActive(Gray, cmd, str, 15, 2, White, LeftAlign)
     
   def status = textBox(statusText, None)
-  val mainPanel: Panel = addPanel(Rectangle.fromBL(canv.width, canv.height - barWidth, canv.bottomLeft))
+  val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mainRepaint(els: Arr[GraphicElem]): Unit = mainPanel.repaint(els)
   def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els: _*)
   def mainWidth = mainPanel.width
