@@ -137,15 +137,13 @@ object Rectangle
   }
   
   def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-
- // def scale(widthOverHeightRatio: Double, scale: Double, cen: Vec2 = Vec2Z): PolygonGen = applyOld(widthOverHeightRatio * scale, scale, cen)
   
   /** A rectangle measured from its top left */
   def fromTL(width: Double, height: Double, tlVec: Vec2 = Vec2Z): PolygonImp = PolygonImp(
       tlVec.x         vv tlVec.y,
       tlVec.x + width vv tlVec.y,
       tlVec.x + width vv tlVec.y - height,
-      tlVec.x         vv tlVec.y -height)         
+      tlVec.x         vv tlVec.y -height)
    
   def fromBL(width: Double, height: Double, v: Vec2): PolygonImp = PolygonImp(
       v.x vv v.y + height,
