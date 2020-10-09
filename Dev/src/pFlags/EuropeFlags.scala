@@ -106,13 +106,10 @@ object Russia extends Flag
 object USSR extends Flag
 { val name = "USSR"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] =
-  {
-    Arr[GraphicElem](
-      Rectangle.applyOld(ratio, 1).fill(Red),
-      Star5().scale(0.4).fill(Gold)
-    )
-  }
+  val apply: GraphicElems = Arr(
+    Rect(ratio, 1).fill(Red),
+    Star5().scale(0.4).fill(Gold)
+  )
 }
 
 object Swastika extends Flag
@@ -130,23 +127,19 @@ object Swastika extends Flag
 object CzechRepublic extends Flag
 { val name = "Czech Republic"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] =
-  {
-    Arr[GraphicElem](
-      Rect(ratio, 1).fill(White),
-      Rect(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
-      Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
-    )
-  }
+  val apply: GraphicElems = Arr(
+    Rect(ratio, 1).fill(White),
+    Rect(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
+    Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
+  )
 }
 
 object CCCP extends Flag
 { val name = "CCCP"
   val ratio = 2.0
-  val apply: Arr[GraphicElem] =
-  { Arr[GraphicElem](
+  val apply: GraphicElems = Arr(
     //background
-    Rectangle.applyOld(ratio, 1).fill(Colour(0xFFCC0000)),
+    Rect(ratio, 1).fill(Colour(0xFFCC0000)),
     //hammer
     PolyCurve(LineTail(-0.7709 vv 0.2138), LineTail(-0.7395 vv 0.1822), LineTail(-0.7099 vv 0.2116),
       BezierTail(-0.6648 vv 0.1633, -0.6175 vv 0.1166, -0.5727 vv 0.06808), BezierTail(-0.566 vv 0.06131, -0.555 vv 0.06128, -0.5483 vv 0.068),
@@ -171,5 +164,4 @@ object CCCP extends Flag
     //inner star
     Star5().scale(1.0/25).slate(-2.0/3 vv 0.75/2).fill(Colour(0xFFCC0000)),
   )
-  }
 }
