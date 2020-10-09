@@ -11,6 +11,7 @@ trait AlignedElem
   def xTopRight: Double
   def yTopRight: Double
   def topRight: Vec2
+  def topRightDelta: Vec2 = topRight - cen
   def xBottomRight: Double
   def yBottomRight: Double
   def bottomRight: Vec2

@@ -12,7 +12,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val tlObjs = tlFlags.iMap((el, i) => el.compoundStr.scale(100).tlSlateTo(canv.topLeft.subY(i * 110)))
 
   val trFlags = Arr(Belgium, Chad, France)
-  val trObjs = trFlags.iMap((el, i) => el.parentStrOld.scale(100).copyBoundingTR.slate(canv.topRight.subY(i * 110)))
+  val trObjs = trFlags.iMap((el, i) => el.compoundStr.scale(100).trSlateTo(canv.topRight.subY(i * 110)))
 
   val blFlags = Arr(China, Italy)
   val blObjs = blFlags.iMap((el, i) => el.parentStrOld.scale(100).copyBoundingBL.slate(canv.bottomLeft.addY(i * 110)))

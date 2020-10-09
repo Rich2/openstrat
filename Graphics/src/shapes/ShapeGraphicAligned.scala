@@ -5,11 +5,9 @@ package geom
 trait ShapeGraphicAligned extends ShapeGraphic with BoundedAligned
 {
   override def shape: ShapeAligned
-  override def xTopRight: Double = ???
-
-  override def yTopRight: Double = ???
-
-  override def topRight: Vec2 = ???
+  override def xTopRight: Double = shape.xTopRight
+  override def yTopRight: Double = shape.yTopRight
+  override def topRight: Vec2 = shape.topRight
 
   override def xBottomRight: Double = ???
 
