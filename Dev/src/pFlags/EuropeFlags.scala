@@ -6,13 +6,13 @@ import geom._, Colour._
 object Austria extends Flag
 { def name = "Austria"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] = topToBottom(Black, Yellow)
+  val apply: GraphicElems = topToBottom(Black, Yellow)
 }
 
 object Belgium extends Flag
 { val name = "Belgium"
   val ratio = 15.0 / 13.0
-  def apply(): Arr[GraphicElem] = leftToRight(Black, Yellow, Red)
+  def apply(): GraphicElems = leftToRight(Black, Yellow, Red)
 }
 
 trait EnglandLike extends Flag
@@ -24,13 +24,13 @@ trait EnglandLike extends Flag
 
 object England extends EnglandLike
 { val name = "England"
-  val apply = common
+  val apply: GraphicElems = common
 }
 
 object UnitedKingdom extends EnglandLike
 { val name = "United Kingdom"
 
-  val apply: Arr[GraphicElem] =
+  val apply: GraphicElems =
   { val xd = math.sqrt(5) / 30.0 //hypotenuse sqrt(2 * 2 + 1 * 1)
     val yd = math.sqrt(1.25) / 30.0 //hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)
     val ywc = 5.0 / 30 //top of White cross bar
@@ -70,37 +70,37 @@ object UnitedKingdom extends EnglandLike
 object France extends Flag
 { val name = "France"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
+  val apply: GraphicElems = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
 }
 
 object Germany extends Flag
 { val name = "Germany"
   val ratio = 5 / 3.0
-  val apply: Arr[GraphicElem] = topToBottom(Black, Red, Gold)
+  val apply: GraphicElems = topToBottom(Black, Red, Gold)
 }
 
 object Germany1871 extends Flag
 { val name = "Germany (1871)"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] = topToBottom(Black, White, Red)
+  val apply: GraphicElems = topToBottom(Black, White, Red)
 }
 
 object Italy extends Flag
 { val name = "Italy"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] = topToBottom(Green, White, Red)
+  val apply: GraphicElems = topToBottom(Green, White, Red)
 }
 
 object Ireland extends Flag
 { val name = "Ireland"
   val ratio = 2
-  val apply: Arr[GraphicElem] = topToBottom(Green, White, Orange)
+  val apply: GraphicElems = topToBottom(Green, White, Orange)
 }
 
 object Russia extends Flag
 { val ratio = 1.5
   val name = "Russia"
-  val apply: Arr[GraphicElem] = topToBottom(White, Blue, Red)
+  val apply: GraphicElems = topToBottom(White, Blue, Red)
 }
 
 object USSR extends Flag
