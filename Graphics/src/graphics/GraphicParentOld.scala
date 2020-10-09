@@ -10,18 +10,6 @@ trait GraphicParentOld extends GraphicElem
   /** The type of children can probably be widened in the future. */
   def children: Arr[GraphicElem]
 
-  /** Returns a copy of ThisT centred on the top left of the [[BoundingRect]] of ThisT. */
-  def copyBoundingTL: ThisT = this.slate(- boundingRect.topLeft).asInstanceOf[ThisT]
-
-  /** Returns a copy of ThisT centred on the top right of the [[BoundingRect]] of ThisT. */
-  def copyBoundingTR: ThisT = this.slate(- boundingRect.topRight).asInstanceOf[ThisT]
-
-  /** Returns a copy of ThisT centred on the bottom left of the [[BoundingRect]] of ThisT. */
-  def copyBoundingBL: ThisT = this.slate(- boundingRect.bottomLeft).asInstanceOf[ThisT]
-
-  /** Returns a copy of ThisT centred on the bottom right of the [[BoundingRect]] of ThisT. */
-  def copyBoundingBR: ThisT = this.slate(- boundingRect.bottomRight).asInstanceOf[ThisT]
-
   def addElems(newElems: Arr[GraphicElem]): ThisT
   def addElem(newElem: GraphicElem): ThisT = addElems(Arr(newElem))
   def mutObj(newObj: Any): ThisT
