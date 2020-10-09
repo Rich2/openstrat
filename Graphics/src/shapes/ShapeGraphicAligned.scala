@@ -3,17 +3,9 @@ package ostrat
 package geom
 
 trait ShapeGraphicAligned extends ShapeGraphic with BoundedAligned
-{
-  override def shape: ShapeAligned
-
+{ override def shape: ShapeAligned
   override def topRight: Vec2 = shape.topRight
-
-
-  override def bottomRight: Vec2 = ???
-
-
-  override def bottomLeft: Vec2 = ???
-
-
+  override def bottomRight: Vec2 = shape.bottomRight
+  override def bottomLeft: Vec2 = shape.bottomLeft
   override def topLeft: Vec2 = shape.topLeft
 }
