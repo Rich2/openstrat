@@ -7,7 +7,7 @@ import geom._, Colour._
 abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30
-  val topBar = addPanel(Rectangle.fromTL(canv.width, barWidth, canv.topLeft), true)
+  val topBar = addPanel(Rect.tl(canv.width, barWidth, canv.topLeft), true)
   topBar.backColour = Gray
   var statusText: String
   
