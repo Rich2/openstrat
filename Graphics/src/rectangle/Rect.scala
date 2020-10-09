@@ -52,6 +52,8 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 
+  override def moveTo(newCen: Vec2): Rect = Rect(width, height, newCen)
+
   override def activeChildren(id: Any, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
 }
 
