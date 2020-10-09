@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait ShapeGraphicAligned extends ShapeGraphic with AlignedGeom
+trait ShapeGraphicAligned extends ShapeGraphic with BoundedAligned
 {
   override def shape: ShapeAligned
   override def xTopRight: Double = ???

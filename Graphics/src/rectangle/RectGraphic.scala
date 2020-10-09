@@ -62,6 +62,7 @@ object RectCompound
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
   implicit val XYScaleImplicit: XYScale[RectCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
+  implicit val slateToImplicit: SlateTo[RectCompound] = (obj: RectCompound, newCen: Vec2) => obj.slateTo(newCen)
 
   implicit val reflectAxesImplicit: TransAxes[RectCompound] = new TransAxes[RectCompound]
 { override def negYT(obj: RectCompound): RectCompound = obj.negY

@@ -22,3 +22,15 @@ trait BoundedElem extends GeomElem
 
   def slateTo(newCen: Vec2): BoundedElem
 }
+
+/** Type class for performing a 2D translation on an object of type T that moves the centre of the new object to the given position. */
+trait SlateTo[T]
+{
+  /** Translate an object of type T such that the centre of the new object is given by the new position. */
+  def slateTTo(obj: T, newCen: Vec2): T
+}
+
+class SlateToExtensions[A](thisA: A, ev: SlateTo[A])
+{
+  def slateTo(newCen: Vec2): A = ev.slateTTo(thisA, newCen)
+}

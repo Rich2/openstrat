@@ -20,6 +20,7 @@ trait AlignedElem
   def xTopLeft: Double
   def yTopLeft: Double
   def topLeft: Vec2
+  def topLeftDelta: Vec2 = topLeft - cen
   /*def xTopCen: Double
   def yTopCen: Double
   def topCen: Vec2*/
