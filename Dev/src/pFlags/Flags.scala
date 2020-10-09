@@ -10,9 +10,6 @@ trait Flag
   def apply(): Arr[GraphicElem]
   def rect: Rect = Rect(ratio, 1)
 
-  /** Not quite sure why this is called parentStr. */
-  def parentStrOld: PolygonParentOld = Rectangle.applyOld(ratio).parentElems(name + " flag", apply())
-
   def compoundStr: RectCompound = rect.activeChildren(name + " flag", apply())
 
   def compound(evObj: Any = this): PolygonCompound =
@@ -97,11 +94,11 @@ object CommonShapesInFlags extends Flag
   val apply: Arr[GraphicElem] =
   {
     Arr[GraphicElem](
-      Rectangle.applyOld(1.5, 1).fill(White),
+      Rect(1.5, 1).fill(White),
 
       //off centre cross
-      Rectangle.applyOld(ratio, 0.25).fill(Green),
-      Rectangle.applyOld(0.25, 1).fill(Green).slate(-0.3 vv 0),
+      Rect(ratio, 0.25).fill(Green),
+      Rect(0.25, 1).fill(Green).slate(-0.3 vv 0),
 
       Star5().scale(0.1).slate(-0.6 vv 0.3).fill(Magenta),
 
