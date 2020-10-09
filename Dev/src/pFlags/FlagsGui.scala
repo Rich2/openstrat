@@ -14,17 +14,17 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val trFlags = Arr(Belgium, Chad, France)
   val trObjs = trFlags.iMap((el, i) => el.compoundStr.scale(100).trSlateTo(canv.topRight.subY(i * 110)))
 
-  val blFlags = Arr(China, Italy)
+  val blFlags = Arr(China, Italy, India)
   val blObjs = blFlags.iMap((el, i) => el.compoundStr.scale(100).blSlateTo(canv.bottomLeft.addY(i * 110)))
 
-  val brFlags = Arr(Germany, Germany1871, Ireland)
+  val brFlags = Arr(Germany, Germany1871, Ireland, UnitedStates)
   val brObjs = brFlags.iMap((el, i) => el.compoundStr.scale(100).brSlateTo(canv.bottomRight.addY(i * 110)))
 
   val starCen = 300 vv 0
   val star: GraphicElems = Arr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
  // val ind = India.compoundStr.scale(800)
-  val us = UnitedStates.compoundStr.scale(800)
+  val us = UnitedStates.compoundStr.scale(600)
   val notChanging: Arr[GraphicElem] = tlObjs ++ trObjs ++ blObjs ++ brObjs +- us //+- myr
 
   mouseUp = (_, li, _) =>

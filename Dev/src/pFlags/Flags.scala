@@ -7,7 +7,7 @@ import geom._, Colour._
 trait Flag
 { def name: String
   def ratio: Double
-  def apply(): Arr[GraphicElem]
+  def apply(): GraphicElems
   def rect: Rect = Rect(ratio, 1)
 
   def compoundStr: RectCompound = rect.activeChildren(name + " flag", apply())
@@ -18,16 +18,16 @@ trait Flag
   }
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-  def leftToRight(colours: Colour*): Arr[GraphicElem] = colours.iMap((colour, i) => Rect.tl(ratio / colours.length, 1,
+  def leftToRight(colours: Colour*): GraphicElems = colours.iMap((colour, i) => Rect.tl(ratio / colours.length, 1,
     -ratio / 2 vv + 0.5).slate(i * ratio / colours.length, 0).fill(colour))
          
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-  def topToBottom(colours: Colour*): Arr[GraphicElem] = colours.iMap((colour, i) => Rect.tl(ratio,
+  def topToBottom(colours: Colour*): GraphicElems = colours.iMap((colour, i) => Rect.tl(ratio,
      1.0 / colours.length, -ratio / 2 vv + 0.5).slate(0,
        - i.toDouble / colours.length).fill(colour))
 
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-  def topToBottomRepeat(numBands: Int, colours: Colour*): Arr[GraphicElem] = iUntilMap(0, numBands){ i =>
+  def topToBottomRepeat(numBands: Int, colours: Colour*): GraphicElems = iUntilMap(0, numBands){ i =>
     val r1 = Rect.tl(ratio, 1.0 / numBands, -ratio / 2 vv + 0.5)
     val r2 = r1.slate(0, - i.toDouble / numBands)
     r2.fill(colours(i %% colours.length))
@@ -39,7 +39,7 @@ object PlainFlagMaker
   def apply(colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = colour.str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): Arr[GraphicElem] = Arr(rect.fill(colour))
+    override def apply(): GraphicElems = Arr(rect.fill(colour))
   }
 }
 
@@ -48,33 +48,33 @@ object TextFlagMaker
   def apply(str: String, colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): Arr[GraphicElem] = Arr(rect.fill(colour), TextGraphic(str, 40))
+    override def apply(): GraphicElems = Arr(rect.fill(colour), TextGraphic(str, 40))
   }
 }
 
 object Armenia extends Flag
 { val name = "Armenia"
   val ratio = 2
-  val apply: Arr[GraphicElem] = leftToRight(Red, Blue, Gold)
+  val apply: GraphicElems = leftToRight(Red, Blue, Gold)
 }
 
 object Chad extends Flag
 { val ratio = 1.5
   val name = "Chad"
-  def apply(): Arr[GraphicElem] = leftToRight(Blue, Yellow, Red)
+  def apply(): GraphicElems = leftToRight(Blue, Yellow, Red)
 }
 
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] = Arr[GraphicElem](Rectangle.applyOld(1.5, 1).fill(Red),
+  val apply: GraphicElems = Arr(Rect(1.5, 1).fill(Red),
     Rect.tl(0.75, 0.5, - 0.75 vv 0.5).fill(DarkBlue))
 }
 
 object Japan extends Flag
 { val name = "Japan"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] =
+  val apply: GraphicElems =
   { val rw = rect.fill(White)
     val circ = Circle(0.6).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
@@ -84,50 +84,47 @@ object Japan extends Flag
 object WhiteFlag extends Flag
 { val name = "White"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] = Arr[GraphicElem](Rectangle.applyOld(1.5, 1).fill(White))
+  val apply: GraphicElems = Arr(Rect(1.5, 1).fill(White))
 }
   
 object CommonShapesInFlags extends Flag
 { val name = "CommonShapesInFlags"
   val ratio = 1.5
 
-  val apply: Arr[GraphicElem] =
-  {
-    Arr[GraphicElem](
-      Rect(1.5, 1).fill(White),
+  val apply: GraphicElems = Arr(
+    Rect(1.5, 1).fill(White),
 
-      //off centre cross
-      Rect(ratio, 0.25).fill(Green),
-      Rect(0.25, 1).fill(Green).slate(-0.3 vv 0),
+    //off centre cross
+    Rect(ratio, 0.25).fill(Green),
+    Rect(0.25, 1).fill(Green).slate(-0.3 vv 0),
 
-      Star5().scale(0.1).slate(-0.6 vv 0.3).fill(Magenta),
+    Star5().scale(0.1).slate(-0.6 vv 0.3).fill(Magenta),
 
-      Star7(0.382).scale(0.1).slate(-0.3 vv 0.3).fill(Red),
+    Star7(0.382).scale(0.1).slate(-0.3 vv 0.3).fill(Red),
 
-      Star5().scale(0.1).slate(0.3 vv 0.3).draw(1, Lime),
-      
-      //hexagram
-      Star3().scale(0.15).slate(0.6 vv 0.3).draw(1.5, Blue),
-      Star3().scale(0.15).rotate(Deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
+    Star5().scale(0.1).slate(0.3 vv 0.3).draw(1, Lime),
 
-      //crescent
-      Circle(0.225, -0.6, -0.3).fill(Red),
-      Circle(0.2, -0.6, -0.3).slate(0.04 vv 0).fill(White),
+    //hexagram
+    Star3().scale(0.15).slate(0.6 vv 0.3).draw(1.5, Blue),
+    Star3().scale(0.15).rotate(Deg180).slate(0.6 vv 0.3).draw(1.5, Blue),
 
-      //composite star ()
-      Star5().scale(0.15).slate(-0.3 vv 0).fill(Gold),
-      Star5().scale(0.1).slate(-0.3 vv 0).fill(Magenta),
-      
-      Pentagram().scale(0.1).slate(0 vv 0.3).draw(2, Colour(0xFF006233)),
-    )
-  }
+    //crescent
+    Circle(0.225, -0.6, -0.3).fill(Red),
+    Circle(0.2, -0.6, -0.3).slate(0.04 vv 0).fill(White),
+
+    //composite star ()
+    Star5().scale(0.15).slate(-0.3 vv 0).fill(Gold),
+    Star5().scale(0.1).slate(-0.3 vv 0).fill(Magenta),
+
+    Pentagram().scale(0.1).slate(0 vv 0.3).draw(2, Colour(0xFF006233)),
+  )
 }
 
 object Iraq extends Flag
 { val name = "Iraq"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] =
-  { topToBottom(Colour(0xFFce1126), White, Black) ++ Arr[GraphicElem](
+  val apply: GraphicElems =
+  { topToBottom(Colour(0xFFce1126), White, Black) ++ Arr(
       PolyCurve(LineTail(-0.34 vv 0.2997), BezierTail(-0.3409 vv 0.3002, -0.3419 vv 0.301, -0.3423 vv 0.3015),
         BezierTail(-0.3428 vv 0.3022, -0.3425 vv 0.3022, -0.3403 vv 0.3016), BezierTail(-0.3365 vv 0.3006, -0.334 vv 0.301, -0.3315 vv 0.3031),
         LineTail(-0.3293 vv 0.3049), LineTail(-0.3268 vv 0.3036), BezierTail(-0.3254 vv 0.3029, -0.3239 vv 0.3024, -0.3234 vv 0.3025),
@@ -174,7 +171,7 @@ object Iraq extends Flag
 object India extends Flag
 { val name = "India"
   val ratio = 1.5
-  val apply: Arr[GraphicElem] =
+  val apply: GraphicElems =
   { 
     val spoke = PolyCurve(LineTail(-0.75 vv 0.3833), LineTail(-0.746 vv 0.4533), BezierTail(-0.746 vv 0.4533, -0.75 vv 0.4867, -0.75 vv 0.4867),
     BezierTail(-0.75 vv 0.4867, -0.754 vv 0.4533, -0.754 vv 0.4533), LineTail(-0.75 vv 0.3833),
