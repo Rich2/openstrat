@@ -147,7 +147,7 @@ object Rectangle
         x + width / 2 vv y + height ,
         x + width / 2 vv y,
         x - width / 2 vv y)
-  } 
+  }
   
   def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
   //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))

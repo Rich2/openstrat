@@ -63,7 +63,11 @@ object Rect
   def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): Rect = new RectImp(width, height, cen.x, cen.y)
   def apply(width: Double, height: Double, xCen: Double, yCen: Double): Rect = new RectImp(width, height, xCen, yCen)
 
-  /** Factory method for Rect from width, height and the topLeft position parameters. The defualt postion for the topLeft parameter places the top
+  /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
+   *  right vertex of the Rect at the origin. */
+  def tr(width: Double, height: Double, topRight: Vec2 = Vec2Z): Rect = new RectImp(width, height, topRight.x - width / 2, topRight.y - height / 2)
+
+  /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the topLeft parameter places the top
    *  left vertex of the Rect at the origin. */
   def tl(width: Double, height: Double, topLeft: Vec2 = Vec2Z): Rect = new RectImp(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
 
@@ -74,6 +78,10 @@ object Rect
   /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the
    * bottom left vertex of the Rect at the origin. */
   def bl(width: Double, height: Double, bottomLeft: Vec2 = Vec2Z): Rect = new RectImp(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
+
+  /** Factory method for Rect from width, height and the bottomCentre position parameters. The default position for the bottomCentre parameter places
+   *  the bottom centre of the Rect at the origin. */
+  def bCen(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): Rect = new RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
   /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
