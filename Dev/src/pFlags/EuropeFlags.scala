@@ -118,8 +118,8 @@ object USSR extends Flag
 object Swastika extends Flag
 { val name = "Swastika"
   val ratio = 5 / 3.0
-  val apply =
-  { val poly = Rectangle.applyOld(ratio, 1)
+  val apply: GraphicElems =
+  { val poly = Rect(ratio, 1)
     val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
     val arm = Rect.tl(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
     val cross = Arr(bar, arm).rotate45.flatMap(_.rotateQuadrants)
@@ -133,8 +133,8 @@ object CzechRepublic extends Flag
   val apply: Arr[GraphicElem] =
   {
     Arr[GraphicElem](
-      Rectangle.applyOld(ratio, 1).fill(White),
-      Rectangle.applyOld(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
+      Rect(ratio, 1).fill(White),
+      Rect(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
       Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
     )
   }
