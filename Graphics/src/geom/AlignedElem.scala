@@ -8,21 +8,13 @@ trait AlignedElem
   def xCen: Double
   def yCen: Double
   def cen: Vec2
-  def xTopRight: Double
-  def yTopRight: Double
   def topRight: Vec2
   def topRightDelta: Vec2 = topRight - cen
-  def xBottomRight: Double
-  def yBottomRight: Double
   def bottomRight: Vec2
-  def xBottomLeft: Double
-  def yBottomLeft: Double
+  def bottomRightDelta: Vec2 = bottomRight - cen
   def bottomLeft: Vec2
-  def xTopLeft: Double
-  def yTopLeft: Double
+  def bottomLeftDelta: Vec2 = bottomLeft - cen
   def topLeft: Vec2
   def topLeftDelta: Vec2 = topLeft - cen
-  /*def xTopCen: Double
-  def yTopCen: Double
-  def topCen: Vec2*/
+  //def topCen: Vec2
 }
