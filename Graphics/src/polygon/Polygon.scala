@@ -101,6 +101,8 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
    *  */
   override def yShear(operand: Double): Polygon = ???
 
+  override def slateTo(newCen: Vec2): Polygon = ???
+
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs =if (length > 1)
   { val res: LineSegs = LineSegs(length)

@@ -37,6 +37,8 @@ trait Square extends Rectangle
   override def reflect(lineLike: LineLike): Square = Square.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
 
   override def rotate(angle: Angle): Square = Square.cenV0(cen.rotate(angle), v0.rotate(angle))
+
+  override def slateTo(newCen: Vec2): Square = ???
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */

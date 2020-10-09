@@ -30,6 +30,8 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
+
+  override def slateTo(newCen: Vec2): Sqlign = ???
 }
 
 /** Factory object for Sqalign class. A square aligned to the X and Y axes. */

@@ -52,6 +52,8 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   
   /** Shear along the Y axis upon a PolygonDraw returns a PolygonDraw. */
   override def yShear(operand: Double): PolygonDraw = PolygonDraw(shape.yShear(operand), lineWidth, lineColour)
+
+  override def slateTo(newCen: Vec2): PolygonDraw = ???
 }
 
 object PolygonDraw

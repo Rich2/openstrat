@@ -4,7 +4,7 @@ package geom
 
 trait AlignedGeom extends BoundedElem with AlignedElem
 {
-  def slateTo(newCen: Vec2): AlignedGeom
+
 }
 
 /** Type class for performing a 2D translation on an object of type T that moves the centre of the new object to the given position. */

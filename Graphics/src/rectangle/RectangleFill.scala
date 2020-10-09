@@ -28,6 +28,8 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), colour)
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.xyScale(xOperand, yOperand), colour)
+
+  override def slateTo(newCen: Vec2): RectangleFill = ???
 }
 
 object RectangleFill

@@ -17,6 +17,7 @@ case class PolyCurveFill(shape: PolyCurve, colour: Colour) extends PolyCurveElem
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Vec2 = ???
+  override def slateTo(newCen: Vec2): PolyCurveFill = ???
 }
 
 case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = Black) extends PolyCurveElem
@@ -26,6 +27,7 @@ case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = B
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Vec2 = ???
+  override def slateTo(newCen: Vec2): PolyCurveDraw = ???
 }
 
 /** A pointable shape without visual. */
@@ -35,6 +37,7 @@ case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends Graphic
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Vec2 = ???
+  override def slateTo(newCen: Vec2): PolyCurveActiveOnly = ???
 }
 
 case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyCurveElem
@@ -48,6 +51,7 @@ case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Do
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Vec2 = ???
+  override def slateTo(newCen: Vec2): PolyCurveFillDraw = ???
 }
 
 case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
@@ -66,6 +70,7 @@ case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: Stri
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Vec2 = ???
+  override def slateTo(newCen: Vec2): PolyCurveFillDrawText = ???
 }
 
 case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2,
@@ -85,4 +90,5 @@ case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColou
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Vec2 = ???
+  override def slateTo(newCen: Vec2): PolyCurveAll = ???
 }

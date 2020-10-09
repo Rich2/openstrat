@@ -109,7 +109,7 @@ object EllipseCompound
     override def xShear(operand: Double): EllipseCompoundImplement = ???
 
     override def yShear(operand: Double): EllipseCompoundImplement = ???
-
+    override def slateTo(newCen: Vec2): EllipseCompoundImplement = ???
     //override def reflect(line: LineSeg): EllipseCompoundImplement = ???
   }
 }

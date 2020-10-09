@@ -51,9 +51,9 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
 
   override def reflect(lineLike: LineLike): PolygonFill = ???
 
-  //S override def reflect(line: Line): PolygonFill = ???
-
   override def xyScale(xOperand: Double, yOperand: Double): PolygonFill = ???
+
+  override def slateTo(newCen: Vec2): PolygonFill = ???
 
   override def productArity: Int = ???
 

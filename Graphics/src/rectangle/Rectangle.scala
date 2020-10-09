@@ -112,6 +112,8 @@ trait Rectangle extends Polygon //Rectangular with Polygon
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.cenV0V1(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
+
+  override def slateTo(newCen: Vec2): Rectangle = ???
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */

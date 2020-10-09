@@ -58,7 +58,7 @@ trait Triangle extends Polygon
 
 	override def xShear(operand: Double): Triangle = ???
 	override def yShear(operand: Double): Triangle = ???
-
+	override def slateTo(newCen: Vec2): Triangle = ???
 	override def xGet(index: Int): Double = ???
 
 	override def yGet(index: Int): Double = ???

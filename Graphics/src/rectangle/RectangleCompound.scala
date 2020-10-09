@@ -39,9 +39,11 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleCompound = ???
 
-  override def xShear(operand: Double): PolygonCompound = ???
+  //override def xShear(operand: Double): PolygonCompound = ???
 
-  override def yShear(operand: Double): PolygonCompound = ???
+  //override def yShear(operand: Double): PolygonCompound = ???
+
+  override def slateTo(newCen: Vec2): PolygonCompound = ???
 
  // override def reflect(line: LineSeg): RectangleCompound = ???
 }

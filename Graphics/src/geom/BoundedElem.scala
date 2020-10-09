@@ -19,4 +19,6 @@ trait BoundedElem extends GeomElem
   def xCen: Double
   def yCen: Double
   def cen: Vec2
+
+  def slateTo(newCen: Vec2): BoundedElem
 }

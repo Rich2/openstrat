@@ -1,13 +1,15 @@
 package ostrat
 package geom
 
-case class PolyCurveParentFull(cen: Vec2, shape: PolyCurve, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with PolyCurveActive
+case class PolyCurveParentFull(cen: Vec2, shape: PolyCurve, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with
+  PolyCurveActive
 { override type ThisT = PolyCurveParentFull
   def fTrans(f: Vec2 => Vec2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[GraphicAffineElem]): PolyCurveParentFull = PolyCurveParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolyCurveParentFull = PolyCurveParentFull(cen, shape, newObj, children)
   override def xCen: Double = ???
   override def yCen: Double = ???
+  override def slateTo(newCen: Vec2): PolyCurveParentFull = ???
 }
 
 object PolyCurveParentFull

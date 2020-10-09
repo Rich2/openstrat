@@ -28,7 +28,7 @@ final case class TriangleIsosGen(x0: Double, y0: Double, x2: Double, y2: Double,
   //override def reflect(line: LineSeg): Triangle = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
-
+  override def slateTo(newCen: Vec2): TriangleIsos = ???
   override def fill(fillColour: Colour): PolygonFill = ???
 
   //override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
