@@ -137,20 +137,9 @@ object Rectangle
   }
   
   def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-
-  /** Measured from bottom centre */      
-  def fromBC(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): PolygonImp =
-  {
-    val x = bottomCentre.x; val y = bottomCentre.y
-    PolygonImp(
-        x - width / 2 vv y + height ,
-        x + width / 2 vv y + height ,
-        x + width / 2 vv y,
-        x - width / 2 vv y)
-  }
   
   def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
-  //@deprecated def crossOld(width: Double, height: Double, barWidth: Double): ArrOld[Polygon] = ArrOld(apply(width, barWidth), apply(barWidth, height))
+
   def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
   
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =

@@ -117,7 +117,7 @@ object Swastika extends Flag
   val ratio = 5 / 3.0
   val apply: GraphicElems =
   { val poly = Rect(ratio, 1)
-    val bar = Rectangle.fromBC(0.1, 0.2).fill(Black)
+    val bar = Rect.bCen(0.1, 0.2).fill(Black)
     val arm = Rect.tl(6.0 / 20, 0.1, -1.0 / 20 vv 0.25).fill(Black)
     val cross = Arr(bar, arm).rotate45.flatMap(_.rotateQuadrants)
     Arr(poly.fill(Red), Circle(6.0 / 8).fill(White)) ++ cross
