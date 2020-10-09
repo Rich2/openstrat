@@ -119,17 +119,13 @@ trait Rectangle extends Polygon
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
 object Rectangle
 {
-  def apply(width: Double, height: Double, cen: Vec2 = Vec2Z, rotation: Angle = 0.degs): Rectangle =
+  def apply(width: Double, height: Double, rotation: Angle, cen: Vec2 = Vec2Z): Rectangle =
   { val v0 = cen.addXY(width / 2, height / 2).rotate(rotation)
     val v1 = cen.addXY(width / 2, - height / 2).rotate(rotation)
     new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   }
   
   def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-  
-  def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
-
-  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
   
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
   { val w = width / 2
@@ -148,8 +144,7 @@ object Rectangle
     curvedCorners(height * Phi, height, radius, posn)  
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
-  def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonCompound =
-    goldenRatio(height).fillDraw(colour, lineWidth, colour.contrast)
+
   
   def fromAxis(centreLine: LineSeg, height: Double): PolygonImp =
   { val hAngle: Angle = centreLine.angle

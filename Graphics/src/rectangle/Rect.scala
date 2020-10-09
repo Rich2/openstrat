@@ -83,6 +83,13 @@ object Rect
    *  the bottom centre of the Rect at the origin. */
   def bCen(width: Double, height: Double, bottomCentre: Vec2 = Vec2Z): Rect = new RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
+  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
+
+  def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
+
+  def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonCompound =
+    goldenRatio(height).fillDraw(colour, lineWidth, colour.contrast)
+
   /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
   def cenV0(cen: Vec2, v0: Vec2): Rect = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)

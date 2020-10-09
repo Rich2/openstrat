@@ -5,7 +5,7 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LsC5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C5")
 {
   case class Holder(rect: Rectangle, var colour: Colour = Red)
-  def hol(width: Double, height: Double, xCen: Double = 0, yCen: Double = 0): Holder = Holder(Rectangle(width, height, xCen vv yCen))
+  def hol(width: Double, height: Double, xCen: Double = 0, yCen: Double = 0): Holder = Holder(Rect(width, height, xCen, yCen))
   val r1 = hol(500, 300)
   val r2 = hol( 400, 250)
   val r3 = hol(200, 100, -200 )

@@ -1,10 +1,10 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
 case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
 {
-  val r = Rectangle(200, 100).fillActive(Yellow,None)
+  val r = Rect(200, 100).fillActive(Yellow,None)
   val r1 = r.slate(-300, 300)
   val r2 = r.slate(300 vv 300)
   val r3 = r.slate(300 vv - 300)
