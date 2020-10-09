@@ -125,17 +125,6 @@ object Rectangle
     new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   }
   
-  /** Defaults to a centre of x = 0, y = 0 and then defaults to a height of 1.0. Clockwise, topLeft is vertice 0. */
-  def applyOld(width: Double, height: Double = 1, cen: Vec2 = Vec2Z): PolygonImp =
-  { val x = cen.x; val y = cen.y
-    PolygonImp(
-        x - width / 2 vv y + height / 2,
-        x + width / 2 vv y + height / 2,
-        x + width / 2 vv y - height / 2,
-        x - width / 2 vv y - height / 2
-    )
-  }
-  
   def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   
   def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)

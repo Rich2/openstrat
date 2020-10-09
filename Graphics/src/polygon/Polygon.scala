@@ -161,6 +161,23 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
     PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour)),
       Arr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cen, fontColour, align)))
 
+  /** Insert vertice */
+  def insVert(insertionPoint: Int, newVec: Vec2): Polygon =
+  { val res = PolygonImp.factory(length + 1)
+    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
+    res.unsafeSetElem(insertionPoint, newVec)
+    (insertionPoint until length).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
+    res
+  }
+
+  /** Insert vertices */
+  def insVerts(insertionPoint: Int, newVecs: Vec2 *): Polygon =
+  { val res = PolygonImp.factory(length + newVecs.length)
+    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
+    newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
+    (insertionPoint until length).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
+    res
+  }
 }
 
 /** Companion object for the Polygon trait. */
