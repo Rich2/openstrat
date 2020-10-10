@@ -7,15 +7,15 @@ package geom
 trait RectCenV0 extends Rectangle
 { final override def cen: Vec2 = Vec2(xCen, yCen)
   final override def width1: Double = (v0Mid1 - cen).magnitude * 2
-  override def width2: Double = (v0 - v1).magnitude
-  final override def v0: Vec2 = x0 vv y0
-  @inline final def v2: Vec2 = 2 * cen - v0
-  @inline final def x2: Double = v2.x
-  @inline final def y2: Double = v2.y
+  override def width2: Double = (v1 - v2).magnitude
+  final override def v1: Vec2 = x1 vv y1
   @inline final def v3: Vec2 = 2 * cen - v1
   @inline final def x3: Double = v3.x
   @inline final def y3: Double = v3.y
+  @inline final def v4: Vec2 = 2 * cen - v2
+  @inline final def x4: Double = v4.x
+  @inline final def y4: Double = v4.y
   final override def xLs3Cen: Double = ls3Cen.x
   final override def yLs3Cen: Double = ls3Cen.y
-  final override def ls3Cen: Vec2 = (v3 + v0) / 2
+  final override def ls3Cen: Vec2 = (v4 + v1) / 2
 }

@@ -5,29 +5,29 @@ import Colour.Black, pWeb._
 
 trait Triangle extends Polygon
 {	override def length: Int = 3
-	def x0: Double
-	def y0: Double
-	def v0: Vec2 = x0 vv y0
 	def x1: Double
 	def y1: Double
-	def v1: Vec2
+	def v1: Vec2 = x1 vv y1
 	def x2: Double
 	def y2: Double
-	def v2: Vec2 = x2 vv y2
+	def v2: Vec2
+	def x3: Double
+	def y3: Double
+	def v3: Vec2 = x3 vv y3
 
 	override def apply(index: Int): Vec2 = index match
-	{	case 0 => v0
-		case 1 => v1
+	{	case 1 => v1
 		case 2 => v2
+		case 3 => v3
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
 	}
 
-	override def ptsArray: Array[Double] = Array(x0, y0, x1, y1, x2, y2)
-	override def elem1sArray: Array[Double] = Array(x0, x1, x2)
-	override def elem2sArray: Array[Double] = Array(y0, y1, y2)
-	override def foreach[U](f: Vec2 => U): Unit = { f(v0); f(v1); f(v2); () }
-	override def foreachTail[U](f: Vec2 => U): Unit = { f(v1); f(v2); () }
-	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1); f(x2, y2); () }
+	override def ptsArray: Array[Double] = Array(x1, y1, x2, y2, x3, y3)
+	override def elem1sArray: Array[Double] = Array(x1, x2, x3)
+	override def elem2sArray: Array[Double] = Array(y1, y2, y3)
+	override def foreach[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
+	override def foreachTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }
+	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
 
 
 	/** Translate geometric transformation on a Shape returns a Shape. */
@@ -63,13 +63,13 @@ trait Triangle extends Polygon
 
 	override def yGet(index: Int): Double = ???
 
-	def xCen: Double = (x0 + x1 + x2) / 3
-	def yCen: Double = (y0 + y1 + y2) / 3
+	def xCen: Double = (x1 + x2 + x3) / 3
+	def yCen: Double = (y1 + y2 + y3) / 3
 }
 
-final case class TriangleClass(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double) extends Triangle //with AffinePreserve
+final case class TriangleClass(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle //with AffinePreserve
 { type ThisT = TriangleClass
-	override def v1: Vec2 = ???
+	override def v2: Vec2 = ???
 	override def attribs: Arr[XANumeric] = ???
 	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
 

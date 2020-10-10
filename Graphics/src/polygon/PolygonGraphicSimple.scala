@@ -5,8 +5,8 @@ import pWeb._
 
 /** This trait may be removed. */
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
-{ def xHead: Double = shape.x0
-  def yHead: Double = shape.y0
+{ def xHead: Double = shape.x1
+  def yHead: Double = shape.y1
 
   /** The number of vertices. */
   def vertsLen: Int = shape.length

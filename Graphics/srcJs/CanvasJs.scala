@@ -83,7 +83,7 @@ object CanvasJs extends CanvasTopLeft
    
   override protected[this] def tlPolyFill(poly: Polygon, colour: Colour): Unit =
   { gc.beginPath()
-    gc.moveTo(poly.x0, poly.y0)
+    gc.moveTo(poly.x1, poly.y1)
     poly.foreachPairTail(gc.lineTo)
     gc.closePath()
     gc.fillStyle = colour.webStr
@@ -259,7 +259,7 @@ object CanvasJs extends CanvasTopLeft
 
   override protected[this] def tlClip(poly: Polygon): Unit =
   { gc.beginPath()
-    gc.moveTo(poly.x0, poly.y0)
+    gc.moveTo(poly.x1, poly.y1)
     poly.foreachPairTail(gc.lineTo)
     gc.closePath()
     gc.clip()

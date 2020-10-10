@@ -9,34 +9,34 @@ trait Square extends Rectangle
   //def height: Double = width
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(offset: Vec2): Square = Square.cenV0(cen + offset, v0 + offset)
+  override def slate(offset: Vec2): Square = Square.cenV0(cen + offset, v1 + offset)
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(xOffset: Double, yOffset: Double): Square = Square.cenV0(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset))
+  override def slate(xOffset: Double, yOffset: Double): Square = Square.cenV0(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation on a Square returns a Square. */
-  override def scale(operand: Double): Square = Square.cenV0(cen * operand, v0 * operand)
+  override def scale(operand: Double): Square = Square.cenV0(cen * operand, v1 * operand)
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negY: Square = Square.cenV0(cen.negY, v0.negY)
+  override def negY: Square = Square.cenV0(cen.negY, v1.negY)
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negX: Square = Square.cenV0(cen.negX, v0.negX)
+  override def negX: Square = Square.cenV0(cen.negX, v1.negX)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
-  override def rotate90: Square = Square.cenV0(cen.rotate90, v0.rotate90)
+  override def rotate90: Square = Square.cenV0(cen.rotate90, v1.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Square, returns a Square. */
-  override def rotate180: Square = Square.cenV0(cen.rotate180, v0.rotate180)
+  override def rotate180: Square = Square.cenV0(cen.rotate180, v1.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
-  override def rotate270: Square = Square.cenV0(cen.rotate270, v0.rotate270)
+  override def rotate270: Square = Square.cenV0(cen.rotate270, v1.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Square = Square.cenV0(cen.prolign(matrix), v0.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Square = Square.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): Square = Square.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Square = Square.cenV0(cen.reflect(lineLike), v1.reflect(lineLike))
 
-  override def rotate(angle: Angle): Square = Square.cenV0(cen.rotate(angle), v0.rotate(angle))
+  override def rotate(angle: Angle): Square = Square.cenV0(cen.rotate(angle), v1.rotate(angle))
 
   override def slateTo(newCen: Vec2): Square = ???
 }
@@ -68,12 +68,12 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val xCen: Double, val yCen: Double, val x0: Double, val y0: Double) extends Square with RectCenV0
+  final class SquareImp(val xCen: Double, val yCen: Double, val x1: Double, val y1: Double) extends Square with RectCenV0
   {
     //override def width: Double = v0.distTo(v1)
-    override def v1: Vec2 = cen + (v0 - cen).rotate270
-    override def x1: Double = v1.x
-    override def y1: Double = v1.y
+    override def v2: Vec2 = cen + (v1 - cen).rotate270
+    override def x2: Double = v2.x
+    override def y2: Double = v2.y
     override def attribs: Arr[XANumeric] = ???
 
     def rotationRadians: Double = rotation.radians
@@ -81,25 +81,25 @@ object Square extends ShapeIcon
 
     override def productArity: Int = 3
     override def productElement(n: Int): Any = 4
-    override def toString: String = s"SquareClass($x0, $y0; $x1, $y1)"
-    override def fTrans(f: Vec2 => Vec2): SquareImp = SquareImp.cenV0(f(cen), f(v0))
+    override def toString: String = s"SquareClass($x1, $y1; $x2, $y2)"
+    override def fTrans(f: Vec2 => Vec2): SquareImp = SquareImp.cenV0(f(cen), f(v1))
 
-    override def slate(offset: Vec2): SquareImp = SquareImp.cenV0(cen + offset, v0 + offset)
+    override def slate(offset: Vec2): SquareImp = SquareImp.cenV0(cen + offset, v1 + offset)
 
     /** Translate geometric transformation. */
-    @inline override def slate(xOffset: Double, yOffset: Double): SquareImp = SquareImp.cenV0(cen.addXY(xOffset, yOffset), v0.addXY(xOffset, yOffset))
+    @inline override def slate(xOffset: Double, yOffset: Double): SquareImp = SquareImp.cenV0(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
 
-    override def scale(operand: Double): SquareImp = SquareImp.cenV0(cen * operand, v0 * operand)
+    override def scale(operand: Double): SquareImp = SquareImp.cenV0(cen * operand, v1 * operand)
 
-    override def negY: SquareImp = SquareImp.cenV0(cen.negY, v0.negY)
+    override def negY: SquareImp = SquareImp.cenV0(cen.negY, v1.negY)
 
-    override def negX: SquareImp = SquareImp.cenV0(cen.negX, v0.negX)
+    override def negX: SquareImp = SquareImp.cenV0(cen.negX, v1.negX)
 
-    override def prolign(matrix: ProlignMatrix): SquareImp = SquareImp.cenV0(cen.prolign(matrix), v0.prolign(matrix))
+    override def prolign(matrix: ProlignMatrix): SquareImp = SquareImp.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
-    override def rotate(angle: Angle): SquareImp = SquareImp.cenV0(cen.rotate(angle), v0.rotate(angle))
+    override def rotate(angle: Angle): SquareImp = SquareImp.cenV0(cen.rotate(angle), v1.rotate(angle))
 
-    override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v0.reflect(lineLike))
+    override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v1.reflect(lineLike))
 
     //override def fill(fillColour: Colour): ShapeFill = ???
 

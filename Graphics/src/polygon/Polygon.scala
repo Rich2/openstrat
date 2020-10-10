@@ -20,13 +20,13 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def yGet(index: Int): Double
 
   /** May throw on a 0 vertices polygon. */
-  def x0: Double
+  def x1: Double
 
   /** May throw on a 0 vertices polygon. */
-  def y0: Double
+  def y1: Double
 
   /** May throw on a 0 vertices polygon. */
-  def v0: Vec2
+  def v1: Vec2
 
   def ptsArray: Array[Double]
   def elem1sArray: Array[Double]
@@ -107,7 +107,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def toLineSegs: LineSegs =if (length > 1)
   { val res: LineSegs = LineSegs(length)
     for (i <- 0 until (length - 1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
-    res.unsafeSetLast(LineSeg(apply(length - 1), v0))
+    res.unsafeSetLast(LineSeg(apply(length - 1), v1))
     res
   }
   else LineSegs()

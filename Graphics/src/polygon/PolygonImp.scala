@@ -24,9 +24,9 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   override def xGet(index: Int): Double = arrayUnsafe(index * 2)
   override def yGet(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  @inline def x0: Double = arrayUnsafe(0)
-  @inline def y0: Double = arrayUnsafe(1)
-  @inline def v0: Vec2 = x0 vv y0
+  @inline def x1: Double = arrayUnsafe(0)
+  @inline def y1: Double = arrayUnsafe(1)
+  @inline def v1: Vec2 = x1 vv y1
   override def fTrans(f: Vec2 => Vec2): PolygonImp = new PolygonImp(arrTrans(f))
   def eq(obj: PolygonImp): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))

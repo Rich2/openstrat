@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
-final case class TriangleEqui(x0: Double, y0: Double, x2: Double, y2: Double) extends TriangleIsos
+final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) extends TriangleIsos
 {
   type ThisT = TriangleEqui
   override def height: Double = ???
