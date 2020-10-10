@@ -39,9 +39,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def xCen: Double = boundingRect.xCen
   override def yCen: Double = boundingRect.yCen
 
-  def parentElems(pointerID: Any, elems: Arr[GraphicElem]): PolygonParentOld = new PolygonParentOld(this.polyCentre, this, pointerID, elems)
-  
-  /** Insert vertice */
+  /** Insert vertex. */
   override def insVert(insertionPoint: Int, newVec: Vec2): PolygonImp =
   { val res = PolygonImp.factory(length + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
@@ -89,7 +87,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 }
 
 /** Companion object for [[PolygonImp]]. */
-object PolygonImp //extends ProductD2sCompanion[Vec2, Polygon]
+object PolygonImp
 { implicit val factory: Int => PolygonImp = i => new PolygonImp(new Array[Double](i * 2))
 
   def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): PolygonImp =
