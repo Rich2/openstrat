@@ -30,16 +30,6 @@ case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = B
   override def slateTo(newCen: Vec2): PolyCurveDraw = ???
 }
 
-/** A pointable shape without visual. */
-case class PolyCurveActiveOnly(shape: PolyCurve, pointerId: Any) extends GraphicAffineElem with PolyCurveActive
-{ override type ThisT = PolyCurveActiveOnly
-  override def fTrans(f: Vec2 => Vec2): PolyCurveActiveOnly = PolyCurveActiveOnly(shape.fTrans(f), pointerId)
-  def xCen: Double = ???
-  def yCen: Double = ???
-  def cen: Vec2 = ???
-  override def slateTo(newCen: Vec2): PolyCurveActiveOnly = ???
-}
-
 case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyCurveElem
 { override type ThisT = PolyCurveFillDraw
   override def fTrans(f: Vec2 => Vec2) = PolyCurveFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
