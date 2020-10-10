@@ -48,13 +48,13 @@ trait CanvasPlatform extends RectCenlign
     startFrame(combinedF, millis)
   }
   
-  final def polygonFill(poly: Polygon, colour: Colour): Unit = oif(poly.length >= 3, pPolyFill(poly, colour))
+  final def polygonFill(poly: Polygon, colour: Colour): Unit = oif(poly.vertNum >= 3, pPolyFill(poly, colour))
   def pPolyFill(poly: Polygon, colour: Colour): Unit
   
-  final def polygonDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = oif(poly.length >= 2, pPolyDraw(poly, lineWidth, colour))
+  final def polygonDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = oif(poly.vertNum >= 2, pPolyDraw(poly, lineWidth, colour))
   def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
 
-  def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.length >= 1, pLinePathDraw(pod))
+  def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.elemsLen >= 1, pLinePathDraw(pod))
   def pLinePathDraw(pod: LinePathDraw): Unit
    
   def lineDraw(ld: LineDraw): Unit
@@ -74,11 +74,11 @@ trait CanvasPlatform extends RectCenlign
   def linesDraw(lsd: LinesDraw): Unit
   final def linesDraw(lineWidth: Double, linesColour: Colour, lines: LineSeg *): Unit = linesDraw(LinesDraw(LineSegs(lines: _*), lineWidth, linesColour))
    
-  final def shapeFill(shape: PolyCurve, colour: Colour): Unit = oif(shape.length > 0, pShapeFill(shape, colour))
+  final def shapeFill(shape: PolyCurve, colour: Colour): Unit = oif(shape.elemsLen > 0, pShapeFill(shape, colour))
 
   def pShapeFill(shape: PolyCurve, colour: Colour): Unit
    
-  final def shapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = oif(shape.length > 0, pShapeDraw(shape, lineWidth, colour))
+  final def shapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit = oif(shape.elemsLen > 0, pShapeDraw(shape, lineWidth, colour))
   def pShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
   
   def circleFill(circle: Circle, colour: Colour): Unit

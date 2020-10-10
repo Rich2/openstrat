@@ -27,7 +27,7 @@ class Colour(val argbValue: Int) extends AnyVal with ProdInt1
 
   def nextFrom(seq: Colours): Colour = seq.findIndex(this) match
   { case NoInt => seq(0)
-    case SomeInt(i) if i >= seq.length - 1 => seq(0)
+    case SomeInt(i) if i >= seq.elemsLen - 1 => seq(0)
     case SomeInt(i) => seq(i + 1)
   }
 

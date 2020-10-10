@@ -21,7 +21,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
 
   override def productElement(n: Int): Any = ??? 
   def fTrans(f: Vec2 => Vec2): PolyCurve =
-  { val newArray = new Array[Double](length * 7)
+  { val newArray = new Array[Double](elemsLen * 7)
     def setMiddle(offset: Int): Unit =
     { val newMiddle: Vec2 = f(arrayUnsafe(offset + 3) vv arrayUnsafe(offset + 4))
       newArray(offset + 3) = newMiddle.x
@@ -34,7 +34,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
       newArray(offset + 6) = newEnd.y
     }
 
-    (0 until length).foreach{index =>
+    (0 until elemsLen).foreach{ index =>
       val offset = index * 7
       arrayUnsafe(offset) match
       {

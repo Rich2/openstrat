@@ -4,7 +4,7 @@ package geom
 import Colour.Black, pWeb._
 
 trait Triangle extends Polygon
-{	override def length: Int = 3
+{	override def vertNum: Int = 3
 	def x1: Double
 	def y1: Double
 	def v1: Vec2 = x1 vv y1

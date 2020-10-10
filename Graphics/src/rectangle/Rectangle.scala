@@ -7,7 +7,7 @@ import pWeb._
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
 trait Rectangle extends Polygon
-{ final override def length: Int = 4
+{ final override def vertNum: Int = 4
   def x1: Double
   def y1: Double
   def x2: Double

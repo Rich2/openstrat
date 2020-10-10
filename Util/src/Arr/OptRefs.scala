@@ -4,7 +4,7 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 /** OptRefs is an array based collection of optional values, that uses nulls for implementation. The collection use should not have to interact with
  *  the null values directly.  */
 class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrayLikeBase[OptRef[A]]
-{ @inline def length: Int = unsafeArray.length
+{ @inline def elemsLen: Int = unsafeArray.length
   def apply(index: Int): OptRef[A] = OptRef(unsafeArray(index))
 
   /** This produces a completely new immutable collection with the element in the new collection set to the given value. The Old collection remains
@@ -24,7 +24,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
   def setOtherOptRefs[B <: AnyRef](operand: OptRefs[B])(f: A => B): Unit =
   { var count = 0
 
-    while (count < length)
+    while (count < elemsLen)
     { apply(count).foldDo { operand.unsafeSetNone(count) } { a => operand.unsafeSetSome(count, f(a)) }
       count += 1
     }
@@ -32,7 +32,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
 
   override def foreach[U](f: OptRef[A] => U): Unit =
   { var count = 0
-    while (count < length)
+    while (count < elemsLen)
     { f(apply(count))
       count += 1
     }
@@ -40,7 +40,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
 
   def foreachSome(f: A => Unit): Unit =
   { var count = 0
-    while (count < length){ apply(count).foreach(f); count += 1}
+    while (count < elemsLen){ apply(count).foreach(f); count += 1}
   }
 
   def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(build: ArrBuild[B, ArrT]): ArrT =

@@ -34,7 +34,7 @@ object LinesDraw
 
 case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem
 { override type ThisT = LinePathDraw
-  def length = path.length - 1
+  def length = path.elemsLen - 1
   def xStart = path.xStart
   def yStart = path.yStart
   override def fTrans(f: Vec2 => Vec2): LinePathDraw = LinePathDraw(path.fTrans(f), lineWidth, colour)

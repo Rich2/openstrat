@@ -7,7 +7,7 @@ class Floats(val array: Array[Float]) extends AnyVal with ArrBase[Float]
 { type ThisT = Floats
   override def typeStr: String = "Floats"
   override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
-  override def length: Int = array.length
+  override def elemsLen: Int = array.length
   override def apply(index: Int): Float = array(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
@@ -15,9 +15,9 @@ class Floats(val array: Array[Float]) extends AnyVal with ArrBase[Float]
 
 
   def ++ (op: Floats): Floats =
-  { val newArray = new Array[Float](length + op.length)
+  { val newArray = new Array[Float](elemsLen + op.elemsLen)
     array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
+    op.array.copyToArray(newArray, elemsLen)
     new Floats(newArray)
   }
 }
@@ -38,5 +38,5 @@ object FloatsBuild extends ArrBuild[Float, Floats] with ArrFlatBuild[Floats]
 
 class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with ArrayLike[Float]
 { override def apply(index: Int): Float = unsafeBuff(index)
-  override def length: Int = unsafeBuff.length
+  override def elemsLen: Int = unsafeBuff.length
 }

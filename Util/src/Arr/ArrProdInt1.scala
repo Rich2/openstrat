@@ -19,7 +19,7 @@ trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
     var count = 0
     var acc: OptInt = NoInt
     var continue = true
-    while (continue == true & count < length)
+    while (continue == true & count < elemsLen)
     {
       if (value.intValue == arrayUnsafe(count))
       { acc = SomeInt(count)
@@ -32,9 +32,9 @@ trait ArrProdInt1[A <: ProdInt1] extends Any with ArrProdIntN[A]
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Int](length + 1)
+  { val newArray = new Array[Int](elemsLen + 1)
     arrayUnsafe.copyToArray(newArray)
-    newArray(length) = op._1
+    newArray(elemsLen) = op._1
     unsafeFromArray(newArray)
   }
 }

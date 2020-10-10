@@ -4,13 +4,13 @@ import reflect.ClassTag
 /** Extractor object for empty Arr[A]. Arr[A] is an immutable covariant Array based collection. */
 object Arr0
 { /** Extractor for empty Arr[A]. Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: Arr[A]): Boolean = arr.length == 0
+  def unapply[A](arr: Arr[A]): Boolean = arr.elemsLen == 0
 }
 
 /** Extractor object for Arr[A] of length == 1. Arr[A] is an immutable covariant Array based collection. */
 object Arr1
 { /** Extractor for Arr[A] of length == 1. Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: Arr[A]): Option[A] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[A] = arr.elemsLen match
   { case 1 => Some(arr(0))
     case _ => None
   }
@@ -19,13 +19,13 @@ object Arr1
 /** Extractor object for Arr[A] of length == 2. Arr[A] is an immutable covariant Array based collection. */
 object Arr2
 { /** Extractor for Arr[A] of length == 2. Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.length == 2, Some((arr(0), arr(1))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.elemsLen == 2, Some((arr(0), arr(1))), None)
 }
 
 /** Extractor object for Arr[A] of length == 3. Arr[A] is an immutable covariant Array based collection. */
 object Arr3
 { /** Extractor for Arr[A] of length == 3, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = arr.elemsLen match
   { case 3 => Some((arr(0), arr(1), arr(2)))
     case _ => None
   }
@@ -34,7 +34,7 @@ object Arr3
 /** Extractor object for Arr[A] of length == 4. Arr[A] is an immutable covariant Array based collection. */
 object Arr4
 { /** Extractor for Arr[A] of length == 4, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = arr.elemsLen match
   { case 4 => Some((arr(0), arr(1), arr(2), arr(3)))
     case _ => None
   }
@@ -43,7 +43,7 @@ object Arr4
 /** Extractor object for Arr[A] of length == 5. Arr[A] is an immutable covariant Array based collection. */
 object Arr5
 { /** Extractor for Arr[A] of length == 5, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A)] = arr.elemsLen match
   { case 5 => Some((arr(0), arr(1), arr(2), arr(3), arr(4)))
     case _ => None
   }
@@ -52,7 +52,7 @@ object Arr5
 /** Extractor object for Arr[A] of length == 6. Arr[A] is an immutable covariant Array based collection. */
 object Arr6
 { /** Extractor for Arr[A] of length == 6, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A, A)] = arr.elemsLen match
   { case 6 => Some((arr(0), arr(1), arr(2), arr(3), arr(4), arr(5)))
     case _ => None
   }
@@ -74,17 +74,17 @@ object ArrHead
 /** Extractor object for the head 2 elements of an Arr, immutable covariant Array based collection. The tail can be any length. */
 object ArrHead2
 { /** Extractor for the head 2 elements of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.length >= 2, Some((arr(0), arr(1))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.elemsLen >= 2, Some((arr(0), arr(1))), None)
 }
 
 object ArrHead3
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = ife(arr.length >= 3, Some((arr(0), arr(1), arr(2))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = ife(arr.elemsLen >= 3, Some((arr(0), arr(1), arr(2))), None)
 }
 
 object ArrHead4
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = ife(arr.length >= 4, Some((arr(0), arr(1), arr(2), arr(3))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = ife(arr.elemsLen >= 4, Some((arr(0), arr(1), arr(2), arr(3))), None)
 }
 
 /** Extractor function object for a Good Arr Sequence of length 0. */
@@ -106,7 +106,7 @@ object GoodArr1
 }
 
 object GoodArr2
-{ def unapply[A](eArr: EMon[Arr[A]]): Option[(A, A)] = eArr.foldErrs (g => if (g.length == 2) Some((g(0), g(1))) else None)(errs => None)
+{ def unapply[A](eArr: EMon[Arr[A]]): Option[(A, A)] = eArr.foldErrs (g => if (g.elemsLen == 2) Some((g(0), g(1))) else None)(errs => None)
 }
 
 object GoodArr3
@@ -129,13 +129,13 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
   def drop(n: Int): ArrOff[A] = new ArrOff[A](offset0 + n)
   def drop1: ArrOff[A] = new ArrOff(offset0 + 1)
   def drop2: ArrOff[A] = new ArrOff(offset0 + 2)
-  def length(implicit arr: Arr[A]): Int = arr.length - offset0
+  def length(implicit arr: Arr[A]): Int = arr.elemsLen - offset0
 
   def span(p: A => Boolean)(implicit arr: Arr[A], ct: ClassTag[A]): (Arr[A], ArrOff[A]) =
   { var count = 0
     var continue = true
 
-    while (offset0 + count < arr.length & continue)
+    while (offset0 + count < arr.elemsLen & continue)
     { if (p(arr(offset0 + count))) count += 1
       else continue = false
     }
@@ -145,7 +145,7 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
     (new Arr(newArray), drop(count))
   }
   /** Checks condition against head. Returns false if the collection is empty. */
-  def ifHead(f: A => Boolean)(implicit arr: Arr[A]) : Boolean = (arr.length > offset0) & f(arr(offset0))
+  def ifHead(f: A => Boolean)(implicit arr: Arr[A]) : Boolean = (arr.elemsLen > offset0) & f(arr(offset0))
 
 }
 

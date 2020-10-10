@@ -9,13 +9,13 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   def yHead: Double = shape.y1
 
   /** The number of vertices. */
-  def vertsLen: Int = shape.length
+  def vertsLen: Int = shape.vertNum
 
   /** Checks for 2 or more vertices */
-  def ifv2: Boolean = shape.length >= 2
+  def ifv2: Boolean = shape.vertNum >= 2
 
   /** Checks for 3 or more vertices */
-  def ifv3: Boolean = shape.length >= 3
+  def ifv3: Boolean = shape.vertNum >= 3
 
   def xArray: Array[Double] = shape.elem1sArray
   def yArray: Array[Double] = shape.elem2sArray

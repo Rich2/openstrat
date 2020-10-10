@@ -12,7 +12,7 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
   def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
   def unsafeSetHead(value: A @uncheckedVariance): Unit = unsafeSetElem(0, value)
-  def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(length -1, value)
+  def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(elemsLen -1, value)
   def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int ): Unit = ???
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
   def fElemStr: A @uncheckedVariance => String
@@ -24,19 +24,19 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
     case n =>
-    { val newArr = unsafeNew(length - 1)
+    { val newArr = unsafeNew(elemsLen - 1)
       iUntilForeach(0, n)(i => newArr.unsafeSetElem(i, apply(i)))
-      iUntilForeach(n + 1, length)(i => newArr.unsafeSetElem(i - 1, apply(i)))
+      iUntilForeach(n + 1, elemsLen)(i => newArr.unsafeSetElem(i - 1, apply(i)))
       newArr
     }
   }
 
   /** Replaces all instances of the old value with the new value. */
   def replace(oldValue: A @uncheckedVariance, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = unsafeNew(length)
+  { val newArr = unsafeNew(elemsLen)
     var count = 0
 
-    while (count < length)
+    while (count < elemsLen)
     { val orig = apply(count)
       val finalVal = ife(orig == oldValue, newValue, orig)
       newArr.unsafeSetElem(count, finalVal)
@@ -47,10 +47,10 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
   def replaceWhere(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = unsafeNew(length)
+  { val newArr = unsafeNew(elemsLen)
     var count = 0
 
-    while (count < length)
+    while (count < elemsLen)
     { val orig = apply(count)
       val finalVal = ife(pred(orig), newValue, orig)
       newArr.unsafeSetElem(count, finalVal)
@@ -61,10 +61,10 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
   def modifyWhere(pred: A => Boolean, fNewValue: A => A @uncheckedVariance): ThisT =
-  { val newArr = unsafeNew(length)
+  { val newArr = unsafeNew(elemsLen)
     var count = 0
 
-    while (count < length)
+    while (count < elemsLen)
     { val orig = apply(count)
       val finalVal = ife(pred(orig), fNewValue(orig), orig)
       newArr.unsafeSetElem(count, finalVal)
@@ -77,7 +77,7 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   {
     var count = 0
     var res: Option[A] = None
-    while (count < length & res.isEmpty)
+    while (count < elemsLen & res.isEmpty)
     {
       val el = apply(count)
       if (f(el)) res = Some(el)

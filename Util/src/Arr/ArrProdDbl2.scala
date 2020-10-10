@@ -32,29 +32,29 @@ trait ArrProdDbl2[A <: ProdDbl2] extends Any with ArrProdDblN[A]
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < length) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+    while(count < elemsLen) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
   def elem1sArray: Array[Double] =
-  { val res = new Array[Double](length)
+  { val res = new Array[Double](elemsLen)
     var count = 0
-    while(count < length){ res(count) = arrayUnsafe(count * 2); count += 1 }
+    while(count < elemsLen){ res(count) = arrayUnsafe(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
-  { val res = new Array[Double](length)
+  { val res = new Array[Double](elemsLen)
     var count = 0
-    while(count < length){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    while(count < elemsLen){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
     res
   }
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
    def append(op: A): ThisT =
-    { val newArray = new Array[Double](length + productSize)
+    { val newArray = new Array[Double](elemsLen + productSize)
       arrayUnsafe.copyToArray(newArray)
-      newArray(length) = op._1
-      newArray(length + 1) = op._2
+      newArray(elemsLen) = op._1
+      newArray(elemsLen + 1) = op._2
       unsafeFromArray(newArray)
     }
 

@@ -27,7 +27,7 @@ object OneScen2Test  extends TestSuite
 
     "Sides" -
     {
-      g.sideRoords.length ==> 36
+      g.sideRoords.elemsLen ==> 36
     }
    }
 }

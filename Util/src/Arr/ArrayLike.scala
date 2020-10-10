@@ -10,16 +10,16 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   @inline def apply(index: Int): A
   @inline def head: A = apply(0)
-  @inline def last: A = apply(length - 1)
-  @inline def empty: Boolean = length <= 0
-  @inline def nonEmpty: Boolean = length > 0
-  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (length == 0) vEmpty else vNonEmpty
-  def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
-  def headToStringElse(ifEmptyString: String): String = ife(length >= 1, head.toString, ifEmptyString)
+  @inline def last: A = apply(elemsLen - 1)
+  @inline def empty: Boolean = elemsLen <= 0
+  @inline def nonEmpty: Boolean = elemsLen > 0
+  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (elemsLen == 0) vEmpty else vNonEmpty
+  def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(elemsLen >= 1, ifHead(head), noHead)
+  def headToStringElse(ifEmptyString: String): String = ife(elemsLen >= 1, head.toString, ifEmptyString)
 
   def foreach[U](f: A => U): Unit =
   { var count = 0
-    while(count < length)
+    while(count < elemsLen)
     { f(apply(count))
       count = count + 1
     }
@@ -29,7 +29,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
   { var count = 0
     var i: Int = startIndex
-    while(count < length )
+    while(count < elemsLen )
     { f(apply(count), i)
       count+= 1
       i += 1
@@ -38,7 +38,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** Specialised map to an immutable ArrBase of B. */
   def map[B, BB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.newArr(length)
+  { val res = ev.newArr(elemsLen)
     iForeach((a, i) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -56,7 +56,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** Specialised map with index to an immutable ArrBase of B. This method should be overridden in sub classes. */
   def iMap[B, BB <: ArrBase[B]](f: (A, Int) => B)(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.newArr(length)
+  { val res = ev.newArr(elemsLen)
     iForeach((a, i) => ev.arrSet(res, i, f(a, i)))
     res
   }
@@ -65,7 +65,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def iFlatMap[BB <: ArrBase[_]](f: (A, Int) => BB)(implicit build: ArrFlatBuild[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
-    while (i < length)
+    while (i < elemsLen)
     { val newArr = f(apply(i), i);
       build.buffGrowArr(buff, newArr)
       i += 1
@@ -77,13 +77,13 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def iFlatMap[BB <: ArrBase[_]](iInit: Int = 0)(f: (A, Int) => BB)(implicit build: ArrFlatBuild[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
-    while (count < length) { f(apply(count), count + iInit); count += 1 }
+    while (count < elemsLen) { f(apply(count), count + iInit); count += 1 }
     build.buffToArr(buff)
   }
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
   def mapWithAcc[B, BB <: ArrBase[B], C](initC: C)(f: (A, C) => (B, C))(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.newArr(length)
+  { val res = ev.newArr(elemsLen)
     var accC: C = initC
     iForeach { (a, i) =>
       val (newB, newC) = f(a, accC)
@@ -98,7 +98,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: Arr[String] = Arr()
-    while(count < length & continue == true)
+    while(count < elemsLen & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
   }
@@ -108,16 +108,16 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: Arr[String] = Arr()
-    while(count < length & continue == true)
+    while(count < elemsLen & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, BB <: ArrBase[B]](f: (A, A) => B)(implicit ev: ArrBuild[B, BB]): BB =
-  { val res = ev.newArr(length)
+  { val res = ev.newArr(elemsLen)
     var count = 0
-    while (count + 1  < length)
+    while (count + 1  < elemsLen)
     {  ev.arrSet(res, count, f(apply(count), apply(count + 1)))
       count += 2
     }
@@ -145,7 +145,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** FlatMaps over a function from A to any Iterable. */
   def iterFlatMap[B, BB <: ArrBase[B]](f: A => Iterable[B])(implicit ev: ArrBuild[B, BB]): BB =
-  { val buff = ev.newBuff(length)
+  { val buff = ev.newBuff(elemsLen)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToArr(buff)
   }
@@ -159,7 +159,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def indexOf(elem: A @uncheckedVariance): Int =
   { var result = -1
     var count  = 0
-    while (count < length & result == -1)
+    while (count < elemsLen & result == -1)
     { if (elem == apply(count)) result = count
     else count += 1
     }
@@ -170,7 +170,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def indexWhere(f: A => Boolean): Int =
   { var count = 0
     var result = -1
-    while(count < length & result == -1)
+    while(count < elemsLen & result == -1)
     { if(f(apply(count))) result = count
       count += 1
     }
@@ -179,12 +179,12 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   def foreachTail[U](f: A => U): Unit =
   { var count = 1
-    while(count < length) { f(apply(count)); count += 1 }
+    while(count < elemsLen) { f(apply(count)); count += 1 }
   }
 
   def foreachInit[U](f: A => U): Unit =
   { var count = 0
-    while(count < length - 1)
+    while(count < elemsLen - 1)
     { f(apply(count))
       count += 1
     }
@@ -208,26 +208,26 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** Consider changing this name, as might not be appropriate to all sub classes. */
   def foreachReverse[U](f: A => U): Unit =
-  { var count = length
+  { var count = elemsLen
     while(count > 0) { count -= 1; f(apply(count)) }
   }
 
   def iForeachReverse[U](f: (A, Int) => U): Unit =
-  { var count = length
+  { var count = elemsLen
     while(count > 0) { count -= 1; f(apply(count), count) }
   }
 
   def forAll(p: (A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < length) if (p(apply(count))) count += 1 else acc = false
+    while (acc & count < elemsLen) if (p(apply(count))) count += 1 else acc = false
     acc
   }
 
   def iForAll(p: (A, Int) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < length) if (p(apply(count), count)) count += 1 else acc = false
+    while (acc & count < elemsLen) if (p(apply(count), count)) count += 1 else acc = false
     acc
   }
 
@@ -235,7 +235,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
-    while (res == false & count < length){ if (elem == apply(count)) res = true; count += 1 }
+    while (res == false & count < elemsLen){ if (elem == apply(count)) res = true; count += 1 }
     res
   }
 
@@ -261,10 +261,10 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   }
 
   /** Not sure about this method. */
-  def mkString(seperator: String): String = ife(length == 0, "",
+  def mkString(seperator: String): String = ife(elemsLen == 0, "",
     { var acc = head.toString
       var count = 1
-      while(count < length)
+      while(count < elemsLen)
       { acc += seperator + apply(count).toString
         count += 1
       }

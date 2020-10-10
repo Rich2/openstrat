@@ -62,7 +62,7 @@ class Dist3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Dis
   {
     existsCount(_.z.pos) match
     { case 0 => GlobedNone
-    case n if n == length => GlobedAll(pMap(_.xy))
+    case n if n == elemsLen => GlobedAll(pMap(_.xy))
     case n => GlobedNone
       //      {
       //        var els: List[Either[Dist2, Dist2]] = lMap {

@@ -7,16 +7,16 @@ class Booleans(val array: Array[Boolean]) extends AnyVal with ArrBase[Boolean]
 { type ThisT = Booleans
   override def typeStr: String = "Booleans"
   override def unsafeNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
-  override def length: Int = array.length
+  override def elemsLen: Int = array.length
   override def apply(index: Int): Boolean = array(index)
   override def unsafeSetElem(i: Int, value: Boolean): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
 
   def ++ (op: Booleans): Booleans =
-  { val newArray = new Array[Boolean](length + op.length)
+  { val newArray = new Array[Boolean](elemsLen + op.elemsLen)
     array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
+    op.array.copyToArray(newArray, elemsLen)
     new Booleans(newArray)
   }
 }
@@ -38,5 +38,5 @@ object BooleansBuild extends ArrBuild[Boolean, Booleans] with ArrFlatBuild[Boole
 
 class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with ArrayLike[Boolean]
 { override def apply(index: Int): Boolean = unsafeBuff(index)
-  override def length: Int = unsafeBuff.length
+  override def elemsLen: Int = unsafeBuff.length
 }

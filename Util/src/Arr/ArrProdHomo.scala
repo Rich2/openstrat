@@ -13,12 +13,12 @@ trait ArrProdHomo[A] extends Any with ArrBase[A]
   def arrLen: Int
 
 
-  final def length: Int = arrLen / productSize
+  final def elemsLen: Int = arrLen / productSize
 
   def pMap[B, N <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => N): N =
-  { val res = factory(length)
+  { val res = factory(elemsLen)
     var count: Int = 0
-    while (count < length) {
+    while (count < elemsLen) {
       val newValue: B = f(apply(count))
       res.unsafeSetElem(count, newValue)
       count += 1
@@ -29,17 +29,17 @@ trait ArrProdHomo[A] extends Any with ArrBase[A]
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++[N <: ArrProdHomo[A]](operand: N)(implicit factory: Int => N): N =
-  { val res = factory(length + operand.length)
+  { val res = factory(elemsLen + operand.elemsLen)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
-    operand.iForeach((elem, i) => res.unsafeSetElem(i + length, elem))
+    operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsLen, elem))
     res
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
   def :+[N <: ArrProdHomo[A]](operand: A)(implicit factory: Int => N): N =
-  { val res = factory(length + 1)
+  { val res = factory(elemsLen + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
-    res.unsafeSetElem(length, operand)
+    res.unsafeSetElem(elemsLen, operand)
     res
   }
 

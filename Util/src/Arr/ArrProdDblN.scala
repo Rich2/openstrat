@@ -46,7 +46,7 @@ trait BuffProdDblN[A] extends Any with BuffProdValueN[A]
 { type ArrT <: ArrProdDblN[A]
   def buffer: ArrayBuffer[Double]
 
-  def length: Int = buffer.length / elemSize
+  def elemsLen: Int = buffer.length / elemSize
   def toArray: Array[Double] = buffer.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }

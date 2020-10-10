@@ -8,7 +8,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 { type ThisT = Arr[A] @uncheckedVariance
   override def typeStr: String = "Arr"
   override def unsafeNew(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
-  override def length: Int = unsafeArr.length
+  override def elemsLen: Int = unsafeArr.length
   override def apply(index: Int): A = unsafeArr(index)
 
   override def fElemStr: A @uncheckedVariance => String = _.toString
@@ -22,8 +22,8 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }
 
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
-  { val newArray = new Array[A]((length - 1).atLeast0)
-    iUntilForeach(1, length)(i => newArray(i - 1) = unsafeArr(i))
+  { val newArray = new Array[A]((elemsLen - 1).atLeast0)
+    iUntilForeach(1, elemsLen)(i => newArray(i - 1) = unsafeArr(i))
     new Arr(newArray)
   }
 
@@ -32,9 +32,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Functionally concatenates element to dispatching Refs, allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendRefs method is preferred when type widening is not required. */
   def appendRefs [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](length + op.length)
+  { val newArray = new Array[AA](elemsLen + op.elemsLen)
     unsafeArr.copyToArray(newArray)
-    op.unsafeArr.copyToArray(newArray, length)
+    op.unsafeArr.copyToArray(newArray, elemsLen)
     new Arr(newArray)
   }
 
@@ -42,9 +42,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   @inline def +- [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = append[AA](op)(ct)
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](length + 1)
+  { val newArray = new Array[AA](elemsLen + 1)
     unsafeArr.copyToArray(newArray)
-    newArray(length) = op
+    newArray(elemsLen) = op
     new Arr(newArray)
   }
 
@@ -53,7 +53,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   @inline def +: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Arr[AA] = prepend(op)(ct)
   /** Functionally prepends element to array. Aliased by the +: operator. */
   def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](length + 1)
+  { val newArray = new Array[AA](elemsLen + 1)
     newArray(0) = op
     unsafeArr.copyToArray(newArray, 1)
     new Arr(newArray)
@@ -91,7 +91,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
-    while(i < length){unsafeSetElem(i, value); i += 1}
+    while(i < elemsLen){unsafeSetElem(i, value); i += 1}
   }
 }
 
@@ -105,7 +105,7 @@ object Arr
     def optFind(f: A => Boolean): OptRef[A] =
     { var acc: OptRef[A] = NoRef
       var count = 0
-      while (acc == NoRef & count < thisArr.length) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
+      while (acc == NoRef & count < thisArr.elemsLen) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
       acc
     }
   }
@@ -125,5 +125,5 @@ class AnyBuild[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A] ) e
 /** Not sure if this class is necessary now that Arr take Any. */
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
 { override def apply(index: Int): A = unsafeBuff(index)
-  override def length: Int = unsafeBuff.length
+  override def elemsLen: Int = unsafeBuff.length
 }

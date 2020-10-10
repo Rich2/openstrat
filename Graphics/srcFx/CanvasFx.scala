@@ -43,14 +43,14 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
 
   override def tlPolyFill(poly: Polygon, colour: Colour): Unit =
   { gc.setFill(toFxColor(colour))
-    gc.fillPolygon(poly.elem1sArray, poly.elem2sArray, poly.length)
+    gc.fillPolygon(poly.elem1sArray, poly.elem2sArray, poly.vertNum)
   }
 
   /** Needs mod */
   override protected[this] def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit =
   { gc.setStroke(toFxColor(colour))
     gc.setLineWidth(lineWidth)
-    gc.strokePolygon(poly.elem1sArray, poly.elem2sArray, poly.length)
+    gc.strokePolygon(poly.elem1sArray, poly.elem2sArray, poly.vertNum)
   }
 
   override protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit =

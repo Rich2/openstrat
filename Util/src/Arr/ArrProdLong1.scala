@@ -19,7 +19,7 @@ trait ArrProdLong1[A <: ProdLong1] extends Any with ArrProdLongN[A]
     var count = 0
     var acc: Option[Int] = None
     var continue = true
-    while (continue == true & count < length)
+    while (continue == true & count < elemsLen)
     {
       if (value.intValue == array(count))
       { acc = Some(count)

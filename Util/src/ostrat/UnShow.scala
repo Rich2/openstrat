@@ -69,9 +69,9 @@ trait UnShow[+T]
   /** Finds value of UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: ArrBase[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuild[T, ArrT] @uncheckedVariance): EMon[T] =
     valuesFromStatements(sts) match
-  { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
-    case s if s.length == 1 => Good(s.head)
-    case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
+  { case s if s.elemsLen == 0 => TextPosn.emptyError("No values of type found")
+    case s if s.elemsLen == 1 => Good(s.head)
+    case s3 => sts.startPosn.bad(s3.elemsLen.toString -- "values of" -- typeStr -- "found.")
   }
   
   def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
@@ -85,7 +85,7 @@ trait UnShow[+T]
     case s2 => sts.map(settingFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
-      case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+      case s3 => sts.startPosn.bad(s3.elemsLen.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }
 }

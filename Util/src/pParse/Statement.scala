@@ -103,7 +103,7 @@ object Statement
 
     def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
     { case Arr1(h1) => h1.errGet[A1].map(f1)
-      case s => bad1(s, s.length.toString -- "statements not 1")
+      case s => bad1(s, s.elemsLen.toString -- "statements not 1")
     }
 
     /*def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = statementRefs match

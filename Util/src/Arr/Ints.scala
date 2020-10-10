@@ -7,7 +7,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
 { type ThisT = Ints
   override def typeStr: String = "Ints"
   override def unsafeNew(length: Int): Ints = new Ints(new Array[Int](length))
-  override def length: Int = array.length
+  override def elemsLen: Int = array.length
   override def apply(index: Int): Int = array(index)
   override def unsafeSetElem(i: Int, value: Int): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
@@ -16,9 +16,9 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
   @inline def ++ (op: Ints): Ints = appendInts(op)
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: Ints): Ints =
-  { val newArray = new Array[Int](length + op.length)
+  { val newArray = new Array[Int](elemsLen + op.elemsLen)
     array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
+    op.array.copyToArray(newArray, elemsLen)
     new Ints(newArray)
   }
 
@@ -27,9 +27,9 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
   /** Functionally appends the operand Int. This method by the :+ operator, rather than the +- operator alias used for append on Refs to avoid
    *  confusion with arithmetic operations. */
   def append(op: Int): Ints =
-  { val newArray = new Array[Int](length + 1)
+  { val newArray = new Array[Int](elemsLen + 1)
     array.copyToArray(newArray)
-    newArray(length) = op
+    newArray(elemsLen) = op
     new Ints(newArray)
   }
 
@@ -37,7 +37,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
   @inline def +:(op: Int): Ints = prepend(op)
   /** Functionally prepends the operand Int. This alphanumeric method is not aliased with an operator to avoid confusion with numeric operators. */
   def prepend(op: Int): Ints =
-  { val newArray = new Array[Int](length + 1)
+  { val newArray = new Array[Int](elemsLen + 1)
     newArray(0) = op
     array.copyToArray(newArray, 1)
     new Ints(newArray)
@@ -50,13 +50,13 @@ object Ints
   implicit val showImplicit: Show[Ints] = ArrayLikeShow[Int, Ints](Show.intPersistImplicit)
 
   implicit val EqImplicit: Eq[Ints] = (a1, a2) =>
-    if(a1.length != a2.length) false
+    if(a1.elemsLen != a2.elemsLen) false
     else
     { var count = 0
       var acc = true
       var continue = true
 
-      while (count < a1.length & continue)
+      while (count < a1.elemsLen & continue)
       { if (a1(count) == a2(count)) count += 1
       else {acc = false; continue = false}
       }
@@ -76,5 +76,5 @@ object IntsBuild extends ArrBuild[Int, Ints] with ArrFlatBuild[Ints]
 
 class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with ArrayLike[Int]
 { override def apply(index: Int): Int = unsafeBuff(index)
-  override def length: Int = unsafeBuff.length
+  override def elemsLen: Int = unsafeBuff.length
 }

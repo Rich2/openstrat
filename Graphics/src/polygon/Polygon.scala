@@ -8,14 +8,14 @@ import Colour.Black
 trait Polygon extends Vec2sLike with Shape with BoundedElem
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
-  override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / length
+  override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / vertNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))
-  
-  def length: Int
+
+  def vertNum: Int
   def xGet(index: Int): Double
   def yGet(index: Int): Double
 
@@ -104,10 +104,10 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   override def slateTo(newCen: Vec2): Polygon = ???
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
-  def toLineSegs: LineSegs =if (length > 1)
-  { val res: LineSegs = LineSegs(length)
-    for (i <- 0 until (length - 1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
-    res.unsafeSetLast(LineSeg(apply(length - 1), v1))
+  def toLineSegs: LineSegs =if (vertNum > 1)
+  { val res: LineSegs = LineSegs(vertNum)
+    for (i <- 0 until (vertNum - 1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
+    res.unsafeSetLast(LineSeg(apply(vertNum - 1), v1))
     res
   }
   else LineSegs()
@@ -118,7 +118,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def polyCentre: Vec2 = boundingRect.cen
 
   def sline(index: Int): LineSeg =
-  { val endVertNum: Int = ife(index == length - 1, 0, index + 1)
+  { val endVertNum: Int = ife(index == vertNum - 1, 0, index + 1)
     LineSeg(apply(index), apply(endVertNum))
   }
 
@@ -149,7 +149,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), TextFacet(str, textColour)), Arr())
   //PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
-  
+
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
     align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)),
     Arr(TextGraphic(str, fontSize, cen, Black, align), PolygonActive(this, pointerID)))
@@ -163,19 +163,19 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
 
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): Polygon =
-  { val res = PolygonImp.factory(length + 1)
+  { val res = PolygonImp.factory(vertNum + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     res.unsafeSetElem(insertionPoint, newVec)
-    (insertionPoint until length).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
+    (insertionPoint until vertNum).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
     res
   }
 
   /** Insert vertices */
   def insVerts(insertionPoint: Int, newVecs: Vec2 *): Polygon =
-  { val res = PolygonImp.factory(length + newVecs.length)
+  { val res = PolygonImp.factory(vertNum + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
-    (insertionPoint until length).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
+    (insertionPoint until vertNum).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
     res
   }
 }

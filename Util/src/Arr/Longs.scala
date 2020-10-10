@@ -7,16 +7,16 @@ class Longs(val array: Array[Long]) extends AnyVal with ArrBase[Long]
 { type ThisT = Longs
   override def typeStr: String = "Longs"
   override def unsafeNew(length: Int): Longs = new Longs(new Array[Long](length))
-  override def length: Int = array.length
+  override def elemsLen: Int = array.length
   override def apply(index: Int): Long = array(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = array(i) = value
   override def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
   override def fElemStr: Long => String = _.toString
 
   def ++ (op: Longs): Longs =
-  { val newArray = new Array[Long](length + op.length)
+  { val newArray = new Array[Long](elemsLen + op.elemsLen)
     array.copyToArray(newArray)
-    op.array.copyToArray(newArray, length)
+    op.array.copyToArray(newArray, elemsLen)
     new Longs(newArray)
   }
 }
@@ -37,5 +37,5 @@ object LongsBuild extends ArrBuild[Long, Longs] with ArrFlatBuild[Longs]
 
 class LongsBuff(val unsafeBuff: ArrayBuffer[Long]) extends AnyVal with ArrayLike[Long]
 { override def apply(index: Int): Long = unsafeBuff(index)
-  override def length: Int = unsafeBuff.length
+  override def elemsLen: Int = unsafeBuff.length
 }

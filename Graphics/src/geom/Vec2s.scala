@@ -32,7 +32,7 @@ class Vec2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLik
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
   def yMirrorClose: PolygonImp =
-  { val acc = appendArray(length)
+  { val acc = appendArray(elemsLen)
     var count = arrLen
 
     foreachReverse { orig =>

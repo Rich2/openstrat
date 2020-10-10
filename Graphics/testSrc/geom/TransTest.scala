@@ -33,7 +33,7 @@ object TransTest extends TestSuite
     val rs1a = rs1.xSlate(2)
 
     "test2" -
-    { rs1a(1).shape.length ==> 4
+    { rs1a(1).shape.vertNum ==> 4
       rs1a(1).shape.polyCentre ==> Vec2(2, 0)
     }
   }

@@ -3,7 +3,7 @@ import collection.mutable.ArrayBuffer
 
 trait ArrArrayDbl[A <: ArrayDblBased] extends Any with ArrBase[A]
 { def array: Array[Array[Double]]
-  def length: Int = array.length
+  def elemsLen: Int = array.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
   final def unsafeNew(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
   def unsafeSetElem(i: Int, value: A): Unit = array(i) = value.arrayUnsafe
@@ -23,7 +23,7 @@ trait ArrArrayDblBuild[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends ArrBu
 
 class ArrArrayDblEq[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends Eq[ArrT]
 {
-  override def eqv(a1: ArrT, a2: ArrT): Boolean = if (a1.length != a2.length) false
+  override def eqv(a1: ArrT, a2: ArrT): Boolean = if (a1.elemsLen != a2.elemsLen) false
     else a1.iForAll((el1, i) =>  el1.arrayUnsafe equ a2(i).arrayUnsafe)
 }
 
@@ -36,5 +36,5 @@ object ArrArrayDblEq
 trait ArrayDoubleBuff[A <: ArrayDblBased] extends Any with ArrayLike[A]
 { //override def apply(index: Int): AArray[Double] = unsafeBuff(index)
   def unsafeBuff: ArrayBuffer[Array[Double]]
-  override def length: Int = unsafeBuff.length
+  override def elemsLen: Int = unsafeBuff.length
 }
