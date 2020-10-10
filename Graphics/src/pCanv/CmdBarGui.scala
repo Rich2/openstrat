@@ -26,7 +26,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   var selected: List[Any] = Nil
   topBar.mouseUp =
     { case (b, List(MouseButtonCmd(cmd)), _) => cmd.apply(b)
-    case (_, l, _) => deb(l.toString)
+      case (_, l, _) => deb(l.toString)
     }
 }
 
