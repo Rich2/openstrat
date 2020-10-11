@@ -8,6 +8,19 @@ import Colour.Black
 trait Polygon extends Vec2sLike with Shape with BoundedElem
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
+  def foreach[U](f: Vec2 => U): Unit
+  def foreachTail[U](f: Vec2 => U): Unit
+  def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  { val acc = build.newBuff()
+    foreach{ v => build.buffGrow(acc, f(v)) }
+    build.buffToArr(acc)
+  }
+
+  def foldLeft[B](initial: B)(f: (B, Vec2) => B): B =
+  { var acc: B = initial
+    foreach{ v => acc = f(acc, v) }
+    acc
+  }
   override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)

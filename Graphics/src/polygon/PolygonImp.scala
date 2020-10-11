@@ -26,13 +26,13 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
     case _ => false
   }
 
-  override def vertsNum: Int = arrayUnsafe.length / 2
+  override def vertsNum: Int = arrayUnsafe.length / 2 - dblsNumOffset
 
   override def productArity: Int = 1
   override def productElement(n: Int): Any = arrayUnsafe
 
-  override def xVertGet(index: Int): Double = arrayUnsafe(index * 2)
-  override def yVertGet(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  override def xVertGet(index: Int): Double = arrayUnsafe(index * 2 + dblsNumOffset)
+  override def yVertGet(index: Int): Double = arrayUnsafe(index * 2 + 1 + dblsNumOffset)
   @inline def x1: Double = arrayUnsafe(0 + dblsNumOffset)
   @inline def y1: Double = arrayUnsafe(1 + dblsNumOffset)
   @inline def v1: Vec2 = x1 vv y1
