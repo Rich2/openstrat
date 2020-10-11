@@ -15,6 +15,7 @@ trait Polygon extends Vec2sLike with Shape with BoundedElem
     foreach{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
+  def apply(index: Int): Vec2
 
   def foldLeft[B](initial: B)(f: (B, Vec2) => B): B =
   { var acc: B = initial
