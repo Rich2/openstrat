@@ -26,6 +26,7 @@ trait Triangle extends Polygon
 	override def elem1sArray: Array[Double] = Array(x1, x2, x3)
 	override def elem2sArray: Array[Double] = Array(y1, y2, y3)
 	override def foreach[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
+	override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
 	override def foreachTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
 
