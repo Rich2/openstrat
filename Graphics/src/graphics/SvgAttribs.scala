@@ -17,8 +17,3 @@ case class StrokeAttrib(colour: Colour) extends XmlAtt
 { override def name: String = "stroke"
   override def valueStr: String = colour.svgStr
 }
-
-case class SvgAttrib(vec2s: Vec2sLike) extends XmlAtt
-{ override def name: String = "points"
-  override def valueStr: String = ???
-}

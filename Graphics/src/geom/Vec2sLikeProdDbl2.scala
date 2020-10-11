@@ -2,14 +2,8 @@
 package ostrat
 package geom
 
-/** A common trait for all classes that can be defined by a sequence of Vec2s. */
-trait Vec2sLike extends GeomElem
-{
-
-}
-
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Vec2sLikeProdDbl2 extends Vec2sLike with ArrProdDbl2[Vec2]
+trait Vec2sLikeProdDbl2 extends ArrProdDbl2[Vec2]
 { def arrTrans(f: Vec2 => Vec2): Array[Double] =
   { val newArray = new Array[Double](arrayUnsafe.length)
     var count = 0
