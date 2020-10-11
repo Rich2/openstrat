@@ -62,6 +62,8 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
   override def canEqual(that: Any): Boolean = ???
 }
 
+/** Companion object for PolygonFill trait. Contains an implementation class [[PolygonFillImp]], a factory method returning the PolygonFill type and
+ * implicit instances for the 2D geometric transformation type classes. */
 object PolygonFill
 {
   def apply(shape: Polygon, colour: Colour): PolygonFill = new PolygonFillImp(shape, colour)

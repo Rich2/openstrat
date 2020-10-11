@@ -46,6 +46,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   override def yShear(operand: Double): PolygonGraphic
 }
 
+/** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
 object PolygonGraphic
 {
   implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, offset: Vec2) => obj.slate(offset)
