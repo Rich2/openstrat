@@ -7,7 +7,7 @@ import pWeb._
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
 trait Rectangle extends Polygon
-{ final override def vertNum: Int = 4
+{ final override def vertsNum: Int = 4
   def x1: Double
   def y1: Double
   def x2: Double
@@ -55,7 +55,7 @@ trait Rectangle extends Polygon
     case n => excep("Index: " + n.toString + " out of range. Only 4 vertices in a Rectangle.")
   }
 
-  override def xGet(index: Int): Double = index match
+  override def xVertGet(index: Int): Double = index match
   { case 0 => x1
     case 1 => x2
     case 2 => x3
@@ -63,7 +63,7 @@ trait Rectangle extends Polygon
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
-  override def yGet(index: Int): Double = index match
+  override def yVertGet(index: Int): Double = index match
   { case 0 => y1
     case 1 => y2
     case 2 => y3

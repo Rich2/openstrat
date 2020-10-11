@@ -4,7 +4,7 @@ package geom
 import Colour.Black, pWeb._
 
 trait Triangle extends Polygon
-{	override def vertNum: Int = 3
+{	override def vertsNum: Int = 3
 	def x1: Double
 	def y1: Double
 	def v1: Vec2 = x1 vv y1
@@ -59,9 +59,9 @@ trait Triangle extends Polygon
 	override def xShear(operand: Double): Triangle = ???
 	override def yShear(operand: Double): Triangle = ???
 	override def slateTo(newCen: Vec2): Triangle = ???
-	override def xGet(index: Int): Double = ???
+	override def xVertGet(index: Int): Double = ???
 
-	override def yGet(index: Int): Double = ???
+	override def yVertGet(index: Int): Double = ???
 
 	def xCen: Double = (x1 + x2 + x3) / 3
 	def yCen: Double = (y1 + y2 + y3) / 3

@@ -48,10 +48,10 @@ trait CanvasPlatform extends RectCenlign
     startFrame(combinedF, millis)
   }
   
-  final def polygonFill(poly: Polygon, colour: Colour): Unit = oif(poly.vertNum >= 3, pPolyFill(poly, colour))
+  final def polygonFill(poly: Polygon, colour: Colour): Unit = oif(poly.vertsNum >= 3, pPolyFill(poly, colour))
   def pPolyFill(poly: Polygon, colour: Colour): Unit
   
-  final def polygonDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = oif(poly.vertNum >= 2, pPolyDraw(poly, lineWidth, colour))
+  final def polygonDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = oif(poly.vertsNum >= 2, pPolyDraw(poly, lineWidth, colour))
   def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
 
   def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.elemsLen >= 1, pLinePathDraw(pod))

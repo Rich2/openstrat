@@ -7,6 +7,13 @@ import Colour.Black, pWeb._
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
 final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { type ThisT = PolygonImp
+
+  /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
+  val ptNumOffset: Int = 0
+
+  /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
+  def dblsNumOffset: Int = ptNumOffset * 2
+
   def unsafeFromArray(array: Array[Double]): PolygonImp = new PolygonImp(array)
 
   @inline override def ptsArray: Array[Double] = arrayUnsafe
@@ -19,15 +26,15 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
     case _ => false
   }
 
-  override def vertNum: Int = arrayUnsafe.length / 2
+  override def vertsNum: Int = arrayUnsafe.length / 2
 
   override def productArity: Int = 1
   override def productElement(n: Int): Any = arrayUnsafe
 
-  override def xGet(index: Int): Double = arrayUnsafe(index * 2)
-  override def yGet(index: Int): Double = arrayUnsafe(index * 2 + 1)
-  @inline def x1: Double = arrayUnsafe(0)
-  @inline def y1: Double = arrayUnsafe(1)
+  override def xVertGet(index: Int): Double = arrayUnsafe(index * 2)
+  override def yVertGet(index: Int): Double = arrayUnsafe(index * 2 + 1)
+  @inline def x1: Double = arrayUnsafe(0 + dblsNumOffset)
+  @inline def y1: Double = arrayUnsafe(1 + dblsNumOffset)
   @inline def v1: Vec2 = x1 vv y1
   override def fTrans(f: Vec2 => Vec2): PolygonImp = new PolygonImp(arrTrans(f))
   def eq(obj: PolygonImp): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
