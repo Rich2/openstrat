@@ -11,6 +11,9 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def foreachPt(f: Vec2 => Unit): Unit = iUntilForeach(0, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))
   override def foreachVert[U](f: Vec2 => U): Unit =
     iUntilForeach(dblsNumOffset, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))
+  override def foreachVertTail[U](f: Vec2 => U): Unit =
+    iUntilForeach(dblsNumOffset + 2, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))
+
   /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
   val ptNumOffset: Int = 0
 

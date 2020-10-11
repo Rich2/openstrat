@@ -76,6 +76,7 @@ trait Rectangle extends Polygon
   final override def foreach[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); () }
   final override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); () }
   final override def foreachTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); () }
+  final override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); f(x4, y4); () }
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
