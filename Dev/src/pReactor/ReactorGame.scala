@@ -12,28 +12,31 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
   var currentPlayer = Black
   var cellCounts = Array[Int]()
   var cellColors = Array[Colour]()
-  val cellSites = Array[Array[String]]()
-  val cellNeighbours = Array[Array[Int]]()
+  var cellSites = Array.tabulate(rows*cols)(_ => Array[String]())
+  var cellNeighbours =  Array.tabulate(rows*cols)(_ => Array[Int]())
+  //OR Array.fill[Array[Int]](length)(Array.empty)
+  //OR Array.ofDim[Int](100, 0)
   var addBallQueue = Array[Int]()
   var winner = Black
-  var subscribers = Map[String, Array[Int]]()
+  var subscribers = Map[String, Array[Int]]()   //subscribers = Map("newBallForCell"->Array[Int](), "cellWantsToPop"->Array[Int]())
 
-  def newGame(): Unit =
+  
+  def startGame(): Unit =
   { turn = 0
     players = thePlayers.clone()
     currentPlayer = players(0)
     cellCounts = Array.fill[Int](rows*cols)(0)
     cellColors = Array.fill[Colour](rows*cols)(Black)
-    addBallQueue = Array[Int]()
-    winner = Black
-    
-    subscribers = Map("newBallForCell"->Array[Int](), "cellWantsToPop"->Array[Int]())
 
+    //cellNeighbours = Arr[Arr[Int]]()
+
+    addBallQueue = Array[Int]()
+    winner = Black   
     ijUntilForeach(0, rows)(0, cols)
     { (r, c) =>
       val index:Int = c + cols * r
-      cellNeighbours(index) = Array[Int]()
-      cellSites(index) = Array[String]()
+      cellNeighbours(index) = new Array(4)
+      cellSites(index) = new Array(4)
       if (c>0) 
       { cellNeighbours(index) = (index-1) +: cellNeighbours(index)
         cellSites(index) = "W" +: cellSites(index)
