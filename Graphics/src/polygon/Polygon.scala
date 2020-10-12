@@ -15,7 +15,7 @@ trait Polygon extends Shape with BoundedElem
 
   def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val acc = build.newBuff()
-    foreach{ v => build.buffGrow(acc, f(v)) }
+    foreachVert{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
   def apply(index: Int): Vec2
