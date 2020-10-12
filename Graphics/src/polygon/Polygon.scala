@@ -8,9 +8,8 @@ import Colour.Black
 trait Polygon extends Shape with BoundedElem
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
-  //def foreach[U](f: Vec2 => U): Unit
-  def foreachTail[U](f: Vec2 => U): Unit
-  def foreachVert[U](f: Vec2 => U): Unit
+
+  def foreachVert(f: Vec2 => Unit): Unit
   def foreachVertTail[U](f: Vec2 => U): Unit
   def ptsArray: Array[Double]
   def elem1sArray: Array[Double]
@@ -59,7 +58,7 @@ trait Polygon extends Shape with BoundedElem
   override def boundingRect: BoundingRect =
   { var minX, maxX = xVertGet(0)
     var minY, maxY = yVertGet(0)
-    foreachTail{v =>
+    foreachVertTail{v =>
       minX = minX.min(v.x)
       maxX = maxX.max(v.x)
       minY = minY.min(v.y)
