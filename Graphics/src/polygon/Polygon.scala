@@ -12,8 +12,7 @@ trait Polygon extends Shape with BoundedElem
   def foreachVert(f: Vec2 => Unit): Unit
   def foreachVertTail[U](f: Vec2 => U): Unit
   def ptsArray: Array[Double]
-  def elem1sArray: Array[Double]
-  def elem2sArray: Array[Double]
+  
   def xVertsArray: Array[Double]
   def yVertsArray: Array[Double]
   def foreachPairTail[U](f: (Double, Double) => U): Unit

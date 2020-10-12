@@ -71,8 +71,6 @@ trait Rectangle extends Polygon
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
-  final override def elem1sArray: Array[Double] = Array(x1, x2, x3, x4)
-  final override def elem2sArray: Array[Double] = Array(y1, y2, y3, y4)
   final override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4)
   final override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4)
   final override def foreachVert(f: Vec2 => Unit): Unit = { f(v1); f(v2); f(v3); f(v4) }

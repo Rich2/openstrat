@@ -17,8 +17,8 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   /** Checks for 3 or more vertices */
   def ifv3: Boolean = shape.vertsNum >= 3
 
-  def xArray: Array[Double] = shape.elem1sArray
-  def yArray: Array[Double] = shape.elem2sArray
+  def xArray: Array[Double] = shape.xVertsArray//elem1sArray
+  def yArray: Array[Double] = shape.yVertsArray//elem2sArray
   override def boundingRect: BoundingRect = shape.boundingRect
   def svgStr: String = tagVoidStr("rect", attribs)
   override def svgElem(bounds: BoundingRect): SvgElem = ???  

@@ -24,8 +24,7 @@ trait Triangle extends Polygon
 	}
 
 	override def ptsArray: Array[Double] = Array(x1, y1, x2, y2, x3, y3)
-	override def elem1sArray: Array[Double] = Array(x1, x2, x3)
-	override def elem2sArray: Array[Double] = Array(y1, y2, y3)
+
 	override def xVertsArray: Array[Double] = Array(x1, x2, x3)
 	override def yVertsArray: Array[Double] = Array(y1, y2, y3)
 	override def foreachVert(f: Vec2 => Unit): Unit = { f(v1); f(v2); f(v3); () }
