@@ -14,6 +14,8 @@ trait Polygon extends Shape with BoundedElem
   def ptsArray: Array[Double]
   def elem1sArray: Array[Double]
   def elem2sArray: Array[Double]
+  def xVertsArray: Array[Double]
+  def yVertsArray: Array[Double]
   def foreachPairTail[U](f: (Double, Double) => U): Unit
 
   def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =

@@ -54,6 +54,18 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def xCen: Double = boundingRect.xCen
   override def yCen: Double = boundingRect.yCen
 
+  override def xVertsArray: Array[Double] =
+  { val newArray = new Array[Double](vertsNum)
+    iUntilForeach(0, vertsNum){i => newArray(i) = xVertGet(i)}
+    newArray
+  }
+
+  override def yVertsArray: Array[Double] =
+  { val newArray = new Array[Double](vertsNum)
+    iUntilForeach(0, vertsNum){i => newArray(i) = yVertGet(i)}
+    newArray
+  }
+
   /** Insert vertex. */
   override def insVert(insertionPoint: Int, newVec: Vec2): PolygonImp =
   { val res = PolygonImp.factory(elemsLen + 1)
