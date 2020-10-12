@@ -33,7 +33,7 @@ trait Rectangle extends Polygon
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
   override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
-  override def ptsArray: Array[Double] = Array(x1, y1, x2, y2, x3, y3, x4, y4)
+  override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3, x4, y4)
 
   def v0Mid1: Vec2 = v1.midPtTo(v2)
   def v1Mid2: Vec2 = v2.midPtTo(v3)

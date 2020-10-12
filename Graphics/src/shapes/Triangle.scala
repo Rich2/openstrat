@@ -23,7 +23,7 @@ trait Triangle extends Polygon
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
 	}
 
-	override def ptsArray: Array[Double] = Array(x1, y1, x2, y2, x3, y3)
+	override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3)
 
 	override def xVertsArray: Array[Double] = Array(x1, x2, x3)
 	override def yVertsArray: Array[Double] = Array(y1, y2, y3)
