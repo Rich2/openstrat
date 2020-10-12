@@ -3,11 +3,11 @@ package ostrat
 package geom
 import pWeb._
 
+/** Equilateral triangle. will become a trait. */
 final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) extends TriangleIsos
 {
   type ThisT = TriangleEqui
   override def height: Double = ???
-  override def foreach[U](f: Vec2 => U): Unit = ???
   override def attribs: Arr[XANumeric] = ???
   override def fTrans(f: Vec2 => Vec2): ThisT = ???
 
@@ -16,8 +16,6 @@ final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) ex
   override def negX: ThisT = fTrans(_.negX)
 
   override def reflect(lineLike: LineLike): Triangle = ???
-
-  //override def reflect(line: LineSeg): Triangle = ???
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 

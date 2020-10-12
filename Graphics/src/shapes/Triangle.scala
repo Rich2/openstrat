@@ -3,6 +3,7 @@ package ostrat
 package geom
 import Colour.Black, pWeb._
 
+/** A mathematical triangle. */
 trait Triangle extends Polygon
 {	override def vertsNum: Int = 3
 	def x1: Double
@@ -25,7 +26,6 @@ trait Triangle extends Polygon
 	override def ptsArray: Array[Double] = Array(x1, y1, x2, y2, x3, y3)
 	override def elem1sArray: Array[Double] = Array(x1, x2, x3)
 	override def elem2sArray: Array[Double] = Array(y1, y2, y3)
-	override def foreach[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
 	override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
 	override def foreachTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }

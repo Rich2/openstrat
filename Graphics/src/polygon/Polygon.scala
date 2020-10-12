@@ -8,24 +8,29 @@ import Colour.Black
 trait Polygon extends Shape with BoundedElem
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
-  def foreach[U](f: Vec2 => U): Unit
+  //def foreach[U](f: Vec2 => U): Unit
   def foreachTail[U](f: Vec2 => U): Unit
   def foreachVert[U](f: Vec2 => U): Unit
   def foreachVertTail[U](f: Vec2 => U): Unit
+  def ptsArray: Array[Double]
+  def elem1sArray: Array[Double]
+  def elem2sArray: Array[Double]
+  def foreachPairTail[U](f: (Double, Double) => U): Unit
 
   def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val acc = build.newBuff()
     foreachVert{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
-  def apply(index: Int): Vec2
-
-  def foldLeft[B](initial: B)(f: (B, Vec2) => B): B =
+  def vertsFoldLeft[B](initial: B)(f: (B, Vec2) => B): B =
   { var acc: B = initial
-    foreach{ v => acc = f(acc, v) }
+    foreachVert{ v => acc = f(acc, v) }
     acc
   }
-  override def cen: Vec2 = foldLeft(Vec2Z)(_ + _) / vertsNum
+
+  def apply(index: Int): Vec2
+
+  override def cen: Vec2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
@@ -49,11 +54,6 @@ trait Polygon extends Shape with BoundedElem
 
   /** May throw on a 0 vertices polygon. */
   def v1: Vec2
-
-  def ptsArray: Array[Double]
-  def elem1sArray: Array[Double]
-  def elem2sArray: Array[Double]
-  def foreachPairTail[U](f: (Double, Double) => U): Unit
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =

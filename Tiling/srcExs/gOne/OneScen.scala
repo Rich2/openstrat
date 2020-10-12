@@ -31,10 +31,10 @@ trait OneScenStart extends OneScen
 object OneScen
 {
   def apply(turnIn: Int, gridIn: HexGridSimple, opIn: TilesArrOpt[Player]): OneScen = new OneScen
-    { override val turn = turnIn
-      override implicit val grid: HexGridSimple = gridIn
-      override def oPlayers: TilesArrOpt[Player] = opIn
-    }
+  { override val turn = turnIn
+    override implicit val grid: HexGridSimple = gridIn
+    override def oPlayers: TilesArrOpt[Player] = opIn
+  }
 }
 
 object OneScen1 extends OneScenStart

@@ -73,7 +73,6 @@ trait Rectangle extends Polygon
 
   final override def elem1sArray: Array[Double] = Array(x1, x2, x3, x4)
   final override def elem2sArray: Array[Double] = Array(y1, y2, y3, y4)
-  final override def foreach[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); () }
   final override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); () }
   final override def foreachTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); () }
   final override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); () }

@@ -18,15 +18,12 @@ final case class TriangleIsosGen(x1: Double, y1: Double, x3: Double, y3: Double,
   override def fTrans(f: Vec2 => Vec2): TriangleIsosGen = ???
   override def v2: Vec2 = ???
   override def attribs: Arr[XANumeric] = ???
-  override def foreach[U](f: Vec2 => U): Unit = ???
 
   override def rotate(angle: Angle): TriangleIsosGen = ???
 
   override def negY: ThisT = fTrans(_.negY)
   override def negX: ThisT = fTrans(_.negX)
   override def reflect(lineLike: LineLike): Triangle = ???
-  //override def reflect(line: LineSeg): Triangle = ???
-
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
   override def slateTo(newCen: Vec2): TriangleIsos = ???
   override def fill(fillColour: Colour): PolygonFill = ???

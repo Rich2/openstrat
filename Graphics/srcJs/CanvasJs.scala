@@ -179,16 +179,6 @@ object CanvasJs extends CanvasTopLeft
     gc.arc(circle.xCen, circle.yCen, circle.radius, 0, Pi * 2)
     gc.stroke()
   }
-
-  /*override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
-  { gc.beginPath()
-    gc.fillStyle = cfd.fillColour.webStr
-    gc.arc(cfd.xCen, cfd.yCen, cfd.radius, 0, Pi * 2)
-    gc.lineWidth = cfd.lineWidth
-    gc.strokeStyle = cfd.lineColour.webStr
-    gc.fill()
-    gc.stroke()
-  }*/
   
   override def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit = ???
   def tlEllipseDraw(ellipse: Ellipse, lineWidth: Double, lineColour: Colour): Unit = ???
