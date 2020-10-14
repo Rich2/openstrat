@@ -15,9 +15,11 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
   var cellSites = Array.tabulate(rows*cols)(_ => Array[String]())    //OR Array.fill[Array[Int]](length)(Array.empty)
   var cellNeighbours =  Array.tabulate(rows*cols)(_ => Array[Int]())    //OR Array.ofDim[Int](100, 0)
   var addBallQueue = Array[Int]()
+  var popBallQueue = Array[Int]()
   var winner = Black
   var subscribers = Map[String, Array[Int]]()   //subscribers = Map("newBallForCell"->Array[Int](), "cellWantsToPop"->Array[Int]())
- 
+  var gameState = "none"
+
   def startGame(): Unit =
   { turn = 0
     players = thePlayers.clone()
@@ -25,7 +27,9 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
     cellCounts = Array.fill[Int](rows*cols)(0)
     cellColors = Array.fill[Colour](rows*cols)(Black)
     addBallQueue = Array.fill[Int](rows*cols)(0)
+    popBallQueue = Array.fill[Int](rows*cols)(0)
     winner = Black
+    setGameState("turn")
     ijUntilForeach(0, rows)(0, cols)
     { (r, c) =>
       val index:Int = c + cols * r
@@ -49,29 +53,51 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
       }
     }
   }
+  def setGameState(newState:String): Unit =
+  { gameState = newState
+    deb(newState)
+  }
   def addBallByIndex(cellIndex:Int): Unit =
   { cellColors(cellIndex) = currentPlayer
     cellCounts(cellIndex) += 1
   }
   def newTurn(thisPlayer:Colour, thisCell:Int): Unit =
   { if (players.length > 1 && thisPlayer == currentPlayer) 
-    { if (cellColors(thisCell) == Black || cellColors(thisCell) == thisPlayer) addBallQueue(thisCell) += 1
+    { if (cellColors(thisCell) == Black || cellColors(thisCell) == thisPlayer)
+      { addBallQueue(thisCell) += 1
+        setGameState("addBall")
+      }
     }
   }
-  def processTurn():Boolean = 
-  { val oldAddBallQueue = addBallQueue.clone
-    for (i <- 0 to addBallQueue.length - 1) 
+  def processAddBall():Boolean = 
+  { for (i <- 0 to addBallQueue.length - 1) 
     { for (j <- 1 to addBallQueue(i)) addBallByIndex(i)
+      if (addBallQueue(i) > 0) primePopQueue(i)
     }
     addBallQueue = Array.fill[Int](rows*cols)(0)
-    for (i <- 0 to oldAddBallQueue.length - 1)
-    { if (oldAddBallQueue(i) > 0) doThePop(i)
+    
+    if (popBallQueue.filter(_ != 0).length == 0)
+    { true //no more processing required - essentially the current players turn has concluded(bar animations) and completeTurn() can be called
+    } else
+    { false // processPopBall needs to be called again in the future
     }
-    if (addBallQueue.filter(_ != 0).length == 0) true //no more processing required - essentially the current players turn has concluded(bar animations) and completeTurn() can be called
-    else false // processTurn needs to be called again in the future
+  }
+  def processPopBall():Boolean = 
+  { for (i <- 0 to popBallQueue.length - 1) 
+    { for (j <- 1 to popBallQueue(i)) doThePop(i)
+      if (popBallQueue(i) > 0) primePopQueue(i)
+    }
+    popBallQueue = Array.fill[Int](rows*cols)(0)
+    
+    if (addBallQueue.filter(_ != 0).length == 0)
+    { true //no more processing required - essentially the current players turn has concluded(bar animations) and completeTurn() can be called
+    } else
+    { false // processAddBall needs to be called again in the future
+    }
   }
   def completeTurn(): Unit =
   { turn += 1
+    setGameState("turn")
     var currentPlayerIndex = players.indexOf(currentPlayer) + 1
     if (currentPlayerIndex >= players.length) currentPlayerIndex = 0
     currentPlayer = players(currentPlayerIndex)
@@ -91,11 +117,17 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
   { if (cellCounts(thisCell) >= cellNeighbours(thisCell).length) true
     else false
   }
+  def primePopQueue(thisCell:Int): Unit = 
+  { if (isReadyToPop(thisCell))
+    { popBallQueue(thisCell) = 1
+      setGameState("popBall")
+    }
+  }
   def doThePop(thisCell:Int): Unit = 
   { if (isReadyToPop(thisCell))
     { cellCounts(thisCell) -= cellNeighbours(thisCell).length
       if (cellCounts(thisCell)==0) cellColors(thisCell) = Black
-      for ( x <- cellNeighbours(thisCell) ) addBallQueue(x) += 1
+      for ( recipientCell <- cellNeighbours(thisCell) ) addBallQueue(recipientCell) += 1
     }
   }
 }
