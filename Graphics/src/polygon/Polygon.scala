@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import Colour.Black
+import Colour.Black, pWeb._
 
 /** Short for polygon trait. The general case can be instantiated with [[PolygonImp]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
@@ -29,7 +29,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   def apply(index: Int): Vec2
-
+  override def attribs: Arr[XANumeric] = ???
   override def cen: Vec2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)

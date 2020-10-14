@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import Colour.Black, pWeb._
+import Colour.Black
 
 /** A mathematical triangle. */
 trait Triangle extends Polygon
@@ -83,13 +83,15 @@ object Triangle
 	def apply(v1: Vec2, v2: Vec2, v3: Vec2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFill = PolygonFill(PolygonImp(p1, p2, p3), colour)
 
-	final case class TriangleImp(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle
-	{ //type ThisT = TriangleImp
+	final case class TriangleImp(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle with AffinePreserve
+	{ type ThisT = TriangleImp
 		override def v2: Vec2 = Vec2(x2, y2)
-		override def attribs: Arr[XANumeric] = ???
-		override def fTrans(f: Vec2 => Vec2): TriangleImp = ???
 
-		//override def rotate(angle: Angle): TriangleImp = ???
+		override def fTrans(f: Vec2 => Vec2): TriangleImp = TriangleImp(f(v1), f(v2), f(v3))
 
+	}
+
+	object TriangleImp
+	{		def apply(v1: Vec2, v2: Vec2, v3: Vec2): TriangleImp = new TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 	}
 }
