@@ -47,9 +47,12 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   }
   def doAnimation() : Unit =
   { animationStep += 0.1
+    if (animationStep == 0.1) deb(aDefaultGame.addBallQueue.filter(_ != 0).length.toString)
+    if (animationStep == 0.1) deb(aDefaultGame.popBallQueue.filter(_ != 0).length.toString)
     for (i <- 0 to aDefaultGame.addBallQueue.length - 1)
     { val loc = size*(i % cols) vv size*(i / cols)
       if (animationStep == 0.1 && aDefaultGame.addBallQueue(i) != 0) drawBalls(loc, aDefaultGame.currentPlayer, i)
+     // if (animationStep >= 1) drawBalls(loc, aDefaultGame.currentPlayer, i)
       for (b <- 1 to aDefaultGame.addBallQueue(i))
       { val whichBall = aDefaultGame.cellCounts(i) + b - 1
         canv.circleFill(Circle(size/(ballScale/animationStep), loc+getLocFromCellSite(i, whichBall)), aDefaultGame.currentPlayer)
@@ -57,11 +60,12 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     }
     for (i <- 0 to aDefaultGame.popBallQueue.length - 1)
     { val loc = size*(i % cols) vv size*(i / cols)
-      if (animationStep == 0.1 && aDefaultGame.popBallQueue(i) != 0) drawBalls(loc, aDefaultGame.currentPlayer, i)
-      if (animationStep >= 1) drawBalls(loc, aDefaultGame.currentPlayer, i)
-      for (b <- 1 to aDefaultGame.popBallQueue(i))
-      { val whichBall = aDefaultGame.cellCounts(i) + b - 1
-        //canv.circleFill(Circle(size/(ballScale/animationStep), loc+getLocFromCellSite(i, whichBall)), aDefaultGame.currentPlayer)
+      if (animationStep == 0.1 && aDefaultGame.isReadyToPop(i) == true)
+      { aDefaultGame.cellCounts(i) -= aDefaultGame.cellNeighbours(i).length
+        drawBalls(loc, aDefaultGame.currentPlayer, i)
+        aDefaultGame.cellCounts(i) += aDefaultGame.cellNeighbours(i).length
+        deb("cell="+i.toString+" balls="+aDefaultGame.cellCounts(i))
+      //if (animationStep >= 1) drawBalls(loc, aDefaultGame.currentPlayer, i)
       }
     }
     if (animationStep >= 1)
@@ -80,7 +84,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     } else canv.timeOut(() => doAnimation(), 25)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
-  { val pos = aDefaultGame.cellSites(whichCell)(whichOne) 
+  { val pos = if (whichOne < aDefaultGame.cellSites(whichCell).length) aDefaultGame.cellSites(whichCell)(whichOne) else "C"
     if ("N" == pos) size/2 vv 3*size/4
     else if ("E" == pos) 3*size/4 vv size/2
     else if ("S" == pos) size/2 vv size/4
