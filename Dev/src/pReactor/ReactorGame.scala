@@ -101,12 +101,12 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
     currentPlayer = players(currentPlayerIndex)
   }
   def isGameOver(): Boolean =
-  {
-   if (turn >= players.length) players = players.filter(cellColors.indexOf(_) != -1)
+  { if (turn >= players.length) players = players.filter(cellColors.indexOf(_) != -1)
     if (players.length < 2) 
     { addBallQueue.drop(addBallQueue.length)
       popBallQueue.drop(popBallQueue.length)
       winner = currentPlayer
+      gameState == "winner"
       true
     } else {
       false
