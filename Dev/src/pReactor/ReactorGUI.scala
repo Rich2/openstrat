@@ -10,6 +10,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val size = 40  //cell size in pixels
   val rows = 8
   val cols = 10
+  val ballScale = 5
   var isTurnComplete = true
   var animationStep = 0.0
   var animationType = "Scale"
@@ -37,32 +38,45 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def drawBalls(loc:Vec2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
     canv.polygonFill(Rect.bl(size-1, size-1, loc), Black)
-    if (count >= 1) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 0)), color)
-    if (count >= 2) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 1)), color)
-    if (count >= 3) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 2)), color)
-    if (count >= 4) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 3)), color)
-    if (count >= 5) canv.circleFill(Circle(size/8, loc+getLocFromCellSite(cellIndex, 4)), color)
+    if (count >= 1) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 0)), color)
+    if (count >= 2) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 1)), color)
+    if (count >= 3) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 2)), color)
+    if (count >= 4) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 3)), color)
+    if (count >= 5) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 4)), color)
     if (count >= 6) canv.polygonFill(Rect.bl(size-1, size-1, loc), Pink)
   }
   def doAnimation() : Unit =
   { animationStep += 0.1
     for (i <- 0 to aDefaultGame.addBallQueue.length - 1)
-    { var loc = size*(i % cols) vv size*(i / cols)
-      deb("loc="+loc.toString)
+    { val loc = size*(i % cols) vv size*(i / cols)
       if (animationStep == 0.1 && aDefaultGame.addBallQueue(i) != 0) drawBalls(loc, aDefaultGame.currentPlayer, i)
       for (b <- 1 to aDefaultGame.addBallQueue(i))
       { val whichBall = aDefaultGame.cellCounts(i) + b - 1
-        canv.circleFill(Circle(size/(8/animationStep), loc+getLocFromCellSite(i, whichBall)), aDefaultGame.currentPlayer)
+        canv.circleFill(Circle(size/(ballScale/animationStep), loc+getLocFromCellSite(i, whichBall)), aDefaultGame.currentPlayer)
+      }
+    }
+    for (i <- 0 to aDefaultGame.popBallQueue.length - 1)
+    { val loc = size*(i % cols) vv size*(i / cols)
+      if (animationStep == 0.1 && aDefaultGame.popBallQueue(i) != 0) drawBalls(loc, aDefaultGame.currentPlayer, i)
+      if (animationStep >= 1) drawBalls(loc, aDefaultGame.currentPlayer, i)
+      for (b <- 1 to aDefaultGame.popBallQueue(i))
+      { val whichBall = aDefaultGame.cellCounts(i) + b - 1
+        //canv.circleFill(Circle(size/(ballScale/animationStep), loc+getLocFromCellSite(i, whichBall)), aDefaultGame.currentPlayer)
       }
     }
     if (animationStep >= 1)
     { animationStep = 0.0
-      if (aDefaultGame.processTurn() == true) 
-      { if (aDefaultGame.isGameOver() == true) declareWinner()
-        aDefaultGame.completeTurn()
-        isTurnComplete = true
-        turnComplete()
-      } else canv.timeOut(() => doAnimation(), 25)
+      if (aDefaultGame.gameState == "addBall")
+      { if (aDefaultGame.processAddBall() == true) 
+        { if (aDefaultGame.isGameOver() == true) declareWinner()
+          turnComplete()
+        } else canv.timeOut(() => doAnimation(), 25)
+      } else if (aDefaultGame.gameState == "popBall")
+      { if (aDefaultGame.processPopBall() == true) 
+        { if (aDefaultGame.isGameOver() == true) declareWinner()
+          turnComplete()
+        } else canv.timeOut(() => doAnimation(), 25)
+      }
     } else canv.timeOut(() => doAnimation(), 25)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int) : Vec2 =
@@ -78,7 +92,9 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     if (aDefaultGame.players.length < 2) canv.textGraphic(" Wins!", 16, 10 vv (-3*size/4), aDefaultGame.currentPlayer)
   }
   def turnComplete() : Unit =
-  { canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
+  { aDefaultGame.completeTurn()
+    isTurnComplete = true
+    canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
     canv.textGraphic(aDefaultGame.turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
   mouseUp =
