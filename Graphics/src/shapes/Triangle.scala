@@ -31,25 +31,26 @@ trait Triangle extends Polygon
 	override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
 
+	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Vec2]] 2D Vector or point to a [[Vec2]]. */
 	override def fTrans(f: Vec2 => Vec2): Triangle = Triangle(f(v1), f(v2), f(v3))
 
-	/** Translate geometric transformation on a Shape returns a Shape. */
+	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
 	override def slate(offset: Vec2): Triangle = fTrans(_ + offset)
 
-	/** Translate geometric transformation. */
-	override def slate(xOffset: Double, yOffset: Double): Triangle = ???
+	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
+	override def slate(xOffset: Double, yOffset: Double): Triangle = fTrans(_.addXY(xOffset, yOffset))
 
 	/** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
 	 * Squares. Use the xyScale method for differential scaling. */
-	override def scale(operand: Double): Triangle = ???
+	override def scale(operand: Double): Triangle = fTrans(_ * operand)
 
 	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
 	 * in sub classes. */
-	override def negY: Triangle = ???
+	override def negY: Triangle = fTrans(_.negY)
 
 	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
 	 * in sub classes. */
-	override def negX: Triangle = ???
+	override def negX: Triangle = fTrans(_.negX)
 
 	override def prolign(matrix: ProlignMatrix): Triangle = ???
 
