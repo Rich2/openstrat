@@ -31,7 +31,6 @@ trait Triangle extends Polygon
 	override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
 
-
 	/** Translate geometric transformation on a Shape returns a Shape. */
 	override def slate(offset: Vec2): Triangle = ???
 
@@ -69,18 +68,18 @@ trait Triangle extends Polygon
 	def yCen: Double = (y1 + y2 + y3) / 3
 }
 
-final case class TriangleClass(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle //with AffinePreserve
-{ type ThisT = TriangleClass
-	override def v2: Vec2 = ???
-	override def attribs: Arr[XANumeric] = ???
-	override def fTrans(f: Vec2 => Vec2): TriangleClass = ???
-
-	override def rotate(angle: Angle): TriangleClass = ???
-	
-}
-
 object Triangle
 { //def apply(x0: Double, y0: Double, x1: Double, y1: Double, x2: Double, y2: Double): Triangle = ???
 	//def apply(v0: Vec2, v1: Vec2, v2: Vec2): Triangle = ??? // new Triangle(v0.x, v0.y, v1.x, v1.y, v2.x, v2.y)
 	def fill(p1: Vec2, p2: Vec2, p3: Vec2, colour: Colour = Black): PolygonFill = PolygonFill(PolygonImp(p1, p2, p3), colour)
+
+	final case class TriangleImp(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle
+	{ type ThisT = TriangleImp
+		override def v2: Vec2 = ???
+		override def attribs: Arr[XANumeric] = ???
+		override def fTrans(f: Vec2 => Vec2): TriangleImp = ???
+
+		override def rotate(angle: Angle): TriangleImp = ???
+
+	}
 }
