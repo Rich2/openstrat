@@ -40,32 +40,39 @@ trait Triangle extends Polygon
 	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
 	override def slate(xOffset: Double, yOffset: Double): Triangle = fTrans(_.addXY(xOffset, yOffset))
 
-	/** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-	 * Squares. Use the xyScale method for differential scaling. */
+	/** Uniform scaling 2D geometric transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
+	 *  Circles and Squares. Use the xyScale method for differential scaling. */
 	override def scale(operand: Double): Triangle = fTrans(_ * operand)
 
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
+	/** Mirror, reflection transformation across the Y axis on a triangle returns a triangle.The return type is narrowed in sub classes. */
 	override def negY: Triangle = fTrans(_.negY)
 
-	/** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-	 * in sub classes. */
+	/** Mirror, reflection transformation across the X axis on a triangle, returns a triangle. The rturn type to be narrowed sub classes. */
 	override def negX: Triangle = fTrans(_.negX)
 
-	override def prolign(matrix: ProlignMatrix): Triangle = ???
+	override def prolign(matrix: ProlignMatrix): Triangle = fTrans(_.prolign(matrix))
 
-	override def reflect(lineLike: LineLike): Triangle = ???
+	override def reflect(lineLike: LineLike): Triangle = fTrans(_.reflect(lineLike))
 
-	//override def reflect(line: LineSeg): Triangle = ???
+	override def xyScale(xOperand: Double, yOperand: Double): Triangle = fTrans(_.xyScale(xOperand, yOperand))
 
-	override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
+	override def xShear(operand: Double): Triangle = fTrans(_.xShear(operand))
+	override def yShear(operand: Double): Triangle = fTrans(_.yShear(operand))
+	override def slateTo(newCen: Vec2): Triangle = fTrans(_ + newCen - cen)
 
-	override def xShear(operand: Double): Triangle = ???
-	override def yShear(operand: Double): Triangle = ???
-	override def slateTo(newCen: Vec2): Triangle = ???
-	override def xVertGet(index: Int): Double = ???
+	override def xVertGet(index: Int): Double = index match
+	{	case 1 => x1
+		case 2 => x2
+		case 3 => x3
+		case n => excep(n.str + " is out of range for a triangle.")
+	}
 
-	override def yVertGet(index: Int): Double = ???
+	override def yVertGet(index: Int): Double = index match
+	{	case 1 => y1
+		case 2 => y2
+		case 3 => y3
+		case n => excep(n.str + " is out of range for a triangle.")
+	}
 
 	def xCen: Double = (x1 + x2 + x3) / 3
 	def yCen: Double = (y1 + y2 + y3) / 3
