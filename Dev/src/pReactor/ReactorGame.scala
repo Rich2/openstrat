@@ -76,20 +76,18 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
     }
     addBallQueue = Array.fill[Int](rows*cols)(0)
     
-    if (popBallQueue.filter(_ != 0).length == 0)
+    if (gameState == "addBall")//popBallQueue.filter(_ != 0).length == 0)
     { true //no more processing required - essentially the current players turn has concluded(bar animations) and completeTurn() can be called
     } else
     { false // processPopBall needs to be called again in the future
     }
   }
   def processPopBall():Boolean = 
-  { for (i <- 0 to popBallQueue.length - 1) 
-    { for (j <- 1 to popBallQueue(i)) doThePop(i)
-      if (popBallQueue(i) > 0) primePopQueue(i)
-    }
+  { for (i <- 0 to popBallQueue.length - 1) doThePop(i)
+
     popBallQueue = Array.fill[Int](rows*cols)(0)
     
-    if (addBallQueue.filter(_ != 0).length == 0)
+    if (gameState == "popBall")//addBallQueue.filter(_ != 0).length == 0
     { true //no more processing required - essentially the current players turn has concluded(bar animations) and completeTurn() can be called
     } else
     { false // processAddBall needs to be called again in the future
@@ -107,6 +105,7 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
    if (turn >= players.length) players = players.filter(cellColors.indexOf(_) != -1)
     if (players.length < 2) 
     { addBallQueue.drop(addBallQueue.length)
+      popBallQueue.drop(popBallQueue.length)
       winner = currentPlayer
       true
     } else {
@@ -128,6 +127,8 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
     { cellCounts(thisCell) -= cellNeighbours(thisCell).length
       if (cellCounts(thisCell)==0) cellColors(thisCell) = Black
       for ( recipientCell <- cellNeighbours(thisCell) ) addBallQueue(recipientCell) += 1
+      deb("doThePop:"+cellCounts(thisCell).toString)
+      setGameState("addBall")
     }
   }
 }
