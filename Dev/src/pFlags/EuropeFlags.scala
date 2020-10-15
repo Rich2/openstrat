@@ -130,7 +130,7 @@ object CzechRepublic extends Flag
   val apply: GraphicElems = Arr(
     Rect(ratio, 1).fill(White),
     Rect(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
-    Triangle.fill(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0, Colour(0xFF11457E))
+    Triangle(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0).fill(Colour(0xFF11457E))
   )
 }
 

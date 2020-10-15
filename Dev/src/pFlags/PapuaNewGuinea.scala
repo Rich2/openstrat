@@ -8,7 +8,7 @@ object PapuaNewGuinea extends Flag
   val ratio = 4.0/3
   val apply: GraphicElems =
   { val base = Rect(ratio, 1).fill(Black)
-    val topRightTriangle = Triangle.fill(-2.0/3 vv 0.5, 2.0/3 vv 0.5, 2.0/3 vv -0.5, Colour(0xFFce1126))
+    val topRightTriangle = Triangle(-2.0/3 vv 0.5, 2.0/3 vv 0.5, 2.0/3 vv -0.5).fill(Colour(0xFFce1126))
 
     val bird = PolyCurve(LineTail(0.04247 vv 0.2211), BezierTail(0.03302 vv 0.2089, 0.01065 vv 0.2334, -0.01615 vv 0.2339),
       BezierTail(-0.04295 vv 0.2345, -0.06194 vv 0.2082, -0.06975 vv 0.1993), BezierTail(-0.07757 vv 0.1904, -0.1027 vv 0.1435, -0.1021 vv 0.1384),
