@@ -49,31 +49,47 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   { animationStep += 0.1
     if (animationStep > 0.95) animationStep = 1    
     for (i <- 0 to aDefaultGame.addBallQueue.length - 1)
-    { val loc = size*(i % cols) vv size*(i / cols)
-      if (animationStep == 0.1 && aDefaultGame.addBallQueue(i) != 0) drawBalls(loc, aDefaultGame.currentPlayer, i)
-      for (b <- 1 to aDefaultGame.addBallQueue(i))
-      { val whichBall = aDefaultGame.cellCounts(i) + b - 1
-        canv.circleFill(Circle(size/(ballScale/animationStep), loc+getLocFromCellSite(i, whichBall)), aDefaultGame.currentPlayer)
+    { if (aDefaultGame.addBallQueue(i) != 0) 
+      { //deb("ADD_ANIM="+animationStep.toString)
+        val loc:Vec2 = size*(i % cols) vv size*(i / cols)
+        if (animationStep == 0.1) drawBalls(loc, aDefaultGame.currentPlayer, i)
+        for (b <- 1 to aDefaultGame.addBallQueue(i))
+        { val whichBall = aDefaultGame.cellCounts(i) + b - 1
+          canv.circleFill(Circle(size/(ballScale/animationStep), loc+getLocFromCellSite(i, whichBall)), aDefaultGame.currentPlayer)
+        }
       }
     }
   // popBall animation
     for (i <- 0 to aDefaultGame.popBallQueue.length - 1)
     { var loc = size*(i % cols) vv size*(i / cols)
-      aDefaultGame.cellCounts(i) -= aDefaultGame.cellNeighbours(i).length  //fudge start//
+      var locy = 0 vv 0
       if (aDefaultGame.isReadyToPop(i) == true) 
-      { drawBalls(loc, aDefaultGame.currentPlayer, i)
+      { //deb("POP_ANIM="+animationStep.toString)
+        aDefaultGame.cellCounts(i) -= aDefaultGame.cellNeighbours(i).length  //fudge start//
+        drawBalls(loc, aDefaultGame.currentPlayer, i)
         for (b <- aDefaultGame.cellSites(i))
         { b match 
-          { case "N" => loc += 0 vv size*animationStep/2
-            case "E" => loc -= size*animationStep/2 vv 0
-            case "S" => loc -= 0 vv size*animationStep/2
-            case "W" => loc += size*animationStep/2 vv 0
+          { case "N" => 
+              { if (animationStep > 0.55) locy = loc + (0 vv 0.5*size*(animationStep-0.5)) 
+                else locy = loc - (0 vv 0.25*size*(animationStep))
+              }
+            case "E" => 
+              { if (animationStep > 0.55) locy = loc + (0.5*size*(animationStep-0.5) vv 0)
+                else locy = loc - (0.25*size*(animationStep) vv 0)
+              }
+            case "S" => 
+              { if (animationStep > 0.55) locy = loc - (0 vv 0.5*size*(animationStep-0.5))
+                else locy = loc + (0 vv 0.25*size*(animationStep))
+              }
+            case "W" =>
+              { if (animationStep > 0.55)  locy = loc - (0.5*size*(animationStep-0.5) vv 0)
+              else locy = loc + (0.25*size*(animationStep) vv 0)
+              }
           }
-          canv.circleFill(Circle(size/(size/ballScale*(1 - animationStep)), loc+getLocFromCellSite(i, 0, b)), aDefaultGame.currentPlayer)
+          canv.circleFill(Circle(size*(1 - animationStep)/ballScale, locy+getLocFromCellSite(i, 0, b)), aDefaultGame.currentPlayer)
         }
+        aDefaultGame.cellCounts(i) += aDefaultGame.cellNeighbours(i).length  //fudge end//
       }
-      //drawBalls(loc, aDefaultGame.currentPlayer, i)
-      aDefaultGame.cellCounts(i) += aDefaultGame.cellNeighbours(i).length  //fudge end//
     }
   // when animation completes check for game over otherwise continue animation
     if (animationStep >= 1)
@@ -95,13 +111,16 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     } else canv.timeOut(() => doAnimation(), 25)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int, whichPos: String = "") : Vec2 =
-  { val pos = whichPos
-    if (pos == "") if (whichOne < aDefaultGame.cellSites(whichCell).length) aDefaultGame.cellSites(whichCell)(whichOne) else "C"
-    if ("N" == pos) size/2 vv 3*size/4
-    else if ("E" == pos) 3*size/4 vv size/2
-    else if ("S" == pos) size/2 vv size/4
-    else if ("W" == pos) size/4 vv size/2
-    else size/2 vv size/2
+  { var pos = ""
+    if (whichPos != "") pos = whichPos
+    else pos = if (whichOne < aDefaultGame.cellSites(whichCell).length) aDefaultGame.cellSites(whichCell)(whichOne) else "C"
+    pos match 
+    { case "N" => size/2 vv 3*size/4
+      case "E" => 3*size/4 vv size/2
+      case "S" => size/2 vv size/4
+      case "W" => size/4 vv size/2
+      case _ => size/2 vv size/2
+    }
   }
   def declareWinner() : Unit =
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
