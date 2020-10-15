@@ -77,6 +77,7 @@ trait Triangle extends Polygon
 	def yCen: Double = (y1 + y2 + y3) / 3
 
 	override def fill(colour: Colour): TriangleFill = TriangleFill(this, colour)
+	override def fillHex(intValue: Int): TriangleFill = TriangleFill(this, Colour(intValue))
 }
 
 object Triangle

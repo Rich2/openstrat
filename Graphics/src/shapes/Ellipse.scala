@@ -7,8 +7,8 @@ import pWeb._, Colour.Black, math.{Pi, sqrt}
  *  methods in the Ellipse companion object return [Ellipse]]. */
 trait Ellipse extends Shape with Curve
 {
-  def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
-
+  override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
+  override def fillHex(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
   override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): GraphicElem =

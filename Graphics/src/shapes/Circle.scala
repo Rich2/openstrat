@@ -68,6 +68,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
   override def fill(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
+  override def fillHex(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))
 
   def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound =
     CircleCompound(this, Arr(FillRadial(cenColour, outerColour)), Arr())

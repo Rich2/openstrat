@@ -7,8 +7,8 @@ import pWeb._
  *  extend [[Fillable]] which extends [[Drawable]].Not sure if Shape and Fillable should be seperate classes. */
 trait Shape extends Fillable with BoundedElem
 {
-  //def fill(fillColour: Colour): ShapeCompound
   override def fill(fillColour: Colour): ShapeFill
+  override def fillHex(intValue: Int): ShapeFill
   def draw(lineWidth: Double, lineColour: Colour): ShapeDraw
   def attribs: Arr[XANumeric]
   
