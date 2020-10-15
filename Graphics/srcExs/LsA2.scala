@@ -12,7 +12,7 @@ case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
   val rd: RectangleDraw = Rect(200, 100, 100, 160).draw()
 
   repaints(
-    Triangle.fill(-100 vv 0, 0 vv -200, -300 vv -400, Violet),
+    Triangle(-100 vv 0, 0 vv -200, -300 vv -400).fill(Violet),
     rg, rd, sq0, sq1, sq2, sq3,
   )
 }

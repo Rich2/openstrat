@@ -19,7 +19,6 @@ final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) ex
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 
-  override def fill(fillColour: Colour): PolygonFill = ???
   override def slateTo(newCen: Vec2): TriangleEqui = ???
-  //override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
+
 }
