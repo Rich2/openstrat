@@ -6,7 +6,7 @@
 <h1>openstrat</h1>
 
 [![Join the chat at https://gitter.im/typestrat/Lobby](https://badges.gitter.im/typestrat/Lobby.svg)](https://gitter.im/typestrat/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-![Scala CI](https://github.com/w0d/openstrat/workflows/Scala%20CI/)
+![Scala CI](https://github.com/w0d/openstrat/workflows/Scala%20CI/badge.svg)
 ![Sbt Tests](https://github.com/Rich2/openstrat/workflows/Sbt%20Tests/badge.svg)
 ![Docs](https://github.com/Rich2/openstrat/workflows/Docs/badge.svg)
 [![Actions Panel](https://img.shields.io/badge/actionspanel-enabled-brightgreen)](https://www.actionspanel.app/app/w0d/openstrat)
