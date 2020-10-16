@@ -11,6 +11,12 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   override def elemsLen: Int = unsafeArr.length
   override def apply(index: Int): A = unsafeArr(index)
 
+  def smap(f: A => A @uncheckedVariance): Arr[A] =
+  { val newArray: Array[A] = unsafeArr.clone()
+    iForeach{(el, i) => newArray(i) = f(el) }
+    new Arr[A](newArray)
+  }
+
   override def fElemStr: A @uncheckedVariance => String = _.toString
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArr(i) = value
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(1)
