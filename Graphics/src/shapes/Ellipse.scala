@@ -149,10 +149,26 @@ object Ellipse
 
   implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s0(ell.cen + offset, ell.s1 + offset, ell.s0 + offset)
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
+
   implicit val rotateImplicit: Rotate[Ellipse] =
     (ell: Ellipse, angle: Angle) => Ellipse.cs1s0(ell.cen.rotate(angle), ell.s1.rotate(angle), ell.s0.rotate(angle))
 
+  implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
+
   implicit val xyScaleImplicit: XYScale[Ellipse] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+
+  implicit val reflectAxesImplicit: TransAxes[Ellipse] = new TransAxes[Ellipse]
+  { override def negYT(obj: Ellipse): Ellipse = obj.negY
+    override def negXT(obj: Ellipse): Ellipse = obj.negX
+    override def rotate90T(obj: Ellipse): Ellipse = obj.rotate90
+    override def rotate180T(obj: Ellipse): Ellipse = obj.rotate180
+    override def rotate270T(obj: Ellipse): Ellipse = obj.rotate270
+  }
+
+  implicit val shearImplicit: Shear[Ellipse] = new Shear[Ellipse]
+  { override def xShearT(obj: Ellipse, yFactor: Double): Ellipse = obj.xShear(yFactor)
+    override def yShearT(obj: Ellipse, xFactor: Double): Ellipse = obj.yShear(xFactor)
+  }
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
