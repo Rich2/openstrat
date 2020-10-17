@@ -16,6 +16,9 @@ object Rotate
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Rotate[A]): Rotate[AA] =
     (obj, angle) => obj.map(ev.rotateT(_, angle))
 
+  /*implicit def arrImplicit[A](implicit ev: Rotate[A]): Rotate[Arr[A]] =
+    (obj, angle) => obj.smap(ev.rotateT(_, angle))*/
+
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] =
     (obj, radians) => evF.mapT(obj, evA.rotateT(_, radians))
 

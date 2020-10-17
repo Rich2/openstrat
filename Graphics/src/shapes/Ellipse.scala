@@ -152,6 +152,8 @@ object Ellipse
   implicit val rotateImplicit: Rotate[Ellipse] =
     (ell: Ellipse, angle: Angle) => Ellipse.cs1s0(ell.cen.rotate(angle), ell.s1.rotate(angle), ell.s0.rotate(angle))
 
+  implicit val xyScaleImplicit: XYScale[Ellipse] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
   case class EllipseImp(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius0: Double) extends Ellipse

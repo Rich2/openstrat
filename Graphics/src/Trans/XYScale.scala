@@ -13,8 +13,11 @@ object XYScale
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: XYScale[A]): XYScale[AA] =
     (obj, xOperand: Double, yOperand) => obj.map(ev.xyScaleT(_, xOperand, yOperand))
 
-  implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: XYScale[A]): XYScale[F[A]] =
-    (obj, xOperand, yOperand) => evF.mapT(obj, evA.xyScaleT(_, xOperand, yOperand))
+  /*implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: XYScale[A]): XYScale[F[A]] =
+    (obj, xOperand, yOperand) => evF.mapT(obj, evA.xyScaleT(_, xOperand, yOperand))*/
+
+  implicit def listImplicit[A](implicit evA: XYScale[A]): XYScale[List[A]] =
+    (obj, xOperand, yOperand) => obj.map(el => evA.xyScaleT(el, xOperand, yOperand))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: XYScale[A]): XYScale[Array[A]] =
     (obj, xOperand: Double, yOperand) => obj.map(ev.xyScaleT(_, xOperand, yOperand))

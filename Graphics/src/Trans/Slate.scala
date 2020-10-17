@@ -2,13 +2,14 @@
 package ostrat
 package geom
 import reflect.ClassTag
+import scala.annotation.unchecked.uncheckedVariance
 
 /** Type class for translate 2 dimensional vector transformations. Each transformation method has been given its own Type class and associated
  * extension class. Different sets of transformations can then be combined. */
 trait Slate[T]
-{ def slateT(obj: T, offset: Vec2): T
-  def xSlateT(obj: T, xOffset: Double): T = slateT(obj, xOffset vv 0)
-  def ySlateT(obj: T, yOffset: Double): T = slateT(obj, 0 vv yOffset)
+{ def slateT(obj: T @uncheckedVariance, offset: Vec2): T
+  def xSlateT(obj: T @uncheckedVariance, xOffset: Double): T = slateT(obj, xOffset vv 0)
+  def ySlateT(obj: T @uncheckedVariance, yOffset: Double): T = slateT(obj, 0 vv yOffset)
 }
 
 /** Companion object for the Slate type class. Contains instances for collections and other container classes. */
@@ -16,8 +17,10 @@ object Slate
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj, offset) => obj.slate(offset).asInstanceOf[T]
 
-  implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Arr[A]] =
-    (obj, offset) => obj.map(ev.slateT(_, offset))(new AnyBuild[A])
+  /*implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Slate[A]): Slate[Arr[A]] =
+    (obj, offset) => obj.map(ev.slateT(_, offset))(new AnyBuild[A])*/
+
+  implicit def arrImplicit[A](implicit ev: Slate[A]): Slate[Arr[A]] = (obj, offset) => obj.smap(ev.slateT(_, offset))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Slate[A]): Slate[F[A]] = (obj, offset) => evF.mapT(obj, evA.slateT(_, offset))
 
