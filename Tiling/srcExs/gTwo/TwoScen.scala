@@ -6,6 +6,7 @@ import pGrid._
 trait TwoScen
 { def grid: SquareGridSimple
   def terrs: TileBooleans
+  //def oPlayers: TilesArrOpt[Player]
 }
 
 object TwoScen1 extends TwoScen
