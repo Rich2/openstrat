@@ -97,8 +97,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     if (animationStep >= 1)
     { animationStep = 0.0
       if (aDefaultGame.gameState == "winner")
-      {  declareWinner()
-         turnComplete()
+      { turnComplete()
+        declareWinner()
       } else if (aDefaultGame.gameState == "popBall")
       { if (aDefaultGame.processPopBall() == true) 
         { if (aDefaultGame.isGameOver() == true) declareWinner()
@@ -123,7 +123,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       case "W" => size/4 vv size/2
       case _ => size/2 vv size/2
     }
-  }
+  } 
   def declareWinner() : Unit =
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
     if (aDefaultGame.players.length < 2) canv.textGraphic(" Wins!", 16, 10 vv (-3*size/4), aDefaultGame.currentPlayer)
@@ -131,6 +131,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def turnComplete() : Unit =
   { aDefaultGame.completeTurn()
     isTurnComplete = true
+    deb("turnComplete")
     canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
     canv.textGraphic(aDefaultGame.turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
@@ -148,42 +149,29 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       case (RightButton, cl, v) if (cl.length > 0) => saveGame()
       case (_, _, _) => deb("uncaptured click")
     }
-
-//--** NEED TO CHECK SAVE ISNT HAPPENING DURING A TURN**--//
   def saveGame() : Unit =
-  { //var s2 = Sett("Rows", 5).ap("Cols", 6).str
-    //s2 = Sett("Game", aDefaultGame).str
-    //val c1 = s2.findSett("Cols")
-    //val c2 = s2.findSett("Rows")
-//******************************************    val c3 = s2.findType[ReactorGame]
-    //deb("***********************")
-    //deb("s2="+s2.toString)
-    //deb("rows="+c2.toString+" cols="+c1.toString)
-//******************************************    deb("2nd Int="+c3.toString)
-    deb("***********************")
+  { deb("***********************")
     if (aDefaultGame.gameState == "turn")
-    { val saveData = Sett("rows", aDefaultGame.rows).ap("cols", aDefaultGame.cols).ap("turn", aDefaultGame.turn).ap("gameState",
+    { var saveData = Sett("rows", aDefaultGame.rows).ap("cols", aDefaultGame.cols).ap("turn", aDefaultGame.turn).ap("gameState",
          aDefaultGame.gameState).ap("currentPlayer", aDefaultGame.currentPlayer).ap("cellCounts", aDefaultGame.cellCounts).str//.ap("cellColors",  aDefaultGame.cellColors).str
+      for (i <-0 to aDefaultGame.rows * aDefaultGame.cols - 1) saveData += Sett("cellColors"+i.toString, aDefaultGame.cellColors(i)).str
       canv.saveFile("Reactor.data", saveData)
       deb("Saved! =>\n"+saveData)
       gameData = saveData
     }
   }
   def loadGame() : Unit = 
-  {
-    val loadData = canv.loadFile("test")//**BUG "Reactor.data")
+  { val loadData = canv.loadFile("test")//**BUG "Reactor.data")
     //deb(loadData.toString)
-    if (loadData.isGood)
-    {
-      loadData.forGood(i=>deb(i.toString))
-      //turn = loadData.toString.split("\n")(1).toInt  //loadData.right.split("\n")(0).toInt
-      deb("turn == " + aDefaultGame.turn)
-      val c = Colour.strToValue("Red")
-      deb(c.toString)
+    if (gameData != "")
+    { var d = "" + gameData.findIntSett("rows")
+      deb("rows == " + d)
+      //val c = Colour.strToValue("Red")
+      //deb(c.toString)
       //players = loadData.toString.split("\n")(2).split(",").map[Colour](c => Colour.strToValue(c))
-      deb("players == " + aDefaultGame.players.toString)
+      //deb("players == " + aDefaultGame.players.toString)
     } else {
-      deb("bad filename?")
+      deb("no data to load")
     }
     //canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
