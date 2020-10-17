@@ -1,3 +1,4 @@
+/* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pReactor
 import Colour._
@@ -20,16 +21,17 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
   var subscribers = Map[String, Array[Int]]()   //subscribers = Map("newBallForCell"->Array[Int](), "cellWantsToPop"->Array[Int]())
   var gameState = "none"
 
-  def startGame(): Unit =
-  { turn = 0
-    players = thePlayers.clone()
-    currentPlayer = players(0)
-    cellCounts = Array.fill[Int](rows*cols)(0)
-    cellColors = Array.fill[Colour](rows*cols)(Black)
+  def startGame(aGameState:String = "turn", aTurn:Int = 0, aPlayers:Array[Colour] = thePlayers.clone(), aCurrentPlayer:Colour = players(0), aCellCounts:Array[Int] = Array.fill[Int](rows*cols)(0),
+                aCellColors:Array[Colour] = Array.fill[Colour](rows*cols)(Black)): Unit =
+  { turn = aTurn
+    players = aPlayers
+    currentPlayer = aCurrentPlayer
+    cellCounts = aCellCounts
+    cellColors = aCellColors
     addBallQueue = Array.fill[Int](rows*cols)(0)
     popBallQueue = Array.fill[Int](rows*cols)(0)
     winner = Black
-    setGameState("turn")
+    setGameState(aGameState)
     ijUntilForeach(0, rows)(0, cols)
     { (r, c) =>
       val index:Int = c + cols * r
