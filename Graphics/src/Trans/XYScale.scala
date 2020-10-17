@@ -2,10 +2,11 @@
 package ostrat
 package geom
 import reflect.ClassTag
+import scala.annotation.unchecked.uncheckedVariance
 
 /** type class for scale transformation where the X and Y components can be scaled independently. */
 trait XYScale[T]
-{ def xyScaleT(obj: T, xOperand: Double, yOperand: Double): T
+{ def xyScaleT(obj: T @uncheckedVariance, xOperand: Double, yOperand: Double): T
 }
 
 object XYScale

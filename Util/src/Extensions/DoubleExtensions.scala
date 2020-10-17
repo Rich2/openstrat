@@ -13,6 +13,8 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   
   def precision = 1e12
   def =~ (other: Double): Boolean =  ((thisDouble - other).abs/(thisDouble.abs.max(other.abs).max(1))) * precision  < 1
+
+  /** Returns the square of this [[Double]]. */
   def squared: Double = thisDouble * thisDouble
   def cubed: Double = thisDouble * thisDouble * thisDouble
   
@@ -29,7 +31,6 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def str3: String = f"$thisDouble%1.3f"
   def commaedStr1s(others: Double*): String = others.foldLeft(str1)(_ + ", " + _.str1)
   def commaedStr2s(others: Double*): String = others.foldLeft(str2)(_ + ", " + _.str2)
-  //def fromToOld(toValue: Double, step: Double): List[Double] = doubleFromToOld(thisDouble, toValue, step)
    
   def fFromTo[A](toValue: Double, step: Double, f: Double => A): List[A] =
   { var count = thisDouble

@@ -22,6 +22,9 @@ package object ostrat
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
 
+  /** Gives the scalar hypotenuse length for a right angled triangle form the paramter lengths of the other 2 sides. */
+  def hypotenuse(side1: Double, side2: Double): Double = (side1.squared + side2.squared).sqrt
+
   def NoRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
   /** onlyIf-do. Only if the condition is true, perform the effect. */
@@ -57,8 +60,6 @@ package object ostrat
   @inline def ifNotExcep(b: Boolean, str: => String): Unit = if(!b) throw new Exception(str)
 
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
-
-
 
   /** Not sure what this method does. */
   def readT[T](implicit ev: Persist[T]): T =

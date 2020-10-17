@@ -31,10 +31,15 @@ object UnitedKingdom extends EnglandLike
 { val name = "United Kingdom"
 
   val apply: GraphicElems =
-  { val xd = math.sqrt(5) / 30.0 //hypotenuse sqrt(2 * 2 + 1 * 1)
-    val yd = math.sqrt(1.25) / 30.0 //hypotenuse Sqrt(1 * 1 + 0.5 * 0.5)
-    val ywc = 5.0 / 30 //top of White cross bar
-    val xDiag = 10.0 / 30.0 //ywc * 2 where diag crosses ywc
+  { val xd = hypotenuse(2,1) / 30.0
+    val yd = hypotenuse(1,0.5) / 30.0
+
+    /** Top of White cross bar */
+    val ywc = 5.0 / 30
+
+    /** ywc * 2 where diag crosses ywc */
+    val xDiag = 10.0 / 30.0
+
     val b1 = PolygonImp(
       5.0 / 30 vv 0.5, 1 - xd * 3 vv 0.5,
       1.0 / 6.0 vv ywc + yd)
@@ -130,7 +135,7 @@ object CzechRepublic extends Flag
   val apply: GraphicElems = Arr(
     Rect(ratio, 1).fill(White),
     Rect(ratio, 0.5).slate(0 vv -0.25).fill(Colour(0xFFD7141A)),
-    Triangle(-ratio/2 vv 0.5, -ratio/2 vv -0.5, 0 vv 0).fill(Colour(0xFF11457E))
+    Triangle(-ratio / 2 vv 0.5, -ratio / 2 vv -0.5, 0 vv 0).fill(Colour(0xFF11457E))
   )
 }
 
