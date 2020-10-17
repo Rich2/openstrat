@@ -11,6 +11,7 @@ trait RectGraphicSimple extends RectGraphic with RectangleGraphicSimple
 
 trait RectFill extends RectGraphicSimple with RectangleFill
 
+/** Companion object for the RectFill trait, contains a RectFillImp implementation class and an aplly method that delegates to it. */
 object RectFill
 {
   def apply(rect: Rect, fillColour: Colour): RectFill = RectFillImp(rect, fillColour)
