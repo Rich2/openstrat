@@ -17,13 +17,13 @@ case class ComputerPlayer(aGameData: ReactorGame)
     var chooseFromTheseIndexes = Array[Int]()
 
     //determin valid turns
-    for (i <- 0 to gameData.cellColors.length - 1) 
+    for (i <- 0 to gameData.cellColors.length - 1)
     { val thisCellsColor = gameData.cellColors(i) 
       if (thisCellsColor == Black || thisCellsColor == forThisColor) validTurnIndexes = i +: validTurnIndexes
     }
 
     //determin cells that are 1 ball away from popping
-    for (i <- validTurnIndexes) 
+    for (i <- 0 to gameData.cellColors.length - 1)
     { if (isPrimed(i) == true)
       { primedIndexes = i +: primedIndexes
         if (isMyColor(i) == true) myPrimedIndexes = i +: myPrimedIndexes
@@ -43,14 +43,7 @@ case class ComputerPlayer(aGameData: ReactorGame)
     //search for islands (no neighbours)
     //favour corners that arnt protected else sides
     //am i vulnrable/can i be agressive
-    //
 
-    // players.filter(cellColors.indexOf(_) != -1)
-    // if (cellCounts(thisCell) >= cellNeighbours(thisCell).length) true
-    // else false
-    deb("primed = "+ primedIndexes.length.toString)
-    deb("my = "+ myPrimedIndexes.length.toString)
-    deb("their = "+ theirPrimedIndexes.length.toString)
     if (chooseFromTheseIndexes.length != 0) deb("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
     if (chooseFromTheseIndexes.length == 0) chooseFromTheseIndexes = validTurnIndexes
     chooseFromTheseIndexes( scala.util.Random.nextInt( chooseFromTheseIndexes.length))
@@ -64,8 +57,3 @@ case class ComputerPlayer(aGameData: ReactorGame)
     else false
   }
 }
- 
-    // for (i <- 0 to gameData.cellColors.length - 1) gameData.cellColors(i) match
-    // { case c if c == Black || c == forThisColor => i +: validTurnIndexes
-    //   case _ => 
-    // }
