@@ -1,14 +1,14 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package gOne
-//import prid._
+import prid._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
-/*
-trait OneScen
+
+trait UneScen
 { val turn: Int
-  implicit val grid: HexGridSimple
-  def oPlayers: TilesArrOpt[Player]
+  implicit val grid: HGridRegSimple
+  /*def oPlayers: TilesArrOpt[Player]
 
   def turn(hts: Arr[HTileAndStep]): OneScen =
   { val resolve: TilesArr[List[HTileAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
@@ -21,11 +21,11 @@ trait OneScen
     }}
 
     OneScen(turn + 1, grid, resValue)
-  }
+  }*/
 }
 
 /** This trait just puts the value 0 in for the turn. */
-trait OneScenStart extends OneScen
+/*trait OneScenStart extends OneScen
 { override val turn: Int = 0
 }
 

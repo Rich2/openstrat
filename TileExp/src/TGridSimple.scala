@@ -14,5 +14,8 @@ trait TGridSimple
   /** The number of Rows of vertices. */
   @inline final def numOfVertRows: Int = numOfTileRows + 1
 
+  /** The total number of Tiles in the tile Grid. */
+  def numOfTiles: Int
+
   def xRatio: Double
 }

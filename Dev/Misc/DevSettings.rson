@@ -28,6 +28,7 @@ displayY = 0;
     ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerr, 456 rr 388), "JavaFx NE Wurope Grid")),
 
     ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
+    ("U1", (gUne.GUneGui(_), "JavaFx Game Une")),
     ("G1s1", (gOne.GOneGui(_, gOne.OneScen2), "JavaFx irregular Grid Game One")),
     ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Square Grid Game Two")),
 
