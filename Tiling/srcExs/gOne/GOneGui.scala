@@ -23,7 +23,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def lunits = players.mapSomes{(r, p) => Rect(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
     p.toString + "\n" + r.ycStr, 24, 2.0) }
 
-  /** This makes the tiles active. They repsond to mouse clicks. It does not paint or draw the tiles. */
+  /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles = grid.activeTiles
 
   /** Gives the tiles Roord. Its Row based integer coordinate. */

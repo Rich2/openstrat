@@ -6,11 +6,14 @@ import pGrid._
 trait TwoScen
 { def grid: SquareGridSimple
   def terrs: TileBooleans
-  //def oPlayers: TilesArrOpt[Player]
+  def oPlayers: TilesArrOpt[Player]
 }
 
 object TwoScen1 extends TwoScen
 {
   implicit val grid = new SquareGridSimple(2, 8, 2, 10)
   val terrs = grid.newTileBooleans
+  val oPlayers = grid.newTileArrOpt[Player]
+  oPlayers.mutSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
