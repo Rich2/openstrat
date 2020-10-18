@@ -70,6 +70,7 @@ lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClas
 lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
 lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(Compile/mainClass:= Some("learn.LessonE1App"))
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
+lazy val TilingExp = coreJvmProj("TileExp").dependsOn(GraphicsCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
 lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
 lazy val World = exsJvmProj("World").dependsOn(WorldCore)
