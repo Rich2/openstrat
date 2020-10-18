@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
+import reflect.ClassTag
 
 class HGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HGrid
 {
@@ -60,7 +61,8 @@ class HGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, va
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
   def cCen: Double = (cTileMin + cTileMax) / 2.0
-
+  /** New Tile immutable Tile Arr of Opt data values. */
+  final def newHexArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HexArrOpt[A] = new HexArrOpt(new Array[A](numOfTiles))
 }
 
 object HGridRegSimple

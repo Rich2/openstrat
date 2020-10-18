@@ -8,9 +8,9 @@ import prid._
 trait UneScen
 { val turn: Int
   implicit val grid: HGridRegSimple
-  /*def oPlayers: TilesArrOpt[Player]
+  def oPlayers: HexArrOpt[Player]
 
-  def turn(hts: Arr[HTileAndStep]): OneScen =
+  /*def turn(hts: Arr[HTileAndStep]): OneScen =
   { val resolve: TilesArr[List[HTileAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
     hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
     val resValue: TilesArrOpt[Player] = oPlayers.clone
@@ -25,27 +25,27 @@ trait UneScen
 }
 
 /** This trait just puts the value 0 in for the turn. */
-/*trait OneScenStart extends OneScen
+trait UneScenStart extends UneScen
 { override val turn: Int = 0
 }
 
-object OneScen
+object UneScen
 {
-  def apply(turnIn: Int, gridIn: HexGridSimple, opIn: TilesArrOpt[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HGridRegSimple, opIn: HexArrOpt[Player]): UneScen = new UneScen
   { override val turn = turnIn
-    override implicit val grid: HexGridSimple = gridIn
-    override def oPlayers: TilesArrOpt[Player] = opIn
+    override implicit val grid: HGridRegSimple = gridIn
+    override def oPlayers: HexArrOpt[Player] = opIn
   }
 }
 
-object OneScen1 extends OneScenStart
-{ implicit val grid = new HexGridRegSimple(2, 6, 2, 10)
-  val oPlayers: TilesArrOpt[Player] = grid.newTileArrOpt
+object UneOneScen1 extends UneScenStart
+{ implicit val grid = new HGridRegSimple(2, 6, 2, 10)
+  val oPlayers: HexArrOpt[Player] = grid.newHexArrOpt
   oPlayers.mutSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  oPlayers.mutSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
-object OneScen2 extends OneScenStart
+/*object OneScen2 extends OneScenStart
 { val arr = Array[Int](2, 10, 4, 8, 6, 6, 4, 8)
   implicit val grid = new HexGridIrr(2, arr)
   val oPlayers = grid.newTileArrOpt[Player]
