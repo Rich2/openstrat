@@ -2,10 +2,11 @@
 package ostrat
 package prid
 
-class HGridRegSimple protected(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int)  extends HGrid
+class HGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int)  extends HGrid
 {
   def numOfRow2s: Int = ???
   def numOfRow0s: Int = ???
+  def cCen: Double = (cTileMin + cTileMax) / 2.0
 }
 
 object HGridRegSimple
