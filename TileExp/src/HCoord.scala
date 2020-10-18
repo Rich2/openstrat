@@ -37,3 +37,8 @@ object HVert
   def apply(r: Int, c: Int): HVert = if (r.isOdd & c.isEven) new HVert(r, c) else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
 }
 
+trait HexMem[A]
+{ val hc: HCen
+  val value: A
+}
+

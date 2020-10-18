@@ -17,4 +17,4 @@ object PlayerB extends Player('B', Orange)
 object PlayerC extends Player('C', Green)
 object PlayerD extends Player('D', Violet)
 
-case class RPlayer(value: Player, rd: HCen)// extends TileMem[Player]
+case class HPlayer(value: Player, hc: HCen) extends HexMem[Player]
