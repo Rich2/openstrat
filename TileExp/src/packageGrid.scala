@@ -9,7 +9,7 @@ import geom._
  * which implement Cood to T. The grid and grid-gui hierarchies currently contain a mix of new and old systems.
  *
  * The package name pGrid was chosen to allow you to use the name "grid" in your code. */
-package object pGrid
+package object prid
 {
   def holding = "Holding methos.Silly"
 }
