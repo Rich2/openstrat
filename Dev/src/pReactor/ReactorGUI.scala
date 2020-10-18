@@ -38,6 +38,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       val index = c+cols*r
       drawBalls(size*c vv size*r, Black, index)
     }
+    updateCurrentPlayerIndicator()
   }
   def drawBalls(loc:Vec2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
@@ -99,19 +100,19 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     if (animationStep >= 1)
     { animationStep = 0.0
       if (aDefaultGame.isGameOver() == true)
-      { turnComplete()
+      { //turnComplete()
         declareWinner()
       } else if (aDefaultGame.gameState == "popBall")
       { if (aDefaultGame.processPopBall() == true) 
         { if (aDefaultGame.isGameOver() == true) declareWinner()
-          turnComplete()
+          else turnComplete()
         } else canv.timeOut(() => doAnimation(), animationDuration)
       } else if (aDefaultGame.gameState == "addBall")
       { if (aDefaultGame.processAddBall() == true) 
         { if (aDefaultGame.isGameOver() == true) declareWinner()
-          turnComplete()
+          else turnComplete()
         } else canv.timeOut(() => doAnimation(), animationDuration)
-      } else deb("***-- ITS A WRONG-UN! --*********************************************************")
+      } else deb("***-- ITS A WRONG-UN! --***")
     } else canv.timeOut(() => doAnimation(), animationDuration)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int, whichPos: String = "") : Vec2 =
@@ -134,13 +135,16 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   { aDefaultGame.completeTurn()
     isTurnComplete = true
     deb("turnComplete")
-    canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
-    canv.textGraphic(aDefaultGame.turn.toString, 11, -3*size/4 vv -3*size/4, Black)
+    updateCurrentPlayerIndicator()
     if (computerPlayers.indexOf(aDefaultGame.currentPlayer) != -1)
     { aDefaultGame.newTurn(aDefaultGame.currentPlayer, computerPlayer.chooseTurnIndex(aDefaultGame.currentPlayer))
       isTurnComplete = false
       canv.timeOut(() => doAnimation(), animationDuration)
     }
+  }
+  def updateCurrentPlayerIndicator():Unit =
+  { canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
+    canv.textGraphic(aDefaultGame.turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
   mouseUp =
     { case (LeftButton, cl, v) if (isTurnComplete && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows) && computerPlayers.indexOf(aDefaultGame.currentPlayer) == -1) =>
