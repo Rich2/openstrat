@@ -2,6 +2,7 @@
 package ostrat
 package prid
 
-trait TileGrid {
-  def xRatio: Double
+trait TGrid extends TGridSimple
+{
+
 }

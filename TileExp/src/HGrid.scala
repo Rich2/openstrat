@@ -3,7 +3,7 @@ package ostrat
 package prid
 import scala.math.sqrt
 
-trait HGrid extends TileGrid
+trait HGrid extends TGridSimple
 {
   def numOfRow2s: Int
   def numOfRow0s: Int

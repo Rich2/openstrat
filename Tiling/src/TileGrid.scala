@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-//import geom._, reflect.ClassTag, Colour._
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
  *  stored in flat arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that
@@ -22,5 +21,4 @@ trait TileGrid extends TileGridSimple
 
   /** New immutable Arr of vertex Int data. */
   def newVertInts: VertInts = new VertInts(new Array[Int](numOfVerts))
-
 }
