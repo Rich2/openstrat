@@ -81,5 +81,5 @@ package object pGrid
   }
 
   val htStepSomes: Arr[HTStep] = Arr(HTStepUR, HTStepRt, HTStepDR, HTStepDL, HTStepLt, HTStepUL)
-  val htSteps: Arr[HTStepLike] = HTStepNone +: htStepSomes
+  val htSteps: Arr[HTStepOpt] = HTStepNone +: htStepSomes
 }

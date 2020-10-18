@@ -15,5 +15,5 @@ object TwoScen1 extends TwoScen
   val terrs = grid.newTileBooleans
   val oPlayers = grid.newTileArrOpt[Player]
   oPlayers.mutSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC), (6, 4, PlayerD))
 }

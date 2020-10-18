@@ -19,9 +19,25 @@ case class GTwoGui(canv: CanvasPlatform, scen: TwoScen) extends CmdBarGui("Game 
 
   val frame = (tiles +- sls ++ csvr ++ lunits).gridScale(scale)
 
+  mainMouseUp = (b, cl, _) => (b, cl, selected) match
+  { case (LeftButton, cl, _) =>
+    { selected = cl
+      statusText = selected.headToStringElse("Nothing Selected")
+      thisTop()
+    }
+
+    case (RightButton, (t : HexTile) :: _, List(RPlayer(p, r), HexTile(y, c))) =>
+    {
+      val newM: OptRef[HTStep] = t.adjOf(r)
+      //newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))//grid.index(r), m))
+      repaint()
+    }
+    case (_, h, _) => deb("Other; " + h.toString)
+  }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(status))
   thisTop()
-  mainRepaint(frame)
+  def repaint() = mainRepaint(frame)
+  repaint()
 }
