@@ -4,6 +4,23 @@ package prid
 
 class HGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HGrid
 {
+  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
+
+  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+
+  @inline def arrIndex(y: Int, c: Int): Int =
+  {
+    val thisRow: Int = y %% 4 match
+    { case 2 => (c - cRow2sMin) / 4
+      case 0 => (c - cRow0sMin) / 4
+    }
+    val y2s: Int = ((y - yRow2sMin).divRoundUp(4) * row2sTileLen).atMost0
+    val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).atMost0
+    y0s + y2s + thisRow
+  }
   /** Minimum c for Rows where y.Div4Rem2. */
   def cRow2sMin: Int = cTileMin.roundUpTo(_.div4Rem2)
 

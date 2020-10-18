@@ -1,17 +1,17 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-package pGrid
+package prid
 
 /** An immutable Arr of Opt Tile data for a specific TileGrid. This is specialised for OptRef[A]. The tileGrid can map the Roord of the Tile to the
  *  index of the Arr. Hence most methods take an implicit TileGrid parameter. */
-class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
+class HexArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
-  def clone: TilesArrOpt[A] = new TilesArrOpt[A](unsafeArr.clone)
-  def mutSetSome(y: Int, c: Int, value: A)(implicit grid: TileGridSimple): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+  def clone: HexArrOpt[A] = new HexArrOpt[A](unsafeArr.clone)
+  def mutSetSome(y: Int, c: Int, value: A)(implicit grid: HGridRegSimple): Unit = unsafeArr(grid.arrIndex(y, c)) = value
 
-  def mutSetSome(r: Roord, value: A)(implicit grid: TileGridSimple): Unit = unsafeArr(grid.arrIndex(r)) = value
-  def mutSetNone(r: Roord)(implicit grid: TileGridSimple): Unit = unsafeArr(grid.arrIndex(r)) = null.asInstanceOf[A]
+  def mutSetSome(hc: HCen, value: A)(implicit grid: HGridRegSimple): Unit = unsafeArr(grid.arrIndex(hc)) = value
+ /* def mutSetNone(r: Roord)(implicit grid: TileGridSimple): Unit = unsafeArr(grid.arrIndex(r)) = null.asInstanceOf[A]
 
   def mutSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
@@ -20,10 +20,10 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     unsafeArr(grid.arrIndex(r1)) = null.asInstanceOf[A]
   }
 
-  def setSome(r: Roord, value: A)(implicit grid: TileGridSimple): TilesArrOpt[A] =
+  def setSome(r: Roord, value: A)(implicit grid: TileGridSimple): HexArrOpt[A] =
   { val newArr = unsafeArr.clone()
     newArr(grid.arrIndex(r)) = value
-    new TilesArrOpt[A](newArr)
+    new HexArrOpt[A](newArr)
   }
 
   def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: TileGridSimple): Unit =
@@ -71,5 +71,5 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
       }
     }
     build.buffToArr(buff)
-  }
+  }*/
 }
