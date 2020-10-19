@@ -19,8 +19,8 @@ trait TGrid
    * HexGrids. */
   def numOfTileRows: Int
 
-  def width: Double = ???
-  def height: Double = ???
+  def width: Double = 800
+  def height: Double = 400
 
   /** The number of Rows of Sides. */
   @inline final def numOfSideRows: Int = numOfTileRows * 2 + 1

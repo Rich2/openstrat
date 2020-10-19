@@ -11,7 +11,6 @@ class HGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTil
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
-
   @inline def arrIndex(y: Int, c: Int): Int =
   {
     val thisRow: Int = y %% 4 match
@@ -22,6 +21,7 @@ class HGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTil
     val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).atMost0
     y0s + y2s + thisRow
   }
+
   /** Minimum c for Rows where y.Div4Rem2. */
   def cRow2sMin: Int = cTileMin.roundUpTo(_.div4Rem2)
 
@@ -65,14 +65,28 @@ class HGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTil
   final def newHexArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HexArrOpt[A] = new HexArrOpt(new Array[A](numOfTiles))
 }
 
+/** Companion object for the HGridReg class. Contains an apply method that corrects the X and Y minimum and maximum values. */
 object HGridReg
 {
+  /** Corrects the X and Y minimum and maximum values. */
   def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): HGridReg =
   {
     val yMin = yTileMin.roundUpToEven
     val yMax = yTileMax.roundDownToEven
-    val cMin = cTileMin.roundUpToEven
-    val cMax = cTileMax.roundDownToEven
+    val rowsNum = (yMax - yMin + 2).atLeast0 / 2
+
+    val cMin = rowsNum match
+    { case 1 if yMin.div4Rem0 => cTileMin.roundUpTo(_.div4Rem0)
+      case 1 => cTileMin.roundUpTo(_.div4Rem2)
+      case _ =>  cTileMin.roundUpToEven
+    }
+
+    val cMax =rowsNum match
+    { case 1 if yMin.div4Rem0 => cTileMax.roundDownTo(_.div4Rem0)
+      case 1 => cTileMax.roundDownTo(_.div4Rem2)
+      case _ => cTileMax.roundDownToEven
+    }
+
     new HGridReg(yMin, yMax, cMin, cMax)
   }
 }

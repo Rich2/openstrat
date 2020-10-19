@@ -12,16 +12,17 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   implicit def grid = scen.grid
   def players: HexArrOpt[Player] = scen.oPlayers
 
+  /** The number of pixels / 2 displayed per row height. */
+  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   /*val NoMoves: TilesArrOpt[HTileAndStep] = grid.newTileArrOpt[HTileAndStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
   var moves: TilesArrOpt[HTileAndStep] = NoMoves
-
-  /** The number of pixels / 2 displayed per row height. */
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 */
+
   //def lunits = players.mapSomes{(r, p) => Rect(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
    // p.toString + "\n" + r.ycStr, 24, 2.0) }
 
