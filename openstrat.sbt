@@ -169,12 +169,15 @@ lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs).settings(
   Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
+lazy val TileExpJs = jsProj("TileExp").dependsOn(GraphicsJs).settings(
+  Compile/unmanagedSourceDirectories := List("TileExp/src", "TileExp/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
+)
 lazy val WorldJs = jsProj("World").dependsOn(TilingJs).settings(  
   Compile/unmanagedSourceDirectories := List("World/src", "World/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val DevJs = jsProj("Dev").dependsOn(WorldJs).settings(  
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Util/srcExs", "Graphics/srcExs", "Tiling/srcExs", "World/srcExs").
+lazy val DevJs = jsProj("Dev").dependsOn(WorldJs, TileExpJs).settings(
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Util/srcExs", "Graphics/srcExs", "Tiling/srcExs", "TileExp/srcExs", "World/srcExs").
     map(s => (ThisBuild/baseDirectory).value / s),
 )
 
