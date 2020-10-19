@@ -8,10 +8,10 @@ class HexArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
   def clone: HexArrOpt[A] = new HexArrOpt[A](unsafeArr.clone)
-  def mutSetSome(y: Int, c: Int, value: A)(implicit grid: HGridRegSimple): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+  def mutSetSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
 
-  def mutSetSome(hc: HCen, value: A)(implicit grid: HGridRegSimple): Unit = unsafeArr(grid.arrIndex(hc)) = value
-  def mutSetNone(hc: HCen)(implicit grid: HGridRegSimple): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
+  def mutSetSome(hc: HCen, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = value
+  def mutSetNone(hc: HCen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
 
   def mutSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
@@ -26,7 +26,7 @@ class HexArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     new HexArrOpt[A](newArr)
   }*/
 
-  def mutSetSomes(triples: (Int, Int, A)*)(implicit grid: HGridRegSimple): Unit =
+  def mutSetSomes(triples: (Int, Int, A)*)(implicit grid: HGridReg): Unit =
     triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */

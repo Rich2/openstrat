@@ -3,7 +3,8 @@ package ostrat
 package prid
 import scala.math.sqrt
 
-trait HGrid extends HGridSimple
+/** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows. */
+trait HGrid extends TGrid
 {
   def numOfRow2s: Int
   def numOfRow0s: Int
@@ -13,5 +14,3 @@ trait HGrid extends HGridSimple
 
   override def xRatio: Double = 1.0 / sqrt(3)
 }
-
-

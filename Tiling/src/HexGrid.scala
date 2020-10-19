@@ -3,6 +3,7 @@ package ostrat
 package pGrid
 import geom._, math.sqrt
 
+/** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows. */
 trait HexGrid extends HexGridSimple with TileGrid
 {
 }

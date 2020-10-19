@@ -7,7 +7,7 @@ import prid._
 
 trait UneScen
 { val turn: Int
-  implicit val grid: HGridRegSimple
+  implicit val grid: HGridReg
   def oPlayers: HexArrOpt[Player]
 
   /*def turn(hts: Arr[HTileAndStep]): OneScen =
@@ -31,15 +31,15 @@ trait UneScenStart extends UneScen
 
 object UneScen
 {
-  def apply(turnIn: Int, gridIn: HGridRegSimple, opIn: HexArrOpt[Player]): UneScen = new UneScen
+  def apply(turnIn: Int, gridIn: HGridReg, opIn: HexArrOpt[Player]): UneScen = new UneScen
   { override val turn = turnIn
-    override implicit val grid: HGridRegSimple = gridIn
+    override implicit val grid: HGridReg = gridIn
     override def oPlayers: HexArrOpt[Player] = opIn
   }
 }
 
 object UneScen1 extends UneScenStart
-{ implicit val grid = new HGridRegSimple(2, 6, 2, 10)
+{ implicit val grid = new HGridReg(2, 6, 2, 10)
   val oPlayers: HexArrOpt[Player] = grid.newHexArrOpt
   oPlayers.mutSetSome(4, 4, PlayerA)
   oPlayers.mutSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
