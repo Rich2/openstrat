@@ -4,7 +4,7 @@ package pGrid
 
 /* A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
 * where the y coordinate divided by 4 has a remainder of 2. */
-class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HexGridSimple
+class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HexGrid
 {
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   override def sideRowIndexArray: Array[Int] =
@@ -107,5 +107,5 @@ class HexGridRegSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
 }
 
 object HexGridRegSimple
-{ def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): HexGridSimple = new HexGridRegSimple(yTileMin, yTileMax, cTileMin, cTileMax)
+{ def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): HexGridRegSimple = new HexGridRegSimple(yTileMin, yTileMax, cTileMin, cTileMax)
 }

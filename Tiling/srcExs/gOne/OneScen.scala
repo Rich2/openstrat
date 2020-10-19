@@ -6,7 +6,7 @@ import pGrid._
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
 trait OneScen
 { val turn: Int
-  implicit val grid: HexGridSimple
+  implicit val grid: HexGrid
   def oPlayers: TilesArrOpt[Player]
 
   def turn(hts: Arr[HTileAndStep]): OneScen =
@@ -30,9 +30,9 @@ trait OneScenStart extends OneScen
 
 object OneScen
 {
-  def apply(turnIn: Int, gridIn: HexGridSimple, opIn: TilesArrOpt[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HexGrid, opIn: TilesArrOpt[Player]): OneScen = new OneScen
   { override val turn = turnIn
-    override implicit val grid: HexGridSimple = gridIn
+    override implicit val grid: HexGrid = gridIn
     override def oPlayers: TilesArrOpt[Player] = opIn
   }
 }
