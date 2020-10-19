@@ -2,6 +2,12 @@
 package ostrat
 package prid
 
-class HGridIrr {
+case class HGridIrr(unsafeArray: Array[Int]) extends HGrid
+{
+  override def numOfRow2s: Int = ???
 
+  override def numOfRow0s: Int = ???
+
+  /** The total number of Tiles in the tile Grid. */
+  override def numOfTiles: Int = ???
 }
