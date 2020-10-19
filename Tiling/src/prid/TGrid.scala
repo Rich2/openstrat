@@ -19,6 +19,8 @@ trait TGrid
    * HexGrids. */
   def numOfTileRows: Int
 
+  def rTileMin: Int
+
   def width: Double = 800
   def height: Double = 400
 

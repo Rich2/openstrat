@@ -2,6 +2,7 @@
 package ostrat
 package prid
 
+/** A coordinate in a TileGrid. */
 trait TileCoord
 { def r: Int
   def c: Int
