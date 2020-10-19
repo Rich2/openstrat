@@ -1,6 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
-package gOne
+package gUne
 import prid._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
@@ -38,14 +38,14 @@ object UneScen
   }
 }
 
-object UneOneScen1 extends UneScenStart
+object UneScen1 extends UneScenStart
 { implicit val grid = new HGridRegSimple(2, 6, 2, 10)
   val oPlayers: HexArrOpt[Player] = grid.newHexArrOpt
   oPlayers.mutSetSome(4, 4, PlayerA)
   oPlayers.mutSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
-/*object OneScen2 extends OneScenStart
+/*object UneScen2 extends UneScenStart
 { val arr = Array[Int](2, 10, 4, 8, 6, 6, 4, 8)
   implicit val grid = new HexGridIrr(2, arr)
   val oPlayers = grid.newTileArrOpt[Player]
