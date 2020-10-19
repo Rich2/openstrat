@@ -64,6 +64,11 @@ class HGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTil
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newHexArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HexArrOpt[A] = new HexArrOpt(new Array[A](numOfTiles))
+
+  /** foreachs over each Tile's Roord in the given Row. The row is specified by its y value. */
+  override def rowForeachTile(r: Int)(f: HCen => Unit): Unit =
+    if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(HCen(r, c)))
+    else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(HCen(r, c)))
 }
 
 /** Companion object for the HGridReg class. Contains an apply method that corrects the X and Y minimum and maximum values. */
