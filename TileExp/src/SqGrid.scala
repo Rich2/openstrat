@@ -7,10 +7,11 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
   /** Number of rows of tiles. */
   override def numOfTileRows: Int = (rTileMax - rTileMin + 2).atLeast0 / 2
 
+  /** The number of tiles in each tile row. */
   def tileRowLen: Int = (cTileMax - cTileMin + 2).atLeast0 / 2
 
   /** The total number of Tiles in the tile Grid. */
-  override def numOfTiles: Int = ???
+  override def numOfTiles: Int = numOfTileRows * tileRowLen
 
-  override def xRatio: Double = ???
+  override def xRatio: Double = 1
 }
