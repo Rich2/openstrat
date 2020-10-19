@@ -43,16 +43,16 @@ package object pGrid
   }
 
   implicit class ArrayImplicit[A](thisArray: Array[A])
-  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach{r => f(r, thisArray(grid.arrIndex(r)))}
+  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, thisArray(grid.arrIndex(r)))}
   }
 
-  implicit class GridTransAllExtension[T](value: T)(implicit grid: TileGridSimple, ev: AffineTrans[T])
+  implicit class GridTransAllExtension[T](value: T)(implicit grid: TileGrid, ev: AffineTrans[T])
   {
     def gridRoordTrans(focus: Roord, scale: Double): T = value.trans(orig => (orig - focus.gridVec2) * scale)
     def gridRoordTrans(yFocus: Int, cFocus: Int, scale: Double): T = value.trans(orig => (orig - grid.roordToVec2(yFocus, cFocus)) * scale)
   }
   
-  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGridSimple, evSlate: Slate[T], evScale: Scale[T]) {
+  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGrid, evSlate: Slate[T], evScale: Scale[T]) {
     /** Translates Vec2s relative to Grid centre and then scales. */
     def gridScale(scale: Double): T =
     { val a = evSlate.slateT(value, - grid.cen)
@@ -65,7 +65,7 @@ package object pGrid
     }
   }
 
-  implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGridSimple, ev: TransSim[T])
+  implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGrid, ev: TransSim[T])
   {
     def gridTrans(offset: Vec2, scale: Double): T =
     { val a = ev.slate(value, -offset - grid.cen)

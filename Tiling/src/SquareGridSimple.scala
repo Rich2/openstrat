@@ -4,7 +4,7 @@ package pGrid
 import geom._
 
 /** Currently all SquareGrids are regular. */
-class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGridSimple
+class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGrid
 {
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
   override def roordToVec2(roord: Roord): Vec2 = Vec2(roord.c, roord.y)

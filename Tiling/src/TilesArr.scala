@@ -8,13 +8,13 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
 {
   def length: Int = unsafeArr.length
 
-  def apply(roord: Roord)(implicit grid: TileGridSimple): A = unsafeArr(grid.arrIndex(roord))
-  def apply(y: Int, c: Int)(implicit grid: TileGridSimple): A = unsafeArr(grid.arrIndex(y, c))
+  def apply(roord: Roord)(implicit grid: TileGrid): A = unsafeArr(grid.arrIndex(roord))
+  def apply(y: Int, c: Int)(implicit grid: TileGrid): A = unsafeArr(grid.arrIndex(y, c))
   /** Set tile row from the Roord. */
-  final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
+  final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
 
   /** Note set Row starts with the y (row) parameter. */
-  final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
+  final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
   {
     val tiles: List[A] = tileValues.toSingles
     tiles.iForeach { (e, i) =>
@@ -24,7 +24,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
     Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
   }
 
-  def foreach(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach{ r => f(r, unsafeArr(grid.arrIndex(r))) }
+  def foreach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, unsafeArr(grid.arrIndex(r))) }
 
   def mutSetAll(value: A): Unit = iUntilForeach(0, length){i => unsafeArr(i) = value }
 
@@ -37,7 +37,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
   }
 
   /** Note set RowBack starts with the y (row) parameter */
-  final def setRowBack(yRow: Int, cStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
+  final def setRowBack(yRow: Int, cStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
   {
     val tiles = tileMakers.toSingles
     tiles.iForeach{(el, i) =>
@@ -48,10 +48,10 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
     Roord(yRow, cStart - (tiles.length - 1) * grid.cStep)
   }
 
-  final def setRowBack(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
+  final def setRowBack(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
   setRowBack(roord.y, roord.c, tileValues: _*)(grid)
 
-  final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
+  final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
   {
     val tiles = tileMakers.flatMap(_.singlesList)
     tiles.iForeach{(el, i) =>
@@ -62,10 +62,10 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
     Roord(yStart + (tiles.length - 1) * 2, c)
   }
 
-  final def setColumn(roordStart: Roord, multis: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
+  final def setColumn(roordStart: Roord, multis: Multiple[A]*)(implicit grid: TileGrid): Roord =
   setColumn(roordStart.c, roordStart.y, multis: _*)(grid)
 
-  final def setColumnDown(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
+  final def setColumnDown(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGrid): Roord =
   {
     val tiles = tileMakers.flatMap(_.singlesList)
 
@@ -77,7 +77,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
     Roord(c, yStart - (tiles.length - 1) * 2)
   }
 
-  def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridSimple): Roord =
+  def setColumnDown(roordStart: Roord, tileValues: Multiple[A]*)(implicit grid: TileGrid): Roord =
   setColumnDown(roordStart.c, roordStart.y, tileValues: _*)(grid)
 
   def setTerrPath(startRoord: Roord, value: A, dirns: Multiple[SquareGrid.PathDirn]*)(implicit grid: SquareGridSimple): Roord =
@@ -103,11 +103,11 @@ object TilesArr
 { def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): TilesArr[A] = new TilesArr[A](new Array[A](length))
 
   implicit class TilesListImplicit[A](thisRefs: TilesArr[List[A]])
-  { def prependAt(y: Int, c: Int, value: A)(implicit grid: TileGridSimple): Unit = prependAt(Roord(y, c), value)
-    def prependAt(roord: Roord, value: A)(implicit grid: TileGridSimple): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
-    def prependAts(value : A, roords: Roord*)(implicit grid: TileGridSimple): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
+  { def prependAt(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = prependAt(Roord(y, c), value)
+    def prependAt(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
+    def prependAts(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 
-    def gridHeadsMap[B, BB <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGridSimple, build: ArrBuild[B, BB]): BB =
+    def gridHeadsMap[B, BB <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match
@@ -119,7 +119,7 @@ object TilesArr
       build.buffToArr(buff)
     }
 
-    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGridSimple, build: ArrFlatBuild[BB]): BB =
+    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGrid, build: ArrFlatBuild[BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match
@@ -137,9 +137,9 @@ object TilesArr
  *  index of the Arr. Hence most methods take an implicit TIleGrid parameter. */
 class TileBooleans(val unsafeArr: Array[Boolean]) extends AnyVal
 {
-  def gridSetTrues(roords: Roords)(implicit grid: TileGridSimple): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
-  def gridSetTrues(roords: Roord*)(implicit grid: TileGridSimple): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
+  def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
+  def gridSetTrues(roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
 
-  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGridSimple, build: ArrBuild[A, AA]): AA =
+  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGrid, build: ArrBuild[A, AA]): AA =
     grid.map(r => f(r, unsafeArr(grid.sideArrIndex(r))))
 }
