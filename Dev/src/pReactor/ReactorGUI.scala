@@ -99,10 +99,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 // when animation completes check for game over otherwise continue animation
     if (animationStep >= 1)
     { animationStep = 0.0
-      if (aDefaultGame.isGameOver() == true)
-      { //turnComplete()
-        declareWinner()
-      } else if (aDefaultGame.gameState == "popBall")
+      if (aDefaultGame.gameState == "popBall")
       { if (aDefaultGame.processPopBall() == true) 
         { if (aDefaultGame.isGameOver() == true) declareWinner()
           else turnComplete()
@@ -112,7 +109,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         { if (aDefaultGame.isGameOver() == true) declareWinner()
           else turnComplete()
         } else canv.timeOut(() => doAnimation(), animationDuration)
-      } else deb("***-- ITS A WRONG-UN! --***")
+      } else deb("***-- not pop or add: "+aDefaultGame.gameState+" --***")
     } else canv.timeOut(() => doAnimation(), animationDuration)
   }
   def getLocFromCellSite(whichCell: Int, whichOne: Int, whichPos: String = "") : Vec2 =
