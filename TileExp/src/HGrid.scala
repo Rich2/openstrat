@@ -9,7 +9,6 @@ trait HGrid extends TGrid
   def numOfRow2s: Int
   def numOfRow0s: Int
 
-
   def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
   override def xRatio: Double = 1.0 / sqrt(3)

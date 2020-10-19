@@ -28,7 +28,7 @@ class HGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTil
   /** Maximum c for Rows where y.Div4Rem2. */
   def cRow2sMax: Int = cTileMax.roundDownTo(_.div4Rem2)
 
-  def row2sTileLen = ((cRow2sMax - cRow2sMin + 4) / 4).max(0)
+  def row2sTileLen = ((cRow2sMax - cRow2sMin + 4) / 4).atLeast0
 
   /** Minimum c for Rows where y.Div4Rem0. */
   def cRow0sMin: Int = cTileMin.roundUpTo(_.div4Rem0)
@@ -61,6 +61,7 @@ class HGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTil
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
   def cCen: Double = (cTileMin + cTileMax) / 2.0
+
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newHexArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HexArrOpt[A] = new HexArrOpt(new Array[A](numOfTiles))
 }
