@@ -111,6 +111,7 @@ trait HexGrid extends TileGrid
 case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
 { def fCost = gCost + hCost
 }
+
 object HexGrid
 { /* converts Grid c to x. */
   val xRatio = 1.0 / sqrt(3)
