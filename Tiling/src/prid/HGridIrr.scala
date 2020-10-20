@@ -5,6 +5,7 @@ package prid
 case class HGridIrr(unsafeArray: Array[Int]) extends HGrid
 {
   override def rTileMin: Int = ???
+  override def rTileMax: Int = ???
   override def numOfRow2s: Int = ???
 
   override def numOfRow0s: Int = ???
@@ -13,4 +14,7 @@ case class HGridIrr(unsafeArray: Array[Int]) extends HGrid
   override def numOfTiles: Int = ???
 
   def rowForeachTile(r: Int)(f: HCen => Unit): Unit = ???
+
+  override def width: Double = ???
+  override def height: Double = ???
 }

@@ -20,9 +20,10 @@ trait TGrid
   def numOfTileRows: Int
 
   def rTileMin: Int
+  def rTileMax: Int
 
-  def width: Double = 800
-  def height: Double = 400
+  def width: Double
+  def height: Double
 
   /** The number of Rows of Sides. */
   @inline final def numOfSideRows: Int = numOfTileRows * 2 + 1
@@ -35,6 +36,11 @@ trait TGrid
 
   def xRatio: Double
 
+  /** The bottom Side Row of this TileGrid. The y value. */
+  @inline final def rSideMin: Int = rTileMin - 1
+
+  /** The top Side Row of this TileGrid. The y value. */
+  @inline final def rSideMax: Int = rTileMax + 1
   def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
   {
     def adj(inp : Double): Double =inp match

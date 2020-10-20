@@ -14,4 +14,7 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
   override def numOfTiles: Int = numOfTileRows * tileRowLen
 
   override def xRatio: Double = 1
+
+  override def width: Double = ???
+  override def height: Double = ???
 }

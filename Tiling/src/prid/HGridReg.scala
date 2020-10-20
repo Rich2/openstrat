@@ -5,6 +5,9 @@ import reflect.ClassTag
 
 class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HGrid
 {
+  override def width: Double = 1200
+  override def height: Double = 1200
+
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
