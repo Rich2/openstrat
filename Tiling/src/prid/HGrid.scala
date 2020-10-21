@@ -16,4 +16,12 @@ trait HGrid extends TGrid
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
   override def xRatio: Double = 1.0 / sqrt(3)
+
+  /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
+   *  structure is lost in the flatMap operation. */
+  final def hCensFlatMap[ArrT <: ArrBase[_]](f: HCen => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT = ???
+  /*{ val buff = build.newBuff(numOfTiles)
+    foreach{ roord => build.buffGrowArr(buff, f(roord))}
+    build.buffToArr(buff)
+  }*/
 }

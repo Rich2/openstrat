@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
+import geom._
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
  *  stored in flat arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that
@@ -51,4 +52,10 @@ trait TGrid
     }
     (adj(dispWidth) / adj(width).max(1)).min(adj(dispHeight) / height.max(1))
   }
+
+  final def sideLines : LineSegs = ??? /*flatMap { roord =>
+    val c1: Roords = sideRoordsOfTile(roord)
+    val c2s: LineSegs = c1.map(orig => sideRoordToLine2(orig))
+    c2s
+  }*/
 }
