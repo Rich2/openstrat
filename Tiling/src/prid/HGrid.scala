@@ -17,8 +17,8 @@ trait HGrid extends TGrid
 
   override def xRatio: Double = 1.0 / sqrt(3)
 
-  /** foreachs over each tile's centre Roord. */
-  final def foreach(f: HCen => Unit): Unit = ??? // foreachRow(y => rowForeachTile(y)(f))
+  /** foreachs over each Hex tile's centre HCen. */
+  final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeachTile(r)(f))
 
   /** flatMaps from all hex tile cntre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
@@ -27,4 +27,12 @@ trait HGrid extends TGrid
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToArr(buff)
   }
+
+  /* Methods that operate on Hex tile sides. ******************************************************/
+
+  /** foreach Hex side's coordinate HSide, calls the effectfull function. */
+  final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(y => rowForeachSide(y)(f))
+
+  /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly. */
+  def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 }

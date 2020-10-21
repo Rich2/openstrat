@@ -84,6 +84,9 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
     case r if r == rSideMin => iToForeach(cRow0sMin - 1, cRow0sMax + 1, 2){ c => f(HSide(r, c)) }
     case r => iToForeach(cTileMin - 1, cTileMax + 1, 2){ c => f(HSide(r, c)) }
   }*/
+
+  /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly. */
+  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = ???
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

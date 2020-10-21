@@ -37,6 +37,9 @@ trait TGrid
 
   def xRatio: Double
 
+  /** Foreach grid Row y coordinate. */
+  final def foreachRow(f: Int => Unit): Unit = iToForeach(rTileMin, rTileMax, 2)(f)
+
   /** The bottom Side Row of this TileGrid. The y value. */
   @inline final def rSideMin: Int = rTileMin - 1
 
@@ -52,6 +55,11 @@ trait TGrid
     }
     (adj(dispWidth) / adj(width).max(1)).min(adj(dispHeight) / height.max(1))
   }
+
+  /* Methods that operate on tile sides. **********************************************************/
+
+  /** Foreachs over each Row of Sides. Users will not normally need to use this method directly. */
+  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rTileMin - 1, rTileMax + 1)(f)
 
   final def sideLines : LineSegs = ??? /*flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
