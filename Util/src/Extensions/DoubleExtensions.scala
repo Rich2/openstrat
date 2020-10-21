@@ -18,7 +18,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def squared: Double = thisDouble * thisDouble
   def cubed: Double = thisDouble * thisDouble * thisDouble
   
-  /** Returns the square root of this [[Double]]. */
+  /** Returns the square root of this Double. */
   def sqrt: Double = math.sqrt(thisDouble)
 
   def str: String = thisDouble.toLong match

@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** Immutable Array based class for [[Float]]s. */
+/** Immutable Array based class for Floats. */
 class Floats(val array: Array[Float]) extends AnyVal with ArrBase[Float]
 { type ThisT = Floats
   override def typeStr: String = "Floats"

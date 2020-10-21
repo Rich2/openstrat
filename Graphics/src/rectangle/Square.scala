@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
-/** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareGen]], a general square. */
+/** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
 trait Square extends Rectangle
 { //def width: Double
   //def height: Double = width

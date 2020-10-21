@@ -16,7 +16,7 @@ trait GeomElem extends Product with Serializable
   def slate(xOffset: Double, yOffset: Double): GeomElem
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
-   *  [[Circles]] and [[Squares]]. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+   *  [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
   def scale(operand: Double): GeomElem
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */

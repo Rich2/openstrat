@@ -99,7 +99,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
   override def slate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
 
-  /** Uniform scaling aginst both X and Y axes transformation on a [[polygonGen]] returning a [[PolygonImp]]. Use the xyScale method for differential
+  /** Uniform scaling aginst both X and Y axes transformation on a [[PolygonImp]] returning a [[PolygonImp]]. Use the xyScale method for differential
    *  scaling. */
   override def scale(operand: Double): PolygonImp = polygonMap(_ * operand)
 

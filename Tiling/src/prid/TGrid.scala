@@ -13,7 +13,9 @@ import geom._
  *
  *  A TileGrid is for use cases where the proportions of the Grid predetermine the proportions of the visual representation, as opposed to a use case
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
- *  Stars on the American flag. */
+ *  Stars on the American flag.
+ *
+ *  @groupprio SideGroup 1010 */
 trait TGrid
 {
   /** Number of rows of tiles. This will be different to the number of rows of sides and and will be different to the number of rows of vertices for
@@ -56,11 +58,12 @@ trait TGrid
     (adj(dispWidth) / adj(width).max(1)).min(adj(dispHeight) / height.max(1))
   }
 
-  /* Methods that operate on tile sides. **********************************************************/
+  /* SideGroup Methods that operate on tile sides. **********************************************************/
 
-  /** Foreachs over each Row of Sides. Users will not normally need to use this method directly. */
+  /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.  */
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rTileMin - 1, rTileMax + 1)(f)
 
+  /** The line segments [[LineSeg]]s for the sides of the tiles. */
   final def sideLines : LineSegs = ??? /*flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
     val c2s: LineSegs = c1.map(orig => sideRoordToLine2(orig))

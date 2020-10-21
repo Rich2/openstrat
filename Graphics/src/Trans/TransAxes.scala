@@ -4,7 +4,7 @@ package geom
 import reflect.ClassTag
 
 /** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate typeclass to
- * [[ReflectAxesOffset]], as these transformations may preserve types that ReflectAxisOffset's transformations can not. */
+ * [[TransAxes]], as these transformations may preserve types that ReflectAxisOffset's transformations can not. */
 trait TransAxes[T]
 { /** Reflect, mirror an object of type T across the X axis, by negating Y. */
   def negYT(obj: T): T

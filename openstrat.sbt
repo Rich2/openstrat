@@ -12,7 +12,6 @@ ThisBuild/autoAPIMappings := true
 def commonSett = List(
   scalacOptions ++=
     Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
-  
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
@@ -129,6 +128,8 @@ lazy val DocMain = (project in file("SbtDir/DocMain")).dependsOn(UtilMacros).set
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
+  scalacOptions in (Compile, doc) ++= Seq("-groups"),
+
 )
 
 lazy val DocJs = (project in file("SbtDir/DocJs")).dependsOn(UtilMacrosJs).settings(commonSett).settings(
@@ -136,6 +137,7 @@ lazy val DocJs = (project in file("SbtDir/DocJs")).dependsOn(UtilMacrosJs).setti
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
+  scalacOptions in (Compile, doc) ++= Seq("-groups"),
 )
 
 def jsProj(name: String) = Project(name + "Js", file("SbtDir/" + name + "Js")).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(

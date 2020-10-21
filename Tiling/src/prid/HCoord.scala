@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
+import geom._
 
 /** A coordinate in a TileGrid. */
 trait TileCoord
@@ -10,6 +11,23 @@ trait TileCoord
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends TileCoord
+{ def toVec2: Vec2 = ???
+}
+
+/** A 2d line defined by its start and end [[HGrid]] [[HCoord]]s. */
+case class RoordLine(y1: Int, c1: Int, y2: Int, c2: Int) extends ProdInt4
+{
+  def _1 = y1
+  def _2 = c1
+  def _3 = y2
+  def _4 = c2
+//  def toLine2(f: Roord => Vec2): LineSeg =
+//  { val v1 = f(Roord(y1, c1))
+//    val v2 = f(Roord(y2, c2))
+//    LineSeg(v1, v2)
+//  }
+  //def gridLine2(implicit grid: TileGrid): LineSeg = toLine2(grid.roordToVec2)
+}
 
 class HCen(val r: Int, val c: Int) extends HCoord
 

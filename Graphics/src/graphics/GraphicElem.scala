@@ -6,7 +6,7 @@ package geom
  *  both. */
 trait GraphicElem extends GeomElem
 {
-  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[CanvasPlatform]] interface. */
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
    def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
   
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
