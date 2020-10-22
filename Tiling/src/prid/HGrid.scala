@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import scala.math.sqrt
+import geom._, math.sqrt
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
@@ -44,6 +44,8 @@ trait HGrid extends TGrid
     count
   }
 
+  def sideLines: LineSegs = ???
+
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
   final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(y => sideRowForeach(y)(f))
@@ -59,7 +61,7 @@ trait HGrid extends TGrid
     res
   }
 
-  def sideCoordLines: Arr[HCoordLineSeg] = ???
+  def sideCoordLines: Arr[HCoordLineSeg] = ??? //sidesMap(_.)
 }
 
 object HGrid

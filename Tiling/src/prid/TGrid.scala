@@ -73,7 +73,8 @@ trait TGrid
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
-  final def sideLines: LineSegs = ??? /*flatMap { roord =>
+  def sideLines: LineSegs //= ???
+  /*flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
     val c2s: LineSegs = c1.map(orig => sideRoordToLine2(orig))
     c2s

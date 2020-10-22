@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
+import geom._
 
 class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TGrid
 {
@@ -17,4 +18,6 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
 
   override def width: Double = ???
   override def height: Double = ???
+
+  def sideLines: LineSegs = ???
 }

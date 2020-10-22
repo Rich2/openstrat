@@ -38,8 +38,19 @@ object HCen
   }
 }
 
-/** A Hex side coordinate in a Hex Grid. */
+/** A Hex side coordinate in a Hex Grid.
+ * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
+ * So Side 2 on its primary Hex tile goes from Vert 1 to 2 while it is Side 5 on its secondary Hex tile and goes from Vertex 5 to vertex 4
+ * So Side 3 on its primary Hex tile goes from Vert 2 to 3 while it is Side 4 on its secondary Hex tile and goes from Vertex 6 to vertex 4 */
 class HSide(val r: Int, val c: Int) extends HCoordReg
+{
+  /** Returns the Hex coordinate Line segment for this Hex Side.  */
+  def coordLine: HCoordLineSeg = r % 4 match
+  { case 3 => HCoordLineSeg(r, c - 1, r, c + 1)
+    case 2 => HCoordLineSeg(r + 1, c, r - 1, c)
+    case 1 => HCoordLineSeg(r, c + 1, r, c - 1)
+  }
+}
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
 object HSide
