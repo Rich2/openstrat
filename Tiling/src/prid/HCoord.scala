@@ -34,10 +34,12 @@ object HCen
   }
 }
 
+/** A Hex side coordinate in a Hex Grid. */
 class HSide(val r: Int, val c: Int) extends HCoord
 
+/** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
 object HSide
-{
+{ /** Factory method for HSide that throws an exception for an invalid Hex side coordinate. */
   def apply(r: Int, c: Int): HSide = r %% 4 match
   { case 0 if c.div4Rem0 => new HSide(r, c)
     case 1 | 3 if c.isOdd => new HSide(r, c)

@@ -3,7 +3,10 @@ package ostrat
 package prid
 import scala.math.sqrt
 
-/** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows. */
+/** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
+ *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
+ *  @groupname SidesGroup Side Members
+ *  @groupprio SidesGroup 1010 */
 trait HGrid extends TGrid
 {
   def numOfRow2s: Int
@@ -30,9 +33,11 @@ trait HGrid extends TGrid
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
-  /** foreach Hex side's coordinate HSide, calls the effectfull function. */
+  /** foreach Hex side's coordinate HSide, calls the effectfull function.
+   * @group SidesGroup */
   final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(y => rowForeachSide(y)(f))
 
-  /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly. */
+  /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly.
+   *  @group SidesGroup */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 }
