@@ -27,6 +27,12 @@ trait TGrid
   def rTileMin: Int
   def rTileMax: Int
 
+  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
+  def cTileMin: Int
+
+  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
+  def cTileMax: Int
+
   def width: Double
   def height: Double
 
