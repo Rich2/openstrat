@@ -19,5 +19,5 @@ case class HGridIrr(unsafeArray: Array[Int]) extends HGrid
   override def height: Double = ???
 
   /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly. */
-  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = ???
+  override def sideRowForeach(r: Int)(f: HSide => Unit): Unit = ???
 }

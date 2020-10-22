@@ -184,6 +184,7 @@ object HexGrid
     "invalid Hex Side coordinate: " + y.toString.appendCommas(c.toString))
 
   def sideOrientStr(x: Int, y: Int): String = sideOrient(x, y, "UpRight", "Right", "DownRight")
+
   /** The previous value was 2 / sqrt(3). */
   val yDist = 2.0 / 3
 

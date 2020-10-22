@@ -86,7 +86,7 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
   }*/
 
   /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly. */
-  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = ???
+  override def sideRowForeach(r: Int)(f: HSide => Unit): Unit = ???
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

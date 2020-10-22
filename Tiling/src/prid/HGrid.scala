@@ -33,11 +33,20 @@ trait HGrid extends TGrid
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
-  /** foreach Hex side's coordinate HSide, calls the effectfull function.
-   * @group SidesGroup */
-  final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(y => rowForeachSide(y)(f))
-
   /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly.
    *  @group SidesGroup */
-  def rowForeachSide(r: Int)(f: HSide => Unit): Unit
+  def sideRowForeach(r: Int)(f: HSide => Unit): Unit
+
+  /** foreach Hex side's coordinate HSide, calls the effectfull function.
+   * @group SidesGroup */
+  final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(y => sideRowForeach(y)(f))
+
+
+}
+
+object HGrid
+{
+  val xRatio: Double = 1.0 / sqrt(3)
+  /** The previous value was 2 / sqrt(3). */
+  val yDist = 2.0 / 3
 }

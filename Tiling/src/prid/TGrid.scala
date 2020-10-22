@@ -67,8 +67,6 @@ trait TGrid
    *  @group SidesGroup*/
   @inline final def rSideMax: Int = rTileMax + 1
 
-
-
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rTileMin - 1, rTileMax + 1)(f)
