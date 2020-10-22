@@ -9,13 +9,18 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
   
   /** start point bezier. */
   val startPoint = DragCircle(-250 vv 0, Red)
+
   /** End point of bezier curve. */
   val endPoint = DragCircle(-50 vv  0, Red)
+
   /** control point for start point */
   val controlStart = DragCircle(-250 vv -250, Gray)
+
   var controlStartOffset = 0 vv -250
+
   /** control point for end point */
-  val controlEnd = DragCircle(-50 vv 150, Gray) 
+  val controlEnd = DragCircle(-50 vv 150, Gray)
+
   var controlEndOffset = 0 vv 150
   
   val bezierPoints = Arr(startPoint, endPoint, controlStart, controlEnd)
@@ -35,10 +40,14 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
   def drawBezier():Unit =
   { val dragCircles = bezierPoints.map(dc => Circle(circleRadius, dc.loc).fill(dc.color))
 
-    val startControlLine = LineDraw(startPoint.loc, controlStart.loc, 1, Grey)    /** line between the start point and its control point */
-    val endControlLine = LineDraw(endPoint.loc, controlEnd.loc, 1, Grey)    /** line between the end point and its control point */
+    /** line between the start point and its control point */
+    val startControlLine = LineDraw(startPoint.loc, controlStart.loc, 1, Grey)
 
-    val bezier = BezierDraw(startPoint.loc, controlStart.loc, controlEnd.loc, endPoint.loc, 2, Green) /** the bezier to be displayed */
+    /** line between the end point and its control point */
+    val endControlLine = LineDraw(endPoint.loc, controlEnd.loc, 1, Grey)
+
+    /** the bezier to be displayed */
+    val bezier = BezierDraw(startPoint.loc, controlStart.loc, controlEnd.loc, endPoint.loc, 2, Green)
 
     /** this holds the syntax required to draw the current bezier  (NB: replace ; with , ) */
     val txt = TextGraphic("BezierDraw(" + startPoint.loc + ", " + controlStart.loc + ", " + controlEnd.loc + ", " + endPoint.loc + ", 2, Green)", 18, 0 vv 300, Green)

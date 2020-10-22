@@ -2,7 +2,7 @@
 package ostrat
 import math.Pi
 
-/** Extension class for Double. This is created as a seperate class to keep down the size of the package object. */
+/** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {
   /** Alternative remainder operator that gives positive remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
@@ -14,8 +14,10 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def precision = 1e12
   def =~ (other: Double): Boolean =  ((thisDouble - other).abs/(thisDouble.abs.max(other.abs).max(1))) * precision  < 1
 
-  /** Returns the square of this [[Double]]. */
+  /** Returns the square of this Double, raises it to the power 2. */
   def squared: Double = thisDouble * thisDouble
+
+  /** Returns the cube of this Double, raises it to the power 3. */
   def cubed: Double = thisDouble * thisDouble * thisDouble
   
   /** Returns the square root of this Double. */

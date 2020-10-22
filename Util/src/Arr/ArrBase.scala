@@ -17,7 +17,7 @@ trait ArrBase[+A] extends Any with ArrayLike[A]
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
   def fElemStr: A @uncheckedVariance => String
 
-  /** The element [[String]] allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
+  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   final def elemsStr: String = map(fElemStr).mkString("; ").enParenth
 
   final override def toString: String = typeStr + elemsStr

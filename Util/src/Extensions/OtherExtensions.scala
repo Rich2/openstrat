@@ -17,7 +17,7 @@ class CharExtensions(thisChar: Char)
     acc
   }
 
-  /** Returns a [[String]]. Replacing reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is
+  /** Returns a String. Replacing reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is
    *  replaced by "&gt;". */
   def htmlReservedSubstituion: String = thisChar match
   { case '&' => "&amp;"

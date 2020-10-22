@@ -64,8 +64,10 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   
   /** Concatenates a '/' character and then the other String. Useful for constructing directory/ folder paths on the Web, Linux and Unix */      
   def -/-(other: String): String = thisString + "/" + other
-  
-  def -:-(other: String): String = thisString + ": " + other  
+
+  /** Appends a colon character, a space then the operand String wit */
+  def -:-(other: String): String = thisString + ": " + other
+
   def optAppend (optionOther: Option[String]): String = optionOther.fold(thisString)(string2 => thisString + " " + string2)
   def enquote: String = "\"" + thisString + "\""
   def enquote1: String = "'" + thisString + "'"
@@ -90,7 +92,8 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   }
   
   def toTokens: EMon[Arr[pParse.Token]] = pParse.stringToTokens(thisString)
-  /** Appends strings with a comma and space seperator */
+
+  /** Appends strings with a comma and space separator */
   def appendCommas(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)
 
   /** Appends extra Strings to thisString separated by " ;". */
