@@ -29,7 +29,6 @@ trait HCoordReg extends HCoord
 /** A Hex tile centre HexGrid coordinate. */
 class HCen(val r: Int, val c: Int) extends HCoordReg
 
-
 object HCen
 {
   def apply(r: Int, c: Int): HCen = r %% 4 match

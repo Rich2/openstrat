@@ -4,7 +4,7 @@ package prid
 import geom._
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
-case class HoordLineSeg(r1: Int, c1: Int, r2: Int, c2: Int) extends ProdInt4
+case class HCoordLineSeg(r1: Int, c1: Int, r2: Int, c2: Int) extends ProdInt4
 {
   def _1: Int = r1
   def _2: Int = c1
@@ -13,10 +13,5 @@ case class HoordLineSeg(r1: Int, c1: Int, r2: Int, c2: Int) extends ProdInt4
 
   def coord1: HCoord = HCoord(r1, c1)
   def coord2: HCoord = HCoord(r2, c2)
-  //  def toLine2(f: Roord => Vec2): LineSeg =
-  //  { val v1 = f(Roord(y1, c1))
-  //    val v2 = f(Roord(y2, c2))
-  //    LineSeg(v1, v2)
-  //  }
-  //def gridLine2(implicit grid: TileGrid): LineSeg = toLine2(grid.roordToVec2)
+  def toLine2: LineSeg = LineSeg(coord1.toVec2, coord2.toVec2)
 }
