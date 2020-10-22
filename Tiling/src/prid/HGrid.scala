@@ -44,7 +44,7 @@ trait HGrid extends TGrid
     count
   }
 
-  def sideLines: LineSegs = ???
+  def sideLines: LineSegs = sideCoordLines.map(_.toLine2)
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
@@ -61,7 +61,7 @@ trait HGrid extends TGrid
     res
   }
 
-  def sideCoordLines: Arr[HCoordLineSeg] = ??? //sidesMap(_.)
+  def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)
 }
 
 object HGrid

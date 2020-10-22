@@ -33,7 +33,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
  // val roardTexts = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts() ++ grid.vertRoordIndexTexts()
 
   /** Draws the tiles sides (or edges). */
-  //val sidesDraw = grid.sidesDraw(2.0)
+  val sidesDraw = grid.sidesDraw(2.0)
 
   /** This is the graphical display of the planned move orders. */
  /* def moveGraphics: Arr[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
