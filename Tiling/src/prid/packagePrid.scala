@@ -12,4 +12,16 @@ import geom._
 package object prid
 {
   def holding = "Holding methos.Silly"
+  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TGrid, evSlate: Slate[T], evScale: Scale[T]) {
+    /** Translates Vec2s relative to Grid centre and then scales. */
+    /*def gridScale(scale: Double): T =
+    { val a = evSlate.slateT(value, - grid.cen)
+      evScale.scaleT(a, scale)
+    }*/
+    /** Translates Vec2s relative to focus and then scales. */
+    /*def gridRoordScale(focus: Roord, scale: Double): T =
+    { val a = evSlate.slateT(value, - focus.gridVec2)
+      evScale.scaleT(a, scale)
+    }*/
+  }
 }

@@ -19,7 +19,9 @@ trait HGrid extends TGrid
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
   override def xRatio: Double = 1.0 / sqrt(3)
+  def cCen: Double = (cTileMin + cTileMax) / 2.0
 
+  def xCen: Double = cCen * xRatio
   /** foreachs over each Hex tile's centre HCen. */
   final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeachTile(r)(f))
 

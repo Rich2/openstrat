@@ -64,7 +64,6 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
   def numOfRow0s: Int = ((rRow0sMax - rRow0sMin + 4) / 4).max(0)
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
-  def cCen: Double = (cTileMin + cTileMax) / 2.0
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newHexArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HexArrOpt[A] = new HexArrOpt(new Array[A](numOfTiles))
