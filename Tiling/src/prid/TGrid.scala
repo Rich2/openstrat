@@ -14,8 +14,10 @@ import geom._, Colour.Black
  *  A TileGrid is for use cases where the proportions of the Grid predetermine the proportions of the visual representation, as opposed to a use case
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
  *  Stars on the American flag.
- *  @groupname SideGroup Side Members
- *  @groupprio SideGroup 1010 */
+ *  @groupname SidesGroup Tile Sides Methods
+ *  @groupdesc SidesGroup Methods that operate on the tile sides of the grid. Remember a TileGrid object contains no data about the sides or the
+ *             boundaries of the tiles.
+ *  @groupprio SidesGroup 1010 */
 trait TGrid
 {
   /** Number of rows of tiles. This will be different to the number of rows of sides and and will be different to the number of rows of vertices for
@@ -28,8 +30,6 @@ trait TGrid
   def width: Double
   def height: Double
 
-
-
   /** The total number of Tiles in the tile Grid. */
   def numOfTiles: Int
 
@@ -38,11 +38,7 @@ trait TGrid
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(rTileMin, rTileMax, 2)(f)
 
-  /** The bottom Side Row of this TileGrid. The y value. */
-  @inline final def rSideMin: Int = rTileMin - 1
 
-  /** The top Side Row of this TileGrid. The y value. */
-  @inline final def rSideMax: Int = rTileMax + 1
   def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
   {
     def adj(inp : Double): Double =inp match
@@ -54,14 +50,24 @@ trait TGrid
     (adj(dispWidth) / adj(width).max(1)).min(adj(dispHeight) / height.max(1))
   }
 
+  /** The number of Rows of vertices. */
+  @inline final def numOfVertRows: Int = ife(numOfTileRows > 1, numOfTileRows + 1, 0)
+
   /* SideGroup Methods that operate on tile sides. **********************************************************/
 
   /** The number of Rows of Sides.
    *  @group SidesGroup */
-  @inline final def numOfSideRows: Int = numOfTileRows * 2 + 1
+  @inline final def numOfSideRows: Int = ife(numOfTileRows > 1, numOfTileRows * 2 + 1, 0)
 
-  /** The number of Rows of vertices. */
-  @inline final def numOfVertRows: Int = numOfTileRows + 1
+  /** The bottom Side Row of this TileGrid. The r value, the row number value.
+   *  @group SidesGroup */
+  @inline final def rSideMin: Int = rTileMin - 1
+
+  /** The top Side Row of this TileGrid. The r value, the row number.
+   *  @group SidesGroup*/
+  @inline final def rSideMax: Int = rTileMax + 1
+
+
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
