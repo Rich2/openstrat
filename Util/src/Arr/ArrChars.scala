@@ -28,8 +28,10 @@ final class Chars(val array: Array[Char]) extends AnyVal with ArrBase[Char]
   @inline def mkString: String = array.mkString
 }
 
+/** Companion object of Chars class contains repeat parameter apply factor method. */
 object Chars
-{ def apply(input: Char*): Chars = new Chars(input.toArray)
+{ /** Repeat parameter apply factor method. */
+  def apply(input: Char*): Chars = new Chars(input.toArray)
 }
 
 /** Immutable heapless iterator for Char arrays. */
