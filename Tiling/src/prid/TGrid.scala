@@ -14,7 +14,7 @@ import geom._
  *  A TileGrid is for use cases where the proportions of the Grid predetermine the proportions of the visual representation, as opposed to a use case
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
  *  Stars on the American flag.
- *
+ *  @groupname SideGroup Side Members
  *  @groupprio SideGroup 1010 */
 trait TGrid
 {
@@ -28,11 +28,7 @@ trait TGrid
   def width: Double
   def height: Double
 
-  /** The number of Rows of Sides. */
-  @inline final def numOfSideRows: Int = numOfTileRows * 2 + 1
 
-  /** The number of Rows of vertices. */
-  @inline final def numOfVertRows: Int = numOfTileRows + 1
 
   /** The total number of Tiles in the tile Grid. */
   def numOfTiles: Int
@@ -60,7 +56,15 @@ trait TGrid
 
   /* SideGroup Methods that operate on tile sides. **********************************************************/
 
-  /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.  */
+  /** The number of Rows of Sides.
+   *  @group SidesGroup */
+  @inline final def numOfSideRows: Int = numOfTileRows * 2 + 1
+
+  /** The number of Rows of vertices. */
+  @inline final def numOfVertRows: Int = numOfTileRows + 1
+
+  /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
+   *  @group SidesGroup */
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rTileMin - 1, rTileMax + 1)(f)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles. */
