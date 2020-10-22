@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import geom._
+import geom._, Colour.Black
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
  *  stored in flat arrays. The TileGrid gives the dimensions of a tileGrid. It has methods to interpret the data in flat Arrays created for that
@@ -67,10 +67,15 @@ trait TGrid
    *  @group SidesGroup */
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rTileMin - 1, rTileMax + 1)(f)
 
-  /** The line segments [[LineSeg]]s for the sides of the tiles. */
-  final def sideLines : LineSegs = ??? /*flatMap { roord =>
+  /** The line segments [[LineSeg]]s for the sides of the tiles.
+   *  @group SidesGroup */
+  final def sideLines: LineSegs = ??? /*flatMap { roord =>
     val c1: Roords = sideRoordsOfTile(roord)
     val c2s: LineSegs = c1.map(orig => sideRoordToLine2(orig))
     c2s
   }*/
+
+  /** This gives the all tile grid lines in a single colour and line width.
+   *  @group SidesGroup  */
+  final def sidesDraw(lineWidth: Double, colour: Colour = Black) = sideLines.draw(lineWidth, colour)
 }

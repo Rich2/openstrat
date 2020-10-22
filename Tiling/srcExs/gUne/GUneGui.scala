@@ -45,12 +45,12 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
     moves = NoMoves
     repaint()
     thisTop()
-  })
+  })*/
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn, status))
+  def thisTop(): Unit = reTop(Arr(/*bTurn,*/ status))
 
-  mainMouseUp = (b, cl, _) => (b, cl, selected) match
+  /*mainMouseUp = (b, cl, _) => (b, cl, selected) match
     { case (LeftButton, cl, _) =>
       { selected = cl
         statusText = selected.headToStringElse("Nothing Selected")
@@ -64,9 +64,9 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
         repaint()
       }
        case (_, h, _) => deb("Other; " + h.toString)
-    }
+    }*/
   thisTop()
-  def frame = (tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridScale(scale)
+  def frame: GraphicElems = Arr() //(tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridScale(scale)
   def repaint() = mainRepaint(frame)
-  repaint()*/
+  repaint()
 }
