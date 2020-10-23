@@ -26,24 +26,6 @@ trait HCoordReg extends HCoord
 { override def toVec2: Vec2 = Vec2(c * xRatio, r)
 }
 
-/** A Hex tile centre HexGrid coordinate. */
-class HCen(val r: Int, val c: Int) extends HCoordReg
-
-object HCen
-{
-  def apply(r: Int, c: Int): HCen = r %% 4 match
-  { case 0 if c.div4Rem0 => new HCen(r, c)
-    case 2 if c.div4Rem2 => new HCen(r, c)
-    case _ => excep(s"$r, $c is not a valid Hex centre tile coordinate.")
-  }
-
-  val vertsOfHex00: Arr[HVert] = ??? //oords(1 rr 0, 1 rr 2, -1 rr 2, -1 rr 0,  -1 rr -2, 1 rr -2)
-}
-
-trait HexMem[A]
-{ val hc: HCen
-  val value: A
-}
 
 /** A Hex side coordinate in a Hex Grid.
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3

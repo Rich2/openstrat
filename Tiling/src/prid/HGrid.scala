@@ -33,6 +33,13 @@ trait HGrid extends TGrid
     build.buffToArr(buff)
   }
 
+  /** The active tiles without any PaintElems. */
+  /*def activeTiles: Arr[PolygonActive] = map{ roord =>
+    val vcs = tileVertRoords(roord)
+    val vvs = vcs.map(r => roordToVec2(r))
+    vvs.toPolygon.active(roord.toHexTile)
+  }*/
+
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   /** The number of Sides in the TileGrid. Needs reimplementing.
