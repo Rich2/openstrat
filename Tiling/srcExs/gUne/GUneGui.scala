@@ -66,7 +66,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
        case (_, h, _) => deb("Other; " + h.toString)
     }*/
   thisTop()
-  def frame: GraphicElems = Arr(sidesDraw).scale(40) //(tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridScale(scale)
+  def frame: GraphicElems = Arr(sidesDraw).gridScale(scale) //(tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }
