@@ -122,6 +122,8 @@ package object geom
   val Deg180: Angle = Angle(180)
   /** 270 degrees or Pi radians */
   val Deg270: Angle = Angle(270)
+  /** 300 degrees or Pi radians */
+  val Deg300: Angle = Angle(300)
 
   def displayRowGraphics(leftPt: Vec2, actives: Arr[BoundedGraphic], margin: Double = 10): Arr[BoundedGraphic] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))

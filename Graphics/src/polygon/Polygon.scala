@@ -47,13 +47,13 @@ trait Polygon extends Shape with BoundedElem
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   def yVertGet(index: Int): Double
 
-  /** May throw on a 0 vertices polygon. */
+  /** The X component of the 1st vertex, will throw on a 0 vertices polygon. */
   def x1: Double
 
-  /** May throw on a 0 vertices polygon. */
+  /** The Y component of the 1st vertex, will throw on a 0 vertices polygon. */
   def y1: Double
 
-  /** May throw on a 0 vertices polygon. */
+  /* The 1st vertex, will throw on a 0 vertices polygon. */
   def v1: Vec2
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
@@ -130,7 +130,7 @@ trait Polygon extends Shape with BoundedElem
   def toLineSegs: LineSegs =if (vertsNum > 1)
   { val res: LineSegs = LineSegs(vertsNum)
     for (i <- 0 until (vertsNum - 1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
-    res.unsafeSetLast(LineSeg(apply(vertsNum - 1), v1))
+    res.unsafeSetLast(LineSeg(apply(vertsNum - 1), apply(0)))
     res
   }
   else LineSegs()

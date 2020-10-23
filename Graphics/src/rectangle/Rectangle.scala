@@ -8,8 +8,6 @@ import pWeb._
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
 trait Rectangle extends Polygon
 { final override def vertsNum: Int = 4
-  def x1: Double
-  def y1: Double
   def x2: Double
   def y2: Double
   def v2: Vec2

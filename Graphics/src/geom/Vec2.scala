@@ -165,7 +165,21 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
       val yb =y * cos(r)
       ya + yb
     })
-   
+
+  /** Rotates this vector through the given angle around the centre of rotation passed as the first parameter. */
+  def rotateAbout(centre: Vec2, a: Angle): Vec2 =
+  {
+    val rel: Vec2 = this - centre
+    val rel2: Vec2 = a match {
+      case Deg0 => rel
+      case Deg90 => rel.rotate90
+      case Deg180 => rel.rotate180
+      case Deg270 => rel.rotate270
+      case a => Vec2(rel.x * a.cos - rel.y * a.sin, rel.x * a.sin + rel.y * a.cos)
+    }
+    centre + rel2
+  }
+
   def centreSquare(length: Double): PolygonImp =
   { val r = length / 2.0
     PolygonImp(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y)
