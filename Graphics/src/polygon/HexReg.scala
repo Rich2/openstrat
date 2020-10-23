@@ -4,37 +4,37 @@ package geom
 
 trait HexReg extends Polygon6Plus
 {
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
+  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(offset: Vec2): HexReg = HexReg.cenV6(cen + offset, v6 + offset)
 
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
+  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(xOffset: Double, yOffset: Double): Polygon = super.slate(xOffset, yOffset)
+  override def slate(xOffset: Double, yOffset: Double): HexReg = HexReg.cenV6(cen.addXY(xOffset, yOffset), v6.addXY(xOffset, yOffset))
 
-  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
+  /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): Polygon = super.scale(operand)
+  override def scale(operand: Double): HexReg = HexReg.cenV6(cen * operand, v6 * operand)
 
-  /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
-  override def negY: Polygon = super.negY
+  /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
+  override def negY: HexReg = HexReg.cenV6(cen.negY, v6.negY)
 
-  /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
-  override def negX: Polygon = super.negX
+  /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
+  override def negX: HexReg = HexReg.cenV6(cen.negX, v6.negX)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a HexReg, returns a HexReg. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: Polygon = super.rotate90
+  override def rotate90: HexReg = HexReg.cenV6(cen.rotate90, v6.rotate90)
 
-  /** Rotate 180 degrees 2D geometric transformation on a Polygon, returns a Polygon. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Polygon = super.rotate180
+  /** Rotate 180 degrees 2D geometric transformation on a HexReg, returns a HexReg. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: HexReg = HexReg.cenV6(cen.rotate180, v6.rotate180)
 
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a HexReg, returns a HexReg. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: Polygon = super.rotate270
+  override def rotate270: HexReg = HexReg.cenV6(cen.rotate270, v6.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): Polygon = super.prolign(matrix)
+  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.cenV6(cen.prolign(matrix), v6.prolign(matrix))
 }
 
 object HexReg
@@ -74,8 +74,7 @@ object HexReg
 
     override def foreachPairTail[U](f: (Double, Double) => U): Unit = ???
 
-    /** The number of vertices and also the number of sides in this Polygon. */
-    override def vertsNum: Int = ???
+    override def vertsNum: Int = 6
 
     /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
     override def xVertGet(index: Int): Double = ???
@@ -83,13 +82,9 @@ object HexReg
     /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
     override def yVertGet(index: Int): Double = ???
 
-    /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
+    /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
      * traits / classes. */
-    override def reflect(lineLike: LineLike): Polygon = ???
-
-    /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
-     * return type will be narrowed in some, but not all descendant Polygon types. */
-    override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
+    override def reflect(lineLike: LineLike): HexReg = ???
   }
 
 }

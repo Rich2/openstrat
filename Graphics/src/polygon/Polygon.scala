@@ -113,8 +113,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
    *  return type will be narrowed in some, but not all descendant Polygon types. */
-  override def xyScale(xOperand: Double, yOperand: Double): Polygon
-
+  override def xyScale(xOperand: Double, yOperand: Double): Polygon = polygonMap(_.xyScale(xOperand, yOperand))
 
   /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
    *  classes and traits. */
