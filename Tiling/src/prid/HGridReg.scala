@@ -73,19 +73,7 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
     if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(HCen(r, c)))
     else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(HCen(r, c)))
 
-  /*override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
-  {
-    case r if r == rSideMax & r.div4Rem3 => iToForeach(cRow2sMin - 1, cRow2sMax + 1, 2){ c => f(HSide(r, c)) }
-    case r if r == rSideMax => iToForeach(cRow0sMin - 1, cRow0sMax + 1, 2){ c => f(HSide(r, c)) }
-    case r if r.div4Rem2 => iToForeach(cRow2sMin - 2, cRow2sMax + 2, 4){ c => f(HSide(r, c)) }
-    case r if r.div4Rem0 => iToForeach(cRow0sMin - 2, cRow0sMax + 2, 4){ c => f(HSide(r, c)) }
-    case r if r == rSideMin & r.div4Rem1 => iToForeach(cRow2sMin - 1, cRow2sMax + 1, 2){ c => f(HSide(r, c)) }
-    case r if r == rSideMin => iToForeach(cRow0sMin - 1, cRow0sMax + 1, 2){ c => f(HSide(r, c)) }
-    case r => iToForeach(cTileMin - 1, cTileMax + 1, 2){ c => f(HSide(r, c)) }
-  }*/
-
-  /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly. */
-  override def sideRowForeach(r: Int)(f: HSide => Unit): Unit = {} //???
+  /* Methods that operate on Hex tile sides. ******************************************************/
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {

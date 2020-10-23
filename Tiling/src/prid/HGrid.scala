@@ -35,10 +35,6 @@ trait HGrid extends TGrid
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
-  /** foreachs over each Hex Side's coordinate [[HSide]] in the given Row. Users will not normally need to access this method directly.
-   *  @group SidesGroup */
-  def sideRowForeach(r: Int)(f: HSide => Unit): Unit
-
   /** The number of Sides in the TileGrid. Needs reimplementing.
    *  @group SidesGroup */
   final val numSides: Int =
@@ -47,7 +43,7 @@ trait HGrid extends TGrid
     count
   }
 
-  def sideLines: LineSegs = sideCoordLines.map(_.toLine2)
+  override def sideLines: LineSegs = sideCoordLines.map(_.toLine2)
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
@@ -57,6 +53,8 @@ trait HGrid extends TGrid
    *  @group */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 
+  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
+   *  @group SidesGroup */
   final def sidesMap[B, ArrT <: ArrBase[B]](f: HSide => B)(implicit build: ArrBuild[B, ArrT]): ArrT =
   {
     val res: ArrT = build.newArr(numSides)
@@ -68,6 +66,8 @@ trait HGrid extends TGrid
     res
   }
 
+  /** The Hex Sides of the Hex Grid defined in integer constructed [[HCoordLineSeg.]].
+   *  @group SidesGroup */
   def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)
 }
 
