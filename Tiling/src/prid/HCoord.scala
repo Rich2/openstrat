@@ -4,7 +4,7 @@ package prid
 import geom._
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
-trait HCoord extends TCoord
+trait HCoord extends Any with TCoord
 { def toVec2: Vec2
   @inline def xRatio: Double = HGrid.xRatio
 }
@@ -36,6 +36,13 @@ object HCen
     case 2 if c.div4Rem2 => new HCen(r, c)
     case _ => excep(s"$r, $c is not a valid Hex centre tile coordinate.")
   }
+
+  val vertsOfHex00: Arr[HVert] = ??? //oords(1 rr 0, 1 rr 2, -1 rr 2, -1 rr 0,  -1 rr -2, 1 rr -2)
+}
+
+trait HexMem[A]
+{ val hc: HCen
+  val value: A
 }
 
 /** A Hex side coordinate in a Hex Grid.
@@ -61,23 +68,4 @@ object HSide
     case 2 if c.div4Rem0 => new HSide(r, c)
     case _ => excep(s"$r, $c is not a valid Hex edge tile coordinate.")
   }
-}
-
-class HVert(val r: Int, val c: Int) extends HCoord
-{
-  override def toVec2: Vec2 = (r %% 4, c %% 4) match
-  {
-    case (1, 0) | (3, 2)  =>  Vec2(c * xRatio, r + HGrid.yDist / 2)
-    case _ => Vec2(c * xRatio, r - HGrid.yDist / 2)
-  }
-}
-
-object HVert
-{
-  def apply(r: Int, c: Int): HVert = if (r.isOdd & c.isEven) new HVert(r, c) else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
-}
-
-trait HexMem[A]
-{ val hc: HCen
-  val value: A
 }
