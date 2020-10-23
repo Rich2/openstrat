@@ -8,4 +8,9 @@ trait TCoord extends Any
 { def r: Int
   def c: Int
   def toVec2: Vec2
+  def typeStr: String
+  def rcStr: String = s"$r, $c"
+  def parenthStr: String = rcStr.enParenth
+  def str: String = typeStr + parenthStr
+  override def toString: String = typeStr + parenthStr
 }

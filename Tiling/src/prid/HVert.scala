@@ -9,8 +9,7 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with ProdInt2
   @inline def c: Int = bLong.toInt
   override def _1: Int = r
   override def _2: Int = c
-  def str: String = ???
-  def rcStr: String = ???
+  override def typeStr: String = "HVert"
   override def canEqual(that: Any): Boolean = ???
 
   override def toVec2: Vec2 = (r %% 4, c %% 4) match

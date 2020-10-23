@@ -39,6 +39,7 @@ class HSide(val r: Int, val c: Int) extends HCoordReg
     case 0 | 2 => HCoordLineSeg(r + 1, c, r - 1, c)
     case 1 => HCoordLineSeg(r, c + 1, r, c - 1)
   }
+  override def typeStr: String = "HSide"
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */

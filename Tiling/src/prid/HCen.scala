@@ -16,6 +16,7 @@ class HCen(val r: Int, val c: Int) extends HCoordReg
   def polygon: Polygon = verts.map(_.toVec2).toPolygon
   def fill(colour: Colour): PolygonFill = polygon.fill(colour)
   def active(id: Any = this): PolygonActive = polygon.active(id)
+  override def typeStr: String = "HCen"
 }
 
 object HCen
