@@ -43,7 +43,35 @@ trait Polygon4Plus extends Polygon3Plus
   /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def y4: Double
-  /** The 4th Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex immediately clockwise from
+  /** The 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
   def v4: Vec2
+}
+
+/** A [[Polygon]] with at least 5 vertices. */
+trait Polygon5Plus extends Polygon4Plus
+{
+  /** The X component of the 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
+   *  immediately clockwise from 12 o'clock. */
+  def x5: Double
+  /** The Y component of the 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
+   *  immediately clockwise from 12 o'clock. */
+  def y5: Double
+  /** The 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
+   *  from 12 o'clock. */
+  def v5: Vec2
+}
+
+/** A [[Polygon]] with at least 6 vertices. */
+trait Polygon6Plus extends Polygon5Plus
+{
+  /** The X component of the 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
+   *  immediately clockwise from 12 o'clock. */
+  def x6: Double
+  /** The Y component of the 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
+   *  immediately clockwise from 12 o'clock. */
+  def y6: Double
+  /** The 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
+   *  from 12 o'clock. */
+  def v6: Vec2
 }

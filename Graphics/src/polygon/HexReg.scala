@@ -2,13 +2,8 @@
 package ostrat
 package geom
 
-trait HexReg extends Polygon4Plus
-{ def x5: Double
-  def y5: Double
-  def v5: Vec2
-  def x6: Double
-  def y6: Double
-  def v6: Vec2
+trait HexReg extends Polygon6Plus
+{
 }
 
 object HexReg
@@ -18,47 +13,25 @@ object HexReg
     override def apply(index: Int): Vec2 = ???
 
     override def cen: Vec2 = Vec2(xCen, yCen)
-
     def v6: Vec2 = Vec2(x6, y6)
-
-
-    override def v1: Vec2 = v1.rotateAbout(cen, deg60)
-
-    /** May throw on a 0 vertices polygon. */
+    override def v1: Vec2 = v6.rotateAbout(cen, Deg60)
     override def x1: Double = v1.x
-
-    /** May throw on a 0 vertices polygon. */
     override def y1: Double = v1.y
+    override def v2: Vec2 = v6.rotateAbout(cen, Deg240)
+    override def x2: Double = v2.x
+    override def y2: Double = v2.y
+    override def v3: Vec2 = v6.rotateAbout(cen, Deg180)
+    override def x3: Double = v3.x
+    override def y3: Double = v3.y
+    override def v4: Vec2 = v6.rotateAbout(cen, Deg120)
+    override def x4: Double = v4.x
+    override def y4: Double = v4.y
+    override def v5: Vec2 = v6.rotateAbout(cen, Deg60)
+    override def x5: Double = v5.x
+    override def y5: Double = v6.y
+    override def foreachVert(f: Vec2 => Unit): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6) }
 
-
-
-    override def x4: Double = ???
-
-    override def y4: Double = ???
-
-    override def v4: Vec2 = ???
-
-    override def x2: Double = ???
-
-    override def y2: Double = ???
-
-    override def v2: Vec2 = ???
-
-    override def x3: Double = ???
-
-    override def y3: Double = ???
-
-    override def v3: Vec2 = ???
-
-    override def x5: Double = ???
-
-    override def y5: Double = ???
-
-    override def v5: Vec2 = ???
-
-    override def foreachVert(f: Vec2 => Unit): Unit = ???
-
-    override def foreachVertTail[U](f: Vec2 => U): Unit = ???
+    override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6) }
 
     override def ptsArray: Array[Double] = ???
 

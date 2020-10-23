@@ -37,41 +37,41 @@ trait RotateGenExtensions[T]
   def rotate(angle: Angle): T 
 
   /** Rotates 15 degrees anti-clockwise or + Pi/12 */
-  def rotate15: T = rotate(deg15)
+  def rotate15: T = rotate(Deg15)
   
   /** Rotates 30 degrees anti-clockwise or + Pi/6 */
-  def rotate30: T = rotate(deg30)
+  def rotate30: T = rotate(Deg30)
   
   /** Rotates 45 degrees anti-clockwise or + Pi/4 */
-  def rotate45: T = rotate(deg45)
+  def rotate45: T = rotate(Deg45)
   
   /** Rotates 60 degrees anti-clockwise or + Pi/3 */
-  def rotate60: T  = rotate(deg60)
+  def rotate60: T  = rotate(Deg60)
   
   /** Rotates 120 degrees anti-clockwise or + 2 * Pi/3 */
-  def rotate120: T = rotate(deg120)
+  def rotate120: T = rotate(Deg120)
   
   /** Rotates 135 degrees anti-clockwise or + 3 * Pi/4 */
-  def rotate135: T = rotate(deg135)
+  def rotate135: T = rotate(Deg135)
   
   /** Rotates 150 degrees anti-clockwise or + 5 * Pi/6 */
-  def rotate150: T = rotate(deg150)
+  def rotate150: T = rotate(Deg150)
   
   /** Rotates 30 degrees clockwise or - Pi/3 */
-  def clk30: T = rotate(-deg30)
+  def clk30: T = rotate(-Deg30)
   
   /** Rotates 45 degrees clockwise or - Pi/4 */
-  def clk45: T = rotate(-deg45)
+  def clk45: T = rotate(-Deg45)
   
   /** Rotates 60 degrees clockwise or - Pi/3 */
-  def clk60: T  = rotate(-deg60)
+  def clk60: T  = rotate(-Deg60)
 
   /** Rotates 120 degrees clockwise or - 2 * Pi/3 */
-  def clk120: T = rotate(-deg120)
+  def clk120: T = rotate(-Deg120)
   
   /** Rotates 135 degrees clockwise or - 3 * Pi/ 4 */
-  def clk135: T = rotate(-deg135)
+  def clk135: T = rotate(-Deg135)
   
   /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
-  def clk150: T = rotate(-deg150)  
+  def clk150: T = rotate(-Deg150)
 }

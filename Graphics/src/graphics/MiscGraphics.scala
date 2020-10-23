@@ -7,8 +7,8 @@ object Star5
   val classicRatio = 0.382
 
   def apply(ratio: Double = classicRatio): Polygon =
-  { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-deg36))
-    iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
+  { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, ratio).rotate(-Deg36))
+    iToFlatMap(0, 4)(i => l2.rotate(-Deg72 * i)).toPolygon
   }
 
   def fill(colour: Colour, ratio: Double = classicRatio): PolygonFill = apply(ratio).fill(colour)
@@ -22,7 +22,7 @@ object Star5
   }
 
   /** Not quite sure what this does. */
-  def ptUpYCentred(ratio: Double = classicRatio): Polygon = apply(ratio).ySlate(deg36.cos / 2 - 0.5)
+  def ptUpYCentred(ratio: Double = classicRatio): Polygon = apply(ratio).ySlate(Deg36.cos / 2 - 0.5)
 }
 
 object Star7
@@ -51,8 +51,8 @@ object Star3
 object Pentagram
 {
   def apply(): PolygonImp =
-  { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, -1).rotate(-deg36))
-    iToFlatMap(0, 4)(i => l2.rotate(-deg72 * i)).toPolygon
+  { val l2: Vec2s = Vec2s(Vec2(0, 1), Vec2(0, -1).rotate(-Deg36))
+    iToFlatMap(0, 4)(i => l2.rotate(-Deg72 * i)).toPolygon
   }
 
   def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(lineWidth, colour)

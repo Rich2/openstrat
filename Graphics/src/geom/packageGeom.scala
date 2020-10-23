@@ -99,27 +99,29 @@ package object geom
   /** 0 degrees or 0 radians */
   val Deg0: Angle = Angle(0)
   /** 15 degrees anti-clockwise or + Pi/12 radians */
-  val deg15: Angle = Angle(15)
+  val Deg15: Angle = Angle(15)
   /** 30 degrees anti-clockwise or + Pi/6 radians */
-  val deg30: Angle = Angle(30)
+  val Deg30: Angle = Angle(30)
   /** 36 degrees anti-clockwise or + Pi/5 radians */
-  val deg36: Angle = Angle(36)
+  val Deg36: Angle = Angle(36)
   /** 45 degrees anti-clockwise or + Pi/4 radians */
-  val deg45: Angle = Angle(45)
+  val Deg45: Angle = Angle(45)
   /** 60 degrees anti-clockwise or + Pi/3 radians */
-  val deg60: Angle  = Angle(60)  
+  val Deg60: Angle  = Angle(60)
   /** 72 degrees anti-clockwise or + Pi2/5 radians */
-  val deg72: Angle = Angle(72)
+  val Deg72: Angle = Angle(72)
   /** 90 degrees anti-clockwise or + Pi/2 radians */
   val Deg90: Angle = Angle(90)  
   /** 120 degrees anti-clockwise or + 2 * Pi/3 radians */
-  val deg120: Angle = Angle(120)
+  val Deg120: Angle = Angle(120)
   /** 135 degrees anti-clockwise or + 3 * Pi/4 radians */
-  val deg135: Angle = Angle(135)
+  val Deg135: Angle = Angle(135)
   /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
-  val deg150: Angle = Angle(150)
+  val Deg150: Angle = Angle(150)
   /** 180 degrees or Pi radians */
   val Deg180: Angle = Angle(180)
+  /** 240 degrees or Pi radians */
+  val Deg240: Angle = Angle(240)
   /** 270 degrees or Pi radians */
   val Deg270: Angle = Angle(270)
   /** 300 degrees or Pi radians */
