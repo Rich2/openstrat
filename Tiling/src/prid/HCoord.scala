@@ -4,7 +4,7 @@ package prid
 import geom._
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
-trait HCoord extends TileCoord
+trait HCoord extends TCoord
 { def toVec2: Vec2
   @inline def xRatio: Double = HGrid.xRatio
 }
