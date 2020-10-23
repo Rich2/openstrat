@@ -39,7 +39,8 @@ trait HGrid extends TGrid
    *  @group SidesGroup */
   def sideRowForeach(r: Int)(f: HSide => Unit): Unit
 
-  /** The number of Sides in the TileGrid. Needs reimplementing */
+  /** The number of Sides in the TileGrid. Needs reimplementing.
+   *  @group SidesGroup */
   final val numSides: Int =
   { var count = 0
     sidesForeach(r => count += 1)
@@ -50,7 +51,11 @@ trait HGrid extends TGrid
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(y => sideRowForeach(y)(f))
+  final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(r => rowForeachSide(r)(f))
+
+  /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter.
+   *  @group */
+  def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 
   final def sidesMap[B, ArrT <: ArrBase[B]](f: HSide => B)(implicit build: ArrBuild[B, ArrT]): ArrT =
   {

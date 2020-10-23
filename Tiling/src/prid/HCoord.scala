@@ -47,7 +47,7 @@ class HSide(val r: Int, val c: Int) extends HCoordReg
   /** Returns the Hex coordinate Line segment for this Hex Side.  */
   def coordLine: HCoordLineSeg = r % 4 match
   { case 3 => HCoordLineSeg(r, c - 1, r, c + 1)
-    case 2 => HCoordLineSeg(r + 1, c, r - 1, c)
+    case 0 | 2 => HCoordLineSeg(r + 1, c, r - 1, c)
     case 1 => HCoordLineSeg(r, c + 1, r, c - 1)
   }
 }
@@ -56,9 +56,9 @@ class HSide(val r: Int, val c: Int) extends HCoordReg
 object HSide
 { /** Factory method for HSide that throws an exception for an invalid Hex side coordinate. */
   def apply(r: Int, c: Int): HSide = r %% 4 match
-  { case 0 if c.div4Rem0 => new HSide(r, c)
+  { case 0 if c.div4Rem2 => new HSide(r, c)
     case 1 | 3 if c.isOdd => new HSide(r, c)
-    case 2 if c.div4Rem2 => new HSide(r, c)
+    case 2 if c.div4Rem0 => new HSide(r, c)
     case _ => excep(s"$r, $c is not a valid Hex edge tile coordinate.")
   }
 }
