@@ -16,14 +16,28 @@ trait HGrid extends TGrid
    * so it can take the specfific narrow [[HCen]] parameter to the foreach function. */
   def rowForeachTile(r: Int)(f: HCen => Unit): Unit
 
+  def rowIForeachTile(r: Int, count: Int)(f: (HCen, Int) => Unit): Int
+
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
   override def xRatio: Double = 1.0 / sqrt(3)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
 
   def xCen: Double = cCen * xRatio
+
   /** foreachs over each Hex tile's centre HCen. */
   final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeachTile(r)(f))
+
+  final def iForeach(f: (HCen, Int) => Unit) =
+  { var count: Int = 0
+    foreachRow{r => count = rowIForeachTile(r, count)(f) }
+  }
+
+  final def map[B, BB <: ArrBase[B]](f: HCen => B)(implicit build: ArrBuild[B, BB]): BB =
+  { val res = build.newArr(numOfTiles)
+    iForeach((hCen, i) => res.unsafeSetElem(i, f(hCen)))
+    res
+  }
 
   /** flatMaps from all hex tile cntre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */

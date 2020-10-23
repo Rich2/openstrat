@@ -75,6 +75,23 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
     if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(HCen(r, c)))
     else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(HCen(r, c)))
 
+  /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
+  override def rowIForeachTile(r: Int, startCount: Int)(f: (HCen, Int) => Unit): Int =
+  {
+    var count: Int = startCount
+    if (r %% 4 == 2)
+      iToForeach(cRow2sMin, cRow2sMax, 4) { c =>
+        f(HCen(r, c), count)
+        count += 1
+      }
+    else
+      iToForeach(cRow0sMin, cRow0sMax, 4){c =>
+        f(HCen(r, c), count)
+        count += 1
+      }
+    count
+  }
+
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match

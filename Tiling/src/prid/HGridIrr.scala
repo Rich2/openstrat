@@ -22,6 +22,8 @@ case class HGridIrr(unsafeArray: Array[Int]) extends HGrid
 
   def rowForeachTile(r: Int)(f: HCen => Unit): Unit = ???
 
+  override def rowIForeachTile(r: Int, count: Int)(f: (HCen, Int) => Unit): Int = ???
+
   override def width: Double = ???
   override def height: Double = ???
 
