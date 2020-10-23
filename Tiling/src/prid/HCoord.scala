@@ -17,7 +17,7 @@ object HCoord
     case 0 if c.div4Rem0 => new HSide(r, c)
     case 1 | 3 if c.isOdd => new HSide(r, c)
     case 2 if c.div4Rem2 => new HSide(r, c)
-    case _ if r.isOdd & c.isEven => new HVert(r, c)
+    case _ if r.isOdd & c.isEven => HVert(r, c)
     case _ => excep(s"$r, $c is not a valid Hex Grid coordinate.")
   }
 }
