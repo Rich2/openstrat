@@ -4,10 +4,43 @@ package geom
 
 trait HexReg extends Polygon6Plus
 {
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
+   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  override def slate(offset: Vec2): HexReg = HexReg.cenV6(cen + offset, v6 + offset)
+
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
+   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  override def slate(xOffset: Double, yOffset: Double): Polygon = super.slate(xOffset, yOffset)
+
+  /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
+   * return type of this method will be narrowed further in descendant traits / classes. */
+  override def scale(operand: Double): Polygon = super.scale(operand)
+
+  /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
+  override def negY: Polygon = super.negY
+
+  /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
+  override def negX: Polygon = super.negX
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate90: Polygon = super.rotate90
+
+  /** Rotate 180 degrees 2D geometric transformation on a Polygon, returns a Polygon. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Polygon = super.rotate180
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate270: Polygon = super.rotate270
+
+  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
+  override def prolign(matrix: ProlignMatrix): Polygon = super.prolign(matrix)
 }
 
 object HexReg
 {
+  def cenV6(cen: Vec2, v6: Vec2): HexReg = HexRegImp(cen.x, cen.y, v6.x, v6.y)
+
   case class HexRegImp(xCen: Double, yCen: Double, x6: Double, y6: Double) extends HexReg
   {
     override def apply(index: Int): Vec2 = ???
