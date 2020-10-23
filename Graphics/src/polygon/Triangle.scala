@@ -3,17 +3,10 @@ package ostrat
 package geom
 
 /** A mathematical triangle. */
-trait Triangle extends Polygon
+trait Triangle extends Polygon3Plus
 {	override def vertsNum: Int = 3
-	def x1: Double
-	def y1: Double
-	def v1: Vec2 = x1 vv y1
-	def x2: Double
-	def y2: Double
-	def v2: Vec2
-	def x3: Double
-	def y3: Double
-	def v3: Vec2 = x3 vv y3
+	override def v1: Vec2 = x1 vv y1
+	override def v3: Vec2 = x3 vv y3
 
 	override def apply(index: Int): Vec2 = index match
 	{	case 1 => v1

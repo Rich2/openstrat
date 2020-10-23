@@ -6,17 +6,8 @@ import pWeb._
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
-trait Rectangle extends Polygon
+trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
-  def x2: Double
-  def y2: Double
-  def v2: Vec2
-  def x3: Double
-  def y3: Double
-  def v3: Vec2
-  def x4: Double
-  def y4: Double
-  def v4: Vec2
 
   def xLs3Cen: Double
   def yLs3Cen: Double
