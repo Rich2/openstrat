@@ -109,7 +109,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a polygon, returns a Polygon. The Return type will be narrowed in sub
    *  traits / classes. */
-  override def reflect(lineLike: LineLike): Polygon
+  override def reflect(lineLike: LineLike): Polygon = polygonMap(_.reflect(lineLike))
 
   /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
    *  return type will be narrowed in some, but not all descendant Polygon types. */
@@ -117,13 +117,13 @@ trait Polygon extends Shape with BoundedElem
 
   /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
    *  classes and traits. */
-  override def xShear(operand: Double): Polygon = ???
+  override def xShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
   /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and traits.
    *  */
-  override def yShear(operand: Double): Polygon = ???
+  override def yShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
-  override def slateTo(newCen: Vec2): Polygon = ???
+  override def slateTo(newCen: Vec2): Polygon = polygonMap(_ + newCen - cen)
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs =if (vertsNum > 1)
