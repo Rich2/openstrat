@@ -6,7 +6,6 @@ import geom._
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
 { def toVec2: Vec2
-  //@inline def xRatio: Double = HGrid.xRatio
 }
 
 object HCoord
@@ -25,7 +24,6 @@ object HCoord
 trait HCoordReg extends HCoord
 { override def toVec2: Vec2 = Vec2(c / Sqrt3, r)
 }
-
 
 /** A Hex side coordinate in a Hex Grid.
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3

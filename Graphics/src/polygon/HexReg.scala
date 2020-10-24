@@ -4,7 +4,10 @@ package geom
 
 trait HexReg extends Polygon6Plus
 {
-
+  def width: Double
+  @inline final def radius: Double = width / 2
+  @inline final def sideLen: Double = width * Sqrt3 / 2
+  @inline final def longWidth: Double = width * Sqrt3
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -43,12 +46,17 @@ object HexReg
 {
   def cenV6(cen: Vec2, v6: Vec2): HexReg = HexRegImp(cen.x, cen.y, v6.x, v6.y)
 
-  case class HexRegImp(xCen: Double, yCen: Double, x6: Double, y6: Double) extends HexReg
+  final case class HexRegImp(xS5Cen: Double, yS5Cen: Double, xS2Cen: Double, yS2Cen: Double) extends HexReg
   {
     override def apply(index: Int): Vec2 = ???
+    def s2Cen: Vec2 = Vec2(xS2Cen, yS2Cen)
+    def s5Cen: Vec2 = Vec2(xS5Cen, yS5Cen)
+    //override def sideLen: Double = (v6 - cen).magnitude
+    def xCen: Double = (xS5Cen + xS2Cen) / 2
+    def yCen: Double = (yS5Cen + yS2Cen) / 2
+    @inline override def cen: Vec2 = Vec2(xCen, yCen)
+    @inline override def width = (s2Cen - s5Cen).magnitude
 
-    override def cen: Vec2 = Vec2(xCen, yCen)
-    def v6: Vec2 = Vec2(x6, y6)
     override def v1: Vec2 = v6.rotateAbout(cen, Deg60)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
@@ -64,6 +72,9 @@ object HexReg
     override def v5: Vec2 = v6.rotateAbout(cen, Deg60)
     override def x5: Double = v5.x
     override def y5: Double = v6.y
+    override def x6: Double = v5.x
+    override def y6: Double = v6.y
+    def v6: Vec2 = Vec2(x6, y6)
     override def foreachVert(f: Vec2 => Unit): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6) }
 
     override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6) }

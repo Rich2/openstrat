@@ -4,6 +4,11 @@ package geom
 
 case class Hexlign(width: Double, xCen: Double, yCen: Double) extends HexReg
 {
+  /*override def longRadius: Double = (v6 - cen).magnitude
+  override def longWidth: Double = longRadius * 2
+  override def radius: Double = width / 2ongRadius / Sqrt3*/
+
+
   override def x1: Double = ???
   override def y1: Double = ???
   override def v1: Vec2 = ???
