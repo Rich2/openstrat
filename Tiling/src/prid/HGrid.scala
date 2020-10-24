@@ -90,7 +90,6 @@ trait HGrid extends TGrid
 
 object HGrid
 {
-  val xRatio: Double = 1.0 / sqrt(3)
   /** The previous value was 2 / sqrt(3). */
   val yDist = 2.0 / 3
 }

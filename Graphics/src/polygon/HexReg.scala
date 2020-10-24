@@ -4,6 +4,8 @@ package geom
 
 trait HexReg extends Polygon6Plus
 {
+
+
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(offset: Vec2): HexReg = HexReg.cenV6(cen + offset, v6 + offset)

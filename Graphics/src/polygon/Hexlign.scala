@@ -4,6 +4,10 @@ package geom
 
 case class Hexlign(width: Double, xCen: Double, yCen: Double) extends HexReg
 {
+  override def x1: Double = ???
+  override def y1: Double = ???
+  override def v1: Vec2 = ???
+
   override def apply(index: Int): Vec2 = ???
   /** The X component of the 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    * immediately clockwise from 12 o'clock. */
@@ -41,17 +45,9 @@ case class Hexlign(width: Double, xCen: Double, yCen: Double) extends HexReg
    * 12 o'clock. */
   override def v4: Vec2 = ???
 
-  /** The X component of the 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def x1: Double = ???
 
-  /** The Y component of the 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def y1: Double = ???
 
-  /** The 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
-   * from 12 o'clock. */
-  override def v1: Vec2 = ???
+
 
   /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
    * immediately clockwise from 12 o'clock. */

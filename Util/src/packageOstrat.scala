@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
@@ -21,6 +21,8 @@ package object ostrat
   val Sin60 = 0.866025404f;
   val Pi2 = math.Pi * 2
   val PiH = math.Pi / 2
+  val Sqrt2 = 2.sqrt
+  val Sqrt3 = 3.sqrt
 
   /** Gives the scalar hypotenuse length for a right angled triangle form the paramter lengths of the other 2 sides. */
   def hypotenuse(side1: Double, side2: Double): Double = (side1.squared + side2.squared).sqrt

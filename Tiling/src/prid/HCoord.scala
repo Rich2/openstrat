@@ -6,7 +6,7 @@ import geom._
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
 { def toVec2: Vec2
-  @inline def xRatio: Double = HGrid.xRatio
+  //@inline def xRatio: Double = HGrid.xRatio
 }
 
 object HCoord
@@ -23,7 +23,7 @@ object HCoord
 }
 
 trait HCoordReg extends HCoord
-{ override def toVec2: Vec2 = Vec2(c * xRatio, r)
+{ override def toVec2: Vec2 = Vec2(c / Sqrt3, r)
 }
 
 
