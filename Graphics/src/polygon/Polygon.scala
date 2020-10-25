@@ -22,6 +22,7 @@ trait Polygon extends Shape with BoundedElem
     foreachVert{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
+
   def vertsFoldLeft[B](initial: B)(f: (B, Vec2) => B): B =
   { var acc: B = initial
     foreachVert{ v => acc = f(acc, v) }

@@ -9,7 +9,10 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   override def shape: Polygon
   override def boundingRect: BoundingRect = shape.boundingRect
   override def svgElem(bounds: BoundingRect): SvgElem = ???
-  /** Translate geometric transformation. */
+  @inline def foreachVert(f: Vec2 => Unit): Unit = shape.foreachVert(f)
+  @inline def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT = shape.vertsMap(f)
+
+  /** Translate 2D geometric transformation on a PolygonGraphic returns a PolygonGraphic. The return type will be narrowed in sub trait / classes. */
   override def slate(offset: Vec2): PolygonGraphic
 
   /** Translate geometric transformation. */

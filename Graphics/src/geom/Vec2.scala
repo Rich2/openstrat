@@ -27,6 +27,7 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def midPtTo(otherPt: Vec2): Vec2 = (this + otherPt) / 2
 
   def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
+  def str0: String = strMod(_.str0)
   def str1: String = strMod(_.str1)
   def str2: String = strMod(_.str2)
   def str3: String = strMod(_.str3)

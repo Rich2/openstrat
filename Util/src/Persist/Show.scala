@@ -29,6 +29,7 @@ trait Show[-T]
   /** For most objects showTyped will return the same value as show(obj: T), for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */
   def showTyped(obj: T): String
+
  }
 
 /* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow

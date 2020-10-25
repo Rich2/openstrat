@@ -28,6 +28,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
     case _ => thisDouble.toString
   }
 
+  def str0: String = f"$thisDouble%1.0f"
   def str1: String = f"$thisDouble%1.1f"
   def str2: String = f"$thisDouble%1.2f"
   def str3: String = f"$thisDouble%1.3f"
