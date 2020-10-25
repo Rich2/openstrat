@@ -50,10 +50,12 @@ trait HexReg extends Polygon6Plus
   override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s2s5(cen.prolign(matrix), v6.prolign(matrix))
 }
 
+/** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
 object HexReg
 {
   def s2s5(s4Cen: Vec2, s1Cen: Vec2): HexReg = HexRegImp(s4Cen.x, s4Cen.y, s1Cen.x, s1Cen.y)
 
+  /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xs4Cen: Double, ys4Cen: Double, xs1Cen: Double, ys1Cen: Double) extends HexReg
   {
     override def apply(index: Int): Vec2 = ???
@@ -107,5 +109,4 @@ object HexReg
      * traits / classes. */
     override def reflect(lineLike: LineLike): HexReg = ???
   }
-
 }

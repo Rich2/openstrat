@@ -2,73 +2,30 @@
 package ostrat
 package geom
 
+/** Regular Hexagan where two of the sides are parallel to the X Axis */
 case class Hexlign(dMax: Double, xCen: Double, yCen: Double) extends HexReg
 {
-  override def x1: Double = rMin
-  override def y1: Double = rMax / 2
-  override def v1: Vec2 = Vec2(x1, y1)
+  override def x1: Double = rMax / 2
+  override def y1: Double = rMin
+  override def v1: Vec2 = Vec2(rMax / 2, rMax)
+  override def x2: Double = rMax
+  override def y2: Double = 0
+  override def v2: Vec2 = Vec2(rMax, 0)
+  override def x3: Double = rMax / 2
+  override def y3: Double = -rMin
+  override def v3: Vec2 = Vec2(rMax / 2, -rMin)
+  override def x4: Double = -rMax / 2
+  override def y4: Double = -rMin
+  override def v4: Vec2 = Vec2(-rMax / 2, -rMin)
+  override def x5: Double = -rMax
+  override def y5: Double = 0
+  override def v5: Vec2 = Vec2(-rMax, 0)
+  override def x6: Double = -rMax / 2
+  override def y6: Double = rMin
+  override def v6: Vec2 = Vec2(-rMax /2, rMin)
 
   override def apply(index: Int): Vec2 = ???
-  /** The X component of the 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def x6: Double = ???
-
-  /** The Y component of the 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def y6: Double = ???
-
-  /** The 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
-   * from 12 o'clock. */
-  override def v6: Vec2 = ???
-
-  /** The X component of the 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def x5: Double = ???
-
-  /** The Y component of the 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def y5: Double = ???
-
-  /** The 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
-   * from 12 o'clock. */
-  override def v5: Vec2 = ???
-
-  /** The X component of the 4th Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def x4: Double = ???
-
-  /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def y4: Double = ???
-
-  /** The 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
-   * 12 o'clock. */
-  override def v4: Vec2 = ???
-
-  /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def x2: Double = ???
-
-  /** The Y component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def y2: Double = ???
-
-  /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex immediately clockwise from
-   * 12 o'clock. */
-  override def v2: Vec2 = ???
-
-  /** The X component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def x3: Double = ???
-
-  /** The Y component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
-   * immediately clockwise from 12 o'clock. */
-  override def y3: Double = ???
-
-  /** The 3rd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex immediately clockwise from
-   * 12 o'clock. */
-  override def v3: Vec2 = ???
-
+  
   override def s4Cen: Vec2 = ???
   override def s1Cen: Vec2 = ???
 
