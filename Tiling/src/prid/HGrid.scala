@@ -13,7 +13,7 @@ trait HGrid extends TGrid
   def numOfRow0s: Int
 
   /** Carries out the procedure function on each Hex tile centre coordinate in the given tile row. This method is defined here rather than on TileGrid
-   * so it can take the specfific narrow [[HCen]] parameter to the foreach function. */
+   * so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowForeachTile(r: Int)(f: HCen => Unit): Unit
 
   def rowIForeachTile(r: Int, count: Int)(f: (HCen, Int) => Unit): Int
@@ -90,6 +90,4 @@ trait HGrid extends TGrid
 
 object HGrid
 {
-  /** The previous value was 2 / sqrt(3). */
-  val yDist = 2.0 / 3
 }
