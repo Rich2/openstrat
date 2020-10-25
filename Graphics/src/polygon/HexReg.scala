@@ -2,61 +2,69 @@
 package ostrat
 package geom
 
+/** Regular Hexagon */
 trait HexReg extends Polygon6Plus
 {
-  def width: Double
-  @inline final def radius: Double = width / 2
-  @inline final def sideLen: Double = width * Sqrt3 / 2
-  @inline final def longWidth: Double = width * Sqrt3
+  /** The maximum, longer diameter. */
+  def dMax: Double
+
+  /** The maximum radius length. Also the length of the Hexagon side. */
+  @inline final def rMax: Double = dMax / 2
+
+  @inline def rMin: Double = rMax / Sqrt3
+  @inline def dMin: Double = rMax * 2 / Sqrt3
+
+  def s1Cen: Vec2
+  def s4Cen: Vec2
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Vec2): HexReg = HexReg.cenV6(cen + offset, v6 + offset)
+  override def slate(offset: Vec2): HexReg = HexReg.s2s5(cen + offset, v6 + offset)
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(xOffset: Double, yOffset: Double): HexReg = HexReg.cenV6(cen.addXY(xOffset, yOffset), v6.addXY(xOffset, yOffset))
+  override def slate(xOffset: Double, yOffset: Double): HexReg = HexReg.s2s5(cen.addXY(xOffset, yOffset), v6.addXY(xOffset, yOffset))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): HexReg = HexReg.cenV6(cen * operand, v6 * operand)
+  override def scale(operand: Double): HexReg = HexReg.s2s5(cen * operand, v6 * operand)
 
   /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
-  override def negY: HexReg = HexReg.cenV6(cen.negY, v6.negY)
+  override def negY: HexReg = HexReg.s2s5(cen.negY, v6.negY)
 
   /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
-  override def negX: HexReg = HexReg.cenV6(cen.negX, v6.negX)
+  override def negX: HexReg = HexReg.s2s5(cen.negX, v6.negX)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a HexReg, returns a HexReg. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: HexReg = HexReg.cenV6(cen.rotate90, v6.rotate90)
+  override def rotate90: HexReg = HexReg.s2s5(cen.rotate90, v6.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a HexReg, returns a HexReg. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: HexReg = HexReg.cenV6(cen.rotate180, v6.rotate180)
+  override def rotate180: HexReg = HexReg.s2s5(cen.rotate180, v6.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a HexReg, returns a HexReg. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: HexReg = HexReg.cenV6(cen.rotate270, v6.rotate270)
+  override def rotate270: HexReg = HexReg.s2s5(cen.rotate270, v6.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.cenV6(cen.prolign(matrix), v6.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s2s5(cen.prolign(matrix), v6.prolign(matrix))
 }
 
 object HexReg
 {
-  def cenV6(cen: Vec2, v6: Vec2): HexReg = HexRegImp(cen.x, cen.y, v6.x, v6.y)
+  def s2s5(s4Cen: Vec2, s1Cen: Vec2): HexReg = HexRegImp(s4Cen.x, s4Cen.y, s1Cen.x, s1Cen.y)
 
-  final case class HexRegImp(xS5Cen: Double, yS5Cen: Double, xS2Cen: Double, yS2Cen: Double) extends HexReg
+  final case class HexRegImp(xs4Cen: Double, ys4Cen: Double, xs1Cen: Double, ys1Cen: Double) extends HexReg
   {
     override def apply(index: Int): Vec2 = ???
-    def s2Cen: Vec2 = Vec2(xS2Cen, yS2Cen)
-    def s5Cen: Vec2 = Vec2(xS5Cen, yS5Cen)
+    def s4Cen: Vec2 = Vec2(xs4Cen, ys4Cen)
+    def s1Cen: Vec2 = Vec2(xs1Cen, ys1Cen)
     //override def sideLen: Double = (v6 - cen).magnitude
-    def xCen: Double = (xS5Cen + xS2Cen) / 2
-    def yCen: Double = (yS5Cen + yS2Cen) / 2
+    def xCen: Double = (xs1Cen + xs4Cen) / 2
+    def yCen: Double = (ys1Cen + ys4Cen) / 2
     @inline override def cen: Vec2 = Vec2(xCen, yCen)
-    @inline override def width = (s2Cen - s5Cen).magnitude
-
+    @inline override def dMin: Double = (s4Cen - s1Cen).magnitude
+    @inline override def dMax: Double = dMin * Sqrt3
     override def v1: Vec2 = v6.rotateAbout(cen, Deg60)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
