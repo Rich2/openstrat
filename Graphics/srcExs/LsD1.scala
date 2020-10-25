@@ -23,7 +23,7 @@ case class LsD1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D1")
 }
 
 object SText
-{ def apply(y: Double, str: String)  = TextGraphic(str, 24, -250 vv y, align = LeftAlign)
+{ def apply(y: Double, str: String)  = TextGraphic(str, -250 vv y, 24, align = LeftAlign)
 }
 
 object MText

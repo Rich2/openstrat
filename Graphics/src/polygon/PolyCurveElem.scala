@@ -49,7 +49,7 @@ case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: Stri
 { override type ThisT = PolyCurveFillDrawText
   override def fTrans(f: Vec2 => Vec2) = PolyCurveFillDrawText(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
+  def textOnly: TextGraphic = TextGraphic(str, shape.boundingRect.cen, fontSize, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
@@ -68,7 +68,7 @@ case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColou
 { override type ThisT = PolyCurveAll
   override def fTrans(f: Vec2 => Vec2) = PolyCurveAll(shape.fTrans(f), pointerId, str, fillColour, fontSize, lineWidth, lineColour)
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
-  def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
+  def textOnly: TextGraphic = TextGraphic(str, shape.boundingRect.cen, fontSize, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =

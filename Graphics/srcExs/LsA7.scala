@@ -16,13 +16,13 @@ case class LsA7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
   repaints(
       //A shape is just a closed sequence of curve segments */
       PolyCurve(LineTail(pt1), ArcTail(arcCentre, pt2), ArcTail(arcCentre, pt3), LineTail(pt4), BezierTail(ctrl1, ctrl2, pt5)).fill(Pink),
-      TextGraphic("pt1", 16, pt1),
-      TextGraphic("arcCentre", 16, arcCentre),
-      TextGraphic("pt2", 16, pt2),
-      TextGraphic("pt3", 16, pt3),
-      TextGraphic("pt4", 16, pt4),
-      TextGraphic("ctrl1", 16, ctrl1),
-      TextGraphic("ctrl2", 16, ctrl2),
-      TextGraphic("pt5", 16, pt5),
+      TextGraphic("pt1", pt1, 16),
+      TextGraphic("arcCentre", arcCentre, 16),
+      TextGraphic("pt2", pt2, 16),
+      TextGraphic("pt3", pt3, 16),
+      TextGraphic("pt4", pt4, 16),
+      TextGraphic("ctrl1", ctrl1, 16),
+      TextGraphic("ctrl2", ctrl2, 16),
+      TextGraphic("pt5", pt5, 16),
       )   
 }

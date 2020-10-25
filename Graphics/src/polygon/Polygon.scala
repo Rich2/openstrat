@@ -167,7 +167,7 @@ trait Polygon extends Shape with BoundedElem
     PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(PolygonActive(this, pointerID)))
 
   def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2.0, lineColour: Colour = Black): PolygonCompound =
-    PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(TextGraphic(str, fontSize, cen)))
+    PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr(TextGraphic(str, cen, fontSize)))
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), TextFacet(str, textColour)), Arr())
@@ -175,14 +175,14 @@ trait Polygon extends Shape with BoundedElem
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
     align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)),
-    Arr(TextGraphic(str, fontSize, cen, Black, align), PolygonActive(this, pointerID)))
+    Arr(TextGraphic(str, cen, fontSize, Black, align), PolygonActive(this, pointerID)))
 
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
-    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(TextGraphic(str, fontSize, cen, textColour)))
+    PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(TextGraphic(str, cen, fontSize, textColour)))
 
   def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
     PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour)),
-      Arr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cen, fontColour, align)))
+      Arr(PolygonActive(this, pointerEv), TextGraphic(str, cen, fontSize, fontColour, align)))
 
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): Polygon =

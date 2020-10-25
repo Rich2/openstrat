@@ -22,6 +22,6 @@ case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val els = Arr(el1, el2, el3)
 
   val hex = Hexlign(400).draw()
-  val hts = hex.vertsMap(v => TextGraphic(v.str0, 20, v))
+  val hts = hex.vertsMap(v => TextGraphic(v.str0, v, 20))
   repaint(circles ++ crosses ++ els +- hex ++ hts)
 }

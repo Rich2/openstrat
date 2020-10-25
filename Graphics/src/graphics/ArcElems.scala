@@ -9,10 +9,10 @@ final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour
 
   override def fTrans(f: Vec2 => Vec2): CArcDraw = CArcDraw(arc.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.cArcDraw(this)
-  def startText = TextGraphic("st", 10, arc.pStart, lineColour)
+  def startText = TextGraphic("st", arc.pStart, 10, lineColour)
   def clkStr: String = ife(arc.clock, "clk", "anti")
-  def cenText: TextGraphic = TextGraphic(clkStr, 10, arc.cen, lineColour)
-  def endText: TextGraphic = TextGraphic("end", 10, arc.pEnd, lineColour)
+  def cenText: TextGraphic = TextGraphic(clkStr, arc.cen, 10, lineColour)
+  def endText: TextGraphic = TextGraphic("end", arc.pEnd, 10, lineColour)
   def cenEndTexts = Arr(cenText, endText)
   def startCenEndTexts = Arr(startText, cenText, endText)
   

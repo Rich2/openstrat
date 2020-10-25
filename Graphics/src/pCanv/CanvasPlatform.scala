@@ -92,7 +92,7 @@ trait CanvasPlatform extends RectCenlign
   
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
-    textGraphic(TextGraphic(str, fontSize, posn, colour, align))
+    textGraphic(TextGraphic(str, posn, fontSize, colour, align))
    
   def textOutline(to: TextOutline): Unit
   final def textOutline(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, lineWidth: Double = 1, align: TextAlign = CenAlign): Unit =

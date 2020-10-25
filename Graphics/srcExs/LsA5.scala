@@ -27,7 +27,7 @@ case class LsA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
   val a1 = Arr(d1, d2, d3, d4, d5, d6)
   val a2 = a1 ++ a1.flatMap(_.startCenEndTexts)
 
-  val cen6 = TextGraphic("c6 cen", 14, -100 vv 200)
+  val cen6 = TextGraphic("c6 cen", -100 vv 200, 14)
   repaint(a2)
 }
 

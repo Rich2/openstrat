@@ -31,17 +31,16 @@ object BaseLine
 
 /** A Graphical display of Text.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
-case class TextGraphic(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-  baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem
+case class TextGraphic(str: String, posn: Vec2 = Vec2Z, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem
 { type ThisT = TextGraphic
-  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
+  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, f(posn), fontSize, colour, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 
 /** Not sure if this is a good object to have. */
 object TextGraphicCen
 { def apply(str: String, fontSize: Int, posn : Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
-    new TextGraphic(str, fontSize, posn, colour, CenAlign, BaseLine.Alphabetic)
+    new TextGraphic(str, posn, fontSize, colour, CenAlign, BaseLine.Alphabetic)
 }
 
 object TextGraphic
@@ -50,7 +49,7 @@ object TextGraphic
             align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): Arr[TextGraphic] =
   { val len = strs.elemsLen
     if(len == 0) Arr()
-      else strs.iMap((str, i) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
+      else strs.iMap((str, i) => TextGraphic(str, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontSize, fontColour, align, baseLine))
   }
 }
 
