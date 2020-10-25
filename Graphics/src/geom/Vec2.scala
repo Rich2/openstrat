@@ -58,7 +58,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def yScale(factor: Double): Vec2 = Vec2(x, y * factor)
   def xScale(factor: Double): Vec2 = Vec2(x * factor, y)
   def xyScale(xOperand: Double, yOperand: Double): Vec2 = Vec2(x * xOperand, y * yOperand)
-  /** Reflects or mirrors this across a line. */
+
+  /** Reflects or mirrors this Vec2 across a line, returning new Vec2. */
   def reflect(lineLike: LineLike): Vec2 = lineLike match {
     case xl: XLine => reflectXLine(xl)
     case yl: YLine => reflectYLine(yl)
@@ -207,6 +208,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   def alignMatrix(matrix: AlignMatrix): Vec2 = Vec2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 }
 
+
+/** Companion object for Vec2. contains Apply factory method. */
 object Vec2
 { def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
