@@ -17,6 +17,9 @@ trait HexReg extends Polygon6Plus
   def s1Cen: Vec2
   def s4Cen: Vec2
 
+  /** A Hexagon has 6 vertices. */
+  final override def vertsNum: Int = 6
+
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(offset: Vec2): HexReg = HexReg.s2s5(cen + offset, v6 + offset)
@@ -96,8 +99,6 @@ object HexReg
     override def yVertsArray: Array[Double] = ???
 
     override def foreachPairTail[U](f: (Double, Double) => U): Unit = ???
-
-    override def vertsNum: Int = 6
 
     /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
     override def xVertGet(index: Int): Double = ???
