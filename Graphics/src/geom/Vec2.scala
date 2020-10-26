@@ -7,7 +7,7 @@ import math._, collection.mutable.ArrayBuffer
  *  was a great idea. */
 final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
 {
-  override def toString: String = Vec2.persistImplicit.show(this)
+  override def toString: String = Vec2.persistImplicit.show(this, 0)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def _1 = x
   @inline override def _2 = y

@@ -7,7 +7,7 @@ import math._
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 final class LatLong private(val latSecs: Double, val longSecs: Double) extends LatLongBase with ProdDbl2
 {
-  override def toString: String = LatLong.persistImplict.show(this)
+  override def toString: String = LatLong.persistImplict.show(this, 0)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = latSecs
   def _2 = longSecs

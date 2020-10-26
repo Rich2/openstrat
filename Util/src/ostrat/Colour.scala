@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with ProdInt1
 { 
-  override def toString: String = Colour.persistImplicit.show(this)
+  override def toString: String = Colour.persistImplicit.show(this, 0)
   @inline final override def intValue: Int = argbValue 
   def webStr: String = "#" + rgbHexStr + alpha.hexStr2
   def svgStr: String = Colour.valueToStr.get(this).fold(hexStr)(_.toLowerCase)
@@ -102,7 +102,7 @@ object Colour
       }
       case _ => expr.exprParseErr[Colour](this)
     }
-    def show(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
+    def show(obj: Colour, decimalPlaces: Int): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 
   implicit val arrBuildImplicit: ArrBuild[Colour, Colours] = ColoursBuild

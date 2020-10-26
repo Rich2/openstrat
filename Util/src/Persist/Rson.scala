@@ -3,12 +3,12 @@ package ostrat
 
 class Rval(val str: String) extends AnyVal
 {
-  def - [A](value: A)(implicit ev: Persist[A]): Rval = new Rval(str + "\n" + ev.show(value) + ";")
+  def - [A](value: A)(implicit ev: Persist[A]): Rval = new Rval(str + "\n" + ev.show(value, 0) + ";")
 }
 
 object Rval
 {
-  def apply[A](value: A)(implicit ev: Persist[A]): Rval = new Rval(ev.show(value) + ";")
+  def apply[A](value: A)(implicit ev: Persist[A]): Rval = new Rval(ev.show(value, 0) + ";")
 }
 
 class Sett(val str: String) extends AnyVal
@@ -16,12 +16,12 @@ class Sett(val str: String) extends AnyVal
   /** Not sure why this method is called ap. */
   def ap[A](setting: String, value: A)(implicit ev: Persist[A]): Sett =
   {
-    new Sett(str + "\n" + setting + " = " + ev.show(value) + ";")
+    new Sett(str + "\n" + setting + " = " + ev.show(value, 0) + ";")
   }
 }
 
 object Sett
 {
-  def apply[A](setting: String, value: A)(implicit ev: Persist[A]): Sett = new Sett(setting + " = " + ev.show(value) + ";")
+  def apply[A](setting: String, value: A)(implicit ev: Persist[A]): Sett = new Sett(setting + " = " + ev.show(value, 0) + ";")
 }
 

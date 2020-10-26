@@ -36,7 +36,7 @@ abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends Pers
 trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
 {
   def showSemi(thisIter: R): String = thisIter.map(evA.showComma(_)).semiFold
-  override def showComma(thisIter: R): String = ife (thisIter.size == 1, evA.show(thisIter.head) + ",", thisIter.map(evA.show(_)).commaFold)
+  override def showComma(thisIter: R): String = ife (thisIter.size == 1, evA.show(thisIter.head, 0) + ",", thisIter.map((obj: A) => evA.show(obj, 0)).commaFold)
 }
 
 /*class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](ev)

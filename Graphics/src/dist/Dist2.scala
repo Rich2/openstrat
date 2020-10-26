@@ -5,7 +5,7 @@ import math._
 
 /** 2 dimensional vector using metres as units rather than pure scalar numbers. */
 final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
-{ override def toString: String = Dist2.PersistImplicit.show(this)
+{ override def toString: String = Dist2.PersistImplicit.show(this, 0)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
   def x: Dist = Dist(xMetres)
   def y: Dist = Dist(yMetres)

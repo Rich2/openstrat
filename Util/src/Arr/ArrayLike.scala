@@ -337,6 +337,6 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 }
 
 case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: Show[A]) extends ShowSeqLike[A, R]
-{ def showComma(obj: R): String = obj.toStrsCommaFold(evA.show(_))
+{ def showComma(obj: R): String = obj.toStrsCommaFold((obj: A) => evA.show(obj, 0))
   def showSemi(obj: R): String = obj.toStrsSemiFold(evA.showComma(_))
 }

@@ -100,7 +100,7 @@ abstract class ArrHomoDbl5Builder[A <: ProdDbl5, M <: ArrProdDbl5[A]](typeStr: S
   override def syntaxDepth = 3
   /** Not sure about this implementation. */
   override def showSemi(thisColl: M): String = ??? // thisColl.mapBy2(_ + ", " + _ ).mkString("; ")
-  override def showComma(thisColl: M): String = show(thisColl)
+  override def showComma(thisColl: M): String = show(thisColl, 0)
   //override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
   //override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
 }

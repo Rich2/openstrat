@@ -19,7 +19,7 @@ object WTile
 
   implicit val persistImplicit: Persist[WTile] = new PersistSimple[WTile]("Terrain")
   {
-    def show(obj: WTile): String = obj.str
+    def show(obj: WTile, decimalPlaces: Int): String = obj.str
     def fromExpr(expr: ParseExpr): EMon[WTile] = ???
   }
 

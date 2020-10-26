@@ -10,7 +10,7 @@ trait Show[-T]
   def typeStr: String
 
   /** Provides the standard string representation for the object. */
-  def show(obj: T): String
+  def show(obj: T, decimalPlaces: Int): String
   
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2 */
   def syntaxDepth: Int  
@@ -30,10 +30,10 @@ trait Show[-T]
    * will return Int(4) */
   def showTyped(obj: T): String
 
-  def show0(obj: T): String = show(obj)
-  def show1(obj: T): String = show(obj)
-  def show2(obj: T): String = show(obj)
-  def show3(obj: T): String = show(obj)
+  /*def show0(obj: T): String = show(obj, 0)
+  def show1(obj: T): String = show(obj, 0)
+  def show2(obj: T): String = show(obj, 0)
+  def show3(obj: T): String = show(obj, 0)*/
  }
 
 /* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
@@ -44,7 +44,7 @@ object Show //extends ShowInstancesPriority2
 {
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int") {
     //override def findUniqueFromStatements(sts: Statements): EMon[Int] =
-    def show(obj: Int): String = obj.toString
+    def show(obj: Int, decimalPlaces: Int): String = obj.toString
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match {
       case DecimalToken(_, i) => Good(i.toInt)
@@ -55,11 +55,17 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
-  { def show(obj: Double): String = obj.str
-    override def show0(obj: Double): String = f"$obj%1.0f"
+  { def show(obj: Double, decimalPlaces: Int = 10): String = decimalPlaces match {
+    case 0 => f"$obj%1.0f"
+    case 1 => f"$obj%1.1f"
+    case 2 => f"$obj%1.2f"
+    case 3 => f"$obj%1.3f"
+    case _ => obj.toString
+  }
+    /*override def show0(obj: Double): String = f"$obj%1.0f"
     override def show1(obj: Double): String = f"$obj%1.1f"
     override def show2(obj: Double): String = f"$obj%1.2f"
-    override def show3(obj: Double): String = f"$obj%1.3f"
+    override def show3(obj: Double): String = f"$obj%1.3f"*/
     override def fromExpr(expr: Expr): EMon[Double] = expr match
     { case DecimalToken(_, i) => Good(i.toDouble)
       case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
@@ -72,7 +78,7 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val longPersistImplicit: Persist[Long] = new PersistSimple[Long]("Long")
-  { def show(obj: Long): String = obj.toString
+  { def show(obj: Long, decimalPlaces: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Long] = expr match
     { case DecimalToken(_, i) => Good(i.toLong)
       case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
@@ -82,7 +88,7 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val floatPersistImplicit: Persist[Float] = new PersistSimple[Float]("SFloat")
-  { def show(obj: Float): String = obj.toString
+  { def show(obj: Float, decimalPlaces: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Float] = expr match
     { case DecimalToken(_, i) => Good(i.toFloat)
       case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
@@ -95,7 +101,7 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val BooleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
-  { override def show(obj: Boolean): String = obj.toString
+  { override def show(obj: Boolean, decimalPlaces: Int): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case IdentifierLowerOnlyToken(_, str) if str == "true" => Good(true)
       case IdentifierLowerOnlyToken(_, str) if str == "false" => Good(false)
@@ -104,7 +110,7 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val stringPersistImplicit: Persist[String] = new PersistSimple[String]("Str")
-  { def show(obj: String): String = obj.enquote
+  { def show(obj: String, decimalPlaces: Int): String = obj.enquote
     override def fromExpr(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
       case  _ => expr.exprParseErr[String]
@@ -112,7 +118,7 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val charPersistImplicit: Persist[Char] = new PersistSimple[Char]("Char")
-  { def show(obj: Char): String = obj.toString.enquote1
+  { def show(obj: Char, decimalPlaces: Int): String = obj.toString.enquote1
     override def fromExpr(expr: Expr): EMon[Char] = expr match
     { case CharToken(_, char) => Good(char)
       case  _ => expr.exprParseErr[Char]
@@ -137,7 +143,7 @@ object Show //extends ShowInstancesPriority2
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](Show.intPersistImplicit)
   {
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
-    override def showComma(thisArray: Array[Int]): String = thisArray.map(evA.show(_)).commaFold
+    override def showComma(thisArray: Array[Int]): String = thisArray.map((obj: Int) => evA.show(obj, 0)).commaFold
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
@@ -150,7 +156,7 @@ object Show //extends ShowInstancesPriority2
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
     override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map(ev.show(_)).commaFold
+    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.show(obj, 0)).commaFold
 
     override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
     { case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
@@ -164,7 +170,7 @@ object Show //extends ShowInstancesPriority2
   class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
   {
     override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
-    override def showComma(thisArray: Array[A]): String = thisArray.map(ev.show(_)).commaFold
+    override def showComma(thisArray: Array[A]): String = thisArray.map((obj: A) => ev.show(obj, 0)).commaFold
 
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
@@ -178,14 +184,14 @@ object Show //extends ShowInstancesPriority2
   implicit def arraySeqImplicit[A](implicit ev: Show[A]): Show[collection.immutable.ArraySeq[A]] = new ShowSeqLike[A, ArraySeq[A]]
   { override def evA: Show[A] = ev
     override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map(ev.show(_)).commaFold
+    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.show(obj, 0)).commaFold
   }
 
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
   {
     override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepth: Int = ev.syntaxDepth
-    override def show(obj: Some[A]) = ev.show(obj.value)
+    override def show(obj: Some[A], decimalPlaces: Int): String = ev.show(obj.value, 0)
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
     override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
@@ -198,7 +204,7 @@ object Show //extends ShowInstancesPriority2
 
   implicit val nonePersistImplicit: Persist[None.type] = new PersistSimple[None.type]("None")
   {
-    override def show(obj: None.type) = ""
+    override def show(obj: None.type, decimalPlaces: Int): String = ""
 
     def fromExpr(expr: Expr): EMon[None.type] = expr match
     { case IdentifierLowerOnlyToken(_, "None") => Good(None)
