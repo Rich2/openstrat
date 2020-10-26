@@ -16,11 +16,6 @@ trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
     case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case _ => expr.exprParseErr[R](this)
   }
-
-  /** Not sure about this method */
- // def fromParameterStatements(sts: Refs[Statement]): EMon[R]
-
-  //override def fromStatements(sts: Refs[Statement]): EMon[R] = fromParameterStatements(sts)
 }
 
 trait ShowSeqLike[A, R] extends ShowCompound[R]
