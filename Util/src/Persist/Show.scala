@@ -10,7 +10,7 @@ trait Show[-T]
   def typeStr: String
 
   /** Provides the standard string representation for the object. */
-  def show(obj: T, decimalPlaces: Int): String
+  def show(obj: T, decimalPlaces: Int = 10): String
   
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2 */
   def syntaxDepth: Int  

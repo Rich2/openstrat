@@ -7,7 +7,7 @@ import collection.mutable.ArrayBuffer, Colour.Black
  *  ambiguity. */
 class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with LineLike with CurveLikeOld
 { override type ThisT = LineSeg
-  override def toString: String = LineSeg.persistImplicit.show(this, 0)
+  override def toString: String = LineSeg.persistImplicit.show(this)
   override def _1 = xStart
   override def _2 = yStart
   override def _3 = xEnd

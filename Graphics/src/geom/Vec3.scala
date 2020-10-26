@@ -7,7 +7,7 @@ import math._
  *  system is the default */
 final class Vec3 (val x: Double, val y: Double, val z: Double) extends ProdDbl3
 {
-  override def toString: String = Vec3.PersistImplicit.show(this, 0)
+  override def toString: String = Vec3.PersistImplicit.show(this, 10)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec3]
 
   def _1 = x
