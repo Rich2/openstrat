@@ -29,7 +29,10 @@ trait Show[-T]
   /** For most objects showTyped will return the same value as show(obj: T), for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */
   def showTyped(obj: T): String
-
+  def show0(obj: T): String = show(obj)
+  def show1(obj: T): String = show(obj)
+  def show2(obj: T): String = show(obj)
+  def show3(obj: T): String = show(obj)
  }
 
 /* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
@@ -52,6 +55,10 @@ object Show //extends ShowInstancesPriority2
 
   implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
   { def show(obj: Double): String = obj.str
+    override def show0(obj: Double): String = f"$obj%1.0f"
+    override def show1(obj: Double): String = f"$obj%1.1f"
+    override def show2(obj: Double): String = f"$obj%1.2f"
+    override def show3(obj: Double): String = f"$obj%1.3f"
     override def fromExpr(expr: Expr): EMon[Double] = expr match
     { case DecimalToken(_, i) => Good(i.toDouble)
       case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)

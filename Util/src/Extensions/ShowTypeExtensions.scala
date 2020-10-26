@@ -17,6 +17,11 @@ class ShowerTypeExtensions[-A](ev: Show[A], thisVal: A)
   /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */
   @inline def strTyped: String = ev.showTyped(thisVal)
+
+  def str0: String = ev.show0(thisVal)
+  def str1: String = ev.show1(thisVal)
+  def str2: String = ev.show2(thisVal)
+  def str3: String = ev.show3(thisVal)
 }
 
 class Show2erTypeExtensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)
