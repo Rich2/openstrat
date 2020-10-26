@@ -30,7 +30,6 @@ trait Show[-T]
    * will return Int(4) */
   def showTyped(obj: T): String
 
-
   def show0(obj: T): String = show(obj)
   def show1(obj: T): String = show(obj)
   def show2(obj: T): String = show(obj)
