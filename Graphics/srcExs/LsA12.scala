@@ -9,8 +9,6 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
 
   val hex = Hexlign(400)
   val hd = hex.draw()
-  debvar(hex.s1.length)
-  debvar(hex.s2.length)
   val htv = hex.vertsMap(v => Circle(50, v).fill(Yellow))
   val hts = hex.vertsMap(v => TextGraphic(v.str0, v, 20))
   repaint(htv ++ hts +- hd +- c1 +- c2)

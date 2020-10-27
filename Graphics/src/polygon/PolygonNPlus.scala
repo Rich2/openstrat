@@ -14,27 +14,27 @@ trait Polygon3Plus extends Polygon
   /** The 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
    *  from 12 o'clock. */
   def v1: Vec2
-  /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
+  /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def x2: Double
-  /** The Y component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
+  /** The Y component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def y2: Double
-  /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex immediately clockwise from
+  /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
   def v2: Vec2
-  /** The X component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
+  /** The X component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def x3: Double
-  /** The Y component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
+  /** The Y component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def y3: Double
-  /** The 3rd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex immediately clockwise from
+  /** The 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
   def v3: Vec2
 
   /** The last vertex. */
-  override def vLast: Vec2 = apply(vertsNum - 1)
+  override def vLast: Vec2 = apply(vertsNum)
 
   /** Side 1. */
   def s1: LineSeg = LineSeg(vLast, v1)
