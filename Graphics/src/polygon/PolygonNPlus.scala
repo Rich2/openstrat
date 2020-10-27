@@ -32,6 +32,18 @@ trait Polygon3Plus extends Polygon
   /** The 3rd Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
   def v3: Vec2
+
+  /** The last vertex. */
+  override def vLast: Vec2 = apply(vertsNum - 1)
+
+  /** Side 1. */
+  def s1: LineSeg = LineSeg(vLast, v1)
+
+  /** Side 2. */
+  def s2: LineSeg = LineSeg(v1, v2)
+
+  /** Side 3. */
+  def s3: LineSeg = LineSeg(v2, v3)
 }
 
 /** A [[Polygon]] with at least 4 vertices. */

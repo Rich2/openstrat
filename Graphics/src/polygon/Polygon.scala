@@ -54,8 +54,11 @@ trait Polygon extends Shape with BoundedElem
   /** The Y component of the 1st vertex, will throw on a 0 vertices polygon. */
   def y1: Double
 
-  /* The 1st vertex, will throw on a 0 vertices polygon. */
+  /** The 1st vertex, will throw on a 0 vertices polygon. */
   def v1: Vec2
+
+  /** The last vertex will thow an exception on a 0 vertices polygon. */
+  def vLast: Vec2 = apply(vertsNum - 1)
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =
