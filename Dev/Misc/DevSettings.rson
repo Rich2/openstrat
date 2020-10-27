@@ -51,6 +51,7 @@ displayY = 0;
     ("A9", (learn.LessonA9(_), "JavaFx Demonstration Canvas 9")),
     ("A10", (learn.LessonA10(_), "JavaFx Demonstration Canvas 10")),
     ("A11", (learn.LessonA11(_), "Reflecting a point across a Line")),
+    ("A12", (learn.LsA12(_), "Hexagons")),
     
     ("B1", (learn.LessonB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
     ("B2", (learn.LessonB2(_), "JavaFx Demonstration Animated Canvas 2")),

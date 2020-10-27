@@ -52,7 +52,8 @@ object Apps
     ("A9", (learn.LsA9(_), "JavaFx Demonstration Canvas 9")),
     ("A10", (learn.LsA10(_), "JavaFx Demonstration Canvas 10")),
     ("A11", (learn.LsA11(_), "Reflecting a point across a Line")),
-    
+    ("A12", (learn.LsA12(_), "Hexagons")),
+
     ("B1", (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
     ("B2", (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")),
     ("B3", (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")),

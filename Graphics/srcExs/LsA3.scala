@@ -11,7 +11,8 @@ case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val e0: Ellipse = c0.xyScale(2, 3)
   val a1 = List(c0, d0).xyScale(2, 3)
   
-  val c1 = Circle(100).fill(Green)
+  val c1 = Circle(200).fill(Green)
+
   val c1d = c1.scale2.toDraw()
   val circles = Arr(c1, Circle(100, 0, 200).fill(Violet), Circle(100, 200, 0).fill(SandyBrown), Circle(100, 0, -200).fill(Turquoise), c1d)
   val crosses =  Vec2s(0 vv 0, -100 vv 0, 100 vv 0, 0 vv 100).flatMap(v => Cross(1, v))
@@ -21,7 +22,5 @@ case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val el3 = el2.xSlate(100).toDraw(2)
   val els = Arr(el1, el2, el3)
 
-  val hex = Hexlign(400).draw()
-  val hts = hex.vertsMap(v => TextGraphic(v.str0, v, 20))
-  repaint(circles ++ crosses ++ els +- hex ++ hts)
+  repaint(circles ++ crosses ++ els +- c1d)
 }

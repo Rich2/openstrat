@@ -13,11 +13,7 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   override def _3 = xEnd
   override def _4 = yEnd
 
-  /** The start point of this SLine. */
- // @inline def vStart: Vec2 = xStart vv yStart
 
-  /** The end point of this Sline. */
-  //@inline def vEnd: Vec2 = xEnd vv yEnd
 
   override def canEqual(that: Any): Boolean = that match
   { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
@@ -53,6 +49,8 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
 
   /** The relative position of the end point from the start point. */
   @inline def delta: Vec2 = pEnd - pStart
+
+  @inline def length: Double = delta.magnitude
 
   /** Gives the Vec2 point at the specified distance to the right of the end point. At the end point turn right 90 degrees and then travel the given
    * distance to the point. The Vec2 of that point is returned by this method. */
