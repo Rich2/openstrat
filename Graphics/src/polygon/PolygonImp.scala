@@ -8,6 +8,7 @@ import Colour.Black, pWeb._
 final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { type ThisT = PolygonImp
 
+  def vert(index: Int): Vec2 = apply(index - 1)
   def foreachPt(f: Vec2 => Unit): Unit = iUntilForeach(0, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))
 
   override def foreachVert(f: Vec2 => Unit): Unit =
@@ -38,8 +39,8 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def productArity: Int = 1
   override def productElement(n: Int): Any = arrayUnsafe
 
-  override def xVertGet(index: Int): Double = arrayUnsafe(index * 2 + dblsNumOffset)
-  override def yVertGet(index: Int): Double = arrayUnsafe(index * 2 + 1 + dblsNumOffset)
+  override def xVert(index: Int): Double = arrayUnsafe(index * 2 + dblsNumOffset)
+  override def yVert(index: Int): Double = arrayUnsafe(index * 2 + 1 + dblsNumOffset)
   @inline def x1: Double = arrayUnsafe(0 + dblsNumOffset)
   @inline def y1: Double = arrayUnsafe(1 + dblsNumOffset)
   @inline def v1: Vec2 = x1 vv y1
@@ -57,13 +58,13 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   override def xVertsArray: Array[Double] =
   { val newArray = new Array[Double](vertsNum)
-    iUntilForeach(0, vertsNum){i => newArray(i) = xVertGet(i)}
+    iUntilForeach(0, vertsNum){i => newArray(i) = xVert(i)}
     newArray
   }
 
   override def yVertsArray: Array[Double] =
   { val newArray = new Array[Double](vertsNum)
-    iUntilForeach(0, vertsNum){i => newArray(i) = yVertGet(i)}
+    iUntilForeach(0, vertsNum){i => newArray(i) = yVert(i)}
     newArray
   }
 

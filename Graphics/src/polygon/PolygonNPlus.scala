@@ -34,7 +34,7 @@ trait Polygon3Plus extends Polygon
   def v3: Vec2
 
   /** The last vertex. */
-  override def vLast: Vec2 = apply(vertsNum)
+  override def vLast: Vec2 = vert(vertsNum)
 
   /** Side 1. */
   def s1: LineSeg = LineSeg(vLast, v1)

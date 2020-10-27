@@ -29,7 +29,7 @@ trait Polygon extends Shape with BoundedElem
     acc
   }
 
-  def apply(index: Int): Vec2
+  def vert(index: Int): Vec2
   override def attribs: Arr[XANumeric] = ???
   override def cen: Vec2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
@@ -43,10 +43,10 @@ trait Polygon extends Shape with BoundedElem
   def vertsNum: Int
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def xVertGet(index: Int): Double
+  def xVert(index: Int): Double
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def yVertGet(index: Int): Double
+  def yVert(index: Int): Double
 
   /** The X component of the 1st vertex, will throw on a 0 vertices polygon. */
   def x1: Double
@@ -58,12 +58,12 @@ trait Polygon extends Shape with BoundedElem
   def v1: Vec2
 
   /** The last vertex will thow an exception on a 0 vertices polygon. */
-  def vLast: Vec2 = apply(vertsNum - 1)
+  def vLast: Vec2 = vert(vertsNum)
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =
-  { var minX, maxX = xVertGet(0)
-    var minY, maxY = yVertGet(0)
+  { var minX, maxX = x1
+    var minY, maxY = y1
     foreachVertTail{v =>
       minX = minX.min(v.x)
       maxX = maxX.max(v.x)
@@ -132,8 +132,8 @@ trait Polygon extends Shape with BoundedElem
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs =if (vertsNum > 1)
   { val res: LineSegs = LineSegs(vertsNum)
-    for (i <- 0 until (vertsNum - 1)) res.unsafeSetElem(i, LineSeg(apply(i), apply(i + 1)))
-    res.unsafeSetLast(LineSeg(apply(vertsNum - 1), apply(0)))
+    for (i <- 0 until (vertsNum - 1)) res.unsafeSetElem(i, LineSeg(vert(i), vert(i + 1)))
+    res.unsafeSetLast(LineSeg(vert(vertsNum - 1), vert(0)))
     res
   }
   else LineSegs()
@@ -145,7 +145,7 @@ trait Polygon extends Shape with BoundedElem
 
   def sline(index: Int): LineSeg =
   { val endVertNum: Int = ife(index == vertsNum - 1, 0, index + 1)
-    LineSeg(apply(index), apply(endVertNum))
+    LineSeg(vert(index), vert(endVertNum))
   }
 
   def sline0: LineSeg = sline(0)
@@ -190,18 +190,18 @@ trait Polygon extends Shape with BoundedElem
   /** Insert vertice */
   def insVert(insertionPoint: Int, newVec: Vec2): Polygon =
   { val res = PolygonImp.factory(vertsNum + 1)
-    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
+    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
     res.unsafeSetElem(insertionPoint, newVec)
-    (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
+    (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + 1, vert(i)))
     res
   }
 
   /** Insert vertices */
   def insVerts(insertionPoint: Int, newVecs: Vec2 *): Polygon =
   { val res = PolygonImp.factory(vertsNum + newVecs.length)
-    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
+    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
-    (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
+    (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + newVecs.length, vert(i)))
     res
   }
 }

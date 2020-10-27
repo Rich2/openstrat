@@ -8,7 +8,7 @@ trait Triangle extends Polygon3Plus
 	override def v1: Vec2 = x1 vv y1
 	override def v3: Vec2 = x3 vv y3
 
-	override def apply(index: Int): Vec2 = index match
+	override def vert(index: Int): Vec2 = index match
 	{	case 1 => v1
 		case 2 => v2
 		case 3 => v3
@@ -52,14 +52,14 @@ trait Triangle extends Polygon3Plus
 	override def yShear(operand: Double): Triangle = fTrans(_.yShear(operand))
 	override def slateTo(newCen: Vec2): Triangle = fTrans(_ + newCen - cen)
 
-	override def xVertGet(index: Int): Double = index match
+	override def xVert(index: Int): Double = index match
 	{	case 1 => x1
 		case 2 => x2
 		case 3 => x3
 		case n => excep(n.str + " is out of range for a triangle.")
 	}
 
-	override def yVertGet(index: Int): Double = index match
+	override def yVert(index: Int): Double = index match
 	{	case 1 => y1
 		case 2 => y2
 		case 3 => y3

@@ -63,7 +63,7 @@ object HexReg
   /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xs4Cen: Double, ys4Cen: Double, xs1Cen: Double, ys1Cen: Double) extends HexReg
   {
-    override def apply(index: Int): Vec2 = ???
+    override def vert(index: Int): Vec2 = ???
     def s4Cen: Vec2 = Vec2(xs4Cen, ys4Cen)
     def s1Cen: Vec2 = Vec2(xs1Cen, ys1Cen)
     def xCen: Double = (xs1Cen + xs4Cen) / 2
@@ -100,10 +100,10 @@ object HexReg
     override def foreachPairTail[U](f: (Double, Double) => U): Unit = ???
 
     /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-    override def xVertGet(index: Int): Double = ???
+    override def xVert(index: Int): Double = ???
 
     /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-    override def yVertGet(index: Int): Double = ???
+    override def yVert(index: Int): Double = ???
 
     /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
      * traits / classes. */

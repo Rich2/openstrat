@@ -29,7 +29,7 @@ class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extends HexR
   override def y6: Double = rMin
   override def v6: Vec2 = Vec2(-rMax / 2, rMin)
 
-  override def apply(index: Int): Vec2 = index match
+  override def vert(index: Int): Vec2 = index match
   { case 1 => v1
     case 2 => v2
     case 3 => v3
@@ -52,10 +52,10 @@ class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extends HexR
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = ???
 
     /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def xVertGet(index: Int): Double = ???
+  override def xVert(index: Int): Double = ???
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def yVertGet(index: Int): Double = ???
+  override def yVert(index: Int): Double = ???
 
   override def productArity: Int = ???
 

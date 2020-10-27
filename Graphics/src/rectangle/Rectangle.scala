@@ -37,27 +37,27 @@ trait Rectangle extends Polygon4Plus
   def yAttrib: YAttrib = YAttrib(y4)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
-  @inline final override def apply(index: Int): Vec2 = index match
-  { case 0 => v1
-    case 1 => v2
-    case 2 => v3
-    case 3 => v4
+  @inline final override def vert(index: Int): Vec2 = index match
+  { case 1 => v1
+    case 2 => v2
+    case 3 => v3
+    case 4 => v4
     case n => excep("Index: " + n.toString + " out of range. Only 4 vertices in a Rectangle.")
   }
 
-  override def xVertGet(index: Int): Double = index match
-  { case 0 => x1
-    case 1 => x2
-    case 2 => x3
-    case 3 => x4
+  override def xVert(index: Int): Double = index match
+  { case 1 => x1
+    case 2 => x2
+    case 3 => x3
+    case 4 => x4
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
-  override def yVertGet(index: Int): Double = index match
-  { case 0 => y1
-    case 1 => y2
-    case 2 => y3
-    case 3 => y4
+  override def yVert(index: Int): Double = index match
+  { case 1 => y1
+    case 2 => y2
+    case 3 => y3
+    case 4 => y4
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
