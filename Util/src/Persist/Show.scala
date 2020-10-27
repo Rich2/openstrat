@@ -42,8 +42,8 @@ trait Show[-T]
    Persist type instances, and these will be placed in the Persist companion object. */
 object Show //extends ShowInstancesPriority2
 {
-  implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int") {
-    //override def findUniqueFromStatements(sts: Statements): EMon[Int] =
+  implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int")
+  {
     def show(obj: Int, decimalPlaces: Int): String = obj.toString
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match {
@@ -55,17 +55,15 @@ object Show //extends ShowInstancesPriority2
   }
 
   implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
-  { def show(obj: Double, decimalPlaces: Int = 10): String = decimalPlaces match {
-    case 0 => f"$obj%1.0f"
-    case 1 => f"$obj%1.1f"
-    case 2 => f"$obj%1.2f"
-    case 3 => f"$obj%1.3f"
-    case _ => obj.toString
-  }
-    /*override def show0(obj: Double): String = f"$obj%1.0f"
-    override def show1(obj: Double): String = f"$obj%1.1f"
-    override def show2(obj: Double): String = f"$obj%1.2f"
-    override def show3(obj: Double): String = f"$obj%1.3f"*/
+  {
+    def show(obj: Double, decimalPlaces: Int = 10): String = decimalPlaces match
+    { case 0 => f"$obj%1.0f"
+      case 1 => f"$obj%1.1f"
+      case 2 => f"$obj%1.2f"
+      case 3 => f"$obj%1.3f"
+      case _ => obj.toString
+    }
+
     override def fromExpr(expr: Expr): EMon[Double] = expr match
     { case DecimalToken(_, i) => Good(i.toDouble)
       case PreOpExpr(op, DecimalToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)

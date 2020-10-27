@@ -23,6 +23,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   /** Returns the square root of this Double. */
   def sqrt: Double = math.sqrt(thisDouble)
 
+  /** String representation for Double that drops the decimal point and zero for integer values. */
   def str: String = thisDouble.toLong match
   { case l if l == thisDouble => l.toString
     case _ => thisDouble.toString
@@ -44,9 +45,6 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
     }
     acc.reverse
   }
-
-  def subMin(operand: Double, minValue: Double): Double = (thisDouble - operand).max(minValue)
-  def ifNeg[A](vNeg: => A, vPos: => A): A = if (thisDouble < 0) vNeg else vPos
   
   /** If this between plus and minus the operand */
   def >< (operand: Double): Boolean =

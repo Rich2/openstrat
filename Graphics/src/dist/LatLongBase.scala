@@ -18,8 +18,8 @@ trait LatLongBase
   @inline final def longMins: Double = longSecs / 60
 
   override def toString: String = degStr
-  def latLetter: String = latRadians.ifNeg("S", "N")
-  def longLetter: String = longRadians.ifNeg("W", "E")
+  def latLetter: String = ife(latRadians < 0, "S", "N")
+  def longLetter: String = ife(longRadians < 0, "W", "E")
 
   def latDegStr: String = latDegs.abs.str2 + latLetter
   def longDegStr: String = longDegs.abs.str2 + longLetter
