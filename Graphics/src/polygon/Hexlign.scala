@@ -28,32 +28,9 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
   override def x6: Double = xCen - rMax / 2
   override def y6: Double = yCen + rMin
   @inline override def v6: Vec2 = Vec2(x6, y6)
-
-  override def vert(index: Int): Vec2 = index match
-  { case 1 => v1
-    case 2 => v2
-    case 3 => v3
-    case 4 => v4
-    case 5 => v5
-    case 6 => v6
-    case n => excep("$index is out of range for a Hexagon vertex")
-  }
   
   override def s4Cen: Vec2 = Vec2(0, -rMin)
   override def s1Cen: Vec2 = Vec2(0, rMin)
-  override def ptsArray: Array[Double] = ???
-
-  override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4, x5, x6)
-
-  override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4, y5, y6)
-
-  override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5);  f(x6, y6) }
-
-    /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def xVert(index: Int): Double = ???
-
-  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def yVert(index: Int): Double = ???
 
   override def productArity: Int = ???
 
