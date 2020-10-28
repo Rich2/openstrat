@@ -65,7 +65,7 @@ trait Polygon extends Shape with BoundedElem
   override def cen: Vec2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillHex(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
-  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
+  override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))

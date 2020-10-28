@@ -9,7 +9,7 @@ trait Ellipse extends Shape with Curve
 {
   override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
   override def fillHex(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
-  override def draw(lineWidth: Double, lineColour: Colour = Black): EllipseDraw = EllipseDraw(this, lineWidth, lineColour)
+  override def draw(lineColour: Colour = Black, lineWidth: Double): EllipseDraw = EllipseDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): GraphicElem =
     EllipseCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)))

@@ -21,7 +21,7 @@ trait Rectangle extends Polygon4Plus
 
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
   override def fillHex(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
-  override def draw(lineWidth: Double, lineColour: Colour): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
+  override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
   override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3, x4, y4)
 

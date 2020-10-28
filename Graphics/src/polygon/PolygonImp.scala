@@ -91,7 +91,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
 
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
-  override def draw(lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
+  override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   @inline override def polygonMap(f: Vec2 => Vec2): PolygonImp = vertsMap(f).toPolygon
 

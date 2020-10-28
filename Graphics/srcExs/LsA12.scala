@@ -5,7 +5,7 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
 {
   val c1 = Circle(400).draw()
-  val c2 = Circle(462).draw(2, DarkBlue)
+  val c2 = Circle(462).draw(DarkBlue)
 
   val hex: Hexlign = Hexlign(400)
   val hd = hex.draw()
@@ -13,5 +13,7 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val hts = hex.vertsMap(v => TextGraphic(v.str0, v, 20))
   val hex2: Hexlign = hex.xSlate( -500)
   val hc = hex2.sidesIMap((s, i) => s.draw(2, Colour.rainbow.cycleGet(i)))
-  repaint(htv ++ hts +- hd +- c1 +- c2 ++ hc)
+
+  val hexy = HexYlign(400, 400, 0).draw(DarkBlue)
+  repaint(htv ++ hts +- hd +- c1 +- c2 ++ hc +- hexy)
 }

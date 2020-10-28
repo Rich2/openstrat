@@ -24,7 +24,7 @@ case class LsA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
 
     // The following commands take variable numbers of parameters. You can add / remove parameters to see the effect
     Polygon(-300 vv 200, -300 vv 300, -250 vv 300).fill(Orange),
-    Polygon(-250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200).draw(2, Blue),
+    Polygon(-250 vv 300, -200 vv 325, -150 vv 300, -275 vv 200).draw(Blue, 2),
 
     TextGraphic("default baseline", 0 vv 150, 18, Black, RightAlign),
     TextGraphic("top baseline", 0 vv 150, 18, Black, LeftAlign, Top),

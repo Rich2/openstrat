@@ -7,7 +7,7 @@ import Colour.Black
 trait Drawable extends GeomElem
 {
   /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed.  */
-  def draw(lineWidth: Double = 2, lineColour: Colour = Black): GraphicElem
+  def draw(lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
 }
 
 /** A 2D geometric element that can be drawn and filled producing [[GraphicElem]]s. */

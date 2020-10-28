@@ -73,7 +73,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound =
     CircleCompound(this, Arr(FillRadial(cenColour, outerColour)), Arr())
   
-  override def draw(lineWidth: Double = 2, lineColour: Colour = Colour.Black): CircleDraw = CircleDraw(this, lineWidth, lineColour)
+  override def draw(lineColour: Colour = Colour.Black, lineWidth: Double = 2): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineWidth: Double, lineColour: Colour): CircleCompound =
     CircleCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)), Arr())  
