@@ -50,6 +50,14 @@ trait HGrid extends TGrid
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
 
+  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
+
+  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  def arrIndex(r: Int, c: Int): Int
+
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   /** The number of Sides in the TileGrid. Needs reimplementing.

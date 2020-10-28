@@ -28,4 +28,6 @@ case class HGridIrr(unsafeArray: Array[Int]) extends HGrid
   override def height: Double = ???
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = ???
+
+  override def arrIndex(r: Int, c: Int): Int = ???
 }
