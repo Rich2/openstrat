@@ -36,20 +36,18 @@ class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extends HexR
     case 4 => v4
     case 5 => v5
     case 6 => v6
-    case n => excep("$n is out of range for a Hexagon vertex")
+    case n => excep("$index is out of range for a Hexagon vertex")
   }
   
-  override def s4Cen: Vec2 = ???
-  override def s1Cen: Vec2 = ???
-
-
+  override def s4Cen: Vec2 = Vec2(0, -rMin)
+  override def s1Cen: Vec2 = Vec2(0, rMin)
   override def ptsArray: Array[Double] = ???
 
-  override def xVertsArray: Array[Double] = ???
+  override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4, x5, x6)
 
-  override def yVertsArray: Array[Double] = ???
+  override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4, y5, y6)
 
-  override def foreachPairTail[U](f: (Double, Double) => U): Unit = ???
+  override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5);  f(x6, y6) }
 
     /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   override def xVert(index: Int): Double = ???
@@ -60,6 +58,38 @@ class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extends HexR
   override def productArity: Int = ???
 
   override def productElement(n: Int): Any = ???
+
+  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
+   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  override def slate(offset: Vec2): Hexlign = Hexlign(dMin, cen + offset)
+
+  /** Translate geometric transformation on a Hexlign returns a Hexlign. The return type of this method will be narrowed  further in most descendant
+   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  override def slate(xOffset: Double, yOffset: Double): Hexlign = Hexlign(dMin, cen.addXY(xOffset, yOffset))
+
+  /** Uniform scaling against both X and Y axes transformation on a Hexlign returning a Hexlign. Use the xyScale method for differential scaling. The
+   * return type of this method will be narrowed further in descendant traits / classes. */
+  override def scale(operand: Double): Hexlign = Hexlign(dMin * operand, cen * operand)
+
+  /** Mirror, reflection transformation of a Hexlign across the X axis, returns a Hexlign. */
+  override def negY: Hexlign = Hexlign(dMin, cen.negY)
+
+  /** Mirror, reflection transformation of Hexlign across the Y axis, returns a Hexlign. */
+  override def negX: Hexlign = Hexlign(dMin, cen.negX)
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Hexlign, returns a Hexlign. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate90: Hexlign = Hexlign(dMin, cen.rotate90)
+
+  /** Rotate 180 degrees 2D geometric transformation on a Hexlign, returns a Hexlign. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Hexlign = Hexlign(dMin, cen.rotate180)
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Hexlign, returns a Hexlign. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate270: Hexlign = Hexlign(dMin, cen.rotate270)
+
+  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
+  override def prolign(matrix: ProlignMatrix): Hexlign = Hexlign(dMin, cen.prolign(matrix))
 }
 
 object Hexlign

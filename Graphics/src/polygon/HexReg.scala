@@ -53,12 +53,28 @@ trait HexReg extends Polygon6Plus
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s4s1(s4Cen.prolign(matrix), s1Cen.prolign(matrix))
+
+  override def rotate(angle: Angle): HexReg = HexReg.s4s1(s4Cen.rotate(angle), s1Cen.rotate(angle))
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
 object HexReg
 {
   def s4s1(s4Cen: Vec2, s1Cen: Vec2): HexReg = HexRegImp(s4Cen.x, s4Cen.y, s1Cen.x, s1Cen.y)
+
+  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: Angle) => obj.rotate(angle)
+  implicit val prolignImplicit: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)
+
+
+  implicit val reflectAxesImplicit: TransAxes[HexReg] = new TransAxes[HexReg]
+  { override def negYT(obj: HexReg): HexReg = obj.negY
+    override def negXT(obj: HexReg): HexReg = obj.negX
+    override def rotate90T(obj: HexReg): HexReg = obj.rotate90
+    override def rotate180T(obj: HexReg): HexReg = obj.rotate180
+    override def rotate270T(obj: HexReg): HexReg = obj.rotate270
+  }
 
   /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xs4Cen: Double, ys4Cen: Double, xs1Cen: Double, ys1Cen: Double) extends HexReg
