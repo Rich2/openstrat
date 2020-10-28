@@ -16,12 +16,11 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  /*val NoMoves: TilesArrOpt[HTileAndStep] = grid.newTileArrOpt[HTileAndStep]
+  def NoMoves: HexArrOpt[HCAndStep] = grid.newHexArrOpt[HCAndStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
-  var moves: TilesArrOpt[HTileAndStep] = NoMoves
-*/
+  var moves: HexArrOpt[HCAndStep] = NoMoves
 
   def lunits = players.mapSomes{(hc, p) => Rect(0.9, 0.6, hc.toVec2).fillDrawTextActive(p.colour, HPlayer(p, hc),
     p.toString + "\n" + hc.rcStr, 24, 2.0) }
@@ -36,10 +35,10 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   val sidesDraw = grid.sidesDraw(2.0)
 
   /** This is the graphical display of the planned move orders. */
- /* def moveGraphics: Arr[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
+  //def moveGraphics: Arr[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+ /* def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
     val getOrders = moves.mapSomeOnlys(rs => rs)
     scen = scen.turn(getOrders)
     moves = NoMoves
