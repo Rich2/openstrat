@@ -32,7 +32,21 @@ trait Polygon extends Shape with BoundedElem
   def vert(index: Int): Vec2
 
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
-  
+
+  def sideForeach(f: LineSeg => Unit): Unit =
+  { var count = 1
+    while (count < vertsNum) { f(side(count)); count += 1 }
+  }
+
+  def sidesMap[A, AA <: ArrBase[A]](f: LineSeg => A)(implicit build: ArrBuild[A, AA]): AA =
+  { val count = 0
+    val res = build.newArr(vertsNum)
+    while (count < vertsNum)
+    { res.unsafeSetElem(count, f(side(count + 1)))
+      count + 1
+    }
+    res
+  }
 
   override def attribs: Arr[XANumeric] = ???
   override def cen: Vec2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
