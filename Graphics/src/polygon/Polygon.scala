@@ -33,11 +33,13 @@ trait Polygon extends Shape with BoundedElem
 
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
 
+  /** foreaches over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sideForeach(f: LineSeg => Unit): Unit =
   { var count = 1
     while (count < vertsNum) { f(side(count)); count += 1 }
   }
 
+  /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesMap[A, AA <: ArrBase[A]](f: LineSeg => A)(implicit build: ArrBuild[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
@@ -48,6 +50,7 @@ trait Polygon extends Shape with BoundedElem
     res
   }
 
+  /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesIMap[A, AA <: ArrBase[A]](f: (LineSeg, Int) => A, initCount: Int = 0)(implicit build: ArrBuild[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
