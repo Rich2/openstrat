@@ -18,6 +18,7 @@ trait Shape extends Fillable with BoundedElem
     case _ => false
   }
 
+  /** The centre of this Shape. */
   def cen: Vec2
   
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
