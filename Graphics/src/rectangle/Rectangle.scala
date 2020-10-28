@@ -67,6 +67,10 @@ trait Rectangle extends Polygon4Plus
   final override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); f(x4, y4); () }
 
+  def diag1: LineSeg = LineSeg(v3, v1)
+  def diag2: LineSeg = LineSeg(v4, v2)
+  @inline def diags: LineSegs = LineSegs(diag1, diag2)
+
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(offset: Vec2): Rectangle = Rectangle.cenV0V1(cen + offset, v1 + offset, v2 + offset)
 
