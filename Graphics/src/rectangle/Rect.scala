@@ -117,6 +117,7 @@ object Rect
     override def xLs3Cen: Double = ls3Cen.x
     override def yLs3Cen: Double = ls3Cen.y
     override def ls3Cen: Vec2 = (v4 + v1) / 2
+
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(offset: Vec2): RectImp = RectImp(width, height, cen + offset)
 

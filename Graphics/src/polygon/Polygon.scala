@@ -30,6 +30,10 @@ trait Polygon extends Shape with BoundedElem
   }
 
   def vert(index: Int): Vec2
+
+  @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
+  
+
   override def attribs: Arr[XANumeric] = ???
   override def cen: Vec2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
