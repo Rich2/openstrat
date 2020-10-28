@@ -17,6 +17,10 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(elemsLen >= 1, ifHead(head), noHead)
   def headToStringElse(ifEmptyString: String): String = ife(elemsLen >= 1, head.toString, ifEmptyString)
 
+  /** Applys an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
+   * integers as an index value without throwing an exception. */
+  @inline def cycleGet(index: Int): A = apply(index %% elemsLen)
+
   def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < elemsLen)

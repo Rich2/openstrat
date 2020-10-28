@@ -3,31 +3,31 @@ package ostrat
 package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
-class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extends HexReg
+final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extends HexReg
 {
-  override def x1: Double = rMax / 2
-  override def y1: Double = rMin
-  override def v1: Vec2 = Vec2(rMax / 2, rMin)
+  override def x1: Double = xCen + rMax / 2
+  override def y1: Double = yCen + rMin
+  @inline override def v1: Vec2 = Vec2(x1, y1)
 
-  override def x2: Double = rMax
-  override def y2: Double = 0
-  override def v2: Vec2 = Vec2(rMax, 0)
+  override def x2: Double = xCen + rMax
+  override def y2: Double = yCen
+  @inline override def v2: Vec2 = Vec2(x2, y2)
 
-  override def x3: Double = rMax / 2
-  override def y3: Double = -rMin
-  override def v3: Vec2 = Vec2(rMax / 2, -rMin)
+  override def x3: Double = xCen + rMax / 2
+  override def y3: Double = yCen - rMin
+  @inline override def v3: Vec2 = Vec2(x3, y3)
 
-  override def x4: Double = -rMax / 2
-  override def y4: Double = -rMin
-  override def v4: Vec2 = Vec2(-rMax / 2, -rMin)
+  override def x4: Double = xCen - rMax / 2
+  override def y4: Double = yCen - rMin
+  @inline override def v4: Vec2 = Vec2(x4, y4)
 
-  override def x5: Double = -rMax
-  override def y5: Double = 0
-  override def v5: Vec2 = Vec2(-rMax, 0)
+  override def x5: Double = xCen - rMax
+  override def y5: Double = yCen
+  @inline override def v5: Vec2 = Vec2(x5, y5)
 
-  override def x6: Double = -rMax / 2
-  override def y6: Double = rMin
-  override def v6: Vec2 = Vec2(-rMax / 2, rMin)
+  override def x6: Double = xCen - rMax / 2
+  override def y6: Double = yCen + rMin
+  @inline override def v6: Vec2 = Vec2(x6, y6)
 
   override def vert(index: Int): Vec2 = index match
   { case 1 => v1
@@ -95,4 +95,8 @@ class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extends HexR
 object Hexlign
 {
   def apply(height: Double, cen: Vec2 = Vec2Z): Hexlign = new Hexlign(height, cen.x, cen.y)
+
+  implicit val slateImplicit: Slate[Hexlign] = (obj: Hexlign, offset: Vec2) => obj.slate(offset)
+  implicit val scaleImplicit: Scale[Hexlign] = (obj: Hexlign, operand: Double) => obj.scale(operand)
+  implicit val prolignImplicit: Prolign[Hexlign] = (obj, matrix) => obj.prolign(matrix)
 }

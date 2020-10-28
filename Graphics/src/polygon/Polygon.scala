@@ -39,11 +39,21 @@ trait Polygon extends Shape with BoundedElem
   }
 
   def sidesMap[A, AA <: ArrBase[A]](f: LineSeg => A)(implicit build: ArrBuild[A, AA]): AA =
-  { val count = 0
+  { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
     { res.unsafeSetElem(count, f(side(count + 1)))
-      count + 1
+      count += 1
+    }
+    res
+  }
+
+  def sidesIMap[A, AA <: ArrBase[A]](f: (LineSeg, Int) => A, initCount: Int = 0)(implicit build: ArrBuild[A, AA]): AA =
+  { var count = 0
+    val res = build.newArr(vertsNum)
+    while (count < vertsNum)
+    { res.unsafeSetElem(count, f(side(count + 1), count + initCount))
+      count += 1
     }
     res
   }
