@@ -9,8 +9,8 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
 {
   override def toString: String = Vec2.persistImplicit.show(this, 0)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
-  @inline override def _1 = x
-  @inline override def _2 = y
+  @inline override def _1: Double = x
+  @inline override def _2: Double = y
   override def productPrefix: String = "Vec2"
 
   /** Adds this Vector to a second 2 dimensional vector. */
@@ -148,9 +148,10 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle.radians(angleRadians)
 
+  /** Line segment from this point to the parameter point. */
   def lineTo(pt2: Vec2): LineSeg = LineSeg(this, pt2)
 
-  /** Not sure about this method. */
+  /** Line segment from this point to along the given angle for the given magnitude to point 2. */
   def lineAlong(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))
 
   /** Rotates this vector through the given angle around the origin. */

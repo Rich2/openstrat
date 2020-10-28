@@ -72,40 +72,40 @@ trait Rectangle extends Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2): Rectangle = Rectangle.cenV0V1(cen + offset, v1 + offset, v2 + offset)
+  override def slate(offset: Vec2): Rectangle = Rectangle.cenV1V2(cen + offset, v1 + offset, v2 + offset)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(xOffset: Double, yOffset: Double): Rectangle =
-    Rectangle.cenV0V1(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset), v2.addXY(xOffset, yOffset))
+    Rectangle.cenV1V2(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset), v2.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation on a Rectangle returns a Rectangle. */
-  override def scale(operand: Double): Rectangle = Rectangle.cenV0V1(cen * operand, v1 * operand, v2 * operand)
+  override def scale(operand: Double): Rectangle = Rectangle.cenV1V2(cen * operand, v1 * operand, v2 * operand)
 
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negY: Rectangle = Rectangle.cenV0V1(cen.negY, v1.negY, v2.negY)
+  override def negY: Rectangle = Rectangle.cenV1V2(cen.negY, v1.negY, v2.negY)
 
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negX: Rectangle = Rectangle.cenV0V1(cen.negX, v1.negX, v2.negX)
+  override def negX: Rectangle = Rectangle.cenV1V2(cen.negX, v1.negX, v2.negX)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: Rectangle = Rectangle.cenV0V1(cen.rotate90, v1.rotate90, v2.rotate90)
+  override def rotate90: Rectangle = Rectangle.cenV1V2(cen.rotate90, v1.rotate90, v2.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Rectangle = Rectangle.cenV0V1(cen.rotate180, v1.rotate180, v2.rotate180)
+  override def rotate180: Rectangle = Rectangle.cenV1V2(cen.rotate180, v1.rotate180, v2.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: Rectangle = Rectangle.cenV0V1(cen.rotate270, v1.rotate270, v2.rotate270)
+  override def rotate270: Rectangle = Rectangle.cenV1V2(cen.rotate270, v1.rotate270, v2.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV0V1(cen.prolign(matrix), v1.prolign(matrix), v2.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV1V2(cen.prolign(matrix), v1.prolign(matrix), v2.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): Rectangle = Rectangle.cenV0V1(cen.reflect(lineLike), v1.reflect(lineLike), v2.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Rectangle = Rectangle.cenV1V2(cen.reflect(lineLike), v1.reflect(lineLike), v2.reflect(lineLike))
 
-  override def rotate(angle: Angle): Rectangle = Rectangle.cenV0V1(cen.rotate(angle), v1.rotate(angle), v2.rotate(angle))
+  override def rotate(angle: Angle): Rectangle = Rectangle.cenV1V2(cen.rotate(angle), v1.rotate(angle), v2.rotate(angle))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
-    Rectangle.cenV0V1(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand), v2.xyScale(xOperand, yOperand))
+    Rectangle.cenV1V2(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand), v2.xyScale(xOperand, yOperand))
 
   override def slateTo(newCen: Vec2): Rectangle = ???
 }
@@ -119,7 +119,7 @@ object Rectangle
     new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
   }
 
-  def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+  def cenV1V2(cen: Vec2, v1: Vec2, v2: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v1.x, v1.y, v2.x, v2.y)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
   { val w = width / 2
@@ -174,22 +174,6 @@ object Rectangle
     
     /** Translate geometric transformation on a RectangleImp returns a RectangleImp. */
     override def slate(offset: Vec2): RectangleImp = RectangleImp.cenV0V1(cen + offset, v1 + offset, v2 + offset)
-    
-    override def rotate(angle: Angle): RectangleImp = ???
-   // override def reflectX: RectImp = RectImp.v0v1(v1.reflectX, v0.reflectX, width)
-   // override def reflectY: RectImp = RectImp.v0v1(v3.reflectY, v2.reflectY, width)
-    //override def reflectXOffset(yOffset: Double): RectImp = RectImp.v0v1(v1.reflectXOffset(yOffset), v0.reflectXOffset(yOffset), width)
-   // override def reflectYOffset(xOffset: Double): RectImplement = RectImplement.v0v1(v1.reflectYOffset(xOffset), v0.reflectYOffset(xOffset), width)
-
-    //override def reflect(line: Line): RectImp = RectImp.v0v1(v1.reflect(line), v0.reflect(line), width)
-
-   // override def reflect(line: LineSeg): RectImp = ???
-
-    //override def xyScale(xOperand: Double, yOperand: Double): Polygon = ???
-
-    //override def fill(fillColour: Colour): ShapeFill = ???
-
-   // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   }
 
   object RectangleImp

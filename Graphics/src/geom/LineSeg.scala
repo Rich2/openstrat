@@ -8,10 +8,10 @@ import collection.mutable.ArrayBuffer, Colour.Black
 class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with LineLike with CurveLikeOld
 { override type ThisT = LineSeg
   override def toString: String = LineSeg.persistImplicit.show(this)
-  override def _1 = xStart
-  override def _2 = yStart
-  override def _3 = xEnd
-  override def _4 = yEnd
+  override def _1: Double = xStart
+  override def _2: Double = yStart
+  override def _3: Double = xEnd
+  override def _4: Double = yEnd
 
   override def canEqual(that: Any): Boolean = that match
   { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
@@ -42,7 +42,7 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   /** The angle 90 degrees anti-clock wise from the angle of this directed line segment. The angle one gets by turning left from this Sline. */
   def left90: Angle = angle + 90.degs
 
-  /** The angle 90 degrees clock wise from the angle of this line segement. The angle one gets by turning from from this Sline. */
+  /** The angle 90 degrees clock wise from the angle of this line segment. The angle one gets by turning from from this Sline. */
   def right90: Angle = angle - 90.degs
 
   /** The relative position of the end point from the start point. */
