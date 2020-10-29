@@ -16,13 +16,13 @@ case class ComputerPlayer(aGameData: ReactorGame)
     var theirPrimedIndexes = Array[Int]()
     var chooseFromTheseIndexes = Array[Int]()
 
-    //determin valid turns
+    //determin valid turns (all cells that are Black or myColor)
     for (i <- 0 to gameData.cellColors.length - 1)
     { val thisCellsColor = gameData.cellColors(i) 
       if (thisCellsColor == Black || thisCellsColor == forThisColor) validTurnIndexes = i +: validTurnIndexes
     }
 
-    //determin cells that are 1 ball away from popping
+    //determin cells that are primed (1 ball away from popping)
     for (i <- 0 to gameData.cellColors.length - 1)
     { if (isPrimed(i) == true)
       { primedIndexes = i +: primedIndexes
@@ -30,7 +30,7 @@ case class ComputerPlayer(aGameData: ReactorGame)
         else theirPrimedIndexes = i +: theirPrimedIndexes
       }
     }
-    //find my primed cells that are at risk of attack
+    //find my primed cells that are at risk of attack (adjacent cell is a different color and is primed itself)
     for (i <- myPrimedIndexes)
     { for (j <- 0 to gameData.cellNeighbours(i).length - 1)
       { if (theirPrimedIndexes.indexOf(gameData.cellNeighbours(i)(j)) != -1) chooseFromTheseIndexes = chooseFromTheseIndexes :+ i
