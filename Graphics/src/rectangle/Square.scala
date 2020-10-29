@@ -68,7 +68,7 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double) extends Square with RectS3S1
+  final class SquareImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double) extends Square with RectS2S4
   {
     @inline override def width2: Double = width1
 

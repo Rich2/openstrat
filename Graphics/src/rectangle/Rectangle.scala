@@ -155,7 +155,7 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double, val width2: Double) extends RectS3S1
+  final class RectangleImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double, val width2: Double) extends RectS2S4
   { type ThisT = RectangleImp
     //override def v2: Vec2 = Vec2(x2, y2)
 
