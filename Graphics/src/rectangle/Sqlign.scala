@@ -7,6 +7,7 @@ import pWeb._
 final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends Square with Rect
 {
   override def attribs: Arr[XANumeric] = ???
+  override def width1 = width
   override def width2: Double = width
 
   override def height: Double = width
