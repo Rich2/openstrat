@@ -9,9 +9,7 @@ import pWeb._
 trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
 
-  override def s1Cen: Vec2 = v4.mid(v1)
-  def xLs3Cen: Double
-  def yLs3Cen: Double
+  override def s1Cen: Vec2 = v4 mid v1
   def ls3Cen: Vec2
 
   /** length from v1 to v2 and v3 to v4. */
