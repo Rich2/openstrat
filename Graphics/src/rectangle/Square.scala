@@ -46,14 +46,17 @@ object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
   def s2s4(s2Cen: Vec2, s4Cen: Vec2): Square = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
+
   def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
-  { val delta = Vec2(width / 2, width / 2).rotate(rotation)
-    cenV0(cen, cen + delta)
+  { val s2 = cen + Vec2(width / 2, 0).rotate(rotation)
+    val s4 = cen + Vec2(-width / 2, 0).rotate(rotation)
+    s2s4(s2, s4)
   }
   
   def apply(width: Double, rotation: Angle, xCen: Double, yCen: Double): Square =
-  { val delta = Vec2(width / 2, width / 2).rotate(rotation)
-    new SquareImp(xCen, yCen, xCen + delta.x, yCen + delta.y)
+  { val s2 = Vec2(width / 2, 0).rotate(rotation).addXY(xCen, yCen)
+    val s4 = Vec2(-width / 2, 0).rotate(rotation).addXY(xCen, yCen)
+    s2s4(s2, s4)
   }
 
   def cenV0(cen: Vec2, v0: Vec2): Square = new SquareImp(cen.x, cen.y, v0.x, v0.y)
