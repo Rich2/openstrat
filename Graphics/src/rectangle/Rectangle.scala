@@ -9,10 +9,8 @@ import pWeb._
 trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
 
- // def xLs3Cen: Double
- // def yLs3Cen: Double
+  override def s1Cen: Vec2 = v4 mid v1
   def ls3Cen: Vec2
-  final override def s1Cen: Vec2 = (v4 + v1) / 2
 
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double
@@ -25,11 +23,6 @@ trait Rectangle extends Polygon4Plus
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
   override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3, x4, y4)
-
-  def v0Mid1: Vec2 = v1.midPtTo(v2)
-  def v1Mid2: Vec2 = v2.midPtTo(v3)
-  def v2Mid3: Vec2 = v3.midPtTo(v4)
-  def v3Mid0: Vec2 = v4.midPtTo(v1)
 
   def rotation: Angle
   def widthAttrib: WidthAtt = WidthAtt(width1)

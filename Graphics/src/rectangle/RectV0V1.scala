@@ -6,7 +6,7 @@ package geom
  * have value as a library user interface type. */
 trait RectCenV0 extends Rectangle
 { final override def cen: Vec2 = Vec2(xCen, yCen)
-  final override def width1: Double = (v0Mid1 - cen).magnitude * 2
+  final override def width1: Double = (s1Cen - cen).magnitude * 2
   override def width2: Double = (v1 - v2).magnitude
   final override def v1: Vec2 = x1 vv y1
   @inline final def v3: Vec2 = 2 * cen - v1
@@ -15,5 +15,5 @@ trait RectCenV0 extends Rectangle
   @inline final def v4: Vec2 = 2 * cen - v2
   @inline final def x4: Double = v4.x
   @inline final def y4: Double = v4.y
-  final override def ls3Cen: Vec2 = (v4 + v1) / 2
+  final override def ls3Cen: Vec2 = v4.mid(v1)
 }
