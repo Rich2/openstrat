@@ -9,9 +9,6 @@ import pWeb._
 trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
 
-  //final override def s1Cen: Vec2 = v4 mid v1
-  //final override def s4Cen: Vec2 = v3 mid v4
-
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double
 
@@ -156,37 +153,15 @@ object Rectangle
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double, val width2: Double) extends RectS2S4
-  { type ThisT = RectangleImp
-    //override def v2: Vec2 = Vec2(x2, y2)
-
+  {
     override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.s2s4v1(f(s2Cen), f(s4Cen), f(v1))
 
     override def productArity: Int = 5
 
     override def productElement(n: Int): Any = ???
-    
-    /** Translate geometric transformation on a RectangleImp returns a RectangleImp. */
-    //override def slate(offset: Vec2): RectangleImp = RectangleImp.cenV0V1(cen + offset, v1 + offset, v2 + offset)
   }
 
   object RectangleImp
-  {
-    /** The standard factory method for producing a Rect from width, height, position and rotation. position and rotation take default values */
-    /*def apply(width: Double, height: Double, cen: Vec2, rotation: Angle = 0.degs): RectangleImp =
-    { val v0 = Vec2(cen.x + width, cen.y + height).rotate(rotation)
-      val v1 = Vec2(cen.x + width, cen.y - height).rotate(rotation)
-      new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-    }*/
-    /** The standard factory method for producing a Rect from width, height, the x position, the y position  and the rotation. Rotation has a default
-     *  value of 0 degrees. If you want the default position of a rectangle centred at 0, 0, then use the apply method. */
-    /*def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectangleImp =
-    { val v0 = Vec2(xCen + width, yCen + height).rotate(rotation)
-      val v1 = Vec2(xCen + width, yCen - height).rotate(rotation)
-      new RectangleImp(xCen,  yCen, v0.x, v0.y, v1.x, v1.y)
-    }*/
-
-    /** Factory method for creating a [[RectangleImp]] rectangle from the points cen, v0 and v1 */    
-    //def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectangleImp = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-    def s2s4v1(s2Cen: Vec2, s4Cen: Vec2, v1: Vec2): RectangleImp = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  { def s2s4v1(s2Cen: Vec2, s4Cen: Vec2, v1: Vec2): RectangleImp = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
   }
 }
