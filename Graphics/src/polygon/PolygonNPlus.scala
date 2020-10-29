@@ -59,15 +59,18 @@ trait Polygon3Plus extends Polygon
 /** A [[Polygon]] with at least 4 vertices. */
 trait Polygon4Plus extends Polygon3Plus
 {
-  /** The X component of the 4th Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
+  /** The X component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def x4: Double
-  /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clokwise direction with the 1st vertex
+  /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def y4: Double
   /** The 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
   def v4: Vec2
+
+  /** The centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. */
+  def s4Cen: Vec2
 }
 
 /** A [[Polygon]] with at least 5 vertices. */

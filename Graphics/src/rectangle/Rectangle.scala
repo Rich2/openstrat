@@ -9,8 +9,8 @@ import pWeb._
 trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
 
-  override def s1Cen: Vec2 = v4 mid v1
-  def s3Cen: Vec2
+  final override def s1Cen: Vec2 = v4 mid v1
+  final override def s4Cen: Vec2 = v3 mid v4
 
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double
@@ -159,6 +159,8 @@ object Rectangle
     override def v2: Vec2 = Vec2(x2, y2)
 
     override def s2Cen: Vec2 = ???
+
+
     override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.cenV0V1(f(cen), f(v1), f(v2))
 
     override def productArity: Int = 5
