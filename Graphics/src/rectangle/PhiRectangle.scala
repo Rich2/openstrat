@@ -6,9 +6,7 @@ trait PhiRectangle extends Rectangle
 
 object PhiRectangle
 {
-  case class PhiRect(xCen: Double, yCen: Double, xLs3Cen: Double, yLs3Cen: Double)
-  { def ls3Cen: Vec2 = Vec2(xLs3Cen, yLs3Cen)
-  }
+
 }
 
 case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with PhiRectangle
@@ -16,4 +14,11 @@ case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with
   override def width: Double = height * Phi
 
   override def slateTo(newCen: Vec2): PhiRect = ???
+}
+
+object PhiRect
+{
+  case class PhiRect(xCen: Double, yCen: Double, xLs3Cen: Double, yLs3Cen: Double)
+  { def ls3Cen: Vec2 = Vec2(xLs3Cen, yLs3Cen)
+  }
 }

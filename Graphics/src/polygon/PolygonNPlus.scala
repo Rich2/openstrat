@@ -37,13 +37,13 @@ trait Polygon3Plus extends Polygon
   /** The last vertex. */
   override def vLast: Vec2 = vert(vertsNum)
 
-  /** Side 1. */
+  /** Side 1 from the last vertex to V1. */
   def s1: LineSeg = LineSeg(vLast, v1)
 
-  /** Side 2. */
+  /** Side 2 from v1 to v2. */
   def s2: LineSeg = LineSeg(v1, v2)
 
-  /** Side 3. */
+  /** Side 3 from v2 to v3. */
   def s3: LineSeg = LineSeg(v2, v3)
 
   /** The centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. */
