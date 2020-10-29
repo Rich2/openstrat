@@ -9,34 +9,34 @@ trait Square extends Rectangle
   override def s2Cen: Vec2 = v3 mid v2
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(offset: Vec2): Square = Square.cenV0(cen + offset, v1 + offset)
+  override def slate(offset: Vec2): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(xOffset: Double, yOffset: Double): Square = Square.cenV0(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
+  override def slate(xOffset: Double, yOffset: Double): Square = Square.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation on a Square returns a Square. */
-  override def scale(operand: Double): Square = Square.cenV0(cen * operand, v1 * operand)
+  override def scale(operand: Double): Square = Square.s2s4(s2Cen * operand, s4Cen * operand)
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negY: Square = Square.cenV0(cen.negY, v1.negY)
+  override def negY: Square = Square.s2s4(s2Cen.negY, s4Cen.negY)
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negX: Square = Square.cenV0(cen.negX, v1.negX)
+  override def negX: Square = Square.s2s4(s2Cen.negX, s4Cen.negX)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
-  override def rotate90: Square = Square.cenV0(cen.rotate90, v1.rotate90)
+  override def rotate90: Square = Square.s2s4(s2Cen.rotate90, s4Cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Square, returns a Square. */
-  override def rotate180: Square = Square.cenV0(cen.rotate180, v1.rotate180)
+  override def rotate180: Square = Square.s2s4(s2Cen.rotate180, s4Cen.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
-  override def rotate270: Square = Square.cenV0(cen.rotate270, v1.rotate270)
+  override def rotate270: Square = Square.s2s4(s2Cen.rotate270, s4Cen.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Square = Square.cenV0(cen.prolign(matrix), v1.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Square = Square.s2s4(s2Cen.prolign(matrix), s4Cen.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): Square = Square.cenV0(cen.reflect(lineLike), v1.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Square = Square.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike))
 
-  override def rotate(angle: Angle): Square = Square.cenV0(cen.rotate(angle), v1.rotate(angle))
+  override def rotate(angle: Angle): Square = Square.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle))
 
   override def slateTo(newCen: Vec2): Square = ???
 }
@@ -58,8 +58,6 @@ object Square extends ShapeIcon
     val s4 = Vec2(-width / 2, 0).rotate(rotation).addXY(xCen, yCen)
     s2s4(s2, s4)
   }
-
-  def cenV0(cen: Vec2, v0: Vec2): Square = new SquareImp(cen.x, cen.y, v0.x, v0.y)
 
   /** Scale the Square and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
   override def reify(scale: Double, xCen: Double, yCen: Double): Sqlign = Sqlign(scale, xCen, yCen)
@@ -105,20 +103,7 @@ object Square extends ShapeIcon
   }
 
   /** Factory object for squares. */
-  object SquareImp //extends ShapeIcon
-  {
-    //def cenV0(cen: Vec2, v0: Vec2): SquareImp = new SquareImp(cen.x, cen.y, v0.x, v0.y)
-    def s2s4(s2Cen: Vec2, s4Cen: Vec2): SquareImp = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
-    def xy(width: Double, xCen: Double, yCen: Double): PolygonImp = PolygonImp(
-      xCen - width / 2 vv yCen + width / 2,
-      xCen + width / 2 vv yCen + width / 2,
-      xCen + width / 2 vv yCen - width / 2,
-      xCen - width / 2 vv yCen - width / 2)
-
-   // override def scaleSlate(scale: Double, cen: Vec2): Shape = ???
-
-   // override def scaleSlate(scale: Double, xCen: Double, yCen: Double): Shape = ???
-
-   // override def fill(colour: Colour): ShapeGraphicIcon = ???
+  object SquareImp
+  { def s2s4(s2Cen: Vec2, s4Cen: Vec2): SquareImp = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
   }
 }
