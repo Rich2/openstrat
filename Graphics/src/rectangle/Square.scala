@@ -6,8 +6,6 @@ import pWeb._
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
 trait Square extends Rectangle
 {
-  override def s2Cen: Vec2 = v3 mid v2
-
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(offset: Vec2): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
 
@@ -38,7 +36,7 @@ trait Square extends Rectangle
 
   override def rotate(angle: Angle): Square = Square.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle))
 
-  override def slateTo(newCen: Vec2): Square = ???
+  override def slateTo(newCen: Vec2): Square = slate(newCen - cen)
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
@@ -78,28 +76,6 @@ object Square extends ShapeIcon
     override def productArity: Int = 3
     override def productElement(n: Int): Any = 4
     override def toString: String = s"SquareClass($x1, $y1; $x2, $y2)"
-   // override def fTrans(f: Vec2 => Vec2): SquareImp = Square.s2s4(f(cen), f(v1))
-
-    /*override def slate(offset: Vec2): SquareImp = SquareImp.cenV0(cen + offset, v1 + offset)
-
-    /** Translate geometric transformation. */
-    @inline override def slate(xOffset: Double, yOffset: Double): SquareImp = SquareImp.cenV0(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
-
-    override def scale(operand: Double): SquareImp = SquareImp.cenV0(cen * operand, v1 * operand)
-
-    override def negY: SquareImp = SquareImp.cenV0(cen.negY, v1.negY)
-
-    override def negX: SquareImp = SquareImp.cenV0(cen.negX, v1.negX)
-
-    override def prolign(matrix: ProlignMatrix): SquareImp = SquareImp.cenV0(cen.prolign(matrix), v1.prolign(matrix))
-
-    override def rotate(angle: Angle): SquareImp = SquareImp.cenV0(cen.rotate(angle), v1.rotate(angle))
-
-    override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v1.reflect(lineLike))*/
-
-    //override def fill(fillColour: Colour): ShapeFill = ???
-
-    //override def draw(lineWidth: Double, lineColour: Colour): PolygonDraw = ???
   }
 
   /** Factory object for squares. */

@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-/** Rectangle that is in part specified by points v3Cen and v1Cen. This is the Square and Rect classes. This trait is purely for implementation. It
- *  does not have value as a library user interface type. */
+/** Rectangle that is in part specified by points s2Cen and s4Cen. This is the [[Square.SquareImp]] and [[Rect.RectImp]] classes. This trait is purely
+ *  for implementation. It does not have value as a library user interface type. */
 trait RectS2S4 extends Rectangle
 {
   final override def cen: Vec2 = s3Cen mid s1Cen
