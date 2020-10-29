@@ -23,8 +23,9 @@ final class Vec2 (val x: Double, val y: Double) extends ProdDbl2
 
   /** Gives the positive scalar distance between this and the operand Vec2. */
   def distTo(operand: Vec2): Double = (operand - this).magnitude
-  
-  def midPtTo(otherPt: Vec2): Vec2 = (this + otherPt) / 2
+
+  /** The average of tis and the operand Vec2. The mid point between this point and the operand second point. */
+  def mid(point2: Vec2): Vec2 = (this + point2) / 2
 
   def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
   def str0: String = strMod(_.str0)

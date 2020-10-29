@@ -40,6 +40,9 @@ trait Polygon3Plus extends Polygon
   /** Side 1. */
   def s1: LineSeg = LineSeg(vLast, v1)
 
+  /** Side1 centre or halfway point. */
+  def s1Cen: Vec2
+
   /** Side 2. */
   def s2: LineSeg = LineSeg(v1, v2)
 

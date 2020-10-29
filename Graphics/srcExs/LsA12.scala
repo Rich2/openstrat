@@ -11,7 +11,7 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val hd = hex.draw()
   val htv = hex.vertsMap(v => Circle(50, v).fill(Yellow))
   val hts = hex.vertsMap(v => TextGraphic(v.str0, v, 20))
-  val hex2: Hexlign = hex.xSlate( -500)
+  val hex2: Hexlign = hex.xSlate(-500)
   val hc = hex2.sidesIMap((s, i) => s.draw(2, Colour.rainbow.cycleGet(i)))
 
   val hexy = HexYlign(400, 400, 0).draw(DarkBlue)

@@ -29,6 +29,7 @@ trait Polygon extends Shape with BoundedElem
     acc
   }
 
+  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   def vert(index: Int): Vec2
 
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
