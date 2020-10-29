@@ -176,16 +176,16 @@ trait Polygon extends Shape with BoundedElem
   def polyCentre: Vec2 = boundingRect.cen
 
   def sline(index: Int): LineSeg =
-  { val endVertNum: Int = ife(index == vertsNum - 1, 0, index + 1)
-    LineSeg(vert(index), vert(endVertNum))
+  { val startVertNum: Int = ife(index == 1, vertsNum, index - 1)
+    LineSeg(vert(startVertNum), vert(index))
   }
 
-  def sline0: LineSeg = sline(0)
+  /*def sline0: LineSeg = sline(0)
   def sline1: LineSeg = sline(1)
   def sline2: LineSeg = sline(2)
   def sline3: LineSeg = sline(3)
   def sline4: LineSeg = sline(4)
-  def sline5: LineSeg = sline(5)
+  def sline5: LineSeg = sline(5)*/
 
   def active(id: Any): PolygonActive = PolygonActive(this, id)
   def activeChildren(id: Any, children: GraphicElems): PolygonCompound = PolygonCompound(this, Arr(), active(id) +: children)

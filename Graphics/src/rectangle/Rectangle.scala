@@ -9,8 +9,8 @@ import pWeb._
 trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
 
-  final override def s1Cen: Vec2 = v4 mid v1
-  final override def s4Cen: Vec2 = v3 mid v4
+  //final override def s1Cen: Vec2 = v4 mid v1
+  //final override def s4Cen: Vec2 = v3 mid v4
 
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double
@@ -66,40 +66,40 @@ trait Rectangle extends Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2): Rectangle = Rectangle.cenV1V2(cen + offset, v1 + offset, v2 + offset)
+  override def slate(offset: Vec2): Rectangle = Rectangle.s2s4(s2Cen + offset, s4Cen + offset, width2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(xOffset: Double, yOffset: Double): Rectangle =
-    Rectangle.cenV1V2(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset), v2.addXY(xOffset, yOffset))
+    Rectangle.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset), width2)
 
   /** Uniform scaling transformation on a Rectangle returns a Rectangle. */
-  override def scale(operand: Double): Rectangle = Rectangle.cenV1V2(cen * operand, v1 * operand, v2 * operand)
+  override def scale(operand: Double): Rectangle = Rectangle.s2s4(s2Cen * operand, s4Cen * operand, width2 * operand)
 
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negY: Rectangle = Rectangle.cenV1V2(cen.negY, v1.negY, v2.negY)
+  override def negY: Rectangle = Rectangle.s2s4(s2Cen.negY, s4Cen.negY, width2)
 
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negX: Rectangle = Rectangle.cenV1V2(cen.negX, v1.negX, v2.negX)
+  override def negX: Rectangle = Rectangle.s2s4(s2Cen.negX, s4Cen.negX, width2)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: Rectangle = Rectangle.cenV1V2(cen.rotate90, v1.rotate90, v2.rotate90)
+  override def rotate90: Rectangle = Rectangle.s2s4(s2Cen.rotate90, s4Cen.rotate90, width2)
 
-  /** Rotate 180 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Rectangle = Rectangle.cenV1V2(cen.rotate180, v1.rotate180, v2.rotate180)
+  /** Rotate 480 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: Rectangle = Rectangle.s2s4(s2Cen.rotate180, s4Cen.rotate180, width2)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: Rectangle = Rectangle.cenV1V2(cen.rotate270, v1.rotate270, v2.rotate270)
+  override def rotate270: Rectangle = Rectangle.s2s4(s2Cen.rotate270, s4Cen.rotate270, width2)
 
-  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.cenV1V2(cen.prolign(matrix), v1.prolign(matrix), v2.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(s2Cen.prolign(matrix), s4Cen.prolign(matrix), v1.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): Rectangle = Rectangle.cenV1V2(cen.reflect(lineLike), v1.reflect(lineLike), v2.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Rectangle = Rectangle.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike), width2)
 
-  override def rotate(angle: Angle): Rectangle = Rectangle.cenV1V2(cen.rotate(angle), v1.rotate(angle), v2.rotate(angle))
+  override def rotate(angle: Angle): Rectangle = Rectangle.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle), width2)
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
-    Rectangle.cenV1V2(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand), v2.xyScale(xOperand, yOperand))
+    Rectangle.s2s4v1(s2Cen.xyScale(xOperand, yOperand), s4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 
   override def slateTo(newCen: Vec2): Rectangle = ???
 }
@@ -108,12 +108,13 @@ trait Rectangle extends Polygon4Plus
 object Rectangle
 {
   def apply(width: Double, height: Double, rotation: Angle, cen: Vec2 = Vec2Z): Rectangle =
-  { val v0 = cen.addXY(width / 2, height / 2).rotate(rotation)
-    val v1 = cen.addXY(width / 2, - height / 2).rotate(rotation)
-    new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+  { val s2Cen: Vec2 = cen.addX(width / 2).rotate(rotation)
+    val s4Cen: Vec2 = cen.subX(width / 2).rotate(rotation)
+    new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   }
 
-  def cenV1V2(cen: Vec2, v1: Vec2, v2: Vec2): Rectangle = new RectangleImp(cen.x, cen.y, v1.x, v1.y, v2.x, v2.y)
+  def s2s4(s2Cen: Vec2, s4Cen: Vec2, height: Double): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
+  def s2s4v1(s2Cen: Vec2, s4Cen: Vec2, v1: Vec2): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
   { val w = width / 2
@@ -154,42 +155,38 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val xCen: Double, val yCen: Double, val x1: Double, val y1: Double, val x2: Double, val y2: Double) extends RectS3S1
+  final class RectangleImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double, val width2: Double) extends RectS3S1
   { type ThisT = RectangleImp
-    override def v2: Vec2 = Vec2(x2, y2)
+    //override def v2: Vec2 = Vec2(x2, y2)
 
-    override def s2Cen: Vec2 = ???
-
-
-    override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.cenV0V1(f(cen), f(v1), f(v2))
+    override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.s2s4v1(f(s2Cen), f(s4Cen), f(v1))
 
     override def productArity: Int = 5
 
     override def productElement(n: Int): Any = ???
-
-    override def rotation: Angle = (v1 - v4).angle
     
     /** Translate geometric transformation on a RectangleImp returns a RectangleImp. */
-    override def slate(offset: Vec2): RectangleImp = RectangleImp.cenV0V1(cen + offset, v1 + offset, v2 + offset)
+    //override def slate(offset: Vec2): RectangleImp = RectangleImp.cenV0V1(cen + offset, v1 + offset, v2 + offset)
   }
 
   object RectangleImp
   {
     /** The standard factory method for producing a Rect from width, height, position and rotation. position and rotation take default values */
-    def apply(width: Double, height: Double, cen: Vec2, rotation: Angle = 0.degs): RectangleImp =
+    /*def apply(width: Double, height: Double, cen: Vec2, rotation: Angle = 0.degs): RectangleImp =
     { val v0 = Vec2(cen.x + width, cen.y + height).rotate(rotation)
       val v1 = Vec2(cen.x + width, cen.y - height).rotate(rotation)
       new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
-    }
+    }*/
     /** The standard factory method for producing a Rect from width, height, the x position, the y position  and the rotation. Rotation has a default
      *  value of 0 degrees. If you want the default position of a rectangle centred at 0, 0, then use the apply method. */
-    def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectangleImp =
+    /*def xy(width: Double, height: Double, xCen: Double, yCen: Double, rotation: Angle = 0.degs): RectangleImp =
     { val v0 = Vec2(xCen + width, yCen + height).rotate(rotation)
       val v1 = Vec2(xCen + width, yCen - height).rotate(rotation)
       new RectangleImp(xCen,  yCen, v0.x, v0.y, v1.x, v1.y)
-    }
+    }*/
 
     /** Factory method for creating a [[RectangleImp]] rectangle from the points cen, v0 and v1 */    
-    def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectangleImp = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+    //def cenV0V1(cen: Vec2, v0: Vec2, v1: Vec2): RectangleImp = new RectangleImp(cen.x, cen.y, v0.x, v0.y, v1.x, v1.y)
+    def s2s4v1(s2Cen: Vec2, s4Cen: Vec2, v1: Vec2): RectangleImp = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
   }
 }

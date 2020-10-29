@@ -21,6 +21,12 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
   @inline final def v4: Vec2 = topLeft
   final override def width1 = width
   final override def width2: Double = height
+  final override def s1Cen: Vec2 = Vec2(xCen, yCen + height / 2)
+  final override def s2Cen: Vec2 = Vec2(xCen + width / 2, yCen)
+  final override def s3Cen: Vec2 = Vec2(xCen, yCen -height / 2)
+  final override def s4Cen: Vec2 = Vec2(xCen - width / 2, yCen)
+
+
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2): Rect = Rect(width, height, cen + offset)
@@ -114,9 +120,7 @@ object Rect
   final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
   { override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0(f(cen), f(v1))
     override def attribs: Arr[XANumeric] = ???
-    override def s3Cen: Vec2 = v4 mid v1
 
-    override def s2Cen: Vec2 = ???
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(offset: Vec2): RectImp = RectImp(width, height, cen + offset)
 

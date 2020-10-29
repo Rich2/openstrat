@@ -45,7 +45,7 @@ trait Square extends Rectangle
 object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
-
+  def s2s4(s2Cen: Vec2, s4Cen: Vec2): Square = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
   def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
   { val delta = Vec2(width / 2, width / 2).rotate(rotation)
     cenV0(cen, cen + delta)
@@ -68,27 +68,18 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val xCen: Double, val yCen: Double, val x1: Double, val y1: Double) extends Square with RectS3S1
+  final class SquareImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double) extends Square with RectS3S1
   {
-    //override def width: Double = v0.distTo(v1)
-    override def v2: Vec2 = cen + (v1 - cen).rotate270
-    override def x2: Double = v2.x
-    override def y2: Double = v2.y
-
-
-    //override def s3Cen: Vec2 = ???
+    @inline override def width2: Double = width1
 
     override def attribs: Arr[XANumeric] = ???
-
-    def rotationRadians: Double = rotation.radians
-    @inline override def rotation: Angle =  sline0.angle + 90.degs // Angle.radians(rotationRadians)
 
     override def productArity: Int = 3
     override def productElement(n: Int): Any = 4
     override def toString: String = s"SquareClass($x1, $y1; $x2, $y2)"
-    override def fTrans(f: Vec2 => Vec2): SquareImp = SquareImp.cenV0(f(cen), f(v1))
+   // override def fTrans(f: Vec2 => Vec2): SquareImp = Square.s2s4(f(cen), f(v1))
 
-    override def slate(offset: Vec2): SquareImp = SquareImp.cenV0(cen + offset, v1 + offset)
+    /*override def slate(offset: Vec2): SquareImp = SquareImp.cenV0(cen + offset, v1 + offset)
 
     /** Translate geometric transformation. */
     @inline override def slate(xOffset: Double, yOffset: Double): SquareImp = SquareImp.cenV0(cen.addXY(xOffset, yOffset), v1.addXY(xOffset, yOffset))
@@ -103,7 +94,7 @@ object Square extends ShapeIcon
 
     override def rotate(angle: Angle): SquareImp = SquareImp.cenV0(cen.rotate(angle), v1.rotate(angle))
 
-    override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v1.reflect(lineLike))
+    override def reflect(lineLike: LineLike): SquareImp = SquareImp.cenV0(cen.reflect(lineLike), v1.reflect(lineLike))*/
 
     //override def fill(fillColour: Colour): ShapeFill = ???
 
@@ -113,8 +104,8 @@ object Square extends ShapeIcon
   /** Factory object for squares. */
   object SquareImp //extends ShapeIcon
   {
-    def cenV0(cen: Vec2, v0: Vec2): SquareImp = new SquareImp(cen.x, cen.y, v0.x, v0.y)
-
+    //def cenV0(cen: Vec2, v0: Vec2): SquareImp = new SquareImp(cen.x, cen.y, v0.x, v0.y)
+    def s2s4(s2Cen: Vec2, s4Cen: Vec2): SquareImp = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
     def xy(width: Double, xCen: Double, yCen: Double): PolygonImp = PolygonImp(
       xCen - width / 2 vv yCen + width / 2,
       xCen + width / 2 vv yCen + width / 2,
