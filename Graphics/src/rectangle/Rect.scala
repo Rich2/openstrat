@@ -20,7 +20,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
   @inline final def y4: Double = yTopLeft
   @inline final def v4: Vec2 = topLeft
   final override def width1 = width
-  final override def width2: Double = height
+
   final override def s1Cen: Vec2 = Vec2(xCen, yCen + height / 2)
   final override def s2Cen: Vec2 = Vec2(xCen + width / 2, yCen)
   final override def s3Cen: Vec2 = Vec2(xCen, yCen -height / 2)
@@ -119,6 +119,8 @@ object Rect
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
   { override def fTrans(f: Vec2 => Vec2): RectImp = RectImp.cenV0(f(cen), f(v1))
+    override def width2: Double = height
+
     override def attribs: Arr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
