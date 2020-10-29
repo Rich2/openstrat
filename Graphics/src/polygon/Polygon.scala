@@ -9,7 +9,7 @@ trait Polygon extends Shape with BoundedElem
 {
   def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
 
-  def foreachVert(f: Vec2 => Unit): Unit
+  def foreachVert[U](f: Vec2 => U): Unit
   def foreachVertTail[U](f: Vec2 => U): Unit
   def ptsArray: Array[Double]
   

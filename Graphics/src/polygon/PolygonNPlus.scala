@@ -45,6 +45,9 @@ trait Polygon3Plus extends Polygon
 
   /** Side 3. */
   def s3: LineSeg = LineSeg(v2, v3)
+
+  /** The centre or half way point of side 1 of this polygon. Side 1 starts at the vLast and ends at v1. */
+  def s1Cen: Vec2
 }
 
 /** A [[Polygon]] with at least 4 vertices. */

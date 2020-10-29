@@ -7,7 +7,8 @@ trait Triangle extends Polygon3Plus
 {	override def vertsNum: Int = 3
 	override def v1: Vec2 = x1 vv y1
 	override def v3: Vec2 = x3 vv y3
-
+	override def s1Cen: Vec2 = (v3 + v1) / 2
+	
 	override def vert(index: Int): Vec2 = index match
 	{	case 1 => v1
 		case 2 => v2
@@ -19,7 +20,7 @@ trait Triangle extends Polygon3Plus
 
 	override def xVertsArray: Array[Double] = Array(x1, x2, x3)
 	override def yVertsArray: Array[Double] = Array(y1, y2, y3)
-	override def foreachVert(f: Vec2 => Unit): Unit = { f(v1); f(v2); f(v3); () }
+	override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
 	override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
 

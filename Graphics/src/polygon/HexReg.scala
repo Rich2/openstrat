@@ -15,10 +15,10 @@ trait HexReg extends Polygon6Plus
 
   def s1Cen: Vec2
   def s4Cen: Vec2
-  override def foreachVert(f: Vec2 => Unit): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6) }
+  override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
-  override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6) }
-  override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5);  f(x6, y6) }
+  override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
+  override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5); f(x6, y6); () }
 
   override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4, x5, x6)
 
@@ -32,14 +32,30 @@ trait HexReg extends Polygon6Plus
     case 4 => v4
     case 5 => v5
     case 6 => v6
-    case n => excep("$index is out of range for a Hexagon vertex")
+    case n => excep(s"$n is out of range for a Hexagon vertex")
   }
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def xVert(index: Int): Double = ???
+  override def xVert(index: Int): Double = index match
+  { case 1 => x1
+    case 2 => x2
+    case 3 => x3
+    case 4 => x4
+    case 5 => x5
+    case 6 => x6
+    case n => excep(s"$n is out of range for a Hexagon vertex")
+  }
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def yVert(index: Int): Double = ???
+  override def yVert(index: Int): Double = index match
+  { case 1 => y1
+    case 2 => y2
+    case 3 => y3
+    case 4 => y4
+    case 5 => y5
+    case 6 => y6
+    case n => excep(s"$n is out of range for a Hexagon vertex")
+  }
 
   /** A Hexagon has 6 vertices. */
   final override def vertsNum: Int = 6

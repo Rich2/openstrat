@@ -11,7 +11,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def vert(index: Int): Vec2 = apply(index - 1)
   def foreachPt(f: Vec2 => Unit): Unit = iUntilForeach(0, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))
 
-  override def foreachVert(f: Vec2 => Unit): Unit =
+  override def foreachVert[U](f: Vec2 => U): Unit =
     iUntilForeach(dblsNumOffset, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))
   override def foreachVertTail[U](f: Vec2 => U): Unit =
     iUntilForeach(dblsNumOffset + 2, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))

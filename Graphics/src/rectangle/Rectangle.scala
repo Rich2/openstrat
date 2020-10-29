@@ -9,9 +9,10 @@ import pWeb._
 trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
 
-  def xLs3Cen: Double
-  def yLs3Cen: Double
+ // def xLs3Cen: Double
+ // def yLs3Cen: Double
   def ls3Cen: Vec2
+  final override def s1Cen: Vec2 = (v4 + v1) / 2
 
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double
@@ -63,7 +64,7 @@ trait Rectangle extends Polygon4Plus
 
   final override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4)
   final override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4)
-  final override def foreachVert(f: Vec2 => Unit): Unit = { f(v1); f(v2); f(v3); f(v4) }
+  final override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
   final override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); f(x4, y4); () }
 
