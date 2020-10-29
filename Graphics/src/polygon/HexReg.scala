@@ -14,6 +14,9 @@ trait HexReg extends Polygon6Plus
   @inline final def dMax: Double = dMin * 2 / Sqrt3
 
   def s1Cen: Vec2
+
+  override def s2Cen: Vec2 = ???
+  override def s3Cen: Vec2 = ???
   def s4Cen: Vec2
   override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 

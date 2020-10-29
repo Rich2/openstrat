@@ -6,6 +6,8 @@ import pWeb._
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
 trait Square extends Rectangle
 {
+  override def s2Cen: Vec2 = v3 mid v2
+
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(offset: Vec2): Square = Square.cenV0(cen + offset, v1 + offset)
 
@@ -66,13 +68,15 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val xCen: Double, val yCen: Double, val x1: Double, val y1: Double) extends Square with RectCenV0
+  final class SquareImp(val xCen: Double, val yCen: Double, val x1: Double, val y1: Double) extends Square with RectS3S1
   {
     //override def width: Double = v0.distTo(v1)
     override def v2: Vec2 = cen + (v1 - cen).rotate270
     override def x2: Double = v2.x
     override def y2: Double = v2.y
 
+
+    //override def s3Cen: Vec2 = ???
 
     override def attribs: Arr[XANumeric] = ???
 

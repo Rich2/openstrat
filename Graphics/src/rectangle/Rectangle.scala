@@ -10,7 +10,7 @@ trait Rectangle extends Polygon4Plus
 { final override def vertsNum: Int = 4
 
   override def s1Cen: Vec2 = v4 mid v1
-  def ls3Cen: Vec2
+  def s3Cen: Vec2
 
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double
@@ -154,10 +154,11 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val xCen: Double, val yCen: Double, val x1: Double, val y1: Double, val x2: Double, val y2: Double) extends RectCenV0
+  final class RectangleImp(val xCen: Double, val yCen: Double, val x1: Double, val y1: Double, val x2: Double, val y2: Double) extends RectS3S1
   { type ThisT = RectangleImp
     override def v2: Vec2 = Vec2(x2, y2)
-    
+
+    override def s2Cen: Vec2 = ???
     override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.cenV0V1(f(cen), f(v1), f(v2))
 
     override def productArity: Int = 5

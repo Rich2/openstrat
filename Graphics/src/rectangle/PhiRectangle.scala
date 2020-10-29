@@ -14,6 +14,8 @@ object PhiRectangle
 case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with PhiRectangle
 {
   override def width: Double = height * Phi
-  override def ls3Cen: Vec2 = Vec2(0, yCen + height / 2)
+  override def s3Cen: Vec2 = Vec2(0, yCen + height / 2)
+
+  override def s2Cen: Vec2 = ???
   override def slateTo(newCen: Vec2): PhiRect = ???
 }
