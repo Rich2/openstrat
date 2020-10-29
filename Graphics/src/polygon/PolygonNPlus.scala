@@ -2,7 +2,8 @@
 package ostrat
 package geom
 
-/** A [[Polygon]] with at least 3 vertices. */
+/** A [[Polygon]] with at least 3 vertices. The PolygonNPlus traits include values for the vertices and the x and y components of the vertices. The X
+ * and Y components are included because Graphics implementation APIs use them. */
 trait Polygon3Plus extends Polygon
 {
   /** The X component of the 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
@@ -20,8 +21,8 @@ trait Polygon3Plus extends Polygon
   /** The Y component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def y2: Double
-  /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
-   *  12 o'clock. */
+  /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
+   *  from 12 o'clock. */
   def v2: Vec2
   /** The X component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */

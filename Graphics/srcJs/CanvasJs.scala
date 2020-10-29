@@ -92,7 +92,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit =
   { gc.beginPath()
-    gc.moveTo(poly(0).x, poly(0).y)
+    gc.moveTo(poly.x1, poly.y1)
     poly.foreachPairTail(gc.lineTo)
     gc.closePath()
     gc.strokeStyle = colour.webStr

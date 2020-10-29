@@ -88,9 +88,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   { gc.setFill(toFxColor(colour))
     gc.fillOval(circle.xCen - circle.radius, circle.yCen - circle.radius, circle.diameter, circle.diameter)
   }
+
   override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
-  {
-    import paint._
+  { import paint._
     val stop1 = new Stop(0, toFxColor(fill.cenColour))
     val stop2 = new Stop(1, toFxColor(fill.outerColour))
     val lg1 = new RadialGradient(0, 0, 0.5, 0.5, 0.8, true, CycleMethod.NO_CYCLE, stop1, stop2)
@@ -122,8 +122,8 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.fillOval(ellipse.xCen - ellipse.radius1, ellipse.yCen - ellipse.radius0 , ellipse.diameter1, ellipse.diameter0)
   }
 
-  override def tlEllipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit = {
-    gc.setLineWidth(lineWidth)
+  override def tlEllipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit =
+  { gc.setLineWidth(lineWidth)
     gc.setStroke(toFxColor(colour))
     gc.strokeOval(ellipse.xCen - ellipse.radius1, ellipse.yCen - ellipse.radius0, ellipse.diameter1, ellipse.diameter0)
   }    
