@@ -2,6 +2,11 @@
 package ostrat
 package geom
 
+/** Golden rectangle, a rectangle whose side lengths are in the golden ratio, 1 : 1 + 5 2 {\displaystyle 1:{\tfrac {1+{\sqrt {5}}}{2}}} 1:{\tfrac
+ *  {1+{\sqrt {5}}}{2}}, which is 1 : φ {\displaystyle 1:\varphi } 1:\varphi (the Greek letter phi), where φ {\displaystyle \varphi } \varphi is
+ *  approximately 1.618. Golden rectangles exhibit a special form of self-similarity: All rectangles created by adding or removing a square are Golden
+ *  rectangles as well. A method to construct a golden rectangle. Owing to the Pythagorean theorem,[a] the diagonal dividing one half of a square
+ *  equals the radius of a circle whose outermost point is also the corner of a golden rectangle added to the square. */
 trait PhiRectangle extends Rectangle
 {
   def width1: Double = width2 * Phi
@@ -20,18 +25,6 @@ trait PhiRectangle extends Rectangle
 
   /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
   override def negX: PhiRectangle = PhiRectangle.s1s3(s1Cen.negX, s3Cen.negX)
-
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
-   *  return type will be narrowed in sub traits / classes. */
-  /*override def rotate90: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate90, s3Cen.rotate90)
-
-  /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits /
-   * classes. */
-  override def rotate180: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate180, s3Cen.rotate180)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
-   *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate270, s3Cen.rotate270)*/
 
   override def prolign(matrix: ProlignMatrix): PhiRectangle = PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
@@ -77,7 +70,6 @@ object PhiRectangle
   }
 }
 
-
 case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
 {
   override def width: Double = width1
@@ -97,19 +89,6 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
   /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
   override def negX: PhiRect = PhiRect(height, cen.negX)
 
-
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
-   *  return type will be narrowed in sub traits / classes. */
-  /*override def rotate90: PhiRect = ???
-
-  /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits /
-   * classes. */
-  override def rotate180: PhiRect = this
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
-   *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: PhiRect = ???*/
-
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
   override def slateTo(newCen: Vec2): PhiRect = slate(newCen - cen)
@@ -118,4 +97,33 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 object PhiRect
 {
   def apply(height: Double, cen: Vec2 = Vec2Z): PhiRect = PhiRect(height, cen.x, cen.y)
+}
+
+case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
+{
+  override def height: Double = width1
+  override def width2: Double = width
+  /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
+  override def slate(offset: Vec2): PhiRectY = PhiRectY(width, cen + offset)
+
+  /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
+  override def slate(xOffset: Double, yOffset: Double): PhiRectY = PhiRectY(width, xCen + xOffset, yCen + yOffset)
+
+  /** Uniform scaling transformation on a PhiRectY returns a PhiRectY. */
+  override def scale(operand: Double): PhiRectY = PhiRectY(width * operand, cen * operand)
+
+  /** Mirror, reflection transformation across the X axis on a PhiRectY, returns a PhiRectY. */
+  override def negY: PhiRectY = PhiRectY(width, cen.negY)
+
+  /** Mirror, reflection transformation across the X axis on a PhiRectY, returns a PhiRectY. */
+  override def negX: PhiRectY = PhiRectY(width, cen.negX)
+
+  override def prolign(matrix: ProlignMatrix): PhiRectY = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+
+  override def slateTo(newCen: Vec2): PhiRectY = slate(newCen - cen)
+}
+
+object PhiRectY
+{
+  def apply(width: Double, cen: Vec2 = Vec2Z): PhiRectY = PhiRectY(width, cen.x, cen.y)
 }
