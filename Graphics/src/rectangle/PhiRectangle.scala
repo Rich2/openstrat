@@ -5,10 +5,50 @@ package geom
 trait PhiRectangle extends Rectangle
 {
   def width1: Double = width2 * Phi
+
+  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
+  override def slate(offset: Vec2): PhiRectangle = ???
+
+  /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
+  override def slate(xOffset: Double, yOffset: Double): PhiRectangle = ???
+
+  /** Uniform scaling transformation on a PhiRectangle returns a PhiRectangle. */
+  override def scale(operand: Double): PhiRectangle = ???
+
+  /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
+  override def negY: PhiRectangle = ???
+
+  /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
+  override def negX: PhiRectangle = ???
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate90: PhiRectangle = ???
+
+  /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: PhiRectangle = ???
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate270: PhiRectangle = ???
+
+  override def prolign(matrix: ProlignMatrix): PhiRectangle = ???
+
+  override def reflect(lineLike: LineLike): PhiRectangle = ???
+
+  override def rotate(angle: Angle): PhiRectangle = ???
+
+  override def slateTo(newCen: Vec2): PhiRectangle = ???
 }
 
 object PhiRectangle
 {
+  def apply(height: Double, rotation: Angle, cen: Vec2): PhiRectangle =
+  { val s1Cen: Vec2 = cen + Vec2(0, height / 2).rotate(rotation)
+    val s3Cen: Vec2 = cen + Vec2(0, -height / 2).rotate(rotation)
+    PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
+  }
+
   case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xS3Cen: Double, yS3Cen: Double) extends PhiRectangle
   {
     override def xCen: Double = (xS1Cen + xS1Cen) / 2
@@ -23,27 +63,14 @@ object PhiRectangle
     override def v2: Vec2 = s3Cen + Vec2(width2 / 2, 0).rotate(rotation)
     override def x2: Double = v2.x
     override def y2: Double = v2.y
-    override def v3: Vec2 = s3Cen - Vec2(width2 / 2, 0).rotate(rotation)
+    override def v3: Vec2 = s3Cen + Vec2(-width2 / 2, 0).rotate(rotation)
     override def x3: Double = v2.x
     override def y3: Double = v2.y
-
-    /** The X component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-     * immediately clockwise from 12 o'clock. */
-    override def x4: Double = ???
-
-    /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-     * immediately clockwise from 12 o'clock. */
-    override def y4: Double = ???
-
-    /** The 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
-     * 12 o'clock. */
-    override def v4: Vec2 = ???
-
-    /** The centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. */
-    override def s4Cen: Vec2 = ???
-
-    /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. */
-    override def s2Cen: Vec2 = ???
+    override def v4: Vec2 = s1Cen + Vec2(-width2 / 2, 0).rotate(rotation)
+    override def x4: Double = v2.x
+    override def y4: Double = v2.y
+    override def s2Cen: Vec2 = s1Cen mid s2Cen
+    override def s4Cen: Vec2 = s3Cen mid s4Cen
   }
 }
 
@@ -51,13 +78,38 @@ case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with
 {
   override def width: Double = width1
   override def width2: Double = height
+  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
+  override def slate(offset: Vec2): PhiRect = ???
+
+  /** Translate geometric transformation on a PhiRect returns a PhiRect. */
+  override def slate(xOffset: Double, yOffset: Double): PhiRect = ???
+
+  /** Uniform scaling transformation on a PhiRect returns a PhiRect. */
+  override def scale(operand: Double): PhiRect = ???
+
+  /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
+  override def negY: PhiRect = ???
+
+  /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
+  override def negX: PhiRect = ???
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRect, returns a PhiRect. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate90: PhiRect = ???
+
+  /** Rotate 480 degrees 2D geometric transformation on a PhiRect, returns a PhiRect. The return type will be narrowed in sub traits / classes. */
+  override def rotate180: PhiRect = ???
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRect, returns a PhiRect. The return type
+   * will be narrowed in sub traits / classes. */
+  override def rotate270: PhiRect = ???
+
+  override def prolign(matrix: ProlignMatrix): PhiRect = ???
 
   override def slateTo(newCen: Vec2): PhiRect = ???
 }
 
 object PhiRect
 {
-  case class PhiRectImp(xCen: Double, yCen: Double, xLs3Cen: Double, yLs3Cen: Double)
-  { def ls3Cen: Vec2 = Vec2(xLs3Cen, yLs3Cen)
-  }
+
 }
