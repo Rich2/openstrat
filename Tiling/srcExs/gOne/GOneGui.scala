@@ -20,7 +20,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  def lunits = players.mapSomes{(r, p) => Rect(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
+  def lunits = players.mapSomeWithRoords{ (r, p) => Rect(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
     p.toString + "\n" + r.ycStr, 24, 2.0) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
@@ -33,11 +33,11 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   val sidesDraw = grid.sidesDraw(2.0)
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(players(rs.r1).colour, 2) }
+  def moveGraphics: Arr[LineDraw] = moves.mapSomes{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(players(rs.r1).colour, 2) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
-    val getOrders = moves.mapSomeOnlys(rs => rs)
+    val getOrders = moves.mapSomes(rs => rs)
     scen = scen.turn(getOrders)
     moves = NoMoves
     repaint()

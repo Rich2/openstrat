@@ -22,7 +22,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
    *  those moves. This data is state for the Gui. */
   var moves: HexArrOpt[HCAndStep] = NoMoves
 
-  def lunits = players.mapSomes{(hc, p) => Rect(0.9, 0.6, hc.toVec2).fillDrawTextActive(p.colour, HPlayer(p, hc),
+  def lunits = players.mapSomeWithHCens{ (hc, p) => Rect(0.9, 0.6, hc.toVec2).fillDrawTextActive(p.colour, HPlayer(p, hc),
     p.toString + "\n" + hc.rcStr, 24, 2.0) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
@@ -35,7 +35,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   val sidesDraw = grid.sidesDraw(2.0)
 
   /** This is the graphical display of the planned move orders. */
-  //def moveGraphics: Arr[LineDraw] = moves.mapSomeOnlys{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(2, players(rs.r1).colour ) }
+  def moveGraphics: Arr[LineDraw] = moves.mapSomes{ rs => HCoordLineSeg(rs.hc1, rs.hc2).toLine2.draw(players(rs.hc1).colour) }
 
   /** Creates the turn button and the action to commit on mouse click. */
  /* def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
@@ -56,17 +56,17 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
         thisTop()
       }
 
-      /*case (RightButton, (t : HexTile) :: _, List(RPlayer(p, r), HexTile(y, c))) =>
+      /*case (RightButton, (t : HCen) :: _, List(HPlayer(p, r), HCen(y, c))) =>
       {
-        val newM: OptRef[HTStep] = t.adjOf(r)
+        val newM: OptRef[HCStep] = t.adjOf(r)
         newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))//grid.index(r), m))
         repaint()
       }*/
        case (_, h, _) => deb("Other; " + h.toString)
     }
   thisTop()
-  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits).gridScale(scale)
-  //(tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridScale(scale)
+  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ moveGraphics).gridScale(scale)
+  //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

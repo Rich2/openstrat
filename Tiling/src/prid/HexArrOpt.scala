@@ -30,11 +30,24 @@ class HexArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
- // def apply(roord: Roord)(implicit grid: TileGridSimple): A = unsafeArr(grid.arrIndex(roord))
+  def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
 
 //  def foreachSome(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach { r => f(r, unsafeArr(grid.arrIndex(r))) }
 
-  def mapSomes[B, ArrT <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { r =>
+      val a = unsafeArr(grid.arrIndex(r))
+      if(a != null)
+      { val newVal = f(a)
+        build.buffGrow(buff, newVal)
+      }
+   }
+   build.buffToArr(buff)
+ }
+
+  def mapSomeWithHCens[B, ArrT <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -55,19 +68,6 @@ class HexArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
       if(a != null)
       { val newVal = f(r, a)
         build.buffGrowArr(buff, newVal)
-      }
-    }
-    build.buffToArr(buff)
-  }
-
-  def mapSomeOnlys[B, ArrT <: ArrBase[B]](f: A => B)(implicit grid: TileGridSimple, build: ArrBuild[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    grid.foreach { r =>
-      val a = unsafeArr(grid.arrIndex(r))
-      if(a != null)
-      { val newVal = f(a)
-        build.buffGrow(buff, newVal)
       }
     }
     build.buffToArr(buff)

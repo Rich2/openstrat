@@ -28,6 +28,11 @@ object HCen
     case _ => excep(s"$r, $c is not a valid Hex centre tile coordinate.")
   }
 
+  def unapply(input: HCoord): Option[(Int, Int)] = input match {
+    case HCen(r, c) => Some((r, c))
+    case _ => None
+  }
+
   val h00v1: HVert = HVert(1, 2)
   val h00v2: HVert = HVert(-1, 2)
   val h00v3: HVert = HVert(-1, 0)

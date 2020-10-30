@@ -18,5 +18,5 @@ case class HCoordLineSeg(r1: Int, c1: Int, r2: Int, c2: Int) //extends ProdInt4
 
 object HCoordLineSeg
 {
-
+  def apply(hCoord1: HCoord, hCoord2: HCoord): HCoordLineSeg = new HCoordLineSeg(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 }
