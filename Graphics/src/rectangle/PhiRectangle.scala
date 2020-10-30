@@ -77,7 +77,7 @@ object PhiRectangle
   }
 }
 
-/*
+
 case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
 {
   override def width: Double = width1
@@ -97,10 +97,25 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
   /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
   override def negX: PhiRect = PhiRect(height, cen.negX)
 
+
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
+   *  return type will be narrowed in sub traits / classes. */
+  override def rotate90: PhiRect = ???
+
+  /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: PhiRect = this
+
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
+   *  return type will be narrowed in sub traits / classes. */
+  override def rotate270: PhiRect = ???
+
+  override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+
   override def slateTo(newCen: Vec2): PhiRect = slate(newCen - cen)
 }
 
 object PhiRect
 {
   def apply(height: Double, cen: Vec2 = Vec2Z): PhiRect = PhiRect(height, cen.x, cen.y)
-}*/
+}

@@ -29,8 +29,8 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
    def fSide: OfESide[NTileOld, ESideOldOnly] => GraphicElems = ofs =>
      { import ofs._
        val line = ifScaleCObjs(60, side.terr match
-         { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(1, t1.colour.contrastBW))
-           case Straitsold => Arr(vertDispLine.draw(6, Colour.Blue))
+         { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(t1.colour.contrastBW, 1))
+           case Straitsold => Arr(vertDispLine.draw(Colour.Blue, 6))
          })      
        line
      } 

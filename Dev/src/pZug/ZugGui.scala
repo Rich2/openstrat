@@ -12,7 +12,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val sides = scen.sTerrs.gridMap{ (r, b) =>
     val sl = grid.sideRoordToLine2(r)
-    ife(b, sl.draw(8, Colour.Gray), sl.draw(2))
+    ife(b, sl.draw(Colour.Gray, 8), sl.draw(lineWidth = 2))
   }
 
   def lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
@@ -22,12 +22,12 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
       case Move(rs) =>
       { rs.foldWithPrevious[GraphicElems](roord, Arr()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
-          val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(2, Black)
-          val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(2, Black)
+          val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(Black, 2)
+          val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(Black, 2)
           acc +- l1 +- l2
         }
       }
-      case Fire(target) => Arr(RoordLine(roord, target).gridLine2.draw(2, Red).dashed(20, 20))
+      case Fire(target) => Arr(RoordLine(roord, target).gridLine2.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
     action +- uc

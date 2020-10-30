@@ -74,7 +74,7 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
    *  distance to the point. The Vec2 of that point is returned by this method. */
   def midPtToLeft(distFromMidPt: Double): Vec2 = midPt + left90.toVec2(distFromMidPt)
 
-  def draw(lineWidth: Double, colour: Colour = Black): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
+  def draw(colour: Colour = Black, lineWidth: Double = 2): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
 
   def mirrorPt(pt: Vec2): Vec2 = pt.reflect(this)
 
