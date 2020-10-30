@@ -3,6 +3,7 @@ package ostrat
 package geom
 import Colour._, pCanv._
 
+/** Graphic that draws a rectangle. */
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple 
 {
   /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
@@ -20,18 +21,6 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a RectangleDraw, returns a RectangleDraw. The return
-   * type will be narrowed in sub traits / classes. */
-  /*override def rotate90: RectangleDraw = RectangleDraw(shape.rotate90, lineWidth, lineColour)
-
-  /** Rotate 180 degrees 2D geometric transformation on a RectangleDraw, returns a RectangleDraw. The return type will be narrowed in sub traits /
-   * classes. */
-  override def rotate180: RectangleDraw = RectangleDraw(shape.rotate180, lineWidth, lineColour)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a RectangleDraw, returns a RectangleDraw. The return
-   * type will be narrowed in sub traits / classes. */
-  override def rotate270: RectangleDraw = RectangleDraw(shape.rotate270, lineWidth, lineColour)*/
-
   /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def prolign(matrix: ProlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)
 
@@ -44,9 +33,10 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   /** Independent X and Y dimension scaling upon a RectangleDraw returns a RectangleDraw. */
   override def xyScale(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.xyScale(xOperand, yOperand), lineWidth, lineColour)
 
-  override def slateTo(newCen: Vec2): RectangleDraw = ???
+  override def slateTo(newCen: Vec2): RectangleDraw = slate(newCen - cen)
 }
 
+/** Companion object for RectangleDraw contains factory method and implementation class. */
 object RectangleDraw
 {
   def apply(shape: Rectangle, lineWidth: Double = 2, lineColour: Colour = Black): RectangleDraw = RectangleDrawImp(shape, lineWidth, lineColour)
