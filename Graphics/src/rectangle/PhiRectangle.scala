@@ -77,42 +77,30 @@ object PhiRectangle
   }
 }
 
-case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with PhiRectangle
+/*
+case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
 {
   override def width: Double = width1
   override def width2: Double = height
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
-  override def slate(offset: Vec2): PhiRect = ???
+  override def slate(offset: Vec2): PhiRect = PhiRect(height, cen + offset)
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
-  override def slate(xOffset: Double, yOffset: Double): PhiRect = ???
+  override def slate(xOffset: Double, yOffset: Double): PhiRect = PhiRect(height, xCen + xOffset, yCen + yOffset)
 
   /** Uniform scaling transformation on a PhiRect returns a PhiRect. */
-  override def scale(operand: Double): PhiRect = ???
+  override def scale(operand: Double): PhiRect = PhiRect(height * operand, cen * operand)
 
   /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
-  override def negY: PhiRect = ???
+  override def negY: PhiRect = PhiRect(height, cen.negY)
 
   /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
-  override def negX: PhiRect = ???
+  override def negX: PhiRect = PhiRect(height, cen.negX)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRect, returns a PhiRect. The return type
-   * will be narrowed in sub traits / classes. */
-  override def rotate90: PhiRect = ???
-
-  /** Rotate 480 degrees 2D geometric transformation on a PhiRect, returns a PhiRect. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: PhiRect = ???
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRect, returns a PhiRect. The return type
-   * will be narrowed in sub traits / classes. */
-  override def rotate270: PhiRect = ???
-
-  override def prolign(matrix: ProlignMatrix): PhiRect = ???
-
-  override def slateTo(newCen: Vec2): PhiRect = ???
+  override def slateTo(newCen: Vec2): PhiRect = slate(newCen - cen)
 }
 
 object PhiRect
 {
-
-}
+  def apply(height: Double, cen: Vec2 = Vec2Z): PhiRect = PhiRect(height, cen.x, cen.y)
+}*/
