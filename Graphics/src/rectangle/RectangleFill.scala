@@ -21,19 +21,6 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
    * in sub classes. */
   override def negX: RectangleFill = RectangleFill(shape.negX, colour)
 
-
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a RectangleFill, returns a RectangleFill. The
-   *  return type will be narrowed in sub traits / classes. */
-  /*override def rotate90: RectangleFill = RectangleFill(shape.rotate90, colour)
-
-  /** Rotate 180 degrees 2D geometric transformation on a RectangleFill, returns a RectangleFill. The return type will be narrowed in sub traits /
-   * classes. */
-  override def rotate180: RectangleFill = RectangleFill(shape.rotate180, colour)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a RectangleFill, returns a RectangleFill. The
-   *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: RectangleFill = RectangleFill(shape.rotate270, colour)*/
-
   override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), colour)
 
   override def rotate(angle: Angle): RectangleFill = RectangleFill(shape.rotate(angle), colour)

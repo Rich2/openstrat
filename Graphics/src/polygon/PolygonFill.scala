@@ -29,18 +29,6 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
    * in sub classes. */
   override def negX: PolygonFill = PolygonFill(shape.negX, colour)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return
-   * type will be narrowed in sub traits / classes. */
-  /*override def rotate90: PolygonFill = PolygonFill(shape.rotate90, colour)
-
-  /** Rotate 180 degrees 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return type will be narrowed in sub traits /
-   * classes. */
-  override def rotate180: PolygonFill =  PolygonFill(shape.rotate180, colour)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonFill, returns a PolygonFill. The return
-   * type will be narrowed in sub traits / classes. */
-  override def rotate270: PolygonFill =  PolygonFill(shape.rotate270, colour)*/
-
   override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), colour)
 
   override def rotate(angle: Angle): PolygonFill = PolygonFill(shape.rotate(angle), colour)
@@ -78,9 +66,6 @@ object PolygonFill
   implicit val reflectAxesImplicit: TransAxes[PolygonFill] = new TransAxes[PolygonFill]
   { override def negYT(obj: PolygonFill): PolygonFill = obj.negY
     override def negXT(obj: PolygonFill): PolygonFill = obj.negX
-    /*override def rotate90T(obj: PolygonFill): PolygonFill = obj.rotate90
-    override def rotate180T(obj: PolygonFill): PolygonFill = obj.rotate180
-    override def rotate270T(obj: PolygonFill): PolygonFill = obj.rotate270*/
   }
 
   /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
@@ -89,7 +74,7 @@ object PolygonFill
    * @param shape The Polygon shape.
    * @param colour The colour of this graphic. */
   final case class PolygonFillImp(shape: Polygon, colour: Colour) extends PolygonFill
-  { // override type ThisT = PolygonFillImp
+  {
     // override def fTrans(f: Vec2 => Vec2): PolygonFillImp = PolygonFillImp(shape.fTrans(f), colour)
 
     //override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(lineWidth, newColour)

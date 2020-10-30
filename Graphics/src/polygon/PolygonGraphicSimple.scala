@@ -49,18 +49,6 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
    * in sub classes. */
   override def negX: PolygonGraphicSimple
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonGraphicSimple, returns a PolygonGraphicSimple. The
-   * return type will be narrowed in sub traits / classes. */
-  /*override def rotate90: PolygonGraphicSimple
-
-  /** Rotate 180 degrees 2D geometric transformation on a PolygonGraphicSimple, returns a PolygonGraphicSimple. The return type will be narrowed in sub traits /
-   * classes. */
-  override def rotate180: PolygonGraphicSimple
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonGraphicSimple, returns a PolygonGraphicSimple. The
-   * return type will be narrowed in sub traits / classes. */
-  override def rotate270: PolygonGraphicSimple*/
-
   override def prolign(matrix: ProlignMatrix): PolygonGraphicSimple
 
   override def rotate(angle: Angle): PolygonGraphicSimple
@@ -80,9 +68,6 @@ object PolygonGraphicSimple
   implicit val reflectAxesImplicit: TransAxes[PolygonGraphicSimple] = new TransAxes[PolygonGraphicSimple]
   { override def negYT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negY
     override def negXT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negX
-    /*override def rotate90T(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate90
-    override def rotate180T(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate180
-    override def rotate270T(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate270*/
   }
 }
 
