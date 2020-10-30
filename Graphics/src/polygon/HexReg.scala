@@ -83,14 +83,14 @@ trait HexReg extends Polygon6Plus
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a HexReg, returns a HexReg. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: HexReg = HexReg.s4s1(s4Cen.rotate90, s1Cen.rotate90)
+  /*override def rotate90: HexReg = HexReg.s4s1(s4Cen.rotate90, s1Cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a HexReg, returns a HexReg. The return type will be narrowed in sub traits / classes. */
   override def rotate180: HexReg = HexReg.s4s1(s4Cen.rotate180, s1Cen.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a HexReg, returns a HexReg. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: HexReg = HexReg.s4s1(s4Cen.rotate270, s1Cen.rotate270)
+  override def rotate270: HexReg = HexReg.s4s1(s4Cen.rotate270, s1Cen.rotate270)*/
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s4s1(s4Cen.prolign(matrix), s1Cen.prolign(matrix))
@@ -111,9 +111,9 @@ object HexReg
   implicit val reflectAxesImplicit: TransAxes[HexReg] = new TransAxes[HexReg]
   { override def negYT(obj: HexReg): HexReg = obj.negY
     override def negXT(obj: HexReg): HexReg = obj.negX
-    override def rotate90T(obj: HexReg): HexReg = obj.rotate90
+    /*override def rotate90T(obj: HexReg): HexReg = obj.rotate90
     override def rotate180T(obj: HexReg): HexReg = obj.rotate180
-    override def rotate270T(obj: HexReg): HexReg = obj.rotate270
+    override def rotate270T(obj: HexReg): HexReg = obj.rotate270*/
   }
 
   /** Implementation class for the [[HexReg]] trait. */

@@ -41,14 +41,14 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PolygonCompound, returns a PolygonCompound.
    *  The return type will be narrowed in sub traits / classes. */
-  override def rotate90: PolygonCompound = PolygonCompound(shape.rotate90, facets, children.rotate90)
+  /*override def rotate90: PolygonCompound = PolygonCompound(shape.rotate90, facets, children.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a PolygonCompound, returns a PolygonCompound. The return type will be narrowed in sub traits / classes. */
   override def rotate180: PolygonCompound =  PolygonCompound(shape.rotate180, facets, children.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PolygonCompound, returns a PolygonCompound. The return type  will be
    *  narrowed in sub traits / classes. */
-  override def rotate270: PolygonCompound =  PolygonCompound(shape.rotate270, facets, children.rotate270)
+  override def rotate270: PolygonCompound =  PolygonCompound(shape.rotate270, facets, children.rotate270)*/
 
   override def prolign(matrix: ProlignMatrix): PolygonCompound = ???
 
@@ -81,9 +81,9 @@ object PolygonCompound
   implicit val reflectAxesImplicit: TransAxes[PolygonCompound] = new TransAxes[PolygonCompound]
   { override def negYT(obj: PolygonCompound): PolygonCompound = obj.negY
     override def negXT(obj: PolygonCompound): PolygonCompound = obj.negX
-    override def rotate90T(obj: PolygonCompound): PolygonCompound = obj.rotate90
+    /*override def rotate90T(obj: PolygonCompound): PolygonCompound = obj.rotate90
     override def rotate180T(obj: PolygonCompound): PolygonCompound = obj.rotate180
-    override def rotate270T(obj: PolygonCompound): PolygonCompound = obj.rotate270
+    override def rotate270T(obj: PolygonCompound): PolygonCompound = obj.rotate270*/
   }
 
   implicit val shearImplicit: Shear[PolygonCompound] = new Shear[PolygonCompound]

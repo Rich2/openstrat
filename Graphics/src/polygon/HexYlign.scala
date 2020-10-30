@@ -56,14 +56,14 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: HexYlign = HexYlign(dMin, cen.rotate90)
+  /*override def rotate90: HexYlign = HexYlign(dMin, cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. The return type will be narrowed in sub traits / classes. */
   override def rotate180: HexYlign = HexYlign(dMin, cen.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: HexYlign = HexYlign(dMin, cen.rotate270)
+  override def rotate270: HexYlign = HexYlign(dMin, cen.rotate270)*/
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): HexYlign = HexYlign(dMin, cen.prolign(matrix))

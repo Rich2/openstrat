@@ -127,7 +127,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
    *  will be narrowed in sub traits / classes. */
-  override def rotate90: Polygon = polygonMap(_.rotate90)
+  /*override def rotate90: Polygon = polygonMap(_.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Polygon, returns a Polygon. The return type will be narrowed in sub traits / classes. */
   override def rotate180: Polygon = polygonMap(_.rotate180)
@@ -135,7 +135,7 @@ trait Polygon extends Shape with BoundedElem
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
    *  will be narrowed in sub traits / classes. */
   override def rotate270: Polygon= polygonMap(_.rotate270)
-
+*/
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
@@ -260,9 +260,9 @@ object Polygon
   implicit val reflectAxesImplicit: TransAxes[Polygon] = new TransAxes[Polygon]
   { override def negYT(obj: Polygon): Polygon = obj.negY
     override def negXT(obj: Polygon): Polygon = obj.negX
-    override def rotate90T(obj: Polygon): Polygon = obj.rotate90
+    /*override def rotate90T(obj: Polygon): Polygon = obj.rotate90
     override def rotate180T(obj: Polygon): Polygon = obj.rotate180
-    override def rotate270T(obj: Polygon): Polygon = obj.rotate270
+    override def rotate270T(obj: Polygon): Polygon = obj.rotate270*/
   }
   
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]

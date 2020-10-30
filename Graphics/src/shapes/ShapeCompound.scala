@@ -31,7 +31,7 @@ trait ShapeCompound extends ShapeGraphic
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a ShapeCompound, returns a ShapeCompound. The
    * return type will be narrowed in sub traits / classes. */
-  override def rotate90: ShapeCompound = ???
+  /*override def rotate90: ShapeCompound = ???
 
   /** Rotate 180 degrees 2D geometric transformation on a ShapeCompound, returns a ShapeCompound. The return type will be narrowed in sub traits /
    * classes. */
@@ -39,7 +39,7 @@ trait ShapeCompound extends ShapeGraphic
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a ShapeCompound, returns a ShapeCompound. The
    * return type will be narrowed in sub traits / classes. */
-  override def rotate270: ShapeCompound = ???
+  override def rotate270: ShapeCompound = ???*/
 
   override def prolign(matrix: ProlignMatrix): ShapeCompound
 
@@ -66,9 +66,9 @@ object ShapeCompound
   implicit val reflectAxesImplicit: TransAxes[ShapeCompound] = new TransAxes[ShapeCompound]
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
-    override def rotate90T(obj: ShapeCompound): ShapeCompound = obj.rotate90
+    /*override def rotate90T(obj: ShapeCompound): ShapeCompound = obj.rotate90
     override def rotate180T(obj: ShapeCompound): ShapeCompound = obj.rotate180
-    override def rotate270T(obj: ShapeCompound): ShapeCompound = obj.rotate270
+    override def rotate270T(obj: ShapeCompound): ShapeCompound = obj.rotate270*/
   }
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  

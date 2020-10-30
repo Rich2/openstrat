@@ -21,13 +21,13 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def negX: Sqlign = Sqlign(width, -xCen, yCen)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Sqlign, returns a Sqlign. */
-  override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
+  /*override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Sqlign, returns a Sqlign. */
   override def rotate180: Sqlign = Sqlign(width, cen.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Sqlign, returns a Sqlign. */
-  override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
+  override def rotate270: Sqlign = Sqlign(width, cen.rotate270)*/
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
 

@@ -32,14 +32,14 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
    * classes. */
-  override def rotate90: EArc = ???
+  /*override def rotate90: EArc = ???
 
   /** Rotate 180 degrees 2D geometric transformation. The return type will be narrowed in sub traits / classes. */
   override def rotate180: EArc = ???
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
    * classes. */
-  override def rotate270: EArc = ???
+  override def rotate270: EArc = ???*/
 
   override def prolign(matrix: ProlignMatrix): EArc = ???
 

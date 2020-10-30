@@ -22,7 +22,7 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a RectangleDraw, returns a RectangleDraw. The return
    * type will be narrowed in sub traits / classes. */
-  override def rotate90: RectangleDraw = RectangleDraw(shape.rotate90, lineWidth, lineColour)
+  /*override def rotate90: RectangleDraw = RectangleDraw(shape.rotate90, lineWidth, lineColour)
 
   /** Rotate 180 degrees 2D geometric transformation on a RectangleDraw, returns a RectangleDraw. The return type will be narrowed in sub traits /
    * classes. */
@@ -30,7 +30,7 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a RectangleDraw, returns a RectangleDraw. The return
    * type will be narrowed in sub traits / classes. */
-  override def rotate270: RectangleDraw = RectangleDraw(shape.rotate270, lineWidth, lineColour)
+  override def rotate270: RectangleDraw = RectangleDraw(shape.rotate270, lineWidth, lineColour)*/
 
   /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def prolign(matrix: ProlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)

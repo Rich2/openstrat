@@ -29,6 +29,8 @@ object Rotate
 class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [T]
 { override def rotateRadians(radians: Double): T = ev.rotateT(value, Angle.radians(radians))
   def rotate(angle: Angle): T = ev.rotateT(value, angle)
+
+  def rotateQuadrants(implicit ct: ClassTag[T]): Arr[T] = Arr(value, rotate270, rotate180, rotate90)
 }
 
 trait RotateGenExtensions[T]
@@ -74,4 +76,17 @@ trait RotateGenExtensions[T]
   
   /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
   def clk150: T = rotate(-Deg150)
+
+  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
+  def rotate90: T  = rotate(Deg90)
+
+  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
+  def rotate180: T  = rotate(Deg180)
+
+  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
+  def rotate270: T  = rotate(Deg270)
+
+  def clk90: T  = rotate(Deg270)
+
+  def clk270: T  = rotate(Deg90)
 }

@@ -26,7 +26,7 @@ trait GraphicSimple extends GraphicElem
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate90: GraphicSimple
+  /*override def rotate90: GraphicSimple
 
   /** Rotate 180 degrees 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The return type will be narrowed in sub traits /
    * classes. */
@@ -34,7 +34,7 @@ trait GraphicSimple extends GraphicElem
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: GraphicSimple
+  override def rotate270: GraphicSimple*/
 
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
@@ -57,8 +57,8 @@ object GraphicSimple
   implicit val reflectAxesImplicit: TransAxes[GraphicSimple] = new TransAxes[GraphicSimple]
   { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
     override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
-    override def rotate90T(obj: GraphicSimple): GraphicSimple = obj.rotate90
+    /*override def rotate90T(obj: GraphicSimple): GraphicSimple = obj.rotate90
     override def rotate180T(obj: GraphicSimple): GraphicSimple = obj.rotate180
-    override def rotate270T(obj: GraphicSimple): GraphicSimple = obj.rotate270
+    override def rotate270T(obj: GraphicSimple): GraphicSimple = obj.rotate270*/
   }  
 }

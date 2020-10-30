@@ -116,14 +116,14 @@ trait Ellipse extends Shape with Curve
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Ellipse, returns a Ellipse. The return type will be
    *  narrowed in sub traits / classes. */
-  override def rotate90: Ellipse = fTrans(_.rotate90)
+  /*override def rotate90: Ellipse = fTrans(_.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Ellipse, returns a Ellipse. The return type will be narrowed in sub traits / classes. */
   override def rotate180: Ellipse = fTrans(_.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Ellipse, returns a Ellipse. The return type  will be
    *  narrowed in sub traits / classes. */
-  override def rotate270: Ellipse = fTrans(_.rotate270)
+  override def rotate270: Ellipse = fTrans(_.rotate270)*/
 
   override def reflect(lineLike: LineLike): Ellipse = fTrans(_.reflect(lineLike))
 
@@ -160,9 +160,9 @@ object Ellipse
   implicit val reflectAxesImplicit: TransAxes[Ellipse] = new TransAxes[Ellipse]
   { override def negYT(obj: Ellipse): Ellipse = obj.negY
     override def negXT(obj: Ellipse): Ellipse = obj.negX
-    override def rotate90T(obj: Ellipse): Ellipse = obj.rotate90
+    /*override def rotate90T(obj: Ellipse): Ellipse = obj.rotate90
     override def rotate180T(obj: Ellipse): Ellipse = obj.rotate180
-    override def rotate270T(obj: Ellipse): Ellipse = obj.rotate270
+    override def rotate270T(obj: Ellipse): Ellipse = obj.rotate270*/
   }
 
   implicit val shearImplicit: Shear[Ellipse] = new Shear[Ellipse]

@@ -23,7 +23,7 @@ trait PhiRectangle extends Rectangle
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate90: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate90, s3Cen.rotate90)
+  /*override def rotate90: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate90, s3Cen.rotate90)
 
   /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits /
    * classes. */
@@ -31,7 +31,7 @@ trait PhiRectangle extends Rectangle
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate270, s3Cen.rotate270)
+  override def rotate270: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate270, s3Cen.rotate270)*/
 
   override def prolign(matrix: ProlignMatrix): PhiRectangle = PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
@@ -100,7 +100,7 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate90: PhiRect = ???
+  /*override def rotate90: PhiRect = ???
 
   /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits /
    * classes. */
@@ -108,7 +108,7 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: PhiRect = ???
+  override def rotate270: PhiRect = ???*/
 
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 

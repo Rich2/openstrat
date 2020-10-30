@@ -11,9 +11,9 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 
   def negY: BoundedGraphic
   def negX: BoundedGraphic
-  def rotate90: BoundedGraphic
+  /*def rotate90: BoundedGraphic
   def rotate180: BoundedGraphic
-  def rotate270: BoundedGraphic
+  def rotate270: BoundedGraphic*/
 
   def prolign(matrix: ProlignMatrix): BoundedGraphic
 
@@ -36,9 +36,9 @@ object BoundedGraphic
   implicit val transAxesImplicit: TransAxes[BoundedGraphic] = new TransAxes[BoundedGraphic]
   { override def negYT(obj: BoundedGraphic): BoundedGraphic = obj.negY
     override def negXT(obj: BoundedGraphic): BoundedGraphic = obj.negX
-    override def rotate90T(obj: BoundedGraphic): BoundedGraphic = obj.rotate90
+    /*override def rotate90T(obj: BoundedGraphic): BoundedGraphic = obj.rotate90
     override def rotate180T(obj: BoundedGraphic): BoundedGraphic = obj.rotate180
-    override def rotate270T(obj: BoundedGraphic): BoundedGraphic = obj.rotate270
+    override def rotate270T(obj: BoundedGraphic): BoundedGraphic = obj.rotate270*/
   }
 
   implicit val shearImplicit: Shear[BoundedGraphic] = new Shear[BoundedGraphic]

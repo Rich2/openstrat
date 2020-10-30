@@ -55,13 +55,13 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def negX: Circle = Circle(diameter, cen.negX)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
-  override def rotate90: Circle = Circle(diameter, cen.rotate90)
+  /*override def rotate90: Circle = Circle(diameter, cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Circle, returns a Circle. */
   override def rotate180: Circle = Circle(diameter, cen.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
-  override def rotate270: Circle = Circle(diameter, cen.rotate270)
+  override def rotate270: Circle = Circle(diameter, cen.rotate270)*/
 
   override def slateTo(newCen: Vec2): Circle = Circle(diameter, newCen)
   
@@ -115,9 +115,9 @@ object Circle extends ShapeIcon
   implicit val reflectAxesImplicit: TransAxes[Circle] = new TransAxes[Circle]
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
-    override def rotate90T(obj: Circle): Circle = obj.rotate90
+    /*override def rotate90T(obj: Circle): Circle = obj.rotate90
     override def rotate180T(obj: Circle): Circle = obj.rotate180
-    override def rotate270T(obj: Circle): Circle = obj.rotate270
+    override def rotate270T(obj: Circle): Circle = obj.rotate270*/
   }
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)

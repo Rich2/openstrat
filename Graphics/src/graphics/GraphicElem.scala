@@ -30,7 +30,7 @@ trait GraphicElem extends GeomElem
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return
    *  type will be narrowed in sub traits / classes. */
-  override def rotate90: GraphicElem
+  /*override def rotate90: GraphicElem
 
   /** Rotate 180 degrees 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be narrowed in sub traits /
    * classes. */
@@ -38,7 +38,7 @@ trait GraphicElem extends GeomElem
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return
    *  type will be narrowed in sub traits / classes. */
-  override def rotate270: GraphicElem
+  override def rotate270: GraphicElem*/
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits /
    *  classes. */
@@ -77,9 +77,9 @@ object GraphicElem
   implicit val reflectAxisImplicit: TransAxes[GraphicElem] = new TransAxes[GraphicElem]
   { override def negYT(obj: GraphicElem): GraphicElem = obj.negY
     override def negXT(obj: GraphicElem): GraphicElem = obj.negX
-    override def rotate90T(obj: GraphicElem): GraphicElem = obj.rotate90
+    /*override def rotate90T(obj: GraphicElem): GraphicElem = obj.rotate90
     override def rotate180T(obj: GraphicElem): GraphicElem = obj.rotate180
-    override def rotate270T(obj: GraphicElem): GraphicElem = obj.rotate270
+    override def rotate270T(obj: GraphicElem): GraphicElem = obj.rotate270*/
   }
 
   /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[GraphicElem] = new ReflectAxesOffset[GraphicElem]

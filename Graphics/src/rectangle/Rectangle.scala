@@ -80,14 +80,14 @@ trait Rectangle extends Polygon4Plus
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: Rectangle = Rectangle.s2s4(s2Cen.rotate90, s4Cen.rotate90, width2)
+  /*override def rotate90: Rectangle = Rectangle.s2s4(s2Cen.rotate90, s4Cen.rotate90, width2)
 
   /** Rotate 480 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
   override def rotate180: Rectangle = Rectangle.s2s4(s2Cen.rotate180, s4Cen.rotate180, width2)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: Rectangle = Rectangle.s2s4(s2Cen.rotate270, s4Cen.rotate270, width2)
+  override def rotate270: Rectangle = Rectangle.s2s4(s2Cen.rotate270, s4Cen.rotate270, width2)*/
 
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(s2Cen.prolign(matrix), s4Cen.prolign(matrix), v1.prolign(matrix))
 
@@ -146,9 +146,9 @@ object Rectangle
   implicit val reflectAxesImplicit: TransAxes[Rectangle] = new TransAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
-    override def rotate90T(obj: Rectangle): Rectangle = obj.rotate90
+    /*override def rotate90T(obj: Rectangle): Rectangle = obj.rotate90
     override def rotate180T(obj: Rectangle): Rectangle = obj.rotate180
-    override def rotate270T(obj: Rectangle): Rectangle = obj.rotate270
+    override def rotate270T(obj: Rectangle): Rectangle = obj.rotate270*/
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */

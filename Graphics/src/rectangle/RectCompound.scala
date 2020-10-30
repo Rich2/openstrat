@@ -33,7 +33,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a RectCompound, returns a RectCompound. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate90: RectCompound = RectCompound(shape.rotate90, facets, children.rotate90)
+  /*override def rotate90: RectCompound = RectCompound(shape.rotate90, facets, children.rotate90)
 
 
   /** Rotate 180 degrees 2D geometric transformation on a RectCompound, returns a RectCompound. The return type will be narrowed in sub traits / classes. */
@@ -41,7 +41,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a RectCompound, returns a RectCompound. The return type
    *  will be narrowed in sub traits / classes. */
-  override def rotate270: RectCompound = RectCompound(shape.rotate90, facets, children.rotate270)
+  override def rotate270: RectCompound = RectCompound(shape.rotate90, facets, children.rotate270)*/
 
   override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
@@ -62,8 +62,8 @@ object RectCompound
   implicit val reflectAxesImplicit: TransAxes[RectCompound] = new TransAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
     override def negXT(obj: RectCompound): RectCompound = obj.negX
-    override def rotate90T(obj: RectCompound): RectCompound = obj.rotate90
+    /*override def rotate90T(obj: RectCompound): RectCompound = obj.rotate90
     override def rotate180T(obj: RectCompound): RectCompound = obj.rotate180
-    override def rotate270T(obj: RectCompound): RectCompound = obj.rotate270
+    override def rotate270T(obj: RectCompound): RectCompound = obj.rotate270*/
   }
 }

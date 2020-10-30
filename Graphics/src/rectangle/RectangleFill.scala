@@ -24,7 +24,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a RectangleFill, returns a RectangleFill. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate90: RectangleFill = RectangleFill(shape.rotate90, colour)
+  /*override def rotate90: RectangleFill = RectangleFill(shape.rotate90, colour)
 
   /** Rotate 180 degrees 2D geometric transformation on a RectangleFill, returns a RectangleFill. The return type will be narrowed in sub traits /
    * classes. */
@@ -32,7 +32,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a RectangleFill, returns a RectangleFill. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: RectangleFill = RectangleFill(shape.rotate270, colour)
+  override def rotate270: RectangleFill = RectangleFill(shape.rotate270, colour)*/
 
   override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), colour)
 
@@ -57,9 +57,9 @@ object RectangleFill
   implicit val reflectAxesImplicit: TransAxes[RectangleFill] = new TransAxes[RectangleFill]
   { override def negYT(obj: RectangleFill): RectangleFill = obj.negY
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
-    override def rotate90T(obj: RectangleFill): RectangleFill = obj.rotate90
+    /*override def rotate90T(obj: RectangleFill): RectangleFill = obj.rotate90
     override def rotate180T(obj: RectangleFill): RectangleFill = obj.rotate180
-    override def rotate270T(obj: RectangleFill): RectangleFill = obj.rotate270
+    override def rotate270T(obj: RectangleFill): RectangleFill = obj.rotate270*/
   }
 
   case class RectangleFillImp(shape: Rectangle, colour: Colour) extends RectangleFill

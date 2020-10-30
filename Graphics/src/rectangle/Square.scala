@@ -22,13 +22,13 @@ trait Square extends Rectangle
   override def negX: Square = Square.s2s4(s2Cen.negX, s4Cen.negX)
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
-  override def rotate90: Square = Square.s2s4(s2Cen.rotate90, s4Cen.rotate90)
+  /*override def rotate90: Square = Square.s2s4(s2Cen.rotate90, s4Cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a Square, returns a Square. */
   override def rotate180: Square = Square.s2s4(s2Cen.rotate180, s4Cen.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Square, returns a Square. */
-  override def rotate270: Square = Square.s2s4(s2Cen.rotate270, s4Cen.rotate270)
+  override def rotate270: Square = Square.s2s4(s2Cen.rotate270, s4Cen.rotate270)*/
 
   override def prolign(matrix: ProlignMatrix): Square = Square.s2s4(s2Cen.prolign(matrix), s4Cen.prolign(matrix))
 

@@ -88,7 +88,7 @@ object EllipseCompound
 
     /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a EllipseCompound, returns a EllipseCompound.
      *  The return type will be narrowed in sub traits / classes. */
-    override def rotate90: EllipseCompound = EllipseCompound(shape.rotate90, facets, children.rotate90)
+    /*override def rotate90: EllipseCompound = EllipseCompound(shape.rotate90, facets, children.rotate90)
 
     /** Rotate 180 degrees 2D geometric transformation on a EllipseCompound, returns a EllipseCompound. The return type will be narrowed in sub traits
      *  / classes. */
@@ -96,7 +96,7 @@ object EllipseCompound
 
     /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a EllipseCompound, returns a EllipseCompound.
      *  The return type  will be narrowed in sub traits / classes. */
-    override def rotate270: EllipseCompound =  EllipseCompound(shape.rotate270, facets, children.rotate270)
+    override def rotate270: EllipseCompound =  EllipseCompound(shape.rotate270, facets, children.rotate270)*/
 
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
 
