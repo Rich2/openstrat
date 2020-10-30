@@ -6,39 +6,40 @@ trait PhiRectangle extends Rectangle
 {
   def width1: Double = width2 * Phi
 
-  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2): PhiRectangle = ???
+  /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
+  override def slate(offset: Vec2): PhiRectangle = PhiRectangle.s1s3(s1Cen + offset, s3Cen + offset)
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  override def slate(xOffset: Double, yOffset: Double): PhiRectangle = ???
+  override def slate(xOffset: Double, yOffset: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.addXY(xOffset, yOffset), s3Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation on a PhiRectangle returns a PhiRectangle. */
-  override def scale(operand: Double): PhiRectangle = ???
+  override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen * operand, s3Cen * operand)
 
   /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
-  override def negY: PhiRectangle = ???
+  override def negY: PhiRectangle = PhiRectangle.s1s3(s1Cen.negY, s3Cen.negY)
 
   /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
-  override def negX: PhiRectangle = ???
+  override def negX: PhiRectangle = PhiRectangle.s1s3(s1Cen.negX, s3Cen.negX)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type
-   * will be narrowed in sub traits / classes. */
-  override def rotate90: PhiRectangle = ???
+  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
+   *  return type will be narrowed in sub traits / classes. */
+  override def rotate90: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate90, s3Cen.rotate90)
 
-  /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: PhiRectangle = ???
+  /** Rotate 480 degrees 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type will be narrowed in sub traits /
+   * classes. */
+  override def rotate180: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate180, s3Cen.rotate180)
 
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The return type
-   * will be narrowed in sub traits / classes. */
-  override def rotate270: PhiRectangle = ???
+  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a PhiRectangle, returns a PhiRectangle. The
+   *  return type will be narrowed in sub traits / classes. */
+  override def rotate270: PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate270, s3Cen.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): PhiRectangle = ???
+  override def prolign(matrix: ProlignMatrix): PhiRectangle = PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): PhiRectangle = ???
+  override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(s1Cen.reflect(lineLike), s3Cen.reflect(lineLike))
 
-  override def rotate(angle: Angle): PhiRectangle = ???
+  override def rotate(angle: Angle): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
 
-  override def slateTo(newCen: Vec2): PhiRectangle = ???
+  override def slateTo(newCen: Vec2): PhiRectangle = slate(newCen - cen)
 }
 
 object PhiRectangle
@@ -48,6 +49,8 @@ object PhiRectangle
     val s3Cen: Vec2 = cen + Vec2(0, -height / 2).rotate(rotation)
     PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
   }
+
+  def s1s3(s1Cen: Vec2, s3Cen: Vec2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
   case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xS3Cen: Double, yS3Cen: Double) extends PhiRectangle
   {
@@ -78,7 +81,7 @@ case class PhiRect(xCen: Double, yCen: Double, height: Double) extends Rect with
 {
   override def width: Double = width1
   override def width2: Double = height
-  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
+  /** Translate geometric transformation on a PhiRect returns a PhiRect. */
   override def slate(offset: Vec2): PhiRect = ???
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
