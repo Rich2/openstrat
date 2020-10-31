@@ -79,12 +79,4 @@ object GraphicElem
   { override def negYT(obj: GraphicElem): GraphicElem = obj.negY
     override def negXT(obj: GraphicElem): GraphicElem = obj.negX
   }
-
-  /*implicit val reflectAxisOffsetImplicit: ReflectAxesOffset[GraphicElem] = new ReflectAxesOffset[GraphicElem]
-  { /** Reflect, mirror across a line parallel to the X axis. */
-    override def reflectXOffsetT(obj: GraphicElem, yOffset: Double): GraphicElem = obj.reflectXParallel(yOffset)
-
-    /** Reflect, mirror across a line parallel to the Y axis. */
-    override def reflectYOffsetT(obj: GraphicElem, xOffset: Double): GraphicElem = obj.reflectYParallel(xOffset)
-  }  */
 }

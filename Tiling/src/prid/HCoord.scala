@@ -6,6 +6,21 @@ import geom._
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
 { def toVec2: Vec2
+
+  override def equals(obj: Any): Boolean = obj match {
+    case hc: HCoord if r == hc.r & c == hc.c => true
+    case _ => false
+  }
+  def canEqual(a: Any) = a.isInstanceOf[HCoord]
+
+  // Step 8 - implement a corresponding hashCode c=method
+  override def hashCode: Int = {
+    val prime = 31
+    var result = 1
+    result = prime * result + r;
+    result = prime * result + c * 17
+    result
+  }
 }
 
 object HCoord

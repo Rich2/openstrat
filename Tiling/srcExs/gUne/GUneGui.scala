@@ -60,7 +60,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
       {
         val newM: OptRef[HCStep] = t.adjOf(r)
         debvar(newM)
-        newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))//grid.index(r), m))
+        newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))
         repaint()
       }
        case (_, h, _) => deb("Other; " + h.toString)
