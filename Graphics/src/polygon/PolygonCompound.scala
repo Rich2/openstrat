@@ -70,9 +70,6 @@ object PolygonCompound
   implicit val reflectAxesImplicit: TransAxes[PolygonCompound] = new TransAxes[PolygonCompound]
   { override def negYT(obj: PolygonCompound): PolygonCompound = obj.negY
     override def negXT(obj: PolygonCompound): PolygonCompound = obj.negX
-    /*override def rotate90T(obj: PolygonCompound): PolygonCompound = obj.rotate90
-    override def rotate180T(obj: PolygonCompound): PolygonCompound = obj.rotate180
-    override def rotate270T(obj: PolygonCompound): PolygonCompound = obj.rotate270*/
   }
 
   implicit val shearImplicit: Shear[PolygonCompound] = new Shear[PolygonCompound]
@@ -110,17 +107,17 @@ object PolygonCompound
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
-    override def negY: PolygonCompoundImp = ???
+    override def negY: PolygonCompoundImp = PolygonCompoundImp(shape.negY, facets, children.negY)
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
      * in sub classes. */
     override def negX: PolygonCompoundImp = PolygonCompoundImp(shape.negX, facets, children.negX)
 
-    override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = ???
+    override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
 
-    override def rotate(angle: Angle): PolygonCompoundImp = ???
+    override def rotate(angle: Angle): PolygonCompoundImp = PolygonCompoundImp(shape.rotate(angle), facets, children.rotate(angle))
 
-    override def reflect(lineLike: LineLike): PolygonCompoundImp = ???
+    override def reflect(lineLike: LineLike): PolygonCompoundImp = ??? //PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
     override def xyScale(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
 
