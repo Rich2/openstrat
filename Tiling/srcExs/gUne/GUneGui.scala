@@ -35,7 +35,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   val sidesDraw = grid.sidesDraw(2.0)
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineDraw] = moves.mapSomes{ rs => HCoordLineSeg(rs.hc1, rs.hc2).toLine2.draw(players(rs.hc1).colour) }
+  def moveGraphics: Arr[LinesDraw] = moves.mapSomes{ rs => HCoordLineSeg(rs.hc1, rs.hc2).toLine2.drawArrow(players(rs.hc1).colour) }
 
   /** Creates the turn button and the action to commit on mouse click. */
  /* def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
@@ -58,7 +58,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
 
       case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2 : HCen) :: _) =>
       {
-        val newM: OptRef[HCStep] = hc1.adjOf(hc2)
+        val newM: OptRef[HCStep] = hc1.optStep(hc2)
         debvar(newM)
         newM.foreach(m => moves = moves.setSome(hc1, hc1.andStep(m)))
         repaint()

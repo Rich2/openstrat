@@ -23,8 +23,9 @@ class HCen(val r: Int, val c: Int) extends HCoordReg
 
   /** Returns a co0rdinate for this hex along with a step to an adjacent hex. */
   def andStep(hcs: HCStep): HCAndStep = HCAndStep(r, c, hcs)
-  
-  def adjOf(operand: HCen): OptRef[HCStep] = hcStepSomes.optFind(_.hCen == operand - this)
+
+  /** Optionally returns the Step value of the HCen if it is an adjacent HCen. */
+  def optStep(operand: HCen): OptRef[HCStep] = hcStepSomes.optFind(_.hCen == operand - this)
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 }
 

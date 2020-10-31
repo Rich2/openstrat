@@ -12,6 +12,8 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   override def _2: Double = yStart
   override def _3: Double = xEnd
   override def _4: Double = yEnd
+  def startPt: Vec2 = xStart vv yStart
+  def endPt: Vec2 = xEnd vv yEnd
 
   override def canEqual(that: Any): Boolean = that match
   { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
@@ -75,6 +77,7 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   def midPtToLeft(distFromMidPt: Double): Vec2 = midPt + left90.toVec2(distFromMidPt)
 
   def draw(colour: Colour = Black, lineWidth: Double = 2): LineDraw = LineDraw(xStart, yStart, xEnd, yEnd, lineWidth, colour)
+  def drawArrow(colour: Colour = Black, lineWidth: Double = 2): LinesDraw = Arrow.draw(startPt, endPt, 30.degs, 1, lineWidth, colour)
 
   def mirrorPt(pt: Vec2): Vec2 = pt.reflect(this)
 
