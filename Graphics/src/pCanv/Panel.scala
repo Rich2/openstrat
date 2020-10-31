@@ -43,6 +43,10 @@ trait PanelLike extends RectCenlign
 
   var fMouseMoved: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
   var fMouseDragged: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
+
+  /** Just responds to when the Panel is clicked, ignores the position of the mose click or any potential active objects on the screen. */
   def setMouseSimplest(action: => Unit): Unit = mouseUp = (_, _, _) => action
+
+  /** Just responds to the position of the mose click on the Panel, ignores any potential active objects on the screen. */
   def setMouseSimple(action: Vec2 => Unit): Unit = mouseUp = (_, _, v) => action(v)
 }
