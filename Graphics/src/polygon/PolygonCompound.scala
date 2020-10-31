@@ -43,7 +43,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def rotate(angle: Angle): PolygonCompound = PolygonCompound(shape.rotate(angle), facets, children.rotate(angle))
 
-  override def reflect(lineLike: LineLike): PolygonCompound = ???
+  override def reflect(lineLike: LineLike): PolygonCompound = PolygonCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonCompound = ???
 
@@ -66,7 +66,8 @@ object PolygonCompound
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[PolygonCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
-  
+  implicit val reflectImplicit: Reflect[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.reflect(lineLike)
+
   implicit val reflectAxesImplicit: ReflectAxes[PolygonCompound] = new ReflectAxes[PolygonCompound]
   { override def negYT(obj: PolygonCompound): PolygonCompound = obj.negY
     override def negXT(obj: PolygonCompound): PolygonCompound = obj.negX

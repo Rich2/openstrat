@@ -40,17 +40,6 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect(width, height, cen.negX)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rect, returns a Rect. The return type will be
-   *  narrowed in sub traits / classes. */
-  /*override def rotate90: Rect = Rect(height, width, cen.rotate90)
-
-  /** Rotate 180 degrees 2D geometric transformation on a Rect, returns a Rect. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Rect = Rect(width, height, cen.rotate180)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rect, returns a Rect. The return type  will be
-   *  narrowed in sub traits / classes. */
-  override def rotate270: Rect = Rect(height, width, cen.rotate270)*/
-
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
@@ -105,13 +94,9 @@ object Rect
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
   implicit val slateToImplicit: SlateTo[Rect] = (obj: Rect, newCen: Vec2) => obj.slateTo(newCen)
 
-
   implicit val reflectAxesImplicit: ReflectAxes[Rect] = new ReflectAxes[Rect]
   { override def negYT(obj: Rect): Rect = obj.negY
     override def negXT(obj: Rect): Rect = obj.negX
-    /*override def rotate90T(obj: Rect): Rect = obj.rotate90
-    override def rotate180T(obj: Rect): Rect = obj.rotate180
-    override def rotate270T(obj: Rect): Rect = obj.rotate270*/
   }
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */

@@ -78,17 +78,6 @@ trait Rectangle extends Polygon4Plus
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.s2s4(s2Cen.negX, s4Cen.negX, width2)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
-   * will be narrowed in sub traits / classes. */
-  /*override def rotate90: Rectangle = Rectangle.s2s4(s2Cen.rotate90, s4Cen.rotate90, width2)
-
-  /** Rotate 480 degrees 2D geometric transformation on a Rectangle, returns a Rectangle. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Rectangle = Rectangle.s2s4(s2Cen.rotate180, s4Cen.rotate180, width2)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Rectangle, returns a Rectangle. The return type
-   * will be narrowed in sub traits / classes. */
-  override def rotate270: Rectangle = Rectangle.s2s4(s2Cen.rotate270, s4Cen.rotate270, width2)*/
-
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(s2Cen.prolign(matrix), s4Cen.prolign(matrix), v1.prolign(matrix))
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike), width2)

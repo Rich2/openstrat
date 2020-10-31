@@ -188,7 +188,6 @@ trait Polygon extends Shape with BoundedElem
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), TextFacet(str, textColour)), Arr())
-  //PolygonParentOld = PolygonParentOld.fillText(this.polyCentre, this, pointerID, fillColour, str, fontSize, textColour, align)
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
     align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, Arr(FillFacet(fillColour), DrawFacet(lineWidth, lineColour)),
@@ -238,13 +237,11 @@ object Polygon
   implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
-  
+  implicit val reflectImplicit: Reflect[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.reflect(lineLike)
+
   implicit val reflectAxesImplicit: ReflectAxes[Polygon] = new ReflectAxes[Polygon]
   { override def negYT(obj: Polygon): Polygon = obj.negY
     override def negXT(obj: Polygon): Polygon = obj.negX
-    /*override def rotate90T(obj: Polygon): Polygon = obj.rotate90
-    override def rotate180T(obj: Polygon): Polygon = obj.rotate180
-    override def rotate270T(obj: Polygon): Polygon = obj.rotate270*/
   }
   
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]
