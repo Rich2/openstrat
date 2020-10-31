@@ -17,8 +17,14 @@ class HCen(val r: Int, val c: Int) extends HCoordReg
   def fill(colour: Colour): PolygonFill = polygon.fill(colour)
   def active(id: Any = this): PolygonActive = polygon.active(id)
   override def typeStr: String = "HCen"
+
+  /** Step to adjacent hex tile. */
   def step(st: HCStep): HCen = HCen(r + st.r, c + st.c)
+
+  /** Returns a co0rdinate for this hex along with a step to an adjacent hex. */
   def andStep(hcs: HCStep): HCAndStep = HCAndStep(r, c, hcs)
+
+  
   def adjOf(operand: HCen): OptRef[HCStep] = hcStepSomes.optFind(_.hCen == this - operand)
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 }

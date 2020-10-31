@@ -52,6 +52,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   mainMouseUp = (b, cl, _) => (b, cl, selected) match
     { case (LeftButton, cl, _) =>
       { selected = cl
+        debvar(cl)
         statusText = selected.headToStringElse("Nothing Selected")
         thisTop()
       }
