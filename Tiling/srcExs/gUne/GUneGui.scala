@@ -49,21 +49,21 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(/*bTurn,*/ status))
 
-  mainMouseUp = (b, cl, _) => (b, cl, selected) match
-    { case (LeftButton, cl, _) =>
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+    { case (LeftButton, _, cl) =>
       { selected = cl
         statusText = selected.headToStringElse("Nothing Selected")
         thisTop()
       }
 
-      case (RightButton, (t : HCen) :: _, List(HPlayer(p, r), HCen(y, c))) =>
+      case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2 : HCen) :: _) =>
       {
-        val newM: OptRef[HCStep] = t.adjOf(r)
+        val newM: OptRef[HCStep] = hc1.adjOf(hc2)
         debvar(newM)
-        newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))
+        newM.foreach(m => moves = moves.setSome(hc1, hc1.andStep(m)))
         repaint()
       }
-       case (_, h, _) => deb("Other; " + h.toString)
+       case (_, _, h) => deb("Other; " + h.toString)
     }
   thisTop()
   def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ moveGraphics).gridScale(scale)
