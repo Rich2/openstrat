@@ -142,13 +142,11 @@ object Rectangle
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
+  implicit val reflectImplicit: Reflect[Rectangle] = (obj: Rectangle, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: ReflectAxes[Rectangle] = new ReflectAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
-    /*override def rotate90T(obj: Rectangle): Rectangle = obj.rotate90
-    override def rotate180T(obj: Rectangle): Rectangle = obj.rotate180
-    override def rotate270T(obj: Rectangle): Rectangle = obj.rotate270*/
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */

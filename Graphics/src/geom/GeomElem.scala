@@ -65,6 +65,7 @@ object GeomElem
   implicit val rotateImplicit: Rotate[GeomElem] = (obj: GeomElem, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[GeomElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[GeomElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val ReflectImplicit: Reflect[GeomElem] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: ReflectAxes[GeomElem] = new ReflectAxes[GeomElem]
   { override def negYT(obj: GeomElem): GeomElem = obj.negY
