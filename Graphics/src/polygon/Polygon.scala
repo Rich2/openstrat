@@ -154,7 +154,7 @@ trait Polygon extends Shape with BoundedElem
   def toLineSegs: LineSegs = if (vertsNum > 1)
   { val res: LineSegs = LineSegs(vertsNum)
     res.unsafeSetElem(0, LineSeg(vert(vertsNum), vert(1)))
-    for (i <- 1 until (vertsNum - 1)) res.unsafeSetElem(i, LineSeg(vert(i), vert(i + 1)))
+    for (i <- 1 until (vertsNum)) res.unsafeSetElem(i, LineSeg(vert(i), vert(i + 1)))
     res
   }
   else LineSegs()
