@@ -18,13 +18,13 @@ class HexArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
  /* def mutMove(r1: Roord, r2: Roord)(implicit grid: TileGridSimple): Unit =
   { unsafeArr(grid.arrIndex(r2)) = unsafeArr(grid.arrIndex(r1))
     unsafeArr(grid.arrIndex(r1)) = null.asInstanceOf[A]
-  }
-
-  def setSome(r: Roord, value: A)(implicit grid: TileGridSimple): HexArrOpt[A] =
-  { val newArr = unsafeArr.clone()
-    newArr(grid.arrIndex(r)) = value
-    new HexArrOpt[A](newArr)
   }*/
+
+  def setSome(hc: HCen, value: A)(implicit grid: HGrid): HexArrOpt[A] =
+  { val newArr = unsafeArr.clone()
+    newArr(grid.arrIndex(hc)) = value
+    new HexArrOpt[A](newArr)
+  }
 
   def mutSetSomes(triples: (Int, Int, A)*)(implicit grid: HGridReg): Unit =
     triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)

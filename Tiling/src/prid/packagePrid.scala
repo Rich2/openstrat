@@ -26,4 +26,6 @@ package object prid
       evScale.scaleT(a, scale)
     }
   }
+  val hcStepSomes: Arr[HCStep] = Arr(HCStepUR, HCStepRt, HCStepDR, HCStepDL, HCStepLt, HCStepUL)
+  val hcSteps: Arr[HCStepOpt] = HCStepNone +: hcStepSomes
 }

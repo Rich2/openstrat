@@ -56,12 +56,12 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
         thisTop()
       }
 
-      /*case (RightButton, (t : HCen) :: _, List(HPlayer(p, r), HCen(y, c))) =>
+      case (RightButton, (t : HCen) :: _, List(HPlayer(p, r), HCen(y, c))) =>
       {
         val newM: OptRef[HCStep] = t.adjOf(r)
         newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))//grid.index(r), m))
         repaint()
-      }*/
+      }
        case (_, h, _) => deb("Other; " + h.toString)
     }
   thisTop()

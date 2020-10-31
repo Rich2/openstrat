@@ -18,6 +18,9 @@ class HCen(val r: Int, val c: Int) extends HCoordReg
   def active(id: Any = this): PolygonActive = polygon.active(id)
   override def typeStr: String = "HCen"
   def step(st: HCStep): HCen = HCen(r + st.r, c + st.c)
+  def andStep(hcs: HCStep): HCAndStep = HCAndStep(r, c, hcs)
+  def adjOf(operand: HCen): OptRef[HCStep] = hcStepSomes.optFind(_.hCen == this - operand)
+  def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 }
 
 object HCen

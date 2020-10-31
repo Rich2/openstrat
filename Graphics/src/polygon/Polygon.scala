@@ -125,17 +125,6 @@ trait Polygon extends Shape with BoundedElem
   /** Mirror, reflection transformation of Polygon across the Y axis, returns a Polygon. */
   override def negX: Polygon = polygonMap(_.negX)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
-   *  will be narrowed in sub traits / classes. */
-  /*override def rotate90: Polygon = polygonMap(_.rotate90)
-
-  /** Rotate 180 degrees 2D geometric transformation on a Polygon, returns a Polygon. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Polygon = polygonMap(_.rotate180)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Polygon, returns a Polygon. The return type
-   *  will be narrowed in sub traits / classes. */
-  override def rotate270: Polygon= polygonMap(_.rotate270)
-*/
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
@@ -162,10 +151,10 @@ trait Polygon extends Shape with BoundedElem
   override def slateTo(newCen: Vec2): Polygon = polygonMap(_ + newCen - cen)
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
-  def toLineSegs: LineSegs =if (vertsNum > 1)
+  def toLineSegs: LineSegs = if (vertsNum > 1)
   { val res: LineSegs = LineSegs(vertsNum)
-    for (i <- 0 until (vertsNum - 1)) res.unsafeSetElem(i, LineSeg(vert(i), vert(i + 1)))
-    res.unsafeSetLast(LineSeg(vert(vertsNum - 1), vert(0)))
+    res.unsafeSetElem(0, LineSeg(vert(vertsNum), vert(1)))
+    for (i <- 1 until (vertsNum - 1)) res.unsafeSetElem(i, LineSeg(vert(i), vert(i + 1)))
     res
   }
   else LineSegs()
@@ -179,13 +168,6 @@ trait Polygon extends Shape with BoundedElem
   { val startVertNum: Int = ife(index == 1, vertsNum, index - 1)
     LineSeg(vert(startVertNum), vert(index))
   }
-
-  /*def sline0: LineSeg = sline(0)
-  def sline1: LineSeg = sline(1)
-  def sline2: LineSeg = sline(2)
-  def sline3: LineSeg = sline(3)
-  def sline4: LineSeg = sline(4)
-  def sline5: LineSeg = sline(5)*/
 
   def active(id: Any): PolygonActive = PolygonActive(this, id)
   def activeChildren(id: Any, children: GraphicElems): PolygonCompound = PolygonCompound(this, Arr(), active(id) +: children)
