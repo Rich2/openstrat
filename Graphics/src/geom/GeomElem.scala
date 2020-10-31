@@ -25,17 +25,6 @@ trait GeomElem extends Product with Serializable
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
   def negX: GeomElem
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
-   *  classes. */
-  /*def rotate90: GeomElem
-
-  /** Rotate 180 degrees 2D geometric transformation. The return type will be narrowed in sub traits / classes. */
-  def rotate180: GeomElem
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation. The return type will be narrowed in sub traits /
-   *  classes. */
-  def rotate270: GeomElem*/
-
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   def prolign(matrix: ProlignMatrix): GeomElem
 

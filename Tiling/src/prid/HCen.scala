@@ -38,7 +38,7 @@ object HCen
   }
 
   def unapply(input: HCoord): Option[(Int, Int)] = input match {
-    case HCen(r, c) => Some((r, c))
+    case hc: HCen => Some((hc.r, hc.c))
     case _ => None
   }
 

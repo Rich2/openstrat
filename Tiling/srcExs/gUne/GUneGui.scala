@@ -52,7 +52,6 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   mainMouseUp = (b, cl, _) => (b, cl, selected) match
     { case (LeftButton, cl, _) =>
       { selected = cl
-        debvar(cl)
         statusText = selected.headToStringElse("Nothing Selected")
         thisTop()
       }
@@ -60,6 +59,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
       case (RightButton, (t : HCen) :: _, List(HPlayer(p, r), HCen(y, c))) =>
       {
         val newM: OptRef[HCStep] = t.adjOf(r)
+        debvar(newM)
         newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))//grid.index(r), m))
         repaint()
       }
