@@ -10,6 +10,9 @@ case class LineDraw(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double, 
   override def fTrans(f: Vec2 => Vec2): LineDraw = LineDraw(f(pStart), f(pEnd), width, colour)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(pStart, pEnd, width, dashLength, gapLength, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineDraw(this)
+  def startPt: Vec2 = xStart vv yStart
+  def endPt: Vec2 = xEnd vv yEnd
+  def arrow: LinesDraw = Arrow.draw(startPt, endPt, 30.degs, 20, width, colour)
 }
 
 object LineDraw
