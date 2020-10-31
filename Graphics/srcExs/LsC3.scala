@@ -5,7 +5,9 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
 {
   val r = Rect(200, 100).fillActive(Yellow,None)
+  debvar(r)
   val r1 = r.slate(-300, 300)
+  debvar(r1)
   val r2 = r.slate(300 vv 300)
   val r3 = r.slate(300 vv - 300)
   val r4 = r.slate(-300 vv - 300)
@@ -19,7 +21,10 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
     {
       val newText = selectedList match
       { case ::(h, _) => TextGraphic("You hit a yellow rectangle at " + posn.strCommaNames, textPosn, 28)
-        case _ => TextGraphic("You missed the yellow rectangles.\n" + posn.strCommaNames, textPosn, 28)
+        case _ =>
+          { deb(selectedList.toString())
+            TextGraphic("You missed the yellow rectangles.\n" + posn.strCommaNames, textPosn, 28)
+          }
       }  
       repaint(rList +- newText)
   }
