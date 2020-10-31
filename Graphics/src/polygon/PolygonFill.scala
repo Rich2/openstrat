@@ -63,7 +63,7 @@ object PolygonFill
   implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[PolygonFill] = new TransAxes[PolygonFill]
+  implicit val reflectAxesImplicit: ReflectAxes[PolygonFill] = new ReflectAxes[PolygonFill]
   { override def negYT(obj: PolygonFill): PolygonFill = obj.negY
     override def negXT(obj: PolygonFill): PolygonFill = obj.negX
   }

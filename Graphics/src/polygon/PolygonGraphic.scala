@@ -58,7 +58,7 @@ object PolygonGraphic
   implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[PolygonGraphic] = new TransAxes[PolygonGraphic]
+  implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphic] = new ReflectAxes[PolygonGraphic]
   { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
     override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
     /*override def rotate90T(obj: PolygonGraphic): PolygonGraphic = obj.rotate90

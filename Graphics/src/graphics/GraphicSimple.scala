@@ -54,7 +54,7 @@ object GraphicSimple
   implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
   
-  implicit val reflectAxesImplicit: TransAxes[GraphicSimple] = new TransAxes[GraphicSimple]
+  implicit val reflectAxesImplicit: ReflectAxes[GraphicSimple] = new ReflectAxes[GraphicSimple]
   { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
     override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
     /*override def rotate90T(obj: GraphicSimple): GraphicSimple = obj.rotate90

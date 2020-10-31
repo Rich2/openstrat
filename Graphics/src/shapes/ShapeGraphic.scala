@@ -78,7 +78,7 @@ object ShapeGraphic
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[ShapeGraphic] = new TransAxes[ShapeGraphic]
+  implicit val reflectAxesImplicit: ReflectAxes[ShapeGraphic] = new ReflectAxes[ShapeGraphic]
   { override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
     override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
     /*override def rotate90T(obj: ShapeGraphic): ShapeGraphic = obj.rotate90

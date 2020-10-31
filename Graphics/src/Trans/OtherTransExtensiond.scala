@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-/** An extensions class for types providing instances of the [[Slate]] translate and [[TransAxes]] geometric transformation type classes. */
-class SlateTransAxesExtensions[A](thisReflector: A)(implicit evS: Slate[A], evR: TransAxes[A])
+/** An extensions class for types providing instances of the [[Slate]] translate and [[ReflectAxes]] geometric transformation type classes. */
+class SlateTransAxesExtensions[A](thisReflector: A)(implicit evS: Slate[A], evR: ReflectAxes[A])
 {
   /** Reflect, mirror across a line parallel to the X axis. */
   def reflectXOffset(yOffset: Double): A = evS.ySlateT(evR.negYT(thisReflector), 2 * yOffset) 

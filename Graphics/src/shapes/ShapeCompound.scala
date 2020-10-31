@@ -63,7 +63,7 @@ object ShapeCompound
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: Angle) => obj.rotate(angle)
 
-  implicit val reflectAxesImplicit: TransAxes[ShapeCompound] = new TransAxes[ShapeCompound]
+  implicit val reflectAxesImplicit: ReflectAxes[ShapeCompound] = new ReflectAxes[ShapeCompound]
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
     /*override def rotate90T(obj: ShapeCompound): ShapeCompound = obj.rotate90

@@ -108,7 +108,7 @@ object HexReg
   implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[HexReg] = new TransAxes[HexReg]
+  implicit val reflectAxesImplicit: ReflectAxes[HexReg] = new ReflectAxes[HexReg]
   { override def negYT(obj: HexReg): HexReg = obj.negY
     override def negXT(obj: HexReg): HexReg = obj.negX
     /*override def rotate90T(obj: HexReg): HexReg = obj.rotate90

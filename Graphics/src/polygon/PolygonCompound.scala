@@ -67,7 +67,7 @@ object PolygonCompound
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[PolygonCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   
-  implicit val reflectAxesImplicit: TransAxes[PolygonCompound] = new TransAxes[PolygonCompound]
+  implicit val reflectAxesImplicit: ReflectAxes[PolygonCompound] = new ReflectAxes[PolygonCompound]
   { override def negYT(obj: PolygonCompound): PolygonCompound = obj.negY
     override def negXT(obj: PolygonCompound): PolygonCompound = obj.negX
   }

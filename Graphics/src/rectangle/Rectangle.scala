@@ -143,7 +143,7 @@ object Rectangle
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[Rectangle] = new TransAxes[Rectangle]
+  implicit val reflectAxesImplicit: ReflectAxes[Rectangle] = new ReflectAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
     /*override def rotate90T(obj: Rectangle): Rectangle = obj.rotate90

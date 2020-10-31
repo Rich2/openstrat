@@ -14,13 +14,13 @@ package object geom
   
   implicit def slateToExtensions[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)
   implicit def scaleToExtensions[T](value: T)(implicit ev: Scale[T]): ScaleExtensions[T] = new ScaleExtensions[T](value, ev)
-  implicit def transAxesToExtension[T](value: T)(implicit ev: TransAxes[T]): TransAxesExtension[T] = new TransAxesExtension[T](value)(ev)  
+  implicit def reflectAxesToExtension[T](value: T)(implicit ev: ReflectAxes[T]): ReflectAxesExtension[T] = new ReflectAxesExtension[T](value)(ev)
   implicit def rotateToExtensions[T, T1 <: T](value: T1)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)
   
   implicit def xyScaleToExtensions[T](value: T)(implicit ev: XYScale[T]): XYScaleExtensions[T] = new XYScaleExtensions[T](value, ev)
   implicit def shearToExtensions[T](value: T)(implicit ev: Shear[T]): ShearExtensions[T] = new ShearExtensions[T](value, ev)
 
-  implicit def slateTransAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: TransAxes[T]): SlateTransAxesExtensions[T] =
+  implicit def slateTransAxesToExtension[T](value: T)(implicit evS: Slate[T], evR: ReflectAxes[T]): SlateTransAxesExtensions[T] =
     new SlateTransAxesExtensions[T](value)(evS, evR)
 
   implicit def slateToToExtensions[T](value: T)(implicit ev: SlateTo[T]): SlateToExtensions[T] = new SlateToExtensions[T](value, ev)

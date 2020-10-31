@@ -66,7 +66,7 @@ object GeomElem
   implicit val prolignImplicit: Prolign[GeomElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[GeomElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val transAxesImplicit: TransAxes[GeomElem] = new TransAxes[GeomElem]
+  implicit val transAxesImplicit: ReflectAxes[GeomElem] = new ReflectAxes[GeomElem]
   { override def negYT(obj: GeomElem): GeomElem = obj.negY
     override def negXT(obj: GeomElem): GeomElem = obj.negX
   }

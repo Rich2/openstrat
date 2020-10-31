@@ -65,7 +65,7 @@ object PolygonGraphicSimple
   implicit val XYScaleImplicit: XYScale[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonGraphicSimple] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: TransAxes[PolygonGraphicSimple] = new TransAxes[PolygonGraphicSimple]
+  implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphicSimple] = new ReflectAxes[PolygonGraphicSimple]
   { override def negYT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negY
     override def negXT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negX
   }

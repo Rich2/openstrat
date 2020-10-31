@@ -59,7 +59,7 @@ object RectCompound
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
   implicit val slateToImplicit: SlateTo[RectCompound] = (obj: RectCompound, newCen: Vec2) => obj.slateTo(newCen)
 
-  implicit val reflectAxesImplicit: TransAxes[RectCompound] = new TransAxes[RectCompound]
+  implicit val reflectAxesImplicit: ReflectAxes[RectCompound] = new ReflectAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
     override def negXT(obj: RectCompound): RectCompound = obj.negX
     /*override def rotate90T(obj: RectCompound): RectCompound = obj.rotate90
