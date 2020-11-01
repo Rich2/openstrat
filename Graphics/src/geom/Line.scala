@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** An infinite length 2 dimensional straight line trait. Note this is the mathematical definition of a line. InSVg and other APIs the name line is
+/** An infinite length 2 dimensional straight line trait. Note this is the mathematical definition of a line. In SVg and other APIs the name line is
  * used for a line segment, which in openstrat is called a [[LineSeg]] */
 sealed trait Line extends LineLike
 { /** Reflects, mirrors a point across this line. */

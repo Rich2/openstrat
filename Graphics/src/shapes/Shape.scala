@@ -39,17 +39,6 @@ trait Shape extends Fillable with BoundedElem
    *  classes. */
   override def negX: Shape
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Shape, returns a Shape. The return type will
-   *  be narrowed in sub traits / classes. */
-  /*override def rotate90: Shape
-
-  /** Rotate 180 degrees 2D geometric transformation on a Shape, returns a Shape. The return type will be narrowed in sub traits / classes. */
-  override def rotate180: Shape
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Shape, returns a Shape. The return type will
-   *  be narrowed in sub traits / classes. */
-  override def rotate270: Shape*/
-
   /** 2D Transformation using a [[ProlignMatrix]] on a Shape, returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def prolign(matrix: ProlignMatrix): Shape
 
@@ -84,9 +73,6 @@ object Shape
   implicit val reflectAxesImplicit: ReflectAxes[Shape] = new ReflectAxes[Shape]
   { override def negYT(obj: Shape): Shape = obj.negY
     override def negXT(obj: Shape): Shape = obj.negX
-    /*override def rotate90T(obj: Shape): Shape = obj.rotate90
-    override def rotate180T(obj: Shape): Shape = obj.rotate180
-    override def rotate270T(obj: Shape): Shape = obj.rotate270*/
   }
 
   implicit val shearImplicit: Shear[Shape] = new Shear[Shape]

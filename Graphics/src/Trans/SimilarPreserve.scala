@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** All leaf classes of this type that will preserve their types for all the Similar 2d geometrical transformations. */
+/** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */
 trait SimilarPreserve extends ProlignPreserve
 { type ThisT <: SimilarPreserve
   override def negY: ThisT = fTrans(_.negY)
