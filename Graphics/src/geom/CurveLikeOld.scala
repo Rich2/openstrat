@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Sub traits include Line, LineDraw, Arc, ArcDraw, Bezier, BezierDraw */
-trait CurveLikeOld extends CurveTailLike
+trait CurveLikeOld
 { /** the x component of the start point often called x1 */
   def xStart: Double
 
@@ -12,6 +12,13 @@ trait CurveLikeOld extends CurveTailLike
 
   /** Start point often called p1 */
   final def pStart: Vec2 = xStart vv yStart
+
+  /** the x component of the end point */
+  def xEnd: Double
+  /** the y component of the end point */
+  def yEnd: Double
+  /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
+  final def pEnd: Vec2 = xEnd vv yEnd
 }
 
 trait CurveLikeOldGraphicElem extends CurveLikeOld with GraphicAffineElem

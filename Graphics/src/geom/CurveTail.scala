@@ -2,21 +2,11 @@
 package ostrat
 package geom
 
-/** The base trait for CurveSeg and Curve and their associated GraphicElems */
-trait CurveTailLike
-{ /** the x component of the end point */
-  def xEnd: Double
-  /** the y component of the end point */
-  def yEnd: Double
-  /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
-  final def pEnd: Vec2 = xEnd vv yEnd
-}
-
 /** A CurveSeg can  be a line segment or an arc segment or a bezier segment without its starting point, which is supplied by the previous curveTail.
  *  It takes its start point from the pEnd of the previous segment. There is no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all
  *  have their own factory object apply methods. */
 case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
-                     val yEnd: Double) extends ProdDbl7 with CurveTailLike with AffinePreserve
+                     val yEnd: Double) extends ProdDbl7 /*with CurveTailLike*/ with AffinePreserve
 { override type ThisT = CurveTail
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
   @inline override def _1 = iMatch
@@ -26,6 +16,9 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   @inline override def _5 = yUses
   @inline override def _6 = xEnd
   @inline override def _7 = yEnd
+
+  /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
+  def pEnd: Vec2 = xEnd vv yEnd
 
   /** This is control point 2 in a Bezier segment, the centre point in an arc segment and unused in a straight Line Segment */
   def pUses: Vec2 = Vec2(xUses, yUses)
