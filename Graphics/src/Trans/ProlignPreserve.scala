@@ -14,8 +14,5 @@ trait ProlignPreserve extends GeomElem
   override def scale(operand: Double): ThisT = fTrans(_ * operand)
   override def negX: ThisT = fTrans(_.negX)
   override def negY: ThisT = fTrans(_.negY)
-  /*override def rotate90: ThisT = fTrans(_.rotate90)
-  override def rotate180: ThisT = fTrans(_.rotate180)
-  override def rotate270: ThisT = fTrans(_.rotate270)*/
   override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolign(matrix))
 }
