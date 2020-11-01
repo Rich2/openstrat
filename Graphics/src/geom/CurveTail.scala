@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** The base trait for CurveSeg and Curve and their associated GraphicElems */
-trait CurveTailLike extends AffinePreserve
+trait CurveTailLike// extends AffinePreserve
 { /** the x component of the end point */
   def xEnd: Double
   /** the y component of the end point */
@@ -16,7 +16,7 @@ trait CurveTailLike extends AffinePreserve
  *  It takes its start point from the pEnd of the previous segment. There is no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all
  *  have their own factory object apply methods. */
 case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
-                     val yEnd: Double) extends ProdDbl7 with CurveTailLike
+                     val yEnd: Double) extends ProdDbl7 with CurveTailLike with AffinePreserve
 { override type ThisT = CurveTail
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
   @inline override def _1 = iMatch

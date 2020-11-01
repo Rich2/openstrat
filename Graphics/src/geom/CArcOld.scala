@@ -26,7 +26,7 @@ trait ArcLikeOld extends CurveLikeOld
 }
 
 /** Currently the Arc class doesn't define direction of the Arc. I think this needs modification. */
-case class CArcOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends ArcLikeOld
+case class CArcOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double) extends ArcLikeOld with AffinePreserve
 { override type ThisT = CArcOld
   def typeStr: String = "Arc"
    //override def str = persist3(pStart, pCen, pEnd)

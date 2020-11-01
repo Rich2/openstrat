@@ -14,7 +14,7 @@ trait BezierLikeOld extends CurveLikeOld
 
 /** Cubic bezier curve. */
 class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
-      val xEnd: Double, val yEnd: Double) extends BezierLikeOld
+      val xEnd: Double, val yEnd: Double) extends BezierLikeOld with AffinePreserve
 { override type ThisT = Bezier
   def typeStr: String = "Bezier"
   def fTrans(f: Vec2 => Vec2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))
