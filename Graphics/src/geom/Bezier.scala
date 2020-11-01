@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Super trait for a (cubic) Bezier and BezierDraw */
-trait BezierLikeOld extends CurveLikeOld
+trait BezierLikeOld extends CurveSeg
 { def xC1: Double
   def yC1: Double
   final def pC1: Vec2 = Vec2(xC1, yC1)

@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Super trait to Arc and ArcDraw and Arc fill which has not been implemented yet. */
-trait ArcLikeOld extends CurveLikeOld
+trait ArcLikeOld extends CurveSeg
 { def xCen: Double
   def yCen: Double
   def pCen: Vec2 = Vec2(xCen, yCen)

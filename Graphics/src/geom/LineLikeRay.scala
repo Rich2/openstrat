@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Common base trait for [[Line]], [[LineSeg]] and [[Ray]]. */
 trait LineLike extends GeomElem
 
 /** Geometrical Ray. */

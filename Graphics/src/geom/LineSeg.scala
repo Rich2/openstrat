@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer, Colour.Black
 
 /** A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. We have created a new short name that avoids
  *  ambiguity. */
-class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with LineLike with CurveLikeOld with
+class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with LineLike with CurveSeg with
   AffinePreserve
 { override type ThisT = LineSeg
   override def toString: String = LineSeg.persistImplicit.show(this)
