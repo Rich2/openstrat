@@ -2,6 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
+/** Lesson A2. */
 case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 {
   val sq0 = Sqlign(100).fill(Red)

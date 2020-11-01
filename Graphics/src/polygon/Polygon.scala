@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black, pWeb._
 
-/** Short for polygon trait. The general case can be instantiated with [[PolygonImp]], but it provides the interface for particular sub sets of
+/** A mathematical closed polygon. The general case can be instantiated with [[PolygonImp]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
 trait Polygon extends Shape with BoundedElem
 {

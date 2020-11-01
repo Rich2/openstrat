@@ -25,7 +25,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   @inline override def slateTo(newCen: Vec2): Sqlign = slate(newCen - cen)
 }
 
-/** Factory object for Sqalign class. A square aligned to the X and Y axes. */
+/** Factory object for Sqlign class. A square aligned to the X and Y axes. */
 object Sqlign
 { def apply(width: Double, cen: Vec2 = Vec2Z): Sqlign = new Sqlign(width, cen.x, cen.y)
   def apply(width: Double, xCen: Double, yCen: Double): Sqlign = new Sqlign(width, xCen, yCen)

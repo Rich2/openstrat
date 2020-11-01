@@ -35,6 +35,8 @@ trait PhiRectangle extends Rectangle
   override def slateTo(newCen: Vec2): PhiRectangle = slate(newCen - cen)
 }
 
+/** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that
+ *  delegates to it. */
 object PhiRectangle
 {
   def apply(height: Double, rotation: Angle, cen: Vec2): PhiRectangle =

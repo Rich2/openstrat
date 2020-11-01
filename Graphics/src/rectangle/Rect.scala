@@ -125,15 +125,12 @@ object Rect
     override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
     override def xyScale(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
-
-    //override def fill(fillColour: Colour): ShapeFill = ???
-
-    // override def draw(lineWidth: Double, lineColour: Colour): ShapeDraw = ???
   }
 
   /** Companion object for the [[Rect.RectImp]] class */
   object RectImp
-  { def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): RectImp = new RectImp(width, height, cen.x, cen.y)
+  { /** Factory method for Rect.RectImp class. */
+    def apply(width: Double, height: Double, cen: Vec2 = Vec2Z): RectImp = new RectImp(width, height, cen.x, cen.y)
 
     /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
      * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
