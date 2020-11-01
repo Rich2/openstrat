@@ -12,10 +12,11 @@ case class LsA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
   //However if you uncomment the line below you will get a compile error. You have told the compiler you are expecting a Vec2 but given it a number.
   //val badPoint: Vec2 = 100
 
-  val arr = Arr(BezierDraw(ptStart, 200 vv 350, 0 vv 70, ptEnd, 2, Blue),
-    BezierDraw(ptStart, 200 vv 350, 100 vv 270, ptEnd, 2, Gray),
-    BezierDraw(ptStart, 100 vv 350, 100 vv 270, ptEnd, 2, Violet),
-    BezierDraw(ptStart, 0 vv 350, 100 vv 270, ptEnd, 2, DarkRed),
+  val arr = Arr(
+    Bezier(ptStart, 200 vv 350, 0 vv 70, ptEnd).draw(Blue, 2),
+    Bezier(ptStart, 200 vv 350, 100 vv 270, ptEnd).draw(Gray, 2),
+    Bezier(ptStart, 100 vv 350, 100 vv 270, ptEnd).draw(Violet, 2),
+    Bezier(ptStart, 0 vv 350, 100 vv 270, ptEnd).draw(DarkRed, 2),
 
     //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
     TextOutline("Text in outline at centre screen", 40, Vec2Z, Orange, 1),
