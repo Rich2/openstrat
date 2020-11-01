@@ -7,7 +7,7 @@ import pCanv._, Colour.Black
 case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
-  override def fTrans(f: Vec2 => Vec2): LineSegDraw = LineSegDraw(curveSeg.fTrans(f), width, colour)
+  override def fTrans(f: Vec2 => Vec2): LineSegDraw = LineSegDraw(curveSeg.fTrans(f), colour, width)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(curveSeg, width, dashLength, gapLength, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineDraw(this)
   def startPt: Vec2 = xStart vv yStart
@@ -17,8 +17,8 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
 
 object LineSegDraw
 {
-  def apply(lineSeg: LineSeg, lineWidth: Double, colour: Colour): LineSegDraw = new LineSegDraw(lineSeg, lineWidth, colour)
-  def apply(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): LineSegDraw = LineSeg(pStart, pEnd).draw(colour, lineWidth)
+  def apply(lineSeg: LineSeg, colour: Colour, lineWidth: Double) = new LineSegDraw(lineSeg, lineWidth, colour)
+  def apply(pStart: Vec2, pEnd: Vec2, colour: Colour = Black, lineWidth: Double = 2.0): LineSegDraw = LineSeg(pStart, pEnd).draw(colour, lineWidth)
 
  // implicit val persistImplicit: Persist4[Vec2, Vec2, Double, Colour, LineDraw] =
   //  Persist4("LineDraw", "pStart", _.pStart, "pEnd", _.pEnd, "width", _.width, "colour", _.colour, apply, Some(Black), Some(1.0))

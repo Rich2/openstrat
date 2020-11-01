@@ -59,7 +59,7 @@ trait CanvasPlatform extends RectCenlign
    
   def lineDraw(ld: LineSegDraw): Unit
   final def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =
-    lineDraw(LineSegDraw(LineSeg(pStart, pEnd), lineWidth, colour))
+    lineDraw(LineSegDraw(LineSeg(pStart, pEnd), colour, lineWidth))
    
   def cArcDrawOld(ad: CArcDrawOld): Unit
   final def cArcDrawOld(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
