@@ -62,7 +62,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
    
-  override protected[this] def tlLineDraw(ld: LineDraw): Unit =
+  override protected[this] def tlLineDraw(ld: LineSegDraw): Unit =
   { gc.beginPath
     gc.moveTo(ld.xStart, ld.yStart)
     gc.lineTo(ld.xEnd, ld.yEnd)

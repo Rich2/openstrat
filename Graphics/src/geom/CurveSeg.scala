@@ -15,10 +15,10 @@ trait CurveSeg
 
   /** the x component of the end point */
   def xEnd: Double
+
   /** the y component of the end point */
   def yEnd: Double
+
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
   final def pEnd: Vec2 = xEnd vv yEnd
 }
-
-trait CurveLikeOldGraphicElem extends CurveSeg with GraphicAffineElem

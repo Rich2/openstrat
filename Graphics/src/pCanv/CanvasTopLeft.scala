@@ -12,7 +12,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def pPolyFill(poly: Polygon, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
   final override def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = tlPolyDraw(poly.fTrans(tlCen), lineWidth, colour)
   final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
-  final override def lineDraw(ld: LineDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
+  final override def lineDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
 
   final override def cArcDrawOld(ad: CArcDrawOld): Unit = tlCArcDrawOld(ad.fTrans(tlCen))
 
@@ -51,7 +51,7 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
   protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
 
-  protected[this] def tlLineDraw(ld: LineDraw): Unit
+  protected[this] def tlLineDraw(ld: LineSegDraw): Unit
   protected[this] def tlCArcDrawOld(ad: CArcDrawOld): Unit
 
   protected[this] def tlCArcDraw(tld: CArcDraw): Unit

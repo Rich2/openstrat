@@ -30,7 +30,7 @@ object Arrow
             lineColour: Colour = Colour.Black): Arr[GraphicElem] =
   {    
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
-    val shaft = LineDraw(startPt, endPt, lineWidth, lineColour)
+    val shaft = LineSegDraw(startPt, endPt, lineWidth, lineColour)
     val head = PolygonImp(rightVert, leftVert, endPt).fill(lineColour)
     Arr(shaft, head)
   }
