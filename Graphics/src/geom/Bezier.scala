@@ -3,23 +3,14 @@ package ostrat
 package geom
 import Colour.Black
 
-/** Super trait for a (cubic) Bezier and BezierDraw */
-trait BezierLikeOld extends CurveSeg
-{ def xC1: Double
-  def yC1: Double
-  final def pC1: Vec2 = Vec2(xC1, yC1)
-  def xC2: Double
-  def yC2: Double
-  final def pC2: Vec2 = Vec2(xC2, yC2)   
-}
-
 /** Cubic bezier curve. */
 class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
-      val xEnd: Double, val yEnd: Double) extends BezierLikeOld with AffinePreserve
+      val xEnd: Double, val yEnd: Double) extends CurveSeg with AffinePreserve
 { override type ThisT = Bezier
   def typeStr: String = "Bezier"
   def fTrans(f: Vec2 => Vec2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))
-
+  final def pC1: Vec2 = Vec2(xC1, yC1)
+  final def pC2: Vec2 = Vec2(xC2, yC2)
   override def canEqual(that: Any): Boolean = ???
 
   override def productArity: Int = ???
@@ -34,7 +25,7 @@ object Bezier
 }
       
 /** Functional class for Drawing a cubic Bezier curve. */
-case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) extends CurveSegGraphic with GraphicAffineElem// with BezierLikeOld
+case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) extends CurveSegGraphic with GraphicAffineElem
 { override type ThisT = BezierDraw
   def typeStr: String = "BezierDraw"
   //def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 
