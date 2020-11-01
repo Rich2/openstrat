@@ -2,12 +2,52 @@
 package ostrat
 package geom
 
-trait LineLike
+trait LineLike extends GeomElem
 
 /** Geometrical Ray. */
 class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 {
+  /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
+  override def slate(offset: Vec2): GeomElem = ???
 
+  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
+  override def slate(xOffset: Double, yOffset: Double): GeomElem = ???
+
+  /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
+   * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+  override def scale(operand: Double): GeomElem = ???
+
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
+  override def negY: GeomElem = ???
+
+  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
+  override def negX: GeomElem = ???
+
+  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
+  override def prolign(matrix: ProlignMatrix): GeomElem = ???
+
+  /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
+  override def rotate(angle: Angle): GeomElem = ???
+
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in sub classes and
+   * traits. */
+  override def reflect(lineLike: LineLike): GeomElem = ???
+
+  /** XY scaling 2D geometric transformation on a GeomElem. This allows different scaling factors across X and Y dimensions. The return type will be
+   * narrowed in sub classes and traits. */
+  override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???
+
+  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
+  override def xShear(operand: Double): GeomElem = ???
+
+  /** Shear 2D geometric transformation along the Y Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
+  override def yShear(operand: Double): GeomElem = ???
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
+
+  override def canEqual(that: Any): Boolean = ???
 }
 
 object Ray
