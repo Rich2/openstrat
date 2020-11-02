@@ -24,6 +24,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val computerPlayers = Array(Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
+  val player1 = RadioOption(true, "PLAYER 1", -200 vv 100)
+  val player2 = RadioOption(false, "PLAYER 2", -200 vv 130)
+  val player3 = RadioOption(false, "PLAYER 3", -200 vv 160)
+  val player4 = RadioOption(false, "PLAYER 4", -200 vv 190)
+
   newGame()
 
   def newGame() : Unit =
@@ -31,6 +36,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       Rect(width, height, 0 vv 0).fill(Colour(0xFF181818)),
       gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })
     )
+    player1.put(canv)
+    player2.put(canv)
     aDefaultGame.startGame()
     animationStep = 0.0
     canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
