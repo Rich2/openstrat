@@ -4,26 +4,28 @@ package geom
 
 /** Temporary name for new version of circular arc. */
 case class CArc3(xStart: Double, yStart: Double, xCiMid: Double, yCiMid: Double, xEnd: Double, yEnd: Double) extends CurveSeg
-{ /** The mid point (of the circumference) of the arc */
-  def ciMid: Vec2 = xCiMid vv yCiMid
+{ /** The mid or half way point (of the circumference) of the arc */
+  def apex: Vec2 = xCiMid vv yCiMid
 
   /** The mid point of the chord of the arc. */
-  def chMid: Vec2 = pStart mid pEnd
+  def chordCen: Vec2 = pStart mid pEnd
 
-  def midMid: LineSeg = chMid.lineTo(ciMid)
+  /** Line segment that bisects the segment of this arc. */
+  def median: LineSeg = chordCen.lineTo(apex)
 
-  def midMidLen: Double = midMid.length
+  /** The height of the arc. The length from the bisection of the chord to the apex. */
+  def height: Double = median.length
 
   /** The chord of this Arc */
   def chord: LineSeg = pStart.lineTo(pEnd)
 
   /** length of the chord of this arc. */
-  def chordLen: Double = chord.length
+  def width: Double = chord.length
 
   /** half of length of the chord of this arc. */
-  def chordHLen: Double = chord.length
+  def hWidth: Double = chord.length
 
-  def diameter: Double = chordHLen.squared / midMidLen + midMidLen
+  def diameter: Double = hWidth.squared / height + height
 
   @inline def radius: Double = diameter / 2
 }
