@@ -25,7 +25,7 @@ object Bezier
 }
       
 /** Functional class for Drawing a cubic Bezier curve. */
-case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) extends CurveSegGraphic with GraphicAffineElem
+case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) extends CurveSegDraw with GraphicAffineElem
 { override type ThisT = BezierDraw
   def typeStr: String = "BezierDraw"
   //def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 

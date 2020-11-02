@@ -24,3 +24,9 @@ trait CurveSegGraphic extends GraphicElem
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
   final def pEnd: Vec2 = curveSeg.pEnd
 }
+
+trait CurveSegDraw extends CurveSegGraphic
+{
+  def lineWidth: Double
+  def colour: Colour
+}
