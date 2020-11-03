@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import Colour._
 
 /** Temporary name for new version of circular arc. */
 case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double) extends CurveSeg with AffinePreserve
@@ -38,4 +39,11 @@ case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, x
 object CArc3
 {
   def apply(pStart: Vec2, apex: Vec2, pEnd: Vec2): CArc3 = new CArc3(pStart.x, pStart.y, apex.x, apex.y, pEnd.x, pEnd.y)
+}
+
+case class CArcDraw3(curveSeg: CArc3, colour: Colour = Black, lineWidth: Double = 2) extends CurveSegDraw with AffinePreserve
+{
+  override type ThisT = CArcDraw3
+
+  override def fTrans(f: Vec2 => Vec2): CArcDraw3 = CArcDraw3(curveSeg.fTrans(f), colour, lineWidth)
 }
