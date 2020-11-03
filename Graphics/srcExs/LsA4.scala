@@ -12,6 +12,7 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
+  val co = CArcOld(-300 vv 0, 0 vv 0, 0 vv 300)
   val c3 = CArc3(-100 vv 0, -71 vv 71, 0 vv 100)
   debvar(c3.height)
   debvar(c3.radius)
@@ -22,8 +23,9 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 
     LinePath(0 vv -50, 50 vv -100, -25 vv -75, 200 vv -60).draw(2, Orange),
    
-    CArcDrawOld(-200 vv 0, 0 vv 0, 0 vv 200),
-    CArcDrawOld(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
+    CArcDrawOld(-250 vv 0, 0 vv 0, 0 vv 250),
+    CArcDrawOld(-300 vv 0, 0 vv 0, 0 vv 300,4, Pink),
+    co.controlPt.toText(),
     c3.draw(Crimson),
 
     Bezier(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200).draw(Green, 2),
