@@ -3,9 +3,12 @@ package ostrat
 package geom
 
 /** Temporary name for new version of circular arc. */
-case class CArc3(xStart: Double, yStart: Double, xCiMid: Double, yCiMid: Double, xEnd: Double, yEnd: Double) extends CurveSeg
-{ /** The mid or half way point (of the circumference) of the arc */
-  def apex: Vec2 = xCiMid vv yCiMid
+case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double) extends CurveSeg with AffinePreserve
+{ override type ThisT = CArc3
+  override def fTrans(f: Vec2 => Vec2): ThisT = CArc3(f(pStart), f(apex), f(pEnd))
+
+  /** The mid or half way point (of the circumference) of the arc */
+  def apex: Vec2 = xApex vv yApex
 
   /** The mid point of the chord of the arc. */
   def chordCen: Vec2 = pStart mid pEnd
@@ -28,4 +31,11 @@ case class CArc3(xStart: Double, yStart: Double, xCiMid: Double, yCiMid: Double,
   def diameter: Double = hWidth.squared / height + height
 
   @inline def radius: Double = diameter / 2
+
+
+}
+
+object CArc3
+{
+  def apply(pStart: Vec2, apex: Vec2, pEnd: Vec2): CArc3 = new CArc3(pStart.x, pStart.y, apex.x, apex.y, pEnd.x, pEnd.y)
 }
