@@ -15,5 +15,5 @@ trait Fillable extends Drawable
 {
   def fill(fillColour: Colour): GraphicElem
   def fillHex(intValue: Int): GraphicElem
-  def fillDraw(fillColour: Colour, lineWidth: Double = 2, lineColour: Colour = Colour.Black): GraphicElem
+  def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
 }

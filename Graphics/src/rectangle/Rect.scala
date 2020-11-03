@@ -83,7 +83,7 @@ object Rect
   def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
 
   def colouredBordered(height: Double, colour: Colour, lineWidth: Double = 1): PolygonCompound =
-    goldenRatio(height).fillDraw(colour, lineWidth, colour.contrast)
+    goldenRatio(height).fillDraw(colour, colour.contrast, lineWidth)
 
   /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
