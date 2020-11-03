@@ -12,6 +12,9 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
+  val c3 = CArc3(-100 vv 0, -71 vv 71, 0 vv 100)
+  debvar(c3.height)
+  debvar(c3.radius)
   val stuff = Arr(
     LineSegDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
     LineSegDraw(0 vv 50, 150 vv 200, lineWidth = 3),
@@ -21,7 +24,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
    
     CArcDrawOld(-200 vv 0, 0 vv 0, 0 vv 200),
     CArcDrawOld(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
-    CArc3(-100 vv 0, -71 vv 71, 0 vv 100).draw(Crimson),
+    c3.draw(Crimson),
 
     Bezier(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200).draw(Green, 2),
   )

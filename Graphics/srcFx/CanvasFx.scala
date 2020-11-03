@@ -80,6 +80,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
   override protected[this] def tlCArcDraw3(ad: CArcDraw3): Unit =
   { debvar(ad)
+    debvar(ad.curveSeg.radius)
     gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     gc.arcTo(ad.curveSeg.xApex, ad.curveSeg.yApex, ad.xEnd, ad.yEnd, ad.curveSeg.radius)// ad.fControlEndRadius(gc.arcTo)

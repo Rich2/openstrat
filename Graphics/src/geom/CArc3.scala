@@ -27,7 +27,7 @@ case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, x
   def width: Double = chord.length
 
   /** half of length of the chord of this arc. */
-  def hWidth: Double = chord.length
+  def hWidth: Double = chord.length / 2
 
   def diameter: Double = hWidth.squared / height + height
 
