@@ -21,6 +21,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
    
     CArcDrawOld(-200 vv 0, 0 vv 0, 0 vv 200),
     CArcDrawOld(-220 vv 0, 0 vv 0, 0 vv 220, 4, Pink),
+    CArc3(-200 vv 0, 0 vv 0, 0 vv 200).draw(Orange),
     Bezier(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200).draw(Green, 2),
   )
   repaint(stuff)

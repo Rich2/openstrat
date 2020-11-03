@@ -33,7 +33,7 @@ case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, x
 
   @inline def radius: Double = diameter / 2
 
-
+  def draw(colour: Colour = Black, lineWidth: Double = 2): CArcDraw3 = CArcDraw3(this, colour, lineWidth)
 }
 
 object CArc3
@@ -46,4 +46,5 @@ case class CArcDraw3(curveSeg: CArc3, colour: Colour = Black, lineWidth: Double 
   override type ThisT = CArcDraw3
 
   override def fTrans(f: Vec2 => Vec2): CArcDraw3 = CArcDraw3(curveSeg.fTrans(f), colour, lineWidth)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDraw3(this)
 }
