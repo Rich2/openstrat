@@ -33,6 +33,11 @@ case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, x
 
   @inline def radius: Double = diameter / 2
 
+  def cen: Vec2 = apex + (chordCen - apex) * radius / height
+
+  def startAngle: Angle = (pStart - cen).angle
+  def endAngle: Angle = (pEnd -cen).angle
+
   def draw(colour: Colour = Black, lineWidth: Double = 2): CArcDraw3 = CArcDraw3(this, colour, lineWidth)
 }
 
