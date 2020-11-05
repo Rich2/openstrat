@@ -139,7 +139,7 @@ package object geom
     textCells.foreach{tc =>
       val rLen = tc.textStr.length * fontSize
       xAcc = rLen / 2
-      val rect: Rectangle = Rect(rLen, fontSize, xAcc vv y)
+      val rect: Rectangle = Rect(rLen, fontSize, xAcc pp y)
       val newElem = rect.fill(Colour.Green)
       acc = acc :+ newElem
       xAcc += rLen / 2

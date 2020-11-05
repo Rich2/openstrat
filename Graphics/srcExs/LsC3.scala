@@ -6,11 +6,11 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
 {
   val r = Rect(200, 100).fillActive(Yellow,None)
   val r1 = r.slate(-300, 300)
-  val r2 = r.slate(300 vv 300)
-  val r3 = r.slate(300 vv - 300)
-  val r4 = r.slate(-300 vv - 300)
+  val r2 = r.slate(300 pp 300)
+  val r3 = r.slate(300 pp - 300)
+  val r4 = r.slate(-300 pp - 300)
   val rList = Arr(r1, r2, r3, r4)
-  val textPosn = 0 vv 0
+  val textPosn = 0 pp 0
   val startText = TextGraphic("Please click on the screen.", textPosn, 28)
   repaint(rList +- startText)
   

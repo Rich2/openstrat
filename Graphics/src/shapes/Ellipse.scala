@@ -21,7 +21,7 @@ trait Ellipse extends Shape
   def yCen: Double
   
   /** The centre of the ellipse. */
-  final def cen: Pt2 = xCen vv yCen
+  final def cen: Pt2 = xCen pp yCen
   
   /** The x component of curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
   def xs0: Double
@@ -39,7 +39,7 @@ trait Ellipse extends Shape
   def ys1: Double
 
   /** Curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
-  final def s1: Pt2 = xs1 vv ys1
+  final def s1: Pt2 = xs1 pp ys1
 
   /** The x component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
   def xs2: Double
@@ -57,7 +57,7 @@ trait Ellipse extends Shape
   def ys3: Double
 
   /** Curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
-  def s3: Pt2 = xs3 vv ys3
+  def s3: Pt2 = xs3 pp ys3
 
   /** radius 0. By default this will be the up radius to cs0. By convention and defualt This will normally be the value of b, the minor ellipse
    *  radius, but even if it starts as b in certain transformations it may become a, the major ellipse radius. */

@@ -7,11 +7,11 @@ import pWeb._
 trait Rect extends Rectangle with Rectangularlign with ShapeAligned
 { @inline final override def x1: Double = xTopRight
   @inline final override def y1: Double = yTopRight
-  @inline final override def v1: Pt2 = x1 vv y1
+  @inline final override def v1: Pt2 = x1 pp y1
   @inline final override def x2: Double = xBottomRight
   @inline final override def y2: Double = yBottomRight
-  @inline final override def v2: Pt2 = x2 vv y2
-  @inline final override def cen: Pt2 = xCen vv yCen
+  @inline final override def v2: Pt2 = x2 pp y2
+  @inline final override def cen: Pt2 = xCen pp yCen
   override def rotation: Angle = 0.degs
   @inline final def x3: Double = xBottomLeft
   @inline final def y3: Double = yBottomLeft

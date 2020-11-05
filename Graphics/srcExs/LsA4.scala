@@ -12,23 +12,23 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
-  val co = CArcOld(-300 vv 0, 0 vv 0, 0 vv 300)
-  val c3 = CArc3(-100 vv 0, -71 vv 71, 0 vv 100)
+  val co = CArcOld(-300 pp 0, 0 pp 0, 0 pp 300)
+  val c3 = CArc3(-100 pp 0, -71 pp 71, 0 pp 100)
   debvar(c3.height)
   debvar(c3.radius)
   val stuff = Arr(
-    LineSegDraw(0 vv 0, 160 vv 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
-    LineSegDraw(0 vv 50, 150 vv 200, lineWidth = 3),
-    LineSegDraw(50 vv -50, 200 vv -50, Red, 2),//Note if you don't include a Colour you get Black
+    LineSegDraw(0 pp 0, 160 pp 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
+    LineSegDraw(0 pp 50, 150 pp 200, lineWidth = 3),
+    LineSegDraw(50 pp -50, 200 pp -50, Red, 2),//Note if you don't include a Colour you get Black
 
-    LinePath(0 vv -50, 50 vv -100, -25 vv -75, 200 vv -60).draw(2, Orange),
+    LinePath(0 pp -50, 50 pp -100, -25 pp -75, 200 pp -60).draw(2, Orange),
    
-    CArcDrawOld(-250 vv 0, 0 vv 0, 0 vv 250),
-    CArcDrawOld(-300 vv 0, 0 vv 0, 0 vv 300,4, Pink),
+    CArcDrawOld(-250 pp 0, 0 pp 0, 0 pp 250),
+    CArcDrawOld(-300 pp 0, 0 pp 0, 0 pp 300,4, Pink),
     co.controlPt.toText(),
     c3.draw(Crimson),
 
-    Bezier(200 vv -350, -500 vv -300, -600 vv -300, -450 vv -200).draw(Green, 2),
+    Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(Green, 2),
   )
   repaint(stuff)
 }

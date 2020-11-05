@@ -10,17 +10,17 @@ object Trapezium
 object TrapezoidIsosceles
 {
   def apply(baseWidth: Double, topWidth: Double, height: Double): PolygonImp = PolygonImp(
-      -topWidth /2  vv height/2,
-      topWidth/2    vv height / 2,
-      baseWidth/2   vv - height/2,
-      - baseWidth/2 vv - height/2)
+      -topWidth /2  pp height/2,
+      topWidth/2    pp height / 2,
+      baseWidth/2   pp - height/2,
+      - baseWidth/2 pp - height/2)
 }
 
 object Diamond
 {
   def apply() = PolygonImp(
-    0 vv 0.5,
+    0 pp 0.5,
     Pt2(Tan30 / 2, 0),
-    0 vv - 0.5,
+    0 pp - 0.5,
     Pt2(-Tan30 / 2, 0))
 }

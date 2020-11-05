@@ -18,7 +18,7 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   @inline override def _7 = yEnd
 
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
-  def pEnd: Pt2 = xEnd vv yEnd
+  def pEnd: Pt2 = xEnd pp yEnd
 
   /** This is control point 2 in a Bezier segment, the centre point in an arc segment and unused in a straight Line Segment */
   def pUses: Pt2 = Pt2(xUses, yUses)

@@ -4,14 +4,14 @@ import ostrat._, geom._, pCanv._, Colour._
 
 case class LsA7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A7")
 {
-  val pt1 = -200 vv 200
-  val arcCentre = 0 vv 200
-  val pt2 = 0 vv 400
-  val pt3 = 200 vv 200
-  val pt4 = 200 vv -200
-  val ctrl1 = 150 vv -125
-  val ctrl2 = -175 vv -250
-  val pt5 = -200 vv -200  
+  val pt1 = -200 pp 200
+  val arcCentre = 0 pp 200
+  val pt2 = 0 pp 400
+  val pt3 = 200 pp 200
+  val pt4 = 200 pp -200
+  val ctrl1 = 150 pp -125
+  val ctrl2 = -175 pp -250
+  val pt5 = -200 pp -200
   
   repaints(
       //A shape is just a closed sequence of curve segments */

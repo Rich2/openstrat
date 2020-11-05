@@ -9,7 +9,7 @@ trait Vec2sLikeProdDbl2 extends ArrProdDbl2[Pt2]
     var count = 0
     while (count < arrayUnsafe.length)
     {
-      val newVec = f(arrayUnsafe(count) vv arrayUnsafe(count + 1))
+      val newVec = f(arrayUnsafe(count) pp arrayUnsafe(count + 1))
       newArray(count) = newVec.x
       newArray(count + 1) = newVec.y
       count += 2

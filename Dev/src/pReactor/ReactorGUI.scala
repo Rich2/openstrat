@@ -18,35 +18,35 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   var gameData = ""
 
   def gameBtn(str: String, cmd: MouseButton => Unit): PolyCurveParentFull =
-    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
+    Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 pp -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
   /** Simple Checkbox */
-  def Checkbox(isSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 vv 0, isDisabled:Boolean = false, activeId:String = "Checkbox"): GraphicElems =
+  def Checkbox(isSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 pp 0, isDisabled:Boolean = false, activeId:String = "Checkbox"): GraphicElems =
   { val ink = if (!isDisabled) White else Grey
     val defaultSize = 12
-    if (isSelected) Arr(Rect(defaultSize-4, defaultSize-4, loc).fill(ink), Rect(defaultSize, defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize vv 0), defaultSize, ink, LeftAlign))
+    if (isSelected) Arr(Rect(defaultSize-4, defaultSize-4, loc).fill(ink), Rect(defaultSize, defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize pp 0), defaultSize, ink, LeftAlign))
     // if (aIsSelected == true) canv.polygonDraw(Rect(16, 16, loc).fillActive(Yellow, None), 1, ink)
-    else Arr(Rect(defaultSize, defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize vv 0), defaultSize, ink, LeftAlign))
+    else Arr(Rect(defaultSize, defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize pp 0), defaultSize, ink, LeftAlign))
   }
 
   /** Simple Radio button with label */
-  def RadioOption(isSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 vv 0, isDisabled:Boolean = false, activeId:String = "RadioButton"): GraphicElems =
+  def RadioOption(isSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 pp 0, isDisabled:Boolean = false, activeId:String = "RadioButton"): GraphicElems =
   { val ink = if (!isDisabled) White else Grey
     val defaultSize = 12
-    if (isSelected) Arr(Circle(defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize vv 0), defaultSize, ink, LeftAlign), Circle(defaultSize-4, loc).fill(ink))
-    else Arr(Circle(defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize vv 0), defaultSize, ink, LeftAlign))
+    if (isSelected) Arr(Circle(defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize pp 0), defaultSize, ink, LeftAlign), Circle(defaultSize-4, loc).fill(ink))
+    else Arr(Circle(defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize pp 0), defaultSize, ink, LeftAlign))
   }
 
   val aDefaultGame = new ReactorGame(rows, cols, Array(Red, Green, Yellow, Blue))
   val computerPlayers = Array(Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
-  val player1 = Checkbox(true, "PLAYER 1", -200 vv 190)
-  val player2 = Checkbox(false, "PLAYER 2", -200 vv 160)
-  val player3 = Checkbox(false, "PLAYER 3", -200 vv 130, true)
-  val player4 = Checkbox(false, "PLAYER 4", -200 vv 100)
-  val human = RadioOption(false, "HUMAN", -200 vv 220)
-  val computer = RadioOption(true, "COMPUTER", -200 vv 250)
+  val player1 = Checkbox(true, "PLAYER 1", -200 pp 190)
+  val player2 = Checkbox(false, "PLAYER 2", -200 pp 160)
+  val player3 = Checkbox(false, "PLAYER 3", -200 pp 130, true)
+  val player4 = Checkbox(false, "PLAYER 4", -200 pp 100)
+  val human = RadioOption(false, "HUMAN", -200 pp 220)
+  val computer = RadioOption(true, "COMPUTER", -200 pp 250)
 
 
   newGame()
@@ -56,7 +56,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     deb("newGame")
     val hp = human
     debvar(hp)
-    val els = Arr(Rect(12, 12, -200 vv -160).fill(White)) ++ Arr(Rect(width, height, 0 vv 0).fill(Colour(0xFF181818)), gameBtn("new | load | save", (mb: MouseButton) => { deb("3") }))
+    val els = Arr(Rect(12, 12, -200 pp -160).fill(White)) ++ Arr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new | load | save", (mb: MouseButton) => { deb("3") }))
     repaint(els)
 //    computer
 //    player2
@@ -66,10 +66,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 
     aDefaultGame.startGame()
     animationStep = 0.0
-    canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
+    canv.polygonFill(Rect.bl(size/2, size/2, -size pp -size), aDefaultGame.currentPlayer)
     ijUntilForeach(0, rows)(0, cols){ (r, c) =>
       val index = c+cols*r
-      drawBalls(size*c vv size*r, Black, index)
+      drawBalls(size*c pp size*r, Black, index)
     }
     updateCurrentPlayerIndicator()
   }
@@ -90,7 +90,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     for (i <- 0 to aDefaultGame.addBallQueue.length - 1)
     { if (aDefaultGame.addBallQueue(i) != 0)
     { //deb("ADD_ANIM="+animationStep.toString)
-      val loc:Pt2 = size*(i % cols) vv size*(i / cols)
+      val loc:Pt2 = size*(i % cols) pp size*(i / cols)
       if (animationStep == 0.1) drawBalls(loc, aDefaultGame.currentPlayer, i)
       for (b <- 1 to aDefaultGame.addBallQueue(i))
       { val whichBall = aDefaultGame.cellCounts(i) + b - 1
@@ -100,28 +100,28 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     }
     // popBall animation
     for (i <- 0 to aDefaultGame.popBallQueue.length - 1)
-    { val loc = size*(i % cols) vv size*(i / cols)
-      var locy = 0 vv 0
+    { val loc = size*(i % cols) pp size*(i / cols)
+      var locy = 0 pp 0
       if (aDefaultGame.isReadyToPop(i) == true)
       { aDefaultGame.cellCounts(i) -= aDefaultGame.cellNeighbours(i).length  //fudge start//
         drawBalls(loc, aDefaultGame.currentPlayer, i)
         for (b <- aDefaultGame.cellSites(i))
         { b match
         { case "N" =>
-          { if (animationStep > 0.55) locy = loc + (0 vv 0.5*size*(animationStep-0.5))
-          else locy = loc - (0 vv 0.25*size*(animationStep))
+          { if (animationStep > 0.55) locy = loc + (0 pp 0.5*size*(animationStep-0.5))
+          else locy = loc - (0 pp 0.25*size*(animationStep))
           }
           case "E" =>
-          { if (animationStep > 0.55) locy = loc + (0.5*size*(animationStep-0.5) vv 0)
-          else locy = loc - (0.25*size*(animationStep) vv 0)
+          { if (animationStep > 0.55) locy = loc + (0.5*size*(animationStep-0.5) pp 0)
+          else locy = loc - (0.25*size*(animationStep) pp 0)
           }
           case "S" =>
-          { if (animationStep > 0.55) locy = loc - (0 vv 0.5*size*(animationStep-0.5))
-          else locy = loc + (0 vv 0.25*size*(animationStep))
+          { if (animationStep > 0.55) locy = loc - (0 pp 0.5*size*(animationStep-0.5))
+          else locy = loc + (0 pp 0.25*size*(animationStep))
           }
           case "W" =>
-          { if (animationStep > 0.55)  locy = loc - (0.5*size*(animationStep-0.5) vv 0)
-          else locy = loc + (0.25*size*(animationStep) vv 0)
+          { if (animationStep > 0.55)  locy = loc - (0.5*size*(animationStep-0.5) pp 0)
+          else locy = loc + (0.25*size*(animationStep) pp 0)
           }
         }
           canv.circleFill(Circle(size*(1 - animationStep)/ballScale, locy+getLocFromCellSite(i, 0, b)), aDefaultGame.currentPlayer)
@@ -150,16 +150,16 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     if (whichPos != "") pos = whichPos
     else pos = if (whichOne < aDefaultGame.cellSites(whichCell).length) aDefaultGame.cellSites(whichCell)(whichOne) else "C"
     pos match
-    { case "N" => size/2 vv 3*size/4
-    case "E" => 3*size/4 vv size/2
-    case "S" => size/2 vv size/4
-    case "W" => size/4 vv size/2
-    case _ => size/2 vv size/2
+    { case "N" => size/2 pp 3*size/4
+    case "E" => 3*size/4 pp size/2
+    case "S" => size/2 pp size/4
+    case "W" => size/4 pp size/2
+    case _ => size/2 pp size/2
     }
   }
   def declareWinner() : Unit =
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
-    if (aDefaultGame.players.length < 2) canv.textGraphic(" Wins!", 16, 10 vv (-3*size/4), aDefaultGame.currentPlayer)
+    if (aDefaultGame.players.length < 2) canv.textGraphic(" Wins!", 16, 10 pp (-3*size/4), aDefaultGame.currentPlayer)
   }
   def turnComplete() : Unit =
   { aDefaultGame.completeTurn()
@@ -173,8 +173,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     }
   }
   def updateCurrentPlayerIndicator():Unit =
-  { canv.polygonFill(Rect.bl(size/2, size/2, -size vv -size), aDefaultGame.currentPlayer)
-    canv.textGraphic(aDefaultGame.turn.toString, 11, -3*size/4 vv -3*size/4, Black)
+  { canv.polygonFill(Rect.bl(size/2, size/2, -size pp -size), aDefaultGame.currentPlayer)
+    canv.textGraphic(aDefaultGame.turn.toString, 11, -3*size/4 pp -3*size/4, Black)
   }
   mouseUp =
     { case (LeftButton, cl, v) if (isTurnComplete && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows) && computerPlayers.indexOf(aDefaultGame.currentPlayer) == -1) =>

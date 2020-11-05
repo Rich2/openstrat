@@ -37,8 +37,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val scrollport = Map("maxBarWidth"->(viewport("width")  - 80), "minBarWidth"->20,
     "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height") / 2 + viewport("headerSize") / 2))
   
-  val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 vv (viewport("height") - viewport("cellHeight")) / 2)
-  val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 vv scrollport("scrollYpos"))).fill(Black)
+  val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 pp (viewport("height") - viewport("cellHeight")) / 2)
+  val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 pp scrollport("scrollYpos"))).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
   val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
@@ -83,7 +83,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   def positionBar(): Unit = 
   { barOffsetX = if (maxIndexOfFirstItemInView != 0) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
-    bar = Rectangle.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX vv scrollport("scrollYpos")).fill(Pink)
+    bar = Rectangle.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX pp scrollport("scrollYpos")).fill(Pink)
     repaint(Arr(background) ++ scrollBar ++ viewableItems ++ Arr(bar))
   }
 

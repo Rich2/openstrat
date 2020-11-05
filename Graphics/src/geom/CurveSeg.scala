@@ -11,7 +11,7 @@ trait CurveSeg extends GeomElem
   def yStart: Double
 
   /** Start point often called p1 */
-  final def pStart: Pt2 = xStart vv yStart
+  final def pStart: Pt2 = xStart pp yStart
 
   /** the x component of the end point */
   def xEnd: Double
@@ -20,5 +20,5 @@ trait CurveSeg extends GeomElem
   def yEnd: Double
 
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
-  final def pEnd: Pt2 = xEnd vv yEnd
+  final def pEnd: Pt2 = xEnd pp yEnd
 }

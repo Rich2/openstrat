@@ -12,7 +12,7 @@ case class LsD1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D1")
   val v1 = Pt2(2.3, -9.8)
   val t4 = v1.str
   
-  val v2: Pt2 = 4.6 vv 78.4
+  val v2: Pt2 = 4.6 pp 78.4
   val l1 = LineSeg(v1, v2)
   val t5 = l1.str//So note how there is a semicolon between the two points but a comma between the x and y values of each point. 
   
@@ -23,9 +23,9 @@ case class LsD1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D1")
 }
 
 object SText
-{ def apply(y: Double, str: String)  = TextGraphic(str, -250 vv y, 24, align = LeftAlign)
+{ def apply(y: Double, str: String)  = TextGraphic(str, -250 pp y, 24, align = LeftAlign)
 }
 
 object MText
-{ def apply(y: Double, strs: Arr[String]): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 vv y, align = LeftAlign)
+{ def apply(y: Double, strs: Arr[String]): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
 }

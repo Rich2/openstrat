@@ -9,16 +9,16 @@ case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More sh
   case class Drag(var v: Pt2, c: Colour)
   
   /** start point bezier. */
-  val p1 = Drag(-100 vv 0, Gray)
+  val p1 = Drag(-100 pp 0, Gray)
   /** End point of bezier curve. */
-  val p2 = Drag(100 vv  0, Gray)
+  val p2 = Drag(100 pp  0, Gray)
   /** control point for start point */
-  val c1 = Drag(-100 vv -250, Red)
+  val c1 = Drag(-100 pp -250, Red)
   /** control point for end point */
-  val c2 = Drag(100 vv 50, Red) 
+  val c2 = Drag(100 pp 50, Red)
   
-  val cCen = Drag(0 vv 150, Violet)
-  val cRad = Drag(-70 vv 150, Orange)
+  val cCen = Drag(0 pp 150, Violet)
+  val cRad = Drag(-70 pp 150, Orange)
   
   val pts = Arr(p1, p2, c1, c2, cCen, cRad)
 

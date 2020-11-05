@@ -13,8 +13,8 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   override def _2: Double = yStart
   override def _3: Double = xEnd
   override def _4: Double = yEnd
-  def startPt: Pt2 = xStart vv yStart
-  def endPt: Pt2 = xEnd vv yEnd
+  def startPt: Pt2 = xStart pp yStart
+  def endPt: Pt2 = xEnd pp yEnd
 
   override def canEqual(that: Any): Boolean = that match
   { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }

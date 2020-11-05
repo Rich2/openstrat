@@ -106,10 +106,10 @@ object Rectangle
   { val w = width / 2
     val h = height / 2
     val s1 = PolyCurve(
-        LineTail(w - radius,          h), ArcTail(w - radius vv h - radius, w vv h -radius),
-        LineTail(w,          radius - h), ArcTail(w - radius vv radius - h, w - radius vv -h),
-        LineTail(radius - w,         -h), ArcTail(radius - w vv radius - h, -w vv radius -h),
-        LineTail(- w,        h - radius), ArcTail(radius - w vv h - radius, radius - w vv h))
+        LineTail(w - radius,          h), ArcTail(w - radius pp h - radius, w pp h -radius),
+        LineTail(w,          radius - h), ArcTail(w - radius pp radius - h, w - radius pp -h),
+        LineTail(radius - w,         -h), ArcTail(radius - w pp radius - h, -w pp radius -h),
+        LineTail(- w,        h - radius), ArcTail(radius - w pp h - radius, radius - w pp h))
      s1.slate(cen)
   }
 

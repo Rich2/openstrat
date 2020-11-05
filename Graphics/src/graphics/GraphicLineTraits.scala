@@ -10,8 +10,8 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
   override def fTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.fTrans(f), colour, width)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(curveSeg, width, dashLength, gapLength, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineDraw(this)
-  def startPt: Pt2 = xStart vv yStart
-  def endPt: Pt2 = xEnd vv yEnd
+  def startPt: Pt2 = xStart pp yStart
+  def endPt: Pt2 = xEnd pp yEnd
   def arrow: LinesDraw = Arrow.draw(startPt, endPt, 30.degs, 20, width, colour)
 }
 

@@ -20,7 +20,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val brFlags = Arr(Germany, Germany1871, Ireland, UnitedStates)
   val brObjs = brFlags.iMap((el, i) => el.compoundStr.scale(100).brSlateTo(canv.bottomRight.addY(i * 110)))
 
-  val starCen = 300 vv 0
+  val starCen = 300 pp 0
   val star: GraphicElems = Arr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)
   val cr = Cross().slate(starCen)
  // val ind = India.compoundStr.scale(800)
@@ -29,7 +29,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
 
   mouseUp = (_, li, _) =>
   { val str: String = li.headToStringElse("No clickable object on canvas")
-    val tg = TextGraphic(str, 0 vv 100, 28)
+    val tg = TextGraphic(str, 0 pp 100, 28)
     repaint(notChanging +-  tg)
   }
 

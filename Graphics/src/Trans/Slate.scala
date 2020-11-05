@@ -8,8 +8,8 @@ import scala.annotation.unchecked.uncheckedVariance
  * extension class. Different sets of transformations can then be combined. */
 trait Slate[T]
 { def slateT(obj: T, offset: Vec2Like): T
-  def xSlateT(obj: T @uncheckedVariance, xOffset: Double): T = slateT(obj, xOffset vv 0)
-  def ySlateT(obj: T @uncheckedVariance, yOffset: Double): T = slateT(obj, 0 vv yOffset)
+  def xSlateT(obj: T @uncheckedVariance, xOffset: Double): T = slateT(obj, xOffset pp 0)
+  def ySlateT(obj: T @uncheckedVariance, yOffset: Double): T = slateT(obj, 0 pp yOffset)
 }
 
 /** Companion object for the Slate type class. Contains instances for collections and other container classes. */
@@ -31,14 +31,14 @@ object Slate
 class SlateExtensions[T](value: T, ev: Slate[T])
 {
   /** Translate 2 dimensional vectors along the X axis */
-  def xSlate(xOffset: Double): T = ev.slateT(value, xOffset vv 0)
+  def xSlate(xOffset: Double): T = ev.slateT(value, xOffset pp 0)
 
   /** Translate 2 dimensional vectors along the Y axis */
-  def ySlate(yOffset: Double): T = ev.slateT(value, 0 vv yOffset)
+  def ySlate(yOffset: Double): T = ev.slateT(value, 0 pp yOffset)
 
   /** Translate in 2 dimensional space. */
   def slate(offset: Vec2Like): T = ev.slateT(value, offset)
 
   /** Translate in 2 dimensional space. */
-  def slate(xOffset: Double, yOffset: Double): T = ev.slateT(value, xOffset vv yOffset)
+  def slate(xOffset: Double, yOffset: Double): T = ev.slateT(value, xOffset pp yOffset)
 }

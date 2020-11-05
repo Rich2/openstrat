@@ -9,7 +9,7 @@ case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, x
   override def fTrans(f: Pt2 => Pt2): ThisT = CArc3(f(pStart), f(apex), f(pEnd))
 
   /** The mid or half way point (of the circumference) of the arc */
-  def apex: Pt2 = xApex vv yApex
+  def apex: Pt2 = xApex pp yApex
 
   /** The mid point of the chord of the arc. */
   def chordCen: Pt2 = pStart mid pEnd

@@ -95,7 +95,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def inverseY: Pt2 = Pt2(x, -y)
 
   def toTuple: Tuple2[Double, Double] = (x, y)
-  def vv(z: Double): Pt3 = Pt3(x, y, z)
+  def pp(z: Double): Pt3 = Pt3(x, y, z)
 
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
   @inline def rotate90: Pt2 = Pt2(-y, x)
@@ -143,7 +143,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   def centreSquare(length: Double): PolygonImp =
   { val r = length / 2.0
-    PolygonImp(-r vv r, r vv r, r vv -r, -r vv -r).slate(x, y)
+    PolygonImp(-r pp r, r pp r, r pp -r, -r pp -r).slate(x, y)
   }
 
   def textAt(str: String, fontSize: Int, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, this, fontSize, fontColour)

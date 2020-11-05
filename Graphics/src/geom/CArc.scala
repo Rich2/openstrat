@@ -6,7 +6,7 @@ package geom
 final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends SimilarPreserve
 { type ThisT = CArc
   override def fTrans(f: Pt2 => Pt2): CArc = ???
-  def cen: Pt2 = xCen vv yCen
+  def cen: Pt2 = xCen pp yCen
   
   def startAngleRadians: Double = (pStart - cen).angleRadians
   def startAngleRadiansPos: Double = (pStart - cen).angleRadiansPos
@@ -14,7 +14,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def endAngleRadians: Double = startAngleRadians + deltaRadians
   def endAngleRadiansPos: Double = startAngleRadiansPos + deltaRadians
   def endAngle: Angle = Angle.radians(endAngleRadians)
-  def pStart: Pt2 = xStart vv yStart
+  def pStart: Pt2 = xStart pp yStart
   def pEnd: Pt2 = cen + endAngle.toVec2(radius)
   def midArcAngleRadians = startAngleRadians + deltaRadians / 2
   def midArcAngle = Angle.radians(midArcAngleRadians)
