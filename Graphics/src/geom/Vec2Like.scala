@@ -8,8 +8,13 @@ trait Vec2Like extends Any
   def x: Double
   def y: Double
 
+  /** The magnitude of this vector2Like. */
+  def magnitude = math.sqrt(x * x + y * y)
+
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle.radians(angleRadians)
+
+
 
   /** Gives the angle of the vector with respect of the origin in radians. */
   def angleRadians: Double =
