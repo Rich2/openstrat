@@ -37,10 +37,11 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
       pt.x > lineX
     })
 
-  def midPt: Pt2 = (pStart + pEnd) / 2
+  /** The mid or half way point of this lineSeg. */
+  def midPt: Pt2 = Pt2((xStart + xEnd) / 2, (yStart + yEnd) / 2)
 
   /** The angle of this line segment. */
-  def angle: Angle = (pEnd - pStart).angle
+  def angle: Angle = vec.angle
 
   /** The angle 90 degrees anti-clock wise from the angle of this directed line segment. The angle one gets by turning left from this Sline. */
   def left90: Angle = angle + 90.degs
@@ -49,9 +50,15 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   def right90: Angle = angle - 90.degs
 
   /** The relative position of the end point from the start point. */
-  @inline def delta: Pt2 = pEnd - pStart
+  @deprecated def delta: Pt2 = pEnd - pStart
 
-  @inline def length: Double = delta.magnitude
+  /** The relative vector [[Vec2]] of the end point from the start point. */
+  def vec: Vec2 = Vec2(xEnd - xStart, yEnd - yStart)
+
+  /** The relative vector [[Vec2]] of the start point from the end point. */
+  def revVec: Vec2 = Vec2(xStart - xEnd, yStart - yEnd)
+
+  @inline def length: Double = vec.magnitude
 
   /** Gives the Vec2 point at the specified distance to the right of the end point. At the end point turn right 90 degrees and then travel the given
    * distance to the point. The Vec2 of that point is returned by this method. */
