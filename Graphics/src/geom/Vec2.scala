@@ -37,6 +37,24 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def addY(adj: Double): Vec2 = Vec2(x, y + adj)
   def subX(adj: Double): Vec2 = Vec2(x - adj, y)
   def subY(adj: Double): Vec2 = Vec2(x, y - adj)
+
+  /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
+  @inline def rotate90: Vec2 = Vec2(-y, x)
+
+  /** Rotates the vector 180 degrees or Pi radians. */
+  @inline def rotate180: Vec2 = Vec2(-x, -y)
+
+  /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
+  @inline def rotate270: Vec2 = Vec2(y, -x)
+
+  /** Rotates this vector through the given angle around the origin. */
+  def rotate(a: Angle): Vec2 = a match
+  { case Deg0 => this
+    case Deg90 => rotate90
+    case Deg180 => rotate180
+    case Deg270 => rotate270
+    case a => Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
+  }
 }
 
 object Vec2

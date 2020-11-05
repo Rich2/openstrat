@@ -14,6 +14,17 @@ trait Vec2Like extends Any
   def unary_- : Vec2Like
   @inline def *(factor: Double): Vec2Like
   @inline def /(divisor: Double): Vec2Like
+  /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
+  @inline def rotate90: Vec2Like
+
+  /** Rotates the vector 180 degrees or Pi radians. */
+  @inline def rotate180: Vec2Like
+
+  /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
+  @inline def rotate270: Vec2Like
+
+  /** Rotates this vector through the given angle around the origin. */
+  def rotate(a: Angle): Vec2Like
 
   /** The dot product of this and the operand vector. */
   @inline def dot(operand: Pt2): Double = x * operand.x + y * operand.y
@@ -51,4 +62,6 @@ trait Vec2Like extends Any
 
   def doublesSeq = Seq(x, y)
   def toPair: (Double, Double) = (x, y)
+
+
 }
