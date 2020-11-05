@@ -11,6 +11,10 @@ trait Vec2Like extends Any
   def xScale(factor: Double): Vec2Like
   def xyScale(xOperand: Double, yOperand: Double): Vec2Like
 
+  def unary_- : Vec2Like
+  @inline def *(factor: Double): Vec2Like
+  @inline def /(divisor: Double): Vec2Like
+
   /** The magnitude of this vector2Like. */
   def magnitude = math.sqrt(x * x + y * y)
 

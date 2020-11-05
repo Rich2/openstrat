@@ -22,6 +22,10 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Adds the operand 2 dimensional vector from this 2 dimensional vector. */
   def -(operand: Vec2): Vec2 = Vec2(x + operand.x, y - operand.y)
 
+  def unary_- : Vec2 = Vec2(-x, -y)
+  @inline def *(factor: Double): Vec2 = Vec2(x * factor, y * factor)
+  @inline def /(divisor: Double): Vec2 = Vec2(x / divisor, y / divisor)
+
   def yScale(factor: Double): Vec2 = Vec2(x, y * factor)
   def xScale(factor: Double): Vec2 = Vec2(x * factor, y)
   def xyScale(xOperand: Double, yOperand: Double): Vec2 = Vec2(x * xOperand, y * yOperand)

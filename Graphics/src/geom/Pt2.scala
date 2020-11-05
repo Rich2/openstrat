@@ -24,7 +24,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
   def mid(point2: Pt2): Pt2 = (this + point2) / 2
 
-  def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
+  def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
   def str0: String = strMod(_.str0)
   def str1: String = strMod(_.str1)
   def str2: String = strMod(_.str2)
