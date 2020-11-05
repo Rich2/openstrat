@@ -29,8 +29,16 @@ case class LsA5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A5")
 
   val cen6 = TextGraphic("c6 cen", -100 pp 200, 14)
   val ps = Pt2(100, 100)
-  val p90 = ps.rotateAbout(150 pp 150, 90.degs)
-  repaints(ps.toText(), p90.toText())
+  val cc = Pt2(150, 150)
+  val cd = Circle(100 * 2.sqrt, cc).draw()
+  val p90 = ps.rotateAbout(cc, 90.degs)
+  val p135 = ps.rotateAbout(cc, 135.degs)
+  val p180 = ps.rotateAbout(cc, 180.degs)
+  val p225 = ps.rotateAbout(cc, 225.degs)
+  val p270 = ps.rotateAbout(cc, 270.degs)
+
+  repaints(cd, ps.toText(10, Pink), p90.toText(10, Red), p135.toText(10, Brown), p180.toText(10, Green),
+    p225.toText(10, Orange), p270.toText(10, Blue))
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the
