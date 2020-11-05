@@ -59,7 +59,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     case lineSeg: LineSeg => {
       val v1 = lineSeg.pStart
       val v2 = lineSeg.pEnd
-      val lineDelta: Pt2 = v2 - v1
+      val lineDelta = v2 - v1
       val lineUnitVector = lineDelta / lineDelta.magnitude
       2 * v1 - this - 2 * (v1 - this).dot(lineUnitVector) * lineUnitVector
     }
@@ -106,7 +106,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
   @inline def rotate270: Pt2 = Pt2(y, -x)
 
-
   /** Line segment from this point to the parameter point. */
   def lineTo(pt2: Pt2): LineSeg = LineSeg(this, pt2)
 
@@ -150,14 +149,14 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def textAt(str: String, fontSize: Int, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, this, fontSize, fontColour)
   def toText(fontSize: Int = 10, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str1, this, fontSize, fontColour)
 
-  def arcControlPoint(pt2: Pt2, arcCentre: Pt2): Pt2 =
+  /*def arcControlPoint(pt2: Pt2, arcCentre: Pt2): Pt2 =
   { val angle1 = (this - arcCentre).angle
     val angle2 = (pt2 - arcCentre).angle
     val resultAngle =  angle1.bisect(angle2)
     val alphaAngle =  resultAngle / 2
     val radius = (pt2 - arcCentre).magnitude
     arcCentre + resultAngle.toVec2(radius / alphaAngle.cos)
-  }
+  }*/
 
   def linesCross(armLength: Double = 5): Seq[LineSeg] = Seq( new LineSeg(x - armLength, y , x + armLength, y),
     new LineSeg(x, y - armLength, x, y + armLength))
