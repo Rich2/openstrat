@@ -21,7 +21,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Gives the positive scalar distance between this and the operand Vec2. */
   def distTo(operand: Pt2): Double = (operand - this).magnitude
 
-  /** The average of tis and the operand Vec2. The mid point between this point and the operand second point. */
+  /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
   def mid(point2: Pt2): Pt2 = (this + point2) / 2
 
   def strMod(f: Double => String): String = "Vec2".appendParenthSemis(f(x), f(y))
@@ -34,9 +34,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   { case Pt2(px, py) => (x =~ px) && (y =~ py)
     case _ => false
   }
-
-  def doublesSeq = Seq(x, y)
-  def toPair: (Double, Double) = (x, y)
 
   def addXY (otherX: Double, otherY: Double): Pt2 = Pt2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)

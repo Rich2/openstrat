@@ -7,14 +7,15 @@ trait Vec2Like extends Any
 {
   def x: Double
   def y: Double
+  def yScale(factor: Double): Vec2Like
+  def xScale(factor: Double): Vec2Like
+  def xyScale(xOperand: Double, yOperand: Double): Vec2Like
 
   /** The magnitude of this vector2Like. */
   def magnitude = math.sqrt(x * x + y * y)
 
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle.radians(angleRadians)
-
-
 
   /** Gives the angle of the vector with respect of the origin in radians. */
   def angleRadians: Double =
@@ -41,4 +42,6 @@ trait Vec2Like extends Any
     }
   }
 
+  def doublesSeq = Seq(x, y)
+  def toPair: (Double, Double) = (x, y)
 }

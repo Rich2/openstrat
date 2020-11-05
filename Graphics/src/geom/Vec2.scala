@@ -11,11 +11,20 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   @inline override def _2: Double = y
   override def productPrefix: String = "Vec2"
 
+  override def equals(other: Any): Boolean = other match
+  { case Vec2(px, py) => (x =~ px) && (y =~ py)
+    case _ => false
+  }
+
   /** Adds this Vector to a second 2 dimensional vector. */
   def +(operand: Vec2): Vec2 = Vec2(x + operand.x, y + operand.y)
 
   /** Adds the operand 2 dimensional vector from this 2 dimensional vector. */
   def -(operand: Vec2): Vec2 = Vec2(x + operand.x, y - operand.y)
+
+  def yScale(factor: Double): Vec2 = Vec2(x, y * factor)
+  def xScale(factor: Double): Vec2 = Vec2(x * factor, y)
+  def xyScale(xOperand: Double, yOperand: Double): Vec2 = Vec2(x * xOperand, y * yOperand)
 
   def addXY (otherX: Double, otherY: Double): Vec2 = Vec2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Vec2 = Vec2(x - otherX, y - otherY)
