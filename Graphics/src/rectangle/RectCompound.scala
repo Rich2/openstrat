@@ -13,7 +13,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): RectCompound = RectCompound(shape.slate(offset), facets, children.slate(offset))
+  override def slate(offset: Pt2): RectCompound = RectCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): RectCompound =
@@ -48,16 +48,16 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
   override def xyScale(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.xyScale(xOperand, yOperand), facets, children.xyScale(xOperand, yOperand) )
 
-  override def slateTo(newCen: Vec2): RectCompound = RectCompound(shape.slateTo(newCen), facets, children.slate(newCen - cen))
+  override def slateTo(newCen: Pt2): RectCompound = RectCompound(shape.slateTo(newCen), facets, children.slate(newCen - cen))
 }
 
 object RectCompound
 {
-  implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
   implicit val XYScaleImplicit: XYScale[RectCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
-  implicit val slateToImplicit: SlateTo[RectCompound] = (obj: RectCompound, newCen: Vec2) => obj.slateTo(newCen)
+  implicit val slateToImplicit: SlateTo[RectCompound] = (obj: RectCompound, newCen: Pt2) => obj.slateTo(newCen)
 
   implicit val reflectAxesImplicit: ReflectAxes[RectCompound] = new ReflectAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY

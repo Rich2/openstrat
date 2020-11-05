@@ -13,14 +13,14 @@ trait HexReg extends Polygon6Plus
 
   @inline final def dMax: Double = dMin * 2 / Sqrt3
 
-  def s1Cen: Vec2
+  def s1Cen: Pt2
 
-  override def s2Cen: Vec2 = ???
-  override def s3Cen: Vec2 = ???
-  def s4Cen: Vec2
-  override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
+  override def s2Cen: Pt2 = ???
+  override def s3Cen: Pt2 = ???
+  def s4Cen: Pt2
+  override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
-  override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
+  override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5); f(x6, y6); () }
 
   override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4, x5, x6)
@@ -28,7 +28,7 @@ trait HexReg extends Polygon6Plus
   override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4, y5, y6)
   override def ptsArray: Array[Double] = ???
 
-  override def vert(index: Int): Vec2 = index match
+  override def vert(index: Int): Pt2 = index match
   { case 1 => v1
     case 2 => v2
     case 3 => v3
@@ -65,7 +65,7 @@ trait HexReg extends Polygon6Plus
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Vec2): HexReg = HexReg.s4s1(s4Cen + offset, s1Cen + offset)
+  override def slate(offset: Pt2): HexReg = HexReg.s4s1(s4Cen + offset, s1Cen + offset)
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -101,9 +101,9 @@ trait HexReg extends Polygon6Plus
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
 object HexReg
 {
-  def s4s1(s4Cen: Vec2, s1Cen: Vec2): HexReg = HexRegImp(s4Cen.x, s4Cen.y, s1Cen.x, s1Cen.y)
+  def s4s1(s4Cen: Pt2, s1Cen: Pt2): HexReg = HexRegImp(s4Cen.x, s4Cen.y, s1Cen.x, s1Cen.y)
 
-  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)
@@ -119,31 +119,31 @@ object HexReg
   /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xs4Cen: Double, ys4Cen: Double, xs1Cen: Double, ys1Cen: Double) extends HexReg
   {
-    override def vert(index: Int): Vec2 = ???
-    def s4Cen: Vec2 = Vec2(xs4Cen, ys4Cen)
-    def s1Cen: Vec2 = Vec2(xs1Cen, ys1Cen)
+    override def vert(index: Int): Pt2 = ???
+    def s4Cen: Pt2 = Pt2(xs4Cen, ys4Cen)
+    def s1Cen: Pt2 = Pt2(xs1Cen, ys1Cen)
     def xCen: Double = (xs1Cen + xs4Cen) / 2
     def yCen: Double = (ys1Cen + ys4Cen) / 2
-    def s1CenRMax: Vec2 = cen + (s4Cen - cen) * 2 / Sqrt3
-    @inline override def cen: Vec2 = Vec2(xCen, yCen)
+    def s1CenRMax: Pt2 = cen + (s4Cen - cen) * 2 / Sqrt3
+    @inline override def cen: Pt2 = Pt2(xCen, yCen)
     @inline override def dMin: Double = (s4Cen - s1Cen).magnitude
-    override def v1: Vec2 = s1CenRMax.rotateAbout(cen,  - Deg30)
+    override def v1: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
-    override def v2: Vec2 = s1CenRMax.rotateAbout(cen, - Deg90)
+    override def v2: Pt2 = s1CenRMax.rotateAbout(cen, - Deg90)
     override def x2: Double = v2.x
     override def y2: Double = v2.y
-    override def v3: Vec2 = s1CenRMax.rotateAbout(cen, Deg150)
+    override def v3: Pt2 = s1CenRMax.rotateAbout(cen, Deg150)
     override def x3: Double = v3.x
     override def y3: Double = v3.y
-    override def v4: Vec2 = s1CenRMax.rotateAbout(cen, Deg150)
+    override def v4: Pt2 = s1CenRMax.rotateAbout(cen, Deg150)
     override def x4: Double = v4.x
     override def y4: Double = v4.y
-    override def v5: Vec2 = s1CenRMax.rotateAbout(cen, Deg90)
+    override def v5: Pt2 = s1CenRMax.rotateAbout(cen, Deg90)
     override def x5: Double = v5.x
     override def y5: Double = v5.y
 
-    def v6: Vec2 = s1CenRMax.rotateAbout(cen, Deg30)
+    def v6: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
     override def x6: Double = v6.x
     override def y6: Double = v6.y
 

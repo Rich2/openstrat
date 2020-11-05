@@ -14,13 +14,13 @@ import geom._, Colour._
 trait CanvasPlatform extends RectCenlign
 {
   /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
-  var mouseUp: (Vec2, MouseButton) => Unit = (v, b) => {}
+  var mouseUp: (Pt2, MouseButton) => Unit = (v, b) => {}
 
   /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command */
-  var mouseDown: (Vec2, MouseButton) => Unit = (v, b) => {}
+  var mouseDown: (Pt2, MouseButton) => Unit = (v, b) => {}
 
-  var mouseMoved: (Vec2, MouseButton) => Unit = (v, b) => {}
-  var mouseDragged: (Vec2, MouseButton) => Unit = (v, b) => {}
+  var mouseMoved: (Pt2, MouseButton) => Unit = (v, b) => {}
+  var mouseDragged: (Pt2, MouseButton) => Unit = (v, b) => {}
   var keyDown: (String) => Unit = (s) => {}
   var keyUp: (String) => Unit = (s) => {}
   var onScroll: Boolean => Unit = b => {}
@@ -58,18 +58,18 @@ trait CanvasPlatform extends RectCenlign
   def pLinePathDraw(pod: LinePathDraw): Unit
    
   def lineDraw(ld: LineSegDraw): Unit
-  final def lineDraw(pStart: Vec2, pEnd: Vec2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =
+  final def lineDraw(pStart: Pt2, pEnd: Pt2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =
     lineDraw(LineSegDraw(LineSeg(pStart, pEnd), colour, lineWidth))
    
   def cArcDrawOld(ad: CArcDrawOld): Unit
-  final def cArcDrawOld(pStart: Vec2, pCen: Vec2, pEnd: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+  final def cArcDrawOld(pStart: Pt2, pCen: Pt2, pEnd: Pt2, lineWidth: Double = 1, colour: Colour = Black): Unit =
     cArcDrawOld(CArcDrawOld(pStart, pCen, pEnd, lineWidth, colour))
 
   def cArcDraw(cad: CArcDraw): Unit
   def cArcDraw3(cad: CArcDraw3): Unit
 
   def bezierDraw(bd: BezierDraw): Unit
-  final def bezierDraw(pStart: Vec2, pEnd: Vec2, pControl1: Vec2, pControl2: Vec2, lineWidth: Double = 1, colour: Colour = Black): Unit =
+  final def bezierDraw(pStart: Pt2, pEnd: Pt2, pControl1: Pt2, pControl2: Pt2, lineWidth: Double = 1, colour: Colour = Black): Unit =
     bezierDraw(BezierDraw(Bezier(pStart, pEnd, pControl1, pControl2), colour, lineWidth))
 
   def linesDraw(lsd: LinesDraw): Unit
@@ -92,16 +92,16 @@ trait CanvasPlatform extends RectCenlign
   def ellipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit
   
   def textGraphic(tg: TextGraphic): Unit
-  final def textGraphic(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
+  final def textGraphic(str: String, fontSize: Int, posn: Pt2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
     textGraphic(TextGraphic(str, posn, fontSize, colour, align))
    
   def textOutline(to: TextOutline): Unit
-  final def textOutline(str: String, fontSize: Int, posn: Vec2, colour: Colour = Black, lineWidth: Double = 1, align: TextAlign = CenAlign): Unit =
+  final def textOutline(str: String, fontSize: Int, posn: Pt2, colour: Colour = Black, lineWidth: Double = 1, align: TextAlign = CenAlign): Unit =
     textOutline(TextOutline(str, fontSize, posn, colour, lineWidth, align))
     
   def dashedLineDraw(dld: DashedLineDraw): Unit   
       
-  def toBL(input: Vec2): Vec2 = Vec2(input.x, height - input.y)      
+  def toBL(input: Pt2): Pt2 = Pt2(input.x, height - input.y)
    
   def animSeq(anims: Seq[DispPhase]): Unit = anims match
   {

@@ -5,10 +5,10 @@ import ostrat._, geom._, pCanv._, Colour._
 /** Lesson D4 Settings. */
 case class LsD4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
 {  
-  val v1 = Vec2(2.3, -9.8)
+  val v1 = Pt2(2.3, -9.8)
   val t4 = v1.str
   
-  val v2: Vec2 = 4.6 vv 78.4
+  val v2: Pt2 = 4.6 vv 78.4
   
   val v3 = v1.addX(50)
   val v4 = v1.subX(300)

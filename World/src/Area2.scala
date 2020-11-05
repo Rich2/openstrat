@@ -18,7 +18,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
          case GlobedAll(d2s) =>
          { 
             val v2s: PolygonImp = d2s.pMap(eg.trans)
-            val cenXY: Vec2 = eg.latLongToXY(cen)
+            val cenXY: Pt2 = eg.latLongToXY(cen)
             val vis1: GraphicElems = ife(fill, Arr(v2s.fillActive(terr.colour, this)), Arr())
             val vis2: GraphicElems = Arr(v2s.draw(terr.colour.redOrPink, 2.0))
             val vis3: GraphicElems =
@@ -28,7 +28,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
          }
          case GlobedSome(curveSegDists) =>
          {
-            val cenXY: Vec2 = eg.latLongToXY(cen)
+            val cenXY: Pt2 = eg.latLongToXY(cen)
             val curveSegs: PolyCurve = curveSegDists.pMap(_.toCurveSeg(eg.trans))
             Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
          }

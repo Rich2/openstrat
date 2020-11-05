@@ -17,7 +17,7 @@ trait ShapeGraphic extends BoundedGraphic
   def svgElem(bounds: BoundingRect): SvgElem
 
   /** Translate geometric transformation. */
-  def slate(offset: Vec2): ShapeGraphic
+  def slate(offset: Pt2): ShapeGraphic
 
   /** Translate geometric transformation. */
   def slate(xOffset: Double, yOffset: Double): ShapeGraphic
@@ -56,7 +56,7 @@ trait ShapeGraphic extends BoundedGraphic
 
   override def xCen: Double = shape.xCen
   override def yCen: Double = shape.yCen
-  override def cen: Vec2 = shape.cen
+  override def cen: Pt2 = shape.cen
 }
 
 /** Companion object for the ShapeGraphic class. */
@@ -72,7 +72,7 @@ object ShapeGraphic
     }
   }
   
-  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

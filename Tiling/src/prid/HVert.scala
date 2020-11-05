@@ -12,9 +12,9 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with ProdInt2
   override def typeStr: String = "HVert"
   override def canEqual(that: Any): Boolean = ???
 
-  override def toVec2: Vec2 = (r %% 4, c %% 4) match
-  { case (1, 0) | (3, 2)  =>  Vec2(c / Sqrt3, r + 1.0 / 3)
-    case _ => Vec2(c / Sqrt3, r - 1.0 / 3)
+  override def toVec2: Pt2 = (r %% 4, c %% 4) match
+  { case (1, 0) | (3, 2)  =>  Pt2(c / Sqrt3, r + 1.0 / 3)
+    case _ => Pt2(c / Sqrt3, r - 1.0 / 3)
   }
 
   def + (hCen: HCen): HVert = HVert(r + hCen.r, c + hCen.c)

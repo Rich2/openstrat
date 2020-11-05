@@ -7,7 +7,7 @@ import pWeb._
 trait Square extends Rectangle
 {
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(offset: Vec2): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
+  override def slate(offset: Pt2): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
 
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(xOffset: Double, yOffset: Double): Square = Square.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset))
@@ -36,24 +36,24 @@ trait Square extends Rectangle
 
   override def rotate(angle: Angle): Square = Square.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle))
 
-  override def slateTo(newCen: Vec2): Square = slate(newCen - cen)
+  override def slateTo(newCen: Pt2): Square = slate(newCen - cen)
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
 object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
-  def s2s4(s2Cen: Vec2, s4Cen: Vec2): Square = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
+  def s2s4(s2Cen: Pt2, s4Cen: Pt2): Square = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
 
-  def apply(width: Double, rotation: Angle, cen: Vec2 = Vec2Z): Square =
-  { val s2 = cen + Vec2(width / 2, 0).rotate(rotation)
-    val s4 = cen + Vec2(-width / 2, 0).rotate(rotation)
+  def apply(width: Double, rotation: Angle, cen: Pt2 = Vec2Z): Square =
+  { val s2 = cen + Pt2(width / 2, 0).rotate(rotation)
+    val s4 = cen + Pt2(-width / 2, 0).rotate(rotation)
     s2s4(s2, s4)
   }
   
   def apply(width: Double, rotation: Angle, xCen: Double, yCen: Double): Square =
-  { val s2 = Vec2(width / 2, 0).rotate(rotation).addXY(xCen, yCen)
-    val s4 = Vec2(-width / 2, 0).rotate(rotation).addXY(xCen, yCen)
+  { val s2 = Pt2(width / 2, 0).rotate(rotation).addXY(xCen, yCen)
+    val s4 = Pt2(-width / 2, 0).rotate(rotation).addXY(xCen, yCen)
     s2s4(s2, s4)
   }
 
@@ -61,7 +61,7 @@ object Square extends ShapeIcon
   override def reify(scale: Double, xCen: Double, yCen: Double): Sqlign = Sqlign(scale, xCen, yCen)
 
   /** Scale the Shape and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
-  override def reify(scale: Double, cen: Vec2 = Vec2Z): Sqlign = Sqlign(scale, cen)
+  override def reify(scale: Double, cen: Pt2 = Vec2Z): Sqlign = Sqlign(scale, cen)
 
   override def fill(colour: Colour): ShapeGraphicIcon = ???
 
@@ -80,6 +80,6 @@ object Square extends ShapeIcon
 
   /** Factory object for squares. */
   object SquareImp
-  { def s2s4(s2Cen: Vec2, s4Cen: Vec2): SquareImp = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
+  { def s2s4(s2Cen: Pt2, s4Cen: Pt2): SquareImp = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
   }
 }

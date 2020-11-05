@@ -4,7 +4,7 @@ package geom
 
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 {
-  override def slate(offset: Vec2): RectangleFill = RectangleFill(shape.slate(offset), colour)
+  override def slate(offset: Pt2): RectangleFill = RectangleFill(shape.slate(offset), colour)
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.slate(xOffset, yOffset), colour)
@@ -29,14 +29,14 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.xyScale(xOperand, yOperand), colour)
 
-  override def slateTo(newCen: Vec2): RectangleFill = ???
+  override def slateTo(newCen: Pt2): RectangleFill = ???
 }
 
 object RectangleFill
 {
   def apply(shape: Rectangle, colour: Colour): RectangleFill = RectangleFillImp(shape, colour)
 
-  implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[RectangleFill] = (obj: RectangleFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[RectangleFill] = (obj: RectangleFill, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)

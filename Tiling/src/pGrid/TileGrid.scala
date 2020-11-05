@@ -78,7 +78,7 @@ trait TileGrid
   def yCen: Double = (yTileMin + yTileMax) / 2.0
 
   /** The centre of the grid in Vec2 coordinates. */
-  def cen = Vec2(xCen, yCen)
+  def cen = Pt2(xCen, yCen)
 
   /**************************************************************************************************/
   /* Methods that foreach, map, flatMap and fold over all the tiles of the tile grid. */
@@ -132,7 +132,7 @@ trait TileGrid
   }
 
   /** foreachs over each tile's Roord and its centre Vec2. */
-  final def foreachRVec(f: (Roord, Vec2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
+  final def foreachRVec(f: (Roord, Pt2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
   /** maps over each tile's Roord and its Polygon. */
   final def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, PolygonImp) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
@@ -187,10 +187,10 @@ trait TileGrid
   def setTile[A](roord: Roord, value: A)(implicit arr: ArrBase[A]): Unit = arr.unsafeSetElem(arrIndex(roord), value)
 
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
-  def roordToVec2(roord: Roord): Vec2
+  def roordToVec2(roord: Roord): Pt2
 
   /** Converts Roord, input as y and components, to a Vec2. For a square grid this will be a simple 1 to 1 map. */
-  def roordToVec2(y: Int, c: Int): Vec2 = roordToVec2(y rr c)
+  def roordToVec2(y: Int, c: Int): Pt2 = roordToVec2(y rr c)
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
@@ -201,7 +201,7 @@ trait TileGrid
   @inline def arrIndex(y: Int, c: Int): Int
 
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
-  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Vec2 = Vec2Z): Vec2 = (roordToVec2(roord) - gridPosn -cen) * scale
+  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Pt2 = Vec2Z): Pt2 = (roordToVec2(roord) - gridPosn -cen) * scale
 
   def roordToPolygon(roord: Roord): Polygon = tileVertRoords(roord).map(c => roordToVec2(c)).toPolygon
 

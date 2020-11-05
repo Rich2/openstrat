@@ -9,11 +9,11 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   override def shape: Polygon
   override def boundingRect: BoundingRect = shape.boundingRect
   override def svgElem(bounds: BoundingRect): SvgElem = ???
-  @inline def foreachVert(f: Vec2 => Unit): Unit = shape.foreachVert(f)
-  @inline def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT = shape.vertsMap(f)
+  @inline def foreachVert(f: Pt2 => Unit): Unit = shape.foreachVert(f)
+  @inline def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT = shape.vertsMap(f)
 
   /** Translate 2D geometric transformation on a PolygonGraphic returns a PolygonGraphic. The return type will be narrowed in sub trait / classes. */
-  override def slate(offset: Vec2): PolygonGraphic
+  override def slate(offset: Pt2): PolygonGraphic
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonGraphic
@@ -52,7 +52,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
 object PolygonGraphic
 {
-  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

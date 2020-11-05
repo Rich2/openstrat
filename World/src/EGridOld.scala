@@ -19,8 +19,8 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
 {
   thisEGrid =>
   type GridT <: EGridOld[TileT, SideT]
-  val vec2ToLL: Vec2 => LatLong = fVec2ToLatLongReg(cenLong, scale, xOffset, yOffset)
-  def vToLL(vIn: Vec2) : LatLong = vec2ToLL(vIn)
+  val vec2ToLL: Pt2 => LatLong = fVec2ToLatLongReg(cenLong, scale, xOffset, yOffset)
+  def vToLL(vIn: Pt2) : LatLong = vec2ToLL(vIn)
 
   override def toString: String = "Grid " + name
 

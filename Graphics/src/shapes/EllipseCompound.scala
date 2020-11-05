@@ -5,7 +5,7 @@ import pWeb._
 
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
 { /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
-  override def slate(offset: Vec2): EllipseCompound
+  override def slate(offset: Pt2): EllipseCompound
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): EllipseCompound
@@ -66,7 +66,7 @@ object EllipseCompound
     }
 
     /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
-    override def slate(offset: Vec2): EllipseCompoundImplement = EllipseCompoundImplement(shape.slate(offset), facets, children.slate(offset))
+    override def slate(offset: Pt2): EllipseCompoundImplement = EllipseCompoundImplement(shape.slate(offset), facets, children.slate(offset))
 
     /** Translate geometric transformation. */
     override def slate(xOffset: Double, yOffset: Double): EllipseCompoundImplement =
@@ -95,6 +95,6 @@ object EllipseCompound
     override def xShear(operand: Double): EllipseCompoundImplement = ???
 
     override def yShear(operand: Double): EllipseCompoundImplement = ???
-    override def slateTo(newCen: Vec2): EllipseCompoundImplement = ???
+    override def slateTo(newCen: Pt2): EllipseCompoundImplement = ???
   }
 }

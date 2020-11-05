@@ -28,7 +28,7 @@ trait Rectangle extends Polygon4Plus
   def yAttrib: YAttrib = YAttrib(y4)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
-  @inline final override def vert(index: Int): Vec2 = index match
+  @inline final override def vert(index: Int): Pt2 = index match
   { case 1 => v1
     case 2 => v2
     case 3 => v3
@@ -54,8 +54,8 @@ trait Rectangle extends Polygon4Plus
 
   final override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4)
   final override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4)
-  final override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
-  final override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); f(v4); () }
+  final override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
+  final override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); f(x4, y4); () }
 
   def diag1: LineSeg = LineSeg(v3, v1)
@@ -63,7 +63,7 @@ trait Rectangle extends Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2): Rectangle = Rectangle.s2s4(s2Cen + offset, s4Cen + offset, width2)
+  override def slate(offset: Pt2): Rectangle = Rectangle.s2s4(s2Cen + offset, s4Cen + offset, width2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(xOffset: Double, yOffset: Double): Rectangle =
@@ -87,22 +87,22 @@ trait Rectangle extends Polygon4Plus
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.s2s4v1(s2Cen.xyScale(xOperand, yOperand), s4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 
-  override def slateTo(newCen: Vec2): Rectangle = ???
+  override def slateTo(newCen: Pt2): Rectangle = ???
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
 object Rectangle
 {
-  def apply(width: Double, height: Double, rotation: Angle, cen: Vec2 = Vec2Z): Rectangle =
-  { val s2Cen: Vec2 = cen.addX(width / 2).rotate(rotation)
-    val s4Cen: Vec2 = cen.subX(width / 2).rotate(rotation)
+  def apply(width: Double, height: Double, rotation: Angle, cen: Pt2 = Vec2Z): Rectangle =
+  { val s2Cen: Pt2 = cen.addX(width / 2).rotate(rotation)
+    val s4Cen: Pt2 = cen.subX(width / 2).rotate(rotation)
     new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   }
 
-  def s2s4(s2Cen: Vec2, s4Cen: Vec2, height: Double): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
-  def s2s4v1(s2Cen: Vec2, s4Cen: Vec2, v1: Vec2): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  def s2s4(s2Cen: Pt2, s4Cen: Pt2, height: Double): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
+  def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
-  def curvedCorners(width: Double, height: Double, radius: Double, cen: Vec2 = Vec2Z): PolyCurve =
+  def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Vec2Z): PolyCurve =
   { val w = width / 2
     val h = height / 2
     val s1 = PolyCurve(
@@ -113,21 +113,21 @@ object Rectangle
      s1.slate(cen)
   }
 
-  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
+  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Pt2 = Vec2Z): PolyCurveCentred =
     PolyCurveCentred(posn, curvedCorners(width, height, radius).slate(posn))
-  def curvedGoldenRatio(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurve =
+  def curvedGoldenRatio(height: Double, radius: Double, posn: Pt2 = Vec2Z): PolyCurve =
     curvedCorners(height * Phi, height, radius, posn)
-  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Vec2 = Vec2Z): PolyCurveCentred =
+  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Vec2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
 
 
   def fromAxis(centreLine: LineSeg, height: Double): PolygonImp =
   { val hAngle: Angle = centreLine.angle
-    val offset: Vec2 = hAngle.toVec2(height * 0.5)
+    val offset: Pt2 = hAngle.toVec2(height * 0.5)
     PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
-  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
@@ -141,7 +141,7 @@ object Rectangle
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double, val width2: Double) extends RectS2S4
   {
-    override def fTrans(f: Vec2 => Vec2): RectangleImp = RectangleImp.s2s4v1(f(s2Cen), f(s4Cen), f(v1))
+    override def fTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(s2Cen), f(s4Cen), f(v1))
 
     override def productArity: Int = 5
 
@@ -149,6 +149,6 @@ object Rectangle
   }
 
   object RectangleImp
-  { def s2s4v1(s2Cen: Vec2, s4Cen: Vec2, v1: Vec2): RectangleImp = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  { def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): RectangleImp = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
   }
 }

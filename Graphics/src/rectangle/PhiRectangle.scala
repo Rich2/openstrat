@@ -12,7 +12,7 @@ trait PhiRectangle extends Rectangle
   def width1: Double = width2 * Phi
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  override def slate(offset: Vec2): PhiRectangle = PhiRectangle.s1s3(s1Cen + offset, s3Cen + offset)
+  override def slate(offset: Pt2): PhiRectangle = PhiRectangle.s1s3(s1Cen + offset, s3Cen + offset)
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
   override def slate(xOffset: Double, yOffset: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.addXY(xOffset, yOffset), s3Cen.addXY(xOffset, yOffset))
@@ -32,43 +32,43 @@ trait PhiRectangle extends Rectangle
 
   override def rotate(angle: Angle): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
 
-  override def slateTo(newCen: Vec2): PhiRectangle = slate(newCen - cen)
+  override def slateTo(newCen: Pt2): PhiRectangle = slate(newCen - cen)
 }
 
 /** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that
  *  delegates to it. */
 object PhiRectangle
 {
-  def apply(height: Double, rotation: Angle, cen: Vec2): PhiRectangle =
-  { val s1Cen: Vec2 = cen + Vec2(0, height / 2).rotate(rotation)
-    val s3Cen: Vec2 = cen + Vec2(0, -height / 2).rotate(rotation)
+  def apply(height: Double, rotation: Angle, cen: Pt2): PhiRectangle =
+  { val s1Cen: Pt2 = cen + Pt2(0, height / 2).rotate(rotation)
+    val s3Cen: Pt2 = cen + Pt2(0, -height / 2).rotate(rotation)
     PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
   }
 
-  def s1s3(s1Cen: Vec2, s3Cen: Vec2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
+  def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
   case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xS3Cen: Double, yS3Cen: Double) extends PhiRectangle
   {
     override def xCen: Double = (xS1Cen + xS1Cen) / 2
     override def yCen: Double = (yS1Cen + yS1Cen) / 2
-    override def s1Cen: Vec2 = Vec2(xS1Cen, yS1Cen)
-    override def s3Cen: Vec2 = Vec2(xS3Cen, yS3Cen)
+    override def s1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
+    override def s3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
     override def width2: Double = (s1Cen - s3Cen).magnitude
     override def rotation: Angle = (s1Cen - s3Cen).angle - Deg90
-    override def v1: Vec2 = s1Cen + Vec2(width2 / 2, 0).rotate(rotation)
+    override def v1: Pt2 = s1Cen + Pt2(width2 / 2, 0).rotate(rotation)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
-    override def v2: Vec2 = s3Cen + Vec2(width2 / 2, 0).rotate(rotation)
+    override def v2: Pt2 = s3Cen + Pt2(width2 / 2, 0).rotate(rotation)
     override def x2: Double = v2.x
     override def y2: Double = v2.y
-    override def v3: Vec2 = s3Cen + Vec2(-width2 / 2, 0).rotate(rotation)
+    override def v3: Pt2 = s3Cen + Pt2(-width2 / 2, 0).rotate(rotation)
     override def x3: Double = v2.x
     override def y3: Double = v2.y
-    override def v4: Vec2 = s1Cen + Vec2(-width2 / 2, 0).rotate(rotation)
+    override def v4: Pt2 = s1Cen + Pt2(-width2 / 2, 0).rotate(rotation)
     override def x4: Double = v2.x
     override def y4: Double = v2.y
-    override def s2Cen: Vec2 = s1Cen mid s2Cen
-    override def s4Cen: Vec2 = s3Cen mid s4Cen
+    override def s2Cen: Pt2 = s1Cen mid s2Cen
+    override def s4Cen: Pt2 = s3Cen mid s4Cen
   }
 }
 
@@ -77,7 +77,7 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
   override def width: Double = width1
   override def width2: Double = height
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
-  override def slate(offset: Vec2): PhiRect = PhiRect(height, cen + offset)
+  override def slate(offset: Pt2): PhiRect = PhiRect(height, cen + offset)
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
   override def slate(xOffset: Double, yOffset: Double): PhiRect = PhiRect(height, xCen + xOffset, yCen + yOffset)
@@ -93,12 +93,12 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def slateTo(newCen: Vec2): PhiRect = slate(newCen - cen)
+  override def slateTo(newCen: Pt2): PhiRect = slate(newCen - cen)
 }
 
 object PhiRect
 {
-  def apply(height: Double, cen: Vec2 = Vec2Z): PhiRect = PhiRect(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Vec2Z): PhiRect = PhiRect(height, cen.x, cen.y)
 }
 
 case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
@@ -106,7 +106,7 @@ case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with
   override def height: Double = width1
   override def width2: Double = width
   /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
-  override def slate(offset: Vec2): PhiRectY = PhiRectY(width, cen + offset)
+  override def slate(offset: Pt2): PhiRectY = PhiRectY(width, cen + offset)
 
   /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
   override def slate(xOffset: Double, yOffset: Double): PhiRectY = PhiRectY(width, xCen + xOffset, yCen + yOffset)
@@ -122,10 +122,10 @@ case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with
 
   override def prolign(matrix: ProlignMatrix): PhiRectY = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def slateTo(newCen: Vec2): PhiRectY = slate(newCen - cen)
+  override def slateTo(newCen: Pt2): PhiRectY = slate(newCen - cen)
 }
 
 object PhiRectY
 {
-  def apply(width: Double, cen: Vec2 = Vec2Z): PhiRectY = PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cen: Pt2 = Vec2Z): PhiRectY = PhiRectY(width, cen.x, cen.y)
 }

@@ -5,8 +5,8 @@ package geom
 /** Circular Arc */
 final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends SimilarPreserve
 { type ThisT = CArc
-  override def fTrans(f: Vec2 => Vec2): CArc = ???
-  def cen: Vec2 = xCen vv yCen
+  override def fTrans(f: Pt2 => Pt2): CArc = ???
+  def cen: Pt2 = xCen vv yCen
   
   def startAngleRadians: Double = (pStart - cen).angleRadians
   def startAngleRadiansPos: Double = (pStart - cen).angleRadiansPos
@@ -14,17 +14,17 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def endAngleRadians: Double = startAngleRadians + deltaRadians
   def endAngleRadiansPos: Double = startAngleRadiansPos + deltaRadians
   def endAngle: Angle = Angle.radians(endAngleRadians)
-  def pStart: Vec2 = xStart vv yStart
-  def pEnd: Vec2 = cen + endAngle.toVec2(radius)
+  def pStart: Pt2 = xStart vv yStart
+  def pEnd: Pt2 = cen + endAngle.toVec2(radius)
   def midArcAngleRadians = startAngleRadians + deltaRadians / 2
   def midArcAngle = Angle.radians(midArcAngleRadians)
-  def pMidArc: Vec2 = cen + midArcAngle.toVec2(radius)
+  def pMidArc: Pt2 = cen + midArcAngle.toVec2(radius)
   def radius: Double = (pStart - cen).magnitude
   def clock: Boolean = deltaRadians < 0
   def antiClock: Boolean = deltaRadians >= 0
   def detltaDegs = deltaRadians.radiansToDegs
 
-  def pCtrl: Vec2 =
+  def pCtrl: Pt2 =
   { val sAng: Angle = startAngle
     val resultAngle = sAng.bisect(endAngle)
     val alphaAngle =  sAng.angleTo(endAngle) / 2
@@ -36,7 +36,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   def xEnd: Double = pEnd.x
   def yEnd: Double = pEnd.y
-  override def slate(offset: Vec2): CArc = CArc(pStart + offset, cen + offset, deltaRadians)
+  override def slate(offset: Pt2): CArc = CArc(pStart + offset, cen + offset, deltaRadians)
   override def scale(operand: Double): CArc = CArc(pStart * operand, cen * operand, deltaRadians)
 
   override def rotate(angle: Angle): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), deltaRadians)
@@ -53,5 +53,5 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
 object CArc
 {
-  def apply(pStart: Vec2, pCen: Vec2, deltaRadians: Double): CArc = CArc(pStart.x, pStart.y, pCen.x, pCen.y, deltaRadians)
+  def apply(pStart: Pt2, pCen: Pt2, deltaRadians: Double): CArc = CArc(pStart.x, pStart.y, pCen.x, pCen.y, deltaRadians)
 }

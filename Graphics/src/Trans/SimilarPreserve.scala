@@ -16,7 +16,7 @@ trait SimilarPreserve extends ProlignPreserve
  * affine transformations. */
 trait SimilarAffPreserve extends SimilarPreserve
 { type ThisT2 <: GeomElem
-  def fTrans2(f: Vec2 => Vec2): ThisT2
+  def fTrans2(f: Pt2 => Pt2): ThisT2
   override def xyScale(xOperand: Double, yOperand: Double): ThisT2 = fTrans2(_.xyScale(xOperand, yOperand))
   override def xShear(operand: Double): ThisT2 = fTrans2(_.xShear(operand))
   override def yShear(operand: Double): ThisT2 = fTrans2(_.yShear(operand))

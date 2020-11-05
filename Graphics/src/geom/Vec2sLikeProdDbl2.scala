@@ -3,8 +3,8 @@ package ostrat
 package geom
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Vec2sLikeProdDbl2 extends ArrProdDbl2[Vec2]
-{ def arrTrans(f: Vec2 => Vec2): Array[Double] =
+trait Vec2sLikeProdDbl2 extends ArrProdDbl2[Pt2]
+{ def arrTrans(f: Pt2 => Pt2): Array[Double] =
   { val newArray = new Array[Double](arrayUnsafe.length)
     var count = 0
     while (count < arrayUnsafe.length)
@@ -16,7 +16,7 @@ trait Vec2sLikeProdDbl2 extends ArrProdDbl2[Vec2]
     }
     newArray
   }
-  override def fElemStr: Vec2 => String = _.str
-  final override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-  override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
+  override def fElemStr: Pt2 => String = _.str
+  final override def elemBuilder(d1: Double, d2: Double): Pt2 = Pt2.apply(d1, d2)
+  override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
 }

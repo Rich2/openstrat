@@ -20,16 +20,16 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
   override def productArity: Int = ???
 
   override def productElement(n: Int): Any = ??? 
-  def fTrans(f: Vec2 => Vec2): PolyCurve =
+  def fTrans(f: Pt2 => Pt2): PolyCurve =
   { val newArray = new Array[Double](elemsLen * 7)
     def setMiddle(offset: Int): Unit =
-    { val newMiddle: Vec2 = f(arrayUnsafe(offset + 3) vv arrayUnsafe(offset + 4))
+    { val newMiddle: Pt2 = f(arrayUnsafe(offset + 3) vv arrayUnsafe(offset + 4))
       newArray(offset + 3) = newMiddle.x
       newArray(offset + 4) = newMiddle.y
     }
 
     def setEnd(offset: Int): Unit =
-    { val newEnd: Vec2 = f(arrayUnsafe(offset + 5) vv arrayUnsafe(offset + 6))
+    { val newEnd: Pt2 = f(arrayUnsafe(offset + 5) vv arrayUnsafe(offset + 6))
       newArray(offset + 5) = newEnd.x
       newArray(offset + 6) = newEnd.y
     }
@@ -51,7 +51,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
 
         case 12 =>
         { newArray(offset) = 12
-          val newControl1: Vec2 = f(arrayUnsafe(offset + 1) vv arrayUnsafe(offset + 2))
+          val newControl1: Pt2 = f(arrayUnsafe(offset + 1) vv arrayUnsafe(offset + 2))
           newArray(offset + 1) = newControl1.x
           newArray(offset + 2) = newControl1.y
           setMiddle(offset)
@@ -72,7 +72,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
 
  // def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): UnScaledShape = UnScaledShape(posn, this, evObj, Arr(PolyCurveFill(this, colour)))
   def fillScale(colour: Colour, factor: Double): PolyCurveFill = PolyCurveFill(this.scale(factor), colour)
-  def fillScaleSlate(colour: Colour, factor: Double, offset: Vec2): PolyCurveFill = PolyCurveFill(this.scale(factor).slate(offset), colour)
+  def fillScaleSlate(colour: Colour, factor: Double, offset: Pt2): PolyCurveFill = PolyCurveFill(this.scale(factor).slate(offset), colour)
 
   /** Not sure if this method should be a member of Transable */
   def boundingRect =
@@ -98,7 +98,7 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
     if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
     BoundingRect(minX, maxX, minY, maxY)
   }
-  def ptInShape: Vec2 => Boolean = pt =>  pMap[Vec2, PolygonImp](_.pEnd).ptInside(pt)
+  def ptInShape: Pt2 => Boolean = pt =>  pMap[Pt2, PolygonImp](_.pEnd).ptInside(pt)
 
   /** Not sure if this is useful */
   def tailForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =

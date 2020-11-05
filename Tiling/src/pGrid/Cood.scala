@@ -35,7 +35,7 @@ final class Cood(val xi: Int, val yi: Int) extends ProdInt2
   def addY(operand: Int): Cood = Cood(xi, yi + operand)
   def subX(operand: Int): Cood = Cood(xi - operand, yi)
   def subY(operand: Int): Cood = Cood(xi, yi - operand)
-  def toSqVec2: Vec2 = Vec2(xi, yi)
+  def toSqVec2: Pt2 = Pt2(xi, yi)
   /** x.isOdd & y.isOdd | x.isEven & y.isEven */
   def evenSum: Boolean = xi.isOdd & yi.isOdd | xi.isEven & yi.isEven
   /** x.isOdd & y.isEven | x.isEven & y.isOdd */

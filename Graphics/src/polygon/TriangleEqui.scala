@@ -9,7 +9,7 @@ final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) ex
   type ThisT = TriangleEqui
   override def height: Double = ???
   override def attribs: Arr[XANumeric] = ???
-  override def fTrans(f: Vec2 => Vec2): ThisT = ???
+  override def fTrans(f: Pt2 => Pt2): ThisT = ???
 
   override def rotate(angle: Angle): Triangle = ???
   override def negY: ThisT = fTrans(_.negY)
@@ -19,6 +19,6 @@ final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) ex
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 
-  override def slateTo(newCen: Vec2): TriangleEqui = ???
+  override def slateTo(newCen: Pt2): TriangleEqui = ???
 
 }

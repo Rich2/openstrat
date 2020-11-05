@@ -52,7 +52,7 @@ object Dist2
   def apply(x: Dist, y: Dist): Dist2 = new Dist2(x.metres, y.metres)
   
   implicit class Dist2Implicit(thisDist2: Dist2)
-  { def / (operator: Dist): Vec2 = Vec2(thisDist2.x/ operator, thisDist2.y / operator)
+  { def / (operator: Dist): Pt2 = Pt2(thisDist2.x/ operator, thisDist2.y / operator)
   }
 
   implicit val PersistImplicit: Persist[Dist2] = new PersistD2[Dist2]("Dist2", "x", _.xMetres, "y", _.yMetres, new Dist2(_, _))

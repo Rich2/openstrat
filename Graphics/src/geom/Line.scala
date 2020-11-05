@@ -6,10 +6,10 @@ package geom
  * used for a line segment, which in openstrat is called a [[LineSeg]] */
 sealed trait Line extends LineLike
 { /** Reflects, mirrors a point across this line. */
-  def reflectPt(pt: Vec2): Vec2
+  def reflectPt(pt: Pt2): Pt2
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def slate(offset: Vec2): Line = ???
+  override def slate(offset: Pt2): Line = ???
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def slate(xOffset: Double, yOffset: Double): Line = ???
@@ -53,12 +53,12 @@ sealed case class YLine(xFactor: Double, offset: Double) extends Line
 
   /** The point at which the line crosses the Y Axis, unless this YLine is the YAxis in which case it is merely a point where the line intersects the
    * Y axis. */
-  def yIntersection: Vec2 = Vec2(0, offset)
+  def yIntersection: Pt2 = Pt2(0, offset)
 
-  override def reflectPt(pt: Vec2): Vec2 =
+  override def reflectPt(pt: Pt2): Pt2 =
   {
-    val v2: Vec2 = Vec2(1, xFactor + offset)
-    val lineDelta: Vec2 = v2 - yIntersection
+    val v2: Pt2 = Pt2(1, xFactor + offset)
+    val lineDelta: Pt2 = v2 - yIntersection
     val lineUnitVector = lineDelta / lineDelta.magnitude
     2 * yIntersection - pt - 2 * (yIntersection - pt).dot(lineUnitVector) * lineUnitVector
   }
@@ -71,12 +71,12 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
 
   /** The point at which the line crosses the Y Axis, unless this YLine is the YAxis in which case it is merely a point where the line intersects the
    * Y axis. */
-  def xIntersection: Vec2 = Vec2(offset, 0)
+  def xIntersection: Pt2 = Pt2(offset, 0)
 
-  override def reflectPt(pt: Vec2): Vec2 =
+  override def reflectPt(pt: Pt2): Pt2 =
   {
-    val v2: Vec2 = Vec2(yFactor + offset, 1)
-    val lineDelta: Vec2 = v2 - xIntersection
+    val v2: Pt2 = Pt2(yFactor + offset, 1)
+    val lineDelta: Pt2 = v2 - xIntersection
     val lineUnitVector = lineDelta / lineDelta.magnitude
     2 * xIntersection - pt - 2 * (xIntersection - pt).dot(lineUnitVector) * lineUnitVector
   }

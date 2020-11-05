@@ -28,11 +28,11 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   @inline def polyToGlobedArea(latLongs: LatLongs): GlobedArea = focus.polyToGlobedArea(latLongs)
   def latLongToDist2(ll: LatLong): Dist2 = focus.fromFocusDist2(ll)
   @inline def polyToDist2s(latLongs: LatLongs): Dist2s =  latLongs.pMap(focus.fromFocusDist2)//focus.polyToDist2s(latLongs) 
-  val trans: Dist2 => Vec2 = _ / ifInvScale
+  val trans: Dist2 => Pt2 = _ / ifInvScale
  //  val transSeq: Dist2s => Vec2s = _.map(trans)
   /** Seems to have a bug */
-  def latLongToXY(ll: LatLong): Vec2 = trans(focus.fromFocusDist2(ll))
-  def optLatLongToXY(ll: LatLong): Option[Vec2] = focus.optFromFocusDist2(ll).map(trans)
+  def latLongToXY(ll: LatLong): Pt2 = trans(focus.fromFocusDist2(ll))
+  def optLatLongToXY(ll: LatLong): Option[Pt2] = focus.optFromFocusDist2(ll).map(trans)
   def optFromFocusDist2(ll: LatLong): Option[Dist2] = focus.optFromFocusDist2(ll)
   def latLongToDist3(ll: LatLong): Dist3 = focus.fromFocusDist3(ll)
   def latLongLineToDist3(inp: LLLineSeg): LineDist3 = focus.fromFocusLineDist3(inp)   

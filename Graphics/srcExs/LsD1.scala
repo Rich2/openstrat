@@ -9,10 +9,10 @@ case class LsD1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D1")
   val t2 = 2.2.str  
   val t3 = true.str//OK you're probably not noticing much advantage over toString yet except its shorter
   
-  val v1 = Vec2(2.3, -9.8)
+  val v1 = Pt2(2.3, -9.8)
   val t4 = v1.str
   
-  val v2: Vec2 = 4.6 vv 78.4
+  val v2: Pt2 = 4.6 vv 78.4
   val l1 = LineSeg(v1, v2)
   val t5 = l1.str//So note how there is a semicolon between the two points but a comma between the x and y values of each point. 
   

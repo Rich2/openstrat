@@ -13,7 +13,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): RectangleCompound = RectangleCompound(shape.slate(offset), facets, children.slate(offset))
+  override def slate(offset: Pt2): RectangleCompound = RectangleCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): RectangleCompound =
@@ -39,7 +39,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleCompound = ???
 
-  override def slateTo(newCen: Vec2): PolygonCompound = ???
+  override def slateTo(newCen: Pt2): PolygonCompound = ???
 }
 
 object RectangleCompound
@@ -57,7 +57,7 @@ object RectangleCompound
       attribs ++ facets.flatMap(_.attribs))
 
     /** Translate geometric transformation. */
-    override def slate(offset: Vec2): RectangleCompoundImp = RectangleCompoundImp(shape.slate(offset), facets, children.slate(offset))
+    override def slate(offset: Pt2): RectangleCompoundImp = RectangleCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Translate geometric transformation. */
     override def slate(xOffset: Double, yOffset: Double): RectangleCompoundImp =

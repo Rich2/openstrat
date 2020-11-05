@@ -7,14 +7,14 @@ trait AlignedElem
 {
   def xCen: Double
   def yCen: Double
-  def cen: Vec2
-  def topRight: Vec2
-  def topRightDelta: Vec2 = topRight - cen
-  def bottomRight: Vec2
-  def bottomRightDelta: Vec2 = bottomRight - cen
-  def bottomLeft: Vec2
-  def bottomLeftDelta: Vec2 = bottomLeft - cen
-  def topLeft: Vec2
-  def topLeftDelta: Vec2 = topLeft - cen
+  def cen: Pt2
+  def topRight: Pt2
+  def topRightDelta: Pt2 = topRight - cen
+  def bottomRight: Pt2
+  def bottomRightDelta: Pt2 = bottomRight - cen
+  def bottomLeft: Pt2
+  def bottomLeftDelta: Pt2 = bottomLeft - cen
+  def topLeft: Pt2
+  def topLeftDelta: Pt2 = topLeft - cen
   //def topCen: Vec2
 }

@@ -8,7 +8,7 @@ trait GraphicActive extends BoundedGraphic
   def pointerId: Any
 
   /** The definitive test as to whether the mouse pointer is inside the polygon / shape */
-  def ptInside(pt: Vec2): Boolean
+  def ptInside(pt: Pt2): Boolean
 }
 
 /** This is the new active trait that will replace GraphicActive. */
@@ -37,6 +37,6 @@ trait PolyCurveActive extends GraphicActiveAffine
   override def boundingRect: BoundingRect = innerPoly.boundingRect
 
   /** This method needs improving. */
-  override def ptInside(pt: Vec2): Boolean = innerPoly.ptInside(pt)
+  override def ptInside(pt: Pt2): Boolean = innerPoly.ptInside(pt)
   //override def fTrans(f: Vec2 => Vec2): ShapeActive
 }

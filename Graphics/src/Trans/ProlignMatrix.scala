@@ -6,9 +6,9 @@ import reflect.ClassTag
 /** A matrix for proportionate and aligned to X and Y axes transformations. This transformation set preserves Circles and Squares. It also
  * preserves the alignment of Squares and Rectangle to the axes. */
 final case class ProlignMatrix(vFactor: Double, negY: Boolean, negX: Boolean, xDelta: Double, yDelta: Double)
-{ def vDelta: Vec2 = Vec2(xDelta, yDelta)
+{ def vDelta: Pt2 = Pt2(xDelta, yDelta)
   def scale(operand: Double): ProlignMatrix = ProlignMatrix(vFactor * operand, negY, negX, xDelta * operand, yDelta * operand)
-  def slate(operand: Vec2): ProlignMatrix = ProlignMatrix(vFactor, negY, negX, xDelta + operand.x, yDelta + operand.y)
+  def slate(operand: Pt2): ProlignMatrix = ProlignMatrix(vFactor, negY, negX, xDelta + operand.x, yDelta + operand.y)
   def slate(xOperand: Double, yOperand: Double): ProlignMatrix = ProlignMatrix(vFactor, negY, negX, xDelta + xOperand, yDelta + yOperand)
 
   /** Reflect, mirror across a line parallel to the X axis. */
@@ -21,10 +21,10 @@ final case class ProlignMatrix(vFactor: Double, negY: Boolean, negX: Boolean, xD
 
   def mirrorY: ProlignMatrix = ProlignMatrix(vFactor, negY, !negX, xDelta, yDelta)
 
-  def vecTrans(inp: Vec2): Vec2 =
+  def vecTrans(inp: Pt2): Pt2 =
   { val xa = ife(negX, -inp.x, inp.x)
     val ya = ife(negY, -inp.y, inp.y)
-    Vec2(xa + xDelta, ya + yDelta)
+    Pt2(xa + xDelta, ya + yDelta)
   }
 }
 

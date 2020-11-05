@@ -20,7 +20,7 @@ object Diamond
 {
   def apply() = PolygonImp(
     0 vv 0.5,
-    Vec2(Tan30 / 2, 0),
+    Pt2(Tan30 / 2, 0),
     0 vv - 0.5,
-    Vec2(-Tan30 / 2, 0))
+    Pt2(-Tan30 / 2, 0))
 }

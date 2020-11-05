@@ -6,7 +6,7 @@ import ostrat._, geom._, pCanv._
 case class LsD5(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D5")
 {  
   val s1 = Ints(10, 9, 8, 7)
-  val s2 = Vec2s(4 vv 3, 2.1 vv 0.7, 500 vv -100, Vec2Z)
+  val s2 = Pt2s(4 vv 3, 2.1 vv 0.7, 500 vv -100, Vec2Z)
   
   //val ss = Sett("Arr", s1).ap("Ls", s2).str
   //val c1 = ss.findIntArray

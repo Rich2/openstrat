@@ -8,15 +8,15 @@ import Colour.Black, pWeb._
 final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { type ThisT = PolygonImp
 
-  def vert(index: Int): Vec2 = apply(index - 1)
-  def foreachPt(f: Vec2 => Unit): Unit = iUntilForeach(0, arrayUnsafe.length, 2)(i => f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))))
+  def vert(index: Int): Pt2 = apply(index - 1)
+  def foreachPt(f: Pt2 => Unit): Unit = iUntilForeach(0, arrayUnsafe.length, 2)(i => f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))))
 
-  override def foreachVert[U](f: Vec2 => U): Unit =iUntilForeach(dblsNumOffset, arrayUnsafe.length, 2){i =>
-    f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
+  override def foreachVert[U](f: Pt2 => U): Unit =iUntilForeach(dblsNumOffset, arrayUnsafe.length, 2){ i =>
+    f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
   }
 
-  override def foreachVertTail[U](f: Vec2 => U): Unit = iUntilForeach(dblsNumOffset + 2, arrayUnsafe.length, 2){i =>
-    f(Vec2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
+  override def foreachVertTail[U](f: Pt2 => U): Unit = iUntilForeach(dblsNumOffset + 2, arrayUnsafe.length, 2){ i =>
+    f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
   }
 
   /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
@@ -46,8 +46,8 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def yVert(index: Int): Double = arrayUnsafe(index * 2 + 1 + dblsNumOffset)
   @inline def x1: Double = arrayUnsafe(0 + dblsNumOffset)
   @inline def y1: Double = arrayUnsafe(1 + dblsNumOffset)
-  @inline def v1: Vec2 = x1 vv y1
-  override def fTrans(f: Vec2 => Vec2): PolygonImp = new PolygonImp(arrTrans(f))
+  @inline def v1: Pt2 = x1 vv y1
+  override def fTrans(f: Pt2 => Pt2): PolygonImp = new PolygonImp(arrTrans(f))
   def eq(obj: PolygonImp): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
   def maxX: Double = foldTailLeft(head.x)((acc, el) => acc.max(el.x))
@@ -72,7 +72,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   }
 
   /** Insert vertex. */
-  override def insVert(insertionPoint: Int, newVec: Vec2): PolygonImp =
+  override def insVert(insertionPoint: Int, newVec: Pt2): PolygonImp =
   { val res = PolygonImp.factory(elemsLen + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     res.unsafeSetElem(insertionPoint, newVec)
@@ -81,7 +81,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   }
 
   /** Insert vertices */
-  override def insVerts(insertionPoint: Int, newVecs: Vec2 *): PolygonImp =
+  override def insVerts(insertionPoint: Int, newVecs: Pt2 *): PolygonImp =
   { val res = PolygonImp.factory(elemsLen + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
@@ -91,15 +91,15 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
 
-  override def foldLeft[B](initial: B)(f: (B, Vec2) => B): B = super.foldLeft(initial)(f)
+  override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
 
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
-  @inline override def polygonMap(f: Vec2 => Vec2): PolygonImp = vertsMap(f).toPolygon
+  @inline override def polygonMap(f: Pt2 => Pt2): PolygonImp = vertsMap(f).toPolygon
 
   /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
-  override def slate(offset: Vec2): PolygonImp = polygonMap(_ + offset)
+  override def slate(offset: Pt2): PolygonImp = polygonMap(_ + offset)
 
   /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
   override def slate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
@@ -122,7 +122,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 object PolygonImp
 { implicit val factory: Int => PolygonImp = i => new PolygonImp(new Array[Double](i * 2))
 
-  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): PolygonImp =
+  def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): PolygonImp =
   { val len = (3 + tail.length)
     val res = factory(len)
     res.unsafeSetElems(0, v1, v2, v3)
@@ -132,7 +132,7 @@ object PolygonImp
 
   implicit val eqImplicit: Eq[PolygonImp] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
 
-  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, PolygonImp] = new ArrProdDbl2Persist[Vec2, PolygonImp]("Polygon")
+  implicit val persistImplicit: ArrProdDbl2Persist[Pt2, PolygonImp] = new ArrProdDbl2Persist[Pt2, PolygonImp]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonImp = new PolygonImp(value)
   }
 

@@ -7,30 +7,30 @@ import Colour.Black, pWeb._
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
 trait Polygon extends Shape with BoundedElem
 {
-  def fTrans(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
+  def fTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
-  def foreachVert[U](f: Vec2 => U): Unit
-  def foreachVertTail[U](f: Vec2 => U): Unit
+  def foreachVert[U](f: Pt2 => U): Unit
+  def foreachVertTail[U](f: Pt2 => U): Unit
   def ptsArray: Array[Double]
   
   def xVertsArray: Array[Double]
   def yVertsArray: Array[Double]
   def foreachPairTail[U](f: (Double, Double) => U): Unit
 
-  def vertsMap[A, ArrT <: ArrBase[A]](f: Vec2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
   { val acc = build.newBuff()
     foreachVert{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
 
-  def vertsFoldLeft[B](initial: B)(f: (B, Vec2) => B): B =
+  def vertsFoldLeft[B](initial: B)(f: (B, Pt2) => B): B =
   { var acc: B = initial
     foreachVert{ v => acc = f(acc, v) }
     acc
   }
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  def vert(index: Int): Vec2
+  def vert(index: Int): Pt2
 
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
 
@@ -63,7 +63,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   override def attribs: Arr[XANumeric] = ???
-  override def cen: Vec2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
+  override def cen: Pt2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillHex(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
@@ -87,10 +87,10 @@ trait Polygon extends Shape with BoundedElem
   def y1: Double
 
   /** The 1st vertex, will throw on a 0 vertices polygon. */
-  def v1: Vec2
+  def v1: Pt2
 
   /** The last vertex will thow an exception on a 0 vertices polygon. */
-  def vLast: Vec2 = vert(vertsNum)
+  def vLast: Pt2 = vert(vertsNum)
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =
@@ -105,11 +105,11 @@ trait Polygon extends Shape with BoundedElem
     BoundingRect(minX, maxX, minY, maxY)
   }
 
-  @inline def polygonMap(f: Vec2 => Vec2): Polygon = vertsMap(f).toPolygon
+  @inline def polygonMap(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Vec2): Polygon = polygonMap(_ + offset)
+  override def slate(offset: Pt2): Polygon = polygonMap(_ + offset)
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -148,7 +148,7 @@ trait Polygon extends Shape with BoundedElem
    *  */
   override def yShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
-  override def slateTo(newCen: Vec2): Polygon = polygonMap(_ + newCen - cen)
+  override def slateTo(newCen: Pt2): Polygon = polygonMap(_ + newCen - cen)
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs = if (vertsNum > 1)
@@ -160,9 +160,9 @@ trait Polygon extends Shape with BoundedElem
   else LineSegs()
 
   /** Determines if the parenter point lies inside this Polygon. */
-  def ptInside(pt: Vec2): Boolean = toLineSegs.ptInPolygon(pt)
+  def ptInside(pt: Pt2): Boolean = toLineSegs.ptInPolygon(pt)
 
-  def polyCentre: Vec2 = boundingRect.cen
+  def polyCentre: Pt2 = boundingRect.cen
 
   def sline(index: Int): LineSeg =
   { val startVertNum: Int = ife(index == 1, vertsNum, index - 1)
@@ -201,7 +201,7 @@ trait Polygon extends Shape with BoundedElem
       Arr(PolygonActive(this, pointerEv), TextGraphic(str, cen, fontSize, fontColour, align)))
 
   /** Insert vertice */
-  def insVert(insertionPoint: Int, newVec: Vec2): Polygon =
+  def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
   { val res = PolygonImp.factory(vertsNum + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
     res.unsafeSetElem(insertionPoint, newVec)
@@ -210,7 +210,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   /** Insert vertices */
-  def insVerts(insertionPoint: Int, newVecs: Vec2 *): Polygon =
+  def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
   { val res = PolygonImp.factory(vertsNum + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
@@ -222,7 +222,7 @@ trait Polygon extends Shape with BoundedElem
 /** Companion object for the Polygon trait. */
 object Polygon
 {
-  def apply(v1: Vec2, v2: Vec2, v3: Vec2, tail: Vec2 *): Polygon = PolygonImp(v1, v2, v3, tail: _*)
+  def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): Polygon = PolygonImp(v1, v2, v3, tail: _*)
 
   implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.ptsArray, p2.ptsArray)
 
@@ -232,7 +232,7 @@ object Polygon
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
   }*/
 
-  implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)

@@ -36,7 +36,7 @@ trait DistCurveSegLike
 class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double,
                     val xEndMetres: Double, val yEndMetres: Double) extends ProdDbl7 with DistCurveSegLike
 { 
-  def toCurveSeg(f: Dist2 => Vec2): CurveTail = xC1Metres match
+  def toCurveSeg(f: Dist2 => Pt2): CurveTail = xC1Metres match
   {
     case 10 =>
     { val endVec = f(pEnd)

@@ -6,7 +6,7 @@ import geom._
 /** This trait is for Canvas Implementations with a Top left origin and downward y axis. It should not be used directly by graphical applications. */
 trait CanvasTopLeft extends CanvasPlatform
 {
-  def tlCen: Vec2 => Vec2 = v => Vec2(width / 2 + v.x, height / 2 - v.y)
+  def tlCen: Pt2 => Pt2 = v => Pt2(width / 2 + v.x, height / 2 - v.y)
   def matrix: ProlignMatrix = ProlignMatrix.mirrorY.slate(width / 2, height / 2)
  
   final override def pPolyFill(poly: Polygon, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
@@ -77,10 +77,10 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlTextGraphic(tg: TextGraphic): Unit
   protected[this] def tlTextOutline(tl: TextOutline): Unit
 
-  protected[this] def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Vec2(x - width / 2, height / 2 - y), mb)
-  protected[this] def mouseDownTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDown(Vec2(x - width / 2, height / 2 - y), mb)
-  protected[this] def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Vec2(x - width / 2, height / 2 - y), mb)
-  protected[this] def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Vec2(x - width / 2, height / 2 - y), mb)
+  protected[this] def mouseUpTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseUp(Pt2(x - width / 2, height / 2 - y), mb)
+  protected[this] def mouseDownTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDown(Pt2(x - width / 2, height / 2 - y), mb)
+  protected[this] def mouseMovedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseMoved(Pt2(x - width / 2, height / 2 - y), mb)
+  protected[this] def mouseDraggedTopLeft(x: Double, y: Double, mb: MouseButton): Unit = mouseDragged(Pt2(x - width / 2, height / 2 - y), mb)
    
   protected[this] def tlClip(pts: Polygon): Unit
 }

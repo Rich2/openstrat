@@ -32,10 +32,10 @@ trait Dist2Gui extends MapGui
   def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap() }
 
   /** Translates a point from map position to Canvas Display position */
-  def toCanv(mapPoint: Dist2): Vec2 = (mapPoint - mapFocus).rotate(rotation) / scale
+  def toCanv(mapPoint: Dist2): Pt2 = (mapPoint - mapFocus).rotate(rotation) / scale
    
   /** Translates a point from Canvas Display position back to Map position */
-  def invCanv(canvPoint: Vec2): Vec2 = ??? //(canvPoint / scale).rotate(-rotation) + mapFocus
+  def invCanv(canvPoint: Pt2): Pt2 = ??? //(canvPoint / scale).rotate(-rotation) + mapFocus
 
   /** Translates an array of map points to an array of Canvas Display positions */
   def arrCanv(inp: Dist2s): PolygonImp = inp.pMap(toCanv(_))
@@ -53,8 +53,8 @@ trait Dist2Gui extends MapGui
   def adjFocus(adj: Dist2): Unit = reFocus(mapFocus + adj)
   var rotation: Angle = Deg0
 
-  implicit class ImpVec2InCanvasMap(thisVec2: Vec2)
-  { def mapRotate: Vec2 = thisVec2.rotate(rotation)
-    def antiMapRotate: Vec2 = thisVec2.rotate(- rotation)
+  implicit class ImpVec2InCanvasMap(thisVec2: Pt2)
+  { def mapRotate: Pt2 = thisVec2.rotate(rotation)
+    def antiMapRotate: Pt2 = thisVec2.rotate(- rotation)
   }
 }

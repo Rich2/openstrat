@@ -8,19 +8,19 @@ class BoundedAlignedExtensions[A <: BoundedAligned](thisA: A, ev: SlateTo[A])
 {
   /** Translate an object of type T such that the top right of the new object is given by the new position. This method translates the object to an
   * absolute position. */
-  def trSlateTo(newTopRight: Vec2): A = ev.slateTTo(thisA, newTopRight - thisA.topRightDelta)
+  def trSlateTo(newTopRight: Pt2): A = ev.slateTTo(thisA, newTopRight - thisA.topRightDelta)
 
   /** Translate an object of type T such that the bottom right of the new object is given by the new position. This method translates the object to an
   * absolute position. */
-  def brSlateTo(newBottomRight: Vec2): A = ev.slateTTo(thisA, newBottomRight - thisA.bottomRightDelta)
+  def brSlateTo(newBottomRight: Pt2): A = ev.slateTTo(thisA, newBottomRight - thisA.bottomRightDelta)
 
   /** Translate an object of type T such that the bottom left of the new object is given by the new position. This method translates the object to an
   * absolute position. */
-  def blSlateTo(newBottomLeft: Vec2): A = ev.slateTTo(thisA, newBottomLeft - thisA.bottomLeftDelta)
+  def blSlateTo(newBottomLeft: Pt2): A = ev.slateTTo(thisA, newBottomLeft - thisA.bottomLeftDelta)
 
   /** Translate an object of type T such that the top left of the new object is given by the new position. This method translates the object to an
    * absolute position. */
-  def tlSlateTo(newTopLeft: Vec2): A = ev.slateTTo(thisA, newTopLeft - thisA.topLeftDelta)
+  def tlSlateTo(newTopLeft: Pt2): A = ev.slateTTo(thisA, newTopLeft - thisA.topLeftDelta)
 
 
 }

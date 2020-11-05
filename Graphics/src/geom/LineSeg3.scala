@@ -12,8 +12,8 @@ case class LineSeg3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double
   override def _4 = xEnd
   override def _5 = yEnd
   override def _6 = zEnd
-  def pStart: Vec3 = Vec3(xStart, yStart, zStart)
-  def pEnd: Vec3 = Vec3(xEnd, yEnd, zEnd)
+  def pStart: Pt3 = Pt3(xStart, yStart, zStart)
+  def pEnd: Pt3 = Pt3(xEnd, yEnd, zEnd)
   //def func6Dou[T](f: (Double, Double, Double, Double, Double, Double) => T): T = f(x1, y1, z2, x2, y2, z2)
   def toXY: LineSeg = LineSeg(pStart.toXY, pEnd.toXY)
    //def fTrans(f: Vec3 => Vec3): Line3 = Line2(f(pt1), f(pt2))
@@ -23,5 +23,5 @@ case class LineSeg3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double
 
 object LineSeg3
 {
-   def apply(pStart: Vec3, pEnd: Vec3): LineSeg3 = new LineSeg3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)   
+   def apply(pStart: Pt3, pEnd: Pt3): LineSeg3 = new LineSeg3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)
 }

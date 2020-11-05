@@ -5,7 +5,7 @@ package geom
 /** This trait is for layout. For placing Display elements in rows and columns. It includes [[PolygonGraphic]] and [[ShapeGraphic]]s but not [[Line]]
  *  and [[Curve]] graphics. */
 trait BoundedGraphic extends GraphicElem with BoundedElem
-{ def slate(offset: Vec2): BoundedGraphic
+{ def slate(offset: Pt2): BoundedGraphic
   def slate(xOffset: Double, yOffset: Double): BoundedGraphic
   def scale(operand: Double): BoundedGraphic
 
@@ -28,7 +28,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 /** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object BoundedGraphic
 {
-  implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[BoundedGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

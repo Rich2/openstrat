@@ -10,7 +10,7 @@ final case class EArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   //override def fTrans(f: Vec2 => Vec2): EArc = ???
   //override def rotate(angle: Angle): EArc = ???
-  override def slate(offset: Vec2): EArc = ???
+  override def slate(offset: Pt2): EArc = ???
   override def rotate(angle: Angle): EArc = ???
   override def scale(operand: Double): EArc = ???
   //override def shear(xScale: Double, yScale: Double): EArc = ???

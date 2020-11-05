@@ -21,7 +21,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 vv -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
   /** Simple Checkbox */
-  def Checkbox(isSelected:Boolean = false, labelText:String = "", loc:Vec2 = 0 vv 0, isDisabled:Boolean = false, activeId:String = "Checkbox"): GraphicElems =
+  def Checkbox(isSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 vv 0, isDisabled:Boolean = false, activeId:String = "Checkbox"): GraphicElems =
   { val ink = if (!isDisabled) White else Grey
     val defaultSize = 12
     if (isSelected) Arr(Rect(defaultSize-4, defaultSize-4, loc).fill(ink), Rect(defaultSize, defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize vv 0), defaultSize, ink, LeftAlign))
@@ -30,7 +30,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   }
 
   /** Simple Radio button with label */
-  def RadioOption(isSelected:Boolean = false, labelText:String = "", loc:Vec2 = 0 vv 0, isDisabled:Boolean = false, activeId:String = "RadioButton"): GraphicElems =
+  def RadioOption(isSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 vv 0, isDisabled:Boolean = false, activeId:String = "RadioButton"): GraphicElems =
   { val ink = if (!isDisabled) White else Grey
     val defaultSize = 12
     if (isSelected) Arr(Circle(defaultSize, loc).draw(ink, 1), TextGraphic(labelText, loc + (defaultSize vv 0), defaultSize, ink, LeftAlign), Circle(defaultSize-4, loc).fill(ink))
@@ -73,7 +73,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     }
     updateCurrentPlayerIndicator()
   }
-  def drawBalls(loc:Vec2, color:Colour, cellIndex:Int) : Unit =
+  def drawBalls(loc:Pt2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
     canv.polygonFill(Rect.bl(size-1, size-1, loc), Black)
     if (count >= 1) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 0)), color)
@@ -90,7 +90,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     for (i <- 0 to aDefaultGame.addBallQueue.length - 1)
     { if (aDefaultGame.addBallQueue(i) != 0)
     { //deb("ADD_ANIM="+animationStep.toString)
-      val loc:Vec2 = size*(i % cols) vv size*(i / cols)
+      val loc:Pt2 = size*(i % cols) vv size*(i / cols)
       if (animationStep == 0.1) drawBalls(loc, aDefaultGame.currentPlayer, i)
       for (b <- 1 to aDefaultGame.addBallQueue(i))
       { val whichBall = aDefaultGame.cellCounts(i) + b - 1
@@ -145,7 +145,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       } else deb("***-- not pop or add: "+aDefaultGame.gameState+" --***")
     } else canv.timeOut(() => doAnimation(), animationDuration)
   }
-  def getLocFromCellSite(whichCell: Int, whichOne: Int, whichPos: String = "") : Vec2 =
+  def getLocFromCellSite(whichCell: Int, whichOne: Int, whichPos: String = "") : Pt2 =
   { var pos = ""
     if (whichPos != "") pos = whichPos
     else pos = if (whichOne < aDefaultGame.cellSites(whichCell).length) aDefaultGame.cellSites(whichCell)(whichOne) else "C"

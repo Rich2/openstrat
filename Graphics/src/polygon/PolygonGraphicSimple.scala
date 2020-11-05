@@ -32,7 +32,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def nonShapeAttribs: Arr[XmlAtt] = ???
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): PolygonGraphicSimple
+  override def slate(offset: Pt2): PolygonGraphicSimple
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonGraphicSimple
@@ -59,7 +59,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 /** Companion object for the PolygonGraphicSimple trait, contains implicit instances for the 2D geometric transformation classes. */
 object PolygonGraphicSimple
 {
-  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
@@ -74,11 +74,11 @@ object PolygonGraphicSimple
 /** A pointable polygon without visual */
 case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable with PolygonGraphic
 { override type ThisT = PolygonActive
-  override def fTrans(f: Vec2 => Vec2): PolygonActive = PolygonActive(shape.fTrans(f), pointerId)
+  override def fTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.fTrans(f), pointerId)
   override def boundingRect = shape.boundingRect
 
-  override def slateTo(newCen: Vec2): PolygonActive = ???
-  override def ptInside(pt: Vec2): Boolean = shape.ptInside(pt)
+  override def slateTo(newCen: Pt2): PolygonActive = ???
+  override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
   override def attribs: Arr[XmlAtt] = ???
 

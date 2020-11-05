@@ -31,21 +31,21 @@ object BaseLine
 
 /** A Graphical display of Text.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
-case class TextGraphic(str: String, posn: Vec2 = Vec2Z, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem
+case class TextGraphic(str: String, posn: Pt2 = Vec2Z, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem
 { type ThisT = TextGraphic
-  override def fTrans(f: Vec2 => Vec2) = TextGraphic(str, f(posn), fontSize, colour, align, baseLine)
+  override def fTrans(f: Pt2 => Pt2) = TextGraphic(str, f(posn), fontSize, colour, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 
 /** Not sure if this is a good object to have. */
 object TextGraphicCen
-{ def apply(str: String, fontSize: Int, posn : Vec2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
+{ def apply(str: String, fontSize: Int, posn : Pt2 = Vec2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
     new TextGraphic(str, posn, fontSize, colour, CenAlign, BaseLine.Alphabetic)
 }
 
 object TextGraphic
 {
-  def lines(strs: Arr[String], fontSize: Int = 24, posn: Vec2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
+  def lines(strs: Arr[String], fontSize: Int = 24, posn: Pt2 = Vec2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
             align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): Arr[TextGraphic] =
   { val len = strs.elemsLen
     if(len == 0) Arr()
@@ -53,10 +53,10 @@ object TextGraphic
   }
 }
 
-case class TextOutline(str: String, fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, lineWidth: Double = 1.0,
-  align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic, zOrder: Int = 0) extends GraphicAffineElem
+case class TextOutline(str: String, fontSize: Int = 24, posn: Pt2 = Vec2Z, colour: Colour = Black, lineWidth: Double = 1.0,
+                       align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic, zOrder: Int = 0) extends GraphicAffineElem
 { override type ThisT = TextOutline
-  override def fTrans(f: Vec2 => Vec2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
+  override def fTrans(f: Pt2 => Pt2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
 
   override def negY: TextOutline = ???

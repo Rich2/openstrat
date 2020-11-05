@@ -9,7 +9,7 @@ import geom._, reflect.ClassTag
 trait OfGridElem[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT, SideT]]
 { def grid: GridT
   def cood: Cood   
-  def coodToDispVec2(inp: Cood): Vec2
+  def coodToDispVec2(inp: Cood): Pt2
   def xyStr = cood.xyStr
   def yxStr = cood.yxStr
   /** The number of pixels grid unit. The number of pixels per X Cood. Called pSc so it doesn't class with pScale from another class when the OfTile
@@ -34,7 +34,7 @@ trait OfTile[TileT <: TileOld, SideT <: TileSideOld, GridT <: TileGridOld[TileT,
   final def cood: Cood = tile.cood   
   def vertCoods: Coods = grid.vertCoodsOfTile(cood)
   def vertDispVecs: PolygonImp
-  def cen: Vec2
+  def cen: Pt2
   def ownSideLines: LineSegs
 }
 

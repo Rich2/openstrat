@@ -7,30 +7,30 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 {
   override def x1: Double = xCen + rMax / 2
   override def y1: Double = yCen + rMin
-  @inline override def v1: Vec2 = Vec2(x1, y1)
+  @inline override def v1: Pt2 = Pt2(x1, y1)
 
   override def x2: Double = xCen + rMax
   override def y2: Double = yCen
-  @inline override def v2: Vec2 = Vec2(x2, y2)
+  @inline override def v2: Pt2 = Pt2(x2, y2)
 
   override def x3: Double = xCen + rMax / 2
   override def y3: Double = yCen - rMin
-  @inline override def v3: Vec2 = Vec2(x3, y3)
+  @inline override def v3: Pt2 = Pt2(x3, y3)
 
   override def x4: Double = xCen - rMax / 2
   override def y4: Double = yCen - rMin
-  @inline override def v4: Vec2 = Vec2(x4, y4)
+  @inline override def v4: Pt2 = Pt2(x4, y4)
 
   override def x5: Double = xCen - rMax
   override def y5: Double = yCen
-  @inline override def v5: Vec2 = Vec2(x5, y5)
+  @inline override def v5: Pt2 = Pt2(x5, y5)
 
   override def x6: Double = xCen - rMax / 2
   override def y6: Double = yCen + rMin
-  @inline override def v6: Vec2 = Vec2(x6, y6)
+  @inline override def v6: Pt2 = Pt2(x6, y6)
   
-  override def s4Cen: Vec2 = Vec2(0, -rMin)
-  override def s1Cen: Vec2 = Vec2(0, rMin)
+  override def s4Cen: Pt2 = Pt2(0, -rMin)
+  override def s1Cen: Pt2 = Pt2(0, rMin)
 
   override def productArity: Int = ???
 
@@ -38,7 +38,7 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Vec2): Hexlign = Hexlign(dMin, cen + offset)
+  override def slate(offset: Pt2): Hexlign = Hexlign(dMin, cen + offset)
 
   /** Translate geometric transformation on a Hexlign returns a Hexlign. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -60,9 +60,9 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 
 object Hexlign
 {
-  def apply(height: Double, cen: Vec2 = Vec2Z): Hexlign = new Hexlign(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Vec2Z): Hexlign = new Hexlign(height, cen.x, cen.y)
 
-  implicit val slateImplicit: Slate[Hexlign] = (obj: Hexlign, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Hexlign] = (obj: Hexlign, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Hexlign] = (obj: Hexlign, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Hexlign] = (obj, matrix) => obj.prolign(matrix)
 }

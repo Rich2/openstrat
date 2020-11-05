@@ -5,13 +5,13 @@ package geom
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
 trait Triangle extends Polygon3Plus
 {	override def vertsNum: Int = 3
-	override def v1: Vec2 = x1 vv y1
-	override def v3: Vec2 = x3 vv y3
-	override def s1Cen: Vec2 = v3 mid v1
-	override def s2Cen: Vec2 = v1 mid v2
-	override def s3Cen: Vec2 = v2 mid v3
+	override def v1: Pt2 = x1 vv y1
+	override def v3: Pt2 = x3 vv y3
+	override def s1Cen: Pt2 = v3 mid v1
+	override def s2Cen: Pt2 = v1 mid v2
+	override def s3Cen: Pt2 = v2 mid v3
 
-	override def vert(index: Int): Vec2 = index match
+	override def vert(index: Int): Pt2 = index match
 	{	case 1 => v1
 		case 2 => v2
 		case 3 => v3
@@ -22,15 +22,15 @@ trait Triangle extends Polygon3Plus
 
 	override def xVertsArray: Array[Double] = Array(x1, x2, x3)
 	override def yVertsArray: Array[Double] = Array(y1, y2, y3)
-	override def foreachVert[U](f: Vec2 => U): Unit = { f(v1); f(v2); f(v3); () }
-	override def foreachVertTail[U](f: Vec2 => U): Unit = { f(v2); f(v3); () }
+	override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
+	override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
 
-	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Vec2]] 2D Vector or point to a [[Vec2]]. */
-	override def fTrans(f: Vec2 => Vec2): Triangle = Triangle(f(v1), f(v2), f(v3))
+	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
+	override def fTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v1), f(v2), f(v3))
 
 	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
-	override def slate(offset: Vec2): Triangle = fTrans(_ + offset)
+	override def slate(offset: Pt2): Triangle = fTrans(_ + offset)
 
 	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
 	override def slate(xOffset: Double, yOffset: Double): Triangle = fTrans(_.addXY(xOffset, yOffset))
@@ -53,7 +53,7 @@ trait Triangle extends Polygon3Plus
 
 	override def xShear(operand: Double): Triangle = fTrans(_.xShear(operand))
 	override def yShear(operand: Double): Triangle = fTrans(_.yShear(operand))
-	override def slateTo(newCen: Vec2): Triangle = fTrans(_ + newCen - cen)
+	override def slateTo(newCen: Pt2): Triangle = fTrans(_ + newCen - cen)
 
 	override def xVert(index: Int): Double = index match
 	{	case 1 => x1
@@ -78,17 +78,17 @@ trait Triangle extends Polygon3Plus
 
 object Triangle
 { def apply(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Triangle = TriangleImp(x1, y1, x2, y2, x3, y3)
-	def apply(v1: Vec2, v2: Vec2, v3: Vec2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
+	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
 	final case class TriangleImp(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle with AffinePreserve
 	{ type ThisT = TriangleImp
-		override def v2: Vec2 = Vec2(x2, y2)
+		override def v2: Pt2 = Pt2(x2, y2)
 
-		override def fTrans(f: Vec2 => Vec2): TriangleImp = TriangleImp(f(v1), f(v2), f(v3))
+		override def fTrans(f: Pt2 => Pt2): TriangleImp = TriangleImp(f(v1), f(v2), f(v3))
 
 	}
 
 	object TriangleImp
-	{		def apply(v1: Vec2, v2: Vec2, v3: Vec2): TriangleImp = new TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
+	{		def apply(v1: Pt2, v2: Pt2, v3: Pt2): TriangleImp = new TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 	}
 }

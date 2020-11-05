@@ -7,7 +7,7 @@ import geom._
 trait TCoord extends Any
 { def r: Int
   def c: Int
-  def toVec2: Vec2
+  def toVec2: Pt2
   def typeStr: String
   def rcStr: String = s"$r, $c"
   def parenthStr: String = rcStr.enParenth

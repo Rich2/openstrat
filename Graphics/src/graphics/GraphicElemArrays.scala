@@ -12,10 +12,10 @@ trait ValsVec2s extends Any
    def yDouble(index: Int): Double = arr(index * 2 + valsLength + 1)
    def xHead: Double = arr(valsLength)
    def yHead: Double = arr(valsLength + 1)   
-   def vert(index: Int): Vec2 = Vec2(xDouble(index), yDouble(index))  
+   def vert(index: Int): Pt2 = Pt2(xDouble(index), yDouble(index))
    def vertsIndexForeach(f: Int => Unit): Unit = (0 until ptsLength).foreach(f)
-   def vertsForeach(f: Vec2 => Unit): Unit = vertsIndexForeach(i => f(vert(i)))
-   def arrTrans(f: Vec2 => Vec2): Array[Double]
+   def vertsForeach(f: Pt2 => Unit): Unit = vertsIndexForeach(i => f(vert(i)))
+   def arrTrans(f: Pt2 => Pt2): Array[Double]
    def foreachVertPairTail[U](f: (Double, Double) => U): Unit =
    {
       var count = 1      
@@ -37,7 +37,7 @@ trait ValsVec2s extends Any
       vertsIndexForeach{i => yArr(i) = yDouble(i) } //think this is wrong     
       yArr
    }
-   def arrVertsTrans(f: Vec2 => Vec2): Array[Double] =
+   def arrVertsTrans(f: Pt2 => Pt2): Array[Double] =
    {
       val newArr: Array[Double] = new Array[Double](arr.length)
       var count = valsLength
@@ -57,7 +57,7 @@ trait Val1Vec2s[Val1T] extends Any with ValsVec2s
    def val1Func: Double => Val1T
    def val1: Val1T = val1Func(arr(0))   
    
-   def arrTrans(f: Vec2 => Vec2): Array[Double] =
+   def arrTrans(f: Pt2 => Pt2): Array[Double] =
    {
       val newArr: Array[Double] = arrVertsTrans(f)
       newArr(0) = arr(0)//copies initial Val1 value      
@@ -72,7 +72,7 @@ trait Val2Vec2s[Val1T, Val2T] extends Any with ValsVec2s
    def val1: Val1T = val1Func(arr(0))
    def val2Func: Double => Val2T
    def val2: Val2T = val2Func(arr(1))
-   override def arrTrans(f: Vec2 => Vec2): Array[Double] =
+   override def arrTrans(f: Pt2 => Pt2): Array[Double] =
    {
       val newArr: Array[Double] = arrVertsTrans(f)//new Array[Double](arr.length)
       newArr(0) = arr(0)//copies initial Val1 value      
@@ -90,7 +90,7 @@ trait Val3Vec2s[Val1T, Val2T, Val3T] extends Any with ValsVec2s
    def val2: Val2T = val2Func(arr(1))
    def val3Func: Double => Val3T
    def val3: Val3T = val3Func(arr(2))
-   override def arrTrans(f: Vec2 => Vec2): Array[Double] =
+   override def arrTrans(f: Pt2 => Pt2): Array[Double] =
    {
       val newArr: Array[Double] = arrVertsTrans(f)//new Array[Double](arr.length)
       newArr(0) = arr(0)//copies initial Val1 value      

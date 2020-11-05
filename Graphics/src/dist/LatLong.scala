@@ -52,7 +52,7 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
   }
 
   /** Get the XY point from a focus with latitude 0 */
-  def xyLat0: Vec2 = Vec2(sin(longRadians) * cos(latRadians), sin(latRadians))
+  def xyLat0: Pt2 = Pt2(sin(longRadians) * cos(latRadians), sin(latRadians))
 
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
   def polyToDist2s(inp: LatLongs): Dist2s = inp.pMap(fromFocusDist2)
@@ -79,9 +79,9 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
     r1.toXYIfZPositive
   }
    
-  def toVec3(polarRadius: Double, equatorialRadius: Double): Vec3 =
+  def toVec3(polarRadius: Double, equatorialRadius: Double): Pt3 =
   { val clat = cos(latRadians).abs
-    Vec3(sin(longRadians) * equatorialRadius * clat, cos(latRadians) * polarRadius, cos(longRadians) * equatorialRadius * clat)
+    Pt3(sin(longRadians) * equatorialRadius * clat, cos(latRadians) * polarRadius, cos(longRadians) * equatorialRadius * clat)
   }
 }
 

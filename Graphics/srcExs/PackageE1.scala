@@ -6,7 +6,7 @@ package e1
 {
   /** GameState. The game world state between turns. This is an ultra simple single player turn game, with only two actions, move and change colour. It
    *  is not intended as interesting game, but merely to illustrate the common features of a functionally implemented game. */
-  case class GameState(turnNum: Int, posn: Vec2, rainbowCycle: RainbowCycle)
+  case class GameState(turnNum: Int, posn: Pt2, rainbowCycle: RainbowCycle)
   {
     /** Move to a new posn if no greater than 150 pixel distant */
     def turn(cmd: TurnCmd): GameState = cmd match
@@ -37,7 +37,7 @@ package e1
   sealed trait TurnCmd
   case object NoMove extends TurnCmd
   case object CycleColour extends TurnCmd
-  case class Move(toPosn: Vec2) extends TurnCmd
+  case class Move(toPosn: Pt2) extends TurnCmd
   
   case class Game(curr: GameState, start: GameState, cmds: List[GameState])
   object Game

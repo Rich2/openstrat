@@ -4,7 +4,7 @@ package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Vec2] with AffinePreserve with Vec2sLikeProdDbl2
+class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Pt2] with AffinePreserve with Vec2sLikeProdDbl2
 { type ThisT = LinePath
   //type ThisT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
@@ -21,9 +21,9 @@ class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Vec2] with Af
   @inline def lengthFull: Int = arrayUnsafe.length / 2
   @inline def xStart: Double = arrayUnsafe(0)
   @inline def yStart: Double = arrayUnsafe(1)
-  @inline def pStart: Vec2 = Vec2(xStart, yStart)
+  @inline def pStart: Pt2 = Pt2(xStart, yStart)
  
-  def fTrans(f: Vec2 => Vec2): LinePath =  new LinePath(arrTrans(f))
+  def fTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
   
   def foreachEnd(f: (Double, Double) => Unit): Unit =
   { var count = 1
@@ -36,13 +36,13 @@ class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Vec2] with Af
   def draw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
 }
 
-object LinePath extends ProdDbl2sCompanion[Vec2, LinePath]
+object LinePath extends ProdDbl2sCompanion[Pt2, LinePath]
 {
-  implicit val persistImplicit: ArrProdDbl2Persist[Vec2, LinePath] = new ArrProdDbl2Persist[Vec2, LinePath]("LinePath")
+  implicit val persistImplicit: ArrProdDbl2Persist[Pt2, LinePath] = new ArrProdDbl2Persist[Pt2, LinePath]("LinePath")
   { override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
   }
 
-  def apply(pStart: Vec2, pEnds: Vec2 *): LinePath =
+  def apply(pStart: Pt2, pEnds: Pt2 *): LinePath =
   { val array = new Array[Double](pEnds.length * 2 + 2)
     array(0) = pStart.x
     array(1) = pStart.y

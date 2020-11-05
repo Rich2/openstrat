@@ -14,9 +14,9 @@ trait HexGrid extends TileGrid
   /** The c delta between tiles. */
   def cStep: Int = 4
 
-  override def roordToVec2(roord: Roord): Vec2 = HexGrid.roordToVec2(roord)
+  override def roordToVec2(roord: Roord): Pt2 = HexGrid.roordToVec2(roord)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
-  def roordCen = Vec2(cCen, yCen)
+  def roordCen = Pt2(cCen, yCen)
   //def xRatio: Double = HexGrid.xRatio
   override def xCen: Double = (cTileMin + cTileMax) / (2.0 * Sqrt3)
   //override def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Vec2): Line2 = HexGrid.sideRoordToLineRel(sideRoord, scale, relPosn)
@@ -39,7 +39,7 @@ trait HexGrid extends TileGrid
     vvs.toPolygon.active(roord.toHexTile)
   }
 
-  def roordOffToVec2(rd: RoordOff): Vec2 = rd.toVec2(roordToVec2)
+  def roordOffToVec2(rd: RoordOff): Pt2 = rd.toVec2(roordToVec2)
 
   /** Gives a Coods Seq of Cood along a horisonatal line */
   def SidesHorr(y: Int, xStart: Int, xEnd : Int): Roords =
@@ -124,7 +124,7 @@ object HexGrid
   val adjTileRoordsOfTile00: Roords = sideRoordsOfTile00.pMap(_ * 2)
   def adjTilesOfTile(tileRoord: Roord): Roords = adjTileRoordsOfTile00.pMap(tileRoord + _)
 
-  def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Vec2 = Vec2Z): LineSeg =
+  def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Pt2 = Vec2Z): LineSeg =
     sideRoordToRoordLine(sideRoord).toLine2(c => (roordToVec2(c) -relPosn) * scale)
 
   def sideRoordToLine(sideRoord: Roord): LineSeg = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
@@ -156,18 +156,18 @@ object HexGrid
   def sideRoordToLineEndRoords(y: Int, c: Int): (Roord, Roord) = sideOrient(y, c, (y rr c - 1, y rr c + 1), (y + 1 rr c, y - 1 rr c),
     (y rr c + 1, y rr c - 1))
 
-  def roordToVec2Rel(roord: Roord, relPosn: Vec2): Vec2 = roordToVec2(roord.y, roord.c) -relPosn
+  def roordToVec2Rel(roord: Roord, relPosn: Pt2): Pt2 = roordToVec2(roord.y, roord.c) -relPosn
 
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
-  def roordToVec2(roord: Roord): Vec2 = roordToVec2(roord.y, roord.c)
+  def roordToVec2(roord: Roord): Pt2 = roordToVec2(roord.y, roord.c)
 
-  def roordToVec2(y: Int, c: Int): Vec2 =
+  def roordToVec2(y: Int, c: Int): Pt2 =
   { def x: Double = c / Sqrt3
     (y %% 4, c %% 4) match
-    { case (yr, _) if yr.isEven => Vec2(x, y)
-      case (yr, cr) if cr.isOdd  && yr.isOdd => Vec2(x, y)
-      case (1, 0) | (3, 2)  =>  Vec2(x, y + yDist /2)
-      case _ => Vec2(x, y - yDist / 2)
+    { case (yr, _) if yr.isEven => Pt2(x, y)
+      case (yr, cr) if cr.isOdd  && yr.isOdd => Pt2(x, y)
+      case (1, 0) | (3, 2)  =>  Pt2(x, y + yDist /2)
+      case _ => Pt2(x, y - yDist / 2)
     }
   }
 
@@ -191,53 +191,53 @@ object HexGrid
   @inline def x0 = 0
   @inline def y0 = yDist2
   /** The Up vertice */
-  val v0 = Vec2(x0, y0)
+  val v0 = Pt2(x0, y0)
 
   @inline def x1 = 2
   @inline def y1 = yDist
   /** The Up Right vertice */
-  val v1 = Vec2(x1, y1)
+  val v1 = Pt2(x1, y1)
 
   @inline def x2 = 2
   @inline def y2 = -yDist
   /** Down Right vertice */
-  val v2 = Vec2(x2, y2)
+  val v2 = Pt2(x2, y2)
 
   @inline def x3 = 0
   @inline def y3 = -yDist2
   /** The Down vertice */
-  val v3 = Vec2(x3, y3)
+  val v3 = Pt2(x3, y3)
 
   @inline def x4 = -2
   @inline def y4 = -yDist
   /** The Down Left vertice */
-  val v4 = Vec2(x4, y4)
+  val v4 = Pt2(x4, y4)
 
   @inline def x5 = -2
   @inline def y5 = yDist
   /** The up left vertice */
-  val v5 = Vec2(x5, y5)
+  val v5 = Pt2(x5, y5)
 
-  val verts: Seq[Vec2] = Seq(v0, v1, v2, v3, v4,  v5)
-  val cenVerts: Seq[Vec2] = Seq(Vec2Z, v0, v1, v2, v3, v4, v5)
+  val verts: Seq[Pt2] = Seq(v0, v1, v2, v3, v4,  v5)
+  val cenVerts: Seq[Pt2] = Seq(Vec2Z, v0, v1, v2, v3, v4, v5)
 
   val triangleFan = Seq(Vec2Z, v0, v5, v4, v3, v2, v1)
 
-  def latLong(pt: Vec2, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Dist): LatLong =
+  def latLong(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Dist): LatLong =
   { val lat = (pt.y * gridScale + xyOffset.y) / EarthPolarRadius + latLongOffset.latRadians
     val long = (pt.x * gridScale + xyOffset.x) / (EarthEquatorialRadius * math.cos(lat)) + latLongOffset.longRadians
     LatLong.radians(lat, long)
   }
 
-  def latLongToRoord(latLong: LatLong, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Dist): Vec2 =
+  def latLongToRoord(latLong: LatLong, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Dist): Pt2 =
   { val y: Double = ((latLong.latRadians - latLongOffset.latRadians) * EarthPolarRadius - xyOffset.y) / gridScale
     val x: Double = ((latLong.longRadians - latLongOffset.longRadians) * EarthEquatorialRadius * math.cos(latLong.latRadians) - xyOffset.x) / gridScale
-    Vec2(x / Sqrt3, y)
+    Pt2(x / Sqrt3, y)
   }
 
-  def latLongU(pt: Vec2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridU))
-  def latLongV(pt: Vec2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridV))
-  def latLongW(pt: Vec2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridW))
+  def latLongU(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridU))
+  def latLongV(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridV))
+  def latLongW(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Dist(gridW))
 
   val gridA: Int = 1//3.125cm
   val gridB: Int = 2//6.25cm

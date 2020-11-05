@@ -24,7 +24,7 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   def zPos: Boolean = z.pos
   def zNeg: Boolean = z.neg
   def ifZPos[A](vPos: => A, vNeg: => A): A = ife(zPos, vPos, vNeg)
-  def / (operator: Dist): Vec3 = Vec3(x / operator, y / operator, z / operator)
+  def / (operator: Dist): Pt3 = Pt3(x / operator, y / operator, z / operator)
   def toXYIfZPositive: Option[Dist2] = ifZPos(Some(Dist2(x, y)), None)
   def xRotation(rotation: Double): Dist3 =
   { val scalar: Dist = Dist(sqrt(y.metres * y.metres + z.metres * z.metres))

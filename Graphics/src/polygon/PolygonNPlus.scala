@@ -14,7 +14,7 @@ trait Polygon3Plus extends Polygon
   def y1: Double
   /** The 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
    *  from 12 o'clock. */
-  def v1: Vec2
+  def v1: Pt2
   /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def x2: Double
@@ -23,7 +23,7 @@ trait Polygon3Plus extends Polygon
   def y2: Double
   /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
    *  from 12 o'clock. */
-  def v2: Vec2
+  def v2: Pt2
   /** The X component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def x3: Double
@@ -32,10 +32,10 @@ trait Polygon3Plus extends Polygon
   def y3: Double
   /** The 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
-  def v3: Vec2
+  def v3: Pt2
 
   /** The last vertex. */
-  override def vLast: Vec2 = vert(vertsNum)
+  override def vLast: Pt2 = vert(vertsNum)
 
   /** Side 1 from the last vertex to V1. */
   def s1: LineSeg = LineSeg(vLast, v1)
@@ -47,13 +47,13 @@ trait Polygon3Plus extends Polygon
   def s3: LineSeg = LineSeg(v2, v3)
 
   /** The centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. */
-  def s1Cen: Vec2
+  def s1Cen: Pt2
 
   /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. */
-  def s2Cen: Vec2
+  def s2Cen: Pt2
 
   /** The centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v2 vertex. */
-  def s3Cen: Vec2
+  def s3Cen: Pt2
 }
 
 /** A [[Polygon]] with at least 4 vertices. */
@@ -67,10 +67,10 @@ trait Polygon4Plus extends Polygon3Plus
   def y4: Double
   /** The 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
-  def v4: Vec2
+  def v4: Pt2
 
   /** The centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. */
-  def s4Cen: Vec2
+  def s4Cen: Pt2
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
@@ -84,7 +84,7 @@ trait Polygon5Plus extends Polygon4Plus
   def y5: Double
   /** The 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
    *  from 12 o'clock. */
-  def v5: Vec2
+  def v5: Pt2
 }
 
 /** A [[Polygon]] with at least 6 vertices. */
@@ -98,5 +98,5 @@ trait Polygon6Plus extends Polygon5Plus
   def y6: Double
   /** The 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
    *  from 12 o'clock. */
-  def v6: Vec2
+  def v6: Pt2
 }

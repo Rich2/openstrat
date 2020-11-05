@@ -16,7 +16,7 @@ object VecsTest extends TestSuite
     val v21 = 4 vv 4
     val v22 = -2.2 vv -6.7
     val v23 = -2.2 vv 0
-    val vs0 = Vec2s(v21, v22, v23)
+    val vs0 = Pt2s(v21, v22, v23)
     val v31 = -2.4 vv 54.6 vv 34.7
     val v32 = 4 vv -5 vv 0
     val v2s: LinePath = v1s :+ v21
@@ -24,13 +24,13 @@ object VecsTest extends TestSuite
     val cf = vs3.toPolygon.fill(Colour.Red)
 
     "Test1" -
-    { v21 ==> Vec2(4, 4)
+    { v21 ==> Pt2(4, 4)
       vs0(2) ==> v23
-      v31 ==> Vec3(-2.4, 54.6, 34.7)
-      v32 ==> Vec3(4, -5, 0)
+      v31 ==> Pt3(-2.4, 54.6, 34.7)
+      v32 ==> Pt3(4, -5, 0)
       v2s.str ==> "LinePath(2.1, 0; 5.4, 0; 4, 4)"
-      vs3(1) ==> Vec2(2, 2)
-      cf.shape.vert(2) ==> Vec2(3, 3)
+      vs3(1) ==> Pt2(2, 2)
+      cf.shape.vert(2) ==> Pt2(3, 3)
     }    
   }
 }

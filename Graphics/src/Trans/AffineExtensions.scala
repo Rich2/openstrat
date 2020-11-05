@@ -9,7 +9,7 @@ package geom
 class AffineExtensions[T](value: T, ev: AffineTrans[T])
 {
   /** General Vec2 to Vec2 transformation. */
-  def trans(f: Vec2 => Vec2):  T = ev.trans(value, f)
+  def trans(f: Pt2 => Pt2):  T = ev.trans(value, f)
 
   /** Applies scale transformation and adds x on 2 dimensional vectors. */
   def scaleSlateX(factor: Double, xDelta: Double): T = trans(v => (v * factor).addX(xDelta))

@@ -8,7 +8,7 @@ class VertInts(val unsafeArr: Array[Int]) extends AnyVal
   def gridMap[A, AA <: ArrBase[A]](f: (Roord, Int) => A)(implicit grid: TileGrid, build: ArrBuild[A, AA]): AA =
     grid.sidesMap(r => f(r, unsafeArr(grid.sideArrIndex(r))))
 
-  def meth1(vertNum: Int): Vec2s = ???
+  def meth1(vertNum: Int): Pt2s = ???
 
 }
 

@@ -3,7 +3,7 @@ package ostrat
 import math._, Colour.Black
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
- * graphics. Of particular note are the [[Vec2]], [[GeomElem]] and [[GraphicElem]] class /traits. These are the foundation of the API and the library.
+ * graphics. Of particular note are the [[Pt2]], [[GeomElem]] and [[GraphicElem]] class /traits. These are the foundation of the API and the library.
  * A number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They
  * are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
@@ -52,7 +52,7 @@ package object geom
   val degM180InSecs: Int = - secsInDeg * 180
   
   /** The origin, the intersection of the axes for 2 dimensional vectors. */
-  val Vec2Z = Vec2(0, 0)  
+  val Vec2Z = Pt2(0, 0)
   
   /** Dist2(0.km, 0.km) constant */
   val Dist2Z = Dist2(0.km, 0.km)
@@ -71,17 +71,17 @@ package object geom
  
   implicit class StringImplictGeom(thisString: String)
   { import pParse.{ stringToStatements => stss}
-    def findVec2: EMon[Vec2] = stss(thisString).flatMap(_.findType[Vec2])
-    def findVec2Else(elseValue: => Vec2) = findVec2.getElse(elseValue)
-    def findVec2Sett(setting: String): EMon[Vec2] = stss(thisString).flatMap(_.findSett[Vec2](setting))
-    def findVec2SettElse(setting: String, elseValue: Vec2): Vec2 = findVec2Sett(setting).getElse(elseValue)
+    def findVec2: EMon[Pt2] = stss(thisString).flatMap(_.findType[Pt2])
+    def findVec2Else(elseValue: => Pt2) = findVec2.getElse(elseValue)
+    def findVec2Sett(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSett[Pt2](setting))
+    def findVec2SettElse(setting: String, elseValue: Pt2): Pt2 = findVec2Sett(setting).getElse(elseValue)
 
-    def graphic(fontSize: Int = 24, posn: Vec2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-      baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, posn, fontSize, colour, align, baseLine)
+    def graphic(fontSize: Int = 24, posn: Pt2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
+                baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, posn, fontSize, colour, align, baseLine)
   }
 
   implicit class DoubleImplicit(thisDouble: Double)
-  { def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
+  { def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
     def metres: Dist = new Dist(thisDouble)
   }
 
@@ -128,10 +128,10 @@ package object geom
   /** 300 degrees or Pi radians */
   val Deg300: Angle = Angle(300)
 
-  def displayRowGraphics(leftPt: Vec2, actives: Arr[BoundedGraphic], margin: Double = 10): Arr[BoundedGraphic] =
+  def displayRowGraphics(leftPt: Pt2, actives: Arr[BoundedGraphic], margin: Double = 10): Arr[BoundedGraphic] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
     
-  def displayRowTexts(leftPt: Vec2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedElem] =
+  def displayRowTexts(leftPt: Pt2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedElem] =
   {
     val y = leftPt.y
     var acc: Buff[BoundedElem] = Buff()

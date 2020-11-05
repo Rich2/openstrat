@@ -6,7 +6,7 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More shape dragging.")
 { /** defines the size of the circles that represent the points of the bezier */
   val circleRadius = 15
-  case class Drag(var v: Vec2, c: Colour)
+  case class Drag(var v: Pt2, c: Colour)
   
   /** start point bezier. */
   val p1 = Drag(-100 vv 0, Gray)

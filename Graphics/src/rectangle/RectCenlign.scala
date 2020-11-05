@@ -7,13 +7,13 @@ import Colour.Black
 trait RectCenlign extends Rectangularlign
 { def xCen: Double = 0
   def yCen: Double = 0
-  override def cen: Vec2 = Vec2Z
+  override def cen: Pt2 = Vec2Z
   def left = - width / 2
   def right = width / 2
   def top = height / 2
   def bottom = -height / 2
-  def panelCen: Vec2 = Vec2(0, 0)
-  def cenLeft = Vec2(left, 0)
+  def panelCen: Pt2 = Pt2(0, 0)
+  def cenLeft = Pt2(left, 0)
   def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw = LineSegs.doubles(
     left, 0, right, 0,
     0, top, 0, bottom).draw(lineWidth, lineColour)

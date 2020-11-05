@@ -10,7 +10,7 @@ trait OfEElem[TileT <: TileOld, SideT <: TileSideOld] extends OfGridElem[TileT, 
    override def grid: EGridOld[TileT, SideT]= eGrid
    def gridScale: Dist = eGrid.scale
    def focus: LatLong = eg.focus   
-   override def coodToDispVec2(inp: Cood): Vec2 = eg.trans(eg.latLongToDist2(eGrid.getLL(inp)))
+   override def coodToDispVec2(inp: Cood): Pt2 = eg.trans(eg.latLongToDist2(eGrid.getLL(inp)))
    def egScale: Dist = eg.scale
    override def psc = gridScale / egScale   
 }
@@ -20,7 +20,7 @@ class OfETile[TileT <: TileOld, SideT <: TileSideOld](val eg: EarthGuiOld, val e
 OfHex[TileT, SideT, EGridOld[TileT, SideT]] with OfEElem[TileT, SideT]
 {
    def cenLL: LatLong = eGrid.getLL(cood)
-   def cen: Vec2 = eg.latLongToXY(cenLL)
+   def cen: Pt2 = eg.latLongToXY(cenLL)
    def cenFacing: Boolean = focus.latLongFacing(cenLL)
    def vertLLs: LatLongs = vertCoods.pMap(eGrid.getLL)
    def vertDist2s: Dist2s = eg.polyToDist2s(vertLLs)

@@ -5,7 +5,7 @@ import ostrat._, geom._, pCanv._, Colour._, BaseLine._//{Alphabetic, Bottom, Mid
 case class LsA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
 {
   //We can create reusable values. ptStart is a dimensional vector. It has an x position (left-right and a y postion (up-down)
-  val ptStart: Vec2 = -100 vv 50
+  val ptStart: Pt2 = -100 vv 50
   //Lets create another value and call it ptEnd. This is another Vec2, the compiler infers this, although we didn't state it directly.
   val ptEnd = 500 vv 300
   

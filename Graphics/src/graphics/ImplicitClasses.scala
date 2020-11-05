@@ -5,7 +5,7 @@ package geom
 class IntGeomImplicit(thisInt: Int)
 { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
       operators. */
-  @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
+  @inline def vv(y: Double): Pt2 = Pt2(thisInt, y)
    def ° : Angle = Angle(thisInt)
    def km: Dist = Dist(thisInt * 1000)
    def metre: Dist = Dist(thisInt)
@@ -22,7 +22,7 @@ class IntGeomImplicit(thisInt: Int)
 class DoubleImplicitGeom(thisDouble: Double)
 { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
       operators. */
-  @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
+  @inline def vv(y: Double): Pt2 = Pt2(thisDouble, y)
   def km: Dist = Dist(thisDouble * 1000)
   def metre: Dist = Dist(thisDouble)
   def * (operator: Dist): Dist = Dist(thisDouble * operator.metres)

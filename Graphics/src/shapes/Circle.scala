@@ -6,9 +6,9 @@ import pWeb._, math.Pi
 /** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
 final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends Ellipse with BoundedAligned
 {  
-  override def fTrans(f: Vec2 => Vec2): Circle =
-  { val v1: Vec2 = cen.addX(radius)
-    val newV1: Vec2 = f(v1)
+  override def fTrans(f: Pt2 => Pt2): Circle =
+  { val v1: Pt2 = cen.addX(radius)
+    val newV1: Pt2 = f(v1)
     val newCen = f(cen)
     val newRadius = (newV1 - newCen).magnitude
     Circle(newRadius * 2, newCen)
@@ -19,7 +19,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
 
   override def xs0: Double = xCen
   override def ys0: Double = yCen + radius
-  override def s0: Vec2 = Vec2(xCen, ys0)
+  override def s0: Pt2 = Pt2(xCen, ys0)
   override def xs1: Double = xCen + radius
   override def ys1: Double = yCen
   override def xs2: Double = xCen
@@ -36,7 +36,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def h: Double = 0
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slate(offset: Vec2): Circle = Circle(diameter, cen + offset)
+  override def slate(offset: Pt2): Circle = Circle(diameter, cen + offset)
 
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
@@ -63,7 +63,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
   override def rotate270: Circle = Circle(diameter, cen.rotate270)*/
 
-  override def slateTo(newCen: Vec2): Circle = Circle(diameter, newCen)
+  override def slateTo(newCen: Pt2): Circle = Circle(diameter, newCen)
   
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
@@ -83,10 +83,10 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def ellipeRotation: Angle = 0.degs
 
   private[this] def rr2: Double = diameter * 2.sqrt
-  override def topRight: Vec2 = Vec2(rr2, rr2)
-  override def bottomRight: Vec2 = Vec2(rr2, -rr2)
-  override def bottomLeft: Vec2 = Vec2(-rr2, -rr2)
-  override def topLeft: Vec2 = Vec2(-rr2, rr2)
+  override def topRight: Pt2 = Pt2(rr2, rr2)
+  override def bottomRight: Pt2 = Pt2(rr2, -rr2)
+  override def bottomLeft: Pt2 = Pt2(-rr2, -rr2)
+  override def topLeft: Pt2 = Pt2(-rr2, rr2)
 
   //override def topCen: Vec2 = ???
 }
@@ -96,15 +96,15 @@ object Circle extends ShapeIcon
 {
   override type ShapeT = Circle
   /** Standard factory method for creating a circle from its diameter and the position of its centre. */
-  def apply(diameter: Double, cen: Vec2 = Vec2Z) = new Circle(diameter, cen.x, cen.y)
+  def apply(diameter: Double, cen: Pt2 = Vec2Z) = new Circle(diameter, cen.x, cen.y)
 
   /** Factory method for creating a circle from its radius and the position of its centre. */
-  def fromRadius(radius: Double, cen: Vec2 = Vec2Z) = new Circle(radius * 2, cen.x, cen.y)
+  def fromRadius(radius: Double, cen: Pt2 = Vec2Z) = new Circle(radius * 2, cen.x, cen.y)
 
   /** Factory method for creating a circle from its radius and the position of its centre. */
   def fromRadius(radius: Double, xCen: Double, yCen: Double) = new Circle(radius * 2, xCen, yCen)
 
-  override def reify(scale: Double, cen: Vec2): Circle = Circle(scale, cen)
+  override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
   
   implicit val slateImplicit: Slate[Circle] = (obj, offset) => obj.slate(offset)

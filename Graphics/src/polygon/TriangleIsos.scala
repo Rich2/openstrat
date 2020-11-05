@@ -8,15 +8,15 @@ trait TriangleIsos extends Triangle
 {	def height: Double
   def x2: Double = ???
   def y2: Double = ???
-  override def v2: Vec2 = ???
+  override def v2: Pt2 = ???
 }
 
 /** The general case of an isosceles triangle. */
 final case class TriangleIsosGen(x1: Double, y1: Double, x3: Double, y3: Double, height: Double) extends TriangleIsos
 {	type ThisT = TriangleIsosGen
 
-  override def fTrans(f: Vec2 => Vec2): TriangleIsosGen = ???
-  override def v2: Vec2 = ???
+  override def fTrans(f: Pt2 => Pt2): TriangleIsosGen = ???
+  override def v2: Pt2 = ???
   override def attribs: Arr[XANumeric] = ???
 
   override def rotate(angle: Angle): TriangleIsosGen = ???
@@ -25,5 +25,5 @@ final case class TriangleIsosGen(x1: Double, y1: Double, x3: Double, y3: Double,
   override def negX: ThisT = fTrans(_.negX)
   override def reflect(lineLike: LineLike): Triangle = ???
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
-  override def slateTo(newCen: Vec2): TriangleIsos = ???
+  override def slateTo(newCen: Pt2): TriangleIsos = ???
 }

@@ -18,15 +18,15 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   @inline override def _7 = yEnd
 
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
-  def pEnd: Vec2 = xEnd vv yEnd
+  def pEnd: Pt2 = xEnd vv yEnd
 
   /** This is control point 2 in a Bezier segment, the centre point in an arc segment and unused in a straight Line Segment */
-  def pUses: Vec2 = Vec2(xUses, yUses)
+  def pUses: Pt2 = Pt2(xUses, yUses)
   /** This is control point 1 in a Bezier segment, it not used an arc segment, but first Double set to NaN, it is not nused in a straight Line Segment
    *  but the first Double is set to Infinity */
-  def pC1: Vec2 = Vec2(xC1, yC1)
+  def pC1: Pt2 = Pt2(xC1, yC1)
       
-  def fSeg[A](fLineSeg: Vec2 => A, fArcSeg: (Vec2, Vec2) => A, fBezierSeg: (Vec2, Vec2, Vec2) => A): A = iMatch match
+  def fSeg[A](fLineSeg: Pt2 => A, fArcSeg: (Pt2, Pt2) => A, fBezierSeg: (Pt2, Pt2, Pt2) => A): A = iMatch match
   { case 10 => fLineSeg(pEnd)
     case 11 => fArcSeg(pUses, pEnd)
     case 12 => fBezierSeg(pC1, pUses, pEnd)
@@ -48,20 +48,20 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
     case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
   }
    
-  override def fTrans(f: Vec2 => Vec2): CurveTail = iMatch match
+  override def fTrans(f: Pt2 => Pt2): CurveTail = iMatch match
   {
-    case 10 => { val newPEnd: Vec2 = f(pEnd); new CurveTail(10, 0, 0, 0, 0, newPEnd.x, newPEnd.y) }
+    case 10 => { val newPEnd: Pt2 = f(pEnd); new CurveTail(10, 0, 0, 0, 0, newPEnd.x, newPEnd.y) }
     
     case 11 =>
-    { val newPCen: Vec2 = f(pUses)
-      val newPEnd: Vec2 = f(pEnd)
+    { val newPCen: Pt2 = f(pUses)
+      val newPEnd: Pt2 = f(pEnd)
       new CurveTail(11, 0, 0, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
     }
     
     case 12 =>
-    { val newPC1: Vec2 = f(pC1)
-      val newPCen: Vec2 = f(pUses)
-      val newPEnd: Vec2 = f(pEnd)
+    { val newPC1: Pt2 = f(pC1)
+      val newPCen: Pt2 = f(pUses)
+      val newPEnd: Pt2 = f(pEnd)
       new CurveTail(12, newPC1.x, newPC1.y, newPCen.x, newPCen.y, newPEnd.x, newPEnd.y)
     }
     
@@ -69,10 +69,10 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   }
   
   /** Assuming this is Arc Segment tail. */
-  def arcCen: Vec2 = Vec2(xUses, yUses)
+  def arcCen: Pt2 = Pt2(xUses, yUses)
   
   /** Assuming this is Arc Segment */
-  def arcStartAngle(pStart: Vec2): Angle = (pStart - arcCen).angle
+  def arcStartAngle(pStart: Pt2): Angle = (pStart - arcCen).angle
   
   /** Assuming this is Arc Segment */
   def arcEndAngle: Angle = (pEnd - arcCen).angle
@@ -81,7 +81,7 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   def arcRadius: Double = (pEnd - arcCen).magnitude
   
   /** Assuming this is Arc Segment */
-  def arcControlPt(startPt: Vec2): Vec2 =
+  def arcControlPt(startPt: Pt2): Pt2 =
   { val sAng: Angle = arcStartAngle(startPt)
     val resultAngle = sAng.bisect(arcEndAngle)
     val alphaAngle =  sAng.angleTo(arcEndAngle) / 2
@@ -89,7 +89,7 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   }
   
   /** Assuming this is ArcSeg, calculates ControlPt and then passes controlPt.x, controlPt.y, XENd, yEnd, radius to f */
-  def fControlEndRadius(startPt: Vec2, f: (Double, Double, Double, Double, Double) => Unit): Unit =
+  def fControlEndRadius(startPt: Pt2, f: (Double, Double, Double, Double, Double) => Unit): Unit =
   { val cp = arcControlPt(startPt)
     f(cp.x, cp.y, pEnd.x, pEnd.y, arcRadius)
   }
@@ -98,18 +98,18 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
 /** This provides factory methods to create a 2 dimensional headless line segment. There is no independent LineTail class. This is one of 3 factory
  *  objects to CurveTail. */
 object LineTail
-{ def apply(pEnd: Vec2): CurveTail =  new CurveTail(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
+{ def apply(pEnd: Pt2): CurveTail =  new CurveTail(10, 0, 0, 0, 0, pEnd.x, pEnd.y)
   def apply(xEnd: Double, yEnd: Double): CurveTail = new CurveTail(10, 0, 0, 0, 0, xEnd, yEnd)
 }
 
 /** This provides factory methods to create an ArcTail. There is no independent ArcTail class. This is one of 3 factory objects to CurveTail. */
 object ArcTail
-{ def apply(pCen: Vec2, pEnd: Vec2): CurveTail = new CurveTail(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
+{ def apply(pCen: Pt2, pEnd: Pt2): CurveTail = new CurveTail(11, 0, 0, pCen.x, pCen.y, pEnd.x, pEnd.y)
   //def apply(xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(PosInf, 0, xCen, yCen, xEnd, yEnd)
 }
 
 /** This provides factory methods to create a Bezier tail. There is no independent BezierTail class. This is one of 3 factory objects to CurveTail. */
 object BezierTail
-{ def apply(pC1: Vec2, pC2: Vec2, pEnd: Vec2): CurveTail = new CurveTail(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
+{ def apply(pC1: Pt2, pC2: Pt2, pEnd: Pt2): CurveTail = new CurveTail(12, pC1.x, pC1.y, pC2.x, pC2.y, pEnd.x, pEnd.y)
   //def apply(xC1: Double, yC1: Double, xC2: Double, yC2: Double, xEnd: Double, yEnd: Double): CurveSeg = new CurveSeg(xC1, yC1, xC2, yC2, xEnd, yEnd)
 }

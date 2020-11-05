@@ -13,7 +13,7 @@ trait CurveSegGraphic extends GraphicElem
   def yStart: Double = curveSeg.yStart
 
   /** Start point often called p1 */
-  final def pStart: Vec2 = curveSeg.pStart
+  final def pStart: Pt2 = curveSeg.pStart
 
   /** the x component of the end point. */
   def xEnd: Double = curveSeg.xEnd
@@ -22,7 +22,7 @@ trait CurveSegGraphic extends GraphicElem
   def yEnd: Double = curveSeg.yEnd
 
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
-  final def pEnd: Vec2 = curveSeg.pEnd
+  final def pEnd: Pt2 = curveSeg.pEnd
 }
 
 trait CurveSegDraw extends CurveSegGraphic

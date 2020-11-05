@@ -71,7 +71,7 @@ object EGrid80KmOld
 
   /** The key method to get the longitude delta for x based from 0 degs longitude. */
   def coodToLatLong0(inp: Cood): LatLong =
-  { val adj: Vec2 = HexGridOld.coodToVec2(inp.subXY(0, 300))
+  { val adj: Pt2 = HexGridOld.coodToVec2(inp.subXY(0, 300))
      val d2: Dist2 = adj * scale
      val lat: Double = d2.y / EarthPolarRadius
      val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))

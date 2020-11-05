@@ -21,7 +21,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
+  override def slate(offset: Pt2): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonCompound =
@@ -51,7 +51,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def yShear(operand: Double): PolygonCompound = ???
 
-  override def slateTo(newCen: Vec2): PolygonCompound = ???
+  override def slateTo(newCen: Pt2): PolygonCompound = ???
 
   def addChildren(newChildren: Arr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 }
@@ -61,7 +61,7 @@ object PolygonCompound
   def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
     new PolygonCompoundImp(shape, facets, children)
   
-  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
@@ -96,7 +96,7 @@ object PolygonCompound
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
     /** Translate geometric transformation. */
-    override def slate(offset: Vec2): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
+    override def slate(offset: Pt2): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Translate geometric transformation. */
     override def slate(xOffset: Double, yOffset: Double): PolygonCompoundImp =

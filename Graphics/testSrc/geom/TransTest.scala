@@ -34,7 +34,7 @@ object TransTest extends TestSuite
 
     "test2" -
     { rs1a(1).shape.vertsNum ==> 4
-      rs1a(1).shape.polyCentre ==> Vec2(2, 0)
+      rs1a(1).shape.polyCentre ==> Pt2(2, 0)
     }
   }
 }

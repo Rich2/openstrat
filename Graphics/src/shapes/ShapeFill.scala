@@ -15,7 +15,7 @@ trait ShapeFill extends ShapeGraphicSimple
   def toDraw(lineWidth: Double = 2, newColour: Colour = colour): ShapeDraw
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2): ShapeFill
+  override def slate(offset: Pt2): ShapeFill
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): ShapeFill
@@ -47,7 +47,7 @@ trait ShapeFill extends ShapeGraphicSimple
 
 object ShapeFill
 {
-  implicit val slateImplicit: Slate[ShapeFill] = (obj: ShapeFill, offset: Vec2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[ShapeFill] = (obj: ShapeFill, offset: Pt2) => obj.slate(offset)
   implicit val scaleImplicit: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeFill] = (obj: ShapeFill, angle : Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

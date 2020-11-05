@@ -6,7 +6,7 @@ package geom
  *  margin space. Not sure about the name. not sure if the trait is useful. */
 trait GraphicParentFull extends GraphicAffineElem with GraphicActiveAffine
 { override type ThisT <: GraphicParentFull
-  def cen: Vec2
+  def cen: Pt2
 
   /** The type of children can probably be widened in the future. */
   def children: Arr[GraphicAffineElem]

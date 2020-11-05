@@ -12,27 +12,27 @@ trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
 
 case class PolyCurveFill(shape: PolyCurve, colour: Colour) extends PolyCurveElem
 { override type ThisT = PolyCurveFill
-  override def fTrans(f: Vec2 => Vec2) = PolyCurveFill(shape.fTrans(f), colour)
+  override def fTrans(f: Pt2 => Pt2) = PolyCurveFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeFill(shape, colour)
   def xCen: Double = ???
   def yCen: Double = ???
-  def cen: Vec2 = ???
-  override def slateTo(newCen: Vec2): PolyCurveFill = ???
+  def cen: Pt2 = ???
+  override def slateTo(newCen: Pt2): PolyCurveFill = ???
 }
 
 case class PolyCurveDraw(shape: PolyCurve, lineWidth: Double, colour: Colour = Black) extends PolyCurveElem
 { override type ThisT = PolyCurveDraw
-  override def fTrans(f: Vec2 => Vec2) = PolyCurveDraw(shape.fTrans(f), lineWidth, colour)
+  override def fTrans(f: Pt2 => Pt2) = PolyCurveDraw(shape.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeDraw(shape, lineWidth, colour)
   def xCen: Double = ???
   def yCen: Double = ???
-  def cen: Vec2 = ???
-  override def slateTo(newCen: Vec2): PolyCurveDraw = ???
+  def cen: Pt2 = ???
+  override def slateTo(newCen: Pt2): PolyCurveDraw = ???
 }
 
 case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Double, lineColour: Colour = Black) extends PolyCurveElem
 { override type ThisT = PolyCurveFillDraw
-  override def fTrans(f: Vec2 => Vec2) = PolyCurveFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
+  override def fTrans(f: Pt2 => Pt2) = PolyCurveFillDraw(shape.fTrans(f), fillColour, lineWidth, lineColour)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.shapeFill(shape, fillColour)
@@ -40,14 +40,14 @@ case class PolyCurveFillDraw(shape: PolyCurve, fillColour: Colour, lineWidth: Do
   }
   def xCen: Double = ???
   def yCen: Double = ???
-  def cen: Vec2 = ???
-  override def slateTo(newCen: Vec2): PolyCurveFillDraw = ???
+  def cen: Pt2 = ???
+  override def slateTo(newCen: Pt2): PolyCurveFillDraw = ???
 }
 
 case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2,
   lineColour: Colour = Black) extends PolyCurveElem
 { override type ThisT = PolyCurveFillDrawText
-  override def fTrans(f: Vec2 => Vec2) = PolyCurveFillDrawText(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
+  override def fTrans(f: Pt2 => Pt2) = PolyCurveFillDrawText(shape.fTrans(f), fillColour, str,fontSize, lineWidth, lineColour)
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, shape.boundingRect.cen, fontSize, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineWidth, lineColour)
@@ -59,14 +59,14 @@ case class PolyCurveFillDrawText(shape: PolyCurve, fillColour: Colour, str: Stri
   }
   def xCen: Double = ???
   def yCen: Double = ???
-  def cen: Vec2 = ???
-  override def slateTo(newCen: Vec2): PolyCurveFillDrawText = ???
+  def cen: Pt2 = ???
+  override def slateTo(newCen: Pt2): PolyCurveFillDrawText = ???
 }
 
 case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineWidth: Double = 2,
   lineColour: Colour = Black) extends PolyCurveElem with PolyCurveActive
 { override type ThisT = PolyCurveAll
-  override def fTrans(f: Vec2 => Vec2) = PolyCurveAll(shape.fTrans(f), pointerId, str, fillColour, fontSize, lineWidth, lineColour)
+  override def fTrans(f: Pt2 => Pt2) = PolyCurveAll(shape.fTrans(f), pointerId, str, fillColour, fontSize, lineWidth, lineColour)
   def drawOnly: PolyCurveDraw = PolyCurveDraw(shape, lineWidth, lineColour)
   def textOnly: TextGraphic = TextGraphic(str, shape.boundingRect.cen, fontSize, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineWidth, lineColour)
@@ -79,6 +79,6 @@ case class PolyCurveAll(shape: PolyCurve, pointerId: Any, str: String, fillColou
 
   def xCen: Double = ???
   def yCen: Double = ???
-  def cen: Vec2 = ???
-  override def slateTo(newCen: Vec2): PolyCurveAll = ???
+  def cen: Pt2 = ???
+  override def slateTo(newCen: Pt2): PolyCurveAll = ???
 }

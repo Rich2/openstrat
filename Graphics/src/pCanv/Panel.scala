@@ -14,7 +14,7 @@ case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover
   override def toString: String = "Panel:" -- clipPoly.toString
 
   /** The position of the centre of the Panel on the underlying canvas. */
-  val clipCen: Vec2 = clipPoly.polyCentre
+  val clipCen: Pt2 = clipPoly.polyCentre
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
 
@@ -36,17 +36,17 @@ trait PanelLike extends RectCenlign
   var canvObjs: Arr[GraphicElem] = Arr()
 
   /** This method name is inconsistent with mouseup on the canvas class*/
-  var mouseUp: (MouseButton, List[Any], Vec2) => Unit = (_, _, _) => {}
+  var mouseUp: (MouseButton, List[Any], Pt2) => Unit = (_, _, _) => {}
 
   /** This method name is inconsistent with mousedown on the canvas class */
-  var mouseDown: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
+  var mouseDown: (Pt2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
 
-  var fMouseMoved: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
-  var fMouseDragged: (Vec2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
+  var fMouseMoved: (Pt2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
+  var fMouseDragged: (Pt2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}
 
   /** Just responds to when the Panel is clicked, ignores the position of the mose click or any potential active objects on the screen. */
   def setMouseSimplest(action: => Unit): Unit = mouseUp = (_, _, _) => action
 
   /** Just responds to the position of the mose click on the Panel, ignores any potential active objects on the screen. */
-  def setMouseSimple(action: Vec2 => Unit): Unit = mouseUp = (_, _, v) => action(v)
+  def setMouseSimple(action: Pt2 => Unit): Unit = mouseUp = (_, _, v) => action(v)
 }

@@ -24,7 +24,7 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   val sq = Sqlign(100, 110, -400)
 
   val cn = Circle(80, 110, -290)
-  val v1 = Vec2(0, -cl1.diameter)
+  val v1 = Pt2(0, -cl1.diameter)
   val cd1 = CircleDraw(cl1.slate(v1), 2, Green)
   val cd2 = CircleDraw(cl1.slate(v1.rotate(45.degs)), 2, Gold)
   val rStr2 = TextGraphic(cd1.svgStr, cd1.cen, 20)

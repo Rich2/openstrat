@@ -120,9 +120,9 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     }
   }
    
-  canv.mouseDragged = (mousePosition:Vec2, mouseButton:MouseButton) => if (mouseButton == LeftButton & isDragging == true) dragging(mousePosition.x - dragStartX)
+  canv.mouseDragged = (mousePosition:Pt2, mouseButton:MouseButton) => if (mouseButton == LeftButton & isDragging == true) dragging(mousePosition.x - dragStartX)
 
-  canv.mouseDown = (mousePosition:Vec2, mouseButton:MouseButton) => mouseButton match
+  canv.mouseDown = (mousePosition:Pt2, mouseButton:MouseButton) => mouseButton match
   { case LeftButton if (bar.boundingRect.ptInside(mousePosition) == true) =>
     { dragStartBarOffsetX = barOffsetX
       dragStartX = mousePosition.x

@@ -7,7 +7,7 @@ import Colour._, pCanv._
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple 
 {
   /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
-  override def slate(offset: Vec2): RectangleDraw = RectangleDraw(shape.slate(offset), lineWidth, lineColour)
+  override def slate(offset: Pt2): RectangleDraw = RectangleDraw(shape.slate(offset), lineWidth, lineColour)
 
   /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
   override def slate(xOffset: Double, yOffset: Double): RectangleDraw = RectangleDraw(shape.slate(xOffset, yOffset), lineWidth, lineColour)
@@ -33,7 +33,7 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   /** Independent X and Y dimension scaling upon a RectangleDraw returns a RectangleDraw. */
   override def xyScale(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.xyScale(xOperand, yOperand), lineWidth, lineColour)
 
-  override def slateTo(newCen: Vec2): RectangleDraw = slate(newCen - cen)
+  override def slateTo(newCen: Pt2): RectangleDraw = slate(newCen - cen)
 }
 
 /** Companion object for RectangleDraw contains factory method and implementation class. */

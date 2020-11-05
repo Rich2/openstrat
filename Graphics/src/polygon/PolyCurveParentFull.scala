@@ -1,24 +1,24 @@
 package ostrat
 package geom
 
-case class PolyCurveParentFull(cen: Vec2, shape: PolyCurve, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with
+case class PolyCurveParentFull(cen: Pt2, shape: PolyCurve, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with
   PolyCurveActive
 { override type ThisT = PolyCurveParentFull
-  def fTrans(f: Vec2 => Vec2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
+  def fTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[GraphicAffineElem]): PolyCurveParentFull = PolyCurveParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolyCurveParentFull = PolyCurveParentFull(cen, shape, newObj, children)
   override def xCen: Double = ???
   override def yCen: Double = ???
-  override def slateTo(newCen: Vec2): PolyCurveParentFull = ???
+  override def slateTo(newCen: Pt2): PolyCurveParentFull = ???
 }
 
 object PolyCurveParentFull
 {
-  def fill(cen: Vec2, shape: PolyCurve, evObj: Any, colour: Colour) = PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFill(shape, colour)))
+  def fill(cen: Pt2, shape: PolyCurve, evObj: Any, colour: Colour) = PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFill(shape, colour)))
 
-  def fillDraw(cen: Vec2, shape: PolyCurve, evObj: Any, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
+  def fillDraw(cen: Pt2, shape: PolyCurve, evObj: Any, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
     PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFillDraw(shape, fillColour, lineWidth, lineColour)))
 
-  def draw(cen: Vec2, shape: PolyCurve, evObj: Any, lineWidth: Double, lineColour: Colour = Colour.Black) =
+  def draw(cen: Pt2, shape: PolyCurve, evObj: Any, lineWidth: Double, lineColour: Colour = Colour.Black) =
     PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveDraw(shape, lineWidth, lineColour)))
 }
