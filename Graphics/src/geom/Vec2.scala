@@ -2,6 +2,8 @@
 package ostrat
 package geom
 
+/** A 2 dimensional vector, can be used with 2 dimensional points and translations of 2 dimensional points. Thanks to Rene Descarte for this great
+ *  idea. */
 class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 {
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
@@ -11,6 +13,12 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   /** Adds this Vector to a second 2 dimensional vector. */
   def +(operand: Vec2): Vec2 = Vec2(x + operand.x, y + operand.y)
+
+  /** Adds the operand 2 dimensional vector from this 2 dimensional vector. */
+  def -(operand: Vec2): Vec2 = Vec2(x + operand.x, y - operand.y)
+
+  /** The magnitude of this vector. */
+  def magnitude = math.sqrt(x * x + y * y)
 }
 
 object Vec2

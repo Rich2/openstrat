@@ -3,8 +3,7 @@ package ostrat
 package geom
 import math._, collection.mutable.ArrayBuffer
 
-/** A 2 dimensional vector, can be used to represent 2 dimensional points and translations of 2 dimensional points. Thanks to Rene Descarte this
- *  was a great idea. */
+/** A 2 dimensional point. It can be used to for translations of 2 dimensional points. Thanks to Rene Descarte for this. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 {
   override def toString: String = Pt2.persistImplicit.show(this, 0)
@@ -18,6 +17,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   /** Subtracts the operand 2-idmensianl vecotr from this 2-dimensional vector. */
   def -(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
+
   /** The magnitude of this vector. */
   def magnitude = math.sqrt(x * x + y * y)
 
