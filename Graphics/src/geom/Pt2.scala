@@ -42,9 +42,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   @inline def *(factor: Double): Pt2 = Pt2(x * factor, y * factor)
   @inline def /(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
-  /** The dot product of this and the operand vector. */
-  @inline def dot(operand: Pt2): Double = x * operand.x + y * operand.y
-
   def addX(adj: Double): Pt2 = Pt2(x + adj, y)
   def addY(adj: Double): Pt2 = Pt2(x, y + adj)
   def subX(adj: Double): Pt2 = Pt2(x - adj, y)
@@ -100,7 +97,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def toTuple: Tuple2[Double, Double] = (x, y)
   def vv(z: Double): Pt3 = Pt3(x, y, z)
 
-
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
   @inline def rotate90: Pt2 = Pt2(-y, x)
 
@@ -109,7 +105,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
   @inline def rotate270: Pt2 = Pt2(y, -x)
-
 
 
   /** Line segment from this point to the parameter point. */
@@ -174,7 +169,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 }
-
 
 /** Companion object for Vec2. contains Apply factory method. */
 object Pt2

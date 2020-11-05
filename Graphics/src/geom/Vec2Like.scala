@@ -15,6 +15,9 @@ trait Vec2Like extends Any
   @inline def *(factor: Double): Vec2Like
   @inline def /(divisor: Double): Vec2Like
 
+  /** The dot product of this and the operand vector. */
+  @inline def dot(operand: Pt2): Double = x * operand.x + y * operand.y
+
   /** The magnitude of this vector2Like. */
   def magnitude = math.sqrt(x * x + y * y)
 
