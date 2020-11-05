@@ -38,7 +38,7 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Pt2): HexYlign = HexYlign(dMin, cen + offset)
+  override def slate(offset: Vec2Like): HexYlign = HexYlign(dMin, cen + offset)
 
   /** Translate geometric transformation on a HexYlign returns a HexYlign. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -74,7 +74,7 @@ object HexYlign
   def apply(height: Double, cen: Pt2 = Vec2Z): HexYlign = new HexYlign(height, cen.x, cen.y)
   def apply(height: Double, xCen: Double, yCen: Double): HexYlign = new HexYlign(height, xCen, yCen)
 
-  implicit val slateImplicit: Slate[HexYlign] = (obj: HexYlign, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[HexYlign] = (obj: HexYlign, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[HexYlign] = (obj: HexYlign, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexYlign] = (obj, matrix) => obj.prolign(matrix)
 }

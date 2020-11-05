@@ -9,7 +9,7 @@ trait LineLike extends GeomElem
 class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 {
   /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Pt2): GeomElem = ???
+  override def slate(offset: Vec2Like): GeomElem = ???
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   override def slate(xOffset: Double, yOffset: Double): GeomElem = ???

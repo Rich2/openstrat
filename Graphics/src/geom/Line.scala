@@ -9,7 +9,7 @@ sealed trait Line extends LineLike
   def reflectPt(pt: Pt2): Pt2
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def slate(offset: Pt2): Line = ???
+  override def slate(offset: Vec2Like): Line = ???
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def slate(xOffset: Double, yOffset: Double): Line = ???

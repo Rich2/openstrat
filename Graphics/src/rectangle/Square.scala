@@ -7,7 +7,7 @@ import pWeb._
 trait Square extends Rectangle
 {
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(offset: Pt2): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
+  override def slate(offset: Vec2Like): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
 
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(xOffset: Double, yOffset: Double): Square = Square.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset))

@@ -26,7 +26,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
   final override def s4Cen: Pt2 = Pt2(xCen - width / 2, yCen)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slate(offset: Pt2): Rect = Rect(width, height, cen + offset)
+  override def slate(offset: Vec2Like): Rect = Rect(width, height, cen + offset)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(xOffset: Double, yOffset: Double): Rect = Rect(width, height, xCen + xOffset, yCen + yOffset)
@@ -89,7 +89,7 @@ object Rect
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
   def cenV0(cen: Pt2, v0: Pt2): Rect = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
 
-  implicit val slateImplicit: Slate[Rect] = (obj: Rect, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Rect] = (obj: Rect, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
   implicit val slateToImplicit: SlateTo[Rect] = (obj: Rect, newCen: Pt2) => obj.slateTo(newCen)
@@ -108,7 +108,7 @@ object Rect
     override def attribs: Arr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slate(offset: Pt2): RectImp = RectImp(width, height, cen + offset)
+    override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen + offset)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)

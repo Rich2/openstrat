@@ -7,7 +7,7 @@ import scala.annotation.unchecked.uncheckedVariance
 /** Type class for translate 2 dimensional vector transformations. Each transformation method has been given its own Type class and associated
  * extension class. Different sets of transformations can then be combined. */
 trait Slate[T]
-{ def slateT(obj: T @uncheckedVariance, offset: Pt2): T
+{ def slateT(obj: T, offset: Vec2Like): T
   def xSlateT(obj: T @uncheckedVariance, xOffset: Double): T = slateT(obj, xOffset vv 0)
   def ySlateT(obj: T @uncheckedVariance, yOffset: Double): T = slateT(obj, 0 vv yOffset)
 }
@@ -37,7 +37,7 @@ class SlateExtensions[T](value: T, ev: Slate[T])
   def ySlate(yOffset: Double): T = ev.slateT(value, 0 vv yOffset)
 
   /** Translate in 2 dimensional space. */
-  def slate(offset: Pt2): T = ev.slateT(value, offset)
+  def slate(offset: Vec2Like): T = ev.slateT(value, offset)
 
   /** Translate in 2 dimensional space. */
   def slate(xOffset: Double, yOffset: Double): T = ev.slateT(value, xOffset vv yOffset)

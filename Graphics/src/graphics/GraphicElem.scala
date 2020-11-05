@@ -10,7 +10,7 @@ trait GraphicElem extends GeomElem
    def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
   
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
-  override def slate(offset: Pt2): GraphicElem
+  override def slate(offset: Vec2Like): GraphicElem
 
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): GraphicElem
@@ -56,7 +56,7 @@ trait GraphicElem extends GeomElem
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicElem
 {
-  implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

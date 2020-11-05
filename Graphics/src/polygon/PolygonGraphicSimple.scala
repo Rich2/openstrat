@@ -32,7 +32,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def nonShapeAttribs: Arr[XmlAtt] = ???
 
   /** Translate geometric transformation. */
-  override def slate(offset: Pt2): PolygonGraphicSimple
+  override def slate(offset: Vec2Like): PolygonGraphicSimple
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonGraphicSimple
@@ -59,7 +59,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 /** Companion object for the PolygonGraphicSimple trait, contains implicit instances for the 2D geometric transformation classes. */
 object PolygonGraphicSimple
 {
-  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

@@ -22,7 +22,7 @@ trait Shape extends Fillable with BoundedElem
   def cen: Pt2
   
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
-  override def slate(offset: Pt2): Shape
+  override def slate(offset: Vec2Like): Shape
 
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): Shape
@@ -64,7 +64,7 @@ trait Shape extends Fillable with BoundedElem
 /** Companion object for the [[Shape]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type classes. */
 object Shape
 {
-  implicit val slateImplicit: Slate[Shape] = (obj: Shape, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Shape] = (obj: Shape, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)

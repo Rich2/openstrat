@@ -36,7 +36,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def h: Double = 0
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slate(offset: Pt2): Circle = Circle(diameter, cen + offset)
+  override def slate(offset: Vec2Like): Circle = Circle(diameter, cen + offset)
 
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))

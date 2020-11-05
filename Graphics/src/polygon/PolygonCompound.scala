@@ -21,7 +21,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */
-  override def slate(offset: Pt2): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
+  override def slate(offset: Vec2Like): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonCompound =
@@ -61,7 +61,7 @@ object PolygonCompound
   def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
     new PolygonCompoundImp(shape, facets, children)
   
-  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
@@ -96,7 +96,7 @@ object PolygonCompound
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
     /** Translate geometric transformation. */
-    override def slate(offset: Pt2): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
+    override def slate(offset: Vec2Like): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Translate geometric transformation. */
     override def slate(xOffset: Double, yOffset: Double): PolygonCompoundImp =

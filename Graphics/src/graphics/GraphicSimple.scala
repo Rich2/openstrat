@@ -7,7 +7,7 @@ package geom
 trait GraphicSimple extends GraphicElem
 {
   /** Translate geometric transformation. */
-  override def slate(offset: Pt2): GraphicSimple
+  override def slate(offset: Vec2Like): GraphicSimple
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): GraphicSimple
@@ -48,7 +48,7 @@ trait GraphicSimple extends GraphicElem
 /** Companion object for the [[GraphicSimple]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicSimple
 {
-  implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

@@ -65,7 +65,7 @@ trait HexReg extends Polygon6Plus
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Pt2): HexReg = HexReg.s4s1(s4Cen + offset, s1Cen + offset)
+  override def slate(offset: Vec2Like): HexReg = HexReg.s4s1(s4Cen + offset, s1Cen + offset)
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -103,7 +103,7 @@ object HexReg
 {
   def s4s1(s4Cen: Pt2, s1Cen: Pt2): HexReg = HexRegImp(s4Cen.x, s4Cen.y, s1Cen.x, s1Cen.y)
 
-  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)

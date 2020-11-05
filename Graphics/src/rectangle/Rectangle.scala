@@ -63,7 +63,7 @@ trait Rectangle extends Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Pt2): Rectangle = Rectangle.s2s4(s2Cen + offset, s4Cen + offset, width2)
+  override def slate(offset: Vec2Like): Rectangle = Rectangle.s2s4(s2Cen + offset, s4Cen + offset, width2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(xOffset: Double, yOffset: Double): Rectangle =
@@ -127,7 +127,7 @@ object Rectangle
     PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
-  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)

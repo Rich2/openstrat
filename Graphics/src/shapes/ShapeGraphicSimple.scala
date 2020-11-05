@@ -9,7 +9,7 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
   final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 
   /** Translate geometric transformation. */
-  override def slate(offset: Pt2): ShapeGraphicSimple
+  override def slate(offset: Vec2Like): ShapeGraphicSimple
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): ShapeGraphicSimple

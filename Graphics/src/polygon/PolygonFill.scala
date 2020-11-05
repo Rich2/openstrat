@@ -12,7 +12,7 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(newColour, lineWidth)
 
   /** Translate geometric transformation. */
-  override def slate(offset: Pt2): PolygonFill = PolygonFill(shape.slate(offset), colour)
+  override def slate(offset: Vec2Like): PolygonFill = PolygonFill(shape.slate(offset), colour)
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slate(xOffset, yOffset), colour)
@@ -57,7 +57,7 @@ object PolygonFill
   def apply(shape: Polygon, colour: Colour): PolygonFill = new PolygonFillImp(shape, colour)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
-  implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

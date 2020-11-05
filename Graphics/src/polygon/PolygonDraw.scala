@@ -9,7 +9,7 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)  
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
-  override def slate(offset: Pt2): PolygonDraw = PolygonDraw(shape.slate(offset), lineWidth, lineColour)
+  override def slate(offset: Vec2Like): PolygonDraw = PolygonDraw(shape.slate(offset), lineWidth, lineColour)
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
   override def slate(xOffset: Double, yOffset: Double): PolygonDraw = PolygonDraw(shape.slate(xOffset, yOffset), lineWidth, lineColour)
@@ -48,7 +48,7 @@ object PolygonDraw
 {
   def apply (shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDrawImp(shape, lineWidth, lineColour)
 
-  implicit val slateImplicit: Slate[PolygonDraw] = (obj: PolygonDraw, offset: Pt2) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonDraw] = (obj: PolygonDraw, offset: Vec2Like) => obj.slate(offset)
   implicit val scaleImplicit: Scale[PolygonDraw] = (obj: PolygonDraw, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonDraw] = (obj: PolygonDraw, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonDraw] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
