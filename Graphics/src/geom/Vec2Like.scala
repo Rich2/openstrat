@@ -11,7 +11,7 @@ trait Vec2Like extends Any
   def xScale(factor: Double): Vec2Like
   def xyScale(xOperand: Double, yOperand: Double): Vec2Like
 
-  def unary_- : Vec2Like
+ // def unary_- : Vec2Like
   @inline def *(factor: Double): Vec2Like
   @inline def /(divisor: Double): Vec2Like
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */

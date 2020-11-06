@@ -27,7 +27,7 @@ class AffineExtensions[T](value: T, ev: AffineTrans[T])
   def negY: T = trans(_.negY)
 
   /** Vec2 transformation that negates x and y values */
-  def negXY: T = trans(- _)
+  def negXY: T = trans(p => Pt2(-p.x, -p.y))
 }
 
 

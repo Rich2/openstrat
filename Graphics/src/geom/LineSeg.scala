@@ -49,9 +49,6 @@ class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd
   /** The angle 90 degrees clock wise from the angle of this line segment. The angle one gets by turning from from this Sline. */
   def right90: Angle = angle - 90.degs
 
-  /** The relative position of the end point from the start point. */
-  @deprecated def delta: Pt2 = pEnd - pStart
-
   /** The relative vector [[Vec2]] of the end point from the start point. */
   def vec: Vec2 = Vec2(xEnd - xStart, yEnd - yStart)
 
