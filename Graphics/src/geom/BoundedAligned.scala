@@ -8,11 +8,11 @@ class BoundedAlignedExtensions[A <: BoundedAligned](thisA: A, ev: SlateTo[A])
 {
   /** Translate an object of type T such that the top right of the new object is given by the new position. This method translates the object to an
   * absolute position. */
-  def trSlateTo(newTopRight: Pt2): A = ev.slateTTo(thisA, newTopRight -*- thisA.topRightDelta)
+  def trSlateTo(newTopRight: Pt2): A = ev.slateTTo(thisA, newTopRight - thisA.trOffset)
 
   /** Translate an object of type T such that the bottom right of the new object is given by the new position. This method translates the object to an
   * absolute position. */
-  def brSlateTo(newBottomRight: Pt2): A = ev.slateTTo(thisA, newBottomRight -*- thisA.bottomRightDelta)
+  def brSlateTo(newBottomRight: Pt2): A = ev.slateTTo(thisA, newBottomRight -*- thisA.brOffset)
 
   /** Translate an object of type T such that the bottom left of the new object is given by the new position. This method translates the object to an
   * absolute position. */

@@ -9,9 +9,14 @@ trait AlignedElem
   def yCen: Double
   def cen: Pt2
   def topRight: Pt2
-  def topRightDelta: Pt2 = topRight -*- cen
+
+  /** Top right offset from centre. */
+  def trOffset: Vec2 = topRight.vecFrom(cen)
+
   def bottomRight: Pt2
-  def bottomRightDelta: Pt2 = bottomRight -*- cen
+
+  def brOffset: Vec2 = bottomRight.vecFrom(cen)
+
   def bottomLeft: Pt2
   def bottomLeftDelta: Pt2 = bottomLeft -*- cen
   def topLeft: Pt2
