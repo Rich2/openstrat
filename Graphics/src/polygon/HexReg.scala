@@ -124,9 +124,9 @@ object HexReg
     def s1Cen: Pt2 = Pt2(xs1Cen, ys1Cen)
     def xCen: Double = (xs1Cen + xs4Cen) / 2
     def yCen: Double = (ys1Cen + ys4Cen) / 2
-    def s1CenRMax: Pt2 = cen + (s4Cen - cen) * 2 / Sqrt3
+    def s1CenRMax: Pt2 = cen + (s4Cen -*- cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(xCen, yCen)
-    @inline override def dMin: Double = (s4Cen - s1Cen).magnitude
+    @inline override def dMin: Double = (s4Cen -*- s1Cen).magnitude
     override def v1: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
     override def x1: Double = v1.x
     override def y1: Double = v1.y

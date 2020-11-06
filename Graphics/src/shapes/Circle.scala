@@ -10,7 +10,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   { val v1: Pt2 = cen.addX(radius)
     val newV1: Pt2 = f(v1)
     val newCen = f(cen)
-    val newRadius = (newV1 - newCen).magnitude
+    val newRadius = (newV1 -*- newCen).magnitude
     Circle(newRadius * 2, newCen)
   }
   

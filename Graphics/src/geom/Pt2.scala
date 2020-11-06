@@ -16,10 +16,13 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def +(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Subtracts the operand 2-idmensianl vecotr from this 2-dimensional vector. */
-  def -(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
+  @deprecated def -*-(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
+
+  /** Subtracts the operand 2D point from this 2D point. Returns a [[Vec2]]. */
+  def -(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
 
   /** Gives the positive scalar distance between this and the operand Vec2. */
-  def distTo(operand: Pt2): Double = (operand - this).magnitude
+  def distTo(operand: Pt2): Double = (operand -*- this).magnitude
 
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
   def mid(point2: Pt2): Pt2 = (this + point2) / 2
@@ -59,9 +62,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     case lineSeg: LineSeg => {
       val v1 = lineSeg.pStart
       val v2 = lineSeg.pEnd
-      val lineDelta = v2 - v1
+      val lineDelta = v2 -*- v1
       val lineUnitVector = lineDelta / lineDelta.magnitude
-      2 * v1 - this - 2 * (v1 - this).dot(lineUnitVector) * lineUnitVector
+      2 * v1 -*- this -*- 2 * (v1 -*- this).dot(lineUnitVector) * lineUnitVector
     }
   }
 
@@ -130,13 +133,13 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Rotates this vector through the given angle around the centre of rotation passed as the first parameter. */
   def rotateAbout(centre: Pt2, a: Angle): Pt2 =
   {
-    val rel: Pt2 = this - centre
-    val rel2: Pt2 = a match {
+    val rel: Vec2 = this - centre
+    val rel2: Vec2 = a match {
       case Deg0 => rel
       case Deg90 => rel.rotate90
       case Deg180 => rel.rotate180
       case Deg270 => rel.rotate270
-      case a => Pt2(rel.x * a.cos - rel.y * a.sin, rel.x * a.sin + rel.y * a.cos)
+      case a => Vec2(rel.x * a.cos - rel.y * a.sin, rel.x * a.sin + rel.y * a.cos)
     }
     centre + rel2
   }
@@ -175,8 +178,11 @@ object Pt2
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
   def fromAngle(angle: Angle, scalar: Double = 1.0): Pt2 = angle.toVec2(scalar)
 
-  implicit class Vec2Implicit(thisVec: Pt2)
-  { def * (operand: Dist): Dist2 = Dist2(thisVec.x * operand, thisVec.y * operand)
+  implicit class Pt2Implicit(thisPt: Pt2)
+  { def * (operand: Dist): Dist2 = Dist2(thisPt.x * operand, thisPt.y * operand)
+
+    /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a [[Pt2]]. */
+    def -(operand: Vec2): Pt2 = Pt2(thisPt.x - operand.x, thisPt.y - operand.y)
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))

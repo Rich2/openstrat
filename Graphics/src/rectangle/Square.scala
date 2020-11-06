@@ -36,7 +36,7 @@ trait Square extends Rectangle
 
   override def rotate(angle: Angle): Square = Square.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle))
 
-  override def slateTo(newCen: Pt2): Square = slate(newCen - cen)
+  override def slateTo(newCen: Pt2): Square = slate(newCen -*- cen)
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */

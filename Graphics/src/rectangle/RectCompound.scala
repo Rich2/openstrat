@@ -48,7 +48,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
   override def xyScale(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.xyScale(xOperand, yOperand), facets, children.xyScale(xOperand, yOperand) )
 
-  override def slateTo(newCen: Pt2): RectCompound = RectCompound(shape.slateTo(newCen), facets, children.slate(newCen - cen))
+  override def slateTo(newCen: Pt2): RectCompound = RectCompound(shape.slateTo(newCen), facets, children.slate(newCen -*- cen))
 }
 
 object RectCompound

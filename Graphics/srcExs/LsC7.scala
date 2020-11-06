@@ -65,14 +65,14 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
 
   /* test to see if drag operation has started. if the mouseDown is on one of the represented bezier points then set theDragee to its corresponding
    option */
-  canv.mouseDown = (position, _) => theDragee = allBezierPoints.find(i => (i.loc - position).magnitude <= circleRadius)
+  canv.mouseDown = (position, _) => theDragee = allBezierPoints.find(i => (i.loc -*- position).magnitude <= circleRadius)
 
   // When a point is being dragged update the corresponding bezier point with its new position and then redraw the screen.
   canv.mouseDragged = (position, button) => theDragee match
   { case Some(drag) if (drag == startPoint) => drag.loc = position; controlStart.loc = drag.loc +  controlStartOffset; drawBezier()
     case Some(drag) if (drag == endPoint) => drag.loc = position; controlEnd.loc = drag.loc +  controlEndOffset; drawBezier()
-    case Some(drag) if (drag == controlStart) => drag.loc = position; controlStartOffset = drag.loc - startPoint.loc; drawBezier()
-    case Some(drag) if (drag == controlEnd) => drag.loc = position; controlEndOffset = drag.loc - endPoint.loc; drawBezier()
+    case Some(drag) if (drag == controlStart) => drag.loc = position; controlStartOffset = drag.loc -*- startPoint.loc; drawBezier()
+    case Some(drag) if (drag == controlEnd) => drag.loc = position; controlEndOffset = drag.loc -*- endPoint.loc; drawBezier()
     case Some(drag) => drag.loc = position; drawBezier() 
     case _ => theDragee = None
   }

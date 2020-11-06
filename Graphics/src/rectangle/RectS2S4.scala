@@ -9,9 +9,9 @@ trait RectS2S4 extends Rectangle
   final override def cen: Pt2 = s3Cen mid s1Cen
   final override def xCen: Double = cen.x
   final override def yCen: Double = cen.y
-  final override def width1: Double = (s2Cen - s4Cen).magnitude
+  final override def width1: Double = (s2Cen -*- s4Cen).magnitude
   final def rotationRadians: Double = rotation.radians
-  @inline final override def rotation: Angle = (s2Cen - s4Cen).angle
+  @inline final override def rotation: Angle = (s2Cen -*- s4Cen).angle
   final override def v1: Pt2 = s2Cen + Pt2(0, width2 / 2).rotate(rotation)
   final override def x1: Double = v1.x
   final override def y1: Double = v1.y

@@ -8,9 +8,9 @@ trait ArcLikeOld extends CurveSeg
 { def xCen: Double
   def yCen: Double
   def pCen: Pt2 = Pt2(xCen, yCen)
-  def radius: Double = (pEnd - pCen).magnitude
-  def startAngle: Angle = (pStart - pCen).angle
-  def endAngle: Angle = (pEnd - pCen).angle
+  def radius: Double = (pEnd -*- pCen).magnitude
+  def startAngle: Angle = (pStart -*- pCen).angle
+  def endAngle: Angle = (pEnd -*- pCen).angle
   def deltaAngle: Angle = startAngle.angleTo(endAngle)
 
   def controlPt: Pt2 =

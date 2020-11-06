@@ -85,7 +85,7 @@ object HexGridOld
   def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.pMap(tileCood + _)
 
   def sideCoodToLineRel(sideCood: Cood, scale: Double, relPosn: Pt2 = Vec2Z): LineSeg =
-    sideCoodToCoodLine(sideCood).toLine2(c => (coodToVec2(c) -relPosn) * scale)
+    sideCoodToCoodLine(sideCood).toLine2(c => (coodToVec2(c) -*-relPosn) * scale)
 
   def sideCoodToLine(sideCood: Cood): LineSeg = sideCoodToCoodLine(sideCood).toLine2(coodToVec2)
   def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.xi, sideCood.yi)
@@ -94,7 +94,7 @@ object HexGridOld
   def sideCoodToCoodLine(x: Int, y: Int): CoodLine = fOrientation(x, y, CoodLine(x - 1, y, x + 1, y), CoodLine(x, y + 1, x, y - 1),
     CoodLine(x + 1, y, x - 1, y))
 
-  def coodToVec2Rel(cood: Cood, relPosn: Pt2): Pt2 = coodToVec2(cood.xi, cood.yi) -relPosn
+  def coodToVec2Rel(cood: Cood, relPosn: Pt2): Pt2 = coodToVec2(cood.xi, cood.yi) -*-relPosn
 
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
   def coodToVec2(cood: Cood): Pt2 = coodToVec2(cood.xi, cood.yi)

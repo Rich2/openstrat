@@ -125,7 +125,7 @@ object HexGrid
   def adjTilesOfTile(tileRoord: Roord): Roords = adjTileRoordsOfTile00.pMap(tileRoord + _)
 
   def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Pt2 = Vec2Z): LineSeg =
-    sideRoordToRoordLine(sideRoord).toLine2(c => (roordToVec2(c) -relPosn) * scale)
+    sideRoordToRoordLine(sideRoord).toLine2(c => (roordToVec2(c) -*-relPosn) * scale)
 
   def sideRoordToLine(sideRoord: Roord): LineSeg = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
@@ -156,7 +156,7 @@ object HexGrid
   def sideRoordToLineEndRoords(y: Int, c: Int): (Roord, Roord) = sideOrient(y, c, (y rr c - 1, y rr c + 1), (y + 1 rr c, y - 1 rr c),
     (y rr c + 1, y rr c - 1))
 
-  def roordToVec2Rel(roord: Roord, relPosn: Pt2): Pt2 = roordToVec2(roord.y, roord.c) -relPosn
+  def roordToVec2Rel(roord: Roord, relPosn: Pt2): Pt2 = roordToVec2(roord.y, roord.c) -*-relPosn
 
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
   def roordToVec2(roord: Roord): Pt2 = roordToVec2(roord.y, roord.c)

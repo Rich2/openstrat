@@ -12,7 +12,7 @@ package e1
     def turn(cmd: TurnCmd): GameState = cmd match
     {
       case Move(toPosn) =>
-      { val diff = toPosn  - posn
+      { val diff = toPosn  -*- posn
         val len = diff.magnitude
         val max = 150
         val newPosn = ife(len > max, posn + toPosn * max / len, toPosn)

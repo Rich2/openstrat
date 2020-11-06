@@ -124,7 +124,7 @@ object Rectangle
   def fromAxis(centreLine: LineSeg, height: Double): PolygonImp =
   { val hAngle: Angle = centreLine.angle
     val offset: Pt2 = hAngle.toVec2(height * 0.5)
-    PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
+    PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd -*- offset, centreLine.pStart -*- offset)
   }
 
   implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Vec2Like) => obj.slate(offset)

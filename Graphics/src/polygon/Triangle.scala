@@ -53,7 +53,7 @@ trait Triangle extends Polygon3Plus
 
 	override def xShear(operand: Double): Triangle = fTrans(_.xShear(operand))
 	override def yShear(operand: Double): Triangle = fTrans(_.yShear(operand))
-	override def slateTo(newCen: Pt2): Triangle = fTrans(_ + newCen - cen)
+	override def slateTo(newCen: Pt2): Triangle = fTrans(_ + newCen -*- cen)
 
 	override def xVert(index: Int): Double = index match
 	{	case 1 => x1

@@ -35,7 +35,7 @@ case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More sh
 
     /** this holds the syntax required to draw the current bezier (bez) (NB: replace ; with , ) */
     //val txt = TextGraphic("BezierDraw(" + p1.v + ", " + c1.v + ", " + c2.v + ", " + p2.v + ", 2, Green)", 18, 0 vv 300)
-    val circ = Circle((cCen.v - cRad.v).magnitude, cCen.v).draw(Blue, 2.0)
+    val circ = Circle((cCen.v -*- cRad.v).magnitude, cCen.v).draw(Blue, 2.0)
     val ell = Ellipse(200, 100).fill(SeaGreen)
 
     val elementsToPaint = cds ++ Arr(cl1, cl2, ell, circ, ell)
@@ -45,7 +45,7 @@ case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More sh
 
   /* test to see if drag operation has started. if the mouseDown is on one of the represented bezier points then set theDragee to its corresponding
    option */
-  canv.mouseDown = (position, _) => theDragee = pts.find(i => (i.v - position).magnitude <= circleRadius)
+  canv.mouseDown = (position, _) => theDragee = pts.find(i => (i.v -*- position).magnitude <= circleRadius)
 
   // When a point is being dragged update the correspondin bezier point with its new position and then redraw the screen. */
   canv.mouseDragged = (position, button) => theDragee match
