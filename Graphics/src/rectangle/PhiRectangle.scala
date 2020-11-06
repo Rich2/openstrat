@@ -32,7 +32,7 @@ trait PhiRectangle extends Rectangle
 
   override def rotate(angle: Angle): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
 
-  override def slateTo(newCen: Pt2): PhiRectangle = slate(newCen -*- cen)
+  override def slateTo(newCen: Pt2): PhiRectangle = slate(newCen.vecFrom(cen))
 }
 
 /** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that
@@ -53,7 +53,7 @@ object PhiRectangle
     override def yCen: Double = (yS1Cen + yS1Cen) / 2
     override def s1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
     override def s3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
-    override def width2: Double = (s1Cen -*- s3Cen).magnitude
+    override def width2: Double = s1Cen.distTo(s3Cen)
     override def rotation: Angle = (s1Cen -*- s3Cen).angle - Deg90
     override def v1: Pt2 = s1Cen + Pt2(width2 / 2, 0).rotate(rotation)
     override def x1: Double = v1.x
