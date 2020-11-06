@@ -65,10 +65,10 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     case xl: XLine => reflectXLine(xl)
     case yl: YLine => reflectYLine(yl)
     case r: Ray => ???
-    case lineSeg: LineSeg => {
-      val v1 = lineSeg.pStart
+    case lineSeg: LineSeg =>
+    { val v1 = lineSeg.pStart
       val v2 = lineSeg.pEnd
-      val lineDelta = v2 -*- v1
+      val lineDelta = v2.vecFrom(v1)
       val lineUnitVector = lineDelta / lineDelta.magnitude
       val r1 = v1 -*- this
       val r2 = r1 -*- 2 * (v1 -*- this).dot(lineUnitVector) * lineUnitVector
