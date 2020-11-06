@@ -16,12 +16,12 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
   /** control point for start point */
   val controlStart = DragCircle(-250 pp -250, Gray)
 
-  var controlStartOffset = 0 pp -250
+  var controlStartOffset = 0 vv -250
 
   /** control point for end point */
   val controlEnd = DragCircle(-50 pp 150, Gray)
 
-  var controlEndOffset = 0 pp 150
+  var controlEndOffset = 0 vv 150
   
   val bezierPoints = Arr(startPoint, endPoint, controlStart, controlEnd)
 
@@ -71,8 +71,8 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
   canv.mouseDragged = (position, button) => theDragee match
   { case Some(drag) if (drag == startPoint) => drag.loc = position; controlStart.loc = drag.loc +  controlStartOffset; drawBezier()
     case Some(drag) if (drag == endPoint) => drag.loc = position; controlEnd.loc = drag.loc +  controlEndOffset; drawBezier()
-    case Some(drag) if (drag == controlStart) => drag.loc = position; controlStartOffset = drag.loc -*- startPoint.loc; drawBezier()
-    case Some(drag) if (drag == controlEnd) => drag.loc = position; controlEndOffset = drag.loc -*- endPoint.loc; drawBezier()
+    case Some(drag) if (drag == controlStart) => drag.loc = position; controlStartOffset = drag.loc.vecFrom(startPoint.loc); drawBezier()
+    case Some(drag) if (drag == controlEnd) => drag.loc = position; controlEndOffset = drag.loc.vecFrom(endPoint.loc); drawBezier()
     case Some(drag) => drag.loc = position; drawBezier() 
     case _ => theDragee = None
   }
