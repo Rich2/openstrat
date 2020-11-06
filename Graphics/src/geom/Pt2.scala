@@ -28,7 +28,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def vecTo(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
 
   /** Gives the positive scalar distance between this and the operand Vec2. */
-  def distTo(operand: Pt2): Double = (operand -*- this).magnitude
+  def distTo(operand: Pt2): Double = vecTo(operand).magnitude
 
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
   def mid(point2: Pt2): Pt2 = (this + point2) / 2
