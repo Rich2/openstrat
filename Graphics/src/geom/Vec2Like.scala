@@ -10,8 +10,7 @@ trait Vec2Like extends Any
   def yScale(factor: Double): Vec2Like
   def xScale(factor: Double): Vec2Like
   def xyScale(xOperand: Double, yOperand: Double): Vec2Like
-
- // def unary_- : Vec2Like
+  
   @inline def *(factor: Double): Vec2Like
   @inline def /(divisor: Double): Vec2Like
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
@@ -27,10 +26,10 @@ trait Vec2Like extends Any
   def rotate(a: Angle): Vec2Like
 
   /** The dot product of this and the operand vector. */
-  @inline def dot(operand: Pt2): Double = x * operand.x + y * operand.y
+  @inline def dot(operand: Vec2Like): Double = x * operand.x + y * operand.y
 
   /** The magnitude of this vector2Like. */
-  def magnitude = math.sqrt(x * x + y * y)
+  def magnitude: Double = math.sqrt(x * x + y * y)
 
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle.radians(angleRadians)

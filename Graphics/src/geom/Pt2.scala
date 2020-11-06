@@ -15,11 +15,17 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Adds this Vector to a second 2 dimensional vector. */
   def +(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
 
+  /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a [[Pt2]]. */
+  def -(operand: Vec2): Pt2 = Pt2(x - operand.x, y - operand.y)
+
   /** Subtracts the operand 2-idmensianl vecotr from this 2-dimensional vector. */
   @deprecated def -*-(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
 
-  /** Subtracts the operand 2D point from this 2D point. Returns a [[Vec2]]. */
-  def -(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
+  /** Subtracts the operand 2D point from this 2D point to get the relative Vector. Returns a [[Vec2]]. */
+  def vecFrom(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
+
+  /** Subtracts this 2D point from the operand 2D point to get the relative Vector. Returns a [[Vec2]]. */
+  def vecTo(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
 
   /** Gives the positive scalar distance between this and the operand Vec2. */
   def distTo(operand: Pt2): Double = (operand -*- this).magnitude
@@ -133,7 +139,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Rotates this vector through the given angle around the centre of rotation passed as the first parameter. */
   def rotateAbout(centre: Pt2, a: Angle): Pt2 =
   {
-    val rel: Vec2 = this - centre
+    val rel: Vec2 = this vecFrom centre
     val rel2: Vec2 = a match {
       case Deg0 => rel
       case Deg90 => rel.rotate90
@@ -181,8 +187,7 @@ object Pt2
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Dist): Dist2 = Dist2(thisPt.x * operand, thisPt.y * operand)
 
-    /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a [[Pt2]]. */
-    def -(operand: Vec2): Pt2 = Pt2(thisPt.x - operand.x, thisPt.y - operand.y)
+
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))
