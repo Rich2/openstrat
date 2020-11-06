@@ -18,8 +18,8 @@ trait AlignedElem
   def brOffset: Vec2 = bottomRight.vecFrom(cen)
 
   def bottomLeft: Pt2
-  def bottomLeftDelta: Pt2 = bottomLeft -*- cen
+  def blOffset: Vec2 = bottomLeft.vecFrom(cen)
   def topLeft: Pt2
-  def topLeftDelta: Pt2 = topLeft -*- cen
+  def tlOffset: Vec2 = topLeft.vecFrom(cen)
   //def topCen: Vec2
 }
