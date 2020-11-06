@@ -10,11 +10,6 @@ trait GraphicParentFull extends GraphicAffineElem with GraphicActiveAffine
 
   /** The type of children can probably be widened in the future. */
   def children: Arr[GraphicAffineElem]
-  
-  def topLeft: ThisT = this.slate(- boundingRect.topLeft)
-  def topRight: ThisT = this.slate(- boundingRect.topRight)
-  def bottomLeft: ThisT = this.slate(- boundingRect.bottomLeft)
-  def bottomRight: ThisT = this.slate(- boundingRect.bottomRight)
 
   def addElems(newElems: Arr[GraphicAffineElem]): ThisT
   def addElem(newElem: GraphicAffineElem): ThisT = addElems(Arr(newElem))
