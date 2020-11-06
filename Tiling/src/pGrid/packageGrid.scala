@@ -67,7 +67,7 @@ package object pGrid
 
   implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGrid, ev: TransSim[T])
   {
-    def gridTrans(offset: Pt2, scale: Double): T =
+    def gridTrans(offset: Vec2, scale: Double): T =
     { val a = ev.slate(value, -offset - grid.cenVec)
       ev.scale(a, scale)
     }
