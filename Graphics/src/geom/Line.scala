@@ -58,9 +58,10 @@ sealed case class YLine(xFactor: Double, offset: Double) extends Line
   override def reflectPt(pt: Pt2): Pt2 =
   {
     val v2: Pt2 = Pt2(1, xFactor + offset)
-    val lineDelta: Pt2 = v2 -*- yIntersection
-    val lineUnitVector = lineDelta / lineDelta.magnitude
-    2 * yIntersection -*- pt -*- 2 * (yIntersection -*- pt).dot(lineUnitVector) * lineUnitVector
+    val lineDelta: Vec2 = yIntersection.vecTo(v2)
+    val lineUnitVector: Vec2 = lineDelta / lineDelta.magnitude
+    val r1: Vec2 = pt.vecTo(yIntersection) - 2 * pt.vecTo(yIntersection).dot(lineUnitVector) * lineUnitVector
+    yIntersection + r1
   }
 }
 
