@@ -70,7 +70,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
       val v2 = lineSeg.pEnd
       val lineDelta = v2 -*- v1
       val lineUnitVector = lineDelta / lineDelta.magnitude
-      2 * v1 -*- this -*- 2 * (v1 -*- this).dot(lineUnitVector) * lineUnitVector
+      val r1 = v1 -*- this
+      val r2 = r1 -*- 2 * (v1 -*- this).dot(lineUnitVector) * lineUnitVector
+      v1 + r2
     }
   }
 

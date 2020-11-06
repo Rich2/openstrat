@@ -81,7 +81,8 @@ package object geom
   }
 
   implicit class DoubleImplicit(thisDouble: Double)
-  { def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
+  { @deprecated def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
+    def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
     def metres: Dist = new Dist(thisDouble)
   }
 
