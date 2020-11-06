@@ -3,11 +3,12 @@ package ostrat
 package prid
 import geom._
 
-/** A coordinate in a TileGrid.Not sure how useful this trait is. */
+/** A coordinate in a TileGrid. Not sure how useful this trait is. */
 trait TCoord extends Any
 { def r: Int
   def c: Int
-  def toPt2: Pt2
+  //def toPt2: Pt2
+  def toVec: Vec2
   def typeStr: String
   def rcStr: String = s"$r, $c"
   def parenthStr: String = rcStr.enParenth

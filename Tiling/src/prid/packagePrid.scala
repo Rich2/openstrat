@@ -16,13 +16,13 @@ package object prid
   {
     /** Translates Vec2s relative to Grid centre and then scales. */
     def gridScale(scale: Double): T =
-    { val a = evSlate.slateT(value, - grid.cenPt)
+    { val a = evSlate.slateT(value, - grid.cenVec)
       evScale.scaleT(a, scale)
     }
 
     /** Translates Vec2s relative to focus and then scales. */
-    def gridRoordScale(focus: TCoord, scale: Double): T =
-    { val a = evSlate.slateT(value, - focus.toPt2)
+    def gridCoordScale(focus: TCoord, scale: Double): T =
+    { val a = evSlate.slateT(value, - focus.toVec)
       evScale.scaleT(a, scale)
     }
   }
