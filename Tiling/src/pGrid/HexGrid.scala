@@ -14,7 +14,7 @@ trait HexGrid extends TileGrid
   /** The c delta between tiles. */
   def cStep: Int = 4
 
-  override def roordToVec2(roord: Roord): Pt2 = HexGrid.roordToVec2(roord)
+  override def roordToPt2(roord: Roord): Pt2 = HexGrid.roordToVec2(roord)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
   def roordCen = Pt2(cCen, yCen)
   //def xRatio: Double = HexGrid.xRatio
@@ -35,11 +35,11 @@ trait HexGrid extends TileGrid
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolygonActive] = map{ roord =>
     val vcs = tileVertRoords(roord)
-    val vvs = vcs.map(r => roordToVec2(r))
+    val vvs = vcs.map(r => roordToPt2(r))
     vvs.toPolygon.active(roord.toHexTile)
   }
 
-  def roordOffToVec2(rd: RoordOff): Pt2 = rd.toVec2(roordToVec2)
+  def roordOffToVec2(rd: RoordOff): Pt2 = rd.toVec2(roordToPt2)
 
   /** Gives a Coods Seq of Cood along a horisonatal line */
   def SidesHorr(y: Int, xStart: Int, xEnd : Int): Roords =
@@ -104,7 +104,7 @@ trait HexGrid extends TileGrid
     //val vTop: Vec2 = roordToVec2(topEnd)
     //val vBottom: Vec2 = roordToVec2(bottomEnd)
     val (o1, o2, o3, o4) = HexGrid.sideRoordToRoordOffs(sr)
-    Arr(o1, o2, o4, o3).map(_.toVec2(roordToVec2)).toPolygon
+    Arr(o1, o2, o4, o3).map(_.toVec2(roordToPt2)).toPolygon
   }
 }
 

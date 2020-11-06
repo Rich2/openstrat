@@ -22,7 +22,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
    *  those moves. This data is state for the Gui. */
   var moves: HexArrOpt[HCAndStep] = NoMoves
 
-  def lunits = players.mapSomeWithHCens{ (hc, p) => Rect(0.9, 0.6, hc.toVec2).fillDrawTextActive(p.colour, HPlayer(p, hc),
+  def lunits = players.mapSomeWithHCens{ (hc, p) => Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc),
     p.toString + "\n" + hc.rcStr, 24, 2.0) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */

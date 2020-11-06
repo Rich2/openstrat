@@ -141,7 +141,7 @@ trait TileGrid
   final def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, PolygonImp) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
     map { roord =>
       val vcs = tileVertRoords(roord)
-      val vvs = vcs.map(c => roordToVec2(c))
+      val vvs = vcs.map(c => roordToPt2(c))
       f(roord, vvs.toPolygon)
     }
 
@@ -175,10 +175,10 @@ trait TileGrid
   /** New immutable Arr of Side Boolean data. */
   final def newTileBooleans: TileBooleans = new TileBooleans(new Array[Boolean](numOfTiles))
 
-  def cenRoordTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] = map(r => TextGraphic(r.ycStr, roordToVec2(r), textSize, colour))
+  def cenRoordTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] = map(r => TextGraphic(r.ycStr, roordToPt2(r), textSize, colour))
 
   final def cenRoordIndexTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] =
-    iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToVec2(r), textSize))
+    iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToPt2(r), textSize))
 
   /** Quick method to give the Tile, Side and Vertex Roord Text Grahics. */
   final def cenSideVertRoordText: Arr[GraphicAffineElem] = cenRoordTexts() ++ sideRoordTexts() ++ vertRoordTexts()
@@ -190,10 +190,10 @@ trait TileGrid
   def setTile[A](roord: Roord, value: A)(implicit arr: ArrBase[A]): Unit = arr.unsafeSetElem(arrIndex(roord), value)
 
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
-  def roordToVec2(roord: Roord): Pt2
+  def roordToPt2(roord: Roord): Pt2
 
   /** Converts Roord, input as y and components, to a Vec2. For a square grid this will be a simple 1 to 1 map. */
-  def roordToVec2(y: Int, c: Int): Pt2 = roordToVec2(y rr c)
+  def roordToPt2(y: Int, c: Int): Pt2 = roordToPt2(y rr c)
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
@@ -204,9 +204,9 @@ trait TileGrid
   @inline def arrIndex(y: Int, c: Int): Int
 
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
-  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Pt2 = Vec2Z): Pt2 = (roordToVec2(roord) - gridPosn -cenPt) * scale
+  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Pt2 = Vec2Z): Pt2 = (roordToPt2(roord) - gridPosn -cenPt) * scale
 
-  def roordToPolygon(roord: Roord): Polygon = tileVertRoords(roord).map(c => roordToVec2(c)).toPolygon
+  def roordToPolygon(roord: Roord): Polygon = tileVertRoords(roord).map(c => roordToPt2(c)).toPolygon
 
   /** The Roords of the vertices of a tile, from its centre Roord. */
   def tileVertRoords(roord: Roord): Roords
@@ -251,7 +251,7 @@ trait TileGrid
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin - 1, yTileMax + 1)(f)
 
   def sideInnerRowForeach(f: Int => Unit) : Unit = iToForeach(yTileMin, yTileMax)(f)
-  
+
   /** foreachs over each Side's Roord in the given Row. Users will not normally need to access this method directly. */
   def rowForeachSide(y: Int)(f: Roord => Unit): Unit
 
@@ -285,14 +285,14 @@ trait TileGrid
 
   /** Side Roord to Line2 relative to a position on the grid and then scaled. */
   final def sideRoordToLine2(sideRoord: Roord): LineSeg =
-    sideRoordToRoordLine(sideRoord).toLine2(roord => roordToVec2(roord))
+    sideRoordToRoordLine(sideRoord).toLine2(roord => roordToPt2(roord))
 
   def sideRoordsOfTile(tileRoord: Roord): Roords
 
-  def sideRoordTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, roordToVec2(r), textSize, colour) }
+  def sideRoordTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, roordToPt2(r), textSize, colour) }
 
   def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
-    sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToVec2(r), textSize, colour))
+    sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToPt2(r), textSize, colour))
 
   /** The index from a Side Roord into an Arr of Side data. */
   def sideArrIndex(y: Int, c: Int): Int
@@ -331,10 +331,10 @@ trait TileGrid
 
   def vertRoords: Roords = vertsMap(r => r)
 
-  def vertRoordTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r => TextGraphic(r.ycStr, roordToVec2(r), fontSize, colour) }
+  def vertRoordTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r => TextGraphic(r.ycStr, roordToPt2(r), fontSize, colour) }
 
   def vertRoordIndexTexts(textSize: Int = 20, colour: Colour = Red): Arr[TextGraphic] =
-    vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToVec2(r), textSize, colour))
+    vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToPt2(r), textSize, colour))
 
   /** New immutable Arr of Side Boolean data. */
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))

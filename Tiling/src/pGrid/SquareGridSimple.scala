@@ -7,7 +7,7 @@ import geom._
 class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGrid
 {
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
-  override def roordToVec2(roord: Roord): Pt2 = Pt2(roord.c, roord.y)
+  override def roordToPt2(roord: Roord): Pt2 = Pt2(roord.c, roord.y)
   override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = SquareGrid.sideRoordToRoordLine(sideRoord)
   def tileRowLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).atMost0
   def numOfTileRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).atMost0
@@ -27,7 +27,7 @@ class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolygonActive] = map{ roord =>
     val vcs = tileVertRoords(roord)
-    val vvs = vcs.map(r => roordToVec2(r))
+    val vvs = vcs.map(r => roordToPt2(r))
     vvs.toPolygon.active(roord.toHexTile)
   }
 

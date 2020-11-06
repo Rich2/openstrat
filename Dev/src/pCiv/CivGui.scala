@@ -12,7 +12,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Ri
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val lunits = scen.lunits.gridHeadsMap { (roord, lu) =>
-    Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, roord.gridVec2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
+    Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, roord.gridPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
   }
 
   def thisTop(): Unit = reTop(Arr(status))

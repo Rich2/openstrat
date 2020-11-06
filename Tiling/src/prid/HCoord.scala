@@ -5,7 +5,7 @@ import geom._
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
-{ def toVec2: Pt2
+{ def toPt2: Pt2
 
   override def equals(obj: Any): Boolean = obj match {
     case hc: HCoord if r == hc.r & c == hc.c => true
@@ -37,7 +37,7 @@ object HCoord
 }
 
 trait HCoordReg extends HCoord
-{ override def toVec2: Pt2 = Pt2(c / Sqrt3, r)
+{ override def toPt2: Pt2 = Pt2(c / Sqrt3, r)
 }
 
 /** A Hex side coordinate in a Hex Grid.

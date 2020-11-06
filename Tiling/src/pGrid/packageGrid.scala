@@ -48,8 +48,8 @@ package object pGrid
 
   implicit class GridTransAllExtension[T](value: T)(implicit grid: TileGrid, ev: AffineTrans[T])
   {
-    def gridRoordTrans(focus: Roord, scale: Double): T = value.trans(orig => (orig - focus.gridVec2) * scale)
-    def gridRoordTrans(yFocus: Int, cFocus: Int, scale: Double): T = value.trans(orig => (orig - grid.roordToVec2(yFocus, cFocus)) * scale)
+    def gridRoordTrans(focus: Roord, scale: Double): T = value.trans(orig => (orig - focus.gridPt2) * scale)
+    def gridRoordTrans(yFocus: Int, cFocus: Int, scale: Double): T = value.trans(orig => (orig - grid.roordToPt2(yFocus, cFocus)) * scale)
   }
   
   implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGrid, evSlate: Slate[T], evScale: Scale[T]) {
@@ -60,7 +60,7 @@ package object pGrid
     }
     /** Translates Vec2s relative to focus and then scales. */
     def gridRoordScale(focus: Roord, scale: Double): T =
-    { val a = evSlate.slateT(value, - focus.gridVec2)
+    { val a = evSlate.slateT(value, - focus.gridPt2)
       evScale.scaleT(a, scale)
     }
   }

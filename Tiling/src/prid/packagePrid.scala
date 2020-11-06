@@ -22,7 +22,7 @@ package object prid
 
     /** Translates Vec2s relative to focus and then scales. */
     def gridRoordScale(focus: TCoord, scale: Double): T =
-    { val a = evSlate.slateT(value, - focus.toVec2)
+    { val a = evSlate.slateT(value, - focus.toPt2)
       evScale.scaleT(a, scale)
     }
   }

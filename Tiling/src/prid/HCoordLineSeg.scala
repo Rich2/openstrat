@@ -13,7 +13,7 @@ case class HCoordLineSeg(r1: Int, c1: Int, r2: Int, c2: Int) //extends ProdInt4
 
   def coord1: HCoord = HCoord(r1, c1)
   def coord2: HCoord = HCoord(r2, c2)
-  def toLine2: LineSeg = LineSeg(coord1.toVec2, coord2.toVec2)
+  def toLine2: LineSeg = LineSeg(coord1.toPt2, coord2.toPt2)
 }
 
 object HCoordLineSeg

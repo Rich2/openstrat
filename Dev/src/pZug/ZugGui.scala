@@ -16,7 +16,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   }
 
   def lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
-    val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.gridVec2)
+    val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.gridPt2)
     val action: GraphicElems = squad.action match
     {
       case Move(rs) =>

@@ -8,7 +8,7 @@ case class GTwoGui(canv: CanvasPlatform, scen: TwoScen) extends CmdBarGui("Game 
   implicit val grid = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   def players: TilesArrOpt[Player] = scen.oPlayers
-  def lunits = players.mapSomeWithRoords{ (r, p) => Rect(0.9, 0.6, r.gridVec2).fillDrawTextActive(p.colour, RPlayer(p, r),
+  def lunits = players.mapSomeWithRoords{ (r, p) => Rect(0.9, 0.6, r.gridPt2).fillDrawTextActive(p.colour, RPlayer(p, r),
     p.toString + "\n" + r.ycStr, 24, 2.0) }
 
   var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."

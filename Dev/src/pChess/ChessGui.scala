@@ -14,7 +14,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Ch
     val yStr: String = ('A' + r.y / 2 - 1).toChar.toString
     val cStr: String = ('0' + r.c / 2).toChar.toString
     p.fillText(col, yStr + cStr, 20) }
-  val pieces = scen.pieces.mapSomeWithRoords((r, p) => p.piece().slate(r.gridVec2).fillDraw(p.player.colour, p.player.contrastBW))
+  val pieces = scen.pieces.mapSomeWithRoords((r, p) => p.piece().slate(r.gridPt2).fillDraw(p.player.colour, p.player.contrastBW))
 
   def bTurn = clickButtonOld("Turn ", _ => {
     repaint()
