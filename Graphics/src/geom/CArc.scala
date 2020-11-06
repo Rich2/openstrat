@@ -8,8 +8,8 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def fTrans(f: Pt2 => Pt2): CArc = ???
   def cen: Pt2 = xCen pp yCen
   
-  def startAngleRadians: Double = (pStart -*- cen).angleRadians
-  def startAngleRadiansPos: Double = (pStart -*- cen).angleRadiansPos
+  def startAngleRadians: Double = pStart.angleFrom(cen).radians
+  def startAngleRadiansPos: Double = pStart.vecFrom(cen).angleRadiansPos
   def startAngle: Angle = pStart.angleFrom(cen)
   def endAngleRadians: Double = startAngleRadians + deltaRadians
   def endAngleRadiansPos: Double = startAngleRadiansPos + deltaRadians
@@ -19,7 +19,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def midArcAngleRadians = startAngleRadians + deltaRadians / 2
   def midArcAngle = Angle.radians(midArcAngleRadians)
   def pMidArc: Pt2 = cen + midArcAngle.toVec2(radius)
-  def radius: Double = (pStart -*- cen).magnitude
+  def radius: Double = pStart.distTo(cen)
   def clock: Boolean = deltaRadians < 0
   def antiClock: Boolean = deltaRadians >= 0
   def detltaDegs = deltaRadians.radiansToDegs
