@@ -44,7 +44,7 @@ trait TGrid
   def xCen: Double
   def yCen: Double = (rTileMin + rTileMax) / 2
 
-  def cenPt: Pt2 = Pt2(xCen, yCen)
+  //def cenPt: Pt2 = Pt2(xCen, yCen)
   def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */

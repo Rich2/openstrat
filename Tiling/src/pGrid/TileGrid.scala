@@ -195,6 +195,16 @@ trait TileGrid
   /** Converts Roord, input as y and components, to a Vec2. For a square grid this will be a simple 1 to 1 map. */
   def roordToPt2(y: Int, c: Int): Pt2 = roordToPt2(y rr c)
 
+  /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
+  def roordToVec(roord: Roord): Vec2 =
+  { val r = roordToPt2(roord)
+    Vec2(r.x, r.y)
+  }
+
+  /** Converts Roord, input as y and components, to a Vec2. For a square grid this will be a simple 1 to 1 map. */
+  def roordToVec(y: Int, c: Int): Vec2 = roordToVec(y rr c)
+
+
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(r: Roord): Int = arrIndex(r.y, r.c)
