@@ -5,7 +5,7 @@ import math._
 
 /** A 3 dimensional vector, can be used to represent 3 dimensional points and translations of 3 dimensional points. Right-handed coordinate
  *  system is the default */
-final class Pt3(val x: Double, val y: Double, val z: Double) extends ProdDbl3
+final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like with ProdDbl3
 {
   override def toString: String = Pt3.PersistImplicit.show(this, 10)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
@@ -54,5 +54,5 @@ object Pt3
 { def apply(x: Double, y: Double, z: Double): Pt3 = new Pt3(x, y, z)
   def unapply(orig: Pt3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
-  implicit object PersistImplicit extends PersistD3[Pt3]("Vec3", "x", _.x, "y", _.y, "z", _.z, apply)
+  implicit object PersistImplicit extends PersistD3[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z, apply)
 }

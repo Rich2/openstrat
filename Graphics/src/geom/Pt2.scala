@@ -47,7 +47,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def addXY (otherX: Double, otherY: Double): Pt2 = Pt2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
-
   @inline def *(factor: Double): Pt2 = Pt2(x * factor, y * factor)
   @inline def /(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
@@ -106,6 +105,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def inverseY: Pt2 = Pt2(x, -y)
 
   def toTuple: Tuple2[Double, Double] = (x, y)
+
   def pp(z: Double): Pt3 = Pt3(x, y, z)
 
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */

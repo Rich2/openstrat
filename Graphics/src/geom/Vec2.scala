@@ -55,6 +55,8 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     case Deg270 => rotate270
     case a => Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
   }
+
+  def vv(z: Double): Vec3 = Vec3(x, y, z)
 }
 
 object Vec2
