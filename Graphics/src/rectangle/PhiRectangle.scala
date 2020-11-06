@@ -54,7 +54,7 @@ object PhiRectangle
     override def s1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
     override def s3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
     override def width2: Double = s1Cen.distTo(s3Cen)
-    override def rotation: Angle = (s1Cen -*- s3Cen).angle - Deg90
+    override def rotation: Angle = s1Cen.angleFrom(s3Cen) - Deg90
     override def v1: Pt2 = s1Cen + Pt2(width2 / 2, 0).rotate(rotation)
     override def x1: Double = v1.x
     override def y1: Double = v1.y

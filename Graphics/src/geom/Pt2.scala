@@ -30,6 +30,12 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Gives the positive scalar distance between this and the operand Vec2. */
   def distTo(operand: Pt2): Double = vecTo(operand).magnitude
 
+  /** Gives the angle from this point to the operand point. */
+  def angleTo(operand: Pt2): Angle = vecTo(operand).angle
+
+  /** Gives the anlge from the operand point to this point. */
+  def angleFrom(operand: Pt2): Angle = vecFrom(operand).angle
+
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
   def mid(point2: Pt2): Pt2 = (this + point2) / 2
 
@@ -117,8 +123,11 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** rotates the vector 90 degrees or Pi/2 radians, clockwise. */
   @inline def rotate270: Pt2 = Pt2(y, -x)
 
-  /** Line segment from this point to the parameter point. */
+  /** Line segment [[LineSeg]] from this point to the parameter point. */
   def lineTo(pt2: Pt2): LineSeg = LineSeg(this, pt2)
+
+  /** Line segment [[LineSeg]] from the parameter point to this point. */
+  def lineFrom(pt2: Pt2): LineSeg = LineSeg(pt2, this)
 
   /** Line segment from this point to along the given angle for the given magnitude to point 2. */
   def lineAlong(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))
