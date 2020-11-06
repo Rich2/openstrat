@@ -60,7 +60,7 @@ package object pGrid
     }
     /** Translates Vec2s relative to focus and then scales. */
     def gridRoordScale(focus: Roord, scale: Double): T =
-    { val a = evSlate.slateT(value, - focus.gridPt2)
+    { val a = evSlate.slateT(value, - focus.gridVec)
       evScale.scaleT(a, scale)
     }
   }
