@@ -43,11 +43,12 @@ trait TGrid
 
   def xCen: Double
   def yCen: Double = (rTileMin + rTileMax) / 2
-  def cen: Pt2 = Pt2(xCen, yCen)
+
+  def cenPt: Pt2 = Pt2(xCen, yCen)
+  def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(rTileMin, rTileMax, 2)(f)
-
 
   def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
   {

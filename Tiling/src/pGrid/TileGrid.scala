@@ -77,8 +77,11 @@ trait TileGrid
   /** The centre of the grid by the y coordinate. */
   def yCen: Double = (yTileMin + yTileMax) / 2.0
 
+  /** The centre point of the grid in Vec2 coordinates. */
+  def cenPt = Pt2(xCen, yCen)
+
   /** The centre of the grid in Vec2 coordinates. */
-  def cen = Pt2(xCen, yCen)
+  def cenVec = Vec2(xCen, yCen)
 
   /**************************************************************************************************/
   /* Methods that foreach, map, flatMap and fold over all the tiles of the tile grid. */
@@ -201,7 +204,7 @@ trait TileGrid
   @inline def arrIndex(y: Int, c: Int): Int
 
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
-  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Pt2 = Vec2Z): Pt2 = (roordToVec2(roord) - gridPosn -cen) * scale
+  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Pt2 = Vec2Z): Pt2 = (roordToVec2(roord) - gridPosn -cenPt) * scale
 
   def roordToPolygon(roord: Roord): Polygon = tileVertRoords(roord).map(c => roordToVec2(c)).toPolygon
 

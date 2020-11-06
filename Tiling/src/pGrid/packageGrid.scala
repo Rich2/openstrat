@@ -55,7 +55,7 @@ package object pGrid
   implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGrid, evSlate: Slate[T], evScale: Scale[T]) {
     /** Translates Vec2s relative to Grid centre and then scales. */
     def gridScale(scale: Double): T =
-    { val a = evSlate.slateT(value, - grid.cen)
+    { val a = evSlate.slateT(value, - grid.cenVec)
       evScale.scaleT(a, scale)
     }
     /** Translates Vec2s relative to focus and then scales. */
@@ -68,7 +68,7 @@ package object pGrid
   implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGrid, ev: TransSim[T])
   {
     def gridTrans(offset: Pt2, scale: Double): T =
-    { val a = ev.slate(value, -offset - grid.cen)
+    { val a = ev.slate(value, -offset - grid.cenVec)
       ev.scale(a, scale)
     }
   }
