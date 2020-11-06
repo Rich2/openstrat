@@ -72,13 +72,13 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   def arcCen: Pt2 = Pt2(xUses, yUses)
   
   /** Assuming this is Arc Segment */
-  def arcStartAngle(pStart: Pt2): Angle = (pStart -*- arcCen).angle
+  def arcStartAngle(pStart: Pt2): Angle = arcCen.angleTo(pStart)
   
   /** Assuming this is Arc Segment */
-  def arcEndAngle: Angle = (pEnd -*- arcCen).angle
+  def arcEndAngle: Angle = arcCen.angleTo(pEnd)
   
-  /** Assuming this is Arc Segment */
-  def arcRadius: Double = (pEnd -*- arcCen).magnitude
+  /** Assuming this is Arc Segment, not sure about this. */
+  def arcRadius: Double = pEnd.distTo(arcCen)
   
   /** Assuming this is Arc Segment */
   def arcControlPt(startPt: Pt2): Pt2 =
