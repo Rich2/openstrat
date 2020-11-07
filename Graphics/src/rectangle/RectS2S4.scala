@@ -9,19 +9,19 @@ trait RectS2S4 extends Rectangle
   final override def cen: Pt2 = s3Cen mid s1Cen
   final override def xCen: Double = cen.x
   final override def yCen: Double = cen.y
-  final override def width1: Double = (s2Cen -*- s4Cen).magnitude
-  final def rotationRadians: Double = rotation.radians
-  @inline final override def rotation: Angle = (s2Cen -*- s4Cen).angle
-  final override def v1: Pt2 = s2Cen + Pt2(0, width2 / 2).rotate(rotation)
+  final override def width1: Double = s4Cen.distTo(s2Cen)
+  final def rotationRadians: Double = alignAngle.radians
+  @inline final override def alignAngle: Angle = s4Cen.angleTo(s2Cen)
+  final override def v1: Pt2 = s2Cen + Pt2(0, width2 / 2).rotate(alignAngle)
   final override def x1: Double = v1.x
   final override def y1: Double = v1.y
-  final override def v2: Pt2 = s2Cen + Pt2(0, -width2 / 2).rotate(rotation)
+  final override def v2: Pt2 = s2Cen + Pt2(0, -width2 / 2).rotate(alignAngle)
   final override def x2: Double = v2.x
   final override def y2: Double = v2.y
-  @inline final def v3: Pt2 = s4Cen + Pt2(0, -width2 / 2).rotate(rotation)
+  @inline final def v3: Pt2 = s4Cen + Pt2(0, -width2 / 2).rotate(alignAngle)
   @inline final def x3: Double = v3.x
   @inline final def y3: Double = v3.y
-  @inline final def v4: Pt2 = s4Cen + Pt2(0, width2 / 2).rotate(rotation)
+  @inline final def v4: Pt2 = s4Cen + Pt2(0, width2 / 2).rotate(alignAngle)
   @inline final def x4: Double = v4.x
   @inline final def y4: Double = v4.y
 

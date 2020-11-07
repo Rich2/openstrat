@@ -12,7 +12,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
   @inline final override def y2: Double = yBottomRight
   @inline final override def v2: Pt2 = x2 pp y2
   @inline final override def cen: Pt2 = xCen pp yCen
-  override def rotation: Angle = 0.degs
+  override def alignAngle: Angle = 0.degs
   @inline final def x3: Double = xBottomLeft
   @inline final def y3: Double = yBottomLeft
   @inline final def v3: Pt2 = bottomLeft

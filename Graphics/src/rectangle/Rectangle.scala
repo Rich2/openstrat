@@ -21,7 +21,7 @@ trait Rectangle extends Polygon4Plus
 
   override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3, x4, y4)
 
-  def rotation: Angle
+  def alignAngle: Angle
   def widthAttrib: WidthAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
   def xAttrib: XAttrib = XAttrib(x4)
