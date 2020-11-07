@@ -10,7 +10,7 @@ final class Angle private(val secs: Double) extends AnyVal with AngleLike with P
   @inline override def dblValue: Double = secs
 
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
-  def toVec2(magnitude: Double): Pt2 = Pt2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
+  def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
   /** Gives the length of the circumference of the arc. */
   def arcLength(radius: Double): Double = radians * radius

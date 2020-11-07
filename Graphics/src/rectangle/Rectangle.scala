@@ -120,10 +120,9 @@ object Rectangle
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Vec2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
 
-
   def fromAxis(centreLine: LineSeg, height: Double): PolygonImp =
   { val hAngle: Angle = centreLine.angle
-    val offset: Pt2 = hAngle.toVec2(height * 0.5)
+    val offset = hAngle.toVec2(height * 0.5)
     PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd -*- offset, centreLine.pStart -*- offset)
   }
 

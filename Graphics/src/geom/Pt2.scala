@@ -193,7 +193,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 object Pt2
 { def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
-  def fromAngle(angle: Angle, scalar: Double = 1.0): Pt2 = angle.toVec2(scalar)
+  //def fromAngle(angle: Angle, scalar: Double = 1.0): Pt2 = angle.toVec2(scalar)
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Dist): Dist2 = Dist2(thisPt.x * operand, thisPt.y * operand)
