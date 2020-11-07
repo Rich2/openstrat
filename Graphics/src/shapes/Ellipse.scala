@@ -80,7 +80,7 @@ trait Ellipse extends Shape
   /** The h value of this ellipse. */
   def h: Double
 
-  def ellipeRotation: Angle
+  def alignAngle: Angle
 
   /** Eccentricity of ellipse. */
   def e: Double
@@ -132,7 +132,7 @@ object Ellipse
   def apply(radius1: Double, radius0: Double, cen: Pt2): Ellipse = new EllipseImp(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
 
   def cs1s0(cen: Pt2, v1: Pt2, v0: Pt2): EllipseImp =
-  { val radius0: Double = (v0 -*- cen).magnitude
+  { val radius0: Double = cen.distTo(v0)
     new EllipseImp(cen.x, cen.y, v1.x, v1.y, radius0)
   }
 
@@ -168,7 +168,7 @@ object Ellipse
     def xs3: Double = 2 * xCen - xs1
     def ys3: Double = 2 * yCen - ys1
 
-    override def radius1: Double = (s1 -*- cen).magnitude
+    override def radius1: Double = cen.distTo(s1)
 
     def a: Double = radius1.max(radius0)
     def b: Double = radius1.min(radius0)
@@ -177,14 +177,14 @@ object Ellipse
     override def h: Double = (a - b).squared / (a + b).squared
 
     def boundingRect: BoundingRect =
-    { val xd0: Double = radius1.squared * (ellipeRotation.cos).squared + radius0.squared * (ellipeRotation.sin).squared
+    { val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius0.squared * (alignAngle.sin).squared
       val xd = xd0.sqrt
-      val yd0: Double = radius1.squared * (ellipeRotation.sin).squared + radius0.squared * (ellipeRotation.cos).squared
+      val yd0: Double = radius1.squared * (alignAngle.sin).squared + radius0.squared * (alignAngle.cos).squared
       val yd = yd0.sqrt
       BoundingRect(xCen - xd, xCen + xd, yCen - yd, yCen + yd)
     }
 
-    override def ellipeRotation: Angle = (s1 -*- cen).angle
-    def s0Angle = ellipeRotation + 90.degs
+    override def alignAngle: Angle = cen.angleTo(s1)
+    def s0Angle = alignAngle + 90.degs
   }
 }

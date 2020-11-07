@@ -10,7 +10,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   { val v1: Pt2 = cen.addX(radius)
     val newV1: Pt2 = f(v1)
     val newCen = f(cen)
-    val newRadius = (newV1 -*- newCen).magnitude
+    val newRadius = newCen.distTo(newV1)
     Circle(newRadius * 2, newCen)
   }
   
@@ -80,7 +80,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   
   def rAttrib: XANumeric = XANumeric("r", radius)
   override def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
-  override def ellipeRotation: Angle = 0.degs
+  override def alignAngle: Angle = 0.degs
 
   private[this] def rr2: Double = diameter * 2.sqrt
   override def topRight: Pt2 = Pt2(rr2, rr2)
