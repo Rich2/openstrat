@@ -25,8 +25,6 @@ object SquareGrid
   object Lt extends PathDirn
   object Up extends PathDirn
   object Dn extends PathDirn
-  def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Pt2): LineSeg =
-    sideRoordToRoordLine(sideRoord).toLine2(r => (Pt2(r.c, r.y) -*-relPosn) * scale)
 
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
 
