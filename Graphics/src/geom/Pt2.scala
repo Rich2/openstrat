@@ -189,7 +189,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 }
 
-/** Companion object for Vec2. contains Apply factory method. */
+/** Companion object for Pt2. contains Apply factory method. */
 object Pt2
 { def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
@@ -197,8 +197,6 @@ object Pt2
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Dist): Dist2 = Dist2(thisPt.x * operand, thisPt.y * operand)
-
-
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))
