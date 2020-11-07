@@ -83,7 +83,7 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
   }
 }
 
-/** An infinite length 2 dimensional straight line that is parrael to the X Axis. It is defined for all values of Y, but for only 1 value of X. */
+/** An infinite length 2 dimensional straight line that is parallel to the X Axis. It is defined for all values of Y, but for only 1 value of X. */
 sealed class YParallel(offset: Double) extends YLine(0, offset )
 
 /** An infinite length 2 dimensional straight line that is parrael to the X Axis. It is defined for all values of X, but for only 1 value of Y. */

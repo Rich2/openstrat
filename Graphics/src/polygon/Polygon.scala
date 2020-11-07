@@ -148,7 +148,7 @@ trait Polygon extends Shape with BoundedElem
    *  */
   override def yShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
-  override def slateTo(newCen: Pt2): Polygon = polygonMap(_ + newCen -*- cen)
+  override def slateTo(newCen: Pt2): Polygon = polygonMap(_ + cen.vecTo(newCen))
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs = if (vertsNum > 1)
@@ -159,7 +159,7 @@ trait Polygon extends Shape with BoundedElem
   }
   else LineSegs()
 
-  /** Determines if the parenter point lies inside this Polygon. */
+  /** Determines if the parameter point lies inside this Polygon. */
   def ptInside(pt: Pt2): Boolean = toLineSegs.ptInPolygon(pt)
 
   def polyCentre: Pt2 = boundingRect.cen

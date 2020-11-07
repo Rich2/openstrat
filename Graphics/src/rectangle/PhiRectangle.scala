@@ -93,7 +93,7 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def slateTo(newCen: Pt2): PhiRect = slate(newCen -*- cen)
+  override def slateTo(newCen: Pt2): PhiRect = slate(cen.vecTo(newCen))
 }
 
 object PhiRect
@@ -122,7 +122,7 @@ case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with
 
   override def prolign(matrix: ProlignMatrix): PhiRectY = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def slateTo(newCen: Pt2): PhiRectY = slate(newCen -*- cen)
+  override def slateTo(newCen: Pt2): PhiRectY = slate(cen.vecTo(newCen))
 }
 
 object PhiRectY
