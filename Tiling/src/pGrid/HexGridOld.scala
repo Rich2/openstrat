@@ -92,9 +92,9 @@ object HexGridOld
     CoodLine(x + 1, y, x - 1, y))
 
   /** Used for regular HexGrids and the regular aspect of irregular Hexgrids */
-  def coodToVec2(cood: Cood): Pt2 = coodToVec2(cood.xi, cood.yi)
+  def coodToVec2(cood: Cood): Pt2 = coodToPt2(cood.xi, cood.yi)
 
-  def coodToVec2(c: Int, y: Int): Pt2 =
+  def coodToPt2(c: Int, y: Int): Pt2 =
   { def x: Double = c * xRatio
     (c %% 4, y %% 4) match
     { case (xr, yr) if yr.isEven && xr.isEven => Pt2(x, y)
@@ -102,6 +102,17 @@ object HexGridOld
     case (xr, yr) if xr.isOdd  && yr.isOdd => Pt2(x, y)
     case (0, 1) | (2, 3)  =>  Pt2(x, y + yDist /2)
     case _ => Pt2(x, y - yDist / 2)
+    }
+  }
+
+  def coodToVec2(c: Int, y: Int): Vec2 =
+  { def x: Double = c * xRatio
+    (c %% 4, y %% 4) match
+    { case (xr, yr) if yr.isEven && xr.isEven => Vec2(x, y)
+    case (_, yr) if yr.isEven => throw new Exception("Hex Cood " + c.toString -- y.toString + ", y is even but x is odd. This is an invalid HexCood")
+    case (xr, yr) if xr.isOdd  && yr.isOdd => Vec2(x, y)
+    case (0, 1) | (2, 3)  =>  Vec2(x, y + yDist /2)
+    case _ => Vec2(x, y - yDist / 2)
     }
   }
 
