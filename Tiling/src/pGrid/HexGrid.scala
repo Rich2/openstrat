@@ -124,9 +124,6 @@ object HexGrid
   val adjTileRoordsOfTile00: Roords = sideRoordsOfTile00.pMap(_ * 2)
   def adjTilesOfTile(tileRoord: Roord): Roords = adjTileRoordsOfTile00.pMap(tileRoord + _)
 
-  def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Pt2 = Vec2Z): LineSeg =
-    sideRoordToRoordLine(sideRoord).toLine2(c => (roordToVec2(c) -*-relPosn) * scale)
-
   def sideRoordToLine(sideRoord: Roord): LineSeg = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)
 
