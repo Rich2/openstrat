@@ -45,12 +45,6 @@ package object pGrid
   implicit class ArrayImplicit[A](thisArray: Array[A])
   { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, thisArray(grid.arrIndex(r)))}
   }
-
-  implicit class GridTransAllExtension[T](value: T)(implicit grid: TileGrid, ev: AffineTrans[T])
-  {
-    def gridRoordTrans(focus: Roord, scale: Double): T = value.trans(orig => (orig -*- focus.gridPt2) * scale)
-    def gridRoordTrans(yFocus: Int, cFocus: Int, scale: Double): T = value.trans(orig => (orig -*- grid.roordToPt2(yFocus, cFocus)) * scale)
-  }
   
   implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGrid, evSlate: Slate[T], evScale: Scale[T]) {
     /** Translates Vec2s relative to Grid centre and then scales. */
