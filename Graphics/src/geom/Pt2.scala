@@ -37,7 +37,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def angleFrom(operand: Pt2): Angle = vecFrom(operand).angle
 
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
-  def mid(point2: Pt2): Pt2 = (this + point2) / 2
+  def mid(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y) / 2
 
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
   def str0: String = strMod(_.str0)
@@ -186,7 +186,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     LineSegs.doubles(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 
-  def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
+  //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 }
 
 /** Companion object for Pt2. contains Apply factory method. */
