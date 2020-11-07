@@ -22,7 +22,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
 
-  @inline override def slateTo(newCen: Pt2): Sqlign = slate(newCen -*- cen)
+  @inline override def slateTo(newCen: Pt2): Sqlign = slate(cen.vecTo(newCen))
 }
 
 /** Factory object for Sqlign class. A square aligned to the X and Y axes. */
