@@ -18,9 +18,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a [[Pt2]]. */
   def -(operand: Vec2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
-  /** Subtracts the operand 2-idmensianl vecotr from this 2-dimensional vector. */
-  @deprecated def -*-(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
-
   /** Changes the origin of the point to the new point. Subtractsing the X and Y components of the operand point from this point. */
   def originTo(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
