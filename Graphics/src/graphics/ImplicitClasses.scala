@@ -24,6 +24,7 @@ class DoubleImplicitGeom(thisDouble: Double)
 { /** Succinct syntax for creating 2 dimensional vectors, Vec2s from 2 numbers. Note the low precedence of this method relative to most numerical
       operators. */
   @inline def pp(y: Double): Pt2 = Pt2(thisDouble, y)
+  @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
   def km: Dist = Dist(thisDouble * 1000)
   def metre: Dist = Dist(thisDouble)
   def * (operator: Dist): Dist = Dist(thisDouble * operator.metres)
@@ -36,4 +37,7 @@ class DoubleImplicitGeom(thisDouble: Double)
   def west = Longitude.degs(-thisDouble)
   def north = Latitude.apply(thisDouble)
   def south = Latitude.apply(-thisDouble)
+  @deprecated def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
+  def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
+  def metres: Dist = new Dist(thisDouble)
 }

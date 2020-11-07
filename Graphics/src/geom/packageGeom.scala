@@ -80,12 +80,6 @@ package object geom
                 baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, posn, fontSize, colour, align, baseLine)
   }
 
-  implicit class DoubleImplicit(thisDouble: Double)
-  { @deprecated def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
-    def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
-    def metres: Dist = new Dist(thisDouble)
-  }
-
   implicit class DistImplicit(thisDist: Dist)
   {  def / (operand: Dist): Double = thisDist.metres / operand.metres
   }
