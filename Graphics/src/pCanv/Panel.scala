@@ -15,6 +15,7 @@ case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover
 
   /** The position of the centre of the Panel on the underlying canvas. */
   val clipCen: Pt2 = clipPoly.polyCentre
+  val clipVec: Vec2 = clipPoly.cenVec
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
 

@@ -163,6 +163,7 @@ trait Polygon extends Shape with BoundedElem
   def ptInside(pt: Pt2): Boolean = toLineSegs.ptInPolygon(pt)
 
   def polyCentre: Pt2 = boundingRect.cen
+  def cenVec: Vec2 = boundingRect.cenVec
 
   def sline(index: Int): LineSeg =
   { val startVertNum: Int = ife(index == 1, vertsNum, index - 1)

@@ -16,7 +16,8 @@ case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double) 
   def height = maxY - minY
   def xCen: Double = (minX + maxX) / 2
   def yCen: Double = (minY + maxY) / 2
-  def cen = Pt2((minX + maxX) / 2, (minY + maxY) /2)
+  def cen: Pt2 = Pt2((minX + maxX) / 2, (minY + maxY) /2)
+  def cenVec: Vec2 = Vec2((minX + maxX) / 2, (minY + maxY) /2)
   def toPolygon: Polygon = PolygonImp(minX pp maxY, maxX pp maxY, maxX pp minY, minX pp minY)
   def ptInside(pt: Pt2): Boolean = maxX > pt.x & pt.x > minX & maxY > pt.y & pt.y > minY
   def toRectangle: Polygon = PolygonImp(minX pp maxY, maxX pp maxY, maxX pp minY, minX pp minY)
