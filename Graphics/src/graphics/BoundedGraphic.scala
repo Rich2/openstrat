@@ -28,7 +28,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 /** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object BoundedGraphic
 {
-  implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[BoundedGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
@@ -36,9 +36,6 @@ object BoundedGraphic
   implicit val transAxesImplicit: ReflectAxes[BoundedGraphic] = new ReflectAxes[BoundedGraphic]
   { override def negYT(obj: BoundedGraphic): BoundedGraphic = obj.negY
     override def negXT(obj: BoundedGraphic): BoundedGraphic = obj.negX
-    /*override def rotate90T(obj: BoundedGraphic): BoundedGraphic = obj.rotate90
-    override def rotate180T(obj: BoundedGraphic): BoundedGraphic = obj.rotate180
-    override def rotate270T(obj: BoundedGraphic): BoundedGraphic = obj.rotate270*/
   }
 
   implicit val shearImplicit: Shear[BoundedGraphic] = new Shear[BoundedGraphic]

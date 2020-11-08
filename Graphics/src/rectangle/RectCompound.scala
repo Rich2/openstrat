@@ -41,7 +41,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
 object RectCompound
 {
-  implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
   implicit val XYScaleImplicit: XYScale[RectCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)

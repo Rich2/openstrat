@@ -48,7 +48,7 @@ object PolygonDraw
 {
   def apply (shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black): PolygonDraw = PolygonDrawImp(shape, lineWidth, lineColour)
 
-  implicit val slateImplicit: Slate[PolygonDraw] = (obj: PolygonDraw, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonDraw] = (obj: PolygonDraw, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonDraw] = (obj: PolygonDraw, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonDraw] = (obj: PolygonDraw, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonDraw] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

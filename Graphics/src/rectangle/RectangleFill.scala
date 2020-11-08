@@ -36,7 +36,7 @@ object RectangleFill
 {
   def apply(shape: Rectangle, colour: Colour): RectangleFill = RectangleFillImp(shape, colour)
 
-  implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[RectangleFill] = (obj: RectangleFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[RectangleFill] = (obj: RectangleFill, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)

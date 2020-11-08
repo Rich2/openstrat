@@ -72,7 +72,7 @@ object ShapeGraphic
     }
   }
   
-  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

@@ -74,7 +74,7 @@ object HexYlign
   def apply(height: Double, cen: Pt2 = Vec2Z): HexYlign = new HexYlign(height, cen.x, cen.y)
   def apply(height: Double, xCen: Double, yCen: Double): HexYlign = new HexYlign(height, xCen, yCen)
 
-  implicit val slateImplicit: Slate[HexYlign] = (obj: HexYlign, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[HexYlign] = (obj: HexYlign, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[HexYlign] = (obj: HexYlign, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexYlign] = (obj, matrix) => obj.prolign(matrix)
 }

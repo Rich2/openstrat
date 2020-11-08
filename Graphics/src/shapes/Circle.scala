@@ -107,7 +107,7 @@ object Circle extends ShapeIcon
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
   
-  implicit val slateImplicit: Slate[Circle] = (obj, offset) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Circle] = (obj, dx, dy) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)

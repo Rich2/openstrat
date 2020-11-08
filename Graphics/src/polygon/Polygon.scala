@@ -233,7 +233,7 @@ object Polygon
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
   }*/
 
-  implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)

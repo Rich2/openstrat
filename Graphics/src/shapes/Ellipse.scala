@@ -136,7 +136,7 @@ object Ellipse
     new EllipseImp(cen.x, cen.y, v1.x, v1.y, radius0)
   }
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, offset) => cs1s0(ell.cen + offset, ell.s1 + offset, ell.s0 + offset)
+  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => cs1s0(ell.cen.addXY(dx, dy), ell.s1.addXY(dx, dy), ell.s0.addXY(dx, dy))
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
 
   implicit val rotateImplicit: Rotate[Ellipse] =

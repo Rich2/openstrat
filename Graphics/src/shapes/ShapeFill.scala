@@ -47,7 +47,7 @@ trait ShapeFill extends ShapeGraphicSimple
 
 object ShapeFill
 {
-  implicit val slateImplicit: Slate[ShapeFill] = (obj: ShapeFill, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[ShapeFill] = (obj: ShapeFill, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeFill] = (obj: ShapeFill, angle : Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

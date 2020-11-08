@@ -61,7 +61,7 @@ object PolygonCompound
   def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
     new PolygonCompoundImp(shape, facets, children)
   
-  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)

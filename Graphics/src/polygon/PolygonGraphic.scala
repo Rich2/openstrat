@@ -52,7 +52,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
 object PolygonGraphic
 {
-  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

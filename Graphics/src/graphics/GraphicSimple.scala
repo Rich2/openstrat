@@ -48,7 +48,7 @@ trait GraphicSimple extends GraphicElem
 /** Companion object for the [[GraphicSimple]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicSimple
 {
-  implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
@@ -57,8 +57,5 @@ object GraphicSimple
   implicit val reflectAxesImplicit: ReflectAxes[GraphicSimple] = new ReflectAxes[GraphicSimple]
   { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
     override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
-    /*override def rotate90T(obj: GraphicSimple): GraphicSimple = obj.rotate90
-    override def rotate180T(obj: GraphicSimple): GraphicSimple = obj.rotate180
-    override def rotate270T(obj: GraphicSimple): GraphicSimple = obj.rotate270*/
   }  
 }

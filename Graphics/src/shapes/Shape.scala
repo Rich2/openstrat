@@ -64,7 +64,7 @@ trait Shape extends Fillable with BoundedElem
 /** Companion object for the [[Shape]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type classes. */
 object Shape
 {
-  implicit val slateImplicit: Slate[Shape] = (obj: Shape, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Shape] = (obj: Shape, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)

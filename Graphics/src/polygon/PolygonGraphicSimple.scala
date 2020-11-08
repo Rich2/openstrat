@@ -59,7 +59,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 /** Companion object for the PolygonGraphicSimple trait, contains implicit instances for the 2D geometric transformation classes. */
 object PolygonGraphicSimple
 {
-  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

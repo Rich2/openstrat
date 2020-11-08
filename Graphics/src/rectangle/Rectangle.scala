@@ -126,7 +126,7 @@ object Rectangle
     PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
-  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)

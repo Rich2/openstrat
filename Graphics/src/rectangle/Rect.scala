@@ -89,7 +89,7 @@ object Rect
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
   def cenV0(cen: Pt2, v0: Pt2): Rect = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
 
-  implicit val slateImplicit: Slate[Rect] = (obj: Rect, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
   implicit val slateToImplicit: SlateTo[Rect] = (obj: Rect, newCen: Pt2) => obj.slateTo(newCen)

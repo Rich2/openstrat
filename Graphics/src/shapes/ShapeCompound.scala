@@ -59,7 +59,7 @@ trait ShapeCompound extends ShapeGraphic
  *  and other containner classes. */
 object ShapeCompound
 {
-  implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: Angle) => obj.rotate(angle)
 

@@ -56,7 +56,7 @@ trait GraphicElem extends GeomElem
 /** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicElem
 {
-  implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, offset: Vec2Like) => obj.slate(offset)
+  implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, angle: Angle) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
