@@ -109,7 +109,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Vec2Like): Polygon = polygonMap(_ + offset)
+  //override def slate(offset: Vec2Like): Polygon = polygonMap(_ + offset)
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */

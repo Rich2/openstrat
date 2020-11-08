@@ -10,7 +10,7 @@ trait GraphicElem extends GeomElem
    def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
   
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
-  override def slate(offset: Vec2Like): GraphicElem
+  //override def slate(offset: Vec2Like): GraphicElem
 
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): GraphicElem

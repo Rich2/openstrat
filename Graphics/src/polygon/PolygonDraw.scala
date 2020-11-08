@@ -9,7 +9,7 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)  
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
-  override def slate(offset: Vec2Like): PolygonDraw = PolygonDraw(shape.slate(offset), lineWidth, lineColour)
+  //override def slate(offset: Vec2Like): PolygonDraw = PolygonDraw(shape.slate(offset), lineWidth, lineColour)
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
   override def slate(xOffset: Double, yOffset: Double): PolygonDraw = PolygonDraw(shape.slate(xOffset, yOffset), lineWidth, lineColour)

@@ -38,7 +38,7 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(offset: Vec2Like): Hexlign = Hexlign(dMin, cen + offset)
+  //override def slate(offset: Vec2Like): Hexlign = Hexlign(dMin, cen + offset)
 
   /** Translate geometric transformation on a Hexlign returns a Hexlign. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */

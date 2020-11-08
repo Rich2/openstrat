@@ -36,7 +36,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def h: Double = 0
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slate(offset: Vec2Like): Circle = Circle(diameter, cen + offset)
+  //override def slate(offset: Vec2Like): Circle = Circle(diameter, cen + offset)
 
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
@@ -53,15 +53,6 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def negY: Circle = Circle(diameter, cen.negY)
 
   override def negX: Circle = Circle(diameter, cen.negX)
-
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
-  /*override def rotate90: Circle = Circle(diameter, cen.rotate90)
-
-  /** Rotate 180 degrees 2D geometric transformation on a Circle, returns a Circle. */
-  override def rotate180: Circle = Circle(diameter, cen.rotate180)
-
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a Circle, returns a Circle. */
-  override def rotate270: Circle = Circle(diameter, cen.rotate270)*/
 
   override def slateTo(newCen: Pt2): Circle = Circle(diameter, newCen)
   

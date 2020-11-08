@@ -22,7 +22,7 @@ trait Shape extends Fillable with BoundedElem
   def cen: Pt2
   
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
-  override def slate(offset: Vec2Like): Shape
+  //override def slate(offset: Vec2Like): Shape
 
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): Shape

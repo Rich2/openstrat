@@ -26,7 +26,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
   final override def s4Cen: Pt2 = Pt2(xCen - width / 2, yCen)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slate(offset: Vec2Like): Rect = Rect(width, height, cen + offset)
+  //override def slate(offset: Vec2Like): Rect = Rect(width, height, cen + offset)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(xOffset: Double, yOffset: Double): Rect = Rect(width, height, xCen + xOffset, yCen + yOffset)
@@ -108,7 +108,7 @@ object Rect
     override def attribs: Arr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen + offset)
+    //override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen + offset)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)

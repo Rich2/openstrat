@@ -7,7 +7,7 @@ import pWeb._
 trait Square extends Rectangle
 {
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(offset: Vec2Like): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
+  //override def slate(offset: Vec2Like): Square = Square.s2s4(s2Cen + offset, s4Cen + offset)
 
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(xOffset: Double, yOffset: Double): Square = Square.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset))
@@ -27,7 +27,10 @@ trait Square extends Rectangle
 
   override def rotate(angle: Angle): Square = Square.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle))
 
-  override def slateTo(newCen: Pt2): Square = slate(cen.vecTo(newCen))
+  override def slateTo(newCen: Pt2): Square =
+  { val v = cen.vecTo(newCen)
+    slate(v.x, v.y)
+  }
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */

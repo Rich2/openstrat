@@ -4,7 +4,7 @@ package geom
 
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 {
-  override def slate(offset: Vec2Like): RectangleFill = RectangleFill(shape.slate(offset), colour)
+  //override def slate(offset: Vec2Like): RectangleFill = RectangleFill(shape.slate(offset), colour)
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.slate(xOffset, yOffset), colour)

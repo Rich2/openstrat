@@ -36,7 +36,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
 
   def xEnd: Double = pEnd.x
   def yEnd: Double = pEnd.y
-  override def slate(offset: Vec2Like): CArc = CArc(pStart + offset, cen + offset, deltaRadians)
+  //override def slate(offset: Vec2Like): CArc = CArc(pStart + offset, cen + offset, deltaRadians)
   override def scale(operand: Double): CArc = CArc(pStart * operand, cen * operand, deltaRadians)
 
   override def rotate(angle: Angle): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), deltaRadians)

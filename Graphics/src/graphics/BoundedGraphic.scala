@@ -5,7 +5,7 @@ package geom
 /** This trait is for layout. For placing Display elements in rows and columns. It includes [[PolygonGraphic]] and [[ShapeGraphic]]s but not [[Line]]
  *  and [[Curve]] graphics. */
 trait BoundedGraphic extends GraphicElem with BoundedElem
-{ def slate(offset: Vec2Like): BoundedGraphic
+{ //def slate(offset: Vec2Like): BoundedGraphic
   def slate(xOffset: Double, yOffset: Double): BoundedGraphic
   def scale(operand: Double): BoundedGraphic
 

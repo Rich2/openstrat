@@ -11,7 +11,7 @@ trait ShapeCompound extends ShapeGraphic
   def children: Arr[GraphicElem]
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): ShapeCompound
+  //override def slate(offset: Vec2Like): ShapeCompound
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): ShapeCompound

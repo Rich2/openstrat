@@ -7,7 +7,7 @@ package geom
 trait GraphicSimple extends GraphicElem
 {
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): GraphicSimple
+  //override def slate(offset: Vec2Like): GraphicSimple
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): GraphicSimple

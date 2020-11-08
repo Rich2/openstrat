@@ -10,7 +10,7 @@ package geom
 trait GeomElem extends Product with Serializable
 {
   /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
-  def slate(offset: Vec2Like): GeomElem
+  //def slate(offset: Vec2Like): GeomElem
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   def slate(xOffset: Double, yOffset: Double): GeomElem

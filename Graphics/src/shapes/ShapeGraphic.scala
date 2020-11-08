@@ -17,7 +17,7 @@ trait ShapeGraphic extends BoundedGraphic
   def svgElem(bounds: BoundingRect): SvgElem
 
   /** Translate geometric transformation. */
-  def slate(offset: Vec2Like): ShapeGraphic
+  //def slate(offset: Vec2Like): ShapeGraphic
 
   /** Translate geometric transformation. */
   def slate(xOffset: Double, yOffset: Double): ShapeGraphic

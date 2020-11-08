@@ -21,7 +21,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
+  //override def slate(offset: Vec2Like): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonCompound =
@@ -96,7 +96,7 @@ object PolygonCompound
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
     /** Translate geometric transformation. */
-    override def slate(offset: Vec2Like): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
+    //override def slate(offset: Vec2Like): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Translate geometric transformation. */
     override def slate(xOffset: Double, yOffset: Double): PolygonCompoundImp =

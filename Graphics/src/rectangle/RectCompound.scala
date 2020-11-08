@@ -13,7 +13,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): RectCompound = RectCompound(shape.slate(offset), facets, children.slate(offset))
+  //override def slate(offset: Vec2Like): RectCompound = RectCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): RectCompound =
