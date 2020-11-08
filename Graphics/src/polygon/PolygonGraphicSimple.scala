@@ -32,7 +32,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def nonShapeAttribs: Arr[XmlAtt] = ???
 
   /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): PolygonGraphicSimple
+  override def slate(offset: Vec2Like): PolygonGraphicSimple
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonGraphicSimple

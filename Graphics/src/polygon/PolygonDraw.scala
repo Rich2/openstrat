@@ -11,6 +11,9 @@ trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
   override def slate(xOffset: Double, yOffset: Double): PolygonDraw = PolygonDraw(shape.slate(xOffset, yOffset), lineWidth, lineColour)
 
+  /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
+  override def slate(offset: Vec2Like): PolygonDraw = PolygonDraw(shape.slate(offset), lineWidth, lineColour)
+
   /** Uniform scaling transformation a PolygonDraw, returns a PolygonDraw. */
   override def scale(operand: Double): PolygonDraw = PolygonDraw(shape.scale(operand), lineWidth, lineColour)
 

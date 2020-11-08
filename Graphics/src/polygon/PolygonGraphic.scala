@@ -13,7 +13,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   @inline def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT = shape.vertsMap(f)
 
   /** Translate 2D geometric transformation on a PolygonGraphic returns a PolygonGraphic. The return type will be narrowed in sub trait / classes. */
-  //override def slate(offset: Vec2Like): PolygonGraphic
+  override def slate(offset: Vec2Like): PolygonGraphic
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonGraphic
