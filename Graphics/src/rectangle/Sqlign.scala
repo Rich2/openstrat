@@ -11,7 +11,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def width2: Double = width
 
   override def height: Double = width
-  //override def slate(offset: Vec2Like): Sqlign = Sqlign(width, cen + offset)
+  override def slate(offset: Vec2Like): Sqlign = Sqlign(width, cen + offset)
 
   override def slate(xOffset: Double, yOffset: Double): Sqlign = Sqlign(width, xCen + xOffset, yCen + yOffset)
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen * operand)

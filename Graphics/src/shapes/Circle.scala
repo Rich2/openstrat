@@ -36,7 +36,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def h: Double = 0
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  //override def slate(offset: Vec2Like): Circle = Circle(diameter, cen + offset)
+  override def slate(offset: Vec2Like): Circle = Circle(diameter, cen + offset)
 
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
@@ -106,9 +106,6 @@ object Circle extends ShapeIcon
   implicit val reflectAxesImplicit: ReflectAxes[Circle] = new ReflectAxes[Circle]
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
-    /*override def rotate90T(obj: Circle): Circle = obj.rotate90
-    override def rotate180T(obj: Circle): Circle = obj.rotate180
-    override def rotate270T(obj: Circle): Circle = obj.rotate270*/
   }
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)

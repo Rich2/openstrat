@@ -44,7 +44,7 @@ class SlateExtensions[T](value: T, ev: Slate[T])
   def slate(offset: Vec2Like): T = ev.slateT(value, offset.x, offset.y)
 
   /** Translate in 2 dimensional space. */
-  def pSlate(operandPt: Pt2): T = ev.slateT(value, operandPt.x, operandPt.y)
+  //def pSlate(operandPt: Pt2): T = ev.slateT(value, operandPt.x, operandPt.y)
 
   /** Translate in 2D this object by the delta or vector form the first parameter point to the second parameter point. */
   def slateDelta(ptA: Pt2, ptB: Pt2): T = ev.slateT(value, ptB.x - ptA.x, ptA.y -ptB.y)

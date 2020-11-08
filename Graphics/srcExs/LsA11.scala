@@ -14,7 +14,7 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   val r1 = rect.fill(Red)
   val r1r = rect.reflect(line1).fill(Orange)
   val vRed = 0 pp -50
-  val cl1 = Circle(75, vRed)
+  val cl1: Circle = Circle(75, vRed)
   val ccl1 = cl1.fill(Red)
   val rStr = TextGraphic(ccl1.svgStr, vRed, 20)
   val ccl1r = cl1.reflect(line1).fill(Orange)
@@ -26,9 +26,9 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   val cn = Circle(80, 110, -290)
   val v1 = Pt2(0, -cl1.diameter)
   val cd1 = CircleDraw(cl1.slate(v1), 2, Green)
-  val cd2 = CircleDraw(cl1.pSlate(v1.rotate(45.degs)), 2, Gold)
+  val cd2 = CircleDraw(cl1.slate(v1.rotate(45.degs)), 2, Gold)
   val rStr2 = TextGraphic(cd1.svgStr, cd1.cen, 20)
-  val cd3 = CircleDraw(cl1.pSlate(v1.rotate(-45.degs)), 2, Aquamarine)
+  val cd3 = CircleDraw(cl1.slate(v1.rotate(-45.degs)), 2, Aquamarine)
   
   val cnf = CircleFill(cn, Violet)
   val cn1 = cn.slate(20 pp 50)
