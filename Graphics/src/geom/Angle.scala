@@ -5,7 +5,7 @@ import math.Pi
 
 /** Angle value class. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180 degrees,
  *  while Latitudes have a normal range +- 90 degrees. */
-final class Angle private(val secs: Double) extends AnyVal with AngleLike with ProdDbl1
+final class Angle private(val secs: Double) extends AnyVal with AngleLike  with ProdDbl1
 {
   @inline override def dblValue: Double = secs
 

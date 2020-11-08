@@ -1,0 +1,13 @@
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat
+package geom
+
+class Rotation(val milliSecs: Double)
+{
+
+}
+
+object Rotation
+{
+  def apply(degs: Double): Rotation = new Rotation(degs * 360000)
+}
