@@ -9,7 +9,8 @@ trait GraphicElem extends GeomElem
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
    def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
   
-  /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
+  /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. This
+   * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
   override def slate(offset: Vec2Like): GraphicElem
 
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
