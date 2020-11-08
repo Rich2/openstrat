@@ -4,7 +4,9 @@ package geom
 
 class Rotation(val milliSecs: Double)
 {
-
+  def degs: Double = milliSecs / 360000
+  override def toString: String = degs.toString
+  deb((0.1 + 0.2).toString)
 }
 
 object Rotation
