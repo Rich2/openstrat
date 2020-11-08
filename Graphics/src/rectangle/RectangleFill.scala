@@ -4,8 +4,6 @@ package geom
 
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 {
-  //override def slate(offset: Vec2Like): RectangleFill = RectangleFill(shape.slate(offset), colour)
-
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.slate(xOffset, yOffset), colour)
 
@@ -44,9 +42,6 @@ object RectangleFill
   implicit val reflectAxesImplicit: ReflectAxes[RectangleFill] = new ReflectAxes[RectangleFill]
   { override def negYT(obj: RectangleFill): RectangleFill = obj.negY
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
-    /*override def rotate90T(obj: RectangleFill): RectangleFill = obj.rotate90
-    override def rotate180T(obj: RectangleFill): RectangleFill = obj.rotate180
-    override def rotate270T(obj: RectangleFill): RectangleFill = obj.rotate270*/
   }
 
   case class RectangleFillImp(shape: Rectangle, colour: Colour) extends RectangleFill

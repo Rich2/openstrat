@@ -7,9 +7,6 @@ import Colour._, pCanv._
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple 
 {
   /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
- // override def slate(offset: Vec2Like): RectangleDraw = RectangleDraw(shape.slate(offset), lineWidth, lineColour)
-
-  /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
   override def slate(xOffset: Double, yOffset: Double): RectangleDraw = RectangleDraw(shape.slate(xOffset, yOffset), lineWidth, lineColour)
 
   /** Uniform scaling transformation a RectangleDraw, returns a RectangleDraw. */

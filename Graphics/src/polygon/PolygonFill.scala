@@ -12,9 +12,6 @@ trait PolygonFill extends PolygonGraphicSimple with ShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(newColour, lineWidth)
 
   /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): PolygonFill = PolygonFill(shape.slate(offset), colour)
-
-  /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slate(xOffset, yOffset), colour)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
