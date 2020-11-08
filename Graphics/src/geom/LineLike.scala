@@ -8,11 +8,13 @@ trait LineLike extends GeomElem
 /** Geometrical Ray. */
 class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 {
+  def p0: Pt2 = Pt2(x0, y0)
+
   /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Vec2Like): GeomElem = ???
+  override def slate(offset: Vec2Like): GeomElem = Ray.v0Secs(p0 + offset, angleSecs)
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slate(xOffset: Double, yOffset: Double): GeomElem = ???
+  override def slate(xOffset: Double, yOffset: Double): GeomElem = Ray.v0Secs(p0.addXY(xOffset, yOffset), angleSecs)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
@@ -53,6 +55,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 
 /** Companion object for the Ray class, contains apply factory methods. */
 object Ray
-{  def apply(v0: Pt2, angle: Angle): Ray = new Ray(v0.x, v0.y, angle.secs)
+{ def apply(v0: Pt2, angle: Angle): Ray = new Ray(v0.x, v0.y, angle.secs)
   def apply(x0: Double, y0: Double, angle: Angle): Ray = new Ray(x0, y0, angle.secs)
+  def v0Secs(v0: Pt2, angleSecs: Double): Ray = new Ray(v0.x, v0.y, angleSecs)
 }
