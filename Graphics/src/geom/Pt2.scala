@@ -12,11 +12,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   @inline override def _2: Double = y
   override def productPrefix: String = "Pt2"
 
-  /** Adds this Vector to a second 2 dimensional vector. */
+  /** Adds this Vec2Like, returns a new point. */
   def +(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
-
-  /** Adds this Vector to a second 2 dimensional vector. */
-  def addPt(operand: Pt2): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a [[Pt2]]. */
   def -(operand: Vec2): Pt2 = Pt2(x - operand.x, y - operand.y)

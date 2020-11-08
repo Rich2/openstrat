@@ -1,7 +1,6 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
-import geom._
 
 /** Currently all SquareGrids are regular. */
 class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends SquareGridSimple(yTileMin, yTileMax, cTileMin, cTileMax) with
