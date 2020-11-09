@@ -8,13 +8,13 @@ import prid._
 trait UneScen
 { val turn: Int
   implicit val grid: HGridReg
-  def oPlayers: HexArrOpt[Player]
+  def oPlayers: HcenArrOpt[Player]
 
   def turn(hts: Arr[HCAndStep]): UneScen =
   {
-    val resolve: HexArrBuff[HCAndStep] = grid.newTileBuffArr
+    val resolve: HcenArrBuff[HCAndStep] = grid.newTileBuffArr
     hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
-    val resValue: HexArrOpt[Player] = oPlayers.clone
+    val resValue: HcenArrOpt[Player] = oPlayers.clone
 
 //    resolve.foreach{ (r, l) => l match
 //    { case List(hst) => resValue.mutMove(hst.r1, r)
@@ -33,16 +33,16 @@ trait UneScenStart extends UneScen
 
 object UneScen
 {
-  def apply(turnIn: Int, gridIn: HGridReg, opIn: HexArrOpt[Player]): UneScen = new UneScen
+  def apply(turnIn: Int, gridIn: HGridReg, opIn: HcenArrOpt[Player]): UneScen = new UneScen
   { override val turn = turnIn
     override implicit val grid: HGridReg = gridIn
-    override def oPlayers: HexArrOpt[Player] = opIn
+    override def oPlayers: HcenArrOpt[Player] = opIn
   }
 }
 
 object UneScen1 extends UneScenStart
 { implicit val grid = new HGridReg(2, 6, 2, 10)
-  val oPlayers: HexArrOpt[Player] = grid.newTileArrOpt
+  val oPlayers: HcenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.mutSetSome(4, 4, PlayerA)
   oPlayers.mutSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }

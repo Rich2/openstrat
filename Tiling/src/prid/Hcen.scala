@@ -4,7 +4,7 @@ package prid
 import geom._
 
 /** A Hex tile centre HexGrid coordinate. */
-class HCen(val r: Int, val c: Int) extends HCoordReg
+class Hcen(val r: Int, val c: Int) extends HCoordReg
 {
   def v1: HVert = HVert(1, 2)
   def v2: HVert = HVert(-1, 2)
@@ -12,33 +12,33 @@ class HCen(val r: Int, val c: Int) extends HCoordReg
   def v4: HVert = HVert(-1, -2)
   def v5: HVert = HVert(1, -2)
   def v6: HVert = HVert(1, 0)
-  def verts: HVerts = HCen.vertsOfHex00.map(hv => hv + this)
+  def verts: HVerts = Hcen.vertsOfHex00.map(hv => hv + this)
   def polygon: HexYlign = HexYlign(2, toPt2)
   def fill(colour: Colour): PolygonFill = polygon.fill(colour)
   def active(id: Any = this): PolygonActive = polygon.active(id)
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. */
-  def step(st: HCStep): HCen = HCen(r + st.r, c + st.c)
+  def step(st: HcenStep): Hcen = Hcen(r + st.r, c + st.c)
 
   /** Returns a co0rdinate for this hex along with a step to an adjacent hex. */
-  def andStep(hcs: HCStep): HCAndStep = HCAndStep(r, c, hcs)
+  def andStep(hcs: HcenStep): HCAndStep = HCAndStep(r, c, hcs)
 
   /** Optionally returns the Step value of the HCen if it is an adjacent HCen. */
-  def optStep(operand: HCen): OptRef[HCStep] = hcStepSomes.optFind(_.hCen == operand - this)
-  def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
+  def optStep(operand: Hcen): OptRef[HcenStep] = hcStepSomes.optFind(_.hCen == operand - this)
+  def -(operand: Hcen): Hcen = Hcen(r - operand.r, c - operand.c)
 }
 
-object HCen
+object Hcen
 {
-  def apply(r: Int, c: Int): HCen = r %% 4 match
-  { case 0 if c.div4Rem0 => new HCen(r, c)
-    case 2 if c.div4Rem2 => new HCen(r, c)
+  def apply(r: Int, c: Int): Hcen = r %% 4 match
+  { case 0 if c.div4Rem0 => new Hcen(r, c)
+    case 2 if c.div4Rem2 => new Hcen(r, c)
     case _ => excep(s"$r, $c is not a valid Hex centre tile coordinate.")
   }
 
   def unapply(input: HCoord): Option[(Int, Int)] = input match {
-    case hc: HCen => Some((hc.r, hc.c))
+    case hc: Hcen => Some((hc.r, hc.c))
     case _ => None
   }
 
@@ -52,6 +52,6 @@ object HCen
 }
 
 trait HexMem[A]
-{ val hc: HCen
+{ val hc: Hcen
   val value: A
 }

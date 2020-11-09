@@ -22,7 +22,7 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with ProdInt2
     case _ => Pt2(c / Sqrt3, r - 1.0 / 3)
   }
 
-  def + (hCen: HCen): HVert = HVert(r + hCen.r, c + hCen.c)
+  def + (hCen: Hcen): HVert = HVert(r + hCen.r, c + hCen.c)
 }
 
 object HVert

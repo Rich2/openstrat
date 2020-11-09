@@ -13,10 +13,10 @@ trait HGrid extends TGrid
   def numOfRow0s: Int
 
   /** Carries out the procedure function on each Hex tile centre coordinate in the given tile row. This method is defined here rather than on TileGrid
-   * so it can take the specific narrow [[HCen]] parameter to the foreach function. */
-  def rowForeachTile(r: Int)(f: HCen => Unit): Unit
+   * so it can take the specific narrow [[Hcen]] parameter to the foreach function. */
+  def rowForeachTile(r: Int)(f: Hcen => Unit): Unit
 
-  def rowIForeachTile(r: Int, count: Int)(f: (HCen, Int) => Unit): Int
+  def rowIForeachTile(r: Int, count: Int)(f: (Hcen, Int) => Unit): Int
 
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
@@ -26,14 +26,14 @@ trait HGrid extends TGrid
   def xCen: Double = cCen * xRatio
 
   /** foreachs over each Hex tile's centre HCen. */
-  final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeachTile(r)(f))
+  final def foreach(f: Hcen => Unit): Unit = foreachRow(r => rowForeachTile(r)(f))
 
-  final def iForeach(f: (HCen, Int) => Unit) =
+  final def iForeach(f: (Hcen, Int) => Unit) =
   { var count: Int = 0
     foreachRow{r => count = rowIForeachTile(r, count)(f) }
   }
 
-  final def map[B, BB <: ArrBase[B]](f: HCen => B)(implicit build: ArrBuild[B, BB]): BB =
+  final def map[B, BB <: ArrBase[B]](f: Hcen => B)(implicit build: ArrBuild[B, BB]): BB =
   { val res = build.newArr(numOfTiles)
     iForeach((hCen, i) => res.unsafeSetElem(i, f(hCen)))
     res
@@ -41,7 +41,7 @@ trait HGrid extends TGrid
 
   /** flatMaps from all hex tile cntre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: ArrBase[_]](f: HCen => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  final def flatMap[ArrT <: ArrBase[_]](f: Hcen => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToArr(buff)
@@ -52,7 +52,7 @@ trait HGrid extends TGrid
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
-  @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
+  @inline final def arrIndex(hc: Hcen): Int = arrIndex(hc.r, hc.c)
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */

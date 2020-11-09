@@ -67,35 +67,35 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HexArr[A] =
-  { val res = HexArr[A](numOfTiles)
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HcenArr[A] =
+  { val res = HcenArr[A](numOfTiles)
     //res.mutSetAll(value)
     //res
     ???
   }
 
-  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HexArrBuff[A] = HexArrBuff(numOfTiles)
+  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HcenArrBuff[A] = HcenArrBuff(numOfTiles)
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HexArrOpt[A] = new HexArrOpt(new Array[A](numOfTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HcenArrOpt[A] = new HcenArrOpt(new Array[A](numOfTiles))
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
-  override def rowForeachTile(r: Int)(f: HCen => Unit): Unit =
-    if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(HCen(r, c)))
-    else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(HCen(r, c)))
+  override def rowForeachTile(r: Int)(f: Hcen => Unit): Unit =
+    if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(Hcen(r, c)))
+    else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(Hcen(r, c)))
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
-  override def rowIForeachTile(r: Int, startCount: Int)(f: (HCen, Int) => Unit): Int =
+  override def rowIForeachTile(r: Int, startCount: Int)(f: (Hcen, Int) => Unit): Int =
   {
     var count: Int = startCount
     if (r %% 4 == 2)
       iToForeach(cRow2sMin, cRow2sMax, 4) { c =>
-        f(HCen(r, c), count)
+        f(Hcen(r, c), count)
         count += 1
       }
     else
       iToForeach(cRow0sMin, cRow0sMax, 4){c =>
-        f(HCen(r, c), count)
+        f(Hcen(r, c), count)
         count += 1
       }
     count

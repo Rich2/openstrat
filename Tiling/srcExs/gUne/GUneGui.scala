@@ -10,17 +10,17 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   var scen = scenStart
 
   implicit def grid = scen.grid
-  def players: HexArrOpt[Player] = scen.oPlayers
+  def players: HcenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HexArrOpt[HCAndStep] = grid.newTileArrOpt[HCAndStep]
+  def NoMoves: HcenArrOpt[HCAndStep] = grid.newTileArrOpt[HCAndStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
-  var moves: HexArrOpt[HCAndStep] = NoMoves
+  var moves: HcenArrOpt[HCAndStep] = NoMoves
 
   def lunits = players.mapSomeWithHCens{ (hc, p) => Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc),
     p.toString + "\n" + hc.rcStr, 24, 2.0) }
@@ -56,9 +56,9 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
         thisTop()
       }
 
-      case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2 : HCen) :: _) =>
+      case (RightButton, List(HPlayer(p, hc1), Hcen(y, c)), (hc2 : Hcen) :: _) =>
       {
-        val newM: OptRef[HCStep] = hc1.optStep(hc2)
+        val newM: OptRef[HcenStep] = hc1.optStep(hc2)
         newM.foreach(m => moves = moves.setSome(hc1, hc1.andStep(m)))
         repaint()
       }
