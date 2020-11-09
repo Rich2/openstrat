@@ -4,8 +4,15 @@ package pAltReact
 import prid._
 
 case class Player(str: String, colour: Colour)
+
 sealed trait Balls
+{ def num: Int
+}
+
 object NoBalls extends Balls
+{ val num: Int = 0
+}
+
 case class SomeBalls(player: Player, num: Int)
 
 trait AltScen
