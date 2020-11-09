@@ -6,7 +6,7 @@ import pCanv._, geom._, prid._
 /** Graphical user interface for GOne example game. */
 case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("Game Une Gui")
 {
-  var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
+  var statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
 
   implicit def grid = scen.grid

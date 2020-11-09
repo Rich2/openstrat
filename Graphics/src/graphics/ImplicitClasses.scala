@@ -37,7 +37,7 @@ class DoubleImplicitGeom(thisDouble: Double)
   def west = Longitude.degs(-thisDouble)
   def north = Latitude.apply(thisDouble)
   def south = Latitude.apply(-thisDouble)
-  @deprecated def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
+  def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
   def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
   def metres: Dist = new Dist(thisDouble)
 }

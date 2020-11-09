@@ -8,7 +8,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 {
   val barWidth = 30
   val topBar = addPanel(Rect.tl(canv.width, barWidth, canv.topLeft), true)
-  topBar.backColour = Gray
+  topBar.backColour = Colour.Cornsilk
   var statusText: String
   
   def textBox(str: String, cmd: AnyRef) = Rect(40, 25).fillDrawTextActive(Gray, cmd, str, 15, 2, White, LeftAlign)
