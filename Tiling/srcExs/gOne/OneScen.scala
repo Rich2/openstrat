@@ -10,7 +10,7 @@ trait OneScen
   def oPlayers: TilesArrOpt[Player]
 
   def turn(hts: Arr[HTileAndStep]): OneScen =
-  { val resolve: TilesArr[List[HTileAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
+  { val resolve: TilesArr[List[HTileAndStep]] = grid.newTileArr(Nil)
     hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
     val resValue: TilesArrOpt[Player] = oPlayers.clone
 

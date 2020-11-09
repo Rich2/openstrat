@@ -12,7 +12,7 @@ trait UneScen
 
   def turn(hts: Arr[HCAndStep]): UneScen =
   {
-    val resolve: HexArr[List[HCAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
+    val resolve: HexArr[List[HCAndStep]] = grid.newTileArr(Nil)
 //    hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
 //    val resValue: TilesArrOpt[Player] = oPlayers.clone
 //
