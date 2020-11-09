@@ -21,7 +21,7 @@ case class LsE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
    * it is simpler to create the whole screen out, to create each from a blank slate so to speak rather than just painting the parts of the dsplay
    * that have been modified. */
   def frame(): Unit =
-  { reTop(Arr(StdButton.turn(state.turnNum + 1), status))
+  { reTop(Arr(StdButton.turn(state.turnNum + 1)))
     mainRepaint(state.fillRect +: cmdDisp)
   }
   def newTurn(): Unit = { state = state.turn(cmd); cmd = NoMove; frame() }

@@ -12,15 +12,21 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   var statusText: String
   
   def textBox(str: String, cmd: AnyRef) = Rect(40, 25).fillDrawTextActive(Gray, cmd, str, 15, 2, White, LeftAlign)
-    
-  def status = textBox(statusText, None)
+  
   val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barWidth, canv.bottomLeft))
   def mainRepaint(els: Arr[GraphicElem]): Unit = mainPanel.repaint(els)
   def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els: _*)
   def mainWidth = mainPanel.width
   def mainHeight = mainPanel.height
+
   /**  repaints the top command bar */
-  def reTop(commands: Arr[BoundedGraphic]): Unit = topBar.repaint(displayRowGraphics(topBar.cenLeft, commands))
+  def reTop(commands: Arr[BoundedGraphic]): Unit =
+  {
+    val a = displayRowGraphics(topBar.cenLeft, commands)
+    val sp = ife(a.empty, topBar.cenLeft,a.last.boundingRect.cen.addX(80))
+    val st = TextGraphic(statusText, sp, 15, Black, LeftAlign)
+    topBar.repaint(a +- st)
+  }
   def mainMouseUp: (MouseButton, List[Any], Pt2) => Unit = mainPanel.mouseUp
   def mainMouseUp_= (f: (MouseButton, List[Any], Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
   var selected: List[Any] = Nil

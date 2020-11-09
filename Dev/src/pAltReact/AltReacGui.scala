@@ -6,5 +6,5 @@ import pCanv._
 case class AltReacGui(canv: CanvasPlatform) extends CmdBarGui("Alternative Reactor")
 {
   var statusText = "To be changed."
-  reTop(Arr(status))
+  reTop(Arr())
 }

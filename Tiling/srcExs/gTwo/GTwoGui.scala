@@ -36,7 +36,7 @@ case class GTwoGui(canv: CanvasPlatform, scen: TwoScen) extends CmdBarGui("Game 
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(status))
+  def thisTop(): Unit = reTop(Arr())
   thisTop()
   def repaint() = mainRepaint(frame)
   repaint()

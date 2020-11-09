@@ -20,7 +20,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Ch
     repaint()
     thisTop()
   })
-  def thisTop(): Unit = reTop(Arr(bTurn, status))
+  def thisTop(): Unit = reTop(Arr(bTurn))
   thisTop()
   def frame = (tiles ++ pieces).gridScale(scale)
   def repaint() = mainRepaint(frame)

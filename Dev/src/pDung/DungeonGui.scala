@@ -18,7 +18,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
     poly2.fillDrawTextActive(cp.charac.colour, cp, cp.charac.iden.toString, 16, 2.0, cp.charac.colour.contrast)
   }
 
-  def thisTop(): Unit = reTop(Arr(status))
+  def thisTop(): Unit = reTop(Arr())
   thisTop()
   def frame: GraphicElems = (tiles +- sls ++ players).gridScale(scale)
   def repaint() = mainRepaint(frame)

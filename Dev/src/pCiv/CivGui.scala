@@ -15,7 +15,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Ri
     Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, roord.gridPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
   }
 
-  def thisTop(): Unit = reTop(Arr(status))
+  def thisTop(): Unit = reTop(Arr())
   thisTop()
   def frame = (tiles +- sls ++ lunits).gridScale(scale)
   def repaint() = mainRepaint(frame)

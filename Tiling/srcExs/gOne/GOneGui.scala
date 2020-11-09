@@ -45,7 +45,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   })
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn, status))
+  def thisTop(): Unit = reTop(Arr(bTurn))
 
   mainMouseUp = (b, cl, _) => (b, cl, selected) match
     { case (LeftButton, cl, _) =>
