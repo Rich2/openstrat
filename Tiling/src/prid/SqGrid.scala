@@ -3,6 +3,8 @@ package ostrat
 package prid
 import geom._
 
+import scala.reflect.ClassTag
+
 class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TGrid
 {
   /** Number of rows of tiles. */
@@ -20,4 +22,23 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
   override def height: Double = ???
 
   def sideLines: LineSegs = ???
+
+  /** New Tile immutable Tile Arr of Opt data values. */
+  final def newSqArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqArrOpt[A] = new SqArrOpt(new Array[A](numOfTiles))
+
+}
+
+/** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */
+object SqGrid
+{
+  /** Corrects the X and Y minimum and maximum values. */
+  def apply(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): SqGrid =
+  {
+    val rMin = rTileMin.roundUpToEven
+    val rMax = rTileMax.roundDownToEven
+    val cMin = cTileMin.roundUpToEven
+    val cMax = cTileMin.roundDownToEven
+
+    new SqGrid(rMin, rMax, cMin, cMax)
+  }
 }
