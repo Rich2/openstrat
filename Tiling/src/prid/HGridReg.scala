@@ -74,7 +74,7 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
     ???
   }
 
-  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HexBuffArr[A] = HexBuffArr(numOfTiles)
+  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HexArrBuff[A] = HexArrBuff(numOfTiles)
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HexArrOpt[A] = new HexArrOpt(new Array[A](numOfTiles))

@@ -12,16 +12,16 @@ trait UneScen
 
   def turn(hts: Arr[HCAndStep]): UneScen =
   {
-    val resolve: HexBuffArr[HCAndStep] = grid.newTileBuffArr
-//    hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
-//    val resValue: TilesArrOpt[Player] = oPlayers.clone
-//
+    val resolve: HexArrBuff[HCAndStep] = grid.newTileBuffArr
+    hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
+    val resValue: HexArrOpt[Player] = oPlayers.clone
+
 //    resolve.foreach{ (r, l) => l match
 //    { case List(hst) => resValue.mutMove(hst.r1, r)
 //      case _ =>
 //    }}
-//
-//    OneScen(turn + 1, grid, resValue)
+
+    //OneScen(turn + 1, grid, resValue)
     ???
   }
 }
