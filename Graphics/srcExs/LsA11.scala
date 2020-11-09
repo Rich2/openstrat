@@ -2,6 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
+/** Lesson A11. */
 case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Reflecting a point across a Line")
 {
   val line1 = LineSeg(-300, 0, 300, 400)

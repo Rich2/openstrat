@@ -1,8 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import reflect.ClassTag
-import scala.annotation.unchecked.uncheckedVariance
+import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
 /** Type class for translate 2 dimensional vector transformations. Each transformation method has been given its own Type class and associated
  * extension class. Different sets of transformations can then be combined. */
@@ -42,9 +41,6 @@ class SlateExtensions[T](value: T, ev: Slate[T])
 
   /** Translate in 2 dimensional space. */
   def slate(offset: Vec2Like): T = ev.slateT(value, offset.x, offset.y)
-
-  /** Translate in 2 dimensional space. */
-  //def pSlate(operandPt: Pt2): T = ev.slateT(value, operandPt.x, operandPt.y)
 
   /** Translate in 2D this object by the delta or vector form the first parameter point to the second parameter point. */
   def slateDelta(ptA: Pt2, ptB: Pt2): T = ev.slateT(value, ptB.x - ptA.x, ptA.y -ptB.y)

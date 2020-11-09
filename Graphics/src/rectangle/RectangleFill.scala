@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Graphic to fill a Rectangle with a single colour. */
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 {
   /** Translate geometric transformation. */
@@ -33,6 +34,8 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def slateTo(newCen: Pt2): RectangleFill = ???
 }
 
+/** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates
+ * to it. It also contains implicit instances for 2D geometric transformations. */
 object RectangleFill
 {
   def apply(shape: Rectangle, colour: Colour): RectangleFill = RectangleFillImp(shape, colour)
@@ -47,5 +50,6 @@ object RectangleFill
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
   }
 
+  /** Implementatin class for the general case of a [[RectangleFill]]. */
   case class RectangleFillImp(shape: Rectangle, colour: Colour) extends RectangleFill
 }

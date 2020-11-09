@@ -3,6 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
+/** A compound graphic for rectangles. */
 trait RectangleCompound extends PolygonCompound with RectangleGraphic
 {
   override def attribs: Arr[XmlAtt] = ???
@@ -13,11 +14,11 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): RectangleCompound = RectangleCompound(shape.slate(offset), facets, children.slate(offset))
-
-  /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): RectangleCompound =
     RectangleCompound(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
+
+  /** Translate geometric transformation. */
+  override def slate(offset: Vec2Like): RectangleCompound = RectangleCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -42,6 +43,8 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
   override def slateTo(newCen: Pt2): PolygonCompound = ???
 }
 
+/** Companion object for RectangleCompound. Conatains the [[RectangleCompound.RectangleCompoundImp]] implementatin class for the general case of
+ * Rectangles and an apply factor method that delegats to it. */
 object RectangleCompound
 {
   def apply(shape: Rectangle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) : RectangleCompound =
@@ -57,11 +60,11 @@ object RectangleCompound
       attribs ++ facets.flatMap(_.attribs))
 
     /** Translate geometric transformation. */
-    //override def slate(offset: Vec2Like): RectangleCompoundImp = RectangleCompoundImp(shape.slate(offset), facets, children.slate(offset))
-
-    /** Translate geometric transformation. */
     override def slate(xOffset: Double, yOffset: Double): RectangleCompoundImp =
       RectangleCompoundImp(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
+
+    /** Translate geometric transformation. */
+    override def slate(offset: Vec2Like): RectangleCompoundImp = RectangleCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */
