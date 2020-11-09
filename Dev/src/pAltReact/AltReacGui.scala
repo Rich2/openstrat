@@ -3,7 +3,7 @@ package ostrat
 package pAltReact
 import pCanv._
 
-case class AltReacGui(canv: CanvasPlatform) extends CmdBarGui("Alternative Reactor")
+case class AltReacGui(canv: CanvasPlatform, rows: Int, Columns: Int) extends CmdBarGui("Alternative Reactor")
 {
   var statusText = "To be changed."
   reTop(Arr())

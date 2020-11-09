@@ -23,7 +23,7 @@ object Apps
     ("15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
     ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
     ("17", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
-    ("18", (pAltReact.AltReacGui(_), "Alternate Reactor")),
+    ("18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 
     ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 472 rr 204), "JavaFx NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerr, 456 rr 388), "JavaFx NE Wurope Grid")),

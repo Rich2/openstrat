@@ -13,11 +13,10 @@ object NoBalls extends Balls
 { val num: Int = 0
 }
 
-case class SomeBalls(player: Player, num: Int)
+case class SomeBalls(player: Player, num: Int) extends Balls
 
-trait AltScen
-{ val turn: Int
-  def grid: SqGrid
+case class AltScen( turn: Int, grid: SqGrid, arr: HcenArr[Balls])
+{
   //def terrs: TileBooleans
   //def oPlayers: TilesArrOpt[Player]*/
 }
