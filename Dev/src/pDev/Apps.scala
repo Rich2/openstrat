@@ -30,6 +30,7 @@ object Apps
 
     ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
     ("U1", (gUne.GUneGui(_, gUne.UneScen1), "JavaFx Game Une")),
+    ("U2", (gDeux.GDeuxGui(_, gDeux.DeuxScen1), "JavaFx Game Deux")),
     ("G1s2", (gOne.GOneGui(_, gOne.OneScen2), "JavaFx irregular Grid Game One")),
     ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Square Grid Game Two")),
 
