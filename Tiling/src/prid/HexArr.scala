@@ -2,6 +2,7 @@
 package ostrat
 package prid
 import reflect.ClassTag
+
 /** An array of hex tile or hex centre data. */
 class HexArr[A <: AnyRef](val unsafeArr: Array[A])
 {
@@ -10,4 +11,15 @@ class HexArr[A <: AnyRef](val unsafeArr: Array[A])
 }
 object HexArr
 { def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HexArr[A] = new HexArr[A](new Array[A](length))
+}
+
+class HexBuffArr[A <: AnyRef](val unsafeArr: Array[Buff[A]])
+
+object HexBuffArr
+{
+  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HexBuffArr[A] =
+  {
+    val array = new Array[Buff[A]](length)
+    ???
+  }
 }
