@@ -16,7 +16,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HexArrOpt[HCAndStep] = grid.newHexArrOpt[HCAndStep]
+  def NoMoves: HexArrOpt[HCAndStep] = grid.newTileArrOpt[HCAndStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
@@ -38,16 +38,16 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   def moveGraphics: Arr[LineSegDraw] = moves.mapSomes{ rs => HCoordLineSeg(rs.hc1, rs.hc2).toLine2.draw(players(rs.hc1).colour) }
 
   /** Creates the turn button and the action to commit on mouse click. */
- /* def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
-    val getOrders = moves.mapSomeOnlys(rs => rs)
-    scen = scen.turn(getOrders)
-    moves = NoMoves
-    repaint()
-    thisTop()
-  })*/
+  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+//    val getOrders = moves.mapSomeOnlys(rs => rs)
+//    scen = scen.turn(getOrders)
+//    moves = NoMoves
+//    repaint()
+//    thisTop()
+  })
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(/*bTurn,*/ status))
+  def thisTop(): Unit = reTop(Arr(bTurn, status))
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
     { case (LeftButton, _, cl) =>
