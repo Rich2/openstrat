@@ -10,18 +10,20 @@ trait UneScen
   implicit val grid: HGridReg
   def oPlayers: HexArrOpt[Player]
 
-  /*def turn(hts: Arr[HTileAndStep]): OneScen =
-  { val resolve: TilesArr[List[HTileAndStep]] = grid.newTileArr(Nil)//  .newArrayListSetDepr()
-    hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
-    val resValue: TilesArrOpt[Player] = oPlayers.clone
-
-    resolve.foreach{ (r, l) => l match
-    { case List(hst) => resValue.mutMove(hst.r1, r)
-      case _ =>
-    }}
-
-    OneScen(turn + 1, grid, resValue)
-  }*/
+  def turn(hts: Arr[HCAndStep]): UneScen =
+  {
+    val resolve: HcsArr[List[HCAndStep]] = ??? // grid.newTileArr(Nil)//  .newArrayListSetDepr()
+//    hts.foreach{hts => resolve.prependAt(hts.r2, hts) }
+//    val resValue: TilesArrOpt[Player] = oPlayers.clone
+//
+//    resolve.foreach{ (r, l) => l match
+//    { case List(hst) => resValue.mutMove(hst.r1, r)
+//      case _ =>
+//    }}
+//
+//    OneScen(turn + 1, grid, resValue)
+    ???
+  }
 }
 
 /** This trait just puts the value 0 in for the turn. */
