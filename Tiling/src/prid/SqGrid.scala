@@ -57,12 +57,20 @@ final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val 
 
   def foreach(sc: Sqcen)(f: Sqcen => Unit): Unit = foreachRow(rowForeach(_)(f))
 
-  final def iForeach(f: (Sqcen, Int) => Unit) =
-  { var count: Int = 0
-    foreachRow{r => rowIForeach(r, count)(f) }
+  final def iForeach(f: (Sqcen, Int) => Unit, startCount: Int = 0): Unit =
+  { var count: Int = startCount
+    foreachRow{r => count = rowIForeach(r, count)(f) }
   }
 
-  def rowIForeach(r: Int, count: Int)(f: (Sqcen, Int) => Unit): Unit = iToForeach(0, tileRowLen)(i => f(Sqcen(r, cTileMin + i * 2), i))
+  def rowIForeach(r: Int, startCount: Int)(f: (Sqcen, Int) => Unit): Int =
+  {
+    var count = startCount
+    iToForeach(0, tileRowLen) { i =>
+      f(Sqcen(r, cTileMin + i * 2), i)
+      count += 1
+    }
+    count
+  }
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

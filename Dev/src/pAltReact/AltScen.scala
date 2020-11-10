@@ -1,9 +1,10 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pAltReact
-import prid._
+import prid._, Colour._
 
 case class Player(str: String, colour: Colour)
+object PlayerA extends Player("A", Red)
 
 sealed trait Balls
 { def num: Int
@@ -27,6 +28,7 @@ object AltScen
   {
     val grid = SqGrid(2, r * 2, 2, c * 2)
     val balls = grid.newTileArr[Balls](NoBalls)
+    //balls
     AltScen(0, grid, balls)
   }
 }
