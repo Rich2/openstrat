@@ -22,7 +22,7 @@ trait SqCoord extends Any with TCoord
 }
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
-class Sqcen(val r: Int, val c: Int) extends SqCoord
+case class Sqcen(val r: Int, val c: Int) extends SqCoord
 {
   override def typeStr: String = "Sqcen"
 }

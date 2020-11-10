@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import reflect.ClassTag
 
 class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HGrid
 {
@@ -67,12 +66,12 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
 
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
-  override def rowForeachTile(r: Int)(f: Hcen => Unit): Unit =
+  override def rowForeach(r: Int)(f: Hcen => Unit): Unit =
     if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(Hcen(r, c)))
     else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(Hcen(r, c)))
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
-  override def rowIForeachTile(r: Int, startCount: Int)(f: (Hcen, Int) => Unit): Int =
+  override def rowIForeach(r: Int, startCount: Int)(f: (Hcen, Int) => Unit): Int =
   {
     var count: Int = startCount
     if (r %% 4 == 2)

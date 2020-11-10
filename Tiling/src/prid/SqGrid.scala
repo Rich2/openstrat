@@ -1,9 +1,9 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import geom._, reflect.ClassTag, Colour.Black
+import geom._, reflect.ClassTag
 
-class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TGrid
+final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TGrid
 {
   /** Number of rows of tiles. */
   override def numOfTileRows: Int = (rTileMax - rTileMin + 2).atLeast0 / 2
@@ -53,6 +53,16 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqArrOpt[A] = new SqArrOpt(new Array[A](numOfTiles))
 
+  def rowForeach(r: Int)(f: Sqcen => Unit): Unit = iToForeach(cTileMin, cTileMax, 2)(c => f(Sqcen(r, c)))
+
+  def foreach(sc: Sqcen)(f: Sqcen => Unit): Unit = foreachRow(rowForeach(_)(f))
+
+  final def iForeach(f: (Sqcen, Int) => Unit) =
+  { var count: Int = 0
+    foreachRow{r => rowIForeach(r, count)(f) }
+  }
+
+  def rowIForeach(r: Int, count: Int)(f: (Sqcen, Int) => Unit): Unit = iToForeach(0, tileRowLen)(i => f(Sqcen(r, cTileMin + i * 2), i))
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

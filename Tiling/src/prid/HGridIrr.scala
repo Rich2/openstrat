@@ -20,9 +20,9 @@ case class HGridIrr(unsafeArray: Array[Int]) extends HGrid
   /** The total number of Tiles in the tile Grid. */
   override def numOfTiles: Int = ???
 
-  def rowForeachTile(r: Int)(f: Hcen => Unit): Unit = ???
+  def rowForeach(r: Int)(f: Hcen => Unit): Unit = ???
 
-  override def rowIForeachTile(r: Int, count: Int)(f: (Hcen, Int) => Unit): Int = ???
+  override def rowIForeach(r: Int, count: Int)(f: (Hcen, Int) => Unit): Int = ???
 
   override def width: Double = ???
   override def height: Double = ???

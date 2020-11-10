@@ -14,9 +14,9 @@ trait HGrid extends TGrid
 
   /** Carries out the procedure function on each Hex tile centre coordinate in the given tile row. This method is defined here rather than on TileGrid
    * so it can take the specific narrow [[Hcen]] parameter to the foreach function. */
-  def rowForeachTile(r: Int)(f: Hcen => Unit): Unit
+  def rowForeach(r: Int)(f: Hcen => Unit): Unit
 
-  def rowIForeachTile(r: Int, count: Int)(f: (Hcen, Int) => Unit): Int
+  def rowIForeach(r: Int, count: Int)(f: (Hcen, Int) => Unit): Int
 
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
@@ -26,11 +26,11 @@ trait HGrid extends TGrid
   def xCen: Double = cCen * xRatio
 
   /** foreachs over each Hex tile's centre HCen. */
-  final def foreach(f: Hcen => Unit): Unit = foreachRow(r => rowForeachTile(r)(f))
+  final def foreach(f: Hcen => Unit): Unit = foreachRow(r => rowForeach(r)(f))
 
   final def iForeach(f: (Hcen, Int) => Unit) =
   { var count: Int = 0
-    foreachRow{r => count = rowIForeachTile(r, count)(f) }
+    foreachRow{r => count = rowIForeach(r, count)(f) }
   }
 
   final def map[B, BB <: ArrBase[B]](f: Hcen => B)(implicit build: ArrBuild[B, BB]): BB =
