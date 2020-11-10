@@ -176,6 +176,9 @@ trait Polygon extends Shape with BoundedElem
   def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
     PolygonCompound(this, Arr(FillFacet(fillColour)), Arr(PolygonActive(this, pointerID)))
 
+  def drawActive(lineColour: Colour = Black, lineWidth: Double = 2, pointerID: Any): PolygonCompound =
+    PolygonCompound(this, Arr(DrawFacet(lineWidth, lineColour)), Arr(PolygonActive(this, pointerID)))
+
   /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
    * draw area line width of 2 and a colour of Black. */
   def fillActiveDraw(fillColour: Colour, pointerID: Any, lineColour: Colour = Black, lineWidth: Double = 2): PolygonCompound =
