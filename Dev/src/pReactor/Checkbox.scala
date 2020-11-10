@@ -17,4 +17,6 @@ case class Checkbox(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 
     if (!isDisabled) ret ++ Arr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 1, this))
     else ret ++ Arr(Rect(defaultSize, defaultSize, loc).draw(ink, 1))
   }
+
+  def clicked() = if (!isDisabled) isSelected = !isSelected
 }
