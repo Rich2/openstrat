@@ -38,6 +38,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   { val config = player1.put() ++ player2.put() ++ player3.put() ++ player4.put() ++ human.put() ++ computer.put()
     val composition:GraphicElems = Arr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })) ++ config ++ getCurrentPlayerIndicator()
     repaint(composition)
+    ijUntilForeach(0, rows)(0, cols){ (r, c) =>
+      val index = c+cols*r
+      drawBalls(size*c pp size*r, aDefaultGame.cellColors(index), index)
+    }
   }
   def newGame() : Unit =
   { aDefaultGame.startGame()
@@ -85,23 +89,23 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         drawBalls(loc, aDefaultGame.currentPlayer, i)
         for (b <- aDefaultGame.cellSites(i))
         { b match
-        { case "N" =>
-          { if (animationStep > 0.55) locy = loc + (0 pp 0.5*size*(animationStep-0.5))
-          else locy = loc - (0 vv 0.25*size*(animationStep))
+          { case "N" =>
+            { if (animationStep > 0.55) locy = loc + (0 pp 0.5*size*(animationStep-0.5))
+              else locy = loc - (0 vv 0.25*size*(animationStep))
+            }
+            case "E" =>
+            { if (animationStep > 0.55) locy = loc + (0.5*size*(animationStep-0.5) vv 0)
+              else locy = loc - (0.25*size*(animationStep) vv 0)
+            }
+            case "S" =>
+            { if (animationStep > 0.55) locy = loc - (0 vv 0.5*size*(animationStep-0.5))
+              else locy = loc + (0 vv 0.25*size*(animationStep))
+            }
+            case "W" =>
+            { if (animationStep > 0.55)  locy = loc - (0.5*size*(animationStep-0.5) vv 0)
+              else locy = loc + (0.25*size*(animationStep) vv 0)
+            }
           }
-          case "E" =>
-          { if (animationStep > 0.55) locy = loc + (0.5*size*(animationStep-0.5) vv 0)
-          else locy = loc - (0.25*size*(animationStep) vv 0)
-          }
-          case "S" =>
-          { if (animationStep > 0.55) locy = loc - (0 vv 0.5*size*(animationStep-0.5))
-          else locy = loc + (0 vv 0.25*size*(animationStep))
-          }
-          case "W" =>
-          { if (animationStep > 0.55)  locy = loc - (0.5*size*(animationStep-0.5) vv 0)
-          else locy = loc + (0.25*size*(animationStep) vv 0)
-          }
-        }
           canv.circleFill(Circle(size*(1 - animationStep)/ballScale, locy+getLocFromCellSite(i, 0, b)), aDefaultGame.currentPlayer)
         }
         aDefaultGame.cellCounts(i) += aDefaultGame.cellNeighbours(i).length  //fudge end//
@@ -148,6 +152,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       isTurnComplete = false
       canv.timeOut(() => doAnimation(), animationDuration)
     }
+    composeGUI()
   }
   def getCurrentPlayerIndicator():GraphicElems =
   { Arr(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, -3*size/4 pp -3*size/4, 11, Black))
