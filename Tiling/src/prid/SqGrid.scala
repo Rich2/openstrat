@@ -14,10 +14,15 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
   /** The total number of Tiles in the tile Grid. */
   override def numOfTiles: Int = numOfTileRows * tileRowLen
 
+  def rGridMin: Int = rTileMin - 1
+  def rGridMax: Int = rTileMax + 1
+  def cGridMin: Int = cTileMin - 1
+  def cGridMax: Int = cTileMax + 1
+
   override def xRatio: Double = 1
   override def xCen: Double = (cTileMin + cTileMax) / 2
-  override def width: Double = ???
-  override def height: Double = ???
+  override def width: Double = cGridMax - cGridMin
+  override def height: Double = rGridMax - rGridMin
 
   def sideLines: LineSegs = ???
 

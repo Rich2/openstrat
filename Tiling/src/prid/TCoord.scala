@@ -21,8 +21,20 @@ trait SqCoord extends Any with TCoord
   override def toVec: Vec2 = Vec2(c, r)
 }
 
-/** A Hex tile centre HexGrid coordinate. */
+/** A Square tile centre square grid [[SqGrid]] coordinate. */
 class Sqcen(val r: Int, val c: Int) extends SqCoord
 {
   override def typeStr: String = "Sqcen"
+}
+
+/** A Square tile side square grid [[SqGrid]] coordinate. */
+class Sqside(val r: Int, val c: Int) extends SqCoord
+{
+  override def typeStr: String = "Sqside"
+}
+
+/** A Square tile vertex square grid [[SqGrid]] coordinate. */
+class Sqvert(val r: Int, val c: Int) extends SqCoord
+{
+  override def typeStr: String = "Sqvert"
 }
