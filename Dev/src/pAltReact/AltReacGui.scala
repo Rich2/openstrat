@@ -1,10 +1,34 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pAltReact
-import pCanv._
+import pCanv._, prid._, geom._
 
-case class AltReacGui(canv: CanvasPlatform, rows: Int, Columns: Int) extends CmdBarGui("Alternative Reactor")
+case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends CmdBarGui("Alternative Reactor")
 {
   var statusText = "To be changed."
-  reTop(Arr())
+  debvar(rows)
+  debvar(columns)
+  var scen = AltScen.start(rows, columns)
+  implicit def grid = scen.grid
+  debvar(grid.numOfTiles)
+  /** The number of pixels / 2 displayed per row height. */
+  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+  /** Draws the tiles sides (or edges). */
+  val sidesDraw = grid.sidesDraw()
+  /** Creates the turn button and the action to commit on mouse click. */
+  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+    //    val getOrders = moves.mapSomeOnlys(rs => rs)
+    //    scen = scen.turn(getOrders)
+    //    moves = NoMoves
+    //    repaint()
+    //    thisTop()
+  })
+  /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
+  def thisTop(): Unit = reTop(Arr(bTurn))
+  thisTop()
+  def frame: GraphicElems = Arr(sidesDraw).gridScale(scale)// ++ moveGraphics2
+  //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
+  def repaint() = mainRepaint(frame)
+  repaint()
+
 }

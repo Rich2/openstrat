@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import geom._, math.sqrt
+import geom._, math.sqrt, reflect.ClassTag
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
@@ -57,6 +57,19 @@ trait HGrid extends TGrid
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   def arrIndex(r: Int, c: Int): Int
+
+  /** New immutable Arr of Tile data. */
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HcenArr[A] =
+  { val res = HcenArr[A](numOfTiles)
+    //res.mutSetAll(value)
+    //res
+    ???
+  }
+
+  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HcenArrBuff[A] = HcenArrBuff(numOfTiles)
+
+  /** New Tile immutable Tile Arr of Opt data values. */
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HcenArrOpt[A] = new HcenArrOpt(new Array[A](numOfTiles))
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 

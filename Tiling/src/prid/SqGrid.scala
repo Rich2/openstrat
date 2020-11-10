@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import geom._, reflect.ClassTag
+import geom._, reflect.ClassTag, Colour.Black
 
 class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TGrid
 {
@@ -24,7 +24,10 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
   override def width: Double = cGridMax - cGridMin
   override def height: Double = rGridMax - rGridMin
 
-  def sideLines: LineSegs = ???
+  def horrSideLines: LineSegs = iToMap(rGridMin, rGridMax, 2){ r => LineSeg(cGridMin, r, cGridMax, r) }
+  def vertSideLines: LineSegs = iToMap(cGridMin, cGridMax, 2){ c => LineSeg(c, rGridMin, c, rGridMax) }
+  def sideLines: LineSegs = horrSideLines ++ vertSideLines
+
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
@@ -38,6 +41,14 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
     //res
     ???
   }*/
+
+  /** New immutable Arr of Tile data. */
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqcenArr[A] =
+  { val res = SqcenArr[A](numOfTiles)
+    //res.mutSetAll(value)
+    //res
+    res
+  }
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqArrOpt[A] = new SqArrOpt(new Array[A](numOfTiles))
@@ -53,7 +64,7 @@ object SqGrid
     val rMin = rTileMin.roundUpToEven
     val rMax = rTileMax.roundDownToEven
     val cMin = cTileMin.roundUpToEven
-    val cMax = cTileMin.roundDownToEven
+    val cMax = cTileMax.roundDownToEven
 
     new SqGrid(rMin, rMax, cMin, cMax)
   }

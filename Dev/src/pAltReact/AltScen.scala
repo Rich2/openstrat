@@ -15,7 +15,7 @@ object NoBalls extends Balls
 
 case class SomeBalls(player: Player, num: Int) extends Balls
 
-case class AltScen(turn: Int, grid: SqGrid, arr: HcenArr[Balls])
+case class AltScen(turn: Int, grid: SqGrid, arr: SqcenArr[Balls])
 {
   //def terrs: TileBooleans
   //def oPlayers: TilesArrOpt[Player]*/
@@ -26,7 +26,7 @@ object AltScen
   def start(r: Int, c: Int): AltScen =
   {
     val grid = SqGrid(2, r * 2, 2, c * 2)
-    //val balls = grid.
-    ???
+    val balls = grid.newTileArr[Balls](NoBalls)
+    AltScen(0, grid, balls)
   }
 }

@@ -64,18 +64,7 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
 
-  /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HcenArr[A] =
-  { val res = HcenArr[A](numOfTiles)
-    //res.mutSetAll(value)
-    //res
-    ???
-  }
 
-  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HcenArrBuff[A] = HcenArrBuff(numOfTiles)
-
-  /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HcenArrOpt[A] = new HcenArrOpt(new Array[A](numOfTiles))
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
   override def rowForeachTile(r: Int)(f: Hcen => Unit): Unit =

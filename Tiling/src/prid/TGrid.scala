@@ -93,5 +93,5 @@ trait TGrid
 
   /** This gives the all tile grid lines in a single colour and line width.
    *  @group SidesGroup  */
-  final def sidesDraw(lineWidth: Double, colour: Colour = Black) = sideLines.draw(lineWidth, colour)
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
 }
