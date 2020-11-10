@@ -15,3 +15,14 @@ trait TCoord extends Any
   def str: String = typeStr + parenthStr
   override def toString: String = typeStr + parenthStr
 }
+
+trait SqCoord extends Any with TCoord
+{
+  override def toVec: Vec2 = Vec2(c, r)
+}
+
+/** A Hex tile centre HexGrid coordinate. */
+class Sqcen(val r: Int, val c: Int) extends SqCoord
+{
+  override def typeStr: String = "Sqcen"
+}

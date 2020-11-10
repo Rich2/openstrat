@@ -12,8 +12,6 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
   def xTop: Double = rTileMax + 4.0 / 3
   def xBottom: Double = rTileMin - 4.0 / 3
 
-
-
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline def arrIndex(r: Int, c: Int): Int =

@@ -1,9 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import geom._
-
-import scala.reflect.ClassTag
+import geom._, reflect.ClassTag
 
 class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TGrid
 {
@@ -22,6 +20,19 @@ class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileM
   override def height: Double = ???
 
   def sideLines: LineSegs = ???
+
+  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  @inline final def arrIndex(sc: Sqcen): Int = arrIndex(sc.r, sc.c)
+
+  @inline def arrIndex(r: Int, c: Int): Int = (r - rTileMin) / 2 * tileRowLen + (c - cTileMin) / 2
+  /** New immutable Arr of Tile data. */
+  /*final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqcenArr[A] =
+  { val res = HcenArr[A](numOfTiles)
+    //res.mutSetAll(value)
+    //res
+    ???
+  }*/
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqArrOpt[A] = new SqArrOpt(new Array[A](numOfTiles))
