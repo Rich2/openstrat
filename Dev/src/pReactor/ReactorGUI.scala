@@ -30,7 +30,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val player4 = Checkbox(false, "PLAYER 4", -200 pp 100)
   val human = RadioOption(false, "HUMAN", -200 pp 220)
   val computer = RadioOption(true, "COMPUTER", -200 pp 250)
-
+  val player1Options = RadioGroup(Arr(human, computer), computer)
 
   newGame()
 
@@ -146,7 +146,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def turnComplete() : Unit =
   { aDefaultGame.completeTurn()
     isTurnComplete = true
-    deb("turnComplete")
+    //If the current player is a computer then play its hand here
     if (computerPlayers.indexOf(aDefaultGame.currentPlayer) != -1)
     { aDefaultGame.newTurn(aDefaultGame.currentPlayer, computerPlayer.chooseTurnIndex(aDefaultGame.currentPlayer))
       isTurnComplete = false
@@ -169,10 +169,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     }
     case (LeftButton, cl, v) if (cl.length > 0) =>
     { if (cl(0).isInstanceOf[Checkbox])
-      { cl(0).asInstanceOf[Checkbox].isSelected = !cl(0).asInstanceOf[Checkbox].isSelected
+      { cl(0).asInstanceOf[Checkbox].clicked()
+        player1Options.radioOptions.foreach(_.isDisabled = !cl(0).asInstanceOf[Checkbox].isSelected)
         composeGUI()
       } else if (cl(0).isInstanceOf[RadioOption])
-      { cl(0).asInstanceOf[RadioOption].isSelected = !cl(0).asInstanceOf[RadioOption].isSelected
+      { player1Options.clicked(cl(0).asInstanceOf[RadioOption])
         composeGUI()
       }
     }
