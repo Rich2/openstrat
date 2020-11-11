@@ -8,6 +8,7 @@ class HcenArr[A <: AnyRef](val unsafeArr: Array[A])
 {
   def length: Int = unsafeArr.length
   def apply(hc: Hcen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
+  def mutSetAll(value: A): Unit = iUntilForeach(0, length){i => unsafeArr(i) = value }
 
 }
 object HcenArr
