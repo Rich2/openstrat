@@ -22,8 +22,10 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
    *  those moves. This data is state for the Gui. */
   var moves: HcenArrOpt[HCAndStep] = NoMoves
 
-  def lunits: GraphicElems = players.cMap[GraphicElem, GraphicElems](hc => TextGraphic(hc.rcStr, hc.toPt2, 18)){ (p, hc) =>
+  def lunits = players.cMapSomes{ (p, hc) =>
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.rcStr, 24, 2.0) }
+
+  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, hc.toPt2, 20))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles = grid.activeTiles
@@ -66,7 +68,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
     }
   thisTop()
   def moveGraphics2 = moveGraphics.gridScale(scale).map(_.arrow)//  .toLine2.drawArrow(players(rs.hc1).colour)
-  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits).gridScale(scale) ++ moveGraphics2
+  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ css).gridScale(scale) ++ moveGraphics2
   //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()

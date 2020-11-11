@@ -93,6 +93,21 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToArr(buff)
   }
 
+  /** Coordinate map Nones. Map the None values respective Hcen coordinates of this HcenArrOpt to type B, the first type parameter. Returns an
+   * immutable Array based collection of type ArrT, the second type parameter. */
+  def cMapNones[B, ArrT <: ArrBase[B]](f: Hcen => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { r =>
+      val a: A = unsafeArr(grid.arrIndex(r))
+      if(a == null)
+      { val newVal = f(r)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToArr(buff)
+  }
+
   /** Coordinate flatMap Somes. Maps and flattens each Some element with its associated [[Hcen]] coordinate. It ignores the None values. */
   def cFlatMapSomes[ArrT <: ArrBase[_]](f: (A, Hcen) => ArrT)(implicit grid: HGrid, build: ArrFlatBuild[ArrT]): ArrT =
   {

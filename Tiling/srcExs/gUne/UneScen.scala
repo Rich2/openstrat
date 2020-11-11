@@ -15,14 +15,11 @@ trait UneScen
     val resolve: HcenArrBuff[HCAndStep] = grid.newTileBuffArr
     hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HcenArrOpt[Player] = oPlayers.clone
-
 //    resolve.foreach{ (r, l) => l match
 //    { case List(hst) => resValue.mutMove(hst.r1, r)
 //      case _ =>
 //    }}
-
-    //OneScen(turn + 1, grid, resValue)
-    ???
+    UneScen(turn + 1, grid, resValue)
   }
 }
 
