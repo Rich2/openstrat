@@ -12,6 +12,10 @@ case class GDeuxGui(canv: CanvasPlatform, scenStart: DeuxScen) extends CmdBarGui
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
+  /*def lunits = players.cMapSomes{ (p, sc) =>
+    Rect(0.9, 0.6, sc.toPt2).fillDrawTextActive(p.colour, p), p.toString + "\n" + hc.rcStr, 24, 2.0)
+  }*/
+
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
     //    val getOrders = moves.mapSomeOnlys(rs => rs)

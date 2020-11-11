@@ -55,7 +55,7 @@ final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val 
 
   def rowForeach(r: Int)(f: Sqcen => Unit): Unit = iToForeach(cTileMin, cTileMax, 2)(c => f(Sqcen(r, c)))
 
-  def foreach(sc: Sqcen)(f: Sqcen => Unit): Unit = foreachRow(rowForeach(_)(f))
+  def foreach(f: Sqcen => Unit): Unit = foreachRow(rowForeach(_)(f))
 
   final def iForeach(f: (Sqcen, Int) => Unit, startCount: Int = 0): Unit =
   { var count: Int = startCount

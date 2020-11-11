@@ -7,7 +7,7 @@ import geom._
 trait TCoord extends Any
 { def r: Int
   def c: Int
-  //def toPt2: Pt2
+  def toPt2: Pt2
   def toVec: Vec2
   def typeStr: String
   def rcStr: String = s"$r, $c"
@@ -19,6 +19,7 @@ trait TCoord extends Any
 trait SqCoord extends Any with TCoord
 {
   override def toVec: Vec2 = Vec2(c, r)
+  override def toPt2: Pt2 = Pt2(c, r)
 }
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */

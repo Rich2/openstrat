@@ -15,6 +15,21 @@ class SqcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def setSomes(triples: (Int, Int, A)*)(implicit grid: SqGrid): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
+  /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
+   *  an immutable Array based collection of type ArrT, the second type parameter. */
+  def cMapSomes[B, ArrT <: ArrBase[B]](f: (A, Sqcen) => B)(implicit grid: SqGrid, build: ArrBuild[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { (sc: Sqcen) =>
+      val a: A = unsafeArr(grid.arrIndex(sc))
+      if(a != null)
+      { val newVal = f(a, sc)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToArr(buff)
+  }
+
   /** map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array
    * based collection of type ArrT, the second type parameter. */
   /*def mapSqcenSomes[B, ArrT <: ArrBase[B]](f: (Sqcen, A) => B)(implicit grid: SqGrid, build: ArrBuild[B, ArrT]): ArrT =
