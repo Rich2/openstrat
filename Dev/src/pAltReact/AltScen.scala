@@ -5,18 +5,11 @@ import prid._, Colour._
 
 case class Player(str: String, colour: Colour)
 object PlayerA extends Player("A", Red)
+object PlayerB extends Player("B", Violet)
 
-sealed trait Balls
-{ def num: Int
-}
+case class Balls(player: Player, num: Int)
 
-object NoBalls extends Balls
-{ val num: Int = 0
-}
-
-case class SomeBalls(player: Player, num: Int) extends Balls
-
-case class AltScen(turn: Int, grid: SqGrid, arr: SqcenArr[Balls])
+case class AltScen(turn: Int, grid: SqGrid, balls: SqcenArrOpt[Balls])
 {
   //def terrs: TileBooleans
   //def oPlayers: TilesArrOpt[Player]*/
@@ -26,9 +19,10 @@ object AltScen
 {
   def start(r: Int, c: Int): AltScen =
   {
-    val grid = SqGrid(2, r * 2, 2, c * 2)
-    val balls = grid.newTileArr[Balls](NoBalls)
-    //balls
+    implicit val grid = SqGrid(2, r * 2, 2, c * 2)
+    val balls = grid.newTileArrOpt[Balls]
+    balls.setSome(6, 6, Balls(PlayerA, 2))
+    balls.setSome(4, 4, Balls(PlayerB, 1))
     AltScen(0, grid, balls)
   }
 }

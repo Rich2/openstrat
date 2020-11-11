@@ -8,19 +8,33 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
   def clone: HcenArrOpt[A] = new HcenArrOpt[A](unsafeArr.clone)
-  def mutSetSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
-  def mutSetSome(hc: Hcen, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = value
+  def setSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+  def setSome(hc: Hcen, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = value
 
-  def mutSetNone(hc: Hcen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
+  def setNone(hc: Hcen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
 
-  def mutSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
+  def setAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
  /* def mutMove(r1: Roord, r2: Roord)(implicit grid: TileGridSimple): Unit =
   { unsafeArr(grid.arrIndex(r2)) = unsafeArr(grid.arrIndex(r1))
     unsafeArr(grid.arrIndex(r1)) = null.asInstanceOf[A]
   }*/
 
-  def map[B, ArrT <: ArrBase[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  /** Maps the this Arr of Opt values, with their respective Hcen coordinates to an Arr of type B. */
+  def map[B, ArrT <: ArrBase[B]](fNone: => Hcen => B)(fSome: (A, Hcen) => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { hc =>
+      val a = unsafeArr(grid.arrIndex(hc))
+      if (a != null) build.buffGrow(buff, fNone(hc))
+      else { val newVal = fSome(a, hc); build.buffGrow(buff, newVal) }
+    }
+    build.buffToArr(buff)
+  }
+
+
+  /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. */
+  def mapOnly[B, ArrT <: ArrBase[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -58,15 +72,15 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
    build.buffToArr(buff)
  }
 
-  /** map the some values of this HcenArrOpt, with the repsective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array
+  /** map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array
    * based collection of type ArrT, the second type parameter. */
-  def mapHcenSomes[B, ArrT <: ArrBase[B]](f: (Hcen, A) => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  def mapSomeHcens[B, ArrT <: ArrBase[B]](f: (A, Hcen) => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
       val a: A = unsafeArr(grid.arrIndex(r))
       if(a != null)
-      { val newVal = f(r, a)
+      { val newVal = f(a, r)
         build.buffGrow(buff, newVal)
       }
     }

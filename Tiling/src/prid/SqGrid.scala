@@ -51,7 +51,7 @@ final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val 
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqArrOpt[A] = new SqArrOpt(new Array[A](numOfTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqcenArrOpt[A] = new SqcenArrOpt(new Array[A](numOfTiles))
 
   def rowForeach(r: Int)(f: Sqcen => Unit): Unit = iToForeach(cTileMin, cTileMax, 2)(c => f(Sqcen(r, c)))
 

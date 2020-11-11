@@ -27,5 +27,5 @@ trait DeuxScenStart extends DeuxScen
 object DeuxScen1 extends DeuxScenStart
 {
   implicit val grid = new SqGrid(2, 8, 2, 10)
-  val oPlayers: SqArrOpt[Player] = grid.newTileArrOpt
+  val oPlayers: SqcenArrOpt[Player] = grid.newTileArrOpt
 }
