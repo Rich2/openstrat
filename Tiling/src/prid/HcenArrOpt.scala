@@ -2,8 +2,8 @@
 package ostrat
 package prid
 
-/** An immutable Arr of Opt Tile data for a specific hex tile grid [[HGrid]]. This is specialised for OptRef[A]. The tileGrid can map the Roord of the
- *  Tile to the index of the Arr. Hence most methods take an implicit TileGrid parameter. */
+/** An immutable Arr of Opt Tile data for a specific hex tile grid [[HGrid]]. This is specialised for OptRef[A]. The tileGrid can map the [[Hcen]]
+ * coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[HGrid]] hex grid parameter. */
 class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
@@ -20,8 +20,8 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     unsafeArr(grid.arrIndex(r1)) = null.asInstanceOf[A]
   }*/
 
-  /** Maps the this Arr of Opt values, with their respective Hcen coordinates to an Arr of type B. */
-  def map[B, ArrT <: ArrBase[B]](fNone: => Hcen => B)(fSome: (A, Hcen) => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  /** Short for coordinate-map. Maps the this Arr of Opt values, with their respective [[Hcen]] coordinates to an Arr of type B. */
+  def cMap[B, ArrT <: ArrBase[B]](fNone: => Hcen => B)(fSome: (A, Hcen) => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>
@@ -33,8 +33,9 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   }
 
 
-  /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. */
-  def mapOnly[B, ArrT <: ArrBase[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
+  /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HcenArrOpt]] class like
+   *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HcenArr]] was created. */
+  def map[B, ArrT <: ArrBase[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -59,6 +60,8 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
 //  def foreachSome(f: (Roord, A) => Unit)(implicit grid: TileGridSimple): Unit = grid.foreach { r => f(r, unsafeArr(grid.arrIndex(r))) }
 
+  /** Maps the Some values to type B by the parameter function. It ignores the None values This method treats the [[HcenArr]] class like a standard
+   *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HcenArrOpt]] was created. */
   def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
