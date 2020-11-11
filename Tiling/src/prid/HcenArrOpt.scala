@@ -8,8 +8,15 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
   def clone: HcenArrOpt[A] = new HcenArrOpt[A](unsafeArr.clone)
+
+  /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def setSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+
+  /** Sets the Some value of the hex tile data at the specified [[Hcen]] coordinate. This is an imperative mutating operation. */
   def setSome(hc: Hcen, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = value
+
+  /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
+  def setSomes(triples: (Int, Int, A)*)(implicit grid: HGridReg): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
   def setNone(hc: Hcen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
 
@@ -21,8 +28,7 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     new HcenArrOpt[A](newArr)
   }
 
-  def mutSetSomes(triples: (Int, Int, A)*)(implicit grid: HGridReg): Unit =
-    triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
+
 
  /* def mutMove(r1: Roord, r2: Roord)(implicit grid: TileGridSimple): Unit =
   { unsafeArr(grid.arrIndex(r2)) = unsafeArr(grid.arrIndex(r1))

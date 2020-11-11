@@ -7,6 +7,8 @@ case class GDeuxGui(canv: CanvasPlatform, scenStart: DeuxScen) extends CmdBarGui
   var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   implicit def grid = scen.grid
+  def players: SqcenArrOpt[Player] = scen.oPlayers
+
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 

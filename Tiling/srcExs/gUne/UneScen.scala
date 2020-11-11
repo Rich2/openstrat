@@ -41,7 +41,7 @@ object UneScen1 extends UneScenStart
 { implicit val grid = new HGridReg(2, 6, 2, 10)
   val oPlayers: HcenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
-  oPlayers.mutSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  oPlayers.setSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
 /*object UneScen2 extends UneScenStart

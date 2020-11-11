@@ -5,7 +5,15 @@ package prid
 class SqcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
+
+  /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def setSome(y: Int, c: Int, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+
+  /** Sets the Some value of the hex tile data at the specified [[Sqcen]] coordinate. This is an imperative mutating operation. */
+  def setSome(sc: Sqcen, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(sc)) = value
+
+  /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
+  def setSomes(triples: (Int, Int, A)*)(implicit grid: SqGrid): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
   /** map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array
    * based collection of type ArrT, the second type parameter. */

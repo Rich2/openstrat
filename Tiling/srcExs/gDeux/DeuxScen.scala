@@ -6,6 +6,7 @@ import prid._
 trait DeuxScen
 { val turn: Int
   def grid: SqGrid
+  def oPlayers: SqcenArrOpt[Player]
   //def terrs: TileBooleans
   //def oPlayers: TilesArrOpt[Player]*/
 }
@@ -28,4 +29,6 @@ object DeuxScen1 extends DeuxScenStart
 {
   implicit val grid = new SqGrid(2, 8, 2, 10)
   val oPlayers: SqcenArrOpt[Player] = grid.newTileArrOpt
+  oPlayers.setSome(4, 4, PlayerA)
+  //oPlayers.mutSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
