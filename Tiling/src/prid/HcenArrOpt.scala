@@ -99,7 +99,7 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToArr(buff)
   }
 
-  /** Coordinate map Nones. Map the None values respective Hcen coordinates of this HcenArrOpt to type B, the first type parameter. Returns an
+  /** Coordinate map Nones. Map the None values respective [[Hcen]] coordinates of this [[HcenArrOpt]] to type B, the first type parameter. Returns an
    * immutable Array based collection of type ArrT, the second type parameter. */
   def cMapNones[B, ArrT <: ArrBase[B]](f: Hcen => B)(implicit grid: HGrid, build: ArrBuild[B, ArrT]): ArrT =
   {
