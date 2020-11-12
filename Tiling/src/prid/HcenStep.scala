@@ -7,7 +7,7 @@ package prid
 sealed trait HcenStepOpt
 { def r: Int
   def c: Int
-  def hCen: Hcen = Hcen(r, c)
+  def hcen: Hcen = Hcen(r, c)
 }
 case object HcenStepNone extends HcenStepOpt { def r: Int = 0; def c: Int = 0 }
 

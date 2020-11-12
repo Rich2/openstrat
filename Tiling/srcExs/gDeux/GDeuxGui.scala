@@ -29,6 +29,9 @@ case class GDeuxGui(canv: CanvasPlatform, scenStart: DeuxScen) extends CmdBarGui
   /** Draws the tiles sides (or edges). */
   val sidesDraw = grid.sidesDraw()
 
+  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
+  //def NoMoves: HcenArrOpt[HCAndStep] = grid.newTileArrOpt[HCAndStep]
+
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn))

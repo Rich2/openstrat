@@ -25,7 +25,7 @@ class Hcen(val r: Int, val c: Int) extends HCoordReg
   def andStep(hcs: HcenStep): HCAndStep = HCAndStep(r, c, hcs)
 
   /** Optionally returns the Step value of the HCen if it is an adjacent HCen. */
-  def optStep(operand: Hcen): OptRef[HcenStep] = hcStepSomes.optFind(_.hCen == operand - this)
+  def optStep(operand: Hcen): OptRef[HcenStep] = hcStepSomes.optFind(_.hcen == operand - this)
   def -(operand: Hcen): Hcen = Hcen(r - operand.r, c - operand.c)
 }
 
