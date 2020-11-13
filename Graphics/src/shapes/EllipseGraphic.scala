@@ -6,7 +6,7 @@ import pCanv._, Colour.Black
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphic
 { override def shape: Ellipse
-  //@inline final def cen: Vec2 = shape.cen
+  //@inline final def cen: Pt2 = shape.cen
  // @inline final def xCen: Double = shape.xCen
  // @inline final def yCen: Double = shape.yCen
 }
@@ -18,7 +18,7 @@ trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with S
 }
 
 /** A simple single colour fill of a circle graphic. */
-trait EllipseFill extends EllipseGraphicSimple with ShapeFill
+trait EllipseFill extends EllipseGraphicSimple with ShapeFill with CanvElem
 { type ThisT <: EllipseFill
   type ThisT2 = EllipseFill
   override def fTrans2(f: Pt2 => Pt2): ThisT2 = EllipseFill(shape.fTrans(f), colour)
@@ -45,7 +45,7 @@ object EllipseFill
   }
 }
 
-trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw
+trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with CanvElem
 {
   type ThisT <: EllipseDraw
   type ThisT2 = EllipseDraw
