@@ -8,7 +8,7 @@ import pCanv._
 trait PolygonFill extends PolygonGraphicSimple with ShapeFill
 { //type ThisT <: PolygonFill
   // override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(shape, colour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)
   override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(newColour, lineWidth)
 
   /** Translate geometric transformation. */

@@ -59,7 +59,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 
     composeGUI()
 
-    canv.polygonFill(Rect.bl(size/2, size/2, -size pp -size), aDefaultGame.currentPlayer)
+    canv.polygonFill(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer))
     ijUntilForeach(0, rows)(0, cols){ (r, c) =>
       val index = c+cols*r
       drawBalls(size*c pp size*r, Black, index)
@@ -68,13 +68,13 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   }
   def drawBalls(loc:Pt2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
-    canv.polygonFill(Rect.bl(size-1, size-1, loc), Black)
+    canv.polygonFill(Rect.bl(size-1, size-1, loc).fill(Black))
     if (count >= 1) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 0)), color)
     if (count >= 2) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 1)), color)
     if (count >= 3) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 2)), color)
     if (count >= 4) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 3)), color)
     if (count >= 5) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 4)), color)
-    if (count >= 6) canv.polygonFill(Rect.bl(size-1, size-1, loc), Pink)
+    if (count >= 6) canv.polygonFill(Rect.bl(size-1, size-1, loc).fill(Pink))
   }
   def doAnimation() : Unit =
   { animationStep += 0.1

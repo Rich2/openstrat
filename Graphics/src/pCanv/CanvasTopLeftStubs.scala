@@ -7,7 +7,7 @@ import geom._
  *  trait form the inheritance hierarchy once full functionality has been implemented */
 trait CanvasTopLeftStubs extends CanvasTopLeft
 { override def getTime: Long = 0
-  override protected def tlPolyFill(poly: Polygon, colour: Colour): Unit = {}
+  override protected def tlPolyFill(pf: PolygonFill): Unit = {}
   override protected def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = {}
   override protected def tlLinesDraw(lsd: LinesDraw): Unit = {}
 

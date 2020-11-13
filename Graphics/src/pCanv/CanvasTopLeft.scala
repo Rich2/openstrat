@@ -9,7 +9,7 @@ trait CanvasTopLeft extends CanvasPlatform
   def tlCen: Pt2 => Pt2 = v => Pt2(width / 2 + v.x, height / 2 - v.y)
   def matrix: ProlignMatrix = ProlignMatrix.mirrorY.slate(width / 2, height / 2)
  
-  final override def pPolyFill(poly: Polygon, colour: Colour): Unit = tlPolyFill(poly.fTrans(tlCen), colour)
+  final override def pPolyFill(pf: PolygonFill): Unit = tlPolyFill(pf.negY.slate(width / 2, height / 2))//fTrans(tlCen))
   final override def pPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit = tlPolyDraw(poly.fTrans(tlCen), lineWidth, colour)
   final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
   final override def lineDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
@@ -47,7 +47,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def clip(pts: Polygon): Unit = tlClip(pts.fTrans(tlCen))
 
-  protected[this] def tlPolyFill(poly: Polygon, colour: Colour): Unit
+  protected[this] def tlPolyFill(pf: PolygonFill): Unit
   protected[this] def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit
   protected[this] def tlLinePathDraw(pod: LinePathDraw): Unit
 

@@ -7,7 +7,7 @@ import pWeb._
 trait PolygonCompound extends ShapeCompound with PolygonGraphic
 {
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
-  { case FillFacet(c) => cp.polygonFill(shape, c)
+  { case FillFacet(c) => cp.polygonFill(shape.fill(c))
     case DrawFacet(w, c) => cp.polygonDraw(shape, w, c)
     case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
@@ -82,7 +82,7 @@ object PolygonCompound
   case class PolygonCompoundImp(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends PolygonCompound
   {
     override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
-    { case FillFacet(c) => cp.polygonFill(shape, c)
+    { case FillFacet(c) => cp.polygonFill(shape.fill(c))
     case DrawFacet(w, c) => cp.polygonDraw(shape, w, c)
     case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)

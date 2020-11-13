@@ -31,7 +31,7 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
   { val clipPoly = panel.clipPoly
     canv.gcSave()
     canv.clip(clipPoly)
-    canv.polygonFill(clipPoly, panel.backColour)
+    canv.polygonFill(clipPoly.fill(panel.backColour))
     val movedObjs: Arr[GraphicElem] = panel.canvObjs.slate(panel.clipVec)
     panel.actives = paintObjs(movedObjs)
     canv.gcRestore()
