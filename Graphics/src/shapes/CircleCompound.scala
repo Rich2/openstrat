@@ -10,7 +10,7 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillFacet(c) => cp.circleFill(shape, c)
-    case DrawFacet(w, c) => cp.circleDraw(shape, w, c)
+    case DrawFacet(c, w) => cp.circleDraw(shape.draw(c, w))
     case fr: FillRadial => cp.circleFillRadial(shape, fr)  
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }

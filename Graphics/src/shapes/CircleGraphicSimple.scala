@@ -21,7 +21,7 @@ final case class CircleFill(shape: Circle, colour: Colour) extends CircleGraphic
 final case class CircleDraw(shape: Circle, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CircleGraphicSimple with EllipseDraw
 { type ThisT = CircleDraw
   override def fTrans(f: Pt2 => Pt2): CircleDraw = CircleDraw(shape.fTrans(f), lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDrawOld(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.circleDraw(this)
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 }
 

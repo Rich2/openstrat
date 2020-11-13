@@ -28,7 +28,7 @@ object LineSegDraw
 case class LinesDraw(lines: LineSegs, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem
 { override type ThisT = LinesDraw
   override def fTrans(f: Pt2 => Pt2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linesDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)
 }
 
 object LinesDraw

@@ -106,25 +106,11 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setFill(lg1)
     gc.fillOval(circle.xCen - circle.radius, circle.yCen - circle.radius, circle.diameter, circle.diameter)
   }
-  override def tlCircleDrawOld(cd: CircleDraw): Unit =
+  override def tlCircleDraw(cd: CircleDraw): Unit =
   { gc.setLineWidth(cd.lineWidth)
     gc.setStroke(toFxColor(cd.lineColour))
     gc.strokeOval(cd.xCen - cd.radius, cd.yCen - cd.radius, cd.diameter, cd.diameter)
   }
-
-  override def tlCircleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit =
-  { gc.setLineWidth(lineWidth)
-    gc.setStroke(toFxColor(colour))
-    gc.strokeOval(circle.xCen - circle.radius, circle.yCen - circle.radius, circle.diameter, circle.diameter)
-  }
-  
-  /*override def tlCircleFillDraw(cfd: CircleFillDraw): Unit =
-  { gc.setFill(toFxColor(cfd.fillColour))
-    gc.fillOval(cfd.xCen - cfd.radius, cfd.yCen - cfd.radius, cfd.diameter, cfd.diameter)
-    gc.setLineWidth(cfd.lineWidth)
-    gc.setStroke(toFxColor(cfd.lineColour))
-    gc.strokeOval(cfd.xCen - cfd.radius, cfd.yCen - cfd.radius, cfd.diameter, cfd.diameter)
-  }*/
 
   override def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit = 
   { gc.setFill(toFxColor(colour))

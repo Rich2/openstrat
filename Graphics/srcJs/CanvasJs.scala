@@ -175,19 +175,11 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
-  override def tlCircleDrawOld(cd: CircleDraw): Unit =
+  override def tlCircleDraw(cd: CircleDraw): Unit =
   { gc.beginPath()
     gc.strokeStyle = cd.lineColour.webStr
     gc.lineWidth = cd.lineWidth
     gc.arc(cd.xCen, cd.yCen, cd.radius, 0, Pi * 2)
-    gc.stroke()
-  }
-
-  override def tlCircleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit =
-  { gc.beginPath()
-    gc.strokeStyle = colour.webStr
-    gc.lineWidth = lineWidth
-    gc.arc(circle.xCen, circle.yCen, circle.radius, 0, Pi * 2)
     gc.stroke()
   }
   

@@ -24,7 +24,7 @@ case class ShapeActive(id: Any) extends GraphicFacet
 
 trait CurveFacet extends GraphicFacet
 
-case class DrawFacet(width: Double = 2.0, colour: Colour = Black) extends CurveFacet
+case class DrawFacet(colour: Colour = Black, width: Double = 2.0) extends CurveFacet
 { def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(width)
   def strokeAttrib: StrokeAttrib = StrokeAttrib(colour)
   override def attribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)

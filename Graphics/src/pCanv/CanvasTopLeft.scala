@@ -19,7 +19,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def cArcDraw3(cad: CArcDraw3): Unit = tlCArcDraw3(cad.negY.slate(width / 2, height / 2))
 
   final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
-  final override def linesDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
+  final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
   final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.fTrans(tlCen))
 
   final override def pShapeFill(shape: PolyCurve, colour: Colour): Unit = tlShapeFill(shape.fTrans(tlCen), colour)
@@ -32,16 +32,13 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def circleFillRadial(circle: Circle, fill: FillRadial): Unit =
     tlCircleFillRadial(circle.negY.slate(width / 2, height / 2), fill)
 
-  final override def circleDrawOld(cd: CircleDraw): Unit = tlCircleDrawOld(cd.negY.slate(width / 2, height / 2))
+  final override def circleDraw(cd: CircleDraw): Unit = tlCircleDraw(cd.negY.slate(width / 2, height / 2))
 
-  final override def circleDraw(circle: Circle, lineWidth: Double, colour: Colour): Unit =
-    tlCircleDraw(circle.negY.slate(width / 2, height / 2), lineWidth, colour)
-  
   final override def ellipseFill(ellipse: Ellipse, colour: Colour): Unit = tlEllipseFill(ellipse.negY.slate(width / 2, height / 2), colour)
-  
+
   final override def ellipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit =
     tlEllipseDraw(ellipse.negY.slate(width / 2, height / 2), lineWidth, colour)
-    
+
   final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
   final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
 
@@ -63,12 +60,10 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit
 
   protected[this] def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit
- 
+
   protected[this] def tlCircleFill(circle: Circle, colour: Colour): Unit
   protected[this] def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit
-
-  protected[this] def tlCircleDrawOld(cd: CircleDraw): Unit
-  protected[this] def tlCircleDraw(circle: Circle, lineWidth: Double, lineColour: Colour): Unit
+  protected[this] def tlCircleDraw(cd: CircleDraw): Unit
   
   protected[this] def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit
   protected[this] def tlEllipseDraw(ellipse: Ellipse, lineWidth: Double, lineColour: Colour): Unit
