@@ -24,18 +24,28 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val computerPlayers = Array(Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
-  val player1 = Checkbox(true, "PLAYER 1", -200 pp 190)
-  val player2 = Checkbox(false, "PLAYER 2", -200 pp 160)
-  val player3 = Checkbox(false, "PLAYER 3", -200 pp 130, true)
-  val player4 = Checkbox(false, "PLAYER 4", -200 pp 100)
-  val human = RadioOption(false, "HUMAN", -200 pp 220)
-  val computer = RadioOption(true, "COMPUTER", -200 pp 250)
-  val player1Options = RadioGroup(Arr(human, computer), computer)
+  val player1Human = RadioOption(true, "HUMAN", -180 pp 220)
+  val player1Computer = RadioOption(false, "COMPUTER", -180 pp 200)
+  val player1Options = RadioGroup(Arr(player1Human, player1Computer), player1Human)
+  val player2Human = RadioOption(true, "HUMAN", -180 pp 160)
+  val player2Computer = RadioOption(false, "COMPUTER", -180 pp 140)
+  val player2Options = RadioGroup(Arr(player2Human, player2Computer), player2Computer)
+  val player3Human = RadioOption(true, "HUMAN", -180 pp 100)
+  val player3Computer = RadioOption(false, "COMPUTER", -180 pp 80)
+  val player3Options = RadioGroup(Arr(player3Human, player3Computer), player3Computer)
+  val player4Human = RadioOption(true, "HUMAN", -180 pp 40)
+  val player4Computer = RadioOption(false, "COMPUTER", -180 pp 20)
+  val player4Options = RadioGroup(Arr(player4Human, player4Computer), player4Computer)
+
+  val player1 = Checkbox(true, "PLAYER 1", -200 pp 240, true, (player1:Checkbox) => { player1Options.setEnabled(!player1.isSelected) })
+  val player2 = Checkbox(true, "PLAYER 2", -200 pp 180, true, (player2:Checkbox) => { player2Options.setEnabled(!player2.isSelected) })
+  val player3 = Checkbox(true, "PLAYER 3", -200 pp 120, true, (player3:Checkbox) => { player3Options.setEnabled(!player3.isSelected) })
+  val player4 = Checkbox(true, "PLAYER 4", -200 pp 60, true, (player4:Checkbox) => { player4Options.setEnabled(!player4.isSelected) })
 
   newGame()
 
   def composeGUI():Unit =
-  { val config = player1.put() ++ player2.put() ++ player3.put() ++ player4.put() ++ human.put() ++ computer.put()
+  { val config = player1.put() ++ player2.put() ++ player3.put() ++ player4.put() ++ player1Options.put() ++ player2Options.put() ++ player3Options.put() ++ player4Options.put()
     val composition:GraphicElems = Arr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })) ++ config ++ getCurrentPlayerIndicator()
     repaint(composition)
     ijUntilForeach(0, rows)(0, cols){ (r, c) =>
@@ -170,12 +180,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     case (LeftButton, cl, v) if (cl.length > 0) =>
     { if (cl(0).isInstanceOf[Checkbox])
       { cl(0).asInstanceOf[Checkbox].clicked()
-        player1Options.radioOptions.foreach(_.isDisabled = !cl(0).asInstanceOf[Checkbox].isSelected)
         composeGUI()
-      } else if (cl(0).isInstanceOf[RadioOption])
-      { player1Options.clicked(cl(0).asInstanceOf[RadioOption])
-        composeGUI()
-      }
+      } else if (cl(0).isInstanceOf[RadioOption]) composeGUI()
     }
     case (LeftButton, cl, _) => debvar(cl)
 
