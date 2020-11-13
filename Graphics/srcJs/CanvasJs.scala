@@ -90,13 +90,13 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
-  override def tlPolyDraw(poly: Polygon, lineWidth: Double, colour: Colour): Unit =
+  override def tlPolyDraw(pd: PolygonDraw): Unit =
   { gc.beginPath()
-    gc.moveTo(poly.x1, poly.y1)
-    poly.foreachPairTail(gc.lineTo)
+    gc.moveTo(pd.x1, pd.y1)
+    pd.shape.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.strokeStyle = colour.webStr
-    gc.lineWidth = lineWidth
+    gc.strokeStyle = pd.lineColour.webStr
+    gc.lineWidth = pd.lineWidth
     gc.stroke()
   }
 

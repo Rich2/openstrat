@@ -6,7 +6,7 @@ import pCanv._, Colour.Black
 /** Immutable Graphic element that defines and draws a Polygon. */
 trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
 { //override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
 
   /** Translate geometric transformation on a PolygonDraw, returns a PolygonDraw. */
   override def slate(xOffset: Double, yOffset: Double): PolygonDraw = PolygonDraw(shape.slate(xOffset, yOffset), lineWidth, lineColour)
@@ -65,6 +65,6 @@ object PolygonDraw
   /** Immutable Graphic element that defines and draws a Polygon. */
   case class PolygonDrawImp(shape: Polygon, lineWidth: Double = 2, lineColour: Colour = Black) extends PolygonDraw
   { 
-    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)
+    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
   }
 }

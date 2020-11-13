@@ -47,6 +47,6 @@ object RectangleDraw
   /** Immutable Graphic element that defines and draws a Polygon. */
   case class RectangleDrawImp(shape: Rectangle, lineWidth: Double = 2, lineColour: Colour = Black) extends RectangleDraw
   {
-    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(shape, lineWidth, lineColour)
+    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
   }
 }

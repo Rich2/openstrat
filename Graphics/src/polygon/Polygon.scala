@@ -15,6 +15,8 @@ trait Polygon extends Shape with BoundedElem
   
   def xVertsArray: Array[Double]
   def yVertsArray: Array[Double]
+
+  /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. */
   def foreachPairTail[U](f: (Double, Double) => U): Unit
 
   def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT =

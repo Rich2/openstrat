@@ -8,7 +8,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 {
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case FillFacet(c) => cp.polygonFill(shape.fill(c))
-    case DrawFacet(w, c) => cp.polygonDraw(shape, w, c)
+    case DrawFacet(w, c) => cp.polygonDraw(shape.draw(c, w))
     case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
@@ -83,7 +83,7 @@ object PolygonCompound
   {
     override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
     { case FillFacet(c) => cp.polygonFill(shape.fill(c))
-    case DrawFacet(w, c) => cp.polygonDraw(shape, w, c)
+    case DrawFacet(w, c) => cp.polygonDraw(shape.draw(c, w))
     case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
@@ -95,12 +95,13 @@ object PolygonCompound
 
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
-    /** Translate geometric transformation. */
-    //override def slate(offset: Vec2Like): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Translate geometric transformation. */
     override def slate(xOffset: Double, yOffset: Double): PolygonCompoundImp =
       PolygonCompoundImp(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
+
+    /** Translate geometric transformation. */
+    override def slate(offset: Vec2Like): PolygonCompoundImp = PolygonCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */
