@@ -5,20 +5,7 @@ import pWeb._
 
 /** This trait may be removed. */
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
-{ def xHead: Double = shape.x1
-  def yHead: Double = shape.y1
-
-  /** The number of vertices. */
-  def vertsLen: Int = shape.vertsNum
-
-  /** Checks for 2 or more vertices */
-  def ifv2: Boolean = shape.vertsNum >= 2
-
-  /** Checks for 3 or more vertices */
-  def ifv3: Boolean = shape.vertsNum >= 3
-
-  def xArray: Array[Double] = shape.xVertsArray//elem1sArray
-  def yArray: Array[Double] = shape.yVertsArray//elem2sArray
+{
   override def boundingRect: BoundingRect = shape.boundingRect
   def svgStr: String = tagVoidStr("rect", attribs)
   override def svgElem(bounds: BoundingRect): SvgElem = ???  
