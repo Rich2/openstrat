@@ -11,7 +11,7 @@ object Cyprus extends Flag
   {
     val background = Rect(1.5, 1).fill(White)
     
-    val cMap = PolyCurve(LineTail(0.4619 pp 0.3267), LineTail(0.458 pp 0.3252), LineTail(0.4564 pp 0.3245), LineTail(0.4517 pp 0.3248),
+    val cMap = ShapeGen(LineTail(0.4619 pp 0.3267), LineTail(0.458 pp 0.3252), LineTail(0.4564 pp 0.3245), LineTail(0.4517 pp 0.3248),
       LineTail(0.4472 pp 0.3227), LineTail(0.4393 pp 0.3173), LineTail(0.439 pp 0.317), LineTail(0.436 pp 0.3163), LineTail(0.4333 pp 0.3174),
       LineTail(0.4317 pp 0.3167), LineTail(0.4312 pp 0.3135), LineTail(0.4297 pp 0.3112), LineTail(0.4279 pp 0.3099), LineTail(0.4216 pp 0.3093),
       LineTail(0.4163 pp 0.3066), LineTail(0.4094 pp 0.3084), LineTail(0.4061 pp 0.3072), LineTail(0.3993 pp 0.301), LineTail(0.3958 pp 0.2993),
@@ -133,7 +133,7 @@ object Cyprus extends Flag
       LineTail(0.4596 pp 0.3123), LineTail(0.4598 pp 0.3194), LineTail(0.4614 pp 0.3213), LineTail(0.4622 pp 0.326), LineTail(0.4631 pp 0.3271),
       LineTail(0.4639 pp 0.3282), LineTail(0.466 pp 0.3297), LineTail(0.4657 pp 0.3306), LineTail(0.4619 pp 0.3267)).fill(Colour(0xFFd57800))
 
-    val leaf01 =  PolyCurve(LineTail(0.02184 pp -0.3446), BezierTail(0.02154 pp -0.3444, 0.02147 pp -0.3444, 0.02126 pp -0.3442),
+    val leaf01 =  ShapeGen(LineTail(0.02184 pp -0.3446), BezierTail(0.02154 pp -0.3444, 0.02147 pp -0.3444, 0.02126 pp -0.3442),
       LineTail(0.02105 pp -0.344), BezierTail(0.02051 pp -0.3435, 0.01961 pp -0.3426, 0.01841 pp -0.3412),
       BezierTail(0.01619 pp -0.3387, 0.01321 pp -0.335, 0.0106 pp -0.3318),
       BezierTail(0.005405 pp -0.3253, 0.001115 pp -0.3197, 0.0003065 pp -0.3187), LineTail(-0.001015 pp -0.3169), LineTail(-0.01396 pp -0.3129),
@@ -143,65 +143,65 @@ object Cyprus extends Flag
       BezierTail(0.02238 pp -0.3434, 0.02225 pp -0.3437, 0.02219 pp -0.3439), LineTail(0.02368 pp -0.343), LineTail(0.02529 pp -0.3442),
       LineTail(0.02201 pp -0.3445), LineTail(0.02186 pp -0.3446), LineTail(0.02184 pp -0.3446)).fill(Colour(0xFF4e5b31))
     
-    val leaf02 =  PolyCurve(LineTail(-0.06704 pp -0.3179), BezierTail(-0.07834 pp -0.3179, -0.08949 pp -0.3147, -0.1002 pp -0.3086),
+    val leaf02 =  ShapeGen(LineTail(-0.06704 pp -0.3179), BezierTail(-0.07834 pp -0.3179, -0.08949 pp -0.3147, -0.1002 pp -0.3086),
       LineTail(-0.1002 pp -0.3086), LineTail(-0.1002 pp -0.3086), BezierTail(-0.1002 pp -0.3086, -0.09881 pp -0.3059, -0.09541 pp -0.3034),
       BezierTail(-0.09217 pp -0.301, -0.08634 pp -0.2982, -0.07691 pp -0.2981), LineTail(-0.07691 pp -0.2983),
       BezierTail(-0.06574 pp -0.2983, -0.05207 pp -0.3021, -0.03629 pp -0.3096),
       BezierTail(-0.03682 pp -0.31, -0.04921 pp -0.318, -0.06723 pp -0.318), LineTail(-0.06721 pp -0.3181),
       LineTail(-0.06704 pp -0.3179)).fill(Colour(0xFF4e5b31))
     
-    val leaf03 =  PolyCurve(LineTail(-0.1162 pp -0.3072), BezierTail(-0.1183 pp -0.3072, -0.1201 pp -0.3064, -0.1214 pp -0.305),
+    val leaf03 =  ShapeGen(LineTail(-0.1162 pp -0.3072), BezierTail(-0.1183 pp -0.3072, -0.1201 pp -0.3064, -0.1214 pp -0.305),
       BezierTail(-0.1225 pp -0.3038, -0.1233 pp -0.3023, -0.1238 pp -0.3002), BezierTail(-0.1247 pp -0.2968, -0.1244 pp -0.2935, -0.1244 pp -0.2932),
       BezierTail(-0.1235 pp -0.2928, -0.1226 pp -0.2926, -0.1218 pp -0.2926), LineTail(-0.1216 pp -0.2926),
       BezierTail(-0.1174 pp -0.2926, -0.1141 pp -0.2962, -0.1127 pp -0.2998), BezierTail(-0.1119 pp -0.3018, -0.1118 pp -0.3036, -0.1123 pp -0.3049),
       BezierTail(-0.1128 pp -0.3063, -0.1143 pp -0.3072, -0.1162 pp -0.3072), LineTail(-0.1162 pp -0.3072)).fill(Colour(0xFF4e5b31))
     
-    val leaf04 =  PolyCurve(LineTail(-0.03003 pp -0.2972), BezierTail(-0.05896 pp -0.2931, -0.07122 pp -0.2826, -0.07641 pp -0.2746),
+    val leaf04 =  ShapeGen(LineTail(-0.03003 pp -0.2972), BezierTail(-0.05896 pp -0.2931, -0.07122 pp -0.2826, -0.07641 pp -0.2746),
       BezierTail(-0.08195 pp -0.266, -0.08082 pp -0.2581, -0.0808 pp -0.258), LineTail(-0.0808 pp -0.258), LineTail(-0.08078 pp -0.2579),
       BezierTail(-0.08077 pp -0.2579, -0.07901 pp -0.2575, -0.07635 pp -0.2575),
       BezierTail(-0.06865 pp -0.2575, -0.04896 pp -0.2613, -0.03002 pp -0.2972), LineTail(-0.03001 pp -0.2972), LineTail(-0.03004 pp -0.2972),
       LineTail(-0.03003 pp -0.2972)).fill(Colour(0xFF4e5b31))
     
-    val leaf05 =  PolyCurve(LineTail(-0.08934 pp -0.2915), BezierTail(-0.1017 pp -0.2915, -0.1111 pp -0.2893, -0.1173 pp -0.2851),
+    val leaf05 =  ShapeGen(LineTail(-0.08934 pp -0.2915), BezierTail(-0.1017 pp -0.2915, -0.1111 pp -0.2893, -0.1173 pp -0.2851),
       BezierTail(-0.1209 pp -0.2827, -0.1226 pp -0.2801, -0.1235 pp -0.2783), BezierTail(-0.1242 pp -0.2766, -0.1244 pp -0.2752, -0.1244 pp -0.2749),
       BezierTail(-0.1241 pp -0.2747, -0.1191 pp -0.2725, -0.1115 pp -0.2721), BezierTail(-0.1109 pp -0.2721, -0.1102 pp -0.2721, -0.1095 pp -0.2721),
       BezierTail(-0.09999 pp -0.2721, -0.08546 pp -0.2752, -0.07013 pp -0.29), LineTail(-0.07012 pp -0.2901), LineTail(-0.07014 pp -0.2901),
       BezierTail(-0.07714 pp -0.291, -0.0836 pp -0.2915, -0.08935 pp -0.2915), LineTail(-0.08934 pp -0.2915)).fill(Colour(0xFF4e5b31))
     
-    val leaf06 =  PolyCurve(LineTail(-0.1492 pp -0.2892), BezierTail(-0.1622 pp -0.2892, -0.1801 pp -0.2852, -0.1913 pp -0.274),
+    val leaf06 =  ShapeGen(LineTail(-0.1492 pp -0.2892), BezierTail(-0.1622 pp -0.2892, -0.1801 pp -0.2852, -0.1913 pp -0.274),
       LineTail(-0.1913 pp -0.274), LineTail(-0.1913 pp -0.274), BezierTail(-0.1912 pp -0.274, -0.1791 pp -0.2709, -0.1654 pp -0.2706),
       BezierTail(-0.1646 pp -0.2705, -0.1638 pp -0.2705, -0.163 pp -0.2705), BezierTail(-0.1507 pp -0.2705, -0.1414 pp -0.2729, -0.1352 pp -0.2776),
       BezierTail(-0.133 pp -0.2792, -0.1318 pp -0.2807, -0.1315 pp -0.2822), BezierTail(-0.1313 pp -0.2835, -0.132 pp -0.2848, -0.1333 pp -0.2858),
       BezierTail(-0.1361 pp -0.2879, -0.1411 pp -0.289, -0.1482 pp -0.2892), LineTail(-0.1492 pp -0.2892),
       LineTail(-0.1492 pp -0.2892)).fill(Colour(0xFF4e5b31))
     
-    val leaf07 =  PolyCurve(LineTail(-0.1914 pp -0.2675), BezierTail(-0.193 pp -0.2675, -0.1945 pp -0.2668, -0.1956 pp -0.2656),
+    val leaf07 =  ShapeGen(LineTail(-0.1914 pp -0.2675), BezierTail(-0.193 pp -0.2675, -0.1945 pp -0.2668, -0.1956 pp -0.2656),
       BezierTail(-0.1964 pp -0.2646, -0.197 pp -0.2632, -0.1974 pp -0.2614), BezierTail(-0.1981 pp -0.2583, -0.1979 pp -0.2553, -0.1979 pp -0.2553),
       LineTail(-0.1979 pp -0.2552), BezierTail(-0.1973 pp -0.2549, -0.1966 pp -0.2548, -0.1959 pp -0.2548), LineTail(-0.1959 pp -0.2548),
       BezierTail(-0.1939 pp -0.2548, -0.1925 pp -0.2558, -0.1915 pp -0.2567), BezierTail(-0.1903 pp -0.2579, -0.1893 pp -0.2594, -0.1887 pp -0.2611),
       BezierTail(-0.1881 pp -0.2628, -0.188 pp -0.2643, -0.1884 pp -0.2655), BezierTail(-0.1888 pp -0.2665, -0.1899 pp -0.2675, -0.1914 pp -0.2675),
       LineTail(-0.1914 pp -0.2675)).fill(Colour(0xFF4e5b31))
     
-    val leaf08 =  PolyCurve(LineTail(-0.09388 pp -0.2653), BezierTail(-0.09597 pp -0.2653, -0.09785 pp -0.2645, -0.09916 pp -0.2631),
+    val leaf08 =  ShapeGen(LineTail(-0.09388 pp -0.2653), BezierTail(-0.09597 pp -0.2653, -0.09785 pp -0.2645, -0.09916 pp -0.2631),
       BezierTail(-0.1002 pp -0.2619, -0.101 pp -0.2603, -0.1015 pp -0.2583), BezierTail(-0.1024 pp -0.2549, -0.1021 pp -0.2516, -0.1021 pp -0.2513),
       BezierTail(-0.1012 pp -0.2509, -0.1003 pp -0.2507, -0.09952 pp -0.2507), LineTail(-0.09933 pp -0.2507),
       BezierTail(-0.09514 pp -0.2507, -0.09185 pp -0.2543, -0.09043 pp -0.2579),
       BezierTail(-0.08963 pp -0.2599, -0.08948 pp -0.2617, -0.08998 pp -0.263),
       BezierTail(-0.09048 pp -0.2644, -0.09206 pp -0.2653, -0.09388 pp -0.2653), LineTail(-0.09388 pp -0.2653)).fill(Colour(0xFF4e5b31))
     
-    val leaf09 =  PolyCurve(LineTail(-0.1414 pp -0.2633), BezierTail(-0.1676 pp -0.2624, -0.1812 pp -0.255, -0.188 pp -0.2489),
+    val leaf09 =  ShapeGen(LineTail(-0.1414 pp -0.2633), BezierTail(-0.1676 pp -0.2624, -0.1812 pp -0.255, -0.188 pp -0.2489),
       BezierTail(-0.1919 pp -0.2454, -0.194 pp -0.242, -0.1951 pp -0.2398), BezierTail(-0.1961 pp -0.2377, -0.1965 pp -0.236, -0.1966 pp -0.2357),
       LineTail(-0.1966 pp -0.2357), BezierTail(-0.1966 pp -0.2357, -0.1941 pp -0.2348, -0.1901 pp -0.2347), LineTail(-0.1895 pp -0.2347),
       BezierTail(-0.1806 pp -0.2347, -0.1626 pp -0.2384, -0.1414 pp -0.2633), LineTail(-0.1414 pp -0.2633),
       LineTail(-0.1414 pp -0.2633)).fill(Colour(0xFF4e5b31))
     
-    val leaf10 =  PolyCurve(LineTail(-0.1129 pp -0.2607), BezierTail(-0.134 pp -0.2575, -0.146 pp -0.2484, -0.1523 pp -0.2414),
+    val leaf10 =  ShapeGen(LineTail(-0.1129 pp -0.2607), BezierTail(-0.134 pp -0.2575, -0.146 pp -0.2484, -0.1523 pp -0.2414),
       BezierTail(-0.1589 pp -0.234, -0.1609 pp -0.2271, -0.161 pp -0.2268), BezierTail(-0.1609 pp -0.2268, -0.1583 pp -0.2261, -0.1545 pp -0.226),
       BezierTail(-0.1542 pp -0.226, -0.1539 pp -0.226, -0.1536 pp -0.226), BezierTail(-0.1533 pp -0.226, -0.153 pp -0.226, -0.1527 pp -0.226),
       BezierTail(-0.1421 pp -0.2262, -0.1228 pp -0.2311, -0.1129 pp -0.2607), LineTail(-0.1129 pp -0.2607),
       LineTail(-0.1129 pp -0.2607)).fill(Colour(0xFF4e5b31))
     
-    val leaf11 =  PolyCurve(LineTail(-0.2212 pp -0.2505), BezierTail(-0.2282 pp -0.2505, -0.2349 pp -0.2497, -0.2412 pp -0.2482),
+    val leaf11 =  ShapeGen(LineTail(-0.2212 pp -0.2505), BezierTail(-0.2282 pp -0.2505, -0.2349 pp -0.2497, -0.2412 pp -0.2482),
       BezierTail(-0.2522 pp -0.2454, -0.257 pp -0.2412, -0.259 pp -0.2381), BezierTail(-0.2601 pp -0.2364, -0.2606 pp -0.2349, -0.2607 pp -0.2339),
       BezierTail(-0.2609 pp -0.233, -0.2608 pp -0.2322, -0.2608 pp -0.2321), LineTail(-0.2607 pp -0.2321),
       BezierTail(-0.2607 pp -0.2321, -0.2534 pp -0.23, -0.2433 pp -0.2299), BezierTail(-0.2429 pp -0.2299, -0.2425 pp -0.2299, -0.2421 pp -0.2299),
@@ -209,43 +209,43 @@ object Cyprus extends Flag
       LineTail(-0.201 pp -0.2482), LineTail(-0.2011 pp -0.2482), BezierTail(-0.2012 pp -0.2482, -0.2095 pp -0.2505, -0.2213 pp -0.2505),
       LineTail(-0.2212 pp -0.2505)).fill(Colour(0xFF4e5b31))
     
-    val leaf12 =  PolyCurve(LineTail(-0.1723 pp -0.2327), BezierTail(-0.1744 pp -0.2327, -0.1763 pp -0.232, -0.1776 pp -0.2306),
+    val leaf12 =  ShapeGen(LineTail(-0.1723 pp -0.2327), BezierTail(-0.1744 pp -0.2327, -0.1763 pp -0.232, -0.1776 pp -0.2306),
       BezierTail(-0.1786 pp -0.2294, -0.1794 pp -0.2278, -0.1799 pp -0.2257), BezierTail(-0.1808 pp -0.2224, -0.1805 pp -0.2191, -0.1805 pp -0.2187),
       BezierTail(-0.1796 pp -0.2184, -0.1787 pp -0.2182, -0.1779 pp -0.2182), LineTail(-0.1777 pp -0.2182),
       BezierTail(-0.1735 pp -0.2182, -0.1702 pp -0.2218, -0.1688 pp -0.2254), BezierTail(-0.168 pp -0.2274, -0.1679 pp -0.2291, -0.1684 pp -0.2304),
       BezierTail(-0.1689 pp -0.2318, -0.1704 pp -0.2327, -0.1723 pp -0.2327), LineTail(-0.1723 pp -0.2327)).fill(Colour(0xFF4e5b31))
     
-    val leaf13 =  PolyCurve(LineTail(-0.2091 pp -0.2277), BezierTail(-0.2093 pp -0.2277, -0.2191 pp -0.2251, -0.229 pp -0.219),
+    val leaf13 =  ShapeGen(LineTail(-0.2091 pp -0.2277), BezierTail(-0.2093 pp -0.2277, -0.2191 pp -0.2251, -0.229 pp -0.219),
       BezierTail(-0.2383 pp -0.2133, -0.2496 pp -0.2032, -0.251 pp -0.1876), LineTail(-0.251 pp -0.1876), LineTail(-0.2509 pp -0.1876),
       BezierTail(-0.2509 pp -0.1876, -0.2501 pp -0.1874, -0.2488 pp -0.1873), BezierTail(-0.2486 pp -0.1873, -0.2485 pp -0.1873, -0.2483 pp -0.1873),
       BezierTail(-0.2455 pp -0.1873, -0.2399 pp -0.1881, -0.233 pp -0.1933), BezierTail(-0.2243 pp -0.1999, -0.2163 pp -0.2115, -0.2091 pp -0.2277),
       LineTail(-0.2091 pp -0.2277)).fill(Colour(0xFF4e5b31))
     
-    val leaf14 =  PolyCurve(LineTail(-0.185 pp -0.2268), BezierTail(-0.1851 pp -0.2268, -0.1921 pp -0.224, -0.2008 pp -0.2167),
+    val leaf14 =  ShapeGen(LineTail(-0.185 pp -0.2268), BezierTail(-0.1851 pp -0.2268, -0.1921 pp -0.224, -0.2008 pp -0.2167),
       BezierTail(-0.209 pp -0.2099, -0.2204 pp -0.1976, -0.2287 pp -0.1778), BezierTail(-0.2287 pp -0.1778, -0.2268 pp -0.1768, -0.2239 pp -0.1766),
       BezierTail(-0.2237 pp -0.1766, -0.2235 pp -0.1766, -0.2234 pp -0.1766), BezierTail(-0.2231 pp -0.1766, -0.2229 pp -0.1766, -0.2226 pp -0.1766),
       BezierTail(-0.2186 pp -0.1767, -0.2125 pp -0.1784, -0.2057 pp -0.1857), BezierTail(-0.1979 pp -0.1941, -0.1909 pp -0.208, -0.185 pp -0.2268),
       LineTail(-0.185 pp -0.2269), LineTail(-0.185 pp -0.2268), LineTail(-0.185 pp -0.2268)).fill(Colour(0xFF4e5b31))
     
-    val leaf15 =  PolyCurve(LineTail(-0.2474 pp -0.225), BezierTail(-0.2554 pp -0.225, -0.2581 pp -0.2207, -0.2589 pp -0.2188),
+    val leaf15 =  ShapeGen(LineTail(-0.2474 pp -0.225), BezierTail(-0.2554 pp -0.225, -0.2581 pp -0.2207, -0.2589 pp -0.2188),
       BezierTail(-0.2603 pp -0.2157, -0.2599 pp -0.2126, -0.2599 pp -0.2126), LineTail(-0.2599 pp -0.2126),
       BezierTail(-0.2586 pp -0.2123, -0.2572 pp -0.2121, -0.2559 pp -0.2121), LineTail(-0.2556 pp -0.2121),
       BezierTail(-0.2493 pp -0.2121, -0.2443 pp -0.2153, -0.2421 pp -0.2185), BezierTail(-0.2417 pp -0.2191, -0.2404 pp -0.2213, -0.2415 pp -0.223),
       BezierTail(-0.2423 pp -0.2243, -0.2443 pp -0.225, -0.2474 pp -0.225), LineTail(-0.2474 pp -0.225)).fill(Colour(0xFF4e5b31))
     
-    val leaf16 =  PolyCurve(LineTail(-0.2652 pp -0.2026), BezierTail(-0.2696 pp -0.2026, -0.2765 pp -0.2023, -0.2837 pp -0.201),
+    val leaf16 =  ShapeGen(LineTail(-0.2652 pp -0.2026), BezierTail(-0.2696 pp -0.2026, -0.2765 pp -0.2023, -0.2837 pp -0.201),
       BezierTail(-0.2909 pp -0.1997, -0.2949 pp -0.1936, -0.2971 pp -0.1887), BezierTail(-0.2994 pp -0.1834, -0.3001 pp -0.1784, -0.3001 pp -0.1783),
       LineTail(-0.3001 pp -0.1783), BezierTail(-0.2779 pp -0.179, -0.2675 pp -0.1854, -0.2626 pp -0.1908),
       BezierTail(-0.2576 pp -0.1962, -0.2573 pp -0.2019, -0.2573 pp -0.2023), LineTail(-0.2573 pp -0.2023),
       BezierTail(-0.2573 pp -0.2023, -0.2604 pp -0.2026, -0.2652 pp -0.2026), LineTail(-0.2652 pp -0.2026)).fill(Colour(0xFF4e5b31))
     
-    val leaf17 =  PolyCurve(LineTail(-0.2421 pp -0.1796), BezierTail(-0.2422 pp -0.1795, -0.2447 pp -0.1764, -0.2472 pp -0.1725),
+    val leaf17 =  ShapeGen(LineTail(-0.2421 pp -0.1796), BezierTail(-0.2422 pp -0.1795, -0.2447 pp -0.1764, -0.2472 pp -0.1725),
       BezierTail(-0.2498 pp -0.1684, -0.2522 pp -0.1642, -0.2522 pp -0.1607), BezierTail(-0.2522 pp -0.1573, -0.253 pp -0.1503, -0.2535 pp -0.1463),
       BezierTail(-0.2541 pp -0.1414, -0.2547 pp -0.1371, -0.2547 pp -0.1367), LineTail(-0.2547 pp -0.1368),
       BezierTail(-0.2542 pp -0.137, -0.2409 pp -0.1419, -0.2409 pp -0.1544), BezierTail(-0.2409 pp -0.1669, -0.2421 pp -0.1794, -0.2421 pp -0.1796),
       LineTail(-0.2421 pp -0.1796), LineTail(-0.2421 pp -0.1796), LineTail(-0.2421 pp -0.1796)).fill(Colour(0xFF4e5b31))
     
-    val leaf18 =  PolyCurve(LineTail(-0.2593 pp -0.1784), BezierTail(-0.2595 pp -0.1784, -0.2596 pp -0.1784, -0.2598 pp -0.1783),
+    val leaf18 =  ShapeGen(LineTail(-0.2593 pp -0.1784), BezierTail(-0.2595 pp -0.1784, -0.2596 pp -0.1784, -0.2598 pp -0.1783),
       BezierTail(-0.2637 pp -0.1777, -0.2706 pp -0.1747, -0.2782 pp -0.1703), BezierTail(-0.2867 pp -0.1654, -0.2936 pp -0.1602, -0.2976 pp -0.1557),
       BezierTail(-0.3012 pp -0.1515, -0.3034 pp -0.1449, -0.304 pp -0.1361), BezierTail(-0.3045 pp -0.1299, -0.304 pp -0.1247, -0.3039 pp -0.1242),
       BezierTail(-0.3032 pp -0.1239, -0.3025 pp -0.1238, -0.3017 pp -0.1238), BezierTail(-0.2988 pp -0.1239, -0.2956 pp -0.1252, -0.2914 pp -0.1281),

@@ -202,7 +202,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }
    
-  private[this] def segsPath(segs: PolyCurve): Unit =
+  private[this] def segsPath(segs: ShapeGen): Unit =
   { gc.beginPath
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -216,13 +216,13 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.closePath
   }
    
-  override protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit =
+  override protected[this] def tlShapeFill(shape: ShapeGen, colour: Colour): Unit =
   { segsPath(shape)
     gc.setFill(toFxColor(colour))
     gc.fill()
   }
 
-  override def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit =
+  override def tlShapeDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit =
   { segsPath(shape)
     gc.setLineWidth(lineWidth)
     gc.setStroke(toFxColor(colour))

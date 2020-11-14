@@ -14,7 +14,7 @@ object CurveTest extends TestSuite
     val as4 = as3.slate(5, 10)
     val ls2 = LineTail(-5 pp -8)
     val ls3 = ls2.slate(50, -50)
-    val css = PolyCurve(ls1, ls2, ls3)
+    val css = ShapeGen(ls1, ls2, ls3)
 
     "Test1" -
     { ls1 ==> CurveTail(10, 0, 0, 0, 0, 4, 56)

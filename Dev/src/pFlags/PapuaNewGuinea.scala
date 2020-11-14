@@ -10,7 +10,7 @@ object PapuaNewGuinea extends Flag
   { val base = Rect(ratio, 1).fill(Black)
     val topRightTriangle = Triangle(-2.0/3 pp 0.5, 2.0/3 pp 0.5, 2.0/3 pp -0.5).fill(Colour(0xFFce1126))
 
-    val bird = PolyCurve(LineTail(0.04247 pp 0.2211), BezierTail(0.03302 pp 0.2089, 0.01065 pp 0.2334, -0.01615 pp 0.2339),
+    val bird = ShapeGen(LineTail(0.04247 pp 0.2211), BezierTail(0.03302 pp 0.2089, 0.01065 pp 0.2334, -0.01615 pp 0.2339),
       BezierTail(-0.04295 pp 0.2345, -0.06194 pp 0.2082, -0.06975 pp 0.1993), BezierTail(-0.07757 pp 0.1904, -0.1027 pp 0.1435, -0.1021 pp 0.1384),
       BezierTail(-0.1016 pp 0.1334, -0.0865 pp 0.1524, -0.08092 pp 0.1558), BezierTail(-0.08036 pp 0.1491, -0.08706 pp 0.1412, -0.08538 pp 0.139),
       BezierTail(-0.08371 pp 0.1368, -0.06584 pp 0.1524, -0.0597 pp 0.153), BezierTail(-0.05803 pp 0.1485, -0.06305 pp 0.144, -0.06138 pp 0.1373),
@@ -46,15 +46,15 @@ object PapuaNewGuinea extends Flag
       BezierTail(0.004509 pp 0.2607, 0.005068 pp 0.2563, 0.009534 pp 0.2535), BezierTail(0.014 pp 0.2507, 0.05587 pp 0.2384, 0.04247 pp 0.2211),
       LineTail(0.04247 pp 0.2211)).fill(Colour(0xFFfcd116))
     
-    val tail = PolyCurve(LineTail(0.2061 pp 0.1424), BezierTail(0.2195 pp 0.129, 0.3099 pp 0.06865, 0.3099 pp -0.005048),
+    val tail = ShapeGen(LineTail(0.2061 pp 0.1424), BezierTail(0.2195 pp 0.129, 0.3099 pp 0.06865, 0.3099 pp -0.005048),
       BezierTail(0.3099 pp -0.07875, 0.244 pp -0.07652, 0.225 pp -0.07428), BezierTail(0.2463 pp -0.09215, 0.3267 pp -0.0888, 0.3267 pp -0.005048),
       BezierTail(0.3267 pp 0.06865, 0.2228 pp 0.1424, 0.2094 pp 0.1491), BezierTail(0.196 pp 0.1558, 0.1927 pp 0.1558, 0.2061 pp 0.1424),
       LineTail(0.2061 pp 0.1424)).fill(Colour(0xFFfcd116))
     
-    val starSmall = PolyCurve(LineTail(-0.2843 pp -0.2267), LineTail(-0.2644 pp -0.1628), LineTail(-0.2445 pp -0.2274), LineTail(-0.2969 pp -0.1878),
+    val starSmall = ShapeGen(LineTail(-0.2843 pp -0.2267), LineTail(-0.2644 pp -0.1628), LineTail(-0.2445 pp -0.2274), LineTail(-0.2969 pp -0.1878),
       LineTail(-0.2319 pp -0.1878), LineTail(-0.2843 pp -0.2267)).fill(Colour(0xFFFFFFFF))
     
-    val starLarge = PolyCurve(LineTail(-0.3326 pp 0.1901), LineTail(-0.3724 pp 0.06216), LineTail(-0.2676 pp 0.14), LineTail(-0.3976 pp 0.14),
+    val starLarge = ShapeGen(LineTail(-0.3326 pp 0.1901), LineTail(-0.3724 pp 0.06216), LineTail(-0.2676 pp 0.14), LineTail(-0.3976 pp 0.14),
       LineTail(-0.2928 pp 0.06076), LineTail(-0.3326 pp 0.1901)).fill(Colour(0xFFFFFFFF))
 
     Arr(

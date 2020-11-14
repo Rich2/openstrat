@@ -203,7 +203,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
    
-  private[this] def segsPath(segs: PolyCurve): Unit =
+  private[this] def segsPath(segs: ShapeGen): Unit =
   { gc.beginPath()
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)
@@ -218,13 +218,13 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath()
   }
    
-  override protected[this] def tlShapeFill(shape: PolyCurve, colour: Colour): Unit =
+  override protected[this] def tlShapeFill(shape: ShapeGen, colour: Colour): Unit =
   { segsPath(shape)
     gc.fillStyle = colour.webStr
     gc.fill()
   }
    
-  override protected[this] def tlShapeDraw(shape: PolyCurve, lineWidth: Double, colour: Colour): Unit =
+  override protected[this] def tlShapeDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit =
   { segsPath(shape)
     gc.strokeStyle = colour.webStr
     gc.lineWidth = lineWidth

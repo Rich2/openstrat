@@ -3,13 +3,13 @@ package ostrat
 package geom
 import Colour.Black
 
-/** Shape is an Array[Double] based collection for a sequence of CurveSegs, similar to a Polygon which is an Array[Double based collection of just
- *   LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each curveSeg is set to Negative Infinity for a LineSeg positive infinity for
- *   an ArcSeg, but represents the x component of the first control point for a BezierSeg. */
-
-class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] with AffinePreserve
-{ type ThisT = PolyCurve
-  def unsafeFromArray(array: Array[Double]): PolyCurve = new PolyCurve(array)
+/** The generalised implementation of a [[Shape]]. A closed sequence of curve segments. An Array[Double] based collection for a sequence of CurveSegs,
+ *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
+ *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
+ *  a BezierSeg. */
+class ShapeGen(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] with AffinePreserve
+{ type ThisT = ShapeGen
+  def unsafeFromArray(array: Array[Double]): ShapeGen = new ShapeGen(array)
   override def typeStr = "Shape"
   override def fElemStr: CurveTail => String = _.toString
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
@@ -19,8 +19,8 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
 
   override def productArity: Int = ???
 
-  override def productElement(n: Int): Any = ??? 
-  def fTrans(f: Pt2 => Pt2): PolyCurve =
+  override def productElement(n: Int): Any = ???
+  def fTrans(f: Pt2 => Pt2): ShapeGen =
   { val newArray = new Array[Double](elemsLen * 7)
     def setMiddle(offset: Int): Unit =
     { val newMiddle: Pt2 = f(arrayUnsafe(offset + 3) pp arrayUnsafe(offset + 4))
@@ -61,13 +61,13 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
         case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
       }
     }
-    new PolyCurve(newArray)
+    new ShapeGen(newArray)
   }
 
   def fill(colour: Colour): PolyCurveFill = PolyCurveFill(this, colour)
   def draw(lineWidth: Double, lineColour: Colour = Black) = PolyCurveDraw(this,lineWidth, lineColour)
 
-  def shapeAll(shape: PolyCurve, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):
+  def shapeAll(shape: ShapeGen, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):
     PolyCurveAll = PolyCurveAll(shape, evObj, str, fillColour, fontSize, lineWidth, lineColour)
 
  // def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): UnScaledShape = UnScaledShape(posn, this, evObj, Arr(PolyCurveFill(this, colour)))
@@ -105,6 +105,6 @@ class PolyCurve(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] w
     foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 }
 
-object PolyCurve extends ProdDbl7sCompanion[CurveTail, PolyCurve]
-{ implicit val factory: Int => PolyCurve = i => new PolyCurve(new Array[Double](i * 7))
+object ShapeGen extends ProdDbl7sCompanion[CurveTail, ShapeGen]
+{ implicit val factory: Int => ShapeGen = i => new ShapeGen(new Array[Double](i * 7))
 }
