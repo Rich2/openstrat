@@ -7,7 +7,7 @@ import Colour.Black
  *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
  *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
  *  a BezierSeg. */
-class ShapeGen(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] with AffinePreserve
+class ShapeGen(val arrayUnsafe: Array[Double]) extends /* Shape with */ ArrProdDbl7[CurveTail] with AffinePreserve
 { type ThisT = ShapeGen
   def unsafeFromArray(array: Array[Double]): ShapeGen = new ShapeGen(array)
   override def typeStr = "Shape"
@@ -65,10 +65,10 @@ class ShapeGen(val arrayUnsafe: Array[Double]) extends ArrProdDbl7[CurveTail] wi
   }
 
   def fill(colour: Colour): PolyCurveFill = PolyCurveFill(this, colour)
-  def draw(lineWidth: Double, lineColour: Colour = Black) = PolyCurveDraw(this,lineWidth, lineColour)
+  def draw(lineColour: Colour = Black, lineWidth: Double = 2.0): PolyCurveDraw = PolyCurveDraw(this, lineColour, lineWidth)
 
   def shapeAll(shape: ShapeGen, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):
-    PolyCurveAll = PolyCurveAll(shape, evObj, str, fillColour, fontSize, lineWidth, lineColour)
+    PolyCurveAll = PolyCurveAll(shape, evObj, str, fillColour, fontSize, lineColour, lineWidth)
 
  // def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): UnScaledShape = UnScaledShape(posn, this, evObj, Arr(PolyCurveFill(this, colour)))
   def fillScale(colour: Colour, factor: Double): PolyCurveFill = PolyCurveFill(this.scale(factor), colour)

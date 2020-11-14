@@ -10,8 +10,8 @@ case class PolyCurveCentred(cen: Pt2, segs: ShapeGen) extends AffinePreserve
   
   def parentAll(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String,
                    textAlign: TextAlign = CenAlign): PolyCurveParentFull =
-    PolyCurveParentFull(cen, segs, evObj, Arr(PolyCurveFillDraw(segs, fillColour, lineWidth, lineColour), TextGraphic(str, cen, textSize, lineColour, textAlign)))
+    PolyCurveParentFull(cen, segs, evObj, Arr(PolyCurveFillDraw(segs, fillColour, lineColour, lineWidth), TextGraphic(str, cen, textSize, lineColour, textAlign)))
 
   def allElems(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, fontSize: Int, str: String, textAlign: TextAlign = CenAlign):
-    PolyCurveAll = PolyCurveAll(segs, evObj, str, fillColour, fontSize, lineWidth, lineColour)
+    PolyCurveAll = PolyCurveAll(segs, evObj, str, fillColour, fontSize, lineColour, lineWidth)
 }

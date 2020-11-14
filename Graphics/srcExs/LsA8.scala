@@ -17,7 +17,7 @@ case class LsA8(canv: CanvasPlatform) extends CanvasNoPanels("lesson A8")
   //But this time we are going to create an intermediate shape.
   val shape1: ShapeGen = ShapeGen(LineTail(pt1), ArcTail(arcCentre, pt2), ArcTail(arcCentre, pt3), LineTail(pt4), BezierTail(ctrl1, ctrl2, pt5))
   val sf1 = PolyCurveFill(shape1.slate(400 pp 100), Violet)
-  val sf2 = PolyCurveDraw(shape1.clk45, 2)
+  val sf2 = PolyCurveDraw(shape1.clk45, lineWidth = 2)
   val sf3 = sf2.scale(0.5)
   val sf4 = sf3.slate(-250, 200)
   val sf5 = sf4.xSlate(-100).copy(colour = Green)

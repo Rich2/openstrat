@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pWeb._
 
-/** A simple no compound graphic that draws a shape. The line has a sinlge width and colour. */
+/** A simple no compound graphic that draws a shape. The line has a single width and colour. */
 trait ShapeDraw extends ShapeGraphicSimple
 { /** The line width of this draw graphic */
   def lineWidth: Double

@@ -17,8 +17,8 @@ object PolyCurveParentFull
   def fill(cen: Pt2, shape: ShapeGen, evObj: Any, colour: Colour) = PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFill(shape, colour)))
 
   def fillDraw(cen: Pt2, shape: ShapeGen, evObj: Any, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
-    PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFillDraw(shape, fillColour, lineWidth, lineColour)))
+    PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFillDraw(shape, fillColour, lineColour, lineWidth)))
 
   def draw(cen: Pt2, shape: ShapeGen, evObj: Any, lineWidth: Double, lineColour: Colour = Colour.Black) =
-    PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveDraw(shape, lineWidth, lineColour)))
+    PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveDraw(shape, lineColour, lineWidth)))
 }
