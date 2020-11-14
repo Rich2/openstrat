@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** A canvas element that can be rendered by the [[canv.CanvasPlatform]] API. */
+/** A canvas element that can be rendered by the [[pCanv.CanvasPlatform]] API. */
 trait CanvElem extends GraphicElem
 {
   /** Renders this functional immutable CanvElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */

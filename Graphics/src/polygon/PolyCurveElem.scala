@@ -23,7 +23,7 @@ case class PolyCurveFill(shape: ShapeGen, colour: Colour) extends PolyCurveElem
 case class PolyCurveDraw(shape: ShapeGen, lineWidth: Double, colour: Colour = Black) extends PolyCurveElem
 { override type ThisT = PolyCurveDraw
   override def fTrans(f: Pt2 => Pt2) = PolyCurveDraw(shape.fTrans(f), lineWidth, colour)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeGenDraw(shape, lineWidth, colour)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeGenDraw(shape, colour, lineWidth)
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
@@ -36,7 +36,7 @@ case class PolyCurveFillDraw(shape: ShapeGen, fillColour: Colour, lineWidth: Dou
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.shapeFill(shape, fillColour)
-    cp.shapeGenDraw(shape, lineWidth, lineColour)
+    cp.shapeGenDraw(shape, lineColour, lineWidth)
   }
   def xCen: Double = ???
   def yCen: Double = ???
@@ -54,7 +54,7 @@ case class PolyCurveFillDrawText(shape: ShapeGen, fillColour: Colour, str: Strin
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.shapeFill(shape, fillColour)
-    cp.shapeGenDraw(shape, lineWidth, lineColour)
+    cp.shapeGenDraw(shape, lineColour, lineWidth)
     cp.textGraphic(textOnly)
   }
   def xCen: Double = ???
@@ -73,7 +73,7 @@ case class PolyCurveAll(shape: ShapeGen, pointerId: Any, str: String, fillColour
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
   { cp.shapeFill(shape, fillColour)
-    cp.shapeGenDraw(shape, lineWidth, lineColour)
+    cp.shapeGenDraw(shape, lineColour, lineWidth)
     cp.textGraphic(textOnly)
   }
 
