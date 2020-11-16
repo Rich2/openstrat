@@ -24,23 +24,15 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val computerPlayers = Array(Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
-  val player1Human = RadioOption(true, "HUMAN", -180 pp 220)
-  val player1Computer = RadioOption(false, "COMPUTER", -180 pp 200)
-  val player1Options = RadioGroup(Arr(player1Human, player1Computer), player1Human)
-  val player2Human = RadioOption(true, "HUMAN", -180 pp 160)
-  val player2Computer = RadioOption(false, "COMPUTER", -180 pp 140)
-  val player2Options = RadioGroup(Arr(player2Human, player2Computer), player2Computer)
-  val player3Human = RadioOption(true, "HUMAN", -180 pp 100)
-  val player3Computer = RadioOption(false, "COMPUTER", -180 pp 80)
-  val player3Options = RadioGroup(Arr(player3Human, player3Computer), player3Computer)
-  val player4Human = RadioOption(true, "HUMAN", -180 pp 40)
-  val player4Computer = RadioOption(false, "COMPUTER", -180 pp 20)
-  val player4Options = RadioGroup(Arr(player4Human, player4Computer), player4Computer)
+  val player1Options = RadioGroup(Arr(RadioOption(true, "HUMAN", -180 pp 220, true), RadioOption(false, "COMPUTER", -180 pp 200, true)), 0)
+  val player2Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 160, true), RadioOption(true, "COMPUTER", -180 pp 140, true)), 1)
+  val player3Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 100, true), RadioOption(true, "COMPUTER", -180 pp 80, true)), 1)
+  val player4Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 40, true), RadioOption(true, "COMPUTER", -180 pp 20, true)), 1)
 
-  val player1 = Checkbox(true, "PLAYER 1", -200 pp 240, true, (player1:Checkbox) => { player1Options.setEnabled(!player1.isSelected) })
-  val player2 = Checkbox(true, "PLAYER 2", -200 pp 180, true, (player2:Checkbox) => { player2Options.setEnabled(!player2.isSelected) })
-  val player3 = Checkbox(true, "PLAYER 3", -200 pp 120, true, (player3:Checkbox) => { player3Options.setEnabled(!player3.isSelected) })
-  val player4 = Checkbox(true, "PLAYER 4", -200 pp 60, true, (player4:Checkbox) => { player4Options.setEnabled(!player4.isSelected) })
+  val player1 = Checkbox(true, "PLAYER 1", -200 pp 240, true, (player1:Checkbox) => { player1Options.setEnabled(player1.isSelected) })
+  val player2 = Checkbox(true, "PLAYER 2", -200 pp 180, true, (player2:Checkbox) => { player2Options.setEnabled(player2.isSelected) })
+  val player3 = Checkbox(true, "PLAYER 3", -200 pp 120, true, (player3:Checkbox) => { player3Options.setEnabled(player3.isSelected) })
+  val player4 = Checkbox(true, "PLAYER 4", -200 pp 60, true, (player4:Checkbox) => { player4Options.setEnabled(player4.isSelected) })
 
   newGame()
 
@@ -68,7 +60,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   }
   def drawBalls(loc:Pt2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
-    canv.polygonFill(Rect.bl(size-1, size-1, loc).fill(Black))
+    canv.polygonFill(Rect.bl(size-1, size-1, loc),.fill(Black))
     if (count >= 1) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 0)), color)
     if (count >= 2) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 1)), color)
     if (count >= 3) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 2)), color)
@@ -181,7 +173,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     { if (cl(0).isInstanceOf[Checkbox])
       { cl(0).asInstanceOf[Checkbox].clicked()
         composeGUI()
-      } else if (cl(0).isInstanceOf[RadioOption]) composeGUI()
+      } else if (cl(0).isInstanceOf[RadioOption]) {
+      debvar(cl(0))
+        cl(0).asInstanceOf[RadioOption].clicked()
+      composeGUI()
+     }
     }
     case (LeftButton, cl, _) => debvar(cl)
 
