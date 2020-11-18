@@ -15,7 +15,7 @@ final class Latitude private(val secs: Double) extends AnyVal with AngleLike
 
   def * (long: Longitude): LatLong = LatLong.degs(degs, long.degs)
   def ll (longDegs: Double): LatLong = LatLong.degs(degs, longDegs)
-  override def milliSecs: Double = secs / 1000
+  override def milliSecs: Double = secs * 1000
 }
 
 /** Companion object for the [[Latitude]] class. */
