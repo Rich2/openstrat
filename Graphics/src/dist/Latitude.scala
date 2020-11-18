@@ -27,7 +27,7 @@ object Latitude
     case r => new Latitude(r.radiansToSecs)
   }
 
-  def apply(degVal: Double) = secs(degVal.degsToSecs)
+  def apply(degVal: Double): Latitude = secs(degVal.degsToSecs)
 
   def secs(input: Double): Latitude = input match
   {

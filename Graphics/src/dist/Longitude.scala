@@ -19,7 +19,7 @@ final class Longitude private(val secs: Double) extends AnyVal with AngleLike
 
 /** Companion object of the [[Longitude]] class. */
 object Longitude
-{ def degs(degVal: Double) = new Longitude(degVal.degsToSecs)
-  def radians(value: Double) = new Longitude(value.radiansToSecs)
+{ def degs(degVal: Double): Longitude = new Longitude(degVal.degsToSecs)
+  def radians(value: Double): Longitude = new Longitude(value.radiansToSecs)
   def secs(value: Double): Longitude = new Longitude(value)
 }

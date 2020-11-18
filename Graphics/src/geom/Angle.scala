@@ -21,8 +21,8 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 
-  def +(other: Angle) = Angle.radians(radians + other.radians)
-  def -(other: Angle) = Angle.radians(radians - other.radians)
+  def +(other: Angle): Angle = Angle.radians(radians + other.radians)
+  def -(other: Angle): Angle = Angle.radians(radians - other.radians)
   
   /** returns an angle between -Pi and Pi */
   def angleTo(other: Angle): Angle = other.radians -radians match
@@ -37,7 +37,7 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   def / (factor: Double): Angle = Angle.radians(radians / factor)
   @ inline def unary_- : Angle = Angle.radians(- radians)
   /** This is gives the smaller of the bisection angles  */
-  def bisect(operand: Angle) = Angle.radians(radians + angleTo(operand).radians / 2)
+  def bisect(operand: Angle): Angle = Angle.radians(radians + angleTo(operand).radians / 2)
 }
 
 /** Angle Companion object. */
