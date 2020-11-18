@@ -5,9 +5,9 @@ import math.Pi
 
 /** The Longitude class is a compile time wrapper around a Double. The longitude value is stored in arc seconds,to allow precise storage of values
  * specified in the old Degrees, Minutes and Seconds system. Decimals of a degree can also be stored precisely. */
-final class Longitude private(val secs: Double) extends AnyVal with AngleLike
+final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLike
 {
-  override def milliSecs: Double = secs * 1000
+  override def secs: Double = milliSecs / 1000
   def addWithin(deltaAngle: Angle, maxLong: Longitude, minLong: Longitude): Longitude = (radians + deltaAngle.radians) match
   { case r if r <= - Pi => Longitude.radians(-Pi)
     case r if r >= Pi => Longitude.radians(Pi)
@@ -19,7 +19,7 @@ final class Longitude private(val secs: Double) extends AnyVal with AngleLike
 
 /** Companion object of the [[Longitude]] class. */
 object Longitude
-{ def degs(degVal: Double): Longitude = new Longitude(degVal.degsToSecs)
-  def radians(value: Double): Longitude = new Longitude(value.radiansToSecs)
-  def secs(value: Double): Longitude = new Longitude(value)
+{ def degs(degVal: Double): Longitude = new Longitude(degVal.degsToSecs * 1000)
+  def radians(value: Double): Longitude = new Longitude(value.radiansToSecs * 1000)
+  def secs(value: Double): Longitude = new Longitude(value * 1000)
 }
