@@ -4,7 +4,7 @@ package geom
 import scala.math.Pi
 
 /** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
-final class Latitude private(val secs: Double) extends AnyVal with AngleLike
+final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLike
 {
   def addWithin(deltaAngle: Angle, maxLat: Latitude, minLat: Latitude): Latitude = (radians + deltaAngle.radians) match
   { case r if r <= - PiH => Latitude.radians(-PiH)
@@ -15,7 +15,7 @@ final class Latitude private(val secs: Double) extends AnyVal with AngleLike
 
   def * (long: Longitude): LatLong = LatLong.degs(degs, long.degs)
   def ll (longDegs: Double): LatLong = LatLong.degs(degs, longDegs)
-  override def milliSecs: Double = secs * 1000
+  override def secs: Double = milliSecs / 1000
 }
 
 /** Companion object for the [[Latitude]] class. */
@@ -24,7 +24,7 @@ object Latitude
   def radians(value: Double): Latitude = value match
   { case r if r < -Pi => excep("Latitude with less than - Pi")
     case r if r > Pi => excep("Latitude with greater than Pi")
-    case r => new Latitude(r.radiansToSecs)
+    case r => new Latitude(r.radiansToSecs * 1000)
   }
 
   def apply(degVal: Double): Latitude = secs(degVal.degsToSecs)
@@ -35,8 +35,8 @@ object Latitude
     case i if i <= -secsIn360Degs => secs(input % secsIn360Degs)
     case i if i > secsIn180Degs => secs(-secsIn360Degs + i)
     case i if i <= - secsIn180Degs => secs(secsIn360Degs + i)
-    case i if i > secsIn90Degs => new Latitude(secsIn180Degs - i)
-    case i if i < -secsIn90Degs => new Latitude(-secsIn180Degs + i)
-    case i => new Latitude(i)
+    case i if i > secsIn90Degs => new Latitude((secsIn180Degs - i) * 1000)
+    case i if i < -secsIn90Degs => new Latitude((-secsIn180Degs + i) * 1000)
+    case i => new Latitude(i * 1000)
   }
 }
