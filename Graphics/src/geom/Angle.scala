@@ -5,12 +5,12 @@ import math.Pi
 
 /** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180
  *  degrees, while Latitudes have a normal range +- 90 degrees. */
-final class Angle private(val secs: Double) extends AnyVal with AngleLike  with ProdDbl1
+final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  with ProdDbl1
 {
   @inline override def dblValue: Double = secs
 
   /** The angle expressed in thousandths of a second of a degree. */
-  override def milliSecs: Double = secs / 1000
+  override def secs: Double = milliSecs / 1000
 
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
@@ -44,13 +44,13 @@ final class Angle private(val secs: Double) extends AnyVal with AngleLike  with 
 object Angle
 {
   /** Factory method for Angle from number of degrees */
-  @inline def apply(degrees: Double): Angle = new Angle(degrees * secsInDeg)
+  @inline def apply(degrees: Double): Angle = new Angle(degrees * millisecsInDeg)
 
   /** Factory method for creating Angle from the number of radians. */
-  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * secsInDeg / Pi)
+  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * millisecsInDeg / Pi)
 
   /** Factory method for creating Angle from the number of angle seconds. */
-  @inline def secs(value: Double): Angle = new Angle(value)
+  @inline def secs(value: Double): Angle = new Angle(value * 1000)
 
   /** Resets radians to between + and - Pi */
   @inline def resetRadians(radians: Double): Double =  radians %% Pi2 match
