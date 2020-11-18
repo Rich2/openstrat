@@ -34,24 +34,20 @@ package object geom
   }  
     
   /** The number of seconds, 3600 in a degree. */
-  val secsInDeg: Int = 3600
+  val SecsInDeg: Int = 3600
 
   /** The number of thousands of a second, 3600000 in a degree. */
-  val millisecsInDeg: Int = 3600000
+  val MilliSecsInDeg: Int = 3600000
 
-  val secsIn360Degs: Int = secsInDeg * 360
-  val secsIn180Degs: Int = secsInDeg * 180
-  val secsIn90Degs: Int = secsInDeg * 90
-  val secsInRadian: Double = secsInDeg * 180.0 / Pi
+  val SecsIn360Degs: Int = SecsInDeg * 360
+  val SecsIn180Degs: Int = SecsInDeg * 180
+  val SecsIn90Degs: Int = SecsInDeg * 90
+  val SecsInRadian: Double = SecsInDeg * 180.0 / Pi
 
-  /** seconds value for 90 degrees of Pi/2 radians. */
-  val deg90InSecs = secsInDeg * 90
-
-  /** seconds value for 180 degrees or Pi radians. */
-  val deg180InSecs = secsInDeg * 180
-
-  val degM90InSecs: Int = - secsInDeg * 90
-  val degM180InSecs: Int = - secsInDeg * 180
+  val MilliSecsIn360Degs: Int = MilliSecsInDeg * 360
+  val MilliSecsIn180Degs: Int = MilliSecsInDeg * 180
+  val MilliSecsIn90Degs: Int = MilliSecsInDeg * 90
+  val MilliSecsInRadian: Double = MilliSecsInDeg * 180.0 / Pi
   
   /** The origin, the intersection of the axes for 2 dimensional vectors. */
   val Vec2Z = Pt2(0, 0)

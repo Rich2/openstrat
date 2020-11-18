@@ -24,19 +24,19 @@ object Latitude
   def radians(value: Double): Latitude = value match
   { case r if r < -Pi => excep("Latitude with less than - Pi")
     case r if r > Pi => excep("Latitude with greater than Pi")
-    case r => new Latitude(r.radiansToSecs * 1000)
+    case r => new Latitude(r.radiansToMilliSecs)
   }
 
   def apply(degVal: Double): Latitude = secs(degVal.degsToSecs)
 
   def secs(input: Double): Latitude = input match
   {
-    case i if i >= secsIn360Degs => secs(input % secsIn360Degs)
-    case i if i <= -secsIn360Degs => secs(input % secsIn360Degs)
-    case i if i > secsIn180Degs => secs(-secsIn360Degs + i)
-    case i if i <= - secsIn180Degs => secs(secsIn360Degs + i)
-    case i if i > secsIn90Degs => new Latitude((secsIn180Degs - i) * 1000)
-    case i if i < -secsIn90Degs => new Latitude((-secsIn180Degs + i) * 1000)
+    case i if i >= SecsIn360Degs => secs(input % SecsIn360Degs)
+    case i if i <= -SecsIn360Degs => secs(input % SecsIn360Degs)
+    case i if i > SecsIn180Degs => secs(-SecsIn360Degs + i)
+    case i if i <= - SecsIn180Degs => secs(SecsIn360Degs + i)
+    case i if i > SecsIn90Degs => new Latitude((SecsIn180Degs - i) * 1000)
+    case i if i < -SecsIn90Degs => new Latitude((-SecsIn180Degs + i) * 1000)
     case i => new Latitude(i * 1000)
   }
 }

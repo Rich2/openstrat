@@ -45,9 +45,9 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
   
   def addLatSecs(secs: Double): LatLong = Angle.resetSecs(latSecs + secs) match
   { //Going over the north Pole
-    case a if a > secsIn90Degs => LatLong.degSecs(secsIn180Degs - a, -longSecs)
+    case a if a > SecsIn90Degs => LatLong.degSecs(SecsIn180Degs - a, -longSecs)
     //Going over the south Pole
-    case a if a < -secsIn90Degs => LatLong.degSecs(-secsIn180Degs - a, - longSecs)
+    case a if a < -SecsIn90Degs => LatLong.degSecs(-SecsIn180Degs - a, - longSecs)
     case a => LatLong.degSecs(a, longSecs)
   }
 

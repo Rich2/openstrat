@@ -68,6 +68,9 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   /** Takes this Double as a value in radians and converts it to a value of arc seconds. */
   @inline def radiansToSecs: Double = thisDouble * 3600 * 180.0 / Pi
 
+  /** Takes this Double as a value in radians and converts it to a value of arc seconds. */
+  @inline def radiansToMilliSecs: Double = thisDouble * 3600000 * 180.0 / Pi
+
   /** Takes this Double as a value in arc seconds and converts it to a value of radians. */
   @inline def secsToRadians = thisDouble * Pi / 180.0 / 3600
 

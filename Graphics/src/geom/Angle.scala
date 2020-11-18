@@ -44,10 +44,10 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
 object Angle
 {
   /** Factory method for Angle from number of degrees */
-  @inline def apply(degrees: Double): Angle = new Angle(degrees * millisecsInDeg)
+  @inline def apply(degrees: Double): Angle = new Angle(degrees * MilliSecsInDeg)
 
   /** Factory method for creating Angle from the number of radians. */
-  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * millisecsInDeg / Pi)
+  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * MilliSecsInDeg / Pi)
 
   /** Factory method for creating Angle from the number of angle seconds. */
   @inline def secs(value: Double): Angle = new Angle(value * 1000)
@@ -60,9 +60,9 @@ object Angle
   }
 
   /** Resets radians to between + and - Pi */
-  @inline def resetSecs(secs: Double): Double =  secs %% secsIn360Degs match
-  { case r if r <= -secsIn180Degs => secsIn360Degs + r
-    case r if r > secsIn180Degs => r - secsIn360Degs
+  @inline def resetSecs(secs: Double): Double =  secs %% SecsIn360Degs match
+  { case r if r <= -SecsIn180Degs => SecsIn360Degs + r
+    case r if r > SecsIn180Degs => r - SecsIn360Degs
     case r => r
   }
 
