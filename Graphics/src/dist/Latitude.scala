@@ -29,7 +29,7 @@ object Latitude
 
   def apply(degVal: Double): Latitude = secs(degVal.degsToSecs)
 
-  def secs(input: Double): Latitude = input match
+  def secs(input: Double): Latitude = milliSecs(input * 1000)/*input match
   {
     case i if i >= SecsIn360Degs => secs(input % SecsIn360Degs)
     case i if i <= -SecsIn360Degs => secs(input % SecsIn360Degs)
@@ -38,7 +38,7 @@ object Latitude
     case i if i > SecsIn90Degs => new Latitude((SecsIn180Degs - i) * 1000)
     case i if i < -SecsIn90Degs => new Latitude((-SecsIn180Degs + i) * 1000)
     case i => new Latitude(i * 1000)
-  }
+  }*/
 
   def milliSecs(input: Double): Latitude = input match
   {
