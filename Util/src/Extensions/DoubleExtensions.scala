@@ -57,7 +57,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def toRoundInt: Int = ife(thisDouble > 0, (thisDouble + 0.5).toInt, (thisDouble - 0.5).toInt)
 
   /** Takes this Double as a value in arc degrees and converts it to a value of radians. */
-  @inline def degsToRadians: Double = thisDouble * Pi / 180
+  @inline def degsToRadians: Double = thisDouble * Pi / 180.0
 
   /** Takes this Double as a value in arc degrees and converts it to a value of arc seconds. */
   @inline def degsToSecs: Double = thisDouble * 3600
@@ -66,7 +66,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   @inline def radiansToDegs: Double = thisDouble * 180 / Pi
 
   /** Takes this Double as a value in radians and converts it to a value of arc seconds. */
-  @inline def radiansToSecs: Double = thisDouble * 3600 * 180 / Pi
+  @inline def radiansToSecs: Double = thisDouble * 3600 * 180.0 / Pi
 
   /** Takes this Double as a value in arc seconds and converts it to a value of radians. */
   @inline def secsToRadians = thisDouble * Pi / 180.0 / 3600
