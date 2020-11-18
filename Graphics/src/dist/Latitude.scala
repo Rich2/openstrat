@@ -39,4 +39,15 @@ object Latitude
     case i if i < -SecsIn90Degs => new Latitude((-SecsIn180Degs + i) * 1000)
     case i => new Latitude(i * 1000)
   }
+
+  def milliSecs(input: Double): Latitude = input match
+  {
+    case i if i >= MilliSecsIn360Degs => milliSecs(input % MilliSecsIn360Degs)
+    case i if i <= -MilliSecsIn360Degs => milliSecs(input % MilliSecsIn360Degs)
+    case i if i > MilliSecsIn180Degs => milliSecs(-MilliSecsIn360Degs + i)
+    case i if i <= - MilliSecsIn180Degs => milliSecs(MilliSecsIn360Degs + i)
+    case i if i > MilliSecsIn90Degs => new Latitude((MilliSecsIn180Degs - i))
+    case i if i < -MilliSecsIn90Degs => new Latitude((-MilliSecsIn180Degs + i))
+    case i => new Latitude(i)
+  }
 }
