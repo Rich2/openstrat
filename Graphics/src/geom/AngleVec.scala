@@ -2,15 +2,15 @@
 package ostrat
 package geom
 
-/** Angle of rotation. */
-class Rotation(val milliSecs: Double)
+/** Angle vector, an angle of rotation. Can in principle have values between + and - infinity. */
+class AngleVec(val milliSecs: Double)
 {
   def degs: Double = milliSecs / 360000
   override def toString: String = degs.toString
   deb((0.1 + 0.2).toString)
 }
 
-object Rotation
+object AngleVec
 {
-  def apply(degs: Double): Rotation = new Rotation(degs * 360000)
+  def apply(degs: Double): AngleVec = new AngleVec(degs * 360000)
 }
