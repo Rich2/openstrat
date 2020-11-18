@@ -10,7 +10,7 @@ trait AngleLike extends Any
   /** The angle expressed in 36 millionths of a degree. */
   def secs: Double
 
-  /** The value of the angle expressd in radians. */
+  /** The value of the angle expressed in radians. */
   @inline final def radians: Double = secs.secsToRadians
 
   /** The sine value of this angle. */
@@ -18,6 +18,4 @@ trait AngleLike extends Any
 
   /** The cosine value of this angle. */
   @inline def cos: Double = math.cos(radians)
-
-  def arcDistance (radiusDist: Dist): Dist = radians * radiusDist
 }

@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Angle of rotation. */
 class Rotation(val milliSecs: Double)
 {
   def degs: Double = milliSecs / 360000
