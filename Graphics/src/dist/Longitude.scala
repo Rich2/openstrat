@@ -12,7 +12,7 @@ final class Longitude private(val secs: Double) extends AnyVal with AngleLike
   { case r if r <= - Pi => Longitude.radians(-Pi)
     case r if r >= Pi => Longitude.radians(Pi)
 
-    case _ if minLong.radians > maxLong.radians => excep("Latitude.addwithin minLat greaterd than maxLat")
+    case _ if minLong.radians > maxLong.radians => excep("Latitude.addwithin minLat greater than maxLat")
     case _ if maxLong.radians < minLong.radians => excep("Latitude.addwithin maxLat less than minLat")
   }
 }

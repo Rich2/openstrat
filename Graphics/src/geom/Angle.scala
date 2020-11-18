@@ -46,6 +46,12 @@ object Angle
   /** Factory method for Angle from number of degrees */
   @inline def apply(degrees: Double): Angle = new Angle(degrees * secsInDeg)
 
+  /** Factory method for creating Angle from the number of radians. */
+  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * secsInDeg / Pi)
+
+  /** Factory method for creating Angle from the number of angle seconds. */
+  @inline def secs(value: Double): Angle = new Angle(value)
+
   /** Resets radians to between + and - Pi */
   @inline def resetRadians(radians: Double): Double =  radians %% Pi2 match
   { case r if r <= -Pi => Pi2 + r
@@ -60,9 +66,7 @@ object Angle
     case r => r
   }
 
-  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * secsInDeg / Pi)
 
-  @inline def secs(value: Double): Angle = new Angle(value)
 }
 
 /** Efficient Immutable Array[Double] based collection class, with the Angle values stored as arc seconds. */
