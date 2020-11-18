@@ -33,9 +33,11 @@ package object geom
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
   }  
     
-  /** The ratio of the degoid to a degree. Th degoid has been chosen as a convenient way to encode Angles using an underlying Double floating point
-   * value. It has been chosen to allow the precise encoding of degrees and decimals of a degree down to 1 millionth. */  
+  /** The number of seconds, 3600 in a degree. */
   val secsInDeg: Int = 3600
+
+  /** The number of thousands of a second, 3600000 in a degree. */
+  val millisecsInDeg: Int = 3600000
 
   val secsIn360Degs: Int = secsInDeg * 360
   val secsIn180Degs: Int = secsInDeg * 180

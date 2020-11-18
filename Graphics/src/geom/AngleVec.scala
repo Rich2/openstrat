@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Angle vector, an angle of rotation. Can in principle have values between + and - infinity. */
-class AngleVec(val milliSecs: Double) extends AngleLike
+class AngleVec private(val milliSecs: Double) extends AngleLike
 {
   //def degs: Double = milliSecs / 360000
 

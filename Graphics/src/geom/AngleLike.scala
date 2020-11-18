@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Base trait for Angle, Latitude and Longitude. */
+/** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
 trait AngleLike extends Any
 { /** The value of this angle expressed in degrees. */
   @inline def degs: Double = secs / secsInDeg
@@ -11,7 +11,7 @@ trait AngleLike extends Any
   def secs: Double
 
   /** The angle expressed in thousandths of a second of a degree. */
-  //def milliSecs: Double
+  def milliSecs: Double
 
   /** The value of the angle expressed in radians. */
   @inline final def radians: Double = secs.secsToRadians

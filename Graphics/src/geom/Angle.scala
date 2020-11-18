@@ -9,6 +9,9 @@ final class Angle private(val secs: Double) extends AnyVal with AngleLike  with 
 {
   @inline override def dblValue: Double = secs
 
+  /** The angle expressed in thousandths of a second of a degree. */
+  override def milliSecs: Double = secs / 1000
+
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
