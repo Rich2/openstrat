@@ -57,22 +57,28 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def toRoundInt: Int = ife(thisDouble > 0, (thisDouble + 0.5).toInt, (thisDouble - 0.5).toInt)
 
   /** Takes this Double as a value in arc degrees and converts it to a value of radians. */
-  @inline def degsToRadians: Double = thisDouble * Pi / 180.0
+  @inline def degsToRadians: Double = thisDouble * Pi / 180
 
   /** Takes this Double as a value in arc degrees and converts it to a value of arc seconds. */
   @inline def degsToSecs: Double = thisDouble * 3600
 
   /** Takes this Double as a value in radians and converts it to a value of arc degrees. */
-  @inline def radiansToDegs: Double = thisDouble * 180.0 / Pi
+  @inline def radiansToDegs: Double = thisDouble * 180 / Pi
 
   /** Takes this Double as a value in radians and converts it to a value of arc seconds. */
   @inline def radiansToSecs: Double = thisDouble * 3600 * 180 / Pi
 
   /** Takes this Double as a value in arc seconds and converts it to a value of radians. */
-  @inline def secsToRadians = thisDouble * Pi / 180.0 / 3600.0
+  @inline def secsToRadians = thisDouble * Pi / 180.0 / 3600
 
-  /** Takes this Double as a value in arc deconds and converts it to a value of arc degrees. */
-  @inline def secsToDegs = thisDouble / 3600.0
+  /** Takes this Double as a value in thousands of an arc second and converts it to a value expressed in radians. */
+  @inline def millisecsToRadians = thisDouble * Pi / 180 / 3600000
+
+  /** Takes this Double as a value in arc seconds and converts it to a value of arc degrees. */
+  @inline def secsToDegs = thisDouble / 3600
+
+  /** Takes this Double as a value in arc seconds and converts it to a value of arc degrees. */
+  @inline def millisecsToDegs = thisDouble / 3600000
 
   /** Probably good to get rid of this. */
   @inline def toWholeDegsStr: String = math.round(radiansToDegs).toString
