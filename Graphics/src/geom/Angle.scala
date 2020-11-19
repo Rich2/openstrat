@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import math.Pi
 
 /** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180
  *  degrees, while Latitudes have a normal range +- 90 degrees. */
@@ -23,8 +22,8 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   
   /** returns an angle between -Pi and Pi */
   def angleTo(other: Angle): Angle = other.radians -radians match
-  { case r if r > Pi => Angle.radians(r - Pi2)
-    case r if r < -Pi => Angle.radians(Pi2 + r)
+  { case r if r > Pi1 => Angle.radians(r - Pi2)
+    case r if r < -Pi1 => Angle.radians(Pi2 + r)
     case r => Angle.radians(r)
   }
   
@@ -45,13 +44,13 @@ object Angle
   @inline def apply(degrees: Double): Angle = new Angle(degrees * MilliSecsInDeg)
 
   /** Factory method for creating Angle from the number of radians. */
-  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * MilliSecsInDeg / Pi)
+  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * MilliSecsInDeg / Pi1)
 
   /** Factory method for creating Angle from the number of angle seconds. */
   @inline def secs(value: Double): Angle = new Angle(value * 1000)
 
   /** Resets radians to between + and - Pi */
-  @inline def resetRadians(radians: Double): Double =  radians %+- Pi
+  @inline def resetRadians(radians: Double): Double =  radians %+- Pi1
 
   /** Resets arc seconds to between + and - 180 degrees. */
   @inline def resetSecs(secs: Double): Double =  secs %+- SecsIn180Degs
