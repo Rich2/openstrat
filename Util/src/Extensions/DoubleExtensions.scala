@@ -5,12 +5,23 @@ import math.Pi
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {
-  /** Alternative remainder operator that gives positive remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
+  /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =
   { val r = thisDouble % divisor
     ife(r < 0, divisor + r, r)
   }
-  
+
+/** Alternative modulo or remainder operation that performs a modulus on with a divisor twice the limit value but where values of between one limit
+ * value and 2 limit values are expressed as negatives. */
+  def %+-(limit: Double): Double = {
+    val r = thisDouble % (limit * 2)
+    r match {
+      case r if r > limit => r - 2 * limit
+      case r if r <= - limit => r + 2 * limit
+      case r => r
+    }
+  }
+
   def precision = 1e12
   def =~ (other: Double): Boolean =  ((thisDouble - other).abs/(thisDouble.abs.max(other.abs).max(1))) * precision  < 1
 

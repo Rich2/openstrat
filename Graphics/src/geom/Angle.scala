@@ -51,11 +51,11 @@ object Angle
   @inline def secs(value: Double): Angle = new Angle(value * 1000)
 
   /** Resets radians to between + and - Pi */
-  @inline def resetRadians(radians: Double): Double =  radians %% Pi2 match
+  @inline def resetRadians(radians: Double): Double =  radians %+- Pi /*2 match
   { case r if r <= -Pi => Pi2 + r
     case r if r > Pi => r - Pi2
     case r => r
-  }
+  }*/
 
   /** Resets arc seconds to between + and - 180 degrees. */
   @inline def resetSecs(secs: Double): Double =  secs %% SecsIn360Degs match
