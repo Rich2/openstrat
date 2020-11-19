@@ -44,19 +44,10 @@ object Angle
   @inline def apply(degrees: Double): Angle = new Angle(degrees * MilliSecsInDeg)
 
   /** Factory method for creating Angle from the number of radians. */
-  @inline def radians(radians: Double): Angle = new Angle(resetRadians(radians) * 180 * MilliSecsInDeg / Pi1)
+  @inline def radians(radians: Double): Angle = new Angle((radians %+- Pi1) * 180 * MilliSecsInDeg / Pi1)
 
   /** Factory method for creating Angle from the number of angle seconds. */
   @inline def secs(value: Double): Angle = new Angle(value * 1000)
-
-  /** Resets radians to between + and - Pi */
-  @inline def resetRadians(radians: Double): Double =  radians %+- Pi1
-
-  /** Resets arc seconds to between + and - 180 degrees. */
-  @inline def resetSecs(secs: Double): Double =  secs %+- SecsIn180Degs
-
-  /** Resets thousands of an arc second to between + and - 180 degrees. */
-  @inline def resetMiiliSecs(milliSecs: Double): Double =  milliSecs %+- MilliSecsIn180Degs
 }
 
 /** Efficient Immutable Array[Double] based collection class, with the Angle values stored as arc seconds. */
@@ -66,6 +57,7 @@ final class Angles(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDb
   override def newElem(dblValue: Double): Angle = Angle.secs(dblValue)
   override def unsafeFromArray(array: Array[Double]): Angles = new Angles(array)
   override def fElemStr: Angle => String = _.toString
+
   /** Not sure about this method. */
   override def foreachArr(f: Dbls => Unit): Unit = ???
 }

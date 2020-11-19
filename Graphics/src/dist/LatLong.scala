@@ -27,7 +27,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 
   /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
    *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  def addLatRadians(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
+  def addLatRadians(radians: Double): LatLong = (latRadians + radians) %+- Pi1 match
   { //Going over the north Pole
     case a if a > PiOn2 => LatLong.radians(Pi1 - a, -longRadians)
     //Going over the south Pole from western longitude
@@ -35,11 +35,21 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     case a => LatLong.radians(a, longRadians)
   }
 
+  /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
+   *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
+  /*def addLat(delta: AngleVec): LatLong = Angle.resetRadians(latRadians + radians) match
+  { //Going over the north Pole
+    case a if a > PiOn2 => LatLong.radians(Pi1 - a, -longRadians)
+    //Going over the south Pole from western longitude
+    case a if a < -PiOn2 => LatLong.radians(-Pi1 - a, -longRadians)
+    case a => LatLong.radians(a, longRadians)
+  }*/
+
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)
 
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  def addLongRadians(radians: Double): LatLong = LatLong.radians(latRadians, Angle.resetRadians(longRadians + radians))
+  def addLongRadians(radians: Double): LatLong = LatLong.radians(latRadians, (longRadians + radians) %+- Pi1)
 
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)

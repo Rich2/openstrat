@@ -43,17 +43,17 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def outCmd = (mb: MouseButton) => { scale = (scale * scaleDelta(mb)).min(scaleMax); updateView() }
   
   def addLat(radians: Double): Unit =
-  { import math.Pi
-    Angle.resetRadians(focus.latRadians + radians) match
+  {
+    (focus.latRadians + radians) %+- Pi1 match
     {
       //Going over the north Pole from western longitude
-      case a if a > PiOn2 && focus.longRadians <= 0 => { focus = LatLong.radians(Pi - a, focus.longRadians + Pi); focusUp = ! focusUp }
+      case a if a > PiOn2 && focus.longRadians <= 0 => { focus = LatLong.radians(Pi1 - a, focus.longRadians + Pi1); focusUp = ! focusUp }
       //Going over the north Pole from an eastern longitude
-      case a if a > PiOn2             => { focus = LatLong.radians(Pi - a, focus.longRadians - Pi); focusUp = ! focusUp }
+      case a if a > PiOn2             => { focus = LatLong.radians(Pi1 - a, focus.longRadians - Pi1); focusUp = ! focusUp }
       //Going over the south Pole from western longitude
-      case a if a < -PiOn2 && focus.longRadians < 0 => { focus = LatLong.radians(-Pi - a, Pi + focus.longRadians); focusUp = ! focusUp }
+      case a if a < -PiOn2 && focus.longRadians < 0 => { focus = LatLong.radians(-Pi1 - a, Pi1 + focus.longRadians); focusUp = ! focusUp }
       //Going over the south Pole from eastern longitude
-      case a if a < -PiOn2             => { focus = LatLong.radians(-Pi - a, focus.longRadians - Pi); focusUp = ! focusUp }
+      case a if a < -PiOn2             => { focus = LatLong.radians(-Pi1 - a, focus.longRadians - Pi1); focusUp = ! focusUp }
       case a => focus = LatLong.radians(a, focus.longRadians)
      } 
      repaintMap()
