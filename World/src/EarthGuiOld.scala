@@ -42,7 +42,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def inCmd = (mb: MouseButton) => { scale = (scale / scaleDelta(mb)).max(scaleMin); updateView() }
   def outCmd = (mb: MouseButton) => { scale = (scale * scaleDelta(mb)).min(scaleMax); updateView() }
   
-  def addLat(radians: Double): Unit =
+  def addLatRadians(radians: Double): Unit =
   {
     (focus.latRadians + radians) %+- Pi1 match
     {
@@ -55,14 +55,31 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
       //Going over the south Pole from eastern longitude
       case a if a < -PiOn2             => { focus = LatLong.radians(-Pi1 - a, focus.longRadians - Pi1); focusUp = ! focusUp }
       case a => focus = LatLong.radians(a, focus.longRadians)
-     } 
+     }
      repaintMap()
   }
-  
+
+  def addLat(delta: AngleVec): Unit =
+  {
+    (focus.latDegs + delta.degs) %+- 180 match
+    {
+      //Going over the north Pole from western longitude
+      case a if a > 90 && focus.longDegs <= 0 => { focus = LatLong.degs(180 - a, focus.longDegs + 180); focusUp = ! focusUp }
+      //Going over the north Pole from an eastern longitude
+      case a if a > 90             => { focus = LatLong.degs(180 - a, focus.longDegs - 180); focusUp = ! focusUp }
+      //Going over the south Pole from western longitude
+      case a if a < -90 && focus.longDegs < 0 => { focus = LatLong.degs(-180 - a, 180 + focus.longDegs); focusUp = ! focusUp }
+      //Going over the south Pole from eastern longitude
+      case a if a < -90             => { focus = LatLong.degs(-180 - a, focus.longDegs - 180); focusUp = ! focusUp }
+      case a => focus = LatLong.degs(a, focus.longDegs)
+    }
+    repaintMap()
+  }
+
   def leftCmd: MouseCmd = mb => setFocus(focus.subLongRadians(distDelta(mb)))
   def rightCmd: MouseCmd = mb => { focus = focus.addLongRadians(distDelta(mb)); updateView() }
-  def downCmd: MouseCmd = mb => { addLat(-distDelta(mb)); updateView() }
-  def upCmd: MouseCmd = mb => { addLat(distDelta(mb)); updateView() }
+  def downCmd: MouseCmd = mb => { addLatRadians(-distDelta(mb)); updateView() }
+  def upCmd: MouseCmd = mb => { addLatRadians(distDelta(mb)); updateView() }
   def invCmd: MouseCmd = mb => {focusUp = !focusUp; repaintMap() }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); updateView() }  
       
