@@ -5,14 +5,14 @@ import math._
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong private(val latSecs: Double, val longSecs: Double) extends LatLongBase with ProdDbl2
+final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ProdDbl2
 {
   override def toString: String = LatLong.persistImplict.show(this, 0)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = latSecs
   def _2 = longSecs
-  def latMilliSecs: Double = latSecs / 1000
-  def longMilliSecs: Double = longSecs / 1000
+  def latSecs: Double = latMilliSecs / 1000
+  def longSecs: Double = longMilliSecs / 1000
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  
@@ -91,11 +91,11 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
 object LatLong
 {
   /** Factory method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
-  def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.secs, long.secs)
+  def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.milliSecs, long.milliSecs)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
    * values are negative. */
-  def degs(lat: Double, long: Double): LatLong = LatLong.secs(lat.degsToSecs, long.degsToSecs)
+  def degs(lat: Double, long: Double): LatLong = LatLong.milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western
    * values are negative. */
@@ -107,14 +107,12 @@ object LatLong
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in arc seconds of a degree, where
    *  southern and western values are negative. */
-  def secs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
+  def secs(lat: Double, long: Double): LatLong = new LatLong(lat * 1000, long * 1000)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in thousands of an arc second of a
    *  degree, where southern and western values are negative. */
-  def milliSecs(lat: Double, long: Double): LatLong = ??? //new LatLong(lat, long)
+  def milliSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
 
   implicit val persistImplict: PersistEq[LatLong] =
     new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
-
-
 }
