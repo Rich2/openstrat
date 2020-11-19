@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import math._
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
@@ -30,9 +29,9 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
    *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def addLatRadians(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
   { //Going over the north Pole
-    case a if a > PiOn2 => LatLong.radians(Pi - a, -longRadians)
+    case a if a > PiOn2 => LatLong.radians(Pi1 - a, -longRadians)
     //Going over the south Pole from western longitude
-    case a if a < -PiOn2 => LatLong.radians(-Pi - a, -longRadians)
+    case a if a < -PiOn2 => LatLong.radians(-Pi1 - a, -longRadians)
     case a => LatLong.radians(a, longRadians)
   }
 
@@ -54,7 +53,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   }
 
   /** Get the XY point from a focus with latitude 0 */
-  def xyLat0: Pt2 = Pt2(sin(longRadians) * cos(latRadians), sin(latRadians))
+  def xyLat0: Pt2 = Pt2(longRadians.sin * latRadians.sin, latRadians.sin)
 
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
   def polyToDist2s(inp: LatLongs): Dist2s = inp.pMap(fromFocusDist2)
@@ -82,8 +81,8 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   }
 
   def toVec3(polarRadius: Double, equatorialRadius: Double): Pt3 =
-  { val clat = cos(latRadians).abs
-    Pt3(sin(longRadians) * equatorialRadius * clat, cos(latRadians) * polarRadius, cos(longRadians) * equatorialRadius * clat)
+  { val clat = latRadians.cos.abs
+    Pt3(longRadians.sin * equatorialRadius * clat, latRadians.cos * polarRadius, longRadians.cos * equatorialRadius * clat)
   }
 }
 

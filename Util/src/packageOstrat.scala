@@ -20,7 +20,7 @@ package object ostrat
   val Sin30: Double = 0.5
   val Sin60: Double = 0.866025404
 
-  /** Pi. This has been name Pi1 to avoid a name clash if math._ is imported. */
+  /** Pi. This has been named Pi1 to avoid a name clash if math._ is imported. */
   val Pi1: Double = math.Pi
 
   /** 2 * Pi. */
