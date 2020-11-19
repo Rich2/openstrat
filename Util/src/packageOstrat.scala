@@ -14,15 +14,32 @@ package object ostrat
   type Strings = Arr[String]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
-  val Tan30 = 0.577350269f;
-  val Cos30 = 0.866025404f;
-  val Cos60 = 0.5
-  val Sin30 = 0.5
-  val Sin60 = 0.866025404f;
+  val Tan30: Double = 0.577350269
+  val Cos30: Double = 0.866025404
+  val Cos60: Double = 0.5
+  val Sin30: Double = 0.5
+  val Sin60: Double = 0.866025404
+
+  /** Pi. This has been name Pi1 to avoid a name clash if math._ is imported. */
+  val Pi1: Double = math.Pi
+
+  /** 2 * Pi. */
   val Pi2 = math.Pi * 2
-  val PiH = math.Pi / 2
-  val Sqrt2 = 2.sqrt
-  val Sqrt3 = 3.sqrt
+
+  /** Pi / 2 */
+  val PiOn2: Double = math.Pi / 2
+
+  /** Pi / 3 */
+  val PiOn3: Double = math.Pi / 3
+
+  /** Pi / 4 */
+  val PiOn4: Double = math.Pi / 4
+
+  /** The square root of 2. */
+  val Sqrt2: Double = 2.sqrt
+
+  /** The square root of 3. */
+  val Sqrt3: Double = 3.sqrt
 
   /** Gives the scalar hypotenuse length for a right angled triangle form the paramter lengths of the other 2 sides. */
   def hypotenuse(side1: Double, side2: Double): Double = (side1.squared + side2.squared).sqrt

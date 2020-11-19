@@ -30,9 +30,9 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
    *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def addLatRadians(radians: Double): LatLong = Angle.resetRadians(latRadians + radians) match
   { //Going over the north Pole
-    case a if a > PiH => LatLong.radians(Pi - a, -longRadians)
+    case a if a > PiOn2 => LatLong.radians(Pi - a, -longRadians)
     //Going over the south Pole from western longitude
-    case a if a < -PiH => LatLong.radians(-Pi - a, -longRadians)
+    case a if a < -PiOn2 => LatLong.radians(-Pi - a, -longRadians)
     case a => LatLong.radians(a, longRadians)
   }
 
@@ -45,7 +45,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)
   
-  def addLatSecs(secs: Double): LatLong = Angle.resetSecs(latSecs + secs) match
+  def addLatSecs(secs: Double): LatLong = (latSecs + secs) %+- SecsIn180Degs match
   { //Going over the north Pole
     case a if a > SecsIn90Degs => LatLong.secs(SecsIn180Degs - a, -longSecs)
     //Going over the south Pole
@@ -100,8 +100,8 @@ object LatLong
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western
    * values are negative. */
   @inline def radians(latRadians: Double, longRadians: Double): LatLong =
-  { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
-    val long = ((longRadians + Pi) %% Pi2) - Pi
+  { val lat = ((latRadians + PiOn2) %% Pi1) - PiOn2
+    val long = ((longRadians + Pi1) %% Pi2) - Pi1
     LatLong.secs(lat.radiansToSecs, long.radiansToSecs)
   }
 

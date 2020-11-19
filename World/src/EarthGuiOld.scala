@@ -47,13 +47,13 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
     Angle.resetRadians(focus.latRadians + radians) match
     {
       //Going over the north Pole from western longitude
-      case a if a > PiH && focus.longRadians <= 0 => { focus = LatLong.radians(Pi - a, focus.longRadians + Pi); focusUp = ! focusUp }
+      case a if a > PiOn2 && focus.longRadians <= 0 => { focus = LatLong.radians(Pi - a, focus.longRadians + Pi); focusUp = ! focusUp }
       //Going over the north Pole from an eastern longitude
-      case a if a > PiH             => { focus = LatLong.radians(Pi - a, focus.longRadians - Pi); focusUp = ! focusUp }
+      case a if a > PiOn2             => { focus = LatLong.radians(Pi - a, focus.longRadians - Pi); focusUp = ! focusUp }
       //Going over the south Pole from western longitude
-      case a if a < -PiH && focus.longRadians < 0 => { focus = LatLong.radians(-Pi - a, Pi + focus.longRadians); focusUp = ! focusUp }
+      case a if a < -PiOn2 && focus.longRadians < 0 => { focus = LatLong.radians(-Pi - a, Pi + focus.longRadians); focusUp = ! focusUp }
       //Going over the south Pole from eastern longitude
-      case a if a < -PiH             => { focus = LatLong.radians(-Pi - a, focus.longRadians - Pi); focusUp = ! focusUp }
+      case a if a < -PiOn2             => { focus = LatLong.radians(-Pi - a, focus.longRadians - Pi); focusUp = ! focusUp }
       case a => focus = LatLong.radians(a, focus.longRadians)
      } 
      repaintMap()
