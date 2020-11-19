@@ -11,6 +11,8 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = latSecs
   def _2 = longSecs
+  def latMilliSecs: Double = latSecs / 1000
+  def longMilliSecs: Double = longSecs / 1000
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  
@@ -45,10 +47,10 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
   
   def addLatSecs(secs: Double): LatLong = Angle.resetSecs(latSecs + secs) match
   { //Going over the north Pole
-    case a if a > SecsIn90Degs => LatLong.degSecs(SecsIn180Degs - a, -longSecs)
+    case a if a > SecsIn90Degs => LatLong.secs(SecsIn180Degs - a, -longSecs)
     //Going over the south Pole
-    case a if a < -SecsIn90Degs => LatLong.degSecs(-SecsIn180Degs - a, - longSecs)
-    case a => LatLong.degSecs(a, longSecs)
+    case a if a < -SecsIn90Degs => LatLong.secs(-SecsIn180Degs - a, - longSecs)
+    case a => LatLong.secs(a, longSecs)
   }
 
   /** Get the XY point from a focus with latitude 0 */
@@ -78,7 +80,7 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
   { val r1: Dist3 = inp.subLongRadians(longRadians).toDist3.xRotation(-latRadians)
     r1.toXYIfZPositive
   }
-   
+
   def toVec3(polarRadius: Double, equatorialRadius: Double): Pt3 =
   { val clat = cos(latRadians).abs
     Pt3(sin(longRadians) * equatorialRadius * clat, cos(latRadians) * polarRadius, cos(longRadians) * equatorialRadius * clat)
@@ -88,18 +90,31 @@ final class LatLong private(val latSecs: Double, val longSecs: Double) extends L
 /** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s.  */
 object LatLong
 {
+  /** Factory method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
   def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.secs, long.secs)
 
-  @inline def radians(latRadians: Double, longRadians: Double): LatLong = //degSecs(latRadians.radiansToSecs, longRadians.radiansToSecs)
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
+   * values are negative. */
+  def degs(lat: Double, long: Double): LatLong = LatLong.secs(lat.degsToSecs, long.degsToSecs)
+
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western
+   * values are negative. */
+  @inline def radians(latRadians: Double, longRadians: Double): LatLong =
   { val lat = ((latRadians + Pi / 2) %% Pi) - Pi / 2
     val long = ((longRadians + Pi) %% Pi2) - Pi
-    LatLong.degSecs(lat.radiansToSecs, long.radiansToSecs)
+    LatLong.secs(lat.radiansToSecs, long.radiansToSecs)
   }
 
-  def degSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in arc seconds of a degree, where
+   *  southern and western values are negative. */
+  def secs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
+
+  /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in thousands of an arc second of a
+   *  degree, where southern and western values are negative. */
+  def milliSecs(lat: Double, long: Double): LatLong = ??? //new LatLong(lat, long)
 
   implicit val persistImplict: PersistEq[LatLong] =
     new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
 
-   def degs(lat: Double, long: Double): LatLong = LatLong.degSecs(lat.degsToSecs, long.degsToSecs)
+
 }
