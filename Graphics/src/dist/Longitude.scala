@@ -7,7 +7,6 @@ import math.Pi
  * specified in the old Degrees, Minutes and Seconds system. Decimals of a degree can also be stored precisely. */
 final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLike
 {
-  override def secs: Double = milliSecs / 1000
   def addWithin(deltaAngle: Angle, maxLong: Longitude, minLong: Longitude): Longitude = (radians + deltaAngle.radians) match
   { case r if r <= - Pi => Longitude.radians(-Pi)
     case r if r >= Pi => Longitude.radians(Pi)
@@ -19,7 +18,7 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
 
 /** Companion object of the [[Longitude]] class. */
 object Longitude
-{ def degs(degVal: Double): Longitude = new Longitude(degVal.degsToSecs * 1000)
-  def radians(value: Double): Longitude = new Longitude(value.radiansToSecs * 1000)
+{ def degs(degVal: Double): Longitude = new Longitude(degVal.degsToMilliSecs)
+  def radians(value: Double): Longitude = new Longitude(value.radiansToMilliSecs)
   def secs(value: Double): Longitude = new Longitude(value * 1000)
 }

@@ -9,9 +9,6 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
 {
   @inline override def dblValue: Double = secs
 
-  /** The angle expressed in thousandths of a second of a degree. */
-  override def secs: Double = milliSecs / 1000
-
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
@@ -36,6 +33,7 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   def * (factor: Double): Angle = Angle.radians(radians * factor)
   def / (factor: Double): Angle = Angle.radians(radians / factor)
   @ inline def unary_- : Angle = Angle.radians(- radians)
+
   /** This is gives the smaller of the bisection angles  */
   def bisect(operand: Angle): Angle = Angle.radians(radians + angleTo(operand).radians / 2)
 }

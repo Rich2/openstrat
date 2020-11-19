@@ -5,9 +5,6 @@ package geom
 /** Angle vector, an angle of rotation. Can in principle have values between + and - infinity. */
 class AngleVec private(val milliSecs: Double) extends AngleLike
 {
-  //def degs: Double = milliSecs / 360000
-
-  override def secs: Double = milliSecs / 1000
   override def toString: String = degs.toString
   deb((0.1 + 0.2).toString)
 }
