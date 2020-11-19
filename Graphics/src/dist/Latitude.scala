@@ -20,8 +20,8 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
     case _ if maxLat.radians < minLat.radians => excep("Latitude.addwithin maxLat less than minLat")
   }*/
 
-  def * (long: Longitude): LatLong = LatLong.degs(degs, long.degs)
-  def ll (longDegs: Double): LatLong = LatLong.degs(degs, longDegs)
+  def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)
+  def ll (longDegs: Double): LatLong = LatLong.milliSecs(milliSecs, longDegs.degsToMilliSecs)
 }
 
 /** Companion object for the [[Latitude]] class. */
