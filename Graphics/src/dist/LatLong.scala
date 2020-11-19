@@ -37,13 +37,13 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 
   /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
    *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  /*def addLat(delta: AngleVec): LatLong = Angle.resetRadians(latRadians + radians) match
+  def addLat(delta: AngleVec): LatLong = (latMilliSecs + delta.milliSecs) match
   { //Going over the north Pole
-    case a if a > PiOn2 => LatLong.radians(Pi1 - a, -longRadians)
+    case a if a > MilliSecsIn90Degs => LatLong.milliSecs(MilliSecsIn90Degs - a, -longMilliSecs)
     //Going over the south Pole from western longitude
-    case a if a < -PiOn2 => LatLong.radians(-Pi1 - a, -longRadians)
-    case a => LatLong.radians(a, longRadians)
-  }*/
+    case a if a < -MilliSecsIn90Degs => LatLong.milliSecs(-MilliSecsIn90Degs - a, -longMilliSecs)
+    case a => LatLong.milliSecs(a, longMilliSecs)
+  }
 
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)
