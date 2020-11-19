@@ -51,25 +51,13 @@ object Angle
   @inline def secs(value: Double): Angle = new Angle(value * 1000)
 
   /** Resets radians to between + and - Pi */
-  @inline def resetRadians(radians: Double): Double =  radians %+- Pi /*2 match
-  { case r if r <= -Pi => Pi2 + r
-    case r if r > Pi => r - Pi2
-    case r => r
-  }*/
+  @inline def resetRadians(radians: Double): Double =  radians %+- Pi
 
   /** Resets arc seconds to between + and - 180 degrees. */
-  @inline def resetSecs(secs: Double): Double =  secs %% SecsIn360Degs match
-  { case s if s <= -SecsIn180Degs => SecsIn360Degs + s
-    case s if s > SecsIn180Degs => s - SecsIn360Degs
-    case s => s
-  }
+  @inline def resetSecs(secs: Double): Double =  secs %+- SecsIn180Degs
 
-  /** Resets thousands of an arc second to between + and - 18 degrees. */
-  @inline def resetMiiliSecs(milliSecs: Double): Double =  milliSecs %% MilliSecsIn360Degs match
-  { case ms if ms <= -MilliSecsIn180Degs => MilliSecsIn360Degs + ms
-    case ms if ms > MilliSecsIn180Degs => ms - MilliSecsIn360Degs
-    case ms => ms
-  }
+  /** Resets thousands of an arc second to between + and - 180 degrees. */
+  @inline def resetMiiliSecs(milliSecs: Double): Double =  milliSecs %+- MilliSecsIn180Degs
 }
 
 /** Efficient Immutable Array[Double] based collection class, with the Angle values stored as arc seconds. */
