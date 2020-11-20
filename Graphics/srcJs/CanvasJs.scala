@@ -159,10 +159,10 @@ object CanvasJs extends CanvasTopLeft
   }
 
 
-  override def tlCircleFill(circle: Circle, colour: Colour): Unit =
+  override def tlCircleFill(cf: CircleFill): Unit =
   { gc.beginPath()
-    gc.fillStyle = colour.webStr
-    gc.arc(circle.xCen, circle.yCen, circle.radius, 0, Pi * 2)
+    gc.fillStyle = cf.colour.webStr
+    gc.arc(cf.xCen, cf.yCen, cf.radius, 0, Pi * 2)
     gc.fill()
   }
 

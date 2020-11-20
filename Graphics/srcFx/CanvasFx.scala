@@ -88,14 +88,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
 
-  /*override def tlCircleFillOld(cf: CircleFillOld): Unit =
-  { gc.setFill(toFxColor(cf.fillColour))
+  override def tlCircleFill(cf: CircleFill): Unit =
+  { gc.setFill(toFxColor(cf.colour))
     gc.fillOval(cf.xCen - cf.radius, cf.yCen - cf.radius, cf.diameter, cf.diameter)
-  }*/
-
-  override def tlCircleFill(circle: Circle, colour: Colour): Unit =
-  { gc.setFill(toFxColor(colour))
-    gc.fillOval(circle.xCen - circle.radius, circle.yCen - circle.radius, circle.diameter, circle.diameter)
   }
 
   override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
