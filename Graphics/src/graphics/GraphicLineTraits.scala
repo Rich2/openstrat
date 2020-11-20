@@ -25,7 +25,7 @@ object LineSegDraw
 }
 
 /** I think its to better to use the mame lineWidth consistently. */
-case class LinesDraw(lines: LineSegs, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem
+case class LinesDraw(lines: LineSegs, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem
 { override type ThisT = LinesDraw
   override def fTrans(f: Pt2 => Pt2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)

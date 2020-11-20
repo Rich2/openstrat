@@ -4,29 +4,29 @@ package geom
 
 case class ShapeGenFill(shape: ShapeGen, colour: Colour) extends CanvElem
 {
+  /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. */
+  override def slate(xOffset: Double, yOffset: Double): ShapeGenFill = ShapeGenFill(shape.slate(xOffset, yOffset), colour)
+
   /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. This
    * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): ShapeGenFill = ???
-
-  /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeGenFill = ???
+  override def slate(offset: Vec2Like): ShapeGenFill = ShapeGenFill(shape.slate(offset), colour)
 
   /** Uniform scaling 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
    * method for differential scaling on the X and Y axes. */
-  override def scale(operand: Double): ShapeGenFill = ???
+  override def scale(operand: Double): ShapeGenFill = ShapeGenFill(shape.scale(operand), colour)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: ShapeGenFill = ???
+  override def negY: ShapeGenFill = ShapeGenFill(shape.negY, colour)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negX: ShapeGenFill = ???
+  override def negX: ShapeGenFill = ShapeGenFill(shape.negX, colour)
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): ShapeGenFill = ???
+  override def prolign(matrix: ProlignMatrix): ShapeGenFill = ShapeGenFill(shape.prolign(matrix), colour)
 
   /** Rotation 2D geometric transformation on a ShapeGenFill taking the rotation as a scalar measured in radians, returns a ShapeGenFill. The Return
    * type will be narrowed in sub traits / classes. */
