@@ -224,10 +224,10 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
    
-  override protected[this] def tlShapeDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit =
-  { segsPath(shape)
-    gc.strokeStyle = colour.webStr
-    gc.lineWidth = lineWidth
+  override protected[this] def tlShapeDraw(sgd: ShapeGenDraw): Unit =
+  { segsPath(sgd.shape)
+    gc.strokeStyle = sgd.lineColour.webStr
+    gc.lineWidth = sgd.lineWidth
     gc.stroke()
   }
    
