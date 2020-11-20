@@ -35,7 +35,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def ellipseFill(ef: EllipseFill): Unit = tlEllipseFill(ef.negY.slate(width / 2, height / 2))
 
-  final override def ellipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit =
+  final override def ellipseDraw(ellipse: Ellipse, colour: Colour, lineWidth: Double): Unit =
     tlEllipseDraw(ellipse.negY.slate(width / 2, height / 2), lineWidth, colour)
 
   final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))

@@ -49,21 +49,21 @@ trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with CanvElem
 {
   type ThisT <: EllipseDraw
   type ThisT2 = EllipseDraw
-  override def fTrans2(f: Pt2 => Pt2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineWidth, lineColour)
+  override def fTrans2(f: Pt2 => Pt2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineColour, lineWidth)
   override def slateTo(newCen: Pt2): EllipseDraw = ???
 }
 
 object EllipseDraw
 {
-  def apply(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black): EllipseDraw = EllipseDrawImp(shape, lineWidth, lineColour)
+  def apply(shape: Ellipse, lineColour: Colour = Black, lineWidth: Double = 2.0): EllipseDraw = EllipseDrawImp(shape, lineColour, lineWidth)
 
-  /** A simple draw of a circle graphic. */
-  final case class EllipseDrawImp(shape: Ellipse, lineWidth: Double = 2.0, lineColour: Colour = Black) extends EllipseDraw
+  /** Implementation class for [[EllipseDraw]]. */
+  final case class EllipseDrawImp(shape: Ellipse, lineColour: Colour = Black, lineWidth: Double = 2.0) extends EllipseDraw
   { type ThisT = EllipseDraw
 
-    override def fTrans(f: Pt2 => Pt2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineWidth, lineColour)
+    override def fTrans(f: Pt2 => Pt2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineColour, lineWidth)
 
-    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(shape, lineWidth, lineColour)
+    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(shape, lineColour, lineWidth)
 
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
