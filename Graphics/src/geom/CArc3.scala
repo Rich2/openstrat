@@ -46,7 +46,7 @@ object CArc3
   def apply(pStart: Pt2, apex: Pt2, pEnd: Pt2): CArc3 = new CArc3(pStart.x, pStart.y, apex.x, apex.y, pEnd.x, pEnd.y)
 }
 
-case class CArcDraw3(curveSeg: CArc3, colour: Colour = Black, lineWidth: Double = 2) extends CurveSegDraw with AffinePreserve
+case class CArcDraw3(curveSeg: CArc3, colour: Colour = Black, lineWidth: Double = 2) extends CurveSegDraw with AffinePreserve with CanvElem
 {
   override type ThisT = CArcDraw3
 

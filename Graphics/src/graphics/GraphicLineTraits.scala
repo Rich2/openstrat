@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 /** A Graphic for a straight line. It is defined by its start and end points, the line width or thickness and the colour of the line. */
-case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve
+case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
   override def fTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.fTrans(f), colour, width)
@@ -37,7 +37,7 @@ object LinesDraw
     Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
-case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem
+case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem
 { override type ThisT = LinePathDraw
   def length = path.elemsLen - 1
   def xStart = path.xStart

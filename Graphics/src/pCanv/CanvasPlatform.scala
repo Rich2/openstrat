@@ -55,7 +55,7 @@ trait CanvasPlatform extends RectCenlign
   protected def pPolyDraw(pd: PolygonDraw): Unit
 
   def linePathDraw(pod: LinePathDraw): Unit = oif(pod.path.elemsLen >= 1, pLinePathDraw(pod))
-  def pLinePathDraw(pod: LinePathDraw): Unit
+  protected def pLinePathDraw(pod: LinePathDraw): Unit
    
   def lineDraw(ld: LineSegDraw): Unit
   final def lineDraw(pStart: Pt2, pEnd: Pt2, lineWidth: Double = 1.0, colour: Colour = Black): Unit =
