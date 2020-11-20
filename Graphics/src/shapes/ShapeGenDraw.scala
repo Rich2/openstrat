@@ -2,49 +2,49 @@
 package ostrat
 package geom
 
-case class ShapeGenFill(shape: ShapeGen, colour: Colour) extends CanvElem
+case class ShapeGenDraw(shape: ShapeGen, colour: Colour) extends CanvElem
 {
-  /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeGenFill = ShapeGenFill(shape.slate(xOffset, yOffset), colour)
-
-  /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. This
+  /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. This
    * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): ShapeGenFill = ShapeGenFill(shape.slate(offset), colour)
+  override def slate(offset: Vec2Like): ShapeGenDraw = ???
 
-  /** Uniform scaling 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes.
+  /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. */
+  override def slate(xOffset: Double, yOffset: Double): ShapeGenDraw = ???
+
+  /** Uniform scaling 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
    * method for differential scaling on the X and Y axes. */
-  override def scale(operand: Double): ShapeGenFill = ShapeGenFill(shape.scale(operand), colour)
+  override def scale(operand: Double): ShapeGenDraw = ???
 
-  /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in
+  /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: ShapeGenFill = ShapeGenFill(shape.negY, colour)
+  override def negY: ShapeGenDraw = ???
 
-  /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in
+  /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negX: ShapeGenFill = ShapeGenFill(shape.negX, colour)
+  override def negX: ShapeGenDraw = ???
 
-  /** 2D geometric transformation using a [[ProlignMatrix]] on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits /
+  /** 2D geometric transformation using a [[ProlignMatrix]] on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): ShapeGenFill = ShapeGenFill(shape.prolign(matrix), colour)
+  override def prolign(matrix: ProlignMatrix): ShapeGenDraw = ???
 
-  /** Rotation 2D geometric transformation on a ShapeGenFill taking the rotation as a scalar measured in radians, returns a ShapeGenFill. The Return
+  /** Rotation 2D geometric transformation on a ShapeGenDraw taking the rotation as a scalar measured in radians, returns a ShapeGenDraw. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): ShapeGenFill = ???
+  override def rotate(angle: Angle): ShapeGenDraw = ???
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed
    * in sub traits / classes. */
-  override def reflect(lineLike: LineLike): ShapeGenFill = ???
+  override def reflect(lineLike: LineLike): ShapeGenDraw = ???
 
-  /** XY scaling 2D geometric transformation on a ShapeGenFill, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
+  /** XY scaling 2D geometric transformation on a ShapeGenDraw, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeGenFill = ???
+  override def xyScale(xOperand: Double, yOperand: Double): ShapeGenDraw = ???
 
-  /** Shear 2D geometric transformation along the X Axis on a ShapeGenFill, returns a ShapeGenFill. The return type will be narrowed in sub classes and
+  /** Shear 2D geometric transformation along the X Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def xShear(operand: Double): ShapeGenFill = ???
+  override def xShear(operand: Double): ShapeGenDraw = ???
 
-  /** Shear 2D geometric transformation along the Y Axis on a ShapeGenFill, returns a ShapeGenFill. The return type will be narrowed in sub classes and
+  /** Shear 2D geometric transformation along the Y Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def yShear(operand: Double): ShapeGenFill = ???
+  override def yShear(operand: Double): ShapeGenDraw = ???
 }
