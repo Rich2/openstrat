@@ -107,9 +107,9 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeOval(cd.xCen - cd.radius, cd.yCen - cd.radius, cd.diameter, cd.diameter)
   }
 
-  override def tlEllipseFill(ellipse: Ellipse, colour: Colour): Unit = 
-  { gc.setFill(toFxColor(colour))
-    gc.fillOval(ellipse.xCen - ellipse.radius1, ellipse.yCen - ellipse.radius0 , ellipse.diameter1, ellipse.diameter0)
+  override def tlEllipseFill(ef: EllipseFill): Unit =
+  { gc.setFill(toFxColor(ef.colour))
+    gc.fillOval(ef.xCen - ef.shape.radius1, ef.yCen - ef.shape.radius0 , ef.shape.diameter1, ef.shape.diameter0)
   }
 
   override def tlEllipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit =
