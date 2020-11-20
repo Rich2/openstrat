@@ -74,9 +74,8 @@ trait CanvasPlatform extends RectCenlign
 
   def lineSegsDraw(lsd: LinesDraw): Unit
    
-  final def shapeGenFill(shape: ShapeGen, colour: Colour): Unit = oif(shape.elemsLen > 0, pShapeGenFill(shape, colour))
-
-  protected def pShapeGenFill(shape: ShapeGen, colour: Colour): Unit
+  final def shapeGenFill(sgf: ShapeGenFill): Unit = oif(sgf.shape.elemsLen > 0, pShapeGenFill(sgf))
+  protected def pShapeGenFill(sgf: ShapeGenFill): Unit
    
   final def shapeGenDraw(shape: ShapeGen, colour: Colour, lineWidth: Double): Unit = oif(shape.elemsLen > 0, pShapeGenDraw(shape, lineWidth, colour))
   protected def pShapeGenDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit

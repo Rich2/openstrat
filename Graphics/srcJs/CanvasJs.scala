@@ -218,9 +218,9 @@ object CanvasJs extends CanvasTopLeft
     gc.closePath()
   }
    
-  override protected[this] def tlShapeFill(shape: ShapeGen, colour: Colour): Unit =
-  { segsPath(shape)
-    gc.fillStyle = colour.webStr
+  override protected[this] def tlShapeFill(sgf: ShapeGenFill): Unit =
+  { segsPath(sgf.shape)
+    gc.fillStyle = sgf.colour.webStr
     gc.fill()
   }
    

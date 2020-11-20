@@ -22,7 +22,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
   final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.fTrans(tlCen))
 
-  final override def pShapeGenFill(shape: ShapeGen, colour: Colour): Unit = tlShapeFill(shape.fTrans(tlCen), colour)
+  final override def pShapeGenFill(sgf: ShapeGenFill): Unit = tlShapeFill(sgf.negY.slate(width / 2, height / 2))
 
   final override def pShapeGenDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit =
     tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
@@ -57,7 +57,7 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlLinesDraw(lsd: LinesDraw): Unit
   protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
-  protected[this] def tlShapeFill(shape: ShapeGen, colour: Colour): Unit
+  protected[this] def tlShapeFill(sgf: ShapeGenFill): Unit
 
   protected[this] def tlShapeDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit
 

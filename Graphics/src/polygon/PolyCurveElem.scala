@@ -13,7 +13,7 @@ trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
 case class PolyCurveFill(shape: ShapeGen, colour: Colour) extends PolyCurveElem
 { override type ThisT = PolyCurveFill
   override def fTrans(f: Pt2 => Pt2) = PolyCurveFill(shape.fTrans(f), colour)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeGenFill(shape, colour)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.shapeGenFill(ShapeGenFill(shape, colour))
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
@@ -35,7 +35,7 @@ case class PolyCurveFillDraw(shape: ShapeGen, fillColour: Colour, lineColour: Co
   override def fTrans(f: Pt2 => Pt2) = PolyCurveFillDraw(shape.fTrans(f), fillColour, lineColour, lineWidth)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.shapeGenFill(shape, fillColour)
+  { cp.shapeGenFill(ShapeGenFill(shape, fillColour))
     cp.shapeGenDraw(shape, lineColour, lineWidth)
   }
   def xCen: Double = ???
@@ -52,7 +52,7 @@ case class PolyCurveFillDrawText(shape: ShapeGen, fillColour: Colour, str: Strin
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineColour, lineWidth)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.shapeGenFill(shape, fillColour)
+  { cp.shapeGenFill(ShapeGenFill(shape, fillColour))
     cp.shapeGenDraw(shape, lineColour, lineWidth)
     cp.textGraphic(textOnly)
   }
@@ -70,7 +70,7 @@ case class PolyCurveAll(shape: ShapeGen, pointerId: Any, str: String, fillColour
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineColour, lineWidth)
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit =
-  { cp.shapeGenFill(shape, fillColour)
+  { cp.shapeGenFill(ShapeGenFill(shape, fillColour))
     cp.shapeGenDraw(shape, lineColour, lineWidth)
     cp.textGraphic(textOnly)
   }
