@@ -1,28 +1,29 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import  Colour.Black
 
-case class ShapeGenDraw(shape: ShapeGen, lineWidth: Double, colour: Colour) extends CanvElem
+case class ShapeGenDraw(shape: ShapeGen, lineColour: Colour = Black, lineWidth: Double = 2) extends CanvElem
 {
   /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeGenDraw = ??? //ShapeGenDraw(shape.slate(xOffset, yOffset))
+  override def slate(xOffset: Double, yOffset: Double): ShapeGenDraw = ShapeGenDraw(shape.slate(xOffset, yOffset), lineColour, lineWidth)
 
   /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. This
    * overload might be removable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): ShapeGenDraw = ???
+  override def slate(offset: Vec2Like): ShapeGenDraw = ShapeGenDraw(shape.slate(offset), lineColour, lineWidth)
 
   /** Uniform scaling 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
    * method for differential scaling on the X and Y axes. */
-  override def scale(operand: Double): ShapeGenDraw = ???
+  override def scale(operand: Double): ShapeGenDraw = ShapeGenDraw(shape.scale(operand), lineColour, lineWidth)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: ShapeGenDraw = ???
+  override def negY: ShapeGenDraw = ShapeGenDraw(shape.negY, lineColour, lineWidth)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negX: ShapeGenDraw = ???
+  override def negX: ShapeGenDraw = ShapeGenDraw(shape.negX, lineColour, lineWidth)
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits /
    * classes. */
