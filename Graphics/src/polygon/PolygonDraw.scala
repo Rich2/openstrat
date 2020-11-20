@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 /** Immutable Graphic element that defines and draws a Polygon. */
-trait PolygonDraw extends ShapeDraw with PolygonGraphicSimple
+trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
 { //override def fTrans(f: Vec2 => Vec2): PolygonDraw = PolygonDraw(shape.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonDraw(this)
 

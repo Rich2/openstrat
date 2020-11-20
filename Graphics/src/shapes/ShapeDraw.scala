@@ -13,5 +13,5 @@ trait ShapeDraw extends ShapeGraphicSimple
 
   def strokeWidthAttrib: StrokeWidthAttrib = StrokeWidthAttrib(lineWidth)
   def strokeAttrib: StrokeAttrib = StrokeAttrib(lineColour)
-  def nonShapeAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
+  override def nonShapeAttribs: Arr[XmlAtt] = Arr(strokeWidthAttrib, strokeAttrib)
 }

@@ -5,7 +5,7 @@ import pCanv._
 
 /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
  * PolygonFill will be returned. */
-trait PolygonFill extends PolygonGraphicSimple with ShapeFill
+trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
 { //type ThisT <: PolygonFill
   // override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)

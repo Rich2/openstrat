@@ -15,10 +15,10 @@ trait ShapeFill extends ShapeGraphicSimple
   def toDraw(lineWidth: Double = 2, newColour: Colour = colour): ShapeDraw
 
   /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): ShapeFill
+  override def slate(xOffset: Double, yOffset: Double): ShapeFill
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeFill
+  override def slate(offset: Vec2Like): ShapeFill
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
