@@ -2,14 +2,14 @@
 package ostrat
 package geom
 
-case class ShapeGenDraw(shape: ShapeGen, colour: Colour) extends CanvElem
+case class ShapeGenDraw(shape: ShapeGen, lineWidth: Double, colour: Colour) extends CanvElem
 {
-  /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. This
-   * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): ShapeGenDraw = ???
-
   /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeGenDraw = ???
+  override def slate(xOffset: Double, yOffset: Double): ShapeGenDraw = ??? //ShapeGenDraw(shape.slate(xOffset, yOffset))
+
+  /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. This
+   * overload might be removable in Scala 3, but is necessary for the time being die to type inference problems. */
+  override def slate(offset: Vec2Like): ShapeGenDraw = ???
 
   /** Uniform scaling 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
