@@ -63,7 +63,7 @@ object EllipseDraw
 
     override def fTrans(f: Pt2 => Pt2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineColour, lineWidth)
 
-    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(shape, lineColour, lineWidth)
+    override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(this)
 
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 

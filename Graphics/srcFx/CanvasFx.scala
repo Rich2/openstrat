@@ -112,10 +112,10 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.fillOval(ef.xCen - ef.shape.radius1, ef.yCen - ef.shape.radius0 , ef.shape.diameter1, ef.shape.diameter0)
   }
 
-  override def tlEllipseDraw(ellipse: Ellipse, lineWidth: Double, colour: Colour): Unit =
-  { gc.setLineWidth(lineWidth)
-    gc.setStroke(toFxColor(colour))
-    gc.strokeOval(ellipse.xCen - ellipse.radius1, ellipse.yCen - ellipse.radius0, ellipse.diameter1, ellipse.diameter0)
+  override def tlEllipseDraw(ed: EllipseDraw): Unit =
+  { gc.setLineWidth(ed.lineWidth)
+    gc.setStroke(toFxColor(ed.lineColour))
+    gc.strokeOval(ed.xCen - ed.shape.radius1, ed.yCen - ed.shape.radius0, ed.shape.diameter1, ed.shape.diameter0)
   }    
     
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =

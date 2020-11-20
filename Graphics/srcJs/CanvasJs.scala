@@ -184,7 +184,7 @@ object CanvasJs extends CanvasTopLeft
   }
   
   override def tlEllipseFill(ef: EllipseFill): Unit = ???
-  def tlEllipseDraw(ellipse: Ellipse, lineWidth: Double, lineColour: Colour): Unit = ???
+  def tlEllipseDraw(ed: EllipseDraw): Unit = ???
   
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath()

@@ -86,7 +86,7 @@ trait CanvasPlatform extends RectCenlign
   def circleDraw(cd: CircleDraw): Unit
   
   def ellipseFill(ef: EllipseFill): Unit
-  def ellipseDraw(ellipse: Ellipse, colour: Colour, lineWidth: Double): Unit
+  def ellipseDraw(ed: EllipseDraw): Unit
   
   def textGraphic(tg: TextGraphic): Unit
   final def textGraphic(str: String, fontSize: Int, posn: Pt2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
