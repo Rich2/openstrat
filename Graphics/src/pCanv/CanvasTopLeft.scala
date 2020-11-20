@@ -24,8 +24,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def pShapeGenFill(sgf: ShapeGenFill): Unit = tlShapeFill(sgf.negY.slate(width / 2, height / 2))
 
-  final override def pShapeGenDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit =
-    tlShapeDraw(shape.fTrans(tlCen), lineWidth, colour: Colour)
+  final override def pShapeGenDraw(sgd: ShapeGenDraw): Unit = tlShapeDraw(sgd.negY.slate(width / 2, height / 2))
  
   final override def circleFill(circle: Circle, colour: Colour): Unit = tlCircleFill(circle.negY.slate(width / 2, height / 2), colour)
 
@@ -59,7 +58,7 @@ trait CanvasTopLeft extends CanvasPlatform
 
   protected[this] def tlShapeFill(sgf: ShapeGenFill): Unit
 
-  protected[this] def tlShapeDraw(shape: ShapeGen, lineWidth: Double, colour: Colour): Unit
+  protected[this] def tlShapeDraw(sgd: ShapeGenDraw): Unit
 
   protected[this] def tlCircleFill(circle: Circle, colour: Colour): Unit
   protected[this] def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit
