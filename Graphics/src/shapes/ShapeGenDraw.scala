@@ -27,25 +27,25 @@ case class ShapeGenDraw(shape: ShapeGen, lineColour: Colour = Black, lineWidth: 
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): ShapeGenDraw = ???
+  override def prolign(matrix: ProlignMatrix): ShapeGenDraw = ShapeGenDraw(shape.prolign((matrix)), lineColour, lineWidth)
 
   /** Rotation 2D geometric transformation on a ShapeGenDraw taking the rotation as a scalar measured in radians, returns a ShapeGenDraw. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): ShapeGenDraw = ???
+  override def rotate(angle: Angle): ShapeGenDraw = ShapeGenDraw(shape.rotate(angle), lineColour, lineWidth)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed
    * in sub traits / classes. */
-  override def reflect(lineLike: LineLike): ShapeGenDraw = ???
+  override def reflect(lineLike: LineLike): ShapeGenDraw = ShapeGenDraw(shape.reflect(lineLike), lineColour, lineWidth)
 
   /** XY scaling 2D geometric transformation on a ShapeGenDraw, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeGenDraw = ???
+  override def xyScale(xOperand: Double, yOperand: Double): ShapeGenDraw = ShapeGenDraw(shape.xyScale(xOperand, yOperand), lineColour, lineWidth)
 
   /** Shear 2D geometric transformation along the X Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def xShear(operand: Double): ShapeGenDraw = ???
+  override def xShear(operand: Double): ShapeGenDraw = ShapeGenDraw(shape.xShear(operand), lineColour, lineWidth)
 
   /** Shear 2D geometric transformation along the Y Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def yShear(operand: Double): ShapeGenDraw = ???
+  override def yShear(operand: Double): ShapeGenDraw = ShapeGenDraw(shape.yShear(operand), lineColour, lineWidth)
 }
