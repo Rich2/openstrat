@@ -95,7 +95,8 @@ trait CanvasPlatform extends RectCenlign
   def textOutline(to: TextOutline): Unit
   final def textOutline(str: String, fontSize: Int, posn: Pt2, colour: Colour = Black, lineWidth: Double = 1, align: TextAlign = CenAlign): Unit =
     textOutline(TextOutline(str, fontSize, posn, colour, lineWidth, align))
-    
+
+  /** To be removed from CanvasPlatform. */
   def dashedLineDraw(dld: DashedLineDraw): Unit   
       
   def toBL(input: Pt2): Pt2 = Pt2(input.x, height - input.y)

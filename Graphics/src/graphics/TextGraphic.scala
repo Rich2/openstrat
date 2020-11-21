@@ -31,7 +31,8 @@ object BaseLine
 
 /** A Graphical display of Text.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
-case class TextGraphic(str: String, posn: Pt2 = Vec2Z, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem
+case class TextGraphic(str: String, posn: Pt2 = Vec2Z, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign,
+  baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem with CanvElem
 { type ThisT = TextGraphic
   override def fTrans(f: Pt2 => Pt2) = TextGraphic(str, f(posn), fontSize, colour, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
