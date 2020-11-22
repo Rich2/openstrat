@@ -23,9 +23,6 @@ case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:P
     else ret ++ Arr(Circle(defaultSize, loc).draw(ink, 1))
   }
 
-  def clicked(): Unit =
-  { debvar(parent)
-    parent.clicked(this)
-  }
+  def clicked(): Unit = parent.clicked(this)
 }
 
