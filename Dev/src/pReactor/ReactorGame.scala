@@ -14,7 +14,7 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
   var cellCounts = Array[Int]()
   var cellColors = Array[Colour]()
   var cellSites = Array.tabulate(rows*cols)(_ => Array[String]())    //OR Array.fill[Array[Int]](length)(Array.empty)
-  var cellNeighbours =  Array.tabulate(rows*cols)(_ => Array[Int]())    //OR Array.ofDim[Int](100, 0)
+  var cellNeighbours = Array.tabulate(rows*cols)(_ => Array[Int]())    //OR Array.ofDim[Int](100, 0)
   var addBallQueue = Array[Int]()
   var popBallQueue = Array[Int]()
   var winner = Black
@@ -23,7 +23,8 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
 
   def startGame(aGameState:String = "turn", aTurn:Int = 0, aPlayers:Array[Colour] = thePlayers.clone(), aCurrentPlayer:Colour = players(0), aCellCounts:Array[Int] = Array.fill[Int](rows*cols)(0),
                 aCellColors:Array[Colour] = Array.fill[Colour](rows*cols)(Black)): Unit =
-  { turn = aTurn
+  { deb("startgame")
+    turn = aTurn
     players = aPlayers
     currentPlayer = aCurrentPlayer
     cellCounts = aCellCounts
