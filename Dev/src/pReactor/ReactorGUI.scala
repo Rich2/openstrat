@@ -20,8 +20,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def gameBtn(str: String, cmd: MouseButton => Unit): PolyCurveParentFull =
     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 pp -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
-  val aDefaultGame = new ReactorGame(rows, cols, Array(Red, Green, Yellow, Blue))
-  val computerPlayers = Array(Green, Yellow, Blue)
+  var aDefaultGame = new ReactorGame(rows, cols, Array(Red, Green, Yellow, Blue))
+  var computerPlayers = Array(Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
   val player1Options = RadioGroup(Arr(RadioOption(true, "HUMAN", -180 pp 220, true), RadioOption(false, "COMPUTER", -180 pp 200, true)), 0)
@@ -45,18 +45,31 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       drawBalls(size*c pp size*r, aDefaultGame.cellColors(index), index)
     }
   }
-  def newGame() : Unit =
-  { aDefaultGame.startGame()
-    animationStep = 0.0
+  def getPlayers():Array[Colour]  =
+  { var playerSelection:Array[Colour]  = Array()
+   computerPlayers = Array()
+   val checkboxes = Array(player1, player2, player3, player4)
+   val radioGroups = Array(player1Options, player2Options, player3Options, player4Options)
+   iUntilForeach(0, checkboxes.length)
+   { i =>
+     { if (checkboxes(i).isSelected == true)
+       { playerSelection = playerSelection :+ checkboxes(i).color
+         if (radioGroups(i).selected.labelText == "COMPUTER") computerPlayers = computerPlayers :+ checkboxes(i).color
+       }
+     }
+   }
+    debvar(playerSelection)
+   playerSelection
+  }
 
+  def newGame() : Unit =
+  { animationStep = 0.0
+
+    aDefaultGame.startGame(aPlayers = getPlayers(), aCurrentPlayer = (getPlayers())(0))
+    checkForComputerTurn()
     composeGUI()
 
-    canv.polygonFill(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer))
-    ijUntilForeach(0, rows)(0, cols){ (r, c) =>
-      val index = c+cols*r
-      drawBalls(size*c pp size*r, Black, index)
-    }
-
+   // canv.polygonFill(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer))
   }
   def drawBalls(loc:Pt2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
@@ -145,16 +158,21 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
     if (aDefaultGame.players.length < 2) canv.textGraphic(" Wins!", 16, 10 pp (-3*size/4), aDefaultGame.currentPlayer)
   }
-  def turnComplete() : Unit =
-  { aDefaultGame.completeTurn()
-    isTurnComplete = true
-    //If the current player is a computer then play its hand here
-    if (computerPlayers.indexOf(aDefaultGame.currentPlayer) != -1)
+
+  //** If the current player is a computer then play its hand here
+  def checkForComputerTurn(): Unit =
+  { if (computerPlayers.indexOf(aDefaultGame.currentPlayer) != -1)
     { aDefaultGame.newTurn(aDefaultGame.currentPlayer, computerPlayer.chooseTurnIndex(aDefaultGame.currentPlayer))
       isTurnComplete = false
       canv.timeOut(() => doAnimation(), animationDuration)
     }
     composeGUI()
+  }
+
+  def turnComplete() : Unit =
+  { aDefaultGame.completeTurn()
+    isTurnComplete = true
+    checkForComputerTurn()
   }
   def getCurrentPlayerIndicator():GraphicElems =
   { Arr(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, -3*size/4 pp -3*size/4, 11, Black))
@@ -173,14 +191,12 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     { if (cl(0).isInstanceOf[Checkbox])
       { cl(0).asInstanceOf[Checkbox].clicked()
         composeGUI()
-      } else if (cl(0).isInstanceOf[RadioOption]) {
-        cl(0).asInstanceOf[RadioOption].clicked()
-      composeGUI()
-     }
+      } else if (cl(0).isInstanceOf[RadioOption])
+      { cl(0).asInstanceOf[RadioOption].clicked()
+        composeGUI()
+      } else newGame()
     }
     case (LeftButton, cl, _) => debvar(cl)
-
-    case (LeftButton, cl, v) if (cl.length > 0) => newGame()
     case (MiddleButton, cl, v) if (cl.length > 0) => loadGame()
     case (RightButton, cl, v) if (cl.length > 0) => saveGame()
     case (_, _, _) => deb("uncaptured clicky")
