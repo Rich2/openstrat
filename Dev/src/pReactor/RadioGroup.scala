@@ -7,14 +7,13 @@ case class RadioGroup(radioOptions:Arr[RadioOption], aSelectedIndex:Int)
 { var selected = radioOptions(aSelectedIndex)
 
   def clicked(targetReference:RadioOption): Unit =
-  { deb("w")
-    if (!targetReference.isSelected)
+  { if (!targetReference.isSelected)
     { if (selected != targetReference)
       { selected.isSelected = false
         targetReference.isSelected = true
         selected = targetReference
-      } else deb("h")
-    } else deb("i")
+      }
+    }
   }
   def setEnabled(newState:Boolean): Unit = radioOptions.foreach(radio => radio.isEnabled = newState)
 
