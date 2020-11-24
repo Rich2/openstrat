@@ -24,7 +24,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   var computerPlayers = Array(Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
-  val player1Options = RadioGroup(Arr(RadioOption(true, "HUMAN", -180 pp 220, true), RadioOption(false, "COMPUTER", -180 pp 200, true)), 0)
+  val player1Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 220, true), RadioOption(true, "COMPUTER", -180 pp 200, true)), 1)
   val player2Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 160, true), RadioOption(true, "COMPUTER", -180 pp 140, true)), 1)
   val player3Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 100, true), RadioOption(true, "COMPUTER", -180 pp 80, true)), 1)
   val player4Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 40, true), RadioOption(true, "COMPUTER", -180 pp 20, true)), 1)
