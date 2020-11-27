@@ -9,7 +9,7 @@ case class Checkbox(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 
   var isEnabled = aIsEnabled
   var color = myColor
 
-  def put(aIsSelected: Boolean = isSelected, labelText: String = labelText, loc: Pt2 = loc, aIsEnabled:Boolean = isEnabled, aAction: (Checkbox) => Unit = action): GraphicElems =
+  def toGraphicElems(aIsSelected: Boolean = isSelected, labelText: String = labelText, loc: Pt2 = loc, aIsEnabled:Boolean = isEnabled, aAction: (Checkbox) => Unit = action): GraphicElems =
   { isSelected = aIsSelected
     isEnabled = aIsEnabled
     val ink = if (isEnabled) myColor else Grey
