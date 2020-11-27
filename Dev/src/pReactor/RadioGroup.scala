@@ -1,6 +1,6 @@
 package ostrat
 package pReactor
-import geom._, pCanv._, Colour._
+import geom._
 
 /** Controls a collection of RadioOptions */
 case class RadioGroup(radioOptions:Arr[RadioOption], aSelectedIndex:Int)
