@@ -9,7 +9,7 @@ case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:P
   var isSelected = aIsSelected
   var isEnabled = aIsEnabled
 
-  def put(aParent:RadioGroup, aIsSelected: Boolean = isSelected, labelText: String = labelText, loc:Pt2 = loc, aIsEnabled: Boolean = isEnabled): GraphicElems =
+  def toGraphicElems(aParent:RadioGroup, aIsSelected: Boolean = isSelected, labelText: String = labelText, loc:Pt2 = loc, aIsEnabled: Boolean = isEnabled): GraphicElems =
   { isSelected = aIsSelected
     isEnabled = aIsEnabled
     parent = aParent
