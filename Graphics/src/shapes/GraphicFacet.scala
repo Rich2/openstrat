@@ -3,17 +3,11 @@ package ostrat
 package geom
 import pWeb._, Colour.Black
 
-trait GraphicFacet
+trait GraphicFacet extends Any
 { def attribs: Arr[XmlAtt]
 }
 
-trait FillFacet extends GraphicFacet
-
-case class FillColour(colour: Colour) extends FillFacet
-{
-  override def attribs: Arr[XmlAtt] = Arr(FillAttrib(colour))
-  def fillAttrib: FillAttrib = FillAttrib(colour)
-}
+trait FillFacet extends Any with GraphicFacet
 
 /** Starting off with simplified. Radial Gradient. Will expand later. */
 case class FillRadial(cenColour: Colour, outerColour: Colour) extends FillFacet

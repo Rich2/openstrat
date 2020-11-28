@@ -7,7 +7,7 @@ import pWeb._
 trait PolygonCompound extends ShapeCompound with PolygonGraphic
 {
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
-  { case FillColour(c) => cp.polygonFill(shape.fill(c))
+  { case c: Colour => cp.polygonFill(shape.fill(c))
     case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
     case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
@@ -82,11 +82,11 @@ object PolygonCompound
   case class PolygonCompoundImp(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends PolygonCompound
   {
     override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
-    { case FillColour(c) => cp.polygonFill(shape.fill(c))
-    case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
-    case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
-    // case fr: FillRadial => cp.circleFillRadial(shape, fr)
-    case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
+    { case c: Colour => cp.polygonFill(shape.fill(c))
+      case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
+      case TextFacet(s, col) => cp.textGraphic(s, 18, cen, col)
+      // case fr: FillRadial => cp.circleFillRadial(shape, fr)
+      case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }
 
     override def attribs: Arr[XmlAtt] = ???

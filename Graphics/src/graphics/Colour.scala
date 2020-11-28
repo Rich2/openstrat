@@ -1,12 +1,14 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import collection.mutable.ArrayBuffer
+import pWeb._, collection.mutable.ArrayBuffer
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal with ProdInt1
+class Colour(val argbValue: Int) extends AnyVal with FillFacet with ProdInt1
 { 
   override def toString: String = Colour.persistImplicit.show(this, 0)
+  override def attribs: Arr[XmlAtt] = Arr(FillAttrib(this))
+  def fillAttrib: FillAttrib = FillAttrib(this)
   @inline final override def intValue: Int = argbValue 
   def webStr: String = "#" + rgbHexStr + alpha.hexStr2
   def svgStr: String = Colour.valueToStr.get(this).fold(hexStr)(_.toLowerCase)

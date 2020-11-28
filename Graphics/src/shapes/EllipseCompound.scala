@@ -59,7 +59,7 @@ object EllipseCompound
 
     override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
     {
-      case FillColour(c) => cp.ellipseFill(EllipseFill(shape, c))
+      case c: Colour => cp.ellipseFill(EllipseFill(shape, c))
       //case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
       //case fr: FillRadial => cp.circleFillRadial(shape, fr)*/
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
