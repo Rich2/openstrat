@@ -69,8 +69,6 @@ trait CanvasPlatform extends RectCenlign
   def cArcDraw3(cad: CArcDraw3): Unit
 
   def bezierDraw(bd: BezierDraw): Unit
-  final def bezierDraw(pStart: Pt2, pEnd: Pt2, pControl1: Pt2, pControl2: Pt2, lineWidth: Double = 1, colour: Colour = Black): Unit =
-    bezierDraw(BezierDraw(Bezier(pStart, pEnd, pControl1, pControl2), colour, lineWidth))
 
   def lineSegsDraw(lsd: LinesDraw): Unit
    
