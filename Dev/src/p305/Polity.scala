@@ -12,7 +12,7 @@ object Rome extends Polity
   def colour = Red
 }
 
- object Macedon extends Polity
+object Macedon extends Polity
 { def str: String = "Macedon"
   def colour = Blue
 }

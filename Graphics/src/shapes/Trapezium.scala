@@ -15,12 +15,3 @@ object TrapezoidIsosceles
       baseWidth/2   pp - height/2,
       - baseWidth/2 pp - height/2)
 }
-
-object Diamond
-{
-  def apply() = PolygonImp(
-    0 pp 0.5,
-    Pt2(Tan30 / 2, 0),
-    0 pp - 0.5,
-    Pt2(-Tan30 / 2, 0))
-}
