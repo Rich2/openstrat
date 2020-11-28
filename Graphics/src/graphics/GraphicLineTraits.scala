@@ -47,8 +47,9 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 }
 
-case class DashedLineDraw(curveSeg: LineSeg, lineWidth: Double, colour: Colour, dashArr: Array[Double])
-  extends CurveSegGraphic with AffinePreserve
+/** This class will be replaced but extends [[CanvElem]] as a temporary measure. */
+case class DashedLineDraw(curveSeg: LineSeg, lineWidth: Double, colour: Colour, dashArr: Array[Double]) extends CurveSegGraphic with
+  AffinePreserve with CanvElem
 { override type ThisT = DashedLineDraw
 
   //override def curveSeg: CurveSeg = ???

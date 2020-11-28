@@ -58,8 +58,8 @@ object PolygonGraphicSimple
   }
 }
 
-/** A pointable polygon without visual */
-case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable with PolygonGraphic
+/** A pointable polygon without visual. */
+case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineElem with GraphicClickable with PolygonGraphicSimple
 { override type ThisT = PolygonActive
   override def fTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.fTrans(f), pointerId)
   override def boundingRect = shape.boundingRect
@@ -67,7 +67,7 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
   override def slateTo(newCen: Pt2): PolygonActive = ???
   override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 
-  override def attribs: Arr[XmlAtt] = ???
+  //override def attribs: Arr[XmlAtt] = ???
 
   override def svgStr: String = ???
 }
