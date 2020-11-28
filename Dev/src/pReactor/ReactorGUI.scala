@@ -34,11 +34,16 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   val player3 = Checkbox(true, "PLAYER 3", -200 pp 120, true, (player3:Checkbox) => { player3Options.setEnabled(player3.isSelected) }, myColor = Yellow)
   val player4 = Checkbox(true, "PLAYER 4", -200 pp 60, true, (player4:Checkbox) => { player4Options.setEnabled(player4.isSelected) }, myColor = Blue)
 
+  val checkboxes = Array(player1, player2, player3, player4)
+  val radioGroups = Array(player1Options, player2Options, player3Options, player4Options)
+
   newGame()
 
   def composeGUI():Unit =
-  { val config = player1.put() ++ player2.put() ++ player3.put() ++ player4.put() ++ player1Options.put() ++ player2Options.put() ++ player3Options.put() ++ player4Options.put()
-    val composition:GraphicElems = Arr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new | load | save", (mb: MouseButton) => { deb("3") })) ++ config ++ getCurrentPlayerIndicator()
+  { var config:GraphicElems = Arr()
+    checkboxes.foreach(chkbx => config = config ++ chkbx.toGraphicElems())
+    radioGroups.foreach(rdgp => config = config ++ rdgp.toGraphicElems())
+    val composition:GraphicElems = Arr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new game", (mb: MouseButton) => { deb("3") })) ++ config ++ getCurrentPlayerIndicator()
     repaint(composition)
     ijUntilForeach(0, rows)(0, cols){ (r, c) =>
       val index = c+cols*r
@@ -48,8 +53,6 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def getPlayers():Array[Colour]  =
   { var playerSelection:Array[Colour]  = Array()
    computerPlayers = Array()
-   val checkboxes = Array(player1, player2, player3, player4)
-   val radioGroups = Array(player1Options, player2Options, player3Options, player4Options)
    iUntilForeach(0, checkboxes.length)
    { i =>
      { if (checkboxes(i).isSelected == true)
@@ -58,18 +61,15 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
        }
      }
    }
-    debvar(playerSelection)
-   playerSelection
+    debvar(playerSelection.length)
+    playerSelection
   }
 
   def newGame() : Unit =
   { animationStep = 0.0
-
     aDefaultGame.startGame(aPlayers = getPlayers(), aCurrentPlayer = (getPlayers())(0))
     checkForComputerTurn()
     composeGUI()
-
-   // canv.polygonFill(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer))
   }
   def drawBalls(loc:Pt2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
