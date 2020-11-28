@@ -14,7 +14,7 @@ case class FillFacet(colour: Colour) extends GraphicFacet
 }
 
 /** Starting off with simplified. Radial Gradient. Will expand later. */
-case class FillRadial(cenColour: Colour, outerColour: Colour) extends GraphicFacet
+case class FillRadial(cenColour: Colour, outerColour: Colour) extends Fill with GraphicFacet
 { override def attribs: Arr[XmlAtt] = Arr()
 }
 

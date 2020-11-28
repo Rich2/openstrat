@@ -3,8 +3,10 @@ package ostrat
 package geom
 import collection.mutable.ArrayBuffer
 
+trait Fill extends Any
+
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal with ProdInt1
+class Colour(val argbValue: Int) extends AnyVal with Fill with ProdInt1
 { 
   override def toString: String = Colour.persistImplicit.show(this, 0)
   @inline final override def intValue: Int = argbValue 
