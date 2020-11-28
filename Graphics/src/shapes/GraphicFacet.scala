@@ -7,14 +7,16 @@ trait GraphicFacet
 { def attribs: Arr[XmlAtt]
 }
 
-case class FillFacet(colour: Colour) extends GraphicFacet
+trait FillFacet extends GraphicFacet
+
+case class FillColour(colour: Colour) extends FillFacet
 {
   override def attribs: Arr[XmlAtt] = Arr(FillAttrib(colour))
   def fillAttrib: FillAttrib = FillAttrib(colour)
 }
 
 /** Starting off with simplified. Radial Gradient. Will expand later. */
-case class FillRadial(cenColour: Colour, outerColour: Colour) extends Fill with GraphicFacet
+case class FillRadial(cenColour: Colour, outerColour: Colour) extends FillFacet
 { override def attribs: Arr[XmlAtt] = Arr()
 }
 
