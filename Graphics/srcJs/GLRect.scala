@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pSJs
+import geom._
 
 case class GlRect(x: Double, y: Double, width: Double, height: Double, colour: Colour)
 

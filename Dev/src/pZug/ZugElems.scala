@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pZug
-import pGrid._
+import geom._, pGrid._
 
 case class Squad(val polity: Polity, val roord: Roord, var action: Action = NoAction)
 { def colour = polity.colour

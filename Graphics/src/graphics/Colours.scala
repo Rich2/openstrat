@@ -1,5 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+package geom
 import Colour._, collection.mutable.ArrayBuffer
 
 /** Specialist Array[Int] based class for [[Colour]]s. */

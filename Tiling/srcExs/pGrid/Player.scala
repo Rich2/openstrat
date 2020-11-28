@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import Colour._
+import geom._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition." */
 case class RPlayer(value: Player, rd: Roord) extends TileMem[Player]

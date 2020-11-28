@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package p1783
-import Colour._
+import geom._, Colour._
 
 trait Polity extends PersistSingleton
 {

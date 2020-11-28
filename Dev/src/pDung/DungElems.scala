@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pDung
-import Colour._, pGrid._
+import geom._, Colour._, pGrid._
 
 sealed class Faction(val str: String, val colour: Colour) extends PersistSingleton
 {// def typeSym = 'Faction

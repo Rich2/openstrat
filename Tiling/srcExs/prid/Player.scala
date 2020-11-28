@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import Colour._
+import geom._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition. */
 case class Player(val char: Char, val colour: Colour)

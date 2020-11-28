@@ -1,13 +1,12 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import math._, Colour.Black
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
  * graphics. Of particular note are the [[Pt2]], [[GeomElem]] and [[GraphicElem]] class /traits. These are the foundation of the API and the library.
  * A number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They
  * are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
-{
+{ import math._, Colour.Black
   val Phi: Double = 1.6180339887498948482
   implicit def affineToExtensions[T](value: T)(implicit ev: AffineTrans[T]): AffineExtensions[T] = new AffineExtensions[T](value, ev)
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)

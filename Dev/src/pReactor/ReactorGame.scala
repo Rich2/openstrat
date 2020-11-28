@@ -1,7 +1,7 @@
 /* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pReactor
-import Colour._
+import geom._, Colour._
 
 /** A clone of the classic Atoms game */
 case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] = Array(Red, Green, Yellow, Blue)) 

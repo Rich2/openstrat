@@ -1,7 +1,7 @@
 /* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pReactor
-import Colour._
+import geom._, Colour._
 
 /** Computer Player for Reactor */
 case class ComputerPlayer(aGameData: ReactorGame) 

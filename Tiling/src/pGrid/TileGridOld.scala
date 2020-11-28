@@ -1,7 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pGrid
-import reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
+import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
 
 class RowMulti[TileT <: AnyRef](val y: Int, val xStart: Int, val multis: RefsMulti[TileT])
 {

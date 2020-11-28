@@ -1,7 +1,7 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pDraughts
-import Colour._
+import geom._, Colour._
 
 sealed trait Draught
 { def colour: Colour}

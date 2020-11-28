@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCard
-import Colour._
+import geom._, Colour._
 
 object Card
 { type Cards = Seq[Card]
@@ -11,7 +11,7 @@ object Card
     case r => Some(new Card(Rank(rankNum), suit))
   }
    def noCards: Cards = Seq[Card]()
-   val suits: Seq[Suit] = Seq(Spade, Heart, Diamond, Club)
+   val suits: Seq[Suit] = Seq(Spade, Heart, Diam, Club)
    def newSeq(pairs: (Int, Suit) *): Seq[Card] = pairs.map(e => Card(e._1, e._2)).flatten
    def newPack: Seq[Card] = (for (s <- suits; n <- 1 to 13) yield Card(n, s)).toSeq.flatten
    def newShuffled = newPack.shuffle
@@ -55,7 +55,7 @@ case class Card(rank: Rank, suit: Suit)
 
   def suitColour: Colour = suit match
   { case Spade | Club => Black
-    case Heart | Diamond => Red
+    case Heart | Diam => Red
   }
    
   def unicode: Array[Char] =
@@ -65,7 +65,7 @@ case class Card(rank: Rank, suit: Suit)
     {//This uses unicode >= 0x10000 which require 2 java /javascript chars to encode one char
       case Spade => java.lang.Character.toChars(0x1F0A0 + offset)
       case Heart => java.lang.Character.toChars(0x1F0B0 + offset)
-      case Diamond => java.lang.Character.toChars(0x1F0C0 + offset)
+      case Diam => java.lang.Character.toChars(0x1F0C0 + offset)
       case Club => java.lang.Character.toChars(0x1F0D0 + offset)
     }
   }

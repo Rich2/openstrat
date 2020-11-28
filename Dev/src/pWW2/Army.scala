@@ -1,6 +1,7 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 package pWW2
+import geom._
 
 case class Army(tile: W2TileOld, polity: Polity) extends WithColour
 {
