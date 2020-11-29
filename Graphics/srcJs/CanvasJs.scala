@@ -166,6 +166,11 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
+  def setFill(f: FillFacet): Unit = f match {
+    case c: Colour => gc.fillStyle = c.colour.webStr
+    case fillRadial: FillRadial => ???
+  }
+
   override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
   { val rg = gc.createRadialGradient(circle.xCen, circle.yCen, 0, circle.xCen, circle.yCen, circle.radius)
     rg.addColorStop(0, fill.cenColour.webStr);
