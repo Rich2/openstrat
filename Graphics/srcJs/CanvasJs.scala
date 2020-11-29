@@ -166,8 +166,8 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
-  def setFill(f: FillFacet): Unit = f match {
-    case c: Colour => gc.fillStyle = c.colour.webStr
+  def setFill(f: FillFacet): Unit = f match
+  { case c: Colour => gc.fillStyle = c.colour.webStr
     case fillRadial: FillRadial => ???
   }
 
