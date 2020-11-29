@@ -41,6 +41,18 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   import paint.Color
   def toFxColor(colour: Colour): Color = Color.rgb(colour.red, colour.green, colour.blue, colour.alpha / 255.0)
 
+  def setFill(fill: FillFacet): Unit = fill match {
+    case c: Colour => gc.setFill(toFxColor(c))
+    case fr: FillRadial =>
+    {
+      import paint._
+      val stop1 = new Stop(0, toFxColor(fr.cenColour))
+      val stop2 = new Stop(1, toFxColor(fr.outerColour))
+      val lg1 = new RadialGradient(0, 0, 0.5, 0.5, 0.8, true, CycleMethod.NO_CYCLE, stop1, stop2)
+      gc.setFill(lg1)
+    }
+  }
+
   override def tlPolyFill(pf: PolygonFill): Unit =
   { gc.setFill(toFxColor(pf.colour))
     gc.fillPolygon(pf.xVertsArray, pf.yVertsArray, pf.vertsNum)
