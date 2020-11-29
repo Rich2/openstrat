@@ -6,7 +6,7 @@ import pWeb._
 /** A simple plain colour fill graphic. */
 trait ShapeFill extends ShapeGraphicSimple
 { /** The colour of this fill graphic. */
-  def fillFacet: FillFacet
+  def fill: FillFacet
 
   /** The fill attribute for SVG. */
   def fillAttrib: FillAttrib = ??? //FillAttrib(fillFacet)

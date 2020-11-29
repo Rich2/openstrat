@@ -21,7 +21,7 @@ trait EllipseGraphicSimple extends EllipseGraphic with ShapeGraphicSimple with S
 trait EllipseFill extends EllipseGraphicSimple with ShapeFill with CanvElem
 { type ThisT <: EllipseFill
   type ThisT2 = EllipseFill
-  override def fTrans2(f: Pt2 => Pt2): ThisT2 = EllipseFill(shape.fTrans(f), fillFacet)
+  override def fTrans2(f: Pt2 => Pt2): ThisT2 = EllipseFill(shape.fTrans(f), fill)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
 
   override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): EllipseDraw = shape.draw(newColour, lineWidth)
@@ -34,10 +34,10 @@ object EllipseFill
   def apply(shape: Ellipse, fillFacet: FillFacet): EllipseFill = EllipseFillImp(shape, fillFacet)
 
   /** A simple single colour fill of an ellipse graphic. */
-  final case class EllipseFillImp(shape: Ellipse, fillFacet: FillFacet) extends EllipseFill
+  final case class EllipseFillImp(shape: Ellipse, fill: FillFacet) extends EllipseFill
   { type ThisT = EllipseFill
 
-    override def fTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fillFacet)
+    override def fTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fill)
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
     override def svgElem(bounds: BoundingRect): SvgElem = ???
     override def svgStr: String = ???

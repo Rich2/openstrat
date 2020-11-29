@@ -91,8 +91,7 @@ object CanvasJs extends CanvasTopLeft
     gc.moveTo(pf.x1, pf.y1)
     pf.shape.foreachPairTail(gc.lineTo)
     gc.closePath()
-    //gc.fillStyle = pf.fillFacet.webStr
-    setFill(pf.fillFacet)
+    setFill(pf.fill)
     gc.fill()
   }
 
@@ -167,8 +166,7 @@ object CanvasJs extends CanvasTopLeft
 
   override def tlCircleFill(cf: CircleFill): Unit =
   { gc.beginPath()
-    //gc.fillStyle = cf.fillFacet.webStr
-    setFill(cf.fillFacet)
+    setFill(cf.fill)
     gc.arc(cf.xCen, cf.yCen, cf.radius, 0, Pi * 2)
     gc.fill()
   }

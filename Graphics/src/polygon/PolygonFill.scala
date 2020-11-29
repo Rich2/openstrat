@@ -12,26 +12,26 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(newColour, lineWidth)
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slate(xOffset, yOffset), fillFacet)
+  override def slate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slate(xOffset, yOffset), fill)
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): PolygonFill = PolygonFill(shape.slate(offset), fillFacet)
+  override def slate(offset: Vec2Like): PolygonFill = PolygonFill(shape.slate(offset), fill)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fillFacet)
+  override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fill)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: PolygonFill = PolygonFill(shape.negY, fillFacet)
+  override def negY: PolygonFill = PolygonFill(shape.negY, fill)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: PolygonFill = PolygonFill(shape.negX, fillFacet)
+  override def negX: PolygonFill = PolygonFill(shape.negX, fill)
 
-  override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), fillFacet)
+  override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), fill)
 
-  override def rotate(angle: Angle): PolygonFill = PolygonFill(shape.rotate(angle), fillFacet)
+  override def rotate(angle: Angle): PolygonFill = PolygonFill(shape.rotate(angle), fill)
 
   override def xShear(operand: Double): PolygonFill = ???
 
@@ -73,7 +73,7 @@ object PolygonFill
    * @constructor create a new PolygonFill with the underlying polygon and a colour.
    * @param shape The Polygon shape.
    * @param colour The colour of this graphic. */
-  final case class PolygonFillImp(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
+  final case class PolygonFillImp(shape: Polygon, fill: FillFacet) extends PolygonFill
   {
     // override def fTrans(f: Vec2 => Vec2): PolygonFillImp = PolygonFillImp(shape.fTrans(f), colour)
 

@@ -9,4 +9,4 @@ trait TriangleGraphic extends PolygonGraphic
 
 trait TriangleGraphicSimple extends TriangleGraphic with PolygonGraphicSimple
 
-case class TriangleFill(shape: Triangle, fillFacet: FillFacet) extends TriangleGraphicSimple with PolygonFill
+case class TriangleFill(shape: Triangle, fill: FillFacet) extends TriangleGraphicSimple with PolygonFill
