@@ -62,8 +62,6 @@ trait CanvasPlatform extends RectCenlign
     lineDraw(LineSegDraw(LineSeg(pStart, pEnd), colour, lineWidth))
    
   def cArcDrawOld(ad: CArcDrawOld): Unit
-  final def cArcDrawOld(pStart: Pt2, pCen: Pt2, pEnd: Pt2, lineWidth: Double = 1, colour: Colour = Black): Unit =
-    cArcDrawOld(CArcDrawOld(pStart, pCen, pEnd, lineWidth, colour))
 
   def cArcDraw(cad: CArcDraw): Unit
   def cArcDraw3(cad: CArcDraw3): Unit
@@ -89,8 +87,6 @@ trait CanvasPlatform extends RectCenlign
   def textGraphic(tg: TextGraphic): Unit
    
   def textOutline(to: TextOutline): Unit
-  final def textOutline(str: String, fontSize: Int, posn: Pt2, colour: Colour = Black, lineWidth: Double = 1, align: TextAlign = CenAlign): Unit =
-    textOutline(TextOutline(str, fontSize, posn, colour, lineWidth, align))
 
   /** To be removed from CanvasPlatform. */
   def dashedLineDraw(dld: DashedLineDraw): Unit   
