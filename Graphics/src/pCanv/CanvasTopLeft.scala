@@ -12,7 +12,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def pPolyFill(pf: PolygonFill): Unit = tlPolyFill(pf.negY.slate(width / 2, height / 2))
   final override def pPolyDraw(pd: PolygonDraw): Unit = tlPolyDraw(pd.negY.slate(width / 2, height / 2))
   final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
-  final override def lineDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
+  final override def lineSegDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
 
   final override def cArcDrawOld(ad: CArcDrawOld): Unit = tlCArcDrawOld(ad.fTrans(tlCen))
   final override def cArcDraw(cad: CArcDraw): Unit = tlCArcDraw(cad.negY.slate(width / 2, height / 2))
