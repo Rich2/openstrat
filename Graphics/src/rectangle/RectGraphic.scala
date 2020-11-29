@@ -19,5 +19,5 @@ object RectFill
    * implementation class, but has a return type of RectFill. */
   def apply(rect: Rect, fillColour: Colour): RectFill = RectFillImp(rect, fillColour)
 
-  case class RectFillImp(shape: Rect, colour: Colour) extends RectFill
+  case class RectFillImp(shape: Rect, fillFacet: FillFacet) extends RectFill
 }

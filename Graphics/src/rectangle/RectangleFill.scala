@@ -6,30 +6,30 @@ package geom
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 {
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.slate(xOffset, yOffset), colour)
+  override def slate(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.slate(xOffset, yOffset), fillFacet)
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): RectangleFill = RectangleFill(shape.slate(offset), colour)
+  override def slate(offset: Vec2Like): RectangleFill = RectangleFill(shape.slate(offset), fillFacet)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): RectangleFill = RectangleFill(shape.scale(operand), colour)
+  override def scale(operand: Double): RectangleFill = RectangleFill(shape.scale(operand), fillFacet)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: RectangleFill = RectangleFill(shape.negY, colour)
+  override def negY: RectangleFill = RectangleFill(shape.negY, fillFacet)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: RectangleFill = RectangleFill(shape.negX, colour)
+  override def negX: RectangleFill = RectangleFill(shape.negX, fillFacet)
 
-  override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), colour)
+  override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fillFacet)
 
-  override def rotate(angle: Angle): RectangleFill = RectangleFill(shape.rotate(angle), colour)
+  override def rotate(angle: Angle): RectangleFill = RectangleFill(shape.rotate(angle), fillFacet)
 
-  override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), colour)
+  override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fillFacet)
 
-  override def xyScale(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.xyScale(xOperand, yOperand), colour)
+  override def xyScale(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.xyScale(xOperand, yOperand), fillFacet)
 
   override def slateTo(newCen: Pt2): RectangleFill = ???
 }
@@ -38,7 +38,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
  * to it. It also contains implicit instances for 2D geometric transformations. */
 object RectangleFill
 {
-  def apply(shape: Rectangle, colour: Colour): RectangleFill = RectangleFillImp(shape, colour)
+  def apply(shape: Rectangle, fillFacet: FillFacet): RectangleFill = RectangleFillImp(shape, fillFacet)
 
   implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[RectangleFill] = (obj: RectangleFill, operand: Double) => obj.scale(operand)
@@ -51,5 +51,5 @@ object RectangleFill
   }
 
   /** Implementatin class for the general case of a [[RectangleFill]]. */
-  case class RectangleFillImp(shape: Rectangle, colour: Colour) extends RectangleFill
+  case class RectangleFillImp(shape: Rectangle, fillFacet: FillFacet) extends RectangleFill
 }

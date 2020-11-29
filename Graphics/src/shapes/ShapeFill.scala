@@ -6,13 +6,13 @@ import pWeb._
 /** A simple plain colour fill graphic. */
 trait ShapeFill extends ShapeGraphicSimple
 { /** The colour of this fill graphic. */
-  def colour: Colour
+  def fillFacet: FillFacet
 
   /** The fill attribute for SVG. */
-  def fillAttrib: FillAttrib = FillAttrib(colour)
+  def fillAttrib: FillAttrib = ??? //FillAttrib(fillFacet)
   override def nonShapeAttribs: Arr[XmlAtt] = Arr(fillAttrib)
 
-  def toDraw(lineWidth: Double = 2, newColour: Colour = colour): ShapeDraw
+  def toDraw(lineWidth: Double = 2, newColour: Colour): ShapeDraw
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): ShapeFill

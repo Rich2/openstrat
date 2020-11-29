@@ -9,29 +9,29 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
 { //type ThisT <: PolygonFill
   // override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)
-  override def toDraw(lineWidth: Double = 2, newColour: Colour = colour): PolygonDraw = shape.draw(newColour, lineWidth)
+  override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(newColour, lineWidth)
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slate(xOffset, yOffset), colour)
+  override def slate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slate(xOffset, yOffset), fillFacet)
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): PolygonFill = PolygonFill(shape.slate(offset), colour)
+  override def slate(offset: Vec2Like): PolygonFill = PolygonFill(shape.slate(offset), fillFacet)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), colour)
+  override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fillFacet)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negY: PolygonFill = PolygonFill(shape.negY, colour)
+  override def negY: PolygonFill = PolygonFill(shape.negY, fillFacet)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: PolygonFill = PolygonFill(shape.negX, colour)
+  override def negX: PolygonFill = PolygonFill(shape.negX, fillFacet)
 
-  override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), colour)
+  override def prolign(matrix: ProlignMatrix): PolygonFill = PolygonFill(shape.prolign(matrix), fillFacet)
 
-  override def rotate(angle: Angle): PolygonFill = PolygonFill(shape.rotate(angle), colour)
+  override def rotate(angle: Angle): PolygonFill = PolygonFill(shape.rotate(angle), fillFacet)
 
   override def xShear(operand: Double): PolygonFill = ???
 
@@ -54,7 +54,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
  * implicit instances for the 2D geometric transformation type classes. */
 object PolygonFill
 {
-  def apply(shape: Polygon, colour: Colour): PolygonFill = new PolygonFillImp(shape, colour)
+  def apply(shape: Polygon, fillFacet: FillFacet): PolygonFill = new PolygonFillImp(shape, fillFacet)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
   implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, dx: Double, dy: Double) => obj.slate(dx, dy)
@@ -73,7 +73,7 @@ object PolygonFill
    * @constructor create a new PolygonFill with the underlying polygon and a colour.
    * @param shape The Polygon shape.
    * @param colour The colour of this graphic. */
-  final case class PolygonFillImp(shape: Polygon, colour: Colour) extends PolygonFill
+  final case class PolygonFillImp(shape: Polygon, fillFacet: FillFacet) extends PolygonFill
   {
     // override def fTrans(f: Vec2 => Vec2): PolygonFillImp = PolygonFillImp(shape.fTrans(f), colour)
 

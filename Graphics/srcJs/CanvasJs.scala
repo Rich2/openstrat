@@ -80,13 +80,19 @@ object CanvasJs extends CanvasTopLeft
   override def timeOut(f: () => Unit, millis: Integer): Unit = { window.setTimeout(f, millis.toDouble); () }
    
   val gc = can.getContext("2d").asInstanceOf[raw.CanvasRenderingContext2D]
-   
+
+  def setFill(f: FillFacet): Unit = f match
+  { case c: Colour => gc.fillStyle = c.webStr
+    case fillRadial: FillRadial => ???
+  }
+
   override protected[this] def tlPolyFill(pf: PolygonFill): Unit =
   { gc.beginPath()
     gc.moveTo(pf.x1, pf.y1)
     pf.shape.foreachPairTail(gc.lineTo)
     gc.closePath()
-    gc.fillStyle = pf.colour.webStr
+    //gc.fillStyle = pf.fillFacet.webStr
+    setFill(pf.fillFacet)
     gc.fill()
   }
 
@@ -161,15 +167,13 @@ object CanvasJs extends CanvasTopLeft
 
   override def tlCircleFill(cf: CircleFill): Unit =
   { gc.beginPath()
-    gc.fillStyle = cf.colour.webStr
+    //gc.fillStyle = cf.fillFacet.webStr
+    setFill(cf.fillFacet)
     gc.arc(cf.xCen, cf.yCen, cf.radius, 0, Pi * 2)
     gc.fill()
   }
 
-  def setFill(f: FillFacet): Unit = f match
-  { case c: Colour => gc.fillStyle = c.colour.webStr
-    case fillRadial: FillRadial => ???
-  }
+
 
   override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
   { val rg = gc.createRadialGradient(circle.xCen, circle.yCen, 0, circle.xCen, circle.yCen, circle.radius)
