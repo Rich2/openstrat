@@ -9,7 +9,10 @@ trait ShapeFill extends ShapeGraphicSimple
   def fill: FillFacet
 
   /** The fill attribute for SVG. */
-  def fillAttrib: FillAttrib = ??? //FillAttrib(fillFacet)
+  def fillAttrib: FillAttrib = fill match
+  { case c: Colour => FillAttrib(c)
+    case _ => FillAttrib(Colour.Black)
+  }
   override def nonShapeAttribs: Arr[XmlAtt] = Arr(fillAttrib)
 
   def toDraw(lineWidth: Double = 2, newColour: Colour): ShapeDraw
