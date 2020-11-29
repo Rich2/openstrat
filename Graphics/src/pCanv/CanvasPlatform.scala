@@ -87,8 +87,6 @@ trait CanvasPlatform extends RectCenlign
   def ellipseDraw(ed: EllipseDraw): Unit
   
   def textGraphic(tg: TextGraphic): Unit
-  final def textGraphic(str: String, fontSize: Int, posn: Pt2, colour: Colour = Black, align: TextAlign = CenAlign): Unit =
-    textGraphic(TextGraphic(str, posn, fontSize, colour, align))
    
   def textOutline(to: TextOutline): Unit
   final def textOutline(str: String, fontSize: Int, posn: Pt2, colour: Colour = Black, lineWidth: Double = 1, align: TextAlign = CenAlign): Unit =
