@@ -7,8 +7,11 @@ import pWeb._, collection.mutable.ArrayBuffer
 class Colour(val argbValue: Int) extends AnyVal with FillFacet with ProdInt1
 { 
   override def toString: String = Colour.persistImplicit.show(this, 0)
-  override def attribs: Arr[XmlAtt] = Arr(FillAttrib(this))
+
+  /** The fill attribute for SVG. */
   def fillAttrib: FillAttrib = FillAttrib(this)
+  
+  override def attribs: Arr[XmlAtt] = Arr(fillAttrib)
   @inline final override def intValue: Int = argbValue 
   def webStr: String = "#" + rgbHexStr + alpha.hexStr2
   def svgStr: String = Colour.valueToStr.get(this).fold(hexStr)(_.toLowerCase)
