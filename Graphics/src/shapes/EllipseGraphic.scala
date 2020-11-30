@@ -46,7 +46,6 @@ trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with CanvElem
   type ThisT <: EllipseDraw
   type ThisT2 = EllipseDraw
   override def fTrans2(f: Pt2 => Pt2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineColour, lineWidth)
-  //override def slateTo(newCen: Pt2): EllipseDraw = ???
 }
 
 object EllipseDraw
