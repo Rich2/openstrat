@@ -2,9 +2,13 @@
 package ostrat
 package geom
 
-trait Centred
+trait Centred extends BoundedElem
 {
-  def cen: Vec2
+  //def cen: Vec2
+  def xCen: Double
+  def yCen: Double
+  def cen: Pt2
+
 }
 
 trait Aligned extends Centred

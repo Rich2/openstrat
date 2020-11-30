@@ -12,10 +12,10 @@ trait BoundedElem extends GeomElem
   def boundingWidth: Double = boundingRect.width
 
   def boundingHeight: Double = boundingRect.height
-  def boundingTR: Pt2 = boundingRect.topRight
-  def boundingBR: Pt2 = boundingRect.bottomRight
-  def boundingTL: Pt2 = boundingRect.topLeft
-  def boundingBL: Pt2 = boundingRect.bottomLeft
+  def trBounding: Pt2 = boundingRect.topRight
+  def brBounding: Pt2 = boundingRect.bottomRight
+  def tlBounding: Pt2 = boundingRect.topLeft
+  def blBounding: Pt2 = boundingRect.bottomLeft
   def xCen: Double
   def yCen: Double
   def cen: Pt2
