@@ -39,17 +39,18 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
    * in sub classes. */
   override def negX: PolygonCompound = PolygonCompound(shape.negX, facets, children.negX)
 
-  override def prolign(matrix: ProlignMatrix): PolygonCompound = ???
+  override def prolign(matrix: ProlignMatrix): PolygonCompound = PolygonCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
   override def rotate(angle: Angle): PolygonCompound = PolygonCompound(shape.rotate(angle), facets, children.rotate(angle))
 
   override def reflect(lineLike: LineLike): PolygonCompound = PolygonCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
-  override def xyScale(xOperand: Double, yOperand: Double): PolygonCompound = ???
+  override def xyScale(xOperand: Double, yOperand: Double): PolygonCompound =
+    PolygonCompound(shape.xyScale(xOperand, yOperand), facets, children.xyScale(xOperand, yOperand))
 
-  override def xShear(operand: Double): PolygonCompound = ???
+  override def xShear(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.xShear(operand))
 
-  override def yShear(operand: Double): PolygonCompound = ???
+  override def yShear(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.yShear(operand))
 
   override def slateTo(newCen: Pt2): PolygonCompound = ???
 
@@ -118,7 +119,7 @@ object PolygonCompound
 
     override def rotate(angle: Angle): PolygonCompoundImp = PolygonCompoundImp(shape.rotate(angle), facets, children.rotate(angle))
 
-    override def reflect(lineLike: LineLike): PolygonCompoundImp = ??? //PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
+    override def reflect(lineLike: LineLike): PolygonCompoundImp = PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
     override def xyScale(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
 
