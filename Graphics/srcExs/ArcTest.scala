@@ -38,19 +38,19 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 
   var myStuff:GraphicElems = Arr()
   for (i <- 0 to 3) {
-    for (j <- 0 to 3) {
+    for (j <- 0 to 7) {
       x = 25 + j * 50; // x coordinate
       y = 25 + i * 50; // y coordinate
-      var angle = Pi/4 + Pi/2*j; // angle of arc
+      val angle = 0.5 + Pi/4*j; // angle of arc
       val origin = x pp y
       val startPoint = x+radius pp y
-      val midPoint =  x+radius*math.cos(angle/2) pp y+radius*math.sin(angle/2)
+      val apex =  x+radius*math.cos(angle/2) pp y+radius*math.sin(angle/2)
       val endPoint =  x+radius*math.cos(angle) pp y+radius*math.sin(angle)
-      //val anticlockwise = i % 2 !== 0; // clockwise or anticlockwise
-      if (i%4 == 0) myStuff = myStuff ++ Arr(CArcDrawOld(startPoint, origin, endPoint, 2, Green)) // centre  
-      else if (i%4 == 1) myStuff = myStuff ++ Arr(CArc3(startPoint, midPoint, endPoint).draw(Crimson)) // centre  
-      else if (i%4 == 2) myStuff = myStuff ++ Arr(CArcDrawOld(endPoint, origin, startPoint, 2, Blue)) // centre  
-      else myStuff = myStuff ++ Arr(CArc3(endPoint, midPoint, startPoint).draw(Orange)) // centre  
+      
+      if (i%4 == 0) myStuff = myStuff ++ Arr(CArcDrawOld(startPoint, origin, endPoint, 2, ForestGreen))
+      else if (i%4 == 1) myStuff = myStuff ++ Arr(CArc3(startPoint, apex, endPoint).draw(DeepSkyBlue))
+      else if (i%4 == 2) myStuff = myStuff ++ Arr(CArcDrawOld(endPoint, origin, startPoint, 2, Fuchsia))
+      else myStuff = myStuff ++ Arr(CArc3(endPoint, apex, startPoint).draw(Orange))
     }
   }
   repaint(myStuff)
