@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** A ShapeGraphic based on a Shape with centre. */
 trait ShapeGraphicCentred extends ShapeGraphic with Centred
 {
   override def shape: ShapeCentred

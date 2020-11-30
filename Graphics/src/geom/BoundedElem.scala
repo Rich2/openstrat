@@ -16,9 +16,5 @@ trait BoundedElem extends GeomElem
   def brBounding: Pt2 = boundingRect.bottomRight
   def tlBounding: Pt2 = boundingRect.topLeft
   def blBounding: Pt2 = boundingRect.bottomLeft
-  /*def xCen: Double
-  def yCen: Double */
-  def defaultCen: Pt2 = boundingRect.cen
-
-  //def slateTo(newCen: Pt2): BoundedElem
+  def cenDefault: Pt2 = boundingRect.cen
 }

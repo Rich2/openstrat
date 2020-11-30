@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** A Shope with a centre field. */
 trait ShapeCentred extends Shape with Centred
 {
 
