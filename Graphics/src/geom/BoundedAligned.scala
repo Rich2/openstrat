@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-trait BoundedAligned extends BoundedElem with AlignedElem
+trait BoundedAligned extends Centred with AlignedElem
 
 /*class BoundedAlignedExtensions[A <: BoundedAligned](thisA: A, ev: SlateTo[A])
 {
@@ -26,3 +26,4 @@ trait BoundedAligned extends BoundedElem with AlignedElem
 }*/
 
 trait ShapeAligned extends Shape with BoundedAligned
+//trait ShapeGraphicAligned extends ShapeGraphic with BoundedAligned

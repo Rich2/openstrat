@@ -16,9 +16,8 @@ object Star5
   def draw(lineWidth: Double = 1, colour: Colour): PolygonDraw = apply().draw(colour, lineWidth)
 
   def crossLines(ratio: Double = classicRatio): GraphicElem =
-  {
-    val poly = apply(ratio)
-    Ints(0, 4, 8, 2, 6, 0).map{i => poly.vert(i)}.toPathDraw(1)
+  { val poly = apply(ratio)
+    Ints(2, 6, 10, 4, 8, 2).map{i => poly.vert(i) }.toPathDraw(1)
   }
 
   /** Not quite sure what this does. */

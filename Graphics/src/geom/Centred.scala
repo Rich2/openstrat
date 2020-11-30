@@ -11,10 +11,10 @@ trait Centred extends BoundedElem
 
 }
 
-trait Aligned extends Centred
+/*trait Aligned extends Centred
 {
   def topLeft: Vec2
-}
+}*/
 
 
 /** Type class for performing a 2D translation on an object of type T that moves the centre of the new object to the given position. */

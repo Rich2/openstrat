@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** This is either an alignedElem which inherits from BoundedElem or [[pCanv.CanvasPlatform]] or [[pCanv.Panel]]. */
-trait AlignedElem
+trait AlignedElem //extends Centred
 {
   def xCen: Double
   def yCen: Double

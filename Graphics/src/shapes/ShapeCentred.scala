@@ -7,3 +7,8 @@ trait ShapeCentred extends Shape with Centred
 {
 
 }
+/*
+trait ShapeAligned extends ShapeCentred with BoundedAligned
+{
+
+}*/

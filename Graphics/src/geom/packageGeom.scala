@@ -25,8 +25,8 @@ package object geom
 
   implicit def slateToToExtensions[T](value: T)(implicit ev: SlateTo[T]): SlateToExtensions[T] = new SlateToExtensions[T](value, ev)
 
-  /*implicit def boundedAlignedToToExtensions[T <: BoundedAligned](value: T)(implicit ev: SlateTo[T]): BoundedAlignedExtensions[T] =
-    new BoundedAlignedExtensions[T](value, ev)*/
+  implicit def boundedAlignedToToExtensions[T <: BoundedAligned](value: T)(implicit ev: Slate[T]): AlignedExtensions[T] =
+    new AlignedExtensions[T](value)(ev)
 
   implicit class ProlignMatrixExtension[T](val value: T)(implicit ev: Prolign[T])
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)

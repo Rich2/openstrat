@@ -8,6 +8,7 @@ import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 trait Slate[T]
 {
   def slateT(obj: T, xDelta: Double, yDelta: Double): T
+  def slateTV(obj: T, delta: Vec2Like): T = slateT(obj, delta.x, delta.y)
   def xSlateT(obj: T @uncheckedVariance, xOffset: Double): T = slateT(obj, xOffset, 0)
   def ySlateT(obj: T @uncheckedVariance, yOffset: Double): T = slateT(obj, 0, yOffset)
 }
