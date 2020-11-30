@@ -77,7 +77,7 @@
   
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../../target/JsDev/target/scala-2.13/jsdev-fastopt.js?"+Date.now().toString());
+    script.setAttribute("src", "../../SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
       JsDevApp.main();
