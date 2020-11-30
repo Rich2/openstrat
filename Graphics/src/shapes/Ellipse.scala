@@ -5,7 +5,7 @@ import pWeb._, Colour.Black, math.{Pi, sqrt}
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
-trait Ellipse extends Shape
+trait Ellipse extends ShapeCentred
 {
   override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
   override def fillHex(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))

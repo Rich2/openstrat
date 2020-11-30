@@ -7,9 +7,6 @@ case class PolyCurveParentFull(cen: Pt2, shape: ShapeGen, pointerId: Any, childr
   def fTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[GraphicAffineElem]): PolyCurveParentFull = PolyCurveParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolyCurveParentFull = PolyCurveParentFull(cen, shape, newObj, children)
-  override def xCen: Double = ???
-  override def yCen: Double = ???
-  //override def slateTo(newCen: Pt2): PolyCurveParentFull = ???
 }
 
 object PolyCurveParentFull

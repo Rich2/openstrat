@@ -9,7 +9,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
   { case c: Colour => cp.polygonFill(shape.fill(c))
     case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
-    case TextFacet(s, col) => cp.textGraphic(TextGraphic(s, cen, 18, col))
+    case TextFacet(s, col) => cp.textGraphic(TextGraphic(s, defaultCen, 18, col))
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
@@ -21,11 +21,11 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
-
-  /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): PolygonCompound =
     PolygonCompound(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
+
+  /** Translate geometric transformation. */
+  override def slate(offset: Vec2Like): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -85,7 +85,7 @@ object PolygonCompound
     override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
     { case c: Colour => cp.polygonFill(shape.fill(c))
       case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
-      case TextFacet(s, col) => cp.textGraphic(TextGraphic(s, cen, 18, col))
+      case TextFacet(s, col) => cp.textGraphic(TextGraphic(s, defaultCen, 18, col))
       // case fr: FillRadial => cp.circleFillRadial(shape, fr)
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }

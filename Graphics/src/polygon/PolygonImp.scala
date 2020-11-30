@@ -56,9 +56,6 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 
-  override def xCen: Double = boundingRect.xCen
-  override def yCen: Double = boundingRect.yCen
-
   override def xVertsArray: Array[Double] =
   { val newArray = new Array[Double](vertsNum)
     iUntilForeach(0, vertsNum){i => newArray(i) = xVert(i)}
@@ -99,10 +96,10 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonImp = vertsMap(f).toPolygon
 
   /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
-  //override def slate(offset: Vec2Like): PolygonImp = polygonMap(_ + offset)
+  override def slate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
 
   /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
+  override def slate(offset: Vec2Like): PolygonImp = polygonMap(_ + offset)
 
   /** Uniform scaling aginst both X and Y axes transformation on a [[PolygonImp]] returning a [[PolygonImp]]. Use the xyScale method for differential
    *  scaling. */

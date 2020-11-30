@@ -6,7 +6,7 @@ import pWeb._
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
-trait Rectangle extends Polygon4Plus
+trait Rectangle extends ShapeCentred with Polygon4Plus
 { final override def vertsNum: Int = 4
 
   /** length from v1 to v2 and v3 to v4. */
@@ -86,8 +86,6 @@ trait Rectangle extends Polygon4Plus
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.s2s4v1(s2Cen.xyScale(xOperand, yOperand), s4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
-
-  //override def slateTo(newCen: Pt2): Rectangle = ???
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */

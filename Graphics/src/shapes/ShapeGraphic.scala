@@ -42,9 +42,7 @@ trait ShapeGraphic extends BoundedGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphic
 
-  override def xCen: Double = shape.xCen
-  override def yCen: Double = shape.yCen
-  override def cen: Pt2 = shape.cen
+
 }
 
 /** Companion object for the ShapeGraphic class. */

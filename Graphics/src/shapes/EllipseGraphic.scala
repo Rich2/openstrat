@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
-trait EllipseGraphic extends ShapeGraphic
+trait EllipseGraphic extends ShapeGraphicCentred// with Centred
 { override def shape: Ellipse
   //@inline final def cen: Pt2 = shape.cen
  // @inline final def xCen: Double = shape.xCen
