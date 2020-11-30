@@ -41,7 +41,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
 
   override def xyScale(xOperand: Double, yOperand: Double): PolygonFill = ???
 
-  override def slateTo(newCen: Pt2): PolygonFill = ???
+  //override def slateTo(newCen: Pt2): PolygonFill = ???
 
   override def productArity: Int = ???
 

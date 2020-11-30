@@ -44,8 +44,6 @@ trait Rect extends Rectangle with Rectangularlign with ShapeAligned
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 
-  override def slateTo(newCen: Pt2): Rect = Rect(width, height, newCen)
-
   override def activeChildren(id: Any, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
 
   override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
@@ -92,7 +90,7 @@ object Rect
   implicit val slateImplicit: Slate[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
-  implicit val slateToImplicit: SlateTo[Rect] = (obj: Rect, newCen: Pt2) => obj.slateTo(newCen)
+  //implicit val slateToImplicit: SlateTo[Rect] = (obj: Rect, newCen: Pt2) => obj.slateTo(newCen)
 
   implicit val reflectAxesImplicit: ReflectAxes[Rect] = new ReflectAxes[Rect]
   { override def negYT(obj: Rect): Rect = obj.negY
@@ -108,10 +106,10 @@ object Rect
     override def attribs: Arr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    //override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen + offset)
+    override def slate(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slate(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)
+    override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen + offset)
 
     /** Uniform scaling transformation on a RectImp returns a RectImp. */
     override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen * operand)

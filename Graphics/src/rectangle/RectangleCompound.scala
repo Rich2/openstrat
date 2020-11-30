@@ -40,7 +40,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleCompound = ???
 
-  override def slateTo(newCen: Pt2): PolygonCompound = ???
+  //override def slateTo(newCen: Pt2): PolygonCompound = ???
 }
 
 /** Companion object for RectangleCompound. Conatains the [[RectangleCompound.RectangleCompoundImp]] implementatin class for the general case of

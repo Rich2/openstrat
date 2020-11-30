@@ -9,7 +9,7 @@ case class PolyCurveParentFull(cen: Pt2, shape: ShapeGen, pointerId: Any, childr
   override def mutObj(newObj: Any): PolyCurveParentFull = PolyCurveParentFull(cen, shape, newObj, children)
   override def xCen: Double = ???
   override def yCen: Double = ???
-  override def slateTo(newCen: Pt2): PolyCurveParentFull = ???
+  //override def slateTo(newCen: Pt2): PolyCurveParentFull = ???
 }
 
 object PolyCurveParentFull

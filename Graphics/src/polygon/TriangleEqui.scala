@@ -19,6 +19,6 @@ final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) ex
 
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
 
-  override def slateTo(newCen: Pt2): TriangleEqui = ???
+  //override def slateTo(newCen: Pt2): TriangleEqui = ???
 
 }

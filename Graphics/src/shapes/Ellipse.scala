@@ -120,7 +120,7 @@ trait Ellipse extends Shape
 
   override def yShear(operand: Double): Ellipse = fTrans(_.yShear(operand))
 
-  override def slateTo(newCen: Pt2): Ellipse = ???
+ // override def slateTo(newCen: Pt2): Ellipse = ???
 }
 
 /** Companion object for the Ellipse trait caontains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp.. */

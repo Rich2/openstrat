@@ -17,7 +17,7 @@ case class PolyCurveFill(shape: ShapeGen, colour: Colour) extends PolyCurveElem
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def slateTo(newCen: Pt2): PolyCurveFill = ???
+  //override def slateTo(newCen: Pt2): PolyCurveFill = ???
 }
 
 case class PolyCurveDraw(shape: ShapeGen, colour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -27,7 +27,7 @@ case class PolyCurveDraw(shape: ShapeGen, colour: Colour = Black, lineWidth: Dou
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def slateTo(newCen: Pt2): PolyCurveDraw = ???
+ // override def slateTo(newCen: Pt2): PolyCurveDraw = ???
 }
 
 case class PolyCurveFillDraw(shape: ShapeGen, fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -41,7 +41,7 @@ case class PolyCurveFillDraw(shape: ShapeGen, fillColour: Colour, lineColour: Co
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def slateTo(newCen: Pt2): PolyCurveFillDraw = ???
+  //override def slateTo(newCen: Pt2): PolyCurveFillDraw = ???
 }
 
 case class PolyCurveFillDrawText(shape: ShapeGen, fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black,
@@ -59,7 +59,7 @@ case class PolyCurveFillDrawText(shape: ShapeGen, fillColour: Colour, str: Strin
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def slateTo(newCen: Pt2): PolyCurveFillDrawText = ???
+  //override def slateTo(newCen: Pt2): PolyCurveFillDrawText = ???
 }
 
 case class PolyCurveAll(shape: ShapeGen, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
@@ -78,5 +78,5 @@ case class PolyCurveAll(shape: ShapeGen, pointerId: Any, str: String, fillColour
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  override def slateTo(newCen: Pt2): PolyCurveAll = ???
+ // override def slateTo(newCen: Pt2): PolyCurveAll = ???
 }

@@ -25,7 +25,7 @@ trait EllipseFill extends EllipseGraphicSimple with ShapeFill with CanvElem
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
 
   override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): EllipseDraw = shape.draw(newColour, lineWidth)
-  override def slateTo(newCen: Pt2): EllipseFill = ???
+  //override def slateTo(newCen: Pt2): EllipseFill = ???
 }
 
 /** Companion object for the EllipseFill class. */
@@ -50,7 +50,7 @@ trait EllipseDraw extends EllipseGraphicSimple with ShapeDraw with CanvElem
   type ThisT <: EllipseDraw
   type ThisT2 = EllipseDraw
   override def fTrans2(f: Pt2 => Pt2): EllipseDraw = EllipseDraw(shape.fTrans(f), lineColour, lineWidth)
-  override def slateTo(newCen: Pt2): EllipseDraw = ???
+  //override def slateTo(newCen: Pt2): EllipseDraw = ???
 }
 
 object EllipseDraw

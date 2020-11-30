@@ -32,10 +32,10 @@ trait PhiRectangle extends Rectangle
 
   override def rotate(angle: Angle): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
 
-  override def slateTo(newCen: Pt2): PhiRectangle =
+  /*override def slateTo(newCen: Pt2): PhiRectangle =
   { val v = newCen.vecFrom(cen)
     slate(v.x, v.y)
-  }
+  }*/
 }
 
 /** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that
@@ -96,10 +96,10 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def slateTo(newCen: Pt2): PhiRect =
+  /*override def slateTo(newCen: Pt2): PhiRect =
   { val v = cen.vecTo(newCen)
     slate(v.x, v.y)
-  }
+  }*/
 }
 
 object PhiRect
@@ -128,10 +128,10 @@ case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with
 
   override def prolign(matrix: ProlignMatrix): PhiRectY = ??? // PhiRectYangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
 
-  override def slateTo(newCen: Pt2): PhiRectY =
+  /*override def slateTo(newCen: Pt2): PhiRectY =
   { val v = cen.vecTo(newCen)
     slate(v.x, v.y)
-  }
+  }*/
 }
 
 object PhiRectY

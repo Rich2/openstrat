@@ -54,7 +54,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
 
   override def negX: Circle = Circle(diameter, cen.negX)
 
-  override def slateTo(newCen: Pt2): Circle = Circle(diameter, newCen)
+  //override def slateTo(newCen: Pt2): Circle = Circle(diameter, newCen)
   
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   

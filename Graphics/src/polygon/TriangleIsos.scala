@@ -25,5 +25,5 @@ final case class TriangleIsosGen(x1: Double, y1: Double, x3: Double, y3: Double,
   override def negX: ThisT = fTrans(_.negX)
   override def reflect(lineLike: LineLike): Triangle = ???
   override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
-  override def slateTo(newCen: Pt2): TriangleIsos = ???
+  //override def slateTo(newCen: Pt2): TriangleIsos = ???
 }

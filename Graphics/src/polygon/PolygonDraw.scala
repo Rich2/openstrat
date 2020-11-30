@@ -41,7 +41,7 @@ trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
   /** Shear along the Y axis upon a PolygonDraw returns a PolygonDraw. */
   override def yShear(operand: Double): PolygonDraw = PolygonDraw(shape.yShear(operand), lineWidth, lineColour)
 
-  override def slateTo(newCen: Pt2): PolygonDraw = ???
+  //override def slateTo(newCen: Pt2): PolygonDraw = ???
 }
 
 object PolygonDraw

@@ -87,7 +87,7 @@ trait Rectangle extends Polygon4Plus
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.s2s4v1(s2Cen.xyScale(xOperand, yOperand), s4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 
-  override def slateTo(newCen: Pt2): Rectangle = ???
+  //override def slateTo(newCen: Pt2): Rectangle = ???
 }
 
 /** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */

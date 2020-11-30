@@ -33,10 +33,10 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   /** Independent X and Y dimension scaling upon a RectangleDraw returns a RectangleDraw. */
   override def xyScale(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.xyScale(xOperand, yOperand), lineWidth, lineColour)
 
-  override def slateTo(newCen: Pt2): RectangleDraw =
+  /*override def slateTo(newCen: Pt2): RectangleDraw =
   { val v = cen.vecTo(newCen)
     slate(v.x, v.y)
-  }
+  }*/
 }
 
 /** Companion object for RectangleDraw contains factory method and implementation class. */

@@ -20,7 +20,7 @@ trait BoundedElem extends GeomElem
   def yCen: Double
   def cen: Pt2
 
-  def slateTo(newCen: Pt2): BoundedElem
+  //def slateTo(newCen: Pt2): BoundedElem
 }
 
 /** Type class for performing a 2D translation on an object of type T that moves the centre of the new object to the given position. */

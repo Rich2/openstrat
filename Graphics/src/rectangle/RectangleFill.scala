@@ -31,7 +31,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.xyScale(xOperand, yOperand), fill)
 
-  override def slateTo(newCen: Pt2): RectangleFill = ???
+  //override def slateTo(newCen: Pt2): RectangleFill = ???
 }
 
 /** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates
