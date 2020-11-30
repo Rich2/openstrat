@@ -9,16 +9,16 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   backColour = Gray
    
   val tlFlags = Arr(Armenia, Austria, England, UnitedKingdom, Japan)
-  val tlObjs = tlFlags.iMap((el, i) => el.compoundStr.scale(100).tlSlateTo(canv.topLeft.subY(i * 110)))
+  val tlObjs = tlFlags.iMap((el, i) => el.compoundStr.scale(100))//.tlSlateTo(canv.topLeft.subY(i * 110)))
 
   val trFlags = Arr(Belgium, Chad, France)
-  val trObjs = trFlags.iMap((el, i) => el.compoundStr.scale(100).trSlateTo(canv.topRight.subY(i * 110)))
+  val trObjs = trFlags.iMap((el, i) => el.compoundStr.scale(100))//.trSlateTo(canv.topRight.subY(i * 110)))
 
   val blFlags = Arr(China, Italy, India)
-  val blObjs = blFlags.iMap((el, i) => el.compoundStr.scale(100).blSlateTo(canv.bottomLeft.addY(i * 110)))
+  val blObjs = blFlags.iMap((el, i) => el.compoundStr.scale(100))//.blSlateTo(canv.bottomLeft.addY(i * 110)))
 
   val brFlags = Arr(Germany, Germany1871, Ireland, UnitedStates)
-  val brObjs = brFlags.iMap((el, i) => el.compoundStr.scale(100).brSlateTo(canv.bottomRight.addY(i * 110)))
+  val brObjs = brFlags.iMap((el, i) => el.compoundStr.scale(100))//.brSlateTo(canv.bottomRight.addY(i * 110)))
 
   val starCen = 300 pp 0
   val star: GraphicElems = Arr(Star5.fill(White), Star5.crossLines()).scale(500).slate(starCen)

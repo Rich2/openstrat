@@ -35,8 +35,6 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   override def xyScale(xOperand: Double, yOperand: Double): RectCompound =
     RectCompound(shape.xyScale(xOperand, yOperand), facets, children.xyScale(xOperand, yOperand) )
-
-  //override def slateTo(newCen: Pt2): RectCompound = RectCompound(shape.slateTo(newCen), facets, children.slate(cen.vecTo(newCen)))
 }
 
 object RectCompound
@@ -45,7 +43,7 @@ object RectCompound
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
   implicit val XYScaleImplicit: XYScale[RectCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
-  implicit val slateToImplicit: SlateTo[RectCompound] = (obj: RectCompound, newCen: Pt2) => obj.slateTo(newCen)
+  //implicit val slateToImplicit: SlateTo[RectCompound] = (obj: RectCompound, newCen: Pt2) => obj.slateTo(newCen)
 
   implicit val reflectAxesImplicit: ReflectAxes[RectCompound] = new ReflectAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
