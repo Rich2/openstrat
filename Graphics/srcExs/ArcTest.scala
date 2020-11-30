@@ -44,8 +44,8 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
       var endAngle = Pi + (Pi * j) / 2; // End point on circle
       //val anticlockwise = i % 2 !== 0; // clockwise or anticlockwise
       myStuff = myStuff ++ Arr(//CArcDraw(CArc(x pp y, x+radius pp y, endAngle), 2, Blue),
-                               CArc3(x pp y, -141.421356237 pp 141.421356237, 0 pp 200).draw(Crimson),
-                               CArcDrawOld(x pp y, 0 pp 0, 0 pp 250, 2, Green))
+                               CArc3(x pp y, x+15 pp y-30, x+30 pp y).draw(Crimson), // apex
+                               CArcDrawOld(x pp y, x+15 pp y, x+15 pp y-15, 2, Green)) // centre 
     }
   }
   repaint(myStuff)
