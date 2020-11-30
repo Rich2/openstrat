@@ -5,15 +5,13 @@ package geom
 /** This trait is for layout. For placing Display elements in rows and columns. It includes [[PolygonGraphic]] and [[ShapeGraphic]]s but not [[Line]]
  *  and [[Curve]] graphics. */
 trait BoundedGraphic extends GraphicElem with BoundedElem
-{ //def slate(offset: Vec2Like): BoundedGraphic
+{
   def slate(xOffset: Double, yOffset: Double): BoundedGraphic
+  def slate(offset: Vec2Like): BoundedGraphic
   def scale(operand: Double): BoundedGraphic
 
   def negY: BoundedGraphic
   def negX: BoundedGraphic
-  /*def rotate90: BoundedGraphic
-  def rotate180: BoundedGraphic
-  def rotate270: BoundedGraphic*/
 
   def prolign(matrix: ProlignMatrix): BoundedGraphic
 
@@ -45,7 +43,6 @@ object BoundedGraphic
 
   implicit val prolignImplicit: Prolign[BoundedGraphic] = (obj, matrix) => obj.prolign(matrix)
 }
-
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve
  *  graphics. */
