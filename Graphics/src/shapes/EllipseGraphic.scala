@@ -4,11 +4,8 @@ package geom
 import pCanv._, Colour.Black
 
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
-trait EllipseGraphic extends ShapeGraphicCentred// with Centred
+trait EllipseGraphic extends ShapeGraphicCentred
 { override def shape: Ellipse
-  //@inline final def cen: Pt2 = shape.cen
- // @inline final def xCen: Double = shape.xCen
- // @inline final def yCen: Double = shape.yCen
 }
 
 /** A Simple circle based graphic. Not sure if this trait is useful. */
@@ -25,7 +22,6 @@ trait EllipseFill extends EllipseGraphicSimple with ShapeFill with CanvElem
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
 
   override def toDraw(lineWidth: Double = 2, newColour: Colour = Black): EllipseDraw = shape.draw(newColour, lineWidth)
-  //override def slateTo(newCen: Pt2): EllipseFill = ???
 }
 
 /** Companion object for the EllipseFill class. */
