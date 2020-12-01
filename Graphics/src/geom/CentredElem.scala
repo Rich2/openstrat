@@ -20,3 +20,5 @@ trait ShapeGraphicCentred extends ShapeGraphic with CentredElem
 
 /** A Shape with a centre field. */
 trait ShapeCentred extends Shape with CentredElem
+{ override def cenDefault: Pt2 = cen
+}
