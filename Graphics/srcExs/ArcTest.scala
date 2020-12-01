@@ -37,7 +37,7 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val startAngle = 0
 
   var myStuff:GraphicElems = Arr()
-  for (i <- 0 to 3) {
+  for (i <- 1 to 1) {
     for (j <- 0 to 7) {
       x = 25 + j * 50; // x coordinate
       y = 25 + i * 50; // y coordinate
