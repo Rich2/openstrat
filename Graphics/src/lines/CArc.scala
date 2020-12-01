@@ -3,10 +3,10 @@ package ostrat
 package geom
 import Colour._
 
-/** Temporary name for new version of circular arc. */
-case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double) extends CurveSeg with AffinePreserve
-{ override type ThisT = CArc3
-  override def fTrans(f: Pt2 => Pt2): ThisT = CArc3(f(pStart), f(apex), f(pEnd))
+/** Circular arc. */
+case class CArc(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double) extends CurveSeg with AffinePreserve
+{ override type ThisT = CArc
+  override def fTrans(f: Pt2 => Pt2): ThisT = CArc(f(pStart), f(apex), f(pEnd))
 
   /** The mid or half way point (of the circumference) of the arc */
   def apex: Pt2 = xApex pp yApex
@@ -41,12 +41,12 @@ case class CArc3(xStart: Double, yStart: Double, xApex: Double, yApex: Double, x
   def draw(colour: Colour = Black, lineWidth: Double = 2): CArcDraw3 = CArcDraw3(this, colour, lineWidth)
 }
 
-object CArc3
+object CArc
 {
-  def apply(pStart: Pt2, apex: Pt2, pEnd: Pt2): CArc3 = new CArc3(pStart.x, pStart.y, apex.x, apex.y, pEnd.x, pEnd.y)
+  def apply(pStart: Pt2, apex: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, apex.x, apex.y, pEnd.x, pEnd.y)
 }
 
-case class CArcDraw3(curveSeg: CArc3, colour: Colour = Black, lineWidth: Double = 2) extends CurveSegDraw with AffinePreserve with CanvElem
+case class CArcDraw3(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends CurveSegDraw with AffinePreserve with CanvElem
 {
   override type ThisT = CArcDraw3
 

@@ -48,9 +48,9 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
       val endPoint =  x+radius*math.cos(angle) pp y+radius*math.sin(angle)
       
       if (i%4 == 0) myStuff = myStuff ++ Arr(CArcDrawOld(startPoint, origin, endPoint, 2, ForestGreen))
-      else if (i%4 == 1) myStuff = myStuff ++ Arr(CArc3(startPoint, apex, endPoint).draw(DeepSkyBlue))
+      else if (i%4 == 1) myStuff = myStuff ++ Arr(CArc(startPoint, apex, endPoint).draw(DeepSkyBlue))
       else if (i%4 == 2) myStuff = myStuff ++ Arr(CArcDrawOld(endPoint, origin, startPoint, 2, Fuchsia))
-      else myStuff = myStuff ++ Arr(CArc3(endPoint, apex, startPoint).draw(Orange))
+      else myStuff = myStuff ++ Arr(CArc(endPoint, apex, startPoint).draw(Orange))
     }
   }
   repaint(myStuff)

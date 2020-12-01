@@ -4,7 +4,7 @@ package geom
 import pCanv._, Colour.Black
 
 /** Circular Arc Draw PaintElem. */
-final case class CArcDraw(arc: CArc, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CanvElem with SimilarPreserve// with CanvElem
+final case class CArcDraw(arc: CArcDep, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CanvElem with SimilarPreserve// with CanvElem
 { type ThisT = CArcDraw
 
   override def fTrans(f: Pt2 => Pt2): CArcDraw = CArcDraw(arc.fTrans(f), lineWidth, lineColour)

@@ -2,12 +2,12 @@
 package ostrat
 package geom
 
-/** Circular Arc */
-final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends SimilarPreserve
-{ type ThisT = CArc
-  override def fTrans(f: Pt2 => Pt2): CArc = ???
+/** Circular Arc to be removed along with CArcOld. */
+final case class CArcDep(xStart: Double, yStart: Double, xCen: Double, yCen: Double, deltaRadians: Double) extends SimilarPreserve
+{ type ThisT = CArcDep
+  override def fTrans(f: Pt2 => Pt2): CArcDep = ???
   def cen: Pt2 = xCen pp yCen
-  
+
   def startAngleRadians: Double = pStart.angleFrom(cen).radians
   def startAngleRadiansPos: Double = pStart.vecFrom(cen).angleRadiansPos
   def startAngle: Angle = pStart.angleFrom(cen)
@@ -37,11 +37,11 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   def xEnd: Double = pEnd.x
   def yEnd: Double = pEnd.y
   //override def slate(offset: Vec2Like): CArc = CArc(pStart + offset, cen + offset, deltaRadians)
-  override def scale(operand: Double): CArc = CArc(pStart * operand, cen * operand, deltaRadians)
+  override def scale(operand: Double): CArcDep = CArcDep(pStart * operand, cen * operand, deltaRadians)
 
-  override def rotate(angle: Angle): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), deltaRadians)
+  override def rotate(angle: Angle): CArcDep = CArcDep(pStart.rotate(angle), cen.rotate(angle), deltaRadians)
 
-  override def reflect(lineLike: LineLike): CArc = ???
+  override def reflect(lineLike: LineLike): CArcDep = ???
   def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
 
   override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???
@@ -51,7 +51,7 @@ final case class CArc(xStart: Double, yStart: Double, xCen: Double, yCen: Double
   override def yShear(operand: Double): GeomElem = ???
 }
 
-object CArc
+object CArcDep
 {
-  def apply(pStart: Pt2, pCen: Pt2, deltaRadians: Double): CArc = CArc(pStart.x, pStart.y, pCen.x, pCen.y, deltaRadians)
+  def apply(pStart: Pt2, pCen: Pt2, deltaRadians: Double): CArcDep = CArcDep(pStart.x, pStart.y, pCen.x, pCen.y, deltaRadians)
 }

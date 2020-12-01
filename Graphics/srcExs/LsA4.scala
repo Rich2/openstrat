@@ -13,7 +13,7 @@ import ostrat._, geom._, pCanv._, Colour._
 case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
   val co = CArcOld(-300 pp 0, 0 pp 0, 0 pp 300)
-  val c3 = CArc3(-100 pp 0, -71 pp 71, 0 pp 100)
+  val c3 = CArc(-100 pp 0, -71 pp 71, 0 pp 100)
   val r1 = 0.1
   val r2 = 0.2
   val rot = AngleVec(r1 + r2)
