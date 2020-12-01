@@ -2,11 +2,12 @@
 package ostrat
 package geom
 
-/** This is a graphic based on a Rect shape. A rectangle aligned to the X and Y axes. */
+/** A graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphic extends RectangleGraphic with ShapeGraphicOrdinaled
 { override def shape: Rect
 }
 
+/** A simple non-compound graphic based on a [[Rect], a rectangle aligned to the X and Y axes. */
 trait RectGraphicSimple extends RectGraphic with RectangleGraphicSimple
 
 /** A rectangular Graphic aligned to the axes, filled with a single colour. */
@@ -19,5 +20,6 @@ object RectFill
    * implementation class, but has a return type of RectFill. */
   def apply(rect: Rect, fillColour: Colour): RectFill = RectFillImp(rect, fillColour)
 
+  /** An implementation class for a [RectFill]] that is not specified as a [[SquareFill]]. */
   case class RectFillImp(shape: Rect, fill: FillFacet) extends RectFill
 }

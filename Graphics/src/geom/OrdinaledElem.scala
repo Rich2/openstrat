@@ -10,7 +10,8 @@ trait OrdinaledElem extends CentredElem with OrdinalEdgePoints
 trait ShapeOrdinaled extends Shape with OrdinaledElem
 
 /** A Shape based graphic where the Ordinal edge points, the cardinal edge points and the centre are defined. This includes [[Rect]]s, [[Circle]]s,
- *  aligned ellipses and curved Rects. */
+ *  aligned ellipses and curved Rects. There is no type class for this capability as one s unlikely to want to move a collection of graphics to the
+ *  same point.*/
 trait ShapeGraphicOrdinaled extends ShapeGraphic with OrdinaledElem
 { override def shape: ShapeOrdinaled
   override def topRight: Pt2 = shape.topRight
