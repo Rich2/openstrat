@@ -36,6 +36,7 @@ object AppsForJs
     ("Z2", (pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),
     ("Z3", (pZug.ZugGui(_, pZug.Zug3), "Js Zugfuhrer Z3 France")),
 
+    ("AT", (learn.ArcTest(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("A1", (learn.LsA1a(_), "Js Demonstration Canvas 1")), //Static Graphics
     ("A2", (learn.LsA2(_), "Js Demonstration Canvas 2")),
     ("A3", (learn.LsA3(_), "Js Demonstration Canvas 3")),
