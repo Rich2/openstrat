@@ -94,8 +94,11 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override protected[this] def tlCArcDraw3(ad: CArcDraw3): Unit =
   { //debvar(ad)
     //debvar(ad.curveSeg.radius) = 20
-    //debvar(ad.curveSeg.startAngle.arcLength(ad.curveSeg.radius)) = 0
+    deb("startAngle="+ad.curveSeg.startAngle)
+    deb("endAngle="+ad.curveSeg.endAngle)
+//    deb("radians=length=>"+ad.curveSeg.radians*ad.curveSeg.radius)
     debvar((ad.curveSeg.endAngle-ad.curveSeg.startAngle).arcLength(ad.curveSeg.radius))
+    debvar((ad.curveSeg.endAngle.radians-ad.curveSeg.startAngle.radians)*ad.curveSeg.radius)
     gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     //gc.arcTo(ad.curveSeg.xApex, ad.curveSeg.yApex, ad.xEnd, ad.yEnd, ad.curveSeg.radius)// ad.fControlEndRadius(gc.arcTo)
@@ -104,7 +107,6 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setStroke(toFxColor(ad.colour))
     gc.stroke()
   }
-
   override def tlCircleFill(cf: CircleFill): Unit =
   { //gc.setFill(toFxColor(cf.fillFacet))
     setFill(cf.fill)
