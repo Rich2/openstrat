@@ -11,27 +11,3 @@ class SlateTransAxesExtensions[A](thisReflector: A)(implicit evS: Slate[A], evR:
   /** Reflect, mirror across a line parallel to the Y axis. */
   def reflectYOffset(xOffset: Double): A = evS.xSlateT(evR.negXT(thisReflector), 2 * xOffset)
 }
-
-/*
-class AlignedSlateExtensions[A <: AlignedGeom](thisA: A)(implicit evS: Slate[A])
-{
- // def topLeftSlate(topLeftOffset: Vec2): A = evS.slateT(thisA, topLeftOffset + 2 * thisA.cen - thisA.topLeft)
-}*/
-class AlignedExtensions[A <: BoundedAligned](thisA: A)(implicit ev: Slate[A])
-{
-  /** Translate an object of type T such that the top right of the new object is given by the new position. This method translates the object to an
-  * absolute position. */
-  def topRightTo(newTopRight: Pt2): A = ev.slateTV(thisA, newTopRight - thisA.trOffset)
-
-  /** Translate an object of type T such that the bottom right of the new object is given by the new position. This method translates the object to an
-  * absolute position. */
-  def bottomRightTo(newBottomRight: Pt2): A = ev.slateTV(thisA, newBottomRight - thisA.brOffset)
-
-  /** Translate an object of type T such that the bottom left of the new object is given by the new position. This method translates the object to an
-  * absolute position. */
-  def bottomLeftTo(newBottomLeft: Pt2): A = ev.slateTV(thisA, newBottomLeft - thisA.blOffset)
-
-  /** Translate an object of type T such that the top left of the new object is given by the new position. This method translates the object to an
-   * absolute position. */
-  def topLeftTo(newTopLeft: Pt2): A = ev.slateTV(thisA, newTopLeft - thisA.tlOffset)
-}

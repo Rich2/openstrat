@@ -4,26 +4,44 @@ package geom
 
 trait BoundedAligned extends Centred with AlignedElem
 
-/*class BoundedAlignedExtensions[A <: BoundedAligned](thisA: A, ev: SlateTo[A])
+trait ShapeAligned extends Shape with BoundedAligned
+
+trait ShapeGraphicAligned extends ShapeGraphic with BoundedAligned
+{ override def shape: ShapeAligned
+  override def topRight: Pt2 = shape.topRight
+  override def bottomRight: Pt2 = shape.bottomRight
+  override def bottomLeft: Pt2 = shape.bottomLeft
+  override def topLeft: Pt2 = shape.topLeft
+}
+
+/** A ShapeGraphic based on a Shape with centre. */
+trait ShapeGraphicCentred extends ShapeGraphic with Centred
+{
+  override def shape: ShapeCentred
+
+  override def xCen: Double = shape.xCen
+  override def yCen: Double = shape.yCen
+  override def cen: Pt2 = shape.cen
+}
+
+/** A Shape with a centre field. */
+trait ShapeCentred extends Shape with Centred
+
+class AlignedExtensions[A <: BoundedAligned](thisA: A)(implicit ev: Slate[A])
 {
   /** Translate an object of type T such that the top right of the new object is given by the new position. This method translates the object to an
-  * absolute position. */
-  /*def trSlateTo(newTopRight: Pt2): A = ev.slateTTo(thisA, newTopRight - thisA.trOffset)
+   * absolute position. */
+  def topRightTo(newTopRight: Pt2): A = ev.slateTV(thisA, newTopRight - thisA.trOffset)
 
   /** Translate an object of type T such that the bottom right of the new object is given by the new position. This method translates the object to an
-  * absolute position. */
-  def brSlateTo(newBottomRight: Pt2): A = ev.slateTTo(thisA, newBottomRight - thisA.brOffset)
+   * absolute position. */
+  def bottomRightTo(newBottomRight: Pt2): A = ev.slateTV(thisA, newBottomRight - thisA.brOffset)
 
   /** Translate an object of type T such that the bottom left of the new object is given by the new position. This method translates the object to an
-  * absolute position. */
-  def blSlateTo(newBottomLeft: Pt2): A = ev.slateTTo(thisA, newBottomLeft - thisA.blOffset)*/
+   * absolute position. */
+  def bottomLeftTo(newBottomLeft: Pt2): A = ev.slateTV(thisA, newBottomLeft - thisA.blOffset)
 
   /** Translate an object of type T such that the top left of the new object is given by the new position. This method translates the object to an
    * absolute position. */
- // def tlSlateTo(newTopLeft: Pt2): A = ev.slateTTo(thisA, newTopLeft - thisA.tlOffset)
-
-
-}*/
-
-trait ShapeAligned extends Shape with BoundedAligned
-//trait ShapeGraphicAligned extends ShapeGraphic with BoundedAligned
+  def topLeftTo(newTopLeft: Pt2): A = ev.slateTV(thisA, newTopLeft - thisA.tlOffset)
+}
