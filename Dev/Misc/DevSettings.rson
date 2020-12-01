@@ -37,6 +37,7 @@ displayY = 0;
     ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
     ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
 
+    ("AT", (learn.ArcTest(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
     ("A1a", (learn.LessonA1(_), "JavaFx Demonstration Canvas A1a")),
     ("A1b", (learn.LessonA1b(_), "JavaFx Demonstration Canvas A1b")),
