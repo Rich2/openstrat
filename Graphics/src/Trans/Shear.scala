@@ -3,7 +3,7 @@ package ostrat
 package geom
 import reflect.ClassTag
 
-/** type class for shear transformations. just starting with the basic shears, rather than a generalised shear transformation. */
+/** Type class for shear transformations. just starting with the basic shears, rather than a generalised shear transformation. */
 trait Shear[T]
 { /** Reflect, mirror an object of type T across the X axis. */
   def xShearT(obj: T, yFactor: Double): T

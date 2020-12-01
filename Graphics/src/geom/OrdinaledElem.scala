@@ -2,32 +2,25 @@
 package ostrat
 package geom
 
-trait BoundedAligned extends Centred with AlignedElem
+/** A 2D geometric element where the Ordinal edge points, the cardinal edge points and the centre are defined. */
+trait OrdinaledElem extends CentredElem with OrdinalEdgePoints
 
-trait ShapeAligned extends Shape with BoundedAligned
+/** A Shape where the Ordinal edge points, the cardinal edge points and the centre are defined. This includes [[Rect]]s, [[Circle]]s, aligned ellipses
+ *  and curved Rects. */
+trait ShapeOrdinaled extends Shape with OrdinaledElem
 
-trait ShapeGraphicAligned extends ShapeGraphic with BoundedAligned
-{ override def shape: ShapeAligned
+/** A Shape based graphic where the Ordinal edge points, the cardinal edge points and the centre are defined. This includes [[Rect]]s, [[Circle]]s,
+ *  aligned ellipses and curved Rects. */
+trait ShapeGraphicOrdinaled extends ShapeGraphic with OrdinaledElem
+{ override def shape: ShapeOrdinaled
   override def topRight: Pt2 = shape.topRight
   override def bottomRight: Pt2 = shape.bottomRight
   override def bottomLeft: Pt2 = shape.bottomLeft
   override def topLeft: Pt2 = shape.topLeft
 }
 
-/** A ShapeGraphic based on a Shape with centre. */
-trait ShapeGraphicCentred extends ShapeGraphic with Centred
-{
-  override def shape: ShapeCentred
-
-  override def xCen: Double = shape.xCen
-  override def yCen: Double = shape.yCen
-  override def cen: Pt2 = shape.cen
-}
-
-/** A Shape with a centre field. */
-trait ShapeCentred extends Shape with Centred
-
-class AlignedExtensions[A <: BoundedAligned](thisA: A)(implicit ev: Slate[A])
+/** Extension class for [[OrdinaledElem]]s. */
+class OrdinaledExtensions[A <: OrdinaledElem](thisA: A)(implicit ev: Slate[A])
 {
   /** Translate an object of type T such that the top right of the new object is given by the new position. This method translates the object to an
    * absolute position. */

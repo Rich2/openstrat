@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
-trait Rect extends Rectangle with Rectangularlign with ShapeAligned
+trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { @inline final override def x1: Double = xTopRight
   @inline final override def y1: Double = yTopRight
   @inline final override def v1: Pt2 = x1 pp y1

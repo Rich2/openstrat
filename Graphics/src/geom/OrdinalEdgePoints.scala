@@ -2,8 +2,9 @@
 package ostrat
 package geom
 
-/** This is either an alignedElem which inherits from BoundedElem or [[pCanv.CanvasPlatform]] or [[pCanv.Panel]]. */
-trait AlignedElem //extends Centred
+/** This is an object where the boundary points for top left, top right, bottom right and bottom left are defined. This trait is used by some
+ *  geometric elements as well as [[pCanv.CanvasPlatform]] and [[pCanv.Panel]]. */
+trait OrdinalEdgePoints //extends Centred
 {
   def xCen: Double
   def yCen: Double
