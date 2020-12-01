@@ -38,6 +38,7 @@ object Apps
     ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
     ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
 
+    ("AT", (learn.ArcTest(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
     ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
     ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
