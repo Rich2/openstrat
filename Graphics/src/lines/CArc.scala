@@ -4,7 +4,7 @@ package geom
 import Colour._
 
 /** Circular arc. */
-case class CArc(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double) extends CurveSeg with SimilarPreserve
+case class CArc(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double) extends EArc with SimilarPreserve
 { override type ThisT = CArc
   override def fTrans(f: Pt2 => Pt2): ThisT = CArc(f(pStart), f(apex), f(pEnd))
 
@@ -39,16 +39,6 @@ case class CArc(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xE
   def endAngle: Angle = cen.angleTo(pEnd)
 
   def draw(colour: Colour = Black, lineWidth: Double = 2): CArcDraw = CArcDraw(this, colour, lineWidth)
-
-  /** XY scaling 2D geometric transformation on a GeomElem. This allows different scaling factors across X and Y dimensions. The return type will be
-   * narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???
-
-  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  override def xShear(operand: Double): GeomElem = ???
-
-  /** Shear 2D geometric transformation along the Y Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  override def yShear(operand: Double): GeomElem = ???
 }
 
 object CArc
