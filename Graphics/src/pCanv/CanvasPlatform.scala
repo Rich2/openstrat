@@ -61,8 +61,8 @@ trait CanvasPlatform extends RectCenlign
    
   def cArcDrawOld(ad: CArcDrawOld): Unit
 
-  def cArcDraw(cad: CArcDraw): Unit
-  def cArcDraw3(cad: CArcDraw3): Unit
+  def cArcDraw(cad: CArcDrawDep): Unit
+  def cArcDraw3(cad: CArcDraw): Unit
 
   def bezierDraw(bd: BezierDraw): Unit
 

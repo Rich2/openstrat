@@ -3,7 +3,7 @@ package ostrat
 package geom
 import Colour.Black
 
-/** Super trait to Arc and ArcDraw and Arc fill which has not been implemented yet. */
+/** To be removed. Super trait to Arc and ArcDraw and Arc fill which has not been implemented yet. */
 trait ArcLikeOld extends CurveSeg
 { def xCen: Double
   def yCen: Double

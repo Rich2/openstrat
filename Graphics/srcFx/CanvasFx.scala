@@ -91,7 +91,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setStroke(toFxColor(ad.colour))
     gc.stroke()
   }
-  override protected[this] def tlCArcDraw3(ad: CArcDraw3): Unit =
+  override protected[this] def tlCArcDraw3(ad: CArcDraw): Unit =
   { //debvar(ad)
     //debvar(ad.curveSeg.radius) = 20
     deb("startAngle="+ad.curveSeg.startAngle)
@@ -150,7 +150,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineDashes()
   }
 
-  override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
+  override protected[this] def tlCArcDraw(cad: CArcDrawDep): Unit =
   { val ca = cad.arc
     gc.beginPath
     gc.moveTo(ca.xStart, ca.yStart)

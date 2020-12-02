@@ -3,11 +3,11 @@ package ostrat
 package geom
 import pCanv._, Colour.Black
 
-/** Circular Arc Draw PaintElem. */
-final case class CArcDraw(arc: CArcDep, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CanvElem with SimilarPreserve// with CanvElem
-{ type ThisT = CArcDraw
+/** To be removed. Circular Arc Draw PaintElem. */
+final case class CArcDrawDep(arc: CArcDep, lineWidth: Double = 2.0, lineColour: Colour = Black) extends CanvElem with SimilarPreserve// with CanvElem
+{ type ThisT = CArcDrawDep
 
-  override def fTrans(f: Pt2 => Pt2): CArcDraw = CArcDraw(arc.fTrans(f), lineWidth, lineColour)
+  override def fTrans(f: Pt2 => Pt2): CArcDrawDep = CArcDrawDep(arc.fTrans(f), lineWidth, lineColour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.cArcDraw(this)
   def startText = TextGraphic("st", arc.pStart, 10, lineColour)
   def clkStr: String = ife(arc.clock, "clk", "anti")

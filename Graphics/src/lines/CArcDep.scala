@@ -42,7 +42,7 @@ final case class CArcDep(xStart: Double, yStart: Double, xCen: Double, yCen: Dou
   override def rotate(angle: Angle): CArcDep = CArcDep(pStart.rotate(angle), cen.rotate(angle), deltaRadians)
 
   override def reflect(lineLike: LineLike): CArcDep = ???
-  def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDraw(this,lineWidth, colour)
+  def draw(lineWidth: Double = 2.0, colour: Colour = Colour.Black) = CArcDrawDep(this,lineWidth, colour)
 
   override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???
 
