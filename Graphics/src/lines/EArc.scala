@@ -41,43 +41,49 @@ trait EArc extends CurveSeg
   override def yShear(operand: Double): EArc = ???
 }
 
-/** Elliptical Arc. I think its important not to encode unnecessary data, not because of space concerns but because this may allow contradictory data.
- I've replaced  3 scalars and 2 booleans in the JavaFx encoding with 4 scalars. */
-final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x1: Double, y1: Double, xEnd: Double, yEnd: Double) extends
-  EArc
+object EArc
 {
-  //override def fTrans(f: Vec2 => Vec2): EArc = ???
+  /** Elliptical Arc. I think its important not to encode unnecessary data, not because of space concerns but because this may allow contradictory data.
+   *  I've replaced  3 scalars and 2 booleans in the JavaFx encoding with 4 scalars. */
+  final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x1: Double, y1: Double, xEnd: Double, yEnd: Double) extends
+    EArc {
+    //override def fTrans(f: Vec2 => Vec2): EArc = ???
 
-  override def slate(offset: Vec2Like): EArcImp = ???
-  override def rotate(angle: Angle): EArcImp = ???
-  override def scale(operand: Double): EArcImp = ???
-  //override def rotate(angle: Angle): EArc = ???
+    override def slate(offset: Vec2Like): EArcImp = ???
 
-  //override def shear(xScale: Double, yScale: Double): EArc = ???
+    override def rotate(angle: Angle): EArcImp = ???
 
-  override def reflect(lineLike: LineLike): EArcImp = ???
+    override def scale(operand: Double): EArcImp = ???
 
-  /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): EArcImp = ???
+    //override def rotate(angle: Angle): EArc = ???
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def negY: EArcImp = ???
+    //override def shear(xScale: Double, yScale: Double): EArc = ???
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def negX: EArcImp = ???
+    override def reflect(lineLike: LineLike): EArcImp = ???
 
-  override def prolign(matrix: ProlignMatrix): EArcImp = ???
+    /** Translate geometric transformation. */
+    override def slate(xOffset: Double, yOffset: Double): EArcImp = ???
 
-  override def xyScale(xOperand: Double, yOperand: Double): EArcImp = ???
+    /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
+     * in sub classes. */
+    override def negY: EArcImp = ???
 
-  override def xShear(operand: Double): EArcImp = ???
-  override def yShear(operand: Double): EArcImp = ???
-}
+    /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
+     * in sub classes. */
+    override def negX: EArcImp = ???
 
-object EArcImp
-{
-  //def apply(): EArc = new EArc
+    override def prolign(matrix: ProlignMatrix): EArcImp = ???
+
+    override def xyScale(xOperand: Double, yOperand: Double): EArcImp = ???
+
+    override def xShear(operand: Double): EArcImp = ???
+
+    override def yShear(operand: Double): EArcImp = ???
+  }
+
+  object EArcImp {
+    //def apply(): EArc = new EArc
+  }
+
 }
 
