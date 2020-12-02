@@ -23,10 +23,14 @@ trait CurveSegGraphic extends GraphicElem
 
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
   final def pEnd: Pt2 = curveSeg.pEnd
+
 }
 
 trait CurveSegDraw extends CurveSegGraphic
-{
-  def lineWidth: Double
+{ /** The default value for the colour is Black. */
   def colour: Colour
+
+  /** The default value the line width is 2. */
+  def lineWidth: Double
+
 }

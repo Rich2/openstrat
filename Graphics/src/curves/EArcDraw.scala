@@ -2,6 +2,12 @@
 package ostrat
 package geom
 
-trait EArcDraw {
+trait EArcDraw extends CurveSegDraw
+{
 
+}
+
+object EArcDraw
+{
+  case class EArcDrawImp(arc: EArc, colour: Colour, lineWidth: Double)
 }
