@@ -84,6 +84,4 @@ object EArc
   object EArcImp {
     //def apply(): EArc = new EArc
   }
-
 }
-
