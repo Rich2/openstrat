@@ -88,7 +88,8 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
     Rectangle.s2s4v1(s2Cen.xyScale(xOperand, yOperand), s4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 }
 
-/** This perhaps should be changed to Rectangle. Some methods need renaming or possibly even deleting */
+/** Companion object fot the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
+ *  contains various factory methods that delegate to the [[Rectangle.RectangleImp]] class. */
 object Rectangle
 {
   def apply(width: Double, height: Double, rotation: Angle, cen: Pt2 = Vec2Z): Rectangle =

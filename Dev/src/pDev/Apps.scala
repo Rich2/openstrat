@@ -3,6 +3,7 @@ package ostrat
 package pDev
 import pCanv._, pStrat._, pGrid._
 
+/** Object for selecting various JavaFx apps /examples at run time. */
 object Apps
 {
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
