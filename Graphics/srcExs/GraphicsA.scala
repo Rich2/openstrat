@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pWeb._
-import pCanv._
 
 trait LessonPage
 { def page: HtmlPage
