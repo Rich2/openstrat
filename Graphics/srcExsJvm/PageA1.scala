@@ -4,7 +4,7 @@ package geom
 package pExs
 import pWeb._
 
-object PageA1 extends LessonPage
+object PageA1 extends learn.LessonPage
 { val head = HtmlHead(Arr(HtmlTitle("Lesson A1")))
   val bodyStr =
     """<h1>Lesson A1</h1>

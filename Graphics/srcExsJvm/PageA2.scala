@@ -4,7 +4,7 @@ package geom
 package pExs
 import pWeb._
 
-object PageA2  extends LessonPage
+object PageA2  extends learn.LessonPage
 { val head = HtmlHead(Arr(HtmlTitle("Lesson A2")))
   
   val r1 = Rect(4, 5)
