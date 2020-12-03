@@ -8,5 +8,5 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
   override type ThisT = CArcDraw
 
   override def fTrans(f: Pt2 => Pt2): CArcDraw = CArcDraw(curveSeg.fTrans(f), colour, lineWidth)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDraw3(this)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDraw(this)
 }

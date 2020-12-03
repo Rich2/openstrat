@@ -8,7 +8,7 @@ final case class CArcDrawDep(arc: CArcDep, lineWidth: Double = 2.0, lineColour: 
 { type ThisT = CArcDrawDep
 
   override def fTrans(f: Pt2 => Pt2): CArcDrawDep = CArcDrawDep(arc.fTrans(f), lineWidth, lineColour)
-  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.cArcDraw(this)
+  override def rendToCanvas(cp: CanvasPlatform): Unit = cp.cArcDrawDep(this)
   def startText = TextGraphic("st", arc.pStart, 10, lineColour)
   def clkStr: String = ife(arc.clock, "clk", "anti")
   def cenText: TextGraphic = TextGraphic(clkStr, arc.cen, 10, lineColour)

@@ -15,8 +15,8 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def lineSegDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
 
   final override def cArcDrawOld(ad: CArcDrawOld): Unit = tlCArcDrawOld(ad.fTrans(tlCen))
-  final override def cArcDraw(cad: CArcDrawDep): Unit = tlCArcDraw(cad.negY.slate(width / 2, height / 2))
-  final override def cArcDraw3(cad: CArcDraw): Unit = tlCArcDraw3(cad.negY.slate(width / 2, height / 2))
+  final override def cArcDrawDep(cad: CArcDrawDep): Unit = tlCArcDraw(cad.negY.slate(width / 2, height / 2))
+  final override def cArcDraw(cad: CArcDraw): Unit = tlCArcDraw3(cad.negY.slate(width / 2, height / 2))
 
   final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
   final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit

@@ -58,11 +58,15 @@ trait CanvasPlatform extends RectCenlign
   protected def pLinePathDraw(pod: LinePathDraw): Unit
    
   def lineSegDraw(ld: LineSegDraw): Unit
-   
+
+  /** To be removed */
   def cArcDrawOld(ad: CArcDrawOld): Unit
 
-  def cArcDraw(cad: CArcDrawDep): Unit
-  def cArcDraw3(cad: CArcDraw): Unit
+  /** To be removed */
+  def cArcDrawDep(cad: CArcDrawDep): Unit
+
+  /** Draws a circular arc on the canvas. */
+  def cArcDraw(cad: CArcDraw): Unit
 
   def bezierDraw(bd: BezierDraw): Unit
 

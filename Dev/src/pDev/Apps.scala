@@ -42,6 +42,7 @@ object Apps
     ("AT", (learn.ArcTest(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
     ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
+    ("A1", (learn.LsA1(_), learn.LsA1.title)),
     ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
     ("A1s", (learn.LsA1S(_), "JavaFx Demonstration Canvas A1 Summary")),
     ("A2", (learn.LsA2(_), "JavaFx Demonstration Canvas 2")),
