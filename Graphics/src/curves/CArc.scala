@@ -35,8 +35,21 @@ case class CArc(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xE
 
   def cen: Pt2 = apex + apex.vecTo(chordCen) * radius / height
 
-  def startAngle: Angle = cen.angleTo(pStart)
-  def endAngle: Angle = cen.angleTo(pEnd)
+//  def startAngle: Angle = cen.angleTo(pStart)
+//  def endAngle: Angle = cen.angleTo(pEnd)
+
+  def fixAtan(y:Double, x:Double):Double = 
+  { var ang:Double = math.atan2(y, x)
+    deb("atan = " +ang.toString)
+    // if (ang < 0) ang = -1*ang
+    // else ang = Pi2 - ang
+    ang = (Pi2 - ang) % Pi2
+    deb("Res = " +ang.toString)
+    ang
+  }
+
+  def startAngle: Double = 0.0//fixAtan(yStart-cen.y, xStart-cen.x) 
+  def endAngle: Double = fixAtan(yEnd-cen.y, xEnd-cen.x)
 
   def draw(colour: Colour = Black, lineWidth: Double = 2): CArcDraw = CArcDraw(this, colour, lineWidth)
 }
