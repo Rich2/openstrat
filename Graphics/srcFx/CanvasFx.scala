@@ -91,19 +91,15 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setStroke(toFxColor(ad.colour))
     gc.stroke()
   }
-  override protected[this] def tlCArcDraw3(ad: CArcDraw): Unit =
+   override protected[this] def tlCArcDraw3(ad: CArcDraw): Unit =
   { //debvar(ad)
     //debvar(ad.curveSeg.radius) = 20
-    deb("startAngle="+ad.curveSeg.startAngle)
-    deb("endAngle="+ad.curveSeg.endAngle)
-//    deb("radians=length=>"+ad.curveSeg.radians*ad.curveSeg.radius)
-    debvar((ad.curveSeg.endAngle-ad.curveSeg.startAngle).arcLength(ad.curveSeg.radius))
-    debvar((ad.curveSeg.endAngle.radians-ad.curveSeg.startAngle.radians)*ad.curveSeg.radius)
+    //deb("startAngle="+ad.curveSeg.startAngle)
+    //deb("endAngle="+ad.curveSeg.endAngle)
     gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
-    //gc.arcTo(ad.curveSeg.xApex, ad.curveSeg.yApex, ad.xEnd, ad.yEnd, ad.curveSeg.radius)// ad.fControlEndRadius(gc.arcTo)
-    //arc(centerX, centerY, radiusX, radiusY, startAngle, length)
-    gc.arc(ad.curveSeg.cen.x, ad.curveSeg.cen.y, ad.curveSeg.radius, ad.curveSeg.radius, ad.curveSeg.startAngle.arcLength(ad.curveSeg.radius), (ad.curveSeg.endAngle-ad.curveSeg.startAngle).arcLength(ad.curveSeg.radius))
+    gc.arc(ad.curveSeg.cen.x, ad.curveSeg.cen.y, ad.curveSeg.radius, ad.curveSeg.radius,
+           ad.curveSeg.startAngle, (ad.curveSeg.endAngle)*2*ad.curveSeg.radius)
     gc.setStroke(toFxColor(ad.colour))
     gc.stroke()
   }
