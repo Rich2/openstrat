@@ -60,7 +60,7 @@ trait CanvasPlatform extends RectCenlign
   def lineSegDraw(ld: LineSegDraw): Unit
 
   /** To be removed */
-  def cArcDrawOld(ad: CArcDrawOld): Unit
+ // def cArcDrawOld(ad: CArcDrawOld): Unit
 
   /** To be removed */
   def cArcDrawDep(cad: CArcDrawDep): Unit

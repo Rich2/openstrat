@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import Colour.Black
 
 /** To be removed. Super trait to Arc and ArcDraw and Arc fill which has not been implemented yet. */
 trait ArcLikeOld extends CurveSeg
@@ -39,23 +38,4 @@ case class CArcOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x
 /** The companion object for the Arc class. */
 object CArcOld
 { def apply(pStart: Pt2, pCen: Pt2, pEnd: Pt2): CArcOld =  new CArcOld(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y)
-}
-
-/** A functional paint element to Draw an Arc. Defined by the arc, the line width, the colour and the zOrder. */
-case class CArcDrawOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double, lineWidth: Double, colour: Colour)
-  extends GraphicAffineElem with ArcLikeOld with CanvElem
-{ override type ThisT = CArcDrawOld
-  def typeStr: String = "ArcDraw"
-  //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)
-  override def fTrans(f: Pt2 => Pt2) = CArcDrawOld(f(pStart), f(pCen), f(pEnd), lineWidth, colour)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDrawOld(this)
-
-  /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
-  override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
-}
-
-/** The companion object for the ArcDraw class. */
-object CArcDrawOld
-{ def apply(pStart: Pt2, pCen: Pt2, pEnd: Pt2, lineWidth: Double = 1.0, colour: Colour = Black): CArcDrawOld =
-      new CArcDrawOld(pStart.x, pStart.y, pCen.x, pCen.y, pEnd.x, pEnd.y, lineWidth, colour)
 }

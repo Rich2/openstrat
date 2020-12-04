@@ -133,15 +133,6 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
     gc.setLineDash(scalajs.js.Array())
   }
-   
-  override protected[this] def tlCArcDrawOld(ad: CArcDrawOld): Unit =
-  { gc.beginPath()
-    gc.moveTo(ad.xStart, ad.yStart)
-    ad.fControlEndRadius(gc.arcTo)
-    gc.lineWidth = ad.lineWidth
-    gc.strokeStyle = ad.colour.webStr
-    gc.stroke()
-  }
 
   /** Web canvases view of anti clockwise is itself mirrored. */
   override protected[this] def tlCArcDrawDep(cad: CArcDrawDep): Unit =

@@ -12,7 +12,6 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
-  val co = CArcOld(-300 pp 0, 0 pp 0, 0 pp 300)
   val c3 = CArc(-100 pp 0, -71 pp 71, 0 pp 100)
   val r1 = 0.1
   val r2 = 0.2
@@ -26,10 +25,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
     LineSegDraw(50 pp -50, 200 pp -50, Red, 2),//Note if you don't include a Colour you get Black
 
     LinePath(0 pp -50, 50 pp -100, -25 pp -75, 200 pp -60).draw(2, Orange),
-   
-    CArcDrawOld(-250 pp 0, 0 pp 0, 0 pp 250),
-    CArcDrawOld(-300 pp 0, 0 pp 0, 0 pp 300,4, Pink),
-    co.controlPt.toText(),
+
     c3.draw(Crimson),
 
     Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(Green, 2),
