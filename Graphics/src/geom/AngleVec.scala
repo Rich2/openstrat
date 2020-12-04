@@ -10,6 +10,6 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
 }
 
 object AngleVec
-{
+{ /** Creates an angle vector, or an angle of rotation from the value in number of degrees. */
   def apply(degs: Double): AngleVec = new AngleVec(degs * 360000)
 }

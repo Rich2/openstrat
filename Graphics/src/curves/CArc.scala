@@ -4,9 +4,16 @@ package geom
 import Colour._
 
 /** Circular arc. */
-case class CArc(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double) extends EArc with SimilarPreserve
+class CArc private(val xStart: Double, val yStart: Double, val xApex: Double, val yApex: Double, val xEnd: Double, val yEnd: Double) extends EArc with
+  SimilarPreserve
 { override type ThisT = CArc
   override def fTrans(f: Pt2 => Pt2): ThisT = CArc(f(pStart), f(apex), f(pEnd))
+
+  override def productArity: Int = ???
+
+  override def productElement(n: Int): Any = ???
+
+  override def canEqual(that: Any): Boolean = ???
 
   /** The mid or half way point (of the circumference) of the arc */
   def apex: Pt2 = xApex pp yApex
@@ -57,4 +64,6 @@ case class CArc(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xE
 object CArc
 {
   def apply(pStart: Pt2, apex: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, apex.x, apex.y, pEnd.x, pEnd.y)
+  def xys(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double): CArc =
+    new CArc(xStart, yStart, xApex, yApex, xEnd, yEnd)
 }
