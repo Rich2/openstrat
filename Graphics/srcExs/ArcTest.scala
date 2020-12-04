@@ -10,20 +10,18 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   var y = 0.0
   val radius = 20.0
 
-  var myStuff:GraphicElems = Arr()
-  for (i <- 1 to 1) {
-    for (j <- 0 to 15) {
-      x = -400 + 25 + j * 50; // x coordinate
-      y = 25 + i * 50; // y coordinate
-      val arcAngle = 0.1 + Pi/8*j; // angle of arc
-      //val origin = x pp y
-      val startPoint = x+radius pp y
-      val apex = x+radius*math.cos(arcAngle/2) pp y+radius*math.sin(arcAngle/2)
-      val endPoint = x+radius*math.cos(arcAngle) pp y+radius*math.sin(arcAngle)
-      
-      myStuff = myStuff ++ Arr(CArc(startPoint, apex, endPoint).draw(DeepSkyBlue))
-    }
+  var myStuff: GraphicElems = ijToMap(1, 1)(0,15) { (i, j) =>
+    x = -400 + 25 + j * 50; // x coordinate
+    y = 25 + i * 50; // y coordinate
+    val arcAngle = 0.1 + Pi/8*j; // angle of arc
+    //val origin = x pp y
+    val startPoint = x+radius pp y
+    val apex = x+radius*math.cos(arcAngle/2) pp y+radius*math.sin(arcAngle/2)
+    val endPoint = x+radius*math.cos(arcAngle) pp y+radius*math.sin(arcAngle)
+
+    CArc(startPoint, apex, endPoint).draw(DeepSkyBlue)
   }
+
   repaint(myStuff)
 }
 
