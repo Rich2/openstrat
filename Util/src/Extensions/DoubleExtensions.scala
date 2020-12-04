@@ -11,10 +11,10 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
     ife(r < 0, divisor + r, r)
   }
 
-/** Alternative modulo or remainder operation that performs a modulus on with a divisor twice the limit value but where values of between one limit
- * value and 2 limit values are expressed as negatives. */
-  def %+-(limit: Double): Double = {
-    val r = thisDouble % (limit * 2)
+/** newV = ((v - l) %% (2 * l)) + l. Alternative modulo or remainder operation that performs a modulus with a divisor twice the limit value but where
+ *  values of between one limit value and 2 limit values are expressed as negatives. */
+  def %+-(limit: Double): Double =
+  { val r = thisDouble % (limit * 2)
     r match {
       case r if r > limit => r - 2 * limit
       case r if r <= - limit => r + 2 * limit
