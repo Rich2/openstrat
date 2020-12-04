@@ -17,7 +17,7 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 
-  def +(other: Angle): Angle = Angle.radians(radians + other.radians)
+  def +(other: Angle): Angle = Angle.milliSecs(milliSecs + other.milliSecs)
   def -(other: Angle): Angle = Angle.radians(radians - other.radians)
   
   /** returns an angle between -Pi and Pi */
@@ -48,6 +48,9 @@ object Angle
 
   /** Factory method for creating Angle from the number of angle seconds. */
   @inline def secs(value: Double): Angle = new Angle(value * 1000)
+
+  /** Factory method for creating Angle from the number of thousands of an arc second. */
+  @inline def milliSecs(value: Double): Angle = new Angle(value)
 }
 
 /** Efficient Immutable Array[Double] based collection class, with the Angle values stored as arc seconds. */

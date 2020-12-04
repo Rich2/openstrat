@@ -66,4 +66,12 @@ object CArc
   def apply(pStart: Pt2, apex: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, apex.x, apex.y, pEnd.x, pEnd.y)
   def xys(xStart: Double, yStart: Double, xApex: Double, yApex: Double, xEnd: Double, yEnd: Double): CArc =
     new CArc(xStart, yStart, xApex, yApex, xEnd, yEnd)
+
+  def centre(pStart: Pt2, centre: Pt2, pEnd: Pt2, isShort: Boolean = true): CArc =
+  {
+    val startAng: Angle = pStart.angleFrom(centre)
+    val endAng: Angle = pEnd.angleFrom(centre)
+    val angDelta: AngleVec = ??? // endAng - startAng
+    ???
+  }
 }
