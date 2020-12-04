@@ -79,6 +79,9 @@ object EArc
     override def xShear(operand: Double): EArcImp = ???
 
     override def yShear(operand: Double): EArcImp = ???
+
+    /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
+    override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
   }
 
   object EArcImp {

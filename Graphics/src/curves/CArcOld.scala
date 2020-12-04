@@ -31,6 +31,9 @@ case class CArcOld(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x
   def typeStr: String = "Arc"
    //override def str = persist3(pStart, pCen, pEnd)
   def fTrans(f: Pt2 => Pt2): CArcOld = CArcOld(f(pStart), f(pCen), f(pEnd))
+
+  /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
+  override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
 }
 
 /** The companion object for the Arc class. */
@@ -46,6 +49,9 @@ case class CArcDrawOld(xStart: Double, yStart: Double, xCen: Double, yCen: Doubl
   //def str: String = persist6(pStart, pCen, pEnd, lineWidth, colour, zOrder)
   override def fTrans(f: Pt2 => Pt2) = CArcDrawOld(f(pStart), f(pCen), f(pEnd), lineWidth, colour)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDrawOld(this)
+
+  /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
+  override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
 }
 
 /** The companion object for the ArcDraw class. */
