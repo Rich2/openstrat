@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range +- 180
+/** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360
  *  degrees, while Latitudes have a normal range +- 90 degrees. */
 final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  with ProdDbl1
 {
@@ -41,16 +41,16 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
 object Angle
 {
   /** Factory method for Angle from number of degrees */
-  @inline def apply(degrees: Double): Angle = new Angle(degrees * MilliSecsInDeg)
+  @inline def apply(degrees: Double): Angle = new Angle((degrees %% 360) * MilliSecsInDeg)
 
   /** Factory method for creating Angle from the number of radians. */
-  @inline def radians(radians: Double): Angle = new Angle((radians %+- Pi1) * 180 * MilliSecsInDeg / Pi1)
+  @inline def radians(radians: Double): Angle = new Angle(radians.radiansToMilliSecs %% MilliSecsIn360Degs)// (radians %+- Pi1) * 180 * MilliSecsInDeg / Pi1)
 
   /** Factory method for creating Angle from the number of angle seconds. */
-  @inline def secs(value: Double): Angle = new Angle(value * 1000)
+  @inline def secs(value: Double): Angle = new Angle((value %% SecsIn360Degs) * 1000)
 
   /** Factory method for creating Angle from the number of thousands of an arc second. */
-  @inline def milliSecs(value: Double): Angle = new Angle(value)
+  @inline def milliSecs(value: Double): Angle = new Angle(value %% MilliSecsIn360Degs)
 }
 
 /** Efficient Immutable Array[Double] based collection class, with the Angle values stored as arc seconds. */
