@@ -6,13 +6,11 @@ import scala.math.{Pi}
 
 case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
-  var x = 0.0
-  var y = 0.0
   val radius = 20.0
 
   var myStuff: GraphicElems = ijToMap(1, 1)(0,15) { (i, j) =>
-    x = -400 + 25 + j * 50; // x coordinate
-    y = 25 + i * 50; // y coordinate
+    val x = -400 + 25 + j * 50; // x coordinate
+    val y = 25 + i * 50; // y coordinate
     val arcAngle = 0.1 + Pi/8*j; // angle of arc
     //val origin = x pp y
     val startPoint = x+radius pp y
