@@ -2,17 +2,16 @@
 package ostrat
 package geom
 
-/** Yet another implementation of a circular arc. Similar to CArcOld but has the addition of a roation counter to allow rotation deltas greater than
- * 360 degrees and less than - 360 degrees. */
+/** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. */
 class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val yCen: Double, val xEnd: Double, val yEnd: Double,
   val counter: Int) extends EArc
 {
   override def cen: Pt2 = ???
 
-  /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
-  override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
+  /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
+  override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = CArcDraw(this, lineColour, lineWidth)
 
-  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
+  /** Translate 2D geometric transformation on this CArc returns a CArc. */
   override def slate(xOffset: Double, yOffset: Double): CArc = CArc(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),
     pEnd.addXY(xOffset, yOffset), counter)
 
@@ -23,11 +22,11 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): CArc = CArc(pStart * operand, cen * operand, pEnd * operand, counter)
 
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  override def negY: CArc = ???
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating y on this CArc returns a CArc. */
+  override def negY: CArc = CArc(pStart.negY, cen.negY, pEnd.negY, -counter)
 
-  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  override def negX: CArc = ???
+  /** Mirror, reflection 2D geometric transformation across the Y axis by negating Xon this CArc returns a CArc. */
+  override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -counter)
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): CArc = ???
