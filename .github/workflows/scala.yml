@@ -22,12 +22,12 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: devjs-fastopt.js
-        path: SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js
+        path: Dev/SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js
    
     - uses: actions/upload-artifact@v1
       with:
         name: devjs-fastopt.js.map
-        path: SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js.map
+        path: Dev/SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js.map
 
   buildFull:
 
@@ -44,8 +44,8 @@ jobs:
     - uses: actions/upload-artifact@v1
       with:
         name: devjs-opt.js
-        path: SbtDir/DevJs/target/scala-2.13/devjs-opt.js
+        path: Dev/SbtDir/DevJs/target/scala-2.13/devjs-opt.js
     - uses: actions/upload-artifact@v1
       with:
         name: devjs-opt.js.map
-        path: SbtDir/DevJs/target/scala-2.13/devjs-opt.js.map
+        path: Dev/SbtDir/DevJs/target/scala-2.13/devjs-opt.js.map
