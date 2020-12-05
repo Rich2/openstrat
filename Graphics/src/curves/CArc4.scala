@@ -5,50 +5,48 @@ package geom
 /** Yet another implementation of a circular arc. Similar to CArcOld but has the addition of a roation counter to allow rotation deltas greater than
  * 360 degrees and less than - 360 degrees. */
 class CArc4 private(val xStart: Double, val yStart: Double, val xCen: Double, val yCen: Double, val xEnd: Double, val yEnd: Double,
-  val counter: Int) extends CurveSeg
+  val counter: Int) extends EArc
 {
+  override def cen: Pt2 = ???
+
   /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
 
-  /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Vec2Like): GeomElem = ???
-
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slate(xOffset: Double, yOffset: Double): GeomElem = ???
+  override def slate(xOffset: Double, yOffset: Double): CArc4 = CArc4(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),
+    pEnd.addXY(xOffset, yOffset), counter)
+
+  /** Translate 2D geometric transformation on this CArc. The Return type will be narrowed in sub traits and  classes. */
+  override def slate(offset: Vec2Like): CArc4 = CArc4(pStart + offset, cen + offset, pEnd + offset, counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
-  override def scale(operand: Double): GeomElem = ???
+  override def scale(operand: Double): CArc = ???
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  override def negY: GeomElem = ???
+  override def negY: CArc = ???
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  override def negX: GeomElem = ???
+  override def negX: CArc = ???
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
-  override def prolign(matrix: ProlignMatrix): GeomElem = ???
+  override def prolign(matrix: ProlignMatrix): CArc = ???
 
-  /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  override def rotate(angle: Angle): GeomElem = ???
+  /** Rotation 2D geometric transformation on a CArc. The return type will be narrowed in sub classes and traits. */
+  override def rotate(angle: Angle): CArc = ???
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in sub classes and
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc. The return type will be narrowed in sub classes and
    * traits. */
-  override def reflect(lineLike: LineLike): GeomElem = ???
-
-  /** XY scaling 2D geometric transformation on a GeomElem. This allows different scaling factors across X and Y dimensions. The return type will be
-   * narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): GeomElem = ???
-
-  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  override def xShear(operand: Double): GeomElem = ???
-
-  /** Shear 2D geometric transformation along the Y Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  override def yShear(operand: Double): GeomElem = ???
+  override def reflect(lineLike: LineLike): CArc = ???
 
   override def productArity: Int = ???
 
   override def productElement(n: Int): Any = ???
 
   override def canEqual(that: Any): Boolean = ???
+}
+
+object CArc4
+{
+  def apply(pStart: Pt2, cen: Pt2, pEnd: Pt2, counter: Int): CArc4 = new CArc4(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, counter)
 }

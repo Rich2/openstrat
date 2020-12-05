@@ -4,6 +4,8 @@ package geom
 
 trait EArc extends CurveSeg
 {
+  def cen: Pt2
+
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArc
 
@@ -48,6 +50,8 @@ object EArc
   final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x1: Double, y1: Double, xEnd: Double, yEnd: Double) extends
     EArc {
     //override def fTrans(f: Vec2 => Vec2): EArc = ???
+
+    override def cen: Pt2 = ???
 
     override def slate(offset: Vec2Like): EArcImp = ???
 
