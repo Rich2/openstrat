@@ -10,16 +10,15 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   var y = 325.0 // y coordinate
   var radius = 20.0
   //var arcOrigin = Pt(0,0)
+  val longArcOffset = 0.025
   var myStuff:GraphicElems = Arr()
-  for (index <- 0 to 360) {
+  for (index <- 0 to 374) {
     x += 50;
     if (x>=650) {x = -600; y -= 45}
-    val theta = Pi1/180*index+0.1; // angle of arc
-    val startPoint = x+radius*math.cos(0.1) pp y+radius*math.sin(0.1)
-    val apex = x+radius*math.cos(theta/2+0.1) pp y+radius*math.sin(theta/2+0.1)
-    val endPoint = x+radius*math.cos(theta+0.1) pp y+radius*math.sin(theta+0.1)
-    // deb("s="+CArc(startPoint, apex, endPoint).startAngle.toString)
-    // deb("a="+CArc(startPoint, apex, endPoint).angle.toString)
+    val theta = Pi1/180*index+longArcOffset; // angle of arc
+    val startPoint = x+radius*math.cos(longArcOffset) pp y+radius*math.sin(longArcOffset)
+    val apex = x+radius*math.cos(theta/2+longArcOffset) pp y+radius*math.sin(theta/2+longArcOffset)
+    val endPoint = x+radius*math.cos(theta+longArcOffset) pp y+radius*math.sin(theta+longArcOffset)
     val myArc = CArc(startPoint, apex, endPoint)
     deb(index.toString+" s="+myArc.startAngle.toString+" a="+myArc.angle.toString)
     //deb(index.toString+" theta =" + theta + " startAngle="+myArc.startAngle)
@@ -30,19 +29,16 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   x = -650.0 // x coordinate
   y = 325.0 // y coordinate
   radius = 15.0
-  for (index <- 0 to 360) {
+  val shortArcOffset = Pi1/360
+  for (index <- 0 to 374) {
     x += 50;
     if (x>=650) {x = -600; y -= 45}
-    val theta = Pi1/360+Pi1/180*index; // angle of arc
+    val theta = shortArcOffset+Pi1/180*index; // angle of arc
     val startPoint = x+radius*math.cos(theta) pp y+radius*math.sin(theta)
     val apex = x+radius*math.cos(theta+delta) pp y+radius*math.sin(theta+delta)
     val endPoint = x+radius*math.cos(theta+delta+delta) pp y+radius*math.sin(theta+delta+delta)
-    // deb("s="+CArc(startPoint, apex, endPoint).startAngle.toString)
-    // deb("a="+CArc(startPoint, apex, endPoint).angle.toString)
     val myArc = CArc(startPoint, apex, endPoint)
     deb(index.toString+" s="+myArc.startAngle.toString+" a="+myArc.angle.toString)
-    //deb(index.toString+" theta =" + theta + " startAngle="+myArc.startAngle)
-    //deb(index.toString+" theta =" + theta + " angle="+myArc.angle)
     myStuff = myStuff ++ Arr(myArc.draw(Orange))
   }
   repaint(myStuff)
