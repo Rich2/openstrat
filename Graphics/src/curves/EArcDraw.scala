@@ -4,6 +4,8 @@ package geom
 
 trait EArcDraw extends CurveSegDraw with CanvElem
 {
+  override def curveSeg: EArc
+
   /** Translate 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): EArcDraw = ???
 
