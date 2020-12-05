@@ -42,21 +42,31 @@ class CArc private(val xStart: Double, val yStart: Double, val xApex: Double, va
 
   def cen: Pt2 = apex + apex.vecTo(chordCen) * radius / height
 
-//  def startAngle: Angle = cen.angleTo(pStart)
+ // def startAngle: Angle = cen.angleTo(pStart)
 //  def endAngle: Angle = cen.angleTo(pEnd)
 
-  def fixAtan(y:Double, x:Double):Double = 
-  { var ang:Double = math.atan2(y, x)
-    deb("atan = " +ang.toString)
-    // if (ang < 0) ang = -1*ang
-    // else ang = Pi2 - ang
-    ang = (Pi2 - ang) % Pi2
-    deb("Res = " +ang.toString)
-    ang
+  //** this normalises atan2 to 0-360 Degrees
+  def atan2Deg(y:Double, x:Double):Double = 
+  { var theta = math.atan2(-y, -x)
+    if (theta.isNaN) theta = Pi1 // NOT sure about this when y & x = 0 
+    theta = (-theta*180/Pi1 + 180) % 360
+    //theta = (Angle(theta).secs.toInt/SecsInDeg).toDouble
+    //debvar(theta)
+    theta
   }
+  def startAngle:Double = atan2Deg(yStart-cen.y, xStart-cen.x)
+  def endAngle:Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
+  // def startAngle: Double = atan2Deg(yStart-cen.y, xStart-cen.x)
+  // def endAngle: Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
+  // def startAngle: Double = Angle(atan2Deg(yStart-cen.y, xStart-cen.x)).degs
+  // def endAngle: Double = Angle(atan2Deg(yEnd-cen.y, xEnd-cen.x)).degs
+  // def startAngle:Angle = cen.angleTo(pStart) 
+  // def endAngle:Angle = cen.angleTo(pEnd)
 
-  def startAngle: Double = 0.0//fixAtan(yStart-cen.y, xStart-cen.x) 
-  def endAngle: Double = fixAtan(yEnd-cen.y, xEnd-cen.x)
+  def angle:Double = endAngle - startAngle
+  // def startAngle: Double = {var sa = fixAtan(yStart-cen.y, xStart-cen.x); if ((sa < 0) || (sa == NaN)) sa = 0; sa}
+  // def endAngle: Double = fixAtan(yEnd-cen.y, xEnd-cen.x)
+
 
   def draw(colour: Colour = Black, lineWidth: Double = 2): CArcDraw = CArcDraw(this, colour, lineWidth)
 }
