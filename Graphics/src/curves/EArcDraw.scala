@@ -53,6 +53,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
 
 object EArcDraw
 {
-  def apply(arc: EArc, colour: Colour, lineWidth: Double): EArc = ???
-  case class EArcDrawImp(arc: EArc, colour: Colour, lineWidth: Double)
+  def apply(arc: EArc, colour: Colour, lineWidth: Double): EArcDraw = EArcDrawImp(arc, colour, lineWidth)
+
+  case class EArcDrawImp(curveSeg: EArc, colour: Colour, lineWidth: Double) extends EArcDraw
 }
