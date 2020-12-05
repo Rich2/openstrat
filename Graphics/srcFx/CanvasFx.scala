@@ -83,7 +83,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineWidth(ld.width)
     gc.stroke()
   }
-   override protected[this] def tlCArcDraw(ad: CArcDraw): Unit =
+   override protected[this] def tlCArcDraw3(ad: CArcDraw3): Unit =
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     gc.arc(ad.curveSeg.cen.x, ad.curveSeg.cen.y, ad.curveSeg.radius, ad.curveSeg.radius,

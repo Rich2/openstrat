@@ -21,23 +21,23 @@ class CArc4 private(val xStart: Double, val yStart: Double, val xCen: Double, va
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
-  override def scale(operand: Double): CArc = ???
+  override def scale(operand: Double): CArc4 = CArc4(pStart * operand, cen * operand, pEnd * operand, counter)
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  override def negY: CArc = ???
+  override def negY: CArc4 = ???
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  override def negX: CArc = ???
+  override def negX: CArc4 = ???
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
-  override def prolign(matrix: ProlignMatrix): CArc = ???
+  override def prolign(matrix: ProlignMatrix): CArc4 = ???
 
   /** Rotation 2D geometric transformation on a CArc. The return type will be narrowed in sub classes and traits. */
-  override def rotate(angle: Angle): CArc = ???
+  override def rotate(angle: Angle): CArc4 = ???
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc. The return type will be narrowed in sub classes and
    * traits. */
-  override def reflect(lineLike: LineLike): CArc = ???
+  override def reflect(lineLike: LineLike): CArc3 = ???
 
   override def productArity: Int = ???
 
