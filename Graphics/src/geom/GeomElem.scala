@@ -9,11 +9,11 @@ package geom
  *  that inherit from GeomElem that are not [[GraphicElem]]s will be [[Drawable]] elements, but this has not been finalised. */
 trait GeomElem extends Product with Serializable
 {
-  /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
-  def slate(offset: Vec2Like): GeomElem
-
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   def slate(xOffset: Double, yOffset: Double): GeomElem
+
+  /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
+  def slate(offset: Vec2Like): GeomElem
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    *  [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
