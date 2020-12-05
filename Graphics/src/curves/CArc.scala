@@ -36,7 +36,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc. The return type will be narrowed in sub classes and
    * traits. */
-  override def reflect(lineLike: LineLike): CArc3 = ???
+  override def reflect(lineLike: LineLike): CArc = ???
 
   override def productArity: Int = ???
 
