@@ -76,7 +76,7 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     }
   }
 
-  /** Gives the angle of the vector with respect of the origin in radians. */
+  /** Gives the angle of this vector in radians. */
   def angleRadiansPos: Double =
   { val at = atan(y / x)
 

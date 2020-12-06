@@ -24,7 +24,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def originTo(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   /** Subtracts the operand 2D point from this 2D point to get the relative Vector. Returns a [[Vec2]]. */
-  def vecFrom(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
+  private def vecFromPrivate(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
 
   /** Subtracts this 2D point from the operand 2D point to get the relative Vector. Returns a [[Vec2]]. */
   def vecTo(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
@@ -36,7 +36,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def angleTo(operand: Pt2): Angle = vecTo(operand).angle
 
   /** Gives the anlge from the operand point to this point. */
-  def angleFrom(operand: Pt2): Angle = vecFrom(operand).angle
+  def angleFrom(operand: Pt2): Angle = vecFromPrivate(operand).angle
 
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
   def mid(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y) / 2
@@ -68,17 +68,19 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def xyScale(xOperand: Double, yOperand: Double): Pt2 = Pt2(x * xOperand, y * yOperand)
 
   /** Reflects or mirrors this Vec2 across a line, returning new Vec2. */
-  def reflect(lineLike: LineLike): Pt2 = lineLike match {
+  def reflect(lineLike: LineLike): Pt2 = lineLike match
+  {
     case xl: XLine => reflectXLine(xl)
     case yl: YLine => reflectYLine(yl)
     case r: Ray => ???
+
     case lineSeg: LineSeg =>
     { val v1 = lineSeg.pStart
       val v2 = lineSeg.pEnd
-      val lineDelta = v2.vecFrom(v1)
+      val lineDelta = v2 - v1
       val lineUnitVector = lineDelta / lineDelta.magnitude
-      val r1 = v1.vecFrom(this)
-      val r2 = r1 - 2 * v1.vecFrom(this).dot(lineUnitVector) * lineUnitVector
+      val r1 = v1 - this
+      val r2 = r1 - 2 * v1.-(this).dot(lineUnitVector) * lineUnitVector
       v1 + r2
     }
   }
@@ -152,7 +154,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Rotates this vector through the given angle around the centre of rotation passed as the first parameter. */
   def rotateAbout(centre: Pt2, a: Angle): Pt2 =
   {
-    val rel: Vec2 = this vecFrom centre
+    val rel: Vec2 = this - centre
     val rel2: Vec2 = a match {
       case Deg0 => rel
       case Deg90 => rel.rotate90
@@ -199,6 +201,7 @@ object Pt2
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Dist): Dist2 = Dist2(thisPt.x * operand, thisPt.y * operand)
+    def - (startPt: Pt2): Vec2 = Vec2(thisPt.x - startPt.x, thisPt.y - startPt.y)
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))

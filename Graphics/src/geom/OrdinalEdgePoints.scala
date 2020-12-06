@@ -12,15 +12,15 @@ trait OrdinalEdgePoints //extends Centred
   def topRight: Pt2
 
   /** Top right offset from centre. */
-  def trOffset: Vec2 = topRight.vecFrom(cen)
+  def trOffset: Vec2 = topRight - cen
 
   def bottomRight: Pt2
 
-  def brOffset: Vec2 = bottomRight.vecFrom(cen)
+  def brOffset: Vec2 = bottomRight - cen
 
   def bottomLeft: Pt2
-  def blOffset: Vec2 = bottomLeft.vecFrom(cen)
+  def blOffset: Vec2 = bottomLeft - cen
   def topLeft: Pt2
-  def tlOffset: Vec2 = topLeft.vecFrom(cen)
+  def tlOffset: Vec2 = topLeft - cen
   //def topCen: Vec2
 }
