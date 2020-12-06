@@ -1,6 +1,6 @@
 package ostrat
 package pReactor
-import geom.{GraphicElems, _}, Colour._
+import geom._, Colour._
 
 /** Simple Checkbox with label **/
 case class Checkbox(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 pp 0, aIsEnabled:Boolean = false, action: (Checkbox) => Unit = (Checkbox) => {}, myColor:Colour = White) {

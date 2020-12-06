@@ -1,6 +1,6 @@
 package ostrat
 package pReactor
-import geom.{GraphicElems, _}, Colour._
+import geom._, Colour._
 
 /** Simple Radio button with label **/
 case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 = 0 pp 0, aIsEnabled:Boolean = true)

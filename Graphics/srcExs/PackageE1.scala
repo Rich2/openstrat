@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, Colours._
 
@@ -28,8 +28,7 @@ package e1
   }
   
   object GameState
-  {
-    val start = GameState(0, 0 pp 0, rainbowStart)
+  { val start = GameState(0, 0 pp 0, rainbowStart)
   }
 
   /** A turned Command is a sealed trait */
