@@ -88,14 +88,16 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
     gc.arc(ad.curveSeg.cen.x, ad.curveSeg.cen.y, ad.curveSeg.radius, ad.curveSeg.radius,
-           ad.curveSeg.startAngle, ad.curveSeg.angle)
+           ad.curveSeg.startDegs, ad.curveSeg.angle)
     gc.setStroke(toFxColor(ad.colour))
     gc.stroke()
   }
 
   override protected[this] def tlCArcDraw(ad: CArcDraw): Unit =
-  {
-
+  { gc.beginPath
+    gc.moveTo(ad.xStart, ad.yStart)
+    gc.setStroke(toFxColor(ad.colour))
+    gc.stroke()
   }
 
   override def tlCircleFill(cf: CircleFill): Unit =
@@ -118,8 +120,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   override def tlEllipseFill(ef: EllipseFill): Unit =
-  { //gc.setFill(toFxColor(ef.fillFacet))
-    setFill(ef.fill)
+  { setFill(ef.fill)
     gc.fillOval(ef.xCen - ef.shape.radius1, ef.yCen - ef.shape.radius0 , ef.shape.diameter1, ef.shape.diameter0)
   }
 

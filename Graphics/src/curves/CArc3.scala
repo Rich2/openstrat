@@ -45,7 +45,7 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
  // def startAngle: Angle = cen.angleTo(pStart)
 //  def endAngle: Angle = cen.angleTo(pEnd)
 
-  //** this normalises atan2 to 0-360 Degrees
+  /** this normalises atan2 to 0-360 Degrees */
   def atan2Deg(y:Double, x:Double):Double =
   { var theta = math.atan2(-y, -x)
     if (theta.isNaN) theta = Pi1 // NOT sure about this when y & x = 0
@@ -54,8 +54,11 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
     //debvar(theta)
     theta
   }
-  def startAngle:Double = atan2Deg(yStart-cen.y, xStart-cen.x)
-  def endAngle:Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
+
+  /** The value of the start angle in degrees. From the absoloute angle of the start point relative to the arc centre. */
+  def startDegs: Double = atan2Deg(yStart-cen.y, xStart-cen.x)
+
+  def endAngle: Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
   // def startAngle: Double = atan2Deg(yStart-cen.y, xStart-cen.x)
   // def endAngle: Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
   // def startAngle: Double = Angle(atan2Deg(yStart-cen.y, xStart-cen.x)).degs
@@ -63,7 +66,7 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
   // def startAngle:Angle = cen.angleTo(pStart)
   // def endAngle:Angle = cen.angleTo(pEnd)
 
-  def angle:Double = endAngle - startAngle
+  def angle:Double = endAngle - startDegs
   // def startAngle: Double = {var sa = fixAtan(yStart-cen.y, xStart-cen.x); if ((sa < 0) || (sa == NaN)) sa = 0; sa}
   // def endAngle: Double = fixAtan(yEnd-cen.y, xEnd-cen.x)
 
